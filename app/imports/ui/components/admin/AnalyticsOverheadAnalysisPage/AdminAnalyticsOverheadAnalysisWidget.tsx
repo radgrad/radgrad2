@@ -6,6 +6,7 @@ import AdminAnalyticsDateSelectionWidget from '../AdminAnalyticsDateSelectionWid
 import { ANALYTICS } from '../../../../startup/client/route-constants';
 import UserSessionOverheadWidget from './UserSessionOverheadWidget';
 import OverallServerLoadWidget from './OverallServerLoadWidget';
+import { RootState } from '../../../../redux/types';
 
 interface IAdminAnalyticsOverheadAnalysisWidgetProps {
   dateRange: {
@@ -14,7 +15,7 @@ interface IAdminAnalyticsOverheadAnalysisWidgetProps {
   }
 }
 
-const mapStateToProps = (state): { dateRange: { startDate: Date; endDate: Date; } } => ({
+const mapStateToProps = (state: RootState): { dateRange: { startDate: Date; endDate: Date; } } => ({
   dateRange: state.admin.analytics.overheadAnalysis.dateRange,
 });
 

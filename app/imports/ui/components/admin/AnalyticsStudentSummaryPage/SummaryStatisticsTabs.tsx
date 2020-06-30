@@ -2,13 +2,13 @@ import moment from 'moment';
 import React, { useState } from 'react';
 import { Menu, Segment, Tab } from 'semantic-ui-react';
 import StudentSummaryTab from './StudentSummaryTab';
-import { IBehavior } from '../../../../typings/radgrad';
 import TimelineChartTab from './TimelineChartTab';
+import { IStudentSummaryBehaviorCategory } from './admin-analytics-student-summary-helper-functions';
 
 interface ISummaryStatisticsTabsProps {
   startDate?: Date;
   endDate: Date;
-  behaviors: IBehavior[];
+  behaviors: IStudentSummaryBehaviorCategory[];
   interactionsByUser: object;
 }
 

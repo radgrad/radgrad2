@@ -22,6 +22,7 @@ import { OpportunityInstances } from '../../../../api/opportunity/OpportunityIns
 import { RadGradProperties } from '../../../../api/radgrad/RadGradProperties';
 import { Reviews } from '../../../../api/review/ReviewCollection';
 import { analyticsActions } from '../../../../redux/admin/analytics';
+import { RootState } from '../../../../redux/types';
 
 interface IHtml {
   header?: string;
@@ -365,7 +366,7 @@ interface IAdminAnalyticsNewsletterWidgetProps {
   allNewsletterWorking: boolean;
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: RootState) => ({
   testNewsletterWorking: state.admin.analytics.testNewsletter,
   levelNewsletterWorking: state.admin.analytics.levelNewsletter,
   allNewsletterWorking: state.admin.analytics.allNewsletter,

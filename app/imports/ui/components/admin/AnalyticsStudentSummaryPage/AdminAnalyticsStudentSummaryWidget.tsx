@@ -4,17 +4,20 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import moment from 'moment';
 import { Segment, Header } from 'semantic-ui-react';
-import { ANALYTICS } from '../../../../startup/client/route-constants';
+import { ANALYTICS, MENTOR_SPACE } from '../../../../startup/client/route-constants';
 import AdminAnalyticsDateSelectionWidget from '../AdminAnalyticsDateSelectionWidget';
 import SummaryStatisticsTabs from './SummaryStatisticsTabs';
-import { IBehavior, IDateRange } from '../../../../typings/radgrad';
+import { IDateRange, IUserInteraction } from '../../../../typings/radgrad';
+import { behaviorCategories } from './admin-analytics-student-summary-helper-functions';
+import { UserInteractionsTypes } from '../../../../api/analytic/UserInteractionsTypes';
+import { RootState } from '../../../../redux/types';
 
 interface IAdminAnalyticsStudentSummaryWidgetProps {
   dateRange: IDateRange;
-  userInteractions: _.Dictionary<any[]>;
+  userInteractions: { [username: string]: IUserInteraction[] };
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: RootState) => ({
   dateRange: state.admin.analytics.studentSummary.dateRange,
   userInteractions: state.admin.analytics.studentSummary.userInteractions,
 });
@@ -31,101 +34,68 @@ const dateRangeString = (dateRange: IDateRange): string => {
 const AdminAnalyticsStudentSummaryWidget = (props: IAdminAnalyticsStudentSummaryWidgetProps) => {
   const dateRangeStr = dateRangeString(props.dateRange);
   const interactionsByUser = props.userInteractions;
-  const behaviors: IBehavior[] = [
-    {
-      type: 'Log In', count: 0, users: [], description: 'Logged into application',
-    },
-    {
-      type: 'Change Outlook', count: 0, users: [], description: 'Updated interests, career goals, or degree',
-    },
-    {
-      type: 'Exploration', count: 0, users: [], description: 'Viewed entries in Explorer',
-    },
-    {
-      type: 'Planning', count: 0, users: [], description: 'Added or removed course/opportunity',
-    },
-    {
-      type: 'Verification', count: 0, users: [], description: 'Requested verification',
-    },
-    {
-      type: 'Reviewing', count: 0, users: [], description: 'Reviewed a course',
-    },
-    {
-      type: 'Mentorship', count: 0, users: [], description: 'Visited the MentorSpace page or asked a question',
-    },
-    {
-      type: 'Level Up', count: 0, users: [], description: 'Leveled up',
-    },
-    {
-      type: 'Complete Plan', count: 0, users: [], description: 'Created a plan with 100 ICE',
-    },
-    {
-      type: 'Profile', count: 0, users: [], description: 'Updated personal image or website url',
-    },
-    {
-      type: 'Favorite Item', count: 0, users: [], description: 'Favorited an item',
-    },
-    {
-      type: 'Unfavorite Item', count: 0, users: [], description: 'Unfavorited an item',
-    },
-    {
-      type: 'Log Out', count: 0, users: [], description: 'Logged out',
-    }];
+
   _.each(interactionsByUser, function (interactions, user) {
-    if (_.some(interactions, { type: 'login' })) {
-      behaviors[0].count++;
-      behaviors[0].users.push(user);
+    if (_.some(interactions, { type: UserInteractionsTypes.LOGIN })) {
+      behaviorCategories[0].count++;
+      behaviorCategories[0].users.push(user);
     }
+    // FIXME careerGoalIDs, interestIDs, and academicPlanID is now deprecated. Change this to use favorites instead
     if (_.some(interactions, (i: any) => i.type === 'careerGoalIDs' || i.type === 'interestIDs'
       || i.type === 'academicPlanID')) {
-      behaviors[1].count++;
-      behaviors[1].users.push(user);
+      behaviorCategories[1].count++;
+      behaviorCategories[1].users.push(user);
     }
-    if (_.some(interactions, (i: any) => i.type === 'pageView' && i.typeData[0].includes('explorer/'))) {
-      behaviors[2].count++;
-      behaviors[2].users.push(user);
+    if (_.some(interactions, (i: any) => i.type === UserInteractionsTypes.PAGEVIEW && i.typeData[0].includes('explorer/'))) {
+      behaviorCategories[2].count++;
+      behaviorCategories[2].users.push(user);
     }
-    if (_.some(interactions, (i: any) => i.type === 'addCourse' || i.type === 'removeCourse'
-      || i.type === 'addOpportunity' || i.type === 'removeOpportunity')) {
-      behaviors[3].count++;
-      behaviors[3].users.push(user);
+    if (_.some(interactions, (i: any) => i.type === UserInteractionsTypes.ADDCOURSE
+      || i.type === UserInteractionsTypes.REMOVECOURSE
+      || i.type === UserInteractionsTypes.UPDATECOURSE
+      || i.type === UserInteractionsTypes.ADDOPPORTUNITY
+      || i.type === UserInteractionsTypes.REMOVEOPPORTUNITY
+      || i.type === UserInteractionsTypes.UPDATEOPPORTUNITY)) {
+      behaviorCategories[3].count++;
+      behaviorCategories[3].users.push(user);
     }
-    if (_.some(interactions, (i: any) => i.type === 'verifyRequest')) {
-      behaviors[4].count++;
-      behaviors[4].users.push(user);
+    if (_.some(interactions, (i: any) => i.type === UserInteractionsTypes.VERIFYREQUEST)) {
+      behaviorCategories[4].count++;
+      behaviorCategories[4].users.push(user);
     }
-    if (_.some(interactions, (i: any) => i.type === 'addReview')) {
-      behaviors[5].count++;
-      behaviors[5].users.push(user);
+    if (_.some(interactions, (i: any) => i.type === UserInteractionsTypes.ADDREVIEW)) {
+      behaviorCategories[5].count++;
+      behaviorCategories[5].users.push(user);
     }
-    if (_.some(interactions, (i: any) => (i.type === 'pageView' && i.typeData[0].includes('mentor-space'))
+    if (_.some(interactions, (i: any) => (i.type === UserInteractionsTypes.PAGEVIEW && i.typeData[0].includes(MENTOR_SPACE))
       || i.type === 'askQuestion')) {
-      behaviors[6].count++;
-      behaviors[6].users.push(user);
+      behaviorCategories[6].count++;
+      behaviorCategories[6].users.push(user);
     }
-    if (_.some(interactions, (i: any) => i.type === 'level')) {
-      behaviors[7].count++;
-      behaviors[7].users.push(user);
+    if (_.some(interactions, (i: any) => i.type === UserInteractionsTypes.LEVEL)) {
+      behaviorCategories[7].count++;
+      behaviorCategories[7].users.push(user);
     }
-    if (_.some(interactions, (i: any) => i.type === 'completePlan')) {
-      behaviors[8].count++;
-      behaviors[8].users.push(user);
+    if (_.some(interactions, (i: any) => i.type === UserInteractionsTypes.COMPLETEPLAN)) {
+      behaviorCategories[8].count++;
+      behaviorCategories[8].users.push(user);
     }
-    if (_.some(interactions, (i: any) => i.type === 'picture' || i.type === 'website')) {
-      behaviors[9].count++;
-      behaviors[9].users.push(user);
+    if (_.some(interactions, (i: any) => i.type === UserInteractionsTypes.PICTURE || i.type === UserInteractionsTypes.WEBSITE)) {
+      behaviorCategories[9].count++;
+      behaviorCategories[9].users.push(user);
     }
-    if (_.some(interactions, { type: 'favoriteItem' })) {
-      behaviors[10].count++;
-      behaviors[10].users.push(user);
+    if (_.some(interactions, { type: UserInteractionsTypes.FAVORITEITEM })) {
+      behaviorCategories[10].count++;
+      behaviorCategories[10].users.push(user);
     }
-    if (_.some(interactions, { type: 'unFavoriteItem' })) {
-      behaviors[11].count++;
-      behaviors[11].users.push(user);
+    if (_.some(interactions, { type: UserInteractionsTypes.UNFAVORITEITEM })) {
+      behaviorCategories[11].count++;
+      behaviorCategories[11].users.push(user);
     }
+    // TODO When logout UserInteractions are made, change this hard-coded string to UserInteractionsTypes.LOGOUT
     if (_.some(interactions, { type: 'logout' })) {
-      behaviors[12].count++;
-      behaviors[12].users.push(user);
+      behaviorCategories[12].count++;
+      behaviorCategories[12].users.push(user);
     }
   });
   return (
@@ -133,11 +103,10 @@ const AdminAnalyticsStudentSummaryWidget = (props: IAdminAnalyticsStudentSummary
       <AdminAnalyticsDateSelectionWidget page={ANALYTICS.STUDENTSUMMARY} />
       <Segment>
         <Header as="h4" dividing>
-          SUMMARY STATISTICS:
-          {dateRangeStr}
+          SUMMARY STATISTICS: {dateRangeStr}
         </Header>
         <SummaryStatisticsTabs
-          behaviors={behaviors}
+          behaviors={behaviorCategories}
           startDate={props.dateRange.startDate}
           endDate={props.dateRange.endDate}
           interactionsByUser={interactionsByUser}

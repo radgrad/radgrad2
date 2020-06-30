@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { loadFixtureMethod } from '../../../api/base/BaseCollection.methods';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import UploadMessageWidget from './UploadMessageWidget';
+import { RootState } from '../../../redux/types';
 
 /* global FileReader */
 
@@ -13,7 +14,7 @@ interface IUploadFixtureWidgetProps {
   uploadFixtureWorking: boolean;
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: RootState) => ({
   uploadFixtureWorking: state.admin.dataModel.uploadFixture.working,
 });
 

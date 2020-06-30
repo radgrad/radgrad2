@@ -1,10 +1,12 @@
-import { Dictionary } from 'lodash';
 import * as TYPES from './types';
+import { IUserInteraction } from '../../../typings/radgrad';
 
 interface IDateRangeState {
   startDate: Date;
   endDate: Date;
 }
+
+type IAdminAnalyticsUserInteraction = { [username: string]: IUserInteraction[] };
 
 interface IState {
   newsletter: {
@@ -16,11 +18,11 @@ interface IState {
   overheadAnalysis: {
     dateRange: IDateRangeState;
     overheadBuckets: any[];
-    userInteractions: Dictionary<any[]>;
+    userInteractions: IAdminAnalyticsUserInteraction;
   }
   studentSummary: {
     dateRange: IDateRangeState;
-    userInteractions: Dictionary<any[]>;
+    userInteractions: IAdminAnalyticsUserInteraction;
   };
 }
 

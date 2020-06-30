@@ -7,6 +7,7 @@ import { CourseInstances } from '../../../../api/course/CourseInstanceCollection
 import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
 import DetailOpportunityCard from './DetailOpportunityCard';
 import { ICourseInstance, IOpportunityInstance } from '../../../../typings/radgrad';
+import { RootState } from '../../../../redux/types';
 
 interface IDepDetailsWidgetProps {
   selectedCourseInstanceID: string;
@@ -16,7 +17,7 @@ interface IDepDetailsWidgetProps {
   instance: (ICourseInstance | IOpportunityInstance);
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: RootState) => ({
   selectedCourseInstanceID: state.student.degreePlanner.inspector.depInspector.selectedCourseInstanceID,
   selectedOpportunityInstanceID: state.student.degreePlanner.inspector.depInspector.selectedOpportunityInstanceID,
 });

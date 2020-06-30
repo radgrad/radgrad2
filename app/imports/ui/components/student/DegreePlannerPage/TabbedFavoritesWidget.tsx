@@ -7,6 +7,7 @@ import FavoriteCoursesWidget from './FavoriteCoursesWidget';
 import DepDetailsWidget from './DepDetailsWidget';
 import FavoriteAcademicPlansWidget from './FavoriteAcademicPlansWidget';
 import { tabbedFavoritesWidget } from '../student-widget-names';
+import { RootState } from '../../../../redux/types';
 
 interface ITabbedFavoritesWidgetProps {
   selectedTab: string;
@@ -16,7 +17,7 @@ interface ITabbedFavoritesWidgetProps {
   selectFavoriteDetailsTab: () => any;
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: RootState) => ({
   selectedTab: state.student.degreePlanner.tab.selectedTab,
 });
 

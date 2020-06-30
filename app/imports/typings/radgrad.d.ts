@@ -1203,13 +1203,6 @@ export interface IUserInteractionDefine extends IDumpOne {
   timestamp?: any;
 }
 
-export interface IBehavior {
-  type: string;
-  count: number;
-  users: string[];
-  description: string;
-}
-
 interface IDateRange {
   startDate: Date;
   endDate: Date;

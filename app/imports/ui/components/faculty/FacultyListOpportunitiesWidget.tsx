@@ -14,6 +14,7 @@ import AdminDataModelAccordion from '../admin/AdminDataModelAccordion';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import { getUserIdFromRoute, IMatchProps } from '../shared/RouterHelperFunctions';
 import { Users } from '../../../api/user/UserCollection';
+import { RootState } from '../../../redux/types';
 
 interface IListOpportunitiesWidgetProps {
   collection: BaseCollection;
@@ -28,7 +29,7 @@ interface IListOpportunitiesWidgetProps {
   match: IMatchProps;
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: RootState) => ({
   pagination: state.admin.dataModel.pagination,
 });
 
