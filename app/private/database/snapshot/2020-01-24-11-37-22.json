@@ -15176,7 +15176,23 @@
           "username": "gcalica@hawaii.edu",
           "type": "pageView",
           "typeData": [
+            "explorer/plans/ba-ics-it-2020"
+          ],
+          "timestamp": "2020-06-23T23:13:58.414Z"
+        },
+        {
+          "username": "gcalica@hawaii.edu",
+          "type": "pageView",
+          "typeData": [
             "explorer/career-goals"
+          ],
+          "timestamp": "2020-06-23T23:13:58.414Z"
+        },
+        {
+          "username": "gcalica@hawaii.edu",
+          "type": "pageView",
+          "typeData": [
+            "explorer/career-goals/data-scientist"
           ],
           "timestamp": "2020-06-23T23:13:58.414Z"
         },
@@ -15192,7 +15208,23 @@
           "username": "gcalica@hawaii.edu",
           "type": "pageView",
           "typeData": [
+            "explorer/courses/ics_311"
+          ],
+          "timestamp": "2020-06-23T23:13:58.414Z"
+        },
+        {
+          "username": "gcalica@hawaii.edu",
+          "type": "pageView",
+          "typeData": [
             "explorer/degrees"
+          ],
+          "timestamp": "2020-06-23T23:13:58.414Z"
+        },
+        {
+          "username": "gcalica@hawaii.edu",
+          "type": "pageView",
+          "typeData": [
+            "explorer/degrees/bs-cs"
           ],
           "timestamp": "2020-06-23T23:13:58.414Z"
         },
@@ -15208,7 +15240,23 @@
           "username": "gcalica@hawaii.edu",
           "type": "pageView",
           "typeData": [
+            "explorer/interests/android"
+          ],
+          "timestamp": "2020-06-23T23:13:58.414Z"
+        },
+        {
+          "username": "gcalica@hawaii.edu",
+          "type": "pageView",
+          "typeData": [
             "explorer/opportunities"
+          ],
+          "timestamp": "2020-06-23T23:13:58.414Z"
+        },
+        {
+          "username": "gcalica@hawaii.edu",
+          "type": "pageView",
+          "typeData": [
+            "explorer/opportunities/kaggle"
           ],
           "timestamp": "2020-06-23T23:13:58.414Z"
         },
@@ -15326,7 +15374,6 @@
           ],
           "timestamp": "2020-06-23T23:13:58.414Z"
         },
-
         {
           "username": "gcalica@hawaii.edu",
           "type": "website",
@@ -15381,7 +15428,6 @@
           ],
           "timestamp": "2020-06-24T23:13:58.414Z"
         },
-
         {
           "username": "gcalica@hawaii.edu",
           "type": "addOpportunity",
@@ -15448,7 +15494,6 @@
           ],
           "timestamp": "2020-06-25T23:13:58.414Z"
         },
-
         {
           "username": "gcalica@hawaii.edu",
           "type": "favoriteItem",
@@ -15539,7 +15584,6 @@
           ],
           "timestamp": "2020-06-26T23:13:58.414Z"
         },
-
         {
           "username": "gcalica@hawaii.edu",
           "type": "unFavoriteItem",
@@ -15706,8 +15750,6 @@
           ],
           "timestamp": "2020-06-27T23:13:58.414Z"
         },
-
-
         {
           "username": "heacheng@hawaii.edu",
           "type": "login",
@@ -15776,7 +15818,23 @@
           "username": "heacheng@hawaii.edu",
           "type": "pageView",
           "typeData": [
+            "explorer/plans/ba-ics-it-2020"
+          ],
+          "timestamp": "2020-06-23T23:13:58.414Z"
+        },
+        {
+          "username": "heacheng@hawaii.edu",
+          "type": "pageView",
+          "typeData": [
             "explorer/career-goals"
+          ],
+          "timestamp": "2020-06-23T23:13:58.414Z"
+        },
+        {
+          "username": "heacheng@hawaii.edu",
+          "type": "pageView",
+          "typeData": [
+            "explorer/career-goals/data-scientist"
           ],
           "timestamp": "2020-06-23T23:13:58.414Z"
         },
@@ -15792,7 +15850,23 @@
           "username": "heacheng@hawaii.edu",
           "type": "pageView",
           "typeData": [
+            "explorer/courses/ics_311"
+          ],
+          "timestamp": "2020-06-23T23:13:58.414Z"
+        },
+        {
+          "username": "heacheng@hawaii.edu",
+          "type": "pageView",
+          "typeData": [
             "explorer/degrees"
+          ],
+          "timestamp": "2020-06-23T23:13:58.414Z"
+        },
+        {
+          "username": "heacheng@hawaii.edu",
+          "type": "pageView",
+          "typeData": [
+            "explorer/degrees/bs-cs"
           ],
           "timestamp": "2020-06-23T23:13:58.414Z"
         },
@@ -15808,7 +15882,23 @@
           "username": "heacheng@hawaii.edu",
           "type": "pageView",
           "typeData": [
+            "explorer/interests/android"
+          ],
+          "timestamp": "2020-06-23T23:13:58.414Z"
+        },
+        {
+          "username": "heacheng@hawaii.edu",
+          "type": "pageView",
+          "typeData": [
             "explorer/opportunities"
+          ],
+          "timestamp": "2020-06-23T23:13:58.414Z"
+        },
+        {
+          "username": "heacheng@hawaii.edu",
+          "type": "pageView",
+          "typeData": [
+            "explorer/opportunities/kaggle"
           ],
           "timestamp": "2020-06-23T23:13:58.414Z"
         },
@@ -15926,7 +16016,6 @@
           ],
           "timestamp": "2020-06-23T23:13:58.414Z"
         },
-
         {
           "username": "heacheng@hawaii.edu",
           "type": "website",
@@ -15981,7 +16070,6 @@
           ],
           "timestamp": "2020-06-24T23:13:58.414Z"
         },
-
         {
           "username": "heacheng@hawaii.edu",
           "type": "addOpportunity",
@@ -16048,7 +16136,6 @@
           ],
           "timestamp": "2020-06-25T23:13:58.414Z"
         },
-
         {
           "username": "heacheng@hawaii.edu",
           "type": "favoriteItem",
@@ -16139,7 +16226,6 @@
           ],
           "timestamp": "2020-06-26T23:13:58.414Z"
         },
-
         {
           "username": "heacheng@hawaii.edu",
           "type": "unFavoriteItem",
@@ -16306,8 +16392,6 @@
           ],
           "timestamp": "2020-06-27T23:13:58.414Z"
         },
-
-
         {
           "username": "abi@hawaii.edu",
           "type": "login",
@@ -16526,7 +16610,6 @@
           ],
           "timestamp": "2020-06-23T23:13:58.414Z"
         },
-
         {
           "username": "abi@hawaii.edu",
           "type": "website",
@@ -16581,7 +16664,6 @@
           ],
           "timestamp": "2020-06-24T23:13:58.414Z"
         },
-
         {
           "username": "abi@hawaii.edu",
           "type": "addOpportunity",
@@ -16630,7 +16712,6 @@
           ],
           "timestamp": "2020-06-25T23:13:58.414Z"
         },
-
         {
           "username": "abi@hawaii.edu",
           "type": "favoriteItem",
@@ -16676,7 +16757,6 @@
           ],
           "timestamp": "2020-06-26T23:13:58.414Z"
         },
-
         {
           "username": "abi@hawaii.edu",
           "type": "unFavoriteItem",
@@ -16756,8 +16836,6 @@
           ],
           "timestamp": "2020-06-27T23:13:58.414Z"
         },
-
-
         {
           "username": "samplestudent@hawaii.edu",
           "type": "login",
@@ -16976,7 +17054,6 @@
           ],
           "timestamp": "2020-06-23T23:13:58.414Z"
         },
-
         {
           "username": "samplestudent@hawaii.edu",
           "type": "website",
@@ -17031,7 +17108,6 @@
           ],
           "timestamp": "2020-06-24T23:13:58.414Z"
         },
-
         {
           "username": "samplestudent@hawaii.edu",
           "type": "addOpportunity",
@@ -17080,7 +17156,6 @@
           ],
           "timestamp": "2020-06-25T23:13:58.414Z"
         },
-
         {
           "username": "samplestudent@hawaii.edu",
           "type": "favoriteItem",
@@ -17126,7 +17201,6 @@
           ],
           "timestamp": "2020-06-26T23:13:58.414Z"
         },
-
         {
           "username": "samplestudent@hawaii.edu",
           "type": "unFavoriteItem",

@@ -5,7 +5,7 @@ import _ from 'lodash';
 import { profileIDToFullname } from '../../shared/data-model-helper-functions';
 import { IUserInteraction } from '../../../../typings/radgrad';
 import { UserInteractionsTypes } from '../../../../api/analytic/UserInteractionsTypes';
-import { EXPLORER_TYPE } from '../../../../startup/client/route-constants';
+import { EXPLORER_TYPE, MENTOR_SPACE } from '../../../../startup/client/route-constants';
 
 interface IStudentTimelineModalProps {
   username: string;
@@ -122,7 +122,7 @@ const getBehaviors = (sessionArr: IUserInteraction[]): { type: string, stats: st
       if (action === UserInteractionsTypes.LOGIN) {
         behaviors[Behaviors.LOGIN].push(`User logged in ${array.length} time(s)`);
       } else if (action === 'careerGoalIDs') {
-        //   TODO deal with Change Outlook
+        // FIXME Proper tracking for "Change Outlook" to now track favorited career goals/interests/academic plans instead of using careerGoalIDs, interestIDs, and academicPlanID
         behaviors[Behaviors.OUTLOOK].push(`User modified career goals ${array.length} time(s)`);
         behaviors[Behaviors.OUTLOOK].push(`Career goals at end of session: ${_.last(array)}`);
       } else if (action === 'interestIDs') {
@@ -147,11 +147,12 @@ const getBehaviors = (sessionArr: IUserInteraction[]): { type: string, stats: st
             const parsedUrl = url.split('/');
             if (parsedUrl.length > 2) {
               if (parsedUrl[1] === 'users') {
+                // FIXME not exactly sure if this code is needed, since there isn't a third parameter after "users". Is this code necessary?
                 parsedUrl[2] = parsedUrl[2].split(/[@%]/)[0];
               }
               explorerPages[parsedUrl[1]].push(parsedUrl[2]);
             }
-          } else if (url.includes('mentor-space')) {
+          } else if (url.includes(MENTOR_SPACE)) {
             visitedMentor = true;
           }
         });
@@ -177,7 +178,7 @@ const getBehaviors = (sessionArr: IUserInteraction[]): { type: string, stats: st
       } else if (action === UserInteractionsTypes.UPDATEOPPORTUNITY) {
         behaviors[Behaviors.PLANNING].push(`Updated the following opportunities: ${formatCourseOpportunitySlugMessages(_.uniq(array))}`);
       } else if (action === UserInteractionsTypes.VERIFYREQUEST) {
-        behaviors[Behaviors.VERIFICATION].push(`Requested verification for: ${_.uniq(array)}`);
+        behaviors[Behaviors.VERIFICATION].push(`Requested verification for: ${_.uniq(array).join(', ')}`);
       } else if (action === UserInteractionsTypes.ADDREVIEW) {
         behaviors[Behaviors.REVIEWING].push(`Added a review for the following items: ${formatReviewSlugMessages(_.uniq(array))}`);
       } else if (action === UserInteractionsTypes.EDITREVIEW) {
