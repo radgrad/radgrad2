@@ -17,6 +17,8 @@ import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscription
 const descriptionPairs = (year: IAcademicYearInstance): IDescriptionPair[] => [
   { label: 'Student', value: Users.getFullName(year.studentID) },
   { label: 'Year', value: `${year.year}` },
+  { label: 'Retired', value: year.retired ? 'True' : 'False' },
+
 ];
 
 const itemTitle = (year: IAcademicYearInstance): React.ReactNode => {
