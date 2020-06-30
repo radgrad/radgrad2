@@ -367,9 +367,9 @@ interface IAdminAnalyticsNewsletterWidgetProps {
 }
 
 const mapStateToProps = (state: RootState) => ({
-  testNewsletterWorking: state.admin.analytics.testNewsletter,
-  levelNewsletterWorking: state.admin.analytics.levelNewsletter,
-  allNewsletterWorking: state.admin.analytics.allNewsletter,
+  testNewsletterWorking: state.admin.analytics.newsletter.testNewsletter,
+  levelNewsletterWorking: state.admin.analytics.newsletter.levelNewsletter,
+  allNewsletterWorking: state.admin.analytics.newsletter.allNewsletter,
 });
 
 const mapDispatchToProps = (dispatch) => ({
