@@ -13,8 +13,8 @@ const LandingSection3 = () => (
       <p style={styles['header-description']}>Computer science is changing all the time, and so your interests and
         career goals might evolve as well.<br />
         RadGrad provides &quot;Explorers&quot; for career goals, interests, degrees, and more so you can stay on top of
-        the latest trends.
-      </p><br />
+        the latest trends. <br />
+      </p>
       <Grid doubling columns={5}>
         <Grid.Column>
           <Image src="/images/landing/home_discover.png" />

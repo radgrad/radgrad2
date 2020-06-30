@@ -30,7 +30,7 @@ export default {
         fontSize: 65,
         fontWeight: 500,
         paddingRight: 10,
-        verticalAlign: 'top',
+        verticalAlign: 'middle',
         lineHeight: 0.6,
 
     },
