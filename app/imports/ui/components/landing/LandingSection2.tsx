@@ -15,33 +15,33 @@ const LandingSection2 = (props: ILandingSection2Props) => (
     <Container>
       <div style={styles['header-section']}>
         <Grid stackable>
-          <Grid.Column width={1} />
-          <Grid.Column width={3}>
+
+          <Grid.Column width={4}>
             <span style={styles['home-number']}>
               {props.careerGoals}
             </span>
-            <span style={styles['home-number-label']}>CAREER GOALS
+            <span style={styles['home-number-label']}><a style={{ fontWeight: 'normal' }} href="#/explorer/career-goals">CAREER GOALS</a>
             </span>
           </Grid.Column>
-          <Grid.Column width={3}>
+          <Grid.Column width={4}>
             <span style={styles['home-number']}>
               {props.interests}
             </span>
-            <span style={styles['home-number-label']}>INTERESTS
+            <span style={styles['home-number-label']}><a style={{ fontWeight: 'normal' }} href="#/explorer/interests">INTERESTS</a>
             </span>
           </Grid.Column>
           <Grid.Column width={4}>
             <span style={styles['home-number']}>
               {props.opportunities}
             </span>
-            <span style={styles['home-number-label']}>OPPORTUNITIES
+            <span style={styles['home-number-label']}><a style={{ fontWeight: 'normal' }} href="#/explorer/opportunities">OPPORTUNITIES</a>
             </span>
           </Grid.Column>
-          <Grid.Column style={styles['float-left']} width={5}>
+          <Grid.Column style={styles['float-left']} width={4}>
             <div style={styles['home-number']}>
-              <span style={styles['float-left']}>{props.users}</span>
+              <span style={styles['float-left']}>0{props.users}</span>
             </div>
-            <div style={styles['home-number-label']}>
+            <div style={styles['home-number-label-last']}>
               STUDENTS, FACULTY,<br />
               MENTORS, ALUMNI</div>
           </Grid.Column>
