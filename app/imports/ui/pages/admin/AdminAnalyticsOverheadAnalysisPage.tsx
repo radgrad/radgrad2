@@ -6,6 +6,7 @@ import AdminAnalyticsOverheadAnalysisWidget
   from '../../components/admin/AdminAnalyticsOverheadAnalysisWidget';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
+import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 
 class AdminAnalyticsOverheadAnalysisPage extends React.Component {
   public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
@@ -38,4 +39,4 @@ class AdminAnalyticsOverheadAnalysisPage extends React.Component {
   }
 }
 
-export default AdminAnalyticsOverheadAnalysisPage;
+export default withInstanceSubscriptions(AdminAnalyticsOverheadAnalysisPage);

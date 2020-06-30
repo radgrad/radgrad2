@@ -1,7 +1,7 @@
 import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { SubsManager } from 'meteor/meteorhacks:subs-manager';
-import { Responsive } from 'semantic-ui-react';
+import { Dimmer, Loader, Responsive } from 'semantic-ui-react';
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';
@@ -9,7 +9,7 @@ import { FeedbackInstances } from '../../../api/feedback/FeedbackInstanceCollect
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import { getUserIdFromRoute } from '../../components/shared/RouterHelperFunctions';
-import PageLoader from '../../components/shared/PageLoader';
+// import PageLoader from '../../components/shared/PageLoader';
 import PageLoaderMobile from '../../components/shared/PageLoaderMobile';
 import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
 import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
@@ -38,7 +38,7 @@ function withInstanceSubscriptions(WrappedComponent) {
   const InstanceSubscriptions = (props: ILoading) => ((props.loading) ? (
     <React.Fragment>
       <Responsive minWidth={Responsive.onlyTablet.minWidth}>
-        <PageLoader />
+        <Dimmer active inverted><Loader>Loading instance data</Loader></Dimmer>
       </Responsive>
 
       <Responsive {...Responsive.onlyMobile}>

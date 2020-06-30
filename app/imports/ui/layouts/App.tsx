@@ -73,7 +73,7 @@ const ProtectedRoute = ({ component: Component, ...rest }) => (
  * @param {any} { component: Component, ...rest }
  */
 const AdminProtectedRoute = ({ component: Component, ...rest }) => {
-  const WrappedComponent = withInstanceSubscriptions(withGlobalSubscription(Component));
+  const WrappedComponent = withGlobalSubscription(Component);
   return (
     <Route
       {...rest}
