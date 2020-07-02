@@ -38,7 +38,7 @@ function withInstanceSubscriptions(WrappedComponent) {
   const InstanceSubscriptions = (props: ILoading) => ((props.loading) ? (
     <React.Fragment>
       <Responsive minWidth={Responsive.onlyTablet.minWidth}>
-        <Dimmer active inverted><Loader>Loading instance data</Loader></Dimmer>
+        <Dimmer active inverted><Loader>Loading user-specific data</Loader></Dimmer>
       </Responsive>
 
       <Responsive {...Responsive.onlyMobile}>
