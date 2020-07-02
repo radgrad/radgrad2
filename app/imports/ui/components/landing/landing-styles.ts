@@ -1,5 +1,3 @@
-import { toUpper } from '../shared/helper-functions';
-
 export default {
     'landing-menu > .item, .landing-menu .right.menu > .item': {
         position: 'initial',

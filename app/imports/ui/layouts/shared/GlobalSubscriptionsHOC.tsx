@@ -47,7 +47,7 @@ function withGlobalSubscription(WrappedComponent) {
     <React.Fragment>
       <Responsive minWidth={Responsive.onlyTablet.minWidth}>
         <Dimmer active inverted>
-        <Loader>Loading global data</Loader>
+          <Loader>Loading global data</Loader>
         </Dimmer>
       </Responsive>
 
