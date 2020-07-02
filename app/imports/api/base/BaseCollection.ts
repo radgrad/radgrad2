@@ -125,18 +125,6 @@ class BaseCollection {
   }
 
   /**
-   * Runs find on this collection and returns the non-retired documents.
-   * @see {@link http://docs.meteor.com/#/full/find|Meteor Docs on Mongo Find}
-   * @param selector { Object } A MongoDB selector.
-   * @param options { Object } MongoDB options.
-   * @returns { Array } non-retired documents.
-   */
-  public findNonRetired(selector?: object, options?: object) {
-    const theSelector = (typeof selector === 'undefined') ? {} : selector;
-    return _.filter(this.collection.find(theSelector, options).fetch(), (doc) => !doc.retired);
-  }
-
-  /**
    * Runs findOne on this collection.
    * @see {@link http://docs.meteor.com/#/full/findOne|Meteor Docs on Mongo Find}
    * @param { Object } selector A MongoDB selector.

@@ -41,10 +41,10 @@ interface IExplorerOpportunitiesWidgetProps {
 }
 
 const review = (props: IExplorerOpportunitiesWidgetProps): object => {
-  const reviews = Reviews.findNonRetired({
+  const reviews = Reviews.find({
     studentID: Router.getUserIdFromRoute(props.match),
     revieweeID: props.item._id,
-  });
+  }).fetch();
   return reviews[0];
 };
 
@@ -74,7 +74,7 @@ const ExplorerOpportunitiesWidget = (props: IExplorerOpportunitiesWidgetProps) =
   const { name, descriptionPairs, item, completed, match } = props;
   /* Header Variables */
   const upperName = toUpper(name);
-  const hasTeaser = Teasers.findNonRetired({ targetSlugID: item.slugID }).length > 0;
+  const hasTeaser = Teasers.find({ targetSlugID: item.slugID }).fetch().length > 0;
   const isStudent = Router.isUrlRoleStudent(props.match);
 
   return (
@@ -339,7 +339,7 @@ const ExplorerOpportunitiesWidget = (props: IExplorerOpportunitiesWidgetProps) =
 
 const ExplorerOpportunitiesWidgetContainer = withTracker(() => {
   /* Reactive Sources to make StudentExplorerCoursesWidgetButton reactive */
-  const reactiveSourceOne = OpportunityInstances.findNonRetired({});
+  const reactiveSourceOne = OpportunityInstances.find({}).fetch();
 
   /* Reactive Source to make StudentExplorerEditReviewForm reactive */
   const reactiveSourceTwo = Reviews.find({}).fetch();

@@ -242,14 +242,14 @@ const AdvisorAddStudentWidget = (props: IAdvisorAddStudentWidgetProps) => {
           <Form.Field>
             <Form.Dropdown
               name="declaredAcademicTerm"
-              label="Declared Semester"
+              label="Declared Academic Term"
               value={declaredAcademicTerm}
               onChange={handleFormChange}
-              options={AcademicTerms.findNonRetired().map(
+              options={AcademicTerms.find().fetch().map(
                 (ele, i) => ({ key: i, text: `${ele.term} ${ele.year}`, value: ele._id }),
               )}
               selection
-              placeholder="Select Semester"
+              placeholder="Select AcademicTerm"
             />
           </Form.Field>
           <Form.Field>
@@ -259,7 +259,7 @@ const AdvisorAddStudentWidget = (props: IAdvisorAddStudentWidgetProps) => {
               label="Academic Plan"
               value={academicPlanID}
               onChange={handleFormChange}
-              options={AcademicPlans.findNonRetired().map(
+              options={AcademicPlans.find().fetch().map(
                 (ele, i) => ({ key: i, text: ele.name, value: ele._id }),
               )}
               placeholder="Select Academic Plan"

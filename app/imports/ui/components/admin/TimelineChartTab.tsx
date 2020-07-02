@@ -89,7 +89,7 @@ const TimelineChartTab = (props: ITimelineChartTabProps) => {
         const behaviorCount = groupedBehaviors[behavior];
         const behaviorSeries = _.find(series, { name: behavior });
         if (behaviorCount) {
-          behaviorSeries.data.push((behaviorCount.length / StudentProfiles.findNonRetired({ isAlumni: false }).length) * 100);
+          behaviorSeries.data.push((behaviorCount.length / StudentProfiles.find({ isAlumni: false }).fetch().length) * 100);
         } else {
           behaviorSeries.data.push(0);
         }

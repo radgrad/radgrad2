@@ -40,7 +40,7 @@ const isInRole = (props: IListOpportunitiesWidgetProps) => {
   return profile.role === ROLE.FACULTY;
 };
 
-const facultyOpportunities = (props: IListOpportunitiesWidgetProps) => Opportunities.findNonRetired({ sponsorID: getUserIdFromRoute(props.match) }, { sort: { name: 1 } });
+const facultyOpportunities = (props: IListOpportunitiesWidgetProps) => Opportunities.find({ sponsorID: getUserIdFromRoute(props.match) }, { sort: { name: 1 } }).fetch();
 
 const facultyCount = (props: IListOpportunitiesWidgetProps) => facultyOpportunities(props).length;
 

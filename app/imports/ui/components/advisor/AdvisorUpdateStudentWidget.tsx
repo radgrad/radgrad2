@@ -40,11 +40,11 @@ const AdvisorUpdateStudentWidget = (props: IAdvisorUpdateStudentWidgetProps) => 
   // console.log('AdvisorUpdateStudentWidget', props);
   const doc = props.usernameDoc;
   const userID = doc.userID;
-  const favCareerGoals = FavoriteCareerGoals.findNonRetired({ userID });
+  const favCareerGoals = FavoriteCareerGoals.find({ userID }).fetch();
   const careerGoalIDs = _.map(favCareerGoals, (fav) => fav.careerGoalID);
-  const favInterests = FavoriteInterests.findNonRetired({ userID });
+  const favInterests = FavoriteInterests.find({ userID }).fetch();
   const interestIDs = _.map(favInterests, (fav) => fav.interestID);
-  const favPlans = FavoriteAcademicPlans.findNonRetired({ studentID: userID });
+  const favPlans = FavoriteAcademicPlans.find({ studentID: userID }).fetch();
   const favPlanIDs = _.map(favPlans, (fav) => fav.academicPlanID);
   const [firstNameState, setFirstName] = useState(doc.firstName);
   const [lastNameState, setLastName] = useState(doc.lastName);
@@ -300,7 +300,7 @@ const AdvisorUpdateStudentWidget = (props: IAdvisorUpdateStudentWidgetProps) => 
               selection
               placeholder="Select Semester"
               onChange={handleFormChange}
-              options={AcademicTerms.findNonRetired().map(
+              options={AcademicTerms.find().fetch().map(
                 (ele, i) => ({ key: i, text: `${ele.term} ${ele.year}`, value: ele._id }),
               )}
               value={declaredAcademicTermState}
@@ -314,7 +314,7 @@ const AdvisorUpdateStudentWidget = (props: IAdvisorUpdateStudentWidgetProps) => 
               multiple
               placeholder="Select Academic Plan"
               onChange={handleFormChange}
-              options={AcademicPlans.findNonRetired().map(
+              options={AcademicPlans.find().fetch().map(
                 (ele, i) => ({ key: i, text: ele.name, value: ele._id }),
               )}
               value={favoriteAcademicPlansState}

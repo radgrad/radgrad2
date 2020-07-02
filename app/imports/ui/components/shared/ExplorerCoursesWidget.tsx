@@ -142,7 +142,7 @@ const ExplorerCoursesWidget = (props: IExplorerCoursesWidgetProps) => {
   /* Header Variables */
   const upperShortName = toUpper(shortName);
   const isStudent = Router.isUrlRoleStudent(props.match);
-  const hasTeaser = Teasers.findNonRetired({ targetSlugID: item.slugID }).length > 0;
+  const hasTeaser = Teasers.find({ targetSlugID: item.slugID }).fetch().length > 0;
   return (
     <div id={explorerCourseWidget}>
       <Segment padded className="container" style={segmentStyle}>
@@ -576,7 +576,7 @@ const ExplorerCoursesWidget = (props: IExplorerCoursesWidgetProps) => {
 
 const ExplorerCoursesWidgetContainer = withTracker(() => {
   /* Reactive Sources to make StudentExplorerCoursesWidgetButton reactive */
-  const reactiveSourceOne = CourseInstances.findNonRetired({});
+  const reactiveSourceOne = CourseInstances.find({}).fetch();
 
   /* Reactive Source to make StudentExplorerEditReviewForm reactive */
   const reactiveSourceTwo = Reviews.find({}).fetch();

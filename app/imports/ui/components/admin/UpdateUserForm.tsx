@@ -102,13 +102,13 @@ const UpdateUserForm = (props: IUpdateUserProps) => {
 
   const model = collection.findDoc(id);
   const userID = model.userID;
-  const favInterests = FavoriteInterests.findNonRetired({ userID });
+  const favInterests = FavoriteInterests.find({ userID }).fetch();
   const favInterestIDs = _.map(favInterests, (fav) => fav.interestID);
   model.interests = _.map(favInterestIDs, interestIdToName);
-  const favCareerGoals = FavoriteCareerGoals.findNonRetired({ userID });
+  const favCareerGoals = FavoriteCareerGoals.find({ userID }).fetch();
   const favCareerGoalIDs = _.map(favCareerGoals, (fav) => fav.careerGoalID);
   model.careerGoals = _.map(favCareerGoalIDs, careerGoalIdToName);
-  const favPlans = FavoriteAcademicPlans.findNonRetired({ studentID: userID });
+  const favPlans = FavoriteAcademicPlans.find({ studentID: userID }).fetch();
   const favPlanIDs = _.map(favPlans, (fav) => fav.academicPlanID);
   model.academicPlans = _.map(favPlanIDs, (academicPlanID) => academicPlanIdToName(academicPlanID));
   if (model.declaredAcademicTermID) {

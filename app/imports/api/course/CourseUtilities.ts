@@ -43,7 +43,7 @@ export function clearPlannedCourseInstances(studentID: string) {
 }
 
 export function get300LevelDocs(): ICourse[] {
-  return Courses.findNonRetired({ num: /3\d\d/ });
+  return Courses.find({ num: /3\d\d/ }).fetch();
 }
 
 export function getStudent300LevelDocs(studentID: string, coursesTakenSlugs: string[]) {
@@ -77,7 +77,7 @@ export function chooseStudent300LevelCourse(studentID: string, coursesTakenSlugs
 }
 
 export function get400LevelDocs() {
-  return Courses.findNonRetired({ number: /4\d\d/ });
+  return Courses.find({ number: /4\d\d/ }).fetch();
 }
 
 export function getStudent400LevelDocs(studentID: string, coursesTakenSlugs: string[]) {

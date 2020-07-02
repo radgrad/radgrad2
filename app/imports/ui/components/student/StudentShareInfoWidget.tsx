@@ -38,7 +38,7 @@ const handleUpdateInformation = (doc): void => {
       // Define a user interaction that describes a user updating their share information
       const keys = ['shareUsername', 'sharePicture', 'shareWebsite', 'shareInterests', 'shareCareerGoals', 'shareAcademicPlan', 'shareCourses', 'shareOpportunities', 'shareLevel'];
       const modifiedList = [];
-      const previousStudentProfileData = StudentProfiles.findNonRetired({ username });
+      const previousStudentProfileData = StudentProfiles.find({ username }).fetch();
       if (previousStudentProfileData.length > 1) {
         console.error(`Error creating a UserInteraction: Found more than one student profile with the same username: ${username}`);
         return;

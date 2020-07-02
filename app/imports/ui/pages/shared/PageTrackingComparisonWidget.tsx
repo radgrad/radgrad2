@@ -82,12 +82,12 @@ const PageTrackingComparisonWidget = (props: IPageTrackingComparisonWidgetProps)
     const category: string = getCategory(urlCategory);
     let aggregatedSnapshot: (IPageInterestInfo[] | IAggregatedDailySnapshot);
     if (filtered) {
-      const filteredDailySnapshots: IPageInterestsDailySnapshot[] = PageInterestsDailySnapshots.findNonRetired({
+      const filteredDailySnapshots: IPageInterestsDailySnapshot[] = PageInterestsDailySnapshots.find({
         timestamp: {
           $gte: startDate,
           $lte: moment(endDate).endOf('day').toDate(),
         },
-      });
+      }).fetch();
       aggregatedSnapshot = aggregateDailySnapshots(filteredDailySnapshots);
     } else {
       aggregatedSnapshot = aggregateDailySnapshots(pageInterestsDailySnapshots);
@@ -251,7 +251,7 @@ const PageTrackingComparisonWidget = (props: IPageTrackingComparisonWidgetProps)
 };
 
 const PageTrackingComparisonWidgetCon = withTracker(() => {
-  const pageInterestsDailySnapshots: IPageInterestsDailySnapshot[] = PageInterestsDailySnapshots.findNonRetired({});
+  const pageInterestsDailySnapshots: IPageInterestsDailySnapshot[] = PageInterestsDailySnapshots.find({}).fetch();
   return {
     pageInterestsDailySnapshots,
   };

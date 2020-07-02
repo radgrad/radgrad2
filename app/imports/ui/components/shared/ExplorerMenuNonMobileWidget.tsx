@@ -258,11 +258,12 @@ const ExplorerMenuNonMobileWidget = (props: IExplorerMenuNonMobileWidgetProps) =
 
 export const ExplorerMenuNonMobileWidgetCon = withTracker(({ match }) => {
   const studentID = Router.getUserIdFromRoute(match);
-  const favoriteAcademicPlans: IFavoriteAcademicPlan[] = FavoriteAcademicPlans.findNonRetired({ studentID });
-  const favoriteCareerGoals: IFavoriteCareerGoal[] = FavoriteCareerGoals.findNonRetired({ studentID });
-  const favoriteCourses: IFavoriteCourse[] = FavoriteCourses.findNonRetired({ studentID });
-  const favoriteInterests: IFavoriteInterest[] = FavoriteInterests.findNonRetired({ studentID });
-  const favoriteOpportunities: IFavoriteOpportunity[] = FavoriteOpportunities.findNonRetired({ studentID });
+  const userID = studentID;
+  const favoriteAcademicPlans: IFavoriteAcademicPlan[] = FavoriteAcademicPlans.find({ studentID }).fetch();
+  const favoriteCareerGoals: IFavoriteCareerGoal[] = FavoriteCareerGoals.find({ userID }).fetch();
+  const favoriteCourses: IFavoriteCourse[] = FavoriteCourses.find({ studentID }).fetch();
+  const favoriteInterests: IFavoriteInterest[] = FavoriteInterests.find({ userID }).fetch();
+  const favoriteOpportunities: IFavoriteOpportunity[] = FavoriteOpportunities.find({ studentID }).fetch();
   const courseInstances: ICourseInstance[] = CourseInstances.find({ studentID }).fetch();
   const opportunityInstances: IOpportunityInstance[] = OpportunityInstances.find({ studentID }).fetch();
   return {

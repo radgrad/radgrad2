@@ -364,9 +364,9 @@ const AdvisorAPBuilderWidget = (props: IAdvisorAPBuilderWidgetProps) => {
 };
 
 export default withTracker(() => {
-  const degrees = DesiredDegrees.findNonRetired({}, { sort: { name: 1, year: 1 } });
-  const terms = AcademicTerms.findNonRetired({}, { sort: { year: 1 } });
-  const choices = PlanChoices.findNonRetired({}, { sort: { choice: 1 } });
+  const degrees = DesiredDegrees.find({}, { sort: { name: 1, year: 1 } }).fetch();
+  const terms = AcademicTerms.find({}, { sort: { year: 1 } }).fetch();
+  const choices = PlanChoices.find({}, { sort: { choice: 1 } }).fetch();
   return {
     degrees,
     terms,

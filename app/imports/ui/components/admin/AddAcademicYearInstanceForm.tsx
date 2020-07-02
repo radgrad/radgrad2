@@ -40,7 +40,7 @@ const AddAcademicYearInstanceForm = (props: IAddAcademicYearInstanceProps): Reac
 };
 
 const AddAcademicYearInstanceFormContainer = withTracker(() => {
-  const students = StudentProfiles.findNonRetired({ isAlumni: false });
+  const students = StudentProfiles.find({ isAlumni: false }).fetch();
   // console.log('students=%o', students);
   return {
     students,
