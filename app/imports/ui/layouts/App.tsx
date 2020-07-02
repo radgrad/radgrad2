@@ -171,4 +171,4 @@ const StudentProtectedRoute = ({ component: Component, ...rest }) => {
   );
 };
 
-export default withInstanceSubscriptions(withGlobalSubscription(App));
+export default withGlobalSubscription(App);
