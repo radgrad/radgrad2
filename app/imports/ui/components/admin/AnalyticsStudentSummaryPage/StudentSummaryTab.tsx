@@ -21,7 +21,7 @@ const StudentSummaryTab = (props: IStudentSummaryTabProps) => {
     setActiveIndex(newIndex);
   };
 
-  const percent = (count) => ((count / StudentProfiles.findNonRetired({ isAlumni: false }).length) * 100).toFixed(0);
+  const percent = (count) => ((count / StudentProfiles.find({ isAlumni: false }).fetch().length) * 100).toFixed(0);
 
   const paddedLabelStyle = {
     display: 'inline',

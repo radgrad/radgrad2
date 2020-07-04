@@ -19,38 +19,36 @@ const mapStateToProps = (state: RootState): { dateRange: { startDate: Date; endD
   dateRange: state.admin.analytics.overheadAnalysis.dateRange,
 });
 
-class AdminAnalyticsOverheadAnalysisWidget extends React.Component<IAdminAnalyticsOverheadAnalysisWidgetProps> {
-  public render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-    const { dateRange } = this.props;
-    // console.log('date range object', dateRange);
-    // console.log(moment(dateRange.startDate, 'MMMM DD, YYYY').toDate());
-    const tabMenuSettings = {
-      pointing: true,
-      secondary: true,
-    };
-    const panes = [
-      {
-        menuItem: 'User Session Overhead',
-        render: () => <UserSessionOverheadWidget />,
-      },
-      {
-        menuItem: 'Overall Server Load',
-        render: () => <OverallServerLoadWidget />,
-      },
-    ];
-    return (
-      <React.Fragment>
-        <AdminAnalyticsDateSelectionWidget page={ANALYTICS.OVERHEADANALYSIS} />
+const AdminAnalyticsOverheadAnalysisWidget = (props: IAdminAnalyticsOverheadAnalysisWidgetProps) => {
+  const { dateRange } = props;
+  // console.log('date range object', dateRange);
+  // console.log(moment(dateRange.startDate, 'MMMM DD, YYYY').toDate());
+  const tabMenuSettings = {
+    pointing: true,
+    secondary: true,
+  };
+  const panes = [
+    {
+      menuItem: 'User Session Overhead',
+      render: () => <UserSessionOverheadWidget />,
+    },
+    {
+      menuItem: 'Overall Server Load',
+      render: () => <OverallServerLoadWidget />,
+    },
+  ];
+  return (
+    <React.Fragment>
+      <AdminAnalyticsDateSelectionWidget page={ANALYTICS.OVERHEADANALYSIS} />
 
-        <Segment padded className="container">
-          {/* TODO: Make this reactive */}
-          <Header dividing>{`${dateRange} ${_.uniqueId()}`}</Header>
-          <Tab panes={panes} menu={tabMenuSettings} />
-        </Segment>
-      </React.Fragment>
-    );
-  }
-}
+      <Segment padded className="container">
+        {/* TODO: Make this reactive */}
+        <Header dividing>{`${dateRange} ${_.uniqueId()}`}</Header>
+        <Tab panes={panes} menu={tabMenuSettings} />
+      </Segment>
+    </React.Fragment>
+  );
+};
 
 const AdminAnalyticsOverheadAnalysisWidgetCon = connect(mapStateToProps)(AdminAnalyticsOverheadAnalysisWidget);
 export default AdminAnalyticsOverheadAnalysisWidgetCon;

@@ -252,7 +252,7 @@ const AdminAnalyticsNewsletterWidget = (props: IAdminAnalyticsNewsletterWidgetPr
   const onClickSendToAll = () => {
     if (onSubmitInputMessage.length !== 0 && subjectLine.length !== 0) {
       props.startAllNewsletter();
-      const profiles = StudentProfiles.findNonRetired({ isAlumni: false });
+      const profiles = StudentProfiles.find({ isAlumni: false }).fetch();
       const studentEmailsArr = _.map(profiles, (p) => p.username);
       const bccListArray = _.map(bcc.split(','), email => email.trim());
       const from = RadGradProperties.getNewsletterFrom();
