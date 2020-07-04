@@ -4,9 +4,7 @@ import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminAnalyticsMenuWidget from '../../components/admin/AdminAnalyticsMenuWidget';
 import AdminAnalyticsNewsletterWidget from '../../components/admin/AnalyticsNewsletterPage/AdminAnalyticsNewsletterWidget';
 
-/** A simple static component to render some text for the landing page. */
 class AdminAnalyticsNewsletterPage extends React.Component {
-  /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   public render() {
     const paddedStyle = {
       paddingTop: 20,
