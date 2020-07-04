@@ -20,7 +20,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 function courseStructureForMenu(userID) {
-  let courses = Courses.findNonRetired({}, { sort: { num: 1 } });
+  let courses = Courses.find({}, { sort: { num: 1 } }).fetch();
   courses = _.filter(courses, (c: ICourse) => c.num !== 'other');
   const profile = Users.getProfile(userID);
   if (profile.role === ROLE.STUDENT) {

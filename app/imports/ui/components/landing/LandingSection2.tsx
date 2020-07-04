@@ -9,36 +9,37 @@ interface ILandingSection2Props {
     users: string;
 }
 
-const whiteBG = { backgroundColor: '#ffffff', width: '100%' };
+const whiteBG: React.CSSProperties = { backgroundColor: '#ffffff', width: '100%' };
 const LandingSection2 = (props: ILandingSection2Props) => (
   <div style={whiteBG}>
     <Container>
       <div style={styles['header-section']}>
-        <Grid doubling columns={4}>
-          <Grid.Column textAlign="center">
+        <Grid stackable>
+
+          <Grid.Column width={4}>
             <span style={styles['home-number']}>
               {props.careerGoals}
             </span>
-            <span style={styles['home-number-label']}>CAREER GOALS
+            <span style={styles['home-number-label']}><a style={{ fontWeight: 'normal' }} href="#/explorer/career-goals">CAREER GOALS</a>
             </span>
           </Grid.Column>
-          <Grid.Column textAlign="center">
+          <Grid.Column width={4}>
             <span style={styles['home-number']}>
               {props.interests}
             </span>
-            <span style={styles['home-number-label']}>INTERESTS
+            <span style={styles['home-number-label']}><a style={{ fontWeight: 'normal' }} href="#/explorer/interests">INTERESTS</a>
             </span>
           </Grid.Column>
-          <Grid.Column textAlign="center">
+          <Grid.Column width={4}>
             <span style={styles['home-number']}>
               {props.opportunities}
             </span>
-            <span style={styles['home-number-label']}>OPPORTUNITIES
+            <span style={styles['home-number-label']}><a style={{ fontWeight: 'normal' }} href="#/explorer/opportunities">OPPORTUNITIES</a>
             </span>
           </Grid.Column>
-          <Grid.Column style={styles['float-left']}>
+          <Grid.Column style={styles['float-left']} width={4}>
             <div style={styles['home-number']}>
-              <span style={styles['float-left']}>{props.users}</span>
+              <span style={styles['float-left']}>0{props.users}</span>
             </div>
             <div style={styles['home-number-label-last']}>
               STUDENTS, FACULTY,<br />

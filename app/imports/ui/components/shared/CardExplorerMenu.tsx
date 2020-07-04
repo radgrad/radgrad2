@@ -89,7 +89,7 @@ export const CardExplorerMenuCon = withTracker((props) => {
   const username = Router.getUsername(props.match);
   const profile = Users.getProfile(username);
   const userID = profile.userID;
-  const favCareerGoals = FavoriteCareerGoals.findNonRetired({ userID });
+  const favCareerGoals = FavoriteCareerGoals.find({ userID }).fetch();
   const menuList = _.map(favCareerGoals, (fav) => CareerGoals.findDoc(fav.careerGoalID).name);
   return {
     profile,

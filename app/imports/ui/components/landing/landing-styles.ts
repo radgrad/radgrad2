@@ -15,7 +15,7 @@ export default {
     },
     'inverted-main-header': {
         color: 'white',
-        fontSize: 60,
+        fontSize: 55,
         lineHeight: 1,
         paddingBottom: 10,
     },
@@ -28,7 +28,8 @@ export default {
         fontSize: 65,
         fontWeight: 500,
         paddingRight: 10,
-        verticalAlign: 'top',
+        verticalAlign: 'middle',
+        lineHeight: 0.6,
 
     },
     'float-right': {
@@ -42,13 +43,12 @@ export default {
     },
     'home-number-label': {
         color: '#333333',
-        fontSize: 18,
+        fontSize: 17,
     },
     'home-number-label-last': {
-        fontSize: 18,
+        fontSize: 17,
         paddingLeft: 10,
         float: 'left',
-        marginTop: -10,
     },
     'main-header-ice': {
         textAlign: 'left',
@@ -137,4 +137,8 @@ export default {
         color: 'white',
         fontSize: 13,
     },
-};
+  'home-number-label a:link': {
+    fontWeight: 100,
+    fontcolor: 'red',
+  },
+} as React.CSSProperties;

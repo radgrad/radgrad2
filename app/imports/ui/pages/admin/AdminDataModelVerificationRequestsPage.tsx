@@ -24,6 +24,7 @@ import {
   profileNameToUsername,
 } from '../../components/shared/data-model-helper-functions';
 import BackToTopButton from '../../components/shared/BackToTopButton';
+import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 
 const collection = VerificationRequests; // the collection to use.
 
@@ -240,4 +241,4 @@ const AdminDataModelVerificationRequestsPage = () => {
   );
 };
 
-export default AdminDataModelVerificationRequestsPage;
+export default withInstanceSubscriptions(AdminDataModelVerificationRequestsPage);

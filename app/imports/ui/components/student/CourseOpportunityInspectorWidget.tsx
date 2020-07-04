@@ -99,8 +99,8 @@ const CourseOpportunityInspectorWidgetCon = withGlobalSubscription(CourseOpportu
 const CourseOpportunityInspectorWidgetCont = withInstanceSubscriptions(CourseOpportunityInspectorWidgetCon);
 const COIW = withRouter(CourseOpportunityInspectorWidgetCont);
 const CourseOpportunityInspectorWidgetConati = withTracker(() => ({
-  courses: Courses.findNonRetired({}, { sort: { shortName: 1 } }),
-  opportunities: Opportunities.findNonRetired({}, { sort: { name: 1 } }),
+  courses: Courses.find({}, { sort: { shortName: 1 } }).fetch(),
+  opportunities: Opportunities.find({}, { sort: { name: 1 } }).fetch(),
 }))(COIW);
 const CourseOpportunityInspectorWidgetContainer = connect(mapStateToProps)(CourseOpportunityInspectorWidgetConati);
 export default CourseOpportunityInspectorWidgetContainer;

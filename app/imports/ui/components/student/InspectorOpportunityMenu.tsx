@@ -16,7 +16,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 function opportunityStructureForMenu() {
-  const opportunities = Opportunities.findNonRetired({}, { sort: { name: 1 } });
+  const opportunities = Opportunities.find({}, { sort: { name: 1 } }).fetch();
   // console.log(opportunities.length);
   const opportunityStructure = [];
   while (opportunities.length > 0) {

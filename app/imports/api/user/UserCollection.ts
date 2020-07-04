@@ -451,11 +451,11 @@ class UserCollection {
     const profile = this.getProfile(user);
     const userID = profile.userID;
     let interestIDs = [];
-    const favoriteInterests = FavoriteInterests.findNonRetired({ userID });
+    const favoriteInterests = FavoriteInterests.find({ userID }).fetch();
     _.forEach(favoriteInterests, (fav) => {
       interestIDs.push(fav.interestID);
     });
-    const favoriteCareerGoals = FavoriteCareerGoals.findNonRetired({ userID });
+    const favoriteCareerGoals = FavoriteCareerGoals.find({ userID }).fetch();
     _.forEach(favoriteCareerGoals, (fav) => {
       const goal = CareerGoals.findDoc(fav.careerGoalID);
       interestIDs = _.union(interestIDs, goal.interestIDs);
@@ -475,13 +475,13 @@ class UserCollection {
     const userID = profile.userID;
     const interestIDs = [];
     const userInterests = [];
-    const favoriteInterests = FavoriteInterests.findNonRetired({ userID });
+    const favoriteInterests = FavoriteInterests.find({ userID }).fetch();
     _.forEach(favoriteInterests, (fav) => {
       userInterests.push(fav.interestID);
     });
     interestIDs.push(userInterests);
     let careerInterestIDs = [];
-    const favoriteCareerGoals = FavoriteCareerGoals.findNonRetired({ userID });
+    const favoriteCareerGoals = FavoriteCareerGoals.find({ userID }).fetch();
     _.forEach(favoriteCareerGoals, (fav) => {
       const goal = CareerGoals.findDoc(fav.careerGoalID);
       careerInterestIDs = _.union(careerInterestIDs, goal.interestIDs);

@@ -103,7 +103,7 @@ const AdminAnalyticsUserInteractionsWidget = (props: IAdminAnalyticsUserInteract
 };
 
 const AdminAnalyticsUserInteractionsWidgetCon = withTracker(() => {
-  const students = StudentProfiles.findNonRetired({ isAlumni: false });
+  const students = StudentProfiles.find({ isAlumni: false }).fetch();
   return {
     students,
   };

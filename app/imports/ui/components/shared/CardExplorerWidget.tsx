@@ -103,7 +103,7 @@ const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
   if (isType(EXPLORER_TYPE.CAREERGOALS, props)) {
     // sort items by interest match
     const userID = Router.getUserIdFromRoute(props.match);
-    const favorites = FavoriteInterests.findNonRetired({ userID });
+    const favorites = FavoriteInterests.find({ userID }).fetch();
     const interestIDs = _.map(favorites, (f) => f.interestID);
     const preferred = new PreferedChoice(items, interestIDs);
     items = preferred.getOrderedChoices();
@@ -143,7 +143,7 @@ const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
         // eslint-disable-next-line no-case-declarations
         const userID = Router.getUserIdFromRoute(props.match);
         // eslint-disable-next-line no-case-declarations
-        const favorites = FavoriteInterests.findNonRetired({ userID });
+        const favorites = FavoriteInterests.find({ userID }).fetch();
         // eslint-disable-next-line no-case-declarations
         const interestIDs = _.map(favorites, (f) => f.interestID);
         // eslint-disable-next-line no-case-declarations
@@ -321,15 +321,15 @@ const CardExplorerWidgetCont = withTracker((props) => {
   const username = match.params.username;
   let reactiveSource;
   if (type !== EXPLORER_TYPE.USERS) {
-    const allItems = collection.findNonRetired({});
+    const allItems = collection.find({}).fetch();
     reactiveSource = _.filter(allItems, (item) => _.includes(favoriteIDs, item._id));
   } else {
     reactiveSource = Users.getProfile(username);
   }
 
   /* Reactive sources to make TermCard reactive */
-  const reactiveSourceForTermCardOne = CourseInstances.findNonRetired({});
-  const reactiveSourceForTermCarTwo = OpportunityInstances.findNonRetired({});
+  const reactiveSourceForTermCardOne = CourseInstances.find({}).fetch();
+  const reactiveSourceForTermCarTwo = OpportunityInstances.find({}).fetch();
 
   /* Reactive sources to make Hiding a Course / Opportunity, ProfileCard reactive */
   const reactiveSourceProfile = Users.getProfile(username);

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
+import { Popup } from 'semantic-ui-react';
 import { buildRouteName } from './RouterHelperFunctions';
 
 interface IMenuIceCircleProps {
@@ -25,24 +26,29 @@ const MenuIceCircle = (props: IMenuIceCircleProps) => {
   const classNamesEarned = `radgrad-ice-circle p${e} radgrad-earn-${type}`;
   const routeToIcePage = buildRouteName(match, '/home/ice');
   return (
-    <div className="radgrad-ice menu" style={marginRight}>
-      <Link to={routeToIcePage} className={classNamesPlanned}>
-        <div className="radgrad-ice-stat">
-          <span>{e}</span>
+    <Popup
+      trigger={(
+        <div className="radgrad-ice menu" style={marginRight}>
+          <Link to={routeToIcePage} className={classNamesPlanned}>
+            <div className="radgrad-ice-stat">
+              <span>{e}</span>
+            </div>
+            <div className="slice">
+              <div className="bar" />
+              <div className="fill" />
+            </div>
+          </Link>
+          <a className={classNamesEarned}>
+            <span />
+            <div className="slice">
+              <div className="bar" />
+              <div className="fill" />
+            </div>
+          </a>
         </div>
-        <div className="slice">
-          <div className="bar" />
-          <div className="fill" />
-        </div>
-      </Link>
-      <a className={classNamesEarned}>
-        <span />
-        <div className="slice">
-          <div className="bar" />
-          <div className="fill" />
-        </div>
-      </a>
-    </div>
+      )}
+      content={`${earned}/${planned}`}
+    />
   );
 };
 

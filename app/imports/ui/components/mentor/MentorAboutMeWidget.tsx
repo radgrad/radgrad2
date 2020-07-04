@@ -142,7 +142,7 @@ const MentorAboutMeWidget = (props: IMentorAboutMeWidgetProps) => {
 
   // const firstDegree = () => {
   //   let ret;
-  //   const degrees = DesiredDegrees.findNonRetired({}, { sort: { name: 1 } });
+  //   const degrees = DesiredDegrees.find({}, { sort: { name: 1 } }).fetch();
   //   if (degrees.length > 0) {
   //     ret = Slugs.findDoc(degrees[0].slugID).name;
   //   }
@@ -492,8 +492,8 @@ const MentorAboutMeWidgetCont = withTracker(({ match }) => {
   const username = getUsername(match);
   const profile: IMentorProfile = Users.getProfile(username);
   const userID = getUserIdFromRoute(match);
-  const favoriteInterests: IFavoriteInterest[] = FavoriteInterests.findNonRetired({ userID });
-  const favoriteCareerGoals: IFavoriteCareerGoal[] = FavoriteCareerGoals.findNonRetired({ userID });
+  const favoriteInterests: IFavoriteInterest[] = FavoriteInterests.find({ userID }).fetch();
+  const favoriteCareerGoals: IFavoriteCareerGoal[] = FavoriteCareerGoals.find({ userID }).fetch();
 
   return {
     profile,

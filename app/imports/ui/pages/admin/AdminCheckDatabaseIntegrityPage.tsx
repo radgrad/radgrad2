@@ -7,6 +7,7 @@ import { checkIntegrity } from '../../../api/integrity/IntegrityChecker';
 import { checkIntegrityMethod } from '../../../api/integrity/IntegrityChecker.methods';
 import { databaseActions } from '../../../redux/admin/database';
 import { RootState } from '../../../redux/types';
+import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 
 interface IAdminCheckDatabaseIntegrityPageProps {
   startCheckIntegrity: () => any;
@@ -91,4 +92,4 @@ const AdminCheckDatabaseIntegrityPage = (props: IAdminCheckDatabaseIntegrityPage
 };
 
 const AdminCheckDatabaseIntegrityPageContainer = connect(mapStateToProps, mapDispatchToProps)(AdminCheckDatabaseIntegrityPage);
-export default AdminCheckDatabaseIntegrityPageContainer;
+export default withInstanceSubscriptions(AdminCheckDatabaseIntegrityPageContainer);

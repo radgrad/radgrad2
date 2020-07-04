@@ -39,7 +39,7 @@ const StudentFeedWidget = (props: IStudentFeedWidgetProps) => {
 };
 
 const StudentFeedWidgetContainer = withTracker(() => ({
-  feeds: Feeds.findNonRetired({}, { sort: { timestamp: -1 } }),
+  feeds: Feeds.find({}, { sort: { timestamp: -1 } }).fetch(),
 }))(StudentFeedWidget);
 
 export default StudentFeedWidgetContainer;

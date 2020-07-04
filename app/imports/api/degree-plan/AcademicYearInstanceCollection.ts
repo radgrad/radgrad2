@@ -51,6 +51,7 @@ class AcademicYearInstanceCollection extends BaseCollection {
       studentID: { type: String, optional: true },
       termIDs: { type: Array, optional: true },
       'termIDs.$': String,
+      retired: { type: Boolean, optional: true },
     });
   }
 

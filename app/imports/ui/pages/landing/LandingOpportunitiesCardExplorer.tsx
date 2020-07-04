@@ -69,7 +69,7 @@ const LandingOpportunitiesCardExplorerContainer = withTracker(() => {
   const sub2 = Meteor.subscribe(Slugs.getPublicationName());
   return {
     ready: sub1.ready() && sub2.ready(),
-    opportunities: Opportunities.findNonRetired({}, { sort: { name: 1 } }),
+    opportunities: Opportunities.find({}, { sort: { name: 1 } }).fetch(),
     count: Opportunities.countNonRetired(),
   };
 })(LandingOpportunitiesCardExplorerCon);

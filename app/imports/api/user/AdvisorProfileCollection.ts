@@ -115,9 +115,9 @@ class AdvisorProfileCollection extends BaseProfileCollection {
     const picture = doc.picture;
     const website = doc.website;
     const userID = Users.getID(username);
-    const favInterests = FavoriteInterests.findNonRetired({ userID });
+    const favInterests = FavoriteInterests.find({ userID }).fetch();
     const interests = _.map(favInterests, (fav) => Interests.findSlugByID(fav.interestID));
-    const favCareerGoals = FavoriteCareerGoals.findNonRetired({ userID });
+    const favCareerGoals = FavoriteCareerGoals.find({ userID }).fetch();
     const careerGoals = _.map(favCareerGoals, (fav) => CareerGoals.findSlugByID(fav.careerGoalID));
     const retired = doc.retired;
     return { username, firstName, lastName, picture, website, interests, careerGoals, retired };

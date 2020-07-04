@@ -106,7 +106,7 @@ const iceRecHelper = (student: IStudentProfile, value, component): string => {
         ' Add some interests so we can provide course recommendations!</a></em>';
       return html;
     }
-    const relevantCourses = _.filter(Courses.findNonRetired(), function (course) {
+    const relevantCourses = _.filter(Courses.find().fetch(), function (course) {
       return _.some(course.interestIDs, interest => _.includes(studentInterests, interest));
     });
     const currentCourses = _.map(CourseInstances.find({ studentID: student.userID }).fetch(), 'courseID');
@@ -127,7 +127,7 @@ const iceRecHelper = (student: IStudentProfile, value, component): string => {
         ' Add some Interests to your profile so we can provide opportunity recommendations!</a></em>';
       return html;
     }
-    const opps = _.filter(Opportunities.findNonRetired(), function (opp) {
+    const opps = _.filter(Opportunities.find().fetch(), function (opp) {
       return opp.ice[component] > 0;
     });
     const relevantOpps = _.filter(opps, function (opp) {
@@ -349,6 +349,6 @@ export const getRecList = (student: IStudentProfile) => {
 };
 
 export const getStudentEmailsByLevel = (level: number) => {
-  const studentProfiles = StudentProfiles.findNonRetired({ level, isAlumni: false });
+  const studentProfiles = StudentProfiles.find({ level, isAlumni: false }).fetch();
   return _.map(studentProfiles, (p) => p.username);
 };

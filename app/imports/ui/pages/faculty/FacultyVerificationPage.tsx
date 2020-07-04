@@ -96,10 +96,10 @@ const FacultyVerificationPage = (props: FacultyVerificationPageProps) => {
 
 const FacultyVerificationPageWithTracker = withTracker((props) => {
   const userID = Users.getID(props.match.params.username);
-  const linkedOppInstances = OpportunityInstances.findNonRetired({ sponsorID: userID });
+  const linkedOppInstances = OpportunityInstances.find({ sponsorID: userID }).fetch();
   const isLinkedReq = (verReq: IVerificationRequest) => !!linkedOppInstances.find(oppI => verReq.opportunityInstanceID === oppI._id);
   return {
-    verificationRequests: VerificationRequests.findNonRetired().filter(ele => isLinkedReq(ele)),
+    verificationRequests: VerificationRequests.find().fetch().filter(ele => isLinkedReq(ele)),
     eventOpportunities: Opportunities.find({ eventDate: { $exists: true } }).fetch(),
   };
 })(FacultyVerificationPage);

@@ -67,7 +67,7 @@ const StudentMentorSpaceMentorDirectoryAccordion = (props: IStudentMentorSpaceMe
 };
 
 const StudentMentorSpaceMentorDirectoryAccordionContainer = withTracker(() => {
-  const profiles = MentorProfiles.findNonRetired({});
+  const profiles = MentorProfiles.find({}).fetch();
   return {
     profiles,
   };

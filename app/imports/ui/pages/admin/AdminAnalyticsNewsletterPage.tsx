@@ -3,6 +3,7 @@ import { Grid } from 'semantic-ui-react';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminAnalyticsMenuWidget from '../../components/admin/AdminAnalyticsMenuWidget';
 import AdminAnalyticsNewsletterWidget from '../../components/admin/AnalyticsNewsletterPage/AdminAnalyticsNewsletterWidget';
+import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 
 class AdminAnalyticsNewsletterPage extends React.Component {
   public render() {
@@ -29,7 +30,4 @@ class AdminAnalyticsNewsletterPage extends React.Component {
   }
 }
 
-export default AdminAnalyticsNewsletterPage;
-// don't forget to wrap the AdminAnalyticsNewsletterPage just like the Admin Database Page
-// the page also needs the subsciption
-// multifactor
+export default withInstanceSubscriptions(AdminAnalyticsNewsletterPage);
