@@ -4,7 +4,8 @@ import { Header, Grid, Divider, Segment, SegmentGroup } from 'semantic-ui-react'
 import Markdown from 'react-markdown';
 import { withTracker } from 'meteor/react-meteor-data';
 import _ from 'lodash';
-import { IInterest, IProfile } from '../../../typings/radgrad';
+// import { getUserIDsWithFavoriteInterestMethod } from '../../../api/favorite/FavoriteInterestCollection.methods';
+import { ICourse, IInterest, IOpportunity, IProfile } from '../../../typings/radgrad';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
@@ -43,11 +44,13 @@ interface IExplorerInterestsWidgetProps {
   interestedFaculty: IProfile[];
   interestedAlumni: IProfile[];
   interestedMentor: IProfile[];
+  opportunities: IOpportunity[];
+  courses: ICourse[];
 }
 
-const getObjectsThatHaveInterest = (objects, interestID) => {
+const getProfilesThatHaveInterest = (profiles, interestID) => {
   const interested = [];
-  _.forEach(objects, (profile) => {
+  _.forEach(profiles, (profile) => {
     if (_.includes(profileGetInterestIDs(profile), interestID)) {
       interested.push(profile);
     }
@@ -55,38 +58,46 @@ const getObjectsThatHaveInterest = (objects, interestID) => {
   return interested;
 };
 
+// const getProfilesWithInterest = (role, interestID) => {
+//   const userIDs = getUserIDsWithFavoriteInterestMethod.call({ interestID, role });
+//   console.log(userIDs);
+//   return _.map(userIDs, (user) => Users.getProfile(user));
+// };
+
 const participation = (role, interestID) => {
   const interested = [];
+  // console.log(getProfilesWithInterest(role, interestID));
   switch (role) {
     case URL_ROLES.STUDENT:
-      return getObjectsThatHaveInterest(StudentProfiles.find({ isAlumni: false }).fetch(), interestID);
+      return getProfilesThatHaveInterest(StudentProfiles.find({ isAlumni: false }).fetch(), interestID);
     case URL_ROLES.FACULTY:
-      return getObjectsThatHaveInterest(FacultyProfiles.find().fetch(), interestID);
+      return getProfilesThatHaveInterest(FacultyProfiles.find().fetch(), interestID);
     case URL_ROLES.MENTOR:
-      return getObjectsThatHaveInterest(MentorProfiles.find().fetch(), interestID);
+      console.log(getProfilesThatHaveInterest(MentorProfiles.find().fetch(), interestID), interestID);
+      return getProfilesThatHaveInterest(MentorProfiles.find().fetch(), interestID);
     case URL_ROLES.ALUMNI:
-      return getObjectsThatHaveInterest(StudentProfiles.find({ isAlumni: true }).fetch(), interestID);
+      return getProfilesThatHaveInterest(StudentProfiles.find({ isAlumni: true }).fetch(), interestID);
     default:
       return interested;
   }
 };
 
-const getObjectsThatHaveInsterest = (profiles, props: IExplorerInterestsWidgetProps) => getObjectsThatHaveInterest(profiles, props.interest._id);
+const getObjectsThatHaveInterest = (objects, props: IExplorerInterestsWidgetProps) => _.filter(objects, (obj) => _.includes(obj.interestIDs, props.interest._id));
 
-const getRelatedCourses = (props: IExplorerInterestsWidgetProps) => getObjectsThatHaveInsterest(Courses.find().fetch(), props);
+const getRelatedCourses = (props: IExplorerInterestsWidgetProps) => getObjectsThatHaveInterest(props.courses, props);
 
 const getAssociationRelatedCourses = (courses, props: IExplorerInterestsWidgetProps) => {
-  const inPlanInstance = CourseInstances.find({
+  const inPlanInstances = CourseInstances.find({
     studentID: props.profile.userID, verified: false,
   }).fetch();
-  const inPlanIDs = _.map(inPlanInstance, (value) => value.courseID);
+  const inPlanIDs = _.uniq(_.map(inPlanInstances, 'courseID'));
 
   const completedInstance = CourseInstances.find({
     studentID: props.profile.userID, verified: true,
   }).fetch();
-  const completedIDs = _.map(completedInstance, (value) => value.courseID);
+  const completedIDs = _.uniq(_.map(completedInstance, 'courseID'));
 
-  const relatedIDs = _.map(courses, (value) => value._id);
+  const relatedIDs = _.uniq(_.map(courses, '_id'));
   const relatedInPlanIDs = _.intersection(relatedIDs, inPlanIDs);
   const relatedCompletedIDs = _.intersection(relatedIDs, completedIDs);
   const relatedNotInPlanIDs = _.difference(relatedIDs, relatedInPlanIDs, relatedCompletedIDs);
@@ -99,20 +110,20 @@ const getAssociationRelatedCourses = (courses, props: IExplorerInterestsWidgetPr
   return relatedCourses;
 };
 
-const getRelatedOpportunities = (props: IExplorerInterestsWidgetProps) => getObjectsThatHaveInsterest(Opportunities.find().fetch(), props);
+const getRelatedOpportunities = (props: IExplorerInterestsWidgetProps) => getObjectsThatHaveInterest(props.opportunities, props);
 
 const getAssociationRelatedOpportunities = (opportunities, props: IExplorerInterestsWidgetProps) => {
-  const inPlanInstance = OpportunityInstances.find({
+  const inPlanInstances = OpportunityInstances.find({
     studentID: props.profile.userID, verified: false,
   }).fetch();
-  const inPlanIDs = _.map(inPlanInstance, (value) => value.courseID);
+  const inPlanIDs = _.uniq(_.map(inPlanInstances, 'opportunityID'));
 
-  const completedInstance = OpportunityInstances.find({
+  const completedInstances = OpportunityInstances.find({
     studentID: props.profile.userID, verified: true,
   }).fetch();
-  const completedIDs = _.map(completedInstance, (value) => value.courseID);
+  const completedIDs = _.uniq(_.map(completedInstances, 'opportunityID'));
 
-  const relatedIDs = _.map(opportunities, (value) => value._id);
+  const relatedIDs = _.uniq(_.map(opportunities, '_id'));
   const relatedInPlanIDs = _.intersection(relatedIDs, inPlanIDs);
   const relatedCompletedIDs = _.intersection(relatedIDs, completedIDs);
   const relatedNotInPlanIDs = _.difference(relatedIDs, relatedInPlanIDs, relatedCompletedIDs);
@@ -219,6 +230,8 @@ const ExplorerInterestsWidgetCon = withTracker(({ match }) => {
   const interestedFaculty = participation(URL_ROLES.FACULTY, entityID);
   const interestedAlumni = participation(URL_ROLES.ALUMNI, entityID);
   const interestedMentor = participation(URL_ROLES.MENTOR, entityID);
+  const opportunities = Opportunities.find({}).fetch();
+  const courses = Courses.find({}).fetch();
   return {
     profile,
     interest,
@@ -226,9 +239,10 @@ const ExplorerInterestsWidgetCon = withTracker(({ match }) => {
     interestedFaculty,
     interestedMentor,
     interestedAlumni,
+    opportunities,
+    courses,
   };
 })(ExplorerInterestsWidget);
 
 const ExplorerInterestsWidgetContainer = withRouter(ExplorerInterestsWidgetCon);
-
 export default ExplorerInterestsWidgetContainer;

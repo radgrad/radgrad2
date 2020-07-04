@@ -13,6 +13,7 @@ interface IInterestedProfileWidgetProps {
 }
 
 const InterestedProfilesWidget = (props: IInterestedProfileWidgetProps) => {
+  console.log('InterestedProfileWidget', props);
   const { interest, students, faculty, alumni, mentors } = props;
   const numberStudents = studentsParticipating(interest);
   return (
