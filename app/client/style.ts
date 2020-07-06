@@ -1,6 +1,10 @@
 export default {
+  'guided-tour': {
+    width: '100%',
+    backgroundColor: '#333',
+    height: 200,
+  },
   'action-box': {
-    backgroundColor: '#fff',
     width: '100%',
     height: 150,
     padding: 15,
@@ -11,4 +15,5 @@ export default {
   'radgrad-student-menu .item': {
     backgroundColor: '#4fa88f'
   },
+
 } as React.CSSProperties;
