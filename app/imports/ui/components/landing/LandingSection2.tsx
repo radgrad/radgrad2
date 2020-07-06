@@ -39,7 +39,7 @@ const LandingSection2 = (props: ILandingSection2Props) => (
           </Grid.Column>
           <Grid.Column style={styles['float-left']} width={4}>
             <div style={styles['home-number']}>
-              <span style={styles['float-left']}>0{props.users}</span>
+              <span style={styles['float-left']}>{props.users}</span>
             </div>
             <div style={styles['home-number-label-last']}>
               STUDENTS, FACULTY,<br />

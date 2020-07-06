@@ -1,9 +1,11 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Menu, SemanticWIDTHS } from 'semantic-ui-react';
+import { Menu, SemanticWIDTHS, Dropdown, Container } from 'semantic-ui-react';
 import { NavLink, withRouter } from 'react-router-dom';
 import { secondMenu } from '../../components/shared/shared-widget-names';
+import styles from '../../../../client/style';
+import { getUsername } from '../../components/shared/RouterHelperFunctions';
 
 interface IMenuItem {
   label: string;
@@ -32,21 +34,54 @@ const SecondMenu = (props: ISecondMenuProps) => {
   const baseRoute = `${baseUrl.substring(0, baseIndex)}${username}/`;
   // console.log(props, baseRoute);
   return (
-    <Menu
-      attached="top"
-      borderless
-      widths={props.numItems}
-      secondary
-      pointing
-      className="radgrad-second-menu mobile hidden"
-      id={`${secondMenu}`}
-    >
-      {props.menuItems.map((item) => (
-        <Menu.Item key={item.label} as={NavLink} exact={false} to={`${baseRoute}${item.route}`}>
-          {item.label}
-        </Menu.Item>
-))}
-    </Menu>
+    <div style={styles['radgrad-student-menu']}>
+      <Container>
+        <Menu
+          attached="top"
+          borderless
+          widths={props.numItems}
+          secondary
+          pointing
+          id={`${secondMenu}`}
+          style={styles['radgrad-student-menu']}
+        >
+          <Menu.Item>
+            Home
+          </Menu.Item>
+          <Dropdown item text="EXPLORE">
+            <Dropdown.Menu>
+              <Dropdown.Item>ACADEMIC PLANS</Dropdown.Item>
+              <Dropdown.Item>CAREER GOALS</Dropdown.Item>
+              <Dropdown.Item>COURSES</Dropdown.Item>
+              <Dropdown.Item>INTERESTS</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+          <Menu.Item>
+            OPPORTUNITIES
+          </Menu.Item>
+          <Menu.Item>
+            DEGREE PLANNER
+          </Menu.Item>
+          <Dropdown item text="COMMUNITY">
+            <Dropdown.Menu>
+              <Dropdown.Item>Mentors</Dropdown.Item>
+              <Dropdown.Item>Automotive</Dropdown.Item>
+              <Dropdown.Item>Home</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+          <Menu.Menu position="right">
+            <Dropdown item text={props.currentUser} userName={username}>
+              <Dropdown.Menu>
+                <Dropdown.Item>About Me</Dropdown.Item>
+                <Dropdown.Item>ICE Points</Dropdown.Item>
+                <Dropdown.Item>Level</Dropdown.Item>
+                <Dropdown.Item>Advisor Log</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          </Menu.Menu>
+        </Menu>
+      </Container>
+    </div>
   );
 };
 

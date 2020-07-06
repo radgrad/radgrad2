@@ -1,37 +1,37 @@
 import React from 'react';
-import { Grid } from 'semantic-ui-react';
-import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
-import StudentHomeMenu from '../../components/student/StudentHomeMenu';
-import StudentHomeWidget from '../../components/student/StudentHomeWidget';
-import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
+import { Grid, Container, Image } from 'semantic-ui-react';
 import BackToTopButton from '../../components/shared/BackToTopButton';
+import styles from '../../../../client/style';
+import StudentOfInterestWidget from '../../components/student/StudentOfInterestWidget';
+import StudentTeaserWidget from '../../components/student/StudentTeaserWidget';
+import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 
 const StudentHomePage = () => (
   <div>
     <StudentPageMenuWidget />
-    <Grid stackable>
-      <Grid.Row>
-        <Grid.Column width={1} />
-        <Grid.Column width={14}><HelpPanelWidget /></Grid.Column>
-        <Grid.Column width={1} />
-      </Grid.Row>
+    <div />
+    <Container>
+      <Grid stackable divided="vertically">
+        <Grid.Row columns={3}>
+          <Grid.Column style={styles['action-box']}>aaa</Grid.Column>
+          <Grid.Column style={styles['action-box']}>bbb</Grid.Column>
+          <Grid.Column style={styles['action-box']}>ccc</Grid.Column>
+        </Grid.Row>
 
-      <Grid.Row>
-        <Grid.Column width={1} />
-        <Grid.Column width={3}>
-          <StudentHomeMenu />
-        </Grid.Column>
+        <Grid.Row>
+          <Grid.Column width={11}>
+            <StudentTeaserWidget />
+          </Grid.Column>
+          <Grid.Column width={5}>
+            <StudentOfInterestWidget type="opportunities" />
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
 
-        <Grid.Column width={11}>
-          <StudentHomeWidget />
-        </Grid.Column>
-        <Grid.Column width={1} />
-      </Grid.Row>
-
-    </Grid>
-
-    <BackToTopButton />
+      <BackToTopButton />
+    </Container>
   </div>
+
 );
 
 export default StudentHomePage;
