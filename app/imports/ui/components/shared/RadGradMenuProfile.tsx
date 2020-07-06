@@ -1,5 +1,5 @@
 import React from 'react';
-import { Header, Image } from 'semantic-ui-react';
+import { Image } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import RadGradMenuLevel from './RadGradMenuLevel';
 import { Users } from '../../../api/user/UserCollection';
@@ -24,7 +24,7 @@ const RadGradMenuProfile = (props: IRadGradMenuProfileProps) => {
   const divStyle = { borderLeft: '1px solid rgba(34,36,38,.07)', paddingTop: '5px' };
   const flexStyle = { display: 'flex', paddingTop: '5px', paddingRight: '13px', marginTop: '3px' };
   const imageStyle = { width: '50px', borderRadius: '2px' };
-  const nameStyle = { lineHeight: '20px', paddingLeft: '10px', marginTop: '0px' };
+  // const nameStyle = { lineHeight: '20px', paddingLeft: '10px', marginTop: '0px' };
   const pictureSrc = (profile.picture) ? profile.picture : '/images/default-profile-picture.png';
   return (
     <div style={flexStyle} id={`${radgradMenuProfile}`}>
@@ -38,13 +38,6 @@ const RadGradMenuProfile = (props: IRadGradMenuProfileProps) => {
       ) : ''}
       <div className="mobile hidden item radgrad-menu-profile radgrad-brand-font" style={divStyle}>
         <Image src={pictureSrc} style={imageStyle} />
-        <Header style={nameStyle}>
-          <span>
-            {profile.firstName}
-            <br />
-            {profile.lastName}
-          </span>
-        </Header>
       </div>
     </div>
   );

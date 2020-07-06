@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Container, Image } from 'semantic-ui-react';
+import { Grid, Container } from 'semantic-ui-react';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import styles from '../../../../client/style';
 import StudentOfInterestWidget from '../../components/student/StudentOfInterestWidget';
@@ -9,7 +9,6 @@ import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidge
 const StudentHomePage = () => (
   <div>
     <StudentPageMenuWidget />
-    <div />
     <Container>
       <Grid stackable divided="vertically">
         <Grid.Row columns={3}>

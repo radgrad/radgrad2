@@ -1,11 +1,12 @@
 import React from 'react';
-import { Meteor } from 'meteor/meteor';
-import { withTracker } from 'meteor/react-meteor-data';
 import { Menu, SemanticWIDTHS, Dropdown, Container } from 'semantic-ui-react';
 import { NavLink, withRouter } from 'react-router-dom';
 import { secondMenu } from '../../components/shared/shared-widget-names';
 import styles from '../../../../client/style';
-import { getUsername } from '../../components/shared/RouterHelperFunctions';
+import { buildRouteName, getUsername } from '../../components/shared/RouterHelperFunctions';
+import { EXPLORER_TYPE, DEGREEPLANNER } from '../../../startup/client/route-constants';
+import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
+import { IStudentProfile } from '../../../typings/radgrad';
 
 interface IMenuItem {
   label: string;
@@ -27,12 +28,28 @@ interface ISecondMenuProps {
   };
 }
 
+const explorerDropdownItems = [
+  { key: 'Academic Plans', route: EXPLORER_TYPE.ACADEMICPLANS },
+  { key: 'Career Goals', route: EXPLORER_TYPE.CAREERGOALS },
+  { key: 'Courses', route: EXPLORER_TYPE.COURSES },
+  { key: 'Degrees', route: EXPLORER_TYPE.DEGREES },
+  { key: 'Interests', route: EXPLORER_TYPE.INTERESTS },
+  { key: 'Opportunities', route: EXPLORER_TYPE.OPPORTUNITIES },
+  { key: 'Users', route: EXPLORER_TYPE.USERS },
+];
+
+const studentHomePageItems = [
+  { key: 'Home', route: '' },
+  { key: 'About Me', route: 'aboutme' },
+  { key: 'ICE Points', route: 'ice' },
+  { key: 'Levels', route: 'levels' },
+  { key: 'Advisor Log', route: 'log' },
+];
+
 const SecondMenu = (props: ISecondMenuProps) => {
-  const username = props.match.params.username;
-  const baseUrl = props.match.url;
-  const baseIndex = baseUrl.indexOf(username);
-  const baseRoute = `${baseUrl.substring(0, baseIndex)}${username}/`;
-  // console.log(props, baseRoute);
+  const { match } = props;
+  const username = getUsername(match);
+  const profile: IStudentProfile = StudentProfiles.getProfile(username);
   return (
     <div style={styles['radgrad-student-menu']}>
       <Container>
@@ -45,21 +62,30 @@ const SecondMenu = (props: ISecondMenuProps) => {
           id={`${secondMenu}`}
           style={styles['radgrad-student-menu']}
         >
-          <Menu.Item>
+          <Menu.Item as={NavLink} exact to="/">
             Home
           </Menu.Item>
           <Dropdown item text="EXPLORE">
             <Dropdown.Menu>
-              <Dropdown.Item>ACADEMIC PLANS</Dropdown.Item>
-              <Dropdown.Item>CAREER GOALS</Dropdown.Item>
-              <Dropdown.Item>COURSES</Dropdown.Item>
-              <Dropdown.Item>INTERESTS</Dropdown.Item>
+              {explorerDropdownItems.map((item) => (
+                <Dropdown.Item
+                  key={item.key}
+                  as={NavLink}
+                  exact
+                  to={buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${item.route}`)}
+                  content={item.key}
+                />
+              ))}
             </Dropdown.Menu>
           </Dropdown>
-          <Menu.Item>
+          <Menu.Item
+            as={NavLink}
+            exact
+            to={buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}`)}
+          >
             OPPORTUNITIES
           </Menu.Item>
-          <Menu.Item>
+          <Menu.Item as={NavLink} exact to={buildRouteName(match, `/${DEGREEPLANNER}`)}>
             DEGREE PLANNER
           </Menu.Item>
           <Dropdown item text="COMMUNITY">
@@ -70,12 +96,18 @@ const SecondMenu = (props: ISecondMenuProps) => {
             </Dropdown.Menu>
           </Dropdown>
           <Menu.Menu position="right">
-            <Dropdown item text={props.currentUser} userName={username}>
+            <Dropdown item text={`Aloha, ${profile.firstName} ${profile.lastName}!`}>
               <Dropdown.Menu>
-                <Dropdown.Item>About Me</Dropdown.Item>
-                <Dropdown.Item>ICE Points</Dropdown.Item>
-                <Dropdown.Item>Level</Dropdown.Item>
-                <Dropdown.Item>Advisor Log</Dropdown.Item>
+                {studentHomePageItems.map((item) => (
+                  <Dropdown.Item
+                    key={item.key}
+                    as={NavLink}
+                    exact
+                    to={buildRouteName(match, `/home/${item.route}`)}
+                    content={item.key}
+                  />
+                ))}
+                <Dropdown.Item as={NavLink} exact to="/signout" content="Sign Out" />
               </Dropdown.Menu>
             </Dropdown>
           </Menu.Menu>
@@ -85,9 +117,4 @@ const SecondMenu = (props: ISecondMenuProps) => {
   );
 };
 
-const SecondMenuContainer = withTracker(() => ({
-  currentUser: Meteor.user() ? Meteor.user().username : '',
-}))(SecondMenu);
-
-/** Enable ReactRouter for this component. https://reacttraining.com/react-router/web/api/withRouter */
-export default withRouter(SecondMenuContainer);
+export default withRouter(SecondMenu);
