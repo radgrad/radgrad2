@@ -16,6 +16,7 @@ import UpdateFeedbackInstanceForm from '../../components/admin/UpdateFeedbackIns
 import { profileNameToUsername } from '../../components/shared/data-model-helper-functions';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
+import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 
 const collection = FeedbackInstances; // the collection to use.
 
@@ -216,4 +217,4 @@ const AdminDataModelFeedbackInstancesPage = () => {
   );
 };
 
-export default AdminDataModelFeedbackInstancesPage;
+export default withInstanceSubscriptions(AdminDataModelFeedbackInstancesPage);

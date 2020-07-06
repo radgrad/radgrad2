@@ -84,10 +84,10 @@ class MentorProfileCollection extends BaseProfileCollection {
    * @param motivation the motivation (optional).
    */
   public update(docID: string, { firstName, lastName, picture, website, interests, careerGoals, retired, company, career, location, linkedin,
-    motivation }: IMentorProfileUpdate) {
+    motivation, courseExplorerFilter, opportunityExplorerSortOrder }: IMentorProfileUpdate) {
     this.assertDefined(docID);
     const updateData: IMentorProfileUpdate = {};
-    this.updateCommonFields(updateData, { firstName, lastName, picture, website, retired });
+    this.updateCommonFields(updateData, { firstName, lastName, picture, website, retired, courseExplorerFilter, opportunityExplorerSortOrder });
     if (_.isString(company)) {
       updateData.company = company;
     }
@@ -157,9 +157,9 @@ class MentorProfileCollection extends BaseProfileCollection {
     const picture = doc.picture;
     const website = doc.website;
     const userID = Users.getID(username);
-    const favInterests = FavoriteInterests.findNonRetired({ userID });
+    const favInterests = FavoriteInterests.find({ userID }).fetch();
     const interests = _.map(favInterests, (fav) => Interests.findSlugByID(fav.interestID));
-    const favCareerGoals = FavoriteCareerGoals.findNonRetired({ userID });
+    const favCareerGoals = FavoriteCareerGoals.find({ userID }).fetch();
     const careerGoals = _.map(favCareerGoals, (fav) => CareerGoals.findSlugByID(fav.careerGoalID));
     const company = doc.company;
     const career = doc.career;

@@ -150,7 +150,7 @@ const interestedUsersCareerGoals = (theCareerGoal: ICareerGoal, role: string): o
 
 const numUsersCareerGoals = (theCareerGoal: ICareerGoal, role: string): number => interestedUsersCareerGoals(theCareerGoal, role).length;
 
-const numStudentsCareerGoals = (theCareerGoal: ICareerGoal): number => FavoriteCareerGoals.findNonRetired({ careerGoalID: theCareerGoal._id }).length;
+const numStudentsCareerGoals = (theCareerGoal: ICareerGoal): number => FavoriteCareerGoals.find({ careerGoalID: theCareerGoal._id }).fetch().length;
 
 const socialPairsCareerGoals = (theCareerGoal: ICareerGoal): { label: string, amount: number, value: object[] }[] => [
   {
@@ -264,7 +264,7 @@ const descriptionPairsCourses = (theCourse: ICourse, props: IIndividualExplorerP
   { label: 'Teaser', value: teaser(theCourse) },
 ];
 
-const addedDegrees = (): { item: IDesiredDegree, count: number }[] => _.map(DesiredDegrees.findNonRetired({}, { sort: { name: 1 } }), (d) => ({
+const addedDegrees = (): { item: IDesiredDegree, count: number }[] => _.map(DesiredDegrees.find({}, { sort: { name: 1 } }).fetch(), (d) => ({
   item: d,
   count: 1,
 }));
@@ -533,11 +533,11 @@ const IndividualExplorerPage = (props: IIndividualExplorerPageProps) => {
 
 export default withTracker((props) => {
   const studentID = Router.getUserIdFromRoute(props.match);
-  const favoritePlans = FavoriteAcademicPlans.findNonRetired({ studentID });
-  const favoriteCareerGoals = FavoriteCareerGoals.findNonRetired({ userID: studentID });
-  const favoriteCourses = FavoriteCourses.findNonRetired({ studentID });
-  const favoriteInterests = FavoriteInterests.findNonRetired({ userID: studentID });
-  const favoriteOpportunities = FavoriteOpportunities.findNonRetired({ studentID });
+  const favoritePlans = FavoriteAcademicPlans.find({ studentID }).fetch();
+  const favoriteCareerGoals = FavoriteCareerGoals.find({ userID: studentID }).fetch();
+  const favoriteCourses = FavoriteCourses.find({ studentID }).fetch();
+  const favoriteInterests = FavoriteInterests.find({ userID: studentID }).fetch();
+  const favoriteOpportunities = FavoriteOpportunities.find({ studentID }).fetch();
   // console.log('favoriteInterests', favoriteInterests, studentID);
   return {
     favoritePlans,

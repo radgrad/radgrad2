@@ -29,7 +29,7 @@ interface IStudentTeaserWidgetProps {
 
 const matchingTeasers = (match: IMatchProps) => {
   if (getUsername(match)) {
-    const allTeasers: ITeaser[] = Teasers.findNonRetired({});
+    const allTeasers: ITeaser[] = Teasers.find({}).fetch();
     const matching = [];
     const profile = Users.getProfile(getUsername(match));
     const userInterests = [];

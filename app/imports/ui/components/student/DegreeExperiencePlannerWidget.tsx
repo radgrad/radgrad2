@@ -28,6 +28,7 @@ interface IDePProps {
   selectFavoriteDetailsTab: () => any;
   courseInstances: ICourseInstance[];
   opportunityInstances: IOpportunityInstance[];
+  academicYearInstances: IAcademicYearInstance[];
   match: {
     isExact: boolean;
     path: string;
@@ -66,7 +67,7 @@ const DEPWidget = (props: IDePProps) => {
   // Automatically generate 4 AcademicYearInstances if none exists
   if (years.length === 0) {
     generateAcademicYearInstances(4);
-    years = AcademicYearInstances.find({ studentID }, { sort: { year: 1 } }).fetch();
+    years = props.academicYearInstances;
   }
   let visibleYears;
   let visibleStartIndex = 0;
@@ -106,6 +107,38 @@ const DEPWidget = (props: IDePProps) => {
     visibleYears = yearsState.slice(visibleStartIndex, visibleStartIndex + 4);
     setVisibleStartIndex(visibleStartIndex);
     setVisibleYears(visibleYears);
+  };
+
+  const handleAddPrevYear = (event: any): void => {
+    event.preventDefault();
+    const student = props.match.params.username;
+    const prevYear = yearsState[0].year - 1;
+    const definitionData: IAcademicYearInstanceDefine = { year: prevYear, student };
+    const collectionName = AcademicYearInstances.getCollectionName();
+    defineMethod.call({ collectionName, definitionData }, (error: IMeteorError) => {
+      if (error) {
+        Swal.fire({
+          title: 'Failed to add a new Academic Year',
+          text: error.message,
+          icon: 'error',
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+          allowEnterKey: false,
+        });
+      } else {
+        Swal.fire({
+          title: 'Added new Academic Year',
+          icon: 'success',
+          text: `Fall ${definitionData.year} - Summer ${definitionData.year + 1}`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        years = AcademicYearInstances.find({ studentID }, { sort: { year: 1 } }).fetch();
+        setYears(years);
+        visibleYears = yearsState.slice(visibleStartIndexState, visibleStartIndexState + 5);
+        setVisibleYears(visibleYears);
+      }
+    });
   };
 
   const handleAddYear = (event: any): void => {
@@ -174,14 +207,14 @@ const DEPWidget = (props: IDePProps) => {
   };
 
   const isTermEmpty = (termID: string): boolean => {
-    const courseInstances = CourseInstances.findNonRetired({
+    const courseInstances = CourseInstances.find({
       termID: termID,
       studentID: studentID,
-    });
-    const opportunityInstances = OpportunityInstances.findNonRetired({
+    }).fetch();
+    const opportunityInstances = OpportunityInstances.find({
       termID: termID,
       studentID: studentID,
-    });
+    }).fetch();
     return courseInstances.length === 0 && opportunityInstances.length === 0;
   };
 
@@ -211,7 +244,11 @@ const DEPWidget = (props: IDePProps) => {
                 <Icon name="arrow circle left" />
                 Previous Year
               </Button>
-            ) : ''}
+            ) : (
+              <Button color="green" onClick={handleAddPrevYear}>
+                <Icon name="plus circle" /> Add Previous Academic Year
+              </Button>
+            )}
           </Grid.Column>
           <Grid.Column textAlign="center">
             {/* This makes the "Add Academic Year" button only appear if the last Academic Year column is visible */}
@@ -253,9 +290,11 @@ const DEPWidgetCon = withTracker(({ match }) => {
   const studentID = getUserIdFromRoute(match);
   const courseInstances: ICourseInstance[] = CourseInstances.find({ studentID }).fetch();
   const opportunityInstances: IOpportunityInstance[] = OpportunityInstances.find({ studentID }).fetch();
+  const academicYearInstances: IAcademicYearInstance[] = AcademicYearInstances.find({ studentID }, { sort: { year: 1 } }).fetch();
   return {
     courseInstances,
     opportunityInstances,
+    academicYearInstances,
   };
 })(DEPWidget);
 const DEPWidgetContainer = withRouter(DEPWidgetCon);

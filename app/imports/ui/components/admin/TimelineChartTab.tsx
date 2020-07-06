@@ -84,12 +84,12 @@ const TimelineChartTab = (props: ITimelineChartTabProps) => {
     });
     _.each(behaviorsByDate, function (behaviors) {
       const groupedBehaviors = _.groupBy(behaviors);
-      console.log(groupedBehaviors);
+      // console.log(groupedBehaviors);
       _.each(behaviorList, function (behavior) {
         const behaviorCount = groupedBehaviors[behavior];
         const behaviorSeries = _.find(series, { name: behavior });
         if (behaviorCount) {
-          behaviorSeries.data.push((behaviorCount.length / StudentProfiles.findNonRetired({ isAlumni: false }).length) * 100);
+          behaviorSeries.data.push((behaviorCount.length / StudentProfiles.find({ isAlumni: false }).fetch().length) * 100);
         } else {
           behaviorSeries.data.push(0);
         }

@@ -48,9 +48,10 @@ const getBehaviors = (sessionArr) => {
   const actions = {
     login: [], careerGoalIDs: [], interestIDs: [], academicPlanID: [], pageView: [],
     addCourse: [], removeCourse: [], addOpportunity: [], removeOpportunity: [], verifyRequest: [],
-    addReview: [], askQuestion: [], level: [], picture: [], website: [], favoriteItem: [], unFavoriteItem: [],
+    addReview: [], editReview: [], askQuestion: [], level: [], picture: [], website: [], favoriteItem: [], unFavoriteItem: [],
   };
   _.each(sessionArr, function (interaction) {
+    // console.log(interaction);
     actions[interaction.type].push(interaction.typeData.join(', '));
   });
   const behaviors = {

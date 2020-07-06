@@ -1,5 +1,3 @@
-import { toUpper } from '../shared/helper-functions';
-
 export default {
   '@global': {
     '.landing-menu > .item, .landing-menu .right.menu > .item': {

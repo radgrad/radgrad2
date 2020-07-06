@@ -182,7 +182,7 @@ class AcademicPlanCollection extends BaseSlugCollection {
   public removeIt(instance: string) {
     const academicPlanID = this.getID(instance);
     // Check that no student is using this AcademicPlan.
-    const favPlans = FavoriteAcademicPlans.findNonRetired({ academicPlanID });
+    const favPlans = FavoriteAcademicPlans.find({ academicPlanID }).fetch();
     const isReferenced = favPlans.length > 0;
     if (isReferenced) {
       throw new Meteor.Error(`AcademicPlan ${instance} is referenced.`);

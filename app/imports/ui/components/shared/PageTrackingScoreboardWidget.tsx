@@ -70,12 +70,12 @@ const PageTrackingScoreboardWidget = (props: IPageTrackingScoreboardWidgetProps)
       });
       return;
     }
-    const filteredDailySnapshots: IPageInterestsDailySnapshot[] = PageInterestsDailySnapshots.findNonRetired({
+    const filteredDailySnapshots: IPageInterestsDailySnapshot[] = PageInterestsDailySnapshots.find({
       timestamp: {
         $gte: startDate,
         $lte: moment(endDate).endOf('day').toDate(),
       },
-    });
+    }).fetch();
     const filteredAggregatedDailySnapshots: IAggregatedDailySnapshot = aggregateDailySnapshots(filteredDailySnapshots);
     // Handle sort to main sort properties (ascending/descending for a clicked column) when we filter data
     if (column !== undefined) {
@@ -174,7 +174,7 @@ const PageTrackingScoreboardWidget = (props: IPageTrackingScoreboardWidgetProps)
 };
 
 const PageTrackingScoreboardWidgetCon = withTracker(() => {
-  const pageInterestsDailySnapshots: IPageInterestsDailySnapshot[] = PageInterestsDailySnapshots.findNonRetired({});
+  const pageInterestsDailySnapshots: IPageInterestsDailySnapshot[] = PageInterestsDailySnapshots.find({}).fetch();
   return {
     pageInterestsDailySnapshots,
   };

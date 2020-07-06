@@ -1,13 +1,14 @@
 import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { SubsManager } from 'meteor/meteorhacks:subs-manager';
-import { Responsive } from 'semantic-ui-react';
+import { Dimmer, Loader, Responsive } from 'semantic-ui-react';
 import { AdminProfiles } from '../../../api/user/AdminProfileCollection';
 import { MentorProfiles } from '../../../api/user/MentorProfileCollection';
 import { PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
+import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
@@ -24,7 +25,7 @@ import { Interests } from '../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';
 import { StudentParticipations } from '../../../api/public-stats/StudentParticipationCollection';
-import PageLoader from '../../components/shared/PageLoader';
+// import PageLoader from '../../components/shared/PageLoader';
 import PageLoaderMobile from '../../components/shared/PageLoaderMobile';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { Feeds } from '../../../api/feed/FeedCollection';
@@ -45,7 +46,9 @@ function withGlobalSubscription(WrappedComponent) {
   const GlobalSubscription = (props: ILoading) => ((props.loading) ? (
     <React.Fragment>
       <Responsive minWidth={Responsive.onlyTablet.minWidth}>
-        <PageLoader />
+        <Dimmer active inverted>
+          <Loader>Loading global data</Loader>
+        </Dimmer>
       </Responsive>
 
       <Responsive {...Responsive.onlyMobile}>
@@ -82,7 +85,7 @@ function withGlobalSubscription(WrappedComponent) {
       globalSubs.subscribe(PublicStats.getPublicationName()),
       globalSubs.subscribe(Reviews.getPublicationName()),
       globalSubs.subscribe(StudentParticipations.getPublicationName()),
-      globalSubs.subscribe('StudentProfileCollection'),
+      globalSubs.subscribe(StudentProfiles.getCollectionName()),
       globalSubs.subscribe(Slugs.getPublicationName()),
       globalSubs.subscribe(Teasers.getPublicationName()),
       globalSubs.subscribe(Users.getPublicationName()),

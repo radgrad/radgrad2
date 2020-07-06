@@ -40,19 +40,19 @@ const SelectUserFieldContainer = withTracker((props) => {
   let users;
   switch (props.role) {
     case ROLE.ALUMNI:
-      users = StudentProfiles.findNonRetired({ isAlumni: true });
+      users = StudentProfiles.find({ isAlumni: true }).fetch();
       break;
     case ROLE.ADVISOR:
-      users = AdvisorProfiles.findNonRetired({});
+      users = AdvisorProfiles.find({}).fetch();
       break;
     case ROLE.FACULTY:
-      users = FacultyProfiles.findNonRetired({});
+      users = FacultyProfiles.find({}).fetch();
       break;
     case ROLE.MENTOR:
-      users = MentorProfiles.findNonRetired({});
+      users = MentorProfiles.find({}).fetch();
       break;
     default:
-      users = StudentProfiles.findNonRetired({ isAlumni: true });
+      users = StudentProfiles.find({ isAlumni: true }).fetch();
   }
   // console.log('users=%o', users);
   return {

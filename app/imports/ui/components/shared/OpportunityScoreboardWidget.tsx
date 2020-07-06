@@ -109,14 +109,14 @@ const OpportunityScoreboardWidget = (props: IOpportunityScoreboardWidgetProps) =
 };
 
 const OpportunityScoreboardWidgetContainer = withTracker(() => {
-  const opportunities = Opportunities.findNonRetired({}, { sort: { name: 1 } });
+  const opportunities = Opportunities.find({}, { sort: { name: 1 } }).fetch();
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
   const isQuarterSystem = RadGradProperties.getQuarterSystem();
   const limit = isQuarterSystem ? 12 : 9;
-  const terms = AcademicTerms.findNonRetired({ termNumber: { $gte: currentTerm.termNumber } }, {
+  const terms = AcademicTerms.find({ termNumber: { $gte: currentTerm.termNumber } }, {
     sort: { termNumber: 1 },
     limit: limit,
-  });
+  }).fetch();
   const scores = OpportunityScoreboard.find().fetch();
   return {
     opportunities,

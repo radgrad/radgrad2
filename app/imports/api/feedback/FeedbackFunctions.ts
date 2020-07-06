@@ -107,7 +107,7 @@ export class FeedbackFunctionClass {
 
     const studentProfile = Users.getProfile(user);
     const courseIDs = StudentProfiles.getCourseIDs(user);
-    const favPlans = FavoriteAcademicPlans.findNonRetired({ studentID: studentProfile.userID });
+    const favPlans = FavoriteAcademicPlans.find({ studentID: studentProfile.userID }).fetch();
     _.forEach(favPlans, (fav) => {
       let courses = [];
       const academicPlan = AcademicPlans.findDoc(fav.academicPlanID);
@@ -194,7 +194,7 @@ export class FeedbackFunctionClass {
     const coursesTakenSlugs = [];
     const studentProfile = Users.getProfile(user);
     const courseIDs = StudentProfiles.getCourseIDs(user);
-    const favPlans = FavoriteAcademicPlans.findNonRetired({ studentID: studentProfile.userID });
+    const favPlans = FavoriteAcademicPlans.find({ studentID: studentProfile.userID }).fetch();
     _.forEach(favPlans, (fav) => {
       const academicPlanID = fav.academicPlanID;
       const academicPlan = AcademicPlans.findDoc(academicPlanID);
@@ -248,7 +248,7 @@ export class FeedbackFunctionClass {
     const coursesTakenSlugs = [];
     const studentProfile = Users.getProfile(user);
     const courseIDs = StudentProfiles.getCourseIDs(user);
-    const favPlans = FavoriteAcademicPlans.findNonRetired({ studentID: studentProfile.userID });
+    const favPlans = FavoriteAcademicPlans.find({ studentID: studentProfile.userID }).fetch();
     _.forEach(favPlans, (fav) => {
       const academicPlan = AcademicPlans.findDoc(fav.academicPlanID);
       const coursesNeeded = academicPlan.courseList.slice(0);

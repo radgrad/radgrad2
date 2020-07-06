@@ -221,11 +221,11 @@ const StudentOfInterestWidgetCont = withTracker(({ match }) => {
   const username = getUsername(match);
   const profile = Users.getProfile(username);
   const userID = Users.getID(username);
-  const nonRetiredCourses = Courses.findNonRetired({});
-  const nonRetiredOpportunities = Opportunities.findNonRetired({});
+  const nonRetiredCourses = Courses.find({}).fetch();
+  const nonRetiredOpportunities = Opportunities.find({}).fetch();
 
-  const favoritedInterests: IFavoriteInterest[] = FavoriteInterests.findNonRetired({ userID: userID });
-  const favoritedCareerGoals: IFavoriteCareerGoal[] = FavoriteCareerGoals.findNonRetired({ userID: userID });
+  const favoritedInterests: IFavoriteInterest[] = FavoriteInterests.find({ userID: userID }).fetch();
+  const favoritedCareerGoals: IFavoriteCareerGoal[] = FavoriteCareerGoals.find({ userID: userID }).fetch();
 
   return {
     profile,

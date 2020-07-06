@@ -20,6 +20,7 @@ import {
 import UpdateCourseInstanceForm from '../../components/admin/UpdateCourseInstanceForm';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
+import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 
 const collection = CourseInstances;
 
@@ -233,4 +234,4 @@ const AdminDataModelCourseInstancesPage = () => {
   );
 };
 
-export default AdminDataModelCourseInstancesPage;
+export default withInstanceSubscriptions(AdminDataModelCourseInstancesPage);
