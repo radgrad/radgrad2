@@ -25,37 +25,36 @@ interface IFirstMenuProps {
 const FirstMenu = (props: IFirstMenuProps) => {
   const username = getUsername(props.match);
   const imageStyle = { width: '50px' };
-  const signoutStyle = { marginTop: '32px' };
   const flexStyle = { display: 'flex' };
   const noPadding = { paddingTop: 0, paddingBottom: 0 };
   return (
-      <Container>
-    <Menu attached="top" borderless className="radgrad-first-menu" id={`${firstMenu}`}>
-      <Menu.Item as={NavLink} activeClassName="" exact to="/" style={noPadding}>
-        <Image style={imageStyle} circular src="/images/radgrad_logo.png" />
-        <div className="mobile hidden item">
-          <Header as="h1" className="inline">
-            <RadGradLogoText />
-          </Header>
-        </div>
-      </Menu.Item>
-      <Menu.Item position="right" className="right menu" style={noPadding}>
-        {props.currentUser === '' ? (
-          <div>
-            <Dropdown text="Login" pointing="top right" icon="user">
-              <Dropdown.Menu>
-                <Dropdown.Item icon="user" text="Sign In" as={NavLink} exact to="/signin" />
-              </Dropdown.Menu>
-            </Dropdown>
+    <Container>
+      <Menu attached="top" borderless className="radgrad-first-menu" id={`${firstMenu}`}>
+        <Menu.Item as={NavLink} activeClassName="" exact to="/" style={noPadding}>
+          <Image style={imageStyle} circular src="/images/radgrad_logo.png" />
+          <div className="mobile hidden item">
+            <Header as="h1" className="inline">
+              <RadGradLogoText />
+            </Header>
           </div>
+        </Menu.Item>
+        <Menu.Item position="right" className="right menu" style={noPadding}>
+          {props.currentUser === '' ? (
+            <div>
+              <Dropdown text="Login" pointing="top right" icon="user">
+                <Dropdown.Menu>
+                  <Dropdown.Item icon="user" text="Sign In" as={NavLink} exact to="/signin" />
+                </Dropdown.Menu>
+              </Dropdown>
+            </div>
         ) : (
           <div style={flexStyle}>
             <RadGradMenuProfile userName={username} />
           </div>
         )}
-      </Menu.Item>
-    </Menu>
-      </Container>
+        </Menu.Item>
+      </Menu>
+    </Container>
   );
 };
 
