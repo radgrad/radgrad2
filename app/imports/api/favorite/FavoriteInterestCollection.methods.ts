@@ -20,7 +20,7 @@ export const getUserIDsWithFavoriteInterestMethod = new ValidatedMethod({
     if (Meteor.isServer) {
       let userIDs;
       const favUserIDs = _.map(FavoriteInterests.find({ interestID }).fetch(), 'userID');
-      switch (role) {
+      switch (role.toUpperCase()) {
         case ROLE.ADVISOR:
           userIDs = _.map(AdvisorProfiles.find().fetch(), 'userID');
           break;
@@ -35,6 +35,7 @@ export const getUserIDsWithFavoriteInterestMethod = new ValidatedMethod({
           break;
         default:
           userIDs = _.map(StudentProfiles.find({ isAlumni: false }).fetch(), 'userID');
+          break;
       }
       return _.intersection(userIDs, favUserIDs);
     }

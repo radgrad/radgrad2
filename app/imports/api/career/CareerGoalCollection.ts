@@ -6,6 +6,7 @@ import { Interests } from '../interest/InterestCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
 import { ICareerGoalDefine, ICareerGoalUpdate } from '../../typings/radgrad';
 import { FavoriteCareerGoals } from '../favorite/FavoriteCareerGoalCollection';
+import doc = Mocha.reporters.doc;
 
 /**
  * CareerGoals represent the professional future(s) that the student wishes to work toward.
@@ -108,6 +109,9 @@ class CareerGoalCollection extends BaseSlugCollection {
     }
     if (_.isBoolean(retired)) {
       updateData.retired = retired;
+      // Need to update the FavoriteCareerGoals
+      const favorites = FavoriteCareerGoals.find({ careerGoalID: docID }).fetch();
+      _.forEach(favorites, (fav) => {});
     }
     this.collection.update(docID, { $set: updateData });
   }

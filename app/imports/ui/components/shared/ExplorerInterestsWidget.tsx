@@ -4,13 +4,9 @@ import { Header, Grid, Divider, Segment, SegmentGroup } from 'semantic-ui-react'
 import Markdown from 'react-markdown';
 import { withTracker } from 'meteor/react-meteor-data';
 import _ from 'lodash';
-// import { getUserIDsWithFavoriteInterestMethod } from '../../../api/favorite/FavoriteInterestCollection.methods';
 import { ICourse, IInterest, IOpportunity, IProfile } from '../../../typings/radgrad';
 import { Interests } from '../../../api/interest/InterestCollection';
-import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
-import { MentorProfiles } from '../../../api/user/MentorProfileCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
@@ -18,10 +14,8 @@ import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstan
 import { Slugs } from '../../../api/slug/SlugCollection';
 import InterestedProfilesWidget from './InterestedProfilesWidget';
 import InterestedRelatedWidget from './InterestedRelatedWidget';
-import { URL_ROLES } from '../../../startup/client/route-constants';
 import FavoritesButton from './FavoritesButton';
 import * as Router from './RouterHelperFunctions';
-import { profileGetInterestIDs } from './data-model-helper-functions';
 import { explorerInterestWidget } from './shared-widget-names';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
 import { FAVORITE_TYPE } from '../../../api/favorite/FavoriteTypes';
@@ -41,46 +35,10 @@ interface IExplorerInterestsWidgetProps {
   profile: IProfile;
   interest: IInterest;
   interestedStudents: IProfile[];
-  interestedFaculty: IProfile[];
   interestedAlumni: IProfile[];
-  interestedMentor: IProfile[];
   opportunities: IOpportunity[];
   courses: ICourse[];
 }
-
-const getProfilesThatHaveInterest = (profiles, interestID) => {
-  const interested = [];
-  _.forEach(profiles, (profile) => {
-    if (_.includes(profileGetInterestIDs(profile), interestID)) {
-      interested.push(profile);
-    }
-  });
-  return interested;
-};
-
-// const getProfilesWithInterest = (role, interestID) => {
-//   const userIDs = getUserIDsWithFavoriteInterestMethod.call({ interestID, role });
-//   console.log(userIDs);
-//   return _.map(userIDs, (user) => Users.getProfile(user));
-// };
-
-const participation = (role, interestID) => {
-  const interested = [];
-  // console.log(getProfilesWithInterest(role, interestID));
-  switch (role) {
-    case URL_ROLES.STUDENT:
-      return getProfilesThatHaveInterest(StudentProfiles.find({ isAlumni: false }).fetch(), interestID);
-    case URL_ROLES.FACULTY:
-      return getProfilesThatHaveInterest(FacultyProfiles.find().fetch(), interestID);
-    case URL_ROLES.MENTOR:
-      console.log(getProfilesThatHaveInterest(MentorProfiles.find().fetch(), interestID), interestID);
-      return getProfilesThatHaveInterest(MentorProfiles.find().fetch(), interestID);
-    case URL_ROLES.ALUMNI:
-      return getProfilesThatHaveInterest(StudentProfiles.find({ isAlumni: true }).fetch(), interestID);
-    default:
-      return interested;
-  }
-};
 
 const getObjectsThatHaveInterest = (objects, props: IExplorerInterestsWidgetProps) => _.filter(objects, (obj) => _.includes(obj.interestIDs, props.interest._id));
 
@@ -147,6 +105,7 @@ const getBaseURL = (props: IExplorerInterestsWidgetProps) => {
 };
 
 const ExplorerInterestsWidget = (props: IExplorerInterestsWidgetProps) => {
+  // console.log('ExplorerInterestsWidget', props);
   const relatedCourses = getAssociationRelatedCourses(getRelatedCourses(props), props);
   const relatedOpportunities = getAssociationRelatedOpportunities(getRelatedOpportunities(props), props);
   const teaser = Teasers.find({ targetSlugID: props.interest.slugID }).fetch();
@@ -210,10 +169,6 @@ const ExplorerInterestsWidget = (props: IExplorerInterestsWidgetProps) => {
         <Grid.Column width={6}>
           <InterestedProfilesWidget
             interest={props.interest}
-            students={props.interestedStudents}
-            faculty={props.interestedFaculty}
-            alumni={props.interestedAlumni}
-            mentors={props.interestedMentor}
           />
         </Grid.Column>
       </Grid>
@@ -226,19 +181,11 @@ const ExplorerInterestsWidgetCon = withTracker(({ match }) => {
   const profile = Users.getProfile(username);
   const entityID = Slugs.getEntityID(match.params.interest, 'Interest');
   const interest = Interests.findDoc(entityID);
-  const interestedStudents = participation(URL_ROLES.STUDENT, entityID);
-  const interestedFaculty = participation(URL_ROLES.FACULTY, entityID);
-  const interestedAlumni = participation(URL_ROLES.ALUMNI, entityID);
-  const interestedMentor = participation(URL_ROLES.MENTOR, entityID);
   const opportunities = Opportunities.find({}).fetch();
   const courses = Courses.find({}).fetch();
   return {
     profile,
     interest,
-    interestedStudents,
-    interestedFaculty,
-    interestedMentor,
-    interestedAlumni,
     opportunities,
     courses,
   };
