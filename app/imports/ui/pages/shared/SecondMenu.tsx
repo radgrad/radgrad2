@@ -39,7 +39,6 @@ const explorerDropdownItems = [
 ];
 
 const studentHomePageItems = [
-  { key: 'Home', route: '' },
   { key: 'About Me', route: 'aboutme' },
   { key: 'ICE Points', route: 'ice' },
   { key: 'Levels', route: 'levels' },
@@ -56,7 +55,6 @@ const SecondMenu = (props: ISecondMenuProps) => {
         <Menu
           attached="top"
           borderless
-          widths={props.numItems}
           secondary
           pointing
           id={`${secondMenu}`}
