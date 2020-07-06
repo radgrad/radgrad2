@@ -8,6 +8,16 @@ export interface IAdminAnalyticsDateRange {
 
 export type IAdminAnalyticsUserInteraction = { [username: string]: IUserInteraction[] };
 
+export type IAdminAnalyticsOverheadAnalysisBuckets = { [key: number]: number };
+
+export interface IAdminAnalyticsOverheadAnalysisData {
+  username: string;
+  'num-sessions': number;
+  'num-docs': number;
+  'docs-per-min': number;
+  'total-time': number;
+}
+
 interface IState {
   newsletter: {
     getStudentEmails: boolean;
@@ -17,8 +27,9 @@ interface IState {
   }
   overheadAnalysis: {
     dateRange: IAdminAnalyticsDateRange;
-    overheadBuckets: any[];
+    overheadBuckets: IAdminAnalyticsOverheadAnalysisBuckets;
     userInteractions: IAdminAnalyticsUserInteraction;
+    overheadData: IAdminAnalyticsOverheadAnalysisData[];
   }
   studentSummary: {
     dateRange: IAdminAnalyticsDateRange;
@@ -38,8 +49,9 @@ const initialState: IState = {
       startDate: undefined,
       endDate: undefined,
     },
-    overheadBuckets: [],
+    overheadBuckets: {},
     userInteractions: {},
+    overheadData: [],
   },
   studentSummary: {
     dateRange: {
@@ -161,6 +173,16 @@ function reducer(state: IState = initialState, action: { [props: string]: any })
         overheadAnalysis: {
           ...otherKeys,
           userInteractions: action.payload,
+        },
+      };
+      return s;
+    case TYPES.SET_OVERHEAD_ANALYSIS_OVERHEAD_DATA:
+      otherKeys = state.overheadAnalysis;
+      s = {
+        ...state,
+        overheadAnalysis: {
+          ...otherKeys,
+          overheadData: action.payload,
         },
       };
       return s;

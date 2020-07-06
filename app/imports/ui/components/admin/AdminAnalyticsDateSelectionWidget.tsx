@@ -9,21 +9,27 @@ import _ from 'lodash';
 import { ANALYTICS } from '../../../startup/client/route-constants';
 import { analyticsActions } from '../../../redux/admin/analytics';
 import { userInteractionFindMethod } from '../../../api/analytic/UserInteractionCollection.methods';
-import { IAdminAnalyticsUserInteraction } from '../../../redux/admin/analytics/reducers';
+import {
+  IAdminAnalyticsOverheadAnalysisBuckets,
+  IAdminAnalyticsOverheadAnalysisData,
+  IAdminAnalyticsUserInteraction,
+} from '../../../redux/admin/analytics/reducers';
 
 interface IAdminAnalyticsDateSelectionWidgetProps {
   page: string;
   setOverheadAnalysisDateRange: (dateRange: analyticsActions.ISetDateRangeProps) => any;
-  setOverheadBuckets: (overheadBuckets: any[]) => any;
-  setUserInteractions: (userInteractions: IAdminAnalyticsUserInteraction) => any;
+  setOverheadAnalysisBuckets: (overheadBuckets: IAdminAnalyticsOverheadAnalysisBuckets) => any;
+  setOverheadAnalysisData: (overheadData: IAdminAnalyticsOverheadAnalysisData[]) => any;
+  setOverheadAnalysisUserInteractions: (userInteractions: IAdminAnalyticsUserInteraction) => any;
   setStudentSummaryDateRange: (dateRange: analyticsActions.ISetDateRangeProps) => any;
   setStudentSummaryUserInteractions: (userInteractions: IAdminAnalyticsUserInteraction) => any;
 }
 
 const mapDispatchToProps = (dispatch: any): object => ({
   setOverheadAnalysisDateRange: (dateRange: analyticsActions.ISetDateRangeProps) => dispatch(analyticsActions.setOverheadAnalysisDateRange(dateRange)),
-  setOverheadBuckets: (overheadBuckets: any[]) => dispatch(analyticsActions.setOverheadBuckets(overheadBuckets)),
-  setUserInteractions: (userInteractions: IAdminAnalyticsUserInteraction) => dispatch(analyticsActions.setUserInteractions(userInteractions)),
+  setOverheadAnalysisBuckets: (overheadBuckets: IAdminAnalyticsOverheadAnalysisBuckets) => dispatch(analyticsActions.setOverheadAnalysisBuckets(overheadBuckets)),
+  setOverheadAnalysisData: (overheadData: IAdminAnalyticsOverheadAnalysisData[]) => dispatch(analyticsActions.setOverheadAnalysisData(overheadData)),
+  setOverheadAnalysisUserInteractions: (userInteractions: IAdminAnalyticsUserInteraction) => dispatch(analyticsActions.setOverheadAnalysisUserInteractions(userInteractions)),
   setStudentSummaryDateRange: (dateRange: analyticsActions.ISetDateRangeProps) => dispatch(analyticsActions.setStudentSummaryDateRange(dateRange)),
   setStudentSummaryUserInteractions: (userInteractions: IAdminAnalyticsUserInteraction) => dispatch(analyticsActions.setStudentSummaryUserInteractions(userInteractions)),
 });
@@ -80,10 +86,11 @@ const AdminAnalyticsDateSelectionWidget = (props: IAdminAnalyticsDateSelectionWi
         // console.log('docsPerMinGroups ', docsPerMinGroups);
         const overheadBuckets = createBucket(docsPerMinGroups);
         // console.log('overheadBuckets ', overheadBuckets);
-        props.setOverheadBuckets(overheadBuckets);
+        props.setOverheadAnalysisBuckets(overheadBuckets);
         const userInteractions = _.groupBy(result, 'username');
         // console.log('userInteractions ', userInteractions);
-        props.setUserInteractions(userInteractions);
+        /* Setting User Interactions for Overhead Analysis and Student Summary */
+        props.setOverheadAnalysisUserInteractions(userInteractions);
         props.setStudentSummaryUserInteractions(userInteractions);
         /* Generating Overhead Data */
         const overheadData = [];
@@ -127,7 +134,8 @@ const AdminAnalyticsDateSelectionWidget = (props: IAdminAnalyticsDateSelectionWi
           userData['total-time'] = totalTime;
           overheadData.push(userData);
         });
-        // console.log('overheadData ', overheadData);
+        console.log('overheadData ', overheadData);
+        props.setOverheadAnalysisData(overheadData);
       }
     });
   };

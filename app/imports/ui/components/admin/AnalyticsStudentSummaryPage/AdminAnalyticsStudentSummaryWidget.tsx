@@ -17,22 +17,21 @@ interface IAdminAnalyticsStudentSummaryWidgetProps {
   userInteractions: IAdminAnalyticsUserInteraction;
 }
 
-const mapStateToProps = (state: RootState) => ({
+const mapStateToProps = (state: RootState): {[key: string]: any} => ({
   dateRange: state.admin.analytics.studentSummary.dateRange,
   userInteractions: state.admin.analytics.studentSummary.userInteractions,
 });
 
-const dateRangeString = (dateRange: IAdminAnalyticsDateRange): string | JSX.Element => {
+const dateRangeToString = (dateRange: IAdminAnalyticsDateRange): string | JSX.Element => {
   if (dateRange.startDate && dateRange.endDate) {
     const start = moment(dateRange.startDate).format('MM-DD-YYYY');
     const end = moment(dateRange.endDate).format('MM-DD-YYYY');
     return ` ${start} to ${end}`;
   }
-  return <i>Select a Start date and an End date above</i>;
+  return <i>Select a Start date and End date above</i>;
 };
 
 const AdminAnalyticsStudentSummaryWidget = (props: IAdminAnalyticsStudentSummaryWidgetProps) => {
-  const dateRangeStr = dateRangeString(props.dateRange);
   const interactionsByUser = props.userInteractions;
 
   _.each(interactionsByUser, function (interactions, user) {
@@ -102,7 +101,7 @@ const AdminAnalyticsStudentSummaryWidget = (props: IAdminAnalyticsStudentSummary
       <AdminAnalyticsDateSelectionWidget page={ANALYTICS.STUDENTSUMMARY} />
       <Segment>
         <Header as="h4" dividing>
-          SUMMARY STATISTICS: {dateRangeStr}
+          SUMMARY STATISTICS: {dateRangeToString(props.dateRange)}
         </Header>
         <SummaryStatisticsTabs
           behaviors={behaviorCategories}
