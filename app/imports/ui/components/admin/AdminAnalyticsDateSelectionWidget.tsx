@@ -90,8 +90,11 @@ const AdminAnalyticsDateSelectionWidget = (props: IAdminAnalyticsDateSelectionWi
         const userInteractions = _.groupBy(result, 'username');
         // console.log('userInteractions ', userInteractions);
         /* Setting User Interactions for Overhead Analysis and Student Summary */
-        props.setOverheadAnalysisUserInteractions(userInteractions);
-        props.setStudentSummaryUserInteractions(userInteractions);
+        if (props.page === ANALYTICS.OVERHEADANALYSIS) {
+          props.setOverheadAnalysisUserInteractions(userInteractions);
+        } else if (props.page === ANALYTICS.STUDENTSUMMARY) {
+          props.setStudentSummaryUserInteractions(userInteractions);
+        }
         /* Generating Overhead Data */
         const overheadData = [];
         _.forEach(userInteractions, (interactions, username) => {
@@ -134,7 +137,6 @@ const AdminAnalyticsDateSelectionWidget = (props: IAdminAnalyticsDateSelectionWi
           userData['total-time'] = totalTime;
           overheadData.push(userData);
         });
-        console.log('overheadData ', overheadData);
         props.setOverheadAnalysisData(overheadData);
       }
     });
