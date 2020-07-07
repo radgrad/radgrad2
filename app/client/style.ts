@@ -10,10 +10,10 @@ export default {
     padding: 15,
   },
   'radgrad-student-menu': {
-    backgroundColor: '#4fa88f' ,
+    backgroundColor: '#4fa88f',
   },
   'radgrad-student-menu .item': {
-    backgroundColor: '#4fa88f'
+    backgroundColor: '#4fa88f',
   },
 
 } as React.CSSProperties;
