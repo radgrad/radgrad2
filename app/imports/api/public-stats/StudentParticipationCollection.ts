@@ -127,32 +127,30 @@ class StudentParticipationCollection extends BaseCollection {
   upsertEnrollmentData() {
     if (Meteor.isServer) {
       // Courses
-      const courses = Courses.find().fetch();
+      const courses = Courses.findNonRetired();
       _.forEach(courses, (c) => {
         const itemID = c._id;
         const itemSlug = Slugs.getNameFromID(c.slugID);
-        const items = CourseInstances.find({ courseID: itemID })
-          .fetch();
+        const items = CourseInstances.findNonRetired({ courseID: itemID });
         const itemCount = _.uniqBy(items, (i) => i.studentID).length;
         this.collection.upsert({ itemSlug }, { $set: { itemID, itemSlug, itemCount } });
       });
       // Opportunities
-      _.forEach(Opportunities.find().fetch(), (o) => {
+      _.forEach(Opportunities.findNonRetired(), (o) => {
         const itemID = o._id;
         const itemSlug = Slugs.getNameFromID(o.slugID);
-        const items = OpportunityInstances.find({ opportunityID: itemID })
-          .fetch();
+        const items = OpportunityInstances.findNonRetired({ opportunityID: itemID });
         const itemCount = _.uniqBy(items, (i) => i.studentID).length;
         this.collection.upsert({ itemSlug }, { $set: { itemID, itemSlug, itemCount } });
       });
-      const students = StudentProfiles.find({ isAlumni: false }).fetch();
+      const students = StudentProfiles.findNonRetired({ isAlumni: false });
       // AcademicPlans
-      const academicPlans = AcademicPlans.find().fetch();
+      const academicPlans = AcademicPlans.findNonRetired();
       _.forEach(academicPlans, (p) => {
         const itemID = p._id;
         const itemSlug = Slugs.getNameFromID(p.slugID);
         const filterd = _.filter(students, (s) => {
-          const favPlans = FavoriteAcademicPlans.find({ studentID: s.userID }).fetch();
+          const favPlans = FavoriteAcademicPlans.findNonRetired({ studentID: s.userID });
           const planIDs = _.map(favPlans, (fav) => fav.academicPlanID);
           return _.includes(planIDs, itemID);
         });
@@ -161,17 +159,17 @@ class StudentParticipationCollection extends BaseCollection {
         this.collection.upsert({ itemSlug }, { $set: { itemID, itemSlug, itemCount } });
       });
       // CareerGoals
-      const careerGoals = CareerGoals.find().fetch();
+      const careerGoals = CareerGoals.findNonRetired();
       _.forEach(careerGoals, (c) => {
         const itemID = c._id;
         const itemSlug = Slugs.getNameFromID(c.slugID);
-        const filtered = _.filter(students, (s) => FavoriteCareerGoals.find({ studentID: s.userID, careerGoalID: itemID }).fetch().length > 0);
+        const filtered = _.filter(students, (s) => FavoriteCareerGoals.findNonRetired({ studentID: s.userID, careerGoalID: itemID }).length > 0);
         // console.log('students with careerGoal %o = %o', itemID, filtered);
         const itemCount = filtered.length;
         this.collection.upsert({ itemSlug }, { $set: { itemID, itemSlug, itemCount } });
       });
       // Interests
-      const interests = Interests.find().fetch();
+      const interests = Interests.findNonRetired();
       _.forEach(interests, (i) => {
         const itemID = i._id;
         const itemSlug = Slugs.getNameFromID(i.slugID);

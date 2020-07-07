@@ -43,7 +43,7 @@ export function getOpportunityTypeName(opportunityTypeID) {
 }
 
 export function teaser(opportunity: IOpportunity) {
-  const oppTeaser = Teasers.find({ targetSlugID: opportunity.slugID }).fetch();
+  const oppTeaser = Teasers.findNonRetired({ targetSlugID: opportunity.slugID });
   if (oppTeaser.length > 1) {
     return undefined;
   }

@@ -73,14 +73,14 @@ const AcademicTermView = (props: IAcademicTermViewProps) => {
 };
 
 const AcademicTermViewContainer = withTracker((props) => {
-  const courseInstances = CourseInstances.find({
+  const courseInstances = CourseInstances.findNonRetired({
     termID: props.term._id,
     studentID: props.studentID,
-  }).fetch();
-  const opportunityInstances = OpportunityInstances.find({
+  });
+  const opportunityInstances = OpportunityInstances.findNonRetired({
     termID: props.term._id,
     studentID: props.studentID,
-  }).fetch();
+  });
   return {
     courseInstances,
     opportunityInstances,

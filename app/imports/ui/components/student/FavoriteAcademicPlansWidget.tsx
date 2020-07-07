@@ -73,7 +73,7 @@ const FavoriteAcademicPlansWidget = (props: IFavoriteAcademicPlansWidgetProps) =
 
 export default withRouter(withTracker((props) => {
   const studentID = Router.getUserIdFromRoute(props.match);
-  const favorites = FavoriteAcademicPlans.find({ studentID }).fetch();
+  const favorites = FavoriteAcademicPlans.findNonRetired({ studentID });
   const plans = _.map(favorites, (fav) => AcademicPlans.findDoc(fav.academicPlanID));
   return {
     studentID,

@@ -28,7 +28,7 @@ const MentorMentorSpaceAnswerForm = (props: IMentorMentorSpaceAnswerFormProps) =
 
   const existingAnswer = () => {
     const questionID = props.question._id;
-    const existingAnswers = MentorAnswers.find({ questionID, mentorID: getUserIdFromRoute() }).fetch();
+    const existingAnswers = MentorAnswers.findNonRetired({ questionID, mentorID: getUserIdFromRoute() });
     return (existingAnswers.length > 0) ? existingAnswers[0].text : '';
   };
 
@@ -46,7 +46,7 @@ const MentorMentorSpaceAnswerForm = (props: IMentorMentorSpaceAnswerFormProps) =
     const question = props.question._id;
     const collectionName = MentorAnswers.getCollectionName();
     const newAnswer: any = { question, mentor: getUserIdFromRoute(), text: answer };
-    const existingAnswers = MentorAnswers.find({ questionID: question, mentorID: getUserIdFromRoute() }).fetch();
+    const existingAnswers = MentorAnswers.findNonRetired({ questionID: question, mentorID: getUserIdFromRoute() });
     const answerExists = (existingAnswers.length > 0);
     if (answerExists) {
       newAnswer.id = existingAnswers[0]._id;

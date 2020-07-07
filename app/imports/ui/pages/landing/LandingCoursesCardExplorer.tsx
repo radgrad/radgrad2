@@ -72,7 +72,7 @@ const LandingCoursesCardExplorerContainer = withTracker(() => {
   const sub2 = Meteor.subscribe(Slugs.getPublicationName());
   return {
     ready: sub1.ready() && sub2.ready(),
-    courses: Courses.find({}, { sort: { shortName: 1 } }).fetch(),
+    courses: Courses.findNonRetired({}, { sort: { shortName: 1 } }),
     count: Courses.countNonRetired(),
   };
 })(LandingCoursesCardExplorerCon);

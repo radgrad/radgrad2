@@ -43,7 +43,7 @@ const FavoriteOpportunitiesWidget = (props: IFavoriteOpportunitiesWidgetProps) =
 
 export default withRouter(withTracker((props) => {
   const studentID = Router.getUserIdFromRoute(props.match);
-  const favorites = FavoriteOpportunities.find({ studentID }).fetch();
+  const favorites = FavoriteOpportunities.findNonRetired({ studentID });
   const opportunities = _.map(favorites, (f) => Opportunities.findDoc(f.opportunityID));
   return {
     studentID,
