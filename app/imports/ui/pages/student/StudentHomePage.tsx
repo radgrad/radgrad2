@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Grid, Container } from 'semantic-ui-react';
 import BackToTopButton from '../../components/shared/BackToTopButton';
