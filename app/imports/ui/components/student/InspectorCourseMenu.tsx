@@ -20,7 +20,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 function courseStructureForMenu(userID) {
-  let courses = Courses.find({}, { sort: { num: 1 } }).fetch();
+  let courses = Courses.findNonRetired({}, { sort: { num: 1 } });
   courses = _.filter(courses, (c: ICourse) => c.num !== 'other');
   const profile = Users.getProfile(userID);
   if (profile.role === ROLE.STUDENT) {
@@ -35,10 +35,10 @@ function courseStructureForMenu(userID) {
     if (course.num === 'ICS 499') { // TODO: hardcoded ICS string
       return true;
     }
-    const ci = CourseInstances.find({
+    const ci = CourseInstances.findNonRetired({
       studentID: userID,
       courseID: course._id,
-    }).fetch();
+    });
     return ci.length === 0;
   });
   const courseStructure = [];

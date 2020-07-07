@@ -44,7 +44,7 @@ const ConnectedCourseInstanceSelectorTemp = (props: IConnectedCourseInstanceSele
 
   const userName = props.match.params.username;
   const studentID = Users.getID(userName);
-  const courseInstances = CourseInstances.find({ studentID }).fetch();
+  const courseInstances = CourseInstances.findNonRetired({ studentID });
   const options = [];
   _.forEach(courseInstances, (c) => {
     options.push({

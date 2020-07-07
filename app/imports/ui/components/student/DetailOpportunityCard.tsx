@@ -174,7 +174,7 @@ const DetailOpportunityCard = (props: IDetailOpportunityCardProps) => {
 const DetailOpportunityCardCon = withRouter(withTracker((props) => {
   const studentID = getUserIdFromRoute(props.match);
   const opportunityInstanceID = props.instance._id;
-  const requests = VerificationRequests.find({ studentID, opportunityInstanceID }).fetch();
+  const requests = VerificationRequests.findNonRetired({ studentID, opportunityInstanceID });
   return {
     requests,
   };

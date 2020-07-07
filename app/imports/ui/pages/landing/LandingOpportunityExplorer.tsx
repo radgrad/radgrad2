@@ -38,7 +38,7 @@ interface IOpportunityExplorerProps {
 
 const LandingOpportunityExplorer = (props: IOpportunityExplorerProps) => {
   const { match, opportunity } = props;
-  const hasTeaser = Teasers.find({ targetSlugID: opportunity.slugID }).fetch().length > 0;
+  const hasTeaser = Teasers.findNonRetired({ targetSlugID: opportunity.slugID }).length > 0;
   const opportunityTypeName = getOpportunityTypeName(opportunity.opportunityTypeID);
   const academicTerms = semesters(opportunity);
   const teaserID = teaser(opportunity);

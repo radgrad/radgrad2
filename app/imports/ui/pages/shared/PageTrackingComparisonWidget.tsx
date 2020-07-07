@@ -37,13 +37,13 @@ interface IPageTrackingComparisonWidgetProps {
 const getOptions = (urlCategory: IPageInterestsCategoryTypes) => {
   switch (urlCategory) {
     case PageInterestsCategoryTypes.CAREERGOAL:
-      return getOptionsHelper(CareerGoals.find({}).fetch());
+      return getOptionsHelper(CareerGoals.findNonRetired({}));
     case PageInterestsCategoryTypes.COURSE:
-      return getOptionsHelper(Courses.find({}).fetch());
+      return getOptionsHelper(Courses.findNonRetired({}));
     case PageInterestsCategoryTypes.INTEREST:
-      return getOptionsHelper(Interests.find({}).fetch());
+      return getOptionsHelper(Interests.findNonRetired({}));
     case PageInterestsCategoryTypes.OPPORTUNITY:
-      return getOptionsHelper(Opportunities.find({}).fetch());
+      return getOptionsHelper(Opportunities.findNonRetired({}));
     default:
       console.error(`Bad category: ${urlCategory}`);
       return undefined;

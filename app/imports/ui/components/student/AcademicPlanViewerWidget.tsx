@@ -84,7 +84,7 @@ function takenSlugs(courseInstances) {
 
 const AcademicPlanViewerWidgetContainer = withTracker((props) => {
   const profile = Users.findProfileFromUsername(props.username);
-  const courseInstances = CourseInstances.find({ studentID: profile.userID }).fetch();
+  const courseInstances = CourseInstances.findNonRetired({ studentID: profile.userID });
   return {
     takenSlugs: takenSlugs(courseInstances),
     ...props,

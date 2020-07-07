@@ -96,11 +96,11 @@ const FacultyVerificationPage = (props: FacultyVerificationPageProps) => {
 
 const FacultyVerificationPageWithTracker = withTracker((props) => {
   const userID = Users.getID(props.match.params.username);
-  const linkedOppInstances = OpportunityInstances.find({ sponsorID: userID }).fetch();
+  const linkedOppInstances = OpportunityInstances.findNonRetired({ sponsorID: userID });
   const isLinkedReq = (verReq: IVerificationRequest) => !!linkedOppInstances.find(oppI => verReq.opportunityInstanceID === oppI._id);
   return {
-    verificationRequests: VerificationRequests.find().fetch().filter(ele => isLinkedReq(ele)),
-    eventOpportunities: Opportunities.find({ eventDate: { $exists: true } }).fetch(),
+    verificationRequests: VerificationRequests.findNonRetired().filter(ele => isLinkedReq(ele)),
+    eventOpportunities: Opportunities.findNonRetired({ eventDate: { $exists: true } }),
   };
 })(FacultyVerificationPage);
 const FacultyVerificationPageWithRouter = withRouter(FacultyVerificationPageWithTracker);
