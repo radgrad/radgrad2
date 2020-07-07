@@ -346,8 +346,8 @@ const AdvisorStudentSelectorWidget = (props: IAdvisorStudentSelectorWidgetProps)
 };
 
 const AdvisorStudentSelectorWidgetContainer = withTracker(() => ({
-  students: StudentProfiles.find({ isAlumni: false }, { sort: { lastName: 1, firstName: 1 } }).fetch(),
-  alumni: StudentProfiles.find({ isAlumni: true }, { sort: { lastName: 1, firstName: 1 } }).fetch(),
+  students: StudentProfiles.findNonRetired({ isAlumni: false }, { sort: { lastName: 1, firstName: 1 } }),
+  alumni: StudentProfiles.findNonRetired({ isAlumni: true }, { sort: { lastName: 1, firstName: 1 } }),
 }))(AdvisorStudentSelectorWidget);
 
 export default connect(mapStateToProps)(AdvisorStudentSelectorWidgetContainer);

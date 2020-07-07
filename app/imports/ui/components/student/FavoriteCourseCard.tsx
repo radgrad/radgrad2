@@ -97,10 +97,10 @@ const FavoriteCourseCard = (props: IFavoriteCourseCardProps) => {
 };
 
 export default withRouter(withTracker((props) => {
-  const instances = CourseInstances.find({
+  const instances = CourseInstances.findNonRetired({
     studentID: props.studentID,
     courseID: props.course._id,
-  }).fetch();
+  });
   return {
     instances,
   };

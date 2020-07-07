@@ -102,7 +102,7 @@ const takenSlugs = (courseInstances: ICourseInstance[]) => {
 
 const AcademicPlanStaticViewerContainer = withTracker((props) => {
   const profile = Users.findProfileFromUsername(props.match.params.username);
-  const courseInstances = CourseInstances.find({ studentID: profile.userID }).fetch();
+  const courseInstances = CourseInstances.findNonRetired({ studentID: profile.userID });
   return {
     takenSlugs: takenSlugs(courseInstances),
     ...props,

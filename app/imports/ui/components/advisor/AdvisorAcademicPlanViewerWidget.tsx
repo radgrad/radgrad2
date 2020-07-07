@@ -56,7 +56,7 @@ const AdvisorAcademicPlanViewerWidget = (props: IAdvisorAcademicPlanViewerWidget
 };
 
 const AdvisorAcademicPlanViewerWidgetContainer = withTracker(() => {
-  const plans = AcademicPlans.find().fetch();
+  const plans = AcademicPlans.findNonRetired();
   // console.log(plans);
   return {
     plans,

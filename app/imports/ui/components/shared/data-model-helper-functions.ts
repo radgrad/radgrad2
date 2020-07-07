@@ -128,7 +128,7 @@ export const opportunityTermsNotTaken = (opportunity, studentID) => {
   const takenTermIDs = [];
   const termNames = [];
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
-  const ois = OpportunityInstances.find({ studentID, opportunityID: opportunity._id }).fetch();
+  const ois = OpportunityInstances.findNonRetired({ studentID, opportunityID: opportunity._id });
   _.forEach(ois, (o) => {
     takenTermIDs.push(o.termID);
   });
@@ -144,7 +144,7 @@ export const opportunityTermsNotTaken = (opportunity, studentID) => {
 
 export const unverifiedOpportunityTermNames = (opportunity, studentID) => {
   const termNames = [];
-  const ois = OpportunityInstances.find({ studentID, opportunityID: opportunity._id }).fetch();
+  const ois = OpportunityInstances.findNonRetired({ studentID, opportunityID: opportunity._id });
   _.forEach(ois, (o) => {
     if (!o.verified) {
       termNames.push(AcademicTerms.toString(o.termID, false));
@@ -194,7 +194,7 @@ export const opportunityTypeIdToName = (id) => OpportunityTypes.findDoc(id).name
 
 export const profileGetFavoriteAcademicPlans = (profile) => {
   const studentID = profile.userID;
-  const favPlans = FavoriteAcademicPlans.find({ studentID }).fetch();
+  const favPlans = FavoriteAcademicPlans.findNonRetired({ studentID });
   return _.map(favPlans, (fav) => AcademicPlans.findDoc(fav.academicPlanID));
 };
 
@@ -217,7 +217,7 @@ export const profileGetFavoriteAcademicPlanIDs = (profile) => _.map(profileGetFa
 
 export const profileGetCareerGoals = (profile) => {
   const userID = profile.userID;
-  const favCareerGoals = FavoriteCareerGoals.find({ userID }).fetch();
+  const favCareerGoals = FavoriteCareerGoals.findNonRetired({ userID });
   return _.map(favCareerGoals, (fav) => CareerGoals.findDoc(fav.careerGoalID));
 };
 
@@ -232,7 +232,7 @@ export const profileGetDesiredDegreeName = (profile) => {
 
 export const profileGetInterests = (profile) => {
   const userID = profile.userID;
-  const favInterests = FavoriteInterests.find({ userID }).fetch();
+  const favInterests = FavoriteInterests.findNonRetired({ userID });
   return _.map(favInterests, (fav) => Interests.findDoc(fav.interestID));
 };
 
