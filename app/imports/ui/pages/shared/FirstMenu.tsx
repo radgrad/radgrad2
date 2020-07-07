@@ -27,6 +27,7 @@ const FirstMenu = (props: IFirstMenuProps) => {
   const imageStyle = { width: '50px' };
   const flexStyle = { display: 'flex' };
   const noPadding = { paddingTop: 0, paddingBottom: 0 };
+  const signoutStyle = { marginTop: '32px' };
   return (
     <Container>
       <Menu attached="top" borderless className="radgrad-first-menu" id={`${firstMenu}`}>
@@ -47,11 +48,23 @@ const FirstMenu = (props: IFirstMenuProps) => {
                 </Dropdown.Menu>
               </Dropdown>
             </div>
-        ) : (
-          <div style={flexStyle}>
-            <RadGradMenuProfile userName={username} />
-          </div>
-        )}
+          ) : (
+            <div style={flexStyle}>
+              <RadGradMenuProfile userName={username} />
+              {/* TODO Temporary until we have a re-design of the "SecondMenu"s of non-student roles */}
+              <Dropdown
+                text={props.currentUser}
+                pointing="top right"
+                icon={props.iconName}
+                style={signoutStyle}
+              >
+                <Dropdown.Menu>
+                  <Dropdown.Item icon="sign out" text="Sign Out" as={NavLink} exact to="/signout" />
+                </Dropdown.Menu>
+              </Dropdown>
+              {/* END */}
+            </div>
+          )}
         </Menu.Item>
       </Menu>
     </Container>
