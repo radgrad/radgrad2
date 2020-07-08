@@ -67,7 +67,7 @@ If you have additional questions, please email [${adminEmail}](mailto:${adminEma
 };
 
 export default withRouter(withTracker((props) => {
-  const helpMessages = HelpMessages.find({ routeName: props.match.path }).fetch();
+  const helpMessages = HelpMessages.findNonRetired({ routeName: props.match.path });
   return {
     helpMessages,
   };

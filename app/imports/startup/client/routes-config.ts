@@ -89,7 +89,7 @@ import {
   EXPLORER_PARAM,
   GUIDEDTOUR,
   MENTOR_SPACE,
-  PAGE_TRACKING_SCOREBOARD, PAGE_TRACKING_COMPARISON,
+  PAGE_TRACKING_SCOREBOARD, PAGE_TRACKING_COMPARISON, DEGREEPLANNER,
 } from './route-constants';
 import PageTrackingScoreboardPage from '../../ui/pages/shared/PageTrackingScoreboardPage';
 import PageTrackingComparisonPage from '../../ui/pages/shared/PageTrackingComparisonPage';
@@ -803,7 +803,7 @@ export const routes = {
     },
     /* ############################## DEGREE PLANNER ############################## */
     {
-      path: `/${URL_ROLES.STUDENT}/${USERNAME}/degree-planner`,
+      path: `/${URL_ROLES.STUDENT}/${USERNAME}/${DEGREEPLANNER}`,
       exact: true,
       component: StudentDegreePlannerPage,
     },

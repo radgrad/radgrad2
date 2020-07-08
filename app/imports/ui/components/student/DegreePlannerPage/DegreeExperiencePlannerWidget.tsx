@@ -63,7 +63,7 @@ const DEPWidget = (props: IDePProps) => {
     });
   };
 
-  let years: IAcademicYearInstance[] = AcademicYearInstances.find({ studentID }, { sort: { year: 1 } }).fetch();
+  let years: IAcademicYearInstance[] = AcademicYearInstances.findNonRetired({ studentID }, { sort: { year: 1 } });
   // Automatically generate 4 AcademicYearInstances if none exists
   if (years.length === 0) {
     generateAcademicYearInstances(4);
@@ -133,7 +133,7 @@ const DEPWidget = (props: IDePProps) => {
           showConfirmButton: false,
           timer: 1500,
         });
-        years = AcademicYearInstances.find({ studentID }, { sort: { year: 1 } }).fetch();
+        years = AcademicYearInstances.findNonRetired({ studentID }, { sort: { year: 1 } });
         setYears(years);
         visibleYears = yearsState.slice(visibleStartIndexState, visibleStartIndexState + 5);
         setVisibleYears(visibleYears);
@@ -166,7 +166,7 @@ const DEPWidget = (props: IDePProps) => {
           showConfirmButton: false,
           timer: 1500,
         });
-        years = AcademicYearInstances.find({ studentID }, { sort: { year: 1 } }).fetch();
+        years = AcademicYearInstances.findNonRetired({ studentID }, { sort: { year: 1 } });
         setYears(years);
         visibleYears = yearsState.slice(visibleStartIndexState, visibleStartIndexState + 5);
         setVisibleYears(visibleYears);
@@ -196,7 +196,7 @@ const DEPWidget = (props: IDePProps) => {
           showConfirmButton: false,
           timer: 1500,
         });
-        years = AcademicYearInstances.find({ studentID }, { sort: { year: 1 } }).fetch();
+        years = AcademicYearInstances.findNonRetired({ studentID }, { sort: { year: 1 } });
         setYears(years);
         visibleStartIndex = visibleStartIndexState - 1;
         setVisibleStartIndex(visibleStartIndex);
@@ -207,14 +207,14 @@ const DEPWidget = (props: IDePProps) => {
   };
 
   const isTermEmpty = (termID: string): boolean => {
-    const courseInstances = CourseInstances.find({
+    const courseInstances = CourseInstances.findNonRetired({
       termID: termID,
       studentID: studentID,
-    }).fetch();
-    const opportunityInstances = OpportunityInstances.find({
+    });
+    const opportunityInstances = OpportunityInstances.findNonRetired({
       termID: termID,
       studentID: studentID,
-    }).fetch();
+    });
     return courseInstances.length === 0 && opportunityInstances.length === 0;
   };
 
@@ -288,9 +288,9 @@ const DEPWidget = (props: IDePProps) => {
 
 const DEPWidgetCon = withTracker(({ match }) => {
   const studentID = getUserIdFromRoute(match);
-  const courseInstances: ICourseInstance[] = CourseInstances.find({ studentID }).fetch();
-  const opportunityInstances: IOpportunityInstance[] = OpportunityInstances.find({ studentID }).fetch();
-  const academicYearInstances: IAcademicYearInstance[] = AcademicYearInstances.find({ studentID }, { sort: { year: 1 } }).fetch();
+  const courseInstances: ICourseInstance[] = CourseInstances.findNonRetired({ studentID });
+  const opportunityInstances: IOpportunityInstance[] = OpportunityInstances.findNonRetired({ studentID });
+  const academicYearInstances: IAcademicYearInstance[] = AcademicYearInstances.findNonRetired({ studentID }, { sort: { year: 1 } });
   return {
     courseInstances,
     opportunityInstances,

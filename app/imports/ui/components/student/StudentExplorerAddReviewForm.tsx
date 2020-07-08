@@ -104,15 +104,17 @@ const StudentExplorerAddReviewForm = (props: IStudentExplorerAddReviewFormProps)
     const academicTerms = [];
     let instances;
     if (reviewType === 'course') {
-      instances = CourseInstances.find({
+      const course = event;
+      instances = CourseInstances.findNonRetired({
         studentID: getUserIdFromRoute(match),
-        courseID: event._id,
-      }).fetch();
+        courseID: course._id,
+      });
     } else {
-      instances = OpportunityInstances.find({
+      const opportunity = event;
+      instances = OpportunityInstances.findNonRetired({
         studentID: getUserIdFromRoute(match),
-        opportunityID: event._id,
-      }).fetch();
+        opportunityID: opportunity._id,
+      });
     }
     _.forEach(instances, (instance) => {
       const term = AcademicTerms.findDoc(instance.termID);

@@ -60,7 +60,7 @@ const StudentHomeMenu = (props: IStudentHomeMenuProps) => {
       <Responsive minWidth={Responsive.onlyTablet.minWidth}>
         <Menu vertical id={`${leftHandMenu}`}>
           {
-            menuItems.map((item, index) => (
+            menuItems.map((item) => (
               <Menu.Item
                 key={item.key}
                 as={NavLink}
@@ -68,7 +68,7 @@ const StudentHomeMenu = (props: IStudentHomeMenuProps) => {
                 to={`${baseRoute}home/${item.route}`}
                 content={item.key}
               />
-))
+            ))
           }
         </Menu>
       </Responsive>

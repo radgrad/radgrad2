@@ -233,7 +233,7 @@ const InspectorOpportunityView = (props: IInspectorOpportunityViewProps) => {
 const InspectorOpportunityViewCont = withTracker((props) => {
   // console.log(props);
   if (props.opportunityInstanceID) {
-    const verificationRequests = VerificationRequests.find({ opportunityInstanceID: props.opportunityInstanceID }).fetch();
+    const verificationRequests = VerificationRequests.findNonRetired({ opportunityInstanceID: props.opportunityInstanceID });
     if (verificationRequests.length > 0) {
       return {
         verificationRequest: verificationRequests[0],

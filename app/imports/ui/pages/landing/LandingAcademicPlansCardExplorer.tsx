@@ -72,7 +72,7 @@ const LandingAcademicPlansCardExplorerContainer = withTracker(() => {
   const sub2 = Meteor.subscribe(Slugs.getPublicationName());
   return {
     ready: sub1.ready() && sub2.ready(),
-    academicPlans: AcademicPlans.find({}, { $sort: { year: 1, name: 1 } }).fetch(),
+    academicPlans: AcademicPlans.findNonRetired({}, { $sort: { year: 1, name: 1 } }),
     count: AcademicPlans.countNonRetired(),
   };
 })(LandingAcademicPlansCardExplorerCon);

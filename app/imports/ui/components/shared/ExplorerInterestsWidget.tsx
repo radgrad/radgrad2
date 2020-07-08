@@ -59,13 +59,13 @@ const participation = (role, interestID) => {
   const interested = [];
   switch (role) {
     case URL_ROLES.STUDENT:
-      return getObjectsThatHaveInterest(StudentProfiles.find({ isAlumni: false }).fetch(), interestID);
+      return getObjectsThatHaveInterest(StudentProfiles.findNonRetired({ isAlumni: false }), interestID);
     case URL_ROLES.FACULTY:
-      return getObjectsThatHaveInterest(FacultyProfiles.find().fetch(), interestID);
+      return getObjectsThatHaveInterest(FacultyProfiles.findNonRetired(), interestID);
     case URL_ROLES.MENTOR:
-      return getObjectsThatHaveInterest(MentorProfiles.find().fetch(), interestID);
+      return getObjectsThatHaveInterest(MentorProfiles.findNonRetired(), interestID);
     case URL_ROLES.ALUMNI:
-      return getObjectsThatHaveInterest(StudentProfiles.find({ isAlumni: true }).fetch(), interestID);
+      return getObjectsThatHaveInterest(StudentProfiles.findNonRetired({ isAlumni: true }), interestID);
     default:
       return interested;
   }
@@ -73,17 +73,17 @@ const participation = (role, interestID) => {
 
 const getObjectsThatHaveInsterest = (profiles, props: IExplorerInterestsWidgetProps) => getObjectsThatHaveInterest(profiles, props.interest._id);
 
-const getRelatedCourses = (props: IExplorerInterestsWidgetProps) => getObjectsThatHaveInsterest(Courses.find().fetch(), props);
+const getRelatedCourses = (props: IExplorerInterestsWidgetProps) => getObjectsThatHaveInsterest(Courses.findNonRetired(), props);
 
 const getAssociationRelatedCourses = (courses, props: IExplorerInterestsWidgetProps) => {
-  const inPlanInstance = CourseInstances.find({
+  const inPlanInstance = CourseInstances.findNonRetired({
     studentID: props.profile.userID, verified: false,
-  }).fetch();
+  });
   const inPlanIDs = _.map(inPlanInstance, (value) => value.courseID);
 
-  const completedInstance = CourseInstances.find({
+  const completedInstance = CourseInstances.findNonRetired({
     studentID: props.profile.userID, verified: true,
-  }).fetch();
+  });
   const completedIDs = _.map(completedInstance, (value) => value.courseID);
 
   const relatedIDs = _.map(courses, (value) => value._id);
@@ -99,17 +99,17 @@ const getAssociationRelatedCourses = (courses, props: IExplorerInterestsWidgetPr
   return relatedCourses;
 };
 
-const getRelatedOpportunities = (props: IExplorerInterestsWidgetProps) => getObjectsThatHaveInsterest(Opportunities.find().fetch(), props);
+const getRelatedOpportunities = (props: IExplorerInterestsWidgetProps) => getObjectsThatHaveInsterest(Opportunities.findNonRetired(), props);
 
 const getAssociationRelatedOpportunities = (opportunities, props: IExplorerInterestsWidgetProps) => {
-  const inPlanInstance = OpportunityInstances.find({
+  const inPlanInstance = OpportunityInstances.findNonRetired({
     studentID: props.profile.userID, verified: false,
-  }).fetch();
+  });
   const inPlanIDs = _.map(inPlanInstance, (value) => value.courseID);
 
-  const completedInstance = OpportunityInstances.find({
+  const completedInstance = OpportunityInstances.findNonRetired({
     studentID: props.profile.userID, verified: true,
-  }).fetch();
+  });
   const completedIDs = _.map(completedInstance, (value) => value.courseID);
 
   const relatedIDs = _.map(opportunities, (value) => value._id);
@@ -138,7 +138,7 @@ const getBaseURL = (props: IExplorerInterestsWidgetProps) => {
 const ExplorerInterestsWidget = (props: IExplorerInterestsWidgetProps) => {
   const relatedCourses = getAssociationRelatedCourses(getRelatedCourses(props), props);
   const relatedOpportunities = getAssociationRelatedOpportunities(getRelatedOpportunities(props), props);
-  const teaser = Teasers.find({ targetSlugID: props.interest.slugID }).fetch();
+  const teaser = Teasers.findNonRetired({ targetSlugID: props.interest.slugID });
   const hasTeaser = teaser.length > 0;
 
   return (

@@ -38,21 +38,21 @@ interface IStudentIceColumnRecommendedProps {
 
 const hasNoInterests = (props: IStudentIceColumnRecommendedProps): boolean => {
   const userID = getUserIdFromRoute(props.match);
-  const interests = FavoriteInterests.find({ userID }).fetch();
+  const interests = FavoriteInterests.findNonRetired({ userID });
   return interests.length === 0;
 };
 
 const availableCourses = (props: IStudentIceColumnRecommendedProps): ICourse[] => {
-  const courses = Courses.find({}).fetch();
+  const courses = Courses.findNonRetired({});
   if (courses.length > 0) {
     const filtered: ICourse[] = _.filter(courses, (course) => {
       if (course.num === 'ICS 499') { // TODO: hardcoded ICS string
         return true;
       }
-      const ci = CourseInstances.find({
+      const ci = CourseInstances.findNonRetired({
         studentID: getUserIdFromRoute(props.match),
         courseID: course._id,
-      }).fetch();
+      });
       return ci.length === 0;
     });
     return filtered;
@@ -62,7 +62,7 @@ const availableCourses = (props: IStudentIceColumnRecommendedProps): ICourse[] =
 
 const matchingOpportunities = (props: IStudentIceColumnRecommendedProps): IOpportunity[] => {
   const { favoriteInterests } = props;
-  const allOpportunities = Opportunities.find().fetch();
+  const allOpportunities = Opportunities.findNonRetired();
   const matching = [];
   const userInterests = [];
   _.forEach(favoriteInterests, (f) => {
@@ -214,7 +214,7 @@ const StudentIceColumnRecommended = (props: IStudentIceColumnRecommendedProps) =
 
 const StudentIceColumnRecommendedCon = withTracker(({ match }) => {
   const userID = getUserIdFromRoute(match);
-  const favoriteInterests: IFavoriteInterest[] = FavoriteInterests.find({ userID }).fetch();
+  const favoriteInterests: IFavoriteInterest[] = FavoriteInterests.findNonRetired({ userID });
 
   return {
     favoriteInterests,

@@ -72,8 +72,8 @@ const LandingInterestsCardExplorerContainer = withTracker(() => {
   const sub2 = Meteor.subscribe(Slugs.getPublicationName());
   return {
     ready: sub1.ready() && sub2.ready(),
-    interests: Interests.find({}).fetch(),
-    count: Interests.find().count(),
+    interests: Interests.findNonRetired({}),
+    count: Interests.countNonRetired(),
   };
 })(LandingInterestsCardExplorerCon);
 

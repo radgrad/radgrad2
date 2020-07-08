@@ -91,7 +91,7 @@ const addedCareerGoals = (props: ICardExplorerPageProps): { item: ICareerGoal, c
 
 const addedCourses = (props: ICardExplorerPageProps): { item: ICourse, count: number }[] => _.map(props.favoriteCourses, (f: any) => ({ item: Courses.findDoc(f.courseID), count: 1 }));
 
-const addedDegrees = (): { item: IDesiredDegree, count: number }[] => _.map(DesiredDegrees.find({}, { sort: { name: 1 } }).fetch(), (d) => ({
+const addedDegrees = (): { item: IDesiredDegree, count: number }[] => _.map(DesiredDegrees.findNonRetired({}, { sort: { name: 1 } }), (d) => ({
   item: d,
   count: 1,
 }));
@@ -175,11 +175,11 @@ const CardExplorerPage = (props: ICardExplorerPageProps) => {
 
 export default withRouter(withTracker((props) => {
   const studentID = Router.getUserIdFromRoute(props.match);
-  const favoritePlans = FavoriteAcademicPlans.find({ studentID }).fetch();
-  const favoriteCareerGoals = FavoriteCareerGoals.find({ userID: studentID }).fetch();
-  const favoriteCourses = FavoriteCourses.find({ studentID }).fetch();
-  const favoriteInterests = FavoriteInterests.find({ userID: studentID }).fetch();
-  const favoriteOpportunities = FavoriteOpportunities.find({ studentID }).fetch();
+  const favoritePlans = FavoriteAcademicPlans.findNonRetired({ studentID });
+  const favoriteCareerGoals = FavoriteCareerGoals.findNonRetired({ userID: studentID });
+  const favoriteCourses = FavoriteCourses.findNonRetired({ studentID });
+  const favoriteInterests = FavoriteInterests.findNonRetired({ userID: studentID });
+  const favoriteOpportunities = FavoriteOpportunities.findNonRetired({ studentID });
   return {
     favoritePlans,
     favoriteCareerGoals,

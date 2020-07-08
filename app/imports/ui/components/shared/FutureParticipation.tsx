@@ -46,10 +46,10 @@ export default withTracker((props) => {
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
   // console.log(currentTerm);
   const numTerms = quarter ? 12 : 9;
-  const academicTerms = AcademicTerms.find({ termNumber: { $gte: currentTerm.termNumber } }, {
+  const academicTerms = AcademicTerms.findNonRetired({ termNumber: { $gte: currentTerm.termNumber } }, {
     sort: { termNumber: 1 },
     limit: numTerms,
-  }).fetch();
+  });
   const scores = [];
   _.forEach(academicTerms, (term: any) => {
     const id = `${props.item._id} ${term._id}`;

@@ -99,7 +99,7 @@ export const noPlan = (match: Router.IMatchProps): boolean => {
 };
 
 export const availableAcademicPlans = (match: Router.IMatchProps): object[] => {
-  let plans = AcademicPlans.find({}, { sort: { year: 1, name: 1 } }).fetch();
+  let plans = AcademicPlans.findNonRetired({}, { sort: { year: 1, name: 1 } });
   const username = Router.getUsername(match);
   if (username) {
     const profile = Users.getProfile(username);
@@ -107,12 +107,12 @@ export const availableAcademicPlans = (match: Router.IMatchProps): object[] => {
       plans = AcademicPlans.getLatestPlans();
     } else {
       const declaredTerm = AcademicTerms.findDoc(profile.declaredAcademicTermID);
-      plans = _.filter(AcademicPlans.find({ termNumber: { $gte: declaredTerm.termNumber } }, {
+      plans = AcademicPlans.findNonRetired({ termNumber: { $gte: declaredTerm.termNumber } }, {
         sort: {
           year: 1,
           name: 1,
         },
-      }).fetch(), (ap) => !ap.retired);
+      });
     }
     const profilePlanIDs = profileGetFavoriteAcademicPlanIDs(profile);
     // console.log(plans, profilePlanIDs, _.filter(plans, p => !_.includes(profilePlanIDs, p._id)));
@@ -125,26 +125,26 @@ export const academicPlansItemCount = (match: Router.IMatchProps): number => ava
 
 export const interestedStudents = (item: { _id: string }, type: string): IStudentProfile[] => {
   const interested = [];
-  let profiles = StudentProfiles.find({ isAlumni: false }).fetch();
+  let profiles = StudentProfiles.findNonRetired({ isAlumni: false });
 
   if (type === EXPLORER_TYPE.ACADEMICPLANS) {
     profiles = _.filter(profiles, (profile) => {
       const studentID = profile.userID;
-      const favPlans = FavoriteAcademicPlans.find({ studentID }).fetch();
+      const favPlans = FavoriteAcademicPlans.findNonRetired({ studentID });
       const favIDs = _.map(favPlans, (fav) => fav.academicPlanID);
       return _.includes(favIDs, item._id);
     });
   } else if (type === EXPLORER_TYPE.CAREERGOALS) {
     profiles = _.filter(profiles, (profile) => {
       const userID = profile.userID;
-      const favCareerGoals = FavoriteCareerGoals.find({ userID }).fetch();
+      const favCareerGoals = FavoriteCareerGoals.findNonRetired({ userID });
       const favIDs = _.map(favCareerGoals, (fav) => fav.careerGoalID);
       return _.includes(favIDs, item._id);
     });
   } else if (type === EXPLORER_TYPE.INTERESTS) {
     profiles = _.filter(profiles, (profile) => {
       const userID = profile.userID;
-      const favInterests = FavoriteInterests.find({ userID }).fetch();
+      const favInterests = FavoriteInterests.findNonRetired({ userID });
       const favIDs = _.map(favInterests, (fav) => fav.interestID);
       return _.includes(favIDs, item._id);
     });
@@ -173,7 +173,7 @@ export const userCareerGoals = (careerGoal: ICareerGoal, match: Router.IMatchPro
 };
 
 const availableCareerGoals = (match: Router.IMatchProps): object[] => {
-  const careers = CareerGoals.find({}).fetch();
+  const careers = CareerGoals.findNonRetired({});
   const username = Router.getUsername(match);
   if (username) {
     const profile = Users.getProfile(username);
@@ -209,10 +209,10 @@ export const noCareerGoals = (match: Router.IMatchProps): boolean => {
 /* ####################################### COURSES HELPER FUNCTIONS ############################################## */
 export const userCourses = (course: ICourse, match: Router.IMatchProps): string => {
   let ret = '';
-  const ci = CourseInstances.find({
+  const ci = CourseInstances.findNonRetired({
     studentID: Router.getUserIdFromRoute(match),
     courseID: course._id,
-  }).fetch();
+  });
   if (ci.length > 0) {
     ret = 'check green circle outline icon';
 
@@ -229,7 +229,7 @@ export const courseName = (course: { item: ICourse, count: number }): string => 
 };
 
 export const availableCourses = (match: Router.IMatchProps): object[] => {
-  const courses = Courses.find({}).fetch();
+  const courses = Courses.findNonRetired({});
   if (courses.length > 0) {
     const studentID = Router.getUserIdFromRoute(match);
     const profile = Users.getProfile(studentID);
@@ -237,10 +237,10 @@ export const availableCourses = (match: Router.IMatchProps): object[] => {
       if (course.num === 'ICS 499') { // TODO: hardcoded ICS string
         return true;
       }
-      const ci = CourseInstances.find({
+      const ci = CourseInstances.findNonRetired({
         studentID,
         courseID: course._id,
-      }).fetch();
+      });
       return ci.length === 0;
     });
     if (profile.role === ROLE.STUDENT) {
@@ -250,7 +250,7 @@ export const availableCourses = (match: Router.IMatchProps): object[] => {
         filtered = _.filter(filtered, (c) => c.num.match(regex));
       }
     }
-    const favorites = FavoriteCourses.find({ studentID }).fetch();
+    const favorites = FavoriteCourses.findNonRetired({ studentID });
     const favIDs = _.map(favorites, (fav) => fav.courseID);
     filtered = _.filter(filtered, (f) => !_.includes(favIDs, f._id));
     return filtered;
@@ -273,7 +273,7 @@ export const matchingCourses = (match: Router.IMatchProps): object[] => {
 export const coursesItemCount = (match: Router.IMatchProps): number => availableCourses(match).length;
 
 /* ####################################### DEGREES HELPER FUNCTIONS ####################################### */
-export const degrees = (): object[] => DesiredDegrees.find({}, { sort: { name: 1 } }).fetch();
+export const degrees = (): object[] => DesiredDegrees.findNonRetired({}, { sort: { name: 1 } });
 
 export const degreesItemCount = (): number => degrees().length;
 
@@ -298,7 +298,7 @@ export const noInterests = (match: Router.IMatchProps): boolean => {
 };
 
 export const availableInterests = (match: Router.IMatchProps): object[] => {
-  let interests = Interests.find({}).fetch();
+  let interests = Interests.findNonRetired({});
   const username = Router.getUsername(match);
   if (username) {
     const profile = Users.getProfile(username);
@@ -314,10 +314,10 @@ export const interestsItemCount = (match: Router.IMatchProps): number => availab
 /* ####################################### OPPORTUNITIES HELPER FUNCTIONS ######################################## */
 export const userOpportunities = (opportunity: IOpportunity, match: Router.IMatchProps): string => {
   let ret = '';
-  const oi = OpportunityInstances.find({
+  const oi = OpportunityInstances.findNonRetired({
     studentID: Router.getUserIdFromRoute(match),
     opportunityID: opportunity._id,
-  }).fetch();
+  });
   if (oi.length > 0) {
     ret = 'check green circle outline icon';
 
@@ -335,17 +335,17 @@ export const opportunityItemName = (item: { item: IOpportunity, count: number })
 };
 
 export const availableOpps = (props: ICardExplorerMenuWidgetProps): object[] => {
-  const notRetired = Opportunities.find({}).fetch();
+  const notRetired = Opportunities.findNonRetired({});
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
   // console.log(notRetired.length);
   if (Router.isUrlRoleStudent(props.match)) {
     const studentID = Router.getUserIdFromRoute(props.match);
     if (notRetired.length > 0) {
       let filteredOpps = _.filter(notRetired, (opp) => {
-        const oi = OpportunityInstances.find({
+        const oi = OpportunityInstances.findNonRetired({
           studentID,
           opportunityID: opp._id,
-        }).fetch();
+        });
         return oi.length === 0;
       });
       // console.log('first filter ', filteredOpps.length);
@@ -360,7 +360,7 @@ export const availableOpps = (props: ICardExplorerMenuWidgetProps): object[] => 
         return inFuture;
       });
       // console.log('second filter ', filteredOpps.length);
-      const favorites = FavoriteOpportunities.find({ studentID }).fetch();
+      const favorites = FavoriteOpportunities.findNonRetired({ studentID });
       const favIDs = _.map(favorites, (fav) => fav.opportunityID);
       filteredOpps = _.filter(filteredOpps, (f) => !_.includes(favIDs, f._id));
       // console.log('third filter ', filteredOpps.length);

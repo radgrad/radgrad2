@@ -26,9 +26,9 @@ const ALLOWED_ROLES = [
 
 const UserAnswersComponent = (props: IUserAnswersComponentProps) => {
   const thisUserProfile = Users.findProfileFromUsername(props.match.params.username);
-  const mentorAnswers = MentorAnswers.find({ mentorID: props.userID }).fetch();
+  const mentorAnswers = MentorAnswers.findNonRetired({ mentorID: props.userID });
   const associatedQuestions = mentorAnswers.map((ele) => ({
-    question: MentorQuestions.find({ _id: ele.questionID }).fetch()[0].question,
+    question: MentorQuestions.findNonRetired({ _id: ele.questionID })[0].question,
     answer: ele.text,
   }));
   const panels = associatedQuestions.map((ele, i) => ({

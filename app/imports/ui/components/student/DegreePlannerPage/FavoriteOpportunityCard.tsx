@@ -89,10 +89,10 @@ const FavoriteOpportunityCard = (props: IFavoriteOpportunityCardProps) => {
 };
 
 export default withRouter(withTracker((props) => {
-  const instances: IOpportunityInstance[] = OpportunityInstances.find({
+  const instances: IOpportunityInstance[] = OpportunityInstances.findNonRetired({
     studentID: props.studentID,
     opportunityID: props.opportunity._id,
-  }).fetch();
+  });
   return {
     instances,
   };
