@@ -45,7 +45,6 @@ const AdminAnalyticsOverheadAnalysisWidget = (props: IAdminAnalyticsOverheadAnal
     <React.Fragment>
       <AdminAnalyticsDateSelectionWidget page={ANALYTICS.OVERHEADANALYSIS} />
       <Segment padded className="container">
-        {/* TODO: Make this reactive */}
         <Header dividing>{dateRangeToString(props.dateRange)}</Header>
         <Tab panes={panes} menu={tabMenuSettings} />
       </Segment>
