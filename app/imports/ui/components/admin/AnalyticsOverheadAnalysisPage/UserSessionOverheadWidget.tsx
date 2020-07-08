@@ -1,35 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import * as _ from 'lodash';
-import { Button, Container, Tab, Table } from 'semantic-ui-react';
+import { Container, Tab, Table } from 'semantic-ui-react';
 import { RootState } from '../../../../redux/types';
 import { IAdminAnalyticsOverheadAnalysisData } from '../../../../redux/admin/analytics/reducers';
+import { IUserInteraction } from '../../../../typings/radgrad';
+import UserSessionOverheadModal from './UserSessionOverheadModal';
 
 interface IUserSessionOverheadWidgetProps {
-  overheadBuckets: number[];
   overheadData: IAdminAnalyticsOverheadAnalysisData[];
+  userInteractions: { [username: string]: IUserInteraction[] };
 }
 
 const mapStateToProps = (state: RootState): { [key: string]: any } => ({
-  overheadBuckets: state.admin.analytics.overheadAnalysis.overheadBuckets,
   overheadData: state.admin.analytics.overheadAnalysis.overheadData,
+  userInteractions: state.admin.analytics.overheadAnalysis.userInteractions,
 });
-
-const handleShowClick = (event): void => {
-  event.preventDefault();
-};
 
 type tableColumns = 'username' | 'sessions' | 'num-docs' | 'docs-per-min' | 'total-time';
 
 const UserSessionOverheadWidget = (props: IUserSessionOverheadWidgetProps) => {
-  const [data, setData] = useState<IAdminAnalyticsOverheadAnalysisData[]>(props.overheadData);
+  const { overheadData, userInteractions } = props;
+  const [data, setData] = useState<IAdminAnalyticsOverheadAnalysisData[]>(overheadData);
   const [column, setColumn] = useState<tableColumns>(undefined);
   const [direction, setDirection] = useState<'ascending' | 'descending'>(undefined);
 
   // If Date Selection gets re-fired, update data
   useEffect(() => {
-    setData(props.overheadData);
-  }, [props.overheadData]);
+    setData(overheadData);
+  }, [overheadData]);
 
   const handleSort = (event, clickedColumn: tableColumns): void => {
     event.preventDefault();
@@ -52,7 +51,6 @@ const UserSessionOverheadWidget = (props: IUserSessionOverheadWidgetProps) => {
   return (
     <Tab.Pane attached={false}>
       <Container>
-        {/* TODO sortable */}
         <Table fixed celled striped sortable style={firstTableStyle}>
           <Table.Header>
             <Table.Row>
@@ -101,9 +99,11 @@ const UserSessionOverheadWidget = (props: IUserSessionOverheadWidgetProps) => {
                 <Table.Cell>{user['num-docs']}</Table.Cell>
                 <Table.Cell>{user['docs-per-min']}</Table.Cell>
                 <Table.Cell>{user['total-time']}</Table.Cell>
-                {/* TODO Modal */}
                 <Table.Cell>
-                  <Button size="tiny" color="green" basic fluid onClick={handleShowClick}>SHOW</Button>
+                  <UserSessionOverheadModal
+                    username={user.username}
+                    userInteractionsByUser={userInteractions[user.username]}
+                  />
                 </Table.Cell>
               </Table.Row>
             ))}
