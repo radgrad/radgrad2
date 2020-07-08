@@ -19,6 +19,7 @@ import { setSelectedStudentUsername } from '../../../redux/advisor/home/actions'
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
 import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
+import { RootState } from '../../../redux/types';
 
 interface IAdvisorUpdateStudentWidgetProps {
   dispatch: (any) => void;
@@ -31,7 +32,7 @@ interface IAdvisorUpdateStudentWidgetProps {
   careerGoals: { [key: string]: any }[];
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: RootState) => ({
   selectedUsername: state.advisor.home.selectedUsername,
   isLoaded: state.advisor.home.isLoaded,
 });

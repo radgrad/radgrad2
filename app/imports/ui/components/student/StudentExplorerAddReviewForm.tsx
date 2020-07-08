@@ -12,8 +12,8 @@ import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { defineMethod } from '../../../api/base/BaseCollection.methods';
-import { IAcademicTerm, IReviewDefine } from '../../../typings/radgrad';
-import { UserInteractionsDataType, UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
+import { IAcademicTerm, IReviewDefine, IUserInteractionDefine } from '../../../typings/radgrad';
+import { UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
 import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
 import { getUserIdFromRoute, getUsername } from '../shared/RouterHelperFunctions';
 import { Courses } from '../../../api/course/CourseCollection';
@@ -84,10 +84,10 @@ const StudentExplorerAddReviewForm = (props: IStudentExplorerAddReviewFormProps)
           const revieweeID = Opportunities.getID(reviewee);
           slug = Opportunities.findSlugByID(revieweeID);
         }
-        const interactionData: UserInteractionsDataType = {
+        const interactionData: IUserInteractionDefine = {
           username,
           type: UserInteractionsTypes.ADDREVIEW,
-          typeData: [`${reviewType}:${academicTermSlug}-${slug}`],
+          typeData: [reviewType, academicTermSlug, slug],
         };
         userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
           if (userInteractionError) {

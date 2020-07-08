@@ -4,8 +4,9 @@ import Swal from 'sweetalert2';
 import { withRouter } from 'react-router-dom';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { getUsername } from '../shared/RouterHelperFunctions';
-import { UserInteractionsDataType, UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
+import { UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
 import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
+import { IUserInteractionDefine } from '../../../typings/radgrad';
 
 interface IStudentAboutMeUpdateWebsiteFormProps {
   website: string;
@@ -48,10 +49,10 @@ const StudentAboutMeUpdateWebsiteForm = (props: IStudentAboutMeUpdateWebsiteForm
           allowEnterKey: false,
         });
         const username = getUsername(props.match);
-        const interactionData: UserInteractionsDataType = {
+        const interactionData: IUserInteractionDefine = {
           username,
           type: UserInteractionsTypes.WEBSITE,
-          typeData: websiteState,
+          typeData: [websiteState],
         };
         userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
           if (userInteractionError) {

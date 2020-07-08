@@ -27,7 +27,6 @@ interface IAddReviewFormProps {
 // }
 
 const AddReviewForm = (props: IAddReviewFormProps) => {
-// class AddReviewForm extends React.Component<IAddReviewFormProps, IAddReviewFormState> {
   const [reviewType, setReviewType] = useState('');
 
   const handleModelChange = (model) => {

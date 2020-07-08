@@ -1,18 +1,11 @@
 import React from 'react';
 import { withRouter, NavLink } from 'react-router-dom';
 import { Menu } from 'semantic-ui-react';
-import { buildRouteName } from '../shared/RouterHelperFunctions';
+import { buildRouteName, IMatchProps } from '../shared/RouterHelperFunctions';
 import { ANALYTICS } from '../../../startup/client/route-constants';
 
 interface IAdminAnalyticsMenuWidgetProps {
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
+  match: IMatchProps;
 }
 
 const AdminAnalyticsMenuWidget = (props: IAdminAnalyticsMenuWidgetProps) => {
@@ -20,25 +13,20 @@ const AdminAnalyticsMenuWidget = (props: IAdminAnalyticsMenuWidgetProps) => {
   return (
     <div>
       <Menu vertical text>
-        <Menu.Item as={NavLink} exact to={buildRouteName(match, `/${ANALYTICS.HOME}`)}>Logged In Users</Menu.Item>
-        <Menu.Item
-          as={NavLink}
-          exact
-          to={buildRouteName(match, `/${ANALYTICS.HOME}/${ANALYTICS.NEWSLETTER}`)}
-        >
+        <Menu.Item as={NavLink} exact to={buildRouteName(match, `/${ANALYTICS.HOME}`)}>
+          Logged In Users
+        </Menu.Item>
+        <Menu.Item as={NavLink} exact to={buildRouteName(match, `/${ANALYTICS.HOME}/${ANALYTICS.NEWSLETTER}`)}>
           Newsletter
         </Menu.Item>
         <Menu.Item as={NavLink} exact to={buildRouteName(match, `/${ANALYTICS.HOME}/${ANALYTICS.OVERHEADANALYSIS}`)}>
-          Overhead
-          Analysis
+          Overhead Analysis
         </Menu.Item>
         <Menu.Item as={NavLink} exact to={buildRouteName(match, `/${ANALYTICS.HOME}/${ANALYTICS.STUDENTSUMMARY}`)}>
-          Student
-          Summary
+          Student Summary
         </Menu.Item>
         <Menu.Item as={NavLink} exact to={buildRouteName(match, `/${ANALYTICS.HOME}/${ANALYTICS.USERINTERACTIONS}`)}>
-          User
-          Interactions
+          User Interactions
         </Menu.Item>
       </Menu>
     </div>

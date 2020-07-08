@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminAnalyticsMenuWidget from '../../components/admin/AdminAnalyticsMenuWidget';
-import AdminAnalyticsLoggedInUsersWidget from '../../components/admin/AdminAnalyticsLoggedInUsersWidget';
+import AdminAnalyticsLoggedInUsersWidget from '../../components/admin/AnalyticsPage/AdminAnalyticsLoggedInUsersWidget';
 
 const AdminAnalyticsPage = () => (
   <div>

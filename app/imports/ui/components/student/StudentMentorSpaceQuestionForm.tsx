@@ -10,8 +10,9 @@ import { MentorQuestions } from '../../../api/mentor/MentorQuestionCollection';
 import { defineMethod } from '../../../api/base/BaseCollection.methods';
 import { studentMentorSpaceAskQuestionWidget } from './student-widget-names';
 import { getUsername } from '../shared/RouterHelperFunctions';
-import { UserInteractionsDataType, UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
+import { UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
 import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
+import { IUserInteractionDefine } from '../../../typings/radgrad';
 
 interface IStudentMentorSpaceQuestionFormProps {
   match: {
@@ -53,15 +54,15 @@ class StudentMentorSpaceQuestionForm extends React.Component<IStudentMentorSpace
           showConfirmButton: false,
           timer: 1500,
         });
-        const typeData = question.substring(0, 100); // get first 100 characters of question for typeData
-        const interactionData: UserInteractionsDataType = {
+        const typeData = [question.substring(0, 100)]; // get first 100 characters of question for typeData
+        const interactionData: IUserInteractionDefine = {
           username,
           type: UserInteractionsTypes.ASKQUESTION,
           typeData,
         };
         userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
           if (userInteractionError) {
-            console.log('Error creating UserInteraction.', userInteractionError);
+            console.error('Error creating UserInteraction.', userInteractionError);
           }
         });
         this.formRef.current.reset();
