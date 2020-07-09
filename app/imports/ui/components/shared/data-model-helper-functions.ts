@@ -236,7 +236,7 @@ export const profileGetInterests = (profile) => {
   return _.map(favInterests, (fav) => Interests.findDoc(fav.interestID));
 };
 
-export const profileGetInterestIDs = (profile) => _.map(profileGetInterests(profile), (interest) => interest._id);
+export const profileGetInterestIDs = (profile) => _.map(profileGetInterests(profile), '_id');
 
 export const profileToFullName = (profile) => Users.getFullName(profile.userID);
 
