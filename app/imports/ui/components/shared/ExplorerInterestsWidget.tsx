@@ -45,14 +45,14 @@ const getObjectsThatHaveInterest = (objects, props: IExplorerInterestsWidgetProp
 const getRelatedCourses = (props: IExplorerInterestsWidgetProps) => getObjectsThatHaveInterest(props.courses, props);
 
 const getAssociationRelatedCourses = (courses, props: IExplorerInterestsWidgetProps) => {
-  const inPlanInstances = CourseInstances.find({
+  const inPlanInstances = CourseInstances.findNonRetired({
     studentID: props.profile.userID, verified: false,
-  }).fetch();
+  });
   const inPlanIDs = _.uniq(_.map(inPlanInstances, 'courseID'));
 
   const completedInstance = CourseInstances.findNonRetired({
     studentID: props.profile.userID, verified: true,
-  }).fetch();
+  });
   const completedIDs = _.uniq(_.map(completedInstance, 'courseID'));
 
   const relatedIDs = _.uniq(_.map(courses, '_id'));

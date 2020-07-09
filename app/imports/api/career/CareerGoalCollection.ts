@@ -6,7 +6,6 @@ import { Interests } from '../interest/InterestCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
 import { ICareerGoalDefine, ICareerGoalUpdate } from '../../typings/radgrad';
 import { FavoriteCareerGoals } from '../favorite/FavoriteCareerGoalCollection';
-import doc = Mocha.reporters.doc;
 
 /**
  * CareerGoals represent the professional future(s) that the student wishes to work toward.
