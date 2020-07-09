@@ -168,13 +168,13 @@ const CardExplorerMenuMobileWidget = (props: ICardExplorerMenuMobileWidgetProps)
 export const CardExplorerMenuMobileWidgetCon = withTracker(({ match }) => {
   const studentID = Router.getUserIdFromRoute(match);
   const userID = studentID;
-  const favoriteAcademicPlans: IFavoriteAcademicPlan[] = FavoriteAcademicPlans.find({ studentID }).fetch();
-  const favoriteCareerGoals: IFavoriteCareerGoal[] = FavoriteCareerGoals.find({ userID }).fetch();
-  const favoriteCourses: IFavoriteCourse[] = FavoriteCourses.find({ studentID }).fetch();
-  const favoriteInterests: IFavoriteInterest[] = FavoriteInterests.find({ userID }).fetch();
-  const favoriteOpportunities: IFavoriteOpportunity[] = FavoriteOpportunities.find({ studentID }).fetch();
-  const courseInstances: ICourseInstance[] = CourseInstances.find({ studentID }).fetch();
-  const opportunityInstances: IOpportunityInstance[] = OpportunityInstances.find({ studentID }).fetch();
+  const favoriteAcademicPlans: IFavoriteAcademicPlan[] = FavoriteAcademicPlans.findNonRetired({ studentID });
+  const favoriteCareerGoals: IFavoriteCareerGoal[] = FavoriteCareerGoals.findNonRetired({ userID });
+  const favoriteCourses: IFavoriteCourse[] = FavoriteCourses.findNonRetired({ studentID });
+  const favoriteInterests: IFavoriteInterest[] = FavoriteInterests.findNonRetired({ userID });
+  const favoriteOpportunities: IFavoriteOpportunity[] = FavoriteOpportunities.findNonRetired({ studentID });
+  const courseInstances: ICourseInstance[] = CourseInstances.findNonRetired({ studentID });
+  const opportunityInstances: IOpportunityInstance[] = OpportunityInstances.findNonRetired({ studentID });
   return {
     favoriteAcademicPlans,
     favoriteCareerGoals,

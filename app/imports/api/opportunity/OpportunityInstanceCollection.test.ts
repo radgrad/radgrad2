@@ -14,6 +14,7 @@ import { makeSampleIce } from '../ice/SampleIce';
 import { IAcademicTerm, IOpportunity, IOpportunityInstance } from '../../typings/radgrad';
 import { Users } from '../user/UserCollection';
 import { Opportunities } from './OpportunityCollection';
+import { Slugs } from '../slug/SlugCollection';
 
 /* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
 /* eslint-env mocha */
@@ -111,6 +112,7 @@ if (Meteor.isServer) {
     it('Can checkIntegrity no errors', function test5() {
       const problems = OpportunityInstances.checkIntegrity();
       const oi: IOpportunityInstance = OpportunityInstances.findOne({});
+
       if (oi.verified) {
         expect(problems.length).to.equal(1);
       } else {
@@ -118,27 +120,48 @@ if (Meteor.isServer) {
       }
     });
 
-    it('Can getOpportunityDoc, getAcademicTermDoc, getStudentDoc, and removeUser', function test6() {
+    it('Can getOpportunityDoc, getOpportunitySlug, getAcademicTermDoc, getStudentDoc', function test6() {
       const oi: IOpportunityInstance = OpportunityInstances.findOne({});
       const docID = oi._id;
       const opportunity: IOpportunity = Opportunities.findDoc(oi.opportunityID);
+      /* getOpportunityDoc */
       const oDoc = OpportunityInstances.getOpportunityDoc(docID);
+
       expect(opportunity.name).to.equal(oDoc.name);
       expect(opportunity.description).to.equal(oDoc.description);
       expect(opportunity.ice.i).to.equal(oDoc.ice.i);
       expect(opportunity.ice.c).to.equal(oDoc.ice.c);
       expect(opportunity.ice.e).to.equal(oDoc.ice.e);
+
+      /* getOpportunitySlug */
+      const opportunitySlug = Slugs.getNameFromID(opportunity.slugID);
+
+      expect(OpportunityInstances.getOpportunitySlug(docID)).to.equal(opportunitySlug);
+
+      /* getAcademicTermDoc */
       const academicTerm: IAcademicTerm = AcademicTerms.findDoc(oi.termID);
       const aDoc: IAcademicTerm = OpportunityInstances.getAcademicTermDoc(docID);
+
       expect(academicTerm.year).to.equal(aDoc.year);
       expect(academicTerm.term).to.equal(aDoc.term);
       expect(academicTerm.termNumber).to.equal(aDoc.termNumber);
+
+      /* getStudentDoc */
       const student = Users.getProfile(oi.studentID);
       const sDoc = OpportunityInstances.getStudentDoc(docID);
+
       expect(student.username).to.equal(sDoc.username);
       expect(student.firstName).to.equal(sDoc.firstName);
       expect(student.lastName).to.equal(sDoc.lastName);
-      OpportunityInstances.removeUser(oi.studentID);
+    });
+
+    it('Can removeUser', function test7() {
+      const oi: IOpportunityInstance = OpportunityInstances.findOne({});
+      const docID = oi._id;
+      const studentID = oi.studentID;
+      OpportunityInstances.removeUser(studentID);
+
+      expect(OpportunityInstances.find({ studentID }).count()).to.equal(0);
       expect(OpportunityInstances.isDefined(docID)).to.be.false;
     });
   });

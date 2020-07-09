@@ -133,7 +133,7 @@ const MentorAboutMeWidget = (props: IMentorAboutMeWidgetProps) => {
 
   const firstCareerGoal = () => {
     let ret;
-    const allCareerGoals = CareerGoals.find({}, { sort: { name: 1 } }).fetch();
+    const allCareerGoals = CareerGoals.findNonRetired({}, { sort: { name: 1 } });
     if (allCareerGoals.length > 0) {
       ret = Slugs.findDoc(allCareerGoals[0].slugID).name;
     }
@@ -151,7 +151,7 @@ const MentorAboutMeWidget = (props: IMentorAboutMeWidgetProps) => {
 
   const firstInterest = () => {
     let ret;
-    const interests = Interests.find({}, { sort: { name: 1 } }).fetch();
+    const interests = Interests.findNonRetired({}, { sort: { name: 1 } });
     if (interests.length > 0) {
       ret = Slugs.findDoc(interests[0].slugID).name;
     }
@@ -492,8 +492,8 @@ const MentorAboutMeWidgetCont = withTracker(({ match }) => {
   const username = getUsername(match);
   const profile: IMentorProfile = Users.getProfile(username);
   const userID = getUserIdFromRoute(match);
-  const favoriteInterests: IFavoriteInterest[] = FavoriteInterests.find({ userID }).fetch();
-  const favoriteCareerGoals: IFavoriteCareerGoal[] = FavoriteCareerGoals.find({ userID }).fetch();
+  const favoriteInterests: IFavoriteInterest[] = FavoriteInterests.findNonRetired({ userID });
+  const favoriteCareerGoals: IFavoriteCareerGoal[] = FavoriteCareerGoals.findNonRetired({ userID });
 
   return {
     profile,

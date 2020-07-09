@@ -2,10 +2,9 @@ import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminAnalyticsMenuWidget from '../../components/admin/AdminAnalyticsMenuWidget';
-import AdminAnalyticsStudentSummaryWidget from '../../components/admin/AdminAnalyticsStudentSummaryWidget';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
+import AdminAnalyticsStudentSummaryWidget from '../../components/admin/AnalyticsStudentSummaryPage/AdminAnalyticsStudentSummaryWidget';
 
-/** A simple static component to render some text for the landing page. */
 const AdminAnalyticsStudentSummaryPage = () => {
   const paddedStyle = {
     paddingTop: 20,

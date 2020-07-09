@@ -65,7 +65,7 @@ SyncedCron.add({
               updated: moment().toDate(),
             },
           });
-          if ((iceSnap.i < 100) || (iceSnap.co < 100) || (iceSnap.e < 100)) {
+          if ((iceSnap.i < 100) || (iceSnap.c < 100) || (iceSnap.e < 100)) {
             if ((ice.i > 100) && (ice.c > 100) && (ice.e > 100)) {
               // @ts-ignore
               UserInteractions.define({

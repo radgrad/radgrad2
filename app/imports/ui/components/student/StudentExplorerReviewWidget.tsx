@@ -54,10 +54,10 @@ const reviewData = (review: { [key: string]: any }): { [key: string]: any } => {
 
 const reviews = (props: IStudentExplorerReviewWidgetProps): IReview[] => {
   const event = props.event;
-  const matchingReviews = Reviews.find({
+  const matchingReviews = Reviews.findNonRetired({
     revieweeID: event._id,
     visible: true,
-  }).fetch();
+  });
   const matchingReviewsFinal = _.filter(matchingReviews, (review) => {
     let ret = true;
     if (review.studentID === Router.getUserIdFromRoute(props.match)) {

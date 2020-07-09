@@ -50,7 +50,7 @@ const getAssociationRelatedCourses = (courses, props: IExplorerInterestsWidgetPr
   }).fetch();
   const inPlanIDs = _.uniq(_.map(inPlanInstances, 'courseID'));
 
-  const completedInstance = CourseInstances.find({
+  const completedInstance = CourseInstances.findNonRetired({
     studentID: props.profile.userID, verified: true,
   }).fetch();
   const completedIDs = _.uniq(_.map(completedInstance, 'courseID'));
@@ -108,7 +108,7 @@ const ExplorerInterestsWidget = (props: IExplorerInterestsWidgetProps) => {
   // console.log('ExplorerInterestsWidget', props);
   const relatedCourses = getAssociationRelatedCourses(getRelatedCourses(props), props);
   const relatedOpportunities = getAssociationRelatedOpportunities(getRelatedOpportunities(props), props);
-  const teaser = Teasers.find({ targetSlugID: props.interest.slugID }).fetch();
+  const teaser = Teasers.findNonRetired({ targetSlugID: props.interest.slugID });
   const hasTeaser = teaser.length > 0;
 
   return (

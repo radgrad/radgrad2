@@ -9,14 +9,14 @@ const AdvisorPageMenuWidget = () => {
   const divStyle = { marginBottom: 30 };
   const firstMenuStyle = { minHeight: 78 };
   let numMod = 0;
-  numMod += MentorQuestions.find({ moderated: false }).fetch().length;
-  numMod += Reviews.find({ moderated: false }).fetch().length;
+  numMod += MentorQuestions.findNonRetired({ moderated: false }).length;
+  numMod += Reviews.findNonRetired({ moderated: false }).length;
   let moderationLabel = 'Moderation';
   if (numMod > 0) {
     moderationLabel = `${moderationLabel} (${numMod})`;
   }
   let numRequests = 0;
-  numRequests += VerificationRequests.find({ status: 'Open' }).fetch().length;
+  numRequests += VerificationRequests.findNonRetired({ status: 'Open' }).length;
   let requestsLabel = 'Verification Requests';
   if (numRequests > 0) {
     requestsLabel = `${requestsLabel} (${numRequests})`;

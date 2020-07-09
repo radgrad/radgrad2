@@ -107,10 +107,7 @@ class SlugCollection extends BaseCollection {
       return false;
     }
     const doc = this.findDoc(slugName);
-    if (doc.entityName !== entityName) {
-      return false;
-    }
-    return true;
+    return doc.entityName === entityName;
   }
 
   /**
@@ -119,7 +116,7 @@ class SlugCollection extends BaseCollection {
    * @param { String } slugID A docID.
    * @returns {boolean} True if the slugID is in this collection.
    */
-  public hasSlug(slugID: string) {
+  public hasSlug(slugID: string): boolean {
     return this.isDefined(slugID);
   }
 
@@ -129,7 +126,7 @@ class SlugCollection extends BaseCollection {
    * @returns The slug name.
    * @throws { Meteor.Error } If the passed slugID is not valid.
    */
-  public getNameFromID(slugID: string) {
+  public getNameFromID(slugID: string): string {
     this.assertDefined(slugID);
     return this.findDoc(slugID).name;
   }

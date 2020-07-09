@@ -6,6 +6,7 @@ import AdminDatabaseMenuContainer from '../../components/admin/AdminDatabaseMenu
 import { checkIntegrity } from '../../../api/integrity/IntegrityChecker';
 import { checkIntegrityMethod } from '../../../api/integrity/IntegrityChecker.methods';
 import { databaseActions } from '../../../redux/admin/database';
+import { RootState } from '../../../redux/types';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 
 interface IAdminCheckDatabaseIntegrityPageProps {
@@ -14,7 +15,7 @@ interface IAdminCheckDatabaseIntegrityPageProps {
   checkIntegrityWorking?: boolean;
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: RootState) => ({
   checkIntegrityWorking: state.admin.database.checkIntegrity,
 });
 

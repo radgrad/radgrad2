@@ -25,7 +25,7 @@ const FacultyPageMenuWidget = (props: IFacultyPageMenuWidgetProps) => {
   const username = props.match.params.username;
   const faculty = FacultyProfiles.findDoc(username);
   // const sponsorID = Users.getID(username);
-  let openRequests = VerificationRequests.find({ status: VerificationRequests.OPEN }).fetch();
+  let openRequests = VerificationRequests.findNonRetired({ status: VerificationRequests.OPEN });
   openRequests = _.filter(openRequests, (request) => {
     if (OpportunityInstances.isDefined(request.opportunityInstanceID)) {
       const oi = OpportunityInstances.findDoc(request.opportunityInstanceID);

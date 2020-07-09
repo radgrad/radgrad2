@@ -386,8 +386,8 @@ class StudentProfileCollection extends BaseProfileCollection {
    */
   public getEarnedICE(user: string) {
     const studentID = Users.getID(user);
-    const courseDocs = CourseInstances.find({ studentID }).fetch();
-    const oppDocs = OpportunityInstances.find({ studentID }).fetch();
+    const courseDocs = CourseInstances.findNonRetired({ studentID });
+    const oppDocs = OpportunityInstances.findNonRetired({ studentID });
     return getEarnedICE(courseDocs.concat(oppDocs));
   }
 
@@ -398,8 +398,8 @@ class StudentProfileCollection extends BaseProfileCollection {
    */
   public getProjectedICE(user: string) {
     const studentID = Users.getID(user);
-    const courseDocs = CourseInstances.find({ studentID }).fetch();
-    const oppDocs = OpportunityInstances.find({ studentID }).fetch();
+    const courseDocs = CourseInstances.findNonRetired({ studentID });
+    const oppDocs = OpportunityInstances.findNonRetired({ studentID });
     return getProjectedICE(courseDocs.concat(oppDocs));
   }
 
@@ -409,7 +409,7 @@ class StudentProfileCollection extends BaseProfileCollection {
    */
   public getCourseIDs(user: string) {
     const studentID = Users.getID(user);
-    const courseInstanceDocs = CourseInstances.find({ studentID }).fetch();
+    const courseInstanceDocs = CourseInstances.findNonRetired({ studentID });
     const courseIDs = courseInstanceDocs.map((doc) => doc.courseID);
     return courseIDs; // allow for multiple 491 or 499 classes.
     // return _.uniq(courseIDs);
@@ -422,11 +422,11 @@ class StudentProfileCollection extends BaseProfileCollection {
    */
   public getInterestIDs(userID: string) {
     let interestIDs = [];
-    const favoriteInterests = FavoriteInterests.find({ userID }).fetch();
+    const favoriteInterests = FavoriteInterests.findNonRetired({ userID });
     _.forEach(favoriteInterests, (fav) => {
       interestIDs.push(fav.interestID);
     });
-    const favoriteCareerGoals = FavoriteCareerGoals.find({ userID }).fetch();
+    const favoriteCareerGoals = FavoriteCareerGoals.findNonRetired({ userID });
     _.forEach(favoriteCareerGoals, (fav) => {
       const goal = CareerGoals.findDoc(fav.careerGoalID);
       interestIDs = _.union(interestIDs, goal.interestIDs);
@@ -442,13 +442,13 @@ class StudentProfileCollection extends BaseProfileCollection {
   public getInterestIDsByType(userID: string) {
     const interestIDs = [];
     const userInterests = [];
-    const favoriteInterests = FavoriteInterests.find({ userID }).fetch();
+    const favoriteInterests = FavoriteInterests.findNonRetired({ userID });
     _.forEach(favoriteInterests, (fav) => {
       userInterests.push(fav.interestID);
     });
     interestIDs.push(userInterests);
     let careerInterestIDs = [];
-    const favoriteCareerGoals = FavoriteCareerGoals.find({ userID }).fetch();
+    const favoriteCareerGoals = FavoriteCareerGoals.findNonRetired({ userID });
     _.forEach(favoriteCareerGoals, (fav) => {
       const goal = CareerGoals.findDoc(fav.careerGoalID);
       careerInterestIDs = _.union(careerInterestIDs, goal.interestIDs);
@@ -589,16 +589,16 @@ class StudentProfileCollection extends BaseProfileCollection {
     const picture = doc.picture;
     const website = doc.website;
     const userID = Users.getID(username);
-    const favInterests = FavoriteInterests.find({ userID }).fetch();
+    const favInterests = FavoriteInterests.findNonRetired({ userID });
     const interests = _.map(favInterests, (fav) => Interests.findSlugByID(fav.interestID));
-    const favCareerGoals = FavoriteCareerGoals.find({ userID }).fetch();
+    const favCareerGoals = FavoriteCareerGoals.findNonRetired({ userID });
     const careerGoals = _.map(favCareerGoals, (fav) => CareerGoals.findSlugByID(fav.careerGoalID));
     const level = doc.level;
-    const favAcademicPlans = FavoriteAcademicPlans.find({ studentID: userID }).fetch();
+    const favAcademicPlans = FavoriteAcademicPlans.findNonRetired({ studentID: userID });
     const favoriteAcademicPlans = _.map(favAcademicPlans, (fav) => AcademicPlans.findSlugByID(fav.academicPlanID));
-    const favCourses = FavoriteCourses.find({ studentID: userID }).fetch();
+    const favCourses = FavoriteCourses.findNonRetired({ studentID: userID });
     const favoriteCourses = _.map(favCourses, (fav) => Courses.findSlugByID(fav.courseID));
-    const favOpps = FavoriteOpportunities.find({ studentID: userID }).fetch();
+    const favOpps = FavoriteOpportunities.findNonRetired({ studentID: userID });
     const favoriteOpportunities = _.map(favOpps, (fav) => Opportunities.findSlugByID(fav.opportunityID));
     const declaredAcademicTerm = doc.declaredAcademicTermID && AcademicTerms.findSlugByID(doc.declaredAcademicTermID);
     const isAlumni = doc.isAlumni;

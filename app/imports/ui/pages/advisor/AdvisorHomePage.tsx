@@ -102,9 +102,9 @@ const AdvisorHomePageTracker = withTracker((props) => {
   const userID = usernameDoc ? usernameDoc.userID : '';
   return {
     usernameDoc: usernameDoc,
-    interests: Interests.find().fetch(),
-    careerGoals: CareerGoals.find().fetch(),
-    advisorLogs: AdvisorLogs.find({ studentID: userID }, { sort: { createdOn: -1 } }).fetch(),
+    interests: Interests.findNonRetired(),
+    careerGoals: CareerGoals.findNonRetired(),
+    advisorLogs: AdvisorLogs.findNonRetired({ studentID: userID }, { sort: { createdOn: -1 } }),
   };
 })(AdvisorHomePage);
 

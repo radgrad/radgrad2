@@ -40,7 +40,7 @@ function getOpportunityInstanceID(student, opportunity, academicTerm) {
   const studentID = Users.getID(student);
   const opportunityID = Opportunities.getID(opportunity);
   const termID = AcademicTerms.getID(academicTerm);
-  const opportunityInstances = OpportunityInstances.find({ opportunityID, studentID, termID }).fetch();
+  const opportunityInstances = OpportunityInstances.findNonRetired({ opportunityID, studentID, termID });
   return (opportunityInstances.length > 0) ? opportunityInstances[0]._id : null;
 }
 

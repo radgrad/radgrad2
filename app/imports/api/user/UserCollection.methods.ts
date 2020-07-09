@@ -50,7 +50,7 @@ export const generateStudentEmailsMethod = new ValidatedMethod({
     }
     // Don't generate unless on Server side.
     if (Meteor.isServer) {
-      const profiles = StudentProfiles.find({ isAlumni: false }).fetch();
+      const profiles = StudentProfiles.findNonRetired({ isAlumni: false });
       const students = _.map(profiles, (student) => student.username);
       return { students };
     }
