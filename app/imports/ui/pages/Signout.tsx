@@ -6,7 +6,6 @@ import LandingNavBarContainer from '../components/landing/LandingNavBar';
 /** After the user clicks the "Signout" link in the NavBar, log them out and display this page. */
 const Signout = () => {
   Meteor.logout();
-  // TODO UserInteraction logout
   return (
     <div>
       <LandingNavBarContainer />
