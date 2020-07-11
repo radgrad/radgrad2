@@ -1,5 +1,5 @@
 import { CallPromiseMixin } from 'meteor/didericis:callpromise-mixin';
-import { ValidatedMethod } from 'meteor/mdg:validated-method';
+import { ValidatedMethod } from 'meteor/maestroqadev:validated-method';
 import { UserInteractions } from './UserInteractionCollection';
 
 /**

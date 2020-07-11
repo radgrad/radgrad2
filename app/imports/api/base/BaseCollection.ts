@@ -66,7 +66,7 @@ class BaseCollection {
    */
   public publish() {
     if (Meteor.isServer) {
-      Meteor.publish(this.collectionName, () => this.collection.find());
+      Meteor.publishLite(this.collectionName, () => this.collection.find());
     }
   }
 
@@ -77,8 +77,9 @@ class BaseCollection {
   public subscribe(userID = undefined) {
     if (Meteor.isClient) {
       // console.log(`${this.collectionName}.subscribe`, userID);
-      Meteor.subscribe(this.collectionName, userID);
+      return Meteor.subscribeLite(this.collectionName, userID);
     }
+    return null;
   }
 
   /**

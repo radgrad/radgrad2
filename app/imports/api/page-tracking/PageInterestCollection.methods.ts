@@ -1,4 +1,4 @@
-import { ValidatedMethod } from 'meteor/mdg:validated-method';
+import { ValidatedMethod } from 'meteor/maestroqadev:validated-method';
 import { CallPromiseMixin } from 'meteor/didericis:callpromise-mixin';
 import { PageInterests } from './PageInterestCollection';
 import { IPageInterest } from '../../typings/radgrad';

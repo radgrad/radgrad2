@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import _ from 'lodash';
-import { ValidatedMethod } from 'meteor/mdg:validated-method';
+import { ValidatedMethod } from 'meteor/maestroqadev:validated-method';
 import { updateStudentLevel, updateAllStudentLevels, defaultCalcLevel } from './LevelProcessor';
 import { ROLE } from '../role/Role';
 import { RadGrad } from '../radgrad/RadGrad';

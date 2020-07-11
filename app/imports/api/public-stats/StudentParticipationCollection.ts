@@ -19,7 +19,7 @@ import { FavoriteAcademicPlans } from '../favorite/FavoriteAcademicPlanCollectio
 
 class StudentParticipationCollection extends BaseCollection {
   constructor() {
-    super('StudentParticipationCollection', new SimpleSchema({
+    super('StudentParticipation', new SimpleSchema({
       itemID: SimpleSchema.RegEx.Id,
       itemSlug: String,
       itemCount: SimpleSchema.Integer,

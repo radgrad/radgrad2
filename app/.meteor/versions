@@ -53,7 +53,7 @@ livedata@1.0.18
 lmieulet:meteor-coverage@3.2.0
 localstorage@1.2.0
 logging@1.1.20
-maestroqadev:pub-sub-lite@1.0.0
+maestroqadev:pub-sub-lite@1.0.1
 maestroqadev:validated-method@1.2.0
 mdg:meteor-apm-agent@3.2.5
 mdg:validated-method@1.2.0
