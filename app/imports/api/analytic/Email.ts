@@ -4,13 +4,6 @@ import { SSR } from 'meteor/meteorhacks:ssr'; // non-relative module
 // global for Meteor but you have to declare it in file to use it
 /* eslint-disable no-unused-vars */
 declare const Assets: any;
-interface IEmailData {
-  templateData: {
-    firstName: string,
-    adminMessage: string,
-    recommendations: any[]
-  }
-}
 
 // use typescript to your advantage and make an interface that requires those props passed in
 // utilizing the interfaces

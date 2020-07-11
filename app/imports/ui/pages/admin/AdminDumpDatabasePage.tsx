@@ -30,7 +30,7 @@ export const databaseFileDateFormat = 'YYYY-MM-DD-HH-mm-ss';
 
 const mapStateToProps = (state: RootState) => ({
   dumpDatabaseWorking: state.admin.database.dumpDatabase,
-  getStudentEmailsWorking: state.admin.analytics.getStudentEmails,
+  getStudentEmailsWorking: state.admin.analytics.newsletter.getStudentEmails,
 });
 
 const mapDispatchToProps = (dispatch) => ({

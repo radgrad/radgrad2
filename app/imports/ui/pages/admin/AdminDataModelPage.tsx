@@ -4,6 +4,7 @@ import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
 import UploadFixtureWidget from '../../components/admin/UploadFixtureWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
+import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 
 const AdminDataModelPage = () => {
   const paddedStyle = {
@@ -32,4 +33,4 @@ const AdminDataModelPage = () => {
   );
 };
 
-export default AdminDataModelPage;
+export default withInstanceSubscriptions(AdminDataModelPage);

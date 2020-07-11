@@ -51,7 +51,7 @@ const review = (props: IExplorerOpportunitiesWidgetProps): object => {
 const teaserUrlHelper = (props: IExplorerOpportunitiesWidgetProps): string => {
   const opportunityID = Slugs.getEntityID(props.match.params.opportunity, 'Opportunity');
   const opportunity = Opportunities.findDoc(opportunityID);
-  const oppTeaser = Teasers.find({ targetSlugID: opportunity.slugID }).fetch();
+  const oppTeaser = Teasers.findNonRetired({ targetSlugID: opportunity.slugID });
   if (oppTeaser.length > 1) {
     return undefined;
   }
@@ -342,7 +342,7 @@ const ExplorerOpportunitiesWidgetContainer = withTracker(() => {
   const reactiveSourceOne = OpportunityInstances.findNonRetired({});
 
   /* Reactive Source to make StudentExplorerEditReviewForm reactive */
-  const reactiveSourceTwo = Reviews.find({}).fetch();
+  const reactiveSourceTwo = Reviews.findNonRetired({});
 
   return {
     reactiveSourceOne,

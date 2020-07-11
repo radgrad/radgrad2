@@ -12,6 +12,7 @@ import DraggableCoursePill from '../shared/DraggableCoursePill';
 import { buildCombineAreaDraggableId, CHOICE_AREA, COMBINE_AREA, DELETE_AREA } from './AcademicPlanBuilderUtilities';
 import { PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
 import { academicPlanActions } from '../../../redux/advisor/academic-plan';
+import { RootState } from '../../../redux/types';
 
 interface IAdvisorAPBPlanChoiceWidgetProps {
   dispatch: (any) => void;
@@ -20,7 +21,7 @@ interface IAdvisorAPBPlanChoiceWidgetProps {
   combineChoice: string;
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: RootState) => ({
   showOnlyUnderGraduateChoices: state.advisor.academicPlan.showOnlyUnderGraduateChoices,
 });
 

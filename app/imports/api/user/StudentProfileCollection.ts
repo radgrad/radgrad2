@@ -386,8 +386,8 @@ class StudentProfileCollection extends BaseProfileCollection {
    */
   public getEarnedICE(user: string) {
     const studentID = Users.getID(user);
-    const courseDocs = CourseInstances.find({ studentID }).fetch();
-    const oppDocs = OpportunityInstances.find({ studentID }).fetch();
+    const courseDocs = CourseInstances.findNonRetired({ studentID });
+    const oppDocs = OpportunityInstances.findNonRetired({ studentID });
     return getEarnedICE(courseDocs.concat(oppDocs));
   }
 
@@ -398,8 +398,8 @@ class StudentProfileCollection extends BaseProfileCollection {
    */
   public getProjectedICE(user: string) {
     const studentID = Users.getID(user);
-    const courseDocs = CourseInstances.find({ studentID }).fetch();
-    const oppDocs = OpportunityInstances.find({ studentID }).fetch();
+    const courseDocs = CourseInstances.findNonRetired({ studentID });
+    const oppDocs = OpportunityInstances.findNonRetired({ studentID });
     return getProjectedICE(courseDocs.concat(oppDocs));
   }
 
@@ -409,7 +409,7 @@ class StudentProfileCollection extends BaseProfileCollection {
    */
   public getCourseIDs(user: string) {
     const studentID = Users.getID(user);
-    const courseInstanceDocs = CourseInstances.find({ studentID }).fetch();
+    const courseInstanceDocs = CourseInstances.findNonRetired({ studentID });
     const courseIDs = courseInstanceDocs.map((doc) => doc.courseID);
     return courseIDs; // allow for multiple 491 or 499 classes.
     // return _.uniq(courseIDs);

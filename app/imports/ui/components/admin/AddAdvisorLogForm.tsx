@@ -50,8 +50,8 @@ const AddAdvisorLogForm = (props: IAddAdvisorLogFormProps): React.ReactElement<a
 };
 
 const AddAdvisorLogFormContainer = withTracker(() => {
-  const advisors = AdvisorProfiles.findNonRetired({}, { $sort: { lastName: 1, firstName: 1 } });
-  const students = StudentProfiles.findNonRetired({ isAlumni: false }, { $sort: { lastName: 1, firstName: 1 } });
+  const advisors = AdvisorProfiles.find({}, { $sort: { lastName: 1, firstName: 1 } }).fetch();
+  const students = StudentProfiles.find({ isAlumni: false }, { $sort: { lastName: 1, firstName: 1 } }).fetch();
   // console.log('advisors=%o students=%o', advisors, students);
   return {
     advisors,

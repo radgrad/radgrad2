@@ -14,6 +14,7 @@ import AdminDataModelAccordion from '../admin/AdminDataModelAccordion';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import { getUserIdFromRoute, IMatchProps } from '../shared/RouterHelperFunctions';
 import { Users } from '../../../api/user/UserCollection';
+import { RootState } from '../../../redux/types';
 
 interface IListOpportunitiesWidgetProps {
   collection: BaseCollection;
@@ -28,7 +29,7 @@ interface IListOpportunitiesWidgetProps {
   match: IMatchProps;
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: RootState) => ({
   pagination: state.admin.dataModel.pagination,
 });
 
@@ -40,7 +41,7 @@ const isInRole = (props: IListOpportunitiesWidgetProps) => {
   return profile.role === ROLE.FACULTY;
 };
 
-const facultyOpportunities = (props: IListOpportunitiesWidgetProps) => Opportunities.findNonRetired({ sponsorID: getUserIdFromRoute(props.match) }, { sort: { name: 1 } });
+const facultyOpportunities = (props: IListOpportunitiesWidgetProps) => Opportunities.find({ sponsorID: getUserIdFromRoute(props.match) }, { sort: { name: 1 } }).fetch();
 
 const facultyCount = (props: IListOpportunitiesWidgetProps) => facultyOpportunities(props).length;
 

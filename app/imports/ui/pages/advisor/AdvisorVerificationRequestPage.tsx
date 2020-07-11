@@ -98,8 +98,8 @@ const AdvisorVerificationRequestPage = (props: IAdvisorVerificationRequestPagePr
 };
 
 const AdvisorVerificationRequestPageContainerTracker = withTracker(() => ({
-  verificationRequests: VerificationRequests.find({}).fetch(),
-  eventOpportunities: Opportunities.find({ eventDate: { $exists: true } }).fetch(),
+  verificationRequests: VerificationRequests.findNonRetired({}),
+  eventOpportunities: Opportunities.findNonRetired({ eventDate: { $exists: true } }),
 }))(AdvisorVerificationRequestPage);
 const AdvisorVerificationRequestPageContainerTrackerRouter = withRouter(AdvisorVerificationRequestPageContainerTracker);
 

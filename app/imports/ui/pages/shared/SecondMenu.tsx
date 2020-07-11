@@ -1,14 +1,13 @@
 import React from 'react';
-import { Meteor } from 'meteor/meteor';
-import { withTracker } from 'meteor/react-meteor-data';
 import { Menu, SemanticWIDTHS } from 'semantic-ui-react';
 import { NavLink, withRouter } from 'react-router-dom';
 import { secondMenu } from '../../components/shared/shared-widget-names';
+import { buildRouteName } from '../../components/shared/RouterHelperFunctions';
 
 interface IMenuItem {
   label: string;
-  regex: string;
   route: string;
+  regex?: string;
 }
 
 interface ISecondMenuProps {
@@ -26,11 +25,7 @@ interface ISecondMenuProps {
 }
 
 const SecondMenu = (props: ISecondMenuProps) => {
-  const username = props.match.params.username;
-  const baseUrl = props.match.url;
-  const baseIndex = baseUrl.indexOf(username);
-  const baseRoute = `${baseUrl.substring(0, baseIndex)}${username}/`;
-  // console.log(props, baseRoute);
+  const { match } = props;
   return (
     <Menu
       attached="top"
@@ -42,17 +37,12 @@ const SecondMenu = (props: ISecondMenuProps) => {
       id={`${secondMenu}`}
     >
       {props.menuItems.map((item) => (
-        <Menu.Item key={item.label} as={NavLink} exact={false} to={`${baseRoute}${item.route}`}>
+        <Menu.Item key={item.label} as={NavLink} exact={false} to={buildRouteName(match, `/${item.route}`)}>
           {item.label}
         </Menu.Item>
-))}
+      ))}
     </Menu>
   );
 };
 
-const SecondMenuContainer = withTracker(() => ({
-  currentUser: Meteor.user() ? Meteor.user().username : '',
-}))(SecondMenu);
-
-/** Enable ReactRouter for this component. https://reacttraining.com/react-router/web/api/withRouter */
-export default withRouter(SecondMenuContainer);
+export default withRouter(SecondMenu);

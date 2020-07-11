@@ -21,6 +21,7 @@ import {
 } from '../../components/shared/data-model-helper-functions';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import BackToTopButton from '../../components/shared/BackToTopButton';
+import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 
 const collection = OpportunityInstances; // the collection to use.
 
@@ -234,4 +235,4 @@ const AdminDataModelOpportunityInstancesPage = () => {
   );
 };
 
-export default AdminDataModelOpportunityInstancesPage;
+export default withInstanceSubscriptions(AdminDataModelOpportunityInstancesPage);

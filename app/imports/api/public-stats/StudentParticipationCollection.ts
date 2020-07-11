@@ -72,7 +72,7 @@ class StudentParticipationCollection extends BaseCollection {
   removeIt(docID) {
     this.assertDefined(docID);
     // OK, clear to delete.
-    super.removeIt(docID);
+    return super.removeIt(docID);
   }
 
   /**
@@ -131,8 +131,7 @@ class StudentParticipationCollection extends BaseCollection {
       _.forEach(courses, (c) => {
         const itemID = c._id;
         const itemSlug = Slugs.getNameFromID(c.slugID);
-        const items = CourseInstances.find({ courseID: itemID })
-          .fetch();
+        const items = CourseInstances.findNonRetired({ courseID: itemID });
         const itemCount = _.uniqBy(items, (i) => i.studentID).length;
         this.collection.upsert({ itemSlug }, { $set: { itemID, itemSlug, itemCount } });
       });
@@ -140,8 +139,7 @@ class StudentParticipationCollection extends BaseCollection {
       _.forEach(Opportunities.findNonRetired(), (o) => {
         const itemID = o._id;
         const itemSlug = Slugs.getNameFromID(o.slugID);
-        const items = OpportunityInstances.find({ opportunityID: itemID })
-          .fetch();
+        const items = OpportunityInstances.findNonRetired({ opportunityID: itemID });
         const itemCount = _.uniqBy(items, (i) => i.studentID).length;
         this.collection.upsert({ itemSlug }, { $set: { itemID, itemSlug, itemCount } });
       });

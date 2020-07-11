@@ -15,6 +15,7 @@ import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdat
 import AddAdvisorLogFormContainer from '../../components/admin/AddAdvisorLogForm';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
+import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 
 const descriptionPairs = (advisorLog: IAdvisorLog): IDescriptionPair[] => [
   { label: 'Advisor', value: `${Users.getFullName(advisorLog.advisorID)}` },
@@ -196,4 +197,4 @@ const AdminDataModelAdvisorLogsPage = () => {
   );
 };
 
-export default AdminDataModelAdvisorLogsPage;
+export default withInstanceSubscriptions(AdminDataModelAdvisorLogsPage);

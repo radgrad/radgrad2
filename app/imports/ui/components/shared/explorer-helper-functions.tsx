@@ -107,12 +107,12 @@ export const availableAcademicPlans = (match: Router.IMatchProps): object[] => {
       plans = AcademicPlans.getLatestPlans();
     } else {
       const declaredTerm = AcademicTerms.findDoc(profile.declaredAcademicTermID);
-      plans = _.filter(AcademicPlans.find({ termNumber: { $gte: declaredTerm.termNumber } }, {
+      plans = AcademicPlans.findNonRetired({ termNumber: { $gte: declaredTerm.termNumber } }, {
         sort: {
           year: 1,
           name: 1,
         },
-      }).fetch(), (ap) => !ap.retired);
+      });
     }
     const profilePlanIDs = profileGetFavoriteAcademicPlanIDs(profile);
     // console.log(plans, profilePlanIDs, _.filter(plans, p => !_.includes(profilePlanIDs, p._id)));
@@ -209,10 +209,10 @@ export const noCareerGoals = (match: Router.IMatchProps): boolean => {
 /* ####################################### COURSES HELPER FUNCTIONS ############################################## */
 export const userCourses = (course: ICourse, match: Router.IMatchProps): string => {
   let ret = '';
-  const ci = CourseInstances.find({
+  const ci = CourseInstances.findNonRetired({
     studentID: Router.getUserIdFromRoute(match),
     courseID: course._id,
-  }).fetch();
+  });
   if (ci.length > 0) {
     ret = 'check green circle outline icon';
 
@@ -237,10 +237,10 @@ export const availableCourses = (match: Router.IMatchProps): object[] => {
       if (course.num === 'ICS 499') { // TODO: hardcoded ICS string
         return true;
       }
-      const ci = CourseInstances.find({
+      const ci = CourseInstances.findNonRetired({
         studentID,
         courseID: course._id,
-      }).fetch();
+      });
       return ci.length === 0;
     });
     if (profile.role === ROLE.STUDENT) {
@@ -314,10 +314,10 @@ export const interestsItemCount = (match: Router.IMatchProps): number => availab
 /* ####################################### OPPORTUNITIES HELPER FUNCTIONS ######################################## */
 export const userOpportunities = (opportunity: IOpportunity, match: Router.IMatchProps): string => {
   let ret = '';
-  const oi = OpportunityInstances.find({
+  const oi = OpportunityInstances.findNonRetired({
     studentID: Router.getUserIdFromRoute(match),
     opportunityID: opportunity._id,
-  }).fetch();
+  });
   if (oi.length > 0) {
     ret = 'check green circle outline icon';
 
@@ -342,10 +342,10 @@ export const availableOpps = (props: ICardExplorerMenuWidgetProps): object[] => 
     const studentID = Router.getUserIdFromRoute(props.match);
     if (notRetired.length > 0) {
       let filteredOpps = _.filter(notRetired, (opp) => {
-        const oi = OpportunityInstances.find({
+        const oi = OpportunityInstances.findNonRetired({
           studentID,
           opportunityID: opp._id,
-        }).fetch();
+        });
         return oi.length === 0;
       });
       // console.log('first filter ', filteredOpps.length);

@@ -190,11 +190,10 @@ const passedCourseHelper = (courseSlugName: string, props: IIndividualExplorerPa
   let ret = 'Not in plan';
   const slug = Slugs.findDoc({ name: courseSlugName });
   const theCourse = Courses.findDoc({ slugID: slug._id });
-  const ci = CourseInstances.find({
+  const ci = CourseInstances.findNonRetired({
     studentID: Router.getUserIdFromRoute(props.match),
     courseID: theCourse._id,
-  })
-    .fetch();
+  });
   _.forEach(ci, (c) => {
     if (c.verified === true) {
       ret = 'Completed';
@@ -319,11 +318,11 @@ const isOpportunityCompleted = (props: IIndividualExplorerPageProps): boolean =>
   let ret = false;
   const slug = Slugs.findDoc({ name: opportunitySlugName });
   const theOpp = Opportunities.findDoc({ slugID: slug._id });
-  const oi = OpportunityInstances.find({
+  const oi = OpportunityInstances.findNonRetired({
     studentID: Router.getUserIdFromRoute(props.match),
     opportunityID: theOpp._id,
     verified: true,
-  }).fetch();
+  });
   if (oi.length > 0) {
     ret = true;
   }

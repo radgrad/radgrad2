@@ -35,10 +35,10 @@ function courseStructureForMenu(userID) {
     if (course.num === 'ICS 499') { // TODO: hardcoded ICS string
       return true;
     }
-    const ci = CourseInstances.find({
+    const ci = CourseInstances.findNonRetired({
       studentID: userID,
       courseID: course._id,
-    }).fetch();
+    });
     return ci.length === 0;
   });
   const courseStructure = [];

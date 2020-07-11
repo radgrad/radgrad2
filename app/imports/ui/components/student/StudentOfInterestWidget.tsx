@@ -48,10 +48,10 @@ const availableCourses = (props: IStudentOfInterestWidgetProps) => {
       if (course.num === 'ICS 499') { // TODO: hardcoded ICS string
         return true;
       }
-      const ci = CourseInstances.find({
+      const ci = CourseInstances.findNonRetired({
         studentID: Router.getUserIdFromRoute(props.match),
         courseID: course._id,
-      }).fetch();
+      });
       return ci.length === 0;
     });
     return filtered;
@@ -96,10 +96,10 @@ const availableOpps = (props: IStudentOfInterestWidgetProps) => {
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
   if (nonRetiredOpportunities.length > 0) {
     const filteredByTerm = _.filter(nonRetiredOpportunities, (opp: any) => {
-      const oi = OpportunityInstances.find({
+      const oi = OpportunityInstances.findNonRetired({
         studentID: Router.getUserIdFromRoute(props.match),
         opportunityID: opp._id,
-      }).fetch();
+      });
       return oi.length === 0;
     });
     const ret = _.filter(filteredByTerm, (opp) => {

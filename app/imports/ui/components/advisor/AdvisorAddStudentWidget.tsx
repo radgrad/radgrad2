@@ -242,14 +242,14 @@ const AdvisorAddStudentWidget = (props: IAdvisorAddStudentWidgetProps) => {
           <Form.Field>
             <Form.Dropdown
               name="declaredAcademicTerm"
-              label="Declared Semester"
+              label="Declared Academic Term"
               value={declaredAcademicTerm}
               onChange={handleFormChange}
               options={AcademicTerms.findNonRetired().map(
                 (ele, i) => ({ key: i, text: `${ele.term} ${ele.year}`, value: ele._id }),
               )}
               selection
-              placeholder="Select Semester"
+              placeholder="Select AcademicTerm"
             />
           </Form.Field>
           <Form.Field>

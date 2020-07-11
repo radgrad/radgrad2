@@ -149,7 +149,7 @@ class PublicStatsCollection extends BaseCollection {
   }
 
   public careerGoalsList() {
-    const goals = CareerGoals.find().fetch();
+    const goals = CareerGoals.findNonRetired();
     const names = _.map(goals, 'name');
     this.collection.upsert({ key: this.careerGoalsListKey }, { $set: { value: names.join(', ') } });
   }
@@ -166,12 +166,12 @@ class PublicStatsCollection extends BaseCollection {
   }
 
   public interestsTotal() {
-    const numInterests = Interests.find().count();
+    const numInterests = Interests.countNonRetired();
     this.collection.upsert({ key: this.interestsTotalKey }, { $set: { value: `${numInterests}` } });
   }
 
   public interestsList() {
-    const interests = Interests.find().fetch();
+    const interests = Interests.findNonRetired();
     const names = _.map(interests, 'name');
     this.collection.upsert({ key: this.interestsListKey }, { $set: { value: names.join(', ') } });
   }
@@ -267,7 +267,7 @@ class PublicStatsCollection extends BaseCollection {
   }
 
   public courseReviewsCourses() {
-    const courseReviews = Reviews.find({ reviewType: 'course' }).fetch();
+    const courseReviews = Reviews.findNonRetired({ reviewType: 'course' });
     let courseNumbers = [];
     _.forEach(courseReviews, (review) => {
       const course = Courses.findDoc(review.revieweeID);
@@ -290,7 +290,7 @@ class PublicStatsCollection extends BaseCollection {
   }
 
   public firstCareerGoal() {
-    const careerGoals = CareerGoals.find({}, { sort: { name: 1 } }).fetch();
+    const careerGoals = CareerGoals.findNonRetired({}, { sort: { name: 1 } });
     if (careerGoals.length > 0) {
       const name = Slugs.findDoc(careerGoals[0].slugID).name;
       this.collection.upsert({ key: this.firstCareerGoalKey }, { $set: { value: name } });
@@ -298,7 +298,7 @@ class PublicStatsCollection extends BaseCollection {
   }
 
   public firstInterest() {
-    const interests = Interests.find({}, { sort: { name: 1 } }).fetch();
+    const interests = Interests.findNonRetired({}, { sort: { name: 1 } });
     if (interests.length > 0) {
       const name = Slugs.findDoc(interests[0].slugID).name;
       this.collection.upsert({ key: this.firstInterestKey }, { $set: { value: name } });

@@ -7,10 +7,14 @@ const headerStyle = { fontSize: '50px', display: 'inline' };
 const LandingSection3 = () => (
   <div id="landing-section-3" style={styles['header-section-gray']}>
     <Container textAlign="center">
-      <Header as="h1" style={styles['header-text']} textAlign="center">Why use <span style={styles['green-text']}><RadGradLogoText style={headerStyle} /></span></Header>
-      <p style={styles['header-description']}>Computer science is changing all the time, and so your interests and career goals might evolve as well.<br />
-        RadGrad provides &quot;Explorers&quot; for career goals, interests, degrees, and more so you can stay on top of the latest trends.
-      </p><br />
+      <Header as="h1" style={styles['header-text']} textAlign="center">Why Use <span
+        style={styles['green-text']}
+      ><RadGradLogoText style={headerStyle} />?</span></Header>
+      <p style={styles['header-description']}>Computer science is changing all the time, and so your interests and
+        career goals might evolve as well.<br />
+        RadGrad provides &quot;Explorers&quot; for career goals, interests, degrees, and more so you can stay on top of
+        the latest trends. <br />
+      </p>
       <Grid doubling columns={5}>
         <Grid.Column>
           <Image src="/images/landing/home_discover.png" />

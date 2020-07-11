@@ -12,10 +12,13 @@ import AddAcademicYearInstanceFormContainer from '../../components/admin/AddAcad
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
+import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 
 const descriptionPairs = (year: IAcademicYearInstance): IDescriptionPair[] => [
   { label: 'Student', value: Users.getFullName(year.studentID) },
   { label: 'Year', value: `${year.year}` },
+  { label: 'Retired', value: year.retired ? 'True' : 'False' },
+
 ];
 
 const itemTitle = (year: IAcademicYearInstance): React.ReactNode => {
@@ -189,4 +192,4 @@ const AdminDataModelAcademicYearsPage = () => {
   );
 };
 
-export default AdminDataModelAcademicYearsPage;
+export default withInstanceSubscriptions(AdminDataModelAcademicYearsPage);

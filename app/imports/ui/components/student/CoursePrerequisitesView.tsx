@@ -11,7 +11,7 @@ interface ICoursePrerequisitesViewProps {
 }
 
 const missingPrerequisite = (prereqSlug, studentID) => {
-  const courseInstances = CourseInstances.find({ studentID }).fetch();
+  const courseInstances = CourseInstances.findNonRetired({ studentID });
   let ret = true;
   _.forEach(courseInstances, (ci) => {
     const courseSlug = CourseInstances.getCourseSlug(ci._id);

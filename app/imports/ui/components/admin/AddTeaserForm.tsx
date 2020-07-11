@@ -78,10 +78,10 @@ const AddTeaserForm = (props: IAddTeaserFormProps) => {
 };
 
 const AddTeaserFormContainer = withTracker(() => {
-  const careerGoals = CareerGoals.findNonRetired({}, { sort: { name: 1 } });
-  const courses = Courses.findNonRetired({}, { sort: { num: 1 } });
-  const interests = Interests.findNonRetired({}, { sort: { name: 1 } });
-  const opportunities = Opportunities.findNonRetired({}, { sort: { name: 1 } });
+  const careerGoals = CareerGoals.find({}, { sort: { name: 1 } }).fetch();
+  const courses = Courses.find({}, { sort: { num: 1 } }).fetch();
+  const interests = Interests.find({}, { sort: { name: 1 } }).fetch();
+  const opportunities = Opportunities.find({}, { sort: { name: 1 } }).fetch();
   return {
     careerGoals,
     courses,

@@ -100,7 +100,7 @@ const FacultyVerificationPageWithTracker = withTracker((props) => {
   const isLinkedReq = (verReq: IVerificationRequest) => !!linkedOppInstances.find(oppI => verReq.opportunityInstanceID === oppI._id);
   return {
     verificationRequests: VerificationRequests.findNonRetired().filter(ele => isLinkedReq(ele)),
-    eventOpportunities: Opportunities.find({ eventDate: { $exists: true } }).fetch(),
+    eventOpportunities: Opportunities.findNonRetired({ eventDate: { $exists: true } }),
   };
 })(FacultyVerificationPage);
 const FacultyVerificationPageWithRouter = withRouter(FacultyVerificationPageWithTracker);
