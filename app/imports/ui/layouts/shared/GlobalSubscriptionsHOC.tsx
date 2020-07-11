@@ -3,7 +3,6 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { SubsManager } from 'meteor/meteorhacks:subs-manager';
 import { Dimmer, Loader, Responsive } from 'semantic-ui-react';
 import _ from 'lodash';
-import { RadGrad } from '../../../api/radgrad/RadGrad';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Users } from '../../../api/user/UserCollection';
 // import PageLoader from '../../components/shared/PageLoader';
@@ -11,7 +10,7 @@ import PageLoaderMobile from '../../components/shared/PageLoaderMobile';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { Feeds } from '../../../api/feed/FeedCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
-import { pubSubLite } from '../../../startup/both/pub-sub';
+import { getGlobalPubSubLiteHandles } from '../../../startup/both/pub-sub';
 
 interface ILoading {
   loading: boolean;
@@ -69,8 +68,8 @@ function withGlobalSubscription(WrappedComponent) {
       // globalSubs.subscribe(Teasers.getPublicationName()),
       globalSubs.subscribe(Users.getPublicationName()),
     ];
-    const pubSubLiteSubscriptions = _.map(_.values(pubSubLite), (collectionName) => RadGrad.getCollection(collectionName).subscribe());
-    handles = _.concat(handles, pubSubLiteSubscriptions);
+    const pubSubLiteHandles = getGlobalPubSubLiteHandles();
+    handles = _.concat(handles, pubSubLiteHandles);
     // console.log(handles);
     const loading = handles.some((handle) => !handle.ready());
     return {

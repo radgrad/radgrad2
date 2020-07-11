@@ -1,4 +1,7 @@
-export const pubSubLite = {
+import _ from 'lodash';
+import { RadGrad } from '../../api/radgrad/RadGrad';
+
+const globalPubSubLite = {
   academicPlan: 'AcademicPlanCollection',
   academicTerm: 'AcademicTermCollection',
   adminProfile: 'AdminProfileCollection',
@@ -23,3 +26,7 @@ export const pubSubLite = {
   slug: 'SlugCollection',
   teaser: 'TeaserCollection',
 };
+
+export const isPubSubLiteCollection = (collectionName) => _.includes(_.values(globalPubSubLite), collectionName);
+
+export const getGlobalPubSubLiteHandles = () => _.map(_.values(globalPubSubLite), (collectionName) => RadGrad.getCollection(collectionName).subscribe());

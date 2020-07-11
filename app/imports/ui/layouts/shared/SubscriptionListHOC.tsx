@@ -2,9 +2,8 @@ import React from 'react';
 import { Loader } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { SubsManager } from 'meteor/meteorhacks:subs-manager';
-import _ from 'lodash';
 import { RadGrad } from '../../../api/radgrad/RadGrad';
-import { pubSubLite } from '../../../startup/both/pub-sub';
+import { isPubSubLiteCollection } from '../../../startup/both/pub-sub';
 
 interface ILoading {
   loading: boolean;
@@ -21,7 +20,7 @@ export function withListSubscriptions(WrappedComponent, subscriptionNames: strin
     const handles = [];
     // console.log(subscriptionNames);
     subscriptionNames.forEach((name) => {
-      if (_.includes(_.values(pubSubLite), name)) {
+      if (isPubSubLiteCollection(name)) {
         handles.push(RadGrad.getCollection(name).subscribe());
       } else {
         handles.push(localSubs.subscribe(name));
