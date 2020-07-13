@@ -35,6 +35,10 @@ class SlugCollection extends BaseCollection {
       entityName: { type: String },
       name: { type: String },
     }));
+    if (Meteor.isServer) {
+      this.collection.rawCollection().createIndex({ name: 1, entityName: 1 });
+    }
+
   }
 
   /**
