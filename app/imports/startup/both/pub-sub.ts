@@ -27,6 +27,14 @@ const globalPubSubLite = {
   teaser: 'TeaserCollection',
 };
 
-export const isPubSubLiteCollection = (collectionName) => _.includes(_.values(globalPubSubLite), collectionName);
+const instancePubSubLite = {
+  academicYearInstance: 'AcademicYearInstanceCollection',
+};
+
+const pubSubLite = _.concat(_.values(globalPubSubLite), _.values(instancePubSubLite));
+
+export const isPubSubLiteCollection = (collectionName) => _.includes(pubSubLite, collectionName);
 
 export const getGlobalPubSubLiteHandles = () => _.map(_.values(globalPubSubLite), (collectionName) => RadGrad.getCollection(collectionName).subscribe());
+
+export const getInstancePubSubLiteHandles = (userID) => _.map(_.values(instancePubSubLite), (collectionName) => RadGrad.getCollection(collectionName).subscribe(userID));

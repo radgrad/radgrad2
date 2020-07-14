@@ -25,6 +25,7 @@ Meteor.publish('userStatus', function userStatus() {
   return [];
 });
 
+// Roles
 Meteor.publish(null, function () {
   if (this.userId) {
     return Meteor.roleAssignment.find({ 'user._id': this.userId });

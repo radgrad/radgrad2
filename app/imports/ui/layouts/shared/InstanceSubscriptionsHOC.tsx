@@ -1,8 +1,9 @@
 import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { SubsManager } from 'meteor/meteorhacks:subs-manager';
+import _ from 'lodash';
 import { Dimmer, Loader, Responsive } from 'semantic-ui-react';
-import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
+// import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';
 import { FeedbackInstances } from '../../../api/feedback/FeedbackInstanceCollection';
@@ -17,6 +18,7 @@ import { FavoriteCourses } from '../../../api/favorite/FavoriteCourseCollection'
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 import { FavoriteOpportunities } from '../../../api/favorite/FavoriteOpportunityCollection';
 import { PageInterests } from '../../../api/page-tracking/PageInterestCollection';
+import { getInstancePubSubLiteHandles } from '../../../startup/both/pub-sub';
 
 interface ILoading {
   loading: boolean;
@@ -50,11 +52,11 @@ function withInstanceSubscriptions(WrappedComponent) {
     <WrappedComponent {...props} />);
 
   return withTracker((props) => {
-    const handles = [];
+    let handles = [];
     if (props.match) {
       const userID = getUserIdFromRoute(props.match);
       if (userID) { // if logged out don't subscribe
-        handles.push(instanceSubs.subscribe(AcademicYearInstances.getPublicationName(), userID));
+        // handles.push(instanceSubs.subscribe(AcademicYearInstances.getPublicationName(), userID));
         handles.push(instanceSubs.subscribe(AdvisorLogs.getPublicationName(), userID));
         handles.push(instanceSubs.subscribe(CourseInstances.getPublicationName(), userID));
         handles.push(instanceSubs.subscribe(FeedbackInstances.getPublicationName(), userID));
@@ -66,6 +68,8 @@ function withInstanceSubscriptions(WrappedComponent) {
         handles.push(instanceSubs.subscribe(FavoriteInterests.getPublicationName(), userID));
         handles.push(instanceSubs.subscribe(FavoriteOpportunities.getPublicationName(), userID));
         handles.push(instanceSubs.subscribe(PageInterests.getPublicationName(), userID));
+        const pubSubLite = getInstancePubSubLiteHandles(userID);
+        handles = _.concat(handles, pubSubLite);
       }
     }
     const loading = handles.some((handle) => !handle.ready());
