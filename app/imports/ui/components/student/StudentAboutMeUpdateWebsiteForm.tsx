@@ -64,8 +64,7 @@ const StudentAboutMeUpdateWebsiteForm = (props: IStudentAboutMeUpdateWebsiteForm
 
   return (
     <React.Fragment>
-      <Grid.Column width={2}><b>Website</b></Grid.Column>
-      <Grid.Column width={6}>
+      <Grid.Column>
         <Form onSubmit={handleUpdateWebsite}>
           <Form.Group>
             <Form.Input

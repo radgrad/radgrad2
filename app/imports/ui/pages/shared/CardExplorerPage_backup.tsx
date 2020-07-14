@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Container } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import _ from 'lodash';
 import { withRouter } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
@@ -143,27 +143,32 @@ const CardExplorerPage = (props: ICardExplorerPageProps) => {
     return (
       <div>
         {menuWidget}
-        <Container>
-          <Grid stackable>
-            <Grid.Row className="helpPanel">
-              <Grid.Column width={16}><HelpPanelWidget /></Grid.Column>
-            </Grid.Row>
-            <Grid.Row>
-              <Grid.Column width={4}>
-                <CardExplorerMenu
-                  menuAddedList={addedList}
-                  type={type}
-                  role={role}
-                  menuCareerList={isTypeInterest ? addedCareerInterests(props) : undefined}
-                />
-              </Grid.Column>
-              <Grid.Column width={12}>
-                <CardExplorerWidget collection={collection} type={type} role={role} />
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
-          <BackToTopButton />
-        </Container>
+
+        <Grid stackable>
+          <Grid.Row>
+            <Grid.Column width={1} />
+            <Grid.Column width={14}><HelpPanelWidget /></Grid.Column>
+            <Grid.Column width={1} />
+          </Grid.Row>
+
+          <Grid.Row>
+            <Grid.Column width={1} />
+            <Grid.Column width={3}>
+              <CardExplorerMenu
+                menuAddedList={addedList}
+                type={type}
+                role={role}
+                menuCareerList={isTypeInterest ? addedCareerInterests(props) : undefined}
+              />
+            </Grid.Column>
+
+            <Grid.Column width={11}>
+              <CardExplorerWidget collection={collection} type={type} role={role} />
+            </Grid.Column>
+            <Grid.Column width={1} />
+          </Grid.Row>
+        </Grid>
+        <BackToTopButton />
       </div>
   );
 };

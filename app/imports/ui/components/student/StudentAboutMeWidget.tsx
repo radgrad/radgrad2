@@ -51,36 +51,97 @@ const StudentAboutMeWidget = (props: IStudentAboutMeWidgetProps) => {
   const academicPlans = _.map(props.favoriteAcademicPlans, (f) => AcademicPlans.findDoc(f.academicPlanID));
   const labelStyle = { marginBottom: '2px' };
   return (
-    <Segment padded id={`${studentAboutMeWidget}`}>
-      <Container>
-        <Header as="h4" dividing>ABOUT ME</Header>
-
-        <Grid stackable>
+    <>
+      <Header as="h1">About me</Header>
+      <Segment padded>
+        <Grid>
           <Grid.Row>
-            <Grid.Column width={2}><b>Name</b></Grid.Column>
-            <Grid.Column width={6}>{name}</Grid.Column>
-
-            <Grid.Column width={2}><b>Email</b></Grid.Column>
-            <Grid.Column width={6}>{email}</Grid.Column>
+            <Grid.Column width={1}/>
+            <Grid.Column width={4}><strong>NAME: </strong></Grid.Column>
+            <Grid.Column width={7}>{name}</Grid.Column>
           </Grid.Row>
-
           <Grid.Row>
-            <StudentAboutMeUpdatePictureForm
-              picture={props.profile.picture}
-              docID={props.profile._id}
-              collectionName={StudentProfiles.getCollectionName()}
-            />
-            <StudentAboutMeUpdateWebsiteForm
-              website={props.profile.website}
-              docID={props.profile._id}
-              collectionName={StudentProfiles.getCollectionName()}
-            />
+            <Grid.Column width={1}/>
+            <Grid.Column width={4}><strong>EMAIL: </strong></Grid.Column>
+            <Grid.Column width={7}>{email}</Grid.Column>
           </Grid.Row>
-
           <Grid.Row>
-            <Grid.Column width={2}><p><b>My Favorite Career Goals</b></p></Grid.Column>
-            <Grid.Column width={6}>
-              {careerGoals.length !== 0 ?
+            <Grid.Column width={1}/>
+            <Grid.Column width={4}><strong>PROFILE PICTURE: </strong></Grid.Column>
+            <Grid.Column width={7}>
+              <StudentAboutMeUpdatePictureForm
+                picture={props.profile.picture}
+                docID={props.profile._id}
+                collectionName={StudentProfiles.getCollectionName()}
+              /></Grid.Column>
+          </Grid.Row>
+          <Grid.Row>
+            <Grid.Column width={1}/>
+            <Grid.Column width={4}><strong>WEBSITE: </strong></Grid.Column>
+            <Grid.Column width={7}>
+              <StudentAboutMeUpdateWebsiteForm
+                website={props.profile.website}
+                docID={props.profile._id}
+                collectionName={StudentProfiles.getCollectionName()}
+              />
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </Segment>
+
+      <Header as="h1">Share your Information with others</Header>
+      <Segment>
+        <Grid>
+          <Grid.Row>
+            <Grid.Column width={2} />
+            <Grid.Column width={2}>aaa</Grid.Column>
+            <Grid.Column width={6}>bbb</Grid.Column>
+            <Grid.Column width={2} />
+          </Grid.Row>
+        </Grid>
+      </Segment>
+
+      <Header as="h1">My Favorites</Header>
+      <Segment>
+        <Grid>
+          <Grid.Row>
+            <Grid.Column width={2} />
+            <Grid.Column width={2}>aaa</Grid.Column>
+            <Grid.Column width={6}>bbb</Grid.Column>
+            <Grid.Column width={2} />
+          </Grid.Row>
+        </Grid>
+      </Segment>
+      <Segment padded id={`${studentAboutMeWidget}`}>
+        <Container>
+          <Header as="h4" dividing>ABOUT ME</Header>
+
+          <Grid stackable>
+            <Grid.Row>
+              <Grid.Column width={2}><b>Name</b></Grid.Column>
+              <Grid.Column width={6}>{name}</Grid.Column>
+
+              <Grid.Column width={2}><b>Email</b></Grid.Column>
+              <Grid.Column width={6}>{email}</Grid.Column>
+            </Grid.Row>
+
+            <Grid.Row>
+              <StudentAboutMeUpdatePictureForm
+                picture={props.profile.picture}
+                docID={props.profile._id}
+                collectionName={StudentProfiles.getCollectionName()}
+              />
+              <StudentAboutMeUpdateWebsiteForm
+                website={props.profile.website}
+                docID={props.profile._id}
+                collectionName={StudentProfiles.getCollectionName()}
+              />
+            </Grid.Row>
+
+            <Grid.Row>
+              <Grid.Column width={2}><p><b>My Favorite Career Goals</b></p></Grid.Column>
+              <Grid.Column width={6}>
+                {careerGoals.length !== 0 ?
                 careerGoals.map((careerGoal) => {
                   const slugName = itemToSlugName(careerGoal);
                   const route = Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}/${slugName}`);
@@ -92,14 +153,14 @@ const StudentAboutMeWidget = (props: IStudentAboutMeWidgetProps) => {
                 })
                 :
                 <p style={marginBottomStyle}>No career goals favorited yet.</p>}
-              <Link to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}`)}>
-                <p>View More Career Goals</p>
-              </Link>
-            </Grid.Column>
+                <Link to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}`)}>
+                  <p>View More Career Goals</p>
+                </Link>
+              </Grid.Column>
 
-            <Grid.Column width={2}><p><b>My Favorite Interests</b></p></Grid.Column>
-            <Grid.Column width={6}>
-              {interests.length !== 0 ?
+              <Grid.Column width={2}><p><b>My Favorite Interests</b></p></Grid.Column>
+              <Grid.Column width={6}>
+                {interests.length !== 0 ?
                 interests.map((interest) => {
                   const slugName = itemToSlugName(interest);
                   const route = Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}/${slugName}`);
@@ -111,16 +172,16 @@ const StudentAboutMeWidget = (props: IStudentAboutMeWidgetProps) => {
                 })
                 :
                 <p style={marginBottomStyle}>No interests favorited yet.</p>}
-              <Link to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}`)}>
-                <p>View More Interests</p>
-              </Link>
-            </Grid.Column>
-          </Grid.Row>
+                <Link to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}`)}>
+                  <p>View More Interests</p>
+                </Link>
+              </Grid.Column>
+            </Grid.Row>
 
-          <Grid.Row>
-            <Grid.Column width={2}><p><b>My Favorite Academic Plan</b></p></Grid.Column>
-            <Grid.Column width={6}>
-              {academicPlans.length !== 0 ?
+            <Grid.Row>
+              <Grid.Column width={2}><p><b>My Favorite Academic Plan</b></p></Grid.Column>
+              <Grid.Column width={6}>
+                {academicPlans.length !== 0 ?
                 academicPlans.map((plan) => {
                   const slugName = itemToSlugName(plan);
                   const route = Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}/${slugName}`);
@@ -132,16 +193,17 @@ const StudentAboutMeWidget = (props: IStudentAboutMeWidgetProps) => {
                 })
                 :
                 <p style={marginBottomStyle}>No academic plans favorited yet.</p>}
-              <Link to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}`)}>
-                <p>View More Academic Plans</p>
-              </Link>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
+                <Link to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}`)}>
+                  <p>View More Academic Plans</p>
+                </Link>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
 
-        <StudentShareInfoWidget profile={profile} />
-      </Container>
-    </Segment>
+          <StudentShareInfoWidget profile={profile} />
+        </Container>
+      </Segment>
+    </>
   );
 };
 

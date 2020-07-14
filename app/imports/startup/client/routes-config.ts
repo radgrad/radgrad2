@@ -94,6 +94,7 @@ import {
 import PageTrackingScoreboardPage from '../../ui/pages/shared/PageTrackingScoreboardPage';
 import PageTrackingComparisonPage from '../../ui/pages/shared/PageTrackingComparisonPage';
 import { PageInterestsCategoryTypes } from '../../api/page-tracking/PageInterestsCategoryTypes';
+import IndividualOpportunitiesPage from '../../ui/pages/shared/IndividualOpportunitiesPage';
 
 export const routes = {
   ADMIN: [
@@ -499,7 +500,7 @@ export const routes = {
     {
       path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${EXPLORER_PARAM.OPPORTUNITY}`,
       exact: true,
-      component: IndividualExplorerPageContainer,
+      component: IndividualOpportunitiesPage,
     },
     {
       path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.USERS}`,
@@ -724,7 +725,7 @@ export const routes = {
     {
       path: `/${URL_ROLES.MENTOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${EXPLORER_PARAM.OPPORTUNITY}`,
       exact: true,
-      component: IndividualExplorerPageContainer,
+      component: IndividualOpportunitiesPage,
     },
     {
       path: `/${URL_ROLES.MENTOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.USERS}`,
@@ -925,7 +926,7 @@ export const routes = {
     {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${EXPLORER_PARAM.OPPORTUNITY}`,
       exact: true,
-      component: IndividualExplorerPageContainer,
+      component: IndividualOpportunitiesPage,
     },
     /* ############################## Explorers USERS ############################## */
     {

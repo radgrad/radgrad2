@@ -4,13 +4,9 @@ import styles from '../../../pages/landing/guidedtour-style';
 
 const GuidedTourStudentWhyRadGrad = () => (
   <div>
-    <Grid container stackable>
+    <Grid container>
       <Grid.Row centered>
-        <Grid.Column width={2} />
-        <Grid.Column width={3}>
-          <Image rounded size="large" src="/images/radgrad_logo.png" />
-        </Grid.Column>
-        <Grid.Column width={10}>
+        <Grid.Column width="twelve">
           <div style={styles.p}>
             <Header style={styles.h1}>Why Use RadGrad?</Header>
             <p>So, you&apos;re a computer science student. Why should you use RadGrad? In a nutshell:</p>

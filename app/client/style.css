@@ -1,0 +1,52 @@
+#secondMenu{
+  background-color: #4fa88f !important;
+  color: #fff !important;
+  padding-bottom: 0 !important;
+}
+#firstMenu{
+  border: 0 !important;
+}
+.radgrad-menu{
+  background-color: #4fa88f;
+}
+.guidedTour{
+  width: 100%;
+  padding: 30px 0 !important;
+  margin-top: -30px !important;
+  margin-bottom: 20px !important;
+}
+.action-box{
+  color: #fff;
+  height: 190px;
+  padding: 20px !important;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 5px;
+}
+.action-box-padded{
+  margin: 0 30px;
+}
+.action-box1{
+  background-image: url("/images/studentLaptop_bg.png");
+  background-color: #6fbe44;
+}
+.action-box2{
+  background-image: url("/images/course_bg.png");
+  background-color: #2f9276;
+}
+.action-box3{
+  background-image: url("/images/career_bg.png");
+  background-color: #106735;
+}
+.gray-banner{
+  background-color: #333;
+  height: 200px;
+  width: 100%;
+}
+.helpPanel{
+  background-color: #ffffff;
+  width: 100%;
+}
+.helpPanel{
+  font-size: 16px;
+}

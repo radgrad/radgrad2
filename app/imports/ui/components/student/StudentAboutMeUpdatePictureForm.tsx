@@ -83,7 +83,6 @@ const StudentAboutMeUpdatePictureForm = (props: IStudentAboutMeUpdatePictureForm
 
   return (
     <React.Fragment>
-      <Grid.Column width={2}><b>Picture</b></Grid.Column>
       <Grid.Column width={6}>
         <Image src={pictureState} style={imageStyle} floated="left" />
         <Button basic color="green" onClick={handleUploadPicture}>Upload</Button>
