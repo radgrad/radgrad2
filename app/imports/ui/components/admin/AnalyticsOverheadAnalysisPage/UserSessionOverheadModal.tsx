@@ -28,8 +28,7 @@ const UserSessionOverheadModal = (props: IUserSessionOverheadModalProps) => {
       <Modal.Header>User Interactions: <span style={fullNameStyle}>{fullName}</span></Modal.Header>
       <Modal.Content>
         <div style={tableStyle}>
-          {/* TODO UI: Make the typeData column a fixed size and have words break-word */}
-          <Table celled padded>
+          <Table celled padded columns={3}>
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell>Type</Table.HeaderCell>
@@ -41,8 +40,7 @@ const UserSessionOverheadModal = (props: IUserSessionOverheadModalProps) => {
               {userInteractionsByUser.map((interaction) => (
                 <Table.Row key={_.uniqueId(`${interaction.username}-${interaction.type}`)}>
                   <Table.Cell>{interaction.type}</Table.Cell>
-                  {/* TODO UI: Improve the output format string of typeData */}
-                  <Table.Cell>{interaction.typeData}</Table.Cell>
+                  <Table.Cell>{interaction.typeData.join(', ')}</Table.Cell>
                   <Table.Cell>{formatDate(interaction.timestamp)}</Table.Cell>
                 </Table.Row>
               ))}

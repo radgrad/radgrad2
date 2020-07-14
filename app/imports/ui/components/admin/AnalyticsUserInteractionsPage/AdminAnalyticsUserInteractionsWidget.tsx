@@ -78,7 +78,7 @@ const AdminAnalyticsUserInteractionsWidget = (props: IAdminAnalyticsUserInteract
         <Header as="h4" dividing>
           USER INTERACTIONS: <span style={nameStyle}>{getStudentName()}</span>
         </Header>
-        <Table celled>
+        <Table celled columns={3}>
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell>Type</Table.HeaderCell>
@@ -90,7 +90,7 @@ const AdminAnalyticsUserInteractionsWidget = (props: IAdminAnalyticsUserInteract
             {interactions.map((interaction) => (
               <Table.Row key={interaction._id}>
                 <Table.Cell>{interaction.type}</Table.Cell>
-                <Table.Cell>{interaction.typeData}</Table.Cell>
+                <Table.Cell>{interaction.typeData.join(', ')}</Table.Cell>
                 <Table.Cell>{moment(interaction.timestamp).format('MM/DD/YY HH:mm')}</Table.Cell>
               </Table.Row>
             ))}
