@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import { withRouter, Link } from 'react-router-dom';
-import { Container, Grid, Segment, Header, Icon, Label } from 'semantic-ui-react';
+import { Container, Grid, Segment, Header, Icon, Label, Divider } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Users } from '../../../api/user/UserCollection';
 import {
@@ -56,19 +56,16 @@ const StudentAboutMeWidget = (props: IStudentAboutMeWidgetProps) => {
       <Segment padded>
         <Grid>
           <Grid.Row>
-            <Grid.Column width={1}/>
             <Grid.Column width={4}><strong>NAME: </strong></Grid.Column>
-            <Grid.Column width={7}>{name}</Grid.Column>
+            <Grid.Column width={8}>{name}</Grid.Column>
           </Grid.Row>
           <Grid.Row>
-            <Grid.Column width={1}/>
             <Grid.Column width={4}><strong>EMAIL: </strong></Grid.Column>
-            <Grid.Column width={7}>{email}</Grid.Column>
+            <Grid.Column width={8}>{email}</Grid.Column>
           </Grid.Row>
           <Grid.Row>
-            <Grid.Column width={1}/>
             <Grid.Column width={4}><strong>PROFILE PICTURE: </strong></Grid.Column>
-            <Grid.Column width={7}>
+            <Grid.Column width={8}>
               <StudentAboutMeUpdatePictureForm
                 picture={props.profile.picture}
                 docID={props.profile._id}
@@ -76,9 +73,8 @@ const StudentAboutMeWidget = (props: IStudentAboutMeWidgetProps) => {
               /></Grid.Column>
           </Grid.Row>
           <Grid.Row>
-            <Grid.Column width={1}/>
             <Grid.Column width={4}><strong>WEBSITE: </strong></Grid.Column>
-            <Grid.Column width={7}>
+            <Grid.Column width={8}>
               <StudentAboutMeUpdateWebsiteForm
                 website={props.profile.website}
                 docID={props.profile._id}
@@ -90,7 +86,7 @@ const StudentAboutMeWidget = (props: IStudentAboutMeWidgetProps) => {
       </Segment>
 
       <Header as="h1">Share your Information with others</Header>
-      <Segment>
+      <Segment padded>
         <Grid>
           <Grid.Row>
             <Grid.Column width={2} />
@@ -102,13 +98,26 @@ const StudentAboutMeWidget = (props: IStudentAboutMeWidgetProps) => {
       </Segment>
 
       <Header as="h1">My Favorites</Header>
-      <Segment>
+      <Segment padded>
         <Grid>
           <Grid.Row>
-            <Grid.Column width={2} />
-            <Grid.Column width={2}>aaa</Grid.Column>
-            <Grid.Column width={6}>bbb</Grid.Column>
-            <Grid.Column width={2} />
+            <Header as="h2">My Favorite Career Goals</Header>
+            {careerGoals.length !== 0 ?
+              careerGoals.map((careerGoal) => {
+                const slugName = itemToSlugName(careerGoal);
+                const route = Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}/${slugName}`);
+                return (
+                  <Label style={labelStyle} key={careerGoal._id} as={Link} to={route} size="tiny">
+                    <Icon name="suitcase" fitted /> {careerGoal.name}
+                  </Label>
+                );
+              })
+              :
+              <p style={marginBottomStyle}>No career goals favorited yet.</p>}
+            <Link to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}`)}>
+              <p>View More Career Goals</p>
+            </Link>
+            <Divider />
           </Grid.Row>
         </Grid>
       </Segment>
@@ -116,13 +125,9 @@ const StudentAboutMeWidget = (props: IStudentAboutMeWidgetProps) => {
         <Container>
           <Header as="h4" dividing>ABOUT ME</Header>
 
-          <Grid stackable>
+          <Grid padded stackable>
             <Grid.Row>
-              <Grid.Column width={2}><b>Name</b></Grid.Column>
-              <Grid.Column width={6}>{name}</Grid.Column>
-
-              <Grid.Column width={2}><b>Email</b></Grid.Column>
-              <Grid.Column width={6}>{email}</Grid.Column>
+              <StudentShareInfoWidget profile={profile} />
             </Grid.Row>
 
             <Grid.Row>
@@ -200,7 +205,6 @@ const StudentAboutMeWidget = (props: IStudentAboutMeWidgetProps) => {
             </Grid.Row>
           </Grid>
 
-          <StudentShareInfoWidget profile={profile} />
         </Container>
       </Segment>
     </>
