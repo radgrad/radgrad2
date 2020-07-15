@@ -129,7 +129,7 @@ const AdminDataModelCoursesPage = () => {
           text: error.message,
           icon: 'error',
         });
-        console.error('Error deleting AcademicTerm. %o', error);
+        console.error('Error deleting Course. %o', error);
       } else {
         Swal.fire({
           title: 'Delete succeeded',

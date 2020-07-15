@@ -44,6 +44,7 @@ export const dumpDatabaseMethod = new ValidatedMethod({
 export const defineMethod = new ValidatedMethod({
   name: 'BaseCollection.define',
   mixins: [CallPromiseMixin],
+  applyOptions: { enhanced: true },
   validate: null,
   run({ collectionName, definitionData }) {
     // console.log(collectionName, this.userId, definitionData);
@@ -56,19 +57,20 @@ export const defineMethod = new ValidatedMethod({
 export const updateMethod = new ValidatedMethod({
   name: 'BaseCollection.update',
   mixins: [CallPromiseMixin],
+  applyOptions: { enhanced: true },
   validate: null,
   run({ collectionName, updateData }) {
     // console.log('updateMethod(%o, %o)', collectionName, updateData);
     const collection = RadGrad.getCollection(collectionName);
     collection.assertValidRoleForMethod(this.userId);
     collection.update(updateData.id, updateData);
-    return true;
   },
 });
 
 export const removeItMethod = new ValidatedMethod({
   name: 'BaseCollection.removeIt',
   mixins: [CallPromiseMixin],
+  applyOptions: { enhanced: true },
   validate: null,
   run({ collectionName, instance }) {
     const collection = RadGrad.getCollection(collectionName);
@@ -80,6 +82,7 @@ export const removeItMethod = new ValidatedMethod({
 
 export const loadFixtureMethod = new ValidatedMethod({
   name: 'base.loadFixture',
+  applyOptions: { enhanced: true },
   validate: null,
   run(fixtureData) {
     // console.log('loadFixtureMethod', fixtureData);
