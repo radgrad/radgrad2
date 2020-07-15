@@ -6,19 +6,11 @@ import { Container, Form, Grid, Header, Message, Segment } from 'semantic-ui-rea
 import { ROLE } from '../../api/role/Role';
 import LandingNavBarContainer from '../components/landing/LandingNavBar';
 
-interface ISigninProps {
-  location: {
-    state: {
-      from: string;
-    };
-  };
-}
-
 /**
  * Signin page overrides the form’s submit event and call Meteor’s loginWithPassword().
  * Authentication errors modify the component’s state to be displayed
  */
-const Signin = (props: ISigninProps) => {
+const Signin = () => {
   const [emailState, setEmail] = useState('');
   const [passwordState, setPassword] = useState('');
   const [errorState, setError] = useState('');
@@ -47,6 +39,7 @@ const Signin = (props: ISigninProps) => {
       } else {
         setError('');
         setRedirectToReferer(true);
+        localStorage.setItem('logoutEvent', 'false');
       }
     });
   };
