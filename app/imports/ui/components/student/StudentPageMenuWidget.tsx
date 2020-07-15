@@ -4,7 +4,7 @@ import { Container, Dropdown, Menu } from 'semantic-ui-react';
 import FirstMenuContainer from '../../pages/shared/FirstMenu';
 import { secondMenu } from '../shared/shared-widget-names';
 import { buildRouteName, getUsername, IMatchProps } from '../shared/RouterHelperFunctions';
-import { DEGREEPLANNER, EXPLORER_TYPE } from '../../../startup/client/route-constants';
+import { COMMUNITY, DEGREEPLANNER, EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import { IStudentProfile } from '../../../typings/radgrad';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 
@@ -24,6 +24,11 @@ const studentHomePageItems = [
   { key: 'ICE Points', route: 'ice' },
   { key: 'Levels', route: 'levels' },
   { key: 'Advisor Log', route: 'log' },
+];
+
+const communityDropdownItems = [
+  { key: 'Users', route: COMMUNITY.USERS },
+  { key: 'RadGrad Videos', route: COMMUNITY.RADGRADVIDEOS },
 ];
 
 const StudentPageMenuWidget = (props: IStudentPageMenuWidgetProps) => {
@@ -73,8 +78,15 @@ const StudentPageMenuWidget = (props: IStudentPageMenuWidgetProps) => {
             </Menu.Item>
             <Dropdown item text="COMMUNITY">
               <Dropdown.Menu>
-                <Dropdown.Item>Users</Dropdown.Item>
-                <Dropdown.Item>RadGrad Videos</Dropdown.Item>
+                {communityDropdownItems.map((item) => (
+                  <Dropdown.Item
+                    key={item.key}
+                    as={NavLink}
+                    exact
+                    to={buildRouteName(match, `/${COMMUNITY.HOME}/${item.route}`)}
+                    content={item.key}
+                  />
+                ))}
               </Dropdown.Menu>
             </Dropdown>
             <Menu.Menu position="right">

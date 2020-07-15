@@ -89,12 +89,13 @@ import {
   EXPLORER_PARAM,
   GUIDEDTOUR,
   MENTOR_SPACE,
-  PAGE_TRACKING_SCOREBOARD, PAGE_TRACKING_COMPARISON, DEGREEPLANNER,
+  PAGE_TRACKING_SCOREBOARD, PAGE_TRACKING_COMPARISON, DEGREEPLANNER, COMMUNITY,
 } from './route-constants';
 import PageTrackingScoreboardPage from '../../ui/pages/shared/PageTrackingScoreboardPage';
 import PageTrackingComparisonPage from '../../ui/pages/shared/PageTrackingComparisonPage';
 import { PageInterestsCategoryTypes } from '../../api/page-tracking/PageInterestsCategoryTypes';
 import IndividualOpportunitiesPage from '../../ui/pages/shared/IndividualOpportunitiesPage';
+import CommunityRadGradVideosPage from '../../ui/pages/shared/CommunityRadGradVideosPage';
 
 export const routes = {
   ADMIN: [
@@ -415,6 +416,12 @@ export const routes = {
       exact: true,
       component: PageTrackingComparisonPage,
     },
+    /* ############################## Community ############################## */
+    {
+      path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${COMMUNITY.HOME}/${COMMUNITY.RADGRADVIDEOS}`,
+      exact: true,
+      component: CommunityRadGradVideosPage,
+    },
   ],
   ALUMNI: [
     {
@@ -563,6 +570,12 @@ export const routes = {
       path: `/${URL_ROLES.FACULTY}/${USERNAME}/${PAGE_TRACKING_COMPARISON}/${PageInterestsCategoryTypes.OPPORTUNITY}`,
       exact: true,
       component: PageTrackingComparisonPage,
+    },
+    /* ############################## Community ############################## */
+    {
+      path: `/${URL_ROLES.FACULTY}/${USERNAME}/${COMMUNITY.HOME}/${COMMUNITY.RADGRADVIDEOS}`,
+      exact: true,
+      component: CommunityRadGradVideosPage,
     },
   ],
   LANDING: [
@@ -774,6 +787,12 @@ export const routes = {
       exact: true,
       component: PageTrackingComparisonPage,
     },
+    /* ############################## Community ############################## */
+    {
+      path: `/${URL_ROLES.MENTOR}/${USERNAME}/${COMMUNITY.HOME}/${COMMUNITY.RADGRADVIDEOS}`,
+      exact: true,
+      component: CommunityRadGradVideosPage,
+    },
   ],
   STUDENT: [
     /* ############################## HOME ############################## */
@@ -933,6 +952,12 @@ export const routes = {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.USERS}`,
       exact: true,
       component: CardExplorerPageContainer,
+    },
+    /* ############################## Community ############################## */
+    {
+      path: `/${URL_ROLES.STUDENT}/${USERNAME}/${COMMUNITY.HOME}/${COMMUNITY.RADGRADVIDEOS}`,
+      exact: true,
+      component: CommunityRadGradVideosPage,
     },
   ],
 };

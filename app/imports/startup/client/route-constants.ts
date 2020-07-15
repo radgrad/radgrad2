@@ -51,3 +51,9 @@ export const EXPLORER_PARAM = {
   INTEREST: ':interest',
   OPPORTUNITY: ':opportunity',
 };
+
+export const COMMUNITY = {
+  HOME: 'community',
+  USERS: 'users',
+  RADGRADVIDEOS: 'radgrad-videos',
+};
