@@ -101,7 +101,10 @@ const StudentAboutMeWidget = (props: IStudentAboutMeWidgetProps) => {
       <Segment padded>
         <Grid>
           <Grid.Row>
-            <Header as="h2">My Favorite Career Goals</Header>
+            <Header as="h2" className="favorites_title">
+              <Icon name="shopping bag" />
+              <Header.Content>My Favorite Career Goals</Header.Content>
+            </Header>
             {careerGoals.length !== 0 ?
               careerGoals.map((careerGoal) => {
                 const slugName = itemToSlugName(careerGoal);
