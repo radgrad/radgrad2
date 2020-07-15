@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 import { Card, Grid, Header, Segment, Tab, Message, SemanticWIDTHS } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router-dom';
@@ -29,6 +30,8 @@ import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollect
 import PreferedChoice from '../../../api/degree-plan/PreferredChoice';
 import OpportunitySortWidget, { opportunitySortKeys } from './OpportunitySortWidget';
 import { IAdvisorProfile, IFacultyProfile, IMentorProfile, IStudentProfile } from '../../../typings/radgrad';
+import { RootState } from '../../../redux/types';
+import { scrollPositionActions } from '../../../redux/shared/scrollPosition';
 
 interface ICardExplorerWidgetProps extends ICardExplorerMenuWidgetProps {
   collection: any;
@@ -40,9 +43,39 @@ interface ICardExplorerWidgetProps extends ICardExplorerMenuWidgetProps {
   advisorProfiles: IAdvisorProfile[];
   facultyProfiles: IFacultyProfile[];
   mentorProfile: IMentorProfile[];
-  dispatch: any;
   menuList: object[];
+  // Saving Scroll Position
+  plansScrollPosition: number;
+  careerGoalsScrollPosition: number;
+  coursesScrollPosition: number;
+  degreesScrollPosition: number;
+  interestsScrollPosition: number;
+  opportunitiesScrollPosition: number;
+  setPlansScrollPosition: (scrollPosition: number) => any;
+  setCareerGoalsScrollPosition: (scrollPosition: number) => any;
+  setCoursesScrollPosition: (scrollPosition: number) => any;
+  setDegreesScrollPosition: (scrollPosition: number) => any;
+  setInterestsScrollPosition: (scrollPosition: number) => any;
+  setOpportunitiesScrollPosition: (scrollPosition: number) => any;
 }
+
+const mapStateToProps = (state: RootState) => ({
+  plansScrollPosition: state.shared.scrollPosition.explorer.plans,
+  careerGoalsScrollPosition: state.shared.scrollPosition.explorer.careerGoals,
+  coursesScrollPosition: state.shared.scrollPosition.explorer.courses,
+  degreesScrollPosition: state.shared.scrollPosition.explorer.degrees,
+  interestsScrollPosition: state.shared.scrollPosition.explorer.interests,
+  opportunitiesScrollPosition: state.shared.scrollPosition.explorer.opportunities,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  setPlansScrollPosition: (scrollPosition: number) => dispatch(scrollPositionActions.setExplorerPlansScrollPosition(scrollPosition)),
+  setCareerGoalsScrollPosition: (scrollPosition: number) => dispatch(scrollPositionActions.setExplorerCareerGoalsScrollPosition(scrollPosition)),
+  setCoursesScrollPosition: (scrollPosition: number) => dispatch(scrollPositionActions.setExplorerCoursesScrollPosition(scrollPosition)),
+  setDegreesScrollPosition: (scrollPosition: number) => dispatch(scrollPositionActions.setExplorerDegreesScrollPosition(scrollPosition)),
+  setInterestsScrollPosition: (scrollPosition: number) => dispatch(scrollPositionActions.setExplorerInterestsScrollPosition(scrollPosition)),
+  setOpportunitiesScrollPosition: (scrollPosition: number) => dispatch(scrollPositionActions.setExplorerOpportunitiesScrollPosition(scrollPosition)),
+});
 
 /**
  * Process to build a new Card Explorer Widget
@@ -243,8 +276,50 @@ const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
     },
   ];
 
-// Certain "Adding" functinalities should only be exposed to "Student" role, not Faculty or Mentor
+  // Certain "Adding" functinalities should only be exposed to "Student" role, not Faculty or Mentor
   const canAdd = Router.isUrlRoleStudent(props.match);
+  // Saving Scroll Position
+  const { plansScrollPosition, careerGoalsScrollPosition, coursesScrollPosition, degreesScrollPosition, interestsScrollPosition, opportunitiesScrollPosition } = props;
+  const { setPlansScrollPosition, setCareerGoalsScrollPosition, setCoursesScrollPosition, setDegreesScrollPosition, setInterestsScrollPosition, setOpportunitiesScrollPosition } = props;
+  const cardExplorerCardGroupElement: HTMLElement = document.getElementById('cardExplorerCardGroupElement');
+  useEffect(() => {
+    let savedScrollPosition;
+    if (type === EXPLORER_TYPE.ACADEMICPLANS) {
+      savedScrollPosition = plansScrollPosition;
+    } else if (type === EXPLORER_TYPE.CAREERGOALS) {
+      savedScrollPosition = careerGoalsScrollPosition;
+    } else if (type === EXPLORER_TYPE.COURSES) {
+      savedScrollPosition = coursesScrollPosition;
+    } else if (type === EXPLORER_TYPE.DEGREES) {
+      savedScrollPosition = degreesScrollPosition;
+    } else if (type === EXPLORER_TYPE.INTERESTS) {
+      savedScrollPosition = interestsScrollPosition;
+    } else if (type === EXPLORER_TYPE.OPPORTUNITIES) {
+      savedScrollPosition = opportunitiesScrollPosition;
+    }
+    if (savedScrollPosition && cardExplorerCardGroupElement) {
+      cardExplorerCardGroupElement.scrollTo(0, savedScrollPosition);
+    }
+
+    return () => {
+      if (cardExplorerCardGroupElement) {
+        const currentScrollPosition = cardExplorerCardGroupElement.scrollTop;
+        if (type === EXPLORER_TYPE.ACADEMICPLANS) {
+          setPlansScrollPosition(currentScrollPosition);
+        } else if (type === EXPLORER_TYPE.CAREERGOALS) {
+          setCareerGoalsScrollPosition(currentScrollPosition);
+        } else if (type === EXPLORER_TYPE.COURSES) {
+          setCoursesScrollPosition(currentScrollPosition);
+        } else if (type === EXPLORER_TYPE.DEGREES) {
+          setDegreesScrollPosition(currentScrollPosition);
+        } else if (type === EXPLORER_TYPE.INTERESTS) {
+          setInterestsScrollPosition(currentScrollPosition);
+        } else if (type === EXPLORER_TYPE.OPPORTUNITIES) {
+          setOpportunitiesScrollPosition(currentScrollPosition);
+        }
+      }
+    };
+  }, [cardExplorerCardGroupElement, careerGoalsScrollPosition, coursesScrollPosition, degreesScrollPosition, interestsScrollPosition, opportunitiesScrollPosition, plansScrollPosition, setCareerGoalsScrollPosition, setCoursesScrollPosition, setDegreesScrollPosition, setInterestsScrollPosition, setOpportunitiesScrollPosition, setPlansScrollPosition, type]);
 
   return (
     <React.Fragment>
@@ -252,14 +327,14 @@ const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
         <Header dividing>
           <h4>
             {
-              !buildStudentUserCard ? (
-                <React.Fragment>
-                  <span style={uppercaseTextTransformStyle}>{header.title} </span>
-                  <WidgetHeaderNumber inputValue={header.count} />
-                </React.Fragment>
+              !buildStudentUserCard ?
+                (
+                  <React.Fragment>
+                    <span style={uppercaseTextTransformStyle}>{header.title} </span>
+                    <WidgetHeaderNumber inputValue={header.count} />
+                  </React.Fragment>
                 )
-                :
-                <span style={uppercaseTextTransformStyle}>{header.title}</span>
+                : <span style={uppercaseTextTransformStyle}>{header.title}</span>
             }
           </h4>
         </Header>
@@ -283,39 +358,39 @@ const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
           />
         ) : ''}
         {
-          !buildStudentUserCard ? (
-            <Card.Group style={cardGroupStyle} itemsPerRow={2} stackable>
-              {
+          !buildStudentUserCard ?
+            (
+              <Card.Group style={cardGroupStyle} itemsPerRow={2} stackable id="cardExplorerCardGroupElement">
+                {
                   buildPlanCard ?
                     items.map((item) => <PlanCard key={item._id} item={item} type={type} canAdd={canAdd} />) : ''
                 }
-              {
+                {
                   buildProfileCard ?
                     items.map((item) => <ProfileCard key={item._id} item={item} type={type} canAdd />) : ''
                 }
-              {
+                {
                   buildTermCard ?
                     items.map((item) => (
                       <TermCard key={item._id} item={item} type={type} isStudent={isStudent} canAdd />
                     ))
                     : ''
                 }
-              {
+                {
                   buildExplorerCard ?
                     items.map((item) => <ExplorerCard key={item._id} item={item} type={type} />)
                     : ''
                 }
-            </Card.Group>
+              </Card.Group>
             )
-            :
-            <Tab panes={panes} defaultActiveIndex={3} style={tabPaneStyle} />
+            : <Tab panes={panes} defaultActiveIndex={3} style={tabPaneStyle} id="usersTab" />
         }
       </Segment>
     </React.Fragment>
   );
 };
 
-const CardExplorerWidgetCont = withTracker((props) => {
+const CardExplorerWidgetCon = withTracker((props) => {
   const { collection, type, match, menuList } = props;
   const favoriteIDs = _.map(menuList, (m) => m.item._id);
   const username = match.params.username;
@@ -351,6 +426,7 @@ const CardExplorerWidgetCont = withTracker((props) => {
     mentorProfiles,
   };
 })(CardExplorerWidget);
+const CardExplorerWidgetCont = connect(mapStateToProps, mapDispatchToProps)(CardExplorerWidgetCon);
 const CardExplorerWidgetContainer = withRouter(CardExplorerWidgetCont);
 
 export default CardExplorerWidgetContainer;
