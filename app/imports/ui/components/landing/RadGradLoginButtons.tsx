@@ -54,6 +54,7 @@ const RadGradLoginButtons = () => {
         } else if (Roles.userIsInRole(userId, [ROLE.STUDENT])) {
           setPathname(`/${ROLE.STUDENT.toLowerCase()}/${username}/home`);
         }
+        localStorage.setItem('logoutEvent', 'false');
         setRedirectToReferer(true);
       }
     };

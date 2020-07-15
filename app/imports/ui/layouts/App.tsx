@@ -15,7 +15,14 @@ import {
 } from '../components/shared/RouterHelperFunctions';
 import { Users } from '../../api/user/UserCollection';
 import NotAuthorized from '../pages/NotAuthorized';
-import withPageTracker from './PageTrackerHOC';
+import withPageTracker from './student/PageTrackerHOC';
+
+// Hack to refresh other RadGrad tabs when logged out on one tab
+window.addEventListener('storage', function (event) {
+  if (event.key === 'logoutEvent' && event.newValue === 'true') {
+    window.location.reload();
+  }
+});
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.tsx. */
 const App = () => (
@@ -148,6 +155,7 @@ const StudentProtectedRoute = ({ component: Component, ...rest }) => {
   // userInteractionDefineMethod.call() inside of withHistoryListen. Since we only want to track the pageViews of
   // STUDENTS, we should only use withHistoryListen if LOGGED IN user is a student.
   const WrappedComponent = isStudent ? withPageTracker(ComponentWithSubscriptions) : ComponentWithSubscriptions;
+
   return (
     <Route
       {...rest}
