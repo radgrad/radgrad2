@@ -6,19 +6,19 @@ import {
   getAllUrlParamsByLocationObject, getUsername,
   ILocationProps,
   IMatchProps,
-} from '../components/shared/RouterHelperFunctions';
-import { RootState } from '../../redux/types';
-import { Slugs } from '../../api/slug/SlugCollection';
-import { IPageInterestDefine } from '../../typings/radgrad';
-import { UserInteractionsTypes } from '../../api/analytic/UserInteractionsTypes';
-import { userInteractionDefineMethod } from '../../api/analytic/UserInteractionCollection.methods';
-import { EXPLORER_TYPE } from '../../startup/client/route-constants';
+} from '../../components/shared/RouterHelperFunctions';
+import { RootState } from '../../../redux/types';
+import { Slugs } from '../../../api/slug/SlugCollection';
+import { IPageInterestDefine } from '../../../typings/radgrad';
+import { UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
+import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
+import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import {
   IPageInterestsCategoryTypes,
   PageInterestsCategoryTypes,
-} from '../../api/page-tracking/PageInterestsCategoryTypes';
-import { pageInterestDefineMethod } from '../../api/page-tracking/PageInterestCollection.methods';
-import { calculateEngagedInterestTime, isValidParameter } from '../components/shared/page-tracking-helper-functions';
+} from '../../../api/page-tracking/PageInterestsCategoryTypes';
+import { pageInterestDefineMethod } from '../../../api/page-tracking/PageInterestCollection.methods';
+import { calculateEngagedInterestTime, isValidParameter } from '../../components/shared/page-tracking-helper-functions';
 
 interface IPageTrackerProps {
   history: {
