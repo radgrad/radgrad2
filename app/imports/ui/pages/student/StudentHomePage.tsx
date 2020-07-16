@@ -1,8 +1,8 @@
 import React from 'react';
 import { Grid, Container } from 'semantic-ui-react';
 import BackToTopButton from '../../components/shared/BackToTopButton';
-import StudentOfInterestWidget from '../../components/student/StudentOfInterestWidget';
-import StudentTeaserWidget from '../../components/student/StudentTeaserWidget';
+import StudentOfInterestWidget from '../../components/student/HomePage/StudentOfInterestWidget';
+import StudentTeaserWidget from '../../components/student/HomePage/StudentTeaserWidget';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import GuidedTourStudentContainer from '../landing/GuidedTourStudent';
 
