@@ -85,7 +85,7 @@ const StudentAboutMeUpdatePictureForm = (props: IStudentAboutMeUpdatePictureForm
     <React.Fragment>
       <Grid.Column width={6}>
         <Image src={pictureState} style={imageStyle} floated="left" />
-        <Button basic color="green" onClick={handleUploadPicture}>Upload</Button>
+        <Button basic color="green" onClick={handleUploadPicture}>UPLOAD</Button>
       </Grid.Column>
     </React.Fragment>
   );

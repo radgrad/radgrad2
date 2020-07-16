@@ -1,9 +1,8 @@
 import React from 'react';
-import { Grid } from 'semantic-ui-react';
+import { Grid, Container } from 'semantic-ui-react';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
-import StudentHomeMenu from '../../components/student/StudentHomeMenu';
 import StudentIceWidget from '../../components/student/StudentIceWidget';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
@@ -11,27 +10,19 @@ import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC'
 const StudentHomeIcePage = () => (
   <div>
     <StudentPageMenuWidget />
-    <Grid stackable>
-      <Grid.Row>
-        <Grid.Column width={1} />
-        <Grid.Column width={14}><HelpPanelWidget /></Grid.Column>
-        <Grid.Column width={1} />
-      </Grid.Row>
-
-      <Grid.Row>
-        <Grid.Column width={1} />
-        <Grid.Column width={3}>
-          <StudentHomeMenu />
-        </Grid.Column>
-
-        <Grid.Column width={11} stretched>
-          <StudentIceWidget />
-        </Grid.Column>
-        <Grid.Column width={1} />
-      </Grid.Row>
-    </Grid>
-
-    <BackToTopButton />
+    <Container>
+      <Grid stackable>
+        <Grid.Row>
+          <Grid.Column width={16}><HelpPanelWidget /></Grid.Column>
+        </Grid.Row>
+        <Grid.Row>
+          <Grid.Column width={16} stretched>
+            <StudentIceWidget />
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
+      <BackToTopButton />
+    </Container>
   </div>
 );
 

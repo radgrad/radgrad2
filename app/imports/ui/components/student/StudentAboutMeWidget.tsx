@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import { withRouter, Link } from 'react-router-dom';
-import { Container, Grid, Segment, Header, Icon, Label, Divider } from 'semantic-ui-react';
+import { Container, Grid, Segment, Header, Icon, Label, Divider, Button } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Users } from '../../../api/user/UserCollection';
 import {
@@ -50,10 +50,11 @@ const StudentAboutMeWidget = (props: IStudentAboutMeWidgetProps) => {
   const interests = profileGetInterests(props.profile);
   const academicPlans = _.map(props.favoriteAcademicPlans, (f) => AcademicPlans.findDoc(f.academicPlanID));
   const labelStyle = { marginBottom: '2px' };
+  const favorites = { color: '#53A78F', marginLeft: 10 };
   return (
     <>
       <Header as="h1">About me</Header>
-      <Segment padded>
+      <Segment padded className="test">
         <Grid>
           <Grid.Row>
             <Grid.Column width={4}><strong>NAME: </strong></Grid.Column>
@@ -89,10 +90,7 @@ const StudentAboutMeWidget = (props: IStudentAboutMeWidgetProps) => {
       <Segment padded>
         <Grid>
           <Grid.Row>
-            <Grid.Column width={2} />
-            <Grid.Column width={2}>aaa</Grid.Column>
-            <Grid.Column width={6}>bbb</Grid.Column>
-            <Grid.Column width={2} />
+            <StudentShareInfoWidget profile={profile} />
           </Grid.Row>
         </Grid>
       </Segment>
@@ -101,74 +99,44 @@ const StudentAboutMeWidget = (props: IStudentAboutMeWidgetProps) => {
       <Segment padded>
         <Grid>
           <Grid.Row>
-            <Header as="h2" className="favorites_title">
-              <Icon name="shopping bag" />
+            <Header as="h2" style={favorites}>
+              <Icon name="briefcase" />
               <Header.Content>My Favorite Career Goals</Header.Content>
             </Header>
-            {careerGoals.length !== 0 ?
-              careerGoals.map((careerGoal) => {
-                const slugName = itemToSlugName(careerGoal);
-                const route = Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}/${slugName}`);
-                return (
-                  <Label style={labelStyle} key={careerGoal._id} as={Link} to={route} size="tiny">
-                    <Icon name="suitcase" fitted /> {careerGoal.name}
-                  </Label>
-                );
-              })
-              :
-              <p style={marginBottomStyle}>No career goals favorited yet.</p>}
-            <Link to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}`)}>
-              <p>View More Career Goals</p>
-            </Link>
-            <Divider />
           </Grid.Row>
-        </Grid>
-      </Segment>
-      <Segment padded id={`${studentAboutMeWidget}`}>
-        <Container>
-          <Header as="h4" dividing>ABOUT ME</Header>
-
-          <Grid padded stackable>
-            <Grid.Row>
-              <StudentShareInfoWidget profile={profile} />
-            </Grid.Row>
-
-            <Grid.Row>
-              <StudentAboutMeUpdatePictureForm
-                picture={props.profile.picture}
-                docID={props.profile._id}
-                collectionName={StudentProfiles.getCollectionName()}
-              />
-              <StudentAboutMeUpdateWebsiteForm
-                website={props.profile.website}
-                docID={props.profile._id}
-                collectionName={StudentProfiles.getCollectionName()}
-              />
-            </Grid.Row>
-
-            <Grid.Row>
-              <Grid.Column width={2}><p><b>My Favorite Career Goals</b></p></Grid.Column>
-              <Grid.Column width={6}>
-                {careerGoals.length !== 0 ?
-                careerGoals.map((careerGoal) => {
-                  const slugName = itemToSlugName(careerGoal);
-                  const route = Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}/${slugName}`);
-                  return (
-                    <Label style={labelStyle} key={careerGoal._id} as={Link} to={route} size="tiny">
-                      <Icon name="suitcase" fitted /> {careerGoal.name}
-                    </Label>
-                  );
-                })
-                :
-                <p style={marginBottomStyle}>No career goals favorited yet.</p>}
-                <Link to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}`)}>
-                  <p>View More Career Goals</p>
-                </Link>
-              </Grid.Column>
-
-              <Grid.Column width={2}><p><b>My Favorite Interests</b></p></Grid.Column>
-              <Grid.Column width={6}>
-                {interests.length !== 0 ?
+          <Grid.Row>
+            <Grid.Column width={11}>            {careerGoals.length !== 0 ?
+    careerGoals.map((careerGoal) => {
+      const slugName = itemToSlugName(careerGoal);
+      const route = Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}/${slugName}`);
+      return (
+        <Label style={labelStyle} key={careerGoal._id} as={Link} to={route} size="tiny">
+          <Icon name="suitcase" fitted /> {careerGoal.name}
+        </Label>
+      );
+    })
+    :
+    <p style={marginBottomStyle}>No career goals favorited yet.</p>}</Grid.Column>
+            <Grid.Column textAlign="right" width={5}>
+              <Link to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}`)}>
+                <Button basic color="green" content="VIEW MORE" />
+              </Link>
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row>
+            <Grid.Column style={marginBottomStyle}>
+              <Divider />
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row>
+            <Header as="h2" style={favorites}>
+              <Icon name="favorite" />
+              <Header.Content>My Favorite Interests</Header.Content>
+            </Header>
+          </Grid.Row>
+          <Grid.Row>
+            <Grid.Column width={11}>
+              {interests.length !== 0 ?
                 interests.map((interest) => {
                   const slugName = itemToSlugName(interest);
                   const route = Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}/${slugName}`);
@@ -180,16 +148,27 @@ const StudentAboutMeWidget = (props: IStudentAboutMeWidgetProps) => {
                 })
                 :
                 <p style={marginBottomStyle}>No interests favorited yet.</p>}
-                <Link to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}`)}>
-                  <p>View More Interests</p>
-                </Link>
-              </Grid.Column>
-            </Grid.Row>
-
-            <Grid.Row>
-              <Grid.Column width={2}><p><b>My Favorite Academic Plan</b></p></Grid.Column>
-              <Grid.Column width={6}>
-                {academicPlans.length !== 0 ?
+            </Grid.Column>
+            <Grid.Column width={5} textAlign="right">
+              <Link to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}`)}>
+                <Button basic color="green" content="VIEW MORE" />
+              </Link>
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row>
+            <Grid.Column style={marginBottomStyle}>
+              <Divider />
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row>
+            <Header as="h2" style={favorites}>
+              <Icon name="graduation cap" />
+              <Header.Content>My Favorite Academic Plan</Header.Content>
+            </Header>
+          </Grid.Row>
+          <Grid.Row>
+            <Grid.Column width={11}>
+              {academicPlans.length !== 0 ?
                 academicPlans.map((plan) => {
                   const slugName = itemToSlugName(plan);
                   const route = Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}/${slugName}`);
@@ -201,14 +180,14 @@ const StudentAboutMeWidget = (props: IStudentAboutMeWidgetProps) => {
                 })
                 :
                 <p style={marginBottomStyle}>No academic plans favorited yet.</p>}
-                <Link to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}`)}>
-                  <p>View More Academic Plans</p>
-                </Link>
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
-
-        </Container>
+            </Grid.Column>
+            <Grid.Column textAlign="right" width={5}>
+              <Link to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}`)}>
+                <Button basic color="green" content="VIEW MORE" />
+              </Link>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
       </Segment>
     </>
   );

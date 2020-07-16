@@ -71,7 +71,7 @@ const StudentAboutMeUpdateWebsiteForm = (props: IStudentAboutMeUpdateWebsiteForm
               onChange={handleFormChange}
               value={websiteState}
             />
-            <Form.Button basic color="green"> Update</Form.Button>
+            <Form.Button basic color="green"> UPDATE</Form.Button>
           </Form.Group>
         </Form>
       </Grid.Column>

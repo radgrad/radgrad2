@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Grid, Header } from 'semantic-ui-react';
+import { Form, Grid } from 'semantic-ui-react';
 import { AutoForm, BoolField, SubmitField } from 'uniforms-semantic/';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
@@ -117,27 +117,35 @@ const StudentShareInfoWidget = (props: IStudentShareInfoWidgetProps) => {
   const formSchema = new SimpleSchema2Bridge(schema);
   return (
     <React.Fragment>
-      <Header as="h4" dividing>Share your Information with others</Header>
-      <Grid stackable style={marginTopStyle}>
+      <Grid padded>
         <AutoForm schema={formSchema} model={model} onSubmit={handleUpdateInformation}>
-          <Form.Group>
-            <BoolField name="shareUsername" />
-            <BoolField name="sharePicture" />
-            <BoolField name="shareWebsite" />
-            <BoolField name="shareInterests" />
-            <BoolField name="shareCareerGoals" />
-            <BoolField name="shareAcademicPlan" />
-            <BoolField name="shareCourses" />
-            <BoolField name="shareOpportunities" />
-            <BoolField name="shareLevel" />
-          </Form.Group>
-
-          <SubmitField
-            className="basic green shareInfo"
-            value="Update Share Information"
-            disabled={false}
-            inputRef={undefined}
-          />
+          <Grid.Row>
+            <Grid.Column>
+              <Form.Group>
+                <BoolField name="shareUsername" />
+                <BoolField name="sharePicture" />
+                <BoolField name="shareWebsite" />
+                <BoolField name="shareInterests" />
+                <BoolField name="shareCareerGoals" />
+              </Form.Group>
+              <Form.Group>
+                <BoolField name="shareAcademicPlan" />
+                <BoolField name="shareCourses" />
+                <BoolField name="shareOpportunities" />
+                <BoolField name="shareLevel" />
+              </Form.Group>
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row>
+            <Grid.Column>
+              <SubmitField
+                className="basic green shareInfo"
+                value="UPDATE"
+                disabled={false}
+                inputRef={undefined}
+              />
+            </Grid.Column>
+          </Grid.Row>
         </AutoForm>
       </Grid>
     </React.Fragment>
