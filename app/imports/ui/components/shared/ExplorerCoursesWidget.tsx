@@ -117,7 +117,7 @@ const findReview = (props: IExplorerCoursesWidgetProps): IReview => Reviews.find
 const teaserUrlHelper = (props: IExplorerCoursesWidgetProps): string => {
   const _id = Slugs.getEntityID(props.match.params.course, 'Course');
   const course = Courses.findDoc({ _id });
-  const oppTeaser = Teasers.find({ targetSlugID: course.slugID }).fetch();
+  const oppTeaser = Teasers.findNonRetired({ targetSlugID: course.slugID });
   if (oppTeaser.length > 1) {
     return undefined;
   }
@@ -142,7 +142,7 @@ const ExplorerCoursesWidget = (props: IExplorerCoursesWidgetProps) => {
   /* Header Variables */
   const upperShortName = toUpper(shortName);
   const isStudent = Router.isUrlRoleStudent(props.match);
-  const hasTeaser = Teasers.find({ targetSlugID: item.slugID }).fetch().length > 0;
+  const hasTeaser = Teasers.findNonRetired({ targetSlugID: item.slugID }).length > 0;
   return (
     <div id={explorerCourseWidget}>
       <Segment padded className="container" style={segmentStyle}>
@@ -576,10 +576,10 @@ const ExplorerCoursesWidget = (props: IExplorerCoursesWidgetProps) => {
 
 const ExplorerCoursesWidgetContainer = withTracker(() => {
   /* Reactive Sources to make StudentExplorerCoursesWidgetButton reactive */
-  const reactiveSourceOne = CourseInstances.find({}).fetch();
+  const reactiveSourceOne = CourseInstances.findNonRetired({});
 
   /* Reactive Source to make StudentExplorerEditReviewForm reactive */
-  const reactiveSourceTwo = Reviews.find({}).fetch();
+  const reactiveSourceTwo = Reviews.findNonRetired({});
 
   return {
     reactiveSourceOne,

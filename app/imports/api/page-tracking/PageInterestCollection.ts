@@ -35,6 +35,9 @@ class PageInterestCollection extends BaseCollection {
       timestamp: Date,
       retired: { type: Boolean, optional: true },
     }));
+    if (Meteor.isServer) {
+      this.collection.rawCollection().createIndex({ timestamp: -1 });
+    }
   }
 
   /**

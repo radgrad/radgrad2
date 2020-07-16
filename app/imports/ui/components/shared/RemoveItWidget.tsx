@@ -1,11 +1,20 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { Button, Icon, Modal } from 'semantic-ui-react';
 import { removeItMethod } from '../../../api/base/BaseCollection.methods';
 import { degreePlannerActions } from '../../../redux/student/degree-planner';
+import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
+import { IAcademicTerm, ICourseInstance, IOpportunityInstance, IUserInteractionDefine } from '../../../typings/radgrad';
+import { UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
+import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
+import { getUsername, IMatchProps } from './RouterHelperFunctions';
+import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
+import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 
 interface IRemoveItWidgetProps {
+  match: IMatchProps;
   collectionName: string;
   id: string;
   name: string;
@@ -19,7 +28,6 @@ const mapDispatchToProps = (dispatch) => ({
 
 const RemoveItWidget = (props: IRemoveItWidgetProps) => {
   const [modalOpenState, setModalOpen] = useState(false);
-
   const handleOpen = () => setModalOpen(true);
 
   const handleClose = () => setModalOpen(false);
@@ -28,9 +36,20 @@ const RemoveItWidget = (props: IRemoveItWidgetProps) => {
 
   const handleRemoveIt = () => {
     handleClose();
-    // console.log(props);
     const collectionName = props.collectionName;
     const instance = props.id;
+    let type;
+    let slugName;
+    let instanceObject: ICourseInstance | IOpportunityInstance;
+    if (collectionName === CourseInstances.getCollectionName()) {
+      type = UserInteractionsTypes.REMOVECOURSE;
+      slugName = CourseInstances.getCourseSlug(instance);
+      instanceObject = CourseInstances.findDoc({ _id: instance });
+    } else {
+      type = UserInteractionsTypes.REMOVEOPPORTUNITY;
+      slugName = OpportunityInstances.getOpportunitySlug(instance);
+      instanceObject = OpportunityInstances.findDoc({ _id: instance });
+    }
     removeItMethod.call({ collectionName, instance }, (error) => {
       if (error) {
         console.error(`Remove ${collectionName}: ${instance} failed.`, error);
@@ -41,7 +60,15 @@ const RemoveItWidget = (props: IRemoveItWidgetProps) => {
           showConfirmButton: false,
           timer: 1500,
         });
-        // TODO: UserInteraction remove planned item.
+        const username = getUsername(props.match);
+        const instanceAcademicTerm: IAcademicTerm = AcademicTerms.findDoc({ _id: instanceObject.termID });
+        const typeData = [instanceAcademicTerm.term, instanceAcademicTerm.year, slugName];
+        const interactionData: IUserInteractionDefine = { username, type, typeData };
+        userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
+          if (userInteractionError) {
+            console.error('Error creating UserInteraction.', userInteractionError);
+          }
+        });
       }
     });
     props.selectCourseInstance('');
@@ -86,4 +113,5 @@ const RemoveItWidget = (props: IRemoveItWidgetProps) => {
   );
 };
 
-export default connect(null, mapDispatchToProps)(RemoveItWidget);
+const RemoveItWidgetContainer = connect(null, mapDispatchToProps)(RemoveItWidget);
+export default withRouter(RemoveItWidgetContainer);

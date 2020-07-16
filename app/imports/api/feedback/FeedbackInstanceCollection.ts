@@ -31,7 +31,7 @@ class FeedbackInstanceCollection extends BaseCollection {
     this.RECOMMENDATION = 'Recommendation';
     this.feedbackTypes = [this.WARNING, this.RECOMMENDATION];
     if (Meteor.isServer) {
-      this.collection._ensureIndex({ _id: 1, userID: 1 });
+      this.collection._ensureIndex({ _id: 1, userID: 1, feedbackType: 1 });
     }
     this.defineSchema = new SimpleSchema({
       user: String,

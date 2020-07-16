@@ -1,5 +1,9 @@
-import { Dictionary } from 'lodash';
 import * as TYPES from './types';
+import {
+  IAdminAnalyticsOverheadAnalysisBuckets,
+  IAdminAnalyticsOverheadAnalysisData,
+  IAdminAnalyticsUserInteraction,
+} from './reducers';
 
 interface IAction {
   type: string;
@@ -17,12 +21,16 @@ interface ISetDateRangeAction extends IAction {
   };
 }
 
-interface ISetOverheadBucketsAction extends IAction {
-  payload: number[];
+interface ISetOverheadAnalysisBucketsAction extends IAction {
+  payload: IAdminAnalyticsOverheadAnalysisBuckets;
+}
+
+interface ISetOverheadAnalysisDataAction extends IAction {
+  payload: IAdminAnalyticsOverheadAnalysisData[];
 }
 
 interface ISetUserInteractionsAction extends IAction {
-  payload: Dictionary<any[]>;
+  payload: IAdminAnalyticsUserInteraction;
 }
 
 interface INewsletterAction extends IAction {
@@ -35,17 +43,17 @@ export const setOverheadAnalysisDateRange = (dateRange: ISetDateRangeProps): ISe
   payload: dateRange,
 });
 
-export const setOverheadBuckets = (overheadBuckets: any[]): ISetOverheadBucketsAction => ({
+export const setOverheadAnalysisBuckets = (overheadBuckets: IAdminAnalyticsOverheadAnalysisBuckets): ISetOverheadAnalysisBucketsAction => ({
   type: TYPES.SET_OVERHEAD_ANALYSIS_OVERHEAD_BUCKETS,
   payload: overheadBuckets,
 });
 
-export const setUserInteractions = (userInteractions: Dictionary<any[]>): ISetUserInteractionsAction => ({
+export const setOverheadAnalysisUserInteractions = (userInteractions: IAdminAnalyticsUserInteraction): ISetUserInteractionsAction => ({
   type: TYPES.SET_OVERHEAD_ANALYSIS_USER_INTERACTIONS,
   payload: userInteractions,
 });
 
-export const setOverheadData = (overheadData) => ({
+export const setOverheadAnalysisData = (overheadData: IAdminAnalyticsOverheadAnalysisData[]): ISetOverheadAnalysisDataAction => ({
   type: TYPES.SET_OVERHEAD_ANALYSIS_OVERHEAD_DATA,
   payload: overheadData,
 });
@@ -56,7 +64,7 @@ export const setStudentSummaryDateRange = (dateRange: ISetDateRangeProps): ISetD
   payload: dateRange,
 });
 
-export const setStudentSummaryUserInteractions = (userInteractions: Dictionary<any[]>): ISetUserInteractionsAction => ({
+export const setStudentSummaryUserInteractions = (userInteractions: IAdminAnalyticsUserInteraction): ISetUserInteractionsAction => ({
   type: TYPES.SET_STUDENT_SUMMARY_USER_INTERACTIONS,
   payload: userInteractions,
 });

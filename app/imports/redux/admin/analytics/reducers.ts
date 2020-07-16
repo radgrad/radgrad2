@@ -1,9 +1,21 @@
-import { Dictionary } from 'lodash';
 import * as TYPES from './types';
+import { IUserInteraction } from '../../../typings/radgrad';
 
-interface IDateRangeState {
+export interface IAdminAnalyticsDateRange {
   startDate: Date;
   endDate: Date;
+}
+
+export type IAdminAnalyticsUserInteraction = { [username: string]: IUserInteraction[] };
+
+export type IAdminAnalyticsOverheadAnalysisBuckets = { [key: number]: number };
+
+export interface IAdminAnalyticsOverheadAnalysisData {
+  username: string;
+  'num-sessions': number;
+  'num-docs': number;
+  'docs-per-min': number;
+  'total-time': number;
 }
 
 interface IState {
@@ -14,13 +26,14 @@ interface IState {
     allNewsletter: boolean;
   }
   overheadAnalysis: {
-    dateRange: IDateRangeState;
-    overheadBuckets: any[];
-    userInteractions: Dictionary<any[]>;
+    dateRange: IAdminAnalyticsDateRange;
+    overheadBuckets: IAdminAnalyticsOverheadAnalysisBuckets;
+    userInteractions: IAdminAnalyticsUserInteraction;
+    overheadData: IAdminAnalyticsOverheadAnalysisData[];
   }
   studentSummary: {
-    dateRange: IDateRangeState;
-    userInteractions: Dictionary<any[]>;
+    dateRange: IAdminAnalyticsDateRange;
+    userInteractions: IAdminAnalyticsUserInteraction;
   };
 }
 
@@ -36,8 +49,9 @@ const initialState: IState = {
       startDate: undefined,
       endDate: undefined,
     },
-    overheadBuckets: [],
+    overheadBuckets: {},
     userInteractions: {},
+    overheadData: [],
   },
   studentSummary: {
     dateRange: {
@@ -159,6 +173,16 @@ function reducer(state: IState = initialState, action: { [props: string]: any })
         overheadAnalysis: {
           ...otherKeys,
           userInteractions: action.payload,
+        },
+      };
+      return s;
+    case TYPES.SET_OVERHEAD_ANALYSIS_OVERHEAD_DATA:
+      otherKeys = state.overheadAnalysis;
+      s = {
+        ...state,
+        overheadAnalysis: {
+          ...otherKeys,
+          overheadData: action.payload,
         },
       };
       return s;

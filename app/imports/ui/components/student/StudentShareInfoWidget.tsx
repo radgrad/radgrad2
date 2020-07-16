@@ -6,8 +6,8 @@ import SimpleSchema from 'simpl-schema';
 import Swal from 'sweetalert2';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
-import { IStudentProfile } from '../../../typings/radgrad';
-import { UserInteractionsDataType, UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
+import { IStudentProfile, IUserInteractionDefine } from '../../../typings/radgrad';
+import { UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
 import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
 
 interface IStudentShareInfoWidgetProps {
@@ -38,18 +38,18 @@ const handleUpdateInformation = (doc): void => {
       // Define a user interaction that describes a user updating their share information
       const keys = ['shareUsername', 'sharePicture', 'shareWebsite', 'shareInterests', 'shareCareerGoals', 'shareAcademicPlan', 'shareCourses', 'shareOpportunities', 'shareLevel'];
       const modifiedList = [];
-      const previousStudentProfileData = StudentProfiles.find({ username }).fetch();
+      const previousStudentProfileData = StudentProfiles.findNonRetired({ username });
       if (previousStudentProfileData.length > 1) {
         console.error(`Error creating a UserInteraction: Found more than one student profile with the same username: ${username}`);
         return;
       }
       // For the type data, we only record the specific information that was modified
-      keys.forEach((key, index) => {
+      keys.forEach((key) => {
         if (doc[key] !== previousStudentProfileData[0][key]) {
           modifiedList.push(`${key}:${doc[key]}`);
         }
       });
-      const interactionData: UserInteractionsDataType = {
+      const interactionData: IUserInteractionDefine = {
         username,
         type: UserInteractionsTypes.SHAREINFORMATION,
         typeData: modifiedList,

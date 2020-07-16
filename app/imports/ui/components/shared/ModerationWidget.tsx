@@ -90,9 +90,9 @@ const ModerationWidget = (props: IModerationWidget) => (
 );
 
 const ModerationWidgetContainer = withTracker(() => ({
-  opportunityReviews: Reviews.find({ moderated: false, reviewType: 'opportunity' }).fetch(),
-  courseReviews: Reviews.find({ moderated: false, reviewType: 'course' }).fetch(),
-  mentorQuestions: MentorQuestions.find({ moderated: false }).fetch(),
+  opportunityReviews: Reviews.findNonRetired({ moderated: false, reviewType: 'opportunity' }),
+  courseReviews: Reviews.findNonRetired({ moderated: false, reviewType: 'course' }),
+  mentorQuestions: MentorQuestions.findNonRetired({ moderated: false }),
 }))(ModerationWidget);
 
 export default withRouter(ModerationWidgetContainer);

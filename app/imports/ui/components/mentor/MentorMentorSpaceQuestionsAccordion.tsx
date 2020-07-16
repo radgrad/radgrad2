@@ -71,9 +71,9 @@ const MentorMentorSpaceQuestionsAccordion = (props: IMentorMentorSpaceQuestionsA
 };
 
 const MentorMentorSpaceQuestionsAccordionContainer = withTracker(() => {
-  const questions = MentorQuestions.find({}).fetch();
-  const answerCount = _.map(questions, (q) => MentorAnswers.find({ questionID: q._id }).fetch().length);
-  const answers = MentorAnswers.find({}).fetch();
+  const questions = MentorQuestions.findNonRetired({});
+  const answerCount = _.map(questions, (q) => MentorAnswers.findNonRetired({ questionID: q._id }).length);
+  const answers = MentorAnswers.findNonRetired({});
   return {
     questions,
     answerCount,

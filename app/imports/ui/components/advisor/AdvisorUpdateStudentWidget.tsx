@@ -19,6 +19,7 @@ import { setSelectedStudentUsername } from '../../../redux/advisor/home/actions'
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
 import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
+import { RootState } from '../../../redux/types';
 
 interface IAdvisorUpdateStudentWidgetProps {
   dispatch: (any) => void;
@@ -31,7 +32,7 @@ interface IAdvisorUpdateStudentWidgetProps {
   careerGoals: { [key: string]: any }[];
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: RootState) => ({
   selectedUsername: state.advisor.home.selectedUsername,
   isLoaded: state.advisor.home.isLoaded,
 });
@@ -40,11 +41,11 @@ const AdvisorUpdateStudentWidget = (props: IAdvisorUpdateStudentWidgetProps) => 
   // console.log('AdvisorUpdateStudentWidget', props);
   const doc = props.usernameDoc;
   const userID = doc.userID;
-  const favCareerGoals = FavoriteCareerGoals.find({ userID }).fetch();
+  const favCareerGoals = FavoriteCareerGoals.findNonRetired({ userID });
   const careerGoalIDs = _.map(favCareerGoals, (fav) => fav.careerGoalID);
-  const favInterests = FavoriteInterests.find({ userID }).fetch();
+  const favInterests = FavoriteInterests.findNonRetired({ userID });
   const interestIDs = _.map(favInterests, (fav) => fav.interestID);
-  const favPlans = FavoriteAcademicPlans.find({ studentID: userID }).fetch();
+  const favPlans = FavoriteAcademicPlans.findNonRetired({ studentID: userID });
   const favPlanIDs = _.map(favPlans, (fav) => fav.academicPlanID);
   const [firstNameState, setFirstName] = useState(doc.firstName);
   const [lastNameState, setLastName] = useState(doc.lastName);
@@ -300,7 +301,7 @@ const AdvisorUpdateStudentWidget = (props: IAdvisorUpdateStudentWidgetProps) => 
               selection
               placeholder="Select Semester"
               onChange={handleFormChange}
-              options={AcademicTerms.find().fetch().map(
+              options={AcademicTerms.findNonRetired().map(
                 (ele, i) => ({ key: i, text: `${ele.term} ${ele.year}`, value: ele._id }),
               )}
               value={declaredAcademicTermState}
@@ -314,7 +315,7 @@ const AdvisorUpdateStudentWidget = (props: IAdvisorUpdateStudentWidgetProps) => 
               multiple
               placeholder="Select Academic Plan"
               onChange={handleFormChange}
-              options={AcademicPlans.find().fetch().map(
+              options={AcademicPlans.findNonRetired().map(
                 (ele, i) => ({ key: i, text: ele.name, value: ele._id }),
               )}
               value={favoriteAcademicPlansState}

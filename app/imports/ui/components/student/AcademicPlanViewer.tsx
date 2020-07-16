@@ -43,17 +43,17 @@ const AcademicPlanViewer = (props: IAcademicPlanViewerProps) => {
 
   const handleChangeYear = (data) => {
     // console.log('change year %o', data);
-    const academicPlan = AcademicPlans.find({ year: data, name: planState.name }).fetch()[0];
+    const academicPlan = AcademicPlans.findNonRetired({ year: data, name: planState.name });
     if (academicPlan) {
-      setPlan(academicPlan);
+      setPlan(academicPlan[0]);
     }
   };
 
   const handleChangeName = (data) => {
     // console.log('change name %o', data);
-    const academicPlan = AcademicPlans.find({ year: planState.year, name: data }).fetch()[0];
+    const academicPlan = AcademicPlans.findNonRetired({ year: planState.year, name: data });
     if (academicPlan) {
-      setPlan(academicPlan);
+      setPlan(academicPlan[0]);
     }
   };
 
@@ -61,7 +61,7 @@ const AcademicPlanViewer = (props: IAcademicPlanViewerProps) => {
   // console.log(planYears);
   const names = [];
   _.forEach(planYears, (year) => {
-    const plans = AcademicPlans.find({ year }).fetch();
+    const plans = AcademicPlans.findNonRetired({ year });
     _.forEach(plans, (p) => names.push(p.name));
   });
   const noBottomMargin = {

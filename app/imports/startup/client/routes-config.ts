@@ -39,7 +39,7 @@ import FacultyVerificationPageContainer from '../../ui/pages/faculty/FacultyVeri
 import FacultyHomePageContainer from '../../ui/pages/faculty/FacultyHomePage';
 import FacultyManageOpportunitiesPageContainer from '../../ui/pages/faculty/FacultyManageOpportunitiesPage';
 import StudentHomePageContainer from '../../ui/pages/student/StudentHomePage';
-import StudentDegreePlannerPageContainer from '../../ui/pages/student/StudentDegreePlannerPage';
+import StudentDegreePlannerPage from '../../ui/pages/student/StudentDegreePlannerPage';
 import StudentHomeAboutMePageContainer from '../../ui/pages/student/StudentHomeAboutMePage';
 import StudentHomeIcePageContainer from '../../ui/pages/student/StudentHomeIcePage';
 import StudentHomeLevelsPageContainer from '../../ui/pages/student/StudentHomeLevelsPage';
@@ -825,7 +825,7 @@ export const routes = {
     {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${DEGREEPLANNER}`,
       exact: true,
-      component: StudentDegreePlannerPageContainer,
+      component: StudentDegreePlannerPage,
     },
     /* ############################## MENTOR SPACE ############################## */
     {

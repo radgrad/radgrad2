@@ -111,29 +111,42 @@ if (Meteor.isServer) {
       const ci: ICourseInstance = CourseInstances.findOne({});
       const studentID = ci.studentID;
       CourseInstances.removeUser(studentID);
+
       expect(CourseInstances.find({ studentID }).count()).to.equal(0);
     });
 
-    it('Can get course slug and docs', function test7() {
+    it('Can getCourseDoc, getCourseSlug, getAcademicTermDoc, getStudentDoc', function test7() {
       const course = makeSampleCourse();
       const doc = Courses.findDoc(course);
-      const courseSlug = Slugs.getNameFromID(doc.slugID);
       const academicTerm = makeSampleAcademicTerm();
       const tDoc = AcademicTerms.findDoc(academicTerm);
       const student = makeSampleUser();
       const sDoc = Users.getProfile(student);
       const grade = getRandomGrade();
       const docID = CourseInstances.define({ course, student, academicTerm, grade });
-      expect(CourseInstances.getCourseSlug(docID)).to.equal(courseSlug);
+
+      /* getCourseDoc */
       const courseDoc = CourseInstances.getCourseDoc(docID);
+
       expect(doc.name).to.equal(courseDoc.name);
       expect(doc.shortName).to.equal(courseDoc.shortName);
       expect(doc.description).to.equal(courseDoc.description);
-      const studentDoc = CourseInstances.getStudentDoc(docID);
-      expect(sDoc.username).to.equal(studentDoc.username);
+
+      /* getCourseSlug */
+      const courseSlug = Slugs.getNameFromID(doc.slugID);
+
+      expect(CourseInstances.getCourseSlug(docID)).to.equal(courseSlug);
+
+      /* getAcademicTermDoc */
       const termDoc = CourseInstances.getAcademicTermDoc(docID);
+
       expect(tDoc.term).to.equal(termDoc.term);
       expect(tDoc.year).to.equal(termDoc.year);
+
+      /* getStudentDoc */
+      const studentDoc = CourseInstances.getStudentDoc(docID);
+
+      expect(sDoc.username).to.equal(studentDoc.username);
     });
   });
 }

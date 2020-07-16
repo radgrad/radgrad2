@@ -53,10 +53,10 @@ const userCareerGoals = (careerGoal: ICareerGoal, props: IExplorerMenuNonMobileI
 
 const userCourses = (course: ICourse, props: IExplorerMenuNonMobileItemProps): string => {
   let ret = '';
-  const ci = CourseInstances.find({
+  const ci = CourseInstances.findNonRetired({
     studentID: Router.getUserIdFromRoute(props.match),
     courseID: course._id,
-  }).fetch();
+  });
   if (ci.length > 0) {
     ret = 'check green circle outline icon';
   }
@@ -82,10 +82,10 @@ const userInterests = (interest: IInterest, props: IExplorerMenuNonMobileItemPro
 
 const userOpportunities = (opportunity: IOpportunity, props: IExplorerMenuNonMobileItemProps): string => {
   let ret = '';
-  const oi = OpportunityInstances.find({
+  const oi = OpportunityInstances.findNonRetired({
     studentID: Router.getUserIdFromRoute(props.match),
     opportunityID: opportunity._id,
-  }).fetch();
+  });
   if (oi.length > 0) {
     ret = 'check green circle outline icon';
 

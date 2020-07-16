@@ -9,7 +9,7 @@ import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Users } from '../user/UserCollection';
 import { VerificationRequests } from '../verification/VerificationRequestCollection';
 import BaseCollection from '../base/BaseCollection';
-import { IOpportunityInstanceDefine, IOpportunityInstanceUpdate } from '../../typings/radgrad';
+import { IOpportunityInstance, IOpportunityInstanceDefine, IOpportunityInstanceUpdate } from '../../typings/radgrad';
 import { iceSchema } from '../ice/IceProcessor';
 
 /**
@@ -210,8 +210,19 @@ class OpportunityInstanceCollection extends BaseCollection {
    */
   public getOpportunityDoc(instanceID: string) {
     this.assertDefined(instanceID);
-    const instance = this.collection.findOne({ _id: instanceID });
+    const instance: IOpportunityInstance = this.collection.findOne({ _id: instanceID });
     return Opportunities.findDoc(instance.opportunityID);
+  }
+
+  /**
+   * Returns the Opportunity slug for the instance's corresponding Opportunity.
+   * @param instanceID The OpportunityInstance ID.
+   * @return {string} The opportunity slug.
+   */
+  public getOpportunitySlug(instanceID: string) {
+    this.assertDefined(instanceID);
+    const instance: IOpportunityInstance = this.collection.findOne({ _id: instanceID });
+    return Opportunities.findSlugByID(instance.opportunityID);
   }
 
   /**

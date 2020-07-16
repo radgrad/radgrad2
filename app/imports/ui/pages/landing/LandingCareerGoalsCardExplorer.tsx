@@ -72,8 +72,8 @@ const LandingCareerGoalsCardExplorerContainer = withTracker(() => {
   const sub2 = Meteor.subscribe(Slugs.getPublicationName());
   return {
     ready: sub1.ready() && sub2.ready(),
-    careerGoals: CareerGoals.find({}).fetch(),
-    count: CareerGoals.find().count(),
+    careerGoals: CareerGoals.findNonRetired({}),
+    count: CareerGoals.countNonRetired(),
   };
 })(LandingCareerGoalsCardExplorerCon);
 

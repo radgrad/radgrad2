@@ -108,6 +108,9 @@ class CareerGoalCollection extends BaseSlugCollection {
     }
     if (_.isBoolean(retired)) {
       updateData.retired = retired;
+      // Need to update the FavoriteCareerGoals
+      const favorites = FavoriteCareerGoals.find({ careerGoalID: docID }).fetch();
+      _.forEach(favorites, (fav) => {});
     }
     this.collection.update(docID, { $set: updateData });
   }
