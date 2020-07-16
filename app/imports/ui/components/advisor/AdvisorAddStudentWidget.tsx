@@ -245,7 +245,7 @@ const AdvisorAddStudentWidget = (props: IAdvisorAddStudentWidgetProps) => {
               label="Declared Academic Term"
               value={declaredAcademicTerm}
               onChange={handleFormChange}
-              options={AcademicTerms.find().fetch().map(
+              options={AcademicTerms.findNonRetired().map(
                 (ele, i) => ({ key: i, text: `${ele.term} ${ele.year}`, value: ele._id }),
               )}
               selection
@@ -259,7 +259,7 @@ const AdvisorAddStudentWidget = (props: IAdvisorAddStudentWidgetProps) => {
               label="Academic Plan"
               value={academicPlanID}
               onChange={handleFormChange}
-              options={AcademicPlans.find().fetch().map(
+              options={AcademicPlans.findNonRetired().map(
                 (ele, i) => ({ key: i, text: ele.name, value: ele._id }),
               )}
               placeholder="Select Academic Plan"

@@ -34,6 +34,10 @@ class UserInteractionCollection extends BaseCollection {
       'typeData.$': String,
       timestamp: { type: Date },
     }));
+    if (Meteor.isServer) {
+      this.collection.rawCollection().createIndex({ username: 1, type: 1 });
+    }
+
   }
 
   /**

@@ -216,7 +216,7 @@ const StudentAboutMeWidget = (props: IStudentAboutMeWidgetProps) => {
 
 export default withRouter(withTracker((props) => ({
   profile: Users.getProfile(props.match.params.username),
-  favoriteAcademicPlans: FavoriteAcademicPlans.find({}).fetch(),
-  favoriteCareerGoals: FavoriteCareerGoals.find({}).fetch(),
-  favoriteInterests: FavoriteInterests.find({}).fetch(),
+  favoriteAcademicPlans: FavoriteAcademicPlans.findNonRetired({}),
+  favoriteCareerGoals: FavoriteCareerGoals.findNonRetired({}),
+  favoriteInterests: FavoriteInterests.findNonRetired({}),
 }))(StudentAboutMeWidget));

@@ -51,7 +51,7 @@ const HelpPanelWidget = (props: IHelpPanelWidgetProps) => {
 };
 
 export default withRouter(withTracker((props) => {
-  const helpMessages = HelpMessages.find({ routeName: props.match.path }).fetch();
+  const helpMessages = HelpMessages.findNonRetired({ routeName: props.match.path });
   return {
     helpMessages,
   };

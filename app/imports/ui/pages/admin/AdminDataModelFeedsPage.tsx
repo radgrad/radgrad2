@@ -23,6 +23,7 @@ import {
 } from '../../components/shared/data-model-helper-functions';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
+import { RootState } from '../../../redux/types';
 
 const collection = Feeds; // the collection to use.
 
@@ -87,7 +88,7 @@ const itemTitle = (item: any): React.ReactNode => (
   </React.Fragment>
 );
 
-const mapStateToProps = (state): object => ({
+const mapStateToProps = (state: RootState): object => ({
   isCloudinaryUsed: state.shared.cloudinary.adminDataModelFeeds.isCloudinaryUsed,
   cloudinaryUrl: state.shared.cloudinary.adminDataModelFeeds.cloudinaryUrl,
 });

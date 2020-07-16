@@ -39,7 +39,7 @@ interface IExplorerCareerGoalsWidgetProps {
 const teaserUrlHelper = (props: IExplorerCareerGoalsWidgetProps): string => {
   const _id = Slugs.getEntityID(props.match.params.careergoal, 'CareerGoal');
   const careerGoal = CareerGoals.findDoc({ _id });
-  const oppTeaser = Teasers.find({ targetSlugID: careerGoal.slugID }).fetch();
+  const oppTeaser = Teasers.findNonRetired({ targetSlugID: careerGoal.slugID });
   if (oppTeaser.length > 1) {
     return undefined;
   }
@@ -59,7 +59,7 @@ const ExplorerCareerGoalsWidget = (props: IExplorerCareerGoalsWidgetProps) => {
 
   const { name, descriptionPairs, socialPairs, item, match } = props;
   const upperName = toUpper(name);
-  const hasTeaser = Teasers.find({ targetSlugID: item.slugID }).fetch().length > 0;
+  const hasTeaser = Teasers.findNonRetired({ targetSlugID: item.slugID }).length > 0;
 
   return (
     <Grid container stackable style={marginStyle} id={explorerCareerGoalWidget}>

@@ -1,19 +1,43 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Container, Header, Grid, Image, Popup, Divider, Segment } from 'semantic-ui-react';
-import { IInterest, IProfile } from '../../../typings/radgrad';
+import _ from 'lodash';
+import { Users } from '../../../api/user/UserCollection';
+import { IInterest } from '../../../typings/radgrad';
 import WidgetHeaderNumber from './WidgetHeaderNumber';
 import { studentsParticipating } from './data-model-helper-functions';
+import { getUserIDsWithFavoriteInterestMethod } from '../../../api/favorite/FavoriteInterestCollection.methods';
 
 interface IInterestedProfileWidgetProps {
   interest: IInterest;
-  students: IProfile[];
-  faculty: IProfile[];
-  alumni: IProfile[];
-  mentors: IProfile[];
 }
 
 const InterestedProfilesWidget = (props: IInterestedProfileWidgetProps) => {
-  const { interest, students, faculty, alumni, mentors } = props;
+  // console.log('InterestedProfileWidget', props);
+  const [faculty, setFaculty] = useState([]);
+  const [mentors, setMentors] = useState([]);
+  const [students, setStudents] = useState([]);
+  const [alumni, setAlumni] = useState([]);
+  const { interest } = props;
+  getUserIDsWithFavoriteInterestMethod.call({ interestID: interest._id, role: 'faculty' }, (error, res) => {
+    if (res && faculty.length !== res.length) {
+      setFaculty(_.map(res, (id) => Users.getProfile(id)));
+    }
+  });
+  getUserIDsWithFavoriteInterestMethod.call({ interestID: interest._id, role: 'mentor' }, (error, res) => {
+    if (res && mentors.length !== res.length) {
+      setMentors(_.map(res, (id) => Users.getProfile(id)));
+    }
+  });
+  getUserIDsWithFavoriteInterestMethod.call({ interestID: interest._id, role: 'student' }, (error, res) => {
+    if (res && students.length !== res.length) {
+      setStudents(_.map(res, (id) => Users.getProfile(id)));
+    }
+  });
+  getUserIDsWithFavoriteInterestMethod.call({ interestID: interest._id, role: 'alumni' }, (error, res) => {
+    if (res && alumni.length !== res.length) {
+      setAlumni(_.map(res, (id) => Users.getProfile(id)));
+    }
+  });
   const numberStudents = studentsParticipating(interest);
   return (
     <Grid>

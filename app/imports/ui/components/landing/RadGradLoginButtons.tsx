@@ -1,19 +1,23 @@
 import * as React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, withRouter, Redirect } from 'react-router-dom';
 import { Dropdown } from 'semantic-ui-react';
 import { Roles } from 'meteor/alanning:roles';
+import { useState } from 'react';
 import { Users } from '../../../api/user/UserCollection';
 import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
 import {
-  UserInteractionsDataType,
   USERINTERACTIONSNOTYPEDATA,
   UserInteractionsTypes,
 } from '../../../api/analytic/UserInteractionsTypes';
+import { IUserInteractionDefine } from '../../../typings/radgrad';
+import { ROLE } from '../../../api/role/Role';
 
 const RadGradLoginButtons = () => {
+  const [pathname, setPathname] = useState<string>('');
+  const [redirectToRefererState, setRedirectToReferer] = useState<boolean>(false);
+
   const handleClick = (e, instance) => {
-    // console.log(e, instance);
     e.preventDefault();
     const callback = function loginCallback(error) {
       if (error) {
@@ -22,8 +26,8 @@ const RadGradLoginButtons = () => {
         instance.$('div .ui.error.message.hidden').removeClass('hidden');
       } else {
         const username = Meteor.user().username;
-        const id = Meteor.userId();
-        let role = Roles.getRolesForUser(id)[0];
+        const userId = Meteor.userId();
+        let role = Roles.getRolesForUser(userId)[0];
         const isStudent = role.toLowerCase() === 'student';
         if (isStudent) {
           const profile = Users.findProfileFromUsername(username);
@@ -31,10 +35,10 @@ const RadGradLoginButtons = () => {
             role = 'Alumni';
           } else {
             // Track Student Login
-            const interactionData: UserInteractionsDataType = {
+            const interactionData: IUserInteractionDefine = {
               username,
               type: UserInteractionsTypes.LOGIN,
-              typeData: USERINTERACTIONSNOTYPEDATA,
+              typeData: [USERINTERACTIONSNOTYPEDATA],
             };
             userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
               if (userInteractionError) {
@@ -43,6 +47,15 @@ const RadGradLoginButtons = () => {
             });
           }
         }
+        if (Roles.userIsInRole(userId, [ROLE.ADVISOR])) {
+          setPathname(`/${ROLE.ADVISOR.toLowerCase}/${username}/home`);
+        } else if (Roles.userIsInRole(userId, [ROLE.FACULTY])) {
+          setPathname(`/${ROLE.FACULTY.toLowerCase()}/${username}/home`);
+        } else if (Roles.userIsInRole(userId, [ROLE.STUDENT])) {
+          setPathname(`/${ROLE.STUDENT.toLowerCase()}/${username}/home`);
+        }
+        localStorage.setItem('logoutEvent', 'false');
+        setRedirectToReferer(true);
       }
     };
     Meteor.loginWithCas(callback);
@@ -53,6 +66,12 @@ const RadGradLoginButtons = () => {
   const facultyLabel = '... as faculty';
   const mentorLabel = '... as mentor';
   const studentLabel = '... as student';
+
+  // Redirection after logging in
+  if (redirectToRefererState) {
+    return <Redirect to={pathname} />;
+  }
+
   return (
     <Dropdown text="LOGIN" pointing="top right">
       <Dropdown.Menu>

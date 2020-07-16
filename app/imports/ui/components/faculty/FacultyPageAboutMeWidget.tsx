@@ -184,12 +184,12 @@ const FacultyPageAboutMeWidget = (props: IFacultyPageAboutMeWidgetProps) => {
   // gets the username based on the user ID
   const facultyUserUsername = facultyUserProfile.username;
   // get the career goal IDs based on the userID
-  const favCareerGoals = FavoriteCareerGoals.find({ userID: facultyUserID }).fetch();
+  const favCareerGoals = FavoriteCareerGoals.findNonRetired({ userID: facultyUserID });
   const facultyCareerGoalsIDs = _.map(favCareerGoals, (fav) => fav.careerGoalID);
   // map the career goal IDs to their names
   const facultyCareerGoals = _.map(facultyCareerGoalsIDs, (id) => CareerGoals.findDoc(id).name);
   // get the interest goal IDs based on the User ID
-  const favInterests = FavoriteInterests.find({ userID: facultyUserID }).fetch();
+  const favInterests = FavoriteInterests.findNonRetired({ userID: facultyUserID });
   const facultyInterestIDs = _.map(favInterests, (fav) => fav.interestID);
   // map the interests IDs to their names
   const facultyInterests = _.map(facultyInterestIDs, (id) => Interests.findDoc(id).name);
@@ -328,8 +328,8 @@ const FacultyPageAboutMeWidgetCon = withTracker(({ match }) => {
   const username = getUsername(match);
   const profile: IFacultyProfile = Users.getProfile(username);
   const userID = getUserIdFromRoute(match);
-  const favoriteInterests: IFavoriteInterest[] = FavoriteInterests.find({ userID }).fetch();
-  const favoriteCareerGoals: IFavoriteCareerGoal[] = FavoriteCareerGoals.find({ userID }).fetch();
+  const favoriteInterests: IFavoriteInterest[] = FavoriteInterests.findNonRetired({ userID });
+  const favoriteCareerGoals: IFavoriteCareerGoal[] = FavoriteCareerGoals.findNonRetired({ userID });
 
   return {
     profile,

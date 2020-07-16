@@ -9,22 +9,29 @@ import _ from 'lodash';
 import { ANALYTICS } from '../../../startup/client/route-constants';
 import { analyticsActions } from '../../../redux/admin/analytics';
 import { userInteractionFindMethod } from '../../../api/analytic/UserInteractionCollection.methods';
+import {
+  IAdminAnalyticsOverheadAnalysisBuckets,
+  IAdminAnalyticsOverheadAnalysisData,
+  IAdminAnalyticsUserInteraction,
+} from '../../../redux/admin/analytics/reducers';
 
 interface IAdminAnalyticsDateSelectionWidgetProps {
   page: string;
   setOverheadAnalysisDateRange: (dateRange: analyticsActions.ISetDateRangeProps) => any;
-  setOverheadBuckets: (overheadBuckets: any[]) => any;
-  setUserInteractions: (userInteractions: _.Dictionary<any[]>) => any;
+  setOverheadAnalysisBuckets: (overheadBuckets: IAdminAnalyticsOverheadAnalysisBuckets) => any;
+  setOverheadAnalysisData: (overheadData: IAdminAnalyticsOverheadAnalysisData[]) => any;
+  setOverheadAnalysisUserInteractions: (userInteractions: IAdminAnalyticsUserInteraction) => any;
   setStudentSummaryDateRange: (dateRange: analyticsActions.ISetDateRangeProps) => any;
-  setStudentSummaryUserInteractions: (userInteractions: _.Dictionary<any[]>) => any;
+  setStudentSummaryUserInteractions: (userInteractions: IAdminAnalyticsUserInteraction) => any;
 }
 
 const mapDispatchToProps = (dispatch: any): object => ({
   setOverheadAnalysisDateRange: (dateRange: analyticsActions.ISetDateRangeProps) => dispatch(analyticsActions.setOverheadAnalysisDateRange(dateRange)),
-  setOverheadBuckets: (overheadBuckets: any[]) => dispatch(analyticsActions.setOverheadBuckets(overheadBuckets)),
-  setUserInteractions: (userInteractions: _.Dictionary<any[]>) => dispatch(analyticsActions.setUserInteractions(userInteractions)),
+  setOverheadAnalysisBuckets: (overheadBuckets: IAdminAnalyticsOverheadAnalysisBuckets) => dispatch(analyticsActions.setOverheadAnalysisBuckets(overheadBuckets)),
+  setOverheadAnalysisData: (overheadData: IAdminAnalyticsOverheadAnalysisData[]) => dispatch(analyticsActions.setOverheadAnalysisData(overheadData)),
+  setOverheadAnalysisUserInteractions: (userInteractions: IAdminAnalyticsUserInteraction) => dispatch(analyticsActions.setOverheadAnalysisUserInteractions(userInteractions)),
   setStudentSummaryDateRange: (dateRange: analyticsActions.ISetDateRangeProps) => dispatch(analyticsActions.setStudentSummaryDateRange(dateRange)),
-  setStudentSummaryUserInteractions: (userInteractions: _.Dictionary<any[]>) => dispatch(analyticsActions.setStudentSummaryUserInteractions(userInteractions)),
+  setStudentSummaryUserInteractions: (userInteractions: IAdminAnalyticsUserInteraction) => dispatch(analyticsActions.setStudentSummaryUserInteractions(userInteractions)),
 });
 
 const AdminAnalyticsDateSelectionWidget = (props: IAdminAnalyticsDateSelectionWidgetProps) => {
@@ -79,11 +86,15 @@ const AdminAnalyticsDateSelectionWidget = (props: IAdminAnalyticsDateSelectionWi
         // console.log('docsPerMinGroups ', docsPerMinGroups);
         const overheadBuckets = createBucket(docsPerMinGroups);
         // console.log('overheadBuckets ', overheadBuckets);
-        props.setOverheadBuckets(overheadBuckets);
+        props.setOverheadAnalysisBuckets(overheadBuckets);
         const userInteractions = _.groupBy(result, 'username');
         // console.log('userInteractions ', userInteractions);
-        props.setUserInteractions(userInteractions);
-        props.setStudentSummaryUserInteractions(userInteractions);
+        /* Setting User Interactions for Overhead Analysis and Student Summary */
+        if (props.page === ANALYTICS.OVERHEADANALYSIS) {
+          props.setOverheadAnalysisUserInteractions(userInteractions);
+        } else if (props.page === ANALYTICS.STUDENTSUMMARY) {
+          props.setStudentSummaryUserInteractions(userInteractions);
+        }
         /* Generating Overhead Data */
         const overheadData = [];
         _.forEach(userInteractions, (interactions, username) => {
@@ -126,7 +137,7 @@ const AdminAnalyticsDateSelectionWidget = (props: IAdminAnalyticsDateSelectionWi
           userData['total-time'] = totalTime;
           overheadData.push(userData);
         });
-        // console.log('overheadData ', overheadData);
+        props.setOverheadAnalysisData(overheadData);
       }
     });
   };
@@ -154,7 +165,7 @@ const AdminAnalyticsDateSelectionWidget = (props: IAdminAnalyticsDateSelectionWi
   return (
     <Container>
       <Segment padded>
-        <Header dividing as="h4">SELECT DATE RANGE:</Header>
+        <Header dividing as="h4">SELECT A DATE PERIOD</Header>
         <Form>
           <Form.Group>
             <Form.Input label="Start Date" required>

@@ -29,20 +29,14 @@ interface IAddUserProps {
   setAdminDataModelUsersCloudinaryUrl: (cloudinaryUrl: string) => any;
 }
 
-interface IAddUserState {
-  role: string;
-  pictureURL: string;
-}
-
 const mapDispatchToProps = (dispatch) => ({
   setAdminDataModelUsersIsCloudinaryUsed: (isCloudinaryUsed: boolean) => dispatch(cloudinaryActions.setAdminDataModelUsersIsCloudinaryUsed(isCloudinaryUsed)),
   setAdminDataModelUsersCloudinaryUrl: (cloudinaryUrl: string) => dispatch(cloudinaryActions.setAdminDataModelUsersCloudinaryUrl(cloudinaryUrl)),
 });
 
 const AddUserForm = (props: IAddUserProps) => {
-// class AddUserForm extends React.Component<IAddUserProps, IAddUserState> {
-  const [role, setRole] = useState('');
-  const [pictureURL, setPictureURL] = useState('');
+  const [role, setRole] = useState<string>('');
+  const [pictureURL, setPictureURL] = useState<string>('');
 
   const handleModelChange = (model) => {
     setRole(model.role);

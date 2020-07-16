@@ -37,7 +37,7 @@ interface IStudentIceColumnUnverifiedProps {
 
 const years = (props: IStudentIceColumnUnverifiedProps): IAcademicYearInstance[] => {
   const studentID = getUserIdFromRoute(props.match);
-  return AcademicYearInstances.find({ studentID }, { sort: { year: 1 } }).fetch();
+  return AcademicYearInstances.findNonRetired({ studentID }, { sort: { year: 1 } });
 };
 
 const academicTerms = (year: IAcademicYearInstance): IAcademicTerm[] => {
@@ -54,18 +54,18 @@ const getEventsHelper = (iceType: string, type: string, earned: boolean, term: I
     let allInstances = [];
     const iceInstances = [];
     if (type === 'course') {
-      const courseInstances = CourseInstances.find({
+      const courseInstances = CourseInstances.findNonRetired({
         termID: term._id,
         studentID: getUserIdFromRoute(props.match),
         verified: earned,
-      }).fetch();
+      });
       courseInstances.forEach(courseInstance => allInstances.push(courseInstance));
     } else {
-      allInstances = OpportunityInstances.find({
+      allInstances = OpportunityInstances.findNonRetired({
         termID: term._id,
         studentID: getUserIdFromRoute(props.match),
         verified: earned,
-      }).fetch();
+      });
     }
     allInstances.forEach((instance) => {
       if (iceType === 'Innovation') {
@@ -178,8 +178,8 @@ const StudentIceColumnUnverified = (props: IStudentIceColumnUnverifiedProps) => 
 const StudentIceColumnUnverifiedCon = withTracker(({ match }) => {
   const studentID = getUserIdFromRoute(match);
   // Tracked to make StudentIceColumnUnVerified reactive
-  const courseInstances: ICourseInstance[] = CourseInstances.find({ studentID }).fetch();
-  const opportunityInstances: IOpportunityInstance[] = OpportunityInstances.find({ studentID }).fetch();
+  const courseInstances: ICourseInstance[] = CourseInstances.findNonRetired({ studentID });
+  const opportunityInstances: IOpportunityInstance[] = OpportunityInstances.findNonRetired({ studentID });
   return {
     courseInstances,
     opportunityInstances,

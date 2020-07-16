@@ -48,10 +48,10 @@ const availableCourses = (props: IStudentOfInterestWidgetProps) => {
       if (course.num === 'ICS 499') { // TODO: hardcoded ICS string
         return true;
       }
-      const ci = CourseInstances.find({
+      const ci = CourseInstances.findNonRetired({
         studentID: Router.getUserIdFromRoute(props.match),
         courseID: course._id,
-      }).fetch();
+      });
       return ci.length === 0;
     });
     return filtered;
@@ -96,10 +96,10 @@ const availableOpps = (props: IStudentOfInterestWidgetProps) => {
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
   if (nonRetiredOpportunities.length > 0) {
     const filteredByTerm = _.filter(nonRetiredOpportunities, (opp: any) => {
-      const oi = OpportunityInstances.find({
+      const oi = OpportunityInstances.findNonRetired({
         studentID: Router.getUserIdFromRoute(props.match),
         opportunityID: opp._id,
-      }).fetch();
+      });
       return oi.length === 0;
     });
     const ret = _.filter(filteredByTerm, (opp) => {
@@ -221,11 +221,11 @@ const StudentOfInterestWidgetCont = withTracker(({ match }) => {
   const username = getUsername(match);
   const profile = Users.getProfile(username);
   const userID = Users.getID(username);
-  const nonRetiredCourses = Courses.find({}).fetch();
-  const nonRetiredOpportunities = Opportunities.find({}).fetch();
+  const nonRetiredCourses = Courses.findNonRetired({});
+  const nonRetiredOpportunities = Opportunities.findNonRetired({});
 
-  const favoritedInterests: IFavoriteInterest[] = FavoriteInterests.find({ userID: userID }).fetch();
-  const favoritedCareerGoals: IFavoriteCareerGoal[] = FavoriteCareerGoals.find({ userID: userID }).fetch();
+  const favoritedInterests: IFavoriteInterest[] = FavoriteInterests.findNonRetired({ userID: userID });
+  const favoritedCareerGoals: IFavoriteCareerGoal[] = FavoriteCareerGoals.findNonRetired({ userID: userID });
 
   return {
     profile,

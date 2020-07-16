@@ -54,7 +54,7 @@ const ConnectedCourseSelectorTempCon = withGlobalSubscription(ConnectedCourseSel
 const ConnectedCourseSelectorTempCont = withInstanceSubscriptions(ConnectedCourseSelectorTempCon);
 
 const ConnectedCourseSelectorTempConta = withTracker(() => ({
-  courses: Courses.find({}, { sort: { shortName: 1 } }).fetch(),
+  courses: Courses.findNonRetired({}, { sort: { shortName: 1 } }),
   count: Courses.countNonRetired(),
 }))(ConnectedCourseSelectorTempCont);
 

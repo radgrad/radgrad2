@@ -18,7 +18,7 @@ interface IStudentLogWidgetProps {
   };
 }
 
-const getAdvisorLogs = (props: IStudentLogWidgetProps): IAdvisorLog[] => AdvisorLogs.find({ studentID: getUserIdFromRoute(props.match) }, { sort: { createdOn: -1 } }).fetch();
+const getAdvisorLogs = (props: IStudentLogWidgetProps): IAdvisorLog[] => AdvisorLogs.findNonRetired({ studentID: getUserIdFromRoute(props.match) }, { sort: { createdOn: -1 } });
 
 const getAdvisorImage = (log: IAdvisorLog): IBaseProfile => Users.getProfile(log.advisorID).picture;
 

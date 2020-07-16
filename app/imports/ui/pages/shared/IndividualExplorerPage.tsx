@@ -150,7 +150,7 @@ const interestedUsersCareerGoals = (theCareerGoal: ICareerGoal, role: string): o
 
 const numUsersCareerGoals = (theCareerGoal: ICareerGoal, role: string): number => interestedUsersCareerGoals(theCareerGoal, role).length;
 
-const numStudentsCareerGoals = (theCareerGoal: ICareerGoal): number => FavoriteCareerGoals.find({ careerGoalID: theCareerGoal._id }).fetch().length;
+const numStudentsCareerGoals = (theCareerGoal: ICareerGoal): number => FavoriteCareerGoals.findNonRetired({ careerGoalID: theCareerGoal._id }).length;
 
 const socialPairsCareerGoals = (theCareerGoal: ICareerGoal): { label: string, amount: number, value: object[] }[] => [
   {
@@ -190,11 +190,10 @@ const passedCourseHelper = (courseSlugName: string, props: IIndividualExplorerPa
   let ret = 'Not in plan';
   const slug = Slugs.findDoc({ name: courseSlugName });
   const theCourse = Courses.findDoc({ slugID: slug._id });
-  const ci = CourseInstances.find({
+  const ci = CourseInstances.findNonRetired({
     studentID: Router.getUserIdFromRoute(props.match),
     courseID: theCourse._id,
-  })
-    .fetch();
+  });
   _.forEach(ci, (c) => {
     if (c.verified === true) {
       ret = 'Completed';
@@ -264,7 +263,7 @@ const descriptionPairsCourses = (theCourse: ICourse, props: IIndividualExplorerP
   { label: 'Teaser', value: teaser(theCourse) },
 ];
 
-const addedDegrees = (): { item: IDesiredDegree, count: number }[] => _.map(DesiredDegrees.find({}, { sort: { name: 1 } }).fetch(), (d) => ({
+const addedDegrees = (): { item: IDesiredDegree, count: number }[] => _.map(DesiredDegrees.findNonRetired({}, { sort: { name: 1 } }), (d) => ({
   item: d,
   count: 1,
 }));
@@ -319,11 +318,11 @@ const isOpportunityCompleted = (props: IIndividualExplorerPageProps): boolean =>
   let ret = false;
   const slug = Slugs.findDoc({ name: opportunitySlugName });
   const theOpp = Opportunities.findDoc({ slugID: slug._id });
-  const oi = OpportunityInstances.find({
+  const oi = OpportunityInstances.findNonRetired({
     studentID: Router.getUserIdFromRoute(props.match),
     opportunityID: theOpp._id,
     verified: true,
-  }).fetch();
+  });
   if (oi.length > 0) {
     ret = true;
   }
@@ -533,11 +532,11 @@ const IndividualExplorerPage = (props: IIndividualExplorerPageProps) => {
 
 export default withTracker((props) => {
   const studentID = Router.getUserIdFromRoute(props.match);
-  const favoritePlans = FavoriteAcademicPlans.find({ studentID }).fetch();
-  const favoriteCareerGoals = FavoriteCareerGoals.find({ userID: studentID }).fetch();
-  const favoriteCourses = FavoriteCourses.find({ studentID }).fetch();
-  const favoriteInterests = FavoriteInterests.find({ userID: studentID }).fetch();
-  const favoriteOpportunities = FavoriteOpportunities.find({ studentID }).fetch();
+  const favoritePlans = FavoriteAcademicPlans.findNonRetired({ studentID });
+  const favoriteCareerGoals = FavoriteCareerGoals.findNonRetired({ userID: studentID });
+  const favoriteCourses = FavoriteCourses.findNonRetired({ studentID });
+  const favoriteInterests = FavoriteInterests.findNonRetired({ userID: studentID });
+  const favoriteOpportunities = FavoriteOpportunities.findNonRetired({ studentID });
   // console.log('favoriteInterests', favoriteInterests, studentID);
   return {
     favoritePlans,

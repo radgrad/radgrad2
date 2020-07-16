@@ -136,10 +136,7 @@ class UserCollection {
    */
   public isDefined(user) {
     const userDoc = (Meteor.users.findOne({ _id: user })) || (Meteor.users.findOne({ username: user }));
-    if (!userDoc) {
-      return false;
-    }
-    return true;
+    return userDoc;
   }
 
   /**
@@ -152,8 +149,6 @@ class UserCollection {
     const userDoc = (Meteor.users.findOne({ _id: user })) || (Meteor.users.findOne({ username: user }));
     if (!userDoc) {
       console.error('Error: user is not defined: ', user);
-      console.trace(`Error: user is not defined: ${user}`);
-      throw new Meteor.Error(`Error: user ${user} is not defined.`);
     }
     return userDoc._id;
   }
@@ -332,10 +327,10 @@ class UserCollection {
   public findProfiles(selector, options) {
     const theSelector = (typeof selector === 'undefined') ? {} : selector;
     let profiles = [];
-    profiles = profiles.concat(StudentProfiles.find(theSelector, options).fetch());
-    profiles = profiles.concat(AdvisorProfiles.find(theSelector, options).fetch());
-    profiles = profiles.concat(FacultyProfiles.find(theSelector, options).fetch());
-    profiles = profiles.concat(MentorProfiles.find(theSelector, options).fetch());
+    profiles = profiles.concat(StudentProfiles.findNonRetired(theSelector, options));
+    profiles = profiles.concat(AdvisorProfiles.findNonRetired(theSelector, options));
+    profiles = profiles.concat(FacultyProfiles.findNonRetired(theSelector, options));
+    profiles = profiles.concat(MentorProfiles.findNonRetired(theSelector, options));
     return profiles;
   }
 
@@ -351,20 +346,20 @@ class UserCollection {
     const theSelector = (typeof selector === 'undefined') ? {} : selector;
     if (role === ROLE.STUDENT) {
       theSelector.isAlumni = false;
-      return StudentProfiles.find(theSelector, options).fetch();
+      return StudentProfiles.findNonRetired(theSelector, options);
     }
     if (role === ROLE.ALUMNI) {
       theSelector.isAlumni = true;
-      return StudentProfiles.find(theSelector, options).fetch();
+      return StudentProfiles.findNonRetired(theSelector, options);
     }
     if (role === ROLE.ADVISOR) {
-      return AdvisorProfiles.find(theSelector, options).fetch();
+      return AdvisorProfiles.findNonRetired(theSelector, options);
     }
     if (role === ROLE.FACULTY) {
-      return FacultyProfiles.find(theSelector, options).fetch();
+      return FacultyProfiles.findNonRetired(theSelector, options);
     }
     if (role === ROLE.MENTOR) {
-      return MentorProfiles.find(theSelector, options).fetch();
+      return MentorProfiles.findNonRetired(theSelector, options);
     }
     if (role === ROLE.ADMIN) {
       return [this.getAdminProfile()];
@@ -456,11 +451,11 @@ class UserCollection {
     const profile = this.getProfile(user);
     const userID = profile.userID;
     let interestIDs = [];
-    const favoriteInterests = FavoriteInterests.find({ userID }).fetch();
+    const favoriteInterests = FavoriteInterests.findNonRetired({ userID });
     _.forEach(favoriteInterests, (fav) => {
       interestIDs.push(fav.interestID);
     });
-    const favoriteCareerGoals = FavoriteCareerGoals.find({ userID }).fetch();
+    const favoriteCareerGoals = FavoriteCareerGoals.findNonRetired({ userID });
     _.forEach(favoriteCareerGoals, (fav) => {
       const goal = CareerGoals.findDoc(fav.careerGoalID);
       interestIDs = _.union(interestIDs, goal.interestIDs);
@@ -480,13 +475,13 @@ class UserCollection {
     const userID = profile.userID;
     const interestIDs = [];
     const userInterests = [];
-    const favoriteInterests = FavoriteInterests.find({ userID }).fetch();
+    const favoriteInterests = FavoriteInterests.findNonRetired({ userID });
     _.forEach(favoriteInterests, (fav) => {
       userInterests.push(fav.interestID);
     });
     interestIDs.push(userInterests);
     let careerInterestIDs = [];
-    const favoriteCareerGoals = FavoriteCareerGoals.find({ userID }).fetch();
+    const favoriteCareerGoals = FavoriteCareerGoals.findNonRetired({ userID });
     _.forEach(favoriteCareerGoals, (fav) => {
       const goal = CareerGoals.findDoc(fav.careerGoalID);
       careerInterestIDs = _.union(careerInterestIDs, goal.interestIDs);

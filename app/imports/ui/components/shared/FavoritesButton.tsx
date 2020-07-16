@@ -80,34 +80,34 @@ const handleRemove = (props: IFavoriteButtonProps) => () => {
   let instance;
   switch (props.type) {
     case FAVORITE_TYPE.ACADEMICPLAN:
-      instance = FavoriteAcademicPlans.find({
+      instance = FavoriteAcademicPlans.findNonRetired({
         studentID: props.studentID,
         academicPlanID: props.item._id,
-      }).fetch()[0]._id;
+      })[0]._id;
       break;
     case FAVORITE_TYPE.CAREERGOAL:
-      instance = FavoriteCareerGoals.find({
+      instance = FavoriteCareerGoals.findNonRetired({
         userID: props.studentID,
         careerGoalID: props.item._id,
-      }).fetch()[0]._id;
+      })[0]._id;
       break;
     case FAVORITE_TYPE.COURSE:
-      instance = FavoriteCourses.find({
+      instance = FavoriteCourses.findNonRetired({
         studentID: props.studentID,
         courseID: props.item._id,
-      }).fetch()[0]._id;
+      })[0]._id;
       break;
     case FAVORITE_TYPE.INTEREST:
-      instance = FavoriteInterests.find({
+      instance = FavoriteInterests.findNonRetired({
         userID: props.studentID,
         interestID: props.item._id,
-      }).fetch()[0]._id;
+      })[0]._id;
       break;
     case FAVORITE_TYPE.OPPORTUNITY:
-      instance = FavoriteOpportunities.find({
+      instance = FavoriteOpportunities.findNonRetired({
         studentID: props.studentID,
         opportunityID: props.item._id,
-      }).fetch()[0]._id;
+      })[0]._id;
       break;
     default:
       console.error(`Bad favorite type: ${props.type}`);
@@ -163,14 +163,14 @@ const FavoritesButton = (props: IFavoriteButtonProps) => (
 );
 
 export default withRouter(withTracker((props: IFavoriteButtonProps) => {
-  const count = FavoriteAcademicPlans.find({
+  const count = FavoriteAcademicPlans.findNonRetired({
       studentID: props.studentID,
       academicPlanID: props.item._id,
-    }).fetch().length +
-    FavoriteCareerGoals.find({ userID: props.studentID, careerGoalID: props.item._id }).fetch().length +
-    FavoriteCourses.find({ studentID: props.studentID, courseID: props.item._id }).fetch().length +
-    FavoriteInterests.find({ userID: props.studentID, interestID: props.item._id }).fetch().length +
-    FavoriteOpportunities.find({ studentID: props.studentID, opportunityID: props.item._id }).fetch().length;
+    }).length +
+    FavoriteCareerGoals.findNonRetired({ userID: props.studentID, careerGoalID: props.item._id }).length +
+    FavoriteCourses.findNonRetired({ studentID: props.studentID, courseID: props.item._id }).length +
+    FavoriteInterests.findNonRetired({ userID: props.studentID, interestID: props.item._id }).length +
+    FavoriteOpportunities.findNonRetired({ studentID: props.studentID, opportunityID: props.item._id }).length;
 
   return {
     added: count > 0,

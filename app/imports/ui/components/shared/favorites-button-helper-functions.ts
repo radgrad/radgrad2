@@ -11,11 +11,11 @@ import {
   IFavoriteCourseDefine,
   IFavoriteInterestDefine,
   IFavoriteOpportunityDefine,
-  IPageInterestDefine,
+  IPageInterestDefine, IUserInteractionDefine,
 } from '../../../typings/radgrad';
 import { Users } from '../../../api/user/UserCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
-import { UserInteractionsDataType, UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
+import { UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
 import {
   IPageInterestsCategoryTypes,
   PageInterestsCategoryTypes,
@@ -96,45 +96,45 @@ export const createDefinitionData = (props: IFavoriteButtonProps): IFavoriteAcad
   return definitionData;
 };
 
-export const createInteractionData = (props: IFavoriteButtonProps, favorite: boolean): UserInteractionsDataType => {
+export const createInteractionData = (props: IFavoriteButtonProps, favorite: boolean): IUserInteractionDefine => {
   const student = getStudent(props.studentID);
   const slug = getSlug(props.item.slugID);
-  let interactionData: UserInteractionsDataType;
+  let interactionData: IUserInteractionDefine;
   const type = favorite ? UserInteractionsTypes.FAVORITEITEM : UserInteractionsTypes.UNFAVORITEITEM;
   switch (props.type) {
     case FAVORITE_TYPE.ACADEMICPLAN:
       interactionData = {
         username: student,
         type,
-        typeData: `${props.type}:${slug}`,
+        typeData: [props.type, slug],
       };
       break;
     case FAVORITE_TYPE.CAREERGOAL:
       interactionData = {
         username: student,
         type,
-        typeData: `${props.type}:${slug}`,
+        typeData: [props.type, slug],
       };
       break;
     case FAVORITE_TYPE.COURSE:
       interactionData = {
         username: student,
         type,
-        typeData: `${props.type}:${slug}`,
+        typeData: [props.type, slug],
       };
       break;
     case FAVORITE_TYPE.INTEREST:
       interactionData = {
         username: student,
         type,
-        typeData: `${props.type}:${slug}`,
+        typeData: [props.type, slug],
       };
       break;
     case FAVORITE_TYPE.OPPORTUNITY:
       interactionData = {
         username: student,
         type,
-        typeData: `${props.type}:${slug}`,
+        typeData: [props.type, slug],
       };
       break;
     default:
