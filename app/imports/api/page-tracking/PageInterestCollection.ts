@@ -140,7 +140,7 @@ class PageInterestCollection extends BaseCollection {
       const instance = this;
       // eslint-disable-next-line meteor/audit-argument-checks
       Meteor.publish(this.collectionName, function filterStudentID(studentID) {
-        if (!studentID) {
+        if (_.isNil(studentID)) {
           return this.ready();
         }
         const profile = Users.getProfile(studentID);
