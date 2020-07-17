@@ -256,8 +256,8 @@ class OpportunityInstanceCollection extends BaseCollection {
   public publish() {
     if (Meteor.isServer) {
       const instance = this;
-      Meteor.publish(this.collectionName, function fileterStudent(studentID) { // eslint-disable-line meteor/audit-argument-checks
-        if (!studentID) {
+      Meteor.publish(this.collectionName, function filterStudent(studentID) { // eslint-disable-line meteor/audit-argument-checks
+        if (_.isNil(studentID)) {
           return this.ready();
         }
         const profile = Users.getProfile(studentID);
