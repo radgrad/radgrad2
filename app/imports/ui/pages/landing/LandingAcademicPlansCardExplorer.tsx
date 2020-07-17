@@ -13,12 +13,10 @@ import BackToTopButton from '../../components/shared/BackToTopButton';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 
 interface IAcademicPlansCardExplorerProps {
+  // eslint-disable-next-line react/no-unused-prop-types
   ready: boolean;
   academicPlans: IAcademicPlan[];
   count: number;
-  match: object;
-  location: object;
-  history: object;
 }
 
 const renderPage = (props: IAcademicPlansCardExplorerProps) => {
@@ -63,6 +61,7 @@ const renderPage = (props: IAcademicPlansCardExplorerProps) => {
   );
 };
 
+// eslint-disable-next-line react/prop-types
 const LandingAcademicPlansCardExplorer = (props: IAcademicPlansCardExplorerProps) => ((props.ready) ? renderPage(props) : <Loader>Loading Academic Plans</Loader>);
 
 const LandingAcademicPlansCardExplorerCon = withRouter(LandingAcademicPlansCardExplorer);

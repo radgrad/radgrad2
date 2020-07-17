@@ -35,6 +35,7 @@ interface ILoading {
 const instanceSubs = new SubsManager({ cacheLimit: 15, expireIn: 30 });
 
 function withInstanceSubscriptions(WrappedComponent) {
+  // eslint-disable-next-line react/prop-types
   const InstanceSubscriptions = (props: ILoading) => ((props.loading) ? (
     <React.Fragment>
       <Responsive minWidth={Responsive.onlyTablet.minWidth}>

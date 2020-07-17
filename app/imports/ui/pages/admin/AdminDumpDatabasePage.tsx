@@ -20,9 +20,11 @@ interface ICollection {
 interface IAdminDumpDatabasePageProps {
   startDumpDatabase: () => any;
   dumpDatabaseDone: () => any;
+  // eslint-disable-next-line react/require-default-props
   dumpDatabaseWorking?: boolean;
   startGetStudentEmails: () => any;
   getStudentEmailsDone: () => any;
+  // eslint-disable-next-line react/require-default-props
   getStudentEmailsWorking?: boolean;
 }
 

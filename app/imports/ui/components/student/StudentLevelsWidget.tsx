@@ -11,6 +11,7 @@ import { getLevelHintStringMarkdown } from '../../../api/level/LevelProcessor';
 // import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 
 interface IStudentLevelsWidgetProps {
+  // eslint-disable-next-line react/no-unused-prop-types
   match: {
     isExact: boolean;
     path: string;

@@ -12,6 +12,7 @@ import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscription
 interface IAdminCheckDatabaseIntegrityPageProps {
   startCheckIntegrity: () => any;
   checkIntegrityDone: () => any;
+  // eslint-disable-next-line react/require-default-props
   checkIntegrityWorking?: boolean;
 }
 

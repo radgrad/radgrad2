@@ -27,8 +27,6 @@ interface ICourseExplorerProps {
       username: string;
     }
   };
-  location: object;
-  history: object;
 }
 
 const LandingCourseExplorer = (props: ICourseExplorerProps) => {
