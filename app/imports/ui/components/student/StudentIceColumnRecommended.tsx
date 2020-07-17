@@ -25,6 +25,7 @@ interface IStudentIceColumnRecommendedProps {
   icePoints: (ice: Ice) => number;
   getCourseSlug: (course) => string;
   getOpportunitySlug: (opportunity) => string;
+  // eslint-disable-next-line react/no-unused-prop-types
   favoriteInterests: IFavoriteInterest[];
   match: {
     isExact: boolean;

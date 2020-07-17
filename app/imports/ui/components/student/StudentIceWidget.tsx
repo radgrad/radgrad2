@@ -10,15 +10,6 @@ import { studentIceWidget } from './student-widget-names';
 import PageIceCircle from './PageIceCircle';
 
 interface IStudentIceWidgetProps {
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-      opportunity: string;
-    }
-  };
   earnedICE: Ice;
   projectedICE: Ice;
 }

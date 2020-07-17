@@ -207,14 +207,8 @@ const DEPWidget = (props: IDePProps) => {
   };
 
   const isTermEmpty = (termID: string): boolean => {
-    const courseInstances = CourseInstances.findNonRetired({
-      termID: termID,
-      studentID: studentID,
-    });
-    const opportunityInstances = OpportunityInstances.findNonRetired({
-      termID: termID,
-      studentID: studentID,
-    });
+    const courseInstances = _.filter(props.courseInstances, (ci) => ci.termID === termID);
+    const opportunityInstances = _.filter(props.opportunityInstances, (oi) => oi.termID === termID);
     return courseInstances.length === 0 && opportunityInstances.length === 0;
   };
 

@@ -2,7 +2,9 @@ import React from 'react';
 import { SemanticCOLORS } from 'semantic-ui-react';
 
 interface IRadGradLogoProps {
+  // eslint-disable-next-line react/require-default-props
   color?: SemanticCOLORS;
+  // eslint-disable-next-line react/require-default-props
   style?: any;
 }
 

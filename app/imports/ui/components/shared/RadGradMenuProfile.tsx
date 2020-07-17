@@ -10,7 +10,6 @@ import { Ice, IStudentProfile } from '../../../typings/radgrad';
 import { radgradMenuProfile } from './shared-widget-names';
 
 interface IRadGradMenuProfileProps {
-  userName: string;
   profile: IStudentProfile;
   displayLevelAndIce: boolean;
   earnedICE: Ice;

@@ -23,7 +23,6 @@ import { IReviewTypes, ReviewTypes } from '../../../api/review/ReviewTypes';
 
 interface IStudentExplorerEditReviewWidgetProps {
   review: IReview;
-  thisReview: object;
   event: {
     [key: string]: any;
   };
