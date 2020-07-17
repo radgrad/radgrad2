@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import _ from 'lodash';
 import { Grid, Header, Divider } from 'semantic-ui-react';
-import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
+// import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
 import { IHelpDefine } from '../../../typings/radgrad';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import * as Router from './RouterHelperFunctions';

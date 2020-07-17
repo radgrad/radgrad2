@@ -1,12 +1,13 @@
 import React from 'react';
-import { Grid, Container } from 'semantic-ui-react';
+import { Grid, Container, Image } from 'semantic-ui-react';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
+import GuidedTourStudentOpportunities from '../landing/GuidedTourStudentOpportunities';
 
-const IndividualOpportunitiesPage = () => (
+const CardExplorerOpportunitiesPage = () => (
   <div>
     <StudentPageMenuWidget />
-    <div className="gray-banner">aaa</div>
+    <GuidedTourStudentOpportunities />
     <Container>
       <Grid stackable divided="vertically">
 
@@ -15,6 +16,9 @@ const IndividualOpportunitiesPage = () => (
             opportunities
           </Grid.Column>
           <Grid.Column width={5}>
+            <Image
+              src="/images/banners/summer_internships.png"
+            />
             opportunities for freshmen and
           </Grid.Column>
         </Grid.Row>
@@ -26,4 +30,4 @@ const IndividualOpportunitiesPage = () => (
 
 );
 
-export default IndividualOpportunitiesPage;
+export default CardExplorerOpportunitiesPage;
