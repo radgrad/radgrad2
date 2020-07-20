@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import { withRouter, Link } from 'react-router-dom';
-import { Container, Grid, Segment, Header, Icon, Label, Divider, Button } from 'semantic-ui-react';
+import { Grid, Segment, Header, Icon, Label, Divider, Button } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Users } from '../../../api/user/UserCollection';
 import {

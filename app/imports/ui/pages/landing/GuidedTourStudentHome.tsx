@@ -7,20 +7,8 @@ import { withTracker } from 'meteor/react-meteor-data';
 import styles from './guidedtour-style';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import WhyRadGrad from '../../components/guidedtour/student/why-radgrad';
-// import SetUp from '../../components/guidedtour/student/set-up';
-// import Interests from '../../components/guidedtour/student/interests';
+import WhyRadGrad from '../../components/guidedtour/student/why-radgrad1';
 import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';
-// import CareerPath from '../../components/guidedtour/student/career-goals';
-// import Courses from '../../components/guidedtour/student/courses';
-// import Opportunities from '../../components/guidedtour/student/opportunities';
-// import DegreePlan from '../../components/guidedtour/student/degree-plan';
-// import ICE from '../../components/guidedtour/student/ice';
-// import Levels from '../../components/guidedtour/student/levels';
-// import SampleStudent from '../../components/guidedtour/student/sample-student';
-// import Mentor from '../../components/guidedtour/student/mentor';
-// import AdvisorLog from '../../components/guidedtour/student/advisor-log';
-// import WhatsNext from '../../components/guidedtour/student/whats-next';
 
 interface IGuidedTourStudentProps {
   interests: number;

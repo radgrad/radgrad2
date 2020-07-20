@@ -46,7 +46,6 @@
 }
 .favorites_title{
   font-color: #53A78F;
-  font-size: 100px;
 }
 .test{
   padding: 500px;
@@ -57,4 +56,20 @@
 }
 .guidedTour h2{
   color: #fff;
+}
+
+.cardMenu{
+  width: 100% !important;
+  padding: 15px !important;
+}
+.cardMenu_header{
+  padding-bottom: 10px !important;
+  border-bottom: #c8c8c8 solid 2px !important;
+
+}
+.cardMenu_brn{
+  width: 100% !important;
+  backgroundocolor: #53A78F !important;
+  text-align: center;
+  padding: 0 10px;
 }

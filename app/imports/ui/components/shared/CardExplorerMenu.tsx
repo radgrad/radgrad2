@@ -64,6 +64,7 @@ const CardExplorerMenu = (props: ICardExplorerMenuProps) => {
   // const typeName = getTypeName(props);
 
   return (
+
     <React.Fragment>
       <CardExplorerMenuNonMobileWidget
         menuAddedList={menuAddedList}
@@ -78,6 +79,7 @@ const CardExplorerMenu = (props: ICardExplorerMenuProps) => {
         role={role}
         menuCareerList={isTypeInterest ? menuCareerList : undefined}
       />
+
     </React.Fragment>
   );
 };

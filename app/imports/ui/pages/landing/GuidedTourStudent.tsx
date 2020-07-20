@@ -7,6 +7,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import styles from './guidedtour-style';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import LandingFooter from '../../components/landing/LandingFooter';
 import WhyRadGrad from '../../components/guidedtour/student/why-radgrad';
 import SetUp from '../../components/guidedtour/student/set-up';
 import Interests from '../../components/guidedtour/student/interests';
@@ -45,12 +46,26 @@ const renderPage = (props: IGuidedTourStudentProps) => {
   return (
     <div style={styles.background}>
       <Container textAlign="center">
-        <Segment padded style={styles.background} className="guidedTour">
+        <Segment padded style={styles.background}>
           <Slider {...settings}>
             <WhyRadGrad />
+            <SetUp />
+            <Interests interests={props.interests} />
+            <CareerPath careerGoals={props.careerGoals} />
+            <Courses courses={props.courses} courseReviews={props.courseReviews} />
+            <Opportunities opportunties={props.opportunities} />
+            <DegreePlan />
+            <ICE />
+            <Levels />
+            <SampleStudent />
+            <Mentor mentors={props.mentors} mentorLocations={props.mentorLocations} />
+            <AdvisorLog />
+            <WhatsNext />
           </Slider>
         </Segment>
+        <List.Item style={styles.a} as={NavLink} to="/">Return to RadGrad</List.Item>
       </Container>
+      <LandingFooter />
     </div>
   );
 };

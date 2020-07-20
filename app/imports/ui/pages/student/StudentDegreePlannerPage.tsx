@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Header } from 'semantic-ui-react';
+import { Grid, Header, Container } from 'semantic-ui-react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
@@ -236,24 +236,25 @@ const StudentDegreePlannerPage = (props: IStudentDegreePlannerProps) => {
   return (
     <DragDropContext onDragEnd={onDragEnd(props)}>
       <StudentPageMenuWidget />
-      <Grid stackable style={marginStyle}>
-        <Grid.Row>
-          <HelpPanelWidget />
-        </Grid.Row>
+      <Container>
+        <Grid stackable style={marginStyle}>
+          <Grid.Row>
+            <HelpPanelWidget />
+          </Grid.Row>
+          <Grid.Row verticalAlign="middle" style={{ paddingBottom: 0 }}>
+            <Header as="h1" style={{ paddingLeft: 10 }}>Degree Experience Planner</Header>
+          </Grid.Row>
+          <Grid.Row stretched>
+            <Grid.Column width={10} style={paddedStyle}>
+              <DegreeExperiencePlannerWidget />
+            </Grid.Column>
 
-        <Grid.Row verticalAlign="middle" style={{ paddingBottom: 0 }}>
-          <Header as="h1" style={{ paddingLeft: 10 }}>Degree Experience Planner</Header>
-        </Grid.Row>
-        <Grid.Row stretched>
-          <Grid.Column width={10} style={paddedStyle}>
-            <DegreeExperiencePlannerWidget />
-          </Grid.Column>
-
-          <Grid.Column width={6} style={paddedStyle}>
-            <TabbedFavoritesWidget />
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
+            <Grid.Column width={6} style={paddedStyle}>
+              <TabbedFavoritesWidget />
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </Container>
     </DragDropContext>
   );
 };

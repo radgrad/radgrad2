@@ -11,6 +11,7 @@ export default {
   },
   background: {
     backgroundColor: '#333333',
+    height: '100vh',
   },
   '.guided-tour-background:first-child': {
     padding: '1.5rem 0',

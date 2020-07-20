@@ -1,6 +1,6 @@
 import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Menu, Header, Responsive, Button } from 'semantic-ui-react';
+import { Menu, Header, Responsive, Button, Icon, Grid } from 'semantic-ui-react';
 import { withRouter, Link } from 'react-router-dom';
 import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
 import * as Router from './RouterHelperFunctions';
@@ -27,6 +27,7 @@ import { FavoriteOpportunities } from '../../../api/favorite/FavoriteOpportunity
 import { buildRouteName, isUrlRoleFaculty, isUrlRoleStudent } from './RouterHelperFunctions';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
+import '../../../../client/style.css';
 
 interface ICardExplorerMenuNonMobileWidgetProps extends ICardExplorerMenuWidgetProps {
   favoriteAcademicPlans: IFavoriteAcademicPlan[];
@@ -45,6 +46,7 @@ const CardExplorerMenuNonMobileWidget = (props: ICardExplorerMenuNonMobileWidget
   const isFaculty = isUrlRoleFaculty(props.match);
 
   const addFacultyOpportunityButtonStyle: React.CSSProperties = { marginTop: '5px' };
+
   return (
     <React.Fragment>
       {/* ####### The Menu underneath the Dropdown for NON mobile  ####### */}
@@ -53,8 +55,12 @@ const CardExplorerMenuNonMobileWidget = (props: ICardExplorerMenuNonMobileWidget
       <Responsive minWidth={Responsive.onlyTablet.minWidth}>
         {(isType(EXPLORER_TYPE.ACADEMICPLANS, props) && isStudent) ?
           (
-            <Menu vertical text>
-              <Header as="h4" dividing>MY FAVORITE ACADEMIC PLANS</Header>
+
+            <Menu vertical text className="cardMenu">
+              <Header as="h4" className="cardMenu_header">
+                <Icon name="graduation cap" size="mini" />
+                <Header.Content>MY ACADEMIC PLAN</Header.Content>
+              </Header>
               {
                 menuAddedList.map((listItem) => (
                   <ExplorerMenuNonMobileItem
@@ -72,8 +78,11 @@ const CardExplorerMenuNonMobileWidget = (props: ICardExplorerMenuNonMobileWidget
         {(isType(EXPLORER_TYPE.COURSES, props) && isStudent) ?
           (
             <React.Fragment>
-              <Menu vertical text>
-                <Header as="h4" dividing>MY FAVORITE COURSES</Header>
+              <Menu vertical text className="cardMenu">
+                <Header as="h4" className="cardMenu_header">
+                  <Icon name="book" size="mini" />
+                  <Header.Content>MY COURSES</Header.Content>
+                </Header>
                 {
                   menuAddedList.map((listItem) => (
                     <ExplorerMenuNonMobileItem
@@ -107,8 +116,11 @@ const CardExplorerMenuNonMobileWidget = (props: ICardExplorerMenuNonMobileWidget
                 : ''}
               {isStudent ?
                 (
-                  <Menu vertical text>
-                    <Header as="h4" dividing>MY FAVORITE OPPORTUNITIES</Header>
+                  <Menu vertical text className="cardMenu">
+                    <Header as="h4" className="cardMenu_header">
+                      <Icon name="handshake" size="mini" />
+                      <Header.Content>MY OPPORTUNITIES</Header.Content>
+                    </Header>
                     {
                       menuAddedList.map((listItem) => (
                         <ExplorerMenuNonMobileItem
@@ -130,9 +142,14 @@ const CardExplorerMenuNonMobileWidget = (props: ICardExplorerMenuNonMobileWidget
                 don't map over menuAddedList or else we get undefined error. */}
         {isType(EXPLORER_TYPE.INTERESTS, props) ?
           (
-            <Menu vertical text>
-              <a href={`mailto:${adminEmail}?subject=New Interest Suggestion`}>Suggest a new Interest</a>
-              <Header as="h4" dividing>MY FAVORITE INTERESTS</Header>
+            <Menu vertical text className="cardMenu">
+              <Button icon positive className="cardMenu_btn" href={`mailto:${adminEmail}?subject=New Interest Suggestion`}>
+                <Icon name="edit" />
+                &nbsp;&nbsp;Suggest a NEW Interest</Button>
+              <Header as="h4" className="cardMenu_header">
+                <Icon name="favorite" size="mini" />
+                <Header.Content>MY INTERESTS</Header.Content>
+              </Header>
               {
                 menuAddedList.map((listItem) => (
                   <ExplorerMenuNonMobileItem
@@ -161,9 +178,14 @@ const CardExplorerMenuNonMobileWidget = (props: ICardExplorerMenuNonMobileWidget
 
         {isType(EXPLORER_TYPE.CAREERGOALS, props) ?
           (
-            <Menu vertical text>
-              <a href={`mailto:${adminEmail}?subject=New Career Goal Suggestion`}>Suggest a new Career Goal</a>
-              <Header as="h4" dividing>MY FAVORITE CAREER GOALS</Header>
+            <Menu vertical text className="cardMenu">
+              <Button icon positive className="cardMenu_btn" href={`mailto:${adminEmail}?subject=New Career Goal Suggestion`}>
+                <Icon name="edit" />
+                &nbsp;&nbsp;Suggest a NEW Career Goal</Button>
+              <Header as="h4" className="cardMenu_header">
+                <Icon name="briefcase" size="mini" />
+                <Header.Content>MY CAREER GOALS</Header.Content>
+              </Header>
               {menuAddedList.map((listItem) => (
                 <ExplorerMenuNonMobileItem
                   listItem={listItem}

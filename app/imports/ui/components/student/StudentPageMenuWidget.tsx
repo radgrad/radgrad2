@@ -50,7 +50,7 @@ const StudentPageMenuWidget = (props: IStudentPageMenuWidgetProps) => {
             pointing
             id={`${secondMenu}`}
           >
-            <Menu.Item as={NavLink} exact to="/">
+            <Menu.Item as={NavLink} exact to={`/student/${username}/home`}>
               Home
             </Menu.Item>
             <Dropdown item text="EXPLORE">
