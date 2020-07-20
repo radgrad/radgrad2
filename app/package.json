@@ -13,7 +13,9 @@
     "test-app": "cross-env METEOR_NO_RELEASE_CHECK=1 TEST_BROWSER_DRIVER=puppeteer meteor test --full-app --once --driver-package meteortesting:mocha --port 3300",
     "test-e2e": "testcafe chrome:headless imports/ui/**/*.test-e2e.ts",
     "test-e2e-v": "testcafe chrome imports/ui/**/*.test-e2e.ts",
-    "deploy": "DEPLOY_HOSTNAME=galaxy.meteor.com meteor deploy radgrad2.meteorapp.com --settings ../config/settings.production.json --owner radgrad"
+    "deploy": "DEPLOY_HOSTNAME=galaxy.meteor.com meteor deploy radgrad2.meteorapp.com --settings ../config/settings.production.json --owner radgrad",
+    "api-doc": "./node_modules/.bin/esdoc -c .esdoc-api.json",
+    "ui-doc": "./node_modules/.bin/esdoc -c .esdoc-ui.json"
   },
   "dependencies": {
     "@babel/runtime": "^7.10.3",
@@ -25,6 +27,12 @@
     "core-js": "^3.6.5",
     "cosmiconfig": "^6.0.0",
     "deepmerge": "^4.2.2",
+    "esdoc": "^1.1.0",
+    "esdoc-ecmascript-proposal-plugin": "^1.0.0",
+    "esdoc-jsx-plugin": "^1.0.0",
+    "esdoc-react-plugin": "^1.0.1",
+    "esdoc-standard-plugin": "^1.0.0",
+    "esdoc-typescript-plugin": "^1.0.1",
     "graphql": "^15.1.0",
     "highcharts": "^8.1.2",
     "highcharts-react-official": "^3.0.0",

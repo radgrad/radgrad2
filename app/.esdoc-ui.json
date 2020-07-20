@@ -1,0 +1,36 @@
+{
+  "source": "./imports/ui",
+  "destination": "./docs/ui",
+  "includes": ["\\.ts$", "\\.tsx$"],
+  "plugins": [
+    {
+      "name": "esdoc-standard-plugin",
+      "option": {
+        "lint": {
+          "enable": true
+        },
+        "coverage": {
+          "enable": true
+        },
+        "accessor": {"access": ["public", "protected", "private"], "autoPrivate": true},
+        "undocumentIdentifier": {"enable": true},
+        "unexportedIdentifier": {"enable": false},
+        "typeInference": {"enable": true}
+      }
+    },
+    {"name": "esdoc-ecmascript-proposal-plugin", "option": {
+      "classProperties": true,
+      "objectRestSpread": true,
+      "doExpressions": true,
+      "functionBind": true,
+      "functionSent": true,
+      "asyncGenerators": true,
+      "decorators": true,
+      "exportExtensions": true,
+      "dynamicImport": true
+    }},
+    {"name": "esdoc-typescript-plugin", "option": {"enable": false}},
+    {"name": "esdoc-jsx-plugin", "option": {"enable": true}},
+    {"name": "esdoc-react-plugin", "option": {"enable": true}}
+    ]
+}

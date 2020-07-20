@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">api/course/CourseInstanceCollection.ts | radgrad2</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#academic-term">academic-term</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/academic-term/AcademicTermCollection.ts~AcademicTermCollection.html">AcademicTermCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-defineAcademicTerms">defineAcademicTerms</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-nextAcademicTerm">nextAcademicTerm</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-nextNonSummerTerm">nextNonSummerTerm</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-termIDsToString">termIDsToString</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-upComingTerms">upComingTerms</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getRandomTerm">getRandomTerm</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSampleAcademicTerm">makeSampleAcademicTerm</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSampleAcademicTermArray">makeSampleAcademicTermArray</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSampleAcademicTermSlug">makeSampleAcademicTermSlug</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-AcademicTerms">AcademicTerms</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#analytic">analytic</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/analytic/IceSnapshotCollection.ts~IceSnapshotCollection.html">IceSnapshotCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/analytic/UserInteractionCollection.ts~UserInteractionCollection.html">UserInteractionCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-sendEmail">sendEmail</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-sendEmailMethod">sendEmailMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-IceSnapshots">IceSnapshots</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-userInteractionDefineMethod">userInteractionDefineMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-userInteractionFindMethod">userInteractionFindMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-userInteractionRemoveUserMethod">userInteractionRemoveUserMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-UserInteractions">UserInteractions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-USERINTERACTIONSNOTYPEDATA">USERINTERACTIONSNOTYPEDATA</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#base">base</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/base/BaseCollection.ts~BaseCollection.html">BaseCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/base/BaseSlugCollection.ts~BaseSlugCollection.html">BaseSlugCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/base/BaseTypeCollection.ts~BaseTypeCollection.html">BaseTypeCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-removeAllEntities">removeAllEntities</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-defineMethod">defineMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-dumpDatabaseMethod">dumpDatabaseMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-loadFixtureMethod">loadFixtureMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-removeItMethod">removeItMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-updateMethod">updateMethod</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#career">career</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/career/CareerGoalCollection.ts~CareerGoalCollection.html">CareerGoalCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSampleCareerGoal">makeSampleCareerGoal</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSampleCareerGoalArray">makeSampleCareerGoalArray</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSampleCareerGoalSlugArray">makeSampleCareerGoalSlugArray</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CareerGoals">CareerGoals</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#course">course</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/course/CourseCollection.ts~CourseCollection.html">CourseCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/course/CourseInstanceCollection.ts~CourseInstanceCollection.html">CourseInstanceCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-bestStudent300LevelCourses">bestStudent300LevelCourses</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-bestStudent400LevelCourses">bestStudent400LevelCourses</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-chooseBetween">chooseBetween</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-chooseStudent300LevelCourse">chooseStudent300LevelCourse</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-chooseStudent400LevelCourse">chooseStudent400LevelCourse</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-clearPlannedCourseInstances">clearPlannedCourseInstances</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-get300LevelDocs">get300LevelDocs</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-get400LevelDocs">get400LevelDocs</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getCourseNumber">getCourseNumber</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getDepartment">getDepartment</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getRandomCourseSlug">getRandomCourseSlug</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getRandomCourseSlugForDept">getRandomCourseSlugForDept</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getRandomDepartment">getRandomDepartment</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getStudent300LevelDocs">getStudent300LevelDocs</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getStudent400LevelDocs">getStudent400LevelDocs</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-prereqsMet">prereqsMet</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-validateCourseSlugFormat">validateCourseSlugFormat</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getRandomGrade">getRandomGrade</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSampleCourse">makeSampleCourse</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSampleCourseInstance">makeSampleCourseInstance</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSampleCourseSlugArray">makeSampleCourseSlugArray</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-getFutureEnrollmentMethod">getFutureEnrollmentMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Courses">Courses</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CourseInstances">CourseInstances</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#degree-plan">degree-plan</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/degree-plan/AcademicPlanCollection.ts~AcademicPlanCollection.html">AcademicPlanCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/degree-plan/AcademicYearInstanceCollection.ts~AcademicYearInstanceCollection.html">AcademicYearInstanceCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/degree-plan/DesiredDegreeCollection.ts~DesiredDegreeCollection.html">DesiredDegreeCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/degree-plan/PlanChoiceCollection.ts~PlanChoiceCollection.html">PlanChoiceCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-addChoiceToPlan">addChoiceToPlan</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-addChoiceToRaw">addChoiceToRaw</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getCourseListIndex">getCourseListIndex</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getPlanChoices">getPlanChoices</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getPlanChoicesRaw">getPlanChoicesRaw</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isAcademicPlanValid">isAcademicPlanValid</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isPlanChoiceSatisfied">isPlanChoiceSatisfied</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-passedCourse">passedCourse</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-planHasCoursesRaw">planHasCoursesRaw</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-removeChoiceFromPlanRaw">removeChoiceFromPlanRaw</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-removeEmptyYearsRaw">removeEmptyYearsRaw</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-removeYearFromPlanRaw">removeYearFromPlanRaw</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-reorderChoicesInTermRaw">reorderChoicesInTermRaw</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-updateChoiceCounts">updateChoiceCounts</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getStudentTerms">getStudentTerms</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getStudentsCurrentAcademicTermNumber">getStudentsCurrentAcademicTermNumber</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-buildCourseSlugName">buildCourseSlugName</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-buildSimpleName">buildSimpleName</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-complexChoiceToArray">complexChoiceToArray</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-compoundCombineChoices">compoundCombineChoices</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getDepartment">getDepartment</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getDepartments">getDepartments</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getPlanCount">getPlanCount</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getSimpleChoiceNumber">getSimpleChoiceNumber</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isComplexChoice">isComplexChoice</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isSimpleChoice">isSimpleChoice</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isSingleChoice">isSingleChoice</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isXXChoice">isXXChoice</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-planIndexOf">planIndexOf</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-satisfiesPlanChoice">satisfiesPlanChoice</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-simpleCombineChoices">simpleCombineChoices</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-stripCounter">stripCounter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSampleAcademicPlan">makeSampleAcademicPlan</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSampleChoiceList">makeSampleChoiceList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSampleCoursesPerTerm">makeSampleCoursesPerTerm</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSampleDesiredDegree">makeSampleDesiredDegree</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeComplexPlanChoice">makeComplexPlanChoice</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSimplePlanChoice">makeSimplePlanChoice</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSinglePlanChoice">makeSinglePlanChoice</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-AcademicPlans">AcademicPlans</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-AcademicYearInstances">AcademicYearInstances</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DesiredDegrees">DesiredDegrees</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PlanChoices">PlanChoices</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#favorite">favorite</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/favorite/FavoriteAcademicPlanCollection.ts~FavoriteAcademicPlanCollection.html">FavoriteAcademicPlanCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/favorite/FavoriteCareerGoalCollection.ts~FavoriteCareerGoalCollection.html">FavoriteCareerGoalCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/favorite/FavoriteCourseCollection.ts~FavoriteCourseCollection.html">FavoriteCourseCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/favorite/FavoriteInterestCollection.ts~FavoriteInterestCollection.html">FavoriteInterestCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/favorite/FavoriteOpportunityCollection.ts~FavoriteOpportunityCollection.html">FavoriteOpportunityCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FavoriteAcademicPlans">FavoriteAcademicPlans</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FavoriteCareerGoals">FavoriteCareerGoals</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FavoriteCourses">FavoriteCourses</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-getUserIDsWithFavoriteInterestMethod">getUserIDsWithFavoriteInterestMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FavoriteInterests">FavoriteInterests</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FavoriteOpportunities">FavoriteOpportunities</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#feed">feed</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/feed/FeedCollection.ts~FeedCollection.html">FeedCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Feeds">Feeds</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#feedback">feedback</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/feedback/FeedbackFunctions.ts~FeedbackFunctionClass.html">FeedbackFunctionClass</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/feedback/FeedbackInstanceCollection.ts~FeedbackInstanceCollection.html">FeedbackInstanceCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FeedbackFunctions">FeedbackFunctions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-clearFeedbackInstancesMethod">clearFeedbackInstancesMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FeedbackInstances">FeedbackInstances</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#help">help</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/help/HelpMessageCollection.ts~HelpMessageCollection.html">HelpMessageCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-HelpMessages">HelpMessages</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#ice">ice</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-assertICE">assertICE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getEarnedICE">getEarnedICE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getProjectedICE">getProjectedICE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isICE">isICE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeCourseICE">makeCourseICE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSampleIce">makeSampleIce</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-gradeCompetency">gradeCompetency</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-iceSchema">iceSchema</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#integrity">integrity</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-assertIntegrity">assertIntegrity</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-checkIntegrity">checkIntegrity</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-checkIntegrityMethod">checkIntegrityMethod</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#interest">interest</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/interest/InterestCollection.ts~InterestCollection.html">InterestCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/interest/InterestTypeCollection.ts~InterestTypeCollection.html">InterestTypeCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/interest/MatchingInterests.ts~MatchingInterestsClass.html">MatchingInterestsClass</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isInterestArrayValidator">isInterestArrayValidator</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isInterestSlugValidator">isInterestSlugValidator</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSampleInterest">makeSampleInterest</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSampleInterestArray">makeSampleInterestArray</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSampleInterestSlugArray">makeSampleInterestSlugArray</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSampleInterestType">makeSampleInterestType</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Interests">Interests</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-InterestTypes">InterestTypes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-MatchingInterests">MatchingInterests</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#level">level</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-defaultCalcLevel">defaultCalcLevel</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getLevelCriteriaStringMarkdown">getLevelCriteriaStringMarkdown</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getLevelHintStringMarkdown">getLevelHintStringMarkdown</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-testCalcLevel">testCalcLevel</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-updateAllStudentLevels">updateAllStudentLevels</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-updateStudentLevel">updateStudentLevel</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-calcLevelMethod">calcLevelMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-updateAllStudentLevelsMethod">updateAllStudentLevelsMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-updateLevelMethod">updateLevelMethod</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#log">log</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/log/AdvisorLogCollection.ts~AdvisorLogCollection.html">AdvisorLogCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-AdvisorLogsRemoveItMethod">AdvisorLogsRemoveItMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-advisorLogsDefineMethod">advisorLogsDefineMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-advisorLogsUpdateMethod">advisorLogsUpdateMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-AdvisorLogs">AdvisorLogs</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#mentor">mentor</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/mentor/MentorAnswerCollection.ts~MentorAnswerCollection.html">MentorAnswerCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/mentor/MentorQuestionCollection.ts~MentorQuestionCollection.html">MentorQuestionCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSampleMentorAnswer">makeSampleMentorAnswer</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSampleMentorQuestion">makeSampleMentorQuestion</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-MentorAnswers">MentorAnswers</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-MentorQuestions">MentorQuestions</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#opportunity">opportunity</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/opportunity/OpportunityCollection.ts~OpportunityCollection.html">OpportunityCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/opportunity/OpportunityInstanceCollection.ts~OpportunityInstanceCollection.html">OpportunityInstanceCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/opportunity/OpportunityTypeCollection.ts~OpportunityTypeCollection.html">OpportunityTypeCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-academicTermOpportunities">academicTermOpportunities</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-calculateOpportunityCompatibility">calculateOpportunityCompatibility</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-chooseCurrentAcademicTermOpportunity">chooseCurrentAcademicTermOpportunity</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-chooseStudentAcademicTermOpportunity">chooseStudentAcademicTermOpportunity</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-clearPlannedOpportunityInstances">clearPlannedOpportunityInstances</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getRandomInt">getRandomInt</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getRecommendedCurrentAcademicTermOpportunityChoices">getRecommendedCurrentAcademicTermOpportunityChoices</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getStudentAcademicTermOpportunityChoices">getStudentAcademicTermOpportunityChoices</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getStudentCurrentAcademicTermOpportunityChoices">getStudentCurrentAcademicTermOpportunityChoices</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSampleOpportunity">makeSampleOpportunity</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSampleOpportunityInstance">makeSampleOpportunityInstance</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSampleOpportunitySlugArray">makeSampleOpportunitySlugArray</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSampleOpportunityType">makeSampleOpportunityType</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Opportunities">Opportunities</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-OpportunityInstances">OpportunityInstances</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-OpportunityTypes">OpportunityTypes</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#page-tracking">page-tracking</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/page-tracking/PageInterestCollection.ts~PageInterestCollection.html">PageInterestCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/page-tracking/PageInterestsDailySnapshotCollection.ts~PageInterestsDailySnapshotCollection.html">PageInterestsDailySnapshotCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSamplePageInterest">makeSamplePageInterest</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSamplePageInterestInfoArray">makeSamplePageInterestInfoArray</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSamplePageInterestsDailySnapshot">makeSamplePageInterestsDailySnapshot</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-pageInterestAdminFindMethod">pageInterestAdminFindMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-pageInterestDefineMethod">pageInterestDefineMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-pageInterestRemoveUserMethod">pageInterestRemoveUserMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PageInterests">PageInterests</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PageInterestsDailySnapshots">PageInterestsDailySnapshots</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#public-stats">public-stats</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/public-stats/PublicStatsCollection.ts~PublicStatsCollection.html">PublicStatsCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/public-stats/StudentParticipationCollection.ts~StudentParticipationCollection.html">StudentParticipationCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PublicStats">PublicStats</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-StudentParticipations">StudentParticipations</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#radgrad">radgrad</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/radgrad/RadGrad.ts~RadGradClass.html">RadGradClass</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/radgrad/RadGradProperties.ts~RadGradPropertiesClass.html">RadGradPropertiesClass</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-RadGrad">RadGrad</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-RadGradProperties">RadGradProperties</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#review">review</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/review/ReviewCollection.ts~ReviewCollection.html">ReviewCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Reviews">Reviews</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#role">role</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-assertRole">assertRole</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isRole">isRole</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ROLE">ROLE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ROLES">ROLES</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#slug">slug</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/slug/SlugCollection.ts~SlugCollection.html">SlugCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-slugify">slugify</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-newSlugValidator">newSlugValidator</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Slugs">Slugs</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#star">star</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-processBulkStarCsvData">processBulkStarCsvData</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-processBulkStarJsonData">processBulkStarJsonData</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-processStarCsvData">processStarCsvData</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-processStarJsonData">processStarJsonData</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-starBulkLoadDataMethod">starBulkLoadDataMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-starBulkLoadJsonDataMethod">starBulkLoadJsonDataMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-starLoadDataMethod">starLoadDataMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-starLoadJsonDataMethod">starLoadJsonDataMethod</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#teaser">teaser</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/teaser/TeaserCollection.ts~TeaserCollection.html">TeaserCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Teasers">Teasers</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#test">test</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-defineTestFixture">defineTestFixture</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-defineTestFixtures">defineTestFixtures</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getDefinitions">getDefinitions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-loadCollection">loadCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-withLoggedInUser">withLoggedInUser</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-withRadGradSubscriptions">withRadGradSubscriptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-defineTestFixturesMethod">defineTestFixturesMethod</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#user">user</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/user/AdminProfileCollection.ts~AdminProfileCollection.html">AdminProfileCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/user/AdvisorProfileCollection.ts~AdvisorProfileCollection.html">AdvisorProfileCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/user/BaseProfileCollection.ts~BaseProfileCollection.html">BaseProfileCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/user/FacultyProfileCollection.ts~FacultyProfileCollection.html">FacultyProfileCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/user/MentorProfileCollection.ts~MentorProfileCollection.html">MentorProfileCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/user/StudentProfileCollection.ts~StudentProfileCollection.html">StudentProfileCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/user/UserCollection.ts~UserCollection.html">UserCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSampleUser">makeSampleUser</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSampleUserArray">makeSampleUserArray</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-AdminProfiles">AdminProfiles</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-AdvisorProfiles">AdvisorProfiles</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-defaultProfilePicture">defaultProfilePicture</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FacultyProfiles">FacultyProfiles</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-MentorProfiles">MentorProfiles</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-StudentProfiles">StudentProfiles</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-generateStudentEmailsMethod">generateStudentEmailsMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-updateAcademicPlanMethod">updateAcademicPlanMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Users">Users</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utilities">utilities</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-loadCollectionNewDataOnly">loadCollectionNewDataOnly</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#verification">verification</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/verification/VerificationRequestCollection.ts~VerificationRequestCollection.html">VerificationRequestCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-processPendingVerificationMethod">processPendingVerificationMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-processVerificationEventMethod">processVerificationEventMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-verificationRequestsUpdateStatusMethod">verificationRequestsUpdateStatusMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ProcessedSchema">ProcessedSchema</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-VerificationRequests">VerificationRequests</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">api/course/CourseInstanceCollection.ts</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import { Meteor } from &apos;meteor/meteor&apos;;
+import _ from &apos;lodash&apos;;
+import SimpleSchema from &apos;simpl-schema&apos;;
+import { ReactiveAggregate } from &apos;meteor/jcbernack:reactive-aggregate&apos;;
+import { Courses } from &apos;./CourseCollection&apos;;
+import { AcademicYearInstances } from &apos;../degree-plan/AcademicYearInstanceCollection&apos;;
+import { ROLE } from &apos;../role/Role&apos;;
+import { AcademicTerms } from &apos;../academic-term/AcademicTermCollection&apos;;
+import { Users } from &apos;../user/UserCollection&apos;;
+import BaseCollection from &apos;../base/BaseCollection&apos;;
+import { makeCourseICE, iceSchema } from &apos;../ice/IceProcessor&apos;;
+import { ICourseInstanceDefine, ICourseInstanceUpdate } from &apos;../../typings/radgrad&apos;;
+import { CourseScoreboardName } from &apos;../../startup/both/names&apos;;
+
+/**
+ * Represents the taking of a course by a specific student in a specific academicTerm.
+ * @memberOf api/course
+ * @extends api/base.BaseCollection
+ */
+class CourseInstanceCollection extends BaseCollection {
+  public validGrades: string[];
+  public readonly publicationNames: {
+    scoreboard: string;
+  };
+
+  /**
+   * Creates the CourseInstance collection.
+   */
+  constructor() {
+    super(&apos;CourseInstance&apos;, new SimpleSchema({
+      termID: SimpleSchema.RegEx.Id,
+      courseID: { type: SimpleSchema.RegEx.Id, optional: true },
+      verified: Boolean,
+      fromRegistrar: { type: Boolean, optional: true },
+      grade: { type: String, optional: true },
+      creditHrs: Number,
+      note: { type: String, optional: true },
+      studentID: SimpleSchema.RegEx.Id,
+      ice: { type: iceSchema, optional: true },
+      retired: { type: Boolean, optional: true },
+    }));
+    this.validGrades = [&apos;&apos;, &apos;A&apos;, &apos;A+&apos;, &apos;A-&apos;,
+      &apos;B&apos;, &apos;B+&apos;, &apos;B-&apos;, &apos;C&apos;, &apos;C+&apos;, &apos;C-&apos;, &apos;D&apos;, &apos;D+&apos;, &apos;D-&apos;, &apos;F&apos;, &apos;CR&apos;, &apos;NC&apos;, &apos;***&apos;, &apos;W&apos;, &apos;TBD&apos;, &apos;OTHER&apos;];
+    this.publicationNames = {
+      scoreboard: `${this.collectionName}.Scoreboard`,
+    };
+    this.defineSchema = new SimpleSchema({
+      academicTerm: String,
+      course: String,
+      verified: { type: Boolean, optional: true },
+      fromRegistrar: { type: Boolean, optional: true },
+      grade: { type: String, optional: true },
+      note: { type: String, optional: true },
+      student: String,
+      creditHrs: SimpleSchema.Integer,
+    });
+    this.updateSchema = new SimpleSchema({
+      termID: {
+        type: String,
+        optional: true,
+      },
+      verified: { type: Boolean, optional: true },
+      fromRegistrar: { type: Boolean, optional: true },
+      grade: { type: String, optional: true },
+      creditHrs: { type: SimpleSchema.Integer, optional: true },
+      note: { type: String, optional: true },
+      ice: { type: iceSchema, optional: true },
+      retired: { type: Boolean, optional: true },
+    });
+    if (Meteor.isServer) {
+      this.collection.rawCollection().createIndex({ _id: 1, studentID: 1, courseID: 1 });
+    }
+  }
+
+  /**
+   * Defines a new CourseInstance.
+   * @example
+   * // To define an instance of a CS course:
+   * CourseInstances.define({ academicTerm: &apos;Spring-2016&apos;,
+   *                          course: &apos;ics_311&apos;,
+   *                          verified: false,
+   *                          fromRegistrar: false,
+   *                          grade: &apos;B&apos;,
+   *                          note: &apos;&apos;,
+   *                          student: &apos;joesmith@hawaii.edu&apos;,
+   *                          creditHrs: 3 });
+   * @param { Object } description Object with keys academicTerm, course, verified, fromRegistrar, grade,
+   * note, student, creditHrs.
+   * Required fields: academicTerm, student, course, which must all be valid slugs or instance IDs.
+   * If the course slug is &apos;other&apos;, then the note field will be used as the course number.
+   * Optional fields: note (defaults to &apos;&apos;), valid (defaults to false), grade (defaults to &apos;&apos;).
+   * CreditHrs defaults to the creditHrs assigned to course, or can be provided explicitly.
+   * @throws {Meteor.Error} If the definition includes an undefined course or student.
+   * @returns The newly created docID.
+   */
+  public define({ academicTerm, course, verified = false, fromRegistrar = false, grade = &apos;&apos;, note = &apos;&apos;, student, creditHrs, retired = false }: ICourseInstanceDefine) {
+    // Check arguments
+    const termID = AcademicTerms.getID(academicTerm);
+    const academicTermDoc = AcademicTerms.findDoc(termID);
+    const courseID = Courses.getID(course);
+    const studentID = Users.getID(student);
+    const profile = Users.getProfile(studentID);
+    // ensure the AcademicYearInstance is defined.
+    if (academicTermDoc.term === AcademicTerms.SPRING || academicTermDoc.term === AcademicTerms.SUMMER || academicTermDoc.term === AcademicTerms.WINTER) {
+      AcademicYearInstances.define({ year: academicTermDoc.year - 1, student: profile.username });
+    } else {
+      AcademicYearInstances.define({ year: academicTermDoc.year, student: profile.username });
+    }
+    const doc = this.collection.findOne({ termID, courseID, studentID });
+    if (doc) {
+      return doc._id;
+    }
+    const ice = makeCourseICE(course, grade);
+    if ((typeof verified) !== &apos;boolean&apos;) {
+      throw new Meteor.Error(`${verified} is not a boolean.`);
+    }
+    if (!_.includes(this.validGrades, grade)) {
+      if (grade.startsWith(&apos;I&apos;)) {
+        grade = grade.substring(1); // eslint-disable-line no-param-reassign
+      }
+      if (!_.includes(this.validGrades, grade)) {
+        throw new Meteor.Error(`${grade} is not a valid grade.`);
+      }
+    }
+    if (!creditHrs) {
+      /* eslint-disable-next-line no-param-reassign */
+      creditHrs = Courses.findDoc(courseID).creditHrs;
+    }
+    // Define and return the CourseInstance
+    return this.collection.insert({
+      termID,
+      courseID,
+      verified,
+      fromRegistrar,
+      grade,
+      studentID,
+      creditHrs,
+      note,
+      ice,
+      retired,
+    });
+  }
+
+  /**
+   * Update the course instance. Only a subset of fields can be updated.
+   * @param docID The course instance docID (required).
+   * @param termID the termID for the course instance optional.
+   * @param verified boolean optional.
+   * @param fromRegistrar boolean optional.
+   * @param grade optional.
+   * @param creditHrs optional.
+   * @param note optional.
+   * @param ice an object with fields i, c, e (optional)
+   */
+  public update(docID: string, { termID, verified, fromRegistrar, grade, creditHrs, note, ice, retired }: ICourseInstanceUpdate) {
+    // console.log(&apos;CourseInstances.update&apos;, termID, verified, fromRegistrar, grade, creditHrs, note, ice);
+    this.assertDefined(docID);
+    const updateData: ICourseInstanceUpdate = {};
+    if (termID) {
+      updateData.termID = termID;
+    }
+    if (_.isBoolean(verified)) {
+      updateData.verified = verified;
+    }
+    if (_.isBoolean(fromRegistrar)) {
+      updateData.fromRegistrar = fromRegistrar;
+    }
+    if (grade) {
+      updateData.grade = grade;
+      const ci = this.findDoc(docID);
+      const slug = Courses.findSlugByID(ci.courseID);
+      updateData.ice = makeCourseICE(slug, grade);
+    }
+    if (creditHrs) {
+      updateData.creditHrs = creditHrs;
+    }
+    if (note) {
+      updateData.note = note;
+    }
+    if (ice) {
+      updateData.ice = ice;
+    }
+    if (_.isBoolean(retired)) {
+      updateData.retired = retired;
+    }
+    this.collection.update(docID, { $set: updateData });
+  }
+
+  /**
+   * Remove the course instance.
+   * @param docID The docID of the course instance.
+   */
+  public removeIt(docID: string) {
+    this.assertDefined(docID);
+    // OK, clear to delete.
+    return super.removeIt(docID);
+  }
+
+  /**
+   * Removes all CourseInstance documents referring to user.
+   * @param user The user, either the ID or the username.
+   * @throws { Meteor.Error } If user is not an ID or username.
+   */
+  public removeUser(user: string) {
+    const studentID = Users.getID(user);
+    this.collection.remove({ studentID });
+  }
+
+  /**
+   * Implementation of assertValidRoleForMethod. Asserts that userId is logged in as an Admin, Advisor or
+   * Student.
+   * This is used in the define, update, and removeIt Meteor methods associated with each class.
+   * @param userId The userId of the logged in user. Can be null or undefined
+   * @throws { Meteor.Error } If there is no logged in user, or the user is not an Admin or Advisor.
+   */
+  public assertValidRoleForMethod(userId: string) {
+    this.assertRole(userId, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.STUDENT]);
+  }
+
+  /**
+   * Returns the Course associated with the CourseInstance with the given instanceID.
+   * @param instanceID The id of the CourseInstance.
+   * @returns {Object} The associated Course.
+   * @throws {Meteor.Error} If instanceID is not a valid ID.
+   */
+  public getCourseDoc(instanceID: string) {
+    this.assertDefined(instanceID);
+    const instance = this.collection.findOne({ _id: instanceID });
+    return Courses.findDoc(instance.courseID);
+  }
+
+  /**
+   * Returns the Course slug for the instance&apos;s corresponding Course.
+   * @param instanceID The CourseInstanceID.
+   * @return {string} The course slug.
+   */
+  public getCourseSlug(instanceID: string) {
+    this.assertDefined(instanceID);
+    const instance = this.collection.findOne({ _id: instanceID });
+    return Courses.findSlugByID(instance.courseID);
+  }
+
+  /**
+   * Gets the publication names.
+   * @returns {{student: string; perStudentAndAcademicTerm: string; publicStudent: string; publicSlugStudent: string; studentID: string}}
+   */
+  public getPublicationNames() {
+    return this.publicationNames;
+  }
+
+  /**
+   * Returns the AcademicTerm associated with the CourseInstance with the given instanceID.
+   * @param instanceID The id of the CourseInstance.
+   * @returns {Object} The associated AcademicTerm.
+   * @throws {Meteor.Error} If instanceID is not a valid ID.
+   */
+  public getAcademicTermDoc(instanceID: string) {
+    this.assertDefined(instanceID);
+    const instance = this.collection.findOne({ _id: instanceID });
+    return AcademicTerms.findDoc(instance.termID);
+  }
+
+  /**
+   * Returns a schema for the update method&apos;s second parameter.
+   * @returns { SimpleSchema }.
+   */
+  public getUpdateSchema() {
+    const terms = AcademicTerms.find({}, { sort: { termNumber: 1 }, fields: { _id: 1 } }).fetch();
+    // console.log(terms);
+    this.updateSchema = new SimpleSchema({
+      termID: {
+        type: String,
+        optional: true,
+        allowedValues: _.map(terms, (term) =&gt; term._id),
+      },
+      verified: { type: Boolean, optional: true },
+      fromRegistrar: { type: Boolean, optional: true },
+      grade: { type: String, optional: true },
+      creditHrs: { type: SimpleSchema.Integer, optional: true },
+      note: { type: String, optional: true },
+      ice: { type: iceSchema, optional: true },
+      retired: { type: Boolean, optional: true },
+    });
+
+    return this.updateSchema;
+  }
+
+  /**
+   * Returns the Student profile associated with the CourseInstance with the given instanceID.
+   * @param instanceID The id of the CourseInstance.
+   * @returns {Object} The associated Student profile.
+   * @throws {Meteor.Error} If instanceID is not a valid ID.
+   */
+  public getStudentDoc(instanceID: string) {
+    this.assertDefined(instanceID);
+    const instance = this.collection.findOne({ _id: instanceID });
+    return Users.getProfile(instance.studentID);
+  }
+
+  /**
+   * @returns { String } The course name associated with courseInstanceID.
+   * @param courseInstanceID The course instance ID.
+   * @throws {Meteor.Error} If courseInstanceID is not a valid ID.
+   */
+  public findCourseName(courseInstanceID: string) {
+    this.assertDefined(courseInstanceID);
+    const courseID = this.findDoc(courseInstanceID).courseID;
+    return Courses.findDoc(courseID).name;
+  }
+
+  /**
+   * Returns the courseInstance document associated with academicTerm, course, and student.
+   * @param academicTerm The academicTerm (slug or ID).
+   * @param course The course (slug or ID).
+   * @param student The student (slug or ID)
+   * @returns { Object } Returns the document or null if not found.
+   * @throws { Meteor.Error } If academicTerm, course, or student does not exist.
+   */
+  public findCourseInstanceDoc(academicTerm: string, course: string, student: string) {
+    const termID = AcademicTerms.getID(academicTerm);
+    const studentID = Users.getID(student);
+    const courseID = Courses.getID(course);
+    return this.collection.findOne({ termID, studentID, courseID });
+  }
+
+  /**
+   * Returns true if there exists a CourseInstance for the given academicTerm, course, and student.
+   * @param academicTerm The academicTerm (slug or ID).
+   * @param course The course (slug or ID).
+   * @param student The student (slug or ID).
+   * @returns True if the course instance exists.
+   * @throws { Meteor.Error } If academicTerm, course, or student does not exist.
+   */
+  public isCourseInstance(academicTerm: string, course: string, student: string) {
+    return !!this.findCourseInstanceDoc(academicTerm, course, student);
+  }
+
+  /**
+   * @returns { boolean } If the course is an interesting course associated with courseInstanceID.
+   * @param courseInstanceID The course instance ID.
+   * @throws {Meteor.Error} If courseInstanceID is not a valid ID.
+   */
+  public isInteresting(courseInstanceID: string) {
+    this.assertDefined(courseInstanceID);
+    const instance = this.findDoc(courseInstanceID);
+    return Courses.findDoc(instance.courseID).num !== Courses.unInterestingSlug;
+  }
+
+  /**
+   * Depending on the logged in user publish only their CourseInstances. If
+   * the user is in the Role.ADMIN then publish all CourseInstances.
+   */
+  public publish() {
+    if (Meteor.isServer) {
+      const instance = this;
+      Meteor.publish(this.publicationNames.scoreboard, function publishCourseScoreboard() {
+        ReactiveAggregate(this, instance.collection, [
+          {
+            $addFields: { courseTerm: { $concat: [&apos;$courseID&apos;, &apos; &apos;, &apos;$termID&apos;] } },
+          },
+          {
+            $group: {
+              _id: &apos;$courseTerm&apos;,
+              count: { $sum: 1 },
+            },
+          },
+          { $project: { count: 1, termID: 1, courseID: 1 } },
+        ], { clientCollection: CourseScoreboardName });
+      });
+      Meteor.publish(this.collectionName, function filterStudentID(studentID) { // eslint-disable-line meteor/audit-argument-checks
+        // console.log(&apos;publish studentID %o is admin = %o&apos;, studentID, Roles.userIsInRole(studentID, [ROLE.ADMIN]));
+        if (_.isNil(studentID)) {
+          return this.ready();
+        }
+        const profile = Users.getProfile(studentID);
+        if (profile.role === ROLE.ADMIN || Meteor.isAppTest) {
+          return instance.collection.find();
+        }
+        return instance.collection.find({ studentID, retired: { $not: { $eq: true } } });
+      });
+    }
+  }
+
+  /**
+   * @returns {string} A formatted string representing the course instance.
+   * @param courseInstanceID The course instance ID.
+   * @throws {Meteor.Error} If not a valid ID.
+   */
+  public toString(courseInstanceID: string) {
+    this.assertDefined(courseInstanceID);
+    const courseInstanceDoc = this.findDoc(courseInstanceID);
+    const courseName = this.findCourseName(courseInstanceID);
+    const academicTerm = AcademicTerms.toString(courseInstanceDoc.termID);
+    const grade = courseInstanceDoc.grade;
+    return `[CI ${academicTerm} ${courseName} ${grade}]`;
+  }
+
+  /**
+   * Updates the CourseInstance&apos;s grade. This should be used for planning purposes.
+   * @param courseInstanceID The course instance ID.
+   * @param grade The new grade.
+   * @throws {Meteor.Error} If courseInstanceID is not a valid ID.
+   */
+  public updateGrade(courseInstanceID: string, grade: string) {
+    this.assertDefined(courseInstanceID);
+    const ice = makeCourseICE(courseInstanceID, grade);
+    this.collection.update({ _id: courseInstanceID }, { $set: { grade, ice, verified: false } });
+  }
+
+  /**
+   * Updates the CourseInstance&apos;s AcademicTerm.
+   * @param courseInstanceID The course instance ID.
+   * @param termID The academicTerm id.
+   * @throws {Meteor.Error} If courseInstanceID is not a valid ID.
+   */
+  public updateAcademicTerm(courseInstanceID: string, termID: string) {
+    this.assertDefined(courseInstanceID);
+    AcademicTerms.assertAcademicTerm(termID);
+    this.collection.update({ _id: courseInstanceID }, { $set: { termID } });
+  }
+
+  /**
+   * Returns an array of strings, each one representing an integrity problem with this collection.
+   * Returns an empty array if no problems were found.
+   * Checks termID, courseID, and studentID.
+   * @returns {Array} A (possibly empty) array of strings indicating integrity issues.
+   */
+  public checkIntegrity() {
+    const problems = [];
+    this.find().forEach((doc) =&gt; {
+      if (!AcademicTerms.isDefined(doc.termID)) {
+        problems.push(`Bad termID: ${doc.termID}`);
+      }
+      if (!Courses.isDefined(doc.courseID)) {
+        problems.push(`Bad courseID: ${doc.courseID}`);
+      }
+      if (!Users.isDefined(doc.studentID)) {
+        problems.push(`Bad studentID: ${doc.studentID}`);
+      }
+    });
+    return problems;
+  }
+
+  /**
+   * Returns an object representing the CourseInstance docID in a format acceptable to define().
+   * @param docID The docID of a CourseInstance.
+   * @returns { Object } An object representing the definition of docID.
+   */
+  public dumpOne(docID: string): ICourseInstanceDefine {
+    const doc = this.findDoc(docID);
+    const academicTerm = AcademicTerms.findSlugByID(doc.termID);
+    const course = Courses.findSlugByID(doc.courseID);
+    const note = doc.note;
+    const verified = doc.verified;
+    const creditHrs = doc.creditHrs;
+    const grade = doc.grade;
+    const fromRegistrar = doc.fromRegistrar;
+    const student = Users.getProfile(doc.studentID).username;
+    const retired = doc.retired;
+    return { academicTerm, course, note, verified, fromRegistrar, creditHrs, grade, student, retired };
+  }
+}
+
+/**
+ * Provides the singleton instance of this class to all other entities.
+ * @memberOf api/course
+ */
+export const CourseInstances = new CourseInstanceCollection();
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

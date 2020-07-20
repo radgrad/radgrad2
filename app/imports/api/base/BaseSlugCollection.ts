@@ -9,8 +9,7 @@ import { Slugs } from '../slug/SlugCollection';
  * It provides an API where the user can provide either a slug or docID (or document-specifying object).
  * Note it does not define a constructor; subclasses should invoke super(type, schema) to get the
  * BaseCollection constructor.
- * @memberOf api/base
- * @extends api/base.BaseCollection
+ * @extends BaseCollection
  */
 class BaseSlugCollection extends BaseCollection {
 

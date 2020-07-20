@@ -11,7 +11,6 @@ import { IDumpOne } from '../../typings/radgrad';
  * It is the direct superclass for SlugCollection and AcademicTermCollection.
  * Other collection classes are derived from BaseSlugCollection or BaseTypeCollection, which are abstract
  * classes that inherit from this one.
- * @memberOf api/base
  */
 class BaseCollection {
   protected collection: Mongo.Collection<any>;
