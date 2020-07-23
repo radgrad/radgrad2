@@ -9,12 +9,12 @@ import { withTracker } from 'meteor/react-meteor-data';
 import Swal from 'sweetalert2';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { AdminProfiles } from '../../../api/user/AdminProfileCollection';
-import { IAcademicPlan, IAcademicTerm, IBaseProfile, ICareerGoal, IInterest } from '../../../typings/radgrad';
-import BaseCollection from '../../../api/base/BaseCollection';
+import { IAcademicTerm, IBaseProfile, ICareerGoal, IInterest } from '../../../typings/radgrad';
+// import BaseCollection from '../../../api/base/BaseCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { ROLE } from '../../../api/role/Role';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
-import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
+// import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import {
   academicPlanIdToName, academicTermIdToName,
   academicTermToName,
@@ -37,8 +37,8 @@ interface IUpdateUserProps {
   interests: IInterest[];
   careerGoals: ICareerGoal[];
   academicTerms: IAcademicTerm[];
-  academicPlans: IAcademicPlan[];
-  collection: BaseCollection;
+  // academicPlans: IAcademicPlan[];
+  // collection: BaseCollection;
   id: string;
   formRef: any;
   handleUpdate: (doc) => any;
@@ -264,12 +264,12 @@ const UpdateUserFormContainter = withTracker(() => {
   const careerGoals = CareerGoals.find({}, { sort: { name: 1 } }).fetch();
   const academicTerms = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();
   // console.log(academicTerms, currentTerm);
-  const academicPlans = AcademicPlans.getLatestPlans();
+  // const academicPlans = AcademicPlans.getLatestPlans();
   return {
     interests,
     careerGoals,
     academicTerms,
-    academicPlans,
+    // academicPlans,
   };
 })(UpdateUserFormCon);
 

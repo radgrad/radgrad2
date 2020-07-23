@@ -210,6 +210,7 @@
       "prefer-destructuring": "off",
       "prefer-promise-reject-errors": "off",
       "react/destructuring-assignment": "off",
+      "react/jsx-closing-tag-location": "off",
       "react/jsx-filename-extension": [
         1,
         {
@@ -222,11 +223,11 @@
         }
       ],
       "react/jsx-fragments": "off",
+      "react/jsx-one-expression-per-line": "off",
       "react/jsx-props-no-spreading": "off",
       "react/prefer-stateless-function": "off",
-      "react/sort-comp": "off",
-      "react/jsx-one-expression-per-line": "off",
-      "react/jsx-closing-tag-location": "off"
+      "react/require-default-props": "off",
+      "react/sort-comp": "off"
     }
   }
 }

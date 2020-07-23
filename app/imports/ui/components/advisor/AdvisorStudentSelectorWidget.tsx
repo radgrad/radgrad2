@@ -13,6 +13,8 @@ import { generateStudentEmailsMethod } from '../../../api/user/UserCollection.me
 import { starBulkLoadJsonDataMethod } from '../../../api/star/StarProcessor.methods';
 import { homeActions } from '../../../redux/advisor/home';
 import { RootState } from '../../../redux/types';
+import { Interests } from '../../../api/interest/InterestCollection';
+import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 
 /* global FileReader */
 /* eslint-disable react/prop-types */
@@ -25,7 +27,9 @@ interface IAdvisorStudentSelectorWidgetProps {
   students: IStudentProfile[];
   alumni: IStudentProfile[];
   advisorUsername: string;
+  // eslint-disable-next-line react/no-unused-prop-types
   interests: IInterest[];
+  // eslint-disable-next-line react/no-unused-prop-types
   careerGoals: ICareerGoal[];
 }
 
@@ -348,6 +352,8 @@ const AdvisorStudentSelectorWidget = (props: IAdvisorStudentSelectorWidgetProps)
 const AdvisorStudentSelectorWidgetContainer = withTracker(() => ({
   students: StudentProfiles.findNonRetired({ isAlumni: false }, { sort: { lastName: 1, firstName: 1 } }),
   alumni: StudentProfiles.findNonRetired({ isAlumni: true }, { sort: { lastName: 1, firstName: 1 } }),
+  interests: Interests.findNonRetired(),
+  careerGoals: CareerGoals.findNonRetired(),
 }))(AdvisorStudentSelectorWidget);
 
 export default connect(mapStateToProps)(AdvisorStudentSelectorWidgetContainer);
