@@ -126,6 +126,7 @@ class InterestCollection extends BaseSlugCollection {
     const docID = this.getID(instance);
     // Check that this interest is not referenced by any User.
     // TODO Should the profile collections be included below?
+    // No, but we need to check FavoriteInterests
     this.assertUnusedInterest([Courses, CareerGoals, Opportunities, Teasers], docID);
     // OK, clear to delete.
     return super.removeIt(docID);
