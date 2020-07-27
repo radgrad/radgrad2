@@ -100,7 +100,7 @@ const mapDispatchToProps = (dispatch) => ({
  *  11. In the render() function, build the Card Explorer Card by mapping over items.
  */
 const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
-  // console.log('CardExplorerWidget', props);
+  console.log('CardExplorerWidget', props);
   const [filterCoursesChoiceState, setFilterCoursesChoice] = useState(courseFilterKeys.none);
   const [sortOpportunitiesChoiceState, setSortOpportunitiesChoice] = useState(opportunitySortKeys.recommended);
 
