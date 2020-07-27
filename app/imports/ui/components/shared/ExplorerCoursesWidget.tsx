@@ -39,7 +39,9 @@ interface IExplorerCoursesWidgetProps {
       course: string;
     }
   };
+  // eslint-disable-next-line react/no-unused-prop-types
   reactiveSourceOne: object[];
+  // eslint-disable-next-line react/no-unused-prop-types
   reactiveSourceTwo: object[];
 }
 

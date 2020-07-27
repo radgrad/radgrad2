@@ -42,10 +42,15 @@ interface ICardExplorerPageProps {
       username: string;
     }
   };
+  // eslint-disable-next-line react/no-unused-prop-types
   favoritePlans: IAcademicPlan[];
+  // eslint-disable-next-line react/no-unused-prop-types
   favoriteCareerGoals: ICareerGoal[];
+  // eslint-disable-next-line react/no-unused-prop-types
   favoriteCourses: ICourse[];
+  // eslint-disable-next-line react/no-unused-prop-types
   favoriteInterests: IInterest[];
+  // eslint-disable-next-line react/no-unused-prop-types
   favoriteOpportunities: IOpportunity[];
 }
 

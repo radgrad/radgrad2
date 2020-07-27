@@ -1,6 +1,5 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { withTracker } from 'meteor/react-meteor-data';
 import {
   IAcademicPlan,
   ICareerGoal,
@@ -8,10 +7,7 @@ import {
   IDesiredDegree,
   IInterest,
   IOpportunity,
-  IProfile,
 } from '../../../typings/radgrad';
-import { Users } from '../../../api/user/UserCollection';
-import * as Router from './RouterHelperFunctions';
 import ExplorerMenuNonMobileWidget from './ExplorerMenuNonMobileWidget';
 import ExplorerMenuMobileWidget from './ExplorerMenuMobileWidget';
 import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
@@ -32,7 +28,6 @@ interface IExplorerMenuProps {
       username: string;
     }
   };
-  profile: IProfile;
 }
 
 const getTypeName = (props: IExplorerMenuProps): string => {
@@ -82,12 +77,5 @@ const ExplorerMenu = (props: IExplorerMenuProps) => {
   );
 };
 
-export const ExplorerMenuCon = withTracker((props) => {
-  const username = Router.getUsername(props.match);
-  const profile = Users.getProfile(username);
-  return {
-    profile,
-  };
-})(ExplorerMenu);
-export const ExplorerMenuContainer = withRouter(ExplorerMenuCon);
+export const ExplorerMenuContainer = withRouter(ExplorerMenu);
 export default ExplorerMenuContainer;
