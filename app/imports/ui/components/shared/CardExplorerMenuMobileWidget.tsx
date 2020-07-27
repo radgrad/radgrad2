@@ -35,7 +35,9 @@ interface ICardExplorerMenuMobileWidgetProps extends ICardExplorerMenuWidgetProp
 }
 
 const CardExplorerMenuMobileWidget = (props: ICardExplorerMenuMobileWidgetProps) => {
+  // eslint-disable-next-line react/prop-types
   const { menuAddedList, menuCareerList } = props;
+  // eslint-disable-next-line react/prop-types
   const isStudent = Router.isUrlRoleStudent(props.match);
   return (
     <React.Fragment>
@@ -49,6 +51,7 @@ const CardExplorerMenuMobileWidget = (props: ICardExplorerMenuMobileWidgetProps)
                 <Dropdown.Header as="h4">MY FAVORITE ACADEMIC PLANS</Dropdown.Header>
                 <Dropdown.Divider />
                 {
+                  // eslint-disable-next-line react/prop-types
                   menuAddedList.map((listItem) => (
                     <ExplorerMenuMobileItem
                       type={EXPLORER_TYPE.ACADEMICPLANS}
@@ -70,6 +73,7 @@ const CardExplorerMenuMobileWidget = (props: ICardExplorerMenuMobileWidgetProps)
                 <Dropdown.Header as="h4">MY FAVORITE COURSES</Dropdown.Header>
                 <Dropdown.Divider />
                 {
+                  // eslint-disable-next-line react/prop-types
                   menuAddedList.map((listItem) => (
                     <ExplorerMenuMobileItem
                       type={EXPLORER_TYPE.COURSES}
