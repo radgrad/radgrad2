@@ -14,6 +14,7 @@ import { courseScoreboardWidget } from './shared-widget-names';
 interface ICourseScoreboardWidgetProps {
   courses: ICourse[],
   terms: IAcademicTerm[];
+  // eslint-disable-next-line react/no-unused-prop-types
   scores: any[];
 }
 

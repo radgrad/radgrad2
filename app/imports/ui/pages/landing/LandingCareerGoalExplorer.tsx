@@ -25,8 +25,6 @@ interface ICareerGoalExplorerProps {
       username: string;
     }
   };
-  location: object;
-  history: object;
 }
 
 const LandingCareerGoalExplorer = (props: ICareerGoalExplorerProps) => {

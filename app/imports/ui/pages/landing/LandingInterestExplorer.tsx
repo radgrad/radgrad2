@@ -28,8 +28,6 @@ interface IInterestExplorerProps {
       username: string;
     }
   };
-  location: object;
-  history: object;
 }
 
 const LandingInterestExplorer = (props: IInterestExplorerProps) => {

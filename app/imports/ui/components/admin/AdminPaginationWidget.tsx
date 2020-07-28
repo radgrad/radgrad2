@@ -6,9 +6,12 @@ import { RootState } from '../../../redux/types';
 
 interface IAdminPaginationWidgetProps {
   collection: BaseCollection;
+  // eslint-disable-next-line react/no-unused-prop-types
   dispatch: any;
   pagination: any;
+  // eslint-disable-next-line react/no-unused-prop-types
   setShowIndex: (collectionName: string, index: number) => any;
+  // eslint-disable-next-line react/no-unused-prop-types
   setShowCount: (collectionName: string, count: number) => any;
 }
 

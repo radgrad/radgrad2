@@ -24,6 +24,7 @@ import { userInteractionDefineMethod } from '../../../../api/analytic/UserIntera
 interface IDetailCourseCardProps {
   match: any;
   instance: ICourseInstance;
+  // eslint-disable-next-line react/no-unused-prop-types
   selectCourseInstance: (courseInstanceID: string) => any;
 }
 

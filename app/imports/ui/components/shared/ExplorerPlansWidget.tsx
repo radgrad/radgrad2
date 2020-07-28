@@ -1,10 +1,8 @@
 import React from 'react';
-import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router-dom';
 import { Segment, Header, Divider, Grid } from 'semantic-ui-react';
 import Markdown from 'react-markdown';
 import { IAcademicPlan } from '../../../typings/radgrad';
-import { Users } from '../../../api/user/UserCollection';
 import AcademicPlanStaticViewer from './AcademicPlanStaticViewer';
 import * as Router from './RouterHelperFunctions';
 import FavoritesButton from './FavoritesButton';
@@ -17,7 +15,6 @@ interface IExplorerPlansWidgetProps {
   name: string;
   descriptionPairs: any[];
   item: IAcademicPlan;
-  profile: object;
   match: {
     isExact: boolean;
     path: string;
@@ -101,10 +98,4 @@ const ExplorerPlansWidget = (props: IExplorerPlansWidgetProps) => {
   );
 };
 
-const ExplorerPlansWidgetContainer = withTracker((props) => {
-  const profile = Users.getProfile(props.match.params.username);
-  return {
-    profile,
-  };
-})(ExplorerPlansWidget);
-export default withRouter(ExplorerPlansWidgetContainer);
+export default withRouter(ExplorerPlansWidget);

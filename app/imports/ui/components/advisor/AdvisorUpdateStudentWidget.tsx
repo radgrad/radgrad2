@@ -23,7 +23,9 @@ import { RootState } from '../../../redux/types';
 
 interface IAdvisorUpdateStudentWidgetProps {
   dispatch: (any) => void;
+  // eslint-disable-next-line react/no-unused-prop-types
   selectedUsername: string;
+  // eslint-disable-next-line react/no-unused-prop-types
   isLoaded: boolean;
   usernameDoc: { [key: string]: any };
   studentCollectionName: string;
@@ -38,7 +40,7 @@ const mapStateToProps = (state: RootState) => ({
 });
 
 const AdvisorUpdateStudentWidget = (props: IAdvisorUpdateStudentWidgetProps) => {
-  // console.log('AdvisorUpdateStudentWidget', props);
+  console.log('AdvisorUpdateStudentWidget', props);
   const doc = props.usernameDoc;
   const userID = doc.userID;
   const favCareerGoals = FavoriteCareerGoals.findNonRetired({ userID });

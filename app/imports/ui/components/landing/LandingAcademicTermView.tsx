@@ -5,7 +5,6 @@ import LandingPlanChoicePill from './LandingPlanChoicePill';
 
 interface ILandingAcademicTempViewProps {
   title: string;
-  id: string;
   choices: string[];
 }
 

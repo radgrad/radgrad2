@@ -14,6 +14,7 @@ import { getDroppableListStyle } from '../../shared/StyleFunctions';
 
 interface IAcademicTermViewProps {
   term: IAcademicTerm;
+  // eslint-disable-next-line react/no-unused-prop-types
   studentID: string;
   handleClickCourseInstance: (event, { value }) => any;
   handleClickOpportunityInstance: (event, { value }) => any;

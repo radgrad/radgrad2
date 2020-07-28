@@ -22,7 +22,6 @@ import { FAVORITE_TYPE } from '../../../api/favorite/FavoriteTypes';
 import TeaserVideo from './TeaserVideo';
 
 interface IExplorerInterestsWidgetProps {
-  type: string;
   match: {
     isExact: boolean,
     path: string,
@@ -34,9 +33,9 @@ interface IExplorerInterestsWidgetProps {
   }
   profile: IProfile;
   interest: IInterest;
-  interestedStudents: IProfile[];
-  interestedAlumni: IProfile[];
+  // eslint-disable-next-line react/no-unused-prop-types
   opportunities: IOpportunity[];
+  // eslint-disable-next-line react/no-unused-prop-types
   courses: ICourse[];
 }
 

@@ -13,6 +13,7 @@ import { docToName, docToShortDescription, itemToSlugName } from '../shared/data
 import * as Router from '../shared/RouterHelperFunctions';
 
 interface IStudentOfInterestCardProps {
+  // eslint-disable-next-line react/no-unused-prop-types
   type: string;
   match: {
     isExact: boolean;
@@ -25,9 +26,6 @@ interface IStudentOfInterestCardProps {
   item: {
     _id: string;
     name: string;
-  };
-  profile: {
-    _id: string;
   };
 }
 

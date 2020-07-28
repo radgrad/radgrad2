@@ -24,8 +24,6 @@ interface IAcademicPlanExplorerProps {
       username: string;
     }
   };
-  location: object;
-  history: object;
 }
 
 const LandingAcademicPlanExplorer = (props: IAcademicPlanExplorerProps) => {

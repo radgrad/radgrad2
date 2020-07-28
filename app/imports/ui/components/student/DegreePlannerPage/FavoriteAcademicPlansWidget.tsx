@@ -15,7 +15,6 @@ import { AcademicPlans } from '../../../../api/degree-plan/AcademicPlanCollectio
 
 interface IFavoriteAcademicPlansWidgetProps {
   match: IMatchProps;
-  studentID: string;
   plans: IAcademicPlan[];
 }
 
@@ -76,7 +75,6 @@ export default withRouter(withTracker((props) => {
   const favorites = FavoriteAcademicPlans.findNonRetired({ studentID });
   const plans = _.map(favorites, (fav) => AcademicPlans.findDoc(fav.academicPlanID));
   return {
-    studentID,
     plans,
   };
 })(FavoriteAcademicPlansWidget));

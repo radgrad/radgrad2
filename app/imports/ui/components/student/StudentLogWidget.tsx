@@ -8,6 +8,7 @@ import { Users } from '../../../api/user/UserCollection';
 import { studentLogWidget } from './student-widget-names';
 
 interface IStudentLogWidgetProps {
+  // eslint-disable-next-line react/no-unused-prop-types
   match: {
     isExact: boolean;
     path: string;

@@ -34,16 +34,35 @@ import { RootState } from '../../../redux/types';
 import { scrollPositionActions } from '../../../redux/shared/scrollPosition';
 
 interface ICardExplorerWidgetProps extends ICardExplorerMenuWidgetProps {
+  // eslint-disable-next-line react/no-unused-prop-types
   collection: any;
+  // eslint-disable-next-line react/no-unused-prop-types
   reactiveSource: object[];
+  // eslint-disable-next-line react/no-unused-prop-types
   reactiveSourceProfile: object;
+  // eslint-disable-next-line react/no-unused-prop-types
   reactiveSourceForTermCarOne: object[];
+  // eslint-disable-next-line react/no-unused-prop-types
   reactiveSourceForTermCarTwo: object[];
+  // eslint-disable-next-line react/no-unused-prop-types
   studentProfiles: IStudentProfile[];
+  // eslint-disable-next-line react/no-unused-prop-types
   advisorProfiles: IAdvisorProfile[];
+  // eslint-disable-next-line react/no-unused-prop-types
   facultyProfiles: IFacultyProfile[];
+  // eslint-disable-next-line react/no-unused-prop-types
   mentorProfile: IMentorProfile[];
+  // eslint-disable-next-line react/no-unused-prop-types
   menuList: object[];
+  type: 'plans' | 'career-goals' | 'courses' | 'degrees' | 'interests' | 'opportunities' | 'users';
+  match: {
+    isExact: boolean;
+    path: string;
+    url: string;
+    params: {
+      username: string;
+    }
+  };
   // Saving Scroll Position
   plansScrollPosition: number;
   careerGoalsScrollPosition: number;

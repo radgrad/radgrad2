@@ -23,6 +23,7 @@ import PreferredChoice from '../../../api/degree-plan/PreferredChoice';
 
 interface IStudentOfInterestWidgetProps {
   type: string;
+  // eslint-disable-next-line react/no-unused-prop-types
   match: {
     isExact: boolean;
     path: string;
@@ -31,12 +32,12 @@ interface IStudentOfInterestWidgetProps {
       username: string;
     }
   };
+  // eslint-disable-next-line react/no-unused-prop-types
   profile: any;
+  // eslint-disable-next-line react/no-unused-prop-types
   nonRetiredCourses: ICourse[];
+  // eslint-disable-next-line react/no-unused-prop-types
   nonRetiredOpportunities: IOpportunity[];
-  dispatch: any;
-  courseInstances: any[];
-  opportunityInstances: any[];
 }
 
 const isTypeCourse = (props: IStudentOfInterestWidgetProps): boolean => props.type === EXPLORER_TYPE.COURSES;
