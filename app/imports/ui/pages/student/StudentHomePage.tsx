@@ -1,10 +1,11 @@
 import React from 'react';
 import { Grid, Container, Card } from 'semantic-ui-react';
 import BackToTopButton from '../../components/shared/BackToTopButton';
-import StudentOfInterestWidget from '../../components/student/StudentOfInterestWidget';
-import StudentTeaserWidget from '../../components/student/StudentTeaserWidget';
+import StudentOfInterestWidget from '../../components/student/HomePage/StudentOfInterestWidget';
+import StudentTeaserWidget from '../../components/student/HomePage/StudentTeaserWidget';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import GuidedTourStudentHome from '../landing/GuidedTourStudentHome';
+import FavoriteInterestsList from '../../components/student/HomePage/FavoriteInterests';
 
 const bg1 = { backgroundColor: '#6fbe44' };
 const bg2 = { backgroundColor: '#2f9276' };
@@ -52,6 +53,7 @@ const StudentHomePage = () => (
           </Grid.Column>
           <Grid.Column width={5}>
             <StudentOfInterestWidget type="opportunities" />
+            <FavoriteInterestsList />
           </Grid.Column>
         </Grid.Row>
       </Grid>

@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { Grid, Image, Button } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import { withRouter } from 'react-router-dom';
-import { updateMethod } from '../../../api/base/BaseCollection.methods';
-import { openCloudinaryWidget } from '../shared/OpenCloudinaryWidget';
-import { getUsername } from '../shared/RouterHelperFunctions';
-import { UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
-import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
-import { IUserInteractionDefine } from '../../../typings/radgrad';
+import { updateMethod } from '../../../../api/base/BaseCollection.methods';
+import { openCloudinaryWidget } from '../../shared/OpenCloudinaryWidget';
+import { getUsername } from '../../shared/RouterHelperFunctions';
+import { UserInteractionsTypes } from '../../../../api/analytic/UserInteractionsTypes';
+import { userInteractionDefineMethod } from '../../../../api/analytic/UserInteractionCollection.methods';
+import { IUserInteractionDefine } from '../../../../typings/radgrad';
 
 interface IStudentAboutMeUpdatePictureFormProps {
   picture: string;
