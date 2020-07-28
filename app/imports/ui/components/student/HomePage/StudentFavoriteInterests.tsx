@@ -32,7 +32,7 @@ const FavoriteInterestsList = (props: IPopularTopicsProps) => {
   const favoriteInterests = getFavoriteInterests();
   return (
     <>
-      <Header>FAVORITE INTERESTS SELECTED BY ICS STUDENTS</Header>
+      <Header dividing>FAVORITE INTERESTS SELECTED BY ICS STUDENTS</Header>
       <Label.Group>
         {favoriteInterests.map((object) => {
           const slug = Interests.findSlugByID(object.interestID);
