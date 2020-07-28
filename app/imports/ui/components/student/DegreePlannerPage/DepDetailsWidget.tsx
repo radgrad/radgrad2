@@ -23,6 +23,7 @@ const mapStateToProps = (state: RootState) => ({
 });
 
 const DepDetailsWidget = (props: IDepDetailsWidgetProps) => {
+  // eslint-disable-next-line react/prop-types
   const { instance, courseP, opportunityP } = props;
   if (!(courseP || opportunityP)) {
     return (

@@ -18,13 +18,15 @@ import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import StudentAboutMeUpdateWebsiteForm from './StudentAboutMeUpdateWebsiteForm';
 import * as Router from '../shared/RouterHelperFunctions';
 import {
-  itemToSlugName, profileGetCareerGoals, profileGetInterests,
+  itemToSlugName,
   profileToFullName,
 } from '../shared/data-model-helper-functions';
 import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
 import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 import { studentAboutMeWidget } from './student-widget-names';
+import { CareerGoals } from '../../../api/career/CareerGoalCollection';
+import { Interests } from '../../../api/interest/InterestCollection';
 
 interface IStudentAboutMeWidgetProps {
   match: {
@@ -46,8 +48,8 @@ const StudentAboutMeWidget = (props: IStudentAboutMeWidgetProps) => {
   const { match, profile } = props;
   const name = profileToFullName(profile);
   const email = props.profile.username;
-  const careerGoals = profileGetCareerGoals(props.profile);
-  const interests = profileGetInterests(props.profile);
+  const careerGoals = _.map(props.favoriteCareerGoals, (fav) => CareerGoals.findDoc(fav.careerGoalID));
+  const interests = _.map(props.favoriteInterests, (fav) => Interests.findDoc(fav.interestID));
   const academicPlans = _.map(props.favoriteAcademicPlans, (f) => AcademicPlans.findDoc(f.academicPlanID));
   const labelStyle = { marginBottom: '2px' };
   return (
