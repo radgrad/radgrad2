@@ -5,6 +5,7 @@ import StudentOfInterestWidget from '../../components/student/HomePage/StudentOf
 import StudentTeaserWidget from '../../components/student/HomePage/StudentTeaserWidget';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import GuidedTourStudentContainer from '../landing/GuidedTourStudent';
+import FavoriteInterestsList from '../../components/student/HomePage/FavoriteInterests';
 
 const StudentHomePage = () => (
   <div>
@@ -19,11 +20,13 @@ const StudentHomePage = () => (
           </Grid.Column>
           <Grid.Column width={5} padded className="action-box action-box-padded action-box2">
             <h2>Explore Courses and Get Useful Information</h2>
-            <p>The Courses Explorer enables you to take a deep dive into each of the courses associated with the degree program.</p>
+            <p>The Courses Explorer enables you to take a deep dive into each of the courses associated with the degree
+              program.</p>
           </Grid.Column>
           <Grid.Column width={5} padded className="action-box action-box3">
             <h2>Specify Your Career Goals</h2>
-            <p>The set of career goals are curated by the faculty to represent a good selection of the most promising career paths.</p>
+            <p>The set of career goals are curated by the faculty to represent a good selection of the most promising
+              career paths.</p>
           </Grid.Column>
         </Grid.Row>
         <Grid.Row>
@@ -32,6 +35,7 @@ const StudentHomePage = () => (
           </Grid.Column>
           <Grid.Column width={5}>
             <StudentOfInterestWidget type="opportunities" />
+            <FavoriteInterestsList />
           </Grid.Column>
         </Grid.Row>
       </Grid>

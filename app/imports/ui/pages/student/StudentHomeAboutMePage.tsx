@@ -1,12 +1,10 @@
 import React from 'react';
 import { Grid, Container } from 'semantic-ui-react';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
-import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
-import StudentHomeMenu from '../../components/student/StudentHomeMenu';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
-import StudentAboutMeWidget from '../../components/student/StudentAboutMeWidget';
+import StudentAboutMeWidget from '../../components/student/AboutMePage/StudentAboutMeWidget';
 
 const StudentHomeAboutMePage = () => (
   <div>
