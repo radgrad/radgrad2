@@ -13,12 +13,10 @@ import BackToTopButton from '../../components/shared/BackToTopButton';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 
 interface ICoursesCardExplorerProps {
+  // eslint-disable-next-line react/no-unused-prop-types
   ready: boolean;
   courses: ICourse[];
   count: number;
-  match: object;
-  location: object;
-  history: object;
 }
 
 const renderPage = (props:ICoursesCardExplorerProps) => {
@@ -63,6 +61,7 @@ const renderPage = (props:ICoursesCardExplorerProps) => {
   );
 };
 
+// eslint-disable-next-line react/prop-types
 const LandingCoursesCardExplorer = (props: ICoursesCardExplorerProps) => ((props.ready) ? renderPage(props) : <Loader>Loading Courses</Loader>);
 
 const LandingCoursesCardExplorerCon = withRouter(LandingCoursesCardExplorer);

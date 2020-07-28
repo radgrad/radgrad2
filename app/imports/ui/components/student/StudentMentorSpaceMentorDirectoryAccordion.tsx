@@ -7,7 +7,6 @@ import { IMentorProfile } from '../../../typings/radgrad';
 
 interface IStudentMentorSpaceMentorDirectoryAccordionProps {
   profiles: IMentorProfile[];
-  index: number;
 }
 
 const StudentMentorSpaceMentorDirectoryAccordion = (props: IStudentMentorSpaceMentorDirectoryAccordionProps) => {
