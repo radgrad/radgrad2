@@ -15,6 +15,7 @@ import { academicPlanActions } from '../../../redux/advisor/academic-plan';
 import { RootState } from '../../../redux/types';
 
 interface IAdvisorAPBPlanChoiceWidgetProps {
+  // eslint-disable-next-line react/no-unused-prop-types
   dispatch: (any) => void;
   showOnlyUnderGraduateChoices: boolean;
   choices: IPlanChoiceDefine[];

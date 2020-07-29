@@ -56,7 +56,7 @@
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.88.2",
     "showdown": "^1.9.1",
-    "simpl-schema": "^1.8.1",
+    "simpl-schema": "^1.9.0",
     "slick-carousel": "^1.8.1",
     "styled-components": "^5.1.1",
     "sweetalert2": "^9.17.0",
@@ -71,10 +71,10 @@
     "@hapi/joi": "^17.1.1",
     "@react-native-community/cli-debugger-ui": "^4.9.0",
     "@react-native-community/cli-types": "^4.10.1",
-    "@types/chai": "^4.2.11",
+    "@types/chai": "^4.2.12",
     "@types/jasmine": "^3.5.11",
-    "@types/lodash": "^4.14.157",
-    "@types/meteor": "^1.4.47",
+    "@types/lodash": "^4.14.158",
+    "@types/meteor": "^1.4.48",
     "@types/meteor-roles": "^1.2.32",
     "@types/mocha": "^7.0.2",
     "@types/node": "^13.13.14",
@@ -109,7 +109,7 @@
     "mime-types": "^2.1.27",
     "mocha": "^7.2.0",
     "morgan": "^1.10.0",
-    "node-notifier": "^7.0.1",
+    "node-notifier": "^7.0.2",
     "puppeteer": "^3.3.0",
     "selenium-webdriver": "^4.0.0-alpha.7",
     "testcafe": "^1.8.8",
@@ -210,6 +210,7 @@
       "prefer-destructuring": "off",
       "prefer-promise-reject-errors": "off",
       "react/destructuring-assignment": "off",
+      "react/jsx-closing-tag-location": "off",
       "react/jsx-filename-extension": [
         1,
         {
@@ -222,11 +223,11 @@
         }
       ],
       "react/jsx-fragments": "off",
+      "react/jsx-one-expression-per-line": "off",
       "react/jsx-props-no-spreading": "off",
       "react/prefer-stateless-function": "off",
-      "react/sort-comp": "off",
-      "react/jsx-one-expression-per-line": "off",
-      "react/jsx-closing-tag-location": "off"
+      "react/require-default-props": "off",
+      "react/sort-comp": "off"
     }
   }
 }

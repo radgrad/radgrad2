@@ -23,8 +23,6 @@ interface IDesiredDegreeExplorerProps {
       username: string;
     }
   };
-  location: object;
-  history: object;
 }
 
 const DesiredDegreeExplorer = (props: IDesiredDegreeExplorerProps) => {

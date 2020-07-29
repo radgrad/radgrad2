@@ -37,8 +37,10 @@ const HelpPanelWidget = (props: IHelpPanelWidgetProps) => {
     color: '#409178',
   };
 
+  // eslint-disable-next-line react/prop-types
   const { match } = props;
-  const helpMessage = _.find(props.helpMessages, (m) => m.routeName === props.match.path);
+  // eslint-disable-next-line react/prop-types
+  const helpMessage = _.find(props.helpMessages, (m) => m.routeName === match.path);
   const adminEmail = RadGradProperties.getAdminEmail();
   const helpText = helpMessage ? `${helpMessage.text}
 

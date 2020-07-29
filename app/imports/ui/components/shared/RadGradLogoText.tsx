@@ -1,8 +1,6 @@
 import React from 'react';
-import { SemanticCOLORS } from 'semantic-ui-react';
 
 interface IRadGradLogoProps {
-  color?: SemanticCOLORS;
   style?: any;
 }
 

@@ -52,8 +52,11 @@ interface IAdminDataModelUsersPageProps {
   students: IStudentProfile[];
   isCloudinaryUsed: boolean;
   cloudinaryUrl: string;
+  // eslint-disable-next-line react/no-unused-prop-types
   favoriteAcademicPlans: IFavoriteAcademicPlan[];
+  // eslint-disable-next-line react/no-unused-prop-types
   favoriteCareerGoals: IFavoriteCareerGoal[];
+  // eslint-disable-next-line react/no-unused-prop-types
   favoriteInterests: IFavoriteInterest[];
 }
 

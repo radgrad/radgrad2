@@ -184,12 +184,12 @@ const FacultyPageAboutMeWidget = (props: IFacultyPageAboutMeWidgetProps) => {
   // gets the username based on the user ID
   const facultyUserUsername = facultyUserProfile.username;
   // get the career goal IDs based on the userID
-  const favCareerGoals = FavoriteCareerGoals.findNonRetired({ userID: facultyUserID });
+  const favCareerGoals = props.favoriteCareerGoals;
   const facultyCareerGoalsIDs = _.map(favCareerGoals, (fav) => fav.careerGoalID);
   // map the career goal IDs to their names
   const facultyCareerGoals = _.map(facultyCareerGoalsIDs, (id) => CareerGoals.findDoc(id).name);
   // get the interest goal IDs based on the User ID
-  const favInterests = FavoriteInterests.findNonRetired({ userID: facultyUserID });
+  const favInterests = props.favoriteInterests;
   const facultyInterestIDs = _.map(favInterests, (fav) => fav.interestID);
   // map the interests IDs to their names
   const facultyInterests = _.map(facultyInterestIDs, (id) => Interests.findDoc(id).name);

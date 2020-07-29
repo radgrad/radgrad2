@@ -32,6 +32,7 @@ interface IDetailOpportunityCardProps {
   match: IMatchProps;
   instance: IOpportunityInstance;
   requests: IVerificationRequest[];
+  // eslint-disable-next-line react/no-unused-prop-types
   selectOpportunityInstance: (opportunityInstanceID: string) => any;
 }
 

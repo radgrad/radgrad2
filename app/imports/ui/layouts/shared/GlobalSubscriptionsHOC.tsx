@@ -21,6 +21,7 @@ interface ILoading {
 const globalSubs = new SubsManager({ cacheLimit: 30, expireIn: 30 });
 
 function withGlobalSubscription(WrappedComponent) {
+  // eslint-disable-next-line react/prop-types
   const GlobalSubscription = (props: ILoading) => ((props.loading) ? (
     <React.Fragment>
       <Responsive minWidth={Responsive.onlyTablet.minWidth}>

@@ -10,10 +10,15 @@ import { tabbedFavoritesWidget } from '../student-widget-names';
 import { RootState } from '../../../../redux/types';
 
 interface ITabbedFavoritesWidgetProps {
+  // eslint-disable-next-line react/no-unused-prop-types
   selectedTab: string;
+  // eslint-disable-next-line react/no-unused-prop-types
   selectFavoriteOpportunitiesTab: () => any;
+  // eslint-disable-next-line react/no-unused-prop-types
   selectFavoritePlansTab: () => any;
+  // eslint-disable-next-line react/no-unused-prop-types
   selectFavoriteCoursesTab: () => any;
+  // eslint-disable-next-line react/no-unused-prop-types
   selectFavoriteDetailsTab: () => any;
 }
 

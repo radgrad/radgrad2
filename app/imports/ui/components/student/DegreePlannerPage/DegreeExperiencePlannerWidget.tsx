@@ -12,8 +12,7 @@ import AcademicYearView from './AcademicYearView';
 import {
   IAcademicYearInstance,
   IAcademicYearInstanceDefine,
-  ICourseInstance,
-  IMeteorError, IOpportunityInstance,
+  IMeteorError,
 } from '../../../../typings/radgrad';
 import { CourseInstances } from '../../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
@@ -26,8 +25,6 @@ interface IDePProps {
   selectCourseInstance: (courseInstanceID: string) => any;
   selectOpportunityInstance: (opportunityInstanceID: string) => any;
   selectFavoriteDetailsTab: () => any;
-  courseInstances: ICourseInstance[];
-  opportunityInstances: IOpportunityInstance[];
   academicYearInstances: IAcademicYearInstance[];
   match: {
     isExact: boolean;
@@ -289,12 +286,8 @@ const DEPWidget = (props: IDePProps) => {
 
 const DEPWidgetCon = withTracker(({ match }) => {
   const studentID = getUserIdFromRoute(match);
-  const courseInstances: ICourseInstance[] = CourseInstances.findNonRetired({ studentID });
-  const opportunityInstances: IOpportunityInstance[] = OpportunityInstances.findNonRetired({ studentID });
   const academicYearInstances: IAcademicYearInstance[] = AcademicYearInstances.findNonRetired({ studentID }, { sort: { year: 1 } });
   return {
-    courseInstances,
-    opportunityInstances,
     academicYearInstances,
   };
 })(DEPWidget);

@@ -51,7 +51,7 @@ class SlugCollection extends BaseCollection {
    * @throws { Meteor.Error } If the slug already exists.
    */
   public define({ name, entityName }: ISlugDefine) {
-    check(name, String); // TODO: Do we need this?
+    check(name, String); // TODO: Do we need this? I don't think so, Typescript ensures the type.
     check(entityName, String);
     if (super.isDefined(name)) {
       throw new Meteor.Error(`Attempt to redefine slug: ${name}`);

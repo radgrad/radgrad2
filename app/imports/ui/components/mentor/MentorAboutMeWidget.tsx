@@ -91,8 +91,7 @@ const MentorAboutMeWidget = (props: IMentorAboutMeWidgetProps) => {
 
   const career = () => {
     if (Router.getUsername(props.match)) {
-      const profile = MentorProfiles.findDoc({ userID: Router.getUserIdFromRoute(props.match) });
-      return profile.career;
+      return props.profile.career;
     }
     return 'No career specified.';
   };
@@ -106,8 +105,7 @@ const MentorAboutMeWidget = (props: IMentorAboutMeWidgetProps) => {
 
   const company = () => {
     if (Router.getUsername(props.match)) {
-      const profile = MentorProfiles.findDoc({ userID });
-      return profile.company;
+      return props.profile.company;
     }
     return 'No company specified.';
   };
@@ -170,25 +168,22 @@ const MentorAboutMeWidget = (props: IMentorAboutMeWidgetProps) => {
   };
 
   const linkedin = () => {
-    const profile = MentorProfiles.findDoc({ userID });
-    if (profile.linkedin) {
-      return profile.linkedin;
+    if (props.profile.linkedin) {
+      return props.profile.linkedin;
     }
     return 'No linkedin profile specified';
   };
 
   const location = () => {
-    const profile = MentorProfiles.findDoc({ userID });
-    if (profile.location) {
-      return profile.location;
+    if (props.profile.location) {
+      return props.profile.location;
     }
     return 'No location specified.';
   };
 
   const motivation = () => {
-    const profile = MentorProfiles.findDoc({ userID });
-    if (profile.motivation) {
-      return profile.motivation;
+    if (props.profile.motivation) {
+      return props.profile.motivation;
     }
     return 'No motivation specified.';
   };

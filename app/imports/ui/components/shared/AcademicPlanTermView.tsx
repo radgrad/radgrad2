@@ -16,14 +16,6 @@ interface IAcademicPlanTermViewProps {
   choices: string[];
   studentID: string;
   takenSlugs: string[];
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
 }
 
 const AcademicPlanTermView = (props: IAcademicPlanTermViewProps) => {

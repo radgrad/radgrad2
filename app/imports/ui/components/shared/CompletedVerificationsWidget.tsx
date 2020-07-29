@@ -8,6 +8,7 @@ import { verificationRequestsUpdateStatusMethod } from '../../../api/verificatio
 
 interface ICompletedVerificationsWidgetProps {
   completedVerifications: IVerificationRequest[];
+  // eslint-disable-next-line react/no-unused-prop-types
   username: string;
 }
 

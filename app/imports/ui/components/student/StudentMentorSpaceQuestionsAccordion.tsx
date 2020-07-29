@@ -11,7 +11,6 @@ import { IMentorAnswer, IMentorQuestion } from '../../../typings/radgrad';
 interface IStudentMentorSpaceQuestionsAccordionProps {
   answers: IMentorAnswer[];
   questions: IMentorQuestion[];
-  index: number;
   answerCount: number;
 }
 

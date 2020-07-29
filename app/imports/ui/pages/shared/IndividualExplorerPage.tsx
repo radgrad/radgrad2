@@ -66,10 +66,15 @@ interface IIndividualExplorerPageProps {
       careergoal?: string;
     }
   };
+  // eslint-disable-next-line react/no-unused-prop-types
   favoritePlans: IFavoriteAcademicPlan[];
+  // eslint-disable-next-line react/no-unused-prop-types
   favoriteCareerGoals: IFavoriteCareerGoal[];
+  // eslint-disable-next-line react/no-unused-prop-types
   favoriteCourses: IFavoriteCourse[];
+  // eslint-disable-next-line react/no-unused-prop-types
   favoriteInterests: IFavoriteInterest[];
+  // eslint-disable-next-line react/no-unused-prop-types
   favoriteOpportunities: IFavoriteOpportunity[];
 }
 

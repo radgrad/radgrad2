@@ -18,7 +18,7 @@ interface IAdminDatabaseMenuProps {
 }
 
 const AdminDatabaseMenu = (props: IAdminDatabaseMenuProps) => {
-  const username = props.match.params.username;
+  const username = props.currentUser;
   const baseUrl = props.match.url;
   const baseIndex = baseUrl.indexOf(username);
   const baseRoute = `${baseUrl.substring(0, baseIndex)}${username}/database/`;
