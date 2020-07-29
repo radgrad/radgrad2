@@ -83,7 +83,7 @@ class FavoriteCareerGoalCollection extends BaseCollection {
   publish() {
     if (Meteor.isServer) {
       const instance = this;
-      Meteor.publish(this.collectionName, function filterStudentID(userID) { // eslint-disable-line meteor/audit-argument-checks
+      Meteor.publishLite(this.collectionName, function filterStudentID(userID) {
         if (_.isNil(userID)) {
           return this.ready();
         }
@@ -93,7 +93,7 @@ class FavoriteCareerGoalCollection extends BaseCollection {
         }
         return instance.collection.find({ userID });
       });
-      Meteor.publish(this.publicationNames.scoreboard, function publishCareerGoalScoreboard() {
+      Meteor.publishLite(this.publicationNames.scoreboard, function publishCareerGoalScoreboard() {
         ReactiveAggregate(this, instance.collection, [
           {
             $group: {

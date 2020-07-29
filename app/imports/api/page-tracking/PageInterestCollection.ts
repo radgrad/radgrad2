@@ -136,10 +136,8 @@ class PageInterestCollection extends BaseCollection {
    */
   public publish() {
     if (Meteor.isServer) {
-      // Meteor.publish(this.collectionName, () => this.collection.find({}, { limit: 0 }));
       const instance = this;
-      // eslint-disable-next-line meteor/audit-argument-checks
-      Meteor.publish(this.collectionName, function filterStudentID(studentID) {
+      Meteor.publishLite(this.collectionName, function filterStudentID(studentID) {
         if (_.isNil(studentID)) {
           return this.ready();
         }

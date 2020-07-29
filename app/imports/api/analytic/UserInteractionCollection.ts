@@ -111,16 +111,6 @@ class UserInteractionCollection extends BaseCollection {
     return { username, type, typeData, timestamp };
   }
 
-  /**
-   * Publish a cursor to UserInteractions. Method calls are used to find interactions and we do not subscribe to
-   * UserInteractions on the client. However, we would still like this to be on the list of collections
-   * for integrity check, etc.
-   */
-  public publish() {
-    if (Meteor.isServer) {
-      Meteor.publish(this.collectionName, () => this.collection.find());
-    }
-  }
 }
 
 /**

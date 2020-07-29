@@ -282,7 +282,7 @@ class UserCollection {
     }
     const profile = this.hasProfile(user);
     if (!profile) {
-      console.log(`No profile found for user ${user}`);
+      console.error(`No profile found for user ${user}`);
       throw new Meteor.Error(`No profile found for user ${user}`);
     }
     return profile;
@@ -496,7 +496,7 @@ class UserCollection {
    */
   public publish() {
     if (Meteor.isServer) {
-      Meteor.publish(this.collectionName, () => Meteor.users.find({}, {
+      Meteor.publishLite(this.collectionName, () => Meteor.users.find({}, {
         fields: {
           username: 1,
           roles: 1,
@@ -512,7 +512,7 @@ class UserCollection {
    */
   public subscribe() {
     if (Meteor.isClient) {
-      return Meteor.subscribe(this.collectionName);
+      return Meteor.subscribeLite(this.collectionName);
     }
     return null;
   }

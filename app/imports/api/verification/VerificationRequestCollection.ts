@@ -215,7 +215,7 @@ class VerificationRequestCollection extends BaseCollection {
     if (Meteor.isServer) {
       const instance = this;
       // eslint-disable-next-line meteor/audit-argument-checks
-      Meteor.publish(this.collectionName, function publish(studentID) {
+      Meteor.publishLite(this.collectionName, function publish(studentID) {
         if (_.isNil(this.userId)) { // https://github.com/meteor/meteor/issues/9619
           return this.ready();
         }

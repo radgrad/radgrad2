@@ -188,7 +188,7 @@ class FeedbackInstanceCollection extends BaseCollection {
     if (Meteor.isServer) {
       const instance = this;
       // eslint-disable-next-line meteor/audit-argument-checks
-      Meteor.publish(this.collectionName, function publish(userID) {
+      Meteor.publishLite(this.collectionName, function publish(userID) {
         if (_.isNil(userID)) {
           return this.ready();
         }

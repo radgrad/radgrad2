@@ -256,7 +256,7 @@ class OpportunityInstanceCollection extends BaseCollection {
   public publish() {
     if (Meteor.isServer) {
       const instance = this;
-      Meteor.publish(this.collectionName, function filterStudent(studentID) { // eslint-disable-line meteor/audit-argument-checks
+      Meteor.publishLite(this.collectionName, function filterStudent(studentID) {
         if (_.isNil(studentID)) {
           return this.ready();
         }
@@ -266,7 +266,7 @@ class OpportunityInstanceCollection extends BaseCollection {
         }
         return instance.collection.find({ studentID, retired: { $not: { $eq: true } } });
       });
-      Meteor.publish(this.publicationNames.scoreboard, function publishOpportunityScoreboard() {
+      Meteor.publishLite(this.publicationNames.scoreboard, function publishOpportunityScoreboard() {
         ReactiveAggregate(this, instance.collection, [
           {
             $addFields: { opportunityTerm: { $concat: ['$opportunityID', ' ', '$termID'] } },
@@ -280,14 +280,21 @@ class OpportunityInstanceCollection extends BaseCollection {
           { $project: { count: 1, termID: 1, opportunityID: 1 } },
         ], { clientCollection: 'OpportunityScoreboard' });
       });
-      // eslint-disable-next-line
-      Meteor.publish(this.publicationNames.verification, function publishVerificationOpportunities(studentIDs: string[]) {
+      // @ts-ignore
+      Meteor.publishLite(this.publicationNames.verification, function publishVerificationOpportunities(studentIDs: string[]) {
         if (Meteor.isAppTest) {
           return instance.collection.find();
         }
         return instance.collection.find({ studentID: { $in: studentIDs } });
       });
     }
+  }
+
+  public subscribeGlobal() {
+    if (Meteor.isClient) {
+      return Meteor.subscribeLite(this.publicationNames.scoreboard);
+    }
+    return null;
   }
 
   /**

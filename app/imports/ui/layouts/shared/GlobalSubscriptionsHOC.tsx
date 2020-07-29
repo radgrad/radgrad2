@@ -7,9 +7,9 @@ import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Users } from '../../../api/user/UserCollection';
 // import PageLoader from '../../components/shared/PageLoader';
 import PageLoaderMobile from '../../components/shared/PageLoaderMobile';
-import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { Feeds } from '../../../api/feed/FeedCollection';
-import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
+// import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
+// import { Feeds } from '../../../api/feed/FeedCollection';
+// import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { getGlobalPubSubLiteHandles } from '../../../startup/both/pub-sub';
 
 interface ILoading {
@@ -45,11 +45,11 @@ function withGlobalSubscription(WrappedComponent) {
       // globalSubs.subscribe(AdminProfiles.getPublicationName()),
       // globalSubs.subscribe(AdvisorProfiles.getPublicationName()),
       // globalSubs.subscribe(CareerGoals.getPublicationName()),
-      globalSubs.subscribe(CourseInstances.publicationNames.scoreboard),
+      // globalSubs.subscribe(CourseInstances.publicationNames.scoreboard),
       // globalSubs.subscribe(Courses.getPublicationName()),
       // globalSubs.subscribe(DesiredDegrees.getPublicationName()),
       // globalSubs.subscribe(FacultyProfiles.getPublicationName()),
-      globalSubs.subscribe(Feeds.getPublicationName()),
+      // globalSubs.subscribe(Feeds.getPublicationName()),
       // globalSubs.subscribe(HelpMessages.getPublicationName()),
       // globalSubs.subscribe(Interests.getPublicationName()),
       // globalSubs.subscribe(InterestTypes.getPublicationName()),
@@ -57,7 +57,7 @@ function withGlobalSubscription(WrappedComponent) {
       // globalSubs.subscribe(MentorProfiles.getPublicationName()),
       // globalSubs.subscribe(MentorQuestions.getPublicationName()),
       // globalSubs.subscribe(Opportunities.getPublicationName()),
-      globalSubs.subscribe(OpportunityInstances.publicationNames.scoreboard),
+      // globalSubs.subscribe(OpportunityInstances.publicationNames.scoreboard),
       // globalSubs.subscribe(OpportunityTypes.getPublicationName()),
       // globalSubs.subscribe(PageInterestsDailySnapshots.getPublicationName()),
       // globalSubs.subscribe(PlanChoices.getPublicationName()),
@@ -67,7 +67,8 @@ function withGlobalSubscription(WrappedComponent) {
       globalSubs.subscribe(StudentProfiles.getCollectionName()),
       // globalSubs.subscribe(Slugs.getPublicationName()),
       // globalSubs.subscribe(Teasers.getPublicationName()),
-      globalSubs.subscribe(Users.getPublicationName()),
+      // globalSubs.subscribe(Users.getPublicationName()),
+      Users.subscribe(),
     ];
     const pubSubLiteHandles = getGlobalPubSubLiteHandles();
     handles = _.concat(handles, pubSubLiteHandles);

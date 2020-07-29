@@ -570,7 +570,7 @@ class FeedCollection extends BaseCollection {
    */
   public publish() {
     if (Meteor.isServer) {
-      Meteor.publish(this.collectionName, () => this.collection.find({}, { sort: { timestamp: -1 }, limit: 25 }));
+      Meteor.publishLite(this.collectionName, () => this.collection.find({}, { sort: { timestamp: -1 }, limit: 25 }));
     }
   }
 }

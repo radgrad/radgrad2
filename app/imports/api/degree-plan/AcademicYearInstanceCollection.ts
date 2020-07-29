@@ -186,7 +186,7 @@ class AcademicYearInstanceCollection extends BaseCollection {
   public publish(): void {
     if (Meteor.isServer) {
       const instance = this;
-      Meteor.publishLite(this.collectionName, function filterStudentID(studentID) { // eslint-disable-line meteor/audit-argument-checks
+      Meteor.publishLite(this.collectionName, function filterStudentID(studentID) {
         if (_.isNil(studentID)) {
           return this.ready();
         }

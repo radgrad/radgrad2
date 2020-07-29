@@ -353,7 +353,7 @@ class CourseInstanceCollection extends BaseCollection {
   public publish() {
     if (Meteor.isServer) {
       const instance = this;
-      Meteor.publish(this.publicationNames.scoreboard, function publishCourseScoreboard() {
+      Meteor.publishLite(this.publicationNames.scoreboard, function publishCourseScoreboard() {
         ReactiveAggregate(this, instance.collection, [
           {
             $addFields: { courseTerm: { $concat: ['$courseID', ' ', '$termID'] } },
@@ -367,7 +367,7 @@ class CourseInstanceCollection extends BaseCollection {
           { $project: { count: 1, termID: 1, courseID: 1 } },
         ], { clientCollection: CourseScoreboardName });
       });
-      Meteor.publish(this.collectionName, function filterStudentID(studentID) { // eslint-disable-line meteor/audit-argument-checks
+      Meteor.publishLite(this.collectionName, function filterStudentID(studentID) {
         // console.log('publish studentID %o is admin = %o', studentID, Roles.userIsInRole(studentID, [ROLE.ADMIN]));
         if (_.isNil(studentID)) {
           return this.ready();
@@ -379,6 +379,17 @@ class CourseInstanceCollection extends BaseCollection {
         return instance.collection.find({ studentID, retired: { $not: { $eq: true } } });
       });
     }
+  }
+
+  /**
+   * Subscribes to the global scoreboard publication.
+   * @return The subscription handle or null if not on client.
+   */
+  public subscribeGlobal(): any | null {
+    if (Meteor.isClient) {
+      return Meteor.subscribeLite(this.publicationNames.scoreboard);
+    }
+    return null;
   }
 
   /**
