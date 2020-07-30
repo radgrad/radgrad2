@@ -19,13 +19,13 @@ import {
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { Users } from '../../../api/user/UserCollection';
-import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import { degreePlannerActions } from '../../../redux/student/degree-planner';
 import TabbedFavoritesWidget from '../../components/student/DegreePlannerPage/TabbedFavoritesWidget';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { getUsername, IMatchProps } from '../../components/shared/RouterHelperFunctions';
 import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
 import { UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
+import GuidedTourDegreePlanner from '../../components/student/DegreePlannerPage/GuidedTourDegreePlanner';
 
 interface IStudentDegreePlannerProps {
   selectCourseInstance: (courseInstanceID: string) => any;
@@ -239,7 +239,7 @@ const StudentDegreePlannerPage = (props: IStudentDegreePlannerProps) => {
       <Container>
         <Grid stackable style={marginStyle}>
           <Grid.Row>
-            <HelpPanelWidget />
+            <GuidedTourDegreePlanner />
           </Grid.Row>
           <Grid.Row verticalAlign="middle" style={{ paddingBottom: 0 }}>
             <Header as="h1" style={{ paddingLeft: 10 }}>Degree Experience Planner</Header>

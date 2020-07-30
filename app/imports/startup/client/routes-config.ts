@@ -507,7 +507,7 @@ export const routes = {
     {
       path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${EXPLORER_PARAM.OPPORTUNITY}`,
       exact: true,
-      component: CardExplorerOpportunitiesPage,
+      component: IndividualExplorerPageContainer,
     },
     {
       path: `/${URL_ROLES.FACULTY}/${USERNAME}/${COMMUNITY.HOME}/${COMMUNITY.USERS}`,
@@ -738,7 +738,7 @@ export const routes = {
     {
       path: `/${URL_ROLES.MENTOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${EXPLORER_PARAM.OPPORTUNITY}`,
       exact: true,
-      component: CardExplorerOpportunitiesPage,
+      component: IndividualExplorerPageContainer,
     },
     {
       path: `/${URL_ROLES.MENTOR}/${USERNAME}/${COMMUNITY.HOME}/${COMMUNITY.USERS}`,
@@ -945,7 +945,7 @@ export const routes = {
     {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${EXPLORER_PARAM.OPPORTUNITY}`,
       exact: true,
-      component: CardExplorerOpportunitiesPage,
+      component: IndividualExplorerPageContainer,
     },
     /* ############################## Explorers USERS ############################## */
     {
