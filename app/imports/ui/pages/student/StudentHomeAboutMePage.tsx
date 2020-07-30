@@ -4,7 +4,7 @@ import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidge
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
-import StudentAboutMeWidget from '../../components/student/StudentAboutMeWidget';
+import StudentAboutMeWidget from '../../components/student/AboutMePage/StudentAboutMeWidget';
 
 const StudentHomeAboutMePage = () => (
   <div>

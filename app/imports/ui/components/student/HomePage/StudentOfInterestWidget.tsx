@@ -3,23 +3,23 @@ import { Card, Header, Segment } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
-import WidgetHeaderNumber from '../shared/WidgetHeaderNumber';
-import StudentOfInterestCard from './StudentOfInterestCard';
-import { Users } from '../../../api/user/UserCollection';
-import { Interests } from '../../../api/interest/InterestCollection';
-import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
-import { Courses } from '../../../api/course/CourseCollection';
-import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
-import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
-import * as Router from '../shared/RouterHelperFunctions';
-import { recommendedCourses, recommendedOpportunities } from './student-widget-names';
-import { ICourse, IFavoriteCareerGoal, IFavoriteInterest, IOpportunity } from '../../../typings/radgrad';
-import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
-import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
-import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
-import { getUsername } from '../shared/RouterHelperFunctions';
-import PreferredChoice from '../../../api/degree-plan/PreferredChoice';
+import WidgetHeaderNumber from '../../shared/WidgetHeaderNumber';
+import StudentOfInterestCard from '../StudentOfInterestCard';
+import { Users } from '../../../../api/user/UserCollection';
+import { Interests } from '../../../../api/interest/InterestCollection';
+import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
+import { Courses } from '../../../../api/course/CourseCollection';
+import { CourseInstances } from '../../../../api/course/CourseInstanceCollection';
+import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
+import { EXPLORER_TYPE } from '../../../../startup/client/route-constants';
+import * as Router from '../../shared/RouterHelperFunctions';
+import { getUsername } from '../../shared/RouterHelperFunctions';
+import { recommendedCourses, recommendedOpportunities } from '../student-widget-names';
+import { ICourse, IFavoriteCareerGoal, IFavoriteInterest, IOpportunity } from '../../../../typings/radgrad';
+import { FavoriteInterests } from '../../../../api/favorite/FavoriteInterestCollection';
+import { FavoriteCareerGoals } from '../../../../api/favorite/FavoriteCareerGoalCollection';
+import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
+import PreferredChoice from '../../../../api/degree-plan/PreferredChoice';
 
 interface IStudentOfInterestWidgetProps {
   type: string;
@@ -44,7 +44,7 @@ const isTypeCourse = (props: IStudentOfInterestWidgetProps): boolean => props.ty
 const availableCourses = (props: IStudentOfInterestWidgetProps) => {
   const { nonRetiredCourses } = props;
   if (nonRetiredCourses.length > 0) {
-    const filtered = _.filter(nonRetiredCourses, (course: any) => {
+    return _.filter(nonRetiredCourses, (course: any) => {
       if (course.num === 'ICS 499') { // TODO: hardcoded ICS string
         return true;
       }
@@ -54,7 +54,6 @@ const availableCourses = (props: IStudentOfInterestWidgetProps) => {
       });
       return ci.length === 0;
     });
-    return filtered;
   }
   return [];
 };
@@ -102,7 +101,7 @@ const availableOpps = (props: IStudentOfInterestWidgetProps) => {
       });
       return oi.length === 0;
     });
-    const ret = _.filter(filteredByTerm, (opp) => {
+    return _.filter(filteredByTerm, (opp) => {
       let inFuture = false;
       _.forEach(opp.termIDs, (termID) => {
         const term = AcademicTerms.findDoc(termID);
@@ -112,7 +111,6 @@ const availableOpps = (props: IStudentOfInterestWidgetProps) => {
       });
       return inFuture;
     });
-    return ret;
   }
   return [];
 };
@@ -150,7 +148,7 @@ const StudentOfInterestWidget = (props: IStudentOfInterestWidgetProps) => {
   };
 
   const { type } = props;
-  let id = '';
+  let id: string;
   if (type === 'opportunities') {
     id = recommendedOpportunities;
   } else {
