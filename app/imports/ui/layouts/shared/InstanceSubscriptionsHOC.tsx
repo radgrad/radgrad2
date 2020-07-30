@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Dimmer, Loader, Responsive } from 'semantic-ui-react';
 import { getUserIdFromRoute } from '../../components/shared/RouterHelperFunctions';
@@ -23,7 +24,7 @@ interface ILoading {
 
 function withInstanceSubscriptions(WrappedComponent) {
   // eslint-disable-next-line react/prop-types
-  const InstanceSubscriptions = (props: ILoading) => ((props.loading) ? (
+  const InstanceSubscriptions = (props: ILoading) => (props.loading ? (
     <React.Fragment>
       <Responsive minWidth={Responsive.onlyTablet.minWidth}>
         <Dimmer active inverted><Loader>Loading user-specific data</Loader></Dimmer>
@@ -45,7 +46,7 @@ function withInstanceSubscriptions(WrappedComponent) {
         handles = getInstancePubSubLiteHandles(userID);
       }
     }
-    const loading = handles.some((handle) => !handle.ready());
+    const loading = _.some(handles, (handle) => !handle.ready());
     return {
       loading,
     };

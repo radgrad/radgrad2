@@ -67,13 +67,15 @@ function withGlobalSubscription(WrappedComponent) {
       globalSubs.subscribe(StudentProfiles.getCollectionName()),
       // globalSubs.subscribe(Slugs.getPublicationName()),
       // globalSubs.subscribe(Teasers.getPublicationName()),
-      // globalSubs.subscribe(Users.getPublicationName()),
-      Users.subscribe(),
+      globalSubs.subscribe(Users.getPublicationName()),
+      // Users.subscribe(),
     ];
     const pubSubLiteHandles = getGlobalPubSubLiteHandles();
+    // console.log('globalSubs', _.some(handles, (h) => !h.ready()));
+    // console.log('PubSub', _.some(pubSubLiteHandles, (h) => !h.ready()));
     handles = _.concat(handles, pubSubLiteHandles);
     // console.log(handles);
-    const loading = handles.some((handle) => !handle.ready());
+    const loading = _.some(handles, (handle) => !handle.ready());
     return {
       loading,
     };

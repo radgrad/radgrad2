@@ -43,7 +43,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const DEPWidget = (props: IDePProps) => {
-  console.log('DEPWidget', props);
+  // console.log('DEPWidget', props);
   const username = props.match.params.username;
   const studentID = Users.getID(username);
 
