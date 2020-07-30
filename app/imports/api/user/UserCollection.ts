@@ -496,7 +496,7 @@ class UserCollection {
    */
   public publish() {
     if (Meteor.isServer) {
-      Meteor.publishLite(this.collectionName, () => Meteor.users.find({}, {
+      Meteor.publish(this.collectionName, () => Meteor.users.find({}, {
         fields: {
           username: 1,
           roles: 1,
@@ -512,7 +512,7 @@ class UserCollection {
    */
   public subscribe() {
     if (Meteor.isClient) {
-      return Meteor.subscribeLite(this.collectionName);
+      return Meteor.subscribe(this.collectionName);
     }
     return null;
   }
