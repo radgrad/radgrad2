@@ -1,8 +1,8 @@
 import React from 'react';
 import { Grid, Header, Image, List } from 'semantic-ui-react';
-import styles from '../../../pages/landing/guidedtour-style';
+import styles from '../../../../pages/landing/guidedtour-style';
 
-const GuidedTourStudentWhyRadGrad = () => (
+const DegreePlanPane = () => (
   <div>
     <Grid container stackable>
       <Grid.Row centered>
@@ -10,7 +10,7 @@ const GuidedTourStudentWhyRadGrad = () => (
         <Grid.Column width={3}>
           <Image rounded size="large" src="/images/radgrad_logo.png" />
         </Grid.Column>
-        <Grid.Column width={10}>
+        <Grid.Column width={11}>
           <div style={styles.p}>
             <Header style={styles.h1}>Why Use RadGrad?</Header>
             <p>So, you&apos;re a computer science student. Why should you use RadGrad? In a nutshell:</p>
@@ -28,4 +28,4 @@ const GuidedTourStudentWhyRadGrad = () => (
   </div>
 );
 
-export default GuidedTourStudentWhyRadGrad;
+export default DegreePlanPane;
