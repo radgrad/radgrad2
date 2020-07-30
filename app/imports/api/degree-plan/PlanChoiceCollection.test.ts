@@ -27,7 +27,7 @@ if (Meteor.isServer) {
     });
 
     it('Can define and removeIt', function test1(done) {
-      this.timeout(5000);
+      this.timeout(50000);
       fc.assert(
         fc.property(fc.lorem(2), fc.boolean(), (fake, retired) => {
           let choice = makeSinglePlanChoice({});
@@ -63,7 +63,7 @@ if (Meteor.isServer) {
     });
 
     it('Can update', function test3(done) {
-      this.timeout(5000);
+      this.timeout(50000);
       let choice = makeSinglePlanChoice({});
       const dept = getDepartment(choice);
       const docID = PlanChoices.define({ choice });

@@ -25,7 +25,7 @@ if (Meteor.isClient) {
     };
 
     before(function (done) {
-      this.timeout(5000);
+      this.timeout(50000);
       defineTestFixturesMethod.call(['minimal', 'abi.student', 'rbrewer.mentor'], done);
     });
 

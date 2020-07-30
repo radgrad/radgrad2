@@ -12,7 +12,7 @@ import * as utilities from './AcademicYearUtilities';
 if (Meteor.isServer) {
   describe('AcademicYearUtilities', function testSuite() {
     before(function setup() {
-      this.timeout(15000);
+      this.timeout(50000);
       defineTestFixtures(['minimal', 'abi.student', 'extended.courses.interests', 'abi.courseinstances']);
     });
 

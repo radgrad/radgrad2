@@ -52,7 +52,7 @@ if (Meteor.isServer) {
     });
 
     it('Can define and removeIt', function test1(done) {
-      this.timeout(25000);
+      this.timeout(50000);
       fc.assert(
         fc.property(fc.lorem(3), fc.lorem(2), fc.lorem(10), fc.lorem(1), (fcTitle, fcAuthor, fcDescription, fcDuration) => {
           const slug = slugify(fcTitle);
@@ -111,7 +111,7 @@ if (Meteor.isServer) {
     });
 
     it('Can update', function test3(done) {
-      this.timeout(5000);
+      this.timeout(50000);
       let doc = Teasers.findOne({});
       const docID = doc._id;
       fc.assert(

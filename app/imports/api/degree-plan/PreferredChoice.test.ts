@@ -13,7 +13,7 @@ import PreferredChoice from './PreferredChoice';
 if (Meteor.isServer) {
   describe('PreferredChoice', function testSuite() {
     before(function setup() {
-      this.timeout(5000);
+      this.timeout(50000);
       defineTestFixtures(['minimal', 'extended.courses.interests']);
     });
 

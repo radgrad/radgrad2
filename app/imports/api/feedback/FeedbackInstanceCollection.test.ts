@@ -21,7 +21,7 @@ if (Meteor.isServer) {
     });
 
     it('Can define and removeIt', function test1(done) {
-      this.timeout(5000);
+      this.timeout(50000);
       fc.assert(
         fc.property(fc.lorem(5), fc.lorem(20), fc.nat(FeedbackInstances.feedbackTypes.length - 1), fc.boolean(), (functionName, description, typeIndex, retired) => {
           const userID = makeSampleUser();
@@ -49,7 +49,7 @@ if (Meteor.isServer) {
     });
 
     it('Can update', function test3(done) {
-      this.timeout(5000);
+      this.timeout(50000);
       const user = makeSampleUser();
       const functionName = faker.lorem.words();
       const description = faker.lorem.paragraph();

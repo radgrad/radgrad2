@@ -26,7 +26,7 @@ if (Meteor.isServer) {
     });
 
     it('Can define and removeIt', function test1(done) {
-      this.timeout(25000);
+      this.timeout(50000);
       fc.assert(
         fc.property(fc.lorem(1), fc.boolean(), fc.integer(1, 5), fc.lorem(10), (fcSlug, cOrO, fcRating, fcComments) => {
           let reviewType;
@@ -90,7 +90,7 @@ if (Meteor.isServer) {
     });
 
     it('Can update', function test3(done) {
-      this.timeout(5000);
+      this.timeout(50000);
       let doc = Reviews.findOne({});
       const docID = doc._id;
       fc.assert(

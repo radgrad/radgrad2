@@ -11,7 +11,7 @@ import { removeAllEntities } from '../base/BaseUtilities';
 
 if (Meteor.isServer) {
   describe('StarProcessor', function testSuite() {
-    this.timeout(5000);
+    this.timeout(50000);
     const starDataPath = 'database/star/StarSampleData-1.csv';
     const starJsonDataPath = 'database/star/BulkStarSampleData-1.json';
     const badStarJsonDataPath = 'database/star/StarBadSampleData.json';

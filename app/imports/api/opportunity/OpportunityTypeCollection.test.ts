@@ -26,7 +26,7 @@ if (Meteor.isServer) {
     });
 
     it('Can define and removeIt', function test1(done) {
-      this.timeout(5000);
+      this.timeout(50000);
       fc.assert(
         fc.property(fc.lorem(3), fc.lorem(1), fc.lorem(24), fc.boolean(), (fcName, fcSlug, fcDescription, fcRetired) => {
           const docID = OpportunityTypes.define({
@@ -66,7 +66,7 @@ if (Meteor.isServer) {
     });
 
     it('Can update', function test3(done) {
-      this.timeout(5000);
+      this.timeout(50000);
       let doc = OpportunityTypes.findOne({});
       const docID = doc._id;
       fc.assert(

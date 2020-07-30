@@ -21,7 +21,7 @@ if (Meteor.isServer) {
     let firstName;
 
     before(function setup() {
-      this.timeout(5000);
+      this.timeout(50000);
       removeAllEntities();
       interest = makeSampleInterest();
       interestName = Interests.findDoc(interest).name;
@@ -52,7 +52,7 @@ if (Meteor.isServer) {
     });
 
     it('Can update', function test3(done) {
-      this.timeout(5000);
+      this.timeout(50000);
       const docID = FavoriteInterests.define({ interest, username });
       fc.assert(
         fc.property(fc.boolean(), (retired) => {

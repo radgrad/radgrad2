@@ -20,7 +20,7 @@ if (Meteor.isServer) {
     let firstName;
 
     before(function setup() {
-      this.timeout(5000);
+      this.timeout(50000);
       removeAllEntities();
       course = makeSampleCourse();
       courseName = Courses.findDoc(course).name;
@@ -49,7 +49,7 @@ if (Meteor.isServer) {
     });
 
     it('Can update', function test3(done) {
-      this.timeout(5000);
+      this.timeout(50000);
       const docID = FavoriteCourses.define({ course, student });
       fc.assert(
         fc.property(fc.boolean(), (retired) => {

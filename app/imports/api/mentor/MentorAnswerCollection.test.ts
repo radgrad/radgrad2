@@ -28,7 +28,7 @@ if (Meteor.isServer) {
     });
 
     it('Can define and removeIt', function test1(done) {
-      this.timeout(20000);
+      this.timeout(50000);
       fc.assert(
         fc.property(fc.lorem(10), fc.boolean(), (fcText, fcRetired) => {
           const mentor = makeSampleUser(ROLE.MENTOR);
@@ -48,7 +48,7 @@ if (Meteor.isServer) {
     });
 
     it('Can update', function test2(done) {
-      this.timeout(5000);
+      this.timeout(50000);
       text = faker.lorem.words();
       const mentor = makeSampleUser(ROLE.MENTOR);
       const question = makeSampleMentorQuestion();

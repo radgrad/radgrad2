@@ -21,7 +21,7 @@ if (Meteor.isServer) {
     });
 
     it('Can define and removeIt', function test1(done) {
-      this.timeout(5000);
+      this.timeout(50000);
       fc.assert(
         fc.property(fc.lorem(1), fc.lorem(5), fc.lorem(20), fc.boolean(), (fcRoute, fcTitle, fcText, fcRetired) => {
           const docID = HelpMessages.define({ routeName: fcRoute, title: fcTitle, text: fcText, retired: fcRetired });
@@ -51,7 +51,7 @@ if (Meteor.isServer) {
     });
 
     it('Can update', function test3(done) {
-      this.timeout(5000);
+      this.timeout(50000);
       const routeName = faker.lorem.word();
       const title = faker.lorem.words();
       const text = faker.lorem.paragraph();

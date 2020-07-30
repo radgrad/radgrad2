@@ -22,7 +22,7 @@ if (Meteor.isServer) {
     });
 
     it('Can define and removeIt', function test1(done) {
-      this.timeout(25000);
+      this.timeout(50000);
       fc.assert(
         fc.property(fc.lorem(3), fc.lorem(1), (fcSlugName, fcEntityName) => {
           const slugName = slugify(fcSlugName);

@@ -104,7 +104,7 @@ if (Meteor.isServer) {
     });
 
     it('Can update', function test3(done) { // Test updating documents
-      this.timeout(25000);
+      this.timeout(50000);
       let doc = Feeds.findOne({});
       const docID = doc._id;
       fc.assert(

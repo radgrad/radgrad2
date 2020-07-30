@@ -30,7 +30,7 @@ if (Meteor.isServer) {
     });
 
     it('Can define and removeIt', function test1(done) {
-      this.timeout(5000);
+      this.timeout(50000);
       fc.assert(
         fc.property(fc.lorem(1), fc.lorem(1), (fcCategory, fcName) => {
           const docID = PageInterests.define({ username, category: fcCategory, name: fcName });

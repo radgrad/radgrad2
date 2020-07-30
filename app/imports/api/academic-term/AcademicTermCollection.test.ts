@@ -21,7 +21,7 @@ if (Meteor.isServer) {
     });
 
     it('Can define and removeIt', function test1(done) {
-      this.timeout(5000);
+      this.timeout(50000);
       fc.assert(
         fc.property(fc.integer(2017, 2027), fc.boolean(), (fcYear, fcRetired) => {
           const term = AcademicTerms.terms[faker.random.number({ min: 0, max: AcademicTerms.terms.length - 1 })];
@@ -43,7 +43,7 @@ if (Meteor.isServer) {
     });
 
     it('Can update', function test3(done) {
-      this.timeout(5000);
+      this.timeout(50000);
       let doc = AcademicTerms.findOne({});
       const docID = doc._id;
       fc.assert(
