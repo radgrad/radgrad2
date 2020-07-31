@@ -25,27 +25,36 @@ if (Meteor.isClient) {
       syllabus: 'http://courses.ics.hawaii.edu/syllabuses/ICS215.html',
       prerequisites: ['ics_111'],
     };
+    let docID;
 
     before(function (done) {
+      this.timeout(50000);
       defineTestFixturesMethod.call(['minimal', 'abi.student'], done);
     });
 
     it('Define Method', async function () {
       await withLoggedInUser();
       await withRadGradSubscriptions();
-      await defineMethod.callPromise({ collectionName, definitionData });
+      docID = await defineMethod.callPromise({ collectionName, definitionData });
+      expect(Courses.isDefined(docID)).to.be.true;
     });
 
     it('Update Method', async function () {
-      const id = Courses.findIdBySlug(definitionData.slug);
-      const name = 'updated CareerGoal name';
-      const description = 'updated CareerGoal description';
-      const interests = ['algorithms', 'java'];
-      const prerequisites = ['ics_111', 'ics_141'];
+      const updateData: any = {};
+      const id = docID;
+      console.log(`${definitionData.slug}'s id is `, id);
+      updateData.id = id;
+      updateData.name = 'updated Course name';
+      updateData.description = 'updated Course description';
+      updateData.interests = ['algorithms', 'java'];
+      updateData.prerequisites = ['ics_111', 'ics_141'];
       await updateMethod.callPromise({
         collectionName,
-        updateData: { id, name, description, interests, prerequisites },
+        updateData,
       });
+      const course = Courses.findDoc(docID);
+      console.log(course);
+      expect(course.name).to.equal(updateData.name);
     });
 
     it('getFutureEnrollment Methods', async function () {
@@ -82,8 +91,10 @@ if (Meteor.isClient) {
       expect(data.enrollmentData[0][1]).to.equal(1);
     });
 
-    it('Remove Method', async function () {
+    it('Remove Method', async function (done) {
+      this.timeout(5000);
       await removeItMethod.callPromise({ collectionName, instance: definitionData.slug });
+      done();
     });
   });
 }

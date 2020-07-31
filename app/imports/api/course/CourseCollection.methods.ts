@@ -37,6 +37,7 @@ function getEnrollmentData(courseID, termID) {
 export const getFutureEnrollmentMethod = new ValidatedMethod({
   name: 'CourseCollection.getFutureEnrollment',
   mixins: [CallPromiseMixin],
+  applyOptions: { enhanced: true },
   validate: null,
   run(courseID) {
     // Throw error if an invalid courseID is passed.

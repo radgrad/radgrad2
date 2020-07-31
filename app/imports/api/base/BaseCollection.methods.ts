@@ -63,10 +63,12 @@ export const updateMethod = new ValidatedMethod({
   applyOptions: { enhanced: true },
   validate: null,
   run({ collectionName, updateData }) {
-    // console.log('updateMethod(%o, %o)', collectionName, updateData);
-    const collection = RadGrad.getCollection(collectionName);
-    collection.assertValidRoleForMethod(this.userId);
-    collection.update(updateData.id, updateData);
+    if (Meteor.isServer) {
+      // console.log('updateMethod(%o, %o)', collectionName, updateData);
+      const collection = RadGrad.getCollection(collectionName);
+      collection.assertValidRoleForMethod(this.userId);
+      collection.update(updateData.id, updateData);
+    }
   },
 });
 
