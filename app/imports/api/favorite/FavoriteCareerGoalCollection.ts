@@ -84,7 +84,7 @@ class FavoriteCareerGoalCollection extends BaseCollection {
     if (Meteor.isServer) {
       const instance = this;
       Meteor.publish(this.collectionName, function filterStudentID(userID) { // eslint-disable-line meteor/audit-argument-checks
-        if (!userID) {
+        if (_.isNil(userID)) {
           return this.ready();
         }
         const profile = Users.getProfile(userID);

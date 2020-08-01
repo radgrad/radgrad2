@@ -1,7 +1,5 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import _ from 'lodash';
-import { withTracker } from 'meteor/react-meteor-data';
 import {
   IAcademicPlan,
   ICareerGoal,
@@ -13,11 +11,15 @@ import {
 import CardExplorerMenuNonMobileWidget from './CardExplorerMenuNonMobileWidget';
 import CardExplorerMenuMobileWidget from './CardExplorerMenuMobileWidget';
 import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
+<<<<<<< HEAD
 import * as Router from './RouterHelperFunctions';
 import { Users } from '../../../api/user/UserCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 // import ExplorerNavDropdown from './ExplorerNavDropdown';
 import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
+=======
+import ExplorerNavDropdown from './ExplorerNavDropdown';
+>>>>>>> master
 
 type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IDesiredDegree | IInterest | IOpportunity;
 
@@ -84,15 +86,4 @@ const CardExplorerMenu = (props: ICardExplorerMenuProps) => {
   );
 };
 
-export const CardExplorerMenuCon = withTracker((props) => {
-  const username = Router.getUsername(props.match);
-  const profile = Users.getProfile(username);
-  const userID = profile.userID;
-  const favCareerGoals = FavoriteCareerGoals.findNonRetired({ userID });
-  const menuList = _.map(favCareerGoals, (fav) => CareerGoals.findDoc(fav.careerGoalID).name);
-  return {
-    profile,
-    menuList,
-  };
-})(CardExplorerMenu);
-export default withRouter(CardExplorerMenuCon);
+export default withRouter(CardExplorerMenu);

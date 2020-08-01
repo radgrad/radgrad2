@@ -9,7 +9,9 @@ import { CourseScoreboard, OpportunityScoreboard } from '../../../startup/client
 
 interface IFutureParticipationProps {
   academicTerms: IAcademicTerm[];
+  // eslint-disable-next-line react/no-unused-prop-types
   type: string;
+  // eslint-disable-next-line react/no-unused-prop-types
   item: any;
   scores: number;
 }

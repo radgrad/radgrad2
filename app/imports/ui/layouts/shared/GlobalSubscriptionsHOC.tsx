@@ -16,7 +16,6 @@ import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
 import { Reviews } from '../../../api/review/ReviewCollection';
-// import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { InterestTypes } from '../../../api/interest/InterestTypeCollection';
@@ -43,6 +42,7 @@ interface ILoading {
 const globalSubs = new SubsManager({ cacheLimit: 30, expireIn: 30 });
 
 function withGlobalSubscription(WrappedComponent) {
+  // eslint-disable-next-line react/prop-types
   const GlobalSubscription = (props: ILoading) => ((props.loading) ? (
     <React.Fragment>
       <Responsive minWidth={Responsive.onlyTablet.minWidth}>

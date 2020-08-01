@@ -108,10 +108,10 @@ class AdvisorLogCollection extends BaseCollection {
       const instance = this;
       // eslint-disable-next-line meteor/audit-argument-checks
       Meteor.publish(this.collectionName, function publish(studentID) {
-        if (!this.userId) { // https://github.com/meteor/meteor/issues/9619
+        if (_.isNil(this.userId)) { // https://github.com/meteor/meteor/issues/9619
           return this.ready();
         }
-        if (!studentID) {
+        if (_.isNil(studentID)) {
           return this.ready();
         }
         const profile = Users.getProfile(this.userId);

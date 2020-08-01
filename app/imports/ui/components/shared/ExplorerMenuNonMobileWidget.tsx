@@ -1,26 +1,18 @@
 import React from 'react';
 import { Menu, Header, Responsive, Button, Icon } from 'semantic-ui-react';
 import { withRouter, Link } from 'react-router-dom';
-import { withTracker } from 'meteor/react-meteor-data';
 import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
 import {
   IAcademicPlan,
   ICareerGoal,
-  ICourse, ICourseInstance,
-  IDesiredDegree, IFavoriteAcademicPlan, IFavoriteCareerGoal, IFavoriteCourse, IFavoriteInterest, IFavoriteOpportunity,
+  ICourse,
+  IDesiredDegree,
   IInterest,
-  IOpportunity, IOpportunityInstance,
+  IOpportunity,
 } from '../../../typings/radgrad';
 import * as Router from './RouterHelperFunctions';
 import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import ExplorerMenuNonMobileItem from './ExplorerMenuNonMobileItem';
-import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
-import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
-import { FavoriteCourses } from '../../../api/favorite/FavoriteCourseCollection';
-import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
-import { FavoriteOpportunities } from '../../../api/favorite/FavoriteOpportunityCollection';
-import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { buildRouteName, isUrlRoleFaculty } from './RouterHelperFunctions';
 
 type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IDesiredDegree | IInterest | IOpportunity;
@@ -29,7 +21,6 @@ interface IExplorerMenuNonMobileWidgetProps {
   menuAddedList: { item: explorerInterfaces, count: number }[];
   menuCareerList: { item: IInterest, count: number }[] | undefined;
   type: 'plans' | 'career-goals' | 'courses' | 'degrees' | 'interests' | 'opportunities' | 'users';
-  role: 'student' | 'faculty' | 'mentor';
   match: {
     isExact: boolean;
     path: string;
@@ -38,13 +29,6 @@ interface IExplorerMenuNonMobileWidgetProps {
       username: string;
     }
   };
-  favoriteAcademicPlans: IFavoriteAcademicPlan[];
-  favoriteCareerGoals: IFavoriteCareerGoal[];
-  favoriteCourses: IFavoriteCourse[];
-  favoriteInterests: IFavoriteInterest[];
-  favoriteOpportunities: IFavoriteOpportunity[];
-  courseInstances: ICourseInstance[];
-  opportunityInstances: IOpportunityInstance[];
 }
 
 const getTypeName = (props: IExplorerMenuNonMobileWidgetProps): string => {
@@ -73,6 +57,7 @@ const getTypeName = (props: IExplorerMenuNonMobileWidgetProps): string => {
 const isType = (typeToCheck: string, props: IExplorerMenuNonMobileWidgetProps): boolean => props.type === typeToCheck;
 
 const ExplorerMenuNonMobileWidget = (props: IExplorerMenuNonMobileWidgetProps) => {
+  // console.log('ExplorerMenuNonMobileWidget', props);
   const marginTopStyle = { marginTop: '5px' };
 
   const baseUrl = props.match.url;
@@ -256,26 +241,6 @@ const ExplorerMenuNonMobileWidget = (props: IExplorerMenuNonMobileWidgetProps) =
   );
 };
 
-export const ExplorerMenuNonMobileWidgetCon = withTracker(({ match }) => {
-  const studentID = Router.getUserIdFromRoute(match);
-  const userID = studentID;
-  const favoriteAcademicPlans: IFavoriteAcademicPlan[] = FavoriteAcademicPlans.findNonRetired({ studentID });
-  const favoriteCareerGoals: IFavoriteCareerGoal[] = FavoriteCareerGoals.findNonRetired({ userID });
-  const favoriteCourses: IFavoriteCourse[] = FavoriteCourses.findNonRetired({ studentID });
-  const favoriteInterests: IFavoriteInterest[] = FavoriteInterests.findNonRetired({ userID });
-  const favoriteOpportunities: IFavoriteOpportunity[] = FavoriteOpportunities.findNonRetired({ studentID });
-  const courseInstances: ICourseInstance[] = CourseInstances.findNonRetired({ studentID });
-  const opportunityInstances: IOpportunityInstance[] = OpportunityInstances.findNonRetired({ studentID });
-  return {
-    favoriteAcademicPlans,
-    favoriteCareerGoals,
-    favoriteCourses,
-    favoriteInterests,
-    favoriteOpportunities,
-    courseInstances,
-    opportunityInstances,
-  };
-})(ExplorerMenuNonMobileWidget);
-export const ExplorerMenuNonMobileWidgetContainer = withRouter(ExplorerMenuNonMobileWidgetCon);
+export const ExplorerMenuNonMobileWidgetContainer = withRouter(ExplorerMenuNonMobileWidget);
 
 export default ExplorerMenuNonMobileWidgetContainer;

@@ -16,7 +16,6 @@ interface IUser {
 
 interface ISelectUserFieldProps {
   label: string;
-  name: string;
   required?: boolean;
   role: string;
   users: IUser[];

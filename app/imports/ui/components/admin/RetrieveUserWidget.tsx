@@ -26,6 +26,9 @@ interface IRetrieveUserWidgetProps extends IFilterUsers {
   mentors: IMentorProfile[];
   students: IStudentProfile[];
   alumni: IStudentProfile[];
+  firstNameRegex?: string;
+  lastNameRegex?: string;
+  userNameRegex?: string;
 }
 
 const handleUpdateLevelButton = (event) => {

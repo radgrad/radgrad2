@@ -70,6 +70,7 @@ const renderPage = (props: IGuidedTourStudentProps) => {
   );
 };
 
+// eslint-disable-next-line react/prop-types
 const GuidedTourStudent = (props: IGuidedTourStudentProps) => ((props.ready) ? renderPage(props) : <Loader active>Getting data</Loader>);
 
 const GuidedTourStudentContainer = withTracker(() => {

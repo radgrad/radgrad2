@@ -11,9 +11,7 @@ import StaticPlanChoicePill from './StaticPlanChoicePill';
 
 interface IAcademicPlanTermViewProps {
   title: string;
-  id: string;
   choices: string[];
-  studentID: string;
   takenSlugs: string[];
   match: {
     isExact: boolean;

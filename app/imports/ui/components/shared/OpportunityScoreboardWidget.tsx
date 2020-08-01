@@ -14,6 +14,7 @@ import { opportunityScoreboardWidget } from './shared-widget-names';
 interface IOpportunityScoreboardWidgetProps {
   opportunities: IOpportunity[];
   terms: IAcademicTerm[];
+  // eslint-disable-next-line react/no-unused-prop-types
   scores: any[];
 }
 
