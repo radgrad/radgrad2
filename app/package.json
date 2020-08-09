@@ -30,7 +30,7 @@
     "highcharts-react-official": "^3.0.0",
     "history": "^4.10.1",
     "immutable": "^4.0.0-rc.12",
-    "meteor-node-stubs": "^1.0.0",
+    "meteor-node-stubs": "^1.0.1",
     "moment": "^2.27.0",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
