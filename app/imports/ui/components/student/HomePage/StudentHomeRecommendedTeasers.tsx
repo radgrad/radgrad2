@@ -49,6 +49,21 @@ const StudentHomeRecommendedTeasers = (props: IStudentHomeRecommendedTeasersProp
     return matching;
   };
 
+  const getTeaserTitle = (teaser: ITeaser): string => {
+    const slug: ISlug = Slugs.findOne({ _id: teaser.targetSlugID });
+    let doc: ICareerGoal | ICourse | IInterest | IOpportunity;
+    if (slug.entityName === CareerGoals.getType()) {
+      doc = CareerGoals.findOne({ _id: slug.entityID });
+    } else if (slug.entityName === Courses.getType()) {
+      doc = Courses.findOne({ _id: slug.entityID });
+    } else if (slug.entityName === Interests.getType()) {
+      doc = Interests.findOne({ _id: slug.entityID });
+    } else if (slug.entityName === Opportunities.getType()) {
+      doc = Opportunities.findOne({ _id: slug.entityID });
+    }
+    return doc.name;
+  };
+
   const getTeaserDescription = (teaser: ITeaser): string => {
     const slug: ISlug = Slugs.findOne({ _id: teaser.targetSlugID });
     let doc: ICareerGoal | ICourse | IInterest | IOpportunity;
@@ -93,7 +108,7 @@ const StudentHomeRecommendedTeasers = (props: IStudentHomeRecommendedTeasersProp
             </Segment.Group>
 
             <Segment.Group>
-              <Header>{teaser.title}</Header>
+              <Header>{getTeaserTitle(teaser)}</Header>
               {getTeaserDescription(teaser)}...
               <Link to={getTeaserRoute(teaser)}>
                 VIEW MORE

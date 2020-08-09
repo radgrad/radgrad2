@@ -7,6 +7,7 @@ import GuidedTourStudentHome from '../landing/GuidedTourStudentHome';
 import FavoriteInterestsList from '../../components/student/HomePage/FavoriteInterests';
 import StudentHomeRecommendedTeasers from '../../components/student/HomePage/StudentHomeRecommendedTeasers';
 import StudentHomeBanners from '../../components/student/HomePage/StudentHomeBanners';
+import StudentHomeRadGradVideos from '../../components/student/HomePage/StudentHomeRadGradVideos';
 
 const StudentHomePage = () => (
   <div>
@@ -20,6 +21,7 @@ const StudentHomePage = () => (
         <Grid.Row>
           <Grid.Column width={11}>
             <StudentHomeRecommendedTeasers />
+            <StudentHomeRadGradVideos />
           </Grid.Column>
           <Grid.Column width={5}>
             <StudentOfInterestWidget type="opportunities" />
