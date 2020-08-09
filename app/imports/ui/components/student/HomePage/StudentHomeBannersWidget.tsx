@@ -12,7 +12,7 @@ const bg1 = { backgroundColor: '#6fbe44' };
 const bg2 = { backgroundColor: '#2f9276' };
 const bg3 = { backgroundColor: '#106735' };
 
-const StudentHomeBanners = (props: IStudentHomeBannersProps) => {
+const StudentHomeBannersWidget = (props: IStudentHomeBannersProps) => {
   const { match } = props;
   return (
     <Grid.Column>
@@ -74,4 +74,4 @@ const StudentHomeBanners = (props: IStudentHomeBannersProps) => {
   );
 };
 
-export default withRouter(StudentHomeBanners);
+export default withRouter(StudentHomeBannersWidget);

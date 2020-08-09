@@ -19,7 +19,7 @@ interface IStudentHomeRecommendedTeasersProps {
   match: IMatchProps;
 }
 
-const StudentHomeRecommendedTeasers = (props: IStudentHomeRecommendedTeasersProps) => {
+const StudentHomeRecommendedTeasersWidget = (props: IStudentHomeRecommendedTeasersProps) => {
   const { match } = props;
   const getRecommendedTeasers = (): ITeaser[] => {
     const allTeasers: ITeaser[] = Teasers.findNonRetired({});
@@ -121,5 +121,5 @@ const StudentHomeRecommendedTeasers = (props: IStudentHomeRecommendedTeasersProp
   );
 };
 
-const StudentHomeRecommendedTeasersCon = withRouter(StudentHomeRecommendedTeasers);
+const StudentHomeRecommendedTeasersCon = withRouter(StudentHomeRecommendedTeasersWidget);
 export default StudentHomeRecommendedTeasersCon;

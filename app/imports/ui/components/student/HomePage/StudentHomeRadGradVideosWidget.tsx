@@ -3,7 +3,7 @@ import { Header, Grid } from 'semantic-ui-react';
 import { radgradVideos } from '../../../../api/radgrad/radgrad-videos';
 import TeaserVideo from '../../shared/TeaserVideo';
 
-const StudentHomeRadGradVideos = () => {
+const StudentHomeRadGradVideosWidget = () => {
   const numberOfVideos = 3;
   // Get random X (numberOfVideos) amount of radgrad videos
   // https://stackoverflow.com/a/38571132
@@ -22,4 +22,4 @@ const StudentHomeRadGradVideos = () => {
   );
 };
 
-export default StudentHomeRadGradVideos;
+export default StudentHomeRadGradVideosWidget;

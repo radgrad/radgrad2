@@ -27,7 +27,7 @@ const getFavoriteInterests = () => {
   return favInterestObjects.slice(0, 10);
 };
 
-const FavoriteInterestsList = (props: IPopularTopicsProps) => {
+const StudentHomeFavoriteInterestsList = (props: IPopularTopicsProps) => {
   const { match } = props;
   const favoriteInterests = getFavoriteInterests();
   return (
@@ -54,4 +54,4 @@ const FavoriteInterestsList = (props: IPopularTopicsProps) => {
   );
 };
 
-export default withRouter(FavoriteInterestsList);
+export default withRouter(StudentHomeFavoriteInterestsList);
