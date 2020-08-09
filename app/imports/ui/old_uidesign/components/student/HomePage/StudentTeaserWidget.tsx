@@ -3,17 +3,17 @@ import { Link, withRouter } from 'react-router-dom';
 import _ from 'lodash';
 import { Button, Card, Container, Header, Icon, Segment } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Teasers } from '../../../../api/teaser/TeaserCollection';
-import { Users } from '../../../../api/user/UserCollection';
-import { Interests } from '../../../../api/interest/InterestCollection';
-import InterestList from '../../shared/InterestList';
-import WidgetHeaderNumber from '../../shared/WidgetHeaderNumber';
-import { Slugs } from '../../../../api/slug/SlugCollection';
-import { buildRouteName, getUsername, IMatchProps } from '../../shared/RouterHelperFunctions';
-import { studentTeaserWidget } from '../student-widget-names';
-import { ISlug, ITeaser } from '../../../../typings/radgrad';
-import { EXPLORER_TYPE } from '../../../../startup/client/route-constants';
-import TeaserVideo from '../../shared/TeaserVideo';
+import { Teasers } from '../../../../../api/teaser/TeaserCollection';
+import { Users } from '../../../../../api/user/UserCollection';
+import { Interests } from '../../../../../api/interest/InterestCollection';
+import InterestList from '../../../../components/shared/InterestList';
+import WidgetHeaderNumber from '../../../../components/shared/WidgetHeaderNumber';
+import { Slugs } from '../../../../../api/slug/SlugCollection';
+import { buildRouteName, getUsername, IMatchProps } from '../../../../components/shared/RouterHelperFunctions';
+import { studentTeaserWidget } from '../../../../components/student/student-widget-names';
+import { ISlug, ITeaser } from '../../../../../typings/radgrad';
+import { EXPLORER_TYPE } from '../../../../../startup/client/route-constants';
+import TeaserVideo from '../../../../components/shared/TeaserVideo';
 
 interface IStudentTeaserWidgetProps {
   // eslint-disable-next-line react/no-unused-prop-types

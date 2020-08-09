@@ -13,7 +13,7 @@ import Opportunities from '../../components/guidedtour/advisor/opportunities';
 import ReviewModeration from '../../components/guidedtour/advisor/review-moderation';
 import WhatsNext from '../../components/guidedtour/advisor/whats-next';
 
-const GuidedTourAdvisor = () => {
+const LandingGuidedTourAdvisor = () => {
 
   const settings = {
     dots: true,
@@ -45,4 +45,4 @@ const GuidedTourAdvisor = () => {
   );
 };
 
-export default GuidedTourAdvisor;
+export default LandingGuidedTourAdvisor;

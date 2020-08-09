@@ -12,7 +12,7 @@ import SetUp from '../../components/guidedtour/mentor/set-up';
 import MentorSpace from '../../components/guidedtour/mentor/mentorspace';
 import Explorer from '../../components/guidedtour/mentor/explorer';
 
-const GuidedTourMentor = () => {
+const LandingGuidedTourMentor = () => {
 
   const settings = {
     dots: true,
@@ -41,4 +41,4 @@ const GuidedTourMentor = () => {
   );
 };
 
-export default GuidedTourMentor;
+export default LandingGuidedTourMentor;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import StudentFeedWidget from './StudentFeedWidget';
-import StudentTeaserWidget from './HomePage/StudentTeaserWidget';
+import StudentTeaserWidget from '../../old_uidesign/components/student/HomePage/StudentTeaserWidget';
 import StudentOfInterestWidget from './HomePage/StudentOfInterestWidget';
 
 const StudentHomeWidget = () => (

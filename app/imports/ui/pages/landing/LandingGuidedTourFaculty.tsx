@@ -13,7 +13,7 @@ import Verification from '../../components/guidedtour/faculty/verification';
 import Explorer from '../../components/guidedtour/faculty/explorer';
 import WhatsNext from '../../components/guidedtour/faculty/whats-next';
 
-const GuidedTourFaculty = () => {
+const LandingGuidedTourFaculty = () => {
 
   const settings = {
     dots: true,
@@ -43,4 +43,4 @@ const GuidedTourFaculty = () => {
   );
 };
 
-export default GuidedTourFaculty;
+export default LandingGuidedTourFaculty;

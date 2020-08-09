@@ -71,7 +71,7 @@ const renderPage = (props: IGuidedTourStudentProps) => {
 };
 
 // eslint-disable-next-line react/prop-types
-const GuidedTourStudent = (props: IGuidedTourStudentProps) => ((props.ready) ? renderPage(props) : <Loader active>Getting data</Loader>);
+const LandingGuidedTourStudent = (props: IGuidedTourStudentProps) => ((props.ready) ? renderPage(props) : <Loader active>Getting data</Loader>);
 
 const GuidedTourStudentContainer = withTracker(() => {
   const subscription = Meteor.subscribe(PublicStats.getPublicationName());
@@ -109,6 +109,6 @@ const GuidedTourStudentContainer = withTracker(() => {
     mentors,
     mentorLocations,
   };
-})(GuidedTourStudent);
+})(LandingGuidedTourStudent);
 
 export default GuidedTourStudentContainer;

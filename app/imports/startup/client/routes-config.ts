@@ -3,10 +3,10 @@
  * Route information consists of a path, the path to the component, a Component to render.
  */
 import LandingHomeContainer from '../../ui/pages/landing/LandingHome';
-import GuidedTourAdvisor from '../../ui/pages/landing/GuidedTourAdvisor';
-import GuidedTourFaculty from '../../ui/pages/landing/GuidedTourFaculty';
-import GuidedTourMentor from '../../ui/pages/landing/GuidedTourMentor';
-import GuidedTourStudentContainer from '../../ui/pages/landing/GuidedTourStudent';
+import LandingGuidedTourAdvisor from '../../ui/pages/landing/LandingGuidedTourAdvisor';
+import LandingGuidedTourFaculty from '../../ui/pages/landing/LandingGuidedTourFaculty';
+import LandingGuidedTourMentor from '../../ui/pages/landing/LandingGuidedTourMentor';
+import GuidedTourStudentContainer from '../../ui/pages/landing/LandingGuidedTourStudent';
 import LandingCareerGoalsCardExplorerContainer from '../../ui/pages/landing/LandingCareerGoalsCardExplorer';
 import LandingCareerGoalExplorerContainer from '../../ui/pages/landing/LandingCareerGoalExplorer';
 import LandingCoursesCardExplorerContainer from '../../ui/pages/landing/LandingCoursesCardExplorer';
@@ -592,17 +592,17 @@ export const routes = {
     {
       path: `/${GUIDEDTOUR}/${URL_ROLES.ADVISOR}`,
       exact: true,
-      component: GuidedTourAdvisor,
+      component: LandingGuidedTourAdvisor,
     },
     {
       path: `/${GUIDEDTOUR}/${URL_ROLES.FACULTY}`,
       exact: true,
-      component: GuidedTourFaculty,
+      component: LandingGuidedTourFaculty,
     },
     {
       path: `/${GUIDEDTOUR}/${URL_ROLES.MENTOR}`,
       exact: true,
-      component: GuidedTourMentor,
+      component: LandingGuidedTourMentor,
     },
     {
       path: `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}`,

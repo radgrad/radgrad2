@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 import { Dropdown, Menu, Responsive } from 'semantic-ui-react';
-import { leftHandMenu } from '../shared/shared-widget-names';
+import { leftHandMenu } from '../../../../components/shared/shared-widget-names';
 
 interface IStudentHomeMenuProps {
   match: {
