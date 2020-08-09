@@ -14,7 +14,9 @@ import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 interface IOpportunitiesCardExplorerProps {
   // eslint-disable-next-line react/no-unused-prop-types
   ready: boolean;
+  // eslint-disable-next-line react/no-unused-prop-types
   opportunities: IOpportunity[];
+  // eslint-disable-next-line react/no-unused-prop-types
   count: number;
 }
 

@@ -15,7 +15,9 @@ import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 interface ICareerGoalsCardExplorerProps {
   // eslint-disable-next-line react/no-unused-prop-types
   ready: boolean;
+  // eslint-disable-next-line react/no-unused-prop-types
   careerGoals: ICareerGoal[];
+  // eslint-disable-next-line react/no-unused-prop-types
   count: number;
 }
 
