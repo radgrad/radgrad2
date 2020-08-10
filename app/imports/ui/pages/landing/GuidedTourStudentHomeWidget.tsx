@@ -1,5 +1,4 @@
 import React from 'react';
-// import { NavLink } from 'react-router-dom';
 import { Container, Loader, Segment } from 'semantic-ui-react';
 import Slider from 'react-slick';
 import { Meteor } from 'meteor/meteor';
@@ -51,7 +50,7 @@ const renderPage = (props: IGuidedTourStudentProps) => {
 
 const GuidedTourStudent = (props: IGuidedTourStudentProps) => ((props.ready) ? renderPage(props) : <Loader active>Getting data</Loader>);
 
-const GuidedTourStudentHome = withTracker(() => {
+const GuidedTourStudentHomeWidget = withTracker(() => {
   const subscription = Meteor.subscribe(PublicStats.getPublicationName());
   let key;
   let interests;
@@ -89,4 +88,4 @@ const GuidedTourStudentHome = withTracker(() => {
   };
 })(GuidedTourStudent);
 
-export default GuidedTourStudentHome;
+export default GuidedTourStudentHomeWidget;

@@ -1,24 +1,22 @@
 import React from 'react';
 import { List } from 'semantic-ui-react';
-import _ from 'lodash';
 import { Link, withRouter } from 'react-router-dom';
+import _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
-import { IAcademicTerm, IAcademicYearInstance, Ice, ICourseInstance, IOpportunityInstance } from '../../../typings/radgrad';
-import { buildRouteName, getUserIdFromRoute } from '../shared/RouterHelperFunctions';
-import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
-import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
-import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
-import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
-import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
-import { Courses } from '../../../api/course/CourseCollection';
+import { buildRouteName, getUserIdFromRoute } from '../../shared/RouterHelperFunctions';
+import { AcademicYearInstances } from '../../../../api/degree-plan/AcademicYearInstanceCollection';
+import { IAcademicTerm, IAcademicYearInstance, Ice, ICourseInstance, IOpportunityInstance } from '../../../../typings/radgrad';
+import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
+import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
+import { CourseInstances } from '../../../../api/course/CourseInstanceCollection';
+import { EXPLORER_TYPE } from '../../../../startup/client/route-constants';
+import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
+import { Courses } from '../../../../api/course/CourseCollection';
 
-interface IStudentIceColumnUnverifiedProps {
+interface IStudentIceColumnVerifiedProps {
   type: 'Innovation' | 'Competency' | 'Experience';
   earnedICEPoints: number;
-  projectedICEPoints: number;
   matchingPoints: (a: number, b: number) => boolean;
-  remainingICEPoints: (earned: number, projected: number) => number;
   icePoints: (ice: Ice) => number;
   getCourseSlug: (course) => string;
   getOpportunitySlug: (opportunity) => string;
@@ -34,10 +32,9 @@ interface IStudentIceColumnUnverifiedProps {
       username: string;
     }
   };
-
 }
 
-const years = (props: IStudentIceColumnUnverifiedProps): IAcademicYearInstance[] => {
+const years = (props: IStudentIceColumnVerifiedProps): IAcademicYearInstance[] => {
   const studentID = getUserIdFromRoute(props.match);
   return AcademicYearInstances.findNonRetired({ studentID }, { sort: { year: 1 } });
 };
@@ -51,9 +48,9 @@ const academicTerms = (year: IAcademicYearInstance): IAcademicTerm[] => {
   return yearTerms;
 };
 
-const getEventsHelper = (iceType: string, type: string, earned: boolean, term: IAcademicTerm, props: IStudentIceColumnUnverifiedProps): (IOpportunityInstance | ICourseInstance)[] => {
+const getEventsHelper = (iceType: string, type: string, earned: boolean, term: IAcademicTerm, props: IStudentIceColumnVerifiedProps): (IOpportunityInstance | ICourseInstance)[] => {
   if (getUserIdFromRoute(props.match)) {
-    let allInstances = [];
+    let allInstances: any[];
     const iceInstances = [];
     if (type === 'course') {
       allInstances = _.filter(props.courseInstances, (ci) => ci.verified === earned && ci.termID === term._id);
@@ -80,7 +77,7 @@ const getEventsHelper = (iceType: string, type: string, earned: boolean, term: I
   return null;
 };
 
-const hasEvents = (earned: boolean, term: IAcademicTerm, props: IStudentIceColumnUnverifiedProps): boolean => {
+const hasEvents = (earned: boolean, term: IAcademicTerm, props: IStudentIceColumnVerifiedProps): boolean => {
   let ret = false;
   if ((getEventsHelper(props.type, 'course', earned, term, props).length > 0) ||
     (getEventsHelper(props.type, 'opportunity', earned, term, props).length > 0)) {
@@ -91,7 +88,7 @@ const hasEvents = (earned: boolean, term: IAcademicTerm, props: IStudentIceColum
 
 const printTerm = (term: IAcademicTerm): string => AcademicTerms.toString(term._id, false);
 
-const getEvents = (type: string, earned: boolean, term: IAcademicTerm, props: IStudentIceColumnUnverifiedProps): (IOpportunityInstance | ICourseInstance)[] => getEventsHelper(props.type, type, earned, term, props);
+const getEvents = (type: string, earned: boolean, term: IAcademicTerm, props: IStudentIceColumnVerifiedProps): (IOpportunityInstance | ICourseInstance)[] => getEventsHelper(props.type, type, earned, term, props);
 
 const opportunityName = (opportunityInstance: IOpportunityInstance): string => {
   const opportunity = Opportunities.findDoc(opportunityInstance.opportunityID);
@@ -103,40 +100,41 @@ const courseName = (courseInstance: ICourseInstance): string => {
   return course.shortName;
 };
 
-const StudentIceColumnUnverified = (props: IStudentIceColumnUnverifiedProps) => {
-  const { type, earnedICEPoints, projectedICEPoints, matchingPoints, getCourseSlug, getOpportunitySlug, icePoints, match } = props;
-
-  const remainingPoints = props.remainingICEPoints(earnedICEPoints, projectedICEPoints);
+const StudentIceColumnVerified = (props: IStudentIceColumnVerifiedProps) => {
+  const { type, earnedICEPoints, matchingPoints, getCourseSlug, getOpportunitySlug, icePoints, match } = props;
   return (
     <React.Fragment>
-      {matchingPoints(projectedICEPoints, 0) ?
-        <p>You have verified all of your planned points.</p>
+      {matchingPoints(earnedICEPoints, 0) ? (
+        <p>
+          You have no verified {type} points.
+        </p>
+        )
         : (
           <React.Fragment>
             <p>
-              You have a total of {remainingPoints} unverified {type} points.
+              You have {earnedICEPoints} verified {type} points for the following:
             </p>
             <List relaxed="very">
               {years(props).map((year) => (
-                academicTerms(year).map((term) => {
-                  const opportunityEvents = getEvents('opportunity', false, term, props);
-                  const courseEvents = getEvents('course', false, term, props);
+                academicTerms(year).map((term, index) => {
+                  const opportunityEvents = getEvents('opportunity', true, term, props);
+                  const courseEvents = getEvents('course', true, term, props);
+                  const key = `${year._id}${index}`;
                   return (
-                    <React.Fragment key={term._id}>
-                      {hasEvents(false, term, props) ? (
+                    <React.Fragment key={key}>
+                      {hasEvents(true, term, props) ? (
                         <List.Item>
                           <List.Header>{printTerm(term)}</List.Header>
                           {opportunityEvents.map((event) => {
                             const opportunitySlug = getOpportunitySlug(event as IOpportunityInstance);
                             const route = buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${opportunitySlug}`);
                             const points = icePoints(event.ice);
-                            const oName = opportunityName(event as IOpportunityInstance);
                             return (
                               <Link
-                                key={`${opportunitySlug}-${route}-${points}-${oName}`}
+                                key={`${opportunitySlug}-${route}-${points}-${opportunityName(event as IOpportunityInstance)}`}
                                 to={route}
                               >
-                                <b>+{points}</b> {oName}
+                                <b>+{points}</b> {opportunityName(event as IOpportunityInstance)}
                                 <br />
                               </Link>
                             );
@@ -145,13 +143,12 @@ const StudentIceColumnUnverified = (props: IStudentIceColumnUnverifiedProps) => 
                             const courseSlug = getCourseSlug(event);
                             const route = buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${courseSlug}`);
                             const points = icePoints(event.ice);
-                            const cName = courseName(event as ICourseInstance);
                             return (
                               <Link
-                                key={`${courseSlug}-${route}-${points}-${cName}`}
+                                key={`${courseSlug}-${route}-${points}-${courseName(event as ICourseInstance)}`}
                                 to={route}
                               >
-                                <b>+{points}</b> {cName}
+                                <b>+{points}</b> {courseName(event as ICourseInstance)}
                                 <br />
                               </Link>
                             );
@@ -160,7 +157,8 @@ const StudentIceColumnUnverified = (props: IStudentIceColumnUnverifiedProps) => 
                       ) : ''}
                     </React.Fragment>
                   );
-                })))}
+                })
+              ))}
             </List>
           </React.Fragment>
         )}
@@ -168,16 +166,16 @@ const StudentIceColumnUnverified = (props: IStudentIceColumnUnverifiedProps) => 
   );
 };
 
-const StudentIceColumnUnverifiedCon = withTracker(({ match }) => {
+const StudentIceColumnVerifiedCon = withTracker(({ match }) => {
   const studentID = getUserIdFromRoute(match);
-  // Tracked to make StudentIceColumnUnVerified reactive
+  // Tracked to make StudentIceColumnVerified reactive
   const courseInstances: ICourseInstance[] = CourseInstances.findNonRetired({ studentID });
   const opportunityInstances: IOpportunityInstance[] = OpportunityInstances.findNonRetired({ studentID });
   return {
     courseInstances,
     opportunityInstances,
   };
-})(StudentIceColumnUnverified);
-const StudentIceColumnUnverifiedContainer = withRouter(StudentIceColumnUnverifiedCon);
+})(StudentIceColumnVerified);
+const StudentIceColumnVerifiedContainer = withRouter(StudentIceColumnVerifiedCon);
 
-export default StudentIceColumnUnverifiedContainer;
+export default StudentIceColumnVerifiedContainer;

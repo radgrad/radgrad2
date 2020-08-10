@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { Accordion, Icon } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
-import * as Router from '../shared/RouterHelperFunctions';
+import * as Router from '../../shared/RouterHelperFunctions';
 import StudentIceColumnVerified from './StudentIceColumnVerified';
 import StudentIceColumnUnverified from './StudentIceColumnUnverified';
 import StudentIceColumnRecommended from './StudentIceColumnRecommended';
-import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
-import { Slugs } from '../../../api/slug/SlugCollection';
-import { Courses } from '../../../api/course/CourseCollection';
-import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
-import { Ice } from '../../../typings/radgrad';
+import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
+import { Slugs } from '../../../../api/slug/SlugCollection';
+import { Courses } from '../../../../api/course/CourseCollection';
+import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
+import { Ice } from '../../../../typings/radgrad';
 
 interface IStudentIceColumnProps {
   match: {

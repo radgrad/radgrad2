@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
 import WidgetHeaderNumber from '../../../../components/shared/WidgetHeaderNumber';
-import StudentOfInterestCard from '../../../../components/student/StudentOfInterestCard';
+import StudentOfInterestCard from './StudentOfInterestCard';
 import { Users } from '../../../../../api/user/UserCollection';
 import { Interests } from '../../../../../api/interest/InterestCollection';
 import { OpportunityInstances } from '../../../../../api/opportunity/OpportunityInstanceCollection';

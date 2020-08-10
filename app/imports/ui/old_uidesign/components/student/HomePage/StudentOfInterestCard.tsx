@@ -3,17 +3,16 @@ import { Button, Card, Icon } from 'semantic-ui-react';
 import { Link, withRouter } from 'react-router-dom';
 import _ from 'lodash';
 import Markdown from 'react-markdown';
-import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
-import InterestList from '../shared/InterestList';
-import WidgetHeaderNumber from '../shared/WidgetHeaderNumber';
-import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
-import { StudentParticipations } from '../../../api/public-stats/StudentParticipationCollection';
-import { replaceTermStringNextFour } from '../shared/helper-functions';
-import { docToName, docToShortDescription, itemToSlugName } from '../shared/data-model-helper-functions';
-import * as Router from '../shared/RouterHelperFunctions';
+import { AcademicTerms } from '../../../../../api/academic-term/AcademicTermCollection';
+import InterestList from '../../../../components/shared/InterestList';
+import WidgetHeaderNumber from '../../../../components/shared/WidgetHeaderNumber';
+import { EXPLORER_TYPE } from '../../../../../startup/client/route-constants';
+import { StudentParticipations } from '../../../../../api/public-stats/StudentParticipationCollection';
+import { replaceTermStringNextFour } from '../../../../components/shared/helper-functions';
+import { docToName, docToShortDescription, itemToSlugName } from '../../../../components/shared/data-model-helper-functions';
+import * as Router from '../../../../components/shared/RouterHelperFunctions';
 
 interface IStudentOfInterestCardProps {
-  // eslint-disable-next-line react/no-unused-prop-types
   type: string;
   match: {
     isExact: boolean;

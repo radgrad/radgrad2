@@ -3,10 +3,10 @@ import { withRouter } from 'react-router-dom';
 import Markdown from 'react-markdown';
 import { Segment, Grid, Container, Message, Icon, Image, Header } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
-import { getUserIdFromRoute } from '../shared/RouterHelperFunctions';
-import { Users } from '../../../api/user/UserCollection';
-import { studentLevelsWidget } from './student-widget-names';
-import { getLevelHintStringMarkdown } from '../../../api/level/LevelProcessor';
+import { getUserIdFromRoute } from '../../shared/RouterHelperFunctions';
+import { Users } from '../../../../api/user/UserCollection';
+import { studentLevelsWidget } from '../student-widget-names';
+import { getLevelHintStringMarkdown } from '../../../../api/level/LevelProcessor';
 
 // import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 

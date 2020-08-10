@@ -4,11 +4,11 @@ import { AutoForm, BoolField, SubmitField } from 'uniforms-semantic/';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import Swal from 'sweetalert2';
-import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
-import { updateMethod } from '../../../api/base/BaseCollection.methods';
-import { IStudentProfile, IUserInteractionDefine } from '../../../typings/radgrad';
-import { UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
-import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
+import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
+import { updateMethod } from '../../../../api/base/BaseCollection.methods';
+import { IStudentProfile, IUserInteractionDefine } from '../../../../typings/radgrad';
+import { UserInteractionsTypes } from '../../../../api/analytic/UserInteractionsTypes';
+import { userInteractionDefineMethod } from '../../../../api/analytic/UserInteractionCollection.methods';
 
 interface IStudentShareInfoWidgetProps {
   profile: IStudentProfile;
@@ -65,7 +65,6 @@ const handleUpdateInformation = (doc): void => {
 
 const StudentShareInfoWidget = (props: IStudentShareInfoWidgetProps) => {
   const { profile } = props;
-  const marginTopStyle = { marginTop: 10 };
   const model = profile;
   const schema = new SimpleSchema({
     shareUsername: {

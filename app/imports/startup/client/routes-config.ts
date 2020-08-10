@@ -40,8 +40,8 @@ import FacultyHomePageContainer from '../../ui/pages/faculty/FacultyHomePage';
 import FacultyManageOpportunitiesPageContainer from '../../ui/pages/faculty/FacultyManageOpportunitiesPage';
 import StudentHomePageContainer from '../../ui/pages/student/StudentHomePage';
 import StudentDegreePlannerPage from '../../ui/pages/student/StudentDegreePlannerPage';
-import StudentHomeAboutMePageContainer from '../../ui/pages/student/StudentHomeAboutMePage';
-import StudentHomeIcePageContainer from '../../ui/pages/student/StudentHomeIcePage';
+import StudentAboutMePage from '../../ui/pages/student/StudentAboutMePage';
+import StudentIcePage from '../../ui/pages/student/StudentIcePage';
 import StudentHomeLevelsPageContainer from '../../ui/pages/student/StudentHomeLevelsPage';
 import StudentHomeLogPageContainer from '../../ui/pages/student/StudentHomeLogPage';
 import StudentMentorSpacePageContainer from '../../ui/pages/student/StudentMentorSpacePage';
@@ -804,12 +804,12 @@ export const routes = {
     {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${HOME}/aboutme`,
       exact: true,
-      component: StudentHomeAboutMePageContainer,
+      component: StudentAboutMePage,
     },
     {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${HOME}/ice`,
       exact: true,
-      component: StudentHomeIcePageContainer,
+      component: StudentIcePage,
     },
     {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${HOME}/levels`,

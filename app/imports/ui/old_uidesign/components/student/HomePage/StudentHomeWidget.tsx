@@ -1,8 +1,8 @@
 import React from 'react';
 import { Grid } from 'semantic-ui-react';
-import StudentFeedWidget from './StudentFeedWidget';
-import StudentTeaserWidget from '../../old_uidesign/components/student/HomePage/StudentTeaserWidget';
-import StudentOfInterestWidget from '../../old_uidesign/components/student/HomePage/StudentOfInterestWidget';
+import StudentFeedWidget from '../../../../components/student/StudentFeedWidget';
+import StudentTeaserWidget from './StudentTeaserWidget';
+import StudentOfInterestWidget from './StudentOfInterestWidget';
 
 const StudentHomeWidget = () => (
   <Grid centered stackable>

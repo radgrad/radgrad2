@@ -1,10 +1,5 @@
 import React from 'react';
-<<<<<<< HEAD
-import { withTracker } from 'meteor/react-meteor-data';
-import { Menu, Header, Responsive, Button, Icon, Grid } from 'semantic-ui-react';
-=======
-import { Menu, Header, Responsive, Button } from 'semantic-ui-react';
->>>>>>> master
+import { Menu, Header, Responsive, Button, Icon } from 'semantic-ui-react';
 import { withRouter, Link } from 'react-router-dom';
 import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
 import { IInterest } from '../../../typings/radgrad';
@@ -15,12 +10,7 @@ import {
   isType,
 } from './explorer-helper-functions';
 import { buildRouteName, isUrlRoleFaculty, isUrlRoleStudent } from './RouterHelperFunctions';
-<<<<<<< HEAD
-import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import '../../../../client/style.css';
-=======
->>>>>>> master
 
 interface ICardExplorerMenuNonMobileWidgetProps {
   menuAddedList: { item: explorerInterfaces, count: number }[];

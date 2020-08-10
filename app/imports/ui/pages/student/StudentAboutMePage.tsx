@@ -6,7 +6,7 @@ import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC'
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
 import StudentAboutMeWidget from '../../components/student/AboutMePage/StudentAboutMeWidget';
 
-const StudentHomeAboutMePage = () => (
+const StudentAboutMePage = () => (
   <div>
     <StudentPageMenuWidget />
     <Container>
@@ -24,7 +24,7 @@ const StudentHomeAboutMePage = () => (
   </div>
 );
 
-const StudentHomeAboutMePageCon = withGlobalSubscription(StudentHomeAboutMePage);
-const StudentHomeAboutMePageContainer = withInstanceSubscriptions(StudentHomeAboutMePageCon);
+const StudentAboutMePageCon = withGlobalSubscription(StudentAboutMePage);
+const StudentAboutMePageContainer = withInstanceSubscriptions(StudentAboutMePageCon);
 
-export default StudentHomeAboutMePageContainer;
+export default StudentAboutMePageContainer;

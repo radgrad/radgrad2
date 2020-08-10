@@ -2,12 +2,12 @@ import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import _ from 'lodash';
-import { IAcademicPlan } from '../../../typings/radgrad';
-import AcademicPlanYearView from '../shared/AcademicPlanYearView';
-import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { Slugs } from '../../../api/slug/SlugCollection';
-import { passedCourse } from '../../../api/degree-plan/AcademicPlanUtilities';
-import { Users } from '../../../api/user/UserCollection';
+import { IAcademicPlan } from '../../../../typings/radgrad';
+import AcademicPlanYearView from '../../shared/AcademicPlanYearView';
+import { CourseInstances } from '../../../../api/course/CourseInstanceCollection';
+import { Slugs } from '../../../../api/slug/SlugCollection';
+import { passedCourse } from '../../../../api/degree-plan/AcademicPlanUtilities';
+import { Users } from '../../../../api/user/UserCollection';
 
 interface IAcademicPlanViewerWidgetProps {
   academicPlan: IAcademicPlan;

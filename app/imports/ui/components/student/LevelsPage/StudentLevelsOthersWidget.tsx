@@ -3,11 +3,11 @@ import { withRouter } from 'react-router-dom';
 import { Segment, Header, Image, Popup } from 'semantic-ui-react';
 import _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Users } from '../../../api/user/UserCollection';
-import { getUserIdFromRoute } from '../shared/RouterHelperFunctions';
-import { ROLE } from '../../../api/role/Role';
-import { IStudentProfile } from '../../../typings/radgrad';
-import { studentLevelsOthersWidget } from './student-widget-names';
+import { Users } from '../../../../api/user/UserCollection';
+import { getUserIdFromRoute } from '../../shared/RouterHelperFunctions';
+import { ROLE } from '../../../../api/role/Role';
+import { IStudentProfile } from '../../../../typings/radgrad';
+import { studentLevelsOthersWidget } from '../student-widget-names';
 
 interface IStudentLevelsOthersWidgetProps {
   // eslint-disable-next-line react/no-unused-prop-types

@@ -3,30 +3,30 @@ import _ from 'lodash';
 import { withRouter, Link } from 'react-router-dom';
 import { Container, Grid, Segment, Header, Icon, Label } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Users } from '../../../api/user/UserCollection';
+import { Users } from '../../../../../api/user/UserCollection';
 import {
   IFavoriteAcademicPlan,
   IFavoriteCareerGoal,
   IFavoriteInterest,
   IStudentProfile,
-} from '../../../typings/radgrad';
-import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
-import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
+} from '../../../../../typings/radgrad';
+import { EXPLORER_TYPE } from '../../../../../startup/client/route-constants';
+import { AcademicPlans } from '../../../../../api/degree-plan/AcademicPlanCollection';
 import StudentAboutMeUpdatePictureForm from './StudentAboutMeUpdatePictureForm';
-import StudentShareInfoWidget from './StudentShareInfoWidget';
-import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
+import StudentShareInfoWidget from '../../../../components/student/AboutMePage/StudentShareInfoWidget';
+import { StudentProfiles } from '../../../../../api/user/StudentProfileCollection';
 import StudentAboutMeUpdateWebsiteForm from './StudentAboutMeUpdateWebsiteForm';
-import * as Router from '../shared/RouterHelperFunctions';
+import * as Router from '../../../../components/shared/RouterHelperFunctions';
 import {
   itemToSlugName,
   profileToFullName,
-} from '../shared/data-model-helper-functions';
-import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
-import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
-import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
-import { studentAboutMeWidget } from './student-widget-names';
-import { CareerGoals } from '../../../api/career/CareerGoalCollection';
-import { Interests } from '../../../api/interest/InterestCollection';
+} from '../../../../components/shared/data-model-helper-functions';
+import { FavoriteAcademicPlans } from '../../../../../api/favorite/FavoriteAcademicPlanCollection';
+import { FavoriteCareerGoals } from '../../../../../api/favorite/FavoriteCareerGoalCollection';
+import { FavoriteInterests } from '../../../../../api/favorite/FavoriteInterestCollection';
+import { studentAboutMeWidget } from '../../../../components/student/student-widget-names';
+import { CareerGoals } from '../../../../../api/career/CareerGoalCollection';
+import { Interests } from '../../../../../api/interest/InterestCollection';
 
 interface IStudentAboutMeWidgetProps {
   match: {

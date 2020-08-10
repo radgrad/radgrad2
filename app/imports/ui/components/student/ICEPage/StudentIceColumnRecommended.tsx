@@ -1,21 +1,16 @@
 import React from 'react';
-import { withRouter, Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { List } from 'semantic-ui-react';
 import _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
-import { buildRouteName, getUserIdFromRoute } from '../shared/RouterHelperFunctions';
-import {
-  Ice,
-  ICourse,
-  IFavoriteInterest,
-  IOpportunity,
-} from '../../../typings/radgrad';
-import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
-import { Courses } from '../../../api/course/CourseCollection';
-import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
-import { Interests } from '../../../api/interest/InterestCollection';
-import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
+import { buildRouteName, getUserIdFromRoute } from '../../shared/RouterHelperFunctions';
+import { Ice, ICourse, IFavoriteInterest, IOpportunity } from '../../../../typings/radgrad';
+import { EXPLORER_TYPE } from '../../../../startup/client/route-constants';
+import { Courses } from '../../../../api/course/CourseCollection';
+import { CourseInstances } from '../../../../api/course/CourseInstanceCollection';
+import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
+import { Interests } from '../../../../api/interest/InterestCollection';
+import { FavoriteInterests } from '../../../../api/favorite/FavoriteInterestCollection';
 
 interface IStudentIceColumnRecommendedProps {
   type: 'Innovation' | 'Competency' | 'Experience';
@@ -46,7 +41,7 @@ const hasNoInterests = (props: IStudentIceColumnRecommendedProps): boolean => {
 const availableCourses = (props: IStudentIceColumnRecommendedProps): ICourse[] => {
   const courses = Courses.findNonRetired({});
   if (courses.length > 0) {
-    const filtered: ICourse[] = _.filter(courses, (course) => {
+    return _.filter(courses, (course) => {
       if (course.num === 'ICS 499') { // TODO: hardcoded ICS string
         return true;
       }
@@ -56,7 +51,6 @@ const availableCourses = (props: IStudentIceColumnRecommendedProps): ICourse[] =
       });
       return ci.length === 0;
     });
-    return filtered;
   }
   return [];
 };
@@ -118,7 +112,7 @@ const matchingCourses = (props: IStudentIceColumnRecommendedProps): ICourse[] =>
 const recommendedEvents = (projectedPoints: number, props: IStudentIceColumnRecommendedProps): any[] => {
   const { type } = props;
   if (getUserIdFromRoute(props.match)) {
-    let allInstances = [];
+    let allInstances: any[];
     const recommendedInstances = [];
     let totalIce = 0;
     const remainder = 100 - projectedPoints;
