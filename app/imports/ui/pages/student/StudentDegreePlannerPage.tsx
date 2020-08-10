@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Header, Container } from 'semantic-ui-react';
+import { Grid, Container } from 'semantic-ui-react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';

@@ -1,6 +1,7 @@
 import SimpleSchema from 'simpl-schema';
 import { Meteor } from 'meteor/meteor';
 import _ from 'lodash';
+import moment from 'moment';
 import { Slugs } from '../slug/SlugCollection';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Teasers } from '../teaser/TeaserCollection';
@@ -34,6 +35,7 @@ class OpportunityCollection extends BaseSlugCollection {
       sponsorID: { type: SimpleSchema.RegEx.Id },
       interestIDs: [SimpleSchema.RegEx.Id],
       termIDs: [SimpleSchema.RegEx.Id],
+      timestamp: { type: Date },
       // Optional data
       eventDate: { type: Date, optional: true },
       ice: { type: iceSchema, optional: true },
@@ -47,6 +49,7 @@ class OpportunityCollection extends BaseSlugCollection {
       sponsor: String,
       terms: Array,
       'terms.$': String,
+      timestamp: { type: Date },
       eventDate: { type: Date, optional: true },
       ice: { type: iceSchema, optional: true },
       retired: { type: Boolean, optional: true },
@@ -58,6 +61,7 @@ class OpportunityCollection extends BaseSlugCollection {
       sponsor: { type: String, optional: true },
       terms: { type: Array, optional: true },
       'terms.$': String,
+      timestamp: { type: Date, optional: true },
       eventDate: { type: Date, optional: true },
       ice: { type: iceSchema, optional: true },
       retired: { type: Boolean, optional: true },
@@ -86,12 +90,13 @@ class OpportunityCollection extends BaseSlugCollection {
    * @param sponsor must be a User with role 'FACULTY', 'ADVISOR', or 'ADMIN'.
    * @param ice must be a valid ICE object.
    * @param eventDate optional date.
+   * @param timestamp the Date timestamp that this Opportunity document was created at.
    * @param retired optional, true if the opportunity is retired.
    * @throws {Meteor.Error} If the definition includes a defined slug or undefined interest, sponsor, opportunityType,
    * or startActive or endActive are not valid.
    * @returns The newly created docID.
    */
-  public define({ name, slug, description, opportunityType, sponsor, interests, academicTerms, ice, eventDate = null, retired = false }: IOpportunityDefine) {
+  public define({ name, slug, description, opportunityType, sponsor, interests, academicTerms, ice, timestamp = moment().toDate(), eventDate = null, retired = false }: IOpportunityDefine) {
     // Get instances, or throw error
 
     const opportunityTypeID = OpportunityTypes.getID(opportunityType);
@@ -111,11 +116,11 @@ class OpportunityCollection extends BaseSlugCollection {
       // Define the new Opportunity and its Slug.
       opportunityID = this.collection.insert({
         name, slugID, description, opportunityTypeID, sponsorID,
-        interestIDs, termIDs, ice, eventDate, retired });
+        interestIDs, termIDs, ice, timestamp, eventDate, retired });
     } else {
       opportunityID = this.collection.insert({
         name, slugID, description, opportunityTypeID, sponsorID,
-        interestIDs, termIDs, ice, retired });
+        interestIDs, termIDs, ice, timestamp, retired });
     }
     Slugs.updateEntityID(slugID, opportunityID);
 
@@ -136,7 +141,7 @@ class OpportunityCollection extends BaseSlugCollection {
    * @param ice An ICE object (optional).
    * @param retired boolean (optional).
    */
-  public update(instance: string, { name, description, opportunityType, sponsor, interests, academicTerms, eventDate, ice, retired }: IOpportunityUpdate) {
+  public update(instance: string, { name, description, opportunityType, sponsor, interests, academicTerms, eventDate, ice, timestamp, retired }: IOpportunityUpdate) {
     const docID = this.getID(instance);
     const updateData: IOpportunityUpdateData = {};
     if (name) {
@@ -165,6 +170,9 @@ class OpportunityCollection extends BaseSlugCollection {
     if (ice) {
       assertICE(ice);
       updateData.ice = ice;
+    }
+    if (timestamp) {
+      updateData.timestamp = timestamp;
     }
     if (_.isBoolean(retired)) {
       updateData.retired = retired;
@@ -281,8 +289,9 @@ class OpportunityCollection extends BaseSlugCollection {
     const interests = _.map(doc.interestIDs, (interestID) => Interests.findSlugByID(interestID));
     const academicTerms = _.map(doc.termIDs, (termID) => AcademicTerms.findSlugByID(termID));
     const eventDate = doc.eventDate;
+    const timestamp = doc.timestamp;
     const retired = doc.retired;
-    return { name, slug, description, opportunityType, sponsor, ice, interests, academicTerms, eventDate, retired };
+    return { name, slug, description, opportunityType, sponsor, ice, interests, academicTerms, eventDate, timestamp, retired };
   }
 }
 

@@ -2,12 +2,9 @@ import React from 'react';
 import { Grid, Header, Image } from 'semantic-ui-react';
 import styles from '../../../pages/landing/guidedtour-style';
 
-interface IOpportunitiesProps {
-  opportunties: number;
-}
 const signImage = { marginBottom: 0 };
 
-const GuidedTourStudentOpportunities = (props: IOpportunitiesProps) => (
+const GuidedTourStudentOpportunities = () => (
   <div>
     <Grid container>
       <Grid.Column width={1} />

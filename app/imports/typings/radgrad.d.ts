@@ -695,6 +695,7 @@ export interface IOpportunity {
   sponsorID: string;
   interestIDs: string[];
   termIDs: string[];
+  timestamp: Date;
   // Optional data
   eventDate?: Date;
   ice?: Ice;
@@ -710,6 +711,7 @@ export interface IOpportunityDefine extends IDumpOne {
   interests: string[];
   academicTerms: string[];
   ice: Ice;
+  timestamp?: Date;
   eventDate?: any;
   retired?: boolean;
 }
@@ -722,6 +724,7 @@ export interface IOpportunityUpdate extends IUpdate {
   interests?: string[];
   academicTerms?: string[];
   eventDate?: any;
+  timestamp?: Date;
   ice?: Ice;
   retired?: boolean;
 }
@@ -734,6 +737,7 @@ export interface IOpportunityUpdateData {
   interestIDs?: string[];
   termIDs?: string[];
   eventDate?: any;
+  timestamp?: Date;
   ice?: Ice;
   retired?: boolean;
 }

@@ -13,7 +13,7 @@ import {
 import { EXPLORER_TYPE } from '../../../../startup/client/route-constants';
 import { AcademicPlans } from '../../../../api/degree-plan/AcademicPlanCollection';
 import StudentAboutMeUpdatePictureForm from './StudentAboutMeUpdatePictureForm';
-import StudentShareInfoWidget from '../StudentShareInfoWidget';
+import StudentShareInfoWidget from './StudentShareInfoWidget';
 import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
 import StudentAboutMeUpdateWebsiteForm from './StudentAboutMeUpdateWebsiteForm';
 import * as Router from '../../shared/RouterHelperFunctions';
@@ -24,7 +24,6 @@ import {
 import { FavoriteAcademicPlans } from '../../../../api/favorite/FavoriteAcademicPlanCollection';
 import { FavoriteCareerGoals } from '../../../../api/favorite/FavoriteCareerGoalCollection';
 import { FavoriteInterests } from '../../../../api/favorite/FavoriteInterestCollection';
-import { studentAboutMeWidget } from '../student-widget-names';
 
 interface IStudentAboutMeWidgetProps {
   match: {
@@ -36,8 +35,10 @@ interface IStudentAboutMeWidgetProps {
     }
   };
   profile: IStudentProfile;
+  /* eslint-disable react/no-unused-prop-types */
   favoriteCareerGoals: IFavoriteCareerGoal[];
   favoriteInterests: IFavoriteInterest[];
+  /* eslint-enable */
   favoriteAcademicPlans: IFavoriteAcademicPlan[];
 }
 

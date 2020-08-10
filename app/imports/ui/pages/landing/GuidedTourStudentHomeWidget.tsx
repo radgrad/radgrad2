@@ -1,5 +1,4 @@
 import React from 'react';
-// import { NavLink } from 'react-router-dom';
 import { Container, Loader, Segment } from 'semantic-ui-react';
 import Slider from 'react-slick';
 import { Meteor } from 'meteor/meteor';
@@ -7,20 +6,11 @@ import { withTracker } from 'meteor/react-meteor-data';
 import styles from './guidedtour-style';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-// import WhyRadGrad from '../../components/guidedtour/student/why-radgrad';
-// import SetUp from '../../components/guidedtour/student/set-up';
-// import Interests from '../../components/guidedtour/student/interests';
+import WhyRadGrad from '../../components/guidedtour/student/home-why-radgrad';
+import Interests from '../../components/guidedtour/student/home-interests';
+import CareerPath from '../../components/guidedtour/student/home-career-goals';
+import Courses from '../../components/guidedtour/student/home-courses';
 import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';
-// import CareerPath from '../../components/guidedtour/student/career-goals';
-// import Courses from '../../components/guidedtour/student/courses';
-import Opportunities1 from '../../components/guidedtour/student/opportunities1';
-// import DegreePlan from '../../components/guidedtour/student/degree-plan';
-// import ICE from '../../components/guidedtour/student/ice';
-// import Levels from '../../components/guidedtour/student/levels';
-// import SampleStudent from '../../components/guidedtour/student/sample-student';
-// import Mentor from '../../components/guidedtour/student/mentor';
-// import AdvisorLog from '../../components/guidedtour/student/advisor-log';
-// import WhatsNext from '../../components/guidedtour/student/whats-next';
 
 interface IGuidedTourStudentProps {
   interests: number;
@@ -47,7 +37,10 @@ const renderPage = (props: IGuidedTourStudentProps) => {
       <Container textAlign="center">
         <Segment padded style={styles.background} className="guidedTour">
           <Slider {...settings}>
-            <Opportunities1 />
+            <WhyRadGrad />
+            <Interests interests={props.interests} />
+            <CareerPath careerGoals={props.careerGoals} />
+            <Courses courses={props.courses} courseReviews={props.courseReviews} />
           </Slider>
         </Segment>
       </Container>
@@ -55,11 +48,9 @@ const renderPage = (props: IGuidedTourStudentProps) => {
   );
 };
 
-const GuidedTourStudent = (props: IGuidedTourStudentProps) => (
-  (props.ready) ? renderPage(props) : <Loader active>Getting data</Loader>
-);
+const GuidedTourStudent = (props: IGuidedTourStudentProps) => ((props.ready) ? renderPage(props) : <Loader active>Getting data</Loader>);
 
-const GuidedTourStudentOpportunities = withTracker(() => {
+const GuidedTourStudentHomeWidget = withTracker(() => {
   const subscription = Meteor.subscribe(PublicStats.getPublicationName());
   let key;
   let interests;
@@ -97,4 +88,4 @@ const GuidedTourStudentOpportunities = withTracker(() => {
   };
 })(GuidedTourStudent);
 
-export default GuidedTourStudentOpportunities;
+export default GuidedTourStudentHomeWidget;
