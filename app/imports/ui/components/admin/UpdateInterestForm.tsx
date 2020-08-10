@@ -17,7 +17,6 @@ interface IUpdateInterestFormProps {
   id: string;
   formRef: any;
   handleUpdate: (doc) => any;
-  handleCancel: (event) => any;
   itemTitleString: (item) => React.ReactNode;
 }
 

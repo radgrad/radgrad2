@@ -13,12 +13,10 @@ import BackToTopButton from '../../components/shared/BackToTopButton';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 
 interface IDegreesCardExplorerProps {
+  // eslint-disable-next-line react/no-unused-prop-types
   ready: boolean;
   desiredDegrees: IDesiredDegree[];
   count: number;
-  match: object;
-  location: object;
-  history: object;
 }
 
 const renderPage = (props: IDegreesCardExplorerProps) => {
@@ -63,6 +61,7 @@ const renderPage = (props: IDegreesCardExplorerProps) => {
   );
 };
 
+// eslint-disable-next-line react/prop-types
 const LandingDegreesCardExplorer = (props: IDegreesCardExplorerProps) => ((props.ready) ? renderPage(props) : <Loader>Loading Degrees</Loader>);
 
 const LandingDegreesCardExplorerCon = withRouter(LandingDegreesCardExplorer);

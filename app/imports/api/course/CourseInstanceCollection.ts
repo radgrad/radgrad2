@@ -369,7 +369,7 @@ class CourseInstanceCollection extends BaseCollection {
       });
       Meteor.publish(this.collectionName, function filterStudentID(studentID) { // eslint-disable-line meteor/audit-argument-checks
         // console.log('publish studentID %o is admin = %o', studentID, Roles.userIsInRole(studentID, [ROLE.ADMIN]));
-        if (!studentID) {
+        if (_.isNil(studentID)) {
           return this.ready();
         }
         const profile = Users.getProfile(studentID);

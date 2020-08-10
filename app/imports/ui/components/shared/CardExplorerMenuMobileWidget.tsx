@@ -1,37 +1,28 @@
 import React from 'react';
-import { withTracker } from 'meteor/react-meteor-data';
 import { Dropdown, Responsive } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import * as Router from './RouterHelperFunctions';
 import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import ExplorerMenuMobileItem from './ExplorerMenuMobileItem';
 import {
-  ICardExplorerMenuWidgetProps,
+  explorerInterfaces,
   isType,
 } from './explorer-helper-functions';
-import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
-import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
-import { FavoriteCourses } from '../../../api/favorite/FavoriteCourseCollection';
-import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
-import { FavoriteOpportunities } from '../../../api/favorite/FavoriteOpportunityCollection';
-import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
-import {
-  ICourseInstance,
-  IFavoriteAcademicPlan,
-  IFavoriteCareerGoal,
-  IFavoriteCourse,
-  IFavoriteInterest, IFavoriteOpportunity, IOpportunityInstance,
-} from '../../../typings/radgrad';
+import { IInterest } from '../../../typings/radgrad';
 
-interface ICardExplorerMenuMobileWidgetProps extends ICardExplorerMenuWidgetProps {
-  favoriteAcademicPlans: IFavoriteAcademicPlan[];
-  favoriteCareerGoals: IFavoriteCareerGoal[];
-  favoriteCourses: IFavoriteCourse[];
-  favoriteInterests: IFavoriteInterest[];
-  favoriteOpportunities: IFavoriteOpportunity[];
-  courseInstances: ICourseInstance[];
-  opportunityInstances: IOpportunityInstance[];
+interface ICardExplorerMenuMobileWidgetProps {
+  menuAddedList: { item: explorerInterfaces, count: number }[];
+  menuCareerList: { item: IInterest, count: number }[] | undefined;
+  type: 'plans' | 'career-goals' | 'courses' | 'degrees' | 'interests' | 'opportunities' | 'users';
+  role: 'student' | 'faculty' | 'mentor';
+  match: {
+    isExact: boolean;
+    path: string;
+    url: string;
+    params: {
+      username: string;
+    }
+  };
 }
 
 const CardExplorerMenuMobileWidget = (props: ICardExplorerMenuMobileWidgetProps) => {
@@ -49,6 +40,7 @@ const CardExplorerMenuMobileWidget = (props: ICardExplorerMenuMobileWidgetProps)
                 <Dropdown.Header as="h4">MY FAVORITE ACADEMIC PLANS</Dropdown.Header>
                 <Dropdown.Divider />
                 {
+                  // eslint-disable-next-line react/prop-types
                   menuAddedList.map((listItem) => (
                     <ExplorerMenuMobileItem
                       type={EXPLORER_TYPE.ACADEMICPLANS}
@@ -70,6 +62,7 @@ const CardExplorerMenuMobileWidget = (props: ICardExplorerMenuMobileWidgetProps)
                 <Dropdown.Header as="h4">MY FAVORITE COURSES</Dropdown.Header>
                 <Dropdown.Divider />
                 {
+                  // eslint-disable-next-line react/prop-types
                   menuAddedList.map((listItem) => (
                     <ExplorerMenuMobileItem
                       type={EXPLORER_TYPE.COURSES}
@@ -165,26 +158,6 @@ const CardExplorerMenuMobileWidget = (props: ICardExplorerMenuMobileWidgetProps)
   );
 };
 
-export const CardExplorerMenuMobileWidgetCon = withTracker(({ match }) => {
-  const studentID = Router.getUserIdFromRoute(match);
-  const userID = studentID;
-  const favoriteAcademicPlans: IFavoriteAcademicPlan[] = FavoriteAcademicPlans.findNonRetired({ studentID });
-  const favoriteCareerGoals: IFavoriteCareerGoal[] = FavoriteCareerGoals.findNonRetired({ userID });
-  const favoriteCourses: IFavoriteCourse[] = FavoriteCourses.findNonRetired({ studentID });
-  const favoriteInterests: IFavoriteInterest[] = FavoriteInterests.findNonRetired({ userID });
-  const favoriteOpportunities: IFavoriteOpportunity[] = FavoriteOpportunities.findNonRetired({ studentID });
-  const courseInstances: ICourseInstance[] = CourseInstances.findNonRetired({ studentID });
-  const opportunityInstances: IOpportunityInstance[] = OpportunityInstances.findNonRetired({ studentID });
-  return {
-    favoriteAcademicPlans,
-    favoriteCareerGoals,
-    favoriteCourses,
-    favoriteInterests,
-    favoriteOpportunities,
-    courseInstances,
-    opportunityInstances,
-  };
-})(CardExplorerMenuMobileWidget);
-export const CardExplorerMenuMobileWidgetContainer = withRouter(CardExplorerMenuMobileWidgetCon);
+export const CardExplorerMenuMobileWidgetContainer = withRouter(CardExplorerMenuMobileWidget);
 
 export default CardExplorerMenuMobileWidgetContainer;

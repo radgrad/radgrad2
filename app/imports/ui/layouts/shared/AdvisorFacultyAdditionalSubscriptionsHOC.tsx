@@ -15,6 +15,7 @@ interface ILoading {
 const additionalSubs = new SubsManager({ cacheLimit: 2, expireIn: 30 });
 
 function withAdditionalSubscriptions(WrappedComponent) {
+  // eslint-disable-next-line react/prop-types
   const AdditionalSubscriptions = (props: ILoading) => ((props.loading) ? <Loader active>Getting additional data</Loader> :
   <WrappedComponent {...props} />);
 

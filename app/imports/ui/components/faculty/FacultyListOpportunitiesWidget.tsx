@@ -18,14 +18,14 @@ import { RootState } from '../../../redux/types';
 
 interface IListOpportunitiesWidgetProps {
   collection: BaseCollection;
+  // eslint-disable-next-line react/no-unused-prop-types
   findOptions?: object;
   descriptionPairs: (item) => IDescriptionPair[];
   handleOpenUpdate: (evt: any, id: any) => any;
   handleDelete: (evt: any, id: any) => any;
   items: any[];
-  itemTitle: (item) => React.ReactNode;
-  dispatch: any;
   pagination: any;
+  // eslint-disable-next-line react/no-unused-prop-types
   match: IMatchProps;
 }
 
@@ -132,7 +132,7 @@ const ListOpportunitiesWidget = (props: IListOpportunitiesWidgetProps) => {
 
 const ListOpportunitiesWidgetCon = connect(mapStateToProps)(ListOpportunitiesWidget);
 
-const ListOpportunitiesWidgetContainer = withTracker((props) => {
+const ListOpportunitiesWidgetContainer = withTracker((props: IListOpportunitiesWidgetProps) => {
   // console.log('ListOpportunitiesWidget withTracker props=%o', props);
   const items = props.collection.find({}, props.findOptions).fetch();
   // console.log('ListOpportunitiesWidget withTracker items=%o', items);

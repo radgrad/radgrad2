@@ -10,7 +10,9 @@ import { getUsername } from './RouterHelperFunctions';
 
 interface ITermAddProps {
   item: any;
+  // eslint-disable-next-line react/no-unused-prop-types
   type: string;
+  // eslint-disable-next-line react/no-unused-prop-types
   match: {
     isExact: boolean;
     path: string;

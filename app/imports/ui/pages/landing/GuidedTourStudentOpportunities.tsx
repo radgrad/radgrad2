@@ -1,6 +1,6 @@
 import React from 'react';
 // import { NavLink } from 'react-router-dom';
-import { Container, List, Loader, Segment } from 'semantic-ui-react';
+import { Container, Loader, Segment } from 'semantic-ui-react';
 import Slider from 'react-slick';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
@@ -47,7 +47,7 @@ const renderPage = (props: IGuidedTourStudentProps) => {
       <Container textAlign="center">
         <Segment padded style={styles.background} className="guidedTour">
           <Slider {...settings}>
-            <Opportunities1 />
+            <Opportunities1 opportunties={props.opportunities} />
           </Slider>
         </Segment>
       </Container>
@@ -55,7 +55,9 @@ const renderPage = (props: IGuidedTourStudentProps) => {
   );
 };
 
-const GuidedTourStudent = (props: IGuidedTourStudentProps) => ((props.ready) ? renderPage(props) : <Loader active>Getting data</Loader>);
+const GuidedTourStudent = (props: IGuidedTourStudentProps) => (
+  (props.ready) ? renderPage(props) : <Loader active>Getting data</Loader>
+);
 
 const GuidedTourStudentOpportunities = withTracker(() => {
   const subscription = Meteor.subscribe(PublicStats.getPublicationName());

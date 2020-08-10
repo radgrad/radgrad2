@@ -11,7 +11,8 @@ import {
   IFavoriteCourseDefine,
   IFavoriteInterestDefine,
   IFavoriteOpportunityDefine,
-  IPageInterestDefine, IUserInteractionDefine,
+  IPageInterestDefine,
+  IUserInteractionDefine,
 } from '../../../typings/radgrad';
 import { Users } from '../../../api/user/UserCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
@@ -149,6 +150,9 @@ export const createPageInterestData = (props: IFavoriteButtonProps): IPageIntere
   const name = Slugs.getNameFromID(props.item.slugID);
   let category: IPageInterestsCategoryTypes;
   switch (props.type) {
+    case FAVORITE_TYPE.ACADEMICPLAN:
+      category = PageInterestsCategoryTypes.ACADEMIC_PLAN;
+      break;
     case FAVORITE_TYPE.CAREERGOAL:
       category = PageInterestsCategoryTypes.CAREERGOAL;
       break;

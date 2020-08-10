@@ -1,25 +1,17 @@
 import React from 'react';
 import { Dropdown, Responsive } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
-import { withTracker } from 'meteor/react-meteor-data';
 import {
   IAcademicPlan,
   ICareerGoal,
-  ICourse, ICourseInstance,
-  IDesiredDegree, IFavoriteAcademicPlan, IFavoriteCareerGoal, IFavoriteCourse, IFavoriteInterest, IFavoriteOpportunity,
+  ICourse,
+  IDesiredDegree,
   IInterest,
-  IOpportunity, IOpportunityInstance,
+  IOpportunity,
 } from '../../../typings/radgrad';
 import * as Router from './RouterHelperFunctions';
 import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import ExplorerMenuMobileItem from './ExplorerMenuMobileItem';
-import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
-import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
-import { FavoriteCourses } from '../../../api/favorite/FavoriteCourseCollection';
-import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
-import { FavoriteOpportunities } from '../../../api/favorite/FavoriteOpportunityCollection';
-import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 
 type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IDesiredDegree | IInterest | IOpportunity;
 
@@ -36,13 +28,6 @@ interface IExplorerMenuMobileWidgetProps {
       username: string;
     }
   };
-  favoriteAcademicPlans: IFavoriteAcademicPlan[];
-  favoriteCareerGoals: IFavoriteCareerGoal[];
-  favoriteCourses: IFavoriteCourse[];
-  favoriteInterests: IFavoriteInterest[];
-  favoriteOpportunities: IFavoriteOpportunity[];
-  courseInstances: ICourseInstance[];
-  opportunityInstances: IOpportunityInstance[];
 }
 
 const isType = (typeToCheck: string, props: IExplorerMenuMobileWidgetProps): boolean => {
@@ -182,25 +167,5 @@ const ExplorerMenuMobileWidget = (props: IExplorerMenuMobileWidgetProps) => {
   );
 };
 
-export const ExplorerMenuMobileWidgetCon = withTracker(({ match }) => {
-  const studentID = Router.getUserIdFromRoute(match);
-  const userID = studentID;
-  const favoriteAcademicPlans: IFavoriteAcademicPlan[] = FavoriteAcademicPlans.findNonRetired({ studentID });
-  const favoriteCareerGoals: IFavoriteCareerGoal[] = FavoriteCareerGoals.findNonRetired({ userID });
-  const favoriteCourses: IFavoriteCourse[] = FavoriteCourses.findNonRetired({ studentID });
-  const favoriteInterests: IFavoriteInterest[] = FavoriteInterests.findNonRetired({ userID });
-  const favoriteOpportunities: IFavoriteOpportunity[] = FavoriteOpportunities.findNonRetired({ studentID });
-  const courseInstances: ICourseInstance[] = CourseInstances.findNonRetired({ studentID });
-  const opportunityInstances: IOpportunityInstance[] = OpportunityInstances.findNonRetired({ studentID });
-  return {
-    favoriteAcademicPlans,
-    favoriteCareerGoals,
-    favoriteCourses,
-    favoriteInterests,
-    favoriteOpportunities,
-    courseInstances,
-    opportunityInstances,
-  };
-})(ExplorerMenuMobileWidget);
-export const ExplorerMenuMobileWidgetContainer = withRouter(ExplorerMenuMobileWidgetCon);
+export const ExplorerMenuMobileWidgetContainer = withRouter(ExplorerMenuMobileWidget);
 export default ExplorerMenuMobileWidgetContainer;

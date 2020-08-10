@@ -1,29 +1,32 @@
 import React from 'react';
 import { Grid, Container } from 'semantic-ui-react';
 import BackToTopButton from '../../components/shared/BackToTopButton';
-import StudentOfInterestWidget from '../../components/student/HomePage/StudentOfInterestWidget';
+import StudentOfInterestWidget from '../../old_uidesign/components/student/HomePage/StudentOfInterestWidget';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
-import GuidedTourStudentHome from '../landing/GuidedTourStudentHome';
-import FavoriteInterestsList from '../../components/student/HomePage/StudentFavoriteInterests';
-import StudentHomeRecommendedTeasers from '../../components/student/HomePage/StudentHomeRecommendedTeasers';
-import StudentHomeGuidedTour from '../../components/student/HomePage/StudentHomeGuidedTour';
+import GuidedTourStudentHomeWidget from '../landing/GuidedTourStudentHomeWidget';
+import StudentHomeFavoriteInterestsList from '../../components/student/HomePage/StudentHomeFavoriteInterestsWidget';
+import StudentHomeRecommendedTeasersWidget from '../../components/student/HomePage/StudentHomeRecommendedTeasersWidget';
+import StudentHomeBannersWidget from '../../components/student/HomePage/StudentHomeBannersWidget';
+import StudentHomeRadGradVideosWidget from '../../components/student/HomePage/StudentHomeRadGradVideosWidget';
 
 const StudentHomePage = () => (
   <div>
     <StudentPageMenuWidget />
-    <GuidedTourStudentHome />
+    <GuidedTourStudentHomeWidget />
     <Container>
       <Grid stackable>
         <Grid.Row>
-          <StudentHomeGuidedTour />
+          <StudentHomeBannersWidget />
         </Grid.Row>
         <Grid.Row>
           <Grid.Column width={11}>
-            <StudentHomeRecommendedTeasers />
+            <StudentHomeRecommendedTeasersWidget />
+            <StudentHomeRadGradVideosWidget />
+
           </Grid.Column>
           <Grid.Column width={5}>
             <StudentOfInterestWidget type="opportunities" />
-            <FavoriteInterestsList />
+            <StudentHomeFavoriteInterestsList />
           </Grid.Column>
         </Grid.Row>
       </Grid>

@@ -8,14 +8,13 @@ import { AutoForm, SelectField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import { IAcademicPlan } from '../../../../typings/radgrad';
 import { getUsername, IMatchProps, buildRouteName, getUserIdFromRoute } from '../../shared/RouterHelperFunctions';
-import AcademicPlanViewerWidgetContainer from '../AcademicPlanViewerWidget';
+import AcademicPlanViewerWidgetContainer from './AcademicPlanViewerWidget';
 import { EXPLORER_TYPE } from '../../../../startup/client/route-constants';
 import { FavoriteAcademicPlans } from '../../../../api/favorite/FavoriteAcademicPlanCollection';
 import { AcademicPlans } from '../../../../api/degree-plan/AcademicPlanCollection';
 
 interface IFavoriteAcademicPlansWidgetProps {
   match: IMatchProps;
-  studentID: string;
   plans: IAcademicPlan[];
 }
 
@@ -76,7 +75,6 @@ export default withRouter(withTracker((props) => {
   const favorites = FavoriteAcademicPlans.findNonRetired({ studentID });
   const plans = _.map(favorites, (fav) => AcademicPlans.findDoc(fav.academicPlanID));
   return {
-    studentID,
     plans,
   };
 })(FavoriteAcademicPlansWidget));

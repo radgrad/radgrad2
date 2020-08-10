@@ -1,12 +1,10 @@
 import React from 'react';
-import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router-dom';
 import { Divider, Grid, Header, Segment } from 'semantic-ui-react';
 import Markdown from 'react-markdown';
 import { IOpportunity } from '../../../typings/radgrad';
 import StudentExplorerReviewWidget from '../student/StudentExplorerReviewWidget';
 import { Reviews } from '../../../api/review/ReviewCollection';
-import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import IceHeader from './IceHeader';
 import InterestList from './InterestList';
 import { Slugs } from '../../../api/slug/SlugCollection';
@@ -26,7 +24,6 @@ interface IExplorerOpportunitiesWidgetProps {
   descriptionPairs: any[];
   item: IOpportunity
   completed: boolean;
-  role: string;
   match: {
     isExact: boolean;
     path: string;
@@ -36,8 +33,6 @@ interface IExplorerOpportunitiesWidgetProps {
       opportunity: string;
     }
   };
-  reactiveSourceOne: object[];
-  reactiveSourceTwo: object[];
 }
 
 const review = (props: IExplorerOpportunitiesWidgetProps): object => {
@@ -337,16 +332,4 @@ const ExplorerOpportunitiesWidget = (props: IExplorerOpportunitiesWidgetProps) =
   );
 };
 
-const ExplorerOpportunitiesWidgetContainer = withTracker(() => {
-  /* Reactive Sources to make StudentExplorerCoursesWidgetButton reactive */
-  const reactiveSourceOne = OpportunityInstances.findNonRetired({});
-
-  /* Reactive Source to make StudentExplorerEditReviewForm reactive */
-  const reactiveSourceTwo = Reviews.findNonRetired({});
-
-  return {
-    reactiveSourceOne,
-    reactiveSourceTwo,
-  };
-})(ExplorerOpportunitiesWidget);
-export default withRouter(ExplorerOpportunitiesWidgetContainer);
+export default withRouter(ExplorerOpportunitiesWidget);

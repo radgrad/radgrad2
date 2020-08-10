@@ -24,8 +24,6 @@ import { Users } from '../../../api/user/UserCollection';
 interface IOpportunityExplorerProps {
   opportunity: IOpportunity;
   quarters: boolean;
-  location: object;
-  history: object;
   match: {
     isExact: boolean;
     path: string;

@@ -1,6 +1,7 @@
 import { Roles } from 'meteor/alanning:roles';
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
+import _ from 'lodash';
 import { HashRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import '/public/semantic.min.css';
 import NotFound from '../pages/NotFound';
@@ -61,6 +62,7 @@ const App = () => (
  * Checks for Meteor login before routing to the requested page, otherwise goes to signin page.
  * @param {any} { component: Component, ...rest }
  */
+// eslint-disable-next-line react/prop-types
 const ProtectedRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
@@ -68,7 +70,8 @@ const ProtectedRoute = ({ component: Component, ...rest }) => (
       const isLogged = Meteor.userId() !== null;
       return isLogged ?
         (<Component {...props} />) :
-        (<Redirect to={{ pathname: '/signin', state: { from: props.location } }} />
+        // eslint-disable-next-line react/prop-types
+        (<Redirect to={{ pathname: '/', state: { from: props.location } }} />
         );
     }}
   />
@@ -79,7 +82,11 @@ const ProtectedRoute = ({ component: Component, ...rest }) => (
  * Checks for Meteor login and admin role before routing to the requested page, otherwise goes to signin page.
  * @param {any} { component: Component, ...rest }
  */
+// eslint-disable-next-line react/prop-types
 const AdminProtectedRoute = ({ component: Component, ...rest }) => {
+  if (_.isNil(Meteor.userId())) {
+    return (<Redirect to={{ pathname: '/', state: { from: rest.location } }} />);
+  }
   const WrappedComponent = withGlobalSubscription(Component);
   return (
     <Route
@@ -90,14 +97,19 @@ const AdminProtectedRoute = ({ component: Component, ...rest }) => {
         const isAdmin = Roles.userIsInRole(userId, [ROLE.ADMIN]);
         return (isLogged && isAdmin) ?
           (<WrappedComponent {...props} />) :
-          (<Redirect to={{ pathname: '/signin', state: { from: props.location } }} />
+          // eslint-disable-next-line react/prop-types
+          (<Redirect to={{ pathname: '/', state: { from: props.location } }} />
           );
       }}
     />
   );
 };
 
+// eslint-disable-next-line react/prop-types
 const AdvisorProtectedRoute = ({ component: Component, ...rest }) => {
+  if (_.isNil(Meteor.userId())) {
+    return (<Redirect to={{ pathname: '/', state: { from: rest.location } }} />);
+  }
   const WrappedComponent = withInstanceSubscriptions(withGlobalSubscription(Component));
   return (
     <Route
@@ -107,14 +119,19 @@ const AdvisorProtectedRoute = ({ component: Component, ...rest }) => {
         const isAllowed = Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN, ROLE.ADVISOR]);
         return (isLogged && isAllowed) ?
           (<WrappedComponent {...props} />) :
-          (<Redirect to={{ pathname: '/signin', state: { from: props.location } }} />
+          // eslint-disable-next-line react/prop-types
+          (<Redirect to={{ pathname: '/', state: { from: props.location } }} />
           );
       }}
     />
   );
 };
 
+// eslint-disable-next-line react/prop-types
 const FacultyProtectedRoute = ({ component: Component, ...rest }) => {
+  if (_.isNil(Meteor.userId())) {
+    return (<Redirect to={{ pathname: '/', state: { from: rest.location } }} />);
+  }
   const WrappedComponent = withInstanceSubscriptions(withGlobalSubscription(Component));
   return (
     <Route
@@ -124,14 +141,19 @@ const FacultyProtectedRoute = ({ component: Component, ...rest }) => {
         const isAllowed = Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN, ROLE.FACULTY]);
         return (isLogged && isAllowed) ?
           (<WrappedComponent {...props} />) :
-          (<Redirect to={{ pathname: '/signin', state: { from: props.location } }} />
+          // eslint-disable-next-line react/prop-types
+          (<Redirect to={{ pathname: '/', state: { from: props.location } }} />
           );
       }}
     />
   );
 };
 
+// eslint-disable-next-line react/prop-types
 const MentorProtectedRoute = ({ component: Component, ...rest }) => {
+  if (_.isNil(Meteor.userId())) {
+    return (<Redirect to={{ pathname: '/', state: { from: rest.location } }} />);
+  }
   const WrappedComponent = withInstanceSubscriptions(withGlobalSubscription(Component));
   return (
     <Route
@@ -141,14 +163,19 @@ const MentorProtectedRoute = ({ component: Component, ...rest }) => {
         const isAllowed = Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN, ROLE.MENTOR]);
         return (isLogged && isAllowed) ?
           (<WrappedComponent {...props} />) :
-          (<Redirect to={{ pathname: '/signin', state: { from: props.location } }} />
+          // eslint-disable-next-line react/prop-types
+          (<Redirect to={{ pathname: '/', state: { from: props.location } }} />
           );
       }}
     />
   );
 };
 
+// eslint-disable-next-line react/prop-types
 const StudentProtectedRoute = ({ component: Component, ...rest }) => {
+  if (_.isNil(Meteor.userId())) {
+    return (<Redirect to={{ pathname: '/', state: { from: rest.location } }} />);
+  }
   const ComponentWithSubscriptions = withInstanceSubscriptions(withGlobalSubscription(Component));
   const isStudent = Roles.userIsInRole(Meteor.userId(), ROLE.STUDENT);
   // Because ROLE.ADMIN and ROLE.ADVISOR are allowed to go to StudentProtectedRoutes, they can trigger the
@@ -163,9 +190,11 @@ const StudentProtectedRoute = ({ component: Component, ...rest }) => {
         const userId = Meteor.userId();
         const isLogged = userId !== null;
         if (!isLogged) {
-          return (<Redirect to={{ pathname: '/signin', state: { from: props.location } }} />);
+          // eslint-disable-next-line react/prop-types
+          return (<Redirect to={{ pathname: '/', state: { from: props.location } }} />);
         }
         let isAllowed = Roles.userIsInRole(userId, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.STUDENT]);
+        // eslint-disable-next-line react/prop-types
         const routeUsername = getUsername(props.match);
         const loggedInUserName = Users.getProfile(userId).username;
         if (isStudent) {

@@ -32,7 +32,6 @@ interface IUpdateOpportunityFormProps {
   formRef: any;
   handleUpdate: (doc) => any;
   handleCancel: (event) => any;
-  itemTitleString: (item) => React.ReactNode;
 }
 
 const UpdateOpportunityForm = (props: IUpdateOpportunityFormProps) => {

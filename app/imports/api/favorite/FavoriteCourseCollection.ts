@@ -83,7 +83,7 @@ class FavoriteCourseCollection extends BaseCollection {
     if (Meteor.isServer) {
       const instance = this;
       Meteor.publish(this.collectionName, function filterStudentID(studentID) { // eslint-disable-line meteor/audit-argument-checks
-        if (!studentID) {
+        if (_.isNil(studentID)) {
           return this.ready();
         }
         const profile = Users.getProfile(studentID);

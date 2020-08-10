@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Markdown from 'react-markdown';
 import { withRouter } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import _ from 'lodash';
-import { Grid, Header, Divider } from 'semantic-ui-react';
+import { Grid, Header } from 'semantic-ui-react';
 import { IHelpDefine } from '../../../typings/radgrad';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import * as Router from './RouterHelperFunctions';
+import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
 
 interface IHelpPanelWidgetProps {
   helpMessages: IHelpDefine[]
@@ -21,11 +22,15 @@ interface IHelpPanelWidgetProps {
 }
 
 const HelpPanelWidget = (props: IHelpPanelWidgetProps) => {
-  const [activeIndexState, setActiveIndex] = useState(-1);
-
   const { match } = props;
-  const helpMessage = _.find(props.helpMessages, (m) => m.routeName === props.match.path);
-  const helpText = helpMessage ? `${helpMessage.text}` : '';
+
+  const helpMessage = _.find(props.helpMessages, (m) => m.routeName === match.path);
+  const adminEmail = RadGradProperties.getAdminEmail();
+  const helpText = helpMessage ? `${helpMessage.text}
+
+#### Need more help?
+
+If you have additional questions, please email [${adminEmail}](mailto:${adminEmail}).` : '';
   return (helpMessage) ? (
     <Grid.Column>
       <Header as="h1">{helpMessage.title}</Header>

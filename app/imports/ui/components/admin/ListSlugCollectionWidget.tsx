@@ -12,13 +12,13 @@ import { RootState } from '../../../redux/types';
 
 interface IListSlugCollectionWidgetProps {
   collection: BaseCollection;
+  // eslint-disable-next-line react/no-unused-prop-types
   findOptions?: object;
   descriptionPairs: (item) => IDescriptionPair[];
   handleOpenUpdate: (evt: any, id: any) => any;
   handleDelete: (evt: any, id: any) => any;
   items: any[];
   itemTitle: (item) => React.ReactNode;
-  dispatch: any;
   pagination: any;
 }
 
@@ -64,7 +64,7 @@ const ListSlugCollectionWidget = (props: IListSlugCollectionWidgetProps) => {
 
 const ListSlugCollectionWidgetCon = connect(mapStateToProps)(ListSlugCollectionWidget);
 
-const ListSlugCollectionWidgetContainer = withTracker((props) => {
+const ListSlugCollectionWidgetContainer = withTracker((props: IListSlugCollectionWidgetProps) => {
   // console.log('ListSlugCollectionWidget withTracker props=%o', props);
   const items = props.collection.find({}, props.findOptions).fetch();
   // console.log('ListSlugCollectionWidget withTracker items=%o', items);

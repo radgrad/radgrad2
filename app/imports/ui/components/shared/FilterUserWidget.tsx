@@ -2,13 +2,15 @@ import React from 'react';
 import { Form, Header, Segment } from 'semantic-ui-react';
 
 interface IUpdateRegex {
+  // eslint-disable-next-line react/no-unused-prop-types
   updateFirstNameRegex: (regex: string) => void;
+  // eslint-disable-next-line react/no-unused-prop-types
   updateLastNameRegex: (regex: string) => void;
+  // eslint-disable-next-line react/no-unused-prop-types
   updateUserNameRegex: (regex: string) => void;
 }
 
-const handleChangeFirstNameRegex = (props: IUpdateRegex) => (event, value) => {
-  // console.log(event, value);
+const handleChangeFirstNameRegex = (props: IUpdateRegex) => (event) => {
   props.updateFirstNameRegex(event.target.value);
 };
 
