@@ -22,6 +22,7 @@ const StudentHomePage = () => (
           <Grid.Column width={11}>
             <StudentHomeRecommendedTeasersWidget />
             <StudentHomeRadGradVideosWidget />
+
           </Grid.Column>
           <Grid.Column width={5}>
             <StudentOfInterestWidget type="opportunities" />
