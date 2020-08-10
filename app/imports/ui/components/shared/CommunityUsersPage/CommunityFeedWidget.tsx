@@ -1,16 +1,16 @@
 import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Container, Divider, Feed, Header, Segment } from 'semantic-ui-react';
-import { Feeds } from '../../../api/feed/FeedCollection';
-import StudentFeedItem from './StudentFeedItem';
-import { studentFeedWidget } from './student-widget-names';
-import { IFeed } from '../../../typings/radgrad';
+import { Feeds } from '../../../../api/feed/FeedCollection';
+import StudentFeedItem from './CommunityFeedItem';
+import { studentFeedWidget } from '../../student/student-widget-names';
+import { IFeed } from '../../../../typings/radgrad';
 
 interface IStudentFeedWidgetProps {
   feeds: IFeed[];
 }
 
-const StudentFeedWidget = (props: IStudentFeedWidgetProps) => {
+const CommunityFeedWidget = (props: IStudentFeedWidgetProps) => {
   const feedStyle = {
     maxHeight: '325px',
     overflowY: 'scroll',
@@ -24,7 +24,7 @@ const StudentFeedWidget = (props: IStudentFeedWidgetProps) => {
         {props.feeds ?
           (
             <Feed style={feedStyle}>
-              {props.feeds.map((feed, index) => (
+              {props.feeds.map((feed) => (
                 <React.Fragment key={feed._id}>
                   <StudentFeedItem feed={feed} />
                   <Divider />
@@ -38,8 +38,8 @@ const StudentFeedWidget = (props: IStudentFeedWidgetProps) => {
   );
 };
 
-const StudentFeedWidgetContainer = withTracker(() => ({
+const CommunityFeedWidgetContainer = withTracker(() => ({
   feeds: Feeds.findNonRetired({}, { sort: { timestamp: -1 } }),
-}))(StudentFeedWidget);
+}))(CommunityFeedWidget);
 
-export default StudentFeedWidgetContainer;
+export default CommunityFeedWidgetContainer;

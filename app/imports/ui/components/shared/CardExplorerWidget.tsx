@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { Card, Grid, Header, Segment, Tab, Message, SemanticWIDTHS } from 'semantic-ui-react';
+import { Card, Header, Segment } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router-dom';
 import _ from 'lodash';
@@ -11,7 +11,6 @@ import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import ExplorerCard from './ExplorerCard';
 import ProfileCard from './ProfileCard';
-import UserProfileCard from './UserProfileCard';
 import TermCard from './TermCard';
 import PlanCard from './PlanCard';
 import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
@@ -21,7 +20,6 @@ import {
   buildHeader,
   checkForNoItems,
   getItems,
-  getUsers,
   isType,
 } from './explorer-helper-functions';
 import { cardExplorerWidget } from './shared-widget-names';
@@ -131,16 +129,6 @@ const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
     overflowY: 'scroll',
     marginTop: '10px',
   };
-  const userStackableCardsStyle: React.CSSProperties = {
-    maxHeight: '750px',
-    overflowY: 'auto',
-    marginTop: '10px',
-    paddingBottom: '10px',
-  };
-  const tabPaneStyle: React.CSSProperties = {
-    overflowX: 'hidden',
-    overflowY: 'hidden',
-  };
 
   /* Variables */
   const header = buildHeader(props); // The header Title and Count
@@ -217,84 +205,6 @@ const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
 // For Degrees (or any future Card Explore that only has a "View More" functionality)
   const buildExplorerCard = isType(EXPLORER_TYPE.DEGREES, props);
 
-// For the Users Card Explorer
-  const buildStudentUserCard = isType(EXPLORER_TYPE.USERS, props);
-  const advisorRoleUsers = getUsers(ROLE.ADVISOR, props.match);
-  const facultyRoleUsers = getUsers(ROLE.FACULTY, props.match);
-  const mentorRoleUsers = getUsers(ROLE.MENTOR, props.match);
-  const studentRoleUsers = getUsers(ROLE.STUDENT, props.match);
-  const panes = [
-    {
-      menuItem: 'Advisors',
-      render: () => (
-        <Tab.Pane key="advisors">
-          <Grid stackable>
-            <Card.Group
-              stackable
-              itemsPerRow={advisorRoleUsers.length > 3 ? 3 : advisorRoleUsers.length as SemanticWIDTHS}
-              style={userStackableCardsStyle}
-            >
-              {advisorRoleUsers.map((ele) => <UserProfileCard key={ele._id} item={ele} />)}
-            </Card.Group>
-          </Grid>
-        </Tab.Pane>
-      ),
-    },
-    {
-      menuItem: 'Faculty',
-      render: () => (
-        <Tab.Pane key="faculty">
-          <Grid stackable>
-            <Card.Group
-              stackable
-              itemsPerRow={facultyRoleUsers.length > 3 ? 3 : facultyRoleUsers.length as SemanticWIDTHS}
-              style={userStackableCardsStyle}
-            >
-              {facultyRoleUsers.map((ele) => <UserProfileCard key={ele._id} item={ele} />)}
-            </Card.Group>
-          </Grid>
-        </Tab.Pane>
-      ),
-    },
-    {
-      menuItem: 'Mentors',
-      render: () => (
-        <Tab.Pane key="mentors">
-          <Grid stackable>
-            <Card.Group
-              stackable
-              itemsPerRow={mentorRoleUsers.length > 3 ? 3 : mentorRoleUsers.length as SemanticWIDTHS}
-              style={userStackableCardsStyle}
-            >
-              {mentorRoleUsers.map((ele) => <UserProfileCard key={ele._id} item={ele} />)}
-            </Card.Group>
-          </Grid>
-        </Tab.Pane>
-      ),
-    },
-    {
-      menuItem: 'Students',
-      render: () => (
-        <Tab.Pane key="students">
-          <Grid stackable>
-            <Grid.Row>
-              <Grid.Column textAlign="center">
-                <Message>Only showing students who have opted to share their information.</Message>
-              </Grid.Column>
-            </Grid.Row>
-            <Card.Group
-              stackable
-              itemsPerRow={studentRoleUsers.length > 3 ? 3 : studentRoleUsers.length as SemanticWIDTHS}
-              style={userStackableCardsStyle}
-            >
-              {studentRoleUsers.map((ele) => <UserProfileCard key={ele._id} item={ele} />)}
-            </Card.Group>
-          </Grid>
-        </Tab.Pane>
-      ),
-    },
-  ];
-
   // Certain "Adding" functinalities should only be exposed to "Student" role, not Faculty or Mentor
   const canAdd = Router.isUrlRoleStudent(props.match);
   // Saving Scroll Position
@@ -345,16 +255,10 @@ const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
       <Segment padded id={`${cardExplorerWidget}`}>
         <Header dividing>
           <h4>
-            {
-              !buildStudentUserCard ?
-                (
-                  <React.Fragment>
-                    <span style={uppercaseTextTransformStyle}>{header.title} </span>
-                    <WidgetHeaderNumber inputValue={header.count} />
-                  </React.Fragment>
-                )
-                : <span style={uppercaseTextTransformStyle}>{header.title}</span>
-            }
+            <React.Fragment>
+              <span style={uppercaseTextTransformStyle}>{header.title} </span>
+              <WidgetHeaderNumber inputValue={header.count} />
+            </React.Fragment>
           </h4>
         </Header>
 
@@ -376,50 +280,40 @@ const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
             }}
           />
         ) : ''}
-        {
-          !buildStudentUserCard ?
-            (
-              <Card.Group style={cardGroupStyle} itemsPerRow={2} stackable id="cardExplorerCardGroupElement">
-                {
-                  buildPlanCard ?
-                    items.map((item) => <PlanCard key={item._id} item={item} type={type} canAdd={canAdd} />) : ''
-                }
-                {
-                  buildProfileCard ?
-                    items.map((item) => <ProfileCard key={item._id} item={item} type={type} canAdd />) : ''
-                }
-                {
-                  buildTermCard ?
-                    items.map((item) => (
-                      <TermCard key={item._id} item={item} type={type} isStudent={isStudent} canAdd />
-                    ))
-                    : ''
-                }
-                {
-                  buildExplorerCard ?
-                    items.map((item) => <ExplorerCard key={item._id} item={item} type={type} />)
-                    : ''
-                }
-              </Card.Group>
-            )
-            : <Tab panes={panes} defaultActiveIndex={3} style={tabPaneStyle} id="usersTab" />
-        }
+
+        <Card.Group style={cardGroupStyle} itemsPerRow={2} stackable id="cardExplorerCardGroupElement">
+          {
+            buildPlanCard ?
+              items.map((item) => <PlanCard key={item._id} item={item} type={type} canAdd={canAdd} />) : ''
+          }
+          {
+            buildProfileCard ?
+              items.map((item) => <ProfileCard key={item._id} item={item} type={type} canAdd />) : ''
+          }
+          {
+            buildTermCard ?
+              items.map((item) => (
+                <TermCard key={item._id} item={item} type={type} isStudent={isStudent} canAdd />
+              ))
+              : ''
+          }
+          {
+            buildExplorerCard ?
+              items.map((item) => <ExplorerCard key={item._id} item={item} type={type} />)
+              : ''
+          }
+        </Card.Group>
       </Segment>
     </React.Fragment>
   );
 };
 
 const CardExplorerWidgetCon = withTracker((props) => {
-  const { collection, type, match, menuList } = props;
+  const { collection, match, menuList } = props;
   const favoriteIDs = _.map(menuList, (m) => m.item._id);
   const username = match.params.username;
-  let reactiveSource;
-  if (type !== EXPLORER_TYPE.USERS) {
-    const allItems = collection.findNonRetired({});
-    reactiveSource = _.filter(allItems, (item) => _.includes(favoriteIDs, item._id));
-  } else {
-    reactiveSource = Users.getProfile(username);
-  }
+  const allItems = collection.findNonRetired({});
+  const reactiveSource = _.filter(allItems, (item) => _.includes(favoriteIDs, item._id));
 
   /* Reactive sources to make TermCard reactive */
   const reactiveSourceForTermCardOne = CourseInstances.findNonRetired({});

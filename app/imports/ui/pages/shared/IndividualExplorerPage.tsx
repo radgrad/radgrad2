@@ -80,8 +80,7 @@ interface IIndividualExplorerPageProps {
 
 const teaser = (theOpp: { slugID: string }): object => {
   if (Teasers.isDefined({ targetSlugID: theOpp.slugID })) {
-    const oppTeaser = Teasers.findDoc({ targetSlugID: theOpp.slugID });
-    return oppTeaser;
+    return Teasers.findDoc({ targetSlugID: theOpp.slugID });
   }
   return {};
 };
@@ -127,8 +126,7 @@ const addedCareerGoals = (props: IIndividualExplorerPageProps): { item: ICareerG
 const careerGoal = (props: IIndividualExplorerPageProps): ICareerGoal => {
   const careerGoalSlugName = props.match.params.careergoal;
   const slug = Slugs.findDoc({ name: careerGoalSlugName });
-  const theCareerGoal = CareerGoals.findDoc({ slugID: slug._id });
-  return theCareerGoal;
+  return CareerGoals.findDoc({ slugID: slug._id });
 };
 
 const descriptionPairsCareerGoals = (theCareerGoal: ICareerGoal): { label: string, value: any }[] => [
@@ -186,9 +184,8 @@ const addedCourses = (props: IIndividualExplorerPageProps): { item: ICourse, cou
 const course = (props: IIndividualExplorerPageProps): ICourse => {
   const courseSlugName = props.match.params.course;
   const slug = Slugs.findDoc({ name: courseSlugName });
-  const theCourse = Courses.findDoc({ slugID: slug._id });
   // console.log(courseSlugName, theCourse);
-  return theCourse;
+  return Courses.findDoc({ slugID: slug._id });
 };
 
 const passedCourseHelper = (courseSlugName: string, props: IIndividualExplorerPageProps): string => {
@@ -276,8 +273,7 @@ const addedDegrees = (): { item: IDesiredDegree, count: number }[] => _.map(Desi
 const degree = (props: IIndividualExplorerPageProps): IDesiredDegree => {
   const degreeSlugName = props.match.params.degree;
   const slug = Slugs.findDoc({ name: degreeSlugName });
-  const theDegree = DesiredDegrees.findDoc({ slugID: slug._id });
-  return theDegree;
+  return DesiredDegrees.findDoc({ slugID: slug._id });
 };
 
 const descriptionPairsDegrees = (theDegree: IDesiredDegree): { label: string, value: any }[] => [{
@@ -302,8 +298,7 @@ const addedCareerInterests = (props: IIndividualExplorerPageProps): { item: IInt
 const interest = (props: IIndividualExplorerPageProps): IInterest => {
   const interestSlugName = props.match.params.interest;
   const slug = Slugs.findDoc({ name: interestSlugName });
-  const theInterest = Interests.findDoc({ slugID: slug._id });
-  return theInterest;
+  return Interests.findDoc({ slugID: slug._id });
 };
 
 const addedOpportunities = (props: IIndividualExplorerPageProps): { item: IOpportunity, count: number }[] => _.map(props.favoriteOpportunities, (f) => ({
@@ -314,8 +309,7 @@ const addedOpportunities = (props: IIndividualExplorerPageProps): { item: IOppor
 const opportunity = (props: IIndividualExplorerPageProps): IOpportunity => {
   const opportunitySlugName = props.match.params.opportunity;
   const slug = Slugs.findDoc({ name: opportunitySlugName });
-  const theOpp = Opportunities.findDoc({ slugID: slug._id });
-  return theOpp;
+  return Opportunities.findDoc({ slugID: slug._id });
 };
 
 const isOpportunityCompleted = (props: IIndividualExplorerPageProps): boolean => {
@@ -373,8 +367,6 @@ const getAddedList = (props: IIndividualExplorerPageProps): { [key: string]: any
       return addedInterests(props);
     case EXPLORER_TYPE.OPPORTUNITIES:
       return addedOpportunities(props);
-    case EXPLORER_TYPE.USERS: // do nothing
-      return undefined;
     default:
       return undefined;
   }
@@ -405,8 +397,6 @@ const getItem = (props: IIndividualExplorerPageProps): { [key: string]: any } =>
       return interest(props);
     case EXPLORER_TYPE.OPPORTUNITIES:
       return opportunity(props);
-    case EXPLORER_TYPE.USERS: // do nothing
-      return undefined;
     default:
       return undefined;
   }
@@ -428,8 +418,6 @@ const getDescriptionPairs = (item: { [key: string]: any }, props: IIndividualExp
       return undefined; // Quinne implemented the descriptionPairs into their own components
     case EXPLORER_TYPE.OPPORTUNITIES:
       return descriptionPairsOpportunities(item as IOpportunity);
-    case EXPLORER_TYPE.USERS: // do nothing
-      return undefined;
     default:
       return undefined;
   }

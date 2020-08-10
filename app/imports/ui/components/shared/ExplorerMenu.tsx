@@ -46,8 +46,6 @@ const getTypeName = (props: IExplorerMenuProps): string => {
       return names[4];
     case EXPLORER_TYPE.OPPORTUNITIES:
       return names[5];
-    case EXPLORER_TYPE.USERS:
-      return names[6];
     default:
       return '';
   }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid } from 'semantic-ui-react';
-import StudentFeedWidget from '../../../../components/student/StudentFeedWidget';
+import StudentFeedWidget from '../../../../components/shared/CommunityUsersPage/CommunityFeedWidget';
 import StudentTeaserWidget from './StudentTeaserWidget';
 import StudentOfInterestWidget from './StudentOfInterestWidget';
 
