@@ -15,7 +15,7 @@ const StudentHomeRadGradVideosWidget = () => {
       <Grid.Row><Header>RADGRAD VIDEOS</Header></Grid.Row>
       <Grid.Row columns={3}>
         {slicedRadGradVideos.map((video) => (
-          <Grid.Column><TeaserVideo id={video.youtubeID} /> </Grid.Column>
+          <Grid.Column key={video.youtubeID}><TeaserVideo id={video.youtubeID} /> </Grid.Column>
         ))}
       </Grid.Row>
     </Grid>

@@ -76,8 +76,6 @@ export const getHeaderTitle = (props: { type: string }): string => {
       return 'INTERESTS';
     case EXPLORER_TYPE.OPPORTUNITIES:
       return 'OPPORTUNITIES';
-    case EXPLORER_TYPE.USERS:
-      return 'USERS';
     default:
       return 'UNDEFINED TITLE';
   }
@@ -421,8 +419,6 @@ export const getItemStatus = (item: explorerInterfaces, props: ICardExplorerMenu
       return userInterests(item as IInterest, props.match);
     case EXPLORER_TYPE.OPPORTUNITIES:
       return userOpportunities(item as IOpportunity, props.match);
-    case EXPLORER_TYPE.USERS: // do nothing
-      return '';
     default:
       return '';
   }
@@ -443,9 +439,6 @@ export const getHeaderCount = (props: ICardExplorerMenuWidgetProps): number => {
       return interestsItemCount(props.match);
     case EXPLORER_TYPE.OPPORTUNITIES:
       return opportunitiesItemCount(props);
-    case EXPLORER_TYPE.USERS:
-      // do nothing; we do not track user count
-      return -1;
     default:
       return -1;
   }
@@ -546,9 +539,6 @@ export const checkForNoItems = (props: ICardExplorerMenuWidgetProps): Element | 
       return noItems('noInterests', props.match) ? buildNoItemsMessage('noInterests', props) : '';
     case EXPLORER_TYPE.OPPORTUNITIES:
       return noItems('noInterests', props.match) ? buildNoItemsMessage('noInterests', props) : '';
-    case EXPLORER_TYPE.USERS:
-      // do nothing; we do not track if there are no users
-      return '';
     default:
       return '';
 
@@ -570,11 +560,6 @@ export const getItems = (props: ICardExplorerMenuWidgetProps): { [key: string]: 
       return availableInterests(props.match);
     case EXPLORER_TYPE.OPPORTUNITIES:
       return matchingOpportunities(props);
-    case EXPLORER_TYPE.USERS:
-      //  do nothing. For other Card Explorers, we only need one constant variable to hold an item array.
-      //  However, we need multiple constant variables to hold the users for each of the invidual roles
-      //  (faculty, advisor, etc...). See the function @getUsers(role) instead.
-      return [];
     default:
       return [];
   }

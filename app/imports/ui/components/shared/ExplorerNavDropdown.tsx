@@ -25,7 +25,6 @@ const ExplorerNavDropdown = (props: IExplorerNavDropdownProps) => {
     { key: 'Degrees', route: EXPLORER_TYPE.DEGREES },
     { key: 'Interests', route: EXPLORER_TYPE.INTERESTS },
     { key: 'Opportunities', route: EXPLORER_TYPE.OPPORTUNITIES },
-    { key: 'Users', route: EXPLORER_TYPE.USERS },
   ];
 
   const menuOptions = menuItems.map((item) => ({

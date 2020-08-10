@@ -80,8 +80,8 @@ const getCollection = (props: ICardExplorerPageProps): object => {
       return Interests;
     case EXPLORER_TYPE.OPPORTUNITIES:
       return Opportunities;
-    case EXPLORER_TYPE.USERS:
-      return Users;
+    // case EXPLORER_TYPE.USERS:
+    //   return Users;
     default:
       return {};
   }
@@ -126,8 +126,8 @@ const getAddedList = (props: ICardExplorerPageProps): { item: IAcademicPlan | IC
       return addedInterests(props);
     case EXPLORER_TYPE.OPPORTUNITIES:
       return addedOpportunities(props);
-    case EXPLORER_TYPE.USERS: // do nothing
-      return [];
+    // case EXPLORER_TYPE.USERS: // do nothing
+    //   return [];
     default:
       return [];
   }

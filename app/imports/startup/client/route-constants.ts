@@ -40,7 +40,6 @@ export const EXPLORER_TYPE = {
   DEGREES: 'degrees',
   INTERESTS: 'interests',
   OPPORTUNITIES: 'opportunities',
-  USERS: 'users',
 };
 
 export const EXPLORER_PARAM = {

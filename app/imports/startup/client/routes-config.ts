@@ -96,6 +96,7 @@ import PageTrackingComparisonPage from '../../ui/pages/shared/PageTrackingCompar
 import { PageInterestsCategoryTypes } from '../../api/page-tracking/PageInterestsCategoryTypes';
 import CardExplorerOpportunitiesPage from '../../ui/pages/shared/CardExplorerOpportunitiesPage';
 import CommunityRadGradVideosPage from '../../ui/pages/shared/CommunityRadGradVideosPage';
+import CommunityUsersPage from '../../ui/pages/shared/CommunityUsersPage';
 
 export const routes = {
   ADMIN: [
@@ -220,7 +221,7 @@ export const routes = {
       component: AdminDataModelTeasersPage,
     },
     {
-      path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL}/${EXPLORER_TYPE.USERS}`,
+      path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL}/${COMMUNITY.USERS}`,
       exact: true,
       component: AdminDataModelUsersPage,
     },
@@ -512,7 +513,7 @@ export const routes = {
     {
       path: `/${URL_ROLES.FACULTY}/${USERNAME}/${COMMUNITY.HOME}/${COMMUNITY.USERS}`,
       exact: true,
-      component: CardExplorerPageContainer,
+      component: CommunityUsersPage,
     },
     {
       path: `/${URL_ROLES.FACULTY}/${USERNAME}/${SCOREBOARD}`,
@@ -743,7 +744,7 @@ export const routes = {
     {
       path: `/${URL_ROLES.MENTOR}/${USERNAME}/${COMMUNITY.HOME}/${COMMUNITY.USERS}`,
       exact: true,
-      component: CardExplorerPageContainer,
+      component: CommunityUsersPage,
     },
     /* ############################## Page Tracking SCOREBOARD ############################## */
     {
@@ -947,13 +948,12 @@ export const routes = {
       exact: true,
       component: IndividualExplorerPageContainer,
     },
-    /* ############################## Explorers USERS ############################## */
+    /* ############################## Community ############################## */
     {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${COMMUNITY.HOME}/${COMMUNITY.USERS}`,
       exact: true,
-      component: CardExplorerPageContainer,
+      component: CommunityUsersPage,
     },
-    /* ############################## Community ############################## */
     {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${COMMUNITY.HOME}/${COMMUNITY.RADGRADVIDEOS}`,
       exact: true,

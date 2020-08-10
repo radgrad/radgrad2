@@ -2,7 +2,7 @@ import React from 'react';
 import Markdown from 'react-markdown';
 import { Feed, Image } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
-import { renderLink } from '../shared/RouterHelperFunctions';
+import { renderLink } from '../RouterHelperFunctions';
 
 interface IStudentFeedItemProps {
   feed: object;
@@ -21,12 +21,11 @@ const dateDiffInDays = (a: string, b: string) => {
   const ams = Date.parse(a);
   const bms = Date.parse(b);
   const MS_PER_DAY = 1000 * 60 * 60 * 24;
-  const ret = Math.floor((ams - bms) / MS_PER_DAY);
-  return ret;
+  return Math.floor((ams - bms) / MS_PER_DAY);
 };
 
 const feedTimestamp = (feed): string => {
-  let ret = '';
+  let ret: string;
   const feedTime = feed.timestamp;
   const currentDate = Date();
   const currentTime = currentDate.toString();
@@ -41,7 +40,7 @@ const feedTimestamp = (feed): string => {
   return ret;
 };
 
-const StudentFeedItem = (props: IStudentFeedItemProps) => {
+const CommunityFeedItem = (props: IStudentFeedItemProps) => {
   const { feed, match }: any = props;
   return (
     <React.Fragment>
@@ -69,4 +68,4 @@ const StudentFeedItem = (props: IStudentFeedItemProps) => {
   );
 };
 
-export default withRouter(StudentFeedItem);
+export default withRouter(CommunityFeedItem);
