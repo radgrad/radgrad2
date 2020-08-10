@@ -47,7 +47,7 @@ const renderPage = (props: IGuidedTourStudentProps) => {
       <Container textAlign="center">
         <Segment padded style={styles.background} className="guidedTour">
           <Slider {...settings}>
-            <Opportunities1 opportunties={props.opportunities} />
+            <Opportunities1 />
           </Slider>
         </Segment>
       </Container>

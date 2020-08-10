@@ -35,8 +35,10 @@ interface IStudentAboutMeWidgetProps {
     }
   };
   profile: IStudentProfile;
+  /* eslint-disable react/no-unused-prop-types */
   favoriteCareerGoals: IFavoriteCareerGoal[];
   favoriteInterests: IFavoriteInterest[];
+  /* eslint-enable */
   favoriteAcademicPlans: IFavoriteAcademicPlan[];
 }
 

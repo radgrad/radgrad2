@@ -1,5 +1,4 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
 import {
   IAcademicPlan,
   ICareerGoal,
@@ -17,16 +16,8 @@ type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IDesiredDegree
 interface ICardExplorerMenuProps {
   menuAddedList: { item: explorerInterfaces, count: number }[];
   menuCareerList: { item: IInterest, count: number }[] | undefined;
-  type: 'plans' | 'career-goals' | 'courses' | 'degrees' | 'interests' | 'opportunities' | 'users';
-  role: 'student' | 'faculty' | 'mentor';
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
+  type: string;
+  role: string;
 }
 
 const CardExplorerMenu = (props: ICardExplorerMenuProps) => {
@@ -53,4 +44,4 @@ const CardExplorerMenu = (props: ICardExplorerMenuProps) => {
   );
 };
 
-export default withRouter(CardExplorerMenu);
+export default CardExplorerMenu;

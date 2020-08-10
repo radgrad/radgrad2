@@ -42,11 +42,13 @@ interface ICardExplorerPageProps {
       username: string;
     }
   };
+  /* eslint-disable react/no-unused-prop-types */
   favoritePlans: IAcademicPlan[];
   favoriteCareerGoals: ICareerGoal[];
   favoriteCourses: ICourse[];
   favoriteInterests: IInterest[];
   favoriteOpportunities: IOpportunity[];
+  /* eslint-enable */
 }
 
 const getMenuWidget = (props: ICardExplorerPageProps): JSX.Element => {

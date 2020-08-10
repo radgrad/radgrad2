@@ -8,17 +8,11 @@ import { IHelpDefine } from '../../../typings/radgrad';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import * as Router from './RouterHelperFunctions';
 import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
+import { IMatchProps } from './RouterHelperFunctions';
 
 interface IHelpPanelWidgetProps {
-  helpMessages: IHelpDefine[]
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
+  helpMessages: IHelpDefine[];
+  match: IMatchProps;
 }
 
 const HelpPanelWidget = (props: IHelpPanelWidgetProps) => {
