@@ -7,7 +7,8 @@ import BaseCollection from './BaseCollection';
 
 /**
  * BaseType is an abstract superclass that factors out common code for the "type" entities: OpportunityType and TagType.
- * @extends BaseCollection
+ * @memberOf api/base
+ * @extends api/base.BaseCollection
  */
 class BaseTypeCollection extends BaseCollection {
 

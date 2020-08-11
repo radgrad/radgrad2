@@ -25,7 +25,7 @@ const isRole = (props: IExplorerUsersWidgetProps, compareRole: string, ...otherR
  * being displayed instead of a button and the IBaseProfile.motivation field being displayed if it exists.
  * @param userProfile {IBaseProfile} User profile to be displayed
  * @param isActive {boolean} This component expects the parent to manage state
- * @param handleClose {()=>any} Handler to close component (dimmer) when clicking outside of the component
+ * @param handleClose {function} Handler to close component (dimmer) when clicking outside of the component
  * @return {Dimmer} */
 const ExplorerUsersWidget = (props: IExplorerUsersWidgetProps) => {
   if (!(props.userProfile)) return undefined;

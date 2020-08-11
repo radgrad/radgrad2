@@ -15,7 +15,8 @@
     "test-e2e-v": "testcafe chrome imports/ui/**/*.test-e2e.ts",
     "deploy": "DEPLOY_HOSTNAME=galaxy.meteor.com meteor deploy radgrad2.meteorapp.com --settings ../config/settings.production.json --owner radgrad",
     "api-doc": "./node_modules/.bin/esdoc -c .esdoc-api.json",
-    "ui-doc": "./node_modules/.bin/esdoc -c .esdoc-ui.json"
+    "ui-doc": "./node_modules/.bin/esdoc -c .esdoc-ui.json",
+    "generate-docs": "node_modules/.bin/jsdoc -c jsdoc.json"
   },
   "dependencies": {
     "@babel/runtime": "^7.11.2",
@@ -95,6 +96,7 @@
     "art": "^0.10.3",
     "babel-eslint": "^10.1.0",
     "basic-auth": "^2.0.1",
+    "better-docs": "^2.3.0",
     "chai": "^4.2.0",
     "chromedriver": "^84.0.1",
     "command-exists": "^1.2.9",
@@ -113,6 +115,7 @@
     "fast-check": "^2.1.0",
     "fs-extra": "^9.0.1",
     "growly": "^1.3.0",
+    "jsdoc": "^3.6.5",
     "mime-db": "^1.44.0",
     "mime-types": "^2.1.27",
     "mocha": "^8.1.1",

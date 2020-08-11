@@ -1,0 +1,441 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> api/course/CourseCollection.ts</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    API Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-base_BaseCollection.html">base/BaseCollection</a></li></ul><h3>Namespaces</h3><ul><li><a href="api.html">api</a></li><li><a href="api_academic-term.html">api/academic-term</a></li><li><a href="api_analytic.html">api/analytic</a></li><li><a href="api_base.html">api/base</a></li><li><a href="api_career.html">api/career</a></li><li><a href="api_course.html">api/course</a></li><li><a href="api_degree-plan.html">api/degree-plan</a></li><li><a href="api_feed.html">api/feed</a></li><li><a href="api_feedback.html">api/feedback</a></li><li><a href="api_help.html">api/help</a></li><li><a href="api_ice.html">api/ice</a></li><li><a href="api_integrity.html">api/integrity</a></li><li><a href="api_interest.html">api/interest</a></li><li><a href="api_level.html">api/level</a></li><li><a href="api_log.html">api/log</a></li><li><a href="api_mentor.html">api/mentor</a></li><li><a href="api_opportunity.html">api/opportunity</a></li><li><a href="api_page-tracking.html">api/page-tracking</a></li><li><a href="api_public-stats.html">api/public-stats</a></li><li><a href="api_radgrad.html">api/radgrad</a></li><li><a href="api_review.html">api/review</a></li><li><a href="api_role.html">api/role</a></li><li><a href="api_slug.html">api/slug</a></li><li><a href="api_star.html">api/star</a></li><li><a href="api_teaser.html">api/teaser</a></li><li><a href="api_test.html">api/test</a></li><li><a href="api_user.html">api/user</a></li><li><a href="api_verification.html">api/verification</a></li></ul><h3>Classes</h3><ul><li><a href="@api_page-tracking.PageInterestsDailySnapshotCollection.html">PageInterestsDailySnapshotCollection</a></li><li><a href="api_academic-term.AcademicTermCollection.html">AcademicTermCollection</a></li><li><a href="api_analytic.IceSnapshotCollection.html">IceSnapshotCollection</a></li><li><a href="api_analytic.PageInterestCollection.html">PageInterestCollection</a></li><li><a href="api_analytic.UserInteractionCollection.html">UserInteractionCollection</a></li><li><a href="api_base.BaseCollection.html">BaseCollection</a></li><li><a href="api_base.BaseSlugCollection.html">BaseSlugCollection</a></li><li><a href="api_base.BaseTypeCollection.html">BaseTypeCollection</a></li><li><a href="api_career.CareerGoalCollection.html">CareerGoalCollection</a></li><li><a href="api_course.CourseCollection.html">CourseCollection</a></li><li><a href="api_course.CourseInstanceCollection.html">CourseInstanceCollection</a></li><li><a href="api_degree-plan.AcademicPlanCollection.html">AcademicPlanCollection</a></li><li><a href="api_degree-plan.AcademicYearInstanceCollection.html">AcademicYearInstanceCollection</a></li><li><a href="api_degree-plan.DesiredDegreeCollection.html">DesiredDegreeCollection</a></li><li><a href="api_degree-plan.exports.PlanChoiceCollection.html">PlanChoiceCollection</a></li><li><a href="api_degree-plan.PreferredChoice.html">PreferredChoice</a></li><li><a href="api_feed.FeedCollection.html">FeedCollection</a></li><li><a href="api_feedback.FeedbackFunctions.html">FeedbackFunctions</a></li><li><a href="api_feedback.FeedbackInstanceCollection.html">FeedbackInstanceCollection</a></li><li><a href="api_help.HelpMessageCollection.html">HelpMessageCollection</a></li><li><a href="api_interest.InterestCollection.html">InterestCollection</a></li><li><a href="api_interest.InterestTypeCollection.html">InterestTypeCollection</a></li><li><a href="api_log.AdvisorLogCollection.html">AdvisorLogCollection</a></li><li><a href="api_mentor.MentorAnswerCollection.html">MentorAnswerCollection</a></li><li><a href="api_mentor.MentorQuestionCollection.html">MentorQuestionCollection</a></li><li><a href="api_opportunity.OpportunityCollection.html">OpportunityCollection</a></li><li><a href="api_opportunity.OpportunityInstanceCollection.html">OpportunityInstanceCollection</a></li><li><a href="api_opportunity.OpportunityTypeCollection.html">OpportunityTypeCollection</a></li><li><a href="api_public-stats.PublicStatsCollection.html">PublicStatsCollection</a></li><li><a href="api_radgrad.RadGradClass.html">RadGradClass</a></li><li><a href="api_review.ReviewCollection.html">ReviewCollection</a></li><li><a href="api_slug.SlugCollection.html">SlugCollection</a></li><li><a href="api_teaser.TeaserCollection.html">TeaserCollection</a></li><li><a href="api_user.AdminProfileCollection.html">AdminProfileCollection</a></li><li><a href="api_user.AdvisorProfileCollection.html">AdvisorProfileCollection</a></li><li><a href="api_user.BaseProfileCollection.html">BaseProfileCollection</a></li><li><a href="api_user.FacultyProfileCollection.html">FacultyProfileCollection</a></li><li><a href="api_user.MentorProfileCollection.html">MentorProfileCollection</a></li><li><a href="api_user.StudentProfileCollection.html">StudentProfileCollection</a></li><li><a href="api_user.UserCollection.html">UserCollection</a></li><li><a href="api_verification.VerificationRequestCollection.html">VerificationRequestCollection</a></li><li><a href="FavoriteAcademicPlanCollection.html">FavoriteAcademicPlanCollection</a></li><li><a href="FavoriteCareerGoalCollection.html">FavoriteCareerGoalCollection</a></li><li><a href="FavoriteCourseCollection.html">FavoriteCourseCollection</a></li><li><a href="FavoriteInterestCollection.html">FavoriteInterestCollection</a></li><li><a href="FavoriteOpportunityCollection.html">FavoriteOpportunityCollection</a></li><li><a href="RadGradPropertiesClass.html">RadGradPropertiesClass</a></li></ul><h3>Interfaces</h3><ul><li><a href="IFacultyPageAboutMeWidgetProps.html">IFacultyPageAboutMeWidgetProps</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AdminDataModelAcademicPlansPage">AdminDataModelAcademicPlansPage</a></li><li><a href="global.html#AdminModerationPage">AdminModerationPage</a></li><li><a href="global.html#AdminPageMenuWidget">AdminPageMenuWidget</a></li><li><a href="global.html#AdminProtectedRoute">AdminProtectedRoute</a></li><li><a href="global.html#ALLOWED_ROLES">ALLOWED_ROLES</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#CardExplorerWidget">CardExplorerWidget</a></li><li><a href="global.html#CompletedVerificationsWidget">CompletedVerificationsWidget</a></li><li><a href="global.html#descriptionPairs">descriptionPairs</a></li><li><a href="global.html#EventVerificationsWidget">EventVerificationsWidget</a></li><li><a href="global.html#ExplorerUsersWidget">ExplorerUsersWidget</a></li><li><a href="global.html#FacultyPageAboutMeWidget">FacultyPageAboutMeWidget</a></li><li><a href="global.html#FirstMenuContainer">FirstMenuContainer</a></li><li><a href="global.html#Footer">Footer</a></li><li><a href="global.html#getCourseNumber">getCourseNumber</a></li><li><a href="global.html#getPlanCount">getPlanCount</a></li><li><a href="global.html#getRandomCourseSlug">getRandomCourseSlug</a></li><li><a href="global.html#getRandomCourseSlugForDept">getRandomCourseSlugForDept</a></li><li><a href="global.html#getRandomDepartment">getRandomDepartment</a></li><li><a href="global.html#getSimpleChoiceNumber">getSimpleChoiceNumber</a></li><li><a href="global.html#itemTitle">itemTitle</a></li><li><a href="global.html#itemTitleString">itemTitleString</a></li><li><a href="global.html#LandingHome">LandingHome</a></li><li><a href="global.html#LandingHomeContainer">LandingHomeContainer</a></li><li><a href="global.html#LandingNavBar">LandingNavBar</a></li><li><a href="global.html#LandingNavBarContainer">LandingNavBarContainer</a></li><li><a href="global.html#makeSampleCareerGoal">makeSampleCareerGoal</a></li><li><a href="global.html#makeSampleCareerGoalArray">makeSampleCareerGoalArray</a></li><li><a href="global.html#makeSampleCareerGoalSlugArray">makeSampleCareerGoalSlugArray</a></li><li><a href="global.html#makeSampleCourseSlugArray">makeSampleCourseSlugArray</a></li><li><a href="global.html#makeSampleInterestArray">makeSampleInterestArray</a></li><li><a href="global.html#makeSampleInterestSlugArray">makeSampleInterestSlugArray</a></li><li><a href="global.html#makeSampleOpportunitySlugArray">makeSampleOpportunitySlugArray</a></li><li><a href="global.html#makeSamplePageInterestInfo">makeSamplePageInterestInfo</a></li><li><a href="global.html#makeSamplePageInterestInfoArray">makeSamplePageInterestInfoArray</a></li><li><a href="global.html#makeSampleUserArray">makeSampleUserArray</a></li><li><a href="global.html#MentorHomePage">MentorHomePage</a></li><li><a href="global.html#MentorMentorSpacePage">MentorMentorSpacePage</a></li><li><a href="global.html#NotAuthorized">NotAuthorized</a></li><li><a href="global.html#NotFound">NotFound</a></li><li><a href="global.html#PendingVerificationsWidget">PendingVerificationsWidget</a></li><li><a href="global.html#ProtectedRoute">ProtectedRoute</a></li><li><a href="global.html#removeEmptyYearsRaw">removeEmptyYearsRaw</a></li><li><a href="global.html#removeYearFromPlanRaw">removeYearFromPlanRaw</a></li><li><a href="global.html#schema">schema</a></li><li><a href="global.html#sendEmail">sendEmail</a></li><li><a href="global.html#Signin">Signin</a></li><li><a href="global.html#Signout">Signout</a></li><li><a href="global.html#validateCourseSlugFormat">validateCourseSlugFormat</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>api/course/CourseCollection.ts</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { Meteor } from 'meteor/meteor';
+import _ from 'lodash';
+import SimpleSchema from 'simpl-schema';
+import { Slugs } from '../slug/SlugCollection';
+import { Interests } from '../interest/InterestCollection';
+import { CourseInstances } from './CourseInstanceCollection';
+import { Feeds } from '../feed/FeedCollection';
+import BaseSlugCollection from '../base/BaseSlugCollection';
+import { ICourseDefine, ICourseUpdate } from '../../typings/radgrad';
+import { isSingleChoice, complexChoiceToArray } from '../degree-plan/PlanChoiceUtilities';
+import { validateCourseSlugFormat } from './CourseUtilities';
+import { PlanChoices } from '../degree-plan/PlanChoiceCollection';
+
+/**
+ * Represents a specific course, such as "ICS 311".
+ * To represent a specific course for a specific academicTerm, use CourseInstance.
+ * @memberOf api/course
+ * @extends api/base~BaseSlugCollection
+ */
+class CourseCollection extends BaseSlugCollection {
+  public unInterestingSlug: string;
+
+  /**
+   * Creates the Course collection.
+   */
+  constructor() {
+    super('Course', new SimpleSchema({
+      name: { type: String },
+      shortName: { type: String },
+      slugID: { type: SimpleSchema.RegEx.Id },
+      num: { type: String },
+      description: { type: String },
+      creditHrs: { type: Number },
+      interestIDs: [SimpleSchema.RegEx.Id],
+      // Optional data
+      syllabus: { type: String, optional: true },
+      corequisites: { type: Array },
+      'corequisites.$': String,
+      prerequisites: { type: Array },
+      'prerequisites.$': String,
+      retired: { type: Boolean, optional: true },
+    }));
+    this.defineSchema = new SimpleSchema({
+      name: String,
+      shortName: { type: String, optional: true },
+      slug: String,
+      description: String,
+      creditHrs: { type: SimpleSchema.Integer, optional: true },
+      interests: [String],
+      syllabus: String,
+      corequisites: { type: Array, optional: true },
+      'corequisites.$': String,
+      prerequisites: { type: Array, optional: true },
+      'prerequisites.$': String,
+      retired: { type: Boolean, optional: true },
+    });
+    this.updateSchema = new SimpleSchema({
+      name: { type: String, optional: true },
+      shortName: { type: String, optional: true },
+      description: { type: String, optional: true },
+      creditHrs: { type: SimpleSchema.Integer, optional: true },
+      interests: { type: Array, optional: true },
+      'interests.$': String,
+      syllabus: { type: String, optional: true },
+      prerequisites: { type: Array, optional: true },
+      'prerequisites.$': String,
+      retired: { type: Boolean, optional: true },
+    });
+    this.unInterestingSlug = 'other';
+  }
+
+  /**
+   * Defines a new Course.
+   * @example
+   * Courses.define({ name: 'Introduction to the theory and practice of scripting',
+   *                  shortName: 'Intro to Scripting',
+   *                  slug: 'ics_215',
+   *                  num: 'ICS 215',
+   *                  description: 'Introduction to scripting languages for the integration of applications.',
+   *                  creditHrs: 4,
+   *                  interests: ['perl', 'javascript', 'ruby'],
+   *                  syllabus: 'http://courses.ics.hawaii.edu/syllabuses/ICS215.html',
+   *                  prerequisites: ['ics_211'] });
+   * @param { Object } description Object with keys name, shortName, slug, num, description, creditHrs,
+   *                   interests, syllabus, and prerequisites.
+   * @param name is the official course name.
+   * @param shortName is an optional abbreviation. Defaults to name.
+   * @param slug must not be previously defined.
+   * @param num the course number.
+   * @param creditHrs is optional and defaults to 3. If supplied, must be a num between 1 and 15.
+   * @param interests is a (possibly empty) array of defined interest slugs or interestIDs.
+   * @param syllabus is optional. If supplied, should be a URL.
+   * @param corequisites is optional. If supplied, must be an array of Course slugs or courseIDs.
+   * @param prerequisites is optional. If supplied, must be an array of previously defined Course slugs or courseIDs.
+   * @param retired is optional, defaults to false.
+   * @throws {Meteor.Error} If the definition includes a defined slug or undefined interest or invalid creditHrs.
+   * @returns The newly created docID.
+   */
+  public define({ name, shortName = name, slug, num, description, creditHrs = 3, interests = [], syllabus, corequisites = [], prerequisites = [], retired = false }: ICourseDefine) {
+    // Make sure the slug has the right format &lt;dept>_&lt;number>
+    validateCourseSlugFormat(slug);
+    // check if slug is defined
+    if (Slugs.isSlugForEntity(slug, this.getType())) {
+      // console.log(`${slug} is already defined for ${this.getType()}`);
+      return Slugs.getEntityID(slug, this.getType());
+    }
+    // console.log(`Defining slug ${slug}`);
+    // Get SlugID, throw error if found.
+    const slugID = Slugs.define({ name: slug, entityName: this.getType() });
+    // Get Interests, throw error if any of them are not found.
+    const interestIDs = Interests.getIDs(interests);
+    // Make sure creditHrs is a num between 1 and 15.
+    if (!(typeof creditHrs === 'number') || (creditHrs &lt; 1) || (creditHrs > 15)) {
+      throw new Meteor.Error(`CreditHrs ${creditHrs} is not a number between 1 and 15.`);
+    }
+    if (!Array.isArray(prerequisites)) {
+      throw new Meteor.Error(`Prerequisites ${prerequisites} is not an array.`);
+    }
+    // make sure each corequisite has a valid format.
+    _.forEach(corequisites, (c) => validateCourseSlugFormat(c));
+    // make sure each prerequisite has a valid format.
+    _.forEach(prerequisites, (p) => validateCourseSlugFormat(p));
+    // Currently we don't dump the DB is a way that prevents forward referencing of prereqs, so we
+    // can't check the validity of prereqs during a define, such as with:
+    //   _.each(prerequisites, (prerequisite) => this.getID(prerequisite));
+    // Instead, we check that prereqs are valid as part of checkIntegrity.
+    // We want to create a PlanChoice for all the courses.
+    if (slug !== 'other' &amp;&amp; !PlanChoices.isDefined(slug)) {
+      PlanChoices.define({ choice: slug, retired });
+    }
+    const courseID =
+      this.collection.insert({
+        name,
+        shortName,
+        slugID,
+        num,
+        description,
+        creditHrs,
+        interestIDs,
+        syllabus,
+        corequisites,
+        prerequisites,
+        retired,
+      });
+    // Connect the Slug to this Interest
+    Slugs.updateEntityID(slugID, courseID);
+    return courseID;
+  }
+
+  /**
+   * Update a Course.
+   * @param instance The docID (or slug) associated with this course.
+   * @param name optional
+   * @param shortName optional
+   * @param num optional
+   * @param description optional
+   * @param creditHrs optional
+   * @param interests An array of interestIDs or slugs (optional)
+   * @param syllabus optional
+   * @param prerequisites An array of course slugs. (optional)
+   * @param retired optional boolean.
+   */
+  public update(instance: string, { name, shortName, num, description, creditHrs, interests, prerequisites, syllabus, retired }: ICourseUpdate) {
+    const docID = this.getID(instance);
+    const updateData: {
+      name?: string;
+      description?: string;
+      interestIDs?: [string];
+      shortName?: string;
+      num?: string;
+      creditHrs?: number;
+      syllabus?: string;
+      prerequisites?: string[];
+      retired?: boolean;
+    } = {};
+    if (name) {
+      updateData.name = name;
+    }
+    if (description) {
+      updateData.description = description;
+    }
+    if (interests) {
+      const interestIDs = Interests.getIDs(interests);
+      updateData.interestIDs = interestIDs;
+    }
+    if (shortName) {
+      updateData.shortName = shortName;
+    }
+    if (num) {
+      updateData.num = num;
+    }
+    if (creditHrs) {
+      updateData.creditHrs = creditHrs;
+    }
+    if (syllabus) {
+      updateData.syllabus = syllabus;
+    }
+    if (prerequisites) {
+      if (!Array.isArray(prerequisites)) {
+        throw new Meteor.Error(`Prerequisites ${prerequisites} is not an Array.`);
+      }
+      _.forEach(prerequisites, (prereq) => {
+        if (!this.hasSlug(prereq)) {
+          throw new Meteor.Error(`Prerequisite ${prereq} is not a slug for a course.`);
+        }
+      });
+      updateData.prerequisites = prerequisites;
+    }
+    if (_.isBoolean(retired)) {
+      updateData.retired = retired;
+    }
+    this.collection.update(docID, { $set: updateData });
+  }
+
+  /**
+   * Remove the Course.
+   * @param instance The docID or slug of the entity to be removed.
+   * @throws { Meteor.Error } If docID is not a Course, or if this course has any associated course instances.
+   */
+  public removeIt(instance: string) {
+    const docID = this.getID(instance);
+    // Check that this is not referenced by any Course Instance.
+    CourseInstances.find().map((courseInstance) => {
+      if (courseInstance.courseID === docID) {
+        throw new Meteor.Error(`Course ${instance} is referenced by a course instance ${courseInstance}.`);
+      }
+      return true;
+    });
+    // OK to delete. First remove any Feeds that reference this course.
+    Feeds.find({ courseID: docID }).map((feed) => Feeds.removeIt(feed._id));
+    // Now remove the Course.
+    return super.removeIt(docID);
+  }
+
+  /**
+   * Returns true if Course has the specified interest.
+   * @param course The user (docID or slug)
+   * @param interest The Interest (docID or slug).
+   * @returns {boolean} True if the course has the associated Interest.
+   * @throws { Meteor.Error } If course is not a course or interest is not a Interest.
+   */
+  public hasInterest(course: string, interest: string) {
+    const interestID = Interests.getID(interest);
+    const doc = this.findDoc(course);
+    return _.includes(doc.interestIDs, interestID);
+  }
+
+  /**
+   * Returns an array of strings, each one representing an integrity problem with this collection.
+   * Returns an empty array if no problems were found.
+   * Checks slugID and interestIDs.
+   * @returns {Array} A (possibly empty) array of strings indicating integrity issues.
+   */
+  public checkIntegrity() {
+    const problems = [];
+    this.find({}, {}).forEach((doc) => {
+      if (!Slugs.isDefined(doc.slugID)) {
+        problems.push(`Bad slugID: ${doc.slugID}`);
+      }
+      _.forEach(doc.interestIDs, (interestID) => {
+        if (!Interests.isDefined(interestID)) {
+          problems.push(`Bad interestID: ${interestID}`);
+        }
+      });
+      _.forEach(doc.corequisites, (coreq) => {
+        if (isSingleChoice(coreq)) {
+          if (!this.hasSlug(coreq)) {
+            problems.push(`Bad course corequisite slug: ${coreq}`);
+          }
+        } else {
+          const slugs = complexChoiceToArray(coreq);
+          _.forEach(slugs, (slug) => {
+            if (!this.hasSlug(slug)) {
+              problems.push(`Bad course corequisite slug in or: ${slug}`);
+            }
+          });
+        }
+      });
+      _.forEach(doc.prerequisites, (prereq) => {
+        if (isSingleChoice(prereq)) {
+          if (!this.hasSlug(prereq)) {
+            problems.push(`Bad course prerequisite slug: ${prereq}`);
+          }
+        } else {
+          const slugs = complexChoiceToArray(prereq);
+          _.forEach(slugs, (slug) => {
+            if (!this.hasSlug(slug)) {
+              problems.push(`Bad course prerequisite slug in or: ${slug}`);
+            }
+          });
+        }
+      });
+    });
+    return problems;
+  }
+
+  /**
+   * Returns an object representing the Course docID in a format acceptable to define().
+   * @param docID The docID of a Course.
+   * @returns { Object } An object representing the definition of docID.
+   */
+  public dumpOne(docID): ICourseDefine {
+    const doc = this.findDoc(docID);
+    const name = doc.name;
+    const shortName = doc.shortName;
+    const slug = Slugs.getNameFromID(doc.slugID);
+    const num = doc.num;
+    const description = doc.description;
+    const creditHrs = doc.creditHrs;
+    const interests = _.map(doc.interestIDs, (interestID) => Interests.findSlugByID(interestID));
+    const syllabus = doc.syllabus;
+    const corequisites = doc.corequisites;
+    const prerequisites = doc.prerequisites;
+    const retired = doc.retired;
+    return {
+      name, shortName, slug, num, description, creditHrs, interests, syllabus, corequisites, prerequisites, retired,
+    };
+  }
+}
+
+/**
+ * Provides the singleton instance of this class to all other entities.
+ * @memberOf api/course
+ */
+export const Courses = new CourseCollection();
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.5</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+</body>
+</html>

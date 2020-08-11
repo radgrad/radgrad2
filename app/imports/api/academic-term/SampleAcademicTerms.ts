@@ -2,6 +2,11 @@ import faker from 'faker';
 import { AcademicTerms } from './AcademicTermCollection';
 import { Slugs } from '../slug/SlugCollection';
 
+/**
+ * Returns a random term.
+ * @return {string} a random academic term.
+ * @memberOf api/academic-term
+ */
 export const getRandomTerm = () => {
   const index = faker.random.number({ max: AcademicTerms.terms.length - 1 });
   return AcademicTerms.terms[index];

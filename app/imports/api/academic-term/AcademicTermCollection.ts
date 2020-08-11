@@ -12,7 +12,8 @@ import { Opportunities } from '../opportunity/OpportunityCollection';
 
 /**
  * Represents a specific academicTerm, such as "Spring, 2016", "Fall, 2017", or "Summer, 2015".
- * @extends BaseSlugCollection
+ * @extends api/base.BaseSlugCollection
+ * @memberOf api/academic-term
  */
 class AcademicTermCollection extends BaseSlugCollection {
   public SPRING: string;
