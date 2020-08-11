@@ -10,7 +10,9 @@ import { ICourseInstance, IOpportunityInstance } from '../../../../typings/radgr
 import { RootState } from '../../../../redux/types';
 
 interface IDepDetailsWidgetProps {
+  // eslint-disable-next-line react/no-unused-prop-types
   selectedCourseInstanceID: string;
+  // eslint-disable-next-line react/no-unused-prop-types
   selectedOpportunityInstanceID: string;
   courseP: boolean;
   opportunityP: boolean;
@@ -23,6 +25,7 @@ const mapStateToProps = (state: RootState) => ({
 });
 
 const DepDetailsWidget = (props: IDepDetailsWidgetProps) => {
+  // eslint-disable-next-line react/prop-types
   const { instance, courseP, opportunityP } = props;
   if (!(courseP || opportunityP)) {
     return (

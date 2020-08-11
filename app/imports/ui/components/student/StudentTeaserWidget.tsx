@@ -16,6 +16,7 @@ import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import TeaserVideo from '../shared/TeaserVideo';
 
 interface IStudentTeaserWidgetProps {
+  // eslint-disable-next-line react/no-unused-prop-types
   match: {
     isExact: boolean;
     path: string;

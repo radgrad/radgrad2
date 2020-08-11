@@ -13,12 +13,12 @@ import BackToTopButton from '../../components/shared/BackToTopButton';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 
 interface IInterestsCardExplorerProps {
+  // eslint-disable-next-line react/no-unused-prop-types
   ready: boolean;
+  // eslint-disable-next-line react/no-unused-prop-types
   interests: IInterest[];
+  // eslint-disable-next-line react/no-unused-prop-types
   count: number;
-  match: object;
-  location: object;
-  history: object;
 }
 
 const renderPage = (props: IInterestsCardExplorerProps) => {
@@ -63,6 +63,7 @@ const renderPage = (props: IInterestsCardExplorerProps) => {
   );
 };
 
+// eslint-disable-next-line react/prop-types
 const LandingInterestsCardExplorer = (props: IInterestsCardExplorerProps) => ((props.ready) ? renderPage(props) : <Loader>Loading Interests</Loader>);
 
 const LandingInterestsCardExplorerCon = withRouter(LandingInterestsCardExplorer);

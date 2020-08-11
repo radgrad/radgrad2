@@ -13,12 +13,12 @@ import BackToTopButton from '../../components/shared/BackToTopButton';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 
 interface ICareerGoalsCardExplorerProps {
+  // eslint-disable-next-line react/no-unused-prop-types
   ready: boolean;
+  // eslint-disable-next-line react/no-unused-prop-types
   careerGoals: ICareerGoal[];
+  // eslint-disable-next-line react/no-unused-prop-types
   count: number;
-  match: object;
-  location: object;
-  history: object;
 }
 
 const renderPage = (props: ICareerGoalsCardExplorerProps) => {
@@ -63,6 +63,7 @@ const renderPage = (props: ICareerGoalsCardExplorerProps) => {
   );
 };
 
+// eslint-disable-next-line react/prop-types
 const LandingCareerGoalsCardExplorer = (props: ICareerGoalsCardExplorerProps) => ((props.ready) ? renderPage(props) : <Loader>Loading Career Goals</Loader>);
 
 const LandingCareerGoalsCardExplorerCon = withRouter(LandingCareerGoalsCardExplorer);

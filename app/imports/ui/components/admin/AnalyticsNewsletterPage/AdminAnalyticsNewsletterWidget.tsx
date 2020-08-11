@@ -41,7 +41,6 @@ const schema = new SimpleSchema({
 const formSchema = new SimpleSchema2Bridge(schema);
 
 interface IAdminAnalyticsNewsletterWidgetProps {
-  userID: string;
   startTestNewsletter: () => any;
   testNewsletterDone: () => any;
   testNewsletterWorking: boolean;

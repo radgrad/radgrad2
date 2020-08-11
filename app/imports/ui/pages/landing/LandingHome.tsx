@@ -11,19 +11,8 @@ import { withListSubscriptions } from '../../layouts/shared/SubscriptionListHOC'
 import BackToTopButton from '../../components/shared/BackToTopButton';
 
 interface ILandingHomeProps {
-  academicPlans: string;
-  careerGoalNames: string;
   careerGoals: string;
-  courseReviews?: string;
   interests: string;
-  levelOne?: string;
-  levelTwo?: string;
-  levelThree?: string;
-  levelFour?: string;
-  levelFive?: string;
-  levelSix?: string;
-  locations?: string;
-  mentors?: string;
   opportunities: string;
   users: string;
 }
@@ -52,19 +41,8 @@ const WithSubs = withListSubscriptions(LandingHome, [PublicStats.getPublicationN
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 const LandingHomeContainer = // console.log(`LandingHomeContainer withTracker()`);
   withTracker(() => ({
-    academicPlans: PublicStats.getPublicStat(PublicStats.academicPlansTotalKey),
-    careerGoalNames: PublicStats.getPublicStat(PublicStats.careerGoalsListKey),
     careerGoals: PublicStats.getPublicStat(PublicStats.careerGoalsTotalKey),
-    courseReviews: PublicStats.getPublicStat(PublicStats.courseReviewsTotalKey),
     interests: PublicStats.getPublicStat(PublicStats.interestsTotalKey),
-    levelOne: PublicStats.getPublicStat(PublicStats.levelOneTotalKey),
-    levelTwo: PublicStats.getPublicStat(PublicStats.levelTwoTotalKey),
-    levelThree: PublicStats.getPublicStat(PublicStats.levelThreeTotalKey),
-    levelFour: PublicStats.getPublicStat(PublicStats.levelFourTotalKey),
-    levelFive: PublicStats.getPublicStat(PublicStats.levelFiveTotalKey),
-    levelSix: PublicStats.getPublicStat(PublicStats.levelSixTotalKey),
-    locations: PublicStats.getPublicStat(PublicStats.usersMentorsLocationsKey),
-    mentors: PublicStats.getPublicStat(PublicStats.usersMentorsTotalKey),
     opportunities: PublicStats.getPublicStat(PublicStats.opportunitiesTotalKey),
     users: PublicStats.getPublicStat(PublicStats.usersTotalKey),
   }))(WithSubs);

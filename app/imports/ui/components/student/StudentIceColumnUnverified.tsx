@@ -22,7 +22,9 @@ interface IStudentIceColumnUnverifiedProps {
   icePoints: (ice: Ice) => number;
   getCourseSlug: (course) => string;
   getOpportunitySlug: (opportunity) => string;
+  // eslint-disable-next-line react/no-unused-prop-types
   courseInstances: ICourseInstance[];
+  // eslint-disable-next-line react/no-unused-prop-types
   opportunityInstances: IOpportunityInstance[];
   match: {
     isExact: boolean;
@@ -54,18 +56,9 @@ const getEventsHelper = (iceType: string, type: string, earned: boolean, term: I
     let allInstances = [];
     const iceInstances = [];
     if (type === 'course') {
-      const courseInstances = CourseInstances.findNonRetired({
-        termID: term._id,
-        studentID: getUserIdFromRoute(props.match),
-        verified: earned,
-      });
-      courseInstances.forEach(courseInstance => allInstances.push(courseInstance));
+      allInstances = _.filter(props.courseInstances, (ci) => ci.verified === earned && ci.termID === term._id);
     } else {
-      allInstances = OpportunityInstances.findNonRetired({
-        termID: term._id,
-        studentID: getUserIdFromRoute(props.match),
-        verified: earned,
-      });
+      allInstances = _.filter(props.opportunityInstances, (oi) => oi.verified === earned && oi.termID === term._id);
     }
     allInstances.forEach((instance) => {
       if (iceType === 'Innovation') {

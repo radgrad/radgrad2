@@ -33,6 +33,7 @@ interface IExplorerCareerGoalsWidgetProps {
       careergoal: string;
     }
   };
+  // eslint-disable-next-line react/no-unused-prop-types
   profile: IProfile;
 }
 

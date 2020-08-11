@@ -28,9 +28,13 @@ import { userInteractionDefineMethod } from '../../../api/analytic/UserInteracti
 import { UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
 
 interface IStudentDegreePlannerProps {
+  // eslint-disable-next-line react/no-unused-prop-types
   selectCourseInstance: (courseInstanceID: string) => any;
+  // eslint-disable-next-line react/no-unused-prop-types
   selectOpportunityInstance: (opportunityInstanceID: string) => any;
+  // eslint-disable-next-line react/no-unused-prop-types
   selectFavoriteDetailsTab: () => any;
+  // eslint-disable-next-line react/no-unused-prop-types
   match: IMatchProps;
 }
 

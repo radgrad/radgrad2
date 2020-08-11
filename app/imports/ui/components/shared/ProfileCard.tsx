@@ -18,7 +18,6 @@ interface IProfileCardProps {
     name: string;
   };
   type: string;
-  canAdd: boolean;
   match: {
     isExact: boolean;
     path: string;
@@ -27,7 +26,6 @@ interface IProfileCardProps {
       username: string;
     }
   };
-  profile: object;
 }
 
 const ProfileCard = (props: IProfileCardProps) => {

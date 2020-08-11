@@ -10,6 +10,7 @@ import { Ice, IStudentProfile } from '../../../typings/radgrad';
 import { radgradMenuProfile } from './shared-widget-names';
 
 interface IRadGradMenuProfileProps {
+  // eslint-disable-next-line react/no-unused-prop-types
   userName: string;
   profile: IStudentProfile;
   displayLevelAndIce: boolean;

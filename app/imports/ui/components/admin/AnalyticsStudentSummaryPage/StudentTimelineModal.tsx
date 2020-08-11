@@ -12,6 +12,7 @@ interface IStudentTimelineModalProps {
   username: string;
   startDate: string;
   endDate: string;
+  // eslint-disable-next-line react/no-unused-prop-types
   interactions: IUserInteraction[];
 }
 

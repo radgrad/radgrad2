@@ -12,12 +12,12 @@ import LandingExplorerMenuContainer from '../../components/landing/LandingExplor
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 
 interface IOpportunitiesCardExplorerProps {
+  // eslint-disable-next-line react/no-unused-prop-types
   ready: boolean;
+  // eslint-disable-next-line react/no-unused-prop-types
   opportunities: IOpportunity[];
+  // eslint-disable-next-line react/no-unused-prop-types
   count: number;
-  match: object;
-  location: object;
-  history: object;
 }
 
 const renderPage = (props: IOpportunitiesCardExplorerProps) => {
@@ -60,6 +60,7 @@ const renderPage = (props: IOpportunitiesCardExplorerProps) => {
   );
 };
 
+// eslint-disable-next-line react/prop-types
 const LandingOpportunitiesCardExplorer = (props: IOpportunitiesCardExplorerProps) => ((props.ready) ? renderPage(props) : <Loader>Loading Opportunities</Loader>);
 
 const LandingOpportunitiesCardExplorerCon = withRouter(LandingOpportunitiesCardExplorer);

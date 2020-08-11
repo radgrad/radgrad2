@@ -13,7 +13,6 @@ interface IMenuItem {
 interface ISecondMenuProps {
   menuItems: IMenuItem[];
   numItems: SemanticWIDTHS;
-  currentUser: string;
   match: {
     isExact: boolean;
     path: string;

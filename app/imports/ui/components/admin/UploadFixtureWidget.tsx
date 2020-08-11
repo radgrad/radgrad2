@@ -9,7 +9,9 @@ import { RootState } from '../../../redux/types';
 /* global FileReader */
 
 interface IUploadFixtureWidgetProps {
+  // eslint-disable-next-line react/no-unused-prop-types
   setUploadFixtureWorking: () => any;
+  // eslint-disable-next-line react/no-unused-prop-types
   setUploadFixtureDone: () => any;
   uploadFixtureWorking: boolean;
 }

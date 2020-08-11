@@ -10,6 +10,7 @@ import { IStudentProfile } from '../../../typings/radgrad';
 import { studentLevelsOthersWidget } from './student-widget-names';
 
 interface IStudentLevelsOthersWidgetProps {
+  // eslint-disable-next-line react/no-unused-prop-types
   match: {
     isExact: boolean;
     path: string;
@@ -20,7 +21,6 @@ interface IStudentLevelsOthersWidgetProps {
     }
   };
   students: IStudentProfile[];
-  studentLevelNumber: number;
 }
 
 const studentsExist = (students): boolean => students.length > 0;
