@@ -6,7 +6,7 @@ import { IInterest } from '../../../typings/radgrad';
 import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import ExplorerMenuNonMobileItem from './ExplorerMenuNonMobileItem';
 import {
-  explorerInterfaces,
+  explorerInterfaces, IExplorerTypes,
   isType,
 } from './explorer-helper-functions';
 import { buildRouteName, isUrlRoleFaculty, isUrlRoleStudent } from './RouterHelperFunctions';
@@ -16,7 +16,7 @@ interface ICardExplorerMenuNonMobileWidgetProps {
   menuAddedList: { item: explorerInterfaces, count: number }[];
   menuCareerList: { item: IInterest, count: number }[] | undefined;
   // eslint-disable-next-line react/no-unused-prop-types
-  type: 'plans' | 'career-goals' | 'courses' | 'degrees' | 'interests' | 'opportunities' | 'users';
+  type: IExplorerTypes;
   match: {
     isExact: boolean;
     path: string;
@@ -28,7 +28,7 @@ interface ICardExplorerMenuNonMobileWidgetProps {
 }
 
 const CardExplorerMenuNonMobileWidget = (props: ICardExplorerMenuNonMobileWidgetProps) => {
-  const { menuAddedList, menuCareerList } = props;
+  const { menuAddedList, menuCareerList, type } = props;
   const adminEmail = RadGradProperties.getAdminEmail();
   const isStudent = isUrlRoleStudent(props.match);
   const isFaculty = isUrlRoleFaculty(props.match);
@@ -41,7 +41,7 @@ const CardExplorerMenuNonMobileWidget = (props: ICardExplorerMenuNonMobileWidget
       {/* The following components are rendered ONLY for STUDENTS: Academic Plans, Courses, and Opportunities. However,
             FACULTY or MENTORS have a 'Suggest a Opportunity / Career Goal' mailto link. */}
       <Responsive minWidth={Responsive.onlyTablet.minWidth}>
-        {(isType(EXPLORER_TYPE.ACADEMICPLANS, props) && isStudent) ?
+        {(isType(EXPLORER_TYPE.ACADEMICPLANS, type) && isStudent) ?
           (
 
             <Menu vertical text className="cardMenu">
@@ -63,7 +63,7 @@ const CardExplorerMenuNonMobileWidget = (props: ICardExplorerMenuNonMobileWidget
           )
           : ''}
 
-        {(isType(EXPLORER_TYPE.COURSES, props) && isStudent) ?
+        {(isType(EXPLORER_TYPE.COURSES, type) && isStudent) ?
           (
             <React.Fragment>
               <Menu vertical text className="cardMenu">
@@ -86,7 +86,7 @@ const CardExplorerMenuNonMobileWidget = (props: ICardExplorerMenuNonMobileWidget
           )
           : ''}
 
-        {isType(EXPLORER_TYPE.OPPORTUNITIES, props) ?
+        {isType(EXPLORER_TYPE.OPPORTUNITIES, type) ?
           (
             <React.Fragment>
               <a href={`mailto:${adminEmail}?subject=New Opportunity Suggestion`}>Suggest a new Opportunity</a>
@@ -128,7 +128,7 @@ const CardExplorerMenuNonMobileWidget = (props: ICardExplorerMenuNonMobileWidget
 
         {/* Components renderable to STUDENTS, FACULTY, and MENTORS. But if we are FACULTY or MENTORS, make sure we
                 don't map over menuAddedList or else we get undefined error. */}
-        {isType(EXPLORER_TYPE.INTERESTS, props) ?
+        {isType(EXPLORER_TYPE.INTERESTS, type) ?
           (
             <Menu vertical text className="cardMenu">
               <Button icon positive className="cardMenu_btn" href={`mailto:${adminEmail}?subject=New Interest Suggestion`}>
@@ -164,7 +164,7 @@ const CardExplorerMenuNonMobileWidget = (props: ICardExplorerMenuNonMobileWidget
           )
           : ''}
 
-        {isType(EXPLORER_TYPE.CAREERGOALS, props) ?
+        {isType(EXPLORER_TYPE.CAREERGOALS, type) ?
           (
             <Menu vertical text className="cardMenu">
               <Button icon positive className="cardMenu_btn" href={`mailto:${adminEmail}?subject=New Career Goal Suggestion`}>

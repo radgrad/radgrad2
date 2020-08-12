@@ -6,11 +6,12 @@ import * as Router from './RouterHelperFunctions';
 import WidgetHeaderNumber from './WidgetHeaderNumber';
 import {
   docToName,
-  docToShortDescription, profileIDToFullname,
+  docToShortDescription, itemToSlugName, profileIDToFullname,
   profileIDToPicture,
   studentsParticipating,
 } from './data-model-helper-functions';
-import { buildExplorerRoute, interestedStudents } from './explorer-helper-functions';
+import { interestedStudents } from './explorer-helper-functions';
+import { buildExplorerRouteName } from './RouterHelperFunctions';
 
 interface IProfileCardProps {
   item: {
@@ -34,6 +35,7 @@ const ProfileCard = (props: IProfileCardProps) => {
   const itemShortDescription = docToShortDescription(item);
   const numberStudents = studentsParticipating(item);
   const interested = interestedStudents(item, type);
+  const slugName = itemToSlugName(item);
 
   return (
     <Card className="radgrad-interest-card">
@@ -61,7 +63,7 @@ const ProfileCard = (props: IProfileCardProps) => {
           ))}
         </Image.Group>
       </Card.Content>
-      <Link to={buildExplorerRoute(props.item, props)} className="ui button">
+      <Link to={buildExplorerRouteName(match, type, slugName)} className="ui button">
         <Icon name="chevron circle right" />
         <br />
         View More

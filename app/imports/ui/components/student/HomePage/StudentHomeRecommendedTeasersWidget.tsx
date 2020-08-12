@@ -2,10 +2,11 @@ import React from 'react';
 import { Header, Segment } from 'semantic-ui-react';
 import { withRouter, Link } from 'react-router-dom';
 import _ from 'lodash';
+import Markdown from 'react-markdown';
 import { ICareerGoal, ICourse, IInterest, IOpportunity, ISlug, ITeaser } from '../../../../typings/radgrad';
 import { Teasers } from '../../../../api/teaser/TeaserCollection';
 import { Users } from '../../../../api/user/UserCollection';
-import { buildRouteName, getUsername, IMatchProps } from '../../shared/RouterHelperFunctions';
+import { buildRouteName, getUsername, IMatchProps, renderLink } from '../../shared/RouterHelperFunctions';
 import { Interests } from '../../../../api/interest/InterestCollection';
 import { docToShortDescription } from '../../shared/data-model-helper-functions';
 import TeaserVideo from '../../shared/TeaserVideo';
@@ -109,7 +110,11 @@ const StudentHomeRecommendedTeasersWidget = (props: IStudentHomeRecommendedTease
 
             <Segment.Group>
               <Header>{getTeaserTitle(teaser)}</Header>
-              {getTeaserDescription(teaser)}...
+              <Markdown
+                escapeHtml
+                source={`${getTeaserDescription(teaser)}...`}
+                renderers={{ link: (p) => renderLink(p, match) }}
+              />
               <Link to={getTeaserRoute(teaser)}>
                 VIEW MORE
               </Link>

@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Users } from '../../../api/user/UserCollection';
-import { URL_ROLES } from '../../../startup/client/route-constants';
+import { EXPLORER_TYPE, URL_ROLES } from '../../../startup/client/route-constants';
+import { Slugs } from '../../../api/slug/SlugCollection';
 
 export interface IMatchProps {
   isExact: boolean;
@@ -45,8 +46,7 @@ export const getBaseRoute = (match: IMatchProps): string => {
   const username = match.params.username;
   const baseUrl = match.url;
   const baseIndex = baseUrl.indexOf(username);
-  const baseRoute = `${baseUrl.substring(0, baseIndex)}${username}`;
-  return baseRoute;
+  return `${baseUrl.substring(0, baseIndex)}${username}`;
 };
 
 // Builds a route name and returns it. Make sure routeName is preceeded by a forward slash ('/').
@@ -60,8 +60,40 @@ export const buildRouteName = (match: IMatchProps, routeName: string): string =>
   //   throw new Error('buildRouteName() function from RouterHelperFunctions.tsx requires that the second parameter must have the forward slash (/) as the first character.');
   // }
   const baseRoute = getBaseRoute(match);
-  const route = `${baseRoute}${routeName}`;
-  return route;
+  return `${baseRoute}${routeName}`;
+};
+
+// Builds an explorer route name based on the type and the slug.
+// Use EXPLORER_TYPE constants for the type
+export const buildExplorerRouteName = (match: IMatchProps, type: string, slug: string): string => {
+  if (!Slugs.isDefined(slug)) {
+    console.error(`Bad slug: ${slug}`);
+  } else {
+    const baseExplorerRouteName = `/${EXPLORER_TYPE.HOME}`;
+    let route = '';
+    switch (type) {
+      case EXPLORER_TYPE.ACADEMICPLANS:
+        route = `${baseExplorerRouteName}/${EXPLORER_TYPE.ACADEMICPLANS}/${slug}`;
+        break;
+      case EXPLORER_TYPE.CAREERGOALS:
+        route = `${baseExplorerRouteName}/${EXPLORER_TYPE.CAREERGOALS}/${slug}`;
+        break;
+      case EXPLORER_TYPE.COURSES:
+        route = `${baseExplorerRouteName}/${EXPLORER_TYPE.COURSES}/${slug}`;
+        break;
+      case EXPLORER_TYPE.INTERESTS:
+        route = `${baseExplorerRouteName}/${EXPLORER_TYPE.INTERESTS}/${slug}`;
+        break;
+      case EXPLORER_TYPE.OPPORTUNITIES:
+        route = `${baseExplorerRouteName}/${EXPLORER_TYPE.OPPORTUNITIES}/${slug}`;
+        break;
+      default:
+        console.error(`Bad explorer type: ${type}`);
+        break;
+    }
+    return buildRouteName(match, route);
+  }
+  return undefined;
 };
 
 // Returns the parameter by index (the parameters AFTER the base route)
@@ -73,8 +105,7 @@ export const getUrlParam = (match: IMatchProps, index: number) => {
   const parameters = splitUrlIntoArray(match);
   const username = getUsername(match);
   const usernameIndex = parameters.indexOf(username);
-  const param = parameters[usernameIndex + index];
-  return param;
+  return parameters[usernameIndex + index];
 };
 
 // Returns all the parameters AFTER the base route based on the match object
@@ -83,8 +114,7 @@ export const getAllUrlParams = (match: IMatchProps) => {
   const parameters = splitUrlIntoArray(match);
   const username = getUsername(match);
   const usernameIndex = parameters.indexOf(username);
-  const allParams = parameters.slice(usernameIndex + 1);
-  return allParams;
+  return parameters.slice(usernameIndex + 1);
 };
 
 // Returns all the parameters AFTER the base route based on the location object's pathname parameter
@@ -94,16 +124,14 @@ export const getAllUrlParamsByLocationObject = (match: IMatchProps, location: IL
   const parameters = location.pathname.split('/');
   const username = getUsername(match);
   const usernameIndex = parameters.indexOf(username);
-  const allParams = parameters.slice(usernameIndex + 1);
-  return allParams;
+  return parameters.slice(usernameIndex + 1);
 };
 
 // Returns the last param of the URL
 // i.e., /student/abi@hawaii/edu/param1/param2/param3/param4 => param4
 export const getLastUrlParam = (match: IMatchProps): string => {
   const parameters = splitUrlIntoArray(match);
-  const lastParam = parameters[parameters.length - 1];
-  return lastParam;
+  return parameters[parameters.length - 1];
 };
 
 // Returns the role of the USERNAME of the url
@@ -112,8 +140,7 @@ export const getRoleByUrl = (match: IMatchProps): string => {
   const url = match.url;
   const username = getUsername(match);
   const indexUsername = url.indexOf(username);
-  const role = url.substring(1, indexUsername - 1);
-  return role;
+  return url.substring(1, indexUsername - 1);
 };
 
 // Returns if the role by URL is Admin
