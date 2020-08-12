@@ -43,12 +43,15 @@ const OpportunityInformationItem = (props: IOpportunityItemWidgetProps) => {
   return (
     <Grid.Row>
       <Grid columns={2}>
+        {/* Opportunity Logo */}
         <Grid.Column width={3}>
           {/* TODO: See issue-274 */}
           <Image src="/images/radgrad_logo.png" />
         </Grid.Column>
 
+        {/* Opportunity Information */}
         <Grid.Column width={13}>
+          {/* Header (Name and ICE Points) */}
           <Grid.Row columns={2}>
             <Grid.Column>
               <Header as="h3">
@@ -63,12 +66,16 @@ const OpportunityInformationItem = (props: IOpportunityItemWidgetProps) => {
               <IceHeader ice={opportunityICE} />
             </Grid.Column>
           </Grid.Row>
+
+          {/* Metadata (Opportunity Type and Academic Terms) */}
           <Grid.Row>
             <b>Opportunity Type: </b> {opportunityType}
           </Grid.Row>
           <Grid.Row>
             <b>Academic Terms: </b> {academicTerms}
           </Grid.Row>
+
+          {/* Description */}
           <Grid.Row>
             <Markdown
               escapeHtml
@@ -76,6 +83,8 @@ const OpportunityInformationItem = (props: IOpportunityItemWidgetProps) => {
               renderers={{ link: (p) => renderLink(p, match) }}
             />
           </Grid.Row>
+
+          {/* Misc (Related Interest Labels and Students Participating) */}
           <Grid.Row>
             <Grid>
               <Grid.Column width={14} floated="left">
