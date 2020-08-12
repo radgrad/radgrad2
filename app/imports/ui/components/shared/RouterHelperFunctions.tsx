@@ -63,9 +63,36 @@ export const buildRouteName = (match: IMatchProps, routeName: string): string =>
   return `${baseRoute}${routeName}`;
 };
 
-// Builds an explorer route name based on the type and the slug.
+// Builds a route to the CARD page of an explorer based on the type
+export const buildExplorerRoute = (match: IMatchProps, type: string): string => {
+  const baseExplorerRouteName = `/${EXPLORER_TYPE.HOME}`;
+  let route = '';
+  switch (type) {
+    case EXPLORER_TYPE.ACADEMICPLANS:
+      route = `${baseExplorerRouteName}/${EXPLORER_TYPE.ACADEMICPLANS}`;
+      break;
+    case EXPLORER_TYPE.CAREERGOALS:
+      route = `${baseExplorerRouteName}/${EXPLORER_TYPE.CAREERGOALS}`;
+      break;
+    case EXPLORER_TYPE.COURSES:
+      route = `${baseExplorerRouteName}/${EXPLORER_TYPE.COURSES}`;
+      break;
+    case EXPLORER_TYPE.INTERESTS:
+      route = `${baseExplorerRouteName}/${EXPLORER_TYPE.INTERESTS}`;
+      break;
+    case EXPLORER_TYPE.OPPORTUNITIES:
+      route = `${baseExplorerRouteName}/${EXPLORER_TYPE.OPPORTUNITIES}`;
+      break;
+    default:
+      console.error(`Bad explorer type: ${type}`);
+      break;
+  }
+  return buildRouteName(match, route);
+};
+
+// Builds a route to the INDIVIDUAL page of an explorer item based on the type and slug
 // Use EXPLORER_TYPE constants for the type
-export const buildExplorerRouteName = (match: IMatchProps, type: string, slug: string): string => {
+export const buildExplorerSlugRoute = (match: IMatchProps, type: string, slug: string): string => {
   if (!Slugs.isDefined(slug)) {
     console.error(`Bad slug: ${slug}`);
   } else {

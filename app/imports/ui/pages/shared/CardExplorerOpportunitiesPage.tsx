@@ -5,7 +5,7 @@ import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidge
 import GuidedTourStudentOpportunities from '../landing/GuidedTourStudentOpportunities';
 import CardExplorerOpportunitiesWidget
   from '../../components/shared/CardExplorerOpportunitiesPage/CardExplorerOpportunitiesWidget';
-import CardExplorerSummerOpportunitiesWidget from '../../components/shared/CardExplorerSummerOpportunitiesWidget';
+import CardExplorerSummerOpportunitiesWidget from '../../components/shared/CardExplorerOpportunitiesPage/CardExplorerSummerOpportunitiesWidget';
 import TeaserVideo from '../../components/shared/TeaserVideo';
 import { radgradVideos } from '../../../api/radgrad/radgrad-videos';
 

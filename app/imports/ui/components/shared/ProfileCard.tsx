@@ -11,7 +11,7 @@ import {
   studentsParticipating,
 } from './data-model-helper-functions';
 import { interestedStudents } from './explorer-helper-functions';
-import { buildExplorerRouteName } from './RouterHelperFunctions';
+import { buildExplorerSlugRoute } from './RouterHelperFunctions';
 
 interface IProfileCardProps {
   item: {
@@ -63,7 +63,7 @@ const ProfileCard = (props: IProfileCardProps) => {
           ))}
         </Image.Group>
       </Card.Content>
-      <Link to={buildExplorerRouteName(match, type, slugName)} className="ui button">
+      <Link to={buildExplorerSlugRoute(match, type, slugName)} className="ui button">
         <Icon name="chevron circle right" />
         <br />
         View More

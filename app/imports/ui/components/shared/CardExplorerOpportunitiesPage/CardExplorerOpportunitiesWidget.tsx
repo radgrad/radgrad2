@@ -6,7 +6,7 @@ import WidgetHeaderNumber from '../WidgetHeaderNumber';
 import { availableOpps, checkForNoItems, IExplorerTypes, matchingOpportunities } from '../explorer-helper-functions';
 import { IMatchProps } from '../RouterHelperFunctions';
 import OpportunitySortWidget, { opportunitySortKeys } from '../OpportunitySortWidget';
-import OpportunityCardWidget from './OpportunityInformationItem';
+import OpportunityInformationItem, { IOpportunityInformationItemConfiguration } from './OpportunityInformationItem';
 import * as Router from '../RouterHelperFunctions';
 import { FavoriteInterests } from '../../../../api/favorite/FavoriteInterestCollection';
 import PreferedChoice from '../../../../api/degree-plan/PreferredChoice';
@@ -17,12 +17,19 @@ interface ICardExplorerOpportunitiesWidgetProps {
   match: IMatchProps;
 }
 
+const opportunityInformationItemConfiguration: IOpportunityInformationItemConfiguration = {
+  showLogo: true,
+  showMetadata: true,
+  showStudentsParticipating: true,
+};
+
 const CardExplorerOpportunitiesWidget = (props: ICardExplorerOpportunitiesWidgetProps) => {
   const { match } = props;
-  const [sortOpportunitiesChoiceState, setSortOpportunitiesChoice] = useState(opportunitySortKeys.recommended);
 
+  const [sortOpportunitiesChoiceState, setSortOpportunitiesChoice] = useState(opportunitySortKeys.recommended);
   const opportunitiesItemCount = availableOpps(match).length;
   let opportunities: IOpportunity[] = matchingOpportunities(match);
+
   switch (sortOpportunitiesChoiceState) {
     case opportunitySortKeys.recommended:
       // eslint-disable-next-line no-case-declarations
@@ -44,6 +51,7 @@ const CardExplorerOpportunitiesWidget = (props: ICardExplorerOpportunitiesWidget
     default:
       opportunities = _.sortBy(opportunities, (item) => item.name);
   }
+
   return (
     <>
       <Grid.Row>
@@ -60,7 +68,11 @@ const CardExplorerOpportunitiesWidget = (props: ICardExplorerOpportunitiesWidget
         <Divider />
       </Grid.Row>
       {opportunities.map((opportunity) => (
-        <OpportunityCardWidget key={opportunity._id} opportunity={opportunity} />
+        <OpportunityInformationItem
+          key={opportunity._id}
+          opportunity={opportunity}
+          informationConfiguration={opportunityInformationItemConfiguration}
+        />
       ))}
     </>
   );

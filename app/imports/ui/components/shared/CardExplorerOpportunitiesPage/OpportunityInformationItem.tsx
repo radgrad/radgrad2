@@ -6,7 +6,7 @@ import _ from 'lodash';
 import { IOpportunity, ISlug } from '../../../../typings/radgrad';
 import { docToShortDescription } from '../data-model-helper-functions';
 import IceHeader from '../IceHeader';
-import { buildExplorerRouteName, IMatchProps, renderLink } from '../RouterHelperFunctions';
+import { buildExplorerSlugRoute, IMatchProps, renderLink } from '../RouterHelperFunctions';
 import InterestList from '../InterestList';
 import OpportunityStudentsParticipatingWidget from '../../student/OpportunityStudentsParticipatingWidget';
 import { OpportunityTypes } from '../../../../api/opportunity/OpportunityTypeCollection';
@@ -15,8 +15,16 @@ import { replaceTermString } from '../helper-functions';
 import { Slugs } from '../../../../api/slug/SlugCollection';
 import { EXPLORER_TYPE } from '../../../../startup/client/route-constants';
 
+// Certain parts of pages don't show other information such students participating, logo, opportunity, type, and academic terms
+export interface IOpportunityInformationItemConfiguration {
+  showLogo: boolean;
+  showMetadata: boolean;
+  showStudentsParticipating: boolean;
+}
+
 interface IOpportunityItemWidgetProps {
   match: IMatchProps;
+  informationConfiguration: IOpportunityInformationItemConfiguration;
   opportunity: IOpportunity;
 }
 
@@ -32,7 +40,12 @@ const getOpportunityAcademicTerms = (opportunity: IOpportunity): string[] => {
 };
 
 const OpportunityInformationItem = (props: IOpportunityItemWidgetProps) => {
-  const { match, opportunity } = props;
+  const { match, informationConfiguration, opportunity } = props;
+
+  const interestListStyle: React.CSSProperties = {
+    marginTop: '5px',
+  };
+
   const opportunityICE = opportunity.ice;
   const opportunityType = getOpportunityType(opportunity);
   const opportunityShortDescription = docToShortDescription(opportunity);
@@ -42,21 +55,23 @@ const OpportunityInformationItem = (props: IOpportunityItemWidgetProps) => {
   const opportunitySlug = opportunitySlugDoc.name;
   return (
     <Grid.Row>
-      <Grid columns={2}>
+      <Grid columns={informationConfiguration.showLogo ? 2 : undefined}>
         {/* Opportunity Logo */}
-        <Grid.Column width={3}>
-          {/* TODO: See issue-274 */}
-          <Image src="/images/radgrad_logo.png" />
-        </Grid.Column>
+        {informationConfiguration.showLogo ? (
+          <Grid.Column width={3}>
+            {/* TODO: See issue-274 */}
+            <Image src="/images/radgrad_logo.png" />
+          </Grid.Column>
+        ) : ''}
 
         {/* Opportunity Information */}
-        <Grid.Column width={13}>
+        <Grid.Column width={informationConfiguration.showLogo ? 13 : undefined}>
           {/* Header (Name and ICE Points) */}
           <Grid.Row columns={2}>
             <Grid.Column>
               <Header as="h3">
                 <Link
-                  to={buildExplorerRouteName(match, EXPLORER_TYPE.OPPORTUNITIES, opportunitySlug)}
+                  to={buildExplorerSlugRoute(match, EXPLORER_TYPE.OPPORTUNITIES, opportunitySlug)}
                 >
                   {opportunity.name.toUpperCase()}
                 </Link>
@@ -68,12 +83,16 @@ const OpportunityInformationItem = (props: IOpportunityItemWidgetProps) => {
           </Grid.Row>
 
           {/* Metadata (Opportunity Type and Academic Terms) */}
-          <Grid.Row>
-            <b>Opportunity Type: </b> {opportunityType}
-          </Grid.Row>
-          <Grid.Row>
-            <b>Academic Terms: </b> {academicTerms}
-          </Grid.Row>
+          {informationConfiguration.showMetadata ? (
+            <>
+              <Grid.Row>
+                <b>Opportunity Type: </b> {opportunityType}
+              </Grid.Row>
+              <Grid.Row>
+                <b>Academic Terms: </b> {academicTerms}
+              </Grid.Row>
+            </>
+          ) : ''}
 
           {/* Description */}
           <Grid.Row>
@@ -87,12 +106,18 @@ const OpportunityInformationItem = (props: IOpportunityItemWidgetProps) => {
           {/* Misc (Related Interest Labels and Students Participating) */}
           <Grid.Row>
             <Grid>
-              <Grid.Column width={14} floated="left">
+              <Grid.Column
+                width={informationConfiguration.showStudentsParticipating ? 14 : undefined}
+                style={interestListStyle}
+                floated="left"
+              >
                 <InterestList size="mini" item={opportunity} />
               </Grid.Column>
-              <Grid.Column width={2} floated="right">
-                <OpportunityStudentsParticipatingWidget opportunity={opportunity} />
-              </Grid.Column>
+              {informationConfiguration.showStudentsParticipating ? (
+                <Grid.Column width={2} floated="right">
+                  <OpportunityStudentsParticipatingWidget opportunity={opportunity} />
+                </Grid.Column>
+              ) : ''}
             </Grid>
           </Grid.Row>
         </Grid.Column>

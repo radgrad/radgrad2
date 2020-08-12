@@ -10,7 +10,7 @@ import { Courses } from '../../../../api/course/CourseCollection';
 import { Interests } from '../../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
 import { docToShortDescription } from '../../shared/data-model-helper-functions';
-import { buildExplorerRouteName, IMatchProps, renderLink } from '../../shared/RouterHelperFunctions';
+import { buildExplorerSlugRoute, IMatchProps, renderLink } from '../../shared/RouterHelperFunctions';
 import { EXPLORER_TYPE } from '../../../../startup/client/route-constants';
 
 interface ITeaserInformationItemProps {
@@ -55,13 +55,13 @@ const getTeaserRoute = (match: IMatchProps, teaser: ITeaser): string => {
   const slug: ISlug = Slugs.findOne({ _id: teaser.targetSlugID });
   switch (slug.entityName) {
     case CareerGoals.getType():
-      return buildExplorerRouteName(match, EXPLORER_TYPE.CAREERGOALS, slug.name);
+      return buildExplorerSlugRoute(match, EXPLORER_TYPE.CAREERGOALS, slug.name);
     case Courses.getType():
-      return buildExplorerRouteName(match, EXPLORER_TYPE.COURSES, slug.name);
+      return buildExplorerSlugRoute(match, EXPLORER_TYPE.COURSES, slug.name);
     case Interests.getType():
-      return buildExplorerRouteName(match, EXPLORER_TYPE.INTERESTS, slug.name);
+      return buildExplorerSlugRoute(match, EXPLORER_TYPE.INTERESTS, slug.name);
     case Opportunities.getType():
-      return buildExplorerRouteName(match, EXPLORER_TYPE.OPPORTUNITIES, slug.name);
+      return buildExplorerSlugRoute(match, EXPLORER_TYPE.OPPORTUNITIES, slug.name);
     default:
       console.error(`Bad slug.entityName: ${slug.entityName}`);
   }
@@ -104,7 +104,7 @@ const TeaserInformationItem = (props: ITeaserInformationItemProps) => {
             {/* View More Button */}
             <Grid.Row style={viewMoreButtonStyle}>
               <Link to={teaserRoute}>
-                VIEW MORE
+                <u>VIEW MORE</u>
               </Link>
             </Grid.Row>
           </Grid.Column>
