@@ -15,7 +15,9 @@ import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 interface IDegreesCardExplorerProps {
   // eslint-disable-next-line react/no-unused-prop-types
   ready: boolean;
+  // eslint-disable-next-line react/no-unused-prop-types
   desiredDegrees: IDesiredDegree[];
+  // eslint-disable-next-line react/no-unused-prop-types
   count: number;
 }
 

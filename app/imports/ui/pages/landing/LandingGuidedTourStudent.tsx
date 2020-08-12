@@ -24,12 +24,19 @@ import AdvisorLog from '../../components/guidedtour/student/advisor-log';
 import WhatsNext from '../../components/guidedtour/student/whats-next';
 
 interface IGuidedTourStudentProps {
+  // eslint-disable-next-line react/no-unused-prop-types
   interests: number;
+  // eslint-disable-next-line react/no-unused-prop-types
   careerGoals: string;
+  // eslint-disable-next-line react/no-unused-prop-types
   courses: number;
+  // eslint-disable-next-line react/no-unused-prop-types
   courseReviews: number;
+  // eslint-disable-next-line react/no-unused-prop-types
   opportunities: number;
+  // eslint-disable-next-line react/no-unused-prop-types
   mentors: number;
+  // eslint-disable-next-line react/no-unused-prop-types
   mentorLocations: string;
   ready: boolean;
 }
