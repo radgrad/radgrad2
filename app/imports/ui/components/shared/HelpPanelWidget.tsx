@@ -3,45 +3,41 @@ import Markdown from 'react-markdown';
 import { withRouter } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import _ from 'lodash';
-import { Grid, Header } from 'semantic-ui-react';
-import { IHelpDefine } from '../../../typings/radgrad';
+import { Grid, Header, Divider } from 'semantic-ui-react';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import * as Router from './RouterHelperFunctions';
-import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
 import { IMatchProps } from './RouterHelperFunctions';
+import { IHelpMessage } from '../../../typings/radgrad';
 
 interface IHelpPanelWidgetProps {
-  helpMessages: IHelpDefine[];
   match: IMatchProps;
+  helpMessages: IHelpMessage[];
 }
 
 const HelpPanelWidget = (props: IHelpPanelWidgetProps) => {
-  const { match } = props;
+  // FIXME: These are giving an ESLint error saying these props are missing in props validation (react/prop-types)
+  const { match, helpMessages } = props;
 
-  const helpMessage = _.find(props.helpMessages, (m) => m.routeName === match.path);
-  const adminEmail = RadGradProperties.getAdminEmail();
-  const helpText = helpMessage ? `${helpMessage.text}
-
-#### Need more help?
-
-If you have additional questions, please email [${adminEmail}](mailto:${adminEmail}).` : '';
+  const helpMessage = _.find(helpMessages, (m) => m.routeName === match.path);
+  const helpText = helpMessage ? `${helpMessage.text}` : '';
   return (helpMessage) ? (
     <Grid.Column>
       <Header as="h1">{helpMessage.title}</Header>
-      <p>
-        <Markdown
-          escapeHtml={false}
-          source={helpText}
-          renderers={{ link: (lProps) => Router.renderLink(lProps, match) }}
-        />
-      </p>
+      <Markdown
+        escapeHtml={false}
+        source={helpText}
+        renderers={{ link: (lProps) => Router.renderLink(lProps, match) }}
+      />
+      <Divider />
     </Grid.Column>
   ) : '';
 };
 
-export default withRouter(withTracker((props) => {
+const HelpPanelWidgetCon = withRouter(HelpPanelWidget);
+const HelpPanelWidgetContainer = withTracker((props) => {
   const helpMessages = HelpMessages.findNonRetired({ routeName: props.match.path });
   return {
     helpMessages,
   };
-})(HelpPanelWidget));
+})(HelpPanelWidgetCon);
+export default HelpPanelWidgetContainer;

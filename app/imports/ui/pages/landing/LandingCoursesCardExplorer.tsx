@@ -15,7 +15,9 @@ import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 interface ICoursesCardExplorerProps {
   // eslint-disable-next-line react/no-unused-prop-types
   ready: boolean;
+  // eslint-disable-next-line react/no-unused-prop-types
   courses: ICourse[];
+  // eslint-disable-next-line react/no-unused-prop-types
   count: number;
 }
 

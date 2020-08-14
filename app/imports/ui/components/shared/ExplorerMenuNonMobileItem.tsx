@@ -112,8 +112,6 @@ const getItemStatus = (item: explorerInterfaces, props: IExplorerMenuNonMobileIt
       return userCareerGoals(item as ICareerGoal, props);
     case EXPLORER_TYPE.COURSES:
       return userCourses(item as ICourse, props);
-    // case 'degrees': users currently cannot add a desired degree to their profile
-    //   return userDegrees(item.item as DesiredDegree);
     case EXPLORER_TYPE.INTERESTS:
       return userInterests(item as IInterest, props);
     case EXPLORER_TYPE.OPPORTUNITIES:

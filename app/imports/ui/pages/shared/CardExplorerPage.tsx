@@ -147,7 +147,8 @@ const CardExplorerPage = (props: ICardExplorerPageProps) => {
         <Container>
           <Grid stackable>
             <Grid.Row className="helpPanel">
-              <Grid.Column width={16}><HelpPanelWidget /></Grid.Column>
+              {/* TODO Uncomment */}
+              {/* <Grid.Column width={16}><HelpPanelWidget /></Grid.Column> */}
             </Grid.Row>
             <Grid.Row>
               <Grid.Column width={4}>

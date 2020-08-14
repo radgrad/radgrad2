@@ -9,7 +9,6 @@ import { Users } from '../../../api/user/UserCollection';
 import { ROLE } from '../../../api/role/Role';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
-import ExplorerCard from './ExplorerCard';
 import ProfileCard from './ProfileCard';
 import TermCard from './TermCard';
 import PlanCard from './PlanCard';
@@ -20,13 +19,12 @@ import {
   buildHeader,
   checkForNoItems,
   getItems,
-  isType,
+  isType, IExplorerTypes,
 } from './explorer-helper-functions';
 import { cardExplorerWidget } from './shared-widget-names';
 import CourseFilterWidget, { courseFilterKeys } from './CourseFilterWidget';
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 import PreferedChoice from '../../../api/degree-plan/PreferredChoice';
-import OpportunitySortWidget, { opportunitySortKeys } from './OpportunitySortWidget';
 import { IAdvisorProfile, IFacultyProfile, IMentorProfile, IStudentProfile } from '../../../typings/radgrad';
 import { RootState } from '../../../redux/types';
 import { scrollPositionActions } from '../../../redux/shared/scrollPosition';
@@ -52,7 +50,7 @@ interface ICardExplorerWidgetProps extends ICardExplorerMenuWidgetProps {
   mentorProfile: IMentorProfile[];
   // eslint-disable-next-line react/no-unused-prop-types
   menuList: object[];
-  type: 'plans' | 'career-goals' | 'courses' | 'degrees' | 'interests' | 'opportunities' | 'users';
+  type: IExplorerTypes;
   match: {
     isExact: boolean;
     path: string;
@@ -119,7 +117,6 @@ const mapDispatchToProps = (dispatch) => ({
 const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
   // console.log('CardExplorerWidget', props);
   const [filterCoursesChoiceState, setFilterCoursesChoice] = useState(courseFilterKeys.none);
-  const [sortOpportunitiesChoiceState, setSortOpportunitiesChoice] = useState(opportunitySortKeys.recommended);
 
   /* Styles */
   const uppercaseTextTransformStyle: React.CSSProperties = { textTransform: 'uppercase' };
@@ -133,24 +130,24 @@ const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
   /* Variables */
   const header = buildHeader(props); // The header Title and Count
   let items = getItems(props); // The items to map over
-  const { type } = props;
+  const { type, match } = props;
 
 // For the Academic Plans Card Explorer
-  const buildPlanCard = isType(EXPLORER_TYPE.ACADEMICPLANS, props);
+  const buildPlanCard = isType(EXPLORER_TYPE.ACADEMICPLANS, type);
 
 // For Career Goals or Interests (or any future Card Explorer that has an "Add to Profile" functionality)
-  const buildProfileCard = isType(EXPLORER_TYPE.INTERESTS, props) || isType(EXPLORER_TYPE.CAREERGOALS, props);
-  if (isType(EXPLORER_TYPE.CAREERGOALS, props)) {
+  const buildProfileCard = isType(EXPLORER_TYPE.INTERESTS, type) || isType(EXPLORER_TYPE.CAREERGOALS, type);
+  if (isType(EXPLORER_TYPE.CAREERGOALS, type)) {
     // sort items by interest match
-    const userID = Router.getUserIdFromRoute(props.match);
+    const userID = Router.getUserIdFromRoute(match);
     const favorites = FavoriteInterests.findNonRetired({ userID });
     const interestIDs = _.map(favorites, (f) => f.interestID);
     const preferred = new PreferedChoice(items, interestIDs);
     items = preferred.getOrderedChoices();
   }
 // For Courses or Opportunities (or any future Card Explorer that has an "Add to Plan" functionality)
-  const buildTermCard = isType(EXPLORER_TYPE.COURSES, props) || isType(EXPLORER_TYPE.OPPORTUNITIES, props);
-  const isCourseExplorer = isType(EXPLORER_TYPE.COURSES, props);
+  const buildTermCard = isType(EXPLORER_TYPE.COURSES, type) || isType(EXPLORER_TYPE.OPPORTUNITIES, type);
+  const isCourseExplorer = isType(EXPLORER_TYPE.COURSES, type);
   if (isCourseExplorer) {
     items = _.sortBy(items, (item) => item.num);
     switch (filterCoursesChoiceState) {
@@ -176,37 +173,11 @@ const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
       // do no filtering
     }
   }
-  const isOpportunityExplorer = isType(EXPLORER_TYPE.OPPORTUNITIES, props);
-  if (isOpportunityExplorer) {
-    switch (sortOpportunitiesChoiceState) {
-      case opportunitySortKeys.recommended:
-        // eslint-disable-next-line no-case-declarations
-        const userID = Router.getUserIdFromRoute(props.match);
-        // eslint-disable-next-line no-case-declarations
-        const favorites = FavoriteInterests.findNonRetired({ userID });
-        // eslint-disable-next-line no-case-declarations
-        const interestIDs = _.map(favorites, (f) => f.interestID);
-        // eslint-disable-next-line no-case-declarations
-        const preferred = new PreferedChoice(items, interestIDs);
-        items = preferred.getOrderedChoices();
-        break;
-      case opportunitySortKeys.innovation:
-        items = _.sortBy(items, (item) => -item.ice.i);
-        break;
-      case opportunitySortKeys.experience:
-        items = _.sortBy(items, (item) => -item.ice.e);
-        break;
-      default:
-        items = _.sortBy(items, (item) => item.name);
-    }
-  }
-  const isStudent = Router.isUrlRoleStudent(props.match);
 
-// For Degrees (or any future Card Explore that only has a "View More" functionality)
-  const buildExplorerCard = isType(EXPLORER_TYPE.DEGREES, props);
+  const isStudent = Router.isUrlRoleStudent(match);
 
   // Certain "Adding" functinalities should only be exposed to "Student" role, not Faculty or Mentor
-  const canAdd = Router.isUrlRoleStudent(props.match);
+  const canAdd = Router.isUrlRoleStudent(match);
   // Saving Scroll Position
   const { plansScrollPosition, careerGoalsScrollPosition, coursesScrollPosition, degreesScrollPosition, interestsScrollPosition, opportunitiesScrollPosition } = props;
   const { setPlansScrollPosition, setCareerGoalsScrollPosition, setCoursesScrollPosition, setDegreesScrollPosition, setInterestsScrollPosition, setOpportunitiesScrollPosition } = props;
@@ -262,7 +233,7 @@ const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
           </h4>
         </Header>
 
-        {checkForNoItems(props)}
+        {checkForNoItems(match, type)}
         {isCourseExplorer ?
           (
             <CourseFilterWidget
@@ -272,14 +243,6 @@ const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
               }}
             />
           ) : ''}
-        {isOpportunityExplorer ? (
-          <OpportunitySortWidget
-            sortChoice={sortOpportunitiesChoiceState}
-            handleChange={(key, value) => {
-              setSortOpportunitiesChoice(value);
-            }}
-          />
-        ) : ''}
 
         <Card.Group style={cardGroupStyle} itemsPerRow={2} stackable id="cardExplorerCardGroupElement">
           {
@@ -295,11 +258,6 @@ const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
               items.map((item) => (
                 <TermCard key={item._id} item={item} type={type} isStudent={isStudent} canAdd />
               ))
-              : ''
-          }
-          {
-            buildExplorerCard ?
-              items.map((item) => <ExplorerCard key={item._id} item={item} type={type} />)
               : ''
           }
         </Card.Group>
