@@ -3,7 +3,7 @@ import { Grid, Container } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
-import GuidedTourStudentHomeWidget from '../landing/GuidedTourStudentHomeWidget';
+import GuidedTourStudentHomePageWidget from '../../components/student/HomePage/GuidedTourStudentHomePageWidget';
 import StudentHomeFavoriteInterestsList from '../../components/student/HomePage/StudentHomeFavoriteInterestsWidget';
 import StudentHomeRecommendedTeasersWidget from '../../components/student/HomePage/StudentHomeRecommendedTeasersWidget';
 import StudentHomeBannersWidget from '../../components/student/HomePage/StudentHomeBannersWidget';
@@ -19,7 +19,7 @@ interface IStudentHomePageProps {
 const StudentHomePage = (props: IStudentHomePageProps) => (
   <div>
     <StudentPageMenuWidget />
-    <GuidedTourStudentHomeWidget />
+    <GuidedTourStudentHomePageWidget />
     <Container>
       <Grid stackable>
         <Grid.Row>

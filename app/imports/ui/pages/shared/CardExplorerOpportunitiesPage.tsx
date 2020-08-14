@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid, Container, Card } from 'semantic-ui-react';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
-import GuidedTourStudentOpportunities from '../landing/GuidedTourStudentOpportunities';
+import GuidedTourCardExplorerOpportunitiesPageWidget from '../../components/shared/CardExplorerOpportunitiesPage/GuidedTourCardExplorerOpportunitiesPageWidget';
 import CardExplorerOpportunitiesWidget
   from '../../components/shared/CardExplorerOpportunitiesPage/CardExplorerOpportunitiesWidget';
 import TeaserVideo from '../../components/shared/TeaserVideo';
@@ -19,7 +19,7 @@ const CardExplorerOpportunitiesPage = () => {
   return (
     <>
       <StudentPageMenuWidget />
-      <GuidedTourStudentOpportunities />
+      <GuidedTourCardExplorerOpportunitiesPageWidget />
       <Container>
         <Grid stackable divided="vertically">
           <Grid.Row>

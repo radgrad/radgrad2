@@ -3,14 +3,14 @@ import { Container, Loader, Segment } from 'semantic-ui-react';
 import Slider from 'react-slick';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
-import styles from './guidedtour-style';
+import styles from '../../../pages/landing/guidedtour-style';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import WhyRadGrad from '../../components/guidedtour/student/home-why-radgrad';
-import Interests from '../../components/guidedtour/student/home-interests';
-import CareerPath from '../../components/guidedtour/student/home-career-goals';
-import Courses from '../../components/guidedtour/student/home-courses';
-import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';
+import WhyRadGrad from '../../guidedtour/student/home-why-radgrad';
+import Interests from '../../guidedtour/student/home-interests';
+import CareerPath from '../../guidedtour/student/home-career-goals';
+import Courses from '../../guidedtour/student/home-courses';
+import { PublicStats } from '../../../../api/public-stats/PublicStatsCollection';
 
 interface IGuidedTourStudentProps {
   interests: number;
@@ -50,7 +50,7 @@ const renderPage = (props: IGuidedTourStudentProps) => {
 
 const GuidedTourStudent = (props: IGuidedTourStudentProps) => ((props.ready) ? renderPage(props) : <Loader active>Getting data</Loader>);
 
-const GuidedTourStudentHomeWidget = withTracker(() => {
+const GuidedTourStudentHomePageWidget = withTracker(() => {
   const subscription = Meteor.subscribe(PublicStats.getPublicationName());
   let key;
   let interests;
@@ -88,4 +88,4 @@ const GuidedTourStudentHomeWidget = withTracker(() => {
   };
 })(GuidedTourStudent);
 
-export default GuidedTourStudentHomeWidget;
+export default GuidedTourStudentHomePageWidget;
