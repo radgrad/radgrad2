@@ -47,7 +47,7 @@ const getTeaserDescription = (teaser: ITeaser): string => {
   } else if (slug.entityName === Opportunities.getType()) {
     doc = Opportunities.findOne({ _id: slug.entityID });
   }
-  const maxLengthDescription = 500;
+  const maxLengthDescription = 300;
   return docToShortDescription(doc, maxLengthDescription);
 };
 

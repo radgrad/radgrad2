@@ -88,18 +88,30 @@ const getCollection = (props: ICardExplorerPageProps): object => {
   }
 };
 
-const addedPlans = (props: ICardExplorerPageProps): { item: IAcademicPlan, count: number }[] => _.map(props.favoritePlans, (f: any) => ({ item: AcademicPlans.findDoc(f.academicPlanID), count: 1 }));
+const addedPlans = (props: ICardExplorerPageProps): { item: IAcademicPlan, count: number }[] => _.map(props.favoritePlans, (f: any) => ({
+  item: AcademicPlans.findDoc(f.academicPlanID),
+  count: 1,
+}));
 
-const addedCareerGoals = (props: ICardExplorerPageProps): { item: ICareerGoal, count: number }[] => _.map(props.favoriteCareerGoals, (f: any) => ({ item: CareerGoals.findDoc(f.careerGoalID), count: 1 }));
+const addedCareerGoals = (props: ICardExplorerPageProps): { item: ICareerGoal, count: number }[] => _.map(props.favoriteCareerGoals, (f: any) => ({
+  item: CareerGoals.findDoc(f.careerGoalID),
+  count: 1,
+}));
 
-const addedCourses = (props: ICardExplorerPageProps): { item: ICourse, count: number }[] => _.map(props.favoriteCourses, (f: any) => ({ item: Courses.findDoc(f.courseID), count: 1 }));
+const addedCourses = (props: ICardExplorerPageProps): { item: ICourse, count: number }[] => _.map(props.favoriteCourses, (f: any) => ({
+  item: Courses.findDoc(f.courseID),
+  count: 1,
+}));
 
 const addedDegrees = (): { item: IDesiredDegree, count: number }[] => _.map(DesiredDegrees.findNonRetired({}, { sort: { name: 1 } }), (d) => ({
   item: d,
   count: 1,
 }));
 
-const addedInterests = (props: ICardExplorerPageProps): { item: IInterest, count: number }[] => _.map(props.favoriteInterests, (f: any) => ({ item: Interests.findDoc(f.interestID), count: 1 }));
+const addedInterests = (props: ICardExplorerPageProps): { item: IInterest, count: number }[] => _.map(props.favoriteInterests, (f: any) => ({
+  item: Interests.findDoc(f.interestID),
+  count: 1,
+}));
 
 const addedCareerInterests = (props: ICardExplorerPageProps): { item: IInterest, count: number }[] => {
   if (Router.getUserIdFromRoute(props.match)) {
@@ -110,7 +122,10 @@ const addedCareerInterests = (props: ICardExplorerPageProps): { item: IInterest,
   return [];
 };
 
-const addedOpportunities = (props: ICardExplorerPageProps): { item: IOpportunity, count: number }[] => _.map(props.favoriteOpportunities, (f: any) => ({ item: Opportunities.findDoc(f.opportunityID), count: 1 }));
+const addedOpportunities = (props: ICardExplorerPageProps): { item: IOpportunity, count: number }[] => _.map(props.favoriteOpportunities, (f: any) => ({
+  item: Opportunities.findDoc(f.opportunityID),
+  count: 1,
+}));
 
 const getAddedList = (props: ICardExplorerPageProps): { item: IAcademicPlan | ICareerGoal | ICourse | IDesiredDegree | IInterest | IOpportunity, count: number }[] => {
   const type = Router.getLastUrlParam(props.match);
@@ -141,32 +156,31 @@ const CardExplorerPage = (props: ICardExplorerPageProps) => {
   const collection = getCollection(props);
   const type = Router.getLastUrlParam(props.match);
 
-    return (
-      <div>
-        {menuWidget}
-        <Container>
-          <Grid stackable>
-            <Grid.Row className="helpPanel">
-              {/* TODO Uncomment */}
-              {/* <Grid.Column width={16}><HelpPanelWidget /></Grid.Column> */}
-            </Grid.Row>
-            <Grid.Row>
-              <Grid.Column width={4}>
-                <CardExplorerMenu
-                  menuAddedList={addedList}
-                  type={type}
-                  role={role}
-                  menuCareerList={isTypeInterest ? addedCareerInterests(props) : undefined}
-                />
-              </Grid.Column>
-              <Grid.Column width={12}>
-                <CardExplorerWidget collection={collection} type={type} role={role} />
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
-          <BackToTopButton />
-        </Container>
-      </div>
+  return (
+    <div>
+      {menuWidget}
+      <Container>
+        <Grid stackable>
+          <Grid.Row className="helpPanel">
+            <Grid.Column width={16}><HelpPanelWidget /></Grid.Column>
+          </Grid.Row>
+          <Grid.Row>
+            <Grid.Column width={4}>
+              <CardExplorerMenu
+                menuAddedList={addedList}
+                type={type}
+                role={role}
+                menuCareerList={isTypeInterest ? addedCareerInterests(props) : undefined}
+              />
+            </Grid.Column>
+            <Grid.Column width={12}>
+              <CardExplorerWidget collection={collection} type={type} role={role} />
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+        <BackToTopButton />
+      </Container>
+    </div>
   );
 };
 
