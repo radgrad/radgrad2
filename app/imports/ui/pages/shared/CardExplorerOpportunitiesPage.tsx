@@ -5,16 +5,17 @@ import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidge
 import GuidedTourStudentOpportunities from '../landing/GuidedTourStudentOpportunities';
 import CardExplorerOpportunitiesWidget
   from '../../components/shared/CardExplorerOpportunitiesPage/CardExplorerOpportunitiesWidget';
-import CardExplorerSummerOpportunitiesWidget from '../../components/shared/CardExplorerOpportunitiesPage/CardExplorerSummerOpportunitiesWidget';
 import TeaserVideo from '../../components/shared/TeaserVideo';
 import { radgradVideos } from '../../../api/radgrad/radgrad-videos';
+import CardExplorerSummerOpportunitiesWidget
+  from '../../components/shared/CardExplorerOpportunitiesPage/CardExplorerSummerOpportunitiesWidget';
 
 const CardExplorerOpportunitiesPage = () => {
   const opportunitiesVideoHeaderStyle: React.CSSProperties = {
     marginTop: '5px',
   };
 
-  const opportunitiesInRadGradVideoID: { title: string, youtubeID: string }[] = radgradVideos.filter((video) => video.title === 'Opportunities in RadGrad');
+  const opportunitiesInRadGradVideo: { title: string, youtubeID: string, author: string } = radgradVideos.filter((video) => video.title === 'Opportunities in RadGrad')[0];
   return (
     <>
       <StudentPageMenuWidget />
@@ -29,9 +30,14 @@ const CardExplorerOpportunitiesPage = () => {
               <CardExplorerSummerOpportunitiesWidget />
               <Card fluid>
                 <Card.Content>
-                  <TeaserVideo id={opportunitiesInRadGradVideoID[0].youtubeID} />
-                  <Card.Header textAlign="center" style={opportunitiesVideoHeaderStyle}>Opportunities in RadGrad</Card.Header>
-                  {/* TODO: RadGrad video details, see issue-281 and the FIGMA mockup */}
+                  <TeaserVideo id={opportunitiesInRadGradVideo.youtubeID} />
+                  {/* TODO: Refactor to add RadGrad video details using a collection, see issue-281 and the FIGMA mockup */}
+                  <Card.Header textAlign="left" style={opportunitiesVideoHeaderStyle}>
+                    {opportunitiesInRadGradVideo.title}
+                  </Card.Header>
+                  <Card.Description>
+                    {opportunitiesInRadGradVideo.author}
+                  </Card.Description>
                 </Card.Content>
               </Card>
             </Grid.Column>

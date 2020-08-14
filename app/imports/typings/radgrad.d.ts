@@ -767,6 +767,7 @@ export interface IOpportunityInstanceUpdate extends IUpdate {
 
 // OpportunityType
 export interface IOpportunityType {
+  _id: string;
   description: string;
   name: string;
   slugID: string;
