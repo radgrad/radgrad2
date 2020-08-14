@@ -1,5 +1,4 @@
 import React from 'react';
-import { createMedia } from '@artsy/fresnel';
 import { Dropdown, Segment } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import * as Router from './RouterHelperFunctions';
@@ -10,6 +9,7 @@ import {
   isType,
 } from './explorer-helper-functions';
 import { IInterest } from '../../../typings/radgrad';
+import { mediaStyles, Media, MediaContextProvider } from './ResponsiveHelpers';
 
 interface ICardExplorerMenuMobileWidgetProps {
   menuAddedList: { item: explorerInterfaces, count: number }[];
@@ -24,19 +24,6 @@ interface ICardExplorerMenuMobileWidgetProps {
     }
   };
 }
-
-const AppMedia = createMedia({
-  breakpoints: {
-    mobile: 320,
-    tablet: 768,
-    computer: 992,
-    largeScreen: 1200,
-    widescreen: 1920,
-  },
-});
-
-const mediaStyles = AppMedia.createMediaStyle();
-const { Media, MediaContextProvider } = AppMedia;
 
 const CardExplorerMenuMobileWidget = (props: ICardExplorerMenuMobileWidgetProps) => {
   const { menuAddedList, menuCareerList } = props;
@@ -174,6 +161,4 @@ const CardExplorerMenuMobileWidget = (props: ICardExplorerMenuMobileWidgetProps)
   );
 };
 
-export const CardExplorerMenuMobileWidgetContainer = withRouter(CardExplorerMenuMobileWidget);
-
-export default CardExplorerMenuMobileWidgetContainer;
+const CardExplorerMenuMobileWidgetContainer = withRouter(CardExplorerMenuMobileWidget);
