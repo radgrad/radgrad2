@@ -14,10 +14,7 @@ import { IInterest } from '../../../typings/radgrad';
 interface ICardExplorerMenuMobileWidgetProps {
   menuAddedList: { item: explorerInterfaces, count: number }[];
   menuCareerList: { item: IInterest, count: number }[] | undefined;
-  // eslint-disable-next-line react/no-unused-prop-types
-  type: 'plans' | 'career-goals' | 'courses' | 'degrees' | 'interests' | 'opportunities' | 'users';
-  // eslint-disable-next-line react/no-unused-prop-types
-  role: 'student' | 'faculty' | 'mentor';
+  type: 'plans' | 'career-goals' | 'courses' | 'degrees' | 'interests' | 'opportunities';
   match: {
     isExact: boolean;
     path: string;
@@ -51,7 +48,7 @@ const CardExplorerMenuMobileWidget = (props: ICardExplorerMenuMobileWidgetProps)
       {/* The following components are rendered ONLY for STUDENTS: Academic Plans, Courses, and Opportunities. */}
       <MediaContextProvider>
         <Segment as={Media} at="mobile">
-          {(isType(EXPLORER_TYPE.ACADEMICPLANS, props) && isStudent) ?
+          {(isType(EXPLORER_TYPE.ACADEMICPLANS, props.type) && isStudent) ?
             (
               <Dropdown className="selection" fluid text="Select Item" style={{ marginTop: '1rem' }}>
                 <Dropdown.Menu>
@@ -73,7 +70,7 @@ const CardExplorerMenuMobileWidget = (props: ICardExplorerMenuMobileWidgetProps)
             )
             : ''}
 
-          {(isType(EXPLORER_TYPE.COURSES, props) && isStudent) ?
+          {(isType(EXPLORER_TYPE.COURSES, props.type) && isStudent) ?
             (
               <Dropdown className="selection" fluid text="Select Item" style={{ marginTop: '1rem' }}>
                 <Dropdown.Menu>
@@ -95,7 +92,7 @@ const CardExplorerMenuMobileWidget = (props: ICardExplorerMenuMobileWidgetProps)
             )
             : ''}
 
-          {(isType(EXPLORER_TYPE.OPPORTUNITIES, props) && isStudent) ?
+          {(isType(EXPLORER_TYPE.OPPORTUNITIES, props.type) && isStudent) ?
             (
               <Dropdown className="selection" fluid text="Select Item" style={{ marginTop: '1rem' }}>
                 <Dropdown.Menu>
@@ -117,7 +114,7 @@ const CardExplorerMenuMobileWidget = (props: ICardExplorerMenuMobileWidgetProps)
             : ''}
 
           {/* Components renderable to STUDENTS, FACULTY, and MENTORS. */}
-          {isType(EXPLORER_TYPE.INTERESTS, props) ?
+          {isType(EXPLORER_TYPE.INTERESTS, props.type) ?
             (
               <Dropdown className="selection" fluid text="Select Item" style={{ marginTop: '1rem' }}>
                 <Dropdown.Menu>
@@ -151,7 +148,7 @@ const CardExplorerMenuMobileWidget = (props: ICardExplorerMenuMobileWidgetProps)
             )
             : ''}
 
-          {isType(EXPLORER_TYPE.CAREERGOALS, props) ?
+          {isType(EXPLORER_TYPE.CAREERGOALS, props.type) ?
             (
               <Dropdown className="selection" fluid text="Select Item" style={{ marginTop: '1rem' }}>
                 <Dropdown.Menu>
