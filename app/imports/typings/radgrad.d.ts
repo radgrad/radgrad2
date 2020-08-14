@@ -73,10 +73,6 @@ export interface IPagination {
     showIndex: number;
     showCount: number;
   };
-  DesiredDegreeCollection?: {
-    showIndex: number;
-    showCount: number;
-  };
   FeedCollection?: {
     showIndex: number;
     showCount: number;
@@ -416,32 +412,7 @@ export interface ICourseUpdate extends IUpdate {
   retired?: boolean;
 }
 
-// DesiredDegree
-export interface IDesiredDegree {
-  _id: string;
-  name: string;
-  shortName: string;
-  slugID: string;
-  description: string;
-  retired?: boolean;
-}
-
-export interface IDesiredDegreeDefine extends IDumpOne {
-  name: string;
-  shortName?: string;
-  slug: string;
-  description: string;
-  retired?: boolean;
-}
-
-export interface IDesiredDegreeUpdate extends IUpdate {
-  name?: string;
-  shortName?: string;
-  description?: string;
-  retired?: boolean;
-}
-
-// Favoirites
+// Favorites
 export interface IFavoriteAcademicPlanDefine extends IDumpOne {
   academicPlan: string;
   student: string;
