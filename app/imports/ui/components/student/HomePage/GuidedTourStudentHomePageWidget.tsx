@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Loader, Segment } from 'semantic-ui-react';
+import { Container, Loader } from 'semantic-ui-react';
 import Slider from 'react-slick';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
@@ -23,7 +23,7 @@ interface IGuidedTourStudentProps {
   ready: boolean;
 }
 
-const renderPage = (props: IGuidedTourStudentProps) => {
+const GuidedTourStudentHomePageWidget = (props: IGuidedTourStudentProps) => {
   const settings = {
     dots: true,
     infinite: false,
@@ -32,25 +32,25 @@ const renderPage = (props: IGuidedTourStudentProps) => {
     slidesToScroll: 1,
     swipeToSlide: true,
   };
-  return (
-    <div style={styles.background}>
-      <Container textAlign="center">
-        <Segment padded style={styles.background} className="guidedTour">
+
+  if (props.ready) {
+    return (
+      <div style={styles.background} className="guidedTour">
+        <Container>
           <Slider {...settings}>
             <WhyRadGrad />
             <Interests interests={props.interests} />
             <CareerPath careerGoals={props.careerGoals} />
             <Courses courses={props.courses} courseReviews={props.courseReviews} />
           </Slider>
-        </Segment>
-      </Container>
-    </div>
-  );
+        </Container>
+      </div>
+    );
+  }
+  return <Loader active>Getting data</Loader>;
 };
 
-const GuidedTourStudent = (props: IGuidedTourStudentProps) => ((props.ready) ? renderPage(props) : <Loader active>Getting data</Loader>);
-
-const GuidedTourStudentHomePageWidget = withTracker(() => {
+const GuidedTourStudentHomePageWidgetCon = withTracker(() => {
   const subscription = Meteor.subscribe(PublicStats.getPublicationName());
   let key;
   let interests;
@@ -86,6 +86,6 @@ const GuidedTourStudentHomePageWidget = withTracker(() => {
     mentors,
     mentorLocations,
   };
-})(GuidedTourStudent);
+})(GuidedTourStudentHomePageWidget);
 
-export default GuidedTourStudentHomePageWidget;
+export default GuidedTourStudentHomePageWidgetCon;
