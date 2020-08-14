@@ -1,5 +1,4 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
 import {
   IAcademicPlan,
   ICareerGoal,
@@ -11,57 +10,22 @@ import {
 import CardExplorerMenuNonMobileWidget from './CardExplorerMenuNonMobileWidget';
 import CardExplorerMenuMobileWidget from './CardExplorerMenuMobileWidget';
 import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
-import ExplorerNavDropdown from './ExplorerNavDropdown';
 
 type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IDesiredDegree | IInterest | IOpportunity;
 
 interface ICardExplorerMenuProps {
   menuAddedList: { item: explorerInterfaces, count: number }[];
   menuCareerList: { item: IInterest, count: number }[] | undefined;
-  type: 'plans' | 'career-goals' | 'courses' | 'degrees' | 'interests' | 'opportunities' | 'users';
-  role: 'student' | 'faculty' | 'mentor';
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
+  type: string;
+  role: string;
 }
 
-const getTypeName = (props: ICardExplorerMenuProps): string => {
-  const names = ['Academic Plans', 'Career Goals', 'Courses', 'Degrees', 'Interests', 'Opportunities', 'Users'];
-  switch (props.type) {
-    case EXPLORER_TYPE.ACADEMICPLANS:
-      return names[0];
-    case EXPLORER_TYPE.CAREERGOALS:
-      return names[1];
-    case EXPLORER_TYPE.COURSES:
-      return names[2];
-    case EXPLORER_TYPE.DEGREES:
-      return names[3];
-    case EXPLORER_TYPE.INTERESTS:
-      return names[4];
-    case EXPLORER_TYPE.OPPORTUNITIES:
-      return names[5];
-    case EXPLORER_TYPE.USERS:
-      return names[6];
-    default:
-      return '';
-  }
-};
-
 const CardExplorerMenu = (props: ICardExplorerMenuProps) => {
-  const { menuAddedList, menuCareerList, match, type, role } = props;
+  const { menuAddedList, menuCareerList, type, role } = props;
   const isTypeInterest = props.type === EXPLORER_TYPE.INTERESTS;
-  const typeName = getTypeName(props);
 
   return (
     <React.Fragment>
-      <ExplorerNavDropdown match={match} text={typeName} />
-      <br />
-
       <CardExplorerMenuNonMobileWidget
         menuAddedList={menuAddedList}
         type={type}
@@ -75,8 +39,9 @@ const CardExplorerMenu = (props: ICardExplorerMenuProps) => {
         role={role}
         menuCareerList={isTypeInterest ? menuCareerList : undefined}
       />
+
     </React.Fragment>
   );
 };
 
-export default withRouter(CardExplorerMenu);
+export default CardExplorerMenu;

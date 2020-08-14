@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid } from 'semantic-ui-react';
+import { Grid, Container } from 'semantic-ui-react';
 import _ from 'lodash';
 import { withRouter } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
@@ -83,8 +83,6 @@ const getCollection = (props: ICardExplorerPageProps): object => {
       return Interests;
     case EXPLORER_TYPE.OPPORTUNITIES:
       return Opportunities;
-    case EXPLORER_TYPE.USERS:
-      return Users;
     default:
       return {};
   }
@@ -129,8 +127,6 @@ const getAddedList = (props: ICardExplorerPageProps): { item: IAcademicPlan | IC
       return addedInterests(props);
     case EXPLORER_TYPE.OPPORTUNITIES:
       return addedOpportunities(props);
-    case EXPLORER_TYPE.USERS: // do nothing
-      return [];
     default:
       return [];
   }
@@ -148,32 +144,28 @@ const CardExplorerPage = (props: ICardExplorerPageProps) => {
     return (
       <div>
         {menuWidget}
-
-        <Grid stackable>
-          <Grid.Row>
-            <Grid.Column width={1} />
-            <Grid.Column width={14}><HelpPanelWidget /></Grid.Column>
-            <Grid.Column width={1} />
-          </Grid.Row>
-
-          <Grid.Row>
-            <Grid.Column width={1} />
-            <Grid.Column width={3}>
-              <CardExplorerMenu
-                menuAddedList={addedList}
-                type={type}
-                role={role}
-                menuCareerList={isTypeInterest ? addedCareerInterests(props) : undefined}
-              />
-            </Grid.Column>
-
-            <Grid.Column width={11}>
-              <CardExplorerWidget collection={collection} type={type} role={role} />
-            </Grid.Column>
-            <Grid.Column width={1} />
-          </Grid.Row>
-        </Grid>
-        <BackToTopButton />
+        <Container>
+          <Grid stackable>
+            <Grid.Row className="helpPanel">
+              {/* TODO Uncomment */}
+              {/* <Grid.Column width={16}><HelpPanelWidget /></Grid.Column> */}
+            </Grid.Row>
+            <Grid.Row>
+              <Grid.Column width={4}>
+                <CardExplorerMenu
+                  menuAddedList={addedList}
+                  type={type}
+                  role={role}
+                  menuCareerList={isTypeInterest ? addedCareerInterests(props) : undefined}
+                />
+              </Grid.Column>
+              <Grid.Column width={12}>
+                <CardExplorerWidget collection={collection} type={type} role={role} />
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+          <BackToTopButton />
+        </Container>
       </div>
   );
 };

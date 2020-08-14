@@ -108,8 +108,6 @@ const getItemStatus = (item: explorerInterfaces, props: IExplorerMenuMobileItemP
       return userInterests(item as IInterest, props);
     case EXPLORER_TYPE.OPPORTUNITIES:
       return userOpportunities(item as IOpportunity, props);
-    case EXPLORER_TYPE.USERS: // do nothing
-      return '';
     default:
       return '';
   }

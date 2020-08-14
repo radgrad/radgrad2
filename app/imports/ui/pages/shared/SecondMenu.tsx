@@ -31,6 +31,7 @@ const SecondMenu = (props: ISecondMenuProps) => {
       borderless
       widths={props.numItems}
       secondary
+      inverted
       pointing
       className="radgrad-second-menu mobile hidden"
       id={`${secondMenu}`}

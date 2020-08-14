@@ -5,7 +5,6 @@ import {
   ICareerGoal,
   ICourse,
   IDesiredDegree,
-  IExplorerCard,
   IInterest,
   IOpportunity,
   IStudentProfile,
@@ -14,7 +13,7 @@ import * as Router from './RouterHelperFunctions';
 import { Users } from '../../../api/user/UserCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
-import { EXPLORER_TYPE, URL_ROLES } from '../../../startup/client/route-constants';
+import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
@@ -26,7 +25,6 @@ import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection
 import { Interests } from '../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import {
-  itemToSlugName,
   profileFavoriteBamAcademicPlan,
   profileGetCareerGoalIDs,
   profileGetFavoriteAcademicPlanIDs,
@@ -38,6 +36,7 @@ import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPla
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 import { FavoriteCourses } from '../../../api/favorite/FavoriteCourseCollection';
 import { FavoriteOpportunities } from '../../../api/favorite/FavoriteOpportunityCollection';
+import { IMatchProps } from './RouterHelperFunctions';
 
 export type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IDesiredDegree | IInterest | IOpportunity;
 
@@ -56,10 +55,9 @@ export interface ICardExplorerMenuWidgetProps {
   };
 }
 
-export const isType = (typeToCheck: string, props: { type: string }) => {
-  const { type } = props;
-  return type === typeToCheck;
-};
+export type IExplorerTypes = 'plans' | 'career-goals' | 'courses' | 'degrees' | 'interests' | 'opportunities';
+
+export const isType = (typeToCheck: string, type: IExplorerTypes) => type === typeToCheck;
 
 export const getHeaderTitle = (props: { type: string }): string => {
   const { type } = props;
@@ -76,8 +74,6 @@ export const getHeaderTitle = (props: { type: string }): string => {
       return 'INTERESTS';
     case EXPLORER_TYPE.OPPORTUNITIES:
       return 'OPPORTUNITIES';
-    case EXPLORER_TYPE.USERS:
-      return 'USERS';
     default:
       return 'UNDEFINED TITLE';
   }
@@ -334,12 +330,12 @@ export const opportunityItemName = (item: { item: IOpportunity, count: number })
   return `${item.item.name} ${iceString}`;
 };
 
-export const availableOpps = (props: ICardExplorerMenuWidgetProps): object[] => {
+export const availableOpps = (match: IMatchProps): object[] => {
   const notRetired = Opportunities.findNonRetired({});
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
   // console.log(notRetired.length);
-  if (Router.isUrlRoleStudent(props.match)) {
-    const studentID = Router.getUserIdFromRoute(props.match);
+  if (Router.isUrlRoleStudent(match)) {
+    const studentID = Router.getUserIdFromRoute(match);
     if (notRetired.length > 0) {
       let filteredOpps = _.filter(notRetired, (opp) => {
         const oi = OpportunityInstances.findNonRetired({
@@ -366,23 +362,23 @@ export const availableOpps = (props: ICardExplorerMenuWidgetProps): object[] => 
       // console.log('third filter ', filteredOpps.length);
       return filteredOpps;
     }
-  } else if (props.role === URL_ROLES.FACULTY) {
-    return _.filter(notRetired, o => o.sponsorID !== Router.getUserIdFromRoute(props.match));
+  } else if (Router.isUrlRoleFaculty(match)) {
+    return _.filter(notRetired, o => o.sponsorID !== Router.getUserIdFromRoute(match));
   }
   return notRetired;
 };
 
-export const matchingOpportunities = (props: ICardExplorerMenuWidgetProps): object[] => {
-  const allOpportunities = availableOpps(props);
+export const matchingOpportunities = (match: IMatchProps): IOpportunity[] => {
+  const allOpportunities = availableOpps(match);
   // console.log('allOpportunities ', allOpportunities);
-  const username = Router.getUsername(props.match);
+  const username = Router.getUsername(match);
   const profile = Users.getProfile(username);
   const interestIDs = Users.getInterestIDs(profile.userID);
   const preferred = new PreferredChoice(allOpportunities, interestIDs);
   return preferred.getOrderedChoices();
 };
 
-const opportunitiesItemCount = (props: ICardExplorerMenuWidgetProps) => availableOpps(props).length;
+const opportunitiesItemCount = (match: IMatchProps) => availableOpps(match).length;
 
 /* ####################################### USERS HELPER FUNCTIONS ####################################### */
 export const getUsers = (role: string, match: Router.IMatchProps): IBaseProfile[] => {
@@ -421,8 +417,6 @@ export const getItemStatus = (item: explorerInterfaces, props: ICardExplorerMenu
       return userInterests(item as IInterest, props.match);
     case EXPLORER_TYPE.OPPORTUNITIES:
       return userOpportunities(item as IOpportunity, props.match);
-    case EXPLORER_TYPE.USERS: // do nothing
-      return '';
     default:
       return '';
   }
@@ -442,10 +436,7 @@ export const getHeaderCount = (props: ICardExplorerMenuWidgetProps): number => {
     case EXPLORER_TYPE.INTERESTS:
       return interestsItemCount(props.match);
     case EXPLORER_TYPE.OPPORTUNITIES:
-      return opportunitiesItemCount(props);
-    case EXPLORER_TYPE.USERS:
-      // do nothing; we do not track user count
-      return -1;
+      return opportunitiesItemCount(props.match);
     default:
       return -1;
   }
@@ -469,7 +460,7 @@ export const noItems = (noItemsType: string, match: Router.IMatchProps): boolean
   }
 };
 
-export const buildNoItemsMessage = (noItemsMessageType, props: ICardExplorerMenuWidgetProps): Element | JSX.Element | string => {
+export const buildNoItemsMessage = (noItemsMessageType, type: IExplorerTypes): Element | JSX.Element | string => {
   switch (noItemsMessageType) {
     case 'noPlan':
       return (
@@ -479,7 +470,7 @@ export const buildNoItemsMessage = (noItemsMessageType, props: ICardExplorerMenu
         </p>
       );
     case 'noInterests':
-      if (isType(EXPLORER_TYPE.CAREERGOALS, props)) {
+      if (isType(EXPLORER_TYPE.CAREERGOALS, type)) {
         return (
           <p>
             Favorite interests to see sorted Career Goals. To favorite Interests, select &quot;Interests&quot; in the
@@ -487,7 +478,7 @@ export const buildNoItemsMessage = (noItemsMessageType, props: ICardExplorerMenu
           </p>
         );
       }
-      if (isType(EXPLORER_TYPE.COURSES, props)) {
+      if (isType(EXPLORER_TYPE.COURSES, type)) {
         return (
           <p>
             Favorite interests to see sorted Courses. To favorite Interests, select &quot;Interests&quot; in the
@@ -495,7 +486,7 @@ export const buildNoItemsMessage = (noItemsMessageType, props: ICardExplorerMenu
           </p>
         );
       }
-      if (isType(EXPLORER_TYPE.INTERESTS, props)) {
+      if (isType(EXPLORER_TYPE.INTERESTS, type)) {
         return (
           <p>
             You have not favorited any Interests or Career Goals. To favorite Interests, click on &quot;View
@@ -504,7 +495,7 @@ export const buildNoItemsMessage = (noItemsMessageType, props: ICardExplorerMenu
           </p>
         );
       }
-      if (isType(EXPLORER_TYPE.OPPORTUNITIES, props)) {
+      if (isType(EXPLORER_TYPE.OPPORTUNITIES, type)) {
         return (
           <p>
             Favorite interests to see sorted Opportunities. To favorite Interests, select &quot;Interests&quot; in the
@@ -525,30 +516,26 @@ export const buildNoItemsMessage = (noItemsMessageType, props: ICardExplorerMenu
   }
 };
 
-export const checkForNoItems = (props: ICardExplorerMenuWidgetProps): Element | JSX.Element | string => {
-  const { type } = props;
+export const checkForNoItems = (match: IMatchProps, type: IExplorerTypes): Element | JSX.Element | string => {
   switch (type) {
     case EXPLORER_TYPE.ACADEMICPLANS:
-      return noItems('noPlan', props.match) ? buildNoItemsMessage('noPlan', props) : '';
+      return noItems('noPlan', match) ? buildNoItemsMessage('noPlan', type) : '';
     case EXPLORER_TYPE.CAREERGOALS:
       return (
         <React.Fragment>
-          {noItems('noInterests', props.match) ? buildNoItemsMessage('noInterests', props) : ''}
-          {noItems('noCareerGoals', props.match) ? buildNoItemsMessage('noCareerGoals', props) : ''}
+          {noItems('noInterests', match) ? buildNoItemsMessage('noInterests', type) : ''}
+          {noItems('noCareerGoals', match) ? buildNoItemsMessage('noCareerGoals', type) : ''}
         </React.Fragment>
       );
     case EXPLORER_TYPE.COURSES:
-      return noItems('noInterests', props.match) ? buildNoItemsMessage('noInterests', props) : '';
+      return noItems('noInterests', match) ? buildNoItemsMessage('noInterests', type) : '';
     case EXPLORER_TYPE.DEGREES:
       //  do nothing; users cannot add their own desired degrees to their profile
       return '';
     case EXPLORER_TYPE.INTERESTS:
-      return noItems('noInterests', props.match) ? buildNoItemsMessage('noInterests', props) : '';
+      return noItems('noInterests', match) ? buildNoItemsMessage('noInterests', type) : '';
     case EXPLORER_TYPE.OPPORTUNITIES:
-      return noItems('noInterests', props.match) ? buildNoItemsMessage('noInterests', props) : '';
-    case EXPLORER_TYPE.USERS:
-      // do nothing; we do not track if there are no users
-      return '';
+      return noItems('noInterests', match) ? buildNoItemsMessage('noInterests', type) : '';
     default:
       return '';
 
@@ -556,56 +543,21 @@ export const checkForNoItems = (props: ICardExplorerMenuWidgetProps): Element | 
 };
 
 export const getItems = (props: ICardExplorerMenuWidgetProps): { [key: string]: any }[] => {
-  const { type } = props;
+  const { type, match } = props;
   switch (type) {
     case EXPLORER_TYPE.ACADEMICPLANS:
-      return availableAcademicPlans(props.match);
+      return availableAcademicPlans(match);
     case EXPLORER_TYPE.CAREERGOALS:
-      return matchingCareerGoals(props.match);
+      return matchingCareerGoals(match);
     case EXPLORER_TYPE.COURSES:
-      return availableCourses(props.match);
+      return availableCourses(match);
     case EXPLORER_TYPE.DEGREES:
       return degrees();
     case EXPLORER_TYPE.INTERESTS:
-      return availableInterests(props.match);
+      return availableInterests(match);
     case EXPLORER_TYPE.OPPORTUNITIES:
-      return matchingOpportunities(props);
-    case EXPLORER_TYPE.USERS:
-      //  do nothing. For other Card Explorers, we only need one constant variable to hold an item array.
-      //  However, we need multiple constant variables to hold the users for each of the invidual roles
-      //  (faculty, advisor, etc...). See the function @getUsers(role) instead.
-      return [];
+      return matchingOpportunities(match);
     default:
       return [];
   }
-};
-
-export const buildExplorerRoute = (item, props: IExplorerCard) => {
-  const { type } = props;
-  let route: string;
-  switch (type) {
-    case EXPLORER_TYPE.CAREERGOALS:
-      route = Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}/`);
-      break;
-    case EXPLORER_TYPE.COURSES:
-      route = Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/`);
-      break;
-    case EXPLORER_TYPE.DEGREES:
-      route = Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.DEGREES}/`);
-      break;
-    case EXPLORER_TYPE.INTERESTS:
-      route = Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}/`);
-      break;
-    case EXPLORER_TYPE.OPPORTUNITIES:
-      route = Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/`);
-      break;
-    default:
-      route = '#';
-      break;
-  }
-  if (item) {
-    const itemSlug = itemToSlugName(item);
-    route = `${route}${itemSlug}`;
-  }
-  return route;
 };

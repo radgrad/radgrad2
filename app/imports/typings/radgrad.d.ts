@@ -201,18 +201,6 @@ export interface ITermCard extends ICardExplorerCards {
   };
 }
 
-export interface IExplorerCard extends ICardExplorerCards {
-  type: string;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
-}
-
 export interface IUserProfileCard extends ICardExplorerCards {
 }
 
@@ -563,14 +551,21 @@ export interface IFeedbackInstanceUpdate extends IUpdate {
 }
 
 // Help Messages
-export interface IHelpDefine extends IDumpOne {
+export interface IHelpMessage {
+  _id: string;
+  routeName: string;
+  title: string;
+  text: string;
+  retired: boolean;
+}
+export interface IHelpMessageDefine extends IDumpOne {
   routeName: string;
   title: string;
   text: string;
   retired?: boolean;
 }
 
-export interface IHelpUpdate extends IUpdate {
+export interface IHelpMessageUpdate extends IUpdate {
   routeName?: string;
   title?: string;
   text?: string;
@@ -695,6 +690,7 @@ export interface IOpportunity {
   sponsorID: string;
   interestIDs: string[];
   termIDs: string[];
+  timestamp: Date;
   // Optional data
   eventDate?: Date;
   ice?: Ice;
@@ -710,6 +706,7 @@ export interface IOpportunityDefine extends IDumpOne {
   interests: string[];
   academicTerms: string[];
   ice: Ice;
+  timestamp?: Date;
   eventDate?: any;
   retired?: boolean;
 }
@@ -722,6 +719,7 @@ export interface IOpportunityUpdate extends IUpdate {
   interests?: string[];
   academicTerms?: string[];
   eventDate?: any;
+  timestamp?: Date;
   ice?: Ice;
   retired?: boolean;
 }
@@ -734,6 +732,7 @@ export interface IOpportunityUpdateData {
   interestIDs?: string[];
   termIDs?: string[];
   eventDate?: any;
+  timestamp?: Date;
   ice?: Ice;
   retired?: boolean;
 }
@@ -768,6 +767,7 @@ export interface IOpportunityInstanceUpdate extends IUpdate {
 
 // OpportunityType
 export interface IOpportunityType {
+  _id: string;
   description: string;
   name: string;
   slugID: string;

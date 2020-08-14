@@ -23,7 +23,9 @@ export default {
   p: {
     color: 'rgba(255,255,255,.7)',
     fontSize: 16,
-    textIndent: '1rem',
+  },
+  btn: {
+    marginBottom: 15,
   },
   li: {
     color: 'rgba(255,255,255,.7)',
