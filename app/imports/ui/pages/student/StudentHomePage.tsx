@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import StudentHomeFavoriteInterestsList from '../../components/student/HomePage/StudentHomeFavoriteInterestsWidget';
-import StudentHomeRecommendedTeasersWidget from '../../components/student/HomePage/StudentHomeRecommendedTeasersWidget';
+import StudentHomeRecommendedWidget from '../../components/student/HomePage/StudentHomeRecommendedWidget';
 import StudentHomeBannersWidget from '../../components/student/HomePage/StudentHomeBannersWidget';
 import StudentHomeRadGradVideosWidget from '../../components/student/HomePage/StudentHomeRadGradVideosWidget';
 import StudentHomeNewOpportunitiesWidget from '../../components/student/HomePage/StudentHomeNewOpportunitiesWidget';
@@ -27,7 +27,7 @@ const StudentHomePage = (props: IStudentHomePageProps) => (
         </Grid.Row>
         <Grid.Row>
           <Grid.Column width={11}>
-            <StudentHomeRecommendedTeasersWidget />
+            <StudentHomeRecommendedWidget />
             <StudentHomeRadGradVideosWidget />
 
           </Grid.Column>
