@@ -4,7 +4,6 @@ import styles from '../../../pages/landing/guidedtour-style';
 
 interface ICoursesProps {
   courses: number;
-  courseReviews: number;
 }
 
 const GuidedTourStudentCourses = (props: ICoursesProps) => (
