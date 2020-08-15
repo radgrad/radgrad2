@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Header, Divider, Grid } from 'semantic-ui-react';
 import _ from 'lodash';
@@ -12,9 +13,13 @@ import { FavoriteInterests } from '../../../../api/favorite/FavoriteInterestColl
 import PreferedChoice from '../../../../api/degree-plan/PreferredChoice';
 import { IOpportunity } from '../../../../typings/radgrad';
 import { EXPLORER_TYPE } from '../../../../startup/client/route-constants';
+import CardExplorersPaginationWidget from '../CardExplorersPaginationWidget';
+import { RootState } from '../../../../redux/types';
+import { ICardExplorersPaginationState } from '../../../../redux/shared/cardExplorer/reducers';
 
 interface ICardExplorerOpportunitiesWidgetProps {
   match: IMatchProps;
+  pagination: ICardExplorersPaginationState;
 }
 
 const opportunityInformationItemConfiguration: IOpportunityInformationItemConfiguration = {
@@ -23,8 +28,12 @@ const opportunityInformationItemConfiguration: IOpportunityInformationItemConfig
   showStudentsParticipating: true,
 };
 
+const mapStateToProps = (state: RootState) => ({
+  pagination: state.shared.cardExplorer.pagination.Opportunities,
+});
+
 const CardExplorerOpportunitiesWidget = (props: ICardExplorerOpportunitiesWidgetProps) => {
-  const { match } = props;
+  const { match, pagination } = props;
 
   const [sortOpportunitiesChoiceState, setSortOpportunitiesChoice] = useState(opportunitySortKeys.recommended);
   const opportunitiesItemCount = availableOpps(match).length;
@@ -52,6 +61,12 @@ const CardExplorerOpportunitiesWidget = (props: ICardExplorerOpportunitiesWidget
       opportunities = _.sortBy(opportunities, (item) => item.name);
   }
 
+  // Pagination Variables
+  const opportunitiesCount = opportunities.length;
+  const displayOpportunitiesCount = 7;
+  const startIndex = pagination.showIndex * displayOpportunitiesCount;
+  const endIndex = startIndex + displayOpportunitiesCount;
+  opportunities = opportunities.slice(startIndex, endIndex);
   return (
     <>
       <Grid.Row>
@@ -67,15 +82,26 @@ const CardExplorerOpportunitiesWidget = (props: ICardExplorerOpportunitiesWidget
         />
         <Divider />
       </Grid.Row>
-      {opportunities.map((opportunity) => (
-        <OpportunityInformationItem
-          key={opportunity._id}
-          opportunity={opportunity}
-          informationConfiguration={opportunityInformationItemConfiguration}
+      <Grid.Row>
+        {opportunities.map((opportunity) => (
+          <OpportunityInformationItem
+            key={opportunity._id}
+            opportunity={opportunity}
+            informationConfiguration={opportunityInformationItemConfiguration}
+          />
+        ))}
+      </Grid.Row>
+      <Grid.Row centered>
+        <CardExplorersPaginationWidget
+          type={EXPLORER_TYPE.OPPORTUNITIES}
+          totalCount={opportunitiesCount}
+          displayCount={displayOpportunitiesCount}
         />
-      ))}
+      </Grid.Row>
     </>
   );
 };
 
-export default withRouter(CardExplorerOpportunitiesWidget);
+const CardExplorerOpportunitiesWidgetContainer = withRouter(CardExplorerOpportunitiesWidget);
+
+export default connect(mapStateToProps, null)(CardExplorerOpportunitiesWidgetContainer);

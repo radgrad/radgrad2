@@ -1,12 +1,12 @@
 import * as TYPES from './types';
 
-interface IPaginationState {
+export interface ICardExplorersPaginationState {
   showIndex: number;
 }
 
 interface IState {
   pagination: {
-    Opportunities: IPaginationState;
+    Opportunities: ICardExplorersPaginationState;
   }
 }
 
