@@ -6,10 +6,10 @@ import { withTracker } from 'meteor/react-meteor-data';
 import styles from '../../../pages/landing/guidedtour-style';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import WhyRadGrad from '../../guidedtour/student/home-why-radgrad';
-import Interests from '../../guidedtour/student/home-interests';
-import CareerPath from '../../guidedtour/student/home-career-goals';
-import Courses from '../../guidedtour/student/home-courses';
+import WhyRadGrad from './home-why-radgrad';
+import Interests from './home-interests';
+import CareerPath from './home-career-goals';
+import Courses from './home-courses';
 import { PublicStats } from '../../../../api/public-stats/PublicStatsCollection';
 
 interface IGuidedTourStudentProps {
