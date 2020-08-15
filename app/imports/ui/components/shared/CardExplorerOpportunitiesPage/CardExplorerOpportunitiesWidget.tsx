@@ -13,8 +13,8 @@ import { FavoriteInterests } from '../../../../api/favorite/FavoriteInterestColl
 import PreferedChoice from '../../../../api/degree-plan/PreferredChoice';
 import { IOpportunity } from '../../../../typings/radgrad';
 import { EXPLORER_TYPE } from '../../../../startup/client/route-constants';
-import CardExplorersPaginationWidget from '../CardExplorersPaginationWidget';
 import { RootState } from '../../../../redux/types';
+import CardExplorersPaginationWidget from '../CardExplorersPaginationWidget';
 import { ICardExplorersPaginationState } from '../../../../redux/shared/cardExplorer/reducers';
 
 interface ICardExplorerOpportunitiesWidgetProps {

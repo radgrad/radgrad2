@@ -3,21 +3,21 @@ import { Grid, Container } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
-import GuidedTourStudentHomePageWidget from '../../components/student/HomePage/GuidedTourStudentHomePageWidget';
 import StudentHomeFavoriteInterestsList from '../../components/student/HomePage/StudentHomeFavoriteInterestsWidget';
-import StudentHomeRecommendedTeasersWidget from '../../components/student/HomePage/StudentHomeRecommendedTeasersWidget';
+import StudentHomeRecommendedWidget from '../../components/student/HomePage/StudentHomeRecommendedWidget';
 import StudentHomeBannersWidget from '../../components/student/HomePage/StudentHomeBannersWidget';
 import StudentHomeRadGradVideosWidget from '../../components/student/HomePage/StudentHomeRadGradVideosWidget';
 import StudentHomeNewOpportunitiesWidget from '../../components/student/HomePage/StudentHomeNewOpportunitiesWidget';
 import { buildExplorerRoute, IMatchProps } from '../../components/shared/RouterHelperFunctions';
 import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
+import GuidedTourStudentHomePageWidget from '../../components/student/HomePage/GuidedTourStudentHomePageWidget';
 
 interface IStudentHomePageProps {
   match: IMatchProps;
 }
 
 const StudentHomePage = (props: IStudentHomePageProps) => (
-  <div>
+  <>
     <StudentPageMenuWidget />
     <GuidedTourStudentHomePageWidget />
     <Container>
@@ -27,7 +27,7 @@ const StudentHomePage = (props: IStudentHomePageProps) => (
         </Grid.Row>
         <Grid.Row>
           <Grid.Column width={11}>
-            <StudentHomeRecommendedTeasersWidget />
+            <StudentHomeRecommendedWidget />
             <StudentHomeRadGradVideosWidget />
 
           </Grid.Column>
@@ -40,10 +40,10 @@ const StudentHomePage = (props: IStudentHomePageProps) => (
           </Grid.Column>
         </Grid.Row>
       </Grid>
-
-      <BackToTopButton />
     </Container>
-  </div>
+
+    <BackToTopButton />
+  </>
 
 );
 
