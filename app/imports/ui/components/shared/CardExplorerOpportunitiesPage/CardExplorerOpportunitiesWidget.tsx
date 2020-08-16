@@ -70,10 +70,7 @@ const CardExplorerOpportunitiesWidget = (props: ICardExplorerOpportunitiesWidget
   return (
     <>
       <Grid.Row>
-        <Header>
-          OPPORTUNITIES <WidgetHeaderNumber inputValue={opportunitiesItemCount} />
-        </Header>
-        {checkForNoItems(match, EXPLORER_TYPE.OPPORTUNITIES as IExplorerTypes)}
+        <Header>OPPORTUNITIES <WidgetHeaderNumber inputValue={opportunitiesItemCount} /></Header>
         <OpportunitySortWidget
           sortChoice={sortOpportunitiesChoiceState}
           handleChange={(key, value) => {
@@ -83,6 +80,7 @@ const CardExplorerOpportunitiesWidget = (props: ICardExplorerOpportunitiesWidget
         <Divider />
       </Grid.Row>
       <Grid.Row>
+        {checkForNoItems(match, EXPLORER_TYPE.OPPORTUNITIES as IExplorerTypes)}
         {opportunities.map((opportunity) => (
           <OpportunityInformationItem
             key={opportunity._id}

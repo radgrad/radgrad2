@@ -35,11 +35,9 @@ const OpportunitySortWidget = (props: IOpportunitySortWidgetProps) => {
     sortOpportunitiesBy: props.sortChoice,
   };
   return (
-    <div>
-      <AutoForm schema={formSchema} model={model} onChange={props.handleChange}>
-        <RadioField name="sortOpportunitiesBy" label="Sort Opportunities By:" inline />
-      </AutoForm>
-    </div>
+    <AutoForm schema={formSchema} model={model} onChange={props.handleChange}>
+      <RadioField name="sortOpportunitiesBy" label="Sort By:" inline />
+    </AutoForm>
   );
 };
 
