@@ -33,7 +33,7 @@ const CardExplorerSummerOpportunitiesWidget = () => {
   return (
     <>
       <Image src="/images/banners/summer_internships.png" />
-      <Header>Summer Internship Opportunities</Header>
+      <Header>SUMMER INTERNSHIP OPPORTUNITIES</Header>
       <Divider />
       {summerInternshipOpportunities.map((opportunity) => (
         <OpportunityInformationItem

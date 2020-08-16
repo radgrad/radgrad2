@@ -36,7 +36,7 @@ const CourseFilterWidget = (props: ICourseFilterWidgetProps) => {
   return (
     <div>
       <AutoForm schema={formSchema} model={model} onChange={props.handleChange}>
-        <RadioField name="filterCoursesBy" label="Filter By:" inline />
+        <RadioField name="filterCoursesBy" label="Filter Courses By:" inline />
       </AutoForm>
     </div>
   );

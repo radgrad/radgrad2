@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Header, Divider, Grid } from 'semantic-ui-react';
+import { Header, Divider, Grid, Container } from 'semantic-ui-react';
 import _ from 'lodash';
 import WidgetHeaderNumber from '../WidgetHeaderNumber';
 import { availableOpps, checkForNoItems, IExplorerTypes, matchingOpportunities } from '../explorer-helper-functions';
@@ -89,13 +89,17 @@ const CardExplorerOpportunitiesWidget = (props: ICardExplorerOpportunitiesWidget
           />
         ))}
       </Grid.Row>
-      <Grid.Row centered>
-        <CardExplorersPaginationWidget
-          type={EXPLORER_TYPE.OPPORTUNITIES}
-          totalCount={opportunitiesCount}
-          displayCount={displayOpportunitiesCount}
-        />
-      </Grid.Row>
+      <Grid>
+        <Grid.Row>
+          <Container textAlign="center">
+            <CardExplorersPaginationWidget
+              type={EXPLORER_TYPE.OPPORTUNITIES}
+              totalCount={opportunitiesCount}
+              displayCount={displayOpportunitiesCount}
+            />
+          </Container>
+        </Grid.Row>
+      </Grid>
     </>
   );
 };
