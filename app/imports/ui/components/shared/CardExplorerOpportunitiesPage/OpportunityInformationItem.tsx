@@ -47,9 +47,6 @@ const getNumberOfStudentsParticipating = (opportunity: IOpportunity): number => 
 const OpportunityInformationItem = (props: IOpportunityItemWidgetProps) => {
   const { match, informationConfiguration, opportunity } = props;
 
-  const breakWordStyle: React.CSSProperties = {
-    wordWrap: 'break-word',
-  };
   const interestListStyle: React.CSSProperties = {
     marginTop: '5px',
   };
@@ -77,18 +74,14 @@ const OpportunityInformationItem = (props: IOpportunityItemWidgetProps) => {
         <Grid.Column width={informationConfiguration.showLogo ? 13 : undefined}>
           {/* Header (Name and ICE Points) */}
           <Grid.Row columns={2}>
-            <Grid.Column floated="left">
-              <Header as="h3" style={breakWordStyle}>
-                <Link
-                  to={buildExplorerSlugRoute(match, EXPLORER_TYPE.OPPORTUNITIES, opportunitySlug)}
-                >
-                  {opportunity.name.toUpperCase()}
-                </Link>
-              </Header>
-            </Grid.Column>
-            <Grid.Column floated="right">
+            <Header as="h3">
+              <Link
+                to={buildExplorerSlugRoute(match, EXPLORER_TYPE.OPPORTUNITIES, opportunitySlug)}
+              >
+                {opportunity.name.toUpperCase()}
+              </Link>
               <IceHeader ice={opportunityICE} />
-            </Grid.Column>
+            </Header>
           </Grid.Row>
 
           {/* Metadata (Opportunity Type and Academic Terms) */}
@@ -116,15 +109,15 @@ const OpportunityInformationItem = (props: IOpportunityItemWidgetProps) => {
           <Grid.Row>
             <Grid>
               <Grid.Column
-                width={informationConfiguration.showStudentsParticipating ? 14 : undefined}
+                width={informationConfiguration.showStudentsParticipating ? 11 : undefined}
                 style={interestListStyle}
-                floated="left"
               >
                 <InterestList size="mini" item={opportunity} />
               </Grid.Column>
               {informationConfiguration.showStudentsParticipating ? (
-                <Grid.Column width={2} floated="right">
-                  <Icon name="user circle" /> {numberOfStudentsParticipating} students are participating
+                <Grid.Column width={5} verticalAlign="bottom" textAlign="right">
+                  <Icon size="large" name="user circle" />
+                  <b>{numberOfStudentsParticipating} students are participating</b>
                 </Grid.Column>
               ) : ''}
             </Grid>

@@ -8,7 +8,8 @@ import TeaserVideo from '../../components/shared/TeaserVideo';
 import { radgradVideos } from '../../../api/radgrad/radgrad-videos';
 import CardExplorerSummerOpportunitiesWidget
   from '../../components/shared/CardExplorerOpportunitiesPage/CardExplorerSummerOpportunitiesWidget';
-import GuidedTourCardExplorerOpportunitiesPageWidget from '../../components/shared/CardExplorerOpportunitiesPage/GuidedTourCardExplorerOpportunitiesPageWidget';
+import GuidedTourCardExplorerOpportunitiesPageWidget
+  from '../../components/shared/CardExplorerOpportunitiesPage/GuidedTourCardExplorerOpportunitiesPageWidget';
 
 const CardExplorerOpportunitiesPage = () => {
   const opportunitiesVideoHeaderStyle: React.CSSProperties = {
@@ -37,6 +38,7 @@ const CardExplorerOpportunitiesPage = () => {
                   </Card.Header>
                   <Card.Description>
                     {opportunitiesInRadGradVideo.author}
+                    {/*  TODO: Video Upload Date; see issue-281 and FIGMA mockup */}
                   </Card.Description>
                 </Card.Content>
               </Card>
