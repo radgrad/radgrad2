@@ -17,7 +17,7 @@ const mapDispatchToProps = (dispatch) => ({
 const CardExplorersPaginationWidget = (props: ICardExplorerOpportunitiesPaginationWidgetProps) => {
   const { type, totalCount, displayCount, setShowIndex } = props;
   const totalPages = Math.ceil(totalCount / displayCount);
-
+  // console.log(props, totalCount, displayCount);
   const handlePaginationChange = (e, data: PaginationProps) => {
     e.preventDefault();
     // <Pagination> starts at value 1 for the first Pagination

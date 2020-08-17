@@ -162,3 +162,5 @@ const CardExplorerMenuMobileWidget = (props: ICardExplorerMenuMobileWidgetProps)
 };
 
 const CardExplorerMenuMobileWidgetContainer = withRouter(CardExplorerMenuMobileWidget);
+
+export default CardExplorerMenuMobileWidgetContainer;

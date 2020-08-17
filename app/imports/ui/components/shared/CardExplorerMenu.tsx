@@ -23,7 +23,7 @@ interface ICardExplorerMenuProps {
 const CardExplorerMenu = (props: ICardExplorerMenuProps) => {
   const { menuAddedList, menuCareerList, type, role } = props;
   const isTypeInterest = props.type === EXPLORER_TYPE.INTERESTS;
-
+  console.log('CardExplorerMenu', props);
   return (
     <React.Fragment>
       <CardExplorerMenuNonMobileWidget
