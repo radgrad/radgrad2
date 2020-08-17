@@ -7,13 +7,13 @@ import { Teasers } from '../../../../api/teaser/TeaserCollection';
 import { Users } from '../../../../api/user/UserCollection';
 import { getUsername, IMatchProps } from '../../shared/RouterHelperFunctions';
 import { Interests } from '../../../../api/interest/InterestCollection';
-import TeaserInformationItem from './TeaserInformationItem';
+import RecommendedItemInformation from './RecommendedItemInformation';
 
 interface IStudentHomeRecommendedTeasersProps {
   match: IMatchProps;
 }
 
-const StudentHomeRecommendedTeasersWidget = (props: IStudentHomeRecommendedTeasersProps) => {
+const StudentHomeRecommendedWidget = (props: IStudentHomeRecommendedTeasersProps) => {
   const { match } = props;
   const getRecommendedTeasers = (): ITeaser[] => {
     const allTeasers: ITeaser[] = Teasers.findNonRetired({});
@@ -48,13 +48,13 @@ const StudentHomeRecommendedTeasersWidget = (props: IStudentHomeRecommendedTease
 
   return (
     <>
-      <Header>RECOMMENDED</Header>
+      <Header>RECOMMENDED COURSES & OPPORTUNITIES</Header>
       {recommendedTeasers.map((teaser) => (
-        <TeaserInformationItem key={teaser._id} teaser={teaser} />
+        <RecommendedItemInformation key={teaser._id} teaser={teaser} />
       ))}
     </>
   );
 };
 
-const StudentHomeRecommendedTeasersCon = withRouter(StudentHomeRecommendedTeasersWidget);
+const StudentHomeRecommendedTeasersCon = withRouter(StudentHomeRecommendedWidget);
 export default StudentHomeRecommendedTeasersCon;

@@ -38,9 +38,7 @@ const ListCollectionWidget = (props: IListCollectionWidgetProps) => {
     <Segment padded>
       <Header dividing>
         {props.collection.getCollectionName()}
-        (
-        {count}
-        )
+        ({count})
       </Header>
       <Grid>
         <AdminPaginationWidget

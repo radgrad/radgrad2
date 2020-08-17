@@ -13,7 +13,7 @@ import { docToShortDescription } from '../../shared/data-model-helper-functions'
 import { buildExplorerSlugRoute, IMatchProps, renderLink } from '../../shared/RouterHelperFunctions';
 import { EXPLORER_TYPE } from '../../../../startup/client/route-constants';
 
-interface ITeaserInformationItemProps {
+interface IRecommendedItemInformationProps {
   match: IMatchProps;
   teaser: ITeaser;
 }
@@ -68,7 +68,7 @@ const getTeaserRoute = (match: IMatchProps, teaser: ITeaser): string => {
   return undefined;
 };
 
-const TeaserInformationItem = (props: ITeaserInformationItemProps) => {
+const RecommendedItemInformation = (props: IRecommendedItemInformationProps) => {
   const { teaser, match } = props;
 
   const viewMoreButtonStyle: React.CSSProperties = {
@@ -115,4 +115,4 @@ const TeaserInformationItem = (props: ITeaserInformationItemProps) => {
   );
 };
 
-export default withRouter(TeaserInformationItem);
+export default withRouter(RecommendedItemInformation);

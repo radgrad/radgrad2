@@ -2,7 +2,7 @@
  * This object holds all the routes for RadGrad2. The keys are the Roles the values are an array of route information.
  * Route information consists of a path, the path to the component, a Component to render.
  */
-import LandingHomeContainer from '../../ui/pages/landing/LandingHome';
+import LandingHomePage from '../../ui/pages/landing/LandingHomePage';
 import LandingGuidedTourAdvisor from '../../ui/pages/landing/LandingGuidedTourAdvisor';
 import LandingGuidedTourFaculty from '../../ui/pages/landing/LandingGuidedTourFaculty';
 import LandingGuidedTourMentor from '../../ui/pages/landing/LandingGuidedTourMentor';
@@ -583,7 +583,7 @@ export const routes = {
     {
       path: '/',
       exact: true,
-      component: LandingHomeContainer,
+      component: LandingHomePage,
     },
     {
       path: `/${GUIDEDTOUR}/${URL_ROLES.STUDENT}`,

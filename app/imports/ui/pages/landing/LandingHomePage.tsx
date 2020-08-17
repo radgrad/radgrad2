@@ -18,7 +18,7 @@ interface ILandingHomeProps {
 }
 
 /** A simple static component to render some text for the landing page. */
-const LandingHome = (props: ILandingHomeProps) => (
+const LandingHomePage = (props: ILandingHomeProps) => (
   <div>
     <LandingNavBarContainer />
     <LandingSection1 />
@@ -36,10 +36,10 @@ const LandingHome = (props: ILandingHomeProps) => (
   </div>
 );
 
-const WithSubs = withListSubscriptions(LandingHome, [PublicStats.getPublicationName()]);
+const WithSubs = withListSubscriptions(LandingHomePage, [PublicStats.getPublicationName()]);
 
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
-const LandingHomeContainer = // console.log(`LandingHomeContainer withTracker()`);
+const LandingHomeContainer =
   withTracker(() => ({
     careerGoals: PublicStats.getPublicStat(PublicStats.careerGoalsTotalKey),
     interests: PublicStats.getPublicStat(PublicStats.interestsTotalKey),
