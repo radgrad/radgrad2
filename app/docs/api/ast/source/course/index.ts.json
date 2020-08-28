@@ -1,0 +1,349 @@
+{
+  "type": "File",
+  "start": 0,
+  "end": 95,
+  "loc": {
+    "start": {
+      "line": 1,
+      "column": 0
+    },
+    "end": {
+      "line": 4,
+      "column": 0
+    }
+  },
+  "program": {
+    "type": "Program",
+    "start": 0,
+    "end": 95,
+    "loc": {
+      "start": {
+        "line": 1,
+        "column": 0
+      },
+      "end": {
+        "line": 4,
+        "column": 0
+      }
+    },
+    "sourceType": "module",
+    "body": [
+      {
+        "type": "ImportDeclaration",
+        "start": 29,
+        "end": 57,
+        "loc": {
+          "start": {
+            "line": 2,
+            "column": 0
+          },
+          "end": {
+            "line": 2,
+            "column": 28
+          }
+        },
+        "specifiers": [],
+        "source": {
+          "type": "StringLiteral",
+          "start": 36,
+          "end": 56,
+          "loc": {
+            "start": {
+              "line": 2,
+              "column": 7
+            },
+            "end": {
+              "line": 2,
+              "column": 27
+            }
+          },
+          "extra": {
+            "rawValue": "./CourseCollection",
+            "raw": "'./CourseCollection'"
+          },
+          "value": "./CourseCollection",
+          "leadingComments": null
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "* @namespace api/course ",
+            "start": 0,
+            "end": 28,
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 0
+              },
+              "end": {
+                "line": 1,
+                "column": 28
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "ImportDeclaration",
+        "start": 58,
+        "end": 94,
+        "loc": {
+          "start": {
+            "line": 3,
+            "column": 0
+          },
+          "end": {
+            "line": 3,
+            "column": 36
+          }
+        },
+        "specifiers": [],
+        "source": {
+          "type": "StringLiteral",
+          "start": 65,
+          "end": 93,
+          "loc": {
+            "start": {
+              "line": 3,
+              "column": 7
+            },
+            "end": {
+              "line": 3,
+              "column": 35
+            }
+          },
+          "extra": {
+            "rawValue": "./CourseCollection.methods",
+            "raw": "'./CourseCollection.methods'"
+          },
+          "value": "./CourseCollection.methods"
+        }
+      }
+    ],
+    "directives": []
+  },
+  "comments": [
+    {
+      "type": "CommentBlock",
+      "value": "* @namespace api/course ",
+      "start": 0,
+      "end": 28,
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 28
+        }
+      }
+    }
+  ],
+  "tokens": [
+    {
+      "type": "CommentBlock",
+      "value": "* @namespace api/course ",
+      "start": 0,
+      "end": 28,
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 28
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "import",
+        "keyword": "import",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "import",
+      "start": 29,
+      "end": 35,
+      "loc": {
+        "start": {
+          "line": 2,
+          "column": 0
+        },
+        "end": {
+          "line": 2,
+          "column": 6
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "string",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "./CourseCollection",
+      "start": 36,
+      "end": 56,
+      "loc": {
+        "start": {
+          "line": 2,
+          "column": 7
+        },
+        "end": {
+          "line": 2,
+          "column": 27
+        }
+      }
+    },
+    {
+      "type": {
+        "label": ";",
+        "beforeExpr": true,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "start": 56,
+      "end": 57,
+      "loc": {
+        "start": {
+          "line": 2,
+          "column": 27
+        },
+        "end": {
+          "line": 2,
+          "column": 28
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "import",
+        "keyword": "import",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "import",
+      "start": 58,
+      "end": 64,
+      "loc": {
+        "start": {
+          "line": 3,
+          "column": 0
+        },
+        "end": {
+          "line": 3,
+          "column": 6
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "string",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "./CourseCollection.methods",
+      "start": 65,
+      "end": 93,
+      "loc": {
+        "start": {
+          "line": 3,
+          "column": 7
+        },
+        "end": {
+          "line": 3,
+          "column": 35
+        }
+      }
+    },
+    {
+      "type": {
+        "label": ";",
+        "beforeExpr": true,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "start": 93,
+      "end": 94,
+      "loc": {
+        "start": {
+          "line": 3,
+          "column": 35
+        },
+        "end": {
+          "line": 3,
+          "column": 36
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "eof",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "start": 95,
+      "end": 95,
+      "loc": {
+        "start": {
+          "line": 4,
+          "column": 0
+        },
+        "end": {
+          "line": 4,
+          "column": 0
+        }
+      }
+    }
+  ]
+}

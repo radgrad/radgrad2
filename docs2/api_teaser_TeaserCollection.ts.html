@@ -1,0 +1,363 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> api/teaser/TeaserCollection.ts</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    API Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-base_BaseCollection.html">base/BaseCollection</a></li></ul><h3>Namespaces</h3><ul><li><a href="api.html">api</a></li><li><a href="api_academic-term.html">api/academic-term</a></li><li><a href="api_analytic.html">api/analytic</a></li><li><a href="api_base.html">api/base</a></li><li><a href="api_career.html">api/career</a></li><li><a href="api_course.html">api/course</a></li><li><a href="api_degree-plan.html">api/degree-plan</a></li><li><a href="api_feed.html">api/feed</a></li><li><a href="api_feedback.html">api/feedback</a></li><li><a href="api_help.html">api/help</a></li><li><a href="api_ice.html">api/ice</a></li><li><a href="api_integrity.html">api/integrity</a></li><li><a href="api_interest.html">api/interest</a></li><li><a href="api_level.html">api/level</a></li><li><a href="api_log.html">api/log</a></li><li><a href="api_mentor.html">api/mentor</a></li><li><a href="api_opportunity.html">api/opportunity</a></li><li><a href="api_page-tracking.html">api/page-tracking</a></li><li><a href="api_public-stats.html">api/public-stats</a></li><li><a href="api_radgrad.html">api/radgrad</a></li><li><a href="api_review.html">api/review</a></li><li><a href="api_role.html">api/role</a></li><li><a href="api_slug.html">api/slug</a></li><li><a href="api_star.html">api/star</a></li><li><a href="api_teaser.html">api/teaser</a></li><li><a href="api_test.html">api/test</a></li><li><a href="api_user.html">api/user</a></li><li><a href="api_verification.html">api/verification</a></li></ul><h3>Classes</h3><ul><li><a href="@api_page-tracking.PageInterestsDailySnapshotCollection.html">PageInterestsDailySnapshotCollection</a></li><li><a href="api_academic-term.AcademicTermCollection.html">AcademicTermCollection</a></li><li><a href="api_analytic.IceSnapshotCollection.html">IceSnapshotCollection</a></li><li><a href="api_analytic.PageInterestCollection.html">PageInterestCollection</a></li><li><a href="api_analytic.UserInteractionCollection.html">UserInteractionCollection</a></li><li><a href="api_base.BaseCollection.html">BaseCollection</a></li><li><a href="api_base.BaseSlugCollection.html">BaseSlugCollection</a></li><li><a href="api_base.BaseTypeCollection.html">BaseTypeCollection</a></li><li><a href="api_career.CareerGoalCollection.html">CareerGoalCollection</a></li><li><a href="api_course.CourseCollection.html">CourseCollection</a></li><li><a href="api_course.CourseInstanceCollection.html">CourseInstanceCollection</a></li><li><a href="api_degree-plan.AcademicPlanCollection.html">AcademicPlanCollection</a></li><li><a href="api_degree-plan.AcademicYearInstanceCollection.html">AcademicYearInstanceCollection</a></li><li><a href="api_degree-plan.DesiredDegreeCollection.html">DesiredDegreeCollection</a></li><li><a href="api_degree-plan.exports.PlanChoiceCollection.html">PlanChoiceCollection</a></li><li><a href="api_degree-plan.PreferredChoice.html">PreferredChoice</a></li><li><a href="api_feed.FeedCollection.html">FeedCollection</a></li><li><a href="api_feedback.FeedbackFunctions.html">FeedbackFunctions</a></li><li><a href="api_feedback.FeedbackInstanceCollection.html">FeedbackInstanceCollection</a></li><li><a href="api_help.HelpMessageCollection.html">HelpMessageCollection</a></li><li><a href="api_interest.InterestCollection.html">InterestCollection</a></li><li><a href="api_interest.InterestTypeCollection.html">InterestTypeCollection</a></li><li><a href="api_log.AdvisorLogCollection.html">AdvisorLogCollection</a></li><li><a href="api_mentor.MentorAnswerCollection.html">MentorAnswerCollection</a></li><li><a href="api_mentor.MentorQuestionCollection.html">MentorQuestionCollection</a></li><li><a href="api_opportunity.OpportunityCollection.html">OpportunityCollection</a></li><li><a href="api_opportunity.OpportunityInstanceCollection.html">OpportunityInstanceCollection</a></li><li><a href="api_opportunity.OpportunityTypeCollection.html">OpportunityTypeCollection</a></li><li><a href="api_public-stats.PublicStatsCollection.html">PublicStatsCollection</a></li><li><a href="api_radgrad.RadGradClass.html">RadGradClass</a></li><li><a href="api_review.ReviewCollection.html">ReviewCollection</a></li><li><a href="api_slug.SlugCollection.html">SlugCollection</a></li><li><a href="api_teaser.TeaserCollection.html">TeaserCollection</a></li><li><a href="api_user.AdminProfileCollection.html">AdminProfileCollection</a></li><li><a href="api_user.AdvisorProfileCollection.html">AdvisorProfileCollection</a></li><li><a href="api_user.BaseProfileCollection.html">BaseProfileCollection</a></li><li><a href="api_user.FacultyProfileCollection.html">FacultyProfileCollection</a></li><li><a href="api_user.MentorProfileCollection.html">MentorProfileCollection</a></li><li><a href="api_user.StudentProfileCollection.html">StudentProfileCollection</a></li><li><a href="api_user.UserCollection.html">UserCollection</a></li><li><a href="api_verification.VerificationRequestCollection.html">VerificationRequestCollection</a></li><li><a href="FavoriteAcademicPlanCollection.html">FavoriteAcademicPlanCollection</a></li><li><a href="FavoriteCareerGoalCollection.html">FavoriteCareerGoalCollection</a></li><li><a href="FavoriteCourseCollection.html">FavoriteCourseCollection</a></li><li><a href="FavoriteInterestCollection.html">FavoriteInterestCollection</a></li><li><a href="FavoriteOpportunityCollection.html">FavoriteOpportunityCollection</a></li><li><a href="RadGradPropertiesClass.html">RadGradPropertiesClass</a></li></ul><h3>Interfaces</h3><ul><li><a href="IFacultyPageAboutMeWidgetProps.html">IFacultyPageAboutMeWidgetProps</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AdminDataModelAcademicPlansPage">AdminDataModelAcademicPlansPage</a></li><li><a href="global.html#AdminModerationPage">AdminModerationPage</a></li><li><a href="global.html#AdminPageMenuWidget">AdminPageMenuWidget</a></li><li><a href="global.html#AdminProtectedRoute">AdminProtectedRoute</a></li><li><a href="global.html#ALLOWED_ROLES">ALLOWED_ROLES</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#CardExplorerWidget">CardExplorerWidget</a></li><li><a href="global.html#CompletedVerificationsWidget">CompletedVerificationsWidget</a></li><li><a href="global.html#descriptionPairs">descriptionPairs</a></li><li><a href="global.html#EventVerificationsWidget">EventVerificationsWidget</a></li><li><a href="global.html#ExplorerUsersWidget">ExplorerUsersWidget</a></li><li><a href="global.html#FacultyPageAboutMeWidget">FacultyPageAboutMeWidget</a></li><li><a href="global.html#FirstMenuContainer">FirstMenuContainer</a></li><li><a href="global.html#Footer">Footer</a></li><li><a href="global.html#getCourseNumber">getCourseNumber</a></li><li><a href="global.html#getPlanCount">getPlanCount</a></li><li><a href="global.html#getRandomCourseSlug">getRandomCourseSlug</a></li><li><a href="global.html#getRandomCourseSlugForDept">getRandomCourseSlugForDept</a></li><li><a href="global.html#getRandomDepartment">getRandomDepartment</a></li><li><a href="global.html#getSimpleChoiceNumber">getSimpleChoiceNumber</a></li><li><a href="global.html#itemTitle">itemTitle</a></li><li><a href="global.html#itemTitleString">itemTitleString</a></li><li><a href="global.html#LandingHome">LandingHome</a></li><li><a href="global.html#LandingHomeContainer">LandingHomeContainer</a></li><li><a href="global.html#LandingNavBar">LandingNavBar</a></li><li><a href="global.html#LandingNavBarContainer">LandingNavBarContainer</a></li><li><a href="global.html#makeSampleCareerGoal">makeSampleCareerGoal</a></li><li><a href="global.html#makeSampleCareerGoalArray">makeSampleCareerGoalArray</a></li><li><a href="global.html#makeSampleCareerGoalSlugArray">makeSampleCareerGoalSlugArray</a></li><li><a href="global.html#makeSampleCourseSlugArray">makeSampleCourseSlugArray</a></li><li><a href="global.html#makeSampleInterestArray">makeSampleInterestArray</a></li><li><a href="global.html#makeSampleInterestSlugArray">makeSampleInterestSlugArray</a></li><li><a href="global.html#makeSampleOpportunitySlugArray">makeSampleOpportunitySlugArray</a></li><li><a href="global.html#makeSamplePageInterestInfo">makeSamplePageInterestInfo</a></li><li><a href="global.html#makeSamplePageInterestInfoArray">makeSamplePageInterestInfoArray</a></li><li><a href="global.html#makeSampleUserArray">makeSampleUserArray</a></li><li><a href="global.html#MentorHomePage">MentorHomePage</a></li><li><a href="global.html#MentorMentorSpacePage">MentorMentorSpacePage</a></li><li><a href="global.html#NotAuthorized">NotAuthorized</a></li><li><a href="global.html#NotFound">NotFound</a></li><li><a href="global.html#PendingVerificationsWidget">PendingVerificationsWidget</a></li><li><a href="global.html#ProtectedRoute">ProtectedRoute</a></li><li><a href="global.html#removeEmptyYearsRaw">removeEmptyYearsRaw</a></li><li><a href="global.html#removeYearFromPlanRaw">removeYearFromPlanRaw</a></li><li><a href="global.html#schema">schema</a></li><li><a href="global.html#sendEmail">sendEmail</a></li><li><a href="global.html#Signin">Signin</a></li><li><a href="global.html#Signout">Signout</a></li><li><a href="global.html#validateCourseSlugFormat">validateCourseSlugFormat</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>api/teaser/TeaserCollection.ts</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import SimpleSchema from 'simpl-schema';
+import _ from 'lodash';
+import { Slugs } from '../slug/SlugCollection';
+import BaseSlugCollection from '../base/BaseSlugCollection';
+import { Interests } from '../interest/InterestCollection';
+import { Opportunities } from '../opportunity/OpportunityCollection';
+import { ITeaserDefine, ITeaserUpdate, ITeaserUpdateData } from '../../typings/radgrad';
+
+/**
+ * Represents a teaser instance, such as "ACM Webmasters".
+ * @extends api/base.BaseSlugCollection
+ * @memberOf api/teaser
+ */
+class TeaserCollection extends BaseSlugCollection {
+
+  /**
+   * Creates the Teaser collection.
+   */
+  constructor() {
+    super('Teaser', new SimpleSchema({
+      title: String,
+      slugID: SimpleSchema.RegEx.Id,
+      author: String,
+      url: String,
+      description: String,
+      interestIDs: [SimpleSchema.RegEx.Id],
+      opportunityID: { type: SimpleSchema.RegEx.Id, optional: true },
+      targetSlugID: SimpleSchema.RegEx.Id,
+      duration: { type: String, optional: true },
+      retired: { type: Boolean, optional: true },
+    }));
+    this.defineSchema = new SimpleSchema({
+      title: String,
+      slug: String,
+      author: String,
+      url: String,
+      description: String,
+      duration: { type: String, optional: true },
+      interests: Array,
+      'interests.$': String,
+      opportunity: { type: String, optional: true },
+      targetSlug: String,
+      retired: { type: Boolean, optional: true },
+    });
+    this.updateSchema = new SimpleSchema({
+      title: { type: String, optional: true },
+      author: { type: String, optional: true },
+      url: { type: String, optional: true },
+      description: { type: String, optional: true },
+      duration: { type: String, optional: true },
+      interests: { type: Array, optional: true },
+      'interests.$': String,
+      opportunity: { type: String, optional: true },
+      targetSlug: { type: String, optional: true },
+      retired: { type: Boolean, optional: true },
+    });
+  }
+
+  /**
+   * Defines a new Teaser video to provide information about an opportunity.
+   * @example
+   * Teaser.define({ title: 'ACM Webmasters',
+   *                 slug: 'acm-webmasters-teaser',
+   *                 opportunity: 'acm-webmasters'
+   *                 interests: ['html', 'javascript', 'css', 'web-development'],
+   *                 author: 'Torlief Nielson'
+   *                 url: 'https://www.youtube.com/watch?v=OI4CXULK3tw'
+   *                 description: 'Learn web development by helping to develop and maintain the ACM Manoa website.',
+   *                 duration: '0:39',
+   *                 })
+   * @param { Object } description Object with keys title, slug, URL, description, duration. interestIDs.
+   * Title is a required string.
+   * Slug is required and must be previously undefined. By convention, use a '-teaser' suffix.
+   * Interests is a required array of one or more defined interest slugs or interestIDs.
+   * Opportunity is a required opportunity slug or opportunityID.
+   * URL is a required string; the url to the (typically YouTube) video defining this teaser.
+   * Author is a required string indicating the author of the Teaser.
+   * Description is a required string providing a short description of this teaser.
+   * Duration is an optional string indicating the length of the teaser.
+   * @throws {Meteor.Error} If the interest definition includes a defined slug or undefined interestID,
+   * if the slug is already defined, or if the opportunity is supplied and not found.
+   * @returns The newly created docID.
+   */
+  public define({ title, slug, author, url, description, duration, interests, opportunity, targetSlug, retired = false }: ITeaserDefine) {
+    // Get InterestIDs, throw error if any of them are not found.
+    const interestIDs = Interests.getIDs(interests);
+    // Get SlugID, throw error if found.
+    const slugID = Slugs.define({ name: slug, entityName: this.getType() });
+    let targetSlugID;
+    if (!_.isUndefined(opportunity)) {
+      // Get OpportunityID, throw error if not found.
+      const opportunityID = Opportunities.getID(opportunity);
+      // if ()
+      targetSlugID = Slugs.findDoc({ entityID: opportunityID })._id;
+    }
+    if (!_.isUndefined(targetSlug)) {
+      targetSlugID = Slugs.findDoc({ name: targetSlug })._id;
+    }
+    const teaserID = this.collection.insert({ title, slugID, author, url, description, duration, interestIDs,
+      targetSlugID, retired });
+    // Connect the Slug to this teaser
+    Slugs.updateEntityID(slugID, teaserID);
+    return teaserID;
+  }
+
+  /**
+   * Update a Teaser. Everything can be updated except the slug.
+   * @param docID The docID to be updated.
+   * @throws { Meteor.Error } If docID is not defined, or if any interest or opportunity is undefined.
+   */
+  public update(docID, { title, targetSlug, interests, author, url, description, duration, retired }: ITeaserUpdate) {
+    this.assertDefined(docID);
+    const updateData: ITeaserUpdateData = {};
+    if (title) {
+      updateData.title = title;
+    }
+    if (targetSlug) {
+      updateData.targetSlugID = Slugs.findDoc({ name: targetSlug })._id;
+    }
+    if (interests) {
+      updateData.interestIDs = Interests.getIDs(interests);
+    }
+    if (author) {
+      updateData.author = author;
+    }
+    if (url) {
+      updateData.url = url;
+    }
+    if (description) {
+      updateData.description = description;
+    }
+    if (duration) {
+      updateData.duration = duration;
+    }
+    if (_.isBoolean(retired)) {
+      updateData.retired = retired;
+    }
+    this.collection.update(docID, { $set: updateData });
+  }
+
+  /**
+   * Remove the Teaser.
+   * @param instance The docID or slug of the entity to be removed.
+   * @throws { Meteor.Error } If docID is not a Teaser.
+   */
+  public removeIt(instance: string) {
+    const docID = this.getID(instance);
+    // OK, clear to delete.
+    return super.removeIt(docID);
+  }
+
+  /**
+   * Returns true if teaser has the specified interest.
+   * @param teaser The teaser (docID or slug)
+   * @param interest The Interest (docID or slug).
+   * @returns {boolean} True if the teaser has the associated Interest.
+   * @throws { Meteor.Error } If teaser is not a teaser or interest is not a Interest.
+   */
+  public hasInterest(teaser: string, interest: string) {
+    const interestID = Interests.getID(interest);
+    const doc = this.findDoc(teaser);
+    return _.includes(doc.interestIDs, interestID);
+  }
+
+  /**
+   * Returns true if teaser has the specified slug.
+   * @param teaser The teaser (docID or slug)
+   * @param target The target (slug).
+   * @returns {boolean} True if the teaser has the associated slug.
+   * @throws { Meteor.Error } If teaser is not a teaser or target isn't a defined slug.
+   */
+  hasTarget(teaser, target) {
+    const targetSlugID = Slugs.findDoc({ name: target })._id;
+    const doc = this.findDoc(teaser);
+    return (doc.targetSlugID === targetSlugID);
+  }
+
+  /**
+   * Returns an array of strings, each one representing an integrity problem with this collection.
+   * Returns an empty array if no problems were found.
+   * Checks slugID, interestIDs
+   * @returns {Array} A (possibly empty) array of strings indicating integrity issues.
+   */
+  public checkIntegrity() {
+    const problems = [];
+    this.find().forEach((doc) => {
+      if (!Slugs.isDefined(doc.slugID)) {
+        problems.push(`Bad slugID: ${doc.slugID}`);
+      }
+      _.forEach(doc.interestIDs, (interestID) => {
+        if (!Interests.isDefined(interestID)) {
+          problems.push(`Bad interestID: ${interestID}`);
+        }
+      });
+      if (doc.opportunityID &amp;&amp; !Opportunities.isDefined(doc.opportunityID)) {
+        problems.push(`Bad opportunityID: ${doc.opportunityID}`);
+      }
+      if (doc.opportunityID) {
+        if (!doc.targetSlugID) {
+          const slugDoc = Slugs.findDoc({ entityID: doc.opportunityID });
+          const docID = doc._id;
+          const updateData: any = {};
+          updateData.targetSlugID = slugDoc._id;
+          if (slugDoc) {
+            this.collection.update(docID, { $set: updateData });
+          }
+        }
+        if (!Opportunities.isDefined(doc.opportunityID)) {
+          problems.push(`Bad opportunityID ${doc.opportunityID}`);
+        }
+      }
+      if (doc.targetSlugID &amp;&amp; !Slugs.isDefined(doc.targetSlugID)) {
+        problems.push(`Bad targetSlugID: ${doc.targetSlugID}`);
+      }
+    });
+    return problems;
+  }
+
+  /**
+   * Returns an object representing the Teaser docID in a format acceptable to define().
+   * @param docID The docID of a Teaser.
+   * @returns { Object } An object representing the definition of docID.
+   */
+  public dumpOne(docID: string): ITeaserDefine {
+    const doc = this.findDoc(docID);
+    const title = doc.title;
+    const slug = Slugs.getNameFromID(doc.slugID);
+    const author = doc.author;
+    const url = doc.url;
+    const description = doc.description;
+    const duration = doc.duration;
+    const interests = _.map(doc.interestIDs, (interestID) => Interests.findSlugByID(interestID));
+    let targetSlug;
+    if (doc.targetSlugID) {
+      targetSlug = Slugs.getNameFromID(doc.targetSlugID);
+    }
+    const retired = doc.retired;
+    return { title, slug, author, url, description, duration, interests, targetSlug, retired };
+  }
+}
+
+/**
+ * Provides the singleton instance of this class to all other entities.
+ * @type {api/teaser.TeaserCollection}
+ * @memberOf api/teaser
+ */
+export const Teasers = new TeaserCollection();
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.5</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+</body>
+</html>

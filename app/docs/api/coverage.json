@@ -1,0 +1,714 @@
+{
+  "coverage": "82.18%",
+  "expectCount": 954,
+  "actualCount": 784,
+  "files": {
+    "api/academic-term/AcademicTermCollection.ts": {
+      "expectCount": 29,
+      "actualCount": 19,
+      "undocumentLines": [
+        29,
+        30,
+        31,
+        32,
+        35,
+        36,
+        37,
+        38,
+        46,
+        55
+      ]
+    },
+    "api/academic-term/AcademicTermUtilities.ts": {
+      "expectCount": 5,
+      "actualCount": 5,
+      "undocumentLines": []
+    },
+    "api/academic-term/SampleAcademicTerms.ts": {
+      "expectCount": 4,
+      "actualCount": 0,
+      "undocumentLines": [
+        4,
+        8,
+        13,
+        20
+      ]
+    },
+    "api/analytic/Email.methods.ts": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "api/analytic/Email.ts": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "api/analytic/IceSnapshotCollection.ts": {
+      "expectCount": 6,
+      "actualCount": 5,
+      "undocumentLines": [
+        76
+      ]
+    },
+    "api/analytic/UserInteractionCollection.methods.ts": {
+      "expectCount": 3,
+      "actualCount": 3,
+      "undocumentLines": []
+    },
+    "api/analytic/UserInteractionCollection.ts": {
+      "expectCount": 10,
+      "actualCount": 10,
+      "undocumentLines": []
+    },
+    "api/analytic/UserInteractionsTypes.ts": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        36
+      ]
+    },
+    "api/base/BaseCollection.methods.ts": {
+      "expectCount": 5,
+      "actualCount": 2,
+      "undocumentLines": [
+        67,
+        87,
+        106
+      ]
+    },
+    "api/base/BaseCollection.ts": {
+      "expectCount": 36,
+      "actualCount": 32,
+      "undocumentLines": [
+        24,
+        25,
+        26,
+        27
+      ]
+    },
+    "api/base/BaseSlugCollection.ts": {
+      "expectCount": 10,
+      "actualCount": 10,
+      "undocumentLines": []
+    },
+    "api/base/BaseTypeCollection.ts": {
+      "expectCount": 16,
+      "actualCount": 14,
+      "undocumentLines": [
+        24,
+        30
+      ]
+    },
+    "api/base/BaseUtilities.ts": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "api/career/CareerGoalCollection.ts": {
+      "expectCount": 12,
+      "actualCount": 10,
+      "undocumentLines": [
+        26,
+        33
+      ]
+    },
+    "api/career/SampleCareerGoals.ts": {
+      "expectCount": 3,
+      "actualCount": 3,
+      "undocumentLines": []
+    },
+    "api/course/CourseCollection.methods.ts": {
+      "expectCount": 2,
+      "actualCount": 2,
+      "undocumentLines": []
+    },
+    "api/course/CourseCollection.ts": {
+      "expectCount": 12,
+      "actualCount": 9,
+      "undocumentLines": [
+        40,
+        54,
+        66
+      ]
+    },
+    "api/course/CourseInstanceCollection.ts": {
+      "expectCount": 28,
+      "actualCount": 24,
+      "undocumentLines": [
+        36,
+        38,
+        41,
+        51
+      ]
+    },
+    "api/course/CourseUtilities.ts": {
+      "expectCount": 18,
+      "actualCount": 18,
+      "undocumentLines": []
+    },
+    "api/course/SampleCourses.ts": {
+      "expectCount": 5,
+      "actualCount": 3,
+      "undocumentLines": [
+        8,
+        69
+      ]
+    },
+    "api/degree-plan/AcademicPlanCollection.ts": {
+      "expectCount": 16,
+      "actualCount": 14,
+      "undocumentLines": [
+        42,
+        52
+      ]
+    },
+    "api/degree-plan/AcademicPlanUtilities.ts": {
+      "expectCount": 15,
+      "actualCount": 15,
+      "undocumentLines": []
+    },
+    "api/degree-plan/AcademicYearInstanceCollection.ts": {
+      "expectCount": 14,
+      "actualCount": 12,
+      "undocumentLines": [
+        32,
+        42
+      ]
+    },
+    "api/degree-plan/AcademicYearUtilities.ts": {
+      "expectCount": 2,
+      "actualCount": 2,
+      "undocumentLines": []
+    },
+    "api/degree-plan/DesiredDegreeCollection.ts": {
+      "expectCount": 10,
+      "actualCount": 8,
+      "undocumentLines": [
+        25,
+        31
+      ]
+    },
+    "api/degree-plan/PlanChoiceCollection.ts": {
+      "expectCount": 13,
+      "actualCount": 11,
+      "undocumentLines": [
+        22,
+        26
+      ]
+    },
+    "api/degree-plan/PlanChoiceUtilities.ts": {
+      "expectCount": 17,
+      "actualCount": 17,
+      "undocumentLines": []
+    },
+    "api/degree-plan/PreferredChoice.ts": {
+      "expectCount": 7,
+      "actualCount": 5,
+      "undocumentLines": [
+        15,
+        27
+      ]
+    },
+    "api/degree-plan/SampleAcademicPlans.ts": {
+      "expectCount": 5,
+      "actualCount": 0,
+      "undocumentLines": [
+        10,
+        20,
+        21,
+        31,
+        32
+      ]
+    },
+    "api/degree-plan/SampleDesiredDegrees.ts": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "api/degree-plan/SamplePlanChoices.ts": {
+      "expectCount": 3,
+      "actualCount": 0,
+      "undocumentLines": [
+        3,
+        18,
+        28
+      ]
+    },
+    "api/favorite/FavoriteAcademicPlanCollection.ts": {
+      "expectCount": 16,
+      "actualCount": 14,
+      "undocumentLines": [
+        227,
+        23
+      ]
+    },
+    "api/favorite/FavoriteCareerGoalCollection.ts": {
+      "expectCount": 16,
+      "actualCount": 14,
+      "undocumentLines": [
+        225,
+        23
+      ]
+    },
+    "api/favorite/FavoriteCourseCollection.ts": {
+      "expectCount": 16,
+      "actualCount": 14,
+      "undocumentLines": [
+        224,
+        23
+      ]
+    },
+    "api/favorite/FavoriteInterestCollection.methods.ts": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        11
+      ]
+    },
+    "api/favorite/FavoriteInterestCollection.ts": {
+      "expectCount": 16,
+      "actualCount": 14,
+      "undocumentLines": [
+        225,
+        23
+      ]
+    },
+    "api/favorite/FavoriteOpportunityCollection.ts": {
+      "expectCount": 16,
+      "actualCount": 14,
+      "undocumentLines": [
+        225,
+        23
+      ]
+    },
+    "api/feed/FeedCollection.ts": {
+      "expectCount": 33,
+      "actualCount": 24,
+      "undocumentLines": [
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        83
+      ]
+    },
+    "api/feedback/FeedbackFunctions.ts": {
+      "expectCount": 13,
+      "actualCount": 12,
+      "undocumentLines": [
+        31
+      ]
+    },
+    "api/feedback/FeedbackInstanceCollection.methods.ts": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "api/feedback/FeedbackInstanceCollection.ts": {
+      "expectCount": 20,
+      "actualCount": 15,
+      "undocumentLines": [
+        25,
+        26,
+        27,
+        31,
+        38
+      ]
+    },
+    "api/help/HelpMessageCollection.ts": {
+      "expectCount": 13,
+      "actualCount": 11,
+      "undocumentLines": [
+        21,
+        27
+      ]
+    },
+    "api/ice/IceProcessor.ts": {
+      "expectCount": 7,
+      "actualCount": 6,
+      "undocumentLines": [
+        5
+      ]
+    },
+    "api/ice/SampleIce.ts": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        2
+      ]
+    },
+    "api/integrity/IntegrityChecker.methods.ts": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "api/integrity/IntegrityChecker.ts": {
+      "expectCount": 2,
+      "actualCount": 2,
+      "undocumentLines": []
+    },
+    "api/interest/InterestCollection.ts": {
+      "expectCount": 12,
+      "actualCount": 10,
+      "undocumentLines": [
+        30,
+        37
+      ]
+    },
+    "api/interest/InterestCollection.validators.ts": {
+      "expectCount": 2,
+      "actualCount": 2,
+      "undocumentLines": []
+    },
+    "api/interest/InterestTypeCollection.ts": {
+      "expectCount": 5,
+      "actualCount": 5,
+      "undocumentLines": []
+    },
+    "api/interest/MatchingInterests.ts": {
+      "expectCount": 6,
+      "actualCount": 5,
+      "undocumentLines": [
+        87
+      ]
+    },
+    "api/interest/SampleInterests.ts": {
+      "expectCount": 4,
+      "actualCount": 4,
+      "undocumentLines": []
+    },
+    "api/level/LevelProcessor.methods.ts": {
+      "expectCount": 3,
+      "actualCount": 3,
+      "undocumentLines": []
+    },
+    "api/level/LevelProcessor.ts": {
+      "expectCount": 6,
+      "actualCount": 4,
+      "undocumentLines": [
+        198,
+        263
+      ]
+    },
+    "api/log/AdvisorLogCollection.methods.ts": {
+      "expectCount": 3,
+      "actualCount": 3,
+      "undocumentLines": []
+    },
+    "api/log/AdvisorLogCollection.ts": {
+      "expectCount": 13,
+      "actualCount": 11,
+      "undocumentLines": [
+        26,
+        31
+      ]
+    },
+    "api/mentor/MentorAnswerCollection.ts": {
+      "expectCount": 16,
+      "actualCount": 14,
+      "undocumentLines": [
+        24,
+        30
+      ]
+    },
+    "api/mentor/MentorQuestionCollection.ts": {
+      "expectCount": 12,
+      "actualCount": 10,
+      "undocumentLines": [
+        28,
+        37
+      ]
+    },
+    "api/mentor/SampleMentorQuestionAndAnswer.ts": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        7,
+        13
+      ]
+    },
+    "api/opportunity/OpportunityCollection.ts": {
+      "expectCount": 13,
+      "actualCount": 11,
+      "undocumentLines": [
+        40,
+        52
+      ]
+    },
+    "api/opportunity/OpportunityInstanceCollection.ts": {
+      "expectCount": 24,
+      "actualCount": 21,
+      "undocumentLines": [
+        33,
+        40,
+        48
+      ]
+    },
+    "api/opportunity/OpportunityTypeCollection.ts": {
+      "expectCount": 5,
+      "actualCount": 5,
+      "undocumentLines": []
+    },
+    "api/opportunity/OpportunityUtilities.ts": {
+      "expectCount": 9,
+      "actualCount": 9,
+      "undocumentLines": []
+    },
+    "api/opportunity/SampleOpportunities.ts": {
+      "expectCount": 4,
+      "actualCount": 4,
+      "undocumentLines": []
+    },
+    "api/page-tracking/PageInterestCollection.methods.ts": {
+      "expectCount": 3,
+      "actualCount": 3,
+      "undocumentLines": []
+    },
+    "api/page-tracking/PageInterestCollection.ts": {
+      "expectCount": 10,
+      "actualCount": 9,
+      "undocumentLines": [
+        173
+      ]
+    },
+    "api/page-tracking/PageInterestsDailySnapshotCollection.ts": {
+      "expectCount": 8,
+      "actualCount": 7,
+      "undocumentLines": [
+        173
+      ]
+    },
+    "api/page-tracking/SamplePageInterests.ts": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        5
+      ]
+    },
+    "api/page-tracking/SamplePageInterestsDailySnapshots.ts": {
+      "expectCount": 3,
+      "actualCount": 2,
+      "undocumentLines": [
+        25
+      ]
+    },
+    "api/public-stats/PublicStatsCollection.ts": {
+      "expectCount": 68,
+      "actualCount": 37,
+      "undocumentLines": [
+        41,
+        42,
+        44,
+        46,
+        48,
+        50,
+        52,
+        54,
+        56,
+        58,
+        60,
+        62,
+        64,
+        66,
+        68,
+        70,
+        72,
+        74,
+        76,
+        78,
+        80,
+        82,
+        84,
+        86,
+        88,
+        90,
+        92,
+        94,
+        96,
+        98,
+        100
+      ]
+    },
+    "api/public-stats/StudentParticipationCollection.ts": {
+      "expectCount": 12,
+      "actualCount": 8,
+      "undocumentLines": [
+        208,
+        25,
+        31,
+        35
+      ]
+    },
+    "api/radgrad/RadGrad.ts": {
+      "expectCount": 7,
+      "actualCount": 6,
+      "undocumentLines": [
+        52
+      ]
+    },
+    "api/radgrad/RadGradProperties.ts": {
+      "expectCount": 7,
+      "actualCount": 6,
+      "undocumentLines": [
+        70
+      ]
+    },
+    "api/review/ReviewCollection.ts": {
+      "expectCount": 16,
+      "actualCount": 12,
+      "undocumentLines": [
+        35,
+        36,
+        37,
+        50
+      ]
+    },
+    "api/role/Role.ts": {
+      "expectCount": 4,
+      "actualCount": 4,
+      "undocumentLines": []
+    },
+    "api/slug/SlugCollection.ts": {
+      "expectCount": 15,
+      "actualCount": 15,
+      "undocumentLines": []
+    },
+    "api/slug/SlugCollection.validators.ts": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "api/star/StarProcessor.methods.ts": {
+      "expectCount": 10,
+      "actualCount": 9,
+      "undocumentLines": [
+        272
+      ]
+    },
+    "api/star/StarProcessor.ts": {
+      "expectCount": 8,
+      "actualCount": 8,
+      "undocumentLines": []
+    },
+    "api/teaser/TeaserCollection.test.ts": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        19
+      ]
+    },
+    "api/teaser/TeaserCollection.ts": {
+      "expectCount": 12,
+      "actualCount": 10,
+      "undocumentLines": [
+        30,
+        43
+      ]
+    },
+    "api/test/test-utilities.ts": {
+      "expectCount": 7,
+      "actualCount": 7,
+      "undocumentLines": []
+    },
+    "api/user/AdminProfileCollection.ts": {
+      "expectCount": 8,
+      "actualCount": 7,
+      "undocumentLines": [
+        19
+      ]
+    },
+    "api/user/AdvisorProfileCollection.ts": {
+      "expectCount": 8,
+      "actualCount": 7,
+      "undocumentLines": [
+        19
+      ]
+    },
+    "api/user/BaseProfileCollection.ts": {
+      "expectCount": 15,
+      "actualCount": 13,
+      "undocumentLines": [
+        20,
+        37
+      ]
+    },
+    "api/user/FacultyProfileCollection.ts": {
+      "expectCount": 8,
+      "actualCount": 7,
+      "undocumentLines": [
+        19
+      ]
+    },
+    "api/user/MentorProfileCollection.ts": {
+      "expectCount": 8,
+      "actualCount": 7,
+      "undocumentLines": [
+        19
+      ]
+    },
+    "api/user/SampleUsers.ts": {
+      "expectCount": 6,
+      "actualCount": 6,
+      "undocumentLines": []
+    },
+    "api/user/StudentProfileCollection.methods.app-test.ts": {
+      "expectCount": 2,
+      "actualCount": 1,
+      "undocumentLines": [
+        19
+      ]
+    },
+    "api/user/StudentProfileCollection.ts": {
+      "expectCount": 19,
+      "actualCount": 16,
+      "undocumentLines": [
+        31,
+        41,
+        71
+      ]
+    },
+    "api/user/UserCollection.methods.ts": {
+      "expectCount": 2,
+      "actualCount": 1,
+      "undocumentLines": [
+        45
+      ]
+    },
+    "api/user/UserCollection.ts": {
+      "expectCount": 31,
+      "actualCount": 29,
+      "undocumentLines": [
+        36,
+        37
+      ]
+    },
+    "api/utilities/load-fixtures.ts": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        23
+      ]
+    },
+    "api/verification/VerificationRequestCollection.methods.ts": {
+      "expectCount": 4,
+      "actualCount": 4,
+      "undocumentLines": []
+    },
+    "api/verification/VerificationRequestCollection.ts": {
+      "expectCount": 27,
+      "actualCount": 22,
+      "undocumentLines": [
+        44,
+        45,
+        46,
+        47,
+        56
+      ]
+    }
+  }
+}

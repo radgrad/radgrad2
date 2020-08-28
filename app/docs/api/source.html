@@ -1,0 +1,2095 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href>
+  <title data-ice="title">Source | radgrad2</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#academic-term">academic-term</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/academic-term/AcademicTermCollection.ts~AcademicTermCollection.html">AcademicTermCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-defineAcademicTerms">defineAcademicTerms</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-nextAcademicTerm">nextAcademicTerm</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-nextNonSummerTerm">nextNonSummerTerm</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-termIDsToString">termIDsToString</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-upComingTerms">upComingTerms</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getRandomTerm">getRandomTerm</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSampleAcademicTerm">makeSampleAcademicTerm</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSampleAcademicTermArray">makeSampleAcademicTermArray</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSampleAcademicTermSlug">makeSampleAcademicTermSlug</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-AcademicTerms">AcademicTerms</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#analytic">analytic</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/analytic/IceSnapshotCollection.ts~IceSnapshotCollection.html">IceSnapshotCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/analytic/UserInteractionCollection.ts~UserInteractionCollection.html">UserInteractionCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-sendEmail">sendEmail</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-sendEmailMethod">sendEmailMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-IceSnapshots">IceSnapshots</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-userInteractionDefineMethod">userInteractionDefineMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-userInteractionFindMethod">userInteractionFindMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-userInteractionRemoveUserMethod">userInteractionRemoveUserMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-UserInteractions">UserInteractions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-USERINTERACTIONSNOTYPEDATA">USERINTERACTIONSNOTYPEDATA</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#base">base</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/base/BaseCollection.ts~BaseCollection.html">BaseCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/base/BaseSlugCollection.ts~BaseSlugCollection.html">BaseSlugCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/base/BaseTypeCollection.ts~BaseTypeCollection.html">BaseTypeCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-removeAllEntities">removeAllEntities</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-defineMethod">defineMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-dumpDatabaseMethod">dumpDatabaseMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-loadFixtureMethod">loadFixtureMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-removeItMethod">removeItMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-updateMethod">updateMethod</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#career">career</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/career/CareerGoalCollection.ts~CareerGoalCollection.html">CareerGoalCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSampleCareerGoal">makeSampleCareerGoal</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSampleCareerGoalArray">makeSampleCareerGoalArray</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSampleCareerGoalSlugArray">makeSampleCareerGoalSlugArray</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CareerGoals">CareerGoals</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#course">course</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/course/CourseCollection.ts~CourseCollection.html">CourseCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/course/CourseInstanceCollection.ts~CourseInstanceCollection.html">CourseInstanceCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-bestStudent300LevelCourses">bestStudent300LevelCourses</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-bestStudent400LevelCourses">bestStudent400LevelCourses</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-chooseBetween">chooseBetween</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-chooseStudent300LevelCourse">chooseStudent300LevelCourse</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-chooseStudent400LevelCourse">chooseStudent400LevelCourse</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-clearPlannedCourseInstances">clearPlannedCourseInstances</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-get300LevelDocs">get300LevelDocs</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-get400LevelDocs">get400LevelDocs</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getCourseNumber">getCourseNumber</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getDepartment">getDepartment</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getRandomCourseSlug">getRandomCourseSlug</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getRandomCourseSlugForDept">getRandomCourseSlugForDept</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getRandomDepartment">getRandomDepartment</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getStudent300LevelDocs">getStudent300LevelDocs</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getStudent400LevelDocs">getStudent400LevelDocs</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-prereqsMet">prereqsMet</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-validateCourseSlugFormat">validateCourseSlugFormat</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getRandomGrade">getRandomGrade</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSampleCourse">makeSampleCourse</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSampleCourseInstance">makeSampleCourseInstance</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSampleCourseSlugArray">makeSampleCourseSlugArray</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-getFutureEnrollmentMethod">getFutureEnrollmentMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Courses">Courses</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CourseInstances">CourseInstances</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#degree-plan">degree-plan</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/degree-plan/AcademicPlanCollection.ts~AcademicPlanCollection.html">AcademicPlanCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/degree-plan/AcademicYearInstanceCollection.ts~AcademicYearInstanceCollection.html">AcademicYearInstanceCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/degree-plan/DesiredDegreeCollection.ts~DesiredDegreeCollection.html">DesiredDegreeCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/degree-plan/PlanChoiceCollection.ts~PlanChoiceCollection.html">PlanChoiceCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-addChoiceToPlan">addChoiceToPlan</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-addChoiceToRaw">addChoiceToRaw</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getCourseListIndex">getCourseListIndex</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getPlanChoices">getPlanChoices</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getPlanChoicesRaw">getPlanChoicesRaw</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isAcademicPlanValid">isAcademicPlanValid</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isPlanChoiceSatisfied">isPlanChoiceSatisfied</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-passedCourse">passedCourse</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-planHasCoursesRaw">planHasCoursesRaw</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-removeChoiceFromPlanRaw">removeChoiceFromPlanRaw</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-removeEmptyYearsRaw">removeEmptyYearsRaw</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-removeYearFromPlanRaw">removeYearFromPlanRaw</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-reorderChoicesInTermRaw">reorderChoicesInTermRaw</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-updateChoiceCounts">updateChoiceCounts</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getStudentTerms">getStudentTerms</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getStudentsCurrentAcademicTermNumber">getStudentsCurrentAcademicTermNumber</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-buildCourseSlugName">buildCourseSlugName</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-buildSimpleName">buildSimpleName</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-complexChoiceToArray">complexChoiceToArray</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-compoundCombineChoices">compoundCombineChoices</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getDepartment">getDepartment</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getDepartments">getDepartments</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getPlanCount">getPlanCount</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getSimpleChoiceNumber">getSimpleChoiceNumber</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isComplexChoice">isComplexChoice</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isSimpleChoice">isSimpleChoice</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isSingleChoice">isSingleChoice</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isXXChoice">isXXChoice</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-planIndexOf">planIndexOf</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-satisfiesPlanChoice">satisfiesPlanChoice</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-simpleCombineChoices">simpleCombineChoices</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-stripCounter">stripCounter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSampleAcademicPlan">makeSampleAcademicPlan</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSampleChoiceList">makeSampleChoiceList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSampleCoursesPerTerm">makeSampleCoursesPerTerm</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSampleDesiredDegree">makeSampleDesiredDegree</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeComplexPlanChoice">makeComplexPlanChoice</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSimplePlanChoice">makeSimplePlanChoice</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSinglePlanChoice">makeSinglePlanChoice</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-AcademicPlans">AcademicPlans</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-AcademicYearInstances">AcademicYearInstances</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DesiredDegrees">DesiredDegrees</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PlanChoices">PlanChoices</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#favorite">favorite</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/favorite/FavoriteAcademicPlanCollection.ts~FavoriteAcademicPlanCollection.html">FavoriteAcademicPlanCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/favorite/FavoriteCareerGoalCollection.ts~FavoriteCareerGoalCollection.html">FavoriteCareerGoalCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/favorite/FavoriteCourseCollection.ts~FavoriteCourseCollection.html">FavoriteCourseCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/favorite/FavoriteInterestCollection.ts~FavoriteInterestCollection.html">FavoriteInterestCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/favorite/FavoriteOpportunityCollection.ts~FavoriteOpportunityCollection.html">FavoriteOpportunityCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FavoriteAcademicPlans">FavoriteAcademicPlans</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FavoriteCareerGoals">FavoriteCareerGoals</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FavoriteCourses">FavoriteCourses</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-getUserIDsWithFavoriteInterestMethod">getUserIDsWithFavoriteInterestMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FavoriteInterests">FavoriteInterests</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FavoriteOpportunities">FavoriteOpportunities</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#feed">feed</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/feed/FeedCollection.ts~FeedCollection.html">FeedCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Feeds">Feeds</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#feedback">feedback</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/feedback/FeedbackFunctions.ts~FeedbackFunctionClass.html">FeedbackFunctionClass</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/feedback/FeedbackInstanceCollection.ts~FeedbackInstanceCollection.html">FeedbackInstanceCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FeedbackFunctions">FeedbackFunctions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-clearFeedbackInstancesMethod">clearFeedbackInstancesMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FeedbackInstances">FeedbackInstances</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#help">help</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/help/HelpMessageCollection.ts~HelpMessageCollection.html">HelpMessageCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-HelpMessages">HelpMessages</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#ice">ice</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-assertICE">assertICE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getEarnedICE">getEarnedICE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getProjectedICE">getProjectedICE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isICE">isICE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeCourseICE">makeCourseICE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSampleIce">makeSampleIce</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-gradeCompetency">gradeCompetency</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-iceSchema">iceSchema</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#integrity">integrity</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-assertIntegrity">assertIntegrity</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-checkIntegrity">checkIntegrity</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-checkIntegrityMethod">checkIntegrityMethod</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#interest">interest</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/interest/InterestCollection.ts~InterestCollection.html">InterestCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/interest/InterestTypeCollection.ts~InterestTypeCollection.html">InterestTypeCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/interest/MatchingInterests.ts~MatchingInterestsClass.html">MatchingInterestsClass</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isInterestArrayValidator">isInterestArrayValidator</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isInterestSlugValidator">isInterestSlugValidator</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSampleInterest">makeSampleInterest</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSampleInterestArray">makeSampleInterestArray</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSampleInterestSlugArray">makeSampleInterestSlugArray</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSampleInterestType">makeSampleInterestType</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Interests">Interests</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-InterestTypes">InterestTypes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-MatchingInterests">MatchingInterests</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#level">level</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-defaultCalcLevel">defaultCalcLevel</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getLevelCriteriaStringMarkdown">getLevelCriteriaStringMarkdown</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getLevelHintStringMarkdown">getLevelHintStringMarkdown</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-testCalcLevel">testCalcLevel</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-updateAllStudentLevels">updateAllStudentLevels</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-updateStudentLevel">updateStudentLevel</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-calcLevelMethod">calcLevelMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-updateAllStudentLevelsMethod">updateAllStudentLevelsMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-updateLevelMethod">updateLevelMethod</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#log">log</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/log/AdvisorLogCollection.ts~AdvisorLogCollection.html">AdvisorLogCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-AdvisorLogsRemoveItMethod">AdvisorLogsRemoveItMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-advisorLogsDefineMethod">advisorLogsDefineMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-advisorLogsUpdateMethod">advisorLogsUpdateMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-AdvisorLogs">AdvisorLogs</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#mentor">mentor</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/mentor/MentorAnswerCollection.ts~MentorAnswerCollection.html">MentorAnswerCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/mentor/MentorQuestionCollection.ts~MentorQuestionCollection.html">MentorQuestionCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSampleMentorAnswer">makeSampleMentorAnswer</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSampleMentorQuestion">makeSampleMentorQuestion</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-MentorAnswers">MentorAnswers</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-MentorQuestions">MentorQuestions</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#opportunity">opportunity</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/opportunity/OpportunityCollection.ts~OpportunityCollection.html">OpportunityCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/opportunity/OpportunityInstanceCollection.ts~OpportunityInstanceCollection.html">OpportunityInstanceCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/opportunity/OpportunityTypeCollection.ts~OpportunityTypeCollection.html">OpportunityTypeCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-academicTermOpportunities">academicTermOpportunities</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-calculateOpportunityCompatibility">calculateOpportunityCompatibility</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-chooseCurrentAcademicTermOpportunity">chooseCurrentAcademicTermOpportunity</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-chooseStudentAcademicTermOpportunity">chooseStudentAcademicTermOpportunity</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-clearPlannedOpportunityInstances">clearPlannedOpportunityInstances</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getRandomInt">getRandomInt</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getRecommendedCurrentAcademicTermOpportunityChoices">getRecommendedCurrentAcademicTermOpportunityChoices</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getStudentAcademicTermOpportunityChoices">getStudentAcademicTermOpportunityChoices</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getStudentCurrentAcademicTermOpportunityChoices">getStudentCurrentAcademicTermOpportunityChoices</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSampleOpportunity">makeSampleOpportunity</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSampleOpportunityInstance">makeSampleOpportunityInstance</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSampleOpportunitySlugArray">makeSampleOpportunitySlugArray</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSampleOpportunityType">makeSampleOpportunityType</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Opportunities">Opportunities</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-OpportunityInstances">OpportunityInstances</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-OpportunityTypes">OpportunityTypes</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#page-tracking">page-tracking</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/page-tracking/PageInterestCollection.ts~PageInterestCollection.html">PageInterestCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/page-tracking/PageInterestsDailySnapshotCollection.ts~PageInterestsDailySnapshotCollection.html">PageInterestsDailySnapshotCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSamplePageInterest">makeSamplePageInterest</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSamplePageInterestInfoArray">makeSamplePageInterestInfoArray</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSamplePageInterestsDailySnapshot">makeSamplePageInterestsDailySnapshot</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-pageInterestAdminFindMethod">pageInterestAdminFindMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-pageInterestDefineMethod">pageInterestDefineMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-pageInterestRemoveUserMethod">pageInterestRemoveUserMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PageInterests">PageInterests</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PageInterestsDailySnapshots">PageInterestsDailySnapshots</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#public-stats">public-stats</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/public-stats/PublicStatsCollection.ts~PublicStatsCollection.html">PublicStatsCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/public-stats/StudentParticipationCollection.ts~StudentParticipationCollection.html">StudentParticipationCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PublicStats">PublicStats</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-StudentParticipations">StudentParticipations</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#radgrad">radgrad</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/radgrad/RadGrad.ts~RadGradClass.html">RadGradClass</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/radgrad/RadGradProperties.ts~RadGradPropertiesClass.html">RadGradPropertiesClass</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-RadGrad">RadGrad</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-RadGradProperties">RadGradProperties</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#review">review</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/review/ReviewCollection.ts~ReviewCollection.html">ReviewCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Reviews">Reviews</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#role">role</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-assertRole">assertRole</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isRole">isRole</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ROLE">ROLE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ROLES">ROLES</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#slug">slug</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/slug/SlugCollection.ts~SlugCollection.html">SlugCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-slugify">slugify</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-newSlugValidator">newSlugValidator</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Slugs">Slugs</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#star">star</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-processBulkStarCsvData">processBulkStarCsvData</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-processBulkStarJsonData">processBulkStarJsonData</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-processStarCsvData">processStarCsvData</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-processStarJsonData">processStarJsonData</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-starBulkLoadDataMethod">starBulkLoadDataMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-starBulkLoadJsonDataMethod">starBulkLoadJsonDataMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-starLoadDataMethod">starLoadDataMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-starLoadJsonDataMethod">starLoadJsonDataMethod</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#teaser">teaser</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/teaser/TeaserCollection.ts~TeaserCollection.html">TeaserCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Teasers">Teasers</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#test">test</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-defineTestFixture">defineTestFixture</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-defineTestFixtures">defineTestFixtures</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getDefinitions">getDefinitions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-loadCollection">loadCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-withLoggedInUser">withLoggedInUser</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-withRadGradSubscriptions">withRadGradSubscriptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-defineTestFixturesMethod">defineTestFixturesMethod</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#user">user</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/user/AdminProfileCollection.ts~AdminProfileCollection.html">AdminProfileCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/user/AdvisorProfileCollection.ts~AdvisorProfileCollection.html">AdvisorProfileCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/user/BaseProfileCollection.ts~BaseProfileCollection.html">BaseProfileCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/user/FacultyProfileCollection.ts~FacultyProfileCollection.html">FacultyProfileCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/user/MentorProfileCollection.ts~MentorProfileCollection.html">MentorProfileCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/user/StudentProfileCollection.ts~StudentProfileCollection.html">StudentProfileCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/user/UserCollection.ts~UserCollection.html">UserCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSampleUser">makeSampleUser</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeSampleUserArray">makeSampleUserArray</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-AdminProfiles">AdminProfiles</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-AdvisorProfiles">AdvisorProfiles</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-defaultProfilePicture">defaultProfilePicture</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FacultyProfiles">FacultyProfiles</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-MentorProfiles">MentorProfiles</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-StudentProfiles">StudentProfiles</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-generateStudentEmailsMethod">generateStudentEmailsMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-updateAcademicPlanMethod">updateAcademicPlanMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Users">Users</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utilities">utilities</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-loadCollectionNewDataOnly">loadCollectionNewDataOnly</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#verification">verification</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/api/verification/VerificationRequestCollection.ts~VerificationRequestCollection.html">VerificationRequestCollection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-processPendingVerificationMethod">processPendingVerificationMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-processVerificationEventMethod">processVerificationEventMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-verificationRequestsUpdateStatusMethod">verificationRequestsUpdateStatusMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ProcessedSchema">ProcessedSchema</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-VerificationRequests">VerificationRequests</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1>Source <img data-ice="coverageBadge" src="./badge.svg"><span data-ice="totalCoverageCount" class="total-coverage-count">784/954</span></h1>
+
+<table class="files-summary" data-ice="files" data-use-coverage="true">
+  <thead>
+    <tr>
+      <td>File</td>
+      <td>Identifier</td>
+      <td class="coverage">Document</td>
+      <td style="display: none;">Size</td>
+      <td style="display: none;">Lines</td>
+      <td style="display: none;">Updated</td>
+    </tr>
+  </thead>
+  <tbody>
+    
+  <tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/academic-term/AcademicTermCollection.test.ts.html">api/academic-term/AcademicTermCollection.test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">5379 byte</td>
+      <td style="display: none;" data-ice="lines">135</td>
+      <td style="display: none;" data-ice="updated">2020-03-01 20:23:21 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/academic-term/AcademicTermCollection.ts.html#errorLines=29,30,31,32,35,36,37,38,46,55">api/academic-term/AcademicTermCollection.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/api/academic-term/AcademicTermCollection.ts~AcademicTermCollection.html">AcademicTermCollection</a></span>
+<span><a href="variable/index.html#static-variable-AcademicTerms">AcademicTerms</a></span></td>
+      <td class="coverage"><span data-ice="coverage">65 %</span><span data-ice="coverageCount" class="coverage-count">19/29</span></td>
+      <td style="display: none;" data-ice="size">13298 byte</td>
+      <td style="display: none;" data-ice="lines">367</td>
+      <td style="display: none;" data-ice="updated">2020-07-02 22:47:18 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/academic-term/AcademicTermUtilities.test.ts.html">api/academic-term/AcademicTermUtilities.test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">1425 byte</td>
+      <td style="display: none;" data-ice="lines">43</td>
+      <td style="display: none;" data-ice="updated">2020-05-05 20:24:19 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/academic-term/AcademicTermUtilities.ts.html">api/academic-term/AcademicTermUtilities.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-defineAcademicTerms">defineAcademicTerms</a></span>
+<span><a href="function/index.html#static-function-nextAcademicTerm">nextAcademicTerm</a></span>
+<span><a href="function/index.html#static-function-nextNonSummerTerm">nextNonSummerTerm</a></span>
+<span><a href="function/index.html#static-function-termIDsToString">termIDsToString</a></span>
+<span><a href="function/index.html#static-function-upComingTerms">upComingTerms</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">5/5</span></td>
+      <td style="display: none;" data-ice="size">2649 byte</td>
+      <td style="display: none;" data-ice="lines">89</td>
+      <td style="display: none;" data-ice="updated">2020-05-05 20:24:19 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/academic-term/SampleAcademicTerms.ts.html#errorLines=13,20,4,8">api/academic-term/SampleAcademicTerms.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-getRandomTerm">getRandomTerm</a></span>
+<span><a href="function/index.html#static-function-makeSampleAcademicTerm">makeSampleAcademicTerm</a></span>
+<span><a href="function/index.html#static-function-makeSampleAcademicTermArray">makeSampleAcademicTermArray</a></span>
+<span><a href="function/index.html#static-function-makeSampleAcademicTermSlug">makeSampleAcademicTermSlug</a></span></td>
+      <td class="coverage"><span data-ice="coverage">0 %</span><span data-ice="coverageCount" class="coverage-count">0/4</span></td>
+      <td style="display: none;" data-ice="size">836 byte</td>
+      <td style="display: none;" data-ice="lines">27</td>
+      <td style="display: none;" data-ice="updated">2020-05-05 20:24:19 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/academic-term/index.ts.html">api/academic-term/index.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">106 byte</td>
+      <td style="display: none;" data-ice="lines">4</td>
+      <td style="display: none;" data-ice="updated">2018-12-06 18:42:23 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/analytic/Email.methods.ts.html">api/analytic/Email.methods.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="variable/index.html#static-variable-sendEmailMethod">sendEmailMethod</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">1/1</span></td>
+      <td style="display: none;" data-ice="size">893 byte</td>
+      <td style="display: none;" data-ice="lines">25</td>
+      <td style="display: none;" data-ice="updated">2020-07-07 18:05:59 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/analytic/Email.ts.html">api/analytic/Email.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-sendEmail">sendEmail</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">1/1</span></td>
+      <td style="display: none;" data-ice="size">1156 byte</td>
+      <td style="display: none;" data-ice="lines">32</td>
+      <td style="display: none;" data-ice="updated">2020-07-07 17:43:23 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/analytic/IceSnapshotCollection.test.ts.html">api/analytic/IceSnapshotCollection.test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">1784 byte</td>
+      <td style="display: none;" data-ice="lines">50</td>
+      <td style="display: none;" data-ice="updated">2020-03-01 20:23:21 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/analytic/IceSnapshotCollection.ts.html#errorLines=76">api/analytic/IceSnapshotCollection.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/api/analytic/IceSnapshotCollection.ts~IceSnapshotCollection.html">IceSnapshotCollection</a></span>
+<span><a href="variable/index.html#static-variable-IceSnapshots">IceSnapshots</a></span></td>
+      <td class="coverage"><span data-ice="coverage">83 %</span><span data-ice="coverageCount" class="coverage-count">5/6</span></td>
+      <td style="display: none;" data-ice="size">2564 byte</td>
+      <td style="display: none;" data-ice="lines">75</td>
+      <td style="display: none;" data-ice="updated">2020-03-06 21:35:46 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/analytic/UserInteractionCollection.methods.app-test.ts.html">api/analytic/UserInteractionCollection.methods.app-test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">1078 byte</td>
+      <td style="display: none;" data-ice="lines">31</td>
+      <td style="display: none;" data-ice="updated">2020-03-06 21:35:46 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/analytic/UserInteractionCollection.methods.ts.html">api/analytic/UserInteractionCollection.methods.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="variable/index.html#static-variable-userInteractionDefineMethod">userInteractionDefineMethod</a></span>
+<span><a href="variable/index.html#static-variable-userInteractionFindMethod">userInteractionFindMethod</a></span>
+<span><a href="variable/index.html#static-variable-userInteractionRemoveUserMethod">userInteractionRemoveUserMethod</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">3/3</span></td>
+      <td style="display: none;" data-ice="size">1388 byte</td>
+      <td style="display: none;" data-ice="lines">46</td>
+      <td style="display: none;" data-ice="updated">2020-07-07 18:05:59 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/analytic/UserInteractionCollection.test.ts.html">api/analytic/UserInteractionCollection.test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">3738 byte</td>
+      <td style="display: none;" data-ice="lines">98</td>
+      <td style="display: none;" data-ice="updated">2020-06-02 22:38:36 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/analytic/UserInteractionCollection.ts.html">api/analytic/UserInteractionCollection.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/api/analytic/UserInteractionCollection.ts~UserInteractionCollection.html">UserInteractionCollection</a></span>
+<span><a href="variable/index.html#static-variable-UserInteractions">UserInteractions</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">10/10</span></td>
+      <td style="display: none;" data-ice="size">4622 byte</td>
+      <td style="display: none;" data-ice="lines">131</td>
+      <td style="display: none;" data-ice="updated">2020-07-07 18:05:54 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/analytic/UserInteractionsTypes.ts.html#errorLines=36">api/analytic/UserInteractionsTypes.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="variable/index.html#static-variable-USERINTERACTIONSNOTYPEDATA">USERINTERACTIONSNOTYPEDATA</a></span></td>
+      <td class="coverage"><span data-ice="coverage">0 %</span><span data-ice="coverageCount" class="coverage-count">0/1</span></td>
+      <td style="display: none;" data-ice="size">1126 byte</td>
+      <td style="display: none;" data-ice="lines">36</td>
+      <td style="display: none;" data-ice="updated">2020-07-07 17:43:23 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/analytic/index.ts.html">api/analytic/index.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">227 byte</td>
+      <td style="display: none;" data-ice="lines">7</td>
+      <td style="display: none;" data-ice="updated">2020-05-05 20:24:19 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/base/BaseCollection.methods.ts.html#errorLines=106,67,87">api/base/BaseCollection.methods.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="variable/index.html#static-variable-defineMethod">defineMethod</a></span>
+<span><a href="variable/index.html#static-variable-dumpDatabaseMethod">dumpDatabaseMethod</a></span>
+<span><a href="variable/index.html#static-variable-loadFixtureMethod">loadFixtureMethod</a></span>
+<span><a href="variable/index.html#static-variable-removeItMethod">removeItMethod</a></span>
+<span><a href="variable/index.html#static-variable-updateMethod">updateMethod</a></span></td>
+      <td class="coverage"><span data-ice="coverage">40 %</span><span data-ice="coverageCount" class="coverage-count">2/5</span></td>
+      <td style="display: none;" data-ice="size">3999 byte</td>
+      <td style="display: none;" data-ice="lines">112</td>
+      <td style="display: none;" data-ice="updated">2020-07-07 18:05:59 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/base/BaseCollection.ts.html#errorLines=24,25,26,27">api/base/BaseCollection.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/api/base/BaseCollection.ts~BaseCollection.html">BaseCollection</a></span></td>
+      <td class="coverage"><span data-ice="coverage">88 %</span><span data-ice="coverageCount" class="coverage-count">32/36</span></td>
+      <td style="display: none;" data-ice="size">13421 byte</td>
+      <td style="display: none;" data-ice="lines">394</td>
+      <td style="display: none;" data-ice="updated">2020-07-02 22:47:18 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/base/BaseSlugCollection.ts.html">api/base/BaseSlugCollection.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/api/base/BaseSlugCollection.ts~BaseSlugCollection.html">BaseSlugCollection</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">10/10</span></td>
+      <td style="display: none;" data-ice="size">6266 byte</td>
+      <td style="display: none;" data-ice="lines">152</td>
+      <td style="display: none;" data-ice="updated">2020-07-02 22:47:18 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/base/BaseTypeCollection.ts.html#errorLines=24,30">api/base/BaseTypeCollection.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/api/base/BaseTypeCollection.ts~BaseTypeCollection.html">BaseTypeCollection</a></span></td>
+      <td class="coverage"><span data-ice="coverage">87 %</span><span data-ice="coverageCount" class="coverage-count">14/16</span></td>
+      <td style="display: none;" data-ice="size">7462 byte</td>
+      <td style="display: none;" data-ice="lines">207</td>
+      <td style="display: none;" data-ice="updated">2020-07-02 22:47:28 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/base/BaseUtilities.ts.html">api/base/BaseUtilities.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-removeAllEntities">removeAllEntities</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">1/1</span></td>
+      <td style="display: none;" data-ice="size">1065 byte</td>
+      <td style="display: none;" data-ice="lines">29</td>
+      <td style="display: none;" data-ice="updated">2020-05-05 20:24:19 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/base/index.ts.html">api/base/index.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">178 byte</td>
+      <td style="display: none;" data-ice="lines">7</td>
+      <td style="display: none;" data-ice="updated">2019-03-07 18:42:27 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/career/CareerGoalCollection.methods.app-test.ts.html">api/career/CareerGoalCollection.methods.app-test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">1683 byte</td>
+      <td style="display: none;" data-ice="lines">43</td>
+      <td style="display: none;" data-ice="updated">2020-06-05 21:29:03 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/career/CareerGoalCollection.test.ts.html">api/career/CareerGoalCollection.test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">4231 byte</td>
+      <td style="display: none;" data-ice="lines">107</td>
+      <td style="display: none;" data-ice="updated">2020-05-05 20:24:19 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/career/CareerGoalCollection.ts.html#errorLines=26,33">api/career/CareerGoalCollection.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/api/career/CareerGoalCollection.ts~CareerGoalCollection.html">CareerGoalCollection</a></span>
+<span><a href="variable/index.html#static-variable-CareerGoals">CareerGoals</a></span></td>
+      <td class="coverage"><span data-ice="coverage">83 %</span><span data-ice="coverageCount" class="coverage-count">10/12</span></td>
+      <td style="display: none;" data-ice="size">7102 byte</td>
+      <td style="display: none;" data-ice="lines">188</td>
+      <td style="display: none;" data-ice="updated">2020-07-07 17:43:23 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/career/SampleCareerGoals.ts.html">api/career/SampleCareerGoals.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-makeSampleCareerGoal">makeSampleCareerGoal</a></span>
+<span><a href="function/index.html#static-function-makeSampleCareerGoalArray">makeSampleCareerGoalArray</a></span>
+<span><a href="function/index.html#static-function-makeSampleCareerGoalSlugArray">makeSampleCareerGoalSlugArray</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">3/3</span></td>
+      <td style="display: none;" data-ice="size">1417 byte</td>
+      <td style="display: none;" data-ice="lines">44</td>
+      <td style="display: none;" data-ice="updated">2020-05-05 20:24:19 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/career/index.ts.html">api/career/index.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">62 byte</td>
+      <td style="display: none;" data-ice="lines">2</td>
+      <td style="display: none;" data-ice="updated">2018-10-04 21:11:47 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/course/CourseCollection.methods.app-test.ts.html">api/course/CourseCollection.methods.app-test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">3504 byte</td>
+      <td style="display: none;" data-ice="lines">89</td>
+      <td style="display: none;" data-ice="updated">2020-05-05 20:24:19 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/course/CourseCollection.methods.ts.html">api/course/CourseCollection.methods.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="variable/index.html#static-variable-getFutureEnrollmentMethod">getFutureEnrollmentMethod</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">2/2</span></td>
+      <td style="display: none;" data-ice="size">2654 byte</td>
+      <td style="display: none;" data-ice="lines">59</td>
+      <td style="display: none;" data-ice="updated">2020-07-07 18:05:59 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/course/CourseCollection.test.ts.html">api/course/CourseCollection.test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">5769 byte</td>
+      <td style="display: none;" data-ice="lines">133</td>
+      <td style="display: none;" data-ice="updated">2020-05-05 20:24:19 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/course/CourseCollection.ts.html#errorLines=40,54,66">api/course/CourseCollection.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/api/course/CourseCollection.ts~CourseCollection.html">CourseCollection</a></span>
+<span><a href="variable/index.html#static-variable-Courses">Courses</a></span></td>
+      <td class="coverage"><span data-ice="coverage">75 %</span><span data-ice="coverageCount" class="coverage-count">9/12</span></td>
+      <td style="display: none;" data-ice="size">12602 byte</td>
+      <td style="display: none;" data-ice="lines">325</td>
+      <td style="display: none;" data-ice="updated">2020-05-05 20:24:19 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/course/CourseInstanceCollection.methods.app-test.ts.html">api/course/CourseInstanceCollection.methods.app-test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">2688 byte</td>
+      <td style="display: none;" data-ice="lines">74</td>
+      <td style="display: none;" data-ice="updated">2020-03-01 20:23:21 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/course/CourseInstanceCollection.test.ts.html">api/course/CourseInstanceCollection.test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">6462 byte</td>
+      <td style="display: none;" data-ice="lines">152</td>
+      <td style="display: none;" data-ice="updated">2020-07-07 17:43:23 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/course/CourseInstanceCollection.ts.html#errorLines=36,38,41,51">api/course/CourseInstanceCollection.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/api/course/CourseInstanceCollection.ts~CourseInstanceCollection.html">CourseInstanceCollection</a></span>
+<span><a href="variable/index.html#static-variable-CourseInstances">CourseInstances</a></span></td>
+      <td class="coverage"><span data-ice="coverage">85 %</span><span data-ice="coverageCount" class="coverage-count">24/28</span></td>
+      <td style="display: none;" data-ice="size">18026 byte</td>
+      <td style="display: none;" data-ice="lines">468</td>
+      <td style="display: none;" data-ice="updated">2020-07-07 18:05:54 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/course/CourseUtilities.ts.html">api/course/CourseUtilities.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-bestStudent300LevelCourses">bestStudent300LevelCourses</a></span>
+<span><a href="function/index.html#static-function-bestStudent400LevelCourses">bestStudent400LevelCourses</a></span>
+<span><a href="function/index.html#static-function-chooseBetween">chooseBetween</a></span>
+<span><a href="function/index.html#static-function-chooseStudent300LevelCourse">chooseStudent300LevelCourse</a></span>
+<span><a href="function/index.html#static-function-chooseStudent400LevelCourse">chooseStudent400LevelCourse</a></span>
+<span><a href="function/index.html#static-function-clearPlannedCourseInstances">clearPlannedCourseInstances</a></span>
+<span><a href="function/index.html#static-function-get300LevelDocs">get300LevelDocs</a></span>
+<span><a href="function/index.html#static-function-get400LevelDocs">get400LevelDocs</a></span>
+<span><a href="function/index.html#static-function-getCourseNumber">getCourseNumber</a></span>
+<span><a href="function/index.html#static-function-getDepartment">getDepartment</a></span>
+<span><a href="function/index.html#static-function-getRandomCourseSlug">getRandomCourseSlug</a></span>
+<span><a href="function/index.html#static-function-getRandomCourseSlugForDept">getRandomCourseSlugForDept</a></span>
+<span><a href="function/index.html#static-function-getRandomDepartment">getRandomDepartment</a></span>
+<span><a href="function/index.html#static-function-getStudent300LevelDocs">getStudent300LevelDocs</a></span>
+<span><a href="function/index.html#static-function-getStudent400LevelDocs">getStudent400LevelDocs</a></span>
+<span><a href="function/index.html#static-function-prereqsMet">prereqsMet</a></span>
+<span><a href="function/index.html#static-function-validateCourseSlugFormat">validateCourseSlugFormat</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">18/18</span></td>
+      <td style="display: none;" data-ice="size">7497 byte</td>
+      <td style="display: none;" data-ice="lines">212</td>
+      <td style="display: none;" data-ice="updated">2020-07-07 17:43:23 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/course/SampleCourses.ts.html#errorLines=69,8">api/course/SampleCourses.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-getRandomGrade">getRandomGrade</a></span>
+<span><a href="function/index.html#static-function-makeSampleCourse">makeSampleCourse</a></span>
+<span><a href="function/index.html#static-function-makeSampleCourseInstance">makeSampleCourseInstance</a></span>
+<span><a href="function/index.html#static-function-makeSampleCourseSlugArray">makeSampleCourseSlugArray</a></span></td>
+      <td class="coverage"><span data-ice="coverage">60 %</span><span data-ice="coverageCount" class="coverage-count">3/5</span></td>
+      <td style="display: none;" data-ice="size">2825 byte</td>
+      <td style="display: none;" data-ice="lines">74</td>
+      <td style="display: none;" data-ice="updated">2020-05-05 20:24:19 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/course/index.ts.html">api/course/index.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">96 byte</td>
+      <td style="display: none;" data-ice="lines">4</td>
+      <td style="display: none;" data-ice="updated">2019-03-07 18:42:27 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/degree-plan/AcademicPlanCollection.methods.app-test.ts.html">api/degree-plan/AcademicPlanCollection.methods.app-test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">3718 byte</td>
+      <td style="display: none;" data-ice="lines">105</td>
+      <td style="display: none;" data-ice="updated">2020-05-05 20:24:19 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/degree-plan/AcademicPlanCollection.test.ts.html">api/degree-plan/AcademicPlanCollection.test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">7265 byte</td>
+      <td style="display: none;" data-ice="lines">209</td>
+      <td style="display: none;" data-ice="updated">2020-05-05 20:24:19 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/degree-plan/AcademicPlanCollection.ts.html#errorLines=42,52">api/degree-plan/AcademicPlanCollection.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/api/degree-plan/AcademicPlanCollection.ts~AcademicPlanCollection.html">AcademicPlanCollection</a></span>
+<span><a href="variable/index.html#static-variable-AcademicPlans">AcademicPlans</a></span></td>
+      <td class="coverage"><span data-ice="coverage">87 %</span><span data-ice="coverageCount" class="coverage-count">14/16</span></td>
+      <td style="display: none;" data-ice="size">12938 byte</td>
+      <td style="display: none;" data-ice="lines">329</td>
+      <td style="display: none;" data-ice="updated">2020-07-07 17:43:23 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/degree-plan/AcademicPlanUtilities.test.ts.html">api/degree-plan/AcademicPlanUtilities.test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">3756 byte</td>
+      <td style="display: none;" data-ice="lines">111</td>
+      <td style="display: none;" data-ice="updated">2020-05-05 20:24:19 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/degree-plan/AcademicPlanUtilities.ts.html">api/degree-plan/AcademicPlanUtilities.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-addChoiceToPlan">addChoiceToPlan</a></span>
+<span><a href="function/index.html#static-function-addChoiceToRaw">addChoiceToRaw</a></span>
+<span><a href="function/index.html#static-function-getCourseListIndex">getCourseListIndex</a></span>
+<span><a href="function/index.html#static-function-getPlanChoices">getPlanChoices</a></span>
+<span><a href="function/index.html#static-function-getPlanChoicesRaw">getPlanChoicesRaw</a></span>
+<span><a href="function/index.html#static-function-isAcademicPlanValid">isAcademicPlanValid</a></span>
+<span><a href="function/index.html#static-function-isPlanChoiceSatisfied">isPlanChoiceSatisfied</a></span>
+<span><a href="function/index.html#static-function-passedCourse">passedCourse</a></span>
+<span><a href="function/index.html#static-function-planHasCoursesRaw">planHasCoursesRaw</a></span>
+<span><a href="function/index.html#static-function-removeChoiceFromPlanRaw">removeChoiceFromPlanRaw</a></span>
+<span><a href="function/index.html#static-function-removeEmptyYearsRaw">removeEmptyYearsRaw</a></span>
+<span><a href="function/index.html#static-function-removeYearFromPlanRaw">removeYearFromPlanRaw</a></span>
+<span><a href="function/index.html#static-function-reorderChoicesInTermRaw">reorderChoicesInTermRaw</a></span>
+<span><a href="function/index.html#static-function-updateChoiceCounts">updateChoiceCounts</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">15/15</span></td>
+      <td style="display: none;" data-ice="size">8210 byte</td>
+      <td style="display: none;" data-ice="lines">210</td>
+      <td style="display: none;" data-ice="updated">2020-05-05 20:24:19 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/degree-plan/AcademicYearInstanceCollection.methods.app-test.ts.html">api/degree-plan/AcademicYearInstanceCollection.methods.app-test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">1681 byte</td>
+      <td style="display: none;" data-ice="lines">41</td>
+      <td style="display: none;" data-ice="updated">2020-03-01 20:23:21 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/degree-plan/AcademicYearInstanceCollection.test.ts.html">api/degree-plan/AcademicYearInstanceCollection.test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">3959 byte</td>
+      <td style="display: none;" data-ice="lines">97</td>
+      <td style="display: none;" data-ice="updated">2020-06-05 23:04:50 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/degree-plan/AcademicYearInstanceCollection.ts.html#errorLines=32,42">api/degree-plan/AcademicYearInstanceCollection.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/api/degree-plan/AcademicYearInstanceCollection.ts~AcademicYearInstanceCollection.html">AcademicYearInstanceCollection</a></span>
+<span><a href="variable/index.html#static-variable-AcademicYearInstances">AcademicYearInstances</a></span></td>
+      <td class="coverage"><span data-ice="coverage">85 %</span><span data-ice="coverageCount" class="coverage-count">12/14</span></td>
+      <td style="display: none;" data-ice="size">9990 byte</td>
+      <td style="display: none;" data-ice="lines">253</td>
+      <td style="display: none;" data-ice="updated">2020-07-07 18:05:59 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/degree-plan/AcademicYearUtilities.test.ts.html">api/degree-plan/AcademicYearUtilities.test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">1468 byte</td>
+      <td style="display: none;" data-ice="lines">36</td>
+      <td style="display: none;" data-ice="updated">2020-05-05 20:24:19 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/degree-plan/AcademicYearUtilities.ts.html">api/degree-plan/AcademicYearUtilities.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-getStudentTerms">getStudentTerms</a></span>
+<span><a href="function/index.html#static-function-getStudentsCurrentAcademicTermNumber">getStudentsCurrentAcademicTermNumber</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">2/2</span></td>
+      <td style="display: none;" data-ice="size">1733 byte</td>
+      <td style="display: none;" data-ice="lines">46</td>
+      <td style="display: none;" data-ice="updated">2020-03-01 20:23:21 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/degree-plan/DesiredDegreeCollection.methods.app-test.ts.html">api/degree-plan/DesiredDegreeCollection.methods.app-test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">1674 byte</td>
+      <td style="display: none;" data-ice="lines">41</td>
+      <td style="display: none;" data-ice="updated">2020-03-01 20:23:21 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/degree-plan/DesiredDegreeCollection.test.ts.html">api/degree-plan/DesiredDegreeCollection.test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">4035 byte</td>
+      <td style="display: none;" data-ice="lines">102</td>
+      <td style="display: none;" data-ice="updated">2020-03-01 20:23:21 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/degree-plan/DesiredDegreeCollection.ts.html#errorLines=25,31">api/degree-plan/DesiredDegreeCollection.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/api/degree-plan/DesiredDegreeCollection.ts~DesiredDegreeCollection.html">DesiredDegreeCollection</a></span>
+<span><a href="variable/index.html#static-variable-DesiredDegrees">DesiredDegrees</a></span></td>
+      <td class="coverage"><span data-ice="coverage">80 %</span><span data-ice="coverageCount" class="coverage-count">8/10</span></td>
+      <td style="display: none;" data-ice="size">5176 byte</td>
+      <td style="display: none;" data-ice="lines">143</td>
+      <td style="display: none;" data-ice="updated">2020-03-06 21:35:46 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/degree-plan/PlanChoiceCollection.methods.app-test.ts.html">api/degree-plan/PlanChoiceCollection.methods.app-test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">1360 byte</td>
+      <td style="display: none;" data-ice="lines">36</td>
+      <td style="display: none;" data-ice="updated">2020-03-01 20:23:21 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/degree-plan/PlanChoiceCollection.test.ts.html">api/degree-plan/PlanChoiceCollection.test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">6439 byte</td>
+      <td style="display: none;" data-ice="lines">140</td>
+      <td style="display: none;" data-ice="updated">2020-05-05 20:24:19 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/degree-plan/PlanChoiceCollection.ts.html#errorLines=22,26">api/degree-plan/PlanChoiceCollection.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/api/degree-plan/PlanChoiceCollection.ts~PlanChoiceCollection.html">PlanChoiceCollection</a></span>
+<span><a href="variable/index.html#static-variable-PlanChoices">PlanChoices</a></span></td>
+      <td class="coverage"><span data-ice="coverage">84 %</span><span data-ice="coverageCount" class="coverage-count">11/13</span></td>
+      <td style="display: none;" data-ice="size">6441 byte</td>
+      <td style="display: none;" data-ice="lines">204</td>
+      <td style="display: none;" data-ice="updated">2020-05-05 20:24:19 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/degree-plan/PlanChoiceType.ts.html">api/degree-plan/PlanChoiceType.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">241 byte</td>
+      <td style="display: none;" data-ice="lines">8</td>
+      <td style="display: none;" data-ice="updated">2020-05-05 20:24:19 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/degree-plan/PlanChoiceUtilities.test.ts.html">api/degree-plan/PlanChoiceUtilities.test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">4988 byte</td>
+      <td style="display: none;" data-ice="lines">105</td>
+      <td style="display: none;" data-ice="updated">2020-03-01 20:23:21 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/degree-plan/PlanChoiceUtilities.ts.html">api/degree-plan/PlanChoiceUtilities.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-buildCourseSlugName">buildCourseSlugName</a></span>
+<span><a href="function/index.html#static-function-buildSimpleName">buildSimpleName</a></span>
+<span><a href="function/index.html#static-function-complexChoiceToArray">complexChoiceToArray</a></span>
+<span><a href="function/index.html#static-function-compoundCombineChoices">compoundCombineChoices</a></span>
+<span><a href="function/index.html#static-function-getDepartment">getDepartment</a></span>
+<span><a href="function/index.html#static-function-getDepartments">getDepartments</a></span>
+<span><a href="function/index.html#static-function-getPlanCount">getPlanCount</a></span>
+<span><a href="function/index.html#static-function-getSimpleChoiceNumber">getSimpleChoiceNumber</a></span>
+<span><a href="function/index.html#static-function-isComplexChoice">isComplexChoice</a></span>
+<span><a href="function/index.html#static-function-isSimpleChoice">isSimpleChoice</a></span>
+<span><a href="function/index.html#static-function-isSingleChoice">isSingleChoice</a></span>
+<span><a href="function/index.html#static-function-isXXChoice">isXXChoice</a></span>
+<span><a href="function/index.html#static-function-planIndexOf">planIndexOf</a></span>
+<span><a href="function/index.html#static-function-satisfiesPlanChoice">satisfiesPlanChoice</a></span>
+<span><a href="function/index.html#static-function-simpleCombineChoices">simpleCombineChoices</a></span>
+<span><a href="function/index.html#static-function-stripCounter">stripCounter</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">17/17</span></td>
+      <td style="display: none;" data-ice="size">6648 byte</td>
+      <td style="display: none;" data-ice="lines">235</td>
+      <td style="display: none;" data-ice="updated">2020-05-05 20:24:19 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/degree-plan/PreferredChoice.test.ts.html">api/degree-plan/PreferredChoice.test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">2437 byte</td>
+      <td style="display: none;" data-ice="lines">56</td>
+      <td style="display: none;" data-ice="updated">2020-03-01 20:23:21 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/degree-plan/PreferredChoice.ts.html#errorLines=15,27">api/degree-plan/PreferredChoice.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">71 %</span><span data-ice="coverageCount" class="coverage-count">5/7</span></td>
+      <td style="display: none;" data-ice="size">1579 byte</td>
+      <td style="display: none;" data-ice="lines">64</td>
+      <td style="display: none;" data-ice="updated">2020-03-01 20:23:21 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/degree-plan/SampleAcademicPlans.ts.html#errorLines=10,20,21,31,32">api/degree-plan/SampleAcademicPlans.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-makeSampleAcademicPlan">makeSampleAcademicPlan</a></span>
+<span><a href="function/index.html#static-function-makeSampleChoiceList">makeSampleChoiceList</a></span>
+<span><a href="function/index.html#static-function-makeSampleCoursesPerTerm">makeSampleCoursesPerTerm</a></span></td>
+      <td class="coverage"><span data-ice="coverage">0 %</span><span data-ice="coverageCount" class="coverage-count">0/5</span></td>
+      <td style="display: none;" data-ice="size">2060 byte</td>
+      <td style="display: none;" data-ice="lines">57</td>
+      <td style="display: none;" data-ice="updated">2020-05-05 20:24:19 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/degree-plan/SampleDesiredDegrees.ts.html">api/degree-plan/SampleDesiredDegrees.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-makeSampleDesiredDegree">makeSampleDesiredDegree</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">1/1</span></td>
+      <td style="display: none;" data-ice="size">549 byte</td>
+      <td style="display: none;" data-ice="lines">12</td>
+      <td style="display: none;" data-ice="updated">2020-05-05 20:24:19 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/degree-plan/SamplePlanChoices.ts.html#errorLines=18,28,3">api/degree-plan/SamplePlanChoices.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-makeComplexPlanChoice">makeComplexPlanChoice</a></span>
+<span><a href="function/index.html#static-function-makeSimplePlanChoice">makeSimplePlanChoice</a></span>
+<span><a href="function/index.html#static-function-makeSinglePlanChoice">makeSinglePlanChoice</a></span></td>
+      <td class="coverage"><span data-ice="coverage">0 %</span><span data-ice="coverageCount" class="coverage-count">0/3</span></td>
+      <td style="display: none;" data-ice="size">2155 byte</td>
+      <td style="display: none;" data-ice="lines">64</td>
+      <td style="display: none;" data-ice="updated">2020-05-05 20:24:19 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/degree-plan/index.ts.html">api/degree-plan/index.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">243 byte</td>
+      <td style="display: none;" data-ice="lines">7</td>
+      <td style="display: none;" data-ice="updated">2018-10-04 22:44:41 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/favorite/FavoriteAcademicPlanCollection.methods.app-test.ts.html">api/favorite/FavoriteAcademicPlanCollection.methods.app-test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">1872 byte</td>
+      <td style="display: none;" data-ice="lines">40</td>
+      <td style="display: none;" data-ice="updated">2020-03-01 20:23:21 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/favorite/FavoriteAcademicPlanCollection.test.ts.html">api/favorite/FavoriteAcademicPlanCollection.test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">4096 byte</td>
+      <td style="display: none;" data-ice="lines">100</td>
+      <td style="display: none;" data-ice="updated">2020-03-01 20:23:21 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/favorite/FavoriteAcademicPlanCollection.ts.html#errorLines=227,23">api/favorite/FavoriteAcademicPlanCollection.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/api/favorite/FavoriteAcademicPlanCollection.ts~FavoriteAcademicPlanCollection.html">FavoriteAcademicPlanCollection</a></span>
+<span><a href="variable/index.html#static-variable-FavoriteAcademicPlans">FavoriteAcademicPlans</a></span></td>
+      <td class="coverage"><span data-ice="coverage">87 %</span><span data-ice="coverageCount" class="coverage-count">14/16</span></td>
+      <td style="display: none;" data-ice="size">7107 byte</td>
+      <td style="display: none;" data-ice="lines">202</td>
+      <td style="display: none;" data-ice="updated">2020-07-07 18:05:54 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/favorite/FavoriteCareerGoalCollection.methods.app-test.ts.html">api/favorite/FavoriteCareerGoalCollection.methods.app-test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">1826 byte</td>
+      <td style="display: none;" data-ice="lines">39</td>
+      <td style="display: none;" data-ice="updated">2020-03-01 20:23:21 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/favorite/FavoriteCareerGoalCollection.test.ts.html">api/favorite/FavoriteCareerGoalCollection.test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">3887 byte</td>
+      <td style="display: none;" data-ice="lines">99</td>
+      <td style="display: none;" data-ice="updated">2020-03-01 20:23:21 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/favorite/FavoriteCareerGoalCollection.ts.html#errorLines=225,23">api/favorite/FavoriteCareerGoalCollection.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/api/favorite/FavoriteCareerGoalCollection.ts~FavoriteCareerGoalCollection.html">FavoriteCareerGoalCollection</a></span>
+<span><a href="variable/index.html#static-variable-FavoriteCareerGoals">FavoriteCareerGoals</a></span></td>
+      <td class="coverage"><span data-ice="coverage">87 %</span><span data-ice="coverageCount" class="coverage-count">14/16</span></td>
+      <td style="display: none;" data-ice="size">6936 byte</td>
+      <td style="display: none;" data-ice="lines">202</td>
+      <td style="display: none;" data-ice="updated">2020-07-07 18:05:54 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/favorite/FavoriteCourseCollection.methods.app-test.ts.html">api/favorite/FavoriteCourseCollection.methods.app-test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">1774 byte</td>
+      <td style="display: none;" data-ice="lines">39</td>
+      <td style="display: none;" data-ice="updated">2020-03-01 20:23:21 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/favorite/FavoriteCourseCollection.test.ts.html">api/favorite/FavoriteCourseCollection.test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">3539 byte</td>
+      <td style="display: none;" data-ice="lines">95</td>
+      <td style="display: none;" data-ice="updated">2020-03-01 20:23:21 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/favorite/FavoriteCourseCollection.ts.html#errorLines=224,23">api/favorite/FavoriteCourseCollection.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/api/favorite/FavoriteCourseCollection.ts~FavoriteCourseCollection.html">FavoriteCourseCollection</a></span>
+<span><a href="variable/index.html#static-variable-FavoriteCourses">FavoriteCourses</a></span></td>
+      <td class="coverage"><span data-ice="coverage">87 %</span><span data-ice="coverageCount" class="coverage-count">14/16</span></td>
+      <td style="display: none;" data-ice="size">6695 byte</td>
+      <td style="display: none;" data-ice="lines">201</td>
+      <td style="display: none;" data-ice="updated">2020-07-07 18:05:54 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/favorite/FavoriteInterestCollection.methods.app-test.ts.html">api/favorite/FavoriteInterestCollection.methods.app-test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">1800 byte</td>
+      <td style="display: none;" data-ice="lines">39</td>
+      <td style="display: none;" data-ice="updated">2020-07-07 18:05:59 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/favorite/FavoriteInterestCollection.methods.ts.html#errorLines=11">api/favorite/FavoriteInterestCollection.methods.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="variable/index.html#static-variable-getUserIDsWithFavoriteInterestMethod">getUserIDsWithFavoriteInterestMethod</a></span></td>
+      <td class="coverage"><span data-ice="coverage">0 %</span><span data-ice="coverageCount" class="coverage-count">0/1</span></td>
+      <td style="display: none;" data-ice="size">1727 byte</td>
+      <td style="display: none;" data-ice="lines">44</td>
+      <td style="display: none;" data-ice="updated">2020-07-07 18:05:59 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/favorite/FavoriteInterestCollection.test.ts.html">api/favorite/FavoriteInterestCollection.test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">3844 byte</td>
+      <td style="display: none;" data-ice="lines">100</td>
+      <td style="display: none;" data-ice="updated">2020-06-05 21:29:03 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/favorite/FavoriteInterestCollection.ts.html#errorLines=225,23">api/favorite/FavoriteInterestCollection.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/api/favorite/FavoriteInterestCollection.ts~FavoriteInterestCollection.html">FavoriteInterestCollection</a></span>
+<span><a href="variable/index.html#static-variable-FavoriteInterests">FavoriteInterests</a></span></td>
+      <td class="coverage"><span data-ice="coverage">87 %</span><span data-ice="coverageCount" class="coverage-count">14/16</span></td>
+      <td style="display: none;" data-ice="size">6792 byte</td>
+      <td style="display: none;" data-ice="lines">201</td>
+      <td style="display: none;" data-ice="updated">2020-07-07 18:05:54 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/favorite/FavoriteOpportunityCollection.methods.app-test.ts.html">api/favorite/FavoriteOpportunityCollection.methods.app-test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">1855 byte</td>
+      <td style="display: none;" data-ice="lines">39</td>
+      <td style="display: none;" data-ice="updated">2020-03-01 20:23:21 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/favorite/FavoriteOpportunityCollection.test.ts.html">api/favorite/FavoriteOpportunityCollection.test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">4211 byte</td>
+      <td style="display: none;" data-ice="lines">104</td>
+      <td style="display: none;" data-ice="updated">2020-03-01 20:23:21 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/favorite/FavoriteOpportunityCollection.ts.html#errorLines=225,23">api/favorite/FavoriteOpportunityCollection.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="variable/index.html#static-variable-FavoriteOpportunities">FavoriteOpportunities</a></span>
+<span><a href="class/api/favorite/FavoriteOpportunityCollection.ts~FavoriteOpportunityCollection.html">FavoriteOpportunityCollection</a></span></td>
+      <td class="coverage"><span data-ice="coverage">87 %</span><span data-ice="coverageCount" class="coverage-count">14/16</span></td>
+      <td style="display: none;" data-ice="size">7003 byte</td>
+      <td style="display: none;" data-ice="lines">202</td>
+      <td style="display: none;" data-ice="updated">2020-07-07 18:05:54 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/favorite/FavoriteTypes.ts.html">api/favorite/FavoriteTypes.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">363 byte</td>
+      <td style="display: none;" data-ice="lines">15</td>
+      <td style="display: none;" data-ice="updated">2020-06-02 22:38:36 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/favorite/index.ts.html">api/favorite/index.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">275 byte</td>
+      <td style="display: none;" data-ice="lines">7</td>
+      <td style="display: none;" data-ice="updated">2020-07-07 17:43:23 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/feed/FeedCollection.methods.app-test.ts.html">api/feed/FeedCollection.methods.app-test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">1345 byte</td>
+      <td style="display: none;" data-ice="lines">35</td>
+      <td style="display: none;" data-ice="updated">2020-03-01 20:23:21 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/feed/FeedCollection.test.ts.html">api/feed/FeedCollection.test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">5808 byte</td>
+      <td style="display: none;" data-ice="lines">150</td>
+      <td style="display: none;" data-ice="updated">2020-05-05 20:24:19 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/feed/FeedCollection.ts.html#errorLines=67,68,69,70,71,72,73,74,83">api/feed/FeedCollection.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/api/feed/FeedCollection.ts~FeedCollection.html">FeedCollection</a></span>
+<span><a href="variable/index.html#static-variable-Feeds">Feeds</a></span></td>
+      <td class="coverage"><span data-ice="coverage">72 %</span><span data-ice="coverageCount" class="coverage-count">24/33</span></td>
+      <td style="display: none;" data-ice="size">23407 byte</td>
+      <td style="display: none;" data-ice="lines">582</td>
+      <td style="display: none;" data-ice="updated">2020-05-05 20:24:19 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/feed/index.ts.html">api/feed/index.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">54 byte</td>
+      <td style="display: none;" data-ice="lines">2</td>
+      <td style="display: none;" data-ice="updated">2018-10-05 23:46:02 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/feedback/FeedbackFunctions.methods.app-test.ts.html">api/feedback/FeedbackFunctions.methods.app-test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">603 byte</td>
+      <td style="display: none;" data-ice="lines">17</td>
+      <td style="display: none;" data-ice="updated">2020-03-01 20:23:21 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/feedback/FeedbackFunctions.ts.html#errorLines=31">api/feedback/FeedbackFunctions.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/api/feedback/FeedbackFunctions.ts~FeedbackFunctionClass.html">FeedbackFunctionClass</a></span>
+<span><a href="variable/index.html#static-variable-FeedbackFunctions">FeedbackFunctions</a></span></td>
+      <td class="coverage"><span data-ice="coverage">92 %</span><span data-ice="coverageCount" class="coverage-count">12/13</span></td>
+      <td style="display: none;" data-ice="size">19105 byte</td>
+      <td style="display: none;" data-ice="lines">406</td>
+      <td style="display: none;" data-ice="updated">2020-07-07 17:43:23 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/feedback/FeedbackInstanceCollection.methods.ts.html">api/feedback/FeedbackInstanceCollection.methods.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="variable/index.html#static-variable-clearFeedbackInstancesMethod">clearFeedbackInstancesMethod</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">1/1</span></td>
+      <td style="display: none;" data-ice="size">646 byte</td>
+      <td style="display: none;" data-ice="lines">18</td>
+      <td style="display: none;" data-ice="updated">2020-07-07 18:05:59 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/feedback/FeedbackInstanceCollection.test.ts.html">api/feedback/FeedbackInstanceCollection.test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">4658 byte</td>
+      <td style="display: none;" data-ice="lines">105</td>
+      <td style="display: none;" data-ice="updated">2020-03-01 20:23:21 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/feedback/FeedbackInstanceCollection.ts.html#errorLines=25,26,27,31,38">api/feedback/FeedbackInstanceCollection.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/api/feedback/FeedbackInstanceCollection.ts~FeedbackInstanceCollection.html">FeedbackInstanceCollection</a></span>
+<span><a href="variable/index.html#static-variable-FeedbackInstances">FeedbackInstances</a></span></td>
+      <td class="coverage"><span data-ice="coverage">75 %</span><span data-ice="coverageCount" class="coverage-count">15/20</span></td>
+      <td style="display: none;" data-ice="size">8969 byte</td>
+      <td style="display: none;" data-ice="lines">244</td>
+      <td style="display: none;" data-ice="updated">2020-07-07 18:05:54 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/feedback/index.ts.html">api/feedback/index.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">147 byte</td>
+      <td style="display: none;" data-ice="lines">4</td>
+      <td style="display: none;" data-ice="updated">2018-10-05 23:28:21 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/help/HelpMessageCollection.methods.app-test.ts.html">api/help/HelpMessageCollection.methods.app-test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">1486 byte</td>
+      <td style="display: none;" data-ice="lines">37</td>
+      <td style="display: none;" data-ice="updated">2020-03-01 20:23:21 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/help/HelpMessageCollection.test.ts.html">api/help/HelpMessageCollection.test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">4170 byte</td>
+      <td style="display: none;" data-ice="lines">109</td>
+      <td style="display: none;" data-ice="updated">2020-03-01 20:23:21 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/help/HelpMessageCollection.ts.html#errorLines=21,27">api/help/HelpMessageCollection.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/api/help/HelpMessageCollection.ts~HelpMessageCollection.html">HelpMessageCollection</a></span>
+<span><a href="variable/index.html#static-variable-HelpMessages">HelpMessages</a></span></td>
+      <td class="coverage"><span data-ice="coverage">84 %</span><span data-ice="coverageCount" class="coverage-count">11/13</span></td>
+      <td style="display: none;" data-ice="size">4117 byte</td>
+      <td style="display: none;" data-ice="lines">141</td>
+      <td style="display: none;" data-ice="updated">2020-03-06 21:35:46 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/help/index.ts.html">api/help/index.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">61 byte</td>
+      <td style="display: none;" data-ice="lines">2</td>
+      <td style="display: none;" data-ice="updated">2018-10-05 23:29:36 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/ice/IceProcessor.test.ts.html">api/ice/IceProcessor.test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">2595 byte</td>
+      <td style="display: none;" data-ice="lines">56</td>
+      <td style="display: none;" data-ice="updated">2020-03-01 20:23:21 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/ice/IceProcessor.ts.html#errorLines=5">api/ice/IceProcessor.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-assertICE">assertICE</a></span>
+<span><a href="function/index.html#static-function-getEarnedICE">getEarnedICE</a></span>
+<span><a href="function/index.html#static-function-getProjectedICE">getProjectedICE</a></span>
+<span><a href="variable/index.html#static-variable-gradeCompetency">gradeCompetency</a></span>
+<span><a href="variable/index.html#static-variable-iceSchema">iceSchema</a></span>
+<span><a href="function/index.html#static-function-isICE">isICE</a></span>
+<span><a href="function/index.html#static-function-makeCourseICE">makeCourseICE</a></span></td>
+      <td class="coverage"><span data-ice="coverage">85 %</span><span data-ice="coverageCount" class="coverage-count">6/7</span></td>
+      <td style="display: none;" data-ice="size">4319 byte</td>
+      <td style="display: none;" data-ice="lines">139</td>
+      <td style="display: none;" data-ice="updated">2020-03-06 21:35:46 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/ice/SampleIce.ts.html#errorLines=2">api/ice/SampleIce.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-makeSampleIce">makeSampleIce</a></span></td>
+      <td class="coverage"><span data-ice="coverage">0 %</span><span data-ice="coverageCount" class="coverage-count">0/1</span></td>
+      <td style="display: none;" data-ice="size">258 byte</td>
+      <td style="display: none;" data-ice="lines">9</td>
+      <td style="display: none;" data-ice="updated">2020-05-05 20:24:19 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/ice/index.ts.html">api/ice/index.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">73 byte</td>
+      <td style="display: none;" data-ice="lines">3</td>
+      <td style="display: none;" data-ice="updated">2020-03-01 20:23:21 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/index.ts.html">api/index.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">22 byte</td>
+      <td style="display: none;" data-ice="lines">1</td>
+      <td style="display: none;" data-ice="updated">2019-11-01 20:32:06 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/integrity/IntegrityChecker.methods.ts.html">api/integrity/IntegrityChecker.methods.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="variable/index.html#static-variable-checkIntegrityMethod">checkIntegrityMethod</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">1/1</span></td>
+      <td style="display: none;" data-ice="size">856 byte</td>
+      <td style="display: none;" data-ice="lines">26</td>
+      <td style="display: none;" data-ice="updated">2020-07-07 18:05:59 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/integrity/IntegrityChecker.ts.html">api/integrity/IntegrityChecker.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-assertIntegrity">assertIntegrity</a></span>
+<span><a href="function/index.html#static-function-checkIntegrity">checkIntegrity</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">2/2</span></td>
+      <td style="display: none;" data-ice="size">1430 byte</td>
+      <td style="display: none;" data-ice="lines">43</td>
+      <td style="display: none;" data-ice="updated">2020-03-01 20:23:21 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/integrity/index.ts.html">api/integrity/index.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">98 byte</td>
+      <td style="display: none;" data-ice="lines">3</td>
+      <td style="display: none;" data-ice="updated">2018-10-05 23:30:38 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/interest/InterestCollection.methods.app-test.ts.html">api/interest/InterestCollection.methods.app-test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">1474 byte</td>
+      <td style="display: none;" data-ice="lines">40</td>
+      <td style="display: none;" data-ice="updated">2020-03-01 20:23:21 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/interest/InterestCollection.test.ts.html">api/interest/InterestCollection.test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">5703 byte</td>
+      <td style="display: none;" data-ice="lines">125</td>
+      <td style="display: none;" data-ice="updated">2020-03-01 20:23:21 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/interest/InterestCollection.ts.html#errorLines=30,37">api/interest/InterestCollection.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/api/interest/InterestCollection.ts~InterestCollection.html">InterestCollection</a></span>
+<span><a href="variable/index.html#static-variable-Interests">Interests</a></span></td>
+      <td class="coverage"><span data-ice="coverage">83 %</span><span data-ice="coverageCount" class="coverage-count">10/12</span></td>
+      <td style="display: none;" data-ice="size">7288 byte</td>
+      <td style="display: none;" data-ice="lines">186</td>
+      <td style="display: none;" data-ice="updated">2020-07-07 18:12:51 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/interest/InterestCollection.validators.ts.html">api/interest/InterestCollection.validators.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-isInterestArrayValidator">isInterestArrayValidator</a></span>
+<span><a href="function/index.html#static-function-isInterestSlugValidator">isInterestSlugValidator</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">2/2</span></td>
+      <td style="display: none;" data-ice="size">1056 byte</td>
+      <td style="display: none;" data-ice="lines">25</td>
+      <td style="display: none;" data-ice="updated">2018-10-07 21:41:56 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/interest/InterestTypeCollection.test.ts.html">api/interest/InterestTypeCollection.test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">3442 byte</td>
+      <td style="display: none;" data-ice="lines">93</td>
+      <td style="display: none;" data-ice="updated">2020-05-05 20:24:19 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/interest/InterestTypeCollection.ts.html">api/interest/InterestTypeCollection.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/api/interest/InterestTypeCollection.ts~InterestTypeCollection.html">InterestTypeCollection</a></span>
+<span><a href="variable/index.html#static-variable-InterestTypes">InterestTypes</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">5/5</span></td>
+      <td style="display: none;" data-ice="size">1983 byte</td>
+      <td style="display: none;" data-ice="lines">62</td>
+      <td style="display: none;" data-ice="updated">2020-03-06 21:35:46 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/interest/MatchingInterests.ts.html#errorLines=87">api/interest/MatchingInterests.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="variable/index.html#static-variable-MatchingInterests">MatchingInterests</a></span>
+<span><a href="class/api/interest/MatchingInterests.ts~MatchingInterestsClass.html">MatchingInterestsClass</a></span></td>
+      <td class="coverage"><span data-ice="coverage">83 %</span><span data-ice="coverageCount" class="coverage-count">5/6</span></td>
+      <td style="display: none;" data-ice="size">2558 byte</td>
+      <td style="display: none;" data-ice="lines">75</td>
+      <td style="display: none;" data-ice="updated">2020-03-06 21:35:46 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/interest/SampleInterests.ts.html">api/interest/SampleInterests.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-makeSampleInterest">makeSampleInterest</a></span>
+<span><a href="function/index.html#static-function-makeSampleInterestArray">makeSampleInterestArray</a></span>
+<span><a href="function/index.html#static-function-makeSampleInterestSlugArray">makeSampleInterestSlugArray</a></span>
+<span><a href="function/index.html#static-function-makeSampleInterestType">makeSampleInterestType</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">4/4</span></td>
+      <td style="display: none;" data-ice="size">2162 byte</td>
+      <td style="display: none;" data-ice="lines">60</td>
+      <td style="display: none;" data-ice="updated">2020-05-05 20:24:19 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/interest/index.ts.html">api/interest/index.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">98 byte</td>
+      <td style="display: none;" data-ice="lines">4</td>
+      <td style="display: none;" data-ice="updated">2018-10-04 19:54:10 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/level/LevelProcessor.methods.ts.html">api/level/LevelProcessor.methods.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="variable/index.html#static-variable-calcLevelMethod">calcLevelMethod</a></span>
+<span><a href="variable/index.html#static-variable-updateAllStudentLevelsMethod">updateAllStudentLevelsMethod</a></span>
+<span><a href="variable/index.html#static-variable-updateLevelMethod">updateLevelMethod</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">3/3</span></td>
+      <td style="display: none;" data-ice="size">2390 byte</td>
+      <td style="display: none;" data-ice="lines">68</td>
+      <td style="display: none;" data-ice="updated">2020-07-07 18:05:59 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/level/LevelProcessor.test.ts.html">api/level/LevelProcessor.test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">4441 byte</td>
+      <td style="display: none;" data-ice="lines">119</td>
+      <td style="display: none;" data-ice="updated">2020-06-07 21:54:06 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/level/LevelProcessor.ts.html#errorLines=198,263">api/level/LevelProcessor.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-defaultCalcLevel">defaultCalcLevel</a></span>
+<span><a href="function/index.html#static-function-getLevelCriteriaStringMarkdown">getLevelCriteriaStringMarkdown</a></span>
+<span><a href="function/index.html#static-function-getLevelHintStringMarkdown">getLevelHintStringMarkdown</a></span>
+<span><a href="function/index.html#static-function-testCalcLevel">testCalcLevel</a></span>
+<span><a href="function/index.html#static-function-updateAllStudentLevels">updateAllStudentLevels</a></span>
+<span><a href="function/index.html#static-function-updateStudentLevel">updateStudentLevel</a></span></td>
+      <td class="coverage"><span data-ice="coverage">66 %</span><span data-ice="coverageCount" class="coverage-count">4/6</span></td>
+      <td style="display: none;" data-ice="size">11221 byte</td>
+      <td style="display: none;" data-ice="lines">281</td>
+      <td style="display: none;" data-ice="updated">2020-06-06 22:36:45 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/level/index.ts.html">api/level/index.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">90 byte</td>
+      <td style="display: none;" data-ice="lines">3</td>
+      <td style="display: none;" data-ice="updated">2018-10-05 23:32:12 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/log/AdvisorLogCollection.methods.ts.html">api/log/AdvisorLogCollection.methods.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="variable/index.html#static-variable-AdvisorLogsRemoveItMethod">AdvisorLogsRemoveItMethod</a></span>
+<span><a href="variable/index.html#static-variable-advisorLogsDefineMethod">advisorLogsDefineMethod</a></span>
+<span><a href="variable/index.html#static-variable-advisorLogsUpdateMethod">advisorLogsUpdateMethod</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">3/3</span></td>
+      <td style="display: none;" data-ice="size">2200 byte</td>
+      <td style="display: none;" data-ice="lines">64</td>
+      <td style="display: none;" data-ice="updated">2020-07-07 18:05:59 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/log/AdvisorLogCollection.test.ts.html">api/log/AdvisorLogCollection.test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">3404 byte</td>
+      <td style="display: none;" data-ice="lines">95</td>
+      <td style="display: none;" data-ice="updated">2020-05-05 20:24:19 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/log/AdvisorLogCollection.ts.html#errorLines=26,31">api/log/AdvisorLogCollection.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/api/log/AdvisorLogCollection.ts~AdvisorLogCollection.html">AdvisorLogCollection</a></span>
+<span><a href="variable/index.html#static-variable-AdvisorLogs">AdvisorLogs</a></span></td>
+      <td class="coverage"><span data-ice="coverage">84 %</span><span data-ice="coverageCount" class="coverage-count">11/13</span></td>
+      <td style="display: none;" data-ice="size">5614 byte</td>
+      <td style="display: none;" data-ice="lines">169</td>
+      <td style="display: none;" data-ice="updated">2020-07-07 18:05:54 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/log/index.ts.html">api/log/index.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">59 byte</td>
+      <td style="display: none;" data-ice="lines">2</td>
+      <td style="display: none;" data-ice="updated">2018-10-06 20:12:57 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/mentor/MentorAnswerCollection.test.ts.html">api/mentor/MentorAnswerCollection.test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">4598 byte</td>
+      <td style="display: none;" data-ice="lines">108</td>
+      <td style="display: none;" data-ice="updated">2020-05-05 20:24:19 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/mentor/MentorAnswerCollection.ts.html#errorLines=24,30">api/mentor/MentorAnswerCollection.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/api/mentor/MentorAnswerCollection.ts~MentorAnswerCollection.html">MentorAnswerCollection</a></span>
+<span><a href="variable/index.html#static-variable-MentorAnswers">MentorAnswers</a></span></td>
+      <td class="coverage"><span data-ice="coverage">87 %</span><span data-ice="coverageCount" class="coverage-count">14/16</span></td>
+      <td style="display: none;" data-ice="size">6978 byte</td>
+      <td style="display: none;" data-ice="lines">184</td>
+      <td style="display: none;" data-ice="updated">2020-03-06 21:35:46 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/mentor/MentorQuestionAndAnswerCollection.methods.app-test.ts.html">api/mentor/MentorQuestionAndAnswerCollection.methods.app-test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">3435 byte</td>
+      <td style="display: none;" data-ice="lines">83</td>
+      <td style="display: none;" data-ice="updated">2020-03-01 20:23:21 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/mentor/MentorQuestionCollection.test.ts.html">api/mentor/MentorQuestionCollection.test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">2953 byte</td>
+      <td style="display: none;" data-ice="lines">82</td>
+      <td style="display: none;" data-ice="updated">2020-05-05 20:24:19 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/mentor/MentorQuestionCollection.ts.html#errorLines=28,37">api/mentor/MentorQuestionCollection.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/api/mentor/MentorQuestionCollection.ts~MentorQuestionCollection.html">MentorQuestionCollection</a></span>
+<span><a href="variable/index.html#static-variable-MentorQuestions">MentorQuestions</a></span></td>
+      <td class="coverage"><span data-ice="coverage">83 %</span><span data-ice="coverageCount" class="coverage-count">10/12</span></td>
+      <td style="display: none;" data-ice="size">6268 byte</td>
+      <td style="display: none;" data-ice="lines">171</td>
+      <td style="display: none;" data-ice="updated">2020-03-06 21:35:46 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/mentor/SampleMentorQuestionAndAnswer.ts.html#errorLines=13,7">api/mentor/SampleMentorQuestionAndAnswer.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-makeSampleMentorAnswer">makeSampleMentorAnswer</a></span>
+<span><a href="function/index.html#static-function-makeSampleMentorQuestion">makeSampleMentorQuestion</a></span></td>
+      <td class="coverage"><span data-ice="coverage">0 %</span><span data-ice="coverageCount" class="coverage-count">0/2</span></td>
+      <td style="display: none;" data-ice="size">789 byte</td>
+      <td style="display: none;" data-ice="lines">20</td>
+      <td style="display: none;" data-ice="updated">2020-05-05 20:24:19 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/mentor/index.ts.html">api/mentor/index.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">101 byte</td>
+      <td style="display: none;" data-ice="lines">3</td>
+      <td style="display: none;" data-ice="updated">2018-10-05 20:23:48 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/opportunity/OpportunityCollection.methods.app-test.ts.html">api/opportunity/OpportunityCollection.methods.app-test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">1596 byte</td>
+      <td style="display: none;" data-ice="lines">43</td>
+      <td style="display: none;" data-ice="updated">2020-03-01 20:23:21 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/opportunity/OpportunityCollection.test.ts.html">api/opportunity/OpportunityCollection.test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">7472 byte</td>
+      <td style="display: none;" data-ice="lines">202</td>
+      <td style="display: none;" data-ice="updated">2020-05-05 20:24:19 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/opportunity/OpportunityCollection.ts.html#errorLines=40,52">api/opportunity/OpportunityCollection.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="variable/index.html#static-variable-Opportunities">Opportunities</a></span>
+<span><a href="class/api/opportunity/OpportunityCollection.ts~OpportunityCollection.html">OpportunityCollection</a></span></td>
+      <td class="coverage"><span data-ice="coverage">84 %</span><span data-ice="coverageCount" class="coverage-count">11/13</span></td>
+      <td style="display: none;" data-ice="size">12166 byte</td>
+      <td style="display: none;" data-ice="lines">294</td>
+      <td style="display: none;" data-ice="updated">2020-05-05 20:24:19 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/opportunity/OpportunityInstanceCollection.methods.app-test.ts.html">api/opportunity/OpportunityInstanceCollection.methods.app-test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">1644 byte</td>
+      <td style="display: none;" data-ice="lines">38</td>
+      <td style="display: none;" data-ice="updated">2020-03-01 20:23:21 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/opportunity/OpportunityInstanceCollection.test.ts.html">api/opportunity/OpportunityInstanceCollection.test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">7427 byte</td>
+      <td style="display: none;" data-ice="lines">168</td>
+      <td style="display: none;" data-ice="updated">2020-07-07 17:43:23 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/opportunity/OpportunityInstanceCollection.ts.html#errorLines=33,40,48">api/opportunity/OpportunityInstanceCollection.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/api/opportunity/OpportunityInstanceCollection.ts~OpportunityInstanceCollection.html">OpportunityInstanceCollection</a></span>
+<span><a href="variable/index.html#static-variable-OpportunityInstances">OpportunityInstances</a></span></td>
+      <td class="coverage"><span data-ice="coverage">87 %</span><span data-ice="coverageCount" class="coverage-count">21/24</span></td>
+      <td style="display: none;" data-ice="size">16047 byte</td>
+      <td style="display: none;" data-ice="lines">390</td>
+      <td style="display: none;" data-ice="updated">2020-07-07 18:05:54 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/opportunity/OpportunityTypeCollection.test.ts.html">api/opportunity/OpportunityTypeCollection.test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">4220 byte</td>
+      <td style="display: none;" data-ice="lines">120</td>
+      <td style="display: none;" data-ice="updated">2020-05-05 20:24:19 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/opportunity/OpportunityTypeCollection.ts.html">api/opportunity/OpportunityTypeCollection.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/api/opportunity/OpportunityTypeCollection.ts~OpportunityTypeCollection.html">OpportunityTypeCollection</a></span>
+<span><a href="variable/index.html#static-variable-OpportunityTypes">OpportunityTypes</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">5/5</span></td>
+      <td style="display: none;" data-ice="size">1999 byte</td>
+      <td style="display: none;" data-ice="lines">61</td>
+      <td style="display: none;" data-ice="updated">2020-03-06 21:35:46 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/opportunity/OpportunityUtilities.ts.html">api/opportunity/OpportunityUtilities.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-academicTermOpportunities">academicTermOpportunities</a></span>
+<span><a href="function/index.html#static-function-calculateOpportunityCompatibility">calculateOpportunityCompatibility</a></span>
+<span><a href="function/index.html#static-function-chooseCurrentAcademicTermOpportunity">chooseCurrentAcademicTermOpportunity</a></span>
+<span><a href="function/index.html#static-function-chooseStudentAcademicTermOpportunity">chooseStudentAcademicTermOpportunity</a></span>
+<span><a href="function/index.html#static-function-clearPlannedOpportunityInstances">clearPlannedOpportunityInstances</a></span>
+<span><a href="function/index.html#static-function-getRandomInt">getRandomInt</a></span>
+<span><a href="function/index.html#static-function-getRecommendedCurrentAcademicTermOpportunityChoices">getRecommendedCurrentAcademicTermOpportunityChoices</a></span>
+<span><a href="function/index.html#static-function-getStudentAcademicTermOpportunityChoices">getStudentAcademicTermOpportunityChoices</a></span>
+<span><a href="function/index.html#static-function-getStudentCurrentAcademicTermOpportunityChoices">getStudentCurrentAcademicTermOpportunityChoices</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">9/9</span></td>
+      <td style="display: none;" data-ice="size">4651 byte</td>
+      <td style="display: none;" data-ice="lines">114</td>
+      <td style="display: none;" data-ice="updated">2020-07-07 17:43:23 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/opportunity/SampleOpportunities.ts.html">api/opportunity/SampleOpportunities.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-makeSampleOpportunity">makeSampleOpportunity</a></span>
+<span><a href="function/index.html#static-function-makeSampleOpportunityInstance">makeSampleOpportunityInstance</a></span>
+<span><a href="function/index.html#static-function-makeSampleOpportunitySlugArray">makeSampleOpportunitySlugArray</a></span>
+<span><a href="function/index.html#static-function-makeSampleOpportunityType">makeSampleOpportunityType</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">4/4</span></td>
+      <td style="display: none;" data-ice="size">3033 byte</td>
+      <td style="display: none;" data-ice="lines">67</td>
+      <td style="display: none;" data-ice="updated">2020-05-05 20:24:19 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/opportunity/index.ts.html">api/opportunity/index.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">181 byte</td>
+      <td style="display: none;" data-ice="lines">5</td>
+      <td style="display: none;" data-ice="updated">2018-10-05 23:17:32 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/page-tracking/PageInterestCollection.methods.app-test.ts.html">api/page-tracking/PageInterestCollection.methods.app-test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">718 byte</td>
+      <td style="display: none;" data-ice="lines">22</td>
+      <td style="display: none;" data-ice="updated">2020-06-02 22:38:36 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/page-tracking/PageInterestCollection.methods.ts.html">api/page-tracking/PageInterestCollection.methods.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="variable/index.html#static-variable-pageInterestAdminFindMethod">pageInterestAdminFindMethod</a></span>
+<span><a href="variable/index.html#static-variable-pageInterestDefineMethod">pageInterestDefineMethod</a></span>
+<span><a href="variable/index.html#static-variable-pageInterestRemoveUserMethod">pageInterestRemoveUserMethod</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">3/3</span></td>
+      <td style="display: none;" data-ice="size">1417 byte</td>
+      <td style="display: none;" data-ice="lines">47</td>
+      <td style="display: none;" data-ice="updated">2020-07-07 18:05:59 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/page-tracking/PageInterestCollection.test.ts.html">api/page-tracking/PageInterestCollection.test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">3163 byte</td>
+      <td style="display: none;" data-ice="lines">85</td>
+      <td style="display: none;" data-ice="updated">2020-06-02 22:38:36 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/page-tracking/PageInterestCollection.ts.html#errorLines=173">api/page-tracking/PageInterestCollection.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/api/page-tracking/PageInterestCollection.ts~PageInterestCollection.html">PageInterestCollection</a></span>
+<span><a href="variable/index.html#static-variable-PageInterests">PageInterests</a></span></td>
+      <td class="coverage"><span data-ice="coverage">90 %</span><span data-ice="coverageCount" class="coverage-count">9/10</span></td>
+      <td style="display: none;" data-ice="size">6309 byte</td>
+      <td style="display: none;" data-ice="lines">161</td>
+      <td style="display: none;" data-ice="updated">2020-07-07 18:05:54 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/page-tracking/PageInterestsCategoryTypes.ts.html">api/page-tracking/PageInterestsCategoryTypes.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">347 byte</td>
+      <td style="display: none;" data-ice="lines">8</td>
+      <td style="display: none;" data-ice="updated">2020-06-02 22:38:36 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/page-tracking/PageInterestsDailySnapshotCollection.test.ts.html">api/page-tracking/PageInterestsDailySnapshotCollection.test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">6028 byte</td>
+      <td style="display: none;" data-ice="lines">129</td>
+      <td style="display: none;" data-ice="updated">2020-06-02 22:38:36 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/page-tracking/PageInterestsDailySnapshotCollection.ts.html#errorLines=173">api/page-tracking/PageInterestsDailySnapshotCollection.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/api/page-tracking/PageInterestsDailySnapshotCollection.ts~PageInterestsDailySnapshotCollection.html">PageInterestsDailySnapshotCollection</a></span>
+<span><a href="variable/index.html#static-variable-PageInterestsDailySnapshots">PageInterestsDailySnapshots</a></span></td>
+      <td class="coverage"><span data-ice="coverage">87 %</span><span data-ice="coverageCount" class="coverage-count">7/8</span></td>
+      <td style="display: none;" data-ice="size">7278 byte</td>
+      <td style="display: none;" data-ice="lines">168</td>
+      <td style="display: none;" data-ice="updated">2020-06-02 22:38:36 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/page-tracking/SamplePageInterests.ts.html#errorLines=5">api/page-tracking/SamplePageInterests.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-makeSamplePageInterest">makeSamplePageInterest</a></span></td>
+      <td class="coverage"><span data-ice="coverage">0 %</span><span data-ice="coverageCount" class="coverage-count">0/1</span></td>
+      <td style="display: none;" data-ice="size">469 byte</td>
+      <td style="display: none;" data-ice="lines">12</td>
+      <td style="display: none;" data-ice="updated">2020-06-02 22:38:36 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/page-tracking/SamplePageInterestsDailySnapshots.ts.html#errorLines=25">api/page-tracking/SamplePageInterestsDailySnapshots.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-makeSamplePageInterestInfoArray">makeSamplePageInterestInfoArray</a></span>
+<span><a href="function/index.html#static-function-makeSamplePageInterestsDailySnapshot">makeSamplePageInterestsDailySnapshot</a></span></td>
+      <td class="coverage"><span data-ice="coverage">66 %</span><span data-ice="coverageCount" class="coverage-count">2/3</span></td>
+      <td style="display: none;" data-ice="size">1530 byte</td>
+      <td style="display: none;" data-ice="lines">36</td>
+      <td style="display: none;" data-ice="updated">2020-06-02 22:38:36 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/page-tracking/index.ts.html">api/page-tracking/index.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">163 byte</td>
+      <td style="display: none;" data-ice="lines">4</td>
+      <td style="display: none;" data-ice="updated">2020-06-02 22:38:36 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/public-stats/PublicStatsCollection.test.ts.html">api/public-stats/PublicStatsCollection.test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">604 byte</td>
+      <td style="display: none;" data-ice="lines">22</td>
+      <td style="display: none;" data-ice="updated">2020-03-01 20:23:21 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/public-stats/PublicStatsCollection.ts.html#errorLines=100,41,42,44,46,48,50,52,54,56,58,60,62,64,66,68,70,72,74,76,78,80,82,84,86,88,90,92,94,96,98">api/public-stats/PublicStatsCollection.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="variable/index.html#static-variable-PublicStats">PublicStats</a></span>
+<span><a href="class/api/public-stats/PublicStatsCollection.ts~PublicStatsCollection.html">PublicStatsCollection</a></span></td>
+      <td class="coverage"><span data-ice="coverage">54 %</span><span data-ice="coverageCount" class="coverage-count">37/68</span></td>
+      <td style="display: none;" data-ice="size">14272 byte</td>
+      <td style="display: none;" data-ice="lines">373</td>
+      <td style="display: none;" data-ice="updated">2020-07-07 17:43:23 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/public-stats/StudentParticipationCollection.ts.html#errorLines=208,25,31,35">api/public-stats/StudentParticipationCollection.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/api/public-stats/StudentParticipationCollection.ts~StudentParticipationCollection.html">StudentParticipationCollection</a></span>
+<span><a href="variable/index.html#static-variable-StudentParticipations">StudentParticipations</a></span></td>
+      <td class="coverage"><span data-ice="coverage">66 %</span><span data-ice="coverageCount" class="coverage-count">8/12</span></td>
+      <td style="display: none;" data-ice="size">7642 byte</td>
+      <td style="display: none;" data-ice="lines">184</td>
+      <td style="display: none;" data-ice="updated">2020-07-07 18:05:59 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/public-stats/index.ts.html">api/public-stats/index.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">112 byte</td>
+      <td style="display: none;" data-ice="lines">3</td>
+      <td style="display: none;" data-ice="updated">2019-07-03 19:54:21 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/radgrad/RadGrad.ts.html#errorLines=52">api/radgrad/RadGrad.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="variable/index.html#static-variable-RadGrad">RadGrad</a></span>
+<span><a href="class/api/radgrad/RadGrad.ts~RadGradClass.html">RadGradClass</a></span></td>
+      <td class="coverage"><span data-ice="coverage">85 %</span><span data-ice="coverageCount" class="coverage-count">6/7</span></td>
+      <td style="display: none;" data-ice="size">6325 byte</td>
+      <td style="display: none;" data-ice="lines">173</td>
+      <td style="display: none;" data-ice="updated">2020-06-02 22:38:36 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/radgrad/RadGradProperties.ts.html#errorLines=70">api/radgrad/RadGradProperties.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="variable/index.html#static-variable-RadGradProperties">RadGradProperties</a></span>
+<span><a href="class/api/radgrad/RadGradProperties.ts~RadGradPropertiesClass.html">RadGradPropertiesClass</a></span></td>
+      <td class="coverage"><span data-ice="coverage">85 %</span><span data-ice="coverageCount" class="coverage-count">6/7</span></td>
+      <td style="display: none;" data-ice="size">2080 byte</td>
+      <td style="display: none;" data-ice="lines">74</td>
+      <td style="display: none;" data-ice="updated">2020-06-02 22:38:36 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/radgrad/index.ts.html">api/radgrad/index.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">30 byte</td>
+      <td style="display: none;" data-ice="lines">1</td>
+      <td style="display: none;" data-ice="updated">2018-10-03 21:31:00 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/review/ReviewCollection.methods.app-test.ts.html">api/review/ReviewCollection.methods.app-test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">1633 byte</td>
+      <td style="display: none;" data-ice="lines">44</td>
+      <td style="display: none;" data-ice="updated">2020-03-01 20:23:21 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/review/ReviewCollection.test.ts.html">api/review/ReviewCollection.test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">4864 byte</td>
+      <td style="display: none;" data-ice="lines">134</td>
+      <td style="display: none;" data-ice="updated">2020-05-05 20:24:19 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/review/ReviewCollection.ts.html#errorLines=35,36,37,50">api/review/ReviewCollection.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/api/review/ReviewCollection.ts~ReviewCollection.html">ReviewCollection</a></span>
+<span><a href="variable/index.html#static-variable-Reviews">Reviews</a></span></td>
+      <td class="coverage"><span data-ice="coverage">75 %</span><span data-ice="coverageCount" class="coverage-count">12/16</span></td>
+      <td style="display: none;" data-ice="size">10825 byte</td>
+      <td style="display: none;" data-ice="lines">293</td>
+      <td style="display: none;" data-ice="updated">2020-05-05 20:24:19 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/review/ReviewTypes.ts.html">api/review/ReviewTypes.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">154 byte</td>
+      <td style="display: none;" data-ice="lines">6</td>
+      <td style="display: none;" data-ice="updated">2020-05-05 20:24:19 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/review/index.ts.html">api/review/index.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">58 byte</td>
+      <td style="display: none;" data-ice="lines">2</td>
+      <td style="display: none;" data-ice="updated">2018-10-05 23:46:02 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/role/Role.test.ts.html">api/role/Role.test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">806 byte</td>
+      <td style="display: none;" data-ice="lines">23</td>
+      <td style="display: none;" data-ice="updated">2020-03-01 20:23:21 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/role/Role.ts.html">api/role/Role.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="variable/index.html#static-variable-ROLE">ROLE</a></span>
+<span><a href="variable/index.html#static-variable-ROLES">ROLES</a></span>
+<span><a href="function/index.html#static-function-assertRole">assertRole</a></span>
+<span><a href="function/index.html#static-function-isRole">isRole</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">4/4</span></td>
+      <td style="display: none;" data-ice="size">1713 byte</td>
+      <td style="display: none;" data-ice="lines">63</td>
+      <td style="display: none;" data-ice="updated">2020-03-01 20:23:21 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/role/index.ts.html">api/role/index.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">44 byte</td>
+      <td style="display: none;" data-ice="lines">2</td>
+      <td style="display: none;" data-ice="updated">2018-10-03 20:24:01 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/slug/SlugCollection.test.ts.html">api/slug/SlugCollection.test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">2774 byte</td>
+      <td style="display: none;" data-ice="lines">76</td>
+      <td style="display: none;" data-ice="updated">2020-06-04 00:24:44 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/slug/SlugCollection.ts.html">api/slug/SlugCollection.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/api/slug/SlugCollection.ts~SlugCollection.html">SlugCollection</a></span>
+<span><a href="variable/index.html#static-variable-Slugs">Slugs</a></span>
+<span><a href="function/index.html#static-function-slugify">slugify</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">15/15</span></td>
+      <td style="display: none;" data-ice="size">6228 byte</td>
+      <td style="display: none;" data-ice="lines">183</td>
+      <td style="display: none;" data-ice="updated">2020-07-07 18:20:12 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/slug/SlugCollection.validators.ts.html">api/slug/SlugCollection.validators.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-newSlugValidator">newSlugValidator</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">1/1</span></td>
+      <td style="display: none;" data-ice="size">619 byte</td>
+      <td style="display: none;" data-ice="lines">15</td>
+      <td style="display: none;" data-ice="updated">2018-10-03 21:17:16 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/slug/index.ts.html">api/slug/index.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">93 byte</td>
+      <td style="display: none;" data-ice="lines">4</td>
+      <td style="display: none;" data-ice="updated">2018-10-03 21:17:16 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/star/StarProcessor.methods.ts.html#errorLines=272">api/star/StarProcessor.methods.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="variable/index.html#static-variable-starBulkLoadDataMethod">starBulkLoadDataMethod</a></span>
+<span><a href="variable/index.html#static-variable-starBulkLoadJsonDataMethod">starBulkLoadJsonDataMethod</a></span>
+<span><a href="variable/index.html#static-variable-starLoadDataMethod">starLoadDataMethod</a></span>
+<span><a href="variable/index.html#static-variable-starLoadJsonDataMethod">starLoadJsonDataMethod</a></span></td>
+      <td class="coverage"><span data-ice="coverage">90 %</span><span data-ice="coverageCount" class="coverage-count">9/10</span></td>
+      <td style="display: none;" data-ice="size">8306 byte</td>
+      <td style="display: none;" data-ice="lines">228</td>
+      <td style="display: none;" data-ice="updated">2020-07-07 18:05:59 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/star/StarProcessor.test.ts.html">api/star/StarProcessor.test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">2124 byte</td>
+      <td style="display: none;" data-ice="lines">49</td>
+      <td style="display: none;" data-ice="updated">2020-03-01 20:23:21 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/star/StarProcessor.ts.html">api/star/StarProcessor.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-processBulkStarCsvData">processBulkStarCsvData</a></span>
+<span><a href="function/index.html#static-function-processBulkStarJsonData">processBulkStarJsonData</a></span>
+<span><a href="function/index.html#static-function-processStarCsvData">processStarCsvData</a></span>
+<span><a href="function/index.html#static-function-processStarJsonData">processStarJsonData</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">8/8</span></td>
+      <td style="display: none;" data-ice="size">13422 byte</td>
+      <td style="display: none;" data-ice="lines">324</td>
+      <td style="display: none;" data-ice="updated">2020-03-06 21:35:46 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/star/index.ts.html">api/star/index.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">87 byte</td>
+      <td style="display: none;" data-ice="lines">3</td>
+      <td style="display: none;" data-ice="updated">2018-10-05 23:37:06 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/teaser/TeaserCollection.methods.app-test.ts.html">api/teaser/TeaserCollection.methods.app-test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">1512 byte</td>
+      <td style="display: none;" data-ice="lines">42</td>
+      <td style="display: none;" data-ice="updated">2020-03-01 20:23:21 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/teaser/TeaserCollection.test.ts.html#errorLines=19">api/teaser/TeaserCollection.test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">0 %</span><span data-ice="coverageCount" class="coverage-count">0/1</span></td>
+      <td style="display: none;" data-ice="size">5692 byte</td>
+      <td style="display: none;" data-ice="lines">168</td>
+      <td style="display: none;" data-ice="updated">2020-05-05 20:24:19 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/teaser/TeaserCollection.ts.html#errorLines=30,43">api/teaser/TeaserCollection.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/api/teaser/TeaserCollection.ts~TeaserCollection.html">TeaserCollection</a></span>
+<span><a href="variable/index.html#static-variable-Teasers">Teasers</a></span></td>
+      <td class="coverage"><span data-ice="coverage">83 %</span><span data-ice="coverageCount" class="coverage-count">10/12</span></td>
+      <td style="display: none;" data-ice="size">9472 byte</td>
+      <td style="display: none;" data-ice="lines">247</td>
+      <td style="display: none;" data-ice="updated">2020-03-06 21:35:46 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/teaser/index.ts.html">api/teaser/index.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">58 byte</td>
+      <td style="display: none;" data-ice="lines">2</td>
+      <td style="display: none;" data-ice="updated">2018-10-05 23:46:02 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/test/index.ts.html">api/test/index.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">54 byte</td>
+      <td style="display: none;" data-ice="lines">2</td>
+      <td style="display: none;" data-ice="updated">2018-10-05 20:57:49 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/test/test-utilities.ts.html">api/test/test-utilities.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-defineTestFixture">defineTestFixture</a></span>
+<span><a href="function/index.html#static-function-defineTestFixtures">defineTestFixtures</a></span>
+<span><a href="variable/index.html#static-variable-defineTestFixturesMethod">defineTestFixturesMethod</a></span>
+<span><a href="function/index.html#static-function-getDefinitions">getDefinitions</a></span>
+<span><a href="function/index.html#static-function-loadCollection">loadCollection</a></span>
+<span><a href="function/index.html#static-function-withLoggedInUser">withLoggedInUser</a></span>
+<span><a href="function/index.html#static-function-withRadGradSubscriptions">withRadGradSubscriptions</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">7/7</span></td>
+      <td style="display: none;" data-ice="size">4173 byte</td>
+      <td style="display: none;" data-ice="lines">122</td>
+      <td style="display: none;" data-ice="updated">2020-07-07 18:05:59 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/user/AdminProfileCollection.ts.html#errorLines=19">api/user/AdminProfileCollection.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/api/user/AdminProfileCollection.ts~AdminProfileCollection.html">AdminProfileCollection</a></span>
+<span><a href="variable/index.html#static-variable-AdminProfiles">AdminProfiles</a></span></td>
+      <td class="coverage"><span data-ice="coverage">87 %</span><span data-ice="coverageCount" class="coverage-count">7/8</span></td>
+      <td style="display: none;" data-ice="size">6038 byte</td>
+      <td style="display: none;" data-ice="lines">138</td>
+      <td style="display: none;" data-ice="updated">2020-07-07 17:43:23 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/user/AdvisorProfileCollection.methods.app-test.ts.html">api/user/AdvisorProfileCollection.methods.app-test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">1603 byte</td>
+      <td style="display: none;" data-ice="lines">41</td>
+      <td style="display: none;" data-ice="updated">2020-03-01 20:23:21 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/user/AdvisorProfileCollection.test.ts.html">api/user/AdvisorProfileCollection.test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">4759 byte</td>
+      <td style="display: none;" data-ice="lines">101</td>
+      <td style="display: none;" data-ice="updated">2020-05-05 20:24:19 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/user/AdvisorProfileCollection.ts.html#errorLines=19">api/user/AdvisorProfileCollection.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/api/user/AdvisorProfileCollection.ts~AdvisorProfileCollection.html">AdvisorProfileCollection</a></span>
+<span><a href="variable/index.html#static-variable-AdvisorProfiles">AdvisorProfiles</a></span></td>
+      <td class="coverage"><span data-ice="coverage">87 %</span><span data-ice="coverageCount" class="coverage-count">7/8</span></td>
+      <td style="display: none;" data-ice="size">5862 byte</td>
+      <td style="display: none;" data-ice="lines">132</td>
+      <td style="display: none;" data-ice="updated">2020-07-03 23:43:50 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/user/BaseProfileCollection.ts.html#errorLines=20,37">api/user/BaseProfileCollection.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/api/user/BaseProfileCollection.ts~BaseProfileCollection.html">BaseProfileCollection</a></span>
+<span><a href="variable/index.html#static-variable-defaultProfilePicture">defaultProfilePicture</a></span></td>
+      <td class="coverage"><span data-ice="coverage">86 %</span><span data-ice="coverageCount" class="coverage-count">13/15</span></td>
+      <td style="display: none;" data-ice="size">9760 byte</td>
+      <td style="display: none;" data-ice="lines">242</td>
+      <td style="display: none;" data-ice="updated">2020-05-01 20:18:02 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/user/FacultyProfileCollection.methods.app-test.ts.html">api/user/FacultyProfileCollection.methods.app-test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">1601 byte</td>
+      <td style="display: none;" data-ice="lines">41</td>
+      <td style="display: none;" data-ice="updated">2020-03-01 20:23:21 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/user/FacultyProfileCollection.test.ts.html">api/user/FacultyProfileCollection.test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">4759 byte</td>
+      <td style="display: none;" data-ice="lines">101</td>
+      <td style="display: none;" data-ice="updated">2020-05-05 20:24:19 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/user/FacultyProfileCollection.ts.html#errorLines=19">api/user/FacultyProfileCollection.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/api/user/FacultyProfileCollection.ts~FacultyProfileCollection.html">FacultyProfileCollection</a></span>
+<span><a href="variable/index.html#static-variable-FacultyProfiles">FacultyProfiles</a></span></td>
+      <td class="coverage"><span data-ice="coverage">87 %</span><span data-ice="coverageCount" class="coverage-count">7/8</span></td>
+      <td style="display: none;" data-ice="size">5827 byte</td>
+      <td style="display: none;" data-ice="lines">133</td>
+      <td style="display: none;" data-ice="updated">2020-07-07 17:43:23 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/user/MentorProfileCollection.methods.app-test.ts.html">api/user/MentorProfileCollection.methods.app-test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">1884 byte</td>
+      <td style="display: none;" data-ice="lines">49</td>
+      <td style="display: none;" data-ice="updated">2020-03-01 20:23:21 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/user/MentorProfileCollection.test.ts.html">api/user/MentorProfileCollection.test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">6547 byte</td>
+      <td style="display: none;" data-ice="lines">146</td>
+      <td style="display: none;" data-ice="updated">2020-05-05 20:24:19 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/user/MentorProfileCollection.ts.html#errorLines=19">api/user/MentorProfileCollection.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/api/user/MentorProfileCollection.ts~MentorProfileCollection.html">MentorProfileCollection</a></span>
+<span><a href="variable/index.html#static-variable-MentorProfiles">MentorProfiles</a></span></td>
+      <td class="coverage"><span data-ice="coverage">87 %</span><span data-ice="coverageCount" class="coverage-count">7/8</span></td>
+      <td style="display: none;" data-ice="size">7617 byte</td>
+      <td style="display: none;" data-ice="lines">180</td>
+      <td style="display: none;" data-ice="updated">2020-07-07 17:43:23 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/user/SampleUsers.ts.html">api/user/SampleUsers.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-makeSampleUser">makeSampleUser</a></span>
+<span><a href="function/index.html#static-function-makeSampleUserArray">makeSampleUserArray</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">6/6</span></td>
+      <td style="display: none;" data-ice="size">3668 byte</td>
+      <td style="display: none;" data-ice="lines">105</td>
+      <td style="display: none;" data-ice="updated">2020-05-05 20:24:19 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/user/StudentProfileCollection.methods.app-test.ts.html#errorLines=19">api/user/StudentProfileCollection.methods.app-test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">50 %</span><span data-ice="coverageCount" class="coverage-count">1/2</span></td>
+      <td style="display: none;" data-ice="size">2433 byte</td>
+      <td style="display: none;" data-ice="lines">61</td>
+      <td style="display: none;" data-ice="updated">2020-03-01 20:23:21 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/user/StudentProfileCollection.test.ts.html">api/user/StudentProfileCollection.test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">8232 byte</td>
+      <td style="display: none;" data-ice="lines">165</td>
+      <td style="display: none;" data-ice="updated">2020-05-05 20:24:19 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/user/StudentProfileCollection.ts.html#errorLines=31,41,71">api/user/StudentProfileCollection.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/api/user/StudentProfileCollection.ts~StudentProfileCollection.html">StudentProfileCollection</a></span>
+<span><a href="variable/index.html#static-variable-StudentProfiles">StudentProfiles</a></span></td>
+      <td class="coverage"><span data-ice="coverage">84 %</span><span data-ice="coverageCount" class="coverage-count">16/19</span></td>
+      <td style="display: none;" data-ice="size">26906 byte</td>
+      <td style="display: none;" data-ice="lines">628</td>
+      <td style="display: none;" data-ice="updated">2020-07-07 17:43:23 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/user/UserCollection.methods.ts.html#errorLines=45">api/user/UserCollection.methods.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="variable/index.html#static-variable-generateStudentEmailsMethod">generateStudentEmailsMethod</a></span>
+<span><a href="variable/index.html#static-variable-updateAcademicPlanMethod">updateAcademicPlanMethod</a></span></td>
+      <td class="coverage"><span data-ice="coverage">50 %</span><span data-ice="coverageCount" class="coverage-count">1/2</span></td>
+      <td style="display: none;" data-ice="size">2132 byte</td>
+      <td style="display: none;" data-ice="lines">59</td>
+      <td style="display: none;" data-ice="updated">2020-07-07 17:43:23 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/user/UserCollection.ts.html#errorLines=36,37">api/user/UserCollection.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/api/user/UserCollection.ts~UserCollection.html">UserCollection</a></span>
+<span><a href="variable/index.html#static-variable-Users">Users</a></span></td>
+      <td class="coverage"><span data-ice="coverage">93 %</span><span data-ice="coverageCount" class="coverage-count">29/31</span></td>
+      <td style="display: none;" data-ice="size">20290 byte</td>
+      <td style="display: none;" data-ice="lines">534</td>
+      <td style="display: none;" data-ice="updated">2020-07-07 17:43:23 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/user/index.ts.html">api/user/index.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">270 byte</td>
+      <td style="display: none;" data-ice="lines">8</td>
+      <td style="display: none;" data-ice="updated">2018-10-05 23:46:02 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/utilities/load-fixtures.ts.html#errorLines=23">api/utilities/load-fixtures.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-loadCollectionNewDataOnly">loadCollectionNewDataOnly</a></span></td>
+      <td class="coverage"><span data-ice="coverage">0 %</span><span data-ice="coverageCount" class="coverage-count">0/1</span></td>
+      <td style="display: none;" data-ice="size">6203 byte</td>
+      <td style="display: none;" data-ice="lines">162</td>
+      <td style="display: none;" data-ice="updated">2020-06-03 21:45:31 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/verification/VerificationRequestCollection.methods.app-test.ts.html">api/verification/VerificationRequestCollection.methods.app-test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">1098 byte</td>
+      <td style="display: none;" data-ice="lines">24</td>
+      <td style="display: none;" data-ice="updated">2020-03-01 20:23:21 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/verification/VerificationRequestCollection.methods.ts.html">api/verification/VerificationRequestCollection.methods.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="variable/index.html#static-variable-processPendingVerificationMethod">processPendingVerificationMethod</a></span>
+<span><a href="variable/index.html#static-variable-processVerificationEventMethod">processVerificationEventMethod</a></span>
+<span><a href="variable/index.html#static-variable-verificationRequestsUpdateStatusMethod">verificationRequestsUpdateStatusMethod</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">4/4</span></td>
+      <td style="display: none;" data-ice="size">8086 byte</td>
+      <td style="display: none;" data-ice="lines">156</td>
+      <td style="display: none;" data-ice="updated">2020-07-07 18:05:59 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/verification/VerificationRequestCollection.test.ts.html">api/verification/VerificationRequestCollection.test.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">5636 byte</td>
+      <td style="display: none;" data-ice="lines">126</td>
+      <td style="display: none;" data-ice="updated">2020-05-05 20:24:19 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/verification/VerificationRequestCollection.ts.html#errorLines=44,45,46,47,56">api/verification/VerificationRequestCollection.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="variable/index.html#static-variable-ProcessedSchema">ProcessedSchema</a></span>
+<span><a href="class/api/verification/VerificationRequestCollection.ts~VerificationRequestCollection.html">VerificationRequestCollection</a></span>
+<span><a href="variable/index.html#static-variable-VerificationRequests">VerificationRequests</a></span></td>
+      <td class="coverage"><span data-ice="coverage">81 %</span><span data-ice="coverageCount" class="coverage-count">22/27</span></td>
+      <td style="display: none;" data-ice="size">15275 byte</td>
+      <td style="display: none;" data-ice="lines">358</td>
+      <td style="display: none;" data-ice="updated">2020-07-07 18:05:54 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/api/verification/index.ts.html">api/verification/index.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">127 byte</td>
+      <td style="display: none;" data-ice="lines">3</td>
+      <td style="display: none;" data-ice="updated">2018-10-05 23:46:02 (UTC)</td>
+    </tr>
+</tbody>
+</table>
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

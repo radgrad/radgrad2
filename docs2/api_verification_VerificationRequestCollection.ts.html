@@ -1,0 +1,474 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> api/verification/VerificationRequestCollection.ts</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    API Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-base_BaseCollection.html">base/BaseCollection</a></li></ul><h3>Namespaces</h3><ul><li><a href="api.html">api</a></li><li><a href="api_academic-term.html">api/academic-term</a></li><li><a href="api_analytic.html">api/analytic</a></li><li><a href="api_base.html">api/base</a></li><li><a href="api_career.html">api/career</a></li><li><a href="api_course.html">api/course</a></li><li><a href="api_degree-plan.html">api/degree-plan</a></li><li><a href="api_feed.html">api/feed</a></li><li><a href="api_feedback.html">api/feedback</a></li><li><a href="api_help.html">api/help</a></li><li><a href="api_ice.html">api/ice</a></li><li><a href="api_integrity.html">api/integrity</a></li><li><a href="api_interest.html">api/interest</a></li><li><a href="api_level.html">api/level</a></li><li><a href="api_log.html">api/log</a></li><li><a href="api_mentor.html">api/mentor</a></li><li><a href="api_opportunity.html">api/opportunity</a></li><li><a href="api_page-tracking.html">api/page-tracking</a></li><li><a href="api_public-stats.html">api/public-stats</a></li><li><a href="api_radgrad.html">api/radgrad</a></li><li><a href="api_review.html">api/review</a></li><li><a href="api_role.html">api/role</a></li><li><a href="api_slug.html">api/slug</a></li><li><a href="api_star.html">api/star</a></li><li><a href="api_teaser.html">api/teaser</a></li><li><a href="api_test.html">api/test</a></li><li><a href="api_user.html">api/user</a></li><li><a href="api_verification.html">api/verification</a></li></ul><h3>Classes</h3><ul><li><a href="@api_page-tracking.PageInterestsDailySnapshotCollection.html">PageInterestsDailySnapshotCollection</a></li><li><a href="api_academic-term.AcademicTermCollection.html">AcademicTermCollection</a></li><li><a href="api_analytic.IceSnapshotCollection.html">IceSnapshotCollection</a></li><li><a href="api_analytic.PageInterestCollection.html">PageInterestCollection</a></li><li><a href="api_analytic.UserInteractionCollection.html">UserInteractionCollection</a></li><li><a href="api_base.BaseCollection.html">BaseCollection</a></li><li><a href="api_base.BaseSlugCollection.html">BaseSlugCollection</a></li><li><a href="api_base.BaseTypeCollection.html">BaseTypeCollection</a></li><li><a href="api_career.CareerGoalCollection.html">CareerGoalCollection</a></li><li><a href="api_course.CourseCollection.html">CourseCollection</a></li><li><a href="api_course.CourseInstanceCollection.html">CourseInstanceCollection</a></li><li><a href="api_degree-plan.AcademicPlanCollection.html">AcademicPlanCollection</a></li><li><a href="api_degree-plan.AcademicYearInstanceCollection.html">AcademicYearInstanceCollection</a></li><li><a href="api_degree-plan.DesiredDegreeCollection.html">DesiredDegreeCollection</a></li><li><a href="api_degree-plan.exports.PlanChoiceCollection.html">PlanChoiceCollection</a></li><li><a href="api_degree-plan.PreferredChoice.html">PreferredChoice</a></li><li><a href="api_feed.FeedCollection.html">FeedCollection</a></li><li><a href="api_feedback.FeedbackFunctions.html">FeedbackFunctions</a></li><li><a href="api_feedback.FeedbackInstanceCollection.html">FeedbackInstanceCollection</a></li><li><a href="api_help.HelpMessageCollection.html">HelpMessageCollection</a></li><li><a href="api_interest.InterestCollection.html">InterestCollection</a></li><li><a href="api_interest.InterestTypeCollection.html">InterestTypeCollection</a></li><li><a href="api_log.AdvisorLogCollection.html">AdvisorLogCollection</a></li><li><a href="api_mentor.MentorAnswerCollection.html">MentorAnswerCollection</a></li><li><a href="api_mentor.MentorQuestionCollection.html">MentorQuestionCollection</a></li><li><a href="api_opportunity.OpportunityCollection.html">OpportunityCollection</a></li><li><a href="api_opportunity.OpportunityInstanceCollection.html">OpportunityInstanceCollection</a></li><li><a href="api_opportunity.OpportunityTypeCollection.html">OpportunityTypeCollection</a></li><li><a href="api_public-stats.PublicStatsCollection.html">PublicStatsCollection</a></li><li><a href="api_radgrad.RadGradClass.html">RadGradClass</a></li><li><a href="api_review.ReviewCollection.html">ReviewCollection</a></li><li><a href="api_slug.SlugCollection.html">SlugCollection</a></li><li><a href="api_teaser.TeaserCollection.html">TeaserCollection</a></li><li><a href="api_user.AdminProfileCollection.html">AdminProfileCollection</a></li><li><a href="api_user.AdvisorProfileCollection.html">AdvisorProfileCollection</a></li><li><a href="api_user.BaseProfileCollection.html">BaseProfileCollection</a></li><li><a href="api_user.FacultyProfileCollection.html">FacultyProfileCollection</a></li><li><a href="api_user.MentorProfileCollection.html">MentorProfileCollection</a></li><li><a href="api_user.StudentProfileCollection.html">StudentProfileCollection</a></li><li><a href="api_user.UserCollection.html">UserCollection</a></li><li><a href="api_verification.VerificationRequestCollection.html">VerificationRequestCollection</a></li><li><a href="FavoriteAcademicPlanCollection.html">FavoriteAcademicPlanCollection</a></li><li><a href="FavoriteCareerGoalCollection.html">FavoriteCareerGoalCollection</a></li><li><a href="FavoriteCourseCollection.html">FavoriteCourseCollection</a></li><li><a href="FavoriteInterestCollection.html">FavoriteInterestCollection</a></li><li><a href="FavoriteOpportunityCollection.html">FavoriteOpportunityCollection</a></li><li><a href="RadGradPropertiesClass.html">RadGradPropertiesClass</a></li></ul><h3>Interfaces</h3><ul><li><a href="IFacultyPageAboutMeWidgetProps.html">IFacultyPageAboutMeWidgetProps</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AdminDataModelAcademicPlansPage">AdminDataModelAcademicPlansPage</a></li><li><a href="global.html#AdminModerationPage">AdminModerationPage</a></li><li><a href="global.html#AdminPageMenuWidget">AdminPageMenuWidget</a></li><li><a href="global.html#AdminProtectedRoute">AdminProtectedRoute</a></li><li><a href="global.html#ALLOWED_ROLES">ALLOWED_ROLES</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#CardExplorerWidget">CardExplorerWidget</a></li><li><a href="global.html#CompletedVerificationsWidget">CompletedVerificationsWidget</a></li><li><a href="global.html#descriptionPairs">descriptionPairs</a></li><li><a href="global.html#EventVerificationsWidget">EventVerificationsWidget</a></li><li><a href="global.html#ExplorerUsersWidget">ExplorerUsersWidget</a></li><li><a href="global.html#FacultyPageAboutMeWidget">FacultyPageAboutMeWidget</a></li><li><a href="global.html#FirstMenuContainer">FirstMenuContainer</a></li><li><a href="global.html#Footer">Footer</a></li><li><a href="global.html#getCourseNumber">getCourseNumber</a></li><li><a href="global.html#getPlanCount">getPlanCount</a></li><li><a href="global.html#getRandomCourseSlug">getRandomCourseSlug</a></li><li><a href="global.html#getRandomCourseSlugForDept">getRandomCourseSlugForDept</a></li><li><a href="global.html#getRandomDepartment">getRandomDepartment</a></li><li><a href="global.html#getSimpleChoiceNumber">getSimpleChoiceNumber</a></li><li><a href="global.html#itemTitle">itemTitle</a></li><li><a href="global.html#itemTitleString">itemTitleString</a></li><li><a href="global.html#LandingHome">LandingHome</a></li><li><a href="global.html#LandingHomeContainer">LandingHomeContainer</a></li><li><a href="global.html#LandingNavBar">LandingNavBar</a></li><li><a href="global.html#LandingNavBarContainer">LandingNavBarContainer</a></li><li><a href="global.html#makeSampleCareerGoal">makeSampleCareerGoal</a></li><li><a href="global.html#makeSampleCareerGoalArray">makeSampleCareerGoalArray</a></li><li><a href="global.html#makeSampleCareerGoalSlugArray">makeSampleCareerGoalSlugArray</a></li><li><a href="global.html#makeSampleCourseSlugArray">makeSampleCourseSlugArray</a></li><li><a href="global.html#makeSampleInterestArray">makeSampleInterestArray</a></li><li><a href="global.html#makeSampleInterestSlugArray">makeSampleInterestSlugArray</a></li><li><a href="global.html#makeSampleOpportunitySlugArray">makeSampleOpportunitySlugArray</a></li><li><a href="global.html#makeSamplePageInterestInfo">makeSamplePageInterestInfo</a></li><li><a href="global.html#makeSamplePageInterestInfoArray">makeSamplePageInterestInfoArray</a></li><li><a href="global.html#makeSampleUserArray">makeSampleUserArray</a></li><li><a href="global.html#MentorHomePage">MentorHomePage</a></li><li><a href="global.html#MentorMentorSpacePage">MentorMentorSpacePage</a></li><li><a href="global.html#NotAuthorized">NotAuthorized</a></li><li><a href="global.html#NotFound">NotFound</a></li><li><a href="global.html#PendingVerificationsWidget">PendingVerificationsWidget</a></li><li><a href="global.html#ProtectedRoute">ProtectedRoute</a></li><li><a href="global.html#removeEmptyYearsRaw">removeEmptyYearsRaw</a></li><li><a href="global.html#removeYearFromPlanRaw">removeYearFromPlanRaw</a></li><li><a href="global.html#schema">schema</a></li><li><a href="global.html#sendEmail">sendEmail</a></li><li><a href="global.html#Signin">Signin</a></li><li><a href="global.html#Signout">Signout</a></li><li><a href="global.html#validateCourseSlugFormat">validateCourseSlugFormat</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>api/verification/VerificationRequestCollection.ts</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { Meteor } from 'meteor/meteor';
+import _ from 'lodash';
+import SimpleSchema from 'simpl-schema';
+import moment from 'moment';
+import BaseCollection from '../base/BaseCollection';
+import { Opportunities } from '../opportunity/OpportunityCollection';
+import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollection';
+import { ROLE } from '../role/Role';
+import { AcademicTerms } from '../academic-term/AcademicTermCollection';
+import { Users } from '../user/UserCollection';
+import { IProcessed, IVerificationRequestDefine, IVerificationRequestUpdate } from '../../typings/radgrad';
+import { iceSchema } from '../ice/IceProcessor';
+
+/**
+ * Schema for the processed information of VerificationRequests.
+ * @memberOf api/verification
+ */
+export const ProcessedSchema = new SimpleSchema({
+  date: Date,
+  status: String,
+  verifier: String,
+  feedback: { type: String, optional: true },
+});
+
+/**
+ * Represents a Verification Request, such as "LiveWire Internship".
+ * A student has completed an opportunity (such as an internship or project) and wants to obtain ICE Points by
+ * having it verified.
+ * @extends api/base.BaseCollection
+ * @memberOf api/verification
+ */
+class VerificationRequestCollection extends BaseCollection {
+  public ACCEPTED: string;
+  public REJECTED: string;
+  public OPEN: string;
+
+  /**
+   * Creates the VerificationRequest collection.
+   */
+  constructor() {
+    super('VerificationRequest', new SimpleSchema({
+      studentID: SimpleSchema.RegEx.Id,
+      opportunityInstanceID: SimpleSchema.RegEx.Id,
+      submittedOn: Date,
+      status: String,
+      processed: [ProcessedSchema],
+      ice: { type: iceSchema, optional: true },
+      retired: { type: Boolean, optional: true },
+    }));
+    this.ACCEPTED = 'Accepted';
+    this.REJECTED = 'Rejected';
+    this.OPEN = 'Open';
+    this.defineSchema = new SimpleSchema({
+      student: String,
+      opportunityInstance: { type: String, optional: true },
+      submittedOn: { type: Date, optional: true },
+      status: { type: String, optional: true, allowedValues: [this.REJECTED, this.ACCEPTED, this.OPEN] },
+      academicTerm: { type: String, optional: true },
+      opportunity: { type: String, optional: true },
+      retired: { type: Boolean, optional: true },
+    });
+    this.updateSchema = new SimpleSchema({
+      status: { type: String, optional: true, allowedValues: [this.REJECTED, this.ACCEPTED, this.OPEN] },
+      processed: { type: Array, optional: true },
+      'processed.$': { type: ProcessedSchema },
+      retired: { type: Boolean, optional: true },
+    });
+  }
+
+  /**
+   * Defines a verification request.
+   * @example
+   * VerificationRequests.define({ student: 'joesmith',
+   *                               opportunityInstance: 'EiQYeRP4jyyre28Zw' });
+   * or
+   * VerificationRequests.define({ student: 'joesmith',
+   *                               opportunity: 'TechHui',
+   *                              academicTerm: 'Fall-2015'});
+   * @param { Object } student and opportunity must be slugs or IDs. SubmittedOn defaults to now.
+   * status defaults to OPEN, processed defaults to an empty array and retired defaults to false.
+   * You can either pass the opportunityInstanceID or pass the opportunity and academicTerm slugs. If opportunityInstance
+   * is not defined, then the student, opportunity, and academicTerm arguments are used to look it up.
+   * @throws {Meteor.Error} If academicTerm, opportunity, opportunityInstance or student cannot be resolved,
+   * or if verified is not a boolean.
+   * @returns The newly created docID.
+   */
+  public define({ student, opportunityInstance, submittedOn = moment().toDate(), status = this.OPEN, processed = [], academicTerm, opportunity, retired = false }: IVerificationRequestDefine) {
+    // console.log(student, opportunityInstance, submittedOn, status, processed, academicTerm, opportunity);
+    const studentID = Users.getID(student);
+    const oppInstance = opportunityInstance ? OpportunityInstances.findDoc(opportunityInstance) :
+      OpportunityInstances.findOpportunityInstanceDoc(academicTerm, opportunity, student);
+    if (!oppInstance) {
+      throw new Meteor.Error('Could not find the opportunity instance to associate with this verification request');
+    }
+    const opportunityInstanceID = oppInstance._id;
+    const ice = Opportunities.findDoc(oppInstance.opportunityID).ice;
+    // Define and return the new VerificationRequest
+    const requestID = this.collection.insert({
+      studentID, opportunityInstanceID, submittedOn, status, processed, ice, retired,
+    });
+    return requestID;
+  }
+
+  /**
+   * Updates the VerificationRequest
+   * @param docID the docID to update.
+   * @param {string} status optional
+   * @param {IProcessed[]} processed optional
+   * @param {boolean} retired optional
+   */
+  public update(docID, { status, processed, retired }: IVerificationRequestUpdate) {
+    const updateData: IVerificationRequestUpdate = { status, processed, retired };
+    this.collection.update(docID, { $set: updateData });
+  }
+
+  /**
+   * Implementation of assertValidRoleForMethod. Asserts that userId is logged in as an Admin, Advisor or
+   * Student.
+   * This is used in the define, update, and removeIt Meteor methods associated with each class.
+   * @param userId The userId of the logged in user. Can be null or undefined
+   * @throws { Meteor.Error } If there is no logged in user, or the user is not an Admin or Advisor.
+   */
+  public assertValidRoleForMethod(userId: string) {
+    this.assertRole(userId, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.STUDENT]);
+  }
+
+  /**
+   * Returns the VerificationRequestID associated with opportunityInstanceID, or null if not found.
+   * @param opportunityInstanceID The opportunityInstanceID
+   * @returns The VerificationRequestID, or null if not found.
+   */
+  public findVerificationRequest(opportunityInstanceID: string) {
+    const result = this.collection.findOne({ opportunityInstanceID });
+    return result &amp;&amp; result._id;
+  }
+
+  /**
+   * Removes all VerificationRequest documents referring to user.
+   * @param user The user, either the ID or the username.
+   * @throws { Meteor.Error } If user is not an ID or username.
+   */
+  public removeUser(user: string) {
+    const studentID = Users.getID(user);
+    this.collection.remove({ studentID });
+  }
+
+  /**
+   * Returns the Opportunity associated with the VerificationRequest with the given instanceID.
+   * @param verificationRequestID The id of the VerificationRequest.
+   * @returns {IOpportunity} The associated Opportunity.
+   * @throws {Meteor.Error} If instanceID is not a valid ID.
+   */
+  public getOpportunityDoc(verificationRequestID: string) {
+    this.assertDefined(verificationRequestID);
+    const instance = this.collection.findOne({ _id: verificationRequestID });
+    const opportunity = OpportunityInstances.getOpportunityDoc(instance.opportunityInstanceID);
+    return opportunity;
+  }
+
+  /**
+   * Returns the Opportunity associated with the VerificationRequest with the given instanceID.
+   * @param verificationRequestID The id of the VerificationRequest.
+   * @returns {Object} The associated Opportunity.
+   * @throws {Meteor.Error} If instanceID is not a valid ID.
+   */
+  public getOpportunityInstanceDoc(verificationRequestID: string) {
+    this.assertDefined(verificationRequestID);
+    const instance = this.collection.findOne({ _id: verificationRequestID });
+    return OpportunityInstances.findDoc(instance.opportunityInstanceID);
+  }
+
+  /**
+   * Returns the AcademicTerm associated with the VerificationRequest with the given instanceID.
+   * @param instanceID The id of the VerificationRequest.
+   * @returns {IAcademicTerm} The associated AcademicTerm.
+   * @throws {Meteor.Error} If instanceID is not a valid ID.
+   */
+  public getAcademicTermDoc(instanceID: string) {
+    this.assertDefined(instanceID);
+    const instance = this.collection.findOne({ _id: instanceID });
+    const oppInstance = OpportunityInstances.findDoc(instance.opportunityInstanceID);
+    return AcademicTerms.findDoc(oppInstance.termID);
+  }
+
+  /**
+   * Returns the Sponsor (faculty) profile associated with the VerificationRequest with the given instanceID.
+   * @param instanceID The id of the VerificationRequest.
+   * @returns {Object} The associated Faculty profile.
+   * @throws {Meteor.Error} If instanceID is not a valid ID.
+   */
+  public getSponsorDoc(instanceID: string) {
+    this.assertDefined(instanceID);
+    const instance = this.collection.findOne({ _id: instanceID });
+    const opportunity = OpportunityInstances.getOpportunityDoc(instance.opportunityInstanceID);
+    return Users.getProfile(opportunity.sponsorID);
+  }
+
+  /**
+   * Returns the Student profile associated with the VerificationRequest with the given instanceID.
+   * @param instanceID The id of the VerificationRequest.
+   * @returns {Object} The associated Student profile.
+   * @throws {Meteor.Error} If instanceID is not a valid ID.
+   */
+  public getStudentDoc(instanceID: string) {
+    this.assertDefined(instanceID);
+    const instance = this.collection.findOne({ _id: instanceID });
+    return Users.getProfile(instance.studentID);
+  }
+
+  /**
+   * Depending on the logged in user publish only their VerificationRequests. If
+   * the user is in the Role.ADMIN, ADVISOR or FACULTY then publish all Verification Requests.
+   */
+  public publish() {
+    if (Meteor.isServer) {
+      const instance = this;
+      // eslint-disable-next-line meteor/audit-argument-checks
+      Meteor.publish(this.collectionName, function publish(studentID) {
+        if (_.isNil(this.userId)) { // https://github.com/meteor/meteor/issues/9619
+          return this.ready();
+        }
+        const profile = Users.getProfile(this.userId);
+        if (profile.role === ROLE.ADMIN || Meteor.isAppTest) {
+          return instance.collection.find();
+        }
+        if (profile.role === ROLE.ADVISOR) {
+          return instance.collection.find({ retired: { $not: { $eq: true } } });
+        }
+        if (profile.role === ROLE.FACULTY) {
+          return instance.collection.find({ sponsorID: studentID, retired: { $not: { $eq: true } } });
+        }
+        return instance.collection.find({ studentID, retired: { $not: { $eq: true } } });
+      });
+    }
+  }
+
+  /**
+   * Updates the VerificationRequest's status and processed array.
+   * @param requestID The VerificationRequest ID.
+   * @param status The new Status.
+   * @param processed The new array of process records.
+   */
+  public updateStatus(requestID: string, status: string, processed: IProcessed[]) {
+    this.assertDefined(requestID);
+    this.collection.update({ _id: requestID }, { $set: { status, processed } });
+  }
+
+  /**
+   * Sets the retired status of the retired flag.
+   * @param requestID the VerificationRequest ID.
+   * @param retired the retired status.
+   */
+  public updateRetired(requestID: string, retired: boolean) {
+    this.assertDefined(requestID);
+    this.collection.update({ _id: requestID }, { $set: { retired } });
+  }
+
+  /**
+   * Sets the passed VerificationRequest to be verified.
+   * @param verificationRequestID The VerificationRequest
+   * @param verifyingUser The user who did the verification.
+   * @throws { Meteor.Error } If verificationRequestID or verifyingUser are not defined.
+   */
+  public setVerified(verificationRequestID: string, verifyingUser: string) {
+    this.assertDefined(verificationRequestID);
+    const userID = Users.getID(verifyingUser);
+    const verifier = Users.getProfile(userID).username;
+    const date = new Date();
+    const status = this.ACCEPTED;
+    const processed = [{ date, status, verifier }];
+    this.collection.update(verificationRequestID, { $set: { status, processed } });
+  }
+
+  /**
+   * Sets the verification status of the passed VerificationRequest.
+   * @param verificationRequestID The ID of the verification request.
+   * @param verifyingUser The user who is doing the verification.
+   * @param status The status (ACCEPTED, REJECTED, OPEN).
+   * @param feedback An optional feedback string.
+   * @throws { Meteor.Error } If the verification request or user is not defined.
+   */
+  public setVerificationStatus(verificationRequestID: string, verifyingUser: string, status: string, feedback?: string) {
+    this.assertDefined(verificationRequestID);
+    const userID = Users.getID(verifyingUser);
+    const verifier = Users.getProfile(userID).username;
+    const date = new Date();
+    const processRecord = { date, status, verifier, feedback };
+    this.collection.update(verificationRequestID, { $set: { status }, $push: { processed: processRecord } });
+  }
+
+  /**
+   * Returns an array of strings, each one representing an integrity problem with this collection.
+   * Returns an empty array if no problems were found.
+   * Checks studentID, opportunityInstanceID, termID.
+   * @returns {Array} A (possibly empty) array of strings indicating integrity issues.
+   */
+  public checkIntegrity() {
+    const problems = [];
+    this.find().forEach((doc) => {
+      if (!Users.isDefined(doc.studentID)) {
+        problems.push(`Bad studentID: ${doc.studentID}`);
+      }
+      if (!OpportunityInstances.isDefined(doc.opportunityInstanceID)) {
+        problems.push(`Bad opportunityInstanceID: ${doc.opportunityInstanceID}`);
+      }
+      if (!AcademicTerms.isDefined(doc.termID)) {
+        problems.push(`Bad termID: ${doc.termID}`);
+      }
+    });
+    return problems;
+  }
+
+  /**
+   * Returns an object representing the VerificationRequest docID in a format acceptable to define().
+   * @param docID The docID of an VerificationRequest.
+   * @returns { Object } An object representing the definition of docID.
+   */
+  public dumpOne(docID: string): IVerificationRequestDefine {
+    const doc = this.findDoc(docID);
+    const student = Users.getProfile(doc.studentID).username;
+    const opportunityInstance = OpportunityInstances.findDoc(doc.opportunityInstanceID);
+    const academicTerm = AcademicTerms.findSlugByID(opportunityInstance.termID);
+    const opportunity = Opportunities.findSlugByID(opportunityInstance.opportunityID);
+    const submittedOn = doc.submittedOn;
+    const status = doc.status;
+    const processed = doc.processed;
+    const retired = doc.retired;
+    return { student, academicTerm, opportunity, submittedOn, status, processed, retired };
+  }
+
+  /**
+   * Internal helper function to simplify definition of the assertValidRoleForMethod method.
+   * @param userId The userID.
+   * @param roles An array of roles.
+   * @throws { Meteor.Error } If userId is not defined or user is not in the specified roles.
+   * @returns True if no error is thrown.
+   * @ignore
+   */
+  public assertRole(userId: string, roles: string[]): boolean {
+    if (!userId) {
+      throw new Meteor.Error('unauthorized', 'You must be logged in.');
+    } else {
+      const profile = Users.getProfile(userId);
+      if (!_.includes(roles, profile.role)) {
+        throw new Meteor.Error('unauthorized', `You must be one of the following roles: ${roles}`);
+      }
+
+    }
+    return true;
+  }
+}
+
+/**
+ * Provides the singleton instance of this class to all other entities.
+ * @memberOf api/verification
+ * @type {api/verification.VerificationRequestCollection}
+ */
+export const VerificationRequests = new VerificationRequestCollection();
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.5</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+</body>
+</html>

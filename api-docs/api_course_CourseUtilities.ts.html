@@ -1,0 +1,328 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> api/course/CourseUtilities.ts</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    API Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Namespaces</h3><ul><li><a href="api_academic-term.html">api/academic-term</a></li><li><a href="api_analytic.html">api/analytic</a></li><li><a href="api_base.html">api/base</a></li><li><a href="api_career.html">api/career</a></li><li><a href="api_course.html">api/course</a></li><li><a href="api_degree-plan.html">api/degree-plan</a></li><li><a href="api_feed.html">api/feed</a></li><li><a href="api_feedback.html">api/feedback</a></li><li><a href="api_help.html">api/help</a></li><li><a href="api_ice.html">api/ice</a></li><li><a href="api_integrity.html">api/integrity</a></li><li><a href="api_interest.html">api/interest</a></li><li><a href="api_level.html">api/level</a></li><li><a href="api_log.html">api/log</a></li><li><a href="api_mentor.html">api/mentor</a></li><li><a href="api_opportunity.html">api/opportunity</a></li><li><a href="api_page-tracking.html">api/page-tracking</a></li><li><a href="api_public-stats.html">api/public-stats</a></li><li><a href="api_radgrad.html">api/radgrad</a></li><li><a href="api_review.html">api/review</a></li><li><a href="api_role.html">api/role</a></li><li><a href="api_slug.html">api/slug</a></li><li><a href="api_star.html">api/star</a></li><li><a href="api_teaser.html">api/teaser</a></li><li><a href="api_test.html">api/test</a></li><li><a href="api_user.html">api/user</a></li><li><a href="api_verification.html">api/verification</a></li></ul><h3>Classes</h3><ul><li><a href="@api_page-tracking.PageInterestsDailySnapshotCollection.html">PageInterestsDailySnapshotCollection</a></li><li><a href="api_academic-term.AcademicTermCollection.html">AcademicTermCollection</a></li><li><a href="api_analytic.IceSnapshotCollection.html">IceSnapshotCollection</a></li><li><a href="api_analytic.PageInterestCollection.html">PageInterestCollection</a></li><li><a href="api_analytic.UserInteractionCollection.html">UserInteractionCollection</a></li><li><a href="api_base.BaseCollection.html">BaseCollection</a></li><li><a href="api_base.BaseSlugCollection.html">BaseSlugCollection</a></li><li><a href="api_base.BaseTypeCollection.html">BaseTypeCollection</a></li><li><a href="api_career.CareerGoalCollection.html">CareerGoalCollection</a></li><li><a href="api_course.CourseCollection.html">CourseCollection</a></li><li><a href="api_course.CourseInstanceCollection.html">CourseInstanceCollection</a></li><li><a href="api_degree-plan.AcademicPlanCollection.html">AcademicPlanCollection</a></li><li><a href="api_degree-plan.AcademicYearInstanceCollection.html">AcademicYearInstanceCollection</a></li><li><a href="api_degree-plan.DesiredDegreeCollection.html">DesiredDegreeCollection</a></li><li><a href="api_degree-plan.exports.PlanChoiceCollection.html">PlanChoiceCollection</a></li><li><a href="api_degree-plan.PreferredChoice.html">PreferredChoice</a></li><li><a href="api_feed.FeedCollection.html">FeedCollection</a></li><li><a href="api_feedback.FeedbackFunctions.html">FeedbackFunctions</a></li><li><a href="api_feedback.FeedbackInstanceCollection.html">FeedbackInstanceCollection</a></li><li><a href="api_help.HelpMessageCollection.html">HelpMessageCollection</a></li><li><a href="api_interest.InterestCollection.html">InterestCollection</a></li><li><a href="api_interest.InterestTypeCollection.html">InterestTypeCollection</a></li><li><a href="api_log.AdvisorLogCollection.html">AdvisorLogCollection</a></li><li><a href="api_mentor.MentorAnswerCollection.html">MentorAnswerCollection</a></li><li><a href="api_mentor.MentorQuestionCollection.html">MentorQuestionCollection</a></li><li><a href="api_opportunity.OpportunityCollection.html">OpportunityCollection</a></li><li><a href="api_opportunity.OpportunityInstanceCollection.html">OpportunityInstanceCollection</a></li><li><a href="api_opportunity.OpportunityTypeCollection.html">OpportunityTypeCollection</a></li><li><a href="api_public-stats.PublicStatsCollection.html">PublicStatsCollection</a></li><li><a href="api_radgrad.RadGradClass.html">RadGradClass</a></li><li><a href="api_review.ReviewCollection.html">ReviewCollection</a></li><li><a href="api_slug.SlugCollection.html">SlugCollection</a></li><li><a href="api_teaser.TeaserCollection.html">TeaserCollection</a></li><li><a href="api_user.AdminProfileCollection.html">AdminProfileCollection</a></li><li><a href="api_user.AdvisorProfileCollection.html">AdvisorProfileCollection</a></li><li><a href="api_user.BaseProfileCollection.html">BaseProfileCollection</a></li><li><a href="api_user.FacultyProfileCollection.html">FacultyProfileCollection</a></li><li><a href="api_user.MentorProfileCollection.html">MentorProfileCollection</a></li><li><a href="api_user.StudentProfileCollection.html">StudentProfileCollection</a></li><li><a href="api_user.UserCollection.html">UserCollection</a></li><li><a href="api_verification.VerificationRequestCollection.html">VerificationRequestCollection</a></li><li><a href="FavoriteAcademicPlanCollection.html">FavoriteAcademicPlanCollection</a></li><li><a href="FavoriteCareerGoalCollection.html">FavoriteCareerGoalCollection</a></li><li><a href="FavoriteCourseCollection.html">FavoriteCourseCollection</a></li><li><a href="FavoriteInterestCollection.html">FavoriteInterestCollection</a></li><li><a href="FavoriteOpportunityCollection.html">FavoriteOpportunityCollection</a></li><li><a href="RadGradPropertiesClass.html">RadGradPropertiesClass</a></li></ul><h3>Interfaces</h3><ul><li><a href="IFacultyPageAboutMeWidgetProps.html">IFacultyPageAboutMeWidgetProps</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AdminDataModelAcademicPlansPage">AdminDataModelAcademicPlansPage</a></li><li><a href="global.html#AdminModerationPage">AdminModerationPage</a></li><li><a href="global.html#AdminPageMenuWidget">AdminPageMenuWidget</a></li><li><a href="global.html#AdminProtectedRoute">AdminProtectedRoute</a></li><li><a href="global.html#ALLOWED_ROLES">ALLOWED_ROLES</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#CardExplorerWidget">CardExplorerWidget</a></li><li><a href="global.html#CompletedVerificationsWidget">CompletedVerificationsWidget</a></li><li><a href="global.html#descriptionPairs">descriptionPairs</a></li><li><a href="global.html#EventVerificationsWidget">EventVerificationsWidget</a></li><li><a href="global.html#ExplorerUsersWidget">ExplorerUsersWidget</a></li><li><a href="global.html#FacultyPageAboutMeWidget">FacultyPageAboutMeWidget</a></li><li><a href="global.html#FirstMenuContainer">FirstMenuContainer</a></li><li><a href="global.html#Footer">Footer</a></li><li><a href="global.html#getCourseNumber">getCourseNumber</a></li><li><a href="global.html#getPlanCount">getPlanCount</a></li><li><a href="global.html#getRandomCourseSlug">getRandomCourseSlug</a></li><li><a href="global.html#getRandomCourseSlugForDept">getRandomCourseSlugForDept</a></li><li><a href="global.html#getRandomDepartment">getRandomDepartment</a></li><li><a href="global.html#getSimpleChoiceNumber">getSimpleChoiceNumber</a></li><li><a href="global.html#itemTitle">itemTitle</a></li><li><a href="global.html#itemTitleString">itemTitleString</a></li><li><a href="global.html#LandingHome">LandingHome</a></li><li><a href="global.html#LandingHomeContainer">LandingHomeContainer</a></li><li><a href="global.html#LandingNavBar">LandingNavBar</a></li><li><a href="global.html#LandingNavBarContainer">LandingNavBarContainer</a></li><li><a href="global.html#makeSampleCareerGoal">makeSampleCareerGoal</a></li><li><a href="global.html#makeSampleCareerGoalArray">makeSampleCareerGoalArray</a></li><li><a href="global.html#makeSampleCareerGoalSlugArray">makeSampleCareerGoalSlugArray</a></li><li><a href="global.html#makeSampleCourseSlugArray">makeSampleCourseSlugArray</a></li><li><a href="global.html#makeSampleInterestArray">makeSampleInterestArray</a></li><li><a href="global.html#makeSampleInterestSlugArray">makeSampleInterestSlugArray</a></li><li><a href="global.html#makeSampleOpportunitySlugArray">makeSampleOpportunitySlugArray</a></li><li><a href="global.html#makeSamplePageInterestInfo">makeSamplePageInterestInfo</a></li><li><a href="global.html#makeSamplePageInterestInfoArray">makeSamplePageInterestInfoArray</a></li><li><a href="global.html#makeSampleUserArray">makeSampleUserArray</a></li><li><a href="global.html#MentorHomePage">MentorHomePage</a></li><li><a href="global.html#MentorMentorSpacePage">MentorMentorSpacePage</a></li><li><a href="global.html#NotAuthorized">NotAuthorized</a></li><li><a href="global.html#NotFound">NotFound</a></li><li><a href="global.html#PendingVerificationsWidget">PendingVerificationsWidget</a></li><li><a href="global.html#ProtectedRoute">ProtectedRoute</a></li><li><a href="global.html#removeEmptyYearsRaw">removeEmptyYearsRaw</a></li><li><a href="global.html#removeYearFromPlanRaw">removeYearFromPlanRaw</a></li><li><a href="global.html#schema">schema</a></li><li><a href="global.html#sendEmail">sendEmail</a></li><li><a href="global.html#Signin">Signin</a></li><li><a href="global.html#Signout">Signout</a></li><li><a href="global.html#validateCourseSlugFormat">validateCourseSlugFormat</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>api/course/CourseUtilities.ts</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { Meteor } from 'meteor/meteor';
+import _ from 'lodash';
+import faker from 'faker';
+import { CourseInstances } from './CourseInstanceCollection';
+import { Courses } from './CourseCollection';
+import PreferredChoice from '../degree-plan/PreferredChoice';
+import { Users } from '../user/UserCollection';
+import { profileGetInterestIDs } from '../../ui/components/shared/data-model-helper-functions';
+import { ICourse } from '../../typings/radgrad';
+
+/**
+ * Returns true if the coursesTakenSlugs fulfills courseID's prerequisites.
+ * @memberOf api/course
+ * @param coursesTakenSlugs slugs of the courses taken.
+ * @param courseID course ID.
+ * @return {boolean}
+ * @memberOf api/course
+ */
+export function prereqsMet(coursesTakenSlugs: string[], courseID: string) {
+  const course = Courses.findDoc(courseID);
+  let ret = true;
+  _.forEach(course.prerequisites, (prereq) => {
+    if (_.indexOf(coursesTakenSlugs, prereq) === -1) {
+      ret = false;
+      return false;
+    }
+    return true;
+  });
+  return ret;
+}
+
+function getRandomInt(min: number, max: number) {
+  min = Math.ceil(min); // eslint-disable-line no-param-reassign
+  max = Math.floor(max); // eslint-disable-line no-param-reassign
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
+export function clearPlannedCourseInstances(studentID: string) {
+  const courses = CourseInstances.find({ studentID, verified: false, fromRegistrar: false }).fetch();
+  _.forEach(courses, (ci) => {
+    CourseInstances.removeIt(ci);
+  });
+}
+
+export function get300LevelDocs(): ICourse[] {
+  return Courses.find({ num: /3\d\d/ }).fetch();
+}
+
+export function getStudent300LevelDocs(studentID: string, coursesTakenSlugs: string[]) {
+  let ret = [];
+  const courses: ICourse[] = get300LevelDocs();
+  const instances = CourseInstances.find({ studentID }).fetch();
+  const courseTakenIDs = [];
+  instances.forEach((courseInstance) => {
+    if (CourseInstances.isInteresting(courseInstance._id)) {
+      if (courseInstance.note !== 'ICS 499') { // TODO: hardcoded ICS string
+        courseTakenIDs.push(courseInstance.courseID);
+      }
+    }
+  });
+  ret = _.filter(courses, (c) => _.indexOf(courseTakenIDs, c._id) === -1);
+  ret = _.filter(ret, (c) => prereqsMet(coursesTakenSlugs, c._id)); // remove courses that don't have the prerequisites
+  return ret;
+}
+
+export function bestStudent300LevelCourses(studentID: string, coursesTakenSlugs: string[]) {
+  const choices = getStudent300LevelDocs(studentID, coursesTakenSlugs);
+  const profile = Users.getProfile(studentID);
+  const interestIDs = profileGetInterestIDs(profile);
+  const preferred = new PreferredChoice(choices, interestIDs);
+  return preferred.getBestChoices();
+}
+
+export function chooseStudent300LevelCourse(studentID: string, coursesTakenSlugs: string[]) {
+  const best = bestStudent300LevelCourses(studentID, coursesTakenSlugs);
+  return best[getRandomInt(0, best.length)];
+}
+
+export function get400LevelDocs() {
+  return Courses.find({ number: /4\d\d/ }).fetch();
+}
+
+export function getStudent400LevelDocs(studentID: string, coursesTakenSlugs: string[]) {
+  let ret = [];
+  const courses = get400LevelDocs();
+  const instances = CourseInstances.find({ studentID }).fetch();
+  const courseTakenIDs = [];
+  instances.forEach((courseInstance) => {
+    if (CourseInstances.isInteresting(courseInstance._id)) {
+      if (!courseInstance.note.endsWith('499')) {
+        courseTakenIDs.push(courseInstance.courseID);
+      }
+    }
+  });
+  ret = _.filter(courses, (c) => _.indexOf(courseTakenIDs, c._id) === -1);
+  ret = _.filter(ret, (c) => prereqsMet(coursesTakenSlugs, c._id)); // remove courses that don't have the prerequisites
+  return ret;
+}
+
+export function bestStudent400LevelCourses(studentID, coursesTakenSlugs) {
+  const choices = getStudent400LevelDocs(studentID, coursesTakenSlugs);
+  const profile = Users.getProfile(studentID);
+  const interestIDs = profileGetInterestIDs(profile);
+  const preferred = new PreferredChoice(choices, interestIDs);
+  return preferred.getBestChoices();
+}
+
+export function chooseStudent400LevelCourse(studentID, coursesTakenSlugs) {
+  const best = bestStudent400LevelCourses(studentID, coursesTakenSlugs);
+  return best[getRandomInt(0, best.length)];
+}
+
+/**
+ * Chooses the 'best' course to take given an array of slugs, the student and the courses the student
+ * has taken.
+ * @param slugs an array of course slugs to choose between.
+ * @param studentID the student's ID.
+ * @param coursesTakenSlugs an array of the course slugs the student has taken.
+ * @returns {*}
+ * @memberOf api/course
+ */
+export function chooseBetween(slugs, studentID, coursesTakenSlugs) {
+  // console.log('chooseBetween', slugs, coursesTakenSlugs);
+  const courses = [];
+  _.forEach(slugs, (slug) => {
+    const courseID = Courses.getID(slug);
+    if (prereqsMet(coursesTakenSlugs, courseID)) {
+      courses.push(Courses.findDoc(courseID));
+    }
+  });
+  const profile = Users.getProfile(studentID);
+  const interestIDs = profileGetInterestIDs(profile);
+  const preferred = new PreferredChoice(courses, interestIDs);
+  const best = preferred.getBestChoices();
+  if (best) {
+    // console.log('chooseBetween', best, interestIDs);
+    return best[getRandomInt(0, best.length)];
+  }
+  return null;
+}
+
+/**
+ * Checks the format of the getCourseSlug. Does not check to see if the slug is defined. Valid course
+ * slugs have the format &lt;dept>_&lt;number>.
+ * @param courseSlug the slug to check.
+ * @returns {boolean}
+ * @throws Meteor.Error if the slug doesn't have the right format.
+ */
+export function validateCourseSlugFormat(courseSlug): boolean {
+  if (courseSlug !== 'other' &amp;&amp; courseSlug.indexOf('_') === -1) {
+    throw new Meteor.Error(`${courseSlug} is not a valid course slug.`);
+  }
+  return true;
+}
+
+/**
+ * Returns the department from the given course slug.
+ * @param courseSlug the course slug.
+ * @returns {string}
+ * @memberOf api/course
+ */
+export function getDepartment(courseSlug): string {
+  return courseSlug.split('_')[0].toUpperCase();
+}
+
+/**
+ * Returns the number portion of the getCourseSlug.
+ * @param courseSlug the course slug.
+ * @returns {string}
+ */
+export function getCourseNumber(courseSlug): string {
+  return courseSlug.split('_')[1];
+}
+
+/**
+ * Returns a random department string.
+ * @param {number} length
+ * @returns {string}
+ */
+export function getRandomDepartment(length: number = 3): string {
+  let retVal = '';
+  for (let i = 0; i &lt; length; i++) {
+    retVal = `${retVal}${faker.random.alphaNumeric()}`;
+  }
+  return retVal;
+}
+
+/**
+ * Returns a random course slug for the given department.
+ * @param {string} dept the department
+ * @param {number} min the minimum course number, (optional) defaults to 100.
+ * @param {number} max the maximum course number, (optional) defaults to 800.
+ * @returns {string}
+ */
+export function getRandomCourseSlugForDept(dept: string, min: number = 100, max: number = 800): string {
+  return `${dept}_${faker.random.number({
+    min,
+    max,
+  })}`;
+}
+
+/**
+ * Returns a random course slug for a random department.
+ * @param {number} deptLength the length of the department string, defaults to 3.
+ * @param {number} min the minimum course number, (optional) defaults to 100.
+ * @param {number} max the maximum course number, (optional) defaults to 800.
+ * @returns {string}
+ */
+export function getRandomCourseSlug(deptLength: number = 3, min: number = 100, max: number = 800): string {
+  const deptName = getRandomDepartment(deptLength);
+  return getRandomCourseSlugForDept(deptName, min, max);
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.5</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+</body>
+</html>

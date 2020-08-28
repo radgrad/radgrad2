@@ -1,0 +1,583 @@
+{
+  "type": "File",
+  "start": 0,
+  "end": 181,
+  "loc": {
+    "start": {
+      "line": 1,
+      "column": 0
+    },
+    "end": {
+      "line": 6,
+      "column": 0
+    }
+  },
+  "program": {
+    "type": "Program",
+    "start": 0,
+    "end": 181,
+    "loc": {
+      "start": {
+        "line": 1,
+        "column": 0
+      },
+      "end": {
+        "line": 6,
+        "column": 0
+      }
+    },
+    "sourceType": "module",
+    "body": [
+      {
+        "type": "ImportDeclaration",
+        "start": 34,
+        "end": 67,
+        "loc": {
+          "start": {
+            "line": 2,
+            "column": 0
+          },
+          "end": {
+            "line": 2,
+            "column": 33
+          }
+        },
+        "specifiers": [],
+        "source": {
+          "type": "StringLiteral",
+          "start": 41,
+          "end": 66,
+          "loc": {
+            "start": {
+              "line": 2,
+              "column": 7
+            },
+            "end": {
+              "line": 2,
+              "column": 32
+            }
+          },
+          "extra": {
+            "rawValue": "./OpportunityCollection",
+            "raw": "'./OpportunityCollection'"
+          },
+          "value": "./OpportunityCollection",
+          "leadingComments": null
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "* @namespace api/opportunity ",
+            "start": 0,
+            "end": 33,
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 0
+              },
+              "end": {
+                "line": 1,
+                "column": 33
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "ImportDeclaration",
+        "start": 68,
+        "end": 109,
+        "loc": {
+          "start": {
+            "line": 3,
+            "column": 0
+          },
+          "end": {
+            "line": 3,
+            "column": 41
+          }
+        },
+        "specifiers": [],
+        "source": {
+          "type": "StringLiteral",
+          "start": 75,
+          "end": 108,
+          "loc": {
+            "start": {
+              "line": 3,
+              "column": 7
+            },
+            "end": {
+              "line": 3,
+              "column": 40
+            }
+          },
+          "extra": {
+            "rawValue": "./OpportunityInstanceCollection",
+            "raw": "'./OpportunityInstanceCollection'"
+          },
+          "value": "./OpportunityInstanceCollection"
+        }
+      },
+      {
+        "type": "ImportDeclaration",
+        "start": 110,
+        "end": 147,
+        "loc": {
+          "start": {
+            "line": 4,
+            "column": 0
+          },
+          "end": {
+            "line": 4,
+            "column": 37
+          }
+        },
+        "specifiers": [],
+        "source": {
+          "type": "StringLiteral",
+          "start": 117,
+          "end": 146,
+          "loc": {
+            "start": {
+              "line": 4,
+              "column": 7
+            },
+            "end": {
+              "line": 4,
+              "column": 36
+            }
+          },
+          "extra": {
+            "rawValue": "./OpportunityTypeCollection",
+            "raw": "'./OpportunityTypeCollection'"
+          },
+          "value": "./OpportunityTypeCollection"
+        }
+      },
+      {
+        "type": "ImportDeclaration",
+        "start": 148,
+        "end": 180,
+        "loc": {
+          "start": {
+            "line": 5,
+            "column": 0
+          },
+          "end": {
+            "line": 5,
+            "column": 32
+          }
+        },
+        "specifiers": [],
+        "source": {
+          "type": "StringLiteral",
+          "start": 155,
+          "end": 179,
+          "loc": {
+            "start": {
+              "line": 5,
+              "column": 7
+            },
+            "end": {
+              "line": 5,
+              "column": 31
+            }
+          },
+          "extra": {
+            "rawValue": "./OpportunityUtilities",
+            "raw": "'./OpportunityUtilities'"
+          },
+          "value": "./OpportunityUtilities"
+        }
+      }
+    ],
+    "directives": []
+  },
+  "comments": [
+    {
+      "type": "CommentBlock",
+      "value": "* @namespace api/opportunity ",
+      "start": 0,
+      "end": 33,
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 33
+        }
+      }
+    }
+  ],
+  "tokens": [
+    {
+      "type": "CommentBlock",
+      "value": "* @namespace api/opportunity ",
+      "start": 0,
+      "end": 33,
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 33
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "import",
+        "keyword": "import",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "import",
+      "start": 34,
+      "end": 40,
+      "loc": {
+        "start": {
+          "line": 2,
+          "column": 0
+        },
+        "end": {
+          "line": 2,
+          "column": 6
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "string",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "./OpportunityCollection",
+      "start": 41,
+      "end": 66,
+      "loc": {
+        "start": {
+          "line": 2,
+          "column": 7
+        },
+        "end": {
+          "line": 2,
+          "column": 32
+        }
+      }
+    },
+    {
+      "type": {
+        "label": ";",
+        "beforeExpr": true,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "start": 66,
+      "end": 67,
+      "loc": {
+        "start": {
+          "line": 2,
+          "column": 32
+        },
+        "end": {
+          "line": 2,
+          "column": 33
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "import",
+        "keyword": "import",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "import",
+      "start": 68,
+      "end": 74,
+      "loc": {
+        "start": {
+          "line": 3,
+          "column": 0
+        },
+        "end": {
+          "line": 3,
+          "column": 6
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "string",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "./OpportunityInstanceCollection",
+      "start": 75,
+      "end": 108,
+      "loc": {
+        "start": {
+          "line": 3,
+          "column": 7
+        },
+        "end": {
+          "line": 3,
+          "column": 40
+        }
+      }
+    },
+    {
+      "type": {
+        "label": ";",
+        "beforeExpr": true,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "start": 108,
+      "end": 109,
+      "loc": {
+        "start": {
+          "line": 3,
+          "column": 40
+        },
+        "end": {
+          "line": 3,
+          "column": 41
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "import",
+        "keyword": "import",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "import",
+      "start": 110,
+      "end": 116,
+      "loc": {
+        "start": {
+          "line": 4,
+          "column": 0
+        },
+        "end": {
+          "line": 4,
+          "column": 6
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "string",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "./OpportunityTypeCollection",
+      "start": 117,
+      "end": 146,
+      "loc": {
+        "start": {
+          "line": 4,
+          "column": 7
+        },
+        "end": {
+          "line": 4,
+          "column": 36
+        }
+      }
+    },
+    {
+      "type": {
+        "label": ";",
+        "beforeExpr": true,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "start": 146,
+      "end": 147,
+      "loc": {
+        "start": {
+          "line": 4,
+          "column": 36
+        },
+        "end": {
+          "line": 4,
+          "column": 37
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "import",
+        "keyword": "import",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "import",
+      "start": 148,
+      "end": 154,
+      "loc": {
+        "start": {
+          "line": 5,
+          "column": 0
+        },
+        "end": {
+          "line": 5,
+          "column": 6
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "string",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "./OpportunityUtilities",
+      "start": 155,
+      "end": 179,
+      "loc": {
+        "start": {
+          "line": 5,
+          "column": 7
+        },
+        "end": {
+          "line": 5,
+          "column": 31
+        }
+      }
+    },
+    {
+      "type": {
+        "label": ";",
+        "beforeExpr": true,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "start": 179,
+      "end": 180,
+      "loc": {
+        "start": {
+          "line": 5,
+          "column": 31
+        },
+        "end": {
+          "line": 5,
+          "column": 32
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "eof",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "start": 181,
+      "end": 181,
+      "loc": {
+        "start": {
+          "line": 6,
+          "column": 0
+        },
+        "end": {
+          "line": 6,
+          "column": 0
+        }
+      }
+    }
+  ]
+}

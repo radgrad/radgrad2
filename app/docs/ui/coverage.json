@@ -1,0 +1,658 @@
+{
+  "coverage": "4.92%",
+  "expectCount": 203,
+  "actualCount": 10,
+  "files": {
+    "ui/components/Footer.tsx": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "ui/components/admin/AdminPageMenuWidget.tsx": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "ui/components/advisor/AdvisorAcademicPlanTabs.tsx": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        6
+      ]
+    },
+    "ui/components/advisor/AdvisorPageMenuWidget.tsx": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        8
+      ]
+    },
+    "ui/components/alumni/AlumniMessageWidget.tsx": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        7
+      ]
+    },
+    "ui/components/alumni/AlumniPageMenuWidget.tsx": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        4,
+        5
+      ]
+    },
+    "ui/components/form-fields/MultiSelectField.tsx": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        8,
+        29
+      ]
+    },
+    "ui/components/form-fields/RadioField.tsx": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "ui/components/guidedtour/advisor/degree-plan.tsx": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        5
+      ]
+    },
+    "ui/components/guidedtour/advisor/opportunities.tsx": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        5
+      ]
+    },
+    "ui/components/guidedtour/advisor/review-moderation.tsx": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        5
+      ]
+    },
+    "ui/components/guidedtour/advisor/welcome.tsx": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        5
+      ]
+    },
+    "ui/components/guidedtour/advisor/whats-next.tsx": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        6
+      ]
+    },
+    "ui/components/guidedtour/advisor/why-radgrad.tsx": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        5
+      ]
+    },
+    "ui/components/guidedtour/faculty/explorer.tsx": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        5
+      ]
+    },
+    "ui/components/guidedtour/faculty/opportunities.tsx": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        5
+      ]
+    },
+    "ui/components/guidedtour/faculty/set-up.tsx": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        5
+      ]
+    },
+    "ui/components/guidedtour/faculty/verification.tsx": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        5
+      ]
+    },
+    "ui/components/guidedtour/faculty/whats-next.tsx": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        6
+      ]
+    },
+    "ui/components/guidedtour/faculty/why-radgrad.tsx": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        5
+      ]
+    },
+    "ui/components/guidedtour/mentor/explorer.tsx": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        5
+      ]
+    },
+    "ui/components/guidedtour/mentor/mentorspace.tsx": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        5
+      ]
+    },
+    "ui/components/guidedtour/mentor/set-up.tsx": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        5
+      ]
+    },
+    "ui/components/guidedtour/mentor/whats-next.tsx": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        6
+      ]
+    },
+    "ui/components/guidedtour/mentor/why-radgrad.tsx": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        5
+      ]
+    },
+    "ui/components/guidedtour/student/advisor-log.tsx": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        5
+      ]
+    },
+    "ui/components/guidedtour/student/degree-plan.tsx": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        5
+      ]
+    },
+    "ui/components/guidedtour/student/ice.tsx": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        5
+      ]
+    },
+    "ui/components/guidedtour/student/levels.tsx": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        5
+      ]
+    },
+    "ui/components/guidedtour/student/sample-student.tsx": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        5
+      ]
+    },
+    "ui/components/guidedtour/student/set-up.tsx": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        5
+      ]
+    },
+    "ui/components/guidedtour/student/whats-next.tsx": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        6
+      ]
+    },
+    "ui/components/guidedtour/student/why-radgrad.tsx": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        5
+      ]
+    },
+    "ui/components/landing/LandingFooter.tsx": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        5
+      ]
+    },
+    "ui/components/landing/LandingSection1.tsx": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        6,
+        8
+      ]
+    },
+    "ui/components/landing/LandingSection3.tsx": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        6,
+        7
+      ]
+    },
+    "ui/components/landing/LandingSection5.tsx": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        5
+      ]
+    },
+    "ui/components/landing/LandingSection9.tsx": {
+      "expectCount": 4,
+      "actualCount": 0,
+      "undocumentLines": [
+        6,
+        9,
+        13,
+        63
+      ]
+    },
+    "ui/components/mentor/MentorPageMenuWidget.tsx": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        6
+      ]
+    },
+    "ui/components/shared/BackToTopButton.tsx": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        5
+      ]
+    },
+    "ui/components/shared/PageLoader.tsx": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        4
+      ]
+    },
+    "ui/components/shared/PageLoaderMobile.tsx": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        4
+      ]
+    },
+    "ui/components/shared/PageTrackingWidgetMessage.tsx": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        4
+      ]
+    },
+    "ui/components/shared/RatingField.tsx": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        8,
+        72
+      ]
+    },
+    "ui/components/shared/StyleFunctions.ts": {
+      "expectCount": 6,
+      "actualCount": 0,
+      "undocumentLines": [
+        1,
+        3,
+        19,
+        35,
+        45,
+        41
+      ]
+    },
+    "ui/components/shared/shared-widget-names.ts": {
+      "expectCount": 16,
+      "actualCount": 0,
+      "undocumentLines": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ]
+    },
+    "ui/components/student/DegreePlannerPage/DepUtilityFunctions.ts": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        5,
+        7
+      ]
+    },
+    "ui/components/student/StudentGuidedTourWidget.tsx": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        6
+      ]
+    },
+    "ui/components/student/StudentHomeWidget.tsx": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        7
+      ]
+    },
+    "ui/components/student/student-widget-names.ts": {
+      "expectCount": 14,
+      "actualCount": 0,
+      "undocumentLines": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ]
+    },
+    "ui/pages/NotAuthorized.tsx": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "ui/pages/NotFound.tsx": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "ui/pages/Signin.tsx": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "ui/pages/Signout.tsx": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "ui/pages/admin/AdminAnalyticsNewsletterPage.tsx": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        9
+      ]
+    },
+    "ui/pages/admin/AdminAnalyticsOverheadAnalysisPage.tsx": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        11
+      ]
+    },
+    "ui/pages/admin/AdminAnalyticsPage.tsx": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        7
+      ]
+    },
+    "ui/pages/admin/AdminAnalyticsStudentSummaryPage.tsx": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        8
+      ]
+    },
+    "ui/pages/admin/AdminAnalyticsUserInteractionsPage.tsx": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        9
+      ]
+    },
+    "ui/pages/admin/AdminDataModelPage.tsx": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        9
+      ]
+    },
+    "ui/pages/admin/AdminDatabasePage.tsx": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        6
+      ]
+    },
+    "ui/pages/admin/AdminModerationPage.tsx": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "ui/pages/advisor/AdvisorAcademicPlanPage.tsx": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        8
+      ]
+    },
+    "ui/pages/advisor/AdvisorModerationPage.tsx": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        8
+      ]
+    },
+    "ui/pages/alumni/AlumniHomePage.tsx": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        6
+      ]
+    },
+    "ui/pages/faculty/FacultyHomePage.tsx": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        7
+      ]
+    },
+    "ui/pages/landing/GuidedTourAdvisor.tsx": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        16
+      ]
+    },
+    "ui/pages/landing/GuidedTourFaculty.tsx": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        16
+      ]
+    },
+    "ui/pages/landing/GuidedTourMentor.tsx": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        15
+      ]
+    },
+    "ui/pages/mentor/MentorHomePage.tsx": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "ui/pages/mentor/MentorMentorSpacePage.tsx": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "ui/pages/student/StudentHomeAboutMePage.tsx": {
+      "expectCount": 3,
+      "actualCount": 0,
+      "undocumentLines": [
+        11,
+        38,
+        39
+      ]
+    },
+    "ui/pages/student/StudentHomeIcePage.tsx": {
+      "expectCount": 3,
+      "actualCount": 0,
+      "undocumentLines": [
+        11,
+        38,
+        39
+      ]
+    },
+    "ui/pages/student/StudentHomeLevelsPage.tsx": {
+      "expectCount": 3,
+      "actualCount": 0,
+      "undocumentLines": [
+        12,
+        47,
+        48
+      ]
+    },
+    "ui/pages/student/StudentHomeLogPage.tsx": {
+      "expectCount": 3,
+      "actualCount": 0,
+      "undocumentLines": [
+        11,
+        38,
+        39
+      ]
+    },
+    "ui/pages/student/StudentHomePage.tsx": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        9
+      ]
+    },
+    "ui/pages/student/StudentMentorSpacePage.tsx": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        15
+      ]
+    },
+    "ui/test-helpers/e2e.ts": {
+      "expectCount": 76,
+      "actualCount": 0,
+      "undocumentLines": [
+        33,
+        42,
+        44,
+        45,
+        46,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        67,
+        69,
+        70,
+        73,
+        74,
+        76,
+        77,
+        79,
+        80,
+        82,
+        83,
+        87,
+        88,
+        89,
+        90,
+        92,
+        93,
+        94,
+        95,
+        96,
+        98,
+        99,
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112,
+        113,
+        114,
+        115,
+        116,
+        117,
+        118,
+        120,
+        121,
+        122,
+        124,
+        125,
+        126,
+        127,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134
+      ]
+    }
+  }
+}
