@@ -11,24 +11,29 @@ export default {
   },
   background: {
     backgroundColor: '#333333',
+    height: '100vh',
   },
   '.guided-tour-background:first-child': {
-    padding: '2.5rem 0',
+    padding: '1.5rem 0',
   },
   h1: {
     color: 'white',
-    fontSize: 36,
+    fontSize: 30,
+    textAlign: 'left',
+  },
+  h2: {
+    color: 'white',
+    fontSize: 25,
     textAlign: 'left',
   },
   p: {
     color: 'rgba(255,255,255,.7)',
-    fontSize: 16,
-    textIndent: '1rem',
+    fontSize: 15,
     textAlign: 'left',
   },
   '.guided-tour-description ul > li': {
     color: 'rgba(255,255,255,.7)',
-    fontSize: 16,
+    fontSize: 15,
     textAlign: 'left',
   },
   strong: {

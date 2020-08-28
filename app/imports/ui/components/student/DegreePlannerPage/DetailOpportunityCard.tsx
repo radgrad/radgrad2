@@ -20,7 +20,7 @@ import { defineMethod, removeItMethod } from '../../../../api/base/BaseCollectio
 import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
 import { buildRouteName } from './DepUtilityFunctions';
 import { EXPLORER_TYPE } from '../../../../startup/client/route-constants';
-import RequestVerificationForm from '../RequestVerificationForm';
+import RequestVerificationForm from './RequestVerificationForm';
 import { VerificationRequests } from '../../../../api/verification/VerificationRequestCollection';
 import VerificationRequestStatus from './VerificationRequestStatus';
 import { degreePlannerActions } from '../../../../redux/student/degree-planner';

@@ -40,7 +40,6 @@ export const EXPLORER_TYPE = {
   DEGREES: 'degrees',
   INTERESTS: 'interests',
   OPPORTUNITIES: 'opportunities',
-  USERS: 'users',
 };
 
 export const EXPLORER_PARAM = {
@@ -50,4 +49,10 @@ export const EXPLORER_PARAM = {
   DEGREE: ':degree',
   INTEREST: ':interest',
   OPPORTUNITY: ':opportunity',
+};
+
+export const COMMUNITY = {
+  HOME: 'community',
+  USERS: 'users',
+  RADGRADVIDEOS: 'radgrad-videos',
 };

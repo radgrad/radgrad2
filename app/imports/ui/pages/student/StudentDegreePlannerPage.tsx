@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Header } from 'semantic-ui-react';
+import { Grid, Container } from 'semantic-ui-react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
@@ -19,13 +19,13 @@ import {
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { Users } from '../../../api/user/UserCollection';
-import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import { degreePlannerActions } from '../../../redux/student/degree-planner';
 import TabbedFavoritesWidget from '../../components/student/DegreePlannerPage/TabbedFavoritesWidget';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { getUsername, IMatchProps } from '../../components/shared/RouterHelperFunctions';
 import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
 import { UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
+import GuidedTourDegreePlanner from '../../components/student/DegreePlannerPage/GuidedTourDegreePlanner';
 
 interface IStudentDegreePlannerProps {
   // eslint-disable-next-line react/no-unused-prop-types
@@ -240,24 +240,20 @@ const StudentDegreePlannerPage = (props: IStudentDegreePlannerProps) => {
   return (
     <DragDropContext onDragEnd={onDragEnd(props)}>
       <StudentPageMenuWidget />
-      <Grid stackable style={marginStyle}>
-        <Grid.Row>
-          <HelpPanelWidget />
-        </Grid.Row>
+      <GuidedTourDegreePlanner />
+      <Container>
+        <Grid stackable style={marginStyle}>
+          <Grid.Row stretched>
+            <Grid.Column width={10} style={paddedStyle}>
+              <DegreeExperiencePlannerWidget />
+            </Grid.Column>
 
-        <Grid.Row verticalAlign="middle" style={{ paddingBottom: 0 }}>
-          <Header as="h1" style={{ paddingLeft: 10 }}>Degree Experience Planner</Header>
-        </Grid.Row>
-        <Grid.Row stretched>
-          <Grid.Column width={10} style={paddedStyle}>
-            <DegreeExperiencePlannerWidget />
-          </Grid.Column>
-
-          <Grid.Column width={6} style={paddedStyle}>
-            <TabbedFavoritesWidget />
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
+            <Grid.Column width={6} style={paddedStyle}>
+              <TabbedFavoritesWidget />
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </Container>
     </DragDropContext>
   );
 };

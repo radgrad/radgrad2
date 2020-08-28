@@ -6,7 +6,7 @@ import { NavLink, withRouter } from 'react-router-dom';
 import { Dropdown, Header, Image, Menu, Container } from 'semantic-ui-react';
 import RadGradLogoText from '../../components/shared/RadGradLogoText';
 import RadGradMenuProfile from '../../components/shared/RadGradMenuProfile';
-import { getUsername } from '../../components/shared/RouterHelperFunctions';
+import { getUsername, isUrlRoleStudent } from '../../components/shared/RouterHelperFunctions';
 import { firstMenu } from '../../components/shared/shared-widget-names';
 
 interface IFirstMenuProps {
@@ -28,6 +28,7 @@ const FirstMenu = (props: IFirstMenuProps) => {
   const flexStyle = { display: 'flex' };
   const noPadding = { paddingTop: 0, paddingBottom: 0 };
   const signoutStyle = { marginTop: '32px' };
+  const isStudent = isUrlRoleStudent(props.match);
   return (
     <Container>
       <Menu attached="top" borderless className="radgrad-first-menu" id={`${firstMenu}`}>
@@ -51,17 +52,22 @@ const FirstMenu = (props: IFirstMenuProps) => {
           ) : (
             <div style={flexStyle}>
               <RadGradMenuProfile userName={username} />
-              {/* TODO Temporary until we have a re-design of the "SecondMenu"s of non-student roles */}
-              <Dropdown
-                text={props.currentUser}
-                pointing="top right"
-                icon={props.iconName}
-                style={signoutStyle}
-              >
-                <Dropdown.Menu>
-                  <Dropdown.Item icon="sign out" text="Sign Out" as={NavLink} exact to="/signout" />
-                </Dropdown.Menu>
-              </Dropdown>
+              {/*
+                  TODO Temporary until we have a re-design of the "SecondMenu"s of non-student roles
+                        See FIGMA mockup; remove this Dropdown once the above is accomplished
+               */}
+              {(!isStudent) ? (
+                <Dropdown
+                  text={props.currentUser}
+                  pointing="top right"
+                  icon={props.iconName}
+                  style={signoutStyle}
+                >
+                  <Dropdown.Menu>
+                    <Dropdown.Item icon="sign out" text="Sign Out" as={NavLink} exact to="/signout" />
+                  </Dropdown.Menu>
+                </Dropdown>
+              ) : ''}
               {/* END */}
             </div>
           )}

@@ -90,12 +90,12 @@ export const docToSlugNameAndType = (doc: IHasSlugID) => `${Slugs.findDoc(doc.sl
 
 export const docToShortName = (doc) => doc.shortName;
 
-export const docToShortDescription = (doc) => {
+export const docToShortDescription = (doc, maxLength = 200) => {
   let description = doc.description;
-  if (description.length > 200) {
-    description = `${description.substring(0, 200)}`;
+  if (description.length > maxLength) {
+    description = `${description.substring(0, maxLength)}`;
     if (description.charAt(description.length - 1) === ' ') {
-      description = `${description.substring(0, 199)}`;
+      description = `${description.substring(0, maxLength - 1)}`;
     }
   }
   return description;
