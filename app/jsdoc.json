@@ -14,7 +14,7 @@
   "opts": {
     "template": "node_modules/better-docs",
     "encoding": "utf8",
-    "destination": "../docs2/",
+    "destination": "../api-docs/",
     "recurse": true,
     "verbose": true
   },
