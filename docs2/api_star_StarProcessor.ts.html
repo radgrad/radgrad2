@@ -1,0 +1,440 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> api/star/StarProcessor.ts</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    API Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-base_BaseCollection.html">base/BaseCollection</a></li></ul><h3>Namespaces</h3><ul><li><a href="api.html">api</a></li><li><a href="api_academic-term.html">api/academic-term</a></li><li><a href="api_analytic.html">api/analytic</a></li><li><a href="api_base.html">api/base</a></li><li><a href="api_career.html">api/career</a></li><li><a href="api_course.html">api/course</a></li><li><a href="api_degree-plan.html">api/degree-plan</a></li><li><a href="api_feed.html">api/feed</a></li><li><a href="api_feedback.html">api/feedback</a></li><li><a href="api_help.html">api/help</a></li><li><a href="api_ice.html">api/ice</a></li><li><a href="api_integrity.html">api/integrity</a></li><li><a href="api_interest.html">api/interest</a></li><li><a href="api_level.html">api/level</a></li><li><a href="api_log.html">api/log</a></li><li><a href="api_mentor.html">api/mentor</a></li><li><a href="api_opportunity.html">api/opportunity</a></li><li><a href="api_page-tracking.html">api/page-tracking</a></li><li><a href="api_public-stats.html">api/public-stats</a></li><li><a href="api_radgrad.html">api/radgrad</a></li><li><a href="api_review.html">api/review</a></li><li><a href="api_role.html">api/role</a></li><li><a href="api_slug.html">api/slug</a></li><li><a href="api_star.html">api/star</a></li><li><a href="api_teaser.html">api/teaser</a></li><li><a href="api_test.html">api/test</a></li><li><a href="api_user.html">api/user</a></li><li><a href="api_verification.html">api/verification</a></li></ul><h3>Classes</h3><ul><li><a href="@api_page-tracking.PageInterestsDailySnapshotCollection.html">PageInterestsDailySnapshotCollection</a></li><li><a href="api_academic-term.AcademicTermCollection.html">AcademicTermCollection</a></li><li><a href="api_analytic.IceSnapshotCollection.html">IceSnapshotCollection</a></li><li><a href="api_analytic.PageInterestCollection.html">PageInterestCollection</a></li><li><a href="api_analytic.UserInteractionCollection.html">UserInteractionCollection</a></li><li><a href="api_base.BaseCollection.html">BaseCollection</a></li><li><a href="api_base.BaseSlugCollection.html">BaseSlugCollection</a></li><li><a href="api_base.BaseTypeCollection.html">BaseTypeCollection</a></li><li><a href="api_career.CareerGoalCollection.html">CareerGoalCollection</a></li><li><a href="api_course.CourseCollection.html">CourseCollection</a></li><li><a href="api_course.CourseInstanceCollection.html">CourseInstanceCollection</a></li><li><a href="api_degree-plan.AcademicPlanCollection.html">AcademicPlanCollection</a></li><li><a href="api_degree-plan.AcademicYearInstanceCollection.html">AcademicYearInstanceCollection</a></li><li><a href="api_degree-plan.DesiredDegreeCollection.html">DesiredDegreeCollection</a></li><li><a href="api_degree-plan.exports.PlanChoiceCollection.html">PlanChoiceCollection</a></li><li><a href="api_degree-plan.PreferredChoice.html">PreferredChoice</a></li><li><a href="api_feed.FeedCollection.html">FeedCollection</a></li><li><a href="api_feedback.FeedbackFunctions.html">FeedbackFunctions</a></li><li><a href="api_feedback.FeedbackInstanceCollection.html">FeedbackInstanceCollection</a></li><li><a href="api_help.HelpMessageCollection.html">HelpMessageCollection</a></li><li><a href="api_interest.InterestCollection.html">InterestCollection</a></li><li><a href="api_interest.InterestTypeCollection.html">InterestTypeCollection</a></li><li><a href="api_log.AdvisorLogCollection.html">AdvisorLogCollection</a></li><li><a href="api_mentor.MentorAnswerCollection.html">MentorAnswerCollection</a></li><li><a href="api_mentor.MentorQuestionCollection.html">MentorQuestionCollection</a></li><li><a href="api_opportunity.OpportunityCollection.html">OpportunityCollection</a></li><li><a href="api_opportunity.OpportunityInstanceCollection.html">OpportunityInstanceCollection</a></li><li><a href="api_opportunity.OpportunityTypeCollection.html">OpportunityTypeCollection</a></li><li><a href="api_public-stats.PublicStatsCollection.html">PublicStatsCollection</a></li><li><a href="api_radgrad.RadGradClass.html">RadGradClass</a></li><li><a href="api_review.ReviewCollection.html">ReviewCollection</a></li><li><a href="api_slug.SlugCollection.html">SlugCollection</a></li><li><a href="api_teaser.TeaserCollection.html">TeaserCollection</a></li><li><a href="api_user.AdminProfileCollection.html">AdminProfileCollection</a></li><li><a href="api_user.AdvisorProfileCollection.html">AdvisorProfileCollection</a></li><li><a href="api_user.BaseProfileCollection.html">BaseProfileCollection</a></li><li><a href="api_user.FacultyProfileCollection.html">FacultyProfileCollection</a></li><li><a href="api_user.MentorProfileCollection.html">MentorProfileCollection</a></li><li><a href="api_user.StudentProfileCollection.html">StudentProfileCollection</a></li><li><a href="api_user.UserCollection.html">UserCollection</a></li><li><a href="api_verification.VerificationRequestCollection.html">VerificationRequestCollection</a></li><li><a href="FavoriteAcademicPlanCollection.html">FavoriteAcademicPlanCollection</a></li><li><a href="FavoriteCareerGoalCollection.html">FavoriteCareerGoalCollection</a></li><li><a href="FavoriteCourseCollection.html">FavoriteCourseCollection</a></li><li><a href="FavoriteInterestCollection.html">FavoriteInterestCollection</a></li><li><a href="FavoriteOpportunityCollection.html">FavoriteOpportunityCollection</a></li><li><a href="RadGradPropertiesClass.html">RadGradPropertiesClass</a></li></ul><h3>Interfaces</h3><ul><li><a href="IFacultyPageAboutMeWidgetProps.html">IFacultyPageAboutMeWidgetProps</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AdminDataModelAcademicPlansPage">AdminDataModelAcademicPlansPage</a></li><li><a href="global.html#AdminModerationPage">AdminModerationPage</a></li><li><a href="global.html#AdminPageMenuWidget">AdminPageMenuWidget</a></li><li><a href="global.html#AdminProtectedRoute">AdminProtectedRoute</a></li><li><a href="global.html#ALLOWED_ROLES">ALLOWED_ROLES</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#CardExplorerWidget">CardExplorerWidget</a></li><li><a href="global.html#CompletedVerificationsWidget">CompletedVerificationsWidget</a></li><li><a href="global.html#descriptionPairs">descriptionPairs</a></li><li><a href="global.html#EventVerificationsWidget">EventVerificationsWidget</a></li><li><a href="global.html#ExplorerUsersWidget">ExplorerUsersWidget</a></li><li><a href="global.html#FacultyPageAboutMeWidget">FacultyPageAboutMeWidget</a></li><li><a href="global.html#FirstMenuContainer">FirstMenuContainer</a></li><li><a href="global.html#Footer">Footer</a></li><li><a href="global.html#getCourseNumber">getCourseNumber</a></li><li><a href="global.html#getPlanCount">getPlanCount</a></li><li><a href="global.html#getRandomCourseSlug">getRandomCourseSlug</a></li><li><a href="global.html#getRandomCourseSlugForDept">getRandomCourseSlugForDept</a></li><li><a href="global.html#getRandomDepartment">getRandomDepartment</a></li><li><a href="global.html#getSimpleChoiceNumber">getSimpleChoiceNumber</a></li><li><a href="global.html#itemTitle">itemTitle</a></li><li><a href="global.html#itemTitleString">itemTitleString</a></li><li><a href="global.html#LandingHome">LandingHome</a></li><li><a href="global.html#LandingHomeContainer">LandingHomeContainer</a></li><li><a href="global.html#LandingNavBar">LandingNavBar</a></li><li><a href="global.html#LandingNavBarContainer">LandingNavBarContainer</a></li><li><a href="global.html#makeSampleCareerGoal">makeSampleCareerGoal</a></li><li><a href="global.html#makeSampleCareerGoalArray">makeSampleCareerGoalArray</a></li><li><a href="global.html#makeSampleCareerGoalSlugArray">makeSampleCareerGoalSlugArray</a></li><li><a href="global.html#makeSampleCourseSlugArray">makeSampleCourseSlugArray</a></li><li><a href="global.html#makeSampleInterestArray">makeSampleInterestArray</a></li><li><a href="global.html#makeSampleInterestSlugArray">makeSampleInterestSlugArray</a></li><li><a href="global.html#makeSampleOpportunitySlugArray">makeSampleOpportunitySlugArray</a></li><li><a href="global.html#makeSamplePageInterestInfo">makeSamplePageInterestInfo</a></li><li><a href="global.html#makeSamplePageInterestInfoArray">makeSamplePageInterestInfoArray</a></li><li><a href="global.html#makeSampleUserArray">makeSampleUserArray</a></li><li><a href="global.html#MentorHomePage">MentorHomePage</a></li><li><a href="global.html#MentorMentorSpacePage">MentorMentorSpacePage</a></li><li><a href="global.html#NotAuthorized">NotAuthorized</a></li><li><a href="global.html#NotFound">NotFound</a></li><li><a href="global.html#PendingVerificationsWidget">PendingVerificationsWidget</a></li><li><a href="global.html#ProtectedRoute">ProtectedRoute</a></li><li><a href="global.html#removeEmptyYearsRaw">removeEmptyYearsRaw</a></li><li><a href="global.html#removeYearFromPlanRaw">removeYearFromPlanRaw</a></li><li><a href="global.html#schema">schema</a></li><li><a href="global.html#sendEmail">sendEmail</a></li><li><a href="global.html#Signin">Signin</a></li><li><a href="global.html#Signout">Signout</a></li><li><a href="global.html#validateCourseSlugFormat">validateCourseSlugFormat</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>api/star/StarProcessor.ts</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { Meteor } from 'meteor/meteor';
+import { Papa } from 'meteor/harrison:papa-parse';
+import _ from 'lodash';
+import { AcademicTerms } from '../academic-term/AcademicTermCollection';
+import { Courses } from '../course/CourseCollection';
+import { Slugs } from '../slug/SlugCollection';
+import { CourseInstances } from '../course/CourseInstanceCollection';
+import { IStarDataObject } from '../../typings/radgrad';
+
+/**
+ * Given the semester string from STAR (for example, 'Fall 2015 ext'), parses it, defines the corresponding academicTerm,
+ * and returns the AcademicTerm slug.
+ * @param academicTerm The STAR semester string.
+ * @returns {String} The RadGrad academicTerm slug.
+ * @throws Meteor.Error If parsing fails.
+ * @memberOf api/star
+ */
+function findAcademicTermSlug(starDataObject: IStarDataObject) {
+  const academicTerm = starDataObject.semester;
+  if ((!_.isString(academicTerm)) || (academicTerm.length &lt; 8)) {
+    throw new Meteor.Error(`Could not parse academic term data: ${JSON.stringify(starDataObject)}`);
+  }
+  const academicTermTokens = academicTerm.split(' ');
+  let term;
+  switch (academicTermTokens[0]) {
+    case 'Spring':
+      term = AcademicTerms.SPRING;
+      break;
+    case 'Spr':
+      term = AcademicTerms.SPRING;
+      break;
+    case 'Summer':
+      term = AcademicTerms.SUMMER;
+      break;
+    case 'Sum':
+      term = AcademicTerms.SUMMER;
+      break;
+    case 'Fall':
+      term = AcademicTerms.FALL;
+      break;
+    case 'Winter':
+      term = AcademicTerms.WINTER;
+      break;
+    case 'Win':
+      term = AcademicTerms.WINTER;
+      break;
+    default:
+      return null;
+  }
+  let year = parseInt(academicTermTokens[1], 10);
+  if (isNaN(year)) {
+    year = parseInt(academicTermTokens[2], 10);
+    if (isNaN(year)) {
+      return null;
+    }
+  }
+  return AcademicTerms.findSlugByID(AcademicTerms.define({ term, year }));
+}
+
+/**
+ * Returns the course slug, which is either an ICS course or 'other.
+ * @param starDataObject The data object.
+ * @returns { String } The slug.
+ * @memberOf api/star
+ */
+function findCourseSlug(starDataObject: IStarDataObject) {
+  let slug = `${starDataObject.name.toLowerCase()}_${starDataObject.num}`;
+  if (!Slugs.isSlugForEntity(slug, Courses.getType())) {
+    slug = Courses.unInterestingSlug;
+  }
+  return slug;
+}
+
+/**
+ * Creates a courseInstance data object from the passed arguments.
+ * @param starDataObject STAR data.
+ * @returns { Object } An object suitable for passing to CourseInstances.define.
+ * @memberOf api/star
+ */
+function makeCourseInstanceObject(starDataObject: IStarDataObject) {
+  return {
+    academicTerm: findAcademicTermSlug(starDataObject),
+    course: findCourseSlug(starDataObject),
+    note: `${starDataObject.name} ${starDataObject.num}`,
+    verified: true,
+    fromRegistrar: true,
+    creditHrs: starDataObject.credits,
+    grade: starDataObject.grade,
+    student: starDataObject.student,
+  };
+}
+
+/**
+ * Returns an array of arrays, each containing data that can be made into CourseInstances.
+ * @param parsedData The parsedData object returned from Papa.parse.
+ * @returns { Array } A new array with extraneous elements deleted.
+ * @memberOf api/star
+ */
+function filterParsedData(parsedData) {
+  // First, get the actual data from the Papa results.
+  let filteredData = parsedData.data;
+  // Remove first element containing headers from data array.
+  filteredData = _.drop(filteredData, 1);
+  // Remove trailing elements that don't contain data.
+  filteredData = _.dropRightWhile(filteredData, (data: any) => data.length &lt; 5);
+  // Remove test scores that appear at top.
+  filteredData = _.dropWhile(filteredData, (data) => data[2].startsWith('Test'));
+  return filteredData;
+}
+
+/**
+ * Processes STAR CSV data and returns an array of objects containing CourseInstance fields.
+ * @param { String } student The slug of the student corresponding to this STAR data.
+ * @param { String } csvData A string containing the contents of a CSV file downloaded from STAR.
+ * @returns { Array } A list of objects with fields: academicTerm, course, note, verified, grade, and creditHrs.
+ * @memberOf api/star
+ */
+export function processStarCsvData(student, csvData) {
+  if (Papa) {
+    const parsedData = Papa.parse(csvData);
+    if (parsedData.errors.length !== 0) {
+      throw new Meteor.Error(`Error found when parsing STAR data for ${student}: ${parsedData.errors}`);
+    }
+    const headers = parsedData.data[0];
+    // console.log('parsed data', parsedData);
+    const academicTermIndex = _.findIndex(headers, (str) => str === 'Semester');
+    const nameIndex = _.findIndex(headers, (str) => str === 'Course Name');
+    const numberIndex = _.findIndex(headers, (str) => str === 'Course Number');
+    const creditsIndex = _.findIndex(headers, (str) => str === 'Credits');
+    const gradeIndex = _.findIndex(headers, (str) => str === 'Grade');
+    const transferGradeIndex = _.findIndex(headers, (str) => str === 'Transfer Grade');
+    // const transferCourseNameIndex = _.findIndex(headers, (str) => str === 'Transfer Course Name');
+    const transferCourseNumberIndex = _.findIndex(headers, (str) => str === 'Transfer Course Number');
+    // const transferCourseDesc = _.findIndex(headers, (str) => str === 'Transfer Course Description');
+    if (_.every([academicTermIndex, nameIndex, numberIndex, creditsIndex, gradeIndex], (num) => num === -1)) {
+      throw new Meteor.Error(`Required CSV header field was not found in ${headers}`);
+    }
+    const filteredData = filterParsedData(parsedData);
+
+    // filteredData.map((data) => console.log('\n*** START ***\n', data, '\n*** END ***\n'));
+
+    // Create array of objects containing raw data to facilitate error message during processing.
+    const dataObjects = _.map(filteredData, (data) => {
+      const name = data[nameIndex];
+      let grade = data[gradeIndex];
+      // console.log(`grade ${grade}`);
+      if (grade === 'CR' &amp;&amp; data[transferGradeIndex] &amp;&amp; isNaN(data[transferGradeIndex])) {
+        grade = data[transferGradeIndex];
+      } else if (grade === 'CR' &amp;&amp; data[transferGradeIndex] &amp;&amp; !isNaN(data[transferGradeIndex])) {
+        // got number assuming it is AP exam score need to determine the type of the exam.
+        // const exam = data[transferCourseDesc];
+        if (data[transferGradeIndex] > 2) {
+          grade = 'B';
+        }
+      } else if (grade === 'unknown' &amp;&amp; data[transferGradeIndex] &amp;&amp; isNaN(data[transferGradeIndex])) {
+        grade = data[transferGradeIndex];
+      } else if (grade.includes('L')) {
+        grade = 'C';
+      }
+      let num = data[numberIndex];
+      if (isNaN(num)) {
+        num = data[transferCourseNumberIndex];
+      }
+      const obj: IStarDataObject = {
+        semester: data[academicTermIndex],
+        name,
+        num,
+        credits: data[creditsIndex],
+        grade,
+        student,
+      };
+      return obj;
+    });
+    // console.log(dataObjects);
+    // Now we take that array of objects and transform them into CourseInstance data objects.
+    return _.filter(_.map(dataObjects, (dataObject) => makeCourseInstanceObject(dataObject)), (ci) => ci.course !== Courses.unInterestingSlug &amp;&amp; ci.academicTerm !== null);
+  }
+  // must be on the client.
+  return null;
+}
+
+export function processBulkStarCsvData(csvData) {
+  if (Papa) {
+    const parsedData = Papa.parse(csvData);
+    if (parsedData.errors.length !== 0) {
+      throw new Meteor.Error(`Error found when parsing STAR data for ${parsedData.errors}`);
+    }
+    const headers = parsedData.data[0];
+    // console.log('parsed data', parsedData);
+    const academicTermIndex = _.findIndex(headers, (str) => str === 'Semester');
+    const nameIndex = _.findIndex(headers, (str) => str === 'Course Name');
+    const numberIndex = _.findIndex(headers, (str) => str === 'Course Number');
+    const creditsIndex = _.findIndex(headers, (str) => str === 'Credits');
+    const gradeIndex = _.findIndex(headers, (str) => str === 'Grade');
+    const transferGradeIndex = _.findIndex(headers, (str) => str === 'Transfer Grade');
+    // const transferCourseNameIndex = _.findIndex(headers, (str) => str === 'Transfer Course Name');
+    const transferCourseNumberIndex = _.findIndex(headers, (str) => str === 'Transfer Course Number');
+    // const transferCourseDesc = _.findIndex(headers, (str) => str === 'Transfer Course Description');
+    const emailIndex = _.findIndex(headers, (str) => str === 'Email');
+    const firstNameIndex = _.findIndex(headers, (str) => str === 'First Name');
+    const lastNameIndex = _.findIndex(headers, (str) => str === 'Last Name');
+    if (_.every([academicTermIndex, nameIndex, numberIndex, creditsIndex, gradeIndex, emailIndex, firstNameIndex, lastNameIndex], (num) => num === -1)) {
+      throw new Meteor.Error(`Required CSV header field was not found in ${headers}`);
+    }
+    const filteredData = filterParsedData(parsedData);
+    // Create array of objects containing raw data to facilitate error message during processing.
+    const bulkData = {};
+    // const dataObjects = _.map(filteredData, (data) => {
+    _.forEach(filteredData, (data) => {
+      const name = data[nameIndex];
+      let grade = data[gradeIndex];
+      // console.log(`grade ${grade}`);
+      if (grade === 'CR' &amp;&amp; data[transferGradeIndex] &amp;&amp; isNaN(data[transferGradeIndex])) {
+        grade = data[transferGradeIndex];
+      } else if (grade === 'CR' &amp;&amp; data[transferGradeIndex] &amp;&amp; !isNaN(data[transferGradeIndex])) {
+        // got number assuming it is AP exam score need to determine the type of the exam.
+        // const exam = data[transferCourseDesc];
+        if (data[transferGradeIndex] > 2) {
+          grade = 'B';
+        }
+      } else if (grade === 'unknown' &amp;&amp; data[transferGradeIndex] &amp;&amp; isNaN(data[transferGradeIndex])) {
+        grade = data[transferGradeIndex];
+      } else if (grade.includes('L')) {
+        grade = 'C';
+      }
+      let num = data[numberIndex];
+      if (isNaN(num)) {
+        num = data[transferCourseNumberIndex];
+      }
+      const student = data[emailIndex];
+      const obj: IStarDataObject = {
+        semester: data[academicTermIndex],
+        name,
+        num,
+        credits: data[creditsIndex],
+        grade,
+        student,
+      };
+      if (!bulkData[student]) {
+        bulkData[student] = {};
+        bulkData[student].courses = [];
+        bulkData[student].firstName = data[firstNameIndex];
+        bulkData[student].lastName = data[lastNameIndex];
+      }
+      bulkData[student].courses.push(obj);
+    });
+    // Now we take that array of objects and transform them into CourseInstance data objects.
+    _.forEach(Object.keys(bulkData), (key) => {
+      bulkData[key].courses = _.filter(_.map(bulkData[key].courses, (dataObject) => makeCourseInstanceObject(dataObject)), (ci) => ci.course !== Courses.unInterestingSlug &amp;&amp; ci.academicTerm !== null);
+    });
+    return bulkData;
+  }
+  return null;
+}
+
+/**
+ * Processes STAR JSON data and returns an array of objects containing CourseInstance fields.
+ * @param { String } student The slug of the student corresponding to this STAR data.
+ * @param { String } jsonData JSON object for a student.
+ * @returns { Array } A list of objects with fields: academicTerm, course, note, verified, grade, and creditHrs.
+ * @memberOf api/star
+ */
+export function processStarJsonData(student, jsonData) {
+  // console.log(jsonData);
+  if (student !== jsonData.email) {
+    throw new Meteor.Error(`JSON data is not for ${student}`);
+  }
+  const courses = jsonData.courses;
+  const dataObjects = _.map(courses, (course) => {
+    const name = course.name;
+    let grade = course.grade;
+    if (_.includes(CourseInstances.validGrades, grade)) {
+      if (grade === 'CR' &amp;&amp; course.transferGrade &amp;&amp; isNaN(course.transferGrade)) {
+        grade = course.transferGrade;
+      } else if (grade === 'CR' &amp;&amp; course.transferGrade &amp;&amp; !isNaN(course.transferGrade)) {
+        // got number assuming it is AP exam score need to determine the type of the exam.
+        if (course.transferGrade > 2) {
+          grade = 'B';
+        }
+      }
+    } else {
+      grade = 'OTHER';
+    }
+    let num = course.number;
+    if (isNaN(num)) {
+      num = course.transferNumber;
+    }
+    const obj: IStarDataObject = {
+      semester: course.semester,
+      name,
+      num,
+      credits: course.credits,
+      grade,
+      student,
+    };
+    return obj;
+  });
+
+  // console.log('single', dataObjects);
+  // Now we take that array of objects and transform them into CourseInstance data objects.
+  return _.filter(_.map(dataObjects, (dataObject) => makeCourseInstanceObject(dataObject)), (ci) => ci.course !== Courses.unInterestingSlug &amp;&amp; ci.academicTerm !== null);
+}
+
+/**
+ * Processes STAR JSON data and returns an array of objects containing CourseInstance fields.
+ * @param { String } jsonData JSON array with objects for students.
+ * @returns { Array } A list of objects with fields: academicTerm, course, note, verified, grade, and creditHrs.
+ * @memberOf api/star
+ */
+export function processBulkStarJsonData(jsonData) {
+  const bulkData = {};
+  _.forEach(jsonData, (data) => {
+    // console.log(data);
+    const student = data.email;
+    if (!bulkData[student]) {
+      bulkData[student] = {};
+      bulkData[student].courses = processStarJsonData(student, data);
+      bulkData[student].firstName = data.name.first;
+      bulkData[student].lastName = data.name.last;
+    }
+  });
+  // console.log('bulk', bulkData);
+  return bulkData;
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.5</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+</body>
+</html>

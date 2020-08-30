@@ -1,0 +1,744 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> api/user/StudentProfileCollection.ts</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    API Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-base_BaseCollection.html">base/BaseCollection</a></li></ul><h3>Namespaces</h3><ul><li><a href="api.html">api</a></li><li><a href="api_academic-term.html">api/academic-term</a></li><li><a href="api_analytic.html">api/analytic</a></li><li><a href="api_base.html">api/base</a></li><li><a href="api_career.html">api/career</a></li><li><a href="api_course.html">api/course</a></li><li><a href="api_degree-plan.html">api/degree-plan</a></li><li><a href="api_feed.html">api/feed</a></li><li><a href="api_feedback.html">api/feedback</a></li><li><a href="api_help.html">api/help</a></li><li><a href="api_ice.html">api/ice</a></li><li><a href="api_integrity.html">api/integrity</a></li><li><a href="api_interest.html">api/interest</a></li><li><a href="api_level.html">api/level</a></li><li><a href="api_log.html">api/log</a></li><li><a href="api_mentor.html">api/mentor</a></li><li><a href="api_opportunity.html">api/opportunity</a></li><li><a href="api_page-tracking.html">api/page-tracking</a></li><li><a href="api_public-stats.html">api/public-stats</a></li><li><a href="api_radgrad.html">api/radgrad</a></li><li><a href="api_review.html">api/review</a></li><li><a href="api_role.html">api/role</a></li><li><a href="api_slug.html">api/slug</a></li><li><a href="api_star.html">api/star</a></li><li><a href="api_teaser.html">api/teaser</a></li><li><a href="api_test.html">api/test</a></li><li><a href="api_user.html">api/user</a></li><li><a href="api_verification.html">api/verification</a></li></ul><h3>Classes</h3><ul><li><a href="@api_page-tracking.PageInterestsDailySnapshotCollection.html">PageInterestsDailySnapshotCollection</a></li><li><a href="api_academic-term.AcademicTermCollection.html">AcademicTermCollection</a></li><li><a href="api_analytic.IceSnapshotCollection.html">IceSnapshotCollection</a></li><li><a href="api_analytic.PageInterestCollection.html">PageInterestCollection</a></li><li><a href="api_analytic.UserInteractionCollection.html">UserInteractionCollection</a></li><li><a href="api_base.BaseCollection.html">BaseCollection</a></li><li><a href="api_base.BaseSlugCollection.html">BaseSlugCollection</a></li><li><a href="api_base.BaseTypeCollection.html">BaseTypeCollection</a></li><li><a href="api_career.CareerGoalCollection.html">CareerGoalCollection</a></li><li><a href="api_course.CourseCollection.html">CourseCollection</a></li><li><a href="api_course.CourseInstanceCollection.html">CourseInstanceCollection</a></li><li><a href="api_degree-plan.AcademicPlanCollection.html">AcademicPlanCollection</a></li><li><a href="api_degree-plan.AcademicYearInstanceCollection.html">AcademicYearInstanceCollection</a></li><li><a href="api_degree-plan.DesiredDegreeCollection.html">DesiredDegreeCollection</a></li><li><a href="api_degree-plan.exports.PlanChoiceCollection.html">PlanChoiceCollection</a></li><li><a href="api_degree-plan.PreferredChoice.html">PreferredChoice</a></li><li><a href="api_feed.FeedCollection.html">FeedCollection</a></li><li><a href="api_feedback.FeedbackFunctions.html">FeedbackFunctions</a></li><li><a href="api_feedback.FeedbackInstanceCollection.html">FeedbackInstanceCollection</a></li><li><a href="api_help.HelpMessageCollection.html">HelpMessageCollection</a></li><li><a href="api_interest.InterestCollection.html">InterestCollection</a></li><li><a href="api_interest.InterestTypeCollection.html">InterestTypeCollection</a></li><li><a href="api_log.AdvisorLogCollection.html">AdvisorLogCollection</a></li><li><a href="api_mentor.MentorAnswerCollection.html">MentorAnswerCollection</a></li><li><a href="api_mentor.MentorQuestionCollection.html">MentorQuestionCollection</a></li><li><a href="api_opportunity.OpportunityCollection.html">OpportunityCollection</a></li><li><a href="api_opportunity.OpportunityInstanceCollection.html">OpportunityInstanceCollection</a></li><li><a href="api_opportunity.OpportunityTypeCollection.html">OpportunityTypeCollection</a></li><li><a href="api_public-stats.PublicStatsCollection.html">PublicStatsCollection</a></li><li><a href="api_radgrad.RadGradClass.html">RadGradClass</a></li><li><a href="api_review.ReviewCollection.html">ReviewCollection</a></li><li><a href="api_slug.SlugCollection.html">SlugCollection</a></li><li><a href="api_teaser.TeaserCollection.html">TeaserCollection</a></li><li><a href="api_user.AdminProfileCollection.html">AdminProfileCollection</a></li><li><a href="api_user.AdvisorProfileCollection.html">AdvisorProfileCollection</a></li><li><a href="api_user.BaseProfileCollection.html">BaseProfileCollection</a></li><li><a href="api_user.FacultyProfileCollection.html">FacultyProfileCollection</a></li><li><a href="api_user.MentorProfileCollection.html">MentorProfileCollection</a></li><li><a href="api_user.StudentProfileCollection.html">StudentProfileCollection</a></li><li><a href="api_user.UserCollection.html">UserCollection</a></li><li><a href="api_verification.VerificationRequestCollection.html">VerificationRequestCollection</a></li><li><a href="FavoriteAcademicPlanCollection.html">FavoriteAcademicPlanCollection</a></li><li><a href="FavoriteCareerGoalCollection.html">FavoriteCareerGoalCollection</a></li><li><a href="FavoriteCourseCollection.html">FavoriteCourseCollection</a></li><li><a href="FavoriteInterestCollection.html">FavoriteInterestCollection</a></li><li><a href="FavoriteOpportunityCollection.html">FavoriteOpportunityCollection</a></li><li><a href="RadGradPropertiesClass.html">RadGradPropertiesClass</a></li></ul><h3>Interfaces</h3><ul><li><a href="IFacultyPageAboutMeWidgetProps.html">IFacultyPageAboutMeWidgetProps</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AdminDataModelAcademicPlansPage">AdminDataModelAcademicPlansPage</a></li><li><a href="global.html#AdminModerationPage">AdminModerationPage</a></li><li><a href="global.html#AdminPageMenuWidget">AdminPageMenuWidget</a></li><li><a href="global.html#AdminProtectedRoute">AdminProtectedRoute</a></li><li><a href="global.html#ALLOWED_ROLES">ALLOWED_ROLES</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#CardExplorerWidget">CardExplorerWidget</a></li><li><a href="global.html#CompletedVerificationsWidget">CompletedVerificationsWidget</a></li><li><a href="global.html#descriptionPairs">descriptionPairs</a></li><li><a href="global.html#EventVerificationsWidget">EventVerificationsWidget</a></li><li><a href="global.html#ExplorerUsersWidget">ExplorerUsersWidget</a></li><li><a href="global.html#FacultyPageAboutMeWidget">FacultyPageAboutMeWidget</a></li><li><a href="global.html#FirstMenuContainer">FirstMenuContainer</a></li><li><a href="global.html#Footer">Footer</a></li><li><a href="global.html#getCourseNumber">getCourseNumber</a></li><li><a href="global.html#getPlanCount">getPlanCount</a></li><li><a href="global.html#getRandomCourseSlug">getRandomCourseSlug</a></li><li><a href="global.html#getRandomCourseSlugForDept">getRandomCourseSlugForDept</a></li><li><a href="global.html#getRandomDepartment">getRandomDepartment</a></li><li><a href="global.html#getSimpleChoiceNumber">getSimpleChoiceNumber</a></li><li><a href="global.html#itemTitle">itemTitle</a></li><li><a href="global.html#itemTitleString">itemTitleString</a></li><li><a href="global.html#LandingHome">LandingHome</a></li><li><a href="global.html#LandingHomeContainer">LandingHomeContainer</a></li><li><a href="global.html#LandingNavBar">LandingNavBar</a></li><li><a href="global.html#LandingNavBarContainer">LandingNavBarContainer</a></li><li><a href="global.html#makeSampleCareerGoal">makeSampleCareerGoal</a></li><li><a href="global.html#makeSampleCareerGoalArray">makeSampleCareerGoalArray</a></li><li><a href="global.html#makeSampleCareerGoalSlugArray">makeSampleCareerGoalSlugArray</a></li><li><a href="global.html#makeSampleCourseSlugArray">makeSampleCourseSlugArray</a></li><li><a href="global.html#makeSampleInterestArray">makeSampleInterestArray</a></li><li><a href="global.html#makeSampleInterestSlugArray">makeSampleInterestSlugArray</a></li><li><a href="global.html#makeSampleOpportunitySlugArray">makeSampleOpportunitySlugArray</a></li><li><a href="global.html#makeSamplePageInterestInfo">makeSamplePageInterestInfo</a></li><li><a href="global.html#makeSamplePageInterestInfoArray">makeSamplePageInterestInfoArray</a></li><li><a href="global.html#makeSampleUserArray">makeSampleUserArray</a></li><li><a href="global.html#MentorHomePage">MentorHomePage</a></li><li><a href="global.html#MentorMentorSpacePage">MentorMentorSpacePage</a></li><li><a href="global.html#NotAuthorized">NotAuthorized</a></li><li><a href="global.html#NotFound">NotFound</a></li><li><a href="global.html#PendingVerificationsWidget">PendingVerificationsWidget</a></li><li><a href="global.html#ProtectedRoute">ProtectedRoute</a></li><li><a href="global.html#removeEmptyYearsRaw">removeEmptyYearsRaw</a></li><li><a href="global.html#removeYearFromPlanRaw">removeYearFromPlanRaw</a></li><li><a href="global.html#schema">schema</a></li><li><a href="global.html#sendEmail">sendEmail</a></li><li><a href="global.html#Signin">Signin</a></li><li><a href="global.html#Signout">Signout</a></li><li><a href="global.html#validateCourseSlugFormat">validateCourseSlugFormat</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>api/user/StudentProfileCollection.ts</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import _ from 'lodash';
+import { Meteor } from 'meteor/meteor';
+import SimpleSchema from 'simpl-schema';
+import { Roles } from 'meteor/alanning:roles';
+import { ReactiveAggregate } from 'meteor/jcbernack:reactive-aggregate';
+import BaseProfileCollection, { defaultProfilePicture } from './BaseProfileCollection';
+import { AcademicPlans } from '../degree-plan/AcademicPlanCollection';
+import { CareerGoals } from '../career/CareerGoalCollection';
+import { Courses } from '../course/CourseCollection';
+import { CourseInstances } from '../course/CourseInstanceCollection';
+import { Interests } from '../interest/InterestCollection';
+import { Opportunities } from '../opportunity/OpportunityCollection';
+import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollection';
+import { AcademicTerms } from '../academic-term/AcademicTermCollection';
+import { Users } from './UserCollection';
+import { Slugs } from '../slug/SlugCollection';
+import { ROLE } from '../role/Role';
+import { getProjectedICE, getEarnedICE } from '../ice/IceProcessor';
+import { IStudentProfileDefine, IStudentProfileUpdate, IStudentProfileUpdateData } from '../../typings/radgrad';
+import { FavoriteInterests } from '../favorite/FavoriteInterestCollection';
+import { FavoriteCareerGoals } from '../favorite/FavoriteCareerGoalCollection';
+import { FavoriteAcademicPlans } from '../favorite/FavoriteAcademicPlanCollection';
+import { FavoriteCourses } from '../favorite/FavoriteCourseCollection';
+import { FavoriteOpportunities } from '../favorite/FavoriteOpportunityCollection';
+
+/**
+ * Represents a Student Profile.
+ * @extends api/user.BaseProfileCollection
+ * @memberOf api/user
+ */
+class StudentProfileCollection extends BaseProfileCollection {
+  constructor() {
+    super('StudentProfile', new SimpleSchema({
+      level: { type: SimpleSchema.Integer, min: 1, max: 6 },
+      declaredAcademicTermID: { type: SimpleSchema.RegEx.Id, optional: true },
+      isAlumni: Boolean,
+      shareAcademicPlan: { type: Boolean, optional: true },
+      shareOpportunities: { type: Boolean, optional: true },
+      shareCourses: { type: Boolean, optional: true },
+      shareLevel: { type: Boolean, optional: true },
+    }));
+    this.defineSchema = new SimpleSchema({
+      username: String,
+      firstName: String,
+      lastName: String,
+      picture: { type: String, optional: true },
+      website: { type: String, optional: true },
+      interests: { type: Array, optional: true },
+      'interests.$': String,
+      careerGoals: { type: Array, optional: true },
+      'careerGoals.$': String,
+      retired: { type: Boolean, optional: true },
+      level: { type: SimpleSchema.Integer, min: 1, max: 6 },
+      favoriteAcademicPlans: { type: Array, optional: true },
+      'favoriteAcademicPlans.$': String,
+      declaredAcademicTerm: { type: String, optional: true },
+      isAlumni: { type: Boolean, optional: true },
+      favoriteCourses: { type: Array, optional: true },
+      'favoriteCourses.$': String,
+      favoriteOpportunities: { type: Array, optional: true },
+      'favoriteOpportunities.$': String,
+      shareUsername: { type: Boolean, optional: true },
+      sharePicture: { type: Boolean, optional: true },
+      shareWebsite: { type: Boolean, optional: true },
+      shareInterests: { type: Boolean, optional: true },
+      shareCareerGoals: { type: Boolean, optional: true },
+      shareAcademicPlan: { type: Boolean, optional: true },
+      shareOpportunities: { type: Boolean, optional: true },
+      shareCourses: { type: Boolean, optional: true },
+      shareLevel: { type: Boolean, optional: true },
+    });
+    this.updateSchema = new SimpleSchema({
+      firstName: { type: String, optional: true },
+      lastName: { type: String, optional: true },
+      picture: { type: String, optional: true },
+      website: { type: String, optional: true },
+      interests: { type: Array, optional: true },
+      'interests.$': String,
+      careerGoals: { type: Array, optional: true },
+      'careerGoals.$': String,
+      retired: { type: Boolean, optional: true },
+      level: { type: SimpleSchema.Integer, min: 1, max: 6 },
+      favoriteAcademicPlans: { type: Array, optional: true },
+      'favoriteAcademicPlans.$': String,
+      declaredAcademicTermID: { type: String, optional: true },
+      isAlumni: { type: Boolean, optional: true },
+      favoriteCourses: { type: Array, optional: true },
+      'favoriteCourses.$': String,
+      favoriteOpportunities: { type: Array, optional: true },
+      'favoriteOpportunities.$': String,
+      shareUsername: { type: Boolean, optional: true },
+      sharePicture: { type: Boolean, optional: true },
+      shareWebsite: { type: Boolean, optional: true },
+      shareInterests: { type: Boolean, optional: true },
+      shareCareerGoals: { type: Boolean, optional: true },
+      shareAcademicPlan: { type: Boolean, optional: true },
+      shareOpportunities: { type: Boolean, optional: true },
+      shareCourses: { type: Boolean, optional: true },
+      shareLevel: { type: Boolean, optional: true },
+    });
+  }
+
+  /**
+   * Defines the profile associated with a Student.
+   * The username does not need to be defined in Meteor Accounts yet, but it must be a unique Slug.
+   * @param username The username string associated with this profile, which should be an email.
+   * @param firstName The first name.
+   * @param lastName The last name.
+   * @param picture The URL to their picture. (optional, defaults to a default picture.)
+   * @param website The URL to their personal website (optional).
+   * @param interests An array of interests. (optional)
+   * @param careerGoals An array of career goals. (optional)
+   * @param level An integer between 1 and 6 indicating the student's level.
+   * @param retired boolean. (optional defaults to false)
+   * @param academicPlan An optional slug indicating the academic plan.
+   * @param declaredAcademicTerm An optional string indicating the student's declared academic term.
+   * @param isAlumni An optional boolean indicating if this student has graduated. Defaults to false.
+   * @param shareUsername An optional boolean indicating if this student is sharing their username. Defaults to false.
+   * @param sharePicture An optional boolean indicating if this student is sharing their picture. Defaults to false.
+   * @param shareWebsite An optional boolean indicating if this student is sharing their website. Defaults to false.
+   * @param shareInterests An optional boolean indicating if this student is sharing their interests. Defaults to false.
+   * @param shareCareerGoals An optional boolean indicating if this student is sharing their career goals. Defaults to false.
+   * @param shareAcademicPlan An optional boolean indicating if this student is sharing their academic plans. Defaults to false.
+   * @param shareCourses An optional boolean indicating if this student is sharing their courses. Defaults to false.
+   * @param shareOpportunities An optional boolean indicating if this student is sharing their opportunities. Defaults to false.
+   * @param shareLevel An optional boolean indicating if this student is sharing their level. Defaults to false.
+   * @throws { Meteor.Error } If username has been previously defined, or if any interests, careerGoals, level,
+   * academicPlan, or declaredAcademicTerm are invalid.
+   * @return { String } The docID of the StudentProfile.
+   */
+
+  public define({
+                  username, firstName, lastName, picture = defaultProfilePicture, website, interests,
+                  careerGoals, level, favoriteAcademicPlans = [], declaredAcademicTerm, favoriteCourses = [], favoriteOpportunities = [],
+                  isAlumni = false, retired = false, shareUsername = false, sharePicture = false, shareWebsite = false,
+                  shareInterests = false, shareCareerGoals = false, shareAcademicPlan = false, shareCourses = false,
+                  shareOpportunities = false, shareLevel = false,
+                }: IStudentProfileDefine) {
+    if (Meteor.isServer) {
+      // Validate parameters.
+      const declaredAcademicTermID = (declaredAcademicTerm) ? AcademicTerms.getID(declaredAcademicTerm) : undefined;
+      this.assertValidLevel(level);
+      if (!_.isBoolean(isAlumni)) {
+        throw new Meteor.Error(`Invalid isAlumni: ${isAlumni}`);
+      }
+
+      // Create the slug, which ensures that username is unique.
+      Slugs.define({ name: username, entityName: this.getType() });
+      const role = (isAlumni) ? ROLE.ALUMNI : ROLE.STUDENT;
+      const profileID = this.collection.insert({
+        username,
+        firstName,
+        lastName,
+        role,
+        picture,
+        website,
+        level,
+        declaredAcademicTermID,
+        isAlumni,
+        userID: this.getFakeUserId(),
+        retired,
+        shareUsername,
+        sharePicture,
+        shareWebsite,
+        shareInterests,
+        shareCareerGoals,
+        shareAcademicPlan,
+        shareCourses,
+        shareOpportunities,
+        shareLevel,
+      });
+      const userID = Users.define({ username, role });
+      this.collection.update(profileID, { $set: { userID } });
+      if (interests) {
+        interests.forEach((interest) => FavoriteInterests.define({ interest, username }));
+      }
+      if (careerGoals) {
+        careerGoals.forEach((careerGoal) => FavoriteCareerGoals.define({ careerGoal, username }));
+      }
+      if (favoriteAcademicPlans) {
+        favoriteAcademicPlans.forEach((academicPlan) => FavoriteAcademicPlans.define({
+          academicPlan,
+          student: username,
+        }));
+      }
+      if (favoriteCourses) {
+        favoriteCourses.forEach((course) => FavoriteCourses.define({ course, student: username }));
+      }
+      if (favoriteOpportunities) {
+        favoriteOpportunities.forEach((opportunity) => FavoriteOpportunities.define({
+          opportunity,
+          student: username,
+        }));
+      }
+      return profileID;
+    }
+    return undefined;
+  }
+
+  /**
+   * Updates the StudentProfile.
+   * You cannot change the username or role once defined. (You can implicitly change the role by setting isAlumni).
+   * Users in ROLE.STUDENT cannot change their level or isAlumni setting.
+   * @param docID
+   * @param firstName
+   * @param lastName
+   * @param picture
+   * @param website
+   * @param interests
+   * @param careerGoals
+   * @param level
+   * @param academicPlan
+   * @param declaredAcademicTerm
+   * @param isAlumni
+   * @param retired
+   * @param shareUsername
+   * @param sharePicture
+   * @param shareWebsite
+   * @param shareInterests
+   * @param shareCareerGoals
+   * @param shareAcademicPlan
+   * @param shareCourses
+   * @param shareOpportunities
+   * @param shareLevel
+   */
+  public update(docID, {
+    firstName, lastName, picture, website, interests, careerGoals, level, favoriteAcademicPlans, favoriteCourses,
+    favoriteOpportunities, declaredAcademicTerm,
+    isAlumni, retired, courseExplorerFilter, opportunityExplorerSortOrder, shareUsername, sharePicture, shareWebsite, shareInterests,
+    shareCareerGoals, shareAcademicPlan, shareCourses, shareOpportunities, shareLevel,
+  }: IStudentProfileUpdate) {
+    this.assertDefined(docID);
+    const profile = this.findDoc(docID);
+    const updateData: IStudentProfileUpdateData = {};
+    this.updateCommonFields(updateData, { firstName, lastName, picture, website, retired, courseExplorerFilter, opportunityExplorerSortOrder });
+    if (declaredAcademicTerm) {
+      updateData.declaredAcademicTermID = AcademicTerms.getID(declaredAcademicTerm);
+    }
+    // Only Admins and Advisors can update the isAlumni and level fields.
+    // Or if no one is logged in when this is executed (i.e. for testing) then it's cool.
+    if (Meteor.isTest || !Meteor.userId() || this.hasRole(Meteor.userId(), [ROLE.ADMIN, ROLE.ADVISOR])) {
+      const userID = this.findDoc(docID).userID;
+      if (_.isBoolean(isAlumni)) {
+        updateData.isAlumni = isAlumni;
+        if (isAlumni) {
+          updateData.role = ROLE.ALUMNI;
+          Roles.createRole(ROLE.ALUMNI, { unlessExists: true });
+          Roles.addUsersToRoles(userID, [ROLE.ALUMNI]);
+          Roles.removeUsersFromRoles(userID, [ROLE.STUDENT]);
+        } else {
+          updateData.role = ROLE.STUDENT;
+          Roles.createRole(ROLE.STUDENT, { unlessExists: true });
+          Roles.addUsersToRoles(userID, [ROLE.STUDENT]);
+          Roles.removeUsersFromRoles(userID, [ROLE.ALUMNI]);
+        }
+      }
+      if (level) {
+        this.assertValidLevel(level);
+        updateData.level = level;
+      }
+      if (_.isBoolean(retired)) {
+        updateData.retired = retired;
+      }
+    }
+    if (_.isBoolean(shareUsername)) {
+      updateData.shareUsername = shareUsername;
+    }
+    if (_.isBoolean(sharePicture)) {
+      updateData.sharePicture = sharePicture;
+    }
+    if (_.isBoolean(shareWebsite)) {
+      updateData.shareWebsite = shareWebsite;
+    }
+    if (_.isBoolean(shareInterests)) {
+      updateData.shareInterests = shareInterests;
+    }
+    if (_.isBoolean(shareCareerGoals)) {
+      updateData.shareCareerGoals = shareCareerGoals;
+    }
+    if (_.isBoolean(shareAcademicPlan)) {
+      updateData.shareAcademicPlan = shareAcademicPlan;
+    }
+    if (_.isBoolean(shareCourses)) {
+      updateData.shareCourses = shareCourses;
+    }
+    if (_.isBoolean(shareOpportunities)) {
+      updateData.shareOpportunities = shareOpportunities;
+    }
+    if (_.isBoolean(shareLevel)) {
+      updateData.shareLevel = shareLevel;
+    }
+    // console.log('StudentProfile.update %o', updateData);
+    this.collection.update(docID, { $set: updateData });
+    const username = profile.username;
+    if (interests) {
+      FavoriteInterests.removeUser(username);
+      interests.forEach((interest) => FavoriteInterests.define({ interest, username }));
+    }
+    if (careerGoals) {
+      FavoriteCareerGoals.removeUser(username);
+      careerGoals.forEach((careerGoal) => FavoriteCareerGoals.define({ careerGoal, username }));
+    }
+    if (favoriteAcademicPlans) {
+      FavoriteAcademicPlans.removeUser(username);
+      favoriteAcademicPlans.forEach((academicPlan) => FavoriteAcademicPlans.define({
+        academicPlan,
+        student: username,
+      }));
+    }
+    if (favoriteCourses) {
+      FavoriteCourses.removeUser(username);
+      favoriteCourses.forEach((course) => FavoriteCourses.define({ course, student: username }));
+    }
+    if (favoriteOpportunities) {
+      FavoriteOpportunities.removeUser(username);
+      favoriteOpportunities.forEach((opportunity) => FavoriteOpportunities.define({ opportunity, student: username }));
+    }
+  }
+
+  /**
+   * Removes this profile, given its profile ID.
+   * Also removes this user from Meteor Accounts.
+   * @param profileID The ID for this profile object.
+   */
+  public removeIt(profileID) {
+    if (this.isDefined(profileID)) {
+      return super.removeIt(profileID);
+    }
+    return null;
+  }
+
+  /**
+   * Asserts that level is an integer between 1 and 6.
+   * @param level The level.
+   */
+  public assertValidLevel(level: number) {
+    if (!_.isInteger(level) &amp;&amp; !_.inRange(level, 1, 7)) {
+      throw new Meteor.Error(`Level ${level} is not between 1 and 6.`);
+    }
+  }
+
+  /**
+   * Implementation of assertValidRoleForMethod. Asserts that userId is logged in as an Admin, Advisor or
+   * Student.
+   * This is used in the define, update, and removeIt Meteor methods associated with each class.
+   * @param userId The userId of the logged in user. Can be null or undefined
+   * @throws { Meteor.Error } If there is no logged in user, or the user is not an Admin or Advisor.
+   */
+  public assertValidRoleForMethod(userId: string) {
+    this.assertRole(userId, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.STUDENT]);
+  }
+
+  /**
+   * Returns an array of strings, each one representing an integrity problem with this collection.
+   * Returns an empty array if no problems were found.
+   * Checks the profile common fields and the role..
+   * @returns {Array} A (possibly empty) array of strings indicating integrity issues.
+   */
+  public checkIntegrity() {
+    let problems = [];
+    this.find().forEach((doc) => {
+      problems = problems.concat(this.checkIntegrityCommonFields(doc));
+      if ((doc.role !== ROLE.STUDENT) &amp;&amp; (doc.role !== ROLE.ALUMNI)) {
+        problems.push(`StudentProfile instance does not have ROLE.STUDENT or ROLE.ALUMNI: ${doc.username}`);
+      }
+      if (!_.isInteger(doc.level) &amp;&amp; !_.inRange(doc.level, 1, 7)) {
+        problems.push(`Level ${doc.level} is not an integer between 1 and 6 in ${doc.username}`);
+      }
+      if (!_.isBoolean(doc.isAlumni)) {
+        problems.push(`Invalid isAlumni: ${doc.isAlumni} in ${doc.username}`);
+      }
+      if (doc.academicPlanID &amp;&amp; !AcademicPlans.isDefined(doc.academicPlanID)) {
+        problems.push(`Bad academicPlanID: ${doc.academicPlanID} in ${doc.username}`);
+      }
+      if (doc.declaredAcademicTermID &amp;&amp; !AcademicTerms.isDefined(doc.declaredAcademicTermID)) {
+        problems.push(`Bad termID: ${doc.declaredAcademicTermID} in ${doc.username}`);
+      }
+    });
+    return problems;
+  }
+
+  /**
+   * Returns an ICE object with the total earned course and opportunity ICE values.
+   * @param user The student (username or userID).
+   * @throws {Meteor.Error} If userID is not defined.
+   */
+  public getEarnedICE(user: string) {
+    const studentID = Users.getID(user);
+    const courseDocs = CourseInstances.findNonRetired({ studentID });
+    const oppDocs = OpportunityInstances.findNonRetired({ studentID });
+    return getEarnedICE(courseDocs.concat(oppDocs));
+  }
+
+  /**
+   * Returns an ICE object with the total projected course and opportunity ICE values.
+   * @param user The student (username or userID).
+   * @throws {Meteor.Error} If user is not defined.
+   */
+  public getProjectedICE(user: string) {
+    const studentID = Users.getID(user);
+    const courseDocs = CourseInstances.findNonRetired({ studentID });
+    const oppDocs = OpportunityInstances.findNonRetired({ studentID });
+    return getProjectedICE(courseDocs.concat(oppDocs));
+  }
+
+  /**
+   * Returns an array of courseIDs that this user has taken (or plans to take) based on their courseInstances.
+   * @param studentID The studentID.
+   */
+  public getCourseIDs(user: string) {
+    const studentID = Users.getID(user);
+    const courseInstanceDocs = CourseInstances.findNonRetired({ studentID });
+    const courseIDs = courseInstanceDocs.map((doc) => doc.courseID);
+    return courseIDs; // allow for multiple 491 or 499 classes.
+    // return _.uniq(courseIDs);
+  }
+
+  /**
+   * Returns the user's interests as IDs. It is a union of interestIDs and careerGoal interestIDs.
+   * @param userID
+   * @returns {Array}
+   */
+  public getInterestIDs(userID: string) {
+    let interestIDs = [];
+    const favoriteInterests = FavoriteInterests.findNonRetired({ userID });
+    _.forEach(favoriteInterests, (fav) => {
+      interestIDs.push(fav.interestID);
+    });
+    const favoriteCareerGoals = FavoriteCareerGoals.findNonRetired({ userID });
+    _.forEach(favoriteCareerGoals, (fav) => {
+      const goal = CareerGoals.findDoc(fav.careerGoalID);
+      interestIDs = _.union(interestIDs, goal.interestIDs);
+    });
+    return interestIDs;
+  }
+
+  /**
+   * Returns the user's interest IDs in an Array with two sub-arrays. The first sub-array is the interest IDs that the
+   * User selected. The second sub-array is the interestIDs from the user's career goals.
+   * @param userID The user's ID.
+   */
+  public getInterestIDsByType(userID: string) {
+    const interestIDs = [];
+    const userInterests = [];
+    const favoriteInterests = FavoriteInterests.findNonRetired({ userID });
+    _.forEach(favoriteInterests, (fav) => {
+      userInterests.push(fav.interestID);
+    });
+    interestIDs.push(userInterests);
+    let careerInterestIDs = [];
+    const favoriteCareerGoals = FavoriteCareerGoals.findNonRetired({ userID });
+    _.forEach(favoriteCareerGoals, (fav) => {
+      const goal = CareerGoals.findDoc(fav.careerGoalID);
+      careerInterestIDs = _.union(careerInterestIDs, goal.interestIDs);
+    });
+    careerInterestIDs = _.difference(careerInterestIDs, userInterests);
+    interestIDs.push(careerInterestIDs);
+    return interestIDs;
+  }
+
+  /**
+   * Updates user's level.
+   * @param user The user (username or userID).
+   * @param level The new level.
+   */
+  public setLevel(user: string, level: number) {
+    const id = this.getID(user);
+    this.collection.update({ _id: id }, { $set: { level } });
+  }
+
+  public publish() {
+    if (Meteor.isServer) {
+      // console.log('StudentProfileCollection.publish');
+      const inst = this;
+      Meteor.publish(this.collectionName, function () {
+        const userID = Meteor.userId();
+        ReactiveAggregate(this, inst.collection, [{
+          $project: {
+            username: {
+              $cond: [{
+                $or: [
+                  { $ifNull: ['$shareUsername', false] },
+                  { $eq: [userID, '$userID'] },
+                  { $eq: [Roles.userIsInRole(userID, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY]), true] },
+                ],
+              }, '$username', ''],
+            },
+            firstName: 1,
+            lastName: 1,
+            role: 1,
+            picture: {
+              $cond: [{
+                $or: [
+                  { $ifNull: ['$sharePicture', false] },
+                  { $eq: [userID, '$userID'] },
+                  { $eq: [Roles.userIsInRole(userID, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY]), true] },
+                ],
+              }, '$picture', '/images/default-profile-picture.png'],
+            },
+            website: {
+              $cond: [{
+                $or: [
+                  { $ifNull: ['$shareWebsite', false] },
+                  { $eq: [userID, '$userID'] },
+                  { $eq: [Roles.userIsInRole(userID, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY]), true] },
+                ],
+              }, '$website', ''],
+            },
+            interestIDs: {
+              $cond: [{
+                $or: [
+                  { $ifNull: ['$shareInterests', false] },
+                  { $eq: [userID, '$userID'] },
+                  { $eq: [Roles.userIsInRole(userID, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY]), true] },
+                ],
+              }, '$interestIDs', []],
+            },
+            careerGoalIDs: {
+              $cond: [{
+                $or: [
+                  { $ifNull: ['$shareCareerGoals', false] },
+                  { $eq: [userID, '$userID'] },
+                  { $eq: [Roles.userIsInRole(userID, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY]), true] },
+                ],
+              }, '$careerGoalIDs', []],
+            },
+            userID: 1,
+            retired: 1,
+            level: {
+              $cond: [{
+                $or: [
+                  { $ifNull: ['$shareLevel', false] },
+                  { $eq: [userID, '$userID'] },
+                  { $eq: [Roles.userIsInRole(userID, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY]), true] },
+                ],
+              }, '$level', 0],
+            },
+            academicPlanID: {
+              $cond: [{
+                $or: [
+                  { $ifNull: ['$shareAcademicPlan', false] },
+                  { $eq: [userID, '$userID'] },
+                  { $eq: [Roles.userIsInRole(userID, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY]), true] },
+                ],
+              }, '$academicPlanID', ''],
+            },
+            declaredAcademicTermID: 1,
+            isAlumni: 1,
+            shareUsername: 1,
+            sharePicture: 1,
+            shareWebsite: 1,
+            shareInterests: 1,
+            shareCareerGoals: 1,
+            shareAcademicPlan: 1,
+            shareOpportunities: 1,
+            shareCourses: 1,
+            shareLevel: 1,
+            optedIn: {
+              $cond: [{
+                $or: [
+                  '$shareUsername',
+                  '$sharePicture',
+                  '$shareWebsite',
+                  '$shareInterests',
+                  '$shareCareerGoals',
+                  '$shareAcademicPlan',
+                  '$shareOpportunities',
+                  '$shareCourses',
+                  '$shareLevel',
+                ],
+              }, true, false],
+            },
+          },
+        }]);
+      });
+    }
+  }
+
+  /**
+   * Returns an object representing the StudentProfile docID in a format acceptable to define().
+   * @param docID The docID of a StudentProfile
+   * @returns { Object } An object representing the definition of docID.
+   */
+  public dumpOne(docID: string): IStudentProfileDefine {
+    const doc = this.findDoc(docID);
+    const username = doc.username;
+    const firstName = doc.firstName;
+    const lastName = doc.lastName;
+    const picture = doc.picture;
+    const website = doc.website;
+    const userID = Users.getID(username);
+    const favInterests = FavoriteInterests.findNonRetired({ userID });
+    const interests = _.map(favInterests, (fav) => Interests.findSlugByID(fav.interestID));
+    const favCareerGoals = FavoriteCareerGoals.findNonRetired({ userID });
+    const careerGoals = _.map(favCareerGoals, (fav) => CareerGoals.findSlugByID(fav.careerGoalID));
+    const level = doc.level;
+    const favAcademicPlans = FavoriteAcademicPlans.findNonRetired({ studentID: userID });
+    const favoriteAcademicPlans = _.map(favAcademicPlans, (fav) => AcademicPlans.findSlugByID(fav.academicPlanID));
+    const favCourses = FavoriteCourses.findNonRetired({ studentID: userID });
+    const favoriteCourses = _.map(favCourses, (fav) => Courses.findSlugByID(fav.courseID));
+    const favOpps = FavoriteOpportunities.findNonRetired({ studentID: userID });
+    const favoriteOpportunities = _.map(favOpps, (fav) => Opportunities.findSlugByID(fav.opportunityID));
+    const declaredAcademicTerm = doc.declaredAcademicTermID &amp;&amp; AcademicTerms.findSlugByID(doc.declaredAcademicTermID);
+    const isAlumni = doc.isAlumni;
+    const retired = doc.retired;
+    const shareUsername = doc.shareUsername;
+    const sharePicture = doc.sharePicture;
+    const shareWebsite = doc.shareWebsite;
+    const shareInterests = doc.shareInterests;
+    const shareCareerGoals = doc.shareCareerGoals;
+    const shareOpportunities = doc.shareOpportunities;
+    const shareCourses = doc.shareCourses;
+    const shareLevel = doc.shareLevel;
+    const shareAcademicPlan = doc.shareAcademicPlan;
+    return {
+      username, firstName, lastName, picture, website, interests, careerGoals, level, favoriteAcademicPlans,
+      favoriteCourses, favoriteOpportunities, declaredAcademicTerm, isAlumni, retired, shareUsername, sharePicture,
+      shareWebsite, shareInterests, shareCareerGoals, shareOpportunities, shareCourses, shareLevel, shareAcademicPlan,
+    };
+  }
+}
+
+/**
+ * Provides the singleton instance this collection to all other entities.
+ * @type {api/user.StudentProfileCollection}
+ * @memberOf api/user
+ */
+export const StudentProfiles = new StudentProfileCollection();
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.5</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+</body>
+</html>

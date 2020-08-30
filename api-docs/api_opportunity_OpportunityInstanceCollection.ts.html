@@ -1,0 +1,506 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> api/opportunity/OpportunityInstanceCollection.ts</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    API Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Namespaces</h3><ul><li><a href="api_academic-term.html">api/academic-term</a></li><li><a href="api_analytic.html">api/analytic</a></li><li><a href="api_base.html">api/base</a></li><li><a href="api_career.html">api/career</a></li><li><a href="api_course.html">api/course</a></li><li><a href="api_degree-plan.html">api/degree-plan</a></li><li><a href="api_feed.html">api/feed</a></li><li><a href="api_feedback.html">api/feedback</a></li><li><a href="api_help.html">api/help</a></li><li><a href="api_ice.html">api/ice</a></li><li><a href="api_integrity.html">api/integrity</a></li><li><a href="api_interest.html">api/interest</a></li><li><a href="api_level.html">api/level</a></li><li><a href="api_log.html">api/log</a></li><li><a href="api_mentor.html">api/mentor</a></li><li><a href="api_opportunity.html">api/opportunity</a></li><li><a href="api_page-tracking.html">api/page-tracking</a></li><li><a href="api_public-stats.html">api/public-stats</a></li><li><a href="api_radgrad.html">api/radgrad</a></li><li><a href="api_review.html">api/review</a></li><li><a href="api_role.html">api/role</a></li><li><a href="api_slug.html">api/slug</a></li><li><a href="api_star.html">api/star</a></li><li><a href="api_teaser.html">api/teaser</a></li><li><a href="api_test.html">api/test</a></li><li><a href="api_user.html">api/user</a></li><li><a href="api_verification.html">api/verification</a></li></ul><h3>Classes</h3><ul><li><a href="@api_page-tracking.PageInterestsDailySnapshotCollection.html">PageInterestsDailySnapshotCollection</a></li><li><a href="api_academic-term.AcademicTermCollection.html">AcademicTermCollection</a></li><li><a href="api_analytic.IceSnapshotCollection.html">IceSnapshotCollection</a></li><li><a href="api_analytic.PageInterestCollection.html">PageInterestCollection</a></li><li><a href="api_analytic.UserInteractionCollection.html">UserInteractionCollection</a></li><li><a href="api_base.BaseCollection.html">BaseCollection</a></li><li><a href="api_base.BaseSlugCollection.html">BaseSlugCollection</a></li><li><a href="api_base.BaseTypeCollection.html">BaseTypeCollection</a></li><li><a href="api_career.CareerGoalCollection.html">CareerGoalCollection</a></li><li><a href="api_course.CourseCollection.html">CourseCollection</a></li><li><a href="api_course.CourseInstanceCollection.html">CourseInstanceCollection</a></li><li><a href="api_degree-plan.AcademicPlanCollection.html">AcademicPlanCollection</a></li><li><a href="api_degree-plan.AcademicYearInstanceCollection.html">AcademicYearInstanceCollection</a></li><li><a href="api_degree-plan.DesiredDegreeCollection.html">DesiredDegreeCollection</a></li><li><a href="api_degree-plan.exports.PlanChoiceCollection.html">PlanChoiceCollection</a></li><li><a href="api_degree-plan.PreferredChoice.html">PreferredChoice</a></li><li><a href="api_feed.FeedCollection.html">FeedCollection</a></li><li><a href="api_feedback.FeedbackFunctions.html">FeedbackFunctions</a></li><li><a href="api_feedback.FeedbackInstanceCollection.html">FeedbackInstanceCollection</a></li><li><a href="api_help.HelpMessageCollection.html">HelpMessageCollection</a></li><li><a href="api_interest.InterestCollection.html">InterestCollection</a></li><li><a href="api_interest.InterestTypeCollection.html">InterestTypeCollection</a></li><li><a href="api_log.AdvisorLogCollection.html">AdvisorLogCollection</a></li><li><a href="api_mentor.MentorAnswerCollection.html">MentorAnswerCollection</a></li><li><a href="api_mentor.MentorQuestionCollection.html">MentorQuestionCollection</a></li><li><a href="api_opportunity.OpportunityCollection.html">OpportunityCollection</a></li><li><a href="api_opportunity.OpportunityInstanceCollection.html">OpportunityInstanceCollection</a></li><li><a href="api_opportunity.OpportunityTypeCollection.html">OpportunityTypeCollection</a></li><li><a href="api_public-stats.PublicStatsCollection.html">PublicStatsCollection</a></li><li><a href="api_radgrad.RadGradClass.html">RadGradClass</a></li><li><a href="api_review.ReviewCollection.html">ReviewCollection</a></li><li><a href="api_slug.SlugCollection.html">SlugCollection</a></li><li><a href="api_teaser.TeaserCollection.html">TeaserCollection</a></li><li><a href="api_user.AdminProfileCollection.html">AdminProfileCollection</a></li><li><a href="api_user.AdvisorProfileCollection.html">AdvisorProfileCollection</a></li><li><a href="api_user.BaseProfileCollection.html">BaseProfileCollection</a></li><li><a href="api_user.FacultyProfileCollection.html">FacultyProfileCollection</a></li><li><a href="api_user.MentorProfileCollection.html">MentorProfileCollection</a></li><li><a href="api_user.StudentProfileCollection.html">StudentProfileCollection</a></li><li><a href="api_user.UserCollection.html">UserCollection</a></li><li><a href="api_verification.VerificationRequestCollection.html">VerificationRequestCollection</a></li><li><a href="FavoriteAcademicPlanCollection.html">FavoriteAcademicPlanCollection</a></li><li><a href="FavoriteCareerGoalCollection.html">FavoriteCareerGoalCollection</a></li><li><a href="FavoriteCourseCollection.html">FavoriteCourseCollection</a></li><li><a href="FavoriteInterestCollection.html">FavoriteInterestCollection</a></li><li><a href="FavoriteOpportunityCollection.html">FavoriteOpportunityCollection</a></li><li><a href="RadGradPropertiesClass.html">RadGradPropertiesClass</a></li></ul><h3>Interfaces</h3><ul><li><a href="IFacultyPageAboutMeWidgetProps.html">IFacultyPageAboutMeWidgetProps</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AdminDataModelAcademicPlansPage">AdminDataModelAcademicPlansPage</a></li><li><a href="global.html#AdminModerationPage">AdminModerationPage</a></li><li><a href="global.html#AdminPageMenuWidget">AdminPageMenuWidget</a></li><li><a href="global.html#AdminProtectedRoute">AdminProtectedRoute</a></li><li><a href="global.html#ALLOWED_ROLES">ALLOWED_ROLES</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#CardExplorerWidget">CardExplorerWidget</a></li><li><a href="global.html#CompletedVerificationsWidget">CompletedVerificationsWidget</a></li><li><a href="global.html#descriptionPairs">descriptionPairs</a></li><li><a href="global.html#EventVerificationsWidget">EventVerificationsWidget</a></li><li><a href="global.html#ExplorerUsersWidget">ExplorerUsersWidget</a></li><li><a href="global.html#FacultyPageAboutMeWidget">FacultyPageAboutMeWidget</a></li><li><a href="global.html#FirstMenuContainer">FirstMenuContainer</a></li><li><a href="global.html#Footer">Footer</a></li><li><a href="global.html#getCourseNumber">getCourseNumber</a></li><li><a href="global.html#getPlanCount">getPlanCount</a></li><li><a href="global.html#getRandomCourseSlug">getRandomCourseSlug</a></li><li><a href="global.html#getRandomCourseSlugForDept">getRandomCourseSlugForDept</a></li><li><a href="global.html#getRandomDepartment">getRandomDepartment</a></li><li><a href="global.html#getSimpleChoiceNumber">getSimpleChoiceNumber</a></li><li><a href="global.html#itemTitle">itemTitle</a></li><li><a href="global.html#itemTitleString">itemTitleString</a></li><li><a href="global.html#LandingHome">LandingHome</a></li><li><a href="global.html#LandingHomeContainer">LandingHomeContainer</a></li><li><a href="global.html#LandingNavBar">LandingNavBar</a></li><li><a href="global.html#LandingNavBarContainer">LandingNavBarContainer</a></li><li><a href="global.html#makeSampleCareerGoal">makeSampleCareerGoal</a></li><li><a href="global.html#makeSampleCareerGoalArray">makeSampleCareerGoalArray</a></li><li><a href="global.html#makeSampleCareerGoalSlugArray">makeSampleCareerGoalSlugArray</a></li><li><a href="global.html#makeSampleCourseSlugArray">makeSampleCourseSlugArray</a></li><li><a href="global.html#makeSampleInterestArray">makeSampleInterestArray</a></li><li><a href="global.html#makeSampleInterestSlugArray">makeSampleInterestSlugArray</a></li><li><a href="global.html#makeSampleOpportunitySlugArray">makeSampleOpportunitySlugArray</a></li><li><a href="global.html#makeSamplePageInterestInfo">makeSamplePageInterestInfo</a></li><li><a href="global.html#makeSamplePageInterestInfoArray">makeSamplePageInterestInfoArray</a></li><li><a href="global.html#makeSampleUserArray">makeSampleUserArray</a></li><li><a href="global.html#MentorHomePage">MentorHomePage</a></li><li><a href="global.html#MentorMentorSpacePage">MentorMentorSpacePage</a></li><li><a href="global.html#NotAuthorized">NotAuthorized</a></li><li><a href="global.html#NotFound">NotFound</a></li><li><a href="global.html#PendingVerificationsWidget">PendingVerificationsWidget</a></li><li><a href="global.html#ProtectedRoute">ProtectedRoute</a></li><li><a href="global.html#removeEmptyYearsRaw">removeEmptyYearsRaw</a></li><li><a href="global.html#removeYearFromPlanRaw">removeYearFromPlanRaw</a></li><li><a href="global.html#schema">schema</a></li><li><a href="global.html#sendEmail">sendEmail</a></li><li><a href="global.html#Signin">Signin</a></li><li><a href="global.html#Signout">Signout</a></li><li><a href="global.html#validateCourseSlugFormat">validateCourseSlugFormat</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>api/opportunity/OpportunityInstanceCollection.ts</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { Meteor } from 'meteor/meteor';
+import _ from 'lodash';
+import SimpleSchema from 'simpl-schema';
+import { ReactiveAggregate } from 'meteor/jcbernack:reactive-aggregate';
+import { Opportunities } from './OpportunityCollection';
+import { ROLE } from '../role/Role';
+import { AcademicYearInstances } from '../degree-plan/AcademicYearInstanceCollection';
+import { AcademicTerms } from '../academic-term/AcademicTermCollection';
+import { Users } from '../user/UserCollection';
+import { VerificationRequests } from '../verification/VerificationRequestCollection';
+import BaseCollection from '../base/BaseCollection';
+import { IOpportunityInstance, IOpportunityInstanceDefine, IOpportunityInstanceUpdate } from '../../typings/radgrad';
+import { iceSchema } from '../ice/IceProcessor';
+
+/**
+ * OpportunityInstances indicate that a student wants to take advantage of an Opportunity in a specific academic term.
+ * @extends api/base.BaseCollection
+ * @memberOf api/opportunity
+ */
+class OpportunityInstanceCollection extends BaseCollection {
+  public publicationNames: {
+    scoreboard: string;
+    verification: string;
+  };
+
+  /**
+   * Creates the OpportunityInstance collection.
+   */
+  constructor() {
+    super('OpportunityInstance', new SimpleSchema({
+      termID: { type: SimpleSchema.RegEx.Id },
+      opportunityID: { type: SimpleSchema.RegEx.Id },
+      verified: { type: Boolean },
+      studentID: { type: SimpleSchema.RegEx.Id },
+      sponsorID: { type: SimpleSchema.RegEx.Id },
+      ice: { type: iceSchema, optional: true },
+      retired: { type: Boolean, optional: true },
+    }));
+    this.publicationNames = {
+      scoreboard: `${this.collectionName}.Scoreboard`,
+      verification: `${this.collectionName}.Verification`,
+    };
+    if (Meteor.isServer) {
+      this.collection.rawCollection().createIndex({ _id: 1, studentID: 1, termID: 1 });
+    }
+    this.defineSchema = new SimpleSchema({
+      academicTerm: String,
+      opportunity: String,
+      sponsor: String,
+      verified: { type: Boolean, optional: true },
+      student: String,
+      retired: { type: Boolean, optional: true },
+    });
+    this.updateSchema = new SimpleSchema({
+      termID: { type: String, optional: true },
+      verified: { type: Boolean, optional: true },
+      ice: { type: iceSchema, optional: true },
+      retired: { type: Boolean, optional: true },
+    });
+  }
+
+  /**
+   * Defines a new OpportunityInstance.
+   * @example
+   * OpportunityInstances.define({ academicTerm: 'Fall-2015',
+   *                               opportunity: 'hack2015',
+   *                               verified: false,
+   *                               student: 'joesmith',
+   *                              sponsor: 'johnson' });
+   * @param { Object } description AcademicTerm, opportunity, and student must be slugs or IDs. Verified defaults to false.
+   * Sponsor defaults to the opportunity sponsor.
+   * Note that only one opportunity instance can be defined for a given academicTerm, opportunity, and student.
+   * @throws {Meteor.Error} If academicTerm, opportunity, or student cannot be resolved, or if verified is not a boolean.
+   * @returns The newly created docID.
+   */
+
+  public define({ academicTerm, opportunity, sponsor, verified = false, student, retired = false }: IOpportunityInstanceDefine) {
+    // Validate academicTerm, opportunity, verified, and studentID
+    const termID = AcademicTerms.getID(academicTerm);
+    const academicTermDoc = AcademicTerms.findDoc(termID);
+    const studentID = Users.getID(student);
+    const studentProfile = Users.getProfile(studentID);
+    const opportunityID = Opportunities.getID(opportunity);
+    const op = Opportunities.findDoc(opportunityID);
+    let sponsorID;
+    if (_.isUndefined(sponsor)) {
+      sponsorID = op.sponsorID;
+    } else {
+      sponsorID = Users.getID(sponsor);
+    }
+    if (academicTermDoc.term === AcademicTerms.SPRING || academicTermDoc.term === AcademicTerms.SUMMER || academicTermDoc.term === AcademicTerms.WINTER) {
+      AcademicYearInstances.define({ year: academicTermDoc.year - 1, student: studentProfile.username });
+    } else {
+      AcademicYearInstances.define({ year: academicTermDoc.year, student: studentProfile.username });
+    }
+    if ((typeof verified) !== 'boolean') {
+      throw new Meteor.Error(`${verified} is not a boolean.`);
+    }
+    if (this.isOpportunityInstance(academicTerm, opportunity, student)) {
+      return this.findOpportunityInstanceDoc(academicTerm, opportunity, student)._id;
+    }
+    const ice = Opportunities.findDoc(opportunityID).ice;
+    // Define and return the new OpportunityInstance
+    // console.log(termID, opportunityID, verified, studentID, sponsorID, ice, retired);
+    const opportunityInstanceID = this.collection.insert({
+      termID,
+      opportunityID,
+      verified,
+      studentID,
+      sponsorID,
+      ice,
+      retired,
+    });
+    return opportunityInstanceID;
+  }
+
+  /**
+   * Update the opportunity instance. Only verified and ICE fields can be updated.
+   * @param docID The course instance docID (required).
+   * @param termID the termID for the course instance optional.
+   * @param verified boolean optional.
+   * @param ice an object with fields i, c, e (optional)
+   */
+  public update(docID: string, { termID, verified, ice, retired }: IOpportunityInstanceUpdate) {
+    this.assertDefined(docID);
+    const updateData: IOpportunityInstanceUpdate = {};
+    if (termID) {
+      updateData.termID = termID;
+    }
+    if (_.isBoolean(verified)) {
+      updateData.verified = verified;
+    }
+    if (ice) {
+      updateData.ice = ice;
+    }
+    if (_.isBoolean(retired)) {
+      updateData.retired = retired;
+    }
+    this.collection.update(docID, { $set: updateData });
+  }
+
+  /**
+   * Remove the opportunity instance.
+   * @param docID The docID of the opportunity instance.
+   */
+  public removeIt(docID: string) {
+    this.assertDefined(docID);
+    // find any VerificationRequests associated with docID and remove them.
+    const requests = VerificationRequests.find({ opportunityInstanceID: docID })
+      .fetch();
+    _.forEach(requests, (vr) => {
+      VerificationRequests.removeIt(vr._id);
+    });
+    return super.removeIt(docID);
+  }
+
+  /**
+   * Removes all OpportunityInstance documents referring to user.
+   * @param user The user, either the ID or the username.
+   * @throws { Meteor.Error } If user is not an ID or username.
+   */
+  public removeUser(user: string) {
+    const studentID = Users.getID(user);
+    this.collection.remove({ studentID });
+  }
+
+  /**
+   * Implementation of assertValidRoleForMethod. Asserts that userId is logged in as an Admin, Advisor or
+   * Student.
+   * This is used in the define, update, and removeIt Meteor methods associated with each class.
+   * @param userId The userId of the logged in user. Can be null or undefined
+   * @throws { Meteor.Error } If there is no logged in user, or the user is not an Admin or Advisor.
+   */
+  public assertValidRoleForMethod(userId: string) {
+    this.assertRole(userId, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.STUDENT]);
+  }
+
+  /**
+   * Returns the opportunityInstance document associated with academicTerm, opportunity, and student.
+   * @param academicTerm The academicTerm (slug or ID).
+   * @param opportunity The opportunity (slug or ID).
+   * @param student The student (slug or ID)
+   * @returns { Object } Returns the document or null if not found.
+   * @throws { Meteor.Error } If academicTerm, opportunity, or student does not exist.
+   */
+  public findOpportunityInstanceDoc(academicTerm: string, opportunity: string, student: string) {
+    const termID = AcademicTerms.getID(academicTerm);
+    const studentID = Users.getID(student);
+    const opportunityID = Opportunities.getID(opportunity);
+    return this.collection.findOne({ termID, studentID, opportunityID });
+  }
+
+  /**
+   * Returns true if there exists an OpportunityInstance for the given academicTerm, opportunity, and student.
+   * @param academicTerm The academicTerm (slug or ID).
+   * @param opportunity The opportunity (slug or ID).
+   * @param student The student (slug or ID).
+   * @returns True if the opportunity instance exists.
+   * @throws { Meteor.Error } If academicTerm, opportunity, or student does not exist.
+   */
+  public isOpportunityInstance(academicTerm: string, opportunity: string, student: string) {
+    return !!this.findOpportunityInstanceDoc(academicTerm, opportunity, student);
+  }
+
+  /**
+   * Returns the Opportunity associated with the OpportunityInstance with the given instanceID.
+   * @param instanceID The id of the OpportunityInstance.
+   * @returns {Object} The associated Opportunity.
+   * @throws {Meteor.Error} If instanceID is not a valid ID.
+   */
+  public getOpportunityDoc(instanceID: string) {
+    this.assertDefined(instanceID);
+    const instance: IOpportunityInstance = this.collection.findOne({ _id: instanceID });
+    return Opportunities.findDoc(instance.opportunityID);
+  }
+
+  /**
+   * Returns the Opportunity slug for the instance's corresponding Opportunity.
+   * @param instanceID The OpportunityInstance ID.
+   * @return {string} The opportunity slug.
+   */
+  public getOpportunitySlug(instanceID: string) {
+    this.assertDefined(instanceID);
+    const instance: IOpportunityInstance = this.collection.findOne({ _id: instanceID });
+    return Opportunities.findSlugByID(instance.opportunityID);
+  }
+
+  /**
+   * Returns the AcademicTerm associated with the OpportunityInstance with the given instanceID.
+   * @param instanceID The id of the OpportunityInstance.
+   * @returns {Object} The associated AcademicTerm.
+   * @throws {Meteor.Error} If instanceID is not a valid ID.
+   */
+  public getAcademicTermDoc(instanceID: string) {
+    this.assertDefined(instanceID);
+    const instance = this.collection.findOne({ _id: instanceID });
+    return AcademicTerms.findDoc(instance.termID);
+  }
+
+  /**
+   * Returns the Student profile associated with the OpportunityInstance with the given instanceID.
+   * @param instanceID The id of the OpportunityInstance.
+   * @returns {Object} The associated Student profile.
+   * @throws {Meteor.Error} If instanceID is not a valid ID.
+   */
+  public getStudentDoc(instanceID: string) {
+    this.assertDefined(instanceID);
+    const instance = this.collection.findOne({ _id: instanceID });
+    return Users.getProfile(instance.studentID);
+  }
+
+  /**
+   * Depending on the logged in user publish only their OpportunityInstances. If
+   * the user is in the Role.ADMIN then publish all OpportunityInstances.
+   */
+  public publish() {
+    if (Meteor.isServer) {
+      const instance = this;
+      Meteor.publish(this.collectionName, function filterStudent(studentID) { // eslint-disable-line meteor/audit-argument-checks
+        if (_.isNil(studentID)) {
+          return this.ready();
+        }
+        const profile = Users.getProfile(studentID);
+        if (profile.role === ROLE.ADMIN || Meteor.isAppTest) {
+          return instance.collection.find();
+        }
+        return instance.collection.find({ studentID, retired: { $not: { $eq: true } } });
+      });
+      Meteor.publish(this.publicationNames.scoreboard, function publishOpportunityScoreboard() {
+        ReactiveAggregate(this, instance.collection, [
+          {
+            $addFields: { opportunityTerm: { $concat: ['$opportunityID', ' ', '$termID'] } },
+          },
+          {
+            $group: {
+              _id: '$opportunityTerm',
+              count: { $sum: 1 },
+            },
+          },
+          { $project: { count: 1, termID: 1, opportunityID: 1 } },
+        ], { clientCollection: 'OpportunityScoreboard' });
+      });
+      // eslint-disable-next-line
+      Meteor.publish(this.publicationNames.verification, function publishVerificationOpportunities(studentIDs: string[]) {
+        if (Meteor.isAppTest) {
+          return instance.collection.find();
+        }
+        return instance.collection.find({ studentID: { $in: studentIDs } });
+      });
+    }
+  }
+
+  /**
+   * Gets the publication names.
+   * @returns {Object} The publication names.
+   */
+  public getPublicationNames() {
+    return this.publicationNames;
+  }
+
+  /**
+   * @returns {String} This opportunity instance, formatted as a string.
+   * @param opportunityInstanceID The opportunity instance ID.
+   * @throws {Meteor.Error} If not a valid ID.
+   */
+  public toString(opportunityInstanceID: string) {
+    this.assertDefined(opportunityInstanceID);
+    const opportunityInstanceDoc = this.findDoc(opportunityInstanceID);
+    const academicTerm = AcademicTerms.toString(opportunityInstanceDoc.termID);
+    const opportunityName = Opportunities.findDoc(opportunityInstanceDoc.opportunityID).name;
+    return `[OI ${academicTerm} ${opportunityName}]`;
+  }
+
+  /**
+   * Updates the OpportunityInstance's AcademicTerm.
+   * @param opportunityInstanceID The opportunity instance ID.
+   * @param termID The academicTerm id.
+   * @throws {Meteor.Error} If not a valid ID.
+   */
+  public updateAcademicTerm(opportunityInstanceID: string, termID: string) {
+    this.assertDefined(opportunityInstanceID);
+    AcademicTerms.assertAcademicTerm(termID);
+    this.collection.update({ _id: opportunityInstanceID }, { $set: { termID } });
+  }
+
+  /**
+   * Updates the verified field.
+   * @param opportunityInstanceID The opportunity instance ID.
+   * @param verified The new value of verified.
+   * @throws {Meteor.Error} If not a valid ID.
+   */
+  public updateVerified(opportunityInstanceID: string, verified: boolean) {
+    this.assertDefined(opportunityInstanceID);
+    this.collection.update({ _id: opportunityInstanceID }, { $set: { verified } });
+  }
+
+  /**
+   * Returns an array of strings, each one representing an integrity problem with this collection.
+   * Returns an empty array if no problems were found.
+   * Checks termID, opportunityID, studentID
+   * @returns {Array} A (possibly empty) array of strings indicating integrity issues.
+   */
+  public checkIntegrity() {
+    const problems = [];
+    this.find().forEach((doc) => {
+      if (!AcademicTerms.isDefined(doc.termID)) {
+        problems.push(`Bad termID: ${doc.termID}`);
+      }
+      if (!Opportunities.isDefined(doc.opportunityID)) {
+        problems.push(`Bad opportunityID: ${doc.opportunityID}`);
+      }
+      if (!Users.isDefined(doc.studentID)) {
+        problems.push(`Bad studentID: ${doc.studentID}`);
+      }
+      if (!Users.isDefined(doc.sponsorID)) {
+        problems.push(`Bad sponsorID: ${doc.sponsorID}`);
+      }
+      if (doc.verified &amp;&amp; VerificationRequests.find({ opportunityInstanceID: doc._id }).fetch().length === 0) {
+        const studentDoc = this.getStudentDoc(doc._id);
+        const opportunityDoc = this.getOpportunityDoc(doc._id);
+        const termDoc = this.getAcademicTermDoc(doc._id);
+        problems.push(`No Verification Request for verified Opportunity Instance: ${opportunityDoc.name}-${studentDoc.username}-${AcademicTerms.toString(termDoc._id, false)}`);
+      }
+    });
+    return problems;
+  }
+
+  /**
+   * Returns an object representing the OpportunityInstance docID in a format acceptable to define().
+   * @param docID The docID of an OpportunityInstance.
+   * @returns { Object } An object representing the definition of docID.
+   */
+  public dumpOne(docID: string): IOpportunityInstanceDefine {
+    const doc = this.findDoc(docID);
+    const academicTerm = AcademicTerms.findSlugByID(doc.termID);
+    const opportunity = Opportunities.findSlugByID(doc.opportunityID);
+    const verified = doc.verified;
+    const student = Users.getProfile(doc.studentID).username;
+    const sponsor = Users.getProfile(doc.sponsorID).username;
+    const retired = doc.retired;
+    return { academicTerm, opportunity, verified, student, sponsor, retired };
+  }
+}
+
+/**
+ * Provides the singleton instance of this class to all other entities.
+ * @type {api/opportunity.OpportunityInstanceCollection}
+ * @memberOf api/opportunity
+ */
+export const OpportunityInstances = new OpportunityInstanceCollection();
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.5</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+</body>
+</html>
