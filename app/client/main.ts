@@ -1,4 +1,3 @@
-import 'uniforms-bridge-simple-schema-2';
 import '../imports/api/academic-term';
 import '../imports/api/analytic';
 import '../imports/api/base';
