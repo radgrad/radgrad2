@@ -100,7 +100,9 @@ class BaseTypeCollection extends BaseCollection {
     const docID = this.getID(instance);
     const doc = super.findDoc(docID);
     check(doc, Object);
+    // @ts-ignore
     if (Slugs.isDefined(doc.slugID)) {
+      // @ts-ignore
       const slugDoc = Slugs.findDoc(doc.slugID);
       check(slugDoc, Object);
       Slugs.removeIt(slugDoc);
