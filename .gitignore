@@ -29,3 +29,6 @@ settings.production.*
 # testing outputs
 tests_output/
 chromedriver.log
+
+# api documentation
+api-docs
