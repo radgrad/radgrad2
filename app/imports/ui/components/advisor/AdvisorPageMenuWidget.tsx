@@ -53,13 +53,12 @@ const AdvisorPageMenuWidget = (props: IAdvisorProfile)  => {
   { key: 'Career Goals', route: EXPLORER_TYPE.CAREERGOALS },
   { key: 'Courses', route: EXPLORER_TYPE.COURSES },
   { key: 'Interests', route: EXPLORER_TYPE.INTERESTS },
+	  {key: 'Opportunities', route: EXPLORER_TYPE.OPPORTUNITIES },
 ];
 
 const studentHomePageItems = [
-  { key: 'About Me', route: 'aboutme' },
-  { key: 'ICE Points', route: 'ice' },
-  { key: 'Levels', route: 'levels' },
-  { key: 'Advisor Log', route: 'log' },
+  { key: 'About Me', route: 'aboutme' }
+ 
 ];
 
 const communityDropdownItems = [
