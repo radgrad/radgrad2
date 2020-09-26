@@ -17,9 +17,6 @@ import { HelpMessages } from '../help/HelpMessageCollection';
 import { IceSnapshots } from '../analytic/IceSnapshotCollection';
 import { Interests } from '../interest/InterestCollection';
 import { InterestTypes } from '../interest/InterestTypeCollection';
-import { MentorAnswers } from '../mentor/MentorAnswerCollection';
-import { MentorQuestions } from '../mentor/MentorQuestionCollection';
-import { MentorProfiles } from '../user/MentorProfileCollection';
 import { Opportunities } from '../opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollection';
 import { OpportunityTypes } from '../opportunity/OpportunityTypeCollection';
@@ -77,9 +74,6 @@ class RadGradClass {
       IceSnapshots,
       Interests,
       InterestTypes,
-      MentorAnswers,
-      MentorQuestions,
-      MentorProfiles,
       Opportunities,
       OpportunityInstances,
       OpportunityTypes,
@@ -112,7 +106,6 @@ class RadGradClass {
       DesiredDegrees,
       AcademicPlans,
       AdminProfiles,
-      MentorProfiles,
       AdvisorProfiles,
       FacultyProfiles,
       OpportunityTypes,
@@ -130,8 +123,6 @@ class RadGradClass {
       UserInteractions,
       PageInterests,
       PageInterestsDailySnapshots,
-      MentorQuestions,
-      MentorAnswers,
       Reviews,
       PlanChoices,
       FavoriteAcademicPlans,

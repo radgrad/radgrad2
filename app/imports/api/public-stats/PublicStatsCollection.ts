@@ -7,7 +7,6 @@ import { CareerGoals } from '../career/CareerGoalCollection';
 import { Courses } from '../course/CourseCollection';
 import { DesiredDegrees } from '../degree-plan/DesiredDegreeCollection';
 import { Interests } from '../interest/InterestCollection';
-import { MentorProfiles } from '../user/MentorProfileCollection';
 import { FacultyProfiles } from '../user/FacultyProfileCollection';
 import { Opportunities } from '../opportunity/OpportunityCollection';
 import { OpportunityTypes } from '../opportunity/OpportunityTypeCollection';
@@ -46,9 +45,6 @@ class PublicStatsCollection extends BaseCollection {
   public usersTotalKey: string;
   public usersStudentsTotalKey: string;
   public usersFacultyTotalKey: string;
-  public usersMentorsTotalKey: string;
-  public usersMentorsProfessionsListKey: string;
-  public usersMentorsLocationsKey: string;
   public courseReviewsTotalKey: string;
   public courseReviewsCoursesKey: string;
   public levelOneTotalKey: string;
@@ -99,12 +95,6 @@ class PublicStatsCollection extends BaseCollection {
     this.stats.push(this.usersStudentsTotalKey);
     this.usersFacultyTotalKey = 'usersFacultyTotal';
     this.stats.push(this.usersFacultyTotalKey);
-    this.usersMentorsTotalKey = 'usersMentorsTotal';
-    this.stats.push(this.usersMentorsTotalKey);
-    this.usersMentorsProfessionsListKey = 'usersMentorsProfessionsList';
-    this.stats.push(this.usersMentorsProfessionsListKey);
-    this.usersMentorsLocationsKey = 'usersMentorsLocations';
-    this.stats.push(this.usersMentorsLocationsKey);
     this.courseReviewsTotalKey = 'courseReviewsTotal';
     this.stats.push(this.courseReviewsTotalKey);
     this.courseReviewsCoursesKey = 'courseReviewsCourses';
@@ -236,29 +226,6 @@ class PublicStatsCollection extends BaseCollection {
   public usersFacultyTotal() {
     const numUsers = FacultyProfiles.find().count();
     this.collection.upsert({ key: this.usersFacultyTotalKey }, { $set: { value: `${numUsers}` } });
-  }
-
-  public usersMentorsTotal() {
-    const numUsers = MentorProfiles.find().count();
-    this.collection.upsert({ key: this.usersMentorsTotalKey }, { $set: { value: `${numUsers}` } });
-  }
-
-  public usersMentorsProfessionsList() {
-    let professions = [];
-    MentorProfiles.find().forEach((profile) => professions.push(profile.career));
-    professions = _.union(professions);
-    if (professions.length > 0) {
-      this.collection.upsert({ key: this.usersMentorsProfessionsListKey }, { $set: { value: professions.join(', ') } });
-    }
-  }
-
-  public usersMentorsLocations() {
-    let locations = [];
-    MentorProfiles.find().forEach((profile) => locations.push(profile.location));
-    locations = _.union(locations);
-    if (locations.length > 0) {
-      this.collection.upsert({ key: this.usersMentorsLocationsKey }, { $set: { value: locations.join(', ') } });
-    }
   }
 
   public courseReviewsTotal() {

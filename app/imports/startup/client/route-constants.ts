@@ -28,7 +28,6 @@ export const URL_ROLES = {
   ADVISOR: ROLE.ADVISOR.toLowerCase(),
   ALUMNI: ROLE.ALUMNI.toLowerCase(),
   FACULTY: ROLE.FACULTY.toLowerCase(),
-  MENTOR: ROLE.MENTOR.toLowerCase(),
   STUDENT: ROLE.STUDENT.toLowerCase(),
 };
 

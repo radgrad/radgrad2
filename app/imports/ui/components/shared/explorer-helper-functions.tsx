@@ -44,7 +44,7 @@ export interface ICardExplorerMenuWidgetProps {
   menuAddedList: { item: explorerInterfaces, count: number }[];
   menuCareerList: { item: IInterest, count: number }[] | undefined;
   type: 'plans' | 'career-goals' | 'courses' | 'degrees' | 'interests' | 'opportunities' | 'users';
-  role: 'student' | 'faculty' | 'mentor';
+  role: 'student' | 'faculty';
   match: {
     isExact: boolean;
     path: string;

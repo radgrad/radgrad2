@@ -24,7 +24,6 @@ import {
   student2ndMenuDegreePlannerPageSelector,
   student2ndMenuExplorerPageSelector,
   student2ndMenuHomePageSelector,
-  student2ndMenuMentorSpacePageSelector,
   studentAboutMePageSelector,
   studentAboutMeWidgetTitleSelector,
   studentAdvisorLogPageSelector,
@@ -38,8 +37,6 @@ import {
   studentLevelsPageSelector,
   studentLevelsWidgetTitleSelector,
   studentLogWidgetTitleSelector,
-  studentMentorSpaceAskQuestionWidgetTitleSelector, studentMentorSpaceMentorDirectoryWidgetTitleSelector,
-  studentMentorSpaceQuestionWidgetTitleSelector,
   studentRecommendedCoursesTitleSelector,
   studentRecommendedOpportunitiesTitleSelector,
   studentTabbedFavoriestWidgetDetailsTabSelector,
@@ -165,15 +162,4 @@ test('DEP Page', async (browser: any) => {
   await browser.expect(studentTabbedFavoriestWidgetFavPlanTabSelector.textContent).eql(' PLAN');
   await browser.expect(studentTabbedFavoriestWidgetFavCourseTabSelector.textContent).eql(' COUR');
   await browser.expect(studentTabbedFavoriestWidgetDetailsTabSelector.textContent).eql('DETAILS');
-});
-
-test('Mentor Space Page', async (browser: any) => {
-  await browser.click('#abi');
-  await browser.click(student2ndMenuMentorSpacePageSelector);
-  await browser.expect(helpTitleSelector.textContent).eql('Learn about Mentor Space');
-  await browser.click(helpAccordionSelector);
-  await browser.expect(helpFirstParagraphSelector.textContent).eql('Mentor Space enables you to connect with RadGrad mentors: ICS alumni and other high tech professionals who are volunteering their time to help get the latest information about careers and job opportunities in Hawaii and beyond.');
-  await browser.expect(studentMentorSpaceQuestionWidgetTitleSelector.textContent).eql('QUESTIONS');
-  await browser.expect(studentMentorSpaceAskQuestionWidgetTitleSelector.textContent).eql('ASK A NEW QUESTION');
-  await browser.expect(studentMentorSpaceMentorDirectoryWidgetTitleSelector.textContent).eql('MENTOR DIRECTORY');
 });

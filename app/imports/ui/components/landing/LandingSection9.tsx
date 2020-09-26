@@ -44,15 +44,6 @@ const LandingSection9 = () => (
                 <Icon name="chevron right" />
               </a>
             </Card>
-            <Card className="ui card" style={noBoxShadowStyle}>
-              <div className="image">
-                <Image src="/images/landing/nagashima.jpg" />
-              </div>
-              <a className="ui bottom attached button" aria-current="false" role="button" href="#/guidedtour/mentor">
-                MENTORS
-                <Icon name="chevron right" />
-              </a>
-            </Card>
           </Card.Group>
         </Grid>
       </Grid.Column>

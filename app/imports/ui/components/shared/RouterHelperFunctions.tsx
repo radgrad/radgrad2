@@ -162,7 +162,7 @@ export const getLastUrlParam = (match: IMatchProps): string => {
 };
 
 // Returns the role of the USERNAME of the url
-// i.e., /mentor/somementor@hawaii.edu => mentor
+// i.e., /advisor/someadvisor@hawaii.edu => advisor
 export const getRoleByUrl = (match: IMatchProps): string => {
   const url = match.url;
   const username = getUsername(match);
@@ -192,12 +192,6 @@ export const isUrlRoleAlumni = (match: IMatchProps): boolean => {
 export const isUrlRoleFaculty = (match: IMatchProps): boolean => {
   const role = getRoleByUrl(match);
   return role === URL_ROLES.FACULTY;
-};
-
-// Returns if the role by URL is Mentor
-export const isUrlRoleMentor = (match: IMatchProps): boolean => {
-  const role = getRoleByUrl(match);
-  return role === URL_ROLES.MENTOR;
 };
 
 // Returns if the role by URL is Student

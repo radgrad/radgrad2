@@ -70,7 +70,7 @@ const UserProfileCard = (props: IUserProfileCard) => {
               src={`/images/level-icons/radgrad-level-${level}-icon.png`}
             />
           ) : undefined}
-          {isRole(ROLE.ADVISOR, ROLE.FACULTY, ROLE.MENTOR) ? (
+          {isRole(ROLE.ADVISOR, ROLE.FACULTY) ? (
             <div style={usernameStyle}>
               {p.username}
               <br />

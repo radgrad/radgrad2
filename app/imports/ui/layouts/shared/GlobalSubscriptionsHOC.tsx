@@ -3,7 +3,6 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { SubsManager } from 'meteor/meteorhacks:subs-manager';
 import { Dimmer, Loader, Responsive } from 'semantic-ui-react';
 import { AdminProfiles } from '../../../api/user/AdminProfileCollection';
-import { MentorProfiles } from '../../../api/user/MentorProfileCollection';
 import { PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
@@ -28,8 +27,6 @@ import { StudentParticipations } from '../../../api/public-stats/StudentParticip
 import PageLoaderMobile from '../../components/shared/PageLoaderMobile';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { Feeds } from '../../../api/feed/FeedCollection';
-import { MentorAnswers } from '../../../api/mentor/MentorAnswerCollection';
-import { MentorQuestions } from '../../../api/mentor/MentorQuestionCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { PageInterestsDailySnapshots } from '../../../api/page-tracking/PageInterestsDailySnapshotCollection';
 
@@ -74,9 +71,6 @@ function withGlobalSubscription(WrappedComponent) {
       globalSubs.subscribe(HelpMessages.getPublicationName()),
       globalSubs.subscribe(Interests.getPublicationName()),
       globalSubs.subscribe(InterestTypes.getPublicationName()),
-      globalSubs.subscribe(MentorAnswers.getPublicationName()),
-      globalSubs.subscribe(MentorProfiles.getPublicationName()),
-      globalSubs.subscribe(MentorQuestions.getPublicationName()),
       globalSubs.subscribe(Opportunities.getPublicationName()),
       globalSubs.subscribe(OpportunityInstances.publicationNames.scoreboard),
       globalSubs.subscribe(OpportunityTypes.getPublicationName()),

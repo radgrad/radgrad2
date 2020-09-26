@@ -77,7 +77,7 @@ const AddUserForm = (props: IAddUserProps) => {
   const careerGoalNames = _.map(props.careerGoals, docToName);
   const academicTermNames = _.map(props.academicTerms, academicTermToName);
   const academicPlanNames = _.map(props.academicPlans, docToName);
-  const roles = [ROLE.ADVISOR, ROLE.FACULTY, ROLE.MENTOR, ROLE.STUDENT];
+  const roles = [ROLE.ADVISOR, ROLE.FACULTY, ROLE.STUDENT];
   const schema = new SimpleSchema({
     username: String,
     firstName: String,
@@ -110,13 +110,6 @@ const AddUserForm = (props: IAddUserProps) => {
     },
     retired: { type: Boolean, optional: true },
   });
-  const mentorSchema = new SimpleSchema({
-    company: { type: String, optional: true },
-    career: { type: String, optional: true },
-    location: { type: String, optional: true },
-    linkedin: { type: String, optional: true },
-    motivation: { type: String, optional: true },
-  });
   const studentSchema = new SimpleSchema({
     level: { type: SimpleSchema.Integer, optional: true, min: 1, max: 6 },
     declaredAcademicTerm: {
@@ -140,9 +133,6 @@ const AddUserForm = (props: IAddUserProps) => {
     shareLevel: { type: Boolean, optional: true },
     isAlumni: { type: Boolean, optional: true },
   });
-  if (role === ROLE.MENTOR) {
-    schema.extend(mentorSchema);
-  }
   if (role === ROLE.STUDENT) {
     schema.extend(studentSchema);
   }
@@ -175,20 +165,6 @@ const AddUserForm = (props: IAddUserProps) => {
           <MultiSelectField name="careerGoals" />
         </Form.Group>
         <BoolField name="retired" />
-        {role === ROLE.MENTOR ? (
-          <div>
-            <Header dividing as="h4">Mentor fields</Header>
-            <Form.Group widths="equal">
-              <TextField name="company" />
-              <TextField name="career" label="Title" />
-            </Form.Group>
-            <Form.Group widths="equal">
-              <TextField name="location" />
-              <TextField name="linkedin" label="LinkedIn" />
-            </Form.Group>
-            <LongTextField name="motivation" />
-          </div>
-        ) : ''}
         {role === ROLE.STUDENT ? (
           <div>
             <Header dividing as="h4">Student fields</Header>

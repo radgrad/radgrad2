@@ -6,7 +6,6 @@ import BackToTopButton from '../../components/shared/BackToTopButton';
 import CommunityRadGradVideosWidget from '../../components/shared/CommunityRadGradVideosPage/CommunityRadGradVideosWidget';
 import * as Router from '../../components/shared/RouterHelperFunctions';
 import { URL_ROLES } from '../../../startup/client/route-constants';
-import MentorPageMenuWidget from '../../components/mentor/MentorPageMenuWidget';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 import { IMatchProps } from '../../components/shared/RouterHelperFunctions';
 
@@ -21,8 +20,6 @@ const CommunityRadGradVideosPage = (props: ICommunityRadGradVideosPageProps) => 
     switch (role) {
       case URL_ROLES.STUDENT:
         return <StudentPageMenuWidget />;
-      case URL_ROLES.MENTOR:
-        return <MentorPageMenuWidget />;
       case URL_ROLES.FACULTY:
         return <FacultyPageMenuWidget />;
       default:

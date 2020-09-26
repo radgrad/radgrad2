@@ -3,7 +3,6 @@ import { Grid, Message } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
-import MentorPageMenuWidget from '../../components/mentor/MentorPageMenuWidget';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 import * as Router from '../../components/shared/RouterHelperFunctions';
 import ExplorerNavDropdown from '../../components/shared/ExplorerNavDropdown';
@@ -29,8 +28,6 @@ const renderPageMenuWidget = (props: IExplorerHomePageProps): JSX.Element => {
   switch (role) {
     case 'student':
       return <StudentPageMenuWidget />;
-    case 'mentor':
-      return <MentorPageMenuWidget />;
     case 'faculty':
       return <FacultyPageMenuWidget />;
     default:

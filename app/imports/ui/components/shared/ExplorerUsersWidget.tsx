@@ -81,7 +81,7 @@ const ExplorerUsersWidget = (props: IExplorerUsersWidgetProps) => {
                     src={`/images/level-icons/radgrad-level-${level}-icon.png`}
                   />
                 ) : undefined}
-                {isRole(props, ROLE.ADVISOR, ROLE.FACULTY, ROLE.MENTOR) ? (
+                {isRole(props, ROLE.ADVISOR, ROLE.FACULTY) ? (
                   <React.Fragment>
                     {p.username}
                     <br />

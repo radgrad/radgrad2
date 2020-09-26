@@ -102,17 +102,6 @@ module.exports = {
     browser.assert.containsText('.middle.aligned.row h1', 'Degree Experience Planner');
     browser.expect.elements('.stretched.row').count.to.equal(2);
   },
-  'Student Mentor Space Page': function (browser) {
-    browser.click('.secondary.menu .item:nth-child(4)');
-    // help widget
-    browser.assert.containsText('.ui.floating.info.message .title', 'LEARN ABOUT MENTOR SPACE');
-    browser.click('.ui.floating.info.message .accordion');
-    browser.assert.containsText('.accordion .content.active p:first-child', 'Mentor Space enables you to connect with RadGrad mentors: ICS alumni and other high tech professionals who are volunteering their time to help get the latest information about careers and job opportunities in Hawaii and beyond.');
-    browser.click('.ui.floating.info.message .accordion');
-    browser.expect.elements('.ten.wide.column').count.to.equal(1);
-    browser.expect.elements('.four.wide.column').count.to.equal(1);
-    browser.assert.containsText('.four.wide.column .ui.dividing.header', 'MENTOR DIRECTORY');
-  },
   'End tests': function (browser) {
     browser.end();
   },

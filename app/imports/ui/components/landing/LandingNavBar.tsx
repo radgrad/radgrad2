@@ -73,9 +73,6 @@ const LandingNavBarContainer = withTracker(() => {
     if (profile.role === ROLE.FACULTY) {
       role = 'faculty';
     }
-    if (profile.role === ROLE.MENTOR) {
-      role = 'mentor';
-    }
     if (profile.role === ROLE.STUDENT) {
       role = 'student';
     }

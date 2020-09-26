@@ -5,7 +5,6 @@
 import LandingHomePage from '../../ui/pages/landing/LandingHomePage';
 import LandingGuidedTourAdvisor from '../../ui/pages/landing/LandingGuidedTourAdvisor';
 import LandingGuidedTourFaculty from '../../ui/pages/landing/LandingGuidedTourFaculty';
-import LandingGuidedTourMentor from '../../ui/pages/landing/LandingGuidedTourMentor';
 import GuidedTourStudentContainer from '../../ui/pages/landing/LandingGuidedTourStudent';
 import LandingCareerGoalsCardExplorerContainer from '../../ui/pages/landing/LandingCareerGoalsCardExplorer';
 import LandingCareerGoalExplorerContainer from '../../ui/pages/landing/LandingCareerGoalExplorer';
@@ -44,9 +43,6 @@ import StudentAboutMePage from '../../ui/pages/student/StudentAboutMePage';
 import StudentIcePage from '../../ui/pages/student/StudentIcePage';
 import StudentHomeLevelsPageContainer from '../../ui/pages/student/StudentHomeLevelsPage';
 import StudentHomeLogPageContainer from '../../ui/pages/student/StudentHomeLogPage';
-import StudentMentorSpacePageContainer from '../../ui/pages/student/StudentMentorSpacePage';
-import MentorHomePageContainer from '../../ui/pages/mentor/MentorHomePage';
-import MentorMentorSpacePageContainer from '../../ui/pages/mentor/MentorMentorSpacePage';
 import AlumniHomePageContainer from '../../ui/pages/alumni/AlumniHomePage';
 import AdminDumpDatabasePageContainer from '../../ui/pages/admin/AdminDumpDatabasePage';
 import AdminCheckDatabaseIntegrityPageContainer from '../../ui/pages/admin/AdminCheckDatabaseIntegrityPage';
@@ -64,8 +60,6 @@ import AdminDataModelFeedbackInstancesPage from '../../ui/pages/admin/AdminDataM
 import AdminDataModelHelpMessagesPage from '../../ui/pages/admin/AdminDataModelHelpMessagesPage';
 import AdminDataModelInterestsPage from '../../ui/pages/admin/AdminDataModelInterestsPage';
 import AdminDataModelInterestTypesPage from '../../ui/pages/admin/AdminDataModelInterestTypesPage';
-import AdminDataModelMentorAnswerPage from '../../ui/pages/admin/AdminDataModelMentorAnswerPage';
-import AdminDataModelMentorQuestionPage from '../../ui/pages/admin/AdminDataModelMentorQuestionPage';
 import AdminDataModelOpportunitiesPage from '../../ui/pages/admin/AdminDataModelOpportunitiesPage';
 import AdminDataModelOpportunityInstancesPage from '../../ui/pages/admin/AdminDataModelOpportunityInstancesPage';
 import AdminDataModelOpportunityTypesPage from '../../ui/pages/admin/AdminDataModelOpportunityTypesPage';
@@ -88,7 +82,6 @@ import {
   OPPORTUNITY_SCOREBOARD,
   EXPLORER_PARAM,
   GUIDEDTOUR,
-  MENTOR_SPACE,
   PAGE_TRACKING_SCOREBOARD, PAGE_TRACKING_COMPARISON, DEGREEPLANNER, COMMUNITY,
 } from './route-constants';
 import PageTrackingScoreboardPage from '../../ui/pages/shared/PageTrackingScoreboardPage';
@@ -174,16 +167,6 @@ export const routes = {
       path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL}/interest-types`,
       exact: true,
       component: AdminDataModelInterestTypesPage,
-    },
-    {
-      path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL}/mentor-answers`,
-      exact: true,
-      component: AdminDataModelMentorAnswerPage,
-    },
-    {
-      path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL}/mentor-questions`,
-      exact: true,
-      component: AdminDataModelMentorQuestionPage,
     },
     {
       path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL}/${EXPLORER_TYPE.OPPORTUNITIES}`,
@@ -353,7 +336,7 @@ export const routes = {
     },
     {
       path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${MODERATION}`,
-      exacT: true,
+      exact: true,
       component: AdvisorModerationPageContainer,
     },
     {
@@ -601,11 +584,6 @@ export const routes = {
       component: LandingGuidedTourFaculty,
     },
     {
-      path: `/${GUIDEDTOUR}/${URL_ROLES.MENTOR}`,
-      exact: true,
-      component: LandingGuidedTourMentor,
-    },
-    {
       path: `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}`,
       exact: true,
       component: LandingCareerGoalsCardExplorerContainer,
@@ -666,135 +644,6 @@ export const routes = {
       component: LandingAcademicPlanExplorerContainer,
     },
   ],
-  MENTOR: [
-    {
-      path: `/${URL_ROLES.MENTOR}/${USERNAME}/${HOME}`,
-      component: MentorHomePageContainer,
-    },
-    {
-      path: `/${URL_ROLES.MENTOR}/${USERNAME}/${MENTOR_SPACE}`,
-      component: MentorMentorSpacePageContainer,
-    },
-    {
-      path: `/${URL_ROLES.MENTOR}/${USERNAME}/${EXPLORER_TYPE.HOME}`,
-      exact: true,
-      component: ExplorerHomePageContainer,
-    },
-    {
-      path: `/${URL_ROLES.MENTOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}`,
-      exact: true,
-      component: CardExplorerPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.MENTOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}/${EXPLORER_PARAM.ACADEMICPLAN}`,
-      exact: true,
-      component: IndividualExplorerPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.MENTOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}`,
-      exact: true,
-      component: CardExplorerPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.MENTOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}/${EXPLORER_PARAM.CAREERGOAL}`,
-      exact: true,
-      component: IndividualExplorerPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.MENTOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}`,
-      exact: true,
-      component: CardExplorerPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.MENTOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${EXPLORER_PARAM.COURSE}`,
-      exact: true,
-      component: IndividualExplorerPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.MENTOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.DEGREES}`,
-      exact: true,
-      component: CardExplorerPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.MENTOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.DEGREES}/${EXPLORER_PARAM.DEGREE}`,
-      exact: true,
-      component: IndividualExplorerPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.MENTOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}`,
-      exact: true,
-      component: CardExplorerPageContainer,
-    },
-    {
-
-      path: `/${URL_ROLES.MENTOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}/${EXPLORER_PARAM.INTEREST}`,
-      exact: true,
-      component: IndividualExplorerPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.MENTOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}`,
-      exact: true,
-      component: CardExplorerOpportunitiesPage,
-    },
-    {
-      path: `/${URL_ROLES.MENTOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${EXPLORER_PARAM.OPPORTUNITY}`,
-      exact: true,
-      component: IndividualExplorerPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.MENTOR}/${USERNAME}/${COMMUNITY.HOME}/${COMMUNITY.USERS}`,
-      exact: true,
-      component: CommunityUsersPage,
-    },
-    /* ############################## Page Tracking SCOREBOARD ############################## */
-    {
-      path: `/${URL_ROLES.MENTOR}/${USERNAME}/${PAGE_TRACKING_SCOREBOARD}/${PageInterestsCategoryTypes.CAREERGOAL}`,
-      exact: true,
-      component: PageTrackingScoreboardPage,
-    },
-    {
-      path: `/${URL_ROLES.MENTOR}/${USERNAME}/${PAGE_TRACKING_SCOREBOARD}/${PageInterestsCategoryTypes.COURSE}`,
-      exact: true,
-      component: PageTrackingScoreboardPage,
-    },
-    {
-      path: `/${URL_ROLES.MENTOR}/${USERNAME}/${PAGE_TRACKING_SCOREBOARD}/${PageInterestsCategoryTypes.INTEREST}`,
-      exact: true,
-      component: PageTrackingScoreboardPage,
-    },
-    {
-      path: `/${URL_ROLES.MENTOR}/${USERNAME}/${PAGE_TRACKING_SCOREBOARD}/${PageInterestsCategoryTypes.OPPORTUNITY}`,
-      exact: true,
-      component: PageTrackingScoreboardPage,
-    },
-    /* ############################## Page Tracking Comparison ############################## */
-    {
-      path: `/${URL_ROLES.MENTOR}/${USERNAME}/${PAGE_TRACKING_COMPARISON}/${PageInterestsCategoryTypes.CAREERGOAL}`,
-      exact: true,
-      component: PageTrackingComparisonPage,
-    },
-    {
-      path: `/${URL_ROLES.MENTOR}/${USERNAME}/${PAGE_TRACKING_COMPARISON}/${PageInterestsCategoryTypes.COURSE}`,
-      exact: true,
-      component: PageTrackingComparisonPage,
-    },
-    {
-      path: `/${URL_ROLES.MENTOR}/${USERNAME}/${PAGE_TRACKING_COMPARISON}/${PageInterestsCategoryTypes.INTEREST}`,
-      exact: true,
-      component: PageTrackingComparisonPage,
-    },
-    {
-      path: `/${URL_ROLES.MENTOR}/${USERNAME}/${PAGE_TRACKING_COMPARISON}/${PageInterestsCategoryTypes.OPPORTUNITY}`,
-      exact: true,
-      component: PageTrackingComparisonPage,
-    },
-    /* ############################## Community ############################## */
-    {
-      path: `/${URL_ROLES.MENTOR}/${USERNAME}/${COMMUNITY.HOME}/${COMMUNITY.RADGRADVIDEOS}`,
-      exact: true,
-      component: CommunityRadGradVideosPage,
-    },
-  ],
   STUDENT: [
     /* ############################## HOME ############################## */
     {
@@ -827,12 +676,6 @@ export const routes = {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${DEGREEPLANNER}`,
       exact: true,
       component: StudentDegreePlannerPage,
-    },
-    /* ############################## MENTOR SPACE ############################## */
-    {
-      path: `/${URL_ROLES.STUDENT}/${USERNAME}/${MENTOR_SPACE}`,
-      exact: true,
-      component: StudentMentorSpacePageContainer,
     },
     /* ############################## Page Tracking SCOREBOARD ############################## */
     {
