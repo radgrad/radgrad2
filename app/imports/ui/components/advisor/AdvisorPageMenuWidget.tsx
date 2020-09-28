@@ -3,7 +3,6 @@ import { NavLink, withRouter } from 'react-router-dom';
 import { Container, Dropdown, Menu } from 'semantic-ui-react';
 import FirstMenuContainer from '../../pages/shared/FirstMenu';
 import { Reviews } from '../../../api/review/ReviewCollection';
-import { MentorQuestions } from '../../../api/mentor/MentorQuestionCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import { secondMenu } from '../shared/shared-widget-names';
 import { buildRouteName, getUsername, IMatchProps } from '../shared/RouterHelperFunctions';
@@ -29,8 +28,7 @@ const AdvisorPageMenuWidget = (props: IAdvisorProfile)  => {
   const firstMenuStyle = { minHeight: 78 };
   const profile: IAdvisorProfile = AdvisorProfiles.getProfile(username);
   let numMod = 0;
-  numMod += MentorQuestions.findNonRetired({ moderated: false }).length;
-  numMod += Reviews.findNonRetired({ moderated: false }).length;
+   numMod += Reviews.findNonRetired({ moderated: false }).length;
   let moderationLabel = 'Moderation';
   if (numMod > 0) {
     moderationLabel = `${moderationLabel} (${numMod})`;
