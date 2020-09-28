@@ -7,7 +7,7 @@ import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
 import { IAdminAnalyticsUserInteraction } from '../../../../redux/admin/analytics/reducers';
 import { StudentSummaryBehaviorTypes } from './admin-analytics-student-summary-helper-functions';
 import { UserInteractionsTypes } from '../../../../api/analytic/UserInteractionsTypes';
-import { EXPLORER_TYPE, MENTOR_SPACE } from '../../../../startup/client/route-constants';
+import { EXPLORER_TYPE } from '../../../../startup/client/route-constants';
 import { IUserInteraction } from '../../../../typings/radgrad';
 
 interface ITimelineChartTabProps {
@@ -34,7 +34,6 @@ const TimelineChartTab = (props: ITimelineChartTabProps) => {
       StudentSummaryBehaviorTypes.PLANNING,
       StudentSummaryBehaviorTypes.VERIFICATION,
       StudentSummaryBehaviorTypes.REVIEWING,
-      StudentSummaryBehaviorTypes.MENTORSHIP,
       StudentSummaryBehaviorTypes.LEVEL,
       StudentSummaryBehaviorTypes.COMPLETEPLAN,
       StudentSummaryBehaviorTypes.PROFILE,
@@ -73,27 +72,23 @@ const TimelineChartTab = (props: ITimelineChartTabProps) => {
         if (_.some(interactionsWithinDate, (i) => i.type === UserInteractionsTypes.ADDREVIEW)) {
           obj[date].push(behaviorList[5]);
         }
-        if (_.some(interactionsWithinDate, (i) => (i.type === UserInteractionsTypes.PAGEVIEW && i.typeData[0].includes(MENTOR_SPACE))
-          || i.type === UserInteractionsTypes.ASKQUESTION)) {
+        if (_.some(interactionsWithinDate, (i) => i.type === UserInteractionsTypes.LEVEL)) {
           obj[date].push(behaviorList[6]);
         }
-        if (_.some(interactionsWithinDate, (i) => i.type === UserInteractionsTypes.LEVEL)) {
+        if (_.some(interactionsWithinDate, (i) => i.type === UserInteractionsTypes.COMPLETEPLAN)) {
           obj[date].push(behaviorList[7]);
         }
-        if (_.some(interactionsWithinDate, (i) => i.type === UserInteractionsTypes.COMPLETEPLAN)) {
+        if (_.some(interactionsWithinDate, (i) => i.type === UserInteractionsTypes.PICTURE || i.type === UserInteractionsTypes.WEBSITE)) {
           obj[date].push(behaviorList[8]);
         }
-        if (_.some(interactionsWithinDate, (i) => i.type === UserInteractionsTypes.PICTURE || i.type === UserInteractionsTypes.WEBSITE)) {
+        if (_.some(interactionsWithinDate, (i) => i.type === UserInteractionsTypes.FAVORITEITEM)) {
           obj[date].push(behaviorList[9]);
         }
-        if (_.some(interactionsWithinDate, (i) => i.type === UserInteractionsTypes.FAVORITEITEM)) {
+        if (_.some(interactionsWithinDate, (i) => i.type === UserInteractionsTypes.UNFAVORITEITEM)) {
           obj[date].push(behaviorList[10]);
         }
-        if (_.some(interactionsWithinDate, (i) => i.type === UserInteractionsTypes.UNFAVORITEITEM)) {
-          obj[date].push(behaviorList[11]);
-        }
         if (_.some(interactionsWithinDate, (i) => i.type === UserInteractionsTypes.LOGOUT)) {
-          obj[date].push(behaviorList[12]);
+          obj[date].push(behaviorList[11]);
         }
       });
     });

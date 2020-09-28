@@ -84,7 +84,6 @@ export const explorerOpportunityWidgetTitleSelector = explorerOpportunityWidgetS
 export const student2ndMenuHomePageSelector = secondMenuSelector.nth(0);
 export const student2ndMenuExplorerPageSelector = secondMenuSelector.nth(1);
 export const student2ndMenuDegreePlannerPageSelector = secondMenuSelector.nth(2);
-export const student2ndMenuMentorSpacePageSelector = secondMenuSelector.nth(3);
 
 export const studentHomePageSelector = leftHandMenuSelector.nth(0);
 export const studentAboutMePageSelector = leftHandMenuSelector.nth(1);

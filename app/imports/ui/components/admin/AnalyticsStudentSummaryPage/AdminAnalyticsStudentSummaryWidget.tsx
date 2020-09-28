@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import moment from 'moment';
 import { Segment, Header } from 'semantic-ui-react';
-import { ANALYTICS, EXPLORER_TYPE, MENTOR_SPACE } from '../../../../startup/client/route-constants';
+import { ANALYTICS, EXPLORER_TYPE } from '../../../../startup/client/route-constants';
 import AdminAnalyticsDateSelectionWidget from '../AdminAnalyticsDateSelectionWidget';
 import SummaryStatisticsTabs from './SummaryStatisticsTabs';
 import { behaviorCategories } from './admin-analytics-student-summary-helper-functions';
@@ -66,34 +66,29 @@ const AdminAnalyticsStudentSummaryWidget = (props: IAdminAnalyticsStudentSummary
       behaviorCategories[5].count++;
       behaviorCategories[5].users.push(user);
     }
-    if (_.some(interactions, (i: any) => (i.type === UserInteractionsTypes.PAGEVIEW && i.typeData[0].includes(MENTOR_SPACE))
-      || i.type === UserInteractionsTypes.ASKQUESTION)) {
+    if (_.some(interactions, (i: any) => i.type === UserInteractionsTypes.LEVEL)) {
       behaviorCategories[6].count++;
       behaviorCategories[6].users.push(user);
     }
-    if (_.some(interactions, (i: any) => i.type === UserInteractionsTypes.LEVEL)) {
+    if (_.some(interactions, (i: any) => i.type === UserInteractionsTypes.COMPLETEPLAN)) {
       behaviorCategories[7].count++;
       behaviorCategories[7].users.push(user);
     }
-    if (_.some(interactions, (i: any) => i.type === UserInteractionsTypes.COMPLETEPLAN)) {
+    if (_.some(interactions, (i: any) => i.type === UserInteractionsTypes.PICTURE || i.type === UserInteractionsTypes.WEBSITE)) {
       behaviorCategories[8].count++;
       behaviorCategories[8].users.push(user);
     }
-    if (_.some(interactions, (i: any) => i.type === UserInteractionsTypes.PICTURE || i.type === UserInteractionsTypes.WEBSITE)) {
+    if (_.some(interactions, { type: UserInteractionsTypes.FAVORITEITEM })) {
       behaviorCategories[9].count++;
       behaviorCategories[9].users.push(user);
     }
-    if (_.some(interactions, { type: UserInteractionsTypes.FAVORITEITEM })) {
+    if (_.some(interactions, { type: UserInteractionsTypes.UNFAVORITEITEM })) {
       behaviorCategories[10].count++;
       behaviorCategories[10].users.push(user);
     }
-    if (_.some(interactions, { type: UserInteractionsTypes.UNFAVORITEITEM })) {
+    if (_.some(interactions, { type: UserInteractionsTypes.LOGOUT })) {
       behaviorCategories[11].count++;
       behaviorCategories[11].users.push(user);
-    }
-    if (_.some(interactions, { type: UserInteractionsTypes.LOGOUT })) {
-      behaviorCategories[12].count++;
-      behaviorCategories[12].users.push(user);
     }
   });
   return (

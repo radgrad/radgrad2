@@ -10,7 +10,6 @@ export const MODERATION = 'moderation';
 export const SCOREBOARD = 'scoreboard';
 export const COURSE_SCOREBOARD = `course-${SCOREBOARD}`;
 export const OPPORTUNITY_SCOREBOARD = `opportunity-${SCOREBOARD}`;
-export const MENTOR_SPACE = 'mentor-space';
 export const PAGE_TRACKING_SCOREBOARD = 'page-tracking-scoreboard';
 export const PAGE_TRACKING_COMPARISON = 'page-tracking-comparison';
 

@@ -5,7 +5,7 @@ import _ from 'lodash';
 import { profileIDToFullname } from '../../shared/data-model-helper-functions';
 import { IUserInteraction } from '../../../../typings/radgrad';
 import { UserInteractionsTypes } from '../../../../api/analytic/UserInteractionsTypes';
-import { EXPLORER_TYPE, MENTOR_SPACE } from '../../../../startup/client/route-constants';
+import { EXPLORER_TYPE } from '../../../../startup/client/route-constants';
 import { StudentSummaryBehaviorTypes } from './admin-analytics-student-summary-helper-functions';
 
 interface IStudentTimelineModalProps {
@@ -99,7 +99,6 @@ const getBehaviors = (sessionArr: IUserInteraction[]): { type: string, stats: st
     [StudentSummaryBehaviorTypes.PLANNING]: [],
     [StudentSummaryBehaviorTypes.VERIFICATION]: [],
     [StudentSummaryBehaviorTypes.REVIEWING]: [],
-    [StudentSummaryBehaviorTypes.MENTORSHIP]: [],
     [StudentSummaryBehaviorTypes.LEVEL]: [],
     [StudentSummaryBehaviorTypes.COMPLETEPLAN]: [],
     [StudentSummaryBehaviorTypes.PROFILE]: [],
@@ -129,7 +128,6 @@ const getBehaviors = (sessionArr: IUserInteraction[]): { type: string, stats: st
           [EXPLORER_TYPE.INTERESTS]: [],
           [EXPLORER_TYPE.OPPORTUNITIES]: [],
         };
-        let visitedMentor = false;
         _.each(array, function (url) {
           if (url.includes('explorer/')) {
             const parsedUrl = url.split('/');
@@ -140,8 +138,6 @@ const getBehaviors = (sessionArr: IUserInteraction[]): { type: string, stats: st
               }
               explorerPages[parsedUrl[1]].push(parsedUrl[2]);
             }
-          } else if (url.includes(MENTOR_SPACE)) {
-            visitedMentor = true;
           }
         });
         _.each(explorerPages, function (pages, pageName) {
@@ -150,9 +146,6 @@ const getBehaviors = (sessionArr: IUserInteraction[]): { type: string, stats: st
               ${_.uniq(pages).join(', ')}`);
           }
         });
-        if (visitedMentor) {
-          behaviors[StudentSummaryBehaviorTypes.MENTORSHIP].push('User visited the Mentor Space page');
-        }
       } else if (action === UserInteractionsTypes.ADDCOURSE) {
         behaviors[StudentSummaryBehaviorTypes.PLANNING].push(`Added the following courses: ${formatCourseOpportunitySlugMessages(_.uniq(array))}`);
       } else if (action === UserInteractionsTypes.REMOVECOURSE) {
@@ -171,11 +164,6 @@ const getBehaviors = (sessionArr: IUserInteraction[]): { type: string, stats: st
         behaviors[StudentSummaryBehaviorTypes.REVIEWING].push(`Added a review for the following items: ${formatReviewSlugMessages(_.uniq(array))}`);
       } else if (action === UserInteractionsTypes.EDITREVIEW) {
         behaviors[StudentSummaryBehaviorTypes.REVIEWING].push(`Edited a review for the following items: ${formatReviewSlugMessages(_.uniq(array))}`);
-      } else if (action === UserInteractionsTypes.ASKQUESTION) {
-        behaviors[StudentSummaryBehaviorTypes.MENTORSHIP].push(`Asked ${array.length} question(s): `);
-        _.each(array, function (question) {
-          behaviors[StudentSummaryBehaviorTypes.MENTORSHIP].push(`Question: ${question}`);
-        });
       } else if (action === UserInteractionsTypes.LEVEL) {
         behaviors[StudentSummaryBehaviorTypes.LEVEL].push(`Level updated ${array.length} time(s): ${array}`);
       } else if (action === UserInteractionsTypes.COMPLETEPLAN) {

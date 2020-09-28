@@ -1,7 +1,6 @@
 import React from 'react';
 import FirstMenuContainer from '../../pages/shared/FirstMenu';
 import { Reviews } from '../../../api/review/ReviewCollection';
-import { MentorQuestions } from '../../../api/mentor/MentorQuestionCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import SecondMenu from '../../pages/shared/SecondMenu';
 
@@ -9,7 +8,6 @@ const AdvisorPageMenuWidget = () => {
   const divStyle = { marginBottom: 30 };
   const firstMenuStyle = { minHeight: 78 };
   let numMod = 0;
-  numMod += MentorQuestions.findNonRetired({ moderated: false }).length;
   numMod += Reviews.findNonRetired({ moderated: false }).length;
   let moderationLabel = 'Moderation';
   if (numMod > 0) {

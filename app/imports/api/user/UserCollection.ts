@@ -18,7 +18,7 @@ import { FavoriteCareerGoals } from '../favorite/FavoriteCareerGoalCollection';
  * Represents a user, which is someone who has a Meteor account.
  *
  * Users are defined when the various Profile collections are initialized, so the User collection is the union
- * of Students, Faculty, Advisors, and Mentors, plus the single Admin account who also has a Meteor account.
+ * of Students, Faculty and Advisors, plus the single Admin account who also has a Meteor account.
  *
  * Note that this collection does not extend any of our Base collections, because it has a very limited API
  * which should be used by clients to access the various Profile collections.
@@ -180,7 +180,6 @@ class UserCollection {
   /**
    * Returns true if user is referenced by other "public" entities. Specifically:
    *   * The user is a student and has published a review.
-   *   * The user is a mentor and has published an answer.
    *   * The user is a student and has published a question.
    *   * The user is a faculty member as has sponsored an opportunity.
    * Used to determine if this user can be deleted.

@@ -8,7 +8,6 @@ interface ICloudinaryState {
 interface IState {
   adminDataModelFeeds: ICloudinaryState;
   adminDataModelUsers: ICloudinaryState;
-  mentorHome: ICloudinaryState;
 }
 
 const initialState: IState = {
@@ -17,10 +16,6 @@ const initialState: IState = {
     cloudinaryUrl: '',
   },
   adminDataModelUsers: {
-    isCloudinaryUsed: false,
-    cloudinaryUrl: '',
-  },
-  mentorHome: {
     isCloudinaryUsed: false,
     cloudinaryUrl: '',
   },
@@ -65,26 +60,6 @@ function reducer(state: IState = initialState, action: { [props: string]: any })
       s = {
         ...state,
         adminDataModelUsers: {
-          ...otherKeys,
-          cloudinaryUrl: action.payload,
-        },
-      };
-      return s;
-    case TYPES.SET_MENTOR_HOME_IS_CLOUDINARY_USED:
-      otherKeys = state.mentorHome;
-      s = {
-        ...state,
-        mentorHome: {
-          ...otherKeys,
-          isCloudinaryUsed: action.payload,
-        },
-      };
-      return s;
-    case TYPES.SET_MENTOR_HOME_CLOUDINARY_URL:
-      otherKeys = state.mentorHome;
-      s = {
-        ...state,
-        mentorHome: {
           ...otherKeys,
           cloudinaryUrl: action.payload,
         },
