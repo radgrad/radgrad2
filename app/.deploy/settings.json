@@ -50,8 +50,12 @@
         "lastName": "Admin"
       },
       "emailDomain": "hawaii.edu",
-      "newsletterFrom": "Phillip Johnson <donotreply@mail.gun.radgrad.org>"
+      "newsletterFrom": "Philip Johnson <donotreply@mail.gun.radgrad.org>"
     }
+  },
+  "monti": {
+    "appId": "svZHraoAqMKmQcpkm",
+    "appSecret": "1bdc3d03-164b-444c-8ed2-4a623a084113"
   },
   "env": {
     "MAIL_URL": "smtps://changeme:changeme@smtp.mailgun.org:465"
