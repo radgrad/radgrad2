@@ -6,7 +6,7 @@ import { Reviews } from '../../../api/review/ReviewCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import { secondMenu } from '../shared/shared-widget-names';
 import { buildRouteName, getUsername } from '../shared/RouterHelperFunctions';
-import {EXPLORER_TYPE } from '../../../startup/client/route-constants';
+import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import { IAdvisorProfile } from '../../../typings/radgrad';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 
@@ -69,7 +69,7 @@ const studentHomePageItems = [
         inverted
         pointing
         id={`${secondMenu}`}
-        >
+      >
         {menuItems.map((item) => (
           <Menu.Item key={item.label} as={NavLink} exact={false} to={buildRouteName(match, `/${item.route}`)}>
             {item.label}
