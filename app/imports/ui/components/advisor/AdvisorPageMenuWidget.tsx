@@ -1,14 +1,15 @@
 import React from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
-import { Container, Dropdown, Menu } from 'semantic-ui-react';
+import { Dropdown, Menu } from 'semantic-ui-react';
 import FirstMenuContainer from '../../pages/shared/FirstMenu';
 import { Reviews } from '../../../api/review/ReviewCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import { secondMenu } from '../shared/shared-widget-names';
-import { buildRouteName, getUsername, IMatchProps } from '../shared/RouterHelperFunctions';
-import { COMMUNITY, DEGREEPLANNER, EXPLORER_TYPE } from '../../../startup/client/route-constants';
+import { buildRouteName, getUsername } from '../shared/RouterHelperFunctions';
+import {EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import { IAdvisorProfile } from '../../../typings/radgrad';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
+
 interface IFilterStudents {
   selectedUsername: string;
   usernameDoc: IStudentProfile;
@@ -21,7 +22,7 @@ interface IFilterStudents {
     }
   }
 }
-const AdvisorPageMenuWidget = (props: IAdvisorProfile)  => {
+const AdvisorPageMenuWidget = (props: IAdvisorProfile) => {
   const { match } = props;
   const username = getUsername(match);
   const divStyle = { marginBottom: 30 };
@@ -51,73 +52,61 @@ const AdvisorPageMenuWidget = (props: IAdvisorProfile)  => {
   { key: 'Career Goals', route: EXPLORER_TYPE.CAREERGOALS },
   { key: 'Courses', route: EXPLORER_TYPE.COURSES },
   { key: 'Interests', route: EXPLORER_TYPE.INTERESTS },
-	  {key: 'Opportunities', route: EXPLORER_TYPE.OPPORTUNITIES },
+  { key: 'Opportunities', route: EXPLORER_TYPE.OPPORTUNITIES },
 ];
 
 const studentHomePageItems = [
-  { key: 'About Me', route: 'aboutme' }
- 
-];
+  { key: 'About Me', route: 'aboutme' },
 
-const communityDropdownItems = [
-  { key: 'Users', route: COMMUNITY.USERS },
-  { key: 'RadGrad Videos', route: COMMUNITY.RADGRADVIDEOS },
 ];
-
   return (
     <div style={divStyle}>
       <FirstMenuContainer style={firstMenuStyle} />
-	     <Menu
-            attached="top"
-            borderless
-            secondary
-            inverted
-            pointing
-            id={`${secondMenu}`}
-          >
-
-      {menuItems.map((item) => (
-        <Menu.Item key={item.label} as={NavLink} exact={false} to={buildRouteName(match, `/${item.route}`)}>
-          {item.label}
-        </Menu.Item>
+      <Menu
+        attached="top"
+        borderless
+        secondary
+        inverted
+        pointing
+        id={`${secondMenu}`}
+        >
+        {menuItems.map((item) => (
+          <Menu.Item key={item.label} as={NavLink} exact={false} to={buildRouteName(match, `/${item.route}`)}>
+            {item.label}
+          </Menu.Item>
       ))}
 
-  
-           
-			 
-            <Dropdown item text="EXPLORE">
-              <Dropdown.Menu>
-                {explorerDropdownItems.map((item) => (
-                  <Dropdown.Item
-                    key={item.key}
-                    as={NavLink}
-                    exact
-                    to={buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${item.route}`)}
-                    content={item.key}
-                  />
+        <Dropdown item text="EXPLORE">
+          <Dropdown.Menu>
+            {explorerDropdownItems.map((item) => (
+              <Dropdown.Item
+                key={item.key}
+                as={NavLink}
+                exact
+                to={buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${item.route}`)}
+                content={item.key}
+              />
                 ))}
-              </Dropdown.Menu>
-            </Dropdown>
-           
-            
-            
-            <Menu.Menu position="right">
-              <Dropdown item text={`Aloha, ${profile.firstName} ${profile.lastName}!`}>
-                <Dropdown.Menu>
-                  {studentHomePageItems.map((item) => (
-                    <Dropdown.Item
-                      key={item.key}
-                      as={NavLink}
-                      exact
-                      to={buildRouteName(match, `/home/${item.route}`)}
-                      content={item.key}
-                    />
+          </Dropdown.Menu>
+        </Dropdown>
+
+        <Menu.Menu position="right">
+          <Dropdown item text={`Aloha, ${profile.firstName} ${profile.lastName}!`}>
+            <Dropdown.Menu>
+              {studentHomePageItems.map((item) => (
+                <Dropdown.Item
+                  key={item.key}
+                  as={NavLink}
+                  exact
+                  to={buildRouteName(match, `/home/${item.route}`)}
+                  content={item.key}
+                />
                   ))}
-                  <Dropdown.Item as={NavLink} exact to="/signout" content="Sign Out" />
-                </Dropdown.Menu>
-              </Dropdown>
-            </Menu.Menu>
-          </Menu>
+              <Dropdown.Item as={NavLink} exact to="/signout" content="Sign Out" />
+            </Dropdown.Menu>
+          </Dropdown>
+        </Menu.Menu>
+      </Menu>
     </div>
   );
 };
