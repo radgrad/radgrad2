@@ -54,4 +54,3 @@ meteortesting:browser-tests
 lmieulet:meteor-coverage
 littledata:synced-cron
 meteortesting:mocha
-mdg:meteor-apm-agent
