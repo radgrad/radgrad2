@@ -10,7 +10,7 @@ import { assertRole, isRole, ROLE } from './Role';
 if (Meteor.isServer) {
   describe('Role', function testSuite() {
     it('Test role definitions, isRole', function test() {
-      expect(Roles.getAllRoles().fetch()).to.have.lengthOf(6);
+      expect(Roles.getAllRoles().fetch()).to.have.lengthOf(5);
       expect(isRole(ROLE.FACULTY)).to.be.true;
       expect(isRole('Grad Student')).to.be.false;
     });
