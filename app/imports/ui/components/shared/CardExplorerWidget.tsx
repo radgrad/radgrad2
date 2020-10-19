@@ -25,7 +25,7 @@ import { cardExplorerWidget } from './shared-widget-names';
 import CourseFilterWidget, { courseFilterKeys } from './CourseFilterWidget';
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 import PreferedChoice from '../../../api/degree-plan/PreferredChoice';
-import { IAdvisorProfile, IFacultyProfile, IMentorProfile, IStudentProfile } from '../../../typings/radgrad';
+import { IAdvisorProfile, IFacultyProfile, IStudentProfile } from '../../../typings/radgrad';
 import { RootState } from '../../../redux/types';
 import { scrollPositionActions } from '../../../redux/shared/scrollPosition';
 
@@ -46,8 +46,6 @@ interface ICardExplorerWidgetProps extends ICardExplorerMenuWidgetProps {
   advisorProfiles: IAdvisorProfile[];
   // eslint-disable-next-line react/no-unused-prop-types
   facultyProfiles: IFacultyProfile[];
-  // eslint-disable-next-line react/no-unused-prop-types
-  mentorProfile: IMentorProfile[];
   // eslint-disable-next-line react/no-unused-prop-types
   menuList: object[];
   type: IExplorerTypes;
@@ -176,7 +174,7 @@ const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
 
   const isStudent = Router.isUrlRoleStudent(match);
 
-  // Certain "Adding" functinalities should only be exposed to "Student" role, not Faculty or Mentor
+  // Certain "Adding" functinalities should only be exposed to "Student" role, not Faculty
   const canAdd = Router.isUrlRoleStudent(match);
   // Saving Scroll Position
   const { plansScrollPosition, careerGoalsScrollPosition, coursesScrollPosition, degreesScrollPosition, interestsScrollPosition, opportunitiesScrollPosition } = props;
@@ -284,7 +282,6 @@ const CardExplorerWidgetCon = withTracker((props) => {
   const studentProfiles: IStudentProfile[] = Users.findProfilesWithRole(ROLE.STUDENT, {}, {});
   const advisorProfiles: IAdvisorProfile[] = Users.findProfilesWithRole(ROLE.ADVISOR, {}, {});
   const facultyProfiles: IFacultyProfile[] = Users.findProfilesWithRole(ROLE.FACULTY, {}, {});
-  const mentorProfiles: IMentorProfile[] = Users.findProfilesWithRole(ROLE.MENTOR, {}, {});
 
   return {
     reactiveSource,
@@ -294,7 +291,6 @@ const CardExplorerWidgetCon = withTracker((props) => {
     studentProfiles,
     advisorProfiles,
     facultyProfiles,
-    mentorProfiles,
   };
 })(CardExplorerWidget);
 const CardExplorerWidgetCont = connect(mapStateToProps, mapDispatchToProps)(CardExplorerWidgetCon);

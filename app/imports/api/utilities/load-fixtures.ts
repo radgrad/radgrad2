@@ -11,7 +11,6 @@ import { getDefinitions } from '../test/test-utilities';
 import { Users } from '../user/UserCollection';
 import { AdvisorProfiles } from '../user/AdvisorProfileCollection';
 import { FacultyProfiles } from '../user/FacultyProfileCollection';
-import { MentorProfiles } from '../user/MentorProfileCollection';
 import { StudentProfiles } from '../user/StudentProfileCollection';
 import { AcademicYearInstances } from '../degree-plan/AcademicYearInstanceCollection';
 import { PlanChoices } from '../degree-plan/PlanChoiceCollection';
@@ -19,8 +18,6 @@ import { Feeds } from '../feed/FeedCollection';
 import { FeedbackInstances } from '../feedback/FeedbackInstanceCollection';
 import { HelpMessages } from '../help/HelpMessageCollection';
 import { AdvisorLogs } from '../log/AdvisorLogCollection';
-import { MentorAnswers } from '../mentor/MentorAnswerCollection';
-import { MentorQuestions } from '../mentor/MentorQuestionCollection';
 
 export const loadCollectionNewDataOnly = (collection: BaseCollection, loadJSON, printToConsole) => {
   let retVal = '';
@@ -115,16 +112,6 @@ export const loadCollectionNewDataOnly = (collection: BaseCollection, loadJSON, 
         }
       }
         break;
-      case MentorAnswers.getType(): {
-        const questionID = MentorQuestions.getID(definition.question);
-        const mentorID = Users.getID(definition.mentor);
-        if (MentorAnswers.find({ questionID, mentorID, text: definition.text })
-          .count() === 0) {
-          collection.define(definition);
-          count++;
-        }
-      }
-        break;
       case OpportunityInstances.getType():
         termID = AcademicTerms.getID(definition.academicTerm);
         studentID = Users.getID(definition.student);
@@ -136,7 +123,6 @@ export const loadCollectionNewDataOnly = (collection: BaseCollection, loadJSON, 
         break;
       case AdvisorProfiles.getType():
       case FacultyProfiles.getType():
-      case MentorProfiles.getType():
       case StudentProfiles.getType():
         if (collection.find({ username: definition.username })
           .count() === 0) {

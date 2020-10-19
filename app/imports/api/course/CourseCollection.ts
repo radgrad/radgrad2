@@ -15,7 +15,7 @@ import { PlanChoices } from '../degree-plan/PlanChoiceCollection';
  * Represents a specific course, such as "ICS 311".
  * To represent a specific course for a specific academicTerm, use CourseInstance.
  * @memberOf api/course
- * @extends api/base.BaseSlugCollection
+ * @extends api/base~BaseSlugCollection
  */
 class CourseCollection extends BaseSlugCollection {
   public unInterestingSlug: string;

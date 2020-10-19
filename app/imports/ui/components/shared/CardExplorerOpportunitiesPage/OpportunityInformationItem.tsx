@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, Divider, Grid, Header } from 'semantic-ui-react';
+import { Image, Divider, Grid, Header, Icon } from 'semantic-ui-react';
 import { withRouter, Link } from 'react-router-dom';
 import Markdown from 'react-markdown';
 import _ from 'lodash';
@@ -8,12 +8,12 @@ import { docToShortDescription } from '../data-model-helper-functions';
 import IceHeader from '../IceHeader';
 import { buildExplorerSlugRoute, IMatchProps, renderLink } from '../RouterHelperFunctions';
 import InterestList from '../InterestList';
-import OpportunityStudentsParticipatingWidget from '../../student/OpportunityStudentsParticipatingWidget';
 import { OpportunityTypes } from '../../../../api/opportunity/OpportunityTypeCollection';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import { replaceTermString } from '../helper-functions';
 import { Slugs } from '../../../../api/slug/SlugCollection';
 import { EXPLORER_TYPE } from '../../../../startup/client/route-constants';
+import { StudentParticipations } from '../../../../api/public-stats/StudentParticipationCollection';
 
 // Certain parts of pages don't show other information such students participating, logo, opportunity, type, and academic terms
 export interface IOpportunityInformationItemConfiguration {
@@ -39,6 +39,11 @@ const getOpportunityAcademicTerms = (opportunity: IOpportunity): string[] => {
   return _.map(termIDs, (termID) => AcademicTerms.toString(termID));
 };
 
+const getNumberOfStudentsParticipating = (opportunity: IOpportunity): number => {
+  const participatingStudents = StudentParticipations.findDoc({ itemID: opportunity._id });
+  return participatingStudents.itemCount;
+};
+
 const OpportunityInformationItem = (props: IOpportunityItemWidgetProps) => {
   const { match, informationConfiguration, opportunity } = props;
 
@@ -46,6 +51,7 @@ const OpportunityInformationItem = (props: IOpportunityItemWidgetProps) => {
     marginTop: '5px',
   };
 
+  const numberOfStudentsParticipating = getNumberOfStudentsParticipating(props.opportunity);
   const opportunityICE = opportunity.ice;
   const opportunityType = getOpportunityType(opportunity);
   const opportunityShortDescription = docToShortDescription(opportunity);
@@ -68,18 +74,14 @@ const OpportunityInformationItem = (props: IOpportunityItemWidgetProps) => {
         <Grid.Column width={informationConfiguration.showLogo ? 13 : undefined}>
           {/* Header (Name and ICE Points) */}
           <Grid.Row columns={2}>
-            <Grid.Column>
-              <Header as="h3">
-                <Link
-                  to={buildExplorerSlugRoute(match, EXPLORER_TYPE.OPPORTUNITIES, opportunitySlug)}
-                >
-                  {opportunity.name.toUpperCase()}
-                </Link>
-              </Header>
-            </Grid.Column>
-            <Grid.Column>
+            <Header as="h3">
+              <Link
+                to={buildExplorerSlugRoute(match, EXPLORER_TYPE.OPPORTUNITIES, opportunitySlug)}
+              >
+                {opportunity.name.toUpperCase()}
+              </Link>
               <IceHeader ice={opportunityICE} />
-            </Grid.Column>
+            </Header>
           </Grid.Row>
 
           {/* Metadata (Opportunity Type and Academic Terms) */}
@@ -107,15 +109,15 @@ const OpportunityInformationItem = (props: IOpportunityItemWidgetProps) => {
           <Grid.Row>
             <Grid>
               <Grid.Column
-                width={informationConfiguration.showStudentsParticipating ? 14 : undefined}
+                width={informationConfiguration.showStudentsParticipating ? 11 : undefined}
                 style={interestListStyle}
-                floated="left"
               >
                 <InterestList size="mini" item={opportunity} />
               </Grid.Column>
               {informationConfiguration.showStudentsParticipating ? (
-                <Grid.Column width={2} floated="right">
-                  <OpportunityStudentsParticipatingWidget opportunity={opportunity} />
+                <Grid.Column width={5} verticalAlign="bottom" textAlign="right">
+                  <Icon size="large" name="user circle" />
+                  <b>{numberOfStudentsParticipating} students are participating</b>
                 </Grid.Column>
               ) : ''}
             </Grid>

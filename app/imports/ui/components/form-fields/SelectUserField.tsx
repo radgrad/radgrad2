@@ -6,7 +6,6 @@ import { ROLE } from '../../../api/role/Role';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
-import { MentorProfiles } from '../../../api/user/MentorProfileCollection';
 
 interface IUser {
   _id: string;
@@ -46,9 +45,6 @@ const SelectUserFieldContainer = withTracker((props) => {
       break;
     case ROLE.FACULTY:
       users = FacultyProfiles.findNonRetired({});
-      break;
-    case ROLE.MENTOR:
-      users = MentorProfiles.findNonRetired({});
       break;
     default:
       users = StudentProfiles.findNonRetired({ isAlumni: true });

@@ -7,7 +7,6 @@ import { ROLE } from '../../../api/role/Role';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
 import InterestList from './InterestList';
-import UserAnswersComponent from './UserAnswersComponent';
 import { capitalizeFirstLetter } from './helper-functions';
 import { explorerUserWidget } from './shared-widget-names';
 
@@ -25,7 +24,7 @@ const isRole = (props: IExplorerUsersWidgetProps, compareRole: string, ...otherR
  * being displayed instead of a button and the IBaseProfile.motivation field being displayed if it exists.
  * @param userProfile {IBaseProfile} User profile to be displayed
  * @param isActive {boolean} This component expects the parent to manage state
- * @param handleClose {()=>any} Handler to close component (dimmer) when clicking outside of the component
+ * @param handleClose {function} Handler to close component (dimmer) when clicking outside of the component
  * @return {Dimmer} */
 const ExplorerUsersWidget = (props: IExplorerUsersWidgetProps) => {
   if (!(props.userProfile)) return undefined;
@@ -81,7 +80,7 @@ const ExplorerUsersWidget = (props: IExplorerUsersWidgetProps) => {
                     src={`/images/level-icons/radgrad-level-${level}-icon.png`}
                   />
                 ) : undefined}
-                {isRole(props, ROLE.ADVISOR, ROLE.FACULTY, ROLE.MENTOR) ? (
+                {isRole(props, ROLE.ADVISOR, ROLE.FACULTY) ? (
                   <React.Fragment>
                     {p.username}
                     <br />
@@ -94,7 +93,6 @@ const ExplorerUsersWidget = (props: IExplorerUsersWidgetProps) => {
                 <a href={p.website} target="_blank" rel="noopener noreferrer">{p.website}</a> : undefined}
               {p.motivation || undefined}
             </Card.Content>
-            {isRole(props, ROLE.MENTOR) ? <UserAnswersComponent userID={p.userID} /> : undefined}
             <Card.Content extra>
               <InterestList item={p} size="mini" />
             </Card.Content>

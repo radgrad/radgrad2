@@ -39,7 +39,7 @@ const CardExplorerMenuNonMobileWidget = (props: ICardExplorerMenuNonMobileWidget
     <React.Fragment>
       {/* ####### The Menu underneath the Dropdown for NON mobile  ####### */}
       {/* The following components are rendered ONLY for STUDENTS: Academic Plans, Courses, and Opportunities. However,
-            FACULTY or MENTORS have a 'Suggest a Opportunity / Career Goal' mailto link. */}
+            FACULTY have a 'Suggest a Opportunity / Career Goal' mailto link. */}
       <Responsive minWidth={Responsive.onlyTablet.minWidth}>
         {(isType(EXPLORER_TYPE.ACADEMICPLANS, type) && isStudent) ?
           (
@@ -126,7 +126,7 @@ const CardExplorerMenuNonMobileWidget = (props: ICardExplorerMenuNonMobileWidget
           )
           : ''}
 
-        {/* Components renderable to STUDENTS, FACULTY, and MENTORS. But if we are FACULTY or MENTORS, make sure we
+        {/* Components renderable to STUDENTS and FACULTY. But if we are FACULTY, make sure we
                 don't map over menuAddedList or else we get undefined error. */}
         {isType(EXPLORER_TYPE.INTERESTS, type) ?
           (

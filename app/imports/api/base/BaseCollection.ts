@@ -37,7 +37,7 @@ class BaseCollection {
 
   /**
    * Define documents for the collection.
-   * @param obj the document.
+   * @param {Object} obj the document.
    * @throws Meteor.Error since shouldn't call this method on the base class.
    */
   public define(obj: object): string {
@@ -48,7 +48,7 @@ class BaseCollection {
    * Returns the number of documents in this collection.
    * @returns { Number } The number of elements in this collection.
    */
-  public count() {
+  public count(): number {
     return this.collection.find().count();
   }
 

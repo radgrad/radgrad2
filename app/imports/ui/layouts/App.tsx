@@ -41,9 +41,6 @@ const App = () => (
       {routes.FACULTY.map((route) => (
         <FacultyProtectedRoute key={route.path} {...route} />
       ))}
-      {routes.MENTOR.map((route) => (
-        <MentorProtectedRoute key={route.path} {...route} />
-      ))}
       {routes.STUDENT.map((route) => (
         <StudentProtectedRoute key={route.path} {...route} />
       ))}
@@ -139,28 +136,6 @@ const FacultyProtectedRoute = ({ component: Component, ...rest }) => {
       render={(props: any) => {
         const isLogged = Meteor.userId() !== null;
         const isAllowed = Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN, ROLE.FACULTY]);
-        return (isLogged && isAllowed) ?
-          (<WrappedComponent {...props} />) :
-          // eslint-disable-next-line react/prop-types
-          (<Redirect to={{ pathname: '/', state: { from: props.location } }} />
-          );
-      }}
-    />
-  );
-};
-
-// eslint-disable-next-line react/prop-types
-const MentorProtectedRoute = ({ component: Component, ...rest }) => {
-  if (_.isNil(Meteor.userId())) {
-    return (<Redirect to={{ pathname: '/', state: { from: rest.location } }} />);
-  }
-  const WrappedComponent = withInstanceSubscriptions(withGlobalSubscription(Component));
-  return (
-    <Route
-      {...rest}
-      render={(props: any) => {
-        const isLogged = Meteor.userId() !== null;
-        const isAllowed = Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN, ROLE.MENTOR]);
         return (isLogged && isAllowed) ?
           (<WrappedComponent {...props} />) :
           // eslint-disable-next-line react/prop-types

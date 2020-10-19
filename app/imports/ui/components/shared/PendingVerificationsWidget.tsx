@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import { Segment, Header, Grid, Container, Form } from 'semantic-ui-react';
 import moment from 'moment';
-/* eslint-disable no-unused-vars */
 import {
   IAcademicTerm,
   IOpportunity,
   IProcessed,
   IVerificationRequest,
 } from '../../../typings/radgrad';
-/* eslint-enable no-unused-vars */
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import { processPendingVerificationMethod } from '../../../api/verification/VerificationRequestCollection.methods';
 import { updateLevelMethod } from '../../../api/level/LevelProcessor.methods';

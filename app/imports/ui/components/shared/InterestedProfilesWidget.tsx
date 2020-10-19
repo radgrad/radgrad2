@@ -14,18 +14,12 @@ interface IInterestedProfileWidgetProps {
 const InterestedProfilesWidget = (props: IInterestedProfileWidgetProps) => {
   // console.log('InterestedProfileWidget', props);
   const [faculty, setFaculty] = useState([]);
-  const [mentors, setMentors] = useState([]);
   const [students, setStudents] = useState([]);
   const [alumni, setAlumni] = useState([]);
   const { interest } = props;
   getUserIDsWithFavoriteInterestMethod.call({ interestID: interest._id, role: 'faculty' }, (error, res) => {
     if (res && faculty.length !== res.length) {
       setFaculty(_.map(res, (id) => Users.getProfile(id)));
-    }
-  });
-  getUserIDsWithFavoriteInterestMethod.call({ interestID: interest._id, role: 'mentor' }, (error, res) => {
-    if (res && mentors.length !== res.length) {
-      setMentors(_.map(res, (id) => Users.getProfile(id)));
     }
   });
   getUserIDsWithFavoriteInterestMethod.call({ interestID: interest._id, role: 'student' }, (error, res) => {
@@ -102,29 +96,6 @@ const InterestedProfilesWidget = (props: IInterestedProfileWidgetProps) => {
                       key={alum._id}
                       trigger={<Image src={alum.picture} circular />}
                       content={`${alum.firstName} ${alum.lastName}`}
-                    />
-                  ))}
-                </Image.Group>
-              </Container>
-            </Segment>
-          </Container>
-        </Grid.Column>
-      </Grid.Row>
-      <Grid.Row>
-        <Grid.Column>
-          <Container>
-            <Segment>
-              <Header as="h5" textAlign="center">
-                MENTORS <WidgetHeaderNumber inputValue={mentors.length} />
-              </Header>
-              <Divider />
-              <Container textAlign="center">
-                <Image.Group size="mini">
-                  {mentors.map((mentor) => (
-                    <Popup
-                      key={mentor._id}
-                      trigger={<Image src={mentor.picture} circular />}
-                      content={`${mentor.firstName} ${mentor.lastName}`}
                     />
                   ))}
                 </Image.Group>

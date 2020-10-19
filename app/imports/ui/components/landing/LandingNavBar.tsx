@@ -26,6 +26,8 @@ const LandingNavBar = (props: INavBarProps) => {
   const imageStyle = { width: 45 };
   // console.log(props);
   const url = `/#/${props.role}/${props.currentUser}/home`;
+  // Capitalize first letter
+  const displayRole = props.currentUser ? props.role.charAt(0).toUpperCase() + props.role.slice(1) : '';
   return (
 
     <Menu attached="top" borderless size="small">
@@ -42,11 +44,11 @@ const LandingNavBar = (props: INavBarProps) => {
         <Menu.Item>
           {props.currentUser ? (
             <div>
-              <Button basic color="green" compact><a href={url}>Home</a></Button>
+              <Button basic color="green" compact><a href={url}>{displayRole} Home</a></Button>
             </div>
-        ) : (
-          <RadGradLoginButtons />
-        )}
+          ) : (
+            <RadGradLoginButtons />
+          )}
         </Menu.Item>
       </Container>
     </Menu>
@@ -70,9 +72,6 @@ const LandingNavBarContainer = withTracker(() => {
     }
     if (profile.role === ROLE.FACULTY) {
       role = 'faculty';
-    }
-    if (profile.role === ROLE.MENTOR) {
-      role = 'mentor';
     }
     if (profile.role === ROLE.STUDENT) {
       role = 'student';

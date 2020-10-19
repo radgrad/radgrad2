@@ -1,16 +1,35 @@
 import React from 'react';
+import { NavLink, withRouter } from 'react-router-dom';
+import { Dropdown, Menu } from 'semantic-ui-react';
 import FirstMenuContainer from '../../pages/shared/FirstMenu';
 import { Reviews } from '../../../api/review/ReviewCollection';
-import { MentorQuestions } from '../../../api/mentor/MentorQuestionCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
-import SecondMenu from '../../pages/shared/SecondMenu';
+import { secondMenu } from '../shared/shared-widget-names';
+import { buildRouteName, getUsername } from '../shared/RouterHelperFunctions';
+import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
+import { IAdvisorProfile } from '../../../typings/radgrad';
+import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 
-const AdvisorPageMenuWidget = () => {
+interface IFilterStudents {
+  selectedUsername: string;
+  usernameDoc: IStudentProfile;
+  interests: IInterest[];
+  careerGoals: ICareerGoal[];
+  advisorLogs: IAdvisorLog[];
+  match: {
+    params: {
+      username: string;
+    }
+  }
+}
+const AdvisorPageMenuWidget = (props: IAdvisorProfile) => {
+  const { match } = props;
+  const username = getUsername(match);
   const divStyle = { marginBottom: 30 };
   const firstMenuStyle = { minHeight: 78 };
+  const profile: IAdvisorProfile = AdvisorProfiles.getProfile(username);
   let numMod = 0;
-  numMod += MentorQuestions.findNonRetired({ moderated: false }).length;
-  numMod += Reviews.findNonRetired({ moderated: false }).length;
+   numMod += Reviews.findNonRetired({ moderated: false }).length;
   let moderationLabel = 'Moderation';
   if (numMod > 0) {
     moderationLabel = `${moderationLabel} (${numMod})`;
@@ -28,12 +47,68 @@ const AdvisorPageMenuWidget = () => {
     { label: 'Academic Plan', route: 'academic-plan' },
     { label: 'Scoreboard', route: 'scoreboard', regex: 'scoreboard' },
   ];
+  const explorerDropdownItems = [
+  { key: 'Academic Plans', route: EXPLORER_TYPE.ACADEMICPLANS },
+  { key: 'Career Goals', route: EXPLORER_TYPE.CAREERGOALS },
+  { key: 'Courses', route: EXPLORER_TYPE.COURSES },
+  { key: 'Interests', route: EXPLORER_TYPE.INTERESTS },
+  { key: 'Opportunities', route: EXPLORER_TYPE.OPPORTUNITIES },
+];
+
+const studentHomePageItems = [
+  { key: 'About Me', route: 'aboutme' },
+
+];
   return (
     <div style={divStyle}>
       <FirstMenuContainer style={firstMenuStyle} />
-      <SecondMenu menuItems={menuItems} numItems={menuItems.length} />
+      <Menu
+        attached="top"
+        borderless
+        secondary
+        inverted
+        pointing
+        id={`${secondMenu}`}
+      >
+        {menuItems.map((item) => (
+          <Menu.Item key={item.label} as={NavLink} exact={false} to={buildRouteName(match, `/${item.route}`)}>
+            {item.label}
+          </Menu.Item>
+      ))}
+
+        <Dropdown item text="EXPLORE">
+          <Dropdown.Menu>
+            {explorerDropdownItems.map((item) => (
+              <Dropdown.Item
+                key={item.key}
+                as={NavLink}
+                exact
+                to={buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${item.route}`)}
+                content={item.key}
+              />
+                ))}
+          </Dropdown.Menu>
+        </Dropdown>
+
+        <Menu.Menu position="right">
+          <Dropdown item text={`Aloha, ${profile.firstName} ${profile.lastName}!`}>
+            <Dropdown.Menu>
+              {studentHomePageItems.map((item) => (
+                <Dropdown.Item
+                  key={item.key}
+                  as={NavLink}
+                  exact
+                  to={buildRouteName(match, `/home/${item.route}`)}
+                  content={item.key}
+                />
+                  ))}
+              <Dropdown.Item as={NavLink} exact to="/signout" content="Sign Out" />
+            </Dropdown.Menu>
+          </Dropdown>
+        </Menu.Menu>
+      </Menu>
     </div>
   );
 };
 
-export default AdvisorPageMenuWidget;
+export default withRouter(AdvisorPageMenuWidget);

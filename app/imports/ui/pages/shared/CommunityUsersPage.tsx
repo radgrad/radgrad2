@@ -3,7 +3,6 @@ import { Container, Grid } from 'semantic-ui-react';
 import * as Router from '../../components/shared/RouterHelperFunctions';
 import { URL_ROLES } from '../../../startup/client/route-constants';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
-import MentorPageMenuWidget from '../../components/mentor/MentorPageMenuWidget';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import CommunityUsersWidget from '../../components/shared/CommunityUsersPage/CommunityUsersWidget';
@@ -22,8 +21,6 @@ const CommunityUsersPage = (props: ICommunityUsersPageProps) => {
     switch (role) {
       case URL_ROLES.STUDENT:
         return <StudentPageMenuWidget />;
-      case URL_ROLES.MENTOR:
-        return <MentorPageMenuWidget />;
       case URL_ROLES.FACULTY:
         return <FacultyPageMenuWidget />;
       default:

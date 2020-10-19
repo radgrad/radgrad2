@@ -19,7 +19,6 @@ import DegreePlan from '../../components/guidedtour/student/degree-plan';
 import ICE from '../../components/guidedtour/student/ice';
 import Levels from '../../components/guidedtour/student/levels';
 import SampleStudent from '../../components/guidedtour/student/sample-student';
-import Mentor from '../../components/guidedtour/student/mentor';
 import AdvisorLog from '../../components/guidedtour/student/advisor-log';
 import WhatsNext from '../../components/guidedtour/student/whats-next';
 
@@ -35,9 +34,6 @@ interface IGuidedTourStudentProps {
   // eslint-disable-next-line react/no-unused-prop-types
   opportunities: number;
   // eslint-disable-next-line react/no-unused-prop-types
-  mentors: number;
-  // eslint-disable-next-line react/no-unused-prop-types
-  mentorLocations: string;
   ready: boolean;
 }
 
@@ -65,7 +61,6 @@ const renderPage = (props: IGuidedTourStudentProps) => {
             <ICE />
             <Levels />
             <SampleStudent />
-            <Mentor mentors={props.mentors} mentorLocations={props.mentorLocations} />
             <AdvisorLog />
             <WhatsNext />
           </Slider>
@@ -88,8 +83,6 @@ const GuidedTourStudentContainer = withTracker(() => {
   let courses;
   let courseReviews;
   let opportunities;
-  let mentors;
-  let mentorLocations;
   if (subscription.ready() && !Meteor.isAppTest) {
     key = PublicStats.interestsTotalKey;
     interests = PublicStats.findDoc({ key }).value;
@@ -101,10 +94,6 @@ const GuidedTourStudentContainer = withTracker(() => {
     courseReviews = PublicStats.findDoc({ key }).value;
     key = PublicStats.opportunitiesTotalKey;
     opportunities = PublicStats.findDoc({ key }).value;
-    key = PublicStats.usersMentorsTotalKey;
-    mentors = PublicStats.findDoc({ key }).value;
-    key = PublicStats.usersMentorsLocationsKey;
-    mentorLocations = PublicStats.findDoc({ key }).value;
   }
   return {
     ready: subscription.ready(),
@@ -113,8 +102,6 @@ const GuidedTourStudentContainer = withTracker(() => {
     courses,
     courseReviews,
     opportunities,
-    mentors,
-    mentorLocations,
   };
 })(LandingGuidedTourStudent);
 

@@ -4,6 +4,3 @@ export const SET_ADMIN_DATAMODEL_FEEDS_CLOUDINARY_URL = 'radgrad/shared/cloudina
 // Admin Data Model Users Page
 export const SET_ADMIN_DATAMODEL_USERS_IS_CLOUDINARY_USED = 'radgrad/shared/cloudinary/SET_ADMIN_DATAMODEL_USERS_IS_CLOUDINARY_USED';
 export const SET_ADMIN_DATAMODEL_USERS_CLOUDINARY_URL = 'radgrad/shared/cloudinary/SET_ADMIN_DATAMODEL_USERS_CLOUDINARY_URL';
-// Mentor Home Page
-export const SET_MENTOR_HOME_IS_CLOUDINARY_USED = 'radgrad/shared/cloudinary/SET_MENTOR_HOME_IS_CLOUDINARY_USED';
-export const SET_MENTOR_HOME_CLOUDINARY_URL = 'radgrad/shared/cloudinary/SET_MENTOR_HOME_CLOUDINARY_URL';

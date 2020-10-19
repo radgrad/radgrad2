@@ -292,7 +292,7 @@ class OpportunityInstanceCollection extends BaseCollection {
 
   /**
    * Gets the publication names.
-   * @returns {{student: string; perStudentAndAcademicTerm: string; publicStudent: string; publicSlugStudent: string; studentID: string}}
+   * @returns {Object} The publication names.
    */
   public getPublicationNames() {
     return this.publicationNames;

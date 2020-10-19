@@ -25,9 +25,6 @@ import {
   studentLogWidget,
   studentDepWidget,
   tabbedFavoritesWidget,
-  studentMentorSpaceQuestionsWidget,
-  studentMentorSpaceAskQuestionWidget,
-  studentMentorSpaceMentorDirectoryWidget,
 } from '../components/student/student-widget-names';
 
 export const adminLogin = async ({ email, password, browser }) => {
@@ -87,7 +84,6 @@ export const explorerOpportunityWidgetTitleSelector = explorerOpportunityWidgetS
 export const student2ndMenuHomePageSelector = secondMenuSelector.nth(0);
 export const student2ndMenuExplorerPageSelector = secondMenuSelector.nth(1);
 export const student2ndMenuDegreePlannerPageSelector = secondMenuSelector.nth(2);
-export const student2ndMenuMentorSpacePageSelector = secondMenuSelector.nth(3);
 
 export const studentHomePageSelector = leftHandMenuSelector.nth(0);
 export const studentAboutMePageSelector = leftHandMenuSelector.nth(1);
@@ -125,10 +121,3 @@ export const studentTabbedFavoriestWidgetFavOppTabSelector = studentTabbedFavori
 export const studentTabbedFavoriestWidgetFavPlanTabSelector = studentTabbedFavoritesWidgetFaveTabSelector.nth(1);
 export const studentTabbedFavoriestWidgetFavCourseTabSelector = studentTabbedFavoritesWidgetFaveTabSelector.nth(2);
 export const studentTabbedFavoriestWidgetDetailsTabSelector = studentTabbedFavoritesWidgetFaveTabSelector.nth(3);
-
-export const studentMentorSpaceQuestionsWidgetSelector = Selector(`#${studentMentorSpaceQuestionsWidget}`);
-export const studentMentorSpaceQuestionWidgetTitleSelector = studentMentorSpaceQuestionsWidgetSelector.child('.header').child('h4');
-export const studentMentorSpaceAskQuestionWidgetSelector = Selector(`#${studentMentorSpaceAskQuestionWidget}`);
-export const studentMentorSpaceAskQuestionWidgetTitleSelector = studentMentorSpaceAskQuestionWidgetSelector.child('.header').child('h4');
-export const studentMentorSpaceMentorDirectoryWidgetSelector = Selector(`#${studentMentorSpaceMentorDirectoryWidget}`);
-export const studentMentorSpaceMentorDirectoryWidgetTitleSelector = studentMentorSpaceMentorDirectoryWidgetSelector.child('.header').child('h4');

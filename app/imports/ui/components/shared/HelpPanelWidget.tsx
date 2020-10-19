@@ -15,7 +15,6 @@ interface IHelpPanelWidgetProps {
 }
 
 const HelpPanelWidget = (props: IHelpPanelWidgetProps) => {
-  // FIXME: These are giving an ESLint error saying these props are missing in props validation (react/prop-types)
   const { match, helpMessages } = props;
 
   const helpMessage = _.find(helpMessages, (m) => m.routeName === match.path);
@@ -33,11 +32,10 @@ const HelpPanelWidget = (props: IHelpPanelWidgetProps) => {
   ) : '';
 };
 
-const HelpPanelWidgetCon = withRouter(HelpPanelWidget);
 const HelpPanelWidgetContainer = withTracker((props) => {
   const helpMessages = HelpMessages.findNonRetired({ routeName: props.match.path });
   return {
     helpMessages,
   };
-})(HelpPanelWidgetCon);
-export default HelpPanelWidgetContainer;
+})(HelpPanelWidget);
+export default withRouter(HelpPanelWidgetContainer);

@@ -26,8 +26,6 @@ export enum UserInteractionsTypes {
   /* Reviews */
   ADDREVIEW = 'addReview',
   EDITREVIEW = 'editReview',
-  /* Mentor Space */
-  ASKQUESTION = 'askQuestion',
   /* Degree Planner */
   VERIFYREQUEST = 'verifyRequest',
 }

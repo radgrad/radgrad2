@@ -40,7 +40,6 @@ import { Teasers } from '../../../api/teaser/TeaserCollection';
 import ExplorerCareerGoalsWidget from '../../components/shared/ExplorerCareerGoalsWidget';
 import { EXPLORER_TYPE, URL_ROLES } from '../../../startup/client/route-constants';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
-import MentorPageMenuWidget from '../../components/mentor/MentorPageMenuWidget';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 import { defaultProfilePicture } from '../../../api/user/BaseProfileCollection';
 import BackToTopButton from '../../components/shared/BackToTopButton';
@@ -90,8 +89,6 @@ const getMenuWidget = (props: IIndividualExplorerPageProps): JSX.Element => {
   switch (role) {
     case URL_ROLES.STUDENT:
       return <StudentPageMenuWidget />;
-    case URL_ROLES.MENTOR:
-      return <MentorPageMenuWidget />;
     case URL_ROLES.FACULTY:
       return <FacultyPageMenuWidget />;
     default:
@@ -168,11 +165,6 @@ const socialPairsCareerGoals = (theCareerGoal: ICareerGoal): { label: string, am
     label: 'alumni',
     amount: numUsersCareerGoals(theCareerGoal, ROLE.ALUMNI),
     value: interestedUsersCareerGoals(theCareerGoal, ROLE.ALUMNI),
-  },
-  {
-    label: 'mentors',
-    amount: numUsersCareerGoals(theCareerGoal, ROLE.MENTOR),
-    value: interestedUsersCareerGoals(theCareerGoal, ROLE.MENTOR),
   },
 ];
 

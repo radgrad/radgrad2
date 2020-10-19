@@ -4,6 +4,8 @@ import { radgradVideos } from '../../../../api/radgrad/radgrad-videos';
 import TeaserVideo from '../../shared/TeaserVideo';
 
 const StudentHomeRadGradVideosWidget = () => {
+  const videoTitleStyle: React.CSSProperties = { marginTop: '10px' };
+
   const numberOfVideos = 3;
   // Get random X (numberOfVideos) amount of radgrad videos
   // https://stackoverflow.com/a/38571132
@@ -16,10 +18,13 @@ const StudentHomeRadGradVideosWidget = () => {
       <Grid.Row columns={3}>
         {slicedRadGradVideos.map((video) => (
           <Grid.Column key={video.youtubeID}>
-            <TeaserVideo id={video.youtubeID} />
-            {/* TODO: RadGrad video details, see issue-281 and the FIGMA mockup */}
+            <Grid.Row><TeaserVideo id={video.youtubeID} /></Grid.Row>
+            <Grid.Row style={videoTitleStyle}><Header>{video.title}</Header></Grid.Row>
+            {/* TODO: see issue-281 and the FIGMA mockup */}
+            <Grid.Row>{video.author}</Grid.Row>
+            <Grid.Row>{/*  TODO: Video Upload Date; see issue-281 and FIGMA mockup */}</Grid.Row>
           </Grid.Column>
-          ))}
+        ))}
       </Grid.Row>
     </Grid>
   );

@@ -54,8 +54,6 @@ const Signin = () => {
     pathname = `/advisor/${username}/home`;
   } else if (Roles.userIsInRole(userId, [ROLE.FACULTY])) {
     pathname = `/faculty/${username}/home`;
-  } else if (Roles.userIsInRole(userId, [ROLE.MENTOR])) {
-    pathname = `/mentor/${username}/home`;
   } else if (Roles.userIsInRole(userId, [ROLE.STUDENT])) {
     pathname = `/student/${username}/home`;
   }

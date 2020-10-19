@@ -20,8 +20,6 @@ interface IState {
     HelpMessageCollection: IPaginationState;
     InterestCollection: IPaginationState;
     InterestTypeCollection: IPaginationState;
-    MentorAnswerCollection: IPaginationState;
-    MentorQuestionCollection: IPaginationState;
     OpportunityCollection: IPaginationState;
     OpportunityInstanceCollection: IPaginationState;
     OpportunityTypeCollection: IPaginationState;
@@ -31,7 +29,6 @@ interface IState {
     AdminProfileCollection: IPaginationState;
     AdvisorProfileCollection: IPaginationState;
     FacultyProfileCollection: IPaginationState;
-    MentorProfileCollection: IPaginationState;
     StudentProfileCollection: IPaginationState;
     TeaserCollection: IPaginationState;
     VerificationRequestCollection: IPaginationState;
@@ -95,14 +92,6 @@ const initialState: IState = {
       showIndex: 0,
       showCount: 25,
     },
-    MentorAnswerCollection: {
-      showIndex: 0,
-      showCount: 25,
-    },
-    MentorQuestionCollection: {
-      showIndex: 0,
-      showCount: 25,
-    },
     OpportunityCollection: {
       showIndex: 0,
       showCount: 25,
@@ -136,10 +125,6 @@ const initialState: IState = {
       showCount: 25,
     },
     FacultyProfileCollection: {
-      showIndex: 0,
-      showCount: 25,
-    },
-    MentorProfileCollection: {
       showIndex: 0,
       showCount: 25,
     },
@@ -505,58 +490,6 @@ export function reducer(state: IState = initialState, action): IState {
         },
       };
       return s;
-    case TYPES.SET_MENTOR_ANSWERS_SHOW_INDEX:
-      collect = paginationState.MentorAnswerCollection;
-      s = {
-        ...state,
-        pagination: {
-          ...paginationState,
-          MentorAnswerCollection: {
-            ...collect,
-            showIndex: action.payload,
-          },
-        },
-      };
-      return s;
-    case TYPES.SET_MENTOR_ANSWERS_SHOW_COUNT:
-      collect = paginationState.MentorAnswerCollection;
-      s = {
-        ...state,
-        pagination: {
-          ...paginationState,
-          MentorAnswerCollection: {
-            ...collect,
-            showCount: action.payload,
-          },
-        },
-      };
-      return s;
-    case TYPES.SET_MENTOR_QUESTIONS_SHOW_INDEX:
-      collect = paginationState.MentorQuestionCollection;
-      s = {
-        ...state,
-        pagination: {
-          ...paginationState,
-          MentorQuestionCollection: {
-            ...collect,
-            showIndex: action.payload,
-          },
-        },
-      };
-      return s;
-    case TYPES.SET_MENTOR_QUESTIONS_SHOW_COUNT:
-      collect = paginationState.MentorQuestionCollection;
-      s = {
-        ...state,
-        pagination: {
-          ...paginationState,
-          MentorQuestionCollection: {
-            ...collect,
-            showCount: action.payload,
-          },
-        },
-      };
-      return s;
     case TYPES.SET_OPPORTUNITIES_SHOW_INDEX:
       collect = paginationState.OpportunityCollection;
       s = {
@@ -759,32 +692,6 @@ export function reducer(state: IState = initialState, action): IState {
         pagination: {
           ...paginationState,
           FacultyProfileCollection: {
-            ...collect,
-            showCount: action.payload,
-          },
-        },
-      };
-      return s;
-    case TYPES.SET_MENTORS_SHOW_INDEX:
-      collect = paginationState.MentorProfileCollection;
-      s = {
-        ...state,
-        pagination: {
-          ...paginationState,
-          MentorProfileCollection: {
-            ...collect,
-            showIndex: action.payload,
-          },
-        },
-      };
-      return s;
-    case TYPES.SET_MENTORS_SHOW_COUNT:
-      collect = paginationState.MentorProfileCollection;
-      s = {
-        ...state,
-        pagination: {
-          ...paginationState,
-          MentorProfileCollection: {
             ...collect,
             showCount: action.payload,
           },

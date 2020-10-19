@@ -2,7 +2,6 @@ import faker from 'faker';
 import { Meteor } from 'meteor/meteor';
 import { StudentProfiles } from './StudentProfileCollection';
 import { AdvisorProfiles } from './AdvisorProfileCollection';
-import { MentorProfiles } from './MentorProfileCollection';
 import { FacultyProfiles } from './FacultyProfileCollection';
 import { ROLE } from '../role/Role';
 import { Users } from './UserCollection';
@@ -22,26 +21,6 @@ function makeSampleStudent() {
     careerGoals, level, declaredAcademicTerm,
   });
   return StudentProfiles.getUserID(profileID);
-}
-
-function makeSampleMentor() {
-  const username = `mentor.${faker.internet.email()}`;
-  const firstName = faker.name.firstName();
-  const lastName = faker.name.lastName();
-  const picture = faker.image.avatar();
-  const website = faker.internet.url();
-  const interests = [];
-  const careerGoals = [];
-  const company = faker.company.companyName();
-  const career = faker.name.title();
-  const location = faker.address.city();
-  const linkedin = faker.lorem.word();
-  const motivation = faker.company.bs();
-  const profileID = MentorProfiles.define({
-    username, firstName, lastName, picture, website, interests,
-    careerGoals, company, career, location, linkedin, motivation,
-  });
-  return MentorProfiles.getUserID(profileID);
 }
 
 function makeSampleAdvisor() {
@@ -83,9 +62,6 @@ export function makeSampleUser(role: string = ROLE.STUDENT) {
   }
   if (role === ROLE.ADVISOR) {
     return makeSampleAdvisor();
-  }
-  if (role === ROLE.MENTOR) {
-    return makeSampleMentor();
   }
   throw new Meteor.Error(`Unexpected role: ${role}`);
 }

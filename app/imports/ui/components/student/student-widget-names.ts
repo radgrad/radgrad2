@@ -9,6 +9,3 @@ export const studentLevelsOthersWidget = 'studentLevelsOthersWidget';
 export const studentLogWidget = 'studentLogWidget';
 export const studentDepWidget = 'studentDepWidget';
 export const tabbedFavoritesWidget = 'tabbedFavoritesWidget';
-export const studentMentorSpaceQuestionsWidget = 'studentMentorSpaceQuestionsWidget';
-export const studentMentorSpaceAskQuestionWidget = 'studentMentorSpaceAskQuestionWidget';
-export const studentMentorSpaceMentorDirectoryWidget = 'studentMentorSpaceMentorDirectoryWidget';

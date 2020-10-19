@@ -25,7 +25,6 @@ const CommunityUsersWidget = (props: ICommunityUsersWidgetProps) => {
 
   const advisorRoleUsers = getUsers(ROLE.ADVISOR, match);
   const facultyRoleUsers = getUsers(ROLE.FACULTY, match);
-  const mentorRoleUsers = getUsers(ROLE.MENTOR, match);
   const studentRoleUsers = getUsers(ROLE.STUDENT, match);
   const panes = [
     {
@@ -55,22 +54,6 @@ const CommunityUsersWidget = (props: ICommunityUsersWidgetProps) => {
               style={userStackableCardsStyle}
             >
               {facultyRoleUsers.map((ele) => <UserProfileCard key={ele._id} item={ele} />)}
-            </Card.Group>
-          </Grid>
-        </Tab.Pane>
-      ),
-    },
-    {
-      menuItem: 'Mentors',
-      render: () => (
-        <Tab.Pane key="mentors">
-          <Grid stackable>
-            <Card.Group
-              stackable
-              itemsPerRow={mentorRoleUsers.length > 3 ? 3 : mentorRoleUsers.length as SemanticWIDTHS}
-              style={userStackableCardsStyle}
-            >
-              {mentorRoleUsers.map((ele) => <UserProfileCard key={ele._id} item={ele} />)}
             </Card.Group>
           </Grid>
         </Tab.Pane>

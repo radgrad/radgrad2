@@ -28,7 +28,6 @@ export const defaultProfilePicture = '/images/default-profile-picture.png';
 const rolesToCollectionNames = {};
 rolesToCollectionNames[ROLE.ADVISOR] = 'AdvisorProfileCollection';
 rolesToCollectionNames[ROLE.FACULTY] = 'FacultyProfileCollection';
-rolesToCollectionNames[ROLE.MENTOR] = 'MentorProfileCollection';
 rolesToCollectionNames[ROLE.STUDENT] = 'StudentProfileCollection';
 
 /**

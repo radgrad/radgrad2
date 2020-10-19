@@ -43,7 +43,7 @@ const LandingSection2 = (props: ILandingSection2Props) => (
             </div>
             <div style={styles['home-number-label-last']}>
               STUDENTS, FACULTY,<br />
-              MENTORS, ALUMNI</div>
+              ALUMNI</div>
           </Grid.Column>
         </Grid>
       </div>
