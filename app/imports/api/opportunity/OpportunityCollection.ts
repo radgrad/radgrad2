@@ -15,6 +15,8 @@ import BaseSlugCollection from '../base/BaseSlugCollection';
 import { assertICE, iceSchema } from '../ice/IceProcessor';
 import { IOpportunityDefine, IOpportunityUpdate, IOpportunityUpdateData } from '../../typings/radgrad';
 
+export const defaultProfilePicture = '/images/radgrad_logo.png"';
+
 /**
  * Represents an Opportunity, such as "LiveWire Internship".
  * To represent an Opportunity taken by a specific student in a specific academicTerm, use OpportunityInstance.
@@ -39,6 +41,7 @@ class OpportunityCollection extends BaseSlugCollection {
       // Optional data
       eventDate: { type: Date, optional: true },
       ice: { type: iceSchema, optional: true },
+      picture: { type: String, optional: true },
       retired: { type: Boolean, optional: true },
     }));
     this.defineSchema = new SimpleSchema({
@@ -52,6 +55,7 @@ class OpportunityCollection extends BaseSlugCollection {
       timestamp: { type: Date },
       eventDate: { type: Date, optional: true },
       ice: { type: iceSchema, optional: true },
+      picture: { type: String, optional: true },
       retired: { type: Boolean, optional: true },
     });
     this.updateSchema = new SimpleSchema({
@@ -64,6 +68,7 @@ class OpportunityCollection extends BaseSlugCollection {
       timestamp: { type: Date, optional: true },
       eventDate: { type: Date, optional: true },
       ice: { type: iceSchema, optional: true },
+      picture: { type: String, optional: true },
       retired: { type: Boolean, optional: true },
     });
   }
@@ -91,12 +96,13 @@ class OpportunityCollection extends BaseSlugCollection {
    * @param ice must be a valid ICE object.
    * @param eventDate optional date.
    * @param timestamp the Date timestamp that this Opportunity document was created at.
+   * @param picture The URL to the opportunity picture. (optional, defaults to a default picture.)
    * @param retired optional, true if the opportunity is retired.
    * @throws {Meteor.Error} If the definition includes a defined slug or undefined interest, sponsor, opportunityType,
    * or startActive or endActive are not valid.
    * @returns The newly created docID.
    */
-  public define({ name, slug, description, opportunityType, sponsor, interests, academicTerms, ice, timestamp = moment().toDate(), eventDate = null, retired = false }: IOpportunityDefine) {
+  public define({ name, slug, description, opportunityType, sponsor, interests, academicTerms, ice, timestamp = moment().toDate(), eventDate = null, picture = defaultProfilePicture, retired = false }: IOpportunityDefine) {
     // Get instances, or throw error
 
     const opportunityTypeID = OpportunityTypes.getID(opportunityType);
@@ -116,11 +122,11 @@ class OpportunityCollection extends BaseSlugCollection {
       // Define the new Opportunity and its Slug.
       opportunityID = this.collection.insert({
         name, slugID, description, opportunityTypeID, sponsorID,
-        interestIDs, termIDs, ice, timestamp, eventDate, retired });
+        interestIDs, termIDs, ice, timestamp, eventDate, retired, picture });
     } else {
       opportunityID = this.collection.insert({
         name, slugID, description, opportunityTypeID, sponsorID,
-        interestIDs, termIDs, ice, timestamp, retired });
+        interestIDs, termIDs, ice, timestamp, retired, picture });
     }
     Slugs.updateEntityID(slugID, opportunityID);
 
@@ -140,8 +146,9 @@ class OpportunityCollection extends BaseSlugCollection {
    * @param eventDate a Date. (optional)
    * @param ice An ICE object (optional).
    * @param retired boolean (optional).
+   * @param picture
    */
-  public update(instance: string, { name, description, opportunityType, sponsor, interests, academicTerms, eventDate, ice, timestamp, retired }: IOpportunityUpdate) {
+  public update(instance: string, { name, description, opportunityType, sponsor, interests, academicTerms, eventDate, ice, timestamp, retired, picture }: IOpportunityUpdate) {
     const docID = this.getID(instance);
     const updateData: IOpportunityUpdateData = {};
     if (name) {
@@ -176,6 +183,9 @@ class OpportunityCollection extends BaseSlugCollection {
     }
     if (_.isBoolean(retired)) {
       updateData.retired = retired;
+    }
+    if (picture) {
+      updateData.picture = picture;
     }
     this.collection.update(docID, { $set: updateData });
   }
