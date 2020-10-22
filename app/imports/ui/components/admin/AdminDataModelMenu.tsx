@@ -9,7 +9,6 @@ import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { Courses } from '../../../api/course/CourseCollection';
-import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
 import { Feeds } from '../../../api/feed/FeedCollection';
 import { FeedbackInstances } from '../../../api/feedback/FeedbackInstanceCollection';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
@@ -145,7 +144,6 @@ const AdminDataModelMenuContainer = withTracker(() => ({
   careerGoalCount: CareerGoals.count(),
   courseInstanceCount: CourseInstances.count(),
   courseCount: Courses.count(),
-  desiredDegreeCount: DesiredDegrees.count(),
   feedCount: Feeds.count(),
   feedbackCount: FeedbackInstances.count(),
   helpMessageCount: HelpMessages.count(),

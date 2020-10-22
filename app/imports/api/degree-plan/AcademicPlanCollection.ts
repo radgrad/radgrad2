@@ -2,7 +2,6 @@ import { Meteor } from 'meteor/meteor';
 import _ from 'lodash';
 import SimpleSchema from 'simpl-schema';
 import BaseSlugCollection from '../base/BaseSlugCollection';
-import { DesiredDegrees } from './DesiredDegreeCollection';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Slugs } from '../slug/SlugCollection';
 import { IAcademicPlanDefine, IAcademicPlanUpdate } from '../../typings/radgrad';
@@ -136,9 +135,6 @@ class AcademicPlanCollection extends BaseSlugCollection {
   public update(instance, { degreeSlug, name, academicTerm, coursesPerAcademicTerm, choiceList, retired }: IAcademicPlanUpdate) {
     const docID = this.getID(instance);
     const updateData: { degreeID?: string; name?: string; effectiveAcademicTermID?: string; coursesPerAcademicTerm?: number[]; choiceList?: string[]; retired?: boolean; } = {};
-    if (degreeSlug) {
-      updateData.degreeID = DesiredDegrees.getID(degreeSlug);
-    }
     if (name) {
       updateData.name = name;
     }
@@ -203,9 +199,6 @@ class AcademicPlanCollection extends BaseSlugCollection {
       if (!AcademicTerms.isDefined(doc.effectiveAcademicTermID)) {
         problems.push(`Bad termID: ${doc.effectiveAcademicTermID}.`);
       }
-      if (!DesiredDegrees.isDefined(doc.degreeID)) {
-        problems.push(`Bad desiredDegreeID: ${doc.degreeID}.`);
-      }
       let numCourses = 0;
       _.forEach(doc.coursesPerAcademicTerm, (n) => {
         numCourses += n;
@@ -229,13 +222,6 @@ class AcademicPlanCollection extends BaseSlugCollection {
    * @param academicTermNumber (optional) the academicTerm number. if undefined returns the latest AcademicPlans.
    * @return {any}
    */
-  public getPlansForDegree(degree: string, academicTermNumber?: number) {
-    const degreeID = DesiredDegrees.getID(degree);
-    if (!academicTermNumber) {
-      return this.collection.find({ degreeID, termNumber: this.getLatestAcademicTermNumber() }).fetch();
-    }
-    return this.collection.find({ degreeID, termNumber: { $gte: academicTermNumber } }).fetch();
-  }
 
   /**
    * Returns an array of the latest AcademicPlans.
@@ -308,7 +294,6 @@ class AcademicPlanCollection extends BaseSlugCollection {
   public dumpOne(docID: string): IAcademicPlanDefine {
     const doc = this.findDoc(docID);
     const slug = Slugs.getNameFromID(doc.slugID);
-    const degree = DesiredDegrees.findDoc(doc.degreeID);
     const degreeSlug = Slugs.findDoc(degree.slugID).name;
     const name = doc.name;
     const description = doc.description;

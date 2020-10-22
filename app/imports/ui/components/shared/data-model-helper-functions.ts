@@ -13,7 +13,6 @@ import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
-import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
 import { defaultProfilePicture } from '../../../api/user/BaseProfileCollection';
 import { StudentParticipations } from '../../../api/public-stats/StudentParticipationCollection';
 import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
@@ -80,8 +79,6 @@ export const courseNameToCourseDoc = (name) => Courses.findDoc({ shortName: name
 export const courseNameToSlug = (name) => itemToSlugName(Courses.findDoc({ shortName: name.substring(name.indexOf(':') + 2) }));
 
 export const courseSlugToName = (slug) => courseToName(Courses.findDoc(Slugs.getEntityID(slug, 'Course')));
-
-export const degreeShortNameToSlug = (shortName) => itemToSlugName(DesiredDegrees.findDoc({ shortName }));
 
 export const docToName = (doc: IHasName) => doc.name;
 

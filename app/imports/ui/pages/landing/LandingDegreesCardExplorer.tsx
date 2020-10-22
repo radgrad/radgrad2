@@ -3,7 +3,6 @@ import { withRouter } from 'react-router-dom';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Card, Grid, Header, Loader, Segment } from 'semantic-ui-react';
-import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
 import ExplorerMenuBarContainer from '../../components/landing/LandingExplorerMenuBar';
 import { IDesiredDegree } from '../../../typings/radgrad';
 import LandingExplorerCardContainer from '../../components/landing/LandingExplorerCard';
@@ -16,7 +15,6 @@ interface IDegreesCardExplorerProps {
   // eslint-disable-next-line react/no-unused-prop-types
   ready: boolean;
   // eslint-disable-next-line react/no-unused-prop-types
-  desiredDegrees: IDesiredDegree[];
   // eslint-disable-next-line react/no-unused-prop-types
   count: number;
 }
@@ -47,11 +45,6 @@ const renderPage = (props: IDegreesCardExplorerProps) => {
               <Header as="h4" dividing>
                 <span>DESIRED DEGREES</span> ({props.count})
               </Header>
-              <Card.Group stackable itemsPerRow={2} style={inlineStyle}>
-                {props.desiredDegrees.map((goal) => (
-                  <LandingExplorerCardContainer key={goal._id} type="degrees" item={goal} />
-                ))}
-              </Card.Group>
             </Segment>
           </Grid.Column>
           <Grid.Column width={1} />
@@ -69,12 +62,9 @@ const LandingDegreesCardExplorer = (props: IDegreesCardExplorerProps) => ((props
 const LandingDegreesCardExplorerCon = withRouter(LandingDegreesCardExplorer);
 
 const LandingDegreesCardExplorerContainer = withTracker(() => {
-  const sub1 = Meteor.subscribe(DesiredDegrees.getPublicationName());
   const sub2 = Meteor.subscribe(Slugs.getPublicationName());
   return {
-    ready: sub1.ready() && sub2.ready(),
-    desiredDegrees: DesiredDegrees.findNonRetired(),
-    count: DesiredDegrees.countNonRetired(),
+    ready:  sub2.ready(),
   };
 })(LandingDegreesCardExplorerCon);
 

@@ -22,7 +22,6 @@ import { Interests } from '../../../api/interest/InterestCollection';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
@@ -108,7 +107,6 @@ const plan = (props: IIndividualExplorerPageProps): IAcademicPlan => {
 };
 
 const descriptionPairsPlans = (thePlan: IAcademicPlan): { label: string, value: any }[] => {
-  const degree = DesiredDegrees.findDoc(thePlan.degreeID);
   const description = `${degree.description}\n\n${thePlan.description}`;
   return [
     { label: 'Description', value: description },
@@ -257,16 +255,6 @@ const descriptionPairsCourses = (theCourse: ICourse, props: IIndividualExplorerP
   { label: 'Teaser', value: teaser(theCourse) },
 ];
 
-const addedDegrees = (): { item: IDesiredDegree, count: number }[] => _.map(DesiredDegrees.findNonRetired({}, { sort: { name: 1 } }), (d) => ({
-  item: d,
-  count: 1,
-}));
-
-const degree = (props: IIndividualExplorerPageProps): IDesiredDegree => {
-  const degreeSlugName = props.match.params.degree;
-  const slug = Slugs.findDoc({ name: degreeSlugName });
-  return DesiredDegrees.findDoc({ slugID: slug._id });
-};
 
 const descriptionPairsDegrees = (theDegree: IDesiredDegree): { label: string, value: any }[] => [{
   label: 'Description',
@@ -383,8 +371,6 @@ const getItem = (props: IIndividualExplorerPageProps): { [key: string]: any } =>
       return careerGoal(props);
     case EXPLORER_TYPE.COURSES:
       return course(props);
-    case EXPLORER_TYPE.DEGREES:
-      return degree(props);
     case EXPLORER_TYPE.INTERESTS:
       return interest(props);
     case EXPLORER_TYPE.OPPORTUNITIES:

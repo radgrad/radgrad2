@@ -21,7 +21,6 @@ import PreferredChoice from '../../../api/degree-plan/PreferredChoice';
 import { Courses } from '../../../api/course/CourseCollection';
 import { ROLE } from '../../../api/role/Role';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
-import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import {
@@ -269,9 +268,6 @@ export const matchingCourses = (match: Router.IMatchProps): object[] => {
 export const coursesItemCount = (match: Router.IMatchProps): number => availableCourses(match).length;
 
 /* ####################################### DEGREES HELPER FUNCTIONS ####################################### */
-export const degrees = (): object[] => DesiredDegrees.findNonRetired({}, { sort: { name: 1 } });
-
-export const degreesItemCount = (): number => degrees().length;
 
 /* ####################################### INTERESTS HELPER FUNCTIONS ############################################ */
 export const userInterests = (interest: IInterest, match: Router.IMatchProps): string => {

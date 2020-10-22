@@ -9,7 +9,6 @@ import SimpleSchema from 'simpl-schema';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
 import { IDesiredDegree, IPlanChoiceDefine } from '../../../typings/radgrad';
-import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { docToShortName } from '../shared/data-model-helper-functions';
 import { getDroppableListStyle } from '../shared/StyleFunctions';
@@ -271,7 +270,6 @@ const AdvisorAcademicPlanBuilderWidget = (props: IAdvisorAcademicPlanBuilderWidg
 };
 
 export default withTracker(() => {
-  const degrees = DesiredDegrees.findNonRetired({}, { sort: { name: 1, year: 1 } });
   const terms = AcademicTerms.findNonRetired({}, { sort: { year: 1 } });
   const choices = PlanChoices.findNonRetired({}, { sort: { choice: 1 } });
   const years = _.uniq(_.map(terms, (t) => t.year));

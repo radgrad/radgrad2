@@ -9,13 +9,11 @@ import { DragDropContext } from 'react-beautiful-dnd';
 import Swal from 'sweetalert2';
 import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
 import { IAcademicPlanDefine, IAcademicTerm, IDesiredDegree, IPlanChoiceDefine } from '../../../typings/radgrad';
-import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
 import {
   academicTermNameToDoc,
   academicTermToName,
-  degreeShortNameToSlug,
   docToShortName,
 } from '../shared/data-model-helper-functions';
 import AdvisorAPBPlanViewWidget from './AdvisorAPBPlanViewWidget';
@@ -364,7 +362,6 @@ const AdvisorAPBuilderWidget = (props: IAdvisorAPBuilderWidgetProps) => {
 };
 
 export default withTracker(() => {
-  const degrees = DesiredDegrees.findNonRetired({}, { sort: { name: 1, year: 1 } });
   const terms = AcademicTerms.findNonRetired({}, { sort: { year: 1 } });
   const choices = PlanChoices.findNonRetired({}, { sort: { choice: 1 } });
   return {

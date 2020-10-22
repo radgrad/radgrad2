@@ -9,7 +9,6 @@ import CardExplorerWidget from '../../components/shared/CardExplorerWidget';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { Courses } from '../../../api/course/CourseCollection';
-import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Users } from '../../../api/user/UserCollection';
@@ -71,8 +70,6 @@ const getCollection = (props: ICardExplorerPageProps): object => {
       return CareerGoals;
     case EXPLORER_TYPE.COURSES:
       return Courses;
-    case EXPLORER_TYPE.DEGREES:
-      return DesiredDegrees;
     case EXPLORER_TYPE.INTERESTS:
       return Interests;
     case EXPLORER_TYPE.OPPORTUNITIES:
@@ -90,10 +87,6 @@ const addedCareerGoals = (props: ICardExplorerPageProps): { item: ICareerGoal, c
 
 const addedCourses = (props: ICardExplorerPageProps): { item: ICourse, count: number }[] => _.map(props.favoriteCourses, (f: any) => ({ item: Courses.findDoc(f.courseID), count: 1 }));
 
-const addedDegrees = (): { item: IDesiredDegree, count: number }[] => _.map(DesiredDegrees.find({}, { sort: { name: 1 } }).fetch(), (d) => ({
-  item: d,
-  count: 1,
-}));
 
 const addedInterests = (props: ICardExplorerPageProps): { item: IInterest, count: number }[] => _.map(props.favoriteInterests, (f: any) => ({ item: Interests.findDoc(f.interestID), count: 1 }));
 

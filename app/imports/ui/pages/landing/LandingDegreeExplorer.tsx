@@ -8,7 +8,6 @@ import { IDesiredDegree } from '../../../typings/radgrad';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/LandingExplorerMenu';
 import { withListSubscriptions } from '../../layouts/shared/SubscriptionListHOC';
-import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
 import * as Router from '../../components/shared/RouterHelperFunctions';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
@@ -66,7 +65,6 @@ const DesiredDegreeExplorer = (props: IDesiredDegreeExplorerProps) => {
 };
 
 const WithSubs = withListSubscriptions(DesiredDegreeExplorer, [
-  DesiredDegrees.getPublicationName(),
   Slugs.getPublicationName(),
 ]);
 

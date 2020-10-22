@@ -9,7 +9,6 @@ import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Users } from '../../../api/user/UserCollection';
-import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
@@ -65,7 +64,6 @@ function withGlobalSubscription(WrappedComponent) {
       globalSubs.subscribe(CareerGoals.getPublicationName()),
       globalSubs.subscribe(CourseInstances.publicationNames.scoreboard),
       globalSubs.subscribe(Courses.getPublicationName()),
-      globalSubs.subscribe(DesiredDegrees.getPublicationName()),
       globalSubs.subscribe(FacultyProfiles.getPublicationName()),
       globalSubs.subscribe(Feeds.getPublicationName()),
       globalSubs.subscribe(HelpMessages.getPublicationName()),
