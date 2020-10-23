@@ -15,7 +15,7 @@ import BaseSlugCollection from '../base/BaseSlugCollection';
 import { assertICE, iceSchema } from '../ice/IceProcessor';
 import { IOpportunityDefine, IOpportunityUpdate, IOpportunityUpdateData } from '../../typings/radgrad';
 
-export const defaultProfilePicture = '/images/radgrad_logo.png"';
+export const defaultProfilePicture = '/images/radgrad_logo.png';
 
 /**
  * Represents an Opportunity, such as "LiveWire Internship".

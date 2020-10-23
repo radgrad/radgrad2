@@ -59,14 +59,13 @@ const OpportunityInformationItem = (props: IOpportunityItemWidgetProps) => {
   const academicTerms = replaceTermString(opportunityAcademicTerms);
   const opportunitySlugDoc: ISlug = Slugs.findOne({ _id: opportunity.slugID });
   const opportunitySlug = opportunitySlugDoc.name;
-  const opportunityLogo = (opportunity.picture) ? opportunity.picture : '/images/radgrad_logo.png';
   return (
     <Grid.Row>
       <Grid columns={informationConfiguration.showLogo ? 2 : undefined}>
         {/* Opportunity Logo */}
         {informationConfiguration.showLogo ? (
           <Grid.Column width={3}>
-            <Image src={opportunityLogo} />
+            <Image src={opportunity.picture} />
           </Grid.Column>
         ) : ''}
 
