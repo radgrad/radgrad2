@@ -17,8 +17,6 @@ interface IGuidedTourStudentProps {
   careerGoals: string;
   courses: number;
   opportunities: number;
-  mentors: number;
-  mentorLocations: string;
   ready: boolean;
 }
 
@@ -56,8 +54,6 @@ const GuidedTourStudentHomePageWidgetCon = withTracker(() => {
   let careerGoals;
   let courses;
   let opportunities;
-  let mentors;
-  let mentorLocations;
   if (subscription.ready() && !Meteor.isAppTest) {
     key = PublicStats.interestsTotalKey;
     interests = PublicStats.findDoc({ key }).value;
@@ -67,10 +63,6 @@ const GuidedTourStudentHomePageWidgetCon = withTracker(() => {
     courses = PublicStats.findDoc({ key }).value;
     key = PublicStats.opportunitiesTotalKey;
     opportunities = PublicStats.findDoc({ key }).value;
-    key = PublicStats.usersMentorsTotalKey;
-    mentors = PublicStats.findDoc({ key }).value;
-    key = PublicStats.usersMentorsLocationsKey;
-    mentorLocations = PublicStats.findDoc({ key }).value;
   }
   return {
     ready: subscription.ready(),
@@ -78,8 +70,6 @@ const GuidedTourStudentHomePageWidgetCon = withTracker(() => {
     careerGoals,
     courses,
     opportunities,
-    mentors,
-    mentorLocations,
   };
 })(GuidedTourStudentHomePageWidget);
 

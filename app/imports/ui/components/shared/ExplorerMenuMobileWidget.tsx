@@ -19,7 +19,7 @@ interface IExplorerMenuMobileWidgetProps {
   menuAddedList: { item: explorerInterfaces, count: number }[];
   menuCareerList?: { item: IInterest, count: number }[] | undefined;
   type: 'plans' | 'career-goals' | 'courses' | 'degrees' | 'interests' | 'opportunities' | 'users';
-  role: 'student' | 'faculty' | 'mentor';
+  role: 'student' | 'faculty';
   match: {
     isExact: boolean;
     path: string;
@@ -111,7 +111,7 @@ const ExplorerMenuMobileWidget = (props: IExplorerMenuMobileWidgetProps) => {
           )
           : ''}
 
-        {/* Components renderable to STUDENTS, FACULTY, and MENTORS. */}
+        {/* Components renderable to STUDENTS and FACULTY. */}
         {isType(EXPLORER_TYPE.INTERESTS, props) ?
           (
             <Dropdown className="selection" fluid text="Select Item" style={{ marginTop: '1rem' }}>

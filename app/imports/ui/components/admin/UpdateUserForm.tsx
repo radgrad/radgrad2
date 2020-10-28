@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { Button, Form, Header, Segment } from 'semantic-ui-react';
-import { AutoForm, TextField, BoolField, LongTextField, NumField, SelectField, SubmitField } from 'uniforms-semantic';
+import { AutoForm, TextField, BoolField, NumField, SelectField, SubmitField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
@@ -23,7 +23,6 @@ import {
   interestIdToName,
 } from '../shared/data-model-helper-functions';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
-import { MentorProfiles } from '../../../api/user/MentorProfileCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 import MultiSelectField from '../form-fields/MultiSelectField';
@@ -62,9 +61,6 @@ const UpdateUserForm = (props: IUpdateUserProps) => {
   }
   if (FacultyProfiles.isDefined(id)) {
     collection = FacultyProfiles;
-  }
-  if (MentorProfiles.isDefined(id)) {
-    collection = MentorProfiles;
   }
   if (AdvisorProfiles.isDefined(id)) {
     collection = AdvisorProfiles;
@@ -145,13 +141,6 @@ const UpdateUserForm = (props: IUpdateUserProps) => {
     },
     retired: { type: Boolean, optional: true },
   });
-  const mentorSchema = new SimpleSchema({
-    company: { type: String, optional: true },
-    career: { type: String, optional: true },
-    location: { type: String, optional: true },
-    linkedin: { type: String, optional: true },
-    motivation: { type: String, optional: true },
-  });
   const studentSchema = new SimpleSchema({
     level: { type: SimpleSchema.Integer, optional: true, min: 1, max: 6 },
     declaredAcademicTerm: {
@@ -178,9 +167,6 @@ const UpdateUserForm = (props: IUpdateUserProps) => {
     shareLevel: { type: Boolean, optional: true },
     isAlumni: { type: Boolean, optional: true },
   });
-  if (model.role === ROLE.MENTOR) {
-    schema.extend(mentorSchema);
-  }
   if (model.role === ROLE.STUDENT || model.role === ROLE.ALUMNI) {
     schema.extend(studentSchema);
   }
@@ -216,20 +202,6 @@ const UpdateUserForm = (props: IUpdateUserProps) => {
           <MultiSelectField name="careerGoals" />
         </Form.Group>
         <BoolField name="retired" />
-        {model.role === ROLE.MENTOR ? (
-          <div>
-            <Header dividing as="h4">Mentor fields</Header>
-            <Form.Group widths="equal">
-              <TextField name="company" />
-              <TextField name="career" label="Title" />
-            </Form.Group>
-            <Form.Group widths="equal">
-              <TextField name="location" />
-              <TextField name="linkedin" label="LinkedIn" />
-            </Form.Group>
-            <LongTextField name="motivation" />
-          </div>
-        ) : ''}
         {model.role === ROLE.STUDENT || model.role === ROLE.ALUMNI ? (
           <div>
             <Header dividing as="h4">Student fields</Header>

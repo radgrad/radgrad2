@@ -3,8 +3,6 @@ import { Accounts } from 'meteor/accounts-base';
 import { Roles } from 'meteor/alanning:roles';
 import _ from 'lodash';
 import { CareerGoals } from '../career/CareerGoalCollection';
-import { MentorAnswers } from '../mentor/MentorAnswerCollection';
-import { MentorQuestions } from '../mentor/MentorQuestionCollection';
 import { Opportunities } from '../opportunity/OpportunityCollection';
 import { RadGradProperties } from '../radgrad/RadGradProperties';
 import { Reviews } from '../review/ReviewCollection';
@@ -12,7 +10,6 @@ import { ROLE } from '../role/Role';
 import { AdminProfiles } from './AdminProfileCollection';
 import { AdvisorProfiles } from './AdvisorProfileCollection';
 import { StudentProfiles } from './StudentProfileCollection';
-import { MentorProfiles } from './MentorProfileCollection';
 import { FacultyProfiles } from './FacultyProfileCollection';
 import { FavoriteInterests } from '../favorite/FavoriteInterestCollection';
 import { FavoriteCareerGoals } from '../favorite/FavoriteCareerGoalCollection';
@@ -21,7 +18,7 @@ import { FavoriteCareerGoals } from '../favorite/FavoriteCareerGoalCollection';
  * Represents a user, which is someone who has a Meteor account.
  *
  * Users are defined when the various Profile collections are initialized, so the User collection is the union
- * of Students, Faculty, Advisors, and Mentors, plus the single Admin account who also has a Meteor account.
+ * of Students, Faculty and Advisors, plus the single Admin account who also has a Meteor account.
  *
  * Note that this collection does not extend any of our Base collections, because it has a very limited API
  * which should be used by clients to access the various Profile collections.
@@ -183,7 +180,6 @@ class UserCollection {
   /**
    * Returns true if user is referenced by other "public" entities. Specifically:
    *   * The user is a student and has published a review.
-   *   * The user is a mentor and has published an answer.
    *   * The user is a student and has published a question.
    *   * The user is a faculty member as has sponsored an opportunity.
    * Used to determine if this user can be deleted.
@@ -196,10 +192,8 @@ class UserCollection {
   public isReferenced(user) {
     const userID = this.getID(user);
     const hasReviews = Reviews.find({ studentID: userID }).count();
-    const hasAnswers = MentorAnswers.find({ mentorID: userID }).count();
-    const hasQuestions = MentorQuestions.find({ studentID: userID }).count();
     const hasOpportunities = Opportunities.find({ sponsorID: userID }).count(); // TODO CAM can this be non-retired?
-    return (hasReviews || hasAnswers || hasQuestions || hasOpportunities);
+    return (hasReviews || hasOpportunities);
   }
 
   /**
@@ -211,8 +205,7 @@ class UserCollection {
   public hasProfile(user) {
     const userID = this.getID(user);
     return StudentProfiles.hasProfile(userID) || FacultyProfiles.hasProfile(userID)
-      || MentorProfiles.hasProfile(userID) || AdvisorProfiles.hasProfile(userID)
-      || AdminProfiles.hasProfile(userID);
+      || AdvisorProfiles.hasProfile(userID) || AdminProfiles.hasProfile(userID);
   }
 
   /**
@@ -223,11 +216,11 @@ class UserCollection {
    */
   public findProfileFromUsername(username) {
     return StudentProfiles.findByUsername(username) || FacultyProfiles.findByUsername(username)
-      || MentorProfiles.findByUsername(username) || AdvisorProfiles.findByUsername(username);
+      || AdvisorProfiles.findByUsername(username);
   }
 
   public count() {
-    return StudentProfiles.count() + FacultyProfiles.count() + MentorProfiles.count() + AdvisorProfiles.count();
+    return StudentProfiles.count() + FacultyProfiles.count() + AdvisorProfiles.count();
   }
 
   /**
@@ -330,7 +323,6 @@ class UserCollection {
     profiles = profiles.concat(StudentProfiles.findNonRetired(theSelector, options));
     profiles = profiles.concat(AdvisorProfiles.findNonRetired(theSelector, options));
     profiles = profiles.concat(FacultyProfiles.findNonRetired(theSelector, options));
-    profiles = profiles.concat(MentorProfiles.findNonRetired(theSelector, options));
     return profiles;
   }
 
@@ -358,9 +350,6 @@ class UserCollection {
     if (role === ROLE.FACULTY) {
       return FacultyProfiles.findNonRetired(theSelector, options);
     }
-    if (role === ROLE.MENTOR) {
-      return MentorProfiles.findNonRetired(theSelector, options);
-    }
     if (role === ROLE.ADMIN) {
       return [this.getAdminProfile()];
     }
@@ -387,11 +376,6 @@ class UserCollection {
       }
     });
     FacultyProfiles.find().forEach((profile) => {
-      if (filter(profile)) {
-        profiles.push(profile);
-      }
-    });
-    MentorProfiles.find().forEach((profile) => {
       if (filter(profile)) {
         profiles.push(profile);
       }
@@ -424,14 +408,6 @@ class UserCollection {
       return true;
     }
     FacultyProfiles.find().forEach((profile) => {
-      if (predicate(profile)) {
-        exists = true;
-      }
-    });
-    if (exists) {
-      return true;
-    }
-    MentorProfiles.find().forEach((profile) => {
       if (predicate(profile)) {
         exists = true;
       }

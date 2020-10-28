@@ -10,7 +10,6 @@ export const MODERATION = 'moderation';
 export const SCOREBOARD = 'scoreboard';
 export const COURSE_SCOREBOARD = `course-${SCOREBOARD}`;
 export const OPPORTUNITY_SCOREBOARD = `opportunity-${SCOREBOARD}`;
-export const MENTOR_SPACE = 'mentor-space';
 export const PAGE_TRACKING_SCOREBOARD = 'page-tracking-scoreboard';
 export const PAGE_TRACKING_COMPARISON = 'page-tracking-comparison';
 
@@ -28,7 +27,6 @@ export const URL_ROLES = {
   ADVISOR: ROLE.ADVISOR.toLowerCase(),
   ALUMNI: ROLE.ALUMNI.toLowerCase(),
   FACULTY: ROLE.FACULTY.toLowerCase(),
-  MENTOR: ROLE.MENTOR.toLowerCase(),
   STUDENT: ROLE.STUDENT.toLowerCase(),
 };
 

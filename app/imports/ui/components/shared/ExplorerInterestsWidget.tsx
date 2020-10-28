@@ -156,7 +156,7 @@ const ExplorerInterestsWidget = (props: IExplorerInterestsWidgetProps) => {
       </SegmentGroup>
       <Grid stackable columns={2}>
         <Grid.Column width={10}>
-          {/* TODO fix this; make sure to test for students, faculty, and mentor */}
+          {/* TODO fix this; make sure to test for students and  faculty */}
           <InterestedRelatedWidget
             relatedCourses={relatedCourses}
             relatedOpportunities={relatedOpportunities}

@@ -4,7 +4,6 @@ import _ from 'lodash';
 import { withRouter } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
-import MentorPageMenuWidget from '../../components/mentor/MentorPageMenuWidget';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 import CardExplorerWidget from '../../components/shared/CardExplorerWidget';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
@@ -59,8 +58,6 @@ const getMenuWidget = (props: ICardExplorerPageProps): JSX.Element => {
   switch (role) {
     case URL_ROLES.STUDENT:
       return <StudentPageMenuWidget />;
-    case URL_ROLES.MENTOR:
-      return <MentorPageMenuWidget />;
     case URL_ROLES.FACULTY:
       return <FacultyPageMenuWidget />;
     default:

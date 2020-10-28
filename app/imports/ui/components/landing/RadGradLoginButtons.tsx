@@ -64,7 +64,6 @@ const RadGradLoginButtons = () => {
   const adminLabel = '... as admin';
   const advisorLabel = '... as advisor';
   const facultyLabel = '... as faculty';
-  const mentorLabel = '... as mentor';
   const studentLabel = '... as student';
 
   // Redirection after logging in
@@ -77,7 +76,6 @@ const RadGradLoginButtons = () => {
       <Dropdown.Menu>
         <Dropdown.Item id="student" text={studentLabel} onClick={handleClick} />
         <Dropdown.Item id="faculty" text={facultyLabel} onClick={handleClick} />
-        <Dropdown.Item id="mentor" text={mentorLabel} as={Link} to="/signin" />
         <Dropdown.Item id="advisor" text={advisorLabel} onClick={handleClick} />
         <Dropdown.Item id="admin" text={adminLabel} as={Link} to="/signin" />
       </Dropdown.Menu>

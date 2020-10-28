@@ -7,7 +7,6 @@ import { ROLE } from '../../../api/role/Role';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
 import InterestList from './InterestList';
-import UserAnswersComponent from './UserAnswersComponent';
 import ExplorerUsersWidget from './ExplorerUsersWidget';
 import { capitalizeFirstOnly } from './helper-functions';
 
@@ -70,7 +69,7 @@ const UserProfileCard = (props: IUserProfileCard) => {
               src={`/images/level-icons/radgrad-level-${level}-icon.png`}
             />
           ) : undefined}
-          {isRole(ROLE.ADVISOR, ROLE.FACULTY, ROLE.MENTOR) ? (
+          {isRole(ROLE.ADVISOR, ROLE.FACULTY) ? (
             <div style={usernameStyle}>
               {p.username}
               <br />
@@ -90,7 +89,6 @@ const UserProfileCard = (props: IUserProfileCard) => {
           />
         ) : undefined}
       </Card.Content>
-      {isRole(ROLE.MENTOR) ? <UserAnswersComponent userID={p.userID} /> : undefined}
       <Card.Content extra>
         <InterestList item={p} size="mini" />
       </Card.Content>

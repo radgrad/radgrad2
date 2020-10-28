@@ -5,7 +5,6 @@ import _ from 'lodash';
 import { ROLE } from '../role/Role';
 import { AdvisorProfiles } from '../user/AdvisorProfileCollection';
 import { FacultyProfiles } from '../user/FacultyProfileCollection';
-import { MentorProfiles } from '../user/MentorProfileCollection';
 import { StudentProfiles } from '../user/StudentProfileCollection';
 import { FavoriteInterests } from './FavoriteInterestCollection';
 
@@ -29,9 +28,6 @@ export const getUserIDsWithFavoriteInterestMethod = new ValidatedMethod({
           break;
         case ROLE.FACULTY:
           userIDs = _.map(FacultyProfiles.find().fetch(), 'userID');
-          break;
-        case ROLE.MENTOR:
-          userIDs = _.map(MentorProfiles.find().fetch(), 'userID');
           break;
         default:
           userIDs = _.map(StudentProfiles.find({ isAlumni: false }).fetch(), 'userID');

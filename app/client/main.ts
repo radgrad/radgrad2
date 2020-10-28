@@ -12,7 +12,6 @@ import '../imports/api/integrity';
 import '../imports/api/interest';
 import '../imports/api/level';
 import '../imports/api/log';
-import '../imports/api/mentor';
 import '../imports/api/opportunity';
 import '../imports/api/page-tracking';
 import '../imports/api/public-stats';

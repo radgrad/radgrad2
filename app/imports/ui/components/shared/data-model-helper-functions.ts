@@ -8,7 +8,6 @@ import { Interests } from '../../../api/interest/InterestCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { InterestTypes } from '../../../api/interest/InterestTypeCollection';
-import { MentorQuestions } from '../../../api/mentor/MentorQuestionCollection';
 import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
@@ -110,8 +109,6 @@ export const interestNameToSlug = (name) => itemToSlugName(Interests.findDoc(nam
 export const interestTypeNameToSlug = (name) => itemToSlugName(InterestTypes.findDoc(name));
 
 export const interestTypeNameToId = (name) => InterestTypes.findDoc(name)._id;
-
-export const mentorQuestionToSlug = (question) => itemToSlugName(MentorQuestions.findDoc({ question }));
 
 export const opportunityIdToName = (id) => Opportunities.findDoc(id).name;
 

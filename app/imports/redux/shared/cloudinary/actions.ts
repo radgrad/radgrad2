@@ -33,14 +33,3 @@ export const setAdminDataModelUsersCloudinaryUrl = (cloudinaryUrl: string): ISet
   type: TYPES.SET_ADMIN_DATAMODEL_USERS_CLOUDINARY_URL,
   payload: cloudinaryUrl,
 });
-
-// Mentor Home Page
-export const setMentorHomeIsCloudinaryUsed = (isCloudinaryUsed: boolean): ISetIsCloudinaryUsedAction => ({
-  type: TYPES.SET_MENTOR_HOME_IS_CLOUDINARY_USED,
-  payload: isCloudinaryUsed,
-});
-
-export const setMentorHomeCloudinaryUrl = (cloudinaryUrl: string): ISetCloudinaryUrlAction => ({
-  type: TYPES.SET_MENTOR_HOME_CLOUDINARY_URL,
-  payload: cloudinaryUrl,
-});

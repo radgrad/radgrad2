@@ -97,14 +97,6 @@ export interface IPagination {
     showIndex: number;
     showCount: number;
   };
-  MentorAnswerCollection?: {
-    showIndex: number;
-    showCount: number;
-  };
-  MentorQuestionCollection?: {
-    showIndex: number;
-    showCount: number;
-  };
   OpportunityCollection?: {
     showIndex: number;
     showCount: number;
@@ -134,10 +126,6 @@ export interface IPagination {
     showCount: number;
   };
   FacultyProfileCollection?: {
-    showIndex: number;
-    showCount: number;
-  };
-  MentorProfileCollection?: {
     showIndex: number;
     showCount: number;
   };
@@ -629,57 +617,6 @@ export interface IIceSnapshotDefine extends IDumpOne {
   updated: any;
 }
 
-// MentorAnswers
-export interface IMentorAnswer {
-  questionID: string;
-  mentorID: string;
-  text: string;
-  retired?: boolean;
-}
-
-export interface IMentorAnswerDefine extends IDumpOne {
-  question: string;
-  mentor: string;
-  text: string;
-  retired?: boolean;
-}
-
-export interface IMentorAnswerUpdate extends IUpdate {
-  text?: string;
-  retired?: boolean;
-}
-
-// MentorQuestions
-export interface IMentorQuestion {
-  question: string;
-  slugID: string;
-  studentID: string;
-  moderated: boolean;
-  visible: boolean;
-  moderatorComments?: string;
-  retired?: boolean;
-  _id: string;
-}
-
-export interface IMentorQuestionDefine extends IDumpOne {
-  question: string;
-  slug: string;
-  student: string;
-  moderated?: boolean;
-  visible?: boolean;
-  moderatorComments?: string;
-  retired?: boolean;
-}
-
-export interface IMentorQuestionUpdate extends IUpdate {
-  question?: string;
-  student?: string;
-  moderated?: boolean;
-  visible?: boolean;
-  moderatorComments?: string;
-  retired?: boolean;
-}
-
 // Opportunities
 export interface IOpportunity {
   _id: string;
@@ -940,30 +877,6 @@ export interface IProfileUpdate extends IUpdate {
   retired?: boolean;
   courseExplorerFilter?: string;
   opportunityExplorerSortOrder?: string;
-}
-
-export interface IMentorProfile extends IProfile {
-  company: string;
-  career: string;
-  location: string;
-  linkedin?: string;
-  motivation: string;
-}
-
-export interface IMentorProfileDefine extends IProfileDefine {
-  company: string;
-  career: string;
-  location: string;
-  linkedin?: string;
-  motivation: string;
-}
-
-export interface IMentorProfileUpdate extends IProfileUpdate {
-  company?: string;
-  career?: string;
-  location?: string;
-  linkedin?: string;
-  motivation?: string;
 }
 
 export interface IStudentProfile extends IProfile {

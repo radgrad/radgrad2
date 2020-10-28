@@ -15,8 +15,6 @@ import { FeedbackInstances } from '../../../api/feedback/FeedbackInstanceCollect
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { InterestTypes } from '../../../api/interest/InterestTypeCollection';
-import { MentorAnswers } from '../../../api/mentor/MentorAnswerCollection';
-import { MentorQuestions } from '../../../api/mentor/MentorQuestionCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';
@@ -50,8 +48,6 @@ interface IAdminDataModeMenuProps {
   helpMessageCount: number;
   interestCount: number;
   interestTypeCount: number;
-  mentorAnswerCount: number;
-  mentorQuestionCount: number;
   opportunityCount: number;
   opportunityInstanceCount: number;
   opportunityTypeCount: number;
@@ -110,12 +106,6 @@ const AdminDataModelMenu = (props: IAdminDataModeMenuProps) => {
       <Menu.Item as={NavLink} exact to={`${baseRoute}interest-types`}>
         Interest Types ({props.interestTypeCount})
       </Menu.Item>
-      <Menu.Item as={NavLink} exact to={`${baseRoute}mentor-answers`}>
-        Mentor Answers ({props.mentorAnswerCount})
-      </Menu.Item>
-      <Menu.Item as={NavLink} exact to={`${baseRoute}mentor-questions`}>
-        Mentor Questions ({props.mentorQuestionCount})
-      </Menu.Item>
       <Menu.Item as={NavLink} exact to={`${baseRoute}opportunities`}>
         Opportunities ({props.opportunityCount})
       </Menu.Item>
@@ -161,8 +151,6 @@ const AdminDataModelMenuContainer = withTracker(() => ({
   helpMessageCount: HelpMessages.count(),
   interestCount: Interests.count(),
   interestTypeCount: InterestTypes.count(),
-  mentorAnswerCount: MentorAnswers.count(),
-  mentorQuestionCount: MentorQuestions.count(),
   opportunityCount: Opportunities.count(),
   opportunityInstanceCount: OpportunityInstances.count(),
   opportunityTypeCount: OpportunityTypes.count(),

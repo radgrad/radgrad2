@@ -5,7 +5,6 @@ import { URL_ROLES } from '../../../startup/client/route-constants';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
-import MentorPageMenuWidget from '../../components/mentor/MentorPageMenuWidget';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import { IMatchProps } from '../../components/shared/RouterHelperFunctions';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
@@ -27,8 +26,6 @@ const PageTrackingComparisonPage = (props: IPageTrackingComparisonPageProps) => 
         return <AdvisorPageMenuWidget />;
       case URL_ROLES.FACULTY:
         return <FacultyPageMenuWidget />;
-      case URL_ROLES.MENTOR:
-        return <MentorPageMenuWidget />;
       case URL_ROLES.STUDENT:
         return <StudentPageMenuWidget />;
       default:

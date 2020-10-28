@@ -15,7 +15,6 @@ export const ROLE = {
   ADMIN: 'ADMIN',
   ALUMNI: 'ALUMNI',
   ADVISOR: 'ADVISOR',
-  MENTOR: 'MENTOR',
 };
 
 /**

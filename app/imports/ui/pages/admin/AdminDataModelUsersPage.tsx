@@ -14,7 +14,6 @@ import {
   IFacultyProfile,
   IFavoriteAcademicPlan,
   IFavoriteCareerGoal, IFavoriteInterest,
-  IMentorProfile,
   IStudentProfile,
 } from '../../../typings/radgrad';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
@@ -30,7 +29,6 @@ import UpdateUserForm from '../../components/admin/UpdateUserForm';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
-import { MentorProfiles } from '../../../api/user/MentorProfileCollection';
 import {
   academicPlanSlugFromName,
   careerGoalSlugFromName, declaredAcademicTermSlugFromName,
@@ -48,7 +46,6 @@ interface IAdminDataModelUsersPageProps {
   admins: IBaseProfile[];
   advisors: IAdvisorProfile[];
   faculty: IFacultyProfile[];
-  mentors: IMentorProfile[];
   students: IStudentProfile[];
   isCloudinaryUsed: boolean;
   cloudinaryUrl: string;
@@ -89,13 +86,6 @@ const descriptionPairs = (props: IAdminDataModelUsersPageProps) => (user: IBaseP
       value: (user.declaredAcademicTermID) ? AcademicTerms.toString(user.declaredAcademicTermID) : '',
     });
     pairs.push({ label: 'Opted In', value: user.optedIn ? 'True' : 'False' });
-  }
-  if (user.role === ROLE.MENTOR) {
-    pairs.push({ label: 'Company', value: user.company });
-    pairs.push({ label: 'Title', value: user.career });
-    pairs.push({ label: 'Location', value: user.location });
-    pairs.push({ label: 'LinkedIn', value: user.linkedin });
-    pairs.push({ label: 'Motivation', value: user.motivation });
   }
   pairs.push({ label: 'Retired', value: user.retired ? 'True' : 'False' });
 
@@ -138,9 +128,7 @@ const AdminDataModelUsersPage = (props: IAdminDataModelUsersPageProps) => {
       definitionData.declaredAcademicTerm = declaredAcademicTermSlugFromName(doc.declaredAcademicTerm);
     }
     let collectionName = StudentProfiles.getCollectionName();
-    if (doc.role === ROLE.MENTOR) {
-      collectionName = MentorProfiles.getCollectionName();
-    } else if (doc.role === ROLE.ADVISOR) {
+    if (doc.role === ROLE.ADVISOR) {
       collectionName = AdvisorProfiles.getCollectionName();
     } else if (doc.role === ROLE.FACULTY) {
       collectionName = FacultyProfiles.getCollectionName();
@@ -200,9 +188,6 @@ const AdminDataModelUsersPage = (props: IAdminDataModelUsersPageProps) => {
         case ROLE.FACULTY:
           collectionName = FacultyProfiles.getCollectionName();
           break;
-        case ROLE.MENTOR:
-          collectionName = MentorProfiles.getCollectionName();
-          break;
         default:
           collectionName = StudentProfiles.getCollectionName();
       }
@@ -246,9 +231,6 @@ const AdminDataModelUsersPage = (props: IAdminDataModelUsersPageProps) => {
     }
     if (FacultyProfiles.isDefined(updateData.id)) {
       collectionName = FacultyProfiles.getCollectionName();
-    }
-    if (MentorProfiles.isDefined(updateData.id)) {
-      collectionName = MentorProfiles.getCollectionName();
     }
     if (AdvisorProfiles.isDefined(updateData.id)) {
       collectionName = AdvisorProfiles.getCollectionName();
@@ -337,21 +319,6 @@ const AdminDataModelUsersPage = (props: IAdminDataModelUsersPageProps) => {
       ),
     },
     {
-      menuItem: `Mentors (${props.mentors.length})`, render: () => (
-        <Tab.Pane>
-          <ListCollectionWidget
-            collection={MentorProfiles}
-            descriptionPairs={descriptionPairs(props)}
-            itemTitle={itemTitle}
-            handleOpenUpdate={handleOpenUpdate}
-            handleDelete={handleDelete}
-            setShowIndex={dataModelActions.setCollectionShowIndex}
-            setShowCount={dataModelActions.setCollectionShowCount}
-          />
-        </Tab.Pane>
-      ),
-    },
-    {
       menuItem: `Students (${props.students.length})`, render: () => (
         <Tab.Pane>
           <ListCollectionWidget
@@ -408,7 +375,6 @@ export default withTracker(() => {
   const admins = AdminProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch();
   const advisors = AdvisorProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch();
   const faculty = FacultyProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch();
-  const mentors = MentorProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch();
   const students = StudentProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch();
   const favoriteAcademicPlans = FavoriteAcademicPlans.find().fetch();
   const favoriteCareerGoals = FavoriteCareerGoals.find().fetch();
@@ -417,7 +383,6 @@ export default withTracker(() => {
     admins,
     advisors,
     faculty,
-    mentors,
     students,
     favoriteAcademicPlans,
     favoriteCareerGoals,

@@ -13,8 +13,6 @@ import { FeedbackInstances } from '../../../api/feedback/FeedbackInstanceCollect
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { InterestTypes } from '../../../api/interest/InterestTypeCollection';
-import { MentorAnswers } from '../../../api/mentor/MentorAnswerCollection';
-import { MentorQuestions } from '../../../api/mentor/MentorQuestionCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';
@@ -23,7 +21,6 @@ import { Reviews } from '../../../api/review/ReviewCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
-import { MentorProfiles } from '../../../api/user/MentorProfileCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
@@ -71,12 +68,6 @@ export const setCollectionShowCount = (collectionName: string, count: number) =>
     case InterestTypes.getCollectionName():
       retVal.type = TYPES.SET_INTEREST_TYPES_SHOW_COUNT;
       break;
-    case MentorAnswers.getCollectionName():
-      retVal.type = TYPES.SET_MENTOR_ANSWERS_SHOW_COUNT;
-      break;
-    case MentorQuestions.getCollectionName():
-      retVal.type = TYPES.SET_MENTOR_QUESTIONS_SHOW_COUNT;
-      break;
     case Opportunities.getCollectionName():
       retVal.type = TYPES.SET_OPPORTUNITIES_SHOW_COUNT;
       break;
@@ -103,9 +94,6 @@ export const setCollectionShowCount = (collectionName: string, count: number) =>
       break;
     case FacultyProfiles.getCollectionName():
       retVal.type = TYPES.SET_FACULTY_SHOW_COUNT;
-      break;
-    case MentorProfiles.getCollectionName():
-      retVal.type = TYPES.SET_MENTORS_SHOW_COUNT;
       break;
     case StudentProfiles.getCollectionName():
       retVal.type = TYPES.SET_STUDENTS_SHOW_COUNT;
@@ -165,12 +153,6 @@ export const setCollectionShowIndex = (collectionName: string, index: number) =>
     case InterestTypes.getCollectionName():
       retVal.type = TYPES.SET_INTEREST_TYPES_SHOW_INDEX;
       break;
-    case MentorAnswers.getCollectionName():
-      retVal.type = TYPES.SET_MENTOR_ANSWERS_SHOW_INDEX;
-      break;
-    case MentorQuestions.getCollectionName():
-      retVal.type = TYPES.SET_MENTOR_QUESTIONS_SHOW_INDEX;
-      break;
     case Opportunities.getCollectionName():
       retVal.type = TYPES.SET_OPPORTUNITIES_SHOW_INDEX;
       break;
@@ -197,9 +179,6 @@ export const setCollectionShowIndex = (collectionName: string, index: number) =>
       break;
     case FacultyProfiles.getCollectionName():
       retVal.type = TYPES.SET_FACULTY_SHOW_INDEX;
-      break;
-    case MentorProfiles.getCollectionName():
-      retVal.type = TYPES.SET_MENTORS_SHOW_INDEX;
       break;
     case StudentProfiles.getCollectionName():
       retVal.type = TYPES.SET_STUDENTS_SHOW_INDEX;

@@ -323,19 +323,9 @@ export const reviewOppRecommendation = (student: IStudentProfile): IHtml | strin
   return html;
 };
 
-const visitMentorRecommendation = (student: IStudentProfile): IHtml => {
-  const html: IHtml = {};
-  html.header = 'Visit The Mentor Space';
-  html.info = '<p>Connect with RadGrad mentors to learn more about future opportunities and careers, or if you simply'
-    + ' have questions regarding your current degree track. Visit the <a style="color: #6FBE44; font-weight: bold"'
-    + ` href="https://radgrad.ics.hawaii.edu/student/${student.username}/mentor-space">Mentor Space</a>`
-    + ' page to get started!</p>';
-  return html;
-};
-
 // TODO Currently we only use the first 3 of the recommendations for our Newsletter, we need to discuss if we should add more
 // or implement a better system such that we can incorporate more recommendations on a rotational/conditional basis
-const recList = [iceRecommendation, verifyOppRecommendation, levelRecommendation, reviewCourseRecommendation, reviewOppRecommendation, visitMentorRecommendation];
+const recList = [iceRecommendation, verifyOppRecommendation, levelRecommendation, reviewCourseRecommendation, reviewOppRecommendation];
 
 export const getRecList = (student: IStudentProfile) => {
   const suggestedRecs = [];

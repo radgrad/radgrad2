@@ -6,7 +6,6 @@ import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 import { URL_ROLES } from '../../../startup/client/route-constants';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
-import MentorPageMenuWidget from '../../components/mentor/MentorPageMenuWidget';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import PageTrackingMenu from '../../components/shared/PageTrackingMenu';
 import PageTrackingScoreboardWidget from '../../components/shared/PageTrackingScoreboardWidget';
@@ -33,8 +32,6 @@ const PageTrackingScoreboardPage = (props: IPageTrackingAnalysisPageProps) => {
         return <AdvisorPageMenuWidget />;
       case URL_ROLES.FACULTY:
         return <FacultyPageMenuWidget />;
-      case URL_ROLES.MENTOR:
-        return <MentorPageMenuWidget />;
       case URL_ROLES.STUDENT:
         return <StudentPageMenuWidget />;
       default:

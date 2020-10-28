@@ -51,7 +51,7 @@ module.exports = {
     // help widget
     browser.assert.containsText('.ui.floating.info.message .title', 'LEARN ABOUT MODERATION');
     browser.click('.ui.floating.info.message .accordion');
-    browser.assert.containsText('.accordion .content.active p:first-child', 'On RadGrad, students can provide public feedback with course reviews, opportunity reviews, and Mentor Space questions. To maintain a high-integrity learning environment, all of these public feedbacks require moderation.');
+    browser.assert.containsText('.accordion .content.active p:first-child', 'On RadGrad, students can provide public feedback with course reviews and opportunity reviews. To maintain a high-integrity learning environment, all of these public feedbacks require moderation.');
     browser.click('.ui.floating.info.message .accordion');
     browser.assert.containsText('.ui.vertically.divided.equal.width.grid .column:first-child .header', 'PENDING COURSE REVIEWS');
     browser.assert.containsText('.ui.vertically.divided.equal.width.grid .column:nth-child(2) .header', 'PENDING OPPORTUNITY REVIEWS');
