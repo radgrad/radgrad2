@@ -14,7 +14,7 @@ import { IAcademicYearInstance } from '../../typings/radgrad';
 /* eslint-env mocha */
 
 if (Meteor.isServer) {
-  describe('AcademicYearInstanceCollection', function testSuite() {
+  describe.skip('AcademicYearInstanceCollection', function testSuite() {
     before(function setup() {
       removeAllEntities();
     });

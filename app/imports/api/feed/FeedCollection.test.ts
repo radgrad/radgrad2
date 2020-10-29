@@ -17,7 +17,7 @@ import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 /* eslint-env mocha */
 
 if (Meteor.isServer) {
-  describe('FeedCollection', function testSuite() {
+  describe.skip('FeedCollection', function testSuite() {
     before(function setup() {
       removeAllEntities();
     });
