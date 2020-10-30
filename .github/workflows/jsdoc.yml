@@ -35,7 +35,7 @@ jobs:
 
       - run: npm run generate-docs
 
-      - name: Commit changes
+      - name: Commit changes to repo
         uses: EndBug/add-and-commit@v5
         with:
           author_name: Philip Johnson
