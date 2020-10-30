@@ -1,0 +1,522 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> api/feedback/FeedbackFunctions.ts</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    API Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Namespaces</h3><ul><li><a href="api_academic-term.html">api/academic-term</a></li><li><a href="api_analytic.html">api/analytic</a></li><li><a href="api_base.html">api/base</a></li><li><a href="api_career.html">api/career</a></li><li><a href="api_course.html">api/course</a></li><li><a href="api_degree-plan.html">api/degree-plan</a></li><li><a href="api_feed.html">api/feed</a></li><li><a href="api_feedback.html">api/feedback</a></li><li><a href="api_help.html">api/help</a></li><li><a href="api_ice.html">api/ice</a></li><li><a href="api_integrity.html">api/integrity</a></li><li><a href="api_interest.html">api/interest</a></li><li><a href="api_level.html">api/level</a></li><li><a href="api_log.html">api/log</a></li><li><a href="api_opportunity.html">api/opportunity</a></li><li><a href="api_page-tracking.html">api/page-tracking</a></li><li><a href="api_public-stats.html">api/public-stats</a></li><li><a href="api_radgrad.html">api/radgrad</a></li><li><a href="api_review.html">api/review</a></li><li><a href="api_role.html">api/role</a></li><li><a href="api_slug.html">api/slug</a></li><li><a href="api_star.html">api/star</a></li><li><a href="api_teaser.html">api/teaser</a></li><li><a href="api_test.html">api/test</a></li><li><a href="api_user.html">api/user</a></li><li><a href="api_verification.html">api/verification</a></li></ul><h3>Classes</h3><ul><li><a href="@api_page-tracking.PageInterestsDailySnapshotCollection.html">PageInterestsDailySnapshotCollection</a></li><li><a href="api_academic-term.AcademicTermCollection.html">AcademicTermCollection</a></li><li><a href="api_analytic.IceSnapshotCollection.html">IceSnapshotCollection</a></li><li><a href="api_analytic.PageInterestCollection.html">PageInterestCollection</a></li><li><a href="api_analytic.UserInteractionCollection.html">UserInteractionCollection</a></li><li><a href="api_base.BaseCollection.html">BaseCollection</a></li><li><a href="api_base.BaseSlugCollection.html">BaseSlugCollection</a></li><li><a href="api_base.BaseTypeCollection.html">BaseTypeCollection</a></li><li><a href="api_career.CareerGoalCollection.html">CareerGoalCollection</a></li><li><a href="api_course.CourseCollection.html">CourseCollection</a></li><li><a href="api_course.CourseInstanceCollection.html">CourseInstanceCollection</a></li><li><a href="api_degree-plan.AcademicPlanCollection.html">AcademicPlanCollection</a></li><li><a href="api_degree-plan.AcademicYearInstanceCollection.html">AcademicYearInstanceCollection</a></li><li><a href="api_degree-plan.DesiredDegreeCollection.html">DesiredDegreeCollection</a></li><li><a href="api_degree-plan.exports.PlanChoiceCollection.html">exports.PlanChoiceCollection</a></li><li><a href="api_degree-plan.PreferredChoice.html">PreferredChoice</a></li><li><a href="api_feed.FeedCollection.html">FeedCollection</a></li><li><a href="api_feedback.FeedbackFunctions.html">FeedbackFunctions</a></li><li><a href="api_feedback.FeedbackInstanceCollection.html">FeedbackInstanceCollection</a></li><li><a href="api_help.HelpMessageCollection.html">HelpMessageCollection</a></li><li><a href="api_interest.InterestCollection.html">InterestCollection</a></li><li><a href="api_interest.InterestTypeCollection.html">InterestTypeCollection</a></li><li><a href="api_log.AdvisorLogCollection.html">AdvisorLogCollection</a></li><li><a href="api_opportunity.OpportunityCollection.html">OpportunityCollection</a></li><li><a href="api_opportunity.OpportunityInstanceCollection.html">OpportunityInstanceCollection</a></li><li><a href="api_opportunity.OpportunityTypeCollection.html">OpportunityTypeCollection</a></li><li><a href="api_public-stats.PublicStatsCollection.html">PublicStatsCollection</a></li><li><a href="api_radgrad.RadGradClass.html">RadGradClass</a></li><li><a href="api_review.ReviewCollection.html">ReviewCollection</a></li><li><a href="api_slug.SlugCollection.html">SlugCollection</a></li><li><a href="api_teaser.TeaserCollection.html">TeaserCollection</a></li><li><a href="api_user.AdminProfileCollection.html">AdminProfileCollection</a></li><li><a href="api_user.AdvisorProfileCollection.html">AdvisorProfileCollection</a></li><li><a href="api_user.BaseProfileCollection.html">BaseProfileCollection</a></li><li><a href="api_user.FacultyProfileCollection.html">FacultyProfileCollection</a></li><li><a href="api_user.StudentProfileCollection.html">StudentProfileCollection</a></li><li><a href="api_user.UserCollection.html">UserCollection</a></li><li><a href="api_verification.VerificationRequestCollection.html">VerificationRequestCollection</a></li><li><a href="FavoriteAcademicPlanCollection.html">FavoriteAcademicPlanCollection</a></li><li><a href="FavoriteCareerGoalCollection.html">FavoriteCareerGoalCollection</a></li><li><a href="FavoriteCourseCollection.html">FavoriteCourseCollection</a></li><li><a href="FavoriteInterestCollection.html">FavoriteInterestCollection</a></li><li><a href="FavoriteOpportunityCollection.html">FavoriteOpportunityCollection</a></li><li><a href="RadGradPropertiesClass.html">RadGradPropertiesClass</a></li></ul><h3>Interfaces</h3><ul><li><a href="IFacultyPageAboutMeWidgetProps.html">IFacultyPageAboutMeWidgetProps</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AdminDataModelAcademicPlansPage">AdminDataModelAcademicPlansPage</a></li><li><a href="global.html#AdminModerationPage">AdminModerationPage</a></li><li><a href="global.html#AdminPageMenuWidget">AdminPageMenuWidget</a></li><li><a href="global.html#AdminProtectedRoute">AdminProtectedRoute</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#CardExplorerWidget">CardExplorerWidget</a></li><li><a href="global.html#CompletedVerificationsWidget">CompletedVerificationsWidget</a></li><li><a href="global.html#descriptionPairs">descriptionPairs</a></li><li><a href="global.html#EventVerificationsWidget">EventVerificationsWidget</a></li><li><a href="global.html#ExplorerUsersWidget">ExplorerUsersWidget</a></li><li><a href="global.html#FacultyPageAboutMeWidget">FacultyPageAboutMeWidget</a></li><li><a href="global.html#FirstMenuContainer">FirstMenuContainer</a></li><li><a href="global.html#Footer">Footer</a></li><li><a href="global.html#getCourseNumber">getCourseNumber</a></li><li><a href="global.html#getPlanCount">getPlanCount</a></li><li><a href="global.html#getRandomCourseSlug">getRandomCourseSlug</a></li><li><a href="global.html#getRandomCourseSlugForDept">getRandomCourseSlugForDept</a></li><li><a href="global.html#getRandomDepartment">getRandomDepartment</a></li><li><a href="global.html#getSimpleChoiceNumber">getSimpleChoiceNumber</a></li><li><a href="global.html#itemTitle">itemTitle</a></li><li><a href="global.html#itemTitleString">itemTitleString</a></li><li><a href="global.html#LandingHomeContainer">LandingHomeContainer</a></li><li><a href="global.html#LandingHomePage">LandingHomePage</a></li><li><a href="global.html#LandingNavBar">LandingNavBar</a></li><li><a href="global.html#LandingNavBarContainer">LandingNavBarContainer</a></li><li><a href="global.html#makeSampleCareerGoal">makeSampleCareerGoal</a></li><li><a href="global.html#makeSampleCareerGoalArray">makeSampleCareerGoalArray</a></li><li><a href="global.html#makeSampleCareerGoalSlugArray">makeSampleCareerGoalSlugArray</a></li><li><a href="global.html#makeSampleCourseSlugArray">makeSampleCourseSlugArray</a></li><li><a href="global.html#makeSampleInterestArray">makeSampleInterestArray</a></li><li><a href="global.html#makeSampleInterestSlugArray">makeSampleInterestSlugArray</a></li><li><a href="global.html#makeSampleOpportunitySlugArray">makeSampleOpportunitySlugArray</a></li><li><a href="global.html#makeSamplePageInterestInfo">makeSamplePageInterestInfo</a></li><li><a href="global.html#makeSamplePageInterestInfoArray">makeSamplePageInterestInfoArray</a></li><li><a href="global.html#makeSampleUserArray">makeSampleUserArray</a></li><li><a href="global.html#NotAuthorized">NotAuthorized</a></li><li><a href="global.html#NotFound">NotFound</a></li><li><a href="global.html#PendingVerificationsWidget">PendingVerificationsWidget</a></li><li><a href="global.html#ProtectedRoute">ProtectedRoute</a></li><li><a href="global.html#removeEmptyYearsRaw">removeEmptyYearsRaw</a></li><li><a href="global.html#removeYearFromPlanRaw">removeYearFromPlanRaw</a></li><li><a href="global.html#schema">schema</a></li><li><a href="global.html#sendEmail">sendEmail</a></li><li><a href="global.html#Signin">Signin</a></li><li><a href="global.html#Signout">Signout</a></li><li><a href="global.html#validateCourseSlugFormat">validateCourseSlugFormat</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>api/feedback/FeedbackFunctions.ts</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import _ from 'lodash';
+import { AcademicPlans } from '../degree-plan/AcademicPlanCollection';
+import { CourseInstances } from '../course/CourseInstanceCollection';
+import { Courses } from '../course/CourseCollection';
+import { FeedbackInstances } from './FeedbackInstanceCollection';
+import { clearFeedbackInstancesMethod } from './FeedbackInstanceCollection.methods';
+import { defineMethod } from '../base/BaseCollection.methods';
+import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollection';
+import { AcademicTerms } from '../academic-term/AcademicTermCollection';
+import { StudentProfiles } from '../user/StudentProfileCollection';
+import * as courseUtils from '../course/CourseUtilities';
+import * as oppUtils from '../opportunity/OpportunityUtilities';
+import * as yearUtils from '../degree-plan/AcademicYearUtilities';
+import * as planUtils from '../degree-plan/PlanChoiceUtilities';
+import { Slugs } from '../slug/SlugCollection';
+import { Users } from '../user/UserCollection';
+import { FavoriteAcademicPlans } from '../favorite/FavoriteAcademicPlanCollection';
+
+/**
+ * Provides FeedbackFunctions. Each FeedbackFunction is a method of the singleton instance FeedbackFunctions.
+ * Each FeedbackFunction accepts a studentID and updates the FeedbackInstanceCollection based upon the current state
+ * of the student. Normally, the FeedbackFunction will first delete any FeedbackInstances it previously created
+ * for that student (if any), then add new ones if appropriate.
+ *
+ * Note that FeedbackFunctions call Meteor Methods to define and delete FeedbackInstances, so these functions must
+ * be called on the client side.
+ * @example
+ * import { FeedbackFunctions } from '../feedback/FeedbackFunctions';
+ *   :
+ * FeedbackFunctions.recommendedCoursesThisAcademicTermByInterest(studentID);
+ * @class FeedbackFunctions
+ * @memberOf api/feedback
+ */
+export class FeedbackFunctionClass {
+  public feedbackFunctionNames = [
+    'checkPrerequisites',
+    'checkCompletePlan',
+    'checkOverloadedAcademicTerms',
+    'generateRecommendedCourse',
+    'generateRecommended400LevelCourse',
+    'generateRecommendedCurrentAcademicTermOpportunities',
+    'generateNextLevelRecommendation',
+  ];
+
+  /**
+   * Checks the student's degree plan to ensure that all the prerequisites are met.
+   * @param user the student's ID.
+   */
+  public checkPrerequisites(user: string) {
+    const functionName = 'checkPrerequisites';
+    const feedbackType = FeedbackInstances.WARNING;
+    const currentAcademicTerm = AcademicTerms.getCurrentAcademicTermDoc();
+    const studentID = Users.getID(user);
+
+    // First clear any feedback instances previously created for this student.
+    clearFeedbackInstancesMethod.call({ user, functionName });
+
+    // Now iterate through all the CourseInstances associated with this student.
+    const cis = CourseInstances.find({ studentID }).fetch();
+    cis.forEach((ci) => {
+      const academicTerm = AcademicTerms.findDoc(ci.termID);
+      if (academicTerm.termNumber > currentAcademicTerm.termNumber) {
+        const academicTermName = AcademicTerms.toString(ci.termID, false);
+        const course = Courses.findDoc(ci.courseID);
+        if (course) {
+          const prereqs = course.prerequisites;
+          prereqs.forEach((p) => {
+            const courseID = Slugs.getEntityID(p, 'Course');
+            const prerequisiteCourse = Courses.findDoc({ _id: courseID });
+            const preCiIndex = _.findIndex(cis, (obj) => obj.courseID === courseID);
+            if (preCiIndex !== -1) {
+              const preCi = cis[preCiIndex];
+              const preCourse = Courses.findDoc(preCi.courseID);
+              const preAcademicTerm = AcademicTerms.findDoc(preCi.termID);
+              if (preAcademicTerm) {
+                if (preAcademicTerm.termNumber >= academicTerm.termNumber) {
+                  const academicTermName2 = AcademicTerms.toString(preAcademicTerm._id, false);
+                  const description = `${academicTermName}: ${course.num}'s prerequisite ${preCourse.num} is ` +
+                    `after or in ${academicTermName2}.`;
+                  const definitionData = { user, functionName, description, feedbackType };
+                  defineMethod.call({ collectionName: 'FeedbackInstanceCollection', definitionData });
+                }
+              }
+            } else {
+              const description = `${academicTermName}: Prerequisite ${prerequisiteCourse.num} for ${course.num}` +
+                ' not found.';
+              const definitionData = { user, functionName, description, feedbackType };
+              defineMethod.call({ collectionName: 'FeedbackInstanceCollection', definitionData });
+            }
+          });
+        }
+      }
+    });
+  }
+
+  /**
+   * Checks the student's degree plan to ensure that it satisfies the degree requirements.
+   * @param user the student's ID.
+   */
+  public checkCompletePlan(user: string) {
+    const functionName = 'checkCompletePlan';
+    console.log(`Running feedback function ${functionName}`);
+    const feedbackType = FeedbackInstances.WARNING;
+
+    // First clear any feedback instances previously created for this student.
+    clearFeedbackInstancesMethod.call({ user, functionName });
+
+    const studentProfile = Users.getProfile(user);
+    const courseIDs = StudentProfiles.getCourseIDs(user);
+    const favPlans = FavoriteAcademicPlans.find({ studentID: studentProfile.userID }).fetch();
+    _.forEach(favPlans, (fav) => {
+      let courses = [];
+      const academicPlan = AcademicPlans.findDoc(fav.academicPlanID);
+      courses = academicPlan.courseList.slice(0);
+      courses = this.missingCourses(courseIDs, courses);
+      if (courses.length > 0) {
+        let description = 'Your degree plan is missing: \n\n';
+        const basePath = this.getBasePath(user);
+        _.forEach(courses, (slug) => {
+          if (!planUtils.isSingleChoice(slug)) {
+            const slugs = planUtils.complexChoiceToArray(slug);
+            description = `${description}\n\n- `;
+            _.forEach(slugs, (s) => {
+              const id = Slugs.getEntityID(planUtils.stripCounter(s), 'Course');
+              const course = Courses.findDoc(id);
+              description = `${description} [${course.num} ${course.shortName}](${basePath}explorer/courses/${s}) or `;
+            });
+            description = description.substring(0, description.length - 4);
+            description = `${description}, `;
+          } else if (slug.indexOf('400+') !== -1) {
+            description = `${description} \n- a 400 level elective, `;
+          } else if (slug.indexOf('300+') !== -1) {
+            description = `${description} \n- a 300+ level elective, `;
+          } else {
+            const id = Slugs.getEntityID(planUtils.stripCounter(slug), 'Course');
+            const course = Courses.findDoc(id);
+            description = `${description} \n- [${course.num} ${course.shortName}](${basePath}explorer/courses/${planUtils.stripCounter(slug)}), `;
+          }
+        });
+        description = description.substring(0, description.length - 2);
+        const definitionData = { user, functionName, description, feedbackType };
+        defineMethod.call({ collectionName: 'FeedbackInstanceCollection', definitionData });
+      }
+    });
+  }
+
+  /**
+   * Checks the student's degree plan to ensure that there aren't too many courses in any one academicTerm.
+   * @param user the student's ID.
+   */
+  public checkOverloadedAcademicTerms(user: string) {
+    const functionName = 'checkOverloadedAcademicTerms';
+    console.log(`Running feedback function ${functionName}`);
+    const feedbackType = FeedbackInstances.WARNING;
+    const studentID = Users.getID(user);
+
+    // First clear any feedback instances previously created for this student.
+    clearFeedbackInstancesMethod.call({ user, functionName });
+
+    const currentAcademicTerm = AcademicTerms.getCurrentAcademicTermDoc();
+    const academicTerms = yearUtils.getStudentTerms(user);
+    let haveOverloaded = false;
+    let description = 'Your plan is overloaded. ';
+    _.forEach(academicTerms, (termID) => {
+      const academicTerm = AcademicTerms.findDoc(termID);
+      if (academicTerm.termNumber > currentAcademicTerm.termNumber) {
+        const cis = CourseInstances.find({ studentID, termID, note: /ICS/ }).fetch();
+        if (cis.length > 2) {
+          haveOverloaded = true;
+          description = `${description} ${AcademicTerms.toString(termID, false)}, `;
+        }
+      }
+    });
+    description = description.substring(0, description.length - 2);
+    if (haveOverloaded) {
+      const definitionData = { user, functionName, description, feedbackType };
+      defineMethod.call({ collectionName: 'FeedbackInstanceCollection', definitionData });
+    }
+  }
+
+  /**
+   * Creates recommended courses based upon the student's interests. Only generates feedback if the student's plan
+   * is missing courses.
+   * @param user the student's ID.
+   */
+  public generateRecommendedCourse(user: string) {
+    const functionName = 'generateRecommendedCourse';
+    console.log(`Running feedback function ${functionName}`);
+    const feedbackType = FeedbackInstances.RECOMMENDATION;
+
+    // First clear any feedback instances previously created for this student.
+    clearFeedbackInstancesMethod.call({ user, functionName });
+
+    const coursesTakenSlugs = [];
+    const studentProfile = Users.getProfile(user);
+    const courseIDs = StudentProfiles.getCourseIDs(user);
+    const favPlans = FavoriteAcademicPlans.find({ studentID: studentProfile.userID }).fetch();
+    _.forEach(favPlans, (fav) => {
+      const academicPlanID = fav.academicPlanID;
+      const academicPlan = AcademicPlans.findDoc(academicPlanID);
+      const coursesNeeded = academicPlan.courseList.slice(0);
+      _.forEach(courseIDs, (cID) => {
+        const course = Courses.findDoc(cID);
+        coursesTakenSlugs.push(Slugs.getNameFromID(course.slugID));
+      });
+      const missing = this.missingCourses(courseIDs, coursesNeeded);
+      if (missing.length > 0) {
+        let description = 'Consider taking the following class to meet the degree requirement: ';
+        // if (missing.length > 1) {
+        //   description = 'Consider taking the following classes to meet the degree requirement: ';
+        // }
+        const basePath = this.getBasePath(user);
+        let slug = missing[0];
+        if (planUtils.isComplexChoice(slug) || planUtils.isSimpleChoice(slug)) {
+          slug = planUtils.complexChoiceToArray(slug);
+        }
+        if (Array.isArray(slug)) {
+          const course = courseUtils.chooseBetween(slug, user, coursesTakenSlugs);
+          if (course) {
+            const courseSlug = Slugs.findDoc(course.slugID);
+            description = `${description} \n\n- [${course.num} ${course.shortName}](${basePath}explorer/courses/${courseSlug.name}), `;
+          }
+        } else if (slug.startsWith('ics_4')) {
+          const bestChoice = courseUtils.chooseStudent400LevelCourse(user, coursesTakenSlugs);
+          if (bestChoice) {
+            const cSlug = Slugs.findDoc(bestChoice.slugID);
+            description = `${description} \n- [${bestChoice.num} ${bestChoice.shortName}](${basePath}explorer/courses/${cSlug.name}), `;
+          }
+        } else if (slug.startsWith('ics')) {
+          const courseID = Slugs.getEntityID(planUtils.stripCounter(slug), 'Course');
+          const course = Courses.findDoc(courseID);
+          description = `${description} \n\n- [${course.num} ${course.shortName}](${basePath}explorer/courses/${slug}), `;
+        }
+        const definitionData = { user, functionName, description, feedbackType };
+        defineMethod.call({ collectionName: 'FeedbackInstanceCollection', definitionData });
+      }
+    });
+  }
+
+  public generateRecommended400LevelCourse(user: string) {
+    const functionName = 'generateRecommended400LevelCourse';
+    // console.log(`Running feedback function ${functionName}`);
+    const feedbackType = FeedbackInstances.RECOMMENDATION;
+
+    // First clear any feedback instances previously created for this student.
+    clearFeedbackInstancesMethod.call({ user, functionName });
+
+    const coursesTakenSlugs = [];
+    const studentProfile = Users.getProfile(user);
+    const courseIDs = StudentProfiles.getCourseIDs(user);
+    const favPlans = FavoriteAcademicPlans.find({ studentID: studentProfile.userID }).fetch();
+    _.forEach(favPlans, (fav) => {
+      const academicPlan = AcademicPlans.findDoc(fav.academicPlanID);
+      const coursesNeeded = academicPlan.courseList.slice(0);
+      _.forEach(courseIDs, (cID) => {
+        const course = Courses.findDoc(cID);
+        coursesTakenSlugs.push(Slugs.getNameFromID(course.slugID));
+      });
+      if (this.missingCourses(courseIDs, coursesNeeded).length > 0) {
+        let bestChoices = courseUtils.bestStudent400LevelCourses(user, coursesTakenSlugs);
+        const basePath = this.getBasePath(user);
+        if (bestChoices) {
+          const len = bestChoices.length;
+          if (len > 5) {
+            bestChoices = _.drop(bestChoices, len - 5);
+          }
+          let description = 'Consider taking the following classes to meet the degree requirement: ';
+          _.forEach(bestChoices, (course) => {
+            const slug = Slugs.findDoc(course.slugID);
+            description = `${description} \n- [${course.num} ${course.shortName}](${basePath}explorer/courses/${slug.name}), `;
+          });
+          description = description.substring(0, description.length - 2);
+          const definitionData = { user, functionName, description, feedbackType };
+          defineMethod.call({ collectionName: 'FeedbackInstanceCollection', definitionData });
+        }
+      } else {
+        // TODO Why is this second call to clear needed? We do it at the top of this function.
+        clearFeedbackInstancesMethod.call({ user, functionName });
+      }
+    });
+  }
+
+  /**
+   * Creates a recommended opportunities FeedbackInstance for the given student and the current academicTerm.
+   * @param user the student's ID.
+   */
+  public generateRecommendedCurrentAcademicTermOpportunities(user: string) {
+    const functionName = 'generateRecommendedCurrentAcademicTermOpportunities';
+    // console.log(`Running feedback function ${functionName}`);
+    const feedbackType = FeedbackInstances.RECOMMENDATION;
+    const studentID = Users.getID(user);
+
+    // First clear any feedback instances previously created for this student.
+    clearFeedbackInstancesMethod.call({ user, functionName });
+
+    let bestChoices = oppUtils.getStudentCurrentAcademicTermOpportunityChoices(user);
+    const basePath = this.getBasePath(user);
+    const termID = AcademicTerms.getCurrentTermID();
+    const oppInstances = OpportunityInstances.find({ studentID, termID }).fetch();
+    if (oppInstances.length === 0) { // only make suggestions if there are no opportunities planned.
+      // console.log(bestChoices);
+      if (bestChoices) {
+        const len = bestChoices.length;
+        if (len > 3) {
+          bestChoices = _.drop(bestChoices, len - 3);
+        }
+        let description = 'Consider the following opportunities for this academicTerm: ';
+        _.forEach(bestChoices, (opp) => {
+          const slug = Slugs.findDoc(opp.slugID);
+          description = `${description} \n- [${opp.name}](${basePath}explorer/opportunities/${slug.name}), `;
+        });
+        description = description.substring(0, description.length - 2);
+        const definitionData = { user, functionName, description, feedbackType };
+        defineMethod.call({ collectionName: 'FeedbackInstanceCollection', definitionData });
+      }
+    }
+  }
+
+  /**
+   * Creates a recommendation for getting to the next RadGrad Level.
+   * @param user The student's ID.
+   */
+  public generateNextLevelRecommendation(user: string) {
+    const functionName = 'generateNextLevelRecommendation';
+    // console.log(`Running feedback function ${functionName}`);
+    const feedbackType = FeedbackInstances.RECOMMENDATION;
+
+    // First clear any feedback instances previously created for this student.
+    clearFeedbackInstancesMethod.call({ user, functionName });
+
+    const studentProfile = Users.getProfile(user);
+    // Need to build the route not use current route since might be the Advisor.
+    const basePath = this.getBasePath(user);
+    let description = 'Getting to the next Level: ';
+    switch (studentProfile.level) {
+      case 0:
+        description = `${description} Take and pass [ICS 111](${basePath}explorer/courses/ics111) and [ICS 141](${basePath}explorer/courses/ics141)`;
+        break;
+      case 1:
+        description = `${description} Take and pass [ICS 211](${basePath}explorer/courses/ics211) and [ICS 241](${basePath}explorer/courses/ics241)`;
+        break;
+      case 2:
+        description = `${description} Get some innovation and experience [ICE points](${basePath}home/ice)`;
+        break;
+      case 3:
+        description = `${description} Get some more innovation and experience [ICE points](${basePath}home/ice)`;
+        break;
+      case 4:
+        description = `${description} Get some more innovation and experience [ICE points](${basePath}home/ice) and go review something.`;
+        break;
+      case 5:
+        description = `${description} Get some more innovation and experience [ICE points](${basePath}home/ice) and do more reviews.`;
+        break;
+      default:
+        description = '';
+    }
+    if (description) {
+      const definitionData = { user, functionName, description, feedbackType };
+      defineMethod.call({ collectionName: 'FeedbackInstanceCollection', definitionData });
+    }
+  }
+
+  /**
+   * Returns an array of the course slugs that are missing from the plan.
+   * @param courseIDs The IDs of the courses taken by the student.
+   * @param coursesNeeded An array of the course slugs needed for the degree.
+   * @return {*|Array.&lt;T>}
+   */
+  private missingCourses(courseIDs, coursesNeeded) {
+    const planChoices = coursesNeeded.splice(0);
+    _.forEach(courseIDs, (id) => {
+      const course = Courses.findDoc(id);
+      const slug = Slugs.getNameFromID(course.slugID);
+      const index = planUtils.planIndexOf(planChoices, slug);
+      if (index !== -1) {
+        planChoices.splice(index, 1);
+      }
+    });
+    return planChoices;
+  }
+
+  private getBasePath(studentID) {
+    // console.log(studentID);
+    // const getPosition = (str, subString, index) => {
+    //   return str.split(subString, index).join(subString).length;
+    // };
+    // if (FlowRouter.current()) {
+    //   const currentRoute = FlowRouter.current().path;
+    //   if (currentRoute.startsWith('/advisor')) {
+    //     const username = Users.getProfile(studentID).username;
+    //     basePath = `/student/${username}/`;
+    //   } else {
+    //     const index = getPosition(currentRoute, '/', 3);
+    //     basePath = currentRoute.substring(0, index + 1);
+    //   }
+    // }
+    return '';
+  }
+}
+
+/**
+ * Singleton instance for all FeedbackFunctions.
+ * @type {FeedbackFunctionClass}
+ * @memberOf api/feedback
+ */
+export const FeedbackFunctions = new FeedbackFunctionClass();
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+</body>
+</html>
