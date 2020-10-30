@@ -41,6 +41,7 @@ jobs:
           author_name: Philip Johnson
           author_email: johnson@hawaii.edu
           message: "Update JSDocs"
+          branch: gh-pages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
