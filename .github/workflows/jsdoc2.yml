@@ -34,7 +34,7 @@ jobs:
 
       - run: |
           pwd
-          cd ${{ GITHUB_WORKSPACE }}/master
+          cd $GITHUB_WORKSPACE/master
           pwd
           npm ci
           npm run generate-docs
