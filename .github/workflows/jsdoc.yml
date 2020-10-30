@@ -13,20 +13,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-
-
-
       - uses: actions/checkout@v2
-        with:
-          ref: 'gh-pages'
-
-      - name: Merge master -> gh-pages
-        uses: devmasx/merge-branch@v1.3.0
-        with:
-          type: now
-          from_branch: master
-          target_branch: gh-pages
-          github_token: ${{ github.token }}
 
       - name: Cache node modules
         uses: actions/cache@v2
