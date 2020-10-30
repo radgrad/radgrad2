@@ -1,0 +1,46 @@
+name: jsdoc-radgrad
+
+on:
+  push:
+    branches:
+      - master
+
+defaults:
+  run:
+    working-directory: ./app
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: 'gh-pages'
+
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+
+      - run: npm ci
+
+      - run: npm run jsdocs
+
+      - name: Commit changes
+          uses: EndBug/add-and-commit@v5
+          with:
+            author_name: Philip Johnson
+            author_email: johnson@hawaii.edu
+            message: "Update JSDocs"
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+

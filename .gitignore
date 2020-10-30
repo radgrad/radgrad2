@@ -31,7 +31,7 @@ tests_output/
 chromedriver.log
 
 # api documentation
-api-docs
+# api-docs
 
 # MUP deploy files containing passwords
 app/.deploy/mup.js
