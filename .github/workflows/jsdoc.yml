@@ -16,8 +16,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-        with:
-          ref: 'gh-pages'
 
       - name: Cache node modules
         uses: actions/cache@v2

@@ -16,6 +16,7 @@
     "encoding": "utf8",
     "destination": "../api-docs/",
     "recurse": true,
+    "readme": "./README.md",
     "verbose": true
   },
   "templates": {
