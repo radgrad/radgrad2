@@ -1,0 +1,49 @@
+name: jsdoc-radgrad
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout master
+        uses: actions/checkout@v2
+        with:
+          path: master
+
+      - name: Checkout gh-pages
+        uses: actions/checkout@v2
+        with:
+          repository: my-org/my-tools
+          path: gh-pages
+
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+
+      - run: |
+          cd master
+          npm ci
+          npm run generate-docs
+          rm -rf ../gh-pages/api-docs
+          mv api-docs ../gh-pages
+
+      - uses: actions/checkout@v2
+      - run: |
+          cd gh-pages
+          git config user.name "Philip Johnson"
+          git config user.email johnson@hawaii.edu
+          git add .
+          git commit -m "new JSDocs"
+          git push
