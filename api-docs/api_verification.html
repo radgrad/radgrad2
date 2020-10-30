@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> api/verification</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    API Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Namespaces</h3><ul><li><a href="api_academic-term.html">api/academic-term</a></li><li><a href="api_analytic.html">api/analytic</a></li><li><a href="api_base.html">api/base</a></li><li><a href="api_career.html">api/career</a></li><li><a href="api_course.html">api/course</a></li><li><a href="api_degree-plan.html">api/degree-plan</a></li><li><a href="api_feed.html">api/feed</a></li><li><a href="api_feedback.html">api/feedback</a></li><li><a href="api_help.html">api/help</a></li><li><a href="api_ice.html">api/ice</a></li><li><a href="api_integrity.html">api/integrity</a></li><li><a href="api_interest.html">api/interest</a></li><li><a href="api_level.html">api/level</a></li><li><a href="api_log.html">api/log</a></li><li><a href="api_opportunity.html">api/opportunity</a></li><li><a href="api_page-tracking.html">api/page-tracking</a></li><li><a href="api_public-stats.html">api/public-stats</a></li><li><a href="api_radgrad.html">api/radgrad</a></li><li><a href="api_review.html">api/review</a></li><li><a href="api_role.html">api/role</a></li><li><a href="api_slug.html">api/slug</a></li><li><a href="api_star.html">api/star</a></li><li><a href="api_teaser.html">api/teaser</a></li><li><a href="api_test.html">api/test</a></li><li><a href="api_user.html">api/user</a></li><li><a href="api_verification.html">api/verification</a></li></ul><h3>Classes</h3><ul><li><a href="@api_page-tracking.PageInterestsDailySnapshotCollection.html">PageInterestsDailySnapshotCollection</a></li><li><a href="api_academic-term.AcademicTermCollection.html">AcademicTermCollection</a></li><li><a href="api_analytic.IceSnapshotCollection.html">IceSnapshotCollection</a></li><li><a href="api_analytic.PageInterestCollection.html">PageInterestCollection</a></li><li><a href="api_analytic.UserInteractionCollection.html">UserInteractionCollection</a></li><li><a href="api_base.BaseCollection.html">BaseCollection</a></li><li><a href="api_base.BaseSlugCollection.html">BaseSlugCollection</a></li><li><a href="api_base.BaseTypeCollection.html">BaseTypeCollection</a></li><li><a href="api_career.CareerGoalCollection.html">CareerGoalCollection</a></li><li><a href="api_course.CourseCollection.html">CourseCollection</a></li><li><a href="api_course.CourseInstanceCollection.html">CourseInstanceCollection</a></li><li><a href="api_degree-plan.AcademicPlanCollection.html">AcademicPlanCollection</a></li><li><a href="api_degree-plan.AcademicYearInstanceCollection.html">AcademicYearInstanceCollection</a></li><li><a href="api_degree-plan.DesiredDegreeCollection.html">DesiredDegreeCollection</a></li><li><a href="api_degree-plan.exports.PlanChoiceCollection.html">exports.PlanChoiceCollection</a></li><li><a href="api_degree-plan.PreferredChoice.html">PreferredChoice</a></li><li><a href="api_feed.FeedCollection.html">FeedCollection</a></li><li><a href="api_feedback.FeedbackFunctions.html">FeedbackFunctions</a></li><li><a href="api_feedback.FeedbackInstanceCollection.html">FeedbackInstanceCollection</a></li><li><a href="api_help.HelpMessageCollection.html">HelpMessageCollection</a></li><li><a href="api_interest.InterestCollection.html">InterestCollection</a></li><li><a href="api_interest.InterestTypeCollection.html">InterestTypeCollection</a></li><li><a href="api_log.AdvisorLogCollection.html">AdvisorLogCollection</a></li><li><a href="api_opportunity.OpportunityCollection.html">OpportunityCollection</a></li><li><a href="api_opportunity.OpportunityInstanceCollection.html">OpportunityInstanceCollection</a></li><li><a href="api_opportunity.OpportunityTypeCollection.html">OpportunityTypeCollection</a></li><li><a href="api_public-stats.PublicStatsCollection.html">PublicStatsCollection</a></li><li><a href="api_radgrad.RadGradClass.html">RadGradClass</a></li><li><a href="api_review.ReviewCollection.html">ReviewCollection</a></li><li><a href="api_slug.SlugCollection.html">SlugCollection</a></li><li><a href="api_teaser.TeaserCollection.html">TeaserCollection</a></li><li><a href="api_user.AdminProfileCollection.html">AdminProfileCollection</a></li><li><a href="api_user.AdvisorProfileCollection.html">AdvisorProfileCollection</a></li><li><a href="api_user.BaseProfileCollection.html">BaseProfileCollection</a></li><li><a href="api_user.FacultyProfileCollection.html">FacultyProfileCollection</a></li><li><a href="api_user.StudentProfileCollection.html">StudentProfileCollection</a></li><li><a href="api_user.UserCollection.html">UserCollection</a></li><li><a href="api_verification.VerificationRequestCollection.html">VerificationRequestCollection</a></li><li><a href="FavoriteAcademicPlanCollection.html">FavoriteAcademicPlanCollection</a></li><li><a href="FavoriteCareerGoalCollection.html">FavoriteCareerGoalCollection</a></li><li><a href="FavoriteCourseCollection.html">FavoriteCourseCollection</a></li><li><a href="FavoriteInterestCollection.html">FavoriteInterestCollection</a></li><li><a href="FavoriteOpportunityCollection.html">FavoriteOpportunityCollection</a></li><li><a href="RadGradPropertiesClass.html">RadGradPropertiesClass</a></li></ul><h3>Interfaces</h3><ul><li><a href="IFacultyPageAboutMeWidgetProps.html">IFacultyPageAboutMeWidgetProps</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AdminDataModelAcademicPlansPage">AdminDataModelAcademicPlansPage</a></li><li><a href="global.html#AdminModerationPage">AdminModerationPage</a></li><li><a href="global.html#AdminPageMenuWidget">AdminPageMenuWidget</a></li><li><a href="global.html#AdminProtectedRoute">AdminProtectedRoute</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#CardExplorerWidget">CardExplorerWidget</a></li><li><a href="global.html#CompletedVerificationsWidget">CompletedVerificationsWidget</a></li><li><a href="global.html#descriptionPairs">descriptionPairs</a></li><li><a href="global.html#EventVerificationsWidget">EventVerificationsWidget</a></li><li><a href="global.html#ExplorerUsersWidget">ExplorerUsersWidget</a></li><li><a href="global.html#FacultyPageAboutMeWidget">FacultyPageAboutMeWidget</a></li><li><a href="global.html#FirstMenuContainer">FirstMenuContainer</a></li><li><a href="global.html#Footer">Footer</a></li><li><a href="global.html#getCourseNumber">getCourseNumber</a></li><li><a href="global.html#getPlanCount">getPlanCount</a></li><li><a href="global.html#getRandomCourseSlug">getRandomCourseSlug</a></li><li><a href="global.html#getRandomCourseSlugForDept">getRandomCourseSlugForDept</a></li><li><a href="global.html#getRandomDepartment">getRandomDepartment</a></li><li><a href="global.html#getSimpleChoiceNumber">getSimpleChoiceNumber</a></li><li><a href="global.html#itemTitle">itemTitle</a></li><li><a href="global.html#itemTitleString">itemTitleString</a></li><li><a href="global.html#LandingHomeContainer">LandingHomeContainer</a></li><li><a href="global.html#LandingHomePage">LandingHomePage</a></li><li><a href="global.html#LandingNavBar">LandingNavBar</a></li><li><a href="global.html#LandingNavBarContainer">LandingNavBarContainer</a></li><li><a href="global.html#makeSampleCareerGoal">makeSampleCareerGoal</a></li><li><a href="global.html#makeSampleCareerGoalArray">makeSampleCareerGoalArray</a></li><li><a href="global.html#makeSampleCareerGoalSlugArray">makeSampleCareerGoalSlugArray</a></li><li><a href="global.html#makeSampleCourseSlugArray">makeSampleCourseSlugArray</a></li><li><a href="global.html#makeSampleInterestArray">makeSampleInterestArray</a></li><li><a href="global.html#makeSampleInterestSlugArray">makeSampleInterestSlugArray</a></li><li><a href="global.html#makeSampleOpportunitySlugArray">makeSampleOpportunitySlugArray</a></li><li><a href="global.html#makeSamplePageInterestInfo">makeSamplePageInterestInfo</a></li><li><a href="global.html#makeSamplePageInterestInfoArray">makeSamplePageInterestInfoArray</a></li><li><a href="global.html#makeSampleUserArray">makeSampleUserArray</a></li><li><a href="global.html#NotAuthorized">NotAuthorized</a></li><li><a href="global.html#NotFound">NotFound</a></li><li><a href="global.html#PendingVerificationsWidget">PendingVerificationsWidget</a></li><li><a href="global.html#ProtectedRoute">ProtectedRoute</a></li><li><a href="global.html#removeEmptyYearsRaw">removeEmptyYearsRaw</a></li><li><a href="global.html#removeYearFromPlanRaw">removeYearFromPlanRaw</a></li><li><a href="global.html#schema">schema</a></li><li><a href="global.html#sendEmail">sendEmail</a></li><li><a href="global.html#Signin">Signin</a></li><li><a href="global.html#Signout">Signout</a></li><li><a href="global.html#validateCourseSlugFormat">validateCourseSlugFormat</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Namespace</p>
+                    <h1>api/verification</h1>
+                </header>
+                
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>api/verification</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="api_verification_index.ts.html" class="button">View Source</a>
+            <span>
+                <a href="api_verification_index.ts.html">api/verification/index.ts</a>, <a href="api_verification_index.ts.html#line2">line 2</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+        
+    
+    </div>
+    
+    
+
+    
+
+    
+        <h3 class="subsection-title">Classes</h3>
+
+        <dl>
+            <dt><a href="api_verification.VerificationRequestCollection.html">VerificationRequestCollection</a></dt>
+            <dd></dd>
+        </dl>
+    
+
+    
+
+    
+
+    
+
+    
+        <div class='vertical-section'>
+            <h1>Members</h1>
+            <div class="members">
+            
+                <div class="member">
+
+<h4 class="name" id=".exports.ProcessedSchema">
+    <a class="href-link" href="#.exports.ProcessedSchema">#</a>
+    
+        
+            <span class='tag'>static</span>
+        
+            <span class='tag'>constant</span>
+        
+    
+    <span class="code-name">
+        exports.ProcessedSchema
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>Schema for the processed information of VerificationRequests.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="api_verification_VerificationRequestCollection.ts.html" class="button">View Source</a>
+            <span>
+                <a href="api_verification_VerificationRequestCollection.ts.html">api/verification/VerificationRequestCollection.ts</a>, <a href="api_verification_VerificationRequestCollection.ts.html#line17">line 17</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+<h4 class="name" id=".exports.processPendingVerificationMethod">
+    <a class="href-link" href="#.exports.processPendingVerificationMethod">#</a>
+    
+        
+            <span class='tag'>static</span>
+        
+            <span class='tag'>constant</span>
+        
+    
+    <span class="code-name">
+        exports.processPendingVerificationMethod
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>This Meteor Method processes a command from the Pending Verification Request widget.
+The method is passed a verificationRequestID, a command (ACCEPTED or REJECTED), and an optional feedback string.
+The method returns a string indicating what happened.
+Processing this request involves the following:</p>
+<ul>
+<li>Make sure user is a faculty, advisor, or admin. Otherwise throw error.</li>
+<li>If verificationRequestID is not a valid ID, then throw error.</li>
+<li>If command is not VerificationRequests.ACCEPTED or VerificationRequests.REJECTED, then returns an error string.</li>
+<li>Creates a process object to record this command.</li>
+<li>Updates the VerificationRequest with the new process object and the new status.</li>
+<li>Creates a new Feed instance only if the request was accepted.</li>
+</ul>
+<p>Only faculty, advisors, and admins can invoke this method.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="api_verification_VerificationRequestCollection.methods.ts.html" class="button">View Source</a>
+            <span>
+                <a href="api_verification_VerificationRequestCollection.methods.ts.html">api/verification/VerificationRequestCollection.methods.ts</a>, <a href="api_verification_VerificationRequestCollection.methods.ts.html#line112">line 112</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+<h4 class="name" id=".exports.processVerificationEventMethod">
+    <a class="href-link" href="#.exports.processVerificationEventMethod">#</a>
+    
+        
+            <span class='tag'>static</span>
+        
+            <span class='tag'>constant</span>
+        
+    
+    <span class="code-name">
+        exports.processVerificationEventMethod
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>This Meteor Method processes a request to verify an opportunity for a given user from the VerificationEvent page.
+The method is passed a student, opportunity, and academicTerm, which should normally be valid.
+Processing this request involves the following:</p>
+<ul>
+<li>If the student does not have an Opportunity Instance for this opportunity and academicTerm, then one is created
+for them.</li>
+<li>If the student has not already submitted a Verification Request for their Opportunity Instance, then one is
+created for them.</li>
+<li>If the student has already been verified for this Opportunity, then nothing more is done.</li>
+<li>Once the OpportunityInstance and VerificationRequest exist, then they are updated to indicate that they have
+been verified if they are not already verified.</li>
+<li>A status string is returned to the caller to indicate the result of processing.
+Only faculty, advisors, and admins can invoke this method.</li>
+</ul>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="api_verification_VerificationRequestCollection.methods.ts.html" class="button">View Source</a>
+            <span>
+                <a href="api_verification_VerificationRequestCollection.methods.ts.html">api/verification/VerificationRequestCollection.methods.ts</a>, <a href="api_verification_VerificationRequestCollection.methods.ts.html#line60">line 60</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type"><a href="api_verification.VerificationRequestCollection.html">api/verification.VerificationRequestCollection</a></span>
+
+
+    </span>
+
+<h4 class="name" id=".exports.VerificationRequests">
+    <a class="href-link" href="#.exports.VerificationRequests">#</a>
+    
+        
+            <span class='tag'>static</span>
+        
+            <span class='tag'>constant</span>
+        
+    
+    <span class="code-name">
+        exports.VerificationRequests
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>Provides the singleton instance of this class to all other entities.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="api_verification_VerificationRequestCollection.ts.html" class="button">View Source</a>
+            <span>
+                <a href="api_verification_VerificationRequestCollection.ts.html">api/verification/VerificationRequestCollection.ts</a>, <a href="api_verification_VerificationRequestCollection.ts.html#line333">line 333</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+<h4 class="name" id=".exports.verificationRequestsUpdateStatusMethod">
+    <a class="href-link" href="#.exports.verificationRequestsUpdateStatusMethod">#</a>
+    
+        
+            <span class='tag'>static</span>
+        
+            <span class='tag'>constant</span>
+        
+    
+    <span class="code-name">
+        exports.verificationRequestsUpdateStatusMethod
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>The ValidatedMethod for updating the status of VerificationRequests.
+Passed an object with fields:
+id: the verificationRequestID
+status: boolean
+processed: a project object.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="api_verification_VerificationRequestCollection.methods.ts.html" class="button">View Source</a>
+            <span>
+                <a href="api_verification_VerificationRequestCollection.methods.ts.html">api/verification/VerificationRequestCollection.methods.ts</a>, <a href="api_verification_VerificationRequestCollection.methods.ts.html#line20">line 20</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+            </div>
+        </div>
+    
+
+    
+        <div class='vertical-section'>
+            <h1>Methods</h1>
+            <div class="members">
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id=".getOpportunityInstanceID">
+        <a class="href-link" href="#.getOpportunityInstanceID">#</a>
+        
+            
+                <span class='tag'>static</span>
+            
+        
+        <span class="code-name">
+            
+                getOpportunityInstanceID<span class="signature">(student, opportunity, academicTerm)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Returns the opportunityInstanceID associated with the student and opportunity, or null if not found.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>student</code></td>
+  
+
+  <td class="type">
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The student.</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>opportunity</code></td>
+  
+
+  <td class="type">
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The opportunity.</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>academicTerm</code></td>
+  
+
+  <td class="type">
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The academicTerm</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="api_verification_VerificationRequestCollection.methods.ts.html" class="button">View Source</a>
+            <span>
+                <a href="api_verification_VerificationRequestCollection.methods.ts.html">api/verification/VerificationRequestCollection.methods.ts</a>, <a href="api_verification_VerificationRequestCollection.methods.ts.html#line38">line 38</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>The opportunityInstanceID, or null if it wasn't found.</p></div>
+    
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+            </div>
+        </div>
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+</body>
+</html>
