@@ -34,7 +34,8 @@ jobs:
 
       - run: |
           pwd
-          cd master
+          cd ${{ GITHUB_WORKSPACE }}/master
+          pwd
           npm ci
           npm run generate-docs
           rm -rf ../gh-pages/api-docs
