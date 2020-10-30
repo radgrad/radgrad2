@@ -33,6 +33,7 @@ jobs:
           node-version: '12.x'
 
       - run: |
+          pwd
           cd master
           npm ci
           npm run generate-docs
