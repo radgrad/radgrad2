@@ -10,10 +10,9 @@ defaults:
     working-directory: ./app
 
 jobs:
-  sync-branch:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
 
       - name: Merge master -> gh-pages
         uses: devmasx/merge-branch@v1.3.0
@@ -23,9 +22,6 @@ jobs:
           target_branch: gh-pages
           github_token: ${{ github.token }}
 
-  build:
-    runs-on: ubuntu-latest
-    steps:
       - uses: actions/checkout@v2
         with:
           ref: 'gh-pages'
