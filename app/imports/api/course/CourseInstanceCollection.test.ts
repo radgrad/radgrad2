@@ -31,7 +31,6 @@ if (Meteor.isServer) {
     });
 
     it('Can define and removeIt', function test1(done) {
-      this.timeout(5000);
       const courseID = makeSampleCourse();
       const termID = makeSampleAcademicTerm();
       const grade = getRandomGrade();
@@ -66,7 +65,6 @@ if (Meteor.isServer) {
     });
 
     it('Can update', function test3(done) {
-      this.timeout(5000);
       const course = makeSampleCourse();
       const academicTerm = makeSampleAcademicTerm();
       const student = makeSampleUser();

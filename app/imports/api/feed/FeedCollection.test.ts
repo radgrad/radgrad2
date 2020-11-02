@@ -27,7 +27,6 @@ if (Meteor.isServer) {
     });
 
     it('Can define and removeIt', function test1(done) {
-      this.timeout(50000);
       fc.assert(
         fc.property(fc.integer(0, 6), fc.integer(1, 6), (choice, level) => {
           const sponsor = makeSampleUser(ROLE.FACULTY);
@@ -104,7 +103,6 @@ if (Meteor.isServer) {
     });
 
     it('Can update', function test3(done) { // Test updating documents
-      this.timeout(25000);
       let doc = Feeds.findOne({});
       const docID = doc._id;
       fc.assert(

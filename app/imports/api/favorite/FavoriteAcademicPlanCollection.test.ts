@@ -21,7 +21,6 @@ if (Meteor.isServer) {
     let username;
 
     before(function setup() {
-      this.timeout(5000);
       removeAllEntities();
       academicPlan = makeSampleAcademicPlan();
       plan = AcademicPlans.findDoc(academicPlan);

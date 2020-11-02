@@ -48,7 +48,6 @@ if (Meteor.isServer) {
     });
 
     it('Can update', function test3(done) {
-      this.timeout(5000);
       const docID = FavoriteCourses.define({ course, student });
       fc.assert(
         fc.property(fc.boolean(), (retired) => {

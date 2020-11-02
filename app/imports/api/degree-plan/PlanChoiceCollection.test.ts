@@ -62,7 +62,6 @@ if (Meteor.isServer) {
     });
 
     it('Can update', function test3(done) {
-      this.timeout(5000);
       let choice = makeSinglePlanChoice({});
       const dept = getDepartment(choice);
       const docID = PlanChoices.define({ choice });
