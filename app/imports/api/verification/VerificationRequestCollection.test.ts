@@ -25,7 +25,6 @@ if (Meteor.isServer) {
     });
 
     it('Can define and removeIt', function test1(done) { // Test the define and removeIt methods
-      this.timeout(25000);
       fc.assert(
         fc.property(fc.lorem(1), (fcWord) => {
           const sponsorID = makeSampleUser(ROLE.FACULTY);
@@ -66,7 +65,6 @@ if (Meteor.isServer) {
     });
 
     it('Can update', function test3(done) { // Test updating documents
-      this.timeout(5000);
       let doc = VerificationRequests.findOne({});
       const docID = doc._id;
       fc.assert(

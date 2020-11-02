@@ -15,7 +15,6 @@ const delay = 500;
 
 if (Meteor.isClient) {
   describe('StudentProfileCollection Meteor Methods ', function test() {
-    this.timeout(5000);
     const collectionName = StudentProfiles.getCollectionName();
     const username = 'amytaka';
     const firstName = 'Amy';
