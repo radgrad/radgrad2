@@ -149,7 +149,7 @@ const RetrieveUserWidget = (props: IRetrieveUserWidgetProps) => {
   return (
     <Segment padded>
       <Header dividing as="h4">RETRIEVE USER</Header>
-      <Tab panes={panes} renderActiveOnly={false} defaultActiveIndex={3} />
+      <Tab panes={panes} renderActiveOnly={false} defaultActiveIndex={2} />
     </Segment>
   );
 };
