@@ -111,7 +111,6 @@ if (Meteor.isServer) {
     });
 
     it('Can update', function test3(done) {
-      this.timeout(5000);
       let doc = Teasers.findOne({});
       const docID = doc._id;
       fc.assert(

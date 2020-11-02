@@ -23,7 +23,6 @@ if (Meteor.isServer) {
   describe('CourseInstanceCollection', function testSuite() {
 
     before(function setup() {
-      this.timeout(5000);
       removeAllEntities();
     });
 

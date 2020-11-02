@@ -21,7 +21,6 @@ if (Meteor.isServer) {
     let careerGoalName;
 
     before(function setup() {
-      this.timeout(5000);
       removeAllEntities();
       careerGoal = makeSampleCareerGoal();
       careerGoalName = CareerGoals.findDoc(careerGoal).name;

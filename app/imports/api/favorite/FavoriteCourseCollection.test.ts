@@ -20,7 +20,6 @@ if (Meteor.isServer) {
     let firstName;
 
     before(function setup() {
-      this.timeout(5000);
       removeAllEntities();
       course = makeSampleCourse();
       courseName = Courses.findDoc(course).name;

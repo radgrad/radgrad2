@@ -27,7 +27,6 @@ if (Meteor.isServer) {
     });
 
     it('Can define and removeIt', function test1(done) {
-      this.timeout(5000);
       fc.assert(
         fc.property(fc.lorem(2), fc.boolean(), (fake, retired) => {
           let choice = makeSinglePlanChoice({});

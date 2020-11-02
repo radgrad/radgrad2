@@ -9,7 +9,6 @@ if (Meteor.isClient) {
     // const collectionName = FeedbackInstances.getCollectionName();
 
     before(function (done) {
-      this.timeout(5000);
       defineTestFixturesMethod.call(['minimal', 'abi.student',
         'extended.courses.interests', 'academicplan', 'abi.courseinstances'], done);
     });
