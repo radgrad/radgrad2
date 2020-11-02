@@ -12,7 +12,8 @@
     "test-acceptance-development": "testcafe chrome tests/*.testcafe.js",
     "test-acceptance": "testcafe chrome:headless tests/*.testcafe.js -q --app \"meteor npm run start\"",
     "test-all": "meteor npm run lint && meteor npm run test-unit && meteor npm run test-integration && meteor npm run test-acceptance",
-    "generate-docs": "node_modules/.bin/jsdoc -c jsdoc.json"
+    "generate-docs": "node_modules/.bin/jsdoc -c jsdoc.json",
+    "gh-pages": "gh-pages -d ../api-docs"
   },
   "dependencies": {
     "@babel/runtime": "^7.12.1",
@@ -108,6 +109,7 @@
     "faker": "^4.1.0",
     "fast-check": "^2.5.0",
     "fs-extra": "^9.0.1",
+    "gh-pages": "^3.1.0",
     "growly": "^1.3.0",
     "jsdoc": "^3.6.6",
     "mime-db": "^1.45.0",

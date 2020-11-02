@@ -1,0 +1,35 @@
+name: jsdoc-radgrad
+
+on:
+  push:
+    branches:
+      - master
+
+defaults:
+  run:
+    working-directory: ./app
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+
+      - run: npm ci
+
+      - run: npm run generate-docs
+
+      - run: npm run gh-pages
+
