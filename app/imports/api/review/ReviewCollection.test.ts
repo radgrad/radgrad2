@@ -26,7 +26,6 @@ if (Meteor.isServer) {
     });
 
     it('Can define and removeIt', function test1(done) {
-      this.timeout(25000);
       fc.assert(
         fc.property(fc.lorem(1), fc.boolean(), fc.integer(1, 5), fc.lorem(10), (fcSlug, cOrO, fcRating, fcComments) => {
           let reviewType;

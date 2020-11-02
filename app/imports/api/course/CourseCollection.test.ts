@@ -25,7 +25,6 @@ if (Meteor.isServer) {
     });
 
     it('Can define and removeIt', function test1(done) {
-      this.timeout(5000);
       fc.assert(
         fc.property(fc.lorem(1), fc.lorem(1), fc.lorem(20, true), fc.integer(1, 6), (fcName, fcNum, fcDescription, fcCreditHrs) => {
           const interests = makeSampleInterestArray();
@@ -67,7 +66,6 @@ if (Meteor.isServer) {
     });
 
     it('Can update', function test3(done) {
-      this.timeout(5000);
       const docID = makeSampleCourse();
       // { name, shortName, num, description, creditHrs, interests, prerequisites, syllabus, retired }
       fc.assert(
