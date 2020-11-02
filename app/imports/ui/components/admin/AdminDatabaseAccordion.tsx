@@ -1,10 +1,6 @@
 import React, { useState } from 'react';
 import { Accordion, Icon } from 'semantic-ui-react';
 
-interface IAdminDatabaseAccordionState {
-  activeIndex: number;
-}
-
 interface IAdminDatabaseAccordionProps {
   index: number;
   name: string;

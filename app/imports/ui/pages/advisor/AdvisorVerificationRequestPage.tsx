@@ -23,10 +23,6 @@ interface IAdvisorVerificationRequestPageProps {
   }
 }
 
-interface IAdvisorVerificationRequestPageState {
-  activeItem: string;
-}
-
 const AdvisorVerificationRequestPage = (props: IAdvisorVerificationRequestPageProps) => {
   const [activeItemState, setActiveItem] = useState('pending');
 
