@@ -31,5 +31,8 @@ jobs:
 
       - run: npm run generate-docs
 
+      - run: git config --global user.email "johnson@hawaii.edu"
+      - run: git config --global user.name "Philip Johnson"
+      - run: git remote set-url origin https://radgrad:${{ secrets.GITHUB_TOKEN }}@github.com/radgrad/radgrad2.git
       - run: npm run gh-pages
 
