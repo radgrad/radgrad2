@@ -21,6 +21,9 @@
   },
   "templates": {
     "cleverLinks": false,
-    "monospaceLinks": false
+    "monospaceLinks": false,
+    "better-docs": {
+      "hideGenerator": false
+    }
   }
 }
