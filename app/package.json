@@ -49,7 +49,7 @@
     "simpl-schema": "^1.10.2",
     "slick-carousel": "^1.8.1",
     "styled-components": "^5.2.1",
-    "sweetalert2": "^9.17.2",
+    "sweetalert2": "^10.9.0",
     "sweetalert2-react-content": "^3.2.1",
     "typesafe-actions": "^5.1.0",
     "uniforms": "^3.0.0-rc.6",
