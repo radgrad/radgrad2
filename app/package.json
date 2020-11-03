@@ -81,7 +81,7 @@
     "basic-auth": "^2.0.1",
     "better-docs": "^2.3.2",
     "chai": "^4.2.0",
-    "chromedriver": "^84.0.1",
+    "chromedriver": "^86.0.0",
     "command-exists": "^1.2.9",
     "compression": "^1.7.4",
     "cross-env": "^7.0.2",
