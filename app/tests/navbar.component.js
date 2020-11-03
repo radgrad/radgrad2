@@ -19,8 +19,10 @@ class NavBar {
 
   /** Check that the specified user is currently logged in. */
   async isLoggedIn(testController, username) {
-    const name = Selector('div.ui.top.right.pointing.dropdown div.text');
-    await testController.expect(name.textContent).eql(username);
+    const usernameField = Selector('#first-menu-username')
+      .child('div')
+      .textContent;
+    await testController.expect(usernameField).eql(username);
   }
 
   /** Check that someone is logged in, then click items to logout. */

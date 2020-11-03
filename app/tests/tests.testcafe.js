@@ -16,7 +16,7 @@ test('Test that landing page shows up', async (testController) => {
   await landingPage.isDisplayed(testController);
 });
 
-test('Test admin login', async (testController) => {
+test.only('Test admin login', async (testController) => {
   await navBar.gotoAdminLogin(testController);
   await signinPage.isDisplayed(testController);
   await signinPage.signin(testController, credentials.admin.username, credentials.admin.password);

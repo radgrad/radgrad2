@@ -59,6 +59,7 @@ const FirstMenu = (props: IFirstMenuProps) => {
               {(!isStudent) ? (
                 <Dropdown
                   text={props.currentUser}
+                  id="first-menu-username"
                   pointing="top right"
                   icon={props.iconName}
                   style={signoutStyle}
