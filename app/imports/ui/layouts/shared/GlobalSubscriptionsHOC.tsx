@@ -1,7 +1,8 @@
+import { createMedia } from '@artsy/fresnel';
 import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { SubsManager } from 'meteor/meteorhacks:subs-manager';
-import { Dimmer, Loader, Responsive } from 'semantic-ui-react';
+import { Dimmer, Loader } from 'semantic-ui-react';
 import { AdminProfiles } from '../../../api/user/AdminProfileCollection';
 import { PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
@@ -23,12 +24,23 @@ import { Interests } from '../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';
 import { StudentParticipations } from '../../../api/public-stats/StudentParticipationCollection';
-// import PageLoader from '../../components/shared/PageLoader';
-import PageLoaderMobile from '../../components/shared/PageLoaderMobile';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { Feeds } from '../../../api/feed/FeedCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { PageInterestsDailySnapshots } from '../../../api/page-tracking/PageInterestsDailySnapshotCollection';
+
+const AppMedia = createMedia({
+  breakpoints: {
+    mobile: 320,
+    tablet: 768,
+    computer: 992,
+    largeScreen: 1200,
+    widescreen: 1920,
+  },
+});
+
+const mediaStyles = AppMedia.createMediaStyle();
+const { Media, MediaContextProvider } = AppMedia;
 
 interface ILoading {
   loading: boolean;
@@ -42,53 +54,55 @@ function withGlobalSubscription(WrappedComponent) {
   // eslint-disable-next-line react/prop-types
   const GlobalSubscription = (props: ILoading) => ((props.loading) ? (
     <React.Fragment>
-      <Responsive minWidth={Responsive.onlyTablet.minWidth}>
-        <Dimmer active inverted>
+      <style>{mediaStyles}</style>
+      <MediaContextProvider>
+        <Dimmer active inverted as={Media} at="tablet">
           <Loader>Loading global data</Loader>
         </Dimmer>
-      </Responsive>
 
-      <Responsive {...Responsive.onlyMobile}>
-        <PageLoaderMobile />
-      </Responsive>
+        <Dimmer active inverted as={Media} at="mobile">
+          <Loader>Loading global data</Loader>
+        </Dimmer>
+      </MediaContextProvider>
     </React.Fragment>
-      )
-        :
-    <WrappedComponent {...props} />);
+)
+:
+    <WrappedComponent {...props} />
+);
 
-  return withTracker(() => {
-    const handles = [
-      globalSubs.subscribe(AcademicPlans.getPublicationName()),
-      globalSubs.subscribe(AcademicTerms.getPublicationName()),
-      globalSubs.subscribe(AdminProfiles.getPublicationName()),
-      globalSubs.subscribe(AdvisorProfiles.getPublicationName()),
-      globalSubs.subscribe(CareerGoals.getPublicationName()),
-      globalSubs.subscribe(CourseInstances.publicationNames.scoreboard),
-      globalSubs.subscribe(Courses.getPublicationName()),
-      globalSubs.subscribe(DesiredDegrees.getPublicationName()),
-      globalSubs.subscribe(FacultyProfiles.getPublicationName()),
-      globalSubs.subscribe(Feeds.getPublicationName()),
-      globalSubs.subscribe(HelpMessages.getPublicationName()),
-      globalSubs.subscribe(Interests.getPublicationName()),
-      globalSubs.subscribe(InterestTypes.getPublicationName()),
-      globalSubs.subscribe(Opportunities.getPublicationName()),
-      globalSubs.subscribe(OpportunityInstances.publicationNames.scoreboard),
-      globalSubs.subscribe(OpportunityTypes.getPublicationName()),
-      globalSubs.subscribe(PageInterestsDailySnapshots.getPublicationName()),
-      globalSubs.subscribe(PlanChoices.getPublicationName()),
-      globalSubs.subscribe(PublicStats.getPublicationName()),
-      globalSubs.subscribe(Reviews.getPublicationName()),
-      globalSubs.subscribe(StudentParticipations.getPublicationName()),
-      globalSubs.subscribe(StudentProfiles.getCollectionName()),
-      globalSubs.subscribe(Slugs.getPublicationName()),
-      globalSubs.subscribe(Teasers.getPublicationName()),
-      globalSubs.subscribe(Users.getPublicationName()),
-    ];
-    const loading = handles.some((handle) => !handle.ready());
-    return {
-      loading,
-    };
-  })(GlobalSubscription);
+return withTracker(() => {
+  const handles = [
+  globalSubs.subscribe(AcademicPlans.getPublicationName()),
+  globalSubs.subscribe(AcademicTerms.getPublicationName()),
+  globalSubs.subscribe(AdminProfiles.getPublicationName()),
+  globalSubs.subscribe(AdvisorProfiles.getPublicationName()),
+  globalSubs.subscribe(CareerGoals.getPublicationName()),
+  globalSubs.subscribe(CourseInstances.publicationNames.scoreboard),
+  globalSubs.subscribe(Courses.getPublicationName()),
+  globalSubs.subscribe(DesiredDegrees.getPublicationName()),
+  globalSubs.subscribe(FacultyProfiles.getPublicationName()),
+  globalSubs.subscribe(Feeds.getPublicationName()),
+  globalSubs.subscribe(HelpMessages.getPublicationName()),
+  globalSubs.subscribe(Interests.getPublicationName()),
+  globalSubs.subscribe(InterestTypes.getPublicationName()),
+  globalSubs.subscribe(Opportunities.getPublicationName()),
+  globalSubs.subscribe(OpportunityInstances.publicationNames.scoreboard),
+  globalSubs.subscribe(OpportunityTypes.getPublicationName()),
+  globalSubs.subscribe(PageInterestsDailySnapshots.getPublicationName()),
+  globalSubs.subscribe(PlanChoices.getPublicationName()),
+  globalSubs.subscribe(PublicStats.getPublicationName()),
+  globalSubs.subscribe(Reviews.getPublicationName()),
+  globalSubs.subscribe(StudentParticipations.getPublicationName()),
+  globalSubs.subscribe(StudentProfiles.getCollectionName()),
+  globalSubs.subscribe(Slugs.getPublicationName()),
+  globalSubs.subscribe(Teasers.getPublicationName()),
+  globalSubs.subscribe(Users.getPublicationName()),
+  ];
+  const loading = handles.some((handle) => !handle.ready());
+  return {
+  loading,
+};
+})(GlobalSubscription);
 }
 
 export default withGlobalSubscription;
