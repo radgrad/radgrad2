@@ -94,8 +94,6 @@
     "fs-extra": "^9.0.1",
     "gh-pages": "^3.1.0",
     "jsdoc": "^3.6.6",
-    "mime-db": "^1.45.0",
-    "mime-types": "^2.1.27",
     "mocha": "^8.2.1",
     "node-notifier": "^8.0.0",
     "puppeteer": "^5.4.1",
