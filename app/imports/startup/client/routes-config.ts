@@ -54,7 +54,6 @@ import AdminDataModelCareerGoalsPage from '../../ui/pages/admin/AdminDataModelCa
 import AdminDataModelUsersPage from '../../ui/pages/admin/AdminDataModelUsersPage';
 import AdminDataModelCourseInstancesPage from '../../ui/pages/admin/AdminDataModelCourseInstancesPage';
 import AdminDataModelCoursesPage from '../../ui/pages/admin/AdminDataModelCoursesPage';
-import AdminDataModelDesiredDegreesPage from '../../ui/pages/admin/AdminDataModelDesiredDegreePage';
 import AdminDataModelFeedsPage from '../../ui/pages/admin/AdminDataModelFeedsPage';
 import AdminDataModelFeedbackInstancesPage from '../../ui/pages/admin/AdminDataModelFeedbackInstancesPage';
 import AdminDataModelHelpMessagesPage from '../../ui/pages/admin/AdminDataModelHelpMessagesPage';
@@ -137,11 +136,6 @@ export const routes = {
       path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL}/${EXPLORER_TYPE.COURSES}`,
       exact: true,
       component: AdminDataModelCoursesPage,
-    },
-    {
-      path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL}/desired-degrees`,
-      exact: true,
-      component: AdminDataModelDesiredDegreesPage,
     },
     {
       path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL}/feeds`,
