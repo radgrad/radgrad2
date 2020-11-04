@@ -101,8 +101,7 @@
     "puppeteer": "^5.4.1",
     "testcafe": "^1.9.4",
     "ts-node": "^9.0.0",
-    "typescript": "^4.0.5",
-    "xtend": "^4.0.2"
+    "typescript": "^4.0.5"
   },
   "eslintConfig": {
     "settings": {
