@@ -140,8 +140,6 @@ if (Meteor.isServer) {
       expect(doc.lastName).to.equal(origDoc.lastName);
       expect(doc.picture).to.equal(origDoc.picture);
       expect(doc.website).to.equal(origDoc.website);
-      expect(doc.interestIDs).to.deep.equal(origDoc.interestIDs);
-      expect(doc.careerGoalIDs).to.deep.equal(origDoc.careerGoalIDs);
       expect(doc.retired).to.equal(origDoc.retired);
       expect(doc.isAlumni).to.equal(origDoc.isAlumni);
       expect(doc.shareUsername).to.equal(origDoc.shareUsername);

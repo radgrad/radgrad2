@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Grid, Header, List, Modal, Segment } from 'semantic-ui-react';
 import moment from 'moment';
 import _ from 'lodash';
+import { FAVORITE_TYPE } from '../../../../api/favorite/FavoriteTypes';
 import { profileIDToFullname } from '../../shared/data-model-helper-functions';
 import { IUserInteraction } from '../../../../typings/radgrad';
 import { UserInteractionsTypes } from '../../../../api/analytic/UserInteractionsTypes';
@@ -86,7 +87,6 @@ const getBehaviors = (sessionArr: IUserInteraction[]): { type: string, stats: st
     [UserInteractionsTypes.UNFAVORITEITEM]: [],
     [UserInteractionsTypes.ADDREVIEW]: [],
     [UserInteractionsTypes.EDITREVIEW]: [],
-    [UserInteractionsTypes.ASKQUESTION]: [],
     [UserInteractionsTypes.VERIFYREQUEST]: [],
   };
   _.each(sessionArr, function (interaction) {
@@ -109,14 +109,13 @@ const getBehaviors = (sessionArr: IUserInteraction[]): { type: string, stats: st
     if (array.length !== 0) {
       if (action === UserInteractionsTypes.LOGIN) {
         behaviors[StudentSummaryBehaviorTypes.LOGIN].push(`User logged in ${array.length} time(s)`);
-      } else if (action === 'careerGoalIDs') {
-        // FIXME Proper tracking for "Change Outlook" to now track favorited career goals/interests/academic plans instead of using careerGoalIDs, interestIDs, and academicPlanID
+      } else if (action === FAVORITE_TYPE.CAREERGOAL) {
         behaviors[StudentSummaryBehaviorTypes.OUTLOOK].push(`User modified career goals ${array.length} time(s)`);
         behaviors[StudentSummaryBehaviorTypes.OUTLOOK].push(`Career goals at end of session: ${_.last(array)}`);
-      } else if (action === 'interestIDs') {
+      } else if (action === FAVORITE_TYPE.INTEREST) {
         behaviors[StudentSummaryBehaviorTypes.OUTLOOK].push(`User modified interests ${array.length} time(s)`);
         behaviors[StudentSummaryBehaviorTypes.OUTLOOK].push(`Interests at end of session: ${_.last(array)}`);
-      } else if (action === 'academicPlanID') {
+      } else if (action === FAVORITE_TYPE.ACADEMICPLAN) {
         behaviors[StudentSummaryBehaviorTypes.OUTLOOK].push(`User modified academic plan ${array.length} time(s)`);
         behaviors[StudentSummaryBehaviorTypes.OUTLOOK].push(`Academic plan at end of session: ${_.last(array)}`);
       } else if (action === UserInteractionsTypes.PAGEVIEW) {

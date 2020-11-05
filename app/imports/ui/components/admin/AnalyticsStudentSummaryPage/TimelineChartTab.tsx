@@ -3,6 +3,7 @@ import React from 'react';
 import _ from 'lodash';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
+import { FAVORITE_TYPE } from '../../../../api/favorite/FavoriteTypes';
 import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
 import { IAdminAnalyticsUserInteraction } from '../../../../redux/admin/analytics/reducers';
 import { StudentSummaryBehaviorTypes } from './admin-analytics-student-summary-helper-functions';
@@ -50,9 +51,8 @@ const TimelineChartTab = (props: ITimelineChartTabProps) => {
         if (_.some(interactionsWithinDate, { type: UserInteractionsTypes.LOGIN })) {
           obj[date].push(behaviorList[0]);
         }
-        // FIXME careerGoalIDs, interestIDs, and academicPlanID is now deprecated. Change this to use favorites instead
-        if (_.some(interactionsWithinDate, (i) => i.type === 'careerGoalIDs' || i.type === 'interestIDs'
-          || i.type === 'academicPlanID')) {
+        if (_.some(interactionsWithinDate, (i) => i.type === FAVORITE_TYPE.CAREERGOAL || i.type === FAVORITE_TYPE.INTEREST
+          || i.type === FAVORITE_TYPE.ACADEMICPLAN)) {
           obj[date].push(behaviorList[1]);
         }
         if (_.some(interactionsWithinDate, (i) => i.type === UserInteractionsTypes.PAGEVIEW && i.typeData[0].includes(`${EXPLORER_TYPE.HOME}/`))) {
