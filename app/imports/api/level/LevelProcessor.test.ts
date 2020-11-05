@@ -42,7 +42,6 @@ if (Meteor.isServer) {
     });
 
     it('Betty Level 1', function levelOne() {
-      this.timeout(5000);
       defineTestFixtures(['minimal', 'extended.courses.interests', 'betty.student']);
       const bettyProfile = StudentProfiles.findDoc({ username: 'betty@hawaii.edu' });
       expect(bettyProfile).to.exist;
@@ -57,7 +56,6 @@ if (Meteor.isServer) {
     });
 
     it('Betty Level 2', function levelTwo() {
-      this.timeout(5000);
       defineTestFixtures(['betty.level2']); // ice [0, 16, 0]
       const bettyProfile = StudentProfiles.findDoc({ username: 'betty@hawaii.edu' });
       expect(defaultCalcLevel(bettyProfile.userID))
@@ -66,7 +64,6 @@ if (Meteor.isServer) {
     });
 
     it('Betty Level 3', function levelThree() {
-      this.timeout(5000);
       defineTestFixtures(['opportunities', 'extended.opportunities', 'betty.level3']); // [5, 26, 5]
       const bettyProfile = StudentProfiles.findDoc({ username: 'betty@hawaii.edu' });
       expect(defaultCalcLevel(bettyProfile.userID))
@@ -75,7 +72,6 @@ if (Meteor.isServer) {
     });
 
     it('Betty Level 3 no picture', function noPicture() {
-      this.timeout(5000);
       defineTestFixtures(['betty.level4']); // [30, 36, 35]
       const bettyProfile = StudentProfiles.findDoc({ username: 'betty@hawaii.edu' });
       expect(defaultCalcLevel(bettyProfile.userID))
@@ -84,7 +80,6 @@ if (Meteor.isServer) {
     });
 
     it('Betty Level 4', function levelFour() {
-      this.timeout(10000);
       removeAllEntities();
       defineTestFixtures(['minimal', 'extended.courses.interests', 'betty.student.picture', 'betty.level1',
         'betty.level2', 'opportunities', 'extended.opportunities', 'betty.level3', 'betty.level4']);
@@ -95,7 +90,6 @@ if (Meteor.isServer) {
     });
 
     it('Betty Level 5', function levelFive() {
-      this.timeout(10000);
       removeAllEntities();
       defineTestFixtures(['minimal', 'extended.courses.interests', 'betty.student.picture', 'betty.level1',
         'betty.level2', 'opportunities', 'extended.opportunities', 'betty.level3', 'betty.level5']);
@@ -106,7 +100,6 @@ if (Meteor.isServer) {
     });
 
     it('Betty Level 6', function levelSix() {
-      this.timeout(10000);
       removeAllEntities();
       defineTestFixtures(['minimal', 'extended.courses.interests', 'betty.student.picture', 'betty.level1',
         'betty.level2', 'opportunities', 'extended.opportunities', 'betty.level3', 'betty.level6']);

@@ -5,10 +5,6 @@ interface IFormExampleProps {
   handleSubmit: (doc) => any;
 }
 
-interface IFormExampleState {
-  value: string;
-}
-
 const options = [
   { key: 'm', text: 'Male', value: 'male' },
   { key: 'f', text: 'Female', value: 'female' },

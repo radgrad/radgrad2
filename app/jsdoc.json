@@ -16,10 +16,14 @@
     "encoding": "utf8",
     "destination": "../api-docs/",
     "recurse": true,
+    "readme": "./README.md",
     "verbose": true
   },
   "templates": {
     "cleverLinks": false,
-    "monospaceLinks": false
+    "monospaceLinks": false,
+    "better-docs": {
+      "hideGenerator": false
+    }
   }
 }

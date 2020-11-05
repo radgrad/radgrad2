@@ -18,7 +18,6 @@ if (Meteor.isClient) {
     const updateData: any = { retired: true };
 
     before(function (done) {
-      this.timeout(5000);
       defineTestFixturesMethod.call(['minimal', 'abi.student'], done);
     });
 

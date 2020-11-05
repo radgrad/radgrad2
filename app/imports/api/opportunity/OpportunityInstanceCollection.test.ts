@@ -30,7 +30,6 @@ if (Meteor.isServer) {
     });
 
     it('Can define and removeIt', function test1(done) {
-      this.timeout(5000);
       const academicTerm = makeSampleAcademicTerm();
       const sponsor = makeSampleUser(ROLE.FACULTY);
       const opportunity = makeSampleOpportunity(sponsor);
@@ -69,7 +68,6 @@ if (Meteor.isServer) {
     });
 
     it('Can update', function test3(done) {
-      this.timeout(5000);
       let academicTerm = makeSampleAcademicTerm();
       const sponsor = makeSampleUser(ROLE.FACULTY);
       const opportunity = makeSampleOpportunity(sponsor);

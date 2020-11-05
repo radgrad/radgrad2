@@ -21,7 +21,6 @@ if (Meteor.isServer) {
     });
 
     it('Can define and removeIt', function test1(done) {
-      this.timeout(5000);
       fc.assert(
         fc.property(fc.lorem(1), fc.lorem(1), fc.lorem(1), fc.lorem(6), fc.boolean(), (fcName, fcShortName, fcSlug, fcDescription, fcRetired) => {
           const docID = DesiredDegrees.define({
@@ -58,7 +57,6 @@ if (Meteor.isServer) {
     });
 
     it('Can update', function test3(done) {
-      this.timeout(5000);
       const name = faker.lorem.word();
       const shortName = faker.lorem.word();
       const description = faker.lorem.paragraph();

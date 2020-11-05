@@ -1,0 +1,11 @@
+export const recommendedOpportunities = 'recommendedOpportunities';
+export const recommendedCourses = 'recommendedCourses';
+export const studentFeedWidget = 'studentFeedWidget';
+export const studentTeaserWidget = 'studentTeaserWidget';
+export const studentAboutMeWidget = 'studentAboutMeWidget';
+export const studentIceWidget = 'studentIceWidget';
+export const studentLevelsWidget = 'studentLevelsWidget';
+export const studentLevelsOthersWidget = 'studentLevelsOthersWidget';
+export const studentLogWidget = 'studentLogWidget';
+export const studentDepWidget = 'studentDepWidget';
+export const tabbedFavoritesWidget = 'tabbedFavoritesWidget';

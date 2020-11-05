@@ -13,13 +13,13 @@ if (Meteor.isClient) {
     const definitionData = { routeName, title: 'Admin Database Dump Page', text: 'help!' };
 
     before(function (done) {
-      defineTestFixturesMethod.call(['minimal'], done);
+      defineTestFixturesMethod.call(['minimal', 'abi.student'], done);
     });
 
     it('Define Method', async function () {
-      await withLoggedInUser();
-      await withRadGradSubscriptions();
-      await defineMethod.callPromise({ collectionName, definitionData });
+        await withLoggedInUser();
+        await withRadGradSubscriptions();
+        await defineMethod.callPromise({ collectionName, definitionData });
     });
 
     it('Update Method', async function () {

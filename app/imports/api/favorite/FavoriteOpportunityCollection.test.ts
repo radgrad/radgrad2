@@ -23,7 +23,6 @@ if (Meteor.isServer) {
     let firstName;
 
     before(function setup() {
-      this.timeout(5000);
       removeAllEntities();
       sponsor = makeSampleUser(ROLE.FACULTY);
       opportunity = makeSampleOpportunity(sponsor);
@@ -55,7 +54,6 @@ if (Meteor.isServer) {
     });
 
     it('Can update', function test3(done) {
-      this.timeout(5000);
       const docID = FavoriteOpportunities.define({ opportunity, student });
       fc.assert(
         fc.property(fc.boolean(), (retired) => {
