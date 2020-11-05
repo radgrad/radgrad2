@@ -1,7 +1,7 @@
 import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { SubsManager } from 'meteor/meteorhacks:subs-manager';
-import { Dimmer, Loader, Responsive } from 'semantic-ui-react';
+import { Dimmer, Loader } from 'semantic-ui-react';
 import { AdminProfiles } from '../../../api/user/AdminProfileCollection';
 import { PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
@@ -23,8 +23,6 @@ import { Interests } from '../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';
 import { StudentParticipations } from '../../../api/public-stats/StudentParticipationCollection';
-// import PageLoader from '../../components/shared/PageLoader';
-import PageLoaderMobile from '../../components/shared/PageLoaderMobile';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { Feeds } from '../../../api/feed/FeedCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
@@ -42,19 +40,14 @@ function withGlobalSubscription(WrappedComponent) {
   // eslint-disable-next-line react/prop-types
   const GlobalSubscription = (props: ILoading) => ((props.loading) ? (
     <React.Fragment>
-      <Responsive minWidth={Responsive.onlyTablet.minWidth}>
-        <Dimmer active inverted>
-          <Loader>Loading global data</Loader>
-        </Dimmer>
-      </Responsive>
-
-      <Responsive {...Responsive.onlyMobile}>
-        <PageLoaderMobile />
-      </Responsive>
+      <Dimmer active inverted>
+        <Loader>Loading global data</Loader>
+      </Dimmer>
     </React.Fragment>
       )
-        :
-    <WrappedComponent {...props} />);
+      :
+    <WrappedComponent {...props} />
+  );
 
   return withTracker(() => {
     const handles = [

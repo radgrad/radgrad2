@@ -3,13 +3,6 @@ import { Table, Header } from 'semantic-ui-react';
 import { getFutureEnrollmentMethod } from '../../../api/course/CourseCollection.methods';
 import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
 
-interface IFutureCourseEnrollmentWidgetState {
-  data?: {
-    courseID: string;
-    enrollmentData: (string | number)[][];
-  };
-}
-
 interface IFutureCourseEnrollmentWidgetProps {
   courseID: string;
 }
