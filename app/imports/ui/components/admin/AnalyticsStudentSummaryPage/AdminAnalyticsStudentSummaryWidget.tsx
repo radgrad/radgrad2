@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import moment from 'moment';
 import { Segment, Header } from 'semantic-ui-react';
+import { FAVORITE_TYPE } from '../../../../api/favorite/FavoriteTypes';
 import { ANALYTICS, EXPLORER_TYPE } from '../../../../startup/client/route-constants';
 import AdminAnalyticsDateSelectionWidget from '../AdminAnalyticsDateSelectionWidget';
 import SummaryStatisticsTabs from './SummaryStatisticsTabs';
@@ -39,9 +40,8 @@ const AdminAnalyticsStudentSummaryWidget = (props: IAdminAnalyticsStudentSummary
       behaviorCategories[0].count++;
       behaviorCategories[0].users.push(user);
     }
-    // FIXME careerGoalIDs, interestIDs, and academicPlanID is now deprecated. Change this to use favorites instead
-    if (_.some(interactions, (i: any) => i.type === 'careerGoalIDs' || i.type === 'interestIDs'
-      || i.type === 'academicPlanID')) {
+    if (_.some(interactions, (i: any) => i.type === FAVORITE_TYPE.CAREERGOAL || i.type === FAVORITE_TYPE.INTEREST
+      || i.type === FAVORITE_TYPE.ACADEMICPLAN)) {
       behaviorCategories[1].count++;
       behaviorCategories[1].users.push(user);
     }
