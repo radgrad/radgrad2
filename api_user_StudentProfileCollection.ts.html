@@ -593,24 +593,6 @@ class StudentProfileCollection extends BaseProfileCollection {
                 ],
               }, '$website', ''],
             },
-            interestIDs: {
-              $cond: [{
-                $or: [
-                  { $ifNull: ['$shareInterests', false] },
-                  { $eq: [userID, '$userID'] },
-                  { $eq: [Roles.userIsInRole(userID, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY]), true] },
-                ],
-              }, '$interestIDs', []],
-            },
-            careerGoalIDs: {
-              $cond: [{
-                $or: [
-                  { $ifNull: ['$shareCareerGoals', false] },
-                  { $eq: [userID, '$userID'] },
-                  { $eq: [Roles.userIsInRole(userID, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY]), true] },
-                ],
-              }, '$careerGoalIDs', []],
-            },
             userID: 1,
             retired: 1,
             level: {
