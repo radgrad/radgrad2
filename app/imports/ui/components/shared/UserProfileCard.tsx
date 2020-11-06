@@ -4,7 +4,6 @@ import _ from 'lodash';
 import { IUserProfileCard } from '../../../typings/radgrad';
 import { defaultProfilePicture } from '../../../api/user/BaseProfileCollection';
 import { ROLE } from '../../../api/role/Role';
-import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import InterestList from './InterestList';
 import ExplorerUsersWidget from './ExplorerUsersWidget';
 import { capitalizeFirstOnly } from './helper-functions';
@@ -27,8 +26,6 @@ const UserProfileCard = (props: IUserProfileCard) => {
   if (!(props.item)) return undefined;
   const p = props.item;
   const level = p.level;
-  const planID = p.academicPlanID;
-  const degreeID = planID ? AcademicPlans.findDoc(planID).degreeID : undefined;
   let sharedUsername;
   if (isRole(ROLE.STUDENT, ROLE.ALUMNI)) {
     sharedUsername = p.shareUsername ? (

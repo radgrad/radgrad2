@@ -255,7 +255,6 @@ const descriptionPairsCourses = (theCourse: ICourse, props: IIndividualExplorerP
   { label: 'Teaser', value: teaser(theCourse) },
 ];
 
-
 const descriptionPairsDegrees = (theDegree: IDesiredDegree): { label: string, value: any }[] => [{
   label: 'Description',
   value: theDegree.description,

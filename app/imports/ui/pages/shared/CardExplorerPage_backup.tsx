@@ -87,7 +87,6 @@ const addedCareerGoals = (props: ICardExplorerPageProps): { item: ICareerGoal, c
 
 const addedCourses = (props: ICardExplorerPageProps): { item: ICourse, count: number }[] => _.map(props.favoriteCourses, (f: any) => ({ item: Courses.findDoc(f.courseID), count: 1 }));
 
-
 const addedInterests = (props: ICardExplorerPageProps): { item: IInterest, count: number }[] => _.map(props.favoriteInterests, (f: any) => ({ item: Interests.findDoc(f.interestID), count: 1 }));
 
 const addedCareerInterests = (props: ICardExplorerPageProps): { item: IInterest, count: number }[] => {

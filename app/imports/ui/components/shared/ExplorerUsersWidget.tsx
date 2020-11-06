@@ -4,7 +4,6 @@ import _ from 'lodash';
 import { IBaseProfile } from '../../../typings/radgrad';
 import { defaultProfilePicture } from '../../../api/user/BaseProfileCollection';
 import { ROLE } from '../../../api/role/Role';
-import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import InterestList from './InterestList';
 import { capitalizeFirstLetter } from './helper-functions';
 import { explorerUserWidget } from './shared-widget-names';
@@ -36,8 +35,6 @@ const ExplorerUsersWidget = (props: IExplorerUsersWidgetProps) => {
   };
   const p = props.userProfile;
   const level = p.level;
-  const planID = p.academicPlanID;
-  const degreeID = planID ? AcademicPlans.findDoc(planID).degreeID : undefined;
   let sharedUsername;
   if (isRole(props, ROLE.STUDENT, ROLE.ALUMNI)) {
     sharedUsername = p.shareUsername ? (
