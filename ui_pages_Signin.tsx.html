@@ -154,7 +154,7 @@ const Signin = () => {
   return (
     &lt;div>
       &lt;LandingNavBarContainer />
-      &lt;Container style={containerStyle}>
+      &lt;Container id="signin-page" style={containerStyle}>
         &lt;Grid textAlign="center" verticalAlign="middle" centered columns={2}>
           &lt;Grid.Column>
             &lt;Header as="h2" textAlign="center">
@@ -164,6 +164,7 @@ const Signin = () => {
               &lt;Segment stacked>
                 &lt;Form.Input
                   label="Email"
+                  id="signin-form-email"
                   icon="user"
                   iconPosition="left"
                   name="email"
@@ -173,6 +174,7 @@ const Signin = () => {
                 />
                 &lt;Form.Input
                   label="Password"
+                  id="signin-form-password"
                   icon="lock"
                   iconPosition="left"
                   name="password"
@@ -180,7 +182,7 @@ const Signin = () => {
                   type="password"
                   onChange={handleChange}
                 />
-                &lt;Form.Button content="Submit" />
+                &lt;Form.Button id="signin-form-submit" content="Submit" />
               &lt;/Segment>
             &lt;/Form>
             {errorState === '' ? (
