@@ -14,6 +14,30 @@ export class AdminNavBar {
     }
   }
 
+  async gotoHomePage(testController) {
+    await testController.click('#second-menu-home');
+  }
+
+  async gotoDataModelPage(testController) {
+    await testController.click('#second-menu-data-model');
+  }
+
+  async gotoDatabasePage(testController) {
+    await testController.click('#second-menu-data-base');
+  }
+
+  async gotoModerationPage(testController) {
+    await testController.click('#second-menu-moderation');
+  }
+
+  async gotoAnalyticsPage(testController) {
+    await testController.click('#second-menu-analytics');
+  }
+
+  async gotoScoreboardPage(testController) {
+    await testController.click('#second-menu-scoreboard');
+  }
+
   async gotoAdminLogin(testController) {
     // await this.ensureLogout(testController);
     await testController.click('#LOGIN');

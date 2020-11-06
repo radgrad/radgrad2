@@ -47,7 +47,7 @@ const ScoreboardPage = (props: IScoreboardPageProps) => {
   return (
     <React.Fragment>
       {renderPageMenuWidget(props)}
-      <Grid container stackable padded="vertically">
+      <Grid id="scoreboard-page" container stackable padded="vertically">
         <Grid.Row>
           <HelpPanelWidget />
         </Grid.Row>

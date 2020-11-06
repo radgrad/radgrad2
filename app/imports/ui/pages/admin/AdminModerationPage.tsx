@@ -10,7 +10,7 @@ const AdminModerationPage = () => {
     paddingTop: 20,
   };
   return (
-    <div>
+    <div id="admin-moderation-page">
       <AdminPageMenuWidget />
       <Grid container stackable style={paddedStyle}>
         <Grid.Column>
