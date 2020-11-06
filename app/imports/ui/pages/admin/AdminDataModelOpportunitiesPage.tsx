@@ -22,6 +22,7 @@ import {
 import { interestSlugFromName } from '../../components/shared/FormHelperFunctions';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
+import { makeMarkdownLink } from './datamodel-utilities';
 
 const collection = Opportunities; // the collection to use.
 
@@ -36,6 +37,7 @@ const descriptionPairs = (item: any): IDescriptionPair[] => [
   { label: 'Interests', value: _.sortBy(Interests.findNames(item.interestIDs)) },
   { label: 'Academic Terms', value: _.map(item.academicTermIDs, (id: string) => AcademicTerms.toString(id, false)) },
   { label: 'ICE', value: `${item.ice.i}, ${item.ice.c}, ${item.ice.e}` },
+  { label: 'Picture', value: makeMarkdownLink(item.picture) },
   { label: 'Retired', value: item.retired ? 'True' : 'False' },
 ];
 

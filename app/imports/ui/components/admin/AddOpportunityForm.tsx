@@ -59,7 +59,9 @@ const AddOpportunityForm = (props: IAddOpportunityFormProps) => {
 
   // Hacky way of resetting pictureURL to be empty
   const handleAddOpportunity = (doc) => {
-    props.handleAdd(doc);
+    const model = doc;
+    model.picture = pictureURL;
+    props.handleAdd(model);
     setPictureURL('');
  };
 
