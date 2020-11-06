@@ -90,7 +90,7 @@ const StudentPageMenuWidget = (props: IStudentPageMenuWidgetProps) => {
               </Dropdown.Menu>
             </Dropdown>
             <Menu.Menu position="right">
-              <Dropdown item text={`Aloha, ${profile.firstName} ${profile.lastName}!`}>
+              <Dropdown id="dropdown-user-fullname" item text={`Aloha, ${profile.firstName} ${profile.lastName}!`}>
                 <Dropdown.Menu>
                   {studentHomePageItems.map((item) => (
                     <Dropdown.Item

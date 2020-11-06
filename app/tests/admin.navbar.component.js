@@ -39,7 +39,6 @@ export class AdminNavBar {
   }
 
   async gotoAdminLogin(testController) {
-    // await this.ensureLogout(testController);
     await testController.click('#LOGIN');
     await testController.click('#admin');
   }
@@ -50,5 +49,9 @@ export class AdminNavBar {
       .child('div')
       .textContent;
     await testController.expect(usernameField).eql(this.credentials.username);
+  }
+
+  async gotoStudentHomePage(testController, credentials) {
+    await testController.click(`#${credentials.accountName}`);
   }
 }
