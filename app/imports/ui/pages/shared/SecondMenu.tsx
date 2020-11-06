@@ -4,8 +4,12 @@ import { NavLink, withRouter } from 'react-router-dom';
 import { secondMenu } from '../../components/shared/shared-widget-names';
 import { buildRouteName } from '../../components/shared/RouterHelperFunctions';
 
+// TODO: Why is a component like this in the pages/shared directrory?
+// TODO: This component is only used for the Admin NavBar. Why is it "shared"?
+
 interface IMenuItem {
   label: string;
+  id: string;
   route: string;
   regex?: string;
 }
@@ -37,7 +41,7 @@ const SecondMenu = (props: ISecondMenuProps) => {
       id={`${secondMenu}`}
     >
       {props.menuItems.map((item) => (
-        <Menu.Item key={item.label} as={NavLink} exact={false} to={buildRouteName(match, `/${item.route}`)}>
+        <Menu.Item id={item.id} key={item.label} as={NavLink} exact={false} to={buildRouteName(match, `/${item.route}`)}>
           {item.label}
         </Menu.Item>
       ))}

@@ -72,7 +72,7 @@ const RadGradLoginButtons = () => {
   }
 
   return (
-    <Dropdown text="LOGIN" pointing="top right">
+    <Dropdown id="LOGIN" text="LOGIN" pointing="top right">
       <Dropdown.Menu>
         <Dropdown.Item id="student" text={studentLabel} onClick={handleClick} />
         <Dropdown.Item id="faculty" text={facultyLabel} onClick={handleClick} />

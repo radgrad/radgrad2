@@ -4,7 +4,7 @@ import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDatabaseMenuContainer from '../../components/admin/AdminDatabaseMenu';
 
 const AdminDatabasePage = () => (
-  <div>
+  <div id="admin-database-page">
     <AdminPageMenuWidget />
     <Grid container stackable>
 

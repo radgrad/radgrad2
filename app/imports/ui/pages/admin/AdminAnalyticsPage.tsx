@@ -5,7 +5,7 @@ import AdminAnalyticsMenuWidget from '../../components/admin/AdminAnalyticsMenuW
 import AdminAnalyticsLoggedInUsersWidget from '../../components/admin/AnalyticsPage/AdminAnalyticsLoggedInUsersWidget';
 
 const AdminAnalyticsPage = () => (
-  <div>
+  <div id="admin-analytics-page">
     <AdminPageMenuWidget />
     <Grid container stackable columns={1}>
       <Grid.Column>

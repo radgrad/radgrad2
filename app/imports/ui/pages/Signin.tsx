@@ -67,7 +67,7 @@ const Signin = () => {
   return (
     <div>
       <LandingNavBarContainer />
-      <Container style={containerStyle}>
+      <Container id="signin-page" style={containerStyle}>
         <Grid textAlign="center" verticalAlign="middle" centered columns={2}>
           <Grid.Column>
             <Header as="h2" textAlign="center">
@@ -77,6 +77,7 @@ const Signin = () => {
               <Segment stacked>
                 <Form.Input
                   label="Email"
+                  id="signin-form-email"
                   icon="user"
                   iconPosition="left"
                   name="email"
@@ -86,6 +87,7 @@ const Signin = () => {
                 />
                 <Form.Input
                   label="Password"
+                  id="signin-form-password"
                   icon="lock"
                   iconPosition="left"
                   name="password"
@@ -93,7 +95,7 @@ const Signin = () => {
                   type="password"
                   onChange={handleChange}
                 />
-                <Form.Button content="Submit" />
+                <Form.Button id="signin-form-submit" content="Submit" />
               </Segment>
             </Form>
             {errorState === '' ? (
