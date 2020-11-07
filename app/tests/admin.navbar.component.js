@@ -53,7 +53,7 @@ export class AdminNavBar {
     const usernameField = Selector('#first-menu-username')
       .child('div')
       .textContent;
-    await testController.expect(usernameField).eql(this.credentials.username);
+    await testController.expect(usernameField).eql(this.credentials.userName);
   }
 
   async gotoStudentHomePage(testController, credentials) {
