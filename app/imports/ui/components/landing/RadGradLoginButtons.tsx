@@ -65,13 +65,23 @@ const RadGradLoginButtons = () => {
   const advisorLabel = '... as advisor';
   const facultyLabel = '... as faculty';
   const studentLabel = '... as student';
+  const development = Meteor.settings.public.admin.development;
 
   // Redirection after logging in
   if (redirectToRefererState) {
     return <Redirect to={pathname} />;
   }
 
-  return (
+  return development ? (
+    <Dropdown id="LOGIN" text="LOGIN" pointing="top right">
+      <Dropdown.Menu>
+        <Dropdown.Item id="student" text={studentLabel} as={Link} to="/signin" />
+        <Dropdown.Item id="faculty" text={facultyLabel} as={Link} to="/signin" />
+        <Dropdown.Item id="advisor" text={advisorLabel} as={Link} to="/signin" />
+        <Dropdown.Item id="admin" text={adminLabel} as={Link} to="/signin" />
+      </Dropdown.Menu>
+    </Dropdown>
+  ) : (
     <Dropdown id="LOGIN" text="LOGIN" pointing="top right">
       <Dropdown.Menu>
         <Dropdown.Item id="student" text={studentLabel} onClick={handleClick} />
