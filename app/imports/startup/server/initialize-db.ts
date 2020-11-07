@@ -159,51 +159,6 @@ function defineTestAdminUser() {
   }
 }
 
-/**
- * Fixes issues with user interactions, particularly older documents that are not consistent with the
- * new schema.
- * @memberOf startup/server
- */
-function fixUserInteractions() {
-  if (Meteor.settings.public.fixUserInteractions) {
-    console.log('Fixing UserInteraction collection.');
-    _.each(UserInteractions.find().fetch(), (interaction) => {
-      /* if (interaction.userID) {
-        const username = Meteor.users.findOne({ _id: interaction.userID }).username;
-        console.log('Fixing interaction for user: ', username);
-        UserInteractions.update(interaction._id, { $set: { username } });
-      } */
-      if (!Array.isArray(interaction.typeData)) {
-        const oldTypeData = interaction.typeData.split(',');
-        const typeData = [];
-        const type = interaction.type;
-        if (type === 'interestIDs' && oldTypeData[0] !== 'n/a') {
-          _.each(oldTypeData, (entry) => {
-            typeData.push(Interests.findSlugByID(entry));
-          });
-        } else if (type === 'careerGoalIDs' && oldTypeData[0] !== 'n/a') {
-          _.each(oldTypeData, (entry) => {
-            typeData.push(CareerGoals.findSlugByID(entry));
-          });
-        } else if (type === 'academicPlanID' && oldTypeData[0] !== 'n/a') {
-          _.each(oldTypeData, (entry) => {
-            typeData.push(AcademicPlans.findSlugByID(entry));
-          });
-        } else {
-          _.each(oldTypeData, (entry) => {
-            typeData.push(entry);
-          });
-        }
-        console.log('Fixing interaction for: ', interaction.username);
-        UserInteractions.getCollection().update(interaction._id, { $set: { typeData } });
-      } else if (interaction.typeData[0] === 'ERROR: No such UserInteraction type found!') {
-        const typeData = ['Leveled up!'];
-        UserInteractions.getCollection().update(interaction._id, { $set: { typeData } });
-      }
-    });
-  }
-}
-
 // Add a startup callback that distinguishes between test and dev/prod mode and does the right thing.
 Meteor.startup(() => {
   if (Meteor.isTest || Meteor.isAppTest) {
@@ -217,7 +172,6 @@ Meteor.startup(() => {
     // startupCheckIntegrity();
     startupPublicStats();
     startupStudentParticipation();
-    fixUserInteractions();
     SyncedCron.start();
   }
 });
