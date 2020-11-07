@@ -22,6 +22,11 @@ export class AdminNavBar {
     await testController.click('#second-menu-data-model');
   }
 
+  async gotoDataModelPageSubPage(testController, subPageId) {
+    await testController.click('#second-menu-data-model');
+    await testController.click(`#data-model-${subPageId}`);
+  }
+
   async gotoDatabasePage(testController) {
     await testController.click('#second-menu-data-base');
   }
