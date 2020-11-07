@@ -65,7 +65,7 @@ const RadGradLoginButtons = () => {
   const advisorLabel = '... as advisor';
   const facultyLabel = '... as faculty';
   const studentLabel = '... as student';
-  const development = Meteor.settings.public.admin.development;
+  const development = Meteor.settings.public.development;
 
   // Redirection after logging in
   if (redirectToRefererState) {
