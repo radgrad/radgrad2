@@ -3,6 +3,7 @@
     "baseUrl": "https://cas-test.its.hawaii.edu/cas/",
     "autoClose": true
   },
+  "databaseRestoreFileName": "database/snapshot/2020-01-24-11-37-22.json",
   "public": {
     "cas": {
       "loginUrl": "https://cas-test.its.hawaii.edu/cas/login",
@@ -11,7 +12,6 @@
       "popupHeight": 610
     },
     "fixUserInteractions": false,
-    "databaseRestoreFileName": "database/snapshot/2020-01-24-11-37-22.json",
     "appLogging": { "enable": true, "filter": ["*"], "client": true, "server": true },
     "admin": { "username": "radgrad@hawaii.edu", "development": true },
     "cloudinary": {"cloud_name": "radgrad", "upload_preset": "CHANGEME"},

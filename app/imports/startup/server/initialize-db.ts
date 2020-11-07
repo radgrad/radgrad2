@@ -66,7 +66,7 @@ function getRestoreFileAge(loadFileName) {
  * @memberOf startup/server
  */
 function loadDatabase() {
-  const loadFileName = Meteor.settings.public.databaseRestoreFileName;
+  const loadFileName = Meteor.settings.databaseRestoreFileName;
   if (loadFileName && (totalDocuments() === 0 || totalDocuments() === 1)) {
     const loadFileAge = getRestoreFileAge(loadFileName);
     console.log(`Loading database from file ${loadFileName}, dumped ${loadFileAge}.`);
