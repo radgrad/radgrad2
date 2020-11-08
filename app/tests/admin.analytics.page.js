@@ -1,6 +1,6 @@
 import { Selector } from 'testcafe';
 
-export class AdminAnalyticsPage {
+class AdminAnalyticsPage {
   constructor() {
     this.pageId = '#admin-analytics-page';
     this.pageSelector = Selector(this.pageId);
@@ -11,3 +11,5 @@ export class AdminAnalyticsPage {
     await testController.expect(this.pageSelector.exists).ok();
   }
 }
+
+export const adminAnalyticsPage = new AdminAnalyticsPage();

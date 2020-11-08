@@ -1,37 +1,22 @@
-import { LandingPage } from './landing.page';
-import { AdminHomePage } from './admin.home.page';
-import { AdminDataModelPage } from './admin.datamodel.page';
-import { AdminDatabasePage } from './admin.database.page';
-import { AdminModerationPage } from './admin.moderation.page';
-import { AdminAnalyticsPage } from './admin.analytics.page';
-import { AdminScoreboardPage } from './admin.scoreboard.page';
-import { AdminNavBar } from './admin.navbar.component';
-import { SigninPage } from './signin.page';
-import { StudentHomePage } from './student.home.page';
+import { landingPage } from './landing.page';
+import { landingNavBar } from './landing.navbar.component';
+import { adminHomePage } from './admin.home.page';
+import { adminDataModelPage } from './admin.datamodel.page';
+import { adminDatabasePage } from './admin.database.page';
+import { adminModerationPage } from './admin.moderation.page';
+import { adminAnalyticsPage } from './admin.analytics.page';
+import { adminScoreboardPage } from './admin.scoreboard.page';
+import { adminNavBar } from './admin.navbar.component';
+import { signinPage } from './signin.page';
 
 /* global fixture:false, test:false */
 
-/** Credentials for one of the sample users defined in settings.development.json. */
+/** Credentials for sample user(s) defined in settings.development.json. */
 const credentials = {
   admin: { userName: 'radgrad@hawaii.edu', password: 'foo' },
-  student: {
-    abi: { userName: 'abi@hawaii.edu', accountName: 'abi', fullName: 'Abigail Kealoha' },
-  },
 };
 
-/* Create instances of page objects. */
-const landingPage = new LandingPage();
-const signinPage = new SigninPage();
-const adminNavBar = new AdminNavBar(credentials.admin);
-const adminHomePage = new AdminHomePage();
-const adminDataModelPage = new AdminDataModelPage();
-const adminDatabasePage = new AdminDatabasePage();
-const adminModerationPage = new AdminModerationPage();
-const adminAnalyticsPage = new AdminAnalyticsPage();
-const adminScoreboardPage = new AdminScoreboardPage();
-
-fixture('RadGrad localhost test with default db')
-    .page('http://localhost:3200');
+fixture('Admin UI acceptance tests').page('http://localhost:3200');
 
 test('Test that landing page shows up', async (testController) => {
   // Note: landingPage.isDisplayed waits 10 seconds to ensure app comes up---needed for CI mode.
@@ -40,14 +25,14 @@ test('Test that landing page shows up', async (testController) => {
 });
 
 test('Test admin login', async (testController) => {
-  await adminNavBar.gotoAdminLogin(testController);
+  await landingNavBar.gotoAdminLogin(testController);
   await signinPage.isDisplayed(testController);
   await signinPage.signin(testController, credentials.admin);
-  await adminNavBar.isLoggedIn(testController);
+  await adminNavBar.isLoggedIn(testController, credentials.admin);
 });
 
 test('Test all admin top-level pages', async (testController) => {
-  await adminNavBar.gotoAdminLogin(testController);
+  await landingNavBar.gotoAdminLogin(testController);
   await signinPage.signin(testController, credentials.admin);
   await adminHomePage.isDisplayed(testController);
   await adminNavBar.gotoHomePage(testController);
@@ -62,14 +47,6 @@ test('Test all admin top-level pages', async (testController) => {
   await adminAnalyticsPage.isDisplayed(testController);
   await adminNavBar.gotoScoreboardPage(testController);
   await adminScoreboardPage.isDisplayed(testController);
-});
-
-test.skip('NOT WORKING: Test student (abi) login', async (testController) => {
-  const studentHomePage = new StudentHomePage(credentials.student.abi);
-  await adminNavBar.gotoAdminLogin(testController);
-  await signinPage.signin(testController, credentials.admin);
-  await adminNavBar.gotoStudentHomePage(testController, credentials.student.abi);
-  await studentHomePage.isUser(testController);
 });
 
 test('Test admin data model page and subpages', async (testController) => {

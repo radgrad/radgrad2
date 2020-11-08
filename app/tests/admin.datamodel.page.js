@@ -1,6 +1,6 @@
 import { Selector } from 'testcafe';
 
-export class AdminDataModelPage {
+class AdminDataModelPage {
   constructor() {
     this.pageId = '#admin-data-model-page';
     this.pageSelector = Selector(this.pageId);
@@ -11,3 +11,5 @@ export class AdminDataModelPage {
     await testController.expect(this.pageSelector.exists).ok();
   }
 }
+
+export const adminDataModelPage = new AdminDataModelPage();

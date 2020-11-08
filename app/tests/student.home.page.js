@@ -1,8 +1,7 @@
 import { Selector } from 'testcafe';
 
-export class StudentHomePage {
-  constructor(credentials) {
-    this.credentials = credentials;
+class StudentHomePage {
+  constructor() {
     this.pageId = '#student-home-page';
     this.pageSelector = Selector(this.pageId);
   }
@@ -13,10 +12,12 @@ export class StudentHomePage {
   }
 
   /** Asserts that this page is currently displayed. */
-  async isUser(testController) {
+  async isUser(testController, credentials) {
     const userFullNameField = Selector('#dropdown-user-fullname')
         .child('div')
         .textContent;
-    await testController.expect(userFullNameField).eql(this.credentials.fullName);
+    await testController.expect(userFullNameField).eql(credentials.fullName);
   }
 }
+
+export const studentHomePage = new StudentHomePage();

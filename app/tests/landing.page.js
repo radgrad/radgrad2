@@ -1,6 +1,6 @@
 import { Selector } from 'testcafe';
 
-export class LandingPage {
+class LandingPage {
   constructor() {
     this.pageId = '#landing-page';
     this.pageSelector = Selector(this.pageId);
@@ -11,3 +11,5 @@ export class LandingPage {
     await testController.wait(10000).expect(this.pageSelector.exists).ok();
   }
 }
+
+export const landingPage = new LandingPage();
