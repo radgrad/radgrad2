@@ -7,7 +7,7 @@ import { ROLE } from '../role/Role';
 import { Users } from './UserCollection';
 
 function makeSampleStudent() {
-  const username = `student.${faker.internet.email()}`;
+  const username = `student.${new Date().getTime()}.${faker.internet.email()}`;
   const firstName = faker.name.firstName();
   const lastName = faker.name.lastName();
   const picture = faker.image.avatar();
@@ -24,7 +24,7 @@ function makeSampleStudent() {
 }
 
 function makeSampleAdvisor() {
-  const username = `advisor.${faker.internet.email()}`;
+  const username = `advisor.${new Date().getTime()}.${faker.internet.email()}`;
   const firstName = faker.name.firstName();
   const lastName = faker.name.lastName();
   const picture = faker.image.avatar();
@@ -36,7 +36,7 @@ function makeSampleAdvisor() {
 }
 
 function makeSampleFaculty() {
-  const username = `faculty.${faker.internet.email()}`;
+  const username = `faculty.${new Date().getTime()}.${faker.internet.email()}`;
   const firstName = faker.name.firstName();
   const lastName = faker.name.lastName();
   const picture = faker.image.avatar();

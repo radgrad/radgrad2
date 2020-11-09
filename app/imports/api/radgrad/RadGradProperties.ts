@@ -11,11 +11,11 @@ class RadGradPropertiesClass {
    * @return true if using quarters, false if using semesters.
    */
   public getQuarterSystem(): boolean {
-    return _.has(Meteor, 'settings.public.RadGrad.quarterSystem') ? Meteor.settings.public.RadGrad.quarterSystem : false;
+    return _.has(Meteor, 'settings.public.quarterSystem') ? Meteor.settings.public.quarterSystem : false;
   }
 
   public getAdminProfile(): IBaseProfile {
-    return _.has(Meteor, 'settings.public.RadGrad.adminProfile') ? Meteor.settings.public.RadGrad.adminProfile : {
+    return _.has(Meteor, 'settings.public.adminProfile') ? Meteor.settings.public.adminProfile : {
       username: 'radgrad@hawaii.edu',
       firstName: 'RadGrad',
       lastName: 'Admin',
@@ -27,7 +27,7 @@ class RadGradPropertiesClass {
    * @return the RadGrad admin email address.
    */
   public getAdminEmail(): string {
-    return _.has(Meteor, 'settings.public.RadGrad.adminProfile.username') ? Meteor.settings.public.RadGrad.adminProfile.username : 'radgrad@hawaii.edu';
+    return _.has(Meteor, 'settings.public.adminProfile.username') ? Meteor.settings.public.adminProfile.username : 'radgrad@hawaii.edu';
   }
 
   /**
@@ -35,7 +35,7 @@ class RadGradPropertiesClass {
    * @return the email domain.
    */
   public getEmailDomain(): string {
-    return _.has(Meteor, 'settings.public.RadGrad.emailDomain') ? Meteor.settings.public.RadGrad.emailDomain : 'hawaii.edu';
+    return _.has(Meteor, 'settings.public.emailDomain') ? Meteor.settings.public.emailDomain : 'hawaii.edu';
   }
 
   /**
@@ -43,7 +43,7 @@ class RadGradPropertiesClass {
    * @return the newsletter from address.
    */
   public getNewsletterFrom(): string {
-    return _.has(Meteor, 'settings.public.RadGrad.newsletterFrom') ? Meteor.settings.public.RadGrad.newsletterFrom : 'Phillip Johnson <donotreply@mail.gun.radgrad.org>';
+    return _.has(Meteor, 'settings.public.newsletterFrom') ? Meteor.settings.public.newsletterFrom : 'Phillip Johnson <donotreply@mail.gun.radgrad.org>';
   }
 
   // public getFallSemesterStartDate(): Date {

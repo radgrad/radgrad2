@@ -1,6 +1,6 @@
 import { Selector } from 'testcafe';
 
-export class AdminHomePage {
+class AdminHomePage {
   constructor() {
     this.pageId = '#admin-home-page';
     this.pageSelector = Selector(this.pageId);
@@ -11,3 +11,5 @@ export class AdminHomePage {
     await testController.expect(this.pageSelector.exists).ok();
   }
 }
+
+export const adminHomePage = new AdminHomePage();

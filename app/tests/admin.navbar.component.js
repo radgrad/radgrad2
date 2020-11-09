@@ -1,9 +1,6 @@
 import { Selector } from 'testcafe';
 
-export class AdminNavBar {
-  constructor(credentials) {
-    this.credentials = credentials;
-  }
+class AdminNavBar {
 
   /** If someone is logged in, then log them out, otherwise do nothing. */
   async ensureLogout(testController) {
@@ -20,6 +17,11 @@ export class AdminNavBar {
 
   async gotoDataModelPage(testController) {
     await testController.click('#second-menu-data-model');
+  }
+
+  async gotoDataModelPageSubPage(testController, subPageId) {
+    await testController.click('#second-menu-data-model');
+    await testController.click(`#data-model-${subPageId}`);
   }
 
   async gotoDatabasePage(testController) {
@@ -39,16 +41,17 @@ export class AdminNavBar {
   }
 
   async gotoAdminLogin(testController) {
-    // await this.ensureLogout(testController);
     await testController.click('#LOGIN');
     await testController.click('#admin');
   }
 
   /** Check that the specified user is currently logged in. */
-  async isLoggedIn(testController) {
+  async isLoggedIn(testController, credentials) {
     const usernameField = Selector('#first-menu-username')
       .child('div')
       .textContent;
-    await testController.expect(usernameField).eql(this.credentials.username);
+    await testController.expect(usernameField).eql(credentials.userName);
   }
 }
+
+export const adminNavBar = new AdminNavBar();
