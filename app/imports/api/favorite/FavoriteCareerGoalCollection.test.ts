@@ -21,7 +21,6 @@ if (Meteor.isServer) {
     let careerGoalName;
 
     before(function setup() {
-      this.timeout(5000);
       removeAllEntities();
       careerGoal = makeSampleCareerGoal();
       careerGoalName = CareerGoals.findDoc(careerGoal).name;
@@ -52,7 +51,6 @@ if (Meteor.isServer) {
     });
 
     it('Can update', function test3(done) {
-      this.timeout(5000);
       const docID = FavoriteCareerGoals.define({ careerGoal, username });
       fc.assert(
         fc.property(fc.boolean(), (retired) => {

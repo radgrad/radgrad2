@@ -66,70 +66,70 @@ const AdminDataModelMenu = (props: IAdminDataModeMenuProps) => {
   // console.log(this.props, baseRoute);
   return (
     <Menu vertical text id={`${leftHandMenu}`}>
-      <Menu.Item as={NavLink} exact to={`${baseRoute}academic-plans`}>
+      <Menu.Item id="data-model-academic-plans" as={NavLink} exact to={`${baseRoute}academic-plans`}>
         Academic Plans ({props.academicPlanCount})
       </Menu.Item>
-      <Menu.Item as={NavLink} exact to={`${baseRoute}academic-terms`}>
+      <Menu.Item id="data-model-academic-terms" as={NavLink} exact to={`${baseRoute}academic-terms`}>
         Academic Terms ({props.academicTermCount})
       </Menu.Item>
-      <Menu.Item as={NavLink} exact to={`${baseRoute}academic-year-instances`}>
+      <Menu.Item id="data-model-academic-year-instances" as={NavLink} exact to={`${baseRoute}academic-year-instances`}>
         Academic Year Instances ({props.academicYearCount})
       </Menu.Item>
-      <Menu.Item as={NavLink} exact to={`${baseRoute}advisor-logs`}>
+      <Menu.Item id="data-model-advisor-logs" as={NavLink} exact to={`${baseRoute}advisor-logs`}>
         Advisor Logs ({props.advisorLogCount})
       </Menu.Item>
-      <Menu.Item as={NavLink} exact to={`${baseRoute}career-goals`}>
+      <Menu.Item id="data-model-career-goals" as={NavLink} exact to={`${baseRoute}career-goals`}>
         Career Goals ({props.careerGoalCount})
       </Menu.Item>
-      <Menu.Item as={NavLink} exact to={`${baseRoute}course-instances`}>
+      <Menu.Item id="data-model-course-instances" as={NavLink} exact to={`${baseRoute}course-instances`}>
         Course Instances ({props.courseInstanceCount})
       </Menu.Item>
-      <Menu.Item as={NavLink} exact to={`${baseRoute}courses`}>
+      <Menu.Item id="data-model-courses" as={NavLink} exact to={`${baseRoute}courses`}>
         Courses ({props.courseCount})
       </Menu.Item>
-      <Menu.Item as={NavLink} exact to={`${baseRoute}desired-degrees`}>
+      <Menu.Item id="data-model-desired-degrees" as={NavLink} exact to={`${baseRoute}desired-degrees`}>
         Desired Degrees ({props.desiredDegreeCount})
       </Menu.Item>
-      <Menu.Item as={NavLink} exact to={`${baseRoute}feeds`}>
+      <Menu.Item id="data-model-feeds" as={NavLink} exact to={`${baseRoute}feeds`}>
         Feeds ({props.feedCount})
       </Menu.Item>
-      <Menu.Item as={NavLink} exact to={`${baseRoute}feedback-instances`}>
+      <Menu.Item id="data-model-feedback-instances" as={NavLink} exact to={`${baseRoute}feedback-instances`}>
         Feedback Instances ({props.feedbackCount})
       </Menu.Item>
-      <Menu.Item as={NavLink} exact to={`${baseRoute}help-messages`}>
+      <Menu.Item id="data-model-help-messages" as={NavLink} exact to={`${baseRoute}help-messages`}>
         Help Messages ({props.helpMessageCount})
       </Menu.Item>
-      <Menu.Item as={NavLink} exact to={`${baseRoute}interests`}>
+      <Menu.Item id="data-model-interests" as={NavLink} exact to={`${baseRoute}interests`}>
         Interests ({props.interestCount})
       </Menu.Item>
-      <Menu.Item as={NavLink} exact to={`${baseRoute}interest-types`}>
+      <Menu.Item id="data-model-interest-types" as={NavLink} exact to={`${baseRoute}interest-types`}>
         Interest Types ({props.interestTypeCount})
       </Menu.Item>
-      <Menu.Item as={NavLink} exact to={`${baseRoute}opportunities`}>
+      <Menu.Item id="data-model-opportunities" as={NavLink} exact to={`${baseRoute}opportunities`}>
         Opportunities ({props.opportunityCount})
       </Menu.Item>
-      <Menu.Item as={NavLink} exact to={`${baseRoute}opportunity-instances`}>
+      <Menu.Item id="data-model-opportunity-instances" as={NavLink} exact to={`${baseRoute}opportunity-instances`}>
         Opportunity Instances ({props.opportunityInstanceCount})
       </Menu.Item>
-      <Menu.Item as={NavLink} exact to={`${baseRoute}opportunity-types`}>
+      <Menu.Item id="data-model-opportunity-types" as={NavLink} exact to={`${baseRoute}opportunity-types`}>
         Opportunity Types ({props.opportunityTypeCount})
       </Menu.Item>
-      <Menu.Item as={NavLink} exact to={`${baseRoute}plan-choices`}>
+      <Menu.Item id="data-model-plan-choices" as={NavLink} exact to={`${baseRoute}plan-choices`}>
         Plan Choices ({props.planChoiceCount})
       </Menu.Item>
-      <Menu.Item as={NavLink} exact to={`${baseRoute}reviews`}>
+      <Menu.Item id="data-model-reviews" as={NavLink} exact to={`${baseRoute}reviews`}>
         Reviews ({props.reviewCount})
       </Menu.Item>
-      <Menu.Item as={NavLink} exact to={`${baseRoute}slugs`}>
+      <Menu.Item id="data-model-slugs" as={NavLink} exact to={`${baseRoute}slugs`}>
         Slugs ({props.slugCount})
       </Menu.Item>
-      <Menu.Item as={NavLink} exact to={`${baseRoute}teasers`}>
+      <Menu.Item id="data-model-teasers" as={NavLink} exact to={`${baseRoute}teasers`}>
         Teasers ({props.teaserCount})
       </Menu.Item>
-      <Menu.Item as={NavLink} exact to={`${baseRoute}users`}>
+      <Menu.Item id="data-model-users" as={NavLink} exact to={`${baseRoute}users`}>
         Users ({props.usersCount})
       </Menu.Item>
-      <Menu.Item as={NavLink} exact to={`${baseRoute}verification-requests`}>
+      <Menu.Item id="data-model-verification-requests" as={NavLink} exact to={`${baseRoute}verification-requests`}>
         Verification Requests ({props.verificationRequestCount})
       </Menu.Item>
     </Menu>

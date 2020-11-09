@@ -30,7 +30,6 @@ if (Meteor.isServer) {
     });
 
     it('Can define and removeIt', function test1(done) { // Test the define and removeIt methods
-      this.timeout(150000);
       const sponsor = makeSampleUser(ROLE.FACULTY);
       fc.assert(
         fc.property(fc.lorem(1), fc.lorem(1), fc.lorem(1), fc.lorem(1), fc.boolean(),
@@ -84,7 +83,6 @@ if (Meteor.isServer) {
     });
 
     it('Can update', function test3(done) { // Test updating documents
-      this.timeout(25000);
       let doc = StudentProfiles.findOne({});
       const docID = doc._id;
       fc.assert(
@@ -142,8 +140,6 @@ if (Meteor.isServer) {
       expect(doc.lastName).to.equal(origDoc.lastName);
       expect(doc.picture).to.equal(origDoc.picture);
       expect(doc.website).to.equal(origDoc.website);
-      expect(doc.interestIDs).to.deep.equal(origDoc.interestIDs);
-      expect(doc.careerGoalIDs).to.deep.equal(origDoc.careerGoalIDs);
       expect(doc.retired).to.equal(origDoc.retired);
       expect(doc.isAlumni).to.equal(origDoc.isAlumni);
       expect(doc.shareUsername).to.equal(origDoc.shareUsername);

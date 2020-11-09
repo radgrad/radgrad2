@@ -1,3 +1,4 @@
+// TODO: I think all of these can be removed; not needed for acceptance testing under new design.
 export const helpPanelWidget = 'helpPanelWidget';
 export const leftHandMenu = 'leftHandMenu';
 export const firstMenu = 'firstMenu';

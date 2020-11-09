@@ -28,7 +28,6 @@ if (Meteor.isServer) {
     });
 
     it('Can define and removeIt', function test1(done) {
-      this.timeout(15000);
       fc.assert(
         fc.property(fc.lorem(2), fc.lorem(1), fc.lorem(10), (name, slug, description) => {
           const sponsor = makeSampleUser(ROLE.FACULTY);
@@ -102,7 +101,6 @@ if (Meteor.isServer) {
     });
 
     it('Can update', function test3(done) {
-      this.timeout(10000);
       const name = faker.lorem.words();
       const slug = faker.lorem.word();
       let ice = makeSampleIce();

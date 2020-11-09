@@ -35,7 +35,7 @@ class UserCollection {
   }
 
   private generateAdminCredential() {
-    if (Meteor.isTest || Meteor.isAppTest || Meteor.settings.public.admin.development) {
+    if (Meteor.isTest || Meteor.isAppTest || Meteor.settings.public.development) {
       return 'foo';
     }
     // adapted from: https://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript
@@ -61,6 +61,14 @@ class UserCollection {
   public define({ username, role }: { username: string; role: string; }) {
     if (Meteor.isServer) {
       Roles.createRole(role, { unlessExists: true });
+      // In test Meteor.settings is not set from settings.development.json so we use _.get to see if it is set.
+      if (_.get(Meteor, 'settings.public.development', false)) {
+        const credential = this.generateAdminCredential();
+        const userID = Accounts.createUser({ username: username, email: username, password: credential });
+        Roles.addUsersToRoles(userID, [role]);
+        console.log(`Defining ${role} ${username} with password ${credential}`);
+        return userID;
+      }
       if ((role === ROLE.STUDENT) || (role === ROLE.FACULTY) || (role === ROLE.ADVISOR || (role === ROLE.ALUMNI))) {
         // Define this user with a CAS login.
         const userWithoutHost = username.split('@')[0];

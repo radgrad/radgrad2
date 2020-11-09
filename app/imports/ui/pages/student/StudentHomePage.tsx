@@ -17,7 +17,7 @@ interface IStudentHomePageProps {
 }
 
 const StudentHomePage = (props: IStudentHomePageProps) => (
-  <>
+  <div id="student-home-page">
     <StudentPageMenuWidget />
     <GuidedTourStudentHomePageWidget />
     <Container>
@@ -43,7 +43,7 @@ const StudentHomePage = (props: IStudentHomePageProps) => (
     </Container>
 
     <BackToTopButton />
-  </>
+  </div>
 
 );
 

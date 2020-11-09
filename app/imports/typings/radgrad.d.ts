@@ -784,8 +784,6 @@ export interface IBaseProfile {
   role: string;
   picture?: string;
   website?: string;
-  interestIDs?: string[];
-  careerGoalIDs?: string[];
   retired?: boolean;
   company?: string;
   career?: string;
@@ -819,8 +817,6 @@ export interface IProfile {
   role: string;
   picture?: string;
   website?: string;
-  interestIDs?: string[];
-  careerGoalIDs?: string[];
   retired?: boolean;
   courseExplorerFilter?: string;
   opportunityExplorerSortOrder?: string;

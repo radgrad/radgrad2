@@ -98,7 +98,9 @@ class BaseTypeCollection extends BaseCollection {
    */
   public removeIt(instance) {
     const docID = this.getID(instance);
-    const doc = super.findDoc(docID);
+    const doc: {
+      slugID: string,
+    } = super.findDoc(docID);
     check(doc, Object);
     if (Slugs.isDefined(doc.slugID)) {
       const slugDoc = Slugs.findDoc(doc.slugID);

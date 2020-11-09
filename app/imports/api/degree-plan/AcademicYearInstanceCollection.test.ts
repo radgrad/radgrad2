@@ -24,7 +24,6 @@ if (Meteor.isServer) {
     });
 
     it('Can define and removeIt', function test1(done) {
-      this.timeout(5000);
       const studentID = makeSampleUser();
       const student = Users.getProfile(studentID).username;
       fc.assert(
@@ -52,7 +51,6 @@ if (Meteor.isServer) {
     });
 
     it('Can update', function test3(done) {
-      this.timeout(5000);
       const academicTerm = makeSampleAcademicTerm();
       const year = AcademicTerms.findDoc(academicTerm).year;
       const studentID = makeSampleUser();

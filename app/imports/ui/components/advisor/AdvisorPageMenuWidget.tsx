@@ -10,19 +10,7 @@ import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import { IAdvisorProfile } from '../../../typings/radgrad';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 
-interface IFilterStudents {
-  selectedUsername: string;
-  usernameDoc: IStudentProfile;
-  interests: IInterest[];
-  careerGoals: ICareerGoal[];
-  advisorLogs: IAdvisorLog[];
-  match: {
-    params: {
-      username: string;
-    }
-  }
-}
-const AdvisorPageMenuWidget = (props: IAdvisorProfile) => {
+const AdvisorPageMenuWidget = (props: { match }) => {
   const { match } = props;
   const username = getUsername(match);
   const divStyle = { marginBottom: 30 };

@@ -29,7 +29,7 @@ const AdminHomePage = () => {
 
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   return (
-    <div>
+    <div id="admin-home-page">
       <AdminPageMenuWidget />
       <Container textAlign="center" fluid={false}>
         <FilterUserWidget

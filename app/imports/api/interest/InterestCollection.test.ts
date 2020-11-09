@@ -22,7 +22,6 @@ if (Meteor.isServer) {
     });
 
     it('Can define and removeIt', function test1(done) {
-      this.timeout(5000);
       const interestTypeID = makeSampleInterestType();
       fc.assert(
         fc.property(fc.lorem(3), fc.lorem(1), fc.lorem(24), fc.boolean(), (fcName, fcSlug, fcDescription, fcRetired) => {
@@ -51,7 +50,6 @@ if (Meteor.isServer) {
     });
 
     it('Can update', function test3(done) {
-      this.timeout(5000);
       let interestDoc = Interests.findOne({});
       const docID = interestDoc._id;
       fc.assert(

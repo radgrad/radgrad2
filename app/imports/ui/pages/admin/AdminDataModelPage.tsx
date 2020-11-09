@@ -11,7 +11,7 @@ const AdminDataModelPage = () => {
     paddingTop: 20,
   };
   return (
-    <div className="layout-page">
+    <div id="admin-data-model-page" className="layout-page">
       <AdminPageMenuWidget />
       <Grid container stackable style={paddedStyle}>
 

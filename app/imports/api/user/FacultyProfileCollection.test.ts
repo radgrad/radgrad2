@@ -23,7 +23,6 @@ if (Meteor.isServer) {
     });
 
     it('Can define and removeIt', function test1(done) { // Test the define and removeIt methods
-      this.timeout(15000);
       fc.assert(
         fc.property(fc.lorem(1), fc.lorem(1), fc.lorem(1), fc.lorem(1), fc.lorem(1), (username, firstName, lastName, picture, website) => {
           const interests = makeSampleInterestArray();
@@ -55,7 +54,6 @@ if (Meteor.isServer) {
     });
 
     it('Can update', function test3(done) { // Test updating documents
-      this.timeout(15000);
       let doc = FacultyProfiles.findOne({});
       const docID = doc._id;
       fc.assert(

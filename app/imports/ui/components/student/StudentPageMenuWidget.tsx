@@ -13,10 +13,10 @@ interface IStudentPageMenuWidgetProps {
 }
 
 const explorerDropdownItems = [
-  { key: 'Academic Plans', route: EXPLORER_TYPE.ACADEMICPLANS },
-  { key: 'Career Goals', route: EXPLORER_TYPE.CAREERGOALS },
-  { key: 'Courses', route: EXPLORER_TYPE.COURSES },
-  { key: 'Interests', route: EXPLORER_TYPE.INTERESTS },
+  { key: 'Academic Plans', route: EXPLORER_TYPE.ACADEMICPLANS, id: 'academic-plans' },
+  { key: 'Career Goals', route: EXPLORER_TYPE.CAREERGOALS, id: 'career-goals' },
+  { key: 'Courses', route: EXPLORER_TYPE.COURSES, id: 'courses' },
+  { key: 'Interests', route: EXPLORER_TYPE.INTERESTS, id: 'interests' },
 ];
 
 const studentHomePageItems = [
@@ -53,11 +53,12 @@ const StudentPageMenuWidget = (props: IStudentPageMenuWidgetProps) => {
             <Menu.Item as={NavLink} exact to={`/student/${username}/home`}>
               Home
             </Menu.Item>
-            <Dropdown item text="EXPLORE">
+            <Dropdown item text="EXPLORE" id="student-menu-explore">
               <Dropdown.Menu>
                 {explorerDropdownItems.map((item) => (
                   <Dropdown.Item
                     key={item.key}
+                    id={item.id}
                     as={NavLink}
                     exact
                     to={buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${item.route}`)}
@@ -90,7 +91,7 @@ const StudentPageMenuWidget = (props: IStudentPageMenuWidgetProps) => {
               </Dropdown.Menu>
             </Dropdown>
             <Menu.Menu position="right">
-              <Dropdown item text={`Aloha, ${profile.firstName} ${profile.lastName}!`}>
+              <Dropdown id="dropdown-user-fullname" item text={`Aloha, ${profile.firstName} ${profile.lastName}!`}>
                 <Dropdown.Menu>
                   {studentHomePageItems.map((item) => (
                     <Dropdown.Item

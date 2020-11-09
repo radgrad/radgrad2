@@ -65,7 +65,6 @@ if (Meteor.isServer) {
     });
 
     it('Can define and removeIt', function test1(done) {
-      this.timeout(15000);
       fc.assert(
         fc.property(fc.integer(1, 3), fc.integer(2018, 2025), fc.lorem(1), fc.lorem(5), fc.lorem(), fc.lorem(5), fc.lorem(12), (termNameInt, termYear, fcDegreeSlug, fcDegreeName, fcPlanSlug, fcName, fcDescription) => {
           const dSlug = `degree-${moment().format('YYYY-MM-DD-HH-mm-ss-SSSSS')}`;
@@ -130,7 +129,6 @@ if (Meteor.isServer) {
     });
 
     it('Can update', function test3(done) {
-      this.timeout(5000);
       const docID = makeSampleAcademicPlan();
       // { degreeSlug, name, academicTerm, coursesPerAcademicTerm, choiceList, retired }
       fc.assert(

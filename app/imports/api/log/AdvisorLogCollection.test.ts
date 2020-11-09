@@ -30,7 +30,6 @@ if (Meteor.isServer) {
     });
 
     it('Can define and removeIt', function test1(done) {
-      this.timeout(5000);
       fc.assert(
         fc.property(fc.lorem(24), fc.boolean(), (fcText, fcRetired) => {
           const docID = AdvisorLogs.define({ advisor, student, text: fcText, retired: fcRetired });
@@ -48,7 +47,6 @@ if (Meteor.isServer) {
     });
 
     it('Can update', function test2(done) {
-      this.timeout(5000);
       text = faker.lorem.words();
       AdvisorLogs.define({ advisor, student, text });
       let doc = AdvisorLogs.findOne({});

@@ -19,7 +19,7 @@ interface ILandingHomeProps {
 
 /** A simple static component to render some text for the landing page. */
 const LandingHomePage = (props: ILandingHomeProps) => (
-  <div>
+  <div id="landing-page">
     <LandingNavBarContainer />
     <LandingSection1 />
     <LandingSection2
