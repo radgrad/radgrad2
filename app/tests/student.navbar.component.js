@@ -19,6 +19,10 @@ class StudentNavBar {
     await testController.click('#student-menu-explore');
     await testController.click('#courses');
   }
+
+  async gotoOpportunitiesPage(testController) {
+    await testController.click('#student-menu-opportunities');
+  }
 }
 
 export const studentNavBar = new StudentNavBar();
