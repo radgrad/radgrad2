@@ -8,7 +8,6 @@ import {
   IAcademicPlan,
   ICareerGoal,
   ICourse,
-  IDesiredDegree,
   IFavoriteAcademicPlan,
   IFavoriteCareerGoal,
   IFavoriteCourse,
@@ -255,11 +254,6 @@ const descriptionPairsCourses = (theCourse: ICourse, props: IIndividualExplorerP
   { label: 'Teaser', value: teaser(theCourse) },
 ];
 
-const descriptionPairsDegrees = (theDegree: IDesiredDegree): { label: string, value: any }[] => [{
-  label: 'Description',
-  value: theDegree.description,
-}];
-
 const addedInterests = (props: IIndividualExplorerPageProps): { item: IInterest, count: number }[] => _.map(props.favoriteInterests, (f) => ({
   item: Interests.findDoc(f.interestID),
   count: 1,
@@ -389,8 +383,6 @@ const getDescriptionPairs = (item: { [key: string]: any }, props: IIndividualExp
       return descriptionPairsCareerGoals(item as ICareerGoal);
     case EXPLORER_TYPE.COURSES:
       return descriptionPairsCourses(item as ICourse, props);
-    case EXPLORER_TYPE.DEGREES:
-      return descriptionPairsDegrees(item as IDesiredDegree);
     case EXPLORER_TYPE.INTERESTS:
       return undefined; // Quinne implemented the descriptionPairs into their own components
     case EXPLORER_TYPE.OPPORTUNITIES:

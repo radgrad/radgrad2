@@ -8,9 +8,8 @@ import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
-import { IDesiredDegree, IPlanChoiceDefine } from '../../../typings/radgrad';
+import { IPlanChoiceDefine } from '../../../typings/radgrad';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
-import { docToShortName } from '../shared/data-model-helper-functions';
 import { getDroppableListStyle } from '../shared/StyleFunctions';
 import { PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
 import AdvisorAPBPlanChoiceWidget from './AdvisorAPBPlanChoiceWidget';
@@ -18,7 +17,6 @@ import DraggableCoursePill from '../shared/DraggableCoursePill';
 import { COMBINE_AREA } from './AcademicPlanBuilderUtilities';
 
 interface IAdvisorAcademicPlanBuilderWidgetProps {
-  degrees: IDesiredDegree[];
   choices: IPlanChoiceDefine[],
   years: number[];
 }
@@ -82,10 +80,8 @@ const AdvisorAcademicPlanBuilderWidget = (props: IAdvisorAcademicPlanBuilderWidg
     }
   };
 
-  const degreeNames = _.map(props.degrees, docToShortName);
   const currentYear = AcademicTerms.getCurrentAcademicTermDoc().year;
   const schema = new SimpleSchema({
-    degree: { type: String, allowedValues: degreeNames },
     name: String,
     year: { type: SimpleSchema.Integer, allowedValues: props.years, defaultValue: currentYear },
   });
@@ -274,7 +270,6 @@ export default withTracker(() => {
   const choices = PlanChoices.findNonRetired({}, { sort: { choice: 1 } });
   const years = _.uniq(_.map(terms, (t) => t.year));
   return {
-    degrees,
     years,
     choices,
   };

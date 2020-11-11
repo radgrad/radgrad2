@@ -7,7 +7,6 @@
       "contents": [
         {
           "slug": "bs-cs-2016",
-          "degreeSlug": "bs-cs",
           "name": "B.S. in Computer Sciences (2016)",
           "description": "The BS in CS degree offers a solid foundation in computer science. This degree provides students the opportunity to focus in an area of concentration with in the computer science field.",
           "academicTerm": "Fall-2016",
@@ -149,29 +148,6 @@
           ],
           "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS141.html",
           "prerequisites": []
-        }
-      ]
-    },
-    {
-      "name": "DesiredDegreeCollection",
-      "contents": [
-        {
-          "name": "B.A. in Information and Computer Sciences",
-          "shortName": "B.A. ICS",
-          "slug": "ba-ics",
-          "description": "The Bachelor of Arts (BA) degree allows you to combine computer science with another discipline."
-        },
-        {
-          "name": "B.S. in Computer Engineering",
-          "shortName": "B.S. CE",
-          "slug": "bs-ce",
-          "description": "ICS and EE offer a joint Bachelor of Science degree in Computer Engineering (BSCE)."
-        },
-        {
-          "name": "B.S. in Computer Science",
-          "shortName": "B.S. CS",
-          "slug": "bs-cs",
-          "description": "The Bachelor of Science in Computer Science provides you with an in-depth foundation."
         }
       ]
     },

@@ -6,7 +6,6 @@ import {
   IAcademicPlan,
   ICareerGoal,
   ICourse,
-  IDesiredDegree,
   IInterest,
   IOpportunity,
 } from '../../../typings/radgrad';
@@ -27,7 +26,7 @@ const AppMedia = createMedia({
 const mediaStyles = AppMedia.createMediaStyle();
 const { Media, MediaContextProvider } = AppMedia;
 
-type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IDesiredDegree | IInterest | IOpportunity;
+type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IInterest | IOpportunity;
 
 interface IExplorerMenuMobileWidgetProps {
   menuAddedList: { item: explorerInterfaces, count: number }[];

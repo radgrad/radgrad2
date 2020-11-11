@@ -35,7 +35,6 @@ export const EXPLORER_TYPE = {
   ACADEMICPLANS: 'plans',
   CAREERGOALS: 'career-goals',
   COURSES: 'courses',
-  DEGREES: 'degrees',
   INTERESTS: 'interests',
   OPPORTUNITIES: 'opportunities',
 };
