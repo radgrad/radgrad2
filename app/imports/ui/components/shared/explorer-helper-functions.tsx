@@ -41,7 +41,7 @@ export type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IIntere
 export interface ICardExplorerMenuWidgetProps {
   menuAddedList: { item: explorerInterfaces, count: number }[];
   menuCareerList: { item: IInterest, count: number }[] | undefined;
-  type: 'plans' | 'career-goals' | 'courses' | 'degrees' | 'interests' | 'opportunities' | 'users';
+  type: 'plans' | 'career-goals' | 'courses' | 'interests' | 'opportunities' | 'users';
   role: 'student' | 'faculty';
   match: {
     isExact: boolean;
@@ -53,7 +53,7 @@ export interface ICardExplorerMenuWidgetProps {
   };
 }
 
-export type IExplorerTypes = 'plans' | 'career-goals' | 'courses' | 'degrees' | 'interests' | 'opportunities';
+export type IExplorerTypes = 'plans' | 'career-goals' | 'courses' | 'interests' | 'opportunities'; // TODO is this ever imported?
 
 export const isType = (typeToCheck: string, type: IExplorerTypes) => type === typeToCheck;
 
@@ -263,8 +263,6 @@ export const matchingCourses = (match: Router.IMatchProps): object[] => {
 };
 
 export const coursesItemCount = (match: Router.IMatchProps): number => availableCourses(match).length;
-
-/* ####################################### DEGREES HELPER FUNCTIONS ####################################### */
 
 /* ####################################### INTERESTS HELPER FUNCTIONS ############################################ */
 export const userInterests = (interest: IInterest, match: Router.IMatchProps): string => {

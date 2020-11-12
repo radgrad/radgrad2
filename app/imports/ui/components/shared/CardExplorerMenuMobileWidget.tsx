@@ -27,7 +27,7 @@ const { Media, MediaContextProvider } = AppMedia;
 interface ICardExplorerMenuMobileWidgetProps {
   menuAddedList: { item: explorerInterfaces, count: number }[];
   menuCareerList: { item: IInterest, count: number }[] | undefined;
-  type: 'plans' | 'career-goals' | 'courses' | 'degrees' | 'interests' | 'opportunities';
+  type: 'plans' | 'career-goals' | 'courses' | 'interests' | 'opportunities';
   match: {
     isExact: boolean;
     path: string;

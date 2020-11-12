@@ -17,7 +17,7 @@ type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IInterest | IO
 interface IExplorerMenuProps {
   menuAddedList: { item: explorerInterfaces, count: number }[];
   menuCareerList?: { item: IInterest, count: number }[] | undefined;
-  type: 'plans' | 'career-goals' | 'courses' | 'degrees' | 'interests' | 'opportunities' | 'users';
+  type: 'plans' | 'career-goals' | 'courses' | 'interests' | 'opportunities' | 'users'; // TODO should this be a defined type?
   role: 'student' | 'faculty';
   match: {
     isExact: boolean;

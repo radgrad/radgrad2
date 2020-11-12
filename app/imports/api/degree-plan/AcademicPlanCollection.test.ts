@@ -125,7 +125,7 @@ if (Meteor.isServer) {
 
     it('Can update', function test3(done) {
       const docID = makeSampleAcademicPlan();
-      // { degreeSlug, name, academicTerm, coursesPerAcademicTerm, choiceList, retired }
+      // { name, academicTerm, coursesPerAcademicTerm, choiceList, retired }
       fc.assert(
         fc.property(fc.lorem(), fc.boolean(), (fcName, fcRetired) => {
           const coursesPerAcademicTerm2 = makeSampleCoursesPerTerm();
