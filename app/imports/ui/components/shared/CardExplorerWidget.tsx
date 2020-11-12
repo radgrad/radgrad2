@@ -61,13 +61,11 @@ interface ICardExplorerWidgetProps extends ICardExplorerMenuWidgetProps {
   plansScrollPosition: number;
   careerGoalsScrollPosition: number;
   coursesScrollPosition: number;
-  degreesScrollPosition: number;
   interestsScrollPosition: number;
   opportunitiesScrollPosition: number;
   setPlansScrollPosition: (scrollPosition: number) => any;
   setCareerGoalsScrollPosition: (scrollPosition: number) => any;
   setCoursesScrollPosition: (scrollPosition: number) => any;
-  setDegreesScrollPosition: (scrollPosition: number) => any;
   setInterestsScrollPosition: (scrollPosition: number) => any;
   setOpportunitiesScrollPosition: (scrollPosition: number) => any;
 }
@@ -76,7 +74,6 @@ const mapStateToProps = (state: RootState) => ({
   plansScrollPosition: state.shared.scrollPosition.explorer.plans,
   careerGoalsScrollPosition: state.shared.scrollPosition.explorer.careerGoals,
   coursesScrollPosition: state.shared.scrollPosition.explorer.courses,
-  degreesScrollPosition: state.shared.scrollPosition.explorer.degrees,
   interestsScrollPosition: state.shared.scrollPosition.explorer.interests,
   opportunitiesScrollPosition: state.shared.scrollPosition.explorer.opportunities,
 });
@@ -85,7 +82,6 @@ const mapDispatchToProps = (dispatch) => ({
   setPlansScrollPosition: (scrollPosition: number) => dispatch(scrollPositionActions.setExplorerPlansScrollPosition(scrollPosition)),
   setCareerGoalsScrollPosition: (scrollPosition: number) => dispatch(scrollPositionActions.setExplorerCareerGoalsScrollPosition(scrollPosition)),
   setCoursesScrollPosition: (scrollPosition: number) => dispatch(scrollPositionActions.setExplorerCoursesScrollPosition(scrollPosition)),
-  setDegreesScrollPosition: (scrollPosition: number) => dispatch(scrollPositionActions.setExplorerDegreesScrollPosition(scrollPosition)),
   setInterestsScrollPosition: (scrollPosition: number) => dispatch(scrollPositionActions.setExplorerInterestsScrollPosition(scrollPosition)),
   setOpportunitiesScrollPosition: (scrollPosition: number) => dispatch(scrollPositionActions.setExplorerOpportunitiesScrollPosition(scrollPosition)),
 });
@@ -177,8 +173,8 @@ const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
   // Certain "Adding" functinalities should only be exposed to "Student" role, not Faculty
   const canAdd = Router.isUrlRoleStudent(match);
   // Saving Scroll Position
-  const { plansScrollPosition, careerGoalsScrollPosition, coursesScrollPosition, degreesScrollPosition, interestsScrollPosition, opportunitiesScrollPosition } = props;
-  const { setPlansScrollPosition, setCareerGoalsScrollPosition, setCoursesScrollPosition, setDegreesScrollPosition, setInterestsScrollPosition, setOpportunitiesScrollPosition } = props;
+  const { plansScrollPosition, careerGoalsScrollPosition, coursesScrollPosition, interestsScrollPosition, opportunitiesScrollPosition } = props;
+  const { setPlansScrollPosition, setCareerGoalsScrollPosition, setCoursesScrollPosition, setInterestsScrollPosition, setOpportunitiesScrollPosition } = props;
   const cardExplorerCardGroupElement: HTMLElement = document.getElementById('cardExplorerCardGroupElement');
   useEffect(() => {
     let savedScrollPosition;
@@ -188,8 +184,6 @@ const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
       savedScrollPosition = careerGoalsScrollPosition;
     } else if (type === EXPLORER_TYPE.COURSES) {
       savedScrollPosition = coursesScrollPosition;
-    } else if (type === EXPLORER_TYPE.DEGREES) {
-      savedScrollPosition = degreesScrollPosition;
     } else if (type === EXPLORER_TYPE.INTERESTS) {
       savedScrollPosition = interestsScrollPosition;
     } else if (type === EXPLORER_TYPE.OPPORTUNITIES) {
@@ -208,8 +202,6 @@ const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
           setCareerGoalsScrollPosition(currentScrollPosition);
         } else if (type === EXPLORER_TYPE.COURSES) {
           setCoursesScrollPosition(currentScrollPosition);
-        } else if (type === EXPLORER_TYPE.DEGREES) {
-          setDegreesScrollPosition(currentScrollPosition);
         } else if (type === EXPLORER_TYPE.INTERESTS) {
           setInterestsScrollPosition(currentScrollPosition);
         } else if (type === EXPLORER_TYPE.OPPORTUNITIES) {
@@ -217,7 +209,7 @@ const CardExplorerWidget = (props: ICardExplorerWidgetProps) => {
         }
       }
     };
-  }, [cardExplorerCardGroupElement, careerGoalsScrollPosition, coursesScrollPosition, degreesScrollPosition, interestsScrollPosition, opportunitiesScrollPosition, plansScrollPosition, setCareerGoalsScrollPosition, setCoursesScrollPosition, setDegreesScrollPosition, setInterestsScrollPosition, setOpportunitiesScrollPosition, setPlansScrollPosition, type]);
+  }, [cardExplorerCardGroupElement, careerGoalsScrollPosition, coursesScrollPosition, interestsScrollPosition, opportunitiesScrollPosition, plansScrollPosition, setCareerGoalsScrollPosition, setCoursesScrollPosition, setInterestsScrollPosition, setOpportunitiesScrollPosition, setPlansScrollPosition, type]);
 
   return (
     <React.Fragment>

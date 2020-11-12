@@ -23,11 +23,6 @@ export const setExplorerCoursesScrollPosition = (scrollPosition: number): ISetEx
   payload: scrollPosition,
 });
 
-export const setExplorerDegreesScrollPosition = (scrollPosition: number): ISetExplorerScrollPositionAction => ({
-  type: TYPES.SET_EXPLORER_DEGREES_SCROLL_POSITION,
-  payload: scrollPosition,
-});
-
 export const setExplorerInterestsScrollPosition = (scrollPosition: number): ISetExplorerScrollPositionAction => ({
   type: TYPES.SET_EXPLORER_INTERESTS_SCROLL_POSITION,
   payload: scrollPosition,
