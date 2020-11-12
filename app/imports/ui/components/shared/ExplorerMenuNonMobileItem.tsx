@@ -4,13 +4,13 @@ import { NavLink } from 'react-router-dom';
 import { Menu } from 'semantic-ui-react';
 import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import * as Router from './RouterHelperFunctions';
-import { IAcademicPlan, ICareerGoal, ICourse, IInterest, IOpportunity } from '../../../typings/radgrad';
+import { IAcademicPlan, ICareerGoal, ICourse, IDesiredDegree, IInterest, IOpportunity } from '../../../typings/radgrad';
 import { Users } from '../../../api/user/UserCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { itemToSlugName, profileGetCareerGoalIDs } from './data-model-helper-functions';
 
-type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IInterest | IOpportunity;
+type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IDesiredDegree | IInterest | IOpportunity;
 
 interface IExplorerMenuNonMobileItemProps {
   type: any;

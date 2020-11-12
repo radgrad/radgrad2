@@ -3,6 +3,7 @@ import {
   IAcademicPlan,
   ICareerGoal,
   ICourse,
+  IDesiredDegree,
   IInterest,
   IOpportunity,
 } from '../../../typings/radgrad';
@@ -10,7 +11,7 @@ import CardExplorerMenuNonMobileWidget from './CardExplorerMenuNonMobileWidget';
 import CardExplorerMenuMobileWidget from './CardExplorerMenuMobileWidget';
 import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 
-type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IInterest | IOpportunity;
+type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IDesiredDegree | IInterest | IOpportunity;
 
 interface ICardExplorerMenuProps {
   menuAddedList: { item: explorerInterfaces, count: number }[];

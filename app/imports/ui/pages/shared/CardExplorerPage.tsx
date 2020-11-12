@@ -17,6 +17,7 @@ import {
   IAcademicPlan,
   ICareerGoal,
   ICourse,
+  IDesiredDegree,
   IInterest,
   IOpportunity,
 } from '../../../typings/radgrad';
@@ -115,7 +116,7 @@ const addedOpportunities = (props: ICardExplorerPageProps): { item: IOpportunity
   count: 1,
 }));
 
-const getAddedList = (props: ICardExplorerPageProps): { item: IAcademicPlan | ICareerGoal | ICourse | IInterest | IOpportunity, count: number }[] => {
+const getAddedList = (props: ICardExplorerPageProps): { item: IAcademicPlan | ICareerGoal | ICourse | IDesiredDegree | IInterest | IOpportunity, count: number }[] => {
   const type = Router.getLastUrlParam(props.match);
   switch (type) {
     case EXPLORER_TYPE.ACADEMICPLANS:
@@ -124,6 +125,8 @@ const getAddedList = (props: ICardExplorerPageProps): { item: IAcademicPlan | IC
       return addedCareerGoals(props);
     case EXPLORER_TYPE.COURSES:
       return addedCourses(props);
+    case EXPLORER_TYPE.DEGREES:
+      return addedDegrees();
     case EXPLORER_TYPE.INTERESTS:
       return addedInterests(props);
     case EXPLORER_TYPE.OPPORTUNITIES:

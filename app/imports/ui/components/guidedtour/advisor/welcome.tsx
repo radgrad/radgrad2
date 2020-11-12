@@ -22,6 +22,11 @@ const GuidedTourAdvisorWelcome = () => (
             A primary goal of RadGrad is to help advisors do their job better.
           </p>
           <p style={styles.p}>
+            Students are always introduced to RadGrad in the presence of an advisor. After discussing their desired
+            degree, current interests, and current career goals, the advisor configures the student&apos;s account and
+            generates a customized degree plan.
+          </p>
+          <p style={styles.p}>
             Of course, many students might only have a vague idea of the range of interests and career goals in computer
             science, and RadGrad provides an opportunity for the advisor to start this discussion and show them how
             RadGrad enables them to learn more about the field at their own pace.

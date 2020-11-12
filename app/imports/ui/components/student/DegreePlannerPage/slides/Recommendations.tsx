@@ -11,7 +11,7 @@ const Recommendations = () => (
         </Grid.Column>
         <Grid.Column width={11}>
           <Header style={styles.h1}>Recommendations & Warnings</Header>
-          <p style={styles.p}>RadGrad can offer personalized recommendations for courses and opportunities based upon your interests, and your career goals.
+          <p style={styles.p}>RadGrad can offer personalized recommendations for courses and opportunities based upon your desired degree, your interests, and your career goals.
             <br /><br />
             It will also flag problems with your degree plan, such as adding a course without the appropriate prerequisite.</p>
         </Grid.Column>

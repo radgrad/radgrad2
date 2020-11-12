@@ -8,12 +8,13 @@ import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import { DragDropContext } from 'react-beautiful-dnd';
 import Swal from 'sweetalert2';
 import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
-import { IAcademicPlanDefine, IAcademicTerm, IPlanChoiceDefine } from '../../../typings/radgrad';
+import { IAcademicPlanDefine, IAcademicTerm, IDesiredDegree, IPlanChoiceDefine } from '../../../typings/radgrad';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
 import {
   academicTermNameToDoc,
   academicTermToName,
+  docToShortName,
 } from '../shared/data-model-helper-functions';
 import AdvisorAPBPlanViewWidget from './AdvisorAPBPlanViewWidget';
 import AdvisorAPBPlanChoiceWidget from './AdvisorAPBPlanChoiceWidget';
@@ -40,6 +41,7 @@ import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import slugify, { Slugs } from '../../../api/slug/SlugCollection';
 
 interface IAdvisorAPBuilderWidgetProps {
+  degrees: IDesiredDegree[];
   choices: IPlanChoiceDefine[],
   terms: IAcademicTerm[];
 }
@@ -240,11 +242,13 @@ const AdvisorAPBuilderWidget = (props: IAdvisorAPBuilderWidgetProps) => {
     const description = doc.description;
     const term = academicTermNameToDoc(doc.term);
     const academicTerm = Slugs.getNameFromID(term.slugID);
-    const slug = `${slugify(name)}-${academicTerm}`;
+    const degreeSlug = degreeShortNameToSlug(doc.degree);
+    const slug = `${slugify(name)}-${degreeSlug}-${academicTerm}`;
     const definitionData: IAcademicPlanDefine = {
       name,
       description,
       academicTerm,
+      degreeSlug,
       choiceList: choiceListState,
       coursesPerAcademicTerm: truncatedCoursesPerTerm,
       slug,
@@ -289,9 +293,11 @@ const AdvisorAPBuilderWidget = (props: IAdvisorAPBuilderWidgetProps) => {
     }
   };
 
+  const degreeNames = _.map(props.degrees, docToShortName);
   const termNames = _.map(props.terms, academicTermToName);
   const currentTermName = AcademicTerms.toString(AcademicTerms.getCurrentTermID(), false);
   const schema = new SimpleSchema({
+    degree: { type: String, allowedValues: degreeNames, defaultValue: degreeNames[0] },
     name: String,
     description: String,
     term: {
@@ -309,6 +315,7 @@ const AdvisorAPBuilderWidget = (props: IAdvisorAPBuilderWidgetProps) => {
       <Header dividing>ACADEMIC PLAN</Header>
       <AutoForm schema={formSchema} onSubmit={handleSavePlan}>
         <Form.Group widths="equal">
+          <SelectField name="degree" />
           <TextField name="name" />
           <SelectField name="term" />
         </Form.Group>
@@ -358,6 +365,7 @@ export default withTracker(() => {
   const terms = AcademicTerms.findNonRetired({}, { sort: { year: 1 } });
   const choices = PlanChoices.findNonRetired({}, { sort: { choice: 1 } });
   return {
+    degrees,
     terms,
     choices,
   };

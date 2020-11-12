@@ -18,7 +18,7 @@ if (Meteor.isClient) {
     const careerGoals = [];
 
     before(function (done) {
-      defineTestFixturesMethod.call(['minimal', 'abi.student'], done);
+      defineTestFixturesMethod.call(['minimal'], done);
     });
 
     it('Define Method', async function () {
