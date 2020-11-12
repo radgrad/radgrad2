@@ -17,7 +17,11 @@ class StudentNavBar {
 
   async gotoCourseExplorerPage(testController) {
     await testController.click('#student-menu-explore');
-    await testController.click('#courses');
+    await testController.click('#student-menu-courses');
+  }
+
+  async gotoOpportunitiesPage(testController) {
+    await testController.click('#student-menu-opportunities');
   }
 }
 

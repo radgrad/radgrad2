@@ -39,6 +39,7 @@ interface ICardExplorerPageProps {
       username: string;
     }
   };
+  // TODO: If we're not using these, then shouldn't we get rid of them
   // eslint-disable-next-line react/no-unused-prop-types
   favoritePlans: IAcademicPlan[];
   // eslint-disable-next-line react/no-unused-prop-types
@@ -143,7 +144,7 @@ const CardExplorerPage = (props: ICardExplorerPageProps) => {
   const type = Router.getLastUrlParam(props.match);
 
   return (
-    <div>
+    <div id={`${type}-explorer-page`}>
       {menuWidget}
       <Container>
         <Grid stackable>
@@ -170,6 +171,7 @@ const CardExplorerPage = (props: ICardExplorerPageProps) => {
   );
 };
 
+// TODO: why are we getting all of this info when we only need some of it for any given page?
 export default withRouter(withTracker((props) => {
   const studentID = Router.getUserIdFromRoute(props.match);
   const favoritePlans = FavoriteAcademicPlans.findNonRetired({ studentID });

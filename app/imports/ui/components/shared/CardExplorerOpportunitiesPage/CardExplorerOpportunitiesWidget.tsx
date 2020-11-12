@@ -68,7 +68,7 @@ const CardExplorerOpportunitiesWidget = (props: ICardExplorerOpportunitiesWidget
   const endIndex = startIndex + displayOpportunitiesCount;
   opportunities = opportunities.slice(startIndex, endIndex);
   return (
-    <>
+    <div id="opportunities-page">
       <Grid.Row>
         <Header>OPPORTUNITIES <WidgetHeaderNumber inputValue={opportunitiesItemCount} /></Header>
         <OpportunitySortWidget
@@ -100,7 +100,7 @@ const CardExplorerOpportunitiesWidget = (props: ICardExplorerOpportunitiesWidget
           </Container>
         </Grid.Row>
       </Grid>
-    </>
+    </div>
   );
 };
 
