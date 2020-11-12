@@ -15,7 +15,6 @@ import { IAcademicPlan } from '../../typings/radgrad';
 
 if (Meteor.isServer) {
   describe('AcademicPlanCollection', function testSuite() {
-    const degreeSlug = 'bs-cs';
     const description = 'B.S. in CS.';
     const academicTerm = 'Spring-2017';
     const slug = 'bs-cs-2017';
@@ -66,8 +65,7 @@ if (Meteor.isServer) {
 
     it('Can define and removeIt', function test1(done) {
       fc.assert(
-        fc.property(fc.integer(1, 3), fc.integer(2018, 2025), fc.lorem(1), fc.lorem(5), fc.lorem(), fc.lorem(5), fc.lorem(12), (termNameInt, termYear, fcDegreeSlug, fcDegreeName, fcPlanSlug, fcName, fcDescription) => {
-          const dSlug = `degree-${moment().format('YYYY-MM-DD-HH-mm-ss-SSSSS')}`;
+        fc.property(fc.integer(1, 3), fc.integer(2018, 2025), fc.lorem(5), fc.lorem(), fc.lorem(5), fc.lorem(12), (termNameInt, termYear, fcDegreeName, fcPlanSlug, fcName, fcDescription) => {
           const pSlug = `plan-${moment().format('YYYY-MM-DD-HH-mm-ss-SSSSS')}`;
           let term;
           switch (termNameInt) {
@@ -87,7 +85,6 @@ if (Meteor.isServer) {
             slug: pSlug,
             name: fcName,
             description: fcDescription,
-            degreeSlug: dSlug,
             academicTerm: academicTermSlug,
             choiceList,
             coursesPerAcademicTerm,
@@ -105,7 +102,6 @@ if (Meteor.isServer) {
       const termID = AcademicTerms.define({ term: 'Spring', year: 2017 });
       const docID1 = AcademicPlans.define({
         slug,
-        degreeSlug,
         name: description,
         description,
         academicTerm,
@@ -114,7 +110,6 @@ if (Meteor.isServer) {
       });
       const docID2 = AcademicPlans.define({
         slug,
-        degreeSlug,
         name: description,
         description,
         academicTerm,
