@@ -25,7 +25,6 @@ class AcademicPlanCollection extends BaseSlugCollection {
       name: { type: String },
       description: String,
       slugID: SimpleSchema.RegEx.Id,
-      degreeID: SimpleSchema.RegEx.Id,
       effectiveAcademicTermID: SimpleSchema.RegEx.Id,
       termNumber: Number,
       year: Number,
@@ -42,7 +41,6 @@ class AcademicPlanCollection extends BaseSlugCollection {
     }
     this.defineSchema = new SimpleSchema({
       slug: String,
-      degreeSlug: String,
       name: String,
       description: String,
       academicTerm: String,
@@ -51,7 +49,6 @@ class AcademicPlanCollection extends BaseSlugCollection {
       'choiceList.$': { type: String },
     });
     this.updateSchema = new SimpleSchema({
-      degreeSlug: { type: String, optional: true },
       name: { type: String, optional: true },
       academicTerm: { type: String, optional: true },
       coursesPerAcademicTerm: { type: Array, optional: true },
@@ -67,7 +64,6 @@ class AcademicPlanCollection extends BaseSlugCollection {
    * @example
    *     AcademicPlans.define({
    *                        slug: 'bs-cs-2016',
-   *                        degreeSlug: 'bs-cs',
    *                        name: 'B.S. in Computer Science',
    *                        description: 'The BS in CS degree offers a solid foundation in computer science.',
    *                        academicTerm: 'Spring-2016',
@@ -85,10 +81,9 @@ class AcademicPlanCollection extends BaseSlugCollection {
    * @param retired boolean optional defaults to false.
    * @returns {*}
    */
-  public define({ slug, degreeSlug, name, description, academicTerm, coursesPerAcademicTerm, choiceList, retired = false }: IAcademicPlanDefine) {
-    const degreeID = Slugs.getEntityID(degreeSlug, 'DesiredDegree');
+  public define({ slug, name, description, academicTerm, coursesPerAcademicTerm, choiceList, retired = false }: IAcademicPlanDefine) {
     const effectiveAcademicTermID = AcademicTerms.getID(academicTerm);
-    const doc = this.collection.findOne({ degreeID, name, effectiveAcademicTermID });
+    const doc = this.collection.findOne({ name, effectiveAcademicTermID });
     if (doc) {
       return doc._id;
     }
@@ -107,7 +102,6 @@ class AcademicPlanCollection extends BaseSlugCollection {
     });
     const planID = this.collection.insert({
       slugID,
-      degreeID,
       name,
       description,
       effectiveAcademicTermID,
@@ -132,9 +126,9 @@ class AcademicPlanCollection extends BaseSlugCollection {
    * @param choiceList an array of PlanChoices, the choices for each course.
    * @param retired boolean, optional.
    */
-  public update(instance, { degreeSlug, name, academicTerm, coursesPerAcademicTerm, choiceList, retired }: IAcademicPlanUpdate) {
+  public update(instance, { name, academicTerm, coursesPerAcademicTerm, choiceList, retired }: IAcademicPlanUpdate) {
     const docID = this.getID(instance);
-    const updateData: { degreeID?: string; name?: string; effectiveAcademicTermID?: string; coursesPerAcademicTerm?: number[]; choiceList?: string[]; retired?: boolean; } = {};
+    const updateData: { name?: string; effectiveAcademicTermID?: string; coursesPerAcademicTerm?: number[]; choiceList?: string[]; retired?: boolean; } = {};
     if (name) {
       updateData.name = name;
     }
@@ -294,7 +288,6 @@ class AcademicPlanCollection extends BaseSlugCollection {
   public dumpOne(docID: string): IAcademicPlanDefine {
     const doc = this.findDoc(docID);
     const slug = Slugs.getNameFromID(doc.slugID);
-    const degreeSlug = Slugs.findDoc(degree.slugID).name;
     const name = doc.name;
     const description = doc.description;
     const academicTermDoc = AcademicTerms.findDoc(doc.effectiveAcademicTermID);
@@ -302,7 +295,7 @@ class AcademicPlanCollection extends BaseSlugCollection {
     const coursesPerAcademicTerm = doc.coursesPerAcademicTerm;
     const choiceList = doc.choiceList;
     const retired = doc.retired;
-    return { slug, degreeSlug, name, description, academicTerm, coursesPerAcademicTerm, choiceList, retired };
+    return { slug, name, description, academicTerm, coursesPerAcademicTerm, choiceList, retired };
   }
 
 }

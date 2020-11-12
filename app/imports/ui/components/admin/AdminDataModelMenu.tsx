@@ -41,7 +41,6 @@ interface IAdminDataModeMenuProps {
   careerGoalCount: number;
   courseInstanceCount: number;
   courseCount: number;
-  desiredDegreeCount: number;
   feedCount: number;
   feedbackCount: number;
   helpMessageCount: number;
@@ -86,9 +85,6 @@ const AdminDataModelMenu = (props: IAdminDataModeMenuProps) => {
       </Menu.Item>
       <Menu.Item id="data-model-courses" as={NavLink} exact to={`${baseRoute}courses`}>
         Courses ({props.courseCount})
-      </Menu.Item>
-      <Menu.Item id="data-model-desired-degrees" as={NavLink} exact to={`${baseRoute}desired-degrees`}>
-        Desired Degrees ({props.desiredDegreeCount})
       </Menu.Item>
       <Menu.Item id="data-model-feeds" as={NavLink} exact to={`${baseRoute}feeds`}>
         Feeds ({props.feedCount})

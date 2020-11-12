@@ -10,8 +10,6 @@ import LandingCareerGoalsCardExplorerContainer from '../../ui/pages/landing/Land
 import LandingCareerGoalExplorerContainer from '../../ui/pages/landing/LandingCareerGoalExplorer';
 import LandingCoursesCardExplorerContainer from '../../ui/pages/landing/LandingCoursesCardExplorer';
 import LandingCourseExplorerContainer from '../../ui/pages/landing/LandingCourseExplorer';
-import LandingDegreesCardExplorerContainer from '../../ui/pages/landing/LandingDegreesCardExplorer';
-import LandingDesiredDegreeExplorerContainer from '../../ui/pages/landing/LandingDegreeExplorer';
 import LandingInterestsCardExplorerContainer from '../../ui/pages/landing/LandingInterestsCardExplorer';
 import LandingInterestExplorerContainer from '../../ui/pages/landing/LandingInterestExplorer';
 import LandingOpportunitiesCardExplorerContainer from '../../ui/pages/landing/LandingOpportunitiesCardExplorer';
@@ -458,16 +456,6 @@ export const routes = {
       component: IndividualExplorerPageContainer,
     },
     {
-      path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.DEGREES}`,
-      exact: true,
-      component: CardExplorerPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.DEGREES}/${EXPLORER_PARAM.DEGREE}`,
-      exact: true,
-      component: IndividualExplorerPageContainer,
-    },
-    {
       path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}`,
       exact: true,
       component: CardExplorerPageContainer,
@@ -596,16 +584,6 @@ export const routes = {
       path: `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${EXPLORER_PARAM.COURSE}`,
       exact: false,
       component: LandingCourseExplorerContainer,
-    },
-    {
-      path: `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.DEGREES}`,
-      exact: true,
-      component: LandingDegreesCardExplorerContainer,
-    },
-    {
-      path: `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.DEGREES}/${EXPLORER_PARAM.DEGREE}`,
-      exact: false,
-      component: LandingDesiredDegreeExplorerContainer,
     },
     {
       path: `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}`,
@@ -749,17 +727,6 @@ export const routes = {
     },
     {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${EXPLORER_PARAM.COURSE}`,
-      exact: true,
-      component: IndividualExplorerPageContainer,
-    },
-    /* ############################## Explorers DEGREES ############################## */
-    {
-      path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.DEGREES}`,
-      exact: true,
-      component: CardExplorerPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.DEGREES}/${EXPLORER_PARAM.DEGREE}`,
       exact: true,
       component: IndividualExplorerPageContainer,
     },

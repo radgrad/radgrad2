@@ -1,6 +1,6 @@
 import faker from 'faker';
 import _ from 'lodash';
-import slugify, { Slugs } from '../slug/SlugCollection';
+import slugify from '../slug/SlugCollection';
 import { AcademicPlans } from './AcademicPlanCollection';
 import { makeSampleAcademicTerm } from '../academic-term/SampleAcademicTerms';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
@@ -35,7 +35,6 @@ export const makeSampleChoiceList = (coursesPerAcademicTerm: number[]) => buildC
 export const makeSampleAcademicPlan = () => {
   const name = faker.lorem.words();
   const slug = slugify(`academic-plan-${name}`);
-  const degreeSlug = Slugs.getNameFromID(degreeDoc.slugID);
   const description = faker.lorem.paragraph();
   const academicTermID = makeSampleAcademicTerm();
   const academicTerm = AcademicTerms.findSlugByID(academicTermID);
@@ -44,7 +43,6 @@ export const makeSampleAcademicPlan = () => {
   return AcademicPlans.define({
     name,
     slug,
-    degreeSlug,
     description,
     academicTerm,
     coursesPerAcademicTerm,
