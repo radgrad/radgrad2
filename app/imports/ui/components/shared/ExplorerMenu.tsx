@@ -4,7 +4,6 @@ import {
   IAcademicPlan,
   ICareerGoal,
   ICourse,
-  IDesiredDegree,
   IInterest,
   IOpportunity,
 } from '../../../typings/radgrad';
@@ -13,7 +12,7 @@ import ExplorerMenuMobileWidget from './ExplorerMenuMobileWidget';
 import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import ExplorerNavDropdown from './ExplorerNavDropdown';
 
-type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IDesiredDegree | IInterest | IOpportunity;
+type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IInterest | IOpportunity;
 
 interface IExplorerMenuProps {
   menuAddedList: { item: explorerInterfaces, count: number }[];

@@ -8,7 +8,6 @@ import {
   IAcademicPlan,
   ICareerGoal,
   ICourse,
-  IDesiredDegree,
   IFavoriteAcademicPlan,
   IFavoriteCareerGoal,
   IFavoriteCourse,
@@ -27,7 +26,6 @@ import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstan
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import ExplorerPlansWidget from '../../components/shared/ExplorerPlansWidget';
 import ExplorerOpportunitiesWidget from '../../components/shared/ExplorerOpportunitiesWidget';
-import ExplorerDegreesWidget from '../../components/shared/ExplorerDegreesWidget';
 import ExplorerCoursesWidget from '../../components/shared/ExplorerCoursesWidget';
 import ExplorerInterestsWidget from '../../components/shared/ExplorerInterestsWidget';
 import { Slugs } from '../../../api/slug/SlugCollection';
@@ -107,7 +105,7 @@ const plan = (props: IIndividualExplorerPageProps): IAcademicPlan => {
 };
 
 const descriptionPairsPlans = (thePlan: IAcademicPlan): { label: string, value: any }[] => {
-  const description = `${degree.description}\n\n${thePlan.description}`;
+  const description = `${thePlan.description}`;
   return [
     { label: 'Description', value: description },
   ];
@@ -255,11 +253,6 @@ const descriptionPairsCourses = (theCourse: ICourse, props: IIndividualExplorerP
   { label: 'Teaser', value: teaser(theCourse) },
 ];
 
-const descriptionPairsDegrees = (theDegree: IDesiredDegree): { label: string, value: any }[] => [{
-  label: 'Description',
-  value: theDegree.description,
-}];
-
 const addedInterests = (props: IIndividualExplorerPageProps): { item: IInterest, count: number }[] => _.map(props.favoriteInterests, (f) => ({
   item: Interests.findDoc(f.interestID),
   count: 1,
@@ -340,8 +333,6 @@ const getAddedList = (props: IIndividualExplorerPageProps): { [key: string]: any
       return addedCareerGoals(props);
     case EXPLORER_TYPE.COURSES:
       return addedCourses(props);
-    case EXPLORER_TYPE.DEGREES:
-      return addedDegrees();
     case EXPLORER_TYPE.INTERESTS:
       return addedInterests(props);
     case EXPLORER_TYPE.OPPORTUNITIES:
@@ -389,8 +380,6 @@ const getDescriptionPairs = (item: { [key: string]: any }, props: IIndividualExp
       return descriptionPairsCareerGoals(item as ICareerGoal);
     case EXPLORER_TYPE.COURSES:
       return descriptionPairsCourses(item as ICourse, props);
-    case EXPLORER_TYPE.DEGREES:
-      return descriptionPairsDegrees(item as IDesiredDegree);
     case EXPLORER_TYPE.INTERESTS:
       return undefined; // Quinne implemented the descriptionPairs into their own components
     case EXPLORER_TYPE.OPPORTUNITIES:
@@ -468,11 +457,6 @@ const IndividualExplorerPage = (props: IIndividualExplorerPageProps) => {
                 completed={(isTypeCourses && isCourseCompleted(props) !== undefined) ? isCourseCompleted(props) : undefined}
               />
             )
-              : ''
-          }
-          {
-            type === EXPLORER_TYPE.DEGREES ?
-              <ExplorerDegreesWidget name={name} descriptionPairs={descriptionPairs} />
               : ''
           }
           {

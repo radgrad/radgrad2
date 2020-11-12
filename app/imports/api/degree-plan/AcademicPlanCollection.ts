@@ -72,7 +72,6 @@ class AcademicPlanCollection extends BaseSlugCollection {
    *                                     'ics_212-1', 'ics_321-1', 'ics_313,ics_361-1', 'ics_312,ics_331-1', 'ics_332-1',
    *                                     'ics_400+-1', 'ics_400+-2', 'ics_400+-3', 'ics_400+-4', 'ics_400+-5'] })
    * @param slug The slug for the academic plan.
-   * @param degreeSlug The slug for the desired degree.
    * @param name The name of the academic plan.
    * @param description The description of the academic plan.
    * @param academicTerm the slug for the academicTerm.
@@ -119,7 +118,6 @@ class AcademicPlanCollection extends BaseSlugCollection {
   /**
    * Updates the AcademicPlan, instance.
    * @param instance the docID or slug associated with this AcademicPlan.
-   * @param degreeSlug the slug for the DesiredDegree that this plan satisfies.
    * @param name the name of this AcademicPlan.
    * @param academicTerm the first academicTerm this plan is effective.
    * @param coursesPerAcademicTerm an array of the number of courses per academicTerm.
@@ -181,7 +179,7 @@ class AcademicPlanCollection extends BaseSlugCollection {
   }
 
   /**
-   * Returns an array of problems. Checks the termID and DesiredDegree ID.
+   * Returns an array of problems. Checks the termID.
    * @returns {Array} An array of problem messages.
    */
   public checkIntegrity() {
@@ -209,13 +207,6 @@ class AcademicPlanCollection extends BaseSlugCollection {
     });
     return problems;
   }
-
-  /**
-   * Returns the AcademicPlans that are effective on or after termNumber for the given DesiredDegree.
-   * @param degree the desired degree either a slug or id.
-   * @param academicTermNumber (optional) the academicTerm number. if undefined returns the latest AcademicPlans.
-   * @return {any}
-   */
 
   /**
    * Returns an array of the latest AcademicPlans.

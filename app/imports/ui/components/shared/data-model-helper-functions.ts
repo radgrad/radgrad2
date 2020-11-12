@@ -217,13 +217,6 @@ export const profileGetCareerGoals = (profile) => {
 
 export const profileGetCareerGoalIDs = (profile) => _.map(profileGetCareerGoals(profile), (goal) => goal._id);
 
-export const profileGetDesiredDegreeName = (profile) => {
-  if (profile.academicPlanID) {
-    return docToName(AcademicPlans.findDoc(profile.academicPlanID));
-  }
-  return 'Not yet specified.';
-};
-
 export const profileGetInterests = (profile) => {
   const userID = profile.userID;
   const favInterests = FavoriteInterests.findNonRetired({ userID });
