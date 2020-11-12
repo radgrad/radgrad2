@@ -31,7 +31,8 @@ interface IExplorerMenuProps {
 
 const getTypeName = (props: IExplorerMenuProps): string => {
   const { type } = props;
-  const names = ['Academic Plans', 'Career Goals', 'Courses', 'Degrees', 'Interests', 'Opportunities', 'Users'];
+  const names = ['Academic Plans', 'Career Goals', 'Courses', 'Interests', 'Opportunities', 'Users'];
+  // TODO this feels terrible.
   switch (type) {
     case EXPLORER_TYPE.ACADEMICPLANS:
       return names[0];
@@ -39,12 +40,10 @@ const getTypeName = (props: IExplorerMenuProps): string => {
       return names[1];
     case EXPLORER_TYPE.COURSES:
       return names[2];
-    case EXPLORER_TYPE.DEGREES:
-      return names[3];
     case EXPLORER_TYPE.INTERESTS:
-      return names[4];
+      return names[3];
     case EXPLORER_TYPE.OPPORTUNITIES:
-      return names[5];
+      return names[4];
     default:
       return '';
   }
