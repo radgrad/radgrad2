@@ -3,6 +3,8 @@ import { landingNavBar } from './landing.navbar.component';
 import { signinPage } from './signin.page';
 import { studentHomePage } from './student.home.page';
 import { studentNavBar } from './student.navbar.component';
+import { studentCoursesExplorerPage } from './student.courses.explorer.page';
+import { studentOpportunitiesPage } from './student.opportunities.page';
 
 /* global fixture:false, test:false */
 
@@ -31,6 +33,9 @@ test('Test all student top-level pages', async (testController) => {
   await landingNavBar.gotoStudentLogin(testController);
   await signinPage.signin(testController, credentials.student.abi);
   await studentNavBar.gotoCourseExplorerPage(testController);
+  await studentCoursesExplorerPage.isDisplayed(testController);
+  await studentNavBar.gotoOpportunitiesPage(testController);
+  await studentOpportunitiesPage.isDisplayed(testController);
 });
 
 /**
