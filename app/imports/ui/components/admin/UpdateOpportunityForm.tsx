@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Form, Header, Segment } from 'semantic-ui-react';
-import { AutoForm, TextField, SelectField, LongTextField, DateField, AutoField, BoolField, SubmitField } from 'uniforms-semantic';
+import { AutoForm, TextField, SelectField, LongTextField, DateField, BoolField, SubmitField, NumField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
@@ -61,6 +61,13 @@ const UpdateOpportunityForm = (props: IUpdateOpportunityFormProps) => {
   const handlePictureUrlChange = (value) => {
     setPictureURL(value);
   };
+
+  const handleUpdateOpportunity = (doc) => {
+    const model = doc;
+    model.picture = pictureURL;
+    props.handleUpdate(model);
+  };
+
   // console.log('collection model = %o', model);
   model.opportunityType = opportunityTypeIdToName(model.opportunityTypeID);
   model.interests = _.map(model.interestIDs, interestIdToName);
@@ -93,7 +100,7 @@ const UpdateOpportunityForm = (props: IUpdateOpportunityFormProps) => {
       <Header dividing>Update Opportunity</Header>
       <AutoForm
         schema={formSchema}
-        onSubmit={props.handleUpdate}
+        onSubmit={(doc) => handleUpdateOpportunity(doc)}
         ref={props.formRef}
         showInlineError
         model={model}
@@ -111,10 +118,14 @@ const UpdateOpportunityForm = (props: IUpdateOpportunityFormProps) => {
           <MultiSelectField name="interests" />
         </Form.Group>
         <DateField name="eventDate" />
-        <AutoField name="ice" />
+        <Form.Group widths="equal">
+          <NumField name="ice.i" />
+          <NumField name="ice.c" />
+          <NumField name="ice.e" />
+        </Form.Group>
         <BoolField name="retired" />
         <Form.Group widths="equal">
-          <TextField name="picture" value={pictureURL} onChange={handlePictureUrlChange} />
+          <Form.Input name="picture" value={pictureURL} onChange={handlePictureUrlChange} />
           <Form.Button basic color="green" onClick={handleUploadPicture}>Upload</Form.Button>
         </Form.Group>
         <SubmitField inputRef={undefined} disabled={false} value="Update" className="" />

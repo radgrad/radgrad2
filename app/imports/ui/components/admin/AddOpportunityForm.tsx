@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { Button, Form, Header, Segment } from 'semantic-ui-react';
-import { AutoForm, TextField, SelectField, LongTextField, DateField, AutoField, BoolField, SubmitField } from 'uniforms-semantic';
+import { AutoForm, TextField, SelectField, LongTextField, DateField, BoolField, SubmitField, NumField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
@@ -100,11 +100,15 @@ const AddOpportunityForm = (props: IAddOpportunityFormProps) => {
           <MultiSelectField name="interests" />
         </Form.Group>
         <DateField name="eventDate" />
-        <AutoField name="ice" />
+        <Form.Group widths="equal">
+          <NumField name="ice.i" />
+          <NumField name="ice.c" />
+          <NumField name="ice.e" />
+        </Form.Group>
         <BoolField name="retired" />
         <Form.Group widths="equal">
-          <TextField name="picture" value={pictureURL} onChange={handlePictureUrlChange} />
-          <Button basic color="green" onClick={handleUploadPicture}>Upload</Button>
+          <Form.Input name="picture" value={pictureURL} onChange={handlePictureUrlChange} />
+          <Form.Button basic color="green" onClick={handleUploadPicture}>Upload</Form.Button>
         </Form.Group>
         <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined} />
       </AutoForm>
