@@ -1,13 +1,16 @@
 import { landingPage } from './landing.page';
 import { landingNavBar } from './landing.navbar.component';
-import { adminHomePage } from './admin.home.page';
-import { adminDataModelPage } from './admin.datamodel.page';
-import { adminDatabasePage } from './admin.database.page';
-import { adminModerationPage } from './admin.moderation.page';
-import { adminAnalyticsPage } from './admin.analytics.page';
-import { adminScoreboardPage } from './admin.scoreboard.page';
+// import { adminHomePage } from './admin.home.page';
+// import { adminDataModelPage } from './admin.datamodel.page';
+// import { adminDatabasePage } from './admin.database.page';
+// import { adminModerationPage } from './admin.moderation.page';
+// import { adminAnalyticsPage } from './admin.analytics.page';
+// import { adminScoreboardPage } from './admin.scoreboard.page';
 import { adminNavBar } from './admin.navbar.component';
 import { signinPage } from './signin.page';
+
+import { adminAnalyticsPage, adminDatabasePage, adminDataModelPage, adminHomePage,
+  adminModerationPage, adminScoreboardPage } from './simple.page';
 
 /* global fixture:false, test:false */
 
@@ -16,7 +19,7 @@ const credentials = {
   admin: { userName: 'radgrad@hawaii.edu', password: 'foo' },
 };
 
-fixture.skip('Admin UI acceptance tests').page('http://localhost:3200');
+fixture('Admin UI acceptance tests').page('http://localhost:3200');
 
 test('Test that landing page shows up', async (testController) => {
   // Note: landingPage.isDisplayed waits 10 seconds to ensure app comes up---needed for CI mode.
