@@ -65,8 +65,7 @@ const OpportunityInformationItem = (props: IOpportunityItemWidgetProps) => {
         {/* Opportunity Logo */}
         {informationConfiguration.showLogo ? (
           <Grid.Column width={3}>
-            {/* TODO: See issue-274 */}
-            <Image src="/images/radgrad_logo.png" />
+            <Image src={opportunity.picture} />
           </Grid.Column>
         ) : ''}
 

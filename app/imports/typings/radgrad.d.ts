@@ -599,6 +599,7 @@ export interface IOpportunity {
   // Optional data
   eventDate?: Date;
   ice?: Ice;
+  picture?: string;
   retired?: boolean;
 }
 
@@ -613,6 +614,7 @@ export interface IOpportunityDefine extends IDumpOne {
   ice: Ice;
   timestamp?: Date;
   eventDate?: any;
+  picture?: string;
   retired?: boolean;
 }
 
@@ -626,6 +628,7 @@ export interface IOpportunityUpdate extends IUpdate {
   eventDate?: any;
   timestamp?: Date;
   ice?: Ice;
+  picture?: string;
   retired?: boolean;
 }
 
@@ -639,6 +642,7 @@ export interface IOpportunityUpdateData {
   eventDate?: any;
   timestamp?: Date;
   ice?: Ice;
+  picture?: string;
   retired?: boolean;
 }
 
@@ -651,6 +655,7 @@ export interface IOpportunityInstance {
   studentID: string;
   sponsorID: string;
   ice: Ice;
+  picture?: string;
   retired?: boolean;
 }
 
