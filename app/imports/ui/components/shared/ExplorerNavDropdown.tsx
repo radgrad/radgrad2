@@ -22,7 +22,6 @@ const ExplorerNavDropdown = (props: IExplorerNavDropdownProps) => {
     { key: 'Academic Plans', route: EXPLORER_TYPE.ACADEMICPLANS },
     { key: 'Career Goals', route: EXPLORER_TYPE.CAREERGOALS },
     { key: 'Courses', route: EXPLORER_TYPE.COURSES },
-    { key: 'Degrees', route: EXPLORER_TYPE.DEGREES },
     { key: 'Interests', route: EXPLORER_TYPE.INTERESTS },
     { key: 'Opportunities', route: EXPLORER_TYPE.OPPORTUNITIES },
   ];

@@ -9,7 +9,6 @@ import CardExplorerWidget from '../../components/shared/CardExplorerWidget';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { Courses } from '../../../api/course/CourseCollection';
-import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Users } from '../../../api/user/UserCollection';
@@ -18,7 +17,6 @@ import {
   IAcademicPlan,
   ICareerGoal,
   ICourse,
-  IDesiredDegree,
   IInterest,
   IOpportunity,
 } from '../../../typings/radgrad';
@@ -41,6 +39,7 @@ interface ICardExplorerPageProps {
       username: string;
     }
   };
+  // TODO: If we're not using these, then shouldn't we get rid of them
   // eslint-disable-next-line react/no-unused-prop-types
   favoritePlans: IAcademicPlan[];
   // eslint-disable-next-line react/no-unused-prop-types
@@ -74,8 +73,6 @@ const getCollection = (props: ICardExplorerPageProps): object => {
       return CareerGoals;
     case EXPLORER_TYPE.COURSES:
       return Courses;
-    case EXPLORER_TYPE.DEGREES:
-      return DesiredDegrees;
     case EXPLORER_TYPE.INTERESTS:
       return Interests;
     case EXPLORER_TYPE.OPPORTUNITIES:
@@ -100,11 +97,6 @@ const addedCourses = (props: ICardExplorerPageProps): { item: ICourse, count: nu
   count: 1,
 }));
 
-const addedDegrees = (): { item: IDesiredDegree, count: number }[] => _.map(DesiredDegrees.findNonRetired({}, { sort: { name: 1 } }), (d) => ({
-  item: d,
-  count: 1,
-}));
-
 const addedInterests = (props: ICardExplorerPageProps): { item: IInterest, count: number }[] => _.map(props.favoriteInterests, (f: any) => ({
   item: Interests.findDoc(f.interestID),
   count: 1,
@@ -124,7 +116,7 @@ const addedOpportunities = (props: ICardExplorerPageProps): { item: IOpportunity
   count: 1,
 }));
 
-const getAddedList = (props: ICardExplorerPageProps): { item: IAcademicPlan | ICareerGoal | ICourse | IDesiredDegree | IInterest | IOpportunity, count: number }[] => {
+const getAddedList = (props: ICardExplorerPageProps): { item: IAcademicPlan | ICareerGoal | ICourse | IInterest | IOpportunity, count: number }[] => {
   const type = Router.getLastUrlParam(props.match);
   switch (type) {
     case EXPLORER_TYPE.ACADEMICPLANS:
@@ -133,8 +125,6 @@ const getAddedList = (props: ICardExplorerPageProps): { item: IAcademicPlan | IC
       return addedCareerGoals(props);
     case EXPLORER_TYPE.COURSES:
       return addedCourses(props);
-    case EXPLORER_TYPE.DEGREES:
-      return addedDegrees();
     case EXPLORER_TYPE.INTERESTS:
       return addedInterests(props);
     case EXPLORER_TYPE.OPPORTUNITIES:
@@ -154,7 +144,7 @@ const CardExplorerPage = (props: ICardExplorerPageProps) => {
   const type = Router.getLastUrlParam(props.match);
 
   return (
-    <div>
+    <div id={`${type}-explorer-page`}>
       {menuWidget}
       <Container>
         <Grid stackable>
@@ -181,6 +171,7 @@ const CardExplorerPage = (props: ICardExplorerPageProps) => {
   );
 };
 
+// TODO: why are we getting all of this info when we only need some of it for any given page?
 export default withRouter(withTracker((props) => {
   const studentID = Router.getUserIdFromRoute(props.match);
   const favoritePlans = FavoriteAcademicPlans.findNonRetired({ studentID });

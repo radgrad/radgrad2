@@ -8,7 +8,6 @@ type IExplorerState = {
   plans: number;
   careerGoals: number;
   courses: number;
-  degrees: number;
   interests: number;
   opportunities: number;
 }
@@ -19,7 +18,6 @@ const initialState: IState = {
     plans: 0,
     careerGoals: 0,
     courses: 0,
-    degrees: 0,
     interests: 0,
     opportunities: 0,
   },
@@ -53,15 +51,6 @@ function reducer(state: IState = initialState, action: { [props: string]: any })
         explorer: {
           ...otherExplorerKeys,
           courses: action.payload,
-        },
-      };
-      return s;
-    case TYPES.SET_EXPLORER_DEGREES_SCROLL_POSITION:
-      s = {
-        ...state,
-        explorer: {
-          ...otherExplorerKeys,
-          degrees: action.payload,
         },
       };
       return s;

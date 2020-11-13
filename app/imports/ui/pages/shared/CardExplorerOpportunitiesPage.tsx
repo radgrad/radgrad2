@@ -18,7 +18,7 @@ const CardExplorerOpportunitiesPage = () => {
 
   const opportunitiesInRadGradVideo: { title: string, youtubeID: string, author: string } = radgradVideos.filter((video) => video.title === 'Opportunities in RadGrad')[0];
   return (
-    <>
+    <div id="student-opportunities-page">
       <StudentPageMenuWidget />
       <GuidedTourCardExplorerOpportunitiesPageWidget />
       <Container>
@@ -48,7 +48,7 @@ const CardExplorerOpportunitiesPage = () => {
 
         <BackToTopButton />
       </Container>
-    </>
+    </div>
   );
 };
 

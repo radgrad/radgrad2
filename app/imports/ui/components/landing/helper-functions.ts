@@ -70,10 +70,6 @@ export function getRouteName(path: string): string {
   if (regex.test(path)) {
     return 'Courses';
   }
-  regex = /degrees/;
-  if (regex.test(path)) {
-    return 'Degrees';
-  }
   regex = /interests/;
   if (regex.test(path)) {
     return 'Interests';

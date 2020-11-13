@@ -3,14 +3,14 @@ import _ from 'lodash';
 import { NavLink } from 'react-router-dom';
 import { Dropdown } from 'semantic-ui-react';
 import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
-import { IAcademicPlan, ICareerGoal, ICourse, IDesiredDegree, IInterest, IOpportunity } from '../../../typings/radgrad';
+import { IAcademicPlan, ICareerGoal, ICourse, IInterest, IOpportunity } from '../../../typings/radgrad';
 import { Users } from '../../../api/user/UserCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import * as Router from './RouterHelperFunctions';
 import { itemToSlugName, profileGetCareerGoalIDs } from './data-model-helper-functions';
 
-type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IDesiredDegree | IInterest | IOpportunity;
+type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IInterest | IOpportunity;
 
 interface IExplorerMenuMobileItemProps {
   type: any;
@@ -102,8 +102,6 @@ const getItemStatus = (item: explorerInterfaces, props: IExplorerMenuMobileItemP
       return userCareerGoals(item as ICareerGoal, props);
     case EXPLORER_TYPE.COURSES:
       return userCourses(item as ICourse, props);
-    // case 'degrees': users currently cannot add a desired degree to their profile
-    //   return userDegrees(item.item as DesiredDegree);
     case EXPLORER_TYPE.INTERESTS:
       return userInterests(item as IInterest, props);
     case EXPLORER_TYPE.OPPORTUNITIES:

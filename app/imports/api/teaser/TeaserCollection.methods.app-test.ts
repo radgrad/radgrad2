@@ -20,7 +20,7 @@ if (Meteor.isClient) {
     };
 
     before(function (done) {
-      defineTestFixturesMethod.call(['minimal', 'opportunities'], done);
+      defineTestFixturesMethod.call(['minimal', 'abi.student', 'opportunities'], done);
     });
 
     it('Define Method', async function () {

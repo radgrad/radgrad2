@@ -7,7 +7,6 @@ import {
   IAcademicPlan,
   ICareerGoal,
   ICourse,
-  IDesiredDegree,
   IInterest,
   IOpportunity,
 } from '../../../typings/radgrad';
@@ -29,12 +28,12 @@ const AppMedia = createMedia({
 const mediaStyles = AppMedia.createMediaStyle();
 const { Media, MediaContextProvider } = AppMedia;
 
-type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IDesiredDegree | IInterest | IOpportunity;
+type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IInterest | IOpportunity;
 
 interface IExplorerMenuNonMobileWidgetProps {
   menuAddedList: { item: explorerInterfaces, count: number }[];
   menuCareerList: { item: IInterest, count: number }[] | undefined;
-  type: 'plans' | 'career-goals' | 'courses' | 'degrees' | 'interests' | 'opportunities' | 'users';
+  type: 'plans' | 'career-goals' | 'courses' | 'interests' | 'opportunities' | 'users'; // TODO should this be a defined type?
   match: {
     isExact: boolean;
     path: string;
@@ -47,7 +46,7 @@ interface IExplorerMenuNonMobileWidgetProps {
 
 const getTypeName = (props: IExplorerMenuNonMobileWidgetProps): string => {
   const { type } = props;
-  const names = ['Academic Plans', 'Career Goals', 'Courses', 'Degrees', 'Interests', 'Opportunities', 'Users'];
+  const names = ['Academic Plans', 'Career Goals', 'Courses', 'Interests', 'Opportunities', 'Users'];
   switch (type) {
     case EXPLORER_TYPE.ACADEMICPLANS:
       return names[0];
@@ -55,12 +54,10 @@ const getTypeName = (props: IExplorerMenuNonMobileWidgetProps): string => {
       return names[1];
     case EXPLORER_TYPE.COURSES:
       return names[2];
-    case EXPLORER_TYPE.DEGREES:
-      return names[3];
     case EXPLORER_TYPE.INTERESTS:
-      return names[4];
+      return names[3];
     case EXPLORER_TYPE.OPPORTUNITIES:
-      return names[5];
+      return names[4];
     default:
       return '';
   }
@@ -238,16 +235,6 @@ const ExplorerMenuNonMobileWidget = (props: IExplorerMenuNonMobileWidgetProps) =
                   />
                 ))}
               </Menu>
-            )
-            : ''}
-
-          {isType(EXPLORER_TYPE.DEGREES, props) ?
-            (
-              <Button as={Link} to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${props.type}`} style={marginTopStyle}>
-                <Icon name="chevron circle left" />
-                <br />
-                Back to {getTypeName(props)}
-              </Button>
             )
             : ''}
         </Media>

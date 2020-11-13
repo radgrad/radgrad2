@@ -123,7 +123,6 @@ const getBehaviors = (sessionArr: IUserInteraction[]): { type: string, stats: st
           [EXPLORER_TYPE.ACADEMICPLANS]: [],
           [EXPLORER_TYPE.CAREERGOALS]: [],
           [EXPLORER_TYPE.COURSES]: [],
-          [EXPLORER_TYPE.DEGREES]: [],
           [EXPLORER_TYPE.INTERESTS]: [],
           [EXPLORER_TYPE.OPPORTUNITIES]: [],
         };

@@ -53,7 +53,7 @@ test('Test admin data model page and subpages', async (testController) => {
   await adminNavBar.gotoAdminLogin(testController);
   await signinPage.signin(testController, credentials.admin);
   const subPages = ['academic-plans', 'academic-terms', 'academic-year-instances', 'advisor-logs', 'career-goals',
-  'course-instances', 'courses', 'desired-degrees', 'feeds', 'feedback-instances', 'help-messages', 'interests',
+  'course-instances', 'courses', 'feeds', 'feedback-instances', 'help-messages', 'interests',
   'interest-types', 'opportunities', 'opportunity-instances', 'opportunity-types', 'plan-choices', 'reviews',
   'slugs', 'teasers', 'users', 'verification-requests'];
   const promises = subPages.map(async (subPage) => adminNavBar.gotoDataModelPageSubPage(testController, subPage));

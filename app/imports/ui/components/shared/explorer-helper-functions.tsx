@@ -4,7 +4,6 @@ import {
   IAcademicPlan, IBaseProfile,
   ICareerGoal,
   ICourse,
-  IDesiredDegree,
   IInterest,
   IOpportunity,
   IStudentProfile,
@@ -21,7 +20,6 @@ import PreferredChoice from '../../../api/degree-plan/PreferredChoice';
 import { Courses } from '../../../api/course/CourseCollection';
 import { ROLE } from '../../../api/role/Role';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
-import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import {
@@ -38,12 +36,12 @@ import { FavoriteCourses } from '../../../api/favorite/FavoriteCourseCollection'
 import { FavoriteOpportunities } from '../../../api/favorite/FavoriteOpportunityCollection';
 import { IMatchProps } from './RouterHelperFunctions';
 
-export type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IDesiredDegree | IInterest | IOpportunity;
+export type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IInterest | IOpportunity;
 
 export interface ICardExplorerMenuWidgetProps {
   menuAddedList: { item: explorerInterfaces, count: number }[];
   menuCareerList: { item: IInterest, count: number }[] | undefined;
-  type: 'plans' | 'career-goals' | 'courses' | 'degrees' | 'interests' | 'opportunities' | 'users';
+  type: 'plans' | 'career-goals' | 'courses' | 'interests' | 'opportunities' | 'users';
   role: 'student' | 'faculty';
   match: {
     isExact: boolean;
@@ -55,7 +53,7 @@ export interface ICardExplorerMenuWidgetProps {
   };
 }
 
-export type IExplorerTypes = 'plans' | 'career-goals' | 'courses' | 'degrees' | 'interests' | 'opportunities';
+export type IExplorerTypes = 'plans' | 'career-goals' | 'courses' | 'interests' | 'opportunities'; // TODO is this ever imported?
 
 export const isType = (typeToCheck: string, type: IExplorerTypes) => type === typeToCheck;
 
@@ -68,8 +66,6 @@ export const getHeaderTitle = (props: { type: string }): string => {
       return 'CAREER GOALS';
     case EXPLORER_TYPE.COURSES:
       return 'COURSES';
-    case EXPLORER_TYPE.DEGREES:
-      return 'DESIRED DEGREES';
     case EXPLORER_TYPE.INTERESTS:
       return 'INTERESTS';
     case EXPLORER_TYPE.OPPORTUNITIES:
@@ -268,11 +264,6 @@ export const matchingCourses = (match: Router.IMatchProps): object[] => {
 
 export const coursesItemCount = (match: Router.IMatchProps): number => availableCourses(match).length;
 
-/* ####################################### DEGREES HELPER FUNCTIONS ####################################### */
-export const degrees = (): object[] => DesiredDegrees.findNonRetired({}, { sort: { name: 1 } });
-
-export const degreesItemCount = (): number => degrees().length;
-
 /* ####################################### INTERESTS HELPER FUNCTIONS ############################################ */
 export const userInterests = (interest: IInterest, match: Router.IMatchProps): string => {
   let ret = '';
@@ -411,8 +402,6 @@ export const getItemStatus = (item: explorerInterfaces, props: ICardExplorerMenu
       return userCareerGoals(item as ICareerGoal, props.match);
     case EXPLORER_TYPE.COURSES:
       return userCourses(item as ICourse, props.match);
-    // case 'degrees': users currently cannot add a desired degree to their profile
-    //   return this.userDegrees(item.item as DesiredDegree);
     case EXPLORER_TYPE.INTERESTS:
       return userInterests(item as IInterest, props.match);
     case EXPLORER_TYPE.OPPORTUNITIES:
@@ -431,8 +420,6 @@ export const getHeaderCount = (props: ICardExplorerMenuWidgetProps): number => {
       return careerGoalsItemCount(props.match);
     case EXPLORER_TYPE.COURSES:
       return coursesItemCount(props.match);
-    case EXPLORER_TYPE.DEGREES:
-      return degreesItemCount();
     case EXPLORER_TYPE.INTERESTS:
       return interestsItemCount(props.match);
     case EXPLORER_TYPE.OPPORTUNITIES:
@@ -529,9 +516,6 @@ export const checkForNoItems = (match: IMatchProps, type: IExplorerTypes): Eleme
       );
     case EXPLORER_TYPE.COURSES:
       return noItems('noInterests', match) ? buildNoItemsMessage('noInterests', type) : '';
-    case EXPLORER_TYPE.DEGREES:
-      //  do nothing; users cannot add their own desired degrees to their profile
-      return '';
     case EXPLORER_TYPE.INTERESTS:
       return noItems('noInterests', match) ? buildNoItemsMessage('noInterests', type) : '';
     case EXPLORER_TYPE.OPPORTUNITIES:
@@ -551,8 +535,6 @@ export const getItems = (props: ICardExplorerMenuWidgetProps): { [key: string]: 
       return matchingCareerGoals(match);
     case EXPLORER_TYPE.COURSES:
       return availableCourses(match);
-    case EXPLORER_TYPE.DEGREES:
-      return degrees();
     case EXPLORER_TYPE.INTERESTS:
       return availableInterests(match);
     case EXPLORER_TYPE.OPPORTUNITIES:

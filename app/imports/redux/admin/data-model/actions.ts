@@ -7,7 +7,6 @@ import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { Courses } from '../../../api/course/CourseCollection';
-import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
 import { Feeds } from '../../../api/feed/FeedCollection';
 import { FeedbackInstances } from '../../../api/feedback/FeedbackInstanceCollection';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
@@ -49,9 +48,6 @@ export const setCollectionShowCount = (collectionName: string, count: number) =>
       break;
     case Courses.getCollectionName():
       retVal.type = TYPES.SET_COURSES_SHOW_COUNT;
-      break;
-    case DesiredDegrees.getCollectionName():
-      retVal.type = TYPES.SET_DESIRED_DEGREES_SHOW_COUNT;
       break;
     case Feeds.getCollectionName():
       retVal.type = TYPES.SET_FEEDS_SHOW_COUNT;
@@ -134,9 +130,6 @@ export const setCollectionShowIndex = (collectionName: string, index: number) =>
       break;
     case Courses.getCollectionName():
       retVal.type = TYPES.SET_COURSES_SHOW_INDEX;
-      break;
-    case DesiredDegrees.getCollectionName():
-      retVal.type = TYPES.SET_DESIRED_DEGREES_SHOW_INDEX;
       break;
     case Feeds.getCollectionName():
       retVal.type = TYPES.SET_FEEDS_SHOW_INDEX;
