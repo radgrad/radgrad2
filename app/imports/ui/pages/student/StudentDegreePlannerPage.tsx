@@ -241,7 +241,7 @@ const StudentDegreePlannerPage = (props: IStudentDegreePlannerProps) => {
     <DragDropContext onDragEnd={onDragEnd(props)}>
       <StudentPageMenuWidget />
       <GuidedTourDegreePlanner />
-      <Container>
+      <Container id="degree-planner-page">
         <Grid stackable style={marginStyle}>
           <Grid.Row stretched>
             <Grid.Column width={10} style={paddedStyle}>
