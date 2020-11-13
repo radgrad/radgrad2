@@ -26,7 +26,7 @@ if (Meteor.isClient) {
     const level = 6;
 
     before(function (done) {
-      defineTestFixturesMethod.call(['minimal'], done);
+      defineTestFixturesMethod.call(['minimal', 'abi.student'], done);
     });
 
     it('Define Method', async function () {

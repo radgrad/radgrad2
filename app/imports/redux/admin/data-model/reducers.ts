@@ -14,7 +14,6 @@ interface IState {
     CareerGoalCollection: IPaginationState;
     CourseInstanceCollection: IPaginationState;
     CourseCollection: IPaginationState;
-    DesiredDegreeCollection: IPaginationState;
     FeedCollection: IPaginationState;
     FeedbackInstanceCollection: IPaginationState;
     HelpMessageCollection: IPaginationState;
@@ -65,10 +64,6 @@ const initialState: IState = {
       showCount: 25,
     },
     CourseCollection: {
-      showIndex: 0,
-      showCount: 25,
-    },
-    DesiredDegreeCollection: {
       showIndex: 0,
       showCount: 25,
     },
@@ -328,32 +323,6 @@ export function reducer(state: IState = initialState, action): IState {
         pagination: {
           ...paginationState,
           CourseCollection: {
-            ...collect,
-            showCount: action.payload,
-          },
-        },
-      };
-      return s;
-    case TYPES.SET_DESIRED_DEGREES_SHOW_INDEX:
-      collect = paginationState.DesiredDegreeCollection;
-      s = {
-        ...state,
-        pagination: {
-          ...paginationState,
-          DesiredDegreeCollection: {
-            ...collect,
-            showIndex: action.payload,
-          },
-        },
-      };
-      return s;
-    case TYPES.SET_DESIRED_DEGREES_SHOW_COUNT:
-      collect = paginationState.DesiredDegreeCollection;
-      s = {
-        ...state,
-        pagination: {
-          ...paginationState,
-          DesiredDegreeCollection: {
             ...collect,
             showCount: action.payload,
           },

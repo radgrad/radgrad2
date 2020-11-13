@@ -73,10 +73,6 @@ export interface IPagination {
     showIndex: number;
     showCount: number;
   };
-  DesiredDegreeCollection?: {
-    showIndex: number;
-    showCount: number;
-  };
   FeedCollection?: {
     showIndex: number;
     showCount: number;
@@ -208,7 +204,6 @@ export interface IAcademicPlan {
   name: string;
   description: string;
   slugID: string;
-  degreeID: string;
   effectiveAcademicTermID: string;
   academicTermNumber: number;
   year: number;
@@ -220,7 +215,6 @@ export interface IAcademicPlan {
 
 export interface IAcademicPlanDefine extends IDumpOne {
   slug: string;
-  degreeSlug: string;
   name: string;
   description: string;
   academicTerm: string;
@@ -230,7 +224,6 @@ export interface IAcademicPlanDefine extends IDumpOne {
 }
 
 export interface IAcademicPlanUpdate extends IUpdate {
-  degreeSlug?: string;
   name?: string;
   academicTerm?: string;
   coursesPerAcademicTerm?: number[];
@@ -401,31 +394,6 @@ export interface ICourseUpdate extends IUpdate {
   interests?: string[];
   prerequisites?: string[];
   syllabus?: string;
-  retired?: boolean;
-}
-
-// DesiredDegree
-export interface IDesiredDegree {
-  _id: string;
-  name: string;
-  shortName: string;
-  slugID: string;
-  description: string;
-  retired?: boolean;
-}
-
-export interface IDesiredDegreeDefine extends IDumpOne {
-  name: string;
-  shortName?: string;
-  slug: string;
-  description: string;
-  retired?: boolean;
-}
-
-export interface IDesiredDegreeUpdate extends IUpdate {
-  name?: string;
-  shortName?: string;
-  description?: string;
   retired?: boolean;
 }
 
@@ -631,6 +599,7 @@ export interface IOpportunity {
   // Optional data
   eventDate?: Date;
   ice?: Ice;
+  picture?: string;
   retired?: boolean;
 }
 
@@ -645,6 +614,7 @@ export interface IOpportunityDefine extends IDumpOne {
   ice: Ice;
   timestamp?: Date;
   eventDate?: any;
+  picture?: string;
   retired?: boolean;
 }
 
@@ -658,6 +628,7 @@ export interface IOpportunityUpdate extends IUpdate {
   eventDate?: any;
   timestamp?: Date;
   ice?: Ice;
+  picture?: string;
   retired?: boolean;
 }
 
@@ -671,6 +642,7 @@ export interface IOpportunityUpdateData {
   eventDate?: any;
   timestamp?: Date;
   ice?: Ice;
+  picture?: string;
   retired?: boolean;
 }
 
@@ -683,6 +655,7 @@ export interface IOpportunityInstance {
   studentID: string;
   sponsorID: string;
   ice: Ice;
+  picture?: string;
   retired?: boolean;
 }
 

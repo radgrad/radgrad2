@@ -3,7 +3,6 @@ import { expect } from 'chai';
 import moment from 'moment';
 import fc from 'fast-check';
 import 'mocha';
-import { DesiredDegrees } from './DesiredDegreeCollection';
 import { AcademicPlans } from './AcademicPlanCollection';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { removeAllEntities } from '../base/BaseUtilities';
@@ -16,9 +15,6 @@ import { IAcademicPlan } from '../../typings/radgrad';
 
 if (Meteor.isServer) {
   describe('AcademicPlanCollection', function testSuite() {
-    const name = 'Bachelors in Computer Science';
-    const shortName = 'B.S. CS';
-    const degreeSlug = 'bs-cs';
     const description = 'B.S. in CS.';
     const academicTerm = 'Spring-2017';
     const slug = 'bs-cs-2017';
@@ -69,8 +65,7 @@ if (Meteor.isServer) {
 
     it('Can define and removeIt', function test1(done) {
       fc.assert(
-        fc.property(fc.integer(1, 3), fc.integer(2018, 2025), fc.lorem(1), fc.lorem(5), fc.lorem(), fc.lorem(5), fc.lorem(12), (termNameInt, termYear, fcDegreeSlug, fcDegreeName, fcPlanSlug, fcName, fcDescription) => {
-          const dSlug = `degree-${moment().format('YYYY-MM-DD-HH-mm-ss-SSSSS')}`;
+        fc.property(fc.integer(1, 3), fc.integer(2018, 2025), fc.lorem(5), fc.lorem(), fc.lorem(5), fc.lorem(12), (termNameInt, termYear, fcDegreeName, fcPlanSlug, fcName, fcDescription) => {
           const pSlug = `plan-${moment().format('YYYY-MM-DD-HH-mm-ss-SSSSS')}`;
           let term;
           switch (termNameInt) {
@@ -85,17 +80,11 @@ if (Meteor.isServer) {
           }
           const academicTermSlug = `${term}-${termYear}`;
           const termID = AcademicTerms.define({ term, year: termYear });
-          const degreeID = DesiredDegrees.define({
-            name: fcDegreeName,
-            shortName: fcName,
-            slug: dSlug,
-            description: fcDescription,
-          });
+
           const docID = AcademicPlans.define({
             slug: pSlug,
             name: fcName,
             description: fcDescription,
-            degreeSlug: dSlug,
             academicTerm: academicTermSlug,
             choiceList,
             coursesPerAcademicTerm,
@@ -104,7 +93,6 @@ if (Meteor.isServer) {
           AcademicPlans.removeIt(docID);
           expect(AcademicPlans.isDefined(docID)).to.be.false;
           AcademicTerms.removeIt(termID);
-          DesiredDegrees.removeIt(degreeID);
         }),
       );
       done();
@@ -112,10 +100,8 @@ if (Meteor.isServer) {
 
     it('Can define duplicates', function test2() {
       const termID = AcademicTerms.define({ term: 'Spring', year: 2017 });
-      const degreeID = DesiredDegrees.define({ name, shortName, slug: degreeSlug, description });
       const docID1 = AcademicPlans.define({
         slug,
-        degreeSlug,
         name: description,
         description,
         academicTerm,
@@ -124,7 +110,6 @@ if (Meteor.isServer) {
       });
       const docID2 = AcademicPlans.define({
         slug,
-        degreeSlug,
         name: description,
         description,
         academicTerm,
@@ -136,12 +121,11 @@ if (Meteor.isServer) {
       // clean up
       AcademicPlans.removeIt(docID2);
       AcademicTerms.removeIt(termID);
-      DesiredDegrees.removeIt(degreeID);
     });
 
     it('Can update', function test3(done) {
       const docID = makeSampleAcademicPlan();
-      // { degreeSlug, name, academicTerm, coursesPerAcademicTerm, choiceList, retired }
+      // { name, academicTerm, coursesPerAcademicTerm, choiceList, retired }
       fc.assert(
         fc.property(fc.lorem(), fc.boolean(), (fcName, fcRetired) => {
           const coursesPerAcademicTerm2 = makeSampleCoursesPerTerm();
@@ -174,7 +158,6 @@ if (Meteor.isServer) {
       docID = AcademicPlans.restoreOne(dumpObject);
       const doc: IAcademicPlan = AcademicPlans.findDoc(docID);
       expect(origPlan.name).to.equal(doc.name);
-      expect(origPlan.degreeID).to.equal(doc.degreeID);
       expect(origPlan.description).to.equal(doc.description);
       expect(origPlan.academicTermNumber).to.equal(doc.academicTermNumber);
       expect(origPlan.coursesPerAcademicTerm).to.have.ordered.members(doc.coursesPerAcademicTerm);

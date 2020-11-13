@@ -5,7 +5,6 @@ import BaseCollection from '../base/BaseCollection';
 import { AcademicPlans } from '../degree-plan/AcademicPlanCollection';
 import { CareerGoals } from '../career/CareerGoalCollection';
 import { Courses } from '../course/CourseCollection';
-import { DesiredDegrees } from '../degree-plan/DesiredDegreeCollection';
 import { Interests } from '../interest/InterestCollection';
 import { FacultyProfiles } from '../user/FacultyProfileCollection';
 import { Opportunities } from '../opportunity/OpportunityCollection';
@@ -35,8 +34,6 @@ class PublicStatsCollection extends BaseCollection {
   public coursesTotalKey: string;
   public careerGoalsTotalKey: string;
   public careerGoalsListKey: string;
-  public desiredDegreesTotalKey: string;
-  public desiredDegreesListKey: string;
   public interestsTotalKey: string;
   public interestsListKey: string;
   public opportunitiesTotalKey: string;
@@ -57,7 +54,6 @@ class PublicStatsCollection extends BaseCollection {
   public firstCareerGoalKey: string;
   public firstInterestKey: string;
   public firstOpportunityKey: string;
-  public firstDegreeKey: string;
   /**
    * Creates the PublicStats collection.
    */
@@ -75,10 +71,6 @@ class PublicStatsCollection extends BaseCollection {
     this.stats.push(this.careerGoalsTotalKey);
     this.careerGoalsListKey = 'careerGoalsList';
     this.stats.push(this.careerGoalsListKey);
-    this.desiredDegreesTotalKey = 'desiredDegreesTotal';
-    this.stats.push(this.desiredDegreesTotalKey);
-    this.desiredDegreesListKey = 'desiredDegreesList';
-    this.stats.push(this.desiredDegreesListKey);
     this.interestsTotalKey = 'interestsTotal';
     this.stats.push(this.interestsTotalKey);
     this.interestsListKey = 'interestsList';
@@ -119,8 +111,6 @@ class PublicStatsCollection extends BaseCollection {
     this.stats.push(this.firstInterestKey);
     this.firstOpportunityKey = 'firstOpportunity';
     this.stats.push(this.firstOpportunityKey);
-    this.firstDegreeKey = 'firstDegree';
-    this.stats.push(this.firstDegreeKey);
   }
 
   public academicPlansTotal() {
@@ -142,17 +132,6 @@ class PublicStatsCollection extends BaseCollection {
     const goals = CareerGoals.findNonRetired();
     const names = _.map(goals, 'name');
     this.collection.upsert({ key: this.careerGoalsListKey }, { $set: { value: names.join(', ') } });
-  }
-
-  public desiredDegreesTotal() {
-    const count = DesiredDegrees.countNonRetired();
-    this.collection.upsert({ key: this.desiredDegreesTotalKey }, { $set: { value: `${count}` } });
-  }
-
-  public desiredDegreesList() {
-    const degrees = DesiredDegrees.findNonRetired();
-    const names = _.map(degrees, 'name');
-    this.collection.upsert({ key: this.desiredDegreesListKey }, { $set: { value: names.join(', ') } });
   }
 
   public interestsTotal() {
@@ -277,14 +256,6 @@ class PublicStatsCollection extends BaseCollection {
     if (interests.length > 0) {
       const name = Slugs.findDoc(interests[0].slugID).name;
       this.collection.upsert({ key: this.firstOpportunityKey }, { $set: { value: name } });
-    }
-  }
-
-  public firstDegree() {
-    const degrees = DesiredDegrees.findNonRetired({}, { sort: { name: 1 } });
-    if (degrees.length > 0) {
-      const name = Slugs.findDoc(degrees[0].slugID).name;
-      this.collection.upsert({ key: this.firstDegreeKey }, { $set: { value: name } });
     }
   }
 

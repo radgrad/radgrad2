@@ -35,7 +35,6 @@ export const EXPLORER_TYPE = {
   ACADEMICPLANS: 'plans',
   CAREERGOALS: 'career-goals',
   COURSES: 'courses',
-  DEGREES: 'degrees',
   INTERESTS: 'interests',
   OPPORTUNITIES: 'opportunities',
 };
@@ -44,7 +43,6 @@ export const EXPLORER_PARAM = {
   ACADEMICPLAN: ':plan',
   CAREERGOAL: ':careergoal',
   COURSE: ':course',
-  DEGREE: ':degree',
   INTEREST: ':interest',
   OPPORTUNITY: ':opportunity',
 };

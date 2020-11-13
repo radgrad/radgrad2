@@ -4,8 +4,6 @@ import _ from 'lodash';
 import { IBaseProfile } from '../../../typings/radgrad';
 import { defaultProfilePicture } from '../../../api/user/BaseProfileCollection';
 import { ROLE } from '../../../api/role/Role';
-import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
-import { DesiredDegrees } from '../../../api/degree-plan/DesiredDegreeCollection';
 import InterestList from './InterestList';
 import { capitalizeFirstLetter } from './helper-functions';
 import { explorerUserWidget } from './shared-widget-names';
@@ -37,9 +35,6 @@ const ExplorerUsersWidget = (props: IExplorerUsersWidgetProps) => {
   };
   const p = props.userProfile;
   const level = p.level;
-  const planID = p.academicPlanID;
-  const degreeID = planID ? AcademicPlans.findDoc(planID).degreeID : undefined;
-  const desiredDegree = degreeID ? DesiredDegrees.findDoc(degreeID) : undefined;
   let sharedUsername;
   if (isRole(props, ROLE.STUDENT, ROLE.ALUMNI)) {
     sharedUsername = p.shareUsername ? (
@@ -67,12 +62,6 @@ const ExplorerUsersWidget = (props: IExplorerUsersWidgetProps) => {
               <Card.Meta>
                 {capitalizeFirstLetter(p.role)}
                 <br />
-                {desiredDegree ? (
-                  <React.Fragment>
-                    {desiredDegree.shortName}
-                    <br />
-                  </React.Fragment>
-                ) : undefined}
                 {level ? (
                   <Image
                     style={{ padding: '5px' }}
