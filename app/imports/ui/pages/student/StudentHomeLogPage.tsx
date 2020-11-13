@@ -8,7 +8,7 @@ import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import StudentLogWidget from '../../components/student/LogPage/StudentLogWidget';
 
 const StudentHomeLogPage = () => (
-  <div>
+  <div id="student-advisor-log-page">
     <StudentPageMenuWidget />
     <Container>
       <Grid stackable>

@@ -30,7 +30,7 @@ const CommunityUsersPage = (props: ICommunityUsersPageProps) => {
 
   const menuWidget = getMenuWidget();
   return (
-    <div>
+    <div id="community-users-page">
       {menuWidget}
 
       <Container>

@@ -42,6 +42,41 @@ class StudentNavBar {
   async gotoDegreePlannerPage(testController) {
     await testController.click('#student-menu-degree-planner');
   }
+
+  async gotoCommunityUsersPage(testController) {
+    await testController.click('#student-menu-community');
+    await testController.click('#student-menu-users');
+  }
+
+  async gotoCommunityRadgradVideosPage(testController) {
+    await testController.click('#student-menu-community');
+    await testController.click('#student-menu-radgrad-videos');
+  }
+
+  async gotoAboutMePage(testController) {
+    await testController.click('#dropdown-user-fullname');
+    await testController.click('#student-menu-about-me');
+  }
+
+  async gotoICEPointsPage(testController) {
+    await testController.click('#dropdown-user-fullname');
+    await testController.click('#student-menu-ice-points');
+  }
+
+  async gotoLevelsPage(testController) {
+    await testController.click('#dropdown-user-fullname');
+    await testController.click('#student-menu-levels');
+  }
+
+  async gotoAdvisorLogPage(testController) {
+    await testController.click('#dropdown-user-fullname');
+    await testController.click('#student-menu-advisor-log');
+  }
+
+  async signout(testController) {
+    await testController.click('#dropdown-user-fullname');
+    await testController.click('#student-menu-signout');
+  }
 }
 
 export const studentNavBar = new StudentNavBar();

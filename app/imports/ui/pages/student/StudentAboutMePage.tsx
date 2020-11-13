@@ -7,7 +7,7 @@ import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscription
 import StudentAboutMeWidget from '../../components/student/AboutMePage/StudentAboutMeWidget';
 
 const StudentAboutMePage = () => (
-  <div>
+  <div id="student-about-me-page">
     <StudentPageMenuWidget />
     <Container>
       <Grid stackable>

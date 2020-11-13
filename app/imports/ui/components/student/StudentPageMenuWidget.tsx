@@ -83,6 +83,7 @@ const StudentPageMenuWidget = (props: IStudentPageMenuWidgetProps) => {
                 {communityDropdownItems.map((item) => (
                   <Dropdown.Item
                     key={item.key}
+                    id={item.id}
                     as={NavLink}
                     exact
                     to={buildRouteName(match, `/${COMMUNITY.HOME}/${item.route}`)}
@@ -97,13 +98,14 @@ const StudentPageMenuWidget = (props: IStudentPageMenuWidgetProps) => {
                   {studentHomePageItems.map((item) => (
                     <Dropdown.Item
                       key={item.key}
+                      id={item.id}
                       as={NavLink}
                       exact
                       to={buildRouteName(match, `/home/${item.route}`)}
                       content={item.key}
                     />
                   ))}
-                  <Dropdown.Item as={NavLink} exact to="/signout" content="Sign Out" />
+                  <Dropdown.Item id="student-menu-signout" as={NavLink} exact to="/signout" content="Sign Out" />
                 </Dropdown.Menu>
               </Dropdown>
             </Menu.Menu>

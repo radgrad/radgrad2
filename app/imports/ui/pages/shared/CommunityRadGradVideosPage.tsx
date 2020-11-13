@@ -29,7 +29,7 @@ const CommunityRadGradVideosPage = (props: ICommunityRadGradVideosPageProps) => 
 
   const menuWidget = getMenuWidget();
   return (
-    <div>
+    <div id="community-radgrad-videos-page">
       {menuWidget}
 
       <Container>

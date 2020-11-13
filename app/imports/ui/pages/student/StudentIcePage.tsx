@@ -8,7 +8,7 @@ import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscription
 import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
 
 const StudentIcePage = () => (
-  <div>
+  <div id="student-ice-points-page">
     <StudentPageMenuWidget />
     <Container>
       <Grid stackable>

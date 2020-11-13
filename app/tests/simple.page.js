@@ -1,5 +1,6 @@
 import { Selector } from 'testcafe';
 
+/** Create an instance of a SimplePage when all you need to do is verify that the page was displayed. */
 class SimplePage {
   constructor(id) {
     this.pageId = `#${id}`;
@@ -25,3 +26,12 @@ export const studentCoursesExplorerPage = new SimplePage('courses-explorer-page'
 export const studentDegreePlannerPage = new SimplePage('degree-planner-page');
 export const studentInterestsExplorerPage = new SimplePage('interests-explorer-page');
 export const studentOpportunitiesPage = new SimplePage('student-opportunities-page');
+export const studentCommunityUsersPage = new SimplePage('community-users-page');
+export const studentCommunityRadGradVideosPage = new SimplePage('community-radgrad-videos-page');
+
+export const studentAboutMePage = new SimplePage('student-about-me-page');
+export const studentICEPointsPage = new SimplePage('student-ice-points-page');
+export const studentLevelsPage = new SimplePage('student-levels-page');
+export const studentAdvisorLogPage = new SimplePage('student-advisor-log-page');
+
+

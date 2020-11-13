@@ -5,7 +5,8 @@ import { studentHomePage } from './student.home.page';
 import { studentNavBar } from './student.navbar.component';
 import { studentCareerGoalsExplorerPage, studentInterestsExplorerPage,
   studentOpportunitiesPage, studentAcademicPlansExplorerPage, studentDegreePlannerPage,
-  studentCoursesExplorerPage } from './simple.page';
+  studentCoursesExplorerPage, studentCommunityRadGradVideosPage, studentCommunityUsersPage,
+  studentAboutMePage, studentAdvisorLogPage, studentICEPointsPage, studentLevelsPage } from './simple.page';
 
 /* global fixture:false, test:false */
 
@@ -46,4 +47,22 @@ test('Test all student top-level pages', async (testController) => {
   await studentOpportunitiesPage.isDisplayed(testController);
   await studentNavBar.gotoDegreePlannerPage(testController);
   await studentDegreePlannerPage.isDisplayed(testController);
+
+  await studentNavBar.gotoCommunityUsersPage(testController);
+  await studentCommunityUsersPage.isDisplayed(testController);
+  await studentNavBar.gotoCommunityRadgradVideosPage(testController);
+  await studentCommunityRadGradVideosPage.isDisplayed(testController);
+
+  await studentNavBar.gotoAboutMePage(testController);
+  await studentAboutMePage.isDisplayed(testController);
+
+  await studentNavBar.gotoICEPointsPage(testController);
+  await studentICEPointsPage.isDisplayed(testController);
+
+  await studentNavBar.gotoLevelsPage(testController);
+  await studentLevelsPage.isDisplayed(testController);
+
+  await studentNavBar.gotoAdvisorLogPage(testController);
+  await studentAdvisorLogPage.isDisplayed(testController);
+
 });

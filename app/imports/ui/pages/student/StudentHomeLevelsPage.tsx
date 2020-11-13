@@ -9,7 +9,7 @@ import StudentLevelsWidget from '../../components/student/LevelsPage/StudentLeve
 import StudentLevelsOthersWidget from '../../components/student/LevelsPage/StudentLevelsOthersWidget';
 
 const StudentHomeLevelsPage = () => (
-  <div>
+  <div id="student-levels-page">
     <StudentPageMenuWidget />
     <Container>
       <Grid stackable>
