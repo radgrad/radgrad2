@@ -152,7 +152,7 @@ const AdminDataModelAdvisorLogsPage = () => {
     sort: { createdOn: 1 },
   };
   return (
-    <div>
+    <div id="data-model-advisor-logs-page">
       <AdminPageMenuWidget />
       <Grid container stackable style={paddedStyle}>
 

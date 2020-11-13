@@ -108,7 +108,7 @@ const AdminDataModelAcademicPlansPage = () => {
   };
   const planName = idState ? AcademicPlans.findDoc(idState).name : '';
   return (
-    <div className="layout-page">
+    <div id="data-model-academic-plans-page" className="layout-page">
       <AdminPageMenuWidget />
       <Grid container stackable style={paddedStyle}>
 

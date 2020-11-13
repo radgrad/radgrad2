@@ -166,7 +166,7 @@ const AdminDataModelAcademicTermsPage = () => {
     sort: { termNumber: 1 },
   };
   return (
-    <div>
+    <div id="data-model-academic-terms-page">
       <AdminPageMenuWidget />
       <Grid container stackable style={paddedStyle}>
 

@@ -187,7 +187,7 @@ const AdminDataModelCoursesPage = () => {
     sort: { num: 1 }, // determine how you want to sort the items in the list
   };
   return (
-    <div>
+    <div id="data-model-courses-page">
       <AdminPageMenuWidget />
       <Grid container stackable style={paddedStyle}>
 

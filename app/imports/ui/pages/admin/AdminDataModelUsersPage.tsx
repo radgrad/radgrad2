@@ -335,7 +335,7 @@ const AdminDataModelUsersPage = (props: IAdminDataModelUsersPageProps) => {
     },
   ];
   return (
-    <div className="layout-page">
+    <div id="data-model-users-page" className="layout-page">
       <AdminPageMenuWidget />
       <Grid container stackable style={paddedStyle}>
 

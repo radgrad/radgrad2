@@ -167,7 +167,7 @@ const AdminDataModelOpportunityTypesPage = () => {
     sort: { name: 1 }, // determine how you want to sort the items in the list
   };
   return (
-    <div>
+    <div id="data-model-opportunity-types-page">
       <AdminPageMenuWidget />
       <Grid container stackable style={paddedStyle}>
 

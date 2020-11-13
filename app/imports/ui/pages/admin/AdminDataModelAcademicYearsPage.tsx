@@ -145,7 +145,7 @@ const AdminDataModelAcademicYearsPage = () => {
     sort: { year: 1 },
   };
   return (
-    <div>
+    <div id="data-model-academic-year-instances-page">
       <AdminPageMenuWidget />
       <Grid container stackable style={paddedStyle}>
         <Grid.Column width={3}>

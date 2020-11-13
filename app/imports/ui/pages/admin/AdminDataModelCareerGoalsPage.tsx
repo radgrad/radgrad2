@@ -164,7 +164,7 @@ const AdminDataModelCareerGoalsPage = () => {
     paddingTop: 20,
   };
   return (
-    <div>
+    <div id="data-model-career-goals-page">
       <AdminPageMenuWidget />
       <Grid container stackable style={paddedStyle}>
 

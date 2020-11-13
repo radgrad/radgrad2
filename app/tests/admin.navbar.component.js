@@ -19,9 +19,11 @@ class AdminNavBar {
     await testController.click('#second-menu-data-model');
   }
 
-  async gotoDataModelPageSubPage(testController, subPageId) {
+  async gotoDataModelPageSubPageAndVerify(testController, subPageId) {
     await testController.click('#second-menu-data-model');
     await testController.click(`#data-model-${subPageId}`);
+    const pageIdSelector = Selector(`#data-model-${subPageId}-page`);
+    await testController.expect(pageIdSelector.exists).ok();
   }
 
   async gotoDatabasePage(testController) {
