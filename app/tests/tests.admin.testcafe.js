@@ -16,7 +16,7 @@ const credentials = {
   admin: { userName: 'radgrad@hawaii.edu', password: 'foo' },
 };
 
-fixture('Admin UI acceptance tests').page('http://localhost:3200');
+fixture.skip('Admin UI acceptance tests').page('http://localhost:3200');
 
 test('Test that landing page shows up', async (testController) => {
   // Note: landingPage.isDisplayed waits 10 seconds to ensure app comes up---needed for CI mode.
