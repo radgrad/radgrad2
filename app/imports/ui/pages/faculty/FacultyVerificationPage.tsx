@@ -31,7 +31,7 @@ const FacultyVerificationPage = (props: FacultyVerificationPageProps) => {
   const handleMenu = (e, { name }) => setActiveItem(name);
 
   return (
-    <div>
+    <div id="faculty-verification-page">
       <FacultyPageMenuWidget />
       <Grid stackable>
         <Grid.Row>

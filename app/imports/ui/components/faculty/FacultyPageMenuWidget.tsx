@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Dropdown, Menu } from 'semantic-ui-react';
 import { NavLink, withRouter } from 'react-router-dom';
 import _ from 'lodash';
@@ -8,9 +7,7 @@ import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import { secondMenu } from '../shared/shared-widget-names';
-
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
-
 import { buildRouteName, getUsername } from '../shared/RouterHelperFunctions';
 import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import { IFacultyProfile } from '../../../typings/radgrad';
@@ -50,9 +47,9 @@ const FacultyPageMenuWidget = (props: IFacultyPageMenuWidgetProps) => {
     requestsLabel = `${requestsLabel} (${numRequests})`;
   }
   const menuItems = [
-    { label: 'Home', route: 'home' },
-    { label: requestsLabel, route: 'verification-requests' },
-    { label: 'Manage Opportunities', route: 'manage-opportunities' },
+    { label: 'Home', route: 'home', id: 'faculty-menu-home' },
+    { label: requestsLabel, route: 'verification-requests', id: 'faculty-menu-verification' },
+    { label: 'Manage Opportunities', route: 'manage-opportunities', id: 'faculty-menu-manage-opportunities' },
     { label: 'Explorer', route: 'explorer' },
     { label: 'Scoreboard', route: 'scoreboard' },
   ];
@@ -81,7 +78,7 @@ const studentHomePageItems = [
       >
 
         {menuItems.map((item) => (
-          <Menu.Item key={item.label} as={NavLink} exact={false} to={buildRouteName(match, `/${item.route}`)}>
+          <Menu.Item id={item.id} key={item.label} as={NavLink} exact={false} to={buildRouteName(match, `/${item.route}`)}>
             {item.label}
           </Menu.Item>
       ))}

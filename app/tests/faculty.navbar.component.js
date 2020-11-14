@@ -12,48 +12,15 @@ class FacultyNavBar {
   }
 
   async gotoHomePage(testController) {
-    await testController.click('#advisor-menu-home');
+    await testController.click('#faculty-menu-home');
   }
 
-  async gotoVerificationRequestsPage(testController) {
-    await testController.click('#advisor-menu-verification-requests');
+  async gotoVerificationPage(testController) {
+    await testController.click('#faculty-menu-verification');
   }
 
-  async gotoModerationPage(testController) {
-    await testController.click('#advisor-menu-moderation');
-  }
-
-  async gotoAcademicPlanPage(testController) {
-    await testController.click('#advisor-menu-academic-plan');
-  }
-
-  async gotoScoreboardPage(testController) {
-    await testController.click('#advisor-menu-scoreboard');
-  }
-
-  async gotoAcademicPlansExplorerPage(testController) {
-    await testController.click('#advisor-menu-explore');
-    await testController.click('#advisor-menu-academic-plans');
-  }
-
-  async gotoCareerGoalsExplorerPage(testController) {
-    await testController.click('#advisor-menu-explore');
-    await testController.click('#advisor-menu-career-goals');
-  }
-
-  async gotoCoursesExplorerPage(testController) {
-    await testController.click('#advisor-menu-explore');
-    await testController.click('#advisor-menu-courses');
-  }
-
-  async gotoInterestsExplorerPage(testController) {
-    await testController.click('#advisor-menu-explore');
-    await testController.click('#advisor-menu-interests');
-  }
-
-  async gotoOpportunitiesExplorerPage(testController) {
-    await testController.click('#advisor-menu-explore');
-    await testController.click('#advisor-menu-opportunities');
+  async gotoManageOpportunitiesPage(testController) {
+    await testController.click('#faculty-menu-manage-opportunities');
   }
 
   /** Check that the specified user is currently logged in. */

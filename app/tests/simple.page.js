@@ -29,6 +29,10 @@ export const advisorModerationPage = new SimplePage('advisor-moderation-page');
 export const advisorAcademicPlanPage = new SimplePage('advisor-academic-plan-page');
 export const advisorScoreboardPage = new SimplePage('scoreboard-page'); // same page as adminScoreboardPage
 
+export const facultyHomePage = new SimplePage('faculty-home-page');
+export const facultyVerificationPage = new SimplePage('faculty-verification-page');
+export const facultyManageOpportunitiesPage = new SimplePage('faculty-manage-opportunities-page');
+
 export const studentAcademicPlansExplorerPage = new SimplePage('plans-explorer-page');
 export const studentCareerGoalsExplorerPage = new SimplePage('career-goals-explorer-page');
 export const studentCoursesExplorerPage = new SimplePage('courses-explorer-page');

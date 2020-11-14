@@ -1,7 +1,7 @@
 import { landingNavBar } from './landing.navbar.component';
 import { facultyNavBar } from './faculty.navbar.component';
 import { signinPage } from './signin.page';
-import { landingPage } from './simple.page';
+import { facultyHomePage, facultyManageOpportunitiesPage, facultyVerificationPage} from './simple.page';
 
 /* global fixture:false, test:false */
 
@@ -22,4 +22,13 @@ test('Test faculty login', async (testController) => {
 test('Test faculty top-level pages', async (testController) => {
   await landingNavBar.gotoStudentLogin(testController);
   await signinPage.signin(testController, credentials.faculty);
+
+  await facultyNavBar.gotoHomePage(testController);
+  await facultyHomePage.isDisplayed(testController);
+
+  await facultyNavBar.gotoVerificationPage(testController);
+  await facultyVerificationPage.isDisplayed(testController);
+
+  await facultyNavBar.gotoManageOpportunitiesPage(testController);
+  await facultyManageOpportunitiesPage.isDisplayed(testController);
 });

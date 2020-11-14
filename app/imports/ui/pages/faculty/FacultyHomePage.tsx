@@ -5,7 +5,7 @@ import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import FacultyPageAboutMeWidget from '../../components/faculty/FacultyPageAboutMeWidget';
 
 const FacultyHomePage = () => (
-  <div>
+  <div id="faculty-home-page">
     <FacultyPageMenuWidget />
     <Grid stackable>
       <Grid.Row>

@@ -175,7 +175,7 @@ const FacultyManageOpportunitesPage = () => {
     sort: { name: 1 }, // determine how you want to sort the items in the list
   };
   return (
-    <div>
+    <div id="faculty-manage-opportunities-page">
       <FacultyPageMenuWidget />
       <Grid stackable>
         <Grid.Row>
