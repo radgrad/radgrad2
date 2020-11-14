@@ -13,7 +13,6 @@ class SimplePage {
   }
 }
 
-export const landingPage = new SimplePage('landing-page');
 export const signoutPage = new SimplePage('signout-page');
 
 export const adminAnalyticsPage = new SimplePage('admin-analytics-page');

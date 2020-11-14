@@ -2,7 +2,7 @@ import { landingNavBar } from './navbar.landing.component';
 import { signinPage } from './signin.page';
 import { studentHomePage } from './student.home.page';
 import { studentNavBar } from './navbar.student.component';
-import { landingPage, studentCareerGoalsExplorerPage, studentInterestsExplorerPage,
+import { studentCareerGoalsExplorerPage, studentInterestsExplorerPage,
   studentOpportunitiesPage, studentAcademicPlansExplorerPage, studentDegreePlannerPage,
   studentCoursesExplorerPage, studentCommunityRadGradVideosPage, studentCommunityUsersPage,
   studentAboutMePage, studentAdvisorLogPage, studentICEPointsPage, studentLevelsPage } from './simple.page';
