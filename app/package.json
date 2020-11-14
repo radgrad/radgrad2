@@ -5,7 +5,7 @@
     "start": "meteor --no-release-check --exclude-archs web.browser.legacy,web.cordova --settings ../config/settings.development.json --port 3200",
     "start-custom": "meteor --no-release-check --exclude-archs web.browser.legacy,web.cordova --settings ../custom/settings.development.json --port 3200",
     "start-production": "meteor --no-release-check --exclude-archs web.browser.legacy,web.cordova --production  --settings ../config/settings.development.json --port 3200",
-    "lint": "eslint --fix --quiet --ext .tsx --ext .ts ./imports",
+    "lint": "eslint --fix --quiet --ext .tsx --ext .ts ./imports & eslint --quiet --ext .js ./tests",
     "lint-console": "eslint --fix --ext .tsx --ext .ts ./imports",
     "test-unit": "cross-env TEST_BROWSER_DRIVER=puppeteer MOCHA_TIMEOUT=150000 meteor test --exclude-archs web.browser.legacy,web.cordova --no-release-check --once --driver-package meteortesting:mocha --port 3300",
     "test-integration": "cross-env TEST_BROWSER_DRIVER=puppeteer MOCHA_TIMEOUT=150000 meteor test --no-release-check --exclude-archs web.browser.legacy,web.cordova --full-app --once --driver-package meteortesting:mocha --port 3300",

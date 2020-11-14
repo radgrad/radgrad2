@@ -44,5 +44,3 @@ export const studentAboutMePage = new SimplePage('student-about-me-page');
 export const studentICEPointsPage = new SimplePage('student-ice-points-page');
 export const studentLevelsPage = new SimplePage('student-levels-page');
 export const studentAdvisorLogPage = new SimplePage('student-advisor-log-page');
-
-
