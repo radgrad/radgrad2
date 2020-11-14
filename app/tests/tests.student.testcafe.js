@@ -1,7 +1,7 @@
-import { landingNavBar } from './landing.navbar.component';
+import { landingNavBar } from './navbar.landing.component';
 import { signinPage } from './signin.page';
 import { studentHomePage } from './student.home.page';
-import { studentNavBar } from './student.navbar.component';
+import { studentNavBar } from './navbar.student.component';
 import { landingPage, studentCareerGoalsExplorerPage, studentInterestsExplorerPage,
   studentOpportunitiesPage, studentAcademicPlansExplorerPage, studentDegreePlannerPage,
   studentCoursesExplorerPage, studentCommunityRadGradVideosPage, studentCommunityUsersPage,

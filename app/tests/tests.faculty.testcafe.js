@@ -1,5 +1,5 @@
-import { landingNavBar } from './landing.navbar.component';
-import { facultyNavBar } from './faculty.navbar.component';
+import { landingNavBar } from './navbar.landing.component';
+import { facultyNavBar } from './navbar.faculty.component';
 import { signinPage } from './signin.page';
 import { facultyHomePage, facultyManageOpportunitiesPage, facultyVerificationPage} from './simple.page';
 

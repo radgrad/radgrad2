@@ -1,5 +1,5 @@
-import { landingNavBar } from './landing.navbar.component';
-import { adminNavBar } from './admin.navbar.component';
+import { landingNavBar } from './navbar.landing.component';
+import { adminNavBar } from './navbar.admin.component';
 import { signinPage } from './signin.page';
 import { signoutPage, adminAnalyticsPage, adminDatabasePage, adminDataModelPage, adminHomePage,
   adminModerationPage, adminScoreboardPage, landingPage } from './simple.page';

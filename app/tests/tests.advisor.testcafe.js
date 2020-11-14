@@ -1,5 +1,5 @@
-import { landingNavBar } from './landing.navbar.component';
-import { advisorNavBar } from './advisor.navbar.component';
+import { landingNavBar } from './navbar.landing.component';
+import { advisorNavBar } from './navbar.advisor.component';
 import { signinPage } from './signin.page';
 import { landingPage, advisorHomePage, advisorVerificationRequestsPage, advisorModerationPage,
   advisorAcademicPlanPage, advisorScoreboardPage } from './simple.page';
