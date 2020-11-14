@@ -70,7 +70,7 @@ const renderSelectedStudentWidgets = (props: IFilterStudents) => {
 };
 
 const AdvisorHomePage = (props: IFilterStudents) => (
-  <div>
+  <div id="advisor-home-page">
     <AdvisorPageMenuWidget />
     <div className="pusher">
       <Grid stackable>

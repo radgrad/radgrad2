@@ -1,16 +1,8 @@
-import { landingPage } from './landing.page';
 import { landingNavBar } from './landing.navbar.component';
-// import { adminHomePage } from './admin.home.page';
-// import { adminDataModelPage } from './admin.datamodel.page';
-// import { adminDatabasePage } from './admin.database.page';
-// import { adminModerationPage } from './admin.moderation.page';
-// import { adminAnalyticsPage } from './admin.analytics.page';
-// import { adminScoreboardPage } from './admin.scoreboard.page';
 import { adminNavBar } from './admin.navbar.component';
 import { signinPage } from './signin.page';
-
-import { adminAnalyticsPage, adminDatabasePage, adminDataModelPage, adminHomePage,
-  adminModerationPage, adminScoreboardPage } from './simple.page';
+import { signoutPage, adminAnalyticsPage, adminDatabasePage, adminDataModelPage, adminHomePage,
+  adminModerationPage, adminScoreboardPage, landingPage } from './simple.page';
 
 /* global fixture:false, test:false */
 
@@ -83,4 +75,8 @@ test('Test admin data model page and subpages', async (testController) => {
   await adminNavBar.gotoDataModelPageSubPageAndVerify(testController, subPages[18]);
   await adminNavBar.gotoDataModelPageSubPageAndVerify(testController, subPages[19]);
   await adminNavBar.gotoDataModelPageSubPageAndVerify(testController, subPages[20]);
+});
+
+test('Test admin ensure logout', async (testController) => {
+  await adminNavBar.ensureLogout(testController);
 });

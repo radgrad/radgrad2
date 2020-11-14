@@ -29,7 +29,7 @@ const AdvisorVerificationRequestPage = (props: IAdvisorVerificationRequestPagePr
   const handleMenu = (e, { name }) => setActiveItem(name);
 
   return (
-    <div>
+    <div id="advisor-verification-requests-page">
       <AdvisorPageMenuWidget />
       <Grid stackable>
         <Grid.Row>

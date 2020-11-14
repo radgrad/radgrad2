@@ -13,7 +13,7 @@ const Signout = () => {
     }
   });
   return (
-    <div>
+    <div id="signout-page">
       <LandingNavBarContainer />
       <Header as="h2" textAlign="center">
         <p>You are signed out.</p>

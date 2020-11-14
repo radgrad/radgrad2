@@ -6,7 +6,7 @@ import ModerationWidgetContainer from '../../components/shared/ModerationWidget'
 import BackToTopButton from '../../components/shared/BackToTopButton';
 
 const AdvisorModerationPage = () => (
-  <div>
+  <div id="advisor-moderation-page">
     <AdvisorPageMenuWidget />
     <Grid stackable>
       <Grid.Row>

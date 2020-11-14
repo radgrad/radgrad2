@@ -29,22 +29,22 @@ const AdvisorPageMenuWidget = (props: { match }) => {
     requestsLabel = `${requestsLabel} (${numRequests})`;
   }
   const menuItems = [
-    { label: 'Student Configuration', route: 'home' },
-    { label: requestsLabel, route: 'verification-requests' },
-    { label: moderationLabel, route: 'moderation' },
-    { label: 'Academic Plan', route: 'academic-plan' },
-    { label: 'Scoreboard', route: 'scoreboard', regex: 'scoreboard' },
+    { label: 'Student Configuration', route: 'home', id: 'advisor-menu-home' },
+    { label: requestsLabel, route: 'verification-requests', id: 'advisor-menu-verification-requests' },
+    { label: moderationLabel, route: 'moderation', id: 'advisor-menu-moderation' },
+    { label: 'Academic Plan', route: 'academic-plan', id: 'advisor-menu-academic-plan' },
+    { label: 'Scoreboard', route: 'scoreboard', regex: 'scoreboard', id: 'advisor-menu-scoreboard' },
   ];
   const explorerDropdownItems = [
-  { key: 'Academic Plans', route: EXPLORER_TYPE.ACADEMICPLANS },
-  { key: 'Career Goals', route: EXPLORER_TYPE.CAREERGOALS },
-  { key: 'Courses', route: EXPLORER_TYPE.COURSES },
-  { key: 'Interests', route: EXPLORER_TYPE.INTERESTS },
-  { key: 'Opportunities', route: EXPLORER_TYPE.OPPORTUNITIES },
+  { key: 'Academic Plans', route: EXPLORER_TYPE.ACADEMICPLANS, id: 'advisor-menu-academic-plans' },
+  { key: 'Career Goals', route: EXPLORER_TYPE.CAREERGOALS, id: 'advisor-menu-career-goals' },
+  { key: 'Courses', route: EXPLORER_TYPE.COURSES, id: 'advisor-menu-courses' },
+  { key: 'Interests', route: EXPLORER_TYPE.INTERESTS, id: 'advisor-menu-interests' },
+  { key: 'Opportunities', route: EXPLORER_TYPE.OPPORTUNITIES, id: 'advisor-menu-opportunities' },
 ];
 
 const studentHomePageItems = [
-  { key: 'About Me', route: 'aboutme' },
+  { key: 'About Me', route: 'aboutme', id: 'advisor-menu-about-me' },
 
 ];
   return (
@@ -59,16 +59,17 @@ const studentHomePageItems = [
         id={`${secondMenu}`}
       >
         {menuItems.map((item) => (
-          <Menu.Item key={item.label} as={NavLink} exact={false} to={buildRouteName(match, `/${item.route}`)}>
+          <Menu.Item id={item.id} key={item.label} as={NavLink} exact={false} to={buildRouteName(match, `/${item.route}`)}>
             {item.label}
           </Menu.Item>
       ))}
 
-        <Dropdown item text="EXPLORE">
+        <Dropdown id="advisor-menu-explore" item text="EXPLORE">
           <Dropdown.Menu>
             {explorerDropdownItems.map((item) => (
               <Dropdown.Item
                 key={item.key}
+                id={item.id}
                 as={NavLink}
                 exact
                 to={buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${item.route}`)}
@@ -79,18 +80,19 @@ const studentHomePageItems = [
         </Dropdown>
 
         <Menu.Menu position="right">
-          <Dropdown item text={`Aloha, ${profile.firstName} ${profile.lastName}!`}>
+          <Dropdown id="advisor-menu-full-name" item text={`Aloha, ${profile.firstName} ${profile.lastName}!`}>
             <Dropdown.Menu>
               {studentHomePageItems.map((item) => (
                 <Dropdown.Item
                   key={item.key}
+                  id={item.id}
                   as={NavLink}
                   exact
                   to={buildRouteName(match, `/home/${item.route}`)}
                   content={item.key}
                 />
                   ))}
-              <Dropdown.Item as={NavLink} exact to="/signout" content="Sign Out" />
+              <Dropdown.Item id="advisor-menu-signout" as={NavLink} exact to="/signout" content="Sign Out" />
             </Dropdown.Menu>
           </Dropdown>
         </Menu.Menu>

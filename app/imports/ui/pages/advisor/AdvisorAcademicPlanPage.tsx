@@ -6,7 +6,7 @@ import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 
 const AdvisorAcademicPlanPage = () => (
-  <div>
+  <div id="advisor-academic-plan-page">
     <AdvisorPageMenuWidget />
     <Grid stackable>
       <Grid.Row>
