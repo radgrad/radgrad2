@@ -3,7 +3,7 @@ import { NavLink, withRouter } from 'react-router-dom';
 import { Container, Dropdown, Menu } from 'semantic-ui-react';
 import FirstMenuContainer from '../../pages/shared/FirstMenu';
 import { secondMenu } from '../shared/shared-widget-names';
-import { buildRouteName, getUsername, IMatchProps } from '../shared/RouterHelperFunctions';
+import { buildRouteName, getUsername, IMatchProps } from '../shared/router-helper-functions';
 import { COMMUNITY, DEGREEPLANNER, EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import { IStudentProfile } from '../../../typings/radgrad';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';

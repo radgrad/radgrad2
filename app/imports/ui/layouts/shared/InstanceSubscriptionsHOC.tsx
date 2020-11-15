@@ -8,7 +8,7 @@ import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';
 import { FeedbackInstances } from '../../../api/feedback/FeedbackInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
-import { getUserIdFromRoute } from '../../components/shared/RouterHelperFunctions';
+import { getUserIdFromRoute } from '../../components/shared/router-helper-functions';
 import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
 import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
 import { FavoriteCourses } from '../../../api/favorite/FavoriteCourseCollection';

@@ -13,7 +13,7 @@ import withGlobalSubscription from './shared/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from './shared/InstanceSubscriptionsHOC';
 import {
   getUsername,
-} from '../components/shared/RouterHelperFunctions';
+} from '../components/shared/router-helper-functions';
 import { Users } from '../../api/user/UserCollection';
 import NotAuthorized from '../pages/NotAuthorized';
 import withPageTracker from './student/PageTrackerHOC';

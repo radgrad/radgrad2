@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { Popup } from 'semantic-ui-react';
-import { buildRouteName } from './RouterHelperFunctions';
+import { buildRouteName } from './router-helper-functions';
 
 interface IMenuIceCircleProps {
   match: {

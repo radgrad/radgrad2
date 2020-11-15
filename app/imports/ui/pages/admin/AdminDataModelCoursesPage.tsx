@@ -17,7 +17,7 @@ import {
   interestNameToId,
 } from '../../components/shared/data-model-helper-functions';
 import AddCourseForm from '../../components/admin/datamodel-page/course/AddCourseForm';
-import { interestSlugFromName } from '../../components/shared/FormHelperFunctions';
+import { interestSlugFromName } from '../../components/shared/form-helper-functions';
 import UpdateCourseForm from '../../components/admin/datamodel-page/course/UpdateCourseForm';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';

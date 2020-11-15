@@ -12,7 +12,7 @@ import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/explorer/LandingExplorerMenu';
 import { withListSubscriptions } from '../../layouts/shared/SubscriptionListHOC';
 import { getSlugFromEntityID } from '../../components/landing/helper-functions';
-import * as Router from '../../components/shared/RouterHelperFunctions';
+import * as Router from '../../components/shared/router-helper-functions';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 

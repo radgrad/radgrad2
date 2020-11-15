@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
-import * as Router from '../../components/shared/RouterHelperFunctions';
-import ExplorerNavDropdown from '../../components/shared/ExplorerNavDropdown';
+import * as Router from '../../components/shared/router-helper-functions';
+import ExplorerNavDropdown from '../../components/shared/explorer-page/ExplorerNavDropdown';
 import {
   PAGE_TRACKING_COMPARISON,
   PAGE_TRACKING_SCOREBOARD,

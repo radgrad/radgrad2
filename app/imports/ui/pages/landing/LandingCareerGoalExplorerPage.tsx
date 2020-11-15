@@ -11,7 +11,7 @@ import LandingExplorerMenuContainer from '../../components/landing/explorer/Land
 import { Interests } from '../../../api/interest/InterestCollection';
 import { withListSubscriptions } from '../../layouts/shared/SubscriptionListHOC';
 import LandingInterestList from '../../components/landing/LandingInterestList';
-import * as Router from '../../components/shared/RouterHelperFunctions';
+import * as Router from '../../components/shared/router-helper-functions';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 

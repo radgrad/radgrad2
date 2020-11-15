@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import Markdown from 'react-markdown';
 import { getSlug, itemShortDescription } from '../helper-functions';
 import { EXPLORER_TYPE } from '../../../../startup/client/route-constants';
-import * as Router from '../../shared/RouterHelperFunctions';
+import * as Router from '../../shared/router-helper-functions';
 
 interface IItemProps {
   name: string;

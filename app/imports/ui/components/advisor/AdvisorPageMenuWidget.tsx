@@ -5,7 +5,7 @@ import FirstMenuContainer from '../../pages/shared/FirstMenu';
 import { Reviews } from '../../../api/review/ReviewCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import { secondMenu } from '../shared/shared-widget-names';
-import { buildRouteName, getUsername } from '../shared/RouterHelperFunctions';
+import { buildRouteName, getUsername } from '../shared/router-helper-functions';
 import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 import { IAdvisorProfile } from '../../../typings/radgrad';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';

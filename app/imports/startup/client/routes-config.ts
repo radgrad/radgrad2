@@ -17,8 +17,8 @@ import LandingOpportunityExplorerContainer from '../../ui/pages/landing/LandingO
 import LandingAcademicPlansCardExplorerContainer from '../../ui/pages/landing/LandingAcademicPlansCardExplorerPage';
 import LandingAcademicPlanExplorerContainer from '../../ui/pages/landing/LandingAcademicPlanExplorerPage';
 import ExplorerHomePageContainer from '../../ui/pages/shared/ExplorerHomePage';
-import CardExplorerPageContainer from '../../ui/pages/shared/CardExplorerPage';
-import IndividualExplorerPageContainer from '../../ui/pages/shared/IndividualExplorerPage';
+import CardExplorerPageContainer from '../../ui/pages/shared/ExplorerMultipleItemsPage';
+import IndividualExplorerPageContainer from '../../ui/pages/shared/ExplorerSingleItemPage';
 import AdminHomePageContainer from '../../ui/pages/admin/AdminHomePage';
 import AdminDataModelPageContainer from '../../ui/pages/admin/AdminDataModelPage';
 import AdminDatabasePageContainer from '../../ui/pages/admin/AdminDatabasePage';
@@ -84,7 +84,7 @@ import {
 import PageTrackingScoreboardPage from '../../ui/pages/shared/PageTrackingScoreboardPage';
 import PageTrackingComparisonPage from '../../ui/pages/shared/PageTrackingComparisonPage';
 import { PageInterestsCategoryTypes } from '../../api/page-tracking/PageInterestsCategoryTypes';
-import CardExplorerOpportunitiesPage from '../../ui/pages/shared/CardExplorerOpportunitiesPage';
+import ExplorerOpportunitiesPage from '../../ui/pages/shared/ExplorerOpportunitiesPage';
 import CommunityRadGradVideosPage from '../../ui/pages/shared/CommunityRadGradVideosPage';
 import CommunityUsersPage from '../../ui/pages/shared/CommunityUsersPage';
 
@@ -468,7 +468,7 @@ export const routes = {
     {
       path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}`,
       exact: true,
-      component: CardExplorerOpportunitiesPage,
+      component: ExplorerOpportunitiesPage,
     },
     {
       path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${EXPLORER_PARAM.OPPORTUNITY}`,
@@ -745,7 +745,7 @@ export const routes = {
     {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}`,
       exact: true,
-      component: CardExplorerOpportunitiesPage,
+      component: ExplorerOpportunitiesPage,
     },
     {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${EXPLORER_PARAM.OPPORTUNITY}`,

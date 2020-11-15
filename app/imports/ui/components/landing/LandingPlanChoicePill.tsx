@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid } from 'semantic-ui-react';
-import { getSatisfiedStyle } from '../shared/StyleFunctions';
-import NamePill from '../shared/NamePill';
+import { getSatisfiedStyle } from '../shared/academic-plan/StyleFunctions';
+import NamePill from '../shared/academic-plan/NamePill';
 import { PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
 
 interface ILandingPlanChoicePillProps {

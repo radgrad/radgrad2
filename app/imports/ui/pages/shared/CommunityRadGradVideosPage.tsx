@@ -3,11 +3,11 @@ import { withRouter } from 'react-router-dom';
 import { Container, Header } from 'semantic-ui-react';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
-import CommunityRadGradVideosWidget from '../../components/shared/CommunityRadGradVideosPage/CommunityRadGradVideosWidget';
-import * as Router from '../../components/shared/RouterHelperFunctions';
+import CommunityRadGradVideosWidget from '../../components/shared/community-radgrad-videos-page/CommunityRadGradVideosWidget';
+import * as Router from '../../components/shared/router-helper-functions';
 import { URL_ROLES } from '../../../startup/client/route-constants';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
-import { IMatchProps } from '../../components/shared/RouterHelperFunctions';
+import { IMatchProps } from '../../components/shared/router-helper-functions';
 
 interface ICommunityRadGradVideosPageProps {
   match: IMatchProps;

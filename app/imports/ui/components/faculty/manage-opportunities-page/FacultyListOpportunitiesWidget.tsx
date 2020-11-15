@@ -12,7 +12,7 @@ import { Opportunities } from '../../../../api/opportunity/OpportunityCollection
 import { Slugs } from '../../../../api/slug/SlugCollection';
 import AdminDataModelAccordion from '../../admin/datamodel-page/AdminDataModelAccordion';
 import { dataModelActions } from '../../../../redux/admin/data-model';
-import { getUserIdFromRoute, IMatchProps } from '../../shared/RouterHelperFunctions';
+import { getUserIdFromRoute, IMatchProps } from '../../shared/router-helper-functions';
 import { Users } from '../../../../api/user/UserCollection';
 import { RootState } from '../../../../redux/types';
 

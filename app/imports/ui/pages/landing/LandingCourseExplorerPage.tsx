@@ -13,7 +13,7 @@ import { Interests } from '../../../api/interest/InterestCollection';
 import { withListSubscriptions } from '../../layouts/shared/SubscriptionListHOC';
 import LandingInterestList from '../../components/landing/LandingInterestList';
 import LandingPrerequisiteList from '../../components/landing/LandingPrerequisiteList';
-import * as Router from '../../components/shared/RouterHelperFunctions';
+import * as Router from '../../components/shared/router-helper-functions';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 

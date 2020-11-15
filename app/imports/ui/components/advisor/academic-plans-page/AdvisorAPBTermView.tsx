@@ -2,8 +2,8 @@ import React from 'react';
 import { Header, Segment } from 'semantic-ui-react';
 import _ from 'lodash';
 import { Droppable } from 'react-beautiful-dnd';
-import { getDroppableListStyle } from '../../shared/StyleFunctions';
-import DraggableCoursePill from '../../shared/DraggableCoursePill';
+import { getDroppableListStyle } from '../../shared/academic-plan/StyleFunctions';
+import DraggableCoursePill from '../../shared/academic-plan/DraggableCoursePill';
 import * as AcademicPlanUtilities from '../../../../api/degree-plan/AcademicPlanUtilities';
 import {
   buildPlanAreaDraggableId,

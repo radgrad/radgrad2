@@ -4,7 +4,7 @@ import _ from 'lodash';
 import Markdown from 'react-markdown';
 import { withRouter } from 'react-router-dom';
 import { IDescriptionPair } from '../../../../typings/radgrad';
-import * as Router from '../../shared/RouterHelperFunctions';
+import * as Router from '../../shared/router-helper-functions';
 
 interface IAdminCollectionAccordionProps {
   id: string;

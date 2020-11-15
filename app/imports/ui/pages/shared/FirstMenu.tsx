@@ -6,7 +6,7 @@ import { NavLink, withRouter } from 'react-router-dom';
 import { Dropdown, Header, Image, Menu, Container } from 'semantic-ui-react';
 import RadGradLogoText from '../../components/shared/RadGradLogoText';
 import RadGradMenuProfile from '../../components/shared/RadGradMenuProfile';
-import { getUsername, isUrlRoleStudent } from '../../components/shared/RouterHelperFunctions';
+import { getUsername, isUrlRoleStudent } from '../../components/shared/router-helper-functions';
 import { firstMenu } from '../../components/shared/shared-widget-names';
 
 interface IFirstMenuProps {

@@ -6,7 +6,7 @@ import {
   getAllUrlParamsByLocationObject, getUsername,
   ILocationProps,
   IMatchProps,
-} from '../../components/shared/RouterHelperFunctions';
+} from '../../components/shared/router-helper-functions';
 import { RootState } from '../../../redux/types';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { IPageInterestDefine } from '../../../typings/radgrad';
@@ -18,7 +18,7 @@ import {
   PageInterestsCategoryTypes,
 } from '../../../api/page-tracking/PageInterestsCategoryTypes';
 import { pageInterestDefineMethod } from '../../../api/page-tracking/PageInterestCollection.methods';
-import { calculateEngagedInterestTime, isValidParameter } from '../../components/shared/page-tracking-helper-functions';
+import { calculateEngagedInterestTime, isValidParameter } from '../../components/shared/page-tracking/page-tracking-helper-functions';
 
 interface IPageTrackerProps {
   history: {

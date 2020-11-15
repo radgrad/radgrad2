@@ -1,7 +1,7 @@
 import React from 'react';
 import { Label, SemanticSIZES } from 'semantic-ui-react';
 import { Link, withRouter } from 'react-router-dom';
-import * as Router from './RouterHelperFunctions';
+import * as Router from './router-helper-functions';
 import { docToName, itemToSlugName } from './data-model-helper-functions';
 import { MatchingInterests } from '../../../api/interest/MatchingInterests';
 import { EXPLORER_TYPE } from '../../../startup/client/route-constants';

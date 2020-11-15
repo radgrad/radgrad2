@@ -4,14 +4,14 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router-dom';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
-import PendingVerificationsWidget from '../../components/shared/PendingVerificationsWidget';
+import PendingVerificationsWidget from '../../components/shared/verification-page/PendingVerificationsWidget';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
-import EventVerificationsWidget from '../../components/shared/EventVerificationsWidget';
+import EventVerificationsWidget from '../../components/shared/verification-page/EventVerificationsWidget';
 import { IOpportunity, IVerificationRequest } from '../../../typings/radgrad';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
-import CompletedVerificationsWidget from '../../components/shared/CompletedVerificationsWidget';
+import CompletedVerificationsWidget from '../../components/shared/verification-page/CompletedVerificationsWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import withAdditionalSubscriptions from '../../layouts/shared/AdvisorFacultyAdditionalSubscriptionsHOC';
 

@@ -19,7 +19,7 @@ import {
   opportunityTypeNameToSlug,
   profileNameToUsername,
 } from '../../components/shared/data-model-helper-functions';
-import { interestSlugFromName } from '../../components/shared/FormHelperFunctions';
+import { interestSlugFromName } from '../../components/shared/form-helper-functions';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 

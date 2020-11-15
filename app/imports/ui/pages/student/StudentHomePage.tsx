@@ -3,14 +3,14 @@ import { Grid, Container } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
-import StudentHomeFavoriteInterestsList from '../../components/student/HomePage/StudentHomeFavoriteInterestsWidget';
-import StudentHomeRecommendedWidget from '../../components/student/HomePage/StudentHomeRecommendedWidget';
-import StudentHomeBannersWidget from '../../components/student/HomePage/StudentHomeBannersWidget';
-import StudentHomeRadGradVideosWidget from '../../components/student/HomePage/StudentHomeRadGradVideosWidget';
-import StudentHomeNewOpportunitiesWidget from '../../components/student/HomePage/StudentHomeNewOpportunitiesWidget';
-import { buildExplorerRoute, IMatchProps } from '../../components/shared/RouterHelperFunctions';
+import StudentHomeFavoriteInterestsList from '../../components/student/home-page/StudentHomeFavoriteInterestsWidget';
+import StudentHomeRecommendedWidget from '../../components/student/home-page/StudentHomeRecommendedWidget';
+import StudentHomeBannersWidget from '../../components/student/home-page/StudentHomeBannersWidget';
+import StudentHomeRadGradVideosWidget from '../../components/student/home-page/StudentHomeRadGradVideosWidget';
+import StudentHomeNewOpportunitiesWidget from '../../components/student/home-page/StudentHomeNewOpportunitiesWidget';
+import { buildExplorerRoute, IMatchProps } from '../../components/shared/router-helper-functions';
 import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
-import GuidedTourStudentHomePageWidget from '../../components/student/HomePage/GuidedTourStudentHomePageWidget';
+import GuidedTourStudentHomePageWidget from '../../components/student/home-page/GuidedTourStudentHomePageWidget';
 
 interface IStudentHomePageProps {
   match: IMatchProps;

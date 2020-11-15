@@ -2,7 +2,7 @@ import React from 'react';
 import { Menu, SemanticWIDTHS } from 'semantic-ui-react';
 import { NavLink, withRouter } from 'react-router-dom';
 import { secondMenu } from '../../components/shared/shared-widget-names';
-import { buildRouteName } from '../../components/shared/RouterHelperFunctions';
+import { buildRouteName } from '../../components/shared/router-helper-functions';
 
 // TODO: Why is a component like this in the pages/shared directrory?
 // TODO: This component is only used for the Admin NavBar. Why is it "shared"?

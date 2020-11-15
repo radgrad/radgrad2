@@ -10,7 +10,7 @@ import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/explorer/LandingExplorerMenu';
 import { withListSubscriptions } from '../../layouts/shared/SubscriptionListHOC';
 import LandingAcademicPlanViewer from '../../components/landing/explorer/LandingAcademicPlanViewer';
-import * as Router from '../../components/shared/RouterHelperFunctions';
+import * as Router from '../../components/shared/router-helper-functions';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 

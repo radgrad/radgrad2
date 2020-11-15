@@ -15,7 +15,7 @@ import LandingInterestList from '../../components/landing/LandingInterestList';
 import { getOpportunityTypeName, semesters, teaser } from '../../components/landing/helper-functions';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
-import * as Router from '../../components/shared/RouterHelperFunctions';
+import * as Router from '../../components/shared/router-helper-functions';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import { Users } from '../../../api/user/UserCollection';
 

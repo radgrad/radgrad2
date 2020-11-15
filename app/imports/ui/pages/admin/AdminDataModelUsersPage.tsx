@@ -33,7 +33,7 @@ import {
   academicPlanSlugFromName,
   careerGoalSlugFromName, declaredAcademicTermSlugFromName,
   interestSlugFromName,
-} from '../../components/shared/FormHelperFunctions';
+} from '../../components/shared/form-helper-functions';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Users } from '../../../api/user/UserCollection';
 import BackToTopButton from '../../components/shared/BackToTopButton';

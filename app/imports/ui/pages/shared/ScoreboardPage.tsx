@@ -1,14 +1,14 @@
 import React from 'react';
 import { Grid, Message } from 'semantic-ui-react';
-import * as Router from '../../components/shared/RouterHelperFunctions';
+import * as Router from '../../components/shared/router-helper-functions';
 import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
-import ScoreboardPageMenu from '../../components/shared/ScoreboardPageMenu';
+import ScoreboardPageMenu from '../../components/shared/scoreboard-page/ScoreboardPageMenu';
 import { COURSE_SCOREBOARD, OPPORTUNITY_SCOREBOARD } from '../../../startup/client/route-constants';
-import CourseScoreboardWidget from '../../components/shared/CourseScoreboardWidget';
-import OpportunityScoreboardWidgetContainer from '../../components/shared/OpportunityScoreboardWidget';
+import CourseScoreboardWidget from '../../components/shared/scoreboard-page/CourseScoreboardWidget';
+import OpportunityScoreboardWidgetContainer from '../../components/shared/scoreboard-page/OpportunityScoreboardWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 
 export interface IScoreboardPageProps {
