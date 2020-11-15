@@ -2,15 +2,15 @@ import React, { useState } from 'react';
 import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
-import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
+import AdminDataModelMenu from '../../components/admin/datamodel-page/AdminDataModelMenu';
+import ListCollectionWidget from '../../components/admin/datamodel-page/ListCollectionWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import { IDescriptionPair, IInterest } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { InterestTypes } from '../../../api/interest/InterestTypeCollection';
-import AddInterestForm from '../../components/admin/AddInterestForm';
-import UpdateInterestForm from '../../components/admin/UpdateInterestForm';
+import AddInterestForm from '../../components/admin/datamodel-page/interest/AddInterestForm';
+import UpdateInterestForm from '../../components/admin/datamodel-page/interest/UpdateInterestForm';
 import {
   itemToSlugName,
   interestTypeNameToId,

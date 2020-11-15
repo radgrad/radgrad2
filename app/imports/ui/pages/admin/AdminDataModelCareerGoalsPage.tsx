@@ -3,8 +3,8 @@ import _ from 'lodash';
 import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
-import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
+import AdminDataModelMenu from '../../components/admin/datamodel-page/AdminDataModelMenu';
+import ListCollectionWidget from '../../components/admin/datamodel-page/ListCollectionWidget';
 import { Users } from '../../../api/user/UserCollection';
 import {
   ICareerGoal, ICareerGoalUpdate,
@@ -12,8 +12,8 @@ import {
 } from '../../../typings/radgrad';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
-import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';
-import AddCareerGoalForm from '../../components/admin/AddCareerGoalForm';
+import AdminDataModelUpdateForm from '../../components/admin/datamodel-page/AdminDataModelUpdateForm';
+import AddCareerGoalForm from '../../components/admin/datamodel-page/career-goal/AddCareerGoalForm';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import BackToTopButton from '../../components/shared/BackToTopButton';

@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
-import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
+import AdminDataModelMenu from '../../components/admin/datamodel-page/AdminDataModelMenu';
+import ListCollectionWidget from '../../components/admin/datamodel-page/ListCollectionWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import { IDescriptionPair } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
@@ -13,8 +13,8 @@ import { Users } from '../../../api/user/UserCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { Reviews } from '../../../api/review/ReviewCollection';
-import AddReviewForm from '../../components/admin/AddReviewForm';
-import UpdateReviewForm from '../../components/admin/UpdateReviewForm';
+import AddReviewForm from '../../components/admin/datamodel-page/review/AddReviewForm';
+import UpdateReviewForm from '../../components/admin/datamodel-page/review/UpdateReviewForm';
 import {
   academicTermNameToSlug,
   courseNameToSlug,

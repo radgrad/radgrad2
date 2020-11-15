@@ -3,19 +3,19 @@
  * Route information consists of a path, the path to the component, a Component to render.
  */
 import LandingHomePage from '../../ui/pages/landing/LandingHomePage';
-import LandingGuidedTourAdvisor from '../../ui/pages/landing/LandingGuidedTourAdvisor';
-import LandingGuidedTourFaculty from '../../ui/pages/landing/LandingGuidedTourFaculty';
-import GuidedTourStudentContainer from '../../ui/pages/landing/LandingGuidedTourStudent';
-import LandingCareerGoalsCardExplorerContainer from '../../ui/pages/landing/LandingCareerGoalsCardExplorer';
-import LandingCareerGoalExplorerContainer from '../../ui/pages/landing/LandingCareerGoalExplorer';
-import LandingCoursesCardExplorerContainer from '../../ui/pages/landing/LandingCoursesCardExplorer';
-import LandingCourseExplorerContainer from '../../ui/pages/landing/LandingCourseExplorer';
-import LandingInterestsCardExplorerContainer from '../../ui/pages/landing/LandingInterestsCardExplorer';
-import LandingInterestExplorerContainer from '../../ui/pages/landing/LandingInterestExplorer';
-import LandingOpportunitiesCardExplorerContainer from '../../ui/pages/landing/LandingOpportunitiesCardExplorer';
-import LandingOpportunityExplorerContainer from '../../ui/pages/landing/LandingOpportunityExplorer';
-import LandingAcademicPlansCardExplorerContainer from '../../ui/pages/landing/LandingAcademicPlansCardExplorer';
-import LandingAcademicPlanExplorerContainer from '../../ui/pages/landing/LandingAcademicPlanExplorer';
+import LandingGuidedTourAdvisorPage from '../../ui/pages/landing/LandingGuidedTourAdvisorPage';
+import LandingGuidedTourFacultyPage from '../../ui/pages/landing/LandingGuidedTourFacultyPage';
+import GuidedTourStudentContainer from '../../ui/pages/landing/LandingGuidedTourStudentPage';
+import LandingCareerGoalsCardExplorerContainer from '../../ui/pages/landing/LandingCareerGoalsCardExplorerPage';
+import LandingCareerGoalExplorerContainer from '../../ui/pages/landing/LandingCareerGoalExplorerPage';
+import LandingCoursesCardExplorerContainer from '../../ui/pages/landing/LandingCoursesCardExplorerPage';
+import LandingCourseExplorerContainer from '../../ui/pages/landing/LandingCourseExplorerPage';
+import LandingInterestsCardExplorerContainer from '../../ui/pages/landing/LandingInterestsCardExplorerPage';
+import LandingInterestExplorerContainer from '../../ui/pages/landing/LandingInterestExplorerPage';
+import LandingOpportunitiesCardExplorerContainer from '../../ui/pages/landing/LandingOpportunitiesCardExplorerPage';
+import LandingOpportunityExplorerContainer from '../../ui/pages/landing/LandingOpportunityExplorerPage';
+import LandingAcademicPlansCardExplorerContainer from '../../ui/pages/landing/LandingAcademicPlansCardExplorerPage';
+import LandingAcademicPlanExplorerContainer from '../../ui/pages/landing/LandingAcademicPlanExplorerPage';
 import ExplorerHomePageContainer from '../../ui/pages/shared/ExplorerHomePage';
 import CardExplorerPageContainer from '../../ui/pages/shared/CardExplorerPage';
 import IndividualExplorerPageContainer from '../../ui/pages/shared/IndividualExplorerPage';
@@ -558,12 +558,12 @@ export const routes = {
     {
       path: `/${GUIDEDTOUR}/${URL_ROLES.ADVISOR}`,
       exact: true,
-      component: LandingGuidedTourAdvisor,
+      component: LandingGuidedTourAdvisorPage,
     },
     {
       path: `/${GUIDEDTOUR}/${URL_ROLES.FACULTY}`,
       exact: true,
-      component: LandingGuidedTourFaculty,
+      component: LandingGuidedTourFacultyPage,
     },
     {
       path: `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}`,

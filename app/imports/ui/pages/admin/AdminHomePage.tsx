@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Container } from 'semantic-ui-react';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import RetrieveUserWidget from '../../components/admin/RetrieveUserWidget';
+import RetrieveUserWidget from '../../components/admin/home-page/RetrieveUserWidget';
 import FilterUserWidget from '../../components/shared/FilterUserWidget';
 
 export interface IFilterUsers {

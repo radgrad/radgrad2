@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
-import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
+import AdminDataModelMenu from '../../components/admin/datamodel-page/AdminDataModelMenu';
+import ListCollectionWidget from '../../components/admin/datamodel-page/ListCollectionWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
-import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm'; // this should be replaced by specific UpdateForm
-import AdminDataModelAddForm from '../../components/admin/AdminDataModelAddForm'; // this should be replaced by specific AddForm
+import AdminDataModelUpdateForm from '../../components/admin/datamodel-page/AdminDataModelUpdateForm'; // this should be replaced by specific UpdateForm
+import AdminDataModelAddForm from '../../components/admin/datamodel-page/AdminDataModelAddForm'; // this should be replaced by specific AddForm
 import { IDescriptionPair } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Button, Form, Grid, Header, Message } from 'semantic-ui-react';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import AdminDatabaseMenuContainer from '../../components/admin/AdminDatabaseMenu';
+import AdminDatabaseMenuContainer from '../../components/admin/database-page/AdminDatabaseMenu';
 import { checkIntegrity } from '../../../api/integrity/IntegrityChecker';
 import { checkIntegrityMethod } from '../../../api/integrity/IntegrityChecker.methods';
 import { databaseActions } from '../../../redux/admin/database';

@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
-import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
+import AdminDataModelMenu from '../../components/admin/datamodel-page/AdminDataModelMenu';
+import ListCollectionWidget from '../../components/admin/datamodel-page/ListCollectionWidget';
 import { Users } from '../../../api/user/UserCollection';
 import {
   IAdvisorLog, IAdvisorLogUpdate,
@@ -11,8 +11,8 @@ import {
 } from '../../../typings/radgrad';
 import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
-import AdminDataModelUpdateForm from '../../components/admin/AdminDataModelUpdateForm';
-import AddAdvisorLogFormContainer from '../../components/admin/AddAdvisorLogForm';
+import AdminDataModelUpdateForm from '../../components/admin/datamodel-page/AdminDataModelUpdateForm';
+import AddAdvisorLogFormContainer from '../../components/admin/datamodel-page/advisor-log/AddAdvisorLogForm';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';

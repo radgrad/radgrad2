@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
-import AdvisorAcademicPlanTabs from '../../components/advisor/AdvisorAcademicPlanTabs';
+import AdvisorAcademicPlanTabs from '../../components/advisor/academic-plans-page/AdvisorAcademicPlanTabs';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 

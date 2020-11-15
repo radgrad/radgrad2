@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import AdminDataModelMenu from '../../components/admin/AdminDataModelMenu';
-import ListCollectionWidget from '../../components/admin/ListCollectionWidget';
+import AdminDataModelMenu from '../../components/admin/datamodel-page/AdminDataModelMenu';
+import ListCollectionWidget from '../../components/admin/datamodel-page/ListCollectionWidget';
 import {
   IDescriptionPair,
   IFeedbackInstanceDefine,
@@ -11,8 +11,8 @@ import {
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { FeedbackInstances } from '../../../api/feedback/FeedbackInstanceCollection';
 import { Users } from '../../../api/user/UserCollection';
-import AddFeedbackInstanceForm from '../../components/admin/AddFeedbackInstanceForm';
-import UpdateFeedbackInstanceForm from '../../components/admin/UpdateFeedbackInstanceForm';
+import AddFeedbackInstanceForm from '../../components/admin/datamodel-page/feedback/AddFeedbackInstanceForm';
+import UpdateFeedbackInstanceForm from '../../components/admin/datamodel-page/feedback/UpdateFeedbackInstanceForm';
 import { profileNameToUsername } from '../../components/shared/data-model-helper-functions';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';

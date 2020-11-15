@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, Message } from 'semantic-ui-react';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import AdminDatabaseMenuContainer from '../../components/admin/AdminDatabaseMenu';
+import AdminDatabaseMenuContainer from '../../components/admin/database-page/AdminDatabaseMenu';
 
 const AdminDatabasePage = () => (
   <div id="admin-database-page">

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import AdminAnalyticsMenuWidget from '../../components/admin/AdminAnalyticsMenuWidget';
-import AdminAnalyticsLoggedInUsersWidget from '../../components/admin/AnalyticsPage/AdminAnalyticsLoggedInUsersWidget';
+import AdminAnalyticsMenuWidget from '../../components/admin/analytics-page/AdminAnalyticsMenuWidget';
+import AdminAnalyticsLoggedInUsersWidget from '../../components/admin/analytics-page/AdminAnalyticsLoggedInUsersWidget';
 
 const AdminAnalyticsPage = () => (
   <div id="admin-analytics-page">
