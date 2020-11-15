@@ -5,8 +5,8 @@ import { URL_ROLES } from '../../layouts/utilities/route-constants';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
-import CommunityUsersWidget from '../../components/shared/community-users-page/CommunityUsersWidget';
-import CommunityFeedWidget from '../../components/shared/community-users-page/CommunityFeedWidget';
+import CommunityUsersWidget from '../../components/shared/community-users/CommunityUsersWidget';
+import CommunityFeedWidget from '../../components/shared/community-users/CommunityFeedWidget';
 import { IMatchProps } from '../../components/shared/utilities/router';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 

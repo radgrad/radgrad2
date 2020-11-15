@@ -5,7 +5,7 @@ import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 import * as Router from '../../components/shared/utilities/router';
-import ExplorerNavDropdown from '../../components/shared/explorer-page/ExplorerNavDropdown';
+import ExplorerNavDropdown from '../../components/shared/explorer/ExplorerNavDropdown';
 import {
   PAGE_TRACKING_COMPARISON,
   PAGE_TRACKING_SCOREBOARD,

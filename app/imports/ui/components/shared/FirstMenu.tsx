@@ -4,10 +4,10 @@ import { withTracker } from 'meteor/react-meteor-data';
 import React from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 import { Dropdown, Header, Image, Menu, Container } from 'semantic-ui-react';
-import RadGradLogoText from '../../components/shared/RadGradLogoText';
-import RadGradMenuProfile from '../../components/shared/RadGradMenuProfile';
-import { getUsername, isUrlRoleStudent } from '../../components/shared/utilities/router';
-import { firstMenu } from '../../components/shared/shared-widget-names';
+import RadGradLogoText from './RadGradLogoText';
+import RadGradMenuProfile from './RadGradMenuProfile';
+import { getUsername, isUrlRoleStudent } from './utilities/router';
+import { firstMenu } from './shared-widget-names';
 
 interface IFirstMenuProps {
   currentUser: string;

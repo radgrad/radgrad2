@@ -3,7 +3,7 @@ import { Grid } from 'semantic-ui-react';
 import _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
 import * as Router from '../../components/shared/utilities/router';
-import ExplorerMenu from '../../components/shared/explorer-page/single-item-page/ExplorerMenu';
+import ExplorerMenu from '../../components/shared/explorer/single-item-page/ExplorerMenu';
 import {
   IAcademicPlan,
   ICareerGoal,
@@ -24,17 +24,17 @@ import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
-import ExplorerPlansWidget from '../../components/shared/explorer-page/single-item-page/academic-plan/ExplorerPlanWidget';
-import ExplorerOpportunitiesWidget from '../../components/shared/explorer-page/single-item-page/opportunity/ExplorerOpportunityWidget';
-import ExplorerCoursesWidget from '../../components/shared/explorer-page/single-item-page/course/ExplorerCourseWidget';
-import ExplorerInterestsWidget from '../../components/shared/explorer-page/single-item-page/interest/ExplorerInterestWidget';
+import ExplorerPlansWidget from '../../components/shared/explorer/single-item-page/academic-plan/ExplorerPlanWidget';
+import ExplorerOpportunitiesWidget from '../../components/shared/explorer/single-item-page/opportunity/ExplorerOpportunityWidget';
+import ExplorerCoursesWidget from '../../components/shared/explorer/single-item-page/course/ExplorerCourseWidget';
+import ExplorerInterestsWidget from '../../components/shared/explorer/single-item-page/interest/ExplorerInterestWidget';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { ROLE } from '../../../api/role/Role';
 import { isSingleChoice } from '../../../api/degree-plan/PlanChoiceUtilities';
 import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
-import ExplorerCareerGoalsWidget from '../../components/shared/explorer-page/single-item-page/career-goal/ExplorerCareerGoalWidget';
+import ExplorerCareerGoalsWidget from '../../components/shared/explorer/single-item-page/career-goal/ExplorerCareerGoalWidget';
 import { EXPLORER_TYPE, URL_ROLES } from '../../layouts/utilities/route-constants';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';

@@ -4,8 +4,8 @@ import _ from 'lodash';
 import Swal from 'sweetalert2';
 import { connect } from 'react-redux';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import AdminDataModelMenu from '../../components/admin/datamodel-page/AdminDataModelMenu';
-import ListCollectionWidget from '../../components/admin/datamodel-page/ListCollectionWidget';
+import AdminDataModelMenu from '../../components/admin/datamodel/AdminDataModelMenu';
+import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { IDescriptionPair, IFeedDefine } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Feeds } from '../../../api/feed/FeedCollection';
@@ -13,8 +13,8 @@ import { Users } from '../../../api/user/UserCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
-import AddFeedForm from '../../components/admin/datamodel-page/feed/AddFeedForm';
-import UpdateFeedForm from '../../components/admin/datamodel-page/feed/UpdateFeedForm';
+import AddFeedForm from '../../components/admin/datamodel/feed/AddFeedForm';
+import UpdateFeedForm from '../../components/admin/datamodel/feed/UpdateFeedForm';
 import {
   academicTermNameToSlug,
   courseNameToSlug,

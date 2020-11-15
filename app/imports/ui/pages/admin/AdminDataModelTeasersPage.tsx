@@ -3,8 +3,8 @@ import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import _ from 'lodash';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import AdminDataModelMenu from '../../components/admin/datamodel-page/AdminDataModelMenu';
-import ListCollectionWidget from '../../components/admin/datamodel-page/ListCollectionWidget';
+import AdminDataModelMenu from '../../components/admin/datamodel/AdminDataModelMenu';
+import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import {
   IDescriptionPair,
@@ -14,8 +14,8 @@ import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/Ba
 import { Teasers } from '../../../api/teaser/TeaserCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { makeYoutubeLink } from './utilities/datamodel';
-import AddTeaserForm from '../../components/admin/datamodel-page/teaser/AddTeaserForm';
-import UpdateTeaserForm from '../../components/admin/datamodel-page/teaser/UpdateTeasersForm';
+import AddTeaserForm from '../../components/admin/datamodel/teaser/AddTeaserForm';
+import UpdateTeaserForm from '../../components/admin/datamodel/teaser/UpdateTeasersForm';
 import {
   itemToSlugName,
   interestNameToSlug,

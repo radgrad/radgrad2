@@ -5,7 +5,7 @@ import withInstanceSubscriptions from '../../layouts/utilities/InstanceSubscript
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
-import StudentLogWidget from '../../components/student/log-page/StudentLogWidget';
+import StudentLogWidget from '../../components/student/log/StudentLogWidget';
 
 const StudentHomeLogPage = () => (
   <div id="student-advisor-log-page">

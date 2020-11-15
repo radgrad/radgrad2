@@ -7,10 +7,10 @@ import { ROLE } from '../../api/role/Role';
 import LandingNavBarContainer from '../components/landing/LandingNavBar';
 
 /**
- * Signin page overrides the form’s submit event and call Meteor’s loginWithPassword().
+ * SigninPage page overrides the form’s submit event and call Meteor’s loginWithPassword().
  * Authentication errors modify the component’s state to be displayed
  */
-const Signin = () => {
+const SigninPage = () => {
   const [emailState, setEmail] = useState('');
   const [passwordState, setPassword] = useState('');
   const [errorState, setError] = useState('');
@@ -31,7 +31,7 @@ const Signin = () => {
     }
   };
 
-  /** Handle Signin submission using Meteor's account mechanism. */
+  /** Handle SigninPage submission using Meteor's account mechanism. */
   const handleSubmit = () => {
     Meteor.loginWithPassword(emailState, passwordState, (err) => {
       if (err) {
@@ -114,4 +114,4 @@ const Signin = () => {
   );
 };
 
-export default Signin;
+export default SigninPage;

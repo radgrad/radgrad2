@@ -5,8 +5,8 @@ import withInstanceSubscriptions from '../../layouts/utilities/InstanceSubscript
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
-import StudentLevelsWidget from '../../components/student/levels-page/StudentLevelsWidget';
-import StudentLevelsOthersWidget from '../../components/student/levels-page/StudentLevelsOthersWidget';
+import StudentLevelsWidget from '../../components/student/levels/StudentLevelsWidget';
+import StudentLevelsOthersWidget from '../../components/student/levels/StudentLevelsOthersWidget';
 
 const StudentHomeLevelsPage = () => (
   <div id="student-levels-page">

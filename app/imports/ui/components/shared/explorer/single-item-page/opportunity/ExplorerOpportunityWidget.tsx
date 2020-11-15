@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { Divider, Grid, Header, Segment } from 'semantic-ui-react';
 import Markdown from 'react-markdown';
 import { IOpportunity } from '../../../../../../typings/radgrad';
-import StudentExplorerReviewWidget from '../../../../student/explorer-page/StudentExplorerReviewWidget';
+import StudentExplorerReviewWidget from '../../../../student/explorer/StudentExplorerReviewWidget';
 import { Reviews } from '../../../../../../api/review/ReviewCollection';
 import IceHeader from '../../../IceHeader';
 import InterestList from '../../../InterestList';

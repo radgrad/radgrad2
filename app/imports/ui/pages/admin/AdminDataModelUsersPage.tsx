@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { withTracker } from 'meteor/react-meteor-data';
 import Swal from 'sweetalert2';
 import { AdminProfiles } from '../../../api/user/AdminProfileCollection';
-import ListCollectionWidget from '../../components/admin/datamodel-page/ListCollectionWidget';
+import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import {
   IAdvisorProfile,
@@ -23,9 +23,9 @@ import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { ROLE } from '../../../api/role/Role';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import AdminDataModelMenu from '../../components/admin/datamodel-page/AdminDataModelMenu';
-import AddUserForm from '../../components/admin/datamodel-page/user/AddUserForm';
-import UpdateUserForm from '../../components/admin/datamodel-page/user/UpdateUserForm';
+import AdminDataModelMenu from '../../components/admin/datamodel/AdminDataModelMenu';
+import AddUserForm from '../../components/admin/datamodel/user/AddUserForm';
+import UpdateUserForm from '../../components/admin/datamodel/user/UpdateUserForm';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';

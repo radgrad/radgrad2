@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import AdminModerationWidget from '../../components/shared/moderation-page/ModerationWidget';
+import AdminModerationWidget from '../../components/shared/moderation/ModerationWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 
 /** A simple static component to render some text for the landing page. */

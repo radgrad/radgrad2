@@ -8,7 +8,7 @@ import { CourseInstances } from '../../../../../../api/course/CourseInstanceColl
 import InterestList from '../../../InterestList';
 import { isSingleChoice } from '../../../../../../api/degree-plan/PlanChoiceUtilities';
 import { Reviews } from '../../../../../../api/review/ReviewCollection';
-import StudentExplorerReviewWidget from '../../../../student/explorer-page/StudentExplorerReviewWidget';
+import StudentExplorerReviewWidget from '../../../../student/explorer/StudentExplorerReviewWidget';
 import { ICourse, IDescriptionPair, IReview } from '../../../../../../typings/radgrad';
 import * as Router from '../../../utilities/router';
 import { EXPLORER_TYPE } from '../../../../../layouts/utilities/route-constants';

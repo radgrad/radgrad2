@@ -4,7 +4,7 @@ import { DragDropContext } from 'react-beautiful-dnd';
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
-import DegreeExperiencePlannerWidget from '../../components/student/degree-planner-page/DegreeExperiencePlannerWidget';
+import DegreeExperiencePlannerWidget from '../../components/student/degree-planner/DegreeExperiencePlannerWidget';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { defineMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
@@ -20,12 +20,12 @@ import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { degreePlannerActions } from '../../../redux/student/degree-planner';
-import TabbedFavoritesWidget from '../../components/student/degree-planner-page/TabbedFavoritesWidget';
+import TabbedFavoritesWidget from '../../components/student/degree-planner/TabbedFavoritesWidget';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { getUsername, IMatchProps } from '../../components/shared/utilities/router';
 import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
 import { UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
-import GuidedTourDegreePlanner from '../../components/student/degree-planner-page/GuidedTourDegreePlanner';
+import GuidedTourDegreePlanner from '../../components/student/degree-planner/GuidedTourDegreePlanner';
 
 interface IStudentDegreePlannerProps {
   // eslint-disable-next-line react/no-unused-prop-types

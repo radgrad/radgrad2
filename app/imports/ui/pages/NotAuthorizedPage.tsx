@@ -3,7 +3,7 @@ import { Header } from 'semantic-ui-react';
 import LandingNavBarContainer from '../components/landing/LandingNavBar';
 
 /** Render a Not Found page if the user enters a URL that doesn't match any route. */
-const NotAuthorized = () => (
+const NotAuthorizedPage = () => (
   <div>
     <LandingNavBarContainer />
     <Header as="h2" textAlign="center">
@@ -12,4 +12,4 @@ const NotAuthorized = () => (
   </div>
 );
 
-export default NotAuthorized;
+export default NotAuthorizedPage;

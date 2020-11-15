@@ -15,7 +15,7 @@ import {
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
 import IceHeader from '../../shared/IceHeader';
-import FutureParticipation from '../../shared/explorer-page/FutureParticipation';
+import FutureParticipation from '../../shared/explorer/FutureParticipation';
 import { defineMethod, removeItMethod } from '../../../../api/base/BaseCollection.methods';
 import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
 import { buildRouteName } from './DepUtilityFunctions';

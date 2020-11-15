@@ -5,14 +5,14 @@ import { withRouter } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import StudentPageMenuWidget from '../../../app/imports/ui/components/student/StudentPageMenuWidget';
 import FacultyPageMenuWidget from '../../../app/imports/ui/components/faculty/FacultyPageMenuWidget';
-import CardExplorerWidget from '../../../app/imports/ui/components/shared/explorer-page/multiple-items-page/ExplorerMultipleItemsWidget';
+import CardExplorerWidget from '../../../app/imports/ui/components/shared/explorer/multiple-items-page/ExplorerMultipleItemsWidget';
 import { AcademicPlans } from '../../../app/imports/api/degree-plan/AcademicPlanCollection';
 import { CareerGoals } from '../../../app/imports/api/career/CareerGoalCollection';
 import { Courses } from '../../../app/imports/api/course/CourseCollection';
 import { Interests } from '../../../app/imports/api/interest/InterestCollection';
 import { Opportunities } from '../../../app/imports/api/opportunity/OpportunityCollection';
 import { Users } from '../../../app/imports/api/user/UserCollection';
-import ExplorerMultipleItemsMenu from '../../../app/imports/ui/components/shared/explorer-page/multiple-items-page/ExplorerMultipleItemsMenu';
+import ExplorerMultipleItemsMenu from '../../../app/imports/ui/components/shared/explorer/multiple-items-page/ExplorerMultipleItemsMenu';
 import {
   IAcademicPlan,
   ICareerGoal,

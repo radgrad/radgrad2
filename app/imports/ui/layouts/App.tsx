@@ -4,9 +4,9 @@ import React from 'react';
 import _ from 'lodash';
 import { HashRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import '/public/semantic.min.css';
-import NotFound from '../pages/NotFound';
-import Signin from '../pages/Signin';
-import Signout from '../pages/Signout';
+import NotFoundPage from '../pages/NotFoundPage';
+import SigninPage from '../pages/SigninPage';
+import SignoutPage from '../pages/SignoutPage';
 import { ROLE } from '../../api/role/Role';
 import { routes } from './utilities/routes-config';
 import withGlobalSubscription from './utilities/GlobalSubscriptionsHOC';
@@ -15,7 +15,7 @@ import {
   getUsername,
 } from '../components/shared/utilities/router';
 import { Users } from '../../api/user/UserCollection';
-import NotAuthorized from '../pages/NotAuthorized';
+import NotAuthorizedPage from '../pages/NotAuthorizedPage';
 import withPageTracker from './utilities/PageTrackerHOC';
 
 // Hack to refresh other RadGrad tabs when logged out on one tab
@@ -47,9 +47,9 @@ const App = () => (
       {routes.ALUMNI.map((route) => (
         <StudentProtectedRoute key={route.path} {...route} />
       ))}
-      <Route path="/signin" component={Signin} />
-      <ProtectedRoute path="/signout" component={Signout} />
-      <Route component={NotFound} />
+      <Route path="/signin" component={SigninPage} />
+      <ProtectedRoute path="/signout" component={SignoutPage} />
+      <Route component={NotFoundPage} />
     </Switch>
   </Router>
 );
@@ -177,7 +177,7 @@ const StudentProtectedRoute = ({ component: Component, ...rest }) => {
         }
         return (isAllowed) ?
           (<WrappedComponent {...props} />) :
-          (<NotAuthorized />);
+          (<NotAuthorizedPage />);
       }}
     />
   );

@@ -5,14 +5,14 @@ import { withRouter } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
-import CardExplorerWidget from '../../components/shared/explorer-page/multiple-items-page/ExplorerMultipleItemsWidget';
+import CardExplorerWidget from '../../components/shared/explorer/multiple-items-page/ExplorerMultipleItemsWidget';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Users } from '../../../api/user/UserCollection';
-import ExplorerMultipleItemsMenu from '../../components/shared/explorer-page/multiple-items-page/ExplorerMultipleItemsMenu';
+import ExplorerMultipleItemsMenu from '../../components/shared/explorer/multiple-items-page/ExplorerMultipleItemsMenu';
 import {
   IAcademicPlan,
   ICareerGoal,

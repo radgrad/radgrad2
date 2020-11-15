@@ -3,7 +3,7 @@ import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import _ from 'lodash';
 import Swal from 'sweetalert2';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import AdminDataModelMenu from '../../components/admin/datamodel-page/AdminDataModelMenu';
+import AdminDataModelMenu from '../../components/admin/datamodel/AdminDataModelMenu';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
@@ -14,9 +14,9 @@ import {
   IAcademicTermDefine,
   IDescriptionPair,
 } from '../../../typings/radgrad';
-import ListCollectionWidget from '../../components/admin/datamodel-page/ListCollectionWidget';
-import AdminDataModelUpdateForm from '../../components/admin/datamodel-page/AdminDataModelUpdateForm';
-import AdminDataModelAddForm from '../../components/admin/datamodel-page/AdminDataModelAddForm';
+import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
+import AdminDataModelUpdateForm from '../../components/admin/datamodel/AdminDataModelUpdateForm';
+import AdminDataModelAddForm from '../../components/admin/datamodel/AdminDataModelAddForm';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
 

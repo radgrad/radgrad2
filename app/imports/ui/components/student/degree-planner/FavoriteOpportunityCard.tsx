@@ -8,7 +8,7 @@ import { IAcademicTerm, IOpportunity, IOpportunityInstance } from '../../../../t
 import IceHeader from '../../shared/IceHeader';
 import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
-import FutureParticipation from '../../shared/explorer-page/FutureParticipation';
+import FutureParticipation from '../../shared/explorer/FutureParticipation';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import { Slugs } from '../../../../api/slug/SlugCollection';
 import { getInspectorDraggablePillStyle } from '../../shared/academic-plan/StyleFunctions';

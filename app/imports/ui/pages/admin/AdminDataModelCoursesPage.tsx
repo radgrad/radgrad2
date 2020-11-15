@@ -3,8 +3,8 @@ import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import _ from 'lodash';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import AdminDataModelMenu from '../../components/admin/datamodel-page/AdminDataModelMenu';
-import ListCollectionWidget from '../../components/admin/datamodel-page/ListCollectionWidget';
+import AdminDataModelMenu from '../../components/admin/datamodel/AdminDataModelMenu';
+import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { ICourse, IDescriptionPair } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Courses } from '../../../api/course/CourseCollection';
@@ -16,9 +16,9 @@ import {
   courseToName, itemToSlugName,
   interestNameToId,
 } from '../../components/shared/utilities/data-model';
-import AddCourseForm from '../../components/admin/datamodel-page/course/AddCourseForm';
+import AddCourseForm from '../../components/admin/datamodel/course/AddCourseForm';
 import { interestSlugFromName } from '../../components/shared/utilities/form';
-import UpdateCourseForm from '../../components/admin/datamodel-page/course/UpdateCourseForm';
+import UpdateCourseForm from '../../components/admin/datamodel/course/UpdateCourseForm';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
 

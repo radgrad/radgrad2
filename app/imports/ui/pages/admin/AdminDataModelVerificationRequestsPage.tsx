@@ -3,10 +3,10 @@ import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import _ from 'lodash';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import AdminDataModelMenu from '../../components/admin/datamodel-page/AdminDataModelMenu';
-import ListCollectionWidget from '../../components/admin/datamodel-page/ListCollectionWidget';
+import AdminDataModelMenu from '../../components/admin/datamodel/AdminDataModelMenu';
+import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
-import AdminDataModelUpdateForm from '../../components/admin/datamodel-page/AdminDataModelUpdateForm'; // this should be replaced by specific UpdateForm
+import AdminDataModelUpdateForm from '../../components/admin/datamodel/AdminDataModelUpdateForm'; // this should be replaced by specific UpdateForm
 // import AdminDataModelAddForm from '../../components/admin/AdminDataModelAddForm';
 import { IDescriptionPair } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
@@ -14,7 +14,7 @@ import { VerificationRequests } from '../../../api/verification/VerificationRequ
 import { Users } from '../../../api/user/UserCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
-import AddVerificationRequestForm from '../../components/admin/datamodel-page/verification-request/AddVerificationRequestForm';
+import AddVerificationRequestForm from '../../components/admin/datamodel/verification-request/AddVerificationRequestForm';
 import {
   academicTermNameToSlug,
   opportunityInstanceNameToId,

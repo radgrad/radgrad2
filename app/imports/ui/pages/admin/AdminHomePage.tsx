@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Container } from 'semantic-ui-react';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import RetrieveUserWidget from '../../components/admin/home-page/RetrieveUserWidget';
-import FilterUserWidget from '../../components/admin/home-page/FilterUserWidget';
+import RetrieveUserWidget from '../../components/admin/home/RetrieveUserWidget';
+import FilterUserWidget from '../../components/admin/home/FilterUserWidget';
 
 export interface IFilterUsers {
   firstNameRegex?: string;

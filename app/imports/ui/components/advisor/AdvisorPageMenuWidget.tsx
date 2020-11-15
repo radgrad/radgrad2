@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 import { Dropdown, Menu } from 'semantic-ui-react';
-import FirstMenuContainer from '../../pages/shared/FirstMenu';
+import FirstMenuContainer from '../shared/FirstMenu';
 import { Reviews } from '../../../api/review/ReviewCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import { secondMenu } from '../shared/shared-widget-names';

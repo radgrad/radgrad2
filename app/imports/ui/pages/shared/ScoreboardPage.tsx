@@ -5,10 +5,10 @@ import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidge
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
-import ScoreboardPageMenu from '../../components/shared/scoreboard-page/ScoreboardPageMenu';
+import ScoreboardPageMenu from '../../components/shared/scoreboard/ScoreboardPageMenu';
 import { COURSE_SCOREBOARD, OPPORTUNITY_SCOREBOARD } from '../../layouts/utilities/route-constants';
-import CourseScoreboardWidget from '../../components/shared/scoreboard-page/CourseScoreboardWidget';
-import OpportunityScoreboardWidgetContainer from '../../components/shared/scoreboard-page/OpportunityScoreboardWidget';
+import CourseScoreboardWidget from '../../components/shared/scoreboard/CourseScoreboardWidget';
+import OpportunityScoreboardWidgetContainer from '../../components/shared/scoreboard/OpportunityScoreboardWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 
 export interface IScoreboardPageProps {

@@ -2,22 +2,22 @@ import React, { useState } from 'react';
 import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import AdminDataModelMenu from '../../components/admin/datamodel-page/AdminDataModelMenu';
-import ListCollectionWidget from '../../components/admin/datamodel-page/ListCollectionWidget';
+import AdminDataModelMenu from '../../components/admin/datamodel/AdminDataModelMenu';
+import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { ICourseInstanceDefine, IDescriptionPair } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { Users } from '../../../api/user/UserCollection';
-import AddCourseInstanceForm from '../../components/admin/datamodel-page/course/AddCourseInstanceForm';
+import AddCourseInstanceForm from '../../components/admin/datamodel/course/AddCourseInstanceForm';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import {
   academicTermNameToDoc,
   courseNameToCourseDoc,
   profileNameToUsername,
 } from '../../components/shared/utilities/data-model';
-import UpdateCourseInstanceForm from '../../components/admin/datamodel-page/course/UpdateCourseInstanceForm';
+import UpdateCourseInstanceForm from '../../components/admin/datamodel/course/UpdateCourseInstanceForm';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import withInstanceSubscriptions from '../../layouts/utilities/InstanceSubscriptionsHOC';

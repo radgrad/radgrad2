@@ -1,9 +1,9 @@
 import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import AdminAnalyticsMenuWidget from '../../components/admin/analytics-page/AdminAnalyticsMenuWidget';
+import AdminAnalyticsMenuWidget from '../../components/admin/analytics/AdminAnalyticsMenuWidget';
 import AdminAnalyticsUserInteractionsWidget
-  from '../../components/admin/analytics-page/user-interactions-page/AdminAnalyticsUserInteractionsWidget';
+  from '../../components/admin/analytics/user-interactions-page/AdminAnalyticsUserInteractionsWidget';
 import withInstanceSubscriptions from '../../layouts/utilities/InstanceSubscriptionsHOC';
 
 const AdminAnalyticsUserInteractionsPage = () => {

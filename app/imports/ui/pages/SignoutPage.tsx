@@ -3,8 +3,8 @@ import React from 'react';
 import { Header } from 'semantic-ui-react';
 import LandingNavBarContainer from '../components/landing/LandingNavBar';
 
-/** After the user clicks the "Signout" link in the NavBar, log them out and display this page. */
-const Signout = () => {
+/** After the user clicks the "SignoutPage" link in the NavBar, log them out and display this page. */
+const SignoutPage = () => {
   Meteor.logout(function callback(error) {
     if (error) {
       console.error('Error logging out ', error);
@@ -22,4 +22,4 @@ const Signout = () => {
   );
 };
 
-export default Signout;
+export default SignoutPage;

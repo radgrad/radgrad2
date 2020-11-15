@@ -11,7 +11,7 @@ import {
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import IceHeader from '../../shared/IceHeader';
 import { Courses } from '../../../../api/course/CourseCollection';
-import FutureParticipation from '../../shared/explorer-page/FutureParticipation';
+import FutureParticipation from '../../shared/explorer/FutureParticipation';
 import { buildRouteName } from './DepUtilityFunctions';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import { CourseInstances } from '../../../../api/course/CourseInstanceCollection';

@@ -2,7 +2,7 @@ import React from 'react';
 import { Dropdown, Menu } from 'semantic-ui-react';
 import { NavLink, withRouter } from 'react-router-dom';
 import _ from 'lodash';
-import FirstMenuContainer from '../../pages/shared/FirstMenu';
+import FirstMenuContainer from '../shared/FirstMenu';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';

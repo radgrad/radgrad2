@@ -1,7 +1,7 @@
 import React from 'react';
-import FirstMenuContainer from '../../pages/shared/FirstMenu';
+import FirstMenuContainer from '../shared/FirstMenu';
 import { Reviews } from '../../../api/review/ReviewCollection';
-import SecondMenu from '../../pages/shared/SecondMenu';
+import SecondMenu from '../shared/SecondMenu';
 
 /** A simple static component to render some text for the landing page. */
 const AdminPageMenuWidget = () => {

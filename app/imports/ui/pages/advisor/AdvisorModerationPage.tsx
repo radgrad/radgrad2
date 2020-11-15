@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
-import ModerationWidgetContainer from '../../components/shared/moderation-page/ModerationWidget';
+import ModerationWidgetContainer from '../../components/shared/moderation/ModerationWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 
 const AdvisorModerationPage = () => (

@@ -1,5 +1,5 @@
 import React from 'react';
-import FirstMenuContainer from '../../pages/shared/FirstMenu';
+import FirstMenuContainer from '../shared/FirstMenu';
 
 const divStyle = { marginBottom: 30 };
 const AlumniPageMenuWidget = () => (

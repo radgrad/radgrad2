@@ -3,8 +3,8 @@ import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import _ from 'lodash';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import AdminDataModelMenu from '../../components/admin/datamodel-page/AdminDataModelMenu';
-import ListCollectionWidget from '../../components/admin/datamodel-page/ListCollectionWidget';
+import AdminDataModelMenu from '../../components/admin/datamodel/AdminDataModelMenu';
+import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { IDescriptionPair, IOpportunity } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
@@ -12,8 +12,8 @@ import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollec
 import { Users } from '../../../api/user/UserCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
-import AddOpportunityForm from '../../components/admin/datamodel-page/opportunity/AddOpportunityForm';
-import UpdateOpportunityForm from '../../components/admin/datamodel-page/opportunity/UpdateOpportunityForm';
+import AddOpportunityForm from '../../components/admin/datamodel/opportunity/AddOpportunityForm';
+import UpdateOpportunityForm from '../../components/admin/datamodel/opportunity/UpdateOpportunityForm';
 import {
   academicTermNameToSlug, itemToSlugName,
   opportunityTypeNameToSlug,

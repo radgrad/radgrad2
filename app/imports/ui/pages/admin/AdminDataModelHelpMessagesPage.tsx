@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import AdminDataModelMenu from '../../components/admin/datamodel-page/AdminDataModelMenu';
-import ListCollectionWidget from '../../components/admin/datamodel-page/ListCollectionWidget';
+import AdminDataModelMenu from '../../components/admin/datamodel/AdminDataModelMenu';
+import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { IDescriptionPair } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
-import AddHelpMessageForm from '../../components/admin/datamodel-page/help/AddHelpMessageForm';
-import UpdateHelpMessageForm from '../../components/admin/datamodel-page/help/UpdateHelpMessageForm';
+import AddHelpMessageForm from '../../components/admin/datamodel/help/AddHelpMessageForm';
+import UpdateHelpMessageForm from '../../components/admin/datamodel/help/UpdateHelpMessageForm';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
 

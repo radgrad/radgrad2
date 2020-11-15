@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { Container, Header } from 'semantic-ui-react';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
-import CommunityRadGradVideosWidget from '../../components/shared/community-radgrad-videos-page/CommunityRadGradVideosWidget';
+import CommunityRadGradVideosWidget from '../../components/shared/community-radgrad-videos/CommunityRadGradVideosWidget';
 import * as Router from '../../components/shared/utilities/router';
 import { URL_ROLES } from '../../layouts/utilities/route-constants';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';

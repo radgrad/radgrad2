@@ -1,8 +1,8 @@
 import React from 'react';
 import { Grid, Message } from 'semantic-ui-react';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import AdminDataModelMenu from '../../components/admin/datamodel-page/AdminDataModelMenu';
-import UploadFixtureWidget from '../../components/admin/datamodel-page/UploadFixtureWidget';
+import AdminDataModelMenu from '../../components/admin/datamodel/AdminDataModelMenu';
+import UploadFixtureWidget from '../../components/admin/datamodel/UploadFixtureWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import withInstanceSubscriptions from '../../layouts/utilities/InstanceSubscriptionsHOC';
 
