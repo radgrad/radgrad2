@@ -14,7 +14,7 @@ import AddInterestTypeForm from '../../components/admin/datamodel-page/interest/
 import UpdateInterestTypeForm from '../../components/admin/datamodel-page/interest/UpdateInterestTypeForm';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
-import { itemToSlugName } from '../../components/shared/data-model-helper-functions';
+import { itemToSlugName } from '../../components/shared/utilities/data-model';
 
 const collection = InterestTypes; // the collection to use.
 

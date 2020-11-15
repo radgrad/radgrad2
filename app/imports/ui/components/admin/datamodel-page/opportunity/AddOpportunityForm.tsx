@@ -8,7 +8,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import _ from 'lodash';
 import Swal from 'sweetalert2';
 import { IAcademicTerm, IBaseProfile, IInterest, IOpportunityType } from '../../../../../typings/radgrad';
-import { academicTermToName, docToName, profileToName } from '../../../shared/data-model-helper-functions';
+import { academicTermToName, docToName, profileToName } from '../../../shared/utilities/data-model';
 import { AcademicTerms } from '../../../../../api/academic-term/AcademicTermCollection';
 import { FacultyProfiles } from '../../../../../api/user/FacultyProfileCollection';
 import { AdvisorProfiles } from '../../../../../api/user/AdvisorProfileCollection';

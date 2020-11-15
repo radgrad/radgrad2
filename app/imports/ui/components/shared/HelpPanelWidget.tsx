@@ -5,8 +5,8 @@ import { withTracker } from 'meteor/react-meteor-data';
 import _ from 'lodash';
 import { Grid, Header, Divider } from 'semantic-ui-react';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
-import * as Router from './router-helper-functions';
-import { IMatchProps } from './router-helper-functions';
+import * as Router from './utilities/router';
+import { IMatchProps } from './utilities/router';
 import { IHelpMessage } from '../../../typings/radgrad';
 
 interface IHelpPanelWidgetProps {

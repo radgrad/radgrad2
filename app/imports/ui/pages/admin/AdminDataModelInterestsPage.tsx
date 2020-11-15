@@ -15,7 +15,7 @@ import {
   itemToSlugName,
   interestTypeNameToId,
   interestTypeNameToSlug,
-} from '../../components/shared/data-model-helper-functions';
+} from '../../components/shared/utilities/data-model';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 
 const collection = Interests; // the collection to use.

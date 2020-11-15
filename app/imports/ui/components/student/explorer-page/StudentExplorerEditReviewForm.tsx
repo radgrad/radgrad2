@@ -16,7 +16,7 @@ import RatingField from './RatingField';
 import { IAcademicTerm, IReview, IReviewUpdate, IUserInteractionDefine } from '../../../../typings/radgrad';
 import { UserInteractionsTypes } from '../../../../api/analytic/UserInteractionsTypes';
 import { userInteractionDefineMethod } from '../../../../api/analytic/UserInteractionCollection.methods';
-import { getUsername } from '../../shared/router-helper-functions';
+import { getUsername } from '../../shared/utilities/router';
 import { Courses } from '../../../../api/course/CourseCollection';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
 import { IReviewTypes, ReviewTypes } from '../../../../api/review/ReviewTypes';

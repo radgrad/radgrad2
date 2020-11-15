@@ -18,7 +18,7 @@ import { updateMethod } from '../../../../api/base/BaseCollection.methods';
 import { IFacultyProfile, IFavoriteCareerGoal, IFavoriteInterest } from '../../../../typings/radgrad';
 import { FavoriteCareerGoals } from '../../../../api/favorite/FavoriteCareerGoalCollection';
 import { FavoriteInterests } from '../../../../api/favorite/FavoriteInterestCollection';
-import { getUserIdFromRoute, getUsername } from '../../shared/router-helper-functions';
+import { getUserIdFromRoute, getUsername } from '../../shared/utilities/router';
 
 /**
  * The Faculty

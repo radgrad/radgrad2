@@ -11,7 +11,7 @@ import { VerificationRequests } from '../../../api/verification/VerificationRequ
 import { IOpportunity, IVerificationRequest } from '../../../typings/radgrad';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import BackToTopButton from '../../components/shared/BackToTopButton';
-import withAdditionalSubscriptions from '../../layouts/shared/AdvisorFacultyAdditionalSubscriptionsHOC';
+import withAdditionalSubscriptions from '../../layouts/utilities/AdvisorFacultyAdditionalSubscriptionsHOC';
 
 interface IAdvisorVerificationRequestPageProps {
   verificationRequests: IVerificationRequest[];

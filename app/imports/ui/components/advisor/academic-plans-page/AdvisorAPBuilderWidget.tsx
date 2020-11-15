@@ -14,7 +14,7 @@ import { PlanChoices } from '../../../../api/degree-plan/PlanChoiceCollection';
 import {
   academicTermNameToDoc,
   academicTermToName,
-} from '../../shared/data-model-helper-functions';
+} from '../../shared/utilities/data-model';
 import AdvisorAPBPlanViewWidget from './AdvisorAPBPlanViewWidget';
 import AdvisorAPBPlanChoiceWidget from './AdvisorAPBPlanChoiceWidget';
 import {
@@ -34,7 +34,7 @@ import {
   getDropDestinationArea, getPlanAreaTermNumber,
   PLAN_AREA,
   stripPrefix,
-} from './AcademicPlanBuilderUtilities';
+} from './utilities/academic-plan-builder';
 import { defineMethod, removeItMethod } from '../../../../api/base/BaseCollection.methods';
 import { AcademicPlans } from '../../../../api/degree-plan/AcademicPlanCollection';
 import slugify, { Slugs } from '../../../../api/slug/SlugCollection';

@@ -18,8 +18,8 @@ import {
   academicTermNameToSlug,
   opportunityTypeNameToSlug,
   profileNameToUsername,
-} from '../../components/shared/data-model-helper-functions';
-import { interestSlugFromName } from '../../components/shared/form-helper-functions';
+} from '../../components/shared/utilities/data-model';
+import { interestSlugFromName } from '../../components/shared/utilities/form';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 

@@ -1,24 +1,24 @@
 import _ from 'lodash';
 
-import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
-import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
-import { Users } from '../../../api/user/UserCollection';
-import { Courses } from '../../../api/course/CourseCollection';
-import { Interests } from '../../../api/interest/InterestCollection';
-import { Slugs } from '../../../api/slug/SlugCollection';
-import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
-import { InterestTypes } from '../../../api/interest/InterestTypeCollection';
-import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';
-import { CareerGoals } from '../../../api/career/CareerGoalCollection';
-import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
-import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
-import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
-import { defaultProfilePicture } from '../../../api/user/BaseProfileCollection';
-import { StudentParticipations } from '../../../api/public-stats/StudentParticipationCollection';
-import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
-import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
-import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
-import { IAcademicTerm } from '../../../typings/radgrad';
+import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
+import { RadGradProperties } from '../../../../api/radgrad/RadGradProperties';
+import { Users } from '../../../../api/user/UserCollection';
+import { Courses } from '../../../../api/course/CourseCollection';
+import { Interests } from '../../../../api/interest/InterestCollection';
+import { Slugs } from '../../../../api/slug/SlugCollection';
+import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
+import { InterestTypes } from '../../../../api/interest/InterestTypeCollection';
+import { OpportunityTypes } from '../../../../api/opportunity/OpportunityTypeCollection';
+import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
+import { AcademicPlans } from '../../../../api/degree-plan/AcademicPlanCollection';
+import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
+import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
+import { defaultProfilePicture } from '../../../../api/user/BaseProfileCollection';
+import { StudentParticipations } from '../../../../api/public-stats/StudentParticipationCollection';
+import { FavoriteCareerGoals } from '../../../../api/favorite/FavoriteCareerGoalCollection';
+import { FavoriteInterests } from '../../../../api/favorite/FavoriteInterestCollection';
+import { FavoriteAcademicPlans } from '../../../../api/favorite/FavoriteAcademicPlanCollection';
+import { IAcademicTerm } from '../../../../typings/radgrad';
 // import Router from './RouterHelperFunctions';
 
 interface IHasName {

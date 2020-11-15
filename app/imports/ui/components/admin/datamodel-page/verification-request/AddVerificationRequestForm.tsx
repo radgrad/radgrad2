@@ -15,7 +15,7 @@ import {
   docToName,
   opportunityInstanceToName,
   profileToName,
-} from '../../../shared/data-model-helper-functions';
+} from '../../../shared/utilities/data-model';
 import { VerificationRequests } from '../../../../../api/verification/VerificationRequestCollection';
 
 interface IAddVerificationRequestFormProps {

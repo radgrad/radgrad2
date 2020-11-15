@@ -8,8 +8,8 @@ import StudentHomeRecommendedWidget from '../../components/student/home-page/Stu
 import StudentHomeBannersWidget from '../../components/student/home-page/StudentHomeBannersWidget';
 import StudentHomeRadGradVideosWidget from '../../components/student/home-page/StudentHomeRadGradVideosWidget';
 import StudentHomeNewOpportunitiesWidget from '../../components/student/home-page/StudentHomeNewOpportunitiesWidget';
-import { buildExplorerRoute, IMatchProps } from '../../components/shared/router-helper-functions';
-import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
+import { buildExplorerRoute, IMatchProps } from '../../components/shared/utilities/router';
+import { EXPLORER_TYPE } from '../../layouts/utilities/route-constants';
 import GuidedTourStudentHomePageWidget from '../../components/student/home-page/GuidedTourStudentHomePageWidget';
 
 interface IStudentHomePageProps {

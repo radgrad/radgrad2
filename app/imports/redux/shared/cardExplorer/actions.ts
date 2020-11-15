@@ -1,4 +1,4 @@
-import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
+import { EXPLORER_TYPE } from '../../../ui/layouts/utilities/route-constants';
 import * as TYPES from './types';
 
 export const setShowIndex = (explorerType: string, index: number) => {

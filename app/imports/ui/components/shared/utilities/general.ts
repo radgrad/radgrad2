@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
+import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 
 export const toUpper = (str: string): string => str.toUpperCase();
 

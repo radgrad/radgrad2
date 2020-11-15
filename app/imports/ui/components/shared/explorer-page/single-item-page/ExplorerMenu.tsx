@@ -9,7 +9,7 @@ import {
 } from '../../../../../typings/radgrad';
 import ExplorerMenuNonMobileWidget from './ExplorerMenuNonMobileWidget';
 import ExplorerMenuMobileWidget from './ExplorerMenuMobileWidget';
-import { EXPLORER_TYPE } from '../../../../../startup/client/route-constants';
+import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
 import ExplorerNavDropdown from '../ExplorerNavDropdown';
 
 type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IInterest | IOpportunity;

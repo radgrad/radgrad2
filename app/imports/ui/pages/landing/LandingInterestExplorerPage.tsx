@@ -10,11 +10,11 @@ import { Interests } from '../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/explorer/LandingExplorerMenu';
-import { withListSubscriptions } from '../../layouts/shared/SubscriptionListHOC';
-import { getSlugFromEntityID } from '../../components/landing/helper-functions';
-import * as Router from '../../components/shared/router-helper-functions';
+import { withListSubscriptions } from '../../layouts/utilities/SubscriptionListHOC';
+import { getSlugFromEntityID } from '../../components/landing/utilities/helper-functions';
+import * as Router from '../../components/shared/utilities/router';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
-import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
+import { EXPLORER_TYPE } from '../../layouts/utilities/route-constants';
 
 interface IInterestExplorerProps {
   interest: IInterest;

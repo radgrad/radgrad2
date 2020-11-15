@@ -4,7 +4,7 @@ import { Segment, Header, Image, Popup } from 'semantic-ui-react';
 import _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Users } from '../../../../api/user/UserCollection';
-import { getUserIdFromRoute } from '../../shared/router-helper-functions';
+import { getUserIdFromRoute } from '../../shared/utilities/router';
 import { ROLE } from '../../../../api/role/Role';
 import { IStudentProfile } from '../../../../typings/radgrad';
 import { studentLevelsOthersWidget } from '../student-widget-names';

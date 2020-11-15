@@ -13,10 +13,10 @@ import { FeedbackInstances } from '../../../api/feedback/FeedbackInstanceCollect
 import { Users } from '../../../api/user/UserCollection';
 import AddFeedbackInstanceForm from '../../components/admin/datamodel-page/feedback/AddFeedbackInstanceForm';
 import UpdateFeedbackInstanceForm from '../../components/admin/datamodel-page/feedback/UpdateFeedbackInstanceForm';
-import { profileNameToUsername } from '../../components/shared/data-model-helper-functions';
+import { profileNameToUsername } from '../../components/shared/utilities/data-model';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
-import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
+import withInstanceSubscriptions from '../../layouts/utilities/InstanceSubscriptionsHOC';
 
 const collection = FeedbackInstances; // the collection to use.
 

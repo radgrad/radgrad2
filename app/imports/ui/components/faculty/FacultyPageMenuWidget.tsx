@@ -8,8 +8,8 @@ import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstan
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import { secondMenu } from '../shared/shared-widget-names';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
-import { buildRouteName, getUsername } from '../shared/router-helper-functions';
-import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
+import { buildRouteName, getUsername } from '../shared/utilities/router';
+import { EXPLORER_TYPE } from '../../layouts/utilities/route-constants';
 import { IFacultyProfile } from '../../../typings/radgrad';
 
 interface IFacultyPageMenuWidgetProps {

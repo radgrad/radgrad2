@@ -22,7 +22,7 @@ import { Users } from '../../../api/user/UserCollection';
 import { degreePlannerActions } from '../../../redux/student/degree-planner';
 import TabbedFavoritesWidget from '../../components/student/degree-planner-page/TabbedFavoritesWidget';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
-import { getUsername, IMatchProps } from '../../components/shared/router-helper-functions';
+import { getUsername, IMatchProps } from '../../components/shared/utilities/router';
 import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
 import { UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
 import GuidedTourDegreePlanner from '../../components/student/degree-planner-page/GuidedTourDegreePlanner';

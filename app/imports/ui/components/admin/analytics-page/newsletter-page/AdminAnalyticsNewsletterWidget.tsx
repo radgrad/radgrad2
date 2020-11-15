@@ -18,7 +18,7 @@ import {
   getRecList,
   getStudentEmailsByLevel,
   IEmailData,
-} from './admin-analytics-newsletter-helper-functions';
+} from './utilities/newsletter';
 
 /**
  * Schema for the form that controls sending email.

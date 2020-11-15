@@ -6,7 +6,7 @@ import { AutoForm, SelectField, LongTextField, SubmitField } from 'uniforms-sema
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import _ from 'lodash';
-import { profileToUsername } from '../../../shared/data-model-helper-functions';
+import { profileToUsername } from '../../../shared/utilities/data-model';
 import { AdvisorProfiles } from '../../../../../api/user/AdvisorProfileCollection';
 import { StudentProfiles } from '../../../../../api/user/StudentProfileCollection';
 

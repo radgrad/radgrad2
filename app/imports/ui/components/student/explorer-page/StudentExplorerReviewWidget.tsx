@@ -9,12 +9,12 @@ import StudentExplorerReviewStarsWidget from './StudentExplorerReviewStarsWidget
 import { Reviews } from '../../../../api/review/ReviewCollection';
 import StudentExplorerEditReviewForm from './StudentExplorerEditReviewForm';
 import StudentExplorerAddReviewForm from './StudentExplorerAddReviewForm';
-import * as Router from '../../shared/router-helper-functions';
+import * as Router from '../../shared/utilities/router';
 import {
   profileIDToPicture,
   userToFullName,
   academicTermNameToShortName,
-} from '../../shared/data-model-helper-functions';
+} from '../../shared/utilities/data-model';
 import { IReview } from '../../../../typings/radgrad';
 
 interface IStudentExplorerReviewWidgetProps {

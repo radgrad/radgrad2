@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 import { withRouter } from 'react-router-dom';
 import { updateMethod } from '../../../../api/base/BaseCollection.methods';
 import { openCloudinaryWidget } from '../../shared/OpenCloudinaryWidget';
-import { getUsername } from '../../shared/router-helper-functions';
+import { getUsername } from '../../shared/utilities/router';
 import { UserInteractionsTypes } from '../../../../api/analytic/UserInteractionsTypes';
 import { userInteractionDefineMethod } from '../../../../api/analytic/UserInteractionCollection.methods';
 import { IUserInteractionDefine } from '../../../../typings/radgrad';

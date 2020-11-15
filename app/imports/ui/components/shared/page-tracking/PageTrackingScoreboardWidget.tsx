@@ -14,7 +14,7 @@ import {
   IAggregatedDailySnapshot,
   parseName,
 } from './page-tracking-helper-functions';
-import { IMatchProps } from '../router-helper-functions';
+import { IMatchProps } from '../utilities/router';
 import { IPageInterestsCategoryTypes } from '../../../../api/page-tracking/PageInterestsCategoryTypes';
 import PageTrackingWidgetMessage from './PageTrackingWidgetMessage';
 
@@ -26,7 +26,7 @@ interface IPageTrackingScoreboardWidgetProps {
 const PageTrackingScoreboardWidget = (props: IPageTrackingScoreboardWidgetProps) => {
   const { pageInterestsDailySnapshots, match } = props;
   const urlCategory: IPageInterestsCategoryTypes = getUrlCategory(match);
-  // See page-tracking-helper-functions.ts to see urlCategory vs category
+  // See page-tracking-general.ts to see urlCategory vs category
   const category = getCategory(urlCategory);
 
   const aggregatedDailySnapshot: IAggregatedDailySnapshot = aggregateDailySnapshots(pageInterestsDailySnapshots);

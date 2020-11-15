@@ -2,16 +2,16 @@ import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import { Card, Icon, Image, Popup } from 'semantic-ui-react';
 import Markdown from 'react-markdown';
-import * as Router from '../../router-helper-functions';
+import * as Router from '../../utilities/router';
 import WidgetHeaderNumber from '../WidgetHeaderNumber';
 import {
   docToName,
   docToShortDescription, itemToSlugName, profileIDToFullname,
   profileIDToPicture,
   studentsParticipating,
-} from '../../data-model-helper-functions';
+} from '../../utilities/data-model';
 import { interestedStudents } from '../explorer-helper-functions';
-import { buildExplorerSlugRoute } from '../../router-helper-functions';
+import { buildExplorerSlugRoute } from '../../utilities/router';
 
 interface IProfileCardProps {
   item: {

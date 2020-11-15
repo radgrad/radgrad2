@@ -4,8 +4,8 @@ import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import StudentIceWidget from '../../components/student/ice-page/StudentIceWidget';
-import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
-import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
+import withInstanceSubscriptions from '../../layouts/utilities/InstanceSubscriptionsHOC';
+import withGlobalSubscription from '../../layouts/utilities/GlobalSubscriptionsHOC';
 
 const StudentIcePage = () => (
   <div id="student-ice-points-page">

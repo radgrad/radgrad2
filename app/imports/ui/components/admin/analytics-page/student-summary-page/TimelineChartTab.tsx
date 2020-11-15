@@ -6,9 +6,9 @@ import HighchartsReact from 'highcharts-react-official';
 import { FAVORITE_TYPE } from '../../../../../api/favorite/FavoriteTypes';
 import { StudentProfiles } from '../../../../../api/user/StudentProfileCollection';
 import { IAdminAnalyticsUserInteraction } from '../../../../../redux/admin/analytics/reducers';
-import { StudentSummaryBehaviorTypes } from './admin-analytics-student-summary-helper-functions';
+import { StudentSummaryBehaviorTypes } from './utilities/student-summary';
 import { UserInteractionsTypes } from '../../../../../api/analytic/UserInteractionsTypes';
-import { EXPLORER_TYPE } from '../../../../../startup/client/route-constants';
+import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
 import { IUserInteraction } from '../../../../../typings/radgrad';
 
 interface ITimelineChartTabProps {

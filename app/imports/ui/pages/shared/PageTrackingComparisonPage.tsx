@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { Grid } from 'semantic-ui-react';
-import * as Router from '../../components/shared/router-helper-functions';
-import { URL_ROLES } from '../../../startup/client/route-constants';
+import * as Router from '../../components/shared/utilities/router';
+import { URL_ROLES } from '../../layouts/utilities/route-constants';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
-import { IMatchProps } from '../../components/shared/router-helper-functions';
+import { IMatchProps } from '../../components/shared/utilities/router';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import PageTrackingMenu from '../../components/shared/page-tracking/PageTrackingMenu';
 import PageTrackingComparisonWidget from '../../components/shared/page-tracking/PageTrackingComparisonWidget';

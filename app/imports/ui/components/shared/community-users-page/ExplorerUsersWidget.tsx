@@ -5,7 +5,7 @@ import { IBaseProfile } from '../../../../typings/radgrad';
 import { defaultProfilePicture } from '../../../../api/user/BaseProfileCollection';
 import { ROLE } from '../../../../api/role/Role';
 import InterestList from '../InterestList';
-import { capitalizeFirstLetter } from '../helper-functions';
+import { capitalizeFirstLetter } from '../utilities/general';
 import { explorerUserWidget } from '../shared-widget-names';
 
 interface IExplorerUsersWidgetProps {

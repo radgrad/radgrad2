@@ -13,7 +13,7 @@ import { Users } from '../../../api/user/UserCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import CompletedVerificationsWidget from '../../components/shared/verification-page/CompletedVerificationsWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
-import withAdditionalSubscriptions from '../../layouts/shared/AdvisorFacultyAdditionalSubscriptionsHOC';
+import withAdditionalSubscriptions from '../../layouts/utilities/AdvisorFacultyAdditionalSubscriptionsHOC';
 
 interface FacultyVerificationPageProps {
   verificationRequests: IVerificationRequest[];

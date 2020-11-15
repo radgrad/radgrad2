@@ -13,7 +13,7 @@ import {
   opportunityIdToName,
   slugIDToSlugNameAndType,
   docToSlugNameAndType,
-} from '../../../shared/data-model-helper-functions';
+} from '../../../shared/utilities/data-model';
 import { Interests } from '../../../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../../../api/opportunity/OpportunityCollection';
 import MultiSelectField from '../../../form-fields/MultiSelectField';

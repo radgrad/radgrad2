@@ -6,7 +6,7 @@ import { defaultProfilePicture } from '../../../../api/user/BaseProfileCollectio
 import { ROLE } from '../../../../api/role/Role';
 import InterestList from '../InterestList';
 import ExplorerUsersWidget from './ExplorerUsersWidget';
-import { capitalizeFirstOnly } from '../helper-functions';
+import { capitalizeFirstOnly } from '../utilities/general';
 
 const UserProfileCard = (props: IUserProfileCard) => {
   const [isActiveState, setIsActive] = useState(false);

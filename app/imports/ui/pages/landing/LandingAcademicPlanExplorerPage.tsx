@@ -8,9 +8,9 @@ import ExplorerMenuBarContainer from '../../components/landing/explorer/LandingE
 import { IAcademicPlan } from '../../../typings/radgrad';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/explorer/LandingExplorerMenu';
-import { withListSubscriptions } from '../../layouts/shared/SubscriptionListHOC';
+import { withListSubscriptions } from '../../layouts/utilities/SubscriptionListHOC';
 import LandingAcademicPlanViewer from '../../components/landing/explorer/LandingAcademicPlanViewer';
-import * as Router from '../../components/shared/router-helper-functions';
+import * as Router from '../../components/shared/utilities/router';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 

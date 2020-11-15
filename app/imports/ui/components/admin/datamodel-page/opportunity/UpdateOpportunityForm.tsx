@@ -14,7 +14,7 @@ import {
   docToName, interestIdToName,
   opportunityTypeIdToName,
   profileToName, userIdToName,
-} from '../../../shared/data-model-helper-functions';
+} from '../../../shared/utilities/data-model';
 import { AcademicTerms } from '../../../../../api/academic-term/AcademicTermCollection';
 import { FacultyProfiles } from '../../../../../api/user/FacultyProfileCollection';
 import { AdvisorProfiles } from '../../../../../api/user/AdvisorProfileCollection';

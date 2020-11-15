@@ -9,7 +9,7 @@ import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import { getDroppableListStyle } from '../../shared/academic-plan/StyleFunctions';
 import { IPlanChoiceDefine } from '../../../../typings/radgrad';
 import DraggableCoursePill from '../../shared/academic-plan/DraggableCoursePill';
-import { buildCombineAreaDraggableId, CHOICE_AREA, COMBINE_AREA, DELETE_AREA } from './AcademicPlanBuilderUtilities';
+import { buildCombineAreaDraggableId, CHOICE_AREA, COMBINE_AREA, DELETE_AREA } from './utilities/academic-plan-builder';
 import { PlanChoices } from '../../../../api/degree-plan/PlanChoiceCollection';
 import { academicPlanActions } from '../../../../redux/advisor/academic-plan';
 import { RootState } from '../../../../redux/types';

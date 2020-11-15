@@ -18,8 +18,8 @@ import ProfileCard from './ProfileCard';
 import TermCard from './TermCard';
 import PlanCard from './PlanCard';
 import CourseFilterWidget, { courseFilterKeys } from './CourseFilterWidget';
-import { EXPLORER_TYPE } from '../../../../../startup/client/route-constants';
-import * as Router from '../../router-helper-functions';
+import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
+import * as Router from '../../utilities/router';
 import {
   ICardExplorerMenuWidgetProps,
   buildHeader,

@@ -12,7 +12,7 @@ import AddAcademicYearInstanceFormContainer from '../../components/admin/datamod
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
-import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
+import withInstanceSubscriptions from '../../layouts/utilities/InstanceSubscriptionsHOC';
 
 const descriptionPairs = (year: IAcademicYearInstance): IDescriptionPair[] => [
   { label: 'Student', value: Users.getFullName(year.studentID) },

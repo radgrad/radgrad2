@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, List, Grid } from 'semantic-ui-react';
-import styles from './landing-styles';
+import styles from './utilities/landing-styles';
 
 const LandingFooter = () => (
   <footer>

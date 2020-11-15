@@ -22,9 +22,9 @@ import {
   opportunityInstanceNameToUsername,
   opportunityNameToSlug,
   profileNameToUsername,
-} from '../../components/shared/data-model-helper-functions';
+} from '../../components/shared/utilities/data-model';
 import BackToTopButton from '../../components/shared/BackToTopButton';
-import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
+import withInstanceSubscriptions from '../../layouts/utilities/InstanceSubscriptionsHOC';
 
 const collection = VerificationRequests; // the collection to use.
 

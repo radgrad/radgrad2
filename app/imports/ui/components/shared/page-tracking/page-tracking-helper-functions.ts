@@ -14,8 +14,8 @@ import { Courses } from '../../../../api/course/CourseCollection';
 import { Interests } from '../../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
 import { Slugs } from '../../../../api/slug/SlugCollection';
-import { getLastUrlParam, IMatchProps } from '../router-helper-functions';
-import { EXPLORER_TYPE } from '../../../../startup/client/route-constants';
+import { getLastUrlParam, IMatchProps } from '../utilities/router';
+import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 
 export interface IAggregatedDailySnapshot {
   careerGoals: IPageInterestInfo[];

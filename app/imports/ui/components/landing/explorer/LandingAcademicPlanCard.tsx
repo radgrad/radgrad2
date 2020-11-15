@@ -1,10 +1,10 @@
 import React from 'react';
 import { Button, Card, Icon } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
-import { getSlug, itemShortDescription } from '../helper-functions';
+import { getSlug, itemShortDescription } from '../utilities/helper-functions';
 import { IAcademicPlan } from '../../../../typings/radgrad';
 import LandingAcademicPlanViewer from './LandingAcademicPlanViewer';
-import { EXPLORER_TYPE } from '../../../../startup/client/route-constants';
+import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 
 interface ILandingAcademicPlanCardProps {
   plan: IAcademicPlan;

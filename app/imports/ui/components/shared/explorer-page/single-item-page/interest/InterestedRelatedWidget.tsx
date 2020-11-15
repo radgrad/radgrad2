@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { Courses } from '../../../../../../api/course/CourseCollection';
 import { Slugs } from '../../../../../../api/slug/SlugCollection';
 import { Opportunities } from '../../../../../../api/opportunity/OpportunityCollection';
-import { EXPLORER_TYPE } from '../../../../../../startup/client/route-constants';
+import { EXPLORER_TYPE } from '../../../../../layouts/utilities/route-constants';
 
 interface IInterestedRelatedWidgetProps {
   relatedCourses: any;

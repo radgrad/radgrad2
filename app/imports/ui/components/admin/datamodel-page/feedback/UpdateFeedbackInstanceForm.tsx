@@ -6,7 +6,7 @@ import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import { StudentProfiles } from '../../../../../api/user/StudentProfileCollection';
-import { profileToName, userIdToName } from '../../../shared/data-model-helper-functions';
+import { profileToName, userIdToName } from '../../../shared/utilities/data-model';
 import { FeedbackFunctions } from '../../../../../api/feedback/FeedbackFunctions';
 import { FeedbackInstances } from '../../../../../api/feedback/FeedbackInstanceCollection';
 import { IStudentProfile } from '../../../../../typings/radgrad';

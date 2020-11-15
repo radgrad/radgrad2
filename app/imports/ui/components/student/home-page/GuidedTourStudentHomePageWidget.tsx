@@ -3,7 +3,7 @@ import { Container, Loader } from 'semantic-ui-react';
 import Slider from 'react-slick';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
-import styles from '../../../pages/landing/guidedtour-style';
+import styles from '../../../pages/landing/utilities/guidedtour-style';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import WhyRadGrad from './home-why-radgrad';

@@ -18,7 +18,7 @@ import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
-import { profileGetCareerGoalIDs, itemToSlugName } from '../../components/shared/data-model-helper-functions';
+import { profileGetCareerGoalIDs, itemToSlugName } from '../../components/shared/utilities/data-model';
 
 function numReferences(careerGoal) {
   let references = 0;

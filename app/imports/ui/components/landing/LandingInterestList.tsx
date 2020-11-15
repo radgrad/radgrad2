@@ -3,7 +3,7 @@ import { Header, Label } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import _ from 'lodash';
 import { Interests } from '../../../api/interest/InterestCollection';
-import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
+import { EXPLORER_TYPE } from '../../layouts/utilities/route-constants';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { IInterest } from '../../../typings/radgrad';
 

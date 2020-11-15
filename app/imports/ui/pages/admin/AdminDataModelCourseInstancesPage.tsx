@@ -16,11 +16,11 @@ import {
   academicTermNameToDoc,
   courseNameToCourseDoc,
   profileNameToUsername,
-} from '../../components/shared/data-model-helper-functions';
+} from '../../components/shared/utilities/data-model';
 import UpdateCourseInstanceForm from '../../components/admin/datamodel-page/course/UpdateCourseInstanceForm';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
-import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
+import withInstanceSubscriptions from '../../layouts/utilities/InstanceSubscriptionsHOC';
 
 const collection = CourseInstances;
 

@@ -8,7 +8,7 @@ import _ from 'lodash';
 import { IAcademicTerm } from '../../../../../typings/radgrad';
 import BaseCollection from '../../../../../api/base/BaseCollection';
 import { AcademicTerms } from '../../../../../api/academic-term/AcademicTermCollection';
-import { academicTermIdToName, academicTermToName } from '../../../shared/data-model-helper-functions';
+import { academicTermIdToName, academicTermToName } from '../../../shared/utilities/data-model';
 import { iceSchema } from '../../../../../api/ice/IceProcessor';
 
 interface IUpdateOpportunityInstanceFormProps {

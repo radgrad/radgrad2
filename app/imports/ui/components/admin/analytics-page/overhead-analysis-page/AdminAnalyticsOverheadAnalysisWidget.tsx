@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Header, Segment, Tab } from 'semantic-ui-react';
 import moment from 'moment';
 import AdminAnalyticsDateSelectionWidget from '../AdminAnalyticsDateSelectionWidget';
-import { ANALYTICS } from '../../../../../startup/client/route-constants';
+import { ANALYTICS } from '../../../../layouts/utilities/route-constants';
 import UserSessionOverheadWidget from './UserSessionOverheadWidget';
 import OverallServerLoadWidget from './OverallServerLoadWidget';
 import { RootState } from '../../../../../redux/types';

@@ -4,7 +4,7 @@ import { Card, Grid, Message, SemanticWIDTHS, Tab } from 'semantic-ui-react';
 import { getUsers } from '../explorer-page/explorer-helper-functions';
 import { ROLE } from '../../../../api/role/Role';
 import UserProfileCard from './UserProfileCard';
-import { IMatchProps } from '../router-helper-functions';
+import { IMatchProps } from '../utilities/router';
 
 interface ICommunityUsersWidgetProps {
   match: IMatchProps;

@@ -9,8 +9,8 @@ import {
   IInterest,
   IOpportunity,
 } from '../../../../../typings/radgrad';
-import * as Router from '../../router-helper-functions';
-import { EXPLORER_TYPE } from '../../../../../startup/client/route-constants';
+import * as Router from '../../utilities/router';
+import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
 import ExplorerMenuMobileItem from './ExplorerMenuMobileItem';
 
 const AppMedia = createMedia({

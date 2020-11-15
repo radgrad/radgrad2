@@ -2,8 +2,8 @@ import React from 'react';
 import { Dropdown, Icon, Button } from 'semantic-ui-react';
 import { NavLink, withRouter, Link } from 'react-router-dom';
 import _ from 'lodash';
-import { getRouteName } from '../helper-functions';
-import { EXPLORER_TYPE } from '../../../../startup/client/route-constants';
+import { getRouteName } from '../utilities/helper-functions';
+import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 
 interface ILandingExplorerMenuProps {
   match: {

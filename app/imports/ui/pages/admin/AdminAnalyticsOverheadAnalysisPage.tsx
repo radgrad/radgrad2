@@ -6,7 +6,7 @@ import AdminAnalyticsOverheadAnalysisWidget
   from '../../components/admin/analytics-page/overhead-analysis-page/AdminAnalyticsOverheadAnalysisWidget';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
-import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
+import withInstanceSubscriptions from '../../layouts/utilities/InstanceSubscriptionsHOC';
 
 const AdminAnalyticsOverheadAnalysisPage = () => (
   <div>

@@ -15,7 +15,7 @@ import { Slugs } from '../../../../../../api/slug/SlugCollection';
 import InterestedProfilesWidget from './InterestedProfilesWidget';
 import InterestedRelatedWidget from './InterestedRelatedWidget';
 import FavoritesButton from '../FavoritesButton';
-import * as Router from '../../../router-helper-functions';
+import * as Router from '../../../utilities/router';
 import { explorerInterestWidget } from '../../../shared-widget-names';
 import { Teasers } from '../../../../../../api/teaser/TeaserCollection';
 import { FAVORITE_TYPE } from '../../../../../../api/favorite/FavoriteTypes';

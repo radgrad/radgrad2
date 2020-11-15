@@ -1,8 +1,8 @@
-import { Interests } from '../../../api/interest/InterestCollection';
-import { Slugs } from '../../../api/slug/SlugCollection';
-import { CareerGoals } from '../../../api/career/CareerGoalCollection';
-import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
-import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
+import { Interests } from '../../../../api/interest/InterestCollection';
+import { Slugs } from '../../../../api/slug/SlugCollection';
+import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
+import { AcademicPlans } from '../../../../api/degree-plan/AcademicPlanCollection';
+import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 
 export const interestSlugFromName = (name: string): string => {
   const interest = Interests.findDoc(name);

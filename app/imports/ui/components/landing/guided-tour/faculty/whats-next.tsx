@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, Header, Image } from 'semantic-ui-react';
 import { RadGradProperties } from '../../../../../api/radgrad/RadGradProperties';
-import styles from '../../../../pages/landing/guidedtour-style';
+import styles from '../../../../pages/landing/utilities/guidedtour-style';
 
 const GuidedTourFacultyWhatsNext = () => {
   const adminEmail = RadGradProperties.getAdminEmail();

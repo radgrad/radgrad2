@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { PositionProperties } from 'react-native';
 import { Link, withRouter } from 'react-router-dom';
-import { buildRouteName } from '../../shared/router-helper-functions';
+import { buildRouteName } from '../../shared/utilities/router';
 
 interface IPageIceCircleProps {
   match: {

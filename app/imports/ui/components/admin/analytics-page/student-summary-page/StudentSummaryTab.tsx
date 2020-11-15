@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Accordion, Icon, Grid } from 'semantic-ui-react';
 import { StudentProfiles } from '../../../../../api/user/StudentProfileCollection';
 import StudentTimelineModal from './StudentTimelineModal';
-import { IStudentSummaryBehaviorCategory } from './admin-analytics-student-summary-helper-functions';
+import { IStudentSummaryBehaviorCategory } from './utilities/student-summary';
 import { IAdminAnalyticsUserInteraction } from '../../../../../redux/admin/analytics/reducers';
 
 interface IStudentSummaryTabProps {

@@ -13,11 +13,11 @@ import IceHeader from '../../shared/IceHeader';
 import { Courses } from '../../../../api/course/CourseCollection';
 import FutureParticipation from '../../shared/explorer-page/FutureParticipation';
 import { buildRouteName } from './DepUtilityFunctions';
-import { EXPLORER_TYPE } from '../../../../startup/client/route-constants';
+import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import { CourseInstances } from '../../../../api/course/CourseInstanceCollection';
 import { removeItMethod } from '../../../../api/base/BaseCollection.methods';
 import { degreePlannerActions } from '../../../../redux/student/degree-planner';
-import { getUsername } from '../../shared/router-helper-functions';
+import { getUsername } from '../../shared/utilities/router';
 import { UserInteractionsTypes } from '../../../../api/analytic/UserInteractionsTypes';
 import { userInteractionDefineMethod } from '../../../../api/analytic/UserInteractionCollection.methods';
 

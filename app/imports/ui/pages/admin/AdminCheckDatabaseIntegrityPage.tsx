@@ -7,7 +7,7 @@ import { checkIntegrity } from '../../../api/integrity/IntegrityChecker';
 import { checkIntegrityMethod } from '../../../api/integrity/IntegrityChecker.methods';
 import { databaseActions } from '../../../redux/admin/database';
 import { RootState } from '../../../redux/types';
-import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
+import withInstanceSubscriptions from '../../layouts/utilities/InstanceSubscriptionsHOC';
 
 interface IAdminCheckDatabaseIntegrityPageProps {
   startCheckIntegrity: () => any;

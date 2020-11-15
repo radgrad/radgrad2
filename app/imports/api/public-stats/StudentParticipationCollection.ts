@@ -14,7 +14,7 @@ import { CareerGoals } from '../career/CareerGoalCollection';
 import { Interests } from '../interest/InterestCollection';
 import { StudentProfiles } from '../user/StudentProfileCollection';
 import { FavoriteCareerGoals } from '../favorite/FavoriteCareerGoalCollection';
-import { profileGetInterestIDs } from '../../ui/components/shared/data-model-helper-functions';
+import { profileGetInterestIDs } from '../../ui/components/shared/utilities/data-model';
 import { FavoriteAcademicPlans } from '../favorite/FavoriteAcademicPlanCollection';
 
 class StudentParticipationCollection extends BaseCollection {

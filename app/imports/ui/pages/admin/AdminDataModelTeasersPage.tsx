@@ -13,14 +13,14 @@ import {
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
-import { makeYoutubeLink } from './datamodel-utilities';
+import { makeYoutubeLink } from './utilities/datamodel';
 import AddTeaserForm from '../../components/admin/datamodel-page/teaser/AddTeaserForm';
 import UpdateTeaserForm from '../../components/admin/datamodel-page/teaser/UpdateTeasersForm';
 import {
   itemToSlugName,
   interestNameToSlug,
   slugNameAndTypeToName,
-} from '../../components/shared/data-model-helper-functions';
+} from '../../components/shared/utilities/data-model';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { Slugs } from '../../../api/slug/SlugCollection';
 

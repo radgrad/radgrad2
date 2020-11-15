@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Container, List, Segment } from 'semantic-ui-react';
 import Slider from 'react-slick';
-import styles from './guidedtour-style';
+import styles from './utilities/guidedtour-style';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import LandingFooter from '../../components/landing/LandingFooter';

@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { Grid } from 'semantic-ui-react';
-import * as Router from '../../components/shared/router-helper-functions';
+import * as Router from '../../components/shared/utilities/router';
 import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
-import { URL_ROLES } from '../../../startup/client/route-constants';
+import { URL_ROLES } from '../../layouts/utilities/route-constants';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import PageTrackingMenu from '../../components/shared/page-tracking/PageTrackingMenu';

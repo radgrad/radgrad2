@@ -14,7 +14,7 @@ import { getDroppableListStyle } from '../../shared/academic-plan/StyleFunctions
 import { PlanChoices } from '../../../../api/degree-plan/PlanChoiceCollection';
 import AdvisorAPBPlanChoiceWidget from './AdvisorAPBPlanChoiceWidget';
 import DraggableCoursePill from '../../shared/academic-plan/DraggableCoursePill';
-import { COMBINE_AREA } from './AcademicPlanBuilderUtilities';
+import { COMBINE_AREA } from './utilities/academic-plan-builder';
 
 interface IAdvisorAcademicPlanBuilderWidgetProps {
   choices: IPlanChoiceDefine[],

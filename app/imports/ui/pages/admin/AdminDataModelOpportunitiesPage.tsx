@@ -18,11 +18,11 @@ import {
   academicTermNameToSlug, itemToSlugName,
   opportunityTypeNameToSlug,
   profileNameToUsername,
-} from '../../components/shared/data-model-helper-functions';
-import { interestSlugFromName } from '../../components/shared/form-helper-functions';
+} from '../../components/shared/utilities/data-model';
+import { interestSlugFromName } from '../../components/shared/utilities/form';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
-import { makeMarkdownLink } from './datamodel-utilities';
+import { makeMarkdownLink } from './utilities/datamodel';
 
 const collection = Opportunities; // the collection to use.
 

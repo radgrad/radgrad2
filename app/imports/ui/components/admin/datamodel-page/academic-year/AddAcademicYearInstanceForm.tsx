@@ -7,7 +7,7 @@ import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import _ from 'lodash';
 import moment from 'moment';
-import { profileToUsername } from '../../../shared/data-model-helper-functions';
+import { profileToUsername } from '../../../shared/utilities/data-model';
 import { StudentProfiles } from '../../../../../api/user/StudentProfileCollection';
 
 interface IAddAcademicYearInstanceProps {

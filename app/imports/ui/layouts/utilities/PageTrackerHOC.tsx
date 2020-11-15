@@ -6,13 +6,13 @@ import {
   getAllUrlParamsByLocationObject, getUsername,
   ILocationProps,
   IMatchProps,
-} from '../../components/shared/router-helper-functions';
+} from '../../components/shared/utilities/router';
 import { RootState } from '../../../redux/types';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { IPageInterestDefine } from '../../../typings/radgrad';
 import { UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
 import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
-import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
+import { EXPLORER_TYPE } from './route-constants';
 import {
   IPageInterestsCategoryTypes,
   PageInterestsCategoryTypes,

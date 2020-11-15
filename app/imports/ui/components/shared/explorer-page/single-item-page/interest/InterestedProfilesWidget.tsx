@@ -4,7 +4,7 @@ import _ from 'lodash';
 import { Users } from '../../../../../../api/user/UserCollection';
 import { IInterest } from '../../../../../../typings/radgrad';
 import WidgetHeaderNumber from '../../WidgetHeaderNumber';
-import { studentsParticipating } from '../../../data-model-helper-functions';
+import { studentsParticipating } from '../../../utilities/data-model';
 import { getUserIDsWithFavoriteInterestMethod } from '../../../../../../api/favorite/FavoriteInterestCollection.methods';
 
 interface IInterestedProfileWidgetProps {

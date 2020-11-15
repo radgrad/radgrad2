@@ -2,9 +2,9 @@ import React from 'react';
 import { Button, Card, Icon } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import Markdown from 'react-markdown';
-import { getSlug, itemShortDescription } from '../helper-functions';
-import { EXPLORER_TYPE } from '../../../../startup/client/route-constants';
-import * as Router from '../../shared/router-helper-functions';
+import { getSlug, itemShortDescription } from '../utilities/helper-functions';
+import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
+import * as Router from '../../shared/utilities/router';
 
 interface IItemProps {
   name: string;

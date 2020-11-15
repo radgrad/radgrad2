@@ -2,8 +2,8 @@ import { createMedia } from '@artsy/fresnel';
 import React from 'react';
 import { Dropdown } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
-import * as Router from '../../router-helper-functions';
-import { EXPLORER_TYPE } from '../../../../../startup/client/route-constants';
+import * as Router from '../../utilities/router';
+import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
 import ExplorerMenuMobileItem from '../single-item-page/ExplorerMenuMobileItem';
 import {
   explorerInterfaces,

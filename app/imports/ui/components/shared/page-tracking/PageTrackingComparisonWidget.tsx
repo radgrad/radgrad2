@@ -26,7 +26,7 @@ import {
   aggregateDailySnapshots, getCategory, getUrlCategory,
   IAggregatedDailySnapshot, parseName, slugIDToSlugName,
 } from './page-tracking-helper-functions';
-import { IMatchProps } from '../router-helper-functions';
+import { IMatchProps } from '../utilities/router';
 import PageTrackingWidgetMessage from './PageTrackingWidgetMessage';
 
 interface IPageTrackingComparisonWidgetProps {

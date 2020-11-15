@@ -2,7 +2,7 @@ import React from 'react';
 import Markdown from 'react-markdown';
 import { Feed, Image } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
-import { renderLink } from '../router-helper-functions';
+import { renderLink } from '../utilities/router';
 
 interface IStudentFeedItemProps {
   feed: object;

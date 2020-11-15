@@ -9,15 +9,15 @@ import { ICourse, IDescriptionPair } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { makeMarkdownLink } from './datamodel-utilities';
+import { makeMarkdownLink } from './utilities/datamodel';
 import { Interests } from '../../../api/interest/InterestCollection';
 import {
   courseNameToSlug,
   courseToName, itemToSlugName,
   interestNameToId,
-} from '../../components/shared/data-model-helper-functions';
+} from '../../components/shared/utilities/data-model';
 import AddCourseForm from '../../components/admin/datamodel-page/course/AddCourseForm';
-import { interestSlugFromName } from '../../components/shared/form-helper-functions';
+import { interestSlugFromName } from '../../components/shared/utilities/form';
 import UpdateCourseForm from '../../components/admin/datamodel-page/course/UpdateCourseForm';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';

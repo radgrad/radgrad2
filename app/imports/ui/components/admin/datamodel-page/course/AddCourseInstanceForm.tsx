@@ -10,7 +10,7 @@ import { AcademicTerms } from '../../../../../api/academic-term/AcademicTermColl
 import { Courses } from '../../../../../api/course/CourseCollection';
 import { StudentProfiles } from '../../../../../api/user/StudentProfileCollection';
 import { CourseInstances } from '../../../../../api/course/CourseInstanceCollection';
-import { academicTermToName, courseToName, profileToName } from '../../../shared/data-model-helper-functions';
+import { academicTermToName, courseToName, profileToName } from '../../../shared/utilities/data-model';
 
 interface IAddCourseInstanceFormProps {
   terms: IAcademicTerm[];

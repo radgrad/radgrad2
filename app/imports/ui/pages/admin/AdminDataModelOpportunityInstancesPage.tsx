@@ -18,10 +18,10 @@ import {
   academicTermNameToDoc,
   opportunityNameToSlug,
   profileNameToUsername,
-} from '../../components/shared/data-model-helper-functions';
+} from '../../components/shared/utilities/data-model';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import BackToTopButton from '../../components/shared/BackToTopButton';
-import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
+import withInstanceSubscriptions from '../../layouts/utilities/InstanceSubscriptionsHOC';
 
 const collection = OpportunityInstances; // the collection to use.
 

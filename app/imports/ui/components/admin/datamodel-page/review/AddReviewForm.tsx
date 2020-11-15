@@ -9,7 +9,7 @@ import { IAcademicTerm, ICourse, IOpportunity, IStudentProfile } from '../../../
 import { AcademicTerms } from '../../../../../api/academic-term/AcademicTermCollection';
 import { Courses } from '../../../../../api/course/CourseCollection';
 import { StudentProfiles } from '../../../../../api/user/StudentProfileCollection';
-import { academicTermToName, courseToName, docToName, profileToName } from '../../../shared/data-model-helper-functions';
+import { academicTermToName, courseToName, docToName, profileToName } from '../../../shared/utilities/data-model';
 import { Opportunities } from '../../../../../api/opportunity/OpportunityCollection';
 import { Reviews } from '../../../../../api/review/ReviewCollection';
 

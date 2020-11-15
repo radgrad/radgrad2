@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Ice } from '../../../../typings/radgrad';
 import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
-import { getUsername } from '../../shared/router-helper-functions';
+import { getUsername } from '../../shared/utilities/router';
 import StudentIceColumn from './StudentIceColumn';
 import { studentIceWidget } from '../student-widget-names';
 import PageIceCircle from './PageIceCircle';

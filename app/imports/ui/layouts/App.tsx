@@ -8,15 +8,15 @@ import NotFound from '../pages/NotFound';
 import Signin from '../pages/Signin';
 import Signout from '../pages/Signout';
 import { ROLE } from '../../api/role/Role';
-import { routes } from '../../startup/client/routes-config';
-import withGlobalSubscription from './shared/GlobalSubscriptionsHOC';
-import withInstanceSubscriptions from './shared/InstanceSubscriptionsHOC';
+import { routes } from './utilities/routes-config';
+import withGlobalSubscription from './utilities/GlobalSubscriptionsHOC';
+import withInstanceSubscriptions from './utilities/InstanceSubscriptionsHOC';
 import {
   getUsername,
-} from '../components/shared/router-helper-functions';
+} from '../components/shared/utilities/router';
 import { Users } from '../../api/user/UserCollection';
 import NotAuthorized from '../pages/NotAuthorized';
-import withPageTracker from './student/PageTrackerHOC';
+import withPageTracker from './utilities/PageTrackerHOC';
 
 // Hack to refresh other RadGrad tabs when logged out on one tab
 window.addEventListener('storage', function (event) {

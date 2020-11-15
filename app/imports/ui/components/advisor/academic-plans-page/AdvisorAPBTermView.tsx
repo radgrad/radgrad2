@@ -8,7 +8,7 @@ import * as AcademicPlanUtilities from '../../../../api/degree-plan/AcademicPlan
 import {
   buildPlanAreaDraggableId,
   buildPlanAreaDroppableId,
-} from './AcademicPlanBuilderUtilities';
+} from './utilities/academic-plan-builder';
 
 interface IAdvisorAPBTermViewProps {
   termName: string;

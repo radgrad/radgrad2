@@ -13,7 +13,7 @@ import { CareerGoals } from '../../../../../api/career/CareerGoalCollection';
 import { ROLE } from '../../../../../api/role/Role';
 import { AcademicTerms } from '../../../../../api/academic-term/AcademicTermCollection';
 import { AcademicPlans } from '../../../../../api/degree-plan/AcademicPlanCollection';
-import { academicTermToName, docToName } from '../../../shared/data-model-helper-functions';
+import { academicTermToName, docToName } from '../../../shared/utilities/data-model';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
 import { openCloudinaryWidget } from '../../../shared/OpenCloudinaryWidget';
 import { cloudinaryActions } from '../../../../../redux/shared/cloudinary';

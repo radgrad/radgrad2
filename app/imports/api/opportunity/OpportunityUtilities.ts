@@ -6,7 +6,7 @@ import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Users } from '../user/UserCollection';
 import { VerificationRequests } from '../verification/VerificationRequestCollection';
 import { getStudentsCurrentAcademicTermNumber } from '../degree-plan/AcademicYearUtilities';
-import { profileGetInterestIDs } from '../../ui/components/shared/data-model-helper-functions';
+import { profileGetInterestIDs } from '../../ui/components/shared/utilities/data-model';
 
 /**
  * Returns a random int between min and max.

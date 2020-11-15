@@ -7,15 +7,15 @@ import { ITermCard } from '../../../../../typings/radgrad';
 import IceHeader from '../../IceHeader';
 import InterestList from '../../InterestList';
 import WidgetHeaderNumber from '../WidgetHeaderNumber';
-import { EXPLORER_TYPE } from '../../../../../startup/client/route-constants';
-import * as Router from '../../router-helper-functions';
+import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
+import * as Router from '../../utilities/router';
 import {
   docToShortDescription,
   opportunityTerms,
   studentsParticipating,
   itemToSlugName,
-} from '../../data-model-helper-functions';
-import { replaceTermStringNextFour } from '../../helper-functions';
+} from '../../utilities/data-model';
+import { replaceTermStringNextFour } from '../../utilities/general';
 import FutureParticipation from '../FutureParticipation';
 
 const isType = (typeToCheck: string, props: ITermCard) => {

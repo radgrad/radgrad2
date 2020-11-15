@@ -1,14 +1,14 @@
 import _ from 'lodash';
-import { StudentProfiles } from '../../../../../api/user/StudentProfileCollection';
-import { ICourseInstance, IOpportunity, IOpportunityInstance, IStudentProfile } from '../../../../../typings/radgrad';
-import { Users } from '../../../../../api/user/UserCollection';
-import { Courses } from '../../../../../api/course/CourseCollection';
-import { CourseInstances } from '../../../../../api/course/CourseInstanceCollection';
-import { Opportunities } from '../../../../../api/opportunity/OpportunityCollection';
-import { OpportunityInstances } from '../../../../../api/opportunity/OpportunityInstanceCollection';
-import { AcademicTerms } from '../../../../../api/academic-term/AcademicTermCollection';
-import { Slugs } from '../../../../../api/slug/SlugCollection';
-import { Reviews } from '../../../../../api/review/ReviewCollection';
+import { StudentProfiles } from '../../../../../../api/user/StudentProfileCollection';
+import { ICourseInstance, IOpportunity, IOpportunityInstance, IStudentProfile } from '../../../../../../typings/radgrad';
+import { Users } from '../../../../../../api/user/UserCollection';
+import { Courses } from '../../../../../../api/course/CourseCollection';
+import { CourseInstances } from '../../../../../../api/course/CourseInstanceCollection';
+import { Opportunities } from '../../../../../../api/opportunity/OpportunityCollection';
+import { OpportunityInstances } from '../../../../../../api/opportunity/OpportunityInstanceCollection';
+import { AcademicTerms } from '../../../../../../api/academic-term/AcademicTermCollection';
+import { Slugs } from '../../../../../../api/slug/SlugCollection';
+import { Reviews } from '../../../../../../api/review/ReviewCollection';
 
 interface IHtml {
   header?: string;

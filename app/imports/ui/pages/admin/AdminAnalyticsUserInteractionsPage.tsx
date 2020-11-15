@@ -4,7 +4,7 @@ import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminAnalyticsMenuWidget from '../../components/admin/analytics-page/AdminAnalyticsMenuWidget';
 import AdminAnalyticsUserInteractionsWidget
   from '../../components/admin/analytics-page/user-interactions-page/AdminAnalyticsUserInteractionsWidget';
-import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
+import withInstanceSubscriptions from '../../layouts/utilities/InstanceSubscriptionsHOC';
 
 const AdminAnalyticsUserInteractionsPage = () => {
   const paddedStyle = {

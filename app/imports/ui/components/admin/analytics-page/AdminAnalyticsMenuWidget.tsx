@@ -1,8 +1,8 @@
 import React from 'react';
 import { withRouter, NavLink } from 'react-router-dom';
 import { Menu } from 'semantic-ui-react';
-import { buildRouteName, IMatchProps } from '../../shared/router-helper-functions';
-import { ANALYTICS } from '../../../../startup/client/route-constants';
+import { buildRouteName, IMatchProps } from '../../shared/utilities/router';
+import { ANALYTICS } from '../../../layouts/utilities/route-constants';
 
 interface IAdminAnalyticsMenuWidgetProps {
   match: IMatchProps;

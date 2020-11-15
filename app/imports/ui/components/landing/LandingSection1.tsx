@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Grid, Image } from 'semantic-ui-react';
 import RadGradLogoText from '../shared/RadGradLogoText';
-import styles from './landing-styles';
+import styles from './utilities/landing-styles';
 
 const headerStyle = { fontSize: '60px', display: 'inline' };
 

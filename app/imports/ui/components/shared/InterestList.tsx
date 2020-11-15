@@ -1,10 +1,10 @@
 import React from 'react';
 import { Label, SemanticSIZES } from 'semantic-ui-react';
 import { Link, withRouter } from 'react-router-dom';
-import * as Router from './router-helper-functions';
-import { docToName, itemToSlugName } from './data-model-helper-functions';
+import * as Router from './utilities/router';
+import { docToName, itemToSlugName } from './utilities/data-model';
 import { MatchingInterests } from '../../../api/interest/MatchingInterests';
-import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
+import { EXPLORER_TYPE } from '../../layouts/utilities/route-constants';
 
 interface IInterestListProps {
   item: {

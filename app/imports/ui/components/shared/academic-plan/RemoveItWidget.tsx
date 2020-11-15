@@ -9,7 +9,7 @@ import { userInteractionDefineMethod } from '../../../../api/analytic/UserIntera
 import { IAcademicTerm, ICourseInstance, IOpportunityInstance, IUserInteractionDefine } from '../../../../typings/radgrad';
 import { UserInteractionsTypes } from '../../../../api/analytic/UserInteractionsTypes';
 import { CourseInstances } from '../../../../api/course/CourseInstanceCollection';
-import { getUsername, IMatchProps } from '../router-helper-functions';
+import { getUsername, IMatchProps } from '../utilities/router';
 import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 

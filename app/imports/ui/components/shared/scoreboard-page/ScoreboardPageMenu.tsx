@@ -1,14 +1,14 @@
 import React from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 import { Menu } from 'semantic-ui-react';
-import { buildRouteName } from '../router-helper-functions';
+import { buildRouteName } from '../utilities/router';
 import {
   COURSE_SCOREBOARD,
   OPPORTUNITY_SCOREBOARD,
   PAGE_TRACKING_COMPARISON,
   PAGE_TRACKING_SCOREBOARD,
   SCOREBOARD,
-} from '../../../../startup/client/route-constants';
+} from '../../../layouts/utilities/route-constants';
 import { leftHandMenu } from '../shared-widget-names';
 import { PageInterestsCategoryTypes } from '../../../../api/page-tracking/PageInterestsCategoryTypes';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, Grid, Header, Icon, Image } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
-import styles from './landing-styles';
+import styles from './utilities/landing-styles';
 
 const paddingStyle = {
   paddingTop: '1.2rem',

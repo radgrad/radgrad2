@@ -5,7 +5,7 @@ import _ from 'lodash';
 import { ITeaser } from '../../../../typings/radgrad';
 import { Teasers } from '../../../../api/teaser/TeaserCollection';
 import { Users } from '../../../../api/user/UserCollection';
-import { getUsername, IMatchProps } from '../../shared/router-helper-functions';
+import { getUsername, IMatchProps } from '../../shared/utilities/router';
 import { Interests } from '../../../../api/interest/InterestCollection';
 import RecommendedItemInformation from './RecommendedItemInformation';
 

@@ -4,7 +4,7 @@ import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminAnalyticsMenuWidget from '../../components/admin/analytics-page/AdminAnalyticsMenuWidget';
 import AdminAnalyticsNewsletterWidget
   from '../../components/admin/analytics-page/newsletter-page/AdminAnalyticsNewsletterWidget';
-import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
+import withInstanceSubscriptions from '../../layouts/utilities/InstanceSubscriptionsHOC';
 
 const AdminAnalyticsNewsletterPage = () => {
   const paddedStyle = {

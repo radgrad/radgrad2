@@ -1,8 +1,8 @@
 import React from 'react';
 import { Header, Icon, Grid } from 'semantic-ui-react';
 import { Link, withRouter } from 'react-router-dom';
-import { buildRouteName, IMatchProps } from '../../shared/router-helper-functions';
-import { EXPLORER_TYPE } from '../../../../startup/client/route-constants';
+import { buildRouteName, IMatchProps } from '../../shared/utilities/router';
+import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import { Interests } from '../../../../api/interest/InterestCollection';
 import { FavoriteInterests } from '../../../../api/favorite/FavoriteInterestCollection';
 import { IFavoriteInterest, IInterest } from '../../../../typings/radgrad';

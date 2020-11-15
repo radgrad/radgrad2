@@ -12,7 +12,7 @@ import {
   courseSlugToName, courseToName,
   docToName,
   interestIdToName,
-} from '../../../shared/data-model-helper-functions';
+} from '../../../shared/utilities/data-model';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
 import { Courses } from '../../../../../api/course/CourseCollection';
 

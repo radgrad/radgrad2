@@ -6,7 +6,7 @@ import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import { IInterest, IOpportunity, ICareerGoal, ICourse } from '../../../../../typings/radgrad';
-import { docToName, slugIDToSlugNameAndType } from '../../../shared/data-model-helper-functions';
+import { docToName, slugIDToSlugNameAndType } from '../../../shared/utilities/data-model';
 import { Opportunities } from '../../../../../api/opportunity/OpportunityCollection';
 import { Interests } from '../../../../../api/interest/InterestCollection';
 import MultiSelectField from '../../../form-fields/MultiSelectField';

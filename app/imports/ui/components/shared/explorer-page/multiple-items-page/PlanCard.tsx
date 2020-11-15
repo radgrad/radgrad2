@@ -5,15 +5,15 @@ import Markdown from 'react-markdown';
 import { IPlanCard } from '../../../../../typings/radgrad';
 import WidgetHeaderNumber from '../WidgetHeaderNumber';
 import AcademicPlanStaticViewer from '../AcademicPlanStaticViewer';
-import { EXPLORER_TYPE } from '../../../../../startup/client/route-constants';
-import * as Router from '../../router-helper-functions';
+import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
+import * as Router from '../../utilities/router';
 import {
   docToName,
   docToShortDescription,
   itemToSlugName, profileIDToFullname,
   profileIDToPicture,
   studentsParticipating,
-} from '../../data-model-helper-functions';
+} from '../../utilities/data-model';
 import { interestedStudents } from '../explorer-helper-functions';
 
 const PlanCard = (props: IPlanCard) => {

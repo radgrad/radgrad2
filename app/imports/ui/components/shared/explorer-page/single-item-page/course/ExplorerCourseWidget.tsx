@@ -10,12 +10,12 @@ import { isSingleChoice } from '../../../../../../api/degree-plan/PlanChoiceUtil
 import { Reviews } from '../../../../../../api/review/ReviewCollection';
 import StudentExplorerReviewWidget from '../../../../student/explorer-page/StudentExplorerReviewWidget';
 import { ICourse, IDescriptionPair, IReview } from '../../../../../../typings/radgrad';
-import * as Router from '../../../router-helper-functions';
-import { EXPLORER_TYPE } from '../../../../../../startup/client/route-constants';
+import * as Router from '../../../utilities/router';
+import { EXPLORER_TYPE } from '../../../../../layouts/utilities/route-constants';
 import { Teasers } from '../../../../../../api/teaser/TeaserCollection';
 import FavoritesButton from '../FavoritesButton';
-import { isSame, toUpper } from '../../../helper-functions';
-import { courseSlugToName } from '../../../data-model-helper-functions';
+import { isSame, toUpper } from '../../../utilities/general';
+import { courseSlugToName } from '../../../utilities/data-model';
 import { explorerCourseWidget } from '../../../shared-widget-names';
 import { Slugs } from '../../../../../../api/slug/SlugCollection';
 import { Courses } from '../../../../../../api/course/CourseCollection';

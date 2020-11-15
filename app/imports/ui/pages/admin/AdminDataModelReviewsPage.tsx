@@ -20,7 +20,7 @@ import {
   courseNameToSlug,
   opportunityNameToSlug,
   profileNameToUsername,
-} from '../../components/shared/data-model-helper-functions';
+} from '../../components/shared/utilities/data-model';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 
 const collection = Reviews; // the collection to use.

@@ -10,12 +10,12 @@ import { IOpportunity } from '../../../typings/radgrad';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/explorer/LandingExplorerMenu';
 import { Interests } from '../../../api/interest/InterestCollection';
-import { withListSubscriptions } from '../../layouts/shared/SubscriptionListHOC';
+import { withListSubscriptions } from '../../layouts/utilities/SubscriptionListHOC';
 import LandingInterestList from '../../components/landing/LandingInterestList';
-import { getOpportunityTypeName, semesters, teaser } from '../../components/landing/helper-functions';
+import { getOpportunityTypeName, semesters, teaser } from '../../components/landing/utilities/helper-functions';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
-import * as Router from '../../components/shared/router-helper-functions';
+import * as Router from '../../components/shared/utilities/router';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import { Users } from '../../../api/user/UserCollection';
 

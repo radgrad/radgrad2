@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Menu, Segment, Tab } from 'semantic-ui-react';
 import StudentSummaryTab from './StudentSummaryTab';
 import TimelineChartTab from './TimelineChartTab';
-import { IStudentSummaryBehaviorCategory } from './admin-analytics-student-summary-helper-functions';
+import { IStudentSummaryBehaviorCategory } from './utilities/student-summary';
 import { IAdminAnalyticsUserInteraction } from '../../../../../redux/admin/analytics/reducers';
 
 interface ISummaryStatisticsTabsProps {

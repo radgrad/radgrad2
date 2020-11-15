@@ -5,8 +5,8 @@ import { Button, Menu } from 'semantic-ui-react';
 import {
   PageInterestsCategoryTypes,
 } from '../../../../api/page-tracking/PageInterestsCategoryTypes';
-import { buildRouteName, IMatchProps } from '../router-helper-functions';
-import { PAGE_TRACKING_COMPARISON, PAGE_TRACKING_SCOREBOARD } from '../../../../startup/client/route-constants';
+import { buildRouteName, IMatchProps } from '../utilities/router';
+import { PAGE_TRACKING_COMPARISON, PAGE_TRACKING_SCOREBOARD } from '../../../layouts/utilities/route-constants';
 
 type PageTrackingMenuTypes = 'scoreboard' | 'comparison';
 

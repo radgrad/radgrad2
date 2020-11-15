@@ -14,7 +14,7 @@ import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import AddOpportunityTypeForm from '../../components/admin/datamodel-page/opportunity/AddOpportunityTypeForm';
 import UpdateOpportunityTypeForm from '../../components/admin/datamodel-page/opportunity/UpdateOpportunityTypeForm';
 import BackToTopButton from '../../components/shared/BackToTopButton';
-import { itemToSlugName } from '../../components/shared/data-model-helper-functions';
+import { itemToSlugName } from '../../components/shared/utilities/data-model';
 
 const collection = OpportunityTypes; // the collection to use.
 

@@ -5,8 +5,8 @@ import { withRouter } from 'react-router-dom';
 import { AcademicTerms } from '../../../app/imports/api/academic-term/AcademicTermCollection';
 import { Slugs } from '../../../app/imports/api/slug/SlugCollection';
 import { defineMethod } from '../../../app/imports/api/base/BaseCollection.methods';
-import { EXPLORER_TYPE } from '../../../app/imports/startup/client/route-constants';
-import { getUsername } from '../../../app/imports/ui/components/shared/router-helper-functions';
+import { EXPLORER_TYPE } from '../../../app/imports/ui/layouts/utilities/route-constants';
+import { getUsername } from '../../../app/imports/ui/components/shared/utilities/router';
 
 interface ITermAddProps {
   item: any;

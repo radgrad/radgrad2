@@ -7,7 +7,7 @@ import LandingSection2 from '../../components/landing/LandingSection2';
 import LandingSection3 from '../../components/landing/LandingSection3';
 import LandingSection9Container from '../../components/landing/LandingSection9';
 import LandingFooter from '../../components/landing/LandingFooter';
-import { withListSubscriptions } from '../../layouts/shared/SubscriptionListHOC';
+import { withListSubscriptions } from '../../layouts/utilities/SubscriptionListHOC';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 
 interface ILandingHomeProps {

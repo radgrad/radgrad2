@@ -18,7 +18,7 @@ import {
 } from '../../../typings/radgrad';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
-import { makeMarkdownLink } from './datamodel-utilities';
+import { makeMarkdownLink } from './utilities/datamodel';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { ROLE } from '../../../api/role/Role';
@@ -33,7 +33,7 @@ import {
   academicPlanSlugFromName,
   careerGoalSlugFromName, declaredAcademicTermSlugFromName,
   interestSlugFromName,
-} from '../../components/shared/form-helper-functions';
+} from '../../components/shared/utilities/form';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Users } from '../../../api/user/UserCollection';
 import BackToTopButton from '../../components/shared/BackToTopButton';

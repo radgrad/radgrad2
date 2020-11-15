@@ -9,9 +9,9 @@ import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
 import { Courses } from '../../../../api/course/CourseCollection';
 import { Interests } from '../../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
-import { docToShortDescription } from '../../shared/data-model-helper-functions';
-import { buildExplorerSlugRoute, IMatchProps, renderLink } from '../../shared/router-helper-functions';
-import { EXPLORER_TYPE } from '../../../../startup/client/route-constants';
+import { docToShortDescription } from '../../shared/utilities/data-model';
+import { buildExplorerSlugRoute, IMatchProps, renderLink } from '../../shared/utilities/router';
+import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 
 interface IRecommendedItemInformationProps {
   match: IMatchProps;

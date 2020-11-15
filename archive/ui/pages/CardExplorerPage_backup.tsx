@@ -21,8 +21,8 @@ import {
   IOpportunity,
 } from '../../../app/imports/typings/radgrad';
 import HelpPanelWidget from '../../../app/imports/ui/components/shared/HelpPanelWidget';
-import * as Router from '../../../app/imports/ui/components/shared/router-helper-functions';
-import { EXPLORER_TYPE, URL_ROLES } from '../../../app/imports/startup/client/route-constants';
+import * as Router from '../../../app/imports/ui/components/shared/utilities/router';
+import { EXPLORER_TYPE, URL_ROLES } from '../../../app/imports/ui/layouts/utilities/route-constants';
 import BackToTopButton from '../../../app/imports/ui/components/shared/BackToTopButton';
 import { FavoriteCareerGoals } from '../../../app/imports/api/favorite/FavoriteCareerGoalCollection';
 import { FavoriteAcademicPlans } from '../../../app/imports/api/favorite/FavoriteAcademicPlanCollection';

@@ -15,7 +15,7 @@ import { defineMethod } from '../../../../api/base/BaseCollection.methods';
 import { IAcademicTerm, IReviewDefine, IUserInteractionDefine } from '../../../../typings/radgrad';
 import { UserInteractionsTypes } from '../../../../api/analytic/UserInteractionsTypes';
 import { userInteractionDefineMethod } from '../../../../api/analytic/UserInteractionCollection.methods';
-import { getUserIdFromRoute, getUsername } from '../../shared/router-helper-functions';
+import { getUserIdFromRoute, getUsername } from '../../shared/utilities/router';
 import { Courses } from '../../../../api/course/CourseCollection';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
 import { ReviewTypes } from '../../../../api/review/ReviewTypes';

@@ -3,11 +3,11 @@ import { Button, Grid, Header, List, Modal, Segment } from 'semantic-ui-react';
 import moment from 'moment';
 import _ from 'lodash';
 import { FAVORITE_TYPE } from '../../../../../api/favorite/FavoriteTypes';
-import { profileIDToFullname } from '../../../shared/data-model-helper-functions';
+import { profileIDToFullname } from '../../../shared/utilities/data-model';
 import { IUserInteraction } from '../../../../../typings/radgrad';
 import { UserInteractionsTypes } from '../../../../../api/analytic/UserInteractionsTypes';
-import { EXPLORER_TYPE } from '../../../../../startup/client/route-constants';
-import { StudentSummaryBehaviorTypes } from './admin-analytics-student-summary-helper-functions';
+import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
+import { StudentSummaryBehaviorTypes } from './utilities/student-summary';
 
 interface IStudentTimelineModalProps {
   username: string;

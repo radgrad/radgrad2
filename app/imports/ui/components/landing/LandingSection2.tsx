@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid, Container } from 'semantic-ui-react';
-import styles from './landing-styles';
+import styles from './utilities/landing-styles';
 
 interface ILandingSection2Props {
     careerGoals: string;

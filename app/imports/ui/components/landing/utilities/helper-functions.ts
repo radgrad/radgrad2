@@ -1,9 +1,9 @@
 import _ from 'lodash';
-import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
-import { Slugs } from '../../../api/slug/SlugCollection';
-import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';
-import { Teasers } from '../../../api/teaser/TeaserCollection';
-import { IOpportunity } from '../../../typings/radgrad';
+import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
+import { Slugs } from '../../../../api/slug/SlugCollection';
+import { OpportunityTypes } from '../../../../api/opportunity/OpportunityTypeCollection';
+import { Teasers } from '../../../../api/teaser/TeaserCollection';
+import { IOpportunity } from '../../../../typings/radgrad';
 
 export function itemShortDescription(item: { description: string; }) {
   let description = item.description;

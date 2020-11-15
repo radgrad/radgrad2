@@ -2,13 +2,13 @@ import React from 'react';
 import _ from 'lodash';
 import { NavLink } from 'react-router-dom';
 import { Dropdown } from 'semantic-ui-react';
-import { EXPLORER_TYPE } from '../../../../../startup/client/route-constants';
+import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
 import { IAcademicPlan, ICareerGoal, ICourse, IInterest, IOpportunity } from '../../../../../typings/radgrad';
 import { Users } from '../../../../../api/user/UserCollection';
 import { CourseInstances } from '../../../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../../../api/opportunity/OpportunityInstanceCollection';
-import * as Router from '../../router-helper-functions';
-import { itemToSlugName, profileGetCareerGoalIDs } from '../../data-model-helper-functions';
+import * as Router from '../../utilities/router';
+import { itemToSlugName, profileGetCareerGoalIDs } from '../../utilities/data-model';
 
 type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IInterest | IOpportunity;
 

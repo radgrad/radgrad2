@@ -4,7 +4,7 @@ import { Button, Card, Icon } from 'semantic-ui-react';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
-import { getUserIdFromRoute, getUsername, IMatchProps } from '../../shared/router-helper-functions';
+import { getUserIdFromRoute, getUsername, IMatchProps } from '../../shared/utilities/router';
 import {
   IAcademicTerm,
   IOpportunityInstance,
@@ -19,7 +19,7 @@ import FutureParticipation from '../../shared/explorer-page/FutureParticipation'
 import { defineMethod, removeItMethod } from '../../../../api/base/BaseCollection.methods';
 import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
 import { buildRouteName } from './DepUtilityFunctions';
-import { EXPLORER_TYPE } from '../../../../startup/client/route-constants';
+import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import RequestVerificationForm from './RequestVerificationForm';
 import { VerificationRequests } from '../../../../api/verification/VerificationRequestCollection';
 import VerificationRequestStatus from './VerificationRequestStatus';

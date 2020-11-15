@@ -5,7 +5,7 @@ import { CourseInstances } from './CourseInstanceCollection';
 import { Courses } from './CourseCollection';
 import PreferredChoice from '../degree-plan/PreferredChoice';
 import { Users } from '../user/UserCollection';
-import { profileGetInterestIDs } from '../../ui/components/shared/data-model-helper-functions';
+import { profileGetInterestIDs } from '../../ui/components/shared/utilities/data-model';
 import { ICourse } from '../../typings/radgrad';
 
 /**

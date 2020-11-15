@@ -1,5 +1,5 @@
 // Widely used params as constants
-import { ROLE } from '../../api/role/Role';
+import { ROLE } from '../../../api/role/Role';
 
 export const USERNAME = ':username';
 export const HOME = 'home';

@@ -8,7 +8,7 @@ import {
 } from '../../../../../typings/radgrad';
 import CardExplorerMenuNonMobileWidget from './ExplorerMultipleItemsMenuNonMobileWidget';
 import CardExplorerMenuMobileWidget from './ExplorerMultipleItemsMenuMobileWidget';
-import { EXPLORER_TYPE } from '../../../../../startup/client/route-constants';
+import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
 
 type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IInterest | IOpportunity;
 

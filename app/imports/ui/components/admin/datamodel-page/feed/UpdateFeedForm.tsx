@@ -27,7 +27,7 @@ import {
   docToName,
   opportunityIdToName,
   profileToName, userIdToName,
-} from '../../../shared/data-model-helper-functions';
+} from '../../../shared/utilities/data-model';
 import { IAcademicTerm, ICourse, IOpportunity, IStudentProfile } from '../../../../../typings/radgrad';
 import BaseCollection from '../../../../../api/base/BaseCollection';
 import MultiSelectField from '../../../form-fields/MultiSelectField';

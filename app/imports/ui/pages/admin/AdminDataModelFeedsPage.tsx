@@ -20,7 +20,7 @@ import {
   courseNameToSlug,
   opportunityNameToSlug,
   profileNameToUsername,
-} from '../../components/shared/data-model-helper-functions';
+} from '../../components/shared/utilities/data-model';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import { RootState } from '../../../redux/types';

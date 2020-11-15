@@ -5,10 +5,10 @@ import { Link, withRouter } from 'react-router-dom';
 import _ from 'lodash';
 import { IOpportunity } from '../../../../typings/radgrad';
 import { FavoriteOpportunities } from '../../../../api/favorite/FavoriteOpportunityCollection';
-import * as Router from '../../shared/router-helper-functions';
+import * as Router from '../../shared/utilities/router';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
 import FavoriteOpportunityCard from './FavoriteOpportunityCard';
-import { EXPLORER_TYPE } from '../../../../startup/client/route-constants';
+import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 
 interface IFavoriteOpportunitiesWidgetProps {
   match: Router.IMatchProps;

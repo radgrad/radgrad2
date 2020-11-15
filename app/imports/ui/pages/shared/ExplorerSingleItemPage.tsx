@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
-import * as Router from '../../components/shared/router-helper-functions';
+import * as Router from '../../components/shared/utilities/router';
 import ExplorerMenu from '../../components/shared/explorer-page/single-item-page/ExplorerMenu';
 import {
   IAcademicPlan,
@@ -35,7 +35,7 @@ import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollec
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
 import ExplorerCareerGoalsWidget from '../../components/shared/explorer-page/single-item-page/career-goal/ExplorerCareerGoalWidget';
-import { EXPLORER_TYPE, URL_ROLES } from '../../../startup/client/route-constants';
+import { EXPLORER_TYPE, URL_ROLES } from '../../layouts/utilities/route-constants';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 import { defaultProfilePicture } from '../../../api/user/BaseProfileCollection';
@@ -45,7 +45,7 @@ import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCol
 import { FavoriteCourses } from '../../../api/favorite/FavoriteCourseCollection';
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 import { FavoriteOpportunities } from '../../../api/favorite/FavoriteOpportunityCollection';
-import { profileGetCareerGoalIDs } from '../../components/shared/data-model-helper-functions';
+import { profileGetCareerGoalIDs } from '../../components/shared/utilities/data-model';
 
 interface IIndividualExplorerPageProps {
   match: {

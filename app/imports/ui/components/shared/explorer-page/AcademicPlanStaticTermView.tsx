@@ -4,7 +4,7 @@ import _ from 'lodash';
 import { withRouter } from 'react-router-dom';
 import * as PlanChoiceUtils from '../../../../api/degree-plan/PlanChoiceUtilities';
 import { isPlanChoiceSatisfied } from '../../../../api/degree-plan/AcademicPlanUtilities';
-import * as Router from '../router-helper-functions';
+import * as Router from '../utilities/router';
 import LandingPlanChoicePill from '../../landing/LandingPlanChoicePill';
 import SatisfiedPlanChoicePill from '../academic-plan/SatisfiedPlanChoicePill';
 import StaticPlanChoicePill from '../academic-plan/StaticPlanChoicePill';

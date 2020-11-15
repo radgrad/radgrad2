@@ -10,10 +10,10 @@ import {
   IInterest,
   IOpportunity,
 } from '../../../../../typings/radgrad';
-import * as Router from '../../router-helper-functions';
-import { EXPLORER_TYPE } from '../../../../../startup/client/route-constants';
+import * as Router from '../../utilities/router';
+import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
 import ExplorerMenuNonMobileItem from './ExplorerMenuNonMobileItem';
-import { buildRouteName, isUrlRoleFaculty } from '../../router-helper-functions';
+import { buildRouteName, isUrlRoleFaculty } from '../../utilities/router';
 
 const AppMedia = createMedia({
   breakpoints: {

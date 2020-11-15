@@ -10,17 +10,17 @@ import {
   IFavoriteInterest,
   IStudentProfile,
 } from '../../../../typings/radgrad';
-import { EXPLORER_TYPE } from '../../../../startup/client/route-constants';
+import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import { AcademicPlans } from '../../../../api/degree-plan/AcademicPlanCollection';
 import StudentAboutMeUpdatePictureForm from './StudentAboutMeUpdatePictureForm';
 import StudentShareInfoWidget from './StudentShareInfoWidget';
 import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
 import StudentAboutMeUpdateWebsiteForm from './StudentAboutMeUpdateWebsiteForm';
-import * as Router from '../../shared/router-helper-functions';
+import * as Router from '../../shared/utilities/router';
 import {
   itemToSlugName, profileGetCareerGoals, profileGetInterests,
   profileToFullName,
-} from '../../shared/data-model-helper-functions';
+} from '../../shared/utilities/data-model';
 import { FavoriteAcademicPlans } from '../../../../api/favorite/FavoriteAcademicPlanCollection';
 import { FavoriteCareerGoals } from '../../../../api/favorite/FavoriteCareerGoalCollection';
 import { FavoriteInterests } from '../../../../api/favorite/FavoriteInterestCollection';

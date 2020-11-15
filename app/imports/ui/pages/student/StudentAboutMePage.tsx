@@ -2,8 +2,8 @@ import React from 'react';
 import { Grid, Container } from 'semantic-ui-react';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
-import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
-import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
+import withGlobalSubscription from '../../layouts/utilities/GlobalSubscriptionsHOC';
+import withInstanceSubscriptions from '../../layouts/utilities/InstanceSubscriptionsHOC';
 import StudentAboutMeWidget from '../../components/student/about-me-page/StudentAboutMeWidget';
 
 const StudentAboutMePage = () => (

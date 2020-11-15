@@ -8,7 +8,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
 import { Interests } from '../../../../../api/interest/InterestCollection';
 import { ICourse, IInterest } from '../../../../../typings/radgrad';
-import { courseToName, docToName } from '../../../shared/data-model-helper-functions';
+import { courseToName, docToName } from '../../../shared/utilities/data-model';
 import { Courses } from '../../../../../api/course/CourseCollection';
 
 interface IAddCourseFormProps {

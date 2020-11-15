@@ -7,7 +7,7 @@ import SimpleSchema from 'simpl-schema';
 import { withTracker } from 'meteor/react-meteor-data';
 import { IInterestType } from '../../../../../typings/radgrad';
 import { InterestTypes } from '../../../../../api/interest/InterestTypeCollection';
-import { docToName } from '../../../shared/data-model-helper-functions';
+import { docToName } from '../../../shared/utilities/data-model';
 
 interface IAddInterestFormProps {
   interestTypes: IInterestType[];

@@ -4,13 +4,13 @@ import { Menu, Header, Button, Icon } from 'semantic-ui-react';
 import { withRouter, Link } from 'react-router-dom';
 import { RadGradProperties } from '../../../../../api/radgrad/RadGradProperties';
 import { IInterest } from '../../../../../typings/radgrad';
-import { EXPLORER_TYPE } from '../../../../../startup/client/route-constants';
+import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
 import ExplorerMenuNonMobileItem from '../single-item-page/ExplorerMenuNonMobileItem';
 import {
   explorerInterfaces, IExplorerTypes,
   isType,
 } from '../explorer-helper-functions';
-import { buildRouteName, isUrlRoleFaculty, isUrlRoleStudent } from '../../router-helper-functions';
+import { buildRouteName, isUrlRoleFaculty, isUrlRoleStudent } from '../../utilities/router';
 import '../../../../../../client/style.css';
 
 const AppMedia = createMedia({

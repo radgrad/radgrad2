@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Accordion, Icon } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
-import * as Router from '../../shared/router-helper-functions';
+import * as Router from '../../shared/utilities/router';
 import StudentIceColumnVerified from './StudentIceColumnVerified';
 import StudentIceColumnUnverified from './StudentIceColumnUnverified';
 import StudentIceColumnRecommended from './StudentIceColumnRecommended';

@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import Swal from 'sweetalert2';
 import _ from 'lodash';
-import { ANALYTICS } from '../../../../startup/client/route-constants';
+import { ANALYTICS } from '../../../layouts/utilities/route-constants';
 import { analyticsActions } from '../../../../redux/admin/analytics';
 import { userInteractionFindMethod } from '../../../../api/analytic/UserInteractionCollection.methods';
 import {

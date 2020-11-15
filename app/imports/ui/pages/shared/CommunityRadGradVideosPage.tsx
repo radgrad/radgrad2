@@ -4,10 +4,10 @@ import { Container, Header } from 'semantic-ui-react';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import CommunityRadGradVideosWidget from '../../components/shared/community-radgrad-videos-page/CommunityRadGradVideosWidget';
-import * as Router from '../../components/shared/router-helper-functions';
-import { URL_ROLES } from '../../../startup/client/route-constants';
+import * as Router from '../../components/shared/utilities/router';
+import { URL_ROLES } from '../../layouts/utilities/route-constants';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
-import { IMatchProps } from '../../components/shared/router-helper-functions';
+import { IMatchProps } from '../../components/shared/utilities/router';
 
 interface ICommunityRadGradVideosPageProps {
   match: IMatchProps;

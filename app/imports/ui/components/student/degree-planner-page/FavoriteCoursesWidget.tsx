@@ -4,11 +4,11 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Link, withRouter } from 'react-router-dom';
 import _ from 'lodash';
 import { ICourse } from '../../../../typings/radgrad';
-import * as Router from '../../shared/router-helper-functions';
+import * as Router from '../../shared/utilities/router';
 import { FavoriteCourses } from '../../../../api/favorite/FavoriteCourseCollection';
 import { Courses } from '../../../../api/course/CourseCollection';
 import FavoriteCourseCard from './FavoriteCourseCard';
-import { EXPLORER_TYPE } from '../../../../startup/client/route-constants';
+import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 
 interface IFavoriteCoursesWidgetProps {
   match: Router.IMatchProps;

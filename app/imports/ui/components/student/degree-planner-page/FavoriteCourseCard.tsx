@@ -13,7 +13,7 @@ import { makeCourseICE } from '../../../../api/ice/IceProcessor';
 import { getInspectorDraggablePillStyle } from '../../shared/academic-plan/StyleFunctions';
 import NamePill from '../../shared/academic-plan/NamePill';
 import FutureParticipation from '../../shared/explorer-page/FutureParticipation';
-import { EXPLORER_TYPE } from '../../../../startup/client/route-constants';
+import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import { buildRouteName } from './DepUtilityFunctions';
 
 interface IFavoriteCourseCardProps {

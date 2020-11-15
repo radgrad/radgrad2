@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, Container } from 'semantic-ui-react';
-import withGlobalSubscription from '../../layouts/shared/GlobalSubscriptionsHOC';
-import withInstanceSubscriptions from '../../layouts/shared/InstanceSubscriptionsHOC';
+import withGlobalSubscription from '../../layouts/utilities/GlobalSubscriptionsHOC';
+import withInstanceSubscriptions from '../../layouts/utilities/InstanceSubscriptionsHOC';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';

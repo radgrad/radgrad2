@@ -7,9 +7,9 @@ import _ from 'lodash';
 import { AutoForm, SelectField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import { IAcademicPlan } from '../../../../typings/radgrad';
-import { getUsername, IMatchProps, buildRouteName, getUserIdFromRoute } from '../../shared/router-helper-functions';
+import { getUsername, IMatchProps, buildRouteName, getUserIdFromRoute } from '../../shared/utilities/router';
 import AcademicPlanViewerWidgetContainer from './AcademicPlanViewerWidget';
-import { EXPLORER_TYPE } from '../../../../startup/client/route-constants';
+import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import { FavoriteAcademicPlans } from '../../../../api/favorite/FavoriteAcademicPlanCollection';
 import { AcademicPlans } from '../../../../api/degree-plan/AcademicPlanCollection';
 

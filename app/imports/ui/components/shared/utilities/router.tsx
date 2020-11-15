@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Users } from '../../../api/user/UserCollection';
-import { EXPLORER_TYPE, URL_ROLES } from '../../../startup/client/route-constants';
-import { Slugs } from '../../../api/slug/SlugCollection';
+import { Users } from '../../../../api/user/UserCollection';
+import { EXPLORER_TYPE, URL_ROLES } from '../../../layouts/utilities/route-constants';
+import { Slugs } from '../../../../api/slug/SlugCollection';
 
 export interface IMatchProps {
   isExact: boolean;
@@ -57,7 +57,7 @@ export const buildRouteName = (match: IMatchProps, routeName: string): string =>
   // this error always gets thrown.
   // const firstChar = routeName.charAt(0);
   // if (firstChar !== '/') {
-  //   throw new Error('buildRouteName() function from router-helper-functions.tsx requires that the second parameter must have the forward slash (/) as the first character.');
+  //   throw new Error('buildRouteName() function from router.tsx requires that the second parameter must have the forward slash (/) as the first character.');
   // }
   const baseRoute = getBaseRoute(match);
   return `${baseRoute}${routeName}`;
@@ -127,7 +127,7 @@ export const buildExplorerSlugRoute = (match: IMatchProps, type: string, slug: s
 // i.e., /student/abi@hawaii.edu/param1/param2/param3 (index = 1 returns param1, index = 2 returns param2, etc...)
 export const getUrlParam = (match: IMatchProps, index: number) => {
   if (index <= 0) {
-    throw new Error('getUrlParam() function from router-helper-functions.tsx requires index to be greater than 0');
+    throw new Error('getUrlParam() function from router.tsx requires index to be greater than 0');
   }
   const parameters = splitUrlIntoArray(match);
   const username = getUsername(match);

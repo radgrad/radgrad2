@@ -27,7 +27,7 @@ import {
   createPageInterestData,
   getCollectionName,
 } from './favorites-button-helper-functions';
-import { IMatchProps } from '../../router-helper-functions';
+import { IMatchProps } from '../../utilities/router';
 
 export interface IFavoriteButtonProps {
   match: IMatchProps

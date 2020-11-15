@@ -9,7 +9,7 @@ import DegreePlanPane from './slides/DegreePlanPane';
 import FavoritesPane from './slides/FavoritesPane';
 import FavoriteAcademicPlans from './slides/FavoriteAcademicPlans';
 import Recommendations from './slides/Recommendations';
-import styles from '../../../pages/landing/guidedtour-style';
+import styles from '../../../pages/landing/utilities/guidedtour-style';
 
 const GuidedTourDegreePlanner = () => {
   const settings = {

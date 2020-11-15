@@ -3,13 +3,13 @@ import { List } from 'semantic-ui-react';
 import { Link, withRouter } from 'react-router-dom';
 import _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
-import { buildRouteName, getUserIdFromRoute } from '../../shared/router-helper-functions';
+import { buildRouteName, getUserIdFromRoute } from '../../shared/utilities/router';
 import { AcademicYearInstances } from '../../../../api/degree-plan/AcademicYearInstanceCollection';
 import { IAcademicTerm, IAcademicYearInstance, Ice, ICourseInstance, IOpportunityInstance } from '../../../../typings/radgrad';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
 import { CourseInstances } from '../../../../api/course/CourseInstanceCollection';
-import { EXPLORER_TYPE } from '../../../../startup/client/route-constants';
+import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
 import { Courses } from '../../../../api/course/CourseCollection';
 

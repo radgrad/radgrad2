@@ -1,13 +1,13 @@
 import React from 'react';
 import { Container, Grid } from 'semantic-ui-react';
-import * as Router from '../../components/shared/router-helper-functions';
-import { URL_ROLES } from '../../../startup/client/route-constants';
+import * as Router from '../../components/shared/utilities/router';
+import { URL_ROLES } from '../../layouts/utilities/route-constants';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import CommunityUsersWidget from '../../components/shared/community-users-page/CommunityUsersWidget';
 import CommunityFeedWidget from '../../components/shared/community-users-page/CommunityFeedWidget';
-import { IMatchProps } from '../../components/shared/router-helper-functions';
+import { IMatchProps } from '../../components/shared/utilities/router';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 
 interface ICommunityUsersPageProps {
