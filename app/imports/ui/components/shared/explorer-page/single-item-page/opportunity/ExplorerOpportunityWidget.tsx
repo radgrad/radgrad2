@@ -15,7 +15,7 @@ import { toUpper, replaceTermString, isSame } from '../../../utilities/general';
 import { explorerOpportunityWidget } from '../../../shared-widget-names';
 import FutureParticipation from '../../FutureParticipation';
 import { Opportunities } from '../../../../../../api/opportunity/OpportunityCollection';
-import { toId } from '../../../../../shared/description-pair-helpers';
+import { toId } from '../course/utilities/description-pair';
 import { FAVORITE_TYPE } from '../../../../../../api/favorite/FavoriteTypes';
 import TeaserVideo from '../../../TeaserVideo';
 

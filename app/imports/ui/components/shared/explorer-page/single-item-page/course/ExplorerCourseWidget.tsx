@@ -19,7 +19,7 @@ import { courseSlugToName } from '../../../utilities/data-model';
 import { explorerCourseWidget } from '../../../shared-widget-names';
 import { Slugs } from '../../../../../../api/slug/SlugCollection';
 import { Courses } from '../../../../../../api/course/CourseCollection';
-import { toValueArray, toValueString } from '../../../../../shared/description-pair-helpers';
+import { toValueArray, toValueString } from './utilities/description-pair';
 import { FAVORITE_TYPE } from '../../../../../../api/favorite/FavoriteTypes';
 import FutureParticipation from '../../FutureParticipation';
 import TeaserVideo from '../../../TeaserVideo';

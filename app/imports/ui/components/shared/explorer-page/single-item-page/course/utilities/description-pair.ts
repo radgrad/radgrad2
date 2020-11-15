@@ -1,5 +1,5 @@
-import { IDescriptionPair, Ice } from '../../typings/radgrad';
-import { isICE } from '../../api/ice/IceProcessor';
+import { IDescriptionPair, Ice } from '../../../../../../../typings/radgrad';
+import { isICE } from '../../../../../../../api/ice/IceProcessor';
 
 export const toValueArray = (pair: IDescriptionPair): any[] => {
   const value = pair.value;

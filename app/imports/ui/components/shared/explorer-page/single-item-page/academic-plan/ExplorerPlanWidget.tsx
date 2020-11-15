@@ -8,7 +8,7 @@ import * as Router from '../../../utilities/router';
 import FavoritesButton from '../FavoritesButton';
 import { toUpper } from '../../../utilities/general';
 import { explorerPlanWidget } from '../../../shared-widget-names';
-import { toId } from '../../../../../shared/description-pair-helpers';
+import { toId } from '../course/utilities/description-pair';
 import { FAVORITE_TYPE } from '../../../../../../api/favorite/FavoriteTypes';
 
 interface IExplorerPlansWidgetProps {
