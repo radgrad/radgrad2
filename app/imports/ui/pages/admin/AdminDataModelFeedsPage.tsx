@@ -1,12 +1,29 @@
+import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
 import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import _ from 'lodash';
 import Swal from 'sweetalert2';
 import { connect } from 'react-redux';
+import { CareerGoals } from '../../../api/career/CareerGoalCollection';
+import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
+import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
+import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
+import { PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
+import { FeedbackInstances } from '../../../api/feedback/FeedbackInstanceCollection';
+import { HelpMessages } from '../../../api/help/HelpMessageCollection';
+import { Interests } from '../../../api/interest/InterestCollection';
+import { InterestTypes } from '../../../api/interest/InterestTypeCollection';
+import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';
+import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
+import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';
+import { Reviews } from '../../../api/review/ReviewCollection';
+import { Slugs } from '../../../api/slug/SlugCollection';
+import { Teasers } from '../../../api/teaser/TeaserCollection';
+import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import AdminDataModelMenu from '../../components/admin/datamodel/AdminDataModelMenu';
+import AdminDataModelMenu, { IAdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
-import { IDescriptionPair, IFeedDefine } from '../../../typings/radgrad';
+import { IDescriptionPair, IFeed, IFeedDefine } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Feeds } from '../../../api/feed/FeedCollection';
 import { Users } from '../../../api/user/UserCollection';
@@ -24,12 +41,14 @@ import {
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import { RootState } from '../../../redux/types';
+import withInstanceSubscriptions from '../../layouts/utilities/InstanceSubscriptionsHOC';
 
 const collection = Feeds; // the collection to use.
 
-interface IAdminDataModelFeedsPageProps {
+interface IAdminDataModelFeedsPageProps extends IAdminDataModeMenuProps {
   isCloudinaryUsed: boolean;
   cloudinaryUrl: string;
+  items: IFeed[];
 }
 
 /**
@@ -244,7 +263,7 @@ const AdminDataModelFeedsPage = (props: IAdminDataModelFeedsPageProps) => {
       <Grid container stackable style={paddedStyle}>
 
         <Grid.Column width={3}>
-          <AdminDataModelMenu />
+          <AdminDataModelMenu {...props} />
         </Grid.Column>
 
         <Grid.Column width={13}>
@@ -269,6 +288,7 @@ const AdminDataModelFeedsPage = (props: IAdminDataModelFeedsPageProps) => {
             handleDelete={handleDelete}
             setShowIndex={dataModelActions.setCollectionShowIndex}
             setShowCount={dataModelActions.setCollectionShowCount}
+            items={props.items}
           />
         </Grid.Column>
       </Grid>
@@ -284,4 +304,31 @@ const AdminDataModelFeedsPage = (props: IAdminDataModelFeedsPageProps) => {
   );
 };
 
-export default connect(mapStateToProps)(AdminDataModelFeedsPage);
+const AdminDataModelFeedsPageCon = connect(mapStateToProps)(AdminDataModelFeedsPage);
+
+const AdminDataModelFeedsPageContainer = withTracker(() => ({
+  academicPlanCount: AcademicPlans.count(),
+  academicTermCount: AcademicTerms.count(),
+  academicYearCount: AcademicYearInstances.count(),
+  advisorLogCount: AdvisorLogs.count(),
+  careerGoalCount: CareerGoals.count(),
+  courseInstanceCount: CourseInstances.count(),
+  courseCount: Courses.count(),
+  feedCount: Feeds.count(),
+  feedbackCount: FeedbackInstances.count(),
+  helpMessageCount: HelpMessages.count(),
+  interestCount: Interests.count(),
+  interestTypeCount: InterestTypes.count(),
+  opportunityCount: Opportunities.count(),
+  opportunityInstanceCount: OpportunityInstances.count(),
+  opportunityTypeCount: OpportunityTypes.count(),
+  planChoiceCount: PlanChoices.count(),
+  reviewCount: Reviews.count(),
+  slugCount: Slugs.count(),
+  teaserCount: Teasers.count(),
+  usersCount: Users.count(),
+  verificationRequestCount: VerificationRequests.count(),
+  items: Feeds.find({}).fetch(),
+}))(AdminDataModelFeedsPageCon);
+
+export default withInstanceSubscriptions(AdminDataModelFeedsPageContainer);

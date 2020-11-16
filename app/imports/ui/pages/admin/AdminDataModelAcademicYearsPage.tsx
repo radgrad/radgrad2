@@ -1,8 +1,28 @@
+import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
 import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
+import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
+import { CareerGoals } from '../../../api/career/CareerGoalCollection';
+import { Courses } from '../../../api/course/CourseCollection';
+import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
+import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
+import { PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
+import { Feeds } from '../../../api/feed/FeedCollection';
+import { FeedbackInstances } from '../../../api/feedback/FeedbackInstanceCollection';
+import { HelpMessages } from '../../../api/help/HelpMessageCollection';
+import { Interests } from '../../../api/interest/InterestCollection';
+import { InterestTypes } from '../../../api/interest/InterestTypeCollection';
+import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';
+import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
+import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
+import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';
+import { Reviews } from '../../../api/review/ReviewCollection';
+import { Slugs } from '../../../api/slug/SlugCollection';
+import { Teasers } from '../../../api/teaser/TeaserCollection';
+import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import AdminDataModelMenu from '../../components/admin/datamodel/AdminDataModelMenu';
+import AdminDataModelMenu, { IAdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { Users } from '../../../api/user/UserCollection';
 import { IAcademicYearInstance, IDescriptionPair } from '../../../typings/radgrad';
@@ -34,7 +54,11 @@ const itemTitle = (year: IAcademicYearInstance): React.ReactNode => {
 
 const itemTitleString = (year: IAcademicYearInstance): string => `${Users.getFullName(year.studentID)} ${year.year}`;
 
-const AdminDataModelAcademicYearsPage = () => {
+interface IAdminDataModelAcademicYearsPageProps extends IAdminDataModeMenuProps {
+  items: IAcademicYearInstance[];
+}
+
+const AdminDataModelAcademicYearsPage = (props: IAdminDataModelAcademicYearsPageProps) => {
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');
@@ -149,7 +173,7 @@ const AdminDataModelAcademicYearsPage = () => {
       <AdminPageMenuWidget />
       <Grid container stackable style={paddedStyle}>
         <Grid.Column width={3}>
-          <AdminDataModelMenu />
+          <AdminDataModelMenu {...props} />
         </Grid.Column>
 
         <Grid.Column width={13}>
@@ -177,6 +201,7 @@ const AdminDataModelAcademicYearsPage = () => {
             handleDelete={handleDelete}
             setShowIndex={dataModelActions.setCollectionShowIndex}
             setShowCount={dataModelActions.setCollectionShowCount}
+            items={props.items}
           />
         </Grid.Column>
       </Grid>
@@ -192,4 +217,29 @@ const AdminDataModelAcademicYearsPage = () => {
   );
 };
 
-export default withInstanceSubscriptions(AdminDataModelAcademicYearsPage);
+const AdminDataModelAcademicYearsPageContainer = withTracker(() => ({
+  academicPlanCount: AcademicPlans.count(),
+  academicTermCount: AcademicTerms.count(),
+  academicYearCount: AcademicYearInstances.count(),
+  advisorLogCount: AdvisorLogs.count(),
+  careerGoalCount: CareerGoals.count(),
+  courseInstanceCount: CourseInstances.count(),
+  courseCount: Courses.count(),
+  feedCount: Feeds.count(),
+  feedbackCount: FeedbackInstances.count(),
+  helpMessageCount: HelpMessages.count(),
+  interestCount: Interests.count(),
+  interestTypeCount: InterestTypes.count(),
+  opportunityCount: Opportunities.count(),
+  opportunityInstanceCount: OpportunityInstances.count(),
+  opportunityTypeCount: OpportunityTypes.count(),
+  planChoiceCount: PlanChoices.count(),
+  reviewCount: Reviews.count(),
+  slugCount: Slugs.count(),
+  teaserCount: Teasers.count(),
+  usersCount: Users.count(),
+  verificationRequestCount: VerificationRequests.count(),
+  items: AcademicYearInstances.find({}).fetch(),
+}))(AdminDataModelAcademicYearsPage);
+
+export default withInstanceSubscriptions(AdminDataModelAcademicYearsPageContainer);

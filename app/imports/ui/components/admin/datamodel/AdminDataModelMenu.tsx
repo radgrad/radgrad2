@@ -1,31 +1,9 @@
 import React from 'react';
 import { Menu } from 'semantic-ui-react';
-import { withTracker } from 'meteor/react-meteor-data';
 import { NavLink, withRouter } from 'react-router-dom';
-import { AcademicPlans } from '../../../../api/degree-plan/AcademicPlanCollection';
-import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
-import { AcademicYearInstances } from '../../../../api/degree-plan/AcademicYearInstanceCollection';
-import { AdvisorLogs } from '../../../../api/log/AdvisorLogCollection';
-import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
-import { CourseInstances } from '../../../../api/course/CourseInstanceCollection';
-import { Courses } from '../../../../api/course/CourseCollection';
-import { Feeds } from '../../../../api/feed/FeedCollection';
-import { FeedbackInstances } from '../../../../api/feedback/FeedbackInstanceCollection';
-import { HelpMessages } from '../../../../api/help/HelpMessageCollection';
-import { Interests } from '../../../../api/interest/InterestCollection';
-import { InterestTypes } from '../../../../api/interest/InterestTypeCollection';
-import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
-import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
-import { OpportunityTypes } from '../../../../api/opportunity/OpportunityTypeCollection';
-import { PlanChoices } from '../../../../api/degree-plan/PlanChoiceCollection';
-import { Reviews } from '../../../../api/review/ReviewCollection';
-import { Slugs } from '../../../../api/slug/SlugCollection';
-import { Teasers } from '../../../../api/teaser/TeaserCollection';
-import { VerificationRequests } from '../../../../api/verification/VerificationRequestCollection';
-import { Users } from '../../../../api/user/UserCollection';
 import { leftHandMenu } from '../../shared/shared-widget-names';
 
-interface IAdminDataModeMenuProps {
+export interface IAdminDataModeMenuProps {
   match: {
     isExact: boolean;
     path: string;
@@ -132,28 +110,4 @@ const AdminDataModelMenu = (props: IAdminDataModeMenuProps) => {
   );
 };
 
-const AdminDataModelMenuContainer = withTracker(() => ({
-  academicPlanCount: AcademicPlans.count(),
-  academicTermCount: AcademicTerms.count(),
-  academicYearCount: AcademicYearInstances.count(),
-  advisorLogCount: AdvisorLogs.count(),
-  careerGoalCount: CareerGoals.count(),
-  courseInstanceCount: CourseInstances.count(),
-  courseCount: Courses.count(),
-  feedCount: Feeds.count(),
-  feedbackCount: FeedbackInstances.count(),
-  helpMessageCount: HelpMessages.count(),
-  interestCount: Interests.count(),
-  interestTypeCount: InterestTypes.count(),
-  opportunityCount: Opportunities.count(),
-  opportunityInstanceCount: OpportunityInstances.count(),
-  opportunityTypeCount: OpportunityTypes.count(),
-  planChoiceCount: PlanChoices.count(),
-  reviewCount: Reviews.count(),
-  slugCount: Slugs.count(),
-  teaserCount: Teasers.count(),
-  usersCount: Users.count(),
-  verificationRequestCount: VerificationRequests.count(),
-}))(AdminDataModelMenu);
-
-export default withRouter(AdminDataModelMenuContainer);
+export default withRouter(AdminDataModelMenu);
