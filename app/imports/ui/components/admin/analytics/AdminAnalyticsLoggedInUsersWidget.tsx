@@ -1,12 +1,9 @@
 import React from 'react';
-import { withTracker } from 'meteor/react-meteor-data';
-import { withRouter } from 'react-router-dom';
 import { Segment, Header, Grid, Label } from 'semantic-ui-react';
-import { Meteor } from 'meteor/meteor';
 import { Users } from '../../../../api/user/UserCollection';
 
-interface IAdminAnalyticsLoggedInUsersWidget {
-  loggedInUsers: any;
+export interface IAdminAnalyticsLoggedInUsersWidget {
+  loggedInUsers: { status: { idle: boolean }, _id: string }[];
 }
 
 const AdminAnalyticsLoggedInUsersWidget = (props: IAdminAnalyticsLoggedInUsersWidget) => (
@@ -30,7 +27,4 @@ const AdminAnalyticsLoggedInUsersWidget = (props: IAdminAnalyticsLoggedInUsersWi
   </Segment>
 );
 
-const AdminAnalyticsLoggedInUsersWidgetContainer = withTracker(() => ({
-  loggedInUsers: Meteor.users.find({ 'status.online': true }).fetch(),
-}))(AdminAnalyticsLoggedInUsersWidget);
-export default withRouter(AdminAnalyticsLoggedInUsersWidgetContainer);
+export default AdminAnalyticsLoggedInUsersWidget;

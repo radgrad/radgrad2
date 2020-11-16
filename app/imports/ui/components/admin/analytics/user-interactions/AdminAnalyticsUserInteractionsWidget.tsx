@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
-import { withTracker } from 'meteor/react-meteor-data';
-import { withRouter } from 'react-router-dom';
 import moment from 'moment';
 import { Grid, Segment, Header, Button, Table } from 'semantic-ui-react';
 import { IStudentProfile } from '../../../../../typings/radgrad';
 import { StudentProfiles } from '../../../../../api/user/StudentProfileCollection';
 import { userInteractionFindMethod } from '../../../../../api/analytic/UserInteractionCollection.methods';
 
-interface IAdminAnalyticsUserInteractionsWidgetProps {
+export interface IAdminAnalyticsUserInteractionsWidgetProps {
   students: IStudentProfile[];
 }
 
@@ -102,11 +100,4 @@ const AdminAnalyticsUserInteractionsWidget = (props: IAdminAnalyticsUserInteract
   );
 };
 
-const AdminAnalyticsUserInteractionsWidgetCon = withTracker(() => {
-  const students = StudentProfiles.find({ isAlumni: false }).fetch();
-  return {
-    students,
-  };
-})(AdminAnalyticsUserInteractionsWidget);
-
-export default withRouter(AdminAnalyticsUserInteractionsWidgetCon);
+export default AdminAnalyticsUserInteractionsWidget;

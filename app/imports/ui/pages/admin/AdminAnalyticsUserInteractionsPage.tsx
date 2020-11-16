@@ -1,12 +1,13 @@
+import { withTracker } from 'meteor/react-meteor-data';
 import React from 'react';
 import { Grid } from 'semantic-ui-react';
+import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminAnalyticsMenuWidget from '../../components/admin/analytics/AdminAnalyticsMenuWidget';
-import AdminAnalyticsUserInteractionsWidget
+import AdminAnalyticsUserInteractionsWidget, { IAdminAnalyticsUserInteractionsWidgetProps }
   from '../../components/admin/analytics/user-interactions/AdminAnalyticsUserInteractionsWidget';
-import withInstanceSubscriptions from '../../layouts/utilities/InstanceSubscriptionsHOC';
 
-const AdminAnalyticsUserInteractionsPage = () => {
+const AdminAnalyticsUserInteractionsPage = (props: IAdminAnalyticsUserInteractionsWidgetProps) => {
   const paddedStyle = {
     paddingTop: 20,
   };
@@ -20,7 +21,7 @@ const AdminAnalyticsUserInteractionsPage = () => {
               <AdminAnalyticsMenuWidget />
             </Grid.Column>
             <Grid.Column width={13}>
-              <AdminAnalyticsUserInteractionsWidget />
+              <AdminAnalyticsUserInteractionsWidget students={props.students} />
             </Grid.Column>
           </Grid>
         </Grid.Column>
@@ -29,4 +30,10 @@ const AdminAnalyticsUserInteractionsPage = () => {
   );
 };
 
-export default withInstanceSubscriptions(AdminAnalyticsUserInteractionsPage);
+const con = withTracker(() => {
+  const students = StudentProfiles.find({ isAlumni: false }).fetch();
+  return {
+    students,
+  };
+})(AdminAnalyticsUserInteractionsPage);
+export default con;

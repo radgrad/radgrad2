@@ -1,10 +1,12 @@
+import { Meteor } from 'meteor/meteor';
 import React from 'react';
+import { withTracker } from 'meteor/react-meteor-data';
 import { Grid } from 'semantic-ui-react';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminAnalyticsMenuWidget from '../../components/admin/analytics/AdminAnalyticsMenuWidget';
-import AdminAnalyticsLoggedInUsersWidget from '../../components/admin/analytics/AdminAnalyticsLoggedInUsersWidget';
+import AdminAnalyticsLoggedInUsersWidget, { IAdminAnalyticsLoggedInUsersWidget } from '../../components/admin/analytics/AdminAnalyticsLoggedInUsersWidget';
 
-const AdminAnalyticsPage = () => (
+const AdminAnalyticsPage = (props : IAdminAnalyticsLoggedInUsersWidget) => (
   <div id="admin-analytics-page">
     <AdminPageMenuWidget />
     <Grid container stackable columns={1}>
@@ -14,7 +16,7 @@ const AdminAnalyticsPage = () => (
             <AdminAnalyticsMenuWidget />
           </Grid.Column>
           <Grid.Column width={13}>
-            <AdminAnalyticsLoggedInUsersWidget />
+            <AdminAnalyticsLoggedInUsersWidget loggedInUsers={props.loggedInUsers} />
           </Grid.Column>
         </Grid>
       </Grid.Column>
@@ -22,4 +24,6 @@ const AdminAnalyticsPage = () => (
   </div>
 );
 
-export default AdminAnalyticsPage;
+export default withTracker(() => ({
+  loggedInUsers: Meteor.users.find({ 'status.online': true }).fetch(),
+}))(AdminAnalyticsPage);

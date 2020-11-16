@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Button, Form, Grid, Header, Message } from 'semantic-ui-react';
+import { Meteor } from 'meteor/meteor';
+import { withTracker } from 'meteor/react-meteor-data';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import AdminDatabaseMenuContainer from '../../components/admin/database/AdminDatabaseMenu';
+import AdminDatabaseMenuContainer, { IAdminDatabaseMenuProps } from '../../components/admin/database/AdminDatabaseMenu';
 import { checkIntegrity } from '../../../api/integrity/IntegrityChecker';
 import { checkIntegrityMethod } from '../../../api/integrity/IntegrityChecker.methods';
 import { databaseActions } from '../../../redux/admin/database';
 import { RootState } from '../../../redux/types';
 import withInstanceSubscriptions from '../../layouts/utilities/InstanceSubscriptionsHOC';
 
-interface IAdminCheckDatabaseIntegrityPageProps {
+interface IAdminCheckDatabaseIntegrityPageProps extends IAdminDatabaseMenuProps {
   startCheckIntegrity: () => any;
   checkIntegrityDone: () => any;
   checkIntegrityWorking?: boolean;
@@ -60,7 +62,7 @@ const AdminCheckDatabaseIntegrityPage = (props: IAdminCheckDatabaseIntegrityPage
       <Grid container stackable style={paddedStyle}>
 
         <Grid.Column width={5}>
-          <AdminDatabaseMenuContainer />
+          <AdminDatabaseMenuContainer currentUser={props.currentUser} />
         </Grid.Column>
 
         <Grid.Column width={11}>
@@ -92,4 +94,7 @@ const AdminCheckDatabaseIntegrityPage = (props: IAdminCheckDatabaseIntegrityPage
 };
 
 const AdminCheckDatabaseIntegrityPageContainer = connect(mapStateToProps, mapDispatchToProps)(AdminCheckDatabaseIntegrityPage);
-export default withInstanceSubscriptions(AdminCheckDatabaseIntegrityPageContainer);
+const AdminCheckDatabaseIntegrityPageCon = withTracker(() => ({
+  currentUser: Meteor.user() ? Meteor.user().username : '',
+}))(AdminCheckDatabaseIntegrityPageContainer);
+export default withInstanceSubscriptions(AdminCheckDatabaseIntegrityPageCon);

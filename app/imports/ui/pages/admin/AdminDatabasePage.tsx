@@ -1,15 +1,17 @@
 import React from 'react';
 import { Grid, Message } from 'semantic-ui-react';
+import { Meteor } from 'meteor/meteor';
+import { withTracker } from 'meteor/react-meteor-data';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import AdminDatabaseMenuContainer from '../../components/admin/database/AdminDatabaseMenu';
+import AdminDatabaseMenu, { IAdminDatabaseMenuProps } from '../../components/admin/database/AdminDatabaseMenu';
 
-const AdminDatabasePage = () => (
+const AdminDatabasePage = (props: IAdminDatabaseMenuProps) => (
   <div id="admin-database-page">
     <AdminPageMenuWidget />
     <Grid container stackable>
 
       <Grid.Column width={3}>
-        <AdminDatabaseMenuContainer />
+        <AdminDatabaseMenu currentUser={props.currentUser} />
       </Grid.Column>
 
       <Grid.Column width={13}>
@@ -20,4 +22,9 @@ const AdminDatabasePage = () => (
     </Grid>
   </div>
 );
-export default AdminDatabasePage;
+
+const AdminDatabasePageContainer = withTracker(() => ({
+  currentUser: Meteor.user() ? Meteor.user().username : '',
+}))(AdminDatabasePage);
+
+export default AdminDatabasePageContainer;

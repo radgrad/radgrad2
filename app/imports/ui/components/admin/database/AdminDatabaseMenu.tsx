@@ -1,11 +1,9 @@
 import React from 'react';
 import { Menu } from 'semantic-ui-react';
-import { withTracker } from 'meteor/react-meteor-data';
 import { NavLink, withRouter } from 'react-router-dom';
-import { Meteor } from 'meteor/meteor';
 import { leftHandMenu } from '../../shared/shared-widget-names';
 
-interface IAdminDatabaseMenuProps {
+export interface IAdminDatabaseMenuProps {
   currentUser: string;
   match: {
     isExact: boolean;
@@ -32,9 +30,5 @@ const AdminDatabaseMenu = (props: IAdminDatabaseMenuProps) => {
   );
 };
 
-const AdminDatabaseMenuContainer = withTracker(() => ({
-  currentUser: Meteor.user() ? Meteor.user().username : '',
-}))(AdminDatabaseMenu);
-
 /** Enable ReactRouter for this component. https://reacttraining.com/react-router/web/api/withRouter */
-export default withRouter(AdminDatabaseMenuContainer);
+export default withRouter(AdminDatabaseMenu);
