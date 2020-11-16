@@ -4,9 +4,7 @@ import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, SelectField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
-import { withTracker } from 'meteor/react-meteor-data';
 import { IInterestType } from '../../../../../typings/radgrad';
-import { InterestTypes } from '../../../../../api/interest/InterestTypeCollection';
 import { docToName } from '../../../shared/utilities/data-model';
 
 interface IAddInterestFormProps {
@@ -15,7 +13,7 @@ interface IAddInterestFormProps {
   handleAdd: (doc) => any;
 }
 
-const AddInterestForm = (props: IAddInterestFormProps): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined => {
+const AddInterestForm = (props: IAddInterestFormProps) => {
   const interestTypeNames = _.map(props.interestTypes, docToName);
   const schema = new SimpleSchema({
     name: String,
@@ -42,8 +40,4 @@ const AddInterestForm = (props: IAddInterestFormProps): React.ReactElement<any> 
   );
 };
 
-const AddInterestFormContainer = withTracker(() => (
-  { interestTypes: InterestTypes.find({}).fetch() }
-))(AddInterestForm);
-
-export default AddInterestFormContainer;
+export default AddInterestForm;

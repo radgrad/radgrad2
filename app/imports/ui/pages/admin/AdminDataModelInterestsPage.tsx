@@ -25,7 +25,7 @@ import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu, { IAdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
-import { IDescriptionPair, IInterest } from '../../../typings/radgrad';
+import { IDescriptionPair, IInterest, IInterestType } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { InterestTypes } from '../../../api/interest/InterestTypeCollection';
@@ -71,6 +71,7 @@ const itemTitle = (item: any): React.ReactNode => (
 
 interface IAdminDataModelInterestsPageProps extends IAdminDataModeMenuProps {
   items: IInterest[];
+  interestTypes: IInterestType[];
 }
 
 const AdminDataModelInterestsPage = (props: IAdminDataModelInterestsPageProps) => {
@@ -207,7 +208,11 @@ const AdminDataModelInterestsPage = (props: IAdminDataModelInterestsPageProps) =
               itemTitleString={itemTitleString}
             />
           ) : (
-            <AddInterestForm formRef={formRef} handleAdd={handleAdd} />
+            <AddInterestForm
+              formRef={formRef}
+              handleAdd={handleAdd}
+              interestTypes={props.interestTypes}
+            />
           )}
           <ListCollectionWidget
             collection={collection}
@@ -257,6 +262,7 @@ const AdminDataModelInterestsPageContainer = withTracker(() => ({
   usersCount: Users.count(),
   verificationRequestCount: VerificationRequests.count(),
   items: Interests.find({}).fetch(),
+  interestTypes: InterestTypes.find({}).fetch(),
 }))(AdminDataModelInterestsPage);
 
 export default withInstanceSubscriptions(AdminDataModelInterestsPageContainer);
