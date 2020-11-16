@@ -7,7 +7,6 @@ import SimpleSchema from 'simpl-schema';
 import _ from 'lodash';
 import moment from 'moment';
 import { profileToUsername } from '../../../shared/utilities/data-model';
-import { StudentProfiles } from '../../../../../api/user/StudentProfileCollection';
 
 interface IAddAcademicYearInstanceProps {
   students: Meteor.User[];

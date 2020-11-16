@@ -4,7 +4,6 @@ import { Button, Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, SelectField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
-import { StudentProfiles } from '../../../../../api/user/StudentProfileCollection';
 import { profileToName, userIdToName } from '../../../shared/utilities/data-model';
 import { FeedbackFunctions } from '../../../../../api/feedback/FeedbackFunctions';
 import { FeedbackInstances } from '../../../../../api/feedback/FeedbackInstanceCollection';

@@ -5,9 +5,6 @@ import { AutoForm, DateField, SelectField, NumField, SubmitField } from 'uniform
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { AcademicTerms } from '../../../../../api/academic-term/AcademicTermCollection';
-import { Courses } from '../../../../../api/course/CourseCollection';
-import { Opportunities } from '../../../../../api/opportunity/OpportunityCollection';
-import { StudentProfiles } from '../../../../../api/user/StudentProfileCollection';
 import { Feeds } from '../../../../../api/feed/FeedCollection';
 import { academicTermToName, courseToName, docToName, profileToName } from '../../../shared/utilities/data-model';
 import { IAcademicTerm, ICourse, IOpportunity, IStudentProfile } from '../../../../../typings/radgrad';
