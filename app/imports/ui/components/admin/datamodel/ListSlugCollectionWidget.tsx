@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Grid, Header, Segment } from 'semantic-ui-react';
 import _ from 'lodash';
-import { withTracker } from 'meteor/react-meteor-data';
 import BaseCollection from '../../../../api/base/BaseCollection';
 import { IDescriptionPair } from '../../../../typings/radgrad';
 import AdminCollectionAccordion from './AdminCollectionAccordion';
@@ -63,13 +62,4 @@ const ListSlugCollectionWidget = (props: IListSlugCollectionWidgetProps) => {
 };
 
 const ListSlugCollectionWidgetCon = connect(mapStateToProps)(ListSlugCollectionWidget);
-
-const ListSlugCollectionWidgetContainer = withTracker((props: IListSlugCollectionWidgetProps) => {
-  // console.log('ListSlugCollectionWidget withTracker props=%o', props);
-  const items = props.collection.find({}, props.findOptions).fetch();
-  // console.log('ListSlugCollectionWidget withTracker items=%o', items);
-  return {
-    items,
-  };
-})(ListSlugCollectionWidgetCon);
-export default ListSlugCollectionWidgetContainer;
+export default ListSlugCollectionWidgetCon;

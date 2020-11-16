@@ -1,8 +1,28 @@
+import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
 import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
+import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
+import { CareerGoals } from '../../../api/career/CareerGoalCollection';
+import { Courses } from '../../../api/course/CourseCollection';
+import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
+import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
+import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
+import { PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
+import { Feeds } from '../../../api/feed/FeedCollection';
+import { FeedbackInstances } from '../../../api/feedback/FeedbackInstanceCollection';
+import { HelpMessages } from '../../../api/help/HelpMessageCollection';
+import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';
+import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
+import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
+import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';
+import { Reviews } from '../../../api/review/ReviewCollection';
+import { Slugs } from '../../../api/slug/SlugCollection';
+import { Teasers } from '../../../api/teaser/TeaserCollection';
+import { Users } from '../../../api/user/UserCollection';
+import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import AdminDataModelMenu from '../../components/admin/datamodel/AdminDataModelMenu';
+import AdminDataModelMenu, { IAdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import { IDescriptionPair, IInterest } from '../../../typings/radgrad';
@@ -17,6 +37,7 @@ import {
   interestTypeNameToSlug,
 } from '../../components/shared/utilities/data-model';
 import BackToTopButton from '../../components/shared/BackToTopButton';
+import withInstanceSubscriptions from '../../layouts/utilities/InstanceSubscriptionsHOC';
 
 const collection = Interests; // the collection to use.
 
@@ -48,7 +69,11 @@ const itemTitle = (item: any): React.ReactNode => (
   </React.Fragment>
 );
 
-const AdminDataModelInterestsPage = () => {
+interface IAdminDataModelInterestsPageProps extends IAdminDataModeMenuProps {
+  items: IInterest[];
+}
+
+const AdminDataModelInterestsPage = (props: IAdminDataModelInterestsPageProps) => {
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');
@@ -168,7 +193,7 @@ const AdminDataModelInterestsPage = () => {
       <Grid container stackable style={paddedStyle}>
 
         <Grid.Column width={3}>
-          <AdminDataModelMenu />
+          <AdminDataModelMenu {...props} />
         </Grid.Column>
 
         <Grid.Column width={13}>
@@ -193,6 +218,7 @@ const AdminDataModelInterestsPage = () => {
             handleDelete={handleDelete}
             setShowIndex={dataModelActions.setCollectionShowIndex}
             setShowCount={dataModelActions.setCollectionShowCount}
+            items={props.items}
           />
         </Grid.Column>
       </Grid>
@@ -208,4 +234,29 @@ const AdminDataModelInterestsPage = () => {
   );
 };
 
-export default AdminDataModelInterestsPage;
+const AdminDataModelInterestsPageContainer = withTracker(() => ({
+  academicPlanCount: AcademicPlans.count(),
+  academicTermCount: AcademicTerms.count(),
+  academicYearCount: AcademicYearInstances.count(),
+  advisorLogCount: AdvisorLogs.count(),
+  careerGoalCount: CareerGoals.count(),
+  courseInstanceCount: CourseInstances.count(),
+  courseCount: Courses.count(),
+  feedCount: Feeds.count(),
+  feedbackCount: FeedbackInstances.count(),
+  helpMessageCount: HelpMessages.count(),
+  interestCount: Interests.count(),
+  interestTypeCount: InterestTypes.count(),
+  opportunityCount: Opportunities.count(),
+  opportunityInstanceCount: OpportunityInstances.count(),
+  opportunityTypeCount: OpportunityTypes.count(),
+  planChoiceCount: PlanChoices.count(),
+  reviewCount: Reviews.count(),
+  slugCount: Slugs.count(),
+  teaserCount: Teasers.count(),
+  usersCount: Users.count(),
+  verificationRequestCount: VerificationRequests.count(),
+  items: Interests.find({}).fetch(),
+}))(AdminDataModelInterestsPage);
+
+export default withInstanceSubscriptions(AdminDataModelInterestsPageContainer);
