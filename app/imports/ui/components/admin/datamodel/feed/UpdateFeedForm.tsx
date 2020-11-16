@@ -13,13 +13,9 @@ import {
 } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
-import { withTracker } from 'meteor/react-meteor-data';
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
 import { AcademicTerms } from '../../../../../api/academic-term/AcademicTermCollection';
-import { Courses } from '../../../../../api/course/CourseCollection';
-import { Opportunities } from '../../../../../api/opportunity/OpportunityCollection';
-import { StudentProfiles } from '../../../../../api/user/StudentProfileCollection';
 import { Feeds } from '../../../../../api/feed/FeedCollection';
 import {
   academicTermToName,
@@ -266,11 +262,4 @@ const UpdateFeedForm = (props: IUpdateFeedFormProps) => {
   );
 };
 
-const UpdateFeedFormContainer = withTracker(() => ({
-  academicTerms: AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch(),
-  courses: Courses.find({}, { sort: { num: 1 } }).fetch(),
-  opportunities: Opportunities.find({}, { sort: { name: 1 } }).fetch(),
-  students: StudentProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch(),
-}))(UpdateFeedForm);
-
-export default connect(null, mapDispatchToProps)(UpdateFeedFormContainer);
+export default connect(null, mapDispatchToProps)(UpdateFeedForm);

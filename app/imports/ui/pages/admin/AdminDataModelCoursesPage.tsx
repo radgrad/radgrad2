@@ -24,7 +24,7 @@ import { VerificationRequests } from '../../../api/verification/VerificationRequ
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu, { IAdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
-import { ICourse, IDescriptionPair } from '../../../typings/radgrad';
+import { ICourse, IDescriptionPair, IInterest } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
@@ -82,6 +82,8 @@ const itemTitle = (item: ICourse): React.ReactNode => (
 
 interface IAdminDataModelCoursesPageProps extends IAdminDataModeMenuProps {
   items: ICourse[];
+  interests: IInterest[];
+  courses: ICourse[];
 }
 
 const AdminDataModelCoursesPage = (props: IAdminDataModelCoursesPageProps) => {
@@ -228,9 +230,16 @@ const AdminDataModelCoursesPage = (props: IAdminDataModelCoursesPageProps) => {
               handleUpdate={handleUpdate}
               handleCancel={handleCancel}
               itemTitleString={itemTitleString}
+              interests={props.interests}
+              courses={props.courses}
             />
           ) : (
-            <AddCourseForm formRef={formRef} handleAdd={handleAdd} />
+            <AddCourseForm
+              formRef={formRef}
+              handleAdd={handleAdd}
+              interests={props.interests}
+              courses={props.courses}
+            />
           )}
           <ListCollectionWidget
             collection={collection}
@@ -280,6 +289,8 @@ const AdminDataModelCoursesPageContainer = withTracker(() => ({
   usersCount: Users.count(),
   verificationRequestCount: VerificationRequests.count(),
   items: Courses.find({}).fetch(),
+  interests: Interests.find({}, { sort: { name: 1 } }).fetch(),
+  courses: Courses.find({}, { sort: { num: 1 } }).fetch(),
 }))(AdminDataModelCoursesPage);
 
 export default withInstanceSubscriptions(AdminDataModelCoursesPageContainer);

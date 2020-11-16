@@ -26,7 +26,7 @@ import ListCollectionWidget from '../../components/admin/datamodel/ListCollectio
 import { Users } from '../../../api/user/UserCollection';
 import {
   ICareerGoal, ICareerGoalUpdate,
-  IDescriptionPair,
+  IDescriptionPair, IInterest,
 } from '../../../typings/radgrad';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
@@ -67,6 +67,7 @@ const itemTitle = (careerGoal: ICareerGoal): React.ReactNode => (
 
 interface IAdminDataModelCareerGoalsPageProps extends IAdminDataModeMenuProps {
   items: ICareerGoal[];
+  interests: IInterest[];
 }
 
 const AdminDataModelCareerGoalsPage = (props: IAdminDataModelCareerGoalsPageProps) => {
@@ -206,7 +207,7 @@ const AdminDataModelCareerGoalsPage = (props: IAdminDataModelCareerGoalsPageProp
               itemTitleString={itemTitleString}
             />
           ) : (
-            <AddCareerGoalForm collection={CareerGoals} formRef={formRef} handleAdd={handleAdd} />
+            <AddCareerGoalForm collection={CareerGoals} formRef={formRef} handleAdd={handleAdd} interests={props.interests} />
           )}
           <ListCollectionWidget
             collection={CareerGoals}
@@ -255,6 +256,7 @@ const AdminDataModelCareerGoalsPageContainer = withTracker(() => ({
   usersCount: Users.count(),
   verificationRequestCount: VerificationRequests.count(),
   items: CareerGoals.find({}).fetch(),
+  interests: Interests.find({}).fetch(),
 }))(AdminDataModelCareerGoalsPage);
 
 export default withInstanceSubscriptions(AdminDataModelCareerGoalsPageContainer);

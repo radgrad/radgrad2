@@ -20,6 +20,7 @@ import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollec
 import { Reviews } from '../../../api/review/ReviewCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
+import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu, { IAdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
@@ -56,6 +57,7 @@ const itemTitleString = (year: IAcademicYearInstance): string => `${Users.getFul
 
 interface IAdminDataModelAcademicYearsPageProps extends IAdminDataModeMenuProps {
   items: IAcademicYearInstance[];
+  students: Meteor.User[];
 }
 
 const AdminDataModelAcademicYearsPage = (props: IAdminDataModelAcademicYearsPageProps) => {
@@ -190,6 +192,7 @@ const AdminDataModelAcademicYearsPage = (props: IAdminDataModelAcademicYearsPage
             <AddAcademicYearInstanceFormContainer
               formRef={formRef}
               handleAdd={handleAdd}
+              students={props.students}
             />
           )}
           <ListCollectionWidget
@@ -240,6 +243,7 @@ const AdminDataModelAcademicYearsPageContainer = withTracker(() => ({
   usersCount: Users.count(),
   verificationRequestCount: VerificationRequests.count(),
   items: AcademicYearInstances.find({}).fetch(),
+  students: StudentProfiles.find({ isAlumni: false }).fetch(),
 }))(AdminDataModelAcademicYearsPage);
 
 export default withInstanceSubscriptions(AdminDataModelAcademicYearsPageContainer);

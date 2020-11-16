@@ -4,7 +4,6 @@ import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, DateField, SelectField, NumField, SubmitField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
-import { withTracker } from 'meteor/react-meteor-data';
 import { AcademicTerms } from '../../../../../api/academic-term/AcademicTermCollection';
 import { Courses } from '../../../../../api/course/CourseCollection';
 import { Opportunities } from '../../../../../api/opportunity/OpportunityCollection';
@@ -190,11 +189,4 @@ const AddFeedForm = (props: IAddFeedFromProps) => {
   );
 };
 
-const AddFeedFormContainer = withTracker(() => ({
-  academicTerms: AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch(),
-  courses: Courses.find({}, { sort: { num: 1 } }).fetch(),
-  opportunities: Opportunities.find({}, { sort: { name: 1 } }).fetch(),
-  students: StudentProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch(),
-}))(AddFeedForm);
-
-export default AddFeedFormContainer;
+export default AddFeedForm;

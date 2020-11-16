@@ -17,11 +17,18 @@ import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstan
 import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';
 import { Reviews } from '../../../api/review/ReviewCollection';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
+import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu, { IAdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
-import { ICourseInstance, ICourseInstanceDefine, IDescriptionPair } from '../../../typings/radgrad';
+import {
+  IAcademicTerm,
+  ICourse,
+  ICourseInstance,
+  ICourseInstanceDefine,
+  IDescriptionPair, IStudentProfile,
+} from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
@@ -83,6 +90,9 @@ const itemTitle = (item: any): React.ReactNode => (
 
 interface IAdminDataModelCourseInstancesPageProps extends IAdminDataModeMenuProps {
   items: ICourseInstance[];
+  terms: IAcademicTerm[];
+  courses: ICourse[];
+  students: IStudentProfile[];
 }
 
 const AdminDataModelCourseInstancesPage = (props: IAdminDataModelCourseInstancesPageProps) => {
@@ -227,9 +237,16 @@ const AdminDataModelCourseInstancesPage = (props: IAdminDataModelCourseInstances
               handleUpdate={handleUpdate}
               handleCancel={handleCancel}
               itemTitleString={itemTitleString}
+              terms={props.terms}
             />
           ) : (
-            <AddCourseInstanceForm formRef={formRef} handleAdd={handleAdd} />
+            <AddCourseInstanceForm
+              formRef={formRef}
+              handleAdd={handleAdd}
+              terms={props.terms}
+              courses={props.courses}
+              students={props.students}
+            />
           )}
           <ListCollectionWidget
             collection={collection}
@@ -279,6 +296,9 @@ const AdminDataModelCourseInstancesPageContainer = withTracker(() => ({
   usersCount: Users.count(),
   verificationRequestCount: VerificationRequests.count(),
   items: CourseInstances.find({}).fetch(),
+  terms: AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch(),
+  courses: Courses.find().fetch(),
+  students: StudentProfiles.find({}, { sort: { lastName: 1 } }).fetch(),
 }))(AdminDataModelCourseInstancesPage);
 
 export default withInstanceSubscriptions(AdminDataModelCourseInstancesPageContainer);

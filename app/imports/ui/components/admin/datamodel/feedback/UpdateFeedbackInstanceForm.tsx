@@ -4,7 +4,6 @@ import { Button, Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, SelectField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
-import { withTracker } from 'meteor/react-meteor-data';
 import { StudentProfiles } from '../../../../../api/user/StudentProfileCollection';
 import { profileToName, userIdToName } from '../../../shared/utilities/data-model';
 import { FeedbackFunctions } from '../../../../../api/feedback/FeedbackFunctions';
@@ -71,8 +70,4 @@ const UpdateFeedbackInstanceForm = (props: IUpdateFeedbackInstanceFormProps) => 
 );
 };
 
-const UpdateFeedbackInstanceFormContainer = withTracker(() => ({
-  students: StudentProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch(),
-}))(UpdateFeedbackInstanceForm);
-
-export default UpdateFeedbackInstanceFormContainer;
+export default UpdateFeedbackInstanceForm;

@@ -19,11 +19,20 @@ import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollec
 import { Reviews } from '../../../api/review/ReviewCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
+import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu, { IAdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
-import { IDescriptionPair, IFeed, IFeedDefine } from '../../../typings/radgrad';
+import {
+  IAcademicTerm,
+  ICourse,
+  IDescriptionPair,
+  IFeed,
+  IFeedDefine,
+  IOpportunity,
+  IStudentProfile,
+} from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Feeds } from '../../../api/feed/FeedCollection';
 import { Users } from '../../../api/user/UserCollection';
@@ -49,6 +58,10 @@ interface IAdminDataModelFeedsPageProps extends IAdminDataModeMenuProps {
   isCloudinaryUsed: boolean;
   cloudinaryUrl: string;
   items: IFeed[];
+  academicTerms: IAcademicTerm[];
+  courses: ICourse[];
+  opportunities: IOpportunity[];
+  students: IStudentProfile[];
 }
 
 /**
@@ -275,9 +288,20 @@ const AdminDataModelFeedsPage = (props: IAdminDataModelFeedsPageProps) => {
               handleUpdate={handleUpdate}
               handleCancel={handleCancel}
               itemTitleString={itemTitleString}
+              academicTerms={props.academicTerms}
+              courses={props.courses}
+              students={props.students}
+              opportunities={props.opportunities}
             />
           ) : (
-            <AddFeedForm formRef={formRef} handleAdd={handleAdd} />
+            <AddFeedForm
+              formRef={formRef}
+              handleAdd={handleAdd}
+              academicTerms={props.academicTerms}
+              courses={props.courses}
+              students={props.students}
+              opportunities={props.opportunities}
+            />
           )}
           <ListCollectionWidget
             collection={collection}
@@ -329,6 +353,10 @@ const AdminDataModelFeedsPageContainer = withTracker(() => ({
   usersCount: Users.count(),
   verificationRequestCount: VerificationRequests.count(),
   items: Feeds.find({}).fetch(),
+  academicTerms: AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch(),
+  courses: Courses.find({}, { sort: { num: 1 } }).fetch(),
+  opportunities: Opportunities.find({}, { sort: { name: 1 } }).fetch(),
+  students: StudentProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch(),
 }))(AdminDataModelFeedsPageCon);
 
 export default withInstanceSubscriptions(AdminDataModelFeedsPageContainer);

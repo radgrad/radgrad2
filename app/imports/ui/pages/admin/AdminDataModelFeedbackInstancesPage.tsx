@@ -20,13 +20,14 @@ import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollec
 import { Reviews } from '../../../api/review/ReviewCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
+import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu, { IAdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import {
   IDescriptionPair,
-  IFeedbackInstanceDefine,
+  IFeedbackInstanceDefine, IStudentProfile,
 } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { FeedbackInstances } from '../../../api/feedback/FeedbackInstanceCollection';
@@ -76,6 +77,7 @@ const itemTitle = (item: any): React.ReactNode => (
 
 interface IAdminDataModelFeedbackInstancesPageProps extends IAdminDataModeMenuProps {
   items: object[];
+  students: IStudentProfile[];
 }
 
 const AdminDataModelFeedbackInstancesPage = (props: IAdminDataModelFeedbackInstancesPageProps) => {
@@ -213,9 +215,14 @@ const AdminDataModelFeedbackInstancesPage = (props: IAdminDataModelFeedbackInsta
               handleUpdate={handleUpdate}
               handleCancel={handleCancel}
               itemTitleString={itemTitleString}
+              students={props.students}
             />
           ) : (
-            <AddFeedbackInstanceForm formRef={formRef} handleAdd={handleAdd} />
+            <AddFeedbackInstanceForm
+              formRef={formRef}
+              handleAdd={handleAdd}
+              students={props.students}
+            />
           )}
           <ListCollectionWidget
             collection={collection}
@@ -265,6 +272,7 @@ const AdminDataModelFeedbackInstancesPageContainer = withTracker(() => ({
   usersCount: Users.count(),
   verificationRequestCount: VerificationRequests.count(),
   items: FeedbackInstances.find({}).fetch(),
+  students: StudentProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch(),
 }))(AdminDataModelFeedbackInstancesPage);
 
 export default withInstanceSubscriptions(AdminDataModelFeedbackInstancesPageContainer);

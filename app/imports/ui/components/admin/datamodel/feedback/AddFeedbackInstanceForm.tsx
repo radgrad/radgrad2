@@ -4,8 +4,6 @@ import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, SelectField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
-import { withTracker } from 'meteor/react-meteor-data';
-import { StudentProfiles } from '../../../../../api/user/StudentProfileCollection';
 import { profileToName } from '../../../shared/utilities/data-model';
 import { FeedbackFunctions } from '../../../../../api/feedback/FeedbackFunctions';
 import { FeedbackInstances } from '../../../../../api/feedback/FeedbackInstanceCollection';
@@ -17,7 +15,7 @@ interface IAddFeedbackInstanceFormProps {
   handleAdd: (doc) => any;
 }
 
-const AddFeedbackInstanceForm = (props: IAddFeedbackInstanceFormProps): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined => {
+const AddFeedbackInstanceForm = (props: IAddFeedbackInstanceFormProps) => {
   const studentNames = _.map(props.students, profileToName);
   // console.log(FeedbackFunctions.feedbackFunctionNames);
   const schema = new SimpleSchema({
@@ -52,9 +50,4 @@ const AddFeedbackInstanceForm = (props: IAddFeedbackInstanceFormProps): React.Re
     </Segment>
   );
 };
-
-const AddFeedbackInstanceFormContainer = withTracker(() => ({
-  students: StudentProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch(),
-}))(AddFeedbackInstanceForm);
-
-export default AddFeedbackInstanceFormContainer;
+export default AddFeedbackInstanceForm;

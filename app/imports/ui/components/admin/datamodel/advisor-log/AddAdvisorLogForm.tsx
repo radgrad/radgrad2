@@ -4,11 +4,8 @@ import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import { Header, Segment } from 'semantic-ui-react';
 import { AutoForm, SelectField, LongTextField, SubmitField } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
-import { withTracker } from 'meteor/react-meteor-data';
 import _ from 'lodash';
 import { profileToUsername } from '../../../shared/utilities/data-model';
-import { AdvisorProfiles } from '../../../../../api/user/AdvisorProfileCollection';
-import { StudentProfiles } from '../../../../../api/user/StudentProfileCollection';
 
 interface IAddAdvisorLogFormProps {
   advisors: Meteor.User[];
@@ -17,7 +14,7 @@ interface IAddAdvisorLogFormProps {
   handleAdd: (doc) => any;
 }
 
-const AddAdvisorLogForm = (props: IAddAdvisorLogFormProps): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined => {
+const AddAdvisorLogForm = (props: IAddAdvisorLogFormProps) => {
   // console.log('AddAdvisorLogForm', props);
   const advisorNames = _.map(props.advisors, profileToUsername);
   const studentNames = _.map(props.students, profileToUsername);
@@ -49,14 +46,4 @@ const AddAdvisorLogForm = (props: IAddAdvisorLogFormProps): React.ReactElement<a
   );
 };
 
-const AddAdvisorLogFormContainer = withTracker(() => {
-  const advisors = AdvisorProfiles.find({}, { $sort: { lastName: 1, firstName: 1 } }).fetch();
-  const students = StudentProfiles.find({ isAlumni: false }, { $sort: { lastName: 1, firstName: 1 } }).fetch();
-  // console.log('advisors=%o students=%o', advisors, students);
-  return {
-    advisors,
-    students,
-  };
-})(AddAdvisorLogForm);
-
-export default AddAdvisorLogFormContainer;
+export default AddAdvisorLogForm;

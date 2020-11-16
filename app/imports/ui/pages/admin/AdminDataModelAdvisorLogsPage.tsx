@@ -1,3 +1,4 @@
+import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
 import { Confirm, Grid, Icon } from 'semantic-ui-react';
@@ -20,6 +21,8 @@ import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollec
 import { Reviews } from '../../../api/review/ReviewCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
+import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
+import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu, { IAdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
@@ -59,6 +62,8 @@ const itemTitleString = (advisorLog: IAdvisorLog): string => `${Users.getFullNam
 
 interface IAdminDataModelAdvisorLogsPageProps extends IAdminDataModeMenuProps {
   items: IAdvisorLog[];
+  advisors: Meteor.User[];
+  students: Meteor.User[];
 }
 
 const AdminDataModelAdvisorLogsPage = (props: IAdminDataModelAdvisorLogsPageProps) => {
@@ -85,6 +90,7 @@ const AdminDataModelAdvisorLogsPage = (props: IAdminDataModelAdvisorLogsPageProp
           showConfirmButton: false,
           timer: 1500,
         });
+        // console.log(formRef);
         // @ts-ignore
         formRef.current.reset();
       }
@@ -195,7 +201,12 @@ const AdminDataModelAdvisorLogsPage = (props: IAdminDataModelAdvisorLogsPageProp
               itemTitleString={itemTitleString}
             />
           ) : (
-            <AddAdvisorLogFormContainer formRef={formRef} handleAdd={handleAdd} />
+            <AddAdvisorLogFormContainer
+              formRef={formRef}
+              handleAdd={handleAdd}
+              students={props.students}
+              advisors={props.advisors}
+            />
           )}
           <ListCollectionWidget
             collection={AdvisorLogs}
@@ -245,6 +256,8 @@ const AdminDataModelAdvisorLogsPageContainer = withTracker(() => ({
   usersCount: Users.count(),
   verificationRequestCount: VerificationRequests.count(),
   items: AdvisorLogs.find({}).fetch(),
-}))(AdminDataModelAdvisorLogsPage);
+  advisors: AdvisorProfiles.find({}, { $sort: { lastName: 1, firstName: 1 } }).fetch(),
+  students: StudentProfiles.find({ isAlumni: false }, { $sort: { lastName: 1, firstName: 1 } }).fetch(),
+  }))(AdminDataModelAdvisorLogsPage);
 
 export default withInstanceSubscriptions(AdminDataModelAdvisorLogsPageContainer);

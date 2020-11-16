@@ -4,12 +4,9 @@ import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, NumField, LongTextField, SubmitField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
-import { withTracker } from 'meteor/react-meteor-data';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
-import { Interests } from '../../../../../api/interest/InterestCollection';
 import { ICourse, IInterest } from '../../../../../typings/radgrad';
 import { courseToName, docToName } from '../../../shared/utilities/data-model';
-import { Courses } from '../../../../../api/course/CourseCollection';
 
 interface IAddCourseFormProps {
   interests: IInterest[];
@@ -18,7 +15,7 @@ interface IAddCourseFormProps {
   handleAdd: (doc) => any;
 }
 
-const AddCourseForm = (props: IAddCourseFormProps): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined => {
+const AddCourseForm = (props: IAddCourseFormProps) => {
   const interestNames = _.map(props.interests, docToName);
   const courseNames = _.map(props.courses, courseToName);
   const schema = new SimpleSchema({
@@ -70,13 +67,4 @@ const AddCourseForm = (props: IAddCourseFormProps): React.ReactElement<any> | st
   );
 };
 
-const AddCourseFormContainer = withTracker(() => {
-  const interests = Interests.find({}, { sort: { name: 1 } }).fetch();
-  const courses = Courses.find({}, { sort: { num: 1 } }).fetch();
-  return {
-    courses,
-    interests,
-  };
-})(AddCourseForm);
-
-export default AddCourseFormContainer;
+export default AddCourseForm;

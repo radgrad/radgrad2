@@ -4,9 +4,7 @@ import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, LongTextField, SubmitField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
-import { withTracker } from 'meteor/react-meteor-data';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
-import { Interests } from '../../../../../api/interest/InterestCollection';
 import { IInterest } from '../../../../../typings/radgrad';
 import { docToName } from '../../../shared/utilities/data-model';
 
@@ -48,11 +46,4 @@ const AddCareerGoalForm = (props: IAddCareerGoalFormProps): React.ReactElement<a
   );
 };
 
-const AddCareerGoalFormContainer = withTracker(() => {
-  const interests = Interests.find({}, { sort: { name: 1 } }).fetch();
-  return {
-    interests,
-  };
-})(AddCareerGoalForm);
-
-export default AddCareerGoalFormContainer;
+export default AddCareerGoalForm;

@@ -4,11 +4,8 @@ import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, SelectField, NumField, SubmitField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
-import { withTracker } from 'meteor/react-meteor-data';
 import { IAcademicTerm, ICourse, IStudentProfile } from '../../../../../typings/radgrad';
 import { AcademicTerms } from '../../../../../api/academic-term/AcademicTermCollection';
-import { Courses } from '../../../../../api/course/CourseCollection';
-import { StudentProfiles } from '../../../../../api/user/StudentProfileCollection';
 import { CourseInstances } from '../../../../../api/course/CourseInstanceCollection';
 import { academicTermToName, courseToName, profileToName } from '../../../shared/utilities/data-model';
 
@@ -20,7 +17,7 @@ interface IAddCourseInstanceFormProps {
   handleAdd: (doc) => any;
 }
 
-const AddCourseInstanceForm = (props: IAddCourseInstanceFormProps): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined => {
+const AddCourseInstanceForm = (props: IAddCourseInstanceFormProps) => {
   const termNames = _.map(props.terms, academicTermToName);
   const currentTermName = AcademicTerms.toString(AcademicTerms.getCurrentTermID(), false);
   const courseNames = _.map(props.courses, courseToName);
@@ -71,15 +68,4 @@ const AddCourseInstanceForm = (props: IAddCourseInstanceFormProps): React.ReactE
   );
 };
 
-const AddCourseInstanceFormContainer = withTracker(() => {
-  const terms = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();
-  const courses = Courses.find().fetch();
-  const students = StudentProfiles.find({}, { sort: { lastName: 1 } }).fetch();
-  return {
-    terms,
-    courses,
-    students,
-  };
-})(AddCourseInstanceForm);
-
-export default AddCourseInstanceFormContainer;
+export default AddCourseInstanceForm;

@@ -4,9 +4,7 @@ import { AutoForm, TextField, NumField, LongTextField, BoolField, SubmitField } 
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import _ from 'lodash';
-import { withTracker } from 'meteor/react-meteor-data';
 import BaseCollection from '../../../../../api/base/BaseCollection';
-import { Interests } from '../../../../../api/interest/InterestCollection';
 import { ICourse, IInterest } from '../../../../../typings/radgrad';
 import {
   courseSlugToName, courseToName,
@@ -14,7 +12,6 @@ import {
   interestIdToName,
 } from '../../../shared/utilities/data-model';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
-import { Courses } from '../../../../../api/course/CourseCollection';
 
 interface IUpdateCourseFormProps {
   collection: BaseCollection;
@@ -95,13 +92,4 @@ const UpdateCourseForm = (props: IUpdateCourseFormProps) => {
   );
 };
 
-const UpdateCourseFormContainer = withTracker(() => {
-  const interests = Interests.find({}, { sort: { name: 1 } }).fetch();
-  const courses = Courses.find({}, { sort: { num: 1 } }).fetch();
-  return {
-    courses,
-    interests,
-  };
-})(UpdateCourseForm);
-
-export default UpdateCourseFormContainer;
+export default UpdateCourseForm;

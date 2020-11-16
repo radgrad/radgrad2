@@ -4,7 +4,6 @@ import { Header, Segment } from 'semantic-ui-react';
 import { AutoForm, NumField, SelectField, SubmitField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
-import { withTracker } from 'meteor/react-meteor-data';
 import _ from 'lodash';
 import moment from 'moment';
 import { profileToUsername } from '../../../shared/utilities/data-model';
@@ -39,12 +38,4 @@ const AddAcademicYearInstanceForm = (props: IAddAcademicYearInstanceProps): Reac
   );
 };
 
-const AddAcademicYearInstanceFormContainer = withTracker(() => {
-  const students = StudentProfiles.find({ isAlumni: false }).fetch();
-  // console.log('students=%o', students);
-  return {
-    students,
-  };
-})(AddAcademicYearInstanceForm);
-
-export default AddAcademicYearInstanceFormContainer;
+export default AddAcademicYearInstanceForm;
