@@ -1,9 +1,9 @@
-import { FAVORITE_TYPE, IFavoriteTypes } from '../../../../../api/favorite/FavoriteTypes';
-import { FavoriteAcademicPlans } from '../../../../../api/favorite/FavoriteAcademicPlanCollection';
-import { FavoriteCareerGoals } from '../../../../../api/favorite/FavoriteCareerGoalCollection';
-import { FavoriteCourses } from '../../../../../api/favorite/FavoriteCourseCollection';
-import { FavoriteInterests } from '../../../../../api/favorite/FavoriteInterestCollection';
-import { FavoriteOpportunities } from '../../../../../api/favorite/FavoriteOpportunityCollection';
+import { FAVORITE_TYPE, IFavoriteTypes } from '../../../../../../api/favorite/FavoriteTypes';
+import { FavoriteAcademicPlans } from '../../../../../../api/favorite/FavoriteAcademicPlanCollection';
+import { FavoriteCareerGoals } from '../../../../../../api/favorite/FavoriteCareerGoalCollection';
+import { FavoriteCourses } from '../../../../../../api/favorite/FavoriteCourseCollection';
+import { FavoriteInterests } from '../../../../../../api/favorite/FavoriteInterestCollection';
+import { FavoriteOpportunities } from '../../../../../../api/favorite/FavoriteOpportunityCollection';
 import {
   IBaseProfile,
   IFavoriteAcademicPlanDefine,
@@ -13,15 +13,15 @@ import {
   IFavoriteOpportunityDefine,
   IPageInterestDefine,
   IUserInteractionDefine,
-} from '../../../../../typings/radgrad';
-import { Users } from '../../../../../api/user/UserCollection';
-import { Slugs } from '../../../../../api/slug/SlugCollection';
-import { UserInteractionsTypes } from '../../../../../api/analytic/UserInteractionsTypes';
+} from '../../../../../../typings/radgrad';
+import { Users } from '../../../../../../api/user/UserCollection';
+import { Slugs } from '../../../../../../api/slug/SlugCollection';
+import { UserInteractionsTypes } from '../../../../../../api/analytic/UserInteractionsTypes';
 import {
   IPageInterestsCategoryTypes,
   PageInterestsCategoryTypes,
-} from '../../../../../api/page-tracking/PageInterestsCategoryTypes';
-import { IFavoriteButtonProps } from './FavoritesButton';
+} from '../../../../../../api/page-tracking/PageInterestsCategoryTypes';
+import { IFavoriteButtonProps } from '../FavoritesButton';
 
 export const getCollectionName = (type: IFavoriteTypes): string => {
   let collectionName: string;

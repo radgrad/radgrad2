@@ -3,7 +3,7 @@ import { Grid, Popup } from 'semantic-ui-react';
 import _ from 'lodash';
 import { PlanChoices } from '../../../../api/degree-plan/PlanChoiceCollection';
 import { buildSimpleName, complexChoiceToArray, stripCounter } from '../../../../api/degree-plan/PlanChoiceUtilities';
-import { getNotSatisfiedStyle, getSatisfiedStyle } from './StyleFunctions';
+import { getNotSatisfiedStyle, getSatisfiedStyle } from './utilities/styles';
 
 interface ISatisfiedPlanChoicePillProps {
   choice: string;

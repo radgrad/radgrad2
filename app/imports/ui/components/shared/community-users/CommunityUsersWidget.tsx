@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Card, Grid, Message, SemanticWIDTHS, Tab } from 'semantic-ui-react';
-import { getUsers } from '../explorer/explorer-helper-functions';
+import { getUsers } from '../explorer/utilities/explorer';
 import { ROLE } from '../../../../api/role/Role';
 import UserProfileCard from './UserProfileCard';
 import { IMatchProps } from '../utilities/router';

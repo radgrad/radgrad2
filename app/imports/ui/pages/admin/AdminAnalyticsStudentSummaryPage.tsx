@@ -3,7 +3,7 @@ import { Grid } from 'semantic-ui-react';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminAnalyticsMenuWidget from '../../components/admin/analytics/AdminAnalyticsMenuWidget';
 import withInstanceSubscriptions from '../../layouts/utilities/InstanceSubscriptionsHOC';
-import AdminAnalyticsStudentSummaryWidget from '../../components/admin/analytics/student-summary-page/AdminAnalyticsStudentSummaryWidget';
+import AdminAnalyticsStudentSummaryWidget from '../../components/admin/analytics/student-summary/AdminAnalyticsStudentSummaryWidget';
 
 const AdminAnalyticsStudentSummaryPage = () => {
   const paddedStyle = {

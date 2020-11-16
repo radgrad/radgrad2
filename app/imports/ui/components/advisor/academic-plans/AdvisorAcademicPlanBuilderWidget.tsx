@@ -10,7 +10,7 @@ import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { RadGradProperties } from '../../../../api/radgrad/RadGradProperties';
 import { IPlanChoiceDefine } from '../../../../typings/radgrad';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
-import { getDroppableListStyle } from '../../shared/academic-plan/StyleFunctions';
+import { getDroppableListStyle } from '../../shared/academic-plan/utilities/styles';
 import { PlanChoices } from '../../../../api/degree-plan/PlanChoiceCollection';
 import AdvisorAPBPlanChoiceWidget from './AdvisorAPBPlanChoiceWidget';
 import DraggableCoursePill from '../../shared/academic-plan/DraggableCoursePill';

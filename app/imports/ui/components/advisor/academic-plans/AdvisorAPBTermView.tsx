@@ -2,7 +2,7 @@ import React from 'react';
 import { Header, Segment } from 'semantic-ui-react';
 import _ from 'lodash';
 import { Droppable } from 'react-beautiful-dnd';
-import { getDroppableListStyle } from '../../shared/academic-plan/StyleFunctions';
+import { getDroppableListStyle } from '../../shared/academic-plan/utilities/styles';
 import DraggableCoursePill from '../../shared/academic-plan/DraggableCoursePill';
 import * as AcademicPlanUtilities from '../../../../api/degree-plan/AcademicPlanUtilities';
 import {

@@ -5,11 +5,11 @@ import { withRouter, Link } from 'react-router-dom';
 import { RadGradProperties } from '../../../../../api/radgrad/RadGradProperties';
 import { IInterest } from '../../../../../typings/radgrad';
 import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
-import ExplorerMenuNonMobileItem from '../single-item-page/ExplorerMenuNonMobileItem';
+import ExplorerMenuNonMobileItem from '../single-item/ExplorerMenuNonMobileItem';
 import {
   explorerInterfaces, IExplorerTypes,
   isType,
-} from '../explorer-helper-functions';
+} from '../utilities/explorer';
 import { buildRouteName, isUrlRoleFaculty, isUrlRoleStudent } from '../../utilities/router';
 import '../../../../../../client/style.css';
 

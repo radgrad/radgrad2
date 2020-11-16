@@ -3,7 +3,7 @@ import { Grid } from 'semantic-ui-react';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminAnalyticsMenuWidget from '../../components/admin/analytics/AdminAnalyticsMenuWidget';
 import AdminAnalyticsNewsletterWidget
-  from '../../components/admin/analytics/newsletter-page/AdminAnalyticsNewsletterWidget';
+  from '../../components/admin/analytics/newsletter/AdminAnalyticsNewsletterWidget';
 import withInstanceSubscriptions from '../../layouts/utilities/InstanceSubscriptionsHOC';
 
 const AdminAnalyticsNewsletterPage = () => {

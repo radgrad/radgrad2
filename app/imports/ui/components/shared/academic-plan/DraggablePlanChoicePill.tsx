@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import { Draggable } from 'react-beautiful-dnd';
-import { getDraggablePillStyle, getNotSatisfiedStyle, getSatisfiedStyle } from './StyleFunctions';
+import { getDraggablePillStyle, getNotSatisfiedStyle, getSatisfiedStyle } from './utilities/styles';
 import NamePill from './NamePill';
 import * as PlanChoiceUtils from '../../../../api/degree-plan/PlanChoiceUtilities';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid } from 'semantic-ui-react';
-import { getNotSatisfiedStyle, getSatisfiedStyle } from './StyleFunctions';
+import { getNotSatisfiedStyle, getSatisfiedStyle } from './utilities/styles';
 import NamePill from './NamePill';
 import { PlanChoices } from '../../../../api/degree-plan/PlanChoiceCollection';
 

@@ -18,7 +18,7 @@ import {
   PageInterestsCategoryTypes,
 } from '../../../api/page-tracking/PageInterestsCategoryTypes';
 import { pageInterestDefineMethod } from '../../../api/page-tracking/PageInterestCollection.methods';
-import { calculateEngagedInterestTime, isValidParameter } from '../../components/shared/page-tracking/page-tracking-helper-functions';
+import { calculateEngagedInterestTime, isValidParameter } from '../../components/shared/page-tracking/utilities/page-tracking';
 
 interface IPageTrackerProps {
   history: {

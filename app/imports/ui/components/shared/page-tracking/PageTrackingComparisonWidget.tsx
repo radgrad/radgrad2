@@ -25,7 +25,7 @@ import { Opportunities } from '../../../../api/opportunity/OpportunityCollection
 import {
   aggregateDailySnapshots, getCategory, getUrlCategory,
   IAggregatedDailySnapshot, parseName, slugIDToSlugName,
-} from './page-tracking-helper-functions';
+} from './utilities/page-tracking';
 import { IMatchProps } from '../utilities/router';
 import PageTrackingWidgetMessage from './PageTrackingWidgetMessage';
 

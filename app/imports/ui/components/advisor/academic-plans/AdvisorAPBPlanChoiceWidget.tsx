@@ -6,7 +6,7 @@ import { Droppable } from 'react-beautiful-dnd';
 import SimpleSchema from 'simpl-schema';
 import { AutoForm, BoolField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
-import { getDroppableListStyle } from '../../shared/academic-plan/StyleFunctions';
+import { getDroppableListStyle } from '../../shared/academic-plan/utilities/styles';
 import { IPlanChoiceDefine } from '../../../../typings/radgrad';
 import DraggableCoursePill from '../../shared/academic-plan/DraggableCoursePill';
 import { buildCombineAreaDraggableId, CHOICE_AREA, COMBINE_AREA, DELETE_AREA } from './utilities/academic-plan-builder';

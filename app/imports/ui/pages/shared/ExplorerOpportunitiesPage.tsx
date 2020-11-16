@@ -3,13 +3,13 @@ import { Grid, Container, Card } from 'semantic-ui-react';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import CardExplorerOpportunitiesWidget
-  from '../../components/shared/explorer/opportunities-page/ExplorerOpportunitiesWidget';
+  from '../../components/shared/explorer/opportunities/ExplorerOpportunitiesWidget';
 import TeaserVideo from '../../components/shared/TeaserVideo';
 import { radgradVideos } from '../../../api/radgrad/radgrad-videos';
 import ExplorerSummerOpportunitiesWidget
-  from '../../components/shared/explorer/opportunities-page/ExplorerSummerOpportunitiesWidget';
+  from '../../components/shared/explorer/opportunities/ExplorerSummerOpportunitiesWidget';
 import ExplorerOpportunitiesHeaderWidget
-  from '../../components/shared/explorer/opportunities-page/ExplorerOpportunitiesHeaderWidget';
+  from '../../components/shared/explorer/opportunities/ExplorerOpportunitiesHeaderWidget';
 
 const ExplorerOpportunitiesPage = () => {
   const opportunitiesVideoHeaderStyle: React.CSSProperties = {

@@ -11,7 +11,7 @@ import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollect
 import FutureParticipation from '../../shared/explorer/FutureParticipation';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import { Slugs } from '../../../../api/slug/SlugCollection';
-import { getInspectorDraggablePillStyle } from '../../shared/academic-plan/StyleFunctions';
+import { getInspectorDraggablePillStyle } from '../../shared/academic-plan/utilities/styles';
 import NamePill from '../../shared/academic-plan/NamePill';
 import { buildRouteName } from './DepUtilityFunctions';
 

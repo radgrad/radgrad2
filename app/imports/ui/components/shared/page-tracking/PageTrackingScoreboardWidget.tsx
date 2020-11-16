@@ -13,7 +13,7 @@ import {
   getCategory, getUrlCategory,
   IAggregatedDailySnapshot,
   parseName,
-} from './page-tracking-helper-functions';
+} from './utilities/page-tracking';
 import { IMatchProps } from '../utilities/router';
 import { IPageInterestsCategoryTypes } from '../../../../api/page-tracking/PageInterestsCategoryTypes';
 import PageTrackingWidgetMessage from './PageTrackingWidgetMessage';

@@ -26,7 +26,7 @@ import {
   checkForNoItems,
   getItems,
   isType, IExplorerTypes,
-} from '../explorer-helper-functions';
+} from '../utilities/explorer';
 import { cardExplorerWidget } from '../../shared-widget-names';
 
 interface ICardExplorerWidgetProps extends ICardExplorerMenuWidgetProps {

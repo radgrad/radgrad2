@@ -1,6 +1,6 @@
 import React from 'react';
 import { Draggable } from 'react-beautiful-dnd';
-import { getDraggablePillStyle } from './StyleFunctions';
+import { getDraggablePillStyle } from './utilities/styles';
 import { PlanChoices } from '../../../../api/degree-plan/PlanChoiceCollection';
 // import PlanChoiceUtils from '../../../api/degree-plan/PlanChoiceUtilities';
 import CoursePill from './CoursePill';

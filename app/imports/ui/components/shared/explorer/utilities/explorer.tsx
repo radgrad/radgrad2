@@ -7,34 +7,34 @@ import {
   IInterest,
   IOpportunity,
   IStudentProfile,
-} from '../../../../typings/radgrad';
-import * as Router from '../utilities/router';
-import { Users } from '../../../../api/user/UserCollection';
-import { CourseInstances } from '../../../../api/course/CourseInstanceCollection';
-import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
-import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
-import { AcademicPlans } from '../../../../api/degree-plan/AcademicPlanCollection';
-import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
-import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
-import PreferredChoice from '../../../../api/degree-plan/PreferredChoice';
-import { Courses } from '../../../../api/course/CourseCollection';
-import { ROLE } from '../../../../api/role/Role';
-import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
-import { Interests } from '../../../../api/interest/InterestCollection';
-import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
+} from '../../../../../typings/radgrad';
+import * as Router from '../../utilities/router';
+import { Users } from '../../../../../api/user/UserCollection';
+import { CourseInstances } from '../../../../../api/course/CourseInstanceCollection';
+import { OpportunityInstances } from '../../../../../api/opportunity/OpportunityInstanceCollection';
+import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
+import { AcademicPlans } from '../../../../../api/degree-plan/AcademicPlanCollection';
+import { AcademicTerms } from '../../../../../api/academic-term/AcademicTermCollection';
+import { CareerGoals } from '../../../../../api/career/CareerGoalCollection';
+import PreferredChoice from '../../../../../api/degree-plan/PreferredChoice';
+import { Courses } from '../../../../../api/course/CourseCollection';
+import { ROLE } from '../../../../../api/role/Role';
+import { StudentProfiles } from '../../../../../api/user/StudentProfileCollection';
+import { Interests } from '../../../../../api/interest/InterestCollection';
+import { Opportunities } from '../../../../../api/opportunity/OpportunityCollection';
 import {
   profileFavoriteBamAcademicPlan,
   profileGetCareerGoalIDs,
   profileGetFavoriteAcademicPlanIDs,
   profileGetFavoriteAcademicPlans,
-} from '../utilities/data-model';
-import { defaultProfilePicture } from '../../../../api/user/BaseProfileCollection';
-import { FavoriteCareerGoals } from '../../../../api/favorite/FavoriteCareerGoalCollection';
-import { FavoriteAcademicPlans } from '../../../../api/favorite/FavoriteAcademicPlanCollection';
-import { FavoriteInterests } from '../../../../api/favorite/FavoriteInterestCollection';
-import { FavoriteCourses } from '../../../../api/favorite/FavoriteCourseCollection';
-import { FavoriteOpportunities } from '../../../../api/favorite/FavoriteOpportunityCollection';
-import { IMatchProps } from '../utilities/router';
+} from '../../utilities/data-model';
+import { defaultProfilePicture } from '../../../../../api/user/BaseProfileCollection';
+import { FavoriteCareerGoals } from '../../../../../api/favorite/FavoriteCareerGoalCollection';
+import { FavoriteAcademicPlans } from '../../../../../api/favorite/FavoriteAcademicPlanCollection';
+import { FavoriteInterests } from '../../../../../api/favorite/FavoriteInterestCollection';
+import { FavoriteCourses } from '../../../../../api/favorite/FavoriteCourseCollection';
+import { FavoriteOpportunities } from '../../../../../api/favorite/FavoriteOpportunityCollection';
+import { IMatchProps } from '../../utilities/router';
 
 export type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IInterest | IOpportunity;
 

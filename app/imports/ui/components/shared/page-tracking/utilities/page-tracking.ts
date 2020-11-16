@@ -4,18 +4,18 @@ import {
   IInterest, IOpportunity,
   IPageInterestInfo,
   IPageInterestsDailySnapshot, ISlug,
-} from '../../../../typings/radgrad';
+} from '../../../../../typings/radgrad';
 import {
   IPageInterestsCategoryTypes,
   PageInterestsCategoryTypes,
-} from '../../../../api/page-tracking/PageInterestsCategoryTypes';
-import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
-import { Courses } from '../../../../api/course/CourseCollection';
-import { Interests } from '../../../../api/interest/InterestCollection';
-import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
-import { Slugs } from '../../../../api/slug/SlugCollection';
-import { getLastUrlParam, IMatchProps } from '../utilities/router';
-import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
+} from '../../../../../api/page-tracking/PageInterestsCategoryTypes';
+import { CareerGoals } from '../../../../../api/career/CareerGoalCollection';
+import { Courses } from '../../../../../api/course/CourseCollection';
+import { Interests } from '../../../../../api/interest/InterestCollection';
+import { Opportunities } from '../../../../../api/opportunity/OpportunityCollection';
+import { Slugs } from '../../../../../api/slug/SlugCollection';
+import { getLastUrlParam, IMatchProps } from '../../utilities/router';
+import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
 
 export interface IAggregatedDailySnapshot {
   careerGoals: IPageInterestInfo[];

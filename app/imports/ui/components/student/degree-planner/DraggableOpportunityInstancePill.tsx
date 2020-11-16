@@ -3,7 +3,7 @@ import { Draggable } from 'react-beautiful-dnd';
 import { Grid, Icon, Popup } from 'semantic-ui-react';
 import { IOpportunityInstance } from '../../../../typings/radgrad';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
-import { getDraggablePillStyle } from '../../shared/academic-plan/StyleFunctions';
+import { getDraggablePillStyle } from '../../shared/academic-plan/utilities/styles';
 import NamePill from '../../shared/academic-plan/NamePill';
 import IceHeader from '../../shared/IceHeader';
 import RemoveItWidget from '../../shared/academic-plan/RemoveItWidget';

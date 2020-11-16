@@ -4,11 +4,11 @@ import { Dropdown } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import * as Router from '../../utilities/router';
 import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
-import ExplorerMenuMobileItem from '../single-item-page/ExplorerMenuMobileItem';
+import ExplorerMenuMobileItem from '../single-item/ExplorerMenuMobileItem';
 import {
   explorerInterfaces,
   isType,
-} from '../explorer-helper-functions';
+} from '../utilities/explorer';
 import { IInterest } from '../../../../../typings/radgrad';
 
 const AppMedia = createMedia({

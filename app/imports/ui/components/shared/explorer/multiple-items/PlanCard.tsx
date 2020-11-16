@@ -14,7 +14,7 @@ import {
   profileIDToPicture,
   studentsParticipating,
 } from '../../utilities/data-model';
-import { interestedStudents } from '../explorer-helper-functions';
+import { interestedStudents } from '../utilities/explorer';
 
 const PlanCard = (props: IPlanCard) => {
   const { type, item } = props;

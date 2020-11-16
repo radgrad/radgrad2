@@ -4,7 +4,7 @@ import { Droppable } from 'react-beautiful-dnd';
 import _ from 'lodash';
 import { withRouter } from 'react-router-dom';
 import { complexChoiceToArray } from '../../../../api/degree-plan/PlanChoiceUtilities';
-import { getDroppableListStyle } from './StyleFunctions';
+import { getDroppableListStyle } from './utilities/styles';
 import DraggablePlanChoicePill from './DraggablePlanChoicePill';
 import * as PlanChoiceUtils from '../../../../api/degree-plan/PlanChoiceUtilities';
 import { isPlanChoiceSatisfied } from '../../../../api/degree-plan/AcademicPlanUtilities';
