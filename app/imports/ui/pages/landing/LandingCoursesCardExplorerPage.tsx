@@ -19,6 +19,7 @@ interface ICoursesCardExplorerProps {
   courses: ICourse[];
   // eslint-disable-next-line react/no-unused-prop-types
   count: number;
+  // eslint-disable-next-line react/no-unused-prop-types
   currentUser: string;
 }
 
