@@ -1,10 +1,9 @@
 import React from 'react';
 import _ from 'lodash';
-import { Form, Header, Segment } from 'semantic-ui-react';
+import { Button, Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, SelectField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
-import { withTracker } from 'meteor/react-meteor-data';
 import { InterestTypes } from '../../../../../api/interest/InterestTypeCollection';
 import { Slugs } from '../../../../../api/slug/SlugCollection';
 import { docToName } from '../../../shared/utilities/data-model';
@@ -17,6 +16,7 @@ interface IUpdateInterestFormProps {
   id: string;
   formRef: any;
   handleUpdate: (doc) => any;
+  handleCancel: (event) => any;
   itemTitleString: (item) => React.ReactNode;
 }
 
@@ -61,13 +61,10 @@ const UpdateInterestForm = (props: IUpdateInterestFormProps) => {
         <LongTextField name="description" />
         <BoolField name="retired" />
         <SubmitField inputRef={undefined} value="Update" disabled={false} className="" />
+        <Button onClick={props.handleCancel}>Cancel</Button>
       </AutoForm>
     </Segment>
   );
 };
 
-const UpdateInterestFormContainer = withTracker(() => (
-  { interestTypes: InterestTypes.find({}).fetch() }
-))(UpdateInterestForm);
-
-export default UpdateInterestFormContainer;
+export default UpdateInterestForm;

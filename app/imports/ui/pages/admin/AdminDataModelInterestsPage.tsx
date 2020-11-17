@@ -206,6 +206,7 @@ const AdminDataModelInterestsPage = (props: IAdminDataModelInterestsPageProps) =
               handleUpdate={handleUpdate}
               handleCancel={handleCancel}
               itemTitleString={itemTitleString}
+              interestTypes={props.interestTypes}
             />
           ) : (
             <AddInterestForm
