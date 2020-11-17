@@ -47,7 +47,7 @@ const renderPage = (props: IGuidedTourStudentProps) => {
     swipeToSlide: true,
   };
   return (
-    <div style={styles.background}>
+    <div id="landing-guided-tour-student-page" style={styles.background}>
       <Container textAlign="center">
         <Segment padded style={styles.background}>
           <Slider {...settings}>

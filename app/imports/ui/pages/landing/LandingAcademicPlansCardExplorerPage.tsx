@@ -29,7 +29,7 @@ const renderPage = (props: IAcademicPlansCardExplorerProps) => {
     marginTop: 10,
   };
   return (
-    <div>
+    <div id="landing-academic-plans-card-explorer-page">
       <LandingExplorerMenuBar currentUser={props.currentUser} />
       <Grid stackable>
         <Grid.Row>

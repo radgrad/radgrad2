@@ -32,7 +32,7 @@ interface ICareerGoalExplorerProps {
 const LandingCareerGoalExplorerPage = (props: ICareerGoalExplorerProps) => {
   const { match } = props;
   return (
-    <div>
+    <div id="landing-career-goal-explorer-page">
       <ExplorerMenuBarContainer currentUser={props.currentUser} />
       <Grid stackable>
         <Grid.Row>

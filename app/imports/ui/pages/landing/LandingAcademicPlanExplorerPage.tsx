@@ -32,7 +32,7 @@ const LandingAcademicPlanExplorerPage = (props: IAcademicPlanExplorerProps) => {
   // console.log(props.plan);
   const { match } = props;
   return (
-    <div>
+    <div id="landing-academic-plan-explorer-page">
       <LandingExplorerMenuBar currentUser={props.currentUser} />
       <Grid stackable>
         <Grid.Row>

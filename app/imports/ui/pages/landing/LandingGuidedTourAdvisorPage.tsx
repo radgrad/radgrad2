@@ -24,7 +24,7 @@ const LandingGuidedTourAdvisorPage = () => {
     swipeToSlide: true,
   };
   return (
-    <div style={styles.background}>
+    <div id="landing-guided-tour-advisor-page" style={styles.background}>
       <Container textAlign="center">
         <Segment padded style={styles.background}>
           <Slider {...settings}>

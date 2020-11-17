@@ -21,7 +21,7 @@ const LandingSection9 = () => (
               <div className="image">
                 <Image src="/images/landing/students.jpg" />
               </div>
-              <a className="ui bottom attached button" aria-current="false" role="button" href="#/guidedtour/student">
+              <a id="landing-guided-tour-students-link" className="ui bottom attached button" aria-current="false" role="button" href="#/guidedtour/student">
                 STUDENTS
                 <Icon name="chevron right" />
               </a>
@@ -30,7 +30,7 @@ const LandingSection9 = () => (
               <div className="image">
                 <Image src="/images/landing/advisor.png" />
               </div>
-              <a className="ui bottom attached button" aria-current="false" role="button" href="#/guidedtour/advisor">
+              <a id="landing-guided-tour-advisors-link" className="ui bottom attached button" aria-current="false" role="button" href="#/guidedtour/advisor">
                 ADVISORS
                 <Icon name="chevron right" />
               </a>
@@ -39,7 +39,7 @@ const LandingSection9 = () => (
               <div className="image">
                 <Image src="/images/landing/ics-faculty-group.png" />
               </div>
-              <a className="ui bottom attached button" aria-current="false" role="button" href="#/guidedtour/faculty">
+              <a id="landing-guided-tour-faculty-link" className="ui bottom attached button" aria-current="false" role="button" href="#/guidedtour/faculty">
                 FACULTY
                 <Icon name="chevron right" />
               </a>

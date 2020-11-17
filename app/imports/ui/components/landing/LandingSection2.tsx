@@ -20,21 +20,21 @@ const LandingSection2 = (props: ILandingSection2Props) => (
             <span style={styles['home-number']}>
               {props.careerGoals}
             </span>
-            <span style={styles['home-number-label']}><a style={{ fontWeight: 'normal' }} href="#/explorer/career-goals">CAREER GOALS</a>
+            <span style={styles['home-number-label']}><a id="landing-career-goals-link" style={{ fontWeight: 'normal' }} href="#/explorer/career-goals">CAREER GOALS</a>
             </span>
           </Grid.Column>
           <Grid.Column width={4}>
             <span style={styles['home-number']}>
               {props.interests}
             </span>
-            <span style={styles['home-number-label']}><a style={{ fontWeight: 'normal' }} href="#/explorer/interests">INTERESTS</a>
+            <span style={styles['home-number-label']}><a id="landing-interests-link" style={{ fontWeight: 'normal' }} href="#/explorer/interests">INTERESTS</a>
             </span>
           </Grid.Column>
           <Grid.Column width={4}>
             <span style={styles['home-number']}>
               {props.opportunities}
             </span>
-            <span style={styles['home-number-label']}><a style={{ fontWeight: 'normal' }} href="#/explorer/opportunities">OPPORTUNITIES</a>
+            <span style={styles['home-number-label']}><a id="landing-opportunities-link" style={{ fontWeight: 'normal' }} href="#/explorer/opportunities">OPPORTUNITIES</a>
             </span>
           </Grid.Column>
           <Grid.Column style={styles['float-left']} width={4}>

@@ -34,7 +34,7 @@ interface ICourseExplorerProps {
 const LandingCourseExplorerPage = (props: ICourseExplorerProps) => {
   const { match } = props;
   return (
-    <div>
+    <div id="landing-course-explorer-page">
       <ExplorerMenuBarContainer currentUser={props.currentUser} />
       <Grid stackable>
         <Grid.Row>

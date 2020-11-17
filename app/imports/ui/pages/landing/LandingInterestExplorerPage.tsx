@@ -36,7 +36,7 @@ const LandingInterestExplorerPage = (props: IInterestExplorerProps) => {
   // console.log(props.interest);
   const { match } = props;
   return (
-    <div>
+    <div id="landing-interest-explorer-page">
       <ExplorerMenuBarContainer currentUser={props.currentUser} />
       <Grid stackable>
         <Grid.Row>

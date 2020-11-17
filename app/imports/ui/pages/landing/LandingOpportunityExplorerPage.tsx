@@ -45,7 +45,7 @@ const LandingOpportunityExplorerPage = (props: IOpportunityExplorerProps) => {
   const sponsor = Users.getFullName(opportunity.sponsorID);
 
   return (
-    <div>
+    <div id="landing-opportunity-explorer-page">
       <ExplorerMenuBarContainer currentUser={props.currentUser} />
       <Grid stackable>
         <Grid.Row>
