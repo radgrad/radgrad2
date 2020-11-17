@@ -4,14 +4,9 @@ import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, SelectField, BoolField, SubmitField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
-import { withTracker } from 'meteor/react-meteor-data';
 import { IAcademicTerm, IBaseProfile, IOpportunity, IStudentProfile } from '../../../../../typings/radgrad';
 import { AcademicTerms } from '../../../../../api/academic-term/AcademicTermCollection';
-import { StudentProfiles } from '../../../../../api/user/StudentProfileCollection';
 import { academicTermToName, docToName, profileToName } from '../../../shared/utilities/data-model';
-import { Opportunities } from '../../../../../api/opportunity/OpportunityCollection';
-import { FacultyProfiles } from '../../../../../api/user/FacultyProfileCollection';
-import { AdvisorProfiles } from '../../../../../api/user/AdvisorProfileCollection';
 
 interface IAddOpportunityInstanceFormProps {
   terms: IAcademicTerm[];
@@ -76,20 +71,4 @@ const AddOpportunityInstanceForm = (props: IAddOpportunityInstanceFormProps) => 
   );
 };
 
-const AddOpportunityInstanceFormContainer = withTracker(() => {
-  const terms = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();
-  const opportunities = Opportunities.find({}, { sort: { name: 1 } }).fetch();
-  const students = StudentProfiles.find({}, { sort: { lastName: 1 } }).fetch();
-  const faculty = FacultyProfiles.find({}).fetch();
-  const advisors = AdvisorProfiles.find({}).fetch();
-  const sponsorDocs = _.union(faculty, advisors);
-  const sponsors = _.sortBy(sponsorDocs, ['lastName', 'firstName']);
-  return {
-    terms,
-    opportunities,
-    students,
-    sponsors,
-  };
-})(AddOpportunityInstanceForm);
-
-export default AddOpportunityInstanceFormContainer;
+export default AddOpportunityInstanceForm;

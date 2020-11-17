@@ -16,12 +16,20 @@ import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
+import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu, { IAdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
-import { IDescriptionPair, IReview } from '../../../typings/radgrad';
+import {
+  IAcademicTerm,
+  ICourse,
+  IDescriptionPair,
+  IOpportunity,
+  IReview,
+  IStudentProfile,
+} from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Courses } from '../../../api/course/CourseCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
@@ -87,6 +95,10 @@ const itemTitle = (item: any): React.ReactNode => (
 
 interface IAdminDataModelReviewsPageProps extends IAdminDataModeMenuProps {
   items: IReview[];
+  terms: IAcademicTerm[];
+  courses: ICourse[];
+  students: IStudentProfile[];
+  opportunities: IOpportunity[];
 }
 
 const AdminDataModelReviewsPage = (props: IAdminDataModelReviewsPageProps) => {
@@ -224,9 +236,17 @@ const AdminDataModelReviewsPage = (props: IAdminDataModelReviewsPageProps) => {
               handleUpdate={handleUpdate}
               handleCancel={handleCancel}
               itemTitleString={itemTitleString}
+              terms={props.terms}
             />
           ) : (
-            <AddReviewForm formRef={formRef} handleAdd={handleAdd} />
+            <AddReviewForm
+              formRef={formRef}
+              handleAdd={handleAdd}
+              terms={props.terms}
+              students={props.students}
+              opportunities={props.opportunities}
+              courses={props.courses}
+            />
           )}
           <ListCollectionWidget
             collection={collection}
@@ -253,29 +273,39 @@ const AdminDataModelReviewsPage = (props: IAdminDataModelReviewsPageProps) => {
   );
 };
 
-const AdminDataModelReviewsPageContainer = withTracker(() => ({
-  academicPlanCount: AcademicPlans.count(),
-  academicTermCount: AcademicTerms.count(),
-  academicYearCount: AcademicYearInstances.count(),
-  advisorLogCount: AdvisorLogs.count(),
-  careerGoalCount: CareerGoals.count(),
-  courseInstanceCount: CourseInstances.count(),
-  courseCount: Courses.count(),
-  feedCount: Feeds.count(),
-  feedbackCount: FeedbackInstances.count(),
-  helpMessageCount: HelpMessages.count(),
-  interestCount: Interests.count(),
-  interestTypeCount: InterestTypes.count(),
-  opportunityCount: Opportunities.count(),
-  opportunityInstanceCount: OpportunityInstances.count(),
-  opportunityTypeCount: OpportunityTypes.count(),
-  planChoiceCount: PlanChoices.count(),
-  reviewCount: Reviews.count(),
-  slugCount: Slugs.count(),
-  teaserCount: Teasers.count(),
-  usersCount: Users.count(),
-  verificationRequestCount: VerificationRequests.count(),
-  items: Reviews.find({}).fetch(),
-}))(AdminDataModelReviewsPage);
+const AdminDataModelReviewsPageContainer = withTracker(() => {
+  const terms = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();
+  const courses = Courses.find().fetch();
+  const students = StudentProfiles.find({}, { sort: { lastName: 1 } }).fetch();
+  const opportunities = Opportunities.find({}, { sort: { name: 1 } }).fetch();
+  return {
+    academicPlanCount: AcademicPlans.count(),
+    academicTermCount: AcademicTerms.count(),
+    academicYearCount: AcademicYearInstances.count(),
+    advisorLogCount: AdvisorLogs.count(),
+    careerGoalCount: CareerGoals.count(),
+    courseInstanceCount: CourseInstances.count(),
+    courseCount: Courses.count(),
+    feedCount: Feeds.count(),
+    feedbackCount: FeedbackInstances.count(),
+    helpMessageCount: HelpMessages.count(),
+    interestCount: Interests.count(),
+    interestTypeCount: InterestTypes.count(),
+    opportunityCount: Opportunities.count(),
+    opportunityInstanceCount: OpportunityInstances.count(),
+    opportunityTypeCount: OpportunityTypes.count(),
+    planChoiceCount: PlanChoices.count(),
+    reviewCount: Reviews.count(),
+    slugCount: Slugs.count(),
+    teaserCount: Teasers.count(),
+    usersCount: Users.count(),
+    verificationRequestCount: VerificationRequests.count(),
+    items: Reviews.find({}).fetch(),
+    terms,
+    courses,
+    students,
+    opportunities,
+  };
+})(AdminDataModelReviewsPage);
 
 export default withInstanceSubscriptions(AdminDataModelReviewsPageContainer);

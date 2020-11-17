@@ -4,15 +4,10 @@ import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, SelectField, BoolField, NumField, SubmitField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
-import { withTracker } from 'meteor/react-meteor-data';
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
-import { Interests } from '../../../../../api/interest/InterestCollection';
 import { IAcademicPlan, IAcademicTerm, ICareerGoal, IInterest } from '../../../../../typings/radgrad';
-import { CareerGoals } from '../../../../../api/career/CareerGoalCollection';
 import { ROLE } from '../../../../../api/role/Role';
-import { AcademicTerms } from '../../../../../api/academic-term/AcademicTermCollection';
-import { AcademicPlans } from '../../../../../api/degree-plan/AcademicPlanCollection';
 import { academicTermToName, docToName } from '../../../shared/utilities/data-model';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
 import { openCloudinaryWidget } from '../../../shared/OpenCloudinaryWidget';
@@ -193,19 +188,4 @@ const AddUserForm = (props: IAddUserProps) => {
   );
 };
 
-const AddUserFormContainter = withTracker(() => {
-  const interests = Interests.find({}, { sort: { name: 1 } }).fetch();
-  const careerGoals = CareerGoals.find({}, { sort: { name: 1 } }).fetch();
-  let academicTerms = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();
-  const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
-  academicTerms = _.filter(academicTerms, (term) => (term.termNumber <= currentTerm.termNumber && term.termNumber > currentTerm.termNumber - 8));
-  const academicPlans = AcademicPlans.getLatestPlans();
-  return {
-    interests,
-    careerGoals,
-    academicTerms,
-    academicPlans,
-  };
-})(AddUserForm);
-
-export default connect(null, mapDispatchToProps)(AddUserFormContainter);
+export default connect(null, mapDispatchToProps)(AddUserForm);

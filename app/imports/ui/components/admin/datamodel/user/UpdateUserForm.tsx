@@ -5,16 +5,10 @@ import { Button, Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, BoolField, NumField, SelectField, SubmitField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
-import { withTracker } from 'meteor/react-meteor-data';
 import Swal from 'sweetalert2';
-import { Interests } from '../../../../../api/interest/InterestCollection';
 import { AdminProfiles } from '../../../../../api/user/AdminProfileCollection';
 import { IAcademicTerm, IBaseProfile, ICareerGoal, IInterest } from '../../../../../typings/radgrad';
-// import BaseCollection from '../../../api/base/BaseCollection';
-import { CareerGoals } from '../../../../../api/career/CareerGoalCollection';
 import { ROLE } from '../../../../../api/role/Role';
-import { AcademicTerms } from '../../../../../api/academic-term/AcademicTermCollection';
-// import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import {
   academicPlanIdToName, academicTermIdToName,
   academicTermToName,
@@ -231,18 +225,4 @@ const UpdateUserForm = (props: IUpdateUserProps) => {
 };
 
 const UpdateUserFormCon = connect(null, mapDispatchToProps)(UpdateUserForm);
-const UpdateUserFormContainter = withTracker(() => {
-  const interests = Interests.find({}, { sort: { name: 1 } }).fetch();
-  const careerGoals = CareerGoals.find({}, { sort: { name: 1 } }).fetch();
-  const academicTerms = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();
-  // console.log(academicTerms, currentTerm);
-  // const academicPlans = AcademicPlans.getLatestPlans();
-  return {
-    interests,
-    careerGoals,
-    academicTerms,
-    // academicPlans,
-  };
-})(UpdateUserFormCon);
-
-export default UpdateUserFormContainter;
+export default UpdateUserFormCon;

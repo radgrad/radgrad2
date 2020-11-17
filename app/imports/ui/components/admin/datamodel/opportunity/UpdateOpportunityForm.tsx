@@ -3,7 +3,6 @@ import { Button, Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, SelectField, LongTextField, DateField, BoolField, SubmitField, NumField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
-import { withTracker } from 'meteor/react-meteor-data';
 import _ from 'lodash';
 import Swal from 'sweetalert2';
 import { IAcademicTerm, IBaseProfile, IInterest, IOpportunityType } from '../../../../../typings/radgrad';
@@ -15,12 +14,7 @@ import {
   opportunityTypeIdToName,
   profileToName, userIdToName,
 } from '../../../shared/utilities/data-model';
-import { AcademicTerms } from '../../../../../api/academic-term/AcademicTermCollection';
-import { FacultyProfiles } from '../../../../../api/user/FacultyProfileCollection';
-import { AdvisorProfiles } from '../../../../../api/user/AdvisorProfileCollection';
-import { OpportunityTypes } from '../../../../../api/opportunity/OpportunityTypeCollection';
 import { iceSchema } from '../../../../../api/ice/IceProcessor';
-import { Interests } from '../../../../../api/interest/InterestCollection';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
 import { openCloudinaryWidget } from '../../../shared/OpenCloudinaryWidget';
 
@@ -34,6 +28,7 @@ interface IUpdateOpportunityFormProps {
   formRef: any;
   handleUpdate: (doc) => any;
   handleCancel: (event) => any;
+  itemTitleString: (item) => React.ReactNode;
 }
 
 const UpdateOpportunityForm = (props: IUpdateOpportunityFormProps) => {
@@ -97,7 +92,7 @@ const UpdateOpportunityForm = (props: IUpdateOpportunityFormProps) => {
   const formSchema = new SimpleSchema2Bridge(schema);
   return (
     <Segment padded>
-      <Header dividing>Update Opportunity</Header>
+      <Header dividing>Update Opportunity : {props.itemTitleString(model)}</Header>
       <AutoForm
         schema={formSchema}
         onSubmit={(doc) => handleUpdateOpportunity(doc)}
@@ -135,27 +130,4 @@ const UpdateOpportunityForm = (props: IUpdateOpportunityFormProps) => {
   );
 };
 
-const UpdateOpportunityTypeFormContainer = withTracker(() => {
-  const interests = Interests.find({}, { sort: { name: 1 } }).fetch();
-  // const currentTermNumber = AcademicTerms.getCurrentAcademicTermDoc().termNumber;
-  // const after = currentTermNumber - 8;
-  // const before = currentTermNumber + 16;
-  // console.log(currentTermNumber, after, before);
-  const allTerms = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();
-  // const terms = _.filter(allTerms, t => t.termNumber >= after && t.termNumber <= before);
-  const terms = allTerms;
-  // console.log(terms);
-  const faculty = FacultyProfiles.find({}).fetch();
-  const advisors = AdvisorProfiles.find({}).fetch();
-  const sponsorDocs = _.union(faculty, advisors);
-  const sponsors = _.sortBy(sponsorDocs, ['lastName', 'firstName']);
-  const opportunityTypes = OpportunityTypes.find({}, { sort: { name: 1 } }).fetch();
-  return {
-    sponsors,
-    terms,
-    opportunityTypes,
-    interests,
-  };
-})(UpdateOpportunityForm);
-
-export default UpdateOpportunityTypeFormContainer;
+export default UpdateOpportunityForm;

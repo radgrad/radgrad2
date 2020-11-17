@@ -26,7 +26,8 @@ import AdminDataModelMenu, { IAdminDataModeMenuProps } from '../../components/ad
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import {
-  IDescriptionPair,
+  ICareerGoal, ICourse,
+  IDescriptionPair, IInterest, IOpportunity,
   ITeaser,
 } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
@@ -84,6 +85,10 @@ const itemTitle = (item: ITeaser): React.ReactNode => (
 
 interface IAdminDataModelTeasersPageProps extends IAdminDataModeMenuProps {
   items: ITeaser[];
+  careerGoals: ICareerGoal[];
+  courses: ICourse[];
+  interests: IInterest[];
+  opportunities: IOpportunity[];
 }
 
 const AdminDataModelTeasersPage = (props: IAdminDataModelTeasersPageProps) => {
@@ -220,9 +225,20 @@ const AdminDataModelTeasersPage = (props: IAdminDataModelTeasersPageProps) => {
               handleUpdate={handleUpdate}
               handleCancel={handleCancel}
               itemTitleString={itemTitleString}
+              opportunities={props.opportunities}
+              courses={props.courses}
+              interests={props.interests}
+              careerGoals={props.careerGoals}
             />
           ) : (
-            <AddTeaserForm formRef={formRef} handleAdd={handleAdd} />
+            <AddTeaserForm
+              formRef={formRef}
+              handleAdd={handleAdd}
+              opportunities={props.opportunities}
+              courses={props.courses}
+              interests={props.interests}
+              careerGoals={props.careerGoals}
+            />
           )}
           <ListCollectionWidget
             collection={collection}
@@ -249,29 +265,39 @@ const AdminDataModelTeasersPage = (props: IAdminDataModelTeasersPageProps) => {
   );
 };
 
-const AdminDataModelTeasersPageContainer = withTracker(() => ({
-  academicPlanCount: AcademicPlans.count(),
-  academicTermCount: AcademicTerms.count(),
-  academicYearCount: AcademicYearInstances.count(),
-  advisorLogCount: AdvisorLogs.count(),
-  careerGoalCount: CareerGoals.count(),
-  courseInstanceCount: CourseInstances.count(),
-  courseCount: Courses.count(),
-  feedCount: Feeds.count(),
-  feedbackCount: FeedbackInstances.count(),
-  helpMessageCount: HelpMessages.count(),
-  interestCount: Interests.count(),
-  interestTypeCount: InterestTypes.count(),
-  opportunityCount: Opportunities.count(),
-  opportunityInstanceCount: OpportunityInstances.count(),
-  opportunityTypeCount: OpportunityTypes.count(),
-  planChoiceCount: PlanChoices.count(),
-  reviewCount: Reviews.count(),
-  slugCount: Slugs.count(),
-  teaserCount: Teasers.count(),
-  usersCount: Users.count(),
-  verificationRequestCount: VerificationRequests.count(),
-  items: Teasers.find({}).fetch(),
-}))(AdminDataModelTeasersPage);
+const AdminDataModelTeasersPageContainer = withTracker(() => {
+  const careerGoals = CareerGoals.find({}, { sort: { name: 1 } }).fetch();
+  const courses = Courses.find({}, { sort: { num: 1 } }).fetch();
+  const interests = Interests.find({}, { sort: { name: 1 } }).fetch();
+  const opportunities = Opportunities.find({}, { sort: { name: 1 } }).fetch();
+  return {
+    academicPlanCount: AcademicPlans.count(),
+    academicTermCount: AcademicTerms.count(),
+    academicYearCount: AcademicYearInstances.count(),
+    advisorLogCount: AdvisorLogs.count(),
+    careerGoalCount: CareerGoals.count(),
+    courseInstanceCount: CourseInstances.count(),
+    courseCount: Courses.count(),
+    feedCount: Feeds.count(),
+    feedbackCount: FeedbackInstances.count(),
+    helpMessageCount: HelpMessages.count(),
+    interestCount: Interests.count(),
+    interestTypeCount: InterestTypes.count(),
+    opportunityCount: Opportunities.count(),
+    opportunityInstanceCount: OpportunityInstances.count(),
+    opportunityTypeCount: OpportunityTypes.count(),
+    planChoiceCount: PlanChoices.count(),
+    reviewCount: Reviews.count(),
+    slugCount: Slugs.count(),
+    teaserCount: Teasers.count(),
+    usersCount: Users.count(),
+    verificationRequestCount: VerificationRequests.count(),
+    items: Teasers.find({}).fetch(),
+    careerGoals,
+    courses,
+    interests,
+    opportunities,
+  };
+})(AdminDataModelTeasersPage);
 
 export default withInstanceSubscriptions(AdminDataModelTeasersPageContainer);

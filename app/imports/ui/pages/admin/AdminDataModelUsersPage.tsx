@@ -24,12 +24,14 @@ import { VerificationRequests } from '../../../api/verification/VerificationRequ
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import {
+  IAcademicPlan,
+  IAcademicTerm,
   IAdvisorProfile,
-  IBaseProfile,
+  IBaseProfile, ICareerGoal,
   ICombinedProfileDefine,
   IFacultyProfile,
   IFavoriteAcademicPlan,
-  IFavoriteCareerGoal, IFavoriteInterest,
+  IFavoriteCareerGoal, IFavoriteInterest, IInterest,
   IStudentProfile,
 } from '../../../typings/radgrad';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
@@ -71,6 +73,10 @@ interface IAdminDataModelUsersPageProps extends IAdminDataModeMenuProps {
   favoriteCareerGoals: IFavoriteCareerGoal[];
   // eslint-disable-next-line react/no-unused-prop-types
   favoriteInterests: IFavoriteInterest[];
+  interests: IInterest[];
+  careerGoals: ICareerGoal[];
+  academicTerms: IAcademicTerm[];
+  academicPlans: IAcademicPlan[];
 }
 
 const descriptionPairs = (props: IAdminDataModelUsersPageProps) => (user: IBaseProfile) => {
@@ -371,9 +377,20 @@ const AdminDataModelUsersPage = (props: IAdminDataModelUsersPageProps) => {
               handleUpdate={handleUpdate}
               handleCancel={handleCancel}
               itemTitleString={itemTitleString}
+              interests={props.interests}
+              careerGoals={props.careerGoals}
+              academicTerms={props.academicTerms}
+              academicPlans={props.academicPlans}
             />
           ) : (
-            <AddUserForm formRef={formRef} handleAdd={handleAdd} />
+            <AddUserForm
+              formRef={formRef}
+              handleAdd={handleAdd}
+              interests={props.interests}
+              careerGoals={props.careerGoals}
+              academicTerms={props.academicTerms}
+              academicPlans={props.academicPlans}
+            />
           )}
           <Tab panes={panes} defaultActiveIndex={3} />
         </Grid.Column>
@@ -399,7 +416,17 @@ export default withTracker(() => {
   const favoriteAcademicPlans = FavoriteAcademicPlans.find().fetch();
   const favoriteCareerGoals = FavoriteCareerGoals.find().fetch();
   const favoriteInterests = FavoriteInterests.find().fetch();
+  const interests = Interests.find({}, { sort: { name: 1 } }).fetch();
+  const careerGoals = CareerGoals.find({}, { sort: { name: 1 } }).fetch();
+  let academicTerms = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();
+  const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
+  academicTerms = _.filter(academicTerms, (term) => (term.termNumber <= currentTerm.termNumber && term.termNumber > currentTerm.termNumber - 8));
+  const academicPlans = AcademicPlans.getLatestPlans();
   return {
+    interests,
+    careerGoals,
+    academicTerms,
+    academicPlans,
     admins,
     advisors,
     faculty,

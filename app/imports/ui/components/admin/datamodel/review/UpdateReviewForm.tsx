@@ -3,11 +3,9 @@ import { Button, Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, SelectField, NumField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
-import { withTracker } from 'meteor/react-meteor-data';
 import _ from 'lodash';
 import { IAcademicTerm } from '../../../../../typings/radgrad';
 import BaseCollection from '../../../../../api/base/BaseCollection';
-import { AcademicTerms } from '../../../../../api/academic-term/AcademicTermCollection';
 import { academicTermIdToName, academicTermToName } from '../../../shared/utilities/data-model';
 
 interface IUpdateReviewFormProps {
@@ -70,11 +68,4 @@ const UpdateReviewForm = (props: IUpdateReviewFormProps) => {
   );
 };
 
-const UpdateReviewFormContainer = withTracker(() => {
-  const terms = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();
-  return {
-    terms,
-  };
-})(UpdateReviewForm);
-
-export default UpdateReviewFormContainer;
+export default UpdateReviewForm;

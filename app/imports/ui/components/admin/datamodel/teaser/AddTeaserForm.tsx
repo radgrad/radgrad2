@@ -4,14 +4,9 @@ import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, SelectField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
-import { withTracker } from 'meteor/react-meteor-data';
 import { IInterest, IOpportunity, ICareerGoal, ICourse } from '../../../../../typings/radgrad';
 import { docToName, slugIDToSlugNameAndType } from '../../../shared/utilities/data-model';
-import { Opportunities } from '../../../../../api/opportunity/OpportunityCollection';
-import { Interests } from '../../../../../api/interest/InterestCollection';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
-import { CareerGoals } from '../../../../../api/career/CareerGoalCollection';
-import { Courses } from '../../../../../api/course/CourseCollection';
 
 interface IAddTeaserFormProps {
   careerGoals: ICareerGoal[];
@@ -77,17 +72,4 @@ const AddTeaserForm = (props: IAddTeaserFormProps) => {
   );
 };
 
-const AddTeaserFormContainer = withTracker(() => {
-  const careerGoals = CareerGoals.find({}, { sort: { name: 1 } }).fetch();
-  const courses = Courses.find({}, { sort: { num: 1 } }).fetch();
-  const interests = Interests.find({}, { sort: { name: 1 } }).fetch();
-  const opportunities = Opportunities.find({}, { sort: { name: 1 } }).fetch();
-  return {
-    careerGoals,
-    courses,
-    interests,
-    opportunities,
-  };
-})(AddTeaserForm);
-
-export default AddTeaserFormContainer;
+export default AddTeaserForm;

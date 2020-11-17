@@ -18,11 +18,20 @@ import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstan
 import { Reviews } from '../../../api/review/ReviewCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
+import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
+import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu, { IAdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
-import { IDescriptionPair, IOpportunity } from '../../../typings/radgrad';
+import {
+  IAcademicTerm,
+  IBaseProfile,
+  IDescriptionPair,
+  IInterest,
+  IOpportunity,
+  IOpportunityType,
+} from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';
@@ -79,6 +88,10 @@ const itemTitle = (item: IOpportunity): React.ReactNode => (
 
 interface IAdminDataModelOpportunitiesPageProps extends IAdminDataModeMenuProps {
   items: IOpportunity[];
+  sponsors: IBaseProfile[];
+  terms: IAcademicTerm[];
+  interests: IInterest[];
+  opportunityTypes: IOpportunityType[];
 }
 
 const AdminDataModelOpportunitiesPage = (props: IAdminDataModelOpportunitiesPageProps) => {
@@ -219,9 +232,20 @@ const AdminDataModelOpportunitiesPage = (props: IAdminDataModelOpportunitiesPage
               handleUpdate={handleUpdate}
               handleCancel={handleCancel}
               itemTitleString={itemTitleString}
+              sponsors={props.sponsors}
+              terms={props.terms}
+              interests={props.interests}
+              opportunityTypes={props.opportunityTypes}
             />
           ) : (
-            <AddOpportunityForm formRef={formRef} handleAdd={handleAdd} />
+            <AddOpportunityForm
+              formRef={formRef}
+              handleAdd={handleAdd}
+              sponsors={props.sponsors}
+              terms={props.terms}
+              interests={props.interests}
+              opportunityTypes={props.opportunityTypes}
+            />
           )}
           <ListCollectionWidget
             collection={collection}
@@ -248,29 +272,49 @@ const AdminDataModelOpportunitiesPage = (props: IAdminDataModelOpportunitiesPage
   );
 };
 
-const AdminDataModelOpportunitiesPageContainer = withTracker(() => ({
-  academicPlanCount: AcademicPlans.count(),
-  academicTermCount: AcademicTerms.count(),
-  academicYearCount: AcademicYearInstances.count(),
-  advisorLogCount: AdvisorLogs.count(),
-  careerGoalCount: CareerGoals.count(),
-  courseInstanceCount: CourseInstances.count(),
-  courseCount: Courses.count(),
-  feedCount: Feeds.count(),
-  feedbackCount: FeedbackInstances.count(),
-  helpMessageCount: HelpMessages.count(),
-  interestCount: Interests.count(),
-  interestTypeCount: InterestTypes.count(),
-  opportunityCount: Opportunities.count(),
-  opportunityInstanceCount: OpportunityInstances.count(),
-  opportunityTypeCount: OpportunityTypes.count(),
-  planChoiceCount: PlanChoices.count(),
-  reviewCount: Reviews.count(),
-  slugCount: Slugs.count(),
-  teaserCount: Teasers.count(),
-  usersCount: Users.count(),
-  verificationRequestCount: VerificationRequests.count(),
-  items: Opportunities.find({}).fetch(),
-}))(AdminDataModelOpportunitiesPage);
+const AdminDataModelOpportunitiesPageContainer = withTracker(() => {
+  const interests = Interests.find({}, { sort: { name: 1 } }).fetch();
+  const currentTermNumber = AcademicTerms.getCurrentAcademicTermDoc().termNumber;
+  const after = currentTermNumber - 8;
+  const before = currentTermNumber + 16;
+  // console.log(currentTermNumber, after, before);
+  const allTerms = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();
+  const terms = _.filter(allTerms, t => t.termNumber >= after && t.termNumber <= before);
+  // const terms = allTerms;
+  // console.log(terms);
+  const faculty = FacultyProfiles.find({}).fetch();
+  const advisors = AdvisorProfiles.find({}).fetch();
+  const sponsorDocs = _.union(faculty, advisors);
+  const sponsors = _.sortBy(sponsorDocs, ['lastName', 'firstName']);
+  const opportunityTypes = OpportunityTypes.find({}, { sort: { name: 1 } }).fetch();
+  return {
+    academicPlanCount: AcademicPlans.count(),
+    academicTermCount: AcademicTerms.count(),
+    academicYearCount: AcademicYearInstances.count(),
+    advisorLogCount: AdvisorLogs.count(),
+    careerGoalCount: CareerGoals.count(),
+    courseInstanceCount: CourseInstances.count(),
+    courseCount: Courses.count(),
+    feedCount: Feeds.count(),
+    feedbackCount: FeedbackInstances.count(),
+    helpMessageCount: HelpMessages.count(),
+    interestCount: Interests.count(),
+    interestTypeCount: InterestTypes.count(),
+    opportunityCount: Opportunities.count(),
+    opportunityInstanceCount: OpportunityInstances.count(),
+    opportunityTypeCount: OpportunityTypes.count(),
+    planChoiceCount: PlanChoices.count(),
+    reviewCount: Reviews.count(),
+    slugCount: Slugs.count(),
+    teaserCount: Teasers.count(),
+    usersCount: Users.count(),
+    verificationRequestCount: VerificationRequests.count(),
+    items: Opportunities.find({}).fetch(),
+    sponsors,
+    terms,
+    opportunityTypes,
+    interests,
+  };
+})(AdminDataModelOpportunitiesPage);
 
 export default withInstanceSubscriptions(AdminDataModelOpportunitiesPageContainer);

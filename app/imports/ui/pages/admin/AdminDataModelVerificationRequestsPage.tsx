@@ -20,13 +20,20 @@ import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollec
 import { Reviews } from '../../../api/review/ReviewCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
+import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu, { IAdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import AdminDataModelUpdateForm from '../../components/admin/datamodel/AdminDataModelUpdateForm'; // this should be replaced by specific UpdateForm
 // import AdminDataModelAddForm from '../../components/admin/AdminDataModelAddForm';
-import { IDescriptionPair, IVerificationRequest } from '../../../typings/radgrad';
+import {
+  IAcademicTerm,
+  IDescriptionPair,
+  IOpportunity, IOpportunityInstance,
+  IStudentProfile,
+  IVerificationRequest,
+} from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import { Users } from '../../../api/user/UserCollection';
@@ -88,6 +95,10 @@ const itemTitle = (item: any): React.ReactNode => (
 
 interface IAdminDataModelVerificationRequestsPageProps extends IAdminDataModeMenuProps {
   items: IVerificationRequest[];
+  students: IStudentProfile[];
+  academicTerms: IAcademicTerm[];
+  opportunities: IOpportunity[];
+  opportunityInstances: IOpportunityInstance[];
 }
 
 const AdminDataModelVerificationRequestsPage = (props: IAdminDataModelVerificationRequestsPageProps) => {
@@ -237,7 +248,14 @@ const AdminDataModelVerificationRequestsPage = (props: IAdminDataModelVerificati
               itemTitleString={itemTitleString}
             />
           ) : (
-            <AddVerificationRequestForm formRef={formRef} handleAdd={handleAdd} />
+            <AddVerificationRequestForm
+              formRef={formRef}
+              handleAdd={handleAdd}
+              opportunities={props.opportunities}
+              students={props.students}
+              opportunityInstances={props.opportunityInstances}
+              academicTerms={props.academicTerms}
+            />
           )}
           <ListCollectionWidget
             collection={collection}
@@ -264,29 +282,39 @@ const AdminDataModelVerificationRequestsPage = (props: IAdminDataModelVerificati
   );
 };
 
-const AdminDataModelVerificationRequestsPageContainer = withTracker(() => ({
-  academicPlanCount: AcademicPlans.count(),
-  academicTermCount: AcademicTerms.count(),
-  academicYearCount: AcademicYearInstances.count(),
-  advisorLogCount: AdvisorLogs.count(),
-  careerGoalCount: CareerGoals.count(),
-  courseInstanceCount: CourseInstances.count(),
-  courseCount: Courses.count(),
-  feedCount: Feeds.count(),
-  feedbackCount: FeedbackInstances.count(),
-  helpMessageCount: HelpMessages.count(),
-  interestCount: Interests.count(),
-  interestTypeCount: InterestTypes.count(),
-  opportunityCount: Opportunities.count(),
-  opportunityInstanceCount: OpportunityInstances.count(),
-  opportunityTypeCount: OpportunityTypes.count(),
-  planChoiceCount: PlanChoices.count(),
-  reviewCount: Reviews.count(),
-  slugCount: Slugs.count(),
-  teaserCount: Teasers.count(),
-  usersCount: Users.count(),
-  verificationRequestCount: VerificationRequests.count(),
-  items: VerificationRequests.find({}).fetch(),
-}))(AdminDataModelVerificationRequestsPage);
+const AdminDataModelVerificationRequestsPageContainer = withTracker(() => {
+  const students = StudentProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch();
+  const academicTerms = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();
+  const opportunities = Opportunities.find({}, { sort: { name: 1 } }).fetch();
+  const opportunityInstances = OpportunityInstances.find().fetch();
+  return {
+    students,
+    academicTerms,
+    opportunities,
+    opportunityInstances,
+    academicPlanCount: AcademicPlans.count(),
+    academicTermCount: AcademicTerms.count(),
+    academicYearCount: AcademicYearInstances.count(),
+    advisorLogCount: AdvisorLogs.count(),
+    careerGoalCount: CareerGoals.count(),
+    courseInstanceCount: CourseInstances.count(),
+    courseCount: Courses.count(),
+    feedCount: Feeds.count(),
+    feedbackCount: FeedbackInstances.count(),
+    helpMessageCount: HelpMessages.count(),
+    interestCount: Interests.count(),
+    interestTypeCount: InterestTypes.count(),
+    opportunityCount: Opportunities.count(),
+    opportunityInstanceCount: OpportunityInstances.count(),
+    opportunityTypeCount: OpportunityTypes.count(),
+    planChoiceCount: PlanChoices.count(),
+    reviewCount: Reviews.count(),
+    slugCount: Slugs.count(),
+    teaserCount: Teasers.count(),
+    usersCount: Users.count(),
+    verificationRequestCount: VerificationRequests.count(),
+    items: VerificationRequests.find({}).fetch(),
+  };
+})(AdminDataModelVerificationRequestsPage);
 
 export default withInstanceSubscriptions(AdminDataModelVerificationRequestsPageContainer);

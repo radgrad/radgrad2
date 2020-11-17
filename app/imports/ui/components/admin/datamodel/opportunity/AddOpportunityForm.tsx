@@ -4,17 +4,11 @@ import { Button, Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, SelectField, LongTextField, DateField, BoolField, SubmitField, NumField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
-import { withTracker } from 'meteor/react-meteor-data';
 import _ from 'lodash';
 import Swal from 'sweetalert2';
 import { IAcademicTerm, IBaseProfile, IInterest, IOpportunityType } from '../../../../../typings/radgrad';
 import { academicTermToName, docToName, profileToName } from '../../../shared/utilities/data-model';
-import { AcademicTerms } from '../../../../../api/academic-term/AcademicTermCollection';
-import { FacultyProfiles } from '../../../../../api/user/FacultyProfileCollection';
-import { AdvisorProfiles } from '../../../../../api/user/AdvisorProfileCollection';
-import { OpportunityTypes } from '../../../../../api/opportunity/OpportunityTypeCollection';
 import { iceSchema } from '../../../../../api/ice/IceProcessor';
-import { Interests } from '../../../../../api/interest/InterestCollection';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
 import { openCloudinaryWidget } from '../../../shared/OpenCloudinaryWidget';
 
@@ -116,27 +110,4 @@ const AddOpportunityForm = (props: IAddOpportunityFormProps) => {
   );
 };
 
-const AddOpportunityTypeFormContainer = withTracker(() => {
-  const interests = Interests.find({}, { sort: { name: 1 } }).fetch();
-  // const currentTermNumber = AcademicTerms.getCurrentAcademicTermDoc().termNumber;
-  // const after = currentTermNumber - 8;
-  // const before = currentTermNumber + 16;
-  // console.log(currentTermNumber, after, before);
-  const allTerms = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();
-  // const terms = _.filter(allTerms, t => t.termNumber >= after && t.termNumber <= before);
-  const terms = allTerms;
-  // console.log(terms);
-  const faculty = FacultyProfiles.find({}).fetch();
-  const advisors = AdvisorProfiles.find({}).fetch();
-  const sponsorDocs = _.union(faculty, advisors);
-  const sponsors = _.sortBy(sponsorDocs, ['lastName', 'firstName']);
-  const opportunityTypes = OpportunityTypes.find({}, { sort: { name: 1 } }).fetch();
-  return {
-    sponsors,
-    terms,
-    opportunityTypes,
-    interests,
-  };
-})(AddOpportunityForm);
-
-export default AddOpportunityTypeFormContainer;
+export default AddOpportunityForm;

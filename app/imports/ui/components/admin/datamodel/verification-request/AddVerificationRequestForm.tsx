@@ -1,15 +1,11 @@
 import React from 'react';
 import _ from 'lodash';
 import { Form, Header, Segment } from 'semantic-ui-react';
-import { withTracker } from 'meteor/react-meteor-data';
 import SimpleSchema from 'simpl-schema';
 import { AutoForm, SelectField, BoolField, SubmitField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import { IAcademicTerm, IOpportunity, IOpportunityInstance, IStudentProfile } from '../../../../../typings/radgrad';
-import { StudentProfiles } from '../../../../../api/user/StudentProfileCollection';
 import { AcademicTerms } from '../../../../../api/academic-term/AcademicTermCollection';
-import { Opportunities } from '../../../../../api/opportunity/OpportunityCollection';
-import { OpportunityInstances } from '../../../../../api/opportunity/OpportunityInstanceCollection';
 import {
   academicTermToName,
   docToName,
@@ -66,17 +62,4 @@ const AddVerificationRequestForm = (props: IAddVerificationRequestFormProps) => 
   );
 };
 
-const AddVerificationRequestFormContainer = withTracker(() => {
-  const students = StudentProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch();
-  const academicTerms = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();
-  const opportunities = Opportunities.find({}, { sort: { name: 1 } }).fetch();
-  const opportunityInstances = OpportunityInstances.find().fetch();
-  return {
-    students,
-    academicTerms,
-    opportunities,
-    opportunityInstances,
-  };
-})(AddVerificationRequestForm);
-
-export default AddVerificationRequestFormContainer;
+export default AddVerificationRequestForm;

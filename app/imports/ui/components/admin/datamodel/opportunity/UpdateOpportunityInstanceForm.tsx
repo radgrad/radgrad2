@@ -3,11 +3,9 @@ import { Button, Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, SelectField, AutoField, BoolField, SubmitField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
-import { withTracker } from 'meteor/react-meteor-data';
 import _ from 'lodash';
 import { IAcademicTerm } from '../../../../../typings/radgrad';
 import BaseCollection from '../../../../../api/base/BaseCollection';
-import { AcademicTerms } from '../../../../../api/academic-term/AcademicTermCollection';
 import { academicTermIdToName, academicTermToName } from '../../../shared/utilities/data-model';
 import { iceSchema } from '../../../../../api/ice/IceProcessor';
 
@@ -65,11 +63,4 @@ const UpdateOpportunityInstanceForm = (props: IUpdateOpportunityInstanceFormProp
   );
 };
 
-const UpdateOpportunityInstanceFormContainer = withTracker(() => {
-  const terms = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();
-  return {
-    terms,
-  };
-})(UpdateOpportunityInstanceForm);
-
-export default UpdateOpportunityInstanceFormContainer;
+export default UpdateOpportunityInstanceForm;

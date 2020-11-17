@@ -3,7 +3,6 @@ import { Button, Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, SelectField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
-import { withTracker } from 'meteor/react-meteor-data';
 import _ from 'lodash';
 import { ICareerGoal, ICourse, IInterest, IOpportunity } from '../../../../../typings/radgrad';
 import BaseCollection from '../../../../../api/base/BaseCollection';
@@ -14,11 +13,7 @@ import {
   slugIDToSlugNameAndType,
   docToSlugNameAndType,
 } from '../../../shared/utilities/data-model';
-import { Interests } from '../../../../../api/interest/InterestCollection';
-import { Opportunities } from '../../../../../api/opportunity/OpportunityCollection';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
-import { CareerGoals } from '../../../../../api/career/CareerGoalCollection';
-import { Courses } from '../../../../../api/course/CourseCollection';
 
 interface IUpdateTeaserFormProps {
   careerGoals: ICareerGoal[];
@@ -101,17 +96,4 @@ const UpdateTeaserForm = (props: IUpdateTeaserFormProps) => {
   );
 };
 
-const UpdateTeaserFormContainer = withTracker(() => {
-  const careerGoals = CareerGoals.find({}, { sort: { name: 1 } }).fetch();
-  const courses = Courses.find({}, { sort: { num: 1 } }).fetch();
-  const interests = Interests.find({}, { sort: { name: 1 } }).fetch();
-  const opportunities = Opportunities.find({}, { sort: { name: 1 } }).fetch();
-  return {
-    careerGoals,
-    courses,
-    interests,
-    opportunities,
-  };
-})(UpdateTeaserForm);
-
-export default UpdateTeaserFormContainer;
+export default UpdateTeaserForm;

@@ -4,13 +4,9 @@ import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, SelectField, NumField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
-import { withTracker } from 'meteor/react-meteor-data';
 import { IAcademicTerm, ICourse, IOpportunity, IStudentProfile } from '../../../../../typings/radgrad';
 import { AcademicTerms } from '../../../../../api/academic-term/AcademicTermCollection';
-import { Courses } from '../../../../../api/course/CourseCollection';
-import { StudentProfiles } from '../../../../../api/user/StudentProfileCollection';
 import { academicTermToName, courseToName, docToName, profileToName } from '../../../shared/utilities/data-model';
-import { Opportunities } from '../../../../../api/opportunity/OpportunityCollection';
 import { Reviews } from '../../../../../api/review/ReviewCollection';
 
 interface IAddReviewFormProps {
@@ -108,17 +104,4 @@ const AddReviewForm = (props: IAddReviewFormProps) => {
   );
 };
 
-const AddReviewFormContainer = withTracker(() => {
-  const terms = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();
-  const courses = Courses.find().fetch();
-  const students = StudentProfiles.find({}, { sort: { lastName: 1 } }).fetch();
-  const opportunities = Opportunities.find({}, { sort: { name: 1 } }).fetch();
-  return {
-    terms,
-    courses,
-    students,
-    opportunities,
-  };
-})(AddReviewForm);
-
-export default AddReviewFormContainer;
+export default AddReviewForm;
