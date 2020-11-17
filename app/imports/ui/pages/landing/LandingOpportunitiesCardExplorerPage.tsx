@@ -18,6 +18,8 @@ interface IOpportunitiesCardExplorerProps {
   opportunities: IOpportunity[];
   // eslint-disable-next-line react/no-unused-prop-types
   count: number;
+  // eslint-disable-next-line react/no-unused-prop-types
+  currentUser: string;
 }
 
 const renderPage = (props: IOpportunitiesCardExplorerProps) => {
@@ -27,7 +29,7 @@ const renderPage = (props: IOpportunitiesCardExplorerProps) => {
   };
   return (
     <div>
-      <ExplorerMenuBarContainer />
+      <ExplorerMenuBarContainer currentUser={props.currentUser} />
       <Grid stackable>
         <Grid.Row>
           <Grid.Column width={1} />
@@ -72,6 +74,7 @@ const LandingOpportunitiesCardExplorerContainer = withTracker(() => {
     ready: sub1.ready() && sub2.ready(),
     opportunities: Opportunities.findNonRetired({}, { sort: { name: 1 } }),
     count: Opportunities.countNonRetired(),
+    currentUser: Meteor.user() ? Meteor.user().username : '',
   };
 })(LandingOpportunitiesCardExplorerCon);
 

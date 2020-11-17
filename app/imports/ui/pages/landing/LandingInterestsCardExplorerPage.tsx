@@ -19,6 +19,8 @@ interface IInterestsCardExplorerProps {
   interests: IInterest[];
   // eslint-disable-next-line react/no-unused-prop-types
   count: number;
+  // eslint-disable-next-line react/no-unused-prop-types
+  currentUser: string;
 }
 
 const renderPage = (props: IInterestsCardExplorerProps) => {
@@ -28,7 +30,7 @@ const renderPage = (props: IInterestsCardExplorerProps) => {
   };
   return (
     <div>
-      <ExplorerMenuBarContainer />
+      <ExplorerMenuBarContainer currentUser={props.currentUser} />
       <Grid stackable container padded="vertically">
         <Grid.Row>
           <Grid.Column width={1} />
@@ -75,6 +77,7 @@ const LandingInterestsCardExplorerContainer = withTracker(() => {
     ready: sub1.ready() && sub2.ready(),
     interests: Interests.findNonRetired({}),
     count: Interests.countNonRetired(),
+    currentUser: Meteor.user() ? Meteor.user().username : '',
   };
 })(LandingInterestsCardExplorerCon);
 

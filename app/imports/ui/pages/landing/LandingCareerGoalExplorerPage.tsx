@@ -1,3 +1,4 @@
+import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import Markdown from 'react-markdown';
 import { withRouter } from 'react-router-dom';
@@ -16,6 +17,7 @@ import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 
 interface ICareerGoalExplorerProps {
+  currentUser: string;
   careerGoal: ICareerGoal;
   match: {
     isExact: boolean;
@@ -31,7 +33,7 @@ const LandingCareerGoalExplorerPage = (props: ICareerGoalExplorerProps) => {
   const { match } = props;
   return (
     <div>
-      <ExplorerMenuBarContainer />
+      <ExplorerMenuBarContainer currentUser={props.currentUser} />
       <Grid stackable>
         <Grid.Row>
           <Grid.Column width={1} />
@@ -82,6 +84,7 @@ const LandingCareerGoalExplorerContainer = withTracker((props) => {
   const id = Slugs.getEntityID(slugName, 'CareerGoal');
   return {
     careerGoal: CareerGoals.findDoc(id),
+    currentUser: Meteor.user() ? Meteor.user().username : '',
   };
 })(LandingCareerGoalExplorerCon);
 

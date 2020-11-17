@@ -19,6 +19,8 @@ interface ICareerGoalsCardExplorerProps {
   careerGoals: ICareerGoal[];
   // eslint-disable-next-line react/no-unused-prop-types
   count: number;
+  // eslint-disable-next-line react/no-unused-prop-types
+  currentUser: string;
 }
 
 const renderPage = (props: ICareerGoalsCardExplorerProps) => {
@@ -28,7 +30,7 @@ const renderPage = (props: ICareerGoalsCardExplorerProps) => {
   };
   return (
     <div>
-      <ExplorerMenuBarContainer />
+      <ExplorerMenuBarContainer currentUser={props.currentUser} />
       <Grid stackable>
         <Grid.Row>
           <Grid.Column width={1} />
@@ -75,6 +77,7 @@ const LandingCareerGoalsCardExplorerContainer = withTracker(() => {
     ready: sub1.ready() && sub2.ready(),
     careerGoals: CareerGoals.findNonRetired({}),
     count: CareerGoals.countNonRetired(),
+    currentUser: Meteor.user() ? Meteor.user().username : '',
   };
 })(LandingCareerGoalsCardExplorerCon);
 

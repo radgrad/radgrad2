@@ -4,7 +4,7 @@ import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Card, Grid, Header, Loader, Segment } from 'semantic-ui-react';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
-import ExplorerMenuBarContainer from '../../components/landing/explorer/LandingExplorerMenuBar';
+import LandingExplorerMenuBar from '../../components/landing/explorer/LandingExplorerMenuBar';
 import { IAcademicPlan } from '../../../typings/radgrad';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/explorer/LandingExplorerMenu';
@@ -19,6 +19,8 @@ interface IAcademicPlansCardExplorerProps {
   academicPlans: IAcademicPlan[];
   // eslint-disable-next-line react/no-unused-prop-types
   count: number;
+  // eslint-disable-next-line react/no-unused-prop-types
+  currentUser: string;
 }
 
 const renderPage = (props: IAcademicPlansCardExplorerProps) => {
@@ -28,7 +30,7 @@ const renderPage = (props: IAcademicPlansCardExplorerProps) => {
   };
   return (
     <div>
-      <ExplorerMenuBarContainer />
+      <LandingExplorerMenuBar currentUser={props.currentUser} />
       <Grid stackable>
         <Grid.Row>
           <Grid.Column width={1} />
@@ -75,6 +77,7 @@ const LandingAcademicPlansCardExplorerContainer = withTracker(() => {
     ready: sub1.ready() && sub2.ready(),
     academicPlans: AcademicPlans.findNonRetired({}, { $sort: { year: 1, name: 1 } }),
     count: AcademicPlans.countNonRetired(),
+    currentUser: Meteor.user() ? Meteor.user().username : '',
   };
 })(LandingAcademicPlansCardExplorerCon);
 

@@ -1,6 +1,4 @@
 import React from 'react';
-import { Meteor } from 'meteor/meteor';
-import { withTracker } from 'meteor/react-meteor-data';
 import { NavLink, withRouter } from 'react-router-dom';
 import { Dropdown, Header, Image, Menu } from 'semantic-ui-react';
 import { INavBarProps } from '../LandingNavBar';
@@ -38,9 +36,5 @@ const LandingExplorerMenuBar = (props: INavBarProps) => {
   );
 };
 
-const LandingExplorerMenuBarContainer = withTracker(() => ({
-  currentUser: Meteor.user() ? Meteor.user().username : '',
-}))(LandingExplorerMenuBar);
-
 /** Enable ReactRouter for this component. https://reacttraining.com/react-router/web/api/withRouter */
-export default withRouter(LandingExplorerMenuBarContainer);
+export default withRouter(LandingExplorerMenuBar);

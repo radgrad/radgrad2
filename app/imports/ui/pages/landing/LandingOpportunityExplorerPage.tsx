@@ -1,3 +1,4 @@
+import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import Markdown from 'react-markdown';
 import { withRouter } from 'react-router-dom';
@@ -22,6 +23,7 @@ import { Users } from '../../../api/user/UserCollection';
 // import HelpPanelWidgetContainer from '../../components/shared/HelpPanelWidget';
 
 interface IOpportunityExplorerProps {
+  currentUser: string;
   opportunity: IOpportunity;
   quarters: boolean;
   match: {
@@ -44,7 +46,7 @@ const LandingOpportunityExplorerPage = (props: IOpportunityExplorerProps) => {
 
   return (
     <div>
-      <ExplorerMenuBarContainer />
+      <ExplorerMenuBarContainer currentUser={props.currentUser} />
       <Grid stackable>
         <Grid.Row>
           <Grid.Column width={1} />
@@ -188,6 +190,7 @@ const LandingOpportunityExplorerContainer = withTracker((props) => {
   return {
     opportunity: Opportunities.findDoc(id),
     quarters: RadGradProperties.getQuarterSystem(),
+    currentUser: Meteor.user() ? Meteor.user().username : '',
   };
 })(LandingOpportunityExplorerCon);
 

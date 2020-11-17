@@ -1,10 +1,11 @@
+import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import Markdown from 'react-markdown';
 import { withRouter } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Grid, Header, Segment } from 'semantic-ui-react';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
-import ExplorerMenuBarContainer from '../../components/landing/explorer/LandingExplorerMenuBar';
+import LandingExplorerMenuBar from '../../components/landing/explorer/LandingExplorerMenuBar';
 import { IAcademicPlan } from '../../../typings/radgrad';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/explorer/LandingExplorerMenu';
@@ -15,6 +16,7 @@ import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 
 interface IAcademicPlanExplorerProps {
+  currentUser: string;
   plan: IAcademicPlan;
   match: {
     isExact: boolean;
@@ -31,7 +33,7 @@ const LandingAcademicPlanExplorerPage = (props: IAcademicPlanExplorerProps) => {
   const { match } = props;
   return (
     <div>
-      <ExplorerMenuBarContainer />
+      <LandingExplorerMenuBar currentUser={props.currentUser} />
       <Grid stackable>
         <Grid.Row>
           <Grid.Column width={1} />
@@ -81,6 +83,7 @@ const LandingAcademicPlanExplorerContainer = withTracker((props) => {
   // console.log(Slugs.find().fetch());
   const id = Slugs.getEntityID(slugName, 'AcademicPlan');
   return {
+    currentUser: Meteor.user() ? Meteor.user().username : '',
     plan: AcademicPlans.findDoc(id),
   };
 })(LandingAcademicPlanExplorerCon);

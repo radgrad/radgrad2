@@ -1,3 +1,4 @@
+import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import Markdown from 'react-markdown';
 import { withRouter } from 'react-router-dom';
@@ -18,6 +19,7 @@ import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 
 interface ICourseExplorerProps {
+  currentUser: string;
   course: ICourse;
   match: {
     isExact: boolean;
@@ -33,7 +35,7 @@ const LandingCourseExplorerPage = (props: ICourseExplorerProps) => {
   const { match } = props;
   return (
     <div>
-      <ExplorerMenuBarContainer />
+      <ExplorerMenuBarContainer currentUser={props.currentUser} />
       <Grid stackable>
         <Grid.Row>
           <Grid.Column width={1} />
@@ -109,6 +111,7 @@ const LandingCourseExplorerContainer = withTracker((props) => {
   const id = Slugs.getEntityID(slugName, 'Course');
   return {
     course: Courses.findDoc(id),
+    currentUser: Meteor.user() ? Meteor.user().username : '',
   };
 })(LandingCourseExplorerCon);
 

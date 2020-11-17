@@ -1,12 +1,8 @@
-import { Meteor } from 'meteor/meteor';
-import { withTracker } from 'meteor/react-meteor-data';
 import React from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 import { Button, Header, Image, Menu, Container } from 'semantic-ui-react';
 import RadGradLogoText from '../shared/RadGradLogoText';
 import RadGradLoginButtons from './RadGradLoginButtons';
-import { ROLE } from '../../../api/role/Role';
-import { Users } from '../../../api/user/UserCollection';
 
 export interface INavBarProps {
   currentUser: string;
@@ -56,33 +52,5 @@ const LandingNavBar = (props: INavBarProps) => {
   );
 };
 
-/** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
-const LandingNavBarContainer = withTracker(() => {
-  let role;
-  if (Meteor.userId()) {
-    const profile = Users.getProfile(Meteor.userId());
-    if (profile.role === ROLE.ADMIN) {
-      role = 'admin';
-    }
-    if (profile.role === ROLE.ADVISOR) {
-      role = 'advisor';
-    }
-    if (profile.role === ROLE.ALUMNI) {
-      role = 'alumni';
-    }
-    if (profile.role === ROLE.FACULTY) {
-      role = 'faculty';
-    }
-    if (profile.role === ROLE.STUDENT) {
-      role = 'student';
-    }
-  }
-  return {
-    currentUser: Meteor.user() ? Meteor.user().username : '',
-    iconName: (role === 'admin') ? 'user plus' : 'user',
-    role,
-  };
-})(LandingNavBar);
-
 /** Enable ReactRouter for this component. https://reacttraining.com/react-router/web/api/withRouter */
-export default withRouter(LandingNavBarContainer);
+export default withRouter(LandingNavBar);

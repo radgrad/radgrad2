@@ -1,3 +1,4 @@
+import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import Markdown from 'react-markdown';
 import { withRouter } from 'react-router-dom';
@@ -17,6 +18,7 @@ import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import { EXPLORER_TYPE } from '../../layouts/utilities/route-constants';
 
 interface IInterestExplorerProps {
+  currentUser: string;
   interest: IInterest;
   courses: ICourse[];
   opportunities: IOpportunity[];
@@ -35,7 +37,7 @@ const LandingInterestExplorerPage = (props: IInterestExplorerProps) => {
   const { match } = props;
   return (
     <div>
-      <ExplorerMenuBarContainer />
+      <ExplorerMenuBarContainer currentUser={props.currentUser} />
       <Grid stackable>
         <Grid.Row>
           <Grid.Column width={1} />
@@ -120,6 +122,7 @@ const LandingInterestExplorerContainer = withTracker((props) => {
     interest: Interests.findDoc(id),
     courses: Courses.findNonRetired({ interestIDs: id }),
     opportunities: Opportunities.findNonRetired({ interestIDs: id }),
+    currentUser: Meteor.user() ? Meteor.user().username : '',
   };
 })(LandingInterestExplorerCon);
 

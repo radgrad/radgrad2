@@ -19,6 +19,7 @@ interface ICoursesCardExplorerProps {
   courses: ICourse[];
   // eslint-disable-next-line react/no-unused-prop-types
   count: number;
+  currentUser: string;
 }
 
 const renderPage = (props:ICoursesCardExplorerProps) => {
@@ -28,7 +29,7 @@ const renderPage = (props:ICoursesCardExplorerProps) => {
   };
   return (
     <div>
-      <ExplorerMenuBarContainer />
+      <ExplorerMenuBarContainer currentUser={props.currentUser} />
       <Grid stackable>
         <Grid.Row>
           <Grid.Column width={1} />
@@ -75,6 +76,7 @@ const LandingCoursesCardExplorerContainer = withTracker(() => {
     ready: sub1.ready() && sub2.ready(),
     courses: Courses.findNonRetired({}, { sort: { shortName: 1 } }),
     count: Courses.countNonRetired(),
+    currentUser: Meteor.user() ? Meteor.user().username : '',
   };
 })(LandingCoursesCardExplorerCon);
 
