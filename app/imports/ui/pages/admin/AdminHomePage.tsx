@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 import { Container } from 'semantic-ui-react';
+import { withTracker } from 'meteor/react-meteor-data';
+import { IAdvisorProfile, IFacultyProfile, IStudentProfile } from '../../../typings/radgrad';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import RetrieveUserWidget from '../../components/admin/home/RetrieveUserWidget';
 import FilterUserWidget from '../../components/admin/home/FilterUserWidget';
+import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
+import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
+import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 
 export interface IFilterUsers {
   firstNameRegex?: string;
@@ -10,7 +15,14 @@ export interface IFilterUsers {
   userNameRegex?: string;
 }
 
-const AdminHomePage = () => {
+interface IAdminHomePageProps {
+  advisors: IAdvisorProfile[];
+  faculty: IFacultyProfile[];
+  students: IStudentProfile[];
+  alumni: IStudentProfile[];
+}
+
+const AdminHomePage = (props: IAdminHomePageProps) => {
   const [firstNameRegexState, setFirstNameRegex] = useState('');
   const [lastNameRegexState, setLastNameRegex] = useState('');
   const [usernameRegexState, setusernameRegex] = useState('');
@@ -41,10 +53,27 @@ const AdminHomePage = () => {
           firstNameRegex={firstNameRegexState}
           lastNameRegex={lastNameRegexState}
           userNameRegex={usernameRegexState}
+          advisors={props.advisors}
+          faculty={props.faculty}
+          alumni={props.alumni}
+          students={props.students}
         />
       </Container>
     </div>
   );
 };
 
-export default AdminHomePage;
+const AdminHomePageContainer = withTracker(() => {
+  const advisors = AdvisorProfiles.find({}, { sort: { lastName: 1 } }).fetch();
+  const faculty = FacultyProfiles.find({}, { sort: { lastName: 1 } }).fetch();
+  const students = StudentProfiles.find({ isAlumni: false }, { sort: { lastName: 1 } }).fetch();
+  const alumni = StudentProfiles.find({ isAlumni: true }, { sort: { lastName: 1 } }).fetch();
+  return {
+    advisors,
+    faculty,
+    students,
+    alumni,
+  };
+})(AdminHomePage);
+
+export default AdminHomePageContainer;

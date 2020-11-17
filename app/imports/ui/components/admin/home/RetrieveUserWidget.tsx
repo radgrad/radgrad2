@@ -1,10 +1,6 @@
 import React from 'react';
 import { Button, Grid, Header, Segment, Tab } from 'semantic-ui-react';
 import _ from 'lodash';
-import { withTracker } from 'meteor/react-meteor-data';
-import { AdvisorProfiles } from '../../../../api/user/AdvisorProfileCollection';
-import { FacultyProfiles } from '../../../../api/user/FacultyProfileCollection';
-import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
 import { updateAllStudentLevelsMethod } from '../../../../api/level/LevelProcessor.methods';
 import { IFilterUsers } from '../../../pages/admin/AdminHomePage';
 import { IAdvisorProfile, IFacultyProfile, IStudentProfile } from '../../../../typings/radgrad';
@@ -154,17 +150,4 @@ const RetrieveUserWidget = (props: IRetrieveUserWidgetProps) => {
   );
 };
 
-const RetrieveUserWidgetContainer = withTracker(() => {
-  const advisors = AdvisorProfiles.find({}, { sort: { lastName: 1 } }).fetch();
-  const faculty = FacultyProfiles.find({}, { sort: { lastName: 1 } }).fetch();
-  const students = StudentProfiles.find({ isAlumni: false }, { sort: { lastName: 1 } }).fetch();
-  const alumni = StudentProfiles.find({ isAlumni: true }, { sort: { lastName: 1 } }).fetch();
-  return {
-    advisors,
-    faculty,
-    students,
-    alumni,
-  };
-})(RetrieveUserWidget);
-
-export default RetrieveUserWidgetContainer;
+export default RetrieveUserWidget;
