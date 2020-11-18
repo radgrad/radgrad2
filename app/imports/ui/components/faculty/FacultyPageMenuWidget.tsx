@@ -61,10 +61,10 @@ const FacultyPageMenuWidget = (props: IFacultyPageMenuWidgetProps) => {
   { key: 'Opportunities', route: EXPLORER_TYPE.OPPORTUNITIES },
 ];
 
-const studentHomePageItems = [
-  { key: 'About Me', route: 'aboutme' },
-
+const facultyHomePageItems = [
+  // { key: 'About Me', route: 'aboutme' },
 ];
+
   return (
     <div style={divStyle}>
       <FirstMenuContainer />
@@ -100,7 +100,7 @@ const studentHomePageItems = [
         <Menu.Menu position="right">
           <Dropdown item text={`Aloha, ${profile.firstName} ${profile.lastName}!`}>
             <Dropdown.Menu>
-              {studentHomePageItems.map((item) => (
+              {facultyHomePageItems.map((item) => (
                 <Dropdown.Item
                   key={item.key}
                   as={NavLink}

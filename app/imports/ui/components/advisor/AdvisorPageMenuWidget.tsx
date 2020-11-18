@@ -43,9 +43,8 @@ const AdvisorPageMenuWidget = (props: { match }) => {
   { key: 'Opportunities', route: EXPLORER_TYPE.OPPORTUNITIES, id: 'advisor-menu-opportunities' },
 ];
 
-const studentHomePageItems = [
-  { key: 'About Me', route: 'aboutme', id: 'advisor-menu-about-me' },
-
+const advisorHomePageItems = [
+  // { key: 'About Me', route: 'aboutme', id: 'advisor-menu-about-me' },
 ];
   return (
     <div style={divStyle}>
@@ -82,7 +81,7 @@ const studentHomePageItems = [
         <Menu.Menu position="right">
           <Dropdown id="advisor-menu-full-name" item text={`Aloha, ${profile.firstName} ${profile.lastName}!`}>
             <Dropdown.Menu>
-              {studentHomePageItems.map((item) => (
+              {advisorHomePageItems.map((item) => (
                 <Dropdown.Item
                   key={item.key}
                   id={item.id}
