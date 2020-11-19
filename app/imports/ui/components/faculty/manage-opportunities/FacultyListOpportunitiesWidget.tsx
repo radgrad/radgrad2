@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Grid, Header, Segment } from 'semantic-ui-react';
 import _ from 'lodash';
-import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router-dom';
 import { ROLE } from '../../../../api/role/Role';
 import BaseCollection from '../../../../api/base/BaseCollection';
@@ -16,6 +15,7 @@ import { getUserIdFromRoute, IMatchProps } from '../../shared/utilities/router';
 import { Users } from '../../../../api/user/UserCollection';
 import { RootState } from '../../../../redux/types';
 
+// TODO: Why disable eslint? Why not just delete the property?
 interface IListOpportunitiesWidgetProps {
   collection: BaseCollection;
   // eslint-disable-next-line react/no-unused-prop-types
@@ -23,7 +23,6 @@ interface IListOpportunitiesWidgetProps {
   descriptionPairs: (item) => IDescriptionPair[];
   handleOpenUpdate: (evt: any, id: any) => any;
   handleDelete: (evt: any, id: any) => any;
-  items: any[];
   pagination: any;
   // eslint-disable-next-line react/no-unused-prop-types
   match: IMatchProps;
@@ -55,7 +54,8 @@ const ListOpportunitiesWidget = (props: IListOpportunitiesWidgetProps) => {
   const startIndex = props.pagination[props.collection.getCollectionName()].showIndex;
   const showCount = props.pagination[props.collection.getCollectionName()].showCount;
   const endIndex = startIndex + showCount;
-  const items = _.slice(props.items, startIndex, endIndex);
+  const allItems = props.collection.find({}, props.findOptions).fetch();
+  const items = _.slice(allItems, startIndex, endIndex);
   const factoryOpp = facultyOpportunities(props);
   // console.log('startIndex=%o endIndex=%o items=%o', startIndex, endIndex, items);
   return (
@@ -131,13 +131,4 @@ const ListOpportunitiesWidget = (props: IListOpportunitiesWidgetProps) => {
 };
 
 const ListOpportunitiesWidgetCon = connect(mapStateToProps)(ListOpportunitiesWidget);
-
-const ListOpportunitiesWidgetContainer = withTracker((props: IListOpportunitiesWidgetProps) => {
-  // console.log('ListOpportunitiesWidget withTracker props=%o', props);
-  const items = props.collection.find({}, props.findOptions).fetch();
-  // console.log('ListOpportunitiesWidget withTracker items=%o', items);
-  return {
-    items,
-  };
-})(ListOpportunitiesWidgetCon);
-export default withRouter(ListOpportunitiesWidgetContainer);
+export default withRouter(ListOpportunitiesWidgetCon);

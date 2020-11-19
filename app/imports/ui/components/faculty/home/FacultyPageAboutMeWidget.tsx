@@ -1,8 +1,3 @@
-/**
- * qauchida
- * 05/20/19
- * Faculty Widget that shows About Me information
- */
 import React, { useState } from 'react';
 import { withRouter, Link, NavLink } from 'react-router-dom';
 import _ from 'lodash';
