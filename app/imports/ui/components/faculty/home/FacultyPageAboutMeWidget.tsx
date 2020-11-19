@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { withRouter, Link, NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import _ from 'lodash';
 import { Grid, Header, Label, Icon, Form, Segment } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
-import { withTracker } from 'meteor/react-meteor-data';
 import { FacultyProfiles } from '../../../../api/user/FacultyProfileCollection';
 import { Users } from '../../../../api/user/UserCollection';
 import { Interests } from '../../../../api/interest/InterestCollection';
@@ -11,13 +10,7 @@ import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
 import { openCloudinaryWidget } from '../../shared/OpenCloudinaryWidget';
 import { updateMethod } from '../../../../api/base/BaseCollection.methods';
 import { IFacultyProfile, IFavoriteCareerGoal, IFavoriteInterest } from '../../../../typings/radgrad';
-import { FavoriteCareerGoals } from '../../../../api/favorite/FavoriteCareerGoalCollection';
-import { FavoriteInterests } from '../../../../api/favorite/FavoriteInterestCollection';
-import { getUserIdFromRoute, getUsername } from '../../shared/utilities/router';
 
-/**
- * The Faculty
- */
 interface IFacultyPageAboutMeWidgetProps {
   match?: {
     params: {
@@ -30,9 +23,7 @@ interface IFacultyPageAboutMeWidgetProps {
   favoriteCareerGoals: IFavoriteCareerGoal[];
 }
 
-/**
- * The Faculty About Me Widget should show basic information of the specified user.
- */
+/** The Faculty About Me Widget shows basic information of the specified user. */
 const FacultyPageAboutMeWidget = (props: IFacultyPageAboutMeWidgetProps) => {
   // console.log('FacultyPageAboutMeWidget', props);
   const [websiteState, setWebsite] = useState(props.profile.website);
@@ -319,19 +310,4 @@ const FacultyPageAboutMeWidget = (props: IFacultyPageAboutMeWidgetProps) => {
   );
 };
 
-const FacultyPageAboutMeWidgetCon = withTracker(({ match }) => {
-  const username = getUsername(match);
-  const profile: IFacultyProfile = Users.getProfile(username);
-  const userID = getUserIdFromRoute(match);
-  const favoriteInterests: IFavoriteInterest[] = FavoriteInterests.findNonRetired({ userID });
-  const favoriteCareerGoals: IFavoriteCareerGoal[] = FavoriteCareerGoals.findNonRetired({ userID });
-
-  return {
-    profile,
-    favoriteInterests,
-    favoriteCareerGoals,
-  };
-})(FacultyPageAboutMeWidget);
-const FacultyPageAboutMeWidgetContainer = withRouter(FacultyPageAboutMeWidgetCon);
-
-export default FacultyPageAboutMeWidgetContainer;
+export default FacultyPageAboutMeWidget;
