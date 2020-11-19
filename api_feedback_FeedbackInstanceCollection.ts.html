@@ -273,7 +273,7 @@ class FeedbackInstanceCollection extends BaseCollection {
    */
   public publish() {
     if (Meteor.isServer) {
-      const instance = this;
+      const collection = this.collection;
       // eslint-disable-next-line meteor/audit-argument-checks
       Meteor.publish(this.collectionName, function publish(userID) {
         if (_.isNil(userID)) {
@@ -284,9 +284,9 @@ class FeedbackInstanceCollection extends BaseCollection {
         }
         const profile = Users.getProfile(userID);
         if (profile.role === ROLE.ADMIN || Meteor.isAppTest) {
-          return instance.collection.find();
+          return collection.find();
         }
-        return instance.collection.find({ userID, retired: { $not: { $eq: true } } });
+        return collection.find({ userID, retired: { $not: { $eq: true } } });
       });
     }
   }

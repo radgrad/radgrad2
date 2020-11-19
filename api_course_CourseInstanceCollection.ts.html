@@ -439,9 +439,9 @@ class CourseInstanceCollection extends BaseCollection {
    */
   public publish() {
     if (Meteor.isServer) {
-      const instance = this;
+      const collection = this.collection;
       Meteor.publish(this.publicationNames.scoreboard, function publishCourseScoreboard() {
-        ReactiveAggregate(this, instance.collection, [
+        ReactiveAggregate(this, collection, [
           {
             $addFields: { courseTerm: { $concat: ['$courseID', ' ', '$termID'] } },
           },
@@ -461,9 +461,9 @@ class CourseInstanceCollection extends BaseCollection {
         }
         const profile = Users.getProfile(studentID);
         if (profile.role === ROLE.ADMIN || Meteor.isAppTest) {
-          return instance.collection.find();
+          return collection.find();
         }
-        return instance.collection.find({ studentID, retired: { $not: { $eq: true } } });
+        return collection.find({ studentID, retired: { $not: { $eq: true } } });
       });
     }
   }
