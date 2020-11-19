@@ -31,7 +31,7 @@ interface IPageTrackerProps {
   };
 }
 
-const mapStateToProps = (state: RootState): object => ({
+const mapStateToProps = (state: RootState): unknown => ({
   router: state.router,
 });
 

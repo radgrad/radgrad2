@@ -6,7 +6,7 @@ import { makeSampleInterestArray } from '../interest/SampleInterests';
 import { getRandomCourseSlug } from './CourseUtilities';
 import { Slugs } from '../slug/SlugCollection';
 
-const makePrerequisiteArray = (numPrereqs: number = 0) => {
+const makePrerequisiteArray = (numPrereqs = 0) => {
   const retVal = [];
   for (let i = 0; i < numPrereqs; i++) {
     retVal.push(getRandomCourseSlug());

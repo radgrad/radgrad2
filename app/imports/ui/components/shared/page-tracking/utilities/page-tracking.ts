@@ -145,7 +145,7 @@ export const calculateEngagedInterestTime = (slugName: string): number => {
 
   const descriptionTextStrings: string[] = descriptionText.split(' ');
   const removedHttpLinks: string[] = descriptionTextStrings.filter((str) => !str.includes('http')); // Remove the Markdown http links
-  const validWordLength: number = 3; // Number of characters for a string to be considered a "word"
+  const validWordLength = 3; // Number of characters for a string to be considered a "word"
   const validDescriptionTextStrings: string[] = removedHttpLinks.filter((str) => str.length >= validWordLength); // Remove strings that aren't "valid words"
   const isLongDescriptionText: boolean = validDescriptionTextStrings.length > 50; // If there are more than 50 words, it's considered a long description
 

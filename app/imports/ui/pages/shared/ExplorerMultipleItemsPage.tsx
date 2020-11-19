@@ -64,7 +64,7 @@ const getMenuWidget = (props: ICardExplorerPageProps): JSX.Element => {
   }
 };
 
-const getCollection = (props: ICardExplorerPageProps): object => {
+const getCollection = (props: ICardExplorerPageProps): unknown => {
   const type = Router.getLastUrlParam(props.match);
   switch (type) {
     case EXPLORER_TYPE.ACADEMICPLANS:

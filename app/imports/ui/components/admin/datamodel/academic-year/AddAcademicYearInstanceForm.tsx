@@ -14,7 +14,7 @@ interface IAddAcademicYearInstanceProps {
   handleAdd: (doc) => any;
 }
 
-const AddAcademicYearInstanceForm = (props: IAddAcademicYearInstanceProps): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined => {
+const AddAcademicYearInstanceForm = (props: IAddAcademicYearInstanceProps) => {
   const studentNames = _.map(props.students, profileToUsername);
   const schema = new SimpleSchema({
     student: {

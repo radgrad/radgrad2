@@ -82,19 +82,19 @@ class FavoriteCareerGoalCollection extends BaseCollection {
    */
   publish() {
     if (Meteor.isServer) {
-      const instance = this;
+      const collection = this.collection;
       Meteor.publish(this.collectionName, function filterStudentID(userID) { // eslint-disable-line meteor/audit-argument-checks
         if (_.isNil(userID)) {
           return this.ready();
         }
         const profile = Users.getProfile(userID);
         if (_.includes([ROLE.ADMIN, ROLE.ADVISOR], profile.role)) {
-          return instance.collection.find();
+          return collection.find();
         }
-        return instance.collection.find({ userID });
+        return collection.find({ userID });
       });
       Meteor.publish(this.publicationNames.scoreboard, function publishCareerGoalScoreboard() {
-        ReactiveAggregate(this, instance.collection, [
+        ReactiveAggregate(this, collection, [
           {
             $group: {
               _id: '$careerGoalID',

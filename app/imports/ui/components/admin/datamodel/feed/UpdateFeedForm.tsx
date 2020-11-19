@@ -45,7 +45,7 @@ interface IUpdateFeedFormProps {
   setAdminDataModelFeedsCloudinaryUrl: (cloudinaryUrl: string) => any;
 }
 
-const mapDispatchToProps = (dispatch: any): object => ({
+const mapDispatchToProps = (dispatch: any): unknown => ({
   setAdminDataModelFeedsIsCloudinaryUsed: (isCloudinaryUsed: boolean) => dispatch(cloudinaryActions.setAdminDataModelFeedsIsCloudinaryUsed(isCloudinaryUsed)),
   setAdminDataModelFeedsCloudinaryUrl: (cloudinaryUrl: string) => dispatch(cloudinaryActions.setAdminDataModelFeedsCloudinaryUrl(cloudinaryUrl)),
 });

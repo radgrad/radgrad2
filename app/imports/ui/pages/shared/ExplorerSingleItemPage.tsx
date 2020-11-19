@@ -74,7 +74,7 @@ interface IIndividualExplorerPageProps {
   favoriteOpportunities: IFavoriteOpportunity[];
 }
 
-const teaser = (theOpp: { slugID: string }): object => {
+const teaser = (theOpp: { slugID: string }): unknown => {
   if (Teasers.isDefined({ targetSlugID: theOpp.slugID })) {
     return Teasers.findDoc({ targetSlugID: theOpp.slugID });
   }
@@ -128,7 +128,7 @@ const descriptionPairsCareerGoals = (theCareerGoal: ICareerGoal): { label: strin
   { label: 'Teaser', value: teaser(theCareerGoal) },
 ];
 
-const interestedUsersCareerGoals = (theCareerGoal: ICareerGoal, role: string): object[] => {
+const interestedUsersCareerGoals = (theCareerGoal: ICareerGoal, role: string): unknown[] => {
   let interested = [];
   const profiles = Users.findProfilesWithRole(role, {}, {});
   _.forEach(profiles, (profile) => {
@@ -148,7 +148,7 @@ const numUsersCareerGoals = (theCareerGoal: ICareerGoal, role: string): number =
 
 const numStudentsCareerGoals = (theCareerGoal: ICareerGoal): number => FavoriteCareerGoals.findNonRetired({ careerGoalID: theCareerGoal._id }).length;
 
-const socialPairsCareerGoals = (theCareerGoal: ICareerGoal): { label: string, amount: number, value: object[] }[] => [
+const socialPairsCareerGoals = (theCareerGoal: ICareerGoal): { label: string, amount: number, value: unknown[] }[] => [
   {
     label: 'students', amount: numStudentsCareerGoals(theCareerGoal),
     value: interestedUsersCareerGoals(theCareerGoal, ROLE.STUDENT),
@@ -243,7 +243,7 @@ const prerequisites = (theCourse: ICourse, props: IIndividualExplorerPageProps):
   return [complete, incomplete, notInPlan];
 };
 
-const descriptionPairsCourses = (theCourse: ICourse, props: IIndividualExplorerPageProps): object[] => [
+const descriptionPairsCourses = (theCourse: ICourse, props: IIndividualExplorerPageProps): unknown[] => [
   { label: 'Course Number', value: theCourse.num },
   { label: 'Credit Hours', value: theCourse.creditHrs },
   { label: 'Description', value: theCourse.description },
@@ -370,7 +370,7 @@ const getItem = (props: IIndividualExplorerPageProps): { [key: string]: any } =>
   }
 };
 
-const getDescriptionPairs = (item: { [key: string]: any }, props: IIndividualExplorerPageProps): object[] => {
+const getDescriptionPairs = (item: { [key: string]: any }, props: IIndividualExplorerPageProps): unknown[] => {
   const type = Router.getUrlParam(props.match, 2);
   // console.log(item, type);
   switch (type) {

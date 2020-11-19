@@ -105,7 +105,7 @@ class AdvisorLogCollection extends BaseCollection {
    */
   public publish() {
     if (Meteor.isServer) {
-      const instance = this;
+      const collection = this.collection;
       // eslint-disable-next-line meteor/audit-argument-checks
       Meteor.publish(this.collectionName, function publish(studentID) {
         if (_.isNil(this.userId)) { // https://github.com/meteor/meteor/issues/9619
@@ -116,12 +116,12 @@ class AdvisorLogCollection extends BaseCollection {
         }
         const profile = Users.getProfile(this.userId);
         if (profile.role === ROLE.ADMIN) {
-          return instance.collection.find();
+          return collection.find();
         }
         if (profile.role === ROLE.ADVISOR) {
-          return instance.collection.find({ retired: { $not: { $eq: true } } });
+          return collection.find({ retired: { $not: { $eq: true } } });
         }
-        return instance.collection.find({ studentID, retired: { $not: { $eq: true } } });
+        return collection.find({ studentID, retired: { $not: { $eq: true } } });
       });
     }
   }

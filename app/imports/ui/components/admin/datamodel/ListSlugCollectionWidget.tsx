@@ -12,7 +12,7 @@ import { RootState } from '../../../../redux/types';
 interface IListSlugCollectionWidgetProps {
   collection: BaseCollection;
   // eslint-disable-next-line react/no-unused-prop-types
-  findOptions?: object;
+  findOptions?: { [key: string]: unknown };
   descriptionPairs: (item) => IDescriptionPair[];
   handleOpenUpdate: (evt: any, id: any) => any;
   handleDelete: (evt: any, id: any) => any;

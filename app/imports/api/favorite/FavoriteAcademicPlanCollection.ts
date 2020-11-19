@@ -82,19 +82,19 @@ class FavoriteAcademicPlanCollection extends BaseCollection {
    */
   publish() {
     if (Meteor.isServer) {
-      const instance = this;
+      const collection = this.collection;
       Meteor.publish(this.collectionName, function filterStudentID(studentID) { // eslint-disable-line meteor/audit-argument-checks
         if (_.isNil(studentID)) {
           return this.ready();
         }
         const profile = Users.getProfile(studentID);
         if (_.includes([ROLE.ADMIN, ROLE.ADVISOR], profile.role)) {
-          return instance.collection.find();
+          return collection.find();
         }
-        return instance.collection.find({ studentID });
+        return collection.find({ studentID });
       });
       Meteor.publish(this.publicationNames.scoreboard, function publishAcademicPlanScoreboard() {
-        ReactiveAggregate(this, instance.collection, [
+        ReactiveAggregate(this, collection, [
           {
             $group: {
               _id: '$academicPlanID',

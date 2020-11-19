@@ -25,7 +25,7 @@ interface IAdminAnalyticsDateSelectionWidgetProps {
   setStudentSummaryUserInteractions: (userInteractions: IAdminAnalyticsUserInteraction) => any;
 }
 
-const mapDispatchToProps = (dispatch: any): object => ({
+const mapDispatchToProps = (dispatch: any): any => ({
   setOverheadAnalysisDateRange: (dateRange: analyticsActions.ISetDateRangeProps) => dispatch(analyticsActions.setOverheadAnalysisDateRange(dateRange)),
   setOverheadAnalysisBuckets: (overheadBuckets: IAdminAnalyticsOverheadAnalysisBuckets) => dispatch(analyticsActions.setOverheadAnalysisBuckets(overheadBuckets)),
   setOverheadAnalysisData: (overheadData: IAdminAnalyticsOverheadAnalysisData[]) => dispatch(analyticsActions.setOverheadAnalysisData(overheadData)),

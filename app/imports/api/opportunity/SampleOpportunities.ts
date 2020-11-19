@@ -62,6 +62,6 @@ export function makeSampleOpportunitySlugArray(sponsor, num = 1) {
 export function makeSampleOpportunityInstance(student: string, sponsor: string) {
   const opportunity: string = makeSampleOpportunity(sponsor);
   const academicTerm = Opportunities.findDoc(opportunity).termIDs[0];
-  const verified: boolean = false;
+  const verified = false;
   return OpportunityInstances.define({ academicTerm, opportunity, sponsor, verified, student });
 }

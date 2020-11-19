@@ -120,7 +120,7 @@ const itemTitle = (item: any): React.ReactNode => (
   </React.Fragment>
 );
 
-const mapStateToProps = (state: RootState): object => ({
+const mapStateToProps = (state: RootState): unknown => ({
   isCloudinaryUsed: state.shared.cloudinary.adminDataModelFeeds.isCloudinaryUsed,
   cloudinaryUrl: state.shared.cloudinary.adminDataModelFeeds.cloudinaryUrl,
 });

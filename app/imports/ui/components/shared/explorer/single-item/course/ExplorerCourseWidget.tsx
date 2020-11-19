@@ -40,12 +40,12 @@ interface IExplorerCoursesWidgetProps {
     }
   };
   // eslint-disable-next-line react/no-unused-prop-types
-  reactiveSourceOne: object[];
+  reactiveSourceOne: unknown[];
   // eslint-disable-next-line react/no-unused-prop-types
-  reactiveSourceTwo: object[];
+  reactiveSourceTwo: unknown[];
 }
 
-const getTableTitle = (tableIndex: number, table: object[]): JSX.Element | String => {
+const getTableTitle = (tableIndex: number, table: unknown[]): JSX.Element | string => {
   const greyColorStyle = { color: 'grey' };
   switch (tableIndex) {
     case 0:
@@ -98,14 +98,14 @@ const getTableTitle = (tableIndex: number, table: object[]): JSX.Element | Strin
   }
 };
 
-const color = (table: object[]): string => {
+const color = (table: unknown[]): string => {
   if (table.length === 0) {
     return 'whitesmoke';
   }
   return '';
 };
 
-const length = (table: object[]): boolean => table.length !== 0;
+const length = (table: unknown[]): boolean => table.length !== 0;
 
 const choices = (prerequisite: { course: string; status: string }): string[] => prerequisite.course.split(',');
 

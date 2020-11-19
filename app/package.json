@@ -132,7 +132,10 @@
     ],
     "extends": [
       "airbnb",
+      "eslint:recommended",
       "plugin:meteor/recommended",
+      "plugin:@typescript-eslint/eslint-recommended",
+      "plugin:@typescript-eslint/recommended",
       "react-app"
     ],
     "rules": {
@@ -182,6 +185,7 @@
       "no-unused-vars": "off",
       "@typescript-eslint/no-unused-vars": "error",
       "no-useless-constructor": "off",
+      "@typescript-eslint/ban-ts-comment": "warn",
       "@typescript-eslint/no-useless-constructor": "error",
       "object-curly-newline": "off",
       "object-property-newline": "off",
