@@ -1,17 +1,27 @@
 import React, { useState } from 'react';
+import { withTracker } from 'meteor/react-meteor-data';
 import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import _ from 'lodash';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 import ListOpportunitiesWidget from '../../components/faculty/manage-opportunities/FacultyListOpportunitiesWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
-import { IDescriptionPair, IOpportunity } from '../../../typings/radgrad';
+import {
+    IAcademicTerm,
+    IBaseProfile,
+    IDescriptionPair,
+    IInterest,
+    IOpportunity,
+    IOpportunityType,
+} from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
+import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
+import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 import AddOpportunityForm from '../../components/admin/datamodel/opportunity/AddOpportunityForm';
 import UpdateOpportunityForm from '../../components/admin/datamodel/opportunity/UpdateOpportunityForm';
 import {
@@ -57,7 +67,14 @@ const itemTitle = (item: any): React.ReactNode => (
   </React.Fragment>
 );
 
-const FacultyManageOpportunitesPage = () => {
+interface IFacultyManageOpportunitiesPageProps {
+  sponsors: IBaseProfile[];
+  terms: IAcademicTerm[];
+  interests: IInterest[];
+  opportunityTypes: IOpportunityType[];
+}
+
+const FacultyManageOpportunitiesPage = (props: IFacultyManageOpportunitiesPageProps) => {
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');
@@ -188,16 +205,27 @@ const FacultyManageOpportunitesPage = () => {
           <Grid.Column width={1} />
           <Grid.Column width={14}>
             {showUpdateFormState ? (
-              <UpdateOpportunityForm // see AdminDataModelOpportunitiesPage.
+              <UpdateOpportunityForm
                 collection={collection}
                 id={idState}
                 formRef={formRef}
                 handleUpdate={handleUpdate}
                 handleCancel={handleCancel}
                 itemTitleString={itemTitleString}
+                sponsors={props.sponsors}
+                terms={props.terms}
+                interests={props.interests}
+                opportunityTypes={props.opportunityTypes}
               />
             ) : (
-              <AddOpportunityForm formRef={formRef} handleAdd={handleAdd} />
+              <AddOpportunityForm
+                formRef={formRef}
+                handleAdd={handleAdd}
+                sponsors={props.sponsors}
+                terms={props.terms}
+                interests={props.interests}
+                opportunityTypes={props.opportunityTypes}
+              />
             )}
             <ListOpportunitiesWidget
               collection={collection}
@@ -225,4 +253,22 @@ const FacultyManageOpportunitesPage = () => {
   );
 };
 
-export default FacultyManageOpportunitesPage;
+export default withTracker(() => {
+  const faculty = FacultyProfiles.find({}).fetch();
+  const advisors = AdvisorProfiles.find({}).fetch();
+  const sponsorDocs = _.union(faculty, advisors);
+  const sponsors = _.sortBy(sponsorDocs, ['lastName', 'firstName']);
+  const allTerms = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();
+  const currentTermNumber = AcademicTerms.getCurrentAcademicTermDoc().termNumber;
+  const after = currentTermNumber - 8;
+  const before = currentTermNumber + 16;
+  const terms = _.filter(allTerms, t => t.termNumber >= after && t.termNumber <= before);
+  const interests = Interests.find({}, { sort: { name: 1 } }).fetch();
+  const opportunityTypes = OpportunityTypes.find({}, { sort: { name: 1 } }).fetch();
+  return {
+    sponsors,
+    terms,
+    interests,
+    opportunityTypes,
+  };
+})(FacultyManageOpportunitiesPage);

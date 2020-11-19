@@ -15,7 +15,6 @@ import { getUserIdFromRoute, IMatchProps } from '../../shared/utilities/router';
 import { Users } from '../../../../api/user/UserCollection';
 import { RootState } from '../../../../redux/types';
 
-// TODO: Why disable eslint? Why not just delete the property?
 interface IListOpportunitiesWidgetProps {
   collection: BaseCollection;
   // eslint-disable-next-line react/no-unused-prop-types
