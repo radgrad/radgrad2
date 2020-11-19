@@ -188,7 +188,7 @@ const FacultyManageOpportunitesPage = () => {
           <Grid.Column width={1} />
           <Grid.Column width={14}>
             {showUpdateFormState ? (
-              <UpdateOpportunityForm
+              <UpdateOpportunityForm // see AdminDataModelOpportunitiesPage.
                 collection={collection}
                 id={idState}
                 formRef={formRef}
