@@ -132,7 +132,9 @@
     ],
     "extends": [
       "airbnb",
+      "eslint:recommended",
       "plugin:meteor/recommended",
+      "plugin:@typescript-eslint/eslint-recommended",
       "plugin:@typescript-eslint/recommended",
       "react-app"
     ],
