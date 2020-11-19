@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { renderLink } from '../utilities/router';
 
 interface IStudentFeedItemProps {
-  feed: object;
+  feed: unknown;
   match: {
     isExact: boolean;
     path: string;

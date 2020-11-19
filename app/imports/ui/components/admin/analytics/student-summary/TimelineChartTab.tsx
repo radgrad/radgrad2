@@ -18,7 +18,7 @@ interface ITimelineChartTabProps {
 }
 
 const TimelineChartTab = (props: ITimelineChartTabProps) => {
-  let chartOptions: object = { title: { text: null } };
+  let chartOptions: { [key: string]: unknown } = { title: { text: null } };
   if (props.interactionsByUser) {
     const startDate = moment(props.startDate, 'MMMM D, YYYY');
     const endDate = moment(props.endDate, 'MMMM D, YYYY');

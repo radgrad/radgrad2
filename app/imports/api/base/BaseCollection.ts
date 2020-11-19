@@ -87,7 +87,7 @@ class BaseCollection {
    * @returns { Object } The document associated with name.
    * @throws { Meteor.Error } If the document cannot be found.
    */
-  public findDoc(name: string | Record<string, unknown> | { name } | { _id: string; } | { username: string; }) {
+  public findDoc(name: string | { [key: string]: unknown } | { name } | { _id: string; } | { username: string; }) {
     if (_.isNull(name) || _.isUndefined(name)) {
       throw new Meteor.Error(`${name} is not a defined ${this.type}`);
     }
@@ -113,7 +113,7 @@ class BaseCollection {
    * @param { Object } options MongoDB options.
    * @returns {Mongo.Cursor}
    */
-  public find(selector?: Record<string, unknown>, options?: Record<string, unknown>) {
+  public find(selector?: { [key: string]: unknown }, options?: { [key: string]: unknown }) {
     const theSelector = (typeof selector === 'undefined') ? {} : selector;
     return this.collection.find(theSelector, options);
   }
@@ -125,7 +125,7 @@ class BaseCollection {
    * @param options { Object } MongoDB options.
    * @returns { Array } non-retired documents.
    */
-  public findNonRetired(selector?: Record<string, unknown>, options?: Record<string, unknown>) {
+  public findNonRetired(selector?: { [key: string]: unknown }, options?: { [key: string]: unknown }) {
     const theSelector = (typeof selector === 'undefined') ? {} : selector;
     return _.filter(this.collection.find(theSelector, options).fetch(), (doc) => !doc.retired);
   }
@@ -137,7 +137,7 @@ class BaseCollection {
    * @param { Object } options MongoDB options.
    * @returns {Mongo.Cursor}
    */
-  public findOne(selector: Record<string, unknown>, options?: Record<string, unknown>) {
+  public findOne(selector?: { [key: string]: unknown }, options?: { [key: string]: unknown }) {
     const theSelector = (typeof selector === 'undefined') ? {} : selector;
     return this.collection.findOne(theSelector, options);
   }
@@ -175,7 +175,7 @@ class BaseCollection {
    * @param { String | Object } name A document or docID in this collection.
    * @returns true
    */
-  public removeIt(name: string | Record<string, unknown>): boolean {
+  public removeIt(name: string | { [key: string]: unknown }): boolean {
     const doc: { _id } = this.findDoc(name);
     check(doc, Object);
     this.collection.remove(doc._id);

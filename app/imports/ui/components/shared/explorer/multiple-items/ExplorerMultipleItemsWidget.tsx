@@ -33,13 +33,13 @@ interface ICardExplorerWidgetProps extends ICardExplorerMenuWidgetProps {
   // eslint-disable-next-line react/no-unused-prop-types
   collection: any;
   // eslint-disable-next-line react/no-unused-prop-types
-  reactiveSource: object[];
+  reactiveSource: unknown[];
   // eslint-disable-next-line react/no-unused-prop-types
-  reactiveSourceProfile: object;
+  reactiveSourceProfile: unknown;
   // eslint-disable-next-line react/no-unused-prop-types
-  reactiveSourceForTermCarOne: object[];
+  reactiveSourceForTermCarOne: unknown[];
   // eslint-disable-next-line react/no-unused-prop-types
-  reactiveSourceForTermCarTwo: object[];
+  reactiveSourceForTermCarTwo: unknown[];
   // eslint-disable-next-line react/no-unused-prop-types
   studentProfiles: IStudentProfile[];
   // eslint-disable-next-line react/no-unused-prop-types
@@ -47,7 +47,7 @@ interface ICardExplorerWidgetProps extends ICardExplorerMenuWidgetProps {
   // eslint-disable-next-line react/no-unused-prop-types
   facultyProfiles: IFacultyProfile[];
   // eslint-disable-next-line react/no-unused-prop-types
-  menuList: object[];
+  menuList: unknown[];
   type: IExplorerTypes;
   match: {
     isExact: boolean;

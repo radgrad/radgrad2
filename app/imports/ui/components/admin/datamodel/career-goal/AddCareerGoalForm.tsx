@@ -14,7 +14,7 @@ interface IAddCareerGoalFormProps {
   handleAdd: (doc) => any;
 }
 
-const AddCareerGoalForm = (props: IAddCareerGoalFormProps): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined => {
+const AddCareerGoalForm = (props: IAddCareerGoalFormProps) => {
   // console.log(props);
   const interestNames = _.map(props.interests, docToName);
   const schema = new SimpleSchema({

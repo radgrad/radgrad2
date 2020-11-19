@@ -139,7 +139,7 @@ class SlugCollection extends BaseCollection {
    * A stricter form of remove that throws an error if the document or docID could not be found in this collection.
    * @param { String | Object } docOrID A document or docID in this collection.
    */
-  public removeIt(docOrID: string | Record<string, unknown>) {
+  public removeIt(docOrID: string | { [key: string]: unknown }) {
     return super.removeIt(docOrID);
   }
 
