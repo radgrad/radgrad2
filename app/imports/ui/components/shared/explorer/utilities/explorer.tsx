@@ -90,7 +90,7 @@ export const noPlan = (match: Router.IMatchProps): boolean => {
   return profileGetFavoriteAcademicPlans(profile).length === 0;
 };
 
-export const availableAcademicPlans = (match: Router.IMatchProps): object[] => {
+export const availableAcademicPlans = (match: Router.IMatchProps): unknown[] => {
   let plans = AcademicPlans.findNonRetired({}, { sort: { year: 1, name: 1 } });
   const username = Router.getUsername(match);
   if (username) {
@@ -164,7 +164,7 @@ export const userCareerGoals = (careerGoal: ICareerGoal, match: Router.IMatchPro
   return ret;
 };
 
-const availableCareerGoals = (match: Router.IMatchProps): object[] => {
+const availableCareerGoals = (match: Router.IMatchProps): unknown[] => {
   const careers = CareerGoals.findNonRetired({});
   const username = Router.getUsername(match);
   if (username) {
@@ -175,7 +175,7 @@ const availableCareerGoals = (match: Router.IMatchProps): object[] => {
   return careers;
 };
 
-export const matchingCareerGoals = (match: Router.IMatchProps): object[] => {
+export const matchingCareerGoals = (match: Router.IMatchProps): unknown[] => {
   const allCareers = availableCareerGoals(match);
   const username = Router.getUsername(match);
   if (username) {
@@ -220,7 +220,7 @@ export const courseName = (course: { item: ICourse, count: number }): string => 
   return `${course.item.shortName}`;
 };
 
-export const availableCourses = (match: Router.IMatchProps): object[] => {
+export const availableCourses = (match: Router.IMatchProps): unknown[] => {
   const courses = Courses.findNonRetired({});
   if (courses.length > 0) {
     const studentID = Router.getUserIdFromRoute(match);
@@ -250,7 +250,7 @@ export const availableCourses = (match: Router.IMatchProps): object[] => {
   return [];
 };
 
-export const matchingCourses = (match: Router.IMatchProps): object[] => {
+export const matchingCourses = (match: Router.IMatchProps): unknown[] => {
   const username = Router.getUsername(match);
   if (username) {
     const allCourses = availableCourses(match);
@@ -284,7 +284,7 @@ export const noInterests = (match: Router.IMatchProps): boolean => {
   return true;
 };
 
-export const availableInterests = (match: Router.IMatchProps): object[] => {
+export const availableInterests = (match: Router.IMatchProps): unknown[] => {
   let interests = Interests.findNonRetired({});
   const username = Router.getUsername(match);
   if (username) {
@@ -321,7 +321,7 @@ export const opportunityItemName = (item: { item: IOpportunity, count: number })
   return `${item.item.name} ${iceString}`;
 };
 
-export const availableOpps = (match: IMatchProps): object[] => {
+export const availableOpps = (match: IMatchProps): unknown[] => {
   const notRetired = Opportunities.findNonRetired({});
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
   // console.log(notRetired.length);

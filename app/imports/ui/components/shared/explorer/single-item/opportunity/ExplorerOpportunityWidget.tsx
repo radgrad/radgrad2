@@ -35,7 +35,7 @@ interface IExplorerOpportunitiesWidgetProps {
   };
 }
 
-const review = (props: IExplorerOpportunitiesWidgetProps): object => {
+const review = (props: IExplorerOpportunitiesWidgetProps): unknown => {
   const reviews = Reviews.findNonRetired({
     studentID: Router.getUserIdFromRoute(props.match),
     revieweeID: props.item._id,

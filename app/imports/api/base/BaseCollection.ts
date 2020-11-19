@@ -40,7 +40,7 @@ class BaseCollection {
    * @param {Object} obj the document.
    * @throws Meteor.Error since shouldn't call this method on the base class.
    */
-  public define(obj: object): string {
+  public define(obj: unknown): string {
     throw new Meteor.Error(`Default define method invoked by collection ${this.collectionName} ${obj}`);
   }
 
@@ -87,7 +87,7 @@ class BaseCollection {
    * @returns { Object } The document associated with name.
    * @throws { Meteor.Error } If the document cannot be found.
    */
-  public findDoc(name: string | object | { name } | { _id: string; } | { username: string; }) {
+  public findDoc(name: string | Record<string, unknown> | { name } | { _id: string; } | { username: string; }) {
     if (_.isNull(name) || _.isUndefined(name)) {
       throw new Meteor.Error(`${name} is not a defined ${this.type}`);
     }
@@ -113,7 +113,7 @@ class BaseCollection {
    * @param { Object } options MongoDB options.
    * @returns {Mongo.Cursor}
    */
-  public find(selector?: object, options?: object) {
+  public find(selector?: Record<string, unknown>, options?: Record<string, unknown>) {
     const theSelector = (typeof selector === 'undefined') ? {} : selector;
     return this.collection.find(theSelector, options);
   }
@@ -125,7 +125,7 @@ class BaseCollection {
    * @param options { Object } MongoDB options.
    * @returns { Array } non-retired documents.
    */
-  public findNonRetired(selector?: object, options?: object) {
+  public findNonRetired(selector?: Record<string, unknown>, options?: Record<string, unknown>) {
     const theSelector = (typeof selector === 'undefined') ? {} : selector;
     return _.filter(this.collection.find(theSelector, options).fetch(), (doc) => !doc.retired);
   }
@@ -137,7 +137,7 @@ class BaseCollection {
    * @param { Object } options MongoDB options.
    * @returns {Mongo.Cursor}
    */
-  public findOne(selector: object, options?: object) {
+  public findOne(selector: Record<string, unknown>, options?: Record<string, unknown>) {
     const theSelector = (typeof selector === 'undefined') ? {} : selector;
     return this.collection.findOne(theSelector, options);
   }
@@ -175,10 +175,9 @@ class BaseCollection {
    * @param { String | Object } name A document or docID in this collection.
    * @returns true
    */
-  public removeIt(name: string | object): boolean {
-    const doc = this.findDoc(name);
+  public removeIt(name: string | Record<string, unknown>): boolean {
+    const doc: { _id } = this.findDoc(name);
     check(doc, Object);
-    // @ts-ignore
     this.collection.remove(doc._id);
     return true;
   }
@@ -192,9 +191,8 @@ class BaseCollection {
    */
   public removeAll() {
     const items = this.collection.find().fetch();
-    const instance = this;
-    _.forEach(items, (i) => {
-      instance.removeIt(i._id);
+    _.forEach(items, function (i) {
+      this.removeIt(i._id);
     });
     return true;
   }

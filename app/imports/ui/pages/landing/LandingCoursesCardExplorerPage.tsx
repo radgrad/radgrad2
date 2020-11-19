@@ -13,7 +13,6 @@ import BackToTopButton from '../../components/shared/BackToTopButton';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 
 interface ICoursesCardExplorerProps {
-  // eslint-disable-next-line react/no-unused-prop-types
   ready: boolean;
   // eslint-disable-next-line react/no-unused-prop-types
   courses: ICourse[];
@@ -23,7 +22,7 @@ interface ICoursesCardExplorerProps {
   currentUser: string;
 }
 
-const renderPage = (props:ICoursesCardExplorerProps) => {
+const renderPage = (props: ICoursesCardExplorerProps) => {
   const inlineStyle = {
     maxHeight: 750,
     marginTop: 10,

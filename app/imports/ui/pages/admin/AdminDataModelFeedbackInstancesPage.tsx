@@ -76,7 +76,7 @@ const itemTitle = (item: any): React.ReactNode => (
 );
 
 interface IAdminDataModelFeedbackInstancesPageProps extends IAdminDataModeMenuProps {
-  items: object[];
+  items: unknown[];
   students: IStudentProfile[];
 }
 

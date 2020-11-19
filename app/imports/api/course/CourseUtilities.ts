@@ -177,7 +177,7 @@ export function getCourseNumber(courseSlug): string {
  * @param {number} length
  * @returns {string}
  */
-export function getRandomDepartment(length: number = 3): string {
+export function getRandomDepartment(length = 3): string {
   let retVal = '';
   for (let i = 0; i < length; i++) {
     retVal = `${retVal}${faker.random.alphaNumeric()}`;
@@ -192,7 +192,7 @@ export function getRandomDepartment(length: number = 3): string {
  * @param {number} max the maximum course number, (optional) defaults to 800.
  * @returns {string}
  */
-export function getRandomCourseSlugForDept(dept: string, min: number = 100, max: number = 800): string {
+export function getRandomCourseSlugForDept(dept: string, min = 100, max = 800): string {
   return `${dept}_${faker.random.number({
     min,
     max,
@@ -206,7 +206,7 @@ export function getRandomCourseSlugForDept(dept: string, min: number = 100, max:
  * @param {number} max the maximum course number, (optional) defaults to 800.
  * @returns {string}
  */
-export function getRandomCourseSlug(deptLength: number = 3, min: number = 100, max: number = 800): string {
+export function getRandomCourseSlug(deptLength = 3, min = 100, max = 800): string {
   const deptName = getRandomDepartment(deptLength);
   return getRandomCourseSlugForDept(deptName, min, max);
 }

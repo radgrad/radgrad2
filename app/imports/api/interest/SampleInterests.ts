@@ -38,7 +38,7 @@ export function makeSampleInterest(): string {
  * @param {number} numInterests the number of interestIDs. Defaults to 1.
  * @returns {string[]}
  */
-export function makeSampleInterestArray(numInterests: number = 1): string[] {
+export function makeSampleInterestArray(numInterests = 1): string[] {
   const retVal = [];
   for (let i = 0; i < numInterests; i++) {
     retVal.push(makeSampleInterest());

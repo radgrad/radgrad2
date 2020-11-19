@@ -45,7 +45,7 @@ interface IExplorerCoursesWidgetProps {
   reactiveSourceTwo: object[];
 }
 
-const getTableTitle = (tableIndex: number, table: object[]): JSX.Element | String => {
+const getTableTitle = (tableIndex: number, table: object[]): JSX.Element | string => {
   const greyColorStyle = { color: 'grey' };
   switch (tableIndex) {
     case 0:
