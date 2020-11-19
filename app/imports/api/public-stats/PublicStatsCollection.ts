@@ -261,9 +261,8 @@ class PublicStatsCollection extends BaseCollection {
 
   public generateStats() {
     if (!(Meteor.isTest || Meteor.isAppTest)) {
-      const instance = this;
-      _.forEach(this.stats, (key) => {
-        instance[key]();
+      _.forEach(this.stats, function (key) {
+        return this[key]();
       });
     }
   }

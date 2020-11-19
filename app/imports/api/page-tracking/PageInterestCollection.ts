@@ -137,7 +137,7 @@ class PageInterestCollection extends BaseCollection {
   public publish() {
     if (Meteor.isServer) {
       // Meteor.publish(this.collectionName, () => this.collection.find({}, { limit: 0 }));
-      const instance = this;
+      const collection = this.collection;
       // eslint-disable-next-line meteor/audit-argument-checks
       Meteor.publish(this.collectionName, function filterStudentID(studentID) {
         if (_.isNil(studentID)) {
@@ -149,10 +149,10 @@ class PageInterestCollection extends BaseCollection {
 
           // Only expose PageInterests for the past 24 hours
           const yesterday = moment().subtract(24, 'hours').toDate();
-          return instance.collection.find({ username, timestamp: { $gte: yesterday } });
+          return collection.find({ username, timestamp: { $gte: yesterday } });
         }
         // Don't publish any documents
-        return instance.collection.find({}, { skip: instance.collection.find({}).count() });
+        return collection.find({}, { skip: collection.find({}).count() });
       });
     }
   }

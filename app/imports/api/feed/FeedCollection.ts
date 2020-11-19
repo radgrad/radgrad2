@@ -402,11 +402,11 @@ class FeedCollection extends BaseCollection {
    */
   public checkPastDayFeed(feedType: string, opportunity?: string, timestamp: any = moment().toDate()) {
     let ret = '';
-    const instance = this;
+    const verifiedOpportunity = this.VERIFIED_OPPORTUNITY;
     const existingFeed = _.find(this.collection.find().fetch(), (feed) => {
       if (withinPastDay(feed, timestamp)) {
         if (feed.feedType === feedType) {
-          if (feedType === instance.VERIFIED_OPPORTUNITY) {
+          if (feedType === verifiedOpportunity) {
             const opportunityID = Opportunities.getID(opportunity);
             if (opportunityID === feed.opportunityID) {
               return true;
@@ -426,10 +426,10 @@ class FeedCollection extends BaseCollection {
 
   public checkPastDayLevelFeed(level, timestamp = moment().format()) {
     let ret = '';
-    const instance = this;
+    const newLevel = this.NEW_LEVEL;
     const existingFeed = _.find(this.collection.find().fetch(), (feed) => {
       if (withinPastDay(feed, timestamp)) {
-        if (feed.feedType === instance.NEW_LEVEL) {
+        if (feed.feedType === newLevel) {
           // check the level
           if (feed.description.includes(`${level}.`)) {
             return true;

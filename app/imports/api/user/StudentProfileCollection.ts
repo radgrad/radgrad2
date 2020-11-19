@@ -471,10 +471,10 @@ class StudentProfileCollection extends BaseProfileCollection {
   public publish() {
     if (Meteor.isServer) {
       // console.log('StudentProfileCollection.publish');
-      const inst = this;
+      const collection = this.collection;
       Meteor.publish(this.collectionName, function () {
         const userID = Meteor.userId();
-        ReactiveAggregate(this, inst.collection, [{
+        ReactiveAggregate(this, collection, [{
           $project: {
             username: {
               $cond: [{
