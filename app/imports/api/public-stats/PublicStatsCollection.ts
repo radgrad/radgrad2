@@ -261,9 +261,10 @@ class PublicStatsCollection extends BaseCollection {
 
   public generateStats() {
     if (!(Meteor.isTest || Meteor.isAppTest)) {
-      _.forEach(this.stats, function (key) {
-        return this[key]();
-      });
+      // CAM We have to do this.
+      // eslint-disable-next-line @typescript-eslint/no-this-alias
+      const instance = this;
+      _.forEach(this.stats, (key) => instance[key]());
     }
   }
 
