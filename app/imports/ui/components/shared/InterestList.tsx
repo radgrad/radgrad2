@@ -23,9 +23,11 @@ interface IInterestListProps {
 
 const InterestList = (props: IInterestListProps) => {
   const { match, size, item } = props;
+  console.log(item);
   const matchingUserInterests = MatchingInterests.matchingUserInterests(Router.getUsername(match), item);
   const matchingCareerInterests = MatchingInterests.matchingCareerGoalInterests(Router.getUsername(match), item);
   const otherInterests = MatchingInterests.notMatchingInterests(Router.getUsername(match), item);
+  console.log(matchingUserInterests);
   return (
     <Label.Group size={size}>
       {
