@@ -8,9 +8,12 @@ import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidge
 import AdvisorAcademicPlanTabs from '../../components/advisor/academic-plans/AdvisorAcademicPlanTabs';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
+import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
+
 interface IAdvisorAcademicPlanPageProps {
   choices: IPlanChoiceDefine[],
-  terms: IAcademicTerm[];
+  terms: IAcademicTerm[],
+  plans: IAcademicPlan[],
 }
 const AdvisorAcademicPlanPage = (props: IAdvisorAcademicPlanPageProps) => (
   <div id="advisor-academic-plan-page">
@@ -25,7 +28,7 @@ const AdvisorAcademicPlanPage = (props: IAdvisorAcademicPlanPageProps) => (
       <Grid.Row>
         <Grid.Column width={1} />
         <Grid.Column width={14}>
-          <AdvisorAcademicPlanTabs choices=props.choices, terms=props.terms />
+          <AdvisorAcademicPlanTabs {...props} />
         </Grid.Column>
         <Grid.Column width={1} />
       </Grid.Row>
@@ -37,9 +40,11 @@ const AdvisorAcademicPlanPage = (props: IAdvisorAcademicPlanPageProps) => (
 const AdvisorAcademicPlanPageContainer=withTracker(() => {
   const terms = AcademicTerms.findNonRetired({}, { sort: { year: 1 } });
   const choices = PlanChoices.findNonRetired({}, { sort: { choice: 1 } });
+  const plans = AcademicPlans.findNonRetired();
   return {
     terms,
     choices,
+	plans,
   };
 })(AdvisorAcademicPlanPage);
 
