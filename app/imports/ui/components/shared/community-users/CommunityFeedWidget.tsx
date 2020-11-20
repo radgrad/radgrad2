@@ -1,14 +1,13 @@
 import React from 'react';
 import { Container, Divider, Feed, Header, Segment } from 'semantic-ui-react';
 import StudentFeedItem from './CommunityFeedItem';
-import { studentFeedWidget } from '../../student/student-widget-names';
 import { IFeed } from '../../../../typings/radgrad';
 
 interface IStudentFeedWidgetProps {
   feeds: IFeed[];
 }
 
-const CommunityFeedWidget = (props: IStudentFeedWidgetProps) => {
+const CommunityFeedWidget = (props: IStudentFeedWidgetProps): JSX.Element => {
   const feedStyle = {
     maxHeight: '325px',
     overflowY: 'scroll',
@@ -16,7 +15,7 @@ const CommunityFeedWidget = (props: IStudentFeedWidgetProps) => {
   };
 
   return (
-    <Container id={`${studentFeedWidget}`}>
+    <Container id="community-feed-widget">
       <Segment padded>
         <Header dividing>RADGRAD COMMUNITY ACTIVITY</Header>
         {props.feeds ?
