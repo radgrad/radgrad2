@@ -6,7 +6,7 @@ import { Reviews } from '../../../api/review/ReviewCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import { secondMenu } from '../shared/shared-widget-names';
 import { buildRouteName, getUsername } from '../shared/utilities/router';
-import { EXPLORER_TYPE } from '../../layouts/utilities/route-constants';
+import { COMMUNITY, EXPLORER_TYPE } from '../../layouts/utilities/route-constants';
 import { IAdvisorProfile } from '../../../typings/radgrad';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 
@@ -17,7 +17,7 @@ const AdvisorPageMenuWidget = (props: { match }) => {
   const firstMenuStyle = { minHeight: 78 };
   const profile: IAdvisorProfile = AdvisorProfiles.getProfile(username);
   let numMod = 0;
-   numMod += Reviews.findNonRetired({ moderated: false }).length;
+  numMod += Reviews.findNonRetired({ moderated: false }).length;
   let moderationLabel = 'Moderation';
   if (numMod > 0) {
     moderationLabel = `${moderationLabel} (${numMod})`;
@@ -36,16 +36,21 @@ const AdvisorPageMenuWidget = (props: { match }) => {
     { label: 'Scoreboard', route: 'scoreboard', regex: 'scoreboard', id: 'advisor-menu-scoreboard' },
   ];
   const explorerDropdownItems = [
-  { key: 'Academic Plans', route: EXPLORER_TYPE.ACADEMICPLANS, id: 'advisor-menu-academic-plans' },
-  { key: 'Career Goals', route: EXPLORER_TYPE.CAREERGOALS, id: 'advisor-menu-career-goals' },
-  { key: 'Courses', route: EXPLORER_TYPE.COURSES, id: 'advisor-menu-courses' },
-  { key: 'Interests', route: EXPLORER_TYPE.INTERESTS, id: 'advisor-menu-interests' },
-  { key: 'Opportunities', route: EXPLORER_TYPE.OPPORTUNITIES, id: 'advisor-menu-opportunities' },
-];
+    { key: 'Academic Plans', route: EXPLORER_TYPE.ACADEMICPLANS, id: 'advisor-menu-academic-plans' },
+    { key: 'Career Goals', route: EXPLORER_TYPE.CAREERGOALS, id: 'advisor-menu-career-goals' },
+    { key: 'Courses', route: EXPLORER_TYPE.COURSES, id: 'advisor-menu-courses' },
+    { key: 'Interests', route: EXPLORER_TYPE.INTERESTS, id: 'advisor-menu-interests' },
+    { key: 'Opportunities', route: EXPLORER_TYPE.OPPORTUNITIES, id: 'advisor-menu-opportunities' },
+  ];
 
-const advisorHomePageItems = [
-  // { key: 'About Me', route: 'aboutme', id: 'advisor-menu-about-me' },
-];
+  const communityDropdownItems = [
+    { key: 'Members', route: COMMUNITY.USERS, id: 'facutly-menu-users' },
+    { key: 'RadGrad Videos', route: COMMUNITY.RADGRADVIDEOS, id: 'faculty-menu-radgrad-videos' },
+  ];
+
+  const advisorHomePageItems = [
+    // { key: 'About Me', route: 'aboutme', id: 'advisor-menu-about-me' },
+  ];
   return (
     <div style={divStyle}>
       <FirstMenuContainer style={firstMenuStyle} />
@@ -58,10 +63,16 @@ const advisorHomePageItems = [
         id={`${secondMenu}`}
       >
         {menuItems.map((item) => (
-          <Menu.Item id={item.id} key={item.label} as={NavLink} exact={false} to={buildRouteName(match, `/${item.route}`)}>
+          <Menu.Item
+            id={item.id}
+            key={item.label}
+            as={NavLink}
+            exact={false}
+            to={buildRouteName(match, `/${item.route}`)}
+          >
             {item.label}
           </Menu.Item>
-      ))}
+        ))}
 
         <Dropdown id="advisor-menu-explore" item text="EXPLORE">
           <Dropdown.Menu>
@@ -74,7 +85,21 @@ const advisorHomePageItems = [
                 to={buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${item.route}`)}
                 content={item.key}
               />
-                ))}
+            ))}
+          </Dropdown.Menu>
+        </Dropdown>
+        <Dropdown item id="student-menu-community" text="COMMUNITY">
+          <Dropdown.Menu>
+            {communityDropdownItems.map((item) => (
+              <Dropdown.Item
+                key={item.key}
+                id={item.id}
+                as={NavLink}
+                exact
+                to={buildRouteName(match, `/${COMMUNITY.HOME}/${item.route}`)}
+                content={item.key}
+              />
+            ))}
           </Dropdown.Menu>
         </Dropdown>
 
@@ -90,7 +115,7 @@ const advisorHomePageItems = [
                   to={buildRouteName(match, `/home/${item.route}`)}
                   content={item.key}
                 />
-                  ))}
+              ))}
               <Dropdown.Item id="advisor-menu-signout" as={NavLink} exact to="/signout" content="Sign Out" />
             </Dropdown.Menu>
           </Dropdown>

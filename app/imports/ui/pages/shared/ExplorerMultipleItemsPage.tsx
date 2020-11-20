@@ -3,6 +3,7 @@ import { Grid, Container } from 'semantic-ui-react';
 import _ from 'lodash';
 import { withRouter } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
+import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 import CardExplorerWidget from '../../components/shared/explorer/multiple-items/ExplorerMultipleItemsWidget';
@@ -54,11 +55,14 @@ interface ICardExplorerPageProps {
 
 const getMenuWidget = (props: ICardExplorerPageProps): JSX.Element => {
   const role = Router.getRoleByUrl(props.match);
+  // console.log('ExplorerMultipleItemsPage.getMenuWidget', role);
   switch (role) {
     case URL_ROLES.STUDENT:
       return <StudentPageMenuWidget />;
     case URL_ROLES.FACULTY:
       return <FacultyPageMenuWidget />;
+    case URL_ROLES.ADVISOR:
+      return <AdvisorPageMenuWidget />;
     default:
       return <React.Fragment />;
   }
@@ -66,6 +70,7 @@ const getMenuWidget = (props: ICardExplorerPageProps): JSX.Element => {
 
 const getCollection = (props: ICardExplorerPageProps): unknown => {
   const type = Router.getLastUrlParam(props.match);
+  // console.log('ExplorerMultipleItemsPage.getCollection', type);
   switch (type) {
     case EXPLORER_TYPE.ACADEMICPLANS:
       return AcademicPlans;
@@ -136,7 +141,6 @@ const getAddedList = (props: ICardExplorerPageProps): { item: IAcademicPlan | IC
 
 const ExplorerMultipleItemsPage = (props: ICardExplorerPageProps) => {
   const menuWidget = getMenuWidget(props);
-
   const addedList = getAddedList(props);
   const isTypeInterest = Router.getLastUrlParam(props.match) === EXPLORER_TYPE.INTERESTS; // Only Interests takes in Career List for ExplorerMultipleItemsMenu
   const role = Router.getRoleByUrl(props.match);

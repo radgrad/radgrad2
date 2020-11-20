@@ -27,7 +27,7 @@ const studentHomePageItems = [
 ];
 
 const communityDropdownItems = [
-  { key: 'Users', route: COMMUNITY.USERS, id: 'student-menu-users' },
+  { key: 'Members', route: COMMUNITY.USERS, id: 'student-menu-users' },
   { key: 'RadGrad Videos', route: COMMUNITY.RADGRADVIDEOS, id: 'student-menu-radgrad-videos' },
 ];
 

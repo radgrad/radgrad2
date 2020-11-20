@@ -398,6 +398,12 @@ export const routes = {
       exact: true,
       component: CommunityRadGradVideosPage,
     },
+    {
+      path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${COMMUNITY.HOME}/${COMMUNITY.USERS}`,
+      exact: true,
+      component: CommunityUsersPage,
+    },
+
   ],
   ALUMNI: [
     {
