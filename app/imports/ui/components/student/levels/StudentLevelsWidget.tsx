@@ -2,7 +2,6 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import Markdown from 'react-markdown';
 import { Segment, Grid, Container, Message, Icon, Image, Header } from 'semantic-ui-react';
-import { withTracker } from 'meteor/react-meteor-data';
 import { getUserIdFromRoute } from '../../shared/utilities/router';
 import { Users } from '../../../../api/user/UserCollection';
 import { studentLevelsWidget } from '../student-widget-names';
@@ -10,7 +9,7 @@ import { getLevelHintStringMarkdown } from '../../../../api/level/LevelProcessor
 
 // import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 
-interface IStudentLevelsWidgetProps {
+export interface IStudentLevelsWidgetProps {
   // eslint-disable-next-line react/no-unused-prop-types
   match: {
     isExact: boolean;
@@ -70,7 +69,7 @@ const getStudentLevelHint = (props: IStudentLevelsWidgetProps): string => {
 
 const StudentLevelsWidget = (props: IStudentLevelsWidgetProps) => {
   const imageStyle = { width: '230px' };
-  const { studentLevelNumber } = props;
+  const studentLevelNumber: number = getStudentLevelNumber(props);
   const studentLevelName = getStudentLevelName(props);
   const studentLevelHint = getStudentLevelHint(props);
   return (
@@ -99,12 +98,5 @@ const StudentLevelsWidget = (props: IStudentLevelsWidgetProps) => {
   );
 };
 
-const StudentLevelsWidgetCon = withTracker((props) => {
-  const studentLevelNumber: number = getStudentLevelNumber(props);
-
-  return {
-    studentLevelNumber,
-  };
-})(StudentLevelsWidget);
-const StudentLevelsWidgetContainer = withRouter(StudentLevelsWidgetCon);
+const StudentLevelsWidgetContainer = withRouter(StudentLevelsWidget);
 export default StudentLevelsWidgetContainer;
