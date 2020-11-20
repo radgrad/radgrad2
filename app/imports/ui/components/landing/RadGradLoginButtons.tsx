@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { Link, withRouter, Redirect } from 'react-router-dom';
-import { Dropdown, Menu, MenuItem } from 'semantic-ui-react';
+import { Dropdown } from 'semantic-ui-react';
 import { Roles } from 'meteor/alanning:roles';
 import { useState } from 'react';
 import { Users } from '../../../api/user/UserCollection';
