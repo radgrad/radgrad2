@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import _ from 'lodash';
-import { withTracker } from 'meteor/react-meteor-data';
+import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
+import { PlanChoices } from '../../../../api/degree-plan/PlanChoiceCollection';
+
 import { Confirm, Form, Grid, Header, Segment } from 'semantic-ui-react';
 import SimpleSchema from 'simpl-schema';
 import { AutoForm, SelectField, TextField, LongTextField, SubmitField } from 'uniforms-semantic';
@@ -9,8 +11,6 @@ import { DragDropContext } from 'react-beautiful-dnd';
 import Swal from 'sweetalert2';
 import { RadGradProperties } from '../../../../api/radgrad/RadGradProperties';
 import { IAcademicPlanDefine, IAcademicTerm, IPlanChoiceDefine } from '../../../../typings/radgrad';
-import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
-import { PlanChoices } from '../../../../api/degree-plan/PlanChoiceCollection';
 import {
   academicTermNameToDoc,
   academicTermToName,
@@ -354,11 +354,4 @@ const AdvisorAPBuilderWidget = (props: IAdvisorAPBuilderWidgetProps) => {
   );
 };
 
-export default withTracker(() => {
-  const terms = AcademicTerms.findNonRetired({}, { sort: { year: 1 } });
-  const choices = PlanChoices.findNonRetired({}, { sort: { choice: 1 } });
-  return {
-    terms,
-    choices,
-  };
-})(AdvisorAPBuilderWidget);
+export default AdvisorAPBuilderWidget;
