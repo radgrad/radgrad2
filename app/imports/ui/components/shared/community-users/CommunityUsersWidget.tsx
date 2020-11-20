@@ -1,17 +1,19 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Card, Grid, Message, SemanticWIDTHS, Tab } from 'semantic-ui-react';
-import { getUsers } from '../explorer/utilities/explorer';
-import { ROLE } from '../../../../api/role/Role';
+import { IAdvisorProfile, IFacultyProfile, IStudentProfile } from '../../../../typings/radgrad';
+import { URL_ROLES } from '../../../layouts/utilities/route-constants';
 import UserProfileCard from './UserProfileCard';
-import { IMatchProps } from '../utilities/router';
 
 interface ICommunityUsersWidgetProps {
-  match: IMatchProps;
+  loggedInRole: string;
+  advisors: IAdvisorProfile[];
+  faculty: IFacultyProfile[];
+  students: IStudentProfile[];
 }
 
 const CommunityUsersWidget = (props: ICommunityUsersWidgetProps) => {
-  const { match } = props;
+  const { advisors, faculty, loggedInRole, students } = props;
   const tabPaneStyle: React.CSSProperties = {
     overflowX: 'hidden',
     overflowY: 'hidden',
@@ -22,10 +24,7 @@ const CommunityUsersWidget = (props: ICommunityUsersWidgetProps) => {
     marginTop: '10px',
     paddingBottom: '10px',
   };
-
-  const advisorRoleUsers = getUsers(ROLE.ADVISOR, match);
-  const facultyRoleUsers = getUsers(ROLE.FACULTY, match);
-  const studentRoleUsers = getUsers(ROLE.STUDENT, match);
+  const loggedInAsStudent = loggedInRole === URL_ROLES.STUDENT;
   const panes = [
     {
       menuItem: 'Advisors',
@@ -34,10 +33,10 @@ const CommunityUsersWidget = (props: ICommunityUsersWidgetProps) => {
           <Grid stackable>
             <Card.Group
               stackable
-              itemsPerRow={advisorRoleUsers.length > 3 ? 3 : advisorRoleUsers.length as SemanticWIDTHS}
+              itemsPerRow={advisors.length > 3 ? 3 : advisors.length as SemanticWIDTHS}
               style={userStackableCardsStyle}
             >
-              {advisorRoleUsers.map((ele) => <UserProfileCard key={ele._id} item={ele} />)}
+              {advisors.map((ele) => <UserProfileCard key={ele._id} item={ele} />)}
             </Card.Group>
           </Grid>
         </Tab.Pane>
@@ -50,10 +49,10 @@ const CommunityUsersWidget = (props: ICommunityUsersWidgetProps) => {
           <Grid stackable>
             <Card.Group
               stackable
-              itemsPerRow={facultyRoleUsers.length > 3 ? 3 : facultyRoleUsers.length as SemanticWIDTHS}
+              itemsPerRow={faculty.length > 3 ? 3 : faculty.length as SemanticWIDTHS}
               style={userStackableCardsStyle}
             >
-              {facultyRoleUsers.map((ele) => <UserProfileCard key={ele._id} item={ele} />)}
+              {faculty.map((ele) => <UserProfileCard key={ele._id} item={ele} />)}
             </Card.Group>
           </Grid>
         </Tab.Pane>
@@ -64,17 +63,19 @@ const CommunityUsersWidget = (props: ICommunityUsersWidgetProps) => {
       render: () => (
         <Tab.Pane key="students">
           <Grid stackable>
-            <Grid.Row>
-              <Grid.Column textAlign="center">
-                <Message>Only showing students who have opted to share their information.</Message>
-              </Grid.Column>
-            </Grid.Row>
+            {loggedInAsStudent ? (
+              <Grid.Row>
+                <Grid.Column textAlign="center">
+                  <Message>Only showing students who have opted to share their information.</Message>
+                </Grid.Column>
+              </Grid.Row>
+            ) : ''}
             <Card.Group
               stackable
-              itemsPerRow={studentRoleUsers.length > 3 ? 3 : studentRoleUsers.length as SemanticWIDTHS}
+              itemsPerRow={students.length > 3 ? 3 : students.length as SemanticWIDTHS}
               style={userStackableCardsStyle}
             >
-              {studentRoleUsers.map((ele) => <UserProfileCard key={ele._id} item={ele} />)}
+              {students.map((ele) => <UserProfileCard key={ele._id} item={ele} />)}
             </Card.Group>
           </Grid>
         </Tab.Pane>

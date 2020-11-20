@@ -1,8 +1,12 @@
 import React from 'react';
 import { Container, Grid } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
+import { withRouter } from 'react-router-dom';
+import _ from 'lodash';
 import { Feeds } from '../../../api/feed/FeedCollection';
-import { IFeed } from '../../../typings/radgrad';
+import { ROLE } from '../../../api/role/Role';
+import { Users } from '../../../api/user/UserCollection';
+import { IAdvisorProfile, IFacultyProfile, IFeed, IStudentProfile } from '../../../typings/radgrad';
 import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
 import * as Router from '../../components/shared/utilities/router';
 import { URL_ROLES } from '../../layouts/utilities/route-constants';
@@ -11,16 +15,19 @@ import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidge
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import CommunityUsersWidget from '../../components/shared/community-users/CommunityUsersWidget';
 import CommunityFeedWidget from '../../components/shared/community-users/CommunityFeedWidget';
-import { IMatchProps } from '../../components/shared/utilities/router';
+import { isUrlRoleStudent, IMatchProps } from '../../components/shared/utilities/router';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 
 interface ICommunityUsersPageProps {
   match: IMatchProps;
   feeds: IFeed[];
+  advisors: IAdvisorProfile[];
+  faculty: IFacultyProfile[];
+  students: IStudentProfile[];
 }
 
 const CommunityUsersPage = (props: ICommunityUsersPageProps) => {
-  const { match, feeds } = props;
+  const { match, feeds, advisors, faculty, students } = props;
   const getMenuWidget = (): JSX.Element => {
     const role = Router.getRoleByUrl(match);
     switch (role) {
@@ -52,7 +59,12 @@ const CommunityUsersPage = (props: ICommunityUsersPageProps) => {
             </Grid.Column>
 
             <Grid.Column width={11}>
-              <CommunityUsersWidget />
+              <CommunityUsersWidget
+                advisors={advisors}
+                faculty={faculty}
+                students={students}
+                loggedInRole={Router.getRoleByUrl(match)}
+              />
             </Grid.Column>
           </Grid.Row>
         </Grid>
@@ -62,8 +74,20 @@ const CommunityUsersPage = (props: ICommunityUsersPageProps) => {
   );
 };
 
-const CommunityUsersPageContainer = withTracker(() => ({
-  feeds: Feeds.findNonRetired({}, { sort: { timestamp: -1 } }),
-}))(CommunityUsersPage);
+const CommunityUsersPageContainer = withTracker((props) => {
+  const { match } = props;
+  const advisors = Users.findProfilesWithRole(ROLE.ADVISOR, {}, { sort: { lastName: 1 } });
+  const faculty = Users.findProfilesWithRole(ROLE.FACULTY, {}, { sort: { lastName: 1 } });
+  let students = Users.findProfilesWithRole(ROLE.STUDENT, {}, { sort: { lastName: 1 } });
+  if (isUrlRoleStudent(match)) {
+    students = _.filter(students, (s) => s.optedIn);
+  }
+  return {
+    advisors,
+    faculty,
+    feeds: Feeds.findNonRetired({}, { sort: { timestamp: -1 } }),
+    students,
+  };
+})(CommunityUsersPage);
 
-export default CommunityUsersPageContainer;
+export default withRouter(CommunityUsersPageContainer);
