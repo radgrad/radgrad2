@@ -413,6 +413,7 @@ export interface IFavoriteAcademicPlan {
 export interface IFavoriteCareerGoalDefine extends IDumpOne {
   careerGoal: string;
   username: string;
+  share?: boolean;
   retired?: boolean;
 }
 
@@ -437,12 +438,14 @@ export interface IFavoriteCourse {
 export interface IFavoriteInterestDefine extends IDumpOne {
   interest: string;
   username: string;
+  share?: boolean;
   retired?: boolean;
 }
 
 export interface IFavoriteInterest {
   interestID: string;
   userID: string;
+  share: boolean;
   retired: boolean;
 }
 
@@ -459,6 +462,7 @@ export interface IFavoriteOpportunity {
 }
 
 export interface IFavoriteUpdate extends IUpdate {
+  share?: boolean;
   retired?: boolean;
 }
 

@@ -42,8 +42,9 @@ class AdvisorProfileCollection extends BaseProfileCollection {
         username, firstName, lastName, role, picture, website, userID: this.getFakeUserId(), retired });
       const userID = Users.define({ username, role });
       this.collection.update(profileID, { $set: { userID } });
+      const share = true;
       if (interests) {
-        interests.forEach((interest) => FavoriteInterests.define({ interest, username }));
+        interests.forEach((interest) => FavoriteInterests.define({ interest, share, username }));
       }
       if (careerGoals) {
         careerGoals.forEach((careerGoal) => FavoriteCareerGoals.define({ careerGoal, username }));

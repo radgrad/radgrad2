@@ -18,6 +18,7 @@ class FavoriteInterestCollection extends BaseCollection {
     super('FavoriteInterest', new SimpleSchema({
       interestID: SimpleSchema.RegEx.Id,
       userID: SimpleSchema.RegEx.Id,
+      share: Boolean,
       retired: { type: Boolean, optional: true },
     }));
     this.publicationNames = {
@@ -29,17 +30,18 @@ class FavoriteInterestCollection extends BaseCollection {
    * Defines a new FavoriteInterest.
    * @param interest the interest slug.
    * @param student the student's username.
+   * @param share {Boolean}, is the interest to be shared? Defaults to false.
    * @param retired the retired status.
    * @returns {void|*|boolean|{}}
    */
-  define({ interest, username, retired = false }) {
+  define({ interest, username, share = false, retired = false }) {
     const interestID = Interests.getID(interest);
     const userID = Users.getID(username);
     const doc = this.collection.findOne({ userID, interestID });
     if (doc) {
       return doc._id;
     }
-    return this.collection.insert({ interestID, userID, retired });
+    return this.collection.insert({ interestID, userID, share, retired });
   }
 
   /**
@@ -47,11 +49,14 @@ class FavoriteInterestCollection extends BaseCollection {
    * @param docID the ID of the FavoriteInterest.
    * @param retired the new retired value.
    */
-  update(docID, { retired }) {
+  update(docID, { share, retired }) {
     this.assertDefined(docID);
     const updateData: IFavoriteUpdate = {};
     if (_.isBoolean(retired)) {
       updateData.retired = retired;
+    }
+    if (_.isBoolean(share)) {
+      updateData.share = share;
     }
     this.collection.update(docID, { $set: updateData });
   }
@@ -91,7 +96,12 @@ class FavoriteInterestCollection extends BaseCollection {
         if (_.includes([ROLE.ADMIN, ROLE.ADVISOR], profile.role)) {
           return collection.find();
         }
-        return collection.find({ userID: studentID });
+        return collection.find({
+          $or: [
+            { userID: studentID },
+            { share: true },
+          ],
+        });
       });
       Meteor.publish(this.publicationNames.scoreboard, function publishInterestScoreboard() {
         ReactiveAggregate(this, collection, [
@@ -181,7 +191,7 @@ class FavoriteInterestCollection extends BaseCollection {
           problems.push(`Bad userID: ${doc.userID}`);
         }
       });
-     return problems;
+    return problems;
   }
 
   /**
@@ -193,8 +203,9 @@ class FavoriteInterestCollection extends BaseCollection {
     const doc = this.findDoc(docID);
     const interest = Interests.findSlugByID(doc.interestID);
     const username = Users.getProfile(doc.userID).username;
+    const share = doc.share;
     const retired = doc.retired;
-    return { interest, username, retired };
+    return { interest, username, share, retired };
   }
 }
 
