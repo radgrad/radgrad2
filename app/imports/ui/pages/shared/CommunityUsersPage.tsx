@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container, Grid } from 'semantic-ui-react';
+import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
 import * as Router from '../../components/shared/utilities/router';
 import { URL_ROLES } from '../../layouts/utilities/route-constants';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
@@ -23,6 +24,8 @@ const CommunityUsersPage = (props: ICommunityUsersPageProps) => {
         return <StudentPageMenuWidget />;
       case URL_ROLES.FACULTY:
         return <FacultyPageMenuWidget />;
+      case URL_ROLES.ADVISOR:
+        return <AdvisorPageMenuWidget />;
       default:
         return <React.Fragment />;
     }

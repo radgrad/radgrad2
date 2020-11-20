@@ -83,7 +83,7 @@ const CommunityUsersWidget = (props: ICommunityUsersWidgetProps) => {
   ];
 
   return (
-    <Tab panes={panes} defaultActiveIndex={3} style={tabPaneStyle} id="usersTab" />
+    <Tab panes={panes} defaultActiveIndex={2} style={tabPaneStyle} id="usersTab" />
   );
 };
 
