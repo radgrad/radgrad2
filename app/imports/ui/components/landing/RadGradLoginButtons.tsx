@@ -73,7 +73,14 @@ const RadGradLoginButtons = () => {
   }
 
   return development ? (
-    <Menu><MenuItem id="LOGIN" name="LOGIN" as={Link} to="/signin" /></Menu>
+    <Dropdown id="LOGIN" text="LOGIN" pointing="top right">
+      <Dropdown.Menu>
+        <Dropdown.Item id="student" text={studentLabel} as={Link} to="/signin" />
+        <Dropdown.Item id="faculty" text={facultyLabel} as={Link} to="/signin" />
+        <Dropdown.Item id="advisor" text={advisorLabel} as={Link} to="/signin" />
+        <Dropdown.Item id="admin" text={adminLabel} as={Link} to="/signin" />
+      </Dropdown.Menu>
+    </Dropdown>
   ) : (
     <Dropdown id="LOGIN" text="LOGIN" pointing="top right">
       <Dropdown.Menu>
