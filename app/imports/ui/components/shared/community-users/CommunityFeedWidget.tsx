@@ -1,7 +1,5 @@
 import React from 'react';
-import { withTracker } from 'meteor/react-meteor-data';
 import { Container, Divider, Feed, Header, Segment } from 'semantic-ui-react';
-import { Feeds } from '../../../../api/feed/FeedCollection';
 import StudentFeedItem from './CommunityFeedItem';
 import { studentFeedWidget } from '../../student/student-widget-names';
 import { IFeed } from '../../../../typings/radgrad';
@@ -38,8 +36,4 @@ const CommunityFeedWidget = (props: IStudentFeedWidgetProps) => {
   );
 };
 
-const CommunityFeedWidgetContainer = withTracker(() => ({
-  feeds: Feeds.findNonRetired({}, { sort: { timestamp: -1 } }),
-}))(CommunityFeedWidget);
-
-export default CommunityFeedWidgetContainer;
+export default CommunityFeedWidget;

@@ -1,5 +1,8 @@
 import React from 'react';
 import { Container, Grid } from 'semantic-ui-react';
+import { withTracker } from 'meteor/react-meteor-data';
+import { Feeds } from '../../../api/feed/FeedCollection';
+import { IFeed } from '../../../typings/radgrad';
 import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
 import * as Router from '../../components/shared/utilities/router';
 import { URL_ROLES } from '../../layouts/utilities/route-constants';
@@ -13,10 +16,11 @@ import BackToTopButton from '../../components/shared/BackToTopButton';
 
 interface ICommunityUsersPageProps {
   match: IMatchProps;
+  feeds: IFeed[];
 }
 
 const CommunityUsersPage = (props: ICommunityUsersPageProps) => {
-  const { match } = props;
+  const { match, feeds } = props;
   const getMenuWidget = (): JSX.Element => {
     const role = Router.getRoleByUrl(match);
     switch (role) {
@@ -44,7 +48,7 @@ const CommunityUsersPage = (props: ICommunityUsersPageProps) => {
 
           <Grid.Row>
             <Grid.Column width={5}>
-              <CommunityFeedWidget />
+              <CommunityFeedWidget feeds={feeds} />
             </Grid.Column>
 
             <Grid.Column width={11}>
@@ -58,4 +62,8 @@ const CommunityUsersPage = (props: ICommunityUsersPageProps) => {
   );
 };
 
-export default CommunityUsersPage;
+const CommunityUsersPageContainer = withTracker(() => ({
+  feeds: Feeds.findNonRetired({}, { sort: { timestamp: -1 } }),
+}))(CommunityUsersPage);
+
+export default CommunityUsersPageContainer;
