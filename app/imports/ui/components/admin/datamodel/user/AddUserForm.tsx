@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import _ from 'lodash';
 import { Form, Header, Segment } from 'semantic-ui-react';
-import { AutoForm, TextField, SelectField, BoolField, NumField, SubmitField } from 'uniforms-semantic';
+import { AutoForm, TextField, SelectField, BoolField, LongTextField, NumField, SubmitField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { connect } from 'react-redux';
@@ -131,6 +131,12 @@ const AddUserForm = (props: IAddUserProps) => {
   if (role === ROLE.STUDENT) {
     schema.extend(studentSchema);
   }
+  const facultySchema = new SimpleSchema({
+    aboutMe: { type: String, optional: true },
+  });
+  if (role === ROLE.FACULTY) {
+    schema.extend(facultySchema);
+  }
   const formSchema = new SimpleSchema2Bridge(schema);
   return (
     <Segment padded>
@@ -180,6 +186,12 @@ const AddUserForm = (props: IAddUserProps) => {
               <BoolField name="shareLevel" />
               <BoolField name="isAlumni" />
             </Form.Group>
+          </div>
+        ) : ''}
+        {role === ROLE.FACULTY ? (
+          <div>
+            <Header dividing as="h4">Faculty field</Header>
+            <LongTextField name="aboutMe" />
           </div>
         ) : ''}
         <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined} />

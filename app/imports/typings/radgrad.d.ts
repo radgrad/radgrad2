@@ -783,6 +783,7 @@ export interface IBaseProfile {
   optedIn?: boolean;
   courseExplorerFilter?: string;
   opportunityExplorerSortOrder?: string;
+  aboutMe?: string;
 }
 
 export interface IProfile {
@@ -804,6 +805,7 @@ export interface IAdvisorProfile extends IProfile {
 }
 
 export interface IFacultyProfile extends IProfile {
+  aboutMe?: string;
 }
 
 export interface IProfileDefine extends IDumpOne {
@@ -815,6 +817,10 @@ export interface IProfileDefine extends IDumpOne {
   interests?: string[];
   careerGoals?: string[];
   retired?: boolean;
+}
+
+export interface IFacultyProfileDefine extends IProfileDefine {
+  aboutMe?: string;
 }
 
 export interface ICombinedProfileDefine extends IProfileDefine {
@@ -850,6 +856,10 @@ export interface IProfileUpdate extends IUpdate {
   retired?: boolean;
   courseExplorerFilter?: string;
   opportunityExplorerSortOrder?: string;
+}
+
+export interface IFacultyProfileUpdate extends IProfileUpdate {
+  aboutMe?: string;
 }
 
 export interface IStudentProfile extends IProfile {

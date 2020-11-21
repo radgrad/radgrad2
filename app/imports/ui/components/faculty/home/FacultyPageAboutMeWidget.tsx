@@ -28,6 +28,7 @@ const FacultyPageAboutMeWidget = (props: IFacultyPageAboutMeWidgetProps) => {
   // console.log('FacultyPageAboutMeWidget', props);
   const [websiteState, setWebsite] = useState(props.profile.website);
   const [pictureState, setPicture] = useState(props.profile.picture);
+  const [aboutMeState, setAboutMe] = useState(props.profile.aboutMe);
 
   /**
    * Changes state based on user input.
@@ -42,6 +43,9 @@ const FacultyPageAboutMeWidget = (props: IFacultyPageAboutMeWidgetProps) => {
         break;
       case 'picture':
         setPicture(value);
+        break;
+      case 'aboutMe':
+        setAboutMe(value);
         break;
       default:
       // do nothing.
@@ -70,6 +74,32 @@ const FacultyPageAboutMeWidget = (props: IFacultyPageAboutMeWidgetProps) => {
           title: 'Update Succeeded',
           icon: 'success',
           text: 'Your website link has been successfully updated.',
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+          allowEnterKey: false,
+        });
+      }
+    });
+  };
+
+  const handleSubmitAboutMe = (event): void => {
+    event.preventDefault();
+    const username = props.match.params.username;
+    const profile = Users.getProfile(username);
+    const collectionName = FacultyProfiles.getCollectionName();
+    const updateData: { id: string; aboutMe: string } = { id: profile._id, aboutMe: aboutMeState };
+    updateMethod.call({ collectionName, updateData }, (error) => {
+      if (error) {
+        Swal.fire({
+          title: 'Update Failed',
+          text: error.message,
+          icon: 'error',
+        });
+      } else {
+        Swal.fire({
+          title: 'Update Succeeded',
+          icon: 'success',
+          text: 'Your about me has been successfully updated.',
           allowOutsideClick: false,
           allowEscapeKey: false,
           allowEnterKey: false,
@@ -305,6 +335,22 @@ const FacultyPageAboutMeWidget = (props: IFacultyPageAboutMeWidgetProps) => {
             </Form>
           </Grid.Column>
         </Grid.Row>
+        <Grid.Column floated="left" width={2}>
+          <Header as="h5" textAlign="left">About Me</Header>
+        </Grid.Column>
+        <Grid.Column floated="left" width={14}>
+          <Form onSubmit={handleSubmitAboutMe}>
+            <Form.Group>
+              <Form.TextArea
+                name="aboutMe"
+                onChange={handleChange}
+                value={aboutMeState}
+              />
+              <Form.Button basic color="green">Update</Form.Button>
+            </Form.Group>
+          </Form>
+        </Grid.Column>
+        <Grid.Row />
       </Grid>
     </Segment>
   );

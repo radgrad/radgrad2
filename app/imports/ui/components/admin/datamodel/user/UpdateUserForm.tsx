@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { Button, Form, Header, Segment } from 'semantic-ui-react';
-import { AutoForm, TextField, BoolField, NumField, SelectField, SubmitField } from 'uniforms-semantic';
+import { AutoForm, TextField, BoolField, NumField, SelectField, SubmitField, LongTextField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import Swal from 'sweetalert2';
@@ -164,6 +164,12 @@ const UpdateUserForm = (props: IUpdateUserProps) => {
   if (model.role === ROLE.STUDENT || model.role === ROLE.ALUMNI) {
     schema.extend(studentSchema);
   }
+  const facultySchema = new SimpleSchema({
+    aboutMe: { type: String, optional: true },
+  });
+  if (model.role === ROLE.FACULTY) {
+    schema.extend(facultySchema);
+  }
   const formSchema = new SimpleSchema2Bridge(schema);
   // console.log(schema);
   return (
@@ -215,6 +221,12 @@ const UpdateUserForm = (props: IUpdateUserProps) => {
               <BoolField name="shareLevel" />
               <BoolField name="isAlumni" />
             </Form.Group>
+          </div>
+        ) : ''}
+        {model.role === ROLE.FACULTY ? (
+          <div>
+            <Header dividing as="h4">Faculty field</Header>
+            <LongTextField name="aboutMe" />
           </div>
         ) : ''}
         <SubmitField inputRef={undefined} value="Update" disabled={false} className="" />

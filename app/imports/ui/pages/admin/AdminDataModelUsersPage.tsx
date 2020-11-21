@@ -109,6 +109,9 @@ const descriptionPairs = (props: IAdminDataModelUsersPageProps) => (user: IBaseP
     });
     pairs.push({ label: 'Opted In', value: user.optedIn ? 'True' : 'False' });
   }
+  if (user.role === ROLE.FACULTY) {
+    pairs.push({ label: 'About Me', value: `${user.aboutMe}` });
+  }
   pairs.push({ label: 'Retired', value: user.retired ? 'True' : 'False' });
 
   return pairs;
@@ -269,7 +272,7 @@ const AdminDataModelUsersPage = (props: IAdminDataModelUsersPageProps) => {
     if (isCloudinaryUsed) {
       updateData.picture = cloudinaryUrl;
     }
-    // console.log(collectionName, updateData);
+    console.log(collectionName, updateData);
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
         Swal.fire({
