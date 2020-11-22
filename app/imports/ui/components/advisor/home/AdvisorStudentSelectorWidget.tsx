@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import { withTracker } from 'meteor/react-meteor-data';
 import { Segment, Grid, Header, Tab, Form, Button, Image, Popup } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import { ZipZap } from 'meteor/udondan:zipzap';
@@ -349,11 +348,4 @@ const AdvisorStudentSelectorWidget = (props: IAdvisorStudentSelectorWidgetProps)
   );
 };
 
-const AdvisorStudentSelectorWidgetContainer = withTracker(() => ({
-  students: StudentProfiles.findNonRetired({ isAlumni: false }, { sort: { lastName: 1, firstName: 1 } }),
-  alumni: StudentProfiles.findNonRetired({ isAlumni: true }, { sort: { lastName: 1, firstName: 1 } }),
-  interests: Interests.findNonRetired(),
-  careerGoals: CareerGoals.findNonRetired(),
-}))(AdvisorStudentSelectorWidget);
-
-export default connect(mapStateToProps)(AdvisorStudentSelectorWidgetContainer);
+export default connect(mapStateToProps)(AdvisorStudentSelectorWidget);

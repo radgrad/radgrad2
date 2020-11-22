@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import _ from 'lodash';
-import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
-import { PlanChoices } from '../../../../api/degree-plan/PlanChoiceCollection';
 
 import { Confirm, Form, Grid, Header, Segment } from 'semantic-ui-react';
 import SimpleSchema from 'simpl-schema';
@@ -9,6 +7,8 @@ import { AutoForm, SelectField, TextField, LongTextField, SubmitField } from 'un
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import { DragDropContext } from 'react-beautiful-dnd';
 import Swal from 'sweetalert2';
+import { PlanChoices } from '../../../../api/degree-plan/PlanChoiceCollection';
+import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import { RadGradProperties } from '../../../../api/radgrad/RadGradProperties';
 import { IAcademicPlanDefine, IAcademicTerm, IPlanChoiceDefine } from '../../../../typings/radgrad';
 import {
