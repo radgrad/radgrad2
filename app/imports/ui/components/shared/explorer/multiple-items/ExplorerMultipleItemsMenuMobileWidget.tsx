@@ -47,7 +47,7 @@ const ExplorerMultipleItemsMenuMobileWidget = (props: ICardExplorerMenuMobileWid
       {/* ####### The Menu underneath the Dropdown for MOBILE ONLY ####### */}
       {/* The following components are rendered ONLY for STUDENTS: Academic Plans, Courses, and Opportunities. */}
       <MediaContextProvider>
-        <Media at="mobile">
+        <Media lessThan="tablet">
           {(isType(EXPLORER_TYPE.ACADEMICPLANS, props.type) && isStudent) ?
             (
               <Dropdown className="selection" fluid text="Select Item" style={{ marginTop: '1rem' }}>

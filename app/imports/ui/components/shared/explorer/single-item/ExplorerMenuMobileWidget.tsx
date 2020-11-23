@@ -56,7 +56,7 @@ const ExplorerMenuMobileWidget = (props: IExplorerMenuMobileWidgetProps) => {
     <React.Fragment>
       <style>{mediaStyles}</style>
       <MediaContextProvider>
-        <Media at="mobile">
+        <Media lessThan="tablet">
           {(isType(EXPLORER_TYPE.ACADEMICPLANS, props) && isStudent) ?
             (
               <Dropdown className="selection" fluid text="Select Item" style={{ marginTop: '1rem' }}>

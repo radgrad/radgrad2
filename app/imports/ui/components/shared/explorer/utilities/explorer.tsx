@@ -144,7 +144,8 @@ export const interestedStudents = (item: { _id: string }, type: string): IStuden
   profiles = _.filter(profiles, (profile) => profile.picture && profile.picture !== defaultProfilePicture);
   _.forEach(profiles, (p) => {
     if (!_.includes(interested, p.userID)) {
-      interested.push(p.userID);
+      // interested.push(p.userID);
+      interested.push(p);
     }
   });
   // only allow 50 students randomly selected.

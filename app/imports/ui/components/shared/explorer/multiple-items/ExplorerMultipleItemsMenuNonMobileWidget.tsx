@@ -10,7 +10,7 @@ import {
   explorerInterfaces, IExplorerTypes,
   isType,
 } from '../utilities/explorer';
-import { buildRouteName, isUrlRoleFaculty, isUrlRoleStudent } from '../../utilities/router';
+import { buildRouteName, isUrlRoleAdvisor, isUrlRoleFaculty, isUrlRoleStudent } from '../../utilities/router';
 import '../../../../../../client/style.css';
 
 const AppMedia = createMedia({
@@ -45,8 +45,9 @@ const ExplorerMultipleItemsMenuNonMobileWidget = (props: ICardExplorerMenuNonMob
   const { menuAddedList, menuCareerList, type } = props;
   const adminEmail = RadGradProperties.getAdminEmail();
   const isStudent = isUrlRoleStudent(props.match);
-  const isFaculty = isUrlRoleFaculty(props.match);
+  const isFaculty = isUrlRoleFaculty(props.match) || isUrlRoleAdvisor(props.match);
 
+  console.log('multiple items side menu', menuAddedList, menuCareerList, type, isStudent, isFaculty, isType(EXPLORER_TYPE.INTERESTS, type));
   const addFacultyOpportunityButtonStyle: React.CSSProperties = { marginTop: '5px' };
 
   return (
@@ -56,10 +57,9 @@ const ExplorerMultipleItemsMenuNonMobileWidget = (props: ICardExplorerMenuNonMob
       {/* The following components are rendered ONLY for STUDENTS: Academic Plans, Courses, and Opportunities. However,
             FACULTY have a 'Suggest a Opportunity / Career Goal' mailto link. */}
       <MediaContextProvider>
-        <Media at="tablet">
+        <Media greaterThanOrEqual="tablet">
           {(isType(EXPLORER_TYPE.ACADEMICPLANS, type) && isStudent) ?
             (
-
               <Menu vertical text className="cardMenu">
                 <Header as="h4" className="cardMenu_header">
                   <Icon name="graduation cap" size="mini" />
@@ -81,24 +81,22 @@ const ExplorerMultipleItemsMenuNonMobileWidget = (props: ICardExplorerMenuNonMob
 
           {(isType(EXPLORER_TYPE.COURSES, type) && isStudent) ?
             (
-              <React.Fragment>
-                <Menu vertical text className="cardMenu">
-                  <Header as="h4" className="cardMenu_header">
-                    <Icon name="book" size="mini" />
-                    <Header.Content>MY COURSES</Header.Content>
-                  </Header>
-                  {
-                    menuAddedList.map((listItem) => (
-                      <ExplorerMenuNonMobileItem
-                        listItem={listItem}
-                        type={EXPLORER_TYPE.COURSES}
-                        key={listItem.item._id}
-                        match={props.match}
-                      />
-                    ))
-                  }
-                </Menu>
-              </React.Fragment>
+              <Menu vertical text className="cardMenu">
+                <Header as="h4" className="cardMenu_header">
+                  <Icon name="book" size="mini" />
+                  <Header.Content>MY COURSES</Header.Content>
+                </Header>
+                {
+                  menuAddedList.map((listItem) => (
+                    <ExplorerMenuNonMobileItem
+                      listItem={listItem}
+                      type={EXPLORER_TYPE.COURSES}
+                      key={listItem.item._id}
+                      match={props.match}
+                    />
+                  ))
+                }
+              </Menu>
             )
             : ''}
 

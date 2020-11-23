@@ -85,7 +85,7 @@ const ExplorerMenuNonMobileWidget = (props: IExplorerMenuNonMobileWidgetProps) =
     <React.Fragment>
       <style>{mediaStyles}</style>
       <MediaContextProvider>
-        <Media at="tablet">
+        <Media greaterThanOrEqual="tablet">
           {isType(EXPLORER_TYPE.ACADEMICPLANS, props) ?
             (
               <React.Fragment>

@@ -49,7 +49,7 @@ const AdvisorPageMenuWidget = (props: { match }) => {
   ];
 
   const advisorHomePageItems = [
-    // { key: 'About Me', route: 'aboutme', id: 'advisor-menu-about-me' },
+    { key: 'About Me', route: 'aboutme', id: 'advisor-menu-about-me' },
   ];
   return (
     <div style={divStyle}>
@@ -67,7 +67,7 @@ const AdvisorPageMenuWidget = (props: { match }) => {
             id={item.id}
             key={item.label}
             as={NavLink}
-            exact={false}
+            exact
             to={buildRouteName(match, `/${item.route}`)}
           >
             {item.label}

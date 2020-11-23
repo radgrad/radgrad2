@@ -36,7 +36,7 @@ const ProfileCard = (props: IProfileCardProps) => {
   const numberStudents = studentsParticipating(item);
   const interested = interestedStudents(item, type);
   const slugName = itemToSlugName(item);
-
+  // console.log(interested);
   return (
     <Card className="radgrad-interest-card">
       <Card.Content>
@@ -56,7 +56,7 @@ const ProfileCard = (props: IProfileCardProps) => {
         <Image.Group size="mini">
           {interested.map((student) => (
             <Popup
-              key={student._id}
+              key={`${item._id}${student._id}`}
               trigger={<Image src={profileIDToPicture(student.userID)} circular bordered />}
               content={profileIDToFullname(student.userID)}
             />

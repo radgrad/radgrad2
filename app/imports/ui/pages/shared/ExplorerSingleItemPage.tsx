@@ -46,6 +46,7 @@ import { FavoriteCourses } from '../../../api/favorite/FavoriteCourseCollection'
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 import { FavoriteOpportunities } from '../../../api/favorite/FavoriteOpportunityCollection';
 import { profileGetCareerGoalIDs } from '../../components/shared/utilities/data-model';
+import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
 
 interface IIndividualExplorerPageProps {
   match: {
@@ -88,6 +89,8 @@ const getMenuWidget = (props: IIndividualExplorerPageProps): JSX.Element => {
       return <StudentPageMenuWidget />;
     case URL_ROLES.FACULTY:
       return <FacultyPageMenuWidget />;
+    case URL_ROLES.ADVISOR:
+      return <AdvisorPageMenuWidget />;
     default:
       return <React.Fragment />;
   }
