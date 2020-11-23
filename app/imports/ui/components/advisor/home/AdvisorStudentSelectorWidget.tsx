@@ -5,15 +5,12 @@ import { Segment, Grid, Header, Tab, Form, Button, Image, Popup } from 'semantic
 import Swal from 'sweetalert2';
 import { ZipZap } from 'meteor/udondan:zipzap';
 import moment from 'moment';
-import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
 import { ICareerGoal, IInterest, IStudentProfile } from '../../../../typings/radgrad';
 import AdvisorAddStudentWidget from './AdvisorAddStudentWidget';
 import { generateStudentEmailsMethod } from '../../../../api/user/UserCollection.methods';
 import { starBulkLoadJsonDataMethod } from '../../../../api/star/StarProcessor.methods';
 import { homeActions } from '../../../../redux/advisor/home';
 import { RootState } from '../../../../redux/types';
-import { Interests } from '../../../../api/interest/InterestCollection';
-import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
 
 /* global FileReader */
 /* eslint-disable react/prop-types */
