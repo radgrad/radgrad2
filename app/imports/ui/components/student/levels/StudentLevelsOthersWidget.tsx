@@ -2,14 +2,13 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Segment, Header, Image, Popup } from 'semantic-ui-react';
 import _ from 'lodash';
-import { withTracker } from 'meteor/react-meteor-data';
 import { Users } from '../../../../api/user/UserCollection';
 import { getUserIdFromRoute } from '../../shared/utilities/router';
 import { ROLE } from '../../../../api/role/Role';
 import { IStudentProfile } from '../../../../typings/radgrad';
 import { studentLevelsOthersWidget } from '../student-widget-names';
 
-interface IStudentLevelsOthersWidgetProps {
+export interface IStudentLevelsOthersWidgetProps {
   // eslint-disable-next-line react/no-unused-prop-types
   match: {
     isExact: boolean;
@@ -68,8 +67,9 @@ const StudentLevelsOthersWidget = (props: IStudentLevelsOthersWidgetProps) => {
     height: '30px',
     width: 'auto',
   };
-  const { students } = props;
   const studentLevelName = getStudentLevelName(props);
+  const studentLevelNumber: number = getStudentLevelNumber(props);
+  const students: IStudentProfile[] = getStudents(studentLevelNumber, props);
   return (
     <Segment padded id={`${studentLevelsOthersWidget}`}>
       <Header as="h4" dividing>
@@ -103,13 +103,5 @@ const StudentLevelsOthersWidget = (props: IStudentLevelsOthersWidgetProps) => {
   );
 };
 
-const StudentLevelsOthersWidgetCon = withTracker((props) => {
-  const studentLevelNumber: number = getStudentLevelNumber(props);
-  const students: IStudentProfile[] = getStudents(studentLevelNumber, props);
-
-  return {
-    students,
-  };
-})(StudentLevelsOthersWidget);
-const StudentLevelsOthersWidgetContainer = withRouter(StudentLevelsOthersWidgetCon);
+const StudentLevelsOthersWidgetContainer = withRouter(StudentLevelsOthersWidget);
 export default StudentLevelsOthersWidgetContainer;
