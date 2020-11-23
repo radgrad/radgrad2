@@ -4,17 +4,16 @@ import { Form, Segment } from 'semantic-ui-react';
 import { AutoForm, SelectField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
-import { withTracker } from 'meteor/react-meteor-data';
 import { IAcademicPlan } from '../../../../typings/radgrad';
-import { AcademicPlans } from '../../../../api/degree-plan/AcademicPlanCollection';
 import AdvisorAcademicPlanViewer from './AdvisorAcademicPlanViewer';
 
 interface IAdvisorAcademicPlanViewerWidgetProps {
-  plans: IAcademicPlan[];
+  plans: IAcademicPlan[],
 }
 
-const AdvisorAcademicPlanViewerWidget = (props: IAdvisorAcademicPlanViewerWidgetProps) => {
+const AdvisorAcademicPlanViewerWidget = (props: IAdvisorAcademicPlanViewerWidgetProps): JSX.Element => {
   // console.log('AdvisorAcademicPlan props=%o', props);
+  // console.log(props);
   let planNames = _.map(_.filter(props.plans, (p) => p.year === props.plans[0].year), (plan) => plan.name);
 
   const [planNamesState, setPlanNames] = useState(planNames);
@@ -55,12 +54,5 @@ const AdvisorAcademicPlanViewerWidget = (props: IAdvisorAcademicPlanViewerWidget
   );
 };
 
-const AdvisorAcademicPlanViewerWidgetContainer = withTracker(() => {
-  const plans = AcademicPlans.findNonRetired();
-  // console.log(plans);
-  return {
-    plans,
-  };
-})(AdvisorAcademicPlanViewerWidget);
-
-export default AdvisorAcademicPlanViewerWidgetContainer;
+// @ts-ignore
+export default AdvisorAcademicPlanViewerWidget;

@@ -1,20 +1,16 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import { withTracker } from 'meteor/react-meteor-data';
 import { Segment, Grid, Header, Tab, Form, Button, Image, Popup } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import { ZipZap } from 'meteor/udondan:zipzap';
 import moment from 'moment';
-import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
 import { ICareerGoal, IInterest, IStudentProfile } from '../../../../typings/radgrad';
 import AdvisorAddStudentWidget from './AdvisorAddStudentWidget';
 import { generateStudentEmailsMethod } from '../../../../api/user/UserCollection.methods';
 import { starBulkLoadJsonDataMethod } from '../../../../api/star/StarProcessor.methods';
 import { homeActions } from '../../../../redux/advisor/home';
 import { RootState } from '../../../../redux/types';
-import { Interests } from '../../../../api/interest/InterestCollection';
-import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
 
 /* global FileReader */
 /* eslint-disable react/prop-types */
@@ -349,11 +345,4 @@ const AdvisorStudentSelectorWidget = (props: IAdvisorStudentSelectorWidgetProps)
   );
 };
 
-const AdvisorStudentSelectorWidgetContainer = withTracker(() => ({
-  students: StudentProfiles.findNonRetired({ isAlumni: false }, { sort: { lastName: 1, firstName: 1 } }),
-  alumni: StudentProfiles.findNonRetired({ isAlumni: true }, { sort: { lastName: 1, firstName: 1 } }),
-  interests: Interests.findNonRetired(),
-  careerGoals: CareerGoals.findNonRetired(),
-}))(AdvisorStudentSelectorWidget);
-
-export default connect(mapStateToProps)(AdvisorStudentSelectorWidgetContainer);
+export default connect(mapStateToProps)(AdvisorStudentSelectorWidget);

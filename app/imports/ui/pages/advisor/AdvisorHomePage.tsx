@@ -10,7 +10,7 @@ import AdvisorLogEntryWidget from '../../components/advisor/home/AdvisorLogEntry
 import AdvisorStarUploadWidget from '../../components/advisor/home/AdvisorStarUploadWidget';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
-import { Interests } from '../../../api/interest/InterestCollection';
+import { Interests, Interests } from '../../../api/interest/InterestCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';
 import { IAdvisorLog, ICareerGoal, IInterest, IStudentProfile } from '../../../typings/radgrad';
@@ -100,11 +100,15 @@ const AdvisorHomePage = (props: IFilterStudents) => (
 const AdvisorHomePageTracker = withTracker((props) => {
   const usernameDoc = StudentProfiles.findByUsername(props.selectedUsername);
   const userID = usernameDoc ? usernameDoc.userID : '';
+    const students = StudentProfiles.findNonRetired({ isAlumni: false }, { sort: { lastName: 1, firstName: 1 } });
+  const alumni = StudentProfiles.findNonRetired({ isAlumni: true }, { sort: { lastName: 1, firstName: 1 } });
   return {
     usernameDoc: usernameDoc,
     interests: Interests.findNonRetired(),
     careerGoals: CareerGoals.findNonRetired(),
     advisorLogs: AdvisorLogs.findNonRetired({ studentID: userID }, { sort: { createdOn: -1 } }),
+    students,
+    alumni,
   };
 })(AdvisorHomePage);
 
