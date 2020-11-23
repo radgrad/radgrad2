@@ -1,14 +1,14 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Card, Grid, Message, SemanticWIDTHS, Tab } from 'semantic-ui-react';
-import { IAdvisorProfile, IFacultyProfile, IStudentProfile } from '../../../../typings/radgrad';
+import { IAdvisorOrFacultyProfile, IStudentProfile } from '../../../../typings/radgrad';
 import { URL_ROLES } from '../../../layouts/utilities/route-constants';
 import UserProfileCard from './UserProfileCard';
 
 interface ICommunityUsersWidgetProps {
   loggedInRole: string;
-  advisors: IAdvisorProfile[];
-  faculty: IFacultyProfile[];
+  advisors: IAdvisorOrFacultyProfile[];
+  faculty: IAdvisorOrFacultyProfile[];
   students: IStudentProfile[];
 }
 

@@ -10,7 +10,7 @@ import { OpportunityInstances } from '../../../../../api/opportunity/Opportunity
 import PreferedChoice from '../../../../../api/degree-plan/PreferredChoice';
 import { ROLE } from '../../../../../api/role/Role';
 import { Users } from '../../../../../api/user/UserCollection';
-import { IAdvisorProfile, IFacultyProfile, IStudentProfile } from '../../../../../typings/radgrad';
+import { IAdvisorOrFacultyProfile, IStudentProfile } from '../../../../../typings/radgrad';
 import { RootState } from '../../../../../redux/types';
 import { scrollPositionActions } from '../../../../../redux/shared/scrollPosition';
 import WidgetHeaderNumber from '../WidgetHeaderNumber';
@@ -43,9 +43,9 @@ interface ICardExplorerWidgetProps extends ICardExplorerMenuWidgetProps {
   // eslint-disable-next-line react/no-unused-prop-types
   studentProfiles: IStudentProfile[];
   // eslint-disable-next-line react/no-unused-prop-types
-  advisorProfiles: IAdvisorProfile[];
+  advisorProfiles: IAdvisorOrFacultyProfile[];
   // eslint-disable-next-line react/no-unused-prop-types
-  facultyProfiles: IFacultyProfile[];
+  facultyProfiles: IAdvisorOrFacultyProfile[];
   // eslint-disable-next-line react/no-unused-prop-types
   menuList: unknown[];
   type: IExplorerTypes;
@@ -272,8 +272,8 @@ const CardExplorerWidgetCon = withTracker((props) => {
 
   /* Reactuve sources to make Users Explorer Cards reactive */
   const studentProfiles: IStudentProfile[] = Users.findProfilesWithRole(ROLE.STUDENT, {}, {});
-  const advisorProfiles: IAdvisorProfile[] = Users.findProfilesWithRole(ROLE.ADVISOR, {}, {});
-  const facultyProfiles: IFacultyProfile[] = Users.findProfilesWithRole(ROLE.FACULTY, {}, {});
+  const advisorProfiles: IAdvisorOrFacultyProfile[] = Users.findProfilesWithRole(ROLE.ADVISOR, {}, {});
+  const facultyProfiles: IAdvisorOrFacultyProfile[] = Users.findProfilesWithRole(ROLE.FACULTY, {}, {});
 
   return {
     reactiveSource,

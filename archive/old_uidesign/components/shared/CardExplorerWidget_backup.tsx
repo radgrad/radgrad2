@@ -27,7 +27,7 @@
 // import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 // import PreferedChoice from '../../../api/degree-plan/PreferredChoice';
 // import OpportunitySortWidget, { opportunitySortKeys } from './OpportunitySortWidget';
-// import { IAdvisorProfile, IFacultyProfile, IMentorProfile, IStudentProfile } from '../../../typings/radgrad';
+// import { IAdvisorProfile, IAdvisorOrFacultyProfile, IMentorProfile, IStudentProfile } from '../../../typings/radgrad';
 // import { RootState } from '../../../redux/types';
 // import { scrollPositionActions } from '../../../redux/shared/scrollPosition';
 //
@@ -47,7 +47,7 @@
 //   // eslint-disable-next-line react/no-unused-prop-types
 //   advisorProfiles: IAdvisorProfile[];
 //   // eslint-disable-next-line react/no-unused-prop-types
-//   facultyProfiles: IFacultyProfile[];
+//   facultyProfiles: IAdvisorOrFacultyProfile[];
 //   // eslint-disable-next-line react/no-unused-prop-types
 //   mentorProfile: IMentorProfile[];
 //   // eslint-disable-next-line react/no-unused-prop-types
@@ -325,7 +325,7 @@
 //   /* Reactuve sources to make Users Explorer Cards reactive */
 //   const studentProfiles: IStudentProfile[] = Users.findProfilesWithRole(ROLE.STUDENT, {}, {});
 //   const advisorProfiles: IAdvisorProfile[] = Users.findProfilesWithRole(ROLE.ADVISOR, {}, {});
-//   const facultyProfiles: IFacultyProfile[] = Users.findProfilesWithRole(ROLE.FACULTY, {}, {});
+//   const facultyProfiles: IAdvisorOrFacultyProfile[] = Users.findProfilesWithRole(ROLE.FACULTY, {}, {});
 //   const mentorProfiles: IMentorProfile[] = Users.findProfilesWithRole(ROLE.MENTOR, {}, {});
 //
 //   return {

@@ -10,7 +10,7 @@ import { secondMenu } from '../shared/shared-widget-names';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { buildRouteName, getUsername } from '../shared/utilities/router';
 import { COMMUNITY, EXPLORER_TYPE } from '../../layouts/utilities/route-constants';
-import { IFacultyProfile } from '../../../typings/radgrad';
+import { IAdvisorOrFacultyProfile } from '../../../typings/radgrad';
 
 interface IFacultyPageMenuWidgetProps {
   match?: {
@@ -30,7 +30,7 @@ const FacultyPageMenuWidget = (props: IFacultyPageMenuWidgetProps) => {
   const username = getUsername(match);
   const faculty = FacultyProfiles.findDoc(username);
 
-  const profile: IFacultyProfile = FacultyProfiles.getProfile(username);
+  const profile: IAdvisorOrFacultyProfile = FacultyProfiles.getProfile(username);
   // const sponsorID = Users.getID(username);
   let openRequests = VerificationRequests.findNonRetired({ status: VerificationRequests.OPEN });
   openRequests = _.filter(openRequests, (request) => {

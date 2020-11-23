@@ -6,7 +6,7 @@ import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidge
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import FacultyPageAboutMeWidget from '../../components/faculty/home/FacultyPageAboutMeWidget';
 import { getUserIdFromRoute, getUsername } from '../../components/shared/utilities/router';
-import { IFacultyProfile, IFavoriteCareerGoal, IFavoriteInterest } from '../../../typings/radgrad';
+import { IAdvisorOrFacultyProfile, IFavoriteCareerGoal, IFavoriteInterest } from '../../../typings/radgrad';
 import { Users } from '../../../api/user/UserCollection';
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
@@ -18,7 +18,7 @@ interface IFacultyHomePageProps {
       url: string;
       },
   }
-  profile: IFacultyProfile;
+  profile: IAdvisorOrFacultyProfile;
   favoriteInterests: IFavoriteInterest[];
   favoriteCareerGoals: IFavoriteCareerGoal[];
 }
@@ -51,7 +51,7 @@ const FacultyHomePage = (props: IFacultyHomePageProps) => (
 
 const FacultyHomePageCon = withTracker(({ match }) => {
   const username = getUsername(match);
-  const profile: IFacultyProfile = Users.getProfile(username);
+  const profile: IAdvisorOrFacultyProfile = Users.getProfile(username);
   const userID = getUserIdFromRoute(match);
   const favoriteInterests: IFavoriteInterest[] = FavoriteInterests.findNonRetired({ userID });
   const favoriteCareerGoals: IFavoriteCareerGoal[] = FavoriteCareerGoals.findNonRetired({ userID });

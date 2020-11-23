@@ -801,10 +801,7 @@ export interface IProfile {
 }
 
 // Advisor and Faculty Profiles
-export interface IAdvisorProfile extends IProfile {
-}
-
-export interface IFacultyProfile extends IProfile {
+export interface IAdvisorOrFacultyProfile extends IProfile {
   aboutMe?: string;
 }
 
@@ -819,7 +816,7 @@ export interface IProfileDefine extends IDumpOne {
   retired?: boolean;
 }
 
-export interface IFacultyProfileDefine extends IProfileDefine {
+export interface IAdvisorOrFacultyProfileDefine extends IProfileDefine {
   aboutMe?: string;
 }
 
@@ -858,7 +855,7 @@ export interface IProfileUpdate extends IUpdate {
   opportunityExplorerSortOrder?: string;
 }
 
-export interface IFacultyProfileUpdate extends IProfileUpdate {
+export interface IAdvisorOrFacultyProfileUpdate extends IProfileUpdate {
   aboutMe?: string;
 }
 

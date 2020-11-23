@@ -7,7 +7,7 @@ import { Interests } from '../interest/InterestCollection';
 import { CareerGoals } from '../career/CareerGoalCollection';
 import { Slugs } from '../slug/SlugCollection';
 import { ROLE } from '../role/Role';
-import { IFacultyProfileDefine, IFacultyProfileUpdate } from '../../typings/radgrad';
+import { IAdvisorOrFacultyProfileDefine, IAdvisorOrFacultyProfileUpdate } from '../../typings/radgrad';
 import { FavoriteInterests } from '../favorite/FavoriteInterestCollection';
 import { FavoriteCareerGoals } from '../favorite/FavoriteCareerGoalCollection';
 
@@ -37,7 +37,7 @@ class FacultyProfileCollection extends BaseProfileCollection {
    * @return { String } The docID of the FacultyProfile.
    */
   public define({ username, firstName, lastName, picture = defaultProfilePicture, website, interests,
-           careerGoals, aboutMe, retired = false }: IFacultyProfileDefine) {
+           careerGoals, aboutMe, retired = false }: IAdvisorOrFacultyProfileDefine) {
     if (Meteor.isServer) {
       const role = ROLE.FACULTY;
       Slugs.define({ name: username, entityName: this.getType() });
@@ -62,9 +62,9 @@ class FacultyProfileCollection extends BaseProfileCollection {
    * You cannot change the username or role once defined.
    * @param docID the id of the FacultyProfile.
    */
-  public update(docID: string, { firstName, lastName, picture, website, interests, careerGoals, retired, courseExplorerFilter, opportunityExplorerSortOrder, aboutMe }: IFacultyProfileUpdate) {
+  public update(docID: string, { firstName, lastName, picture, website, interests, careerGoals, retired, courseExplorerFilter, opportunityExplorerSortOrder, aboutMe }: IAdvisorOrFacultyProfileUpdate) {
     this.assertDefined(docID);
-    const updateData: IFacultyProfileUpdate = {};
+    const updateData: IAdvisorOrFacultyProfileUpdate = {};
     this.updateCommonFields(updateData, { firstName, lastName, picture, website, retired, courseExplorerFilter, opportunityExplorerSortOrder });
     if (aboutMe) {
       updateData.aboutMe = aboutMe;
@@ -115,7 +115,7 @@ class FacultyProfileCollection extends BaseProfileCollection {
    * @param docID The docID of a FacultyProfile
    * @returns { Object } An object representing the definition of docID.
    */
-  public dumpOne(docID: string): IFacultyProfileDefine {
+  public dumpOne(docID: string): IAdvisorOrFacultyProfileDefine {
     const doc = this.findDoc(docID);
     const username = doc.username;
     const firstName = doc.firstName;

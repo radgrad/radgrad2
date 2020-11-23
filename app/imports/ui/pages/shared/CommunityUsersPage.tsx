@@ -6,7 +6,7 @@ import _ from 'lodash';
 import { Feeds } from '../../../api/feed/FeedCollection';
 import { ROLE } from '../../../api/role/Role';
 import { Users } from '../../../api/user/UserCollection';
-import { IAdvisorProfile, IFacultyProfile, IFeed, IStudentProfile } from '../../../typings/radgrad';
+import { IAdvisorOrFacultyProfile, IFeed, IStudentProfile } from '../../../typings/radgrad';
 import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
 import * as Router from '../../components/shared/utilities/router';
 import { URL_ROLES } from '../../layouts/utilities/route-constants';
@@ -21,8 +21,8 @@ import BackToTopButton from '../../components/shared/BackToTopButton';
 interface ICommunityUsersPageProps {
   match: IMatchProps;
   feeds: IFeed[];
-  advisors: IAdvisorProfile[];
-  faculty: IFacultyProfile[];
+  advisors: IAdvisorOrFacultyProfile[];
+  faculty: IAdvisorOrFacultyProfile[];
   students: IStudentProfile[];
 }
 

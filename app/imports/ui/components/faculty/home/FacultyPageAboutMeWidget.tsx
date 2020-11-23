@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useParams } from 'react-router-dom';
 import _ from 'lodash';
 import { Grid, Header, Label, Icon, Form, Segment } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
@@ -9,16 +9,10 @@ import { Interests } from '../../../../api/interest/InterestCollection';
 import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
 import { openCloudinaryWidget } from '../../shared/OpenCloudinaryWidget';
 import { updateMethod } from '../../../../api/base/BaseCollection.methods';
-import { IFacultyProfile, IFavoriteCareerGoal, IFavoriteInterest } from '../../../../typings/radgrad';
+import { IAdvisorOrFacultyProfile, IFavoriteCareerGoal, IFavoriteInterest } from '../../../../typings/radgrad';
 
 interface IFacultyPageAboutMeWidgetProps {
-  match?: {
-    params: {
-      username: string;
-      url: string;
-    },
-  }
-  profile: IFacultyProfile;
+  profile: IAdvisorOrFacultyProfile;
   favoriteInterests: IFavoriteInterest[];
   favoriteCareerGoals: IFavoriteCareerGoal[];
 }
@@ -26,9 +20,11 @@ interface IFacultyPageAboutMeWidgetProps {
 /** The Faculty About Me Widget shows basic information of the specified user. */
 const FacultyPageAboutMeWidget = (props: IFacultyPageAboutMeWidgetProps) => {
   // console.log('FacultyPageAboutMeWidget', props);
-  const [websiteState, setWebsite] = useState(props.profile.website);
-  const [pictureState, setPicture] = useState(props.profile.picture);
-  const [aboutMeState, setAboutMe] = useState(props.profile.aboutMe);
+  const { profile, favoriteInterests, favoriteCareerGoals } = props;
+  const [websiteState, setWebsite] = useState(profile.website);
+  const [pictureState, setPicture] = useState(profile.picture);
+  const [aboutMeState, setAboutMe] = useState(profile.aboutMe);
+  const { username } = useParams();
 
   /**
    * Changes state based on user input.
@@ -58,8 +54,6 @@ const FacultyPageAboutMeWidget = (props: IFacultyPageAboutMeWidgetProps) => {
    */
   const handleSubmitWebsite = (event): void => {
     event.preventDefault();
-    const username = props.match.params.username;
-    const profile = Users.getProfile(username);
     const collectionName = FacultyProfiles.getCollectionName();
     const updateData: { id: string; website: string } = { id: profile._id, website: websiteState };
     updateMethod.call({ collectionName, updateData }, (error) => {
@@ -84,8 +78,6 @@ const FacultyPageAboutMeWidget = (props: IFacultyPageAboutMeWidgetProps) => {
 
   const handleSubmitAboutMe = (event): void => {
     event.preventDefault();
-    const username = props.match.params.username;
-    const profile = Users.getProfile(username);
     const collectionName = FacultyProfiles.getCollectionName();
     const updateData: { id: string; aboutMe: string } = { id: profile._id, aboutMe: aboutMeState };
     updateMethod.call({ collectionName, updateData }, (error) => {
@@ -114,13 +106,9 @@ const FacultyPageAboutMeWidget = (props: IFacultyPageAboutMeWidgetProps) => {
    * @returns string Slug of specified interest
    */
   const generateInterestRoute = (label) => {
-    const facultyDoc = FacultyProfiles.findDoc(props.match.params.username);
-    const facultyUserID = facultyDoc.userID;
-    const facultyUserProfile = Users.getProfile(facultyUserID);
-    const facultyUserUsername = facultyUserProfile.username;
     label = label.toString().toLowerCase().split(' ').join('-'); // eslint-disable-line no-param-reassign
     // example url /faculty/binsted@hawaii.edu/explorer/interests/artificial-intelligence
-    const explorePath = [facultyUserProfile.role.toLowerCase(), facultyUserUsername,
+    const explorePath = [profile.role.toLowerCase(), username,
       'explorer', 'interests', label];
     let exploreRoute = explorePath.join('/');
     exploreRoute = `/${exploreRoute}`;
@@ -133,13 +121,9 @@ const FacultyPageAboutMeWidget = (props: IFacultyPageAboutMeWidgetProps) => {
    * @returns string Slug of specified career goal
    */
   const generateCareerGoalsRoute = (label) => {
-    const facultyDoc = FacultyProfiles.findDoc(props.match.params.username);
-    const facultyUserID = facultyDoc.userID;
-    const facultyUserProfile = Users.getProfile(facultyUserID);
-    const facultyUserUsername = facultyUserProfile.username;
     label = label.toString().toLowerCase().split(' ').join('-'); // eslint-disable-line no-param-reassign
     // example url /faculty/binsted@hawaii.edu/explorer/interests/mobile-app-developer
-    const explorePath = [facultyUserProfile.role.toLowerCase(), facultyUserUsername,
+    const explorePath = [profile.role.toLowerCase(), username,
       'explorer', 'career-goals', label];
     let exploreRoute = explorePath.join('/');
     exploreRoute = `/${exploreRoute}`;
@@ -152,7 +136,7 @@ const FacultyPageAboutMeWidget = (props: IFacultyPageAboutMeWidgetProps) => {
     try {
       const cloudinaryResult = await openCloudinaryWidget();
       if (cloudinaryResult.event === 'success') {
-        const profile = Users.getProfile(props.match.params.username);
+        const profile = Users.getProfile(username);
         const updateData: { id: string; picture: string; } = { id: profile._id, picture: cloudinaryResult.info.url };
         updateMethod.call({ collectionName, updateData }, (error) => {
           if (error) {
@@ -190,33 +174,22 @@ const FacultyPageAboutMeWidget = (props: IFacultyPageAboutMeWidgetProps) => {
     marginBottom: 0,
   };
 
-  const username = props.match.params.username;
-  // gets the doc object containing information on desired profile based on username
-  const facultyDoc = FacultyProfiles.findDoc(username);
-  // gets the user ID based on the username
-  const facultyUserID = facultyDoc.userID;
-  // gets the user profile based on the user ID
-  const facultyUserProfile = Users.getProfile(facultyUserID);
-  // gets the username based on the user ID
-  const facultyUserUsername = facultyUserProfile.username;
   // get the career goal IDs based on the userID
-  const favCareerGoals = props.favoriteCareerGoals;
-  const facultyCareerGoalsIDs = _.map(favCareerGoals, (fav) => fav.careerGoalID);
+  const facultyCareerGoalsIDs = _.map(favoriteCareerGoals, (fav) => fav.careerGoalID);
   // map the career goal IDs to their names
   const facultyCareerGoals = _.map(facultyCareerGoalsIDs, (id) => CareerGoals.findDoc(id).name);
   // get the interest goal IDs based on the User ID
-  const favInterests = props.favoriteInterests;
-  const facultyInterestIDs = _.map(favInterests, (fav) => fav.interestID);
+  const facultyInterestIDs = _.map(favoriteInterests, (fav) => fav.interestID);
   // map the interests IDs to their names
   const facultyInterests = _.map(facultyInterestIDs, (id) => Interests.findDoc(id).name);
   // M: should make it so that you reference the doc and then the name rather than the doc directly
   // gets the url from the faculty profile's information
   // url is made up of: role/username/explorer/CareerOrInterests
-  const explorePath = [facultyUserProfile.role.toLowerCase(), facultyUserUsername, 'explorer', 'interests'];
+  const explorePath = [profile.role.toLowerCase(), username, 'explorer', 'interests'];
   let exploreRoute = explorePath.join('/');
   exploreRoute = `/${exploreRoute}`;
   // url for career path explorer
-  const careerPath = [facultyUserProfile.role.toLowerCase(), facultyUserUsername, 'explorer', 'career-goals'];
+  const careerPath = [profile.role.toLowerCase(), username, 'explorer', 'career-goals'];
   let careerRoute = careerPath.join('/');
   careerRoute = `/${careerRoute}`;
 
@@ -233,13 +206,13 @@ const FacultyPageAboutMeWidget = (props: IFacultyPageAboutMeWidgetProps) => {
             <Header as="h5" textAlign="left">Name</Header>
           </Grid.Column>
           <Grid.Column floated="left" width={6}>
-            <Header as="h5" textAlign="left">{Users.getFullName(facultyDoc)}</Header>
+            <Header as="h5" textAlign="left">{Users.getFullName(profile.userID)}</Header>
           </Grid.Column>
           <Grid.Column floated="left" width={2}>
             <Header as="h5" textAlign="left">Email</Header>
           </Grid.Column>
           <Grid.Column floated="left" width={6}>
-            <Header as="h5" textAlign="left">{facultyUserUsername}</Header>
+            <Header as="h5" textAlign="left">{username}</Header>
           </Grid.Column>
         </Grid.Row>
         <Grid.Row>

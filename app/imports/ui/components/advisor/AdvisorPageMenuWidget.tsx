@@ -7,7 +7,7 @@ import { VerificationRequests } from '../../../api/verification/VerificationRequ
 import { secondMenu } from '../shared/shared-widget-names';
 import { buildRouteName, getUsername } from '../shared/utilities/router';
 import { COMMUNITY, EXPLORER_TYPE } from '../../layouts/utilities/route-constants';
-import { IAdvisorProfile } from '../../../typings/radgrad';
+import { IAdvisorOrFacultyProfile } from '../../../typings/radgrad';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 
 const AdvisorPageMenuWidget = (props: { match }) => {
@@ -15,7 +15,7 @@ const AdvisorPageMenuWidget = (props: { match }) => {
   const username = getUsername(match);
   const divStyle = { marginBottom: 30 };
   const firstMenuStyle = { minHeight: 78 };
-  const profile: IAdvisorProfile = AdvisorProfiles.getProfile(username);
+  const profile: IAdvisorOrFacultyProfile = AdvisorProfiles.getProfile(username);
   let numMod = 0;
   numMod += Reviews.findNonRetired({ moderated: false }).length;
   let moderationLabel = 'Moderation';

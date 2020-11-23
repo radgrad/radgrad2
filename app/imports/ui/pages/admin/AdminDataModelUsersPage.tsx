@@ -26,10 +26,9 @@ import { dataModelActions } from '../../../redux/admin/data-model';
 import {
   IAcademicPlan,
   IAcademicTerm,
-  IAdvisorProfile,
   IBaseProfile, ICareerGoal,
   ICombinedProfileDefine,
-  IFacultyProfile,
+  IAdvisorOrFacultyProfile,
   IFavoriteAcademicPlan,
   IFavoriteCareerGoal, IFavoriteInterest, IInterest,
   IStudentProfile,
@@ -62,8 +61,8 @@ import { RootState } from '../../../redux/types';
 
 interface IAdminDataModelUsersPageProps extends IAdminDataModeMenuProps {
   admins: IBaseProfile[];
-  advisors: IAdvisorProfile[];
-  faculty: IFacultyProfile[];
+  advisors: IAdvisorOrFacultyProfile[];
+  faculty: IAdvisorOrFacultyProfile[];
   students: IStudentProfile[];
   isCloudinaryUsed: boolean;
   cloudinaryUrl: string;

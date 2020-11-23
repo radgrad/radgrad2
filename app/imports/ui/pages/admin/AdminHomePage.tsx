@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Container } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
-import { IAdvisorProfile, IFacultyProfile, IStudentProfile } from '../../../typings/radgrad';
+import { IAdvisorOrFacultyProfile, IStudentProfile } from '../../../typings/radgrad';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import RetrieveUserWidget from '../../components/admin/home/RetrieveUserWidget';
 import FilterUserWidget from '../../components/admin/home/FilterUserWidget';
@@ -16,8 +16,8 @@ export interface IFilterUsers {
 }
 
 interface IAdminHomePageProps {
-  advisors: IAdvisorProfile[];
-  faculty: IFacultyProfile[];
+  advisors: IAdvisorOrFacultyProfile[];
+  faculty: IAdvisorOrFacultyProfile[];
   students: IStudentProfile[];
   alumni: IStudentProfile[];
 }

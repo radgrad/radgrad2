@@ -49,7 +49,7 @@ class FavoriteInterestCollection extends BaseCollection {
    * @param docID the ID of the FavoriteInterest.
    * @param retired the new retired value.
    */
-  update(docID, { share, retired }) {
+  update(docID, { share, retired }: { share?: boolean, retired?: boolean }) {
     this.assertDefined(docID);
     const updateData: IFavoriteUpdate = {};
     if (_.isBoolean(retired)) {

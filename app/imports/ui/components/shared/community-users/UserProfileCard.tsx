@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Card, Image } from 'semantic-ui-react';
+import Markdown from 'react-markdown';
 import _ from 'lodash';
 import { FavoriteInterests } from '../../../../api/favorite/FavoriteInterestCollection';
 import { IUserProfileCard } from '../../../../typings/radgrad';
@@ -80,6 +81,9 @@ const UserProfileCard = (props: IUserProfileCard) => {
       </Card.Content>
       <Card.Content extra>
         <InterestList item={p} size="mini" />
+        {isRole(ROLE.ADVISOR, ROLE.FACULTY) ? (
+          <Markdown source={p.aboutMe} />
+        ) : undefined}
       </Card.Content>
       <Button onClick={toggleFullSize} content="View Profile" />
       <ExplorerUsersWidget
