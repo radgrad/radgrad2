@@ -2,7 +2,6 @@ import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { List } from 'semantic-ui-react';
 import _ from 'lodash';
-import { withTracker } from 'meteor/react-meteor-data';
 import { buildRouteName, getUserIdFromRoute } from '../../shared/utilities/router';
 import { Ice, ICourse, IFavoriteInterest, IOpportunity } from '../../../../typings/radgrad';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
@@ -56,7 +55,8 @@ const availableCourses = (props: IStudentIceColumnRecommendedProps): ICourse[] =
 };
 
 const matchingOpportunities = (props: IStudentIceColumnRecommendedProps): IOpportunity[] => {
-  const { favoriteInterests } = props;
+  const userID = getUserIdFromRoute(props.match);
+  const favoriteInterests = FavoriteInterests.findNonRetired({ userID });
   const allOpportunities = Opportunities.findNonRetired();
   const matching = [];
   const userInterests = [];
@@ -83,7 +83,8 @@ const matchingOpportunities = (props: IStudentIceColumnRecommendedProps): IOppor
 };
 
 const matchingCourses = (props: IStudentIceColumnRecommendedProps): ICourse[] => {
-  const { favoriteInterests } = props;
+  const userID = getUserIdFromRoute(props.match);
+  const favoriteInterests = FavoriteInterests.findNonRetired({ userID });
   const allCourses: ICourse[] = availableCourses(props);
   const matching: ICourse[] = [];
   const userInterests = [];
@@ -207,13 +208,5 @@ const StudentIceColumnRecommended = (props: IStudentIceColumnRecommendedProps) =
   );
 };
 
-const StudentIceColumnRecommendedCon = withTracker(({ match }) => {
-  const userID = getUserIdFromRoute(match);
-  const favoriteInterests: IFavoriteInterest[] = FavoriteInterests.findNonRetired({ userID });
-  return {
-    favoriteInterests,
-  };
-})(StudentIceColumnRecommended);
-const StudentIceColumnRecommendedContainer = withRouter(StudentIceColumnRecommendedCon);
-
+const StudentIceColumnRecommendedContainer = withRouter(StudentIceColumnRecommended);
 export default StudentIceColumnRecommendedContainer;
