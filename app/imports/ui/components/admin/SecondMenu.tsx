@@ -1,11 +1,8 @@
 import React from 'react';
 import { Menu, SemanticWIDTHS } from 'semantic-ui-react';
-import { NavLink, withRouter } from 'react-router-dom';
-import { secondMenu } from './shared-widget-names';
-import { buildRouteName } from './utilities/router';
-
-// TODO: Why is a component like this in the pages/shared directrory?
-// TODO: This component is only used for the Admin NavBar. Why is it "shared"?
+import { NavLink, useRouteMatch } from 'react-router-dom';
+import { secondMenu } from '../shared/shared-widget-names';
+import { buildRouteName } from '../shared/utilities/router';
 
 interface IMenuItem {
   label: string;
@@ -17,18 +14,10 @@ interface IMenuItem {
 interface ISecondMenuProps {
   menuItems: IMenuItem[];
   numItems: SemanticWIDTHS;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
-}
+ }
 
 const SecondMenu = (props: ISecondMenuProps) => {
-  const { match } = props;
+  const match = useRouteMatch();
   return (
     <Menu
       attached="top"
@@ -49,4 +38,4 @@ const SecondMenu = (props: ISecondMenuProps) => {
   );
 };
 
-export default withRouter(SecondMenu);
+export default SecondMenu;

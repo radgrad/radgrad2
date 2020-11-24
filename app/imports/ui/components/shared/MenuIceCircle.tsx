@@ -1,17 +1,9 @@
 import React from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, useRouteMatch } from 'react-router-dom';
 import { Popup } from 'semantic-ui-react';
 import { buildRouteName } from './utilities/router';
 
 interface IMenuIceCircleProps {
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
   earned: number;
   planned: number;
   type: string;
@@ -19,7 +11,8 @@ interface IMenuIceCircleProps {
 
 const MenuIceCircle = (props: IMenuIceCircleProps) => {
   const marginRight = { marginRight: 5 };
-  const { planned, type, earned, match } = props;
+  const { planned, type, earned } = props;
+  const match = useRouteMatch();
   const p = (planned < 100) ? planned : 100;
   const e = (earned < 100) ? earned : 100;
   const classNamesPlanned = `radgrad-ice-circle p${p} radgrad-proj-${type}`;
@@ -52,4 +45,4 @@ const MenuIceCircle = (props: IMenuIceCircleProps) => {
   );
 };
 
-export default withRouter(MenuIceCircle);
+export default MenuIceCircle;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Label, SemanticSIZES } from 'semantic-ui-react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, useRouteMatch } from 'react-router-dom';
 import * as Router from './utilities/router';
 import { docToName, itemToSlugName } from './utilities/data-model';
 import { MatchingInterests } from '../../../api/interest/MatchingInterests';
@@ -11,18 +11,11 @@ interface IInterestListProps {
     interestIDs: string[];
   }
   size: SemanticSIZES;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
 }
 
 const InterestList = (props: IInterestListProps) => {
-  const { match, size, item } = props;
+  const { size, item } = props;
+  const match = useRouteMatch();
   const matchingUserInterests = MatchingInterests.matchingUserInterests(Router.getUsername(match), item);
   const matchingCareerInterests = MatchingInterests.matchingCareerGoalInterests(Router.getUsername(match), item);
   const otherInterests = MatchingInterests.notMatchingInterests(Router.getUsername(match), item);
@@ -82,4 +75,4 @@ const InterestList = (props: IInterestListProps) => {
   );
 };
 
-export default withRouter(InterestList);
+export default InterestList;
