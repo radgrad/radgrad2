@@ -96,8 +96,8 @@ import { VerificationRequests } from '../../../api/verification/VerificationRequ
 import { secondMenu } from '../shared/shared-widget-names';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { buildRouteName, getUsername } from '../shared/utilities/router';
-import { EXPLORER_TYPE } from '../../layouts/utilities/route-constants';
-import { IFacultyProfile } from '../../../typings/radgrad';
+import { COMMUNITY, EXPLORER_TYPE } from '../../layouts/utilities/route-constants';
+import { IAdvisorOrFacultyProfile } from '../../../typings/radgrad';
 
 interface IFacultyPageMenuWidgetProps {
   match?: {
@@ -117,7 +117,7 @@ const FacultyPageMenuWidget = (props: IFacultyPageMenuWidgetProps) => {
   const username = getUsername(match);
   const faculty = FacultyProfiles.findDoc(username);
 
-  const profile: IFacultyProfile = FacultyProfiles.getProfile(username);
+  const profile: IAdvisorOrFacultyProfile = FacultyProfiles.getProfile(username);
   // const sponsorID = Users.getID(username);
   let openRequests = VerificationRequests.findNonRetired({ status: VerificationRequests.OPEN });
   openRequests = _.filter(openRequests, (request) => {
@@ -140,17 +140,21 @@ const FacultyPageMenuWidget = (props: IFacultyPageMenuWidgetProps) => {
     { label: 'Explorer', route: 'explorer' },
     { label: 'Scoreboard', route: 'scoreboard' },
   ];
-    const explorerDropdownItems = [
-  { key: 'Academic Plans', route: EXPLORER_TYPE.ACADEMICPLANS },
-  { key: 'Career Goals', route: EXPLORER_TYPE.CAREERGOALS },
-  { key: 'Courses', route: EXPLORER_TYPE.COURSES },
-  { key: 'Interests', route: EXPLORER_TYPE.INTERESTS },
-  { key: 'Opportunities', route: EXPLORER_TYPE.OPPORTUNITIES },
-];
+  const explorerDropdownItems = [
+    { key: 'Academic Plans', route: EXPLORER_TYPE.ACADEMICPLANS },
+    { key: 'Career Goals', route: EXPLORER_TYPE.CAREERGOALS },
+    { key: 'Courses', route: EXPLORER_TYPE.COURSES },
+    { key: 'Interests', route: EXPLORER_TYPE.INTERESTS },
+    { key: 'Opportunities', route: EXPLORER_TYPE.OPPORTUNITIES },
+  ];
+  const communityDropdownItems = [
+    { key: 'Members', route: COMMUNITY.USERS, id: 'facutly-menu-users' },
+    { key: 'RadGrad Videos', route: COMMUNITY.RADGRADVIDEOS, id: 'faculty-menu-radgrad-videos' },
+  ];
 
-const facultyHomePageItems = [
-  // { key: 'About Me', route: 'aboutme' },
-];
+  const facultyHomePageItems = [
+    // { key: 'About Me', route: 'aboutme' },
+  ];
 
   return (
     &lt;div style={divStyle}>
@@ -165,10 +169,16 @@ const facultyHomePageItems = [
       >
 
         {menuItems.map((item) => (
-          &lt;Menu.Item id={item.id} key={item.label} as={NavLink} exact={false} to={buildRouteName(match, `/${item.route}`)}>
+          &lt;Menu.Item
+            id={item.id}
+            key={item.label}
+            as={NavLink}
+            exact={false}
+            to={buildRouteName(match, `/${item.route}`)}
+          >
             {item.label}
           &lt;/Menu.Item>
-      ))}
+        ))}
 
         &lt;Dropdown item text="EXPLORE">
           &lt;Dropdown.Menu>
@@ -180,10 +190,23 @@ const facultyHomePageItems = [
                 to={buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${item.route}`)}
                 content={item.key}
               />
-                ))}
+            ))}
           &lt;/Dropdown.Menu>
         &lt;/Dropdown>
-
+        &lt;Dropdown item id="student-menu-community" text="COMMUNITY">
+          &lt;Dropdown.Menu>
+            {communityDropdownItems.map((item) => (
+              &lt;Dropdown.Item
+                key={item.key}
+                id={item.id}
+                as={NavLink}
+                exact
+                to={buildRouteName(match, `/${COMMUNITY.HOME}/${item.route}`)}
+                content={item.key}
+              />
+            ))}
+          &lt;/Dropdown.Menu>
+        &lt;/Dropdown>
         &lt;Menu.Menu position="right">
           &lt;Dropdown item text={`Aloha, ${profile.firstName} ${profile.lastName}!`}>
             &lt;Dropdown.Menu>
@@ -195,7 +218,7 @@ const facultyHomePageItems = [
                   to={buildRouteName(match, `/home/${item.route}`)}
                   content={item.key}
                 />
-                  ))}
+              ))}
               &lt;Dropdown.Item as={NavLink} exact to="/signout" content="Sign Out" />
             &lt;/Dropdown.Menu>
           &lt;/Dropdown>
