@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Card, Icon } from 'semantic-ui-react';
-import { withRouter } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 import Markdown from 'react-markdown';
 import { getSlug, itemShortDescription } from '../utilities/helper-functions';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
@@ -16,14 +16,6 @@ interface IItemProps {
 interface ILandingExplorerCardProps {
   item: IItemProps;
   type: string;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
 }
 
 const LandingExplorerCard = (props: ILandingExplorerCardProps) => {
@@ -32,7 +24,7 @@ const LandingExplorerCard = (props: ILandingExplorerCardProps) => {
   if (props.type === EXPLORER_TYPE.COURSES) {
     title = `${title} (${props.item.num})`;
   }
-  const { match } = props;
+  const match = useRouteMatch();
   return (
     <Card className="ui card radgrad-interest-card">
       <Card.Content className="content">
@@ -56,5 +48,4 @@ const LandingExplorerCard = (props: ILandingExplorerCardProps) => {
   );
 };
 
-const LandingExplorerCardContainer = withRouter(LandingExplorerCard);
-export default LandingExplorerCardContainer;
+export default LandingExplorerCard;

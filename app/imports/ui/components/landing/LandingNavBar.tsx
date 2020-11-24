@@ -1,13 +1,13 @@
 import React from 'react';
-import { NavLink, withRouter } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { Button, Header, Image, Menu, Container } from 'semantic-ui-react';
 import RadGradLogoText from '../shared/RadGradLogoText';
 import RadGradLoginButtons from './RadGradLoginButtons';
 
 export interface INavBarProps {
   currentUser: string;
-  iconName: string;
-  role: string;
+  iconName?: string;
+  role?: string;
 }
 
 const onClick = () => {
@@ -52,5 +52,4 @@ const LandingNavBar = (props: INavBarProps) => {
   );
 };
 
-/** Enable ReactRouter for this component. https://reacttraining.com/react-router/web/api/withRouter */
-export default withRouter(LandingNavBar);
+export default LandingNavBar;

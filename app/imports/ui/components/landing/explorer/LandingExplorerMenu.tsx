@@ -1,29 +1,14 @@
 import React from 'react';
 import { Dropdown, Icon, Button } from 'semantic-ui-react';
-import { NavLink, withRouter, Link } from 'react-router-dom';
+import { NavLink, Link, useLocation, useRouteMatch } from 'react-router-dom';
 import _ from 'lodash';
 import { getRouteName } from '../utilities/helper-functions';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 
-interface ILandingExplorerMenuProps {
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params?: {
-      username: string;
-    }
-  };
-  location: {
-    pathname: string;
-    search: string;
-    hash: string;
-    state: any;
-  };
-}
-
-const LandingExplorerMenu = (props: ILandingExplorerMenuProps) => {
-  const fullPath = `${props.match.path}`;
+const LandingExplorerMenu = () => {
+  const match = useRouteMatch();
+  const location = useLocation();
+  const fullPath = `${match.path}`;
   const pathBack = fullPath.substring(0, fullPath.lastIndexOf('/'));
   const menuItems = [
     { key: 'Academic Plans', route: EXPLORER_TYPE.ACADEMICPLANS },
@@ -44,18 +29,17 @@ const LandingExplorerMenu = (props: ILandingExplorerMenuProps) => {
 
   return (
     <div>
-      <Dropdown selection options={menuOptions} text={getRouteName(props.location.pathname)} />
+      <Dropdown selection options={menuOptions} text={getRouteName(location.pathname)} />
 
-      {_.isEmpty(props.match.params) ? '' : (
+      {_.isEmpty(match.params) ? '' : (
         <Button as={Link} to={pathBack} style={backButtonStyle}>
           <Icon name="chevron circle left" />
           <br />
-          Back to {getRouteName(props.location.pathname)}
+          Back to {getRouteName(location.pathname)}
         </Button>
       )}
     </div>
   );
 };
 
-const LandingExplorerMenuContainer = withRouter(LandingExplorerMenu);
-export default LandingExplorerMenuContainer;
+export default LandingExplorerMenu;
