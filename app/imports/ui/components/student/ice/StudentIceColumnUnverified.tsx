@@ -170,5 +170,4 @@ const StudentIceColumnUnverified = (props: IStudentIceColumnUnverifiedProps) => 
   );
 };
 
-const StudentIceColumnUnverifiedContainer = withRouter(StudentIceColumnUnverified);
-export default StudentIceColumnUnverifiedContainer;
+export default withRouter(StudentIceColumnUnverified);

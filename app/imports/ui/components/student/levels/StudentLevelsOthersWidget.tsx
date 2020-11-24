@@ -103,5 +103,4 @@ const StudentLevelsOthersWidget = (props: IStudentLevelsOthersWidgetProps) => {
   );
 };
 
-const StudentLevelsOthersWidgetContainer = withRouter(StudentLevelsOthersWidget);
-export default StudentLevelsOthersWidgetContainer;
+export default withRouter(StudentLevelsOthersWidget);
