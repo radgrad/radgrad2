@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Accordion, Button, Icon } from 'semantic-ui-react';
 import _ from 'lodash';
 import Markdown from 'react-markdown';
-import { withRouter } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 import { IDescriptionPair } from '../../../../typings/radgrad';
 import * as Router from '../../shared/utilities/router';
 
@@ -17,14 +17,6 @@ interface IAdminDataModelAccordionProps {
   deleteDisabled: boolean;
   handleOpenUpdate: (evt: any, id: any) => any;
   handleDelete: (evt: any, id: any) => any;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
 }
 
 const AdminDataModelAccordion = (props: IAdminDataModelAccordionProps) => {
@@ -34,7 +26,7 @@ const AdminDataModelAccordion = (props: IAdminDataModelAccordionProps) => {
     setActive(!active);
   };
 
-  const { match } = props;
+  const match = useRouteMatch();
   return (
     <Accordion fluid styled>
       <Accordion.Title active={active} onClick={handleClick}>
@@ -84,4 +76,4 @@ const AdminDataModelAccordion = (props: IAdminDataModelAccordionProps) => {
   );
 };
 
-export default withRouter(AdminDataModelAccordion);
+export default AdminDataModelAccordion;

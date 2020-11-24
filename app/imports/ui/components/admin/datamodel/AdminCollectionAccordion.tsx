@@ -2,21 +2,13 @@ import React, { useState } from 'react';
 import { Accordion, Button } from 'semantic-ui-react';
 import _ from 'lodash';
 import Markdown from 'react-markdown';
-import { withRouter } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 import { IDescriptionPair } from '../../../../typings/radgrad';
 import * as Router from '../../shared/utilities/router';
 
 interface IAdminCollectionAccordionProps {
   id: string;
   title: React.ReactNode;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
   descriptionPairs: IDescriptionPair[];
   updateDisabled: boolean;
   deleteDisabled: boolean;
@@ -31,7 +23,7 @@ const AdminCollectionAccordion = (props: IAdminCollectionAccordionProps) => {
     setActive(!active);
   };
 
-    const { match } = props;
+    const match = useRouteMatch();
     return (
       <Accordion fluid styled>
         <Accordion.Title active={active} onClick={handleClick}>
@@ -80,4 +72,4 @@ const AdminCollectionAccordion = (props: IAdminCollectionAccordionProps) => {
     );
   };
 
-export default withRouter(AdminCollectionAccordion);
+export default AdminCollectionAccordion;

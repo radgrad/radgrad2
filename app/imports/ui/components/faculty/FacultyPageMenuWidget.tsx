@@ -1,6 +1,6 @@
 import React from 'react';
 import { Dropdown, Menu } from 'semantic-ui-react';
-import { NavLink, withRouter } from 'react-router-dom';
+import { NavLink, useRouteMatch } from 'react-router-dom';
 import _ from 'lodash';
 import FirstMenuContainer from '../shared/FirstMenu';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
@@ -12,21 +12,10 @@ import { buildRouteName, getUsername } from '../shared/utilities/router';
 import { COMMUNITY, EXPLORER_TYPE } from '../../layouts/utilities/route-constants';
 import { IAdvisorOrFacultyProfile } from '../../../typings/radgrad';
 
-interface IFacultyPageMenuWidgetProps {
-  match?: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
-}
-
-const FacultyPageMenuWidget = (props: IFacultyPageMenuWidgetProps) => {
+const FacultyPageMenuWidget = () => {
   const divStyle = { marginBottom: 30 };
 
-  const { match } = props;
+  const match = useRouteMatch();
   const username = getUsername(match);
   const faculty = FacultyProfiles.findDoc(username);
 
@@ -141,5 +130,4 @@ const FacultyPageMenuWidget = (props: IFacultyPageMenuWidgetProps) => {
   );
 };
 
-/** Enable ReactRouter for this component. https://reacttraining.com/react-router/web/api/withRouter */
-export default withRouter(FacultyPageMenuWidget);
+export default FacultyPageMenuWidget;
