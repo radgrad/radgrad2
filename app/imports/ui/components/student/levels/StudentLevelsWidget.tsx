@@ -1,64 +1,41 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
 import Markdown from 'react-markdown';
 import { Segment, Grid, Container, Message, Icon, Image, Header } from 'semantic-ui-react';
-import { getUserIdFromRoute } from '../../shared/utilities/router';
-import { Users } from '../../../../api/user/UserCollection';
 import { studentLevelsWidget } from '../student-widget-names';
 import { getLevelHintStringMarkdown } from '../../../../api/level/LevelProcessor';
-
-// import { HelpMessages } from '../../../api/help/HelpMessageCollection';
+import { IStudentProfile } from '../../../../typings/radgrad';
 
 export interface IStudentLevelsWidgetProps {
-  // eslint-disable-next-line react/no-unused-prop-types
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
-  studentLevelNumber: number;
+  profile: IStudentProfile,
 }
 
 const getStudentLevelNumber = (props: IStudentLevelsWidgetProps): number => {
-  if (getUserIdFromRoute(props.match)) {
-    const profile = Users.getProfile(getUserIdFromRoute(props.match));
-    return profile.level || 1;
-  }
-  return 1;
+  const { profile } = props;
+  return profile.level || 1; // TODO look into using _.get instead?
 };
 
 const getStudentLevelName = (props: IStudentLevelsWidgetProps): string => {
-  if (getUserIdFromRoute(props.match)) {
-    const profile = Users.getProfile(getUserIdFromRoute(props.match));
-    if (profile.level) {
-      return `LEVEL ${profile.level}`;
-    }
+  const { profile } = props;
+  if (profile.level) {
+    return `LEVEL ${profile.level}`;
   }
   return 'LEVEL 1';
 };
 
 const getStudentLevelHint = (props: IStudentLevelsWidgetProps): string => {
+  const { profile } = props;
   let levelNumber = 0;
-  if (getUserIdFromRoute(props.match)) {
-    const profile = Users.getProfile(getUserIdFromRoute(props.match));
-    levelNumber = profile.level;
-  }
-  // const helpMessage = HelpMessages.findDocByRouteName('/student/:username/home/levels').text;
-  // const delimiter = '<div class="header">';
-  // const levelMessages = helpMessage.split(delimiter);
+  levelNumber = profile.level;
   switch (levelNumber) {
     case 1:
       return getLevelHintStringMarkdown('two');
-      case 2:
+    case 2:
       return getLevelHintStringMarkdown('three');
     case 3:
       return getLevelHintStringMarkdown('four');
-      case 4:
+    case 4:
       return getLevelHintStringMarkdown('five');
-      case 5:
+    case 5:
       return getLevelHintStringMarkdown('six');
     case 6:
       return 'Congratulations!  You have reached the top of the RadGrad mountain!  As a Level 6 RadGrad Ninja, you need not strive any further. There are no further levels to reach.';
@@ -67,7 +44,7 @@ const getStudentLevelHint = (props: IStudentLevelsWidgetProps): string => {
   }
 };
 
-const StudentLevelsWidget = (props: IStudentLevelsWidgetProps) => {
+const StudentLevelsWidget: React.FunctionComponent<IStudentLevelsWidgetProps> = (props) => {
   const imageStyle = { width: '230px' };
   const studentLevelNumber: number = getStudentLevelNumber(props);
   const studentLevelName = getStudentLevelName(props);
@@ -98,4 +75,4 @@ const StudentLevelsWidget = (props: IStudentLevelsWidgetProps) => {
   );
 };
 
-export default withRouter(StudentLevelsWidget);
+export default StudentLevelsWidget;
