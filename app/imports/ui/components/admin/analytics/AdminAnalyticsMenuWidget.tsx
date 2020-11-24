@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter, NavLink } from 'react-router-dom';
+import { withRouter, NavLink, useHistory, useLocation, useParams, useRouteMatch } from 'react-router-dom';
 import { Menu } from 'semantic-ui-react';
 import { buildRouteName, IMatchProps } from '../../shared/utilities/router';
 import { ANALYTICS } from '../../../layouts/utilities/route-constants';
@@ -10,6 +10,7 @@ interface IAdminAnalyticsMenuWidgetProps {
 
 const AdminAnalyticsMenuWidget = (props: IAdminAnalyticsMenuWidgetProps) => {
   const { match } = props;
+  console.log(useHistory(), useLocation(), useParams(), useRouteMatch());
   return (
     <div>
       <Menu vertical text>
