@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 import { Segment, Header, Divider, Grid } from 'semantic-ui-react';
 import Markdown from 'react-markdown';
 import { IAcademicPlan } from '../../../../../../typings/radgrad';
@@ -15,15 +15,6 @@ interface IExplorerPlansWidgetProps {
   name: string;
   descriptionPairs: any[];
   item: IAcademicPlan;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-      opportunity: string;
-    }
-  };
 }
 
 const ExplorerPlanWidget = (props: IExplorerPlansWidgetProps) => {
@@ -37,9 +28,10 @@ const ExplorerPlanWidget = (props: IExplorerPlansWidgetProps) => {
   };
   const divierStyle = { marginTop: 0 };
 
-  const { name, descriptionPairs, item, match } = props;
+  const { name, descriptionPairs, item } = props;
+  const match = useRouteMatch();
   const upperName = toUpper(name);
-  const isStudent = Router.isUrlRoleStudent(props.match);
+  const isStudent = Router.isUrlRoleStudent(match);
 
   return (
     <Segment.Group style={backgroundColorWhiteStyle} id={`${explorerPlanWidget}`}>
@@ -51,7 +43,7 @@ const ExplorerPlanWidget = (props: IExplorerPlansWidgetProps) => {
               <FavoritesButton
                 item={item}
                 type={FAVORITE_TYPE.ACADEMICPLAN}
-                studentID={Router.getUserIdFromRoute(props.match)}
+                studentID={Router.getUserIdFromRoute(match)}
               />
               )
               : ''
@@ -98,4 +90,4 @@ const ExplorerPlanWidget = (props: IExplorerPlansWidgetProps) => {
   );
 };
 
-export default withRouter(ExplorerPlanWidget);
+export default ExplorerPlanWidget;

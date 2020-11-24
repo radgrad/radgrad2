@@ -175,14 +175,6 @@ export interface ITermCard extends ICardExplorerCards {
   type: string;
   isStudent: boolean;
   canAdd: boolean;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
 }
 
 export interface IUserProfileCard extends ICardExplorerCards {

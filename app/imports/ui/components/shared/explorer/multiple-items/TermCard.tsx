@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, Icon } from 'semantic-ui-react';
 import Markdown from 'react-markdown';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, useRouteMatch } from 'react-router-dom';
 
 import { ITermCard } from '../../../../../typings/radgrad';
 import IceHeader from '../../IceHeader';
@@ -41,15 +41,15 @@ const itemTerms = (props: ITermCard) => {
   return ret;
 };
 
-const buildRouteName = (item, type, props: ITermCard) => {
+const buildRouteName = (item, type, match) => {
   const itemSlug = itemToSlugName(item);
   let route: string;
   switch (type) {
     case EXPLORER_TYPE.COURSES:
-      route = Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${itemSlug}`);
+      route = Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${itemSlug}`);
       break;
     case EXPLORER_TYPE.OPPORTUNITIES:
-      route = Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${itemSlug}`);
+      route = Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${itemSlug}`);
       break;
     default:
       route = '#';
@@ -58,8 +58,12 @@ const buildRouteName = (item, type, props: ITermCard) => {
   return route;
 };
 
+// TODO Why is this named this?
+// TODO Redesign the Cards.
+
 const TermCard = (props: ITermCard) => {
-  const { item, match } = props;
+  const { item } = props;
+  const match = useRouteMatch();
   const name = itemName(item, props);
   const isTypeOpportunity = isType('opportunities', props);
   const itemShortDescription = docToShortDescription(item);
@@ -97,7 +101,7 @@ const TermCard = (props: ITermCard) => {
         </span>
       </Card.Content>
 
-      <Link className="ui button" to={buildRouteName(props.item, props.type, props)}>
+      <Link className="ui button" to={buildRouteName(props.item, props.type, match)}>
         <Icon name="chevron circle right" />
         <br />
         View More
@@ -106,4 +110,4 @@ const TermCard = (props: ITermCard) => {
   );
 };
 
-export default withRouter(TermCard);
+export default TermCard;

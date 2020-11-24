@@ -412,27 +412,27 @@ export const getItemStatus = (item: explorerInterfaces, props: ICardExplorerMenu
   }
 };
 
-export const getHeaderCount = (props: ICardExplorerMenuWidgetProps): number => {
+export const getHeaderCount = (props: ICardExplorerMenuWidgetProps, match): number => {
   const { type } = props;
   switch (type) {
     case EXPLORER_TYPE.ACADEMICPLANS:
-      return academicPlansItemCount(props.match);
+      return academicPlansItemCount(match);
     case EXPLORER_TYPE.CAREERGOALS:
-      return careerGoalsItemCount(props.match);
+      return careerGoalsItemCount(match);
     case EXPLORER_TYPE.COURSES:
-      return coursesItemCount(props.match);
+      return coursesItemCount(match);
     case EXPLORER_TYPE.INTERESTS:
-      return interestsItemCount(props.match);
+      return interestsItemCount(match);
     case EXPLORER_TYPE.OPPORTUNITIES:
-      return opportunitiesItemCount(props.match);
+      return opportunitiesItemCount(match);
     default:
       return -1;
   }
 };
 
-export const buildHeader = (props: ICardExplorerMenuWidgetProps): { title: string; count: number; } => ({
+export const buildHeader = (props: ICardExplorerMenuWidgetProps, match): { title: string; count: number; } => ({
   title: getHeaderTitle(props),
-  count: getHeaderCount(props),
+  count: getHeaderCount(props, match),
 });
 
 export const noItems = (noItemsType: string, match: Router.IMatchProps): boolean => {
@@ -527,8 +527,8 @@ export const checkForNoItems = (match: IMatchProps, type: IExplorerTypes): Eleme
   }
 };
 
-export const getItems = (props: ICardExplorerMenuWidgetProps): { [key: string]: any }[] => {
-  const { type, match } = props;
+export const getItems = (props: ICardExplorerMenuWidgetProps, match): { [key: string]: any }[] => {
+  const { type } = props;
   switch (type) {
     case EXPLORER_TYPE.ACADEMICPLANS:
       return availableAcademicPlans(match);

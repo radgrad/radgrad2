@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter, Link } from 'react-router-dom';
+import { useRouteMatch, Link } from 'react-router-dom';
 import { Card, Icon, Image, Popup } from 'semantic-ui-react';
 import Markdown from 'react-markdown';
 import * as Router from '../../utilities/router';
@@ -19,18 +19,13 @@ interface IProfileCardProps {
     name: string;
   };
   type: string;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
 }
 
+// TODO Why is this called ProfileCard?
+
 const ProfileCard = (props: IProfileCardProps) => {
-  const { item, type, match } = props;
+  const { item, type } = props;
+  const match = useRouteMatch();
   const itemName = docToName(item);
   const itemShortDescription = docToShortDescription(item);
   const numberStudents = studentsParticipating(item);
@@ -72,4 +67,4 @@ const ProfileCard = (props: IProfileCardProps) => {
   );
 };
 
-export default withRouter(ProfileCard);
+export default ProfileCard;

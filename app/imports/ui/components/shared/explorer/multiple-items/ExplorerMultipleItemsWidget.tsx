@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Card, Header, Segment } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
-import { withRouter } from 'react-router-dom';
+import { useParams, useRouteMatch } from 'react-router-dom';
 import _ from 'lodash';
 import { CourseInstances } from '../../../../../api/course/CourseInstanceCollection';
 import { FavoriteInterests } from '../../../../../api/favorite/FavoriteInterestCollection';
@@ -29,6 +29,8 @@ import {
 } from '../utilities/explorer';
 import { cardExplorerWidget } from '../../shared-widget-names';
 
+// TODO This is one messed up component. It needs to be refactored.
+
 interface ICardExplorerWidgetProps extends ICardExplorerMenuWidgetProps {
   // eslint-disable-next-line react/no-unused-prop-types
   collection: any;
@@ -49,14 +51,6 @@ interface ICardExplorerWidgetProps extends ICardExplorerMenuWidgetProps {
   // eslint-disable-next-line react/no-unused-prop-types
   menuList: unknown[];
   type: IExplorerTypes;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
   // Saving Scroll Position
   plansScrollPosition: number;
   careerGoalsScrollPosition: number;
@@ -122,10 +116,10 @@ const ExplorerMultipleItemsWidget = (props: ICardExplorerWidgetProps) => {
   };
 
   /* Variables */
-  const header = buildHeader(props); // The header Title and Count
-  let items = getItems(props); // The items to map over
-  const { type, match } = props;
-
+  const match = useRouteMatch();
+  const header = buildHeader(props, match); // The header Title and Count
+  let items = getItems(props, match); // The items to map over
+  const { type } = props;
 // For the Academic Plans Card Explorer
   const buildPlanCard = isType(EXPLORER_TYPE.ACADEMICPLANS, type);
 
@@ -257,9 +251,9 @@ const ExplorerMultipleItemsWidget = (props: ICardExplorerWidgetProps) => {
 };
 
 const CardExplorerWidgetCon = withTracker((props) => {
-  const { collection, match, menuList } = props;
+  const { collection, menuList } = props;
   const favoriteIDs = _.map(menuList, (m) => m.item._id);
-  const username = match.params.username;
+  const { username } = useParams();
   const allItems = collection.findNonRetired({});
   const reactiveSource = _.filter(allItems, (item) => _.includes(favoriteIDs, item._id));
 
@@ -285,7 +279,6 @@ const CardExplorerWidgetCon = withTracker((props) => {
     facultyProfiles,
   };
 })(ExplorerMultipleItemsWidget);
-const CardExplorerWidgetCont = connect(mapStateToProps, mapDispatchToProps)(CardExplorerWidgetCon);
-const CardExplorerWidgetContainer = withRouter(CardExplorerWidgetCont);
+const CardExplorerWidgetContainer = connect(mapStateToProps, mapDispatchToProps)(CardExplorerWidgetCon);
 
 export default CardExplorerWidgetContainer;

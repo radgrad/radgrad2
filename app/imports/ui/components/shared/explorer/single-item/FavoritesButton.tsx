@@ -1,7 +1,6 @@
 import React from 'react';
 import { Button, Icon } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
-import { withRouter } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import {
   IAcademicPlan,
@@ -27,10 +26,8 @@ import {
   createPageInterestData,
   getCollectionName,
 } from './utilities/favorites-button';
-import { IMatchProps } from '../../utilities/router';
 
 export interface IFavoriteButtonProps {
-  match: IMatchProps
   item: IAcademicPlan | ICareerGoal | ICourse | IInterest | IOpportunity;
   studentID: string;
   type: IFavoriteTypes;
@@ -162,7 +159,7 @@ const FavoritesButton = (props: IFavoriteButtonProps) => (
   </React.Fragment>
 );
 
-export default withRouter(withTracker((props: IFavoriteButtonProps) => {
+export default withTracker((props: IFavoriteButtonProps) => {
   const count = FavoriteAcademicPlans.findNonRetired({
       studentID: props.studentID,
       academicPlanID: props.item._id,
@@ -175,4 +172,4 @@ export default withRouter(withTracker((props: IFavoriteButtonProps) => {
   return {
     added: count > 0,
   };
-})(FavoritesButton));
+})(FavoritesButton);

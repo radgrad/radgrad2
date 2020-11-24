@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid, Segment, Header, Divider, Image, Popup } from 'semantic-ui-react';
 import Markdown from 'react-markdown';
 import { withTracker } from 'meteor/react-meteor-data';
-import { withRouter } from 'react-router-dom';
+import { useParams, useRouteMatch } from 'react-router-dom';
 import InterestList from '../../../InterestList';
 import { Users } from '../../../../../../api/user/UserCollection';
 import { IProfile } from '../../../../../../typings/radgrad';
@@ -22,23 +22,17 @@ import TeaserVideo from '../../../TeaserVideo';
 interface IExplorerCareerGoalsWidgetProps {
   name: string;
   descriptionPairs: any;
-  item: { [key: string]: any };
-  socialPairs: any;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-      careergoal: string;
-    }
+  item: {
+    slugID: string;
+    interestIDs: string[];
   };
+  socialPairs: any;
   // eslint-disable-next-line react/no-unused-prop-types
   profile: IProfile;
 }
 
-const teaserUrlHelper = (props: IExplorerCareerGoalsWidgetProps): string => {
-  const _id = Slugs.getEntityID(props.match.params.careergoal, 'CareerGoal');
+const teaserUrlHelper = (careerGoalSlug): string => {
+  const _id = Slugs.getEntityID(careerGoalSlug, 'CareerGoal');
   const careerGoal = CareerGoals.findDoc({ _id });
   const oppTeaser = Teasers.findNonRetired({ targetSlugID: careerGoal.slugID });
   if (oppTeaser.length > 1) {
@@ -58,10 +52,11 @@ const ExplorerCareerGoalWidget = (props: IExplorerCareerGoalsWidgetProps) => {
   };
   const centerAlignedColumnStyle = { minWidth: '25%' };
 
-  const { name, descriptionPairs, socialPairs, item, match } = props;
+  const { name, descriptionPairs, socialPairs, item } = props;
+  const match = useRouteMatch();
   const upperName = toUpper(name);
   const hasTeaser = Teasers.findNonRetired({ targetSlugID: item.slugID }).length > 0;
-
+  const { careergoal } = useParams();
   return (
     <Grid container stackable style={marginStyle} id={explorerCareerGoalWidget}>
       <Grid.Column width={16}>
@@ -70,7 +65,7 @@ const ExplorerCareerGoalWidget = (props: IExplorerCareerGoalsWidgetProps) => {
             <Grid.Row verticalAlign="middle">
               <FavoritesButton
                 item={props.item}
-                studentID={getUserIdFromRoute(props.match)}
+                studentID={getUserIdFromRoute(match)}
                 type={FAVORITE_TYPE.CAREERGOAL}
               />
               <Header floated="left">{upperName}</Header>
@@ -78,7 +73,7 @@ const ExplorerCareerGoalWidget = (props: IExplorerCareerGoalsWidgetProps) => {
           </Segment>
           <Divider style={divPadding} />
           <div style={{ marginTop: '5px' }}>
-            <InterestList item={item} size="mini" align="vertical" />
+            <InterestList item={item} size="mini" />
           </div>
           {
             hasTeaser ?
@@ -118,7 +113,7 @@ const ExplorerCareerGoalWidget = (props: IExplorerCareerGoalsWidgetProps) => {
                       descriptionPairs.map((descriptionPair) => (
                         <React.Fragment key={toId(descriptionPair)}>
                           {
-                            isSame(descriptionPair.label, 'Teaser') && teaserUrlHelper(props) ? (
+                            isSame(descriptionPair.label, 'Teaser') && teaserUrlHelper(careergoal) ? (
                               <React.Fragment>
                                 <b>
                                   {descriptionPair.label}
@@ -126,7 +121,7 @@ const ExplorerCareerGoalWidget = (props: IExplorerCareerGoalsWidgetProps) => {
                                 </b>
                                 {
                                     descriptionPair.value ?
-                                      (<TeaserVideo id={teaserUrlHelper(props)} />)
+                                      (<TeaserVideo id={teaserUrlHelper(careergoal)} />)
                                       :
                                       <p> N/A </p>
                                   }
@@ -200,11 +195,11 @@ const ExplorerCareerGoalWidget = (props: IExplorerCareerGoalsWidgetProps) => {
   );
 };
 
-const ExplorerCareerGoalsWidgetContainer = withTracker((props) => {
-  const profile = Users.getProfile(props.match.params.username);
-
+const ExplorerCareerGoalsWidgetContainer = withTracker(() => {
+  const { username } = useParams();
+  const profile = Users.getProfile(username);
   return {
     profile,
   };
 })(ExplorerCareerGoalWidget);
-export default withRouter(ExplorerCareerGoalsWidgetContainer);
+export default ExplorerCareerGoalsWidgetContainer;

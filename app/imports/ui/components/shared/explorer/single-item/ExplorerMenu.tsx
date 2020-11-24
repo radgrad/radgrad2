@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 import {
   IAcademicPlan,
   ICareerGoal,
@@ -19,14 +19,6 @@ interface IExplorerMenuProps {
   menuCareerList?: { item: IInterest, count: number }[] | undefined;
   type: 'plans' | 'career-goals' | 'courses' | 'interests' | 'opportunities' | 'users'; // TODO should this be a defined type?
   role: 'student' | 'faculty';
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
 }
 
 const getTypeName = (props: IExplorerMenuProps): string => {
@@ -50,7 +42,8 @@ const getTypeName = (props: IExplorerMenuProps): string => {
 };
 
 const ExplorerMenu = (props: IExplorerMenuProps) => {
-  const { menuAddedList, menuCareerList, match, type, role } = props;
+  const { menuAddedList, menuCareerList, type, role } = props;
+  const match = useRouteMatch();
 
   return (
     <React.Fragment>
@@ -73,5 +66,4 @@ const ExplorerMenu = (props: IExplorerMenuProps) => {
   );
 };
 
-export const ExplorerMenuContainer = withRouter(ExplorerMenu);
-export default ExplorerMenuContainer;
+export default ExplorerMenu;
