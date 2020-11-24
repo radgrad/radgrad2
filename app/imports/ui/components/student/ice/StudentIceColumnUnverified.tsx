@@ -2,7 +2,6 @@ import React from 'react';
 import { List } from 'semantic-ui-react';
 import _ from 'lodash';
 import { Link, withRouter } from 'react-router-dom';
-import { withTracker } from 'meteor/react-meteor-data';
 import { IAcademicTerm, IAcademicYearInstance, Ice, ICourseInstance, IOpportunityInstance } from '../../../../typings/radgrad';
 import { buildRouteName, getUserIdFromRoute } from '../../shared/utilities/router';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
@@ -52,13 +51,16 @@ const academicTerms = (year: IAcademicYearInstance): IAcademicTerm[] => {
 };
 
 const getEventsHelper = (iceType: string, type: string, earned: boolean, term: IAcademicTerm, props: IStudentIceColumnUnverifiedProps): (IOpportunityInstance | ICourseInstance)[] => {
+  const studentID = getUserIdFromRoute(props.match);
+  const courseInstances = CourseInstances.findNonRetired({ studentID });
+  const opportunityInstances = OpportunityInstances.findNonRetired({ studentID });
   if (getUserIdFromRoute(props.match)) {
     let allInstances: any[];
     const iceInstances = [];
     if (type === 'course') {
-      allInstances = _.filter(props.courseInstances, (ci) => ci.verified === earned && ci.termID === term._id);
+      allInstances = _.filter(courseInstances, (ci) => ci.verified === earned && ci.termID === term._id);
     } else {
-      allInstances = _.filter(props.opportunityInstances, (oi) => oi.verified === earned && oi.termID === term._id);
+      allInstances = _.filter(opportunityInstances, (oi) => oi.verified === earned && oi.termID === term._id);
     }
     allInstances.forEach((instance) => {
       if (iceType === 'Innovation') {
@@ -168,16 +170,5 @@ const StudentIceColumnUnverified = (props: IStudentIceColumnUnverifiedProps) => 
   );
 };
 
-const StudentIceColumnUnverifiedCon = withTracker(({ match }) => {
-  const studentID = getUserIdFromRoute(match);
-  // Tracked to make StudentIceColumnUnVerified reactive
-  const courseInstances: ICourseInstance[] = CourseInstances.findNonRetired({ studentID });
-  const opportunityInstances: IOpportunityInstance[] = OpportunityInstances.findNonRetired({ studentID });
-  return {
-    courseInstances,
-    opportunityInstances,
-  };
-})(StudentIceColumnUnverified);
-const StudentIceColumnUnverifiedContainer = withRouter(StudentIceColumnUnverifiedCon);
-
+const StudentIceColumnUnverifiedContainer = withRouter(StudentIceColumnUnverified);
 export default StudentIceColumnUnverifiedContainer;
