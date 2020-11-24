@@ -208,4 +208,4 @@ const StudentIceColumnRecommended = (props: IStudentIceColumnRecommendedProps) =
   );
 };
 
-export default  withRouter(StudentIceColumnRecommended);
+export default withRouter(StudentIceColumnRecommended);
