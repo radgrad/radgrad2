@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { withRouter } from 'react-router-dom';
 import { Segment, Header, Form, Button } from 'semantic-ui-react';
 import { AutoForm, TextField, LongTextField, BoolField, NumField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
@@ -343,5 +342,5 @@ const AdminAnalyticsNewsletterWidget = (props: IAdminAnalyticsNewsletterWidgetPr
   );
 };
 
-const AdminAnalyticsNewsletterWidgetCon = connect(mapStateToProps, mapDispatchToProps)(AdminAnalyticsNewsletterWidget);
-export default withRouter(AdminAnalyticsNewsletterWidgetCon);
+const AdminAnalyticsNewsletterWidgetContainer = connect(mapStateToProps, mapDispatchToProps)(AdminAnalyticsNewsletterWidget);
+export default AdminAnalyticsNewsletterWidgetContainer;
