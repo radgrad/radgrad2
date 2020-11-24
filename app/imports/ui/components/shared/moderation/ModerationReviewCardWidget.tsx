@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { withRouter } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { Segment, Container, Form, Button, Rating } from 'semantic-ui-react';
 import { Courses } from '../../../../api/course/CourseCollection';
@@ -125,4 +124,4 @@ const ModerationReviewCardWidget = (props: IModerationReviewCardWidget) => {
   );
 };
 
-export default withRouter(ModerationReviewCardWidget);
+export default ModerationReviewCardWidget;

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { NavLink, Link, withRouter } from 'react-router-dom';
+import { NavLink, Link, useRouteMatch } from 'react-router-dom';
 import { Button, Menu } from 'semantic-ui-react';
 
 import {
@@ -11,7 +11,6 @@ import { PAGE_TRACKING_COMPARISON, PAGE_TRACKING_SCOREBOARD } from '../../../lay
 type PageTrackingMenuTypes = 'scoreboard' | 'comparison';
 
 interface IPageTrackingScoreboardMenuProps {
-  match: IMatchProps
   type: PageTrackingMenuTypes;
 }
 
@@ -44,7 +43,8 @@ const getButtonText = (type: PageTrackingMenuTypes) => {
 };
 
 const PageTrackingMenu = (props: IPageTrackingScoreboardMenuProps) => {
-  const { match, type } = props;
+  const { type } = props;
+  const match = useRouteMatch();
   const buttonText = getButtonText(type);
   const buttonRoute = getButtonRoute(match, type, PageInterestsCategoryTypes.CAREERGOAL);
   return (
@@ -59,5 +59,4 @@ const PageTrackingMenu = (props: IPageTrackingScoreboardMenuProps) => {
   );
 };
 
-const PageTrackingScoreboardMenuContainer = withRouter(PageTrackingMenu);
-export default PageTrackingScoreboardMenuContainer;
+export default PageTrackingMenu;

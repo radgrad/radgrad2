@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { withRouter } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { Button, Container, Segment, Form } from 'semantic-ui-react';
 import { updateMethod } from '../../../../api/base/BaseCollection.methods';
@@ -77,4 +76,4 @@ const ModerationQuestionCardWidget = (props: IModerationQuestionCardWidget) => {
   );
 };
 
-export default withRouter(ModerationQuestionCardWidget);
+export default ModerationQuestionCardWidget;

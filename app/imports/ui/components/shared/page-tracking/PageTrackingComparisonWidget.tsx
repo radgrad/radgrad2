@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Dropdown, Grid, Table, Button, Header } from 'semantic-ui-react';
 import DatePicker from 'react-datepicker';
-import { withRouter } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import Swal from 'sweetalert2';
 import _ from 'lodash';
@@ -26,11 +26,9 @@ import {
   aggregateDailySnapshots, getCategory, getUrlCategory,
   IAggregatedDailySnapshot, parseName, slugIDToSlugName,
 } from './utilities/page-tracking';
-import { IMatchProps } from '../utilities/router';
 import PageTrackingWidgetMessage from './PageTrackingWidgetMessage';
 
 interface IPageTrackingComparisonWidgetProps {
-  match: IMatchProps;
   pageInterestsDailySnapshots: IPageInterestsDailySnapshot[];
 }
 
@@ -57,7 +55,8 @@ const getOptionsHelper = (docs: (ICareerGoal | ICourse | IInterest | IOpportunit
 }));
 
 const PageTrackingComparisonWidget = (props: IPageTrackingComparisonWidgetProps) => {
-  const { pageInterestsDailySnapshots, match } = props;
+  const { pageInterestsDailySnapshots } = props;
+  const match = useRouteMatch();
   const urlCategory: IPageInterestsCategoryTypes = getUrlCategory(match);
 
   const [data, setData] = useState<IPageInterestInfo[]>(undefined);
@@ -250,12 +249,11 @@ const PageTrackingComparisonWidget = (props: IPageTrackingComparisonWidgetProps)
   );
 };
 
-const PageTrackingComparisonWidgetCon = withTracker(() => {
+const PageTrackingComparisonWidgetContainer = withTracker(() => {
   const pageInterestsDailySnapshots: IPageInterestsDailySnapshot[] = PageInterestsDailySnapshots.find({}).fetch();
   return {
     pageInterestsDailySnapshots,
   };
 })(PageTrackingComparisonWidget);
-const PageTrackingComparisonWidgetContainer = withRouter(PageTrackingComparisonWidgetCon);
 
 export default PageTrackingComparisonWidgetContainer;

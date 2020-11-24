@@ -1,5 +1,4 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
 import { Header, Segment, Container, Item } from 'semantic-ui-react';
 import ModerationReviewCardWidget from './ModerationReviewCardWidget';
 import ModerationQuestionCardWidget from './ModerationQuestionCardWidget';
@@ -10,7 +9,6 @@ interface IModerationColumn {
   reviews: any,
   isReview: boolean,
   type: string
-
 }
 // this will be the column widget that holds the individual moderation cards
 
@@ -66,4 +64,4 @@ const ModerationColumnWidget = (props: IModerationColumn) => (
   </div>
 );
 
-export default withRouter(ModerationColumnWidget);
+export default ModerationColumnWidget;
