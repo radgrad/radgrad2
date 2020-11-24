@@ -25,7 +25,7 @@ const StudentIcePage = () => (
     </Container>
   </div>
 );
-
+// TODO We don't need to subscribe again it is handled in StudentProtectedRoute.
 const StudentHomeIcePageCon = withGlobalSubscription(StudentIcePage);
 const StudentHomeIcePageContainer = withInstanceSubscriptions(StudentHomeIcePageCon);
 

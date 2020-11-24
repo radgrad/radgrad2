@@ -23,7 +23,7 @@ const StudentAboutMePage = () => (
     <BackToTopButton />
   </div>
 );
-
+// TODO we don't need to subscribe here it is done in StudentProtectedRoute
 const StudentAboutMePageCon = withGlobalSubscription(StudentAboutMePage);
 const StudentAboutMePageContainer = withInstanceSubscriptions(StudentAboutMePageCon);
 

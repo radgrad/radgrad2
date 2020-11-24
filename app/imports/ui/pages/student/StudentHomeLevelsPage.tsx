@@ -143,7 +143,7 @@ const StudentHomeLevelsPage = () => (
     </Container>
   </div>
 );
-
+// TODO this is not needed the StudentProtectedRoute handles these two subscriptions.
 const StudentHomeLevelsPageCon = withGlobalSubscription(StudentHomeLevelsPage);
 const StudentHomeLevelsPageContainer = withInstanceSubscriptions(StudentHomeLevelsPageCon);
 
