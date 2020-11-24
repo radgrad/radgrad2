@@ -10,7 +10,7 @@ import AdvisorLogEntryWidget from '../../components/advisor/home/AdvisorLogEntry
 import AdvisorStarUploadWidget from '../../components/advisor/home/AdvisorStarUploadWidget';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
-import { Interests, Interests } from '../../../api/interest/InterestCollection';
+import { Interests } from '../../../api/interest/InterestCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';
 import { IAdvisorLog, ICareerGoal, IInterest, IStudentProfile } from '../../../typings/radgrad';

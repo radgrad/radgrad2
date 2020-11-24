@@ -1,5 +1,4 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
 import { Card, Grid, Message, SemanticWIDTHS, Tab } from 'semantic-ui-react';
 import { IAdvisorOrFacultyProfile, IStudentProfile } from '../../../../typings/radgrad';
 import { URL_ROLES } from '../../../layouts/utilities/route-constants';
@@ -88,4 +87,4 @@ const CommunityUsersWidget = (props: ICommunityUsersWidgetProps) => {
   );
 };
 
-export default withRouter(CommunityUsersWidget);
+export default CommunityUsersWidget;

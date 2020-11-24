@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { Button, Icon, Modal } from 'semantic-ui-react';
 import { removeItMethod } from '../../../../api/base/BaseCollection.methods';
@@ -9,12 +9,11 @@ import { userInteractionDefineMethod } from '../../../../api/analytic/UserIntera
 import { IAcademicTerm, ICourseInstance, IOpportunityInstance, IUserInteractionDefine } from '../../../../typings/radgrad';
 import { UserInteractionsTypes } from '../../../../api/analytic/UserInteractionsTypes';
 import { CourseInstances } from '../../../../api/course/CourseInstanceCollection';
-import { getUsername, IMatchProps } from '../utilities/router';
+import { getUsername } from '../utilities/router';
 import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 
 interface IRemoveItWidgetProps {
-  match: IMatchProps;
   collectionName: string;
   id: string;
   name: string;
@@ -27,6 +26,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const RemoveItWidget = (props: IRemoveItWidgetProps) => {
+  const match = useRouteMatch();
   const [modalOpenState, setModalOpen] = useState(false);
   const handleOpen = () => setModalOpen(true);
 
@@ -60,7 +60,7 @@ const RemoveItWidget = (props: IRemoveItWidgetProps) => {
           showConfirmButton: false,
           timer: 1500,
         });
-        const username = getUsername(props.match);
+        const username = getUsername(match);
         const instanceAcademicTerm: IAcademicTerm = AcademicTerms.findDoc({ _id: instanceObject.termID });
         const typeData = [instanceAcademicTerm.term, instanceAcademicTerm.year, slugName];
         const interactionData: IUserInteractionDefine = { username, type, typeData };
@@ -114,4 +114,4 @@ const RemoveItWidget = (props: IRemoveItWidgetProps) => {
 };
 
 const RemoveItWidgetContainer = connect(null, mapDispatchToProps)(RemoveItWidget);
-export default withRouter(RemoveItWidgetContainer);
+export default RemoveItWidgetContainer;

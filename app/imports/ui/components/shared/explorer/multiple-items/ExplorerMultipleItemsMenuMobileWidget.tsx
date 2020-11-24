@@ -1,7 +1,7 @@
 import { createMedia } from '@artsy/fresnel';
 import React from 'react';
 import { Dropdown } from 'semantic-ui-react';
-import { withRouter } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 import * as Router from '../../utilities/router';
 import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
 import ExplorerMenuMobileItem from '../single-item/ExplorerMenuMobileItem';
@@ -28,19 +28,12 @@ interface ICardExplorerMenuMobileWidgetProps {
   menuAddedList: { item: explorerInterfaces, count: number }[];
   menuCareerList: { item: IInterest, count: number }[] | undefined;
   type: 'plans' | 'career-goals' | 'courses' | 'interests' | 'opportunities';
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
 }
 
 const ExplorerMultipleItemsMenuMobileWidget = (props: ICardExplorerMenuMobileWidgetProps) => {
   const { menuAddedList, menuCareerList } = props;
-  const isStudent = Router.isUrlRoleStudent(props.match);
+  const match = useRouteMatch();
+  const isStudent = Router.isUrlRoleStudent(match);
   return (
     <React.Fragment>
       <style>{mediaStyles}</style>
@@ -61,7 +54,7 @@ const ExplorerMultipleItemsMenuMobileWidget = (props: ICardExplorerMenuMobileWid
                         type={EXPLORER_TYPE.ACADEMICPLANS}
                         listItem={listItem}
                         key={listItem.item._id}
-                        match={props.match}
+                        match={match}
                       />
                     ))
                   }
@@ -83,7 +76,7 @@ const ExplorerMultipleItemsMenuMobileWidget = (props: ICardExplorerMenuMobileWid
                         type={EXPLORER_TYPE.COURSES}
                         listItem={listItem}
                         key={listItem.item._id}
-                        match={props.match}
+                        match={match}
                       />
                     ))
                   }
@@ -104,7 +97,7 @@ const ExplorerMultipleItemsMenuMobileWidget = (props: ICardExplorerMenuMobileWid
                         type={EXPLORER_TYPE.OPPORTUNITIES}
                         listItem={listItem}
                         key={listItem.item._id}
-                        match={props.match}
+                        match={match}
                       />
                     ))
                   }
@@ -126,7 +119,7 @@ const ExplorerMultipleItemsMenuMobileWidget = (props: ICardExplorerMenuMobileWid
                         type={EXPLORER_TYPE.INTERESTS}
                         listItem={listItem}
                         key={listItem.item._id}
-                        match={props.match}
+                        match={match}
                       />
                     ))
                   }
@@ -139,7 +132,7 @@ const ExplorerMultipleItemsMenuMobileWidget = (props: ICardExplorerMenuMobileWid
                         type={EXPLORER_TYPE.INTERESTS}
                         listItem={listItem}
                         key={listItem.item._id}
-                        match={props.match}
+                        match={match}
                       />
                     ))
                   }
@@ -160,7 +153,7 @@ const ExplorerMultipleItemsMenuMobileWidget = (props: ICardExplorerMenuMobileWid
                         type={EXPLORER_TYPE.CAREERGOALS}
                         listItem={listItem}
                         key={listItem.item._id}
-                        match={props.match}
+                        match={match}
                       />
                     ))
                   }
@@ -174,6 +167,4 @@ const ExplorerMultipleItemsMenuMobileWidget = (props: ICardExplorerMenuMobileWid
   );
 };
 
-export const CardExplorerMenuMobileWidgetContainer = withRouter(ExplorerMultipleItemsMenuMobileWidget);
-
-export default CardExplorerMenuMobileWidgetContainer;
+export default ExplorerMultipleItemsMenuMobileWidget;

@@ -2,7 +2,6 @@ import React from 'react';
 import { Header, Segment } from 'semantic-ui-react';
 import { Droppable } from 'react-beautiful-dnd';
 import _ from 'lodash';
-import { withRouter } from 'react-router-dom';
 import { complexChoiceToArray } from '../../../../api/degree-plan/PlanChoiceUtilities';
 import { getDroppableListStyle } from './utilities/styles';
 import DraggablePlanChoicePill from './DraggablePlanChoicePill';
@@ -77,4 +76,4 @@ const AcademicPlanTermView = (props: IAcademicPlanTermViewProps) => {
   );
 };
 
-export default withRouter(AcademicPlanTermView);
+export default AcademicPlanTermView;

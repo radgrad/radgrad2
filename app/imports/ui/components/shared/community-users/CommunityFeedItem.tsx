@@ -1,20 +1,11 @@
 import React from 'react';
 import Markdown from 'react-markdown';
 import { Feed, Image } from 'semantic-ui-react';
-import { withRouter } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 import { renderLink } from '../utilities/router';
 
 interface IStudentFeedItemProps {
   feed: unknown;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-      opportunity: string;
-    }
-  };
 }
 
 const dateDiffInDays = (a: string, b: string) => {
@@ -41,7 +32,8 @@ const feedTimestamp = (feed): string => {
 };
 
 const CommunityFeedItem = (props: IStudentFeedItemProps) => {
-  const { feed, match }: any = props;
+  const { feed }: any = props;
+  const match = useRouteMatch();
   return (
     <React.Fragment>
       <Feed.Event>
@@ -68,4 +60,4 @@ const CommunityFeedItem = (props: IStudentFeedItemProps) => {
   );
 };
 
-export default withRouter(CommunityFeedItem);
+export default CommunityFeedItem;
