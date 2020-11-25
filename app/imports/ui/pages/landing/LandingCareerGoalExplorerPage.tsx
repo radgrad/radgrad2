@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import Markdown from 'react-markdown';
-import { withRouter } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Grid, Header, Segment } from 'semantic-ui-react';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
@@ -19,18 +19,10 @@ import BackToTopButton from '../../components/shared/BackToTopButton';
 interface ICareerGoalExplorerProps {
   currentUser: string;
   careerGoal: ICareerGoal;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
 }
 
 const LandingCareerGoalExplorerPage = (props: ICareerGoalExplorerProps) => {
-  const { match } = props;
+  const match = useRouteMatch();
   return (
     <div id="landing-career-goal-explorer-page">
       <ExplorerMenuBarContainer currentUser={props.currentUser} />
@@ -76,8 +68,6 @@ const WithSubs = withListSubscriptions(LandingCareerGoalExplorerPage, [
   Interests.getPublicationName(),
 ]);
 
-const LandingCareerGoalExplorerCon = withRouter(WithSubs);
-
 const LandingCareerGoalExplorerContainer = withTracker((props) => {
   const slugName = props.match.params.careergoal;
   // console.log(Slugs.find().fetch());
@@ -86,6 +76,6 @@ const LandingCareerGoalExplorerContainer = withTracker((props) => {
     careerGoal: CareerGoals.findDoc(id),
     currentUser: Meteor.user() ? Meteor.user().username : '',
   };
-})(LandingCareerGoalExplorerCon);
+})(WithSubs);
 
 export default LandingCareerGoalExplorerContainer;

@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import Markdown from 'react-markdown';
-import { withRouter } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Grid, Header, Segment } from 'semantic-ui-react';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
@@ -18,19 +18,11 @@ import BackToTopButton from '../../components/shared/BackToTopButton';
 interface IAcademicPlanExplorerProps {
   currentUser: string;
   plan: IAcademicPlan;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
 }
 
 const LandingAcademicPlanExplorerPage = (props: IAcademicPlanExplorerProps) => {
   // console.log(props.plan);
-  const { match } = props;
+  const match = useRouteMatch();
   return (
     <div id="landing-academic-plan-explorer-page">
       <LandingExplorerMenuBar currentUser={props.currentUser} />
@@ -76,8 +68,6 @@ const WithSubs = withListSubscriptions(LandingAcademicPlanExplorerPage, [
   Slugs.getPublicationName(),
 ]);
 
-const LandingAcademicPlanExplorerCon = withRouter(WithSubs);
-
 const LandingAcademicPlanExplorerContainer = withTracker((props) => {
   const slugName = props.match.params.plan;
   // console.log(Slugs.find().fetch());
@@ -86,6 +76,6 @@ const LandingAcademicPlanExplorerContainer = withTracker((props) => {
     currentUser: Meteor.user() ? Meteor.user().username : '',
     plan: AcademicPlans.findDoc(id),
   };
-})(LandingAcademicPlanExplorerCon);
+})(WithSubs);
 
 export default LandingAcademicPlanExplorerContainer;

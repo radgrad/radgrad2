@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, Container } from 'semantic-ui-react';
 import _ from 'lodash';
-import { withRouter } from 'react-router-dom';
+import { useParams, useRouteMatch } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
@@ -32,14 +32,6 @@ import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollect
 import { FavoriteOpportunities } from '../../../api/favorite/FavoriteOpportunityCollection';
 
 interface ICardExplorerPageProps {
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
   // TODO: If we're not using these, then shouldn't we get rid of them
   // eslint-disable-next-line react/no-unused-prop-types
   favoritePlans: IAcademicPlan[];
@@ -53,8 +45,8 @@ interface ICardExplorerPageProps {
   favoriteOpportunities: IOpportunity[];
 }
 
-const getMenuWidget = (props: ICardExplorerPageProps): JSX.Element => {
-  const role = Router.getRoleByUrl(props.match);
+const getMenuWidget = (match): JSX.Element => {
+  const role = Router.getRoleByUrl(match);
   // console.log('ExplorerMultipleItemsPage.getMenuWidget', role);
   switch (role) {
     case URL_ROLES.STUDENT:
@@ -68,8 +60,8 @@ const getMenuWidget = (props: ICardExplorerPageProps): JSX.Element => {
   }
 };
 
-const getCollection = (props: ICardExplorerPageProps): unknown => {
-  const type = Router.getLastUrlParam(props.match);
+const getCollection = (match): unknown => {
+  const type = Router.getLastUrlParam(match);
   // console.log('ExplorerMultipleItemsPage.getCollection', type);
   switch (type) {
     case EXPLORER_TYPE.ACADEMICPLANS:
@@ -107,9 +99,9 @@ const addedInterests = (props: ICardExplorerPageProps): { item: IInterest, count
   count: 1,
 }));
 
-const addedCareerInterests = (props: ICardExplorerPageProps): { item: IInterest, count: number }[] => {
-  if (Router.getUserIdFromRoute(props.match)) {
-    const profile = Users.getProfile(Router.getUserIdFromRoute(props.match));
+const addedCareerInterests = (match): { item: IInterest, count: number }[] => {
+  if (Router.getUserIdFromRoute(match)) {
+    const profile = Users.getProfile(Router.getUserIdFromRoute(match));
     const allInterests = Users.getInterestIDsByType(profile.userID);
     return _.map(allInterests[1], (interest) => ({ item: Interests.findDoc(interest), count: 1 }));
   }
@@ -121,8 +113,8 @@ const addedOpportunities = (props: ICardExplorerPageProps): { item: IOpportunity
   count: 1,
 }));
 
-const getAddedList = (props: ICardExplorerPageProps): { item: IAcademicPlan | ICareerGoal | ICourse | IInterest | IOpportunity, count: number }[] => {
-  const type = Router.getLastUrlParam(props.match);
+const getAddedList = (props: ICardExplorerPageProps, match): { item: IAcademicPlan | ICareerGoal | ICourse | IInterest | IOpportunity, count: number }[] => {
+  const type = Router.getLastUrlParam(match);
   switch (type) {
     case EXPLORER_TYPE.ACADEMICPLANS:
       return addedPlans(props);
@@ -140,12 +132,13 @@ const getAddedList = (props: ICardExplorerPageProps): { item: IAcademicPlan | IC
 };
 
 const ExplorerMultipleItemsPage = (props: ICardExplorerPageProps) => {
-  const menuWidget = getMenuWidget(props);
-  const addedList = getAddedList(props);
-  const isTypeInterest = Router.getLastUrlParam(props.match) === EXPLORER_TYPE.INTERESTS; // Only Interests takes in Career List for ExplorerMultipleItemsMenu
-  const role = Router.getRoleByUrl(props.match);
-  const collection = getCollection(props);
-  const type = Router.getLastUrlParam(props.match);
+  const match = useRouteMatch();
+  const menuWidget = getMenuWidget(match);
+  const addedList = getAddedList(props, match);
+  const isTypeInterest = Router.getLastUrlParam(match) === EXPLORER_TYPE.INTERESTS; // Only Interests takes in Career List for ExplorerMultipleItemsMenu
+  const role = Router.getRoleByUrl(match);
+  const collection = getCollection(match);
+  const type = Router.getLastUrlParam(match);
 
   return (
     <div id={`${type}-explorer-page`}>
@@ -176,8 +169,9 @@ const ExplorerMultipleItemsPage = (props: ICardExplorerPageProps) => {
 };
 
 // TODO: why are we getting all of this info when we only need some of it for any given page?
-export default withRouter(withTracker((props) => {
-  const studentID = Router.getUserIdFromRoute(props.match);
+export default withTracker((props) => {
+  const { username } = useParams();
+  const studentID = Users.getProfile(username).userID;
   const favoritePlans = FavoriteAcademicPlans.findNonRetired({ studentID });
   const favoriteCareerGoals = FavoriteCareerGoals.findNonRetired({ userID: studentID });
   const favoriteCourses = FavoriteCourses.findNonRetired({ studentID });
@@ -190,4 +184,4 @@ export default withRouter(withTracker((props) => {
     favoriteInterests,
     favoriteOpportunities,
   };
-})(ExplorerMultipleItemsPage));
+})(ExplorerMultipleItemsPage);

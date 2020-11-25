@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Grid } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
-import { withRouter } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 import _ from 'lodash';
 import { Feeds } from '../../../api/feed/FeedCollection';
 import { ROLE } from '../../../api/role/Role';
@@ -15,11 +15,10 @@ import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidge
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import CommunityUsersWidget from '../../components/shared/community-users/CommunityUsersWidget';
 import CommunityFeedWidget from '../../components/shared/community-users/CommunityFeedWidget';
-import { isUrlRoleStudent, IMatchProps } from '../../components/shared/utilities/router';
+import { isUrlRoleStudent } from '../../components/shared/utilities/router';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 
 interface ICommunityUsersPageProps {
-  match: IMatchProps;
   feeds: IFeed[];
   advisors: IAdvisorOrFacultyProfile[];
   faculty: IAdvisorOrFacultyProfile[];
@@ -27,7 +26,8 @@ interface ICommunityUsersPageProps {
 }
 
 const CommunityUsersPage = (props: ICommunityUsersPageProps) => {
-  const { match, feeds, advisors, faculty, students } = props;
+  const match = useRouteMatch();
+  const { feeds, advisors, faculty, students } = props;
   const getMenuWidget = (): JSX.Element => {
     const role = Router.getRoleByUrl(match);
     switch (role) {
@@ -74,8 +74,8 @@ const CommunityUsersPage = (props: ICommunityUsersPageProps) => {
   );
 };
 
-const CommunityUsersPageContainer = withTracker((props) => {
-  const { match } = props;
+const CommunityUsersPageContainer = withTracker(() => {
+  const match = useRouteMatch();
   const advisors = Users.findProfilesWithRole(ROLE.ADVISOR, {}, { sort: { lastName: 1 } });
   const faculty = Users.findProfilesWithRole(ROLE.FACULTY, {}, { sort: { lastName: 1 } });
   let students = Users.findProfilesWithRole(ROLE.STUDENT, {}, { sort: { lastName: 1 } });
@@ -90,4 +90,4 @@ const CommunityUsersPageContainer = withTracker((props) => {
   };
 })(CommunityUsersPage);
 
-export default withRouter(CommunityUsersPageContainer);
+export default CommunityUsersPageContainer;

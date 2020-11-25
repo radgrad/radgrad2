@@ -1,11 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import { Meteor } from 'meteor/meteor';
-import { withRouter } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {
   getAllUrlParamsByLocationObject, getUsername,
   ILocationProps,
-  IMatchProps,
 } from '../../components/shared/utilities/router';
 import { RootState } from '../../../redux/types';
 import { Slugs } from '../../../api/slug/SlugCollection';
@@ -24,7 +23,6 @@ interface IPageTrackerProps {
   history: {
     listen: (...args) => any;
   };
-  match: IMatchProps
   router: {
     location: ILocationProps;
     action: string;
@@ -46,7 +44,8 @@ function usePreviousProps(value) {
 function withPageTracker(WrappedComponent) {
   const PageTracker = (props: IPageTrackerProps) => {
     const prevProps = usePreviousProps(props);
-    const { match, router } = props;
+    const match = useRouteMatch();
+    const { router } = props;
     useEffect(() => {
       // @ts-ignore
       if (prevProps && prevProps.router.location !== router.location) {
@@ -117,7 +116,7 @@ function withPageTracker(WrappedComponent) {
     );
   };
 
-  return withRouter(connect(mapStateToProps)(PageTracker));
+  return connect(mapStateToProps)(PageTracker);
 }
 
 export default withPageTracker;

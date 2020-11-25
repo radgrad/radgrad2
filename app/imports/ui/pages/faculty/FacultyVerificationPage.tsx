@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Grid, Menu } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
-import { withRouter } from 'react-router-dom';
+import { useParams, useRouteMatch } from 'react-router-dom';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import PendingVerificationsWidget from '../../components/shared/verification/PendingVerificationsWidget';
@@ -18,14 +18,10 @@ import withAdditionalSubscriptions from '../../layouts/utilities/AdvisorFacultyA
 interface FacultyVerificationPageProps {
   verificationRequests: IVerificationRequest[];
   eventOpportunities: IOpportunity[];
-  match: {
-    params: {
-      username: string;
-    }
-  }
 }
 
 const FacultyVerificationPage = (props: FacultyVerificationPageProps) => {
+  const match = useRouteMatch();
   const [activeItemState, setActiveItem] = useState('pending');
 
   const handleMenu = (e, { name }) => setActiveItem(name);
@@ -79,7 +75,7 @@ const FacultyVerificationPage = (props: FacultyVerificationPageProps) => {
               : undefined}
             {activeItemState === 'completed' ? (
               <CompletedVerificationsWidget
-                username={props.match.params.username}
+                username={match.params.username}
                 completedVerifications={props.verificationRequests.filter(ele => VerificationRequests.ACCEPTED === ele.status || ele.status === VerificationRequests.REJECTED)}
               />
               )
@@ -94,8 +90,9 @@ const FacultyVerificationPage = (props: FacultyVerificationPageProps) => {
   );
 };
 
-const FacultyVerificationPageWithTracker = withTracker((props) => {
-  const userID = Users.getID(props.match.params.username);
+const FacultyVerificationPageWithTracker = withTracker(() => {
+  const { username } = useParams();
+  const userID = Users.getID(username);
   const linkedOppInstances = OpportunityInstances.findNonRetired({ sponsorID: userID });
   const isLinkedReq = (verReq: IVerificationRequest) => !!linkedOppInstances.find(oppI => verReq.opportunityInstanceID === oppI._id);
   return {
@@ -103,7 +100,6 @@ const FacultyVerificationPageWithTracker = withTracker((props) => {
     eventOpportunities: Opportunities.findNonRetired({ eventDate: { $exists: true } }),
   };
 })(FacultyVerificationPage);
-const FacultyVerificationPageWithRouter = withRouter(FacultyVerificationPageWithTracker);
-const FacultyVerificationPageContainer = withAdditionalSubscriptions(FacultyVerificationPageWithRouter);
+const FacultyVerificationPageContainer = withAdditionalSubscriptions(FacultyVerificationPageWithTracker);
 
 export default FacultyVerificationPageContainer;
