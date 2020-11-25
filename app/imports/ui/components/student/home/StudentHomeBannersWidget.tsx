@@ -1,19 +1,15 @@
 import React from 'react';
 import { Button, Card, Grid } from 'semantic-ui-react';
-import { Link, withRouter } from 'react-router-dom';
-import { buildRouteName, IMatchProps } from '../../shared/utilities/router';
+import { Link, useRouteMatch } from 'react-router-dom';
+import { buildRouteName } from '../../shared/utilities/router';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
-
-interface IStudentHomeBannersProps {
-  match: IMatchProps;
-}
 
 const bg1 = { backgroundColor: '#6fbe44' };
 const bg2 = { backgroundColor: '#2f9276' };
 const bg3 = { backgroundColor: '#106735' };
 
-const StudentHomeBannersWidget = (props: IStudentHomeBannersProps) => {
-  const { match } = props;
+const StudentHomeBannersWidget = () => {
+  const match = useRouteMatch();
   return (
     <Grid.Column>
       <Card.Group itemsPerRow={3}>
@@ -74,4 +70,4 @@ const StudentHomeBannersWidget = (props: IStudentHomeBannersProps) => {
   );
 };
 
-export default withRouter(StudentHomeBannersWidget);
+export default StudentHomeBannersWidget;

@@ -3,7 +3,7 @@ import { Accordion, Button, Confirm, Form, Icon, Message } from 'semantic-ui-rea
 import { AutoForm, LongTextField, SelectField, SubmitField } from 'uniforms-semantic/';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
-import { withRouter } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import _ from 'lodash';
 import { Reviews } from '../../../../api/review/ReviewCollection';
@@ -23,18 +23,7 @@ import { IReviewTypes, ReviewTypes } from '../../../../api/review/ReviewTypes';
 
 interface IStudentExplorerEditReviewWidgetProps {
   review: IReview;
-  event: {
-    [key: string]: any;
-  };
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-      course: string;
-    }
-  };
+  event: any;
 }
 
 const collection = Reviews;
@@ -43,6 +32,7 @@ const StudentExplorerEditReviewForm = (props: IStudentExplorerEditReviewWidgetPr
   const formRef = React.createRef();
   const [activeState, setActive] = useState(false);
   const [confirmOpenState, setConfirmOpen] = useState(false);
+  const match = useRouteMatch();
 
   const handleAccordionClick = (e: any) => {
     e.preventDefault();
@@ -51,7 +41,7 @@ const StudentExplorerEditReviewForm = (props: IStudentExplorerEditReviewWidgetPr
 
   const handleUpdate = (doc: IReviewUpdate): void => {
     const collectionName = collection.getCollectionName();
-    const { match, review } = props;
+    const { review } = props;
     const username = getUsername(match);
     const academicTermDoc = AcademicTerms.getAcademicTermFromToString(doc.academicTerm);
     const academicTermSlug = AcademicTerms.findSlugByID(academicTermDoc._id);
@@ -131,7 +121,7 @@ const StudentExplorerEditReviewForm = (props: IStudentExplorerEditReviewWidgetPr
   };
 
   const getUserIdFromRoute = (): string => {
-    const username = getUsername(props.match);
+    const username = getUsername(match);
     return username && Users.getID(username);
   };
 
@@ -306,6 +296,4 @@ const StudentExplorerEditReviewForm = (props: IStudentExplorerEditReviewWidgetPr
   );
 };
 
-const StudentExplorerEditReviewFormContainer = withRouter(StudentExplorerEditReviewForm);
-
-export default StudentExplorerEditReviewFormContainer;
+export default StudentExplorerEditReviewForm;

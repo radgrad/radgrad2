@@ -5,7 +5,7 @@ import { AutoForm, LongTextField, SelectField, SubmitField } from 'uniforms-sema
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import { Accordion, Form, Icon } from 'semantic-ui-react';
 import _ from 'lodash';
-import { withRouter } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 import { Reviews } from '../../../../api/review/ReviewCollection';
 import RatingField from './RatingField';
 import { CourseInstances } from '../../../../api/course/CourseInstanceCollection';
@@ -25,21 +25,13 @@ interface IStudentExplorerAddReviewFormProps {
     [key: string]: any;
   }
   reviewType: string;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-      course: string;
-    }
-  };
 }
 
 const collection = Reviews;
 
 const StudentExplorerAddReviewForm = (props: IStudentExplorerAddReviewFormProps) => {
   // console.log('StudentExplorerAddReviewForm', props);
+  const match = useRouteMatch();
   const formRef = React.createRef();
   const [activeState, setActive] = useState(false);
 
@@ -50,7 +42,7 @@ const StudentExplorerAddReviewForm = (props: IStudentExplorerAddReviewFormProps)
 
   const handleAdd = (doc: IReviewDefine): void => {
     const collectionName = collection.getCollectionName();
-    const { match, reviewType, event } = props;
+    const { reviewType, event } = props;
     const username = getUsername(match);
     const academicTermDoc = AcademicTerms.getAcademicTermFromToString(doc.academicTerm);
     const academicTermSlug = AcademicTerms.findSlugByID(academicTermDoc._id);
@@ -100,7 +92,7 @@ const StudentExplorerAddReviewForm = (props: IStudentExplorerAddReviewFormProps)
   };
 
   const academicTerm = (): IAcademicTerm[] => {
-    const { match, event, reviewType } = props;
+    const { event, reviewType } = props;
     const academicTerms = [];
     let instances;
     if (reviewType === 'course') {
@@ -180,6 +172,4 @@ const StudentExplorerAddReviewForm = (props: IStudentExplorerAddReviewFormProps)
   );
 };
 
-const StudentExplorerAddReviewFormContainer = withRouter(StudentExplorerAddReviewForm);
-
-export default StudentExplorerAddReviewFormContainer;
+export default StudentExplorerAddReviewForm;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 import { Grid, Header, Image, List } from 'semantic-ui-react';
 import Markdown from 'react-markdown';
 import _ from 'lodash';
@@ -18,23 +18,10 @@ import {
 import { IReview } from '../../../../typings/radgrad';
 
 interface IStudentExplorerReviewWidgetProps {
-  event: {
-    [key: string]: any;
-  }
-  userReview: {
-    [key: string]: any;
-  };
+  event: any;
+  userReview: IReview;
   completed: boolean;
   reviewType: string;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-      course: string;
-    }
-  };
 }
 
 const reviewData = (review: { [key: string]: any }): { [key: string]: any } => {
@@ -52,7 +39,8 @@ const reviewData = (review: { [key: string]: any }): { [key: string]: any } => {
   };
 };
 
-const reviews = (props: IStudentExplorerReviewWidgetProps): IReview[] => {
+// TODO make this responsive.
+const reviews = (props: IStudentExplorerReviewWidgetProps, match): IReview[] => {
   const event = props.event;
   const matchingReviews = Reviews.findNonRetired({
     revieweeID: event._id,
@@ -60,7 +48,7 @@ const reviews = (props: IStudentExplorerReviewWidgetProps): IReview[] => {
   });
   const matchingReviewsFinal = _.filter(matchingReviews, (review) => {
     let ret = true;
-    if (review.studentID === Router.getUserIdFromRoute(props.match)) {
+    if (review.studentID === Router.getUserIdFromRoute(match)) {
       ret = false;
     }
     return ret;
@@ -69,14 +57,15 @@ const reviews = (props: IStudentExplorerReviewWidgetProps): IReview[] => {
 };
 
 const StudentExplorerReviewWidget = (props: IStudentExplorerReviewWidgetProps) => {
+  const match = useRouteMatch();
   const uppercaseStyle = { textTransform: 'uppercase' };
   const commentsStyle = { paddingTop: '5px' };
 
-  const { event, userReview, completed, reviewType, match } = props;
+  const { event, userReview, completed, reviewType } = props;
   const { name, picture, term, rating, comments } = reviewData(userReview);
-  const currentUserPicture = profileIDToPicture(Router.getUserIdFromRoute(props.match));
-  const currentUserName = userToFullName(Router.getUsername(props.match));
-  const theReviews = reviews(props);
+  const currentUserPicture = profileIDToPicture(Router.getUserIdFromRoute(match));
+  const currentUserName = userToFullName(Router.getUsername(match));
+  const theReviews = reviews(props, match);
   return (
     <div className="ui padded container">
       <Header as="h4" dividing style={uppercaseStyle}>
@@ -191,4 +180,4 @@ const StudentExplorerReviewWidget = (props: IStudentExplorerReviewWidgetProps) =
   );
 };
 
-export default withRouter(StudentExplorerReviewWidget);
+export default StudentExplorerReviewWidget;
