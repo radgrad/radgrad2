@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink, withRouter } from 'react-router-dom';
+import { NavLink, useRouteMatch } from 'react-router-dom';
 import { Menu } from 'semantic-ui-react';
 import { buildRouteName } from '../utilities/router';
 import {
@@ -27,13 +27,14 @@ const menuItems = [
   },
 ];
 
-const ScoreboardPageMenu = (props: any) => {
+const ScoreboardPageMenu = (): JSX.Element => {
+  const match = useRouteMatch();
   const menuOptions = menuItems.map((item) => (
     <Menu.Item
       key={item.key}
       as={NavLink}
       exact
-      to={buildRouteName(props.match, item.route)}
+      to={buildRouteName(match, item.route)}
     >
       {item.text}
     </Menu.Item>
@@ -45,4 +46,4 @@ const ScoreboardPageMenu = (props: any) => {
   );
 };
 
-export default withRouter(ScoreboardPageMenu);
+export default ScoreboardPageMenu;

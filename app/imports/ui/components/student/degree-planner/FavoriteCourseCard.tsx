@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, Icon } from 'semantic-ui-react';
 import _ from 'lodash';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, useRouteMatch } from 'react-router-dom';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { withTracker } from 'meteor/react-meteor-data';
 import { ICourse, ICourseInstance } from '../../../../typings/radgrad';
@@ -17,13 +17,13 @@ import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import { buildRouteName } from './DepUtilityFunctions';
 
 interface IFavoriteCourseCardProps {
-  match: any;
   course: ICourse;
   studentID: string;
   instances: ICourseInstance[];
 }
 
 const FavoriteCourseCard = (props: IFavoriteCourseCardProps) => {
+  const match = useRouteMatch();
   const instances = props.instances;
   const terms = _.map(instances, (i) => AcademicTerms.findDoc(i.termID));
   // Sort by ascending order
@@ -84,7 +84,7 @@ const FavoriteCourseCard = (props: IFavoriteCourseCardProps) => {
       <Card.Content>
         <p style={textAlignRight}>
           <Link
-            to={buildRouteName(props.match, props.course, EXPLORER_TYPE.COURSES)}
+            to={buildRouteName(match, props.course, EXPLORER_TYPE.COURSES)}
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -96,7 +96,7 @@ const FavoriteCourseCard = (props: IFavoriteCourseCardProps) => {
   );
 };
 
-export default withRouter(withTracker((props) => {
+export default withTracker((props) => {
   const instances = CourseInstances.findNonRetired({
     studentID: props.studentID,
     courseID: props.course._id,
@@ -104,4 +104,4 @@ export default withRouter(withTracker((props) => {
   return {
     instances,
   };
-})(FavoriteCourseCard));
+})(FavoriteCourseCard);

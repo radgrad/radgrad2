@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Card, Icon } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, useRouteMatch } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import {
   IAcademicTerm,
@@ -22,7 +22,6 @@ import { UserInteractionsTypes } from '../../../../api/analytic/UserInteractions
 import { userInteractionDefineMethod } from '../../../../api/analytic/UserInteractionCollection.methods';
 
 interface IDetailCourseCardProps {
-  match: any;
   instance: ICourseInstance;
   // eslint-disable-next-line react/no-unused-prop-types
   selectCourseInstance: (courseInstanceID: string) => any;
@@ -32,7 +31,7 @@ const mapDispatchToProps = (dispatch) => ({
   selectCourseInstance: (courseInstanceID) => dispatch(degreePlannerActions.selectCourseInstance(courseInstanceID)),
 });
 
-const handleRemove = (props: IDetailCourseCardProps) => (event, { value }) => {
+const handleRemove = (props: IDetailCourseCardProps, match) => (event, { value }) => {
   event.preventDefault();
   const collectionName = CourseInstances.getCollectionName();
   const instance = value;
@@ -50,7 +49,7 @@ const handleRemove = (props: IDetailCourseCardProps) => (event, { value }) => {
       });
       const academicTerm: IAcademicTerm = AcademicTerms.findDoc({ _id: instanceObject.termID });
       const interactionData: IUserInteractionDefine = {
-        username: getUsername(props.match),
+        username: getUsername(match),
         type: UserInteractionsTypes.REMOVECOURSE,
         typeData: [academicTerm.term, academicTerm.year, slugName],
       };
@@ -65,6 +64,7 @@ const handleRemove = (props: IDetailCourseCardProps) => (event, { value }) => {
 };
 
 const DetailCourseCard = (props: IDetailCourseCardProps) => {
+  const match = useRouteMatch();
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
   const courseTerm = AcademicTerms.findDoc(props.instance.termID);
   const futureP = courseTerm.termNumber >= currentTerm.termNumber;
@@ -97,7 +97,7 @@ const DetailCourseCard = (props: IDetailCourseCardProps) => {
                   basic
                   color="green"
                   value={props.instance._id}
-                  onClick={handleRemove(props)}
+                  onClick={handleRemove(props, match)}
                   size="tiny"
                 >
                   Remove
@@ -114,7 +114,7 @@ const DetailCourseCard = (props: IDetailCourseCardProps) => {
         <Card.Content>
           <p style={textAlignRight}>
             <Link
-              to={buildRouteName(props.match, course, EXPLORER_TYPE.COURSES)}
+              to={buildRouteName(match, course, EXPLORER_TYPE.COURSES)}
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -127,6 +127,5 @@ const DetailCourseCard = (props: IDetailCourseCardProps) => {
   );
 };
 
-const DetailCourseCardCon = withRouter(DetailCourseCard);
-const DetailCourseCardConnected = connect(null, mapDispatchToProps)(DetailCourseCardCon);
+const DetailCourseCardConnected = connect(null, mapDispatchToProps)(DetailCourseCard);
 export default DetailCourseCardConnected;

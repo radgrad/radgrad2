@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Grid } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
-import { withRouter } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 import { updateMethod } from '../../../../api/base/BaseCollection.methods';
 import { getUsername } from '../../shared/utilities/router';
 import { UserInteractionsTypes } from '../../../../api/analytic/UserInteractionsTypes';
@@ -12,19 +12,11 @@ interface IStudentAboutMeUpdateWebsiteFormProps {
   website: string;
   docID: string;
   collectionName: string;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
 }
 
 const StudentAboutMeUpdateWebsiteForm = (props: IStudentAboutMeUpdateWebsiteFormProps) => {
   const [websiteState, setWebsite] = useState(props.website);
-
+  const match = useRouteMatch();
   const handleFormChange = (e, { value }) => setWebsite(value);
 
   const handleUpdateWebsite = (e): void => {
@@ -48,7 +40,7 @@ const StudentAboutMeUpdateWebsiteForm = (props: IStudentAboutMeUpdateWebsiteForm
           allowEscapeKey: false,
           allowEnterKey: false,
         });
-        const username = getUsername(props.match);
+        const username = getUsername(match);
         const interactionData: IUserInteractionDefine = {
           username,
           type: UserInteractionsTypes.WEBSITE,
@@ -80,4 +72,4 @@ const StudentAboutMeUpdateWebsiteForm = (props: IStudentAboutMeUpdateWebsiteForm
   );
 };
 
-export default withRouter(StudentAboutMeUpdateWebsiteForm);
+export default StudentAboutMeUpdateWebsiteForm;
