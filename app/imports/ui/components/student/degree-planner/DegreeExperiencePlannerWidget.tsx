@@ -19,7 +19,6 @@ import { OpportunityInstances } from '../../../../api/opportunity/OpportunityIns
 import { defineMethod, removeItMethod } from '../../../../api/base/BaseCollection.methods';
 import { degreePlannerActions } from '../../../../redux/student/degree-planner';
 import { studentDepWidget } from '../student-widget-names';
-import { getUserIdFromRoute } from '../../shared/utilities/router';
 
 interface IDePProps {
   selectCourseInstance: (courseInstanceID: string) => any;

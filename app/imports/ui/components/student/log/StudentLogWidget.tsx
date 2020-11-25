@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 import { Container, Segment, Header, Item, Image } from 'semantic-ui-react';
 import { AdvisorLogs } from '../../../../api/log/AdvisorLogCollection';
 import { IAdvisorLog, IBaseProfile } from '../../../../typings/radgrad';
@@ -7,19 +7,7 @@ import { getUserIdFromRoute } from '../../shared/utilities/router';
 import { Users } from '../../../../api/user/UserCollection';
 import { studentLogWidget } from '../student-widget-names';
 
-interface IStudentLogWidgetProps {
-  // eslint-disable-next-line react/no-unused-prop-types
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
-}
-
-const getAdvisorLogs = (props: IStudentLogWidgetProps): IAdvisorLog[] => AdvisorLogs.findNonRetired({ studentID: getUserIdFromRoute(props.match) }, { sort: { createdOn: -1 } });
+const getAdvisorLogs = (match): IAdvisorLog[] => AdvisorLogs.findNonRetired({ studentID: getUserIdFromRoute(match) }, { sort: { createdOn: -1 } });
 
 const getAdvisorImage = (log: IAdvisorLog): IBaseProfile => Users.getProfile(log.advisorID).picture;
 
@@ -30,8 +18,10 @@ const getDisplayDate = (log: IAdvisorLog): string => {
   return `${date.toDateString()}`;
 };
 
-const StudentLogWidget = (props: IStudentLogWidgetProps) => {
-  const advisorLogs = getAdvisorLogs(props);
+const StudentLogWidget = () => {
+  const match = useRouteMatch();
+  // TODO should this be reactive?
+  const advisorLogs = getAdvisorLogs(match);
 
   return (
     <Container id={`${studentLogWidget}`}>
@@ -68,4 +58,4 @@ const StudentLogWidget = (props: IStudentLogWidgetProps) => {
   );
 };
 
-export default withRouter(StudentLogWidget);
+export default StudentLogWidget;

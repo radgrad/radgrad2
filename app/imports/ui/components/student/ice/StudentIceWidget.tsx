@@ -1,10 +1,9 @@
 import React from 'react';
 import { Segment, Grid, Header } from 'semantic-ui-react';
-import { withRouter } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Ice } from '../../../../typings/radgrad';
 import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
-import { getUsername } from '../../shared/utilities/router';
 import StudentIceColumn from './StudentIceColumn';
 import { studentIceWidget } from '../student-widget-names';
 import PageIceCircle from './PageIceCircle';
@@ -115,8 +114,8 @@ const StudentIceWidget = (props: IStudentIceWidgetProps) => {
   );
 };
 
-const StudentIceWidgetCon = withTracker(({ match }) => {
-  const username = getUsername(match);
+const StudentIceWidgetContainer = withTracker(() => {
+  const { username } = useParams();
   const earnedICE: Ice = StudentProfiles.getEarnedICE(username);
   const projectedICE: Ice = StudentProfiles.getProjectedICE(username);
   return {
@@ -124,6 +123,5 @@ const StudentIceWidgetCon = withTracker(({ match }) => {
     projectedICE,
   };
 })(StudentIceWidget);
-const StudentIceWidgetContainer = withRouter(StudentIceWidgetCon);
 
 export default StudentIceWidgetContainer;

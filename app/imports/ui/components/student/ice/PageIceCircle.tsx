@@ -1,23 +1,16 @@
 import * as React from 'react';
 import { PositionProperties } from 'react-native';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, useRouteMatch } from 'react-router-dom';
 import { buildRouteName } from '../../shared/utilities/router';
 
 interface IPageIceCircleProps {
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
   earned: number;
   planned: number;
   type: string;
 }
 
 const PageIceCircle = (props: IPageIceCircleProps) => {
+  const match = useRouteMatch();
   const styles = {
     position: 'absolute' as PositionProperties.absolute,
     zIndex: 1,
@@ -26,7 +19,7 @@ const PageIceCircle = (props: IPageIceCircleProps) => {
     width: '3.45em',
     fontSize: '0.40em',
   };
-  const { planned, type, earned, match } = props;
+  const { planned, type, earned } = props;
   const p = (planned < 100) ? planned : 100;
   const e = (earned < 100) ? earned : 100;
   const classNamesPlanned = `radgrad-ice-circle p${p} radgrad-proj-${type}`;
@@ -54,4 +47,4 @@ const PageIceCircle = (props: IPageIceCircleProps) => {
   );
 };
 
-export default withRouter(PageIceCircle);
+export default PageIceCircle;

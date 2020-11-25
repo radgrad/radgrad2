@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 import Markdown from 'react-markdown';
 import { Segment, Grid, Container, Message, Icon, Image, Header } from 'semantic-ui-react';
 import { getUserIdFromRoute } from '../../shared/utilities/router';
@@ -7,32 +7,17 @@ import { Users } from '../../../../api/user/UserCollection';
 import { studentLevelsWidget } from '../student-widget-names';
 import { getLevelHintStringMarkdown } from '../../../../api/level/LevelProcessor';
 
-// import { HelpMessages } from '../../../api/help/HelpMessageCollection';
-
-export interface IStudentLevelsWidgetProps {
-  // eslint-disable-next-line react/no-unused-prop-types
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
-  studentLevelNumber: number;
-}
-
-const getStudentLevelNumber = (props: IStudentLevelsWidgetProps): number => {
-  if (getUserIdFromRoute(props.match)) {
-    const profile = Users.getProfile(getUserIdFromRoute(props.match));
+const getStudentLevelNumber = (match): number => {
+  if (getUserIdFromRoute(match)) {
+    const profile = Users.getProfile(getUserIdFromRoute(match));
     return profile.level || 1;
   }
   return 1;
 };
 
-const getStudentLevelName = (props: IStudentLevelsWidgetProps): string => {
-  if (getUserIdFromRoute(props.match)) {
-    const profile = Users.getProfile(getUserIdFromRoute(props.match));
+const getStudentLevelName = (match): string => {
+  if (getUserIdFromRoute(match)) {
+    const profile = Users.getProfile(getUserIdFromRoute(match));
     if (profile.level) {
       return `LEVEL ${profile.level}`;
     }
@@ -40,10 +25,10 @@ const getStudentLevelName = (props: IStudentLevelsWidgetProps): string => {
   return 'LEVEL 1';
 };
 
-const getStudentLevelHint = (props: IStudentLevelsWidgetProps): string => {
+const getStudentLevelHint = (match): string => {
   let levelNumber = 0;
-  if (getUserIdFromRoute(props.match)) {
-    const profile = Users.getProfile(getUserIdFromRoute(props.match));
+  if (getUserIdFromRoute(match)) {
+    const profile = Users.getProfile(getUserIdFromRoute(match));
     levelNumber = profile.level;
   }
   // const helpMessage = HelpMessages.findDocByRouteName('/student/:username/home/levels').text;
@@ -67,11 +52,12 @@ const getStudentLevelHint = (props: IStudentLevelsWidgetProps): string => {
   }
 };
 
-const StudentLevelsWidget = (props: IStudentLevelsWidgetProps) => {
+const StudentLevelsWidget = () => {
+  const match = useRouteMatch();
   const imageStyle = { width: '230px' };
-  const studentLevelNumber: number = getStudentLevelNumber(props);
-  const studentLevelName = getStudentLevelName(props);
-  const studentLevelHint = getStudentLevelHint(props);
+  const studentLevelNumber: number = getStudentLevelNumber(match);
+  const studentLevelName = getStudentLevelName(match);
+  const studentLevelHint = getStudentLevelHint(match);
   return (
     <Segment padded id={`${studentLevelsWidget}`}>
       <Header as="h4" dividing>CURRENT LEVEL</Header>
@@ -98,5 +84,4 @@ const StudentLevelsWidget = (props: IStudentLevelsWidgetProps) => {
   );
 };
 
-const StudentLevelsWidgetContainer = withRouter(StudentLevelsWidget);
-export default StudentLevelsWidgetContainer;
+export default StudentLevelsWidget;
