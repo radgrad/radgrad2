@@ -47,9 +47,13 @@ const App = () => (
       {routes.ALUMNI.map((route) => (
         <StudentProtectedRoute key={route.path} {...route} />
       ))}
-      <Route path="/signin" component={SigninPage} />
+      <Route path="/signin">
+        <SigninPage />
+      </Route>
       <ProtectedRoute path="/signout" component={SignoutPage} />
-      <Route component={NotFoundPage} />
+      <Route>
+        <NotFoundPage />
+      </Route>
     </Switch>
   </Router>
 );
