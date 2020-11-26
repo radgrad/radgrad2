@@ -154,7 +154,7 @@ const ExplorerMultipleItemsPage = (props: ICardExplorerPageProps) => {
                 menuAddedList={addedList}
                 type={type}
                 role={role}
-                menuCareerList={isTypeInterest ? addedCareerInterests(props) : undefined}
+                menuCareerList={isTypeInterest ? addedCareerInterests(match) : undefined}
               />
             </Grid.Column>
             <Grid.Column width={12}>

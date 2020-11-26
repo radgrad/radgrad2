@@ -83,6 +83,10 @@ function processStudentStarDefinitions(advisor, student, definitions) {
       console.log('Error creating AdvisorLog', error);
     }
   });
+  // update the student's lastRegistrarLoad
+  const lastRegistrarLoad = new Date();
+  const docID = studentID;
+  StudentProfiles.update(docID, { lastRegistrarLoad });
 }
 
 /**

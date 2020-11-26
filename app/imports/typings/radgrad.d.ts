@@ -776,6 +776,7 @@ export interface IBaseProfile {
   courseExplorerFilter?: string;
   opportunityExplorerSortOrder?: string;
   aboutMe?: string;
+  lastRegistrarLoad?: Date;
 }
 
 export interface IProfile {
@@ -903,6 +904,7 @@ export interface IStudentProfileUpdate extends IProfileUpdate {
   shareCourses?: boolean;
   shareOpportunities?: boolean;
   shareLevel?: boolean;
+  lastRegistrarLoad?: Date;
 }
 
 export interface IStudentProfileUpdateData {
@@ -921,6 +923,7 @@ export interface IStudentProfileUpdateData {
   shareCourses?: boolean;
   shareOpportunities?: boolean;
   shareLevel?: boolean;
+  lastRegistrarLoad?: Date;
 }
 
 // Reviews

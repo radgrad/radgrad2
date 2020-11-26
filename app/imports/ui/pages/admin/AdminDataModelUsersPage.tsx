@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Confirm, Grid, Icon, Tab } from 'semantic-ui-react';
 import _ from 'lodash';
+import moment from 'moment';
 import { connect } from 'react-redux';
 import { withTracker } from 'meteor/react-meteor-data';
 import Swal from 'sweetalert2';
@@ -107,8 +108,14 @@ const descriptionPairs = (props: IAdminDataModelUsersPageProps) => (user: IBaseP
       value: (user.declaredAcademicTermID) ? AcademicTerms.toString(user.declaredAcademicTermID) : '',
     });
     pairs.push({ label: 'Opted In', value: user.optedIn ? 'True' : 'False' });
+    if (user.lastRegistrarLoad) {
+      pairs.push({ label: 'Last Registrar Load', value: `${moment(user.lastRegistrarLoad).format()}` });
+    }
   }
   if (user.role === ROLE.FACULTY) {
+    pairs.push({ label: 'About Me', value: `${user.aboutMe}` });
+  }
+  if (user.role === ROLE.ADVISOR) {
     pairs.push({ label: 'About Me', value: `${user.aboutMe}` });
   }
   pairs.push({ label: 'Retired', value: user.retired ? 'True' : 'False' });

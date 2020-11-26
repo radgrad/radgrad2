@@ -7,9 +7,10 @@ import CommunityRadGradVideosWidget from '../../components/shared/community-radg
 import * as Router from '../../components/shared/utilities/router';
 import { URL_ROLES } from '../../layouts/utilities/route-constants';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
+import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
 
 const CommunityRadGradVideosPage = () => {
-  const { match } = useRouteMatch();
+  const match = useRouteMatch();
   const getMenuWidget = (): JSX.Element => {
     const role = Router.getRoleByUrl(match);
     switch (role) {
@@ -17,6 +18,8 @@ const CommunityRadGradVideosPage = () => {
         return <StudentPageMenuWidget />;
       case URL_ROLES.FACULTY:
         return <FacultyPageMenuWidget />;
+      case URL_ROLES.ADVISOR:
+        return <AdvisorPageMenuWidget />;
       default:
         return <React.Fragment />;
     }

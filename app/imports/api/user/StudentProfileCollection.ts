@@ -38,6 +38,7 @@ class StudentProfileCollection extends BaseProfileCollection {
       shareOpportunities: { type: Boolean, optional: true },
       shareCourses: { type: Boolean, optional: true },
       shareLevel: { type: Boolean, optional: true },
+      lastRegistrarLoad: { type: Date, optional: true },
     }));
     this.defineSchema = new SimpleSchema({
       username: String,
@@ -97,6 +98,7 @@ class StudentProfileCollection extends BaseProfileCollection {
       shareOpportunities: { type: Boolean, optional: true },
       shareCourses: { type: Boolean, optional: true },
       shareLevel: { type: Boolean, optional: true },
+      lastRegistrarLoad: { type: Date, optional: true },
     });
   }
 
@@ -227,7 +229,7 @@ class StudentProfileCollection extends BaseProfileCollection {
     firstName, lastName, picture, website, interests, careerGoals, level, favoriteAcademicPlans, favoriteCourses,
     favoriteOpportunities, declaredAcademicTerm,
     isAlumni, retired, courseExplorerFilter, opportunityExplorerSortOrder, shareUsername, sharePicture, shareWebsite, shareInterests,
-    shareCareerGoals, shareAcademicPlan, shareCourses, shareOpportunities, shareLevel,
+    shareCareerGoals, shareAcademicPlan, shareCourses, shareOpportunities, shareLevel, lastRegistrarLoad,
   }: IStudentProfileUpdate) {
     this.assertDefined(docID);
     const profile = this.findDoc(docID);
@@ -288,6 +290,9 @@ class StudentProfileCollection extends BaseProfileCollection {
     }
     if (_.isBoolean(shareLevel)) {
       updateData.shareLevel = shareLevel;
+    }
+    if (lastRegistrarLoad) {
+      updateData.lastRegistrarLoad = lastRegistrarLoad;
     }
     // console.log('StudentProfile.update %o', updateData);
     this.collection.update(docID, { $set: updateData });

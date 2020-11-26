@@ -114,6 +114,7 @@ function filterParsedData(parsedData) {
  * @param { String } csvData A string containing the contents of a CSV file downloaded from STAR.
  * @returns { Array } A list of objects with fields: academicTerm, course, note, verified, grade, and creditHrs.
  * @memberOf api/star
+ * @deprecated
  */
 export function processStarCsvData(student, csvData) {
   if (Papa) {
@@ -179,6 +180,11 @@ export function processStarCsvData(student, csvData) {
   return null;
 }
 
+/**
+ * Processes STAR CSV data.
+ * @deprecated
+ * @param csvData
+ */
 export function processBulkStarCsvData(csvData) {
   if (Papa) {
     const parsedData = Papa.parse(csvData);
@@ -303,7 +309,7 @@ export function processStarJsonData(student, jsonData) {
 
 /**
  * Processes STAR JSON data and returns an array of objects containing CourseInstance fields.
- * @param { String } jsonData JSON array with objects for students.
+ * @param { Array } jsonData JSON array with objects for students.
  * @returns { Array } A list of objects with fields: academicTerm, course, note, verified, grade, and creditHrs.
  * @memberOf api/star
  */
