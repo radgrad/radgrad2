@@ -1,10 +1,10 @@
 import React from 'react';
 import { SemanticWIDTHS } from 'semantic-ui-react';
-import FirstMenu, { IFirstMenuProps } from '../shared/FirstMenu';
+import FirstMenu from '../shared/FirstMenu';
 import { Reviews } from '../../../api/review/ReviewCollection';
 import SecondMenu from './SecondMenu';
 
-const AdminPageMenuWidget: React.FunctionComponent<IFirstMenuProps> = ({ currentUser, iconName }) => {
+const AdminPageMenuWidget: React.FunctionComponent = () => {
   const divStyle = { marginBottom: 30 };
   let numMod = 0;
   numMod += Reviews.find({ moderated: false }).fetch().length;
@@ -22,7 +22,7 @@ const AdminPageMenuWidget: React.FunctionComponent<IFirstMenuProps> = ({ current
   ];
   return (
     <div style={divStyle}>
-      <FirstMenu currentUser={currentUser} iconName={iconName} />
+      <FirstMenu />
       <SecondMenu menuItems={menuItems} numItems={menuItems.length as SemanticWIDTHS} />
     </div>
   );
