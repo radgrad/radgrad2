@@ -1,10 +1,10 @@
 import React from 'react';
-import FirstMenuContainer from '../shared/FirstMenu';
+import { SemanticWIDTHS } from 'semantic-ui-react';
+import FirstMenu, { IFirstMenuProps } from '../shared/FirstMenu';
 import { Reviews } from '../../../api/review/ReviewCollection';
 import SecondMenu from './SecondMenu';
 
-/** A simple static component to render some text for the landing page. */
-const AdminPageMenuWidget = () => {
+const AdminPageMenuWidget: React.FunctionComponent<IFirstMenuProps> = ({ currentUser, iconName }) => {
   const divStyle = { marginBottom: 30 };
   let numMod = 0;
   numMod += Reviews.find({ moderated: false }).fetch().length;
@@ -22,8 +22,8 @@ const AdminPageMenuWidget = () => {
   ];
   return (
     <div style={divStyle}>
-      <FirstMenuContainer />
-      <SecondMenu menuItems={menuItems} numItems={menuItems.length} />
+      <FirstMenu currentUser={currentUser} iconName={iconName} />
+      <SecondMenu menuItems={menuItems} numItems={menuItems.length as SemanticWIDTHS} />
     </div>
   );
 };
