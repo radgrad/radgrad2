@@ -29,7 +29,7 @@ import {
 } from '../utilities/explorer';
 import { cardExplorerWidget } from '../../shared-widget-names';
 
-// TODO This is one messed up component. It needs to be refactored.
+// TODO QA This is one messed up component. It needs to be refactored.
 
 interface ICardExplorerWidgetProps extends ICardExplorerMenuWidgetProps {
   // eslint-disable-next-line react/no-unused-prop-types

@@ -148,14 +148,6 @@ export interface ICardExplorerCards {
 export interface IPlanCard extends ICardExplorerCards {
   type: string;
   canAdd: boolean;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
 }
 
 export interface IProfileCard extends ICardExplorerCards {
