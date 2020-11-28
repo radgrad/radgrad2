@@ -1,20 +1,22 @@
 import React from 'react';
 import { Grid } from 'semantic-ui-react';
+import { withTracker } from 'meteor/react-meteor-data';
+import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminAnalyticsMenuWidget from '../../components/admin/analytics/AdminAnalyticsMenuWidget';
 import AdminAnalyticsOverheadAnalysisWidget
   from '../../components/admin/analytics/overhead-analysis/AdminAnalyticsOverheadAnalysisWidget';
-import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
+import HelpPanelWidget, { IHelpPanelWidgetProps } from '../../components/shared/HelpPanelWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import withInstanceSubscriptions from '../../layouts/utilities/InstanceSubscriptionsHOC';
 
-const AdminAnalyticsOverheadAnalysisPage = () => (
+const AdminAnalyticsOverheadAnalysisPage: React.FC<IHelpPanelWidgetProps> = ({ helpMessages }) => (
   <div>
     <AdminPageMenuWidget />
     <Grid stackable>
       <Grid.Row>
         <Grid.Column width={1} />
-        <Grid.Column width={14}><HelpPanelWidget /></Grid.Column>
+        <Grid.Column width={14}><HelpPanelWidget helpMessages={helpMessages} /></Grid.Column>
         <Grid.Column width={1} />
       </Grid.Row>
 
@@ -35,4 +37,9 @@ const AdminAnalyticsOverheadAnalysisPage = () => (
   </div>
 );
 
-export default withInstanceSubscriptions(AdminAnalyticsOverheadAnalysisPage);
+export default withTracker(() => {
+  const helpMessages = HelpMessages.findNonRetired({});
+  return {
+    helpMessages,
+  };
+})(AdminAnalyticsOverheadAnalysisPage);

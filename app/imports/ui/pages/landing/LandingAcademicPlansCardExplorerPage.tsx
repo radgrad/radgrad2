@@ -1,39 +1,36 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Card, Grid, Header, Loader, Segment } from 'semantic-ui-react';
+import { Card, Grid, Header, Segment } from 'semantic-ui-react';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
+import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import LandingExplorerMenuBar from '../../components/landing/explorer/LandingExplorerMenuBar';
-import { IAcademicPlan } from '../../../typings/radgrad';
+import { IAcademicPlan, IHelpMessage } from '../../../typings/radgrad';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/explorer/LandingExplorerMenu';
 import LandingAcademicPlanCardContainer from '../../components/landing/explorer/LandingAcademicPlanCard';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
+import { withListSubscriptions } from '../../layouts/utilities/SubscriptionListHOC';
 
 interface IAcademicPlansCardExplorerProps {
-  // eslint-disable-next-line react/no-unused-prop-types
-  ready: boolean;
-  // eslint-disable-next-line react/no-unused-prop-types
   academicPlans: IAcademicPlan[];
-  // eslint-disable-next-line react/no-unused-prop-types
   count: number;
-  // eslint-disable-next-line react/no-unused-prop-types
-  currentUser: string;
+  helpMessages: IHelpMessage[];
 }
 
-const renderPage = (props: IAcademicPlansCardExplorerProps) => {
+const LandingAcademicPlansCardExplorerPage: React.FC<IAcademicPlansCardExplorerProps> = (props: IAcademicPlansCardExplorerProps) => {
   const inlineStyle = {
     maxHeight: 750,
     marginTop: 10,
   };
   return (
     <div id="landing-academic-plans-card-explorer-page">
-      <LandingExplorerMenuBar currentUser={props.currentUser} />
+      <LandingExplorerMenuBar />
       <Grid stackable>
         <Grid.Row>
           <Grid.Column width={1} />
-          <Grid.Column width={14}><HelpPanelWidget /></Grid.Column>
+          <Grid.Column width={14}><HelpPanelWidget helpMessages={props.helpMessages} /></Grid.Column>
           <Grid.Column width={1} />
         </Grid.Row>
 
@@ -58,24 +55,22 @@ const renderPage = (props: IAcademicPlansCardExplorerProps) => {
           <Grid.Column width={1} />
         </Grid.Row>
       </Grid>
-
       <BackToTopButton />
     </div>
   );
 };
 
-// eslint-disable-next-line react/prop-types
-const LandingAcademicPlansCardExplorerPage = (props: IAcademicPlansCardExplorerProps) => ((props.ready) ? renderPage(props) : <Loader>Loading Academic Plans</Loader>);
+const WithSubs = withListSubscriptions(LandingAcademicPlansCardExplorerPage, [
+  AcademicPlans.getPublicationName(),
+  Slugs.getPublicationName(),
+  HelpMessages.getPublicationName(),
+]);
 
-const LandingAcademicPlansCardExplorerContainer = withTracker(() => {
-  const sub1 = Meteor.subscribe(AcademicPlans.getPublicationName());
-  const sub2 = Meteor.subscribe(Slugs.getPublicationName());
-  return {
-    ready: sub1.ready() && sub2.ready(),
+const LandingAcademicPlansCardExplorerContainer = withTracker(() => ({
     academicPlans: AcademicPlans.findNonRetired({}, { $sort: { year: 1, name: 1 } }),
     count: AcademicPlans.countNonRetired(),
     currentUser: Meteor.user() ? Meteor.user().username : '',
-  };
-})(LandingAcademicPlansCardExplorerPage);
+    helpMessages: HelpMessages.findNonRetired({}),
+}))(WithSubs);
 
 export default LandingAcademicPlansCardExplorerContainer;

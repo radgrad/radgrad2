@@ -1,12 +1,12 @@
-import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import Markdown from 'react-markdown';
 import { useRouteMatch } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Grid, Header, Segment } from 'semantic-ui-react';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
+import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import LandingExplorerMenuBar from '../../components/landing/explorer/LandingExplorerMenuBar';
-import { IAcademicPlan } from '../../../typings/radgrad';
+import { IAcademicPlan, IHelpMessage } from '../../../typings/radgrad';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/explorer/LandingExplorerMenu';
 import { withListSubscriptions } from '../../layouts/utilities/SubscriptionListHOC';
@@ -16,20 +16,20 @@ import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 
 interface IAcademicPlanExplorerProps {
-  currentUser: string;
   plan: IAcademicPlan;
+  helpMessages: IHelpMessage[];
 }
 
-const LandingAcademicPlanExplorerPage = (props: IAcademicPlanExplorerProps) => {
+const LandingAcademicPlanExplorerPage: React.FC<IAcademicPlanExplorerProps> = (props: IAcademicPlanExplorerProps) => {
   // console.log(props.plan);
   const match = useRouteMatch();
   return (
     <div id="landing-academic-plan-explorer-page">
-      <LandingExplorerMenuBar currentUser={props.currentUser} />
+      <LandingExplorerMenuBar />
       <Grid stackable>
         <Grid.Row>
           <Grid.Column width={1} />
-          <Grid.Column width={14}><HelpPanelWidget /></Grid.Column>
+          <Grid.Column width={14}><HelpPanelWidget helpMessages={props.helpMessages} /></Grid.Column>
           <Grid.Column width={1} />
         </Grid.Row>
 
@@ -72,9 +72,10 @@ const LandingAcademicPlanExplorerContainer = withTracker((props) => {
   const slugName = props.match.params.plan;
   // console.log(Slugs.find().fetch());
   const id = Slugs.getEntityID(slugName, 'AcademicPlan');
+  const helpMessages = HelpMessages.findNonRetired({});
   return {
-    currentUser: Meteor.user() ? Meteor.user().username : '',
     plan: AcademicPlans.findDoc(id),
+    helpMessages,
   };
 })(WithSubs);
 

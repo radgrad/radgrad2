@@ -3,16 +3,17 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import _ from 'lodash';
+import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 import ListOpportunitiesWidget from '../../components/faculty/manage-opportunities/FacultyListOpportunitiesWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import {
-    IAcademicTerm,
-    IBaseProfile,
-    IDescriptionPair,
-    IInterest,
-    IOpportunity,
-    IOpportunityType,
+  IAcademicTerm,
+  IBaseProfile,
+  IDescriptionPair, IHelpMessage,
+  IInterest,
+  IOpportunity,
+  IOpportunityType,
 } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
@@ -72,9 +73,10 @@ interface IFacultyManageOpportunitiesPageProps {
   terms: IAcademicTerm[];
   interests: IInterest[];
   opportunityTypes: IOpportunityType[];
+  helpMessages: IHelpMessage[];
 }
 
-const FacultyManageOpportunitiesPage = (props: IFacultyManageOpportunitiesPageProps) => {
+const FacultyManageOpportunitiesPage: React.FC<IFacultyManageOpportunitiesPageProps> = (props: IFacultyManageOpportunitiesPageProps) => {
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');
@@ -197,7 +199,7 @@ const FacultyManageOpportunitiesPage = (props: IFacultyManageOpportunitiesPagePr
       <Grid stackable>
         <Grid.Row>
           <Grid.Column width={1} />
-          <Grid.Column width={14}><HelpPanelWidget /></Grid.Column>
+          <Grid.Column width={14}><HelpPanelWidget helpMessages={props.helpMessages} /></Grid.Column>
           <Grid.Column width={1} />
         </Grid.Row>
 
@@ -265,10 +267,12 @@ export default withTracker(() => {
   const terms = _.filter(allTerms, t => t.termNumber >= after && t.termNumber <= before);
   const interests = Interests.find({}, { sort: { name: 1 } }).fetch();
   const opportunityTypes = OpportunityTypes.find({}, { sort: { name: 1 } }).fetch();
+  const helpMessages = HelpMessages.findNonRetired({});
   return {
     sponsors,
     terms,
     interests,
     opportunityTypes,
+    helpMessages,
   };
 })(FacultyManageOpportunitiesPage);

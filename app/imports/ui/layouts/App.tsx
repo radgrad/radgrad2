@@ -88,7 +88,7 @@ const AdminProtectedRoute = ({ component: Component, ...rest }) => {
   if (_.isNil(Meteor.userId())) {
     return (<Redirect to={{ pathname: '/', state: { from: rest.location } }} />);
   }
-  const WrappedComponent = Component; // TODO why does admin only do global?
+  const WrappedComponent = withInstanceSubscriptions(Component);
   return (
     <Route
       {...rest}
