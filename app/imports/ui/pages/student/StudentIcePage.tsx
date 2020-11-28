@@ -1,19 +1,19 @@
+import { withTracker } from 'meteor/react-meteor-data';
 import React from 'react';
 import { Grid, Container } from 'semantic-ui-react';
-import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
+import { HelpMessages } from '../../../api/help/HelpMessageCollection';
+import HelpPanelWidget, { IHelpPanelWidgetProps } from '../../components/shared/HelpPanelWidget';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import StudentIceWidget from '../../components/student/ice/StudentIceWidget';
-import withInstanceSubscriptions from '../../layouts/utilities/InstanceSubscriptionsHOC';
-import withGlobalSubscription from '../../layouts/utilities/GlobalSubscriptionsHOC';
 
-const StudentIcePage = () => (
+const StudentIcePage: React.FC<IHelpPanelWidgetProps> = ({ helpMessages }) => (
   <div id="student-ice-points-page">
     <StudentPageMenuWidget />
     <Container>
       <Grid stackable>
         <Grid.Row>
-          <Grid.Column width={16}><HelpPanelWidget /></Grid.Column>
+          <Grid.Column width={16}><HelpPanelWidget helpMessages={helpMessages} /></Grid.Column>
         </Grid.Row>
         <Grid.Row>
           <Grid.Column width={16} stretched>
@@ -26,7 +26,11 @@ const StudentIcePage = () => (
   </div>
 );
 
-const StudentHomeIcePageCon = withGlobalSubscription(StudentIcePage);
-const StudentHomeIcePageContainer = withInstanceSubscriptions(StudentHomeIcePageCon);
+const StudentHomeIcePageContainer = withTracker(() => {
+  const helpMessages = HelpMessages.findNonRetired({});
+  return {
+    helpMessages,
+  };
+})(StudentIcePage);
 
 export default StudentHomeIcePageContainer;

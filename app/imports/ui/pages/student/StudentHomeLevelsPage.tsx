@@ -1,20 +1,20 @@
+import { withTracker } from 'meteor/react-meteor-data';
 import React from 'react';
 import { Grid, Container, Card, Image } from 'semantic-ui-react';
-import withGlobalSubscription from '../../layouts/utilities/GlobalSubscriptionsHOC';
-import withInstanceSubscriptions from '../../layouts/utilities/InstanceSubscriptionsHOC';
-import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
+import { HelpMessages } from '../../../api/help/HelpMessageCollection';
+import HelpPanelWidget, { IHelpPanelWidgetProps } from '../../components/shared/HelpPanelWidget';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import StudentLevelsWidget from '../../components/student/levels/StudentLevelsWidget';
 import StudentLevelsOthersWidget from '../../components/student/levels/StudentLevelsOthersWidget';
 
-const StudentHomeLevelsPage = () => (
+const StudentHomeLevelsPage: React.FC<IHelpPanelWidgetProps> = ({ helpMessages }) => (
   <div id="student-levels-page">
     <StudentPageMenuWidget />
     <Container>
       <Grid stackable>
         <Grid.Row>
-          <Grid.Column width={16}><HelpPanelWidget /></Grid.Column>
+          <Grid.Column width={16}><HelpPanelWidget helpMessages={helpMessages} /></Grid.Column>
         </Grid.Row>
         <Grid.Row>
           <Grid.Column width={16}>
@@ -144,7 +144,11 @@ const StudentHomeLevelsPage = () => (
   </div>
 );
 
-const StudentHomeLevelsPageCon = withGlobalSubscription(StudentHomeLevelsPage);
-const StudentHomeLevelsPageContainer = withInstanceSubscriptions(StudentHomeLevelsPageCon);
+const StudentHomeLevelsPageContainer = withTracker(() => {
+  const helpMessages = HelpMessages.findNonRetired({});
+  return {
+    helpMessages,
+  };
+})(StudentHomeLevelsPage);
 
 export default StudentHomeLevelsPageContainer;
