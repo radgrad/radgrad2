@@ -1,5 +1,5 @@
 import { withTracker } from 'meteor/react-meteor-data';
-import * as React from 'react';
+import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import { useRouteMatch } from 'react-router-dom';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';

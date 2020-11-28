@@ -4,8 +4,8 @@ import { Dropdown, Header, Image, Menu, Container } from 'semantic-ui-react';
 import { Meteor } from 'meteor/meteor';
 import { Roles } from 'meteor/alanning:roles';
 import RadGradLogoText from './RadGradLogoText';
-import RadGradMenuProfile from './RadGradMenuProfile';
-import { getUsername, isUrlRoleStudent } from './utilities/router';
+import RadGradMenuProfile, { IRadGradMenuProfileProps } from './RadGradMenuProfile';
+import { isUrlRoleStudent } from './utilities/router';
 import { firstMenu } from './shared-widget-names';
 
 /**
@@ -14,9 +14,8 @@ import { firstMenu } from './shared-widget-names';
  * @param iconName the icon name for the type of user.
  * @constructor
  */
-const FirstMenu: React.FunctionComponent = () => {
+const FirstMenu: React.FunctionComponent<IRadGradMenuProfileProps> = ({ profile, displayLevelAndIce, earnedICE, projectedICE }) => {
   const match = useRouteMatch();
-  const username = getUsername(match);
   const imageStyle = { width: '50px' };
   const flexStyle = { display: 'flex' };
   const noPadding = { paddingTop: 0, paddingBottom: 0 };
@@ -46,7 +45,12 @@ const FirstMenu: React.FunctionComponent = () => {
             </div>
           ) : (
             <div style={flexStyle}>
-              <RadGradMenuProfile userName={username} />
+              <RadGradMenuProfile
+                profile={profile}
+                displayLevelAndIce={displayLevelAndIce}
+                projectedICE={projectedICE}
+                earnedICE={earnedICE}
+              />
               {/*
                   TODO Temporary until we have a re-design of the "SecondMenu"s of non-student roles
                         See FIGMA mockup; remove this Dropdown once the above is accomplished

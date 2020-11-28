@@ -1,11 +1,15 @@
 import React from 'react';
 import { SemanticWIDTHS } from 'semantic-ui-react';
+import { useParams } from 'react-router-dom';
+import { AdminProfiles } from '../../../api/user/AdminProfileCollection';
 import FirstMenu from '../shared/FirstMenu';
 import { Reviews } from '../../../api/review/ReviewCollection';
 import SecondMenu from './SecondMenu';
 
-const AdminPageMenuWidget: React.FunctionComponent = () => {
+const AdminPageMenuWidget: React.FC = () => {
   const divStyle = { marginBottom: 30 };
+  const { username } = useParams();
+  const profile = AdminProfiles.getProfile(username);
   let numMod = 0;
   numMod += Reviews.find({ moderated: false }).fetch().length;
   let moderationLabel = 'Moderation';
@@ -22,7 +26,7 @@ const AdminPageMenuWidget: React.FunctionComponent = () => {
   ];
   return (
     <div style={divStyle}>
-      <FirstMenu />
+      <FirstMenu profile={profile} displayLevelAndIce={false} />
       <SecondMenu menuItems={menuItems} numItems={menuItems.length as SemanticWIDTHS} />
     </div>
   );

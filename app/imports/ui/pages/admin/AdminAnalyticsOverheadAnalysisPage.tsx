@@ -8,7 +8,6 @@ import AdminAnalyticsOverheadAnalysisWidget
   from '../../components/admin/analytics/overhead-analysis/AdminAnalyticsOverheadAnalysisWidget';
 import HelpPanelWidget, { IHelpPanelWidgetProps } from '../../components/shared/HelpPanelWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
-import withInstanceSubscriptions from '../../layouts/utilities/InstanceSubscriptionsHOC';
 
 const AdminAnalyticsOverheadAnalysisPage: React.FC<IHelpPanelWidgetProps> = ({ helpMessages }) => (
   <div>

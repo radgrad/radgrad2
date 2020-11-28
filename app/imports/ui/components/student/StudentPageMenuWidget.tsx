@@ -27,15 +27,21 @@ const communityDropdownItems = [
   { key: 'RadGrad Videos', route: COMMUNITY.RADGRADVIDEOS, id: 'student-menu-radgrad-videos' },
 ];
 
-const StudentPageMenuWidget = () => {
+const StudentPageMenuWidget: React.FC = () => {
   const match = useRouteMatch();
   const username = getUsername(match);
   const divStyle = { marginBottom: 30 };
   const profile: IStudentProfile = StudentProfiles.getProfile(username);
-
+  const earnedIce = StudentProfiles.getEarnedICE(username);
+  const projectedIce = StudentProfiles.getProjectedICE(username);
   return (
     <div style={divStyle}>
-      <FirstMenuContainer />
+      <FirstMenuContainer
+        profile={profile}
+        displayLevelAndIce
+        earnedICE={earnedIce}
+        projectedICE={projectedIce}
+      />
       <div className="radgrad-menu" id="menu">
         <Container>
           <Menu

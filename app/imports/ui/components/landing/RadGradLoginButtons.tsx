@@ -1,9 +1,8 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { Link, Redirect } from 'react-router-dom';
 import { Dropdown } from 'semantic-ui-react';
 import { Roles } from 'meteor/alanning:roles';
-import { useState } from 'react';
 import { Users } from '../../../api/user/UserCollection';
 import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
 import {
@@ -13,7 +12,7 @@ import {
 import { IUserInteractionDefine } from '../../../typings/radgrad';
 import { ROLE } from '../../../api/role/Role';
 
-const RadGradLoginButtons = () => {
+const RadGradLoginButtons: React.FC = () => {
   const [pathname, setPathname] = useState<string>('');
   const [redirectToRefererState, setRedirectToReferer] = useState<boolean>(false);
 
