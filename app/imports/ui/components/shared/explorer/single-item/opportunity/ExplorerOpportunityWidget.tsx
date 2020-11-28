@@ -1,8 +1,12 @@
+import _ from 'lodash';
 import React from 'react';
 import { useParams, useRouteMatch } from 'react-router-dom';
 import { Divider, Grid, Header, Segment } from 'semantic-ui-react';
 import Markdown from 'react-markdown';
-import { IOpportunity } from '../../../../../../typings/radgrad';
+import { AcademicTerms } from '../../../../../../api/academic-term/AcademicTermCollection';
+import { RadGradProperties } from '../../../../../../api/radgrad/RadGradProperties';
+import { OpportunityScoreboard } from '../../../../../../startup/client/collections';
+import { IAcademicTerm, IOpportunity, IReview } from '../../../../../../typings/radgrad';
 import StudentExplorerReviewWidget from '../../../../student/explorer/StudentExplorerReviewWidget';
 import { Reviews } from '../../../../../../api/review/ReviewCollection';
 import IceHeader from '../../../IceHeader';
@@ -26,7 +30,7 @@ interface IExplorerOpportunitiesWidgetProps {
   completed: boolean;
 }
 
-const review = (props: IExplorerOpportunitiesWidgetProps, match): unknown => {
+const review = (props: IExplorerOpportunitiesWidgetProps, match): IReview => {
   const reviews = Reviews.findNonRetired({
     studentID: Router.getUserIdFromRoute(match),
     revieweeID: props.item._id,
@@ -44,7 +48,7 @@ const teaserUrlHelper = (opportunitySlug): string => {
   return oppTeaser && oppTeaser[0] && oppTeaser[0].url;
 };
 
-const ExplorerOpportunityWidget = (props: IExplorerOpportunitiesWidgetProps) => {
+const ExplorerOpportunityWidget: React.FC<IExplorerOpportunitiesWidgetProps> = (props) => {
   const segmentStyle = { backgroundColor: 'white' };
   const zeroMarginTopStyle = { marginTop: 0 };
   const fiveMarginTopStyle = { marginTop: '5px' };
@@ -65,6 +69,24 @@ const ExplorerOpportunityWidget = (props: IExplorerOpportunitiesWidgetProps) => 
   const upperName = toUpper(name);
   const hasTeaser = Teasers.findNonRetired({ targetSlugID: item.slugID }).length > 0;
   const isStudent = Router.isUrlRoleStudent(match);
+
+  const quarter = RadGradProperties.getQuarterSystem();
+  const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
+  const numTerms = quarter ? 12 : 9;
+  const academicTerms = AcademicTerms.findNonRetired({ termNumber: { $gte: currentTerm.termNumber } }, {
+    sort: { termNumber: 1 },
+    limit: numTerms,
+  });
+  const scores = [];
+  _.forEach(academicTerms, (term: IAcademicTerm) => {
+    const id = `${item._id} ${term._id}`;
+    const score = OpportunityScoreboard.find({ _id: id }).fetch() as { count: number }[];
+    if (score.length > 0) {
+      scores.push(score[0].count);
+    } else {
+      scores.push(0);
+    }
+  });
 
   return (
     <div id={explorerOpportunityWidget}>
@@ -307,7 +329,7 @@ const ExplorerOpportunityWidget = (props: IExplorerOpportunitiesWidgetProps) => 
       <Segment textAlign="center">
         <Header>STUDENTS PARTICIPATING BY SEMESTER</Header>
         <Divider />
-        <FutureParticipation item={props.item} type="opportunity" />
+        <FutureParticipation academicTerms={academicTerms} scores={scores} />
       </Segment>
 
       {isStudent ?

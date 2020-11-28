@@ -4,7 +4,9 @@ import _ from 'lodash';
 import { Link, useRouteMatch } from 'react-router-dom';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { withTracker } from 'meteor/react-meteor-data';
-import { ICourse, ICourseInstance } from '../../../../typings/radgrad';
+import { RadGradProperties } from '../../../../api/radgrad/RadGradProperties';
+import { CourseScoreboard } from '../../../../startup/client/collections';
+import { IAcademicTerm, ICourse, ICourseInstance } from '../../../../typings/radgrad';
 import { CourseInstances } from '../../../../api/course/CourseInstanceCollection';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import { Slugs } from '../../../../api/slug/SlugCollection';
@@ -35,6 +37,25 @@ const FavoriteCourseCard = (props: IFavoriteCourseCardProps) => {
     textAlign: 'right',
   };
   const droppableID = `${props.course._id}`;
+
+  const quarter = RadGradProperties.getQuarterSystem();
+  const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
+  const numTerms = quarter ? 12 : 9;
+  const academicTerms = AcademicTerms.findNonRetired({ termNumber: { $gte: currentTerm.termNumber } }, {
+    sort: { termNumber: 1 },
+    limit: numTerms,
+  });
+  const scores = [];
+  _.forEach(academicTerms, (term: IAcademicTerm) => {
+    const id = `${props.course._id} ${term._id}`;
+    const score = CourseScoreboard.find({ _id: id }).fetch() as { count: number }[];
+    if (score.length > 0) {
+      scores.push(score[0].count);
+    } else {
+      scores.push(0);
+    }
+  });
+
   return (
     <Card>
       <Card.Content>
@@ -79,7 +100,7 @@ const FavoriteCourseCard = (props: IFavoriteCourseCardProps) => {
         </Droppable>
       </Card.Content>
       <Card.Content>
-        <FutureParticipation item={props.course} type="courses" />
+        <FutureParticipation academicTerms={academicTerms} scores={scores} />
       </Card.Content>
       <Card.Content>
         <p style={textAlignRight}>

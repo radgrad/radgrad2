@@ -3,11 +3,14 @@ import { Divider, Grid, Header, Item, List, Segment } from 'semantic-ui-react';
 import { NavLink, useParams, useRouteMatch } from 'react-router-dom';
 import _ from 'lodash';
 import Markdown from 'react-markdown';
+import { AcademicTerms } from '../../../../../../api/academic-term/AcademicTermCollection';
+import { RadGradProperties } from '../../../../../../api/radgrad/RadGradProperties';
+import { CourseScoreboard } from '../../../../../../startup/client/collections';
 import InterestList from '../../../InterestList';
 import { isSingleChoice } from '../../../../../../api/degree-plan/PlanChoiceUtilities';
 import { Reviews } from '../../../../../../api/review/ReviewCollection';
 import StudentExplorerReviewWidget from '../../../../student/explorer/StudentExplorerReviewWidget';
-import { ICourse, IDescriptionPair, IReview } from '../../../../../../typings/radgrad';
+import { IAcademicTerm, ICourse, IDescriptionPair, IReview } from '../../../../../../typings/radgrad';
 import * as Router from '../../../utilities/router';
 import { EXPLORER_TYPE } from '../../../../../layouts/utilities/route-constants';
 import { Teasers } from '../../../../../../api/teaser/TeaserCollection';
@@ -111,7 +114,7 @@ const teaserUrlHelper = (props: IExplorerCoursesWidgetProps, courseSlug): string
   return oppTeaser && oppTeaser[0] && oppTeaser[0].url;
 };
 
-const ExplorerCourseWidget = (props: IExplorerCoursesWidgetProps) => {
+const ExplorerCourseWidget: React.FC<IExplorerCoursesWidgetProps> = (props: IExplorerCoursesWidgetProps) => {
   const segmentStyle = { backgroundColor: 'white' };
   const zeroMarginTopStyle = { marginTop: 0 };
   const fiveMarginTopStyle = { marginTop: '5px' };
@@ -133,6 +136,24 @@ const ExplorerCourseWidget = (props: IExplorerCoursesWidgetProps) => {
   const upperShortName = toUpper(shortName);
   const isStudent = Router.isUrlRoleStudent(match);
   const hasTeaser = Teasers.findNonRetired({ targetSlugID: item.slugID }).length > 0;
+
+  const quarter = RadGradProperties.getQuarterSystem();
+  const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
+  const numTerms = quarter ? 12 : 9;
+  const academicTerms = AcademicTerms.findNonRetired({ termNumber: { $gte: currentTerm.termNumber } }, {
+    sort: { termNumber: 1 },
+    limit: numTerms,
+  });
+  const scores = [];
+  _.forEach(academicTerms, (term: IAcademicTerm) => {
+    const id = `${item._id} ${term._id}`;
+    const score = CourseScoreboard.find({ _id: id }).fetch() as { count: number }[];
+    if (score.length > 0) {
+      scores.push(score[0].count);
+    } else {
+      scores.push(0);
+    }
+  });
   return (
     <div id={explorerCourseWidget}>
       <Segment padded className="container" style={segmentStyle}>
@@ -143,7 +164,7 @@ const ExplorerCourseWidget = (props: IExplorerCoursesWidgetProps) => {
           {isStudent ?
             (
               <FavoritesButton
-                item={props.item}
+                item={item}
                 studentID={Router.getUserIdFromRoute(match)}
                 type={FAVORITE_TYPE.COURSE}
               />
@@ -541,7 +562,7 @@ const ExplorerCourseWidget = (props: IExplorerCoursesWidgetProps) => {
       <Segment textAlign="center">
         <Header>STUDENTS PARTICIPATING BY SEMESTER</Header>
         <Divider />
-        <FutureParticipation item={props.item} type="courses" />
+        <FutureParticipation academicTerms={academicTerms} scores={scores} />
       </Segment>
 
       {isStudent ?
