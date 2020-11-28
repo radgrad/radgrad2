@@ -1,7 +1,12 @@
+import _ from 'lodash';
 import React from 'react';
-import { useRouteMatch } from 'react-router-dom';
+import { useParams, useRouteMatch } from 'react-router-dom';
 import { Segment, Header, Divider, Grid } from 'semantic-ui-react';
 import Markdown from 'react-markdown';
+import { CourseInstances } from '../../../../../../api/course/CourseInstanceCollection';
+import { passedCourse } from '../../../../../../api/degree-plan/AcademicPlanUtilities';
+import { Slugs } from '../../../../../../api/slug/SlugCollection';
+import { Users } from '../../../../../../api/user/UserCollection';
 import { IAcademicPlan } from '../../../../../../typings/radgrad';
 import AcademicPlanStaticViewer from '../../AcademicPlanStaticViewer';
 import * as Router from '../../../utilities/router';
@@ -17,7 +22,7 @@ interface IExplorerPlansWidgetProps {
   item: IAcademicPlan;
 }
 
-const ExplorerPlanWidget = (props: IExplorerPlansWidgetProps) => {
+const ExplorerPlanWidget: React.FC<IExplorerPlansWidgetProps> = (props: IExplorerPlansWidgetProps) => {
   const backgroundColorWhiteStyle = { backgroundColor: 'white' };
   const clearingBasicSegmentStyle = {
     margin: 0,
@@ -30,9 +35,20 @@ const ExplorerPlanWidget = (props: IExplorerPlansWidgetProps) => {
 
   const { name, descriptionPairs, item } = props;
   const match = useRouteMatch();
+  const { username } = useParams();
   const upperName = toUpper(name);
   const isStudent = Router.isUrlRoleStudent(match);
+  let takenSlugs = [];
+  if (isStudent) {
+    const profile = Users.findProfileFromUsername(username);
+    const courseInstances = CourseInstances.findNonRetired({ studentID: profile.userID });
+    const passedCourseInstances = _.filter(courseInstances, (ci) => passedCourse(ci));
+    takenSlugs = _.map(passedCourseInstances, (ci) => {
+      const doc = CourseInstances.getCourseDoc(ci._id);
+      return Slugs.getNameFromID(doc.slugID);
+    });
 
+  }
   return (
     <Segment.Group style={backgroundColorWhiteStyle} id={`${explorerPlanWidget}`}>
       <Segment padded className="container">
@@ -84,7 +100,7 @@ const ExplorerPlanWidget = (props: IExplorerPlansWidgetProps) => {
       </Segment>
 
       <Segment>
-        <AcademicPlanStaticViewer plan={item} />
+        <AcademicPlanStaticViewer plan={item} takenSlugs={takenSlugs} />
       </Segment>
     </Segment.Group>
   );

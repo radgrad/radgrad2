@@ -12,7 +12,7 @@
 // import ExplorerCard from './ExplorerCard';
 // import ProfileCard from './ProfileCard';
 // import TermCard from './TermCard';
-// import PlanCard from './PlanCard';
+// import AcademicPlanCard from './AcademicPlanCard';
 // import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
 // import * as Router from './RouterHelperFunctions';
 // import {
@@ -284,7 +284,7 @@
 //         <Card.Group style={cardGroupStyle} itemsPerRow={2} stackable id="cardExplorerCardGroupElement">
 //           {
 //             buildPlanCard ?
-//               items.map((item) => <PlanCard key={item._id} item={item} type={type} canAdd={canAdd} />) : ''
+//               items.map((item) => <AcademicPlanCard key={item._id} item={item} type={type} canAdd={canAdd} />) : ''
 //           }
 //           {
 //             buildProfileCard ?

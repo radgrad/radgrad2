@@ -16,7 +16,7 @@ import { scrollPositionActions } from '../../../../../redux/shared/scrollPositio
 import WidgetHeaderNumber from '../WidgetHeaderNumber';
 import ProfileCard from './ProfileCard';
 import TermCard from './TermCard';
-import PlanCard from './PlanCard';
+import AcademicPlanCard from './AcademicPlanCard';
 import CourseFilterWidget, { courseFilterKeys } from './CourseFilterWidget';
 import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
 import * as Router from '../../utilities/router';
@@ -231,7 +231,7 @@ const ExplorerMultipleItemsWidget = (props: ICardExplorerWidgetProps) => {
         <Card.Group style={cardGroupStyle} itemsPerRow={2} stackable id="cardExplorerCardGroupElement">
           {
             buildPlanCard ?
-              items.map((item) => <PlanCard key={item._id} item={item} type={type} canAdd={canAdd} />) : ''
+              items.map((item) => <AcademicPlanCard key={item._id} item={item} type={type} canAdd={canAdd} />) : ''
           }
           {
             buildProfileCard ?

@@ -1,7 +1,7 @@
 import { withTracker } from 'meteor/react-meteor-data';
 import React from 'react';
 import { Grid, Message } from 'semantic-ui-react';
-import { Link, useRouterMatch } from 'react-router-dom';
+import { Link, useRouteMatch } from 'react-router-dom';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import { IHelpMessage } from '../../../typings/radgrad';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
@@ -32,7 +32,7 @@ const renderPageMenuWidget = (match): JSX.Element => {
 };
 
 const ExplorerHomePage: React.FC<IExplorerHomePageProps> = ({ helpMessages }) => {
-  const match = useRouterMatch();
+  const match = useRouteMatch();
   return (
     <div>
       {renderPageMenuWidget(match)}
