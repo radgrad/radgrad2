@@ -1,5 +1,9 @@
+import { withTracker } from 'meteor/react-meteor-data';
 import * as React from 'react';
 import { Grid } from 'semantic-ui-react';
+import { useRouteMatch } from 'react-router-dom';
+import { HelpMessages } from '../../../api/help/HelpMessageCollection';
+import { IHelpMessage } from '../../../typings/radgrad';
 import * as Router from '../../components/shared/utilities/router';
 import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
@@ -12,19 +16,13 @@ import PageTrackingScoreboardWidget from '../../components/shared/page-tracking/
 import BackToTopButton from '../../components/shared/BackToTopButton';
 
 interface IPageTrackingAnalysisPageProps {
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
+  helpMessages: IHelpMessage[];
 }
 
-const PageTrackingScoreboardPage = (props: IPageTrackingAnalysisPageProps) => {
+const PageTrackingScoreboardPage: React.FC<IPageTrackingAnalysisPageProps> = ({ helpMessages }) => {
+  const match = useRouteMatch();
   const renderPageMenuWidget = (): JSX.Element => {
-    const role = Router.getRoleByUrl(props.match);
+    const role = Router.getRoleByUrl(match);
     switch (role) {
       case URL_ROLES.ADMIN:
         return <AdminPageMenuWidget />;
@@ -36,7 +34,7 @@ const PageTrackingScoreboardPage = (props: IPageTrackingAnalysisPageProps) => {
         return <StudentPageMenuWidget />;
       default:
         console.error('renderPageMenuWidget(): Unable to render the correct menu widget for the current role');
-        return undefined;
+        return <React.Fragment />;
     }
   };
 
@@ -47,7 +45,7 @@ const PageTrackingScoreboardPage = (props: IPageTrackingAnalysisPageProps) => {
       <Grid stackable>
         <Grid.Row>
           <Grid.Column width={1} />
-          <Grid.Column width={14}><HelpPanelWidget /></Grid.Column>
+          <Grid.Column width={14}><HelpPanelWidget helpMessages={helpMessages} /></Grid.Column>
           <Grid.Column width={1} />
         </Grid.Row>
 
@@ -69,4 +67,11 @@ const PageTrackingScoreboardPage = (props: IPageTrackingAnalysisPageProps) => {
   );
 };
 
-export default PageTrackingScoreboardPage;
+const PageTrackingScoreboardPageContainer = withTracker(() => {
+  const helpMessages = HelpMessages.findNonRetired({});
+  return {
+    helpMessages,
+  };
+})(PageTrackingScoreboardPage);
+
+export default PageTrackingScoreboardPageContainer;

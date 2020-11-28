@@ -4,9 +4,10 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { useRouteMatch } from 'react-router-dom';
 import _ from 'lodash';
 import { Feeds } from '../../../api/feed/FeedCollection';
+import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import { ROLE } from '../../../api/role/Role';
 import { Users } from '../../../api/user/UserCollection';
-import { IAdvisorOrFacultyProfile, IFeed, IStudentProfile } from '../../../typings/radgrad';
+import { IAdvisorOrFacultyProfile, IFeed, IHelpMessage, IStudentProfile } from '../../../typings/radgrad';
 import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
 import * as Router from '../../components/shared/utilities/router';
 import { URL_ROLES } from '../../layouts/utilities/route-constants';
@@ -23,11 +24,12 @@ interface ICommunityUsersPageProps {
   advisors: IAdvisorOrFacultyProfile[];
   faculty: IAdvisorOrFacultyProfile[];
   students: IStudentProfile[];
+  helpMessages: IHelpMessage[];
 }
 
-const CommunityUsersPage = (props: ICommunityUsersPageProps) => {
+const CommunityUsersPage: React.FC<ICommunityUsersPageProps> = (props) => {
   const match = useRouteMatch();
-  const { feeds, advisors, faculty, students } = props;
+  const { feeds, advisors, faculty, students, helpMessages } = props;
   const getMenuWidget = (): JSX.Element => {
     const role = Router.getRoleByUrl(match);
     switch (role) {
@@ -50,7 +52,7 @@ const CommunityUsersPage = (props: ICommunityUsersPageProps) => {
       <Container>
         <Grid stackable>
           <Grid.Row>
-            <Grid.Column width={16}><HelpPanelWidget /></Grid.Column>
+            <Grid.Column width={16}><HelpPanelWidget helpMessages={helpMessages} /></Grid.Column>
           </Grid.Row>
 
           <Grid.Row>
@@ -79,6 +81,7 @@ const CommunityUsersPageContainer = withTracker(() => {
   const advisors = Users.findProfilesWithRole(ROLE.ADVISOR, {}, { sort: { lastName: 1 } });
   const faculty = Users.findProfilesWithRole(ROLE.FACULTY, {}, { sort: { lastName: 1 } });
   let students = Users.findProfilesWithRole(ROLE.STUDENT, {}, { sort: { lastName: 1 } });
+  const helpMessages = HelpMessages.findNonRetired({});
   if (isUrlRoleStudent(match)) {
     students = _.filter(students, (s) => s.optedIn);
   }
@@ -87,6 +90,7 @@ const CommunityUsersPageContainer = withTracker(() => {
     faculty,
     feeds: Feeds.findNonRetired({}, { sort: { timestamp: -1 } }),
     students,
+    helpMessages,
   };
 })(CommunityUsersPage);
 

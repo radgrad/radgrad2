@@ -1,5 +1,10 @@
+import { withTracker } from 'meteor/react-meteor-data';
 import React from 'react';
 import { Grid, Message } from 'semantic-ui-react';
+import { useRouteMatch } from 'react-router-dom';
+import { HelpMessages } from '../../../api/help/HelpMessageCollection';
+import { IHelpMessage } from '../../../typings/radgrad';
+import { IMatchProps } from '../../components/shared/utilities/router';
 import * as Router from '../../components/shared/utilities/router';
 import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
@@ -12,18 +17,11 @@ import OpportunityScoreboardWidgetContainer from '../../components/shared/scoreb
 import BackToTopButton from '../../components/shared/BackToTopButton';
 
 export interface IScoreboardPageProps {
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
+  helpMessages: IHelpMessage[];
 }
 
-const renderPageMenuWidget = (props: IScoreboardPageProps): JSX.Element => {
-  const role = Router.getRoleByUrl(props.match);
+const renderPageMenuWidget = (match: IMatchProps): JSX.Element => {
+  const role = Router.getRoleByUrl(match);
   switch (role) {
     case 'advisor':
       return <AdvisorPageMenuWidget />;
@@ -36,20 +34,21 @@ const renderPageMenuWidget = (props: IScoreboardPageProps): JSX.Element => {
   }
 };
 
-const ScoreboardPage = (props: IScoreboardPageProps) => {
+const ScoreboardPage: React.FC<IScoreboardPageProps> = ({ helpMessages }) => {
+  const match = useRouteMatch();
   let content = <Message>Choose a scoreboard from the menu to the left.</Message>;
-  if (props.match.path.indexOf(COURSE_SCOREBOARD) !== -1) {
+  if (match.path.indexOf(COURSE_SCOREBOARD) !== -1) {
     content = <CourseScoreboardWidget />;
   }
-  if (props.match.path.indexOf(OPPORTUNITY_SCOREBOARD) !== -1) {
+  if (match.path.indexOf(OPPORTUNITY_SCOREBOARD) !== -1) {
     content = <OpportunityScoreboardWidgetContainer />;
   }
   return (
     <React.Fragment>
-      {renderPageMenuWidget(props)}
+      {renderPageMenuWidget(match)}
       <Grid id="scoreboard-page" container stackable padded="vertically">
         <Grid.Row>
-          <HelpPanelWidget />
+          <HelpPanelWidget helpMessages={helpMessages} />
         </Grid.Row>
 
         <Grid.Column width={3}>
@@ -65,4 +64,11 @@ const ScoreboardPage = (props: IScoreboardPageProps) => {
   );
 };
 
-export default ScoreboardPage;
+const ScoreboardPageContainer = withTracker(() => {
+  const helpMessages = HelpMessages.findNonRetired({});
+  return {
+    helpMessages,
+  };
+})(ScoreboardPage);
+
+export default ScoreboardPageContainer;

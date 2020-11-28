@@ -6,36 +6,38 @@ import {
   IInterest,
   IOpportunity,
 } from '../../../../../typings/radgrad';
+import { IExplorerTypes } from '../utilities/explorer';
 import CardExplorerMenuNonMobileWidget from './ExplorerMultipleItemsMenuNonMobileWidget';
 import CardExplorerMenuMobileWidget from './ExplorerMultipleItemsMenuMobileWidget';
 import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
 
 type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IInterest | IOpportunity;
 
-interface ICardExplorerMenuProps {
-  menuAddedList: { item: explorerInterfaces, count: number }[];
-  menuCareerList: { item: IInterest, count: number }[] | undefined;
-  type: string;
-  role: string;
+export interface IExplorerMenuItem {
+  item: explorerInterfaces,
+  count: number,
 }
 
-const ExplorerMultipleItemsMenu = (props: ICardExplorerMenuProps) => {
-  const { menuAddedList, menuCareerList, type, role } = props;
-  const isTypeInterest = props.type === EXPLORER_TYPE.INTERESTS;
+interface ICardExplorerMenuProps {
+  menuAddedList: IExplorerMenuItem[];
+  menuCareerList: { item: IInterest, count: number }[] | undefined;
+  type: IExplorerTypes;
+}
+
+const ExplorerMultipleItemsMenu: React.FC<ICardExplorerMenuProps> = ({ menuAddedList, menuCareerList, type }) => {
+  const isTypeInterest = type === EXPLORER_TYPE.INTERESTS;
 
   return (
     <React.Fragment>
       <CardExplorerMenuNonMobileWidget
         menuAddedList={menuAddedList}
         type={type}
-        role={role}
         menuCareerList={isTypeInterest ? menuCareerList : undefined}
       />
 
       <CardExplorerMenuMobileWidget
         menuAddedList={menuAddedList}
         type={type}
-        role={role}
         menuCareerList={isTypeInterest ? menuCareerList : undefined}
       />
 

@@ -3,7 +3,10 @@ import { Grid, Container } from 'semantic-ui-react';
 import _ from 'lodash';
 import { useParams, useRouteMatch } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
+import BaseCollection from '../../../api/base/BaseCollection';
+import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
+import { IExplorerTypes } from '../../components/shared/explorer/utilities/explorer';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 import CardExplorerWidget from '../../components/shared/explorer/multiple-items/ExplorerMultipleItemsWidget';
@@ -13,13 +16,15 @@ import { Courses } from '../../../api/course/CourseCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Users } from '../../../api/user/UserCollection';
-import ExplorerMultipleItemsMenu from '../../components/shared/explorer/multiple-items/ExplorerMultipleItemsMenu';
+import ExplorerMultipleItemsMenu, { IExplorerMenuItem } from '../../components/shared/explorer/multiple-items/ExplorerMultipleItemsMenu';
 import {
-  IAcademicPlan,
-  ICareerGoal,
-  ICourse,
+  IFavoriteAcademicPlan,
+  IFavoriteCareerGoal,
+  IFavoriteCourse,
+  IFavoriteInterest,
+  IFavoriteOpportunity,
+  IHelpMessage,
   IInterest,
-  IOpportunity,
 } from '../../../typings/radgrad';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import * as Router from '../../components/shared/utilities/router';
@@ -32,17 +37,12 @@ import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollect
 import { FavoriteOpportunities } from '../../../api/favorite/FavoriteOpportunityCollection';
 
 interface ICardExplorerPageProps {
-  // TODO: If we're not using these, then shouldn't we get rid of them
-  // eslint-disable-next-line react/no-unused-prop-types
-  favoritePlans: IAcademicPlan[];
-  // eslint-disable-next-line react/no-unused-prop-types
-  favoriteCareerGoals: ICareerGoal[];
-  // eslint-disable-next-line react/no-unused-prop-types
-  favoriteCourses: ICourse[];
-  // eslint-disable-next-line react/no-unused-prop-types
-  favoriteInterests: IInterest[];
-  // eslint-disable-next-line react/no-unused-prop-types
-  favoriteOpportunities: IOpportunity[];
+  favoritePlans: IFavoriteAcademicPlan[];
+  favoriteCareerGoals: IFavoriteCareerGoal[];
+  favoriteCourses: IFavoriteCourse[];
+  favoriteInterests: IFavoriteInterest[];
+  favoriteOpportunities: IFavoriteOpportunity[];
+  helpMessages: IHelpMessage[];
 }
 
 const getMenuWidget = (match): JSX.Element => {
@@ -60,7 +60,7 @@ const getMenuWidget = (match): JSX.Element => {
   }
 };
 
-const getCollection = (match): unknown => {
+const getCollection = (match): BaseCollection => {
   const type = Router.getLastUrlParam(match);
   // console.log('ExplorerMultipleItemsPage.getCollection', type);
   switch (type) {
@@ -75,31 +75,31 @@ const getCollection = (match): unknown => {
     case EXPLORER_TYPE.OPPORTUNITIES:
       return Opportunities;
     default:
-      return {};
+      return null;
   }
 };
 
-const addedPlans = (props: ICardExplorerPageProps): { item: IAcademicPlan, count: number }[] => _.map(props.favoritePlans, (f: any) => ({
+const addedPlans = ({ favoritePlans }): IExplorerMenuItem[] => _.map(favoritePlans, (f: IFavoriteAcademicPlan) => ({
   item: AcademicPlans.findDoc(f.academicPlanID),
   count: 1,
 }));
 
-const addedCareerGoals = (props: ICardExplorerPageProps): { item: ICareerGoal, count: number }[] => _.map(props.favoriteCareerGoals, (f: any) => ({
+const addedCareerGoals = ({ favoriteCareerGoals }): IExplorerMenuItem[] => _.map(favoriteCareerGoals, (f: IFavoriteCareerGoal) => ({
   item: CareerGoals.findDoc(f.careerGoalID),
   count: 1,
 }));
 
-const addedCourses = (props: ICardExplorerPageProps): { item: ICourse, count: number }[] => _.map(props.favoriteCourses, (f: any) => ({
+const addedCourses = ({ favoriteCourses }): IExplorerMenuItem[] => _.map(favoriteCourses, (f: IFavoriteCourse) => ({
   item: Courses.findDoc(f.courseID),
   count: 1,
 }));
 
-const addedInterests = (props: ICardExplorerPageProps): { item: IInterest, count: number }[] => _.map(props.favoriteInterests, (f: any) => ({
+const addedInterests = ({ favoriteInterests }): IExplorerMenuItem[] => _.map(favoriteInterests, (f: IFavoriteInterest) => ({
   item: Interests.findDoc(f.interestID),
   count: 1,
 }));
 
-const addedCareerInterests = (match): { item: IInterest, count: number }[] => {
+const addedCareerInterests = (match): { item: IInterest, count: number}[] => {
   if (Router.getUserIdFromRoute(match)) {
     const profile = Users.getProfile(Router.getUserIdFromRoute(match));
     const allInterests = Users.getInterestIDsByType(profile.userID);
@@ -108,12 +108,13 @@ const addedCareerInterests = (match): { item: IInterest, count: number }[] => {
   return [];
 };
 
-const addedOpportunities = (props: ICardExplorerPageProps): { item: IOpportunity, count: number }[] => _.map(props.favoriteOpportunities, (f: any) => ({
+// TODO why is this here don't we have a different Opportunities explorer?
+const addedOpportunities = ({ favoriteOpportunities }): IExplorerMenuItem[] => _.map(favoriteOpportunities, (f: IFavoriteOpportunity) => ({
   item: Opportunities.findDoc(f.opportunityID),
   count: 1,
 }));
 
-const getAddedList = (props: ICardExplorerPageProps, match): { item: IAcademicPlan | ICareerGoal | ICourse | IInterest | IOpportunity, count: number }[] => {
+const getAddedList = (props: ICardExplorerPageProps, match): IExplorerMenuItem[] => {
   const type = Router.getLastUrlParam(match);
   switch (type) {
     case EXPLORER_TYPE.ACADEMICPLANS:
@@ -131,14 +132,14 @@ const getAddedList = (props: ICardExplorerPageProps, match): { item: IAcademicPl
   }
 };
 
-const ExplorerMultipleItemsPage = (props: ICardExplorerPageProps) => {
+const ExplorerMultipleItemsPage: React.FC<ICardExplorerPageProps> = (props) => {
   const match = useRouteMatch();
   const menuWidget = getMenuWidget(match);
   const addedList = getAddedList(props, match);
   const isTypeInterest = Router.getLastUrlParam(match) === EXPLORER_TYPE.INTERESTS; // Only Interests takes in Career List for ExplorerMultipleItemsMenu
   const role = Router.getRoleByUrl(match);
   const collection = getCollection(match);
-  const type = Router.getLastUrlParam(match);
+  const type = Router.getLastUrlParam(match) as IExplorerTypes;
 
   return (
     <div id={`${type}-explorer-page`}>
@@ -146,14 +147,13 @@ const ExplorerMultipleItemsPage = (props: ICardExplorerPageProps) => {
       <Container>
         <Grid stackable>
           <Grid.Row className="helpPanel">
-            <Grid.Column width={16}><HelpPanelWidget /></Grid.Column>
+            <Grid.Column width={16}><HelpPanelWidget helpMessages={props.helpMessages} /></Grid.Column>
           </Grid.Row>
           <Grid.Row>
             <Grid.Column width={4}>
               <ExplorerMultipleItemsMenu
                 menuAddedList={addedList}
                 type={type}
-                role={role}
                 menuCareerList={isTypeInterest ? addedCareerInterests(match) : undefined}
               />
             </Grid.Column>
@@ -168,7 +168,7 @@ const ExplorerMultipleItemsPage = (props: ICardExplorerPageProps) => {
   );
 };
 
-// TODO: why are we getting all of this info when we only need some of it for any given page?
+// TODO: why are we getting all of this info when we only need some of it for any given page? Because, we didn't want to create an ExplorerMultipleItemsPage for each type.
 export default withTracker((props) => {
   const { username } = useParams();
   const studentID = Users.getProfile(username).userID;
@@ -177,11 +177,13 @@ export default withTracker((props) => {
   const favoriteCourses = FavoriteCourses.findNonRetired({ studentID });
   const favoriteInterests = FavoriteInterests.findNonRetired({ userID: studentID });
   const favoriteOpportunities = FavoriteOpportunities.findNonRetired({ studentID });
+  const helpMessages = HelpMessages.findNonRetired({});
   return {
     favoritePlans,
     favoriteCareerGoals,
     favoriteCourses,
     favoriteInterests,
     favoriteOpportunities,
+    helpMessages,
   };
 })(ExplorerMultipleItemsPage);
