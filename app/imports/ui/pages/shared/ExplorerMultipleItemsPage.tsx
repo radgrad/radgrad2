@@ -9,14 +9,14 @@ import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidge
 import { IExplorerTypes } from '../../components/shared/explorer/utilities/explorer';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
-import CardExplorerWidget from '../../components/shared/explorer/multiple-items/ExplorerMultipleItemsWidget';
+import CardExplorerWidget from '../../components/shared/explorer/browser-view/ExplorerMultipleItemsWidget';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Users } from '../../../api/user/UserCollection';
-import ExplorerMultipleItemsMenu, { IExplorerMenuItem } from '../../components/shared/explorer/multiple-items/ExplorerMultipleItemsMenu';
+import ExplorerMultipleItemsMenu, { IExplorerMenuItem } from '../../components/shared/explorer/browser-view/ExplorerMultipleItemsMenu';
 import {
   IFavoriteAcademicPlan,
   IFavoriteCareerGoal,
