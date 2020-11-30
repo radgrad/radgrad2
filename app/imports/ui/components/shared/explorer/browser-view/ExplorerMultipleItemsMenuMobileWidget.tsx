@@ -4,7 +4,7 @@ import { Dropdown } from 'semantic-ui-react';
 import { useRouteMatch } from 'react-router-dom';
 import * as Router from '../../utilities/router';
 import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
-import ExplorerMenuMobileItem from '../single-item/ExplorerMenuMobileItem';
+import ExplorerMenuMobileItem from '../item-view/ExplorerMenuMobileItem';
 import {
   explorerInterfaces,
   isType,

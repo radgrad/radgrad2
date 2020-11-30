@@ -5,7 +5,7 @@ import { useRouteMatch, Link } from 'react-router-dom';
 import { RadGradProperties } from '../../../../../api/radgrad/RadGradProperties';
 import { IInterest } from '../../../../../typings/radgrad';
 import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
-import ExplorerMenuNonMobileItem from '../single-item/ExplorerMenuNonMobileItem';
+import ExplorerMenuNonMobileItem from '../item-view/ExplorerMenuNonMobileItem';
 import {
   explorerInterfaces, IExplorerTypes,
   isType,
