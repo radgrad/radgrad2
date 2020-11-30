@@ -147,7 +147,7 @@ export interface ICardExplorerCards {
 
 export interface IPlanCard extends ICardExplorerCards {
   type: string;
-  canAdd: boolean;
+  canAdd?: boolean;
 }
 
 export interface IProfileCard extends ICardExplorerCards {

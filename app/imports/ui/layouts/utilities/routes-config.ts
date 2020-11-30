@@ -16,6 +16,7 @@ import LandingOpportunitiesCardExplorerContainer from '../../pages/landing/Landi
 import LandingOpportunityExplorerContainer from '../../pages/landing/LandingOpportunityExplorerPage';
 import LandingAcademicPlansCardExplorerContainer from '../../pages/landing/LandingAcademicPlansCardExplorerPage';
 import LandingAcademicPlanExplorerContainer from '../../pages/landing/LandingAcademicPlanExplorerPage';
+import AcademicPlanBrowserViewPage from '../../pages/shared/browser-view/AcademicPlanBrowserViewPage';
 import ExplorerHomePageContainer from '../../pages/shared/ExplorerHomePage';
 import CardExplorerPageContainer from '../../pages/shared/ExplorerMultipleItemsPage';
 import IndividualExplorerPageContainer from '../../pages/shared/ExplorerSingleItemPage';
@@ -366,7 +367,7 @@ export const routes = {
     {
       path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}`,
       exact: true,
-      component: CardExplorerPageContainer,
+      component: AcademicPlanBrowserViewPage,
     },
     {
       path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}/${EXPLORER_PARAM.ACADEMICPLAN}`,
