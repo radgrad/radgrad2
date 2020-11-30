@@ -1,5 +1,4 @@
-import React from 'react';
-// import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 // import { useParams, useRouteMatch } from 'react-router-dom';
 // import _ from 'lodash';
@@ -27,12 +26,26 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const AcademicPlanBrowserView: React.FC<IAcademicPlanBrowserViewProps> = (props) => {
-  console.log(props);
+  // console.log(props);
+  const cardGroupElement: HTMLElement = document.getElementById('academicPlansCardGroup');
+  useEffect(() => {
+    const savedScrollPosition = props.plansScrollPosition;
+    if (savedScrollPosition && cardGroupElement) {
+      cardGroupElement.scrollTo(0, savedScrollPosition);
+    }
+    return () => {
+      if (cardGroupElement) {
+        const currentScrollPosition = cardGroupElement.scrollTop;
+        props.setPlansScrollPosition(currentScrollPosition);
+      }
+    };
+  }, [cardGroupElement, props.plansScrollPosition, props.setPlansScrollPosition]);
+
   return (
     <div id="academic-plan-browser-view">
       <Segment>
         <Header dividing>ACADEMIC PLANS {props.academicPlans.length}</Header>
-        <Card.Group itemsPerRow={2} stackable>
+        <Card.Group itemsPerRow={2} stackable id="academicPlansCardGroup">
           {props.academicPlans.map((plan) => (
             <AcademicPlanCard key={plan._id} item={plan} type={EXPLORER_TYPE.ACADEMICPLANS} />))}
         </Card.Group>

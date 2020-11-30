@@ -20,15 +20,16 @@ import HelpPanelWidget from '../../../components/shared/HelpPanelWidget';
 import * as Router from '../../../components/shared/utilities/router';
 import StudentPageMenuWidget from '../../../components/student/StudentPageMenuWidget';
 import { EXPLORER_TYPE, URL_ROLES } from '../../../layouts/utilities/route-constants';
+import show = Mocha.reporters.Base.cursor.show;
 
 interface IAcademicPlanBrowserViewPageProps {
   favoritePlans: IFavoriteAcademicPlan[];
   academicPlans: IAcademicPlan[];
   helpMessages: IHelpMessage[];
 }
+
 const getMenuWidget = (match): JSX.Element => {
   const role = Router.getRoleByUrl(match);
-  // console.log('ExplorerMultipleItemsPage.getMenuWidget', role);
   switch (role) {
     case URL_ROLES.STUDENT:
       return <StudentPageMenuWidget />;
@@ -44,6 +45,10 @@ const getMenuWidget = (match): JSX.Element => {
 const AcademicPlanBrowserViewPage: React.FC<IAcademicPlanBrowserViewPageProps> = ({ academicPlans, favoritePlans, helpMessages }) => {
   const match = useRouteMatch();
   const favoriteAcademicPlans = _.map(favoritePlans, (f) => AcademicPlans.findDoc(f.academicPlanID));
+  const menuAddedItems = _.map(favoriteAcademicPlans, (p) => ({ item: p, count: 1 }));
+  const role = Router.getRoleByUrl(match);
+  const showFavorites = role === 'student';
+  const columnWidth = showFavorites ? 12 : 16;
   return (
     <div id="academic-plan-explorer-page">
       {getMenuWidget(match)}
@@ -53,14 +58,16 @@ const AcademicPlanBrowserViewPage: React.FC<IAcademicPlanBrowserViewPageProps> =
             <Grid.Column width={16}><HelpPanelWidget helpMessages={helpMessages} /></Grid.Column>
           </Grid.Row>
           <Grid.Row>
-            <Grid.Column width={4}>
-              <ExplorerMultipleItemsMenu
-                menuAddedList={favoriteAcademicPlans}
-                type={EXPLORER_TYPE.ACADEMICPLANS as IExplorerTypes}
-                menuCareerList={undefined}
-              />
-            </Grid.Column>
-            <Grid.Column width={12}>
+            {showFavorites ? (
+              <Grid.Column width={4}>
+                <ExplorerMultipleItemsMenu
+                  menuAddedList={menuAddedItems}
+                  type={EXPLORER_TYPE.ACADEMICPLANS as IExplorerTypes}
+                  menuCareerList={undefined}
+                />
+              </Grid.Column>
+            ) : ' '}
+            <Grid.Column width={columnWidth}>
               <AcademicPlanBrowserViewContainer favoritePlans={favoriteAcademicPlans} academicPlans={academicPlans} />
             </Grid.Column>
           </Grid.Row>
@@ -69,13 +76,12 @@ const AcademicPlanBrowserViewPage: React.FC<IAcademicPlanBrowserViewPageProps> =
       </Container>
     </div>
   );
-
 };
 
 export default withTracker(() => {
   const { username } = useParams();
   const profile = Users.getProfile(username);
-  console.log(profile);
+  // console.log(profile);
   const studentID = profile.userID;
   const favoritePlans = FavoriteAcademicPlans.findNonRetired({ studentID });
   const helpMessages = HelpMessages.findNonRetired({});
@@ -83,8 +89,8 @@ export default withTracker(() => {
   if (profile.declaredAcademicTermID) {
     const term = AcademicTerms.findDoc(profile.declaredAcademicTermID);
     academicPlans = AcademicPlans.findNonRetired({
-      termNumbar: { $ge: term.termNumbar },
-      year: { $ge: term.year },
+      termNumbar: { $gte: term.termNumbar },
+      year: { $gte: term.year },
     });
   } else if (profile.role === ROLE.STUDENT) {
     academicPlans = AcademicPlans.getLatestPlans();

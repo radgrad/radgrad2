@@ -51,22 +51,25 @@ const ExplorerMultipleItemsMenuNonMobileWidget = (props: ICardExplorerMenuNonMob
             FACULTY have a 'Suggest a Opportunity / Career Goal' mailto link. */}
       <MediaContextProvider>
         <Media greaterThanOrEqual="tablet">
-          {(isType(EXPLORER_TYPE.ACADEMICPLANS, type) && isStudent) ?
+          {(isType(EXPLORER_TYPE.ACADEMICPLANS, type)) ?
             (
               <Menu vertical text className="cardMenu">
                 <Header as="h4" className="cardMenu_header">
                   <Icon name="graduation cap" size="mini" />
-                  <Header.Content>MY ACADEMIC PLAN</Header.Content>
+                  <Header.Content>MY FAVORITE ACADEMIC PLANS</Header.Content>
                 </Header>
                 {
-                  menuAddedList.map((listItem) => (
-                    <ExplorerMenuNonMobileItem
-                      listItem={listItem}
-                      type={EXPLORER_TYPE.ACADEMICPLANS}
-                      key={listItem.item._id}
-                      match={match}
-                    />
-                  ))
+                  menuAddedList.map((listItem) => {
+                    console.log(listItem);
+                    return (
+                      <ExplorerMenuNonMobileItem
+                        listItem={listItem}
+                        type={EXPLORER_TYPE.ACADEMICPLANS}
+                        key={listItem.item._id}
+                        match={match}
+                      />
+                    );
+                  })
                 }
               </Menu>
             )

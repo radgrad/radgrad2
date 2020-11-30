@@ -123,6 +123,7 @@ const getItemStatus = (item: explorerInterfaces, props: IExplorerMenuNonMobileIt
 
 const ExplorerMenuNonMobileItem = (props: IExplorerMenuNonMobileItemProps) => {
   const { type, listItem, match } = props;
+  console.log(props);
   const iconStyle: React.CSSProperties = {
     position: 'absolute',
     marginLeft: '-20px',
