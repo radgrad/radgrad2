@@ -2,9 +2,12 @@ import { landingNavBar } from './navbar.landing.component';
 import { adminNavBar } from './navbar.admin.component';
 import { signinPage } from './signin.page';
 import { landingPage } from './landing.page';
-import { adminAnalyticsPage, adminDatabasePage, adminDataModelPage, adminHomePage,
-  adminModerationPage, adminScoreboardPage } from './simple.page';
+import {
+  adminAnalyticsPage, adminDatabasePage, adminDataModelPage, adminHomePage,
+  adminModerationPage, adminScoreboardPage,
+} from './simple.page';
 
+// eslint-disable-next-line @typescript-eslint/no-redeclare
 /* global fixture:false, test:false */
 
 /** Credentials for sample user(s) defined in settings.development.json. */
@@ -49,9 +52,9 @@ test('Test admin data model page and subpages', async (testController) => {
   await adminNavBar.gotoAdminLogin(testController);
   await signinPage.signin(testController, credentials.admin);
   const subPages = ['academic-plans', 'academic-terms', 'academic-year-instances', 'advisor-logs', 'career-goals',
-  'course-instances', 'courses', 'feeds', 'feedback-instances', 'help-messages', 'interests',
-  'interest-types', 'opportunities', 'opportunity-instances', 'opportunity-types', 'plan-choices', 'reviews',
-  'slugs', 'teasers', 'users', 'verification-requests'];
+    'course-instances', 'courses', 'feeds', 'feedback-instances', 'help-messages', 'interests',
+    'interest-types', 'opportunities', 'opportunity-instances', 'opportunity-types', 'plan-choices', 'reviews',
+    'slugs', 'teasers', 'users', 'verification-requests'];
   // const promises = subPages.map(async (subPage) => adminNavBar.gotoDataModelPageSubPageAndVerify(testController, subPage));
   // await Promise.all(promises);
   // We do it this way instead of the above map() and Promise.all() because it's much easier to debug.

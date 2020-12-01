@@ -4,6 +4,7 @@ import { signinPage } from './signin.page';
 import { advisorHomePage, advisorVerificationRequestsPage, advisorModerationPage,
   advisorAcademicPlanPage, advisorScoreboardPage } from './simple.page';
 
+// eslint-disable-next-line @typescript-eslint/no-redeclare
 /* global fixture:false, test:false */
 
 /** Credentials for sample user(s) defined in settings.development.json. */

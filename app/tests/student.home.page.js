@@ -13,9 +13,7 @@ class StudentHomePage {
 
   /** Asserts that this page is currently displayed. */
   async isUser(testController, credentials) {
-    const userFullNameField = Selector('#dropdown-user-fullname')
-        .child('div')
-        .textContent;
+    const userFullNameField = Selector('#dropdown-user-fullname').child('div').textContent;
     await testController.expect(userFullNameField).eql(credentials.fullName);
   }
 }
