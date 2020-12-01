@@ -23,12 +23,12 @@ interface IProfileCardProps {
 
 // TODO Why is this called ProfileCard?
 
-const ProfileCard = (props: IProfileCardProps) => {
+const ProfileCard: React.FC<IProfileCardProps> = (props) => {
   const { item, type } = props;
   const match = useRouteMatch();
   const itemName = docToName(item);
   const itemShortDescription = docToShortDescription(item);
-  const numberStudents = studentsParticipating(item);
+  const numberStudents = studentsParticipating(item); // TODO this isn't getting the right number
   const interested = interestedStudents(item, type);
   const slugName = itemToSlugName(item);
   // console.log(interested);

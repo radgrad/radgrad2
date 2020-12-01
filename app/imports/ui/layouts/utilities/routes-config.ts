@@ -17,6 +17,7 @@ import LandingOpportunityExplorerContainer from '../../pages/landing/LandingOppo
 import LandingAcademicPlansCardExplorerContainer from '../../pages/landing/LandingAcademicPlansCardExplorerPage';
 import LandingAcademicPlanExplorerContainer from '../../pages/landing/LandingAcademicPlanExplorerPage';
 import AcademicPlanBrowserViewPage from '../../pages/shared/browser-view/AcademicPlanBrowserViewPage';
+import CareerGoalBrowserViewPage from '../../pages/shared/browser-view/CareerGoalBrowserViewPage';
 import InterestBrowserViewPage from '../../pages/shared/browser-view/InterestBrowserViewPage';
 import ExplorerHomePageContainer from '../../pages/shared/ExplorerHomePage';
 import CardExplorerPageContainer from '../../pages/shared/ExplorerMultipleItemsPage';
@@ -378,7 +379,7 @@ export const routes = {
     {
       path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}`,
       exact: true,
-      component: CardExplorerPageContainer,
+      component: CareerGoalBrowserViewPage,
     },
     {
       path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}/${EXPLORER_PARAM.CAREERGOAL}`,
