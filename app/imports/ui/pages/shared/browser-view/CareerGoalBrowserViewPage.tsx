@@ -7,7 +7,7 @@ import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
 import { FavoriteCareerGoals } from '../../../../api/favorite/FavoriteCareerGoalCollection';
 import { HelpMessages } from '../../../../api/help/HelpMessageCollection';
 import { Users } from '../../../../api/user/UserCollection';
-import { ICareerGoal, IHelpMessage } from '../../../../typings/radgrad';
+import { ICareerGoal, IHelpMessage, IInterest } from '../../../../typings/radgrad';
 import AdvisorPageMenuWidget from '../../../components/advisor/AdvisorPageMenuWidget';
 import FacultyPageMenuWidget from '../../../components/faculty/FacultyPageMenuWidget';
 import CareerGoalBrowserViewContainer from '../../../components/shared/explorer/browser-view/CareerGoalBrowserView';
@@ -17,9 +17,11 @@ import HelpPanelWidget from '../../../components/shared/HelpPanelWidget';
 import * as Router from '../../../components/shared/utilities/router';
 import StudentPageMenuWidget from '../../../components/student/StudentPageMenuWidget';
 import { EXPLORER_TYPE, URL_ROLES } from '../../../layouts/utilities/route-constants';
+import { FavoriteInterests } from '../../../../api/favorite/FavoriteInterestCollection';
 
 interface ICareerGoalBrowserViewPageProps {
   favoriteCareerGoals: ICareerGoal[];
+  favoriteInterestIDs: string[];
   careerGoals: ICareerGoal[];
   helpMessages: IHelpMessage[];
 }
@@ -38,7 +40,7 @@ const getMenuWidget = (match): JSX.Element => {
   }
 };
 
-const CareerGoalBrowserViewPage: React.FC<ICareerGoalBrowserViewPageProps> = ({ favoriteCareerGoals, careerGoals, helpMessages }) => {
+const CareerGoalBrowserViewPage: React.FC<ICareerGoalBrowserViewPageProps> = ({ favoriteCareerGoals, favoriteInterestIDs, careerGoals, helpMessages }) => {
   const match = useRouteMatch();
   const menuAddedList = _.map(favoriteCareerGoals, (f) => ({ item: f, count: 1 }));
   return (
@@ -58,7 +60,11 @@ const CareerGoalBrowserViewPage: React.FC<ICareerGoalBrowserViewPageProps> = ({ 
               />
             </Grid.Column>
             <Grid.Column width={12}>
-              <CareerGoalBrowserViewContainer favoriteCareerGoals={favoriteCareerGoals} careerGoals={careerGoals} />
+              <CareerGoalBrowserViewContainer
+                favoriteCareerGoals={favoriteCareerGoals}
+                favoriteInterestIDs={favoriteInterestIDs}
+                careerGoals={careerGoals}
+              />
             </Grid.Column>
           </Grid.Row>
         </Grid>
@@ -72,11 +78,14 @@ export default withTracker(() => {
   const profile = Users.getProfile(username);
   const favCar = FavoriteCareerGoals.findNonRetired({ userID: profile.userID });
   const favoriteCareerGoals = _.map(favCar, (f) => CareerGoals.findDoc(f.careerGoalID));
+  const favInt = FavoriteInterests.findNonRetired({ userID: profile.userID });
+  const favoriteInterestIDs = _.map(favInt, (f) => f.interestID);
   const careerGoals = CareerGoals.findNonRetired({});
   const helpMessages = HelpMessages.findNonRetired({});
   return {
     careerGoals,
     favoriteCareerGoals,
+    favoriteInterestIDs,
     helpMessages,
   };
 })(CareerGoalBrowserViewPage);

@@ -12,11 +12,13 @@ import {
 } from '../../utilities/data-model';
 import { interestedStudents } from '../utilities/explorer';
 import { buildExplorerSlugRoute } from '../../utilities/router';
+import InterestList from '../../InterestList';
 
 interface IProfileCardProps {
   item: {
     _id: string;
     name: string;
+    interestIDs: string[];
   };
   type: string;
 }
@@ -43,6 +45,7 @@ const ProfileCard: React.FC<IProfileCardProps> = (props) => {
           source={`${itemShortDescription}...`}
           renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}
         />
+        <InterestList item={item} size="small" />
       </Card.Content>
       <Card.Content>
         <span>

@@ -18,6 +18,7 @@ class PreferredChoice {
     let max = 0;
     _.forEach(choices, (choice) => {
       const score = _.intersection(choice.interestIDs, interestIDs).length;
+      console.log(choice, score);
       if (score > max) {
         max = score;
       }
@@ -48,7 +49,7 @@ class PreferredChoice {
         choices = choices.concat(this.rankedChoices[i]);
       }
     }
-    // console.log(choices);
+    // console.log(this.max, choices);
     return choices;
   }
 

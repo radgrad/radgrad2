@@ -6,9 +6,12 @@ import { RootState } from '../../../../../redux/types';
 import { ICareerGoal } from '../../../../../typings/radgrad';
 import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
 import ProfileCard from './ProfileCard';
+import PreferredChoice from '../../../../../api/degree-plan/PreferredChoice';
+import { pre } from 'fast-check';
 
 interface ICareerGoalBrowserViewProps {
   favoriteCareerGoals: ICareerGoal[];
+  favoriteInterestIDs: string[];
   careerGoals: ICareerGoal[];
   // Saving Scroll Position
   careerGoalsScrollPosition: number;
@@ -23,9 +26,12 @@ const mapDispatchToProps = (dispatch) => ({
   setCareerGoalsScrollPosition: (scrollPosition: number) => dispatch(scrollPositionActions.setExplorerCareerGoalsScrollPosition(scrollPosition)),
 });
 
-const CareerGoalBrowserView: React.FC<ICareerGoalBrowserViewProps> = ({ favoriteCareerGoals, careerGoals, careerGoalsScrollPosition, setCareerGoalsScrollPosition }) => {
+const CareerGoalBrowserView: React.FC<ICareerGoalBrowserViewProps> = ({ favoriteCareerGoals, favoriteInterestIDs, careerGoals, careerGoalsScrollPosition, setCareerGoalsScrollPosition }) => {
   // TODO do we want to filter out the favorite career goals?
   const cardGroupElement: HTMLElement = document.getElementById('careerGoalsCardGroup');
+  const preferred = new PreferredChoice(careerGoals, favoriteInterestIDs);
+  const ordered = preferred.getOrderedChoices();
+  console.log(careerGoals, ordered);
   useEffect(() => {
     const savedScrollPosition = careerGoalsScrollPosition;
     if (savedScrollPosition && cardGroupElement) {
@@ -44,7 +50,7 @@ const CareerGoalBrowserView: React.FC<ICareerGoalBrowserViewProps> = ({ favorite
       <Segment>
         <Header dividing>CAREER GOALS {careerGoals.length}</Header>
         <Card.Group itemsPerRow={2} stackable id="careerGoalsCardGroup">
-          {careerGoals.map((goal) => <ProfileCard key={goal._id} item={goal} type={EXPLORER_TYPE.CAREERGOALS} />)}
+          {ordered.map((goal) => <ProfileCard key={goal._id} item={goal} type={EXPLORER_TYPE.CAREERGOALS} />)}
         </Card.Group>
       </Segment>
     </div>
