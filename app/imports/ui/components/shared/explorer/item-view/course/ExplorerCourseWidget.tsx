@@ -24,6 +24,8 @@ import { toValueArray, toValueString } from './utilities/description-pair';
 import { FAVORITE_TYPE } from '../../../../../../api/favorite/FavoriteTypes';
 import FutureParticipation from '../../FutureParticipation';
 import TeaserVideo from '../../../TeaserVideo';
+import { Users } from '../../../../../../api/user/UserCollection';
+import { FavoriteCourses } from '../../../../../../api/favorite/FavoriteCourseCollection';
 
 interface IExplorerCoursesWidgetProps {
   name: string;
@@ -130,7 +132,7 @@ const ExplorerCourseWidget: React.FC<IExplorerCoursesWidgetProps> = (props: IExp
 
   const { name, shortName, descriptionPairs, item, completed } = props;
   const match = useRouteMatch();
-  const { course } = useParams();
+  const { course, username } = useParams();
 
   /* Header Variables */
   const upperShortName = toUpper(shortName);
@@ -154,6 +156,8 @@ const ExplorerCourseWidget: React.FC<IExplorerCoursesWidgetProps> = (props: IExp
       scores.push(0);
     }
   });
+  const profile = Users.getProfile(username);
+  const added = FavoriteCourses.findNonRetired({ studentID: profile.userID, courseID: item._id }).length > 0;
   return (
     <div id={explorerCourseWidget}>
       <Segment padded className="container" style={segmentStyle}>
@@ -167,6 +171,7 @@ const ExplorerCourseWidget: React.FC<IExplorerCoursesWidgetProps> = (props: IExp
                 item={item}
                 studentID={Router.getUserIdFromRoute(match)}
                 type={FAVORITE_TYPE.COURSE}
+                added={added}
               />
             )
             : undefined}

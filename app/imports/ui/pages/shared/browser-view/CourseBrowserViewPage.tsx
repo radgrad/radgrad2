@@ -59,7 +59,7 @@ const CourseBrowserViewPage: React.FC<ICourseBrowserViewPageProps> = ({ favorite
               <Grid.Column width={4}>
                 <ExplorerMultipleItemsMenu
                   menuAddedList={menuAddedList}
-                  type={EXPLORER_TYPE.ACADEMICPLANS as IExplorerTypes}
+                  type={EXPLORER_TYPE.COURSES as IExplorerTypes}
                   menuCareerList={undefined}
                 />
               </Grid.Column>

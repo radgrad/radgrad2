@@ -174,7 +174,7 @@ export interface IUserProfileCard extends ICardExplorerCards {
 
 export interface IDescriptionPair {
   label: string;
-  value: string | string[] | any[];
+  value: string | number | string[] | any[] | unknown;
 }
 
 // AcademicPlans

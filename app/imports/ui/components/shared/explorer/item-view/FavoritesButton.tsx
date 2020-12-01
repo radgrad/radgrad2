@@ -1,6 +1,5 @@
 import React from 'react';
 import { Button, Icon } from 'semantic-ui-react';
-import { withTracker } from 'meteor/react-meteor-data';
 import Swal from 'sweetalert2';
 import {
   IAcademicPlan,
@@ -130,7 +129,7 @@ const handleRemove = (props: IFavoriteButtonProps) => () => {
   });
 };
 
-const FavoritesButton = (props: IFavoriteButtonProps) => (
+const FavoritesButton: React.FC<IFavoriteButtonProps> = (props) => (
   <React.Fragment>
     {props.added ?
       (
@@ -159,17 +158,4 @@ const FavoritesButton = (props: IFavoriteButtonProps) => (
   </React.Fragment>
 );
 
-export default withTracker((props: IFavoriteButtonProps) => {
-  const count = FavoriteAcademicPlans.findNonRetired({
-    studentID: props.studentID,
-    academicPlanID: props.item._id,
-  }).length +
-    FavoriteCareerGoals.findNonRetired({ userID: props.studentID, careerGoalID: props.item._id }).length +
-    FavoriteCourses.findNonRetired({ studentID: props.studentID, courseID: props.item._id }).length +
-    FavoriteInterests.findNonRetired({ userID: props.studentID, interestID: props.item._id }).length +
-    FavoriteOpportunities.findNonRetired({ studentID: props.studentID, opportunityID: props.item._id }).length;
-
-  return {
-    added: count > 0,
-  };
-})(FavoritesButton);
+export default FavoritesButton;

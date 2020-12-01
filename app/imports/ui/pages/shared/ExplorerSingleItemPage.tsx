@@ -7,7 +7,7 @@ import ExplorerMenu from '../../components/shared/explorer/item-view/ExplorerMen
 import {
   IAcademicPlan,
   ICareerGoal,
-  ICourse,
+  ICourse, IDescriptionPair,
   IFavoriteAcademicPlan,
   IFavoriteCareerGoal,
   IFavoriteCourse,
@@ -246,7 +246,7 @@ const prerequisites = (theCourse: ICourse, props: IIndividualExplorerPageProps):
   return [complete, incomplete, notInPlan];
 };
 
-const descriptionPairsCourses = (theCourse: ICourse, props: IIndividualExplorerPageProps): unknown[] => [
+const descriptionPairsCourses = (theCourse: ICourse, props: IIndividualExplorerPageProps): IDescriptionPair[] => [
   { label: 'Course Number', value: theCourse.num },
   { label: 'Credit Hours', value: theCourse.creditHrs },
   { label: 'Description', value: theCourse.description },
@@ -327,7 +327,7 @@ const descriptionPairsOpportunities = (theOpp: IOpportunity): { label: string, v
   { label: 'Teaser', value: teaser(theOpp) },
 ];
 
-const getAddedList = (props: IIndividualExplorerPageProps): { [key: string]: any }[] => {
+const getAddedList = (props: IIndividualExplorerPageProps): any[] => {
   const type = Router.getUrlParam(props.match, 2);
   switch (type) {
     case EXPLORER_TYPE.ACADEMICPLANS:
@@ -345,7 +345,7 @@ const getAddedList = (props: IIndividualExplorerPageProps): { [key: string]: any
   }
 };
 
-const getCareerList = (props: IIndividualExplorerPageProps): { [key: string]: any }[] => {
+const getCareerList = (props: IIndividualExplorerPageProps): any[] => {
   const type = Router.getUrlParam(props.match, 2);
   switch (type) {
     case EXPLORER_TYPE.INTERESTS:
@@ -355,7 +355,7 @@ const getCareerList = (props: IIndividualExplorerPageProps): { [key: string]: an
   }
 };
 
-const getItem = (props: IIndividualExplorerPageProps): { [key: string]: any } => {
+const getItem = (props: IIndividualExplorerPageProps): any => {
   const type = Router.getUrlParam(props.match, 2);
   switch (type) {
     case EXPLORER_TYPE.ACADEMICPLANS:
@@ -373,7 +373,7 @@ const getItem = (props: IIndividualExplorerPageProps): { [key: string]: any } =>
   }
 };
 
-const getDescriptionPairs = (item: { [key: string]: any }, props: IIndividualExplorerPageProps): unknown[] => {
+const getDescriptionPairs = (item: { [key: string]: any }, props: IIndividualExplorerPageProps): IDescriptionPair[] => {
   const type = Router.getUrlParam(props.match, 2);
   // console.log(item, type);
   switch (type) {
@@ -428,8 +428,8 @@ const ExplorerSingleItemPage = (props: IIndividualExplorerPageProps) => {
           <ExplorerMenu
             menuAddedList={addedList}
             menuCareerList={isTypeInterests && careerList ? careerList : undefined}
-            type={type}
-            role={role}
+            type={type as 'plans' | 'career-goals' | 'courses' | 'interests' | 'opportunities' | 'users'}
+            role={role as 'faculty' | 'student'}
           />
         </Grid.Column>
 
@@ -474,7 +474,6 @@ const ExplorerSingleItemPage = (props: IIndividualExplorerPageProps) => {
                 descriptionPairs={descriptionPairs}
                 item={item}
                 completed={(isTypeOpportunities && isOpportunityCompleted(props) !== undefined) ? isOpportunityCompleted(props) : undefined}
-                role={role}
               />
             )
               : ''

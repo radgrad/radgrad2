@@ -20,6 +20,7 @@ import { explorerInterestWidget } from '../../../shared-widget-names';
 import { Teasers } from '../../../../../../api/teaser/TeaserCollection';
 import { FAVORITE_TYPE } from '../../../../../../api/favorite/FavoriteTypes';
 import TeaserVideo from '../../../TeaserVideo';
+import { FavoriteInterests } from '../../../../../../api/favorite/FavoriteInterestCollection';
 
 interface IExplorerInterestsWidgetProps {
   profile: IProfile;
@@ -94,14 +95,16 @@ const getBaseURL = (match) => {
   return temp.join('/');
 };
 
-const ExplorerInterestWidget = (props: IExplorerInterestsWidgetProps) => {
+const ExplorerInterestWidget: React.FC<IExplorerInterestsWidgetProps> = (props) => {
   // console.log('ExplorerInterestWidget', props);
   const relatedCourses = getAssociationRelatedCourses(getRelatedCourses(props), props);
   const relatedOpportunities = getAssociationRelatedOpportunities(getRelatedOpportunities(props), props);
   const teaser = Teasers.findNonRetired({ targetSlugID: props.interest.slugID });
   const hasTeaser = teaser.length > 0;
   const match = useRouteMatch();
-
+  const { username } = useParams();
+  const profile = Users.getProfile(username);
+  const added = FavoriteInterests.findNonRetired({ userID: profile.userID, interestID: props.interest._id }).length > 0;
   return (
     <div id={explorerInterestWidget}>
       <SegmentGroup>
@@ -112,6 +115,7 @@ const ExplorerInterestWidget = (props: IExplorerInterestsWidgetProps) => {
               type={FAVORITE_TYPE.INTEREST}
               studentID={props.profile.userID}
               item={props.interest}
+              added={added}
             />
           </Header>
           <Divider />

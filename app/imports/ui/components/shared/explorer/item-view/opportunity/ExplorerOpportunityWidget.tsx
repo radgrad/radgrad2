@@ -22,6 +22,8 @@ import { Opportunities } from '../../../../../../api/opportunity/OpportunityColl
 import { toId } from '../course/utilities/description-pair';
 import { FAVORITE_TYPE } from '../../../../../../api/favorite/FavoriteTypes';
 import TeaserVideo from '../../../TeaserVideo';
+import { Users } from '../../../../../../api/user/UserCollection';
+import { FavoriteOpportunities } from '../../../../../../api/favorite/FavoriteOpportunityCollection';
 
 interface IExplorerOpportunitiesWidgetProps {
   name: string;
@@ -63,7 +65,7 @@ const ExplorerOpportunityWidget: React.FC<IExplorerOpportunitiesWidgetProps> = (
 
   const { name, descriptionPairs, item, completed } = props;
   const match = useRouteMatch();
-  const { opportunity } = useParams();
+  const { opportunity, username } = useParams();
 
   /* Header Variables */
   const upperName = toUpper(name);
@@ -87,7 +89,8 @@ const ExplorerOpportunityWidget: React.FC<IExplorerOpportunitiesWidgetProps> = (
       scores.push(0);
     }
   });
-
+  const profile = Users.getProfile(username);
+  const added = FavoriteOpportunities.findNonRetired({ userID: profile.userID, opportunityID: item._id }).length > 0;
   return (
     <div id={explorerOpportunityWidget}>
       <Segment padded className="container" style={segmentStyle}>
@@ -100,6 +103,7 @@ const ExplorerOpportunityWidget: React.FC<IExplorerOpportunitiesWidgetProps> = (
                   item={item}
                   studentID={Router.getUserIdFromRoute(match)}
                   type={FAVORITE_TYPE.OPPORTUNITY}
+                  added={added}
                 />
               )
               : ''}

@@ -5,7 +5,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { useParams, useRouteMatch } from 'react-router-dom';
 import InterestList from '../../../InterestList';
 import { Users } from '../../../../../../api/user/UserCollection';
-import { IProfile } from '../../../../../../typings/radgrad';
+import { ICareerGoal, IProfile } from '../../../../../../typings/radgrad';
 import { renderLink, getUserIdFromRoute } from '../../../utilities/router';
 import WidgetHeaderNumber from '../../WidgetHeaderNumber';
 import FavoritesButton from '../FavoritesButton';
@@ -18,14 +18,12 @@ import { CareerGoals } from '../../../../../../api/career/CareerGoalCollection';
 import { toId } from '../course/utilities/description-pair';
 import { FAVORITE_TYPE } from '../../../../../../api/favorite/FavoriteTypes';
 import TeaserVideo from '../../../TeaserVideo';
+import { FavoriteCareerGoals } from '../../../../../../api/favorite/FavoriteCareerGoalCollection';
 
 interface IExplorerCareerGoalsWidgetProps {
   name: string;
   descriptionPairs: any;
-  item: {
-    slugID: string;
-    interestIDs: string[];
-  };
+  item: ICareerGoal;
   socialPairs: any;
   // eslint-disable-next-line react/no-unused-prop-types
   profile: IProfile;
@@ -56,7 +54,9 @@ const ExplorerCareerGoalWidget = (props: IExplorerCareerGoalsWidgetProps) => {
   const match = useRouteMatch();
   const upperName = toUpper(name);
   const hasTeaser = Teasers.findNonRetired({ targetSlugID: item.slugID }).length > 0;
-  const { careergoal } = useParams();
+  const { careergoal, username } = useParams();
+  const profile = Users.getProfile(username);
+  const added = FavoriteCareerGoals.findNonRetired({ userID: profile.userID, careerGoalID: item._id }).length > 0;
   return (
     <Grid container stackable style={marginStyle} id={explorerCareerGoalWidget}>
       <Grid.Column width={16}>
@@ -64,9 +64,10 @@ const ExplorerCareerGoalWidget = (props: IExplorerCareerGoalsWidgetProps) => {
           <Segment basic clearing vertical>
             <Grid.Row verticalAlign="middle">
               <FavoritesButton
-                item={props.item}
+                item={item}
                 studentID={getUserIdFromRoute(match)}
                 type={FAVORITE_TYPE.CAREERGOAL}
+                added={added}
               />
               <Header floated="left">{upperName}</Header>
             </Grid.Row>

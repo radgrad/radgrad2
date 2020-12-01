@@ -15,6 +15,7 @@ import { toUpper } from '../../../utilities/general';
 import { explorerPlanWidget } from '../../../shared-widget-names';
 import { toId } from '../course/utilities/description-pair';
 import { FAVORITE_TYPE } from '../../../../../../api/favorite/FavoriteTypes';
+import { FavoriteAcademicPlans } from '../../../../../../api/favorite/FavoriteAcademicPlanCollection';
 
 interface IExplorerPlansWidgetProps {
   name: string;
@@ -36,18 +37,18 @@ const ExplorerPlanWidget: React.FC<IExplorerPlansWidgetProps> = (props: IExplore
   const { name, descriptionPairs, item } = props;
   const match = useRouteMatch();
   const { username } = useParams();
+  const profile = Users.getProfile(username);
+  const added = FavoriteAcademicPlans.findNonRetired({ studentID: profile.userID, academicPlanID: item._id }).length > 0;
   const upperName = toUpper(name);
   const isStudent = Router.isUrlRoleStudent(match);
   let takenSlugs = [];
   if (isStudent) {
-    const profile = Users.findProfileFromUsername(username);
     const courseInstances = CourseInstances.findNonRetired({ studentID: profile.userID });
     const passedCourseInstances = _.filter(courseInstances, (ci) => passedCourse(ci));
     takenSlugs = _.map(passedCourseInstances, (ci) => {
       const doc = CourseInstances.getCourseDoc(ci._id);
       return Slugs.getNameFromID(doc.slugID);
     });
-
   }
   return (
     <Segment.Group style={backgroundColorWhiteStyle} id={`${explorerPlanWidget}`}>
@@ -60,6 +61,7 @@ const ExplorerPlanWidget: React.FC<IExplorerPlansWidgetProps> = (props: IExplore
                 item={item}
                 type={FAVORITE_TYPE.ACADEMICPLAN}
                 studentID={Router.getUserIdFromRoute(match)}
+                added={added}
               />
             )
               : ''
