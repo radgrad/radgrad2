@@ -20,7 +20,6 @@ import AcademicPlanBrowserViewPage from '../../pages/shared/browser-view/Academi
 import CareerGoalBrowserViewPage from '../../pages/shared/browser-view/CareerGoalBrowserViewPage';
 import InterestBrowserViewPage from '../../pages/shared/browser-view/InterestBrowserViewPage';
 import ExplorerHomePageContainer from '../../pages/shared/ExplorerHomePage';
-import CardExplorerPageContainer from '../../pages/shared/ExplorerMultipleItemsPage';
 import IndividualExplorerPageContainer from '../../pages/shared/ExplorerSingleItemPage';
 import AdminHomePageContainer from '../../pages/admin/AdminHomePage';
 import AdminDataModelPageContainer from '../../pages/admin/AdminDataModelPage';

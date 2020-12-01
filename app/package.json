@@ -140,7 +140,7 @@
       "react-app"
     ],
     "parserOptions": {
-      "project": "./tsconfig.json"
+      "project": "./tsconfig.eslint.json"
     },
     "rules": {
       "arrow-parens": "off",
