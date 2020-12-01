@@ -59,17 +59,14 @@ const ExplorerMultipleItemsMenuNonMobileWidget = (props: ICardExplorerMenuNonMob
                   <Header.Content>MY FAVORITE ACADEMIC PLANS</Header.Content>
                 </Header>
                 {
-                  menuAddedList.map((listItem) => {
-                    console.log(listItem);
-                    return (
-                      <ExplorerMenuNonMobileItem
-                        listItem={listItem}
-                        type={EXPLORER_TYPE.ACADEMICPLANS}
-                        key={listItem.item._id}
-                        match={match}
-                      />
-                    );
-                  })
+                  menuAddedList.map((listItem) => (
+                    <ExplorerMenuNonMobileItem
+                      listItem={listItem}
+                      type={EXPLORER_TYPE.ACADEMICPLANS}
+                      key={listItem.item._id}
+                      match={match}
+                    />
+                  ))
                 }
               </Menu>
             )

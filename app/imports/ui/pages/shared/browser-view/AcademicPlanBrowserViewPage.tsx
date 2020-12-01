@@ -20,7 +20,6 @@ import HelpPanelWidget from '../../../components/shared/HelpPanelWidget';
 import * as Router from '../../../components/shared/utilities/router';
 import StudentPageMenuWidget from '../../../components/student/StudentPageMenuWidget';
 import { EXPLORER_TYPE, URL_ROLES } from '../../../layouts/utilities/route-constants';
-import show = Mocha.reporters.Base.cursor.show;
 
 interface IAcademicPlanBrowserViewPageProps {
   favoritePlans: IFavoriteAcademicPlan[];

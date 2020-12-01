@@ -37,7 +37,6 @@ const FacultyPageMenuWidget: React.FC = () => {
     { label: 'Home', route: 'home', id: 'faculty-menu-home' },
     { label: requestsLabel, route: 'verification-requests', id: 'faculty-menu-verification' },
     { label: 'Manage Opportunities', route: 'manage-opportunities', id: 'faculty-menu-manage-opportunities' },
-    { label: 'Explorer', route: 'explorer' },
     { label: 'Scoreboard', route: 'scoreboard' },
   ];
   const explorerDropdownItems = [
