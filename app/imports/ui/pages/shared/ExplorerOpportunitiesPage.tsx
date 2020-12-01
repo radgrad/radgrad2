@@ -1,5 +1,6 @@
 import React from 'react';
 import { Grid, Container, Card } from 'semantic-ui-react';
+import { useRouteMatch } from 'react-router-dom';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import CardExplorerOpportunitiesWidget
@@ -10,16 +11,34 @@ import ExplorerSummerOpportunitiesWidget
   from '../../components/shared/explorer/opportunities/ExplorerSummerOpportunitiesWidget';
 import ExplorerOpportunitiesHeaderWidget
   from '../../components/shared/explorer/opportunities/ExplorerOpportunitiesHeaderWidget';
+import * as Router from '../../components/shared/utilities/router';
+import { URL_ROLES } from '../../layouts/utilities/route-constants';
+import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
+import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
 
-const ExplorerOpportunitiesPage = () => {
+const getMenuWidget = (match): JSX.Element => {
+  const role = Router.getRoleByUrl(match);
+  switch (role) {
+    case URL_ROLES.STUDENT:
+      return <StudentPageMenuWidget />;
+    case URL_ROLES.FACULTY:
+      return <FacultyPageMenuWidget />;
+    case URL_ROLES.ADVISOR:
+      return <AdvisorPageMenuWidget />;
+    default:
+      return <React.Fragment />;
+  }
+};
+
+const ExplorerOpportunitiesPage: React.FC = () => {
   const opportunitiesVideoHeaderStyle: React.CSSProperties = {
     marginTop: '5px',
   };
-
+  const match = useRouteMatch();
   const opportunitiesInRadGradVideo: { title: string, youtubeID: string, author: string } = radgradVideos.filter((video) => video.title === 'Opportunities in RadGrad')[0];
   return (
     <div id="student-opportunities-page">
-      <StudentPageMenuWidget />
+      {getMenuWidget(match)}
       <ExplorerOpportunitiesHeaderWidget />
       <Container>
         <Grid stackable divided="vertically">

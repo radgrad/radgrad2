@@ -41,8 +41,11 @@ import { PageInterests } from '../page-tracking/PageInterestCollection';
  */
 class RadGradClass {
   public collections: any[];
+
   public collectionLoadSequence;
+
   private readonly collectionAssociation;
+
   public calcLevel?: (studentID: string) => any;
 
   constructor() {

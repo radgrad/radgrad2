@@ -37,7 +37,7 @@ class AdvisorProfileCollection extends BaseProfileCollection {
    * @return { String } The docID of the AdvisorProfile.
    */
   public define({ username, firstName, lastName, picture = defaultProfilePicture, website, interests,
-           careerGoals, aboutMe, retired = false }: IAdvisorOrFacultyProfileDefine) {
+    careerGoals, aboutMe, retired = false }: IAdvisorOrFacultyProfileDefine) {
     if (Meteor.isServer) {
       const role = ROLE.ADVISOR;
       Slugs.define({ name: username, entityName: this.getType() });

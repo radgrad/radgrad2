@@ -69,9 +69,9 @@ const WithSubs = withListSubscriptions(LandingCareerGoalsCardExplorerPage, [
 ]);
 
 const LandingCareerGoalsCardExplorerContainer = withTracker(() => ({
-    careerGoals: CareerGoals.findNonRetired({}),
-    count: CareerGoals.countNonRetired(),
-    helpMessages: HelpMessages.findNonRetired({}),
+  careerGoals: CareerGoals.findNonRetired({}),
+  count: CareerGoals.countNonRetired(),
+  helpMessages: HelpMessages.findNonRetired({}),
 }))(WithSubs);
 
 export default LandingCareerGoalsCardExplorerContainer;

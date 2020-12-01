@@ -120,10 +120,10 @@ const ExplorerMultipleItemsWidget = (props: ICardExplorerWidgetProps) => {
   const header = buildHeader(props, match); // The header Title and Count
   let items = getItems(props, match); // The items to map over
   const { type } = props;
-// For the Academic Plans Card Explorer
+  // For the Academic Plans Card Explorer
   const buildPlanCard = isType(EXPLORER_TYPE.ACADEMICPLANS, type);
 
-// For Career Goals or Interests (or any future Card Explorer that has an "Add to Profile" functionality)
+  // For Career Goals or Interests (or any future Card Explorer that has an "Add to Profile" functionality)
   const buildProfileCard = isType(EXPLORER_TYPE.INTERESTS, type) || isType(EXPLORER_TYPE.CAREERGOALS, type);
   if (isType(EXPLORER_TYPE.CAREERGOALS, type)) {
     // sort items by interest match
@@ -133,7 +133,7 @@ const ExplorerMultipleItemsWidget = (props: ICardExplorerWidgetProps) => {
     const preferred = new PreferedChoice(items, interestIDs);
     items = preferred.getOrderedChoices();
   }
-// For Courses or Opportunities (or any future Card Explorer that has an "Add to Plan" functionality)
+  // For Courses or Opportunities (or any future Card Explorer that has an "Add to Plan" functionality)
   const buildTermCard = isType(EXPLORER_TYPE.COURSES, type) || isType(EXPLORER_TYPE.OPPORTUNITIES, type);
   const isCourseExplorer = isType(EXPLORER_TYPE.COURSES, type);
   if (isCourseExplorer) {

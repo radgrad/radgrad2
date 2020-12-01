@@ -158,13 +158,13 @@ const StudentIceColumnRecommended = (props: IStudentIceColumnRecommendedProps) =
         <p>
           Congratulations! You have 100 (or more) verified {type} points!
         </p>
-        )
+      )
         :
         matchingPoints(100, projectedICEPoints) ? (
           <p>
             You already have at least 100 verified or unverified {type} points.
           </p>
-          )
+        )
           :
           hasNoInterests(props, match) ?
             <p>Consider adding interests to see recommendations here.</p>
@@ -185,7 +185,7 @@ const StudentIceColumnRecommended = (props: IStudentIceColumnRecommendedProps) =
                           <Link to={courseRoute}>
                             <b>+9</b> {event.shortName}
                           </Link>
-                          )
+                        )
                           : (
                             <Link to={opportunityRoute}>
                               <b>+{icePoints(event.ice)}</b> {event.name}

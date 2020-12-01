@@ -28,7 +28,7 @@ if (Meteor.isServer) {
     it('Can define and removeIt', function test1(done) {
       fc.assert(
         fc.property(fc.lorem(3), fc.lorem(24), fc.boolean(), (fcName, fcDescription, fcRetired) => {
-            const fcSlug = `slug-${new Date().getTime()}`;
+          const fcSlug = `slug-${new Date().getTime()}`;
           const docID = OpportunityTypes.define({
             name: fcName,
             slug: fcSlug,

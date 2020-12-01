@@ -31,7 +31,9 @@ export const ProcessedSchema = new SimpleSchema({
  */
 class VerificationRequestCollection extends BaseCollection {
   public ACCEPTED: string;
+
   public REJECTED: string;
+
   public OPEN: string;
 
   /**

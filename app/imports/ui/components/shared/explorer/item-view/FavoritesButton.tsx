@@ -161,9 +161,9 @@ const FavoritesButton = (props: IFavoriteButtonProps) => (
 
 export default withTracker((props: IFavoriteButtonProps) => {
   const count = FavoriteAcademicPlans.findNonRetired({
-      studentID: props.studentID,
-      academicPlanID: props.item._id,
-    }).length +
+    studentID: props.studentID,
+    academicPlanID: props.item._id,
+  }).length +
     FavoriteCareerGoals.findNonRetired({ userID: props.studentID, careerGoalID: props.item._id }).length +
     FavoriteCourses.findNonRetired({ studentID: props.studentID, courseID: props.item._id }).length +
     FavoriteInterests.findNonRetired({ userID: props.studentID, interestID: props.item._id }).length +

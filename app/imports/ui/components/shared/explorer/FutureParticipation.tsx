@@ -32,7 +32,7 @@ const FutureParticipation: React.FC<IFutureParticipationProps> = ({ academicTerm
         <br />
         {scores[index]}
       </Grid.Column>
-))}
+    ))}
   </Grid>
 );
 

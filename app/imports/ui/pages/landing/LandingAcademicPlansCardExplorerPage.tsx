@@ -67,10 +67,10 @@ const WithSubs = withListSubscriptions(LandingAcademicPlansCardExplorerPage, [
 ]);
 
 const LandingAcademicPlansCardExplorerContainer = withTracker(() => ({
-    academicPlans: AcademicPlans.findNonRetired({}, { $sort: { year: 1, name: 1 } }),
-    count: AcademicPlans.countNonRetired(),
-    currentUser: Meteor.user() ? Meteor.user().username : '',
-    helpMessages: HelpMessages.findNonRetired({}),
+  academicPlans: AcademicPlans.findNonRetired({}, { $sort: { year: 1, name: 1 } }),
+  count: AcademicPlans.countNonRetired(),
+  currentUser: Meteor.user() ? Meteor.user().username : '',
+  helpMessages: HelpMessages.findNonRetired({}),
 }))(WithSubs);
 
 export default LandingAcademicPlansCardExplorerContainer;

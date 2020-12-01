@@ -41,7 +41,7 @@ export function isPlanChoiceSatisfied(planChoice: string, takenSlugs: string[]):
   let count = 0;
   _.forEach(takenSlugs, (slug) => {
     _.forEach(courseSlugs, (cSlug) => {
-     if (PlanChoiceUtils.satisfiesPlanChoice(cSlug, slug)) {
+      if (PlanChoiceUtils.satisfiesPlanChoice(cSlug, slug)) {
         count++;
       }
     });

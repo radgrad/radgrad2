@@ -43,8 +43,8 @@ function withGlobalSubscription(WrappedComponent) {
         <Loader>Loading global data</Loader>
       </Dimmer>
     </React.Fragment>
-      )
-      :
+  )
+    :
     <WrappedComponent {...props} />
   );
 

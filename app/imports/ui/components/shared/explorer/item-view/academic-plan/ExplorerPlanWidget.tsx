@@ -61,7 +61,7 @@ const ExplorerPlanWidget: React.FC<IExplorerPlansWidgetProps> = (props: IExplore
                 type={FAVORITE_TYPE.ACADEMICPLAN}
                 studentID={Router.getUserIdFromRoute(match)}
               />
-              )
+            )
               : ''
           }
         </Segment>
@@ -84,7 +84,7 @@ const ExplorerPlanWidget: React.FC<IExplorerPlansWidgetProps> = (props: IExplore
                         source={descriptionPair.value}
                         renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}
                       />
-                      )
+                    )
                       : (
                         <React.Fragment>
                           N/A

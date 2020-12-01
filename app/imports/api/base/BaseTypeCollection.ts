@@ -61,7 +61,7 @@ class BaseTypeCollection extends BaseCollection {
     let id;
     if (_.isObject(instance) && _.has(instance, '_id')) {
       // eslint-disable-next-line no-param-reassign, dot-notation
-      instance = instance['_id'];
+      instance = instance._id;
     }
     try {
       id = (this.collection.findOne({ _id: instance })) ? instance : this.findIdBySlug(instance);

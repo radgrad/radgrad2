@@ -17,6 +17,7 @@ import { IReviewDefine, IReviewUpdate, IReviewUpdateData } from '../../typings/r
  */
 class ReviewCollection extends BaseSlugCollection {
   public COURSE: string;
+
   public OPPORTUNITY: string;
 
   /**

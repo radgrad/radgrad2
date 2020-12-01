@@ -18,9 +18,9 @@ import { Ice } from '../../typings/radgrad';
  */
 export function defaultCalcLevel(studentID) {
   const instances = _.concat(CourseInstances.find({ studentID })
-      .fetch(),
-    OpportunityInstances.find({ studentID })
-      .fetch());
+    .fetch(),
+  OpportunityInstances.find({ studentID })
+    .fetch());
   const earnedICE: Ice = getEarnedICE(instances);
   const plannedICE: Ice = getProjectedICE(instances);
   const numReviews: number = Reviews.find({ studentID, reviewType: 'course', moderated: true, visible: true })
@@ -77,9 +77,9 @@ export function defaultCalcLevel(studentID) {
 
 export function testCalcLevel(studentID) {
   const instances = _.concat(CourseInstances.find({ studentID })
-      .fetch(),
-    OpportunityInstances.find({ studentID })
-      .fetch());
+    .fetch(),
+  OpportunityInstances.find({ studentID })
+    .fetch());
   const earnedICE: Ice = getEarnedICE(instances);
   const plannedICE: Ice = getProjectedICE(instances);
   const numReviews: number = Reviews.find({ studentID, reviewType: 'course', moderated: true, visible: true })

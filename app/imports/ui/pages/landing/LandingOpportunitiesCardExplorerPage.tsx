@@ -62,9 +62,9 @@ const WithSubs = withListSubscriptions(LandingOpportunitiesCardExplorerPage, [
 ]);
 
 const LandingOpportunitiesCardExplorerContainer = withTracker(() => ({
-    opportunities: Opportunities.findNonRetired({}, { sort: { name: 1 } }),
-    count: Opportunities.countNonRetired(),
-    helpMessages: HelpMessages.findNonRetired({}),
-  }))(WithSubs);
+  opportunities: Opportunities.findNonRetired({}, { sort: { name: 1 } }),
+  count: Opportunities.countNonRetired(),
+  helpMessages: HelpMessages.findNonRetired({}),
+}))(WithSubs);
 
 export default LandingOpportunitiesCardExplorerContainer;

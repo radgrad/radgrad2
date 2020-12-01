@@ -97,12 +97,12 @@ const ExplorerCareerGoalWidget = (props: IExplorerCareerGoalsWidgetProps) => {
                                       source={descriptionPair.value}
                                       renderers={{ link: (localProps) => renderLink(localProps, match) }}
                                     />
-                                    )
+                                  )
                                     :
                                     'N/A'
                                 }
                             </React.Fragment>
-                            )
+                          )
                             : ''
                         }
                       </React.Fragment>
@@ -126,7 +126,7 @@ const ExplorerCareerGoalWidget = (props: IExplorerCareerGoalsWidgetProps) => {
                                       <p> N/A </p>
                                   }
                               </React.Fragment>
-                              )
+                            )
                               : ''
                           }
                         </React.Fragment>
@@ -155,12 +155,12 @@ const ExplorerCareerGoalWidget = (props: IExplorerCareerGoalsWidgetProps) => {
                                     source={descriptionPair.value}
                                     renderers={{ link: (localProps) => renderLink(localProps, match) }}
                                   />
-                                  )
+                                )
                                   :
                                   'N/A'
                               }
                           </React.Fragment>
-                          )
+                        )
                           : ''
                       }
                     </React.Fragment>

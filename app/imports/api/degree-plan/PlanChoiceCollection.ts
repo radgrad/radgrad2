@@ -99,16 +99,16 @@ export class PlanChoiceCollection extends BaseCollection {
           slug = '';
         }
       } else
-        if (slug.indexOf(',') !== -1) {
-          index = slug.indexOf(',');
-          temp = slug.substring(0, index);
-          slug = slug.substring(index + 1);
-          ret = `${ret}${buildSimpleName(temp)} or `;
-        } else {
-          temp = slug;
-          slug = '';
-          ret = `${ret}${buildSimpleName(temp)} or `;
-        }
+      if (slug.indexOf(',') !== -1) {
+        index = slug.indexOf(',');
+        temp = slug.substring(0, index);
+        slug = slug.substring(index + 1);
+        ret = `${ret}${buildSimpleName(temp)} or `;
+      } else {
+        temp = slug;
+        slug = '';
+        ret = `${ret}${buildSimpleName(temp)} or `;
+      }
     }
     return ret.substring(0, ret.length - 4);
   }

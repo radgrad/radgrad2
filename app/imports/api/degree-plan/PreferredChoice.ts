@@ -6,6 +6,7 @@ import _ from 'lodash';
  */
 class PreferredChoice {
   private readonly rankedChoices: any;
+
   private readonly max: number;
 
   /**

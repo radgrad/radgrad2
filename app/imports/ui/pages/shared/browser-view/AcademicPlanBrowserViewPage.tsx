@@ -44,7 +44,7 @@ const getMenuWidget = (match): JSX.Element => {
 const AcademicPlanBrowserViewPage: React.FC<IAcademicPlanBrowserViewPageProps> = ({ academicPlans, favoritePlans, helpMessages }) => {
   const match = useRouteMatch();
   const favoriteAcademicPlans = _.map(favoritePlans, (f) => AcademicPlans.findDoc(f.academicPlanID));
-  const menuAddedItems = _.map(favoriteAcademicPlans, (p) => ({ item: p, count: 1 }));
+  const menuAddedList = _.map(favoriteAcademicPlans, (p) => ({ item: p, count: 1 }));
   const role = Router.getRoleByUrl(match);
   const showFavorites = role === 'student';
   const columnWidth = showFavorites ? 12 : 16;
@@ -60,7 +60,7 @@ const AcademicPlanBrowserViewPage: React.FC<IAcademicPlanBrowserViewPageProps> =
             {showFavorites ? (
               <Grid.Column width={4}>
                 <ExplorerMultipleItemsMenu
-                  menuAddedList={menuAddedItems}
+                  menuAddedList={menuAddedList}
                   type={EXPLORER_TYPE.ACADEMICPLANS as IExplorerTypes}
                   menuCareerList={undefined}
                 />

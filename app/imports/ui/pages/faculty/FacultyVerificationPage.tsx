@@ -70,7 +70,7 @@ const FacultyVerificationPage: React.FC<IFacultyVerificationPageProps> = (props:
               <PendingVerificationsWidget
                 pendingVerifications={props.verificationRequests.filter(ele => ele.status === VerificationRequests.OPEN)}
               />
-              )
+            )
               : undefined}
             {activeItemState === 'event' ?
               <EventVerificationsWidget eventOpportunities={props.eventOpportunities} />
@@ -80,7 +80,7 @@ const FacultyVerificationPage: React.FC<IFacultyVerificationPageProps> = (props:
                 username={match.params.username}
                 completedVerifications={props.verificationRequests.filter(ele => VerificationRequests.ACCEPTED === ele.status || ele.status === VerificationRequests.REJECTED)}
               />
-              )
+            )
               : undefined}
           </Grid.Column>
           <Grid.Column width={1} />

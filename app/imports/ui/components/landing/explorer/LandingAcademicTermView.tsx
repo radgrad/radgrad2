@@ -21,7 +21,7 @@ const LandingAcademicTermView = (props: ILandingAcademicTempViewProps) => {
       <div>
         {_.map(props.choices, (choice, index) => (
           <LandingPlanChoicePill key={index} choice={choice} />
-          ))}
+        ))}
       </div>
     </Segment>
   );

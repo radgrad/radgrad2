@@ -11,7 +11,7 @@ import { IFavoriteAcademicPlanDefine, IFavoriteUpdate } from '../../typings/radg
 class FavoriteAcademicPlanCollection extends BaseCollection {
   public readonly publicationNames: {
     scoreboard: string;
-  }
+  };
 
   /** Creates the FavoriteAcademicPlan collection */
   constructor() {
@@ -181,7 +181,7 @@ class FavoriteAcademicPlanCollection extends BaseCollection {
           problems.push(`Bad studentID: ${doc.studentID}`);
         }
       });
-     return problems;
+    return problems;
   }
 
   /**

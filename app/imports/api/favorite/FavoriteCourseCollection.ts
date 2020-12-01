@@ -11,7 +11,7 @@ import { IFavoriteCourseDefine, IFavoriteUpdate } from '../../typings/radgrad';
 class FavoriteCourseCollection extends BaseCollection {
   public readonly publicationNames: {
     scoreboard: string;
-  }
+  };
 
   /** Creates the FavoriteCourse collection */
   constructor() {

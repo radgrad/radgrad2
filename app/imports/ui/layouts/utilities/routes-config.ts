@@ -91,6 +91,7 @@ import { PageInterestsCategoryTypes } from '../../../api/page-tracking/PageInter
 import ExplorerOpportunitiesPage from '../../pages/shared/ExplorerOpportunitiesPage';
 import CommunityRadGradVideosPage from '../../pages/shared/CommunityRadGradVideosPage';
 import CommunityUsersPage from '../../pages/shared/CommunityUsersPage';
+import CourseBrowserViewPage from '../../pages/shared/browser-view/CourseBrowserViewPage';
 
 export const routes = {
   ADMIN: [
@@ -389,7 +390,7 @@ export const routes = {
     {
       path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}`,
       exact: true,
-      component: CardExplorerPageContainer,
+      component: CourseBrowserViewPage,
     },
     {
       path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${EXPLORER_PARAM.COURSE}`,
@@ -520,7 +521,7 @@ export const routes = {
     {
       path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}`,
       exact: true,
-      component: CardExplorerPageContainer,
+      component: CourseBrowserViewPage,
     },
     {
       path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${EXPLORER_PARAM.COURSE}`,
@@ -784,7 +785,7 @@ export const routes = {
     {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}`,
       exact: true,
-      component: CardExplorerPageContainer,
+      component: CareerGoalBrowserViewPage,
     },
     {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}/${EXPLORER_PARAM.CAREERGOAL}`,
@@ -795,7 +796,7 @@ export const routes = {
     {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}`,
       exact: true,
-      component: CardExplorerPageContainer,
+      component: CourseBrowserViewPage,
     },
     {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${EXPLORER_PARAM.COURSE}`,

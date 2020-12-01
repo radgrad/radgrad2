@@ -82,6 +82,7 @@
     "cross-env": "^7.0.2",
     "eslint": "^7.12.1",
     "eslint-config-airbnb": "^18.2.0",
+    "eslint-config-airbnb-typescript": "^12.0.0",
     "eslint-config-react-app": "^6.0.0",
     "eslint-plugin-flowtype": "^5.2.0",
     "eslint-plugin-import": "^2.22.1",
@@ -131,13 +132,16 @@
       "react"
     ],
     "extends": [
-      "airbnb",
+      "airbnb-typescript",
       "eslint:recommended",
       "plugin:meteor/recommended",
       "plugin:@typescript-eslint/eslint-recommended",
       "plugin:@typescript-eslint/recommended",
       "react-app"
     ],
+    "parserOptions": {
+      "project": "./tsconfig.json"
+    },
     "rules": {
       "arrow-parens": "off",
       "camelcase": "off",
@@ -183,10 +187,7 @@
       "no-nested-ternary": "off",
       "no-shadow": "off",
       "no-unused-vars": "off",
-      "@typescript-eslint/no-unused-vars": "error",
       "no-useless-constructor": "off",
-      "@typescript-eslint/ban-ts-comment": "warn",
-      "@typescript-eslint/no-useless-constructor": "error",
       "object-curly-newline": "off",
       "object-property-newline": "off",
       "object-shorthand": "off",
@@ -214,7 +215,11 @@
       "react/prefer-stateless-function": "off",
       "react/prop-types": "off",
       "react/require-default-props": "off",
-      "react/sort-comp": "off"
+      "react/sort-comp": "off",
+      "@typescript-eslint/ban-ts-comment": "warn",
+      "@typescript-eslint/naming-convention": "warn",
+      "@typescript-eslint/no-unused-vars": "error",
+      "@typescript-eslint/no-useless-constructor": "error"
     }
   }
 }

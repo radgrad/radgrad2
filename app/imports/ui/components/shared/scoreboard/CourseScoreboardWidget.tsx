@@ -75,7 +75,7 @@ const CourseScoreboardWidget = (props: ICourseScoreboardWidgetProps) => {
                   >
                     {AcademicTerms.getShortName(term._id)}
                   </Table.HeaderCell>
-))}
+                ))}
               </Table.Row>
             </Table.Header>
           </Table>

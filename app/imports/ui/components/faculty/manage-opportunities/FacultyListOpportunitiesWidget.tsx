@@ -99,7 +99,7 @@ const ListOpportunitiesWidget = (props: IListOpportunitiesWidgetProps) => {
               {count}
               )
             </Header>
-)
+          )
       }
 
       <Grid>
