@@ -1,0 +1,110 @@
+import React from 'react';
+import { useParams, useRouteMatch } from 'react-router-dom';
+import { withTracker } from 'meteor/react-meteor-data';
+import { Container, Grid } from 'semantic-ui-react';
+import _ from 'lodash';
+import { ICareerGoal, IFavoriteCareerGoal, IHelpMessage } from '../../../../typings/radgrad';
+import { getMenuWidget } from '../utilities/getMenuWidget';
+import { HelpMessages } from '../../../../api/help/HelpMessageCollection';
+import HelpPanelWidget from '../../../components/shared/HelpPanelWidget';
+import ExplorerMenu from '../../../components/shared/explorer/item-view/ExplorerMenu';
+import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
+import ExplorerCareerGoalWidget
+  from '../../../components/shared/explorer/item-view/career-goal/ExplorerCareerGoalWidget';
+import { Interests } from '../../../../api/interest/InterestCollection';
+import { teaser } from '../../../components/shared/explorer/item-view/utilities/teaser';
+import { Users } from '../../../../api/user/UserCollection';
+import { FavoriteCareerGoals } from '../../../../api/favorite/FavoriteCareerGoalCollection';
+import { ROLE } from '../../../../api/role/Role';
+import { profileGetCareerGoalIDs } from '../../../components/shared/utilities/data-model';
+import { defaultProfilePicture } from '../../../../api/user/BaseProfileCollection';
+
+interface ICareerGoalViewPageProps {
+  favoriteCareerGoals: IFavoriteCareerGoal[];
+  careerGoal: ICareerGoal;
+  helpMessages: IHelpMessage[];
+}
+
+const interestedUsersCareerGoals = (theCareerGoal: ICareerGoal, role: string): unknown[] => {
+  let interested = [];
+  const profiles = Users.findProfilesWithRole(role, {}, {});
+  _.forEach(profiles, (profile) => {
+    if (_.includes(profileGetCareerGoalIDs(profile), theCareerGoal._id)) {
+      interested.push(profile);
+    }
+  });
+  interested = _.filter(interested, (profile) => profile.picture && profile.picture !== defaultProfilePicture);
+  // only allow 50 students randomly selected.
+  for (let i = interested.length - 1; i >= 50; i--) {
+    interested.splice(Math.floor(Math.random() * interested.length), 1);
+  }
+  return interested;
+};
+
+const numUsersCareerGoals = (theCareerGoal: ICareerGoal, role: string): number => interestedUsersCareerGoals(theCareerGoal, role).length;
+
+const numStudentsCareerGoals = (theCareerGoal: ICareerGoal): number => FavoriteCareerGoals.findNonRetired({ careerGoalID: theCareerGoal._id }).length;
+
+const socialPairsCareerGoals = (theCareerGoal: ICareerGoal): { label: string, amount: number, value: unknown[] }[] => [
+  {
+    label: 'students', amount: numStudentsCareerGoals(theCareerGoal),
+    value: interestedUsersCareerGoals(theCareerGoal, ROLE.STUDENT),
+  },
+  {
+    label: 'faculty members', amount: numUsersCareerGoals(theCareerGoal, ROLE.FACULTY),
+    value: interestedUsersCareerGoals(theCareerGoal, ROLE.FACULTY),
+  },
+  {
+    label: 'advisor',
+    amount: numUsersCareerGoals(theCareerGoal, ROLE.ADVISOR),
+    value: interestedUsersCareerGoals(theCareerGoal, ROLE.ADVISOR),
+  },
+];
+
+const CareerGoalViewPage: React.FC<ICareerGoalViewPageProps> = ({ careerGoal, favoriteCareerGoals, helpMessages }) => {
+  const match = useRouteMatch();
+  const menuAddedList = _.map(favoriteCareerGoals, (f) => ({
+    item: CareerGoals.findDoc(f.careerGoalID), count: 1,
+  }));
+  const descriptionPairs = [
+    { label: 'Description', value: careerGoal.description },
+    { label: 'Interests', value: _.sortBy(Interests.findNames(careerGoal.interestIDs)) },
+    { label: 'Teaser', value: teaser(careerGoal) },
+  ];
+  const socialPairs = socialPairsCareerGoals(careerGoal);
+  return (
+    <div id="career-goal-view-page">
+      {getMenuWidget(match)}
+      <Container>
+        <Grid stackable>
+          <Grid.Row className="helpPanel">
+            <Grid.Column width={16}><HelpPanelWidget helpMessages={helpMessages} /></Grid.Column>
+          </Grid.Row>
+          <Grid.Row>
+            <Grid.Column width={3}>
+              <ExplorerMenu menuAddedList={menuAddedList} type="career-goals" />
+            </Grid.Column>
+            <Grid.Column width={13}>
+              <ExplorerCareerGoalWidget name={careerGoal.name} descriptionPairs={descriptionPairs} item={careerGoal} socialPairs={socialPairs} />
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </Container>
+    </div>
+  );
+};
+
+const CareerGoalViewPageContainer = withTracker(() => {
+  const { careergoal, username } = useParams();
+  const profile = Users.getProfile(username);
+  const favoriteCareerGoals = FavoriteCareerGoals.findNonRetired({ userID: profile.userID });
+  const careerGoalDoc = CareerGoals.findDocBySlug(careergoal);
+  const helpMessages = HelpMessages.findNonRetired({});
+  return {
+    careerGoal: careerGoalDoc,
+    favoriteCareerGoals,
+    helpMessages,
+  };
+})(CareerGoalViewPage);
+
+export default CareerGoalViewPageContainer;

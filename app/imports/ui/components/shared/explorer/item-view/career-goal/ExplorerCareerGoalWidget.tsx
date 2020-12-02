@@ -39,7 +39,7 @@ const teaserUrlHelper = (careerGoalSlug): string => {
   return oppTeaser && oppTeaser[0] && oppTeaser[0].url;
 };
 
-const ExplorerCareerGoalWidget = (props: IExplorerCareerGoalsWidgetProps) => {
+const ExplorerCareerGoalWidget: React.FC<IExplorerCareerGoalsWidgetProps> = (props) => {
   const marginStyle = {
     marginTop: 5,
   };

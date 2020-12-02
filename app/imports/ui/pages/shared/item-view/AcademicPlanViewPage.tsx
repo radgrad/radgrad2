@@ -12,7 +12,6 @@ import { Users } from '../../../../api/user/UserCollection';
 import { FavoriteAcademicPlans } from '../../../../api/favorite/FavoriteAcademicPlanCollection';
 import { AcademicPlans } from '../../../../api/degree-plan/AcademicPlanCollection';
 import ExplorerPlanWidget from '../../../components/shared/explorer/item-view/academic-plan/ExplorerPlanWidget';
-import { Slugs } from '../../../../api/slug/SlugCollection';
 
 interface IAcademicPlanViewPageProps {
   plan: IAcademicPlan;
