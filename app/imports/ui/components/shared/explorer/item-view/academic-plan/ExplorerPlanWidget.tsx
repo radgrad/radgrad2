@@ -35,6 +35,7 @@ const ExplorerPlanWidget: React.FC<IExplorerPlansWidgetProps> = (props: IExplore
   const divierStyle = { marginTop: 0 };
 
   const { name, descriptionPairs, item } = props;
+  console.log(props);
   const match = useRouteMatch();
   const { username } = useParams();
   const profile = Users.getProfile(username);

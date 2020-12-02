@@ -10,36 +10,20 @@ import { HelpMessages } from '../../../../api/help/HelpMessageCollection';
 import { ROLE } from '../../../../api/role/Role';
 import { Users } from '../../../../api/user/UserCollection';
 import { IAcademicPlan, IFavoriteAcademicPlan, IHelpMessage } from '../../../../typings/radgrad';
-import AdvisorPageMenuWidget from '../../../components/advisor/AdvisorPageMenuWidget';
-import FacultyPageMenuWidget from '../../../components/faculty/FacultyPageMenuWidget';
 import BackToTopButton from '../../../components/shared/BackToTopButton';
 import AcademicPlanBrowserViewContainer from '../../../components/shared/explorer/browser-view/AcademicPlanBrowserView';
 import ExplorerMultipleItemsMenu from '../../../components/shared/explorer/browser-view/ExplorerMultipleItemsMenu';
 import { IExplorerTypes } from '../../../components/shared/explorer/utilities/explorer';
 import HelpPanelWidget from '../../../components/shared/HelpPanelWidget';
 import * as Router from '../../../components/shared/utilities/router';
-import StudentPageMenuWidget from '../../../components/student/StudentPageMenuWidget';
-import { EXPLORER_TYPE, URL_ROLES } from '../../../layouts/utilities/route-constants';
+import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
+import { getMenuWidget } from '../utilities/getMenuWidget';
 
 interface IAcademicPlanBrowserViewPageProps {
   favoritePlans: IFavoriteAcademicPlan[];
   academicPlans: IAcademicPlan[];
   helpMessages: IHelpMessage[];
 }
-
-const getMenuWidget = (match): JSX.Element => {
-  const role = Router.getRoleByUrl(match);
-  switch (role) {
-    case URL_ROLES.STUDENT:
-      return <StudentPageMenuWidget />;
-    case URL_ROLES.FACULTY:
-      return <FacultyPageMenuWidget />;
-    case URL_ROLES.ADVISOR:
-      return <AdvisorPageMenuWidget />;
-    default:
-      return <React.Fragment />;
-  }
-};
 
 const AcademicPlanBrowserViewPage: React.FC<IAcademicPlanBrowserViewPageProps> = ({ academicPlans, favoritePlans, helpMessages }) => {
   const match = useRouteMatch();

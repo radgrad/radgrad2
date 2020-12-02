@@ -33,8 +33,7 @@ interface ICardExplorerMenuNonMobileWidgetProps {
   type: IExplorerTypes;
 }
 
-const ExplorerMultipleItemsMenuNonMobileWidget = (props: ICardExplorerMenuNonMobileWidgetProps) => {
-  const { menuAddedList, menuCareerList, type } = props;
+const ExplorerMultipleItemsMenuNonMobileWidget: React.FC<ICardExplorerMenuNonMobileWidgetProps> = ({ menuAddedList, menuCareerList, type }) => {
   const match = useRouteMatch();
   const adminEmail = RadGradProperties.getAdminEmail();
   const isStudent = isUrlRoleStudent(match);
@@ -64,7 +63,6 @@ const ExplorerMultipleItemsMenuNonMobileWidget = (props: ICardExplorerMenuNonMob
                       listItem={listItem}
                       type={EXPLORER_TYPE.ACADEMICPLANS}
                       key={listItem.item._id}
-                      match={match}
                     />
                   ))
                 }
@@ -85,7 +83,6 @@ const ExplorerMultipleItemsMenuNonMobileWidget = (props: ICardExplorerMenuNonMob
                       listItem={listItem}
                       type={EXPLORER_TYPE.COURSES}
                       key={listItem.item._id}
-                      match={match}
                     />
                   ))
                 }
@@ -122,7 +119,6 @@ const ExplorerMultipleItemsMenuNonMobileWidget = (props: ICardExplorerMenuNonMob
                             listItem={listItem}
                             type={EXPLORER_TYPE.OPPORTUNITIES}
                             key={listItem.item._id}
-                            match={match}
                           />
                         ))
                       }
@@ -156,7 +152,6 @@ const ExplorerMultipleItemsMenuNonMobileWidget = (props: ICardExplorerMenuNonMob
                       listItem={listItem}
                       type={EXPLORER_TYPE.INTERESTS}
                       key={listItem.item._id}
-                      match={match}
                     />
                   ))
                 }
@@ -168,7 +163,6 @@ const ExplorerMultipleItemsMenuNonMobileWidget = (props: ICardExplorerMenuNonMob
                       listItem={listItem}
                       type={EXPLORER_TYPE.INTERESTS}
                       key={listItem.item._id}
-                      match={match}
                     />
                   ))
                 }
@@ -196,7 +190,6 @@ const ExplorerMultipleItemsMenuNonMobileWidget = (props: ICardExplorerMenuNonMob
                     listItem={listItem}
                     type={EXPLORER_TYPE.CAREERGOALS}
                     key={listItem.item._id}
-                    match={match}
                   />
                 ))}
               </Menu>

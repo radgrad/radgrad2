@@ -429,7 +429,6 @@ const ExplorerSingleItemPage = (props: IIndividualExplorerPageProps) => {
             menuAddedList={addedList}
             menuCareerList={isTypeInterests && careerList ? careerList : undefined}
             type={type as 'plans' | 'career-goals' | 'courses' | 'interests' | 'opportunities' | 'users'}
-            role={role as 'faculty' | 'student'}
           />
         </Grid.Column>
 

@@ -5,10 +5,7 @@ import { Container, Grid } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { ICourse, IFavoriteCourse, IHelpMessage } from '../../../../typings/radgrad';
 import * as Router from '../../../components/shared/utilities/router';
-import { EXPLORER_TYPE, URL_ROLES } from '../../../layouts/utilities/route-constants';
-import StudentPageMenuWidget from '../../../components/student/StudentPageMenuWidget';
-import FacultyPageMenuWidget from '../../../components/faculty/FacultyPageMenuWidget';
-import AdvisorPageMenuWidget from '../../../components/advisor/AdvisorPageMenuWidget';
+import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import { Courses } from '../../../../api/course/CourseCollection';
 import HelpPanelWidget from '../../../components/shared/HelpPanelWidget';
 import ExplorerMultipleItemsMenu from '../../../components/shared/explorer/browser-view/ExplorerMultipleItemsMenu';
@@ -17,27 +14,13 @@ import { Users } from '../../../../api/user/UserCollection';
 import { FavoriteCourses } from '../../../../api/favorite/FavoriteCourseCollection';
 import { HelpMessages } from '../../../../api/help/HelpMessageCollection';
 import CourseBrowserViewContainer from '../../../components/shared/explorer/browser-view/CourseBrowserView';
+import { getMenuWidget } from '../utilities/getMenuWidget';
 
 interface ICourseBrowserViewPageProps {
   favoriteCourses: IFavoriteCourse[];
   courses: ICourse[];
   helpMessages: IHelpMessage[];
 }
-
-// TODO extract this out to a utilities file.
-const getMenuWidget = (match): JSX.Element => {
-  const role = Router.getRoleByUrl(match);
-  switch (role) {
-    case URL_ROLES.STUDENT:
-      return <StudentPageMenuWidget />;
-    case URL_ROLES.FACULTY:
-      return <FacultyPageMenuWidget />;
-    case URL_ROLES.ADVISOR:
-      return <AdvisorPageMenuWidget />;
-    default:
-      return <React.Fragment />;
-  }
-};
 
 const CourseBrowserViewPage: React.FC<ICourseBrowserViewPageProps> = ({ favoriteCourses, courses, helpMessages }) => {
   const match = useRouteMatch();

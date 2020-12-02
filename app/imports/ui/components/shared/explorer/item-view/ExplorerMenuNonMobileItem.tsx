@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useRouteMatch } from 'react-router-dom';
 import { Menu } from 'semantic-ui-react';
 import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
 import * as Router from '../../utilities/router';
@@ -8,21 +8,13 @@ import { IAcademicPlan, ICareerGoal, ICourse, IInterest, IOpportunity } from '..
 import { Users } from '../../../../../api/user/UserCollection';
 import { CourseInstances } from '../../../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../../../api/opportunity/OpportunityInstanceCollection';
-import { itemToSlugName, profileGetCareerGoalIDs } from '../../utilities/data-model';
+import { itemToSlugName, profileGetCareerGoalIDs, profileGetFavoriteAcademicPlanIDs } from '../../utilities/data-model';
 
 type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IInterest | IOpportunity;
 
 interface IExplorerMenuNonMobileItemProps {
   type: any;
   listItem: any;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  }
 }
 
 const itemName = (item: { item: explorerInterfaces, count: number }): string => {
@@ -33,28 +25,28 @@ const itemName = (item: { item: explorerInterfaces, count: number }): string => 
   return `${item.item.name}`;
 };
 
-const userPlans = (plan: IAcademicPlan, props: IExplorerMenuNonMobileItemProps): string => {
+const userPlans = (plan: IAcademicPlan, match): string => {
   let ret = '';
-  const profile = Users.getProfile(Router.getUsername(props.match));
-  if (_.includes(profile.academicPlanID, plan._id)) {
+  const profile = Users.getProfile(Router.getUsername(match));
+  if (_.includes(profileGetFavoriteAcademicPlanIDs(profile), plan._id)) {
     ret = 'check green circle outline icon';
   }
   return ret;
 };
 
-const userCareerGoals = (careerGoal: ICareerGoal, props: IExplorerMenuNonMobileItemProps): string => {
+const userCareerGoals = (careerGoal: ICareerGoal, match): string => {
   let ret = '';
-  const profile = Users.getProfile(Router.getUsername(props.match));
+  const profile = Users.getProfile(Router.getUsername(match));
   if (_.includes(profileGetCareerGoalIDs(profile), careerGoal._id)) {
     ret = 'check green circle outline icon';
   }
   return ret;
 };
 
-const userCourses = (course: ICourse, props: IExplorerMenuNonMobileItemProps): string => {
+const userCourses = (course: ICourse, match): string => {
   let ret = '';
   const ci = CourseInstances.findNonRetired({
-    studentID: Router.getUserIdFromRoute(props.match),
+    studentID: Router.getUserIdFromRoute(match),
     courseID: course._id,
   });
   if (ci.length > 0) {
@@ -71,19 +63,19 @@ const courseName = (course: { item: ICourse, count: number }): string => {
   return `${course.item.shortName}`;
 };
 
-const userInterests = (interest: IInterest, props: IExplorerMenuNonMobileItemProps): string => {
+const userInterests = (interest: IInterest, match): string => {
   let ret = '';
-  const profile = Users.getProfile(Router.getUsername(props.match));
+  const profile = Users.getProfile(Router.getUsername(match));
   if (_.includes(Users.getInterestIDs(profile.userID), interest._id)) {
     ret = 'check green circle outline icon';
   }
   return ret;
 };
 
-const userOpportunities = (opportunity: IOpportunity, props: IExplorerMenuNonMobileItemProps): string => {
+const userOpportunities = (opportunity: IOpportunity, match): string => {
   let ret = '';
   const oi = OpportunityInstances.findNonRetired({
-    studentID: Router.getUserIdFromRoute(props.match),
+    studentID: Router.getUserIdFromRoute(match),
     opportunityID: opportunity._id,
   });
   if (oi.length > 0) {
@@ -121,8 +113,8 @@ const getItemStatus = (item: explorerInterfaces, props: IExplorerMenuNonMobileIt
   }
 };
 
-const ExplorerMenuNonMobileItem = (props: IExplorerMenuNonMobileItemProps) => {
-  const { type, listItem, match } = props;
+const ExplorerMenuNonMobileItem: React.FC<IExplorerMenuNonMobileItemProps> = ({ type, listItem }) => {
+  const match = useRouteMatch();
   const iconStyle: React.CSSProperties = {
     position: 'absolute',
     marginLeft: '-20px',
@@ -134,7 +126,7 @@ const ExplorerMenuNonMobileItem = (props: IExplorerMenuNonMobileItemProps) => {
       exact
       to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${type}/${itemToSlugName(listItem.item)}`)}
     >
-      <i className={getItemStatus(listItem.item, props)} style={iconStyle} />
+      <i className={getItemStatus(listItem.item, match)} style={iconStyle} />
       {type === EXPLORER_TYPE.OPPORTUNITIES && opportunityItemName(listItem as { item: IOpportunity, count: number })}
       {type === EXPLORER_TYPE.COURSES && courseName(listItem as { item: ICourse, count: number })}
       {(type !== EXPLORER_TYPE.COURSES && type !== EXPLORER_TYPE.OPPORTUNITIES) && itemName(listItem)}

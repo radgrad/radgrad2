@@ -18,7 +18,6 @@ interface IExplorerMenuProps {
   menuAddedList: { item: explorerInterfaces, count: number }[];
   menuCareerList?: { item: IInterest, count: number }[] | undefined;
   type: 'plans' | 'career-goals' | 'courses' | 'interests' | 'opportunities' | 'users'; // TODO should this be a defined type?
-  role: 'student' | 'faculty';
 }
 
 const getTypeName = (props: IExplorerMenuProps): string => {
@@ -41,8 +40,8 @@ const getTypeName = (props: IExplorerMenuProps): string => {
   }
 };
 
-const ExplorerMenu = (props: IExplorerMenuProps) => {
-  const { menuAddedList, menuCareerList, type, role } = props;
+const ExplorerMenu: React.FC<IExplorerMenuProps> = (props) => {
+  const { menuAddedList, menuCareerList, type } = props;
   const match = useRouteMatch();
 
   return (
@@ -54,13 +53,11 @@ const ExplorerMenu = (props: IExplorerMenuProps) => {
         menuAddedList={menuAddedList}
         menuCareerList={type && menuCareerList ? menuCareerList : undefined}
         type={type}
-        role={role}
       />
       <ExplorerMenuMobileWidget
         menuAddedList={menuAddedList}
         menuCareerList={type && menuCareerList ? menuCareerList : undefined}
         type={type}
-        role={role}
       />
     </React.Fragment>
   );

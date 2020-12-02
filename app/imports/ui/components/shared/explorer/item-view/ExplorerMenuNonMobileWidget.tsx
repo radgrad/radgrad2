@@ -96,7 +96,6 @@ const ExplorerMenuNonMobileWidget = (props: IExplorerMenuNonMobileWidgetProps) =
                           listItem={listItem}
                           type={EXPLORER_TYPE.ACADEMICPLANS}
                           key={listItem.item._id}
-                          match={match}
                         />
                       ))}
                     </Menu>
@@ -123,7 +122,6 @@ const ExplorerMenuNonMobileWidget = (props: IExplorerMenuNonMobileWidgetProps) =
                           listItem={listItem}
                           type={EXPLORER_TYPE.COURSES}
                           key={listItem.item._id}
-                          match={match}
                         />
                       ))}
                     </Menu>
@@ -164,7 +162,6 @@ const ExplorerMenuNonMobileWidget = (props: IExplorerMenuNonMobileWidgetProps) =
                             listItem={listItem}
                             type={EXPLORER_TYPE.OPPORTUNITIES}
                             key={listItem.item._id}
-                            match={match}
                           />
                         ))
                       }
@@ -192,7 +189,6 @@ const ExplorerMenuNonMobileWidget = (props: IExplorerMenuNonMobileWidgetProps) =
                     listItem={listItem}
                     type={EXPLORER_TYPE.INTERESTS}
                     key={listItem.item._id}
-                    match={match}
                   />
                 ))}
 
@@ -202,7 +198,6 @@ const ExplorerMenuNonMobileWidget = (props: IExplorerMenuNonMobileWidgetProps) =
                     listItem={listItem}
                     type={EXPLORER_TYPE.INTERESTS}
                     key={listItem.item._id}
-                    match={match}
                   />
                 ))}
               </Menu>
@@ -224,7 +219,6 @@ const ExplorerMenuNonMobileWidget = (props: IExplorerMenuNonMobileWidgetProps) =
                     listItem={listItem}
                     type={EXPLORER_TYPE.CAREERGOALS}
                     key={listItem.item._id}
-                    match={match}
                   />
                 ))}
               </Menu>

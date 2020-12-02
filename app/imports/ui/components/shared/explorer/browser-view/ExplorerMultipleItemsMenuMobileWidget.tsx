@@ -30,8 +30,7 @@ interface ICardExplorerMenuMobileWidgetProps {
   type: 'plans' | 'career-goals' | 'courses' | 'interests' | 'opportunities';
 }
 
-const ExplorerMultipleItemsMenuMobileWidget = (props: ICardExplorerMenuMobileWidgetProps) => {
-  const { menuAddedList, menuCareerList } = props;
+const ExplorerMultipleItemsMenuMobileWidget: React.FC<ICardExplorerMenuMobileWidgetProps> = ({ menuAddedList, menuCareerList, type }) => {
   const match = useRouteMatch();
   const isStudent = Router.isUrlRoleStudent(match);
   return (
@@ -41,7 +40,7 @@ const ExplorerMultipleItemsMenuMobileWidget = (props: ICardExplorerMenuMobileWid
       {/* The following components are rendered ONLY for STUDENTS: Academic Plans, Courses, and Opportunities. */}
       <MediaContextProvider>
         <Media lessThan="tablet">
-          {(isType(EXPLORER_TYPE.ACADEMICPLANS, props.type) && isStudent) ?
+          {(isType(EXPLORER_TYPE.ACADEMICPLANS, type) && isStudent) ?
             (
               <Dropdown className="selection" fluid text="Select Item" style={{ marginTop: '1rem' }}>
                 <Dropdown.Menu>
@@ -54,7 +53,6 @@ const ExplorerMultipleItemsMenuMobileWidget = (props: ICardExplorerMenuMobileWid
                         type={EXPLORER_TYPE.ACADEMICPLANS}
                         listItem={listItem}
                         key={listItem.item._id}
-                        match={match}
                       />
                     ))
                   }
@@ -63,7 +61,7 @@ const ExplorerMultipleItemsMenuMobileWidget = (props: ICardExplorerMenuMobileWid
             )
             : ''}
 
-          {(isType(EXPLORER_TYPE.COURSES, props.type) && isStudent) ?
+          {(isType(EXPLORER_TYPE.COURSES, type) && isStudent) ?
             (
               <Dropdown className="selection" fluid text="Select Item" style={{ marginTop: '1rem' }}>
                 <Dropdown.Menu>
@@ -76,7 +74,6 @@ const ExplorerMultipleItemsMenuMobileWidget = (props: ICardExplorerMenuMobileWid
                         type={EXPLORER_TYPE.COURSES}
                         listItem={listItem}
                         key={listItem.item._id}
-                        match={match}
                       />
                     ))
                   }
@@ -85,7 +82,7 @@ const ExplorerMultipleItemsMenuMobileWidget = (props: ICardExplorerMenuMobileWid
             )
             : ''}
 
-          {(isType(EXPLORER_TYPE.OPPORTUNITIES, props.type) && isStudent) ?
+          {(isType(EXPLORER_TYPE.OPPORTUNITIES, type) && isStudent) ?
             (
               <Dropdown className="selection" fluid text="Select Item" style={{ marginTop: '1rem' }}>
                 <Dropdown.Menu>
@@ -97,7 +94,6 @@ const ExplorerMultipleItemsMenuMobileWidget = (props: ICardExplorerMenuMobileWid
                         type={EXPLORER_TYPE.OPPORTUNITIES}
                         listItem={listItem}
                         key={listItem.item._id}
-                        match={match}
                       />
                     ))
                   }
@@ -107,7 +103,7 @@ const ExplorerMultipleItemsMenuMobileWidget = (props: ICardExplorerMenuMobileWid
             : ''}
 
           {/* Components renderable to STUDENTS and FACULTY. */}
-          {isType(EXPLORER_TYPE.INTERESTS, props.type) ?
+          {isType(EXPLORER_TYPE.INTERESTS, type) ?
             (
               <Dropdown className="selection" fluid text="Select Item" style={{ marginTop: '1rem' }}>
                 <Dropdown.Menu>
@@ -119,7 +115,6 @@ const ExplorerMultipleItemsMenuMobileWidget = (props: ICardExplorerMenuMobileWid
                         type={EXPLORER_TYPE.INTERESTS}
                         listItem={listItem}
                         key={listItem.item._id}
-                        match={match}
                       />
                     ))
                   }
@@ -132,7 +127,6 @@ const ExplorerMultipleItemsMenuMobileWidget = (props: ICardExplorerMenuMobileWid
                         type={EXPLORER_TYPE.INTERESTS}
                         listItem={listItem}
                         key={listItem.item._id}
-                        match={match}
                       />
                     ))
                   }
@@ -141,7 +135,7 @@ const ExplorerMultipleItemsMenuMobileWidget = (props: ICardExplorerMenuMobileWid
             )
             : ''}
 
-          {isType(EXPLORER_TYPE.CAREERGOALS, props.type) ?
+          {isType(EXPLORER_TYPE.CAREERGOALS, type) ?
             (
               <Dropdown className="selection" fluid text="Select Item" style={{ marginTop: '1rem' }}>
                 <Dropdown.Menu>
@@ -153,7 +147,6 @@ const ExplorerMultipleItemsMenuMobileWidget = (props: ICardExplorerMenuMobileWid
                         type={EXPLORER_TYPE.CAREERGOALS}
                         listItem={listItem}
                         key={listItem.item._id}
-                        match={match}
                       />
                     ))
                   }

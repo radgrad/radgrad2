@@ -7,15 +7,12 @@ import { HelpMessages } from '../../../../api/help/HelpMessageCollection';
 import { Interests } from '../../../../api/interest/InterestCollection';
 import { Users } from '../../../../api/user/UserCollection';
 import { IHelpMessage, IInterest } from '../../../../typings/radgrad';
-import AdvisorPageMenuWidget from '../../../components/advisor/AdvisorPageMenuWidget';
-import FacultyPageMenuWidget from '../../../components/faculty/FacultyPageMenuWidget';
 import ExplorerMultipleItemsMenu from '../../../components/shared/explorer/browser-view/ExplorerMultipleItemsMenu';
 import InterestBrowserViewContainer from '../../../components/shared/explorer/browser-view/InterestBrowserView';
 import { IExplorerTypes } from '../../../components/shared/explorer/utilities/explorer';
 import HelpPanelWidget from '../../../components/shared/HelpPanelWidget';
-import * as Router from '../../../components/shared/utilities/router';
-import StudentPageMenuWidget from '../../../components/student/StudentPageMenuWidget';
-import { EXPLORER_TYPE, URL_ROLES } from '../../../layouts/utilities/route-constants';
+import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
+import { getMenuWidget } from '../utilities/getMenuWidget';
 
 interface IInterestBrowserViewPageProps {
   favoriteInterests: IInterest[];
@@ -23,20 +20,6 @@ interface IInterestBrowserViewPageProps {
   interests: IInterest[];
   helpMessages: IHelpMessage[];
 }
-
-const getMenuWidget = (match): JSX.Element => {
-  const role = Router.getRoleByUrl(match);
-  switch (role) {
-    case URL_ROLES.STUDENT:
-      return <StudentPageMenuWidget />;
-    case URL_ROLES.FACULTY:
-      return <FacultyPageMenuWidget />;
-    case URL_ROLES.ADVISOR:
-      return <AdvisorPageMenuWidget />;
-    default:
-      return <React.Fragment />;
-  }
-};
 
 const InterestBrowserViewPage: React.FC<IInterestBrowserViewPageProps> = ({ favoriteInterests, favoriteCareerGoalInterests, interests, helpMessages }) => {
   const match = useRouteMatch();

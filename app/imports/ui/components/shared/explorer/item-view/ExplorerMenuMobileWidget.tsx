@@ -40,7 +40,7 @@ const isType = (typeToCheck: string, props: IExplorerMenuMobileWidgetProps): boo
   return type === typeToCheck;
 };
 
-const ExplorerMenuMobileWidget = (props: IExplorerMenuMobileWidgetProps) => {
+const ExplorerMenuMobileWidget: React.FC<IExplorerMenuMobileWidgetProps> = (props) => {
   const { menuAddedList, menuCareerList } = props;
   const match = useRouteMatch();
   const isStudent = Router.isUrlRoleStudent(match);
@@ -61,7 +61,6 @@ const ExplorerMenuMobileWidget = (props: IExplorerMenuMobileWidgetProps) => {
                         type={EXPLORER_TYPE.ACADEMICPLANS}
                         listItem={listItem}
                         key={listItem.item._id}
-                        match={match}
                       />
                     ))
                   }
@@ -83,7 +82,6 @@ const ExplorerMenuMobileWidget = (props: IExplorerMenuMobileWidgetProps) => {
                           type={EXPLORER_TYPE.COURSES}
                           listItem={listItem}
                           key={listItem.item._id}
-                          match={match}
                         />
                       ))
                     }
@@ -107,7 +105,6 @@ const ExplorerMenuMobileWidget = (props: IExplorerMenuMobileWidgetProps) => {
                             type={EXPLORER_TYPE.OPPORTUNITIES}
                             listItem={listItem}
                             key={listItem.item._id}
-                            match={match}
                           />
                         ))}
                       </Dropdown.Menu>
@@ -130,7 +127,6 @@ const ExplorerMenuMobileWidget = (props: IExplorerMenuMobileWidgetProps) => {
                       type={EXPLORER_TYPE.INTERESTS}
                       listItem={listItem}
                       key={listItem.item._id}
-                      match={match}
                     />
                   ))}
 
@@ -141,7 +137,6 @@ const ExplorerMenuMobileWidget = (props: IExplorerMenuMobileWidgetProps) => {
                       type={EXPLORER_TYPE.INTERESTS}
                       listItem={listItem}
                       key={listItem.item._id}
-                      match={match}
                     />
                   ))}
                 </Dropdown.Menu>
@@ -161,7 +156,6 @@ const ExplorerMenuMobileWidget = (props: IExplorerMenuMobileWidgetProps) => {
                         type={EXPLORER_TYPE.CAREERGOALS}
                         listItem={listItem}
                         key={listItem.item._id}
-                        match={match}
                       />
                     ))
                   }

@@ -91,6 +91,7 @@ import ExplorerOpportunitiesPage from '../../pages/shared/ExplorerOpportunitiesP
 import CommunityRadGradVideosPage from '../../pages/shared/CommunityRadGradVideosPage';
 import CommunityUsersPage from '../../pages/shared/CommunityUsersPage';
 import CourseBrowserViewPage from '../../pages/shared/browser-view/CourseBrowserViewPage';
+import AcademicPlanViewPageContainer from '../../pages/shared/item-view/AcademicPlanViewPage';
 
 export const routes = {
   ADMIN: [
@@ -374,7 +375,7 @@ export const routes = {
     {
       path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}/${EXPLORER_PARAM.ACADEMICPLAN}`,
       exact: true,
-      component: IndividualExplorerPageContainer,
+      component: AcademicPlanViewPageContainer,
     },
     {
       path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}`,
@@ -505,7 +506,7 @@ export const routes = {
     {
       path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}/${EXPLORER_PARAM.ACADEMICPLAN}`,
       exact: true,
-      component: IndividualExplorerPageContainer,
+      component: AcademicPlanViewPageContainer,
     },
     {
       path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}`,
@@ -778,7 +779,7 @@ export const routes = {
     {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}/${EXPLORER_PARAM.ACADEMICPLAN}`,
       exact: true,
-      component: IndividualExplorerPageContainer,
+      component: AcademicPlanViewPageContainer,
     },
     /* ############################## Explorers CAREER GOALS ############################## */
     {
