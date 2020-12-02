@@ -1,11 +1,10 @@
 import React from 'react';
 import { Grid, Segment, Header, Divider, Image, Popup } from 'semantic-ui-react';
 import Markdown from 'react-markdown';
-import { withTracker } from 'meteor/react-meteor-data';
 import { useParams, useRouteMatch } from 'react-router-dom';
 import InterestList from '../../../InterestList';
 import { Users } from '../../../../../../api/user/UserCollection';
-import { ICareerGoal, IProfile } from '../../../../../../typings/radgrad';
+import { ICareerGoal } from '../../../../../../typings/radgrad';
 import { renderLink, getUserIdFromRoute } from '../../../utilities/router';
 import WidgetHeaderNumber from '../../WidgetHeaderNumber';
 import FavoritesButton from '../FavoritesButton';
@@ -25,8 +24,6 @@ interface IExplorerCareerGoalsWidgetProps {
   descriptionPairs: any;
   item: ICareerGoal;
   socialPairs: any;
-  // eslint-disable-next-line react/no-unused-prop-types
-  profile: IProfile;
 }
 
 const teaserUrlHelper = (careerGoalSlug): string => {
@@ -196,11 +193,4 @@ const ExplorerCareerGoalWidget: React.FC<IExplorerCareerGoalsWidgetProps> = (pro
   );
 };
 
-const ExplorerCareerGoalsWidgetContainer = withTracker(() => {
-  const { username } = useParams();
-  const profile = Users.getProfile(username);
-  return {
-    profile,
-  };
-})(ExplorerCareerGoalWidget);
-export default ExplorerCareerGoalsWidgetContainer;
+export default ExplorerCareerGoalWidget;

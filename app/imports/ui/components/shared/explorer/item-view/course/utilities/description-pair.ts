@@ -1,7 +1,7 @@
 import { IDescriptionPair, Ice } from '../../../../../../../typings/radgrad';
 import { isICE } from '../../../../../../../api/ice/IceProcessor';
 
-export const toValueArray = (pair: IDescriptionPair): any[] => {
+export const toValueArray = (pair: IDescriptionPair): any[] | unknown => {
   const value = pair.value;
   if (typeof value === 'string') {
     return [value];

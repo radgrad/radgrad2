@@ -106,7 +106,7 @@ const findReview = (props: IExplorerCoursesWidgetProps, match): IReview => Revie
   revieweeID: props.item._id,
 });
 
-const teaserUrlHelper = (props: IExplorerCoursesWidgetProps, courseSlug): string => {
+const teaserUrlHelper = (courseSlug): string => {
   const _id = Slugs.getEntityID(courseSlug, 'Course');
   const course = Courses.findDoc({ _id });
   const oppTeaser = Teasers.findNonRetired({ targetSlugID: course.slugID });
@@ -350,12 +350,12 @@ const ExplorerCourseWidget: React.FC<IExplorerCoursesWidgetProps> = (props: IExp
                         </React.Fragment>
                       )
                       : ''}
-                    {isSame(descriptionPair.label, 'Teaser') && teaserUrlHelper(props, course) ?
+                    {isSame(descriptionPair.label, 'Teaser') && teaserUrlHelper(course) ?
                       (
                         <React.Fragment>
                           <b>{descriptionPair.label}: </b>
                           {descriptionPair.value ?
-                            (<TeaserVideo id={teaserUrlHelper(props, course)} />)
+                            (<TeaserVideo id={teaserUrlHelper(course)} />)
                             : (<p> N/A </p>)}
                         </React.Fragment>
                       )
