@@ -97,13 +97,16 @@ const color = (table: unknown[]): string => {
 
 const length = (table: unknown[]): boolean => table.length !== 0;
 
-const choices = (prerequisite: { course: string; status: string }): string[] => prerequisite.course.split(',');
+const choices = (prerequisite: { course: string; status: string }): string[] => {
+  console.log(prerequisite);
+  return prerequisite.course.split(',');
+};
 
 const isFirst = (index: number): boolean => index === 0;
 
-const findReview = (props: IExplorerCoursesWidgetProps, match): IReview => Reviews.findOne({
-  studentID: Router.getUserIdFromRoute(match),
-  revieweeID: props.item._id,
+const findReview = (studentID: string, item: { _id: string }): IReview => Reviews.findOne({
+  studentID,
+  revieweeID: item._id,
 });
 
 const teaserUrlHelper = (courseSlug): string => {
@@ -116,7 +119,7 @@ const teaserUrlHelper = (courseSlug): string => {
   return oppTeaser && oppTeaser[0] && oppTeaser[0].url;
 };
 
-const ExplorerCourseWidget: React.FC<IExplorerCoursesWidgetProps> = (props: IExplorerCoursesWidgetProps) => {
+const ExplorerCourseWidget: React.FC<IExplorerCoursesWidgetProps> = ({ name, shortName, descriptionPairs, item, completed }) => {
   const segmentStyle = { backgroundColor: 'white' };
   const zeroMarginTopStyle = { marginTop: 0 };
   const fiveMarginTopStyle = { marginTop: '5px' };
@@ -130,13 +133,13 @@ const ExplorerCourseWidget: React.FC<IExplorerCoursesWidgetProps> = (props: IExp
   };
   const breakWordStyle: React.CSSProperties = { wordWrap: 'break-word' };
 
-  const { name, shortName, descriptionPairs, item, completed } = props;
   const match = useRouteMatch();
   const { course, username } = useParams();
 
   /* Header Variables */
   const upperShortName = toUpper(shortName);
   const isStudent = Router.isUrlRoleStudent(match);
+  const studentID = Router.getUserIdFromRoute(match);
   const hasTeaser = Teasers.findNonRetired({ targetSlugID: item.slugID }).length > 0;
 
   const quarter = RadGradProperties.getQuarterSystem();
@@ -577,7 +580,7 @@ const ExplorerCourseWidget: React.FC<IExplorerCoursesWidgetProps> = (props: IExp
               <Segment padded>
                 <StudentExplorerReviewWidget
                   event={item}
-                  userReview={findReview(props, match)}
+                  userReview={findReview(studentID, course)}
                   completed={completed}
                   reviewType="course"
                 />

@@ -1,12 +1,14 @@
 import { IDescriptionPair, Ice } from '../../../../../../../typings/radgrad';
 import { isICE } from '../../../../../../../api/ice/IceProcessor';
 
-export const toValueArray = (pair: IDescriptionPair): any[] | unknown => {
+// eslint-disable-next-line @typescript-eslint/ban-types
+export const toValueArray = (pair: IDescriptionPair): any[] => {
   const value = pair.value;
   if (typeof value === 'string') {
     return [value];
   }
   if (typeof value === 'object') {
+    // @ts-ignore
     return value;
   }
   return [];

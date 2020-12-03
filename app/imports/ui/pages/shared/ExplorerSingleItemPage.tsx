@@ -396,7 +396,6 @@ const ExplorerSingleItemPage = (props: IIndividualExplorerPageProps) => {
   // console.log('ExplorerSingleItemPage props=%o', props);
   const menuWidget = getMenuWidget(props);
   const type = Router.getUrlParam(props.match, 2);
-  const role = Router.getRoleByUrl(props.match);
 
   // Variables for Explorer Menu
   const addedList = getAddedList(props);
