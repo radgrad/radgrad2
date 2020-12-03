@@ -1,6 +1,6 @@
 import React from 'react';
 import { Menu } from 'semantic-ui-react';
-import { NavLink, withRouter } from 'react-router-dom';
+import { NavLink, useParams, useRouteMatch } from 'react-router-dom';
 import { leftHandMenu } from '../../shared/shared-widget-names';
 
 export interface IAdminDatabaseMenuProps {
@@ -15,9 +15,9 @@ export interface IAdminDatabaseMenuProps {
   };
 }
 
-const AdminDatabaseMenu = (props: IAdminDatabaseMenuProps) => {
-  const username = props.currentUser;
-  const baseUrl = props.match.url;
+const AdminDatabaseMenu = () => {
+  const { username } = useParams();
+  const baseUrl = useRouteMatch().url;
   const baseIndex = baseUrl.indexOf(username);
   const baseRoute = `${baseUrl.substring(0, baseIndex)}${username}/database/`;
   // console.log(props, baseRoute);
@@ -30,5 +30,4 @@ const AdminDatabaseMenu = (props: IAdminDatabaseMenuProps) => {
   );
 };
 
-/** Enable ReactRouter for this component. https://reacttraining.com/react-router/web/api/withRouter */
-export default withRouter(AdminDatabaseMenu);
+export default AdminDatabaseMenu;

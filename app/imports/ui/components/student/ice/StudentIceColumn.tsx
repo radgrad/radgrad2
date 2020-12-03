@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Accordion, Icon } from 'semantic-ui-react';
-import { withRouter } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 import * as Router from '../../shared/utilities/router';
 import StudentIceColumnVerified from './StudentIceColumnVerified';
 import StudentIceColumnUnverified from './StudentIceColumnUnverified';
@@ -12,19 +12,11 @@ import { Opportunities } from '../../../../api/opportunity/OpportunityCollection
 import { Ice } from '../../../../typings/radgrad';
 
 interface IStudentIceColumnProps {
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-      opportunity: string;
-    }
-  };
   type: 'Innovation' | 'Competency' | 'Experience';
 }
 
 const StudentIceColumn = (props: IStudentIceColumnProps) => {
+  const match = useRouteMatch();
   const [verifiedColumnOpenState, setVerifiedColumnOpen] = useState(true);
   const [unVerifiedColumnOpenState, setUnVerifiedColumnOpen] = useState(false);
   const [recommendedColumnOpenState, setRecommendedColumnOpen] = useState(false);
@@ -120,7 +112,7 @@ const StudentIceColumn = (props: IStudentIceColumnProps) => {
   const verifiedColor = getVerifiedColor();
   const unverifiedColor = getUnverifiedColor();
 
-  const username = Router.getUsername(props.match);
+  const username = Router.getUsername(match);
   const earnedICE = StudentProfiles.getEarnedICE(username);
   const projectedICE = StudentProfiles.getProjectedICE(username);
   const earnedICEPoints = getPoints(earnedICE);
@@ -184,4 +176,4 @@ const StudentIceColumn = (props: IStudentIceColumnProps) => {
   );
 };
 
-export default withRouter(StudentIceColumn);
+export default StudentIceColumn;

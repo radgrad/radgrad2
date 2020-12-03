@@ -1,5 +1,4 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Card, Grid, Header, Loader, Segment } from 'semantic-ui-react';
@@ -68,8 +67,6 @@ const renderPage = (props: IAcademicPlansCardExplorerProps) => {
 // eslint-disable-next-line react/prop-types
 const LandingAcademicPlansCardExplorerPage = (props: IAcademicPlansCardExplorerProps) => ((props.ready) ? renderPage(props) : <Loader>Loading Academic Plans</Loader>);
 
-const LandingAcademicPlansCardExplorerCon = withRouter(LandingAcademicPlansCardExplorerPage);
-
 const LandingAcademicPlansCardExplorerContainer = withTracker(() => {
   const sub1 = Meteor.subscribe(AcademicPlans.getPublicationName());
   const sub2 = Meteor.subscribe(Slugs.getPublicationName());
@@ -79,6 +76,6 @@ const LandingAcademicPlansCardExplorerContainer = withTracker(() => {
     count: AcademicPlans.countNonRetired(),
     currentUser: Meteor.user() ? Meteor.user().username : '',
   };
-})(LandingAcademicPlansCardExplorerCon);
+})(LandingAcademicPlansCardExplorerPage);
 
 export default LandingAcademicPlansCardExplorerContainer;

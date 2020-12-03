@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink, withRouter } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { Dropdown, Header, Image, Menu } from 'semantic-ui-react';
 import { INavBarProps } from '../LandingNavBar';
 import RadGradLogoText from '../../shared/RadGradLogoText';
@@ -36,5 +36,4 @@ const LandingExplorerMenuBar = (props: INavBarProps) => {
   );
 };
 
-/** Enable ReactRouter for this component. https://reacttraining.com/react-router/web/api/withRouter */
-export default withRouter(LandingExplorerMenuBar);
+export default LandingExplorerMenuBar;

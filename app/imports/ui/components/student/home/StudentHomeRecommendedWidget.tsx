@@ -1,20 +1,16 @@
 import React from 'react';
 import { Header } from 'semantic-ui-react';
-import { withRouter } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 import _ from 'lodash';
 import { ITeaser } from '../../../../typings/radgrad';
 import { Teasers } from '../../../../api/teaser/TeaserCollection';
 import { Users } from '../../../../api/user/UserCollection';
-import { getUsername, IMatchProps } from '../../shared/utilities/router';
+import { getUsername } from '../../shared/utilities/router';
 import { Interests } from '../../../../api/interest/InterestCollection';
 import RecommendedItemInformation from './RecommendedItemInformation';
 
-interface IStudentHomeRecommendedTeasersProps {
-  match: IMatchProps;
-}
-
-const StudentHomeRecommendedWidget = (props: IStudentHomeRecommendedTeasersProps) => {
-  const { match } = props;
+const StudentHomeRecommendedWidget = () => {
+  const match = useRouteMatch();
   const getRecommendedTeasers = (): ITeaser[] => {
     const allTeasers: ITeaser[] = Teasers.findNonRetired({});
     const matching = [];
@@ -56,5 +52,4 @@ const StudentHomeRecommendedWidget = (props: IStudentHomeRecommendedTeasersProps
   );
 };
 
-const StudentHomeRecommendedTeasersCon = withRouter(StudentHomeRecommendedWidget);
-export default StudentHomeRecommendedTeasersCon;
+export default StudentHomeRecommendedWidget;

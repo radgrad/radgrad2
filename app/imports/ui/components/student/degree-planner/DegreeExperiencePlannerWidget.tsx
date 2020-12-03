@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Grid, Segment, Button, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import moment from 'moment';
@@ -19,21 +19,12 @@ import { OpportunityInstances } from '../../../../api/opportunity/OpportunityIns
 import { defineMethod, removeItMethod } from '../../../../api/base/BaseCollection.methods';
 import { degreePlannerActions } from '../../../../redux/student/degree-planner';
 import { studentDepWidget } from '../student-widget-names';
-import { getUserIdFromRoute } from '../../shared/utilities/router';
 
 interface IDePProps {
   selectCourseInstance: (courseInstanceID: string) => any;
   selectOpportunityInstance: (opportunityInstanceID: string) => any;
   selectFavoriteDetailsTab: () => any;
   academicYearInstances: IAcademicYearInstance[];
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
 }
 
 const mapDispatchToProps = (dispatch) => ({
@@ -43,11 +34,11 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const DEPWidget = (props: IDePProps) => {
-  const username = props.match.params.username;
+  const { username } = useParams();
   const studentID = Users.getID(username);
 
   const generateAcademicYearInstances = (number) => {
-    const student = props.match.params.username;
+    const student = username;
     let currentYear = moment().year();
     _.times(number, () => {
       const definitionData: IAcademicYearInstanceDefine = { year: currentYear++, student };
@@ -108,7 +99,7 @@ const DEPWidget = (props: IDePProps) => {
 
   const handleAddPrevYear = (event: any): void => {
     event.preventDefault();
-    const student = props.match.params.username;
+    const student = username;
     const prevYear = yearsState[0].year - 1;
     const definitionData: IAcademicYearInstanceDefine = { year: prevYear, student };
     const collectionName = AcademicYearInstances.getCollectionName();
@@ -140,7 +131,7 @@ const DEPWidget = (props: IDePProps) => {
 
   const handleAddYear = (event: any): void => {
     event.preventDefault();
-    const student = props.match.params.username;
+    const student = username;
     const numYears = yearsState.length;
     const nextYear = yearsState[numYears - 1].year + 1;
     const definitionData: IAcademicYearInstanceDefine = { year: nextYear, student };
@@ -283,14 +274,14 @@ const DEPWidget = (props: IDePProps) => {
   );
 };
 
-const DEPWidgetCon = withTracker(({ match }) => {
-  const studentID = getUserIdFromRoute(match);
+const DEPWidgetContainer = withTracker(() => {
+  const { username } = useParams();
+  const studentID = Users.getProfile(username).userID;
   const academicYearInstances: IAcademicYearInstance[] = AcademicYearInstances.findNonRetired({ studentID }, { sort: { year: 1 } });
   return {
     academicYearInstances,
   };
 })(DEPWidget);
-const DEPWidgetContainer = withRouter(DEPWidgetCon);
 const DegreeExperiencePlannerWidget = connect(null, mapDispatchToProps)(DEPWidgetContainer);
 
 export default DegreeExperiencePlannerWidget;

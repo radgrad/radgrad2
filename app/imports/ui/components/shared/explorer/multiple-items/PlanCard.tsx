@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter, Link } from 'react-router-dom';
+import { useRouteMatch, Link } from 'react-router-dom';
 import { Card, Icon, Popup, Image } from 'semantic-ui-react';
 import Markdown from 'react-markdown';
 import { IPlanCard } from '../../../../../typings/radgrad';
@@ -16,14 +16,17 @@ import {
 } from '../../utilities/data-model';
 import { interestedStudents } from '../utilities/explorer';
 
+// TODO why is this call a PlanCard? Should it be AcademicPlanCard?
+
 const PlanCard = (props: IPlanCard) => {
+  const match = useRouteMatch();
   const { type, item } = props;
   const itemName = docToName(item);
   const itemShortDescription = docToShortDescription(item);
   const numberStudents = studentsParticipating(item);
   const itemSlug = itemToSlugName(item);
   const interested = interestedStudents(item, type);
-  const route = Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}/${itemSlug}`);
+  const route = Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}/${itemSlug}`);
 
   return (
     <Card className="radgrad-interest-card">
@@ -64,4 +67,4 @@ const PlanCard = (props: IPlanCard) => {
   );
 };
 
-export default withRouter(PlanCard);
+export default PlanCard;

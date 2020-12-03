@@ -1,15 +1,11 @@
 import React from 'react';
 import { Header, Icon, Grid } from 'semantic-ui-react';
-import { Link, withRouter } from 'react-router-dom';
-import { buildRouteName, IMatchProps } from '../../shared/utilities/router';
+import { Link, useRouteMatch } from 'react-router-dom';
+import { buildRouteName } from '../../shared/utilities/router';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import { Interests } from '../../../../api/interest/InterestCollection';
 import { FavoriteInterests } from '../../../../api/favorite/FavoriteInterestCollection';
 import { IFavoriteInterest, IInterest } from '../../../../typings/radgrad';
-
-interface IPopularTopicsProps {
-  match: IMatchProps;
-}
 
 const countInArray = (array, value) => array.reduce((n, x) => n + (x === value), 0);
 
@@ -27,8 +23,8 @@ const getFavoriteInterests = () => {
   return favInterestObjects.slice(0, 10);
 };
 
-const StudentHomeFavoriteInterestsList = (props: IPopularTopicsProps) => {
-  const { match } = props;
+const StudentHomeFavoriteInterestsList = () => {
+  const match = useRouteMatch();
   const favoriteInterests = getFavoriteInterests();
   const marginTopStyle: React.CSSProperties = { marginTop: '30px' };
   const whiteColorStyle: React.CSSProperties = { color: 'white' };
@@ -62,4 +58,4 @@ const StudentHomeFavoriteInterestsList = (props: IPopularTopicsProps) => {
   );
 };
 
-export default withRouter(StudentHomeFavoriteInterestsList);
+export default StudentHomeFavoriteInterestsList;

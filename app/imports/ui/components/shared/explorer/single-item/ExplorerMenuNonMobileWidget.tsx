@@ -1,7 +1,7 @@
 import { createMedia } from '@artsy/fresnel';
 import React from 'react';
 import { Menu, Header, Button, Icon } from 'semantic-ui-react';
-import { withRouter, Link } from 'react-router-dom';
+import { useRouteMatch, Link } from 'react-router-dom';
 import { RadGradProperties } from '../../../../../api/radgrad/RadGradProperties';
 import {
   IAcademicPlan,
@@ -34,14 +34,6 @@ interface IExplorerMenuNonMobileWidgetProps {
   menuAddedList: { item: explorerInterfaces, count: number }[];
   menuCareerList: { item: IInterest, count: number }[] | undefined;
   type: 'plans' | 'career-goals' | 'courses' | 'interests' | 'opportunities' | 'users'; // TODO should this be a defined type?
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
 }
 
 const getTypeName = (props: IExplorerMenuNonMobileWidgetProps): string => {
@@ -68,16 +60,17 @@ const isType = (typeToCheck: string, props: IExplorerMenuNonMobileWidgetProps): 
 const ExplorerMenuNonMobileWidget = (props: IExplorerMenuNonMobileWidgetProps) => {
   // console.log('ExplorerMenuNonMobileWidget', props);
   const marginTopStyle = { marginTop: '5px' };
+  const match = useRouteMatch();
 
-  const baseUrl = props.match.url;
-  const username = Router.getUsername(props.match);
+  const baseUrl = match.url;
+  const username = Router.getUsername(match);
   const baseIndex = baseUrl.indexOf(username);
   const baseRoute = `${baseUrl.substring(0, baseIndex)}${username}`;
 
   const { menuAddedList, menuCareerList } = props;
-  const isStudent = Router.isUrlRoleStudent(props.match);
+  const isStudent = Router.isUrlRoleStudent(match);
   const adminEmail = RadGradProperties.getAdminEmail();
-  const isFaculty = isUrlRoleFaculty(props.match);
+  const isFaculty = isUrlRoleFaculty(match);
 
   const addFacultyOpportunityButtonStyle: React.CSSProperties = { marginTop: '5px' };
 
@@ -85,7 +78,7 @@ const ExplorerMenuNonMobileWidget = (props: IExplorerMenuNonMobileWidgetProps) =
     <React.Fragment>
       <style>{mediaStyles}</style>
       <MediaContextProvider>
-        <Media at="tablet">
+        <Media greaterThanOrEqual="tablet">
           {isType(EXPLORER_TYPE.ACADEMICPLANS, props) ?
             (
               <React.Fragment>
@@ -103,7 +96,7 @@ const ExplorerMenuNonMobileWidget = (props: IExplorerMenuNonMobileWidgetProps) =
                           listItem={listItem}
                           type={EXPLORER_TYPE.ACADEMICPLANS}
                           key={listItem.item._id}
-                          match={props.match}
+                          match={match}
                         />
                       ))}
                     </Menu>
@@ -130,7 +123,7 @@ const ExplorerMenuNonMobileWidget = (props: IExplorerMenuNonMobileWidgetProps) =
                           listItem={listItem}
                           type={EXPLORER_TYPE.COURSES}
                           key={listItem.item._id}
-                          match={props.match}
+                          match={match}
                         />
                       ))}
                     </Menu>
@@ -148,7 +141,7 @@ const ExplorerMenuNonMobileWidget = (props: IExplorerMenuNonMobileWidgetProps) =
                   (
                     <Button
                       as={Link}
-                      to={buildRouteName(props.match, '/manage-opportunities')}
+                      to={buildRouteName(match, '/manage-opportunities')}
                       size="small"
                       style={addFacultyOpportunityButtonStyle}
                     >
@@ -171,7 +164,7 @@ const ExplorerMenuNonMobileWidget = (props: IExplorerMenuNonMobileWidgetProps) =
                             listItem={listItem}
                             type={EXPLORER_TYPE.OPPORTUNITIES}
                             key={listItem.item._id}
-                            match={props.match}
+                            match={match}
                           />
                         ))
                       }
@@ -199,7 +192,7 @@ const ExplorerMenuNonMobileWidget = (props: IExplorerMenuNonMobileWidgetProps) =
                     listItem={listItem}
                     type={EXPLORER_TYPE.INTERESTS}
                     key={listItem.item._id}
-                    match={props.match}
+                    match={match}
                   />
                 ))}
 
@@ -209,7 +202,7 @@ const ExplorerMenuNonMobileWidget = (props: IExplorerMenuNonMobileWidgetProps) =
                     listItem={listItem}
                     type={EXPLORER_TYPE.INTERESTS}
                     key={listItem.item._id}
-                    match={props.match}
+                    match={match}
                   />
                 ))}
               </Menu>
@@ -231,7 +224,7 @@ const ExplorerMenuNonMobileWidget = (props: IExplorerMenuNonMobileWidgetProps) =
                     listItem={listItem}
                     type={EXPLORER_TYPE.CAREERGOALS}
                     key={listItem.item._id}
-                    match={props.match}
+                    match={match}
                   />
                 ))}
               </Menu>
@@ -243,6 +236,4 @@ const ExplorerMenuNonMobileWidget = (props: IExplorerMenuNonMobileWidgetProps) =
   );
 };
 
-export const ExplorerMenuNonMobileWidgetContainer = withRouter(ExplorerMenuNonMobileWidget);
-
-export default ExplorerMenuNonMobileWidgetContainer;
+export default ExplorerMenuNonMobileWidget;

@@ -47,9 +47,13 @@ const App = () => (
       {routes.ALUMNI.map((route) => (
         <StudentProtectedRoute key={route.path} {...route} />
       ))}
-      <Route path="/signin" component={SigninPage} />
+      <Route path="/signin">
+        <SigninPage />
+      </Route>
       <ProtectedRoute path="/signout" component={SignoutPage} />
-      <Route component={NotFoundPage} />
+      <Route>
+        <NotFoundPage />
+      </Route>
     </Switch>
   </Router>
 );
@@ -84,7 +88,7 @@ const AdminProtectedRoute = ({ component: Component, ...rest }) => {
   if (_.isNil(Meteor.userId())) {
     return (<Redirect to={{ pathname: '/', state: { from: rest.location } }} />);
   }
-  const WrappedComponent = withGlobalSubscription(Component);
+  const WrappedComponent = withGlobalSubscription(Component); // TODO why does admin only do global?
   return (
     <Route
       {...rest}

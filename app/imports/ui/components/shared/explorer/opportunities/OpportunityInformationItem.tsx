@@ -1,12 +1,12 @@
 import React from 'react';
 import { Image, Divider, Grid, Header, Icon } from 'semantic-ui-react';
-import { withRouter, Link } from 'react-router-dom';
+import { useRouteMatch, Link } from 'react-router-dom';
 import Markdown from 'react-markdown';
 import _ from 'lodash';
 import { IOpportunity, ISlug } from '../../../../../typings/radgrad';
 import { docToShortDescription } from '../../utilities/data-model';
 import IceHeader from '../../IceHeader';
-import { buildExplorerSlugRoute, IMatchProps, renderLink } from '../../utilities/router';
+import { buildExplorerSlugRoute, renderLink } from '../../utilities/router';
 import InterestList from '../../InterestList';
 import { OpportunityTypes } from '../../../../../api/opportunity/OpportunityTypeCollection';
 import { AcademicTerms } from '../../../../../api/academic-term/AcademicTermCollection';
@@ -23,7 +23,6 @@ export interface IOpportunityInformationItemConfiguration {
 }
 
 interface IOpportunityItemWidgetProps {
-  match: IMatchProps;
   informationConfiguration: IOpportunityInformationItemConfiguration;
   opportunity: IOpportunity;
 }
@@ -45,8 +44,8 @@ const getNumberOfStudentsParticipating = (opportunity: IOpportunity): number => 
 };
 
 const OpportunityInformationItem = (props: IOpportunityItemWidgetProps) => {
-  const { match, informationConfiguration, opportunity } = props;
-
+  const { informationConfiguration, opportunity } = props;
+  const match = useRouteMatch();
   const interestListStyle: React.CSSProperties = {
     marginTop: '5px',
   };
@@ -128,4 +127,4 @@ const OpportunityInformationItem = (props: IOpportunityItemWidgetProps) => {
   );
 };
 
-export default withRouter(OpportunityInformationItem);
+export default OpportunityInformationItem;

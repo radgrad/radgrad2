@@ -1,10 +1,10 @@
 import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Button, Card, Icon } from 'semantic-ui-react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, useParams, useRouteMatch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
-import { getUserIdFromRoute, getUsername, IMatchProps } from '../../shared/utilities/router';
+import { getUsername } from '../../shared/utilities/router';
 import {
   IAcademicTerm,
   IOpportunityInstance,
@@ -27,9 +27,9 @@ import { degreePlannerActions } from '../../../../redux/student/degree-planner';
 import { UserInteractionsTypes } from '../../../../api/analytic/UserInteractionsTypes';
 import { userInteractionDefineMethod } from '../../../../api/analytic/UserInteractionCollection.methods';
 import { Slugs } from '../../../../api/slug/SlugCollection';
+import { Users } from '../../../../api/user/UserCollection';
 
 interface IDetailOpportunityCardProps {
-  match: IMatchProps;
   instance: IOpportunityInstance;
   requests: IVerificationRequest[];
   // eslint-disable-next-line react/no-unused-prop-types
@@ -40,7 +40,7 @@ const mapDispatchToProps = (dispatch) => ({
   selectOpportunityInstance: (opportunityInstanceID) => dispatch(degreePlannerActions.selectOpportunityInstance(opportunityInstanceID)),
 });
 
-const handleRemove = (props: IDetailOpportunityCardProps) => (event, { value }) => {
+const handleRemove = (props: IDetailOpportunityCardProps, match) => (event, { value }) => {
   event.preventDefault();
   const collectionName = OpportunityInstances.getCollectionName();
   const instance = value;
@@ -58,7 +58,7 @@ const handleRemove = (props: IDetailOpportunityCardProps) => (event, { value }) 
       });
       const academicTerm: IAcademicTerm = AcademicTerms.findDoc({ _id: instanceObject.termID });
       const interactionData: IUserInteractionDefine = {
-        username: getUsername(props.match),
+        username: getUsername(match),
         type: UserInteractionsTypes.REMOVEOPPORTUNITY,
         typeData: [academicTerm.term, academicTerm.year, slugName],
       };
@@ -72,9 +72,9 @@ const handleRemove = (props: IDetailOpportunityCardProps) => (event, { value }) 
   props.selectOpportunityInstance('');
 };
 
-const handleVerificationRequest = (props: IDetailOpportunityCardProps) => (model) => {
+const handleVerificationRequest = (props: IDetailOpportunityCardProps, match) => (model) => {
   const collectionName = VerificationRequests.getCollectionName();
-  const username = getUsername(props.match);
+  const username = getUsername(match);
   const opportunityInstance = props.instance._id;
   const definitionData: IVerificationRequestDefine = {
     student: username,
@@ -108,6 +108,7 @@ const handleVerificationRequest = (props: IDetailOpportunityCardProps) => (model
 };
 
 const DetailOpportunityCard = (props: IDetailOpportunityCardProps) => {
+  const match = useRouteMatch();
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
   const opportunityTerm = AcademicTerms.findDoc(props.instance.termID);
   const futureP = opportunityTerm.termNumber >= currentTerm.termNumber;
@@ -137,7 +138,7 @@ const DetailOpportunityCard = (props: IDetailOpportunityCardProps) => {
                   basic
                   color="green"
                   value={props.instance._id}
-                  onClick={handleRemove(props)}
+                  onClick={handleRemove(props, match)}
                   size="tiny"
                 >
                   Remove
@@ -159,7 +160,7 @@ const DetailOpportunityCard = (props: IDetailOpportunityCardProps) => {
                       basic
                       color="green"
                       value={props.instance._id}
-                      onClick={handleRemove(props)}
+                      onClick={handleRemove(props, match)}
                       size="tiny"
                     >
                       Remove
@@ -172,14 +173,14 @@ const DetailOpportunityCard = (props: IDetailOpportunityCardProps) => {
         {!futureP && !verificationRequested ?
           (
             <Card.Content>
-              <RequestVerificationForm handleOnModelChange={handleVerificationRequest(props)} />
+              <RequestVerificationForm handleOnModelChange={handleVerificationRequest(props, match)} />
             </Card.Content>
           )
           : ''}
         <Card.Content>
           <p style={textAlignRight}>
             <Link
-              to={buildRouteName(props.match, opportunity, EXPLORER_TYPE.OPPORTUNITIES)}
+              to={buildRouteName(match, opportunity, EXPLORER_TYPE.OPPORTUNITIES)}
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -192,14 +193,15 @@ const DetailOpportunityCard = (props: IDetailOpportunityCardProps) => {
   );
 };
 
-const DetailOpportunityCardCon = withRouter(withTracker((props) => {
-  const studentID = getUserIdFromRoute(props.match);
+const DetailOpportunityCardCon = withTracker((props) => {
+  const { username } = useParams();
+  const studentID = Users.getProfile(username).userID;
   const opportunityInstanceID = props.instance._id;
   const requests = VerificationRequests.findNonRetired({ studentID, opportunityInstanceID });
   return {
     requests,
   };
-})(DetailOpportunityCard));
+})(DetailOpportunityCard);
 
 const DetailOpportunityCardConnected = connect(null, mapDispatchToProps)(DetailOpportunityCardCon);
 export default DetailOpportunityCardConnected;

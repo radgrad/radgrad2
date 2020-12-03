@@ -175,14 +175,6 @@ export interface ITermCard extends ICardExplorerCards {
   type: string;
   isStudent: boolean;
   canAdd: boolean;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
 }
 
 export interface IUserProfileCard extends ICardExplorerCards {
@@ -413,6 +405,7 @@ export interface IFavoriteAcademicPlan {
 export interface IFavoriteCareerGoalDefine extends IDumpOne {
   careerGoal: string;
   username: string;
+  share?: boolean;
   retired?: boolean;
 }
 
@@ -437,12 +430,14 @@ export interface IFavoriteCourse {
 export interface IFavoriteInterestDefine extends IDumpOne {
   interest: string;
   username: string;
+  share?: boolean;
   retired?: boolean;
 }
 
 export interface IFavoriteInterest {
   interestID: string;
   userID: string;
+  share: boolean;
   retired: boolean;
 }
 
@@ -459,6 +454,7 @@ export interface IFavoriteOpportunity {
 }
 
 export interface IFavoriteUpdate extends IUpdate {
+  share?: boolean;
   retired?: boolean;
 }
 
@@ -779,6 +775,8 @@ export interface IBaseProfile {
   optedIn?: boolean;
   courseExplorerFilter?: string;
   opportunityExplorerSortOrder?: string;
+  aboutMe?: string;
+  lastRegistrarLoad?: Date;
 }
 
 export interface IProfile {
@@ -796,10 +794,8 @@ export interface IProfile {
 }
 
 // Advisor and Faculty Profiles
-export interface IAdvisorProfile extends IProfile {
-}
-
-export interface IFacultyProfile extends IProfile {
+export interface IAdvisorOrFacultyProfile extends IProfile {
+  aboutMe?: string;
 }
 
 export interface IProfileDefine extends IDumpOne {
@@ -811,6 +807,10 @@ export interface IProfileDefine extends IDumpOne {
   interests?: string[];
   careerGoals?: string[];
   retired?: boolean;
+}
+
+export interface IAdvisorOrFacultyProfileDefine extends IProfileDefine {
+  aboutMe?: string;
 }
 
 export interface ICombinedProfileDefine extends IProfileDefine {
@@ -846,6 +846,10 @@ export interface IProfileUpdate extends IUpdate {
   retired?: boolean;
   courseExplorerFilter?: string;
   opportunityExplorerSortOrder?: string;
+}
+
+export interface IAdvisorOrFacultyProfileUpdate extends IProfileUpdate {
+  aboutMe?: string;
 }
 
 export interface IStudentProfile extends IProfile {
@@ -900,6 +904,7 @@ export interface IStudentProfileUpdate extends IProfileUpdate {
   shareCourses?: boolean;
   shareOpportunities?: boolean;
   shareLevel?: boolean;
+  lastRegistrarLoad?: Date;
 }
 
 export interface IStudentProfileUpdateData {
@@ -918,6 +923,7 @@ export interface IStudentProfileUpdateData {
   shareCourses?: boolean;
   shareOpportunities?: boolean;
   shareLevel?: boolean;
+  lastRegistrarLoad?: Date;
 }
 
 // Reviews

@@ -1,7 +1,7 @@
 import { createMedia } from '@artsy/fresnel';
 import React from 'react';
 import { Dropdown } from 'semantic-ui-react';
-import { withRouter } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 import {
   IAcademicPlan,
   ICareerGoal,
@@ -33,14 +33,6 @@ interface IExplorerMenuMobileWidgetProps {
   menuCareerList?: { item: IInterest, count: number }[] | undefined;
   // eslint-disable-next-line react/no-unused-prop-types
   type: 'plans' | 'career-goals' | 'courses' | 'interests' | 'opportunities' | 'users'; // TODO should this be a defined type?
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
 }
 
 const isType = (typeToCheck: string, props: IExplorerMenuMobileWidgetProps): boolean => {
@@ -49,14 +41,14 @@ const isType = (typeToCheck: string, props: IExplorerMenuMobileWidgetProps): boo
 };
 
 const ExplorerMenuMobileWidget = (props: IExplorerMenuMobileWidgetProps) => {
-
   const { menuAddedList, menuCareerList } = props;
-  const isStudent = Router.isUrlRoleStudent(props.match);
+  const match = useRouteMatch();
+  const isStudent = Router.isUrlRoleStudent(match);
   return (
     <React.Fragment>
       <style>{mediaStyles}</style>
       <MediaContextProvider>
-        <Media at="mobile">
+        <Media lessThan="tablet">
           {(isType(EXPLORER_TYPE.ACADEMICPLANS, props) && isStudent) ?
             (
               <Dropdown className="selection" fluid text="Select Item" style={{ marginTop: '1rem' }}>
@@ -69,7 +61,7 @@ const ExplorerMenuMobileWidget = (props: IExplorerMenuMobileWidgetProps) => {
                         type={EXPLORER_TYPE.ACADEMICPLANS}
                         listItem={listItem}
                         key={listItem.item._id}
-                        match={props.match}
+                        match={match}
                       />
                     ))
                   }
@@ -91,7 +83,7 @@ const ExplorerMenuMobileWidget = (props: IExplorerMenuMobileWidgetProps) => {
                           type={EXPLORER_TYPE.COURSES}
                           listItem={listItem}
                           key={listItem.item._id}
-                          match={props.match}
+                          match={match}
                         />
                       ))
                     }
@@ -115,7 +107,7 @@ const ExplorerMenuMobileWidget = (props: IExplorerMenuMobileWidgetProps) => {
                             type={EXPLORER_TYPE.OPPORTUNITIES}
                             listItem={listItem}
                             key={listItem.item._id}
-                            match={props.match}
+                            match={match}
                           />
                         ))}
                       </Dropdown.Menu>
@@ -138,7 +130,7 @@ const ExplorerMenuMobileWidget = (props: IExplorerMenuMobileWidgetProps) => {
                       type={EXPLORER_TYPE.INTERESTS}
                       listItem={listItem}
                       key={listItem.item._id}
-                      match={props.match}
+                      match={match}
                     />
                   ))}
 
@@ -149,7 +141,7 @@ const ExplorerMenuMobileWidget = (props: IExplorerMenuMobileWidgetProps) => {
                       type={EXPLORER_TYPE.INTERESTS}
                       listItem={listItem}
                       key={listItem.item._id}
-                      match={props.match}
+                      match={match}
                     />
                   ))}
                 </Dropdown.Menu>
@@ -169,7 +161,7 @@ const ExplorerMenuMobileWidget = (props: IExplorerMenuMobileWidgetProps) => {
                         type={EXPLORER_TYPE.CAREERGOALS}
                         listItem={listItem}
                         key={listItem.item._id}
-                        match={props.match}
+                        match={match}
                       />
                     ))
                   }
@@ -183,5 +175,4 @@ const ExplorerMenuMobileWidget = (props: IExplorerMenuMobileWidgetProps) => {
   );
 };
 
-export const ExplorerMenuMobileWidgetContainer = withRouter(ExplorerMenuMobileWidget);
-export default ExplorerMenuMobileWidgetContainer;
+export default ExplorerMenuMobileWidget;

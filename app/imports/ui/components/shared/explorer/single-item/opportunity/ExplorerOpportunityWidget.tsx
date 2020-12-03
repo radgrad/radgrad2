@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { useParams, useRouteMatch } from 'react-router-dom';
 import { Divider, Grid, Header, Segment } from 'semantic-ui-react';
 import Markdown from 'react-markdown';
 import { IOpportunity } from '../../../../../../typings/radgrad';
@@ -24,27 +24,18 @@ interface IExplorerOpportunitiesWidgetProps {
   descriptionPairs: any[];
   item: IOpportunity
   completed: boolean;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-      opportunity: string;
-    }
-  };
 }
 
-const review = (props: IExplorerOpportunitiesWidgetProps): unknown => {
+const review = (props: IExplorerOpportunitiesWidgetProps, match): unknown => {
   const reviews = Reviews.findNonRetired({
-    studentID: Router.getUserIdFromRoute(props.match),
+    studentID: Router.getUserIdFromRoute(match),
     revieweeID: props.item._id,
   });
   return reviews[0];
 };
 
-const teaserUrlHelper = (props: IExplorerOpportunitiesWidgetProps): string => {
-  const opportunityID = Slugs.getEntityID(props.match.params.opportunity, 'Opportunity');
+const teaserUrlHelper = (opportunitySlug): string => {
+  const opportunityID = Slugs.getEntityID(opportunitySlug, 'Opportunity');
   const opportunity = Opportunities.findDoc(opportunityID);
   const oppTeaser = Teasers.findNonRetired({ targetSlugID: opportunity.slugID });
   if (oppTeaser.length > 1) {
@@ -66,11 +57,14 @@ const ExplorerOpportunityWidget = (props: IExplorerOpportunitiesWidgetProps) => 
   };
   const breakWordStyle: React.CSSProperties = { wordWrap: 'break-word' };
 
-  const { name, descriptionPairs, item, completed, match } = props;
+  const { name, descriptionPairs, item, completed } = props;
+  const match = useRouteMatch();
+  const { opportunity } = useParams();
+
   /* Header Variables */
   const upperName = toUpper(name);
   const hasTeaser = Teasers.findNonRetired({ targetSlugID: item.slugID }).length > 0;
-  const isStudent = Router.isUrlRoleStudent(props.match);
+  const isStudent = Router.isUrlRoleStudent(match);
 
   return (
     <div id={explorerOpportunityWidget}>
@@ -82,7 +76,7 @@ const ExplorerOpportunityWidget = (props: IExplorerOpportunitiesWidgetProps) => 
               (
                 <FavoritesButton
                   item={item}
-                  studentID={Router.getUserIdFromRoute(props.match)}
+                  studentID={Router.getUserIdFromRoute(match)}
                   type={FAVORITE_TYPE.OPPORTUNITY}
                 />
               )
@@ -191,12 +185,12 @@ const ExplorerOpportunityWidget = (props: IExplorerOpportunitiesWidgetProps) => 
                         </React.Fragment>
                       )
                       : ''}
-                    {(isSame(descriptionPair.label, 'Teaser') && teaserUrlHelper(props)) ?
+                    {(isSame(descriptionPair.label, 'Teaser') && teaserUrlHelper(opportunity)) ?
                       (
                         <React.Fragment>
                           <b>{descriptionPair.label}: </b>
                           {descriptionPair.value ?
-                            (<TeaserVideo id={teaserUrlHelper(props)} />)
+                            (<TeaserVideo id={teaserUrlHelper(opportunity)} />)
                             : <p>N/A </p>}
                         </React.Fragment>
                       )
@@ -321,7 +315,7 @@ const ExplorerOpportunityWidget = (props: IExplorerOpportunitiesWidgetProps) => 
           <Segment>
             <StudentExplorerReviewWidget
               event={item}
-              userReview={review(props)}
+              userReview={review(props, match)}
               completed={completed}
               reviewType="opportunity"
             />
@@ -332,4 +326,4 @@ const ExplorerOpportunityWidget = (props: IExplorerOpportunitiesWidgetProps) => 
   );
 };
 
-export default withRouter(ExplorerOpportunityWidget);
+export default ExplorerOpportunityWidget;

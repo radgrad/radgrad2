@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-import { withRouter, Link } from 'react-router-dom';
+import { useParams, useRouteMatch, Link } from 'react-router-dom';
 import { Grid, Segment, Header, Icon, Label, Divider, Button } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Users } from '../../../../api/user/UserCollection';
@@ -18,37 +18,30 @@ import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
 import StudentAboutMeUpdateWebsiteForm from './StudentAboutMeUpdateWebsiteForm';
 import * as Router from '../../shared/utilities/router';
 import {
-  itemToSlugName, profileGetCareerGoals, profileGetInterests,
+  itemToSlugName,
   profileToFullName,
 } from '../../shared/utilities/data-model';
 import { FavoriteAcademicPlans } from '../../../../api/favorite/FavoriteAcademicPlanCollection';
 import { FavoriteCareerGoals } from '../../../../api/favorite/FavoriteCareerGoalCollection';
 import { FavoriteInterests } from '../../../../api/favorite/FavoriteInterestCollection';
+import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
+import { Interests } from '../../../../api/interest/InterestCollection';
 
 interface IStudentAboutMeWidgetProps {
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
   profile: IStudentProfile;
-  /* eslint-disable react/no-unused-prop-types */
   favoriteCareerGoals: IFavoriteCareerGoal[];
   favoriteInterests: IFavoriteInterest[];
-  /* eslint-enable */
   favoriteAcademicPlans: IFavoriteAcademicPlan[];
 }
 
 const StudentAboutMeWidget = (props: IStudentAboutMeWidgetProps) => {
   const marginBottomStyle = { marginBottom: 0 };
-  const { match, profile } = props;
+  const { profile } = props;
+  const match = useRouteMatch();
   const name = profileToFullName(profile);
   const email = props.profile.username;
-  const careerGoals = profileGetCareerGoals(props.profile);
-  const interests = profileGetInterests(props.profile);
+  const careerGoals = _.map(props.favoriteCareerGoals, (f) => CareerGoals.findDoc(f.careerGoalID));
+  const interests = _.map(props.favoriteInterests, (f) => Interests.findDoc(f.interestID));
   const academicPlans = _.map(props.favoriteAcademicPlans, (f) => AcademicPlans.findDoc(f.academicPlanID));
   const labelStyle = { marginBottom: '2px' };
   const favorites = { color: '#53A78F', marginLeft: 10 };
@@ -194,9 +187,16 @@ const StudentAboutMeWidget = (props: IStudentAboutMeWidgetProps) => {
   );
 };
 
-export default withRouter(withTracker((props) => ({
-  profile: Users.getProfile(props.match.params.username),
-  favoriteAcademicPlans: FavoriteAcademicPlans.findNonRetired({}),
-  favoriteCareerGoals: FavoriteCareerGoals.findNonRetired({}),
-  favoriteInterests: FavoriteInterests.findNonRetired({}),
-}))(StudentAboutMeWidget));
+export default withTracker((props) => {
+  const { username } = useParams();
+  const profile = Users.getProfile(username);
+  const favoriteAcademicPlans = FavoriteAcademicPlans.findNonRetired({ studentID: profile.userID });
+  const favoriteCareerGoals = FavoriteCareerGoals.findNonRetired({ userID: profile.userID });
+  const favoriteInterests = FavoriteInterests.findNonRetired({ userID: profile.userID });
+  return {
+    profile,
+    favoriteAcademicPlans,
+    favoriteCareerGoals,
+    favoriteInterests,
+  };
+})(StudentAboutMeWidget);

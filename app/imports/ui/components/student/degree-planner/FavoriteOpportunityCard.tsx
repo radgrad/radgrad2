@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, Icon } from 'semantic-ui-react';
 import _ from 'lodash';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, useRouteMatch } from 'react-router-dom';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { withTracker } from 'meteor/react-meteor-data';
 import { IAcademicTerm, IOpportunity, IOpportunityInstance } from '../../../../typings/radgrad';
@@ -16,13 +16,13 @@ import NamePill from '../../shared/academic-plan/NamePill';
 import { buildRouteName } from './DepUtilityFunctions';
 
 interface IFavoriteOpportunityCardProps {
-  match: any;
   opportunity: IOpportunity;
   studentID: string;
   instances: IOpportunityInstance[];
 }
 
 const FavoriteOpportunityCard = (props: IFavoriteOpportunityCardProps) => {
+  const match = useRouteMatch();
   const instances = props.instances;
   const terms: IAcademicTerm[] = _.map(instances, (i) => AcademicTerms.findDoc(i.termID));
   // Sort by ascending order
@@ -76,7 +76,7 @@ const FavoriteOpportunityCard = (props: IFavoriteOpportunityCardProps) => {
       <Card.Content>
         <p style={textAlignRight}>
           <Link
-            to={buildRouteName(props.match, props.opportunity, EXPLORER_TYPE.OPPORTUNITIES)}
+            to={buildRouteName(match, props.opportunity, EXPLORER_TYPE.OPPORTUNITIES)}
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -88,7 +88,7 @@ const FavoriteOpportunityCard = (props: IFavoriteOpportunityCardProps) => {
   );
 };
 
-export default withRouter(withTracker((props) => {
+export default withTracker((props) => {
   const instances: IOpportunityInstance[] = OpportunityInstances.findNonRetired({
     studentID: props.studentID,
     opportunityID: props.opportunity._id,
@@ -96,4 +96,4 @@ export default withRouter(withTracker((props) => {
   return {
     instances,
   };
-})(FavoriteOpportunityCard));
+})(FavoriteOpportunityCard);

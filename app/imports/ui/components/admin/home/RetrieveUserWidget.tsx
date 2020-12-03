@@ -3,7 +3,7 @@ import { Button, Grid, Header, Segment, Tab } from 'semantic-ui-react';
 import _ from 'lodash';
 import { updateAllStudentLevelsMethod } from '../../../../api/level/LevelProcessor.methods';
 import { IFilterUsers } from '../../../pages/admin/AdminHomePage';
-import { IAdvisorProfile, IFacultyProfile, IStudentProfile } from '../../../../typings/radgrad';
+import { IAdvisorOrFacultyProfile, IStudentProfile } from '../../../../typings/radgrad';
 
 function url(user) {
   return `/#/${user.role.toLowerCase()}/${user.username}/home`;
@@ -16,8 +16,8 @@ function name(user) {
 const shortUserName = (user) => user.username.substr(0, user.username.indexOf('@'));
 
 interface IRetrieveUserWidgetProps extends IFilterUsers {
-  advisors: IAdvisorProfile[];
-  faculty: IFacultyProfile[];
+  advisors: IAdvisorOrFacultyProfile[];
+  faculty: IAdvisorOrFacultyProfile[];
   students: IStudentProfile[];
   alumni: IStudentProfile[];
   firstNameRegex?: string;

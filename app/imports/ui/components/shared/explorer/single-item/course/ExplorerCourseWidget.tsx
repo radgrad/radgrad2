@@ -1,10 +1,8 @@
 import React from 'react';
 import { Divider, Grid, Header, Item, List, Segment } from 'semantic-ui-react';
-import { NavLink, withRouter } from 'react-router-dom';
+import { NavLink, useParams, useRouteMatch } from 'react-router-dom';
 import _ from 'lodash';
-import { withTracker } from 'meteor/react-meteor-data';
 import Markdown from 'react-markdown';
-import { CourseInstances } from '../../../../../../api/course/CourseInstanceCollection';
 import InterestList from '../../../InterestList';
 import { isSingleChoice } from '../../../../../../api/degree-plan/PlanChoiceUtilities';
 import { Reviews } from '../../../../../../api/review/ReviewCollection';
@@ -30,19 +28,6 @@ interface IExplorerCoursesWidgetProps {
   descriptionPairs: IDescriptionPair[];
   item: ICourse;
   completed: boolean;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-      course: string;
-    }
-  };
-  // eslint-disable-next-line react/no-unused-prop-types
-  reactiveSourceOne: unknown[];
-  // eslint-disable-next-line react/no-unused-prop-types
-  reactiveSourceTwo: unknown[];
 }
 
 const getTableTitle = (tableIndex: number, table: unknown[]): JSX.Element | string => {
@@ -111,13 +96,13 @@ const choices = (prerequisite: { course: string; status: string }): string[] => 
 
 const isFirst = (index: number): boolean => index === 0;
 
-const findReview = (props: IExplorerCoursesWidgetProps): IReview => Reviews.findOne({
-  studentID: Router.getUserIdFromRoute(props.match),
+const findReview = (props: IExplorerCoursesWidgetProps, match): IReview => Reviews.findOne({
+  studentID: Router.getUserIdFromRoute(match),
   revieweeID: props.item._id,
 });
 
-const teaserUrlHelper = (props: IExplorerCoursesWidgetProps): string => {
-  const _id = Slugs.getEntityID(props.match.params.course, 'Course');
+const teaserUrlHelper = (props: IExplorerCoursesWidgetProps, courseSlug): string => {
+  const _id = Slugs.getEntityID(courseSlug, 'Course');
   const course = Courses.findDoc({ _id });
   const oppTeaser = Teasers.findNonRetired({ targetSlugID: course.slugID });
   if (oppTeaser.length > 1) {
@@ -140,10 +125,13 @@ const ExplorerCourseWidget = (props: IExplorerCoursesWidgetProps) => {
   };
   const breakWordStyle: React.CSSProperties = { wordWrap: 'break-word' };
 
-  const { name, shortName, descriptionPairs, item, completed, match } = props;
+  const { name, shortName, descriptionPairs, item, completed } = props;
+  const match = useRouteMatch();
+  const { course } = useParams();
+
   /* Header Variables */
   const upperShortName = toUpper(shortName);
-  const isStudent = Router.isUrlRoleStudent(props.match);
+  const isStudent = Router.isUrlRoleStudent(match);
   const hasTeaser = Teasers.findNonRetired({ targetSlugID: item.slugID }).length > 0;
   return (
     <div id={explorerCourseWidget}>
@@ -156,7 +144,7 @@ const ExplorerCourseWidget = (props: IExplorerCoursesWidgetProps) => {
             (
               <FavoritesButton
                 item={props.item}
-                studentID={Router.getUserIdFromRoute(props.match)}
+                studentID={Router.getUserIdFromRoute(match)}
                 type={FAVORITE_TYPE.COURSE}
               />
             )
@@ -241,7 +229,7 @@ const ExplorerCourseWidget = (props: IExplorerCoursesWidgetProps) => {
                                                         (
                                                           <NavLink
                                                             exact
-                                                            to={Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${prerequisite.course}`)}
+                                                            to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${prerequisite.course}`)}
                                                             activeClassName="active item"
                                                           >
                                                             {courseSlugToName(prerequisite.course)} <br />
@@ -254,7 +242,7 @@ const ExplorerCourseWidget = (props: IExplorerCoursesWidgetProps) => {
                                                               (
                                                                 <NavLink
                                                                   exact
-                                                                  to={Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${choice}`)}
+                                                                  to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${choice}`)}
                                                                   activeClassName="active item"
                                                                 >
                                                                   {courseSlugToName(choice)}
@@ -269,7 +257,7 @@ const ExplorerCourseWidget = (props: IExplorerCoursesWidgetProps) => {
                                                                   {' '}
                                                                   <NavLink
                                                                     exact
-                                                                    to={Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${choice}`)}
+                                                                    to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${choice}`)}
                                                                     activeClassName="active item"
                                                                   >
                                                                     {courseSlugToName(choice)}
@@ -297,7 +285,7 @@ const ExplorerCourseWidget = (props: IExplorerCoursesWidgetProps) => {
                                             key={prereq.course}
                                             as={NavLink}
                                             exact
-                                            to={Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${prereq.course}`)}
+                                            to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${prereq.course}`)}
                                           >
                                             {courseSlugToName(prereq.course)}
                                           </List.Item>
@@ -336,12 +324,12 @@ const ExplorerCourseWidget = (props: IExplorerCoursesWidgetProps) => {
                         </React.Fragment>
                       )
                       : ''}
-                    {isSame(descriptionPair.label, 'Teaser') && teaserUrlHelper(props) ?
+                    {isSame(descriptionPair.label, 'Teaser') && teaserUrlHelper(props, course) ?
                       (
                         <React.Fragment>
                           <b>{descriptionPair.label}: </b>
                           {descriptionPair.value ?
-                            (<TeaserVideo id={teaserUrlHelper(props)} />)
+                            (<TeaserVideo id={teaserUrlHelper(props, course)} />)
                             : (<p> N/A </p>)}
                         </React.Fragment>
                       )
@@ -473,7 +461,7 @@ const ExplorerCourseWidget = (props: IExplorerCoursesWidgetProps) => {
                                                           (
                                                             <NavLink
                                                               exact
-                                                              to={Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${prerequisite.course}`)}
+                                                              to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${prerequisite.course}`)}
                                                               activeClassName="active item"
                                                             >
                                                               {courseSlugToName(prerequisite.course)}
@@ -487,7 +475,7 @@ const ExplorerCourseWidget = (props: IExplorerCoursesWidgetProps) => {
                                                                 (
                                                                   <NavLink
                                                                     exact
-                                                                    to={Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${choice}`)}
+                                                                    to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${choice}`)}
                                                                     activeClassName="active item"
                                                                   >
                                                                     {courseSlugToName(choice)}
@@ -500,7 +488,7 @@ const ExplorerCourseWidget = (props: IExplorerCoursesWidgetProps) => {
                                                                     or
                                                                     <NavLink
                                                                       exact
-                                                                      to={Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${choice}`)}
+                                                                      to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${choice}`)}
                                                                       activeClassName="active item"
                                                                     >
                                                                       {courseSlugToName(choice)}
@@ -528,7 +516,7 @@ const ExplorerCourseWidget = (props: IExplorerCoursesWidgetProps) => {
                                               key={prereq.course}
                                               as={NavLink}
                                               exact
-                                              to={Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${prereq.course}`)}
+                                              to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${prereq.course}`)}
                                             >
                                               {courseSlugToName(prereq.course)}
                                             </List.Item>
@@ -563,7 +551,7 @@ const ExplorerCourseWidget = (props: IExplorerCoursesWidgetProps) => {
               <Segment padded>
                 <StudentExplorerReviewWidget
                   event={item}
-                  userReview={findReview(props)}
+                  userReview={findReview(props, match)}
                   completed={completed}
                   reviewType="course"
                 />
@@ -576,16 +564,4 @@ const ExplorerCourseWidget = (props: IExplorerCoursesWidgetProps) => {
   );
 };
 
-const ExplorerCoursesWidgetContainer = withTracker(() => {
-  /* Reactive Sources to make StudentExplorerCoursesWidgetButton reactive */
-  const reactiveSourceOne = CourseInstances.findNonRetired({});
-
-  /* Reactive Source to make StudentExplorerEditReviewForm reactive */
-  const reactiveSourceTwo = Reviews.findNonRetired({});
-
-  return {
-    reactiveSourceOne,
-    reactiveSourceTwo,
-  };
-})(ExplorerCourseWidget);
-export default withRouter(ExplorerCoursesWidgetContainer);
+export default ExplorerCourseWidget;

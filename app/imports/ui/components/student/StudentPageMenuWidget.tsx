@@ -1,16 +1,12 @@
 import React from 'react';
-import { NavLink, withRouter } from 'react-router-dom';
+import { NavLink, useRouteMatch } from 'react-router-dom';
 import { Container, Dropdown, Menu } from 'semantic-ui-react';
 import FirstMenuContainer from '../shared/FirstMenu';
 import { secondMenu } from '../shared/shared-widget-names';
-import { buildRouteName, getUsername, IMatchProps } from '../shared/utilities/router';
+import { buildRouteName, getUsername } from '../shared/utilities/router';
 import { COMMUNITY, DEGREEPLANNER, EXPLORER_TYPE } from '../../layouts/utilities/route-constants';
 import { IStudentProfile } from '../../../typings/radgrad';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
-
-interface IStudentPageMenuWidgetProps {
-  match: IMatchProps;
-}
 
 const explorerDropdownItems = [
   { key: 'Academic Plans', route: EXPLORER_TYPE.ACADEMICPLANS, id: 'student-menu-academic-plans' },
@@ -27,12 +23,12 @@ const studentHomePageItems = [
 ];
 
 const communityDropdownItems = [
-  { key: 'Users', route: COMMUNITY.USERS, id: 'student-menu-users' },
+  { key: 'Members', route: COMMUNITY.USERS, id: 'student-menu-users' },
   { key: 'RadGrad Videos', route: COMMUNITY.RADGRADVIDEOS, id: 'student-menu-radgrad-videos' },
 ];
 
-const StudentPageMenuWidget = (props: IStudentPageMenuWidgetProps) => {
-  const { match } = props;
+const StudentPageMenuWidget = () => {
+  const match = useRouteMatch();
   const username = getUsername(match);
   const divStyle = { marginBottom: 30 };
   const profile: IStudentProfile = StudentProfiles.getProfile(username);
@@ -116,4 +112,4 @@ const StudentPageMenuWidget = (props: IStudentPageMenuWidgetProps) => {
   );
 };
 
-export default withRouter(StudentPageMenuWidget);
+export default StudentPageMenuWidget;

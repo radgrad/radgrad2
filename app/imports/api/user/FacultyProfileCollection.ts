@@ -7,7 +7,7 @@ import { Interests } from '../interest/InterestCollection';
 import { CareerGoals } from '../career/CareerGoalCollection';
 import { Slugs } from '../slug/SlugCollection';
 import { ROLE } from '../role/Role';
-import { IProfileDefine, IProfileUpdate } from '../../typings/radgrad';
+import { IAdvisorOrFacultyProfileDefine, IAdvisorOrFacultyProfileUpdate } from '../../typings/radgrad';
 import { FavoriteInterests } from '../favorite/FavoriteInterestCollection';
 import { FavoriteCareerGoals } from '../favorite/FavoriteCareerGoalCollection';
 
@@ -18,7 +18,9 @@ import { FavoriteCareerGoals } from '../favorite/FavoriteCareerGoalCollection';
  */
 class FacultyProfileCollection extends BaseProfileCollection {
   constructor() {
-    super('FacultyProfile', new SimpleSchema({}));
+    super('FacultyProfile', new SimpleSchema({
+      aboutMe: { type: String, optional: true },
+    }));
   }
 
   /**
@@ -30,20 +32,22 @@ class FacultyProfileCollection extends BaseProfileCollection {
    * @param website The URL to their personal website (optional).
    * @param interests An array of interests. (optional)
    * @param careerGoals An array of career goals. (optional)
+   * @param aboutMe { String } a brief description. (optional)
    * @throws { Meteor.Error } If username has been previously defined, or if any interests or careerGoals are invalid.
    * @return { String } The docID of the FacultyProfile.
    */
   public define({ username, firstName, lastName, picture = defaultProfilePicture, website, interests,
-           careerGoals, retired = false }: IProfileDefine) {
+           careerGoals, aboutMe, retired = false }: IAdvisorOrFacultyProfileDefine) {
     if (Meteor.isServer) {
       const role = ROLE.FACULTY;
       Slugs.define({ name: username, entityName: this.getType() });
       const profileID = this.collection.insert({
-        username, firstName, lastName, role, picture, website, userID: this.getFakeUserId(), retired });
+        username, firstName, lastName, role, picture, website, userID: this.getFakeUserId(), aboutMe, retired });
       const userID = Users.define({ username, role });
       this.collection.update(profileID, { $set: { userID } });
+      const share = true;
       if (interests) {
-        interests.forEach((interest) => FavoriteInterests.define({ interest, username }));
+        interests.forEach((interest) => FavoriteInterests.define({ interest, share, username }));
       }
       if (careerGoals) {
         careerGoals.forEach((careerGoal) => FavoriteCareerGoals.define({ careerGoal, username }));
@@ -58,10 +62,13 @@ class FacultyProfileCollection extends BaseProfileCollection {
    * You cannot change the username or role once defined.
    * @param docID the id of the FacultyProfile.
    */
-  public update(docID: string, { firstName, lastName, picture, website, interests, careerGoals, retired, courseExplorerFilter, opportunityExplorerSortOrder }: IProfileUpdate) {
+  public update(docID: string, { firstName, lastName, picture, website, interests, careerGoals, retired, courseExplorerFilter, opportunityExplorerSortOrder, aboutMe }: IAdvisorOrFacultyProfileUpdate) {
     this.assertDefined(docID);
-    const updateData = {};
+    const updateData: IAdvisorOrFacultyProfileUpdate = {};
     this.updateCommonFields(updateData, { firstName, lastName, picture, website, retired, courseExplorerFilter, opportunityExplorerSortOrder });
+    if (aboutMe) {
+      updateData.aboutMe = aboutMe;
+    }
     this.collection.update(docID, { $set: updateData });
     const profile = this.findDoc(docID);
     const username = profile.username;
@@ -108,7 +115,7 @@ class FacultyProfileCollection extends BaseProfileCollection {
    * @param docID The docID of a FacultyProfile
    * @returns { Object } An object representing the definition of docID.
    */
-  public dumpOne(docID: string): IProfileDefine {
+  public dumpOne(docID: string): IAdvisorOrFacultyProfileDefine {
     const doc = this.findDoc(docID);
     const username = doc.username;
     const firstName = doc.firstName;
@@ -120,8 +127,9 @@ class FacultyProfileCollection extends BaseProfileCollection {
     const interests = _.map(favInterests, (fav) => Interests.findSlugByID(fav.interestID));
     const favCareerGoals = FavoriteCareerGoals.findNonRetired({ userID });
     const careerGoals = _.map(favCareerGoals, (fav) => CareerGoals.findSlugByID(fav.careerGoalID));
+    const aboutMe = doc.aboutMe;
     const retired = doc.retired;
-    return { username, firstName, lastName, picture, website, interests, careerGoals, retired };
+    return { username, firstName, lastName, picture, website, interests, careerGoals, aboutMe, retired };
   }
 }
 

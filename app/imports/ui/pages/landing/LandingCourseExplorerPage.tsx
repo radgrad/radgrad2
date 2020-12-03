@@ -1,12 +1,11 @@
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import Markdown from 'react-markdown';
-import { withRouter } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Grid, Header, Segment } from 'semantic-ui-react';
 import { Courses } from '../../../api/course/CourseCollection';
 import ExplorerMenuBarContainer from '../../components/landing/explorer/LandingExplorerMenuBar';
-// import HelpPanelWidgetContainer from '../../components/shared/HelpPanelWidget';
 import { ICourse } from '../../../typings/radgrad';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/explorer/LandingExplorerMenu';
@@ -21,18 +20,10 @@ import BackToTopButton from '../../components/shared/BackToTopButton';
 interface ICourseExplorerProps {
   currentUser: string;
   course: ICourse;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
 }
 
 const LandingCourseExplorerPage = (props: ICourseExplorerProps) => {
-  const { match } = props;
+  const match = useRouteMatch();
   return (
     <div id="landing-course-explorer-page">
       <ExplorerMenuBarContainer currentUser={props.currentUser} />
@@ -103,8 +94,6 @@ const WithSubs = withListSubscriptions(LandingCourseExplorerPage, [
   Interests.getPublicationName(),
 ]);
 
-const LandingCourseExplorerCon = withRouter(WithSubs);
-
 const LandingCourseExplorerContainer = withTracker((props) => {
   const slugName = props.match.params.course;
   // console.log(Slugs.find().fetch());
@@ -113,6 +102,6 @@ const LandingCourseExplorerContainer = withTracker((props) => {
     course: Courses.findDoc(id),
     currentUser: Meteor.user() ? Meteor.user().username : '',
   };
-})(LandingCourseExplorerCon);
+})(WithSubs);
 
 export default LandingCourseExplorerContainer;

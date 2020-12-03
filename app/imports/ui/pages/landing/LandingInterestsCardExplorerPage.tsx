@@ -1,5 +1,4 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Card, Grid, Header, Loader, Segment } from 'semantic-ui-react';
@@ -68,8 +67,6 @@ const renderPage = (props: IInterestsCardExplorerProps) => {
 // eslint-disable-next-line react/prop-types
 const LandingInterestsCardExplorerPage = (props: IInterestsCardExplorerProps) => ((props.ready) ? renderPage(props) : <Loader>Loading Interests</Loader>);
 
-const LandingInterestsCardExplorerCon = withRouter(LandingInterestsCardExplorerPage);
-
 const LandingInterestsCardExplorerContainer = withTracker(() => {
   const sub1 = Meteor.subscribe(Interests.getPublicationName());
   const sub2 = Meteor.subscribe(Slugs.getPublicationName());
@@ -79,6 +76,6 @@ const LandingInterestsCardExplorerContainer = withTracker(() => {
     count: Interests.countNonRetired(),
     currentUser: Meteor.user() ? Meteor.user().username : '',
   };
-})(LandingInterestsCardExplorerCon);
+})(LandingInterestsCardExplorerPage);
 
 export default LandingInterestsCardExplorerContainer;

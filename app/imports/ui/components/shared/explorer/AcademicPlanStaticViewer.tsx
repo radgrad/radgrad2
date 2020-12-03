@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid } from 'semantic-ui-react';
-import { withRouter } from 'react-router-dom';
+import { useParams, useRouteMatch } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import _ from 'lodash';
 import { IAcademicPlan, ICourseInstance } from '../../../../typings/radgrad';
@@ -12,20 +12,12 @@ import AcademicPlanStaticYearView from './AcademicPlanStaticYearView';
 
 interface IAcademicPlanStaticViewerProps {
   plan: IAcademicPlan;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
   takenSlugs: string[];
 }
 
 const AcademicPlanStaticViewer = (props: IAcademicPlanStaticViewerProps) => {
   const equalWidthGridStyle = { margin: 0 };
-
+  const match = useRouteMatch();
   const { plan } = props;
   const fiveYear = (props.plan.coursesPerAcademicTerm.length % 5) === 0;
   let yearNumber = 0;
@@ -33,7 +25,7 @@ const AcademicPlanStaticViewer = (props: IAcademicPlanStaticViewerProps) => {
     paddingLeft: 2,
     paddingRight: 2,
   };
-  const username = props.match.params.username;
+  const username = match.params.username;
 
   return (
     <div className="ui padded container">
@@ -100,13 +92,13 @@ const takenSlugs = (courseInstances: ICourseInstance[]) => {
   });
 };
 
-const AcademicPlanStaticViewerContainer = withTracker((props) => {
-  const profile = Users.findProfileFromUsername(props.match.params.username);
+const AcademicPlanStaticViewerContainer = withTracker(() => {
+  const { username } = useParams();
+  const profile = Users.findProfileFromUsername(username);
   const courseInstances = CourseInstances.findNonRetired({ studentID: profile.userID });
   return {
     takenSlugs: takenSlugs(courseInstances),
-    ...props,
   };
 })(AcademicPlanStaticViewer);
 
-export default withRouter(AcademicPlanStaticViewerContainer);
+export default AcademicPlanStaticViewerContainer;

@@ -1,17 +1,15 @@
 import React from 'react';
 import { Header, Icon, Label } from 'semantic-ui-react';
-import { Link, withRouter } from 'react-router-dom';
-import { buildRouteName, IMatchProps } from '../../shared/utilities/router';
+import { Link, useRouteMatch } from 'react-router-dom';
+import { buildRouteName } from '../../shared/utilities/router';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import { Interests } from '../../../../api/interest/InterestCollection';
 import { FavoriteInterests } from '../../../../api/favorite/FavoriteInterestCollection';
 import { IFavoriteInterest, IInterest } from '../../../../typings/radgrad';
 
-interface IPopularTopicsProps {
-  match: IMatchProps;
-}
-
 const countInArray = (array, value) => array.reduce((n, x) => n + (x === value), 0);
+
+// TODO Should this be responsive?
 
 const getFavoriteInterests = () => {
   const favInterests: IFavoriteInterest[] = FavoriteInterests.findNonRetired({});
@@ -27,8 +25,8 @@ const getFavoriteInterests = () => {
   return favInterestObjects.slice(0, 10);
 };
 
-const FavoriteInterestsList = (props: IPopularTopicsProps) => {
-  const { match } = props;
+const FavoriteInterestsList = () => {
+  const match = useRouteMatch();
   const favoriteInterests = getFavoriteInterests();
   return (
     <>
@@ -54,4 +52,4 @@ const FavoriteInterestsList = (props: IPopularTopicsProps) => {
   );
 };
 
-export default withRouter(FavoriteInterestsList);
+export default FavoriteInterestsList;

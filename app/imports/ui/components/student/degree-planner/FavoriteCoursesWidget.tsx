@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, Icon, Message } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, useParams, useRouteMatch } from 'react-router-dom';
 import _ from 'lodash';
 import { ICourse } from '../../../../typings/radgrad';
 import * as Router from '../../shared/utilities/router';
@@ -9,14 +9,15 @@ import { FavoriteCourses } from '../../../../api/favorite/FavoriteCourseCollecti
 import { Courses } from '../../../../api/course/CourseCollection';
 import FavoriteCourseCard from './FavoriteCourseCard';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
+import { Users } from '../../../../api/user/UserCollection';
 
 interface IFavoriteCoursesWidgetProps {
-  match: Router.IMatchProps;
   studentID: string;
   courses: ICourse[];
 }
 
 const FavoriteCoursesWidget = (props: IFavoriteCoursesWidgetProps) => {
+  const match = useRouteMatch();
   const hasFavorites = props.courses.length > 0;
   return (
     <div>
@@ -31,7 +32,7 @@ const FavoriteCoursesWidget = (props: IFavoriteCoursesWidgetProps) => {
           <Message>
             <Message.Header>No Favorite Courses</Message.Header>
             <p>You can favorite courses in the explorer.</p>
-            <Link to={Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}`)}>
+            <Link to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}`)}>
               View in Explorer <Icon name="arrow right" />
             </Link>
           </Message>
@@ -40,12 +41,13 @@ const FavoriteCoursesWidget = (props: IFavoriteCoursesWidgetProps) => {
   );
 };
 
-export default withRouter(withTracker((props) => {
-  const studentID = Router.getUserIdFromRoute(props.match);
+export default withTracker((props) => {
+  const { username } = useParams();
+  const studentID = Users.getProfile(username).userID;
   const favorites = FavoriteCourses.findNonRetired({ studentID });
   const courses = _.map(favorites, (f) => Courses.findDoc(f.courseID));
   return {
     studentID,
     courses,
   };
-})(FavoriteCoursesWidget));
+})(FavoriteCoursesWidget);

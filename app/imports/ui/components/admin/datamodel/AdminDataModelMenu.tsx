@@ -1,17 +1,9 @@
 import React from 'react';
 import { Menu } from 'semantic-ui-react';
-import { NavLink, withRouter } from 'react-router-dom';
+import { NavLink, useParams, useRouteMatch } from 'react-router-dom';
 import { leftHandMenu } from '../../shared/shared-widget-names';
 
 export interface IAdminDataModeMenuProps {
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
   academicPlanCount: number;
   academicTermCount: number;
   academicYearCount: number;
@@ -35,9 +27,9 @@ export interface IAdminDataModeMenuProps {
   verificationRequestCount: number;
 }
 
-const AdminDataModelMenu = (props: IAdminDataModeMenuProps) => {
-  const username = props.match.params.username;
-  const baseUrl = props.match.url;
+const AdminDataModelMenu = (props: IAdminDataModeMenuProps): JSX.Element => {
+  const { username } = useParams();
+  const baseUrl = useRouteMatch().url;
   const baseIndex = baseUrl.indexOf(username);
   const baseRoute = `${baseUrl.substring(0, baseIndex)}${username}/datamodel/`;
   // console.log(this.props, baseRoute);
@@ -110,4 +102,4 @@ const AdminDataModelMenu = (props: IAdminDataModeMenuProps) => {
   );
 };
 
-export default withRouter(AdminDataModelMenu);
+export default AdminDataModelMenu;

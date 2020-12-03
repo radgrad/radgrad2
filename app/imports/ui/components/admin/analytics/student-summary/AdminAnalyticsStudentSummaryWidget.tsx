@@ -1,5 +1,4 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import moment from 'moment';
@@ -109,5 +108,5 @@ const AdminAnalyticsStudentSummaryWidget = (props: IAdminAnalyticsStudentSummary
   );
 };
 
-const AdminAnalyticsStudentSummaryWidgetCon = connect(mapStateToProps)(AdminAnalyticsStudentSummaryWidget);
-export default withRouter(AdminAnalyticsStudentSummaryWidgetCon);
+const AdminAnalyticsStudentSummaryWidgetContainer = connect(mapStateToProps)(AdminAnalyticsStudentSummaryWidget);
+export default AdminAnalyticsStudentSummaryWidgetContainer;

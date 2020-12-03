@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Grid, Image, Button } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
-import { withRouter } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 import { updateMethod } from '../../../../api/base/BaseCollection.methods';
 import { openCloudinaryWidget } from '../../shared/OpenCloudinaryWidget';
 import { getUsername } from '../../shared/utilities/router';
@@ -13,19 +13,11 @@ interface IStudentAboutMeUpdatePictureFormProps {
   picture: string;
   docID: string;
   collectionName: string;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
 }
 
 const StudentAboutMeUpdatePictureForm = (props: IStudentAboutMeUpdatePictureFormProps) => {
   const [pictureState, setPicture] = useState(props.picture);
-
+  const match = useRouteMatch();
   const handleUploadPicture = async (e): Promise<void> => {
     e.preventDefault();
     const { collectionName, docID } = props;
@@ -50,7 +42,7 @@ const StudentAboutMeUpdatePictureForm = (props: IStudentAboutMeUpdatePictureForm
               allowEscapeKey: false,
               allowEnterKey: false,
             });
-            const username = getUsername(props.match);
+            const username = getUsername(match);
             const interactionData: IUserInteractionDefine = {
               username,
               type: UserInteractionsTypes.PICTURE,
@@ -92,4 +84,4 @@ const StudentAboutMeUpdatePictureForm = (props: IStudentAboutMeUpdatePictureForm
   );
 };
 
-export default withRouter(StudentAboutMeUpdatePictureForm);
+export default StudentAboutMeUpdatePictureForm;

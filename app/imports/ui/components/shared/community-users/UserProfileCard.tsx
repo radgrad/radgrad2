@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Button, Card, Image } from 'semantic-ui-react';
+import Markdown from 'react-markdown';
 import _ from 'lodash';
+import { FavoriteInterests } from '../../../../api/favorite/FavoriteInterestCollection';
 import { IUserProfileCard } from '../../../../typings/radgrad';
 import { defaultProfilePicture } from '../../../../api/user/BaseProfileCollection';
 import { ROLE } from '../../../../api/role/Role';
 import InterestList from '../InterestList';
 import ExplorerUsersWidget from './ExplorerUsersWidget';
-import { capitalizeFirstOnly } from '../utilities/general';
 
 const UserProfileCard = (props: IUserProfileCard) => {
   const [isActiveState, setIsActive] = useState(false);
@@ -19,12 +20,14 @@ const UserProfileCard = (props: IUserProfileCard) => {
   };
 
   const toggleFullSize = () => {
-    // eslint-disable-next-line react/no-access-state-in-setstate
     setIsActive(!isActiveState);
   };
 
   if (!(props.item)) return undefined;
   const p = props.item;
+  const favIDs = FavoriteInterests.find({ userID: p.userID }).fetch();
+  p.interestIDs = _.map(favIDs, (f) => f.interestID);
+  // console.log(favIDs, p);
   const level = p.level;
   let sharedUsername;
   if (isRole(ROLE.STUDENT, ROLE.ALUMNI)) {
@@ -39,9 +42,9 @@ const UserProfileCard = (props: IUserProfileCard) => {
   const cardStyle: React.CSSProperties = {
     textAlign: 'left',
   };
- const usernameStyle: React.CSSProperties = {
-   wordWrap: 'break-word',
- };
+  const usernameStyle: React.CSSProperties = {
+    wordWrap: 'break-word',
+  };
 
   return (
     <Card fluid style={cardStyle}>
@@ -49,8 +52,6 @@ const UserProfileCard = (props: IUserProfileCard) => {
         <Image src={p.picture ? p.picture : defaultProfilePicture} floated="right" size="tiny" />
         <Card.Header>{`${p.firstName} ${p.lastName}`}</Card.Header>
         <Card.Meta>
-          {capitalizeFirstOnly(p.role)}
-          <br />
           {level > 0 ? (
             <Image
               style={{ padding: '5px' }}
@@ -80,6 +81,9 @@ const UserProfileCard = (props: IUserProfileCard) => {
       </Card.Content>
       <Card.Content extra>
         <InterestList item={p} size="mini" />
+        {isRole(ROLE.ADVISOR, ROLE.FACULTY) ? (
+          <Markdown source={p.aboutMe} />
+        ) : undefined}
       </Card.Content>
       <Button onClick={toggleFullSize} content="View Profile" />
       <ExplorerUsersWidget

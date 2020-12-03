@@ -29,6 +29,7 @@ import AdminAnalyticsOverheadAnalysisPageContainer from '../../pages/admin/Admin
 import AdminAnalyticsStudentSummaryPageContainer from '../../pages/admin/AdminAnalyticsStudentSummaryPage';
 import AdminAnalyticsUserInteractionsPageContainer from '../../pages/admin/AdminAnalyticsUserInteractionsPage';
 import AdvisorHomePageContainer from '../../pages/advisor/AdvisorHomePage';
+import AdvisorAboutMePageContainer from '../../pages/advisor/AdvisorAboutMePage';
 import AdvisorVerificationRequestPageContainer from '../../pages/advisor/AdvisorVerificationRequestPage';
 import AdvisorModerationPageContainer from '../../pages/advisor/AdvisorModerationPage';
 import AdvisorAcademicPlanPageContainer from '../../pages/advisor/AdvisorAcademicPlanPage';
@@ -320,6 +321,12 @@ export const routes = {
     {
       path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${HOME}`,
       component: AdvisorHomePageContainer,
+      exact: true,
+    },
+    {
+      path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${HOME}/aboutme`,
+      component: AdvisorAboutMePageContainer,
+      exact: true,
     },
     {
       path: `/${URL_ROLES.ADVISOR}/${USERNAME}/verification-requests`,
@@ -349,6 +356,62 @@ export const routes = {
       path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${SCOREBOARD}/${OPPORTUNITY_SCOREBOARD}`,
       exact: true,
       component: ScoreboardPageContainer,
+    },
+    /* ############################## Explorers ############################## */
+    {
+      path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${EXPLORER_TYPE.HOME}`,
+      exact: true,
+      component: ExplorerHomePageContainer,
+    },
+    {
+      path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}`,
+      exact: true,
+      component: CardExplorerPageContainer,
+    },
+    {
+      path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}/${EXPLORER_PARAM.ACADEMICPLAN}`,
+      exact: true,
+      component: IndividualExplorerPageContainer,
+    },
+    {
+      path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}`,
+      exact: true,
+      component: CardExplorerPageContainer,
+    },
+    {
+      path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}/${EXPLORER_PARAM.CAREERGOAL}`,
+      exact: true,
+      component: IndividualExplorerPageContainer,
+    },
+    {
+      path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}`,
+      exact: true,
+      component: CardExplorerPageContainer,
+    },
+    {
+      path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${EXPLORER_PARAM.COURSE}`,
+      exact: true,
+      component: IndividualExplorerPageContainer,
+    },
+    {
+      path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}`,
+      exact: true,
+      component: CardExplorerPageContainer,
+    },
+    {
+      path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}/${EXPLORER_PARAM.INTEREST}`,
+      exact: true,
+      component: IndividualExplorerPageContainer,
+    },
+    {
+      path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}`,
+      exact: true,
+      component: ExplorerOpportunitiesPage,
+    },
+    {
+      path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${EXPLORER_PARAM.OPPORTUNITY}`,
+      exact: true,
+      component: IndividualExplorerPageContainer,
     },
     /* ############################## Page Tracking SCOREBOARD ############################## */
     {
@@ -398,6 +461,12 @@ export const routes = {
       exact: true,
       component: CommunityRadGradVideosPage,
     },
+    {
+      path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${COMMUNITY.HOME}/${COMMUNITY.USERS}`,
+      exact: true,
+      component: CommunityUsersPage,
+    },
+
   ],
   ALUMNI: [
     {

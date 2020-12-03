@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { withRouter } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 import { Container, Header } from 'semantic-ui-react';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
@@ -7,14 +7,10 @@ import CommunityRadGradVideosWidget from '../../components/shared/community-radg
 import * as Router from '../../components/shared/utilities/router';
 import { URL_ROLES } from '../../layouts/utilities/route-constants';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
-import { IMatchProps } from '../../components/shared/utilities/router';
+import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
 
-interface ICommunityRadGradVideosPageProps {
-  match: IMatchProps;
-}
-
-const CommunityRadGradVideosPage = (props: ICommunityRadGradVideosPageProps) => {
-  const { match } = props;
+const CommunityRadGradVideosPage = () => {
+  const match = useRouteMatch();
   const getMenuWidget = (): JSX.Element => {
     const role = Router.getRoleByUrl(match);
     switch (role) {
@@ -22,6 +18,8 @@ const CommunityRadGradVideosPage = (props: ICommunityRadGradVideosPageProps) => 
         return <StudentPageMenuWidget />;
       case URL_ROLES.FACULTY:
         return <FacultyPageMenuWidget />;
+      case URL_ROLES.ADVISOR:
+        return <AdvisorPageMenuWidget />;
       default:
         return <React.Fragment />;
     }
@@ -41,4 +39,4 @@ const CommunityRadGradVideosPage = (props: ICommunityRadGradVideosPageProps) => 
   );
 };
 
-export default withRouter(CommunityRadGradVideosPage);
+export default CommunityRadGradVideosPage;

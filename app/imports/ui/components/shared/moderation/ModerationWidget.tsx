@@ -1,6 +1,5 @@
 import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
-import { withRouter } from 'react-router-dom';
 import { Grid } from 'semantic-ui-react';
 import { Reviews } from '../../../../api/review/ReviewCollection';
 import { IReview } from '../../../../typings/radgrad';
@@ -61,4 +60,4 @@ const ModerationWidgetContainer = withTracker(() => ({
   courseReviews: Reviews.findNonRetired({ moderated: false, reviewType: 'course' }),
 }))(ModerationWidget);
 
-export default withRouter(ModerationWidgetContainer);
+export default ModerationWidgetContainer;

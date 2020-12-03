@@ -37,6 +37,7 @@ export const EXPLORER_TYPE = {
   COURSES: 'courses',
   INTERESTS: 'interests',
   OPPORTUNITIES: 'opportunities',
+  FACULTY: 'faculty',
 };
 
 export const EXPLORER_PARAM = {
@@ -45,6 +46,7 @@ export const EXPLORER_PARAM = {
   COURSE: ':course',
   INTEREST: ':interest',
   OPPORTUNITY: ':opportunity',
+  FACULTY: ':faculty',
 };
 
 export const COMMUNITY = {

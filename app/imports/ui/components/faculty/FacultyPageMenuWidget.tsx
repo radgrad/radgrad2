@@ -1,6 +1,6 @@
 import React from 'react';
 import { Dropdown, Menu } from 'semantic-ui-react';
-import { NavLink, withRouter } from 'react-router-dom';
+import { NavLink, useRouteMatch } from 'react-router-dom';
 import _ from 'lodash';
 import FirstMenuContainer from '../shared/FirstMenu';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
@@ -9,28 +9,17 @@ import { VerificationRequests } from '../../../api/verification/VerificationRequ
 import { secondMenu } from '../shared/shared-widget-names';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { buildRouteName, getUsername } from '../shared/utilities/router';
-import { EXPLORER_TYPE } from '../../layouts/utilities/route-constants';
-import { IFacultyProfile } from '../../../typings/radgrad';
+import { COMMUNITY, EXPLORER_TYPE } from '../../layouts/utilities/route-constants';
+import { IAdvisorOrFacultyProfile } from '../../../typings/radgrad';
 
-interface IFacultyPageMenuWidgetProps {
-  match?: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
-}
-
-const FacultyPageMenuWidget = (props: IFacultyPageMenuWidgetProps) => {
+const FacultyPageMenuWidget = () => {
   const divStyle = { marginBottom: 30 };
 
-  const { match } = props;
+  const match = useRouteMatch();
   const username = getUsername(match);
   const faculty = FacultyProfiles.findDoc(username);
 
-  const profile: IFacultyProfile = FacultyProfiles.getProfile(username);
+  const profile: IAdvisorOrFacultyProfile = FacultyProfiles.getProfile(username);
   // const sponsorID = Users.getID(username);
   let openRequests = VerificationRequests.findNonRetired({ status: VerificationRequests.OPEN });
   openRequests = _.filter(openRequests, (request) => {
@@ -53,17 +42,21 @@ const FacultyPageMenuWidget = (props: IFacultyPageMenuWidgetProps) => {
     { label: 'Explorer', route: 'explorer' },
     { label: 'Scoreboard', route: 'scoreboard' },
   ];
-    const explorerDropdownItems = [
-  { key: 'Academic Plans', route: EXPLORER_TYPE.ACADEMICPLANS },
-  { key: 'Career Goals', route: EXPLORER_TYPE.CAREERGOALS },
-  { key: 'Courses', route: EXPLORER_TYPE.COURSES },
-  { key: 'Interests', route: EXPLORER_TYPE.INTERESTS },
-  { key: 'Opportunities', route: EXPLORER_TYPE.OPPORTUNITIES },
-];
+  const explorerDropdownItems = [
+    { key: 'Academic Plans', route: EXPLORER_TYPE.ACADEMICPLANS },
+    { key: 'Career Goals', route: EXPLORER_TYPE.CAREERGOALS },
+    { key: 'Courses', route: EXPLORER_TYPE.COURSES },
+    { key: 'Interests', route: EXPLORER_TYPE.INTERESTS },
+    { key: 'Opportunities', route: EXPLORER_TYPE.OPPORTUNITIES },
+  ];
+  const communityDropdownItems = [
+    { key: 'Members', route: COMMUNITY.USERS, id: 'facutly-menu-users' },
+    { key: 'RadGrad Videos', route: COMMUNITY.RADGRADVIDEOS, id: 'faculty-menu-radgrad-videos' },
+  ];
 
-const facultyHomePageItems = [
-  // { key: 'About Me', route: 'aboutme' },
-];
+  const facultyHomePageItems = [
+    // { key: 'About Me', route: 'aboutme' },
+  ];
 
   return (
     <div style={divStyle}>
@@ -78,10 +71,16 @@ const facultyHomePageItems = [
       >
 
         {menuItems.map((item) => (
-          <Menu.Item id={item.id} key={item.label} as={NavLink} exact={false} to={buildRouteName(match, `/${item.route}`)}>
+          <Menu.Item
+            id={item.id}
+            key={item.label}
+            as={NavLink}
+            exact={false}
+            to={buildRouteName(match, `/${item.route}`)}
+          >
             {item.label}
           </Menu.Item>
-      ))}
+        ))}
 
         <Dropdown item text="EXPLORE">
           <Dropdown.Menu>
@@ -93,10 +92,23 @@ const facultyHomePageItems = [
                 to={buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${item.route}`)}
                 content={item.key}
               />
-                ))}
+            ))}
           </Dropdown.Menu>
         </Dropdown>
-
+        <Dropdown item id="student-menu-community" text="COMMUNITY">
+          <Dropdown.Menu>
+            {communityDropdownItems.map((item) => (
+              <Dropdown.Item
+                key={item.key}
+                id={item.id}
+                as={NavLink}
+                exact
+                to={buildRouteName(match, `/${COMMUNITY.HOME}/${item.route}`)}
+                content={item.key}
+              />
+            ))}
+          </Dropdown.Menu>
+        </Dropdown>
         <Menu.Menu position="right">
           <Dropdown item text={`Aloha, ${profile.firstName} ${profile.lastName}!`}>
             <Dropdown.Menu>
@@ -108,7 +120,7 @@ const facultyHomePageItems = [
                   to={buildRouteName(match, `/home/${item.route}`)}
                   content={item.key}
                 />
-                  ))}
+              ))}
               <Dropdown.Item as={NavLink} exact to="/signout" content="Sign Out" />
             </Dropdown.Menu>
           </Dropdown>
@@ -118,5 +130,4 @@ const facultyHomePageItems = [
   );
 };
 
-/** Enable ReactRouter for this component. https://reacttraining.com/react-router/web/api/withRouter */
-export default withRouter(FacultyPageMenuWidget);
+export default FacultyPageMenuWidget;

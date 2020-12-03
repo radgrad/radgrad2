@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Link, withRouter, Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { Dropdown } from 'semantic-ui-react';
 import { Roles } from 'meteor/alanning:roles';
 import { useState } from 'react';
@@ -93,4 +93,4 @@ const RadGradLoginButtons = () => {
   );
 };
 
-export default withRouter(RadGradLoginButtons);
+export default RadGradLoginButtons;

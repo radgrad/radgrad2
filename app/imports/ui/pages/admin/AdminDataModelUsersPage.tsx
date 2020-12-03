@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Confirm, Grid, Icon, Tab } from 'semantic-ui-react';
 import _ from 'lodash';
+import moment from 'moment';
 import { connect } from 'react-redux';
 import { withTracker } from 'meteor/react-meteor-data';
 import Swal from 'sweetalert2';
@@ -26,10 +27,9 @@ import { dataModelActions } from '../../../redux/admin/data-model';
 import {
   IAcademicPlan,
   IAcademicTerm,
-  IAdvisorProfile,
   IBaseProfile, ICareerGoal,
   ICombinedProfileDefine,
-  IFacultyProfile,
+  IAdvisorOrFacultyProfile,
   IFavoriteAcademicPlan,
   IFavoriteCareerGoal, IFavoriteInterest, IInterest,
   IStudentProfile,
@@ -62,8 +62,8 @@ import { RootState } from '../../../redux/types';
 
 interface IAdminDataModelUsersPageProps extends IAdminDataModeMenuProps {
   admins: IBaseProfile[];
-  advisors: IAdvisorProfile[];
-  faculty: IFacultyProfile[];
+  advisors: IAdvisorOrFacultyProfile[];
+  faculty: IAdvisorOrFacultyProfile[];
   students: IStudentProfile[];
   isCloudinaryUsed: boolean;
   cloudinaryUrl: string;
@@ -108,6 +108,15 @@ const descriptionPairs = (props: IAdminDataModelUsersPageProps) => (user: IBaseP
       value: (user.declaredAcademicTermID) ? AcademicTerms.toString(user.declaredAcademicTermID) : '',
     });
     pairs.push({ label: 'Opted In', value: user.optedIn ? 'True' : 'False' });
+    if (user.lastRegistrarLoad) {
+      pairs.push({ label: 'Last Registrar Load', value: `${moment(user.lastRegistrarLoad).format()}` });
+    }
+  }
+  if (user.role === ROLE.FACULTY) {
+    pairs.push({ label: 'About Me', value: `${user.aboutMe}` });
+  }
+  if (user.role === ROLE.ADVISOR) {
+    pairs.push({ label: 'About Me', value: `${user.aboutMe}` });
   }
   pairs.push({ label: 'Retired', value: user.retired ? 'True' : 'False' });
 
@@ -269,7 +278,7 @@ const AdminDataModelUsersPage = (props: IAdminDataModelUsersPageProps) => {
     if (isCloudinaryUsed) {
       updateData.picture = cloudinaryUrl;
     }
-    // console.log(collectionName, updateData);
+    console.log(collectionName, updateData);
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
         Swal.fire({

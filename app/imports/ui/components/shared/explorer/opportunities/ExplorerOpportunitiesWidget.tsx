@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 import { Header, Divider, Grid, Container } from 'semantic-ui-react';
 import _ from 'lodash';
 import WidgetHeaderNumber from '../WidgetHeaderNumber';
 import { availableOpps, checkForNoItems, IExplorerTypes, matchingOpportunities } from '../utilities/explorer';
-import { IMatchProps } from '../../utilities/router';
 import OpportunitySortWidget, { opportunitySortKeys } from './OpportunitySortWidget';
 import OpportunityInformationItem, { IOpportunityInformationItemConfiguration } from './OpportunityInformationItem';
 import * as Router from '../../utilities/router';
@@ -18,7 +17,6 @@ import CardExplorersPaginationWidget from './ExplorerOpportunitiesPaginationWidg
 import { ICardExplorersPaginationState } from '../../../../../redux/shared/cardExplorer/reducers';
 
 interface ICardExplorerOpportunitiesWidgetProps {
-  match: IMatchProps;
   pagination: ICardExplorersPaginationState;
 }
 
@@ -33,7 +31,8 @@ const mapStateToProps = (state: RootState) => ({
 });
 
 const ExplorerOpportunitiesWidget = (props: ICardExplorerOpportunitiesWidgetProps) => {
-  const { match, pagination } = props;
+  const { pagination } = props;
+  const match = useRouteMatch();
 
   const [sortOpportunitiesChoiceState, setSortOpportunitiesChoice] = useState(opportunitySortKeys.recommended);
   const opportunitiesItemCount = availableOpps(match).length;
@@ -42,7 +41,7 @@ const ExplorerOpportunitiesWidget = (props: ICardExplorerOpportunitiesWidgetProp
   switch (sortOpportunitiesChoiceState) {
     case opportunitySortKeys.recommended:
       // eslint-disable-next-line no-case-declarations
-      const userID = Router.getUserIdFromRoute(props.match);
+      const userID = Router.getUserIdFromRoute(match);
       // eslint-disable-next-line no-case-declarations
       const favorites = FavoriteInterests.findNonRetired({ userID });
       // eslint-disable-next-line no-case-declarations
@@ -104,6 +103,4 @@ const ExplorerOpportunitiesWidget = (props: ICardExplorerOpportunitiesWidgetProp
   );
 };
 
-const CardExplorerOpportunitiesWidgetContainer = withRouter(ExplorerOpportunitiesWidget);
-
-export default connect(mapStateToProps, null)(CardExplorerOpportunitiesWidgetContainer);
+export default connect(mapStateToProps, null)(ExplorerOpportunitiesWidget);

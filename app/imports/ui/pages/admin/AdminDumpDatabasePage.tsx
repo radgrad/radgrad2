@@ -1,12 +1,10 @@
-import { Meteor } from 'meteor/meteor';
-import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Button, Form, Grid, Message } from 'semantic-ui-react';
 import moment from 'moment';
 import { ZipZap } from 'meteor/udondan:zipzap';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import AdminDatabaseMenu, { IAdminDatabaseMenuProps } from '../../components/admin/database/AdminDatabaseMenu';
+import AdminDatabaseMenu from '../../components/admin/database/AdminDatabaseMenu';
 import { dumpDatabaseMethod } from '../../../api/base/BaseCollection.methods';
 import { generateStudentEmailsMethod } from '../../../api/user/UserCollection.methods';
 import AdminDatabaseAccordion from '../../components/admin/database/AdminDatabaseAccordion';
@@ -19,7 +17,7 @@ interface ICollection {
   contents?: string[];
 }
 
-interface IAdminDumpDatabasePageProps extends IAdminDatabaseMenuProps {
+interface IAdminDumpDatabasePageProps {
   startDumpDatabase: () => any;
   dumpDatabaseDone: () => any;
   dumpDatabaseWorking?: boolean;
@@ -96,7 +94,7 @@ const AdminDumpDatabasePage = (props: IAdminDumpDatabasePageProps) => {
       <Grid container stackable style={paddedStyle}>
 
         <Grid.Column width={5}>
-          <AdminDatabaseMenu currentUser={props.currentUser} />
+          <AdminDatabaseMenu />
         </Grid.Column>
 
         <Grid.Column width={11}>
@@ -121,6 +119,4 @@ const AdminDumpDatabasePage = (props: IAdminDumpDatabasePageProps) => {
 };
 
 const AdminDumpDatabasePageContainer = connect(mapStateToProps, mapDispatchToProps)(AdminDumpDatabasePage);
-export default withTracker(() => ({
-  currentUser: Meteor.user() ? Meteor.user().username : '',
-}))(AdminDumpDatabasePageContainer);
+export default AdminDumpDatabasePageContainer;

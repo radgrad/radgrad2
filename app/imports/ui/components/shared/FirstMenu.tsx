@@ -2,7 +2,7 @@ import { Roles } from 'meteor/alanning:roles';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import React from 'react';
-import { NavLink, withRouter } from 'react-router-dom';
+import { NavLink, useRouteMatch } from 'react-router-dom';
 import { Dropdown, Header, Image, Menu, Container } from 'semantic-ui-react';
 import RadGradLogoText from './RadGradLogoText';
 import RadGradMenuProfile from './RadGradMenuProfile';
@@ -12,23 +12,16 @@ import { firstMenu } from './shared-widget-names';
 interface IFirstMenuProps {
   currentUser: string;
   iconName: string;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
 }
 
 const FirstMenu = (props: IFirstMenuProps) => {
-  const username = getUsername(props.match);
+  const match = useRouteMatch();
+  const username = getUsername(match);
   const imageStyle = { width: '50px' };
   const flexStyle = { display: 'flex' };
   const noPadding = { paddingTop: 0, paddingBottom: 0 };
   const signoutStyle = { marginTop: '32px' };
-  const isStudent = isUrlRoleStudent(props.match);
+  const isStudent = isUrlRoleStudent(match);
   return (
     <Container>
       <Menu attached="top" borderless className="radgrad-first-menu" id={`${firstMenu}`}>
@@ -84,5 +77,4 @@ const FirstMenuContainer = withTracker(() => ({
   iconName: (Roles.userIsInRole(Meteor.userId(), ['ADMIN'])) ? 'user plus' : 'user',
 }))(FirstMenu);
 
-/** Enable ReactRouter for this component. https://reacttraining.com/react-router/web/api/withRouter */
-export default withRouter(FirstMenuContainer);
+export default FirstMenuContainer;

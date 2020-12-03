@@ -1,41 +1,49 @@
 import React from 'react';
+import { useRouteMatch } from 'react-router-dom';
 import Markdown from 'react-markdown';
 import { Segment, Grid, Container, Message, Icon, Image, Header } from 'semantic-ui-react';
+import { getUserIdFromRoute } from '../../shared/utilities/router';
+import { Users } from '../../../../api/user/UserCollection';
 import { studentLevelsWidget } from '../student-widget-names';
 import { getLevelHintStringMarkdown } from '../../../../api/level/LevelProcessor';
-import { IStudentProfile } from '../../../../typings/radgrad';
 
-export interface IStudentLevelsWidgetProps {
-  profile: IStudentProfile,
-}
-
-const getStudentLevelNumber = (props: IStudentLevelsWidgetProps): number => {
-  const { profile } = props;
-  return profile.level || 1; // TODO look into using _.get instead?
+const getStudentLevelNumber = (match): number => {
+  if (getUserIdFromRoute(match)) {
+    const profile = Users.getProfile(getUserIdFromRoute(match));
+    return profile.level || 1;
+  }
+  return 1;
 };
 
-const getStudentLevelName = (props: IStudentLevelsWidgetProps): string => {
-  const { profile } = props;
-  if (profile.level) {
-    return `LEVEL ${profile.level}`;
+const getStudentLevelName = (match): string => {
+  if (getUserIdFromRoute(match)) {
+    const profile = Users.getProfile(getUserIdFromRoute(match));
+    if (profile.level) {
+      return `LEVEL ${profile.level}`;
+    }
   }
   return 'LEVEL 1';
 };
 
-const getStudentLevelHint = (props: IStudentLevelsWidgetProps): string => {
-  const { profile } = props;
+const getStudentLevelHint = (match): string => {
   let levelNumber = 0;
-  levelNumber = profile.level;
+  if (getUserIdFromRoute(match)) {
+    const profile = Users.getProfile(getUserIdFromRoute(match));
+    levelNumber = profile.level;
+  }
+  // const helpMessage = HelpMessages.findDocByRouteName('/student/:username/home/levels').text;
+  // const delimiter = '<div class="header">';
+  // const levelMessages = helpMessage.split(delimiter);
   switch (levelNumber) {
     case 1:
       return getLevelHintStringMarkdown('two');
-    case 2:
+      case 2:
       return getLevelHintStringMarkdown('three');
     case 3:
       return getLevelHintStringMarkdown('four');
-    case 4:
+      case 4:
       return getLevelHintStringMarkdown('five');
-    case 5:
+      case 5:
       return getLevelHintStringMarkdown('six');
     case 6:
       return 'Congratulations!  You have reached the top of the RadGrad mountain!  As a Level 6 RadGrad Ninja, you need not strive any further. There are no further levels to reach.';
@@ -44,11 +52,12 @@ const getStudentLevelHint = (props: IStudentLevelsWidgetProps): string => {
   }
 };
 
-const StudentLevelsWidget: React.FunctionComponent<IStudentLevelsWidgetProps> = (props) => {
+const StudentLevelsWidget = () => {
+  const match = useRouteMatch();
   const imageStyle = { width: '230px' };
-  const studentLevelNumber: number = getStudentLevelNumber(props);
-  const studentLevelName = getStudentLevelName(props);
-  const studentLevelHint = getStudentLevelHint(props);
+  const studentLevelNumber: number = getStudentLevelNumber(match);
+  const studentLevelName = getStudentLevelName(match);
+  const studentLevelHint = getStudentLevelHint(match);
   return (
     <Segment padded id={`${studentLevelsWidget}`}>
       <Header as="h4" dividing>CURRENT LEVEL</Header>

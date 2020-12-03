@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import Markdown from 'react-markdown';
-import { withRouter } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Grid, Header, List, Segment } from 'semantic-ui-react';
 import ExplorerMenuBarContainer from '../../components/landing/explorer/LandingExplorerMenuBar';
@@ -22,19 +22,11 @@ interface IInterestExplorerProps {
   interest: IInterest;
   courses: ICourse[];
   opportunities: IOpportunity[];
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
 }
 
 const LandingInterestExplorerPage = (props: IInterestExplorerProps) => {
   // console.log(props.interest);
-  const { match } = props;
+  const match = useRouteMatch();
   return (
     <div id="landing-interest-explorer-page">
       <ExplorerMenuBarContainer currentUser={props.currentUser} />
@@ -112,8 +104,6 @@ const WithSubs = withListSubscriptions(LandingInterestExplorerPage, [
   Slugs.getPublicationName(),
 ]);
 
-const LandingInterestExplorerCon = withRouter(WithSubs);
-
 const LandingInterestExplorerContainer = withTracker((props) => {
   const slugName = props.match.params.interest;
   // console.log(Slugs.find().fetch());
@@ -124,6 +114,6 @@ const LandingInterestExplorerContainer = withTracker((props) => {
     opportunities: Opportunities.findNonRetired({ interestIDs: id }),
     currentUser: Meteor.user() ? Meteor.user().username : '',
   };
-})(LandingInterestExplorerCon);
+})(WithSubs);
 
 export default LandingInterestExplorerContainer;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Header, Segment } from 'semantic-ui-react';
 import _ from 'lodash';
-import { withRouter } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 import * as PlanChoiceUtils from '../../../../api/degree-plan/PlanChoiceUtilities';
 import { isPlanChoiceSatisfied } from '../../../../api/degree-plan/AcademicPlanUtilities';
 import * as Router from '../utilities/router';
@@ -13,18 +13,11 @@ interface IAcademicPlanTermViewProps {
   title: string;
   choices: string[];
   takenSlugs: string[];
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
 }
 
 const AcademicPlanStaticTermView = (props: IAcademicPlanTermViewProps) => {
-  const isStudent = Router.isUrlRoleStudent(props.match);
+  const match = useRouteMatch();
+  const isStudent = Router.isUrlRoleStudent(match);
   const noPaddingStyle = {
     padding: 2,
     margin: 2,
@@ -53,4 +46,4 @@ const AcademicPlanStaticTermView = (props: IAcademicPlanTermViewProps) => {
   );
 };
 
-export default withRouter(AcademicPlanStaticTermView);
+export default AcademicPlanStaticTermView;

@@ -7,7 +7,7 @@ const videoStyle: React.CSSProperties = { float: 'left', width: 400, paddingRigh
 const CommunityRadGradVideosWidget = () => (
   <React.Fragment>
     {radgradVideos.map((video) => (
-      <div style={videoStyle}>
+      <div style={videoStyle} key={video.youtubeID}>
         <Embed
           active
           autoplay={false}

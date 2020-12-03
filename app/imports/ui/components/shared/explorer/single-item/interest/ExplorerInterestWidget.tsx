@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { useParams, useRouteMatch } from 'react-router-dom';
 import { Header, Grid, Divider, Segment, SegmentGroup } from 'semantic-ui-react';
 import Markdown from 'react-markdown';
 import { withTracker } from 'meteor/react-meteor-data';
@@ -22,15 +22,6 @@ import { FAVORITE_TYPE } from '../../../../../../api/favorite/FavoriteTypes';
 import TeaserVideo from '../../../TeaserVideo';
 
 interface IExplorerInterestsWidgetProps {
-  match: {
-    isExact: boolean,
-    path: string,
-    url: string,
-    params: {
-      username: string;
-      interest: string;
-    }
-  }
   profile: IProfile;
   interest: IInterest;
   // eslint-disable-next-line react/no-unused-prop-types
@@ -93,8 +84,8 @@ const getAssociationRelatedOpportunities = (opportunities, props: IExplorerInter
   return relatedOpportunites;
 };
 
-const getBaseURL = (props: IExplorerInterestsWidgetProps) => {
-  const split = props.match.url.split('/');
+const getBaseURL = (match) => {
+  const split = match.url.split('/');
   const temp = [];
   temp.push(split[0]);
   temp.push(split[1]);
@@ -109,6 +100,7 @@ const ExplorerInterestWidget = (props: IExplorerInterestsWidgetProps) => {
   const relatedOpportunities = getAssociationRelatedOpportunities(getRelatedOpportunities(props), props);
   const teaser = Teasers.findNonRetired({ targetSlugID: props.interest.slugID });
   const hasTeaser = teaser.length > 0;
+  const match = useRouteMatch();
 
   return (
     <div id={explorerInterestWidget}>
@@ -133,7 +125,7 @@ const ExplorerInterestWidget = (props: IExplorerInterestsWidgetProps) => {
                   <Markdown
                     escapeHtml
                     source={props.interest.description}
-                    renderers={{ link: (localProps) => Router.renderLink(localProps, props.match) }}
+                    renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}
                   />
                 </div>
               </Grid.Column>
@@ -160,8 +152,8 @@ const ExplorerInterestWidget = (props: IExplorerInterestsWidgetProps) => {
           <InterestedRelatedWidget
             relatedCourses={relatedCourses}
             relatedOpportunities={relatedOpportunities}
-            isStudent={Router.getRoleByUrl(props.match) === 'student'}
-            baseURL={getBaseURL(props)}
+            isStudent={Router.getRoleByUrl(match) === 'student'}
+            baseURL={getBaseURL(match)}
           />
         </Grid.Column>
 
@@ -175,20 +167,19 @@ const ExplorerInterestWidget = (props: IExplorerInterestsWidgetProps) => {
   );
 };
 
-const ExplorerInterestsWidgetCon = withTracker(({ match }) => {
-  const username = match.params.username;
+const ExplorerInterestsWidgetContainer = withTracker(({ match }) => {
+  const { username, interest } = useParams();
   const profile = Users.getProfile(username);
-  const entityID = Slugs.getEntityID(match.params.interest, 'Interest');
-  const interest = Interests.findDoc(entityID);
+  const entityID = Slugs.getEntityID(interest, 'Interest');
+  const interestDoc = Interests.findDoc(entityID);
   const opportunities = Opportunities.find({}).fetch();
   const courses = Courses.find({}).fetch();
   return {
     profile,
-    interest,
+    interest: interestDoc,
     opportunities,
     courses,
   };
 })(ExplorerInterestWidget);
 
-const ExplorerInterestsWidgetContainer = withRouter(ExplorerInterestsWidgetCon);
 export default ExplorerInterestsWidgetContainer;

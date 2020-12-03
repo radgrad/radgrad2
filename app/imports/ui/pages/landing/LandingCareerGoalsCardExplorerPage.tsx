@@ -1,5 +1,4 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Card, Grid, Header, Loader, Segment } from 'semantic-ui-react';
@@ -68,8 +67,6 @@ const renderPage = (props: ICareerGoalsCardExplorerProps) => {
 // eslint-disable-next-line react/prop-types
 const LandingCareerGoalsCardExplorerPage = (props: ICareerGoalsCardExplorerProps) => ((props.ready) ? renderPage(props) : <Loader>Loading Career Goals</Loader>);
 
-const LandingCareerGoalsCardExplorerCon = withRouter(LandingCareerGoalsCardExplorerPage);
-
 const LandingCareerGoalsCardExplorerContainer = withTracker(() => {
   const sub1 = Meteor.subscribe(CareerGoals.getPublicationName());
   const sub2 = Meteor.subscribe(Slugs.getPublicationName());
@@ -79,6 +76,6 @@ const LandingCareerGoalsCardExplorerContainer = withTracker(() => {
     count: CareerGoals.countNonRetired(),
     currentUser: Meteor.user() ? Meteor.user().username : '',
   };
-})(LandingCareerGoalsCardExplorerCon);
+})(LandingCareerGoalsCardExplorerPage);
 
 export default LandingCareerGoalsCardExplorerContainer;

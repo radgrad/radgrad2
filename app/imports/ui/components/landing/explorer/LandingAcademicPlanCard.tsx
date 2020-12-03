@@ -1,6 +1,5 @@
 import React from 'react';
 import { Button, Card, Icon } from 'semantic-ui-react';
-import { withRouter } from 'react-router-dom';
 import { getSlug, itemShortDescription } from '../utilities/helper-functions';
 import { IAcademicPlan } from '../../../../typings/radgrad';
 import LandingAcademicPlanViewer from './LandingAcademicPlanViewer';
@@ -36,5 +35,4 @@ const LandingAcademicPlanCard = (props: ILandingAcademicPlanCardProps) => {
   );
 };
 
-const LandingAcademicPlanCardContainer = withRouter(LandingAcademicPlanCard);
-export default LandingAcademicPlanCardContainer;
+export default LandingAcademicPlanCard;

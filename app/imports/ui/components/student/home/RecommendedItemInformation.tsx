@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, Header, Divider, Segment } from 'semantic-ui-react';
 import Markdown from 'react-markdown';
-import { withRouter, Link } from 'react-router-dom';
+import { useRouteMatch, Link } from 'react-router-dom';
 import { ICareerGoal, ICourse, IInterest, IOpportunity, ISlug, ITeaser } from '../../../../typings/radgrad';
 import TeaserVideo from '../../shared/TeaserVideo';
 import { Slugs } from '../../../../api/slug/SlugCollection';
@@ -14,7 +14,6 @@ import { buildExplorerSlugRoute, IMatchProps, renderLink } from '../../shared/ut
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 
 interface IRecommendedItemInformationProps {
-  match: IMatchProps;
   teaser: ITeaser;
 }
 
@@ -69,7 +68,8 @@ const getTeaserRoute = (match: IMatchProps, teaser: ITeaser): string => {
 };
 
 const RecommendedItemInformation = (props: IRecommendedItemInformationProps) => {
-  const { teaser, match } = props;
+  const match = useRouteMatch();
+  const { teaser } = props;
 
   const viewMoreButtonStyle: React.CSSProperties = {
     marginTop: '25px',
@@ -115,4 +115,4 @@ const RecommendedItemInformation = (props: IRecommendedItemInformationProps) => 
   );
 };
 
-export default withRouter(RecommendedItemInformation);
+export default RecommendedItemInformation;

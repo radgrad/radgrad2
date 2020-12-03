@@ -7936,6 +7936,12 @@
           "retired": false
         },
         {
+          "routeName": "/advisor/:username/home/aboutme",
+          "title": "About the advisor profile page",
+          "text": "It is helpful for you to provide useful profile information.\n\n**Name** and **Email** - These two fields are read-only. Contact a RadGrad administrator ([radgrad@hawaii.edu](mailto:radgrad@hawaii.edu)) to change them.\n\n**Interests** and **Career Goals** - Please edit these to reflect the interests and career goals that you would like to \"match\" with students, and thus open an opportunity to play an advisory role. For most faculty, the career goals \"Graduate School\" and \"Research Scientist\" are appropriate. You might also wish to advise students on other career goals.\n\n**Website** - Please provide a link to your personal home page or research lab site.\n\n**Picture** - A headshot is useful for helping students recognize you.  Note these images are generally shown quite small.\n\n**About Me** - Please provide a brief description about yourself. Markdown is supported.",
+          "retired": false
+        },
+        {
           "routeName": "/advisor/:username/verification-requests",
           "title": "Learn About Verification Requests",
           "text": "Student participation in RadGrad opportunities consists of the following procedure:\n\n1. The student selects an opportunity, and adds it to their degree plan for a specific academic term. \n2. The student participates (or fails to participate) in the opportunity.\n3. The student requests verification that they participated in that opportunity.\n3. This verification request is accepted or declined by the sponsoring faculty member, advisor, or RadGrad admin.  Only after the verification request is accepted does the student earn the ICE points associated with that opportunity.\n\nThis page allows you to view all the pending verification requests and then accept or reject these requests.\n\n<b>PENDING VERIFICATIONS</b>\n\n<img class=\"ui medium left floated image\" src=\"/images/help/advisor-verification-requests-pending.png\">\nThis widget lists all pending verification requests. Verification requests are submitted by students when they would like RadGrad to acknowledge that they have successfully completed a particular opportunity. \n\nIf you believe that the student has successfully completed this opportunity, you can accept a request by clicking the green \"ACCEPT\" button. If you believe that the student has NOT successfully completed this opportunity, you can decline a request by clicking the red \"DECLINE\" button. You may also provide any feedback for your response. The student will be able to see your response on their RadGrad site.\n\n<div class=\"ui hidden clearing divider\"></div>\n\n<b>EVENT VERIFICATIONS</b>\n\n<img class=\"ui medium left floated image\" src=\"/images/help/advisor-verification-requests-event.png\">\nThis widget allows you to verify a student for successful completion of a particular opportunity (event). This is the same as accepting a verification request on the \"VERIFICATION REQUESTS\" widget.\n\nIf you believe that the student has successfully completed this opportunity, you can verify the student by selecting the event, inputting the student's UH username, and clicking on the \"VERIFY ATTENDANCE\" button.\n\n<div class=\"ui hidden clearing divider\"></div>\n\n<b>COMPLETED VERIFICATIONS</b>\n\n<img class=\"ui medium left floated image\" src=\"/images/help/advisor-verification-requests-completed.png\">\nThis page lists all completed verification requests. Verification requests are submitted by students when they would like RadGrad to acknowledge that they have successfully completed a particular opportunity. These verification requests are either accepted or declined by an advisor. \n\nYou may reopen a verification request by clicking on the green \"REOPEN\" button. By doing this, the verification request will disappear from the \"COMPLETED VERIFICATIONS\" page, and will reappear on the \"VERIFICATION REQUESTS\" page. Then, you may go through the process of providing feedback and either accepting or declining the verification request again.\n\n<div class=\"ui hidden clearing divider\"></div>",
@@ -8022,7 +8028,7 @@
         {
           "routeName": "/faculty/:username/home",
           "title": "About the faculty profile page",
-          "text": "For RadGrad to effectively \"match\" students with faculty, it is helpful for you to provide useful profile information.\n\n**Name** and **Email** - These two fields are read-only. Contact a RadGrad administrator ([radgrad@hawaii.edu](mailto:radgrad@hawaii.edu)) to change them.\n\n**Interests** and **Career Goals** - Please edit these to reflect the interests and career goals that you would like to \"match\" with students, and thus open an opportunity to play an advisory role. For most faculty, the career goals \"Graduate School\" and \"Research Scientist\" are appropriate. You might also wish to advise students on other career goals.\n\n**Website** - Please provide a link to your personal home page or research lab site.\n\n**Picture** - A headshot is useful for helping students recognize you.  Note these images are generally shown quite small.",
+          "text": "For RadGrad to effectively \"match\" students with faculty, it is helpful for you to provide useful profile information.\n\n**Name** and **Email** - These two fields are read-only. Contact a RadGrad administrator ([radgrad@hawaii.edu](mailto:radgrad@hawaii.edu)) to change them.\n\n**Interests** and **Career Goals** - Please edit these to reflect the interests and career goals that you would like to \"match\" with students, and thus open an opportunity to play an advisory role. For most faculty, the career goals \"Graduate School\" and \"Research Scientist\" are appropriate. You might also wish to advise students on other career goals.\n\n**Website** - Please provide a link to your personal home page or research lab site.\n\n**Picture** - A headshot is useful for helping students recognize you.  Note these images are generally shown quite small.\n\n**About Me** - Please provide a brief description about yourself. Markdown is supported.",
           "retired": false
         },
         {
@@ -12941,7 +12947,7 @@
           "shareUsername": false,
           "sharePicture": false,
           "shareWebsite": false,
-          "shareInterests": false,
+          "shareInterests": true,
           "shareCareerGoals": false,
           "shareOpportunities": false,
           "shareCourses": true,
@@ -13000,8 +13006,8 @@
           "shareUsername": false,
           "sharePicture": false,
           "shareWebsite": false,
-          "shareInterests": false,
-          "shareCareerGoals": false,
+          "shareInterests": true,
+          "shareCareerGoals": true,
           "shareOpportunities": false,
           "shareCourses": false,
           "shareLevel": false
@@ -13092,8 +13098,8 @@
           "shareUsername": false,
           "sharePicture": false,
           "shareWebsite": false,
-          "shareInterests": false,
-          "shareCareerGoals": false,
+          "shareInterests": true,
+          "shareCareerGoals": true,
           "shareOpportunities": false,
           "shareCourses": false,
           "shareLevel": false

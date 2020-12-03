@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import Markdown from 'react-markdown';
-import { withRouter } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Embed, Grid, Header, Segment } from 'semantic-ui-react';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
@@ -26,18 +26,11 @@ interface IOpportunityExplorerProps {
   currentUser: string;
   opportunity: IOpportunity;
   quarters: boolean;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
 }
 
 const LandingOpportunityExplorerPage = (props: IOpportunityExplorerProps) => {
-  const { match, opportunity } = props;
+  const match = useRouteMatch();
+  const { opportunity } = props;
   const hasTeaser = Teasers.findNonRetired({ targetSlugID: opportunity.slugID }).length > 0;
   const opportunityTypeName = getOpportunityTypeName(opportunity.opportunityTypeID);
   const academicTerms = semesters(opportunity);
@@ -181,8 +174,6 @@ const WithSubs = withListSubscriptions(LandingOpportunityExplorerPage, [
   Teasers.getPublicationName(),
 ]);
 
-const LandingOpportunityExplorerCon = withRouter(WithSubs);
-
 const LandingOpportunityExplorerContainer = withTracker((props) => {
   const slugName = props.match.params.opportunity;
   // console.log(Slugs.find().fetch());
@@ -192,6 +183,6 @@ const LandingOpportunityExplorerContainer = withTracker((props) => {
     quarters: RadGradProperties.getQuarterSystem(),
     currentUser: Meteor.user() ? Meteor.user().username : '',
   };
-})(LandingOpportunityExplorerCon);
+})(WithSubs);
 
 export default LandingOpportunityExplorerContainer;

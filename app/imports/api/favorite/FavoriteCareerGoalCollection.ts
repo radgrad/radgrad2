@@ -18,6 +18,7 @@ class FavoriteCareerGoalCollection extends BaseCollection {
     super('FavoriteCareerGoal', new SimpleSchema({
       careerGoalID: SimpleSchema.RegEx.Id,
       userID: SimpleSchema.RegEx.Id,
+      share: Boolean,
       retired: { type: Boolean, optional: true },
     }));
     this.publicationNames = {
@@ -29,17 +30,18 @@ class FavoriteCareerGoalCollection extends BaseCollection {
    * Defines a new FavoriteCareerGoal.
    * @param careerGoal the careerGoal slug.
    * @param username the user's username.
+   * @param share {Boolean} share the favorite career goal? Defaults to false.
    * @param retired the retired status.
    * @returns {void|*|boolean|{}}
    */
-  define({ careerGoal, username, retired = false }: IFavoriteCareerGoalDefine) {
+  define({ careerGoal, username, share = false, retired = false }: IFavoriteCareerGoalDefine) {
     const careerGoalID = CareerGoals.getID(careerGoal);
     const userID = Users.getID(username);
     const doc = this.collection.findOne({ userID, careerGoalID });
     if (doc) {
       return doc._id;
     }
-    return this.collection.insert({ careerGoalID, userID, retired });
+    return this.collection.insert({ careerGoalID, userID, share, retired });
   }
 
   /**
@@ -47,9 +49,12 @@ class FavoriteCareerGoalCollection extends BaseCollection {
    * @param docID the ID of the FavoriteCareerGoal.
    * @param retired the new retired value.
    */
-  update(docID, { retired }) {
+  update(docID, { share, retired }: { share?: boolean, retired?: boolean }) {
     this.assertDefined(docID);
     const updateData: IFavoriteUpdate = {};
+    if (_.isBoolean(share)) {
+      updateData.share = share;
+    }
     if (_.isBoolean(retired)) {
       updateData.retired = retired;
     }
@@ -193,8 +198,9 @@ class FavoriteCareerGoalCollection extends BaseCollection {
     const doc = this.findDoc(docID);
     const careerGoal = CareerGoals.findSlugByID(doc.careerGoalID);
     const username = Users.getProfile(doc.userID).username;
+    const share = doc.share;
     const retired = doc.retired;
-    return { careerGoal, username, retired };
+    return { careerGoal, username, share, retired };
   }
 
 }

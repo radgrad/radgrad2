@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import _ from 'lodash';
 import { Grid, Table, Header, Button } from 'semantic-ui-react';
 import DatePicker from 'react-datepicker';
-import { withRouter } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import Swal from 'sweetalert2';
 import moment from 'moment';
@@ -14,17 +14,16 @@ import {
   IAggregatedDailySnapshot,
   parseName,
 } from './utilities/page-tracking';
-import { IMatchProps } from '../utilities/router';
 import { IPageInterestsCategoryTypes } from '../../../../api/page-tracking/PageInterestsCategoryTypes';
 import PageTrackingWidgetMessage from './PageTrackingWidgetMessage';
 
 interface IPageTrackingScoreboardWidgetProps {
-  match: IMatchProps;
   pageInterestsDailySnapshots: IPageInterestsDailySnapshot[];
 }
 
 const PageTrackingScoreboardWidget = (props: IPageTrackingScoreboardWidgetProps) => {
-  const { pageInterestsDailySnapshots, match } = props;
+  const { pageInterestsDailySnapshots } = props;
+  const match = useRouteMatch();
   const urlCategory: IPageInterestsCategoryTypes = getUrlCategory(match);
   // See page-tracking-general.ts to see urlCategory vs category
   const category = getCategory(urlCategory);
@@ -173,11 +172,10 @@ const PageTrackingScoreboardWidget = (props: IPageTrackingScoreboardWidgetProps)
   );
 };
 
-const PageTrackingScoreboardWidgetCon = withTracker(() => {
+const PageTrackingScoreboardWidgetContainer = withTracker(() => {
   const pageInterestsDailySnapshots: IPageInterestsDailySnapshot[] = PageInterestsDailySnapshots.find({}).fetch();
   return {
     pageInterestsDailySnapshots,
   };
 })(PageTrackingScoreboardWidget);
-const PageTrackingScoreboardWidgetContainer = withRouter(PageTrackingScoreboardWidgetCon);
 export default PageTrackingScoreboardWidgetContainer;
