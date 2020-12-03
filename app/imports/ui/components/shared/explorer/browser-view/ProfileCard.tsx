@@ -23,7 +23,7 @@ interface IProfileCardProps {
   type: string;
 }
 
-// TODO Why is this called ProfileCard?
+// TODO Why is this called ProfileCard? We used to store information about interests, career goals and academic plans in the IProfile. We've moved them to Favorites.
 
 const ProfileCard: React.FC<IProfileCardProps> = (props) => {
   const { item, type } = props;

@@ -3,44 +3,24 @@ import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import { useRouteMatch } from 'react-router-dom';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
-import { IHelpMessage } from '../../../typings/radgrad';
-import * as Router from '../../components/shared/utilities/router';
-import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
-import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
-import { URL_ROLES } from '../../layouts/utilities/route-constants';
-import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
+import { PageInterestsDailySnapshots } from '../../../api/page-tracking/PageInterestsDailySnapshotCollection';
+import { IHelpMessage, IPageInterestsDailySnapshot } from '../../../typings/radgrad';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import PageTrackingMenu from '../../components/shared/page-tracking/PageTrackingMenu';
 import PageTrackingScoreboardWidget from '../../components/shared/page-tracking/PageTrackingScoreboardWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
+import { getMenuWidget } from './utilities/getMenuWidget';
 
 interface IPageTrackingAnalysisPageProps {
   helpMessages: IHelpMessage[];
+  pageInterestsDailySnapshots: IPageInterestsDailySnapshot[];
 }
 
-const PageTrackingScoreboardPage: React.FC<IPageTrackingAnalysisPageProps> = ({ helpMessages }) => {
+const PageTrackingScoreboardPage: React.FC<IPageTrackingAnalysisPageProps> = ({ helpMessages, pageInterestsDailySnapshots }) => {
   const match = useRouteMatch();
-  const renderPageMenuWidget = (): JSX.Element => {
-    const role = Router.getRoleByUrl(match);
-    switch (role) {
-      case URL_ROLES.ADMIN:
-        return <AdminPageMenuWidget />;
-      case URL_ROLES.ADVISOR:
-        return <AdvisorPageMenuWidget />;
-      case URL_ROLES.FACULTY:
-        return <FacultyPageMenuWidget />;
-      case URL_ROLES.STUDENT:
-        return <StudentPageMenuWidget />;
-      default:
-        console.error('renderPageMenuWidget(): Unable to render the correct menu widget for the current role');
-        return <React.Fragment />;
-    }
-  };
-
   return (
     <React.Fragment>
-      {renderPageMenuWidget()}
+      {getMenuWidget(match)}
 
       <Grid stackable>
         <Grid.Row>
@@ -56,7 +36,7 @@ const PageTrackingScoreboardPage: React.FC<IPageTrackingAnalysisPageProps> = ({ 
           </Grid.Column>
 
           <Grid.Column width={11} stretched>
-            <PageTrackingScoreboardWidget />
+            <PageTrackingScoreboardWidget pageInterestsDailySnapshots={pageInterestsDailySnapshots} />
           </Grid.Column>
           <Grid.Column width={1} />
         </Grid.Row>
@@ -69,8 +49,10 @@ const PageTrackingScoreboardPage: React.FC<IPageTrackingAnalysisPageProps> = ({ 
 
 const PageTrackingScoreboardPageContainer = withTracker(() => {
   const helpMessages = HelpMessages.findNonRetired({});
+  const pageInterestsDailySnapshots: IPageInterestsDailySnapshot[] = PageInterestsDailySnapshots.find({}).fetch();
   return {
     helpMessages,
+    pageInterestsDailySnapshots,
   };
 })(PageTrackingScoreboardPage);
 
