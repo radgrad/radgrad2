@@ -1,17 +1,11 @@
 import React from 'react';
-import { useParams, useRouteMatch } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 import { Header, Grid, Divider, Segment, SegmentGroup } from 'semantic-ui-react';
 import Markdown from 'react-markdown';
-import { withTracker } from 'meteor/react-meteor-data';
 import _ from 'lodash';
 import { ICourse, IInterest, IOpportunity, IProfile } from '../../../../../../typings/radgrad';
-import { Interests } from '../../../../../../api/interest/InterestCollection';
 import { CourseInstances } from '../../../../../../api/course/CourseInstanceCollection';
-import { Users } from '../../../../../../api/user/UserCollection';
-import { Courses } from '../../../../../../api/course/CourseCollection';
-import { Opportunities } from '../../../../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../../../../api/opportunity/OpportunityInstanceCollection';
-import { Slugs } from '../../../../../../api/slug/SlugCollection';
 import InterestedProfilesWidget from './InterestedProfilesWidget';
 import InterestedRelatedWidget from './InterestedRelatedWidget';
 import FavoritesButton from '../FavoritesButton';
@@ -167,20 +161,5 @@ const ExplorerInterestWidget: React.FC<IExplorerInterestsWidgetProps> = ({ profi
     </div>
   );
 };
-
-const ExplorerInterestsWidgetContainer = withTracker(({ match }) => {
-  const { username, interest } = useParams();
-  const profile = Users.getProfile(username);
-  const entityID = Slugs.getEntityID(interest, 'Interest');
-  const interestDoc = Interests.findDoc(entityID);
-  const opportunities = Opportunities.find({}).fetch();
-  const courses = Courses.find({}).fetch();
-  return {
-    profile,
-    interest: interestDoc,
-    opportunities,
-    courses,
-  };
-})(ExplorerInterestWidget);
 
 export default ExplorerInterestWidget;

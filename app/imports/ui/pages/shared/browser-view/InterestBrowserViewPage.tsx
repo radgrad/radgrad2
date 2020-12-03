@@ -61,7 +61,7 @@ export default withTracker(() => {
   const allInterests = Users.getInterestIDsByType(profile.userID);
   const favoriteInterests = _.map(allInterests[0], (id) => Interests.findDoc(id));
   const favoriteCareerGoalInterests = _.map(allInterests[1], (id) => Interests.findDoc(id));
-  const interests = Interests.findNonRetired({});
+  const interests = Interests.findNonRetired({}); // TODO should we filter out the favorited ones?
   const helpMessages = HelpMessages.findNonRetired({});
 
   return {

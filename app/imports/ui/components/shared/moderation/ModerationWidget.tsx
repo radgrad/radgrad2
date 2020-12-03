@@ -1,11 +1,10 @@
 import React from 'react';
-import { withTracker } from 'meteor/react-meteor-data';
 import { Grid } from 'semantic-ui-react';
 import { Reviews } from '../../../../api/review/ReviewCollection';
 import { IReview } from '../../../../typings/radgrad';
 import ModerationColumnWidget from './ModerationColumnWidget';
 
-interface IModerationWidget {
+export interface IModerationWidget {
   opportunityReviews: IReview[],
   courseReviews: IReview[],
 }
@@ -32,13 +31,13 @@ const handleRejectReview = (item, comments) => {
   };
 };
 
-const ModerationWidget = (props: IModerationWidget) => (
+const ModerationWidget: React.FC<IModerationWidget> = ({ courseReviews, opportunityReviews }) => (
   <Grid columns="equal" divided="vertically">
     <Grid.Column>
       <ModerationColumnWidget
         handleAccept={handleAcceptReview}
         handleReject={handleRejectReview}
-        reviews={props.courseReviews}
+        reviews={courseReviews}
         isReview
         type="COURSE"
       />
@@ -47,7 +46,7 @@ const ModerationWidget = (props: IModerationWidget) => (
       <ModerationColumnWidget
         handleAccept={handleAcceptReview}
         handleReject={handleRejectReview}
-        reviews={props.opportunityReviews}
+        reviews={opportunityReviews}
         isReview
         type="OPPORTUNITY"
       />
@@ -55,9 +54,4 @@ const ModerationWidget = (props: IModerationWidget) => (
   </Grid>
 );
 
-const ModerationWidgetContainer = withTracker(() => ({
-  opportunityReviews: Reviews.findNonRetired({ moderated: false, reviewType: 'opportunity' }),
-  courseReviews: Reviews.findNonRetired({ moderated: false, reviewType: 'course' }),
-}))(ModerationWidget);
-
-export default ModerationWidgetContainer;
+export default ModerationWidget;

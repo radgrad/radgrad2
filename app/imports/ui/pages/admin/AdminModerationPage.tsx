@@ -1,11 +1,12 @@
 import React from 'react';
 import { Grid } from 'semantic-ui-react';
+import { withTracker } from 'meteor/react-meteor-data';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import AdminModerationWidget from '../../components/shared/moderation/ModerationWidget';
+import AdminModerationWidget, { IModerationWidget } from '../../components/shared/moderation/ModerationWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
+import { Reviews } from '../../../api/review/ReviewCollection';
 
-/** A simple static component to render some text for the landing page. */
-const AdminModerationPage = () => {
+const AdminModerationPage: React.FC<IModerationWidget> = ({ courseReviews, opportunityReviews }) => {
   const paddedStyle = {
     paddingTop: 20,
   };
@@ -14,7 +15,7 @@ const AdminModerationPage = () => {
       <AdminPageMenuWidget />
       <Grid container stackable style={paddedStyle}>
         <Grid.Column>
-          <AdminModerationWidget />
+          <AdminModerationWidget courseReviews={courseReviews} opportunityReviews={opportunityReviews} />
         </Grid.Column>
       </Grid>
 
@@ -23,4 +24,9 @@ const AdminModerationPage = () => {
   );
 };
 
-export default AdminModerationPage;
+const AdminModerationPageContainer = withTracker(() => ({
+  opportunityReviews: Reviews.findNonRetired({ moderated: false, reviewType: 'opportunity' }),
+  courseReviews: Reviews.findNonRetired({ moderated: false, reviewType: 'course' }),
+}))(AdminModerationPage);
+
+export default AdminModerationPageContainer;
