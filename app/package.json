@@ -1,5 +1,8 @@
 {
   "name": "radgrad2",
+  "meteor": {
+    "mainModule": "client/main.ts"
+  },
   "private": true,
   "scripts": {
     "start": "meteor --no-release-check --exclude-archs web.browser.legacy,web.cordova --settings ../config/settings.development.json --port 3200",
