@@ -22,28 +22,25 @@ import { FAVORITE_TYPE } from '../../../../../../api/favorite/FavoriteTypes';
 import TeaserVideo from '../../../TeaserVideo';
 import { FavoriteInterests } from '../../../../../../api/favorite/FavoriteInterestCollection';
 
-// TODO this widget is extremely complicated.
 interface IExplorerInterestsWidgetProps {
   profile: IProfile;
   interest: IInterest;
-  // eslint-disable-next-line react/no-unused-prop-types
   opportunities: IOpportunity[];
-  // eslint-disable-next-line react/no-unused-prop-types
   courses: ICourse[];
 }
 
-const getObjectsThatHaveInterest = (objects, props: IExplorerInterestsWidgetProps) => _.filter(objects, (obj) => _.includes(obj.interestIDs, props.interest._id));
+const getObjectsThatHaveInterest = (objects, interestID: string) => _.filter(objects, (obj) => _.includes(obj.interestIDs, interestID));
 
-const getRelatedCourses = (props: IExplorerInterestsWidgetProps) => getObjectsThatHaveInterest(props.courses, props);
+const getRelatedCourses = (courses: ICourse[], interestID: string) => getObjectsThatHaveInterest(courses, interestID);
 
-const getAssociationRelatedCourses = (courses, props: IExplorerInterestsWidgetProps) => {
+const getAssociationRelatedCourses = (courses: ICourse[], studentID: string) => {
   const inPlanInstances = CourseInstances.findNonRetired({
-    studentID: props.profile.userID, verified: false,
+    studentID, verified: false,
   });
   const inPlanIDs = _.uniq(_.map(inPlanInstances, 'courseID'));
 
   const completedInstance = CourseInstances.findNonRetired({
-    studentID: props.profile.userID, verified: true,
+    studentID, verified: true,
   });
   const completedIDs = _.uniq(_.map(completedInstance, 'courseID'));
 
@@ -60,16 +57,16 @@ const getAssociationRelatedCourses = (courses, props: IExplorerInterestsWidgetPr
   return relatedCourses;
 };
 
-const getRelatedOpportunities = (props: IExplorerInterestsWidgetProps) => getObjectsThatHaveInterest(props.opportunities, props);
+const getRelatedOpportunities = (opportunities: IOpportunity[], interestID: string) => getObjectsThatHaveInterest(opportunities, interestID);
 
-const getAssociationRelatedOpportunities = (opportunities, props: IExplorerInterestsWidgetProps) => {
+const getAssociationRelatedOpportunities = (opportunities: IOpportunity[], studentID: string) => {
   const inPlanInstances = OpportunityInstances.find({
-    studentID: props.profile.userID, verified: false,
+    studentID, verified: false,
   }).fetch();
   const inPlanIDs = _.uniq(_.map(inPlanInstances, 'opportunityID'));
 
   const completedInstances = OpportunityInstances.find({
-    studentID: props.profile.userID, verified: true,
+    studentID, verified: true,
   }).fetch();
   const completedIDs = _.uniq(_.map(completedInstances, 'opportunityID'));
 
@@ -96,26 +93,25 @@ const getBaseURL = (match) => {
   return temp.join('/');
 };
 
-const ExplorerInterestWidget: React.FC<IExplorerInterestsWidgetProps> = (props) => {
+const ExplorerInterestWidget: React.FC<IExplorerInterestsWidgetProps> = ({ profile, interest, courses, opportunities }) => {
   // console.log('ExplorerInterestWidget', props);
-  const relatedCourses = getAssociationRelatedCourses(getRelatedCourses(props), props);
-  const relatedOpportunities = getAssociationRelatedOpportunities(getRelatedOpportunities(props), props);
-  const teaser = Teasers.findNonRetired({ targetSlugID: props.interest.slugID });
+  const interestID = interest._id;
+  const relatedCourses = getAssociationRelatedCourses(getRelatedCourses(courses, interestID), profile.userID);
+  const relatedOpportunities = getAssociationRelatedOpportunities(getRelatedOpportunities(opportunities, interestID), profile.userID);
+  const teaser = Teasers.findNonRetired({ targetSlugID: interest.slugID });
   const hasTeaser = teaser.length > 0;
   const match = useRouteMatch();
-  const { username } = useParams();
-  const profile = Users.getProfile(username);
-  const added = FavoriteInterests.findNonRetired({ userID: profile.userID, interestID: props.interest._id }).length > 0;
+  const added = FavoriteInterests.findNonRetired({ userID: profile.userID, interestID }).length > 0;
   return (
     <div id={explorerInterestWidget}>
       <SegmentGroup>
         <Segment>
           <Header>
-            {props.interest.name}
+            {interest.name}
             <FavoritesButton
               type={FAVORITE_TYPE.INTEREST}
-              studentID={props.profile.userID}
-              item={props.interest}
+              studentID={profile.userID}
+              item={interest}
               added={added}
             />
           </Header>
@@ -129,7 +125,7 @@ const ExplorerInterestWidget: React.FC<IExplorerInterestsWidgetProps> = (props) 
                 <div>
                   <Markdown
                     escapeHtml
-                    source={props.interest.description}
+                    source={interest.description}
                     renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}
                   />
                 </div>
@@ -145,7 +141,7 @@ const ExplorerInterestWidget: React.FC<IExplorerInterestsWidgetProps> = (props) 
                 <b>Description: </b>
               </div>
               <div>
-                <Markdown escapeHtml source={props.interest.description} />
+                <Markdown escapeHtml source={interest.description} />
               </div>
             </React.Fragment>
           )}
@@ -164,7 +160,7 @@ const ExplorerInterestWidget: React.FC<IExplorerInterestsWidgetProps> = (props) 
 
         <Grid.Column width={6}>
           <InterestedProfilesWidget
-            interest={props.interest}
+            interest={interest}
           />
         </Grid.Column>
       </Grid>
@@ -187,4 +183,4 @@ const ExplorerInterestsWidgetContainer = withTracker(({ match }) => {
   };
 })(ExplorerInterestWidget);
 
-export default ExplorerInterestsWidgetContainer;
+export default ExplorerInterestWidget;

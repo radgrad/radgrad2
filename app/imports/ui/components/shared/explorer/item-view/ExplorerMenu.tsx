@@ -1,5 +1,4 @@
 import React from 'react';
-import { useRouteMatch } from 'react-router-dom';
 import {
   IAcademicPlan,
   ICareerGoal,
@@ -42,11 +41,10 @@ const getTypeName = (props: IExplorerMenuProps): string => {
 
 const ExplorerMenu: React.FC<IExplorerMenuProps> = (props) => {
   const { menuAddedList, menuCareerList, type } = props;
-  const match = useRouteMatch();
 
   return (
     <React.Fragment>
-      <ExplorerNavDropdown match={match} text={getTypeName(props)} />
+      <ExplorerNavDropdown text={getTypeName(props)} />
       <br />
 
       <ExplorerMenuNonMobileWidget
