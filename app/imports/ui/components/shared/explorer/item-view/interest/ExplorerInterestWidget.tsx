@@ -22,6 +22,7 @@ import { FAVORITE_TYPE } from '../../../../../../api/favorite/FavoriteTypes';
 import TeaserVideo from '../../../TeaserVideo';
 import { FavoriteInterests } from '../../../../../../api/favorite/FavoriteInterestCollection';
 
+// TODO this widget is extremely complicated.
 interface IExplorerInterestsWidgetProps {
   profile: IProfile;
   interest: IInterest;
