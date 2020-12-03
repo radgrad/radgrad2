@@ -2,50 +2,42 @@ import { withTracker } from 'meteor/react-meteor-data';
 import React from 'react';
 import { Grid, Message } from 'semantic-ui-react';
 import { useRouteMatch } from 'react-router-dom';
+import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
+import { Courses } from '../../../api/course/CourseCollection';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
-import { IHelpMessage } from '../../../typings/radgrad';
-import { IMatchProps } from '../../components/shared/utilities/router';
-import * as Router from '../../components/shared/utilities/router';
-import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
-import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
+import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
+import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
+import { CourseScoreboard, OpportunityScoreboard } from '../../../startup/client/collections';
+import { IAcademicTerm, ICourse, IHelpMessage, IOpportunity } from '../../../typings/radgrad';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import ScoreboardPageMenu from '../../components/shared/scoreboard/ScoreboardPageMenu';
 import { COURSE_SCOREBOARD, OPPORTUNITY_SCOREBOARD } from '../../layouts/utilities/route-constants';
 import CourseScoreboardWidget from '../../components/shared/scoreboard/CourseScoreboardWidget';
-import OpportunityScoreboardWidgetContainer from '../../components/shared/scoreboard/OpportunityScoreboardWidget';
+import OpportunityScoreboardWidget from '../../components/shared/scoreboard/OpportunityScoreboardWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
+import { getMenuWidget } from './utilities/getMenuWidget';
 
 export interface IScoreboardPageProps {
+  courses: ICourse[];
+  courseScores: any[];
   helpMessages: IHelpMessage[];
+  opportunities: IOpportunity[];
+  terms: IAcademicTerm[];
+  oppScores: any[];
 }
 
-const renderPageMenuWidget = (match: IMatchProps): JSX.Element => {
-  const role = Router.getRoleByUrl(match);
-  switch (role) {
-    case 'advisor':
-      return <AdvisorPageMenuWidget />;
-    case 'admin':
-      return <AdminPageMenuWidget />;
-    case 'faculty':
-      return <FacultyPageMenuWidget />;
-    default:
-      return <React.Fragment />;
-  }
-};
-
-const ScoreboardPage: React.FC<IScoreboardPageProps> = ({ helpMessages }) => {
+const ScoreboardPage: React.FC<IScoreboardPageProps> = ({ courses, courseScores, helpMessages, opportunities, oppScores, terms }) => {
   const match = useRouteMatch();
   let content = <Message>Choose a scoreboard from the menu to the left.</Message>;
   if (match.path.indexOf(COURSE_SCOREBOARD) !== -1) {
-    content = <CourseScoreboardWidget />;
+    content = <CourseScoreboardWidget courses={courses} terms={terms} scores={courseScores} />;
   }
   if (match.path.indexOf(OPPORTUNITY_SCOREBOARD) !== -1) {
-    content = <OpportunityScoreboardWidgetContainer />;
+    content = <OpportunityScoreboardWidget opportunities={opportunities} terms={terms} scores={oppScores} />;
   }
   return (
     <React.Fragment>
-      {renderPageMenuWidget(match)}
+      {getMenuWidget(match)}
       <Grid id="scoreboard-page" container stackable padded="vertically">
         <Grid.Row>
           <HelpPanelWidget helpMessages={helpMessages} />
@@ -65,9 +57,25 @@ const ScoreboardPage: React.FC<IScoreboardPageProps> = ({ helpMessages }) => {
 };
 
 const ScoreboardPageContainer = withTracker(() => {
+  const courses = Courses.findNonRetired({ num: { $ne: 'other' } }, { sort: { num: 1 } });
   const helpMessages = HelpMessages.findNonRetired({});
+  const opportunities = Opportunities.findNonRetired({}, { sort: { name: 1 } });
+  const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
+  const isQuarterSystem = RadGradProperties.getQuarterSystem();
+  const limit = isQuarterSystem ? 12 : 9;
+  const terms = AcademicTerms.findNonRetired({ termNumber: { $gte: currentTerm.termNumber } }, {
+    sort: { termNumber: 1 },
+    limit: limit,
+  });
+  const courseScores = CourseScoreboard.find().fetch();
+  const oppScores = OpportunityScoreboard.find().fetch();
   return {
+    courses,
+    courseScores,
     helpMessages,
+    opportunities,
+    oppScores,
+    terms,
   };
 })(ScoreboardPage);
 

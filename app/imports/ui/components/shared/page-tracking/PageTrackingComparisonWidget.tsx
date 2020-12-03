@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Dropdown, Grid, Table, Button, Header } from 'semantic-ui-react';
 import DatePicker from 'react-datepicker';
 import { useRouteMatch } from 'react-router-dom';
-import { withTracker } from 'meteor/react-meteor-data';
 import Swal from 'sweetalert2';
 import _ from 'lodash';
 import moment from 'moment';
@@ -249,11 +248,4 @@ const PageTrackingComparisonWidget = (props: IPageTrackingComparisonWidgetProps)
   );
 };
 
-const PageTrackingComparisonWidgetContainer = withTracker(() => {
-  const pageInterestsDailySnapshots: IPageInterestsDailySnapshot[] = PageInterestsDailySnapshots.find({}).fetch();
-  return {
-    pageInterestsDailySnapshots,
-  };
-})(PageTrackingComparisonWidget);
-
-export default PageTrackingComparisonWidgetContainer;
+export default PageTrackingComparisonWidget;

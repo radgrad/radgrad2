@@ -37,22 +37,4 @@ const RadGradMenuProfile: React.FC<IRadGradMenuProfileProps> = ({ profile, displ
   );
 };
 
-// const RadGradMenuProfileContainer = withTracker((props) => {
-//   const profile = Users.getProfile(props.userName);
-//   const displayLevelAndIce = profile.role === ROLE.STUDENT;
-//   // console.log('profile %o userIsInRole %o', profile, displayLevelAndIce);
-//   let earnedICE;
-//   let projectedICE;
-//   if (displayLevelAndIce) {
-//     earnedICE = StudentProfiles.getEarnedICE(props.userName);
-//     projectedICE = StudentProfiles.getProjectedICE(props.userName);
-//   }
-//
-//   return {
-//     profile,
-//     displayLevelAndIce,
-//     earnedICE,
-//     projectedICE,
-//   };
-// })(RadGradMenuProfile);
 export default RadGradMenuProfile;

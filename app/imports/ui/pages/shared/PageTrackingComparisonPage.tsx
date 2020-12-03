@@ -3,7 +3,8 @@ import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import { useRouteMatch } from 'react-router-dom';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
-import { IHelpMessage } from '../../../typings/radgrad';
+import { PageInterestsDailySnapshots } from '../../../api/page-tracking/PageInterestsDailySnapshotCollection';
+import { IHelpMessage, IPageInterestsDailySnapshot } from '../../../typings/radgrad';
 import * as Router from '../../components/shared/utilities/router';
 import { URL_ROLES } from '../../layouts/utilities/route-constants';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
@@ -15,11 +16,13 @@ import PageTrackingMenu from '../../components/shared/page-tracking/PageTracking
 import PageTrackingComparisonWidget from '../../components/shared/page-tracking/PageTrackingComparisonWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 
+// TODO is it better to create the IPageTrackingComparisonPageProps this way or should is extend IHelpMessageProps, IPageTrackingComparisonWidgetProps?
 interface IPageTrackingComparisonPageProps {
   helpMessages: IHelpMessage[];
+  pageInterestsDailySnapshots: IPageInterestsDailySnapshot[];
 }
 
-const PageTrackingComparisonPage: React.FC<IPageTrackingComparisonPageProps> = ({ helpMessages }) => {
+const PageTrackingComparisonPage: React.FC<IPageTrackingComparisonPageProps> = ({ helpMessages, pageInterestsDailySnapshots }) => {
   const match = useRouteMatch();
   const renderPageMenuWidget = (): JSX.Element => {
     const role = Router.getRoleByUrl(match);
@@ -56,7 +59,7 @@ const PageTrackingComparisonPage: React.FC<IPageTrackingComparisonPageProps> = (
           </Grid.Column>
 
           <Grid.Column width={11} stretched>
-            <PageTrackingComparisonWidget />
+            <PageTrackingComparisonWidget pageInterestsDailySnapshots={pageInterestsDailySnapshots} />
           </Grid.Column>
           <Grid.Column width={1} />
         </Grid.Row>
@@ -69,8 +72,10 @@ const PageTrackingComparisonPage: React.FC<IPageTrackingComparisonPageProps> = (
 
 const PageTrackingComparisonPageContainer = withTracker(() => {
   const helpMessages = HelpMessages.findNonRetired({});
+  const pageInterestsDailySnapshots: IPageInterestsDailySnapshot[] = PageInterestsDailySnapshots.find({}).fetch();
   return {
     helpMessages,
+    pageInterestsDailySnapshots,
   };
 })(PageTrackingComparisonPage);
 

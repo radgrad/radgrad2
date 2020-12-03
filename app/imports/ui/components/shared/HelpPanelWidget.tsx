@@ -11,7 +11,6 @@ export interface IHelpPanelWidgetProps {
 }
 
 const HelpPanelWidget: React.FC<IHelpPanelWidgetProps> = ({ helpMessages }) => {
-  // const { helpMessages } = props;
   const match = useRouteMatch();
   const helpMessage = _.find(helpMessages, (m: IHelpMessage) => m.routeName === match.path);
   const helpText = helpMessage ? `${helpMessage.text}` : '';
