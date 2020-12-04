@@ -66,7 +66,7 @@ const UpdateFeedbackInstanceForm = (props: IUpdateFeedbackInstanceFormProps) => 
         <Button onClick={props.handleCancel}>Cancel</Button>
       </AutoForm>
     </Segment>
-);
+  );
 };
 
 export default UpdateFeedbackInstanceForm;

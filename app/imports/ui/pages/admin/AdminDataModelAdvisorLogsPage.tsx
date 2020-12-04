@@ -258,6 +258,6 @@ const AdminDataModelAdvisorLogsPageContainer = withTracker(() => ({
   items: AdvisorLogs.find({}).fetch(),
   advisors: AdvisorProfiles.find({}, { $sort: { lastName: 1, firstName: 1 } }).fetch(),
   students: StudentProfiles.find({ isAlumni: false }, { $sort: { lastName: 1, firstName: 1 } }).fetch(),
-  }))(AdminDataModelAdvisorLogsPage);
+}))(AdminDataModelAdvisorLogsPage);
 
 export default withInstanceSubscriptions(AdminDataModelAdvisorLogsPageContainer);

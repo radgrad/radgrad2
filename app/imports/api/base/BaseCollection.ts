@@ -15,10 +15,15 @@ import { IDumpOne } from '../../typings/radgrad';
  */
 class BaseCollection {
   protected collection: Mongo.Collection<any>;
+
   protected collectionName: string;
+
   protected schema: any;
+
   protected type: string;
+
   protected defineSchema: any;
+
   protected updateSchema: any;
 
   /**

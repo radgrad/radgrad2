@@ -1,9 +1,12 @@
+import _ from 'lodash';
 import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Button, Card, Icon } from 'semantic-ui-react';
 import { Link, useParams, useRouteMatch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
+import { RadGradProperties } from '../../../../api/radgrad/RadGradProperties';
+import { OpportunityScoreboard } from '../../../../startup/client/collections';
 import { getUsername } from '../../shared/utilities/router';
 import {
   IAcademicTerm,
@@ -118,6 +121,24 @@ const DetailOpportunityCard = (props: IDetailOpportunityCardProps) => {
   const textAlignRight: React.CSSProperties = {
     textAlign: 'right',
   };
+
+  const quarter = RadGradProperties.getQuarterSystem();
+  const numTerms = quarter ? 12 : 9;
+  const academicTerms = AcademicTerms.findNonRetired({ termNumber: { $gte: currentTerm.termNumber } }, {
+    sort: { termNumber: 1 },
+    limit: numTerms,
+  });
+  const scores = [];
+  _.forEach(academicTerms, (term: IAcademicTerm) => {
+    const id = `${opportunity._id} ${term._id}`;
+    const score = OpportunityScoreboard.find({ _id: id }).fetch() as { count: number }[];
+    if (score.length > 0) {
+      scores.push(score[0].count);
+    } else {
+      scores.push(0);
+    }
+  });
+
   return (
     <Card.Group itemsPerRow={1}>
       <Card>
@@ -132,7 +153,7 @@ const DetailOpportunityCard = (props: IDetailOpportunityCardProps) => {
                 <p>
                   <b>Scheduled:</b> {termName}
                 </p>
-                <FutureParticipation item={opportunity} type="courses" />
+                <FutureParticipation academicTerms={academicTerms} scores={scores} />
                 <Button
                   floated="right"
                   basic

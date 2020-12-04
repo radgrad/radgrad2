@@ -48,7 +48,7 @@ const StudentLogWidget = () => {
                     </Item.Content>
                   </Item>
                 </Item.Group>
-);
+              );
             })
             :
             <p><i>There are no advisor logs.</i></p>

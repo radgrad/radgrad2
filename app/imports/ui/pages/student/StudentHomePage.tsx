@@ -16,7 +16,7 @@ interface IStudentHomePageProps {
   match: IMatchProps;
 }
 
-const StudentHomePage = (props: IStudentHomePageProps) => (
+const StudentHomePage: React.FC<IStudentHomePageProps> = ({ match }) => (
   <div id="student-home-page">
     <StudentPageMenuWidget />
     <GuidedTourStudentHomePageWidget />
@@ -33,7 +33,7 @@ const StudentHomePage = (props: IStudentHomePageProps) => (
           </Grid.Column>
           <Grid.Column width={5}>
             <StudentHomeNewOpportunitiesWidget />
-            <Link to={buildExplorerRoute(props.match, EXPLORER_TYPE.OPPORTUNITIES)}>
+            <Link to={buildExplorerRoute(match, EXPLORER_TYPE.OPPORTUNITIES)}>
               <u>More Opportunities</u>
             </Link>
             <StudentHomeFavoriteInterestsList />

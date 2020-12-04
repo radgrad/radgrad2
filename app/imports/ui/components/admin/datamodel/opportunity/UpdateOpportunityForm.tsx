@@ -31,26 +31,26 @@ interface IUpdateOpportunityFormProps {
   itemTitleString: (item) => React.ReactNode;
 }
 
-const UpdateOpportunityForm = (props: IUpdateOpportunityFormProps) => {
+const UpdateOpportunityForm: React.FC<IUpdateOpportunityFormProps> = (props) => {
   const model = props.collection.findDoc(props.id);
   const [pictureURL, setPictureURL] = useState(model.picture);
   const handleUploadPicture = async (e): Promise<void> => {
-        e.preventDefault();
-        try {
-            const cloudinaryResult = await openCloudinaryWidget();
-            if (cloudinaryResult.event === 'success') {
-                setPictureURL(cloudinaryResult.info.url);
-            }
-        } catch (error) {
-            Swal.fire({
-                title: 'Failed to Upload Photo',
-                icon: 'error',
-                text: error.statusText,
-                allowOutsideClick: false,
-                allowEscapeKey: false,
-                allowEnterKey: false,
-            });
-        }
+    e.preventDefault();
+    try {
+      const cloudinaryResult = await openCloudinaryWidget();
+      if (cloudinaryResult.event === 'success') {
+        setPictureURL(cloudinaryResult.info.url);
+      }
+    } catch (error) {
+      Swal.fire({
+        title: 'Failed to Upload Photo',
+        icon: 'error',
+        text: error.statusText,
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false,
+      });
+    }
   };
 
   const handlePictureUrlChange = (value) => {
@@ -58,9 +58,9 @@ const UpdateOpportunityForm = (props: IUpdateOpportunityFormProps) => {
   };
 
   const handleUpdateOpportunity = (doc) => {
-    const model = doc;
-    model.picture = pictureURL;
-    props.handleUpdate(model);
+    const mod = doc;
+    mod.picture = pictureURL;
+    props.handleUpdate(mod);
   };
 
   // console.log('collection model = %o', model);

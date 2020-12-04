@@ -3,19 +3,7 @@ import { Menu } from 'semantic-ui-react';
 import { NavLink, useParams, useRouteMatch } from 'react-router-dom';
 import { leftHandMenu } from '../../shared/shared-widget-names';
 
-export interface IAdminDatabaseMenuProps {
-  currentUser: string;
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params: {
-      username: string;
-    }
-  };
-}
-
-const AdminDatabaseMenu = () => {
+const AdminDatabaseMenu: React.FC = () => {
   const { username } = useParams();
   const baseUrl = useRouteMatch().url;
   const baseIndex = baseUrl.indexOf(username);

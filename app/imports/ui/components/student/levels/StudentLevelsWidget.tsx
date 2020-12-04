@@ -29,13 +29,13 @@ const getStudentLevelHint = (props: IStudentLevelsWidgetProps): string => {
     switch (levelNumber) {
     case 1:
       return getLevelHintStringMarkdown('two');
-      case 2:
+    case 2:
       return getLevelHintStringMarkdown('three');
     case 3:
       return getLevelHintStringMarkdown('four');
-      case 4:
+    case 4:
       return getLevelHintStringMarkdown('five');
-      case 5:
+    case 5:
       return getLevelHintStringMarkdown('six');
     case 6:
       return 'Congratulations!  You have reached the top of the RadGrad mountain!  As a Level 6 RadGrad Ninja, you need not strive any further. There are no further levels to reach.';

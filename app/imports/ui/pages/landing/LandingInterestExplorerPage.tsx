@@ -1,11 +1,11 @@
-import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import Markdown from 'react-markdown';
-import { useRouteMatch } from 'react-router-dom';
+import { useParams, useRouteMatch } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Grid, Header, List, Segment } from 'semantic-ui-react';
+import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import ExplorerMenuBarContainer from '../../components/landing/explorer/LandingExplorerMenuBar';
-import { ICourse, IInterest, IOpportunity } from '../../../typings/radgrad';
+import { ICourse, IHelpMessage, IInterest, IOpportunity } from '../../../typings/radgrad';
 import { Courses } from '../../../api/course/CourseCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
@@ -22,18 +22,19 @@ interface IInterestExplorerProps {
   interest: IInterest;
   courses: ICourse[];
   opportunities: IOpportunity[];
+  helpMessages: IHelpMessage[];
 }
 
-const LandingInterestExplorerPage = (props: IInterestExplorerProps) => {
+const LandingInterestExplorerPage: React.FC<IInterestExplorerProps> = (props) => {
   // console.log(props.interest);
   const match = useRouteMatch();
   return (
     <div id="landing-interest-explorer-page">
-      <ExplorerMenuBarContainer currentUser={props.currentUser} />
+      <ExplorerMenuBarContainer />
       <Grid stackable>
         <Grid.Row>
           <Grid.Column width={1} />
-          <Grid.Column width={14}><HelpPanelWidget /></Grid.Column>
+          <Grid.Column width={14}><HelpPanelWidget helpMessages={props.helpMessages} /></Grid.Column>
           <Grid.Column width={1} />
         </Grid.Row>
 
@@ -102,17 +103,18 @@ const WithSubs = withListSubscriptions(LandingInterestExplorerPage, [
   Interests.getPublicationName(),
   Opportunities.getPublicationName(),
   Slugs.getPublicationName(),
+  HelpMessages.getPublicationName(),
 ]);
 
 const LandingInterestExplorerContainer = withTracker((props) => {
-  const slugName = props.match.params.interest;
+  const { interest } = useParams();
   // console.log(Slugs.find().fetch());
-  const id = Slugs.getEntityID(slugName, 'Interest');
+  const id = Slugs.getEntityID(interest, 'Interest');
   return {
     interest: Interests.findDoc(id),
     courses: Courses.findNonRetired({ interestIDs: id }),
     opportunities: Opportunities.findNonRetired({ interestIDs: id }),
-    currentUser: Meteor.user() ? Meteor.user().username : '',
+    helpMessages: HelpMessages.findNonRetired({}),
   };
 })(WithSubs);
 

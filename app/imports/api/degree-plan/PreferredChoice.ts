@@ -6,6 +6,7 @@ import _ from 'lodash';
  */
 class PreferredChoice {
   private readonly rankedChoices: any;
+
   private readonly max: number;
 
   /**
@@ -48,7 +49,7 @@ class PreferredChoice {
         choices = choices.concat(this.rankedChoices[i]);
       }
     }
-    // console.log(choices);
+    // console.log(this.max, choices);
     return choices;
   }
 

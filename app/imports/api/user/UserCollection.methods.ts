@@ -23,7 +23,7 @@ export const updateAcademicPlanMethod = new ValidatedMethod({
         throw new Meteor.Error('unauthorized', 'You must be an admin, advisor, or student to update the academic plan.');
       }
     }
-      // console.log(academicPlan);
+    // console.log(academicPlan);
     // Don't update except on server side (disable client-side simulation).
     if (Meteor.isServer) {
       // const profile = Users.getProfile(this.userId);

@@ -70,32 +70,32 @@ const renderDropdown = ({ placeholder, onChange, value }) => {
 };
 
 const Rating = ({
-                  allowedValues,
-                  checkboxes,
-                  className,
-                  disabled,
-                  error,
-                  errorMessage,
-                  fieldType,
-                  id,
-                  inputRef,
-                  label,
-                  name,
-                  onChange,
-                  placeholder,
-                  showInlineError,
-                  value,
-                  ...props
-                }) => (
-                  <div className={classnames({ disabled, error }, className, 'field')} {...filterDOMProps(props)}>
-                    {label && <label htmlFor={id}>{label}</label>}
-                    {renderDropdown({
+  allowedValues,
+  checkboxes,
+  className,
+  disabled,
+  error,
+  errorMessage,
+  fieldType,
+  id,
+  inputRef,
+  label,
+  name,
+  onChange,
+  placeholder,
+  showInlineError,
+  value,
+  ...props
+}) => (
+  <div className={classnames({ disabled, error }, className, 'field')} {...filterDOMProps(props)}>
+    {label && <label htmlFor={id}>{label}</label>}
+    {renderDropdown({
       placeholder,
       onChange,
       value,
     })}
-                    {!!(error && showInlineError) && <div className="ui red basic pointing label">{errorMessage}</div>}
-                  </div>
+    {!!(error && showInlineError) && <div className="ui red basic pointing label">{errorMessage}</div>}
+  </div>
 );
 
 export default connectField(Rating);

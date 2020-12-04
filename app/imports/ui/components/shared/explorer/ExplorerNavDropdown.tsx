@@ -1,23 +1,15 @@
 import React from 'react';
 import { Dropdown } from 'semantic-ui-react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useRouteMatch } from 'react-router-dom';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import * as Router from '../utilities/router';
 import { selectExplorerMenu } from '../shared-widget-names';
 
 interface IExplorerNavDropdownProps {
-  match: {
-    isExact: boolean;
-    path: string;
-    url: string;
-    params?: {
-      username: string;
-    }
-  };
   text: string;
 }
 
-const ExplorerNavDropdown = (props: IExplorerNavDropdownProps) => {
+const ExplorerNavDropdown: React.FC<IExplorerNavDropdownProps> = ({ text }) => {
   const menuItems = [
     { key: 'Academic Plans', route: EXPLORER_TYPE.ACADEMICPLANS },
     { key: 'Career Goals', route: EXPLORER_TYPE.CAREERGOALS },
@@ -25,17 +17,17 @@ const ExplorerNavDropdown = (props: IExplorerNavDropdownProps) => {
     { key: 'Interests', route: EXPLORER_TYPE.INTERESTS },
     { key: 'Opportunities', route: EXPLORER_TYPE.OPPORTUNITIES },
   ];
-
+  const match = useRouteMatch();
   const menuOptions = menuItems.map((item) => ({
     key: item.key,
     text: item.key,
     as: NavLink,
     exact: true,
-    to: Router.buildRouteName(props.match, `/${EXPLORER_TYPE.HOME}/${item.route}`),
+    to: Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${item.route}`),
     style: { textDecoration: 'none' },
   }));
   return (
-    <Dropdown selection fluid options={menuOptions} text={props.text} id={`${selectExplorerMenu}`} />
+    <Dropdown selection fluid options={menuOptions} text={text} id={`${selectExplorerMenu}`} />
   );
 };
 

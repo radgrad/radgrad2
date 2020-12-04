@@ -30,6 +30,7 @@ import { FavoriteCareerGoals } from '../favorite/FavoriteCareerGoalCollection';
  */
 class UserCollection {
   private readonly collectionName: string;
+
   constructor() {
     this.collectionName = 'UserCollection';
   }

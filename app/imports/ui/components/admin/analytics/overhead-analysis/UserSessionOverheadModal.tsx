@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Button, Modal, Table } from 'semantic-ui-react';
 import moment from 'moment';
 import _ from 'lodash';
@@ -12,8 +12,7 @@ interface IUserSessionOverheadModalProps {
 
 const formatDate = (date: Date): string => moment(date).format('MM/DD/YY HH:mm');
 
-const UserSessionOverheadModal = (props: IUserSessionOverheadModalProps) => {
-  const { username, userInteractionsByUser } = props;
+const UserSessionOverheadModal: React.FC<IUserSessionOverheadModalProps> = ({ username, userInteractionsByUser }) => {
   const fullName = Users.getFullName(username);
 
   const fullNameStyle: React.CSSProperties = { color: '#6FBE44' };

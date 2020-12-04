@@ -132,12 +132,12 @@ class StudentProfileCollection extends BaseProfileCollection {
    */
 
   public define({
-                  username, firstName, lastName, picture = defaultProfilePicture, website, interests,
-                  careerGoals, level, favoriteAcademicPlans = [], declaredAcademicTerm, favoriteCourses = [], favoriteOpportunities = [],
-                  isAlumni = false, retired = false, shareUsername = false, sharePicture = false, shareWebsite = false,
-                  shareInterests = false, shareCareerGoals = false, shareAcademicPlan = false, shareCourses = false,
-                  shareOpportunities = false, shareLevel = false,
-                }: IStudentProfileDefine) {
+    username, firstName, lastName, picture = defaultProfilePicture, website, interests,
+    careerGoals, level, favoriteAcademicPlans = [], declaredAcademicTerm, favoriteCourses = [], favoriteOpportunities = [],
+    isAlumni = false, retired = false, shareUsername = false, sharePicture = false, shareWebsite = false,
+    shareInterests = false, shareCareerGoals = false, shareAcademicPlan = false, shareCourses = false,
+    shareOpportunities = false, shareLevel = false,
+  }: IStudentProfileDefine) {
     if (Meteor.isServer) {
       // Validate parameters.
       const declaredAcademicTermID = (declaredAcademicTerm) ? AcademicTerms.getID(declaredAcademicTerm) : undefined;

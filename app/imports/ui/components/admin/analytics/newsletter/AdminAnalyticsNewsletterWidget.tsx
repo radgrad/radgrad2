@@ -80,40 +80,40 @@ const AdminAnalyticsNewsletterWidget = (props: IAdminAnalyticsNewsletterWidgetPr
   const emailDelayMs = 500; // the delay between sending student emails in milliseconds.
 
   /** Auto Forms */
-    // check on this https://stackoverflow.com/questions/38558200/react-setstate-not-updating-immediately
+  // check on this https://stackoverflow.com/questions/38558200/react-setstate-not-updating-immediately
   const handleChange = (name, value) => {
-      switch (name) {
-        case 'inputMessage':
-          setInputMessage(value);
-          break;
-        case 'onSubmitInputMessage':
-          setOnSubmitInputMessage(value);
-          break;
-        case 'bcc':
-          setBcc(value);
-          break;
-        case 'subjectLine':
-          setSubjectLine(value);
-          break;
-        case 'studentEmails':
-          setStudentEmails(value);
-          break;
-        case 'sendToStudentsToo':
-          setSendToStudentsToo(value);
-          break;
-        case 'level':
-          setLevel(parseInt(value, 10));
-          break;
-        case 'sendToLevels':
-          setSendToLevels(value);
-          break;
-        case 'sendToAll':
-          setSendToAll(value);
-          break;
-        default:
+    switch (name) {
+      case 'inputMessage':
+        setInputMessage(value);
+        break;
+      case 'onSubmitInputMessage':
+        setOnSubmitInputMessage(value);
+        break;
+      case 'bcc':
+        setBcc(value);
+        break;
+      case 'subjectLine':
+        setSubjectLine(value);
+        break;
+      case 'studentEmails':
+        setStudentEmails(value);
+        break;
+      case 'sendToStudentsToo':
+        setSendToStudentsToo(value);
+        break;
+      case 'level':
+        setLevel(parseInt(value, 10));
+        break;
+      case 'sendToLevels':
+        setSendToLevels(value);
+        break;
+      case 'sendToAll':
+        setSendToAll(value);
+        break;
+      default:
         // do nothing
-      }
-    };
+    }
+  };
 
   /**
    * Sets the Admin's message.

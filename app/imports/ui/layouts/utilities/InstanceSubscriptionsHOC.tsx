@@ -38,7 +38,7 @@ function withInstanceSubscriptions(WrappedComponent) {
     <React.Fragment>
       <Dimmer active inverted><Loader>Loading user-specific data</Loader></Dimmer>
     </React.Fragment>
-    )
+  )
     :
     <WrappedComponent {...props} />);
 

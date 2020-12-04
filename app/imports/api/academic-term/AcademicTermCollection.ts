@@ -17,12 +17,19 @@ import { Opportunities } from '../opportunity/OpportunityCollection';
  */
 class AcademicTermCollection extends BaseSlugCollection {
   public SPRING: string;
+
   public SUMMER: string;
+
   public FALL: string;
+
   public WINTER: string;
+
   public readonly terms: string[];
+
   private readonly fallStart: number;
+
   private readonly springStart: number;
+
   private readonly summerStart: number;
 
   /**

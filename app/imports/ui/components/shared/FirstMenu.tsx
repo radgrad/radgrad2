@@ -1,27 +1,28 @@
-import { Roles } from 'meteor/alanning:roles';
-import { Meteor } from 'meteor/meteor';
-import { withTracker } from 'meteor/react-meteor-data';
 import React from 'react';
 import { NavLink, useRouteMatch } from 'react-router-dom';
 import { Dropdown, Header, Image, Menu, Container } from 'semantic-ui-react';
+import { Meteor } from 'meteor/meteor';
+import { Roles } from 'meteor/alanning:roles';
 import RadGradLogoText from './RadGradLogoText';
-import RadGradMenuProfile from './RadGradMenuProfile';
-import { getUsername, isUrlRoleStudent } from './utilities/router';
+import RadGradMenuProfile, { IRadGradMenuProfileProps } from './RadGradMenuProfile';
+import { isUrlRoleStudent } from './utilities/router';
 import { firstMenu } from './shared-widget-names';
 
-interface IFirstMenuProps {
-  currentUser: string;
-  iconName: string;
-}
-
-const FirstMenu = (props: IFirstMenuProps) => {
+/**
+ * First menu for all pages.
+ * @param currentUser the logged in username.
+ * @param iconName the icon name for the type of user.
+ * @constructor
+ */
+const FirstMenu: React.FunctionComponent<IRadGradMenuProfileProps> = ({ profile, displayLevelAndIce, earnedICE, projectedICE }) => {
   const match = useRouteMatch();
-  const username = getUsername(match);
   const imageStyle = { width: '50px' };
   const flexStyle = { display: 'flex' };
   const noPadding = { paddingTop: 0, paddingBottom: 0 };
   const signoutStyle = { marginTop: '32px' };
   const isStudent = isUrlRoleStudent(match);
+  const currentUser = Meteor.user() ? Meteor.user().username : '';
+  const iconName = (Roles.userIsInRole(Meteor.userId(), ['ADMIN'])) ? 'user plus' : 'user';
   return (
     <Container>
       <Menu attached="top" borderless className="radgrad-first-menu" id={`${firstMenu}`}>
@@ -34,7 +35,7 @@ const FirstMenu = (props: IFirstMenuProps) => {
           </div>
         </Menu.Item>
         <Menu.Item position="right" className="right menu" style={noPadding}>
-          {props.currentUser === '' ? (
+          {currentUser === '' ? (
             <div>
               <Dropdown text="Login" pointing="top right" icon="user">
                 <Dropdown.Menu>
@@ -44,17 +45,22 @@ const FirstMenu = (props: IFirstMenuProps) => {
             </div>
           ) : (
             <div style={flexStyle}>
-              <RadGradMenuProfile userName={username} />
+              <RadGradMenuProfile
+                profile={profile}
+                displayLevelAndIce={displayLevelAndIce}
+                projectedICE={projectedICE}
+                earnedICE={earnedICE}
+              />
               {/*
                   TODO Temporary until we have a re-design of the "SecondMenu"s of non-student roles
                         See FIGMA mockup; remove this Dropdown once the above is accomplished
                */}
               {(!isStudent) ? (
                 <Dropdown
-                  text={props.currentUser}
+                  text={currentUser}
                   id="first-menu-username"
                   pointing="top right"
-                  icon={props.iconName}
+                  icon={iconName}
                   style={signoutStyle}
                 >
                   <Dropdown.Menu>
@@ -71,10 +77,4 @@ const FirstMenu = (props: IFirstMenuProps) => {
   );
 };
 
-/** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
-const FirstMenuContainer = withTracker(() => ({
-  currentUser: Meteor.user() ? Meteor.user().username : '',
-  iconName: (Roles.userIsInRole(Meteor.userId(), ['ADMIN'])) ? 'user plus' : 'user',
-}))(FirstMenu);
-
-export default FirstMenuContainer;
+export default FirstMenu;

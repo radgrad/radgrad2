@@ -16,9 +16,10 @@ import LandingOpportunitiesCardExplorerContainer from '../../pages/landing/Landi
 import LandingOpportunityExplorerContainer from '../../pages/landing/LandingOpportunityExplorerPage';
 import LandingAcademicPlansCardExplorerContainer from '../../pages/landing/LandingAcademicPlansCardExplorerPage';
 import LandingAcademicPlanExplorerContainer from '../../pages/landing/LandingAcademicPlanExplorerPage';
+import AcademicPlanBrowserViewPage from '../../pages/shared/browser-view/AcademicPlanBrowserViewPage';
+import CareerGoalBrowserViewPage from '../../pages/shared/browser-view/CareerGoalBrowserViewPage';
+import InterestBrowserViewPage from '../../pages/shared/browser-view/InterestBrowserViewPage';
 import ExplorerHomePageContainer from '../../pages/shared/ExplorerHomePage';
-import CardExplorerPageContainer from '../../pages/shared/ExplorerMultipleItemsPage';
-import IndividualExplorerPageContainer from '../../pages/shared/ExplorerSingleItemPage';
 import AdminHomePageContainer from '../../pages/admin/AdminHomePage';
 import AdminDataModelPageContainer from '../../pages/admin/AdminDataModelPage';
 import AdminDatabasePageContainer from '../../pages/admin/AdminDatabasePage';
@@ -88,6 +89,12 @@ import { PageInterestsCategoryTypes } from '../../../api/page-tracking/PageInter
 import ExplorerOpportunitiesPage from '../../pages/shared/ExplorerOpportunitiesPage';
 import CommunityRadGradVideosPage from '../../pages/shared/CommunityRadGradVideosPage';
 import CommunityUsersPage from '../../pages/shared/CommunityUsersPage';
+import CourseBrowserViewPage from '../../pages/shared/browser-view/CourseBrowserViewPage';
+import AcademicPlanViewPageContainer from '../../pages/shared/item-view/AcademicPlanViewPage';
+import CareerGoalViewPageContainer from '../../pages/shared/item-view/CareerGoalViewPage';
+import CourseViewPageContainer from '../../pages/shared/item-view/CourseViewPage';
+import InterestViewPageContainer from '../../pages/shared/item-view/InterestViewPage';
+import OpportunityViewPageContainer from '../../pages/shared/item-view/OpportunityViewPage';
 
 export const routes = {
   ADMIN: [
@@ -366,42 +373,42 @@ export const routes = {
     {
       path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}`,
       exact: true,
-      component: CardExplorerPageContainer,
+      component: AcademicPlanBrowserViewPage,
     },
     {
       path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}/${EXPLORER_PARAM.ACADEMICPLAN}`,
       exact: true,
-      component: IndividualExplorerPageContainer,
+      component: AcademicPlanViewPageContainer,
     },
     {
       path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}`,
       exact: true,
-      component: CardExplorerPageContainer,
+      component: CareerGoalBrowserViewPage,
     },
     {
       path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}/${EXPLORER_PARAM.CAREERGOAL}`,
       exact: true,
-      component: IndividualExplorerPageContainer,
+      component: CareerGoalViewPageContainer,
     },
     {
       path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}`,
       exact: true,
-      component: CardExplorerPageContainer,
+      component: CourseBrowserViewPage,
     },
     {
       path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${EXPLORER_PARAM.COURSE}`,
       exact: true,
-      component: IndividualExplorerPageContainer,
+      component: CourseViewPageContainer,
     },
     {
       path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}`,
       exact: true,
-      component: CardExplorerPageContainer,
+      component: InterestBrowserViewPage,
     },
     {
       path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}/${EXPLORER_PARAM.INTEREST}`,
       exact: true,
-      component: IndividualExplorerPageContainer,
+      component: InterestViewPageContainer,
     },
     {
       path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}`,
@@ -411,7 +418,7 @@ export const routes = {
     {
       path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${EXPLORER_PARAM.OPPORTUNITY}`,
       exact: true,
-      component: IndividualExplorerPageContainer,
+      component: OpportunityViewPageContainer,
     },
     /* ############################## Page Tracking SCOREBOARD ############################## */
     {
@@ -497,42 +504,42 @@ export const routes = {
     {
       path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}`,
       exact: true,
-      component: CardExplorerPageContainer,
+      component: AcademicPlanBrowserViewPage,
     },
     {
       path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}/${EXPLORER_PARAM.ACADEMICPLAN}`,
       exact: true,
-      component: IndividualExplorerPageContainer,
+      component: AcademicPlanViewPageContainer,
     },
     {
       path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}`,
       exact: true,
-      component: CardExplorerPageContainer,
+      component: CareerGoalBrowserViewPage,
     },
     {
       path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}/${EXPLORER_PARAM.CAREERGOAL}`,
       exact: true,
-      component: IndividualExplorerPageContainer,
+      component: CareerGoalViewPageContainer,
     },
     {
       path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}`,
       exact: true,
-      component: CardExplorerPageContainer,
+      component: CourseBrowserViewPage,
     },
     {
       path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${EXPLORER_PARAM.COURSE}`,
       exact: true,
-      component: IndividualExplorerPageContainer,
+      component: CourseViewPageContainer,
     },
     {
       path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}`,
       exact: true,
-      component: CardExplorerPageContainer,
+      component: InterestBrowserViewPage,
     },
     {
       path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}/${EXPLORER_PARAM.INTEREST}`,
       exact: true,
-      component: IndividualExplorerPageContainer,
+      component: InterestViewPageContainer,
     },
     {
       path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}`,
@@ -542,7 +549,7 @@ export const routes = {
     {
       path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${EXPLORER_PARAM.OPPORTUNITY}`,
       exact: true,
-      component: IndividualExplorerPageContainer,
+      component: OpportunityViewPageContainer,
     },
     {
       path: `/${URL_ROLES.FACULTY}/${USERNAME}/${COMMUNITY.HOME}/${COMMUNITY.USERS}`,
@@ -770,45 +777,45 @@ export const routes = {
     {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}`,
       exact: true,
-      component: CardExplorerPageContainer,
+      component: AcademicPlanBrowserViewPage,
     },
     {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}/${EXPLORER_PARAM.ACADEMICPLAN}`,
       exact: true,
-      component: IndividualExplorerPageContainer,
+      component: AcademicPlanViewPageContainer,
     },
     /* ############################## Explorers CAREER GOALS ############################## */
     {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}`,
       exact: true,
-      component: CardExplorerPageContainer,
+      component: CareerGoalBrowserViewPage,
     },
     {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}/${EXPLORER_PARAM.CAREERGOAL}`,
       exact: true,
-      component: IndividualExplorerPageContainer,
+      component: CareerGoalViewPageContainer,
     },
     /* ############################## Explorers COURSES ############################## */
     {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}`,
       exact: true,
-      component: CardExplorerPageContainer,
+      component: CourseBrowserViewPage,
     },
     {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${EXPLORER_PARAM.COURSE}`,
       exact: true,
-      component: IndividualExplorerPageContainer,
+      component: CourseViewPageContainer,
     },
     /* ############################## Explorers INTERESTS ############################## */
     {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}`,
       exact: true,
-      component: CardExplorerPageContainer,
+      component: InterestBrowserViewPage,
     },
     {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}/${EXPLORER_PARAM.INTEREST}`,
       exact: true,
-      component: IndividualExplorerPageContainer,
+      component: InterestViewPageContainer,
     },
     /* ############################## Explorers OPPORTUNITIES ############################## */
     {
@@ -819,7 +826,7 @@ export const routes = {
     {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${EXPLORER_PARAM.OPPORTUNITY}`,
       exact: true,
-      component: IndividualExplorerPageContainer,
+      component: OpportunityViewPageContainer,
     },
     /* ############################## Community ############################## */
     {

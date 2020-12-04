@@ -28,24 +28,24 @@ const AddOpportunityForm = (props: IAddOpportunityFormProps) => {
   const termNames = _.map(props.terms, academicTermToName);
   const opportunityTypeNames = _.map(props.opportunityTypes, docToName);
   const interestNames = _.map(props.interests, docToName);
-    const handleUploadPicture = async (e): Promise<void> => {
-        e.preventDefault();
-        try {
-            const cloudinaryResult = await openCloudinaryWidget();
-            if (cloudinaryResult.event === 'success') {
-                setPictureURL(cloudinaryResult.info.url);
-            }
-        } catch (error) {
-            Swal.fire({
-                title: 'Failed to Upload Photo',
-                icon: 'error',
-                text: error.statusText,
-                allowOutsideClick: false,
-                allowEscapeKey: false,
-                allowEnterKey: false,
-            });
-        }
-    };
+  const handleUploadPicture = async (e): Promise<void> => {
+    e.preventDefault();
+    try {
+      const cloudinaryResult = await openCloudinaryWidget();
+      if (cloudinaryResult.event === 'success') {
+        setPictureURL(cloudinaryResult.info.url);
+      }
+    } catch (error) {
+      Swal.fire({
+        title: 'Failed to Upload Photo',
+        icon: 'error',
+        text: error.statusText,
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false,
+      });
+    }
+  };
 
   const handlePictureUrlChange = (value) => {
     setPictureURL(value);
@@ -57,7 +57,7 @@ const AddOpportunityForm = (props: IAddOpportunityFormProps) => {
     model.picture = pictureURL;
     props.handleAdd(model);
     setPictureURL('');
- };
+  };
 
   // console.log(opportunityTypeNames);
   const schema = new SimpleSchema({

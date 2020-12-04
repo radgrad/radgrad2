@@ -3,10 +3,10 @@ import { Grid, Container } from 'semantic-ui-react';
 import styles from './utilities/landing-styles';
 
 interface ILandingSection2Props {
-    careerGoals: string;
-    interests: string;
-    opportunities: string;
-    users: string;
+  careerGoals: string;
+  interests: string;
+  opportunities: string;
+  users: string;
 }
 
 const whiteBG: React.CSSProperties = { backgroundColor: '#ffffff', width: '100%' };

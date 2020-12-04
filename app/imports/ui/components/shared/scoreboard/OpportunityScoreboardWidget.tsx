@@ -1,28 +1,23 @@
 import React from 'react';
 import _ from 'lodash';
 import { Button, Grid, Header, Icon, Label, Popup, Segment, Table } from 'semantic-ui-react';
-import { withTracker } from 'meteor/react-meteor-data';
 import moment from 'moment';
 import { ZipZap } from 'meteor/udondan:zipzap';
-import { RadGradProperties } from '../../../../api/radgrad/RadGradProperties';
 import { IAcademicTerm, IOpportunity } from '../../../../typings/radgrad';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
-import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
-import { OpportunityScoreboard } from '../../../../startup/client/collections';
 import { opportunityScoreboardWidget } from '../shared-widget-names';
 
 interface IOpportunityScoreboardWidgetProps {
   opportunities: IOpportunity[];
   terms: IAcademicTerm[];
-  // eslint-disable-next-line react/no-unused-prop-types
   scores: any[];
 }
 
 const databaseFileDateFormat = 'YYYY-MM-DD-HH-mm-ss';
 
-const getOpportunityScore = (opportunityID, termID, props: IOpportunityScoreboardWidgetProps) => {
+const getOpportunityScore = (opportunityID, termID, scores) => {
   const id = `${opportunityID} ${termID}`;
-  const scoreItem = _.find(props.scores, (p) => p._id === id);
+  const scoreItem = _.find(scores, (p) => p._id === id);
   // console.log(scoreItem, courseID, termID);
   if (scoreItem) {
     return scoreItem.count;
@@ -30,18 +25,18 @@ const getOpportunityScore = (opportunityID, termID, props: IOpportunityScoreboar
   return 0;
 };
 
-const saveAsCSV = (props: IOpportunityScoreboardWidgetProps) => () => {
+const saveAsCSV = (terms: IAcademicTerm[], opportunities: IOpportunity[], scores) => () => {
   let result = '';
   const headerArr = ['Opportunity'];
-  _.forEach(props.terms, (term) => headerArr.push(AcademicTerms.getShortName(term._id)));
+  _.forEach(terms, (term) => headerArr.push(AcademicTerms.getShortName(term._id)));
   result += headerArr.join(',');
   result += '\r\n';
-  _.forEach(props.opportunities, (o) => {
+  _.forEach(opportunities, (o) => {
+    const opportunityID = o._id;
     result += `${o.name},`;
-    _.forEach(props.terms, (t) => {
-      const id = `${o._id} ${t._id}`;
-      const scoreItem: any = OpportunityScoreboard.findOne({ _id: id });
-      result += scoreItem ? `${scoreItem.count},` : '0,';
+    _.forEach(terms, (t) => {
+      const termID = t._id;
+      result += `${getOpportunityScore(opportunityID, termID, scores)},`;
     });
     result += '\r\n';
   });
@@ -52,7 +47,7 @@ const saveAsCSV = (props: IOpportunityScoreboardWidgetProps) => () => {
   zip.saveAs(`${dir}.zip`);
 };
 
-const OpportunityScoreboardWidget = (props: IOpportunityScoreboardWidgetProps) => {
+const OpportunityScoreboardWidget: React.FC<IOpportunityScoreboardWidgetProps> = ({ opportunities, terms, scores }) => {
   const scrollBody: React.CSSProperties = {
     display: 'inline-block',
     height: 500,
@@ -68,25 +63,25 @@ const OpportunityScoreboardWidget = (props: IOpportunityScoreboardWidgetProps) =
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell width={1}>Opportunity</Table.HeaderCell>
-                {_.map(props.terms, (term) => (
+                {_.map(terms, (term) => (
                   <Table.HeaderCell
                     width={1}
                     key={term._id}
                   >
                     {AcademicTerms.getShortName(term._id)}
                   </Table.HeaderCell>
-))}
+                ))}
               </Table.Row>
             </Table.Header>
           </Table>
           <div style={scrollBody}>
             <Table celled fixed>
               <Table.Body>
-                {_.map(props.opportunities, (c, index) => (
+                {_.map(opportunities, (c, index) => (
                   <Table.Row key={index}>
                     <Table.Cell width={1}><Popup content={c.name} trigger={<Label>{c.name}</Label>} /></Table.Cell>
-                    {_.map(props.terms, (t) => {
-                      const score = getOpportunityScore(c._id, t._id, props);
+                    {_.map(terms, (t) => {
+                      const score = getOpportunityScore(c._id, t._id, scores);
                       return (
                         <Table.Cell width={1} key={`${c._id}${t._id}`} negative={score > 0} collapsing>
                           {score > 10 ? <Icon name="attention" /> : ''}
@@ -102,28 +97,11 @@ const OpportunityScoreboardWidget = (props: IOpportunityScoreboardWidgetProps) =
         </Grid.Row>
         <Grid.Row>
           <Grid.Column width={1} />
-          <Button basic color="green" onClick={saveAsCSV(props)}>Save as CSV</Button>
+          <Button basic color="green" onClick={saveAsCSV(terms, opportunities, scores)}>Save as CSV</Button>
         </Grid.Row>
       </Grid>
     </Segment>
   );
 };
 
-const OpportunityScoreboardWidgetContainer = withTracker(() => {
-  const opportunities = Opportunities.findNonRetired({}, { sort: { name: 1 } });
-  const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
-  const isQuarterSystem = RadGradProperties.getQuarterSystem();
-  const limit = isQuarterSystem ? 12 : 9;
-  const terms = AcademicTerms.findNonRetired({ termNumber: { $gte: currentTerm.termNumber } }, {
-    sort: { termNumber: 1 },
-    limit: limit,
-  });
-  const scores = OpportunityScoreboard.find().fetch();
-  return {
-    opportunities,
-    terms,
-    scores,
-  };
-})(OpportunityScoreboardWidget);
-
-export default OpportunityScoreboardWidgetContainer;
+export default OpportunityScoreboardWidget;

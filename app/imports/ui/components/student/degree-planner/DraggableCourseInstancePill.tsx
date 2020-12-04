@@ -52,7 +52,7 @@ const DraggableCourseInstancePill = (props: ICourseInstancePillProps) => (
                         name={getName(props.instance)}
                         courseNumber={props.instance.note}
                       />
-                      )}
+                    )}
                   </Grid.Column>
                 </Grid.Row>
               </Grid>

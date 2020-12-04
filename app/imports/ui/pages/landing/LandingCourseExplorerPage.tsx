@@ -1,12 +1,12 @@
-import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import Markdown from 'react-markdown';
 import { useRouteMatch } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Grid, Header, Segment } from 'semantic-ui-react';
 import { Courses } from '../../../api/course/CourseCollection';
+import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import ExplorerMenuBarContainer from '../../components/landing/explorer/LandingExplorerMenuBar';
-import { ICourse } from '../../../typings/radgrad';
+import { ICourse, IHelpMessage } from '../../../typings/radgrad';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/explorer/LandingExplorerMenu';
 import { Interests } from '../../../api/interest/InterestCollection';
@@ -18,19 +18,25 @@ import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 
 interface ICourseExplorerProps {
-  currentUser: string;
   course: ICourse;
+  helpMessages: IHelpMessage[];
 }
 
-const LandingCourseExplorerPage = (props: ICourseExplorerProps) => {
+/**
+ * The landing course explorer page.
+ * @param {React.PropsWithChildren<ICourseExplorerProps>} props
+ * @return {JSX.Element}
+ * @constructor
+ */
+const LandingCourseExplorerPage: React.FC<ICourseExplorerProps> = (props) => {
   const match = useRouteMatch();
   return (
     <div id="landing-course-explorer-page">
-      <ExplorerMenuBarContainer currentUser={props.currentUser} />
+      <ExplorerMenuBarContainer />
       <Grid stackable>
         <Grid.Row>
           <Grid.Column width={1} />
-          <Grid.Column width={14}><HelpPanelWidget /></Grid.Column>
+          <Grid.Column width={14}><HelpPanelWidget helpMessages={props.helpMessages} /></Grid.Column>
           <Grid.Column width={1} />
         </Grid.Row>
 
@@ -92,15 +98,17 @@ const WithSubs = withListSubscriptions(LandingCourseExplorerPage, [
   Courses.getPublicationName(),
   Slugs.getPublicationName(),
   Interests.getPublicationName(),
+  HelpMessages.getPublicationName(),
 ]);
 
 const LandingCourseExplorerContainer = withTracker((props) => {
   const slugName = props.match.params.course;
   // console.log(Slugs.find().fetch());
   const id = Slugs.getEntityID(slugName, 'Course');
+  const helpMessages = HelpMessages.findNonRetired({});
   return {
     course: Courses.findDoc(id),
-    currentUser: Meteor.user() ? Meteor.user().username : '',
+    helpMessages,
   };
 })(WithSubs);
 

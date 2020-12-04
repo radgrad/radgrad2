@@ -100,17 +100,17 @@ const StudentAboutMeWidget = (props: IStudentAboutMeWidgetProps) => {
           </Grid.Row>
           <Grid.Row>
             <Grid.Column width={11}>            {careerGoals.length !== 0 ?
-    careerGoals.map((careerGoal) => {
-      const slugName = itemToSlugName(careerGoal);
-      const route = Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}/${slugName}`);
-      return (
-        <Label style={labelStyle} key={careerGoal._id} as={Link} to={route} size="tiny">
-          <Icon name="suitcase" fitted /> {careerGoal.name}
-        </Label>
-      );
-    })
-    :
-    <p style={marginBottomStyle}>No career goals favorited yet.</p>}</Grid.Column>
+              careerGoals.map((careerGoal) => {
+                const slugName = itemToSlugName(careerGoal);
+                const route = Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}/${slugName}`);
+                return (
+                  <Label style={labelStyle} key={careerGoal._id} as={Link} to={route} size="tiny">
+                    <Icon name="suitcase" fitted /> {careerGoal.name}
+                  </Label>
+                );
+              })
+              :
+              <p style={marginBottomStyle}>No career goals favorited yet.</p>}</Grid.Column>
             <Grid.Column textAlign="right" width={5}>
               <Link to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}`)}>
                 <Button basic color="green" content="VIEW MORE" />

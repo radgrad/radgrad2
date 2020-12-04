@@ -1,8 +1,11 @@
+import _ from 'lodash';
 import React from 'react';
 import { Button, Card, Icon } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { Link, useRouteMatch } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import { RadGradProperties } from '../../../../api/radgrad/RadGradProperties';
+import { CourseScoreboard } from '../../../../startup/client/collections';
 import {
   IAcademicTerm,
   ICourseInstance,
@@ -63,7 +66,7 @@ const handleRemove = (props: IDetailCourseCardProps, match) => (event, { value }
   props.selectCourseInstance('');
 };
 
-const DetailCourseCard = (props: IDetailCourseCardProps) => {
+const DetailCourseCard: React.FC<IDetailCourseCardProps> = (props) => {
   const match = useRouteMatch();
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
   const courseTerm = AcademicTerms.findDoc(props.instance.termID);
@@ -73,6 +76,24 @@ const DetailCourseCard = (props: IDetailCourseCardProps) => {
   const textAlignRight: React.CSSProperties = {
     textAlign: 'right',
   };
+
+  const quarter = RadGradProperties.getQuarterSystem();
+  const numTerms = quarter ? 12 : 9;
+  const academicTerms = AcademicTerms.findNonRetired({ termNumber: { $gte: currentTerm.termNumber } }, {
+    sort: { termNumber: 1 },
+    limit: numTerms,
+  });
+  const scores = [];
+  _.forEach(academicTerms, (term: IAcademicTerm) => {
+    const id = `${course._id} ${term._id}`;
+    const score = CourseScoreboard.find({ _id: id }).fetch() as { count: number }[];
+    if (score.length > 0) {
+      scores.push(score[0].count);
+    } else {
+      scores.push(0);
+    }
+  });
+
   return (
     <Card.Group itemsPerRow={1}>
       <Card>
@@ -91,7 +112,7 @@ const DetailCourseCard = (props: IDetailCourseCardProps) => {
                 <p>
                   <b>Scheduled:</b> {termName}
                 </p>
-                <FutureParticipation item={course} type="courses" />
+                <FutureParticipation academicTerms={academicTerms} scores={scores} />
                 <Button
                   floated="right"
                   basic

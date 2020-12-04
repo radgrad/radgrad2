@@ -14,7 +14,7 @@ interface IMenuItem {
 interface ISecondMenuProps {
   menuItems: IMenuItem[];
   numItems: SemanticWIDTHS;
- }
+}
 
 const SecondMenu = (props: ISecondMenuProps) => {
   const match = useRouteMatch();

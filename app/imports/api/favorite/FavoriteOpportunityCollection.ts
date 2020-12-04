@@ -11,7 +11,7 @@ import { IFavoriteOpportunityDefine, IFavoriteUpdate } from '../../typings/radgr
 class FavoriteOpportunityCollection extends BaseCollection {
   public readonly publicationNames: {
     scoreboard: string;
-  }
+  };
 
   /** Creates the FavoriteOpportunity collection */
   constructor() {

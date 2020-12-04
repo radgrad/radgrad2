@@ -100,7 +100,7 @@ const StudentExplorerReviewWidget = (props: IStudentExplorerReviewWidgetProps) =
               <StudentExplorerEditReviewForm review={userReview} event={event} />
 
             </List.Item>
-            )
+          )
             : (
               <List.Item>
                 <Grid>
@@ -171,7 +171,7 @@ const StudentExplorerReviewWidget = (props: IStudentExplorerReviewWidgetProps) =
                   })
                 }
             </React.Fragment>
-            )
+          )
             :
             <i>No reviews to display</i>
         }

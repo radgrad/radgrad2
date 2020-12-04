@@ -2,11 +2,9 @@ import React from 'react';
 import { Grid, Container } from 'semantic-ui-react';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
-import withGlobalSubscription from '../../layouts/utilities/GlobalSubscriptionsHOC';
-import withInstanceSubscriptions from '../../layouts/utilities/InstanceSubscriptionsHOC';
 import StudentAboutMeWidget from '../../components/student/about-me/StudentAboutMeWidget';
 
-const StudentAboutMePage = () => (
+const StudentAboutMePage: React.FunctionComponent = () => (
   <div id="student-about-me-page">
     <StudentPageMenuWidget />
     <Container>
@@ -23,8 +21,5 @@ const StudentAboutMePage = () => (
     <BackToTopButton />
   </div>
 );
-// TODO we don't need to subscribe here it is done in StudentProtectedRoute
-const StudentAboutMePageCon = withGlobalSubscription(StudentAboutMePage);
-const StudentAboutMePageContainer = withInstanceSubscriptions(StudentAboutMePageCon);
 
-export default StudentAboutMePageContainer;
+export default StudentAboutMePage;

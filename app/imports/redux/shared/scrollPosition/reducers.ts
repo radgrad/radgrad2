@@ -10,7 +10,7 @@ type IExplorerState = {
   courses: number;
   interests: number;
   opportunities: number;
-}
+};
 
 // Currently the scrollPosition supported and numbers assigned represent the Y-coordinates (scrollTop)
 const initialState: IState = {

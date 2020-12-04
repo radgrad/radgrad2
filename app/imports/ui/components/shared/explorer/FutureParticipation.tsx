@@ -1,19 +1,12 @@
 import React from 'react';
 import { Grid } from 'semantic-ui-react';
-import { withTracker } from 'meteor/react-meteor-data';
 import _ from 'lodash';
-import { RadGradProperties } from '../../../../api/radgrad/RadGradProperties';
 import { IAcademicTerm } from '../../../../typings/radgrad';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
-import { CourseScoreboard, OpportunityScoreboard } from '../../../../startup/client/collections';
 
 interface IFutureParticipationProps {
   academicTerms: IAcademicTerm[];
-  // eslint-disable-next-line react/no-unused-prop-types
-  type: string;
-  // eslint-disable-next-line react/no-unused-prop-types
-  item: any;
-  scores: number;
+  scores: number[];
 }
 
 const termName = (termID) => (AcademicTerms.getShortName(termID));
@@ -28,51 +21,19 @@ const columnColor = (count) => {
   return undefined;
 };
 
-const FutureParticipation = (props: IFutureParticipationProps) => (
+const FutureParticipation: React.FC<IFutureParticipationProps> = ({ academicTerms, scores }) => (
   <Grid columns="equal" padded={false}>
-    {_.map(props.academicTerms, (term, index) => (
+    {_.map(academicTerms, (term, index) => (
       <Grid.Column
         key={term._id}
-        color={columnColor(props.scores[index])}
+        color={columnColor(scores[index])}
       >
         <b>{termName(term._id)}</b>
         <br />
-        {props.scores[index]}
+        {scores[index]}
       </Grid.Column>
-))}
+    ))}
   </Grid>
 );
 
-export default withTracker((props) => {
-  const quarter = RadGradProperties.getQuarterSystem();
-  const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
-  // console.log(currentTerm);
-  const numTerms = quarter ? 12 : 9;
-  const academicTerms = AcademicTerms.findNonRetired({ termNumber: { $gte: currentTerm.termNumber } }, {
-    sort: { termNumber: 1 },
-    limit: numTerms,
-  });
-  const scores = [];
-  _.forEach(academicTerms, (term: any) => {
-    const id = `${props.item._id} ${term._id}`;
-    if (props.type === 'courses') {
-      const score: any[] = CourseScoreboard.find({ _id: id }).fetch();
-      if (score.length > 0) {
-        scores.push(score[0].count);
-      } else {
-        scores.push(0);
-      }
-    } else {
-      const score: any[] = OpportunityScoreboard.find({ _id: id }).fetch();
-      if (score.length > 0) {
-        scores.push(score[0].count);
-      } else {
-        scores.push(0);
-      }
-    }
-  });
-  return {
-    academicTerms,
-    scores,
-  };
-})(FutureParticipation);
+export default FutureParticipation;

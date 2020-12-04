@@ -52,7 +52,7 @@ if (Meteor.isClient) {
       await removeItMethod.callPromise({ collectionName, instance });
     });
 
-  it('Define, update, remove Methods', async function () {
+    it('Define, update, remove Methods', async function () {
       await withLoggedInUser();
       await withRadGradSubscriptions();
       const id = await defineMethod.callPromise({ collectionName, definitionData });

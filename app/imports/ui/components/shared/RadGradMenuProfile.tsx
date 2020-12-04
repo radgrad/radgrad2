@@ -1,25 +1,18 @@
 import React from 'react';
 import { Image } from 'semantic-ui-react';
-import { withTracker } from 'meteor/react-meteor-data';
 import RadGradMenuLevel from './RadGradMenuLevel';
-import { Users } from '../../../api/user/UserCollection';
-import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
-import { ROLE } from '../../../api/role/Role';
 import MenuIceCircle from './MenuIceCircle';
-import { Ice, IStudentProfile } from '../../../typings/radgrad';
+import { IBaseProfile, Ice } from '../../../typings/radgrad';
 import { radgradMenuProfile } from './shared-widget-names';
 
-interface IRadGradMenuProfileProps {
-  // eslint-disable-next-line react/no-unused-prop-types
-  userName: string;
-  profile: IStudentProfile;
+export interface IRadGradMenuProfileProps {
+  profile: IBaseProfile;
   displayLevelAndIce: boolean;
-  earnedICE: Ice;
-  projectedICE: Ice;
+  earnedICE?: Ice;
+  projectedICE?: Ice;
 }
 
-const RadGradMenuProfile = (props: IRadGradMenuProfileProps) => {
-  const { profile, displayLevelAndIce, earnedICE, projectedICE } = props;
+const RadGradMenuProfile: React.FC<IRadGradMenuProfileProps> = ({ profile, displayLevelAndIce, earnedICE, projectedICE }) => {
 
   const level = profile.level;
   const divStyle = { borderLeft: '1px solid rgba(34,36,38,.07)', paddingTop: '5px' };
@@ -44,22 +37,4 @@ const RadGradMenuProfile = (props: IRadGradMenuProfileProps) => {
   );
 };
 
-const RadGradMenuProfileContainer = withTracker((props) => {
-  const profile = Users.getProfile(props.userName);
-  const displayLevelAndIce = profile.role === ROLE.STUDENT;
-  // console.log('profile %o userIsInRole %o', profile, displayLevelAndIce);
-  let earnedICE;
-  let projectedICE;
-  if (displayLevelAndIce) {
-    earnedICE = StudentProfiles.getEarnedICE(props.userName);
-    projectedICE = StudentProfiles.getProjectedICE(props.userName);
-  }
-
-  return {
-    profile,
-    displayLevelAndIce,
-    earnedICE,
-    projectedICE,
-  };
-})(RadGradMenuProfile);
-export default RadGradMenuProfileContainer;
+export default RadGradMenuProfile;

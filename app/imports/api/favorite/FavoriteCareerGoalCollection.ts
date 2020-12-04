@@ -68,7 +68,7 @@ class FavoriteCareerGoalCollection extends BaseCollection {
   removeIt(docID) {
     this.assertDefined(docID);
     // OK, clear to delete.
-   return super.removeIt(docID);
+    return super.removeIt(docID);
   }
 
   /**
@@ -186,7 +186,7 @@ class FavoriteCareerGoalCollection extends BaseCollection {
           problems.push(`Bad userID: ${doc.userID}`);
         }
       });
-     return problems;
+    return problems;
   }
 
   /**

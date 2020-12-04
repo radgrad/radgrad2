@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { NavLink, Link, useRouteMatch } from 'react-router-dom';
 import { Button, Menu } from 'semantic-ui-react';
 
@@ -42,8 +42,7 @@ const getButtonText = (type: PageTrackingMenuTypes) => {
   return 'Go to Scoreboard Page';
 };
 
-const PageTrackingMenu = (props: IPageTrackingScoreboardMenuProps) => {
-  const { type } = props;
+const PageTrackingMenu: React.FC<IPageTrackingScoreboardMenuProps> = ({ type }) => {
   const match = useRouteMatch();
   const buttonText = getButtonText(type);
   const buttonRoute = getButtonRoute(match, type, PageInterestsCategoryTypes.CAREERGOAL);

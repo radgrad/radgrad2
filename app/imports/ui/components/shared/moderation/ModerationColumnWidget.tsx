@@ -29,7 +29,7 @@ const ModerationColumnWidget = (props: IModerationColumn) => (
                 handleReject={props.handleReject}
               />
             </Item>
-))}
+          ))}
         </Item.Group>
       )
         : (
@@ -46,7 +46,7 @@ const ModerationColumnWidget = (props: IModerationColumn) => (
                       handleReject={props.handleReject}
                     />
                   </Item>
-))}
+                ))}
               </Item.Group>
             )
               : (
@@ -55,10 +55,10 @@ const ModerationColumnWidget = (props: IModerationColumn) => (
                     No pending {props.type.toLowerCase()} reviews
                   </i>
                 </Container>
-            )
+              )
 }
           </React.Fragment>
-      )}
+        )}
 
     </Segment>
   </div>

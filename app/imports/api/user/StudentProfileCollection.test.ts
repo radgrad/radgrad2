@@ -34,7 +34,7 @@ if (Meteor.isServer) {
       fc.assert(
         fc.property(fc.lorem(1), fc.lorem(1), fc.lorem(1), fc.lorem(1), fc.boolean(),
           (firstName, lastName, picture, website, retired) => {
-          const username = `${faker.internet.userName()}${moment().format('YYYY-MM-DD-HH-mm-ss-SSSSS')}`;
+            const username = `${faker.internet.userName()}${moment().format('YYYY-MM-DD-HH-mm-ss-SSSSS')}`;
             const interests = makeSampleInterestArray();
             const careerGoals = makeSampleCareerGoalSlugArray();
             const level = faker.random.number({ min: 1, max: 6 });
@@ -90,39 +90,39 @@ if (Meteor.isServer) {
           fc.boolean(), fc.boolean(), fc.boolean(), fc.boolean(), fc.boolean(), fc.boolean(), fc.boolean(),
           fc.boolean(), fc.boolean(), fc.boolean(),
           (firstName, lastName, picture, isAlumni, retired, shareUsername, sharePicture, shareWebsite, shareInterests, shareCareerGoals, shareAcademicPlan, shareCourses, shareOpportunities, shareLevel) => {
-          const website = faker.internet.url();
-          const interests = makeSampleInterestArray(3);
-          const careerGoals = makeSampleCareerGoalSlugArray(4);
-          StudentProfiles.update(docID, {
-            firstName,
-            lastName,
-            picture,
-            website,
-            interests,
-            careerGoals,
-            isAlumni, retired, shareUsername,
-            sharePicture, shareWebsite, shareInterests, shareCareerGoals, shareAcademicPlan, shareCourses,
-            shareOpportunities, shareLevel,
-          });
-          doc = StudentProfiles.findDoc(docID);
-          expect(doc.firstName).to.equal(firstName);
-          expect(doc.lastName).to.equal(lastName);
-          expect(doc.picture).to.equal(picture);
-          expect(doc.website).to.equal(website);
-          // expect(FavoriteInterests.count()).to.equal(interests.length);
-          // expect(FavoriteCareerGoals.count()).to.equal(careerGoals.length);
-          expect(doc.retired).to.equal(retired);
-          expect(doc.isAlumni).to.equal(isAlumni);
-          expect(doc.shareUsername).to.equal(shareUsername);
-          expect(doc.sharePicture).to.equal(sharePicture);
-          expect(doc.shareWebsite).to.equal(shareWebsite);
-          expect(doc.shareInterests).to.equal(shareInterests);
-          expect(doc.shareCareerGoals).to.equal(shareCareerGoals);
-          expect(doc.shareAcademicPlan).to.equal(shareAcademicPlan);
-          expect(doc.shareCourses).to.equal(shareCourses);
-          expect(doc.shareOpportunities).to.equal(shareOpportunities);
-          expect(doc.shareLevel).to.equal(shareLevel);
-        }),
+            const website = faker.internet.url();
+            const interests = makeSampleInterestArray(3);
+            const careerGoals = makeSampleCareerGoalSlugArray(4);
+            StudentProfiles.update(docID, {
+              firstName,
+              lastName,
+              picture,
+              website,
+              interests,
+              careerGoals,
+              isAlumni, retired, shareUsername,
+              sharePicture, shareWebsite, shareInterests, shareCareerGoals, shareAcademicPlan, shareCourses,
+              shareOpportunities, shareLevel,
+            });
+            doc = StudentProfiles.findDoc(docID);
+            expect(doc.firstName).to.equal(firstName);
+            expect(doc.lastName).to.equal(lastName);
+            expect(doc.picture).to.equal(picture);
+            expect(doc.website).to.equal(website);
+            // expect(FavoriteInterests.count()).to.equal(interests.length);
+            // expect(FavoriteCareerGoals.count()).to.equal(careerGoals.length);
+            expect(doc.retired).to.equal(retired);
+            expect(doc.isAlumni).to.equal(isAlumni);
+            expect(doc.shareUsername).to.equal(shareUsername);
+            expect(doc.sharePicture).to.equal(sharePicture);
+            expect(doc.shareWebsite).to.equal(shareWebsite);
+            expect(doc.shareInterests).to.equal(shareInterests);
+            expect(doc.shareCareerGoals).to.equal(shareCareerGoals);
+            expect(doc.shareAcademicPlan).to.equal(shareAcademicPlan);
+            expect(doc.shareCourses).to.equal(shareCourses);
+            expect(doc.shareOpportunities).to.equal(shareOpportunities);
+            expect(doc.shareLevel).to.equal(shareLevel);
+          }),
       );
       done();
     });

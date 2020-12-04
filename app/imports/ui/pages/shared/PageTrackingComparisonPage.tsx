@@ -1,24 +1,31 @@
-import * as React from 'react';
+import { withTracker } from 'meteor/react-meteor-data';
+import React from 'react';
 import { Grid } from 'semantic-ui-react';
+import { useRouteMatch } from 'react-router-dom';
+import { HelpMessages } from '../../../api/help/HelpMessageCollection';
+import { PageInterestsDailySnapshots } from '../../../api/page-tracking/PageInterestsDailySnapshotCollection';
+import { IHelpMessage, IPageInterestsDailySnapshot } from '../../../typings/radgrad';
 import * as Router from '../../components/shared/utilities/router';
 import { URL_ROLES } from '../../layouts/utilities/route-constants';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
-import { IMatchProps } from '../../components/shared/utilities/router';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import PageTrackingMenu from '../../components/shared/page-tracking/PageTrackingMenu';
 import PageTrackingComparisonWidget from '../../components/shared/page-tracking/PageTrackingComparisonWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 
+// TODO is it better to create the IPageTrackingComparisonPageProps this way or should is extend IHelpMessageProps, IPageTrackingComparisonWidgetProps?
 interface IPageTrackingComparisonPageProps {
-  match: IMatchProps;
+  helpMessages: IHelpMessage[];
+  pageInterestsDailySnapshots: IPageInterestsDailySnapshot[];
 }
 
-const PageTrackingComparisonPage = (props: IPageTrackingComparisonPageProps) => {
+const PageTrackingComparisonPage: React.FC<IPageTrackingComparisonPageProps> = ({ helpMessages, pageInterestsDailySnapshots }) => {
+  const match = useRouteMatch();
   const renderPageMenuWidget = (): JSX.Element => {
-    const role = Router.getRoleByUrl(props.match);
+    const role = Router.getRoleByUrl(match);
     switch (role) {
       case URL_ROLES.ADMIN:
         return <AdminPageMenuWidget />;
@@ -41,7 +48,7 @@ const PageTrackingComparisonPage = (props: IPageTrackingComparisonPageProps) => 
       <Grid stackable>
         <Grid.Row>
           <Grid.Column width={1} />
-          <Grid.Column width={14}><HelpPanelWidget /></Grid.Column>
+          <Grid.Column width={14}><HelpPanelWidget helpMessages={helpMessages} /></Grid.Column>
           <Grid.Column width={1} />
         </Grid.Row>
 
@@ -52,7 +59,7 @@ const PageTrackingComparisonPage = (props: IPageTrackingComparisonPageProps) => 
           </Grid.Column>
 
           <Grid.Column width={11} stretched>
-            <PageTrackingComparisonWidget />
+            <PageTrackingComparisonWidget pageInterestsDailySnapshots={pageInterestsDailySnapshots} />
           </Grid.Column>
           <Grid.Column width={1} />
         </Grid.Row>
@@ -63,4 +70,13 @@ const PageTrackingComparisonPage = (props: IPageTrackingComparisonPageProps) => 
   );
 };
 
-export default PageTrackingComparisonPage;
+const PageTrackingComparisonPageContainer = withTracker(() => {
+  const helpMessages = HelpMessages.findNonRetired({});
+  const pageInterestsDailySnapshots: IPageInterestsDailySnapshot[] = PageInterestsDailySnapshots.find({}).fetch();
+  return {
+    helpMessages,
+    pageInterestsDailySnapshots,
+  };
+})(PageTrackingComparisonPage);
+
+export default PageTrackingComparisonPageContainer;
