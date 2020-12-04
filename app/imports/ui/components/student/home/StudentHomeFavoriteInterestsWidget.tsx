@@ -7,7 +7,7 @@ import { Interests } from '../../../../api/interest/InterestCollection';
 import { IInterest } from '../../../../typings/radgrad';
 
 interface IStudentHomeFavoriteInterestsWidgetProps {
-  favoriteInterests: { interestID: string, count, number }[];
+  favoriteInterests: { interestID: string, count: number }[];
 }
 
 const StudentHomeFavoriteInterestsList: React.FC<IStudentHomeFavoriteInterestsWidgetProps> = ({ favoriteInterests }) => {
