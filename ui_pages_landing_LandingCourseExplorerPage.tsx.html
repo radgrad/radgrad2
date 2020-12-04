@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> api/star/index.ts</title>
+  <title> ui/pages/landing/LandingCourseExplorerPage.tsx</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -76,7 +76,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>api/star/index.ts</h1>
+                    <h1>ui/pages/landing/LandingCourseExplorerPage.tsx</h1>
                 </header>
                 
 
@@ -85,9 +85,121 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/** @namespace api/star */
-import './StarProcessor';
-import './StarProcessor.methods';
+            <pre class="prettyprint source linenums"><code>import React from 'react';
+import Markdown from 'react-markdown';
+import { useRouteMatch } from 'react-router-dom';
+import { withTracker } from 'meteor/react-meteor-data';
+import { Grid, Header, Segment } from 'semantic-ui-react';
+import { Courses } from '../../../api/course/CourseCollection';
+import { HelpMessages } from '../../../api/help/HelpMessageCollection';
+import ExplorerMenuBarContainer from '../../components/landing/explorer/LandingExplorerMenuBar';
+import { ICourse, IHelpMessage } from '../../../typings/radgrad';
+import { Slugs } from '../../../api/slug/SlugCollection';
+import LandingExplorerMenuContainer from '../../components/landing/explorer/LandingExplorerMenu';
+import { Interests } from '../../../api/interest/InterestCollection';
+import { withListSubscriptions } from '../../layouts/utilities/SubscriptionListHOC';
+import LandingInterestList from '../../components/landing/LandingInterestList';
+import LandingPrerequisiteList from '../../components/landing/LandingPrerequisiteList';
+import * as Router from '../../components/shared/utilities/router';
+import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
+import BackToTopButton from '../../components/shared/BackToTopButton';
+
+interface ICourseExplorerProps {
+  course: ICourse;
+  helpMessages: IHelpMessage[];
+}
+
+/**
+ * The landing course explorer page.
+ * @param {React.PropsWithChildren&lt;ICourseExplorerProps>} props
+ * @return {JSX.Element}
+ * @constructor
+ */
+const LandingCourseExplorerPage: React.FC&lt;ICourseExplorerProps> = (props) => {
+  const match = useRouteMatch();
+  return (
+    &lt;div id="landing-course-explorer-page">
+      &lt;ExplorerMenuBarContainer />
+      &lt;Grid stackable>
+        &lt;Grid.Row>
+          &lt;Grid.Column width={1} />
+          &lt;Grid.Column width={14}>&lt;HelpPanelWidget helpMessages={props.helpMessages} />&lt;/Grid.Column>
+          &lt;Grid.Column width={1} />
+        &lt;/Grid.Row>
+
+        &lt;Grid.Row>
+          &lt;Grid.Column width={1} />
+          &lt;Grid.Column width={3}>
+            &lt;LandingExplorerMenuContainer />
+          &lt;/Grid.Column>
+
+          &lt;Grid.Column width={11}>
+            &lt;Segment padded style={{ overflow: 'auto', maxHeight: 750 }}>
+              &lt;Header as="h4" dividing>
+                &lt;span>
+                  {props.course.shortName} ({props.course.name})
+                &lt;/span>
+              &lt;/Header>
+              &lt;Grid columns={2} stackable>
+                &lt;Grid.Column width="six">
+                  &lt;b>Course Number:&lt;/b> {props.course.num}
+                  &lt;br />
+                  &lt;b>Credit Hours:&lt;/b> {props.course.creditHrs}
+                &lt;/Grid.Column>
+                &lt;Grid.Column width="ten">
+                  &lt;b>Syllabus: &lt;/b>
+                  {props.course.syllabus ?
+                    (
+                      &lt;a href={props.course.syllabus} target="_blank" rel="noopener noreferrer">
+                        {props.course.syllabus}
+                      &lt;/a>
+                    )
+                    : 'None available'}
+                &lt;/Grid.Column>
+              &lt;/Grid>
+              &lt;b>Description:&lt;/b>
+              &lt;Markdown
+                escapeHtml
+                source={props.course.description}
+                renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}
+              />
+              &lt;Header as="h4" dividing>Prerequisites&lt;/Header>
+              {props.course.prerequisites.length > 0 ?
+                (&lt;LandingPrerequisiteList prerequisites={props.course.prerequisites} />)
+                : 'N/A'}
+              {props.course.interestIDs.length > 0 ?
+                (&lt;LandingInterestList interestIDs={props.course.interestIDs} />)
+                : 'N/A'}
+            &lt;/Segment>
+          &lt;/Grid.Column>
+          &lt;Grid.Column width={1} />
+        &lt;/Grid.Row>
+      &lt;/Grid>
+
+      &lt;BackToTopButton />
+    &lt;/div>
+  );
+};
+
+const WithSubs = withListSubscriptions(LandingCourseExplorerPage, [
+  Courses.getPublicationName(),
+  Slugs.getPublicationName(),
+  Interests.getPublicationName(),
+  HelpMessages.getPublicationName(),
+]);
+
+const LandingCourseExplorerContainer = withTracker((props) => {
+  const slugName = props.match.params.course;
+  // console.log(Slugs.find().fetch());
+  const id = Slugs.getEntityID(slugName, 'Course');
+  const helpMessages = HelpMessages.findNonRetired({});
+  return {
+    course: Courses.findDoc(id),
+    helpMessages,
+  };
+})(WithSubs);
+
+export default LandingCourseExplorerContainer;
 </code></pre>
         </article>
     </section>
