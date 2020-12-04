@@ -7,7 +7,7 @@ import { IInterest } from '../../../../../typings/radgrad';
 import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
 import ExplorerMenuNonMobileItem from '../item-view/ExplorerMenuNonMobileItem';
 import {
-  explorerInterfaces, IExplorerTypes,
+  ExplorerInterfaces, IExplorerTypes,
   isType,
 } from '../utilities/explorer';
 import { buildRouteName, isUrlRoleAdvisor, isUrlRoleFaculty, isUrlRoleStudent } from '../../utilities/router';
@@ -27,7 +27,7 @@ const mediaStyles = AppMedia.createMediaStyle();
 const { Media, MediaContextProvider } = AppMedia;
 
 interface ICardExplorerMenuNonMobileWidgetProps {
-  menuAddedList: { item: explorerInterfaces, count: number }[];
+  menuAddedList: { item: ExplorerInterfaces, count: number }[];
   menuCareerList: { item: IInterest, count: number }[] | undefined;
   // eslint-disable-next-line react/no-unused-prop-types
   type: IExplorerTypes;

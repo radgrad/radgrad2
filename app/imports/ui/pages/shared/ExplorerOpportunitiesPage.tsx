@@ -2,7 +2,6 @@ import React from 'react';
 import { Grid, Container, Card } from 'semantic-ui-react';
 import { useRouteMatch } from 'react-router-dom';
 import BackToTopButton from '../../components/shared/BackToTopButton';
-import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import CardExplorerOpportunitiesWidget
   from '../../components/shared/explorer/opportunities/ExplorerOpportunitiesWidget';
 import TeaserVideo from '../../components/shared/TeaserVideo';
@@ -11,24 +10,7 @@ import ExplorerSummerOpportunitiesWidget
   from '../../components/shared/explorer/opportunities/ExplorerSummerOpportunitiesWidget';
 import ExplorerOpportunitiesHeaderWidget
   from '../../components/shared/explorer/opportunities/ExplorerOpportunitiesHeaderWidget';
-import * as Router from '../../components/shared/utilities/router';
-import { URL_ROLES } from '../../layouts/utilities/route-constants';
-import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
-import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
-
-const getMenuWidget = (match): JSX.Element => {
-  const role = Router.getRoleByUrl(match);
-  switch (role) {
-    case URL_ROLES.STUDENT:
-      return <StudentPageMenuWidget />;
-    case URL_ROLES.FACULTY:
-      return <FacultyPageMenuWidget />;
-    case URL_ROLES.ADVISOR:
-      return <AdvisorPageMenuWidget />;
-    default:
-      return <React.Fragment />;
-  }
-};
+import { getMenuWidget } from './utilities/getMenuWidget';
 
 const ExplorerOpportunitiesPage: React.FC = () => {
   const opportunitiesVideoHeaderStyle: React.CSSProperties = {

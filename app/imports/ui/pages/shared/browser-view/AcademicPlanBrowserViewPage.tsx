@@ -33,7 +33,7 @@ const AcademicPlanBrowserViewPage: React.FC<IAcademicPlanBrowserViewPageProps> =
   const showFavorites = role === 'student';
   const columnWidth = showFavorites ? 12 : 16;
   return (
-    <div id="academic-plan-explorer-page">
+    <div id="academic-plan-browser-view-page">
       {getMenuWidget(match)}
       <Container>
         <Grid stackable>

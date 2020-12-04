@@ -26,7 +26,7 @@ const InterestBrowserViewPage: React.FC<IInterestBrowserViewPageProps> = ({ favo
   const menuAddedItems = _.map(favoriteInterests, (doc) => ({ item: doc, count: 1 }));
   const menuCareerList = _.map(favoriteCareerGoalInterests, (doc) => ({ item: doc, count: 1 }));
   return (
-    <div id="interest-browswer-view-page">
+    <div id="interest-browser-view-page">
       {getMenuWidget(match)}
       <Container>
         <Grid stackable>

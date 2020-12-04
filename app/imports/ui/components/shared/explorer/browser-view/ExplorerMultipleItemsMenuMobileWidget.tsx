@@ -6,7 +6,7 @@ import * as Router from '../../utilities/router';
 import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
 import ExplorerMenuMobileItem from '../item-view/ExplorerMenuMobileItem';
 import {
-  explorerInterfaces,
+  ExplorerInterfaces,
   isType,
 } from '../utilities/explorer';
 import { IInterest } from '../../../../../typings/radgrad';
@@ -25,7 +25,7 @@ const mediaStyles = AppMedia.createMediaStyle();
 const { Media, MediaContextProvider } = AppMedia;
 
 interface ICardExplorerMenuMobileWidgetProps {
-  menuAddedList: { item: explorerInterfaces, count: number }[];
+  menuAddedList: { item: ExplorerInterfaces, count: number }[];
   menuCareerList: { item: IInterest, count: number }[] | undefined;
   type: 'plans' | 'career-goals' | 'courses' | 'interests' | 'opportunities';
 }
