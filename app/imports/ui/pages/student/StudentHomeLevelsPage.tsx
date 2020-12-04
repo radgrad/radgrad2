@@ -143,7 +143,7 @@ const StudentHomeLevelsPage = (props: IStudentHomeLevelsPageProps) => {
             <Grid.Column width={16}>
               <Grid container stackable columns="equal">
                 <Grid.Column stretched>
-                  <StudentLevelsWidget profile={profile} />
+                  <StudentLevelsWidget />
                 </Grid.Column>
                 <Grid.Column stretched>
                   <StudentLevelsOthersWidget />
