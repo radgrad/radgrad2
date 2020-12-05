@@ -2,7 +2,6 @@ import React from 'react';
 import { NavLink, useRouteMatch } from 'react-router-dom';
 import { Container, Dropdown, Menu } from 'semantic-ui-react';
 import FirstMenuContainer from '../shared/FirstMenu';
-import { secondMenu } from '../shared/shared-widget-names';
 import { buildRouteName, getUsername } from '../shared/utilities/router';
 import { COMMUNITY, DEGREEPLANNER, EXPLORER_TYPE } from '../../layouts/utilities/route-constants';
 import { IStudentProfile } from '../../../typings/radgrad';
@@ -50,7 +49,7 @@ const StudentPageMenuWidget: React.FC = () => {
             secondary
             inverted
             pointing
-            id={`${secondMenu}`}
+            id="secondMenu"
           >
             <Menu.Item as={NavLink} exact to={`/student/${username}/home`}>
               Home

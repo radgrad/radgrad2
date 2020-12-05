@@ -4,7 +4,6 @@ import { Dropdown, Menu } from 'semantic-ui-react';
 import FirstMenuContainer from '../shared/FirstMenu';
 import { Reviews } from '../../../api/review/ReviewCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
-import { secondMenu } from '../shared/shared-widget-names';
 import { buildRouteName } from '../shared/utilities/router';
 import { COMMUNITY, EXPLORER_TYPE } from '../../layouts/utilities/route-constants';
 import { IAdvisorOrFacultyProfile } from '../../../typings/radgrad';
@@ -59,7 +58,7 @@ const AdvisorPageMenuWidget: React.FC = () => {
         secondary
         inverted
         pointing
-        id={`${secondMenu}`}
+        id="secondMenu"
       >
         {menuItems.map((item) => (
           <Menu.Item

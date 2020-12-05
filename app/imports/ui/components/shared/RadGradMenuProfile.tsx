@@ -3,7 +3,6 @@ import { Image } from 'semantic-ui-react';
 import RadGradMenuLevel from './RadGradMenuLevel';
 import MenuIceCircle from './MenuIceCircle';
 import { IBaseProfile, Ice } from '../../../typings/radgrad';
-import { radgradMenuProfile } from './shared-widget-names';
 
 export interface IRadGradMenuProfileProps {
   profile: IBaseProfile;
@@ -21,7 +20,7 @@ const RadGradMenuProfile: React.FC<IRadGradMenuProfileProps> = ({ profile, displ
   // const nameStyle = { lineHeight: '20px', paddingLeft: '10px', marginTop: '0px' };
   const pictureSrc = (profile.picture) ? profile.picture : '/images/default-profile-picture.png';
   return (
-    <div style={flexStyle} id={`${radgradMenuProfile}`}>
+    <div style={flexStyle} id="radgradMenuProfile">
       {displayLevelAndIce ? (
         <div style={flexStyle}>
           <RadGradMenuLevel level={level} />

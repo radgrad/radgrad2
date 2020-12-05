@@ -6,7 +6,6 @@ import FirstMenuContainer from '../shared/FirstMenu';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
-import { secondMenu } from '../shared/shared-widget-names';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { buildRouteName } from '../shared/utilities/router';
 import { COMMUNITY, EXPLORER_TYPE } from '../../layouts/utilities/route-constants';
@@ -64,7 +63,7 @@ const FacultyPageMenuWidget: React.FC = () => {
         secondary
         inverted
         pointing
-        id={`${secondMenu}`}
+        id="secondMenu"
       >
 
         {menuItems.map((item) => (
