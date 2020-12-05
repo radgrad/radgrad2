@@ -31,8 +31,8 @@ const dateRangeToString = (dateRange: IAdminAnalyticsDateRange): string | JSX.El
   return <i>Select a Start date and End date above</i>;
 };
 
-const AdminAnalyticsStudentSummaryWidget = (props: IAdminAnalyticsStudentSummaryWidgetProps) => {
-  const interactionsByUser = props.userInteractions;
+const AdminAnalyticsStudentSummaryWidget: React.FC<IAdminAnalyticsStudentSummaryWidgetProps> = ({ dateRange, userInteractions }) => {
+  const interactionsByUser = userInteractions;
 
   _.each(interactionsByUser, function (interactions, user) {
     if (_.some(interactions, { type: UserInteractionsTypes.LOGIN })) {
@@ -95,12 +95,12 @@ const AdminAnalyticsStudentSummaryWidget = (props: IAdminAnalyticsStudentSummary
       <AdminAnalyticsDateSelectionWidget page={ANALYTICS.STUDENTSUMMARY} />
       <Segment>
         <Header as="h4" dividing>
-          SUMMARY STATISTICS: {dateRangeToString(props.dateRange)}
+          SUMMARY STATISTICS: {dateRangeToString(dateRange)}
         </Header>
         <SummaryStatisticsTabs
           behaviors={behaviorCategories}
-          startDate={props.dateRange.startDate}
-          endDate={props.dateRange.endDate}
+          startDate={dateRange.startDate}
+          endDate={dateRange.endDate}
           interactionsByUser={interactionsByUser}
         />
       </Segment>

@@ -25,7 +25,7 @@ const mapStateToProps = (state: RootState) => ({
   pagination: state.admin.dataModel.pagination,
 });
 
-const ListSlugCollectionWidget = (props: IListSlugCollectionWidgetProps) => {
+const ListSlugCollectionWidget: React.FC<IListSlugCollectionWidgetProps> = (props) => {
   // console.log('ListSlugCollectionWidget.render props=%o', props);
   const count = props.collection.count();
   const startIndex = props.pagination[props.collection.getCollectionName()].showIndex;

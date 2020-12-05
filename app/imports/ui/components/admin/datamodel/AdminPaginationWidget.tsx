@@ -6,12 +6,9 @@ import { RootState } from '../../../../redux/types';
 
 interface IAdminPaginationWidgetProps {
   collection: BaseCollection;
-  // eslint-disable-next-line react/no-unused-prop-types
   dispatch: any;
   pagination: any;
-  // eslint-disable-next-line react/no-unused-prop-types
   setShowIndex: (collectionName: string, index: number) => any;
-  // eslint-disable-next-line react/no-unused-prop-types
   setShowCount: (collectionName: string, count: number) => any;
 }
 
@@ -19,44 +16,44 @@ const mapStateToProps = (state: RootState) => ({
   pagination: state.admin.dataModel.pagination,
 });
 
-const handleFirstClick = (props: IAdminPaginationWidgetProps) => (event) => {
+const handleFirstClick = (dispatch, setShowIndex: (collectionName: string, index: number) => any, collection: BaseCollection) => (event) => {
   event.preventDefault();
   // console.log('handleFirstClick(%o) props=%o', event, props);
-  props.dispatch(props.setShowIndex(props.collection.getCollectionName(), 0));
+  dispatch(setShowIndex(collection.getCollectionName(), 0));
 };
 
-const handlePrevClick = (props: IAdminPaginationWidgetProps) => (event) => {
+const handlePrevClick = (pagination, collection, dispatch, setShowIndex) => (event) => {
   event.preventDefault();
   // console.log('handlePrevClick(%o) props=%o', event, props);
-  const showIndex = props.pagination[props.collection.getCollectionName()].showIndex;
-  const showCount = props.pagination[props.collection.getCollectionName()].showCount;
-  props.dispatch(props.setShowIndex(props.collection.getCollectionName(), showIndex - showCount));
+  const showIndex = pagination[collection.getCollectionName()].showIndex;
+  const showCount = pagination[collection.getCollectionName()].showCount;
+  dispatch(setShowIndex(collection.getCollectionName(), showIndex - showCount));
 };
 
-const handleNextClick = (props: IAdminPaginationWidgetProps) => (event) => {
+const handleNextClick = (pagination, collection, dispatch, setShowIndex) => (event) => {
   event.preventDefault();
   // console.log('handleNextClick(%o) props=%o', event, props);
-  const showIndex = props.pagination[props.collection.getCollectionName()].showIndex;
-  const showCount = props.pagination[props.collection.getCollectionName()].showCount;
-  props.dispatch(props.setShowIndex(props.collection.getCollectionName(), showIndex + showCount));
+  const showIndex = pagination[collection.getCollectionName()].showIndex;
+  const showCount = pagination[collection.getCollectionName()].showCount;
+  dispatch(setShowIndex(collection.getCollectionName(), showIndex + showCount));
 };
 
-const handleLastClick = (props: IAdminPaginationWidgetProps) => (event) => {
+const handleLastClick = (collection, pagination, dispatch, setShowIndex) => (event) => {
   event.preventDefault();
   // console.log('handleLastClick(%o) props=%o', event, props);
-  const count = props.collection.count();
-  const showCount = props.pagination[props.collection.getCollectionName()].showCount;
-  props.dispatch(props.setShowIndex(props.collection.getCollectionName(), count - showCount));
+  const count = collection.count();
+  const showCount = pagination[collection.getCollectionName()].showCount;
+  dispatch(setShowIndex(collection.getCollectionName(), count - showCount));
 };
 
-const handleCountChange = (props: IAdminPaginationWidgetProps) => (event) => {
+const handleCountChange = (dispatch, setShowCount, collection) => (event) => {
   event.preventDefault();
   // console.log('handleCountChange count=%o', event.target.value);
   const count = parseInt(event.target.value, 10);
-  props.dispatch(props.setShowCount(props.collection.getCollectionName(), count));
+  dispatch(setShowCount(collection.getCollectionName(), count));
 };
 
-const AdminPaginationWidget = (props: IAdminPaginationWidgetProps) => {
+const AdminPaginationWidget: React.FC<IAdminPaginationWidgetProps> = ({ pagination, dispatch, collection, setShowCount, setShowIndex }) => {
   // console.log('AdminPaginationWidget.render props=%o', props);
   const heightStyle = {
     height: 48,
@@ -66,10 +63,10 @@ const AdminPaginationWidget = (props: IAdminPaginationWidgetProps) => {
     marginTop: 0,
     marginRight: '0.25em',
   };
-  const showCount = props.pagination[props.collection.getCollectionName()].showCount;
-  const count = props.collection.count();
-  const startIndex = props.pagination[props.collection.getCollectionName()].showIndex;
-  let endIndex = startIndex + props.pagination[props.collection.getCollectionName()].showCount;
+  const showCount = pagination[collection.getCollectionName()].showCount;
+  const count = collection.count();
+  const startIndex = pagination[collection.getCollectionName()].showIndex;
+  let endIndex = startIndex + pagination[collection.getCollectionName()].showCount;
   if (endIndex > count) {
     endIndex = count;
   }
@@ -81,7 +78,7 @@ const AdminPaginationWidget = (props: IAdminPaginationWidgetProps) => {
       <Button
         basic
         color="green"
-        onClick={handleFirstClick(props)}
+        onClick={handleFirstClick(dispatch, setShowIndex, collection)}
         style={heightStyle}
       >
         <Icon
@@ -92,7 +89,7 @@ const AdminPaginationWidget = (props: IAdminPaginationWidgetProps) => {
         basic
         color="green"
         disabled={firstDisabled}
-        onClick={handlePrevClick(props)}
+        onClick={handlePrevClick(pagination, collection, dispatch, setShowIndex)}
         style={heightStyle}
       >
         <Icon name="step backward" /> Prev
@@ -102,7 +99,7 @@ const AdminPaginationWidget = (props: IAdminPaginationWidgetProps) => {
         basic
         color="green"
         disabled={lastDisabled}
-        onClick={handleNextClick(props)}
+        onClick={handleNextClick(pagination, collection, dispatch, setShowIndex)}
         style={heightStyle}
       >
         <Icon name="step forward" /> Next
@@ -110,13 +107,13 @@ const AdminPaginationWidget = (props: IAdminPaginationWidgetProps) => {
       <Button
         basic
         color="green"
-        onClick={handleLastClick(props)}
+        onClick={handleLastClick(collection, pagination, dispatch, setShowIndex)}
         style={heightStyle}
       >
         <Icon name="fast forward" /> Last
       </Button>
       {/* <Dropdown selection={true} options={options} className="jsNum"/> */}
-      <select className="ui dropdown jsNum" style={heightStyle} value={showCount} onChange={handleCountChange(props)}>
+      <select className="ui dropdown jsNum" style={heightStyle} value={showCount} onChange={handleCountChange(dispatch, setShowCount, collection)}>
         <option value={100}>100</option>
         <option value={50}>50</option>
         <option value={25}>25</option>

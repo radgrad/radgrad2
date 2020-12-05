@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, List } from 'semantic-ui-react';
 
 /** The LandingFooter appears at the bottom of every page. Rendered by the App Layout component. */
-const Footer = () => {
+const Footer: React.FC = () => {
   const divStyle = {
     marginLeft: 0,
     marginRight: 0,

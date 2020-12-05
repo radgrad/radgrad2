@@ -26,7 +26,7 @@ const dateRangeToString = (dateRange: IAdminAnalyticsDateRange): string | JSX.El
   return <i>Select a Start date and End date above</i>;
 };
 
-const AdminAnalyticsOverheadAnalysisWidget = (props: IAdminAnalyticsOverheadAnalysisWidgetProps) => {
+const AdminAnalyticsOverheadAnalysisWidget: React.FC<IAdminAnalyticsOverheadAnalysisWidgetProps> = ({ dateRange }) => {
   const tabMenuSettings = {
     pointing: true,
     secondary: true,
@@ -45,7 +45,7 @@ const AdminAnalyticsOverheadAnalysisWidget = (props: IAdminAnalyticsOverheadAnal
     <React.Fragment>
       <AdminAnalyticsDateSelectionWidget page={ANALYTICS.OVERHEADANALYSIS} />
       <Segment padded className="container">
-        <Header dividing>{dateRangeToString(props.dateRange)}</Header>
+        <Header dividing>{dateRangeToString(dateRange)}</Header>
         <Tab panes={panes} menu={tabMenuSettings} />
       </Segment>
     </React.Fragment>
