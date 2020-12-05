@@ -6,7 +6,6 @@ import FavoriteOpportunitiesWidget from './FavoriteOpportunitiesWidget';
 import FavoriteCoursesWidget from './FavoriteCoursesWidget';
 import DepDetailsWidget from './DepDetailsWidget';
 import FavoriteAcademicPlansWidget from './FavoriteAcademicPlansWidget';
-import { tabbedFavoritesWidget } from '../student-widget-names';
 import { RootState } from '../../../../redux/types';
 
 interface ITabbedFavoritesWidgetProps {
@@ -69,7 +68,7 @@ const handleTabChange = (props, event, instance) => {
   }
 };
 
-const TabbedFavoritesWidget = (props: ITabbedFavoritesWidgetProps) => {
+const TabbedFavoritesWidget: React.FC<ITabbedFavoritesWidgetProps> = (props) => {
   const panes = [
     {
       menuItem: (
@@ -122,7 +121,7 @@ const TabbedFavoritesWidget = (props: ITabbedFavoritesWidgetProps) => {
     },
   ];
   return (
-    <Segment padded id={tabbedFavoritesWidget}>
+    <Segment padded id="tabbedFavoritesWidget">
       <Tab
         panes={panes}
         renderActiveOnly={false}

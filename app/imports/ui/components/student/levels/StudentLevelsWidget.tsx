@@ -4,7 +4,6 @@ import Markdown from 'react-markdown';
 import { Segment, Grid, Container, Message, Icon, Image, Header } from 'semantic-ui-react';
 import { getUserIdFromRoute } from '../../shared/utilities/router';
 import { Users } from '../../../../api/user/UserCollection';
-import { studentLevelsWidget } from '../student-widget-names';
 import { getLevelHintStringMarkdown } from '../../../../api/level/LevelProcessor';
 
 const getStudentLevelNumber = (match): number => {
@@ -52,14 +51,14 @@ const getStudentLevelHint = (match): string => {
   }
 };
 
-const StudentLevelsWidget = () => {
+const StudentLevelsWidget: React.FC = () => {
   const match = useRouteMatch();
   const imageStyle = { width: '230px' };
   const studentLevelNumber: number = getStudentLevelNumber(match);
   const studentLevelName = getStudentLevelName(match);
   const studentLevelHint = getStudentLevelHint(match);
   return (
-    <Segment padded id={`${studentLevelsWidget}`}>
+    <Segment padded id="studentLevelsWidget">
       <Header as="h4" dividing>CURRENT LEVEL</Header>
       <Grid stackable>
         <Grid.Column width={16}>

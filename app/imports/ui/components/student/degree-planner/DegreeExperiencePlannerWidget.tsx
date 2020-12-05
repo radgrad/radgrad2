@@ -18,7 +18,6 @@ import { CourseInstances } from '../../../../api/course/CourseInstanceCollection
 import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
 import { defineMethod, removeItMethod } from '../../../../api/base/BaseCollection.methods';
 import { degreePlannerActions } from '../../../../redux/student/degree-planner';
-import { studentDepWidget } from '../student-widget-names';
 
 interface IDePProps {
   selectCourseInstance: (courseInstanceID: string) => any;
@@ -33,7 +32,7 @@ const mapDispatchToProps = (dispatch) => ({
   selectFavoriteDetailsTab: () => dispatch(degreePlannerActions.selectFavoriteDetailsTab()),
 });
 
-const DEPWidget = (props: IDePProps) => {
+const DEPWidget: React.FC<IDePProps> = (props) => {
   const { username } = useParams();
   const studentID = Users.getID(username);
 
@@ -212,7 +211,7 @@ const DEPWidget = (props: IDePProps) => {
   };
 
   return (
-    <Segment padded id={studentDepWidget}>
+    <Segment padded id="studentDepWidget">
       <Grid stackable columns="equal">
         <Grid.Row stretched>
           {_.map(visibleYearsState, (year) => (

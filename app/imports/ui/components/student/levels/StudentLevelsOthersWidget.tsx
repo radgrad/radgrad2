@@ -7,7 +7,6 @@ import { Users } from '../../../../api/user/UserCollection';
 import { getUserIdFromRoute } from '../../shared/utilities/router';
 import { ROLE } from '../../../../api/role/Role';
 import { IStudentProfile } from '../../../../typings/radgrad';
-import { studentLevelsOthersWidget } from '../student-widget-names';
 
 interface IStudentLevelsOthersWidgetProps {
   students: IStudentProfile[];
@@ -38,7 +37,7 @@ const getStudentLevelNumber = (match): number => {
   return 1;
 };
 
-const getStudentLevelName = (props: IStudentLevelsOthersWidgetProps, match): string => {
+const getStudentLevelName = (match): string => {
   if (getUserIdFromRoute(match)) {
     const profile = Users.getProfile(getUserIdFromRoute(match));
     if (profile.level) {
@@ -52,17 +51,16 @@ const studentPicture = (student: IStudentProfile) => student.picture;
 
 const fullName = (student: IStudentProfile): string => Users.getFullName(student.userID);
 
-const StudentLevelsOthersWidget = (props: IStudentLevelsOthersWidgetProps) => {
+const StudentLevelsOthersWidget: React.FC<IStudentLevelsOthersWidgetProps> = ({ students }) => {
   const match = useRouteMatch();
   const imageGroupStyle = { minHeight: '50%' };
   const imageStyle = {
     height: '30px',
     width: 'auto',
   };
-  const { students } = props;
-  const studentLevelName = getStudentLevelName(props, match);
+  const studentLevelName = getStudentLevelName(match);
   return (
-    <Segment padded id={`${studentLevelsOthersWidget}`}>
+    <Segment padded id="studentLevelsOthersWidget">
       <Header as="h4" dividing>
         OTHER {studentLevelName} STUDENTS
       </Header>
