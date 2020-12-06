@@ -14,9 +14,9 @@ interface IAddCareerGoalFormProps {
   handleAdd: (doc) => any;
 }
 
-const AddCareerGoalForm = (props: IAddCareerGoalFormProps) => {
+const AddCareerGoalForm: React.FC<IAddCareerGoalFormProps> = ({ interests, formRef, handleAdd }) => {
   // console.log(props);
-  const interestNames = _.map(props.interests, docToName);
+  const interestNames = _.map(interests, docToName);
   const schema = new SimpleSchema({
     name: String,
     slug: String,
@@ -33,7 +33,7 @@ const AddCareerGoalForm = (props: IAddCareerGoalFormProps) => {
   return (
     <Segment padded>
       <Header dividing>Add Career Goal</Header>
-      <AutoForm schema={formSchema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError>
+      <AutoForm schema={formSchema} onSubmit={handleAdd} ref={formRef} showInlineError>
         <Form.Group widths="equal">
           <TextField name="name" placeholder="Software Engineer" />
           <TextField name="slug" placeholder="software-engineer" />

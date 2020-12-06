@@ -11,7 +11,6 @@ import { RootState } from '../../../../redux/types';
 
 interface IListCollectionWidgetProps {
   collection: BaseCollection;
-  // eslint-disable-next-line react/no-unused-prop-types
   findOptions?: { [key: string]: unknown };
   descriptionPairs: (item) => IDescriptionPair[];
   handleOpenUpdate: (evt: any, id: any) => any;

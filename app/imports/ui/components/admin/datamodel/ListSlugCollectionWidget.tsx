@@ -11,7 +11,6 @@ import { RootState } from '../../../../redux/types';
 
 interface IListSlugCollectionWidgetProps {
   collection: BaseCollection;
-  // eslint-disable-next-line react/no-unused-prop-types
   findOptions?: { [key: string]: unknown };
   descriptionPairs: (item) => IDescriptionPair[];
   handleOpenUpdate: (evt: any, id: any) => any;
@@ -25,35 +24,35 @@ const mapStateToProps = (state: RootState) => ({
   pagination: state.admin.dataModel.pagination,
 });
 
-const ListSlugCollectionWidget: React.FC<IListSlugCollectionWidgetProps> = (props) => {
+const ListSlugCollectionWidget: React.FC<IListSlugCollectionWidgetProps> = ({ collection, findOptions, descriptionPairs, handleDelete, handleOpenUpdate, items, itemTitle, pagination }) => {
   // console.log('ListSlugCollectionWidget.render props=%o', props);
-  const count = props.collection.count();
-  const startIndex = props.pagination[props.collection.getCollectionName()].showIndex;
-  const showCount = props.pagination[props.collection.getCollectionName()].showCount;
+  const count = collection.count();
+  const startIndex = pagination[collection.getCollectionName()].showIndex;
+  const showCount = pagination[collection.getCollectionName()].showCount;
   const endIndex = startIndex + showCount;
-  const items = _.slice(props.items, startIndex, endIndex);
+  const itemsToShow = _.slice(items, startIndex, endIndex);
   // console.log('startIndex=%o endIndex=%o items=%o', startIndex, endIndex, items);
   return (
     <Segment padded>
       <Header dividing>
-        {props.collection.getCollectionName()} ({count})
+        {collection.getCollectionName()} ({count})
       </Header>
       <Grid>
         <AdminPaginationWidget
-          collection={props.collection}
+          collection={collection}
           setShowIndex={dataModelActions.setCollectionShowIndex}
           setShowCount={dataModelActions.setCollectionShowCount}
         />
-        {_.map(items, (item) => (
+        {_.map(itemsToShow, (item) => (
           <AdminCollectionAccordion
             key={item._id}
             id={item._id}
-            title={props.itemTitle(item)}
-            descriptionPairs={props.descriptionPairs(item)}
+            title={itemTitle(item)}
+            descriptionPairs={descriptionPairs(item)}
             updateDisabled
             deleteDisabled
-            handleOpenUpdate={props.handleOpenUpdate}
-            handleDelete={props.handleDelete}
+            handleOpenUpdate={handleOpenUpdate}
+            handleDelete={handleDelete}
           />
         ))}
       </Grid>
