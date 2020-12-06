@@ -11,38 +11,38 @@ interface ILandingAcademicPlanYearViewProps {
   academicPlan: IAcademicPlan;
 }
 
-const LandingAcademicPlanYearView = (props: ILandingAcademicPlanYearViewProps) => {
+const LandingAcademicPlanYearView: React.FC<ILandingAcademicPlanYearViewProps> = ({ yearNumber, academicPlan }) => {
   const quarter = RadGradProperties.getQuarterSystem();
-  let termNum = quarter ? props.yearNumber * 4 : props.yearNumber * 3;
+  let termNum = quarter ? yearNumber * 4 : yearNumber * 3;
   // console.log('LandingAcademicPlanYearView props=%o quarter=%o', props, quarter);
   return (
     <div>
       <Header>
-        Year {props.yearNumber + 1}
+        Year {yearNumber + 1}
       </Header>
       <LandingAcademicTermView
         title={AcademicTerms.FALL}
-        id={`${AcademicTerms.FALL}-${props.yearNumber * 10 + termNum}`}
-        choices={getPlanChoices(props.academicPlan, termNum++)}
+        id={`${AcademicTerms.FALL}-${yearNumber * 10 + termNum}`}
+        choices={getPlanChoices(academicPlan, termNum++)}
       />
       {quarter ?
         (
           <LandingAcademicTermView
             title={AcademicTerms.WINTER}
-            id={`${AcademicTerms.WINTER}-${props.yearNumber * 10 + termNum}`}
-            choices={getPlanChoices(props.academicPlan, termNum++)}
+            id={`${AcademicTerms.WINTER}-${yearNumber * 10 + termNum}`}
+            choices={getPlanChoices(academicPlan, termNum++)}
           />
         )
         : ''}
       <LandingAcademicTermView
         title={AcademicTerms.SPRING}
-        id={`${AcademicTerms.SPRING}-${props.yearNumber * 10 + termNum}`}
-        choices={getPlanChoices(props.academicPlan, termNum++)}
+        id={`${AcademicTerms.SPRING}-${yearNumber * 10 + termNum}`}
+        choices={getPlanChoices(academicPlan, termNum++)}
       />
       <LandingAcademicTermView
         title={AcademicTerms.SUMMER}
-        id={`${AcademicTerms.SUMMER}-${props.yearNumber * 10 + termNum}`}
-        choices={getPlanChoices(props.academicPlan, termNum++)}
+        id={`${AcademicTerms.SUMMER}-${yearNumber * 10 + termNum}`}
+        choices={getPlanChoices(academicPlan, termNum++)}
       />
     </div>
   );

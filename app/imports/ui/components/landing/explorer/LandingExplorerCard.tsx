@@ -18,11 +18,11 @@ interface ILandingExplorerCardProps {
   type: string;
 }
 
-const LandingExplorerCard = (props: ILandingExplorerCardProps) => {
-  const routeToItem = `#/${EXPLORER_TYPE.HOME}/${props.type}/${getSlug(props.item)}`;
-  let title = props.item.name;
-  if (props.type === EXPLORER_TYPE.COURSES) {
-    title = `${title} (${props.item.num})`;
+const LandingExplorerCard: React.FC<ILandingExplorerCardProps> = ({ item, type }) => {
+  const routeToItem = `#/${EXPLORER_TYPE.HOME}/${type}/${getSlug(item)}`;
+  let title = item.name;
+  if (type === EXPLORER_TYPE.COURSES) {
+    title = `${title} (${item.num})`;
   }
   const match = useRouteMatch();
   return (
@@ -33,7 +33,7 @@ const LandingExplorerCard = (props: ILandingExplorerCardProps) => {
       <Card.Content className="content">
         <Markdown
           escapeHtml
-          source={`${itemShortDescription(props.item)}...`}
+          source={`${itemShortDescription(item)}...`}
           renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}
         />
       </Card.Content>

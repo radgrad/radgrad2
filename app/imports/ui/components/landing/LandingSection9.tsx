@@ -9,7 +9,7 @@ const noBoxShadowStyle = {
   boxShadow: 'none',
 };
 
-const LandingSection9 = () => (
+const LandingSection9: React.FC = () => (
   <div id="landing-section-9" style={styles['inverted-section-green']}>
     <Grid stackable container>
       <Grid.Column textAlign="center">

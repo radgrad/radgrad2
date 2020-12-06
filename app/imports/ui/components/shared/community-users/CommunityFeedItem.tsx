@@ -3,9 +3,10 @@ import Markdown from 'react-markdown';
 import { Feed, Image } from 'semantic-ui-react';
 import { useRouteMatch } from 'react-router-dom';
 import { renderLink } from '../utilities/router';
+import { IFeed } from '../../../../typings/radgrad';
 
 interface IStudentFeedItemProps {
-  feed: unknown;
+  feed: IFeed;
 }
 
 const dateDiffInDays = (a: string, b: string) => {
@@ -31,8 +32,7 @@ const feedTimestamp = (feed): string => {
   return ret;
 };
 
-const CommunityFeedItem = (props: IStudentFeedItemProps) => {
-  const { feed }: any = props;
+const CommunityFeedItem: React.FC<IStudentFeedItemProps> = ({ feed }) => {
   const match = useRouteMatch();
   return (
     <React.Fragment>

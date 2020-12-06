@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid, Header, Image } from 'semantic-ui-react';
 import styles from '../../../../pages/landing/utilities/guidedtour-style';
 
-const GuidedTourFacultySetUp = () => (
+const GuidedTourFacultySetUp: React.FC = () => (
   <div>
     <Grid container columns={2}>
       <Grid.Column width="nine">

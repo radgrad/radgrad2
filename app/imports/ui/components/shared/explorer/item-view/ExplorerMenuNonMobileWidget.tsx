@@ -3,17 +3,11 @@ import React from 'react';
 import { Menu, Header, Button, Icon } from 'semantic-ui-react';
 import { useRouteMatch, Link } from 'react-router-dom';
 import { RadGradProperties } from '../../../../../api/radgrad/RadGradProperties';
-import {
-  IAcademicPlan,
-  ICareerGoal,
-  ICourse,
-  IInterest,
-  IOpportunity,
-} from '../../../../../typings/radgrad';
 import * as Router from '../../utilities/router';
 import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
 import ExplorerMenuNonMobileItem from './ExplorerMenuNonMobileItem';
 import { buildRouteName, isUrlRoleFaculty } from '../../utilities/router';
+import { IListItem } from './ExplorerMenuMobileItem';
 
 const AppMedia = createMedia({
   breakpoints: {
@@ -28,16 +22,13 @@ const AppMedia = createMedia({
 const mediaStyles = AppMedia.createMediaStyle();
 const { Media, MediaContextProvider } = AppMedia;
 
-type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IInterest | IOpportunity;
-
 interface IExplorerMenuNonMobileWidgetProps {
-  menuAddedList: { item: explorerInterfaces, count: number }[];
-  menuCareerList: { item: IInterest, count: number }[] | undefined;
+  menuAddedList: IListItem[];
+  menuCareerList: IListItem[] | undefined;
   type: 'plans' | 'career-goals' | 'courses' | 'interests' | 'opportunities' | 'users'; // TODO should this be a defined type?
 }
 
-const getTypeName = (props: IExplorerMenuNonMobileWidgetProps): string => {
-  const { type } = props;
+const getTypeName = (type: string): string => {
   const names = ['Academic Plans', 'Career Goals', 'Courses', 'Interests', 'Opportunities', 'Users'];
   switch (type) {
     case EXPLORER_TYPE.ACADEMICPLANS:
@@ -55,9 +46,10 @@ const getTypeName = (props: IExplorerMenuNonMobileWidgetProps): string => {
   }
 };
 
-const isType = (typeToCheck: string, props: IExplorerMenuNonMobileWidgetProps): boolean => props.type === typeToCheck;
+const isType = (typeToCheck: string, type: string): boolean => type === typeToCheck;
 
-const ExplorerMenuNonMobileWidget = (props: IExplorerMenuNonMobileWidgetProps) => {
+// TODO QA this does a lot can we simplify this?
+const ExplorerMenuNonMobileWidget: React.FC<IExplorerMenuNonMobileWidgetProps> = ({ menuAddedList, menuCareerList, type }) => {
   // console.log('ExplorerMenuNonMobileWidget', props);
   const marginTopStyle = { marginTop: '5px' };
   const match = useRouteMatch();
@@ -67,7 +59,6 @@ const ExplorerMenuNonMobileWidget = (props: IExplorerMenuNonMobileWidgetProps) =
   const baseIndex = baseUrl.indexOf(username);
   const baseRoute = `${baseUrl.substring(0, baseIndex)}${username}`;
 
-  const { menuAddedList, menuCareerList } = props;
   const isStudent = Router.isUrlRoleStudent(match);
   const adminEmail = RadGradProperties.getAdminEmail();
   const isFaculty = isUrlRoleFaculty(match);
@@ -79,13 +70,13 @@ const ExplorerMenuNonMobileWidget = (props: IExplorerMenuNonMobileWidgetProps) =
       <style>{mediaStyles}</style>
       <MediaContextProvider>
         <Media greaterThanOrEqual="tablet">
-          {isType(EXPLORER_TYPE.ACADEMICPLANS, props) ?
+          {isType(EXPLORER_TYPE.ACADEMICPLANS, type) ?
             (
               <React.Fragment>
-                <Button as={Link} to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${props.type}`} style={marginTopStyle}>
+                <Button as={Link} to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${type}`} style={marginTopStyle}>
                   <Icon name="chevron circle left" />
                   <br />
-                  Back to {getTypeName(props)}
+                  Back to {getTypeName(type)}
                 </Button>
                 {isStudent ?
                   (
@@ -105,13 +96,13 @@ const ExplorerMenuNonMobileWidget = (props: IExplorerMenuNonMobileWidgetProps) =
             )
             : ''}
 
-          {isType(EXPLORER_TYPE.COURSES, props) ?
+          {isType(EXPLORER_TYPE.COURSES, type) ?
             (
               <React.Fragment>
-                <Button as={Link} to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${props.type}`} style={marginTopStyle}>
+                <Button as={Link} to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${type}`} style={marginTopStyle}>
                   <Icon name="chevron circle left" />
                   <br />
-                  Back to {getTypeName(props)}
+                  Back to {getTypeName(type)}
                 </Button>
                 {isStudent ?
                   (
@@ -131,7 +122,7 @@ const ExplorerMenuNonMobileWidget = (props: IExplorerMenuNonMobileWidgetProps) =
             )
             : ''}
 
-          {isType(EXPLORER_TYPE.OPPORTUNITIES, props) ?
+          {isType(EXPLORER_TYPE.OPPORTUNITIES, type) ?
             (
               <React.Fragment>
                 <a href={`mailto:${adminEmail}?subject=New Opportunity Suggestion`}>Suggest a new Opportunity</a>
@@ -147,10 +138,10 @@ const ExplorerMenuNonMobileWidget = (props: IExplorerMenuNonMobileWidgetProps) =
                     </Button>
                   )
                   : ''}
-                <Button as={Link} to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${props.type}`} style={marginTopStyle}>
+                <Button as={Link} to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${type}`} style={marginTopStyle}>
                   <Icon name="chevron circle left" />
                   <br />
-                  Back to {getTypeName(props)}
+                  Back to {getTypeName(type)}
                 </Button>
                 {isStudent ?
                   (
@@ -174,14 +165,14 @@ const ExplorerMenuNonMobileWidget = (props: IExplorerMenuNonMobileWidgetProps) =
 
           {/* Components renderable to STUDENTS and FACULTY. But if we are FACULTY, make sure we
                 don't map over menuAddedList or else we get undefined error. */}
-          {isType(EXPLORER_TYPE.INTERESTS, props) ?
+          {isType(EXPLORER_TYPE.INTERESTS, type) ?
             (
               <Menu vertical text>
                 <a href={`mailto:${adminEmail}?subject=New Interest Suggestion`}>Suggest a new Interest</a>
-                <Button as={Link} to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${props.type}`} style={marginTopStyle}>
+                <Button as={Link} to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${type}`} style={marginTopStyle}>
                   <Icon name="chevron circle left" />
                   <br />
-                  Back to {getTypeName(props)}
+                  Back to {getTypeName(type)}
                 </Button>
                 <Header as="h4" dividing>MY FAVORITE INTERESTS</Header>
                 {menuAddedList.map((listItem) => (
@@ -204,14 +195,14 @@ const ExplorerMenuNonMobileWidget = (props: IExplorerMenuNonMobileWidgetProps) =
             )
             : ''}
 
-          {isType(EXPLORER_TYPE.CAREERGOALS, props) ?
+          {isType(EXPLORER_TYPE.CAREERGOALS, type) ?
             (
               <Menu vertical text>
                 <a href={`mailto:${adminEmail}?subject=New Career Goal Suggestion`}>Suggest a new Career Goal</a>
-                <Button as={Link} to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${props.type}`} style={marginTopStyle}>
+                <Button as={Link} to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${type}`} style={marginTopStyle}>
                   <Icon name="chevron circle left" />
                   <br />
-                  Back to {getTypeName(props)}
+                  Back to {getTypeName(type)}
                 </Button>
                 <Header as="h4" dividing>MY FAVORITE CAREER GOALS</Header>
                 {menuAddedList.map((listItem) => (

@@ -14,7 +14,7 @@ interface IExplorerUsersWidgetProps {
   handleClose: any;
 }
 
-const isRole = (props: IExplorerUsersWidgetProps, compareRole: string, ...otherRoles: string[]): boolean => props.userProfile.role === compareRole || _.includes(otherRoles, props.userProfile.role);
+const isRole = (userProfile, compareRole: string, ...otherRoles: string[]): boolean => userProfile.role === compareRole || _.includes(otherRoles, userProfile.role);
 
 /**
  * This component is a placeholder in case an individual explorer is created for users. It offers
@@ -24,8 +24,8 @@ const isRole = (props: IExplorerUsersWidgetProps, compareRole: string, ...otherR
  * @param isActive {boolean} This component expects the parent to manage state
  * @param handleClose {function} Handler to close component (dimmer) when clicking outside of the component
  * @return {Dimmer} */
-const ExplorerUsersWidget: React.FC<IExplorerUsersWidgetProps> = (props) => {
-  if (!(props.userProfile)) return undefined;
+const ExplorerUsersWidget: React.FC<IExplorerUsersWidgetProps> = ({ userProfile, isActive, handleClose }) => {
+  if (!(userProfile)) return undefined;
   const overflowStyle: React.CSSProperties = { overflow: 'scroll' };
   const cardStyle: React.CSSProperties = {
     textAlign: 'left',
@@ -33,10 +33,10 @@ const ExplorerUsersWidget: React.FC<IExplorerUsersWidgetProps> = (props) => {
     lineHeight: '1.5',
     width: '400px',
   };
-  const p = props.userProfile;
+  const p = userProfile;
   const level = p.level;
   let sharedUsername;
-  if (isRole(props, ROLE.STUDENT, ROLE.ALUMNI)) {
+  if (isRole(userProfile, ROLE.STUDENT, ROLE.ALUMNI)) {
     sharedUsername = p.shareUsername ? (
       <React.Fragment>
         {p.username}
@@ -52,8 +52,8 @@ const ExplorerUsersWidget: React.FC<IExplorerUsersWidgetProps> = (props) => {
   return (
     <Dimmer
       style={overflowStyle}
-      active={props.isActive}
-      onClickOutside={props.handleClose}
+      active={isActive}
+      onClickOutside={handleClose}
       page
       id="explorerUserWidget"
     >
@@ -73,7 +73,7 @@ const ExplorerUsersWidget: React.FC<IExplorerUsersWidgetProps> = (props) => {
                     src={`/images/level-icons/radgrad-level-${level}-icon.png`}
                   />
                 ) : undefined}
-                {isRole(props, ROLE.ADVISOR, ROLE.FACULTY) ? (
+                {isRole(userProfile, ROLE.ADVISOR, ROLE.FACULTY) ? (
                   <React.Fragment>
                     {p.username}
                     <br />

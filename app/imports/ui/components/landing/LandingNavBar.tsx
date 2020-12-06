@@ -18,12 +18,12 @@ const onClick = () => {
 /**
  * LandingNavBar rendered on each of the landing pages.
  */
-const LandingNavBar = (props: INavBarProps) => {
+const LandingNavBar: React.FC<INavBarProps> = ({ currentUser, iconName, role }) => {
   const imageStyle = { width: 45 };
   // console.log(props);
-  const url = `/#/${props.role}/${props.currentUser}/home`;
+  const url = `/#/${role}/${currentUser}/home`;
   // Capitalize first letter
-  const displayRole = props.currentUser ? props.role.charAt(0).toUpperCase() + props.role.slice(1) : '';
+  const displayRole = currentUser ? role.charAt(0).toUpperCase() + role.slice(1) : '';
   return (
 
     <Menu attached="top" borderless size="small">
@@ -38,7 +38,7 @@ const LandingNavBar = (props: INavBarProps) => {
         </Menu.Item>
         <Menu.Item position="right"><Button onClick={onClick}>GUIDED TOURS</Button></Menu.Item>
         <Menu.Item>
-          {props.currentUser ? (
+          {currentUser ? (
             <div>
               <Button basic color="green" compact><a href={url}>{displayRole} Home</a></Button>
             </div>

@@ -9,10 +9,10 @@ interface IAddInterestTypeFormProps {
   handleAdd: (doc) => any;
 }
 
-const AddInterestTypeForm = (props: IAddInterestTypeFormProps) => (
+const AddInterestTypeForm: React.FC<IAddInterestTypeFormProps> = ({ formRef, handleAdd }) => (
   <Segment padded>
     <Header dividing>Add Interest Type</Header>
-    <AutoForm schema={new SimpleSchema2Bridge(InterestTypes.getDefineSchema())} onSubmit={props.handleAdd} ref={props.formRef} showInlineError>
+    <AutoForm schema={new SimpleSchema2Bridge(InterestTypes.getDefineSchema())} onSubmit={handleAdd} ref={formRef} showInlineError>
       <Form.Group widths="equal">
         <TextField name="slug" />
         <TextField name="name" />

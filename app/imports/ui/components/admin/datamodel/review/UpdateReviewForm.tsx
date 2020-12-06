@@ -18,10 +18,11 @@ interface IUpdateReviewFormProps {
   itemTitleString: (item) => React.ReactNode;
 }
 
-const UpdateReviewForm = (props: IUpdateReviewFormProps) => {
-  const model = props.collection.findDoc(props.id);
+const UpdateReviewForm: React.FC<IUpdateReviewFormProps> = ({ terms, collection, id, formRef, handleCancel, handleUpdate, itemTitleString }) => {
+  // TODO why aren't we passed in the model/item?
+  const model = collection.findDoc(id);
   model.academicTerm = academicTermIdToName(model.termID);
-  const termNames = _.map(props.terms, academicTermToName);
+  const termNames = _.map(terms, academicTermToName);
   const schema = new SimpleSchema({
     academicTerm: {
       type: String,
@@ -39,14 +40,14 @@ const UpdateReviewForm = (props: IUpdateReviewFormProps) => {
     <Segment padded>
       <Header dividing>
         Update
-        {props.collection.getType()}
+        {collection.getType()}
         :
-        {props.itemTitleString(model)}
+        {itemTitleString(model)}
       </Header>
       <AutoForm
         schema={formSchema}
-        onSubmit={props.handleUpdate}
-        ref={props.formRef}
+        onSubmit={handleUpdate}
+        ref={formRef}
         showInlineError
         model={model}
       >
@@ -62,7 +63,7 @@ const UpdateReviewForm = (props: IUpdateReviewFormProps) => {
           <BoolField name="retired" />
         </Form.Group>
         <SubmitField inputRef={undefined} value="Update" disabled={false} className="" />
-        <Button onClick={props.handleCancel}>Cancel</Button>
+        <Button onClick={handleCancel}>Cancel</Button>
       </AutoForm>
     </Segment>
   );

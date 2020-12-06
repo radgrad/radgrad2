@@ -5,7 +5,7 @@ import { Dropdown, Header, Image, Menu } from 'semantic-ui-react';
 import RadGradLogoText from '../../shared/RadGradLogoText';
 import RadGradLoginButtons from '../RadGradLoginButtons';
 
-const LandingExplorerMenuBar = () => {
+const LandingExplorerMenuBar: React.FC = () => {
   const imageStyle = { width: '45px' };
   const menuStyle = { marginBottom: 30 };
   const currentUser = Meteor.user() ? Meteor.user().username : '';

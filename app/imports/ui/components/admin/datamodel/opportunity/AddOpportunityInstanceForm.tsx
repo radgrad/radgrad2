@@ -17,12 +17,12 @@ interface IAddOpportunityInstanceFormProps {
   handleAdd: (doc) => any;
 }
 
-const AddOpportunityInstanceForm = (props: IAddOpportunityInstanceFormProps) => {
-  const termNames = _.map(props.terms, academicTermToName);
+const AddOpportunityInstanceForm: React.FC<IAddOpportunityInstanceFormProps> = ({ terms, opportunities, students, sponsors, formRef, handleAdd }) => {
+  const termNames = _.map(terms, academicTermToName);
   const currentTermName = AcademicTerms.toString(AcademicTerms.getCurrentTermID(), false);
-  const opportunityNames = _.map(props.opportunities, docToName);
-  const studentNames = _.map(props.students, profileToName);
-  const sponsorNames = _.map(props.sponsors, profileToName);
+  const opportunityNames = _.map(opportunities, docToName);
+  const studentNames = _.map(students, profileToName);
+  const sponsorNames = _.map(sponsors, profileToName);
   const schema = new SimpleSchema({
     term: {
       type: String,
@@ -52,7 +52,7 @@ const AddOpportunityInstanceForm = (props: IAddOpportunityInstanceFormProps) => 
   return (
     <Segment padded>
       <Header dividing>Add Opportunity Instance</Header>
-      <AutoForm schema={formSchema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError>
+      <AutoForm schema={formSchema} onSubmit={handleAdd} ref={formRef} showInlineError>
         <Form.Group widths="equal">
           <SelectField name="term" />
           <SelectField name="student" />

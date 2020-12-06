@@ -454,6 +454,8 @@ export interface IFavoriteUpdate extends IUpdate {
 export interface IFeed {
   _id: string;
   userID: string;
+  description?: string;
+  picture?: string;
 }
 
 export interface IFeedDefine extends IDumpOne {

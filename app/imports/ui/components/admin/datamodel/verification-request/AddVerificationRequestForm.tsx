@@ -19,16 +19,16 @@ interface IAddVerificationRequestFormProps {
   academicTerms: IAcademicTerm[];
   opportunities: IOpportunity[];
   opportunityInstances: IOpportunityInstance[];
-  formRef: any;
+  formRef: React.RefObject<unknown>;
   handleAdd: (doc) => any;
 }
 
-const AddVerificationRequestForm = (props: IAddVerificationRequestFormProps) => {
-  const termNames = _.map(props.academicTerms, academicTermToName);
+const AddVerificationRequestForm: React.FC<IAddVerificationRequestFormProps> = ({ students, academicTerms, opportunities, opportunityInstances, formRef, handleAdd }) => {
+  const termNames = _.map(academicTerms, academicTermToName);
   const currentTermName = AcademicTerms.toString(AcademicTerms.getCurrentTermID(), false);
-  const opportunityNames = _.map(props.opportunities, docToName);
-  const opportunityInstanceNames = _.map(props.opportunityInstances, opportunityInstanceToName);
-  const studentNames = _.map(props.students, profileToName);
+  const opportunityNames = _.map(opportunities, docToName);
+  const opportunityInstanceNames = _.map(opportunityInstances, opportunityInstanceToName);
+  const studentNames = _.map(students, profileToName);
   const schema = new SimpleSchema({
     student: { type: String, allowedValues: studentNames, optional: true },
     status: {
@@ -45,7 +45,7 @@ const AddVerificationRequestForm = (props: IAddVerificationRequestFormProps) => 
   return (
     <Segment padded>
       <Header dividing>Add Verification Request</Header>
-      <AutoForm schema={formSchema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError>
+      <AutoForm schema={formSchema} onSubmit={handleAdd} ref={formRef} showInlineError>
         <Form.Group widths="equal">
           <SelectField name="student" placeholder="Choose the student" />
           <SelectField name="status" placeholder="Choose the status" />

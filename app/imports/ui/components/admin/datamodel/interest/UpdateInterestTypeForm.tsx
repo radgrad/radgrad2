@@ -14,20 +14,20 @@ interface IUpdateInterestTypeFormProps {
   itemTitleString: (item) => React.ReactNode;
 }
 
-const UpdateInterestTypeForm = (props: IUpdateInterestTypeFormProps) => {
-  const model = props.collection.findDoc(props.id);
+const UpdateInterestTypeForm: React.FC<IUpdateInterestTypeFormProps> = ({ collection, id, formRef, handleUpdate, handleCancel, itemTitleString }) => {
+  const model = collection.findDoc(id);
   return (
     <Segment padded>
       <Header dividing>
         Update
-        {props.collection.getType()}
+        {collection.getType()}
         :
-        {props.itemTitleString(model)}
+        {itemTitleString(model)}
       </Header>
       <AutoForm
         schema={new SimpleSchema2Bridge(InterestTypes.getUpdateSchema())}
-        onSubmit={props.handleUpdate}
-        ref={props.formRef}
+        onSubmit={handleUpdate}
+        ref={formRef}
         showInlineError
         model={model}
       >
@@ -35,7 +35,7 @@ const UpdateInterestTypeForm = (props: IUpdateInterestTypeFormProps) => {
         <LongTextField name="description" />
         <BoolField name="retired" />
         <SubmitField inputRef={undefined} value="Update" disabled={false} className="" />
-        <Button onClick={props.handleCancel}>Cancel</Button>
+        <Button onClick={handleCancel}>Cancel</Button>
       </AutoForm>
     </Segment>
   );

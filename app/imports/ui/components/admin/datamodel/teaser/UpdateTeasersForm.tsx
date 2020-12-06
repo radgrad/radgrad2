@@ -22,24 +22,24 @@ interface IUpdateTeaserFormProps {
   opportunities: IOpportunity[];
   collection: BaseCollection;
   id: string;
-  formRef: any;
+  formRef: React.RefObject<unknown>;
   handleUpdate: (doc) => any;
   handleCancel: (event) => any;
   itemTitleString: (item) => React.ReactNode;
 }
 
-const UpdateTeaserForm = (props: IUpdateTeaserFormProps) => {
-  const model = props.collection.findDoc(props.id);
+const UpdateTeaserForm: React.FC<IUpdateTeaserFormProps> = ({ careerGoals, courses, interests, opportunities, collection, id, formRef, handleUpdate, handleCancel, itemTitleString }) => {
+  const model = collection.findDoc(id);
   model.slug = itemToSlugName(model);
   model.opportunity = opportunityIdToName(model.opportunityID);
   model.interests = _.map(model.interestIDs, interestIdToName);
   model.youtubeID = model.url;
   const modelSlugAndType = slugIDToSlugNameAndType(model.targetSlugID);
-  const interestNames = _.map(props.interests, docToName);
-  const opportunitySlugs = _.map(props.opportunities, docToSlugNameAndType);
-  const courseSlugs = _.map(props.courses, docToSlugNameAndType);
-  const interestSlugs = _.map(props.interests, docToSlugNameAndType);
-  const careerGoalSlugs = _.map(props.careerGoals, docToSlugNameAndType);
+  const interestNames = _.map(interests, docToName);
+  const opportunitySlugs = _.map(opportunities, docToSlugNameAndType);
+  const courseSlugs = _.map(courses, docToSlugNameAndType);
+  const interestSlugs = _.map(interests, docToSlugNameAndType);
+  const careerGoalSlugs = _.map(careerGoals, docToSlugNameAndType);
   const schema = new SimpleSchema({
     title: String,
     slug: String,
@@ -63,14 +63,14 @@ const UpdateTeaserForm = (props: IUpdateTeaserFormProps) => {
     <Segment padded>
       <Header dividing>
         Update
-        {props.collection.getType()}
+        {collection.getType()}
         :
-        {props.itemTitleString(model)}
+        {itemTitleString(model)}
       </Header>
       <AutoForm
         schema={formSchema}
-        onSubmit={props.handleUpdate}
-        ref={props.formRef}
+        onSubmit={handleUpdate}
+        ref={formRef}
         showInlineError
         model={model}
       >
@@ -90,7 +90,7 @@ const UpdateTeaserForm = (props: IUpdateTeaserFormProps) => {
         </Form.Group>
         <BoolField name="retired" />
         <SubmitField inputRef={undefined} value="Update" disabled={false} className="" />
-        <Button onClick={props.handleCancel}>Cancel</Button>
+        <Button onClick={handleCancel}>Cancel</Button>
       </AutoForm>
     </Segment>
   );

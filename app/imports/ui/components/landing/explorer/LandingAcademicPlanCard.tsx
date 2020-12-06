@@ -9,9 +9,9 @@ interface ILandingAcademicPlanCardProps {
   plan: IAcademicPlan;
 }
 
-const LandingAcademicPlanCard = (props: ILandingAcademicPlanCardProps) => {
-  const routeToItem = `#/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}/${getSlug(props.plan)}`;
-  const title = props.plan.name;
+const LandingAcademicPlanCard: React.FC<ILandingAcademicPlanCardProps> = ({ plan }) => {
+  const routeToItem = `#/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}/${getSlug(plan)}`;
+  const title = plan.name;
   return (
     <Card className="ui card radgrad-interest-card">
       <Card.Content className="content">
@@ -19,10 +19,10 @@ const LandingAcademicPlanCard = (props: ILandingAcademicPlanCardProps) => {
       </Card.Content>
       <Card.Content className="content">
         <p>
-          {itemShortDescription(props.plan)}
+          {itemShortDescription(plan)}
           ...
         </p>
-        <LandingAcademicPlanViewer plan={props.plan} />
+        <LandingAcademicPlanViewer plan={plan} />
       </Card.Content>
       <Button.Group attached="bottom" className="radgrad-home-buttons ui center aligned three bottom attached {{hidden}} buttons">
         <a href={routeToItem} className="ui button">

@@ -9,11 +9,11 @@ interface IPlanChoicePillProps {
   satisfied: boolean;
 }
 
-const StaticPlanChoicePill = (props: IPlanChoicePillProps) => {
-  const style = props.satisfied ? getSatisfiedStyle() : getNotSatisfiedStyle();
+const StaticPlanChoicePill: React.FC<IPlanChoicePillProps> = ({ choice, satisfied }) => {
+  const style = satisfied ? getSatisfiedStyle() : getNotSatisfiedStyle();
   return (
     <Grid.Row style={style}>
-      <NamePill name={PlanChoices.toString(props.choice)} />
+      <NamePill name={PlanChoices.toString(choice)} />
     </Grid.Row>
   );
 };

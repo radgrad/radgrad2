@@ -17,7 +17,6 @@ import { RootState } from '../../../../redux/types';
 
 interface IListOpportunitiesWidgetProps {
   collection: BaseCollection;
-  // eslint-disable-next-line react/no-unused-prop-types
   findOptions?: { [key: string]: unknown };
   descriptionPairs: (item) => IDescriptionPair[];
   handleOpenUpdate: (evt: any, id: any) => any;
@@ -45,14 +44,14 @@ const titleICE = (opportunity) => ` (ICE: ${opportunity.ice.i}/${opportunity.ice
 
 const slugName = (slugID) => ` (${Slugs.findDoc(slugID).name})`;
 
-const ListOpportunitiesWidget = (props: IListOpportunitiesWidgetProps) => {
+const ListOpportunitiesWidget: React.FC<IListOpportunitiesWidgetProps> = ({ pagination, collection, handleOpenUpdate, handleDelete, descriptionPairs, findOptions }) => {
   // console.log('ListOpportunitiesWidget.render props=%o', props);
   const match = useRouteMatch();
   const facultyCounter = facultyCount(match);
-  const startIndex = props.pagination[props.collection.getCollectionName()].showIndex;
-  const showCount = props.pagination[props.collection.getCollectionName()].showCount;
+  const startIndex = pagination[collection.getCollectionName()].showIndex;
+  const showCount = pagination[collection.getCollectionName()].showCount;
   const endIndex = startIndex + showCount;
-  const allItems = props.collection.find({}, props.findOptions).fetch();
+  const allItems = collection.find({}, findOptions).fetch();
   const items = _.slice(allItems, startIndex, endIndex);
   const factoryOpp = facultyOpportunities(match);
   // console.log('startIndex=%o endIndex=%o items=%o', startIndex, endIndex, items);
@@ -75,11 +74,11 @@ const ListOpportunitiesWidget = (props: IListOpportunitiesWidgetProps) => {
                 retired={item.retired}
                 name={item.name}
                 slug={slugName(item.slugID)}
-                descriptionPairs={props.descriptionPairs(item)}
+                descriptionPairs={descriptionPairs(item)}
                 updateDisabled={false}
                 deleteDisabled={false}
-                handleOpenUpdate={props.handleOpenUpdate}
-                handleDelete={props.handleDelete}
+                handleOpenUpdate={handleOpenUpdate}
+                handleDelete={handleDelete}
                 additionalTitleInfo={titleICE(item)}
               />
             ))}
@@ -104,7 +103,7 @@ const ListOpportunitiesWidget = (props: IListOpportunitiesWidgetProps) => {
 
       <Grid>
         <AdminPaginationWidget
-          collection={props.collection}
+          collection={collection}
           setShowIndex={dataModelActions.setCollectionShowIndex}
           setShowCount={dataModelActions.setCollectionShowCount}
         />
@@ -115,11 +114,11 @@ const ListOpportunitiesWidget = (props: IListOpportunitiesWidgetProps) => {
             retired={item.retired}
             name={item.name}
             slug={slugName(item.slugID)}
-            descriptionPairs={props.descriptionPairs(item)}
+            descriptionPairs={descriptionPairs(item)}
             updateDisabled
             deleteDisabled
-            handleOpenUpdate={props.handleOpenUpdate}
-            handleDelete={props.handleDelete}
+            handleOpenUpdate={handleOpenUpdate}
+            handleDelete={handleDelete}
             additionalTitleInfo={titleICE(item)}
           />
         ))}

@@ -9,10 +9,10 @@ interface IAddOpportunityTypeFormProps {
   handleAdd: (doc) => any;
 }
 
-const AddOpportunityTypeForm = (props: IAddOpportunityTypeFormProps) => (
+const AddOpportunityTypeForm: React.FC<IAddOpportunityTypeFormProps> = ({ formRef, handleAdd }) => (
   <Segment padded>
     <Header dividing>Add Interest Type</Header>
-    <AutoForm schema={new SimpleSchema2Bridge(OpportunityTypes.getDefineSchema())} onSubmit={props.handleAdd} ref={props.formRef} showInlineError>
+    <AutoForm schema={new SimpleSchema2Bridge(OpportunityTypes.getDefineSchema())} onSubmit={handleAdd} ref={formRef} showInlineError>
       <Form.Group widths="equal">
         <TextField name="slug" />
         <TextField name="name" />

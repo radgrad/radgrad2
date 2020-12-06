@@ -3,7 +3,7 @@ import { Grid, Header, Image } from 'semantic-ui-react';
 import { RadGradProperties } from '../../../../../api/radgrad/RadGradProperties';
 import styles from '../../../../pages/landing/utilities/guidedtour-style';
 
-const GuidedTourFacultyWhatsNext = () => {
+const GuidedTourFacultyWhatsNext: React.FC = () => {
   const adminEmail = RadGradProperties.getAdminEmail();
   const mailto = `mailto:${adminEmail}`;
   return (

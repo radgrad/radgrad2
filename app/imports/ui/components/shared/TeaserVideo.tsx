@@ -5,12 +5,12 @@ interface ITeaserVideoProps {
   id: string;
 }
 
-const TeaserVideo = (props: ITeaserVideoProps) => (
+const TeaserVideo: React.FC<ITeaserVideoProps> = ({ id }) => (
   <Embed
     active
     autoplay={false}
     source="youtube"
-    id={props.id}
+    id={id}
     // onClick={handleClick}
     // placeholder={`http://img.youtube.com/vi/${props.id}/0.jpg`}
   />

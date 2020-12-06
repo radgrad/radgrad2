@@ -13,8 +13,8 @@ interface IAddInterestFormProps {
   handleAdd: (doc) => any;
 }
 
-const AddInterestForm = (props: IAddInterestFormProps) => {
-  const interestTypeNames = _.map(props.interestTypes, docToName);
+const AddInterestForm: React.FC<IAddInterestFormProps> = ({ interestTypes, formRef, handleAdd }) => {
+  const interestTypeNames = _.map(interestTypes, docToName);
   const schema = new SimpleSchema({
     name: String,
     slug: String,
@@ -26,7 +26,7 @@ const AddInterestForm = (props: IAddInterestFormProps) => {
   return (
     <Segment padded>
       <Header dividing>Add Interest</Header>
-      <AutoForm schema={formSchema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError>
+      <AutoForm schema={formSchema} onSubmit={handleAdd} ref={formRef} showInlineError>
         <Form.Group widths="equal">
           <TextField name="slug" placeholder="rust" />
           <TextField name="name" placeholder="Rust Programming Language" />

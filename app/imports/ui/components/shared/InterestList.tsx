@@ -13,8 +13,7 @@ interface IInterestListProps {
   size: SemanticSIZES;
 }
 
-const InterestList = (props: IInterestListProps) => {
-  const { size, item } = props;
+const InterestList: React.FC<IInterestListProps> = ({ size, item }) => {
   const match = useRouteMatch();
   const matchingUserInterests = MatchingInterests.matchingUserInterests(Router.getUsername(match), item);
   const matchingCareerInterests = MatchingInterests.matchingCareerGoalInterests(Router.getUsername(match), item);

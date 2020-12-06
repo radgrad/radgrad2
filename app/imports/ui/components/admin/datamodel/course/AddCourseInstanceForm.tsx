@@ -17,11 +17,11 @@ interface IAddCourseInstanceFormProps {
   handleAdd: (doc) => any;
 }
 
-const AddCourseInstanceForm = (props: IAddCourseInstanceFormProps) => {
-  const termNames = _.map(props.terms, academicTermToName);
+const AddCourseInstanceForm: React.FC<IAddCourseInstanceFormProps> = ({ terms, courses, students, formRef, handleAdd }) => {
+  const termNames = _.map(terms, academicTermToName);
   const currentTermName = AcademicTerms.toString(AcademicTerms.getCurrentTermID(), false);
-  const courseNames = _.map(props.courses, courseToName);
-  const studentNames = _.map(props.students, profileToName);
+  const courseNames = _.map(courses, courseToName);
+  const studentNames = _.map(students, profileToName);
   const schema = new SimpleSchema({
     term: {
       type: String,
@@ -52,7 +52,7 @@ const AddCourseInstanceForm = (props: IAddCourseInstanceFormProps) => {
   return (
     <Segment padded>
       <Header dividing>Add Course Instance</Header>
-      <AutoForm schema={formSchema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError>
+      <AutoForm schema={formSchema} onSubmit={handleAdd} ref={formRef} showInlineError>
         <Form.Group widths="equal">
           <SelectField name="term" />
           <SelectField name="course" />

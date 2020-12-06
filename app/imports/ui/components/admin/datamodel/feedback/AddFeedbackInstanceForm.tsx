@@ -15,8 +15,8 @@ interface IAddFeedbackInstanceFormProps {
   handleAdd: (doc) => any;
 }
 
-const AddFeedbackInstanceForm = (props: IAddFeedbackInstanceFormProps) => {
-  const studentNames = _.map(props.students, profileToName);
+const AddFeedbackInstanceForm: React.FC<IAddFeedbackInstanceFormProps> = ({ students, formRef, handleAdd }) => {
+  const studentNames = _.map(students, profileToName);
   // console.log(FeedbackFunctions.feedbackFunctionNames);
   const schema = new SimpleSchema({
     user: { type: String, allowedValues: studentNames, defaultValue: studentNames[0] },
@@ -37,7 +37,7 @@ const AddFeedbackInstanceForm = (props: IAddFeedbackInstanceFormProps) => {
   return (
     <Segment padded>
       <Header dividing>Add Feedback Instance</Header>
-      <AutoForm schema={formSchema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError>
+      <AutoForm schema={formSchema} onSubmit={handleAdd} ref={formRef} showInlineError>
         <Form.Group>
           <SelectField name="user" />
           <SelectField name="functionName" />

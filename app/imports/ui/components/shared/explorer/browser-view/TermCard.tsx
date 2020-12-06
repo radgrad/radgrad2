@@ -22,22 +22,18 @@ import {
 import { replaceTermStringNextFour } from '../../utilities/general';
 import FutureParticipation from '../FutureParticipation';
 
-const isType = (typeToCheck: string, props: ITermCard) => {
-  const { type } = props;
-  return type === typeToCheck;
-};
+const isType = (typeToCheck: string, type: string) => type === typeToCheck;
 
-const itemName = (item, props: ITermCard) => {
-  if (isType(EXPLORER_TYPE.COURSES, props)) {
+const itemName = (item, type: string) => {
+  if (isType(EXPLORER_TYPE.COURSES, type)) {
     return `${item.name} (${item.num})`;
   }
   return item.name;
 };
 
-const itemTerms = (props: ITermCard) => {
-  const { item } = props;
+const itemTerms = (item, type) => {
   let ret = [];
-  if (isType(EXPLORER_TYPE.COURSES, props)) {
+  if (isType(EXPLORER_TYPE.COURSES, type)) {
     // do nothing
   } else {
     ret = opportunityTerms(item);
@@ -65,11 +61,10 @@ const buildRouteName = (item, type, match) => {
 // TODO Why is this named this?
 // TODO Redesign the Cards.
 
-const TermCard = (props: ITermCard) => {
-  const { item, type } = props;
+const TermCard: React.FC<ITermCard> = ({ item, type }) => {
   const match = useRouteMatch();
-  const name = itemName(item, props);
-  const isTypeOpportunity = isType('opportunities', props);
+  const name = itemName(item, type);
+  const isTypeOpportunity = isType('opportunities', type);
   const itemShortDescription = docToShortDescription(item);
   const numberStudents = studentsParticipating(item);
   const quarter = RadGradProperties.getQuarterSystem();
@@ -107,7 +102,7 @@ const TermCard = (props: ITermCard) => {
         </Card.Header>
 
         <Card.Meta>
-          {itemTerms ? replaceTermStringNextFour(itemTerms(props)) : ''}
+          {itemTerms ? replaceTermStringNextFour(itemTerms(item, type)) : ''}
         </Card.Meta>
       </Card.Content>
 

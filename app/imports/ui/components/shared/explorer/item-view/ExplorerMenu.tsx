@@ -1,28 +1,19 @@
 import React from 'react';
-import {
-  IAcademicPlan,
-  ICareerGoal,
-  ICourse,
-  IInterest,
-  IOpportunity,
-} from '../../../../../typings/radgrad';
 import ExplorerMenuNonMobileWidget from './ExplorerMenuNonMobileWidget';
 import ExplorerMenuMobileWidget from './ExplorerMenuMobileWidget';
 import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
 import ExplorerNavDropdown from '../ExplorerNavDropdown';
-
-type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IInterest | IOpportunity;
+import { IListItem } from './ExplorerMenuMobileItem';
 
 interface IExplorerMenuProps {
-  menuAddedList: { item: explorerInterfaces, count: number }[];
-  menuCareerList?: { item: IInterest, count: number }[] | undefined;
+  menuAddedList: IListItem[];
+  menuCareerList?: IListItem[] | undefined;
   type: 'plans' | 'career-goals' | 'courses' | 'interests' | 'opportunities' | 'users'; // TODO should this be a defined type?
 }
 
-const getTypeName = (props: IExplorerMenuProps): string => {
-  const { type } = props;
+const getTypeName = (type: string): string => {
   const names = ['Academic Plans', 'Career Goals', 'Courses', 'Interests', 'Opportunities', 'Users'];
-  // TODO this feels terrible.
+  // TODO QA this feels terrible.
   switch (type) {
     case EXPLORER_TYPE.ACADEMICPLANS:
       return names[0];
@@ -39,26 +30,22 @@ const getTypeName = (props: IExplorerMenuProps): string => {
   }
 };
 
-const ExplorerMenu: React.FC<IExplorerMenuProps> = (props) => {
-  const { menuAddedList, menuCareerList, type } = props;
+const ExplorerMenu: React.FC<IExplorerMenuProps> = ({ menuAddedList, menuCareerList, type }) => (
+  <React.Fragment>
+    <ExplorerNavDropdown text={getTypeName(type)} />
+    <br />
 
-  return (
-    <React.Fragment>
-      <ExplorerNavDropdown text={getTypeName(props)} />
-      <br />
-
-      <ExplorerMenuNonMobileWidget
-        menuAddedList={menuAddedList}
-        menuCareerList={type && menuCareerList ? menuCareerList : undefined}
-        type={type}
-      />
-      <ExplorerMenuMobileWidget
-        menuAddedList={menuAddedList}
-        menuCareerList={type && menuCareerList ? menuCareerList : undefined}
-        type={type}
-      />
-    </React.Fragment>
-  );
-};
+    <ExplorerMenuNonMobileWidget
+      menuAddedList={menuAddedList}
+      menuCareerList={type && menuCareerList ? menuCareerList : undefined}
+      type={type}
+    />
+    <ExplorerMenuMobileWidget
+      menuAddedList={menuAddedList}
+      menuCareerList={type && menuCareerList ? menuCareerList : undefined}
+      type={type}
+    />
+  </React.Fragment>
+);
 
 export default ExplorerMenu;

@@ -2,7 +2,7 @@ import React from 'react';
 import ScrollUpButton from 'react-scroll-up-button';
 import { Button, Icon } from 'semantic-ui-react';
 
-const BackToTopButton = () => {
+const BackToTopButton: React.FC = () => {
   const style = {
     position: 'fixed',
     right: '-500px',

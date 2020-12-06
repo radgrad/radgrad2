@@ -8,8 +8,8 @@ interface IPrerequisitesListProps {
   prerequisites: string[];
 }
 
-const LandingPrerequisiteList = (props: IPrerequisitesListProps) => {
-  const courses = _.map(props.prerequisites, (slug) => Courses.findDocBySlug(slug));
+const LandingPrerequisiteList: React.FC<IPrerequisitesListProps> = ({ prerequisites }) => {
+  const courses = _.map(prerequisites, (slug) => Courses.findDocBySlug(slug));
   return (
     <List horizontal bulleted>
       {// console.log(course.name);

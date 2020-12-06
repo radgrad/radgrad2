@@ -5,7 +5,7 @@ import _ from 'lodash';
 import { getRouteName } from '../utilities/helper-functions';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 
-const LandingExplorerMenu = () => {
+const LandingExplorerMenu: React.FC = () => {
   const match = useRouteMatch();
   const location = useLocation();
   const fullPath = `${match.path}`;

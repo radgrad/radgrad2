@@ -4,7 +4,7 @@ import styles from './utilities/landing-styles';
 import RadGradLogoText from '../shared/RadGradLogoText';
 
 const headerStyle = { fontSize: '50px', display: 'inline' };
-const LandingSection3 = () => (
+const LandingSection3: React.FC = () => (
   <div id="landing-section-3" style={styles['header-section-gray']}>
     <Container textAlign="center">
       <Header as="h1" style={styles['header-text']} textAlign="center">

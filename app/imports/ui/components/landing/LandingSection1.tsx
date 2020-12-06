@@ -5,7 +5,7 @@ import styles from './utilities/landing-styles';
 
 const headerStyle = { fontSize: '60px', display: 'inline' };
 
-const LandingSection1 = () => (
+const LandingSection1: React.FC = () => (
   <div id="landing-section-1" style={styles['inverted-section']}>
     <Container>
       <Grid stackable>

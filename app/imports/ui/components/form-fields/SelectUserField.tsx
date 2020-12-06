@@ -20,16 +20,16 @@ interface ISelectUserFieldProps {
   users: IUser[];
 }
 
-const SelectUserField = (props: ISelectUserFieldProps) => {
+const SelectUserField: React.FC<ISelectUserFieldProps> = ({ label, required, role, users }) => {
   // console.log(props);
-  const options = _.map(props.users, (userInfo) => ({ key: userInfo._id, text: userInfo.username, value: userInfo._id }));
+  const options = _.map(users, (userInfo) => ({ key: userInfo._id, text: userInfo.username, value: userInfo._id }));
   // console.log(options);
   return (
     <Form.Select
-      label={props.label}
+      label={label}
       options={options}
-      placeholder={`Select ${props.role}`}
-      required={props.required}
+      placeholder={`Select ${role}`}
+      required={required}
     />
   );
 };

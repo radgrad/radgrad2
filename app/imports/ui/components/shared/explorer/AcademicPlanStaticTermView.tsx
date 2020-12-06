@@ -15,7 +15,7 @@ interface IAcademicPlanTermViewProps {
   takenSlugs: string[];
 }
 
-const AcademicPlanStaticTermView = (props: IAcademicPlanTermViewProps) => {
+const AcademicPlanStaticTermView: React.FC<IAcademicPlanTermViewProps> = ({ title, choices, takenSlugs }) => {
   const match = useRouteMatch();
   const isStudent = Router.isUrlRoleStudent(match);
   const noPaddingStyle = {
@@ -25,11 +25,11 @@ const AcademicPlanStaticTermView = (props: IAcademicPlanTermViewProps) => {
 
   return (
     <Segment style={noPaddingStyle}>
-      <Header dividing>{props.title}</Header>
+      <Header dividing>{title}</Header>
       {
         isStudent ?
-          _.map(props.choices, (choice, index) => {
-            const satisfied = isPlanChoiceSatisfied(choice, props.takenSlugs);
+          _.map(choices, (choice, index) => {
+            const satisfied = isPlanChoiceSatisfied(choice, takenSlugs);
             if (PlanChoiceUtils.isSingleChoice(choice) && !PlanChoiceUtils.isXXChoice(choice)) {
               return (
                 <StaticPlanChoicePill key={index} choice={choice} satisfied={satisfied} />
@@ -40,7 +40,7 @@ const AcademicPlanStaticTermView = (props: IAcademicPlanTermViewProps) => {
             );
           })
           :
-          _.map(props.choices, (choice, index) => (<LandingPlanChoicePill key={index} choice={choice} />))
+          _.map(choices, (choice, index) => (<LandingPlanChoicePill key={index} choice={choice} />))
       }
     </Segment>
   );

@@ -18,12 +18,12 @@ interface IAdvisorAPBTermViewProps {
   coursesPerTerm: number[];
 }
 
-const AdvisorAPBTermView = (props: IAdvisorAPBTermViewProps) => (
+const AdvisorAPBTermView: React.FC<IAdvisorAPBTermViewProps> = ({ termName, termNumber, yearNumber, choiceList, coursesPerTerm }) => (
   <Segment>
-    <Header dividing as="h4">{props.termName}</Header>
-    <Droppable droppableId={buildPlanAreaDroppableId(props.yearNumber, props.termNumber)}>
+    <Header dividing as="h4">{termName}</Header>
+    <Droppable droppableId={buildPlanAreaDroppableId(yearNumber, termNumber)}>
       {(provided, snapshot) => {
-        const choices = AcademicPlanUtilities.getPlanChoicesRaw(props.coursesPerTerm, props.choiceList, props.termNumber);
+        const choices = AcademicPlanUtilities.getPlanChoicesRaw(coursesPerTerm, choiceList, termNumber);
         // console.log(choices);
         // if (choices.length > 0) {
         //   console.log(choices, getPlanChoiceFromDraggableId(choices[0]));
