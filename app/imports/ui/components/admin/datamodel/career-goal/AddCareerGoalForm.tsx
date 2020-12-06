@@ -10,7 +10,7 @@ import { docToName } from '../../../shared/utilities/data-model';
 
 interface IAddCareerGoalFormProps {
   interests: IInterest[];
-  formRef: any;
+  formRef: React.RefObject<unknown>;
   handleAdd: (doc) => any;
 }
 

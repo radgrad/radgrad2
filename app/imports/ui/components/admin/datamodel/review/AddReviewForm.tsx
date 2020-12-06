@@ -14,7 +14,7 @@ interface IAddReviewFormProps {
   courses: ICourse[];
   students: IStudentProfile[];
   opportunities: IOpportunity[];
-  formRef: any;
+  formRef: React.RefObject<unknown>;
   handleAdd: (doc) => any;
 }
 

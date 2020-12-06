@@ -13,7 +13,7 @@ interface IAddOpportunityInstanceFormProps {
   opportunities: IOpportunity[];
   students: IStudentProfile[];
   sponsors: IBaseProfile[];
-  formRef: any;
+  formRef: React.RefObject<unknown>;
   handleAdd: (doc) => any;
 }
 

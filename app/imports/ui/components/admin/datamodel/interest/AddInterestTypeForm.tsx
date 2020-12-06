@@ -5,7 +5,7 @@ import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import { InterestTypes } from '../../../../../api/interest/InterestTypeCollection';
 
 interface IAddInterestTypeFormProps {
-  formRef: any;
+  formRef: React.RefObject<unknown>;
   handleAdd: (doc) => any;
 }
 

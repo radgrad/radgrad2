@@ -6,7 +6,7 @@ import BaseCollection from '../../../../api/base/BaseCollection';
 
 interface IAdminDataModelAddFormProps {
   collection: BaseCollection;
-  formRef: any;
+  formRef: React.RefObject<unknown>;
   handleAdd: (doc) => any;
 }
 

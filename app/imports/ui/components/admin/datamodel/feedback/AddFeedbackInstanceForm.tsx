@@ -11,7 +11,7 @@ import { IStudentProfile } from '../../../../../typings/radgrad';
 
 interface IAddFeedbackInstanceFormProps {
   students: IStudentProfile[];
-  formRef: any;
+  formRef: React.RefObject<unknown>;
   handleAdd: (doc) => any;
 }
 

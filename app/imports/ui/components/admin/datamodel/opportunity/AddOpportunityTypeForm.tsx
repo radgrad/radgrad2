@@ -5,7 +5,7 @@ import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import { OpportunityTypes } from '../../../../../api/opportunity/OpportunityTypeCollection';
 
 interface IAddOpportunityTypeFormProps {
-  formRef: any;
+  formRef: React.RefObject<unknown>;
   handleAdd: (doc) => any;
 }
 

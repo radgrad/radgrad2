@@ -11,7 +11,7 @@ import { courseToName, docToName } from '../../../shared/utilities/data-model';
 interface IAddCourseFormProps {
   interests: IInterest[];
   courses: ICourse[];
-  formRef: any;
+  formRef: React.RefObject<unknown>;
   handleAdd: (doc) => any;
 }
 

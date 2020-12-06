@@ -18,7 +18,7 @@ interface IAddUserProps {
   careerGoals: ICareerGoal[];
   academicTerms: IAcademicTerm[];
   academicPlans: IAcademicPlan[];
-  formRef: any;
+  formRef: React.RefObject<unknown>;
   handleAdd: (doc) => any;
   setAdminDataModelUsersIsCloudinaryUsed: (isCloudinaryUsed: boolean) => any;
   setAdminDataModelUsersCloudinaryUrl: (cloudinaryUrl: string) => any;

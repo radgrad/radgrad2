@@ -33,7 +33,7 @@ interface IUpdateUserProps {
   // academicPlans: IAcademicPlan[];
   // collection: BaseCollection;
   id: string;
-  formRef: any;
+  formRef: React.RefObject<unknown>;
   handleUpdate: (doc) => any;
   handleCancel: (event) => any;
   itemTitleString: (item) => React.ReactNode;

@@ -10,7 +10,7 @@ import { profileToUsername } from '../../../shared/utilities/data-model';
 
 interface IAddAcademicYearInstanceProps {
   students: Meteor.User[];
-  formRef: any;
+  formRef: React.RefObject<unknown>;
   handleAdd: (doc) => any;
 }
 

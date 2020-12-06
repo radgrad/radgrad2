@@ -5,7 +5,7 @@ import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import { HelpMessages } from '../../../../../api/help/HelpMessageCollection';
 
 interface IAddHelpMessageFormProps {
-  formRef: any;
+  formRef: React.RefObject<unknown>;
   handleAdd: (doc) => any;
 }
 

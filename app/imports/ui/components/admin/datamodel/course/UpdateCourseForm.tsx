@@ -18,7 +18,7 @@ interface IUpdateCourseFormProps {
   interests: IInterest[];
   courses: ICourse[];
   id: string;
-  formRef: any;
+  formRef: React.RefObject<unknown>;
   handleUpdate: (doc) => any;
   handleCancel: (event) => any;
   itemTitleString: (item) => React.ReactNode;

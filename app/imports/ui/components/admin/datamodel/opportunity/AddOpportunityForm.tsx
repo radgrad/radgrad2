@@ -17,7 +17,7 @@ interface IAddOpportunityFormProps {
   terms: IAcademicTerm[];
   interests: IInterest[];
   opportunityTypes: IOpportunityType[];
-  formRef: any;
+  formRef: React.RefObject<unknown>;
   handleAdd: (doc) => any;
 }
 

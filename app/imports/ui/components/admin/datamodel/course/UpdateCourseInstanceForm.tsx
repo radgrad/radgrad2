@@ -14,7 +14,7 @@ interface IUpdateCourseInstanceFormProps {
   terms: IAcademicTerm[];
   collection: BaseCollection;
   id: string;
-  formRef: any;
+  formRef: React.RefObject<unknown>;
   handleUpdate: (doc) => any;
   handleCancel: (event) => any;
   itemTitleString: (item) => React.ReactNode;

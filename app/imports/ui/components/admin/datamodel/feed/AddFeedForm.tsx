@@ -14,7 +14,7 @@ interface IAddFeedFromProps {
   courses: ICourse[];
   opportunities: IOpportunity[];
   students: IStudentProfile[];
-  formRef: any;
+  formRef: React.RefObject<unknown>;
   handleAdd: (doc) => any;
 }
 

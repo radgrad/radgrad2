@@ -13,7 +13,7 @@ interface IAddCourseInstanceFormProps {
   terms: IAcademicTerm[];
   courses: ICourse[];
   students: IStudentProfile[];
-  formRef: any;
+  formRef: React.RefObject<unknown>;
   handleAdd: (doc) => any;
 }
 
