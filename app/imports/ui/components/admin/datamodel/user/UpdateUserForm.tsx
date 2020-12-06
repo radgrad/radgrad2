@@ -46,10 +46,9 @@ const mapDispatchToProps = (dispatch) => ({
   setAdminDataModelUsersCloudinaryUrl: (cloudinaryUrl: string) => dispatch(cloudinaryActions.setAdminDataModelUsersCloudinaryUrl(cloudinaryUrl)),
 });
 
-const UpdateUserForm = (props: IUpdateUserProps) => {
+const UpdateUserForm: React.FC<IUpdateUserProps> = ({ id, interests, setAdminDataModelUsersIsCloudinaryUsed, setAdminDataModelUsersCloudinaryUrl, careerGoals, academicTerms, formRef, itemTitleString, handleCancel, handleUpdate }) => {
   // console.log('UpdateUserForm', props);
   let collection;
-  const { id } = props;
   if (StudentProfiles.isDefined(id)) {
     collection = StudentProfiles;
   }
@@ -70,8 +69,8 @@ const UpdateUserForm = (props: IUpdateUserProps) => {
     try {
       const cloudinaryResult = await openCloudinaryWidget();
       if (cloudinaryResult.event === 'success') {
-        props.setAdminDataModelUsersIsCloudinaryUsed(true);
-        props.setAdminDataModelUsersCloudinaryUrl(cloudinaryResult.info.url);
+        setAdminDataModelUsersIsCloudinaryUsed(true);
+        setAdminDataModelUsersCloudinaryUrl(cloudinaryResult.info.url);
         setPictureURL(cloudinaryResult.info.url);
       }
     } catch (error) {
@@ -104,9 +103,9 @@ const UpdateUserForm = (props: IUpdateUserProps) => {
   if (model.declaredAcademicTermID) {
     model.declaredAcademicTerm = academicTermIdToName(model.declaredAcademicTermID);
   }
-  const interestNames = _.map(props.interests, docToName);
-  const careerGoalNames = _.map(props.careerGoals, docToName);
-  const academicTermNames = _.map(props.academicTerms, academicTermToName);
+  const interestNames = _.map(interests, docToName);
+  const careerGoalNames = _.map(careerGoals, docToName);
+  const academicTermNames = _.map(academicTerms, academicTermToName);
   // const academicPlanNames = _.map(props.academicPlans, docToName);
   const schema = new SimpleSchema({
     username: { type: String, optional: true },
@@ -178,12 +177,12 @@ const UpdateUserForm = (props: IUpdateUserProps) => {
         Update
         {collection.getType()}
         :
-        {props.itemTitleString(model)}
+        {itemTitleString(model)}
       </Header>
       <AutoForm
         schema={formSchema}
-        onSubmit={props.handleUpdate}
-        ref={props.formRef}
+        onSubmit={handleUpdate}
+        ref={formRef}
         showInlineError
         model={model}
       >
@@ -230,7 +229,7 @@ const UpdateUserForm = (props: IUpdateUserProps) => {
           </div>
         ) : ''}
         <SubmitField inputRef={undefined} value="Update" disabled={false} className="" />
-        <Button onClick={props.handleCancel}>Cancel</Button>
+        <Button onClick={handleCancel}>Cancel</Button>
       </AutoForm>
     </Segment>
   );

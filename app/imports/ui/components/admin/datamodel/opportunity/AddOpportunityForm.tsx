@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { Button, Form, Header, Segment } from 'semantic-ui-react';
+import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, SelectField, LongTextField, DateField, BoolField, SubmitField, NumField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
@@ -21,13 +20,13 @@ interface IAddOpportunityFormProps {
   handleAdd: (doc) => any;
 }
 
-const AddOpportunityForm = (props: IAddOpportunityFormProps) => {
+const AddOpportunityForm: React.FC<IAddOpportunityFormProps> = ({ sponsors, formRef, handleAdd, interests, terms, opportunityTypes }) => {
   const [pictureURL, setPictureURL] = useState<string>('');
   // console.log(props);
-  const sponsorNames = _.map(props.sponsors, profileToName);
-  const termNames = _.map(props.terms, academicTermToName);
-  const opportunityTypeNames = _.map(props.opportunityTypes, docToName);
-  const interestNames = _.map(props.interests, docToName);
+  const sponsorNames = _.map(sponsors, profileToName);
+  const termNames = _.map(terms, academicTermToName);
+  const opportunityTypeNames = _.map(opportunityTypes, docToName);
+  const interestNames = _.map(interests, docToName);
   const handleUploadPicture = async (e): Promise<void> => {
     e.preventDefault();
     try {
@@ -55,7 +54,7 @@ const AddOpportunityForm = (props: IAddOpportunityFormProps) => {
   const handleAddOpportunity = (doc) => {
     const model = doc;
     model.picture = pictureURL;
-    props.handleAdd(model);
+    handleAdd(model);
     setPictureURL('');
   };
 
@@ -79,7 +78,7 @@ const AddOpportunityForm = (props: IAddOpportunityFormProps) => {
   return (
     <Segment padded>
       <Header dividing>Add Opportunity</Header>
-      <AutoForm schema={formSchema} onSubmit={(doc) => handleAddOpportunity(doc)} ref={props.formRef} showInlineError>
+      <AutoForm schema={formSchema} onSubmit={(doc) => handleAddOpportunity(doc)} ref={formRef} showInlineError>
         <Form.Group widths="equal">
           <TextField name="slug" />
           <TextField name="name" />

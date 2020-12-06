@@ -29,7 +29,7 @@ const mapDispatchToProps = (dispatch) => ({
   setAdminDataModelUsersCloudinaryUrl: (cloudinaryUrl: string) => dispatch(cloudinaryActions.setAdminDataModelUsersCloudinaryUrl(cloudinaryUrl)),
 });
 
-const AddUserForm = (props: IAddUserProps) => {
+const AddUserForm: React.FC<IAddUserProps> = ({ interests, handleAdd, formRef, academicTerms, careerGoals, academicPlans, setAdminDataModelUsersCloudinaryUrl, setAdminDataModelUsersIsCloudinaryUsed }) => {
   const [role, setRole] = useState<string>('');
   const [pictureURL, setPictureURL] = useState<string>('');
 
@@ -42,8 +42,8 @@ const AddUserForm = (props: IAddUserProps) => {
     try {
       const cloudinaryResult = await openCloudinaryWidget();
       if (cloudinaryResult.event === 'success') {
-        props.setAdminDataModelUsersIsCloudinaryUsed(true);
-        props.setAdminDataModelUsersCloudinaryUrl(cloudinaryResult.info.url);
+        setAdminDataModelUsersIsCloudinaryUsed(true);
+        setAdminDataModelUsersCloudinaryUrl(cloudinaryResult.info.url);
         setPictureURL(cloudinaryResult.info.url);
       }
     } catch (error) {
@@ -64,14 +64,14 @@ const AddUserForm = (props: IAddUserProps) => {
 
   // Hacky way of resetting pictureURL to be empty
   const handleAddUser = (doc) => {
-    props.handleAdd(doc);
+    handleAdd(doc);
     setPictureURL('');
   };
 
-  const interestNames = _.map(props.interests, docToName);
-  const careerGoalNames = _.map(props.careerGoals, docToName);
-  const academicTermNames = _.map(props.academicTerms, academicTermToName);
-  const academicPlanNames = _.map(props.academicPlans, docToName);
+  const interestNames = _.map(interests, docToName);
+  const careerGoalNames = _.map(careerGoals, docToName);
+  const academicTermNames = _.map(academicTerms, academicTermToName);
+  const academicPlanNames = _.map(academicPlans, docToName);
   const roles = [ROLE.ADVISOR, ROLE.FACULTY, ROLE.STUDENT];
   const schema = new SimpleSchema({
     username: String,
@@ -144,7 +144,7 @@ const AddUserForm = (props: IAddUserProps) => {
       <AutoForm
         schema={formSchema}
         onSubmit={(doc) => handleAddUser(doc)}
-        ref={props.formRef}
+        ref={formRef}
         showInlineError
         onChangeModel={handleModelChange}
       >

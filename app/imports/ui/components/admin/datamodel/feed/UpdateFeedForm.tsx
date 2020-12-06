@@ -50,16 +50,16 @@ const mapDispatchToProps = (dispatch: any): unknown => ({
   setAdminDataModelFeedsCloudinaryUrl: (cloudinaryUrl: string) => dispatch(cloudinaryActions.setAdminDataModelFeedsCloudinaryUrl(cloudinaryUrl)),
 });
 
-const UpdateFeedForm = (props: IUpdateFeedFormProps) => {
-  const [pictureURL, setPictureURL] = useState(props.collection.findDoc(props.id).picture);
+const UpdateFeedForm: React.FC<IUpdateFeedFormProps> = ({ academicTerms, formRef, students, opportunities, courses, id, collection, itemTitleString, handleCancel, handleUpdate, setAdminDataModelFeedsCloudinaryUrl, setAdminDataModelFeedsIsCloudinaryUsed }) => {
+  const [pictureURL, setPictureURL] = useState(collection.findDoc(id).picture);
 
   const handleUpload = async (e): Promise<void> => {
     e.preventDefault();
     try {
       const cloudinaryResult = await openCloudinaryWidget();
       if (cloudinaryResult.event === 'success') {
-        props.setAdminDataModelFeedsIsCloudinaryUsed(true);
-        props.setAdminDataModelFeedsCloudinaryUrl(cloudinaryResult.info.url);
+        setAdminDataModelFeedsIsCloudinaryUsed(true);
+        setAdminDataModelFeedsCloudinaryUrl(cloudinaryResult.info.url);
         setPictureURL(cloudinaryResult.info.url);
       }
     } catch (error) {
@@ -78,15 +78,15 @@ const UpdateFeedForm = (props: IUpdateFeedFormProps) => {
     setPictureURL(value);
   };
 
-  const model = props.collection.findDoc(props.id);
+  const model = collection.findDoc(id);
   model.opportunity = opportunityIdToName(model.opportunityID);
   model.users = _.map(model.userIDs, userIdToName);
   // console.log(model);
-  const academicTermNames = _.map(props.academicTerms, academicTermToName);
+  const academicTermNames = _.map(academicTerms, academicTermToName);
   const currentTermName = AcademicTerms.toString(AcademicTerms.getCurrentTermID(), false);
-  const courseNames = _.map(props.courses, courseToName);
-  const opportunityNames = _.map(props.opportunities, docToName);
-  const studentNames = _.map(props.students, profileToName);
+  const courseNames = _.map(courses, courseToName);
+  const opportunityNames = _.map(opportunities, docToName);
+  const studentNames = _.map(students, profileToName);
   const schema = new SimpleSchema({
     timestamp: Date,
     feedType: String,
@@ -174,15 +174,15 @@ const UpdateFeedForm = (props: IUpdateFeedFormProps) => {
     <Segment padded>
       <Header dividing>
         Update
-        {props.collection.getType()}
+        {collection.getType()}
         :
-        {props.itemTitleString(model)}
+        {itemTitleString(model)}
       </Header>
       <AutoForm
-        ref={props.formRef}
+        ref={formRef}
         schema={formSchema}
         model={model}
-        onSubmit={props.handleUpdate}
+        onSubmit={handleUpdate}
       >
         <Form.Group widths="equal">
           <DateField name="timestamp" disabled />
@@ -256,7 +256,7 @@ const UpdateFeedForm = (props: IUpdateFeedFormProps) => {
         </Form.Group>
         <p />
         <SubmitField inputRef={undefined} value="Update" disabled={false} className="" />
-        <Button onClick={props.handleCancel}>Cancel</Button>
+        <Button onClick={handleCancel}>Cancel</Button>
       </AutoForm>
     </Segment>
   );

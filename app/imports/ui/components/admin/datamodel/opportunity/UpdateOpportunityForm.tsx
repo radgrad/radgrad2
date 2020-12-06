@@ -31,8 +31,8 @@ interface IUpdateOpportunityFormProps {
   itemTitleString: (item) => React.ReactNode;
 }
 
-const UpdateOpportunityForm: React.FC<IUpdateOpportunityFormProps> = (props) => {
-  const model = props.collection.findDoc(props.id);
+const UpdateOpportunityForm: React.FC<IUpdateOpportunityFormProps> = ({ sponsors, opportunityTypes, terms, interests, formRef, handleUpdate, handleCancel, itemTitleString, collection, id }) => {
+  const model = collection.findDoc(id);
   const [pictureURL, setPictureURL] = useState(model.picture);
   const handleUploadPicture = async (e): Promise<void> => {
     e.preventDefault();
@@ -60,7 +60,7 @@ const UpdateOpportunityForm: React.FC<IUpdateOpportunityFormProps> = (props) => 
   const handleUpdateOpportunity = (doc) => {
     const mod = doc;
     mod.picture = pictureURL;
-    props.handleUpdate(mod);
+    handleUpdate(mod);
   };
 
   // console.log('collection model = %o', model);
@@ -70,10 +70,10 @@ const UpdateOpportunityForm: React.FC<IUpdateOpportunityFormProps> = (props) => 
   model.sponsor = userIdToName(model.sponsorID);
   // console.log(model);
   // console.log(props);
-  const sponsorNames = _.map(props.sponsors, profileToName);
-  const termNames = _.map(props.terms, academicTermToName);
-  const opportunityTypeNames = _.map(props.opportunityTypes, docToName);
-  const interestNames = _.map(props.interests, docToName);
+  const sponsorNames = _.map(sponsors, profileToName);
+  const termNames = _.map(terms, academicTermToName);
+  const opportunityTypeNames = _.map(opportunityTypes, docToName);
+  const interestNames = _.map(interests, docToName);
   // console.log(opportunityTypeNames);
   const schema = new SimpleSchema({
     name: { type: String, optional: true },
@@ -92,11 +92,11 @@ const UpdateOpportunityForm: React.FC<IUpdateOpportunityFormProps> = (props) => 
   const formSchema = new SimpleSchema2Bridge(schema);
   return (
     <Segment padded>
-      <Header dividing>Update Opportunity : {props.itemTitleString(model)}</Header>
+      <Header dividing>Update Opportunity : {itemTitleString(model)}</Header>
       <AutoForm
         schema={formSchema}
         onSubmit={(doc) => handleUpdateOpportunity(doc)}
-        ref={props.formRef}
+        ref={formRef}
         showInlineError
         model={model}
       >
@@ -124,7 +124,7 @@ const UpdateOpportunityForm: React.FC<IUpdateOpportunityFormProps> = (props) => 
           <Form.Button basic color="green" onClick={handleUploadPicture}>Upload</Form.Button>
         </Form.Group>
         <SubmitField inputRef={undefined} disabled={false} value="Update" className="" />
-        <Button onClick={props.handleCancel}>Cancel</Button>
+        <Button onClick={handleCancel}>Cancel</Button>
       </AutoForm>
     </Segment>
   );
