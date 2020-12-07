@@ -20,18 +20,16 @@ import { FavoriteInterests } from '../../../../api/favorite/FavoriteInterestColl
 import { FavoriteCareerGoals } from '../../../../api/favorite/FavoriteCareerGoalCollection';
 import { FavoriteAcademicPlans } from '../../../../api/favorite/FavoriteAcademicPlanCollection';
 import { RootState } from '../../../../redux/types';
+import { IBaseProfile, ICareerGoal, IInterest } from '../../../../typings/radgrad';
 
 interface IAdvisorUpdateStudentWidgetProps {
   dispatch: (any) => void;
-  // eslint-disable-next-line react/no-unused-prop-types
   selectedUsername: string;
-  // eslint-disable-next-line react/no-unused-prop-types
   isLoaded: boolean;
-  usernameDoc: { [key: string]: any };
+  usernameDoc: IBaseProfile;
   studentCollectionName: string;
-  // These are parameters for reactivity
-  interests: { [key: string]: any }[];
-  careerGoals: { [key: string]: any }[];
+  interests: IInterest[];
+  careerGoals: ICareerGoal[];
 }
 
 const mapStateToProps = (state: RootState) => ({
@@ -39,9 +37,9 @@ const mapStateToProps = (state: RootState) => ({
   isLoaded: state.advisor.home.isLoaded,
 });
 
-const AdvisorUpdateStudentWidget = (props: IAdvisorUpdateStudentWidgetProps) => {
-  console.log('AdvisorUpdateStudentWidget', props);
-  const doc = props.usernameDoc;
+const AdvisorUpdateStudentWidget: React.FC<IAdvisorUpdateStudentWidgetProps> = ({ dispatch, interests, careerGoals, usernameDoc, isLoaded, selectedUsername, studentCollectionName }) => {
+  // console.log('AdvisorUpdateStudentWidget', props);
+  const doc = usernameDoc;
   const userID = doc.userID;
   const favCareerGoals = FavoriteCareerGoals.findNonRetired({ userID });
   const careerGoalIDs = _.map(favCareerGoals, (fav) => fav.careerGoalID);
@@ -56,7 +54,7 @@ const AdvisorUpdateStudentWidget = (props: IAdvisorUpdateStudentWidgetProps) => 
   const [careerGoalsState, setCareerGoals] = useState(careerGoalIDs);
   const [userInterestsState, setUserInterests] = useState(interestIDs);
   const [isAlumniState, setIsAlumni] = useState(doc.isAlumni);
-  const [declaredAcademicTermState, setDeclaredAcademicTerm] = useState(doc.declaredAcademicTerm || '');
+  const [declaredAcademicTermState, setDeclaredAcademicTerm] = useState(doc.declaredAcademicTermID || '');
   const [favoriteAcademicPlansState, setFavoriteAcademicPlans] = useState(favPlanIDs);
 
   const handleUploadClick = async (): Promise<void> => {
@@ -126,10 +124,10 @@ const AdvisorUpdateStudentWidget = (props: IAdvisorUpdateStudentWidgetProps) => 
   };
 
   // TODO -- find a way to confirm logic behind these calculations (calcLevel & hasNewLevel)
-  const calcLevel = () => (RadGrad.calcLevel ? RadGrad.calcLevel(props.usernameDoc.userID) : defaultCalcLevel(props.usernameDoc.userID));
+  const calcLevel = () => (RadGrad.calcLevel ? RadGrad.calcLevel(usernameDoc.userID) : defaultCalcLevel(usernameDoc.userID));
 
   const hasNewLevel = () => {
-    const student = props.usernameDoc;
+    const student = usernameDoc;
     // console.log('calcLevel', RadGrad.calcLevel);
     // console.log('radgrad.calcLevel, student.level, defaultCalcLevel()',
     //   RadGrad.calcLevel, student.level, defaultCalcLevel(student.userID));
@@ -137,10 +135,10 @@ const AdvisorUpdateStudentWidget = (props: IAdvisorUpdateStudentWidgetProps) => 
   };
 
   const handleUpdateSubmit = () => {
-    const collectionName = props.studentCollectionName;
+    const collectionName = studentCollectionName;
     const updateData: any = {};
     updateData.firstName = firstNameState;
-    updateData.id = props.usernameDoc._id;
+    updateData.id = usernameDoc._id;
     updateData.lastName = lastNameState;
     updateData.picture = pictureState;
     updateData.website = websiteState;
@@ -170,7 +168,7 @@ const AdvisorUpdateStudentWidget = (props: IAdvisorUpdateStudentWidgetProps) => 
   };
 
   const handleCancel = () => {
-    props.dispatch(setSelectedStudentUsername(''));
+    dispatch(setSelectedStudentUsername(''));
   };
 
   // componentDidUpdate(prevProps: Readonly<IAdvisorUpdateStudentWidgetProps>): void {
@@ -187,13 +185,13 @@ const AdvisorUpdateStudentWidget = (props: IAdvisorUpdateStudentWidgetProps) => 
           <Form.Input
             name="username"
             label="Username"
-            value={props.usernameDoc.username}
+            value={usernameDoc.username}
             disabled
           />
           <Form.Input
             name="role"
             label="Role"
-            value={props.usernameDoc.role}
+            value={usernameDoc.role}
             disabled
           />
         </Form.Group>
@@ -242,7 +240,7 @@ const AdvisorUpdateStudentWidget = (props: IAdvisorUpdateStudentWidgetProps) => 
             label="Select Career Goal(s)"
             placeholder="Select Career Goal(s)"
             onChange={handleFormChange}
-            options={props.careerGoals.map(
+            options={careerGoals.map(
               (ele, i) => ({ key: i, text: ele.name, value: ele._id }),
             )}
             value={careerGoalsState}
@@ -254,7 +252,7 @@ const AdvisorUpdateStudentWidget = (props: IAdvisorUpdateStudentWidgetProps) => 
             label="Select Interest(s)"
             placeholder="Select Interest(s)"
             onChange={handleFormChange}
-            options={props.interests.map(
+            options={interests.map(
               (ele, i) => ({ key: i, text: ele.name, value: ele._id }),
             )}
             value={userInterestsState}
@@ -290,7 +288,7 @@ const AdvisorUpdateStudentWidget = (props: IAdvisorUpdateStudentWidgetProps) => 
               name="level"
               label="Level"
               onChange={handleFormChange}
-              value={props.usernameDoc.level}
+              value={usernameDoc.level}
               disabled
             />
           </Form.Field>
@@ -333,14 +331,14 @@ const AdvisorUpdateStudentWidget = (props: IAdvisorUpdateStudentWidgetProps) => 
           <Form.Button content="Cancel" onClick={handleCancel} basic color="green" />
         </Form.Group>
       </Form>
-      <b>{`View ${props.usernameDoc.firstName}'s degree plan: `}</b>
+      <b>{`View ${usernameDoc.firstName}'s degree plan: `}</b>
       <Link
         target="_blank"
         rel="noopener noreferrer"
-        to={`/student/${props.usernameDoc.username}/degree-planner/`}
+        to={`/student/${usernameDoc.username}/degree-planner/`}
       >
         /student/
-        {props.usernameDoc.username}
+        {usernameDoc.username}
         /degree-planner
       </Link>
     </Segment>

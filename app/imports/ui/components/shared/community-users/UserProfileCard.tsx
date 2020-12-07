@@ -9,13 +9,13 @@ import { ROLE } from '../../../../api/role/Role';
 import InterestList from '../InterestList';
 import ExplorerUsersWidget from './ExplorerUsersWidget';
 
-const UserProfileCard = (props: IUserProfileCard) => {
+const UserProfileCard: React.FC<IUserProfileCard> = ({ item }) => {
   const [isActiveState, setIsActive] = useState(false);
 
-  const isRole = (compareRole: string, ...otherRoles: string[]): boolean => props.item.role === compareRole || _.includes(otherRoles, props.item.role);
+  const isRole = (compareRole: string, ...otherRoles: string[]): boolean => item.role === compareRole || _.includes(otherRoles, item.role);
 
   const openInNewTab = () => {
-    const win = window.open(props.item.website, '_blank', 'noopener,noreferrer');
+    const win = window.open(item.website, '_blank', 'noopener,noreferrer');
     win.focus();
   };
 
@@ -23,8 +23,8 @@ const UserProfileCard = (props: IUserProfileCard) => {
     setIsActive(!isActiveState);
   };
 
-  if (!(props.item)) return undefined;
-  const p = props.item;
+  if (!(item)) return undefined;
+  const p = item;
   const favIDs = FavoriteInterests.find({ userID: p.userID }).fetch();
   p.interestIDs = _.map(favIDs, (f) => f.interestID);
   // console.log(favIDs, p);
@@ -87,7 +87,7 @@ const UserProfileCard = (props: IUserProfileCard) => {
       </Card.Content>
       <Button onClick={toggleFullSize} content="View Profile" />
       <ExplorerUsersWidget
-        userProfile={props.item}
+        userProfile={item}
         isActive={isActiveState}
         handleClose={toggleFullSize}
       />

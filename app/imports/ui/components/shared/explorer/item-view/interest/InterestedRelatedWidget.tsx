@@ -8,17 +8,17 @@ import { Opportunities } from '../../../../../../api/opportunity/OpportunityColl
 import { EXPLORER_TYPE } from '../../../../../layouts/utilities/route-constants';
 
 interface IInterestedRelatedWidgetProps {
-  relatedCourses: any;
+  relatedCourses: any; // TODO we should type this.
   relatedOpportunities: any;
   isStudent: boolean;
   baseURL: string;
 }
 
-const InterestedRelatedWidget = (props: IInterestedRelatedWidgetProps) => (
+const InterestedRelatedWidget: React.FC<IInterestedRelatedWidgetProps> = ({ relatedCourses, baseURL, isStudent, relatedOpportunities }) => (
   <div>
     <Segment>
       <Header dividing>RELATED COURSES</Header>
-      {props.isStudent ? (
+      {isStudent ? (
         <Grid columns={3} stackable celled="internally">
           <Grid.Column textAlign="center">
             <Header as="h4">
@@ -26,11 +26,11 @@ const InterestedRelatedWidget = (props: IInterestedRelatedWidgetProps) => (
               Completed
             </Header>
             <List>
-              {props.relatedCourses.completed.length === 0 ? 'None' :
-                _.map(props.relatedCourses.completed, (courseID) => {
+              {relatedCourses.completed.length === 0 ? 'None' :
+                _.map(relatedCourses.completed, (courseID) => {
                   const course = Courses.findDoc(courseID);
                   const slug = Slugs.getNameFromID(course.slugID);
-                  const url = `${props.baseURL}/${EXPLORER_TYPE.COURSES}/${slug}`;
+                  const url = `${baseURL}/${EXPLORER_TYPE.COURSES}/${slug}`;
                   return (
                     <List.Item key={course._id}><Link to={url}>{course.shortName}</Link></List.Item>
                   );
@@ -43,11 +43,11 @@ const InterestedRelatedWidget = (props: IInterestedRelatedWidgetProps) => (
               In Plan (Not Yet Completed)
             </Header>
             <List>
-              {props.relatedCourses.inPlan.length === 0 ? 'None' :
-                _.map(props.relatedCourses.inPlan, (courseID) => {
+              {relatedCourses.inPlan.length === 0 ? 'None' :
+                _.map(relatedCourses.inPlan, (courseID) => {
                   const course = Courses.findDoc(courseID);
                   const slug = Slugs.getNameFromID(course.slugID);
-                  const url = `${props.baseURL}/${EXPLORER_TYPE.COURSES}/${slug}`;
+                  const url = `${baseURL}/${EXPLORER_TYPE.COURSES}/${slug}`;
                   return (
                     <List.Item key={course._id}><Link to={url}>{course.shortName}</Link></List.Item>
                   );
@@ -60,11 +60,11 @@ const InterestedRelatedWidget = (props: IInterestedRelatedWidgetProps) => (
               Not In Plan
             </Header>
             <List>
-              {props.relatedCourses.notInPlan.length === 0 ? 'None' :
-                _.map(props.relatedCourses.notInPlan, (courseID) => {
+              {relatedCourses.notInPlan.length === 0 ? 'None' :
+                _.map(relatedCourses.notInPlan, (courseID) => {
                   const course = Courses.findDoc(courseID);
                   const slug = Slugs.getNameFromID(course.slugID);
-                  const url = `${props.baseURL}/${EXPLORER_TYPE.COURSES}/${slug}`;
+                  const url = `${baseURL}/${EXPLORER_TYPE.COURSES}/${slug}`;
                   return (
                     <List.Item key={course._id}><Link to={url}>{course.shortName}</Link></List.Item>
                   );
@@ -74,10 +74,10 @@ const InterestedRelatedWidget = (props: IInterestedRelatedWidgetProps) => (
         </Grid>
       ) : (
         <List horizontal bulleted>
-          {_.map(props.relatedCourses.notInPlan, (courseID) => {
+          {_.map(relatedCourses.notInPlan, (courseID) => {
             const course = Courses.findDoc(courseID);
             const slug = Slugs.getNameFromID(course.slugID);
-            const url = `${props.baseURL}/${EXPLORER_TYPE.COURSES}/${slug}`;
+            const url = `${baseURL}/${EXPLORER_TYPE.COURSES}/${slug}`;
             return (
               <List.Item key={course._id}><Link to={url}>{course.shortName}</Link></List.Item>
             );
@@ -87,7 +87,7 @@ const InterestedRelatedWidget = (props: IInterestedRelatedWidgetProps) => (
     </Segment>
     <Segment>
       <Header dividing>RELATED OPPORTUNITIES</Header>
-      {props.isStudent ? (
+      {isStudent ? (
         <Grid columns={3} stackable celled="internally">
           <Grid.Column textAlign="center">
             <Header as="h4">
@@ -95,11 +95,11 @@ const InterestedRelatedWidget = (props: IInterestedRelatedWidgetProps) => (
               Completed
             </Header>
             <List>
-              {props.relatedOpportunities.completed.length === 0 ? 'None' :
-                _.map(props.relatedOpportunities.completed, (opportunityID) => {
+              {relatedOpportunities.completed.length === 0 ? 'None' :
+                _.map(relatedOpportunities.completed, (opportunityID) => {
                   const opportunity = Opportunities.findDoc(opportunityID);
                   const slug = Slugs.getNameFromID(opportunity.slugID);
-                  const url = `${props.baseURL}/${EXPLORER_TYPE.OPPORTUNITIES}/${slug}`;
+                  const url = `${baseURL}/${EXPLORER_TYPE.OPPORTUNITIES}/${slug}`;
                   return (
                     <List.Item key={opportunity._id}><Link to={url}>{opportunity.shortName}</Link></List.Item>
                   );
@@ -112,11 +112,11 @@ const InterestedRelatedWidget = (props: IInterestedRelatedWidgetProps) => (
               In Plan (Not Yet Completed)
             </Header>
             <List>
-              {props.relatedOpportunities.inPlan.length === 0 ? 'None' :
-                _.map(props.relatedOpportunities.inPlan, (opportunityID) => {
+              {relatedOpportunities.inPlan.length === 0 ? 'None' :
+                _.map(relatedOpportunities.inPlan, (opportunityID) => {
                   const opportunity = Opportunities.findDoc(opportunityID);
                   const slug = Slugs.getNameFromID(opportunity.slugID);
-                  const url = `${props.baseURL}/${EXPLORER_TYPE.OPPORTUNITIES}/${slug}`;
+                  const url = `${baseURL}/${EXPLORER_TYPE.OPPORTUNITIES}/${slug}`;
                   return (
                     <List.Item key={opportunity._id}><Link to={url}>{opportunity.shortName}</Link></List.Item>
                   );
@@ -129,11 +129,11 @@ const InterestedRelatedWidget = (props: IInterestedRelatedWidgetProps) => (
               Not In Plan
             </Header>
             <List>
-              {props.relatedOpportunities.notInPlan.length === 0 ? 'None' :
-                _.map(props.relatedOpportunities.notInPlan, (opportunityID) => {
+              {relatedOpportunities.notInPlan.length === 0 ? 'None' :
+                _.map(relatedOpportunities.notInPlan, (opportunityID) => {
                   const opportunity = Opportunities.findDoc(opportunityID);
                   const slug = Slugs.getNameFromID(opportunity.slugID);
-                  const url = `${props.baseURL}/${EXPLORER_TYPE.OPPORTUNITIES}/${slug}`;
+                  const url = `${baseURL}/${EXPLORER_TYPE.OPPORTUNITIES}/${slug}`;
                   return (
                     <List.Item key={opportunity._id}><Link to={url}>{opportunity.name}</Link></List.Item>
                   );
@@ -143,10 +143,10 @@ const InterestedRelatedWidget = (props: IInterestedRelatedWidgetProps) => (
         </Grid>
       ) : (
         <List horizontal bulleted>
-          {_.map(props.relatedOpportunities.notInPlan, (opportunityID) => {
+          {_.map(relatedOpportunities.notInPlan, (opportunityID) => {
             const opportunity = Opportunities.findDoc(opportunityID);
             const slug = Slugs.getNameFromID(opportunity.slugID);
-            const url = `${props.baseURL}/${EXPLORER_TYPE.COURSES}/${slug}`;
+            const url = `${baseURL}/${EXPLORER_TYPE.COURSES}/${slug}`;
             return (
               <List.Item key={opportunity._id}><Link to={url}>{opportunity.name}</Link></List.Item>
             );

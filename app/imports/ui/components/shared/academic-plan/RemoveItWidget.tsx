@@ -25,7 +25,7 @@ const mapDispatchToProps = (dispatch) => ({
   selectCourseInstance: (courseInstanceID) => dispatch(degreePlannerActions.selectCourseInstance(courseInstanceID)),
 });
 
-const RemoveItWidget = (props: IRemoveItWidgetProps) => {
+const RemoveItWidget: React.FC<IRemoveItWidgetProps> = ({ collectionName, id, name, courseNumber, selectCourseInstance }) => {
   const match = useRouteMatch();
   const [modalOpenState, setModalOpen] = useState(false);
   const handleOpen = () => setModalOpen(true);
@@ -36,8 +36,7 @@ const RemoveItWidget = (props: IRemoveItWidgetProps) => {
 
   const handleRemoveIt = () => {
     handleClose();
-    const collectionName = props.collectionName;
-    const instance = props.id;
+    const instance = id;
     let type;
     let slugName;
     let instanceObject: ICourseInstance | IOpportunityInstance;
@@ -71,7 +70,7 @@ const RemoveItWidget = (props: IRemoveItWidgetProps) => {
         });
       }
     });
-    props.selectCourseInstance('');
+    selectCourseInstance('');
   };
 
   return (
@@ -91,11 +90,11 @@ const RemoveItWidget = (props: IRemoveItWidgetProps) => {
       size="small"
     >
       <Modal.Header>
-        Remove {props.name}
+        Remove {name}
       </Modal.Header>
       <Modal.Content>
         <Modal.Description>
-          <p>Do you want to remove {props.courseNumber} {props.name} from your plan?</p>
+          <p>Do you want to remove {courseNumber} {name} from your plan?</p>
         </Modal.Description>
       </Modal.Content>
       <Modal.Actions>

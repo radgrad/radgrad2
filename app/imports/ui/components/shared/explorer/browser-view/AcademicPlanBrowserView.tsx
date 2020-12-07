@@ -25,28 +25,28 @@ const mapDispatchToProps = (dispatch) => ({
   setPlansScrollPosition: (scrollPosition: number) => dispatch(scrollPositionActions.setExplorerPlansScrollPosition(scrollPosition)),
 });
 
-const AcademicPlanBrowserView: React.FC<IAcademicPlanBrowserViewProps> = (props) => {
+const AcademicPlanBrowserView: React.FC<IAcademicPlanBrowserViewProps> = ({ favoritePlans, academicPlans, plansScrollPosition, setPlansScrollPosition }) => {
   // console.log(props);
   const cardGroupElement: HTMLElement = document.getElementById('academicPlansCardGroup');
   useEffect(() => {
-    const savedScrollPosition = props.plansScrollPosition;
+    const savedScrollPosition = plansScrollPosition;
     if (savedScrollPosition && cardGroupElement) {
       cardGroupElement.scrollTo(0, savedScrollPosition);
     }
     return () => {
       if (cardGroupElement) {
         const currentScrollPosition = cardGroupElement.scrollTop;
-        props.setPlansScrollPosition(currentScrollPosition);
+        setPlansScrollPosition(currentScrollPosition);
       }
     };
-  }, [cardGroupElement, props.plansScrollPosition, props.setPlansScrollPosition]);
+  }, [cardGroupElement, plansScrollPosition, setPlansScrollPosition]);
 
   return (
     <div id="academic-plan-browser-view">
       <Segment>
-        <Header dividing>ACADEMIC PLANS {props.academicPlans.length}</Header>
+        <Header dividing>ACADEMIC PLANS {academicPlans.length}</Header>
         <Card.Group itemsPerRow={2} stackable id="academicPlansCardGroup">
-          {props.academicPlans.map((plan) => (
+          {academicPlans.map((plan) => (
             <AcademicPlanCard key={plan._id} item={plan} type={EXPLORER_TYPE.ACADEMICPLANS} />))}
         </Card.Group>
       </Segment>

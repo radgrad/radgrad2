@@ -4,16 +4,16 @@ import { Button, Container, Segment, Form } from 'semantic-ui-react';
 import { updateMethod } from '../../../../api/base/BaseCollection.methods';
 
 interface IModerationQuestionCardWidget {
-  question: any;
+  question: any; // TODO isn't this a string?
   handleAccept: (item, comments) => any;
   handleReject: (item, comments) => any;
 }
 
-const ModerationQuestionCardWidget = (props: IModerationQuestionCardWidget) => {
+const ModerationQuestionCardWidget: React.FC<IModerationQuestionCardWidget> = ({ question, handleReject, handleAccept }) => {
   const [moderatorCommentState, setModeratorComment] = useState('');
 
   const handleAcceptClick = () => {
-    const update = props.handleAccept(props.question, moderatorCommentState);
+    const update = handleAccept(question, moderatorCommentState);
     setModeratorComment('');
     // console.log('handle accept click', update);
     updateMethod.call({ collectionName: update.collectionName, updateData: update.updateInfo }, (error) => {
@@ -40,7 +40,7 @@ const ModerationQuestionCardWidget = (props: IModerationQuestionCardWidget) => {
   };
 
   const handleRejectClick = () => {
-    const update = props.handleReject(props.question, moderatorCommentState);
+    const update = handleReject(question, moderatorCommentState);
     setModeratorComment('');
     // console.log('handle accept click', update);
     updateMethod.call({ collectionName: update.collectionName, updateData: update.updateInfo }, (error) => {
@@ -64,7 +64,7 @@ const ModerationQuestionCardWidget = (props: IModerationQuestionCardWidget) => {
 
   return (
     <Container textAlign="left">
-      <strong>Question:</strong> {props.question.question}
+      <strong>Question:</strong> {question.question}
       <Segment>
         <Form>
           <Form.TextArea label="Moderator Comments" value={moderatorCommentState} onChange={handleChange} />
