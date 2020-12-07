@@ -23,13 +23,13 @@ interface IFacultyHomePageProps {
   helpMessages: IHelpMessage[];
 }
 
-const FacultyHomePage: React.FC<IFacultyHomePageProps> = (props: IFacultyHomePageProps) => (
+const FacultyHomePage: React.FC<IFacultyHomePageProps> = ({ profile, helpMessages, favoriteCareerGoals, favoriteInterests }) => (
   <div id="faculty-home-page">
     <FacultyPageMenuWidget />
     <Grid stackable>
       <Grid.Row>
         <Grid.Column width={1} />
-        <Grid.Column width={14}><HelpPanelWidget helpMessages={props.helpMessages} /></Grid.Column>
+        <Grid.Column width={14}><HelpPanelWidget helpMessages={helpMessages} /></Grid.Column>
         <Grid.Column width={1} />
       </Grid.Row>
 
@@ -37,9 +37,9 @@ const FacultyHomePage: React.FC<IFacultyHomePageProps> = (props: IFacultyHomePag
         <Grid.Column width={1} />
         <Grid.Column width={14}>
           <FacultyPageAboutMeWidget
-            profile={props.profile}
-            favoriteInterests={props.favoriteInterests}
-            favoriteCareerGoals={props.favoriteCareerGoals}
+            profile={profile}
+            favoriteInterests={favoriteInterests}
+            favoriteCareerGoals={favoriteCareerGoals}
           />
         </Grid.Column>
         <Grid.Column width={1} />

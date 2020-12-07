@@ -61,13 +61,6 @@ const AdvisorLogEntryWidget: React.FC<IAdvisorLogEntryWidgetProps> = ({ advisorL
     });
   };
 
-  // componentDidUpdate(prevProps: Readonly<IAdvisorLogEntryWidgetProps>): void {
-  //   if (props !== prevProps) {
-  //     // eslint-disable-next-line react/no-did-update-set-state
-  //     this.setState({ advisorLogs: props.advisorLogs });
-  //   }
-  // }
-
   return (
     <Segment padded>
       <Header as="h4" dividing>ADVISOR LOG</Header>

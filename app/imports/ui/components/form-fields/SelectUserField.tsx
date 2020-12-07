@@ -21,7 +21,6 @@ interface ISelectUserFieldProps {
 }
 
 const SelectUserField: React.FC<ISelectUserFieldProps> = ({ label, required, role, users }) => {
-  // console.log(props);
   const options = _.map(users, (userInfo) => ({ key: userInfo._id, text: userInfo.username, value: userInfo._id }));
   // console.log(options);
   return (

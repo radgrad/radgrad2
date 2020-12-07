@@ -69,7 +69,6 @@ const UpdateOpportunityForm: React.FC<IUpdateOpportunityFormProps> = ({ sponsors
   model.terms = _.map(model.termIDs, academicTermIdToName);
   model.sponsor = userIdToName(model.sponsorID);
   // console.log(model);
-  // console.log(props);
   const sponsorNames = _.map(sponsors, profileToName);
   const termNames = _.map(terms, academicTermToName);
   const opportunityTypeNames = _.map(opportunityTypes, docToName);

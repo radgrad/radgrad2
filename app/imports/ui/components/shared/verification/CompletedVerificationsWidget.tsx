@@ -8,7 +8,6 @@ import { verificationRequestsUpdateStatusMethod } from '../../../../api/verifica
 
 interface ICompletedVerificationsWidgetProps {
   completedVerifications: IVerificationRequest[];
-  // eslint-disable-next-line react/no-unused-prop-types
   username: string;
 }
 
@@ -33,13 +32,13 @@ const getSponsorFullName = (verificationRequest: IVerificationRequest) => {
 
 const getStatusColor = (status) => (status === VerificationRequests.REJECTED ? 'red' : 'green');
 
-const handleOnClick = (props: ICompletedVerificationsWidgetProps) => (e, { doc }) => {
+const handleOnClick = (username: string) => (e, { doc }) => {
   const id = doc._id;
   const status = VerificationRequests.OPEN;
   const processRecord: IProcessed = {
     date: new Date(),
     status: VerificationRequests.OPEN,
-    verifier: Users.getFullName(props.username),
+    verifier: Users.getFullName(username),
   };
   const processed = doc.processed;
   processed.push(processRecord);
@@ -55,11 +54,11 @@ const handleOnClick = (props: ICompletedVerificationsWidgetProps) => (e, { doc }
  * records.
  * @returns {Segment}
  */
-const CompletedVerificationsWidget = (props: ICompletedVerificationsWidgetProps) => (
+const CompletedVerificationsWidget: React.FC<ICompletedVerificationsWidgetProps> = ({ completedVerifications, username }) => (
   <Segment>
     <Header as="h4" dividing content="COMPLETED VERIFICATION REQUESTS" />
     <Container fluid={false} style={{ paddingBottom: '14px' }}>
-      {props.completedVerifications.map((ele: IVerificationRequest, i) => (
+      {completedVerifications.map((ele: IVerificationRequest, i) => (
         <Grid key={ele._id}>
           <Grid.Row style={{ paddingBottom: '0px', paddingLeft: '14px' }}>
             <Header as="h3">{buildHeaderString(ele)}</Header>
@@ -88,7 +87,7 @@ const CompletedVerificationsWidget = (props: ICompletedVerificationsWidgetProps)
                   icon="edit outline"
                   index={i}
                   command={VerificationRequests.OPEN}
-                  onClick={handleOnClick(props)}
+                  onClick={handleOnClick(username)}
                   doc={ele}
                 />
               </Grid.Row>
@@ -106,7 +105,7 @@ const CompletedVerificationsWidget = (props: ICompletedVerificationsWidgetProps)
           </Grid.Row>
         </Grid>
       ))}
-      {props.completedVerifications.length < 1 && <i>No completed verifications in database.</i>}
+      {completedVerifications.length < 1 && <i>No completed verifications in database.</i>}
     </Container>
   </Segment>
 );

@@ -12,8 +12,6 @@ interface IAdvisorAcademicPlanViewerWidgetProps {
 }
 
 const AdvisorAcademicPlanViewerWidget: React.FC<IAdvisorAcademicPlanViewerWidgetProps> = ({ plans }) => {
-  // console.log('AdvisorAcademicPlan props=%o', props);
-  // console.log(props);
   let planNames = _.map(_.filter(plans, (p) => p.year === plans[0].year), (plan) => plan.name);
 
   const [planNamesState, setPlanNames] = useState(planNames);

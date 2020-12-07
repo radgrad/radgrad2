@@ -28,13 +28,9 @@ import { UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTyp
 import GuidedTourDegreePlanner from '../../components/student/degree-planner/GuidedTourDegreePlanner';
 
 interface IStudentDegreePlannerProps {
-  // eslint-disable-next-line react/no-unused-prop-types
   selectCourseInstance: (courseInstanceID: string) => any;
-  // eslint-disable-next-line react/no-unused-prop-types
   selectOpportunityInstance: (opportunityInstanceID: string) => any;
-  // eslint-disable-next-line react/no-unused-prop-types
   selectFavoriteDetailsTab: () => any;
-  // eslint-disable-next-line react/no-unused-prop-types
   match: IMatchProps;
 }
 
@@ -227,7 +223,7 @@ const onDragEnd = (props: IStudentDegreePlannerProps) => (result) => {
   }
 };
 
-const StudentDegreePlannerPage = (props: IStudentDegreePlannerProps) => {
+const StudentDegreePlannerPage: React.FC<IStudentDegreePlannerProps> = (props) => {
   const paddedStyle = {
     paddingTop: 0,
     paddingLeft: 10,

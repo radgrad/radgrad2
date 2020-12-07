@@ -8,7 +8,7 @@ interface ILandingAcademicPlanViewerProps {
 }
 
 const LandingAcademicPlanViewer: React.FC<ILandingAcademicPlanViewerProps> = ({ plan }) => {
-  // console.log(props.plan);
+  // console.log(plan);
   const numYears = (plan.coursesPerAcademicTerm.length % 5) === 0 ? 5 : 4;
   let yearNumber = 0;
   const littlePadding = {

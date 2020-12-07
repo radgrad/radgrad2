@@ -28,7 +28,7 @@ import UploadFixtureWidget from '../../components/admin/datamodel/UploadFixtureW
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import withInstanceSubscriptions from '../../layouts/utilities/InstanceSubscriptionsHOC';
 
-const AdminDataModelPage = (props: IAdminDataModeMenuProps) => {
+const AdminDataModelPage: React.FC<IAdminDataModeMenuProps> = (props) => {
   const paddedStyle = {
     paddingTop: 20,
   };

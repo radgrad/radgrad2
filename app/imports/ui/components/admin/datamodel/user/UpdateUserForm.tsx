@@ -106,7 +106,6 @@ const UpdateUserForm: React.FC<IUpdateUserProps> = ({ id, interests, setAdminDat
   const interestNames = _.map(interests, docToName);
   const careerGoalNames = _.map(careerGoals, docToName);
   const academicTermNames = _.map(academicTerms, academicTermToName);
-  // const academicPlanNames = _.map(props.academicPlans, docToName);
   const schema = new SimpleSchema({
     username: { type: String, optional: true },
     firstName: { type: String, optional: true },

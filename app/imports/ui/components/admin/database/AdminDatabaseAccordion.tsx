@@ -22,7 +22,6 @@ const AdminDatabaseAccordion: React.FC<IAdminDatabaseAccordionProps> = ({ index,
     contents.forEach((s) => {
       returnString += `${JSON.stringify(s, null, 0)}\n`;
     });
-    // console.log(props.contents, returnString);
     return returnString;
   };
 

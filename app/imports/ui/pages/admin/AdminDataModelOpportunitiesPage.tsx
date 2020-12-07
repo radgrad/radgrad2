@@ -57,12 +57,12 @@ const collection = Opportunities; // the collection to use.
  * Returns an array of Description pairs used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const descriptionPairs = (item: any): IDescriptionPair[] => [
+const descriptionPairs = (item: IOpportunity): IDescriptionPair[] => [
   { label: 'Description', value: item.description },
   { label: 'Opportunity Type', value: OpportunityTypes.findDoc(item.opportunityTypeID).name },
   { label: 'Sponsor', value: Users.getProfile(item.sponsorID).username },
   { label: 'Interests', value: _.sortBy(Interests.findNames(item.interestIDs)) },
-  { label: 'Academic Terms', value: _.map(item.academicTermIDs, (id: string) => AcademicTerms.toString(id, false)) },
+  { label: 'Academic Terms', value: _.map(item.termIDs, (id: string) => AcademicTerms.toString(id, false)) },
   { label: 'ICE', value: `${item.ice.i}, ${item.ice.c}, ${item.ice.e}` },
   { label: 'Picture', value: makeMarkdownLink(item.picture) },
   { label: 'Retired', value: item.retired ? 'True' : 'False' },
@@ -94,7 +94,7 @@ interface IAdminDataModelOpportunitiesPageProps extends IAdminDataModeMenuProps 
   opportunityTypes: IOpportunityType[];
 }
 
-const AdminDataModelOpportunitiesPage = (props: IAdminDataModelOpportunitiesPageProps) => {
+const AdminDataModelOpportunitiesPage: React.FC<IAdminDataModelOpportunitiesPageProps> = (props) => {
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');

@@ -15,7 +15,6 @@ interface IAddCareerGoalFormProps {
 }
 
 const AddCareerGoalForm: React.FC<IAddCareerGoalFormProps> = ({ interests, formRef, handleAdd }) => {
-  // console.log(props);
   const interestNames = _.map(interests, docToName);
   const schema = new SimpleSchema({
     name: String,

@@ -22,7 +22,6 @@ interface IAddOpportunityFormProps {
 
 const AddOpportunityForm: React.FC<IAddOpportunityFormProps> = ({ sponsors, formRef, handleAdd, interests, terms, opportunityTypes }) => {
   const [pictureURL, setPictureURL] = useState<string>('');
-  // console.log(props);
   const sponsorNames = _.map(sponsors, profileToName);
   const termNames = _.map(terms, academicTermToName);
   const opportunityTypeNames = _.map(opportunityTypes, docToName);

@@ -63,8 +63,7 @@ const handleUpdateInformation = (doc): void => {
   });
 };
 
-const StudentShareInfoWidget = (props: IStudentShareInfoWidgetProps) => {
-  const { profile } = props;
+const StudentShareInfoWidget: React.FC<IStudentShareInfoWidgetProps> = ({ profile }) => {
   const model = profile;
   const schema = new SimpleSchema({
     shareUsername: {

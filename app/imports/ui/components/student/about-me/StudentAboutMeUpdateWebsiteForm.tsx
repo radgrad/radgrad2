@@ -14,15 +14,14 @@ interface IStudentAboutMeUpdateWebsiteFormProps {
   collectionName: string;
 }
 
-const StudentAboutMeUpdateWebsiteForm = (props: IStudentAboutMeUpdateWebsiteFormProps) => {
-  const [websiteState, setWebsite] = useState(props.website);
+const StudentAboutMeUpdateWebsiteForm: React.FC<IStudentAboutMeUpdateWebsiteFormProps> = ({ website, docID, collectionName }) => {
+  const [websiteState, setWebsite] = useState(website);
   const match = useRouteMatch();
   const handleFormChange = (e, { value }) => setWebsite(value);
 
   const handleUpdateWebsite = (e): void => {
     e.preventDefault();
-    const collectionName = props.collectionName;
-    const updateData = { id: props.docID, website: websiteState };
+    const updateData = { id: docID, website: websiteState };
 
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {

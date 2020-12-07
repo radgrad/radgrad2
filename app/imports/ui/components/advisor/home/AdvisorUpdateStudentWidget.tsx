@@ -171,12 +171,6 @@ const AdvisorUpdateStudentWidget: React.FC<IAdvisorUpdateStudentWidgetProps> = (
     dispatch(setSelectedStudentUsername(''));
   };
 
-  // componentDidUpdate(prevProps: Readonly<IAdvisorUpdateStudentWidgetProps>): void {
-  //   const prop = props.selectedUsername;
-  //   if((prop !== prevProps.selectedUsername) && (prop !== ''))
-  // this.prePopulateForm(props.usernameDoc);
-  // }
-
   return (
     <Segment padded>
       <Header as="h4" dividing>UPDATE STUDENT</Header>

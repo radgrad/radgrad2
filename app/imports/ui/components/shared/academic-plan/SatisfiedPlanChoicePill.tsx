@@ -16,7 +16,6 @@ const SatisfiedPlanChoicePill: React.FC<ISatisfiedPlanChoicePillProps> = ({ choi
   const courseSlugs = complexChoiceToArray(stripped);
   const courseNames = _.map(courseSlugs, (slug) => buildSimpleName(slug));
   const popupContents = `Choose one: ${courseNames.join(' or ')}. Favorite one or more in the Course explorer.`;
-  // console.log(props.groups[stripped]);
   return (
     <Grid.Row style={style}>
       <Popup

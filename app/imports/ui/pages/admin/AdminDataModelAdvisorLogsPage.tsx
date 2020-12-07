@@ -66,7 +66,7 @@ interface IAdminDataModelAdvisorLogsPageProps extends IAdminDataModeMenuProps {
   students: Meteor.User[];
 }
 
-const AdminDataModelAdvisorLogsPage = (props: IAdminDataModelAdvisorLogsPageProps) => {
+const AdminDataModelAdvisorLogsPage: React.FC<IAdminDataModelAdvisorLogsPageProps> = (props) => {
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');

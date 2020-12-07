@@ -22,7 +22,7 @@ interface IFacultyVerificationPageProps {
   helpMessages: IHelpMessage[];
 }
 
-const FacultyVerificationPage: React.FC<IFacultyVerificationPageProps> = (props: IFacultyVerificationPageProps) => {
+const FacultyVerificationPage: React.FC<IFacultyVerificationPageProps> = ({ verificationRequests, helpMessages, eventOpportunities }) => {
   const match = useRouteMatch();
   const [activeItemState, setActiveItem] = useState('pending');
 
@@ -34,7 +34,7 @@ const FacultyVerificationPage: React.FC<IFacultyVerificationPageProps> = (props:
       <Grid stackable>
         <Grid.Row>
           <Grid.Column width={1} />
-          <Grid.Column width={14}><HelpPanelWidget helpMessages={props.helpMessages} /></Grid.Column>
+          <Grid.Column width={14}><HelpPanelWidget helpMessages={helpMessages} /></Grid.Column>
           <Grid.Column width={1} />
         </Grid.Row>
 
@@ -68,17 +68,17 @@ const FacultyVerificationPage: React.FC<IFacultyVerificationPageProps> = (props:
           <Grid.Column width={11}>
             {activeItemState === 'pending' ? (
               <PendingVerificationsWidget
-                pendingVerifications={props.verificationRequests.filter(ele => ele.status === VerificationRequests.OPEN)}
+                pendingVerifications={verificationRequests.filter(ele => ele.status === VerificationRequests.OPEN)}
               />
             )
               : undefined}
             {activeItemState === 'event' ?
-              <EventVerificationsWidget eventOpportunities={props.eventOpportunities} />
+              <EventVerificationsWidget eventOpportunities={eventOpportunities} />
               : undefined}
             {activeItemState === 'completed' ? (
               <CompletedVerificationsWidget
                 username={match.params.username}
-                completedVerifications={props.verificationRequests.filter(ele => VerificationRequests.ACCEPTED === ele.status || ele.status === VerificationRequests.REJECTED)}
+                completedVerifications={verificationRequests.filter(ele => VerificationRequests.ACCEPTED === ele.status || ele.status === VerificationRequests.REJECTED)}
               />
             )
               : undefined}

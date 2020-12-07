@@ -26,7 +26,6 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const AcademicPlanBrowserView: React.FC<IAcademicPlanBrowserViewProps> = ({ favoritePlans, academicPlans, plansScrollPosition, setPlansScrollPosition }) => {
-  // console.log(props);
   const cardGroupElement: HTMLElement = document.getElementById('academicPlansCardGroup');
   useEffect(() => {
     const savedScrollPosition = plansScrollPosition;

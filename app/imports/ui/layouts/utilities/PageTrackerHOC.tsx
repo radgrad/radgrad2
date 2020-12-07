@@ -42,7 +42,7 @@ function usePreviousProps(value) {
 }
 
 function withPageTracker(WrappedComponent) {
-  const PageTracker = (props: IPageTrackerProps) => {
+  const PageTracker: React.FC<IPageTrackerProps> = (props) => {
     const prevProps = usePreviousProps(props);
     const match = useRouteMatch();
     const { router } = props;

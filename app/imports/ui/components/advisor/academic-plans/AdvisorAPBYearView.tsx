@@ -14,7 +14,6 @@ const AdvisorAPBYearView: React.FC<IAdvisorAPBYearViewProps> = ({ yearNumber, co
   const academicYearStyle = {
     padding: '0 0.6rem',
   };
-  // console.log(props);
   const numTermsPerYear = quarterSystem ? 4 : 3;
   let termNum = (yearNumber - 1) * numTermsPerYear;
   // console.log('YearView props %o termNum=%o', props, termNum);

@@ -61,8 +61,11 @@ interface IAdminDataModelAcademicPlansPageProps extends IAdminDataModeMenuProps 
 }
 /**
  * The AcademicPlan data model page.
+ * @param props The properties.
+ * @constructor
  */
-const AdminDataModelAcademicPlansPage = (props: IAdminDataModelAcademicPlansPageProps) => {
+const AdminDataModelAcademicPlansPage: React.FC<IAdminDataModelAcademicPlansPageProps> = (props) => {
+  /* CAM going to leave props as an object to make the <AdminDataModelMenu cleaner. */
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');

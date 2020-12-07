@@ -70,7 +70,7 @@ const itemTitleString = (item: IInterestType): string => `${item.name} (${itemTo
  * Returns the ReactNode used in the ListCollectionWidget. By default we indicate if the item is retired.
  * @param item an item from the collection.
  */
-const itemTitle = (item: any): React.ReactNode => (
+const itemTitle = (item: IInterestType): React.ReactNode => (
   <React.Fragment>
     {item.retired ? <Icon name="eye slash" /> : ''}
     <Icon name="dropdown" />
@@ -82,7 +82,7 @@ interface IAdminDataModelInterestTypesPageProps extends IAdminDataModeMenuProps 
   items: IInterestType[];
 }
 
-const AdminDataModelInterestTypesPage = (props: IAdminDataModelInterestTypesPageProps) => {
+const AdminDataModelInterestTypesPage: React.FC<IAdminDataModelInterestTypesPageProps> = (props) => {
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');

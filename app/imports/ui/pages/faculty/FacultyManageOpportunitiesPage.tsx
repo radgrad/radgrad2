@@ -54,13 +54,13 @@ const descriptionPairs = (item: IOpportunity): IDescriptionPair[] => [
  * Returns the title string for the item. Used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const itemTitleString = (item: any): string => `${item.name}`;
+const itemTitleString = (item: IOpportunity): string => `${item.name}`;
 
 /**
  * Returns the ReactNode used in the ListCollectionWidget. By default we indicate if the item is retired.
  * @param item an item from the collection.
  */
-const itemTitle = (item: any): React.ReactNode => (
+const itemTitle = (item: IOpportunity): React.ReactNode => (
   <React.Fragment>
     {item.retired ? <Icon name="eye slash" /> : ''}
     <Icon name="dropdown" />
@@ -76,7 +76,7 @@ interface IFacultyManageOpportunitiesPageProps {
   helpMessages: IHelpMessage[];
 }
 
-const FacultyManageOpportunitiesPage: React.FC<IFacultyManageOpportunitiesPageProps> = (props: IFacultyManageOpportunitiesPageProps) => {
+const FacultyManageOpportunitiesPage: React.FC<IFacultyManageOpportunitiesPageProps> = ({ sponsors, helpMessages, interests, terms, opportunityTypes }) => {
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');
@@ -86,10 +86,10 @@ const FacultyManageOpportunitiesPage: React.FC<IFacultyManageOpportunitiesPagePr
     // console.log('Opportunities.handleAdd(%o)', doc);
     const collectionName = collection.getCollectionName();
     const definitionData = doc;
-    const interests = _.map(doc.interests, interestSlugFromName);
-    const terms = _.map(doc.terms, academicTermNameToSlug);
-    definitionData.interests = interests;
-    definitionData.terms = terms;
+    const interestSlugs = _.map(doc.interests, interestSlugFromName);
+    const termSlugs = _.map(doc.terms, academicTermNameToSlug);
+    definitionData.interests = interestSlugs;
+    definitionData.terms = termSlugs;
     definitionData.opportunityType = opportunityTypeNameToSlug(doc.opportunityType);
     definitionData.sponsor = profileNameToUsername(doc.sponsor);
     // console.log(definitionData);
@@ -199,7 +199,7 @@ const FacultyManageOpportunitiesPage: React.FC<IFacultyManageOpportunitiesPagePr
       <Grid stackable>
         <Grid.Row>
           <Grid.Column width={1} />
-          <Grid.Column width={14}><HelpPanelWidget helpMessages={props.helpMessages} /></Grid.Column>
+          <Grid.Column width={14}><HelpPanelWidget helpMessages={helpMessages} /></Grid.Column>
           <Grid.Column width={1} />
         </Grid.Row>
 
@@ -214,19 +214,19 @@ const FacultyManageOpportunitiesPage: React.FC<IFacultyManageOpportunitiesPagePr
                 handleUpdate={handleUpdate}
                 handleCancel={handleCancel}
                 itemTitleString={itemTitleString}
-                sponsors={props.sponsors}
-                terms={props.terms}
-                interests={props.interests}
-                opportunityTypes={props.opportunityTypes}
+                sponsors={sponsors}
+                terms={terms}
+                interests={interests}
+                opportunityTypes={opportunityTypes}
               />
             ) : (
               <AddOpportunityForm
                 formRef={formRef}
                 handleAdd={handleAdd}
-                sponsors={props.sponsors}
-                terms={props.terms}
-                interests={props.interests}
-                opportunityTypes={props.opportunityTypes}
+                sponsors={sponsors}
+                terms={terms}
+                interests={interests}
+                opportunityTypes={opportunityTypes}
               />
             )}
             <ListOpportunitiesWidget

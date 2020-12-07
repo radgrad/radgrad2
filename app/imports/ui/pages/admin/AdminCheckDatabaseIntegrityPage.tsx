@@ -24,7 +24,7 @@ const mapDispatchToProps = (dispatch) => ({
   checkIntegrityDone: () => dispatch(databaseActions.checkIntegrityDone()),
 });
 
-const AdminCheckDatabaseIntegrityPage = (props: IAdminCheckDatabaseIntegrityPageProps) => {
+const AdminCheckDatabaseIntegrityPage: React.FC<IAdminCheckDatabaseIntegrityPageProps> = ({ startCheckIntegrity, checkIntegrityDone, checkIntegrityWorking }) => {
   const initState = {
     count: 0,
     message: '',
@@ -33,13 +33,13 @@ const AdminCheckDatabaseIntegrityPage = (props: IAdminCheckDatabaseIntegrityPage
   const [serverResultState, setServerResult] = useState(initState);
 
   const clickSubmit = () => {
-    props.startCheckIntegrity();
+    startCheckIntegrity();
     checkIntegrityMethod.call(null, (error, result) => {
       if (error) {
         console.error('Error during integrity check:', error);
       } else {
         setServerResult(result);
-        props.checkIntegrityDone();
+        checkIntegrityDone();
       }
     });
     const clientResult = checkIntegrity();
@@ -53,7 +53,7 @@ const AdminCheckDatabaseIntegrityPage = (props: IAdminCheckDatabaseIntegrityPage
   const serverError = serverResultState.count !== 0;
   const showClient = !!clientResultState.message;
   const clientError = clientResultState.count !== 0;
-  const working = props.checkIntegrityWorking;
+  const working = checkIntegrityWorking;
   return (
     <div>
       <AdminPageMenuWidget />

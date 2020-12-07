@@ -79,7 +79,12 @@ interface IAdminDataModelAcademicTermsPageProps extends IAdminDataModeMenuProps 
   items: IAcademicTerm[];
 }
 
-const AdminDataModelAcademicTermsPage = (props: IAdminDataModelAcademicTermsPageProps) => {
+/**
+ * AdminDataModelAcademicTermsPage.
+ * @param props the Properties.
+ * @constructor
+ */
+const AdminDataModelAcademicTermsPage: React.FC<IAdminDataModelAcademicTermsPageProps> = (props) => {
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');

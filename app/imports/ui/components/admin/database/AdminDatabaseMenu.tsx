@@ -7,7 +7,6 @@ const AdminDatabaseMenu: React.FC = () => {
   const baseUrl = useRouteMatch().url;
   const baseIndex = baseUrl.indexOf(username);
   const baseRoute = `${baseUrl.substring(0, baseIndex)}${username}/database/`;
-  // console.log(props, baseRoute);
 
   return (
     <Menu vertical text id="leftHandMenu">

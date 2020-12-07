@@ -19,7 +19,7 @@ interface ICareerGoalsCardExplorerProps {
   helpMessages: IHelpMessage[];
 }
 
-const LandingCareerGoalsCardExplorerPage: React.FC<ICareerGoalsCardExplorerProps> = (props) => {
+const LandingCareerGoalsCardExplorerPage: React.FC<ICareerGoalsCardExplorerProps> = ({ count, helpMessages, careerGoals }) => {
   const inlineStyle = {
     maxHeight: 750,
     marginTop: 10,
@@ -30,7 +30,7 @@ const LandingCareerGoalsCardExplorerPage: React.FC<ICareerGoalsCardExplorerProps
       <Grid stackable>
         <Grid.Row>
           <Grid.Column width={1} />
-          <Grid.Column width={14}><HelpPanelWidget helpMessages={props.helpMessages} /></Grid.Column>
+          <Grid.Column width={14}><HelpPanelWidget helpMessages={helpMessages} /></Grid.Column>
           <Grid.Column width={1} />
         </Grid.Row>
 
@@ -43,10 +43,10 @@ const LandingCareerGoalsCardExplorerPage: React.FC<ICareerGoalsCardExplorerProps
           <Grid.Column width={11}>
             <Segment padded style={{ overflow: 'auto', maxHeight: 750 }}>
               <Header as="h4" dividing>
-                <span>CAREER GOALS</span> ({props.count})
+                <span>CAREER GOALS</span> ({count})
               </Header>
               <Card.Group stackable itemsPerRow={2} style={inlineStyle}>
-                {props.careerGoals.map((goal) => (
+                {careerGoals.map((goal) => (
                   <LandingExplorerCardContainer key={goal._id} type="career-goals" item={goal} />
                 ))}
               </Card.Group>
