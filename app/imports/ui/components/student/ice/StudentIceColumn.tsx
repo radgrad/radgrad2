@@ -9,10 +9,13 @@ import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
 import { Slugs } from '../../../../api/slug/SlugCollection';
 import { Courses } from '../../../../api/course/CourseCollection';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
-import { Ice } from '../../../../typings/radgrad';
+import { Ice, ICourseInstance, IFavoriteInterest, IOpportunityInstance } from '../../../../typings/radgrad';
 
-interface IStudentIceColumnProps {
+export interface IStudentIceColumnProps {
   type: 'Innovation' | 'Competency' | 'Experience';
+  favoriteInterests: IFavoriteInterest[];
+  courseInstances: ICourseInstance[];
+  opportunityInstances: IOpportunityInstance[];
 }
 
 const StudentIceColumn = (props: IStudentIceColumnProps) => {
@@ -136,6 +139,8 @@ const StudentIceColumn = (props: IStudentIceColumnProps) => {
           matchingPoints={matchingPoints}
           getOpportunitySlug={getOpportunitySlug}
           icePoints={icePoints}
+          courseInstances={props.courseInstances}
+          opportunityInstances={props.opportunityInstances}
         />
       </Accordion.Content>
 
@@ -154,6 +159,8 @@ const StudentIceColumn = (props: IStudentIceColumnProps) => {
           matchingPoints={matchingPoints}
           getOpportunitySlug={getOpportunitySlug}
           remainingICEPoints={remainingICEPoints}
+          courseInstances={props.courseInstances}
+          opportunityInstances={props.opportunityInstances}
         />
       </Accordion.Content>
 
@@ -170,6 +177,7 @@ const StudentIceColumn = (props: IStudentIceColumnProps) => {
           matchingPoints={matchingPoints}
           icePoints={icePoints}
           getOpportunitySlug={getOpportunitySlug}
+          favoriteInterests={props.favoriteInterests}
         />
       </Accordion.Content>
     </Accordion>

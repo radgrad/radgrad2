@@ -1,18 +1,18 @@
 import React from 'react';
 import { Segment, Grid, Header } from 'semantic-ui-react';
-import { useParams } from 'react-router-dom';
-import { withTracker } from 'meteor/react-meteor-data';
-import { Ice } from '../../../../typings/radgrad';
-import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
+import { Ice, ICourseInstance, IFavoriteInterest, IOpportunityInstance } from '../../../../typings/radgrad';
 import StudentIceColumn from './StudentIceColumn';
 import PageIceCircle from './PageIceCircle';
 
-interface IStudentIceWidgetProps {
+export interface IStudentIceWidgetProps {
   earnedICE: Ice;
   projectedICE: Ice;
+  favoriteInterests: IFavoriteInterest[];
+  courseInstances: ICourseInstance[];
+  opportunityInstances: IOpportunityInstance[];
 }
 
-const StudentIceWidget: React.FC<IStudentIceWidgetProps> = ({ earnedICE, projectedICE }) => {
+const StudentIceWidget = (props: IStudentIceWidgetProps) => {
   const innovationColumnStyle = { paddingLeft: 0 };
   const experienceColumnStyle = { paddingRight: 0 };
   const styleInfo: React.CSSProperties = { textAlign: 'left', paddingTop: 10 };
@@ -25,7 +25,7 @@ const StudentIceWidget: React.FC<IStudentIceWidgetProps> = ({ earnedICE, project
           <Grid.Row>
             <Grid.Column style={innovationColumnStyle}>
               <Segment basic>
-                <PageIceCircle earned={earnedICE.i} planned={projectedICE.i} type="innov" />
+                <PageIceCircle earned={props.earnedICE.i} planned={props.projectedICE.i} type="innov" />
                 <Header as="h3" textAlign="center" className="ice-innovation-color">INNOVATION</Header>
                 <StudentIceColumn type="Innovation" />
                 <div style={styleInfo}>
@@ -38,7 +38,7 @@ const StudentIceWidget: React.FC<IStudentIceWidgetProps> = ({ earnedICE, project
 
             <Grid.Column>
               <Segment basic>
-                <PageIceCircle earned={earnedICE.c} planned={projectedICE.c} type="comp" />
+                <PageIceCircle earned={props.earnedICE.c} planned={props.projectedICE.c} type="comp" />
                 <Header as="h3" textAlign="center" className="ice-competency-color">COMPETENCY</Header>
                 <StudentIceColumn type="Competency" />
                 <div style={styleInfo}>
@@ -51,7 +51,7 @@ const StudentIceWidget: React.FC<IStudentIceWidgetProps> = ({ earnedICE, project
 
             <Grid.Column style={experienceColumnStyle}>
               <Segment basic>
-                <PageIceCircle earned={earnedICE.e} planned={projectedICE.e} type="exp" />
+                <PageIceCircle earned={props.earnedICE.e} planned={props.projectedICE.e} type="exp" />
                 <Header as="h3" textAlign="center" className="ice-experience-color">Experience</Header>
                 <StudentIceColumn type="Experience" />
                 <div style={styleInfo}>
@@ -112,14 +112,4 @@ const StudentIceWidget: React.FC<IStudentIceWidgetProps> = ({ earnedICE, project
   );
 };
 
-const StudentIceWidgetContainer = withTracker(() => {
-  const { username } = useParams();
-  const earnedICE: Ice = StudentProfiles.getEarnedICE(username);
-  const projectedICE: Ice = StudentProfiles.getProjectedICE(username);
-  return {
-    earnedICE,
-    projectedICE,
-  };
-})(StudentIceWidget);
-
-export default StudentIceWidgetContainer;
+export default StudentIceWidget;

@@ -1,8 +1,7 @@
 import React from 'react';
-import { Link, useParams, useRouteMatch } from 'react-router-dom';
+import { Link, useRouteMatch } from 'react-router-dom';
 import { List } from 'semantic-ui-react';
 import _ from 'lodash';
-import { withTracker } from 'meteor/react-meteor-data';
 import { buildRouteName, getUserIdFromRoute } from '../../shared/utilities/router';
 import { Ice, ICourse, IFavoriteInterest, IOpportunity } from '../../../../typings/radgrad';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
@@ -11,7 +10,6 @@ import { CourseInstances } from '../../../../api/course/CourseInstanceCollection
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
 import { Interests } from '../../../../api/interest/InterestCollection';
 import { FavoriteInterests } from '../../../../api/favorite/FavoriteInterestCollection';
-import { Users } from '../../../../api/user/UserCollection';
 
 interface IStudentIceColumnRecommendedProps {
   type: 'Innovation' | 'Competency' | 'Experience';
@@ -201,13 +199,4 @@ const StudentIceColumnRecommended = (props: IStudentIceColumnRecommendedProps) =
   );
 };
 
-const StudentIceColumnRecommendedContainer = withTracker(() => {
-  const { username } = useParams();
-  const userID = Users.getProfile(username).userID;
-  const favoriteInterests: IFavoriteInterest[] = FavoriteInterests.findNonRetired({ userID });
-  return {
-    favoriteInterests,
-  };
-})(StudentIceColumnRecommended);
-
-export default StudentIceColumnRecommendedContainer;
+export default StudentIceColumnRecommended;
