@@ -2,7 +2,6 @@ import React from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import { Segment, Header, Image, Popup } from 'semantic-ui-react';
 import _ from 'lodash';
-import { withTracker } from 'meteor/react-meteor-data';
 import { Users } from '../../../../api/user/UserCollection';
 import { getUserIdFromRoute } from '../../shared/utilities/router';
 import { ROLE } from '../../../../api/role/Role';
@@ -51,7 +50,7 @@ const studentPicture = (student: IStudentProfile) => student.picture;
 
 const fullName = (student: IStudentProfile): string => Users.getFullName(student.userID);
 
-const StudentLevelsOthersWidget: React.FC<IStudentLevelsOthersWidgetProps> = ({ students }) => {
+const StudentLevelsOthersWidget: React.FC<IStudentLevelsOthersWidgetProps> = () => {
   const match = useRouteMatch();
   const imageGroupStyle = { minHeight: '50%' };
   const imageStyle = {
@@ -59,6 +58,8 @@ const StudentLevelsOthersWidget: React.FC<IStudentLevelsOthersWidgetProps> = ({ 
     width: 'auto',
   };
   const studentLevelName = getStudentLevelName(match);
+  const studentLevelNumber: number = getStudentLevelNumber(match);
+  const students: IStudentProfile[] = getStudents(studentLevelNumber, match);
   return (
     <Segment padded id="studentLevelsOthersWidget">
       <Header as="h4" dividing>
@@ -92,12 +93,4 @@ const StudentLevelsOthersWidget: React.FC<IStudentLevelsOthersWidgetProps> = ({ 
   );
 };
 
-const StudentLevelsOthersWidgetContainer = withTracker((props) => {
-  const match = useRouteMatch();
-  const studentLevelNumber: number = getStudentLevelNumber(match);
-  const students: IStudentProfile[] = getStudents(studentLevelNumber, match);
-  return {
-    students,
-  };
-})(StudentLevelsOthersWidget);
-export default StudentLevelsOthersWidgetContainer;
+export default StudentLevelsOthersWidget;
