@@ -28,7 +28,7 @@ import ListCollectionWidget from '../../components/admin/datamodel/ListCollectio
 import { dataModelActions } from '../../../redux/admin/data-model';
 import AdminDataModelUpdateForm from '../../components/admin/datamodel/AdminDataModelUpdateForm'; // this should be replaced by specific UpdateForm
 import AdminDataModelAddForm from '../../components/admin/datamodel/AdminDataModelAddForm'; // this should be replaced by specific AddForm
-import { IDescriptionPair } from '../../../typings/radgrad';
+import { IDescriptionPair, IPlanChoiceDefine } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
 import BackToTopButton from '../../components/shared/BackToTopButton';
@@ -40,7 +40,7 @@ const collection = PlanChoices; // the collection to use.
  * Returns an array of Description pairs used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const descriptionPairs = (item: any): IDescriptionPair[] => [
+const descriptionPairs = (item: IPlanChoiceDefine): IDescriptionPair[] => [
   { label: 'Choice', value: item.choice },
   { label: 'Retired', value: item.retired ? 'True' : 'False' },
 ];
@@ -49,13 +49,13 @@ const descriptionPairs = (item: any): IDescriptionPair[] => [
  * Returns the title string for the item. Used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const itemTitleString = (item: any): string => item.choice;
+const itemTitleString = (item: IPlanChoiceDefine): string => item.choice;
 
 /**
  * Returns the ReactNode used in the ListCollectionWidget. By default we indicate if the item is retired.
  * @param item an item from the collection.
  */
-const itemTitle = (item: any): React.ReactNode => (
+const itemTitle = (item: IPlanChoiceDefine): React.ReactNode => (
   <React.Fragment>
     {item.retired ? <Icon name="eye slash" /> : ''}
     <Icon name="dropdown" />
@@ -67,7 +67,7 @@ interface IAdminDataModelPlanChoicesPageProps extends IAdminDataModeMenuProps {
   items: string[];
 }
 
-const AdminDataModelPlanChoicesPage = (props: IAdminDataModelPlanChoicesPageProps) => {
+const AdminDataModelPlanChoicesPage: React.FC<IAdminDataModelPlanChoicesPageProps> = (props) => {
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');

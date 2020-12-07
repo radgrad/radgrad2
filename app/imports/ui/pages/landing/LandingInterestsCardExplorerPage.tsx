@@ -17,7 +17,7 @@ interface IInterestsCardExplorerProps {
   helpMessages: IHelpMessage[];
 }
 
-const LandingInterestsCardExplorerPage = (props: IInterestsCardExplorerProps) => {
+const LandingInterestsCardExplorerPage: React.FC<IInterestsCardExplorerProps> = ({ interests, count, helpMessages }) => {
   const inlineStyle = {
     maxHeight: 750,
     marginTop: 10,
@@ -28,7 +28,7 @@ const LandingInterestsCardExplorerPage = (props: IInterestsCardExplorerProps) =>
       <Grid stackable container padded="vertically">
         <Grid.Row>
           <Grid.Column width={1} />
-          <Grid.Column width={14}><HelpPanelWidget helpMessages={props.helpMessages} /></Grid.Column>
+          <Grid.Column width={14}><HelpPanelWidget helpMessages={helpMessages} /></Grid.Column>
           <Grid.Column width={1} />
         </Grid.Row>
 
@@ -41,10 +41,10 @@ const LandingInterestsCardExplorerPage = (props: IInterestsCardExplorerProps) =>
           <Grid.Column width={11}>
             <Segment padded style={{ overflow: 'auto', maxHeight: 750 }}>
               <Header as="h4" dividing>
-                <span>INTERESTS</span> ({props.count})
+                <span>INTERESTS</span> ({count})
               </Header>
               <Card.Group stackable itemsPerRow={2} style={inlineStyle}>
-                {props.interests.map((interest) => (
+                {interests.map((interest) => (
                   <LandingExplorerCardContainer key={interest._id} type="interests" item={interest} />
                 ))}
               </Card.Group>

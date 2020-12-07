@@ -11,12 +11,11 @@ interface IInterestedProfileWidgetProps {
   interest: IInterest;
 }
 
-const InterestedProfilesWidget = (props: IInterestedProfileWidgetProps) => {
+const InterestedProfilesWidget: React.FC<IInterestedProfileWidgetProps> = ({ interest }) => {
   // console.log('InterestedProfileWidget', props);
   const [faculty, setFaculty] = useState([]);
   const [students, setStudents] = useState([]);
   const [alumni, setAlumni] = useState([]);
-  const { interest } = props;
   getUserIDsWithFavoriteInterestMethod.call({ interestID: interest._id, role: 'faculty' }, (error, res) => {
     if (res && faculty.length !== res.length) {
       setFaculty(_.map(res, (id) => Users.getProfile(id)));

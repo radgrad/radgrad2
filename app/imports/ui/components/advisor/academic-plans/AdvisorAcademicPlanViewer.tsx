@@ -8,11 +8,11 @@ interface IAcademicPlanViewerProps {
   plan: IAcademicPlan;
 }
 
-const AdvisorAcademicPlanViewer = (props: IAcademicPlanViewerProps) => {
+const AdvisorAcademicPlanViewer: React.FC<IAcademicPlanViewerProps> = ({ plan }) => {
   // console.log('plan viewer', props.plan);
   const quarterSystem = RadGradProperties.getQuarterSystem();
   const termsPerYear = quarterSystem ? 4 : 3;
-  const numYears = props.plan.coursesPerAcademicTerm.length / termsPerYear;
+  const numYears = plan.coursesPerAcademicTerm.length / termsPerYear;
   let yearNumber = 0;
   const littlePadding = {
     paddingLeft: 2,
@@ -22,26 +22,26 @@ const AdvisorAcademicPlanViewer = (props: IAcademicPlanViewerProps) => {
     <Grid stackable padded>
       <Grid.Row columns="equal">
         <Grid.Column style={littlePadding}>
-          <LandingAcademicPlanYearView yearNumber={yearNumber++} academicPlan={props.plan} />
+          <LandingAcademicPlanYearView yearNumber={yearNumber++} academicPlan={plan} />
         </Grid.Column>
         {yearNumber < numYears ? (
           <Grid.Column>
-            <LandingAcademicPlanYearView yearNumber={yearNumber++} academicPlan={props.plan} />
+            <LandingAcademicPlanYearView yearNumber={yearNumber++} academicPlan={plan} />
           </Grid.Column>
         ) : ''}
         {yearNumber < numYears ? (
           <Grid.Column>
-            <LandingAcademicPlanYearView yearNumber={yearNumber++} academicPlan={props.plan} />
+            <LandingAcademicPlanYearView yearNumber={yearNumber++} academicPlan={plan} />
           </Grid.Column>
         ) : ''}
         {yearNumber < numYears ? (
           <Grid.Column>
-            <LandingAcademicPlanYearView yearNumber={yearNumber++} academicPlan={props.plan} />
+            <LandingAcademicPlanYearView yearNumber={yearNumber++} academicPlan={plan} />
           </Grid.Column>
         ) : ''}
         {yearNumber < numYears ? (
           <Grid.Column>
-            <LandingAcademicPlanYearView yearNumber={yearNumber++} academicPlan={props.plan} />
+            <LandingAcademicPlanYearView yearNumber={yearNumber++} academicPlan={plan} />
           </Grid.Column>
         ) : ''}
       </Grid.Row>

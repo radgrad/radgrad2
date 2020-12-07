@@ -25,8 +25,8 @@ interface IInterestExplorerProps {
   helpMessages: IHelpMessage[];
 }
 
-const LandingInterestExplorerPage: React.FC<IInterestExplorerProps> = (props) => {
-  // console.log(props.interest);
+const LandingInterestExplorerPage: React.FC<IInterestExplorerProps> = ({ currentUser, opportunities, courses, helpMessages, interest }) => {
+  // console.log(interest);
   const match = useRouteMatch();
   return (
     <div id="landing-interest-explorer-page">
@@ -34,7 +34,7 @@ const LandingInterestExplorerPage: React.FC<IInterestExplorerProps> = (props) =>
       <Grid stackable>
         <Grid.Row>
           <Grid.Column width={1} />
-          <Grid.Column width={14}><HelpPanelWidget helpMessages={props.helpMessages} /></Grid.Column>
+          <Grid.Column width={14}><HelpPanelWidget helpMessages={helpMessages} /></Grid.Column>
           <Grid.Column width={1} />
         </Grid.Row>
 
@@ -47,21 +47,21 @@ const LandingInterestExplorerPage: React.FC<IInterestExplorerProps> = (props) =>
           <Grid.Column width={11}>
             <Segment padded style={{ overflow: 'auto', maxHeight: 750 }}>
               <Header as="h4" dividing>
-                <span>{props.interest.name}</span>
+                <span>{interest.name}</span>
               </Header>
               <b>Description:</b>
               <Markdown
                 escapeHtml
-                source={props.interest.description}
+                source={interest.description}
                 renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}
               />
             </Segment>
             <Segment padded>
               <Header as="h4" dividing>Related Courses</Header>
-              {props.courses.length > 0 ?
+              {courses.length > 0 ?
                 (
                   <List horizontal bulleted>
-                    {props.courses.map((course) => (
+                    {courses.map((course) => (
                       <List.Item
                         key={course._id}
                         href={`#/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${getSlugFromEntityID(course._id)}`}
@@ -75,10 +75,10 @@ const LandingInterestExplorerPage: React.FC<IInterestExplorerProps> = (props) =>
             </Segment>
             <Segment padded>
               <Header as="h4" dividing>Related Opportunities</Header>
-              {props.opportunities.length > 0 ?
+              {opportunities.length > 0 ?
                 (
                   <List horizontal bulleted>
-                    {props.opportunities.map((opportunity) => (
+                    {opportunities.map((opportunity) => (
                       <List.Item
                         key={opportunity._id}
                         href={`#/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${getSlugFromEntityID(opportunity._id)}`}
@@ -106,9 +106,8 @@ const WithSubs = withListSubscriptions(LandingInterestExplorerPage, [
   HelpMessages.getPublicationName(),
 ]);
 
-const LandingInterestExplorerContainer = withTracker((props) => {
+const LandingInterestExplorerContainer = withTracker(() => {
   const { interest } = useParams();
-  // console.log(Slugs.find().fetch());
   const id = Slugs.getEntityID(interest, 'Interest');
   return {
     interest: Interests.findDoc(id),

@@ -14,15 +14,11 @@ interface IAddReviewFormProps {
   courses: ICourse[];
   students: IStudentProfile[];
   opportunities: IOpportunity[];
-  formRef: any;
+  formRef: React.RefObject<unknown>;
   handleAdd: (doc) => any;
 }
 
-// interface IAddReviewFormState {
-//   reviewType: string;
-// }
-
-const AddReviewForm = (props: IAddReviewFormProps) => {
+const AddReviewForm: React.FC<IAddReviewFormProps> = ({ terms, formRef, handleAdd, courses, opportunities, students }) => {
   const [reviewType, setReviewType] = useState('');
 
   const handleModelChange = (model) => {
@@ -30,10 +26,10 @@ const AddReviewForm = (props: IAddReviewFormProps) => {
     setReviewType(model.reviewType);
   };
 
-  const termNames = _.map(props.terms, academicTermToName);
+  const termNames = _.map(terms, academicTermToName);
   const currentTermName = AcademicTerms.toString(AcademicTerms.getCurrentTermID(), false);
-  const courseNames = _.map(props.courses, courseToName);
-  const opportunityNames = _.map(props.opportunities, docToName);
+  const courseNames = _.map(courses, courseToName);
+  const opportunityNames = _.map(opportunities, docToName);
   const reviewTypes = [Reviews.COURSE, Reviews.OPPORTUNITY];
   let revieweeNames;
   if (reviewType === Reviews.COURSE) {
@@ -41,7 +37,7 @@ const AddReviewForm = (props: IAddReviewFormProps) => {
   } else {
     revieweeNames = opportunityNames;
   }
-  const studentNames = _.map(props.students, profileToName);
+  const studentNames = _.map(students, profileToName);
   const schema = new SimpleSchema({
     slug: String,
     academicTerm: {
@@ -74,8 +70,8 @@ const AddReviewForm = (props: IAddReviewFormProps) => {
       <Header dividing>Add Course Instance</Header>
       <AutoForm
         schema={formSchema}
-        onSubmit={props.handleAdd}
-        ref={props.formRef}
+        onSubmit={handleAdd}
+        ref={formRef}
         showInlineError
         onChangeModel={handleModelChange}
       >

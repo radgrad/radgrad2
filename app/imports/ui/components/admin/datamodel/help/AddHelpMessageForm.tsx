@@ -5,14 +5,14 @@ import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import { HelpMessages } from '../../../../../api/help/HelpMessageCollection';
 
 interface IAddHelpMessageFormProps {
-  formRef: any;
+  formRef: React.RefObject<unknown>;
   handleAdd: (doc) => any;
 }
 
-const AddHelpMessageForm = (props: IAddHelpMessageFormProps) => (
+const AddHelpMessageForm: React.FC<IAddHelpMessageFormProps> = ({ formRef, handleAdd }) => (
   <Segment padded>
     <Header dividing>Add Help Message</Header>
-    <AutoForm schema={new SimpleSchema2Bridge(HelpMessages.getDefineSchema())} onSubmit={props.handleAdd} ref={props.formRef} showInlineError>
+    <AutoForm schema={new SimpleSchema2Bridge(HelpMessages.getDefineSchema())} onSubmit={handleAdd} ref={formRef} showInlineError>
       <Form.Group widths="equal">
         <TextField name="routeName" />
         <TextField name="title" />

@@ -1,6 +1,6 @@
 import React from 'react';
 import Markdown from 'react-markdown';
-import { useRouteMatch } from 'react-router-dom';
+import { useParams, useRouteMatch } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Grid, Header, Segment } from 'semantic-ui-react';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
@@ -20,8 +20,8 @@ interface IAcademicPlanExplorerProps {
   helpMessages: IHelpMessage[];
 }
 
-const LandingAcademicPlanExplorerPage: React.FC<IAcademicPlanExplorerProps> = (props: IAcademicPlanExplorerProps) => {
-  // console.log(props.plan);
+const LandingAcademicPlanExplorerPage: React.FC<IAcademicPlanExplorerProps> = ({ plan, helpMessages }) => {
+  // console.log(plan);
   const match = useRouteMatch();
   return (
     <div id="landing-academic-plan-explorer-page">
@@ -29,7 +29,7 @@ const LandingAcademicPlanExplorerPage: React.FC<IAcademicPlanExplorerProps> = (p
       <Grid stackable>
         <Grid.Row>
           <Grid.Column width={1} />
-          <Grid.Column width={14}><HelpPanelWidget helpMessages={props.helpMessages} /></Grid.Column>
+          <Grid.Column width={14}><HelpPanelWidget helpMessages={helpMessages} /></Grid.Column>
           <Grid.Column width={1} />
         </Grid.Row>
 
@@ -42,16 +42,16 @@ const LandingAcademicPlanExplorerPage: React.FC<IAcademicPlanExplorerProps> = (p
           <Grid.Column width={11}>
             <Segment padded style={{ overflow: 'auto', maxHeight: 750 }}>
               <Header as="h4" dividing>
-                <span>{props.plan.name}</span>
+                <span>{plan.name}</span>
               </Header>
               <b>Description:</b>
               <Markdown
                 escapeHtml
-                source={props.plan.description}
+                source={plan.description}
                 renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}
               />
               <hr />
-              <LandingAcademicPlanViewer plan={props.plan} />
+              <LandingAcademicPlanViewer plan={plan} />
             </Segment>
           </Grid.Column>
           <Grid.Column width={1} />
@@ -68,10 +68,10 @@ const WithSubs = withListSubscriptions(LandingAcademicPlanExplorerPage, [
   Slugs.getPublicationName(),
 ]);
 
-const LandingAcademicPlanExplorerContainer = withTracker((props) => {
-  const slugName = props.match.params.plan;
+const LandingAcademicPlanExplorerContainer = withTracker(() => {
+  const { plan } = useParams();
   // console.log(Slugs.find().fetch());
-  const id = Slugs.getEntityID(slugName, 'AcademicPlan');
+  const id = Slugs.getEntityID(plan, 'AcademicPlan');
   const helpMessages = HelpMessages.findNonRetired({});
   return {
     plan: AcademicPlans.findDoc(id),

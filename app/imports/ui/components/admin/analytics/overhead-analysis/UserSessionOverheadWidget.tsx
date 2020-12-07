@@ -17,12 +17,11 @@ const mapStateToProps = (state: RootState): { [key: string]: any } => ({
   userInteractions: state.admin.analytics.overheadAnalysis.userInteractions,
 });
 
-type tableColumns = 'username' | 'sessions' | 'num-docs' | 'docs-per-min' | 'total-time';
+type TableColumns = 'username' | 'sessions' | 'num-docs' | 'docs-per-min' | 'total-time';
 
-const UserSessionOverheadWidget = (props: IUserSessionOverheadWidgetProps) => {
-  const { overheadData, userInteractions } = props;
+const UserSessionOverheadWidget: React.FC<IUserSessionOverheadWidgetProps> = ({ overheadData, userInteractions }) => {
   const [data, setData] = useState<IAdminAnalyticsOverheadAnalysisData[]>(overheadData);
-  const [column, setColumn] = useState<tableColumns>(undefined);
+  const [column, setColumn] = useState<TableColumns>(undefined);
   const [direction, setDirection] = useState<'ascending' | 'descending'>(undefined);
 
   // If Date Selection gets re-fired, update data
@@ -30,7 +29,7 @@ const UserSessionOverheadWidget = (props: IUserSessionOverheadWidgetProps) => {
     setData(overheadData);
   }, [overheadData]);
 
-  const handleSort = (event, clickedColumn: tableColumns): void => {
+  const handleSort = (event, clickedColumn: TableColumns): void => {
     event.preventDefault();
     if (column !== clickedColumn) {
       setColumn(clickedColumn);

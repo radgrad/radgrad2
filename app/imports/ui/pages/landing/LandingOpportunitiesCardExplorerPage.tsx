@@ -16,7 +16,7 @@ interface IOpportunitiesCardExplorerProps {
   helpMessages: IHelpMessage[];
 }
 
-const LandingOpportunitiesCardExplorerPage: React.FC<IOpportunitiesCardExplorerProps> = (props) => {
+const LandingOpportunitiesCardExplorerPage: React.FC<IOpportunitiesCardExplorerProps> = ({ opportunities, helpMessages, count }) => {
   const inlineStyle = {
     maxHeight: 750,
     marginTop: 10,
@@ -27,7 +27,7 @@ const LandingOpportunitiesCardExplorerPage: React.FC<IOpportunitiesCardExplorerP
       <Grid stackable>
         <Grid.Row>
           <Grid.Column width={1} />
-          <Grid.Column width={14}><HelpPanelWidget helpMessages={props.helpMessages} /></Grid.Column>
+          <Grid.Column width={14}><HelpPanelWidget helpMessages={helpMessages} /></Grid.Column>
           <Grid.Column width={1} />
         </Grid.Row>
 
@@ -40,10 +40,10 @@ const LandingOpportunitiesCardExplorerPage: React.FC<IOpportunitiesCardExplorerP
           <Grid.Column width={11}>
             <Segment padded style={{ overflow: 'auto', maxHeight: 750 }}>
               <Header as="h4" dividing>
-                <span>OPPORTUNITIES</span> ({props.count})
+                <span>OPPORTUNITIES</span> ({count})
               </Header>
               <Card.Group stackable itemsPerRow={2} style={inlineStyle}>
-                {props.opportunities.map((opportunity) => (
+                {opportunities.map((opportunity) => (
                   <LandingExplorerCardContainer key={opportunity._id} type="opportunities" item={opportunity} />
                 ))}
               </Card.Group>

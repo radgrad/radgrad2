@@ -13,8 +13,8 @@ interface IWithInterestsProps {
 
 const getSlugName = (interest: IInterest) => Slugs.getNameFromID(interest.slugID);
 
-const LandingInterestList = (props: IWithInterestsProps) => {
-  const interests: IInterest[] = _.map(props.interestIDs, (id) => Interests.findDoc(id));
+const LandingInterestList: React.FC<IWithInterestsProps> = ({ interestIDs }) => {
+  const interests: IInterest[] = _.map(interestIDs, (id) => Interests.findDoc(id));
   const labelStyle = { marginBottom: '2px' };
   return (
     <React.Fragment>

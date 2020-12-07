@@ -15,12 +15,11 @@ interface IStudentAboutMeUpdatePictureFormProps {
   collectionName: string;
 }
 
-const StudentAboutMeUpdatePictureForm = (props: IStudentAboutMeUpdatePictureFormProps) => {
-  const [pictureState, setPicture] = useState(props.picture);
+const StudentAboutMeUpdatePictureForm: React.FC<IStudentAboutMeUpdatePictureFormProps> = ({ picture, collectionName, docID }) => {
+  const [pictureState, setPicture] = useState(picture);
   const match = useRouteMatch();
   const handleUploadPicture = async (e): Promise<void> => {
     e.preventDefault();
-    const { collectionName, docID } = props;
     try {
       const cloudinaryResult = await openCloudinaryWidget();
       if (cloudinaryResult.event === 'success') {

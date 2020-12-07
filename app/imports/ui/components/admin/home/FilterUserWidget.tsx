@@ -2,27 +2,24 @@ import React from 'react';
 import { Form, Header, Segment } from 'semantic-ui-react';
 
 interface IUpdateRegex {
-  // eslint-disable-next-line react/no-unused-prop-types
   updateFirstNameRegex: (regex: string) => void;
-  // eslint-disable-next-line react/no-unused-prop-types
   updateLastNameRegex: (regex: string) => void;
-  // eslint-disable-next-line react/no-unused-prop-types
   updateUserNameRegex: (regex: string) => void;
 }
 
-const handleChangeFirstNameRegex = (props: IUpdateRegex) => (event) => {
-  props.updateFirstNameRegex(event.target.value);
+const handleChangeFirstNameRegex = (updateFirstNameRegex: (regex: string) => void) => (event) => {
+  updateFirstNameRegex(event.target.value);
 };
 
-const handleChangeLastNameRegex = (props: IUpdateRegex) => (event) => {
-  props.updateLastNameRegex(event.target.value);
+const handleChangeLastNameRegex = (updateLastNameRegex: (regex: string) => void) => (event) => {
+  updateLastNameRegex(event.target.value);
 };
 
-const handleChangeUserNameRegex = (props: IUpdateRegex) => (event) => {
-  props.updateUserNameRegex(event.target.value);
+const handleChangeUserNameRegex = (updateUserNameRegex: (regex: string) => void) => (event) => {
+  updateUserNameRegex(event.target.value);
 };
 
-const FilterUserWidget = (props: IUpdateRegex) => (
+const FilterUserWidget: React.FC<IUpdateRegex> = ({ updateFirstNameRegex, updateLastNameRegex, updateUserNameRegex }) => (
   <Segment>
     <Header as="h4" dividing>FILTER USERS</Header>
     <Form>
@@ -33,7 +30,7 @@ const FilterUserWidget = (props: IUpdateRegex) => (
           <Form.Input
             placeholder="First Name Regex"
             name="firstNameRegex"
-            onChange={handleChangeFirstNameRegex(props)}
+            onChange={handleChangeFirstNameRegex(updateFirstNameRegex)}
           />
         </Form.Field>
         <Form.Field>
@@ -42,7 +39,7 @@ const FilterUserWidget = (props: IUpdateRegex) => (
           <Form.Input
             placeholder="Last Name Regex"
             name="lastNameRegex"
-            onChange={handleChangeLastNameRegex(props)}
+            onChange={handleChangeLastNameRegex(updateLastNameRegex)}
           />
         </Form.Field>
         <Form.Field>
@@ -51,7 +48,7 @@ const FilterUserWidget = (props: IUpdateRegex) => (
           <Form.Input
             placeholder="Username Regex"
             name="userNameRegex"
-            onChange={handleChangeUserNameRegex(props)}
+            onChange={handleChangeUserNameRegex(updateUserNameRegex)}
           />
         </Form.Field>
       </Form.Group>

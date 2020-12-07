@@ -7,7 +7,7 @@ interface ICoursesProps {
   courseReviews: number;
 }
 
-const GuidedTourStudentCourses = (props: ICoursesProps) => (
+const GuidedTourStudentCourses: React.FC<ICoursesProps> = ({ courses, courseReviews }) => (
   <div>
     <Grid container columns={2}>
       <Grid.Column width="ten">
@@ -23,7 +23,7 @@ const GuidedTourStudentCourses = (props: ICoursesProps) => (
         <div>
           <Header style={styles.h1}>Coursing through your degree program</Header>
           <p style={styles.p}>
-            RadGrad provides information about <strong style={styles.strong}>{props.courses}</strong> courses.
+            RadGrad provides information about <strong style={styles.strong}>{courses}</strong> courses.
             That&apos;s a lot! You might be wondering, &quot;Which ones should I take? Will this course benefit me? Do I
             need to take it?&quot; RadGrad can help answer all these questions.
           </p>
@@ -34,7 +34,7 @@ const GuidedTourStudentCourses = (props: ICoursesProps) => (
           <p style={styles.p}>
             Want to get a fellow student&apos;s perspective on a course? RadGrad allows you to create a review for any
             course you have completed, and currently provides
-            <strong style={styles.strong}> {props.courseReviews}</strong> reviews. Note that these reviews are public,
+            <strong style={styles.strong}> {courseReviews}</strong> reviews. Note that these reviews are public,
             and your name appears with your review. We think RadGrad course reviews are one of the best features of the
             system.
           </p>

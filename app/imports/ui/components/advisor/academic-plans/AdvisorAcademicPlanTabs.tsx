@@ -10,10 +10,7 @@ interface IAdvisorAcademicPlanTabsProps {
   plans: IAcademicPlan[],
 }
 
-const AdvisorAcademicPlanTabs = (props: IAdvisorAcademicPlanTabsProps): JSX.Element => {
-  // console.log(props);
-  // console.log(props.plans);
-  const { plans, terms, choices } = props;
+const AdvisorAcademicPlanTabs: React.FC<IAdvisorAcademicPlanTabsProps> = ({ plans, terms, choices }) => {
   const panes = [
     {
       menuItem: 'Viewer',

@@ -4,7 +4,7 @@ import { Menu } from 'semantic-ui-react';
 import { buildRouteName } from '../../shared/utilities/router';
 import { ANALYTICS } from '../../../layouts/utilities/route-constants';
 
-const AdminAnalyticsMenuWidget = () => {
+const AdminAnalyticsMenuWidget: React.FC = () => {
   const match = useRouteMatch();
   return (
     <div>

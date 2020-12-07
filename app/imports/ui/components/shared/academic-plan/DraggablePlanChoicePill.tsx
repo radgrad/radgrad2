@@ -13,12 +13,12 @@ interface IPlanChoicePillProps {
   satisfied: boolean;
 }
 
-const DraggablePlanChoicePill = (props: IPlanChoicePillProps) => {
+const DraggablePlanChoicePill: React.FC<IPlanChoicePillProps> = ({ choice, name, index, studentID, satisfied }) => {
   // console.log('DraggablePlanChoicePill', props);
-  const style = props.satisfied ? getSatisfiedStyle() : getNotSatisfiedStyle();
-  const draggableId = PlanChoiceUtils.stripCounter(props.choice);
+  const style = satisfied ? getSatisfiedStyle() : getNotSatisfiedStyle();
+  const draggableId = PlanChoiceUtils.stripCounter(choice);
   return (
-    <Draggable key={props.choice} draggableId={draggableId} index={props.index}>
+    <Draggable key={choice} draggableId={draggableId} index={index}>
       {(prov, snap) => (
         <div
           ref={prov.innerRef}
@@ -30,7 +30,7 @@ const DraggablePlanChoicePill = (props: IPlanChoicePillProps) => {
           )}
         >
           <Grid.Row style={style}>
-            <NamePill name={props.name} />
+            <NamePill name={name} />
           </Grid.Row>
 
         </div>

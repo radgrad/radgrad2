@@ -66,7 +66,7 @@ const mapDispatchToProps = (dispatch) => ({
   allNewsletterDone: () => dispatch(analyticsActions.allNewsletterDone()),
 });
 
-const AdminAnalyticsNewsletterWidget = (props: IAdminAnalyticsNewsletterWidgetProps) => {
+const AdminAnalyticsNewsletterWidget: React.FC<IAdminAnalyticsNewsletterWidgetProps> = ({ startAllNewsletter, allNewsletterDone, allNewsletterWorking, levelNewsletterDone, levelNewsletterWorking, startLevelNewsletter, startTestNewsletter, testNewsletterDone, testNewsletterWorking }) => {
   const [subjectLine, setSubjectLine] = useState<string>('');
   const [bcc, setBcc] = useState<string>('');
   const [inputMessage, setInputMessage] = useState<string>('');
@@ -127,7 +127,7 @@ const AdminAnalyticsNewsletterWidget = (props: IAdminAnalyticsNewsletterWidgetPr
    */
   const onClickSendStudentsToo = () => {
     if (onSubmitInputMessage.length !== 0 && subjectLine.length !== 0) {
-      props.startTestNewsletter();
+      startTestNewsletter();
       const studentEmailsArr = studentEmails.split(',');
       const bccListArray = _.map(bcc.split(','), email => email.trim());
       const adminEmail = RadGradProperties.getAdminEmail();
@@ -178,7 +178,7 @@ const AdminAnalyticsNewsletterWidget = (props: IAdminAnalyticsNewsletterWidgetPr
         allowEscapeKey: false,
         allowEnterKey: false,
       });
-      props.testNewsletterDone();
+      testNewsletterDone();
     } else {
       Swal.fire({
         title: 'Subject Line and Input Message Required',
@@ -193,7 +193,7 @@ const AdminAnalyticsNewsletterWidget = (props: IAdminAnalyticsNewsletterWidgetPr
 
   const onClickSendLevels = () => {
     if (onSubmitInputMessage.length !== 0 && subjectLine.length !== 0 && level !== 0) {
-      props.startLevelNewsletter();
+      startLevelNewsletter();
       const studentEmailsArr = getStudentEmailsByLevel(level);
       const bccListArray = _.map(bcc.split(','), email => email.trim());
       const from = RadGradProperties.getNewsletterFrom();
@@ -234,7 +234,7 @@ const AdminAnalyticsNewsletterWidget = (props: IAdminAnalyticsNewsletterWidgetPr
         allowEscapeKey: false,
         allowEnterKey: false,
       });
-      props.levelNewsletterDone();
+      levelNewsletterDone();
     } else {
       Swal.fire({
         title: 'Subject Line and Input Message Required',
@@ -249,7 +249,7 @@ const AdminAnalyticsNewsletterWidget = (props: IAdminAnalyticsNewsletterWidgetPr
 
   const onClickSendToAll = () => {
     if (onSubmitInputMessage.length !== 0 && subjectLine.length !== 0) {
-      props.startAllNewsletter();
+      startAllNewsletter();
       const profiles = StudentProfiles.find({ isAlumni: false }).fetch();
       const studentEmailsArr = _.map(profiles, (p) => p.username);
       const bccListArray = _.map(bcc.split(','), email => email.trim());
@@ -291,7 +291,7 @@ const AdminAnalyticsNewsletterWidget = (props: IAdminAnalyticsNewsletterWidgetPr
         allowEscapeKey: false,
         allowEnterKey: false,
       });
-      props.allNewsletterDone();
+      allNewsletterDone();
     } else {
       Swal.fire({
         title: 'Subject Line and Input Message Required',
@@ -319,21 +319,21 @@ const AdminAnalyticsNewsletterWidget = (props: IAdminAnalyticsNewsletterWidgetPr
         <Segment>
           <TextField name="studentEmails" />
           <BoolField name="sendToStudentsToo" />
-          <Button basic color="green" loading={props.testNewsletterWorking} onClick={onClickSendStudentsToo}>
+          <Button basic color="green" loading={testNewsletterWorking} onClick={onClickSendStudentsToo}>
             Send To Admin
           </Button>
         </Segment>
         <Segment>
           <NumField name="level" placeholder="level" />
           <BoolField name="sendToLevels" />
-          <Button disabled={!sendToLevels} loading={props.levelNewsletterWorking} onClick={onClickSendLevels}>
+          <Button disabled={!sendToLevels} loading={levelNewsletterWorking} onClick={onClickSendLevels}>
             Send To Students
           </Button>
         </Segment>
         <Segment>
           <Form.Field label="Generate To Send To All Users" />
           <BoolField name="sendToAll" />
-          <Button disabled={!sendToAll} loading={props.allNewsletterWorking} onClick={onClickSendToAll}>
+          <Button disabled={!sendToAll} loading={allNewsletterWorking} onClick={onClickSendToAll}>
             Send To All
           </Button>
         </Segment>

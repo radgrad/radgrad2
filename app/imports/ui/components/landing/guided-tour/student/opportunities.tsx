@@ -3,10 +3,10 @@ import { Grid, Header, Image, List } from 'semantic-ui-react';
 import styles from '../../../../pages/landing/utilities/guidedtour-style';
 
 interface IOpportunitiesProps {
-  opportunties: number;
+  opportunities: number;
 }
 
-const GuidedTourStudentOpportunities = (props: IOpportunitiesProps) => (
+const GuidedTourStudentOpportunities: React.FC<IOpportunitiesProps> = ({ opportunities }) => (
   <div>
     <Grid container columns={2}>
       <Grid.Column width="ten">
@@ -23,7 +23,7 @@ const GuidedTourStudentOpportunities = (props: IOpportunitiesProps) => (
           <Header style={styles.h1}>Are you experienced?</Header>
           <p style={styles.p}>
             A well-balanced student learns from experiences inside and outside of school. RadGrad helps you reach beyond
-            the classroom through <strong style={styles.strong}>{props.opportunties}</strong> opportunities. These
+            the classroom through <strong style={styles.strong}>{opportunities}</strong> opportunities. These
             include:
           </p>
           <List>

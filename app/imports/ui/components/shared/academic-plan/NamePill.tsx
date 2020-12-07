@@ -4,6 +4,6 @@ interface INamePillProps {
   name: string;
 }
 
-const NamePill = (props: INamePillProps) => (<b>{props.name}</b>);
+const NamePill: React.FC<INamePillProps> = ({ name }) => (<b>{name}</b>);
 
 export default NamePill;

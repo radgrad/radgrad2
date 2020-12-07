@@ -13,8 +13,8 @@ interface ICoursePillProps {
   satisfied: boolean;
 }
 
-const DraggableCoursePill = (props: ICoursePillProps) => (
-  <Draggable key={props.choice} draggableId={props.draggableId} index={props.index}>
+const DraggableCoursePill: React.FC<ICoursePillProps> = ({ draggableId, choice, index, studentID, satisfied }) => (
+  <Draggable key={choice} draggableId={draggableId} index={index}>
     {(prov, snap) => (
       <div
         ref={prov.innerRef}
@@ -25,7 +25,7 @@ const DraggableCoursePill = (props: ICoursePillProps) => (
           prov.draggableProps.style,
         )}
       >
-        <CoursePill name={PlanChoices.toString(props.choice)} />
+        <CoursePill name={PlanChoices.toString(choice)} />
 
       </div>
     )}

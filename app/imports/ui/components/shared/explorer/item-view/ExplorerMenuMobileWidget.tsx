@@ -2,16 +2,9 @@ import { createMedia } from '@artsy/fresnel';
 import React from 'react';
 import { Dropdown } from 'semantic-ui-react';
 import { useRouteMatch } from 'react-router-dom';
-import {
-  IAcademicPlan,
-  ICareerGoal,
-  ICourse,
-  IInterest,
-  IOpportunity,
-} from '../../../../../typings/radgrad';
 import * as Router from '../../utilities/router';
 import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
-import ExplorerMenuMobileItem from './ExplorerMenuMobileItem';
+import ExplorerMenuMobileItem, { IListItem } from './ExplorerMenuMobileItem';
 
 const AppMedia = createMedia({
   breakpoints: {
@@ -26,22 +19,16 @@ const AppMedia = createMedia({
 const mediaStyles = AppMedia.createMediaStyle();
 const { Media, MediaContextProvider } = AppMedia;
 
-type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IInterest | IOpportunity;
-
 interface IExplorerMenuMobileWidgetProps {
-  menuAddedList: { item: explorerInterfaces, count: number }[];
-  menuCareerList?: { item: IInterest, count: number }[] | undefined;
-  // eslint-disable-next-line react/no-unused-prop-types
+  menuAddedList: IListItem[];
+  menuCareerList?: IListItem[] | undefined;
   type: 'plans' | 'career-goals' | 'courses' | 'interests' | 'opportunities' | 'users'; // TODO should this be a defined type?
 }
 
-const isType = (typeToCheck: string, props: IExplorerMenuMobileWidgetProps): boolean => {
-  const { type } = props;
-  return type === typeToCheck;
-};
+const isType = (typeToCheck: string, type: string): boolean => type === typeToCheck;
 
-const ExplorerMenuMobileWidget: React.FC<IExplorerMenuMobileWidgetProps> = (props) => {
-  const { menuAddedList, menuCareerList } = props;
+// TODO QA this does a lot can we simplify this?
+const ExplorerMenuMobileWidget: React.FC<IExplorerMenuMobileWidgetProps> = ({ menuAddedList, menuCareerList, type }) => {
   const match = useRouteMatch();
   const isStudent = Router.isUrlRoleStudent(match);
   return (
@@ -49,7 +36,7 @@ const ExplorerMenuMobileWidget: React.FC<IExplorerMenuMobileWidgetProps> = (prop
       <style>{mediaStyles}</style>
       <MediaContextProvider>
         <Media lessThan="tablet">
-          {(isType(EXPLORER_TYPE.ACADEMICPLANS, props) && isStudent) ?
+          {(isType(EXPLORER_TYPE.ACADEMICPLANS, type) && isStudent) ?
             (
               <Dropdown className="selection" fluid text="Select Item" style={{ marginTop: '1rem' }}>
                 <Dropdown.Menu>
@@ -69,7 +56,7 @@ const ExplorerMenuMobileWidget: React.FC<IExplorerMenuMobileWidgetProps> = (prop
             )
             : ''}
 
-          {(isType(EXPLORER_TYPE.COURSES, props) && isStudent) ?
+          {(isType(EXPLORER_TYPE.COURSES, type) && isStudent) ?
             (
               <React.Fragment>
                 <Dropdown className="selection" fluid text="Select Item" style={{ marginTop: '1rem' }}>
@@ -91,7 +78,7 @@ const ExplorerMenuMobileWidget: React.FC<IExplorerMenuMobileWidgetProps> = (prop
             )
             : ''}
 
-          {isType(EXPLORER_TYPE.OPPORTUNITIES, props) ?
+          {isType(EXPLORER_TYPE.OPPORTUNITIES, type) ?
             (
               <React.Fragment>
                 {isStudent ?
@@ -116,7 +103,7 @@ const ExplorerMenuMobileWidget: React.FC<IExplorerMenuMobileWidgetProps> = (prop
             : ''}
 
           {/* Components renderable to STUDENTS and FACULTY. */}
-          {isType(EXPLORER_TYPE.INTERESTS, props) ?
+          {isType(EXPLORER_TYPE.INTERESTS, type) ?
             (
               <Dropdown className="selection" fluid text="Select Item" style={{ marginTop: '1rem' }}>
                 <Dropdown.Menu>
@@ -144,7 +131,7 @@ const ExplorerMenuMobileWidget: React.FC<IExplorerMenuMobileWidgetProps> = (prop
             )
             : ''}
 
-          {isType(EXPLORER_TYPE.CAREERGOALS, props) ?
+          {isType(EXPLORER_TYPE.CAREERGOALS, type) ?
             (
               <Dropdown className="selection" fluid text="Select Item" style={{ marginTop: '1rem' }}>
                 <Dropdown.Menu>

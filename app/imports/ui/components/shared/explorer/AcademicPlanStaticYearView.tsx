@@ -3,7 +3,6 @@ import { Header } from 'semantic-ui-react';
 import { RadGradProperties } from '../../../../api/radgrad/RadGradProperties';
 import { IAcademicPlan } from '../../../../typings/radgrad';
 import { getPlanChoices } from '../../../../api/degree-plan/AcademicPlanUtilities';
-import { Users } from '../../../../api/user/UserCollection';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import AcademicPlanStaticTermView from './AcademicPlanStaticTermView';
 
@@ -14,44 +13,35 @@ interface IAcademicPlanYearViewProps {
   takenSlugs: string[];
 }
 
-const AcademicPlanStaticYearView = (props: IAcademicPlanYearViewProps) => {
+const AcademicPlanStaticYearView: React.FC<IAcademicPlanYearViewProps> = ({ yearNumber, academicPlan, username, takenSlugs }) => {
   const quarter = RadGradProperties.getQuarterSystem();
-  let termNum = quarter ? props.yearNumber * 4 : props.yearNumber * 3;
-  const studentID = Users.getID(props.username);
+  let termNum = quarter ? yearNumber * 4 : yearNumber * 3;
   return (
     <div>
       <Header>
-        Year {props.yearNumber + 1}
+        Year {yearNumber + 1}
       </Header>
       <AcademicPlanStaticTermView
         title={AcademicTerms.FALL}
-        id={`${AcademicTerms.FALL}-${props.yearNumber * 10 + termNum}`}
-        choices={getPlanChoices(props.academicPlan, termNum++)}
-        studentID={studentID}
-        takenSlugs={props.takenSlugs}
+        choices={getPlanChoices(academicPlan, termNum++)}
+        takenSlugs={takenSlugs}
       />
       {quarter ? (
         <AcademicPlanStaticTermView
           title={AcademicTerms.WINTER}
-          id={`${AcademicTerms.WINTER}-${props.yearNumber * 10 + termNum}`}
-          choices={getPlanChoices(props.academicPlan, termNum++)}
-          studentID={studentID}
-          takenSlugs={props.takenSlugs}
+          choices={getPlanChoices(academicPlan, termNum++)}
+          takenSlugs={takenSlugs}
         />
       ) : ''}
       <AcademicPlanStaticTermView
         title={AcademicTerms.SPRING}
-        id={`${AcademicTerms.SPRING}-${props.yearNumber * 10 + termNum}`}
-        choices={getPlanChoices(props.academicPlan, termNum++)}
-        studentID={studentID}
-        takenSlugs={props.takenSlugs}
+        choices={getPlanChoices(academicPlan, termNum++)}
+        takenSlugs={takenSlugs}
       />
       <AcademicPlanStaticTermView
         title={AcademicTerms.SUMMER}
-        id={`${AcademicTerms.SUMMER}-${props.yearNumber * 10 + termNum}`}
-        choices={getPlanChoices(props.academicPlan, termNum++)}
-        studentID={studentID}
-        takenSlugs={props.takenSlugs}
+        choices={getPlanChoices(academicPlan, termNum++)}
+        takenSlugs={takenSlugs}
       />
     </div>
   );

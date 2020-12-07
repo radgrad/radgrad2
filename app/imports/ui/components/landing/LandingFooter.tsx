@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, List, Grid } from 'semantic-ui-react';
 import styles from './utilities/landing-styles';
 
-const LandingFooter = () => (
+const LandingFooter: React.FC = () => (
   <footer>
     <div style={styles['footer-section']}>
       <Container>

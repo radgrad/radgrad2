@@ -28,9 +28,8 @@ interface IOpportunityExplorerProps {
   helpMessages: IHelpMessage[];
 }
 
-const LandingOpportunityExplorerPage: React.FC<IOpportunityExplorerProps> = (props) => {
+const LandingOpportunityExplorerPage: React.FC<IOpportunityExplorerProps> = ({ opportunity, helpMessages, quarters }) => {
   const match = useRouteMatch();
-  const { opportunity } = props;
   const hasTeaser = Teasers.findNonRetired({ targetSlugID: opportunity.slugID }).length > 0;
   const opportunityTypeName = getOpportunityTypeName(opportunity.opportunityTypeID);
   const academicTerms = semesters(opportunity);
@@ -43,7 +42,7 @@ const LandingOpportunityExplorerPage: React.FC<IOpportunityExplorerProps> = (pro
       <Grid stackable>
         <Grid.Row>
           <Grid.Column width={1} />
-          <Grid.Column width={14}><HelpPanelWidget helpMessages={props.helpMessages} /></Grid.Column>
+          <Grid.Column width={14}><HelpPanelWidget helpMessages={helpMessages} /></Grid.Column>
           <Grid.Column width={1} />
         </Grid.Row>
 
@@ -68,7 +67,7 @@ const LandingOpportunityExplorerPage: React.FC<IOpportunityExplorerProps> = (pro
                           (<React.Fragment>{opportunityTypeName} <br /></React.Fragment>)
                           : (<React.Fragment>N/A <br /></React.Fragment>)}
 
-                        <b>{(props.quarters ? 'Quarters' : 'Academic Terms')}: </b>
+                        <b>{(quarters ? 'Quarters' : 'Academic Terms')}: </b>
                         {academicTerms.length > 0 ?
                           (<React.Fragment>{academicTerms} <br /></React.Fragment>)
                           : (<React.Fragment>N/A <br /></React.Fragment>)}
@@ -129,7 +128,7 @@ const LandingOpportunityExplorerPage: React.FC<IOpportunityExplorerProps> = (pro
                       </Grid.Column>
 
                       <Grid.Column width={11}>
-                        <b>{(props.quarters ? 'Quarters' : 'Academic Terms')}: </b>
+                        <b>{(quarters ? 'Quarters' : 'Academic Terms')}: </b>
                         {academicTerms.length > 0 ?
                           (<React.Fragment>{academicTerms} <br /></React.Fragment>)
                           : (<React.Fragment>N/A <br /></React.Fragment>)}

@@ -16,7 +16,7 @@ interface IOpportunitySortWidgetProps {
   handleChange: (key: string, value: string) => any;
 }
 
-const OpportunitySortWidget = (props: IOpportunitySortWidgetProps) => {
+const OpportunitySortWidget: React.FC<IOpportunitySortWidgetProps> = ({ sortChoice, handleChange }) => {
   // console.log('OpportunitySortWidget', props);
   const schema = new SimpleSchema({
     sortOpportunitiesBy: {
@@ -32,10 +32,10 @@ const OpportunitySortWidget = (props: IOpportunitySortWidgetProps) => {
   });
   const formSchema = new SimpleSchema2Bridge(schema);
   const model = {
-    sortOpportunitiesBy: props.sortChoice,
+    sortOpportunitiesBy: sortChoice,
   };
   return (
-    <AutoForm schema={formSchema} model={model} onChange={props.handleChange}>
+    <AutoForm schema={formSchema} model={model} onChange={handleChange}>
       <RadioField name="sortOpportunitiesBy" label="Sort Opportunities By:" inline />
     </AutoForm>
   );

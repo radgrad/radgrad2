@@ -53,8 +53,7 @@ const getOptionsHelper = (docs: (ICareerGoal | ICourse | IInterest | IOpportunit
   value: doc.slugID,
 }));
 
-const PageTrackingComparisonWidget = (props: IPageTrackingComparisonWidgetProps) => {
-  const { pageInterestsDailySnapshots } = props;
+const PageTrackingComparisonWidget: React.FC<IPageTrackingComparisonWidgetProps> = ({ pageInterestsDailySnapshots }) => {
   const match = useRouteMatch();
   const urlCategory: IPageInterestsCategoryTypes = getUrlCategory(match);
 

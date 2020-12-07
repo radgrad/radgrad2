@@ -5,6 +5,6 @@ interface ICoursePillProps {
   name: string;
 }
 
-const CoursePill = (props: ICoursePillProps) => (<Label basic color="green">{props.name}</Label>);
+const CoursePill: React.FC<ICoursePillProps> = ({ name }) => (<Label basic color="green">{name}</Label>);
 
 export default CoursePill;

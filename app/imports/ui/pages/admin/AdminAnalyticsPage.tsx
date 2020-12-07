@@ -6,7 +6,7 @@ import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminAnalyticsMenuWidget from '../../components/admin/analytics/AdminAnalyticsMenuWidget';
 import AdminAnalyticsLoggedInUsersWidget, { IAdminAnalyticsLoggedInUsersWidget } from '../../components/admin/analytics/AdminAnalyticsLoggedInUsersWidget';
 
-const AdminAnalyticsPage = (props : IAdminAnalyticsLoggedInUsersWidget) => (
+const AdminAnalyticsPage: React.FC<IAdminAnalyticsLoggedInUsersWidget> = ({ loggedInUsers }) => (
   <div id="admin-analytics-page">
     <AdminPageMenuWidget />
     <Grid container stackable columns={1}>
@@ -16,7 +16,7 @@ const AdminAnalyticsPage = (props : IAdminAnalyticsLoggedInUsersWidget) => (
             <AdminAnalyticsMenuWidget />
           </Grid.Column>
           <Grid.Column width={13}>
-            <AdminAnalyticsLoggedInUsersWidget loggedInUsers={props.loggedInUsers} />
+            <AdminAnalyticsLoggedInUsersWidget loggedInUsers={loggedInUsers} />
           </Grid.Column>
         </Grid>
       </Grid.Column>

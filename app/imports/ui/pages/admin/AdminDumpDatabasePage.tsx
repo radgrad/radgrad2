@@ -40,12 +40,12 @@ const mapDispatchToProps = (dispatch) => ({
   getStudentEmailsDone: () => dispatch(analyticsActions.getStudentEmailsDone()),
 });
 
-const AdminDumpDatabasePage = (props: IAdminDumpDatabasePageProps) => {
+const AdminDumpDatabasePage: React.FC<IAdminDumpDatabasePageProps> = ({ startDumpDatabase, dumpDatabaseDone, dumpDatabaseWorking, getStudentEmailsDone, getStudentEmailsWorking, startGetStudentEmails }) => {
   const [isErrorState, setIsError] = useState(false);
   const [resultsState, setResults] = useState([]);
 
   const clickDump = () => {
-    props.startDumpDatabase();
+    startDumpDatabase();
     dumpDatabaseMethod.call(null, (error, result) => {
       if (error) {
         setIsError(true);
@@ -56,12 +56,12 @@ const AdminDumpDatabasePage = (props: IAdminDumpDatabasePageProps) => {
       const fileName = `${dir}/${moment(result.timestamp).format(databaseFileDateFormat)}.json`;
       zip.file(fileName, JSON.stringify(result, null, 2));
       zip.saveAs(`${dir}.zip`);
-      props.dumpDatabaseDone();
+      dumpDatabaseDone();
     });
   };
 
   const clickEmails = () => {
-    props.startGetStudentEmails();
+    startGetStudentEmails();
     generateStudentEmailsMethod.call(null, (error, result) => {
       if (error) {
         setIsError(true);
@@ -77,7 +77,7 @@ const AdminDumpDatabasePage = (props: IAdminDumpDatabasePageProps) => {
       const fileName = `${dir}/Students.txt`;
       zip.file(fileName, result.students.join('\n'));
       zip.saveAs(`${dir}.zip`);
-      props.getStudentEmailsDone();
+      getStudentEmailsDone();
     });
   };
 
@@ -86,8 +86,8 @@ const AdminDumpDatabasePage = (props: IAdminDumpDatabasePageProps) => {
   };
   const errorCondition = isErrorState;
   const showMessage = resultsState.length > 0;
-  const dumpWorking = props.dumpDatabaseWorking;
-  const getWorking = props.getStudentEmailsWorking;
+  const dumpWorking = dumpDatabaseWorking;
+  const getWorking = getStudentEmailsWorking;
   return (
     <div>
       <AdminPageMenuWidget />

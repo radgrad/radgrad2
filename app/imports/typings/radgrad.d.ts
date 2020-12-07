@@ -453,7 +453,15 @@ export interface IFavoriteUpdate extends IUpdate {
 // Feeds
 export interface IFeed {
   _id: string;
-  userID: string;
+  userIDs: string[];
+  description?: string;
+  picture?: string;
+  feedType: string;
+  timestamp: Date;
+  opportunityID?: string;
+  courseID?: string;
+  termID?: string;
+  retired?: boolean;
 }
 
 export interface IFeedDefine extends IDumpOne {
@@ -478,6 +486,14 @@ export interface IFeedUpdate extends IUpdate {
 }
 
 // FeedBackInstances
+export interface IFeedbackInstance {
+  userID: string;
+  functionName: string;
+  description: string;
+  feedbackType: string;
+  retired?: boolean;
+}
+
 export interface IFeedbackInstanceDefine extends IDumpOne {
   user: string;
   functionName: string;

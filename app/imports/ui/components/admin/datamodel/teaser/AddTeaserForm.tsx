@@ -13,21 +13,21 @@ interface IAddTeaserFormProps {
   courses: ICourse[];
   interests: IInterest[];
   opportunities: IOpportunity[];
-  formRef: any;
+  formRef: React.RefObject<unknown>;
   handleAdd: (doc) => any;
 }
 
-const AddTeaserForm = (props: IAddTeaserFormProps) => {
-  let careerGoalSlugNames = _.map(props.careerGoals, (goal) => slugIDToSlugNameAndType(goal.slugID));
+const AddTeaserForm: React.FC<IAddTeaserFormProps> = ({ careerGoals, courses, interests, opportunities, formRef, handleAdd }) => {
+  let careerGoalSlugNames = _.map(careerGoals, (goal) => slugIDToSlugNameAndType(goal.slugID));
   careerGoalSlugNames = _.sortBy(careerGoalSlugNames);
-  let courseSlugNames = _.map(props.courses, (c) => slugIDToSlugNameAndType(c.slugID));
+  let courseSlugNames = _.map(courses, (c) => slugIDToSlugNameAndType(c.slugID));
   courseSlugNames = _.sortBy(courseSlugNames);
-  let interestSlugNames = _.map(props.interests, (i) => slugIDToSlugNameAndType(i.slugID));
+  let interestSlugNames = _.map(interests, (i) => slugIDToSlugNameAndType(i.slugID));
   interestSlugNames = _.sortBy(interestSlugNames);
-  let opportunitySlugNames = _.map(props.opportunities, (o) => slugIDToSlugNameAndType(o.slugID));
+  let opportunitySlugNames = _.map(opportunities, (o) => slugIDToSlugNameAndType(o.slugID));
   opportunitySlugNames = _.sortBy(opportunitySlugNames);
   const allSlugNames = opportunitySlugNames.concat(courseSlugNames.concat(interestSlugNames.concat(careerGoalSlugNames)));
-  const interestNames = _.map(props.interests, docToName);
+  const interestNames = _.map(interests, docToName);
   const schema = new SimpleSchema({
     title: String,
     slug: String,
@@ -52,7 +52,7 @@ const AddTeaserForm = (props: IAddTeaserFormProps) => {
   return (
     <Segment padded>
       <Header dividing>Add Teaser</Header>
-      <AutoForm schema={formSchema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError>
+      <AutoForm schema={formSchema} onSubmit={handleAdd} ref={formRef} showInlineError>
         <Form.Group widths="equal">
           <TextField name="title" />
           <TextField name="slug" />

@@ -15,7 +15,6 @@ import { academicPlanActions } from '../../../../redux/advisor/academic-plan';
 import { RootState } from '../../../../redux/types';
 
 interface IAdvisorAPBPlanChoiceWidgetProps {
-  // eslint-disable-next-line react/no-unused-prop-types
   dispatch: (any) => void;
   showOnlyUnderGraduateChoices: boolean;
   choices: IPlanChoiceDefine[];
@@ -26,24 +25,23 @@ const mapStateToProps = (state: RootState) => ({
   showOnlyUnderGraduateChoices: state.advisor.academicPlan.showOnlyUnderGraduateChoices,
 });
 
-const handleFilterChange = (props: IAdvisorAPBPlanChoiceWidgetProps) => ((model) => {
+const handleFilterChange = (dispatch) => ((model) => {
   // console.log(model);
-  props.dispatch(academicPlanActions.setShowOnlyUnderGraduateChoices(model.showOnlyUnderGraduateChoices));
+  dispatch(academicPlanActions.setShowOnlyUnderGraduateChoices(model.showOnlyUnderGraduateChoices));
 });
 
-const AdvisorAPBPlanChoiceWidget = (props: IAdvisorAPBPlanChoiceWidgetProps) => {
-  // console.log('AdvisorAPBPlanChoiceWidget', props);
+const AdvisorAPBPlanChoiceWidget: React.FC<IAdvisorAPBPlanChoiceWidgetProps> = ({ dispatch, showOnlyUnderGraduateChoices, choices, combineChoice }) => {
   const column1 = [];
   const column2 = [];
   const column3 = [];
   const column4 = [];
-  const choices = _.filter(props.choices, (choice) => {
-    if (props.showOnlyUnderGraduateChoices) {
+  const choicesToShow = _.filter(choices, (choice) => {
+    if (showOnlyUnderGraduateChoices) {
       return !PlanChoices.isGraduateChoice(choice.choice);
     }
     return true;
   });
-  choices.forEach((choice, index) => {
+  choicesToShow.forEach((choice, index) => {
     switch (index % 4) {
       case 0:
         column1.push(choice);
@@ -67,13 +65,13 @@ const AdvisorAPBPlanChoiceWidget = (props: IAdvisorAPBPlanChoiceWidgetProps) => 
   });
   const formSchema = new SimpleSchema2Bridge(schema);
   const filter = {
-    showOnlyUnderGraduateChoices: props.showOnlyUnderGraduateChoices,
+    showOnlyUnderGraduateChoices: showOnlyUnderGraduateChoices,
   };
   return (
     <Segment>
       <Header dividing>
         Course Choices
-        <AutoForm schema={formSchema} model={filter} onChangeModel={handleFilterChange(props)}>
+        <AutoForm schema={formSchema} model={filter} onChangeModel={handleFilterChange(dispatch)}>
           <BoolField name="showOnlyUnderGraduateChoices" />
         </AutoForm>
       </Header>
@@ -150,12 +148,12 @@ const AdvisorAPBPlanChoiceWidget = (props: IAdvisorAPBPlanChoiceWidgetProps) => 
           >
             <Segment>
               <Icon name="linkify" size="big" />
-              {props.combineChoice ? (
+              {combineChoice ? (
                 <DraggableCoursePill
-                  key={props.combineChoice}
+                  key={combineChoice}
                   index={0}
-                  choice={props.combineChoice}
-                  draggableId={buildCombineAreaDraggableId(props.combineChoice)}
+                  choice={combineChoice}
+                  draggableId={buildCombineAreaDraggableId(combineChoice)}
                   satisfied
                   studentID="fakeID"
                 />

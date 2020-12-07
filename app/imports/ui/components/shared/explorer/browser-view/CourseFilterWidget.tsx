@@ -16,7 +16,7 @@ interface ICourseFilterWidgetProps {
   handleChange: (key: string, value: string) => any;
 }
 
-const CourseFilterWidget = (props: ICourseFilterWidgetProps) => {
+const CourseFilterWidget: React.FC<ICourseFilterWidgetProps> = ({ filterChoice, handleChange }) => {
   const schema = new SimpleSchema({
     filterCoursesBy: {
       type: String,
@@ -31,11 +31,11 @@ const CourseFilterWidget = (props: ICourseFilterWidgetProps) => {
   });
   const formSchema = new SimpleSchema2Bridge(schema);
   const model = {
-    filterCoursesBy: props.filterChoice,
+    filterCoursesBy: filterChoice,
   };
   return (
     <div>
-      <AutoForm schema={formSchema} model={model} onChange={props.handleChange}>
+      <AutoForm schema={formSchema} model={model} onChange={handleChange}>
         <RadioField name="filterCoursesBy" label="Filter Courses By:" inline />
       </AutoForm>
     </div>

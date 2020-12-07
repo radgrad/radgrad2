@@ -22,7 +22,7 @@ interface IAdminHomePageProps {
   alumni: IStudentProfile[];
 }
 
-const AdminHomePage = (props: IAdminHomePageProps) => {
+const AdminHomePage: React.FC<IAdminHomePageProps> = ({ alumni, students, faculty, advisors }) => {
   const [firstNameRegexState, setFirstNameRegex] = useState('');
   const [lastNameRegexState, setLastNameRegex] = useState('');
   const [usernameRegexState, setusernameRegex] = useState('');
@@ -53,10 +53,10 @@ const AdminHomePage = (props: IAdminHomePageProps) => {
           firstNameRegex={firstNameRegexState}
           lastNameRegex={lastNameRegexState}
           userNameRegex={usernameRegexState}
-          advisors={props.advisors}
-          faculty={props.faculty}
-          alumni={props.alumni}
-          students={props.students}
+          advisors={advisors}
+          faculty={faculty}
+          alumni={alumni}
+          students={students}
         />
       </Container>
     </div>

@@ -4,9 +4,9 @@ interface IWidgetHeaderNumberProps {
   inputValue: number;
 }
 
-const WidgetHeaderNumber = (props: IWidgetHeaderNumberProps) => (
+const WidgetHeaderNumber: React.FC<IWidgetHeaderNumberProps> = ({ inputValue }) => (
   <span className="radgrad-header-number">
-    &middot; {props.inputValue}
+    &middot; {inputValue}
   </span>
 );
 

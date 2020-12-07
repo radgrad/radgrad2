@@ -8,9 +8,9 @@ interface ILandingPlanChoicePillProps {
   choice: string;
 }
 
-const LandingPlanChoicePill = (props: ILandingPlanChoicePillProps) => (
+const LandingPlanChoicePill: React.FC<ILandingPlanChoicePillProps> = ({ choice }) => (
   <Grid.Row style={getSatisfiedStyle()}>
-    <NamePill name={PlanChoices.toString(props.choice)} />
+    <NamePill name={PlanChoices.toString(choice)} />
   </Grid.Row>
 );
 

@@ -23,9 +23,7 @@ interface IAdvisorStudentSelectorWidgetProps {
   students: IStudentProfile[];
   alumni: IStudentProfile[];
   advisorUsername: string;
-  // eslint-disable-next-line react/no-unused-prop-types
   interests: IInterest[];
-  // eslint-disable-next-line react/no-unused-prop-types
   careerGoals: ICareerGoal[];
 }
 
@@ -35,37 +33,37 @@ const mapStateToProps = (state: RootState) => ({
   username: state.advisor.home.username,
 });
 
-const AdvisorStudentSelectorWidget = (props: IAdvisorStudentSelectorWidgetProps) => {
+const AdvisorStudentSelectorWidget: React.FC<IAdvisorStudentSelectorWidgetProps> = ({ dispatch, advisorUsername, careerGoals, interests, students, username, alumni, firstName, lastName }) => {
   const [fileDataState, setFileData] = useState('');
   const [isEmailWorkingState, setIsEmailWorking] = useState(false);
   const [isUploadWorkingState, setIsUploadWorking] = useState(false);
   const [generatedDataState, setGeneratedData] = useState('');
 
   const handleTabChange = () => {
-    props.dispatch(homeActions.setSelectedStudentUsername(''));
+    dispatch(homeActions.setSelectedStudentUsername(''));
     setFileData('');
     setGeneratedData('');
   };
 
   // Functionality for 'Update Existing' tab
   const handleChangeFirstName = (event) => {
-    props.dispatch(homeActions.setFirstName(event.target.value));
+    dispatch(homeActions.setFirstName(event.target.value));
   };
 
   const handleChangeLastName = (event) => {
-    props.dispatch(homeActions.setLastName(event.target.value));
+    dispatch(homeActions.setLastName(event.target.value));
   };
 
   const handleChangeUserName = (event) => {
-    props.dispatch(homeActions.setUsername(event.target.value));
+    dispatch(homeActions.setUsername(event.target.value));
   };
 
   const clearFilter = () => {
-    props.dispatch(homeActions.clearFilter());
+    dispatch(homeActions.clearFilter());
   };
 
   const handleSelectStudent = (event, data) => {
-    props.dispatch(homeActions.setSelectedStudentUsername(data.studentusername));
+    dispatch(homeActions.setSelectedStudentUsername(data.studentusername));
   };
 
   // Functionality for 'Bulk STAR Upload' tab
@@ -92,7 +90,7 @@ const AdvisorStudentSelectorWidget = (props: IAdvisorStudentSelectorWidgetProps)
 
   const handleStarSubmit = () => {
     setIsUploadWorking(true);
-    const advisor = props.advisorUsername;
+    const advisor = advisorUsername;
     const jsonData = fileDataState;
     starBulkLoadJsonDataMethod.call({ advisor, jsonData }, ((error) => {
       if (error) {
@@ -156,13 +154,13 @@ const AdvisorStudentSelectorWidget = (props: IAdvisorStudentSelectorWidgetProps)
     overflow: 'hidden',
   };
 
-  const filterFirst = _.filter(props.students, s => s.firstName.toLowerCase().includes(props.firstName.toLowerCase()));
-  const filterLast = _.filter(filterFirst, s => s.lastName.toLowerCase().includes(props.lastName.toLowerCase()));
-  const filteredStudents = _.filter(filterLast, s => s.username.toLowerCase().includes(props.username.toLowerCase()));
+  const filterFirst = _.filter(students, s => s.firstName.toLowerCase().includes(firstName.toLowerCase()));
+  const filterLast = _.filter(filterFirst, s => s.lastName.toLowerCase().includes(lastName.toLowerCase()));
+  const filteredStudents = _.filter(filterLast, s => s.username.toLowerCase().includes(username.toLowerCase()));
 
-  const filterAlumiFirst = _.filter(props.alumni, s => s.firstName.toLowerCase().includes(props.firstName.toLowerCase()));
-  const filterAlumniLast = _.filter(filterAlumiFirst, s => s.lastName.toLowerCase().includes(props.lastName.toLowerCase()));
-  const filteredAlumni = _.filter(filterAlumniLast, s => s.username.toLowerCase().includes(props.username.toLowerCase()));
+  const filterAlumiFirst = _.filter(alumni, s => s.firstName.toLowerCase().includes(firstName.toLowerCase()));
+  const filterAlumniLast = _.filter(filterAlumiFirst, s => s.lastName.toLowerCase().includes(lastName.toLowerCase()));
+  const filteredAlumni = _.filter(filterAlumniLast, s => s.username.toLowerCase().includes(username.toLowerCase()));
 
   const levelOnes = _.filter(filteredStudents, (s) => s.level === 1).length;
   const levelTwos = _.filter(filteredStudents, (s) => s.level === 2).length;
@@ -181,27 +179,24 @@ const AdvisorStudentSelectorWidget = (props: IAdvisorStudentSelectorWidgetProps)
               <Form.Field>
                 <Form.Input
                   name="firstName"
-                  // @ts-ignore
                   label={{ basic: 'true', children: 'First Name:' }}
-                  value={props.firstName}
+                  value={firstName}
                   onChange={handleChangeFirstName}
                 />
               </Form.Field>
               <Form.Field>
                 <Form.Input
                   name="lastName"
-                  // @ts-ignore
                   label={{ basic: 'true', children: 'Last Name:' }}
-                  value={props.lastName}
+                  value={lastName}
                   onChange={handleChangeLastName}
                 />
               </Form.Field>
               <Form.Field>
                 <Form.Input
                   name="userName"
-                  // @ts-ignore
                   label={{ basic: 'true', children: 'Username:' }}
-                  value={props.username}
+                  value={username}
                   onChange={handleChangeUserName}
                 />
               </Form.Field>
@@ -295,8 +290,8 @@ const AdvisorStudentSelectorWidget = (props: IAdvisorStudentSelectorWidgetProps)
       menuItem: 'Add New',
       render: () => (
         <AdvisorAddStudentWidget
-          interests={props.interests}
-          careerGoals={props.careerGoals}
+          interests={interests}
+          careerGoals={careerGoals}
         />
       ),
     },

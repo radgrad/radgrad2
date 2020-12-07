@@ -8,26 +8,26 @@ import { OpportunityTypes } from '../../../../../api/opportunity/OpportunityType
 interface IUpdateOpportunityTypeFormProps {
   collection: BaseCollection;
   id: string;
-  formRef: any;
+  formRef: React.RefObject<unknown>;
   handleUpdate: (doc) => any;
   handleCancel: (event) => any;
   itemTitleString: (item) => React.ReactNode;
 }
 
-const UpdateOpportunityTypeForm = (props: IUpdateOpportunityTypeFormProps) => {
-  const model = props.collection.findDoc(props.id);
+const UpdateOpportunityTypeForm: React.FC<IUpdateOpportunityTypeFormProps> = ({ collection, id, formRef, handleUpdate, handleCancel, itemTitleString }) => {
+  const model = collection.findDoc(id);
   return (
     <Segment padded>
       <Header dividing>
         Update
-        {props.collection.getType()}
+        {collection.getType()}
         :
-        {props.itemTitleString(model)}
+        {itemTitleString(model)}
       </Header>
       <AutoForm
         schema={new SimpleSchema2Bridge(OpportunityTypes.getUpdateSchema())}
-        onSubmit={props.handleUpdate}
-        ref={props.formRef}
+        onSubmit={handleUpdate}
+        ref={formRef}
         showInlineError
         model={model}
       >
@@ -35,7 +35,7 @@ const UpdateOpportunityTypeForm = (props: IUpdateOpportunityTypeFormProps) => {
         <LongTextField name="description" />
         <BoolField name="retired" />
         <SubmitField inputRef={undefined} value="Update" disabled={false} className="" />
-        <Button onClick={props.handleCancel}>Cancel</Button>
+        <Button onClick={handleCancel}>Cancel</Button>
       </AutoForm>
     </Segment>
   );

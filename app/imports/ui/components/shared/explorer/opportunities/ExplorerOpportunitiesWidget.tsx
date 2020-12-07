@@ -30,8 +30,7 @@ const mapStateToProps = (state: RootState) => ({
   pagination: state.shared.cardExplorer.pagination.Opportunities,
 });
 
-const ExplorerOpportunitiesWidget = (props: ICardExplorerOpportunitiesWidgetProps) => {
-  const { pagination } = props;
+const ExplorerOpportunitiesWidget: React.FC<ICardExplorerOpportunitiesWidgetProps> = ({ pagination }) => {
   const match = useRouteMatch();
 
   const [sortOpportunitiesChoiceState, setSortOpportunitiesChoice] = useState(opportunitySortKeys.recommended);

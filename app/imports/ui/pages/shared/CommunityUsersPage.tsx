@@ -27,9 +27,8 @@ interface ICommunityUsersPageProps {
   helpMessages: IHelpMessage[];
 }
 
-const CommunityUsersPage: React.FC<ICommunityUsersPageProps> = (props) => {
+const CommunityUsersPage: React.FC<ICommunityUsersPageProps> = ({ faculty, helpMessages, advisors, students, feeds }) => {
   const match = useRouteMatch();
-  const { feeds, advisors, faculty, students, helpMessages } = props;
   const getMenuWidget = (): JSX.Element => {
     const role = Router.getRoleByUrl(match);
     switch (role) {

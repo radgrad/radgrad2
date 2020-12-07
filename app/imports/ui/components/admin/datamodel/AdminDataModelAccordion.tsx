@@ -19,54 +19,62 @@ interface IAdminDataModelAccordionProps {
   handleDelete: (evt: any, id: any) => any;
 }
 
-const AdminDataModelAccordion = (props: IAdminDataModelAccordionProps) => {
+const AdminDataModelAccordion: React.FC<IAdminDataModelAccordionProps> = ({ id, retired, name, slug, additionalTitleInfo, deleteDisabled, descriptionPairs, handleOpenUpdate, handleDelete, updateDisabled }) => {
   const [active, setActive] = useState(false);
 
   const handleClick = () => {
     setActive(!active);
   };
 
+  const getDescriptionPairValue = (descriptionPair: IDescriptionPair): string => {
+    if (Array.isArray(descriptionPair.value)) {
+      return descriptionPair.value.join(', ');
+    }
+    if (typeof descriptionPair.value === 'undefined') {
+      return ' ';
+    }
+    return `${descriptionPair.value}`;
+  };
+
   const match = useRouteMatch();
   return (
     <Accordion fluid styled>
       <Accordion.Title active={active} onClick={handleClick}>
-        {props.retired ? <Icon name="eye slash" /> : ''}
+        {retired ? <Icon name="eye slash" /> : ''}
         <Icon name="dropdown" />
-        {props.name}
-        {props.slug ? (props.slug) : ''}
-        {props.additionalTitleInfo ? props.additionalTitleInfo : ''}
+        {name}
+        {slug}
+        {additionalTitleInfo}
       </Accordion.Title>
       <Accordion.Content active={active}>
-        {_.map(props.descriptionPairs, (descriptionPair, index) => (
+        {_.map(descriptionPairs, (descriptionPair, index) => (
           <React.Fragment key={index}>
-            <b>{descriptionPair.label}:</b> {typeof descriptionPair.value === 'string' ? (
-              <Markdown
-                escapeHtml
-                source={descriptionPair.value}
-                renderers={{ link: (lProps) => Router.renderLink(lProps, match) }}
-              />
-            ) : typeof descriptionPair.value === 'undefined' ? ' ' :
-            <p>{descriptionPair.value.join(', ')}</p>}
+            <b>{descriptionPair.label}:</b>
+            <Markdown
+              escapeHtml
+              source={getDescriptionPairValue(descriptionPair)}
+              renderers={{ link: (lProps) => Router.renderLink(lProps, match) }}
+            />
           </React.Fragment>
         ))}
         <p>
           <Button
-            id={props.id}
+            id={id}
             color="green"
             basic
             size="mini"
-            disabled={props.updateDisabled}
-            onClick={props.handleOpenUpdate}
+            disabled={updateDisabled}
+            onClick={handleOpenUpdate}
           >
             Update
           </Button>
           <Button
-            id={props.id}
+            id={id}
             color="green"
             basic
             size="mini"
-            disabled={props.deleteDisabled}
-            onClick={props.handleDelete}
+            disabled={deleteDisabled}
+            onClick={handleDelete}
           >
             Delete
           </Button>

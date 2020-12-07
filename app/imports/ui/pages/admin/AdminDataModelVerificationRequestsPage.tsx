@@ -57,7 +57,7 @@ const collection = VerificationRequests; // the collection to use.
  * Returns an array of Description pairs used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const descriptionPairs = (item: any): IDescriptionPair[] => [
+const descriptionPairs = (item: IVerificationRequest): IDescriptionPair[] => [
   { label: 'Student', value: `${Users.getFullName(item.studentID)}` },
   {
     label: 'Opportunity',
@@ -73,7 +73,7 @@ const descriptionPairs = (item: any): IDescriptionPair[] => [
  * Returns the title string for the item. Used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const itemTitleString = (item: any): string => {
+const itemTitleString = (item: IVerificationRequest): string => {
   const student = Users.getFullName(item.studentID);
   const oi = OpportunityInstances.findDoc(item.opportunityInstanceID);
   const term = AcademicTerms.toString(oi.termID, false);
@@ -85,7 +85,7 @@ const itemTitleString = (item: any): string => {
  * Returns the ReactNode used in the ListCollectionWidget. By default we indicate if the item is retired.
  * @param item an item from the collection.
  */
-const itemTitle = (item: any): React.ReactNode => (
+const itemTitle = (item: IVerificationRequest): React.ReactNode => (
   <React.Fragment>
     {item.retired ? <Icon name="eye slash" /> : ''}
     <Icon name="dropdown" />
@@ -101,7 +101,7 @@ interface IAdminDataModelVerificationRequestsPageProps extends IAdminDataModeMen
   opportunityInstances: IOpportunityInstance[];
 }
 
-const AdminDataModelVerificationRequestsPage = (props: IAdminDataModelVerificationRequestsPageProps) => {
+const AdminDataModelVerificationRequestsPage: React.FC<IAdminDataModelVerificationRequestsPageProps> = (props) => {
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');

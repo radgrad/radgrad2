@@ -9,15 +9,14 @@ import { Users } from '../../../../../api/user/UserCollection';
 import { CourseInstances } from '../../../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../../../api/opportunity/OpportunityInstanceCollection';
 import { itemToSlugName, profileGetCareerGoalIDs, profileGetFavoriteAcademicPlanIDs } from '../../utilities/data-model';
-
-type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IInterest | IOpportunity;
+import { ExplorerInterfaces, IListItem } from './ExplorerMenuMobileItem';
 
 interface IExplorerMenuNonMobileItemProps {
-  type: any;
-  listItem: any;
+  type: string;
+  listItem: IListItem;
 }
 
-const itemName = (item: { item: explorerInterfaces, count: number }): string => {
+const itemName = (item: IListItem): string => {
   const countStr = `x${item.count}`;
   if (item.count > 1) {
     return `${item.item.name} ${countStr}`;
@@ -95,7 +94,7 @@ const opportunityItemName = (item: { item: IOpportunity, count: number }): strin
 };
 
 // Determines whether or not we show a "check green circle outline icon" for an item
-const getItemStatus = (item: explorerInterfaces, props: IExplorerMenuNonMobileItemProps): string => {
+const getItemStatus = (item: ExplorerInterfaces, props: IExplorerMenuNonMobileItemProps): string => {
   const { type } = props;
   switch (type) {
     case EXPLORER_TYPE.ACADEMICPLANS:

@@ -8,12 +8,14 @@ import RadGradMenuProfile, { IRadGradMenuProfileProps } from './RadGradMenuProfi
 import { isUrlRoleStudent } from './utilities/router';
 
 /**
- * First menu for all pages.
- * @param currentUser the logged in username.
- * @param iconName the icon name for the type of user.
+ * First menu for all profiles.
+ * @param profile the user's profile.
+ * @param displayLevelAndIce do we show leve and ice?
+ * @param earnedICE the earned ICE points.
+ * @param projectedICE the planned ICE points.
  * @constructor
  */
-const FirstMenu: React.FunctionComponent<IRadGradMenuProfileProps> = ({ profile, displayLevelAndIce, earnedICE, projectedICE }) => {
+const FirstMenu: React.FC<IRadGradMenuProfileProps> = ({ profile, displayLevelAndIce, earnedICE, projectedICE }) => {
   const match = useRouteMatch();
   const imageStyle = { width: '50px' };
   const flexStyle = { display: 'flex' };

@@ -9,9 +9,8 @@ interface IMenuIceCircleProps {
   type: string;
 }
 
-const MenuIceCircle = (props: IMenuIceCircleProps) => {
+const MenuIceCircle: React.FC<IMenuIceCircleProps> = ({ planned, type, earned }) => {
   const marginRight = { marginRight: 5 };
-  const { planned, type, earned } = props;
   const match = useRouteMatch();
   const p = (planned < 100) ? planned : 100;
   const e = (earned < 100) ? earned : 100;

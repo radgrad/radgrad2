@@ -5,21 +5,19 @@ import LandingPlanChoicePill from '../LandingPlanChoicePill';
 
 interface ILandingAcademicTempViewProps {
   title: string;
-  // eslint-disable-next-line react/no-unused-prop-types
-  id?: string;
   choices: string[];
 }
 
-const LandingAcademicTermView = (props: ILandingAcademicTempViewProps) => {
+const LandingAcademicTermView: React.FC<ILandingAcademicTempViewProps> = ({ title, choices }) => {
   const noPaddingStyle = {
     padding: 2,
     margin: 2,
   };
   return (
     <Segment style={noPaddingStyle}>
-      <Header dividing>{props.title}</Header>
+      <Header dividing>{title}</Header>
       <div>
-        {_.map(props.choices, (choice, index) => (
+        {_.map(choices, (choice, index) => (
           <LandingPlanChoicePill key={index} choice={choice} />
         ))}
       </div>

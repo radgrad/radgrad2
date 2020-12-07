@@ -23,21 +23,15 @@ import AdvisorLog from '../../components/landing/guided-tour/student/advisor-log
 import WhatsNext from '../../components/landing/guided-tour/student/whats-next';
 
 interface IGuidedTourStudentProps {
-  // eslint-disable-next-line react/no-unused-prop-types
   interests: number;
-  // eslint-disable-next-line react/no-unused-prop-types
   careerGoals: string;
-  // eslint-disable-next-line react/no-unused-prop-types
   courses: number;
-  // eslint-disable-next-line react/no-unused-prop-types
   courseReviews: number;
-  // eslint-disable-next-line react/no-unused-prop-types
   opportunities: number;
-  // eslint-disable-next-line react/no-unused-prop-types
   ready: boolean;
 }
 
-const renderPage = (props: IGuidedTourStudentProps) => {
+const renderPage: React.FC<IGuidedTourStudentProps> = ({ courses, careerGoals, interests, opportunities, courseReviews }) => {
   const settings = {
     dots: true,
     infinite: false,
@@ -53,10 +47,10 @@ const renderPage = (props: IGuidedTourStudentProps) => {
           <Slider {...settings}>
             <WhyRadGrad />
             <SetUp />
-            <Interests interests={props.interests} />
-            <CareerPath careerGoals={props.careerGoals} />
-            <Courses courses={props.courses} courseReviews={props.courseReviews} />
-            <Opportunities opportunties={props.opportunities} />
+            <Interests interests={interests} />
+            <CareerPath careerGoals={careerGoals} />
+            <Courses courses={courses} courseReviews={courseReviews} />
+            <Opportunities opportunities={opportunities} />
             <DegreePlan />
             <ICE />
             <Levels />
@@ -73,7 +67,7 @@ const renderPage = (props: IGuidedTourStudentProps) => {
 };
 
 // eslint-disable-next-line react/prop-types
-const LandingGuidedTourStudentPage = (props: IGuidedTourStudentProps) => ((props.ready) ? renderPage(props) : <Loader active>Getting data</Loader>);
+const LandingGuidedTourStudentPage: React.FC<IGuidedTourStudentProps> = (props) => ((props.ready) ? renderPage(props) : <Loader active>Getting data</Loader>);
 
 const GuidedTourStudentContainer = withTracker(() => {
   const subscription = Meteor.subscribe(PublicStats.getPublicationName());

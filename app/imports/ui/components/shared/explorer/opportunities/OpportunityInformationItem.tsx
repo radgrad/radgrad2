@@ -43,14 +43,13 @@ const getNumberOfStudentsParticipating = (opportunity: IOpportunity): number => 
   return participatingStudents.itemCount;
 };
 
-const OpportunityInformationItem = (props: IOpportunityItemWidgetProps) => {
-  const { informationConfiguration, opportunity } = props;
+const OpportunityInformationItem: React.FC<IOpportunityItemWidgetProps> = ({ informationConfiguration, opportunity }) => {
   const match = useRouteMatch();
   const interestListStyle: React.CSSProperties = {
     marginTop: '5px',
   };
 
-  const numberOfStudentsParticipating = getNumberOfStudentsParticipating(props.opportunity);
+  const numberOfStudentsParticipating = getNumberOfStudentsParticipating(opportunity);
   const opportunityICE = opportunity.ice;
   const opportunityType = getOpportunityType(opportunity);
   const opportunityShortDescription = docToShortDescription(opportunity);

@@ -24,19 +24,19 @@ interface ILandingHomeProps {
 }
 
 /** A simple static component to render some text for the landing page. */
-const LandingHomePage = (props: ILandingHomeProps) => (
+const LandingHomePage: React.FC<ILandingHomeProps> = ({ currentUser, opportunities, interests, careerGoals, users, role, iconName }) => (
   <div id="landing-page">
     <LandingNavBar
-      currentUser={props.currentUser}
-      iconName={props.iconName}
-      role={props.role}
+      currentUser={currentUser}
+      iconName={iconName}
+      role={role}
     />
     <LandingSection1 />
     <LandingSection2
-      careerGoals={props.careerGoals}
-      interests={props.interests}
-      opportunities={props.opportunities}
-      users={props.users}
+      careerGoals={careerGoals}
+      interests={interests}
+      opportunities={opportunities}
+      users={users}
     />
     <LandingSection3 />
     <LandingSection9Container />

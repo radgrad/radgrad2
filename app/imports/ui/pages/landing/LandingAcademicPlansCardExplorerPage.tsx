@@ -19,7 +19,7 @@ interface IAcademicPlansCardExplorerProps {
   helpMessages: IHelpMessage[];
 }
 
-const LandingAcademicPlansCardExplorerPage: React.FC<IAcademicPlansCardExplorerProps> = (props: IAcademicPlansCardExplorerProps) => {
+const LandingAcademicPlansCardExplorerPage: React.FC<IAcademicPlansCardExplorerProps> = ({ academicPlans, helpMessages, count }) => {
   const inlineStyle = {
     maxHeight: 750,
     marginTop: 10,
@@ -30,7 +30,7 @@ const LandingAcademicPlansCardExplorerPage: React.FC<IAcademicPlansCardExplorerP
       <Grid stackable>
         <Grid.Row>
           <Grid.Column width={1} />
-          <Grid.Column width={14}><HelpPanelWidget helpMessages={props.helpMessages} /></Grid.Column>
+          <Grid.Column width={14}><HelpPanelWidget helpMessages={helpMessages} /></Grid.Column>
           <Grid.Column width={1} />
         </Grid.Row>
 
@@ -43,10 +43,10 @@ const LandingAcademicPlansCardExplorerPage: React.FC<IAcademicPlansCardExplorerP
           <Grid.Column width={11}>
             <Segment padded style={{ overflow: 'auto', maxHeight: 750 }}>
               <Header as="h4" dividing>
-                <span>ACADEMIC PLANS</span> ({props.count})
+                <span>ACADEMIC PLANS</span> ({count})
               </Header>
               <Card.Group stackable itemsPerRow={2} style={inlineStyle}>
-                {props.academicPlans.map((plan) => (
+                {academicPlans.map((plan) => (
                   <LandingAcademicPlanCardContainer key={plan._id} plan={plan} />
                 ))}
               </Card.Group>

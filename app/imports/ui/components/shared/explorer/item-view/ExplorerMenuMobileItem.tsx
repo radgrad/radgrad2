@@ -10,14 +10,19 @@ import { OpportunityInstances } from '../../../../../api/opportunity/Opportunity
 import * as Router from '../../utilities/router';
 import { itemToSlugName, profileGetCareerGoalIDs, profileGetFavoriteAcademicPlanIDs } from '../../utilities/data-model';
 
-type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IInterest | IOpportunity;
+export type ExplorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IInterest | IOpportunity;
 
-interface IExplorerMenuMobileItemProps {
-  type: any;
-  listItem: any;
+export interface IListItem {
+  item: ExplorerInterfaces;
+  count: number;
 }
 
-const itemName = (item: { item: explorerInterfaces, count: number }): string => {
+interface IExplorerMenuMobileItemProps {
+  type: string;
+  listItem: IListItem;
+}
+
+const itemName = (item: IListItem): string => {
   const countStr = `x${item.count}`;
   if (item.count > 1) {
     return `${item.item.name} ${countStr}`;
@@ -85,8 +90,7 @@ const userOpportunities = (opportunity: IOpportunity, match): string => {
 };
 
 // Determines whether or not we show a "check green circle outline icon" for an item
-const getItemStatus = (item: explorerInterfaces, props: IExplorerMenuMobileItemProps, match): string => {
-  const { type } = props;
+const getItemStatus = (item: ExplorerInterfaces, type: string, match): string => {
   switch (type) {
     case EXPLORER_TYPE.ACADEMICPLANS:
       return userPlans(item as IAcademicPlan, match);
@@ -103,8 +107,7 @@ const getItemStatus = (item: explorerInterfaces, props: IExplorerMenuMobileItemP
   }
 };
 
-const ExplorerMenuMobileItem: React.FC<IExplorerMenuMobileItemProps> = (props) => {
-  const { type, listItem } = props;
+const ExplorerMenuMobileItem: React.FC<IExplorerMenuMobileItemProps> = ({ type, listItem }) => {
   const match = useRouteMatch();
   const iconStyle: React.CSSProperties = {
     position: 'absolute',
@@ -118,7 +121,7 @@ const ExplorerMenuMobileItem: React.FC<IExplorerMenuMobileItemProps> = (props) =
       to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${type}/${itemToSlugName(listItem.item)}`)}
       text={(
         <React.Fragment>
-          <i className={getItemStatus(listItem.item, props, match)} style={iconStyle} />
+          <i className={getItemStatus(listItem.item, type, match)} style={iconStyle} />
           {
                          type !== EXPLORER_TYPE.COURSES ?
                            itemName(listItem)

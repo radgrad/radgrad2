@@ -10,49 +10,48 @@ interface IAdvisorAPBYearViewProps {
   quarterSystem: boolean;
 }
 
-const AdvisorAPBYearView = (props: IAdvisorAPBYearViewProps) => {
+const AdvisorAPBYearView: React.FC<IAdvisorAPBYearViewProps> = ({ yearNumber, coursesPerTerm, choiceList, quarterSystem }) => {
   const academicYearStyle = {
     padding: '0 0.6rem',
   };
-  // console.log(props);
-  const numTermsPerYear = props.quarterSystem ? 4 : 3;
-  let termNum = (props.yearNumber - 1) * numTermsPerYear;
+  const numTermsPerYear = quarterSystem ? 4 : 3;
+  let termNum = (yearNumber - 1) * numTermsPerYear;
   // console.log('YearView props %o termNum=%o', props, termNum);
   return (
-    <Grid.Column key={props.yearNumber} style={academicYearStyle}>
+    <Grid.Column key={yearNumber} style={academicYearStyle}>
       <Divider horizontal>
         Year
-        {props.yearNumber}
+        {yearNumber}
       </Divider>
-      {props.quarterSystem ? (
+      {quarterSystem ? (
         <div>
           <AdvisorAPBTermView
             termName={AcademicTerms.FALL}
             termNumber={termNum++}
-            yearNumber={props.yearNumber}
-            choiceList={props.choiceList}
-            coursesPerTerm={props.coursesPerTerm}
+            yearNumber={yearNumber}
+            choiceList={choiceList}
+            coursesPerTerm={coursesPerTerm}
           />
           <AdvisorAPBTermView
             termName={AcademicTerms.WINTER}
             termNumber={termNum++}
-            yearNumber={props.yearNumber}
-            choiceList={props.choiceList}
-            coursesPerTerm={props.coursesPerTerm}
+            yearNumber={yearNumber}
+            choiceList={choiceList}
+            coursesPerTerm={coursesPerTerm}
           />
           <AdvisorAPBTermView
             termName={AcademicTerms.SPRING}
             termNumber={termNum++}
-            yearNumber={props.yearNumber}
-            choiceList={props.choiceList}
-            coursesPerTerm={props.coursesPerTerm}
+            yearNumber={yearNumber}
+            choiceList={choiceList}
+            coursesPerTerm={coursesPerTerm}
           />
           <AdvisorAPBTermView
             termName={AcademicTerms.SUMMER}
             termNumber={termNum++}
-            yearNumber={props.yearNumber}
-            choiceList={props.choiceList}
-            coursesPerTerm={props.coursesPerTerm}
+            yearNumber={yearNumber}
+            choiceList={choiceList}
+            coursesPerTerm={coursesPerTerm}
           />
         </div>
       ) : (
@@ -60,23 +59,23 @@ const AdvisorAPBYearView = (props: IAdvisorAPBYearViewProps) => {
           <AdvisorAPBTermView
             termName={AcademicTerms.FALL}
             termNumber={termNum++}
-            yearNumber={props.yearNumber}
-            choiceList={props.choiceList}
-            coursesPerTerm={props.coursesPerTerm}
+            yearNumber={yearNumber}
+            choiceList={choiceList}
+            coursesPerTerm={coursesPerTerm}
           />
           <AdvisorAPBTermView
             termName={AcademicTerms.SPRING}
             termNumber={termNum++}
-            yearNumber={props.yearNumber}
-            choiceList={props.choiceList}
-            coursesPerTerm={props.coursesPerTerm}
+            yearNumber={yearNumber}
+            choiceList={choiceList}
+            coursesPerTerm={coursesPerTerm}
           />
           <AdvisorAPBTermView
             termName={AcademicTerms.SUMMER}
             termNumber={termNum++}
-            yearNumber={props.yearNumber}
-            choiceList={props.choiceList}
-            coursesPerTerm={props.coursesPerTerm}
+            yearNumber={yearNumber}
+            choiceList={choiceList}
+            coursesPerTerm={coursesPerTerm}
           />
         </div>
       )}
