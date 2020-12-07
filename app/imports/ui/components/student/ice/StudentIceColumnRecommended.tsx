@@ -147,6 +147,7 @@ const recommendedEvents = (projectedPoints: number, props: IStudentIceColumnReco
 };
 
 const StudentIceColumnRecommended = (props: IStudentIceColumnRecommendedProps) => {
+  console.log(props);
   const match = useRouteMatch();
   const { type, earnedICEPoints, projectedICEPoints, matchingPoints, getCourseSlug, getOpportunitySlug, icePoints } = props;
 

@@ -47,9 +47,10 @@ const StudentHomeIcePageContainer = withTracker(() => {
   const earnedICE: Ice = StudentProfiles.getEarnedICE(username);
   const projectedICE: Ice = StudentProfiles.getProjectedICE(username);
   const helpMessages = HelpMessages.findNonRetired({});
-  const favoriteInterests: IFavoriteInterest[] = FavoriteInterests.findNonRetired({ studentID });
+  const favoriteInterests: IFavoriteInterest[] = FavoriteInterests.findNonRetired({ userID: studentID });
   const courseInstances: ICourseInstance[] = CourseInstances.findNonRetired({ studentID });
   const opportunityInstances: IOpportunityInstance[] = OpportunityInstances.findNonRetired({ studentID });
+  console.log(favoriteInterests);
   return {
     helpMessages,
     earnedICE,

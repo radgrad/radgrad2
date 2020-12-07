@@ -19,6 +19,7 @@ export interface IStudentIceColumnProps {
 }
 
 const StudentIceColumn = (props: IStudentIceColumnProps) => {
+  console.log('StudentIceColumn', props);
   const match = useRouteMatch();
   const [verifiedColumnOpenState, setVerifiedColumnOpen] = useState(true);
   const [unVerifiedColumnOpenState, setUnVerifiedColumnOpen] = useState(false);

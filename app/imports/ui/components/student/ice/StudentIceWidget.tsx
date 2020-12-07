@@ -13,6 +13,7 @@ export interface IStudentIceWidgetProps {
 }
 
 const StudentIceWidget = (props: IStudentIceWidgetProps) => {
+  console.log(props);
   const innovationColumnStyle = { paddingLeft: 0 };
   const experienceColumnStyle = { paddingRight: 0 };
   const styleInfo: React.CSSProperties = { textAlign: 'left', paddingTop: 10 };
@@ -27,7 +28,7 @@ const StudentIceWidget = (props: IStudentIceWidgetProps) => {
               <Segment basic>
                 <PageIceCircle earned={props.earnedICE.i} planned={props.projectedICE.i} type="innov" />
                 <Header as="h3" textAlign="center" className="ice-innovation-color">INNOVATION</Header>
-                <StudentIceColumn type="Innovation" />
+                <StudentIceColumn type="Innovation" courseInstances={props.courseInstances} favoriteInterests={props.favoriteInterests} opportunityInstances={props.opportunityInstances} />
                 <div style={styleInfo}>
                   You earn innovation points by completing opportunities that involve &#8220; innovation &#8220;, such
                   as <strong>research projects, hackathons,</strong> or <strong>other activities producing new insights
@@ -40,7 +41,7 @@ const StudentIceWidget = (props: IStudentIceWidgetProps) => {
               <Segment basic>
                 <PageIceCircle earned={props.earnedICE.c} planned={props.projectedICE.c} type="comp" />
                 <Header as="h3" textAlign="center" className="ice-competency-color">COMPETENCY</Header>
-                <StudentIceColumn type="Competency" />
+                <StudentIceColumn type="Competency" courseInstances={props.courseInstances} favoriteInterests={props.favoriteInterests} opportunityInstances={props.opportunityInstances} />
                 <div style={styleInfo}>
                   You earn competency points by completing classes. The number of competency points depends upon your
                   grade: you get <strong>10 points for any kind of A, 6 points for any kind of B, and no points for a C
@@ -53,7 +54,7 @@ const StudentIceWidget = (props: IStudentIceWidgetProps) => {
               <Segment basic>
                 <PageIceCircle earned={props.earnedICE.e} planned={props.projectedICE.e} type="exp" />
                 <Header as="h3" textAlign="center" className="ice-experience-color">Experience</Header>
-                <StudentIceColumn type="Experience" />
+                <StudentIceColumn type="Experience" courseInstances={props.courseInstances} favoriteInterests={props.favoriteInterests} opportunityInstances={props.opportunityInstances} />
                 <div style={styleInfo}>
                   You earn experience points by completing opportunities that provide &#8220;real world
                   experience&#8220;, such as <strong>internships</strong> or <strong>business plan competitions</strong>.
