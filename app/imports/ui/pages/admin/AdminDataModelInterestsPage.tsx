@@ -45,7 +45,7 @@ const collection = Interests; // the collection to use.
  * Returns an array of Description pairs used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const descriptionPairs = (item: any): IDescriptionPair[] => [
+const descriptionPairs = (item: IInterest): IDescriptionPair[] => [
   { label: 'Description', value: item.description },
   { label: 'Interest Type', value: InterestTypes.findDoc(item.interestTypeID).name },
   { label: 'Retired', value: item.retired ? 'True' : 'False' },
@@ -61,7 +61,7 @@ const itemTitleString = (item: IInterest): string => `${item.name} (${itemToSlug
  * Returns the ReactNode used in the ListCollectionWidget. By default we indicate if the item is retired.
  * @param item an item from the collection.
  */
-const itemTitle = (item: any): React.ReactNode => (
+const itemTitle = (item: IInterest): React.ReactNode => (
   <React.Fragment>
     {item.retired ? <Icon name="eye slash" /> : ''}
     <Icon name="dropdown" />
@@ -74,7 +74,7 @@ interface IAdminDataModelInterestsPageProps extends IAdminDataModeMenuProps {
   interestTypes: IInterestType[];
 }
 
-const AdminDataModelInterestsPage = (props: IAdminDataModelInterestsPageProps) => {
+const AdminDataModelInterestsPage: React.FC<IAdminDataModelInterestsPageProps> = (props) => {
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');

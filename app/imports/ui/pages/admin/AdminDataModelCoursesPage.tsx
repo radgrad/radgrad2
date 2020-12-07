@@ -44,7 +44,7 @@ import { dataModelActions } from '../../../redux/admin/data-model';
 
 const collection = Courses; // the collection to use.
 
-function numReferences(course) {
+function numReferences(course: ICourse) {
   return CourseInstances.find({ courseID: course._id }).count();
 }
 
@@ -52,7 +52,7 @@ function numReferences(course) {
  * Returns an array of Description pairs used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const descriptionPairs = (item: any): IDescriptionPair[] => [
+const descriptionPairs = (item: ICourse): IDescriptionPair[] => [
   { label: 'Description', value: item.description },
   { label: 'Credit Hours', value: `${item.creditHrs}` },
   { label: 'Interests', value: _.sortBy(Interests.findNames(item.interestIDs)) },
@@ -86,7 +86,7 @@ interface IAdminDataModelCoursesPageProps extends IAdminDataModeMenuProps {
   courses: ICourse[];
 }
 
-const AdminDataModelCoursesPage = (props: IAdminDataModelCoursesPageProps) => {
+const AdminDataModelCoursesPage: React.FC<IAdminDataModelCoursesPageProps> = (props) => {
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');

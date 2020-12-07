@@ -11,7 +11,7 @@ export interface IAdvisorStarUploadWidgetProps {
   advisorUsername: string;
 }
 
-const AdvisorStarUploadWidget = (props: IAdvisorStarUploadWidgetProps) => {
+const AdvisorStarUploadWidget: React.FC<IAdvisorStarUploadWidgetProps> = ({ usernameDoc, advisorUsername }) => {
   const [fileDataState, setFileData] = useState('');
 
   const readFile = (e) => {
@@ -27,8 +27,8 @@ const AdvisorStarUploadWidget = (props: IAdvisorStarUploadWidgetProps) => {
   const onSubmit = () => {
     // console.log('Data submitted: ', fileDataState);
     // TODO -- find out more about how data is uploaded from STAR
-    const advisor = props.advisorUsername;
-    const studentDoc = props.usernameDoc;
+    const advisor = advisorUsername;
+    const studentDoc = usernameDoc;
     const csvData = fileDataState;
     starLoadDataMethod.call({ advisor, student: studentDoc.username, csvData }, (error) => {
       if (error) {

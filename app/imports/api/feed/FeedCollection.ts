@@ -47,11 +47,17 @@ function withinPastDay(feed: { timestamp: string }, timestamp: string) {
  */
 class FeedCollection extends BaseCollection {
   public NEW_USER: string;
+
   public NEW_COURSE: string;
+
   public NEW_OPPORTUNITY: string;
+
   public VERIFIED_OPPORTUNITY: string;
+
   public NEW_COURSE_REVIEW: string;
+
   public NEW_OPPORTUNITY_REVIEW: string;
+
   public NEW_LEVEL: string;
 
   /**

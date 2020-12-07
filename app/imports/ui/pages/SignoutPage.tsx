@@ -4,7 +4,7 @@ import { Header } from 'semantic-ui-react';
 import LandingNavBarContainer from '../components/landing/LandingNavBar';
 
 /** After the user clicks the "SignoutPage" link in the NavBar, log them out and display this page. */
-const SignoutPage = () => {
+const SignoutPage: React.FC = () => {
   Meteor.logout(function callback(error) {
     if (error) {
       console.error('Error logging out ', error);
@@ -14,7 +14,7 @@ const SignoutPage = () => {
   });
   return (
     <div id="signout-page">
-      <LandingNavBarContainer />
+      <LandingNavBarContainer currentUser={undefined} />
       <Header as="h2" textAlign="center">
         <p>You are signed out.</p>
       </Header>

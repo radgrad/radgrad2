@@ -55,7 +55,7 @@ const collection = OpportunityInstances; // the collection to use.
  * Returns an array of Description pairs used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const descriptionPairs = (item: any): IDescriptionPair[] => [
+const descriptionPairs = (item: IOpportunityInstance): IDescriptionPair[] => [
   { label: 'Academic Term', value: AcademicTerms.toString(item.termID) },
   { label: 'Opportunity', value: (Opportunities.findDoc(item.opportunityID)).name },
   { label: 'Verified', value: item.verified ? 'True' : 'False' },
@@ -71,7 +71,7 @@ const descriptionPairs = (item: any): IDescriptionPair[] => [
  * Returns the title string for the item. Used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const itemTitleString = (item: any): string => {
+const itemTitleString = (item: IOpportunityInstance): string => {
   const oppName = Opportunities.findDoc(item.opportunityID).name;
   const username = Users.getProfile(item.studentID).username;
   const semester = AcademicTerms.toString(item.termID, true);
@@ -82,7 +82,7 @@ const itemTitleString = (item: any): string => {
  * Returns the ReactNode used in the ListCollectionWidget. By default we indicate if the item is retired.
  * @param item an item from the collection.
  */
-const itemTitle = (item: any): React.ReactNode => (
+const itemTitle = (item: IOpportunityInstance): React.ReactNode => (
   <React.Fragment>
     {item.retired ? <Icon name="eye slash" /> : ''}
     <Icon name="dropdown" />
@@ -98,7 +98,7 @@ interface IAdminDataModelOpportunityInstancesPageProps extends IAdminDataModeMen
   sponsors: IBaseProfile[];
 }
 
-const AdminDataModelOpportunityInstancesPage = (props: IAdminDataModelOpportunityInstancesPageProps) => {
+const AdminDataModelOpportunityInstancesPage: React.FC<IAdminDataModelOpportunityInstancesPageProps> = (props) => {
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');

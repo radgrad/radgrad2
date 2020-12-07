@@ -1,12 +1,13 @@
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import Markdown from 'react-markdown';
-import { useRouteMatch } from 'react-router-dom';
+import { useParams, useRouteMatch } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Grid, Header, Segment } from 'semantic-ui-react';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
+import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import ExplorerMenuBarContainer from '../../components/landing/explorer/LandingExplorerMenuBar';
-import { ICareerGoal } from '../../../typings/radgrad';
+import { ICareerGoal, IHelpMessage } from '../../../typings/radgrad';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/explorer/LandingExplorerMenu';
 import { Interests } from '../../../api/interest/InterestCollection';
@@ -17,19 +18,19 @@ import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 
 interface ICareerGoalExplorerProps {
-  currentUser: string;
   careerGoal: ICareerGoal;
+  helpMessages: IHelpMessage[];
 }
 
-const LandingCareerGoalExplorerPage = (props: ICareerGoalExplorerProps) => {
+const LandingCareerGoalExplorerPage: React.FC<ICareerGoalExplorerProps> = ({ careerGoal, helpMessages }) => {
   const match = useRouteMatch();
   return (
     <div id="landing-career-goal-explorer-page">
-      <ExplorerMenuBarContainer currentUser={props.currentUser} />
+      <ExplorerMenuBarContainer />
       <Grid stackable>
         <Grid.Row>
           <Grid.Column width={1} />
-          <Grid.Column width={14}><HelpPanelWidget /></Grid.Column>
+          <Grid.Column width={14}><HelpPanelWidget helpMessages={helpMessages} /></Grid.Column>
           <Grid.Column width={1} />
         </Grid.Row>
 
@@ -41,16 +42,16 @@ const LandingCareerGoalExplorerPage = (props: ICareerGoalExplorerProps) => {
         <Grid.Column width={11}>
           <Segment padded style={{ overflow: 'auto', maxHeight: 750 }}>
             <Header as="h4" dividing>
-              <span>{props.careerGoal.name}</span>
+              <span>{careerGoal.name}</span>
             </Header>
             <b>Description:</b>
             <Markdown
               escapeHtml
-              source={props.careerGoal.description}
+              source={careerGoal.description}
               renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}
             />
-            {props.careerGoal.interestIDs.length > 0 ?
-              (<LandingInterestList interestIDs={props.careerGoal.interestIDs} />)
+            {careerGoal.interestIDs.length > 0 ?
+              (<LandingInterestList interestIDs={careerGoal.interestIDs} />)
               : 'N/A'}
           </Segment>
         </Grid.Column>
@@ -66,12 +67,13 @@ const WithSubs = withListSubscriptions(LandingCareerGoalExplorerPage, [
   CareerGoals.getPublicationName(),
   Slugs.getPublicationName(),
   Interests.getPublicationName(),
+  HelpMessages.getPublicationName(),
 ]);
 
-const LandingCareerGoalExplorerContainer = withTracker((props) => {
-  const slugName = props.match.params.careergoal;
+const LandingCareerGoalExplorerContainer = withTracker(() => {
+  const { careergoal } = useParams();
   // console.log(Slugs.find().fetch());
-  const id = Slugs.getEntityID(slugName, 'CareerGoal');
+  const id = Slugs.getEntityID(careergoal, 'CareerGoal');
   return {
     careerGoal: CareerGoals.findDoc(id),
     currentUser: Meteor.user() ? Meteor.user().username : '',

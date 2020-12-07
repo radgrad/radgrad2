@@ -88,9 +88,9 @@ export function makeCourseICE(course, grade) {
   if (_.includes(['B+', 'B', 'B-'], grade)) {
     c = gradeCompetency.B;
   } else
-    if (_.includes(['A+', 'A', 'A-'], grade)) {
-      c = gradeCompetency.A;
-    }
+  if (_.includes(['A+', 'A', 'A-'], grade)) {
+    c = gradeCompetency.A;
+  }
   return { i, c, e };
 }
 

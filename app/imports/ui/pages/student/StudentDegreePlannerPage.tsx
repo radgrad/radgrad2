@@ -28,13 +28,9 @@ import { UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTyp
 import GuidedTourDegreePlanner from '../../components/student/degree-planner/GuidedTourDegreePlanner';
 
 interface IStudentDegreePlannerProps {
-  // eslint-disable-next-line react/no-unused-prop-types
   selectCourseInstance: (courseInstanceID: string) => any;
-  // eslint-disable-next-line react/no-unused-prop-types
   selectOpportunityInstance: (opportunityInstanceID: string) => any;
-  // eslint-disable-next-line react/no-unused-prop-types
   selectFavoriteDetailsTab: () => any;
-  // eslint-disable-next-line react/no-unused-prop-types
   match: IMatchProps;
 }
 
@@ -94,7 +90,7 @@ const onDragEnd = (props: IStudentDegreePlannerProps) => (result) => {
        * However, since the Meteor define method still fires, we want to handle that case where we drag a duplicate
        * course instance and only create a user interaction if it was not a duplicate.
        */
-        // Before we define a course instance, check if it already exists first
+      // Before we define a course instance, check if it already exists first
       const termID = academicTerm._id;
       const instanceExists: ICourseInstance = CourseInstances.findCourseInstanceDoc(termID, courseID, student);
       defineMethod.call({ collectionName, definitionData }, (error, res) => {
@@ -227,7 +223,7 @@ const onDragEnd = (props: IStudentDegreePlannerProps) => (result) => {
   }
 };
 
-const StudentDegreePlannerPage = (props: IStudentDegreePlannerProps) => {
+const StudentDegreePlannerPage: React.FC<IStudentDegreePlannerProps> = (props) => {
   const paddedStyle = {
     paddingTop: 0,
     paddingLeft: 10,

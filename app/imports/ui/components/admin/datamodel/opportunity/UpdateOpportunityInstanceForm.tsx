@@ -13,16 +13,16 @@ interface IUpdateOpportunityInstanceFormProps {
   terms: IAcademicTerm[];
   collection: BaseCollection;
   id: string;
-  formRef: any;
+  formRef: React.RefObject<unknown>;
   handleUpdate: (doc) => any;
   handleCancel: (event) => any;
   itemTitleString: (item) => React.ReactNode;
 }
 
-const UpdateOpportunityInstanceForm = (props: IUpdateOpportunityInstanceFormProps) => {
-  const model = props.collection.findDoc(props.id);
+const UpdateOpportunityInstanceForm: React.FC<IUpdateOpportunityInstanceFormProps> = ({ terms, collection, id, formRef, handleCancel, handleUpdate, itemTitleString }) => {
+  const model = collection.findDoc(id);
   model.academicTerm = academicTermIdToName(model.termID);
-  const termNames = _.map(props.terms, academicTermToName);
+  const termNames = _.map(terms, academicTermToName);
   const schema = new SimpleSchema({
     academicTerm: {
       type: String,
@@ -37,14 +37,14 @@ const UpdateOpportunityInstanceForm = (props: IUpdateOpportunityInstanceFormProp
     <Segment padded>
       <Header dividing>
         Update
-        {props.collection.getType()}
+        {collection.getType()}
         :
-        {props.itemTitleString(model)}
+        {itemTitleString(model)}
       </Header>
       <AutoForm
         schema={formSchema}
-        onSubmit={props.handleUpdate}
-        ref={props.formRef}
+        onSubmit={handleUpdate}
+        ref={formRef}
         showInlineError
         model={model}
       >
@@ -57,7 +57,7 @@ const UpdateOpportunityInstanceForm = (props: IUpdateOpportunityInstanceFormProp
           <BoolField name="retired" />
         </Form.Group>
         <SubmitField inputRef={undefined} value="Update" disabled={false} className="" />
-        <Button onClick={props.handleCancel}>Cancel</Button>
+        <Button onClick={handleCancel}>Cancel</Button>
       </AutoForm>
     </Segment>
   );

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, Container, Card } from 'semantic-ui-react';
+import { useRouteMatch } from 'react-router-dom';
 import BackToTopButton from '../../components/shared/BackToTopButton';
-import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import CardExplorerOpportunitiesWidget
   from '../../components/shared/explorer/opportunities/ExplorerOpportunitiesWidget';
 import TeaserVideo from '../../components/shared/TeaserVideo';
@@ -10,16 +10,17 @@ import ExplorerSummerOpportunitiesWidget
   from '../../components/shared/explorer/opportunities/ExplorerSummerOpportunitiesWidget';
 import ExplorerOpportunitiesHeaderWidget
   from '../../components/shared/explorer/opportunities/ExplorerOpportunitiesHeaderWidget';
+import { getMenuWidget } from './utilities/getMenuWidget';
 
-const ExplorerOpportunitiesPage = () => {
+const ExplorerOpportunitiesPage: React.FC = () => {
   const opportunitiesVideoHeaderStyle: React.CSSProperties = {
     marginTop: '5px',
   };
-
+  const match = useRouteMatch();
   const opportunitiesInRadGradVideo: { title: string, youtubeID: string, author: string } = radgradVideos.filter((video) => video.title === 'Opportunities in RadGrad')[0];
   return (
     <div id="student-opportunities-page">
-      <StudentPageMenuWidget />
+      {getMenuWidget(match)}
       <ExplorerOpportunitiesHeaderWidget />
       <Container>
         <Grid stackable divided="vertically">

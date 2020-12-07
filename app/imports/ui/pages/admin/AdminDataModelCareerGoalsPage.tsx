@@ -70,7 +70,7 @@ interface IAdminDataModelCareerGoalsPageProps extends IAdminDataModeMenuProps {
   interests: IInterest[];
 }
 
-const AdminDataModelCareerGoalsPage = (props: IAdminDataModelCareerGoalsPageProps) => {
+const AdminDataModelCareerGoalsPage: React.FC<IAdminDataModelCareerGoalsPageProps> = (props) => {
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');
@@ -207,7 +207,7 @@ const AdminDataModelCareerGoalsPage = (props: IAdminDataModelCareerGoalsPageProp
               itemTitleString={itemTitleString}
             />
           ) : (
-            <AddCareerGoalForm collection={CareerGoals} formRef={formRef} handleAdd={handleAdd} interests={props.interests} />
+            <AddCareerGoalForm formRef={formRef} handleAdd={handleAdd} interests={props.interests} />
           )}
           <ListCollectionWidget
             collection={CareerGoals}

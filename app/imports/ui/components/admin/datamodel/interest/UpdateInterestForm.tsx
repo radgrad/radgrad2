@@ -14,15 +14,15 @@ interface IUpdateInterestFormProps {
   interestTypes: IInterestType[];
   collection: BaseCollection;
   id: string;
-  formRef: any;
+  formRef: React.RefObject<unknown>;
   handleUpdate: (doc) => any;
   handleCancel: (event) => any;
   itemTitleString: (item) => React.ReactNode;
 }
 
-const UpdateInterestForm = (props: IUpdateInterestFormProps) => {
-  const interestTypeNames = _.map(props.interestTypes, docToName);
-  const model = props.collection.findDoc(props.id);
+const UpdateInterestForm: React.FC<IUpdateInterestFormProps> = ({ interestTypes, collection, id, formRef, handleCancel, handleUpdate, itemTitleString }) => {
+  const interestTypeNames = _.map(interestTypes, docToName);
+  const model = collection.findDoc(id);
   model.slug = Slugs.getNameFromID(model.slugID);
   model.interestType = InterestTypes.findDoc(model.interestTypeID).name;
   const schema = new SimpleSchema({
@@ -42,14 +42,14 @@ const UpdateInterestForm = (props: IUpdateInterestFormProps) => {
     <Segment padded>
       <Header dividing>
         Update
-        {props.collection.getType()}
+        {collection.getType()}
         :
-        {props.itemTitleString(model)}
+        {itemTitleString(model)}
       </Header>
       <AutoForm
         schema={formSchema}
-        onSubmit={props.handleUpdate}
-        ref={props.formRef}
+        onSubmit={handleUpdate}
+        ref={formRef}
         showInlineError
         model={model}
       >
@@ -61,7 +61,7 @@ const UpdateInterestForm = (props: IUpdateInterestFormProps) => {
         <LongTextField name="description" />
         <BoolField name="retired" />
         <SubmitField inputRef={undefined} value="Update" disabled={false} className="" />
-        <Button onClick={props.handleCancel}>Cancel</Button>
+        <Button onClick={handleCancel}>Cancel</Button>
       </AutoForm>
     </Segment>
   );

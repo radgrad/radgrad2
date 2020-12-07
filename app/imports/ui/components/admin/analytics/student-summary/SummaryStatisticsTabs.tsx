@@ -13,7 +13,7 @@ interface ISummaryStatisticsTabsProps {
   interactionsByUser: IAdminAnalyticsUserInteraction;
 }
 
-const SummaryStatisticsTabs = (props: ISummaryStatisticsTabsProps) => {
+const SummaryStatisticsTabs: React.FC<ISummaryStatisticsTabsProps> = ({ startDate, endDate, behaviors, interactionsByUser }) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const handleClick = (e, titleProps) => {
@@ -32,10 +32,10 @@ const SummaryStatisticsTabs = (props: ISummaryStatisticsTabsProps) => {
       pane: (
         <Tab.Pane key="summaryTabPane" active={activeIndex === 0}>
           <StudentSummaryTab
-            behaviors={props.behaviors}
-            startDate={props.startDate ? moment(props.startDate).format('MM-DD-YYYY') : ''}
-            endDate={props.endDate ? moment(props.endDate).format('MM-DD-YYYY') : ''}
-            interactionsByUser={props.interactionsByUser}
+            behaviors={behaviors}
+            startDate={startDate ? moment(startDate).format('MM-DD-YYYY') : ''}
+            endDate={endDate ? moment(endDate).format('MM-DD-YYYY') : ''}
+            interactionsByUser={interactionsByUser}
           />
         </Tab.Pane>
       ),
@@ -49,9 +49,9 @@ const SummaryStatisticsTabs = (props: ISummaryStatisticsTabsProps) => {
       pane: (
         <Tab.Pane key="timelineTab" active={activeIndex === 1}>
           <TimelineChartTab
-            interactionsByUser={props.interactionsByUser}
-            startDate={props.startDate}
-            endDate={props.endDate}
+            interactionsByUser={interactionsByUser}
+            startDate={startDate}
+            endDate={endDate}
             key="timeline-chart-tab-pane"
           />
         </Tab.Pane>

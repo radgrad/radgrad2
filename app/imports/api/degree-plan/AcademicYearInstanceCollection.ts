@@ -127,7 +127,7 @@ class AcademicYearInstanceCollection extends BaseCollection {
    * @param termIDs the 3 or 4 academic terms in the year.
    */
   public update(docID: string, { year, retired }:
-    { year?: number; springYear?: number; studentID?: string; termIDs?: string[]; retired?: boolean }) {
+  { year?: number; springYear?: number; studentID?: string; termIDs?: string[]; retired?: boolean }) {
     this.assertDefined(docID);
     const termIDs = [];
     const updateData: { year?: number; springYear?: number; termIDs?: string[]; retired?: boolean } = {};

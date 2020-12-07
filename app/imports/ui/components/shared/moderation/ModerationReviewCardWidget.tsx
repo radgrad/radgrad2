@@ -8,27 +8,27 @@ import { Users } from '../../../../api/user/UserCollection';
 import { updateMethod } from '../../../../api/base/BaseCollection.methods';
 
 interface IModerationReviewCardWidget {
-  item: any;
+  item: any; // TODO can we type this?
   handleAccept: (item, comment) => any,
   handleReject: (item, comment) => any,
 }
 
-const ModerationReviewCardWidget = (props: IModerationReviewCardWidget) => {
+const ModerationReviewCardWidget: React.FC<IModerationReviewCardWidget> = ({ item, handleAccept, handleReject }) => {
   const [moderatorCommentState, setModeratorComment] = useState('');
 
   const getReviewee = () => {
     let reviewee;
-    if (props.item.reviewType === 'course') {
-      reviewee = Courses.findDoc(props.item.revieweeID);
+    if (item.reviewType === 'course') {
+      reviewee = Courses.findDoc(item.revieweeID);
     } else {
-      reviewee = Opportunities.findDoc(props.item.revieweeID);
+      reviewee = Opportunities.findDoc(item.revieweeID);
     }
     return reviewee;
   };
 
   const handleAcceptClick = () => {
     // make handle accept take in the moderator comments
-    const update = props.handleAccept(props.item, moderatorCommentState);
+    const update = handleAccept(item, moderatorCommentState);
     setModeratorComment('');
     // console.log('handle accept click', update);
     updateMethod.call({ collectionName: update.collectionName, updateData: update.updateInfo }, (error) => {
@@ -51,7 +51,7 @@ const ModerationReviewCardWidget = (props: IModerationReviewCardWidget) => {
   };
 
   const handleRejectClick = () => {
-    const update = props.handleReject(props.item, moderatorCommentState);
+    const update = handleReject(item, moderatorCommentState);
     setModeratorComment('');
     // console.log('handle accept click', update);
     updateMethod.call({ collectionName: update.collectionName, updateData: update.updateInfo }, (error) => {
@@ -78,9 +78,9 @@ const ModerationReviewCardWidget = (props: IModerationReviewCardWidget) => {
   };
 
   // if findNonRetired and do not supply a selector, it will try do a find on that string
-  const student = Users.getFullName(props.item.studentID);
+  const student = Users.getFullName(item.studentID);
   const reviewee = getReviewee().name;
-  const termDoc = AcademicTerms.findDoc(props.item.termID);
+  const termDoc = AcademicTerms.findDoc(item.termID);
 
   return (
 
@@ -100,13 +100,13 @@ const ModerationReviewCardWidget = (props: IModerationReviewCardWidget) => {
       <Rating
         size="small"
         icon="star"
-        rating={props.item.rating}
+        rating={item.rating}
         maxRating="5"
         disabled
       />
       <br />
       <strong>Comments: </strong>
-      {props.item.comments}
+      {item.comments}
       <br />
       <Segment>
         <Form>

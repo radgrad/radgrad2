@@ -2,10 +2,16 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Grid } from 'semantic-ui-react';
+import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import FacultyPageAboutMeWidget from '../../components/faculty/home/FacultyPageAboutMeWidget';
-import { IAdvisorOrFacultyProfile, IFavoriteCareerGoal, IFavoriteInterest } from '../../../typings/radgrad';
+import {
+  IAdvisorOrFacultyProfile,
+  IFavoriteCareerGoal,
+  IFavoriteInterest,
+  IHelpMessage,
+} from '../../../typings/radgrad';
 import { Users } from '../../../api/user/UserCollection';
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
@@ -14,15 +20,16 @@ interface IFacultyHomePageProps {
   profile: IAdvisorOrFacultyProfile;
   favoriteInterests: IFavoriteInterest[];
   favoriteCareerGoals: IFavoriteCareerGoal[];
+  helpMessages: IHelpMessage[];
 }
 
-const FacultyHomePage = (props: IFacultyHomePageProps) => (
+const FacultyHomePage: React.FC<IFacultyHomePageProps> = ({ profile, helpMessages, favoriteCareerGoals, favoriteInterests }) => (
   <div id="faculty-home-page">
     <FacultyPageMenuWidget />
     <Grid stackable>
       <Grid.Row>
         <Grid.Column width={1} />
-        <Grid.Column width={14}><HelpPanelWidget /></Grid.Column>
+        <Grid.Column width={14}><HelpPanelWidget helpMessages={helpMessages} /></Grid.Column>
         <Grid.Column width={1} />
       </Grid.Row>
 
@@ -30,9 +37,9 @@ const FacultyHomePage = (props: IFacultyHomePageProps) => (
         <Grid.Column width={1} />
         <Grid.Column width={14}>
           <FacultyPageAboutMeWidget
-            profile={props.profile}
-            favoriteInterests={props.favoriteInterests}
-            favoriteCareerGoals={props.favoriteCareerGoals}
+            profile={profile}
+            favoriteInterests={favoriteInterests}
+            favoriteCareerGoals={favoriteCareerGoals}
           />
         </Grid.Column>
         <Grid.Column width={1} />
@@ -47,7 +54,8 @@ const FacultyHomePageContainer = withTracker(() => {
   const userID = profile.userID;
   const favoriteInterests: IFavoriteInterest[] = FavoriteInterests.findNonRetired({ userID });
   const favoriteCareerGoals: IFavoriteCareerGoal[] = FavoriteCareerGoals.findNonRetired({ userID });
-  return { profile, favoriteInterests, favoriteCareerGoals };
+  const helpMessages = HelpMessages.findNonRetired({});
+  return { profile, favoriteInterests, favoriteCareerGoals, helpMessages };
 })(FacultyHomePage);
 
 export default FacultyHomePageContainer;

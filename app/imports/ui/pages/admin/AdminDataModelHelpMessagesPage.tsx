@@ -40,7 +40,7 @@ const collection = HelpMessages; // the collection to use.
  * Returns an array of Description pairs used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const descriptionPairs = (item: any): IDescriptionPair[] => [
+const descriptionPairs = (item: IHelpMessage): IDescriptionPair[] => [
   { label: 'Route Name', value: item.routeName },
   { label: 'Title', value: item.title },
   { label: 'Text', value: item.text },
@@ -51,13 +51,13 @@ const descriptionPairs = (item: any): IDescriptionPair[] => [
  * Returns the title string for the item. Used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const itemTitleString = (item: any): string => `${item.routeName}`;
+const itemTitleString = (item: IHelpMessage): string => `${item.routeName}`;
 
 /**
  * Returns the ReactNode used in the ListCollectionWidget. By default we indicate if the item is retired.
  * @param item an item from the collection.
  */
-const itemTitle = (item: any): React.ReactNode => (
+const itemTitle = (item: IHelpMessage): React.ReactNode => (
   <React.Fragment>
     {item.retired ? <Icon name="eye slash" /> : ''}
     <Icon name="dropdown" />
@@ -69,7 +69,7 @@ interface IAdminDataModelHelpMessagesPageProps extends IAdminDataModeMenuProps {
   items: IHelpMessage[];
 }
 
-const AdminDataModelHelpMessagesPage = (props: IAdminDataModelHelpMessagesPageProps) => {
+const AdminDataModelHelpMessagesPage: React.FC<IAdminDataModelHelpMessagesPageProps> = (props) => {
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');

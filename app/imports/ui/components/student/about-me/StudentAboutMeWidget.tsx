@@ -34,15 +34,14 @@ interface IStudentAboutMeWidgetProps {
   favoriteAcademicPlans: IFavoriteAcademicPlan[];
 }
 
-const StudentAboutMeWidget = (props: IStudentAboutMeWidgetProps) => {
+const StudentAboutMeWidget: React.FC<IStudentAboutMeWidgetProps> = ({ profile, favoriteInterests, favoriteCareerGoals, favoriteAcademicPlans }) => {
   const marginBottomStyle = { marginBottom: 0 };
-  const { profile } = props;
   const match = useRouteMatch();
   const name = profileToFullName(profile);
-  const email = props.profile.username;
-  const careerGoals = _.map(props.favoriteCareerGoals, (f) => CareerGoals.findDoc(f.careerGoalID));
-  const interests = _.map(props.favoriteInterests, (f) => Interests.findDoc(f.interestID));
-  const academicPlans = _.map(props.favoriteAcademicPlans, (f) => AcademicPlans.findDoc(f.academicPlanID));
+  const email = profile.username;
+  const careerGoals = _.map(favoriteCareerGoals, (f) => CareerGoals.findDoc(f.careerGoalID));
+  const interests = _.map(favoriteInterests, (f) => Interests.findDoc(f.interestID));
+  const academicPlans = _.map(favoriteAcademicPlans, (f) => AcademicPlans.findDoc(f.academicPlanID));
   const labelStyle = { marginBottom: '2px' };
   const favorites = { color: '#53A78F', marginLeft: 10 };
   return (
@@ -62,8 +61,8 @@ const StudentAboutMeWidget = (props: IStudentAboutMeWidgetProps) => {
             <Grid.Column width={4}><strong>PROFILE PICTURE: </strong></Grid.Column>
             <Grid.Column width={8}>
               <StudentAboutMeUpdatePictureForm
-                picture={props.profile.picture}
-                docID={props.profile._id}
+                picture={profile.picture}
+                docID={profile._id}
                 collectionName={StudentProfiles.getCollectionName()}
               /></Grid.Column>
           </Grid.Row>
@@ -71,8 +70,8 @@ const StudentAboutMeWidget = (props: IStudentAboutMeWidgetProps) => {
             <Grid.Column width={4}><strong>WEBSITE: </strong></Grid.Column>
             <Grid.Column width={8}>
               <StudentAboutMeUpdateWebsiteForm
-                website={props.profile.website}
-                docID={props.profile._id}
+                website={profile.website}
+                docID={profile._id}
                 collectionName={StudentProfiles.getCollectionName()}
               />
             </Grid.Column>
@@ -100,17 +99,17 @@ const StudentAboutMeWidget = (props: IStudentAboutMeWidgetProps) => {
           </Grid.Row>
           <Grid.Row>
             <Grid.Column width={11}>            {careerGoals.length !== 0 ?
-    careerGoals.map((careerGoal) => {
-      const slugName = itemToSlugName(careerGoal);
-      const route = Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}/${slugName}`);
-      return (
-        <Label style={labelStyle} key={careerGoal._id} as={Link} to={route} size="tiny">
-          <Icon name="suitcase" fitted /> {careerGoal.name}
-        </Label>
-      );
-    })
-    :
-    <p style={marginBottomStyle}>No career goals favorited yet.</p>}</Grid.Column>
+              careerGoals.map((careerGoal) => {
+                const slugName = itemToSlugName(careerGoal);
+                const route = Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}/${slugName}`);
+                return (
+                  <Label style={labelStyle} key={careerGoal._id} as={Link} to={route} size="tiny">
+                    <Icon name="suitcase" fitted /> {careerGoal.name}
+                  </Label>
+                );
+              })
+              :
+              <p style={marginBottomStyle}>No career goals favorited yet.</p>}</Grid.Column>
             <Grid.Column textAlign="right" width={5}>
               <Link to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}`)}>
                 <Button basic color="green" content="VIEW MORE" />

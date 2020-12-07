@@ -12,7 +12,7 @@ interface IStudentSummaryTabProps {
   interactionsByUser: IAdminAnalyticsUserInteraction;
 }
 
-const StudentSummaryTab = (props: IStudentSummaryTabProps) => {
+const StudentSummaryTab: React.FC<IStudentSummaryTabProps> = ({ startDate, endDate, behaviors, interactionsByUser }) => {
   const [activeIndex, setActiveIndex] = useState<number>(-1);
 
   const handleClick = (e, titleProps) => {
@@ -31,7 +31,7 @@ const StudentSummaryTab = (props: IStudentSummaryTabProps) => {
   return (
     <div>
       {
-        props.behaviors.map((behavior, index) => (
+        behaviors.map((behavior, index) => (
           <Accordion key={behavior.type}>
             <div>
               <Accordion.Title active={activeIndex === index} index={index} onClick={handleClick}>
@@ -60,9 +60,9 @@ const StudentSummaryTab = (props: IStudentSummaryTabProps) => {
                     <StudentTimelineModal
                       key={user}
                       username={user}
-                      startDate={props.startDate}
-                      endDate={props.endDate}
-                      interactions={props.interactionsByUser[user]}
+                      startDate={startDate}
+                      endDate={endDate}
+                      interactions={interactionsByUser[user]}
                     />
                   ))}
                 </Grid>

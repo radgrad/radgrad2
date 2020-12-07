@@ -3,16 +3,17 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import _ from 'lodash';
+import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 import ListOpportunitiesWidget from '../../components/faculty/manage-opportunities/FacultyListOpportunitiesWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import {
-    IAcademicTerm,
-    IBaseProfile,
-    IDescriptionPair,
-    IInterest,
-    IOpportunity,
-    IOpportunityType,
+  IAcademicTerm,
+  IBaseProfile,
+  IDescriptionPair, IHelpMessage,
+  IInterest,
+  IOpportunity,
+  IOpportunityType,
 } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
@@ -53,13 +54,13 @@ const descriptionPairs = (item: IOpportunity): IDescriptionPair[] => [
  * Returns the title string for the item. Used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const itemTitleString = (item: any): string => `${item.name}`;
+const itemTitleString = (item: IOpportunity): string => `${item.name}`;
 
 /**
  * Returns the ReactNode used in the ListCollectionWidget. By default we indicate if the item is retired.
  * @param item an item from the collection.
  */
-const itemTitle = (item: any): React.ReactNode => (
+const itemTitle = (item: IOpportunity): React.ReactNode => (
   <React.Fragment>
     {item.retired ? <Icon name="eye slash" /> : ''}
     <Icon name="dropdown" />
@@ -72,9 +73,10 @@ interface IFacultyManageOpportunitiesPageProps {
   terms: IAcademicTerm[];
   interests: IInterest[];
   opportunityTypes: IOpportunityType[];
+  helpMessages: IHelpMessage[];
 }
 
-const FacultyManageOpportunitiesPage = (props: IFacultyManageOpportunitiesPageProps) => {
+const FacultyManageOpportunitiesPage: React.FC<IFacultyManageOpportunitiesPageProps> = ({ sponsors, helpMessages, interests, terms, opportunityTypes }) => {
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');
@@ -84,10 +86,10 @@ const FacultyManageOpportunitiesPage = (props: IFacultyManageOpportunitiesPagePr
     // console.log('Opportunities.handleAdd(%o)', doc);
     const collectionName = collection.getCollectionName();
     const definitionData = doc;
-    const interests = _.map(doc.interests, interestSlugFromName);
-    const terms = _.map(doc.terms, academicTermNameToSlug);
-    definitionData.interests = interests;
-    definitionData.terms = terms;
+    const interestSlugs = _.map(doc.interests, interestSlugFromName);
+    const termSlugs = _.map(doc.terms, academicTermNameToSlug);
+    definitionData.interests = interestSlugs;
+    definitionData.terms = termSlugs;
     definitionData.opportunityType = opportunityTypeNameToSlug(doc.opportunityType);
     definitionData.sponsor = profileNameToUsername(doc.sponsor);
     // console.log(definitionData);
@@ -197,7 +199,7 @@ const FacultyManageOpportunitiesPage = (props: IFacultyManageOpportunitiesPagePr
       <Grid stackable>
         <Grid.Row>
           <Grid.Column width={1} />
-          <Grid.Column width={14}><HelpPanelWidget /></Grid.Column>
+          <Grid.Column width={14}><HelpPanelWidget helpMessages={helpMessages} /></Grid.Column>
           <Grid.Column width={1} />
         </Grid.Row>
 
@@ -212,19 +214,19 @@ const FacultyManageOpportunitiesPage = (props: IFacultyManageOpportunitiesPagePr
                 handleUpdate={handleUpdate}
                 handleCancel={handleCancel}
                 itemTitleString={itemTitleString}
-                sponsors={props.sponsors}
-                terms={props.terms}
-                interests={props.interests}
-                opportunityTypes={props.opportunityTypes}
+                sponsors={sponsors}
+                terms={terms}
+                interests={interests}
+                opportunityTypes={opportunityTypes}
               />
             ) : (
               <AddOpportunityForm
                 formRef={formRef}
                 handleAdd={handleAdd}
-                sponsors={props.sponsors}
-                terms={props.terms}
-                interests={props.interests}
-                opportunityTypes={props.opportunityTypes}
+                sponsors={sponsors}
+                terms={terms}
+                interests={interests}
+                opportunityTypes={opportunityTypes}
               />
             )}
             <ListOpportunitiesWidget
@@ -265,10 +267,12 @@ export default withTracker(() => {
   const terms = _.filter(allTerms, t => t.termNumber >= after && t.termNumber <= before);
   const interests = Interests.find({}, { sort: { name: 1 } }).fetch();
   const opportunityTypes = OpportunityTypes.find({}, { sort: { name: 1 } }).fetch();
+  const helpMessages = HelpMessages.findNonRetired({});
   return {
     sponsors,
     terms,
     interests,
     opportunityTypes,
+    helpMessages,
   };
 })(FacultyManageOpportunitiesPage);

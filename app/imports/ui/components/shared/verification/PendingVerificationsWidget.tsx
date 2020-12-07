@@ -22,7 +22,7 @@ interface IPendingVerificationsWidgetProps {
  * @param pendingVerifications {IVerificationRequest[]}
  * @returns {Segment}
  */
-const PendingVerificationsWidget = (props: IPendingVerificationsWidgetProps) => {
+const PendingVerificationsWidget: React.FC<IPendingVerificationsWidgetProps> = ({ pendingVerifications }) => {
   let cachedStudent;
   let cachedSponsor;
   const [feedbackState, setFeedback] = useState([]);
@@ -75,7 +75,7 @@ const PendingVerificationsWidget = (props: IPendingVerificationsWidgetProps) => 
     <Segment>
       <Header as="h4" dividing content="PENDING VERIFICATION REQUESTS" />
       <Container fluid={false} style={{ paddingBottom: '14px' }}>
-        {props.pendingVerifications.map((ele: IVerificationRequest, i) => (
+        {pendingVerifications.map((ele: IVerificationRequest, i) => (
           <Grid key={ele._id}>
             <Grid.Row style={{ paddingBottom: '0px', paddingLeft: '14px' }}>
               <Header as="h3">{buildHeaderString(ele)}</Header>
@@ -134,7 +134,7 @@ const PendingVerificationsWidget = (props: IPendingVerificationsWidgetProps) => 
             </Grid.Row>
           </Grid>
         ))}
-        {props.pendingVerifications.length < 1 && <i>No pending requests.</i>}
+        {pendingVerifications.length < 1 && <i>No pending requests.</i>}
       </Container>
     </Segment>
   );

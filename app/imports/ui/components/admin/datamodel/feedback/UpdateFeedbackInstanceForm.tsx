@@ -14,16 +14,16 @@ interface IUpdateFeedbackInstanceFormProps {
   students: IStudentProfile[];
   collection: BaseCollection;
   id: string;
-  formRef: any;
+  formRef: React.RefObject<unknown>;
   handleUpdate: (doc) => any;
   handleCancel: (event) => any;
   itemTitleString: (item) => React.ReactNode;
 }
 
-const UpdateFeedbackInstanceForm = (props: IUpdateFeedbackInstanceFormProps) => {
-  const model = props.collection.findDoc(props.id);
+const UpdateFeedbackInstanceForm: React.FC<IUpdateFeedbackInstanceFormProps> = ({ students, collection, id, formRef, handleCancel, handleUpdate, itemTitleString }) => {
+  const model = collection.findDoc(id);
   model.user = userIdToName(model.userID);
-  const studentNames = _.map(props.students, profileToName);
+  const studentNames = _.map(students, profileToName);
   const schema = new SimpleSchema({
     user: { type: String, allowedValues: studentNames, defaultValue: studentNames[0] },
     functionName: {
@@ -45,15 +45,15 @@ const UpdateFeedbackInstanceForm = (props: IUpdateFeedbackInstanceFormProps) => 
     <Segment padded>
       <Header dividing>
         Update
-        {props.collection.getType()}
+        {collection.getType()}
         :
-        {props.itemTitleString(model)}
+        {itemTitleString(model)}
       </Header>
       <AutoForm
-        ref={props.formRef}
+        ref={formRef}
         schema={formSchema}
         model={model}
-        onSubmit={props.handleUpdate}
+        onSubmit={handleUpdate}
       >
         <Form.Group>
           <SelectField name="user" />
@@ -63,10 +63,10 @@ const UpdateFeedbackInstanceForm = (props: IUpdateFeedbackInstanceFormProps) => 
         <LongTextField name="description" />
         <BoolField name="retired" />
         <SubmitField inputRef={undefined} value="Update" disabled={false} className="" />
-        <Button onClick={props.handleCancel}>Cancel</Button>
+        <Button onClick={handleCancel}>Cancel</Button>
       </AutoForm>
     </Segment>
-);
+  );
 };
 
 export default UpdateFeedbackInstanceForm;

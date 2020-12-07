@@ -8,39 +8,39 @@ interface IAdvisorAPBPlanViewWidgetProps {
   choiceList: string[];
 }
 
-const AdvisorAPBPlanViewWidget = (props: IAdvisorAPBPlanViewWidgetProps) => {
+const AdvisorAPBPlanViewWidget: React.FC<IAdvisorAPBPlanViewWidgetProps> = ({ coursesPerTerm, choiceList }) => {
   const quarterSystem = RadGradProperties.getQuarterSystem();
   return (
     <Grid widths="equal" columns={5}>
       <AdvisorAPBYearView
         yearNumber={1}
-        choiceList={props.choiceList}
+        choiceList={choiceList}
         quarterSystem={quarterSystem}
-        coursesPerTerm={props.coursesPerTerm}
+        coursesPerTerm={coursesPerTerm}
       />
       <AdvisorAPBYearView
         yearNumber={2}
-        choiceList={props.choiceList}
+        choiceList={choiceList}
         quarterSystem={quarterSystem}
-        coursesPerTerm={props.coursesPerTerm}
+        coursesPerTerm={coursesPerTerm}
       />
       <AdvisorAPBYearView
         yearNumber={3}
-        choiceList={props.choiceList}
+        choiceList={choiceList}
         quarterSystem={quarterSystem}
-        coursesPerTerm={props.coursesPerTerm}
+        coursesPerTerm={coursesPerTerm}
       />
       <AdvisorAPBYearView
         yearNumber={4}
-        choiceList={props.choiceList}
+        choiceList={choiceList}
         quarterSystem={quarterSystem}
-        coursesPerTerm={props.coursesPerTerm}
+        coursesPerTerm={coursesPerTerm}
       />
       <AdvisorAPBYearView
         yearNumber={5}
-        choiceList={props.choiceList}
+        choiceList={choiceList}
         quarterSystem={quarterSystem}
-        coursesPerTerm={props.coursesPerTerm}
+        coursesPerTerm={coursesPerTerm}
       />
     </Grid>
   );

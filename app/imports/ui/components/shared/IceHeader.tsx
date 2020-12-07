@@ -6,15 +6,15 @@ interface IceHeaderProps {
   ice: Ice;
 }
 
-const IceHeader = (props: IceHeaderProps) => {
+const IceHeader: React.FC<IceHeaderProps> = ({ ice }) => {
   const marginStyle = {
     margin: 0,
   };
   return (
     <Label.Group circular size="tiny" className="radgrad-ice-header">
-      <Label style={marginStyle}>{props.ice.i}</Label>
-      <Label style={marginStyle}>{props.ice.c}</Label>
-      <Label style={marginStyle}>{props.ice.e}</Label>
+      <Label style={marginStyle}>{ice.i}</Label>
+      <Label style={marginStyle}>{ice.c}</Label>
+      <Label style={marginStyle}>{ice.e}</Label>
     </Label.Group>
   );
 };

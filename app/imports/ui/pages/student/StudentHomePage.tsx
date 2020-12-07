@@ -1,6 +1,9 @@
+import { withTracker } from 'meteor/react-meteor-data';
 import React from 'react';
 import { Grid, Container } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import _ from 'lodash';
+import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import StudentHomeFavoriteInterestsList from '../../components/student/home/StudentHomeFavoriteInterestsWidget';
@@ -14,9 +17,10 @@ import GuidedTourStudentHomePageWidget from '../../components/student/home/Guide
 
 interface IStudentHomePageProps {
   match: IMatchProps;
+  favoriteInterests: { interestID: string, count, number }[];
 }
 
-const StudentHomePage = (props: IStudentHomePageProps) => (
+const StudentHomePage: React.FC<IStudentHomePageProps> = ({ match, favoriteInterests }) => (
   <div id="student-home-page">
     <StudentPageMenuWidget />
     <GuidedTourStudentHomePageWidget />
@@ -33,10 +37,10 @@ const StudentHomePage = (props: IStudentHomePageProps) => (
           </Grid.Column>
           <Grid.Column width={5}>
             <StudentHomeNewOpportunitiesWidget />
-            <Link to={buildExplorerRoute(props.match, EXPLORER_TYPE.OPPORTUNITIES)}>
+            <Link to={buildExplorerRoute(match, EXPLORER_TYPE.OPPORTUNITIES)}>
               <u>More Opportunities</u>
             </Link>
-            <StudentHomeFavoriteInterestsList />
+            <StudentHomeFavoriteInterestsList favoriteInterests={favoriteInterests} />
           </Grid.Column>
         </Grid.Row>
       </Grid>
@@ -47,4 +51,23 @@ const StudentHomePage = (props: IStudentHomePageProps) => (
 
 );
 
-export default StudentHomePage;
+const countInArray = (array, value) => array.reduce((n, x) => n + (x === value), 0);
+
+export default withTracker(() => {
+  const favoriteInterests = FavoriteInterests.findNonRetired({});
+  const favIDs = _.map(favoriteInterests, (f) => f.interestID);
+  const favInterestObjects = [];
+  _.forEach(favIDs, (id) => {
+    const count = countInArray(favIDs, id);
+    favInterestObjects.push({ interestID: id, count });
+  });
+  const noDups = _.uniqBy(favInterestObjects, 'interestID');
+  // Sort in descending order
+  const sorted = _.sortBy(noDups, 'count');
+  _.reverse(sorted);
+  // Only get the first 10 items
+  const highestTen = sorted.slice(0, 10);
+  return {
+    favoriteInterests: highestTen,
+  };
+})(StudentHomePage);

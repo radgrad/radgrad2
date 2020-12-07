@@ -54,7 +54,7 @@ const collection = Reviews; // the collection to use.
  * Returns an array of Description pairs used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const descriptionPairs = (item: any): IDescriptionPair[] => {
+const descriptionPairs = (item: IReview): IDescriptionPair[] => {
   let reviewee;
   if (item.reviewType === 'course') {
     reviewee = Courses.findDoc(item.revieweeID);
@@ -79,13 +79,13 @@ const descriptionPairs = (item: any): IDescriptionPair[] => {
  * Returns the title string for the item. Used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const itemTitleString = (item: any): string => `(${Slugs.getNameFromID(item.slugID)})`;
+const itemTitleString = (item: IReview): string => `(${Slugs.getNameFromID(item.slugID)})`;
 
 /**
  * Returns the ReactNode used in the ListCollectionWidget. By default we indicate if the item is retired.
  * @param item an item from the collection.
  */
-const itemTitle = (item: any): React.ReactNode => (
+const itemTitle = (item: IReview): React.ReactNode => (
   <React.Fragment>
     {item.retired ? <Icon name="eye slash" /> : ''}
     <Icon name="dropdown" />
@@ -101,7 +101,7 @@ interface IAdminDataModelReviewsPageProps extends IAdminDataModeMenuProps {
   opportunities: IOpportunity[];
 }
 
-const AdminDataModelReviewsPage = (props: IAdminDataModelReviewsPageProps) => {
+const AdminDataModelReviewsPage: React.FC<IAdminDataModelReviewsPageProps> = (props) => {
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');

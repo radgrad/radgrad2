@@ -18,18 +18,18 @@ interface IUpdateCourseFormProps {
   interests: IInterest[];
   courses: ICourse[];
   id: string;
-  formRef: any;
+  formRef: React.RefObject<unknown>;
   handleUpdate: (doc) => any;
   handleCancel: (event) => any;
   itemTitleString: (item) => React.ReactNode;
 }
 
-const UpdateCourseForm = (props: IUpdateCourseFormProps) => {
-  const model = props.id ? props.collection.findDoc(props.id) : undefined;
+const UpdateCourseForm: React.FC<IUpdateCourseFormProps> = ({ collection, courses, interests, id, formRef, handleCancel, handleUpdate, itemTitleString }) => {
+  const model = id ? collection.findDoc(id) : undefined;
   model.interests = _.map(model.interestIDs, interestIdToName);
   model.prerequisiteNames = _.map(model.prerequisites, courseSlugToName);
-  const interestNames = _.map(props.interests, docToName);
-  const courseNames = _.map(props.courses, courseToName);
+  const interestNames = _.map(interests, docToName);
+  const courseNames = _.map(courses, courseToName);
   const schema = new SimpleSchema({
     name: { type: String, optional: true },
     shortName: { type: String, optional: true },
@@ -58,14 +58,14 @@ const UpdateCourseForm = (props: IUpdateCourseFormProps) => {
     <Segment padded>
       <Header dividing>
         Update
-        {props.collection.getType()}
+        {collection.getType()}
         :
-        {props.itemTitleString(model)}
+        {itemTitleString(model)}
       </Header>
       <AutoForm
         schema={formSchema}
-        onSubmit={props.handleUpdate}
-        ref={props.formRef}
+        onSubmit={handleUpdate}
+        ref={formRef}
         showInlineError
         model={model}
       >
@@ -86,7 +86,7 @@ const UpdateCourseForm = (props: IUpdateCourseFormProps) => {
         <BoolField name="retired" />
         <p />
         <SubmitField className="" value="Update" disabled={false} inputRef={undefined} />
-        <Button onClick={props.handleCancel}>Cancel</Button>
+        <Button onClick={handleCancel}>Cancel</Button>
       </AutoForm>
     </Segment>
   );

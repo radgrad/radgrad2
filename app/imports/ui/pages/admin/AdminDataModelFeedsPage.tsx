@@ -68,7 +68,7 @@ interface IAdminDataModelFeedsPageProps extends IAdminDataModeMenuProps {
  * Returns an array of Description pairs used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const descriptionPairs = (item: any): IDescriptionPair[] => {
+const descriptionPairs = (item: IFeed): IDescriptionPair[] => {
   const users = [];
   _.forEach(item.userIDs, (id) => {
     users.push(Users.getFullName(id));
@@ -83,8 +83,8 @@ const descriptionPairs = (item: any): IDescriptionPair[] => {
     courseName = `${course.num}: ${course.shortName}`;
   }
   let academicTerm = '';
-  if (item.academicTermID) {
-    academicTerm = AcademicTerms.toString(item.academicTermID);
+  if (item.termID) {
+    academicTerm = AcademicTerms.toString(item.termID);
   }
   return [
     { label: 'Feed Type', value: item.feedType },
@@ -106,13 +106,13 @@ const descriptionPairs = (item: any): IDescriptionPair[] => {
  * Returns the title string for the item. Used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const itemTitleString = (item: any): string => `${item.feedType} ${item.description}`;
+const itemTitleString = (item: IFeed): string => `${item.feedType} ${item.description}`;
 
 /**
  * Returns the ReactNode used in the ListCollectionWidget. By default we indicate if the item is retired.
  * @param item an item from the collection.
  */
-const itemTitle = (item: any): React.ReactNode => (
+const itemTitle = (item: IFeed): React.ReactNode => (
   <React.Fragment>
     {item.retired ? <Icon name="eye slash" /> : ''}
     <Icon name="dropdown" />
@@ -125,7 +125,7 @@ const mapStateToProps = (state: RootState): unknown => ({
   cloudinaryUrl: state.shared.cloudinary.adminDataModelFeeds.cloudinaryUrl,
 });
 
-const AdminDataModelFeedsPage = (props: IAdminDataModelFeedsPageProps) => {
+const AdminDataModelFeedsPage: React.FC<IAdminDataModelFeedsPageProps> = (props) => {
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');

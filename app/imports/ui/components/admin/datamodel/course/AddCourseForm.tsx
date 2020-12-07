@@ -11,13 +11,13 @@ import { courseToName, docToName } from '../../../shared/utilities/data-model';
 interface IAddCourseFormProps {
   interests: IInterest[];
   courses: ICourse[];
-  formRef: any;
+  formRef: React.RefObject<unknown>;
   handleAdd: (doc) => any;
 }
 
-const AddCourseForm = (props: IAddCourseFormProps) => {
-  const interestNames = _.map(props.interests, docToName);
-  const courseNames = _.map(props.courses, courseToName);
+const AddCourseForm: React.FC<IAddCourseFormProps> = ({ interests, courses, formRef, handleAdd }) => {
+  const interestNames = _.map(interests, docToName);
+  const courseNames = _.map(courses, courseToName);
   const schema = new SimpleSchema({
     slug: String,
     name: String,
@@ -45,7 +45,7 @@ const AddCourseForm = (props: IAddCourseFormProps) => {
   return (
     <Segment padded>
       <Header dividing>Add Course</Header>
-      <AutoForm schema={formSchema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError>
+      <AutoForm schema={formSchema} onSubmit={handleAdd} ref={formRef} showInlineError>
         <Form.Group widths="equal">
           <TextField name="slug" placeholder="dept_111" />
           <TextField name="name" placeholder="DEPT 111 Introduction to Science" />

@@ -10,6 +10,7 @@ import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
 import { StudentSummaryBehaviorTypes } from './utilities/student-summary';
 
 // TODO fix push of undefined error also username of undefined error.
+// TODO QA this is a very unstructured component.
 
 interface IStudentTimelineModalProps {
   username: string;
@@ -22,25 +23,25 @@ interface IStudentTimelineModalProps {
 // This defines the time between sessions
 const gap = 10;
 
-const getSessions = (props: IStudentTimelineModalProps): IUserInteraction[][] => {
+const getSessions = (interactions: IUserInteraction[]): IUserInteraction[][] => {
   const sessions = [];
   let slicedIndex = 0;
-  _.each(props.interactions, (interaction, index: number, interactions) => {
+  _.each(interactions, (interaction, index: number, inters) => {
     if (index !== 0) {
-      const prevTimestamp = moment(new Date(interactions[index - 1].timestamp));
+      const prevTimestamp = moment(new Date(inters[index - 1].timestamp));
       const timestamp = moment(new Date(interaction.timestamp));
       const difference = moment.duration(timestamp.diff(prevTimestamp)).asMinutes();
       if (difference >= gap) {
-        sessions.push(_.slice(interactions, slicedIndex, index));
+        sessions.push(_.slice(inters, slicedIndex, index));
         slicedIndex = index;
       }
-      if (index === interactions.length - 1) {
-        sessions.push(_.slice(interactions, slicedIndex));
+      if (index === inters.length - 1) {
+        sessions.push(_.slice(inters, slicedIndex));
       }
     }
   });
   if (sessions.length === 0) {
-    sessions.push(props.interactions);
+    sessions.push(interactions);
   }
   return sessions;
 };
@@ -197,7 +198,7 @@ const getBehaviors = (sessionArr: IUserInteraction[]): { type: string, stats: st
   return behaviorsArray;
 };
 
-const StudentTimelineModal = (props: IStudentTimelineModalProps) => {
+const StudentTimelineModal: React.FC<IStudentTimelineModalProps> = ({ endDate, username, startDate, interactions }) => {
   const buttonStyle = {
     padding: 5,
     margin: 3,
@@ -217,13 +218,13 @@ const StudentTimelineModal = (props: IStudentTimelineModalProps) => {
     color: '#6FBE44',
   };
   return (
-    <Modal trigger={(<Button color="grey" basic size="tiny" style={buttonStyle}>{props.username}</Button>)}>
+    <Modal trigger={(<Button color="grey" basic size="tiny" style={buttonStyle}>{username}</Button>)}>
       <Modal.Header>
-        {profileIDToFullname(props.username)}&apos;s Timeline from {props.startDate} to {props.endDate}
+        {profileIDToFullname(username)}&apos;s Timeline from {startDate} to {endDate}
       </Modal.Header>
       <Modal.Content>
         <Grid padded stackable centered style={modalStyle}>
-          {getSessions(props).map((session, index) => {
+          {getSessions(interactions).map((session, index) => {
             const day = moment(session[0].timestamp).utc(true).format('MMMM Do');
             const time = moment(session[0].timestamp).utc(true).format('h:mma');
             const duration = getSessionDuration(session);

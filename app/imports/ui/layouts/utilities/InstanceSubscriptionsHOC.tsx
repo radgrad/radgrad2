@@ -33,12 +33,11 @@ interface ILoading {
 const instanceSubs = new SubsManager({ cacheLimit: 15, expireIn: 30 });
 
 function withInstanceSubscriptions(WrappedComponent) {
-  // eslint-disable-next-line react/prop-types
-  const InstanceSubscriptions = (props: ILoading) => ((props.loading) ? (
+  const InstanceSubscriptions: React.FC<ILoading> = (props) => ((props.loading) ? (
     <React.Fragment>
       <Dimmer active inverted><Loader>Loading user-specific data</Loader></Dimmer>
     </React.Fragment>
-    )
+  )
     :
     <WrappedComponent {...props} />);
 

@@ -1,26 +1,31 @@
+import { withTracker } from 'meteor/react-meteor-data';
+import { useParams } from 'react-router-dom';
 import React from 'react';
 import { Grid, Container } from 'semantic-ui-react';
-import withGlobalSubscription from '../../layouts/utilities/GlobalSubscriptionsHOC';
-import withInstanceSubscriptions from '../../layouts/utilities/InstanceSubscriptionsHOC';
+import { HelpMessages } from '../../../api/help/HelpMessageCollection';
+import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';
+import { Users } from '../../../api/user/UserCollection';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
-import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
-import StudentLogWidget from '../../components/student/log/StudentLogWidget';
+import HelpPanelWidget, { IHelpPanelWidgetProps } from '../../components/shared/HelpPanelWidget';
+import StudentLogWidget, { IStudentLogWidgetProps } from '../../components/student/log/StudentLogWidget';
 
-const StudentHomeLogPage = () => (
+interface IStudentHomeLogPageProps extends IHelpPanelWidgetProps, IStudentLogWidgetProps {}
+
+const StudentHomeLogPage: React.FC<IStudentHomeLogPageProps> = ({ advisorLogs, helpMessages }) => (
   <div id="student-advisor-log-page">
     <StudentPageMenuWidget />
     <Container>
       <Grid stackable>
         <Grid.Row>
           <Grid.Column width={2} />
-          <Grid.Column width={12}><HelpPanelWidget /></Grid.Column>
+          <Grid.Column width={12}><HelpPanelWidget helpMessages={helpMessages} /></Grid.Column>
           <Grid.Column width={2} />
         </Grid.Row>
         <Grid.Row>
           <Grid.Column width={2} />
           <Grid.Column width={12} stretched>
-            <StudentLogWidget />
+            <StudentLogWidget advisorLogs={advisorLogs} />
           </Grid.Column>
           <Grid.Column width={2} />
         </Grid.Row>
@@ -30,7 +35,15 @@ const StudentHomeLogPage = () => (
   </div>
 );
 
-const StudentHomeLogPageCon = withGlobalSubscription(StudentHomeLogPage);
-const StudentHomeLogPageContainer = withInstanceSubscriptions(StudentHomeLogPageCon);
+const StudentHomeLogPageContainer = withTracker(() => {
+  const { username } = useParams();
+  const profile = Users.getProfile(username);
+  const advisorLogs = AdvisorLogs.findNonRetired({ studentID: profile.userID });
+  const helpMessages = HelpMessages.findNonRetired({});
+  return {
+    advisorLogs,
+    helpMessages,
+  };
+})(StudentHomeLogPage);
 
 export default StudentHomeLogPageContainer;

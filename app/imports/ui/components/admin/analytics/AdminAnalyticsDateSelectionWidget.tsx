@@ -34,7 +34,7 @@ const mapDispatchToProps = (dispatch: any): any => ({
   setStudentSummaryUserInteractions: (userInteractions: IAdminAnalyticsUserInteraction) => dispatch(analyticsActions.setStudentSummaryUserInteractions(userInteractions)),
 });
 
-const AdminAnalyticsDateSelectionWidget = (props: IAdminAnalyticsDateSelectionWidgetProps) => {
+const AdminAnalyticsDateSelectionWidget: React.FC<IAdminAnalyticsDateSelectionWidgetProps> = ({ page, setOverheadAnalysisBuckets, setOverheadAnalysisData, setOverheadAnalysisDateRange, setOverheadAnalysisUserInteractions, setStudentSummaryDateRange, setStudentSummaryUserInteractions }) => {
   const [startDate, setStartDate] = useState(undefined);
   const [endDate, setEndDate] = useState(undefined);
 
@@ -55,12 +55,12 @@ const AdminAnalyticsDateSelectionWidget = (props: IAdminAnalyticsDateSelectionWi
     }
     const startDateMutated = moment(startDate).startOf('day').toDate();
     const endDateMutated = moment(endDate).endOf('day').toDate();
-    switch (props.page) {
+    switch (page) {
       case ANALYTICS.OVERHEADANALYSIS:
-        props.setOverheadAnalysisDateRange({ startDate: startDateMutated, endDate: endDateMutated });
+        setOverheadAnalysisDateRange({ startDate: startDateMutated, endDate: endDateMutated });
         break;
       case ANALYTICS.STUDENTSUMMARY:
-        props.setStudentSummaryDateRange({ startDate: startDateMutated, endDate: endDateMutated });
+        setStudentSummaryDateRange({ startDate: startDateMutated, endDate: endDateMutated });
         break;
       default:
         break;
@@ -86,14 +86,14 @@ const AdminAnalyticsDateSelectionWidget = (props: IAdminAnalyticsDateSelectionWi
         // console.log('docsPerMinGroups ', docsPerMinGroups);
         const overheadBuckets = createBucket(docsPerMinGroups);
         // console.log('overheadBuckets ', overheadBuckets);
-        props.setOverheadAnalysisBuckets(overheadBuckets);
+        setOverheadAnalysisBuckets(overheadBuckets);
         const userInteractions = _.groupBy(result, 'username');
         // console.log('userInteractions ', userInteractions);
         /* Setting User Interactions for Overhead Analysis and Student Summary */
-        if (props.page === ANALYTICS.OVERHEADANALYSIS) {
-          props.setOverheadAnalysisUserInteractions(userInteractions);
-        } else if (props.page === ANALYTICS.STUDENTSUMMARY) {
-          props.setStudentSummaryUserInteractions(userInteractions);
+        if (page === ANALYTICS.OVERHEADANALYSIS) {
+          setOverheadAnalysisUserInteractions(userInteractions);
+        } else if (page === ANALYTICS.STUDENTSUMMARY) {
+          setStudentSummaryUserInteractions(userInteractions);
         }
         /* Generating Overhead Data */
         const overheadData = [];
@@ -137,7 +137,7 @@ const AdminAnalyticsDateSelectionWidget = (props: IAdminAnalyticsDateSelectionWi
           userData['total-time'] = totalTime;
           overheadData.push(userData);
         });
-        props.setOverheadAnalysisData(overheadData);
+        setOverheadAnalysisData(overheadData);
       }
     });
   };

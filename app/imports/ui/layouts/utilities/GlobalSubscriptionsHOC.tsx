@@ -36,15 +36,14 @@ interface ILoading {
 const globalSubs = new SubsManager({ cacheLimit: 30, expireIn: 30 });
 
 function withGlobalSubscription(WrappedComponent) {
-  // eslint-disable-next-line react/prop-types
-  const GlobalSubscription = (props: ILoading) => ((props.loading) ? (
+  const GlobalSubscription: React.FC<ILoading> = (props) => ((props.loading) ? (
     <React.Fragment>
       <Dimmer active inverted>
         <Loader>Loading global data</Loader>
       </Dimmer>
     </React.Fragment>
-      )
-      :
+  )
+    :
     <WrappedComponent {...props} />
   );
 

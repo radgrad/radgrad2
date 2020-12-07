@@ -30,30 +30,55 @@ import { StudentProfiles } from '../user/StudentProfileCollection';
  */
 class PublicStatsCollection extends BaseCollection {
   private readonly stats: any[];
+
   public academicPlansTotalKey: string;
+
   public coursesTotalKey: string;
+
   public careerGoalsTotalKey: string;
+
   public careerGoalsListKey: string;
+
   public interestsTotalKey: string;
+
   public interestsListKey: string;
+
   public opportunitiesTotalKey: string;
+
   public opportunitiesProjectsTotalKey: string;
+
   public opportunitiesProjectsListKey: string;
+
   public usersTotalKey: string;
+
   public usersStudentsTotalKey: string;
+
   public usersFacultyTotalKey: string;
+
   public courseReviewsTotalKey: string;
+
   public courseReviewsCoursesKey: string;
+
   public levelOneTotalKey: string;
+
   public levelTwoTotalKey: string;
+
   public levelThreeTotalKey: string;
+
   public levelFourTotalKey: string;
+
   public levelFiveTotalKey: string;
+
   public levelSixTotalKey: string;
+
   public firstAcademicPlanKey: string;
+
   public firstCareerGoalKey: string;
+
   public firstInterestKey: string;
+
   public firstOpportunityKey: string;
+
   /**
    * Creates the PublicStats collection.
    */

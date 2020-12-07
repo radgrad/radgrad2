@@ -17,9 +17,9 @@ if (Meteor.isClient) {
     });
 
     it('Define Method', async function () {
-        await withLoggedInUser();
-        await withRadGradSubscriptions();
-        await defineMethod.callPromise({ collectionName, definitionData });
+      await withLoggedInUser();
+      await withRadGradSubscriptions();
+      await defineMethod.callPromise({ collectionName, definitionData });
     });
 
     it('Update Method', async function () {

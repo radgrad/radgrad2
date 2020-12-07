@@ -1,7 +1,6 @@
 import React from 'react';
 import { Menu, SemanticWIDTHS } from 'semantic-ui-react';
 import { NavLink, useRouteMatch } from 'react-router-dom';
-import { secondMenu } from '../shared/shared-widget-names';
 import { buildRouteName } from '../shared/utilities/router';
 
 interface IMenuItem {
@@ -14,22 +13,22 @@ interface IMenuItem {
 interface ISecondMenuProps {
   menuItems: IMenuItem[];
   numItems: SemanticWIDTHS;
- }
+}
 
-const SecondMenu = (props: ISecondMenuProps) => {
+const SecondMenu: React.FC<ISecondMenuProps> = ({ menuItems, numItems }) => {
   const match = useRouteMatch();
   return (
     <Menu
       attached="top"
       borderless
-      widths={props.numItems}
+      widths={numItems}
       secondary
       inverted
       pointing
       className="radgrad-second-menu mobile hidden"
-      id={`${secondMenu}`}
+      id="secondMenu"
     >
-      {props.menuItems.map((item) => (
+      {menuItems.map((item) => (
         <Menu.Item id={item.id} key={item.label} as={NavLink} exact={false} to={buildRouteName(match, `/${item.route}`)}>
           {item.label}
         </Menu.Item>

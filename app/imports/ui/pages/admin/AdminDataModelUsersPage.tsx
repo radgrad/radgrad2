@@ -141,7 +141,7 @@ const mapStateToProps = (state: RootState): unknown => ({
   cloudinaryUrl: state.shared.cloudinary.adminDataModelUsers.cloudinaryUrl,
 });
 
-const AdminDataModelUsersPage = (props: IAdminDataModelUsersPageProps) => {
+const AdminDataModelUsersPage: React.FC<IAdminDataModelUsersPageProps> = (props) => {
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');

@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { Grid, Menu } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { useParams, useRouteMatch } from 'react-router-dom';
+import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import PendingVerificationsWidget from '../../components/shared/verification/PendingVerificationsWidget';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import EventVerificationsWidget from '../../components/shared/verification/EventVerificationsWidget';
-import { IOpportunity, IVerificationRequest } from '../../../typings/radgrad';
+import { IHelpMessage, IOpportunity, IVerificationRequest } from '../../../typings/radgrad';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
@@ -15,12 +16,13 @@ import CompletedVerificationsWidget from '../../components/shared/verification/C
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import withAdditionalSubscriptions from '../../layouts/utilities/AdvisorFacultyAdditionalSubscriptionsHOC';
 
-interface FacultyVerificationPageProps {
+interface IFacultyVerificationPageProps {
   verificationRequests: IVerificationRequest[];
   eventOpportunities: IOpportunity[];
+  helpMessages: IHelpMessage[];
 }
 
-const FacultyVerificationPage = (props: FacultyVerificationPageProps) => {
+const FacultyVerificationPage: React.FC<IFacultyVerificationPageProps> = ({ verificationRequests, helpMessages, eventOpportunities }) => {
   const match = useRouteMatch();
   const [activeItemState, setActiveItem] = useState('pending');
 
@@ -32,7 +34,7 @@ const FacultyVerificationPage = (props: FacultyVerificationPageProps) => {
       <Grid stackable>
         <Grid.Row>
           <Grid.Column width={1} />
-          <Grid.Column width={14}><HelpPanelWidget /></Grid.Column>
+          <Grid.Column width={14}><HelpPanelWidget helpMessages={helpMessages} /></Grid.Column>
           <Grid.Column width={1} />
         </Grid.Row>
 
@@ -66,19 +68,19 @@ const FacultyVerificationPage = (props: FacultyVerificationPageProps) => {
           <Grid.Column width={11}>
             {activeItemState === 'pending' ? (
               <PendingVerificationsWidget
-                pendingVerifications={props.verificationRequests.filter(ele => ele.status === VerificationRequests.OPEN)}
+                pendingVerifications={verificationRequests.filter(ele => ele.status === VerificationRequests.OPEN)}
               />
-              )
+            )
               : undefined}
             {activeItemState === 'event' ?
-              <EventVerificationsWidget eventOpportunities={props.eventOpportunities} />
+              <EventVerificationsWidget eventOpportunities={eventOpportunities} />
               : undefined}
             {activeItemState === 'completed' ? (
               <CompletedVerificationsWidget
                 username={match.params.username}
-                completedVerifications={props.verificationRequests.filter(ele => VerificationRequests.ACCEPTED === ele.status || ele.status === VerificationRequests.REJECTED)}
+                completedVerifications={verificationRequests.filter(ele => VerificationRequests.ACCEPTED === ele.status || ele.status === VerificationRequests.REJECTED)}
               />
-              )
+            )
               : undefined}
           </Grid.Column>
           <Grid.Column width={1} />
@@ -95,9 +97,11 @@ const FacultyVerificationPageWithTracker = withTracker(() => {
   const userID = Users.getID(username);
   const linkedOppInstances = OpportunityInstances.findNonRetired({ sponsorID: userID });
   const isLinkedReq = (verReq: IVerificationRequest) => !!linkedOppInstances.find(oppI => verReq.opportunityInstanceID === oppI._id);
+  const helpMessages = HelpMessages.findNonRetired({});
   return {
     verificationRequests: VerificationRequests.findNonRetired().filter(ele => isLinkedReq(ele)),
     eventOpportunities: Opportunities.findNonRetired({ eventDate: { $exists: true } }),
+    helpMessages,
   };
 })(FacultyVerificationPage);
 const FacultyVerificationPageContainer = withAdditionalSubscriptions(FacultyVerificationPageWithTracker);

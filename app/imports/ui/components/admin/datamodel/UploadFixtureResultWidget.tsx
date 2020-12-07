@@ -6,19 +6,19 @@ interface IUploadMessageWidgetProps {
   error: boolean;
 }
 
-const UploadFixtureResultWidget = (props: IUploadMessageWidgetProps) => {
-  if (props.error) {
+const UploadFixtureResultWidget: React.FC<IUploadMessageWidgetProps> = ({ error, message }) => {
+  if (error) {
     return (
       <Message negative>
         <Message.Header>Error loading fixture</Message.Header>
-        <p>{props.message}</p>
+        <p>{message}</p>
       </Message>
     );
   }
   return (
     <Message positive>
       <Message.Header>Success loading fixture</Message.Header>
-      <p>{props.message}</p>
+      <p>{message}</p>
     </Message>
   );
 };

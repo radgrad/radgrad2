@@ -11,8 +11,7 @@ interface ICommunityUsersWidgetProps {
   students: IStudentProfile[];
 }
 
-const CommunityUsersWidget = (props: ICommunityUsersWidgetProps) => {
-  const { advisors, faculty, loggedInRole, students } = props;
+const CommunityUsersWidget: React.FC<ICommunityUsersWidgetProps> = ({ advisors, faculty, loggedInRole, students }) => {
   const tabPaneStyle: React.CSSProperties = {
     overflowX: 'hidden',
     overflowY: 'hidden',

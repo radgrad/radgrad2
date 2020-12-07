@@ -9,9 +9,7 @@ import { RootState } from '../../../../redux/types';
 /* global FileReader */
 
 interface IUploadFixtureWidgetProps {
-  // eslint-disable-next-line react/no-unused-prop-types
   setUploadFixtureWorking: () => any;
-  // eslint-disable-next-line react/no-unused-prop-types
   setUploadFixtureDone: () => any;
   uploadFixtureWorking: boolean;
 }
@@ -25,7 +23,7 @@ const mapDispatchToProps = (dispatch) => ({
   setUploadFixtureDone: () => dispatch(dataModelActions.setUploadFixtureWorking(false)),
 });
 
-const UploadFixtureWidget = (props: IUploadFixtureWidgetProps) => {
+const UploadFixtureWidget: React.FC<IUploadFixtureWidgetProps> = ({ setUploadFixtureDone, setUploadFixtureWorking, uploadFixtureWorking }) => {
   const [fileDataState, setFileData] = useState('');
   const [uploadResult, setUploadResult] = useState('');
   const [error, setError] = useState(false);
@@ -41,6 +39,7 @@ const UploadFixtureWidget = (props: IUploadFixtureWidgetProps) => {
   };
   const onSubmit = () => {
     // console.log('Data submitted: ', fileDataState);
+    setUploadFixtureWorking();
     const jsonData = JSON.parse(fileDataState);
     loadFixtureMethod.call(jsonData, (err, result) => {
       if (err) {
@@ -51,6 +50,7 @@ const UploadFixtureWidget = (props: IUploadFixtureWidgetProps) => {
         setError(false);
         setUploadResult(result);
       }
+      setUploadFixtureDone();
     });
   };
   return (
@@ -59,7 +59,7 @@ const UploadFixtureWidget = (props: IUploadFixtureWidgetProps) => {
       <Form widths="equal" onSubmit={onSubmit}>
         <Form.Field>
           <Form.Input type="file" onChange={readFile} label="FIXTURE" />
-          <Form.Button basic color="green" loading={props.uploadFixtureWorking} type="Submit">UPLOAD FIXTURE</Form.Button>
+          <Form.Button basic color="green" loading={uploadFixtureWorking} type="Submit">UPLOAD FIXTURE</Form.Button>
         </Form.Field>
       </Form>
       {uploadResult ? <UploadFixtureResultWidget error={error} message={uploadResult} /> : ''}

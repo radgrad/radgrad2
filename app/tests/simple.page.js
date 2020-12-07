@@ -32,11 +32,11 @@ export const facultyHomePage = new SimplePage('faculty-home-page');
 export const facultyVerificationPage = new SimplePage('faculty-verification-page');
 export const facultyManageOpportunitiesPage = new SimplePage('faculty-manage-opportunities-page');
 
-export const studentAcademicPlansExplorerPage = new SimplePage('plans-explorer-page');
-export const studentCareerGoalsExplorerPage = new SimplePage('career-goals-explorer-page');
-export const studentCoursesExplorerPage = new SimplePage('courses-explorer-page');
+export const studentAcademicPlansExplorerPage = new SimplePage('academic-plan-browser-view-page');
+export const studentCareerGoalsExplorerPage = new SimplePage('career-goal-browser-view-page');
+export const studentCoursesExplorerPage = new SimplePage('course-browser-view-page');
 export const studentDegreePlannerPage = new SimplePage('degree-planner-page');
-export const studentInterestsExplorerPage = new SimplePage('interests-explorer-page');
+export const studentInterestsExplorerPage = new SimplePage('interest-browser-view-page');
 export const studentOpportunitiesPage = new SimplePage('student-opportunities-page');
 export const studentCommunityUsersPage = new SimplePage('community-users-page');
 export const studentCommunityRadGradVideosPage = new SimplePage('community-radgrad-videos-page');

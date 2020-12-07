@@ -3,6 +3,7 @@ import { facultyNavBar } from './navbar.faculty.component';
 import { signinPage } from './signin.page';
 import { facultyHomePage, facultyManageOpportunitiesPage, facultyVerificationPage } from './simple.page';
 
+// eslint-disable-next-line @typescript-eslint/no-redeclare
 /* global fixture:false, test:false */
 
 /** Credentials for sample user(s) defined in settings.development.json. */

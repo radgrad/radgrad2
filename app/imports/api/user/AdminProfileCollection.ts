@@ -34,7 +34,7 @@ class AdminProfileCollection extends BaseProfileCollection {
    * @return { String } The docID of the AdminProfile.
    */
   public define({ username, firstName, lastName, picture = defaultProfilePicture, website, interests,
-           careerGoals, retired = false }: IProfileDefine) {
+    careerGoals, retired = false }: IProfileDefine) {
     if (Meteor.isServer) {
       const user = Meteor.users.findOne({ username });
       // console.log(`AdminProfile.define ${user}`);

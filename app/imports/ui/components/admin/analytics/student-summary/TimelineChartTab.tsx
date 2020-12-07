@@ -17,15 +17,15 @@ interface ITimelineChartTabProps {
   interactionsByUser: IAdminAnalyticsUserInteraction;
 }
 
-const TimelineChartTab = (props: ITimelineChartTabProps) => {
+const TimelineChartTab: React.FC<ITimelineChartTabProps> = ({ startDate, endDate, interactionsByUser }) => {
   let chartOptions: { [key: string]: unknown } = { title: { text: null } };
-  if (props.interactionsByUser) {
-    const startDate = moment(props.startDate, 'MMMM D, YYYY');
-    const endDate = moment(props.endDate, 'MMMM D, YYYY');
-    const numDays = endDate.diff(startDate, 'days') + 1;
+  if (interactionsByUser) {
+    const startDataMoment = moment(startDate, 'MMMM D, YYYY');
+    const endDateMoment = moment(endDate, 'MMMM D, YYYY');
+    const numDays = endDateMoment.diff(startDataMoment, 'days') + 1;
     const behaviorsByDate: { [key: string]: string[] } = {};
     _.times(numDays, function (index) {
-      const date = moment(startDate).add(index, 'days');
+      const date = moment(startDataMoment).add(index, 'days');
       behaviorsByDate[moment(date).format('MMM D, YYYY')] = [];
     });
     const behaviorList = [
@@ -43,7 +43,7 @@ const TimelineChartTab = (props: ITimelineChartTabProps) => {
       StudentSummaryBehaviorTypes.LOGOUT,
     ];
     _.each(behaviorsByDate, function (array, date, obj) {
-      _.each(props.interactionsByUser, function (interactions: IUserInteraction[]) {
+      _.each(interactionsByUser, function (interactions: IUserInteraction[]) {
         const interactionsWithinDate: IUserInteraction[] = _.filter(interactions, function (interaction) {
           const interactionDate = moment(interaction.timestamp).format('MMM D, YYYY');
           return interactionDate === date;

@@ -9,7 +9,7 @@ export interface IAdminAnalyticsUserInteractionsWidgetProps {
   students: IStudentProfile[];
 }
 
-const AdminAnalyticsUserInteractionsWidget = (props: IAdminAnalyticsUserInteractionsWidgetProps) => {
+const AdminAnalyticsUserInteractionsWidget: React.FC<IAdminAnalyticsUserInteractionsWidgetProps> = ({ students }) => {
   const [selectedStudent, setSelectedStudent] = useState<IStudentProfile>(undefined);
   const [interactions, setInteractions] = useState<any[]>([]);
 
@@ -55,7 +55,7 @@ const AdminAnalyticsUserInteractionsWidget = (props: IAdminAnalyticsUserInteract
       <Segment padded>
         <Header as="h4" dividing>USERS</Header>
         <Grid padded stackable style={usersStyle}>
-          {props.students.map((student) => (
+          {students.map((student) => (
             <Grid.Column width={4} style={columnStyle} key={student._id}>
               <Button
                 size="tiny"

@@ -4,7 +4,6 @@ import Markdown from 'react-markdown';
 import { Segment, Grid, Container, Message, Icon, Image, Header } from 'semantic-ui-react';
 import { getUserIdFromRoute } from '../../shared/utilities/router';
 import { Users } from '../../../../api/user/UserCollection';
-import { studentLevelsWidget } from '../student-widget-names';
 import { getLevelHintStringMarkdown } from '../../../../api/level/LevelProcessor';
 
 const getStudentLevelNumber = (match): number => {
@@ -37,13 +36,13 @@ const getStudentLevelHint = (match): string => {
   switch (levelNumber) {
     case 1:
       return getLevelHintStringMarkdown('two');
-      case 2:
+    case 2:
       return getLevelHintStringMarkdown('three');
     case 3:
       return getLevelHintStringMarkdown('four');
-      case 4:
+    case 4:
       return getLevelHintStringMarkdown('five');
-      case 5:
+    case 5:
       return getLevelHintStringMarkdown('six');
     case 6:
       return 'Congratulations!  You have reached the top of the RadGrad mountain!  As a Level 6 RadGrad Ninja, you need not strive any further. There are no further levels to reach.';
@@ -52,14 +51,14 @@ const getStudentLevelHint = (match): string => {
   }
 };
 
-const StudentLevelsWidget = () => {
+const StudentLevelsWidget: React.FC = () => {
   const match = useRouteMatch();
   const imageStyle = { width: '230px' };
   const studentLevelNumber: number = getStudentLevelNumber(match);
   const studentLevelName = getStudentLevelName(match);
   const studentLevelHint = getStudentLevelHint(match);
   return (
-    <Segment padded id={`${studentLevelsWidget}`}>
+    <Segment padded id="studentLevelsWidget">
       <Header as="h4" dividing>CURRENT LEVEL</Header>
       <Grid stackable>
         <Grid.Column width={16}>

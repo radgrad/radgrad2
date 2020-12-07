@@ -16,60 +16,68 @@ interface IAdminCollectionAccordionProps {
   handleDelete: (evt: any, id: any) => any;
 }
 
-const AdminCollectionAccordion = (props: IAdminCollectionAccordionProps) => {
+const AdminCollectionAccordion: React.FC<IAdminCollectionAccordionProps> = ({ id, title, descriptionPairs, updateDisabled, deleteDisabled, handleDelete, handleOpenUpdate,
+}) => {
   const [active, setActive] = useState(false);
 
   const handleClick = () => {
     setActive(!active);
   };
 
-    const match = useRouteMatch();
-    return (
-      <Accordion fluid styled>
-        <Accordion.Title active={active} onClick={handleClick}>
-          {props.title}
-        </Accordion.Title>
-        <Accordion.Content active={active}>
-          {_.map(props.descriptionPairs, (descriptionPair, index) => (
-            <React.Fragment key={index}>
-              <b>
-                {descriptionPair.label}:
-              </b>
-              {typeof descriptionPair.value === 'string' ? (
-                <Markdown
-                  escapeHtml
-                  source={descriptionPair.value}
-                  renderers={{ link: (lProps) => Router.renderLink(lProps, match) }}
-                />
-            ) : typeof descriptionPair.value === 'undefined' ? ' ' :
-            <p>{descriptionPair.value.join(', ')}</p>}
-            </React.Fragment>
-          ))}
-          <p>
-            <Button
-              id={props.id}
-              color="green"
-              basic
-              size="mini"
-              disabled={props.updateDisabled}
-              onClick={props.handleOpenUpdate}
-            >
-              Update
-            </Button>
-            <Button
-              id={props.id}
-              color="green"
-              basic
-              size="mini"
-              disabled={props.deleteDisabled}
-              onClick={props.handleDelete}
-            >
-              Delete
-            </Button>
-          </p>
-        </Accordion.Content>
-      </Accordion>
-    );
+  const getDescriptionPairValue = (descriptionPair: IDescriptionPair): string => {
+    if (Array.isArray(descriptionPair.value)) {
+      return descriptionPair.value.join(', ');
+    }
+    if (typeof descriptionPair.value === 'undefined') {
+      return ' ';
+    }
+    return `${descriptionPair.value}`;
   };
+
+  const match = useRouteMatch();
+  return (
+    <Accordion fluid styled>
+      <Accordion.Title active={active} onClick={handleClick}>
+        {title}
+      </Accordion.Title>
+      <Accordion.Content active={active}>
+        {_.map(descriptionPairs, (descriptionPair, index) => (
+          <React.Fragment key={index}>
+            <b>
+              {descriptionPair.label}:
+            </b>
+            <Markdown
+              escapeHtml
+              source={getDescriptionPairValue(descriptionPair)}
+              renderers={{ link: (lProps) => Router.renderLink(lProps, match) }}
+            />
+          </React.Fragment>
+        ))}
+        <p>
+          <Button
+            id={id}
+            color="green"
+            basic
+            size="mini"
+            disabled={updateDisabled}
+            onClick={handleOpenUpdate}
+          >
+            Update
+          </Button>
+          <Button
+            id={id}
+            color="green"
+            basic
+            size="mini"
+            disabled={deleteDisabled}
+            onClick={handleDelete}
+          >
+            Delete
+          </Button>
+        </p>
+      </Accordion.Content>
+    </Accordion>
+  );
+};
 
 export default AdminCollectionAccordion;

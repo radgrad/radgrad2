@@ -1,14 +1,14 @@
+import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Dropdown, Header, Image, Menu } from 'semantic-ui-react';
-import { INavBarProps } from '../LandingNavBar';
 import RadGradLogoText from '../../shared/RadGradLogoText';
 import RadGradLoginButtons from '../RadGradLoginButtons';
 
-const LandingExplorerMenuBar = (props: INavBarProps) => {
+const LandingExplorerMenuBar: React.FC = () => {
   const imageStyle = { width: '45px' };
   const menuStyle = { marginBottom: 30 };
-
+  const currentUser = Meteor.user() ? Meteor.user().username : '';
   return (
     <Menu style={menuStyle} attached="top" borderless size="small">
       <Menu.Item as={NavLink} activeClassName="" exact to="/">
@@ -20,12 +20,12 @@ const LandingExplorerMenuBar = (props: INavBarProps) => {
         </div>
       </Menu.Item>
       <Menu.Item position="right">
-        {props.currentUser === '' ? (
+        {currentUser === '' ? (
           <div>
             <RadGradLoginButtons />
           </div>
         ) : (
-          <Dropdown text={props.currentUser} pointing="top right" icon="user">
+          <Dropdown text={currentUser} pointing="top right" icon="user">
             <Dropdown.Menu>
               <Dropdown.Item icon="sign out" text="Sign Out" as={NavLink} exact to="/signout" />
             </Dropdown.Menu>

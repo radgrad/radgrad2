@@ -7,7 +7,7 @@ import AdminAnalyticsMenuWidget from '../../components/admin/analytics/AdminAnal
 import AdminAnalyticsUserInteractionsWidget, { IAdminAnalyticsUserInteractionsWidgetProps }
   from '../../components/admin/analytics/user-interactions/AdminAnalyticsUserInteractionsWidget';
 
-const AdminAnalyticsUserInteractionsPage = (props: IAdminAnalyticsUserInteractionsWidgetProps) => {
+const AdminAnalyticsUserInteractionsPage: React.FC<IAdminAnalyticsUserInteractionsWidgetProps> = ({ students }) => {
   const paddedStyle = {
     paddingTop: 20,
   };
@@ -21,7 +21,7 @@ const AdminAnalyticsUserInteractionsPage = (props: IAdminAnalyticsUserInteractio
               <AdminAnalyticsMenuWidget />
             </Grid.Column>
             <Grid.Column width={13}>
-              <AdminAnalyticsUserInteractionsWidget students={props.students} />
+              <AdminAnalyticsUserInteractionsWidget students={students} />
             </Grid.Column>
           </Grid>
         </Grid.Column>

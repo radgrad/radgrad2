@@ -61,8 +61,8 @@ const createChartOptions = (overheadBuckets: IAdminAnalyticsOverheadAnalysisBuck
   };
 };
 
-const OverallServerLoadWidget = (props: IOverallServerLoadWidgetProps) => {
-  const chartOptions = createChartOptions(props.overheadBuckets);
+const OverallServerLoadWidget: React.FC<IOverallServerLoadWidgetProps> = ({ overheadBuckets }) => {
+  const chartOptions = createChartOptions(overheadBuckets);
   return (
     <HighchartsReact highcharts={Highcharts} options={chartOptions} />
   );

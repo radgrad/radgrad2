@@ -37,7 +37,7 @@ const collection = Slugs; // the collection to use.
  * Returns an array of Description pairs used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const descriptionPairs = (item: any): IDescriptionPair[] => [
+const descriptionPairs = (item: ISlug): IDescriptionPair[] => [
   { label: 'Name', value: `${item.name}` },
   { label: 'Entity Name', value: `${item.entityName}` },
   { label: 'Entity ID', value: `${item.entityID}` },
@@ -47,13 +47,13 @@ const descriptionPairs = (item: any): IDescriptionPair[] => [
  * Returns the title string for the item. Used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const itemTitleString = (item: any): string => `${item.name}: ${item.entityName}`;
+const itemTitleString = (item: ISlug): string => `${item.name}: ${item.entityName}`;
 
 /**
  * Returns the ReactNode used in the ListCollectionWidget. By default we indicate if the item is retired.
  * @param item an item from the collection.
  */
-const itemTitle = (item: any): React.ReactNode => (
+const itemTitle = (item: ISlug): React.ReactNode => (
   <React.Fragment>
     <Icon name="dropdown" />
     {itemTitleString(item)}
@@ -64,7 +64,7 @@ interface IAdminDataModelSlugsPageProps extends IAdminDataModeMenuProps {
   items: ISlug[];
 }
 
-const AdminDataModelSlugsPage = (props: IAdminDataModelSlugsPageProps) => {
+const AdminDataModelSlugsPage: React.FC<IAdminDataModelSlugsPageProps> = (props) => {
   const handleDelete = (event) => {
     event.preventDefault();
     // console.log('handleDelete inst=%o', inst);

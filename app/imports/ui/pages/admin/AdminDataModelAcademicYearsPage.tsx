@@ -26,7 +26,7 @@ import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu, { IAdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { Users } from '../../../api/user/UserCollection';
-import { IAcademicYearInstance, IDescriptionPair } from '../../../typings/radgrad';
+import { IAcademicYearInstance, IDescriptionPair, IStudentProfile } from '../../../typings/radgrad';
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
 import AdminDataModelUpdateForm from '../../components/admin/datamodel/AdminDataModelUpdateForm';
 import AddAcademicYearInstanceFormContainer from '../../components/admin/datamodel/academic-year/AddAcademicYearInstanceForm';
@@ -57,10 +57,10 @@ const itemTitleString = (year: IAcademicYearInstance): string => `${Users.getFul
 
 interface IAdminDataModelAcademicYearsPageProps extends IAdminDataModeMenuProps {
   items: IAcademicYearInstance[];
-  students: Meteor.User[];
+  students: IStudentProfile[];
 }
 
-const AdminDataModelAcademicYearsPage = (props: IAdminDataModelAcademicYearsPageProps) => {
+const AdminDataModelAcademicYearsPage: React.FC<IAdminDataModelAcademicYearsPageProps> = (props) => {
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');

@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 import { AdvisorLogs } from '../../../../api/log/AdvisorLogCollection';
 import { Users } from '../../../../api/user/UserCollection';
 import { defineMethod } from '../../../../api/base/BaseCollection.methods';
-import { IAdvisorLog, IStudentProfile } from '../../../../typings/radgrad';
+import { IAdvisorLog, IAdvisorLogDefine, IStudentProfile } from '../../../../typings/radgrad';
 
 export interface IAdvisorLogEntryWidgetProps {
   advisorLogs: IAdvisorLog[];
@@ -12,9 +12,9 @@ export interface IAdvisorLogEntryWidgetProps {
   advisorUsername: string;
 }
 
-const AdvisorLogEntryWidget = (props: IAdvisorLogEntryWidgetProps) => {
+const AdvisorLogEntryWidget: React.FC<IAdvisorLogEntryWidgetProps> = ({ advisorLogs, usernameDoc, advisorUsername }) => {
   const [commentState, setComment] = useState('');
-  const [advisorLogsState] = useState(props.advisorLogs);
+  const [advisorLogsState] = useState(advisorLogs);
 
   // For use with Date.getMinutes()
   const formatMinuteString = (min) => {
@@ -36,10 +36,11 @@ const AdvisorLogEntryWidget = (props: IAdvisorLogEntryWidgetProps) => {
 
   const onSubmit = () => {
     const collectionName = AdvisorLogs.getCollectionName();
-    const definitionData: any = {};
-    definitionData.advisor = props.advisorUsername;
-    definitionData.student = props.usernameDoc.username;
-    definitionData.text = commentState;
+    const definitionData: IAdvisorLogDefine = {
+      advisor: advisorUsername,
+      student: usernameDoc.username,
+      text: commentState,
+    };
 
     defineMethod.call({ collectionName, definitionData }, (error) => {
       if (error) {
@@ -59,13 +60,6 @@ const AdvisorLogEntryWidget = (props: IAdvisorLogEntryWidgetProps) => {
       }
     });
   };
-
-  // componentDidUpdate(prevProps: Readonly<IAdvisorLogEntryWidgetProps>): void {
-  //   if (props !== prevProps) {
-  //     // eslint-disable-next-line react/no-did-update-set-state
-  //     this.setState({ advisorLogs: props.advisorLogs });
-  //   }
-  // }
 
   return (
     <Segment padded>

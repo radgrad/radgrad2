@@ -4,7 +4,7 @@ import { Header, Message } from 'semantic-ui-react';
 import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
 import RadGradLogoText from '../shared/RadGradLogoText';
 
-const AdminMessageWidget = () => {
+const AdminMessageWidget: React.FC = () => {
   const adminEmail = RadGradProperties.getAdminEmail();
   return (
     <Message attached="top">

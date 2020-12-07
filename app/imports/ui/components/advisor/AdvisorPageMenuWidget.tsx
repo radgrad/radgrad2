@@ -4,17 +4,15 @@ import { Dropdown, Menu } from 'semantic-ui-react';
 import FirstMenuContainer from '../shared/FirstMenu';
 import { Reviews } from '../../../api/review/ReviewCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
-import { secondMenu } from '../shared/shared-widget-names';
 import { buildRouteName } from '../shared/utilities/router';
 import { COMMUNITY, EXPLORER_TYPE } from '../../layouts/utilities/route-constants';
 import { IAdvisorOrFacultyProfile } from '../../../typings/radgrad';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 
-const AdvisorPageMenuWidget = () => {
+const AdvisorPageMenuWidget: React.FC = () => {
   const match = useRouteMatch();
   const { username } = useParams();
   const divStyle = { marginBottom: 30 };
-  const firstMenuStyle = { minHeight: 78 };
   const profile: IAdvisorOrFacultyProfile = AdvisorProfiles.getProfile(username);
   let numMod = 0;
   numMod += Reviews.findNonRetired({ moderated: false }).length;
@@ -53,14 +51,14 @@ const AdvisorPageMenuWidget = () => {
   ];
   return (
     <div style={divStyle}>
-      <FirstMenuContainer style={firstMenuStyle} />
+      <FirstMenuContainer profile={profile} displayLevelAndIce={false} />
       <Menu
         attached="top"
         borderless
         secondary
         inverted
         pointing
-        id={`${secondMenu}`}
+        id="secondMenu"
       >
         {menuItems.map((item) => (
           <Menu.Item

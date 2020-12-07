@@ -16,7 +16,7 @@ interface IEventVerificationsWidgetProps {
  * @param eventOpportunities {IEventOpportunity[]} An array of IOpportunities where eventDate exists
  * @returns {Segment}
  */
-const EventVerificationsWidget = (props: IEventVerificationsWidgetProps) => {
+const EventVerificationsWidget: React.FC<IEventVerificationsWidgetProps> = ({ eventOpportunities }) => {
   const [studentState, setStudent] = useState('');
   const [opportunityState, setOpportunity] = useState('');
   const [logState, setLog] = useState('');
@@ -47,7 +47,7 @@ const EventVerificationsWidget = (props: IEventVerificationsWidgetProps) => {
   // };
 
   const onSubmit = () => {
-    const opportunity = props.eventOpportunities.find(ele => ele._id === opportunityState);
+    const opportunity = eventOpportunities.find(ele => ele._id === opportunityState);
 
     onLog(`Verifying ${opportunity.name} for ${studentState}...`);
 
@@ -78,7 +78,7 @@ const EventVerificationsWidget = (props: IEventVerificationsWidgetProps) => {
       <Form onSubmit={onSubmit}>
         <Form.Group inline>
           <Form.Dropdown
-            options={props.eventOpportunities.map(
+            options={eventOpportunities.map(
               (ele, i) => ({
                 key: i,
                 text: `${ele.name} (${moment(ele.eventDate).format('MM/DD/YY')})`,

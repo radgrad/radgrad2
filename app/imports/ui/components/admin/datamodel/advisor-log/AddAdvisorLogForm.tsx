@@ -10,14 +10,14 @@ import { profileToUsername } from '../../../shared/utilities/data-model';
 interface IAddAdvisorLogFormProps {
   advisors: Meteor.User[];
   students: Meteor.User[];
-  formRef: any;
+  formRef: React.RefObject<unknown>;
   handleAdd: (doc) => any;
 }
 
-const AddAdvisorLogForm = (props: IAddAdvisorLogFormProps) => {
+const AddAdvisorLogForm: React.FC<IAddAdvisorLogFormProps> = ({ advisors, students, formRef, handleAdd }) => {
   // console.log('AddAdvisorLogForm', props);
-  const advisorNames = _.map(props.advisors, profileToUsername);
-  const studentNames = _.map(props.students, profileToUsername);
+  const advisorNames = _.map(advisors, profileToUsername);
+  const studentNames = _.map(students, profileToUsername);
   // console.log(advisorNames, studentNames);
   const schema = new SimpleSchema({
     advisor: {
@@ -36,7 +36,7 @@ const AddAdvisorLogForm = (props: IAddAdvisorLogFormProps) => {
   return (
     <Segment padded>
       <Header dividing>Add Advisor Log</Header>
-      <AutoForm schema={formSchema} onSubmit={props.handleAdd} ref={props.formRef}>
+      <AutoForm schema={formSchema} onSubmit={handleAdd} ref={formRef}>
         <SelectField name="advisor" />
         <SelectField name="student" />
         <LongTextField name="text" />

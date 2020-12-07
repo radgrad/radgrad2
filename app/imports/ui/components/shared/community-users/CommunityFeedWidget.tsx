@@ -7,7 +7,7 @@ interface IStudentFeedWidgetProps {
   feeds: IFeed[];
 }
 
-const CommunityFeedWidget = (props: IStudentFeedWidgetProps): JSX.Element => {
+const CommunityFeedWidget: React.FC<IStudentFeedWidgetProps> = ({ feeds }) => {
   const feedStyle = {
     maxHeight: '325px',
     overflowY: 'scroll',
@@ -18,10 +18,10 @@ const CommunityFeedWidget = (props: IStudentFeedWidgetProps): JSX.Element => {
     <Container id="community-feed-widget">
       <Segment padded>
         <Header dividing>RADGRAD COMMUNITY ACTIVITY</Header>
-        {props.feeds ?
+        {feeds ?
           (
             <Feed style={feedStyle}>
-              {props.feeds.map((feed) => (
+              {feeds.map((feed) => (
                 <React.Fragment key={feed._id}>
                   <StudentFeedItem feed={feed} />
                   <Divider />

@@ -102,7 +102,7 @@ const StudentIceColumnVerified = (props: IStudentIceColumnVerifiedProps) => {
         <p>
           You have no verified {type} points.
         </p>
-        )
+      )
         : (
           <React.Fragment>
             <p>

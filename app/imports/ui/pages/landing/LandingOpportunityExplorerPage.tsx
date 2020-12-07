@@ -1,13 +1,13 @@
-import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import Markdown from 'react-markdown';
-import { useRouteMatch } from 'react-router-dom';
+import { useParams, useRouteMatch } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Embed, Grid, Header, Segment } from 'semantic-ui-react';
+import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
 import ExplorerMenuBarContainer from '../../components/landing/explorer/LandingExplorerMenuBar';
-import { IOpportunity } from '../../../typings/radgrad';
+import { IHelpMessage, IOpportunity } from '../../../typings/radgrad';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/explorer/LandingExplorerMenu';
 import { Interests } from '../../../api/interest/InterestCollection';
@@ -23,14 +23,13 @@ import { Users } from '../../../api/user/UserCollection';
 // import HelpPanelWidgetContainer from '../../components/shared/HelpPanelWidget';
 
 interface IOpportunityExplorerProps {
-  currentUser: string;
   opportunity: IOpportunity;
   quarters: boolean;
+  helpMessages: IHelpMessage[];
 }
 
-const LandingOpportunityExplorerPage = (props: IOpportunityExplorerProps) => {
+const LandingOpportunityExplorerPage: React.FC<IOpportunityExplorerProps> = ({ opportunity, helpMessages, quarters }) => {
   const match = useRouteMatch();
-  const { opportunity } = props;
   const hasTeaser = Teasers.findNonRetired({ targetSlugID: opportunity.slugID }).length > 0;
   const opportunityTypeName = getOpportunityTypeName(opportunity.opportunityTypeID);
   const academicTerms = semesters(opportunity);
@@ -39,11 +38,11 @@ const LandingOpportunityExplorerPage = (props: IOpportunityExplorerProps) => {
 
   return (
     <div id="landing-opportunity-explorer-page">
-      <ExplorerMenuBarContainer currentUser={props.currentUser} />
+      <ExplorerMenuBarContainer />
       <Grid stackable>
         <Grid.Row>
           <Grid.Column width={1} />
-          <Grid.Column width={14}><HelpPanelWidget /></Grid.Column>
+          <Grid.Column width={14}><HelpPanelWidget helpMessages={helpMessages} /></Grid.Column>
           <Grid.Column width={1} />
         </Grid.Row>
 
@@ -68,7 +67,7 @@ const LandingOpportunityExplorerPage = (props: IOpportunityExplorerProps) => {
                           (<React.Fragment>{opportunityTypeName} <br /></React.Fragment>)
                           : (<React.Fragment>N/A <br /></React.Fragment>)}
 
-                        <b>{(props.quarters ? 'Quarters' : 'Academic Terms')}: </b>
+                        <b>{(quarters ? 'Quarters' : 'Academic Terms')}: </b>
                         {academicTerms.length > 0 ?
                           (<React.Fragment>{academicTerms} <br /></React.Fragment>)
                           : (<React.Fragment>N/A <br /></React.Fragment>)}
@@ -129,7 +128,7 @@ const LandingOpportunityExplorerPage = (props: IOpportunityExplorerProps) => {
                       </Grid.Column>
 
                       <Grid.Column width={11}>
-                        <b>{(props.quarters ? 'Quarters' : 'Academic Terms')}: </b>
+                        <b>{(quarters ? 'Quarters' : 'Academic Terms')}: </b>
                         {academicTerms.length > 0 ?
                           (<React.Fragment>{academicTerms} <br /></React.Fragment>)
                           : (<React.Fragment>N/A <br /></React.Fragment>)}
@@ -172,16 +171,17 @@ const WithSubs = withListSubscriptions(LandingOpportunityExplorerPage, [
   Opportunities.getPublicationName(),
   Slugs.getPublicationName(),
   Teasers.getPublicationName(),
+  HelpMessages.getPublicationName(),
 ]);
 
-const LandingOpportunityExplorerContainer = withTracker((props) => {
-  const slugName = props.match.params.opportunity;
+const LandingOpportunityExplorerContainer = withTracker(() => {
+  const { opportunity } = useParams();
   // console.log(Slugs.find().fetch());
-  const id = Slugs.getEntityID(slugName, 'Opportunity');
+  const id = Slugs.getEntityID(opportunity, 'Opportunity');
   return {
     opportunity: Opportunities.findDoc(id),
     quarters: RadGradProperties.getQuarterSystem(),
-    currentUser: Meteor.user() ? Meteor.user().username : '',
+    helpMessages: HelpMessages.findNonRetired({}),
   };
 })(WithSubs);
 

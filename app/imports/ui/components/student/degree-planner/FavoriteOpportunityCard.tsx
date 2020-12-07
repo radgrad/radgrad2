@@ -4,6 +4,8 @@ import _ from 'lodash';
 import { Link, useRouteMatch } from 'react-router-dom';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { withTracker } from 'meteor/react-meteor-data';
+import { RadGradProperties } from '../../../../api/radgrad/RadGradProperties';
+import { OpportunityScoreboard } from '../../../../startup/client/collections';
 import { IAcademicTerm, IOpportunity, IOpportunityInstance } from '../../../../typings/radgrad';
 import IceHeader from '../../shared/IceHeader';
 import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
@@ -21,7 +23,7 @@ interface IFavoriteOpportunityCardProps {
   instances: IOpportunityInstance[];
 }
 
-const FavoriteOpportunityCard = (props: IFavoriteOpportunityCardProps) => {
+const FavoriteOpportunityCard: React.FC<IFavoriteOpportunityCardProps> = (props) => {
   const match = useRouteMatch();
   const instances = props.instances;
   const terms: IAcademicTerm[] = _.map(instances, (i) => AcademicTerms.findDoc(i.termID));
@@ -33,6 +35,25 @@ const FavoriteOpportunityCard = (props: IFavoriteOpportunityCardProps) => {
     textAlign: 'right',
   };
   const droppableID = `${props.opportunity._id}`;
+
+  const quarter = RadGradProperties.getQuarterSystem();
+  const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
+  const numTerms = quarter ? 12 : 9;
+  const academicTerms = AcademicTerms.findNonRetired({ termNumber: { $gte: currentTerm.termNumber } }, {
+    sort: { termNumber: 1 },
+    limit: numTerms,
+  });
+  const scores = [];
+  _.forEach(academicTerms, (term: IAcademicTerm) => {
+    const id = `${props.opportunity._id} ${term._id}`;
+    const score = OpportunityScoreboard.find({ _id: id }).fetch() as { count: number }[];
+    if (score.length > 0) {
+      scores.push(score[0].count);
+    } else {
+      scores.push(0);
+    }
+  });
+
   return (
     <Card>
       <Card.Content>
@@ -71,7 +92,7 @@ const FavoriteOpportunityCard = (props: IFavoriteOpportunityCardProps) => {
         </Droppable>
       </Card.Content>
       <Card.Content>
-        <FutureParticipation item={props.opportunity} type="opportunities" />
+        <FutureParticipation academicTerms={academicTerms} scores={scores} />
       </Card.Content>
       <Card.Content>
         <p style={textAlignRight}>

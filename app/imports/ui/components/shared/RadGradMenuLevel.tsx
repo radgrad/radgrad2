@@ -4,8 +4,8 @@ interface IRadGradMenuLevelProps {
   level: number;
 }
 
-const RadGradMenuLevel = (props: IRadGradMenuLevelProps) => {
-  const iconName = `/images/level-icons/radgrad-level-${props.level}-icon.png`;
+const RadGradMenuLevel: React.FC<IRadGradMenuLevelProps> = ({ level }) => {
+  const iconName = `/images/level-icons/radgrad-level-${level}-icon.png`;
   const iconStyle = {
     backgroundImage: `url('${iconName}'`,
     backgroundRepeat: 'no-prepeat',

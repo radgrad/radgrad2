@@ -6,11 +6,11 @@ interface IRadGradLogoProps {
   style?: any;
 }
 
-const RadGradLogoTextQ = (props: IRadGradLogoProps) => {
-  const radStyle = { fontWeight: 700, color: props.color };
-  const gradStyle = { fontWeight: 400, color: props.color };
+const RadGradLogoTextQ: React.FC<IRadGradLogoProps> = ({ color, style }) => {
+  const radStyle = { fontWeight: 700, color: color };
+  const gradStyle = { fontWeight: 400, color: color };
   return (
-    <div style={props.style}>
+    <div style={style}>
       <span className="radgrad-brand-font" style={radStyle}>RAD</span>
       <span className="radgrad-brand-font" style={gradStyle}>GRAD</span>
       <span className="radgrad-brand-font" style={radStyle}>?</span>

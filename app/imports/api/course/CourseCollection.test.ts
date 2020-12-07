@@ -71,18 +71,18 @@ if (Meteor.isServer) {
       fc.assert(
         fc.property(fc.lorem(1), fc.lorem(1), fc.lorem(1), fc.lorem(20, true), fc.integer(1, 6), fc.lorem(20, true), fc.boolean(),
           (fcName, fcShortName, fcNum, fcDescription, fcCreditHrs, fcSyllabus, fcRetired) => {
-          const interests2 = makeSampleInterestArray();
-          Courses.update(docID, { name: fcName, shortName: fcShortName, num: fcNum, description: fcDescription, creditHrs: fcCreditHrs, interests: interests2, syllabus: fcSyllabus, retired: fcRetired });
-          const course: ICourse = Courses.findDoc(docID);
-          expect(course.name).to.equal(fcName);
-          expect(course.shortName).to.equal(fcShortName);
-          expect(course.num).to.equal(fcNum);
-          expect(course.description).to.equal(fcDescription);
-          expect(course.creditHrs).to.equal(fcCreditHrs);
-          expect(course.interestIDs).to.have.lengthOf(interests2.length);
-          expect(course.syllabus).to.equal(fcSyllabus);
-          expect(course.retired).to.equal(fcRetired);
-        }),
+            const interests2 = makeSampleInterestArray();
+            Courses.update(docID, { name: fcName, shortName: fcShortName, num: fcNum, description: fcDescription, creditHrs: fcCreditHrs, interests: interests2, syllabus: fcSyllabus, retired: fcRetired });
+            const course: ICourse = Courses.findDoc(docID);
+            expect(course.name).to.equal(fcName);
+            expect(course.shortName).to.equal(fcShortName);
+            expect(course.num).to.equal(fcNum);
+            expect(course.description).to.equal(fcDescription);
+            expect(course.creditHrs).to.equal(fcCreditHrs);
+            expect(course.interestIDs).to.have.lengthOf(interests2.length);
+            expect(course.syllabus).to.equal(fcSyllabus);
+            expect(course.retired).to.equal(fcRetired);
+          }),
       );
       Courses.removeIt(docID);
       done();

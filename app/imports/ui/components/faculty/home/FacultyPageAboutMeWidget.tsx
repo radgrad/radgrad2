@@ -18,9 +18,7 @@ interface IFacultyPageAboutMeWidgetProps {
 }
 
 /** The Faculty About Me Widget shows basic information of the specified user. */
-const FacultyPageAboutMeWidget = (props: IFacultyPageAboutMeWidgetProps) => {
-  // console.log('FacultyPageAboutMeWidget', props);
-  const { profile, favoriteInterests, favoriteCareerGoals } = props;
+const FacultyPageAboutMeWidget: React.FC<IFacultyPageAboutMeWidgetProps> = ({ profile, favoriteCareerGoals, favoriteInterests }) => {
   const [websiteState, setWebsite] = useState(profile.website);
   const [pictureState, setPicture] = useState(profile.picture);
   const [aboutMeState, setAboutMe] = useState(profile.aboutMe);
@@ -136,7 +134,6 @@ const FacultyPageAboutMeWidget = (props: IFacultyPageAboutMeWidgetProps) => {
     try {
       const cloudinaryResult = await openCloudinaryWidget();
       if (cloudinaryResult.event === 'success') {
-        const profile = Users.getProfile(username);
         const updateData: { id: string; picture: string; } = { id: profile._id, picture: cloudinaryResult.info.url };
         updateMethod.call({ collectionName, updateData }, (error) => {
           if (error) {
@@ -225,21 +222,21 @@ const FacultyPageAboutMeWidget = (props: IFacultyPageAboutMeWidgetProps) => {
                 <Label.Group>
                   {
                     facultyInterests.length > 0 ? (
-                        _.map(facultyInterests, (interests, index) => (
-                          <Label
-                            size="small"
-                            key={index}
-                            as={NavLink}
-                            exact
-                            to={generateInterestRoute(interests)}
-                          >
-                            <Icon
-                              name="star"
-                            />
-                            {interests}
-                          </Label>
-                        ))
-                      )
+                      _.map(facultyInterests, (interests, index) => (
+                        <Label
+                          size="small"
+                          key={index}
+                          as={NavLink}
+                          exact
+                          to={generateInterestRoute(interests)}
+                        >
+                          <Icon
+                            name="star"
+                          />
+                          {interests}
+                        </Label>
+                      ))
+                    )
                       : <p style={marginStyle}>No interests favorited yet.</p>
                   }
                 </Label.Group>
@@ -256,18 +253,18 @@ const FacultyPageAboutMeWidget = (props: IFacultyPageAboutMeWidgetProps) => {
                 <Label.Group>
                   {
                     facultyCareerGoals.length > 0 ? (
-                        _.map(facultyCareerGoals, (careerGoals, index) => (
-                          <Label
-                            size="small"
-                            key={index}
-                            as={NavLink}
-                            exact
-                            to={generateCareerGoalsRoute(careerGoals)}
-                          >
-                            <Icon name="suitcase" /> {careerGoals}
-                          </Label>
-                        ))
-                      )
+                      _.map(facultyCareerGoals, (careerGoals, index) => (
+                        <Label
+                          size="small"
+                          key={index}
+                          as={NavLink}
+                          exact
+                          to={generateCareerGoalsRoute(careerGoals)}
+                        >
+                          <Icon name="suitcase" /> {careerGoals}
+                        </Label>
+                      ))
+                    )
                       : <p style={marginStyle}>No career goals favorited yet.</p>
                   }
                 </Label.Group>

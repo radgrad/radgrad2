@@ -202,7 +202,7 @@ const StudentExplorerEditReviewForm = (props: IStudentExplorerEditReviewWidgetPr
                     <i className="red warning circle icon" />
               }
             </React.Fragment>
-            )
+          )
             : (
               <React.Fragment>
                 {
@@ -230,19 +230,19 @@ const StudentExplorerEditReviewForm = (props: IStudentExplorerEditReviewWidgetPr
                         been approved by moderators.
                       </p>
                     </Message>
+                  )
+                    : (
+                      <Message warning>
+                        <p>
+                          <i className="yellow checkmark icon" />
+                          Your post is visible to the RadGrad community but has
+                          not yet been approved by moderators.
+                        </p>
+                      </Message>
                     )
-                      : (
-                        <Message warning>
-                          <p>
-                            <i className="yellow checkmark icon" />
-                            Your post is visible to the RadGrad community but has
-                            not yet been approved by moderators.
-                          </p>
-                        </Message>
-                      )
                   }
               </React.Fragment>
-              )
+            )
               : (
                 <React.Fragment>
                   {
@@ -256,7 +256,7 @@ const StudentExplorerEditReviewForm = (props: IStudentExplorerEditReviewWidgetPr
                         <br />
                         <i>{review.moderatorComments}</i>
                       </Message>
-                      )
+                    )
                       : (
                         <Message warning>
                           <p>

@@ -14,8 +14,7 @@ const mapDispatchToProps = (dispatch) => ({
   setShowIndex: (explorerType: string, index: number) => dispatch(cardExplorerActions.setShowIndex(explorerType, index)),
 });
 
-const ExplorerOpportunitiesPaginationWidget = (props: IExplorerOpportunitiesPaginationWidgetProps) => {
-  const { type, totalCount, displayCount, setShowIndex } = props;
+const ExplorerOpportunitiesPaginationWidget: React.FC<IExplorerOpportunitiesPaginationWidgetProps> = ({ type, totalCount, displayCount, setShowIndex }) => {
   const totalPages = Math.ceil(totalCount / displayCount);
 
   const handlePaginationChange = (e, data: PaginationProps) => {

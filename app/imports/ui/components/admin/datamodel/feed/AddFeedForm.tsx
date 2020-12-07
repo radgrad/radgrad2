@@ -14,11 +14,11 @@ interface IAddFeedFromProps {
   courses: ICourse[];
   opportunities: IOpportunity[];
   students: IStudentProfile[];
-  formRef: any;
+  formRef: React.RefObject<unknown>;
   handleAdd: (doc) => any;
 }
 
-const AddFeedForm = (props: IAddFeedFromProps) => {
+const AddFeedForm: React.FC<IAddFeedFromProps> = ({ academicTerms, courses, opportunities, students, formRef, handleAdd }) => {
   const [feedType, setFeedType] = useState(Feeds.NEW_USER);
 
   const handleModelChange = (model) => {
@@ -26,11 +26,11 @@ const AddFeedForm = (props: IAddFeedFromProps) => {
     setFeedType(newFeedType);
   };
 
-  const academicTermNames = _.map(props.academicTerms, academicTermToName);
+  const academicTermNames = _.map(academicTerms, academicTermToName);
   const currentTermName = AcademicTerms.toString(AcademicTerms.getCurrentTermID(), false);
-  const courseNames = _.map(props.courses, courseToName);
-  const opportunityNames = _.map(props.opportunities, docToName);
-  const studentNames = _.map(props.students, profileToName);
+  const courseNames = _.map(courses, courseToName);
+  const opportunityNames = _.map(opportunities, docToName);
+  const studentNames = _.map(students, profileToName);
   const feedTypes = [Feeds.NEW_COURSE, Feeds.NEW_COURSE_REVIEW, Feeds.NEW_LEVEL, Feeds.NEW_OPPORTUNITY, Feeds.NEW_OPPORTUNITY_REVIEW, Feeds.NEW_USER, Feeds.VERIFIED_OPPORTUNITY];
   const schema = new SimpleSchema({
     timestamp: { type: Date, optional: true },
@@ -110,8 +110,8 @@ const AddFeedForm = (props: IAddFeedFromProps) => {
       <Header dividing>Add Feed</Header>
       <AutoForm
         schema={formSchema}
-        onSubmit={props.handleAdd}
-        ref={props.formRef}
+        onSubmit={handleAdd}
+        ref={formRef}
         showInlineError
         onChangeModel={handleModelChange}
       >

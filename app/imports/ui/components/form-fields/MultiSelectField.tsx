@@ -27,28 +27,28 @@ const renderDropdown = ({ allowedValues, disabled, placeholder, onChange, transf
 };
 
 const MultiSelect = ({
-                       allowedValues,
-                       checkboxes,
-                       className,
-                       disabled,
-                       error,
-                       errorMessage,
-                       fieldType,
-                       id,
-                       inputRef,
-                       label,
-                       name,
-                       onChange,
-                       placeholder,
-                       required,
-                       showInlineError,
-                       transform,
-                       value,
-                       ...props
-                     }) => (
-                       <div className={classnames({ disabled, error, required }, className, 'field')} {...filterDOMProps(props)}>
-                         {label && <label htmlFor={id}>{label}</label>}
-                         {renderDropdown({
+  allowedValues,
+  checkboxes,
+  className,
+  disabled,
+  error,
+  errorMessage,
+  fieldType,
+  id,
+  inputRef,
+  label,
+  name,
+  onChange,
+  placeholder,
+  required,
+  showInlineError,
+  transform,
+  value,
+  ...props
+}) => (
+  <div className={classnames({ disabled, error, required }, className, 'field')} {...filterDOMProps(props)}>
+    {label && <label htmlFor={id}>{label}</label>}
+    {renderDropdown({
       allowedValues,
       disabled,
       placeholder,
@@ -56,8 +56,8 @@ const MultiSelect = ({
       transform,
       value,
     })}
-                         {!!(error && showInlineError) && <div className="ui red basic pointing label">{errorMessage}</div>}
-                       </div>
+    {!!(error && showInlineError) && <div className="ui red basic pointing label">{errorMessage}</div>}
+  </div>
 );
 
 export default connectField(MultiSelect);

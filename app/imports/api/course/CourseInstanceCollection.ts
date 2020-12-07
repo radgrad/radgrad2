@@ -19,6 +19,7 @@ import { CourseScoreboardName } from '../../startup/both/names';
  */
 class CourseInstanceCollection extends BaseCollection {
   public validGrades: string[];
+
   public readonly publicationNames: {
     scoreboard: string;
   };

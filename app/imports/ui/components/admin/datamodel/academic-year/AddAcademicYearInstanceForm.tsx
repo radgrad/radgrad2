@@ -10,12 +10,12 @@ import { profileToUsername } from '../../../shared/utilities/data-model';
 
 interface IAddAcademicYearInstanceProps {
   students: Meteor.User[];
-  formRef: any;
+  formRef: React.RefObject<unknown>;
   handleAdd: (doc) => any;
 }
 
-const AddAcademicYearInstanceForm = (props: IAddAcademicYearInstanceProps) => {
-  const studentNames = _.map(props.students, profileToUsername);
+const AddAcademicYearInstanceForm: React.FC<IAddAcademicYearInstanceProps> = ({ students, formRef, handleAdd }) => {
+  const studentNames = _.map(students, profileToUsername);
   const schema = new SimpleSchema({
     student: {
       type: String,
@@ -28,7 +28,7 @@ const AddAcademicYearInstanceForm = (props: IAddAcademicYearInstanceProps) => {
   return (
     <Segment padded>
       <Header dividing>Add Academic Year Instance</Header>
-      <AutoForm schema={formSchema} onSubmit={props.handleAdd} ref={props.formRef} showInlineError>
+      <AutoForm schema={formSchema} onSubmit={handleAdd} ref={formRef} showInlineError>
         <NumField name="year" />
         <SelectField name="student" />
         <SubmitField className="basic green" value="Add" />

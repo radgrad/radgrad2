@@ -6,20 +6,20 @@ import BaseCollection from '../../../../api/base/BaseCollection';
 
 interface IAdminDataModelAddFormProps {
   collection: BaseCollection;
-  formRef: any;
+  formRef: React.RefObject<unknown>;
   handleAdd: (doc) => any;
 }
 
-const AdminDataModelAddForm = (props: IAdminDataModelAddFormProps) => (
+const AdminDataModelAddForm: React.FC<IAdminDataModelAddFormProps> = ({ collection, formRef, handleAdd }) => (
   <Segment padded>
     <Header dividing>
       Add
-      {props.collection.getType()}
+      {collection.getType()}
     </Header>
     <AutoForm
-      ref={props.formRef}
-      onSubmit={props.handleAdd}
-      schema={new SimpleSchema2Bridge(props.collection.getDefineSchema())}
+      ref={formRef}
+      onSubmit={handleAdd}
+      schema={new SimpleSchema2Bridge(collection.getDefineSchema())}
     />
   </Segment>
 );

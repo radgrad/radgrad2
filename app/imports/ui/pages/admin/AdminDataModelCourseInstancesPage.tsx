@@ -52,7 +52,7 @@ const collection = CourseInstances;
  * Returns an array of Description pairs used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const descriptionPairs = (item: any): IDescriptionPair[] => [
+const descriptionPairs = (item: ICourseInstance): IDescriptionPair[] => [
   { label: 'Academic Term', value: AcademicTerms.toString(item.termID) },
   { label: 'Course', value: (Courses.findDoc(item.courseID)).name },
   { label: 'Verified', value: item.verified ? 'True' : 'False' },
@@ -69,7 +69,7 @@ const descriptionPairs = (item: any): IDescriptionPair[] => [
  * Returns the title string for the item. Used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const itemTitleString = (item: any): string => {
+const itemTitleString = (item: ICourseInstance): string => {
   const username = Users.getProfile(item.studentID).username;
   const courseNum = Courses.findDoc(item.courseID).num;
   const term = AcademicTerms.toString(item.termID, true);
@@ -80,7 +80,7 @@ const itemTitleString = (item: any): string => {
  * Returns the ReactNode used in the ListCollectionWidget. By default we indicate if the item is retired.
  * @param item an item from the collection.
  */
-const itemTitle = (item: any): React.ReactNode => (
+const itemTitle = (item: ICourseInstance): React.ReactNode => (
   <React.Fragment>
     {item.retired ? <Icon name="eye slash" /> : ''}
     <Icon name="dropdown" />
@@ -95,7 +95,7 @@ interface IAdminDataModelCourseInstancesPageProps extends IAdminDataModeMenuProp
   students: IStudentProfile[];
 }
 
-const AdminDataModelCourseInstancesPage = (props: IAdminDataModelCourseInstancesPageProps) => {
+const AdminDataModelCourseInstancesPage: React.FC<IAdminDataModelCourseInstancesPageProps> = (props) => {
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');

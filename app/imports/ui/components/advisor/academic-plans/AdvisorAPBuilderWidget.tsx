@@ -44,7 +44,7 @@ interface IAdvisorAPBuilderWidgetProps {
   terms: IAcademicTerm[];
 }
 
-const AdvisorAPBuilderWidget = (props: IAdvisorAPBuilderWidgetProps) => {
+const AdvisorAPBuilderWidget: React.FC<IAdvisorAPBuilderWidgetProps> = ({ choices, terms }) => {
   // console.log('AdvisorAPBuilderWidget %o', props);
   const quarterSystem = RadGradProperties.getQuarterSystem();
   const coursesPerTerm = [];
@@ -289,7 +289,7 @@ const AdvisorAPBuilderWidget = (props: IAdvisorAPBuilderWidgetProps) => {
     }
   };
 
-  const termNames = _.map(props.terms, academicTermToName);
+  const termNames = _.map(terms, academicTermToName);
   const currentTermName = AcademicTerms.toString(AcademicTerms.getCurrentTermID(), false);
   const schema = new SimpleSchema({
     name: String,
@@ -321,7 +321,7 @@ const AdvisorAPBuilderWidget = (props: IAdvisorAPBuilderWidgetProps) => {
             <AdvisorAPBPlanViewWidget coursesPerTerm={coursesPerTermState} choiceList={choiceListState} />
           </Grid.Column>
           <Grid.Column width={6}>
-            <AdvisorAPBPlanChoiceWidget choices={props.choices} combineChoice={combineChoiceState} />
+            <AdvisorAPBPlanChoiceWidget choices={choices} combineChoice={combineChoiceState} />
           </Grid.Column>
         </Grid>
       </DragDropContext>

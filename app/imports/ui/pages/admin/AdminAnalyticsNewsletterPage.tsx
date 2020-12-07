@@ -6,7 +6,8 @@ import AdminAnalyticsNewsletterWidget
   from '../../components/admin/analytics/newsletter/AdminAnalyticsNewsletterWidget';
 import withInstanceSubscriptions from '../../layouts/utilities/InstanceSubscriptionsHOC';
 
-const AdminAnalyticsNewsletterPage = () => {
+const AdminAnalyticsNewsletterPage: React.FunctionComponent = () => {
+  // console.log(currentUser, iconName);
   const paddedStyle = {
     paddingTop: 20,
   };

@@ -15,14 +15,14 @@ export interface IAdvisorAddStudentWidgetProps {
   careerGoals: ICareerGoal[];
 }
 
-const AdvisorAddStudentWidget = (props: IAdvisorAddStudentWidgetProps) => {
+const AdvisorAddStudentWidget: React.FC<IAdvisorAddStudentWidgetProps> = ({ interests, careerGoals }) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [username, setUsername] = useState('');
   const [isAlumni, setIsAlumni] = useState(false);
   const [picture, setPicture] = useState(undefined);
   const [website, setWebsite] = useState(undefined);
-  const [careerGoals, setCareerGoals] = useState([]);
+  const [careerGoalsState, setCareerGoals] = useState([]);
   const [userInterests, setUserInterests] = useState([]);
   const [declaredAcademicTerm, setDeclaredAcademicTerm] = useState(undefined);
   const [academicPlanID, setAcademicPlanID] = useState(undefined);
@@ -72,7 +72,7 @@ const AdvisorAddStudentWidget = (props: IAdvisorAddStudentWidgetProps) => {
     definitionData.isAlumni = isAlumni;
     definitionData.picture = picture;
     definitionData.website = website;
-    definitionData.careerGoals = careerGoals;
+    definitionData.careerGoals = careerGoalsState;
     definitionData.userInterests = userInterests;
     definitionData.declaredAcademicTerm = declaredAcademicTerm;
     definitionData.academicPlanID = academicPlanID;
@@ -218,9 +218,9 @@ const AdvisorAddStudentWidget = (props: IAdvisorAddStudentWidgetProps) => {
             multiple
             name="careerGoals"
             label="Select Career Goal(s)"
-            value={careerGoals}
+            value={careerGoalsState}
             onChange={handleFormChange}
-            options={props.careerGoals.map(
+            options={careerGoals.map(
               (ele, i) => ({ key: i, text: ele.name, value: ele._id }),
             )}
             placeholder="Select Career Goal(s)"
@@ -232,7 +232,7 @@ const AdvisorAddStudentWidget = (props: IAdvisorAddStudentWidgetProps) => {
             label="Select Interest(s)"
             value={userInterests}
             onChange={handleFormChange}
-            options={props.interests.map(
+            options={interests.map(
               (ele, i) => ({ key: i, text: ele.name, value: ele._id }),
             )}
             placeholder="Select Interest(s)"

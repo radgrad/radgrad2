@@ -87,7 +87,7 @@ class BaseProfileCollection extends BaseSlugCollection {
     let id;
     // If we've been passed a document, check to see if it has an _id field and use that if available.
     if (_.isObject(instance) && _.has(instance, '_id')) {
-      instance = instance['_id']; // eslint-disable-line no-param-reassign, dot-notation
+      instance = instance._id; // eslint-disable-line no-param-reassign, dot-notation
     }
     // If instance is the value of the username field for some document in the collection, then return its ID.
     const usernameBasedDoc = this.collection.findOne({ username: instance });

@@ -7,6 +7,7 @@ import { studentCareerGoalsExplorerPage, studentInterestsExplorerPage,
   studentCoursesExplorerPage, studentCommunityRadGradVideosPage, studentCommunityUsersPage,
   studentAboutMePage, studentAdvisorLogPage, studentICEPointsPage, studentLevelsPage } from './simple.page';
 
+// eslint-disable-next-line @typescript-eslint/no-redeclare
 /* global fixture:false, test:false */
 
 /** Credentials for sample user(s) defined in settings.development.json. */

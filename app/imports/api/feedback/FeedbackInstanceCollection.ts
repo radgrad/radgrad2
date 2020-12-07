@@ -13,7 +13,9 @@ import { IFeedbackInstanceDefine, IFeedbackInstanceUpdate } from '../../typings/
  */
 class FeedbackInstanceCollection extends BaseCollection {
   public WARNING: string;
+
   public RECOMMENDATION: string;
+
   public feedbackTypes: string[];
 
   /**

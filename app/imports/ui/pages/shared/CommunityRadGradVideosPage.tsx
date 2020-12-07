@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import { Container, Header } from 'semantic-ui-react';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
@@ -9,7 +9,7 @@ import { URL_ROLES } from '../../layouts/utilities/route-constants';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
 
-const CommunityRadGradVideosPage = () => {
+const CommunityRadGradVideosPage: React.FC = () => {
   const match = useRouteMatch();
   const getMenuWidget = (): JSX.Element => {
     const role = Router.getRoleByUrl(match);

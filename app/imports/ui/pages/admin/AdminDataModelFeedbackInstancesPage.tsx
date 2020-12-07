@@ -27,7 +27,7 @@ import AdminDataModelMenu, { IAdminDataModeMenuProps } from '../../components/ad
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import {
   IDescriptionPair,
-  IFeedbackInstanceDefine, IStudentProfile,
+  IFeedbackInstanceDefine, IStudentProfile, IFeedbackInstance,
 } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { FeedbackInstances } from '../../../api/feedback/FeedbackInstanceCollection';
@@ -45,7 +45,7 @@ const collection = FeedbackInstances; // the collection to use.
  * Returns an array of Description pairs used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const descriptionPairs = (item: any): IDescriptionPair[] => [
+const descriptionPairs = (item: IFeedbackInstance): IDescriptionPair[] => [
   { label: 'Student', value: Users.getFullName(item.userID) },
   { label: 'Function Name', value: item.functionName },
   { label: 'Description', value: item.description },
@@ -57,7 +57,7 @@ const descriptionPairs = (item: any): IDescriptionPair[] => [
  * Returns the title string for the item. Used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const itemTitleString = (item: any): string => {
+const itemTitleString = (item: IFeedbackInstance): string => {
   const username = Users.getProfile(item.userID).username;
   const feedbackName = item.functionName;
   return `${username}-${feedbackName}`;
@@ -67,7 +67,7 @@ const itemTitleString = (item: any): string => {
  * Returns the ReactNode used in the ListCollectionWidget. By default we indicate if the item is retired.
  * @param item an item from the collection.
  */
-const itemTitle = (item: any): React.ReactNode => (
+const itemTitle = (item: IFeedbackInstance): React.ReactNode => (
   <React.Fragment>
     {item.retired ? <Icon name="eye slash" /> : ''}
     <Icon name="dropdown" />
@@ -76,11 +76,11 @@ const itemTitle = (item: any): React.ReactNode => (
 );
 
 interface IAdminDataModelFeedbackInstancesPageProps extends IAdminDataModeMenuProps {
-  items: unknown[];
+  items: IFeedbackInstance[];
   students: IStudentProfile[];
 }
 
-const AdminDataModelFeedbackInstancesPage = (props: IAdminDataModelFeedbackInstancesPageProps) => {
+const AdminDataModelFeedbackInstancesPage: React.FC<IAdminDataModelFeedbackInstancesPageProps> = (props) => {
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');

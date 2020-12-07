@@ -2,7 +2,6 @@ import React from 'react';
 import { NavLink, useRouteMatch } from 'react-router-dom';
 import { Container, Dropdown, Menu } from 'semantic-ui-react';
 import FirstMenuContainer from '../shared/FirstMenu';
-import { secondMenu } from '../shared/shared-widget-names';
 import { buildRouteName, getUsername } from '../shared/utilities/router';
 import { COMMUNITY, DEGREEPLANNER, EXPLORER_TYPE } from '../../layouts/utilities/route-constants';
 import { IStudentProfile } from '../../../typings/radgrad';
@@ -27,15 +26,21 @@ const communityDropdownItems = [
   { key: 'RadGrad Videos', route: COMMUNITY.RADGRADVIDEOS, id: 'student-menu-radgrad-videos' },
 ];
 
-const StudentPageMenuWidget = () => {
+const StudentPageMenuWidget: React.FC = () => {
   const match = useRouteMatch();
   const username = getUsername(match);
   const divStyle = { marginBottom: 30 };
   const profile: IStudentProfile = StudentProfiles.getProfile(username);
-
+  const earnedIce = StudentProfiles.getEarnedICE(username);
+  const projectedIce = StudentProfiles.getProjectedICE(username);
   return (
     <div style={divStyle}>
-      <FirstMenuContainer />
+      <FirstMenuContainer
+        profile={profile}
+        displayLevelAndIce
+        earnedICE={earnedIce}
+        projectedICE={projectedIce}
+      />
       <div className="radgrad-menu" id="menu">
         <Container>
           <Menu
@@ -44,7 +49,7 @@ const StudentPageMenuWidget = () => {
             secondary
             inverted
             pointing
-            id={`${secondMenu}`}
+            id="secondMenu"
           >
             <Menu.Item as={NavLink} exact to={`/student/${username}/home`}>
               Home

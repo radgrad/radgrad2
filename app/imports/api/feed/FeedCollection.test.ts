@@ -109,19 +109,19 @@ if (Meteor.isServer) {
         // { description, picture, users, opportunity, course, academicTerm, retired }
         fc.property(fc.lorem(10), fc.lorem(1), fc.boolean(),
           (description, picture, retired) => {
-          const users = makeSampleUserArray(2);
-          const course = makeSampleCourse();
-          const sponsor = makeSampleUser(ROLE.FACULTY);
-          const opportunity = makeSampleOpportunity(sponsor);
-          const academicTerm = makeSampleAcademicTermSlug();
-          Feeds.update(docID, { description, picture, users, opportunity, course, academicTerm, retired });
-          doc = Feeds.findDoc(docID);
-          expect(doc.description).to.equal(description);
-          expect(doc.picture).to.equal(picture);
-          expect(doc.retired).to.equal(retired);
-          expect(AcademicTerms.findSlugByID(doc.termID)).to.equal(academicTerm);
-          expect(doc.courseID).to.equal(course);
-          expect(doc.opportunityID).to.equal(opportunity);
+            const users = makeSampleUserArray(2);
+            const course = makeSampleCourse();
+            const sponsor = makeSampleUser(ROLE.FACULTY);
+            const opportunity = makeSampleOpportunity(sponsor);
+            const academicTerm = makeSampleAcademicTermSlug();
+            Feeds.update(docID, { description, picture, users, opportunity, course, academicTerm, retired });
+            doc = Feeds.findDoc(docID);
+            expect(doc.description).to.equal(description);
+            expect(doc.picture).to.equal(picture);
+            expect(doc.retired).to.equal(retired);
+            expect(AcademicTerms.findSlugByID(doc.termID)).to.equal(academicTerm);
+            expect(doc.courseID).to.equal(course);
+            expect(doc.opportunityID).to.equal(opportunity);
           }),
       );
       done();

@@ -1,31 +1,28 @@
 import React from 'react';
 import { Dropdown, Menu } from 'semantic-ui-react';
-import { NavLink, useRouteMatch } from 'react-router-dom';
+import { NavLink, useParams, useRouteMatch } from 'react-router-dom';
 import _ from 'lodash';
 import FirstMenuContainer from '../shared/FirstMenu';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
-import { secondMenu } from '../shared/shared-widget-names';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
-import { buildRouteName, getUsername } from '../shared/utilities/router';
+import { buildRouteName } from '../shared/utilities/router';
 import { COMMUNITY, EXPLORER_TYPE } from '../../layouts/utilities/route-constants';
 import { IAdvisorOrFacultyProfile } from '../../../typings/radgrad';
 
-const FacultyPageMenuWidget = () => {
+const FacultyPageMenuWidget: React.FC = () => {
   const divStyle = { marginBottom: 30 };
 
   const match = useRouteMatch();
-  const username = getUsername(match);
-  const faculty = FacultyProfiles.findDoc(username);
-
+  const { username } = useParams();
   const profile: IAdvisorOrFacultyProfile = FacultyProfiles.getProfile(username);
   // const sponsorID = Users.getID(username);
   let openRequests = VerificationRequests.findNonRetired({ status: VerificationRequests.OPEN });
   openRequests = _.filter(openRequests, (request) => {
     if (OpportunityInstances.isDefined(request.opportunityInstanceID)) {
       const oi = OpportunityInstances.findDoc(request.opportunityInstanceID);
-      return Opportunities.findDoc(oi.opportunityID).sponsorID === faculty.userID;
+      return Opportunities.findDoc(oi.opportunityID).sponsorID === profile.userID;
     }
     return false;
   });
@@ -39,7 +36,6 @@ const FacultyPageMenuWidget = () => {
     { label: 'Home', route: 'home', id: 'faculty-menu-home' },
     { label: requestsLabel, route: 'verification-requests', id: 'faculty-menu-verification' },
     { label: 'Manage Opportunities', route: 'manage-opportunities', id: 'faculty-menu-manage-opportunities' },
-    { label: 'Explorer', route: 'explorer' },
     { label: 'Scoreboard', route: 'scoreboard' },
   ];
   const explorerDropdownItems = [
@@ -60,14 +56,14 @@ const FacultyPageMenuWidget = () => {
 
   return (
     <div style={divStyle}>
-      <FirstMenuContainer />
+      <FirstMenuContainer profile={profile} displayLevelAndIce={false} />
       <Menu
         attached="top"
         borderless
         secondary
         inverted
         pointing
-        id={`${secondMenu}`}
+        id="secondMenu"
       >
 
         {menuItems.map((item) => (

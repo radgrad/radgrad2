@@ -66,7 +66,7 @@ interface IAdminDataModelAdvisorLogsPageProps extends IAdminDataModeMenuProps {
   students: Meteor.User[];
 }
 
-const AdminDataModelAdvisorLogsPage = (props: IAdminDataModelAdvisorLogsPageProps) => {
+const AdminDataModelAdvisorLogsPage: React.FC<IAdminDataModelAdvisorLogsPageProps> = (props) => {
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');
@@ -258,6 +258,6 @@ const AdminDataModelAdvisorLogsPageContainer = withTracker(() => ({
   items: AdvisorLogs.find({}).fetch(),
   advisors: AdvisorProfiles.find({}, { $sort: { lastName: 1, firstName: 1 } }).fetch(),
   students: StudentProfiles.find({ isAlumni: false }, { $sort: { lastName: 1, firstName: 1 } }).fetch(),
-  }))(AdminDataModelAdvisorLogsPage);
+}))(AdminDataModelAdvisorLogsPage);
 
 export default withInstanceSubscriptions(AdminDataModelAdvisorLogsPageContainer);
