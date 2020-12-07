@@ -12,7 +12,6 @@ import AcademicPlanStaticViewer from '../../AcademicPlanStaticViewer';
 import * as Router from '../../../utilities/router';
 import FavoritesButton from '../FavoritesButton';
 import { toUpper } from '../../../utilities/general';
-import { explorerPlanWidget } from '../../../shared-widget-names';
 import { toId } from '../course/utilities/description-pair';
 import { FAVORITE_TYPE } from '../../../../../../api/favorite/FavoriteTypes';
 import { FavoriteAcademicPlans } from '../../../../../../api/favorite/FavoriteAcademicPlanCollection';
@@ -23,7 +22,7 @@ interface IExplorerPlansWidgetProps {
   item: IAcademicPlan;
 }
 
-const ExplorerPlanWidget: React.FC<IExplorerPlansWidgetProps> = (props: IExplorerPlansWidgetProps) => {
+const ExplorerPlanWidget: React.FC<IExplorerPlansWidgetProps> = ({ name, descriptionPairs, item }) => {
   const backgroundColorWhiteStyle = { backgroundColor: 'white' };
   const clearingBasicSegmentStyle = {
     margin: 0,
@@ -34,8 +33,6 @@ const ExplorerPlanWidget: React.FC<IExplorerPlansWidgetProps> = (props: IExplore
   };
   const divierStyle = { marginTop: 0 };
 
-  const { name, descriptionPairs, item } = props;
-  console.log(props);
   const match = useRouteMatch();
   const { username } = useParams();
   const profile = Users.getProfile(username);
@@ -52,7 +49,7 @@ const ExplorerPlanWidget: React.FC<IExplorerPlansWidgetProps> = (props: IExplore
     });
   }
   return (
-    <Segment.Group style={backgroundColorWhiteStyle} id={`${explorerPlanWidget}`}>
+    <Segment.Group style={backgroundColorWhiteStyle} id="explorerPlanWidget">
       <Segment padded className="container">
         <Segment clearing basic style={clearingBasicSegmentStyle}>
           <Header floated="left">{upperName}</Header>

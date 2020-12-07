@@ -16,7 +16,6 @@ import { Teasers } from '../../../../../../api/teaser/TeaserCollection';
 import * as Router from '../../../utilities/router';
 import FavoritesButton from '../FavoritesButton';
 import { toUpper, replaceTermString, isSame } from '../../../utilities/general';
-import { explorerOpportunityWidget } from '../../../shared-widget-names';
 import FutureParticipation from '../../FutureParticipation';
 import { Opportunities } from '../../../../../../api/opportunity/OpportunityCollection';
 import { toId } from '../course/utilities/description-pair';
@@ -32,10 +31,10 @@ interface IExplorerOpportunitiesWidgetProps {
   completed: boolean;
 }
 
-const review = (props: IExplorerOpportunitiesWidgetProps, match): IReview => {
+const review = (item: IOpportunity, match): IReview => {
   const reviews = Reviews.findNonRetired({
     studentID: Router.getUserIdFromRoute(match),
-    revieweeID: props.item._id,
+    revieweeID: item._id,
   });
   return reviews[0];
 };
@@ -50,7 +49,7 @@ const teaserUrlHelper = (opportunitySlug): string => {
   return oppTeaser && oppTeaser[0] && oppTeaser[0].url;
 };
 
-const ExplorerOpportunityWidget: React.FC<IExplorerOpportunitiesWidgetProps> = (props) => {
+const ExplorerOpportunityWidget: React.FC<IExplorerOpportunitiesWidgetProps> = ({ name, descriptionPairs, item, completed }) => {
   const segmentStyle = { backgroundColor: 'white' };
   const zeroMarginTopStyle = { marginTop: 0 };
   const fiveMarginTopStyle = { marginTop: '5px' };
@@ -63,7 +62,6 @@ const ExplorerOpportunityWidget: React.FC<IExplorerOpportunitiesWidgetProps> = (
   };
   const breakWordStyle: React.CSSProperties = { wordWrap: 'break-word' };
 
-  const { name, descriptionPairs, item, completed } = props;
   const match = useRouteMatch();
   const { opportunity, username } = useParams();
 
@@ -92,7 +90,7 @@ const ExplorerOpportunityWidget: React.FC<IExplorerOpportunitiesWidgetProps> = (
   const profile = Users.getProfile(username);
   const added = FavoriteOpportunities.findNonRetired({ userID: profile.userID, opportunityID: item._id }).length > 0;
   return (
-    <div id={explorerOpportunityWidget}>
+    <div id="explorerOpportunityWidget">
       <Segment padded className="container" style={segmentStyle}>
         <Segment clearing basic style={clearingBasicSegmentStyle}>
           <Header as="h4" floated="left">{upperName}</Header>
@@ -341,7 +339,7 @@ const ExplorerOpportunityWidget: React.FC<IExplorerOpportunitiesWidgetProps> = (
           <Segment>
             <StudentExplorerReviewWidget
               event={item}
-              userReview={review(props, match)}
+              userReview={review(item, match)}
               completed={completed}
               reviewType="opportunity"
             />

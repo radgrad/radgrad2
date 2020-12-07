@@ -1,7 +1,6 @@
 import React from 'react';
 import { Menu } from 'semantic-ui-react';
 import { NavLink, useParams, useRouteMatch } from 'react-router-dom';
-import { leftHandMenu } from '../../shared/shared-widget-names';
 
 const AdminDatabaseMenu: React.FC = () => {
   const { username } = useParams();
@@ -11,7 +10,7 @@ const AdminDatabaseMenu: React.FC = () => {
   // console.log(props, baseRoute);
 
   return (
-    <Menu vertical text id={`${leftHandMenu}`}>
+    <Menu vertical text id="leftHandMenu">
       <Menu.Item as={NavLink} exact to={`${baseRoute}integrity-check`}>Integrity Check</Menu.Item>
       <Menu.Item as={NavLink} exact to={`${baseRoute}dump`}>Dump DB</Menu.Item>
     </Menu>

@@ -5,7 +5,6 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Ice } from '../../../../typings/radgrad';
 import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
 import StudentIceColumn from './StudentIceColumn';
-import { studentIceWidget } from '../student-widget-names';
 import PageIceCircle from './PageIceCircle';
 
 interface IStudentIceWidgetProps {
@@ -13,15 +12,14 @@ interface IStudentIceWidgetProps {
   projectedICE: Ice;
 }
 
-const StudentIceWidget = (props: IStudentIceWidgetProps) => {
+const StudentIceWidget: React.FC<IStudentIceWidgetProps> = ({ earnedICE, projectedICE }) => {
   const innovationColumnStyle = { paddingLeft: 0 };
   const experienceColumnStyle = { paddingRight: 0 };
   const styleInfo: React.CSSProperties = { textAlign: 'left', paddingTop: 10 };
-  const { earnedICE, projectedICE } = props;
 
   return (
     <>
-      <Segment padded id={`${studentIceWidget}`}>
+      <Segment padded id="studentIceWidget">
         <Header as="h4" dividing>YOUR ICE POINTS</Header>
         <Grid stackable columns="equal" celled="internally">
           <Grid.Row>

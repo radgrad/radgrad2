@@ -1,12 +1,12 @@
 import React from 'react';
 import { Card, Image, Grid, Dimmer } from 'semantic-ui-react';
 import _ from 'lodash';
+import { FavoriteInterests } from '../../../../api/favorite/FavoriteInterestCollection';
 import { IBaseProfile } from '../../../../typings/radgrad';
 import { defaultProfilePicture } from '../../../../api/user/BaseProfileCollection';
 import { ROLE } from '../../../../api/role/Role';
 import InterestList from '../InterestList';
 import { capitalizeFirstLetter } from '../utilities/general';
-import { explorerUserWidget } from '../shared-widget-names';
 
 interface IExplorerUsersWidgetProps {
   userProfile: IBaseProfile;
@@ -24,7 +24,7 @@ const isRole = (props: IExplorerUsersWidgetProps, compareRole: string, ...otherR
  * @param isActive {boolean} This component expects the parent to manage state
  * @param handleClose {function} Handler to close component (dimmer) when clicking outside of the component
  * @return {Dimmer} */
-const ExplorerUsersWidget = (props: IExplorerUsersWidgetProps) => {
+const ExplorerUsersWidget: React.FC<IExplorerUsersWidgetProps> = (props) => {
   if (!(props.userProfile)) return undefined;
   const overflowStyle: React.CSSProperties = { overflow: 'scroll' };
   const cardStyle: React.CSSProperties = {
@@ -44,14 +44,18 @@ const ExplorerUsersWidget = (props: IExplorerUsersWidgetProps) => {
       </React.Fragment>
     ) : undefined;
   }
-
+  const favInterests = FavoriteInterests.findNonRetired({ userID: p.userID });
+  const interestIDs = _.map(favInterests, (f) => f.interestID);
+  const fakeP = {
+    interestIDs,
+  };
   return (
     <Dimmer
       style={overflowStyle}
       active={props.isActive}
       onClickOutside={props.handleClose}
       page
-      id={explorerUserWidget}
+      id="explorerUserWidget"
     >
       <Grid centered>
         <Grid.Column width={12}>
@@ -83,7 +87,7 @@ const ExplorerUsersWidget = (props: IExplorerUsersWidgetProps) => {
               {p.motivation || undefined}
             </Card.Content>
             <Card.Content extra>
-              <InterestList item={p} size="mini" />
+              <InterestList item={fakeP} size="mini" />
             </Card.Content>
           </Card>
         </Grid.Column>

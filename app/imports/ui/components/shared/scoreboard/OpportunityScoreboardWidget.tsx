@@ -5,7 +5,6 @@ import moment from 'moment';
 import { ZipZap } from 'meteor/udondan:zipzap';
 import { IAcademicTerm, IOpportunity } from '../../../../typings/radgrad';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
-import { opportunityScoreboardWidget } from '../shared-widget-names';
 
 interface IOpportunityScoreboardWidgetProps {
   opportunities: IOpportunity[];
@@ -55,7 +54,7 @@ const OpportunityScoreboardWidget: React.FC<IOpportunityScoreboardWidgetProps> =
     width: '100%',
   };
   return (
-    <Segment textAlign="center" id={`${opportunityScoreboardWidget}`}>
+    <Segment textAlign="center" id="opportunityScoreboardWidget">
       <Header>Future Opportunity Scoreboard</Header>
       <Grid>
         <Grid.Row>

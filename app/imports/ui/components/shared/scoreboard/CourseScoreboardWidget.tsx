@@ -5,7 +5,6 @@ import moment from 'moment';
 import { Button, Grid, Header, Icon, Label, Popup, Segment, Table } from 'semantic-ui-react';
 import { IAcademicTerm, ICourse } from '../../../../typings/radgrad';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
-import { courseScoreboardWidget } from '../shared-widget-names';
 
 interface ICourseScoreboardWidgetProps {
   courses: ICourse[],
@@ -55,7 +54,7 @@ const CourseScoreboardWidget: React.FC<ICourseScoreboardWidgetProps> = ({ course
     width: '100%',
   };
   return (
-    <Segment textAlign="center" id={`${courseScoreboardWidget}`}>
+    <Segment textAlign="center" id="courseScoreboardWidget">
       <Header>Future Course Scoreboard</Header>
       <Grid>
         <Grid.Row>

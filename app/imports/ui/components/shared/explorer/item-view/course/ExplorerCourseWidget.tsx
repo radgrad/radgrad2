@@ -17,7 +17,6 @@ import { Teasers } from '../../../../../../api/teaser/TeaserCollection';
 import FavoritesButton from '../FavoritesButton';
 import { isSame, toUpper } from '../../../utilities/general';
 import { courseSlugToName } from '../../../utilities/data-model';
-import { explorerCourseWidget } from '../../../shared-widget-names';
 import { Slugs } from '../../../../../../api/slug/SlugCollection';
 import { Courses } from '../../../../../../api/course/CourseCollection';
 import { toValueArray, toValueString } from './utilities/description-pair';
@@ -97,10 +96,7 @@ const color = (table: unknown[]): string => {
 
 const length = (table: unknown[]): boolean => table.length !== 0;
 
-const choices = (prerequisite: { course: string; status: string }): string[] => {
-  console.log(prerequisite);
-  return prerequisite.course.split(',');
-};
+const choices = (prerequisite: { course: string; status: string }): string[] => prerequisite.course.split(',');
 
 const isFirst = (index: number): boolean => index === 0;
 
@@ -162,7 +158,7 @@ const ExplorerCourseWidget: React.FC<IExplorerCoursesWidgetProps> = ({ name, sho
   const profile = Users.getProfile(username);
   const added = FavoriteCourses.findNonRetired({ studentID: profile.userID, courseID: item._id }).length > 0;
   return (
-    <div id={explorerCourseWidget}>
+    <div id="explorerCourseWidget">
       <Segment padded className="container" style={segmentStyle}>
         <Segment clearing basic style={clearingBasicSegmentStyle}>
           <Header as="h4" floated="left">

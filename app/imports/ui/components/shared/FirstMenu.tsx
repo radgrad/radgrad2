@@ -6,7 +6,6 @@ import { Roles } from 'meteor/alanning:roles';
 import RadGradLogoText from './RadGradLogoText';
 import RadGradMenuProfile, { IRadGradMenuProfileProps } from './RadGradMenuProfile';
 import { isUrlRoleStudent } from './utilities/router';
-import { firstMenu } from './shared-widget-names';
 
 /**
  * First menu for all pages.
@@ -25,7 +24,7 @@ const FirstMenu: React.FunctionComponent<IRadGradMenuProfileProps> = ({ profile,
   const iconName = (Roles.userIsInRole(Meteor.userId(), ['ADMIN'])) ? 'user plus' : 'user';
   return (
     <Container>
-      <Menu attached="top" borderless className="radgrad-first-menu" id={`${firstMenu}`}>
+      <Menu attached="top" borderless className="radgrad-first-menu" id="firstMenu">
         <Menu.Item as={NavLink} activeClassName="" exact to="/" style={noPadding}>
           <Image style={imageStyle} circular src="/images/radgrad_logo.png" />
           <div className="mobile hidden item">

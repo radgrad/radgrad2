@@ -9,7 +9,6 @@ import {
   PAGE_TRACKING_SCOREBOARD,
   SCOREBOARD,
 } from '../../../layouts/utilities/route-constants';
-import { leftHandMenu } from '../shared-widget-names';
 import { PageInterestsCategoryTypes } from '../../../../api/page-tracking/PageInterestsCategoryTypes';
 
 const menuItems = [
@@ -27,7 +26,7 @@ const menuItems = [
   },
 ];
 
-const ScoreboardPageMenu = (): JSX.Element => {
+const ScoreboardPageMenu: React.FC = () => {
   const match = useRouteMatch();
   const menuOptions = menuItems.map((item) => (
     <Menu.Item
@@ -40,7 +39,7 @@ const ScoreboardPageMenu = (): JSX.Element => {
     </Menu.Item>
   ));
   return (
-    <Menu vertical fluid id={`${leftHandMenu}`}>
+    <Menu vertical fluid id="leftHandMenu">
       {menuOptions}
     </Menu>
   );

@@ -2,11 +2,15 @@ import React from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import { Segment, Header, Image, Popup } from 'semantic-ui-react';
 import _ from 'lodash';
+import { withTracker } from 'meteor/react-meteor-data';
 import { Users } from '../../../../api/user/UserCollection';
 import { getUserIdFromRoute } from '../../shared/utilities/router';
 import { ROLE } from '../../../../api/role/Role';
 import { IStudentProfile } from '../../../../typings/radgrad';
-import { studentLevelsOthersWidget } from '../student-widget-names';
+
+interface IStudentLevelsOthersWidgetProps {
+  students: IStudentProfile[];
+}
 
 const studentsExist = (students): boolean => students.length > 0;
 
@@ -25,9 +29,11 @@ const getStudents = (userLevel: number, match): IStudentProfile[] => {
 
 const getStudentLevelNumber = (match): number => {
   if (getUserIdFromRoute(match)) {
-      const profile = Users.getProfile(getUserIdFromRoute(match));
-      return profile.level || 1;
+    const profile = Users.getProfile(getUserIdFromRoute(match));
+    if (profile.level) {
+      return profile.level;
     }
+  }
   return 1;
 };
 
@@ -45,18 +51,16 @@ const studentPicture = (student: IStudentProfile) => student.picture;
 
 const fullName = (student: IStudentProfile): string => Users.getFullName(student.userID);
 
-const StudentLevelsOthersWidget = () => {
+const StudentLevelsOthersWidget: React.FC<IStudentLevelsOthersWidgetProps> = ({ students }) => {
   const match = useRouteMatch();
   const imageGroupStyle = { minHeight: '50%' };
   const imageStyle = {
     height: '30px',
     width: 'auto',
   };
-  const studentLevelNumber: number = getStudentLevelNumber(match);
-  const students: IStudentProfile[] = getStudents(studentLevelNumber, match);
   const studentLevelName = getStudentLevelName(match);
   return (
-    <Segment padded id={`${studentLevelsOthersWidget}`}>
+    <Segment padded id="studentLevelsOthersWidget">
       <Header as="h4" dividing>
         OTHER {studentLevelName} STUDENTS
       </Header>
@@ -88,4 +92,12 @@ const StudentLevelsOthersWidget = () => {
   );
 };
 
-export default StudentLevelsOthersWidget;
+const StudentLevelsOthersWidgetContainer = withTracker((props) => {
+  const match = useRouteMatch();
+  const studentLevelNumber: number = getStudentLevelNumber(match);
+  const students: IStudentProfile[] = getStudents(studentLevelNumber, match);
+  return {
+    students,
+  };
+})(StudentLevelsOthersWidget);
+export default StudentLevelsOthersWidgetContainer;

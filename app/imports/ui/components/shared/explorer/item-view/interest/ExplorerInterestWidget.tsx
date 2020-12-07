@@ -10,7 +10,6 @@ import InterestedProfilesWidget from './InterestedProfilesWidget';
 import InterestedRelatedWidget from './InterestedRelatedWidget';
 import FavoritesButton from '../FavoritesButton';
 import * as Router from '../../../utilities/router';
-import { explorerInterestWidget } from '../../../shared-widget-names';
 import { Teasers } from '../../../../../../api/teaser/TeaserCollection';
 import { FAVORITE_TYPE } from '../../../../../../api/favorite/FavoriteTypes';
 import TeaserVideo from '../../../TeaserVideo';
@@ -88,7 +87,6 @@ const getBaseURL = (match) => {
 };
 
 const ExplorerInterestWidget: React.FC<IExplorerInterestsWidgetProps> = ({ profile, interest, courses, opportunities }) => {
-  // console.log('ExplorerInterestWidget', props);
   const interestID = interest._id;
   const relatedCourses = getAssociationRelatedCourses(getRelatedCourses(courses, interestID), profile.userID);
   const relatedOpportunities = getAssociationRelatedOpportunities(getRelatedOpportunities(opportunities, interestID), profile.userID);
@@ -97,7 +95,7 @@ const ExplorerInterestWidget: React.FC<IExplorerInterestsWidgetProps> = ({ profi
   const match = useRouteMatch();
   const added = FavoriteInterests.findNonRetired({ userID: profile.userID, interestID }).length > 0;
   return (
-    <div id={explorerInterestWidget}>
+    <div id="explorerInterestWidget">
       <SegmentGroup>
         <Segment>
           <Header>

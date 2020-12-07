@@ -11,7 +11,6 @@ import FavoritesButton from '../FavoritesButton';
 import { toUpper, isSame } from '../../../utilities/general';
 import { userToFullName, userToPicture } from '../../../utilities/data-model';
 import { Teasers } from '../../../../../../api/teaser/TeaserCollection';
-import { explorerCareerGoalWidget } from '../../../shared-widget-names';
 import { Slugs } from '../../../../../../api/slug/SlugCollection';
 import { CareerGoals } from '../../../../../../api/career/CareerGoalCollection';
 import { toId } from '../course/utilities/description-pair';
@@ -36,7 +35,7 @@ const teaserUrlHelper = (careerGoalSlug): string => {
   return oppTeaser && oppTeaser[0] && oppTeaser[0].url;
 };
 
-const ExplorerCareerGoalWidget: React.FC<IExplorerCareerGoalsWidgetProps> = (props) => {
+const ExplorerCareerGoalWidget: React.FC<IExplorerCareerGoalsWidgetProps> = ({ name, descriptionPairs, socialPairs, item }) => {
   const marginStyle = {
     marginTop: 5,
   };
@@ -47,7 +46,6 @@ const ExplorerCareerGoalWidget: React.FC<IExplorerCareerGoalsWidgetProps> = (pro
   };
   const centerAlignedColumnStyle = { minWidth: '25%' };
 
-  const { name, descriptionPairs, socialPairs, item } = props;
   const match = useRouteMatch();
   const upperName = toUpper(name);
   const hasTeaser = Teasers.findNonRetired({ targetSlugID: item.slugID }).length > 0;
@@ -55,7 +53,7 @@ const ExplorerCareerGoalWidget: React.FC<IExplorerCareerGoalsWidgetProps> = (pro
   const profile = Users.getProfile(username);
   const added = FavoriteCareerGoals.findNonRetired({ userID: profile.userID, careerGoalID: item._id }).length > 0;
   return (
-    <Grid container stackable style={marginStyle} id={explorerCareerGoalWidget}>
+    <Grid container stackable style={marginStyle} id="explorerCareerGoalWidget">
       <Grid.Column width={16}>
         <Segment>
           <Segment basic clearing vertical>
