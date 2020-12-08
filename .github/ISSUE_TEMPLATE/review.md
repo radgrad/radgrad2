@@ -1,6 +1,6 @@
 ---
 name: Review
-about: Using this type of issue for reviews.
+about: Use this template to create a new review
 title: ''
 labels: ''
 assignees: ''
