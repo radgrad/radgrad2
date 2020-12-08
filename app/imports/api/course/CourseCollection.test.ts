@@ -6,9 +6,8 @@ import 'mocha';
 import { Courses } from './CourseCollection';
 import { makeSampleInterest, makeSampleInterestArray } from '../interest/SampleInterests';
 import { removeAllEntities } from '../base/BaseUtilities';
-import { getRandomCourseSlug } from './CourseUtilities';
 import { ICourse } from '../../typings/radgrad';
-import { makeSampleCourse } from './SampleCourses';
+import { getRandomCourseSlug, makeSampleCourse } from './SampleCourses';
 import { Slugs } from '../slug/SlugCollection';
 
 /* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
