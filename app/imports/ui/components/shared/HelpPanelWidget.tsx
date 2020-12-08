@@ -3,7 +3,7 @@ import Markdown from 'react-markdown';
 import { useRouteMatch } from 'react-router-dom';
 import _ from 'lodash';
 import { Grid, Header, Divider } from 'semantic-ui-react';
-import * as Router from './utilities/router';
+import { renderLink } from './utilities/router';
 import { IHelpMessage } from '../../../typings/radgrad';
 
 export interface IHelpPanelWidgetProps {
@@ -20,7 +20,7 @@ const HelpPanelWidget: React.FC<IHelpPanelWidgetProps> = ({ helpMessages }) => {
       <Markdown
         escapeHtml={false}
         source={helpText}
-        renderers={{ link: (lProps) => Router.renderLink(lProps, match) }}
+        renderers={{ link: (lProps) => renderLink(lProps, match) }}
       />
       <Divider />
     </Grid.Column>
