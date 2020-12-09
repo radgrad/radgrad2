@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> ui/pages/admin/AdminDataModelFeedbackInstancesPage.tsx</title>
+  <title> ui/components/advisor/home/AdvisorAboutMeWidget.tsx</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -76,7 +76,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>ui/pages/admin/AdminDataModelFeedbackInstancesPage.tsx</h1>
+                    <h1>ui/components/advisor/home/AdvisorAboutMeWidget.tsx</h1>
                 </header>
                 
 
@@ -85,284 +85,336 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import { withTracker } from 'meteor/react-meteor-data';
-import React, { useState } from 'react';
-import { Confirm, Grid, Icon } from 'semantic-ui-react';
+            <pre class="prettyprint source linenums"><code>import React, { useState } from 'react';
+import { Link, NavLink, useParams } from 'react-router-dom';
+import _ from 'lodash';
+import { Grid, Header, Label, Icon, Form, Segment } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
-import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
-import { CareerGoals } from '../../../api/career/CareerGoalCollection';
-import { Courses } from '../../../api/course/CourseCollection';
-import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
-import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
-import { PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
-import { Feeds } from '../../../api/feed/FeedCollection';
-import { HelpMessages } from '../../../api/help/HelpMessageCollection';
-import { Interests } from '../../../api/interest/InterestCollection';
-import { InterestTypes } from '../../../api/interest/InterestTypeCollection';
-import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';
-import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
-import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
-import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';
-import { Reviews } from '../../../api/review/ReviewCollection';
-import { Slugs } from '../../../api/slug/SlugCollection';
-import { Teasers } from '../../../api/teaser/TeaserCollection';
-import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
-import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
-import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import AdminDataModelMenu, { IAdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
-import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
-import {
-  IDescriptionPair,
-  IFeedbackInstanceDefine, IStudentProfile, IFeedbackInstance,
-} from '../../../typings/radgrad';
-import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
-import { FeedbackInstances } from '../../../api/feedback/FeedbackInstanceCollection';
-import { Users } from '../../../api/user/UserCollection';
-import AddFeedbackInstanceForm from '../../components/admin/datamodel/feedback/AddFeedbackInstanceForm';
-import UpdateFeedbackInstanceForm from '../../components/admin/datamodel/feedback/UpdateFeedbackInstanceForm';
-import { profileNameToUsername } from '../../components/shared/utilities/data-model';
-import BackToTopButton from '../../components/shared/BackToTopButton';
-import { dataModelActions } from '../../../redux/admin/data-model';
-import withInstanceSubscriptions from '../../layouts/utilities/InstanceSubscriptionsHOC';
+import { Users } from '../../../../api/user/UserCollection';
+import { Interests } from '../../../../api/interest/InterestCollection';
+import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
+import { openCloudinaryWidget } from '../../shared/OpenCloudinaryWidget';
+import { updateMethod } from '../../../../api/base/BaseCollection.methods';
+import { IAdvisorOrFacultyProfile, IFavoriteCareerGoal, IFavoriteInterest } from '../../../../typings/radgrad';
+import { AdvisorProfiles } from '../../../../api/user/AdvisorProfileCollection';
 
-const collection = FeedbackInstances; // the collection to use.
-
-/**
- * Returns an array of Description pairs used in the ListCollectionWidget.
- * @param item an item from the collection.
- */
-const descriptionPairs = (item: IFeedbackInstance): IDescriptionPair[] => [
-  { label: 'Student', value: Users.getFullName(item.userID) },
-  { label: 'Function Name', value: item.functionName },
-  { label: 'Description', value: item.description },
-  { label: 'Type', value: item.feedbackType },
-  { label: 'Retired', value: item.retired ? 'True' : 'False' },
-];
-
-/**
- * Returns the title string for the item. Used in the ListCollectionWidget.
- * @param item an item from the collection.
- */
-const itemTitleString = (item: IFeedbackInstance): string => {
-  const username = Users.getProfile(item.userID).username;
-  const feedbackName = item.functionName;
-  return `${username}-${feedbackName}`;
-};
-
-/**
- * Returns the ReactNode used in the ListCollectionWidget. By default we indicate if the item is retired.
- * @param item an item from the collection.
- */
-const itemTitle = (item: IFeedbackInstance): React.ReactNode => (
-  &lt;React.Fragment>
-    {item.retired ? &lt;Icon name="eye slash" /> : ''}
-    &lt;Icon name="dropdown" />
-    {itemTitleString(item)}
-  &lt;/React.Fragment>
-);
-
-interface IAdminDataModelFeedbackInstancesPageProps extends IAdminDataModeMenuProps {
-  items: IFeedbackInstance[];
-  students: IStudentProfile[];
+interface IAdvisorAboutMeWidgetProps {
+  profile: IAdvisorOrFacultyProfile;
+  favoriteInterests: IFavoriteInterest[];
+  favoriteCareerGoals: IFavoriteCareerGoal[];
 }
 
-const AdminDataModelFeedbackInstancesPage: React.FC&lt;IAdminDataModelFeedbackInstancesPageProps> = (props) => {
-  const formRef = React.createRef();
-  const [confirmOpenState, setConfirmOpen] = useState(false);
-  const [idState, setId] = useState('');
-  const [showUpdateFormState, setShowUpdateForm] = useState(false);
+/** The Advisor About Me Widget shows basic information of the specified user. */
+const AdvisorAboutMeWidget: React.FC&lt;IAdvisorAboutMeWidgetProps> = ({ profile, favoriteCareerGoals, favoriteInterests }) => {
 
-  const handleAdd = (doc) => {
-    // console.log('FeedbackInstances.handleAdd(%o)', doc);
-    const collectionName = collection.getCollectionName();
-    const definitionData: IFeedbackInstanceDefine = {
-      user: profileNameToUsername(doc.user),
-      functionName: doc.functionName,
-      description: doc.description,
-      feedbackType: doc.feedbackType,
-      retired: doc.retired,
-    };
-    // console.log(collectionName, doc, definitionData);
-    defineMethod.call({ collectionName, definitionData }, (error) => {
-      if (error) {
-        Swal.fire({
-          title: 'Add failed',
-          text: error.message,
-          icon: 'error',
-        });
-      } else {
-        Swal.fire({
-          title: 'Add succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        // @ts-ignore
-        formRef.current.reset();
-      }
-    });
+  const [websiteState, setWebsite] = useState(profile.website);
+  const [pictureState, setPicture] = useState(profile.picture);
+  const [aboutMeState, setAboutMe] = useState(profile.aboutMe);
+  const { username } = useParams();
+
+  /**
+   * Changes state based on user input.
+   * @param event Details of the Event
+   * @param name Name of the Event
+   * @param value User input
+   */
+  const handleChange = (event, { name, value }) => {
+    switch (name) {
+      case 'website':
+        setWebsite(value);
+        break;
+      case 'picture':
+        setPicture(value);
+        break;
+      case 'aboutMe':
+        setAboutMe(value);
+        break;
+      default:
+      // do nothing.
+    }
   };
 
-  const handleCancel = (event) => {
+  /**
+   * Updates the website of specified user to match the current state.
+   * @param event Details of the event
+   */
+  const handleSubmitWebsite = (event): void => {
     event.preventDefault();
-    setShowUpdateForm(false);
-    setId('');
-    setConfirmOpen(false);
-  };
-
-  const handleDelete = (event, inst) => {
-    event.preventDefault();
-    // console.log('handleDelete inst=%o', inst);
-    setConfirmOpen(true);
-    setId(inst.id);
-  };
-
-  const handleConfirmDelete = () => {
-    const collectionName = collection.getCollectionName();
-    const instance = idState;
-    removeItMethod.call({ collectionName, instance }, (error) => {
-      if (error) {
-        Swal.fire({
-          title: 'Delete failed',
-          text: error.message,
-          icon: 'error',
-        });
-        console.error('Error deleting AcademicTerm. %o', error);
-      } else {
-        Swal.fire({
-          title: 'Delete succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      }
-      setShowUpdateForm(false);
-      setId('');
-      setConfirmOpen(false);
-    });
-  };
-
-  const handleOpenUpdate = (evt, inst) => {
-    evt.preventDefault();
-    // console.log('handleOpenUpdate inst=%o', evt, inst);
-    setShowUpdateForm(true);
-    setId(inst.id);
-  };
-
-  const handleUpdate = (doc) => {
-    // console.log('handleUpdate doc=%o', doc);
-    const collectionName = collection.getCollectionName();
-    const updateData: any = doc;
-    updateData.id = doc._id;
-    updateData.user = profileNameToUsername(doc.user);
-    // console.log(collectionName, updateData);
+    const collectionName = AdvisorProfiles.getCollectionName();
+    const updateData: { id: string; website: string } = { id: profile._id, website: websiteState };
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
         Swal.fire({
-          title: 'Update failed',
+          title: 'Update Failed',
           text: error.message,
           icon: 'error',
         });
-        console.error('Error in updating. %o', error);
       } else {
         Swal.fire({
-          title: 'Update succeeded',
+          title: 'Update Succeeded',
           icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
+          text: 'Your website link has been successfully updated.',
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+          allowEnterKey: false,
         });
-        setShowUpdateForm(false);
-        setId('');
       }
     });
   };
 
-  const paddedStyle = {
-    paddingTop: 20,
+  const handleSubmitAboutMe = (event): void => {
+    event.preventDefault();
+    const collectionName = AdvisorProfiles.getCollectionName();
+    const updateData: { id: string; aboutMe: string } = { id: profile._id, aboutMe: aboutMeState };
+    updateMethod.call({ collectionName, updateData }, (error) => {
+      if (error) {
+        Swal.fire({
+          title: 'Update Failed',
+          text: error.message,
+          icon: 'error',
+        });
+      } else {
+        Swal.fire({
+          title: 'Update Succeeded',
+          icon: 'success',
+          text: 'Your about me has been successfully updated.',
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+          allowEnterKey: false,
+        });
+      }
+    });
   };
-  const findOptions = {
-    sort: { name: 1 }, // determine how you want to sort the items in the list
+
+  /**
+   * Generates the slug for given interest
+   * @param label The interest name of selected interest
+   * @returns string Slug of specified interest
+   */
+  const generateInterestRoute = (label) => {
+    label = label.toString().toLowerCase().split(' ').join('-'); // eslint-disable-line no-param-reassign
+    // example url /advisor/binsted@hawaii.edu/explorer/interests/artificial-intelligence
+    const explorePath = [profile.role.toLowerCase(), username,
+      'explorer', 'interests', label];
+    let exploreRoute = explorePath.join('/');
+    exploreRoute = `/${exploreRoute}`;
+    return (exploreRoute);
   };
+
+  /**
+   * Generates the slug for the given career goal
+   * @param label The name of the selected career goal
+   * @returns string Slug of specified career goal
+   */
+  const generateCareerGoalsRoute = (label) => {
+    label = label.toString().toLowerCase().split(' ').join('-'); // eslint-disable-line no-param-reassign
+    // example url /faculty/binsted@hawaii.edu/explorer/interests/mobile-app-developer
+    const explorePath = [profile.role.toLowerCase(), username,
+      'explorer', 'career-goals', label];
+    let exploreRoute = explorePath.join('/');
+    exploreRoute = `/${exploreRoute}`;
+    return (exploreRoute);
+  };
+
+  const handleUploadPicture = async (e): Promise&lt;void> => {
+    e.preventDefault();
+    const collectionName = AdvisorProfiles.getCollectionName();
+    try {
+      const cloudinaryResult = await openCloudinaryWidget();
+      if (cloudinaryResult.event === 'success') {
+        const updateData: { id: string; picture: string; } = { id: profile._id, picture: cloudinaryResult.info.url };
+        updateMethod.call({ collectionName, updateData }, (error) => {
+          if (error) {
+            Swal.fire({
+              title: 'Update Failed',
+              text: error.message,
+              icon: 'error',
+            });
+          } else {
+            setPicture(cloudinaryResult.info.url);
+            Swal.fire({
+              title: 'Update Succeeded',
+              icon: 'success',
+              text: 'Your picture has been successfully updated.',
+              allowOutsideClick: false,
+              allowEscapeKey: false,
+              allowEnterKey: false,
+            });
+          }
+        });
+      }
+    } catch (error) {
+      Swal.fire({
+        title: 'Failed to Upload Photo',
+        icon: 'error',
+        text: error.statusText,
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false,
+      });
+    }
+  };
+
+  const marginStyle = {
+    marginBottom: 0,
+  };
+
+  // get the career goal IDs based on the userID
+  const advisorCareerGoalsIDs = _.map(favoriteCareerGoals, (fav) => fav.careerGoalID);
+  // map the career goal IDs to their names
+  const advisorCareerGoals = _.map(advisorCareerGoalsIDs, (id) => CareerGoals.findDoc(id).name);
+  // get the interest goal IDs based on the User ID
+  const advisorInterestIDs = _.map(favoriteInterests, (fav) => fav.interestID);
+  // map the interests IDs to their names
+  const advisorInterests = _.map(advisorInterestIDs, (id) => Interests.findDoc(id).name);
+  // M: should make it so that you reference the doc and then the name rather than the doc directly
+  // gets the url from the faculty profile's information
+  // url is made up of: role/username/explorer/CareerOrInterests
+  const explorePath = [profile.role.toLowerCase(), username, 'explorer', 'interests'];
+  let exploreRoute = explorePath.join('/');
+  exploreRoute = `/${exploreRoute}`;
+  // url for career path explorer
+  const careerPath = [profile.role.toLowerCase(), username, 'explorer', 'career-goals'];
+  let careerRoute = careerPath.join('/');
+  careerRoute = `/${careerRoute}`;
+
   return (
-    &lt;div id="data-model-feedback-instances-page">
-      &lt;AdminPageMenuWidget />
-      &lt;Grid container stackable style={paddedStyle}>
-
-        &lt;Grid.Column width={3}>
-          &lt;AdminDataModelMenu {...props} />
+    &lt;Segment>
+      &lt;Grid>
+        &lt;Grid.Row>
+          &lt;Grid.Column>
+            &lt;Header as="h3" dividing textAlign="left">Profile&lt;/Header>
+          &lt;/Grid.Column>
+        &lt;/Grid.Row>
+        &lt;Grid.Row>
+          &lt;Grid.Column floated="left" width={2}>
+            &lt;Header as="h5" textAlign="left">Name&lt;/Header>
+          &lt;/Grid.Column>
+          &lt;Grid.Column floated="left" width={6}>
+            &lt;Header as="h5" textAlign="left">{Users.getFullName(profile.userID)}&lt;/Header>
+          &lt;/Grid.Column>
+          &lt;Grid.Column floated="left" width={2}>
+            &lt;Header as="h5" textAlign="left">Email&lt;/Header>
+          &lt;/Grid.Column>
+          &lt;Grid.Column floated="left" width={6}>
+            &lt;Header as="h5" textAlign="left">{username}&lt;/Header>
+          &lt;/Grid.Column>
+        &lt;/Grid.Row>
+        &lt;Grid.Row>
+          &lt;Grid.Column floated="left" width={2}>
+            &lt;Header as="h5" textAlign="left">Interests&lt;/Header>
+          &lt;/Grid.Column>
+          &lt;Grid.Column floated="left" width={6}>
+            &lt;Grid>
+              &lt;Grid.Row divided textAlign="left">
+                &lt;Label.Group>
+                  {
+                    advisorInterests.length > 0 ? (
+                      _.map(advisorInterests, (interests, index) => (
+                        &lt;Label
+                          size="small"
+                          key={index}
+                          as={NavLink}
+                          exact
+                          to={generateInterestRoute(interests)}
+                        >
+                          &lt;Icon
+                            name="star"
+                          />
+                          {interests}
+                        &lt;/Label>
+                      ))
+                    )
+                      : &lt;p style={marginStyle}>No interests favorited yet.&lt;/p>
+                  }
+                &lt;/Label.Group>
+              &lt;/Grid.Row>
+              &lt;Link to={exploreRoute}>Edit in Interest Explorer&lt;/Link>
+            &lt;/Grid>
+          &lt;/Grid.Column>
+          &lt;Grid.Column floated="left" width={2}>
+            &lt;Header as="h5" textAlign="left">Career Goals&lt;/Header>
+          &lt;/Grid.Column>
+          &lt;Grid.Column floated="left" width={6}>
+            &lt;Grid>
+              &lt;Grid.Row divided textAlign="left">
+                &lt;Label.Group>
+                  {
+                    advisorCareerGoals.length > 0 ? (
+                      _.map(advisorCareerGoals, (careerGoals, index) => (
+                        &lt;Label
+                          size="small"
+                          key={index}
+                          as={NavLink}
+                          exact
+                          to={generateCareerGoalsRoute(careerGoals)}
+                        >
+                          &lt;Icon name="suitcase" /> {careerGoals}
+                        &lt;/Label>
+                      ))
+                    )
+                      : &lt;p style={marginStyle}>No career goals favorited yet.&lt;/p>
+                  }
+                &lt;/Label.Group>
+              &lt;/Grid.Row>
+              &lt;Link to={careerRoute}>Edit in Career Goal Explorer&lt;/Link>
+            &lt;/Grid>
+          &lt;/Grid.Column>
+        &lt;/Grid.Row>
+        &lt;Grid.Row>
+          &lt;Grid.Column floated="left" width={2}>
+            &lt;Header as="h5" textAlign="left">Website&lt;/Header>
+          &lt;/Grid.Column>
+          &lt;Grid.Column floated="left" width={6}>
+            &lt;Form onSubmit={handleSubmitWebsite}>
+              &lt;Form.Group>
+                &lt;Form.Input
+                  name="website"
+                  onChange={handleChange}
+                  value={websiteState}
+                />
+                &lt;Form.Button basic color="green">Update&lt;/Form.Button>
+              &lt;/Form.Group>
+            &lt;/Form>
+          &lt;/Grid.Column>
+          &lt;Grid.Column floated="left" width={2}>
+            &lt;Header as="h5" textAlign="left">Picture&lt;/Header>
+          &lt;/Grid.Column>
+          &lt;Grid.Column floated="left" width={6}>
+            &lt;Form onSubmit={handleUploadPicture}>
+              &lt;Form.Group>
+                &lt;Form.Input
+                  name="picture"
+                  onChange={handleChange}
+                  value={pictureState}
+                />
+                &lt;Form.Button basic color="green">Upload&lt;/Form.Button>
+              &lt;/Form.Group>
+            &lt;/Form>
+          &lt;/Grid.Column>
+        &lt;/Grid.Row>
+        &lt;Grid.Column floated="left" width={2}>
+          &lt;Header as="h5" textAlign="left">About Me&lt;/Header>
         &lt;/Grid.Column>
-
-        &lt;Grid.Column width={13}>
-          {showUpdateFormState ? (
-            &lt;UpdateFeedbackInstanceForm
-              collection={collection}
-              id={idState}
-              formRef={formRef}
-              handleUpdate={handleUpdate}
-              handleCancel={handleCancel}
-              itemTitleString={itemTitleString}
-              students={props.students}
-            />
-          ) : (
-            &lt;AddFeedbackInstanceForm
-              formRef={formRef}
-              handleAdd={handleAdd}
-              students={props.students}
-            />
-          )}
-          &lt;ListCollectionWidget
-            collection={collection}
-            findOptions={findOptions}
-            descriptionPairs={descriptionPairs}
-            itemTitle={itemTitle}
-            handleOpenUpdate={handleOpenUpdate}
-            handleDelete={handleDelete}
-            setShowIndex={dataModelActions.setCollectionShowIndex}
-            setShowCount={dataModelActions.setCollectionShowCount}
-            items={props.items}
-          />
+        &lt;Grid.Column floated="left" width={14}>
+          &lt;Form onSubmit={handleSubmitAboutMe}>
+            &lt;Form.Group>
+              &lt;Form.TextArea
+                name="aboutMe"
+                onChange={handleChange}
+                value={aboutMeState}
+              />
+              &lt;Form.Button basic color="green">Update&lt;/Form.Button>
+            &lt;/Form.Group>
+          &lt;/Form>
         &lt;/Grid.Column>
+        &lt;Grid.Row />
       &lt;/Grid>
-      &lt;Confirm
-        open={confirmOpenState}
-        onCancel={handleCancel}
-        onConfirm={handleConfirmDelete}
-        header="Delete Feedback Instance?"
-      />
-
-      &lt;BackToTopButton />
-    &lt;/div>
+    &lt;/Segment>
   );
 };
 
-const AdminDataModelFeedbackInstancesPageContainer = withTracker(() => ({
-  academicPlanCount: AcademicPlans.count(),
-  academicTermCount: AcademicTerms.count(),
-  academicYearCount: AcademicYearInstances.count(),
-  advisorLogCount: AdvisorLogs.count(),
-  careerGoalCount: CareerGoals.count(),
-  courseInstanceCount: CourseInstances.count(),
-  courseCount: Courses.count(),
-  feedCount: Feeds.count(),
-  feedbackCount: FeedbackInstances.count(),
-  helpMessageCount: HelpMessages.count(),
-  interestCount: Interests.count(),
-  interestTypeCount: InterestTypes.count(),
-  opportunityCount: Opportunities.count(),
-  opportunityInstanceCount: OpportunityInstances.count(),
-  opportunityTypeCount: OpportunityTypes.count(),
-  planChoiceCount: PlanChoices.count(),
-  reviewCount: Reviews.count(),
-  slugCount: Slugs.count(),
-  teaserCount: Teasers.count(),
-  usersCount: Users.count(),
-  verificationRequestCount: VerificationRequests.count(),
-  items: FeedbackInstances.find({}).fetch(),
-  students: StudentProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch(),
-}))(AdminDataModelFeedbackInstancesPage);
-
-export default withInstanceSubscriptions(AdminDataModelFeedbackInstancesPageContainer);
+export default AdvisorAboutMeWidget;
 </code></pre>
         </article>
     </section>
