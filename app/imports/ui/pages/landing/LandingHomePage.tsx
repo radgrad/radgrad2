@@ -12,6 +12,10 @@ import LandingSection9Container from '../../components/landing/LandingSection9';
 import LandingFooter from '../../components/landing/LandingFooter';
 import { withListSubscriptions } from '../../layouts/utilities/SubscriptionListHOC';
 import BackToTopButton from '../../components/shared/BackToTopButton';
+import { AdminProfiles } from '../../../api/user/AdminProfileCollection';
+import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
+import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
+import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 
 interface ILandingHomeProps {
   careerGoals: string;
@@ -46,9 +50,7 @@ const LandingHomePage: React.FC<ILandingHomeProps> = ({ currentUser, opportuniti
   </div>
 );
 
-const WithSubs = withListSubscriptions(LandingHomePage, [PublicStats.getPublicationName()]);
-
-/** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
+/* withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 const LandingHomeContainer =
   withTracker(() => {
     let role;
@@ -79,6 +81,6 @@ const LandingHomeContainer =
       opportunities: PublicStats.getPublicStat(PublicStats.opportunitiesTotalKey),
       users: PublicStats.getPublicStat(PublicStats.usersTotalKey),
     };
-  })(WithSubs);
+  })(LandingHomePage);
 
-export default LandingHomeContainer;
+export default withListSubscriptions(LandingHomeContainer, [PublicStats.getPublicationName(), Users.getPublicationName(), AdminProfiles.getPublicationName(), AdvisorProfiles.getPublicationName(), FacultyProfiles.getPublicationName(), StudentProfiles.getPublicationName()]);

@@ -8,6 +8,7 @@ interface ILoading {
 }
 
 export function withListSubscriptions(WrappedComponent, subscriptionNames: string[]) {
+  // console.log(subscriptionNames);
   // cacheLimit default is 10, so increased to handle all our subscriptions.
   // expireLimit set to 30 minutes because: why not.
   const localSubs = new SubsManager({ cacheLimit: subscriptionNames.length, expireIn: 30 });
