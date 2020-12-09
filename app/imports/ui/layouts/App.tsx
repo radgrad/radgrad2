@@ -26,7 +26,7 @@ window.addEventListener('storage', function (event) {
 });
 
 /* Top-level layout component for this application. Called in imports/startup/client/startup.tsx. */
-const App = () => (
+const App: React.FC = () => (
   <Router>
     <Switch>
       {routes.LANDING.map((route) => (
@@ -63,7 +63,6 @@ const App = () => (
  * Checks for Meteor login before routing to the requested page, otherwise goes to signin page.
  * @param {any} { component: Component, ...rest }
  */
-// eslint-disable-next-line react/prop-types
 const ProtectedRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
@@ -88,7 +87,7 @@ const AdminProtectedRoute = ({ component: Component, ...rest }) => {
   if (_.isNil(Meteor.userId())) {
     return (<Redirect to={{ pathname: '/', state: { from: rest.location } }} />);
   }
-  const WrappedComponent = withInstanceSubscriptions(Component);
+  const WrappedComponent = withInstanceSubscriptions(withGlobalSubscription(Component));
   return (
     <Route
       {...rest}
@@ -110,7 +109,7 @@ const AdvisorProtectedRoute = ({ component: Component, ...rest }) => {
   if (_.isNil(Meteor.userId())) {
     return (<Redirect to={{ pathname: '/', state: { from: rest.location } }} />);
   }
-  const WrappedComponent = withInstanceSubscriptions(Component);
+  const WrappedComponent = withInstanceSubscriptions(withGlobalSubscription(Component));
   return (
     <Route
       {...rest}
@@ -131,7 +130,7 @@ const FacultyProtectedRoute = ({ component: Component, ...rest }) => {
   if (_.isNil(Meteor.userId())) {
     return (<Redirect to={{ pathname: '/', state: { from: rest.location } }} />);
   }
-  const WrappedComponent = withInstanceSubscriptions(Component);
+  const WrappedComponent = withInstanceSubscriptions(withGlobalSubscription(Component));
   return (
     <Route
       {...rest}
@@ -152,7 +151,7 @@ const StudentProtectedRoute = ({ component: Component, ...rest }) => {
   if (_.isNil(Meteor.userId())) {
     return (<Redirect to={{ pathname: '/', state: { from: rest.location } }} />);
   }
-  const ComponentWithSubscriptions = withInstanceSubscriptions(Component);
+  const ComponentWithSubscriptions = withInstanceSubscriptions(withGlobalSubscription(Component));
   const isStudent = Roles.userIsInRole(Meteor.userId(), ROLE.STUDENT);
   // Because ROLE.ADMIN and ROLE.ADVISOR are allowed to go to StudentProtectedRoutes, they can trigger the
   // userInteractionDefineMethod.call() inside of withHistoryListen. Since we only want to track the pageViews of
@@ -167,11 +166,9 @@ const StudentProtectedRoute = ({ component: Component, ...rest }) => {
         const userId = Meteor.userId();
         const isLogged = userId !== null;
         if (!isLogged) {
-          // eslint-disable-next-line react/prop-types
           return (<Redirect to={{ pathname: '/', state: { from: props.location } }} />);
         }
         let isAllowed = Roles.userIsInRole(userId, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.STUDENT]);
-        // eslint-disable-next-line react/prop-types
         const routeUsername = getUsername(props.match);
         const loggedInUserName = Users.getProfile(userId).username;
         if (isStudent) {
@@ -185,4 +182,4 @@ const StudentProtectedRoute = ({ component: Component, ...rest }) => {
   );
 };
 
-export default withGlobalSubscription(App);
+export default App;
