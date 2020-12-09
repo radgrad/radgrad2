@@ -18,7 +18,7 @@ interface IFacultyPageAboutMeWidgetProps {
 }
 
 /** The Faculty About Me Widget shows basic information of the specified user. */
-const FacultyPageAboutMeWidget: React.FC<IFacultyPageAboutMeWidgetProps> = ({ profile, favoriteCareerGoals, favoriteInterests }) => {
+const FacultyAboutMeWidget: React.FC<IFacultyPageAboutMeWidgetProps> = ({ profile, favoriteCareerGoals, favoriteInterests }) => {
   const [websiteState, setWebsite] = useState(profile.website);
   const [pictureState, setPicture] = useState(profile.picture);
   const [aboutMeState, setAboutMe] = useState(profile.aboutMe);
@@ -326,4 +326,4 @@ const FacultyPageAboutMeWidget: React.FC<IFacultyPageAboutMeWidgetProps> = ({ pr
   );
 };
 
-export default FacultyPageAboutMeWidget;
+export default FacultyAboutMeWidget;

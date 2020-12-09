@@ -25,6 +25,8 @@ import {
   createPageInterestData,
   getCollectionName,
 } from './utilities/favorites-button';
+import { Users } from '../../../../../api/user/UserCollection';
+import { ROLE } from '../../../../../api/role/Role';
 
 export interface IFavoriteButtonProps {
   item: IAcademicPlan | ICareerGoal | ICourse | IInterest | IOpportunity;
@@ -60,12 +62,15 @@ const handleAdd = (props: IFavoriteButtonProps) => () => {
           console.error('Error creating UserInteraction.', userInteractionError);
         }
       });
-      const pageInterestData: IPageInterestDefine = createPageInterestData(props);
-      pageInterestDefineMethod.call(pageInterestData, (pageInterestError) => {
-        if (pageInterestError) {
-          console.error('Error creating PageInterest.', pageInterestError);
-        }
-      });
+      const isStudent = Users.getProfile(props.studentID).role === ROLE.STUDENT;
+      if (isStudent) {
+        const pageInterestData: IPageInterestDefine = createPageInterestData(props);
+        pageInterestDefineMethod.call(pageInterestData, (pageInterestError) => {
+          if (pageInterestError) {
+            console.error('Error creating PageInterest.', pageInterestError);
+          }
+        });
+      }
     }
   });
 };

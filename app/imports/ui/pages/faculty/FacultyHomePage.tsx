@@ -5,7 +5,7 @@ import { Grid } from 'semantic-ui-react';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
-import FacultyPageAboutMeWidget from '../../components/faculty/home/FacultyPageAboutMeWidget';
+import FacultyAboutMeWidget from '../../components/faculty/home/FacultyAboutMeWidget';
 import {
   IAdvisorOrFacultyProfile,
   IFavoriteCareerGoal,
@@ -36,7 +36,7 @@ const FacultyHomePage: React.FC<IFacultyHomePageProps> = ({ profile, helpMessage
       <Grid.Row>
         <Grid.Column width={1} />
         <Grid.Column width={14}>
-          <FacultyPageAboutMeWidget
+          <FacultyAboutMeWidget
             profile={profile}
             favoriteInterests={favoriteInterests}
             favoriteCareerGoals={favoriteCareerGoals}
