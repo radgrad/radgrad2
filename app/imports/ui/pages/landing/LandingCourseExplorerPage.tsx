@@ -94,13 +94,6 @@ const LandingCourseExplorerPage: React.FC<ICourseExplorerProps> = ({ helpMessage
   );
 };
 
-const WithSubs = withListSubscriptions(LandingCourseExplorerPage, [
-  Courses.getPublicationName(),
-  Slugs.getPublicationName(),
-  Interests.getPublicationName(),
-  HelpMessages.getPublicationName(),
-]);
-
 const LandingCourseExplorerContainer = withTracker(() => {
   const { course } = useParams();
   const id = Slugs.getEntityID(course, 'Course');
@@ -109,6 +102,11 @@ const LandingCourseExplorerContainer = withTracker(() => {
     course: Courses.findDoc(id),
     helpMessages,
   };
-})(WithSubs);
+})(LandingCourseExplorerPage);
 
-export default LandingCourseExplorerContainer;
+export default withListSubscriptions(LandingCourseExplorerContainer, [
+  Courses.getPublicationName(),
+  Slugs.getPublicationName(),
+  Interests.getPublicationName(),
+  HelpMessages.getPublicationName(),
+]);

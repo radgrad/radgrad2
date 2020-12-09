@@ -63,13 +63,6 @@ const LandingCareerGoalExplorerPage: React.FC<ICareerGoalExplorerProps> = ({ car
   );
 };
 
-const WithSubs = withListSubscriptions(LandingCareerGoalExplorerPage, [
-  CareerGoals.getPublicationName(),
-  Slugs.getPublicationName(),
-  Interests.getPublicationName(),
-  HelpMessages.getPublicationName(),
-]);
-
 const LandingCareerGoalExplorerContainer = withTracker(() => {
   const { careergoal } = useParams();
   // console.log(Slugs.find().fetch());
@@ -78,6 +71,11 @@ const LandingCareerGoalExplorerContainer = withTracker(() => {
     careerGoal: CareerGoals.findDoc(id),
     currentUser: Meteor.user() ? Meteor.user().username : '',
   };
-})(WithSubs);
+})(LandingCareerGoalExplorerPage);
 
-export default LandingCareerGoalExplorerContainer;
+export default withListSubscriptions(LandingCareerGoalExplorerContainer, [
+  CareerGoals.getPublicationName(),
+  Slugs.getPublicationName(),
+  Interests.getPublicationName(),
+  HelpMessages.getPublicationName(),
+]);

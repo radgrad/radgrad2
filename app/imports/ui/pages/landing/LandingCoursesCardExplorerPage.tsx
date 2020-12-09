@@ -44,8 +44,8 @@ const LandingCoursesCardExplorerPage: React.FC<ICoursesCardExplorerProps> = ({ c
                 <span>COURSES</span> ({count})
               </Header>
               <Card.Group stackable itemsPerRow={2} style={inlineStyle}>
-                {courses.map((goal) => (
-                  <LandingExplorerCardContainer key={goal._id} type="courses" item={goal} />
+                {courses.map((course) => (
+                  <LandingExplorerCardContainer key={course._id} type="courses" item={course} />
                 ))}
               </Card.Group>
             </Segment>
@@ -59,15 +59,13 @@ const LandingCoursesCardExplorerPage: React.FC<ICoursesCardExplorerProps> = ({ c
   );
 };
 
-const WithSubs = withListSubscriptions(LandingCoursesCardExplorerPage, [
-  Courses.getPublicationName(),
-  HelpMessages.getPublicationName(),
-]);
-
 const LandingCoursesCardExplorerContainer = withTracker(() => ({
   courses: Courses.findNonRetired({}, { sort: { shortName: 1 } }),
   count: Courses.countNonRetired(),
   helpMessages: HelpMessages.findNonRetired({}),
-}))(WithSubs);
+}))(LandingCoursesCardExplorerPage);
 
-export default LandingCoursesCardExplorerContainer;
+export default withListSubscriptions(LandingCoursesCardExplorerContainer, [
+  Courses.getPublicationName(),
+  HelpMessages.getPublicationName(),
+]);

@@ -63,11 +63,6 @@ const LandingAcademicPlanExplorerPage: React.FC<IAcademicPlanExplorerProps> = ({
   );
 };
 
-const WithSubs = withListSubscriptions(LandingAcademicPlanExplorerPage, [
-  AcademicPlans.getPublicationName(),
-  Slugs.getPublicationName(),
-]);
-
 const LandingAcademicPlanExplorerContainer = withTracker(() => {
   const { plan } = useParams();
   // console.log(Slugs.find().fetch());
@@ -77,6 +72,9 @@ const LandingAcademicPlanExplorerContainer = withTracker(() => {
     plan: AcademicPlans.findDoc(id),
     helpMessages,
   };
-})(WithSubs);
+})(LandingAcademicPlanExplorerPage);
 
-export default LandingAcademicPlanExplorerContainer;
+export default withListSubscriptions(LandingAcademicPlanExplorerContainer, [
+  AcademicPlans.getPublicationName(),
+  Slugs.getPublicationName(),
+]);

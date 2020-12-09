@@ -61,17 +61,15 @@ const LandingCareerGoalsCardExplorerPage: React.FC<ICareerGoalsCardExplorerProps
   );
 };
 
-const WithSubs = withListSubscriptions(LandingCareerGoalsCardExplorerPage, [
+const LandingCareerGoalsCardExplorerContainer = withTracker(() => ({
+  careerGoals: CareerGoals.findNonRetired({}),
+  count: CareerGoals.countNonRetired(),
+  helpMessages: HelpMessages.findNonRetired({}),
+}))(LandingCareerGoalsCardExplorerPage);
+
+export default withListSubscriptions(LandingCareerGoalsCardExplorerContainer, [
   CareerGoals.getPublicationName(),
   Slugs.getPublicationName(),
   Interests.getPublicationName(),
   HelpMessages.getPublicationName(),
 ]);
-
-const LandingCareerGoalsCardExplorerContainer = withTracker(() => ({
-  careerGoals: CareerGoals.findNonRetired({}),
-  count: CareerGoals.countNonRetired(),
-  helpMessages: HelpMessages.findNonRetired({}),
-}))(WithSubs);
-
-export default LandingCareerGoalsCardExplorerContainer;

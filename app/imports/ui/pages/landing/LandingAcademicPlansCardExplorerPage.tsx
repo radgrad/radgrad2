@@ -1,5 +1,4 @@
 import React from 'react';
-import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Card, Grid, Header, Segment } from 'semantic-ui-react';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
@@ -60,17 +59,19 @@ const LandingAcademicPlansCardExplorerPage: React.FC<IAcademicPlansCardExplorerP
   );
 };
 
-const WithSubs = withListSubscriptions(LandingAcademicPlansCardExplorerPage, [
+const LandingAcademicPlansCardExplorerContainer = withTracker(() => {
+  const academicPlans = AcademicPlans.findNonRetired({}, { $sort: { year: 1, name: 1 } });
+  const count = AcademicPlans.countNonRetired();
+  const helpMessages = HelpMessages.findNonRetired({});
+  return {
+    academicPlans,
+    count,
+    helpMessages,
+  };
+})(LandingAcademicPlansCardExplorerPage);
+
+export default withListSubscriptions(LandingAcademicPlansCardExplorerContainer, [
   AcademicPlans.getPublicationName(),
   Slugs.getPublicationName(),
   HelpMessages.getPublicationName(),
 ]);
-
-const LandingAcademicPlansCardExplorerContainer = withTracker(() => ({
-  academicPlans: AcademicPlans.findNonRetired({}, { $sort: { year: 1, name: 1 } }),
-  count: AcademicPlans.countNonRetired(),
-  currentUser: Meteor.user() ? Meteor.user().username : '',
-  helpMessages: HelpMessages.findNonRetired({}),
-}))(WithSubs);
-
-export default LandingAcademicPlansCardExplorerContainer;

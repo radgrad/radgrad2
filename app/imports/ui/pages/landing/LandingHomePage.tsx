@@ -18,29 +18,29 @@ import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 
 interface ILandingHomeProps {
-  careerGoals: string;
-  interests: string;
-  opportunities: string;
-  users: string;
-  currentUser: string;
+  numCareerGoals: string;
+  numInterests: string;
+  numOpportunities: string;
+  numUsers: string;
+  currentUsername: string;
   iconName: string;
   role: string;
 }
 
 /** A simple static component to render some text for the landing page. */
-const LandingHomePage: React.FC<ILandingHomeProps> = ({ currentUser, opportunities, interests, careerGoals, users, role, iconName }) => (
+const LandingHomePage: React.FC<ILandingHomeProps> = ({ currentUsername, numOpportunities, numInterests, numCareerGoals, numUsers, role, iconName }) => (
   <div id="landing-page">
     <LandingNavBar
-      currentUser={currentUser}
+      currentUser={currentUsername}
       iconName={iconName}
       role={role}
     />
     <LandingSection1 />
     <LandingSection2
-      careerGoals={careerGoals}
-      interests={interests}
-      opportunities={opportunities}
-      users={users}
+      careerGoals={numCareerGoals}
+      interests={numInterests}
+      opportunities={numOpportunities}
+      users={numUsers}
     />
     <LandingSection3 />
     <LandingSection9Container />
@@ -72,15 +72,28 @@ const LandingHomeContainer =
         role = 'student';
       }
     }
+    const currentUsername = Meteor.user() ? Meteor.user().username : '';
+    const iconName = (role === 'admin') ? 'user plus' : 'user';
+    const numCareerGoals = PublicStats.getPublicStat(PublicStats.careerGoalsTotalKey);
+    const numInterest = PublicStats.getPublicStat(PublicStats.interestsTotalKey);
+    const numOpportunities = PublicStats.getPublicStat(PublicStats.opportunitiesTotalKey);
+    const numUsers = PublicStats.getPublicStat(PublicStats.usersTotalKey);
     return {
-      currentUser: Meteor.user() ? Meteor.user().username : '',
-      iconName: (role === 'admin') ? 'user plus' : 'user',
+      currentUsername,
+      iconName,
       role,
-      careerGoals: PublicStats.getPublicStat(PublicStats.careerGoalsTotalKey),
-      interests: PublicStats.getPublicStat(PublicStats.interestsTotalKey),
-      opportunities: PublicStats.getPublicStat(PublicStats.opportunitiesTotalKey),
-      users: PublicStats.getPublicStat(PublicStats.usersTotalKey),
+      numCareerGoals,
+      numInterest,
+      numOpportunities,
+      numUsers,
     };
   })(LandingHomePage);
 
-export default withListSubscriptions(LandingHomeContainer, [PublicStats.getPublicationName(), Users.getPublicationName(), AdminProfiles.getPublicationName(), AdvisorProfiles.getPublicationName(), FacultyProfiles.getPublicationName(), StudentProfiles.getPublicationName()]);
+export default withListSubscriptions(LandingHomeContainer, [
+  PublicStats.getPublicationName(),
+  Users.getPublicationName(),
+  AdminProfiles.getPublicationName(),
+  AdvisorProfiles.getPublicationName(),
+  FacultyProfiles.getPublicationName(),
+  StudentProfiles.getPublicationName(),
+]);
