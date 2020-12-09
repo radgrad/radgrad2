@@ -19,6 +19,7 @@ interface IAdvisorAboutMeWidgetProps {
 
 /** The Advisor About Me Widget shows basic information of the specified user. */
 const AdvisorAboutMeWidget: React.FC<IAdvisorAboutMeWidgetProps> = ({ profile, favoriteCareerGoals, favoriteInterests }) => {
+
   const [websiteState, setWebsite] = useState(profile.website);
   const [pictureState, setPicture] = useState(profile.picture);
   const [aboutMeState, setAboutMe] = useState(profile.aboutMe);
