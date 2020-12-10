@@ -46,7 +46,6 @@ const active = (selectedTab) => {
 };
 
 const TabbedFavoritesWidget: React.FC<ITabbedFavoritesWidgetProps> = ({ takenSlugs, academicPlans, selectedTab, selectFavoriteCoursesTab, selectFavoriteDetailsTab, selectFavoriteOpportunitiesTab, selectFavoritePlansTab }) => {
-  console.log(academicPlans, takenSlugs);
   const handleTabChange = (event, instance) => {
     const { activeIndex } = instance;
     event.preventDefault();

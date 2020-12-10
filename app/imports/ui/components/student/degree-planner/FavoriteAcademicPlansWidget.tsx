@@ -18,7 +18,6 @@ interface IFavoriteAcademicPlansWidgetProps {
 const getPlan = (planName: string, plans: IAcademicPlan[]) => _.find(plans, (p) => p.name === planName);
 
 const FavoriteAcademicPlansWidget: React.FC<IFavoriteAcademicPlansWidgetProps> = ({ plans, takenSlugs }) => {
-  console.log({ plans, takenSlugs });
   const match = useRouteMatch();
   let plan;
   if (plans.length > 0) {
