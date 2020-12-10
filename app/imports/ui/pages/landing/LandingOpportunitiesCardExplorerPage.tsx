@@ -8,7 +8,7 @@ import { IHelpMessage, IOpportunity } from '../../../typings/radgrad';
 import LandingExplorerCardContainer from '../../components/landing/explorer/LandingExplorerCard';
 import LandingExplorerMenuContainer from '../../components/landing/explorer/LandingExplorerMenu';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
-import { withListSubscriptions } from '../../layouts/utilities/SubscriptionListHOC';
+import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
 
 interface IOpportunitiesCardExplorerProps {
   opportunities: IOpportunity[];

@@ -23,7 +23,7 @@ import { Interests } from '../../../api/interest/InterestCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
-import { withListSubscriptions } from '../../layouts/utilities/SubscriptionListHOC';
+import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
 import AddOpportunityForm from '../../components/admin/datamodel/opportunity/AddOpportunityForm';
 import UpdateOpportunityForm from '../../components/admin/datamodel/opportunity/UpdateOpportunityForm';
 import {

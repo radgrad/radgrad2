@@ -10,12 +10,7 @@ import LandingSection2 from '../../components/landing/LandingSection2';
 import LandingSection3 from '../../components/landing/LandingSection3';
 import LandingSection9Container from '../../components/landing/LandingSection9';
 import LandingFooter from '../../components/landing/LandingFooter';
-import { withListSubscriptions } from '../../layouts/utilities/SubscriptionListHOC';
 import BackToTopButton from '../../components/shared/BackToTopButton';
-import { AdminProfiles } from '../../../api/user/AdminProfileCollection';
-import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
-import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
-import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 
 interface ILandingHomeProps {
   numCareerGoals: string;
@@ -54,6 +49,7 @@ const LandingHomePage: React.FC<ILandingHomeProps> = ({ currentUsername, numOppo
 const LandingHomeContainer =
   withTracker(() => {
     let role;
+    // console.log('withTracker');
     if (Meteor.userId()) {
       const profile = Users.getProfile(Meteor.userId());
       if (profile.role === ROLE.ADMIN) {
@@ -89,11 +85,4 @@ const LandingHomeContainer =
     };
   })(LandingHomePage);
 
-export default withListSubscriptions(LandingHomeContainer, [
-  PublicStats.getPublicationName(),
-  Users.getPublicationName(),
-  AdminProfiles.getPublicationName(),
-  AdvisorProfiles.getPublicationName(),
-  FacultyProfiles.getPublicationName(),
-  StudentProfiles.getPublicationName(),
-]);
+export default LandingHomeContainer;

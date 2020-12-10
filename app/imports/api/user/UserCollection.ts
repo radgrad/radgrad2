@@ -156,6 +156,7 @@ class UserCollection {
     if (!userDoc) {
       console.error('Error: user is not defined: ', user);
     }
+    console.log(userDoc);
     return userDoc._id;
   }
 

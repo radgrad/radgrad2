@@ -9,7 +9,7 @@ import LandingExplorerCardContainer from '../../components/landing/explorer/Land
 import LandingExplorerMenuContainer from '../../components/landing/explorer/LandingExplorerMenu';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
-import { withListSubscriptions } from '../../layouts/utilities/SubscriptionListHOC';
+import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
 
 interface IInterestsCardExplorerProps {
   interests: IInterest[];

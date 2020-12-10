@@ -10,7 +10,7 @@ import LandingExplorerMenuContainer from '../../components/landing/explorer/Land
 import LandingAcademicPlanCardContainer from '../../components/landing/explorer/LandingAcademicPlanCard';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
-import { withListSubscriptions } from '../../layouts/utilities/SubscriptionListHOC';
+import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
 
 interface IAcademicPlansCardExplorerProps {
   academicPlans: IAcademicPlan[];

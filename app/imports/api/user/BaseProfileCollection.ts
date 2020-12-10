@@ -87,6 +87,7 @@ class BaseProfileCollection extends BaseSlugCollection {
     let id;
     // If we've been passed a document, check to see if it has an _id field and use that if available.
     if (_.isObject(instance) && _.has(instance, '_id')) {
+      // @ts-ignore
       instance = instance._id; // eslint-disable-line no-param-reassign, dot-notation
     }
     // If instance is the value of the username field for some document in the collection, then return its ID.
@@ -116,6 +117,7 @@ class BaseProfileCollection extends BaseSlugCollection {
    */
   public getProfile(user) {
     const userID = Users.getID(user);
+    // console.log(userID, this.collection.find().fetch());
     const doc = this.collection.findOne({ userID });
     if (!doc) {
       throw new Meteor.Error(`No profile found for user ${user}`);
@@ -140,6 +142,7 @@ class BaseProfileCollection extends BaseSlugCollection {
    */
   public hasProfile(user) {
     const userID = Users.getID(user);
+    // console.log(userID, this.collection.find().fetch());
     return this.collection.findOne({ userID });
   }
 

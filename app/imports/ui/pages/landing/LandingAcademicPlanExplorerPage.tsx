@@ -9,7 +9,7 @@ import LandingExplorerMenuBar from '../../components/landing/explorer/LandingExp
 import { IAcademicPlan, IHelpMessage } from '../../../typings/radgrad';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/explorer/LandingExplorerMenu';
-import { withListSubscriptions } from '../../layouts/utilities/SubscriptionListHOC';
+import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
 import LandingAcademicPlanViewer from '../../components/landing/explorer/LandingAcademicPlanViewer';
 import * as Router from '../../components/shared/utilities/router';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';

@@ -10,7 +10,7 @@ import PageTrackingMenu from '../../components/shared/page-tracking/PageTracking
 import PageTrackingScoreboardWidget from '../../components/shared/page-tracking/PageTrackingScoreboardWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { getMenuWidget } from './utilities/getMenuWidget';
-import { withListSubscriptions } from '../../layouts/utilities/SubscriptionListHOC';
+import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { AdminProfiles } from '../../../api/user/AdminProfileCollection';

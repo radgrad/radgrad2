@@ -16,7 +16,7 @@ import CourseScoreboardWidget from '../../components/shared/scoreboard/CourseSco
 import OpportunityScoreboardWidget from '../../components/shared/scoreboard/OpportunityScoreboardWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { getMenuWidget } from './utilities/getMenuWidget';
-import { withListSubscriptions } from '../../layouts/utilities/SubscriptionListHOC';
+import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 

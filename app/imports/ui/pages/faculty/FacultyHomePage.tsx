@@ -15,7 +15,7 @@ import {
 import { Users } from '../../../api/user/UserCollection';
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
-import { withListSubscriptions } from '../../layouts/utilities/SubscriptionListHOC';
+import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
