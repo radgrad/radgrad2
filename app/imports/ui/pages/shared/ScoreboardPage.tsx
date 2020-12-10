@@ -16,6 +16,9 @@ import CourseScoreboardWidget from '../../components/shared/scoreboard/CourseSco
 import OpportunityScoreboardWidget from '../../components/shared/scoreboard/OpportunityScoreboardWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { getMenuWidget } from './utilities/getMenuWidget';
+import { withListSubscriptions } from '../../layouts/utilities/SubscriptionListHOC';
+import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
+import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 
 export interface IScoreboardPageProps {
   courses: ICourse[];
@@ -79,4 +82,10 @@ const ScoreboardPageContainer = withTracker(() => {
   };
 })(ScoreboardPage);
 
-export default ScoreboardPageContainer;
+export default withListSubscriptions(ScoreboardPageContainer, [
+  AcademicTerms.getPublicationName(),
+  Courses.getPublicationName(),
+  CourseInstances.getPublicationNames().scoreboard,
+  HelpMessages.getPublicationName(),
+  OpportunityInstances.getPublicationNames().scoreboard,
+]);

@@ -10,6 +10,13 @@ import PageTrackingMenu from '../../components/shared/page-tracking/PageTracking
 import PageTrackingScoreboardWidget from '../../components/shared/page-tracking/PageTrackingScoreboardWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { getMenuWidget } from './utilities/getMenuWidget';
+import { withListSubscriptions } from '../../layouts/utilities/SubscriptionListHOC';
+import { Slugs } from '../../../api/slug/SlugCollection';
+import { Users } from '../../../api/user/UserCollection';
+import { AdminProfiles } from '../../../api/user/AdminProfileCollection';
+import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
+import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
+import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 
 interface IPageTrackingAnalysisPageProps {
   helpMessages: IHelpMessage[];
@@ -56,4 +63,13 @@ const PageTrackingScoreboardPageContainer = withTracker(() => {
   };
 })(PageTrackingScoreboardPage);
 
-export default PageTrackingScoreboardPageContainer;
+export default withListSubscriptions(PageTrackingScoreboardPageContainer, [
+  HelpMessages.getPublicationName(),
+  PageInterestsDailySnapshots.getPublicationName(),
+  Slugs.getPublicationName(),
+  Users.getPublicationName(),
+  AdminProfiles.getPublicationName(),
+  AdvisorProfiles.getPublicationName(),
+  FacultyProfiles.getPublicationName(),
+  StudentProfiles.getPublicationName(),
+]);
