@@ -3,6 +3,7 @@ import React from 'react';
 import { Grid, Container } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import _ from 'lodash';
+import { Meteor } from 'meteor/meteor';
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
@@ -14,16 +15,28 @@ import StudentHomeNewOpportunitiesWidget from '../../components/student/home/Stu
 import { buildExplorerRoute, IMatchProps } from '../../components/shared/utilities/router';
 import { EXPLORER_TYPE } from '../../layouts/utilities/route-constants';
 import GuidedTourStudentHomePageWidget from '../../components/student/home/GuidedTourStudentHomePageWidget';
+import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';
 
 interface IStudentHomePageProps {
   match: IMatchProps;
   favoriteInterests: { interestID: string, count, number }[];
+  interests: number;
+  careerGoals: string;
+  courses: number;
+  opportunities: number;
+  ready: boolean;
 }
 
-const StudentHomePage: React.FC<IStudentHomePageProps> = ({ match, favoriteInterests }) => (
+const StudentHomePage: React.FC<IStudentHomePageProps> = (props) => (
   <div id="student-home-page">
     <StudentPageMenuWidget />
-    <GuidedTourStudentHomePageWidget />
+    <GuidedTourStudentHomePageWidget
+      interests={props.interests}
+      careerGoals={props.careerGoals}
+      courses={props.courses}
+      opportunities={props.opportunities}
+      ready={props.ready}
+    />
     <Container>
       <Grid stackable>
         <Grid.Row>
@@ -37,10 +50,10 @@ const StudentHomePage: React.FC<IStudentHomePageProps> = ({ match, favoriteInter
           </Grid.Column>
           <Grid.Column width={5}>
             <StudentHomeNewOpportunitiesWidget />
-            <Link to={buildExplorerRoute(match, EXPLORER_TYPE.OPPORTUNITIES)}>
+            <Link to={buildExplorerRoute(props.match, EXPLORER_TYPE.OPPORTUNITIES)}>
               <u>More Opportunities</u>
             </Link>
-            <StudentHomeFavoriteInterestsList favoriteInterests={favoriteInterests} />
+            <StudentHomeFavoriteInterestsList favoriteInterests={props.favoriteInterests} />
           </Grid.Column>
         </Grid.Row>
       </Grid>
@@ -54,6 +67,22 @@ const StudentHomePage: React.FC<IStudentHomePageProps> = ({ match, favoriteInter
 const countInArray = (array, value) => array.reduce((n, x) => n + (x === value), 0);
 
 export default withTracker(() => {
+  const subscription = Meteor.subscribe(PublicStats.getPublicationName());
+  let key;
+  let interests;
+  let careerGoals;
+  let courses;
+  let opportunities;
+  if (subscription.ready() && !Meteor.isAppTest) {
+    key = PublicStats.interestsTotalKey;
+    interests = PublicStats.findDoc({ key }).value;
+    key = PublicStats.careerGoalsListKey;
+    careerGoals = PublicStats.findDoc({ key }).value;
+    key = PublicStats.coursesTotalKey;
+    courses = PublicStats.findDoc({ key }).value;
+    key = PublicStats.opportunitiesTotalKey;
+    opportunities = PublicStats.findDoc({ key }).value;
+  }
   const favoriteInterests = FavoriteInterests.findNonRetired({});
   const favIDs = _.map(favoriteInterests, (f) => f.interestID);
   const favInterestObjects = [];
@@ -69,5 +98,10 @@ export default withTracker(() => {
   const highestTen = sorted.slice(0, 10);
   return {
     favoriteInterests: highestTen,
+    ready: subscription.ready(),
+    interests,
+    careerGoals,
+    courses,
+    opportunities,
   };
 })(StudentHomePage);
