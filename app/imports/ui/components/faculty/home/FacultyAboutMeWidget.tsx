@@ -3,13 +3,13 @@ import { Link, NavLink, useParams } from 'react-router-dom';
 import _ from 'lodash';
 import { Grid, Header, Label, Icon, Form, Segment } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
-import { FacultyProfiles } from '../../../../api/user/FacultyProfileCollection';
 import { Users } from '../../../../api/user/UserCollection';
 import { Interests } from '../../../../api/interest/InterestCollection';
 import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
 import { openCloudinaryWidget } from '../../shared/OpenCloudinaryWidget';
 import { updateMethod } from '../../../../api/base/BaseCollection.methods';
 import { IAdvisorOrFacultyProfile, IFavoriteCareerGoal, IFavoriteInterest } from '../../../../typings/radgrad';
+import { AdvisorProfiles } from '../../../../api/user/AdvisorProfileCollection';
 
 interface IFacultyPageAboutMeWidgetProps {
   profile: IAdvisorOrFacultyProfile;
@@ -18,7 +18,7 @@ interface IFacultyPageAboutMeWidgetProps {
 }
 
 /** The Faculty About Me Widget shows basic information of the specified user. */
-const FacultyPageAboutMeWidget: React.FC<IFacultyPageAboutMeWidgetProps> = ({ profile, favoriteCareerGoals, favoriteInterests }) => {
+const FacultyAboutMeWidget: React.FC<IFacultyPageAboutMeWidgetProps> = ({ profile, favoriteCareerGoals, favoriteInterests }) => {
   const [websiteState, setWebsite] = useState(profile.website);
   const [pictureState, setPicture] = useState(profile.picture);
   const [aboutMeState, setAboutMe] = useState(profile.aboutMe);
@@ -52,7 +52,7 @@ const FacultyPageAboutMeWidget: React.FC<IFacultyPageAboutMeWidgetProps> = ({ pr
    */
   const handleSubmitWebsite = (event): void => {
     event.preventDefault();
-    const collectionName = FacultyProfiles.getCollectionName();
+    const collectionName = AdvisorProfiles.getCollectionName();
     const updateData: { id: string; website: string } = { id: profile._id, website: websiteState };
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
@@ -76,7 +76,7 @@ const FacultyPageAboutMeWidget: React.FC<IFacultyPageAboutMeWidgetProps> = ({ pr
 
   const handleSubmitAboutMe = (event): void => {
     event.preventDefault();
-    const collectionName = FacultyProfiles.getCollectionName();
+    const collectionName = AdvisorProfiles.getCollectionName();
     const updateData: { id: string; aboutMe: string } = { id: profile._id, aboutMe: aboutMeState };
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
@@ -105,7 +105,7 @@ const FacultyPageAboutMeWidget: React.FC<IFacultyPageAboutMeWidgetProps> = ({ pr
    */
   const generateInterestRoute = (label) => {
     label = label.toString().toLowerCase().split(' ').join('-'); // eslint-disable-line no-param-reassign
-    // example url /faculty/binsted@hawaii.edu/explorer/interests/artificial-intelligence
+    // example url /advisor/binsted@hawaii.edu/explorer/interests/artificial-intelligence
     const explorePath = [profile.role.toLowerCase(), username,
       'explorer', 'interests', label];
     let exploreRoute = explorePath.join('/');
@@ -130,7 +130,7 @@ const FacultyPageAboutMeWidget: React.FC<IFacultyPageAboutMeWidgetProps> = ({ pr
 
   const handleUploadPicture = async (e): Promise<void> => {
     e.preventDefault();
-    const collectionName = FacultyProfiles.getCollectionName();
+    const collectionName = AdvisorProfiles.getCollectionName();
     try {
       const cloudinaryResult = await openCloudinaryWidget();
       if (cloudinaryResult.event === 'success') {
@@ -172,13 +172,13 @@ const FacultyPageAboutMeWidget: React.FC<IFacultyPageAboutMeWidgetProps> = ({ pr
   };
 
   // get the career goal IDs based on the userID
-  const facultyCareerGoalsIDs = _.map(favoriteCareerGoals, (fav) => fav.careerGoalID);
+  const advisorCareerGoalsIDs = _.map(favoriteCareerGoals, (fav) => fav.careerGoalID);
   // map the career goal IDs to their names
-  const facultyCareerGoals = _.map(facultyCareerGoalsIDs, (id) => CareerGoals.findDoc(id).name);
+  const advisorCareerGoals = _.map(advisorCareerGoalsIDs, (id) => CareerGoals.findDoc(id).name);
   // get the interest goal IDs based on the User ID
-  const facultyInterestIDs = _.map(favoriteInterests, (fav) => fav.interestID);
+  const advisorInterestIDs = _.map(favoriteInterests, (fav) => fav.interestID);
   // map the interests IDs to their names
-  const facultyInterests = _.map(facultyInterestIDs, (id) => Interests.findDoc(id).name);
+  const advisorInterests = _.map(advisorInterestIDs, (id) => Interests.findDoc(id).name);
   // M: should make it so that you reference the doc and then the name rather than the doc directly
   // gets the url from the faculty profile's information
   // url is made up of: role/username/explorer/CareerOrInterests
@@ -221,8 +221,8 @@ const FacultyPageAboutMeWidget: React.FC<IFacultyPageAboutMeWidgetProps> = ({ pr
               <Grid.Row divided textAlign="left">
                 <Label.Group>
                   {
-                    facultyInterests.length > 0 ? (
-                      _.map(facultyInterests, (interests, index) => (
+                    advisorInterests.length > 0 ? (
+                      _.map(advisorInterests, (interests, index) => (
                         <Label
                           size="small"
                           key={index}
@@ -252,8 +252,8 @@ const FacultyPageAboutMeWidget: React.FC<IFacultyPageAboutMeWidgetProps> = ({ pr
               <Grid.Row divided textAlign="left">
                 <Label.Group>
                   {
-                    facultyCareerGoals.length > 0 ? (
-                      _.map(facultyCareerGoals, (careerGoals, index) => (
+                    advisorCareerGoals.length > 0 ? (
+                      _.map(advisorCareerGoals, (careerGoals, index) => (
                         <Label
                           size="small"
                           key={index}
@@ -326,4 +326,4 @@ const FacultyPageAboutMeWidget: React.FC<IFacultyPageAboutMeWidgetProps> = ({ pr
   );
 };
 
-export default FacultyPageAboutMeWidget;
+export default FacultyAboutMeWidget;

@@ -12,10 +12,10 @@ import {
   IHelpMessage,
 } from '../../../typings/radgrad';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
-import FacultyPageAboutMeWidget from '../../components/faculty/home/FacultyPageAboutMeWidget';
 import { Users } from '../../../api/user/UserCollection';
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
+import AdvisorAboutMeWidget from '../../components/advisor/home/AdvisorAboutMeWidget';
 
 interface IAdvisorAboutMePageProps {
   profile: IAdvisorOrFacultyProfile,
@@ -36,7 +36,7 @@ const AdvisorAboutMePage: React.FC<IAdvisorAboutMePageProps> = ({ profile, favor
       <Grid.Row>
         <Grid.Column width={1} />
         <Grid.Column width={14}>
-          <FacultyPageAboutMeWidget
+          <AdvisorAboutMeWidget
             profile={profile}
             favoriteInterests={favoriteInterests}
             favoriteCareerGoals={favoriteCareerGoals}

@@ -4,7 +4,7 @@ import slugify from '../slug/SlugCollection';
 import { AcademicPlans } from './AcademicPlanCollection';
 import { makeSampleAcademicTerm } from '../academic-term/SampleAcademicTerms';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
-import { getRandomCourseSlugForDept, getRandomDepartment } from '../course/CourseUtilities';
+import { getRandomCourseSlugForDept, getRandomDepartment } from '../course/SampleCourses';
 
 const buildRandomCoursesPerTerm = () => {
   const coursesPerAcademicTerm = [];

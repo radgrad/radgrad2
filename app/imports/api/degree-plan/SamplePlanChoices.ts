@@ -1,5 +1,5 @@
 import faker from 'faker';
-import { getRandomCourseSlugForDept, getRandomDepartment } from '../course/CourseUtilities';
+import { getRandomCourseSlugForDept, getRandomDepartment } from '../course/SampleCourses';
 
 export interface ImakeSinglePlanChoiceArgs {
   dept?: string;

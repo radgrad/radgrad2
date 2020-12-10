@@ -4,6 +4,9 @@
 # 'meteor add' and 'meteor remove' will edit this file for you,
 # but you can also edit it by hand.
 
+# For profiling purposes only. Uncomment to see the import times in the client.
+# zodern:profile-require
+
 # Core 1.6.1 packages for Meteor/React/Semantic UI
 meteor-base@1.4.0                # Packages every Meteor app needs to have
 mobile-experience@1.1.0          # Packages for a great mobile UX
