@@ -11,14 +11,15 @@ import { updateMethod } from '../../../../api/base/BaseCollection.methods';
 import { IAdvisorOrFacultyProfile, IFavoriteCareerGoal, IFavoriteInterest } from '../../../../typings/radgrad';
 import { AdvisorProfiles } from '../../../../api/user/AdvisorProfileCollection';
 
-interface IFacultyPageAboutMeWidgetProps {
+interface IFacultyAboutMeWidgetProps {
   profile: IAdvisorOrFacultyProfile;
   favoriteInterests: IFavoriteInterest[];
   favoriteCareerGoals: IFavoriteCareerGoal[];
 }
 
 /** The Faculty About Me Widget shows basic information of the specified user. */
-const FacultyAboutMeWidget: React.FC<IFacultyPageAboutMeWidgetProps> = ({ profile, favoriteCareerGoals, favoriteInterests }) => {
+const FacultyAboutMeWidget: React.FC<IFacultyAboutMeWidgetProps> = ({ profile, favoriteCareerGoals, favoriteInterests }) => {
+
   const [websiteState, setWebsite] = useState(profile.website);
   const [pictureState, setPicture] = useState(profile.picture);
   const [aboutMeState, setAboutMe] = useState(profile.aboutMe);
