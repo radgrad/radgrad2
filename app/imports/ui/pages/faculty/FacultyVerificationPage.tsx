@@ -14,6 +14,7 @@ import { Users } from '../../../api/user/UserCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import CompletedVerificationsWidget from '../../components/shared/verification/CompletedVerificationsWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
+import { withListSubscriptions } from '../../layouts/utilities/SubscriptionListHOC';
 import withAdditionalSubscriptions from '../../layouts/utilities/AdvisorFacultyAdditionalSubscriptionsHOC';
 
 interface IFacultyVerificationPageProps {
@@ -104,6 +105,11 @@ const FacultyVerificationPageWithTracker = withTracker(() => {
     helpMessages,
   };
 })(FacultyVerificationPage);
-const FacultyVerificationPageContainer = withAdditionalSubscriptions(FacultyVerificationPageWithTracker);
+const FacultyVerificationPageContainer = withAdditionalSubscriptions(withListSubscriptions(FacultyVerificationPageWithTracker, [
+  HelpMessages.getPublicationName(),
+  Opportunities.getPublicationName(),
+  OpportunityInstances.getPublicationName(),
+  VerificationRequests.getPublicationName(),
+]));
 
 export default FacultyVerificationPageContainer;

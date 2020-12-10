@@ -23,6 +23,7 @@ import { Interests } from '../../../api/interest/InterestCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
+import { withListSubscriptions } from '../../layouts/utilities/SubscriptionListHOC';
 import AddOpportunityForm from '../../components/admin/datamodel/opportunity/AddOpportunityForm';
 import UpdateOpportunityForm from '../../components/admin/datamodel/opportunity/UpdateOpportunityForm';
 import {
@@ -33,6 +34,9 @@ import {
 import { interestSlugFromName } from '../../components/shared/utilities/form';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
+import { Slugs } from '../../../api/slug/SlugCollection';
+import { AdminProfiles } from '../../../api/user/AdminProfileCollection';
+import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 
 const collection = Opportunities; // the collection to use.
 
@@ -255,7 +259,7 @@ const FacultyManageOpportunitiesPage: React.FC<IFacultyManageOpportunitiesPagePr
   );
 };
 
-export default withTracker(() => {
+const FacultyManageOpportunitiesPageContainer = withTracker(() => {
   const faculty = FacultyProfiles.find({}).fetch();
   const advisors = AdvisorProfiles.find({}).fetch();
   const sponsorDocs = _.union(faculty, advisors);
@@ -276,3 +280,19 @@ export default withTracker(() => {
     helpMessages,
   };
 })(FacultyManageOpportunitiesPage);
+
+export default withListSubscriptions(FacultyManageOpportunitiesPageContainer, [
+  AcademicTerms.getPublicationName(),
+  AdvisorProfiles.getPublicationName(),
+  FacultyProfiles.getPublicationName(),
+  HelpMessages.getPublicationName(),
+  Interests.getPublicationName(),
+  Opportunities.getPublicationName(),
+  OpportunityTypes.getPublicationName(),
+  Slugs.getPublicationName(),
+  Users.getPublicationName(),
+  AdminProfiles.getPublicationName(),
+  AdvisorProfiles.getPublicationName(),
+  FacultyProfiles.getPublicationName(),
+  StudentProfiles.getPublicationName(),
+]);

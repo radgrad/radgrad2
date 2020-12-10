@@ -15,6 +15,13 @@ import {
 import { Users } from '../../../api/user/UserCollection';
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
+import { withListSubscriptions } from '../../layouts/utilities/SubscriptionListHOC';
+import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
+import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
+import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
+import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
+import { CareerGoals } from '../../../api/career/CareerGoalCollection';
+import { Interests } from '../../../api/interest/InterestCollection';
 
 interface IFacultyHomePageProps {
   profile: IAdvisorOrFacultyProfile;
@@ -58,4 +65,15 @@ const FacultyHomePageContainer = withTracker(() => {
   return { profile, favoriteInterests, favoriteCareerGoals, helpMessages };
 })(FacultyHomePage);
 
-export default FacultyHomePageContainer;
+export default withListSubscriptions(FacultyHomePageContainer, [
+  CareerGoals.getPublicationName(),
+  FacultyProfiles.getPublicationName(),
+  FavoriteInterests.getPublicationName(),
+  FavoriteCareerGoals.getPublicationName(),
+  HelpMessages.getPublicationName(),
+  Interests.getPublicationName(),
+  Opportunities.getPublicationName(),
+  OpportunityInstances.getPublicationName(),
+  Users.getPublicationName(),
+  VerificationRequests.getPublicationName(),
+]);
