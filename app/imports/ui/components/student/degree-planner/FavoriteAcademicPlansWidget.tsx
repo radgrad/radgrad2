@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import SimpleSchema from 'simpl-schema';
 import { Icon, Message } from 'semantic-ui-react';
-import { withTracker } from 'meteor/react-meteor-data';
-import { Link, useParams, useRouteMatch } from 'react-router-dom';
+import { Link, useRouteMatch } from 'react-router-dom';
 import _ from 'lodash';
 import { AutoForm, SelectField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
@@ -10,30 +9,29 @@ import { IAcademicPlan } from '../../../../typings/radgrad';
 import { getUsername, buildRouteName } from '../../shared/utilities/router';
 import AcademicPlanViewerWidgetContainer from './AcademicPlanViewerWidget';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
-import { FavoriteAcademicPlans } from '../../../../api/favorite/FavoriteAcademicPlanCollection';
-import { AcademicPlans } from '../../../../api/degree-plan/AcademicPlanCollection';
-import { Users } from '../../../../api/user/UserCollection';
 
 interface IFavoriteAcademicPlansWidgetProps {
   plans: IAcademicPlan[];
+  takenSlugs: string[];
 }
 
-const getPlan = (planName: string, props: IFavoriteAcademicPlansWidgetProps) => _.find(props.plans, (p) => p.name === planName);
+const getPlan = (planName: string, plans: IAcademicPlan[]) => _.find(plans, (p) => p.name === planName);
 
-const FavoriteAcademicPlansWidget = (props: IFavoriteAcademicPlansWidgetProps) => {
+const FavoriteAcademicPlansWidget: React.FC<IFavoriteAcademicPlansWidgetProps> = ({ plans, takenSlugs }) => {
+  console.log({ plans, takenSlugs });
   const match = useRouteMatch();
   let plan;
-  if (props.plans.length > 0) {
-    plan = getPlan(props.plans[0].name, props);
+  if (plans.length > 0) {
+    plan = getPlan(plans[0].name, plans);
   }
   const [selectedPlanState, setSelectedPlan] = useState(plan);
 
   const handleOnChangeModel = (model) => {
-    const selectedPlan = getPlan(model.academicPlan, props);
+    const selectedPlan = getPlan(model.academicPlan, plans);
     setSelectedPlan(selectedPlan);
   };
 
-  const planNames = _.map(props.plans, (p) => p.name);
+  const planNames = _.map(plans, (p) => p.name);
 
   const schema = new SimpleSchema({
     academicPlan: {
@@ -43,7 +41,7 @@ const FavoriteAcademicPlansWidget = (props: IFavoriteAcademicPlansWidgetProps) =
     },
   });
   const formSchema = new SimpleSchema2Bridge(schema);
-  const showPlanP = props.plans.length > 0;
+  const showPlanP = plans.length > 0;
   return (
     <div>
       <AutoForm schema={formSchema} onChangeModel={handleOnChangeModel}>
@@ -55,6 +53,7 @@ const FavoriteAcademicPlansWidget = (props: IFavoriteAcademicPlansWidgetProps) =
           <AcademicPlanViewerWidgetContainer
             academicPlan={selectedPlanState}
             username={getUsername(match)}
+            takenSlugs={takenSlugs}
           />
         )
         :
@@ -71,12 +70,4 @@ const FavoriteAcademicPlansWidget = (props: IFavoriteAcademicPlansWidgetProps) =
   );
 };
 
-export default withTracker((props) => {
-  const { username } = useParams();
-  const studentID = Users.getProfile(username).userID;
-  const favorites = FavoriteAcademicPlans.findNonRetired({ studentID });
-  const plans = _.map(favorites, (fav) => AcademicPlans.findDoc(fav.academicPlanID));
-  return {
-    plans,
-  };
-})(FavoriteAcademicPlansWidget);
+export default FavoriteAcademicPlansWidget;

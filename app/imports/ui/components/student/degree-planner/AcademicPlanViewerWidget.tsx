@@ -1,13 +1,7 @@
 import React from 'react';
 import { Grid } from 'semantic-ui-react';
-import { withTracker } from 'meteor/react-meteor-data';
-import _ from 'lodash';
 import { IAcademicPlan } from '../../../../typings/radgrad';
 import AcademicPlanYearView from '../../shared/academic-plan/AcademicPlanYearView';
-import { CourseInstances } from '../../../../api/course/CourseInstanceCollection';
-import { Slugs } from '../../../../api/slug/SlugCollection';
-import { passedCourse } from '../../../../api/degree-plan/AcademicPlanUtilities';
-import { Users } from '../../../../api/user/UserCollection';
 
 interface IAcademicPlanViewerWidgetProps {
   academicPlan: IAcademicPlan;
@@ -15,8 +9,8 @@ interface IAcademicPlanViewerWidgetProps {
   takenSlugs: string[];
 }
 
-const AcademicPlanViewerWidget = (props: IAcademicPlanViewerWidgetProps) => {
-  const fiveYear = (props.academicPlan.coursesPerAcademicTerm.length % 5) === 0;
+const AcademicPlanViewerWidget: React.FC<IAcademicPlanViewerWidgetProps> = ({ academicPlan, username, takenSlugs }) => {
+  const fiveYear = (academicPlan.coursesPerAcademicTerm.length % 5) === 0;
   let yearNumber = 0;
   const littlePadding = {
     paddingLeft: 2,
@@ -28,33 +22,33 @@ const AcademicPlanViewerWidget = (props: IAcademicPlanViewerWidgetProps) => {
         <Grid.Column style={littlePadding}>
           <AcademicPlanYearView
             yearNumber={yearNumber++}
-            academicPlan={props.academicPlan}
-            username={props.username}
-            takenSlugs={props.takenSlugs}
+            academicPlan={academicPlan}
+            username={username}
+            takenSlugs={takenSlugs}
           />
         </Grid.Column>
         <Grid.Column style={littlePadding}>
           <AcademicPlanYearView
             yearNumber={yearNumber++}
-            academicPlan={props.academicPlan}
-            username={props.username}
-            takenSlugs={props.takenSlugs}
+            academicPlan={academicPlan}
+            username={username}
+            takenSlugs={takenSlugs}
           />
         </Grid.Column>
         <Grid.Column style={littlePadding}>
           <AcademicPlanYearView
             yearNumber={yearNumber++}
-            academicPlan={props.academicPlan}
-            username={props.username}
-            takenSlugs={props.takenSlugs}
+            academicPlan={academicPlan}
+            username={username}
+            takenSlugs={takenSlugs}
           />
         </Grid.Column>
         <Grid.Column style={littlePadding}>
           <AcademicPlanYearView
             yearNumber={yearNumber++}
-            academicPlan={props.academicPlan}
-            username={props.username}
-            takenSlugs={props.takenSlugs}
+            academicPlan={academicPlan}
+            username={username}
+            takenSlugs={takenSlugs}
           />
         </Grid.Column>
         {fiveYear ?
@@ -62,9 +56,9 @@ const AcademicPlanViewerWidget = (props: IAcademicPlanViewerWidgetProps) => {
             <Grid.Column style={littlePadding}>
               <AcademicPlanYearView
                 yearNumber={yearNumber++}
-                academicPlan={props.academicPlan}
-                username={props.username}
-                takenSlugs={props.takenSlugs}
+                academicPlan={academicPlan}
+                username={username}
+                takenSlugs={takenSlugs}
               />
             </Grid.Column>
           )
@@ -74,20 +68,4 @@ const AcademicPlanViewerWidget = (props: IAcademicPlanViewerWidgetProps) => {
   );
 };
 
-function takenSlugs(courseInstances) {
-  const passedCourseInstances = _.filter(courseInstances, (ci) => passedCourse(ci));
-  return _.map(passedCourseInstances, (ci) => {
-    const doc = CourseInstances.getCourseDoc(ci._id);
-    return Slugs.getNameFromID(doc.slugID);
-  });
-}
-
-const AcademicPlanViewerWidgetContainer = withTracker((props) => {
-  const profile = Users.findProfileFromUsername(props.username);
-  const courseInstances = CourseInstances.findNonRetired({ studentID: profile.userID });
-  return {
-    takenSlugs: takenSlugs(courseInstances),
-    ...props,
-  };
-})(AcademicPlanViewerWidget);
-export default AcademicPlanViewerWidgetContainer;
+export default AcademicPlanViewerWidget;

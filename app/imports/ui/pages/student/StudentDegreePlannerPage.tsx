@@ -3,12 +3,17 @@ import { Grid, Container } from 'semantic-ui-react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
+import { useParams } from 'react-router-dom';
+import { withTracker } from 'meteor/react-meteor-data';
+import _ from 'lodash';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import DegreeExperiencePlannerWidget from '../../components/student/degree-planner/DegreeExperiencePlannerWidget';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
+import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
 import { defineMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import {
+  IAcademicPlan,
   IAcademicTerm,
   ICourseInstance,
   ICourseInstanceDefine,
@@ -26,8 +31,13 @@ import { getUsername, IMatchProps } from '../../components/shared/utilities/rout
 import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
 import { UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
 import GuidedTourDegreePlanner from '../../components/student/degree-planner/GuidedTourDegreePlanner';
+import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
+import { passedCourse } from '../../../api/degree-plan/AcademicPlanUtilities';
+import { Slugs } from '../../../api/slug/SlugCollection';
 
 interface IStudentDegreePlannerProps {
+  takenSlugs: string[];
+  plans: IAcademicPlan[];
   selectCourseInstance: (courseInstanceID: string) => any;
   selectOpportunityInstance: (opportunityInstanceID: string) => any;
   selectFavoriteDetailsTab: () => any;
@@ -245,7 +255,7 @@ const StudentDegreePlannerPage: React.FC<IStudentDegreePlannerProps> = (props) =
             </Grid.Column>
 
             <Grid.Column width={6} style={paddedStyle}>
-              <TabbedFavoritesWidget />
+              <TabbedFavoritesWidget academicPlans={props.plans} takenSlugs={props.takenSlugs} />
             </Grid.Column>
           </Grid.Row>
         </Grid>
@@ -254,6 +264,25 @@ const StudentDegreePlannerPage: React.FC<IStudentDegreePlannerProps> = (props) =
   );
 };
 
+const takenSlugs = (courseInstances: ICourseInstance[]): string[] => {
+  const passedCourseInstances = _.filter(courseInstances, (ci) => passedCourse(ci));
+  return _.map(passedCourseInstances, (ci) => {
+    const doc = CourseInstances.getCourseDoc(ci._id);
+    return Slugs.getNameFromID(doc.slugID);
+  });
+};
+
 const StudentDegreePlannerPageContainer = connect(null, mapDispatchToProps)(StudentDegreePlannerPage);
 
-export default StudentDegreePlannerPageContainer;
+export default withTracker(() => {
+  const { username } = useParams();
+  const profile = Users.getProfile(username);
+  const studentID = profile.userID;
+  const favorites = FavoriteAcademicPlans.findNonRetired({ studentID });
+  const plans = _.map(favorites, (fav) => AcademicPlans.findDoc(fav.academicPlanID));
+  const courseInstances = CourseInstances.findNonRetired({ studentID: profile.userID });
+  return {
+    plans,
+    takenSlugs: takenSlugs(courseInstances),
+  };
+})(StudentDegreePlannerPageContainer);
