@@ -32,14 +32,8 @@ const AcademicTermView = (props: IAcademicTermViewProps) => {
   const currentTermNum = AcademicTerms.getCurrentAcademicTermDoc().termNumber;
   const inPast = props.term.termNumber < currentTermNum;
   const isCurrent = props.term.termNumber === currentTermNum;
-  // const courseInstances = CourseInstances.findNonRetired({
-  //   termID: props.term._id,
-  //   studentID: props.studentID,
-  // });
-  // const opportunityInstances = OpportunityInstances.findNonRetired({
-  //   termID: props.term._id,
-  //   studentID: props.studentID,
-  // });
+  const courseInstancesToShow = _.filter(props.courseInstances, (ci) => ci.termID === props.term._id);
+  const opportunityInstancesToShow = _.filter(props.opportunityInstances, (oi) => oi.termID === props.term._id);
   return (
     <Container style={paddedStyle}>
       <Header
@@ -56,7 +50,7 @@ const AcademicTermView = (props: IAcademicTermViewProps) => {
               ref={provided.innerRef}
               style={getDroppableListStyle(snapshot.isDraggingOver)}
             >
-              {_.map(props.courseInstances, (ci, index) => (
+              {_.map(courseInstancesToShow, (ci, index) => (
                 <DraggableCourseInstancePill
                   key={ci._id}
                   instance={ci}
@@ -65,11 +59,11 @@ const AcademicTermView = (props: IAcademicTermViewProps) => {
                   handleClickCourseInstance={props.handleClickCourseInstance}
                 />
               ))}
-              {_.map(props.opportunityInstances, (oi, index) => (
+              {_.map(opportunityInstancesToShow, (oi, index) => (
                 <DraggableOpportunityInstancePill
                   key={oi._id}
                   instance={oi}
-                  index={props.courseInstances.length + index}
+                  index={courseInstancesToShow.length + index}
                   handleClickOpportunityInstance={props.handleClickOpportunityInstance}
                 />
               ))}

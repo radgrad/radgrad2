@@ -243,8 +243,6 @@ const onDragEnd = (props: IStudentDegreePlannerProps) => (result) => {
 };
 
 const StudentDegreePlannerPage: React.FC<IStudentDegreePlannerProps> = (props) => {
-  console.log('opportunities', props.opportunities);
-  console.log('courses', props.courses);
   const paddedStyle = {
     paddingTop: 0,
     paddingLeft: 10,
@@ -306,8 +304,8 @@ export default withTracker(() => {
   const courses = _.map(favoriteCourses, (f) => Courses.findDoc(f.courseID));
   const plans = _.map(favorites, (fav) => AcademicPlans.findDoc(fav.academicPlanID));
   const academicYearInstances: IAcademicYearInstance[] = AcademicYearInstances.findNonRetired({ studentID }, { sort: { year: 1 } });
-  const courseInstances = CourseInstances.findNonRetired({ studentID });
-  const opportunityInstances = OpportunityInstances.findNonRetired({ studentID });
+  const courseInstances = CourseInstances.findNonRetired({ studentID: profile.userID });
+  const opportunityInstances = OpportunityInstances.findNonRetired({ studentID: profile.userID });
   return {
     plans,
     takenSlugs: takenSlugs(courseInstances),
