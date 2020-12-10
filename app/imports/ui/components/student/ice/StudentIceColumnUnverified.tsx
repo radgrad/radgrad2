@@ -19,9 +19,7 @@ interface IStudentIceColumnUnverifiedProps {
   icePoints: (ice: Ice) => number;
   getCourseSlug: (course) => string;
   getOpportunitySlug: (opportunity) => string;
-  // eslint-disable-next-line react/no-unused-prop-types
   courseInstances: ICourseInstance[];
-  // eslint-disable-next-line react/no-unused-prop-types
   opportunityInstances: IOpportunityInstance[];
 }
 

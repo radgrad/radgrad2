@@ -7,7 +7,7 @@ import FavoriteCoursesWidget from './FavoriteCoursesWidget';
 import DepDetailsWidget from './DepDetailsWidget';
 import FavoriteAcademicPlansWidget from './FavoriteAcademicPlansWidget';
 import { RootState } from '../../../../redux/types';
-import { IAcademicPlan } from '../../../../typings/radgrad';
+import { IAcademicPlan, ICourse, IOpportunity } from '../../../../typings/radgrad';
 
 interface ITabbedFavoritesWidgetProps {
   takenSlugs: string[];
@@ -17,6 +17,9 @@ interface ITabbedFavoritesWidgetProps {
   selectFavoritePlansTab: () => any;
   selectFavoriteCoursesTab: () => any;
   selectFavoriteDetailsTab: () => any;
+  opportunities: IOpportunity[];
+  studentID: string;
+  courses: ICourse[];
 }
 
 const mapStateToProps = (state: RootState) => ({
@@ -45,7 +48,7 @@ const active = (selectedTab) => {
   }
 };
 
-const TabbedFavoritesWidget: React.FC<ITabbedFavoritesWidgetProps> = ({ takenSlugs, academicPlans, selectedTab, selectFavoriteCoursesTab, selectFavoriteDetailsTab, selectFavoriteOpportunitiesTab, selectFavoritePlansTab }) => {
+const TabbedFavoritesWidget: React.FC<ITabbedFavoritesWidgetProps> = ({ takenSlugs, academicPlans, selectedTab, selectFavoriteCoursesTab, selectFavoriteDetailsTab, selectFavoriteOpportunitiesTab, selectFavoritePlansTab, opportunities, studentID, courses }) => {
   const handleTabChange = (event, instance) => {
     const { activeIndex } = instance;
     event.preventDefault();
@@ -79,7 +82,7 @@ const TabbedFavoritesWidget: React.FC<ITabbedFavoritesWidgetProps> = ({ takenSlu
           key="FavoriteOpportunitiesPane"
           active={active(selectedTab) === 0}
         >
-          <FavoriteOpportunitiesWidget />
+          <FavoriteOpportunitiesWidget opportunities={opportunities} studentID={studentID} />
         </Tab.Pane>
       ),
     },
@@ -103,7 +106,7 @@ const TabbedFavoritesWidget: React.FC<ITabbedFavoritesWidgetProps> = ({ takenSlu
       ),
       pane: (
         <Tab.Pane key="FavoriteCoursesPane" active={active(selectedTab) === 2}>
-          <FavoriteCoursesWidget />
+          <FavoriteCoursesWidget studentID={studentID} courses={courses} />
         </Tab.Pane>
       ),
     },

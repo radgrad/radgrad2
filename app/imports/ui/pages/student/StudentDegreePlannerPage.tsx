@@ -14,10 +14,10 @@ import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPla
 import { defineMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import {
   IAcademicPlan,
-  IAcademicTerm,
+  IAcademicTerm, IAcademicYearInstance, ICourse,
   ICourseInstance,
   ICourseInstanceDefine,
-  ICourseInstanceUpdate, IMeteorError, IOpportunityInstance,
+  ICourseInstanceUpdate, IMeteorError, IOpportunity, IOpportunityInstance,
   IOpportunityInstanceDefine,
   IOpportunityInstanceUpdate, IUserInteractionDefine,
 } from '../../../typings/radgrad';
@@ -34,6 +34,9 @@ import GuidedTourDegreePlanner from '../../components/student/degree-planner/Gui
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { passedCourse } from '../../../api/degree-plan/AcademicPlanUtilities';
 import { Slugs } from '../../../api/slug/SlugCollection';
+import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
+import { FavoriteOpportunities } from '../../../api/favorite/FavoriteOpportunityCollection';
+import { FavoriteCourses } from '../../../api/favorite/FavoriteCourseCollection';
 
 interface IStudentDegreePlannerProps {
   takenSlugs: string[];
@@ -42,6 +45,12 @@ interface IStudentDegreePlannerProps {
   selectOpportunityInstance: (opportunityInstanceID: string) => any;
   selectFavoriteDetailsTab: () => any;
   match: IMatchProps;
+  academicYearInstances: IAcademicYearInstance[];
+  courseInstances: ICourseInstance[];
+  opportunityInstances: IOpportunityInstance[];
+  opportunities: IOpportunity[];
+  studentID: string;
+  courses: ICourse[];
 }
 
 const mapDispatchToProps = (dispatch) => ({
@@ -234,6 +243,8 @@ const onDragEnd = (props: IStudentDegreePlannerProps) => (result) => {
 };
 
 const StudentDegreePlannerPage: React.FC<IStudentDegreePlannerProps> = (props) => {
+  console.log('opportunities', props.opportunities);
+  console.log('courses', props.courses);
   const paddedStyle = {
     paddingTop: 0,
     paddingLeft: 10,
@@ -251,11 +262,21 @@ const StudentDegreePlannerPage: React.FC<IStudentDegreePlannerProps> = (props) =
         <Grid stackable style={marginStyle}>
           <Grid.Row stretched>
             <Grid.Column width={10} style={paddedStyle}>
-              <DegreeExperiencePlannerWidget />
+              <DegreeExperiencePlannerWidget
+                academicYearInstances={props.academicYearInstances}
+                courseInstances={props.courseInstances}
+                opportunityInstances={props.opportunityInstances}
+              />
             </Grid.Column>
 
             <Grid.Column width={6} style={paddedStyle}>
-              <TabbedFavoritesWidget academicPlans={props.plans} takenSlugs={props.takenSlugs} />
+              <TabbedFavoritesWidget
+                academicPlans={props.plans}
+                takenSlugs={props.takenSlugs}
+                opportunities={props.opportunities}
+                studentID={props.studentID}
+                courses={props.courses}
+              />
             </Grid.Column>
           </Grid.Row>
         </Grid>
@@ -279,10 +300,22 @@ export default withTracker(() => {
   const profile = Users.getProfile(username);
   const studentID = profile.userID;
   const favorites = FavoriteAcademicPlans.findNonRetired({ studentID });
+  const favoriteOpportunities = FavoriteOpportunities.findNonRetired({ studentID });
+  const opportunities = _.map(favoriteOpportunities, (f) => Opportunities.findDoc(f.opportunityID));
+  const favoriteCourses = FavoriteCourses.findNonRetired({ studentID });
+  const courses = _.map(favoriteCourses, (f) => Courses.findDoc(f.courseID));
   const plans = _.map(favorites, (fav) => AcademicPlans.findDoc(fav.academicPlanID));
-  const courseInstances = CourseInstances.findNonRetired({ studentID: profile.userID });
+  const academicYearInstances: IAcademicYearInstance[] = AcademicYearInstances.findNonRetired({ studentID }, { sort: { year: 1 } });
+  const courseInstances = CourseInstances.findNonRetired({ studentID });
+  const opportunityInstances = OpportunityInstances.findNonRetired({ studentID });
   return {
     plans,
     takenSlugs: takenSlugs(courseInstances),
+    academicYearInstances,
+    opportunityInstances,
+    courseInstances,
+    opportunities,
+    studentID,
+    courses,
   };
 })(StudentDegreePlannerPageContainer);

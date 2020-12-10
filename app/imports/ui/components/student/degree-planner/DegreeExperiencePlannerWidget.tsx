@@ -5,14 +5,13 @@ import { Grid, Segment, Button, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import moment from 'moment';
 import _ from 'lodash';
-import { withTracker } from 'meteor/react-meteor-data';
 import { Users } from '../../../../api/user/UserCollection';
 import { AcademicYearInstances } from '../../../../api/degree-plan/AcademicYearInstanceCollection';
 import AcademicYearView from './AcademicYearView';
 import {
   IAcademicYearInstance,
-  IAcademicYearInstanceDefine,
-  IMeteorError,
+  IAcademicYearInstanceDefine, ICourseInstance,
+  IMeteorError, IOpportunityInstance,
 } from '../../../../typings/radgrad';
 import { CourseInstances } from '../../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
@@ -24,6 +23,8 @@ interface IDePProps {
   selectOpportunityInstance: (opportunityInstanceID: string) => any;
   selectFavoriteDetailsTab: () => any;
   academicYearInstances: IAcademicYearInstance[];
+  courseInstances: ICourseInstance[];
+  opportunityInstances: IOpportunityInstance[];
 }
 
 const mapDispatchToProps = (dispatch) => ({
@@ -221,6 +222,8 @@ const DEPWidget: React.FC<IDePProps> = (props) => {
               studentID={studentID}
               handleClickCourseInstance={handleClickCourseInstance}
               handleClickOpportunityInstance={handleClickOpportunityInstance}
+              courseInstances={props.courseInstances}
+              opportunityInstances={props.opportunityInstances}
             />
           ))}
         </Grid.Row>
@@ -273,14 +276,4 @@ const DEPWidget: React.FC<IDePProps> = (props) => {
   );
 };
 
-const DEPWidgetContainer = withTracker(() => {
-  const { username } = useParams();
-  const studentID = Users.getProfile(username).userID;
-  const academicYearInstances: IAcademicYearInstance[] = AcademicYearInstances.findNonRetired({ studentID }, { sort: { year: 1 } });
-  return {
-    academicYearInstances,
-  };
-})(DEPWidget);
-const DegreeExperiencePlannerWidget = connect(null, mapDispatchToProps)(DEPWidgetContainer);
-
-export default DegreeExperiencePlannerWidget;
+export default connect(null, mapDispatchToProps)(DEPWidget);

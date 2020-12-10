@@ -2,10 +2,9 @@ import React from 'react';
 import _ from 'lodash';
 import { Container, Header, Grid } from 'semantic-ui-react';
 import { Droppable } from 'react-beautiful-dnd';
-import { withTracker } from 'meteor/react-meteor-data';
 import { IAcademicTerm, ICourseInstance, IOpportunityInstance } from '../../../../typings/radgrad';
-import { CourseInstances } from '../../../../api/course/CourseInstanceCollection';
-import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
+// import { CourseInstances } from '../../../../api/course/CourseInstanceCollection';
+// import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import DraggableCourseInstancePill from './DraggableCourseInstancePill';
 import DraggableOpportunityInstancePill from './DraggableOpportunityInstancePill';
@@ -18,7 +17,9 @@ interface IAcademicTermViewProps {
   studentID: string;
   handleClickCourseInstance: (event, { value }) => any;
   handleClickOpportunityInstance: (event, { value }) => any;
+  // eslint-disable-next-line react/no-unused-prop-types
   courseInstances: ICourseInstance[];
+  // eslint-disable-next-line react/no-unused-prop-types
   opportunityInstances: IOpportunityInstance[];
 }
 
@@ -31,6 +32,14 @@ const AcademicTermView = (props: IAcademicTermViewProps) => {
   const currentTermNum = AcademicTerms.getCurrentAcademicTermDoc().termNumber;
   const inPast = props.term.termNumber < currentTermNum;
   const isCurrent = props.term.termNumber === currentTermNum;
+  // const courseInstances = CourseInstances.findNonRetired({
+  //   termID: props.term._id,
+  //   studentID: props.studentID,
+  // });
+  // const opportunityInstances = OpportunityInstances.findNonRetired({
+  //   termID: props.term._id,
+  //   studentID: props.studentID,
+  // });
   return (
     <Container style={paddedStyle}>
       <Header
@@ -73,19 +82,4 @@ const AcademicTermView = (props: IAcademicTermViewProps) => {
   );
 };
 
-const AcademicTermViewContainer = withTracker((props) => {
-  const courseInstances = CourseInstances.findNonRetired({
-    termID: props.term._id,
-    studentID: props.studentID,
-  });
-  const opportunityInstances = OpportunityInstances.findNonRetired({
-    termID: props.term._id,
-    studentID: props.studentID,
-  });
-  return {
-    courseInstances,
-    opportunityInstances,
-    ...props,
-  };
-})(AcademicTermView);
-export default AcademicTermViewContainer;
+export default AcademicTermView;
