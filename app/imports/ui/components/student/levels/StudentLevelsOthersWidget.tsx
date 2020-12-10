@@ -1,47 +1,18 @@
 import React from 'react';
-import { useRouteMatch } from 'react-router-dom';
 import { Segment, Header, Image, Popup } from 'semantic-ui-react';
-import _ from 'lodash';
 import { Users } from '../../../../api/user/UserCollection';
-import { getUserIdFromRoute } from '../../shared/utilities/router';
-import { ROLE } from '../../../../api/role/Role';
 import { IStudentProfile } from '../../../../typings/radgrad';
 
 interface IStudentLevelsOthersWidgetProps {
   students: IStudentProfile[];
+  profile : IStudentProfile;
 }
 
 const studentsExist = (students): boolean => students.length > 0;
 
-const getStudents = (userLevel: number, match): IStudentProfile[] => {
-  const students = [];
-  const profiles = Users.findProfilesWithRole(ROLE.STUDENT, {}, {});
-  _.forEach(profiles, (profile) => {
-    if (profile.level === userLevel) {
-      if (profile.userID !== getUserIdFromRoute(match)) {
-        students.push(profile);
-      }
-    }
-  });
-  return students;
-};
-
-const getStudentLevelNumber = (match): number => {
-  if (getUserIdFromRoute(match)) {
-    const profile = Users.getProfile(getUserIdFromRoute(match));
-    if (profile.level) {
-      return profile.level;
-    }
-  }
-  return 1;
-};
-
-const getStudentLevelName = (match): string => {
-  if (getUserIdFromRoute(match)) {
-    const profile = Users.getProfile(getUserIdFromRoute(match));
-    if (profile.level) {
-      return `LEVEL ${profile.level}`;
-    }
+const getStudentLevelName = (props: IStudentLevelsOthersWidgetProps): string => {
+  if (props.profile.level) {
+    return `LEVEL ${props.profile.level}`;
   }
   return 'LEVEL 1';
 };
@@ -50,16 +21,14 @@ const studentPicture = (student: IStudentProfile) => student.picture;
 
 const fullName = (student: IStudentProfile): string => Users.getFullName(student.userID);
 
-const StudentLevelsOthersWidget: React.FC<IStudentLevelsOthersWidgetProps> = () => {
-  const match = useRouteMatch();
+const StudentLevelsOthersWidget: React.FC<IStudentLevelsOthersWidgetProps> = (props) => {
   const imageGroupStyle = { minHeight: '50%' };
   const imageStyle = {
     height: '30px',
     width: 'auto',
   };
-  const studentLevelName = getStudentLevelName(match);
-  const studentLevelNumber: number = getStudentLevelNumber(match);
-  const students: IStudentProfile[] = getStudents(studentLevelNumber, match);
+  const studentLevelName = getStudentLevelName(props);
+  const students = props.students;
   return (
     <Segment padded id="studentLevelsOthersWidget">
       <Header as="h4" dividing>

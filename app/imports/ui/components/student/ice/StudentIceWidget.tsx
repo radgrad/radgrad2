@@ -12,12 +12,10 @@ export interface IStudentIceWidgetProps {
   opportunityInstances: IOpportunityInstance[];
 }
 
-const StudentIceWidget = (props: IStudentIceWidgetProps) => {
-  console.log(props);
+const StudentIceWidget: React.FC<IStudentIceWidgetProps> = (props) => {
   const innovationColumnStyle = { paddingLeft: 0 };
   const experienceColumnStyle = { paddingRight: 0 };
   const styleInfo: React.CSSProperties = { textAlign: 'left', paddingTop: 10 };
-
   return (
     <>
       <Segment padded id="studentIceWidget">

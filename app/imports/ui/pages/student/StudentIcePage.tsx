@@ -22,7 +22,8 @@ interface IStudentIcePageProps {
   courseInstances: ICourseInstance[];
   opportunityInstances: IOpportunityInstance[];
 }
-const StudentIcePage = (props: IStudentIcePageProps) => (
+
+const StudentIcePage: React.FC<IStudentIcePageProps> = (props) => (
   <div id="student-ice-points-page">
     <StudentPageMenuWidget />
     <Container>
@@ -50,7 +51,6 @@ const StudentHomeIcePageContainer = withTracker(() => {
   const favoriteInterests: IFavoriteInterest[] = FavoriteInterests.findNonRetired({ userID: studentID });
   const courseInstances: ICourseInstance[] = CourseInstances.findNonRetired({ studentID });
   const opportunityInstances: IOpportunityInstance[] = OpportunityInstances.findNonRetired({ studentID });
-  console.log(favoriteInterests);
   return {
     helpMessages,
     earnedICE,

@@ -1,10 +1,29 @@
 import React from 'react';
 import { Grid, Container } from 'semantic-ui-react';
+import { withTracker } from 'meteor/react-meteor-data';
+import { useParams } from 'react-router-dom';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import StudentAboutMeWidget from '../../components/student/about-me/StudentAboutMeWidget';
+import { Users } from '../../../api/user/UserCollection';
+import {
+  IFavoriteAcademicPlan,
+  IFavoriteCareerGoal,
+  IFavoriteInterest,
+  IStudentProfile,
+} from '../../../typings/radgrad';
+import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
+import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
+import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 
-const StudentAboutMePage: React.FunctionComponent = () => (
+interface IStudentAboutMePageProps {
+  profile: IStudentProfile;
+  favoriteCareerGoals: IFavoriteCareerGoal[];
+  favoriteInterests: IFavoriteInterest[];
+  favoriteAcademicPlans: IFavoriteAcademicPlan[];
+}
+
+const StudentAboutMePage: React.FC<IStudentAboutMePageProps> = (props) => (
   <div id="student-about-me-page">
     <StudentPageMenuWidget />
     <Container>
@@ -12,7 +31,7 @@ const StudentAboutMePage: React.FunctionComponent = () => (
         <Grid.Row>
           <Grid.Column width={2} />
           <Grid.Column width={12}>
-            <StudentAboutMeWidget />
+            <StudentAboutMeWidget {...props} />
           </Grid.Column>
           <Grid.Column width={2} />
         </Grid.Row>
@@ -22,4 +41,18 @@ const StudentAboutMePage: React.FunctionComponent = () => (
   </div>
 );
 
-export default StudentAboutMePage;
+const StudentAboutMePageContainer = withTracker(() => {
+  const { username } = useParams();
+  const profile = Users.getProfile(username) as IStudentProfile;
+  const favoriteAcademicPlans = FavoriteAcademicPlans.findNonRetired({ studentID: profile.userID });
+  const favoriteCareerGoals = FavoriteCareerGoals.findNonRetired({ userID: profile.userID });
+  const favoriteInterests = FavoriteInterests.findNonRetired({ userID: profile.userID });
+  return {
+    profile,
+    favoriteAcademicPlans,
+    favoriteCareerGoals,
+    favoriteInterests,
+  };
+})(StudentAboutMePage);
+
+export default StudentAboutMePageContainer;

@@ -18,8 +18,7 @@ export interface IStudentIceColumnProps {
   opportunityInstances: IOpportunityInstance[];
 }
 
-const StudentIceColumn = (props: IStudentIceColumnProps) => {
-  console.log('StudentIceColumn', props);
+const StudentIceColumn: React.FC<IStudentIceColumnProps> = (props) => {
   const match = useRouteMatch();
   const [verifiedColumnOpenState, setVerifiedColumnOpen] = useState(true);
   const [unVerifiedColumnOpenState, setUnVerifiedColumnOpen] = useState(false);

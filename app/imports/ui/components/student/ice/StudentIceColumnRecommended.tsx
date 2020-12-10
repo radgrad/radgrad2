@@ -146,8 +146,7 @@ const recommendedEvents = (projectedPoints: number, props: IStudentIceColumnReco
   return null;
 };
 
-const StudentIceColumnRecommended = (props: IStudentIceColumnRecommendedProps) => {
-  console.log(props);
+const StudentIceColumnRecommended: React.FC<IStudentIceColumnRecommendedProps> = (props) => {
   const match = useRouteMatch();
   const { type, earnedICEPoints, projectedICEPoints, matchingPoints, getCourseSlug, getOpportunitySlug, icePoints } = props;
 

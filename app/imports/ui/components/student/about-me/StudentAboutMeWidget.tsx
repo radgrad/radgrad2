@@ -1,9 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
-import { useParams, useRouteMatch, Link } from 'react-router-dom';
+import { useRouteMatch, Link } from 'react-router-dom';
 import { Grid, Segment, Header, Icon, Label, Divider, Button } from 'semantic-ui-react';
-import { withTracker } from 'meteor/react-meteor-data';
-import { Users } from '../../../../api/user/UserCollection';
 import {
   IFavoriteAcademicPlan,
   IFavoriteCareerGoal,
@@ -21,9 +19,6 @@ import {
   itemToSlugName,
   profileToFullName,
 } from '../../shared/utilities/data-model';
-import { FavoriteAcademicPlans } from '../../../../api/favorite/FavoriteAcademicPlanCollection';
-import { FavoriteCareerGoals } from '../../../../api/favorite/FavoriteCareerGoalCollection';
-import { FavoriteInterests } from '../../../../api/favorite/FavoriteInterestCollection';
 import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
 import { Interests } from '../../../../api/interest/InterestCollection';
 
@@ -186,16 +181,4 @@ const StudentAboutMeWidget: React.FC<IStudentAboutMeWidgetProps> = ({ profile, f
   );
 };
 
-export default withTracker((props) => {
-  const { username } = useParams();
-  const profile = Users.getProfile(username);
-  const favoriteAcademicPlans = FavoriteAcademicPlans.findNonRetired({ studentID: profile.userID });
-  const favoriteCareerGoals = FavoriteCareerGoals.findNonRetired({ userID: profile.userID });
-  const favoriteInterests = FavoriteInterests.findNonRetired({ userID: profile.userID });
-  return {
-    profile,
-    favoriteAcademicPlans,
-    favoriteCareerGoals,
-    favoriteInterests,
-  };
-})(StudentAboutMeWidget);
+export default StudentAboutMeWidget;

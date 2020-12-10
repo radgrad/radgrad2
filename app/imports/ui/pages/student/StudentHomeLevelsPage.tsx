@@ -2,6 +2,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { useParams } from 'react-router-dom';
 import React from 'react';
 import { Grid, Container, Card, Image } from 'semantic-ui-react';
+import _ from 'lodash';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
@@ -10,13 +11,15 @@ import StudentLevelsWidget from '../../components/student/levels/StudentLevelsWi
 import StudentLevelsOthersWidget from '../../components/student/levels/StudentLevelsOthersWidget';
 import { Users } from '../../../api/user/UserCollection';
 import { IStudentProfile, IHelpMessage } from '../../../typings/radgrad';
+import { ROLE } from '../../../api/role/Role';
 
 interface IStudentHomeLevelsPageProps {
   profile: IStudentProfile;
   helpMessages: IHelpMessage[];
+  students: IStudentProfile[]
 }
 
-const StudentHomeLevelsPage = (props: IStudentHomeLevelsPageProps) => (
+const StudentHomeLevelsPage: React.FC<IStudentHomeLevelsPageProps> = (props) => (
   <div id="student-levels-page">
     <StudentPageMenuWidget />
     <Container>
@@ -158,7 +161,7 @@ const StudentHomeLevelsPage = (props: IStudentHomeLevelsPageProps) => (
                 <StudentLevelsWidget profile={props.profile} />
               </Grid.Column>
               <Grid.Column stretched>
-                <StudentLevelsOthersWidget />
+                <StudentLevelsOthersWidget students={props.students} profile={props.profile} />
               </Grid.Column>
             </Grid>
           </Grid.Column>
@@ -169,13 +172,28 @@ const StudentHomeLevelsPage = (props: IStudentHomeLevelsPageProps) => (
   </div>
 );
 
+const getStudentsAtSameLevel = (profiles, currentProfile:IStudentProfile): IStudentProfile[] => {
+  const students = [];
+  _.forEach(profiles, (profile) => {
+    if (profile.level === currentProfile.level) {
+      if (profile.userID !== currentProfile.userID) {
+        students.push(profile);
+      }
+    }
+  });
+  return students;
+};
+
 const StudentHomeLevelsPageContainer = withTracker(() => {
   const helpMessages = HelpMessages.findNonRetired({});
   const { username } = useParams();
   const profile = Users.getProfile(username) as IStudentProfile;
+  const profiles = Users.findProfilesWithRole(ROLE.STUDENT, {}, {});
+  const students: IStudentProfile[] = getStudentsAtSameLevel(profiles, profile);
   return {
     helpMessages,
     profile,
+    students,
   };
 })(StudentHomeLevelsPage);
 

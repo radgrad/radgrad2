@@ -1,18 +1,14 @@
 import React from 'react';
 import { List } from 'semantic-ui-react';
 import _ from 'lodash';
-import { Link, useParams, useRouteMatch } from 'react-router-dom';
-import { withTracker } from 'meteor/react-meteor-data';
+import { Link, useRouteMatch } from 'react-router-dom';
 import { IAcademicTerm, IAcademicYearInstance, Ice, ICourseInstance, IOpportunityInstance } from '../../../../typings/radgrad';
 import { buildRouteName, getUserIdFromRoute } from '../../shared/utilities/router';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import { AcademicYearInstances } from '../../../../api/degree-plan/AcademicYearInstanceCollection';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
-import { CourseInstances } from '../../../../api/course/CourseInstanceCollection';
-import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
 import { Courses } from '../../../../api/course/CourseCollection';
-import { Users } from '../../../../api/user/UserCollection';
 
 interface IStudentIceColumnUnverifiedProps {
   type: 'Innovation' | 'Competency' | 'Experience';
@@ -95,7 +91,7 @@ const courseName = (courseInstance: ICourseInstance): string => {
   return course.shortName;
 };
 
-const StudentIceColumnUnverified = (props: IStudentIceColumnUnverifiedProps) => {
+const StudentIceColumnUnverified: React.FC<IStudentIceColumnUnverifiedProps> = (props) => {
   const match = useRouteMatch();
   const { type, earnedICEPoints, projectedICEPoints, matchingPoints, getCourseSlug, getOpportunitySlug, icePoints } = props;
 
@@ -161,16 +157,4 @@ const StudentIceColumnUnverified = (props: IStudentIceColumnUnverifiedProps) => 
   );
 };
 
-const StudentIceColumnUnverifiedContainer = withTracker(() => {
-  const { username } = useParams();
-  const studentID = Users.getProfile(username).userID;
-  // Tracked to make StudentIceColumnUnVerified reactive
-  const courseInstances: ICourseInstance[] = CourseInstances.findNonRetired({ studentID });
-  const opportunityInstances: IOpportunityInstance[] = OpportunityInstances.findNonRetired({ studentID });
-  return {
-    courseInstances,
-    opportunityInstances,
-  };
-})(StudentIceColumnUnverified);
-
-export default StudentIceColumnUnverifiedContainer;
+export default StudentIceColumnUnverified;
