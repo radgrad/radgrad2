@@ -9,7 +9,7 @@ assignees: ''
 
 ## Review Branch
 
-(Please indicate the review branch here).
+(Please indicate the review branch here. It should be named review-xxx, where xxx is this issue number.)
 
 ## Files to be reviewed
 
