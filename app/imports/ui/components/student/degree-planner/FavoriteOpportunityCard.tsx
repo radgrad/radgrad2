@@ -3,12 +3,10 @@ import { Card, Icon } from 'semantic-ui-react';
 import _ from 'lodash';
 import { Link, useRouteMatch } from 'react-router-dom';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
-import { withTracker } from 'meteor/react-meteor-data';
 import { RadGradProperties } from '../../../../api/radgrad/RadGradProperties';
 import { OpportunityScoreboard } from '../../../../startup/client/collections';
 import { IAcademicTerm, IOpportunity, IOpportunityInstance } from '../../../../typings/radgrad';
 import IceHeader from '../../shared/IceHeader';
-import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import FutureParticipation from '../../shared/explorer/FutureParticipation';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
@@ -20,12 +18,12 @@ import { buildRouteName } from './DepUtilityFunctions';
 interface IFavoriteOpportunityCardProps {
   opportunity: IOpportunity;
   studentID: string;
-  instances: IOpportunityInstance[];
+  opportunityInstances: IOpportunityInstance[];
 }
 
 const FavoriteOpportunityCard: React.FC<IFavoriteOpportunityCardProps> = (props) => {
   const match = useRouteMatch();
-  const instances = props.instances;
+  const instances = _.filter(props.opportunityInstances, (i) => i.opportunityID === props.opportunity._id);
   const terms: IAcademicTerm[] = _.map(instances, (i) => AcademicTerms.findDoc(i.termID));
   // Sort by ascending order
   terms.sort((a, b) => a.year - b.year);
@@ -109,12 +107,4 @@ const FavoriteOpportunityCard: React.FC<IFavoriteOpportunityCardProps> = (props)
   );
 };
 
-export default withTracker((props) => {
-  const instances: IOpportunityInstance[] = OpportunityInstances.findNonRetired({
-    studentID: props.studentID,
-    opportunityID: props.opportunity._id,
-  });
-  return {
-    instances,
-  };
-})(FavoriteOpportunityCard);
+export default FavoriteOpportunityCard;

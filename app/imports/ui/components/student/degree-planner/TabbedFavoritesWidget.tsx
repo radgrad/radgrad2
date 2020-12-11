@@ -7,7 +7,7 @@ import FavoriteCoursesWidget from './FavoriteCoursesWidget';
 import DepDetailsWidget from './DepDetailsWidget';
 import FavoriteAcademicPlansWidget from './FavoriteAcademicPlansWidget';
 import { RootState } from '../../../../redux/types';
-import { IAcademicPlan, ICourse, IOpportunity } from '../../../../typings/radgrad';
+import { IAcademicPlan, ICourse, ICourseInstance, IOpportunity, IOpportunityInstance } from '../../../../typings/radgrad';
 
 interface ITabbedFavoritesWidgetProps {
   takenSlugs: string[];
@@ -20,6 +20,8 @@ interface ITabbedFavoritesWidgetProps {
   opportunities: IOpportunity[];
   studentID: string;
   courses: ICourse[];
+  courseInstances: ICourseInstance[];
+  opportunityInstances: IOpportunityInstance[];
 }
 
 const mapStateToProps = (state: RootState) => ({
@@ -48,22 +50,22 @@ const active = (selectedTab) => {
   }
 };
 
-const TabbedFavoritesWidget: React.FC<ITabbedFavoritesWidgetProps> = ({ takenSlugs, academicPlans, selectedTab, selectFavoriteCoursesTab, selectFavoriteDetailsTab, selectFavoriteOpportunitiesTab, selectFavoritePlansTab, opportunities, studentID, courses }) => {
+const TabbedFavoritesWidget: React.FC<ITabbedFavoritesWidgetProps> = (props) => {
   const handleTabChange = (event, instance) => {
     const { activeIndex } = instance;
     event.preventDefault();
     switch (activeIndex) {
       case 0:
-        selectFavoriteOpportunitiesTab();
+        props.selectFavoriteOpportunitiesTab();
         break;
       case 1:
-        selectFavoritePlansTab();
+        props.selectFavoritePlansTab();
         break;
       case 2:
-        selectFavoriteCoursesTab();
+        props.selectFavoriteCoursesTab();
         break;
       case 3:
-        selectFavoriteDetailsTab();
+        props.selectFavoriteDetailsTab();
         break;
       default:
         console.error(`Bad tab index: ${activeIndex}`);
@@ -80,9 +82,9 @@ const TabbedFavoritesWidget: React.FC<ITabbedFavoritesWidgetProps> = ({ takenSlu
       pane: (
         <Tab.Pane
           key="FavoriteOpportunitiesPane"
-          active={active(selectedTab) === 0}
+          active={active(props.selectedTab) === 0}
         >
-          <FavoriteOpportunitiesWidget opportunities={opportunities} studentID={studentID} />
+          <FavoriteOpportunitiesWidget opportunities={props.opportunities} studentID={props.studentID} opportunityInstances={props.opportunityInstances} />
         </Tab.Pane>
       ),
     },
@@ -93,8 +95,8 @@ const TabbedFavoritesWidget: React.FC<ITabbedFavoritesWidgetProps> = ({ takenSlu
         </Menu.Item>
       ),
       pane: (
-        <Tab.Pane key="FavoritePlansPane" active={active(selectedTab) === 1}>
-          <FavoriteAcademicPlansWidget plans={academicPlans} takenSlugs={takenSlugs} />
+        <Tab.Pane key="FavoritePlansPane" active={active(props.selectedTab) === 1}>
+          <FavoriteAcademicPlansWidget plans={props.academicPlans} takenSlugs={props.takenSlugs} />
         </Tab.Pane>
       ),
     },
@@ -105,8 +107,8 @@ const TabbedFavoritesWidget: React.FC<ITabbedFavoritesWidgetProps> = ({ takenSlu
         </Menu.Item>
       ),
       pane: (
-        <Tab.Pane key="FavoriteCoursesPane" active={active(selectedTab) === 2}>
-          <FavoriteCoursesWidget studentID={studentID} courses={courses} />
+        <Tab.Pane key="FavoriteCoursesPane" active={active(props.selectedTab) === 2}>
+          <FavoriteCoursesWidget studentID={props.studentID} courses={props.courses} courseInstances={props.courseInstances} />
         </Tab.Pane>
       ),
     },
@@ -115,7 +117,7 @@ const TabbedFavoritesWidget: React.FC<ITabbedFavoritesWidgetProps> = ({ takenSlu
         <Menu.Item key="FavoriteDetails">DETAILS</Menu.Item>
       ),
       pane: (
-        <Tab.Pane key="FavoriteDetailsPane" active={active(selectedTab) === 3}>
+        <Tab.Pane key="FavoriteDetailsPane" active={active(props.selectedTab) === 3}>
           <DepDetailsWidget />
         </Tab.Pane>
       ),
@@ -127,7 +129,7 @@ const TabbedFavoritesWidget: React.FC<ITabbedFavoritesWidgetProps> = ({ takenSlu
         panes={panes}
         renderActiveOnly={false}
         onTabChange={(event, instance) => handleTabChange(event, instance)}
-        activeIndex={active(selectedTab)}
+        activeIndex={active(props.selectedTab)}
       />
     </Segment>
   );

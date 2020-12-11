@@ -274,6 +274,8 @@ const StudentDegreePlannerPage: React.FC<IStudentDegreePlannerProps> = (props) =
                 opportunities={props.opportunities}
                 studentID={props.studentID}
                 courses={props.courses}
+                courseInstances={props.courseInstances}
+                opportunityInstances={props.opportunityInstances}
               />
             </Grid.Column>
           </Grid.Row>

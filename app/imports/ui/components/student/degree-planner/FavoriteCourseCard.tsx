@@ -3,11 +3,9 @@ import { Card, Icon } from 'semantic-ui-react';
 import _ from 'lodash';
 import { Link, useRouteMatch } from 'react-router-dom';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
-import { withTracker } from 'meteor/react-meteor-data';
 import { RadGradProperties } from '../../../../api/radgrad/RadGradProperties';
 import { CourseScoreboard } from '../../../../startup/client/collections';
 import { IAcademicTerm, ICourse, ICourseInstance } from '../../../../typings/radgrad';
-import { CourseInstances } from '../../../../api/course/CourseInstanceCollection';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import { Slugs } from '../../../../api/slug/SlugCollection';
 import IceHeader from '../../shared/IceHeader';
@@ -21,12 +19,12 @@ import { buildRouteName } from './DepUtilityFunctions';
 interface IFavoriteCourseCardProps {
   course: ICourse;
   studentID: string;
-  instances: ICourseInstance[];
+  courseInstances: ICourseInstance[];
 }
 
-const FavoriteCourseCard = (props: IFavoriteCourseCardProps) => {
+const FavoriteCourseCard: React.FC<IFavoriteCourseCardProps> = (props) => {
   const match = useRouteMatch();
-  const instances = props.instances;
+  const instances = _.filter(props.courseInstances, (i) => i.courseID === props.course._id);
   const terms = _.map(instances, (i) => AcademicTerms.findDoc(i.termID));
   // Sort by ascending order
   terms.sort((a, b) => a.year - b.year);
@@ -117,12 +115,4 @@ const FavoriteCourseCard = (props: IFavoriteCourseCardProps) => {
   );
 };
 
-export default withTracker((props) => {
-  const instances = CourseInstances.findNonRetired({
-    studentID: props.studentID,
-    courseID: props.course._id,
-  });
-  return {
-    instances,
-  };
-})(FavoriteCourseCard);
+export default FavoriteCourseCard;

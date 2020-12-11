@@ -3,8 +3,6 @@ import _ from 'lodash';
 import { Container, Header, Grid } from 'semantic-ui-react';
 import { Droppable } from 'react-beautiful-dnd';
 import { IAcademicTerm, ICourseInstance, IOpportunityInstance } from '../../../../typings/radgrad';
-// import { CourseInstances } from '../../../../api/course/CourseInstanceCollection';
-// import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import DraggableCourseInstancePill from './DraggableCourseInstancePill';
 import DraggableOpportunityInstancePill from './DraggableOpportunityInstancePill';
@@ -17,13 +15,11 @@ interface IAcademicTermViewProps {
   studentID: string;
   handleClickCourseInstance: (event, { value }) => any;
   handleClickOpportunityInstance: (event, { value }) => any;
-  // eslint-disable-next-line react/no-unused-prop-types
   courseInstances: ICourseInstance[];
-  // eslint-disable-next-line react/no-unused-prop-types
   opportunityInstances: IOpportunityInstance[];
 }
 
-const AcademicTermView = (props: IAcademicTermViewProps) => {
+const AcademicTermView: React.FC<IAcademicTermViewProps> = (props) => {
   const termSlug = Slugs.getNameFromID(props.term.slugID);
   const paddedStyle = {
     margin: 10,
