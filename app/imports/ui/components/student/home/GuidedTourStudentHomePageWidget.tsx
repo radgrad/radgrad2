@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Loader } from 'semantic-ui-react';
+import { Container } from 'semantic-ui-react';
 import Slider from 'react-slick';
 import styles from '../../../pages/landing/utilities/guidedtour-style';
 import 'slick-carousel/slick/slick.css';
@@ -14,7 +14,6 @@ interface IGuidedTourStudentProps {
   careerGoals: string;
   courses: number;
   opportunities: number;
-  ready: boolean;
 }
 
 const GuidedTourStudentHomePageWidget: React.FC<IGuidedTourStudentProps> = (props) => {
@@ -27,21 +26,18 @@ const GuidedTourStudentHomePageWidget: React.FC<IGuidedTourStudentProps> = (prop
     swipeToSlide: true,
   };
 
-  if (props.ready) {
-    return (
-      <div style={styles.background} className="guidedTour">
-        <Container>
-          <Slider {...settings}>
-            <WhyRadGrad />
-            <Interests interests={props.interests} />
-            <CareerPath careerGoals={props.careerGoals} />
-            <Courses courses={props.courses} />
-          </Slider>
-        </Container>
-      </div>
-    );
-  }
-  return <Loader active>Getting data</Loader>;
+  return (
+    <div style={styles.background} className="guidedTour">
+      <Container>
+        <Slider {...settings}>
+          <WhyRadGrad />
+          <Interests interests={props.interests} />
+          <CareerPath careerGoals={props.careerGoals} />
+          <Courses courses={props.courses} />
+        </Slider>
+      </Container>
+    </div>
+  );
 };
 
 export default GuidedTourStudentHomePageWidget;

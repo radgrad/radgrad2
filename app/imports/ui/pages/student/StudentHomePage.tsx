@@ -3,7 +3,6 @@ import React from 'react';
 import { Grid, Container } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import _ from 'lodash';
-import { Meteor } from 'meteor/meteor';
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
@@ -35,7 +34,6 @@ const StudentHomePage: React.FC<IStudentHomePageProps> = (props) => (
       careerGoals={props.careerGoals}
       courses={props.courses}
       opportunities={props.opportunities}
-      ready={props.ready}
     />
     <Container>
       <Grid stackable>
@@ -67,22 +65,15 @@ const StudentHomePage: React.FC<IStudentHomePageProps> = (props) => (
 const countInArray = (array, value) => array.reduce((n, x) => n + (x === value), 0);
 
 export default withTracker(() => {
-  const subscription = Meteor.subscribe(PublicStats.getPublicationName());
   let key;
-  let interests;
-  let careerGoals;
-  let courses;
-  let opportunities;
-  if (subscription.ready() && !Meteor.isAppTest) {
-    key = PublicStats.interestsTotalKey;
-    interests = PublicStats.findDoc({ key }).value;
-    key = PublicStats.careerGoalsListKey;
-    careerGoals = PublicStats.findDoc({ key }).value;
-    key = PublicStats.coursesTotalKey;
-    courses = PublicStats.findDoc({ key }).value;
-    key = PublicStats.opportunitiesTotalKey;
-    opportunities = PublicStats.findDoc({ key }).value;
-  }
+  key = PublicStats.interestsTotalKey;
+  const interests = PublicStats.findDoc({ key }).value;
+  key = PublicStats.careerGoalsListKey;
+  const careerGoals = PublicStats.findDoc({ key }).value;
+  key = PublicStats.coursesTotalKey;
+  const courses = PublicStats.findDoc({ key }).value;
+  key = PublicStats.opportunitiesTotalKey;
+  const opportunities = PublicStats.findDoc({ key }).value;
   const favoriteInterests = FavoriteInterests.findNonRetired({});
   const favIDs = _.map(favoriteInterests, (f) => f.interestID);
   const favInterestObjects = [];
@@ -98,7 +89,6 @@ export default withTracker(() => {
   const highestTen = sorted.slice(0, 10);
   return {
     favoriteInterests: highestTen,
-    ready: subscription.ready(),
     interests,
     careerGoals,
     courses,
