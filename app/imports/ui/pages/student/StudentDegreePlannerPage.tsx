@@ -19,7 +19,7 @@ import {
   ICourseInstanceDefine,
   ICourseInstanceUpdate, IMeteorError, IOpportunity, IOpportunityInstance,
   IOpportunityInstanceDefine,
-  IOpportunityInstanceUpdate, IUserInteractionDefine,
+  IOpportunityInstanceUpdate, IUserInteractionDefine, IVerificationRequest,
 } from '../../../typings/radgrad';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
@@ -37,6 +37,7 @@ import { Slugs } from '../../../api/slug/SlugCollection';
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
 import { FavoriteOpportunities } from '../../../api/favorite/FavoriteOpportunityCollection';
 import { FavoriteCourses } from '../../../api/favorite/FavoriteCourseCollection';
+import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 
 interface IStudentDegreePlannerProps {
   takenSlugs: string[];
@@ -51,6 +52,7 @@ interface IStudentDegreePlannerProps {
   opportunities: IOpportunity[];
   studentID: string;
   courses: ICourse[];
+  verificationRequests: IVerificationRequest[];
 }
 
 const mapDispatchToProps = (dispatch) => ({
@@ -276,6 +278,7 @@ const StudentDegreePlannerPage: React.FC<IStudentDegreePlannerProps> = (props) =
                 courses={props.courses}
                 courseInstances={props.courseInstances}
                 opportunityInstances={props.opportunityInstances}
+                verificationRequests={props.verificationRequests}
               />
             </Grid.Column>
           </Grid.Row>
@@ -308,6 +311,7 @@ export default withTracker(() => {
   const academicYearInstances: IAcademicYearInstance[] = AcademicYearInstances.findNonRetired({ studentID }, { sort: { year: 1 } });
   const courseInstances = CourseInstances.findNonRetired({ studentID: profile.userID });
   const opportunityInstances = OpportunityInstances.findNonRetired({ studentID: profile.userID });
+  const verificationRequests = VerificationRequests.findNonRetired({ studentID });
   return {
     plans,
     takenSlugs: takenSlugs(courseInstances),
@@ -317,5 +321,6 @@ export default withTracker(() => {
     opportunities,
     studentID,
     courses,
+    verificationRequests,
   };
 })(StudentDegreePlannerPageContainer);

@@ -1,8 +1,7 @@
 import _ from 'lodash';
 import React from 'react';
-import { withTracker } from 'meteor/react-meteor-data';
 import { Button, Card, Icon } from 'semantic-ui-react';
-import { Link, useParams, useRouteMatch } from 'react-router-dom';
+import { Link, useRouteMatch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
 import { RadGradProperties } from '../../../../api/radgrad/RadGradProperties';
@@ -30,11 +29,10 @@ import { degreePlannerActions } from '../../../../redux/student/degree-planner';
 import { UserInteractionsTypes } from '../../../../api/analytic/UserInteractionsTypes';
 import { userInteractionDefineMethod } from '../../../../api/analytic/UserInteractionCollection.methods';
 import { Slugs } from '../../../../api/slug/SlugCollection';
-import { Users } from '../../../../api/user/UserCollection';
 
 interface IDetailOpportunityCardProps {
   instance: IOpportunityInstance;
-  requests: IVerificationRequest[];
+  verificationRequests: IVerificationRequest[];
   // eslint-disable-next-line react/no-unused-prop-types
   selectOpportunityInstance: (opportunityInstanceID: string) => any;
 }
@@ -110,12 +108,13 @@ const handleVerificationRequest = (props: IDetailOpportunityCardProps, match) =>
   });
 };
 
-const DetailOpportunityCard = (props: IDetailOpportunityCardProps) => {
+const DetailOpportunityCard: React.FC<IDetailOpportunityCardProps> = (props) => {
+  const verificationRequeststoShow = _.filter(props.verificationRequests, (vr) => vr.opportunityInstanceID === props.instance._id);
   const match = useRouteMatch();
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
   const opportunityTerm = AcademicTerms.findDoc(props.instance.termID);
   const futureP = opportunityTerm.termNumber >= currentTerm.termNumber;
-  const verificationRequested = props.requests.length > 0;
+  const verificationRequested = verificationRequeststoShow.length > 0;
   const termName = AcademicTerms.getShortName(props.instance.termID);
   const opportunity = Opportunities.findDoc(props.instance.opportunityID);
   const textAlignRight: React.CSSProperties = {
@@ -190,7 +189,7 @@ const DetailOpportunityCard = (props: IDetailOpportunityCardProps) => {
               </React.Fragment>
             )}
         </Card.Content>
-        {verificationRequested ? <VerificationRequestStatus request={props.requests[0]} /> : ''}
+        {verificationRequested ? <VerificationRequestStatus request={verificationRequeststoShow[0]} /> : ''}
         {!futureP && !verificationRequested ?
           (
             <Card.Content>
@@ -214,15 +213,4 @@ const DetailOpportunityCard = (props: IDetailOpportunityCardProps) => {
   );
 };
 
-const DetailOpportunityCardCon = withTracker((props) => {
-  const { username } = useParams();
-  const studentID = Users.getProfile(username).userID;
-  const opportunityInstanceID = props.instance._id;
-  const requests = VerificationRequests.findNonRetired({ studentID, opportunityInstanceID });
-  return {
-    requests,
-  };
-})(DetailOpportunityCard);
-
-const DetailOpportunityCardConnected = connect(null, mapDispatchToProps)(DetailOpportunityCardCon);
-export default DetailOpportunityCardConnected;
+export default connect(null, mapDispatchToProps)(DetailOpportunityCard);

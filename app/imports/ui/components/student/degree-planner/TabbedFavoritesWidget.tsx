@@ -7,7 +7,14 @@ import FavoriteCoursesWidget from './FavoriteCoursesWidget';
 import DepDetailsWidget from './DepDetailsWidget';
 import FavoriteAcademicPlansWidget from './FavoriteAcademicPlansWidget';
 import { RootState } from '../../../../redux/types';
-import { IAcademicPlan, ICourse, ICourseInstance, IOpportunity, IOpportunityInstance } from '../../../../typings/radgrad';
+import {
+  IAcademicPlan,
+  ICourse,
+  ICourseInstance,
+  IOpportunity,
+  IOpportunityInstance,
+  IVerificationRequest,
+} from '../../../../typings/radgrad';
 
 interface ITabbedFavoritesWidgetProps {
   takenSlugs: string[];
@@ -22,6 +29,7 @@ interface ITabbedFavoritesWidgetProps {
   courses: ICourse[];
   courseInstances: ICourseInstance[];
   opportunityInstances: IOpportunityInstance[];
+  verificationRequests: IVerificationRequest[];
 }
 
 const mapStateToProps = (state: RootState) => ({
@@ -118,7 +126,7 @@ const TabbedFavoritesWidget: React.FC<ITabbedFavoritesWidgetProps> = (props) => 
       ),
       pane: (
         <Tab.Pane key="FavoriteDetailsPane" active={active(props.selectedTab) === 3}>
-          <DepDetailsWidget />
+          <DepDetailsWidget verificationRequests={props.verificationRequests} />
         </Tab.Pane>
       ),
     },

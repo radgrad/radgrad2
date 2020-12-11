@@ -5,12 +5,13 @@ import DetailCourseCard from './DetailCourseCard';
 import { CourseInstances } from '../../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
 import DetailOpportunityCard from './DetailOpportunityCard';
-import { ICourseInstance, IOpportunityInstance } from '../../../../typings/radgrad';
+import { ICourseInstance, IOpportunityInstance, IVerificationRequest } from '../../../../typings/radgrad';
 import { RootState } from '../../../../redux/types';
 
 interface IDepDetailsWidgetProps {
   selectedCourseInstanceID: string;
   selectedOpportunityInstanceID: string;
+  verificationRequests: IVerificationRequest[];
 }
 
 const mapStateToProps = (state: RootState) => ({
@@ -34,7 +35,7 @@ const DepDetailsWidget: React.FC<IDepDetailsWidgetProps> = (props) => {
       </Message>
     );
   }
-  return (courseP ? <DetailCourseCard instance={instance} /> : <DetailOpportunityCard instance={instance} />);
+  return (courseP ? <DetailCourseCard instance={instance} /> : <DetailOpportunityCard instance={instance} verificationRequests={props.verificationRequests} />);
 };
 
 export default connect(mapStateToProps, null)(DepDetailsWidget);
