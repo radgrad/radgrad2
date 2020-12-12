@@ -177,6 +177,12 @@ export interface IDescriptionPair {
   value: string | number | string[] | any[] | unknown;
 }
 
+export interface ISocialPair {
+  label: string;
+  amount?: number;
+  value: IProfile[];
+}
+
 // AcademicPlans
 interface IAcademicPlanGroup {
   name: string;

@@ -3,7 +3,14 @@ import { useParams, useRouteMatch } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Container, Grid } from 'semantic-ui-react';
 import _ from 'lodash';
-import { ICareerGoal, IFavoriteCareerGoal, IHelpMessage } from '../../../../typings/radgrad';
+import {
+  ICareerGoal,
+  IDescriptionPair,
+  IFavoriteCareerGoal,
+  IHelpMessage,
+  IProfile,
+  ISocialPair,
+} from '../../../../typings/radgrad';
 import { getMenuWidget } from '../utilities/getMenuWidget';
 import { HelpMessages } from '../../../../api/help/HelpMessageCollection';
 import HelpPanelWidget from '../../../components/shared/HelpPanelWidget';
@@ -25,10 +32,10 @@ interface ICareerGoalViewPageProps {
   helpMessages: IHelpMessage[];
 }
 
-const interestedUsersCareerGoals = (theCareerGoal: ICareerGoal, role: string): unknown[] => {
+const interestedUsersCareerGoals = (theCareerGoal: ICareerGoal, role: string): IProfile[] => {
   let interested = [];
   const profiles = Users.findProfilesWithRole(role, {}, {});
-  _.forEach(profiles, (profile) => {
+  profiles.forEach((profile) => {
     if (_.includes(profileGetCareerGoalIDs(profile), theCareerGoal._id)) {
       interested.push(profile);
     }
@@ -45,7 +52,7 @@ const numUsersCareerGoals = (theCareerGoal: ICareerGoal, role: string): number =
 
 const numStudentsCareerGoals = (theCareerGoal: ICareerGoal): number => FavoriteCareerGoals.findNonRetired({ careerGoalID: theCareerGoal._id }).length;
 
-const socialPairsCareerGoals = (theCareerGoal: ICareerGoal): { label: string, amount: number, value: unknown[] }[] => [
+const socialPairsCareerGoals = (theCareerGoal: ICareerGoal): ISocialPair[] => [
   {
     label: 'students', amount: numStudentsCareerGoals(theCareerGoal),
     value: interestedUsersCareerGoals(theCareerGoal, ROLE.STUDENT),
@@ -66,7 +73,7 @@ const CareerGoalViewPage: React.FC<ICareerGoalViewPageProps> = ({ careerGoal, fa
   const menuAddedList = _.map(favoriteCareerGoals, (f) => ({
     item: CareerGoals.findDoc(f.careerGoalID), count: 1,
   }));
-  const descriptionPairs = [
+  const descriptionPairs: IDescriptionPair[] = [
     { label: 'Description', value: careerGoal.description },
     { label: 'Interests', value: _.sortBy(Interests.findNames(careerGoal.interestIDs)) },
     { label: 'Teaser', value: teaser(careerGoal) },

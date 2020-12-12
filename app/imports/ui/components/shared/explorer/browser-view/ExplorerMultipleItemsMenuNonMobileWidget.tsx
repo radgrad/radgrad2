@@ -39,7 +39,6 @@ const ExplorerMultipleItemsMenuNonMobileWidget: React.FC<ICardExplorerMenuNonMob
   const isStudent = isUrlRoleStudent(match);
   const isFaculty = isUrlRoleFaculty(match) || isUrlRoleAdvisor(match);
 
-  console.log('multiple items side menu', menuAddedList, menuCareerList, type, isStudent, isFaculty, isType(EXPLORER_TYPE.INTERESTS, type));
   const addFacultyOpportunityButtonStyle: React.CSSProperties = { marginTop: '5px' };
 
   return (
