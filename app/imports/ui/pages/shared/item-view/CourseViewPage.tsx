@@ -3,11 +3,12 @@ import { useParams, useRouteMatch } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Container, Grid } from 'semantic-ui-react';
 import _ from 'lodash';
+import { Reviews } from '../../../../api/review/ReviewCollection';
 import { getMenuWidget } from '../utilities/getMenuWidget';
 import { HelpMessages } from '../../../../api/help/HelpMessageCollection';
 import HelpPanelWidget from '../../../components/shared/HelpPanelWidget';
 import ExplorerMenu from '../../../components/shared/explorer/item-view/ExplorerMenu';
-import { ICourse, IDescriptionPair, IFavoriteCourse, IHelpMessage } from '../../../../typings/radgrad';
+import { ICourse, IDescriptionPair, IFavoriteCourse, IHelpMessage, IReview } from '../../../../typings/radgrad';
 import { Courses } from '../../../../api/course/CourseCollection';
 import { FavoriteCourses } from '../../../../api/favorite/FavoriteCourseCollection';
 import { Users } from '../../../../api/user/UserCollection';
@@ -23,6 +24,7 @@ interface ICourseViewPageProps {
   favoriteCourses: IFavoriteCourse[];
   course: ICourse;
   helpMessages: IHelpMessage[];
+  itemReviews: IReview[];
 }
 
 // TODO this seems very complicated to get the description pairs.
@@ -101,7 +103,7 @@ const isCourseCompleted = (courseSlugName, match): boolean => {
   return ret;
 };
 
-const CourseViewPage: React.FC<ICourseViewPageProps> = ({ favoriteCourses, course, helpMessages }) => {
+const CourseViewPage: React.FC<ICourseViewPageProps> = ({ favoriteCourses, course, helpMessages, itemReviews }) => {
   const match = useRouteMatch();
   const menuAddedList = _.map(favoriteCourses, (f) => ({
     item: Courses.findDoc(f.courseID), count: 1,
@@ -122,7 +124,7 @@ const CourseViewPage: React.FC<ICourseViewPageProps> = ({ favoriteCourses, cours
               <ExplorerMenu menuAddedList={menuAddedList} type="courses" />
             </Grid.Column>
             <Grid.Column width={13}>
-              <ExplorerCourseWidget name={course.name} shortName={course.shortName} descriptionPairs={descriptionPairs} item={course} completed={completed} />
+              <ExplorerCourseWidget name={course.name} shortName={course.shortName} descriptionPairs={descriptionPairs} item={course} completed={completed} itemReviews={itemReviews} />
             </Grid.Column>
           </Grid.Row>
         </Grid>
@@ -138,10 +140,12 @@ const CourseViewPageContainer = withTracker(() => {
   const profile = Users.getProfile(username);
   const favoriteCourses = FavoriteCourses.findNonRetired({ studentID: profile.userID });
   const helpMessages = HelpMessages.findNonRetired({});
+  const itemReviews = Reviews.findNonRetired({ revieweeID: courseDoc._id });
   return {
     course: courseDoc,
     favoriteCourses,
     helpMessages,
+    itemReviews,
   };
 })(CourseViewPage);
 

@@ -21,15 +21,15 @@ import { Opportunities } from '../../../../api/opportunity/OpportunityCollection
 import { ReviewTypes } from '../../../../api/review/ReviewTypes';
 
 interface IStudentExplorerAddReviewFormProps {
-  event: {
-    [key: string]: any;
+  itemToReview: {
+    [key: string]: any; // TODO this is a poor way to type this.
   }
   reviewType: string;
 }
 
 const collection = Reviews;
 
-const StudentExplorerAddReviewForm = (props: IStudentExplorerAddReviewFormProps) => {
+const StudentExplorerAddReviewForm: React.FC<IStudentExplorerAddReviewFormProps> = ({ itemToReview, reviewType }) => {
   // console.log('StudentExplorerAddReviewForm', props);
   const match = useRouteMatch();
   const formRef = React.createRef();
@@ -42,7 +42,6 @@ const StudentExplorerAddReviewForm = (props: IStudentExplorerAddReviewFormProps)
 
   const handleAdd = (doc: IReviewDefine): void => {
     const collectionName = collection.getCollectionName();
-    const { reviewType, event } = props;
     const username = getUsername(match);
     const academicTermDoc = AcademicTerms.getAcademicTermFromToString(doc.academicTerm);
     const academicTermSlug = AcademicTerms.findSlugByID(academicTermDoc._id);
@@ -50,7 +49,7 @@ const StudentExplorerAddReviewForm = (props: IStudentExplorerAddReviewFormProps)
     definitionData.academicTerm = academicTermSlug;
     definitionData.student = username;
     definitionData.reviewType = reviewType as ReviewTypes;
-    definitionData.reviewee = event._id;
+    definitionData.reviewee = itemToReview._id;
     defineMethod.call({ collectionName, definitionData }, (error) => {
       if (error) {
         Swal.fire({
@@ -92,17 +91,16 @@ const StudentExplorerAddReviewForm = (props: IStudentExplorerAddReviewFormProps)
   };
 
   const academicTerm = (): IAcademicTerm[] => {
-    const { event, reviewType } = props;
     const academicTerms = [];
     let instances;
     if (reviewType === 'course') {
-      const course = event;
+      const course = itemToReview;
       instances = CourseInstances.findNonRetired({
         studentID: getUserIdFromRoute(match),
         courseID: course._id,
       });
     } else {
-      const opportunity = event;
+      const opportunity = itemToReview;
       instances = OpportunityInstances.findNonRetired({
         studentID: getUserIdFromRoute(match),
         opportunityID: opportunity._id,
