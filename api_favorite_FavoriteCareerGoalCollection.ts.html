@@ -183,7 +183,7 @@ class FavoriteCareerGoalCollection extends BaseCollection {
         if (_.includes([ROLE.ADMIN, ROLE.ADVISOR], profile.role)) {
           return collection.find();
         }
-        return collection.find({ userID });
+        return collection.find({ share: true });
       });
       Meteor.publish(this.publicationNames.scoreboard, function publishCareerGoalScoreboard() {
         ReactiveAggregate(this, collection, [
