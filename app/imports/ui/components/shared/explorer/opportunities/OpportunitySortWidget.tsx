@@ -1,7 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { AutoForm } from 'uniforms-semantic/';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
+import { cardExplorerActions } from '../../../../../redux/shared/cardExplorer';
+import { RootState } from '../../../../../redux/types';
 import RadioField from '../../../form-fields/RadioField';
 
 export const opportunitySortKeys = {
@@ -14,7 +17,16 @@ export const opportunitySortKeys = {
 interface IOpportunitySortWidgetProps {
   sortChoice: string;
   handleChange: (key: string, value: string) => any;
+  setOpportunitiesSortValue: (explorerType: string, value: string) => any;
 }
+
+const mapStateToProps = (state: RootState) => ({
+  sortChoice: state.shared.cardExplorer.opportunities.sortValue,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  setOpportunitiesSortValue: (explorerType: string, value: string) => dispatch(cardExplorerActions.setOpportunitiesSortValue(explorerType, value)),
+});
 
 const OpportunitySortWidget: React.FC<IOpportunitySortWidgetProps> = ({ sortChoice, handleChange }) => {
   // console.log('OpportunitySortWidget', props);
@@ -41,4 +53,4 @@ const OpportunitySortWidget: React.FC<IOpportunitySortWidgetProps> = ({ sortChoi
   );
 };
 
-export default OpportunitySortWidget;
+export default connect(mapStateToProps, mapDispatchToProps)(OpportunitySortWidget);
