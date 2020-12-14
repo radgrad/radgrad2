@@ -1,8 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { AutoForm } from 'uniforms-semantic/';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import RadioField from '../../../form-fields/RadioField';
+import { RootState } from '../../../../../redux/types';
+import { cardExplorerActions } from '../../../../../redux/shared/cardExplorer';
+import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
 
 export const courseFilterKeys = {
   none: 'All',
@@ -13,10 +17,23 @@ export const courseFilterKeys = {
 
 interface ICourseFilterWidgetProps {
   filterChoice: string;
-  handleChange: (key: string, value: string) => any;
+  setFilterChoice: (key: string, value: string) => any;
 }
 
-const CourseFilterWidget: React.FC<ICourseFilterWidgetProps> = ({ filterChoice, handleChange }) => {
+const mapStateToProps = (state: RootState) => ({
+  filterChoice: state.shared.cardExplorer.courses.filterValue,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  setFilterChoice: (explorerType: string, value: string) => dispatch(cardExplorerActions.setCoursesFilterValue(explorerType, value)),
+});
+
+const CourseFilterWidget: React.FC<ICourseFilterWidgetProps> = ({ filterChoice, setFilterChoice }) => {
+
+  const handleChange = (type, value) => {
+    setFilterChoice(EXPLORER_TYPE.COURSES, value);
+  };
+
   const schema = new SimpleSchema({
     filterCoursesBy: {
       type: String,
@@ -42,4 +59,4 @@ const CourseFilterWidget: React.FC<ICourseFilterWidgetProps> = ({ filterChoice, 
   );
 };
 
-export default CourseFilterWidget;
+export default connect(mapStateToProps, mapDispatchToProps)(CourseFilterWidget);

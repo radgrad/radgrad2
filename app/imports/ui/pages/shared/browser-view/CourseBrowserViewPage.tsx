@@ -63,7 +63,7 @@ export default withTracker(() => {
   // console.log(profile);
   const studentID = profile.userID;
   const favoriteCourses = FavoriteCourses.findNonRetired({ studentID });
-  const courses = Courses.findNonRetired({});
+  const courses = Courses.findNonRetired({}); // TODO if user is undergrad student why are we showing grad courses?
   const helpMessages = HelpMessages.findNonRetired({});
   return {
     courses,

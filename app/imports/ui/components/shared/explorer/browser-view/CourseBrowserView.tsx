@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { Card, Header, Segment } from 'semantic-ui-react';
@@ -10,6 +10,7 @@ import { ICourse, IFavoriteCourse } from '../../../../../typings/radgrad';
 import TermCard from './TermCard';
 import { ROLE } from '../../../../../api/role/Role';
 import CourseFilterWidget, { courseFilterKeys } from './CourseFilterWidget';
+import BackToTopButton from '../../BackToTopButton';
 
 interface ICourseBrowserViewProps {
   favoriteCourses: IFavoriteCourse[];
@@ -17,18 +18,19 @@ interface ICourseBrowserViewProps {
   // Saving Scroll Position
   coursesScrollPosition: number;
   setCoursesScrollPosition: (scrollPosition: number) => any;
+  filterCoursesChoice: string;
 }
 
 const mapStateToProps = (state: RootState) => ({
   coursesScrollPosition: state.shared.scrollPosition.explorer.courses,
+  filterCoursesChoice: state.shared.cardExplorer.courses.filterValue,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   setCoursesScrollPosition: (scrollPosition: number) => dispatch(scrollPositionActions.setExplorerCoursesScrollPosition(scrollPosition)),
 });
 
-const CourseBrowserView: React.FC<ICourseBrowserViewProps> = ({ favoriteCourses, courses, coursesScrollPosition, setCoursesScrollPosition }) => {
-  const [filterCoursesChoiceState, setFilterCoursesChoice] = useState(courseFilterKeys.none);
+const CourseBrowserView: React.FC<ICourseBrowserViewProps> = ({ favoriteCourses, courses, coursesScrollPosition, setCoursesScrollPosition, filterCoursesChoice }) => {
 
   const { username } = useParams();
   const profile = Users.getProfile(username);
@@ -48,7 +50,7 @@ const CourseBrowserView: React.FC<ICourseBrowserViewProps> = ({ favoriteCourses,
   }, [cardGroupElement, coursesScrollPosition, setCoursesScrollPosition]);
 
   let items = _.sortBy(courses, (item) => item.num);
-  switch (filterCoursesChoiceState) {
+  switch (filterCoursesChoice) {
     case courseFilterKeys.threeHundredPLus:
       items = _.filter(items, (i) => {
         const courseNumber = parseInt(i.num.split(' ')[1], 10);
@@ -75,15 +77,11 @@ const CourseBrowserView: React.FC<ICourseBrowserViewProps> = ({ favoriteCourses,
     <div id="course-browser-view">
       <Segment>
         <Header dividing>COURSES {courses.length}</Header>
-        <CourseFilterWidget
-          filterChoice={filterCoursesChoiceState}
-          handleChange={(key, value) => {
-            setFilterCoursesChoice(value);
-          }}
-        />
+        <CourseFilterWidget />
         <Card.Group itemsPerRow={2} stackable id="coursesCardGroup">
           {items.map((course) => (<TermCard key={course._id} type="courses" isStudent={isStudent} canAdd={false} item={course} />))}
         </Card.Group>
+        <BackToTopButton />
       </Segment>
     </div>
   );
