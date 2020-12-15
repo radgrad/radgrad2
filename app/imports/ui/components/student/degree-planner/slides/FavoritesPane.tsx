@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid, Header, Image } from 'semantic-ui-react';
 import styles from '../../../../pages/landing/utilities/guidedtour-style';
 
-const FavoritesPane = () => (
+const FavoritesPane: React.FC = () => (
   <div>
     <Grid container stackable>
       <Grid.Row centered>

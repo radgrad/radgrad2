@@ -59,7 +59,7 @@ interface IAdminDataModelAcademicYearsPageProps extends IAdminDataModeMenuProps 
   items: IAcademicYearInstance[];
   students: IStudentProfile[];
 }
-
+// TODO deconstruct props
 const AdminDataModelAcademicYearsPage: React.FC<IAdminDataModelAcademicYearsPageProps> = (props) => {
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);

@@ -91,6 +91,7 @@ interface IAdminDataModelTeasersPageProps extends IAdminDataModeMenuProps {
   opportunities: IOpportunity[];
 }
 
+// TODO deconstruct props
 const AdminDataModelTeasersPage: React.FC<IAdminDataModelTeasersPageProps> = (props) => {
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);

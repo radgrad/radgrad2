@@ -26,7 +26,7 @@ const getSummerOpportunities = (): IOpportunity[] => {
   });
 };
 
-const ExplorerSummerOpportunitiesWidget = () => {
+const ExplorerSummerOpportunitiesWidget: React.FC = () => {
   const numberOfOpportunities = 3;
   const allSummerInternshipOpportunities: IOpportunity[] = getSummerOpportunities();
   const summerInternshipOpportunities = allSummerInternshipOpportunities.slice(0, numberOfOpportunities);

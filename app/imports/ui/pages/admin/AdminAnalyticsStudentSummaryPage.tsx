@@ -5,7 +5,7 @@ import AdminAnalyticsMenuWidget from '../../components/admin/analytics/AdminAnal
 import withInstanceSubscriptions from '../../layouts/utilities/InstanceSubscriptionsHOC';
 import AdminAnalyticsStudentSummaryWidget from '../../components/admin/analytics/student-summary/AdminAnalyticsStudentSummaryWidget';
 
-const AdminAnalyticsStudentSummaryPage = () => {
+const AdminAnalyticsStudentSummaryPage: React.FC = () => {
   const paddedStyle = {
     paddingTop: 20,
   };

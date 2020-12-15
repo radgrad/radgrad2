@@ -65,6 +65,7 @@ const renderSelectedStudentWidgets = (props: IFilterStudents, username: string) 
   );
 };
 
+// TODO deconstruct props
 const AdvisorHomePage: React.FC<IFilterStudents> = (props) => {
   const { username } = useParams();
   return (

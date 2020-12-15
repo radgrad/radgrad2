@@ -4,7 +4,7 @@ import styles from '../../../../pages/landing/utilities/guidedtour-style';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-const ExplorerOpportunitiesHeaderWidget = () => {
+const ExplorerOpportunitiesHeaderWidget: React.FC = () => {
   const signImageStyle: React.CSSProperties = { marginBottom: 0 };
 
   return (

@@ -101,6 +101,7 @@ interface IAdminDataModelVerificationRequestsPageProps extends IAdminDataModeMen
   opportunityInstances: IOpportunityInstance[];
 }
 
+// TODO deconstruct props
 const AdminDataModelVerificationRequestsPage: React.FC<IAdminDataModelVerificationRequestsPageProps> = (props) => {
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);

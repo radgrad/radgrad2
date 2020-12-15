@@ -67,6 +67,7 @@ interface IAdminDataModelAdvisorLogsPageProps extends IAdminDataModeMenuProps {
 }
 
 const AdminDataModelAdvisorLogsPage: React.FC<IAdminDataModelAdvisorLogsPageProps> = (props) => {
+  // TODO deconstruct props
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');

@@ -3,7 +3,7 @@ import { Grid } from 'semantic-ui-react';
 import AlumniPageMenuWidget from '../../components/alumni/AlumniPageMenuWidget';
 import AlumniMessageWidget from '../../components/alumni/AlumniMessageWidget';
 
-const AlumniHomePage = () => {
+const AlumniHomePage: React.FC = () => {
   const moveDownStyle = {
     marginTop: 15,
   };

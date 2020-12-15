@@ -26,7 +26,7 @@ window.addEventListener('storage', function (event) {
 });
 
 /* Top-level layout component for this application. Called in imports/startup/client/startup.tsx. */
-const App = () => (
+const App: React.FC = () => (
   <Router>
     <Switch>
       {routes.LANDING.map((route) => (

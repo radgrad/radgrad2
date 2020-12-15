@@ -3,7 +3,7 @@ import { Grid, Message } from 'semantic-ui-react';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDatabaseMenu from '../../components/admin/database/AdminDatabaseMenu';
 
-const AdminDatabasePage = () => (
+const AdminDatabasePage: React.FC = () => (
   <div id="admin-database-page">
     <AdminPageMenuWidget />
     <Grid container stackable>

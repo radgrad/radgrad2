@@ -83,6 +83,7 @@ interface IAdminDataModelInterestTypesPageProps extends IAdminDataModeMenuProps 
 }
 
 const AdminDataModelInterestTypesPage: React.FC<IAdminDataModelInterestTypesPageProps> = (props) => {
+  // TODO deconstruct props
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');

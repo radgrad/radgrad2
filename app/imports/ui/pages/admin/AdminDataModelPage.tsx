@@ -29,6 +29,7 @@ import BackToTopButton from '../../components/shared/BackToTopButton';
 import withInstanceSubscriptions from '../../layouts/utilities/InstanceSubscriptionsHOC';
 
 const AdminDataModelPage: React.FC<IAdminDataModeMenuProps> = (props) => {
+  // TODO deconstruct props
   const paddedStyle = {
     paddingTop: 20,
   };

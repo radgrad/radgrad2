@@ -64,6 +64,7 @@ interface IAdminDataModelSlugsPageProps extends IAdminDataModeMenuProps {
   items: ISlug[];
 }
 
+// TODO deconstruct props
 const AdminDataModelSlugsPage: React.FC<IAdminDataModelSlugsPageProps> = (props) => {
   const handleDelete = (event) => {
     event.preventDefault();

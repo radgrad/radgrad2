@@ -70,6 +70,7 @@ interface IAdminDataModelHelpMessagesPageProps extends IAdminDataModeMenuProps {
 }
 
 const AdminDataModelHelpMessagesPage: React.FC<IAdminDataModelHelpMessagesPageProps> = (props) => {
+  // TODO deconstruct props
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');

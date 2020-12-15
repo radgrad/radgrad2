@@ -13,7 +13,7 @@ import Opportunities from '../../components/landing/guided-tour/advisor/opportun
 import ReviewModeration from '../../components/landing/guided-tour/advisor/review-moderation';
 import WhatsNext from '../../components/landing/guided-tour/advisor/whats-next';
 
-const LandingGuidedTourAdvisorPage = () => {
+const LandingGuidedTourAdvisorPage: React.FC = () => {
 
   const settings = {
     dots: true,

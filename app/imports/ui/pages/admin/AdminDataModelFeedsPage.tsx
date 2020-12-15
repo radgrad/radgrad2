@@ -126,6 +126,7 @@ const mapStateToProps = (state: RootState): unknown => ({
 });
 
 const AdminDataModelFeedsPage: React.FC<IAdminDataModelFeedsPageProps> = (props) => {
+  // TODO deconstruct props
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');
