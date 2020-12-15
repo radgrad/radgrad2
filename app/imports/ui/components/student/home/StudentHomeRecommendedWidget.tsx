@@ -9,7 +9,7 @@ import { getUsername } from '../../shared/utilities/router';
 import { Interests } from '../../../../api/interest/InterestCollection';
 import RecommendedItemInformation from './RecommendedItemInformation';
 
-const StudentHomeRecommendedWidget = () => {
+const StudentHomeRecommendedWidget: React.FC = () => {
   const match = useRouteMatch();
   const getRecommendedTeasers = (): ITeaser[] => {
     const allTeasers: ITeaser[] = Teasers.findNonRetired({});

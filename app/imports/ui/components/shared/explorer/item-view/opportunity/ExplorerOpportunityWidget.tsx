@@ -23,11 +23,13 @@ import { FAVORITE_TYPE } from '../../../../../../api/favorite/FavoriteTypes';
 import TeaserVideo from '../../../TeaserVideo';
 import { Users } from '../../../../../../api/user/UserCollection';
 import { FavoriteOpportunities } from '../../../../../../api/favorite/FavoriteOpportunityCollection';
+import ExplorerReviewWidget from '../ExplorerReviewWidget';
 
 interface IExplorerOpportunitiesWidgetProps {
   name: string;
   descriptionPairs: any[];
   item: IOpportunity
+  itemReviews: IReview[];
   completed: boolean;
 }
 
@@ -49,7 +51,7 @@ const teaserUrlHelper = (opportunitySlug): string => {
   return oppTeaser && oppTeaser[0] && oppTeaser[0].url;
 };
 
-const ExplorerOpportunityWidget: React.FC<IExplorerOpportunitiesWidgetProps> = ({ name, descriptionPairs, item, completed }) => {
+const ExplorerOpportunityWidget: React.FC<IExplorerOpportunitiesWidgetProps> = ({ name, descriptionPairs, item, completed, itemReviews }) => {
   const segmentStyle = { backgroundColor: 'white' };
   const zeroMarginTopStyle = { marginTop: 0 };
   const fiveMarginTopStyle = { marginTop: '5px' };
@@ -338,14 +340,15 @@ const ExplorerOpportunityWidget: React.FC<IExplorerOpportunitiesWidgetProps> = (
         (
           <Segment>
             <StudentExplorerReviewWidget
-              event={item}
+              itemToReview={item}
               userReview={review(item, match)}
               completed={completed}
               reviewType="opportunity"
+              itemReviews={itemReviews}
             />
           </Segment>
         )
-        : ''}
+        : <ExplorerReviewWidget itemReviews={itemReviews} reviewType="opportunity" />}
     </div>
   );
 };

@@ -13,16 +13,16 @@ interface IFavoriteOpportunitiesWidgetProps {
   opportunityInstances: IOpportunityInstance[];
 }
 
-const FavoriteOpportunitiesWidget: React.FC<IFavoriteOpportunitiesWidgetProps> = (props) => {
+const FavoriteOpportunitiesWidget: React.FC<IFavoriteOpportunitiesWidgetProps> = ({ studentID, opportunities, opportunityInstances }) => {
   const match = useRouteMatch();
-  const hasFavorites = props.opportunities.length > 0;
+  const hasFavorites = opportunities.length > 0;
   return (
     <div>
       {hasFavorites ?
         (
           <Card.Group itemsPerRow={1}>
-            {_.map(props.opportunities, (o) => (
-              <FavoriteOpportunityCard key={o._id} opportunity={o} studentID={props.studentID} opportunityInstances={props.opportunityInstances} />))}
+            {_.map(opportunities, (o) => (
+              <FavoriteOpportunityCard key={o._id} opportunity={o} studentID={studentID} opportunityInstances={opportunityInstances} />))}
           </Card.Group>
         )
         :

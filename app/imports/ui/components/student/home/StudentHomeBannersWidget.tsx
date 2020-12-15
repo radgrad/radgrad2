@@ -8,7 +8,7 @@ const bg1 = { backgroundColor: '#6fbe44' };
 const bg2 = { backgroundColor: '#2f9276' };
 const bg3 = { backgroundColor: '#106735' };
 
-const StudentHomeBannersWidget = () => {
+const StudentHomeBannersWidget: React.FC = () => {
   const match = useRouteMatch();
   return (
     <Grid.Column>

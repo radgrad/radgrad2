@@ -11,8 +11,7 @@ interface IStudentIceWidgetProps {
   courseInstances: ICourseInstance[];
   opportunityInstances: IOpportunityInstance[];
 }
-// TODO deconstruct props
-const StudentIceWidget: React.FC<IStudentIceWidgetProps> = (props) => {
+const StudentIceWidget: React.FC<IStudentIceWidgetProps> = ({ earnedICE, projectedICE, favoriteInterests, courseInstances, opportunityInstances }) => {
   // TODO type styles
   const innovationColumnStyle = { paddingLeft: 0 };
   const experienceColumnStyle = { paddingRight: 0 };
@@ -26,14 +25,14 @@ const StudentIceWidget: React.FC<IStudentIceWidgetProps> = (props) => {
             <Grid.Column style={innovationColumnStyle}>
               <Segment basic>
                 {/* TODO Consolidate type so it is consistent to be 'innovation' */}
-                <PageIceCircle earned={props.earnedICE.i} planned={props.projectedICE.i} type="innov" />
+                <PageIceCircle earned={earnedICE.i} planned={projectedICE.i} type="innov" />
                 <Header as="h3" textAlign="center" className="ice-innovation-color">INNOVATION</Header>
                 {/* TODO pass in earnedICE and projectedICE */}
                 <StudentIceColumn
                   type="Innovation"
-                  favoriteInterests={props.favoriteInterests}
-                  courseInstances={props.courseInstances}
-                  opportunityInstances={props.opportunityInstances}
+                  favoriteInterests={favoriteInterests}
+                  courseInstances={courseInstances}
+                  opportunityInstances={opportunityInstances}
                 />
                 <div style={styleInfo}>
                   You earn innovation points by completing opportunities that involve &#8220; innovation &#8220;, such
@@ -45,13 +44,13 @@ const StudentIceWidget: React.FC<IStudentIceWidgetProps> = (props) => {
 
             <Grid.Column>
               <Segment basic>
-                <PageIceCircle earned={props.earnedICE.c} planned={props.projectedICE.c} type="comp" />
+                <PageIceCircle earned={earnedICE.c} planned={projectedICE.c} type="comp" />
                 <Header as="h3" textAlign="center" className="ice-competency-color">COMPETENCY</Header>
                 <StudentIceColumn
                   type="Competency"
-                  favoriteInterests={props.favoriteInterests}
-                  courseInstances={props.courseInstances}
-                  opportunityInstances={props.opportunityInstances}
+                  favoriteInterests={favoriteInterests}
+                  courseInstances={courseInstances}
+                  opportunityInstances={opportunityInstances}
                 />
                 <div style={styleInfo}>
                   You earn competency points by completing classes. The number of competency points depends upon your
@@ -63,13 +62,13 @@ const StudentIceWidget: React.FC<IStudentIceWidgetProps> = (props) => {
 
             <Grid.Column style={experienceColumnStyle}>
               <Segment basic>
-                <PageIceCircle earned={props.earnedICE.e} planned={props.projectedICE.e} type="exp" />
+                <PageIceCircle earned={earnedICE.e} planned={projectedICE.e} type="exp" />
                 <Header as="h3" textAlign="center" className="ice-experience-color">Experience</Header>
                 <StudentIceColumn
                   type="Experience"
-                  favoriteInterests={props.favoriteInterests}
-                  courseInstances={props.courseInstances}
-                  opportunityInstances={props.opportunityInstances}
+                  favoriteInterests={favoriteInterests}
+                  courseInstances={courseInstances}
+                  opportunityInstances={opportunityInstances}
                 />
                 <div style={styleInfo}>
                   You earn experience points by completing opportunities that provide &#8220;real world

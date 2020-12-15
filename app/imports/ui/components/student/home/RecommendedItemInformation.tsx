@@ -67,9 +67,8 @@ const getTeaserRoute = (match: IMatchProps, teaser: ITeaser): string => {
   return undefined;
 };
 
-const RecommendedItemInformation = (props: IRecommendedItemInformationProps) => {
+const RecommendedItemInformation: React.FC<IRecommendedItemInformationProps> = ({ teaser }) => {
   const match = useRouteMatch();
-  const { teaser } = props;
 
   const viewMoreButtonStyle: React.CSSProperties = {
     marginTop: '25px',

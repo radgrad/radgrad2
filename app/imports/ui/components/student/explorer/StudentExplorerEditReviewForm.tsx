@@ -23,12 +23,12 @@ import { IReviewTypes, ReviewTypes } from '../../../../api/review/ReviewTypes';
 
 interface IStudentExplorerEditReviewWidgetProps {
   review: IReview;
-  event: any;
+  itemToReview: any;
 }
 
 const collection = Reviews;
 
-const StudentExplorerEditReviewForm = (props: IStudentExplorerEditReviewWidgetProps) => {
+const StudentExplorerEditReviewForm: React.FC<IStudentExplorerEditReviewWidgetProps> = ({ review, itemToReview }) => {
   const formRef = React.createRef();
   const [activeState, setActive] = useState(false);
   const [confirmOpenState, setConfirmOpen] = useState(false);
@@ -41,7 +41,6 @@ const StudentExplorerEditReviewForm = (props: IStudentExplorerEditReviewWidgetPr
 
   const handleUpdate = (doc: IReviewUpdate): void => {
     const collectionName = collection.getCollectionName();
-    const { review } = props;
     const username = getUsername(match);
     const academicTermDoc = AcademicTerms.getAcademicTermFromToString(doc.academicTerm);
     const academicTermSlug = AcademicTerms.findSlugByID(academicTermDoc._id);
@@ -95,7 +94,7 @@ const StudentExplorerEditReviewForm = (props: IStudentExplorerEditReviewWidgetPr
 
   const handleConfirmDelete = (e: any): void => {
     e.preventDefault();
-    const id = props.review._id;
+    const id = review._id;
     const collectionName = collection.getCollectionName();
     removeItMethod.call({ collectionName, instance: id }, (error) => {
       if (error) {
@@ -128,14 +127,14 @@ const StudentExplorerEditReviewForm = (props: IStudentExplorerEditReviewWidgetPr
   const academicTerm = (): IAcademicTerm[] => {
     const academicTerms = [];
     let instances;
-    if (props.review.reviewType === ReviewTypes.COURSE) {
-      const course = props.event;
+    if (review.reviewType === ReviewTypes.COURSE) {
+      const course = itemToReview;
       instances = CourseInstances.findNonRetired({
         studentID: getUserIdFromRoute(),
         courseID: course._id,
       });
     } else {
-      const opportunity = props.event;
+      const opportunity = itemToReview;
       instances = OpportunityInstances.findNonRetired({
         studentID: getUserIdFromRoute(),
         opportunityID: opportunity._id,
@@ -156,9 +155,6 @@ const StudentExplorerEditReviewForm = (props: IStudentExplorerEditReviewWidgetPr
     color: '#38840F',
   };
   const paddedContainerStyle = { paddingBottom: '1.5em' };
-
-  const { review } = props;
-
   const model: any = {};
   model.comments = review.comments;
   model.rating = review.rating;

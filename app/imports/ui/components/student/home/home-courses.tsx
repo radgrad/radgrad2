@@ -6,7 +6,7 @@ interface ICoursesProps {
   courses: number;
 }
 
-const GuidedTourStudentCourses = (props: ICoursesProps) => (
+const GuidedTourStudentCourses: React.FC<ICoursesProps> = ({ courses }) => (
   <div>
     <Grid container>
       <Grid.Column width={1} />
@@ -18,7 +18,7 @@ const GuidedTourStudentCourses = (props: ICoursesProps) => (
         <div>
           <Header style={styles.h1}>Coursing through your degree program</Header>
           <p style={styles.p}>
-            RadGrad provides information about <strong style={styles.strong}>{props.courses}</strong> courses.
+            RadGrad provides information about <strong style={styles.strong}>{courses}</strong> courses.
             That&apos;s a lot! You might be wondering, &quot;Which ones should I take? Will this course benefit me? Do I
             need to take it?&quot; RadGrad can help answer all these questions.
           </p>

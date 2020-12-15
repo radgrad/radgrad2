@@ -6,7 +6,6 @@ import _ from 'lodash';
 import { Users } from '../../../../api/user/UserCollection';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import StudentExplorerReviewStarsWidget from './StudentExplorerReviewStarsWidget';
-import { Reviews } from '../../../../api/review/ReviewCollection';
 import StudentExplorerEditReviewForm from './StudentExplorerEditReviewForm';
 import StudentExplorerAddReviewForm from './StudentExplorerAddReviewForm';
 import * as Router from '../../shared/utilities/router';
@@ -18,8 +17,9 @@ import {
 import { IReview } from '../../../../typings/radgrad';
 
 interface IStudentExplorerReviewWidgetProps {
-  event: any;
+  itemToReview: any;
   userReview: IReview;
+  itemReviews: IReview[];
   completed: boolean;
   reviewType: string;
 }
@@ -39,33 +39,18 @@ const reviewData = (review: { [key: string]: any }): { [key: string]: any } => {
   };
 };
 
-// TODO make this responsive.
-const reviews = (props: IStudentExplorerReviewWidgetProps, match): IReview[] => {
-  const event = props.event;
-  const matchingReviews = Reviews.findNonRetired({
-    revieweeID: event._id,
-    visible: true,
-  });
-  const matchingReviewsFinal = _.filter(matchingReviews, (review) => {
-    let ret = true;
-    if (review.studentID === Router.getUserIdFromRoute(match)) {
-      ret = false;
-    }
-    return ret;
-  });
-  return matchingReviewsFinal;
-};
-
-const StudentExplorerReviewWidget = (props: IStudentExplorerReviewWidgetProps) => {
+const StudentExplorerReviewWidget: React.FC<IStudentExplorerReviewWidgetProps> = ({ itemReviews, userReview, completed, reviewType, itemToReview }) => {
   const match = useRouteMatch();
   const uppercaseStyle = { textTransform: 'uppercase' };
   const commentsStyle = { paddingTop: '5px' };
 
-  const { event, userReview, completed, reviewType } = props;
   const { name, picture, term, rating, comments } = reviewData(userReview);
   const currentUserPicture = profileIDToPicture(Router.getUserIdFromRoute(match));
   const currentUserName = userToFullName(Router.getUsername(match));
-  const theReviews = reviews(props, match);
+  let theReviews = itemReviews;
+  if (userReview) {
+    theReviews = _.filter(theReviews, (review) => review._id !== userReview._id);
+  }
   return (
     <div className="ui padded container">
       <Header as="h4" dividing style={uppercaseStyle}>
@@ -97,7 +82,7 @@ const StudentExplorerReviewWidget = (props: IStudentExplorerReviewWidgetProps) =
                 </Grid.Column>
               </Grid>
 
-              <StudentExplorerEditReviewForm review={userReview} event={event} />
+              <StudentExplorerEditReviewForm review={userReview} itemToReview={itemToReview} />
 
             </List.Item>
           )
@@ -125,7 +110,7 @@ const StudentExplorerReviewWidget = (props: IStudentExplorerReviewWidgetProps) =
                 </Grid>
                 {
                   completed ?
-                    <StudentExplorerAddReviewForm event={event} reviewType={reviewType} />
+                    <StudentExplorerAddReviewForm itemToReview={itemToReview} reviewType={reviewType} />
                     : ''
                 }
               </List.Item>

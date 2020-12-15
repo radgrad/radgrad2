@@ -23,7 +23,7 @@ interface IStudentAboutMePageProps {
   favoriteAcademicPlans: IFavoriteAcademicPlan[];
 }
 
-const StudentAboutMePage: React.FC<IStudentAboutMePageProps> = (props) => (
+const StudentAboutMePage: React.FC<IStudentAboutMePageProps> = ({ profile, favoriteCareerGoals, favoriteAcademicPlans, favoriteInterests }) => (
   <div id="student-about-me-page">
     <StudentPageMenuWidget />
     <Container>
@@ -31,7 +31,12 @@ const StudentAboutMePage: React.FC<IStudentAboutMePageProps> = (props) => (
         <Grid.Row>
           <Grid.Column width={2} />
           <Grid.Column width={12}>
-            <StudentAboutMeWidget {...props} />
+            <StudentAboutMeWidget
+              profile={profile}
+              favoriteCareerGoals={favoriteCareerGoals}
+              favoriteInterests={favoriteInterests}
+              favoriteAcademicPlans={favoriteAcademicPlans}
+            />
           </Grid.Column>
           <Grid.Column width={2} />
         </Grid.Row>

@@ -3,7 +3,8 @@ import { useParams, useRouteMatch } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Container, Grid } from 'semantic-ui-react';
 import _ from 'lodash';
-import { IHelpMessage, IOpportunity, IProfile } from '../../../../typings/radgrad';
+import { Reviews } from '../../../../api/review/ReviewCollection';
+import { IHelpMessage, IOpportunity, IProfile, IReview } from '../../../../typings/radgrad';
 import { getMenuWidget } from '../utilities/getMenuWidget';
 import HelpPanelWidget from '../../../components/shared/HelpPanelWidget';
 import { HelpMessages } from '../../../../api/help/HelpMessageCollection';
@@ -21,6 +22,7 @@ import { OpportunityInstances } from '../../../../api/opportunity/OpportunityIns
 interface IOpportunityViewPageProps {
   favoriteOpportunities: IOpportunity[];
   helpMessages: IHelpMessage[];
+  itemReviews: IReview[];
   opportunity: IOpportunity;
   profile: IProfile;
 }
@@ -60,7 +62,7 @@ const isCompleted = (opportunityID: string, studentID: string): boolean => {
   return completed;
 };
 
-const OpportunityViewPage: React.FC<IOpportunityViewPageProps> = ({ favoriteOpportunities, helpMessages, opportunity, profile }) => {
+const OpportunityViewPage: React.FC<IOpportunityViewPageProps> = ({ favoriteOpportunities, helpMessages, itemReviews, opportunity, profile }) => {
   const match = useRouteMatch();
   const menuAddedList = _.map(favoriteOpportunities, (item) => ({
     item, count: 1,
@@ -81,7 +83,7 @@ const OpportunityViewPage: React.FC<IOpportunityViewPageProps> = ({ favoriteOppo
               <ExplorerMenu menuAddedList={menuAddedList} type="opportunities" />
             </Grid.Column>
             <Grid.Column width={13}>
-              <ExplorerOpportunityWidget name={opportunity.name} descriptionPairs={descriptionPairs} item={opportunity} completed={completed} />
+              <ExplorerOpportunityWidget name={opportunity.name} descriptionPairs={descriptionPairs} item={opportunity} completed={completed} itemReviews={itemReviews} />
             </Grid.Column>
           </Grid.Row>
         </Grid>
@@ -97,9 +99,11 @@ const OpportunityViewPageContainer = withTracker(() => {
   const favoriteOpportunities = _.map(favOpps, (f) => Opportunities.findDoc(f.opportunityID));
   const helpMessages = HelpMessages.findNonRetired({});
   const opportunityDoc = Opportunities.findDocBySlug(opportunity);
+  const itemReviews = Reviews.findNonRetired({ revieweeID: opportunityDoc._id });
   return {
     favoriteOpportunities,
     helpMessages,
+    itemReviews,
     opportunity: opportunityDoc,
     profile,
   };

@@ -19,16 +19,16 @@ const getName = (courseInstance) => {
   return course.name;
 };
 
-const handleClick = (props: ICourseInstancePillProps) => (event) => {
+const handleClick = (instance, handleClickCourseInstance) => (event) => {
   event.preventDefault();
-  props.handleClickCourseInstance(event, { value: props.instance._id });
+  handleClickCourseInstance(event, { value: instance._id });
 };
 
-const DraggableCourseInstancePill = (props: ICourseInstancePillProps) => (
+const DraggableCourseInstancePill: React.FC<ICourseInstancePillProps> = ({ instance, index, inPast, handleClickCourseInstance }) => (
   <Popup
     trigger={(
       <div>
-        <Draggable key={props.instance._id} draggableId={props.instance._id} index={props.index}>
+        <Draggable key={instance._id} draggableId={instance._id} index={index}>
           {(prov, snap) => (
             <div
               ref={prov.innerRef}
@@ -41,16 +41,16 @@ const DraggableCourseInstancePill = (props: ICourseInstancePillProps) => (
             >
               <Grid>
                 <Grid.Row>
-                  <Grid.Column width={11} onClick={handleClick(props)}>
-                    <NamePill name={props.instance.note} />
+                  <Grid.Column width={11} onClick={handleClick(instance, handleClickCourseInstance)}>
+                    <NamePill name={instance.note} />
                   </Grid.Column>
                   <Grid.Column width={2}>
-                    {props.inPast ? '' : (
+                    {inPast ? '' : (
                       <RemoveItWidget
                         collectionName="CourseInstanceCollection"
-                        id={props.instance._id}
-                        name={getName(props.instance)}
-                        courseNumber={props.instance.note}
+                        id={instance._id}
+                        name={getName(instance)}
+                        courseNumber={instance.note}
                       />
                     )}
                   </Grid.Column>
@@ -61,7 +61,7 @@ const DraggableCourseInstancePill = (props: ICourseInstancePillProps) => (
         </Draggable>
       </div>
     )}
-    content={getName(props.instance)}
+    content={getName(instance)}
   />
 );
 

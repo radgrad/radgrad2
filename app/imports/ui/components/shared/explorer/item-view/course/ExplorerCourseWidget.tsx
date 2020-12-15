@@ -8,12 +8,12 @@ import { RadGradProperties } from '../../../../../../api/radgrad/RadGradProperti
 import { CourseScoreboard } from '../../../../../../startup/client/collections';
 import InterestList from '../../../InterestList';
 import { isSingleChoice } from '../../../../../../api/degree-plan/PlanChoiceUtilities';
-import { Reviews } from '../../../../../../api/review/ReviewCollection';
 import StudentExplorerReviewWidget from '../../../../student/explorer/StudentExplorerReviewWidget';
 import { IAcademicTerm, ICourse, IDescriptionPair, IReview } from '../../../../../../typings/radgrad';
 import * as Router from '../../../utilities/router';
 import { EXPLORER_TYPE } from '../../../../../layouts/utilities/route-constants';
 import { Teasers } from '../../../../../../api/teaser/TeaserCollection';
+import ExplorerReviewWidget from '../ExplorerReviewWidget';
 import FavoritesButton from '../FavoritesButton';
 import { isSame, toUpper } from '../../../utilities/general';
 import { courseSlugToName } from '../../../utilities/data-model';
@@ -31,6 +31,7 @@ interface IExplorerCoursesWidgetProps {
   shortName: string;
   descriptionPairs: IDescriptionPair[];
   item: ICourse;
+  itemReviews: IReview[];
   completed: boolean;
 }
 
@@ -100,10 +101,13 @@ const choices = (prerequisite: { course: string; status: string }): string[] => 
 
 const isFirst = (index: number): boolean => index === 0;
 
-const findReview = (studentID: string, item: { _id: string }): IReview => Reviews.findOne({
-  studentID,
-  revieweeID: item._id,
-});
+const findReview = (studentID: string, itemReviews: IReview[]): IReview => {
+  const userReviewArr = _.filter(itemReviews, (review) => review.studentID === studentID);
+  if (userReviewArr.length > 0) {
+    return userReviewArr[0];
+  }
+  return undefined;
+};
 
 const teaserUrlHelper = (courseSlug): string => {
   const _id = Slugs.getEntityID(courseSlug, 'Course');
@@ -115,7 +119,7 @@ const teaserUrlHelper = (courseSlug): string => {
   return oppTeaser && oppTeaser[0] && oppTeaser[0].url;
 };
 
-const ExplorerCourseWidget: React.FC<IExplorerCoursesWidgetProps> = ({ name, shortName, descriptionPairs, item, completed }) => {
+const ExplorerCourseWidget: React.FC<IExplorerCoursesWidgetProps> = ({ name, shortName, descriptionPairs, item, completed, itemReviews }) => {
   const segmentStyle = { backgroundColor: 'white' };
   const zeroMarginTopStyle = { marginTop: 0 };
   const fiveMarginTopStyle = { marginTop: '5px' };
@@ -575,8 +579,9 @@ const ExplorerCourseWidget: React.FC<IExplorerCoursesWidgetProps> = ({ name, sho
             <Grid.Column width={16}>
               <Segment padded>
                 <StudentExplorerReviewWidget
-                  event={item}
-                  userReview={findReview(studentID, course)}
+                  itemToReview={item}
+                  itemReviews={itemReviews}
+                  userReview={findReview(studentID, itemReviews)}
                   completed={completed}
                   reviewType="course"
                 />
@@ -584,7 +589,7 @@ const ExplorerCourseWidget: React.FC<IExplorerCoursesWidgetProps> = ({ name, sho
             </Grid.Column>
           </Grid>
         )
-        : ''}
+        : <ExplorerReviewWidget itemReviews={itemReviews} reviewType="course" />}
     </div>
   );
 };

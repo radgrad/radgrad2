@@ -4,7 +4,7 @@ import Markdown from 'react-markdown';
 import { useParams, useRouteMatch } from 'react-router-dom';
 import InterestList from '../../../InterestList';
 import { Users } from '../../../../../../api/user/UserCollection';
-import { ICareerGoal } from '../../../../../../typings/radgrad';
+import { ICareerGoal, IDescriptionPair, ISocialPair } from '../../../../../../typings/radgrad';
 import { renderLink, getUserIdFromRoute } from '../../../utilities/router';
 import WidgetHeaderNumber from '../../WidgetHeaderNumber';
 import FavoritesButton from '../FavoritesButton';
@@ -20,9 +20,9 @@ import { FavoriteCareerGoals } from '../../../../../../api/favorite/FavoriteCare
 
 interface IExplorerCareerGoalsWidgetProps {
   name: string;
-  descriptionPairs: any;
+  descriptionPairs: IDescriptionPair[];
   item: ICareerGoal;
-  socialPairs: any;
+  socialPairs: ISocialPair[];
 }
 
 const teaserUrlHelper = (careerGoalSlug): string => {
@@ -90,7 +90,7 @@ const ExplorerCareerGoalWidget: React.FC<IExplorerCareerGoalsWidgetProps> = ({ n
                                   descriptionPair.value ? (
                                     <Markdown
                                       escapeHtml={false}
-                                      source={descriptionPair.value}
+                                      source={`${descriptionPair.value}`}
                                       renderers={{ link: (localProps) => renderLink(localProps, match) }}
                                     />
                                   )
@@ -148,7 +148,7 @@ const ExplorerCareerGoalWidget: React.FC<IExplorerCareerGoalsWidgetProps> = ({ n
                                 descriptionPair.value ? (
                                   <Markdown
                                     escapeHtml={false}
-                                    source={descriptionPair.value}
+                                    source={`${descriptionPair.value}`}
                                     renderers={{ link: (localProps) => renderLink(localProps, match) }}
                                   />
                                 )

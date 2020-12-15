@@ -9,21 +9,21 @@ interface IVerificationRequestStatusProps {
   request: IVerificationRequest;
 }
 
-const VerificationRequestStatus = (props: IVerificationRequestStatusProps) => {
-  const whenSubmitted = moment(props.request.submittedOn).calendar();
+const VerificationRequestStatus: React.FC<IVerificationRequestStatusProps> = ({ request }) => {
+  const whenSubmitted = moment(request.submittedOn).calendar();
   return (
     <Card.Content>
       <Header>Verification Status</Header>
       <span><strong>Date Submitted:</strong> {whenSubmitted}</span>
       <br />
-      <span><strong>Status:</strong> {props.request.status}</span>
+      <span><strong>Status:</strong> {request.status}</span>
       <br />
-      {props.request.processed.length > 0 ?
+      {request.processed.length > 0 ?
         (
           <React.Fragment>
             <strong>Documentation: </strong>
             <List bulleted>
-              {_.map(props.request.processed, (process, index) => (
+              {_.map(request.processed, (process, index) => (
                 <List.Item key={index}>
                   <b>({process.status}) {moment(process.date).calendar()}</b>
                   <br />

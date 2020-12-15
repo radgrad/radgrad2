@@ -26,7 +26,6 @@ import { userInteractionDefineMethod } from '../../../../api/analytic/UserIntera
 
 interface IDetailCourseCardProps {
   instance: ICourseInstance;
-  // eslint-disable-next-line react/no-unused-prop-types
   selectCourseInstance: (courseInstanceID: string) => any;
 }
 
@@ -34,7 +33,7 @@ const mapDispatchToProps = (dispatch) => ({
   selectCourseInstance: (courseInstanceID) => dispatch(degreePlannerActions.selectCourseInstance(courseInstanceID)),
 });
 
-const handleRemove = (props: IDetailCourseCardProps, match) => (event, { value }) => {
+const handleRemove = (selectCourseInstance, match) => (event, { value }) => {
   event.preventDefault();
   const collectionName = CourseInstances.getCollectionName();
   const instance = value;
@@ -63,16 +62,16 @@ const handleRemove = (props: IDetailCourseCardProps, match) => (event, { value }
       });
     }
   });
-  props.selectCourseInstance('');
+  selectCourseInstance('');
 };
 
-const DetailCourseCard: React.FC<IDetailCourseCardProps> = (props) => {
+const DetailCourseCard: React.FC<IDetailCourseCardProps> = ({ instance, selectCourseInstance }) => {
   const match = useRouteMatch();
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
-  const courseTerm = AcademicTerms.findDoc(props.instance.termID);
+  const courseTerm = AcademicTerms.findDoc(instance.termID);
   const futureP = courseTerm.termNumber >= currentTerm.termNumber;
-  const termName = AcademicTerms.getShortName(props.instance.termID);
-  const course = Courses.findDoc(props.instance.courseID);
+  const termName = AcademicTerms.getShortName(instance.termID);
+  const course = Courses.findDoc(instance.courseID);
   const textAlignRight: React.CSSProperties = {
     textAlign: 'right',
   };
@@ -98,7 +97,7 @@ const DetailCourseCard: React.FC<IDetailCourseCardProps> = (props) => {
     <Card.Group itemsPerRow={1}>
       <Card>
         <Card.Content>
-          <IceHeader ice={props.instance.ice} />
+          <IceHeader ice={instance.ice} />
           <Card.Header>
             <h4>
               {course.num}: {course.name}
@@ -117,8 +116,8 @@ const DetailCourseCard: React.FC<IDetailCourseCardProps> = (props) => {
                   floated="right"
                   basic
                   color="green"
-                  value={props.instance._id}
-                  onClick={handleRemove(props, match)}
+                  value={instance._id}
+                  onClick={handleRemove(selectCourseInstance, match)}
                   size="tiny"
                 >
                   Remove

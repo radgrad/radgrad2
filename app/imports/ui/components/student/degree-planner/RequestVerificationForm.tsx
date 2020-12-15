@@ -8,7 +8,7 @@ interface IRequestVerificationFormProps {
   handleOnModelChange: (model) => any;
 }
 
-const RequestVerificationForm = (props: IRequestVerificationFormProps) => {
+const RequestVerificationForm: React.FC<IRequestVerificationFormProps> = ({ handleOnModelChange }) => {
   const schema = new SimpleSchema({
     documentation: String,
   });
@@ -16,7 +16,7 @@ const RequestVerificationForm = (props: IRequestVerificationFormProps) => {
   return (
     <div>
       <Header dividing>Request Verification</Header>
-      <AutoForm schema={formSchema} onSubmit={props.handleOnModelChange}>
+      <AutoForm schema={formSchema} onSubmit={handleOnModelChange}>
         <LongTextField name="documentation" placeholder="Describe your participation in this opportunity." />
         <SubmitField inputRef={undefined} value="Request Verification" disabled={false} className="" />
       </AutoForm>

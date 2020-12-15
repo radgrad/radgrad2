@@ -33,7 +33,7 @@ const mapDispatchToProps = (dispatch) => ({
   selectFavoriteDetailsTab: () => dispatch(degreePlannerActions.selectFavoriteDetailsTab()),
 });
 
-const DEPWidget: React.FC<IDePProps> = (props) => {
+const DEPWidget: React.FC<IDePProps> = ({ selectCourseInstance, selectOpportunityInstance, selectFavoriteDetailsTab, academicYearInstances, courseInstances, opportunityInstances }) => {
   const { username } = useParams();
   const studentID = Users.getID(username);
 
@@ -55,7 +55,7 @@ const DEPWidget: React.FC<IDePProps> = (props) => {
   // Automatically generate 4 AcademicYearInstances if none exists
   if (years.length === 0) {
     generateAcademicYearInstances(4);
-    years = props.academicYearInstances;
+    years = academicYearInstances;
   }
   let visibleYears;
   let visibleStartIndex = 0;
@@ -71,14 +71,14 @@ const DEPWidget: React.FC<IDePProps> = (props) => {
 
   const handleClickCourseInstance = (event, { value }) => {
     event.preventDefault();
-    props.selectCourseInstance(value);
-    props.selectFavoriteDetailsTab();
+    selectCourseInstance(value);
+    selectFavoriteDetailsTab();
   };
 
   const handleClickOpportunityInstance = (event, { value }) => {
     event.preventDefault();
-    props.selectOpportunityInstance(value);
-    props.selectFavoriteDetailsTab();
+    selectOpportunityInstance(value);
+    selectFavoriteDetailsTab();
   };
 
   const handleClickPrevYear = (event) => {
@@ -195,15 +195,15 @@ const DEPWidget: React.FC<IDePProps> = (props) => {
   };
 
   const isTermEmpty = (termID: string): boolean => {
-    const courseInstances = CourseInstances.findNonRetired({
+    const courseInstancesFiltered = CourseInstances.findNonRetired({
       termID: termID,
       studentID: studentID,
     });
-    const opportunityInstances = OpportunityInstances.findNonRetired({
+    const opportunityInstancesFiltered = OpportunityInstances.findNonRetired({
       termID: termID,
       studentID: studentID,
     });
-    return courseInstances.length === 0 && opportunityInstances.length === 0;
+    return courseInstancesFiltered.length === 0 && opportunityInstancesFiltered.length === 0;
   };
 
   const isYearEmpty = (year): boolean => {
@@ -222,8 +222,8 @@ const DEPWidget: React.FC<IDePProps> = (props) => {
               studentID={studentID}
               handleClickCourseInstance={handleClickCourseInstance}
               handleClickOpportunityInstance={handleClickOpportunityInstance}
-              courseInstances={props.courseInstances}
-              opportunityInstances={props.opportunityInstances}
+              courseInstances={courseInstances}
+              opportunityInstances={opportunityInstances}
             />
           ))}
         </Grid.Row>

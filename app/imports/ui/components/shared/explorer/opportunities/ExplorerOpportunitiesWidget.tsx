@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { useRouteMatch } from 'react-router-dom';
 import { Header, Divider, Grid, Container } from 'semantic-ui-react';
@@ -18,6 +18,7 @@ import { ICardExplorersPaginationState } from '../../../../../redux/shared/cardE
 
 interface ICardExplorerOpportunitiesWidgetProps {
   pagination: ICardExplorersPaginationState;
+  sortValue: string;
 }
 
 const opportunityInformationItemConfiguration: IOpportunityInformationItemConfiguration = {
@@ -28,16 +29,16 @@ const opportunityInformationItemConfiguration: IOpportunityInformationItemConfig
 
 const mapStateToProps = (state: RootState) => ({
   pagination: state.shared.cardExplorer.pagination.Opportunities,
+  sortValue: state.shared.cardExplorer.opportunities.sortValue,
 });
 
-const ExplorerOpportunitiesWidget: React.FC<ICardExplorerOpportunitiesWidgetProps> = ({ pagination }) => {
+const ExplorerOpportunitiesWidget: React.FC<ICardExplorerOpportunitiesWidgetProps> = ({ pagination, sortValue }) => {
   const match = useRouteMatch();
 
-  const [sortOpportunitiesChoiceState, setSortOpportunitiesChoice] = useState(opportunitySortKeys.recommended);
   const opportunitiesItemCount = availableOpps(match).length;
   let opportunities: IOpportunity[] = matchingOpportunities(match);
 
-  switch (sortOpportunitiesChoiceState) {
+  switch (sortValue) {
     case opportunitySortKeys.recommended:
       // eslint-disable-next-line no-case-declarations
       const userID = Router.getUserIdFromRoute(match);
@@ -69,12 +70,7 @@ const ExplorerOpportunitiesWidget: React.FC<ICardExplorerOpportunitiesWidgetProp
     <div id="opportunities-page">
       <Grid.Row>
         <Header>OPPORTUNITIES <WidgetHeaderNumber inputValue={opportunitiesItemCount} /></Header>
-        <OpportunitySortWidget
-          sortChoice={sortOpportunitiesChoiceState}
-          handleChange={(key, value) => {
-            setSortOpportunitiesChoice(value);
-          }}
-        />
+        <OpportunitySortWidget />
         <Divider />
       </Grid.Row>
       <Grid.Row>

@@ -22,25 +22,30 @@ interface IStudentIcePageProps {
   courseInstances: ICourseInstance[];
   opportunityInstances: IOpportunityInstance[];
 }
-// TODO deconstruct props should be { helpMessages, earnedICE, ... }
-const StudentIcePage: React.FC<IStudentIcePageProps> = (props) => (
-  <div id="student-ice-points-page">
-    <StudentPageMenuWidget />
-    <Container>
-      <Grid stackable>
-        <Grid.Row>
-          <Grid.Column width={16}><HelpPanelWidget helpMessages={props.helpMessages} /></Grid.Column>
-        </Grid.Row>
-        <Grid.Row>
-          <Grid.Column width={16} stretched>
-            {/* TODO fix object spread */}
-            <StudentIceWidget {...props} />
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
-      <BackToTopButton />
-    </Container>
-  </div>
+const StudentIcePage: React.FC<IStudentIcePageProps> = ({ helpMessages, earnedICE, projectedICE,
+  favoriteInterests, courseInstances, opportunityInstances }) => (
+    <div id="student-ice-points-page">
+      <StudentPageMenuWidget />
+      <Container>
+        <Grid stackable>
+          <Grid.Row>
+            <Grid.Column width={16}><HelpPanelWidget helpMessages={helpMessages} /></Grid.Column>
+          </Grid.Row>
+          <Grid.Row>
+            <Grid.Column width={16} stretched>
+              <StudentIceWidget
+                earnedICE={earnedICE}
+                projectedICE={projectedICE}
+                favoriteInterests={favoriteInterests}
+                courseInstances={courseInstances}
+                opportunityInstances={opportunityInstances}
+              />
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+        <BackToTopButton />
+      </Container>
+    </div>
 );
 
 const StudentHomeIcePageContainer = withTracker(() => {

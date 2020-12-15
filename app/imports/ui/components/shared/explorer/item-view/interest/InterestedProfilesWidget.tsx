@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Container, Header, Grid, Image, Popup, Divider, Segment } from 'semantic-ui-react';
 import _ from 'lodash';
+import { ROLE } from '../../../../../../api/role/Role';
 import { Users } from '../../../../../../api/user/UserCollection';
 import { IInterest } from '../../../../../../typings/radgrad';
 import WidgetHeaderNumber from '../../WidgetHeaderNumber';
@@ -15,20 +16,20 @@ const InterestedProfilesWidget: React.FC<IInterestedProfileWidgetProps> = ({ int
   // console.log('InterestedProfileWidget', props);
   const [faculty, setFaculty] = useState([]);
   const [students, setStudents] = useState([]);
-  const [alumni, setAlumni] = useState([]);
-  getUserIDsWithFavoriteInterestMethod.call({ interestID: interest._id, role: 'faculty' }, (error, res) => {
+  const [advisor, setAdvisor] = useState([]);
+  getUserIDsWithFavoriteInterestMethod.call({ interestID: interest._id, role: ROLE.FACULTY }, (error, res) => {
     if (res && faculty.length !== res.length) {
       setFaculty(_.map(res, (id) => Users.getProfile(id)));
     }
   });
-  getUserIDsWithFavoriteInterestMethod.call({ interestID: interest._id, role: 'student' }, (error, res) => {
+  getUserIDsWithFavoriteInterestMethod.call({ interestID: interest._id, role: ROLE.STUDENT }, (error, res) => {
     if (res && students.length !== res.length) {
       setStudents(_.map(res, (id) => Users.getProfile(id)));
     }
   });
-  getUserIDsWithFavoriteInterestMethod.call({ interestID: interest._id, role: 'alumni' }, (error, res) => {
-    if (res && alumni.length !== res.length) {
-      setAlumni(_.map(res, (id) => Users.getProfile(id)));
+  getUserIDsWithFavoriteInterestMethod.call({ interestID: interest._id, role: ROLE.ADVISOR }, (error, res) => {
+    if (res && advisor.length !== res.length) {
+      setAdvisor(_.map(res, (id) => Users.getProfile(id)));
     }
   });
   const numberStudents = studentsParticipating(interest);
@@ -85,16 +86,16 @@ const InterestedProfilesWidget: React.FC<IInterestedProfileWidgetProps> = ({ int
           <Container>
             <Segment>
               <Header as="h5" textAlign="center">
-                ALUMNI <WidgetHeaderNumber inputValue={alumni.length} />
+                ADVISORS <WidgetHeaderNumber inputValue={advisor.length} />
               </Header>
               <Divider />
               <Container textAlign="center">
                 <Image.Group size="mini">
-                  {alumni.map((alum) => (
+                  {advisor.map((adv) => (
                     <Popup
-                      key={alum._id}
-                      trigger={<Image src={alum.picture} circular />}
-                      content={`${alum.firstName} ${alum.lastName}`}
+                      key={adv._id}
+                      trigger={<Image src={adv.picture} circular />}
+                      content={`${adv.firstName} ${adv.lastName}`}
                     />
                   ))}
                 </Image.Group>

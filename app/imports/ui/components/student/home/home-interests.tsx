@@ -6,7 +6,7 @@ interface IInterestsProps {
   interests: number;
 }
 
-const GuidedTourStudentInterests = (props: IInterestsProps) => (
+const GuidedTourStudentInterests: React.FC<IInterestsProps> = ({ interests }) => (
   <div>
     <Grid container columns={2}>
       <Grid.Column width={1} />
@@ -28,7 +28,7 @@ const GuidedTourStudentInterests = (props: IInterestsProps) => (
           <Header style={styles.h1}>Interests: the hashtags of <br />the RadGrad world</Header>
           <p style={styles.p}>
             Once you have specified one or more of RadGrad&apos;s
-            <strong style={styles.strong}> {props.interests} </strong> interests, RadGrad can start to filter out
+            <strong style={styles.strong}> {interests} </strong> interests, RadGrad can start to filter out
             opportunities that are unrelated to you. RadGrad can also make suggestions about courses and opportunities
             that you might not even know about.
           </p>

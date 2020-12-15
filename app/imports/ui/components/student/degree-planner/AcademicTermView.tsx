@@ -19,17 +19,18 @@ interface IAcademicTermViewProps {
   opportunityInstances: IOpportunityInstance[];
 }
 
-const AcademicTermView: React.FC<IAcademicTermViewProps> = (props) => {
-  const termSlug = Slugs.getNameFromID(props.term.slugID);
+const AcademicTermView: React.FC<IAcademicTermViewProps> = ({ term, studentID, handleClickCourseInstance,
+  handleClickOpportunityInstance, courseInstances, opportunityInstances }) => {
+  const termSlug = Slugs.getNameFromID(term.slugID);
   const paddedStyle = {
     margin: 10,
     padding: 5,
   };
   const currentTermNum = AcademicTerms.getCurrentAcademicTermDoc().termNumber;
-  const inPast = props.term.termNumber < currentTermNum;
-  const isCurrent = props.term.termNumber === currentTermNum;
-  const courseInstancesToShow = _.filter(props.courseInstances, (ci) => ci.termID === props.term._id);
-  const opportunityInstancesToShow = _.filter(props.opportunityInstances, (oi) => oi.termID === props.term._id);
+  const inPast = term.termNumber < currentTermNum;
+  const isCurrent = term.termNumber === currentTermNum;
+  const courseInstancesToShow = _.filter(courseInstances, (ci) => ci.termID === term._id);
+  const opportunityInstancesToShow = _.filter(opportunityInstances, (oi) => oi.termID === term._id);
   return (
     <Container style={paddedStyle}>
       <Header
@@ -37,7 +38,7 @@ const AcademicTermView: React.FC<IAcademicTermViewProps> = (props) => {
         disabled={inPast}
         color={isCurrent ? 'green' : 'black'}
       >
-        {AcademicTerms.toString(props.term._id)}
+        {AcademicTerms.toString(term._id)}
       </Header>
       <Grid stackable stretched>
         <Droppable droppableId={`${termSlug}`}>
@@ -52,7 +53,7 @@ const AcademicTermView: React.FC<IAcademicTermViewProps> = (props) => {
                   instance={ci}
                   index={index}
                   inPast={inPast}
-                  handleClickCourseInstance={props.handleClickCourseInstance}
+                  handleClickCourseInstance={handleClickCourseInstance}
                 />
               ))}
               {_.map(opportunityInstancesToShow, (oi, index) => (
@@ -60,7 +61,7 @@ const AcademicTermView: React.FC<IAcademicTermViewProps> = (props) => {
                   key={oi._id}
                   instance={oi}
                   index={courseInstancesToShow.length + index}
-                  handleClickOpportunityInstance={props.handleClickOpportunityInstance}
+                  handleClickOpportunityInstance={handleClickOpportunityInstance}
                 />
               ))}
               {provided.placeholder}

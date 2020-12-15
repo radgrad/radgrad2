@@ -3,7 +3,7 @@ import { Header, Grid } from 'semantic-ui-react';
 import { radgradVideos } from '../../../../api/radgrad/radgrad-videos';
 import TeaserVideo from '../../shared/TeaserVideo';
 
-const StudentHomeRadGradVideosWidget = () => {
+const StudentHomeRadGradVideosWidget: React.FC = () => {
   const videoTitleStyle: React.CSSProperties = { marginTop: '10px' };
 
   const numberOfVideos = 3;

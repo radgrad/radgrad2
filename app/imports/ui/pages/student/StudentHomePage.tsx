@@ -22,43 +22,42 @@ interface IStudentHomePageProps {
   interests: number;
   careerGoals: string;
   courses: number;
-  opportunities: number;
   ready: boolean;
 }
 
-const StudentHomePage: React.FC<IStudentHomePageProps> = (props) => (
-  <div id="student-home-page">
-    <StudentPageMenuWidget />
-    <GuidedTourStudentHomePageWidget
-      interests={props.interests}
-      careerGoals={props.careerGoals}
-      courses={props.courses}
-      opportunities={props.opportunities}
-    />
-    <Container>
-      <Grid stackable>
-        <Grid.Row>
-          <StudentHomeBannersWidget />
-        </Grid.Row>
-        <Grid.Row>
-          <Grid.Column width={11}>
-            <StudentHomeRecommendedWidget />
-            <StudentHomeRadGradVideosWidget />
+const StudentHomePage: React.FC<IStudentHomePageProps> = ({ match, favoriteInterests, interests,
+  careerGoals, courses, ready }) => (
+    <div id="student-home-page">
+      <StudentPageMenuWidget />
+      <GuidedTourStudentHomePageWidget
+        interests={interests}
+        careerGoals={careerGoals}
+        courses={courses}
+      />
+      <Container>
+        <Grid stackable>
+          <Grid.Row>
+            <StudentHomeBannersWidget />
+          </Grid.Row>
+          <Grid.Row>
+            <Grid.Column width={11}>
+              <StudentHomeRecommendedWidget />
+              <StudentHomeRadGradVideosWidget />
 
-          </Grid.Column>
-          <Grid.Column width={5}>
-            <StudentHomeNewOpportunitiesWidget />
-            <Link to={buildExplorerRoute(props.match, EXPLORER_TYPE.OPPORTUNITIES)}>
-              <u>More Opportunities</u>
-            </Link>
-            <StudentHomeFavoriteInterestsList favoriteInterests={props.favoriteInterests} />
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
-    </Container>
+            </Grid.Column>
+            <Grid.Column width={5}>
+              <StudentHomeNewOpportunitiesWidget />
+              <Link to={buildExplorerRoute(match, EXPLORER_TYPE.OPPORTUNITIES)}>
+                <u>More Opportunities</u>
+              </Link>
+              <StudentHomeFavoriteInterestsList favoriteInterests={favoriteInterests} />
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </Container>
 
-    <BackToTopButton />
-  </div>
+      <BackToTopButton />
+    </div>
 
 );
 
@@ -72,8 +71,6 @@ export default withTracker(() => {
   const careerGoals = PublicStats.findDoc({ key }).value;
   key = PublicStats.coursesTotalKey;
   const courses = PublicStats.findDoc({ key }).value;
-  key = PublicStats.opportunitiesTotalKey;
-  const opportunities = PublicStats.findDoc({ key }).value;
   const favoriteInterests = FavoriteInterests.findNonRetired({});
   const favIDs = _.map(favoriteInterests, (f) => f.interestID);
   const favInterestObjects = [];
@@ -92,6 +89,5 @@ export default withTracker(() => {
     interests,
     careerGoals,
     courses,
-    opportunities,
   };
 })(StudentHomePage);

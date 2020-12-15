@@ -50,7 +50,7 @@ class FacultyProfileCollection extends BaseProfileCollection {
         interests.forEach((interest) => FavoriteInterests.define({ interest, share, username }));
       }
       if (careerGoals) {
-        careerGoals.forEach((careerGoal) => FavoriteCareerGoals.define({ careerGoal, username }));
+        careerGoals.forEach((careerGoal) => FavoriteCareerGoals.define({ careerGoal, share, username }));
       }
       return profileID;
     }

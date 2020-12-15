@@ -6,7 +6,7 @@ interface ICareerPathProps {
   careerGoals: string;
 }
 
-const GuidedTourStudentCareerPath = (props: ICareerPathProps) => (
+const GuidedTourStudentCareerPath: React.FC<ICareerPathProps> = ({ careerGoals }) => (
   <div>
     <Grid container>
       <Grid.Column width={1} />
@@ -20,7 +20,7 @@ const GuidedTourStudentCareerPath = (props: ICareerPathProps) => (
           <p style={styles.p}>
             Interests are important, but getting a job that&apos;s right for you is even more important. RadGrad
             provides a curated list of career goals that include many of the best careers in technology, including:
-            {' '}<strong style={styles.strong}>{props.careerGoals}</strong>.
+            {' '}<strong style={styles.strong}>{careerGoals}</strong>.
           </p>
         </div>
       </Grid.Column>
