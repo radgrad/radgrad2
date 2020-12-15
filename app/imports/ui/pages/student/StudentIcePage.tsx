@@ -22,7 +22,7 @@ interface IStudentIcePageProps {
   courseInstances: ICourseInstance[];
   opportunityInstances: IOpportunityInstance[];
 }
-
+// TODO deconstruct props should be { helpMessages, earnedICE, ... }
 const StudentIcePage: React.FC<IStudentIcePageProps> = (props) => (
   <div id="student-ice-points-page">
     <StudentPageMenuWidget />
@@ -33,6 +33,7 @@ const StudentIcePage: React.FC<IStudentIcePageProps> = (props) => (
         </Grid.Row>
         <Grid.Row>
           <Grid.Column width={16} stretched>
+            {/* TODO fix object spread */}
             <StudentIceWidget {...props} />
           </Grid.Column>
         </Grid.Row>
@@ -44,10 +45,10 @@ const StudentIcePage: React.FC<IStudentIcePageProps> = (props) => (
 
 const StudentHomeIcePageContainer = withTracker(() => {
   const { username } = useParams();
-  const studentID = Users.getProfile(username).userID;
+  const studentID = Users.getProfile(username).userID; // TODO type this.
   const earnedICE: Ice = StudentProfiles.getEarnedICE(username);
   const projectedICE: Ice = StudentProfiles.getProjectedICE(username);
-  const helpMessages = HelpMessages.findNonRetired({});
+  const helpMessages = HelpMessages.findNonRetired({}); // TODO type this.
   const favoriteInterests: IFavoriteInterest[] = FavoriteInterests.findNonRetired({ userID: studentID });
   const courseInstances: ICourseInstance[] = CourseInstances.findNonRetired({ studentID });
   const opportunityInstances: IOpportunityInstance[] = OpportunityInstances.findNonRetired({ studentID });

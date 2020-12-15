@@ -12,12 +12,13 @@ import { Opportunities } from '../../../../api/opportunity/OpportunityCollection
 import { Ice, ICourseInstance, IFavoriteInterest, IOpportunityInstance } from '../../../../typings/radgrad';
 
 export interface IStudentIceColumnProps {
+  // TODO make this an exported enum in radgrad.d.ts
   type: 'Innovation' | 'Competency' | 'Experience';
   favoriteInterests: IFavoriteInterest[];
   courseInstances: ICourseInstance[];
   opportunityInstances: IOpportunityInstance[];
 }
-
+// TODO deconstruct props
 const StudentIceColumn: React.FC<IStudentIceColumnProps> = (props) => {
   const match = useRouteMatch();
   const [verifiedColumnOpenState, setVerifiedColumnOpen] = useState(true);
@@ -53,6 +54,7 @@ const StudentIceColumn: React.FC<IStudentIceColumnProps> = (props) => {
     }
   };
 
+  // TODO add documentation for this and the above function
   const getUnverifiedColor = (): string => {
     const { type } = props;
     switch (type) {
@@ -98,6 +100,8 @@ const StudentIceColumn: React.FC<IStudentIceColumnProps> = (props) => {
   };
 
   const getCourseSlug = (course) => {
+    // TODO if typeof course is ICourse else if ... else.
+    //  type course as ICourse | ICourseInstance
     if (course.courseID) {
       return Slugs.findDoc(Courses.findDoc(course.courseID).slugID).name;
     }
@@ -115,6 +119,7 @@ const StudentIceColumn: React.FC<IStudentIceColumnProps> = (props) => {
   const verifiedColor = getVerifiedColor();
   const unverifiedColor = getUnverifiedColor();
 
+  // TODO don't need this if pass in earnedICE and projectedICE
   const username = Router.getUsername(match);
   const earnedICE = StudentProfiles.getEarnedICE(username);
   const projectedICE = StudentProfiles.getProjectedICE(username);
