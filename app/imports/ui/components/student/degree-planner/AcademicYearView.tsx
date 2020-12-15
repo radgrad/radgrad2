@@ -14,8 +14,9 @@ interface IAcademicYearViewProps {
   opportunityInstances: IOpportunityInstance[];
 }
 
-const AcademicYearView = (props: IAcademicYearViewProps) => {
-  const termIDs = props.academicYear.termIDs;
+const AcademicYearView: React.FC<IAcademicYearViewProps> = ({ academicYear, studentID, handleClickCourseInstance,
+  handleClickOpportunityInstance, courseInstances, opportunityInstances }) => {
+  const termIDs = academicYear.termIDs;
   const terms = _.map(termIDs, (id) => AcademicTerms.findDoc(id));
   return (
     <Grid.Column stretched>
@@ -23,11 +24,11 @@ const AcademicYearView = (props: IAcademicYearViewProps) => {
         <AcademicTermViewContainer
           key={term._id}
           term={term}
-          studentID={props.studentID}
-          handleClickCourseInstance={props.handleClickCourseInstance}
-          handleClickOpportunityInstance={props.handleClickOpportunityInstance}
-          courseInstances={props.courseInstances}
-          opportunityInstances={props.opportunityInstances}
+          studentID={studentID}
+          handleClickCourseInstance={handleClickCourseInstance}
+          handleClickOpportunityInstance={handleClickOpportunityInstance}
+          courseInstances={courseInstances}
+          opportunityInstances={opportunityInstances}
         />
       ))}
     </Grid.Column>

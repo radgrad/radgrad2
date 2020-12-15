@@ -21,18 +21,18 @@ interface IFavoriteOpportunityCardProps {
   opportunityInstances: IOpportunityInstance[];
 }
 
-const FavoriteOpportunityCard: React.FC<IFavoriteOpportunityCardProps> = (props) => {
+const FavoriteOpportunityCard: React.FC<IFavoriteOpportunityCardProps> = ({ opportunity, opportunityInstances, studentID }) => {
   const match = useRouteMatch();
-  const instances = _.filter(props.opportunityInstances, (i) => i.opportunityID === props.opportunity._id);
+  const instances = _.filter(opportunityInstances, (i) => i.opportunityID === opportunity._id);
   const terms: IAcademicTerm[] = _.map(instances, (i) => AcademicTerms.findDoc(i.termID));
   // Sort by ascending order
   terms.sort((a, b) => a.year - b.year);
   const termNames = _.map(terms, (t) => AcademicTerms.getShortName(t._id)).join(', ');
-  const slug = Slugs.findDoc(props.opportunity.slugID).name;
+  const slug = Slugs.findDoc(opportunity.slugID).name;
   const textAlignRight: React.CSSProperties = {
     textAlign: 'right',
   };
-  const droppableID = `${props.opportunity._id}`;
+  const droppableID = `${opportunity._id}`;
 
   const quarter = RadGradProperties.getQuarterSystem();
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
@@ -43,7 +43,7 @@ const FavoriteOpportunityCard: React.FC<IFavoriteOpportunityCardProps> = (props)
   });
   const scores = [];
   _.forEach(academicTerms, (term: IAcademicTerm) => {
-    const id = `${props.opportunity._id} ${term._id}`;
+    const id = `${opportunity._id} ${term._id}`;
     const score = OpportunityScoreboard.find({ _id: id }).fetch() as { count: number }[];
     if (score.length > 0) {
       scores.push(score[0].count);
@@ -55,8 +55,8 @@ const FavoriteOpportunityCard: React.FC<IFavoriteOpportunityCardProps> = (props)
   return (
     <Card>
       <Card.Content>
-        <IceHeader ice={props.opportunity.ice} />
-        <Card.Header>{props.opportunity.name}</Card.Header>
+        <IceHeader ice={opportunity.ice} />
+        <Card.Header>{opportunity.name}</Card.Header>
       </Card.Content>
       <Card.Content>
         {instances.length > 0 ?
@@ -80,7 +80,7 @@ const FavoriteOpportunityCard: React.FC<IFavoriteOpportunityCardProps> = (props)
                       prov.draggableProps.style,
                     )}
                   >
-                    <NamePill name={props.opportunity.name} />
+                    <NamePill name={opportunity.name} />
                   </div>
                 )}
               </Draggable>
@@ -95,7 +95,7 @@ const FavoriteOpportunityCard: React.FC<IFavoriteOpportunityCardProps> = (props)
       <Card.Content>
         <p style={textAlignRight}>
           <Link
-            to={buildRouteName(match, props.opportunity, EXPLORER_TYPE.OPPORTUNITIES)}
+            to={buildRouteName(match, opportunity, EXPLORER_TYPE.OPPORTUNITIES)}
             rel="noopener noreferrer"
             target="_blank"
           >

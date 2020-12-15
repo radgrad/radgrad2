@@ -14,18 +14,18 @@ interface IOpportunityInstancePillProps {
   handleClickOpportunityInstance: (event, { value }) => any;
 }
 
-const handleClick = (props: IOpportunityInstancePillProps) => (event) => {
+const handleClick = (instance, handleClickOpportunityInstance) => (event) => {
   event.preventDefault();
   // console.log(`clicked OI ${props.instance}`);
-  props.handleClickOpportunityInstance(event, { value: props.instance._id });
+  handleClickOpportunityInstance(event, { value: instance._id });
 };
 
-const DraggableOpportunityInstancePill = (props: IOpportunityInstancePillProps) => {
-  const opp = Opportunities.findDoc(props.instance.opportunityID);
+const DraggableOpportunityInstancePill: React.FC<IOpportunityInstancePillProps> = ({ instance, index, handleClickOpportunityInstance }) => {
+  const opp = Opportunities.findDoc(instance.opportunityID);
   return (
     <Popup trigger={(
       <div>
-        <Draggable key={props.instance._id} draggableId={props.instance._id} index={props.index}>
+        <Draggable key={instance._id} draggableId={instance._id} index={index}>
           {(prov, snap) => (
             <div
               ref={prov.innerRef}
@@ -38,15 +38,15 @@ const DraggableOpportunityInstancePill = (props: IOpportunityInstancePillProps) 
             >
               <Grid>
                 <Grid.Row>
-                  <Grid.Column width={11} onClick={handleClick(props)}>
+                  <Grid.Column width={11} onClick={handleClick(instance, handleClickOpportunityInstance)}>
                     <NamePill name={opp.name} />
                   </Grid.Column>
                   <Grid.Column width={1}>
-                    {props.instance.verified ? '' :
+                    {instance.verified ? '' :
                       (
                         <RemoveItWidget
                           collectionName="OpportunityInstanceCollection"
-                          id={props.instance._id}
+                          id={instance._id}
                           name={opp.name}
                           courseNumber=""
                         />
@@ -61,7 +61,7 @@ const DraggableOpportunityInstancePill = (props: IOpportunityInstancePillProps) 
     )}
     >
       <Popup.Content>
-        {props.instance.verified ?
+        {instance.verified ?
           <Icon color="green" size="large" name="check circle outline" /> :
           <Icon color="red" size="large" name="question circle outline" />}
         <IceHeader ice={opp.ice} />

@@ -13,10 +13,9 @@ interface IGuidedTourStudentProps {
   interests: number;
   careerGoals: string;
   courses: number;
-  opportunities: number;
 }
 
-const GuidedTourStudentHomePageWidget: React.FC<IGuidedTourStudentProps> = (props) => {
+const GuidedTourStudentHomePageWidget: React.FC<IGuidedTourStudentProps> = ({ interests, careerGoals, courses }) => {
   const settings = {
     dots: true,
     infinite: false,
@@ -31,9 +30,9 @@ const GuidedTourStudentHomePageWidget: React.FC<IGuidedTourStudentProps> = (prop
       <Container>
         <Slider {...settings}>
           <WhyRadGrad />
-          <Interests interests={props.interests} />
-          <CareerPath careerGoals={props.careerGoals} />
-          <Courses courses={props.courses} />
+          <Interests interests={interests} />
+          <CareerPath careerGoals={careerGoals} />
+          <Courses courses={courses} />
         </Slider>
       </Container>
     </div>

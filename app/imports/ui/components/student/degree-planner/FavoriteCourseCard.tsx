@@ -22,19 +22,19 @@ interface IFavoriteCourseCardProps {
   courseInstances: ICourseInstance[];
 }
 
-const FavoriteCourseCard: React.FC<IFavoriteCourseCardProps> = (props) => {
+const FavoriteCourseCard: React.FC<IFavoriteCourseCardProps> = ({ course, courseInstances, studentID }) => {
   const match = useRouteMatch();
-  const instances = _.filter(props.courseInstances, (i) => i.courseID === props.course._id);
+  const instances = _.filter(courseInstances, (i) => i.courseID === course._id);
   const terms = _.map(instances, (i) => AcademicTerms.findDoc(i.termID));
   // Sort by ascending order
   terms.sort((a, b) => a.year - b.year);
   const termNames = _.map(terms, (t) => AcademicTerms.getShortName(t._id)).join(', ');
-  const slug = Slugs.findDoc(props.course.slugID).name;
+  const slug = Slugs.findDoc(course.slugID).name;
   const ice = instances.length > 0 ? makeCourseICE(slug, instances[instances.length - 1].grade) : { i: 0, c: 0, e: 0 };
   const textAlignRight: React.CSSProperties = {
     textAlign: 'right',
   };
-  const droppableID = `${props.course._id}`;
+  const droppableID = `${course._id}`;
 
   const quarter = RadGradProperties.getQuarterSystem();
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
@@ -45,7 +45,7 @@ const FavoriteCourseCard: React.FC<IFavoriteCourseCardProps> = (props) => {
   });
   const scores = [];
   _.forEach(academicTerms, (term: IAcademicTerm) => {
-    const id = `${props.course._id} ${term._id}`;
+    const id = `${course._id} ${term._id}`;
     const score = CourseScoreboard.find({ _id: id }).fetch() as { count: number }[];
     if (score.length > 0) {
       scores.push(score[0].count);
@@ -60,7 +60,7 @@ const FavoriteCourseCard: React.FC<IFavoriteCourseCardProps> = (props) => {
         <IceHeader ice={ice} />
         <Card.Header>
           <h4>
-            {props.course.num}: {props.course.name}
+            {course.num}: {course.name}
           </h4>
         </Card.Header>
       </Card.Content>
@@ -88,7 +88,7 @@ const FavoriteCourseCard: React.FC<IFavoriteCourseCardProps> = (props) => {
                       prov.draggableProps.style,
                     )}
                   >
-                    <NamePill name={props.course.num} />
+                    <NamePill name={course.num} />
                   </div>
                 )}
               </Draggable>
@@ -103,7 +103,7 @@ const FavoriteCourseCard: React.FC<IFavoriteCourseCardProps> = (props) => {
       <Card.Content>
         <p style={textAlignRight}>
           <Link
-            to={buildRouteName(match, props.course, EXPLORER_TYPE.COURSES)}
+            to={buildRouteName(match, course, EXPLORER_TYPE.COURSES)}
             target="_blank"
             rel="noopener noreferrer"
           >

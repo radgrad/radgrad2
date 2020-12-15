@@ -17,7 +17,7 @@ const opportunityInformationItemConfiguration: IOpportunityInformationItemConfig
   showStudentsParticipating: false,
 };
 
-const StudentHomeNewOpportunitiesWidget = () => {
+const StudentHomeNewOpportunitiesWidget: React.FC = () => {
   // Number of new opportunities we want to get and display
   const numOpportunities = 3;
   const newOpportunities = getNewOpportunities(numOpportunities);

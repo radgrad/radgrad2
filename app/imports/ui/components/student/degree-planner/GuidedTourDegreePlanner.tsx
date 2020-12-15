@@ -11,7 +11,7 @@ import FavoriteAcademicPlans from './slides/FavoriteAcademicPlans';
 import Recommendations from './slides/Recommendations';
 import styles from '../../../pages/landing/utilities/guidedtour-style';
 
-const GuidedTourDegreePlanner = () => {
+const GuidedTourDegreePlanner: React.FC = () => {
   const settings = {
     dots: true,
     infinite: false,

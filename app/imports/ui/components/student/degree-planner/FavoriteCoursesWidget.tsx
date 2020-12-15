@@ -13,15 +13,15 @@ interface IFavoriteCoursesWidgetProps {
   courseInstances: ICourseInstance[];
 }
 
-const FavoriteCoursesWidget: React.FC<IFavoriteCoursesWidgetProps> = (props) => {
+const FavoriteCoursesWidget: React.FC<IFavoriteCoursesWidgetProps> = ({ studentID, courses, courseInstances }) => {
   const match = useRouteMatch();
-  const hasFavorites = props.courses.length > 0;
+  const hasFavorites = courses.length > 0;
   return (
     <div>
       {hasFavorites ?
         (
           <Card.Group itemsPerRow={1}>
-            {_.map(props.courses, (c) => <FavoriteCourseCard key={c._id} course={c} studentID={props.studentID} courseInstances={props.courseInstances} />)}
+            {_.map(courses, (c) => <FavoriteCourseCard key={c._id} course={c} studentID={studentID} courseInstances={courseInstances} />)}
           </Card.Group>
         )
         :

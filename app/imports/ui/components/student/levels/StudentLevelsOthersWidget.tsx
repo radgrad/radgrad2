@@ -10,9 +10,9 @@ interface IStudentLevelsOthersWidgetProps {
 
 const studentsExist = (students): boolean => students.length > 0;
 
-const getStudentLevelName = (props: IStudentLevelsOthersWidgetProps): string => {
-  if (props.profile.level) {
-    return `LEVEL ${props.profile.level}`;
+const getStudentLevelName = (profile:IStudentProfile): string => {
+  if (profile.level) {
+    return `LEVEL ${profile.level}`;
   }
   return 'LEVEL 1';
 };
@@ -21,14 +21,13 @@ const studentPicture = (student: IStudentProfile) => student.picture;
 
 const fullName = (student: IStudentProfile): string => Users.getFullName(student.userID);
 
-const StudentLevelsOthersWidget: React.FC<IStudentLevelsOthersWidgetProps> = (props) => {
+const StudentLevelsOthersWidget: React.FC<IStudentLevelsOthersWidgetProps> = ({ students, profile }) => {
   const imageGroupStyle = { minHeight: '50%' };
   const imageStyle = {
     height: '30px',
     width: 'auto',
   };
-  const studentLevelName = getStudentLevelName(props);
-  const students = props.students;
+  const studentLevelName = getStudentLevelName(profile);
   return (
     <Segment padded id="studentLevelsOthersWidget">
       <Header as="h4" dividing>

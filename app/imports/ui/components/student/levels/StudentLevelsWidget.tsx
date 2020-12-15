@@ -8,21 +8,14 @@ export interface IStudentLevelsWidgetProps {
   profile: IStudentProfile,
 }
 
-const getStudentLevelNumber = (props: IStudentLevelsWidgetProps): number => {
-  const { profile } = props;
-  return profile.level || 1; // TODO look into using _.get instead?
-};
-
-const getStudentLevelName = (props: IStudentLevelsWidgetProps): string => {
-  const { profile } = props;
+const getStudentLevelName = (profile: IStudentProfile): string => {
   if (profile.level) {
     return `LEVEL ${profile.level}`;
   }
   return 'LEVEL 1';
 };
 
-const getStudentLevelHint = (props: IStudentLevelsWidgetProps): string => {
-  const { profile } = props;
+const getStudentLevelHint = (profile: IStudentProfile): string => {
   let levelNumber = 0;
   levelNumber = profile.level;
   // const helpMessage = HelpMessages.findDocByRouteName('/student/:username/home/levels').text;
@@ -46,11 +39,11 @@ const getStudentLevelHint = (props: IStudentLevelsWidgetProps): string => {
   }
 };
 
-const StudentLevelsWidget: React.FunctionComponent<IStudentLevelsWidgetProps> = (props) => {
+const StudentLevelsWidget: React.FC<IStudentLevelsWidgetProps> = ({ profile }) => {
   const imageStyle = { width: '230px' };
-  const studentLevelNumber: number = getStudentLevelNumber(props);
-  const studentLevelName = getStudentLevelName(props);
-  const studentLevelHint = getStudentLevelHint(props);
+  const studentLevelNumber: number = profile.level || 1;
+  const studentLevelName = getStudentLevelName(profile);
+  const studentLevelHint = getStudentLevelHint(profile);
   return (
     <Segment padded id="studentLevelsWidget">
       <Header as="h4" dividing>CURRENT LEVEL</Header>

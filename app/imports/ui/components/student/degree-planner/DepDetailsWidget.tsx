@@ -19,14 +19,14 @@ const mapStateToProps = (state: RootState) => ({
   selectedOpportunityInstanceID: state.student.degreePlanner.inspector.depInspector.selectedOpportunityInstanceID,
 });
 
-const DepDetailsWidget: React.FC<IDepDetailsWidgetProps> = (props) => {
-  const courseP = props.selectedCourseInstanceID !== '';
-  const opportunityP = props.selectedOpportunityInstanceID !== '';
+const DepDetailsWidget: React.FC<IDepDetailsWidgetProps> = ({ selectedCourseInstanceID, selectedOpportunityInstanceID, verificationRequests }) => {
+  const courseP = selectedCourseInstanceID !== '';
+  const opportunityP = selectedOpportunityInstanceID !== '';
   let instance: (ICourseInstance | IOpportunityInstance);
   if (courseP) {
-    instance = CourseInstances.findDoc(props.selectedCourseInstanceID);
+    instance = CourseInstances.findDoc(selectedCourseInstanceID);
   } else if (opportunityP) {
-    instance = OpportunityInstances.findDoc(props.selectedOpportunityInstanceID);
+    instance = OpportunityInstances.findDoc(selectedOpportunityInstanceID);
   }
   if (!(courseP || opportunityP)) {
     return (
@@ -35,7 +35,7 @@ const DepDetailsWidget: React.FC<IDepDetailsWidgetProps> = (props) => {
       </Message>
     );
   }
-  return (courseP ? <DetailCourseCard instance={instance} /> : <DetailOpportunityCard instance={instance} verificationRequests={props.verificationRequests} />);
+  return (courseP ? <DetailCourseCard instance={instance} /> : <DetailOpportunityCard instance={instance} verificationRequests={verificationRequests} />);
 };
 
 export default connect(mapStateToProps, null)(DepDetailsWidget);

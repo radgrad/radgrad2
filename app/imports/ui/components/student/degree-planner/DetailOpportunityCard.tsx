@@ -33,7 +33,6 @@ import { Slugs } from '../../../../api/slug/SlugCollection';
 interface IDetailOpportunityCardProps {
   instance: IOpportunityInstance;
   verificationRequests: IVerificationRequest[];
-  // eslint-disable-next-line react/no-unused-prop-types
   selectOpportunityInstance: (opportunityInstanceID: string) => any;
 }
 
@@ -41,7 +40,7 @@ const mapDispatchToProps = (dispatch) => ({
   selectOpportunityInstance: (opportunityInstanceID) => dispatch(degreePlannerActions.selectOpportunityInstance(opportunityInstanceID)),
 });
 
-const handleRemove = (props: IDetailOpportunityCardProps, match) => (event, { value }) => {
+const handleRemove = (selectOpportunityInstance, match) => (event, { value }) => {
   event.preventDefault();
   const collectionName = OpportunityInstances.getCollectionName();
   const instance = value;
@@ -70,13 +69,13 @@ const handleRemove = (props: IDetailOpportunityCardProps, match) => (event, { va
       });
     }
   });
-  props.selectOpportunityInstance('');
+  selectOpportunityInstance('');
 };
 
-const handleVerificationRequest = (props: IDetailOpportunityCardProps, match) => (model) => {
+const handleVerificationRequest = (instance, match) => (model) => {
   const collectionName = VerificationRequests.getCollectionName();
   const username = getUsername(match);
-  const opportunityInstance = props.instance._id;
+  const opportunityInstance = instance._id;
   const definitionData: IVerificationRequestDefine = {
     student: username,
     opportunityInstance,
@@ -108,15 +107,15 @@ const handleVerificationRequest = (props: IDetailOpportunityCardProps, match) =>
   });
 };
 
-const DetailOpportunityCard: React.FC<IDetailOpportunityCardProps> = (props) => {
-  const verificationRequeststoShow = _.filter(props.verificationRequests, (vr) => vr.opportunityInstanceID === props.instance._id);
+const DetailOpportunityCard: React.FC<IDetailOpportunityCardProps> = ({ instance, verificationRequests, selectOpportunityInstance }) => {
+  const verificationRequeststoShow = _.filter(verificationRequests, (vr) => vr.opportunityInstanceID === instance._id);
   const match = useRouteMatch();
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
-  const opportunityTerm = AcademicTerms.findDoc(props.instance.termID);
+  const opportunityTerm = AcademicTerms.findDoc(instance.termID);
   const futureP = opportunityTerm.termNumber >= currentTerm.termNumber;
   const verificationRequested = verificationRequeststoShow.length > 0;
-  const termName = AcademicTerms.getShortName(props.instance.termID);
-  const opportunity = Opportunities.findDoc(props.instance.opportunityID);
+  const termName = AcademicTerms.getShortName(instance.termID);
+  const opportunity = Opportunities.findDoc(instance.opportunityID);
   const textAlignRight: React.CSSProperties = {
     textAlign: 'right',
   };
@@ -157,8 +156,8 @@ const DetailOpportunityCard: React.FC<IDetailOpportunityCardProps> = (props) => 
                   floated="right"
                   basic
                   color="green"
-                  value={props.instance._id}
-                  onClick={handleRemove(props, match)}
+                  value={instance._id}
+                  onClick={handleRemove(selectOpportunityInstance, match)}
                   size="tiny"
                 >
                   Remove
@@ -179,8 +178,8 @@ const DetailOpportunityCard: React.FC<IDetailOpportunityCardProps> = (props) => 
                       floated="right"
                       basic
                       color="green"
-                      value={props.instance._id}
-                      onClick={handleRemove(props, match)}
+                      value={instance._id}
+                      onClick={handleRemove(selectOpportunityInstance, match)}
                       size="tiny"
                     >
                       Remove
@@ -193,7 +192,7 @@ const DetailOpportunityCard: React.FC<IDetailOpportunityCardProps> = (props) => 
         {!futureP && !verificationRequested ?
           (
             <Card.Content>
-              <RequestVerificationForm handleOnModelChange={handleVerificationRequest(props, match)} />
+              <RequestVerificationForm handleOnModelChange={handleVerificationRequest(instance, match)} />
             </Card.Content>
           )
           : ''}

@@ -18,7 +18,7 @@ export interface IStudentIceColumnProps {
   opportunityInstances: IOpportunityInstance[];
 }
 
-const StudentIceColumn: React.FC<IStudentIceColumnProps> = (props) => {
+const StudentIceColumn: React.FC<IStudentIceColumnProps> = ({ type, favoriteInterests, courseInstances, opportunityInstances }) => {
   const match = useRouteMatch();
   const [verifiedColumnOpenState, setVerifiedColumnOpen] = useState(true);
   const [unVerifiedColumnOpenState, setUnVerifiedColumnOpen] = useState(false);
@@ -40,7 +40,6 @@ const StudentIceColumn: React.FC<IStudentIceColumnProps> = (props) => {
   };
 
   const getVerifiedColor = (): string => {
-    const { type } = props;
     switch (type) {
       case 'Innovation':
         return 'ice-innovation-color';
@@ -54,7 +53,6 @@ const StudentIceColumn: React.FC<IStudentIceColumnProps> = (props) => {
   };
 
   const getUnverifiedColor = (): string => {
-    const { type } = props;
     switch (type) {
       case 'Innovation':
         return 'ice-innovation-proj-color';
@@ -68,7 +66,6 @@ const StudentIceColumn: React.FC<IStudentIceColumnProps> = (props) => {
   };
 
   const getPoints = (ice: Ice): number => {
-    const { type } = props;
     let ret;
     if (type === 'Innovation') {
       ret = ice.i;
@@ -86,7 +83,6 @@ const StudentIceColumn: React.FC<IStudentIceColumnProps> = (props) => {
 
   const icePoints = (ice: Ice): number => {
     let ret;
-    const { type } = props;
     if (type === 'Innovation') {
       ret = ice.i;
     } else if (type === 'Competency') {
@@ -111,7 +107,6 @@ const StudentIceColumn: React.FC<IStudentIceColumnProps> = (props) => {
     return Slugs.findDoc(opportunity.slugID).name;
   };
 
-  const { type } = props;
   const verifiedColor = getVerifiedColor();
   const unverifiedColor = getUnverifiedColor();
 
@@ -139,8 +134,8 @@ const StudentIceColumn: React.FC<IStudentIceColumnProps> = (props) => {
           matchingPoints={matchingPoints}
           getOpportunitySlug={getOpportunitySlug}
           icePoints={icePoints}
-          courseInstances={props.courseInstances}
-          opportunityInstances={props.opportunityInstances}
+          courseInstances={courseInstances}
+          opportunityInstances={opportunityInstances}
         />
       </Accordion.Content>
 
@@ -159,8 +154,8 @@ const StudentIceColumn: React.FC<IStudentIceColumnProps> = (props) => {
           matchingPoints={matchingPoints}
           getOpportunitySlug={getOpportunitySlug}
           remainingICEPoints={remainingICEPoints}
-          courseInstances={props.courseInstances}
-          opportunityInstances={props.opportunityInstances}
+          courseInstances={courseInstances}
+          opportunityInstances={opportunityInstances}
         />
       </Accordion.Content>
 
@@ -177,7 +172,7 @@ const StudentIceColumn: React.FC<IStudentIceColumnProps> = (props) => {
           matchingPoints={matchingPoints}
           icePoints={icePoints}
           getOpportunitySlug={getOpportunitySlug}
-          favoriteInterests={props.favoriteInterests}
+          favoriteInterests={favoriteInterests}
         />
       </Accordion.Content>
     </Accordion>

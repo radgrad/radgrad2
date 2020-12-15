@@ -19,13 +19,13 @@ interface IStudentHomeLevelsPageProps {
   students: IStudentProfile[]
 }
 
-const StudentHomeLevelsPage: React.FC<IStudentHomeLevelsPageProps> = (props) => (
+const StudentHomeLevelsPage: React.FC<IStudentHomeLevelsPageProps> = ({ profile, students, helpMessages }) => (
   <div id="student-levels-page">
     <StudentPageMenuWidget />
     <Container>
       <Grid stackable>
         <Grid.Row>
-          <Grid.Column width={16}><HelpPanelWidget helpMessages={props.helpMessages} /></Grid.Column>
+          <Grid.Column width={16}><HelpPanelWidget helpMessages={helpMessages} /></Grid.Column>
         </Grid.Row>
         <Grid.Row>
           <Grid.Column width={16}>
@@ -158,10 +158,10 @@ const StudentHomeLevelsPage: React.FC<IStudentHomeLevelsPageProps> = (props) => 
           <Grid.Column width={16}>
             <Grid container stackable columns="equal">
               <Grid.Column stretched>
-                <StudentLevelsWidget profile={props.profile} />
+                <StudentLevelsWidget profile={profile} />
               </Grid.Column>
               <Grid.Column stretched>
-                <StudentLevelsOthersWidget students={props.students} profile={props.profile} />
+                <StudentLevelsOthersWidget students={students} profile={profile} />
               </Grid.Column>
             </Grid>
           </Grid.Column>
