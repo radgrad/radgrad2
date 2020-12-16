@@ -323,8 +323,7 @@ export const reviewOppRecommendation = (student: IStudentProfile): IHtml | strin
   return html;
 };
 
-// TODO Currently we only use the first 3 of the recommendations for our Newsletter, we need to discuss if we should add more
-// or implement a better system such that we can incorporate more recommendations on a rotational/conditional basis
+// TODO Currently we only use the first 3 of the recommendations for our Newsletter, we need to discuss if we should add more or implement a better system such that we can incorporate more recommendations on a rotational/conditional basis
 const recList = [iceRecommendation, verifyOppRecommendation, levelRecommendation, reviewCourseRecommendation, reviewOppRecommendation];
 
 export const getRecList = (student: IStudentProfile) => {
