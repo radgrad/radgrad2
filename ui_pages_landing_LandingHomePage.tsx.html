@@ -100,7 +100,7 @@ import LandingFooter from '../../components/landing/LandingFooter';
 import { withListSubscriptions } from '../../layouts/utilities/SubscriptionListHOC';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 
-interface ILandingHomeProps {
+interface LandingHomeProps {
   careerGoals: string;
   interests: string;
   opportunities: string;
@@ -111,7 +111,7 @@ interface ILandingHomeProps {
 }
 
 /** A simple static component to render some text for the landing page. */
-const LandingHomePage: React.FC&lt;ILandingHomeProps> = ({ currentUser, opportunities, interests, careerGoals, users, role, iconName }) => (
+const LandingHomePage: React.FC&lt;LandingHomeProps> = ({ currentUser, opportunities, interests, careerGoals, users, role, iconName }) => (
   &lt;div id="landing-page">
     &lt;LandingNavBar
       currentUser={currentUser}

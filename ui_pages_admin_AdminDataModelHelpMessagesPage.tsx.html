@@ -110,9 +110,9 @@ import { Teasers } from '../../../api/teaser/TeaserCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import AdminDataModelMenu, { IAdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
+import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
-import { IDescriptionPair, IHelpMessage } from '../../../typings/radgrad';
+import { DescriptionPair, HelpMessage } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import AddHelpMessageForm from '../../components/admin/datamodel/help/AddHelpMessageForm';
@@ -127,7 +127,7 @@ const collection = HelpMessages; // the collection to use.
  * Returns an array of Description pairs used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const descriptionPairs = (item: IHelpMessage): IDescriptionPair[] => [
+const descriptionPairs = (item: HelpMessage): DescriptionPair[] => [
   { label: 'Route Name', value: item.routeName },
   { label: 'Title', value: item.title },
   { label: 'Text', value: item.text },
@@ -138,13 +138,13 @@ const descriptionPairs = (item: IHelpMessage): IDescriptionPair[] => [
  * Returns the title string for the item. Used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const itemTitleString = (item: IHelpMessage): string => `${item.routeName}`;
+const itemTitleString = (item: HelpMessage): string => `${item.routeName}`;
 
 /**
  * Returns the ReactNode used in the ListCollectionWidget. By default we indicate if the item is retired.
  * @param item an item from the collection.
  */
-const itemTitle = (item: IHelpMessage): React.ReactNode => (
+const itemTitle = (item: HelpMessage): React.ReactNode => (
   &lt;React.Fragment>
     {item.retired ? &lt;Icon name="eye slash" /> : ''}
     &lt;Icon name="dropdown" />
@@ -152,11 +152,11 @@ const itemTitle = (item: IHelpMessage): React.ReactNode => (
   &lt;/React.Fragment>
 );
 
-interface IAdminDataModelHelpMessagesPageProps extends IAdminDataModeMenuProps {
-  items: IHelpMessage[];
+interface AdminDataModelHelpMessagesPageProps extends AdminDataModeMenuProps {
+  items: HelpMessage[];
 }
 
-const AdminDataModelHelpMessagesPage: React.FC&lt;IAdminDataModelHelpMessagesPageProps> = (props) => {
+const AdminDataModelHelpMessagesPage: React.FC&lt;AdminDataModelHelpMessagesPageProps> = (props) => {
   // TODO deconstruct props
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);

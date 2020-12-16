@@ -91,7 +91,7 @@ import _ from 'lodash';
 import SimpleSchema from 'simpl-schema';
 import BaseCollection from '../base/BaseCollection';
 import { ROLE } from '../role/Role';
-import { IPageInterest, IPageInterestDefine } from '../../typings/radgrad';
+import { PageInterest, PageInterestDefine } from '../../typings/radgrad';
 import { Users } from '../user/UserCollection';
 import { PageInterestsCategoryTypes } from './PageInterestsCategoryTypes';
 import { Slugs } from '../slug/SlugCollection';
@@ -135,10 +135,10 @@ class PageInterestCollection extends BaseCollection {
    * @param timestamp Timestamp of when this snapshot was recorded
    * @param retired boolean optional defaults to false.
    */
-  public define({ username, category, name, timestamp = moment().toDate(), retired = false }: IPageInterestDefine): string {
+  public define({ username, category, name, timestamp = moment().toDate(), retired = false }: PageInterestDefine): string {
     // Duplicates are not allowed
     // 1) Documents with the same values for all its fields
-    let doc: IPageInterest;
+    let doc: PageInterest;
     doc = this.collection.findOne({ username, category, name, timestamp, retired });
     if (doc) {
       return doc._id;
@@ -206,8 +206,8 @@ class PageInterestCollection extends BaseCollection {
    * @param docID The docID of a PageInterest
    * @returns { Object } An object representing the definition of docID.
    */
-  public dumpOne(docID: string): IPageInterestDefine {
-    const doc: IPageInterest = this.findDoc(docID);
+  public dumpOne(docID: string): PageInterestDefine {
+    const doc: PageInterest = this.findDoc(docID);
     const username = doc.username;
     const category = doc.category;
     const name = doc.name;

@@ -88,7 +88,7 @@
             <pre class="prettyprint source linenums"><code>import SimpleSchema from 'simpl-schema';
 import moment from 'moment';
 import BaseCollection from '../base/BaseCollection';
-import { IPageInterestsDailySnapshot, IPageInterestsDailySnapshotDefine } from '../../typings/radgrad';
+import { PageInterestsDailySnapshot, PageInterestsDailySnapshotDefine } from '../../typings/radgrad';
 import { Slugs } from '../slug/SlugCollection';
 
 /**
@@ -154,10 +154,10 @@ class PageInterestsDailySnapshotCollection extends BaseCollection {
    * @param retired boolean optional defaults to false.
    * @returns {String} the id of the document created
    */
-  public define({ careerGoals, courses, interests, opportunities, timestamp = this.getDateOffset, retired = false }: IPageInterestsDailySnapshotDefine): string {
+  public define({ careerGoals, courses, interests, opportunities, timestamp = this.getDateOffset, retired = false }: PageInterestsDailySnapshotDefine): string {
     // Duplicates are not allowed
     // 1) Documents with the same values for all its fields
-    let doc: IPageInterestsDailySnapshot;
+    let doc: PageInterestsDailySnapshot;
     doc = this.collection.findOne({ careerGoals, courses, interests, opportunities, timestamp, retired });
     if (doc) {
       return doc._id;
@@ -198,7 +198,7 @@ class PageInterestsDailySnapshotCollection extends BaseCollection {
    */
   public checkIntegrity(): string[] {
     const problems = [];
-    this.find({}, {}).forEach((doc: IPageInterestsDailySnapshot) => {
+    this.find({}, {}).forEach((doc: PageInterestsDailySnapshot) => {
       doc.careerGoals.forEach((careerGoal) => {
         if (!Slugs.isDefined(careerGoal.name)) {
           problems.push(`Bad careerGoal slug: ${careerGoal.name}`);
@@ -240,8 +240,8 @@ class PageInterestsDailySnapshotCollection extends BaseCollection {
    * @param docID The docID of a PageInterestsDailySnapshot
    * @returns { Object } An object representing the definition of docID.
    */
-  public dumpOne(docID: string): IPageInterestsDailySnapshotDefine {
-    const doc: IPageInterestsDailySnapshot = this.findDoc(docID);
+  public dumpOne(docID: string): PageInterestsDailySnapshotDefine {
+    const doc: PageInterestsDailySnapshot = this.findDoc(docID);
     const careerGoals = doc.careerGoals;
     const courses = doc.courses;
     const interests = doc.interests;

@@ -109,10 +109,10 @@ import { Teasers } from '../../../api/teaser/TeaserCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import AdminDataModelMenu, { IAdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
+import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
-import { IAcademicPlan, IDescriptionPair } from '../../../typings/radgrad';
+import { AcademicPlan, DescriptionPair } from '../../../typings/radgrad';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import AdminDataModelUpdateForm from '../../components/admin/datamodel/AdminDataModelUpdateForm';
 import AdminDataModelAddForm from '../../components/admin/datamodel/AdminDataModelAddForm';
@@ -123,19 +123,19 @@ import withInstanceSubscriptions from '../../layouts/utilities/InstanceSubscript
 
 const collection = AcademicPlans;
 
-const descriptionPairs = (plan: IAcademicPlan): IDescriptionPair[] => [
+const descriptionPairs = (plan: AcademicPlan): DescriptionPair[] => [
   { label: 'Name', value: plan.name },
   { label: 'Year', value: `${plan.year}` },
   { label: 'Course Choices', value: `${plan.choiceList}` },
   { label: 'Retired', value: plan.retired ? 'True' : 'False' },
 ];
 
-const itemTitleString = (plan: IAcademicPlan): string => {
+const itemTitleString = (plan: AcademicPlan): string => {
   const slug = Slugs.getNameFromID(plan.slugID);
   return `${plan.name} (${plan.year}) (${slug})`;
 };
 
-const itemTitle = (plan: IAcademicPlan): React.ReactNode => (
+const itemTitle = (plan: AcademicPlan): React.ReactNode => (
   &lt;React.Fragment>
     {plan.retired ? &lt;Icon name="eye slash" /> : ''}
     &lt;Icon name="dropdown" />
@@ -143,15 +143,15 @@ const itemTitle = (plan: IAcademicPlan): React.ReactNode => (
   &lt;/React.Fragment>
 );
 
-interface IAdminDataModelAcademicPlansPageProps extends IAdminDataModeMenuProps {
-  items: IAcademicPlan[];
+interface AdminDataModelAcademicPlansPageProps extends AdminDataModeMenuProps {
+  items: AcademicPlan[];
 }
 /**
  * The AcademicPlan data model page.
  * @param props The properties.
  * @constructor
  */
-const AdminDataModelAcademicPlansPage: React.FC&lt;IAdminDataModelAcademicPlansPageProps> = (props) => {
+const AdminDataModelAcademicPlansPage: React.FC&lt;AdminDataModelAcademicPlansPageProps> = (props) => {
   /* CAM going to leave props as an object to make the &lt;AdminDataModelMenu cleaner. */
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);

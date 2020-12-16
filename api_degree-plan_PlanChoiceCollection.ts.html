@@ -96,7 +96,7 @@ import {
   isXXChoice,
   getSimpleChoiceNumber,
 } from './PlanChoiceUtilities';
-import { IPlanChoiceDefine, IPlanChoiceUpdate } from '../../typings/radgrad';
+import { PlanChoiceDefine, PlanChoiceUpdate } from '../../typings/radgrad';
 import { IPlanChoiceType, PlanChoiceType } from './PlanChoiceType';
 import { Courses } from '../course/CourseCollection';
 
@@ -134,7 +134,7 @@ export class PlanChoiceCollection extends BaseCollection {
    * @param {boolean} retired, (optional) defaults to false.
    * @returns {*}
    */
-  public define({ choice, retired = false }: IPlanChoiceDefine) {
+  public define({ choice, retired = false }: PlanChoiceDefine) {
     const doc = this.collection.findOne({ choice });
     if (doc) {
       return doc._id;
@@ -147,9 +147,9 @@ export class PlanChoiceCollection extends BaseCollection {
    * @param docID The docID associated with this plan choice.
    * @param choice the updated choice.
    */
-  public update(docID: string, { choice, retired }: IPlanChoiceUpdate) {
+  public update(docID: string, { choice, retired }: PlanChoiceUpdate) {
     this.assertDefined(docID);
-    const updateData: IPlanChoiceUpdate = {};
+    const updateData: PlanChoiceUpdate = {};
     if (choice) {
       updateData.choice = choice;
     }
@@ -275,7 +275,7 @@ export class PlanChoiceCollection extends BaseCollection {
    * @param docID The docID of a PlanChoice.
    * @returns { Object } An object representing the definition of docID.
    */
-  public dumpOne(docID: string): IPlanChoiceDefine {
+  public dumpOne(docID: string): PlanChoiceDefine {
     const doc = this.findDoc(docID);
     const choice = doc.choice;
     const retired = doc.retired;

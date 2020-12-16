@@ -96,7 +96,7 @@ import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Users } from '../user/UserCollection';
 import { VerificationRequests } from '../verification/VerificationRequestCollection';
 import BaseCollection from '../base/BaseCollection';
-import { IOpportunityInstance, IOpportunityInstanceDefine, IOpportunityInstanceUpdate } from '../../typings/radgrad';
+import { OpportunityInstance, OpportunityInstanceDefine, OpportunityInstanceUpdate } from '../../typings/radgrad';
 import { iceSchema } from '../ice/IceProcessor';
 
 /**
@@ -161,7 +161,7 @@ class OpportunityInstanceCollection extends BaseCollection {
    * @returns The newly created docID.
    */
 
-  public define({ academicTerm, opportunity, sponsor, verified = false, student, retired = false }: IOpportunityInstanceDefine) {
+  public define({ academicTerm, opportunity, sponsor, verified = false, student, retired = false }: OpportunityInstanceDefine) {
     // Validate academicTerm, opportunity, verified, and studentID
     const termID = AcademicTerms.getID(academicTerm);
     const academicTermDoc = AcademicTerms.findDoc(termID);
@@ -208,9 +208,9 @@ class OpportunityInstanceCollection extends BaseCollection {
    * @param verified boolean optional.
    * @param ice an object with fields i, c, e (optional)
    */
-  public update(docID: string, { termID, verified, ice, retired }: IOpportunityInstanceUpdate) {
+  public update(docID: string, { termID, verified, ice, retired }: OpportunityInstanceUpdate) {
     this.assertDefined(docID);
-    const updateData: IOpportunityInstanceUpdate = {};
+    const updateData: OpportunityInstanceUpdate = {};
     if (termID) {
       updateData.termID = termID;
     }
@@ -297,7 +297,7 @@ class OpportunityInstanceCollection extends BaseCollection {
    */
   public getOpportunityDoc(instanceID: string) {
     this.assertDefined(instanceID);
-    const instance: IOpportunityInstance = this.collection.findOne({ _id: instanceID });
+    const instance: OpportunityInstance = this.collection.findOne({ _id: instanceID });
     return Opportunities.findDoc(instance.opportunityID);
   }
 
@@ -308,7 +308,7 @@ class OpportunityInstanceCollection extends BaseCollection {
    */
   public getOpportunitySlug(instanceID: string) {
     this.assertDefined(instanceID);
-    const instance: IOpportunityInstance = this.collection.findOne({ _id: instanceID });
+    const instance: OpportunityInstance = this.collection.findOne({ _id: instanceID });
     return Opportunities.findSlugByID(instance.opportunityID);
   }
 
@@ -457,7 +457,7 @@ class OpportunityInstanceCollection extends BaseCollection {
    * @param docID The docID of an OpportunityInstance.
    * @returns { Object } An object representing the definition of docID.
    */
-  public dumpOne(docID: string): IOpportunityInstanceDefine {
+  public dumpOne(docID: string): OpportunityInstanceDefine {
     const doc = this.findDoc(docID);
     const academicTerm = AcademicTerms.findSlugByID(doc.termID);
     const opportunity = Opportunities.findSlugByID(doc.opportunityID);

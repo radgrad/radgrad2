@@ -90,7 +90,7 @@ import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import _ from 'lodash';
 import { AdvisorLogs } from './AdvisorLogCollection';
 import { ROLE } from '../role/Role';
-import { IAdvisorLogUpdate } from '../../typings/radgrad';
+import { AdvisorLogUpdate } from '../../typings/radgrad';
 import { Users } from '../user/UserCollection';
 
 /**
@@ -119,7 +119,7 @@ export const advisorLogsDefineMethod = new ValidatedMethod({
 export const advisorLogsUpdateMethod = new ValidatedMethod({
   name: 'AdvisorLogs.update',
   validate: null,
-  run(update: IAdvisorLogUpdate) {
+  run(update: AdvisorLogUpdate) {
     if (!this.userId) {
       throw new Meteor.Error('unauthorized', 'You must be logged in to update AdvisorLogs.');
     }

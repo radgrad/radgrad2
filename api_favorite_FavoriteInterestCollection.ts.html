@@ -93,7 +93,7 @@ import BaseCollection from '../base/BaseCollection';
 import { Interests } from '../interest/InterestCollection';
 import { Users } from '../user/UserCollection';
 import { ROLE } from '../role/Role';
-import { IFavoriteInterestDefine, IFavoriteUpdate } from '../../typings/radgrad';
+import { FavoriteInterestDefine, FavoriteUpdate } from '../../typings/radgrad';
 
 class FavoriteInterestCollection extends BaseCollection {
   public readonly publicationNames: {
@@ -138,7 +138,7 @@ class FavoriteInterestCollection extends BaseCollection {
    */
   update(docID, { share, retired }: { share?: boolean, retired?: boolean }) {
     this.assertDefined(docID);
-    const updateData: IFavoriteUpdate = {};
+    const updateData: FavoriteUpdate = {};
     if (_.isBoolean(retired)) {
       updateData.retired = retired;
     }
@@ -284,9 +284,9 @@ class FavoriteInterestCollection extends BaseCollection {
   /**
    * Returns an object representing the FavoriteInterest with given docID in a format acceptable to define().
    * @param docID the docID of a FavoriteInterest
-   * @returns {IFavoriteInterestDefine}
+   * @returns {FavoriteInterestDefine}
    */
-  dumpOne(docID): IFavoriteInterestDefine {
+  dumpOne(docID): FavoriteInterestDefine {
     const doc = this.findDoc(docID);
     const interest = Interests.findSlugByID(doc.interestID);
     const username = Users.getProfile(doc.userID).username;

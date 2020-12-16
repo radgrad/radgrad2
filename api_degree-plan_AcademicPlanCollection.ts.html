@@ -91,7 +91,7 @@ import SimpleSchema from 'simpl-schema';
 import BaseSlugCollection from '../base/BaseSlugCollection';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Slugs } from '../slug/SlugCollection';
-import { IAcademicPlanDefine, IAcademicPlanUpdate } from '../../typings/radgrad';
+import { AcademicPlanDefine, AcademicPlanUpdate } from '../../typings/radgrad';
 import { FavoriteAcademicPlans } from '../favorite/FavoriteAcademicPlanCollection';
 import { RadGradProperties } from '../radgrad/RadGradProperties';
 import { stripCounter } from './PlanChoiceUtilities';
@@ -167,7 +167,7 @@ class AcademicPlanCollection extends BaseSlugCollection {
    * @param retired boolean optional defaults to false.
    * @returns {*}
    */
-  public define({ slug, name, description, academicTerm, coursesPerAcademicTerm, choiceList, retired = false }: IAcademicPlanDefine) {
+  public define({ slug, name, description, academicTerm, coursesPerAcademicTerm, choiceList, retired = false }: AcademicPlanDefine) {
     const effectiveAcademicTermID = AcademicTerms.getID(academicTerm);
     const doc = this.collection.findOne({ name, effectiveAcademicTermID });
     if (doc) {
@@ -211,7 +211,7 @@ class AcademicPlanCollection extends BaseSlugCollection {
    * @param choiceList an array of PlanChoices, the choices for each course.
    * @param retired boolean, optional.
    */
-  public update(instance, { name, academicTerm, coursesPerAcademicTerm, choiceList, retired }: IAcademicPlanUpdate) {
+  public update(instance, { name, academicTerm, coursesPerAcademicTerm, choiceList, retired }: AcademicPlanUpdate) {
     const docID = this.getID(instance);
     const updateData: { name?: string; effectiveAcademicTermID?: string; coursesPerAcademicTerm?: number[]; choiceList?: string[]; retired?: boolean; } = {};
     if (name) {
@@ -363,7 +363,7 @@ class AcademicPlanCollection extends BaseSlugCollection {
    * @param docID The docID of a HelpMessage.
    * @returns { Object } An object representing the definition of docID.
    */
-  public dumpOne(docID: string): IAcademicPlanDefine {
+  public dumpOne(docID: string): AcademicPlanDefine {
     const doc = this.findDoc(docID);
     const slug = Slugs.getNameFromID(doc.slugID);
     const name = doc.name;

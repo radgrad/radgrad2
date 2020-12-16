@@ -88,9 +88,9 @@
             <pre class="prettyprint source linenums"><code>import _ from 'lodash';
 import { Users } from '../user/UserCollection';
 import { Interests } from './InterestCollection';
-import { IInterest } from '../../typings/radgrad';
+import { Interest } from '../../typings/radgrad';
 
-interface IHasInterests {
+interface HasInterests {
   interestIDs: string[];
 }
 
@@ -99,9 +99,9 @@ class MatchingInterestsClass {
    * Returns the IInterests that match between ids1 and ids2.
    * @param {string[]} ids1
    * @param {string[]} ids2
-   * @returns {IInterest[]}
+   * @returns {Interest[]}
    */
-  private matchingInterests(ids1: string[], ids2: string[]): IInterest[] {
+  private matchingInterests(ids1: string[], ids2: string[]): Interest[] {
     const matching = [];
     const interests1 = _.map(ids1, (id) => Interests.findDoc(id));
     const interests2 = _.map(ids2, (id) => Interests.findDoc(id));
@@ -118,10 +118,10 @@ class MatchingInterestsClass {
   /**
    * Returns the matching user Interests for username and item.
    * @param {string} username the name of the user.
-   * @param {IHasInterests} item the item with interestIDs.
-   * @returns {IInterest[]}
+   * @param {HasInterests} item the item with interestIDs.
+   * @returns {Interest[]}
    */
-  public matchingUserInterests(username: string, item: IHasInterests) {
+  public matchingUserInterests(username: string, item: HasInterests) {
     // console.log(username, Users.getInterestIDsByType(username), item);
     const userInterestIDs = Users.getInterestIDsByType(username)[0];
     return this.matchingInterests(userInterestIDs, item.interestIDs);
@@ -130,10 +130,10 @@ class MatchingInterestsClass {
   /**
    * Returns the matching CareerGoal interests for username and item.
    * @param {string} username the name of the user.
-   * @param {IHasInterests} item the item with interstIDs.
-   * @returns {IInterest[]}
+   * @param {HasInterests} item the item with interestIDs.
+   * @returns {Interest[]}
    */
-  public matchingCareerGoalInterests(username: string, item: IHasInterests) {
+  public matchingCareerGoalInterests(username: string, item: HasInterests) {
     const userInterestIDs = Users.getInterestIDsByType(username)[1];
     return this.matchingInterests(userInterestIDs, item.interestIDs);
   }
@@ -141,10 +141,10 @@ class MatchingInterestsClass {
   /**
    * Returns the Interests that don't match the user's interests.
    * @param {string} username the user.
-   * @param {IHasInterests} item the item.
-   * @returns {IInterest[]}
+   * @param {HasInterests} item the item.
+   * @returns {Interest[]}
    */
-  public notMatchingInterests(username: string, item: IHasInterests) {
+  public notMatchingInterests(username: string, item: HasInterests) {
     const userInterestIDs = Users.getInterestIDs(username);
     const matches = this.matchingInterests(userInterestIDs, item.interestIDs);
     const itemInterests = _.map(item.interestIDs, (id) => Interests.findDoc(id));

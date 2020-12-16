@@ -103,7 +103,7 @@ import { Users } from './UserCollection';
 import { Slugs } from '../slug/SlugCollection';
 import { ROLE } from '../role/Role';
 import { getProjectedICE, getEarnedICE } from '../ice/IceProcessor';
-import { IStudentProfileDefine, IStudentProfileUpdate, IStudentProfileUpdateData } from '../../typings/radgrad';
+import { StudentProfileDefine, StudentProfileUpdate, StudentProfileUpdateData } from '../../typings/radgrad';
 import { FavoriteInterests } from '../favorite/FavoriteInterestCollection';
 import { FavoriteCareerGoals } from '../favorite/FavoriteCareerGoalCollection';
 import { FavoriteAcademicPlans } from '../favorite/FavoriteAcademicPlanCollection';
@@ -224,7 +224,7 @@ class StudentProfileCollection extends BaseProfileCollection {
     isAlumni = false, retired = false, shareUsername = false, sharePicture = false, shareWebsite = false,
     shareInterests = false, shareCareerGoals = false, shareAcademicPlan = false, shareCourses = false,
     shareOpportunities = false, shareLevel = false,
-  }: IStudentProfileDefine) {
+  }: StudentProfileDefine) {
     if (Meteor.isServer) {
       // Validate parameters.
       const declaredAcademicTermID = (declaredAcademicTerm) ? AcademicTerms.getID(declaredAcademicTerm) : undefined;
@@ -317,10 +317,10 @@ class StudentProfileCollection extends BaseProfileCollection {
     favoriteOpportunities, declaredAcademicTerm,
     isAlumni, retired, courseExplorerFilter, opportunityExplorerSortOrder, shareUsername, sharePicture, shareWebsite, shareInterests,
     shareCareerGoals, shareAcademicPlan, shareCourses, shareOpportunities, shareLevel, lastRegistrarLoad,
-  }: IStudentProfileUpdate) {
+  }: StudentProfileUpdate) {
     this.assertDefined(docID);
     const profile = this.findDoc(docID);
-    const updateData: IStudentProfileUpdateData = {};
+    const updateData: StudentProfileUpdateData = {};
     this.updateCommonFields(updateData, { firstName, lastName, picture, website, retired, courseExplorerFilter, opportunityExplorerSortOrder });
     if (declaredAcademicTerm) {
       updateData.declaredAcademicTermID = AcademicTerms.getID(declaredAcademicTerm);
@@ -655,7 +655,7 @@ class StudentProfileCollection extends BaseProfileCollection {
    * @param docID The docID of a StudentProfile
    * @returns { Object } An object representing the definition of docID.
    */
-  public dumpOne(docID: string): IStudentProfileDefine {
+  public dumpOne(docID: string): StudentProfileDefine {
     const doc = this.findDoc(docID);
     const username = doc.username;
     const firstName = doc.firstName;

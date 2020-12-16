@@ -92,7 +92,7 @@ import _ from 'lodash';
 import BaseCollection from '../base/BaseCollection';
 import { ROLE } from '../role/Role';
 import { Users } from '../user/UserCollection';
-import { IAdvisorLogDefine, IAdvisorLogUpdate } from '../../typings/radgrad';
+import { AdvisorLogDefine, AdvisorLogUpdate } from '../../typings/radgrad';
 
 /**
  * Represents a log of an Advisor talking to a Student.
@@ -135,16 +135,16 @@ class AdvisorLogCollection extends BaseCollection {
    * @param student The student's username.
    * @param text The contents of the session.
    */
-  public define({ advisor, student, text, createdOn = moment().toDate(), retired = false }: IAdvisorLogDefine) {
+  public define({ advisor, student, text, createdOn = moment().toDate(), retired = false }: AdvisorLogDefine) {
     const advisorID = Users.getID(advisor);
     const studentID = Users.getID(student);
     return this.collection.insert({ advisorID, studentID, text, createdOn, retired });
   }
 
-  public update(docID: string, { text, retired }: IAdvisorLogUpdate) {
+  public update(docID: string, { text, retired }: AdvisorLogUpdate) {
     this.assertDefined(docID);
     // console.log('update(%o, %o)', docID, text);
-    const updateData: IAdvisorLogUpdate = {};
+    const updateData: AdvisorLogUpdate = {};
     if (text) {
       updateData.text = text;
     }
@@ -237,7 +237,7 @@ class AdvisorLogCollection extends BaseCollection {
    * @param docID The docID of a Log.
    * @returns { Object } An object representing the definition of docID.
    */
-  public dumpOne(docID: string): IAdvisorLogDefine {
+  public dumpOne(docID: string): AdvisorLogDefine {
     const doc = this.findDoc(docID);
     const student = Users.getProfile(doc.studentID).username;
     const advisor = Users.getProfile(doc.advisorID).username;

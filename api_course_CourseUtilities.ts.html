@@ -92,7 +92,7 @@ import { Courses } from './CourseCollection';
 import PreferredChoice from '../degree-plan/PreferredChoice';
 import { Users } from '../user/UserCollection';
 import { profileGetInterestIDs } from '../../ui/components/shared/utilities/data-model';
-import { ICourse } from '../../typings/radgrad';
+import { Course } from '../../typings/radgrad';
 
 /**
  * Returns true if the coursesTakenSlugs fulfills courseID's prerequisites.
@@ -128,13 +128,13 @@ export function clearPlannedCourseInstances(studentID: string) {
   });
 }
 
-export function get300LevelDocs(): ICourse[] {
+export function get300LevelDocs(): Course[] {
   return Courses.find({ num: /3\d\d/ }).fetch();
 }
 
 export function getStudent300LevelDocs(studentID: string, coursesTakenSlugs: string[]) {
   let ret = [];
-  const courses: ICourse[] = get300LevelDocs();
+  const courses: Course[] = get300LevelDocs();
   const instances = CourseInstances.find({ studentID }).fetch();
   const courseTakenIDs = [];
   instances.forEach((courseInstance) => {
