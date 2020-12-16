@@ -155,6 +155,7 @@ interface IAdminDataModelPlanChoicesPageProps extends IAdminDataModeMenuProps {
 }
 
 const AdminDataModelPlanChoicesPage: React.FC&lt;IAdminDataModelPlanChoicesPageProps> = (props) => {
+  // TODO deconstruct props
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');
