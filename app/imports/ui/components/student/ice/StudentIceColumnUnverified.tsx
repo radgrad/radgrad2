@@ -11,7 +11,7 @@ import { Opportunities } from '../../../../api/opportunity/OpportunityCollection
 import { Courses } from '../../../../api/course/CourseCollection';
 
 interface StudentIceColumnUnverifiedProps {
-  type: 'Innovation' | 'Competency' | 'Experience';
+  iceType: 'Innovation' | 'Competency' | 'Experience';
   earnedICEPoints: number;
   projectedICEPoints: number;
   matchingPoints: (a: number, b: number) => boolean;
@@ -23,7 +23,7 @@ interface StudentIceColumnUnverifiedProps {
   opportunityInstances: OpportunityInstance[];
 }
 
-const years = (props: StudentIceColumnUnverifiedProps, match): AcademicYearInstance[] => {
+const years = (match): AcademicYearInstance[] => {
   const studentID = getUserIdFromRoute(match);
   return AcademicYearInstances.findNonRetired({ studentID }, { sort: { year: 1 } });
 };
@@ -37,14 +37,14 @@ const academicTerms = (year: AcademicYearInstance): AcademicTerm[] => {
   return yearTerms;
 };
 
-const getEventsHelper = (iceType: string, type: string, earned: boolean, term: AcademicTerm, props: StudentIceColumnUnverifiedProps, match): (OpportunityInstance | CourseInstance)[] => {
+const getEventsHelper = (iceType: 'Innovation' | 'Competency' | 'Experience', instanceType: 'course' | 'opportunity', earned: boolean, term: AcademicTerm, courseInstances: CourseInstance[], opportunityInstances: OpportunityInstance[], match): (OpportunityInstance | CourseInstance)[] => {
   if (getUserIdFromRoute(match)) {
     let allInstances: any[];
     const iceInstances = [];
-    if (type === 'course') {
-      allInstances = _.filter(props.courseInstances, (ci) => ci.verified === earned && ci.termID === term._id);
+    if (instanceType === 'course') {
+      allInstances = _.filter(courseInstances, (ci) => ci.verified === earned && ci.termID === term._id);
     } else {
-      allInstances = _.filter(props.opportunityInstances, (oi) => oi.verified === earned && oi.termID === term._id);
+      allInstances = _.filter(opportunityInstances, (oi) => oi.verified === earned && oi.termID === term._id);
     }
     allInstances.forEach((instance) => {
       if (iceType === 'Innovation') {
@@ -66,10 +66,10 @@ const getEventsHelper = (iceType: string, type: string, earned: boolean, term: A
   return null;
 };
 
-const hasEvents = (earned: boolean, term: AcademicTerm, props: StudentIceColumnUnverifiedProps, match): boolean => {
+const hasEvents = (earned: boolean, term: AcademicTerm, iceType: 'Innovation' | 'Competency' | 'Experience', courseInstances: CourseInstance[], opportunityInstances: OpportunityInstance[], match): boolean => {
   let ret = false;
-  if ((getEventsHelper(props.type, 'course', earned, term, props, match).length > 0) ||
-    (getEventsHelper(props.type, 'opportunity', earned, term, props, match).length > 0)) {
+  if ((getEventsHelper(iceType, 'course', earned, term, courseInstances, opportunityInstances, match).length > 0) ||
+    (getEventsHelper(iceType, 'opportunity', earned, term, courseInstances, opportunityInstances, match).length > 0)) {
     ret = true;
   }
   return ret;
@@ -77,7 +77,7 @@ const hasEvents = (earned: boolean, term: AcademicTerm, props: StudentIceColumnU
 
 const printTerm = (term: AcademicTerm): string => AcademicTerms.toString(term._id, false);
 
-const getEvents = (type: string, earned: boolean, term: AcademicTerm, props: StudentIceColumnUnverifiedProps, match): (OpportunityInstance | CourseInstance)[] => getEventsHelper(props.type, type, earned, term, props, match);
+const getEvents = (instanceType: 'course' | 'opportunity', earned: boolean, term: AcademicTerm, iceType: 'Innovation' | 'Competency' | 'Experience', courseInstances: CourseInstance[], opportunityInstances: OpportunityInstance[], match): (OpportunityInstance | CourseInstance)[] => getEventsHelper(iceType, instanceType, earned, term, courseInstances, opportunityInstances, match);
 
 const opportunityName = (opportunityInstance: OpportunityInstance): string => {
   const opportunity = Opportunities.findDoc(opportunityInstance.opportunityID);
@@ -89,11 +89,10 @@ const courseName = (courseInstance: CourseInstance): string => {
   return course.shortName;
 };
 
-const StudentIceColumnUnverified: React.FC<StudentIceColumnUnverifiedProps> = (props) => {
+const StudentIceColumnUnverified: React.FC<StudentIceColumnUnverifiedProps> = ({ iceType, earnedICEPoints, projectedICEPoints, matchingPoints, getCourseSlug, getOpportunitySlug, icePoints, opportunityInstances, courseInstances, remainingICEPoints }) => {
   const match = useRouteMatch();
-  const { type, earnedICEPoints, projectedICEPoints, matchingPoints, getCourseSlug, getOpportunitySlug, icePoints } = props;
 
-  const remainingPoints = props.remainingICEPoints(earnedICEPoints, projectedICEPoints);
+  const remainingPoints = remainingICEPoints(earnedICEPoints, projectedICEPoints);
   return (
     <React.Fragment>
       {matchingPoints(projectedICEPoints, 0) ?
@@ -101,16 +100,16 @@ const StudentIceColumnUnverified: React.FC<StudentIceColumnUnverifiedProps> = (p
         : (
           <React.Fragment>
             <p>
-              You have a total of {remainingPoints} unverified {type} points.
+              You have a total of {remainingPoints} unverified {iceType} points.
             </p>
             <List relaxed="very">
-              {years(props, match).map((year) => (
+              {years(match).map((year) => (
                 academicTerms(year).map((term) => {
-                  const opportunityEvents = getEvents('opportunity', false, term, props, match);
-                  const courseEvents = getEvents('course', false, term, props, match);
+                  const opportunityEvents = getEvents('opportunity', false, term, iceType, courseInstances, opportunityInstances, match);
+                  const courseEvents = getEvents('course', false, term, iceType, courseInstances, opportunityInstances, match);
                   return (
                     <React.Fragment key={term._id}>
-                      {hasEvents(false, term, props, match) ? (
+                      {hasEvents(false, term, iceType, courseInstances, opportunityInstances, match) ? (
                         <List.Item>
                           <List.Header>{printTerm(term)}</List.Header>
                           {opportunityEvents.map((event) => {
