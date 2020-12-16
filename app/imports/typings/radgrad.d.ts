@@ -1140,3 +1140,9 @@ export interface IVerificationRequestUpdate extends IUpdate {
   processed?: IProcessed[];
   retired?: boolean;
 }
+
+export enum IceType{
+	innovation,
+	competency,
+	experience
+}

@@ -9,11 +9,11 @@ import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
 import { Slugs } from '../../../../api/slug/SlugCollection';
 import { Courses } from '../../../../api/course/CourseCollection';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
-import { Ice, ICourseInstance, IFavoriteInterest, IOpportunityInstance } from '../../../../typings/radgrad';
+import { Ice, ICourseInstance, IFavoriteInterest, IOpportunityInstance, IceType } from '../../../../typings/radgrad';
 
 export interface IStudentIceColumnProps {
   // TODO make this an exported enum in radgrad.d.ts
-  type: 'Innovation' | 'Competency' | 'Experience';
+  type: IceType;
   favoriteInterests: IFavoriteInterest[];
   courseInstances: ICourseInstance[];
   opportunityInstances: IOpportunityInstance[];
@@ -41,11 +41,11 @@ const StudentIceColumn: React.FC<IStudentIceColumnProps> = ({ type, favoriteInte
 
   const getVerifiedColor = (): string => {
     switch (type) {
-      case 'Innovation':
+      case IceType.innovation:
         return 'ice-innovation-color';
-      case 'Competency':
+      case IceType.competency:
         return 'ice-competency-color';
-      case 'Experience':
+      case IceType.experience:
         return 'ice-experience-color';
       default:
         return '';
@@ -55,11 +55,11 @@ const StudentIceColumn: React.FC<IStudentIceColumnProps> = ({ type, favoriteInte
   // TODO add documentation for this and the above function
   const getUnverifiedColor = (): string => {
     switch (type) {
-      case 'Innovation':
+      case IceType.innovation:
         return 'ice-innovation-proj-color';
-      case 'Competency':
+      case IceType.competency:
         return 'ice-competency-proj-color';
-      case 'Experience':
+      case IceType.experience:
         return 'ice-experience-proj-color';
       default:
         return '';
@@ -68,11 +68,11 @@ const StudentIceColumn: React.FC<IStudentIceColumnProps> = ({ type, favoriteInte
 
   const getPoints = (ice: Ice): number => {
     let ret;
-    if (type === 'Innovation') {
+    if (type === IceType.innovation) {
       ret = ice.i;
-    } else if (type === 'Competency') {
+    } else if (type === IceType.competency) {
       ret = ice.c;
-    } else if (type === 'Experience') {
+    } else if (type === IceType.experience) {
       ret = ice.e;
     }
     return ret;
@@ -84,11 +84,11 @@ const StudentIceColumn: React.FC<IStudentIceColumnProps> = ({ type, favoriteInte
 
   const icePoints = (ice: Ice): number => {
     let ret;
-    if (type === 'Innovation') {
+    if (type === IceType.innovation) {
       ret = ice.i;
-    } else if (type === 'Competency') {
+    } else if (type === IceType.competency) {
       ret = ice.c;
-    } else if (type === 'Experience') {
+    } else if (type === IceType.experience) {
       ret = ice.e;
     }
     return ret;
