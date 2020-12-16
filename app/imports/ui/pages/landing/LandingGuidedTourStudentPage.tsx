@@ -22,7 +22,7 @@ import SampleStudent from '../../components/landing/guided-tour/student/sample-s
 import AdvisorLog from '../../components/landing/guided-tour/student/advisor-log';
 import WhatsNext from '../../components/landing/guided-tour/student/whats-next';
 
-interface IGuidedTourStudentProps {
+interface GuidedTourStudentProps {
   interests: number;
   careerGoals: string;
   courses: number;
@@ -31,7 +31,7 @@ interface IGuidedTourStudentProps {
   ready: boolean;
 }
 
-const renderPage: React.FC<IGuidedTourStudentProps> = ({ courses, careerGoals, interests, opportunities, courseReviews }) => {
+const renderPage: React.FC<GuidedTourStudentProps> = ({ courses, careerGoals, interests, opportunities, courseReviews }) => {
   const settings = {
     dots: true,
     infinite: false,
@@ -67,7 +67,7 @@ const renderPage: React.FC<IGuidedTourStudentProps> = ({ courses, careerGoals, i
 };
 
 // eslint-disable-next-line react/prop-types
-const LandingGuidedTourStudentPage: React.FC<IGuidedTourStudentProps> = (props) => ((props.ready) ? renderPage(props) : <Loader active>Getting data</Loader>);
+const LandingGuidedTourStudentPage: React.FC<GuidedTourStudentProps> = (props) => ((props.ready) ? renderPage(props) : <Loader active>Getting data</Loader>);
 
 const GuidedTourStudentContainer = withTracker(() => {
   const subscription = Meteor.subscribe(PublicStats.getPublicationName());

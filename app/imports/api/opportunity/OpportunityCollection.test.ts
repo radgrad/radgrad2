@@ -11,7 +11,7 @@ import { removeAllEntities } from '../base/BaseUtilities';
 import { makeSampleAcademicTermArray } from '../academic-term/SampleAcademicTerms';
 import { makeSampleIce } from '../ice/SampleIce';
 import { Slugs } from '../slug/SlugCollection';
-import { IOpportunity, IOpportunityType } from '../../typings/radgrad';
+import { Opportunity, OpportunityType } from '../../typings/radgrad';
 import { OpportunityTypes } from './OpportunityTypeCollection';
 
 /* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
@@ -153,12 +153,12 @@ if (Meteor.isServer) {
     it('Can dumpOne, removeIt, and restoreOne', function test4() {
       const sponsor = makeSampleUser(ROLE.FACULTY);
       let docID = makeSampleOpportunity(sponsor);
-      const origOpp: IOpportunity = Opportunities.findDoc(docID);
+      const origOpp: Opportunity = Opportunities.findDoc(docID);
       const dumpObject = Opportunities.dumpOne(docID);
       Opportunities.removeIt(docID);
       expect(Opportunities.isDefined(docID)).to.be.false;
       docID = Opportunities.restoreOne(dumpObject);
-      const restored: IOpportunity = Opportunities.findDoc(docID);
+      const restored: Opportunity = Opportunities.findDoc(docID);
       expect(origOpp.name).to.equal(restored.name);
       // expect(origOpp.slugID).to.equal(restored.slugID);
       expect(origOpp.description).to.equal(restored.description);
@@ -189,8 +189,8 @@ if (Meteor.isServer) {
         academicTerms,
         interests,
       });
-      const oppTypeDocOrig: IOpportunityType = OpportunityTypes.findDoc(opportunityType);
-      const oppTypeDoc: IOpportunityType = Opportunities.getOpportunityTypeDoc(docID);
+      const oppTypeDocOrig: OpportunityType = OpportunityTypes.findDoc(opportunityType);
+      const oppTypeDoc: OpportunityType = Opportunities.getOpportunityTypeDoc(docID);
       expect(oppTypeDocOrig.name).to.equal(oppTypeDoc.name);
       expect(oppTypeDocOrig.description).to.equal(oppTypeDoc.description);
       expect(oppTypeDocOrig.retired).to.equal(oppTypeDoc.retired);

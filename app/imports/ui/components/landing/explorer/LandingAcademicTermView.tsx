@@ -3,12 +3,12 @@ import { Header, Segment } from 'semantic-ui-react';
 import _ from 'lodash';
 import LandingPlanChoicePill from '../LandingPlanChoicePill';
 
-interface ILandingAcademicTempViewProps {
+interface LandingAcademicTempViewProps {
   title: string;
   choices: string[];
 }
 
-const LandingAcademicTermView: React.FC<ILandingAcademicTempViewProps> = ({ title, choices }) => {
+const LandingAcademicTermView: React.FC<LandingAcademicTempViewProps> = ({ title, choices }) => {
   const noPaddingStyle = {
     padding: 2,
     margin: 2,

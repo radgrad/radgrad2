@@ -1,11 +1,11 @@
 import React from 'react';
 import { Embed } from 'semantic-ui-react';
 
-interface ITeaserVideoProps {
+interface TeaserVideoProps {
   id: string;
 }
 
-const TeaserVideo: React.FC<ITeaserVideoProps> = ({ id }) => (
+const TeaserVideo: React.FC<TeaserVideoProps> = ({ id }) => (
   <Embed
     active
     autoplay={false}

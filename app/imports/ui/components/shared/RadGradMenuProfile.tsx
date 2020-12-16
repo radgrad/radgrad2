@@ -2,16 +2,16 @@ import React from 'react';
 import { Image } from 'semantic-ui-react';
 import RadGradMenuLevel from './RadGradMenuLevel';
 import MenuIceCircle from './MenuIceCircle';
-import { IBaseProfile, Ice } from '../../../typings/radgrad';
+import { BaseProfile, Ice } from '../../../typings/radgrad';
 
-export interface IRadGradMenuProfileProps {
-  profile: IBaseProfile;
+export interface RadGradMenuProfileProps {
+  profile: BaseProfile;
   displayLevelAndIce: boolean;
   earnedICE?: Ice;
   projectedICE?: Ice;
 }
 
-const RadGradMenuProfile: React.FC<IRadGradMenuProfileProps> = ({ profile, displayLevelAndIce, earnedICE, projectedICE }) => {
+const RadGradMenuProfile: React.FC<RadGradMenuProfileProps> = ({ profile, displayLevelAndIce, earnedICE, projectedICE }) => {
 
   const level = profile.level;
   const divStyle = { borderLeft: '1px solid rgba(34,36,38,.07)', paddingTop: '5px' };

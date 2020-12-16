@@ -5,16 +5,16 @@ import { AutoForm, TextField, LongTextField, SubmitField } from 'uniforms-semant
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
-import { IInterest } from '../../../../../typings/radgrad';
+import { Interest } from '../../../../../typings/radgrad';
 import { docToName } from '../../../shared/utilities/data-model';
 
-interface IAddCareerGoalFormProps {
-  interests: IInterest[];
+interface AddCareerGoalFormProps {
+  interests: Interest[];
   formRef: React.RefObject<unknown>;
   handleAdd: (doc) => any;
 }
 
-const AddCareerGoalForm: React.FC<IAddCareerGoalFormProps> = ({ interests, formRef, handleAdd }) => {
+const AddCareerGoalForm: React.FC<AddCareerGoalFormProps> = ({ interests, formRef, handleAdd }) => {
   const interestNames = _.map(interests, docToName);
   const schema = new SimpleSchema({
     name: String,

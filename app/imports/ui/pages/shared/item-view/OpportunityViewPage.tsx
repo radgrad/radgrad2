@@ -4,7 +4,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Container, Grid } from 'semantic-ui-react';
 import _ from 'lodash';
 import { Reviews } from '../../../../api/review/ReviewCollection';
-import { IHelpMessage, IOpportunity, IProfile, IReview } from '../../../../typings/radgrad';
+import { HelpMessage, Opportunity, Profile, Review } from '../../../../typings/radgrad';
 import { getMenuWidget } from '../utilities/getMenuWidget';
 import HelpPanelWidget from '../../../components/shared/HelpPanelWidget';
 import { HelpMessages } from '../../../../api/help/HelpMessageCollection';
@@ -19,28 +19,28 @@ import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollect
 import { OpportunityTypes } from '../../../../api/opportunity/OpportunityTypeCollection';
 import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
 
-interface IOpportunityViewPageProps {
-  favoriteOpportunities: IOpportunity[];
-  helpMessages: IHelpMessage[];
-  itemReviews: IReview[];
-  opportunity: IOpportunity;
-  profile: IProfile;
+interface OpportunityViewPageProps {
+  favoriteOpportunities: Opportunity[];
+  helpMessages: HelpMessage[];
+  itemReviews: Review[];
+  opportunity: Opportunity;
+  profile: Profile;
 }
 
-const opportunityType = (theOpp: IOpportunity): string => {
+const opportunityType = (theOpp: Opportunity): string => {
   const oppType = theOpp.opportunityTypeID;
   const oppSlug = OpportunityTypes.findSlugByID(oppType);
   return OpportunityTypes.findDocBySlug(oppSlug).name;
 };
 
-const academicTerms = (theOpp: IOpportunity): string[] => {
+const academicTerms = (theOpp: Opportunity): string[] => {
   const termIDs = theOpp.termIDs;
   return _.map(termIDs, (termID) => AcademicTerms.toString(termID));
 };
 
-const sponsor = (theOpp: IOpportunity): string => Users.getFullName(theOpp.sponsorID);
+const sponsor = (theOpp: Opportunity): string => Users.getFullName(theOpp.sponsorID);
 
-const descriptionPairsOpportunities = (theOpp: IOpportunity): { label: string, value: any }[] => [
+const descriptionPairsOpportunities = (theOpp: Opportunity): { label: string, value: any }[] => [
   { label: 'Opportunity Type', value: opportunityType(theOpp) },
   { label: 'Academic Terms', value: academicTerms(theOpp) },
   { label: 'Event Date', value: theOpp.eventDate },
@@ -62,7 +62,7 @@ const isCompleted = (opportunityID: string, studentID: string): boolean => {
   return completed;
 };
 
-const OpportunityViewPage: React.FC<IOpportunityViewPageProps> = ({ favoriteOpportunities, helpMessages, itemReviews, opportunity, profile }) => {
+const OpportunityViewPage: React.FC<OpportunityViewPageProps> = ({ favoriteOpportunities, helpMessages, itemReviews, opportunity, profile }) => {
   const match = useRouteMatch();
   const menuAddedList = _.map(favoriteOpportunities, (item) => ({
     item, count: 1,

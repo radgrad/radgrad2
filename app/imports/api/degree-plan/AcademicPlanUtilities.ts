@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import _ from 'lodash';
-import { IAcademicPlan, ICourseInstance } from '../../typings/radgrad';
+import { AcademicPlan, CourseInstance } from '../../typings/radgrad';
 import { CourseInstances } from '../course/CourseInstanceCollection';
 import { Slugs } from '../slug/SlugCollection';
 import { complexChoiceToArray } from './PlanChoiceUtilities';
@@ -20,11 +20,11 @@ export function getPlanChoicesRaw(coursesPerTerm: number[], choiceList: string[]
   return choiceList.slice(numChoices, numChoices + numTermChoices);
 }
 
-export function getPlanChoices(academicPlan: IAcademicPlan, termNum: number): string[] {
+export function getPlanChoices(academicPlan: AcademicPlan, termNum: number): string[] {
   return getPlanChoicesRaw(academicPlan.coursesPerAcademicTerm, academicPlan.choiceList, termNum);
 }
 
-export function passedCourse(ci: ICourseInstance): boolean {
+export function passedCourse(ci: CourseInstance): boolean {
   const courseDoc = CourseInstances.getCourseDoc(ci._id);
   const courseSlug = Slugs.getNameFromID(courseDoc.slugID);
   // TODO: We need another way of representing 'passing'
@@ -51,7 +51,7 @@ export function isPlanChoiceSatisfied(planChoice: string, takenSlugs: string[]):
   return ret;
 }
 
-export function isAcademicPlanValid(academicPlan: IAcademicPlan): boolean {
+export function isAcademicPlanValid(academicPlan: AcademicPlan): boolean {
   const quarters = RadGradProperties.getQuarterSystem();
   // check the coursesPerAcademicTerm length
   if (quarters) {
@@ -129,7 +129,7 @@ export function addChoiceToRaw(choice: string, termNum: number, choiceList: stri
   updateChoiceCounts(choiceList);
 }
 
-export function addChoiceToPlan(academicPlan: IAcademicPlan, termNum: number, choice: string) {
+export function addChoiceToPlan(academicPlan: AcademicPlan, termNum: number, choice: string) {
   addChoiceToRaw(choice, termNum, academicPlan.choiceList, academicPlan.coursesPerAcademicTerm);
 }
 

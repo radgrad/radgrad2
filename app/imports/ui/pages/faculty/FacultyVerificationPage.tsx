@@ -8,7 +8,7 @@ import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import PendingVerificationsWidget from '../../components/shared/verification/PendingVerificationsWidget';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import EventVerificationsWidget from '../../components/shared/verification/EventVerificationsWidget';
-import { IHelpMessage, IOpportunity, IVerificationRequest } from '../../../typings/radgrad';
+import { HelpMessage, Opportunity, VerificationRequest } from '../../../typings/radgrad';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
@@ -16,13 +16,13 @@ import CompletedVerificationsWidget from '../../components/shared/verification/C
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import withAdditionalSubscriptions from '../../layouts/utilities/AdvisorFacultyAdditionalSubscriptionsHOC';
 
-interface IFacultyVerificationPageProps {
-  verificationRequests: IVerificationRequest[];
-  eventOpportunities: IOpportunity[];
-  helpMessages: IHelpMessage[];
+interface FacultyVerificationPageProps {
+  verificationRequests: VerificationRequest[];
+  eventOpportunities: Opportunity[];
+  helpMessages: HelpMessage[];
 }
 
-const FacultyVerificationPage: React.FC<IFacultyVerificationPageProps> = ({ verificationRequests, helpMessages, eventOpportunities }) => {
+const FacultyVerificationPage: React.FC<FacultyVerificationPageProps> = ({ verificationRequests, helpMessages, eventOpportunities }) => {
   const match = useRouteMatch();
   const [activeItemState, setActiveItem] = useState('pending');
 
@@ -96,7 +96,7 @@ const FacultyVerificationPageWithTracker = withTracker(() => {
   const { username } = useParams();
   const userID = Users.getID(username);
   const linkedOppInstances = OpportunityInstances.findNonRetired({ sponsorID: userID });
-  const isLinkedReq = (verReq: IVerificationRequest) => !!linkedOppInstances.find(oppI => verReq.opportunityInstanceID === oppI._id);
+  const isLinkedReq = (verReq: VerificationRequest) => !!linkedOppInstances.find(oppI => verReq.opportunityInstanceID === oppI._id);
   const helpMessages = HelpMessages.findNonRetired({});
   return {
     verificationRequests: VerificationRequests.findNonRetired().filter(ele => isLinkedReq(ele)),

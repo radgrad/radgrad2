@@ -6,15 +6,15 @@ import _ from 'lodash';
 import { Users } from '../../../../../api/user/UserCollection';
 import { scrollPositionActions } from '../../../../../redux/shared/scrollPosition';
 import { RootState } from '../../../../../redux/types';
-import { ICourse, IFavoriteCourse } from '../../../../../typings/radgrad';
+import { Course, FavoriteCourse } from '../../../../../typings/radgrad';
 import TermCard from './TermCard';
 import { ROLE } from '../../../../../api/role/Role';
 import CourseFilterWidget, { courseFilterKeys } from './CourseFilterWidget';
 import BackToTopButton from '../../BackToTopButton';
 
-interface ICourseBrowserViewProps {
-  favoriteCourses: IFavoriteCourse[];
-  courses: ICourse[];
+interface CourseBrowserViewProps {
+  favoriteCourses: FavoriteCourse[];
+  courses: Course[];
   // Saving Scroll Position
   coursesScrollPosition: number;
   setCoursesScrollPosition: (scrollPosition: number) => any;
@@ -30,7 +30,7 @@ const mapDispatchToProps = (dispatch) => ({
   setCoursesScrollPosition: (scrollPosition: number) => dispatch(scrollPositionActions.setExplorerCoursesScrollPosition(scrollPosition)),
 });
 
-const CourseBrowserView: React.FC<ICourseBrowserViewProps> = ({ favoriteCourses, courses, coursesScrollPosition, setCoursesScrollPosition, filterCoursesChoice }) => {
+const CourseBrowserView: React.FC<CourseBrowserViewProps> = ({ favoriteCourses, courses, coursesScrollPosition, setCoursesScrollPosition, filterCoursesChoice }) => {
 
   const { username } = useParams();
   const profile = Users.getProfile(username);

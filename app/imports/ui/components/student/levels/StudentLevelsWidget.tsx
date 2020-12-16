@@ -2,20 +2,20 @@ import React from 'react';
 import Markdown from 'react-markdown';
 import { Segment, Grid, Container, Message, Icon, Image, Header } from 'semantic-ui-react';
 import { getLevelHintStringMarkdown } from '../../../../api/level/LevelProcessor';
-import { IStudentProfile } from '../../../../typings/radgrad';
+import { StudentProfile } from '../../../../typings/radgrad';
 
-export interface IStudentLevelsWidgetProps {
-  profile: IStudentProfile,
+export interface StudentLevelsWidgetProps {
+  profile: StudentProfile,
 }
 
-const getStudentLevelName = (profile: IStudentProfile): string => {
+const getStudentLevelName = (profile: StudentProfile): string => {
   if (profile.level) {
     return `LEVEL ${profile.level}`;
   }
   return 'LEVEL 1';
 };
 
-const getStudentLevelHint = (profile: IStudentProfile): string => {
+const getStudentLevelHint = (profile: StudentProfile): string => {
   let levelNumber = 0;
   levelNumber = profile.level;
   // const helpMessage = HelpMessages.findDocByRouteName('/student/:username/home/levels').text;
@@ -39,7 +39,7 @@ const getStudentLevelHint = (profile: IStudentProfile): string => {
   }
 };
 
-const StudentLevelsWidget: React.FC<IStudentLevelsWidgetProps> = ({ profile }) => {
+const StudentLevelsWidget: React.FC<StudentLevelsWidgetProps> = ({ profile }) => {
   const imageStyle = { width: '230px' };
   const studentLevelNumber: number = profile.level || 1;
   const studentLevelName = getStudentLevelName(profile);

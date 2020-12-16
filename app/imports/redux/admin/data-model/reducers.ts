@@ -1,43 +1,43 @@
 import * as TYPES from './types';
 
-interface IPaginationState {
+interface PaginationState {
   showIndex: number;
   showCount: number;
 }
 
-interface IState {
+interface State {
   pagination: {
-    AcademicPlanCollection: IPaginationState;
-    AcademicTermCollection: IPaginationState;
-    AcademicYearInstanceCollection: IPaginationState;
-    AdvisorLogCollection: IPaginationState;
-    CareerGoalCollection: IPaginationState;
-    CourseInstanceCollection: IPaginationState;
-    CourseCollection: IPaginationState;
-    FeedCollection: IPaginationState;
-    FeedbackInstanceCollection: IPaginationState;
-    HelpMessageCollection: IPaginationState;
-    InterestCollection: IPaginationState;
-    InterestTypeCollection: IPaginationState;
-    OpportunityCollection: IPaginationState;
-    OpportunityInstanceCollection: IPaginationState;
-    OpportunityTypeCollection: IPaginationState;
-    PlanChoiceCollection: IPaginationState;
-    ReviewCollection: IPaginationState;
-    SlugCollection: IPaginationState;
-    AdminProfileCollection: IPaginationState;
-    AdvisorProfileCollection: IPaginationState;
-    FacultyProfileCollection: IPaginationState;
-    StudentProfileCollection: IPaginationState;
-    TeaserCollection: IPaginationState;
-    VerificationRequestCollection: IPaginationState;
+    AcademicPlanCollection: PaginationState;
+    AcademicTermCollection: PaginationState;
+    AcademicYearInstanceCollection: PaginationState;
+    AdvisorLogCollection: PaginationState;
+    CareerGoalCollection: PaginationState;
+    CourseInstanceCollection: PaginationState;
+    CourseCollection: PaginationState;
+    FeedCollection: PaginationState;
+    FeedbackInstanceCollection: PaginationState;
+    HelpMessageCollection: PaginationState;
+    InterestCollection: PaginationState;
+    InterestTypeCollection: PaginationState;
+    OpportunityCollection: PaginationState;
+    OpportunityInstanceCollection: PaginationState;
+    OpportunityTypeCollection: PaginationState;
+    PlanChoiceCollection: PaginationState;
+    ReviewCollection: PaginationState;
+    SlugCollection: PaginationState;
+    AdminProfileCollection: PaginationState;
+    AdvisorProfileCollection: PaginationState;
+    FacultyProfileCollection: PaginationState;
+    StudentProfileCollection: PaginationState;
+    TeaserCollection: PaginationState;
+    VerificationRequestCollection: PaginationState;
   };
   uploadFixture: {
     working: boolean;
   }
 }
 
-const initialState: IState = {
+const initialState: State = {
   pagination: {
     AcademicPlanCollection: {
       showIndex: 0,
@@ -141,9 +141,9 @@ const initialState: IState = {
   },
 };
 
-export function reducer(state: IState = initialState, action): IState {
+export function reducer(state: State = initialState, action): State {
   // console.log('dataModelReducer state=%o, action=%o', state, action);
-  let s: IState;
+  let s: State;
   let collect;
   const paginationState = state.pagination;
   switch (action.type) {

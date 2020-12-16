@@ -1,16 +1,16 @@
 import * as TYPES from './types';
-import { IUserInteraction } from '../../../typings/radgrad';
+import { UserInteraction } from '../../../typings/radgrad';
 
-export interface IAdminAnalyticsDateRange {
+export interface AdminAnalyticsDateRange {
   startDate: Date;
   endDate: Date;
 }
 
-export type IAdminAnalyticsUserInteraction = { [username: string]: IUserInteraction[] };
+export type IAdminAnalyticsUserInteraction = { [username: string]: UserInteraction[] };
 
 export type IAdminAnalyticsOverheadAnalysisBuckets = { [key: number]: number };
 
-export interface IAdminAnalyticsOverheadAnalysisData {
+export interface AdminAnalyticsOverheadAnalysisData {
   username: string;
   'num-sessions': number;
   'num-docs': number;
@@ -18,7 +18,7 @@ export interface IAdminAnalyticsOverheadAnalysisData {
   'total-time': number;
 }
 
-interface IState {
+interface State {
   newsletter: {
     getStudentEmails: boolean;
     testNewsletter: boolean;
@@ -26,18 +26,18 @@ interface IState {
     allNewsletter: boolean;
   }
   overheadAnalysis: {
-    dateRange: IAdminAnalyticsDateRange;
+    dateRange: AdminAnalyticsDateRange;
     overheadBuckets: IAdminAnalyticsOverheadAnalysisBuckets;
     userInteractions: IAdminAnalyticsUserInteraction;
-    overheadData: IAdminAnalyticsOverheadAnalysisData[];
+    overheadData: AdminAnalyticsOverheadAnalysisData[];
   }
   studentSummary: {
-    dateRange: IAdminAnalyticsDateRange;
+    dateRange: AdminAnalyticsDateRange;
     userInteractions: IAdminAnalyticsUserInteraction;
   };
 }
 
-const initialState: IState = {
+const initialState: State = {
   newsletter: {
     getStudentEmails: false,
     testNewsletter: false,
@@ -62,8 +62,8 @@ const initialState: IState = {
   },
 };
 
-function reducer(state: IState = initialState, action: { [props: string]: any }): IState {
-  let s: IState;
+function reducer(state: State = initialState, action: { [props: string]: any }): State {
+  let s: State;
   let otherKeys;
   switch (action.type) {
     case TYPES.GET_EMAILS_WORKING:

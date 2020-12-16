@@ -9,7 +9,7 @@ import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Slugs } from '../slug/SlugCollection';
 import { Users } from '../user/UserCollection';
 import BaseCollection from '../base/BaseCollection';
-import { IFeedDefine, IFeedUpdate } from '../../typings/radgrad';
+import { FeedDefine, FeedUpdate } from '../../typings/radgrad';
 import { defaultProfilePicture } from '../user/BaseProfileCollection';
 
 /**
@@ -111,7 +111,7 @@ class FeedCollection extends BaseCollection {
    * Based upon the feedType, the object should contain additional fields providing the information necessary to
    * define that new feed.
    */
-  public define(feedDefinition: IFeedDefine) {
+  public define(feedDefinition: FeedDefine) {
     if (feedDefinition.feedType === this.NEW_USER) {
       return this.defineNewUser(feedDefinition);
     }
@@ -143,7 +143,7 @@ class FeedCollection extends BaseCollection {
    * The timestamp and feedtype fields cannot be updated once created.
    * @throws { Meteor.Error } If docID is not defined, or if users, opportunity, or course are not defined.
    */
-  public update(docID: string, { description, picture, users, opportunity, course, academicTerm, retired }: IFeedUpdate) {
+  public update(docID: string, { description, picture, users, opportunity, course, academicTerm, retired }: FeedUpdate) {
     this.assertDefined(docID);
     const updateData: { description?: string; picture?: string; userIDs?: string[]; opportunityID?: string; courseID?: string; termID?: string; retired?: boolean; } = {};
     if (description) {
@@ -185,7 +185,7 @@ class FeedCollection extends BaseCollection {
    * @returns The newly created docID.
    * @throws {Meteor.Error} If not a valid user.
    */
-  private defineNewUser({ user, feedType, timestamp = moment().toDate(), retired = false }: IFeedDefine) {
+  private defineNewUser({ user, feedType, timestamp = moment().toDate(), retired = false }: FeedDefine) {
     // First, see if we've already defined any users within the past day.
     const recentFeedID = this.checkPastDayFeed(this.NEW_USER);
     // If there's a recentFeed, then update it instead with this user's info.
@@ -217,7 +217,7 @@ class FeedCollection extends BaseCollection {
    * @returns The newly created docID.
    * @throws {Meteor.Error} If not a valid course.
    */
-  private defineNewCourse({ course, feedType, timestamp = moment().toDate(), retired = false }: IFeedDefine) {
+  private defineNewCourse({ course, feedType, timestamp = moment().toDate(), retired = false }: FeedDefine) {
     const courseID = Courses.getID(course);
     const c = Courses.findDoc(courseID);
     const description = `[${c.name}](/explorer/courses/${Slugs.getNameFromID(c.slugID)}) has been added to Courses`;
@@ -244,7 +244,7 @@ class FeedCollection extends BaseCollection {
    * @returns The newly created docID.
    * @throws {Meteor.Error} If not a valid opportunity.
    */
-  private defineNewOpportunity({ opportunity, feedType, timestamp = moment().toDate(), retired = false }: IFeedDefine) {
+  private defineNewOpportunity({ opportunity, feedType, timestamp = moment().toDate(), retired = false }: FeedDefine) {
     const opportunityID = Opportunities.getID(opportunity);
     const o = Opportunities.findDoc(opportunityID);
     const description = `[${o.name}](/explorer/opportunities/${Slugs.getNameFromID(o.slugID)}) has been added to Opportunities`;
@@ -278,7 +278,7 @@ class FeedCollection extends BaseCollection {
    * @returns The docID associated with this info.
    * @throws {Meteor.Error} If not a valid opportunity, academicTerm, or user.
    */
-  private defineNewVerifiedOpportunity({ user, opportunity, academicTerm, feedType, timestamp = moment().toDate(), retired = false }: IFeedDefine) {
+  private defineNewVerifiedOpportunity({ user, opportunity, academicTerm, feedType, timestamp = moment().toDate(), retired = false }: FeedDefine) {
     // First, see if we've already defined any verified-opportunities for this opportunity within the past day.
     const recentFeedID = this.checkPastDayFeed(this.VERIFIED_OPPORTUNITY, opportunity);
     // If there's a recentFeed, then update it instead with this user's info and return.
@@ -320,7 +320,7 @@ class FeedCollection extends BaseCollection {
    * @returns The newly created docID.
    * @throws {Meteor.Error} If not a valid course or user.
    */
-  private defineNewCourseReview({ user, course, feedType, timestamp = moment().toDate(), retired = false }: IFeedDefine) {
+  private defineNewCourseReview({ user, course, feedType, timestamp = moment().toDate(), retired = false }: FeedDefine) {
     const userID = Users.getID((_.isArray(user)) ? user[0] : user);
     const courseID = Courses.getID(course);
     const c = Courses.findDoc(courseID);
@@ -350,7 +350,7 @@ class FeedCollection extends BaseCollection {
    * @returns The newly created docID.
    * @throws {Meteor.Error} If not a valid opportunity or user.
    */
-  private defineNewOpportunityReview({ user, opportunity, feedType, timestamp = moment().toDate(), retired = false }: IFeedDefine) {
+  private defineNewOpportunityReview({ user, opportunity, feedType, timestamp = moment().toDate(), retired = false }: FeedDefine) {
     const userID = Users.getID((_.isArray(user)) ? user[0] : user);
     const opportunityID = Opportunities.getID(opportunity);
     const o = Opportunities.findDoc(opportunityID);
@@ -376,7 +376,7 @@ class FeedCollection extends BaseCollection {
    * @param timestamp The time of the Feed.
    * @private
    */
-  private defineNewLevel({ user, level, feedType, timestamp = moment().toDate(), retired = false }: IFeedDefine) {
+  private defineNewLevel({ user, level, feedType, timestamp = moment().toDate(), retired = false }: FeedDefine) {
     // First, see if we've already defined any users within the past day.
     const recentFeedID = this.checkPastDayLevelFeed(level, timestamp.toString());
     // If there's a recentFeed, then update it instead with this user's info.
@@ -547,7 +547,7 @@ class FeedCollection extends BaseCollection {
    * @param docID The docID of a Feed.
    * @returns { Object } An object representing the definition of docID.
    */
-  public dumpOne(docID: string): IFeedDefine {
+  public dumpOne(docID: string): FeedDefine {
     const doc = this.findDoc(docID);
     let user;
     if (doc.userIDs) {

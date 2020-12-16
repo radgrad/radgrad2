@@ -4,15 +4,15 @@ import { useRouteMatch } from 'react-router-dom';
 import _ from 'lodash';
 import { Grid, Header, Divider } from 'semantic-ui-react';
 import * as Router from './utilities/router';
-import { IHelpMessage } from '../../../typings/radgrad';
+import { HelpMessage } from '../../../typings/radgrad';
 
-export interface IHelpPanelWidgetProps {
-  helpMessages: IHelpMessage[];
+export interface HelpPanelWidgetProps {
+  helpMessages: HelpMessage[];
 }
 
-const HelpPanelWidget: React.FC<IHelpPanelWidgetProps> = ({ helpMessages }) => {
+const HelpPanelWidget: React.FC<HelpPanelWidgetProps> = ({ helpMessages }) => {
   const match = useRouteMatch();
-  const helpMessage = _.find(helpMessages, (m: IHelpMessage) => m.routeName === match.path);
+  const helpMessage = _.find(helpMessages, (m: HelpMessage) => m.routeName === match.path);
   const helpText = helpMessage ? `${helpMessage.text}` : '';
   return (helpMessage) ? (
     <Grid.Column>

@@ -2,13 +2,13 @@ import React from 'react';
 import { Button, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import {
-  IAcademicPlan,
-  ICareerGoal,
-  ICourse,
-  IInterest,
-  IMeteorError,
-  IOpportunity,
-  IPageInterestDefine,
+  AcademicPlan,
+  CareerGoal,
+  Course,
+  Interest,
+  MeteorError,
+  Opportunity,
+  PageInterestDefine,
 } from '../../../../../typings/radgrad';
 import { FavoriteAcademicPlans } from '../../../../../api/favorite/FavoriteAcademicPlanCollection';
 import { FavoriteCareerGoals } from '../../../../../api/favorite/FavoriteCareerGoalCollection';
@@ -28,19 +28,19 @@ import {
 import { Users } from '../../../../../api/user/UserCollection';
 import { ROLE } from '../../../../../api/role/Role';
 
-export interface IFavoriteButtonProps {
-  item: IAcademicPlan | ICareerGoal | ICourse | IInterest | IOpportunity;
+export interface FavoriteButtonProps {
+  item: AcademicPlan | CareerGoal | Course | Interest | Opportunity;
   studentID: string;
   type: IFavoriteTypes;
   added: boolean;
 }
 
-const handleAdd = (props: IFavoriteButtonProps) => () => {
+const handleAdd = (props: FavoriteButtonProps) => () => {
   const collectionName = getCollectionName(props.type);
   const definitionData = createDefinitionData(props);
   const interactionData = createInteractionData(props, true);
 
-  defineMethod.call({ collectionName, definitionData }, (error: IMeteorError) => {
+  defineMethod.call({ collectionName, definitionData }, (error: MeteorError) => {
     if (error) {
       Swal.fire({
         title: 'Failed to Favorite',
@@ -57,14 +57,14 @@ const handleAdd = (props: IFavoriteButtonProps) => () => {
         showConfirmButton: false,
         timer: 1500,
       });
-      userInteractionDefineMethod.call(interactionData, (userInteractionError: IMeteorError) => {
+      userInteractionDefineMethod.call(interactionData, (userInteractionError: MeteorError) => {
         if (userInteractionError) {
           console.error('Error creating UserInteraction.', userInteractionError);
         }
       });
       const isStudent = Users.getProfile(props.studentID).role === ROLE.STUDENT;
       if (isStudent) {
-        const pageInterestData: IPageInterestDefine = createPageInterestData(props);
+        const pageInterestData: PageInterestDefine = createPageInterestData(props);
         pageInterestDefineMethod.call(pageInterestData, (pageInterestError) => {
           if (pageInterestError) {
             console.error('Error creating PageInterest.', pageInterestError);
@@ -75,7 +75,7 @@ const handleAdd = (props: IFavoriteButtonProps) => () => {
   });
 };
 
-const handleRemove = (props: IFavoriteButtonProps) => () => {
+const handleRemove = (props: FavoriteButtonProps) => () => {
   const collectionName = getCollectionName(props.type);
   const interactionData = createInteractionData(props, false);
   let instance;
@@ -115,7 +115,7 @@ const handleRemove = (props: IFavoriteButtonProps) => () => {
       break;
   }
 
-  removeItMethod.call({ collectionName, instance }, (error: IMeteorError) => {
+  removeItMethod.call({ collectionName, instance }, (error: MeteorError) => {
     if (error) {
       Swal.fire({
         title: 'Failed to Unfavorite',
@@ -127,14 +127,14 @@ const handleRemove = (props: IFavoriteButtonProps) => () => {
       });
     }
   });
-  userInteractionDefineMethod.call(interactionData, (userInteractionError: IMeteorError) => {
+  userInteractionDefineMethod.call(interactionData, (userInteractionError: MeteorError) => {
     if (userInteractionError) {
       console.error('Error creating UserInteraction.', userInteractionError);
     }
   });
 };
 
-const FavoritesButton: React.FC<IFavoriteButtonProps> = (props) => (
+const FavoritesButton: React.FC<FavoriteButtonProps> = (props) => (
   <React.Fragment>
     {props.added ?
       (

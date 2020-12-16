@@ -6,22 +6,22 @@ import _ from 'lodash';
 import WidgetHeaderNumber from '../WidgetHeaderNumber';
 import { availableOpps, checkForNoItems, IExplorerTypes, matchingOpportunities } from '../utilities/explorer';
 import OpportunitySortWidget, { opportunitySortKeys } from './OpportunitySortWidget';
-import OpportunityInformationItem, { IOpportunityInformationItemConfiguration } from './OpportunityInformationItem';
+import OpportunityInformationItem, { OpportunityInformationItemConfiguration } from './OpportunityInformationItem';
 import * as Router from '../../utilities/router';
 import { FavoriteInterests } from '../../../../../api/favorite/FavoriteInterestCollection';
 import PreferedChoice from '../../../../../api/degree-plan/PreferredChoice';
-import { IOpportunity } from '../../../../../typings/radgrad';
+import { Opportunity } from '../../../../../typings/radgrad';
 import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
 import { RootState } from '../../../../../redux/types';
 import CardExplorersPaginationWidget from './ExplorerOpportunitiesPaginationWidget';
-import { ICardExplorersPaginationState } from '../../../../../redux/shared/cardExplorer/reducers';
+import { CardExplorersPaginationState } from '../../../../../redux/shared/cardExplorer/reducers';
 
-interface ICardExplorerOpportunitiesWidgetProps {
-  pagination: ICardExplorersPaginationState;
+interface CardExplorerOpportunitiesWidgetProps {
+  pagination: CardExplorersPaginationState;
   sortValue: string;
 }
 
-const opportunityInformationItemConfiguration: IOpportunityInformationItemConfiguration = {
+const opportunityInformationItemConfiguration: OpportunityInformationItemConfiguration = {
   showLogo: true,
   showMetadata: true,
   showStudentsParticipating: true,
@@ -32,11 +32,11 @@ const mapStateToProps = (state: RootState) => ({
   sortValue: state.shared.cardExplorer.opportunities.sortValue,
 });
 
-const ExplorerOpportunitiesWidget: React.FC<ICardExplorerOpportunitiesWidgetProps> = ({ pagination, sortValue }) => {
+const ExplorerOpportunitiesWidget: React.FC<CardExplorerOpportunitiesWidgetProps> = ({ pagination, sortValue }) => {
   const match = useRouteMatch();
 
   const opportunitiesItemCount = availableOpps(match).length;
-  let opportunities: IOpportunity[] = matchingOpportunities(match);
+  let opportunities: Opportunity[] = matchingOpportunities(match);
 
   switch (sortValue) {
     case opportunitySortKeys.recommended:

@@ -4,13 +4,13 @@ import { AutoForm, SelectField, AutoField, BoolField, SubmitField } from 'unifor
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import _ from 'lodash';
-import { IAcademicTerm } from '../../../../../typings/radgrad';
+import { AcademicTerm } from '../../../../../typings/radgrad';
 import BaseCollection from '../../../../../api/base/BaseCollection';
 import { academicTermIdToName, academicTermToName } from '../../../shared/utilities/data-model';
 import { iceSchema } from '../../../../../api/ice/IceProcessor';
 
-interface IUpdateOpportunityInstanceFormProps {
-  terms: IAcademicTerm[];
+interface UpdateOpportunityInstanceFormProps {
+  terms: AcademicTerm[];
   collection: BaseCollection;
   id: string;
   formRef: React.RefObject<unknown>;
@@ -19,7 +19,7 @@ interface IUpdateOpportunityInstanceFormProps {
   itemTitleString: (item) => React.ReactNode;
 }
 
-const UpdateOpportunityInstanceForm: React.FC<IUpdateOpportunityInstanceFormProps> = ({ terms, collection, id, formRef, handleCancel, handleUpdate, itemTitleString }) => {
+const UpdateOpportunityInstanceForm: React.FC<UpdateOpportunityInstanceFormProps> = ({ terms, collection, id, formRef, handleCancel, handleUpdate, itemTitleString }) => {
   const model = collection.findDoc(id);
   model.academicTerm = academicTermIdToName(model.termID);
   const termNames = _.map(terms, academicTermToName);

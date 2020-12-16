@@ -3,12 +3,12 @@ import _ from 'lodash';
 import { ZipZap } from 'meteor/udondan:zipzap';
 import moment from 'moment';
 import { Button, Grid, Header, Icon, Label, Popup, Segment, Table } from 'semantic-ui-react';
-import { IAcademicTerm, ICourse } from '../../../../typings/radgrad';
+import { AcademicTerm, Course } from '../../../../typings/radgrad';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 
-interface ICourseScoreboardWidgetProps {
-  courses: ICourse[],
-  terms: IAcademicTerm[];
+interface CourseScoreboardWidgetProps {
+  courses: Course[],
+  terms: AcademicTerm[];
   scores: any[];
 }
 
@@ -24,7 +24,7 @@ const getCourseScore = (courseID, termID, scores) => {
   return 0;
 };
 
-const handleSaveAsCSV = (terms: IAcademicTerm[], courses: ICourse[], scores) => () => {
+const handleSaveAsCSV = (terms: AcademicTerm[], courses: Course[], scores) => () => {
   let result = '';
   const headerArr = ['Course'];
   _.forEach(terms, (term) => headerArr.push(AcademicTerms.getShortName(term._id)));
@@ -46,7 +46,7 @@ const handleSaveAsCSV = (terms: IAcademicTerm[], courses: ICourse[], scores) => 
   zip.saveAs(`${dir}.zip`);
 };
 
-const CourseScoreboardWidget: React.FC<ICourseScoreboardWidgetProps> = ({ courses, terms, scores }) => {
+const CourseScoreboardWidget: React.FC<CourseScoreboardWidgetProps> = ({ courses, terms, scores }) => {
   const scrollBody: React.CSSProperties = {
     display: 'inline-block',
     height: 500,

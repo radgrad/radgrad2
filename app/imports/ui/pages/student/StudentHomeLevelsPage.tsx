@@ -10,16 +10,16 @@ import BackToTopButton from '../../components/shared/BackToTopButton';
 import StudentLevelsWidget from '../../components/student/levels/StudentLevelsWidget';
 import StudentLevelsOthersWidget from '../../components/student/levels/StudentLevelsOthersWidget';
 import { Users } from '../../../api/user/UserCollection';
-import { IStudentProfile, IHelpMessage } from '../../../typings/radgrad';
+import { StudentProfile, HelpMessage } from '../../../typings/radgrad';
 import { ROLE } from '../../../api/role/Role';
 
-interface IStudentHomeLevelsPageProps {
-  profile: IStudentProfile;
-  helpMessages: IHelpMessage[];
-  students: IStudentProfile[]
+interface StudentHomeLevelsPageProps {
+  profile: StudentProfile;
+  helpMessages: HelpMessage[];
+  students: StudentProfile[]
 }
 
-const StudentHomeLevelsPage: React.FC<IStudentHomeLevelsPageProps> = ({ profile, students, helpMessages }) => (
+const StudentHomeLevelsPage: React.FC<StudentHomeLevelsPageProps> = ({ profile, students, helpMessages }) => (
   <div id="student-levels-page">
     <StudentPageMenuWidget />
     <Container>
@@ -172,7 +172,7 @@ const StudentHomeLevelsPage: React.FC<IStudentHomeLevelsPageProps> = ({ profile,
   </div>
 );
 
-const getStudentsAtSameLevel = (profiles, currentProfile:IStudentProfile): IStudentProfile[] => {
+const getStudentsAtSameLevel = (profiles, currentProfile:StudentProfile): StudentProfile[] => {
   const students = [];
   _.forEach(profiles, (profile) => {
     if (profile.level === currentProfile.level) {
@@ -187,9 +187,9 @@ const getStudentsAtSameLevel = (profiles, currentProfile:IStudentProfile): IStud
 const StudentHomeLevelsPageContainer = withTracker(() => {
   const helpMessages = HelpMessages.findNonRetired({});
   const { username } = useParams();
-  const profile = Users.getProfile(username) as IStudentProfile;
+  const profile = Users.getProfile(username) as StudentProfile;
   const profiles = Users.findProfilesWithRole(ROLE.STUDENT, {}, {});
-  const students: IStudentProfile[] = getStudentsAtSameLevel(profiles, profile);
+  const students: StudentProfile[] = getStudentsAtSameLevel(profiles, profile);
   return {
     helpMessages,
     profile,

@@ -14,11 +14,11 @@ import { Opportunities } from '../../../app/imports/api/opportunity/OpportunityC
 import { Users } from '../../../app/imports/api/user/UserCollection';
 import ExplorerMultipleItemsMenu from '../../../app/imports/ui/components/shared/explorer/browser-view/ExplorerMultipleItemsMenu';
 import {
-  IAcademicPlan,
-  ICareerGoal,
-  ICourse,
-  IInterest,
-  IOpportunity,
+  AcademicPlan,
+  CareerGoal,
+  Course,
+  Interest,
+  Opportunity,
 } from '../../../app/imports/typings/radgrad';
 import HelpPanelWidget from '../../../app/imports/ui/components/shared/HelpPanelWidget';
 import * as Router from '../../../app/imports/ui/components/shared/utilities/router';
@@ -40,11 +40,11 @@ interface ICardExplorerPageProps {
     }
   };
   /* eslint-disable react/no-unused-prop-types */
-  favoritePlans: IAcademicPlan[];
-  favoriteCareerGoals: ICareerGoal[];
-  favoriteCourses: ICourse[];
-  favoriteInterests: IInterest[];
-  favoriteOpportunities: IOpportunity[];
+  favoritePlans: AcademicPlan[];
+  favoriteCareerGoals: CareerGoal[];
+  favoriteCourses: Course[];
+  favoriteInterests: Interest[];
+  favoriteOpportunities: Opportunity[];
   /* eslint-enable */
 }
 
@@ -80,15 +80,15 @@ const getCollection = (props: ICardExplorerPageProps): object => {
   }
 };
 
-const addedPlans = (props: ICardExplorerPageProps): { item: IAcademicPlan, count: number }[] => _.map(props.favoritePlans, (f: any) => ({ item: AcademicPlans.findDoc(f.academicPlanID), count: 1 }));
+const addedPlans = (props: ICardExplorerPageProps): { item: AcademicPlan, count: number }[] => _.map(props.favoritePlans, (f: any) => ({ item: AcademicPlans.findDoc(f.academicPlanID), count: 1 }));
 
-const addedCareerGoals = (props: ICardExplorerPageProps): { item: ICareerGoal, count: number }[] => _.map(props.favoriteCareerGoals, (f: any) => ({ item: CareerGoals.findDoc(f.careerGoalID), count: 1 }));
+const addedCareerGoals = (props: ICardExplorerPageProps): { item: CareerGoal, count: number }[] => _.map(props.favoriteCareerGoals, (f: any) => ({ item: CareerGoals.findDoc(f.careerGoalID), count: 1 }));
 
-const addedCourses = (props: ICardExplorerPageProps): { item: ICourse, count: number }[] => _.map(props.favoriteCourses, (f: any) => ({ item: Courses.findDoc(f.courseID), count: 1 }));
+const addedCourses = (props: ICardExplorerPageProps): { item: Course, count: number }[] => _.map(props.favoriteCourses, (f: any) => ({ item: Courses.findDoc(f.courseID), count: 1 }));
 
-const addedInterests = (props: ICardExplorerPageProps): { item: IInterest, count: number }[] => _.map(props.favoriteInterests, (f: any) => ({ item: Interests.findDoc(f.interestID), count: 1 }));
+const addedInterests = (props: ICardExplorerPageProps): { item: Interest, count: number }[] => _.map(props.favoriteInterests, (f: any) => ({ item: Interests.findDoc(f.interestID), count: 1 }));
 
-const addedCareerInterests = (props: ICardExplorerPageProps): { item: IInterest, count: number }[] => {
+const addedCareerInterests = (props: ICardExplorerPageProps): { item: Interest, count: number }[] => {
   if (Router.getUserIdFromRoute(props.match)) {
     const profile = Users.getProfile(Router.getUserIdFromRoute(props.match));
     const allInterests = Users.getInterestIDsByType(profile.userID);
@@ -97,9 +97,9 @@ const addedCareerInterests = (props: ICardExplorerPageProps): { item: IInterest,
   return [];
 };
 
-const addedOpportunities = (props: ICardExplorerPageProps): { item: IOpportunity, count: number }[] => _.map(props.favoriteOpportunities, (f: any) => ({ item: Opportunities.findDoc(f.opportunityID), count: 1 }));
+const addedOpportunities = (props: ICardExplorerPageProps): { item: Opportunity, count: number }[] => _.map(props.favoriteOpportunities, (f: any) => ({ item: Opportunities.findDoc(f.opportunityID), count: 1 }));
 
-const getAddedList = (props: ICardExplorerPageProps): { item: IAcademicPlan | ICareerGoal | ICourse | IInterest | IOpportunity, count: number }[] => {
+const getAddedList = (props: ICardExplorerPageProps): { item: AcademicPlan | CareerGoal | Course | Interest | Opportunity, count: number }[] => {
   const type = Router.getLastUrlParam(props.match);
   switch (type) {
     case EXPLORER_TYPE.ACADEMICPLANS:

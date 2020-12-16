@@ -5,14 +5,14 @@
 // import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 // import { Interests } from '../../../../api/interest/InterestCollection';
 // import { FavoriteInterests } from '../../../../api/favorite/FavoriteInterestCollection';
-// import { IFavoriteInterest, IInterest } from '../../../../typings/radgrad';
+// import { FavoriteInterest, Interest } from '../../../../typings/radgrad';
 //
 // const countInArray = (array, value) => array.reduce((n, x) => n + (x === value), 0);
 //
 // // TODO Should this be responsive?
 //
 // const getFavoriteInterests = () => {
-//   const favInterests: IFavoriteInterest[] = FavoriteInterests.findNonRetired({});
+//   const favInterests: FavoriteInterest[] = FavoriteInterests.findNonRetired({});
 //   const favInterestIDs = favInterests.map((favInterest) => favInterest.interestID);
 //   const favInterestObjects = [];
 //   favInterestIDs.forEach((id) => {
@@ -34,7 +34,7 @@
 //       <Label.Group>
 //         {favoriteInterests.map((object) => {
 //           const slug = Interests.findSlugByID(object.interestID);
-//           const interest: IInterest = Interests.findDocBySlug(slug);
+//           const interest: Interest = Interests.findDocBySlug(slug);
 //           const name = interest.name;
 //           return (
 //             <Label

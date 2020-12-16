@@ -6,7 +6,7 @@ import { Interests } from '../interest/InterestCollection';
 import { CourseInstances } from './CourseInstanceCollection';
 import { Feeds } from '../feed/FeedCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
-import { ICourseDefine, ICourseUpdate } from '../../typings/radgrad';
+import { CourseDefine, CourseUpdate } from '../../typings/radgrad';
 import { isSingleChoice, complexChoiceToArray } from '../degree-plan/PlanChoiceUtilities';
 import { validateCourseSlugFormat } from './CourseUtilities';
 import { PlanChoices } from '../degree-plan/PlanChoiceCollection';
@@ -96,7 +96,7 @@ class CourseCollection extends BaseSlugCollection {
    * @throws {Meteor.Error} If the definition includes a defined slug or undefined interest or invalid creditHrs.
    * @returns The newly created docID.
    */
-  public define({ name, shortName = name, slug, num, description, creditHrs = 3, interests = [], syllabus, corequisites = [], prerequisites = [], retired = false }: ICourseDefine) {
+  public define({ name, shortName = name, slug, num, description, creditHrs = 3, interests = [], syllabus, corequisites = [], prerequisites = [], retired = false }: CourseDefine) {
     // Make sure the slug has the right format <dept>_<number>
     validateCourseSlugFormat(slug);
     // check if slug is defined
@@ -160,7 +160,7 @@ class CourseCollection extends BaseSlugCollection {
    * @param prerequisites An array of course slugs. (optional)
    * @param retired optional boolean.
    */
-  public update(instance: string, { name, shortName, num, description, creditHrs, interests, prerequisites, syllabus, retired }: ICourseUpdate) {
+  public update(instance: string, { name, shortName, num, description, creditHrs, interests, prerequisites, syllabus, retired }: CourseUpdate) {
     const docID = this.getID(instance);
     const updateData: {
       name?: string;
@@ -299,7 +299,7 @@ class CourseCollection extends BaseSlugCollection {
    * @param docID The docID of a Course.
    * @returns { Object } An object representing the definition of docID.
    */
-  public dumpOne(docID): ICourseDefine {
+  public dumpOne(docID): CourseDefine {
     const doc = this.findDoc(docID);
     const name = doc.name;
     const shortName = doc.shortName;

@@ -23,10 +23,10 @@ import { Teasers } from '../../../api/teaser/TeaserCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import AdminDataModelMenu, { IAdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
+import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { Users } from '../../../api/user/UserCollection';
-import { IAcademicYearInstance, IDescriptionPair, IStudentProfile } from '../../../typings/radgrad';
+import { AcademicYearInstance, DescriptionPair, StudentProfile } from '../../../typings/radgrad';
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
 import AdminDataModelUpdateForm from '../../components/admin/datamodel/AdminDataModelUpdateForm';
 import AddAcademicYearInstanceFormContainer from '../../components/admin/datamodel/academic-year/AddAcademicYearInstanceForm';
@@ -35,14 +35,14 @@ import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import withInstanceSubscriptions from '../../layouts/utilities/InstanceSubscriptionsHOC';
 
-const descriptionPairs = (year: IAcademicYearInstance): IDescriptionPair[] => [
+const descriptionPairs = (year: AcademicYearInstance): DescriptionPair[] => [
   { label: 'Student', value: Users.getFullName(year.studentID) },
   { label: 'Year', value: `${year.year}` },
   { label: 'Retired', value: year.retired ? 'True' : 'False' },
 
 ];
 
-const itemTitle = (year: IAcademicYearInstance): React.ReactNode => {
+const itemTitle = (year: AcademicYearInstance): React.ReactNode => {
   const name = Users.getFullName(year.studentID);
   return (
     <React.Fragment>
@@ -53,14 +53,14 @@ const itemTitle = (year: IAcademicYearInstance): React.ReactNode => {
   );
 };
 
-const itemTitleString = (year: IAcademicYearInstance): string => `${Users.getFullName(year.studentID)} ${year.year}`;
+const itemTitleString = (year: AcademicYearInstance): string => `${Users.getFullName(year.studentID)} ${year.year}`;
 
-interface IAdminDataModelAcademicYearsPageProps extends IAdminDataModeMenuProps {
-  items: IAcademicYearInstance[];
-  students: IStudentProfile[];
+interface AdminDataModelAcademicYearsPageProps extends AdminDataModeMenuProps {
+  items: AcademicYearInstance[];
+  students: StudentProfile[];
 }
 // TODO deconstruct props
-const AdminDataModelAcademicYearsPage: React.FC<IAdminDataModelAcademicYearsPageProps> = (props) => {
+const AdminDataModelAcademicYearsPage: React.FC<AdminDataModelAcademicYearsPageProps> = (props) => {
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');

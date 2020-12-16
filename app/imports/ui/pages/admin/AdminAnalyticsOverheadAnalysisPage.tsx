@@ -6,10 +6,10 @@ import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminAnalyticsMenuWidget from '../../components/admin/analytics/AdminAnalyticsMenuWidget';
 import AdminAnalyticsOverheadAnalysisWidget
   from '../../components/admin/analytics/overhead-analysis/AdminAnalyticsOverheadAnalysisWidget';
-import HelpPanelWidget, { IHelpPanelWidgetProps } from '../../components/shared/HelpPanelWidget';
+import HelpPanelWidget, { HelpPanelWidgetProps } from '../../components/shared/HelpPanelWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 
-const AdminAnalyticsOverheadAnalysisPage: React.FC<IHelpPanelWidgetProps> = ({ helpMessages }) => (
+const AdminAnalyticsOverheadAnalysisPage: React.FC<HelpPanelWidgetProps> = ({ helpMessages }) => (
   <div>
     <AdminPageMenuWidget />
     <Grid stackable>

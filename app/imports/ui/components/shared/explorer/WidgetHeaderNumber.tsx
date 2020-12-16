@@ -1,10 +1,10 @@
 import React from 'react';
 
-interface IWidgetHeaderNumberProps {
+interface WidgetHeaderNumberProps {
   inputValue: number;
 }
 
-const WidgetHeaderNumber: React.FC<IWidgetHeaderNumberProps> = ({ inputValue }) => (
+const WidgetHeaderNumber: React.FC<WidgetHeaderNumberProps> = ({ inputValue }) => (
   <span className="radgrad-header-number">
     &middot; {inputValue}
   </span>

@@ -4,19 +4,19 @@ import { Grid } from 'semantic-ui-react';
 import { useRouteMatch } from 'react-router-dom';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import { PageInterestsDailySnapshots } from '../../../api/page-tracking/PageInterestsDailySnapshotCollection';
-import { IHelpMessage, IPageInterestsDailySnapshot } from '../../../typings/radgrad';
+import { HelpMessage, PageInterestsDailySnapshot } from '../../../typings/radgrad';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import PageTrackingMenu from '../../components/shared/page-tracking/PageTrackingMenu';
 import PageTrackingScoreboardWidget from '../../components/shared/page-tracking/PageTrackingScoreboardWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { getMenuWidget } from './utilities/getMenuWidget';
 
-interface IPageTrackingAnalysisPageProps {
-  helpMessages: IHelpMessage[];
-  pageInterestsDailySnapshots: IPageInterestsDailySnapshot[];
+interface PageTrackingAnalysisPageProps {
+  helpMessages: HelpMessage[];
+  pageInterestsDailySnapshots: PageInterestsDailySnapshot[];
 }
 
-const PageTrackingScoreboardPage: React.FC<IPageTrackingAnalysisPageProps> = ({ helpMessages, pageInterestsDailySnapshots }) => {
+const PageTrackingScoreboardPage: React.FC<PageTrackingAnalysisPageProps> = ({ helpMessages, pageInterestsDailySnapshots }) => {
   const match = useRouteMatch();
   return (
     <React.Fragment>
@@ -49,7 +49,7 @@ const PageTrackingScoreboardPage: React.FC<IPageTrackingAnalysisPageProps> = ({ 
 
 const PageTrackingScoreboardPageContainer = withTracker(() => {
   const helpMessages = HelpMessages.findNonRetired({});
-  const pageInterestsDailySnapshots: IPageInterestsDailySnapshot[] = PageInterestsDailySnapshots.find({}).fetch();
+  const pageInterestsDailySnapshots: PageInterestsDailySnapshot[] = PageInterestsDailySnapshots.find({}).fetch();
   return {
     helpMessages,
     pageInterestsDailySnapshots,

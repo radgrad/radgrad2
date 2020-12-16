@@ -1,11 +1,11 @@
 import React from 'react';
 import Markdown from 'react-markdown';
 
-interface IAdminAnalyticsNewsletterWidget {
+interface AdminAnalyticsNewsletterWidgetProps {
   message: string;
 }
 
-const AdminAnalyticsNewsletterMessagePreviewWidget: React.FC<IAdminAnalyticsNewsletterWidget> = ({ message }) => (
+const AdminAnalyticsNewsletterMessagePreviewWidget: React.FC<AdminAnalyticsNewsletterWidgetProps> = ({ message }) => (
   <div className="field">
     {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
     <label htmlFor="example">Message Preview</label>

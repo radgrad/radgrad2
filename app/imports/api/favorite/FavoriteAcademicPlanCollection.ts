@@ -6,7 +6,7 @@ import BaseCollection from '../base/BaseCollection';
 import { AcademicPlans } from '../degree-plan/AcademicPlanCollection';
 import { Users } from '../user/UserCollection';
 import { ROLE } from '../role/Role';
-import { IFavoriteAcademicPlanDefine, IFavoriteUpdate } from '../../typings/radgrad';
+import { FavoriteAcademicPlanDefine, FavoriteUpdate } from '../../typings/radgrad';
 
 class FavoriteAcademicPlanCollection extends BaseCollection {
   public readonly publicationNames: {
@@ -32,7 +32,7 @@ class FavoriteAcademicPlanCollection extends BaseCollection {
    * @param retired the retired status.
    * @returns {void|*|boolean|{}}
    */
-  define({ academicPlan, student, retired = false }: IFavoriteAcademicPlanDefine): string {
+  define({ academicPlan, student, retired = false }: FavoriteAcademicPlanDefine): string {
     const academicPlanID = AcademicPlans.getID(academicPlan);
     const studentID = Users.getID(student);
     const doc = this.collection.findOne({ studentID, academicPlanID });
@@ -49,7 +49,7 @@ class FavoriteAcademicPlanCollection extends BaseCollection {
    */
   update(docID, { retired }) {
     this.assertDefined(docID);
-    const updateData: IFavoriteUpdate = {};
+    const updateData: FavoriteUpdate = {};
     if (_.isBoolean(retired)) {
       updateData.retired = retired;
     }
@@ -189,7 +189,7 @@ class FavoriteAcademicPlanCollection extends BaseCollection {
    * @param docID The docID of a FavoriteAcademicPlan.
    * @returns { Object } An object representing the definition of docID.
    */
-  dumpOne(docID): IFavoriteAcademicPlanDefine {
+  dumpOne(docID): FavoriteAcademicPlanDefine {
     const doc = this.findDoc(docID);
     const academicPlan = AcademicPlans.findSlugByID(doc.academicPlanID);
     const student = Users.getProfile(doc.studentID).username;

@@ -7,12 +7,12 @@ import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';
 import { Users } from '../../../api/user/UserCollection';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
-import HelpPanelWidget, { IHelpPanelWidgetProps } from '../../components/shared/HelpPanelWidget';
-import StudentLogWidget, { IStudentLogWidgetProps } from '../../components/student/log/StudentLogWidget';
+import HelpPanelWidget, { HelpPanelWidgetProps } from '../../components/shared/HelpPanelWidget';
+import StudentLogWidget, { StudentLogWidgetProps } from '../../components/student/log/StudentLogWidget';
 
-interface IStudentHomeLogPageProps extends IHelpPanelWidgetProps, IStudentLogWidgetProps {}
+interface StudentHomeLogPageProps extends HelpPanelWidgetProps, StudentLogWidgetProps {}
 
-const StudentHomeLogPage: React.FC<IStudentHomeLogPageProps> = ({ advisorLogs, helpMessages }) => (
+const StudentHomeLogPage: React.FC<StudentHomeLogPageProps> = ({ advisorLogs, helpMessages }) => (
   <div id="student-advisor-log-page">
     <StudentPageMenuWidget />
     <Container>

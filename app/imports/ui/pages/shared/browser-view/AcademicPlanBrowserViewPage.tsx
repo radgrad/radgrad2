@@ -9,7 +9,7 @@ import { FavoriteAcademicPlans } from '../../../../api/favorite/FavoriteAcademic
 import { HelpMessages } from '../../../../api/help/HelpMessageCollection';
 import { ROLE } from '../../../../api/role/Role';
 import { Users } from '../../../../api/user/UserCollection';
-import { IAcademicPlan, IFavoriteAcademicPlan, IHelpMessage } from '../../../../typings/radgrad';
+import { AcademicPlan, FavoriteAcademicPlan, HelpMessage } from '../../../../typings/radgrad';
 import BackToTopButton from '../../../components/shared/BackToTopButton';
 import AcademicPlanBrowserViewContainer from '../../../components/shared/explorer/browser-view/AcademicPlanBrowserView';
 import ExplorerMultipleItemsMenu from '../../../components/shared/explorer/browser-view/ExplorerMultipleItemsMenu';
@@ -19,13 +19,13 @@ import * as Router from '../../../components/shared/utilities/router';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import { getMenuWidget } from '../utilities/getMenuWidget';
 
-interface IAcademicPlanBrowserViewPageProps {
-  favoritePlans: IFavoriteAcademicPlan[];
-  academicPlans: IAcademicPlan[];
-  helpMessages: IHelpMessage[];
+interface AcademicPlanBrowserViewPageProps {
+  favoritePlans: FavoriteAcademicPlan[];
+  academicPlans: AcademicPlan[];
+  helpMessages: HelpMessage[];
 }
 
-const AcademicPlanBrowserViewPage: React.FC<IAcademicPlanBrowserViewPageProps> = ({ academicPlans, favoritePlans, helpMessages }) => {
+const AcademicPlanBrowserViewPage: React.FC<AcademicPlanBrowserViewPageProps> = ({ academicPlans, favoritePlans, helpMessages }) => {
   const match = useRouteMatch();
   const favoriteAcademicPlans = _.map(favoritePlans, (f) => AcademicPlans.findDoc(f.academicPlanID));
   const menuAddedList = _.map(favoriteAcademicPlans, (p) => ({ item: p, count: 1 }));

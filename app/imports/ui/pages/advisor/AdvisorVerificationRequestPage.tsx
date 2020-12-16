@@ -9,18 +9,18 @@ import PendingVerificationsWidget from '../../components/shared/verification/Pen
 import EventVerificationsWidget from '../../components/shared/verification/EventVerificationsWidget';
 import CompletedVerificationsWidget from '../../components/shared/verification/CompletedVerificationsWidget';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
-import { IHelpMessage, IOpportunity, IVerificationRequest } from '../../../typings/radgrad';
+import { HelpMessage, Opportunity, VerificationRequest } from '../../../typings/radgrad';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import withAdditionalSubscriptions from '../../layouts/utilities/AdvisorFacultyAdditionalSubscriptionsHOC';
 
-interface IAdvisorVerificationRequestPageProps {
-  verificationRequests: IVerificationRequest[];
-  eventOpportunities: IOpportunity[];
-  helpMessages: IHelpMessage[];
+interface AdvisorVerificationRequestPageProps {
+  verificationRequests: VerificationRequest[];
+  eventOpportunities: Opportunity[];
+  helpMessages: HelpMessage[];
 }
 
-const AdvisorVerificationRequestPage: React.FC<IAdvisorVerificationRequestPageProps> = ({ verificationRequests, eventOpportunities, helpMessages }) => {
+const AdvisorVerificationRequestPage: React.FC<AdvisorVerificationRequestPageProps> = ({ verificationRequests, eventOpportunities, helpMessages }) => {
   const { username } = useParams();
   const [activeItemState, setActiveItem] = useState('pending');
 

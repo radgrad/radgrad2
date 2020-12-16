@@ -4,13 +4,13 @@ import { Link, useRouteMatch } from 'react-router-dom';
 import { buildRouteName } from '../../shared/utilities/router';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import { Interests } from '../../../../api/interest/InterestCollection';
-import { IInterest } from '../../../../typings/radgrad';
+import { Interest } from '../../../../typings/radgrad';
 
-interface IStudentHomeFavoriteInterestsWidgetProps {
+interface StudentHomeFavoriteInterestsWidgetProps {
   favoriteInterests: { interestID: string, count: number }[];
 }
 
-const StudentHomeFavoriteInterestsList: React.FC<IStudentHomeFavoriteInterestsWidgetProps> = ({ favoriteInterests }) => {
+const StudentHomeFavoriteInterestsList: React.FC<StudentHomeFavoriteInterestsWidgetProps> = ({ favoriteInterests }) => {
   const match = useRouteMatch();
   const marginTopStyle: React.CSSProperties = { marginTop: '30px' };
   const whiteColorStyle: React.CSSProperties = { color: 'white' };
@@ -21,7 +21,7 @@ const StudentHomeFavoriteInterestsList: React.FC<IStudentHomeFavoriteInterestsWi
       <Grid>
         {favoriteInterests.map((object) => {
           const slug = Interests.findSlugByID(object.interestID);
-          const interest: IInterest = Interests.findDocBySlug(slug);
+          const interest: Interest = Interests.findDocBySlug(slug);
           const name = interest.name;
           return (
             <Grid.Row key={object.interestID} style={gridRowStyle} columns={2}>

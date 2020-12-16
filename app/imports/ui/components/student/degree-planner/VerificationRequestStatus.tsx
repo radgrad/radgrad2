@@ -3,13 +3,13 @@ import _ from 'lodash';
 import { Header, Card, List } from 'semantic-ui-react';
 import moment from 'moment';
 
-import { IVerificationRequest } from '../../../../typings/radgrad';
+import { VerificationRequest } from '../../../../typings/radgrad';
 
-interface IVerificationRequestStatusProps {
-  request: IVerificationRequest;
+interface VerificationRequestStatusProps {
+  request: VerificationRequest;
 }
 
-const VerificationRequestStatus: React.FC<IVerificationRequestStatusProps> = ({ request }) => {
+const VerificationRequestStatus: React.FC<VerificationRequestStatusProps> = ({ request }) => {
   const whenSubmitted = moment(request.submittedOn).calendar();
   return (
     <Card.Content>

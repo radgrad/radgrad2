@@ -4,19 +4,19 @@ import { Card, Grid, Header, Segment } from 'semantic-ui-react';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import ExplorerMenuBarContainer from '../../components/landing/explorer/LandingExplorerMenuBar';
-import { IHelpMessage, IOpportunity } from '../../../typings/radgrad';
+import { HelpMessage, Opportunity } from '../../../typings/radgrad';
 import LandingExplorerCardContainer from '../../components/landing/explorer/LandingExplorerCard';
 import LandingExplorerMenuContainer from '../../components/landing/explorer/LandingExplorerMenu';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import { withListSubscriptions } from '../../layouts/utilities/SubscriptionListHOC';
 
-interface IOpportunitiesCardExplorerProps {
-  opportunities: IOpportunity[];
+interface OpportunitiesCardExplorerProps {
+  opportunities: Opportunity[];
   count: number;
-  helpMessages: IHelpMessage[];
+  helpMessages: HelpMessage[];
 }
 
-const LandingOpportunitiesCardExplorerPage: React.FC<IOpportunitiesCardExplorerProps> = ({ opportunities, helpMessages, count }) => {
+const LandingOpportunitiesCardExplorerPage: React.FC<OpportunitiesCardExplorerProps> = ({ opportunities, helpMessages, count }) => {
   const inlineStyle = {
     maxHeight: 750,
     marginTop: 10,

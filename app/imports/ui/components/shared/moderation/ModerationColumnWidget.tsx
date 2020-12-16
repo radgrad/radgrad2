@@ -2,18 +2,18 @@ import React from 'react';
 import { Header, Segment, Container, Item } from 'semantic-ui-react';
 import ModerationReviewCardWidget from './ModerationReviewCardWidget';
 import ModerationQuestionCardWidget from './ModerationQuestionCardWidget';
-import { IReview } from '../../../../typings/radgrad';
+import { Review } from '../../../../typings/radgrad';
 
-interface IModerationColumn {
+interface ModerationColumn {
   handleAccept: (item, comment) => any,
   handleReject: (item, comment) => any,
-  reviews: IReview[],
+  reviews: Review[],
   isReview: boolean, // TODO do we need this?
   type: string
 }
 // this will be the column widget that holds the individual moderation cards
 
-const ModerationColumnWidget: React.FC<IModerationColumn> = ({ isReview, type, handleAccept, handleReject, reviews }) => (
+const ModerationColumnWidget: React.FC<ModerationColumn> = ({ isReview, type, handleAccept, handleReject, reviews }) => (
   <div>
     <Segment>
       <Header as="h4" textAlign="left" dividing>

@@ -4,7 +4,7 @@ import { AutoForm, TextField, SelectField, LongTextField, BoolField, SubmitField
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import _ from 'lodash';
-import { ICareerGoal, ICourse, IInterest, IOpportunity } from '../../../../../typings/radgrad';
+import { CareerGoal, Course, Interest, Opportunity } from '../../../../../typings/radgrad';
 import BaseCollection from '../../../../../api/base/BaseCollection';
 import {
   docToName,
@@ -15,11 +15,11 @@ import {
 } from '../../../shared/utilities/data-model';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
 
-interface IUpdateTeaserFormProps {
-  careerGoals: ICareerGoal[];
-  courses: ICourse[];
-  interests: IInterest[];
-  opportunities: IOpportunity[];
+interface UpdateTeaserFormProps {
+  careerGoals: CareerGoal[];
+  courses: Course[];
+  interests: Interest[];
+  opportunities: Opportunity[];
   collection: BaseCollection;
   id: string;
   formRef: React.RefObject<unknown>;
@@ -28,7 +28,7 @@ interface IUpdateTeaserFormProps {
   itemTitleString: (item) => React.ReactNode;
 }
 
-const UpdateTeaserForm: React.FC<IUpdateTeaserFormProps> = ({ careerGoals, courses, interests, opportunities, collection, id, formRef, handleUpdate, handleCancel, itemTitleString }) => {
+const UpdateTeaserForm: React.FC<UpdateTeaserFormProps> = ({ careerGoals, courses, interests, opportunities, collection, id, formRef, handleUpdate, handleCancel, itemTitleString }) => {
   const model = collection.findDoc(id);
   model.slug = itemToSlugName(model);
   model.opportunity = opportunityIdToName(model.opportunityID);

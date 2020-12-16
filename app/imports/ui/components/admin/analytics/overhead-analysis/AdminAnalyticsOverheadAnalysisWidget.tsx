@@ -7,17 +7,17 @@ import { ANALYTICS } from '../../../../layouts/utilities/route-constants';
 import UserSessionOverheadWidget from './UserSessionOverheadWidget';
 import OverallServerLoadWidget from './OverallServerLoadWidget';
 import { RootState } from '../../../../../redux/types';
-import { IAdminAnalyticsDateRange } from '../../../../../redux/admin/analytics/reducers';
+import { AdminAnalyticsDateRange } from '../../../../../redux/admin/analytics/reducers';
 
-interface IAdminAnalyticsOverheadAnalysisWidgetProps {
-  dateRange: IAdminAnalyticsDateRange
+interface AdminAnalyticsOverheadAnalysisWidgetProps {
+  dateRange: AdminAnalyticsDateRange
 }
 
 const mapStateToProps = (state: RootState): {[key: string]: any} => ({
   dateRange: state.admin.analytics.overheadAnalysis.dateRange,
 });
 
-const dateRangeToString = (dateRange: IAdminAnalyticsDateRange): string | JSX.Element => {
+const dateRangeToString = (dateRange: AdminAnalyticsDateRange): string | JSX.Element => {
   if (dateRange.startDate && dateRange.endDate) {
     const start = moment(dateRange.startDate).format('MM-DD-YYYY');
     const end = moment(dateRange.endDate).format('MM-DD-YYYY');
@@ -26,7 +26,7 @@ const dateRangeToString = (dateRange: IAdminAnalyticsDateRange): string | JSX.El
   return <i>Select a Start date and End date above</i>;
 };
 
-const AdminAnalyticsOverheadAnalysisWidget: React.FC<IAdminAnalyticsOverheadAnalysisWidgetProps> = ({ dateRange }) => {
+const AdminAnalyticsOverheadAnalysisWidget: React.FC<AdminAnalyticsOverheadAnalysisWidgetProps> = ({ dateRange }) => {
   const tabMenuSettings = {
     pointing: true,
     secondary: true,

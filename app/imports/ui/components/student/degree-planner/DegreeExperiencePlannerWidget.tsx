@@ -9,22 +9,22 @@ import { Users } from '../../../../api/user/UserCollection';
 import { AcademicYearInstances } from '../../../../api/degree-plan/AcademicYearInstanceCollection';
 import AcademicYearView from './AcademicYearView';
 import {
-  IAcademicYearInstance,
-  IAcademicYearInstanceDefine, ICourseInstance,
-  IMeteorError, IOpportunityInstance,
+  AcademicYearInstance,
+  AcademicYearInstanceDefine, CourseInstance,
+  MeteorError, OpportunityInstance,
 } from '../../../../typings/radgrad';
 import { CourseInstances } from '../../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
 import { defineMethod, removeItMethod } from '../../../../api/base/BaseCollection.methods';
 import { degreePlannerActions } from '../../../../redux/student/degree-planner';
 
-interface IDePProps {
+interface DePProps {
   selectCourseInstance: (courseInstanceID: string) => any;
   selectOpportunityInstance: (opportunityInstanceID: string) => any;
   selectFavoriteDetailsTab: () => any;
-  academicYearInstances: IAcademicYearInstance[];
-  courseInstances: ICourseInstance[];
-  opportunityInstances: IOpportunityInstance[];
+  academicYearInstances: AcademicYearInstance[];
+  courseInstances: CourseInstance[];
+  opportunityInstances: OpportunityInstance[];
 }
 
 const mapDispatchToProps = (dispatch) => ({
@@ -33,7 +33,7 @@ const mapDispatchToProps = (dispatch) => ({
   selectFavoriteDetailsTab: () => dispatch(degreePlannerActions.selectFavoriteDetailsTab()),
 });
 
-const DEPWidget: React.FC<IDePProps> = ({ selectCourseInstance, selectOpportunityInstance, selectFavoriteDetailsTab, academicYearInstances, courseInstances, opportunityInstances }) => {
+const DEPWidget: React.FC<DePProps> = ({ selectCourseInstance, selectOpportunityInstance, selectFavoriteDetailsTab, academicYearInstances, courseInstances, opportunityInstances }) => {
   const { username } = useParams();
   const studentID = Users.getID(username);
 
@@ -41,9 +41,9 @@ const DEPWidget: React.FC<IDePProps> = ({ selectCourseInstance, selectOpportunit
     const student = username;
     let currentYear = moment().year();
     _.times(number, () => {
-      const definitionData: IAcademicYearInstanceDefine = { year: currentYear++, student };
+      const definitionData: AcademicYearInstanceDefine = { year: currentYear++, student };
       const collectionName = AcademicYearInstances.getCollectionName();
-      defineMethod.call({ collectionName, definitionData }, (error: IMeteorError) => {
+      defineMethod.call({ collectionName, definitionData }, (error: MeteorError) => {
         if (error) {
           console.error(`Error creating 4 automatically generated AcademicYearInstances from Degree Planner: ${error.message}`);
         }
@@ -51,7 +51,7 @@ const DEPWidget: React.FC<IDePProps> = ({ selectCourseInstance, selectOpportunit
     });
   };
 
-  let years: IAcademicYearInstance[] = AcademicYearInstances.findNonRetired({ studentID }, { sort: { year: 1 } });
+  let years: AcademicYearInstance[] = AcademicYearInstances.findNonRetired({ studentID }, { sort: { year: 1 } });
   // Automatically generate 4 AcademicYearInstances if none exists
   if (years.length === 0) {
     generateAcademicYearInstances(4);
@@ -101,9 +101,9 @@ const DEPWidget: React.FC<IDePProps> = ({ selectCourseInstance, selectOpportunit
     event.preventDefault();
     const student = username;
     const prevYear = yearsState[0].year - 1;
-    const definitionData: IAcademicYearInstanceDefine = { year: prevYear, student };
+    const definitionData: AcademicYearInstanceDefine = { year: prevYear, student };
     const collectionName = AcademicYearInstances.getCollectionName();
-    defineMethod.call({ collectionName, definitionData }, (error: IMeteorError) => {
+    defineMethod.call({ collectionName, definitionData }, (error: MeteorError) => {
       if (error) {
         Swal.fire({
           title: 'Failed to add a new Academic Year',
@@ -134,9 +134,9 @@ const DEPWidget: React.FC<IDePProps> = ({ selectCourseInstance, selectOpportunit
     const student = username;
     const numYears = yearsState.length;
     const nextYear = yearsState[numYears - 1].year + 1;
-    const definitionData: IAcademicYearInstanceDefine = { year: nextYear, student };
+    const definitionData: AcademicYearInstanceDefine = { year: nextYear, student };
     const collectionName = AcademicYearInstances.getCollectionName();
-    defineMethod.call({ collectionName, definitionData }, (error: IMeteorError) => {
+    defineMethod.call({ collectionName, definitionData }, (error: MeteorError) => {
       if (error) {
         Swal.fire({
           title: 'Failed to add a new Academic Year',
@@ -166,7 +166,7 @@ const DEPWidget: React.FC<IDePProps> = ({ selectCourseInstance, selectOpportunit
     event.preventDefault();
     const collectionName = AcademicYearInstances.getCollectionName();
     const instance = visibleYearsState[visibleYearsState.length - 1]._id;
-    removeItMethod.call({ collectionName, instance }, (error: IMeteorError) => {
+    removeItMethod.call({ collectionName, instance }, (error: MeteorError) => {
       if (error) {
         Swal.fire({
           title: 'Failed to delete Academic Year',

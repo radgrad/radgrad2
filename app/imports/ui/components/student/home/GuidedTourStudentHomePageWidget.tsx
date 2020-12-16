@@ -9,13 +9,13 @@ import Interests from './home-interests';
 import CareerPath from './home-career-goals';
 import Courses from './home-courses';
 
-interface IGuidedTourStudentProps {
+interface GuidedTourStudentProps {
   interests: number;
   careerGoals: string;
   courses: number;
 }
 
-const GuidedTourStudentHomePageWidget: React.FC<IGuidedTourStudentProps> = ({ interests, careerGoals, courses }) => {
+const GuidedTourStudentHomePageWidget: React.FC<GuidedTourStudentProps> = ({ interests, careerGoals, courses }) => {
   const settings = {
     dots: true,
     infinite: false,

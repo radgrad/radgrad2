@@ -7,7 +7,7 @@ import { Grid, Header, Segment } from 'semantic-ui-react';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import ExplorerMenuBarContainer from '../../components/landing/explorer/LandingExplorerMenuBar';
-import { ICareerGoal, IHelpMessage } from '../../../typings/radgrad';
+import { CareerGoal, HelpMessage } from '../../../typings/radgrad';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/explorer/LandingExplorerMenu';
 import { Interests } from '../../../api/interest/InterestCollection';
@@ -17,12 +17,12 @@ import * as Router from '../../components/shared/utilities/router';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 
-interface ICareerGoalExplorerProps {
-  careerGoal: ICareerGoal;
-  helpMessages: IHelpMessage[];
+interface CareerGoalExplorerProps {
+  careerGoal: CareerGoal;
+  helpMessages: HelpMessage[];
 }
 
-const LandingCareerGoalExplorerPage: React.FC<ICareerGoalExplorerProps> = ({ careerGoal, helpMessages }) => {
+const LandingCareerGoalExplorerPage: React.FC<CareerGoalExplorerProps> = ({ careerGoal, helpMessages }) => {
   const match = useRouteMatch();
   return (
     <div id="landing-career-goal-explorer-page">

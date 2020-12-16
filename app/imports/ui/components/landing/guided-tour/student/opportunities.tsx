@@ -2,11 +2,11 @@ import React from 'react';
 import { Grid, Header, Image, List } from 'semantic-ui-react';
 import styles from '../../../../pages/landing/utilities/guidedtour-style';
 
-interface IOpportunitiesProps {
+interface OpportunitiesProps {
   opportunities: number;
 }
 
-const GuidedTourStudentOpportunities: React.FC<IOpportunitiesProps> = ({ opportunities }) => (
+const GuidedTourStudentOpportunities: React.FC<OpportunitiesProps> = ({ opportunities }) => (
   <div>
     <Grid container columns={2}>
       <Grid.Column width="ten">

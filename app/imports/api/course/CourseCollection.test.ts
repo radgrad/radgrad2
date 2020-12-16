@@ -6,7 +6,7 @@ import 'mocha';
 import { Courses } from './CourseCollection';
 import { makeSampleInterest, makeSampleInterestArray } from '../interest/SampleInterests';
 import { removeAllEntities } from '../base/BaseUtilities';
-import { ICourse } from '../../typings/radgrad';
+import { Course } from '../../typings/radgrad';
 import { getRandomCourseSlug, makeSampleCourse } from './SampleCourses';
 import { Slugs } from '../slug/SlugCollection';
 
@@ -72,7 +72,7 @@ if (Meteor.isServer) {
           (fcName, fcShortName, fcNum, fcDescription, fcCreditHrs, fcSyllabus, fcRetired) => {
             const interests2 = makeSampleInterestArray();
             Courses.update(docID, { name: fcName, shortName: fcShortName, num: fcNum, description: fcDescription, creditHrs: fcCreditHrs, interests: interests2, syllabus: fcSyllabus, retired: fcRetired });
-            const course: ICourse = Courses.findDoc(docID);
+            const course: Course = Courses.findDoc(docID);
             expect(course.name).to.equal(fcName);
             expect(course.shortName).to.equal(fcShortName);
             expect(course.num).to.equal(fcNum);
@@ -89,12 +89,12 @@ if (Meteor.isServer) {
 
     it('Can dumpOne, removeIt, and restoreOne', function test5() {
       let docID = makeSampleCourse();
-      const origCourse: ICourse = Courses.findDoc(docID);
+      const origCourse: Course = Courses.findDoc(docID);
       const dumpObject = Courses.dumpOne(docID);
       Courses.removeIt(docID);
       expect(Courses.isDefined(docID)).to.be.false;
       docID = Courses.restoreOne(dumpObject);
-      const restored: ICourse = Courses.findDoc(docID);
+      const restored: Course = Courses.findDoc(docID);
       expect(origCourse.name).to.equal(restored.name);
       expect(origCourse.shortName).to.equal(restored.shortName);
       expect(origCourse.num).to.equal(restored.num);

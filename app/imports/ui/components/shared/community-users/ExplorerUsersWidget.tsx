@@ -2,14 +2,14 @@ import React from 'react';
 import { Card, Image, Grid, Dimmer } from 'semantic-ui-react';
 import _ from 'lodash';
 import { FavoriteInterests } from '../../../../api/favorite/FavoriteInterestCollection';
-import { IBaseProfile } from '../../../../typings/radgrad';
+import { BaseProfile } from '../../../../typings/radgrad';
 import { defaultProfilePicture } from '../../../../api/user/BaseProfileCollection';
 import { ROLE } from '../../../../api/role/Role';
 import InterestList from '../InterestList';
 import { capitalizeFirstLetter } from '../utilities/general';
 
-interface IExplorerUsersWidgetProps {
-  userProfile: IBaseProfile;
+interface ExplorerUsersWidgetProps {
+  userProfile: BaseProfile;
   isActive: boolean;
   handleClose: any;
 }
@@ -19,12 +19,12 @@ const isRole = (userProfile, compareRole: string, ...otherRoles: string[]): bool
 /**
  * This component is a placeholder in case an individual explorer is created for users. It offers
  * little more than the UserProfileCard, with the most notable differences being a full website
- * being displayed instead of a button and the IBaseProfile.motivation field being displayed if it exists.
- * @param userProfile {IBaseProfile} User profile to be displayed
+ * being displayed instead of a button and the BaseProfile.motivation field being displayed if it exists.
+ * @param userProfile {BaseProfile} User profile to be displayed
  * @param isActive {boolean} This component expects the parent to manage state
  * @param handleClose {function} Handler to close component (dimmer) when clicking outside of the component
  * @return {Dimmer} */
-const ExplorerUsersWidget: React.FC<IExplorerUsersWidgetProps> = ({ userProfile, isActive, handleClose }) => {
+const ExplorerUsersWidget: React.FC<ExplorerUsersWidgetProps> = ({ userProfile, isActive, handleClose }) => {
   if (!(userProfile)) return undefined;
   const overflowStyle: React.CSSProperties = { overflow: 'scroll' };
   const cardStyle: React.CSSProperties = {

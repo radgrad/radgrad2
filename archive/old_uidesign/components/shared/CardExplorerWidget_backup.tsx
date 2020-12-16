@@ -27,7 +27,7 @@
 // import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 // import PreferedChoice from '../../../api/degree-plan/PreferredChoice';
 // import OpportunitySortWidget, { opportunitySortKeys } from './OpportunitySortWidget';
-// import { IAdvisorProfile, IAdvisorOrFacultyProfile, IMentorProfile, IStudentProfile } from '../../../typings/radgrad';
+// import { IAdvisorProfile, AdvisorOrFacultyProfile, IMentorProfile, StudentProfile } from '../../../typings/radgrad';
 // import { RootState } from '../../../redux/types';
 // import { scrollPositionActions } from '../../../redux/shared/scrollPosition';
 //
@@ -43,11 +43,11 @@
 //   // eslint-disable-next-line react/no-unused-prop-types
 //   reactiveSourceForTermCarTwo: object[];
 //   // eslint-disable-next-line react/no-unused-prop-types
-//   studentProfiles: IStudentProfile[];
+//   studentProfiles: StudentProfile[];
 //   // eslint-disable-next-line react/no-unused-prop-types
 //   advisorProfiles: IAdvisorProfile[];
 //   // eslint-disable-next-line react/no-unused-prop-types
-//   facultyProfiles: IAdvisorOrFacultyProfile[];
+//   facultyProfiles: AdvisorOrFacultyProfile[];
 //   // eslint-disable-next-line react/no-unused-prop-types
 //   mentorProfile: IMentorProfile[];
 //   // eslint-disable-next-line react/no-unused-prop-types
@@ -323,9 +323,9 @@
 //   const reactiveSourceProfile = Users.getProfile(username);
 //
 //   /* Reactuve sources to make Users Explorer Cards reactive */
-//   const studentProfiles: IStudentProfile[] = Users.findProfilesWithRole(ROLE.STUDENT, {}, {});
+//   const studentProfiles: StudentProfile[] = Users.findProfilesWithRole(ROLE.STUDENT, {}, {});
 //   const advisorProfiles: IAdvisorProfile[] = Users.findProfilesWithRole(ROLE.ADVISOR, {}, {});
-//   const facultyProfiles: IAdvisorOrFacultyProfile[] = Users.findProfilesWithRole(ROLE.FACULTY, {}, {});
+//   const facultyProfiles: AdvisorOrFacultyProfile[] = Users.findProfilesWithRole(ROLE.FACULTY, {}, {});
 //   const mentorProfiles: IMentorProfile[] = Users.findProfilesWithRole(ROLE.MENTOR, {}, {});
 //
 //   return {

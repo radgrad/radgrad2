@@ -4,7 +4,7 @@ import { Button, Header, Image, Menu, Container } from 'semantic-ui-react';
 import RadGradLogoText from '../shared/RadGradLogoText';
 import RadGradLoginButtons from './RadGradLoginButtons';
 
-export interface INavBarProps {
+export interface NavBarProps {
   currentUser: string;
   iconName?: string;
   role?: string;
@@ -18,7 +18,7 @@ const onClick = () => {
 /**
  * LandingNavBar rendered on each of the landing pages.
  */
-const LandingNavBar: React.FC<INavBarProps> = ({ currentUser, iconName, role }) => {
+const LandingNavBar: React.FC<NavBarProps> = ({ currentUser, iconName, role }) => {
   const imageStyle = { width: 45 };
   const url = `/#/${role}/${currentUser}/home`;
   // Capitalize first letter

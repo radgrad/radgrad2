@@ -1,12 +1,12 @@
 import faker from 'faker';
-import { IPageInterestInfo } from '../../typings/radgrad';
+import { PageInterestInfo } from '../../typings/radgrad';
 import { PageInterestsDailySnapshots } from './PageInterestsDailySnapshotCollection';
 
 /**
  * Creates a PageInterestInfo object of a unique slug and views
  * @param maxViews (inclusive) the maximum number of views randomly generated
  */
-const makeSamplePageInterestInfo = (maxViews): IPageInterestInfo => {
+const makeSamplePageInterestInfo = (maxViews): PageInterestInfo => {
   const name = faker.lorem.slug();
   const views = faker.random.number(maxViews);
   return { name, views };
@@ -16,8 +16,8 @@ const makeSamplePageInterestInfo = (maxViews): IPageInterestInfo => {
  * Creates an array of PageInterestInfo
  * @param numItems the number of items in the array to create
  */
-export const makeSamplePageInterestInfoArray = (numItems: number): IPageInterestInfo[] => {
-  const pageInterestInfoArray: IPageInterestInfo[] = [];
+export const makeSamplePageInterestInfoArray = (numItems: number): PageInterestInfo[] => {
+  const pageInterestInfoArray: PageInterestInfo[] = [];
   for (let i = 0; i < numItems; i++) {
     const maxViews = faker.random.number(1000);
     const pageInterestInfo = makeSamplePageInterestInfo(maxViews);
@@ -28,9 +28,9 @@ export const makeSamplePageInterestInfoArray = (numItems: number): IPageInterest
 
 export const makeSamplePageInterestsDailySnapshot = () => {
   const numItems = 5;
-  const careerGoals: IPageInterestInfo[] = makeSamplePageInterestInfoArray(numItems);
-  const courses: IPageInterestInfo[] = makeSamplePageInterestInfoArray(numItems);
-  const interests: IPageInterestInfo[] = makeSamplePageInterestInfoArray(numItems);
-  const opportunities: IPageInterestInfo[] = makeSamplePageInterestInfoArray(numItems);
+  const careerGoals: PageInterestInfo[] = makeSamplePageInterestInfoArray(numItems);
+  const courses: PageInterestInfo[] = makeSamplePageInterestInfoArray(numItems);
+  const interests: PageInterestInfo[] = makeSamplePageInterestInfoArray(numItems);
+  const opportunities: PageInterestInfo[] = makeSamplePageInterestInfoArray(numItems);
   return PageInterestsDailySnapshots.define({ careerGoals, courses, interests, opportunities });
 };

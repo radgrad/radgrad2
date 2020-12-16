@@ -11,7 +11,7 @@ import { removeAllEntities } from '../base/BaseUtilities';
 import { VerificationRequests } from '../verification/VerificationRequestCollection';
 import { makeSampleAcademicTerm } from '../academic-term/SampleAcademicTerms';
 import { makeSampleIce } from '../ice/SampleIce';
-import { IAcademicTerm, IOpportunity, IOpportunityInstance } from '../../typings/radgrad';
+import { AcademicTerm, Opportunity, OpportunityInstance } from '../../typings/radgrad';
 import { Users } from '../user/UserCollection';
 import { Opportunities } from './OpportunityCollection';
 import { Slugs } from '../slug/SlugCollection';
@@ -74,7 +74,7 @@ if (Meteor.isServer) {
       const student = makeSampleUser();
       const verified = false;
       const docID = OpportunityInstances.define({ opportunity, academicTerm, student, sponsor, verified });
-      let doc: IOpportunityInstance = OpportunityInstances.findDoc(docID);
+      let doc: OpportunityInstance = OpportunityInstances.findDoc(docID);
       fc.assert(
         fc.property(fc.boolean(), fc.boolean(), (fcVerified, retired) => {
           const ice = makeSampleIce();
@@ -93,7 +93,7 @@ if (Meteor.isServer) {
     });
 
     it('Can dumpOne, removeIt, and restoreOne', function test4() {
-      const oi: IOpportunityInstance = OpportunityInstances.findOne({});
+      const oi: OpportunityInstance = OpportunityInstances.findOne({});
       let docID = oi._id;
       const dumpObject = OpportunityInstances.dumpOne(docID);
       OpportunityInstances.removeIt(docID);
@@ -109,7 +109,7 @@ if (Meteor.isServer) {
 
     it('Can checkIntegrity no errors', function test5() {
       const problems = OpportunityInstances.checkIntegrity();
-      const oi: IOpportunityInstance = OpportunityInstances.findOne({});
+      const oi: OpportunityInstance = OpportunityInstances.findOne({});
 
       if (oi.verified) {
         expect(problems.length).to.equal(1);
@@ -119,9 +119,9 @@ if (Meteor.isServer) {
     });
 
     it('Can getOpportunityDoc, getOpportunitySlug, getAcademicTermDoc, getStudentDoc', function test6() {
-      const oi: IOpportunityInstance = OpportunityInstances.findOne({});
+      const oi: OpportunityInstance = OpportunityInstances.findOne({});
       const docID = oi._id;
-      const opportunity: IOpportunity = Opportunities.findDoc(oi.opportunityID);
+      const opportunity: Opportunity = Opportunities.findDoc(oi.opportunityID);
       /* getOpportunityDoc */
       const oDoc = OpportunityInstances.getOpportunityDoc(docID);
 
@@ -137,8 +137,8 @@ if (Meteor.isServer) {
       expect(OpportunityInstances.getOpportunitySlug(docID)).to.equal(opportunitySlug);
 
       /* getAcademicTermDoc */
-      const academicTerm: IAcademicTerm = AcademicTerms.findDoc(oi.termID);
-      const aDoc: IAcademicTerm = OpportunityInstances.getAcademicTermDoc(docID);
+      const academicTerm: AcademicTerm = AcademicTerms.findDoc(oi.termID);
+      const aDoc: AcademicTerm = OpportunityInstances.getAcademicTermDoc(docID);
 
       expect(academicTerm.year).to.equal(aDoc.year);
       expect(academicTerm.term).to.equal(aDoc.term);
@@ -154,7 +154,7 @@ if (Meteor.isServer) {
     });
 
     it('Can removeUser', function test7() {
-      const oi: IOpportunityInstance = OpportunityInstances.findOne({});
+      const oi: OpportunityInstance = OpportunityInstances.findOne({});
       const docID = oi._id;
       const studentID = oi.studentID;
       OpportunityInstances.removeUser(studentID);

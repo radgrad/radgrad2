@@ -9,7 +9,7 @@ import {
   USERINTERACTIONSNOTYPEDATA,
   UserInteractionsTypes,
 } from '../../../api/analytic/UserInteractionsTypes';
-import { IUserInteractionDefine } from '../../../typings/radgrad';
+import { UserInteractionDefine } from '../../../typings/radgrad';
 import { ROLE } from '../../../api/role/Role';
 
 const RadGradLoginButtons: React.FC = () => {
@@ -34,7 +34,7 @@ const RadGradLoginButtons: React.FC = () => {
             role = 'Alumni';
           } else {
             // Track Student Login
-            const interactionData: IUserInteractionDefine = {
+            const interactionData: UserInteractionDefine = {
               username,
               type: UserInteractionsTypes.LOGIN,
               typeData: [USERINTERACTIONSNOTYPEDATA],

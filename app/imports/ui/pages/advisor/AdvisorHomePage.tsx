@@ -14,24 +14,24 @@ import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';
-import { IAdvisorLog, ICareerGoal, IHelpMessage, IInterest, IStudentProfile } from '../../../typings/radgrad';
+import { AdvisorLog, CareerGoal, HelpMessage, Interest, StudentProfile } from '../../../typings/radgrad';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { RootState } from '../../../redux/types';
 
-export interface IFilterStudents {
+export interface FilterStudents {
   selectedUsername: string;
-  usernameDoc: IStudentProfile;
-  interests: IInterest[];
-  careerGoals: ICareerGoal[];
-  advisorLogs: IAdvisorLog[];
-  helpMessages: IHelpMessage[];
+  usernameDoc: StudentProfile;
+  interests: Interest[];
+  careerGoals: CareerGoal[];
+  advisorLogs: AdvisorLog[];
+  helpMessages: HelpMessage[];
 }
 
 const mapStateToProps = (state: RootState) => ({
   selectedUsername: state.advisor.home.selectedUsername,
 });
 
-const renderSelectedStudentWidgets = (props: IFilterStudents, username: string) => {
+const renderSelectedStudentWidgets = (props: FilterStudents, username: string) => {
   if (props.selectedUsername === '') {
     return undefined;
   }
@@ -66,7 +66,7 @@ const renderSelectedStudentWidgets = (props: IFilterStudents, username: string) 
 };
 
 // TODO deconstruct props
-const AdvisorHomePage: React.FC<IFilterStudents> = (props) => {
+const AdvisorHomePage: React.FC<FilterStudents> = (props) => {
   const { username } = useParams();
   return (
     <div id="advisor-home-page">

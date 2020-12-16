@@ -4,12 +4,12 @@ import { AutoForm, TextField, LongTextField, BoolField, SubmitField } from 'unif
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import { HelpMessages } from '../../../../../api/help/HelpMessageCollection';
 
-interface IAddHelpMessageFormProps {
+interface AddHelpMessageFormProps {
   formRef: React.RefObject<unknown>;
   handleAdd: (doc) => any;
 }
 
-const AddHelpMessageForm: React.FC<IAddHelpMessageFormProps> = ({ formRef, handleAdd }) => (
+const AddHelpMessageForm: React.FC<AddHelpMessageFormProps> = ({ formRef, handleAdd }) => (
   <Segment padded>
     <Header dividing>Add Help Message</Header>
     <AutoForm schema={new SimpleSchema2Bridge(HelpMessages.getDefineSchema())} onSubmit={handleAdd} ref={formRef} showInlineError>

@@ -5,7 +5,7 @@ import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Courses } from '../course/CourseCollection';
 import { Slugs } from '../slug/SlugCollection';
 import { CourseInstances } from '../course/CourseInstanceCollection';
-import { IStarDataObject } from '../../typings/radgrad';
+import { StarDataObject } from '../../typings/radgrad';
 
 /**
  * Given the semester string from STAR (for example, 'Fall 2015 ext'), parses it, defines the corresponding academicTerm,
@@ -15,7 +15,7 @@ import { IStarDataObject } from '../../typings/radgrad';
  * @throws Meteor.Error If parsing fails.
  * @memberOf api/star
  */
-function findAcademicTermSlug(starDataObject: IStarDataObject) {
+function findAcademicTermSlug(starDataObject: StarDataObject) {
   const academicTerm = starDataObject.semester;
   if ((!_.isString(academicTerm)) || (academicTerm.length < 8)) {
     throw new Meteor.Error(`Could not parse academic term data: ${JSON.stringify(starDataObject)}`);
@@ -63,7 +63,7 @@ function findAcademicTermSlug(starDataObject: IStarDataObject) {
  * @returns { String } The slug.
  * @memberOf api/star
  */
-function findCourseSlug(starDataObject: IStarDataObject) {
+function findCourseSlug(starDataObject: StarDataObject) {
   let slug = `${starDataObject.name.toLowerCase()}_${starDataObject.num}`;
   if (!Slugs.isSlugForEntity(slug, Courses.getType())) {
     slug = Courses.unInterestingSlug;
@@ -77,7 +77,7 @@ function findCourseSlug(starDataObject: IStarDataObject) {
  * @returns { Object } An object suitable for passing to CourseInstances.define.
  * @memberOf api/star
  */
-function makeCourseInstanceObject(starDataObject: IStarDataObject) {
+function makeCourseInstanceObject(starDataObject: StarDataObject) {
   return {
     academicTerm: findAcademicTermSlug(starDataObject),
     course: findCourseSlug(starDataObject),
@@ -162,7 +162,7 @@ export function processStarCsvData(student, csvData) {
       if (isNaN(num)) {
         num = data[transferCourseNumberIndex];
       }
-      const obj: IStarDataObject = {
+      const obj: StarDataObject = {
         semester: data[academicTermIndex],
         name,
         num,
@@ -234,7 +234,7 @@ export function processBulkStarCsvData(csvData) {
         num = data[transferCourseNumberIndex];
       }
       const student = data[emailIndex];
-      const obj: IStarDataObject = {
+      const obj: StarDataObject = {
         semester: data[academicTermIndex],
         name,
         num,
@@ -291,7 +291,7 @@ export function processStarJsonData(student, jsonData) {
     if (isNaN(num)) {
       num = course.transferNumber;
     }
-    const obj: IStarDataObject = {
+    const obj: StarDataObject = {
       semester: course.semester,
       name,
       num,

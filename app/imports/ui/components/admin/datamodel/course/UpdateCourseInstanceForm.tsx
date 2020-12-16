@@ -4,14 +4,14 @@ import { AutoForm, SelectField, AutoField, BoolField, NumField, TextField, Submi
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import _ from 'lodash';
-import { IAcademicTerm } from '../../../../../typings/radgrad';
+import { AcademicTerm } from '../../../../../typings/radgrad';
 import BaseCollection from '../../../../../api/base/BaseCollection';
 import { academicTermIdToName, academicTermToName } from '../../../shared/utilities/data-model';
 import { iceSchema } from '../../../../../api/ice/IceProcessor';
 import { CourseInstances } from '../../../../../api/course/CourseInstanceCollection';
 
-interface IUpdateCourseInstanceFormProps {
-  terms: IAcademicTerm[];
+interface UpdateCourseInstanceFormProps {
+  terms: AcademicTerm[];
   collection: BaseCollection;
   id: string;
   formRef: React.RefObject<unknown>;
@@ -20,7 +20,7 @@ interface IUpdateCourseInstanceFormProps {
   itemTitleString: (item) => React.ReactNode;
 }
 
-const UpdateCourseInstanceForm: React.FC<IUpdateCourseInstanceFormProps> = ({ terms, collection, id, formRef, handleUpdate, handleCancel, itemTitleString }) => {
+const UpdateCourseInstanceForm: React.FC<UpdateCourseInstanceFormProps> = ({ terms, collection, id, formRef, handleUpdate, handleCancel, itemTitleString }) => {
   const model = collection.findDoc(id);
   model.academicTerm = academicTermIdToName(model.termID);
   model.creditHours = model.creditHrs;

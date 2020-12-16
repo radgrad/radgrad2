@@ -7,7 +7,7 @@ import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
 import ExplorerMenuBarContainer from '../../components/landing/explorer/LandingExplorerMenuBar';
-import { IHelpMessage, IOpportunity } from '../../../typings/radgrad';
+import { HelpMessage, Opportunity } from '../../../typings/radgrad';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/explorer/LandingExplorerMenu';
 import { Interests } from '../../../api/interest/InterestCollection';
@@ -22,13 +22,13 @@ import { Users } from '../../../api/user/UserCollection';
 
 // import HelpPanelWidgetContainer from '../../components/shared/HelpPanelWidget';
 
-interface IOpportunityExplorerProps {
-  opportunity: IOpportunity;
+interface OpportunityExplorerProps {
+  opportunity: Opportunity;
   quarters: boolean;
-  helpMessages: IHelpMessage[];
+  helpMessages: HelpMessage[];
 }
 
-const LandingOpportunityExplorerPage: React.FC<IOpportunityExplorerProps> = ({ opportunity, helpMessages, quarters }) => {
+const LandingOpportunityExplorerPage: React.FC<OpportunityExplorerProps> = ({ opportunity, helpMessages, quarters }) => {
   const match = useRouteMatch();
   const hasTeaser = Teasers.findNonRetired({ targetSlugID: opportunity.slugID }).length > 0;
   const opportunityTypeName = getOpportunityTypeName(opportunity.opportunityTypeID);

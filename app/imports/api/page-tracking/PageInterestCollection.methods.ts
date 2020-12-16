@@ -1,7 +1,7 @@
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { CallPromiseMixin } from 'meteor/didericis:callpromise-mixin';
 import { PageInterests } from './PageInterestCollection';
-import { IPageInterest } from '../../typings/radgrad';
+import { PageInterest } from '../../typings/radgrad';
 
 /**
  * The validated method for defining PageInterests.
@@ -11,7 +11,7 @@ export const pageInterestDefineMethod = new ValidatedMethod({
   name: 'PageInterest.define',
   validate: null,
   mixins: [CallPromiseMixin],
-  run(definitionData: IPageInterest) {
+  run(definitionData: PageInterest) {
     PageInterests.assertValidRoleForMethod(this.userId);
     return PageInterests.define(definitionData);
   },

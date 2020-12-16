@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import BaseTypeCollection from '../base/BaseTypeCollection';
-import { ITypeDefine, ITypeUpdate } from '../../typings/radgrad';
+import { TypeDefine, TypeUpdate } from '../../typings/radgrad';
 
 /**
  * InterestTypes help organize Interests into logically related groupings such as "CS-Disciplines", "Locations", etc.
@@ -25,7 +25,7 @@ class InterestTypeCollection extends BaseTypeCollection {
    * @throws { Meteor.Error } If the slug already exists.
    * @returns The newly created docID.
    */
-  public define({ name, slug, description, retired = false }: ITypeDefine) {
+  public define({ name, slug, description, retired = false }: TypeDefine) {
     return super.define({ name, slug, description, retired });
   }
 
@@ -36,9 +36,9 @@ class InterestTypeCollection extends BaseTypeCollection {
    * @param description the new description (optional).
    * @throws { Meteor.Error } If docID is not defined.
    */
-  public update(docID, { name, description, retired }: ITypeUpdate) {
+  public update(docID, { name, description, retired }: TypeUpdate) {
     this.assertDefined(docID);
-    const updateData: ITypeUpdate = {};
+    const updateData: TypeUpdate = {};
     if (!_.isNil(name)) {
       updateData.name = name;
     }

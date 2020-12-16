@@ -8,7 +8,7 @@ import { RootState } from '../../../../redux/types';
 
 /* global FileReader */
 
-interface IUploadFixtureWidgetProps {
+interface UploadFixtureWidgetProps {
   setUploadFixtureWorking: () => any;
   setUploadFixtureDone: () => any;
   uploadFixtureWorking: boolean;
@@ -23,7 +23,7 @@ const mapDispatchToProps = (dispatch) => ({
   setUploadFixtureDone: () => dispatch(dataModelActions.setUploadFixtureWorking(false)),
 });
 
-const UploadFixtureWidget: React.FC<IUploadFixtureWidgetProps> = ({ setUploadFixtureDone, setUploadFixtureWorking, uploadFixtureWorking }) => {
+const UploadFixtureWidget: React.FC<UploadFixtureWidgetProps> = ({ setUploadFixtureDone, setUploadFixtureWorking, uploadFixtureWorking }) => {
   const [fileDataState, setFileData] = useState('');
   const [uploadResult, setUploadResult] = useState('');
   const [error, setError] = useState(false);

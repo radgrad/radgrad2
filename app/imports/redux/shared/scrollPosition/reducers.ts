@@ -1,6 +1,6 @@
 import * as TYPES from './types';
 
-interface IState {
+interface State {
   explorer: IExplorerState;
 }
 
@@ -13,7 +13,7 @@ type IExplorerState = {
 };
 
 // Currently the scrollPosition supported and numbers assigned represent the Y-coordinates (scrollTop)
-const initialState: IState = {
+const initialState: State = {
   explorer: {
     plans: 0,
     careerGoals: 0,
@@ -23,8 +23,8 @@ const initialState: IState = {
   },
 };
 
-function reducer(state: IState = initialState, action: { [props: string]: any }): IState {
-  let s: IState;
+function reducer(state: State = initialState, action: { [props: string]: any }): State {
+  let s: State;
   const otherExplorerKeys: IExplorerState = state.explorer;
   switch (action.type) {
     case TYPES.SET_EXPLORER_PLANS_SCROLL_POSITION:

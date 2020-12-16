@@ -25,12 +25,12 @@ import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import AdminDataModelMenu, { IAdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
+import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { Users } from '../../../api/user/UserCollection';
 import {
-  IAdvisorLog, IAdvisorLogUpdate,
-  IDescriptionPair,
+  AdvisorLog, AdvisorLogUpdate,
+  DescriptionPair,
 } from '../../../typings/radgrad';
 import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
@@ -40,13 +40,13 @@ import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import withInstanceSubscriptions from '../../layouts/utilities/InstanceSubscriptionsHOC';
 
-const descriptionPairs = (advisorLog: IAdvisorLog): IDescriptionPair[] => [
+const descriptionPairs = (advisorLog: AdvisorLog): DescriptionPair[] => [
   { label: 'Advisor', value: `${Users.getFullName(advisorLog.advisorID)}` },
   { label: 'Student', value: `${Users.getFullName(advisorLog.studentID)}` },
   { label: 'Text', value: advisorLog.text },
 ];
 
-const itemTitle = (advisorLog: IAdvisorLog): React.ReactNode => {
+const itemTitle = (advisorLog: AdvisorLog): React.ReactNode => {
   // console.log(advisorLog);
   const name = Users.getFullName(advisorLog.studentID);
   return (
@@ -58,15 +58,15 @@ const itemTitle = (advisorLog: IAdvisorLog): React.ReactNode => {
   );
 };
 
-const itemTitleString = (advisorLog: IAdvisorLog): string => `${Users.getFullName(advisorLog.studentID)} ${advisorLog.createdOn}`;
+const itemTitleString = (advisorLog: AdvisorLog): string => `${Users.getFullName(advisorLog.studentID)} ${advisorLog.createdOn}`;
 
-interface IAdminDataModelAdvisorLogsPageProps extends IAdminDataModeMenuProps {
-  items: IAdvisorLog[];
+interface AdminDataModelAdvisorLogsPageProps extends AdminDataModeMenuProps {
+  items: AdvisorLog[];
   advisors: Meteor.User[];
   students: Meteor.User[];
 }
 
-const AdminDataModelAdvisorLogsPage: React.FC<IAdminDataModelAdvisorLogsPageProps> = (props) => {
+const AdminDataModelAdvisorLogsPage: React.FC<AdminDataModelAdvisorLogsPageProps> = (props) => {
   // TODO deconstruct props
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
@@ -149,7 +149,7 @@ const AdminDataModelAdvisorLogsPage: React.FC<IAdminDataModelAdvisorLogsPageProp
   const handleUpdate = (doc) => {
     // console.log('handleUpdate(%o) ref=%o', doc, this.formRef);
     const collectionName = AdvisorLogs.getCollectionName();
-    const updateData: IAdvisorLogUpdate = {};
+    const updateData: AdvisorLogUpdate = {};
     updateData.id = doc._id;
     updateData.text = doc.text;
     updateData.retired = doc.retired;

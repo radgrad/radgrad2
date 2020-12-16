@@ -1,16 +1,16 @@
 import * as TYPES from './types';
 
-interface ICloudinaryState {
+interface CloudinaryState {
   isCloudinaryUsed: boolean;
   cloudinaryUrl: string;
 }
 
-interface IState {
-  adminDataModelFeeds: ICloudinaryState;
-  adminDataModelUsers: ICloudinaryState;
+interface State {
+  adminDataModelFeeds: CloudinaryState;
+  adminDataModelUsers: CloudinaryState;
 }
 
-const initialState: IState = {
+const initialState: State = {
   adminDataModelFeeds: {
     isCloudinaryUsed: false,
     cloudinaryUrl: '',
@@ -21,9 +21,9 @@ const initialState: IState = {
   },
 };
 
-function reducer(state: IState = initialState, action: { [props: string]: any }): IState {
-  let s: IState;
-  let otherKeys: ICloudinaryState;
+function reducer(state: State = initialState, action: { [props: string]: any }): State {
+  let s: State;
+  let otherKeys: CloudinaryState;
   switch (action.type) {
     case TYPES.SET_ADMIN_DATAMODEL_FEEDS_IS_CLOUDINARY_USED:
       otherKeys = state.adminDataModelFeeds;

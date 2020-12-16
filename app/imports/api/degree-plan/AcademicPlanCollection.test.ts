@@ -8,7 +8,7 @@ import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { removeAllEntities } from '../base/BaseUtilities';
 import { makeSampleAcademicPlan, makeSampleChoiceList, makeSampleCoursesPerTerm } from './SampleAcademicPlans';
 import { makeSampleAcademicTerm } from '../academic-term/SampleAcademicTerms';
-import { IAcademicPlan } from '../../typings/radgrad';
+import { AcademicPlan } from '../../typings/radgrad';
 
 /* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
 /* eslint-env mocha */
@@ -151,12 +151,12 @@ if (Meteor.isServer) {
     it('Can dumpOne, removeIt, and restoreOne', function test4() {
       let docID = makeSampleAcademicPlan();
       expect(AcademicPlans.isDefined(docID)).to.be.true;
-      const origPlan: IAcademicPlan = AcademicPlans.findDoc(docID);
+      const origPlan: AcademicPlan = AcademicPlans.findDoc(docID);
       const dumpObject = AcademicPlans.dumpOne(docID);
       AcademicPlans.removeIt(docID);
       expect(AcademicPlans.isDefined(docID)).to.be.false;
       docID = AcademicPlans.restoreOne(dumpObject);
-      const doc: IAcademicPlan = AcademicPlans.findDoc(docID);
+      const doc: AcademicPlan = AcademicPlans.findDoc(docID);
       expect(origPlan.name).to.equal(doc.name);
       expect(origPlan.description).to.equal(doc.description);
       expect(origPlan.academicTermNumber).to.equal(doc.academicTermNumber);

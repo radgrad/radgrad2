@@ -4,11 +4,11 @@ import _ from 'lodash';
 import { Courses } from '../../../api/course/CourseCollection';
 import { getSlugFromEntityID } from './utilities/helper-functions';
 
-interface IPrerequisitesListProps {
+interface PrerequisitesListProps {
   prerequisites: string[];
 }
 
-const LandingPrerequisiteList: React.FC<IPrerequisitesListProps> = ({ prerequisites }) => {
+const LandingPrerequisiteList: React.FC<PrerequisitesListProps> = ({ prerequisites }) => {
   const courses = _.map(prerequisites, (slug) => Courses.findDocBySlug(slug));
   return (
     <List horizontal bulleted>

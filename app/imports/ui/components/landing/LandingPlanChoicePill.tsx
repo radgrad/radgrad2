@@ -4,11 +4,11 @@ import { getSatisfiedStyle } from '../shared/academic-plan/utilities/styles';
 import NamePill from '../shared/academic-plan/NamePill';
 import { PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
 
-interface ILandingPlanChoicePillProps {
+interface LandingPlanChoicePillProps {
   choice: string;
 }
 
-const LandingPlanChoicePill: React.FC<ILandingPlanChoicePillProps> = ({ choice }) => (
+const LandingPlanChoicePill: React.FC<LandingPlanChoicePillProps> = ({ choice }) => (
   <Grid.Row style={getSatisfiedStyle()}>
     <NamePill name={PlanChoices.toString(choice)} />
   </Grid.Row>

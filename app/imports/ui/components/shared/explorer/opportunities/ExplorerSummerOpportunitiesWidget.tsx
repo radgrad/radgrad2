@@ -1,25 +1,25 @@
 import React from 'react';
 import { Divider, Header, Image } from 'semantic-ui-react';
-import OpportunityInformationItem, { IOpportunityInformationItemConfiguration } from './OpportunityInformationItem';
-import { IAcademicTerm, IOpportunity, IOpportunityType } from '../../../../../typings/radgrad';
+import OpportunityInformationItem, { OpportunityInformationItemConfiguration } from './OpportunityInformationItem';
+import { AcademicTerm, Opportunity, OpportunityType } from '../../../../../typings/radgrad';
 import { Opportunities } from '../../../../../api/opportunity/OpportunityCollection';
 import { OpportunityTypes } from '../../../../../api/opportunity/OpportunityTypeCollection';
 import { AcademicTerms } from '../../../../../api/academic-term/AcademicTermCollection';
 
-const opportunityInformationItemConfiguration: IOpportunityInformationItemConfiguration = {
+const opportunityInformationItemConfiguration: OpportunityInformationItemConfiguration = {
   showLogo: false,
   showMetadata: false,
   showStudentsParticipating: false,
 };
 
-const getSummerOpportunities = (): IOpportunity[] => {
-  const currentAcademicTerm: IAcademicTerm = AcademicTerms.getCurrentAcademicTermDoc();
-  const futureSummerAcademicTerms: IAcademicTerm[] = AcademicTerms.findNonRetired({
+const getSummerOpportunities = (): Opportunity[] => {
+  const currentAcademicTerm: AcademicTerm = AcademicTerms.getCurrentAcademicTermDoc();
+  const futureSummerAcademicTerms: AcademicTerm[] = AcademicTerms.findNonRetired({
     term: 'Summer',
     termNumber: { $gt: currentAcademicTerm.termNumber },
   });
   const futureSummerAcademicTermIDs: string[] = futureSummerAcademicTerms.map((term) => term._id);
-  const internshipOpportunityType: IOpportunityType = OpportunityTypes.findOne({ name: 'Internship' });
+  const internshipOpportunityType: OpportunityType = OpportunityTypes.findOne({ name: 'Internship' });
   return Opportunities.findNonRetired({
     opportunityTypeID: internshipOpportunityType._id,
     termIDs: { $in: futureSummerAcademicTermIDs },
@@ -28,7 +28,7 @@ const getSummerOpportunities = (): IOpportunity[] => {
 
 const ExplorerSummerOpportunitiesWidget: React.FC = () => {
   const numberOfOpportunities = 3;
-  const allSummerInternshipOpportunities: IOpportunity[] = getSummerOpportunities();
+  const allSummerInternshipOpportunities: Opportunity[] = getSummerOpportunities();
   const summerInternshipOpportunities = allSummerInternshipOpportunities.slice(0, numberOfOpportunities);
   return (
     <>

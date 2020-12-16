@@ -5,7 +5,7 @@ import { getDraggablePillStyle, getNotSatisfiedStyle, getSatisfiedStyle } from '
 import NamePill from './NamePill';
 import * as PlanChoiceUtils from '../../../../api/degree-plan/PlanChoiceUtilities';
 
-interface IPlanChoicePillProps {
+interface PlanChoicePillProps {
   choice: string;
   name: string;
   index: number;
@@ -13,7 +13,7 @@ interface IPlanChoicePillProps {
   satisfied: boolean;
 }
 
-const DraggablePlanChoicePill: React.FC<IPlanChoicePillProps> = ({ choice, name, index, studentID, satisfied }) => {
+const DraggablePlanChoicePill: React.FC<PlanChoicePillProps> = ({ choice, name, index, studentID, satisfied }) => {
   // console.log('DraggablePlanChoicePill', props);
   const style = satisfied ? getSatisfiedStyle() : getNotSatisfiedStyle();
   const draggableId = PlanChoiceUtils.stripCounter(choice);

@@ -10,11 +10,11 @@ import {
   PageInterestsCategoryTypes,
 } from '../../../../api/page-tracking/PageInterestsCategoryTypes';
 import {
-  ICareerGoal,
-  ICourse,
-  IInterest,
-  IOpportunity, IPageInterestInfo,
-  IPageInterestsDailySnapshot,
+  CareerGoal,
+  Course,
+  Interest,
+  Opportunity, PageInterestInfo,
+  PageInterestsDailySnapshot,
 } from '../../../../typings/radgrad';
 import { PageInterestsDailySnapshots } from '../../../../api/page-tracking/PageInterestsDailySnapshotCollection';
 import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
@@ -23,12 +23,12 @@ import { Interests } from '../../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
 import {
   aggregateDailySnapshots, getCategory, getUrlCategory,
-  IAggregatedDailySnapshot, parseName, slugIDToSlugName,
+  AggregatedDailySnapshot, parseName, slugIDToSlugName,
 } from './utilities/page-tracking';
 import PageTrackingWidgetMessage from './PageTrackingWidgetMessage';
 
-interface IPageTrackingComparisonWidgetProps {
-  pageInterestsDailySnapshots: IPageInterestsDailySnapshot[];
+interface PageTrackingComparisonWidgetProps {
+  pageInterestsDailySnapshots: PageInterestsDailySnapshot[];
 }
 
 const getOptions = (urlCategory: IPageInterestsCategoryTypes) => {
@@ -47,18 +47,18 @@ const getOptions = (urlCategory: IPageInterestsCategoryTypes) => {
   }
 };
 
-const getOptionsHelper = (docs: (ICareerGoal | ICourse | IInterest | IOpportunity)[]) => docs.map((doc) => ({
+const getOptionsHelper = (docs: (CareerGoal | Course | Interest | Opportunity)[]) => docs.map((doc) => ({
   key: doc._id,
   text: doc.name,
   value: doc.slugID,
 }));
 
-const PageTrackingComparisonWidget: React.FC<IPageTrackingComparisonWidgetProps> = ({ pageInterestsDailySnapshots }) => {
+const PageTrackingComparisonWidget: React.FC<PageTrackingComparisonWidgetProps> = ({ pageInterestsDailySnapshots }) => {
   const match = useRouteMatch();
   const urlCategory: IPageInterestsCategoryTypes = getUrlCategory(match);
 
-  const [data, setData] = useState<IPageInterestInfo[]>(undefined);
-  const [dataBeforeFilter, setDataBeforeFilter] = useState<IPageInterestInfo[]>(undefined);
+  const [data, setData] = useState<PageInterestInfo[]>(undefined);
+  const [dataBeforeFilter, setDataBeforeFilter] = useState<PageInterestInfo[]>(undefined);
 
   /* ######################### Table State ######################### */
   const [selectedOptions, setSelectedOptions] = useState<string[]>(undefined);
@@ -77,9 +77,9 @@ const PageTrackingComparisonWidget: React.FC<IPageTrackingComparisonWidgetProps>
   const setItemsToData = (event: React.SyntheticEvent, filtered: boolean) => {
     event.preventDefault();
     const category: string = getCategory(urlCategory);
-    let aggregatedSnapshot: (IPageInterestInfo[] | IAggregatedDailySnapshot);
+    let aggregatedSnapshot: (PageInterestInfo[] | AggregatedDailySnapshot);
     if (filtered) {
-      const filteredDailySnapshots: IPageInterestsDailySnapshot[] = PageInterestsDailySnapshots.find({
+      const filteredDailySnapshots: PageInterestsDailySnapshot[] = PageInterestsDailySnapshots.find({
         timestamp: {
           $gte: startDate,
           $lte: moment(endDate).endOf('day').toDate(),
@@ -89,13 +89,13 @@ const PageTrackingComparisonWidget: React.FC<IPageTrackingComparisonWidgetProps>
     } else {
       aggregatedSnapshot = aggregateDailySnapshots(pageInterestsDailySnapshots);
     }
-    const snapshotItems: IPageInterestInfo[] = aggregatedSnapshot[category];
+    const snapshotItems: PageInterestInfo[] = aggregatedSnapshot[category];
     const selectedSlugNames: string[] = [];
     selectedOptions.forEach((option) => {
       const slugName = slugIDToSlugName(option);
       selectedSlugNames.push(slugName);
     });
-    const filteredItems: IPageInterestInfo[] = [];
+    const filteredItems: PageInterestInfo[] = [];
     selectedSlugNames.forEach((slugName) => {
       snapshotItems.forEach((item) => {
         if (slugName === item.name) {
@@ -105,7 +105,7 @@ const PageTrackingComparisonWidget: React.FC<IPageTrackingComparisonWidgetProps>
     });
     // Handle sort to main sort properties (ascending/descending for a clicked column) when we filter data
     if (column !== undefined) {
-      const sortedFilteredItems: IPageInterestInfo[] = _.sortBy(filteredItems, [column]);
+      const sortedFilteredItems: PageInterestInfo[] = _.sortBy(filteredItems, [column]);
       setData(sortedFilteredItems);
     } else {
       setData(filteredItems);
@@ -124,12 +124,12 @@ const PageTrackingComparisonWidget: React.FC<IPageTrackingComparisonWidgetProps>
     event.preventDefault();
     if (column !== clickedColumn) {
       setColumn(clickedColumn);
-      const newData: IPageInterestInfo[] = _.sortBy(data, [clickedColumn]);
+      const newData: PageInterestInfo[] = _.sortBy(data, [clickedColumn]);
       setData(newData);
       setDirection('ascending');
       return;
     }
-    const newData: IPageInterestInfo[] = data.slice().reverse();
+    const newData: PageInterestInfo[] = data.slice().reverse();
     setData(newData);
     setDirection(direction === 'ascending' ? 'descending' : 'ascending');
   };

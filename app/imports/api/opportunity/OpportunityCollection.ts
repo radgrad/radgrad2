@@ -13,7 +13,7 @@ import { OpportunityInstances } from './OpportunityInstanceCollection';
 import { Feeds } from '../feed/FeedCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
 import { assertICE, iceSchema } from '../ice/IceProcessor';
-import { IOpportunityDefine, IOpportunityUpdate, IOpportunityUpdateData } from '../../typings/radgrad';
+import { OpportunityDefine, OpportunityUpdate, OpportunityUpdateData } from '../../typings/radgrad';
 
 export const defaultProfilePicture = '/images/radgrad_logo.png';
 
@@ -102,7 +102,7 @@ class OpportunityCollection extends BaseSlugCollection {
    * or startActive or endActive are not valid.
    * @returns The newly created docID.
    */
-  public define({ name, slug, description, opportunityType, sponsor, interests, academicTerms, ice, timestamp = moment().toDate(), eventDate = null, picture = defaultProfilePicture, retired = false }: IOpportunityDefine) {
+  public define({ name, slug, description, opportunityType, sponsor, interests, academicTerms, ice, timestamp = moment().toDate(), eventDate = null, picture = defaultProfilePicture, retired = false }: OpportunityDefine) {
     // Get instances, or throw error
 
     const opportunityTypeID = OpportunityTypes.getID(opportunityType);
@@ -148,9 +148,9 @@ class OpportunityCollection extends BaseSlugCollection {
    * @param retired boolean (optional).
    * @param picture
    */
-  public update(instance: string, { name, description, opportunityType, sponsor, interests, academicTerms, eventDate, ice, timestamp, retired, picture }: IOpportunityUpdate) {
+  public update(instance: string, { name, description, opportunityType, sponsor, interests, academicTerms, eventDate, ice, timestamp, retired, picture }: OpportunityUpdate) {
     const docID = this.getID(instance);
-    const updateData: IOpportunityUpdateData = {};
+    const updateData: OpportunityUpdateData = {};
     if (name) {
       updateData.name = name;
     }
@@ -288,7 +288,7 @@ class OpportunityCollection extends BaseSlugCollection {
    * @param docID The docID of an Opportunity.
    * @returns { Object } An object representing the definition of docID.
    */
-  public dumpOne(docID: string): IOpportunityDefine {
+  public dumpOne(docID: string): OpportunityDefine {
     const doc = this.findDoc(docID);
     const name = doc.name;
     const slug = Slugs.getNameFromID(doc.slugID);

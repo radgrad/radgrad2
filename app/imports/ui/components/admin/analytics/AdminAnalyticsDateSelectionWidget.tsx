@@ -11,30 +11,30 @@ import { analyticsActions } from '../../../../redux/admin/analytics';
 import { userInteractionFindMethod } from '../../../../api/analytic/UserInteractionCollection.methods';
 import {
   IAdminAnalyticsOverheadAnalysisBuckets,
-  IAdminAnalyticsOverheadAnalysisData,
+  AdminAnalyticsOverheadAnalysisData,
   IAdminAnalyticsUserInteraction,
 } from '../../../../redux/admin/analytics/reducers';
 
-interface IAdminAnalyticsDateSelectionWidgetProps {
+interface AdminAnalyticsDateSelectionWidgetProps {
   page: string;
-  setOverheadAnalysisDateRange: (dateRange: analyticsActions.ISetDateRangeProps) => any;
+  setOverheadAnalysisDateRange: (dateRange: analyticsActions.SetDateRangeProps) => any;
   setOverheadAnalysisBuckets: (overheadBuckets: IAdminAnalyticsOverheadAnalysisBuckets) => any;
-  setOverheadAnalysisData: (overheadData: IAdminAnalyticsOverheadAnalysisData[]) => any;
+  setOverheadAnalysisData: (overheadData: AdminAnalyticsOverheadAnalysisData[]) => any;
   setOverheadAnalysisUserInteractions: (userInteractions: IAdminAnalyticsUserInteraction) => any;
-  setStudentSummaryDateRange: (dateRange: analyticsActions.ISetDateRangeProps) => any;
+  setStudentSummaryDateRange: (dateRange: analyticsActions.SetDateRangeProps) => any;
   setStudentSummaryUserInteractions: (userInteractions: IAdminAnalyticsUserInteraction) => any;
 }
 
 const mapDispatchToProps = (dispatch: any): any => ({
-  setOverheadAnalysisDateRange: (dateRange: analyticsActions.ISetDateRangeProps) => dispatch(analyticsActions.setOverheadAnalysisDateRange(dateRange)),
+  setOverheadAnalysisDateRange: (dateRange: analyticsActions.SetDateRangeProps) => dispatch(analyticsActions.setOverheadAnalysisDateRange(dateRange)),
   setOverheadAnalysisBuckets: (overheadBuckets: IAdminAnalyticsOverheadAnalysisBuckets) => dispatch(analyticsActions.setOverheadAnalysisBuckets(overheadBuckets)),
-  setOverheadAnalysisData: (overheadData: IAdminAnalyticsOverheadAnalysisData[]) => dispatch(analyticsActions.setOverheadAnalysisData(overheadData)),
+  setOverheadAnalysisData: (overheadData: AdminAnalyticsOverheadAnalysisData[]) => dispatch(analyticsActions.setOverheadAnalysisData(overheadData)),
   setOverheadAnalysisUserInteractions: (userInteractions: IAdminAnalyticsUserInteraction) => dispatch(analyticsActions.setOverheadAnalysisUserInteractions(userInteractions)),
-  setStudentSummaryDateRange: (dateRange: analyticsActions.ISetDateRangeProps) => dispatch(analyticsActions.setStudentSummaryDateRange(dateRange)),
+  setStudentSummaryDateRange: (dateRange: analyticsActions.SetDateRangeProps) => dispatch(analyticsActions.setStudentSummaryDateRange(dateRange)),
   setStudentSummaryUserInteractions: (userInteractions: IAdminAnalyticsUserInteraction) => dispatch(analyticsActions.setStudentSummaryUserInteractions(userInteractions)),
 });
 
-const AdminAnalyticsDateSelectionWidget: React.FC<IAdminAnalyticsDateSelectionWidgetProps> = ({ page, setOverheadAnalysisBuckets, setOverheadAnalysisData, setOverheadAnalysisDateRange, setOverheadAnalysisUserInteractions, setStudentSummaryDateRange, setStudentSummaryUserInteractions }) => {
+const AdminAnalyticsDateSelectionWidget: React.FC<AdminAnalyticsDateSelectionWidgetProps> = ({ page, setOverheadAnalysisBuckets, setOverheadAnalysisData, setOverheadAnalysisDateRange, setOverheadAnalysisUserInteractions, setStudentSummaryDateRange, setStudentSummaryUserInteractions }) => {
   const [startDate, setStartDate] = useState(undefined);
   const [endDate, setEndDate] = useState(undefined);
 

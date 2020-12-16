@@ -6,16 +6,16 @@ import { AcademicPlans } from '../../../../api/degree-plan/AcademicPlanCollectio
 import { defineMethod } from '../../../../api/base/BaseCollection.methods';
 import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
 import { Feeds } from '../../../../api/feed/FeedCollection';
-import { ICareerGoal, IInterest } from '../../../../typings/radgrad';
+import { CareerGoal, Interest } from '../../../../typings/radgrad';
 import { openCloudinaryWidget } from '../../shared/OpenCloudinaryWidget';
 
-export interface IAdvisorAddStudentWidgetProps {
+export interface AdvisorAddStudentWidgetProps {
   // These are parameters for reactivity
-  interests: IInterest[];
-  careerGoals: ICareerGoal[];
+  interests: Interest[];
+  careerGoals: CareerGoal[];
 }
 
-const AdvisorAddStudentWidget: React.FC<IAdvisorAddStudentWidgetProps> = ({ interests, careerGoals }) => {
+const AdvisorAddStudentWidget: React.FC<AdvisorAddStudentWidgetProps> = ({ interests, careerGoals }) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [username, setUsername] = useState('');

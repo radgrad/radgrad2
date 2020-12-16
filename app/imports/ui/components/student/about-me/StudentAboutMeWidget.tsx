@@ -3,10 +3,10 @@ import _ from 'lodash';
 import { useRouteMatch, Link } from 'react-router-dom';
 import { Grid, Segment, Header, Icon, Label, Divider, Button } from 'semantic-ui-react';
 import {
-  IFavoriteAcademicPlan,
-  IFavoriteCareerGoal,
-  IFavoriteInterest,
-  IStudentProfile,
+  FavoriteAcademicPlan,
+  FavoriteCareerGoal,
+  FavoriteInterest,
+  StudentProfile,
 } from '../../../../typings/radgrad';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import { AcademicPlans } from '../../../../api/degree-plan/AcademicPlanCollection';
@@ -22,14 +22,14 @@ import {
 import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
 import { Interests } from '../../../../api/interest/InterestCollection';
 
-interface IStudentAboutMeWidgetProps {
-  profile: IStudentProfile;
-  favoriteCareerGoals: IFavoriteCareerGoal[];
-  favoriteInterests: IFavoriteInterest[];
-  favoriteAcademicPlans: IFavoriteAcademicPlan[];
+interface StudentAboutMeWidgetProps {
+  profile: StudentProfile;
+  favoriteCareerGoals: FavoriteCareerGoal[];
+  favoriteInterests: FavoriteInterest[];
+  favoriteAcademicPlans: FavoriteAcademicPlan[];
 }
 
-const StudentAboutMeWidget: React.FC<IStudentAboutMeWidgetProps> = ({ profile, favoriteInterests, favoriteCareerGoals, favoriteAcademicPlans }) => {
+const StudentAboutMeWidget: React.FC<StudentAboutMeWidgetProps> = ({ profile, favoriteInterests, favoriteCareerGoals, favoriteAcademicPlans }) => {
   const marginBottomStyle = { marginBottom: 0 };
   const match = useRouteMatch();
   const name = profileToFullName(profile);

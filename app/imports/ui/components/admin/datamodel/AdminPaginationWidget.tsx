@@ -4,7 +4,7 @@ import { Button, Grid, Icon, Message } from 'semantic-ui-react';
 import BaseCollection from '../../../../api/base/BaseCollection';
 import { RootState } from '../../../../redux/types';
 
-interface IAdminPaginationWidgetProps {
+interface AdminPaginationWidgetProps {
   collection: BaseCollection;
   dispatch: any;
   pagination: any;
@@ -53,7 +53,7 @@ const handleCountChange = (dispatch, setShowCount, collection) => (event) => {
   dispatch(setShowCount(collection.getCollectionName(), count));
 };
 
-const AdminPaginationWidget: React.FC<IAdminPaginationWidgetProps> = ({ pagination, dispatch, collection, setShowCount, setShowIndex }) => {
+const AdminPaginationWidget: React.FC<AdminPaginationWidgetProps> = ({ pagination, dispatch, collection, setShowCount, setShowIndex }) => {
   // console.log('AdminPaginationWidget.render props=%o', props);
   const heightStyle = {
     height: 48,

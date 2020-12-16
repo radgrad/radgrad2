@@ -8,12 +8,12 @@ import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidge
 import ListOpportunitiesWidget from '../../components/faculty/manage-opportunities/FacultyListOpportunitiesWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import {
-  IAcademicTerm,
-  IBaseProfile,
-  IDescriptionPair, IHelpMessage,
-  IInterest,
-  IOpportunity,
-  IOpportunityType,
+  AcademicTerm,
+  BaseProfile,
+  DescriptionPair, HelpMessage,
+  Interest,
+  Opportunity,
+  OpportunityType,
 } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
@@ -40,7 +40,7 @@ const collection = Opportunities; // the collection to use.
  * Returns an array of Description pairs used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const descriptionPairs = (item: IOpportunity): IDescriptionPair[] => [
+const descriptionPairs = (item: Opportunity): DescriptionPair[] => [
   { label: 'Description', value: item.description },
   { label: 'Opportunity Type', value: OpportunityTypes.findDoc(item.opportunityTypeID).name },
   { label: 'Sponsor', value: Users.getProfile(item.sponsorID).username },
@@ -54,13 +54,13 @@ const descriptionPairs = (item: IOpportunity): IDescriptionPair[] => [
  * Returns the title string for the item. Used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const itemTitleString = (item: IOpportunity): string => `${item.name}`;
+const itemTitleString = (item: Opportunity): string => `${item.name}`;
 
 /**
  * Returns the ReactNode used in the ListCollectionWidget. By default we indicate if the item is retired.
  * @param item an item from the collection.
  */
-const itemTitle = (item: IOpportunity): React.ReactNode => (
+const itemTitle = (item: Opportunity): React.ReactNode => (
   <React.Fragment>
     {item.retired ? <Icon name="eye slash" /> : ''}
     <Icon name="dropdown" />
@@ -68,15 +68,15 @@ const itemTitle = (item: IOpportunity): React.ReactNode => (
   </React.Fragment>
 );
 
-interface IFacultyManageOpportunitiesPageProps {
-  sponsors: IBaseProfile[];
-  terms: IAcademicTerm[];
-  interests: IInterest[];
-  opportunityTypes: IOpportunityType[];
-  helpMessages: IHelpMessage[];
+interface FacultyManageOpportunitiesPageProps {
+  sponsors: BaseProfile[];
+  terms: AcademicTerm[];
+  interests: Interest[];
+  opportunityTypes: OpportunityType[];
+  helpMessages: HelpMessage[];
 }
 
-const FacultyManageOpportunitiesPage: React.FC<IFacultyManageOpportunitiesPageProps> = ({ sponsors, helpMessages, interests, terms, opportunityTypes }) => {
+const FacultyManageOpportunitiesPage: React.FC<FacultyManageOpportunitiesPageProps> = ({ sponsors, helpMessages, interests, terms, opportunityTypes }) => {
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');

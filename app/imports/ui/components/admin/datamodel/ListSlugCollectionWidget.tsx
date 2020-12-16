@@ -3,16 +3,16 @@ import { connect } from 'react-redux';
 import { Grid, Header, Segment } from 'semantic-ui-react';
 import _ from 'lodash';
 import BaseCollection from '../../../../api/base/BaseCollection';
-import { IDescriptionPair } from '../../../../typings/radgrad';
+import { DescriptionPair } from '../../../../typings/radgrad';
 import AdminCollectionAccordion from './AdminCollectionAccordion';
 import AdminPaginationWidget from './AdminPaginationWidget';
 import { dataModelActions } from '../../../../redux/admin/data-model';
 import { RootState } from '../../../../redux/types';
 
-interface IListSlugCollectionWidgetProps {
+interface ListSlugCollectionWidgetProps {
   collection: BaseCollection;
   findOptions?: { [key: string]: unknown };
-  descriptionPairs: (item) => IDescriptionPair[];
+  descriptionPairs: (item) => DescriptionPair[];
   handleOpenUpdate: (evt: any, id: any) => any;
   handleDelete: (evt: any, id: any) => any;
   items: any[];
@@ -24,7 +24,7 @@ const mapStateToProps = (state: RootState) => ({
   pagination: state.admin.dataModel.pagination,
 });
 
-const ListSlugCollectionWidget: React.FC<IListSlugCollectionWidgetProps> = ({ collection, findOptions, descriptionPairs, handleDelete, handleOpenUpdate, items, itemTitle, pagination }) => {
+const ListSlugCollectionWidget: React.FC<ListSlugCollectionWidgetProps> = ({ collection, findOptions, descriptionPairs, handleDelete, handleOpenUpdate, items, itemTitle, pagination }) => {
   // console.log('ListSlugCollectionWidget.render props=%o', props);
   const count = collection.count();
   const startIndex = pagination[collection.getCollectionName()].showIndex;

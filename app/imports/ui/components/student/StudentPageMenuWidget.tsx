@@ -4,7 +4,7 @@ import { Container, Dropdown, Menu } from 'semantic-ui-react';
 import FirstMenuContainer from '../shared/FirstMenu';
 import { buildRouteName, getUsername } from '../shared/utilities/router';
 import { COMMUNITY, DEGREEPLANNER, EXPLORER_TYPE } from '../../layouts/utilities/route-constants';
-import { IStudentProfile } from '../../../typings/radgrad';
+import { StudentProfile } from '../../../typings/radgrad';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 
 const explorerDropdownItems = [
@@ -30,7 +30,7 @@ const StudentPageMenuWidget: React.FC = () => {
   const match = useRouteMatch();
   const username = getUsername(match);
   const divStyle = { marginBottom: 30 };
-  const profile: IStudentProfile = StudentProfiles.getProfile(username);
+  const profile: StudentProfile = StudentProfiles.getProfile(username);
   const earnedIce = StudentProfiles.getEarnedICE(username);
   const projectedIce = StudentProfiles.getProjectedICE(username);
   return (

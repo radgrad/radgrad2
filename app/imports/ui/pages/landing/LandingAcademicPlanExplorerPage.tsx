@@ -6,7 +6,7 @@ import { Grid, Header, Segment } from 'semantic-ui-react';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import LandingExplorerMenuBar from '../../components/landing/explorer/LandingExplorerMenuBar';
-import { IAcademicPlan, IHelpMessage } from '../../../typings/radgrad';
+import { AcademicPlan, HelpMessage } from '../../../typings/radgrad';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/explorer/LandingExplorerMenu';
 import { withListSubscriptions } from '../../layouts/utilities/SubscriptionListHOC';
@@ -15,12 +15,12 @@ import * as Router from '../../components/shared/utilities/router';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 
-interface IAcademicPlanExplorerProps {
-  plan: IAcademicPlan;
-  helpMessages: IHelpMessage[];
+interface AcademicPlanExplorerProps {
+  plan: AcademicPlan;
+  helpMessages: HelpMessage[];
 }
 
-const LandingAcademicPlanExplorerPage: React.FC<IAcademicPlanExplorerProps> = ({ plan, helpMessages }) => {
+const LandingAcademicPlanExplorerPage: React.FC<AcademicPlanExplorerProps> = ({ plan, helpMessages }) => {
   // console.log(plan);
   const match = useRouteMatch();
   return (

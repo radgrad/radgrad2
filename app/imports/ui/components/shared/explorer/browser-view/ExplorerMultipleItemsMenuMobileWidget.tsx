@@ -9,7 +9,7 @@ import {
   ExplorerInterfaces,
   isType,
 } from '../utilities/explorer';
-import { IInterest } from '../../../../../typings/radgrad';
+import { Interest } from '../../../../../typings/radgrad';
 
 const AppMedia = createMedia({
   breakpoints: {
@@ -24,13 +24,13 @@ const AppMedia = createMedia({
 const mediaStyles = AppMedia.createMediaStyle();
 const { Media, MediaContextProvider } = AppMedia;
 
-interface ICardExplorerMenuMobileWidgetProps {
+interface CardExplorerMenuMobileWidgetProps {
   menuAddedList: { item: ExplorerInterfaces, count: number }[];
-  menuCareerList: { item: IInterest, count: number }[] | undefined;
+  menuCareerList: { item: Interest, count: number }[] | undefined;
   type: 'plans' | 'career-goals' | 'courses' | 'interests' | 'opportunities';
 }
 
-const ExplorerMultipleItemsMenuMobileWidget: React.FC<ICardExplorerMenuMobileWidgetProps> = ({ menuAddedList, menuCareerList, type }) => {
+const ExplorerMultipleItemsMenuMobileWidget: React.FC<CardExplorerMenuMobileWidgetProps> = ({ menuAddedList, menuCareerList, type }) => {
   const match = useRouteMatch();
   const isStudent = Router.isUrlRoleStudent(match);
   return (

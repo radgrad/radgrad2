@@ -3,19 +3,19 @@ import { Menu, SemanticWIDTHS } from 'semantic-ui-react';
 import { NavLink, useRouteMatch } from 'react-router-dom';
 import { buildRouteName } from '../shared/utilities/router';
 
-interface IMenuItem {
+interface MenuItem {
   label: string;
   id: string;
   route: string;
   regex?: string;
 }
 
-interface ISecondMenuProps {
-  menuItems: IMenuItem[];
+interface SecondMenuProps {
+  menuItems: MenuItem[];
   numItems: SemanticWIDTHS;
 }
 
-const SecondMenu: React.FC<ISecondMenuProps> = ({ menuItems, numItems }) => {
+const SecondMenu: React.FC<SecondMenuProps> = ({ menuItems, numItems }) => {
   const match = useRouteMatch();
   return (
     <Menu

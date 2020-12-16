@@ -9,15 +9,15 @@ import { IAdminAnalyticsUserInteraction } from '../../../../../redux/admin/analy
 import { StudentSummaryBehaviorTypes } from './utilities/student-summary';
 import { UserInteractionsTypes } from '../../../../../api/analytic/UserInteractionsTypes';
 import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
-import { IUserInteraction } from '../../../../../typings/radgrad';
+import { UserInteraction } from '../../../../../typings/radgrad';
 
-interface ITimelineChartTabProps {
+interface TimelineChartTabProps {
   startDate?: Date;
   endDate?: Date;
   interactionsByUser: IAdminAnalyticsUserInteraction;
 }
 
-const TimelineChartTab: React.FC<ITimelineChartTabProps> = ({ startDate, endDate, interactionsByUser }) => {
+const TimelineChartTab: React.FC<TimelineChartTabProps> = ({ startDate, endDate, interactionsByUser }) => {
   let chartOptions: { [key: string]: unknown } = { title: { text: null } };
   if (interactionsByUser) {
     const startDataMoment = moment(startDate, 'MMMM D, YYYY');
@@ -43,8 +43,8 @@ const TimelineChartTab: React.FC<ITimelineChartTabProps> = ({ startDate, endDate
       StudentSummaryBehaviorTypes.LOGOUT,
     ];
     _.each(behaviorsByDate, function (array, date, obj) {
-      _.each(interactionsByUser, function (interactions: IUserInteraction[]) {
-        const interactionsWithinDate: IUserInteraction[] = _.filter(interactions, function (interaction) {
+      _.each(interactionsByUser, function (interactions: UserInteraction[]) {
+        const interactionsWithinDate: UserInteraction[] = _.filter(interactions, function (interaction) {
           const interactionDate = moment(interaction.timestamp).format('MMM D, YYYY');
           return interactionDate === date;
         });

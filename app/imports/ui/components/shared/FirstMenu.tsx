@@ -4,7 +4,7 @@ import { Dropdown, Header, Image, Menu, Container } from 'semantic-ui-react';
 import { Meteor } from 'meteor/meteor';
 import { Roles } from 'meteor/alanning:roles';
 import RadGradLogoText from './RadGradLogoText';
-import RadGradMenuProfile, { IRadGradMenuProfileProps } from './RadGradMenuProfile';
+import RadGradMenuProfile, { RadGradMenuProfileProps } from './RadGradMenuProfile';
 import { isUrlRoleStudent } from './utilities/router';
 
 /**
@@ -15,7 +15,7 @@ import { isUrlRoleStudent } from './utilities/router';
  * @param projectedICE the planned ICE points.
  * @constructor
  */
-const FirstMenu: React.FC<IRadGradMenuProfileProps> = ({ profile, displayLevelAndIce, earnedICE, projectedICE }) => {
+const FirstMenu: React.FC<RadGradMenuProfileProps> = ({ profile, displayLevelAndIce, earnedICE, projectedICE }) => {
   const match = useRouteMatch();
   const imageStyle = { width: '50px' };
   const flexStyle = { display: 'flex' };

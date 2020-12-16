@@ -7,7 +7,7 @@ import { Feeds } from '../../../api/feed/FeedCollection';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import { ROLE } from '../../../api/role/Role';
 import { Users } from '../../../api/user/UserCollection';
-import { IAdvisorOrFacultyProfile, IFeed, IHelpMessage, IStudentProfile } from '../../../typings/radgrad';
+import { AdvisorOrFacultyProfile, IFeed, HelpMessage, StudentProfile } from '../../../typings/radgrad';
 import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
 import * as Router from '../../components/shared/utilities/router';
 import { URL_ROLES } from '../../layouts/utilities/route-constants';
@@ -19,15 +19,15 @@ import CommunityFeedWidget from '../../components/shared/community-users/Communi
 import { isUrlRoleStudent } from '../../components/shared/utilities/router';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 
-interface ICommunityUsersPageProps {
+interface CommunityUsersPageProps {
   feeds: IFeed[];
-  advisors: IAdvisorOrFacultyProfile[];
-  faculty: IAdvisorOrFacultyProfile[];
-  students: IStudentProfile[];
-  helpMessages: IHelpMessage[];
+  advisors: AdvisorOrFacultyProfile[];
+  faculty: AdvisorOrFacultyProfile[];
+  students: StudentProfile[];
+  helpMessages: HelpMessage[];
 }
 
-const CommunityUsersPage: React.FC<ICommunityUsersPageProps> = ({ faculty, helpMessages, advisors, students, feeds }) => {
+const CommunityUsersPage: React.FC<CommunityUsersPageProps> = ({ faculty, helpMessages, advisors, students, feeds }) => {
   const match = useRouteMatch();
   const getMenuWidget = (): JSX.Element => {
     const role = Router.getRoleByUrl(match);

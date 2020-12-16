@@ -1,17 +1,15 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-// import { useParams, useRouteMatch } from 'react-router-dom';
-// import _ from 'lodash';
 import { Card, Header, Segment } from 'semantic-ui-react';
 import { scrollPositionActions } from '../../../../../redux/shared/scrollPosition';
 import { RootState } from '../../../../../redux/types';
-import { IAcademicPlan, IFavoriteAcademicPlan } from '../../../../../typings/radgrad';
+import { AcademicPlan, FavoriteAcademicPlan } from '../../../../../typings/radgrad';
 import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
 import AcademicPlanCard from './AcademicPlanCard';
 
-interface IAcademicPlanBrowserViewProps {
-  favoritePlans: IFavoriteAcademicPlan[];
-  academicPlans: IAcademicPlan[];
+interface AcademicPlanBrowserViewProps {
+  favoritePlans: FavoriteAcademicPlan[];
+  academicPlans: AcademicPlan[];
   // Saving Scroll Position
   plansScrollPosition: number;
   setPlansScrollPosition: (scrollPosition: number) => any;
@@ -25,7 +23,7 @@ const mapDispatchToProps = (dispatch) => ({
   setPlansScrollPosition: (scrollPosition: number) => dispatch(scrollPositionActions.setExplorerPlansScrollPosition(scrollPosition)),
 });
 
-const AcademicPlanBrowserView: React.FC<IAcademicPlanBrowserViewProps> = ({ favoritePlans, academicPlans, plansScrollPosition, setPlansScrollPosition }) => {
+const AcademicPlanBrowserView: React.FC<AcademicPlanBrowserViewProps> = ({ favoritePlans, academicPlans, plansScrollPosition, setPlansScrollPosition }) => {
   const cardGroupElement: HTMLElement = document.getElementById('academicPlansCardGroup');
   useEffect(() => {
     const savedScrollPosition = plansScrollPosition;

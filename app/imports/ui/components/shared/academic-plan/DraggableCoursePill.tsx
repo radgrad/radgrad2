@@ -5,7 +5,7 @@ import { PlanChoices } from '../../../../api/degree-plan/PlanChoiceCollection';
 // import PlanChoiceUtils from '../../../api/degree-plan/PlanChoiceUtilities';
 import CoursePill from './CoursePill';
 
-interface ICoursePillProps {
+interface CoursePillProps {
   draggableId: string;
   choice: string;
   index: number;
@@ -13,7 +13,7 @@ interface ICoursePillProps {
   satisfied: boolean;
 }
 
-const DraggableCoursePill: React.FC<ICoursePillProps> = ({ draggableId, choice, index, studentID, satisfied }) => (
+const DraggableCoursePill: React.FC<CoursePillProps> = ({ draggableId, choice, index, studentID, satisfied }) => (
   <Draggable key={choice} draggableId={draggableId} index={index}>
     {(prov, snap) => (
       <div

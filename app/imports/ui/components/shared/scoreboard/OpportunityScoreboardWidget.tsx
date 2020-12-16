@@ -3,12 +3,12 @@ import _ from 'lodash';
 import { Button, Grid, Header, Icon, Label, Popup, Segment, Table } from 'semantic-ui-react';
 import moment from 'moment';
 import { ZipZap } from 'meteor/udondan:zipzap';
-import { IAcademicTerm, IOpportunity } from '../../../../typings/radgrad';
+import { AcademicTerm, Opportunity } from '../../../../typings/radgrad';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 
-interface IOpportunityScoreboardWidgetProps {
-  opportunities: IOpportunity[];
-  terms: IAcademicTerm[];
+interface OpportunityScoreboardWidgetProps {
+  opportunities: Opportunity[];
+  terms: AcademicTerm[];
   scores: any[];
 }
 
@@ -24,7 +24,7 @@ const getOpportunityScore = (opportunityID, termID, scores) => {
   return 0;
 };
 
-const saveAsCSV = (terms: IAcademicTerm[], opportunities: IOpportunity[], scores) => () => {
+const saveAsCSV = (terms: AcademicTerm[], opportunities: Opportunity[], scores) => () => {
   let result = '';
   const headerArr = ['Opportunity'];
   _.forEach(terms, (term) => headerArr.push(AcademicTerms.getShortName(term._id)));
@@ -46,7 +46,7 @@ const saveAsCSV = (terms: IAcademicTerm[], opportunities: IOpportunity[], scores
   zip.saveAs(`${dir}.zip`);
 };
 
-const OpportunityScoreboardWidget: React.FC<IOpportunityScoreboardWidgetProps> = ({ opportunities, terms, scores }) => {
+const OpportunityScoreboardWidget: React.FC<OpportunityScoreboardWidgetProps> = ({ opportunities, terms, scores }) => {
   const scrollBody: React.CSSProperties = {
     display: 'inline-block',
     height: 500,

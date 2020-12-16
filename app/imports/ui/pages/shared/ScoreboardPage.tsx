@@ -8,7 +8,7 @@ import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
 import { CourseScoreboard, OpportunityScoreboard } from '../../../startup/client/collections';
-import { IAcademicTerm, ICourse, IHelpMessage, IOpportunity } from '../../../typings/radgrad';
+import { AcademicTerm, Course, HelpMessage, Opportunity } from '../../../typings/radgrad';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import ScoreboardPageMenu from '../../components/shared/scoreboard/ScoreboardPageMenu';
 import { COURSE_SCOREBOARD, OPPORTUNITY_SCOREBOARD } from '../../layouts/utilities/route-constants';
@@ -17,16 +17,16 @@ import OpportunityScoreboardWidget from '../../components/shared/scoreboard/Oppo
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { getMenuWidget } from './utilities/getMenuWidget';
 
-export interface IScoreboardPageProps {
-  courses: ICourse[];
+export interface ScoreboardPageProps {
+  courses: Course[];
   courseScores: any[];
-  helpMessages: IHelpMessage[];
-  opportunities: IOpportunity[];
-  terms: IAcademicTerm[];
+  helpMessages: HelpMessage[];
+  opportunities: Opportunity[];
+  terms: AcademicTerm[];
   oppScores: any[];
 }
 
-const ScoreboardPage: React.FC<IScoreboardPageProps> = ({ courses, courseScores, helpMessages, opportunities, oppScores, terms }) => {
+const ScoreboardPage: React.FC<ScoreboardPageProps> = ({ courses, courseScores, helpMessages, opportunities, oppScores, terms }) => {
   const match = useRouteMatch();
   let content = <Message>Choose a scoreboard from the menu to the left.</Message>;
   if (match.path.indexOf(COURSE_SCOREBOARD) !== -1) {

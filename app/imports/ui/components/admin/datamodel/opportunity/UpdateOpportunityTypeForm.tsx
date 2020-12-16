@@ -5,7 +5,7 @@ import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import BaseCollection from '../../../../../api/base/BaseCollection';
 import { OpportunityTypes } from '../../../../../api/opportunity/OpportunityTypeCollection';
 
-interface IUpdateOpportunityTypeFormProps {
+interface UpdateOpportunityTypeFormProps {
   collection: BaseCollection;
   id: string;
   formRef: React.RefObject<unknown>;
@@ -14,7 +14,7 @@ interface IUpdateOpportunityTypeFormProps {
   itemTitleString: (item) => React.ReactNode;
 }
 
-const UpdateOpportunityTypeForm: React.FC<IUpdateOpportunityTypeFormProps> = ({ collection, id, formRef, handleUpdate, handleCancel, itemTitleString }) => {
+const UpdateOpportunityTypeForm: React.FC<UpdateOpportunityTypeFormProps> = ({ collection, id, formRef, handleUpdate, handleCancel, itemTitleString }) => {
   const model = collection.findDoc(id);
   return (
     <Segment padded>

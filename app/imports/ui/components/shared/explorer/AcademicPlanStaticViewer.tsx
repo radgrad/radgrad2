@@ -1,15 +1,15 @@
 import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import { useRouteMatch } from 'react-router-dom';
-import { IAcademicPlan } from '../../../../typings/radgrad';
+import { AcademicPlan } from '../../../../typings/radgrad';
 import AcademicPlanStaticYearView from './AcademicPlanStaticYearView';
 
-interface IAcademicPlanStaticViewerProps {
-  plan: IAcademicPlan;
+interface AcademicPlanStaticViewerProps {
+  plan: AcademicPlan;
   takenSlugs: string[];
 }
 
-const AcademicPlanStaticViewer: React.FC<IAcademicPlanStaticViewerProps> = ({ plan, takenSlugs }) => {
+const AcademicPlanStaticViewer: React.FC<AcademicPlanStaticViewerProps> = ({ plan, takenSlugs }) => {
   const equalWidthGridStyle = { margin: 0 };
   const match = useRouteMatch();
   const fiveYear = (plan.coursesPerAcademicTerm.length % 5) === 0;

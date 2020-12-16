@@ -4,7 +4,7 @@ import { AutoForm, AutoFields, SubmitField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import BaseCollection from '../../../../api/base/BaseCollection';
 
-interface IAdminDataModelUpdateFormProps {
+interface AdminDataModelUpdateFormProps {
   collection: BaseCollection;
   id: string;
   formRef: React.RefObject<unknown>;
@@ -13,7 +13,7 @@ interface IAdminDataModelUpdateFormProps {
   itemTitleString: (item) => React.ReactNode;
 }
 
-const AdminDataModelUpdateForm: React.FC<IAdminDataModelUpdateFormProps> = ({ collection, id, formRef, handleCancel, handleUpdate, itemTitleString }) => {
+const AdminDataModelUpdateForm: React.FC<AdminDataModelUpdateFormProps> = ({ collection, id, formRef, handleCancel, handleUpdate, itemTitleString }) => {
   const model = id ? collection.findDoc(id) : undefined;
   return (
     <Segment padded>

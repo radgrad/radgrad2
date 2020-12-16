@@ -16,7 +16,7 @@ import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollect
 import { FavoriteOpportunities } from '../../../api/favorite/FavoriteOpportunityCollection';
 import { PageInterests } from '../../../api/page-tracking/PageInterestCollection';
 
-interface ILoading {
+interface Loading {
   loading: boolean;
   match: {
     isExact: boolean;
@@ -33,7 +33,7 @@ interface ILoading {
 const instanceSubs = new SubsManager({ cacheLimit: 15, expireIn: 30 });
 
 function withInstanceSubscriptions(WrappedComponent) {
-  const InstanceSubscriptions: React.FC<ILoading> = (props) => ((props.loading) ? (
+  const InstanceSubscriptions: React.FC<Loading> = (props) => ((props.loading) ? (
     <React.Fragment>
       <Dimmer active inverted><Loader>Loading user-specific data</Loader></Dimmer>
     </React.Fragment>

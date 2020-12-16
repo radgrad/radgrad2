@@ -7,14 +7,14 @@ import SimpleSchema from 'simpl-schema';
 import _ from 'lodash';
 import { profileToUsername } from '../../../shared/utilities/data-model';
 
-interface IAddAdvisorLogFormProps {
+interface AddAdvisorLogFormProps {
   advisors: Meteor.User[];
   students: Meteor.User[];
   formRef: React.RefObject<unknown>;
   handleAdd: (doc) => any;
 }
 
-const AddAdvisorLogForm: React.FC<IAddAdvisorLogFormProps> = ({ advisors, students, formRef, handleAdd }) => {
+const AddAdvisorLogForm: React.FC<AddAdvisorLogFormProps> = ({ advisors, students, formRef, handleAdd }) => {
   // console.log('AddAdvisorLogForm', props);
   const advisorNames = _.map(advisors, profileToUsername);
   const studentNames = _.map(students, profileToUsername);

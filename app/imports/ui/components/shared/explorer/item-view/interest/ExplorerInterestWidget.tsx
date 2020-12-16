@@ -3,7 +3,7 @@ import { useRouteMatch } from 'react-router-dom';
 import { Header, Grid, Divider, Segment, SegmentGroup } from 'semantic-ui-react';
 import Markdown from 'react-markdown';
 import _ from 'lodash';
-import { ICourse, IInterest, IOpportunity, IProfile } from '../../../../../../typings/radgrad';
+import { Course, Interest, Opportunity, Profile } from '../../../../../../typings/radgrad';
 import { CourseInstances } from '../../../../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../../../../api/opportunity/OpportunityInstanceCollection';
 import InterestedProfilesWidget from './InterestedProfilesWidget';
@@ -15,18 +15,18 @@ import { FAVORITE_TYPE } from '../../../../../../api/favorite/FavoriteTypes';
 import TeaserVideo from '../../../TeaserVideo';
 import { FavoriteInterests } from '../../../../../../api/favorite/FavoriteInterestCollection';
 
-interface IExplorerInterestsWidgetProps {
-  profile: IProfile;
-  interest: IInterest;
-  opportunities: IOpportunity[];
-  courses: ICourse[];
+interface xplorerInterestsWidgetProps {
+  profile: Profile;
+  interest: Interest;
+  opportunities: Opportunity[];
+  courses: Course[];
 }
 
 const getObjectsThatHaveInterest = (objects, interestID: string) => _.filter(objects, (obj) => _.includes(obj.interestIDs, interestID));
 
-const getRelatedCourses = (courses: ICourse[], interestID: string) => getObjectsThatHaveInterest(courses, interestID);
+const getRelatedCourses = (courses: Course[], interestID: string) => getObjectsThatHaveInterest(courses, interestID);
 
-const getAssociationRelatedCourses = (courses: ICourse[], studentID: string) => {
+const getAssociationRelatedCourses = (courses: Course[], studentID: string) => {
   const inPlanInstances = CourseInstances.findNonRetired({
     studentID, verified: false,
   });
@@ -50,9 +50,9 @@ const getAssociationRelatedCourses = (courses: ICourse[], studentID: string) => 
   return relatedCourses;
 };
 
-const getRelatedOpportunities = (opportunities: IOpportunity[], interestID: string) => getObjectsThatHaveInterest(opportunities, interestID);
+const getRelatedOpportunities = (opportunities: Opportunity[], interestID: string) => getObjectsThatHaveInterest(opportunities, interestID);
 
-const getAssociationRelatedOpportunities = (opportunities: IOpportunity[], studentID: string) => {
+const getAssociationRelatedOpportunities = (opportunities: Opportunity[], studentID: string) => {
   const inPlanInstances = OpportunityInstances.find({
     studentID, verified: false,
   }).fetch();
@@ -86,7 +86,7 @@ const getBaseURL = (match) => {
   return temp.join('/');
 };
 
-const ExplorerInterestWidget: React.FC<IExplorerInterestsWidgetProps> = ({ profile, interest, courses, opportunities }) => {
+const ExplorerInterestWidget: React.FC<xplorerInterestsWidgetProps> = ({ profile, interest, courses, opportunities }) => {
   const interestID = interest._id;
   const relatedCourses = getAssociationRelatedCourses(getRelatedCourses(courses, interestID), profile.userID);
   const relatedOpportunities = getAssociationRelatedOpportunities(getRelatedOpportunities(opportunities, interestID), profile.userID);

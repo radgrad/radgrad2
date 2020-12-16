@@ -5,7 +5,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Grid, Header, List, Segment } from 'semantic-ui-react';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import ExplorerMenuBarContainer from '../../components/landing/explorer/LandingExplorerMenuBar';
-import { ICourse, IHelpMessage, IInterest, IOpportunity } from '../../../typings/radgrad';
+import { Course, HelpMessage, Interest, Opportunity } from '../../../typings/radgrad';
 import { Courses } from '../../../api/course/CourseCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
@@ -17,15 +17,15 @@ import * as Router from '../../components/shared/utilities/router';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import { EXPLORER_TYPE } from '../../layouts/utilities/route-constants';
 
-interface IInterestExplorerProps {
+interface InterestExplorerProps {
   currentUser: string;
-  interest: IInterest;
-  courses: ICourse[];
-  opportunities: IOpportunity[];
-  helpMessages: IHelpMessage[];
+  interest: Interest;
+  courses: Course[];
+  opportunities: Opportunity[];
+  helpMessages: HelpMessage[];
 }
 
-const LandingInterestExplorerPage: React.FC<IInterestExplorerProps> = ({ currentUser, opportunities, courses, helpMessages, interest }) => {
+const LandingInterestExplorerPage: React.FC<InterestExplorerProps> = ({ currentUser, opportunities, courses, helpMessages, interest }) => {
   // console.log(interest);
   const match = useRouteMatch();
   return (

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Container } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
-import { IAdvisorOrFacultyProfile, IStudentProfile } from '../../../typings/radgrad';
+import { AdvisorOrFacultyProfile, StudentProfile } from '../../../typings/radgrad';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import RetrieveUserWidget from '../../components/admin/home/RetrieveUserWidget';
 import FilterUserWidget from '../../components/admin/home/FilterUserWidget';
@@ -9,20 +9,20 @@ import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 
-export interface IFilterUsers {
+export interface FilterUsers {
   firstNameRegex?: string;
   lastNameRegex?: string;
   userNameRegex?: string;
 }
 
-interface IAdminHomePageProps {
-  advisors: IAdvisorOrFacultyProfile[];
-  faculty: IAdvisorOrFacultyProfile[];
-  students: IStudentProfile[];
-  alumni: IStudentProfile[];
+interface AdminHomePageProps {
+  advisors: AdvisorOrFacultyProfile[];
+  faculty: AdvisorOrFacultyProfile[];
+  students: StudentProfile[];
+  alumni: StudentProfile[];
 }
 
-const AdminHomePage: React.FC<IAdminHomePageProps> = ({ alumni, students, faculty, advisors }) => {
+const AdminHomePage: React.FC<AdminHomePageProps> = ({ alumni, students, faculty, advisors }) => {
   const [firstNameRegexState, setFirstNameRegex] = useState('');
   const [lastNameRegexState, setLastNameRegex] = useState('');
   const [usernameRegexState, setusernameRegex] = useState('');

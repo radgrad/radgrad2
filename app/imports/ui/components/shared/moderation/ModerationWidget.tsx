@@ -1,12 +1,12 @@
 import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import { Reviews } from '../../../../api/review/ReviewCollection';
-import { IReview } from '../../../../typings/radgrad';
+import { Review } from '../../../../typings/radgrad';
 import ModerationColumnWidget from './ModerationColumnWidget';
 
-export interface IModerationWidget {
-  opportunityReviews: IReview[],
-  courseReviews: IReview[],
+export interface ModerationWidgetProps {
+  opportunityReviews: Review[],
+  courseReviews: Review[],
 }
 
 const handleAcceptReview = (item, comments) => {
@@ -31,7 +31,7 @@ const handleRejectReview = (item, comments) => {
   };
 };
 
-const ModerationWidget: React.FC<IModerationWidget> = ({ courseReviews, opportunityReviews }) => (
+const ModerationWidget: React.FC<ModerationWidgetProps> = ({ courseReviews, opportunityReviews }) => (
   <Grid columns="equal" divided="vertically">
     <Grid.Column>
       <ModerationColumnWidget

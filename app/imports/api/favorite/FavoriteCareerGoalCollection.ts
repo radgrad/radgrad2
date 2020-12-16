@@ -5,7 +5,7 @@ import { ReactiveAggregate } from 'meteor/jcbernack:reactive-aggregate';
 import BaseCollection from '../base/BaseCollection';
 import { CareerGoals } from '../career/CareerGoalCollection';
 import { Users } from '../user/UserCollection';
-import { IFavoriteCareerGoalDefine, IFavoriteUpdate } from '../../typings/radgrad';
+import { FavoriteCareerGoalDefine, FavoriteUpdate } from '../../typings/radgrad';
 import { ROLE } from '../role/Role';
 
 class FavoriteCareerGoalCollection extends BaseCollection {
@@ -34,7 +34,7 @@ class FavoriteCareerGoalCollection extends BaseCollection {
    * @param retired the retired status.
    * @returns {void|*|boolean|{}}
    */
-  define({ careerGoal, username, share = false, retired = false }: IFavoriteCareerGoalDefine) {
+  define({ careerGoal, username, share = false, retired = false }: FavoriteCareerGoalDefine) {
     const careerGoalID = CareerGoals.getID(careerGoal);
     const userID = Users.getID(username);
     const doc = this.collection.findOne({ userID, careerGoalID });
@@ -51,7 +51,7 @@ class FavoriteCareerGoalCollection extends BaseCollection {
    */
   update(docID, { share, retired }: { share?: boolean, retired?: boolean }) {
     this.assertDefined(docID);
-    const updateData: IFavoriteUpdate = {};
+    const updateData: FavoriteUpdate = {};
     if (_.isBoolean(share)) {
       updateData.share = share;
     }
@@ -194,7 +194,7 @@ class FavoriteCareerGoalCollection extends BaseCollection {
    * @param docID The docID of a FavoriteAcademicPlan.
    * @returns { Object } An object representing the definition of docID.
    */
-  dumpOne(docID): IFavoriteCareerGoalDefine {
+  dumpOne(docID): FavoriteCareerGoalDefine {
     const doc = this.findDoc(docID);
     const careerGoal = CareerGoals.findSlugByID(doc.careerGoalID);
     const username = Users.getProfile(doc.userID).username;

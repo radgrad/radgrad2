@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Link, NavLink, useParams } from 'react-router-dom';
 import _ from 'lodash';
+import { Link, NavLink, useParams } from 'react-router-dom';
 import { Grid, Header, Label, Icon, Form, Segment } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import { Users } from '../../../../api/user/UserCollection';
@@ -8,17 +8,17 @@ import { Interests } from '../../../../api/interest/InterestCollection';
 import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
 import { openCloudinaryWidget } from '../../shared/OpenCloudinaryWidget';
 import { updateMethod } from '../../../../api/base/BaseCollection.methods';
-import { IAdvisorOrFacultyProfile, IFavoriteCareerGoal, IFavoriteInterest } from '../../../../typings/radgrad';
+import { AdvisorOrFacultyProfile, FavoriteCareerGoal, FavoriteInterest } from '../../../../typings/radgrad';
 import { AdvisorProfiles } from '../../../../api/user/AdvisorProfileCollection';
 
-interface IFacultyPageAboutMeWidgetProps {
-  profile: IAdvisorOrFacultyProfile;
-  favoriteInterests: IFavoriteInterest[];
-  favoriteCareerGoals: IFavoriteCareerGoal[];
+interface FacultyPageAboutMeWidgetProps {
+  profile: AdvisorOrFacultyProfile;
+  favoriteInterests: FavoriteInterest[];
+  favoriteCareerGoals: FavoriteCareerGoal[];
 }
 
 /** The Faculty About Me Widget shows basic information of the specified user. */
-const FacultyAboutMeWidget: React.FC<IFacultyPageAboutMeWidgetProps> = ({ profile, favoriteCareerGoals, favoriteInterests }) => {
+const FacultyAboutMeWidget: React.FC<FacultyPageAboutMeWidgetProps> = ({ profile, favoriteCareerGoals, favoriteInterests }) => {
   const [websiteState, setWebsite] = useState(profile.website);
   const [pictureState, setPicture] = useState(profile.picture);
   const [aboutMeState, setAboutMe] = useState(profile.aboutMe);

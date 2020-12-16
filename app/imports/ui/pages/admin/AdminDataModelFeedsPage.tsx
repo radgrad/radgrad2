@@ -22,16 +22,16 @@ import { Teasers } from '../../../api/teaser/TeaserCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import AdminDataModelMenu, { IAdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
+import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import {
-  IAcademicTerm,
-  ICourse,
-  IDescriptionPair,
+  AcademicTerm,
+  Course,
+  DescriptionPair,
   IFeed,
-  IFeedDefine,
-  IOpportunity,
-  IStudentProfile,
+  FeedDefine,
+  Opportunity,
+  StudentProfile,
 } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Feeds } from '../../../api/feed/FeedCollection';
@@ -54,21 +54,21 @@ import withInstanceSubscriptions from '../../layouts/utilities/InstanceSubscript
 
 const collection = Feeds; // the collection to use.
 
-interface IAdminDataModelFeedsPageProps extends IAdminDataModeMenuProps {
+interface AdminDataModelFeedsPageProps extends AdminDataModeMenuProps {
   isCloudinaryUsed: boolean;
   cloudinaryUrl: string;
   items: IFeed[];
-  academicTerms: IAcademicTerm[];
-  courses: ICourse[];
-  opportunities: IOpportunity[];
-  students: IStudentProfile[];
+  academicTerms: AcademicTerm[];
+  courses: Course[];
+  opportunities: Opportunity[];
+  students: StudentProfile[];
 }
 
 /**
  * Returns an array of Description pairs used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const descriptionPairs = (item: IFeed): IDescriptionPair[] => {
+const descriptionPairs = (item: IFeed): DescriptionPair[] => {
   const users = [];
   _.forEach(item.userIDs, (id) => {
     users.push(Users.getFullName(id));
@@ -125,7 +125,7 @@ const mapStateToProps = (state: RootState): unknown => ({
   cloudinaryUrl: state.shared.cloudinary.adminDataModelFeeds.cloudinaryUrl,
 });
 
-const AdminDataModelFeedsPage: React.FC<IAdminDataModelFeedsPageProps> = (props) => {
+const AdminDataModelFeedsPage: React.FC<AdminDataModelFeedsPageProps> = (props) => {
   // TODO deconstruct props
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
@@ -135,7 +135,7 @@ const AdminDataModelFeedsPage: React.FC<IAdminDataModelFeedsPageProps> = (props)
   const handleAdd = (doc) => {
     // console.log('Feeds.handleAdd(%o)', doc);
     const collectionName = collection.getCollectionName();
-    const definitionData: IFeedDefine = doc; // create the definitionData may need to modify doc's values
+    const definitionData: FeedDefine = doc; // create the definitionData may need to modify doc's values
     definitionData.feedType = doc.feedType;
     switch (doc.feedType) {
       case Feeds.NEW_USER:

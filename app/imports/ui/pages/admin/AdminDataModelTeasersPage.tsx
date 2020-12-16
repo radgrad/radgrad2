@@ -22,13 +22,13 @@ import { Reviews } from '../../../api/review/ReviewCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import AdminDataModelMenu, { IAdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
+import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import {
-  ICareerGoal, ICourse,
-  IDescriptionPair, IInterest, IOpportunity,
-  ITeaser,
+  CareerGoal, Course,
+  DescriptionPair, Interest, Opportunity,
+  Teaser,
 } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
@@ -51,7 +51,7 @@ const collection = Teasers; // the collection to use.
  * Returns an array of Description pairs used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const descriptionPairs = (item: ITeaser): IDescriptionPair[] => [
+const descriptionPairs = (item: Teaser): DescriptionPair[] => [
   { label: 'Description', value: item.description },
   { label: 'Author', value: item.author },
   { label: 'Duration', value: item.duration },
@@ -65,7 +65,7 @@ const descriptionPairs = (item: ITeaser): IDescriptionPair[] => [
  * Returns the title string for the item. Used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const itemTitleString = (item: ITeaser): string => {
+const itemTitleString = (item: Teaser): string => {
   const slugName = itemToSlugName(item);
   const title = `${item.title} (${slugName})`;
   return title;
@@ -75,7 +75,7 @@ const itemTitleString = (item: ITeaser): string => {
  * Returns the ReactNode used in the ListCollectionWidget. By default we indicate if the item is retired.
  * @param item an item from the collection.
  */
-const itemTitle = (item: ITeaser): React.ReactNode => (
+const itemTitle = (item: Teaser): React.ReactNode => (
   <React.Fragment>
     {item.retired ? <Icon name="eye slash" /> : ''}
     <Icon name="dropdown" />
@@ -83,16 +83,16 @@ const itemTitle = (item: ITeaser): React.ReactNode => (
   </React.Fragment>
 );
 
-interface IAdminDataModelTeasersPageProps extends IAdminDataModeMenuProps {
-  items: ITeaser[];
-  careerGoals: ICareerGoal[];
-  courses: ICourse[];
-  interests: IInterest[];
-  opportunities: IOpportunity[];
+interface AdminDataModelTeasersPageProps extends AdminDataModeMenuProps {
+  items: Teaser[];
+  careerGoals: CareerGoal[];
+  courses: Course[];
+  interests: Interest[];
+  opportunities: Opportunity[];
 }
 
 // TODO deconstruct props
-const AdminDataModelTeasersPage: React.FC<IAdminDataModelTeasersPageProps> = (props) => {
+const AdminDataModelTeasersPage: React.FC<AdminDataModelTeasersPageProps> = (props) => {
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');

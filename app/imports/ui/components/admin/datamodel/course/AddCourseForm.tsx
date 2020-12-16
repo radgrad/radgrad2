@@ -5,17 +5,17 @@ import { AutoForm, TextField, NumField, LongTextField, SubmitField } from 'unifo
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
-import { ICourse, IInterest } from '../../../../../typings/radgrad';
+import { Course, Interest } from '../../../../../typings/radgrad';
 import { courseToName, docToName } from '../../../shared/utilities/data-model';
 
-interface IAddCourseFormProps {
-  interests: IInterest[];
-  courses: ICourse[];
+interface AddCourseFormProps {
+  interests: Interest[];
+  courses: Course[];
   formRef: React.RefObject<unknown>;
   handleAdd: (doc) => any;
 }
 
-const AddCourseForm: React.FC<IAddCourseFormProps> = ({ interests, courses, formRef, handleAdd }) => {
+const AddCourseForm: React.FC<AddCourseFormProps> = ({ interests, courses, formRef, handleAdd }) => {
   const interestNames = _.map(interests, docToName);
   const courseNames = _.map(courses, courseToName);
   const schema = new SimpleSchema({

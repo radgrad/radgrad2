@@ -4,11 +4,11 @@ import { useRouteMatch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {
   getAllUrlParamsByLocationObject, getUsername,
-  ILocationProps,
+  LocationProps,
 } from '../../components/shared/utilities/router';
 import { RootState } from '../../../redux/types';
 import { Slugs } from '../../../api/slug/SlugCollection';
-import { IPageInterestDefine } from '../../../typings/radgrad';
+import { PageInterestDefine } from '../../../typings/radgrad';
 import { UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
 import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
 import { EXPLORER_TYPE } from './route-constants';
@@ -19,12 +19,12 @@ import {
 import { pageInterestDefineMethod } from '../../../api/page-tracking/PageInterestCollection.methods';
 import { calculateEngagedInterestTime, isValidParameter } from '../../components/shared/page-tracking/utilities/page-tracking';
 
-interface IPageTrackerProps {
+interface PageTrackerProps {
   history: {
     listen: (...args) => any;
   };
   router: {
-    location: ILocationProps;
+    location: LocationProps;
     action: string;
   };
 }
@@ -42,7 +42,7 @@ function usePreviousProps(value) {
 }
 
 function withPageTracker(WrappedComponent) {
-  const PageTracker: React.FC<IPageTrackerProps> = (props) => {
+  const PageTracker: React.FC<PageTrackerProps> = (props) => {
     const prevProps = usePreviousProps(props);
     const match = useRouteMatch();
     const { router } = props;
@@ -94,7 +94,7 @@ function withPageTracker(WrappedComponent) {
               break;
           }
           const engagedInterestTime = calculateEngagedInterestTime(urlSlug);
-          const pageInterestData: IPageInterestDefine = { username, category, name: urlSlug };
+          const pageInterestData: PageInterestDefine = { username, category, name: urlSlug };
           timeoutHandle = Meteor.setTimeout(() => {
             pageInterestDefineMethod.call(pageInterestData, (pageInterestError) => {
               if (pageInterestError) {
@@ -136,7 +136,7 @@ export default withPageTracker;
 //       }
 //     };
 //     router: {
-//       location: ILocationProps;
+//       location: LocationProps;
 //       action: string;
 //     };
 //   }
@@ -192,11 +192,11 @@ export default withPageTracker;
 //               category = PageInterestsCategoryTypes.OPPORTUNITY;
 //               break;
 //           }
-//           const pageInterest: IPageInterest = PageInterests.findOne({ name: urlSlug });
+//           const pageInterest: PageInterest = PageInterests.findOne({ name: urlSlug });
 //           // Only define a PageInterest if there hasn't been one defined for the past 24 hours.
 //           if (!pageInterest) {
 //             const engagedInterestTime = calculateEngagedInterestTime(urlSlug);
-//             const pageInterestData: IPageInterestDefine = { username, category, name: urlSlug };
+//             const pageInterestData: PageInterestDefine = { username, category, name: urlSlug };
 //             this.timeoutHandle = Meteor.setTimeout(() => {
 //               pageInterestDefineMethod.call(pageInterestData, (pageInterestError) => {
 //                 if (pageInterestError) {

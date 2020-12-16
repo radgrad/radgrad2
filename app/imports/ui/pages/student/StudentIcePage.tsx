@@ -7,23 +7,23 @@ import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import StudentIceWidget from '../../components/student/ice/StudentIceWidget';
-import { Ice, ICourseInstance, IFavoriteInterest, IHelpMessage, IOpportunityInstance } from '../../../typings/radgrad';
+import { Ice, CourseInstance, FavoriteInterest, HelpMessage, OpportunityInstance } from '../../../typings/radgrad';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 
-interface IStudentIcePageProps {
-  helpMessages: IHelpMessage[];
+interface StudentIcePageProps {
+  helpMessages: HelpMessage[];
   earnedICE: Ice;
   projectedICE: Ice;
-  favoriteInterests: IFavoriteInterest[];
-  courseInstances: ICourseInstance[];
-  opportunityInstances: IOpportunityInstance[];
+  favoriteInterests: FavoriteInterest[];
+  courseInstances: CourseInstance[];
+  opportunityInstances: OpportunityInstance[];
 }
 
-const StudentIcePage: React.FC<IStudentIcePageProps> = ({ helpMessages, earnedICE, projectedICE,
+const StudentIcePage: React.FC<StudentIcePageProps> = ({ helpMessages, earnedICE, projectedICE,
   favoriteInterests, courseInstances, opportunityInstances }) => (
     <div id="student-ice-points-page">
       <StudentPageMenuWidget />
@@ -55,9 +55,9 @@ const StudentHomeIcePageContainer = withTracker(() => {
   const earnedICE: Ice = StudentProfiles.getEarnedICE(username);
   const projectedICE: Ice = StudentProfiles.getProjectedICE(username);
   const helpMessages = HelpMessages.findNonRetired({});
-  const favoriteInterests: IFavoriteInterest[] = FavoriteInterests.findNonRetired({ userID: studentID });
-  const courseInstances: ICourseInstance[] = CourseInstances.findNonRetired({ studentID });
-  const opportunityInstances: IOpportunityInstance[] = OpportunityInstances.findNonRetired({ studentID });
+  const favoriteInterests: FavoriteInterest[] = FavoriteInterests.findNonRetired({ userID: studentID });
+  const courseInstances: CourseInstance[] = CourseInstances.findNonRetired({ studentID });
+  const opportunityInstances: OpportunityInstance[] = OpportunityInstances.findNonRetired({ studentID });
   return {
     helpMessages,
     earnedICE,

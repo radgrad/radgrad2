@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import * as _ from 'lodash';
 import { Container, Tab, Table } from 'semantic-ui-react';
 import { RootState } from '../../../../../redux/types';
-import { IAdminAnalyticsOverheadAnalysisData } from '../../../../../redux/admin/analytics/reducers';
-import { IUserInteraction } from '../../../../../typings/radgrad';
+import { AdminAnalyticsOverheadAnalysisData } from '../../../../../redux/admin/analytics/reducers';
+import { UserInteraction } from '../../../../../typings/radgrad';
 import UserSessionOverheadModal from './UserSessionOverheadModal';
 
-interface IUserSessionOverheadWidgetProps {
-  overheadData: IAdminAnalyticsOverheadAnalysisData[];
-  userInteractions: { [username: string]: IUserInteraction[] };
+interface UserSessionOverheadWidgetProps {
+  overheadData: AdminAnalyticsOverheadAnalysisData[];
+  userInteractions: { [username: string]: UserInteraction[] };
 }
 
 const mapStateToProps = (state: RootState): { [key: string]: any } => ({
@@ -19,8 +19,8 @@ const mapStateToProps = (state: RootState): { [key: string]: any } => ({
 
 type TableColumns = 'username' | 'sessions' | 'num-docs' | 'docs-per-min' | 'total-time';
 
-const UserSessionOverheadWidget: React.FC<IUserSessionOverheadWidgetProps> = ({ overheadData, userInteractions }) => {
-  const [data, setData] = useState<IAdminAnalyticsOverheadAnalysisData[]>(overheadData);
+const UserSessionOverheadWidget: React.FC<UserSessionOverheadWidgetProps> = ({ overheadData, userInteractions }) => {
+  const [data, setData] = useState<AdminAnalyticsOverheadAnalysisData[]>(overheadData);
   const [column, setColumn] = useState<TableColumns>(undefined);
   const [direction, setDirection] = useState<'ascending' | 'descending'>(undefined);
 

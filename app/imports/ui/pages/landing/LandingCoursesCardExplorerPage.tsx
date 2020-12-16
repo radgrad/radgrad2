@@ -4,20 +4,20 @@ import { Card, Grid, Header, Segment } from 'semantic-ui-react';
 import { Courses } from '../../../api/course/CourseCollection';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import ExplorerMenuBarContainer from '../../components/landing/explorer/LandingExplorerMenuBar';
-import { ICourse, IHelpMessage } from '../../../typings/radgrad';
+import { Course, HelpMessage } from '../../../typings/radgrad';
 import LandingExplorerCardContainer from '../../components/landing/explorer/LandingExplorerCard';
 import LandingExplorerMenuContainer from '../../components/landing/explorer/LandingExplorerMenu';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import { withListSubscriptions } from '../../layouts/utilities/SubscriptionListHOC';
 
-interface ICoursesCardExplorerProps {
-  courses: ICourse[];
+interface CoursesCardExplorerProps {
+  courses: Course[];
   count: number;
-  helpMessages: IHelpMessage[];
+  helpMessages: HelpMessage[];
 }
 
-const LandingCoursesCardExplorerPage: React.FC<ICoursesCardExplorerProps> = ({ courses, count, helpMessages }) => {
+const LandingCoursesCardExplorerPage: React.FC<CoursesCardExplorerProps> = ({ courses, count, helpMessages }) => {
   const inlineStyle = {
     maxHeight: 750,
     marginTop: 10,

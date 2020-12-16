@@ -2,11 +2,11 @@ import React from 'react';
 import { Grid, Header, Button } from 'semantic-ui-react';
 import styles from '../../../pages/landing/utilities/guidedtour-style';
 
-interface IInterestsProps {
+interface InterestsProps {
   interests: number;
 }
 
-const GuidedTourStudentInterests: React.FC<IInterestsProps> = ({ interests }) => (
+const GuidedTourStudentInterests: React.FC<InterestsProps> = ({ interests }) => (
   <div>
     <Grid container columns={2}>
       <Grid.Column width={1} />

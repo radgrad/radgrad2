@@ -1,22 +1,22 @@
 import * as TYPES from './types';
 
-export interface ICardExplorersPaginationState {
+export interface CardExplorersPaginationState {
   showIndex: number;
 }
 
-interface IState {
+interface State {
   courses: {
     filterValue: string;
   }
   pagination: {
-    Opportunities: ICardExplorersPaginationState;
+    Opportunities: CardExplorersPaginationState;
   }
   opportunities: {
     sortValue: string;
   }
 }
 
-const initialState: IState = {
+const initialState: State = {
   courses: {
     filterValue: 'All',
   },
@@ -30,8 +30,8 @@ const initialState: IState = {
   },
 };
 
-function reducer(state: IState = initialState, action): IState {
-  let s: IState;
+function reducer(state: State = initialState, action): State {
+  let s: State;
   const paginationState = state.pagination;
   switch (action.type) {
     case TYPES.SET_OPPORTUNITIES_SHOW_INDEX:

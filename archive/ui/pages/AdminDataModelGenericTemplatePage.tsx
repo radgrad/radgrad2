@@ -6,7 +6,7 @@ import AdminDataModelMenu from '../../../app/imports/ui/components/admin/datamod
 import ListCollectionWidget from '../../../app/imports/ui/components/admin/datamodel/ListCollectionWidget';
 import AdminDataModelUpdateForm from '../../../app/imports/ui/components/admin/datamodel/AdminDataModelUpdateForm'; // this should be replaced by specific UpdateForm
 import AdminDataModelAddForm from '../../../app/imports/ui/components/admin/datamodel/AdminDataModelAddForm'; // this should be replaced by specific AddForm
-import { IDescriptionPair } from '../../../app/imports/typings/radgrad';
+import { DescriptionPair } from '../../../app/imports/typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../app/imports/api/base/BaseCollection.methods';
 import BackToTopButton from '../../../app/imports/ui/components/shared/BackToTopButton';
 import { dataModelActions } from '../../../app/imports/redux/admin/data-model';
@@ -17,7 +17,7 @@ const collection = null; // the collection to use.
  * Returns an array of Description pairs used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const descriptionPairs = (item: any): IDescriptionPair[] => [
+const descriptionPairs = (item: any): DescriptionPair[] => [
   { label: 'Retired', value: item.retired ? 'True' : 'False' },
 ];
 

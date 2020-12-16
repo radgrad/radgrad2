@@ -2,7 +2,7 @@ import React from 'react';
 import { List } from 'semantic-ui-react';
 import _ from 'lodash';
 import { Link, useRouteMatch } from 'react-router-dom';
-import { IAcademicTerm, IAcademicYearInstance, Ice, ICourseInstance, IOpportunityInstance } from '../../../../typings/radgrad';
+import { AcademicTerm, AcademicYearInstance, Ice, CourseInstance, OpportunityInstance } from '../../../../typings/radgrad';
 import { buildRouteName, getUserIdFromRoute } from '../../shared/utilities/router';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import { AcademicYearInstances } from '../../../../api/degree-plan/AcademicYearInstanceCollection';
@@ -10,7 +10,7 @@ import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollect
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
 import { Courses } from '../../../../api/course/CourseCollection';
 
-interface IStudentIceColumnUnverifiedProps {
+interface StudentIceColumnUnverifiedProps {
   type: 'Innovation' | 'Competency' | 'Experience';
   earnedICEPoints: number;
   projectedICEPoints: number;
@@ -19,16 +19,16 @@ interface IStudentIceColumnUnverifiedProps {
   icePoints: (ice: Ice) => number;
   getCourseSlug: (course) => string;
   getOpportunitySlug: (opportunity) => string;
-  courseInstances: ICourseInstance[];
-  opportunityInstances: IOpportunityInstance[];
+  courseInstances: CourseInstance[];
+  opportunityInstances: OpportunityInstance[];
 }
 
-const years = (props: IStudentIceColumnUnverifiedProps, match): IAcademicYearInstance[] => {
+const years = (props: StudentIceColumnUnverifiedProps, match): AcademicYearInstance[] => {
   const studentID = getUserIdFromRoute(match);
   return AcademicYearInstances.findNonRetired({ studentID }, { sort: { year: 1 } });
 };
 
-const academicTerms = (year: IAcademicYearInstance): IAcademicTerm[] => {
+const academicTerms = (year: AcademicYearInstance): AcademicTerm[] => {
   const yearTerms = [];
   const termIDs = year.termIDs;
   _.forEach(termIDs, (termID) => {
@@ -37,7 +37,7 @@ const academicTerms = (year: IAcademicYearInstance): IAcademicTerm[] => {
   return yearTerms;
 };
 
-const getEventsHelper = (iceType: string, type: string, earned: boolean, term: IAcademicTerm, props: IStudentIceColumnUnverifiedProps, match): (IOpportunityInstance | ICourseInstance)[] => {
+const getEventsHelper = (iceType: string, type: string, earned: boolean, term: AcademicTerm, props: StudentIceColumnUnverifiedProps, match): (OpportunityInstance | CourseInstance)[] => {
   if (getUserIdFromRoute(match)) {
     let allInstances: any[];
     const iceInstances = [];
@@ -66,7 +66,7 @@ const getEventsHelper = (iceType: string, type: string, earned: boolean, term: I
   return null;
 };
 
-const hasEvents = (earned: boolean, term: IAcademicTerm, props: IStudentIceColumnUnverifiedProps, match): boolean => {
+const hasEvents = (earned: boolean, term: AcademicTerm, props: StudentIceColumnUnverifiedProps, match): boolean => {
   let ret = false;
   if ((getEventsHelper(props.type, 'course', earned, term, props, match).length > 0) ||
     (getEventsHelper(props.type, 'opportunity', earned, term, props, match).length > 0)) {
@@ -75,21 +75,21 @@ const hasEvents = (earned: boolean, term: IAcademicTerm, props: IStudentIceColum
   return ret;
 };
 
-const printTerm = (term: IAcademicTerm): string => AcademicTerms.toString(term._id, false);
+const printTerm = (term: AcademicTerm): string => AcademicTerms.toString(term._id, false);
 
-const getEvents = (type: string, earned: boolean, term: IAcademicTerm, props: IStudentIceColumnUnverifiedProps, match): (IOpportunityInstance | ICourseInstance)[] => getEventsHelper(props.type, type, earned, term, props, match);
+const getEvents = (type: string, earned: boolean, term: AcademicTerm, props: StudentIceColumnUnverifiedProps, match): (OpportunityInstance | CourseInstance)[] => getEventsHelper(props.type, type, earned, term, props, match);
 
-const opportunityName = (opportunityInstance: IOpportunityInstance): string => {
+const opportunityName = (opportunityInstance: OpportunityInstance): string => {
   const opportunity = Opportunities.findDoc(opportunityInstance.opportunityID);
   return opportunity.name;
 };
 
-const courseName = (courseInstance: ICourseInstance): string => {
+const courseName = (courseInstance: CourseInstance): string => {
   const course = Courses.findDoc(courseInstance.courseID);
   return course.shortName;
 };
 
-const StudentIceColumnUnverified: React.FC<IStudentIceColumnUnverifiedProps> = (props) => {
+const StudentIceColumnUnverified: React.FC<StudentIceColumnUnverifiedProps> = (props) => {
   const match = useRouteMatch();
   const { type, earnedICEPoints, projectedICEPoints, matchingPoints, getCourseSlug, getOpportunitySlug, icePoints } = props;
 
@@ -114,10 +114,10 @@ const StudentIceColumnUnverified: React.FC<IStudentIceColumnUnverifiedProps> = (
                         <List.Item>
                           <List.Header>{printTerm(term)}</List.Header>
                           {opportunityEvents.map((event) => {
-                            const opportunitySlug = getOpportunitySlug(event as IOpportunityInstance);
+                            const opportunitySlug = getOpportunitySlug(event as OpportunityInstance);
                             const route = buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${opportunitySlug}`);
                             const points = icePoints(event.ice);
-                            const oName = opportunityName(event as IOpportunityInstance);
+                            const oName = opportunityName(event as OpportunityInstance);
                             return (
                               <Link
                                 key={`${opportunitySlug}-${route}-${points}-${oName}`}
@@ -132,7 +132,7 @@ const StudentIceColumnUnverified: React.FC<IStudentIceColumnUnverifiedProps> = (
                             const courseSlug = getCourseSlug(event);
                             const route = buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${courseSlug}`);
                             const points = icePoints(event.ice);
-                            const cName = courseName(event as ICourseInstance);
+                            const cName = courseName(event as CourseInstance);
                             return (
                               <Link
                                 key={`${courseSlug}-${route}-${points}-${cName}`}

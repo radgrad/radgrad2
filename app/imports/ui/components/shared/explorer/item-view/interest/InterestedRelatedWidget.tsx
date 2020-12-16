@@ -7,14 +7,14 @@ import { Slugs } from '../../../../../../api/slug/SlugCollection';
 import { Opportunities } from '../../../../../../api/opportunity/OpportunityCollection';
 import { EXPLORER_TYPE } from '../../../../../layouts/utilities/route-constants';
 
-interface IInterestedRelatedWidgetProps {
+interface InterestedRelatedWidgetProps {
   relatedCourses: any; // TODO we should type this.
   relatedOpportunities: any;
   isStudent: boolean;
   baseURL: string;
 }
 
-const InterestedRelatedWidget: React.FC<IInterestedRelatedWidgetProps> = ({ relatedCourses, baseURL, isStudent, relatedOpportunities }) => (
+const InterestedRelatedWidget: React.FC<InterestedRelatedWidgetProps> = ({ relatedCourses, baseURL, isStudent, relatedOpportunities }) => (
   <div>
     <Segment>
       <Header dividing>RELATED COURSES</Header>

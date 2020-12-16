@@ -4,12 +4,12 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Container, Grid } from 'semantic-ui-react';
 import _ from 'lodash';
 import {
-  ICareerGoal,
-  IDescriptionPair,
-  IFavoriteCareerGoal,
-  IHelpMessage,
-  IProfile,
-  ISocialPair,
+  CareerGoal,
+  DescriptionPair,
+  FavoriteCareerGoal,
+  HelpMessage,
+  Profile,
+  SocialPair,
 } from '../../../../typings/radgrad';
 import { getMenuWidget } from '../utilities/getMenuWidget';
 import { HelpMessages } from '../../../../api/help/HelpMessageCollection';
@@ -26,13 +26,13 @@ import { ROLE } from '../../../../api/role/Role';
 import { profileGetCareerGoalIDs } from '../../../components/shared/utilities/data-model';
 import { defaultProfilePicture } from '../../../../api/user/BaseProfileCollection';
 
-interface ICareerGoalViewPageProps {
-  favoriteCareerGoals: IFavoriteCareerGoal[];
-  careerGoal: ICareerGoal;
-  helpMessages: IHelpMessage[];
+interface CareerGoalViewPageProps {
+  favoriteCareerGoals: FavoriteCareerGoal[];
+  careerGoal: CareerGoal;
+  helpMessages: HelpMessage[];
 }
 
-const interestedUsersCareerGoals = (theCareerGoal: ICareerGoal, role: string): IProfile[] => {
+const interestedUsersCareerGoals = (theCareerGoal: CareerGoal, role: string): Profile[] => {
   let interested = [];
   const profiles = Users.findProfilesWithRole(role, {}, {});
   profiles.forEach((profile) => {
@@ -48,11 +48,11 @@ const interestedUsersCareerGoals = (theCareerGoal: ICareerGoal, role: string): I
   return interested;
 };
 
-const numUsersCareerGoals = (theCareerGoal: ICareerGoal, role: string): number => interestedUsersCareerGoals(theCareerGoal, role).length;
+const numUsersCareerGoals = (theCareerGoal: CareerGoal, role: string): number => interestedUsersCareerGoals(theCareerGoal, role).length;
 
-const numStudentsCareerGoals = (theCareerGoal: ICareerGoal): number => FavoriteCareerGoals.findNonRetired({ careerGoalID: theCareerGoal._id }).length;
+const numStudentsCareerGoals = (theCareerGoal: CareerGoal): number => FavoriteCareerGoals.findNonRetired({ careerGoalID: theCareerGoal._id }).length;
 
-const socialPairsCareerGoals = (theCareerGoal: ICareerGoal): ISocialPair[] => [
+const socialPairsCareerGoals = (theCareerGoal: CareerGoal): SocialPair[] => [
   {
     label: 'students', amount: numStudentsCareerGoals(theCareerGoal),
     value: interestedUsersCareerGoals(theCareerGoal, ROLE.STUDENT),
@@ -68,12 +68,12 @@ const socialPairsCareerGoals = (theCareerGoal: ICareerGoal): ISocialPair[] => [
   },
 ];
 
-const CareerGoalViewPage: React.FC<ICareerGoalViewPageProps> = ({ careerGoal, favoriteCareerGoals, helpMessages }) => {
+const CareerGoalViewPage: React.FC<CareerGoalViewPageProps> = ({ careerGoal, favoriteCareerGoals, helpMessages }) => {
   const match = useRouteMatch();
   const menuAddedList = _.map(favoriteCareerGoals, (f) => ({
     item: CareerGoals.findDoc(f.careerGoalID), count: 1,
   }));
-  const descriptionPairs: IDescriptionPair[] = [
+  const descriptionPairs: DescriptionPair[] = [
     { label: 'Description', value: careerGoal.description },
     { label: 'Interests', value: _.sortBy(Interests.findNames(careerGoal.interestIDs)) },
     { label: 'Teaser', value: teaser(careerGoal) },

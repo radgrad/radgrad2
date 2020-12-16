@@ -5,7 +5,7 @@ import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import BaseCollection from '../../../../../api/base/BaseCollection';
 import { InterestTypes } from '../../../../../api/interest/InterestTypeCollection';
 
-interface IUpdateInterestTypeFormProps {
+interface UpdateInterestTypeFormProps {
   collection: BaseCollection;
   id: string;
   formRef: React.RefObject<unknown>;
@@ -14,7 +14,7 @@ interface IUpdateInterestTypeFormProps {
   itemTitleString: (item) => React.ReactNode;
 }
 
-const UpdateInterestTypeForm: React.FC<IUpdateInterestTypeFormProps> = ({ collection, id, formRef, handleUpdate, handleCancel, itemTitleString }) => {
+const UpdateInterestTypeForm: React.FC<UpdateInterestTypeFormProps> = ({ collection, id, formRef, handleUpdate, handleCancel, itemTitleString }) => {
   const model = collection.findDoc(id);
   return (
     <Segment padded>

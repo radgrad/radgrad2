@@ -21,12 +21,12 @@ import { Reviews } from '../../../api/review/ReviewCollection';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import AdminDataModelMenu, { IAdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
+import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { Users } from '../../../api/user/UserCollection';
 import {
-  ICareerGoal, ICareerGoalUpdate,
-  IDescriptionPair, IInterest,
+  CareerGoal, CareerGoalUpdate,
+  DescriptionPair, Interest,
 } from '../../../typings/radgrad';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
@@ -49,15 +49,15 @@ function numReferences(careerGoal) {
   return references;
 }
 
-const descriptionPairs = (careerGoal: ICareerGoal): IDescriptionPair[] => [
+const descriptionPairs = (careerGoal: CareerGoal): DescriptionPair[] => [
   { label: 'Description', value: careerGoal.description },
   { label: 'Interests', value: _.sortBy(Interests.findNames(careerGoal.interestIDs)) },
   { label: 'References', value: `Users: ${numReferences(careerGoal)}` },
 ];
 
-const itemTitleString = (careerGoal: ICareerGoal): string => `${careerGoal.name} (${itemToSlugName(careerGoal)})`;
+const itemTitleString = (careerGoal: CareerGoal): string => `${careerGoal.name} (${itemToSlugName(careerGoal)})`;
 
-const itemTitle = (careerGoal: ICareerGoal): React.ReactNode => (
+const itemTitle = (careerGoal: CareerGoal): React.ReactNode => (
   <React.Fragment>
     {careerGoal.retired ? <Icon name="eye slash" /> : ''}
     <Icon name="dropdown" />
@@ -65,12 +65,12 @@ const itemTitle = (careerGoal: ICareerGoal): React.ReactNode => (
   </React.Fragment>
 );
 
-interface IAdminDataModelCareerGoalsPageProps extends IAdminDataModeMenuProps {
-  items: ICareerGoal[];
-  interests: IInterest[];
+interface AdminDataModelCareerGoalsPageProps extends AdminDataModeMenuProps {
+  items: CareerGoal[];
+  interests: Interest[];
 }
 
-const AdminDataModelCareerGoalsPage: React.FC<IAdminDataModelCareerGoalsPageProps> = (props) => {
+const AdminDataModelCareerGoalsPage: React.FC<AdminDataModelCareerGoalsPageProps> = (props) => {
   // TODO deconstruct props
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
@@ -155,7 +155,7 @@ const AdminDataModelCareerGoalsPage: React.FC<IAdminDataModelCareerGoalsPageProp
   const handleUpdate = (doc) => {
     // console.log('handleUpdate(%o) ref=%o', doc, formRef);
     const collectionName = CareerGoals.getCollectionName();
-    const updateData: ICareerGoalUpdate = {};
+    const updateData: CareerGoalUpdate = {};
     updateData.id = doc._id;
     updateData.name = doc.name;
     updateData.description = doc.description;

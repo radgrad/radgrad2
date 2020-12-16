@@ -1,18 +1,18 @@
 import React from 'react';
 import { Segment, Grid, Header } from 'semantic-ui-react';
-import { Ice, ICourseInstance, IFavoriteInterest, IOpportunityInstance } from '../../../../typings/radgrad';
+import { Ice, CourseInstance, FavoriteInterest, OpportunityInstance } from '../../../../typings/radgrad';
 import StudentIceColumn from './StudentIceColumn';
 import PageIceCircle from './PageIceCircle';
 
-export interface IStudentIceWidgetProps {
+export interface StudentIceWidgetProps {
   earnedICE: Ice;
   projectedICE: Ice;
-  favoriteInterests: IFavoriteInterest[];
-  courseInstances: ICourseInstance[];
-  opportunityInstances: IOpportunityInstance[];
+  favoriteInterests: FavoriteInterest[];
+  courseInstances: CourseInstance[];
+  opportunityInstances: OpportunityInstance[];
 }
 
-const StudentIceWidget: React.FC<IStudentIceWidgetProps> = ({ earnedICE, projectedICE, favoriteInterests, courseInstances, opportunityInstances }) => {
+const StudentIceWidget: React.FC<StudentIceWidgetProps> = ({ earnedICE, projectedICE, favoriteInterests, courseInstances, opportunityInstances }) => {
   const innovationColumnStyle = { paddingLeft: 0 };
   const experienceColumnStyle = { paddingRight: 0 };
   const styleInfo: React.CSSProperties = { textAlign: 'left', paddingTop: 10 };

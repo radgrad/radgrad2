@@ -7,17 +7,17 @@ import SimpleSchema from 'simpl-schema';
 import { AutoForm, BoolField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import { getDroppableListStyle } from '../../shared/academic-plan/utilities/styles';
-import { IPlanChoiceDefine } from '../../../../typings/radgrad';
+import { PlanChoiceDefine } from '../../../../typings/radgrad';
 import DraggableCoursePill from '../../shared/academic-plan/DraggableCoursePill';
 import { buildCombineAreaDraggableId, CHOICE_AREA, COMBINE_AREA, DELETE_AREA } from './utilities/academic-plan-builder';
 import { PlanChoices } from '../../../../api/degree-plan/PlanChoiceCollection';
 import { academicPlanActions } from '../../../../redux/advisor/academic-plan';
 import { RootState } from '../../../../redux/types';
 
-interface IAdvisorAPBPlanChoiceWidgetProps {
+interface AdvisorAPBPlanChoiceWidgetProps {
   dispatch: (any) => void;
   showOnlyUnderGraduateChoices: boolean;
-  choices: IPlanChoiceDefine[];
+  choices: PlanChoiceDefine[];
   combineChoice: string;
 }
 
@@ -30,7 +30,7 @@ const handleFilterChange = (dispatch) => ((model) => {
   dispatch(academicPlanActions.setShowOnlyUnderGraduateChoices(model.showOnlyUnderGraduateChoices));
 });
 
-const AdvisorAPBPlanChoiceWidget: React.FC<IAdvisorAPBPlanChoiceWidgetProps> = ({ dispatch, showOnlyUnderGraduateChoices, choices, combineChoice }) => {
+const AdvisorAPBPlanChoiceWidget: React.FC<AdvisorAPBPlanChoiceWidgetProps> = ({ dispatch, showOnlyUnderGraduateChoices, choices, combineChoice }) => {
   const column1 = [];
   const column2 = [];
   const column3 = [];

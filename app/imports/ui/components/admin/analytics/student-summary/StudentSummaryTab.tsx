@@ -2,17 +2,17 @@ import React, { useState } from 'react';
 import { Accordion, Icon, Grid } from 'semantic-ui-react';
 import { StudentProfiles } from '../../../../../api/user/StudentProfileCollection';
 import StudentTimelineModal from './StudentTimelineModal';
-import { IStudentSummaryBehaviorCategory } from './utilities/student-summary';
+import { StudentSummaryBehaviorCategory } from './utilities/student-summary';
 import { IAdminAnalyticsUserInteraction } from '../../../../../redux/admin/analytics/reducers';
 
-interface IStudentSummaryTabProps {
+interface StudentSummaryTabProps {
   startDate: string;
   endDate: string;
-  behaviors: IStudentSummaryBehaviorCategory[];
+  behaviors: StudentSummaryBehaviorCategory[];
   interactionsByUser: IAdminAnalyticsUserInteraction;
 }
 
-const StudentSummaryTab: React.FC<IStudentSummaryTabProps> = ({ startDate, endDate, behaviors, interactionsByUser }) => {
+const StudentSummaryTab: React.FC<StudentSummaryTabProps> = ({ startDate, endDate, behaviors, interactionsByUser }) => {
   const [activeIndex, setActiveIndex] = useState<number>(-1);
 
   const handleClick = (e, titleProps) => {

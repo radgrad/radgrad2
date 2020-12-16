@@ -5,19 +5,19 @@ import { Link, useRouteMatch } from 'react-router-dom';
 import _ from 'lodash';
 import { AutoForm, SelectField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
-import { IAcademicPlan } from '../../../../typings/radgrad';
+import { AcademicPlan } from '../../../../typings/radgrad';
 import { getUsername, buildRouteName } from '../../shared/utilities/router';
 import AcademicPlanViewerWidgetContainer from './AcademicPlanViewerWidget';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 
-interface IFavoriteAcademicPlansWidgetProps {
-  plans: IAcademicPlan[];
+interface FavoriteAcademicPlansWidgetProps {
+  plans: AcademicPlan[];
   takenSlugs: string[];
 }
 
-const getPlan = (planName: string, plans: IAcademicPlan[]) => _.find(plans, (p) => p.name === planName);
+const getPlan = (planName: string, plans: AcademicPlan[]) => _.find(plans, (p) => p.name === planName);
 
-const FavoriteAcademicPlansWidget: React.FC<IFavoriteAcademicPlansWidgetProps> = ({ plans, takenSlugs }) => {
+const FavoriteAcademicPlansWidget: React.FC<FavoriteAcademicPlansWidgetProps> = ({ plans, takenSlugs }) => {
   const match = useRouteMatch();
   let plan;
   if (plans.length > 0) {

@@ -10,10 +10,10 @@ import SummaryStatisticsTabs from './SummaryStatisticsTabs';
 import { behaviorCategories } from './utilities/student-summary';
 import { UserInteractionsTypes } from '../../../../../api/analytic/UserInteractionsTypes';
 import { RootState } from '../../../../../redux/types';
-import { IAdminAnalyticsDateRange, IAdminAnalyticsUserInteraction } from '../../../../../redux/admin/analytics/reducers';
+import { AdminAnalyticsDateRange, IAdminAnalyticsUserInteraction } from '../../../../../redux/admin/analytics/reducers';
 
-interface IAdminAnalyticsStudentSummaryWidgetProps {
-  dateRange: IAdminAnalyticsDateRange;
+interface AdminAnalyticsStudentSummaryWidgetProps {
+  dateRange: AdminAnalyticsDateRange;
   userInteractions: IAdminAnalyticsUserInteraction;
 }
 
@@ -22,7 +22,7 @@ const mapStateToProps = (state: RootState): {[key: string]: any} => ({
   userInteractions: state.admin.analytics.studentSummary.userInteractions,
 });
 
-const dateRangeToString = (dateRange: IAdminAnalyticsDateRange): string | JSX.Element => {
+const dateRangeToString = (dateRange: AdminAnalyticsDateRange): string | JSX.Element => {
   if (dateRange.startDate && dateRange.endDate) {
     const start = moment(dateRange.startDate).format('MM-DD-YYYY');
     const end = moment(dateRange.endDate).format('MM-DD-YYYY');
@@ -31,7 +31,7 @@ const dateRangeToString = (dateRange: IAdminAnalyticsDateRange): string | JSX.El
   return <i>Select a Start date and End date above</i>;
 };
 
-const AdminAnalyticsStudentSummaryWidget: React.FC<IAdminAnalyticsStudentSummaryWidgetProps> = ({ dateRange, userInteractions }) => {
+const AdminAnalyticsStudentSummaryWidget: React.FC<AdminAnalyticsStudentSummaryWidgetProps> = ({ dateRange, userInteractions }) => {
   const interactionsByUser = userInteractions;
 
   _.each(interactionsByUser, function (interactions, user) {

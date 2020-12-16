@@ -4,11 +4,11 @@ import { AutoForm, LongTextField, SubmitField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 
-interface IRequestVerificationFormProps {
+interface RequestVerificationFormProps {
   handleOnModelChange: (model) => any;
 }
 
-const RequestVerificationForm: React.FC<IRequestVerificationFormProps> = ({ handleOnModelChange }) => {
+const RequestVerificationForm: React.FC<RequestVerificationFormProps> = ({ handleOnModelChange }) => {
   const schema = new SimpleSchema({
     documentation: String,
   });

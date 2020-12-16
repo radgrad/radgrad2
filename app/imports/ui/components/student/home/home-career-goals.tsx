@@ -2,11 +2,11 @@ import React from 'react';
 import { Grid, Header, Image } from 'semantic-ui-react';
 import styles from '../../../pages/landing/utilities/guidedtour-style';
 
-interface ICareerPathProps {
+interface CareerPathProps {
   careerGoals: string;
 }
 
-const GuidedTourStudentCareerPath: React.FC<ICareerPathProps> = ({ careerGoals }) => (
+const GuidedTourStudentCareerPath: React.FC<CareerPathProps> = ({ careerGoals }) => (
   <div>
     <Grid container>
       <Grid.Column width={1} />

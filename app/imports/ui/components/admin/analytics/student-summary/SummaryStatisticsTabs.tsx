@@ -3,17 +3,17 @@ import React, { useState } from 'react';
 import { Menu, Segment, Tab } from 'semantic-ui-react';
 import StudentSummaryTab from './StudentSummaryTab';
 import TimelineChartTab from './TimelineChartTab';
-import { IStudentSummaryBehaviorCategory } from './utilities/student-summary';
+import { StudentSummaryBehaviorCategory } from './utilities/student-summary';
 import { IAdminAnalyticsUserInteraction } from '../../../../../redux/admin/analytics/reducers';
 
-interface ISummaryStatisticsTabsProps {
+interface SummaryStatisticsTabsProps {
   startDate?: Date;
   endDate: Date;
-  behaviors: IStudentSummaryBehaviorCategory[];
+  behaviors: StudentSummaryBehaviorCategory[];
   interactionsByUser: IAdminAnalyticsUserInteraction;
 }
 
-const SummaryStatisticsTabs: React.FC<ISummaryStatisticsTabsProps> = ({ startDate, endDate, behaviors, interactionsByUser }) => {
+const SummaryStatisticsTabs: React.FC<SummaryStatisticsTabsProps> = ({ startDate, endDate, behaviors, interactionsByUser }) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const handleClick = (e, titleProps) => {

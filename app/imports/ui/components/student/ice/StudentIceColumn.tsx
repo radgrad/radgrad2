@@ -9,16 +9,16 @@ import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
 import { Slugs } from '../../../../api/slug/SlugCollection';
 import { Courses } from '../../../../api/course/CourseCollection';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
-import { Ice, ICourseInstance, IFavoriteInterest, IOpportunityInstance } from '../../../../typings/radgrad';
+import { Ice, CourseInstance, FavoriteInterest, OpportunityInstance } from '../../../../typings/radgrad';
 
-export interface IStudentIceColumnProps {
+export interface StudentIceColumnProps {
   type: 'Innovation' | 'Competency' | 'Experience';
-  favoriteInterests: IFavoriteInterest[];
-  courseInstances: ICourseInstance[];
-  opportunityInstances: IOpportunityInstance[];
+  favoriteInterests: FavoriteInterest[];
+  courseInstances: CourseInstance[];
+  opportunityInstances: OpportunityInstance[];
 }
 
-const StudentIceColumn: React.FC<IStudentIceColumnProps> = ({ type, favoriteInterests, courseInstances, opportunityInstances }) => {
+const StudentIceColumn: React.FC<StudentIceColumnProps> = ({ type, favoriteInterests, courseInstances, opportunityInstances }) => {
   const match = useRouteMatch();
   const [verifiedColumnOpenState, setVerifiedColumnOpen] = useState(true);
   const [unVerifiedColumnOpenState, setUnVerifiedColumnOpen] = useState(false);

@@ -8,7 +8,7 @@ import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollecti
 import { ROLE } from '../role/Role';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Users } from '../user/UserCollection';
-import { IProcessed, IVerificationRequestDefine, IVerificationRequestUpdate } from '../../typings/radgrad';
+import { Processed, VerificationRequestDefine, VerificationRequestUpdate } from '../../typings/radgrad';
 import { iceSchema } from '../ice/IceProcessor';
 
 /**
@@ -86,7 +86,7 @@ class VerificationRequestCollection extends BaseCollection {
    * or if verified is not a boolean.
    * @returns The newly created docID.
    */
-  public define({ student, opportunityInstance, submittedOn = moment().toDate(), status = this.OPEN, processed = [], academicTerm, opportunity, retired = false }: IVerificationRequestDefine) {
+  public define({ student, opportunityInstance, submittedOn = moment().toDate(), status = this.OPEN, processed = [], academicTerm, opportunity, retired = false }: VerificationRequestDefine) {
     // console.log(student, opportunityInstance, submittedOn, status, processed, academicTerm, opportunity);
     const studentID = Users.getID(student);
     const oppInstance = opportunityInstance ? OpportunityInstances.findDoc(opportunityInstance) :
@@ -107,11 +107,11 @@ class VerificationRequestCollection extends BaseCollection {
    * Updates the VerificationRequest
    * @param docID the docID to update.
    * @param {string} status optional
-   * @param {IProcessed[]} processed optional
+   * @param {Processed[]} processed optional
    * @param {boolean} retired optional
    */
-  public update(docID, { status, processed, retired }: IVerificationRequestUpdate) {
-    const updateData: IVerificationRequestUpdate = { status, processed, retired };
+  public update(docID, { status, processed, retired }: VerificationRequestUpdate) {
+    const updateData: VerificationRequestUpdate = { status, processed, retired };
     this.collection.update(docID, { $set: updateData });
   }
 
@@ -242,7 +242,7 @@ class VerificationRequestCollection extends BaseCollection {
    * @param status The new Status.
    * @param processed The new array of process records.
    */
-  public updateStatus(requestID: string, status: string, processed: IProcessed[]) {
+  public updateStatus(requestID: string, status: string, processed: Processed[]) {
     this.assertDefined(requestID);
     this.collection.update({ _id: requestID }, { $set: { status, processed } });
   }
@@ -317,7 +317,7 @@ class VerificationRequestCollection extends BaseCollection {
    * @param docID The docID of an VerificationRequest.
    * @returns { Object } An object representing the definition of docID.
    */
-  public dumpOne(docID: string): IVerificationRequestDefine {
+  public dumpOne(docID: string): VerificationRequestDefine {
     const doc = this.findDoc(docID);
     const student = Users.getProfile(doc.studentID).username;
     const opportunityInstance = OpportunityInstances.findDoc(doc.opportunityInstanceID);

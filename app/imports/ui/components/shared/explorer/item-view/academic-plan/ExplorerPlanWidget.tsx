@@ -7,7 +7,7 @@ import { CourseInstances } from '../../../../../../api/course/CourseInstanceColl
 import { passedCourse } from '../../../../../../api/degree-plan/AcademicPlanUtilities';
 import { Slugs } from '../../../../../../api/slug/SlugCollection';
 import { Users } from '../../../../../../api/user/UserCollection';
-import { IAcademicPlan } from '../../../../../../typings/radgrad';
+import { AcademicPlan } from '../../../../../../typings/radgrad';
 import AcademicPlanStaticViewer from '../../AcademicPlanStaticViewer';
 import * as Router from '../../../utilities/router';
 import FavoritesButton from '../FavoritesButton';
@@ -16,13 +16,13 @@ import { toId } from '../course/utilities/description-pair';
 import { FAVORITE_TYPE } from '../../../../../../api/favorite/FavoriteTypes';
 import { FavoriteAcademicPlans } from '../../../../../../api/favorite/FavoriteAcademicPlanCollection';
 
-interface IExplorerPlansWidgetProps {
+interface ExplorerPlansWidgetProps {
   name: string;
   descriptionPairs: any[];
-  item: IAcademicPlan;
+  item: AcademicPlan;
 }
 
-const ExplorerPlanWidget: React.FC<IExplorerPlansWidgetProps> = ({ name, descriptionPairs, item }) => {
+const ExplorerPlanWidget: React.FC<ExplorerPlansWidgetProps> = ({ name, descriptionPairs, item }) => {
   const backgroundColorWhiteStyle = { backgroundColor: 'white' };
   const clearingBasicSegmentStyle = {
     margin: 0,

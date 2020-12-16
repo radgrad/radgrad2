@@ -22,17 +22,17 @@ import { Slugs } from '../../../api/slug/SlugCollection';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import AdminDataModelMenu, { IAdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
+import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import AdminDataModelUpdateForm from '../../components/admin/datamodel/AdminDataModelUpdateForm'; // this should be replaced by specific UpdateForm
 // import AdminDataModelAddForm from '../../components/admin/AdminDataModelAddForm';
 import {
-  IAcademicTerm,
-  IDescriptionPair,
-  IOpportunity, IOpportunityInstance,
-  IStudentProfile,
-  IVerificationRequest,
+  AcademicTerm,
+  DescriptionPair,
+  Opportunity, OpportunityInstance,
+  StudentProfile,
+  VerificationRequest,
 } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
@@ -57,7 +57,7 @@ const collection = VerificationRequests; // the collection to use.
  * Returns an array of Description pairs used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const descriptionPairs = (item: IVerificationRequest): IDescriptionPair[] => [
+const descriptionPairs = (item: VerificationRequest): DescriptionPair[] => [
   { label: 'Student', value: `${Users.getFullName(item.studentID)}` },
   {
     label: 'Opportunity',
@@ -73,7 +73,7 @@ const descriptionPairs = (item: IVerificationRequest): IDescriptionPair[] => [
  * Returns the title string for the item. Used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const itemTitleString = (item: IVerificationRequest): string => {
+const itemTitleString = (item: VerificationRequest): string => {
   const student = Users.getFullName(item.studentID);
   const oi = OpportunityInstances.findDoc(item.opportunityInstanceID);
   const term = AcademicTerms.toString(oi.termID, false);
@@ -85,7 +85,7 @@ const itemTitleString = (item: IVerificationRequest): string => {
  * Returns the ReactNode used in the ListCollectionWidget. By default we indicate if the item is retired.
  * @param item an item from the collection.
  */
-const itemTitle = (item: IVerificationRequest): React.ReactNode => (
+const itemTitle = (item: VerificationRequest): React.ReactNode => (
   <React.Fragment>
     {item.retired ? <Icon name="eye slash" /> : ''}
     <Icon name="dropdown" />
@@ -93,16 +93,16 @@ const itemTitle = (item: IVerificationRequest): React.ReactNode => (
   </React.Fragment>
 );
 
-interface IAdminDataModelVerificationRequestsPageProps extends IAdminDataModeMenuProps {
-  items: IVerificationRequest[];
-  students: IStudentProfile[];
-  academicTerms: IAcademicTerm[];
-  opportunities: IOpportunity[];
-  opportunityInstances: IOpportunityInstance[];
+interface AdminDataModelVerificationRequestsPageProps extends AdminDataModeMenuProps {
+  items: VerificationRequest[];
+  students: StudentProfile[];
+  academicTerms: AcademicTerm[];
+  opportunities: Opportunity[];
+  opportunityInstances: OpportunityInstance[];
 }
 
 // TODO deconstruct props
-const AdminDataModelVerificationRequestsPage: React.FC<IAdminDataModelVerificationRequestsPageProps> = (props) => {
+const AdminDataModelVerificationRequestsPage: React.FC<AdminDataModelVerificationRequestsPageProps> = (props) => {
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');

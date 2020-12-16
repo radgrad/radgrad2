@@ -2,11 +2,11 @@ import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import AdminModerationWidget, { IModerationWidget } from '../../components/shared/moderation/ModerationWidget';
+import AdminModerationWidget, { ModerationWidgetProps } from '../../components/shared/moderation/ModerationWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { Reviews } from '../../../api/review/ReviewCollection';
 
-const AdminModerationPage: React.FC<IModerationWidget> = ({ courseReviews, opportunityReviews }) => {
+const AdminModerationPage: React.FC<ModerationWidgetProps> = ({ courseReviews, opportunityReviews }) => {
   const paddedStyle = {
     paddingTop: 20,
   };

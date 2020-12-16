@@ -3,7 +3,7 @@ import React from 'react';
 import { Menu, Header, Button, Icon } from 'semantic-ui-react';
 import { useRouteMatch, Link } from 'react-router-dom';
 import { RadGradProperties } from '../../../../../api/radgrad/RadGradProperties';
-import { IInterest } from '../../../../../typings/radgrad';
+import { Interest } from '../../../../../typings/radgrad';
 import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
 import ExplorerMenuNonMobileItem from '../item-view/ExplorerMenuNonMobileItem';
 import {
@@ -26,14 +26,14 @@ const AppMedia = createMedia({
 const mediaStyles = AppMedia.createMediaStyle();
 const { Media, MediaContextProvider } = AppMedia;
 
-interface ICardExplorerMenuNonMobileWidgetProps {
+interface CardExplorerMenuNonMobileWidgetProps {
   menuAddedList: { item: ExplorerInterfaces, count: number }[];
-  menuCareerList: { item: IInterest, count: number }[] | undefined;
+  menuCareerList: { item: Interest, count: number }[] | undefined;
   // eslint-disable-next-line react/no-unused-prop-types
   type: IExplorerTypes;
 }
 
-const ExplorerMultipleItemsMenuNonMobileWidget: React.FC<ICardExplorerMenuNonMobileWidgetProps> = ({ menuAddedList, menuCareerList, type }) => {
+const ExplorerMultipleItemsMenuNonMobileWidget: React.FC<CardExplorerMenuNonMobileWidgetProps> = ({ menuAddedList, menuCareerList, type }) => {
   const match = useRouteMatch();
   const adminEmail = RadGradProperties.getAdminEmail();
   const isStudent = isUrlRoleStudent(match);

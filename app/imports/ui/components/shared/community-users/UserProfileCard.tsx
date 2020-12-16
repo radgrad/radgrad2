@@ -3,13 +3,13 @@ import { Button, Card, Image } from 'semantic-ui-react';
 import Markdown from 'react-markdown';
 import _ from 'lodash';
 import { FavoriteInterests } from '../../../../api/favorite/FavoriteInterestCollection';
-import { IUserProfileCard } from '../../../../typings/radgrad';
+import { UserProfileCard } from '../../../../typings/radgrad';
 import { defaultProfilePicture } from '../../../../api/user/BaseProfileCollection';
 import { ROLE } from '../../../../api/role/Role';
 import InterestList from '../InterestList';
 import ExplorerUsersWidget from './ExplorerUsersWidget';
 
-const UserProfileCard: React.FC<IUserProfileCard> = ({ item }) => {
+const UserProfileCard: React.FC<UserProfileCard> = ({ item }) => {
   const [isActiveState, setIsActive] = useState(false);
 
   const isRole = (compareRole: string, ...otherRoles: string[]): boolean => item.role === compareRole || _.includes(otherRoles, item.role);

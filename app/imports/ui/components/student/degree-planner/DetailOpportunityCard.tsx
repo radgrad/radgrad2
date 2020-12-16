@@ -8,11 +8,11 @@ import { RadGradProperties } from '../../../../api/radgrad/RadGradProperties';
 import { OpportunityScoreboard } from '../../../../startup/client/collections';
 import { getUsername } from '../../shared/utilities/router';
 import {
-  IAcademicTerm,
-  IOpportunityInstance,
-  IUserInteractionDefine,
-  IVerificationRequest,
-  IVerificationRequestDefine,
+  AcademicTerm,
+  OpportunityInstance,
+  UserInteractionDefine,
+  VerificationRequest,
+  VerificationRequestDefine,
 } from '../../../../typings/radgrad';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
@@ -30,9 +30,9 @@ import { UserInteractionsTypes } from '../../../../api/analytic/UserInteractions
 import { userInteractionDefineMethod } from '../../../../api/analytic/UserInteractionCollection.methods';
 import { Slugs } from '../../../../api/slug/SlugCollection';
 
-interface IDetailOpportunityCardProps {
-  instance: IOpportunityInstance;
-  verificationRequests: IVerificationRequest[];
+interface DetailOpportunityCardProps {
+  instance: OpportunityInstance;
+  verificationRequests: VerificationRequest[];
   selectOpportunityInstance: (opportunityInstanceID: string) => any;
 }
 
@@ -44,7 +44,7 @@ const handleRemove = (selectOpportunityInstance, match) => (event, { value }) =>
   event.preventDefault();
   const collectionName = OpportunityInstances.getCollectionName();
   const instance = value;
-  const instanceObject: IOpportunityInstance = OpportunityInstances.findDoc({ _id: instance });
+  const instanceObject: OpportunityInstance = OpportunityInstances.findDoc({ _id: instance });
   const slugName = OpportunityInstances.getOpportunitySlug(instance);
   removeItMethod.call({ collectionName, instance }, (error) => {
     if (error) {
@@ -56,8 +56,8 @@ const handleRemove = (selectOpportunityInstance, match) => (event, { value }) =>
         showConfirmButton: false,
         timer: 1500,
       });
-      const academicTerm: IAcademicTerm = AcademicTerms.findDoc({ _id: instanceObject.termID });
-      const interactionData: IUserInteractionDefine = {
+      const academicTerm: AcademicTerm = AcademicTerms.findDoc({ _id: instanceObject.termID });
+      const interactionData: UserInteractionDefine = {
         username: getUsername(match),
         type: UserInteractionsTypes.REMOVEOPPORTUNITY,
         typeData: [academicTerm.term, academicTerm.year, slugName],
@@ -76,7 +76,7 @@ const handleVerificationRequest = (instance, match) => (model) => {
   const collectionName = VerificationRequests.getCollectionName();
   const username = getUsername(match);
   const opportunityInstance = instance._id;
-  const definitionData: IVerificationRequestDefine = {
+  const definitionData: VerificationRequestDefine = {
     student: username,
     opportunityInstance,
   };
@@ -93,7 +93,7 @@ const handleVerificationRequest = (instance, match) => (model) => {
       const slugID = OpportunityInstances.getOpportunityDoc(opportunityInstance).slugID;
       const slugName = Slugs.getNameFromID(slugID);
       const typeData = [slugName];
-      const interactionData: IUserInteractionDefine = {
+      const interactionData: UserInteractionDefine = {
         username,
         type: UserInteractionsTypes.VERIFYREQUEST,
         typeData,
@@ -107,7 +107,7 @@ const handleVerificationRequest = (instance, match) => (model) => {
   });
 };
 
-const DetailOpportunityCard: React.FC<IDetailOpportunityCardProps> = ({ instance, verificationRequests, selectOpportunityInstance }) => {
+const DetailOpportunityCard: React.FC<DetailOpportunityCardProps> = ({ instance, verificationRequests, selectOpportunityInstance }) => {
   const verificationRequeststoShow = _.filter(verificationRequests, (vr) => vr.opportunityInstanceID === instance._id);
   const match = useRouteMatch();
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
@@ -127,7 +127,7 @@ const DetailOpportunityCard: React.FC<IDetailOpportunityCardProps> = ({ instance
     limit: numTerms,
   });
   const scores = [];
-  _.forEach(academicTerms, (term: IAcademicTerm) => {
+  _.forEach(academicTerms, (term: AcademicTerm) => {
     const id = `${opportunity._id} ${term._id}`;
     const score = OpportunityScoreboard.find({ _id: id }).fetch() as { count: number }[];
     if (score.length > 0) {

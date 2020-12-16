@@ -4,20 +4,20 @@ import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, SelectField, BoolField, SubmitField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
-import { IAcademicTerm, IBaseProfile, IOpportunity, IStudentProfile } from '../../../../../typings/radgrad';
+import { AcademicTerm, BaseProfile, Opportunity, StudentProfile } from '../../../../../typings/radgrad';
 import { AcademicTerms } from '../../../../../api/academic-term/AcademicTermCollection';
 import { academicTermToName, docToName, profileToName } from '../../../shared/utilities/data-model';
 
-interface IAddOpportunityInstanceFormProps {
-  terms: IAcademicTerm[];
-  opportunities: IOpportunity[];
-  students: IStudentProfile[];
-  sponsors: IBaseProfile[];
+interface AddOpportunityInstanceFormProps {
+  terms: AcademicTerm[];
+  opportunities: Opportunity[];
+  students: StudentProfile[];
+  sponsors: BaseProfile[];
   formRef: React.RefObject<unknown>;
   handleAdd: (doc) => any;
 }
 
-const AddOpportunityInstanceForm: React.FC<IAddOpportunityInstanceFormProps> = ({ terms, opportunities, students, sponsors, formRef, handleAdd }) => {
+const AddOpportunityInstanceForm: React.FC<AddOpportunityInstanceFormProps> = ({ terms, opportunities, students, sponsors, formRef, handleAdd }) => {
   const termNames = _.map(terms, academicTermToName);
   const currentTermName = AcademicTerms.toString(AcademicTerms.getCurrentTermID(), false);
   const opportunityNames = _.map(opportunities, docToName);

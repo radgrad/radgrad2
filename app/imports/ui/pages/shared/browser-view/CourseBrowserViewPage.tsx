@@ -3,7 +3,7 @@ import { useParams, useRouteMatch } from 'react-router-dom';
 import _ from 'lodash';
 import { Container, Grid } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
-import { ICourse, IFavoriteCourse, IHelpMessage } from '../../../../typings/radgrad';
+import { Course, FavoriteCourse, HelpMessage } from '../../../../typings/radgrad';
 import * as Router from '../../../components/shared/utilities/router';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import { Courses } from '../../../../api/course/CourseCollection';
@@ -16,13 +16,13 @@ import { HelpMessages } from '../../../../api/help/HelpMessageCollection';
 import CourseBrowserViewContainer from '../../../components/shared/explorer/browser-view/CourseBrowserView';
 import { getMenuWidget } from '../utilities/getMenuWidget';
 
-interface ICourseBrowserViewPageProps {
-  favoriteCourses: IFavoriteCourse[];
-  courses: ICourse[];
-  helpMessages: IHelpMessage[];
+interface CourseBrowserViewPageProps {
+  favoriteCourses: FavoriteCourse[];
+  courses: Course[];
+  helpMessages: HelpMessage[];
 }
 
-const CourseBrowserViewPage: React.FC<ICourseBrowserViewPageProps> = ({ favoriteCourses, courses, helpMessages }) => {
+const CourseBrowserViewPage: React.FC<CourseBrowserViewPageProps> = ({ favoriteCourses, courses, helpMessages }) => {
   const match = useRouteMatch();
   const favoriteCourseDocs = _.map(favoriteCourses, (f) => Courses.findDoc(f.courseID));
   const menuAddedList = _.map(favoriteCourseDocs, (c) => ({ item: c, count: 1 })); // TODO why supply count?

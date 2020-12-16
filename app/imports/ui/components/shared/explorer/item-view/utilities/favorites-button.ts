@@ -5,14 +5,14 @@ import { FavoriteCourses } from '../../../../../../api/favorite/FavoriteCourseCo
 import { FavoriteInterests } from '../../../../../../api/favorite/FavoriteInterestCollection';
 import { FavoriteOpportunities } from '../../../../../../api/favorite/FavoriteOpportunityCollection';
 import {
-  IBaseProfile,
-  IFavoriteAcademicPlanDefine,
-  IFavoriteCareerGoalDefine,
-  IFavoriteCourseDefine,
-  IFavoriteInterestDefine,
-  IFavoriteOpportunityDefine,
-  IPageInterestDefine,
-  IUserInteractionDefine,
+  BaseProfile,
+  FavoriteAcademicPlanDefine,
+  FavoriteCareerGoalDefine,
+  FavoriteCourseDefine,
+  FavoriteInterestDefine,
+  FavoriteOpportunityDefine,
+  PageInterestDefine,
+  UserInteractionDefine,
 } from '../../../../../../typings/radgrad';
 import { Users } from '../../../../../../api/user/UserCollection';
 import { Slugs } from '../../../../../../api/slug/SlugCollection';
@@ -21,7 +21,7 @@ import {
   IPageInterestsCategoryTypes,
   PageInterestsCategoryTypes,
 } from '../../../../../../api/page-tracking/PageInterestsCategoryTypes';
-import { IFavoriteButtonProps } from '../FavoritesButton';
+import { FavoriteButtonProps } from '../FavoritesButton';
 
 export const getCollectionName = (type: IFavoriteTypes): string => {
   let collectionName: string;
@@ -49,13 +49,13 @@ export const getCollectionName = (type: IFavoriteTypes): string => {
 };
 
 export const getStudent = (studentID: string): string => {
-  const profile: IBaseProfile = Users.getProfile(studentID);
+  const profile: BaseProfile = Users.getProfile(studentID);
   return profile.username;
 };
 
 export const getSlug = (slugID: string): string => Slugs.getNameFromID(slugID);
 
-export const createDefinitionData = (props: IFavoriteButtonProps): IFavoriteAcademicPlanDefine | IFavoriteCareerGoalDefine | IFavoriteCourseDefine | IFavoriteInterestDefine | IFavoriteOpportunityDefine => {
+export const createDefinitionData = (props: FavoriteButtonProps): FavoriteAcademicPlanDefine | FavoriteCareerGoalDefine | FavoriteCourseDefine | FavoriteInterestDefine | FavoriteOpportunityDefine => {
   const student = getStudent(props.studentID);
   const slug = getSlug(props.item.slugID);
   let definitionData;
@@ -97,10 +97,10 @@ export const createDefinitionData = (props: IFavoriteButtonProps): IFavoriteAcad
   return definitionData;
 };
 
-export const createInteractionData = (props: IFavoriteButtonProps, favorite: boolean): IUserInteractionDefine => {
+export const createInteractionData = (props: FavoriteButtonProps, favorite: boolean): UserInteractionDefine => {
   const student = getStudent(props.studentID);
   const slug = getSlug(props.item.slugID);
-  let interactionData: IUserInteractionDefine;
+  let interactionData: UserInteractionDefine;
   const type = favorite ? UserInteractionsTypes.FAVORITEITEM : UserInteractionsTypes.UNFAVORITEITEM;
   switch (props.type) {
     case FAVORITE_TYPE.ACADEMICPLAN:
@@ -145,7 +145,7 @@ export const createInteractionData = (props: IFavoriteButtonProps, favorite: boo
   return interactionData;
 };
 
-export const createPageInterestData = (props: IFavoriteButtonProps): IPageInterestDefine => {
+export const createPageInterestData = (props: FavoriteButtonProps): PageInterestDefine => {
   const username = getStudent(props.studentID);
   const name = Slugs.getNameFromID(props.item.slugID);
   let category: IPageInterestsCategoryTypes;

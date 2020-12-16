@@ -1,11 +1,11 @@
 import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import _ from 'lodash';
-import { IAcademicTerm } from '../../../../typings/radgrad';
+import { AcademicTerm } from '../../../../typings/radgrad';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 
-interface IFutureParticipationProps {
-  academicTerms: IAcademicTerm[];
+interface FutureParticipationProps {
+  academicTerms: AcademicTerm[];
   scores: number[];
 }
 
@@ -21,7 +21,7 @@ const columnColor = (count) => {
   return undefined;
 };
 
-const FutureParticipation: React.FC<IFutureParticipationProps> = ({ academicTerms, scores }) => (
+const FutureParticipation: React.FC<FutureParticipationProps> = ({ academicTerms, scores }) => (
   <Grid columns="equal" padded={false}>
     {_.map(academicTerms, (term, index) => (
       <Grid.Column

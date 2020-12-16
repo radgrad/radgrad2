@@ -5,7 +5,7 @@ import { Link, useRouteMatch } from 'react-router-dom';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { RadGradProperties } from '../../../../api/radgrad/RadGradProperties';
 import { OpportunityScoreboard } from '../../../../startup/client/collections';
-import { IAcademicTerm, IOpportunity, IOpportunityInstance } from '../../../../typings/radgrad';
+import { AcademicTerm, Opportunity, OpportunityInstance } from '../../../../typings/radgrad';
 import IceHeader from '../../shared/IceHeader';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import FutureParticipation from '../../shared/explorer/FutureParticipation';
@@ -15,16 +15,16 @@ import { getInspectorDraggablePillStyle } from '../../shared/academic-plan/utili
 import NamePill from '../../shared/academic-plan/NamePill';
 import { buildRouteName } from './DepUtilityFunctions';
 
-interface IFavoriteOpportunityCardProps {
-  opportunity: IOpportunity;
+interface FavoriteOpportunityCardProps {
+  opportunity: Opportunity;
   studentID: string;
-  opportunityInstances: IOpportunityInstance[];
+  opportunityInstances: OpportunityInstance[];
 }
 
-const FavoriteOpportunityCard: React.FC<IFavoriteOpportunityCardProps> = ({ opportunity, opportunityInstances, studentID }) => {
+const FavoriteOpportunityCard: React.FC<FavoriteOpportunityCardProps> = ({ opportunity, opportunityInstances, studentID }) => {
   const match = useRouteMatch();
   const instances = _.filter(opportunityInstances, (i) => i.opportunityID === opportunity._id);
-  const terms: IAcademicTerm[] = _.map(instances, (i) => AcademicTerms.findDoc(i.termID));
+  const terms: AcademicTerm[] = _.map(instances, (i) => AcademicTerms.findDoc(i.termID));
   // Sort by ascending order
   terms.sort((a, b) => a.year - b.year);
   const termNames = _.map(terms, (t) => AcademicTerms.getShortName(t._id)).join(', ');
@@ -42,7 +42,7 @@ const FavoriteOpportunityCard: React.FC<IFavoriteOpportunityCardProps> = ({ oppo
     limit: numTerms,
   });
   const scores = [];
-  _.forEach(academicTerms, (term: IAcademicTerm) => {
+  _.forEach(academicTerms, (term: AcademicTerm) => {
     const id = `${opportunity._id} ${term._id}`;
     const score = OpportunityScoreboard.find({ _id: id }).fetch() as { count: number }[];
     if (score.length > 0) {

@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import _ from 'lodash';
-import { IBaseProfile } from '../../typings/radgrad';
+import { BaseProfile } from '../../typings/radgrad';
 
 /**
  * Properties to configure RadGrad for different institutions.
@@ -14,7 +14,7 @@ class RadGradPropertiesClass {
     return _.has(Meteor, 'settings.public.quarterSystem') ? Meteor.settings.public.quarterSystem : false;
   }
 
-  public getAdminProfile(): IBaseProfile {
+  public getAdminProfile(): BaseProfile {
     return _.has(Meteor, 'settings.public.adminProfile') ? Meteor.settings.public.adminProfile : {
       username: 'radgrad@hawaii.edu',
       firstName: 'RadGrad',

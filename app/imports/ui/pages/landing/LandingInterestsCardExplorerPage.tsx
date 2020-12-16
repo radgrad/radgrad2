@@ -3,7 +3,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Card, Grid, Header, Segment } from 'semantic-ui-react';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import ExplorerMenuBarContainer from '../../components/landing/explorer/LandingExplorerMenuBar';
-import { IHelpMessage, IInterest } from '../../../typings/radgrad';
+import { HelpMessage, Interest } from '../../../typings/radgrad';
 import { Interests } from '../../../api/interest/InterestCollection';
 import LandingExplorerCardContainer from '../../components/landing/explorer/LandingExplorerCard';
 import LandingExplorerMenuContainer from '../../components/landing/explorer/LandingExplorerMenu';
@@ -11,13 +11,13 @@ import BackToTopButton from '../../components/shared/BackToTopButton';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import { withListSubscriptions } from '../../layouts/utilities/SubscriptionListHOC';
 
-interface IInterestsCardExplorerProps {
-  interests: IInterest[];
+interface InterestsCardExplorerProps {
+  interests: Interest[];
   count: number;
-  helpMessages: IHelpMessage[];
+  helpMessages: HelpMessage[];
 }
 
-const LandingInterestsCardExplorerPage: React.FC<IInterestsCardExplorerProps> = ({ interests, count, helpMessages }) => {
+const LandingInterestsCardExplorerPage: React.FC<InterestsCardExplorerProps> = ({ interests, count, helpMessages }) => {
   const inlineStyle = {
     maxHeight: 750,
     marginTop: 10,

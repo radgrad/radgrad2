@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
 import { PlanChoices } from '../../../../api/degree-plan/PlanChoiceCollection';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import { RadGradProperties } from '../../../../api/radgrad/RadGradProperties';
-import { IAcademicPlanDefine, IAcademicTerm, IPlanChoiceDefine } from '../../../../typings/radgrad';
+import { AcademicPlanDefine, AcademicTerm, PlanChoiceDefine } from '../../../../typings/radgrad';
 import {
   academicTermNameToDoc,
   academicTermToName,
@@ -39,12 +39,12 @@ import { defineMethod, removeItMethod } from '../../../../api/base/BaseCollectio
 import { AcademicPlans } from '../../../../api/degree-plan/AcademicPlanCollection';
 import slugify, { Slugs } from '../../../../api/slug/SlugCollection';
 
-interface IAdvisorAPBuilderWidgetProps {
-  choices: IPlanChoiceDefine[],
-  terms: IAcademicTerm[];
+interface AdvisorAPBuilderWidgetProps {
+  choices: PlanChoiceDefine[],
+  terms: AcademicTerm[];
 }
 
-const AdvisorAPBuilderWidget: React.FC<IAdvisorAPBuilderWidgetProps> = ({ choices, terms }) => {
+const AdvisorAPBuilderWidget: React.FC<AdvisorAPBuilderWidgetProps> = ({ choices, terms }) => {
   // console.log('AdvisorAPBuilderWidget %o', props);
   const quarterSystem = RadGradProperties.getQuarterSystem();
   const coursesPerTerm = [];
@@ -241,7 +241,7 @@ const AdvisorAPBuilderWidget: React.FC<IAdvisorAPBuilderWidgetProps> = ({ choice
     const term = academicTermNameToDoc(doc.term);
     const academicTerm = Slugs.getNameFromID(term.slugID);
     const slug = `${slugify(name)}-${academicTerm}`;
-    const definitionData: IAcademicPlanDefine = {
+    const definitionData: AcademicPlanDefine = {
       name,
       description,
       academicTerm,

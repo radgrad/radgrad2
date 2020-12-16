@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form, Header, Segment } from 'semantic-ui-react';
 
-interface IUpdateRegex {
+interface UpdateRegex {
   updateFirstNameRegex: (regex: string) => void;
   updateLastNameRegex: (regex: string) => void;
   updateUserNameRegex: (regex: string) => void;
@@ -19,7 +19,7 @@ const handleChangeUserNameRegex = (updateUserNameRegex: (regex: string) => void)
   updateUserNameRegex(event.target.value);
 };
 
-const FilterUserWidget: React.FC<IUpdateRegex> = ({ updateFirstNameRegex, updateLastNameRegex, updateUserNameRegex }) => (
+const FilterUserWidget: React.FC<UpdateRegex> = ({ updateFirstNameRegex, updateLastNameRegex, updateUserNameRegex }) => (
   <Segment>
     <Header as="h4" dividing>FILTER USERS</Header>
     <Form>

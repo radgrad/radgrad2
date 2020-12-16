@@ -17,7 +17,7 @@ import {
   processBulkStarJsonData,
 } from './StarProcessor';
 import { updateStudentLevel } from '../level/LevelProcessor';
-import { IStudentProfileDefine } from '../../typings/radgrad';
+import { StudentProfileDefine } from '../../typings/radgrad';
 
 function processStudentStarDefinitions(advisor, student, definitions) {
   // console.log(`processStudentStarDefinitions(${advisor}, ${student}, ${definitions})`);
@@ -159,7 +159,7 @@ function processBulkStarDefinitions(advisor, definitions) {
       } else {
         console.log(`${student} is not defined need to create them.`);
         try {
-          const definitionData: IStudentProfileDefine = {
+          const definitionData: StudentProfileDefine = {
             username: student,
             firstName: definitions[student].firstName,
             lastName: definitions[student].lastName,

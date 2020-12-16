@@ -9,14 +9,14 @@ import { VerificationRequests } from '../../../api/verification/VerificationRequ
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { buildRouteName } from '../shared/utilities/router';
 import { COMMUNITY, EXPLORER_TYPE } from '../../layouts/utilities/route-constants';
-import { IAdvisorOrFacultyProfile } from '../../../typings/radgrad';
+import { AdvisorOrFacultyProfile } from '../../../typings/radgrad';
 
 const FacultyPageMenuWidget: React.FC = () => {
   const divStyle = { marginBottom: 30 };
 
   const match = useRouteMatch();
   const { username } = useParams();
-  const profile: IAdvisorOrFacultyProfile = FacultyProfiles.getProfile(username);
+  const profile: AdvisorOrFacultyProfile = FacultyProfiles.getProfile(username);
   // const sponsorID = Users.getID(username);
   let openRequests = VerificationRequests.findNonRetired({ status: VerificationRequests.OPEN });
   openRequests = _.filter(openRequests, (request) => {

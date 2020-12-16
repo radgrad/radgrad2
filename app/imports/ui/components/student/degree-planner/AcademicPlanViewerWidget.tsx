@@ -1,15 +1,15 @@
 import React from 'react';
 import { Grid } from 'semantic-ui-react';
-import { IAcademicPlan } from '../../../../typings/radgrad';
+import { AcademicPlan } from '../../../../typings/radgrad';
 import AcademicPlanYearView from '../../shared/academic-plan/AcademicPlanYearView';
 
-interface IAcademicPlanViewerWidgetProps {
-  academicPlan: IAcademicPlan;
+interface AcademicPlanViewerWidgetProps {
+  academicPlan: AcademicPlan;
   username: string;
   takenSlugs: string[];
 }
 
-const AcademicPlanViewerWidget: React.FC<IAcademicPlanViewerWidgetProps> = ({ academicPlan, username, takenSlugs }) => {
+const AcademicPlanViewerWidget: React.FC<AcademicPlanViewerWidgetProps> = ({ academicPlan, username, takenSlugs }) => {
   const fiveYear = (academicPlan.coursesPerAcademicTerm.length % 5) === 0;
   let yearNumber = 0;
   const littlePadding = {

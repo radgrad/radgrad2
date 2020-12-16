@@ -1,27 +1,27 @@
 import React from 'react';
 import { Segment, Header, Image, Popup } from 'semantic-ui-react';
 import { Users } from '../../../../api/user/UserCollection';
-import { IStudentProfile } from '../../../../typings/radgrad';
+import { StudentProfile } from '../../../../typings/radgrad';
 
-interface IStudentLevelsOthersWidgetProps {
-  students: IStudentProfile[];
-  profile : IStudentProfile;
+interface StudentLevelsOthersWidgetProps {
+  students: StudentProfile[];
+  profile : StudentProfile;
 }
 
 const studentsExist = (students): boolean => students.length > 0;
 
-const getStudentLevelName = (profile:IStudentProfile): string => {
+const getStudentLevelName = (profile:StudentProfile): string => {
   if (profile.level) {
     return `LEVEL ${profile.level}`;
   }
   return 'LEVEL 1';
 };
 
-const studentPicture = (student: IStudentProfile) => student.picture;
+const studentPicture = (student: StudentProfile) => student.picture;
 
-const fullName = (student: IStudentProfile): string => Users.getFullName(student.userID);
+const fullName = (student: StudentProfile): string => Users.getFullName(student.userID);
 
-const StudentLevelsOthersWidget: React.FC<IStudentLevelsOthersWidgetProps> = ({ students, profile }) => {
+const StudentLevelsOthersWidget: React.FC<StudentLevelsOthersWidgetProps> = ({ students, profile }) => {
   const imageGroupStyle = { minHeight: '50%' };
   const imageStyle = {
     height: '30px',

@@ -5,7 +5,7 @@ import { Card, Grid, Header, Segment } from 'semantic-ui-react';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import LandingExplorerMenuBar from '../../components/landing/explorer/LandingExplorerMenuBar';
-import { IAcademicPlan, IHelpMessage } from '../../../typings/radgrad';
+import { AcademicPlan, HelpMessage } from '../../../typings/radgrad';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/explorer/LandingExplorerMenu';
 import LandingAcademicPlanCardContainer from '../../components/landing/explorer/LandingAcademicPlanCard';
@@ -13,13 +13,13 @@ import BackToTopButton from '../../components/shared/BackToTopButton';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import { withListSubscriptions } from '../../layouts/utilities/SubscriptionListHOC';
 
-interface IAcademicPlansCardExplorerProps {
-  academicPlans: IAcademicPlan[];
+interface AcademicPlansCardExplorerProps {
+  academicPlans: AcademicPlan[];
   count: number;
-  helpMessages: IHelpMessage[];
+  helpMessages: HelpMessage[];
 }
 
-const LandingAcademicPlansCardExplorerPage: React.FC<IAcademicPlansCardExplorerProps> = ({ academicPlans, helpMessages, count }) => {
+const LandingAcademicPlansCardExplorerPage: React.FC<AcademicPlansCardExplorerProps> = ({ academicPlans, helpMessages, count }) => {
   const inlineStyle = {
     maxHeight: 750,
     marginTop: 10,

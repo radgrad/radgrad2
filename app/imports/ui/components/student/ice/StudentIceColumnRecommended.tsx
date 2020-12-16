@@ -3,7 +3,7 @@ import { Link, useRouteMatch } from 'react-router-dom';
 import { List } from 'semantic-ui-react';
 import _ from 'lodash';
 import { buildRouteName, getUserIdFromRoute } from '../../shared/utilities/router';
-import { Ice, ICourse, IFavoriteInterest, IOpportunity } from '../../../../typings/radgrad';
+import { Ice, Course, FavoriteInterest, Opportunity } from '../../../../typings/radgrad';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import { Courses } from '../../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../../api/course/CourseInstanceCollection';
@@ -11,7 +11,7 @@ import { Opportunities } from '../../../../api/opportunity/OpportunityCollection
 import { Interests } from '../../../../api/interest/InterestCollection';
 import { FavoriteInterests } from '../../../../api/favorite/FavoriteInterestCollection';
 
-interface IStudentIceColumnRecommendedProps {
+interface StudentIceColumnRecommendedProps {
   type: 'Innovation' | 'Competency' | 'Experience';
   earnedICEPoints: number;
   projectedICEPoints: number;
@@ -19,16 +19,16 @@ interface IStudentIceColumnRecommendedProps {
   icePoints: (ice: Ice) => number;
   getCourseSlug: (course) => string;
   getOpportunitySlug: (opportunity) => string;
-  favoriteInterests: IFavoriteInterest[];
+  favoriteInterests: FavoriteInterest[];
 }
 
-const hasNoInterests = (props: IStudentIceColumnRecommendedProps, match): boolean => {
+const hasNoInterests = (props: StudentIceColumnRecommendedProps, match): boolean => {
   const userID = getUserIdFromRoute(match);
   const interests = FavoriteInterests.findNonRetired({ userID });
   return interests.length === 0;
 };
 
-const availableCourses = (props: IStudentIceColumnRecommendedProps, match): ICourse[] => {
+const availableCourses = (props: StudentIceColumnRecommendedProps, match): Course[] => {
   const courses = Courses.findNonRetired({});
   if (courses.length > 0) {
     return _.filter(courses, (course) => {
@@ -45,7 +45,7 @@ const availableCourses = (props: IStudentIceColumnRecommendedProps, match): ICou
   return [];
 };
 
-const matchingOpportunities = (props: IStudentIceColumnRecommendedProps, match): IOpportunity[] => {
+const matchingOpportunities = (props: StudentIceColumnRecommendedProps, match): Opportunity[] => {
   const { favoriteInterests } = props;
   const allOpportunities = Opportunities.findNonRetired();
   const matching = [];
@@ -72,10 +72,10 @@ const matchingOpportunities = (props: IStudentIceColumnRecommendedProps, match):
   return matching;
 };
 
-const matchingCourses = (props: IStudentIceColumnRecommendedProps, match): ICourse[] => {
+const matchingCourses = (props: StudentIceColumnRecommendedProps, match): Course[] => {
   const { favoriteInterests } = props;
-  const allCourses: ICourse[] = availableCourses(props, match);
-  const matching: ICourse[] = [];
+  const allCourses: Course[] = availableCourses(props, match);
+  const matching: Course[] = [];
   const userInterests = [];
   _.forEach(favoriteInterests, (f) => {
     userInterests.push(Interests.findDoc(f.interestID));
@@ -99,7 +99,7 @@ const matchingCourses = (props: IStudentIceColumnRecommendedProps, match): ICour
   return matching;
 };
 
-const recommendedEvents = (projectedPoints: number, props: IStudentIceColumnRecommendedProps, match): any[] => {
+const recommendedEvents = (projectedPoints: number, props: StudentIceColumnRecommendedProps, match): any[] => {
   const { type } = props;
   if (getUserIdFromRoute(match)) {
     let allInstances: any[];
@@ -145,7 +145,7 @@ const recommendedEvents = (projectedPoints: number, props: IStudentIceColumnReco
   return null;
 };
 
-const StudentIceColumnRecommended: React.FC<IStudentIceColumnRecommendedProps> = (props) => {
+const StudentIceColumnRecommended: React.FC<StudentIceColumnRecommendedProps> = (props) => {
   const match = useRouteMatch();
   const { type, earnedICEPoints, projectedICEPoints, matchingPoints, getCourseSlug, getOpportunitySlug, icePoints } = props;
 

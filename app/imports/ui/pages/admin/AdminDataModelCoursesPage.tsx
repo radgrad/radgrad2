@@ -22,9 +22,9 @@ import { Teasers } from '../../../api/teaser/TeaserCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import AdminDataModelMenu, { IAdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
+import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
-import { ICourse, IDescriptionPair, IInterest } from '../../../typings/radgrad';
+import { Course, DescriptionPair, Interest } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
@@ -44,7 +44,7 @@ import { dataModelActions } from '../../../redux/admin/data-model';
 
 const collection = Courses; // the collection to use.
 
-function numReferences(course: ICourse) {
+function numReferences(course: Course) {
   return CourseInstances.find({ courseID: course._id }).count();
 }
 
@@ -52,7 +52,7 @@ function numReferences(course: ICourse) {
  * Returns an array of Description pairs used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const descriptionPairs = (item: ICourse): IDescriptionPair[] => [
+const descriptionPairs = (item: Course): DescriptionPair[] => [
   { label: 'Description', value: item.description },
   { label: 'Credit Hours', value: `${item.creditHrs}` },
   { label: 'Interests', value: _.sortBy(Interests.findNames(item.interestIDs)) },
@@ -66,13 +66,13 @@ const descriptionPairs = (item: ICourse): IDescriptionPair[] => [
  * Returns the title string for the item. Used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const itemTitleString = (item: ICourse): string => `${courseToName(item)} (${itemToSlugName(item)})`;
+const itemTitleString = (item: Course): string => `${courseToName(item)} (${itemToSlugName(item)})`;
 
 /**
  * Returns the ReactNode used in the ListCollectionWidget. By default we indicate if the item is retired.
  * @param item an item from the collection.
  */
-const itemTitle = (item: ICourse): React.ReactNode => (
+const itemTitle = (item: Course): React.ReactNode => (
   <React.Fragment>
     {item.retired ? <Icon name="eye slash" /> : ''}
     <Icon name="dropdown" />
@@ -80,13 +80,13 @@ const itemTitle = (item: ICourse): React.ReactNode => (
   </React.Fragment>
 );
 
-interface IAdminDataModelCoursesPageProps extends IAdminDataModeMenuProps {
-  items: ICourse[];
-  interests: IInterest[];
-  courses: ICourse[];
+interface AdminDataModelCoursesPageProps extends AdminDataModeMenuProps {
+  items: Course[];
+  interests: Interest[];
+  courses: Course[];
 }
 
-const AdminDataModelCoursesPage: React.FC<IAdminDataModelCoursesPageProps> = (props) => {
+const AdminDataModelCoursesPage: React.FC<AdminDataModelCoursesPageProps> = (props) => {
   // TODO deconstruct props
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);

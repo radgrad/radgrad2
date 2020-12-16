@@ -18,14 +18,14 @@ import { StudentParticipations } from '../../../../api/public-stats/StudentParti
 import { FavoriteCareerGoals } from '../../../../api/favorite/FavoriteCareerGoalCollection';
 import { FavoriteInterests } from '../../../../api/favorite/FavoriteInterestCollection';
 import { FavoriteAcademicPlans } from '../../../../api/favorite/FavoriteAcademicPlanCollection';
-import { IAcademicTerm } from '../../../../typings/radgrad';
+import { AcademicTerm } from '../../../../typings/radgrad';
 // import Router from './RouterHelperFunctions';
 
-interface IHasName {
+interface HasName {
   name: string;
 }
 
-interface IHasSlugID {
+interface HasSlugID {
   slugID: string;
 }
 
@@ -42,7 +42,7 @@ export const academicTermToName = (term) => AcademicTerms.toString(term._id, fal
 export const academicTermNameToDoc = (name) => AcademicTerms.getAcademicTermFromToString(name);
 
 export const academicTermNameToShortName = (termID) => {
-  const academicTerm: IAcademicTerm = AcademicTerms.findOne(termID);
+  const academicTerm: AcademicTerm = AcademicTerms.findOne(termID);
   const termYear = `${academicTerm.year}`.substring(2, 4);
 
   let termName: string;
@@ -80,9 +80,9 @@ export const courseNameToSlug = (name) => itemToSlugName(Courses.findDoc({ short
 
 export const courseSlugToName = (slug) => courseToName(Courses.findDoc(Slugs.getEntityID(slug, 'Course')));
 
-export const docToName = (doc: IHasName) => doc.name;
+export const docToName = (doc: HasName) => doc.name;
 
-export const docToSlugNameAndType = (doc: IHasSlugID) => `${Slugs.findDoc(doc.slugID).name} (${Slugs.findDoc(doc.slugID).entityName})`;
+export const docToSlugNameAndType = (doc: HasSlugID) => `${Slugs.findDoc(doc.slugID).name} (${Slugs.findDoc(doc.slugID).entityName})`;
 
 export const docToShortName = (doc) => doc.shortName;
 

@@ -4,7 +4,7 @@ import moment from 'moment';
 import _ from 'lodash';
 import { FAVORITE_TYPE } from '../../../../../api/favorite/FavoriteTypes';
 import { profileIDToFullname } from '../../../shared/utilities/data-model';
-import { IUserInteraction } from '../../../../../typings/radgrad';
+import { UserInteraction } from '../../../../../typings/radgrad';
 import { UserInteractionsTypes } from '../../../../../api/analytic/UserInteractionsTypes';
 import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
 import { StudentSummaryBehaviorTypes } from './utilities/student-summary';
@@ -12,18 +12,18 @@ import { StudentSummaryBehaviorTypes } from './utilities/student-summary';
 // TODO fix push of undefined error also username of undefined error.
 // TODO QA this is a very unstructured component.
 
-interface IStudentTimelineModalProps {
+interface StudentTimelineModalProps {
   username: string;
   startDate: string;
   endDate: string;
   // eslint-disable-next-line react/no-unused-prop-types
-  interactions: IUserInteraction[];
+  interactions: UserInteraction[];
 }
 
 // This defines the time between sessions
 const gap = 10;
 
-const getSessions = (interactions: IUserInteraction[]): IUserInteraction[][] => {
+const getSessions = (interactions: UserInteraction[]): UserInteraction[][] => {
   const sessions = [];
   let slicedIndex = 0;
   _.each(interactions, (interaction, index: number, inters) => {
@@ -46,7 +46,7 @@ const getSessions = (interactions: IUserInteraction[]): IUserInteraction[][] => 
   return sessions;
 };
 
-const getSessionDuration = (sessionArr: IUserInteraction[]): string => {
+const getSessionDuration = (sessionArr: UserInteraction[]): string => {
   const firstTimestamp = moment(sessionArr[0].timestamp);
   const lastTimestamp = moment(sessionArr[sessionArr.length - 1].timestamp);
   return moment.duration(lastTimestamp.diff(firstTimestamp)).asMinutes().toFixed(2);
@@ -68,7 +68,7 @@ const formatReviewSlugMessages = (strArray: string[]): string => strArray.map((s
   return `${split[2]} (${split[0]})`;
 }).join(', ');
 
-const getBehaviors = (sessionArr: IUserInteraction[]): { type: string, stats: string[] }[] => {
+const getBehaviors = (sessionArr: UserInteraction[]): { type: string, stats: string[] }[] => {
   const actions = {
     careerGoalIDs: [],
     interestIDs: [],
@@ -198,7 +198,7 @@ const getBehaviors = (sessionArr: IUserInteraction[]): { type: string, stats: st
   return behaviorsArray;
 };
 
-const StudentTimelineModal: React.FC<IStudentTimelineModalProps> = ({ endDate, username, startDate, interactions }) => {
+const StudentTimelineModal: React.FC<StudentTimelineModalProps> = ({ endDate, username, startDate, interactions }) => {
   const buttonStyle = {
     padding: 5,
     margin: 3,

@@ -20,14 +20,14 @@ import { Teasers } from '../../../api/teaser/TeaserCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import AdminDataModelMenu, { IAdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
+import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import {
-  IAcademicTerm,
-  ICourse,
-  ICourseInstance,
-  ICourseInstanceDefine,
-  IDescriptionPair, IStudentProfile,
+  AcademicTerm,
+  Course,
+  CourseInstance,
+  CourseInstanceDefine,
+  DescriptionPair, StudentProfile,
 } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
@@ -52,7 +52,7 @@ const collection = CourseInstances;
  * Returns an array of Description pairs used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const descriptionPairs = (item: ICourseInstance): IDescriptionPair[] => [
+const descriptionPairs = (item: CourseInstance): DescriptionPair[] => [
   { label: 'Academic Term', value: AcademicTerms.toString(item.termID) },
   { label: 'Course', value: (Courses.findDoc(item.courseID)).name },
   { label: 'Verified', value: item.verified ? 'True' : 'False' },
@@ -69,7 +69,7 @@ const descriptionPairs = (item: ICourseInstance): IDescriptionPair[] => [
  * Returns the title string for the item. Used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const itemTitleString = (item: ICourseInstance): string => {
+const itemTitleString = (item: CourseInstance): string => {
   const username = Users.getProfile(item.studentID).username;
   const courseNum = Courses.findDoc(item.courseID).num;
   const term = AcademicTerms.toString(item.termID, true);
@@ -80,7 +80,7 @@ const itemTitleString = (item: ICourseInstance): string => {
  * Returns the ReactNode used in the ListCollectionWidget. By default we indicate if the item is retired.
  * @param item an item from the collection.
  */
-const itemTitle = (item: ICourseInstance): React.ReactNode => (
+const itemTitle = (item: CourseInstance): React.ReactNode => (
   <React.Fragment>
     {item.retired ? <Icon name="eye slash" /> : ''}
     <Icon name="dropdown" />
@@ -88,14 +88,14 @@ const itemTitle = (item: ICourseInstance): React.ReactNode => (
   </React.Fragment>
 );
 
-interface IAdminDataModelCourseInstancesPageProps extends IAdminDataModeMenuProps {
-  items: ICourseInstance[];
-  terms: IAcademicTerm[];
-  courses: ICourse[];
-  students: IStudentProfile[];
+interface AdminDataModelCourseInstancesPageProps extends AdminDataModeMenuProps {
+  items: CourseInstance[];
+  terms: AcademicTerm[];
+  courses: Course[];
+  students: StudentProfile[];
 }
 
-const AdminDataModelCourseInstancesPage: React.FC<IAdminDataModelCourseInstancesPageProps> = (props) => {
+const AdminDataModelCourseInstancesPage: React.FC<AdminDataModelCourseInstancesPageProps> = (props) => {
   // TODO deconstruct props
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
@@ -111,7 +111,7 @@ const AdminDataModelCourseInstancesPage: React.FC<IAdminDataModelCourseInstances
     const courseDoc = courseNameToCourseDoc(doc.course);
     const course = Slugs.getNameFromID(courseDoc.slugID);
     const student = profileNameToUsername(doc.student);
-    const definitionData: ICourseInstanceDefine = {
+    const definitionData: CourseInstanceDefine = {
       academicTerm,
       course,
       note,

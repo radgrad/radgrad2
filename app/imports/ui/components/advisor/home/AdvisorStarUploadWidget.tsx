@@ -2,16 +2,16 @@ import React, { useState } from 'react';
 import { Segment, Header, Form } from 'semantic-ui-react';
 import { starLoadDataMethod } from '../../../../api/star/StarProcessor.methods';
 import { updateLevelMethod } from '../../../../api/level/LevelProcessor.methods';
-import { IStudentProfile } from '../../../../typings/radgrad';
+import { StudentProfile } from '../../../../typings/radgrad';
 
 /* global FileReader */
 
-export interface IAdvisorStarUploadWidgetProps {
-  usernameDoc: IStudentProfile;
+export interface AdvisorStarUploadWidgetProps {
+  usernameDoc: StudentProfile;
   advisorUsername: string;
 }
 
-const AdvisorStarUploadWidget: React.FC<IAdvisorStarUploadWidgetProps> = ({ usernameDoc, advisorUsername }) => {
+const AdvisorStarUploadWidget: React.FC<AdvisorStarUploadWidgetProps> = ({ usernameDoc, advisorUsername }) => {
   const [fileDataState, setFileData] = useState('');
 
   const readFile = (e) => {

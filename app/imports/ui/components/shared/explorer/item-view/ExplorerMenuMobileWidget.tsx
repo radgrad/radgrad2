@@ -4,7 +4,7 @@ import { Dropdown } from 'semantic-ui-react';
 import { useRouteMatch } from 'react-router-dom';
 import * as Router from '../../utilities/router';
 import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
-import ExplorerMenuMobileItem, { IListItem } from './ExplorerMenuMobileItem';
+import ExplorerMenuMobileItem, { ListItem } from './ExplorerMenuMobileItem';
 
 const AppMedia = createMedia({
   breakpoints: {
@@ -19,16 +19,16 @@ const AppMedia = createMedia({
 const mediaStyles = AppMedia.createMediaStyle();
 const { Media, MediaContextProvider } = AppMedia;
 
-interface IExplorerMenuMobileWidgetProps {
-  menuAddedList: IListItem[];
-  menuCareerList?: IListItem[] | undefined;
+interface ExplorerMenuMobileWidgetProps {
+  menuAddedList: ListItem[];
+  menuCareerList?: ListItem[] | undefined;
   type: 'plans' | 'career-goals' | 'courses' | 'interests' | 'opportunities' | 'users'; // TODO should this be a defined type?
 }
 
 const isType = (typeToCheck: string, type: string): boolean => type === typeToCheck;
 
 // TODO QA this does a lot can we simplify this?
-const ExplorerMenuMobileWidget: React.FC<IExplorerMenuMobileWidgetProps> = ({ menuAddedList, menuCareerList, type }) => {
+const ExplorerMenuMobileWidget: React.FC<ExplorerMenuMobileWidgetProps> = ({ menuAddedList, menuCareerList, type }) => {
   const match = useRouteMatch();
   const isStudent = Router.isUrlRoleStudent(match);
   return (

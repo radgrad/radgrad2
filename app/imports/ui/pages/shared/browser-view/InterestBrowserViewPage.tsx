@@ -6,7 +6,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { HelpMessages } from '../../../../api/help/HelpMessageCollection';
 import { Interests } from '../../../../api/interest/InterestCollection';
 import { Users } from '../../../../api/user/UserCollection';
-import { IHelpMessage, IInterest } from '../../../../typings/radgrad';
+import { HelpMessage, Interest } from '../../../../typings/radgrad';
 import ExplorerMultipleItemsMenu from '../../../components/shared/explorer/browser-view/ExplorerMultipleItemsMenu';
 import InterestBrowserViewContainer from '../../../components/shared/explorer/browser-view/InterestBrowserView';
 import { IExplorerTypes } from '../../../components/shared/explorer/utilities/explorer';
@@ -14,14 +14,14 @@ import HelpPanelWidget from '../../../components/shared/HelpPanelWidget';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import { getMenuWidget } from '../utilities/getMenuWidget';
 
-interface IInterestBrowserViewPageProps {
-  favoriteInterests: IInterest[];
-  favoriteCareerGoalInterests: IInterest[];
-  interests: IInterest[];
-  helpMessages: IHelpMessage[];
+interface InterestBrowserViewPageProps {
+  favoriteInterests: Interest[];
+  favoriteCareerGoalInterests: Interest[];
+  interests: Interest[];
+  helpMessages: HelpMessage[];
 }
 
-const InterestBrowserViewPage: React.FC<IInterestBrowserViewPageProps> = ({ favoriteInterests, favoriteCareerGoalInterests, interests, helpMessages }) => {
+const InterestBrowserViewPage: React.FC<InterestBrowserViewPageProps> = ({ favoriteInterests, favoriteCareerGoalInterests, interests, helpMessages }) => {
   const match = useRouteMatch();
   const menuAddedItems = _.map(favoriteInterests, (doc) => ({ item: doc, count: 1 }));
   const menuCareerList = _.map(favoriteCareerGoalInterests, (doc) => ({ item: doc, count: 1 }));

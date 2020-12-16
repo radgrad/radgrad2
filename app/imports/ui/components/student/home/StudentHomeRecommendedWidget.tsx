@@ -2,7 +2,7 @@ import React from 'react';
 import { Header } from 'semantic-ui-react';
 import { useRouteMatch } from 'react-router-dom';
 import _ from 'lodash';
-import { ITeaser } from '../../../../typings/radgrad';
+import { Teaser } from '../../../../typings/radgrad';
 import { Teasers } from '../../../../api/teaser/TeaserCollection';
 import { Users } from '../../../../api/user/UserCollection';
 import { getUsername } from '../../shared/utilities/router';
@@ -11,8 +11,8 @@ import RecommendedItemInformation from './RecommendedItemInformation';
 
 const StudentHomeRecommendedWidget: React.FC = () => {
   const match = useRouteMatch();
-  const getRecommendedTeasers = (): ITeaser[] => {
-    const allTeasers: ITeaser[] = Teasers.findNonRetired({});
+  const getRecommendedTeasers = (): Teaser[] => {
+    const allTeasers: Teaser[] = Teasers.findNonRetired({});
     const matching = [];
     const username = getUsername(match);
     const profile = Users.getProfile(username);

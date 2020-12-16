@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Accordion, Icon } from 'semantic-ui-react';
 
-interface IAdminDatabaseAccordionProps {
+interface AdminDatabaseAccordionProps {
   index: number;
   name: string;
   contents: string[];
 }
 
-const AdminDatabaseAccordion: React.FC<IAdminDatabaseAccordionProps> = ({ index, name, contents }) => {
+const AdminDatabaseAccordion: React.FC<AdminDatabaseAccordionProps> = ({ index, name, contents }) => {
   const [activeIndex, setActiveIndex] = useState(-1);
 
   const handleClick = (e, titleProps) => {

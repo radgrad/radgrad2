@@ -1,22 +1,22 @@
 import React from 'react';
 import { Container, Segment, Header, Item, Image } from 'semantic-ui-react';
-import { IAdvisorLog, IBaseProfile } from '../../../../typings/radgrad';
+import { AdvisorLog, BaseProfile } from '../../../../typings/radgrad';
 import { Users } from '../../../../api/user/UserCollection';
 
-export interface IStudentLogWidgetProps {
-  advisorLogs: IAdvisorLog[];
+export interface StudentLogWidgetProps {
+  advisorLogs: AdvisorLog[];
 }
 
-const getAdvisorImage = (log: IAdvisorLog): IBaseProfile => Users.getProfile(log.advisorID).picture;
+const getAdvisorImage = (log: AdvisorLog): BaseProfile => Users.getProfile(log.advisorID).picture;
 
-const getAdvisorName = (log: IAdvisorLog): IBaseProfile => Users.getProfile(log.advisorID).firstName;
+const getAdvisorName = (log: AdvisorLog): BaseProfile => Users.getProfile(log.advisorID).firstName;
 
-const getDisplayDate = (log: IAdvisorLog): string => {
+const getDisplayDate = (log: AdvisorLog): string => {
   const date = log.createdOn;
   return `${date.toDateString()}`;
 };
 
-const StudentLogWidget: React.FC<IStudentLogWidgetProps> = ({ advisorLogs }) => (
+const StudentLogWidget: React.FC<StudentLogWidgetProps> = ({ advisorLogs }) => (
   <Container id="studentLogWidget">
     <Segment padded>
       <Header as="h4" dividing>ADVISOR MEETING LOG</Header>

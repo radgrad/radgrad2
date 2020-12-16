@@ -3,7 +3,7 @@ import React from 'react';
 import { Grid, Message } from 'semantic-ui-react';
 import { Link, useRouteMatch } from 'react-router-dom';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
-import { IHelpMessage } from '../../../typings/radgrad';
+import { HelpMessage } from '../../../typings/radgrad';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
@@ -15,8 +15,8 @@ import {
 } from '../../layouts/utilities/route-constants';
 import { PageInterestsCategoryTypes } from '../../../api/page-tracking/PageInterestsCategoryTypes';
 
-interface IExplorerHomePageProps {
-  helpMessages: IHelpMessage[];
+interface ExplorerHomePageProps {
+  helpMessages: HelpMessage[];
 }
 
 const renderPageMenuWidget = (match): JSX.Element => {
@@ -31,7 +31,7 @@ const renderPageMenuWidget = (match): JSX.Element => {
   }
 };
 
-const ExplorerHomePage: React.FC<IExplorerHomePageProps> = ({ helpMessages }) => {
+const ExplorerHomePage: React.FC<ExplorerHomePageProps> = ({ helpMessages }) => {
   const match = useRouteMatch();
   return (
     <div>
@@ -46,7 +46,7 @@ const ExplorerHomePage: React.FC<IExplorerHomePageProps> = ({ helpMessages }) =>
         <Grid.Row>
           <Grid.Column width={1} />
           <Grid.Column width={3}>
-            <ExplorerNavDropdown match={match} text="Select Explorer" />
+            <ExplorerNavDropdown text="Select Explorer" />
           </Grid.Column>
           <Grid.Column width={11}>
             <Message>

@@ -1,15 +1,17 @@
+// @ts-ignore Don't know why I have to do this.
 import React from 'react';
+// @ts-ignore
 import Markdown from 'react-markdown';
 import { Grid, Header, Image, List } from 'semantic-ui-react';
 import { useRouteMatch } from 'react-router-dom';
 import { Users } from '../../../../../api/user/UserCollection';
-import { IReview } from '../../../../../typings/radgrad';
+import { Review } from '../../../../../typings/radgrad';
 import StudentExplorerReviewStarsWidget from '../../../student/explorer/StudentExplorerReviewStarsWidget';
 import { academicTermNameToShortName } from '../../utilities/data-model';
 import * as Router from '../../utilities/router';
 
-interface IExplorerReviewWidgetProps {
-  itemReviews: IReview[];
+interface ExplorerReviewWidgetProps {
+  itemReviews: Review[];
   reviewType: string;
 }
 
@@ -28,7 +30,7 @@ const reviewData = (review: { [key: string]: any }): { [key: string]: any } => {
   };
 };
 
-const ExplorerReviewWidget: React.FC<IExplorerReviewWidgetProps> = ({ itemReviews, reviewType }) => {
+const ExplorerReviewWidget: React.FC<ExplorerReviewWidgetProps> = ({ itemReviews, reviewType }) => {
   const uppercaseStyle = { textTransform: 'uppercase' };
   const commentsStyle = { paddingTop: '5px' };
   const match = useRouteMatch();

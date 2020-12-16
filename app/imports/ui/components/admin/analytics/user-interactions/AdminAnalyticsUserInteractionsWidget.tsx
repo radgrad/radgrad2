@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import moment from 'moment';
 import { Grid, Segment, Header, Button, Table } from 'semantic-ui-react';
-import { IStudentProfile } from '../../../../../typings/radgrad';
+import { StudentProfile } from '../../../../../typings/radgrad';
 import { StudentProfiles } from '../../../../../api/user/StudentProfileCollection';
 import { userInteractionFindMethod } from '../../../../../api/analytic/UserInteractionCollection.methods';
 
-export interface IAdminAnalyticsUserInteractionsWidgetProps {
-  students: IStudentProfile[];
+export interface AdminAnalyticsUserInteractionsWidgetProps {
+  students: StudentProfile[];
 }
 
-const AdminAnalyticsUserInteractionsWidget: React.FC<IAdminAnalyticsUserInteractionsWidgetProps> = ({ students }) => {
-  const [selectedStudent, setSelectedStudent] = useState<IStudentProfile>(undefined);
+const AdminAnalyticsUserInteractionsWidget: React.FC<AdminAnalyticsUserInteractionsWidgetProps> = ({ students }) => {
+  const [selectedStudent, setSelectedStudent] = useState<StudentProfile>(undefined);
   const [interactions, setInteractions] = useState<any[]>([]);
 
   const handleClick = (event, instance) => {

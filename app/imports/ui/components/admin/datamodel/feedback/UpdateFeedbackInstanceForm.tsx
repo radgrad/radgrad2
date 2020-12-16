@@ -7,11 +7,11 @@ import SimpleSchema from 'simpl-schema';
 import { profileToName, userIdToName } from '../../../shared/utilities/data-model';
 import { FeedbackFunctions } from '../../../../../api/feedback/FeedbackFunctions';
 import { FeedbackInstances } from '../../../../../api/feedback/FeedbackInstanceCollection';
-import { IStudentProfile } from '../../../../../typings/radgrad';
+import { StudentProfile } from '../../../../../typings/radgrad';
 import BaseCollection from '../../../../../api/base/BaseCollection';
 
-interface IUpdateFeedbackInstanceFormProps {
-  students: IStudentProfile[];
+interface UpdateFeedbackInstanceFormProps {
+  students: StudentProfile[];
   collection: BaseCollection;
   id: string;
   formRef: React.RefObject<unknown>;
@@ -20,7 +20,7 @@ interface IUpdateFeedbackInstanceFormProps {
   itemTitleString: (item) => React.ReactNode;
 }
 
-const UpdateFeedbackInstanceForm: React.FC<IUpdateFeedbackInstanceFormProps> = ({ students, collection, id, formRef, handleCancel, handleUpdate, itemTitleString }) => {
+const UpdateFeedbackInstanceForm: React.FC<UpdateFeedbackInstanceFormProps> = ({ students, collection, id, formRef, handleCancel, handleUpdate, itemTitleString }) => {
   const model = collection.findDoc(id);
   model.user = userIdToName(model.userID);
   const studentNames = _.map(students, profileToName);

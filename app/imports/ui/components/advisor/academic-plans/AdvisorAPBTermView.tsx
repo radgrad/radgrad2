@@ -10,7 +10,7 @@ import {
   buildPlanAreaDroppableId,
 } from './utilities/academic-plan-builder';
 
-interface IAdvisorAPBTermViewProps {
+interface AdvisorAPBTermViewProps {
   termName: string;
   termNumber: number;
   yearNumber: number;
@@ -18,7 +18,7 @@ interface IAdvisorAPBTermViewProps {
   coursesPerTerm: number[];
 }
 
-const AdvisorAPBTermView: React.FC<IAdvisorAPBTermViewProps> = ({ termName, termNumber, yearNumber, choiceList, coursesPerTerm }) => (
+const AdvisorAPBTermView: React.FC<AdvisorAPBTermViewProps> = ({ termName, termNumber, yearNumber, choiceList, coursesPerTerm }) => (
   <Segment>
     <Header dividing as="h4">{termName}</Header>
     <Droppable droppableId={buildPlanAreaDroppableId(yearNumber, termNumber)}>

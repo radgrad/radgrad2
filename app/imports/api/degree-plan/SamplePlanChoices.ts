@@ -1,13 +1,13 @@
 import faker from 'faker';
 import { getRandomCourseSlugForDept, getRandomDepartment } from '../course/SampleCourses';
 
-export interface ImakeSinglePlanChoiceArgs {
+export interface MakeSinglePlanChoiceArgs {
   dept?: string;
   courseNum?: number;
   choiceNum?: number;
 }
 
-export const makeSinglePlanChoice = (args: ImakeSinglePlanChoiceArgs): string => {
+export const makeSinglePlanChoice = (args: MakeSinglePlanChoiceArgs): string => {
   const dept = args.dept ? args.dept : getRandomDepartment(faker.random.number({
     min: 2,
     max: 4,
@@ -23,14 +23,14 @@ export const makeSinglePlanChoice = (args: ImakeSinglePlanChoiceArgs): string =>
   return `${dept}_${courseNum}-${choiceNum}`;
 };
 
-export interface ImakeSimplePlanChoice {
+export interface MakeSimplePlanChoice {
   dept?: string;
   choice1?: string;
   choice2?: string;
   choiceNum?: number;
 }
 
-export const makeSimplePlanChoice = (args: ImakeSimplePlanChoice) => {
+export const makeSimplePlanChoice = (args: MakeSimplePlanChoice): string => {
   const dept = args.dept ? args.dept : getRandomDepartment(faker.random.number({
     min: 2,
     max: 4,
@@ -41,7 +41,7 @@ export const makeSimplePlanChoice = (args: ImakeSimplePlanChoice) => {
   return `${choice1},${choice2}-${choiceNum}`;
 };
 
-export interface ImakeComplexPlanChoice {
+export interface MakeComplexPlanChoice {
   dept?: string;
   choice1?: string;
   choice2?: string;
@@ -50,7 +50,7 @@ export interface ImakeComplexPlanChoice {
   choiceNum?: number;
 }
 
-export const makeComplexPlanChoice = (args: ImakeComplexPlanChoice) => {
+export const makeComplexPlanChoice = (args: MakeComplexPlanChoice): string => {
   const dept = args.dept ? args.dept : getRandomDepartment(faker.random.number({
     min: 2,
     max: 4,

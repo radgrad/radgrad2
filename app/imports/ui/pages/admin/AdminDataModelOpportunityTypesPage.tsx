@@ -22,10 +22,10 @@ import { Teasers } from '../../../api/teaser/TeaserCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import AdminDataModelMenu, { IAdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
+import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
-import { IDescriptionPair, IOpportunityType } from '../../../typings/radgrad';
+import { DescriptionPair, OpportunityType } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';
@@ -52,7 +52,7 @@ function numReferences(opportunityType) {
  * Returns an array of Description pairs used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const descriptionPairs = (item: IOpportunityType): IDescriptionPair[] => [
+const descriptionPairs = (item: OpportunityType): DescriptionPair[] => [
   { label: 'Name', value: item.name },
   { label: 'Slug', value: `${Slugs.findDoc(item.slugID).name}` },
   { label: 'Description', value: item.description },
@@ -64,13 +64,13 @@ const descriptionPairs = (item: IOpportunityType): IDescriptionPair[] => [
  * Returns the title string for the item. Used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const itemTitleString = (item: IOpportunityType): string => `${item.name} (${itemToSlugName(item)})`;
+const itemTitleString = (item: OpportunityType): string => `${item.name} (${itemToSlugName(item)})`;
 
 /**
  * Returns the ReactNode used in the ListCollectionWidget. By default we indicate if the item is retired.
  * @param item an item from the collection.
  */
-const itemTitle = (item: IOpportunityType): React.ReactNode => (
+const itemTitle = (item: OpportunityType): React.ReactNode => (
   <React.Fragment>
     {item.retired ? <Icon name="eye slash" /> : ''}
     <Icon name="dropdown" />
@@ -78,11 +78,11 @@ const itemTitle = (item: IOpportunityType): React.ReactNode => (
   </React.Fragment>
 );
 
-interface IAdminDataModelOpportunityTypesPageProps extends IAdminDataModeMenuProps {
-  items: IOpportunityType[];
+interface AdminDataModelOpportunityTypesPageProps extends AdminDataModeMenuProps {
+  items: OpportunityType[];
 }
 
-const AdminDataModelOpportunityTypesPage: React.FC<IAdminDataModelOpportunityTypesPageProps> = (props) => {
+const AdminDataModelOpportunityTypesPage: React.FC<AdminDataModelOpportunityTypesPageProps> = (props) => {
   // TODO deconstruct props
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);

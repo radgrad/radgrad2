@@ -20,16 +20,16 @@ import { FavoriteInterests } from '../../../../api/favorite/FavoriteInterestColl
 import { FavoriteCareerGoals } from '../../../../api/favorite/FavoriteCareerGoalCollection';
 import { FavoriteAcademicPlans } from '../../../../api/favorite/FavoriteAcademicPlanCollection';
 import { RootState } from '../../../../redux/types';
-import { IBaseProfile, ICareerGoal, IInterest } from '../../../../typings/radgrad';
+import { BaseProfile, CareerGoal, Interest } from '../../../../typings/radgrad';
 
-interface IAdvisorUpdateStudentWidgetProps {
+interface AdvisorUpdateStudentWidgetProps {
   dispatch: (any) => void;
   selectedUsername: string;
   isLoaded: boolean;
-  usernameDoc: IBaseProfile;
+  usernameDoc: BaseProfile;
   studentCollectionName: string;
-  interests: IInterest[];
-  careerGoals: ICareerGoal[];
+  interests: Interest[];
+  careerGoals: CareerGoal[];
 }
 
 const mapStateToProps = (state: RootState) => ({
@@ -37,7 +37,7 @@ const mapStateToProps = (state: RootState) => ({
   isLoaded: state.advisor.home.isLoaded,
 });
 
-const AdvisorUpdateStudentWidget: React.FC<IAdvisorUpdateStudentWidgetProps> = ({ dispatch, interests, careerGoals, usernameDoc, isLoaded, selectedUsername, studentCollectionName }) => {
+const AdvisorUpdateStudentWidget: React.FC<AdvisorUpdateStudentWidgetProps> = ({ dispatch, interests, careerGoals, usernameDoc, isLoaded, selectedUsername, studentCollectionName }) => {
   // console.log('AdvisorUpdateStudentWidget', props);
   const doc = usernameDoc;
   const userID = doc.userID;

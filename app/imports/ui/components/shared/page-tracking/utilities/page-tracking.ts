@@ -1,9 +1,9 @@
 import {
-  ICareerGoal,
-  ICourse,
-  IInterest, IOpportunity,
-  IPageInterestInfo,
-  IPageInterestsDailySnapshot, ISlug,
+  CareerGoal,
+  Course,
+  Interest, Opportunity,
+  PageInterestInfo,
+  PageInterestsDailySnapshot, Slug,
 } from '../../../../../typings/radgrad';
 import {
   IPageInterestsCategoryTypes,
@@ -14,20 +14,20 @@ import { Courses } from '../../../../../api/course/CourseCollection';
 import { Interests } from '../../../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../../../api/opportunity/OpportunityCollection';
 import { Slugs } from '../../../../../api/slug/SlugCollection';
-import { getLastUrlParam, IMatchProps } from '../../utilities/router';
+import { getLastUrlParam, MatchProps } from '../../utilities/router';
 import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
 
-export interface IAggregatedDailySnapshot {
-  careerGoals: IPageInterestInfo[];
-  courses: IPageInterestInfo[];
-  interests: IPageInterestInfo[];
-  opportunities: IPageInterestInfo[];
+export interface AggregatedDailySnapshot {
+  careerGoals: PageInterestInfo[];
+  courses: PageInterestInfo[];
+  interests: PageInterestInfo[];
+  opportunities: PageInterestInfo[];
 }
 
 // urlCategory is of type PageInterestsCategoryTypes
-export const getUrlCategory = (match: IMatchProps) => getLastUrlParam(match) as PageInterestsCategoryTypes;
+export const getUrlCategory = (match: MatchProps) => getLastUrlParam(match) as PageInterestsCategoryTypes;
 
-// category is of type IPageInterestsDailySnapshot
+// category is of type PageInterestsDailySnapshot
 export const getCategory = (selectedCategory: IPageInterestsCategoryTypes): string => {
   switch (selectedCategory) {
     case PageInterestsCategoryTypes.CAREERGOAL:
@@ -45,8 +45,8 @@ export const getCategory = (selectedCategory: IPageInterestsCategoryTypes): stri
   return undefined;
 };
 
-export const aggregateDailySnapshots = (snapshots: IPageInterestsDailySnapshot[]): IAggregatedDailySnapshot => {
-  const aggregatedSnapshot: IAggregatedDailySnapshot = {
+export const aggregateDailySnapshots = (snapshots: PageInterestsDailySnapshot[]): AggregatedDailySnapshot => {
+  const aggregatedSnapshot: AggregatedDailySnapshot = {
     careerGoals: [],
     courses: [],
     interests: [],
@@ -60,7 +60,7 @@ export const aggregateDailySnapshots = (snapshots: IPageInterestsDailySnapshot[]
   snapshots.forEach((snapshot) => {
     // Career Goals
     snapshot.careerGoals.forEach((careerGoal) => {
-      const careerGoalInstance: IPageInterestInfo = { name: careerGoal.name, views: careerGoal.views };
+      const careerGoalInstance: PageInterestInfo = { name: careerGoal.name, views: careerGoal.views };
       // If we haven't iterated through this career goal, push it to the aggregated snapshot and found career goals.
       if (!containsKey(careerGoal, foundCareerGoals)) {
         foundCareerGoals.push(careerGoalInstance);
@@ -72,7 +72,7 @@ export const aggregateDailySnapshots = (snapshots: IPageInterestsDailySnapshot[]
     });
     // Courses
     snapshot.courses.forEach((course) => {
-      const courseInstance: IPageInterestInfo = { name: course.name, views: course.views };
+      const courseInstance: PageInterestInfo = { name: course.name, views: course.views };
       if (!containsKey(course, foundCourses)) {
         foundCourses.push(courseInstance);
         aggregatedSnapshot.courses.push(courseInstance);
@@ -82,7 +82,7 @@ export const aggregateDailySnapshots = (snapshots: IPageInterestsDailySnapshot[]
     });
     // Interests
     snapshot.interests.forEach((interest) => {
-      const interestInstance: IPageInterestInfo = { name: interest.name, views: interest.views };
+      const interestInstance: PageInterestInfo = { name: interest.name, views: interest.views };
       if (!containsKey(interest, foundInterests)) {
         foundInterests.push(interestInstance);
         aggregatedSnapshot.interests.push(interestInstance);
@@ -92,7 +92,7 @@ export const aggregateDailySnapshots = (snapshots: IPageInterestsDailySnapshot[]
     });
     // Opportunities
     snapshot.opportunities.forEach((opportunity) => {
-      const opportunityInstance: IPageInterestInfo = { name: opportunity.name, views: opportunity.views };
+      const opportunityInstance: PageInterestInfo = { name: opportunity.name, views: opportunity.views };
       if (!containsKey(opportunity, foundOpportunities)) {
         foundOpportunities.push(opportunityInstance);
         aggregatedSnapshot.opportunities.push(opportunityInstance);
@@ -104,7 +104,7 @@ export const aggregateDailySnapshots = (snapshots: IPageInterestsDailySnapshot[]
   return aggregatedSnapshot;
 };
 
-const containsKey = (object: IPageInterestInfo, arr: IPageInterestInfo[]) => {
+const containsKey = (object: PageInterestInfo, arr: PageInterestInfo[]) => {
   for (let i = 0; i < arr.length; i++) {
     if (arr[i].name === object.name) {
       return true;
@@ -114,7 +114,7 @@ const containsKey = (object: IPageInterestInfo, arr: IPageInterestInfo[]) => {
 };
 
 export const parseName = (category: IPageInterestsCategoryTypes, slug: string): string => {
-  let doc: (ICareerGoal | ICourse | IInterest | IOpportunity);
+  let doc: (CareerGoal | Course | Interest | Opportunity);
   switch (category) {
     case PageInterestsCategoryTypes.CAREERGOAL:
       doc = CareerGoals.findDocBySlug(slug);
@@ -139,7 +139,7 @@ export const slugIDToSlugName = (slugID) => Slugs.findOne(slugID).name;
 
 // Calculates how long to wait (since the time the student has opened the page) before they're considered "interested" in that item
 export const calculateEngagedInterestTime = (slugName: string): number => {
-  const slug: ISlug = Slugs.findOne({ name: slugName });
+  const slug: Slug = Slugs.findOne({ name: slugName });
   const type = slug.entityName;
   const descriptionText = getDescriptionText(type, slugName);
 

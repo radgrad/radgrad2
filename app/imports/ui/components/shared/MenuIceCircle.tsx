@@ -3,13 +3,13 @@ import { Link, useRouteMatch } from 'react-router-dom';
 import { Popup } from 'semantic-ui-react';
 import { buildRouteName } from './utilities/router';
 
-interface IMenuIceCircleProps {
+interface MenuIceCircleProps {
   earned: number;
   planned: number;
   type: string;
 }
 
-const MenuIceCircle: React.FC<IMenuIceCircleProps> = ({ planned, type, earned }) => {
+const MenuIceCircle: React.FC<MenuIceCircleProps> = ({ planned, type, earned }) => {
   const marginRight = { marginRight: 5 };
   const match = useRouteMatch();
   const p = (planned < 100) ? planned : 100;

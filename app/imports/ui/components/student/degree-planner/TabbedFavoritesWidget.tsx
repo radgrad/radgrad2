@@ -8,28 +8,28 @@ import DepDetailsWidget from './DepDetailsWidget';
 import FavoriteAcademicPlansWidget from './FavoriteAcademicPlansWidget';
 import { RootState } from '../../../../redux/types';
 import {
-  IAcademicPlan,
-  ICourse,
-  ICourseInstance,
-  IOpportunity,
-  IOpportunityInstance,
-  IVerificationRequest,
+  AcademicPlan,
+  Course,
+  CourseInstance,
+  Opportunity,
+  OpportunityInstance,
+  VerificationRequest,
 } from '../../../../typings/radgrad';
 
-interface ITabbedFavoritesWidgetProps {
+interface TabbedFavoritesWidgetProps {
   takenSlugs: string[];
-  academicPlans: IAcademicPlan[];
+  academicPlans: AcademicPlan[];
   selectedTab: string;
   selectFavoriteOpportunitiesTab: () => any;
   selectFavoritePlansTab: () => any;
   selectFavoriteCoursesTab: () => any;
   selectFavoriteDetailsTab: () => any;
-  opportunities: IOpportunity[];
+  opportunities: Opportunity[];
   studentID: string;
-  courses: ICourse[];
-  courseInstances: ICourseInstance[];
-  opportunityInstances: IOpportunityInstance[];
-  verificationRequests: IVerificationRequest[];
+  courses: Course[];
+  courseInstances: CourseInstance[];
+  opportunityInstances: OpportunityInstance[];
+  verificationRequests: VerificationRequest[];
 }
 
 const mapStateToProps = (state: RootState) => ({
@@ -58,7 +58,7 @@ const active = (selectedTab) => {
   }
 };
 
-const TabbedFavoritesWidget: React.FC<ITabbedFavoritesWidgetProps> = (props) => {
+const TabbedFavoritesWidget: React.FC<TabbedFavoritesWidgetProps> = (props) => {
   const handleTabChange = (event, instance) => {
     const { activeIndex } = instance;
     event.preventDefault();

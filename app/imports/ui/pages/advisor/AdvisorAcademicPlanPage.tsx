@@ -10,15 +10,15 @@ import AdvisorAcademicPlanTabs from '../../components/advisor/academic-plans/Adv
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
-import { IPlanChoiceDefine, IAcademicTerm, IAcademicPlan, IHelpMessage } from '../../../typings/radgrad';
+import { PlanChoiceDefine, AcademicTerm, AcademicPlan, HelpMessage } from '../../../typings/radgrad';
 
-interface IAdvisorAcademicPlanPageProps {
-  choices: IPlanChoiceDefine[],
-  terms: IAcademicTerm[],
-  plans: IAcademicPlan[],
-  helpMessages: IHelpMessage[];
+interface AdvisorAcademicPlanPageProps {
+  choices: PlanChoiceDefine[],
+  terms: AcademicTerm[],
+  plans: AcademicPlan[],
+  helpMessages: HelpMessage[];
 }
-const AdvisorAcademicPlanPage: React.FC<IAdvisorAcademicPlanPageProps> = ({ choices, terms, plans, helpMessages }) => (
+const AdvisorAcademicPlanPage: React.FC<AdvisorAcademicPlanPageProps> = ({ choices, terms, plans, helpMessages }) => (
   <div id="advisor-academic-plan-page">
     <AdvisorPageMenuWidget />
     <Grid stackable>

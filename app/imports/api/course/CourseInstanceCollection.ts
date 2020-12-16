@@ -9,7 +9,7 @@ import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Users } from '../user/UserCollection';
 import BaseCollection from '../base/BaseCollection';
 import { makeCourseICE, iceSchema } from '../ice/IceProcessor';
-import { ICourseInstanceDefine, ICourseInstanceUpdate } from '../../typings/radgrad';
+import { CourseInstanceDefine, CourseInstanceUpdate } from '../../typings/radgrad';
 import { CourseScoreboardName } from '../../startup/both/names';
 
 /**
@@ -94,7 +94,7 @@ class CourseInstanceCollection extends BaseCollection {
    * @throws {Meteor.Error} If the definition includes an undefined course or student.
    * @returns The newly created docID.
    */
-  public define({ academicTerm, course, verified = false, fromRegistrar = false, grade = '', note = '', student, creditHrs, retired = false }: ICourseInstanceDefine) {
+  public define({ academicTerm, course, verified = false, fromRegistrar = false, grade = '', note = '', student, creditHrs, retired = false }: CourseInstanceDefine) {
     // Check arguments
     const termID = AcademicTerms.getID(academicTerm);
     const academicTermDoc = AcademicTerms.findDoc(termID);
@@ -153,10 +153,10 @@ class CourseInstanceCollection extends BaseCollection {
    * @param note optional.
    * @param ice an object with fields i, c, e (optional)
    */
-  public update(docID: string, { termID, verified, fromRegistrar, grade, creditHrs, note, ice, retired }: ICourseInstanceUpdate) {
+  public update(docID: string, { termID, verified, fromRegistrar, grade, creditHrs, note, ice, retired }: CourseInstanceUpdate) {
     // console.log('CourseInstances.update', termID, verified, fromRegistrar, grade, creditHrs, note, ice);
     this.assertDefined(docID);
-    const updateData: ICourseInstanceUpdate = {};
+    const updateData: CourseInstanceUpdate = {};
     if (termID) {
       updateData.termID = termID;
     }
@@ -447,7 +447,7 @@ class CourseInstanceCollection extends BaseCollection {
    * @param docID The docID of a CourseInstance.
    * @returns { Object } An object representing the definition of docID.
    */
-  public dumpOne(docID: string): ICourseInstanceDefine {
+  public dumpOne(docID: string): CourseInstanceDefine {
     const doc = this.findDoc(docID);
     const academicTerm = AcademicTerms.findSlugByID(doc.termID);
     const course = Courses.findSlugByID(doc.courseID);

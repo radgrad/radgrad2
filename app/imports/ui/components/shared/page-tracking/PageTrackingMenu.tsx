@@ -5,12 +5,12 @@ import { Button, Menu } from 'semantic-ui-react';
 import {
   PageInterestsCategoryTypes,
 } from '../../../../api/page-tracking/PageInterestsCategoryTypes';
-import { buildRouteName, IMatchProps } from '../utilities/router';
+import { buildRouteName, MatchProps } from '../utilities/router';
 import { PAGE_TRACKING_COMPARISON, PAGE_TRACKING_SCOREBOARD } from '../../../layouts/utilities/route-constants';
 
 type PageTrackingMenuTypes = 'scoreboard' | 'comparison';
 
-interface IPageTrackingScoreboardMenuProps {
+interface PageTrackingScoreboardMenuProps {
   type: PageTrackingMenuTypes;
 }
 
@@ -21,14 +21,14 @@ const menuItems = [
   { key: PageInterestsCategoryTypes.OPPORTUNITY, text: 'Opportunities' },
 ];
 
-const getMenuItemRoute = (match: IMatchProps, type: PageTrackingMenuTypes, key: string) => {
+const getMenuItemRoute = (match: MatchProps, type: PageTrackingMenuTypes, key: string) => {
   if (type === 'scoreboard') {
     return buildRouteName(match, `/${PAGE_TRACKING_SCOREBOARD}/${key}`);
   }
   return buildRouteName(match, `/${PAGE_TRACKING_COMPARISON}/${key}`);
 };
 
-const getButtonRoute = (match: IMatchProps, type: PageTrackingMenuTypes, key: string) => {
+const getButtonRoute = (match: MatchProps, type: PageTrackingMenuTypes, key: string) => {
   if (type === 'scoreboard') {
     return buildRouteName(match, `/${PAGE_TRACKING_COMPARISON}/${key}`);
   }
@@ -42,7 +42,7 @@ const getButtonText = (type: PageTrackingMenuTypes) => {
   return 'Go to Scoreboard Page';
 };
 
-const PageTrackingMenu: React.FC<IPageTrackingScoreboardMenuProps> = ({ type }) => {
+const PageTrackingMenu: React.FC<PageTrackingScoreboardMenuProps> = ({ type }) => {
   const match = useRouteMatch();
   const buttonText = getButtonText(type);
   const buttonRoute = getButtonRoute(match, type, PageInterestsCategoryTypes.CAREERGOAL);

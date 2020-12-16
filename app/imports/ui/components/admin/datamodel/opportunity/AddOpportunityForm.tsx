@@ -5,22 +5,22 @@ import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import _ from 'lodash';
 import Swal from 'sweetalert2';
-import { IAcademicTerm, IBaseProfile, IInterest, IOpportunityType } from '../../../../../typings/radgrad';
+import { AcademicTerm, BaseProfile, Interest, OpportunityType } from '../../../../../typings/radgrad';
 import { academicTermToName, docToName, profileToName } from '../../../shared/utilities/data-model';
 import { iceSchema } from '../../../../../api/ice/IceProcessor';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
 import { openCloudinaryWidget } from '../../../shared/OpenCloudinaryWidget';
 
-interface IAddOpportunityFormProps {
-  sponsors: IBaseProfile[];
-  terms: IAcademicTerm[];
-  interests: IInterest[];
-  opportunityTypes: IOpportunityType[];
+interface AddOpportunityFormProps {
+  sponsors: BaseProfile[];
+  terms: AcademicTerm[];
+  interests: Interest[];
+  opportunityTypes: OpportunityType[];
   formRef: React.RefObject<unknown>;
   handleAdd: (doc) => any;
 }
 
-const AddOpportunityForm: React.FC<IAddOpportunityFormProps> = ({ sponsors, formRef, handleAdd, interests, terms, opportunityTypes }) => {
+const AddOpportunityForm: React.FC<AddOpportunityFormProps> = ({ sponsors, formRef, handleAdd, interests, terms, opportunityTypes }) => {
   const [pictureURL, setPictureURL] = useState<string>('');
   const sponsorNames = _.map(sponsors, profileToName);
   const termNames = _.map(terms, academicTermToName);
