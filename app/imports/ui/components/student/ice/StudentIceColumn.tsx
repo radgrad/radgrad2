@@ -115,10 +115,8 @@ const StudentIceColumn: React.FC<IStudentIceColumnProps> = ({ type, favoriteInte
   const verifiedColor = getVerifiedColor();
   const unverifiedColor = getUnverifiedColor();
 
-  // TODO don't need this if pass in earnedICE and projectedICE
+
   const username = Router.getUsername(match);
-  //const earnedICE = StudentProfiles.getEarnedICE(username);
-  //const projectedICE = StudentProfiles.getProjectedICE(username);
   const earnedICEPoints = getPoints(earnedICE);
   const projectedICEPoints = getPoints(projectedICE);
   const unverifiedICEPoints = remainingICEPoints(earnedICEPoints, projectedICEPoints);

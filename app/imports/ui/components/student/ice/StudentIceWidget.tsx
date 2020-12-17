@@ -12,9 +12,8 @@ interface IStudentIceWidgetProps {
   opportunityInstances: IOpportunityInstance[];
 }
 const StudentIceWidget: React.FC<IStudentIceWidgetProps> = ({ earnedICE, projectedICE, favoriteInterests, courseInstances, opportunityInstances }) => {
-  // TODO type styles
-  const innovationColumnStyle = { paddingLeft: 0 };
-  const experienceColumnStyle = { paddingRight: 0 };
+  const innovationColumnStyle: React.CSSProperties = { paddingLeft: 0 };
+  const experienceColumnStyle: React.CSSProperties = { paddingRight: 0 };
   const styleInfo: React.CSSProperties = { textAlign: 'left', paddingTop: 10 };
   return (
     <>
