@@ -33,6 +33,8 @@ const StudentIceWidget: React.FC<IStudentIceWidgetProps> = ({ earnedICE, project
                   favoriteInterests={favoriteInterests}
                   courseInstances={courseInstances}
                   opportunityInstances={opportunityInstances}
+                  earnedICE={earnedICE}
+                  projectedICE={projectedICE}
                 />
                 <div style={styleInfo}>
                   You earn innovation points by completing opportunities that involve &#8220; innovation &#8220;, such
@@ -51,6 +53,8 @@ const StudentIceWidget: React.FC<IStudentIceWidgetProps> = ({ earnedICE, project
                   favoriteInterests={favoriteInterests}
                   courseInstances={courseInstances}
                   opportunityInstances={opportunityInstances}
+                  earnedICE={earnedICE}
+                  projectedICE={projectedICE}
                 />
                 <div style={styleInfo}>
                   You earn competency points by completing classes. The number of competency points depends upon your
@@ -69,6 +73,8 @@ const StudentIceWidget: React.FC<IStudentIceWidgetProps> = ({ earnedICE, project
                   favoriteInterests={favoriteInterests}
                   courseInstances={courseInstances}
                   opportunityInstances={opportunityInstances}
+                  earnedICE={earnedICE}
+                  projectedICE={projectedICE}
                 />
                 <div style={styleInfo}>
                   You earn experience points by completing opportunities that provide &#8220;real world

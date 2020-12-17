@@ -9,16 +9,18 @@ import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
 import { Slugs } from '../../../../api/slug/SlugCollection';
 import { Courses } from '../../../../api/course/CourseCollection';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
-import { Ice, ICourseInstance, IFavoriteInterest, IOpportunityInstance } from '../../../../typings/radgrad';
+import { Ice, ICourse , ICourseInstance, IFavoriteInterest, IOpportunityInstance } from '../../../../typings/radgrad';
 
 export interface IStudentIceColumnProps {
   // TODO make this an exported enum in radgrad.d.ts
   type: 'Innovation' | 'Competency' | 'Experience';
+  earnedICE: Ice;
+  projectedICE: Ice;
   favoriteInterests: IFavoriteInterest[];
   courseInstances: ICourseInstance[];
   opportunityInstances: IOpportunityInstance[];
 }
-const StudentIceColumn: React.FC<IStudentIceColumnProps> = ({ type, favoriteInterests, courseInstances, opportunityInstances }) => {
+const StudentIceColumn: React.FC<IStudentIceColumnProps> = ({ type, favoriteInterests, courseInstances, opportunityInstances, earnedICE, projectedICE }) => {
   const match = useRouteMatch();
   const [verifiedColumnOpenState, setVerifiedColumnOpen] = useState(true);
   const [unVerifiedColumnOpenState, setUnVerifiedColumnOpen] = useState(false);
@@ -115,8 +117,8 @@ const StudentIceColumn: React.FC<IStudentIceColumnProps> = ({ type, favoriteInte
 
   // TODO don't need this if pass in earnedICE and projectedICE
   const username = Router.getUsername(match);
-  const earnedICE = StudentProfiles.getEarnedICE(username);
-  const projectedICE = StudentProfiles.getProjectedICE(username);
+  //const earnedICE = StudentProfiles.getEarnedICE(username);
+  //const projectedICE = StudentProfiles.getProjectedICE(username);
   const earnedICEPoints = getPoints(earnedICE);
   const projectedICEPoints = getPoints(projectedICE);
   const unverifiedICEPoints = remainingICEPoints(earnedICEPoints, projectedICEPoints);
