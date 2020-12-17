@@ -41,6 +41,7 @@ const StudentIceColumn: React.FC<IStudentIceColumnProps> = ({ type, favoriteInte
     setRecommendedColumnOpen(!recommendedColumnOpenState);
   };
 
+  //returns the CSS name of a color found in app/public/semantic.min.css depending on the color the widget should be
   const getVerifiedColor = (): string => {
     switch (type) {
       case 'Innovation':
@@ -54,7 +55,8 @@ const StudentIceColumn: React.FC<IStudentIceColumnProps> = ({ type, favoriteInte
     }
   };
 
-  // TODO add documentation for this and the above function
+  //returns the CSS name of a color found in app/public/semantic.min.css depending on the color the widget should be
+  //-proj colors are slightly lighter colors of the same shade.
   const getUnverifiedColor = (): string => {
     switch (type) {
       case 'Innovation':
