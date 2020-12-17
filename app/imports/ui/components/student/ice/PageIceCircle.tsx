@@ -7,6 +7,7 @@ interface IPageIceCircleProps {
   earned: number;
   planned: number;
   type: string;
+
 }
 // TODO remove this file use shared/MenuIceCircle
 const PageIceCircle: React.FC<IPageIceCircleProps> = ({ planned, type, earned }) => {

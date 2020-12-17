@@ -50,7 +50,7 @@ const StudentIcePage: React.FC<IStudentIcePageProps> = ({ helpMessages, earnedIC
 
 const StudentHomeIcePageContainer = withTracker(() => {
   const { username } = useParams();
-  const studentID: IStudentProfile = Users.getProfile(username).userID; 
+  const studentID: IStudentProfile = Users.getProfile(username).userID;
   const earnedICE: Ice = StudentProfiles.getEarnedICE(username);
   const projectedICE: Ice = StudentProfiles.getProjectedICE(username);
   const helpMessages: IHelpMessage = HelpMessages.findNonRetired({});

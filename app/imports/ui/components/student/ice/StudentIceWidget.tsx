@@ -2,7 +2,7 @@ import React from 'react';
 import { Segment, Grid, Header } from 'semantic-ui-react';
 import { Ice, ICourseInstance, IFavoriteInterest, IOpportunityInstance } from '../../../../typings/radgrad';
 import StudentIceColumn from './StudentIceColumn';
-import PageIceCircle from './PageIceCircle';
+import MenuIceCircle from '../../shared/MenuIceCircle';
 
 interface IStudentIceWidgetProps {
   earnedICE: Ice;
@@ -24,9 +24,8 @@ const StudentIceWidget: React.FC<IStudentIceWidgetProps> = ({ earnedICE, project
             <Grid.Column style={innovationColumnStyle}>
               <Segment basic>
                 {/* TODO Consolidate type so it is consistent to be 'innovation' */}
-                <PageIceCircle earned={earnedICE.i} planned={projectedICE.i} type="innov" />
+                <MenuIceCircle earned={earnedICE.i} planned={projectedICE.i} type="innov" />
                 <Header as="h3" textAlign="center" className="ice-innovation-color">INNOVATION</Header>
-                {/* TODO pass in earnedICE and projectedICE */}
                 <StudentIceColumn
                   type="Innovation"
                   favoriteInterests={favoriteInterests}
@@ -45,7 +44,7 @@ const StudentIceWidget: React.FC<IStudentIceWidgetProps> = ({ earnedICE, project
 
             <Grid.Column>
               <Segment basic>
-                <PageIceCircle earned={earnedICE.c} planned={projectedICE.c} type="comp" />
+                <MenuIceCircle earned={earnedICE.c} planned={projectedICE.c} type="comp" />
                 <Header as="h3" textAlign="center" className="ice-competency-color">COMPETENCY</Header>
                 <StudentIceColumn
                   type="Competency"
@@ -65,7 +64,7 @@ const StudentIceWidget: React.FC<IStudentIceWidgetProps> = ({ earnedICE, project
 
             <Grid.Column style={experienceColumnStyle}>
               <Segment basic>
-                <PageIceCircle earned={earnedICE.e} planned={projectedICE.e} type="exp" />
+                <MenuIceCircle earned={earnedICE.e} planned={projectedICE.e} type="exp" />
                 <Header as="h3" textAlign="center" className="ice-experience-color">Experience</Header>
                 <StudentIceColumn
                   type="Experience"
