@@ -70,6 +70,7 @@ interface AdminDataModelCareerGoalsPageProps extends AdminDataModeMenuProps {
   interests: Interest[];
 }
 
+// props not deconstructed because AdminDataModeMenuProps has 21 numbers.
 const AdminDataModelCareerGoalsPage: React.FC<AdminDataModelCareerGoalsPageProps> = (props) => {
   // TODO deconstruct props
   const formRef = React.createRef();

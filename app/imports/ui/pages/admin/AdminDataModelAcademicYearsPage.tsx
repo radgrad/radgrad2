@@ -59,7 +59,8 @@ interface AdminDataModelAcademicYearsPageProps extends AdminDataModeMenuProps {
   items: AcademicYearInstance[];
   students: StudentProfile[];
 }
-// TODO deconstruct props
+
+// props not deconstructed because AdminDataModeMenuProps has 21 numbers.
 const AdminDataModelAcademicYearsPage: React.FC<AdminDataModelAcademicYearsPageProps> = (props) => {
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);

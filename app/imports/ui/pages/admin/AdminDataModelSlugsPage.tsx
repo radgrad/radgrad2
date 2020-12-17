@@ -64,7 +64,7 @@ interface AdminDataModelSlugsPageProps extends AdminDataModeMenuProps {
   items: Slug[];
 }
 
-// TODO deconstruct props
+// props not deconstructed because AdminDataModeMenuProps has 21 numbers.
 const AdminDataModelSlugsPage: React.FC<AdminDataModelSlugsPageProps> = (props) => {
   const handleDelete = (event) => {
     event.preventDefault();

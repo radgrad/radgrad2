@@ -74,6 +74,7 @@ interface AdminDataModelInterestsPageProps extends AdminDataModeMenuProps {
   interestTypes: InterestType[];
 }
 
+// props not deconstructed because AdminDataModeMenuProps has 21 numbers.
 const AdminDataModelInterestsPage: React.FC<AdminDataModelInterestsPageProps> = (props) => {
   // TODO deconstruct props
   const formRef = React.createRef();

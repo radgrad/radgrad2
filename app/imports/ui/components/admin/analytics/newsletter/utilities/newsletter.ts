@@ -10,6 +10,8 @@ import { AcademicTerms } from '../../../../../../api/academic-term/AcademicTermC
 import { Slugs } from '../../../../../../api/slug/SlugCollection';
 import { Reviews } from '../../../../../../api/review/ReviewCollection';
 
+/** @namespace ui.components.admin.analytics.newsletter.utilities */
+
 interface Html {
   header?: string;
   info?: string;

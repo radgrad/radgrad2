@@ -28,6 +28,7 @@ import UploadFixtureWidget from '../../components/admin/datamodel/UploadFixtureW
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import withInstanceSubscriptions from '../../layouts/utilities/InstanceSubscriptionsHOC';
 
+// props not deconstructed because AdminDataModeMenuProps has 21 numbers.
 const AdminDataModelPage: React.FC<AdminDataModeMenuProps> = (props) => {
   // TODO deconstruct props
   const paddedStyle = {

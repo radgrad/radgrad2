@@ -69,6 +69,7 @@ interface AdminDataModelHelpMessagesPageProps extends AdminDataModeMenuProps {
   items: HelpMessage[];
 }
 
+// props not deconstructed because AdminDataModeMenuProps has 21 numbers.
 const AdminDataModelHelpMessagesPage: React.FC<AdminDataModelHelpMessagesPageProps> = (props) => {
   // TODO deconstruct props
   const formRef = React.createRef();

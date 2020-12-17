@@ -125,6 +125,7 @@ const mapStateToProps = (state: RootState): unknown => ({
   cloudinaryUrl: state.shared.cloudinary.adminDataModelFeeds.cloudinaryUrl,
 });
 
+// props not deconstructed because AdminDataModeMenuProps has 21 numbers.
 const AdminDataModelFeedsPage: React.FC<AdminDataModelFeedsPageProps> = (props) => {
   // TODO deconstruct props
   const formRef = React.createRef();

@@ -25,6 +25,7 @@ import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { degreePlannerActions } from '../../../redux/student/degree-planner';
+import { SelectPayload, SelectTab } from '../../../redux/student/degree-planner/actions';
 import TabbedFavoritesWidget from '../../components/student/degree-planner/TabbedFavoritesWidget';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { getUsername, MatchProps } from '../../components/shared/utilities/router';
@@ -42,9 +43,9 @@ import { VerificationRequests } from '../../../api/verification/VerificationRequ
 interface StudentDegreePlannerProps {
   takenSlugs: string[];
   plans: AcademicPlan[];
-  selectCourseInstance: (courseInstanceID: string) => any;
-  selectOpportunityInstance: (opportunityInstanceID: string) => any;
-  selectFavoriteDetailsTab: () => any;
+  selectCourseInstance: (courseInstanceID: string) => SelectPayload;
+  selectOpportunityInstance: (opportunityInstanceID: string) => SelectPayload;
+  selectFavoriteDetailsTab: () => SelectTab;
   match: MatchProps;
   academicYearInstances: AcademicYearInstance[];
   courseInstances: CourseInstance[];
@@ -61,13 +62,14 @@ const mapDispatchToProps = (dispatch) => ({
   selectFavoriteDetailsTab: () => dispatch(degreePlannerActions.selectFavoriteDetailsTab()),
 });
 
-const onDragEnd = (props: StudentDegreePlannerProps) => (result) => {
+const onDragEnd = (onDragEndProps) => (result) => {
+  const { match, selectCourseInstance, selectOpportunityInstance } = onDragEndProps;
   if (!result.destination) {
     return;
   }
   const termSlug: string = result.destination.droppableId;
   const slug: string = result.draggableId;
-  const student = getUsername(props.match);
+  const student = getUsername(match);
   const isCourseDrop = Courses.isDefined(slug);
   const isCourseInstanceDrop = CourseInstances.isDefined(slug);
   const isOppDrop = Opportunities.isDefined(slug);
@@ -118,8 +120,7 @@ const onDragEnd = (props: StudentDegreePlannerProps) => (result) => {
         if (error) {
           console.error(error);
         } else {
-          props.selectCourseInstance(res);
-          // props.selectFavoriteDetailsTab();
+          selectCourseInstance(res);
           if (!instanceExists) {
             interactionData = {
               username: student,
@@ -162,7 +163,7 @@ const onDragEnd = (props: StudentDegreePlannerProps) => (result) => {
           if (error) {
             console.error(error);
           } else {
-            props.selectCourseInstance(slug);
+            selectCourseInstance(slug);
             interactionData = {
               username: student,
               type: UserInteractionsTypes.UPDATECOURSE,
@@ -203,7 +204,7 @@ const onDragEnd = (props: StudentDegreePlannerProps) => (result) => {
       if (error) {
         console.error(error);
       } else {
-        props.selectOpportunityInstance(res);
+        selectOpportunityInstance(res);
         if (!instanceExists) {
           interactionData = {
             username: student,
@@ -228,7 +229,7 @@ const onDragEnd = (props: StudentDegreePlannerProps) => (result) => {
       if (error) {
         console.error(error);
       } else {
-        props.selectOpportunityInstance(slug);
+        selectOpportunityInstance(slug);
         interactionData = {
           username: student,
           type: UserInteractionsTypes.UPDATEOPPORTUNITY,
@@ -244,7 +245,8 @@ const onDragEnd = (props: StudentDegreePlannerProps) => (result) => {
   }
 };
 
-const StudentDegreePlannerPage: React.FC<StudentDegreePlannerProps> = (props) => {
+const StudentDegreePlannerPage: React.FC<StudentDegreePlannerProps> = ({ academicYearInstances, studentID, match, courses, opportunities, courseInstances, opportunityInstances, plans, selectCourseInstance, selectFavoriteDetailsTab, selectOpportunityInstance, takenSlugs, verificationRequests }) => {
+  const onDragEndProps = { match, selectCourseInstance, selectOpportunityInstance };
   const paddedStyle = {
     paddingTop: 0,
     paddingLeft: 10,
@@ -255,7 +257,7 @@ const StudentDegreePlannerPage: React.FC<StudentDegreePlannerProps> = (props) =>
     marginRight: 10,
   };
   return (
-    <DragDropContext onDragEnd={onDragEnd(props)}>
+    <DragDropContext onDragEnd={onDragEnd(onDragEndProps)}>
       <StudentPageMenuWidget />
       <GuidedTourDegreePlanner />
       <Container id="degree-planner-page">
@@ -263,22 +265,22 @@ const StudentDegreePlannerPage: React.FC<StudentDegreePlannerProps> = (props) =>
           <Grid.Row stretched>
             <Grid.Column width={10} style={paddedStyle}>
               <DegreeExperiencePlannerWidget
-                academicYearInstances={props.academicYearInstances}
-                courseInstances={props.courseInstances}
-                opportunityInstances={props.opportunityInstances}
+                academicYearInstances={academicYearInstances}
+                courseInstances={courseInstances}
+                opportunityInstances={opportunityInstances}
               />
             </Grid.Column>
 
             <Grid.Column width={6} style={paddedStyle}>
               <TabbedFavoritesWidget
-                academicPlans={props.plans}
-                takenSlugs={props.takenSlugs}
-                opportunities={props.opportunities}
-                studentID={props.studentID}
-                courses={props.courses}
-                courseInstances={props.courseInstances}
-                opportunityInstances={props.opportunityInstances}
-                verificationRequests={props.verificationRequests}
+                academicPlans={plans}
+                takenSlugs={takenSlugs}
+                opportunities={opportunities}
+                studentID={studentID}
+                courses={courses}
+                courseInstances={courseInstances}
+                opportunityInstances={opportunityInstances}
+                verificationRequests={verificationRequests}
               />
             </Grid.Column>
           </Grid.Row>

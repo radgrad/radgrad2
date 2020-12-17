@@ -91,7 +91,7 @@ interface AdminDataModelTeasersPageProps extends AdminDataModeMenuProps {
   opportunities: Opportunity[];
 }
 
-// TODO deconstruct props
+// props not deconstructed because AdminDataModeMenuProps has 21 numbers.
 const AdminDataModelTeasersPage: React.FC<AdminDataModelTeasersPageProps> = (props) => {
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);

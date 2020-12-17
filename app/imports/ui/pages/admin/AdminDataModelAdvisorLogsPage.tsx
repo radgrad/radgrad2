@@ -66,6 +66,7 @@ interface AdminDataModelAdvisorLogsPageProps extends AdminDataModeMenuProps {
   students: Meteor.User[];
 }
 
+// props not deconstructed because AdminDataModeMenuProps has 21 numbers.
 const AdminDataModelAdvisorLogsPage: React.FC<AdminDataModelAdvisorLogsPageProps> = (props) => {
   // TODO deconstruct props
   const formRef = React.createRef();

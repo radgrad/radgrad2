@@ -67,11 +67,8 @@ interface AdminDataModelUsersPageProps extends AdminDataModeMenuProps {
   students: StudentProfile[];
   isCloudinaryUsed: boolean;
   cloudinaryUrl: string;
-  // eslint-disable-next-line react/no-unused-prop-types
   favoriteAcademicPlans: FavoriteAcademicPlan[];
-  // eslint-disable-next-line react/no-unused-prop-types
   favoriteCareerGoals: FavoriteCareerGoal[];
-  // eslint-disable-next-line react/no-unused-prop-types
   favoriteInterests: FavoriteInterest[];
   interests: Interest[];
   careerGoals: CareerGoal[];
@@ -141,7 +138,7 @@ const mapStateToProps = (state: RootState): unknown => ({
   cloudinaryUrl: state.shared.cloudinary.adminDataModelUsers.cloudinaryUrl,
 });
 
-// TODO deconstruct props
+// props not deconstructed because AdminDataModeMenuProps has 21 numbers.
 const AdminDataModelUsersPage: React.FC<AdminDataModelUsersPageProps> = (props) => {
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);

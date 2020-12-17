@@ -80,6 +80,7 @@ interface AdminDataModelFeedbackInstancesPageProps extends AdminDataModeMenuProp
   students: StudentProfile[];
 }
 
+// props not deconstructed because AdminDataModeMenuProps has 21 numbers.
 const AdminDataModelFeedbackInstancesPage: React.FC<AdminDataModelFeedbackInstancesPageProps> = (props) => {
   // TODO deconstruct props
   const formRef = React.createRef();

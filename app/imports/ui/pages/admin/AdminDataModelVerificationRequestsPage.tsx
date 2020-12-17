@@ -101,7 +101,7 @@ interface AdminDataModelVerificationRequestsPageProps extends AdminDataModeMenuP
   opportunityInstances: OpportunityInstance[];
 }
 
-// TODO deconstruct props
+// props not deconstructed because AdminDataModeMenuProps has 21 numbers.
 const AdminDataModelVerificationRequestsPage: React.FC<AdminDataModelVerificationRequestsPageProps> = (props) => {
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);

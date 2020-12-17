@@ -101,6 +101,7 @@ interface AdminDataModelReviewsPageProps extends AdminDataModeMenuProps {
   opportunities: Opportunity[];
 }
 
+// props not deconstructed because AdminDataModeMenuProps has 21 numbers.
 const AdminDataModelReviewsPage: React.FC<AdminDataModelReviewsPageProps> = (props) => {
   // TODO deconstruct props
   const formRef = React.createRef();

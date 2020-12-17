@@ -86,6 +86,7 @@ interface AdminDataModelCoursesPageProps extends AdminDataModeMenuProps {
   courses: Course[];
 }
 
+// props not deconstructed because AdminDataModeMenuProps has 21 numbers.
 const AdminDataModelCoursesPage: React.FC<AdminDataModelCoursesPageProps> = (props) => {
   // TODO deconstruct props
   const formRef = React.createRef();
