@@ -7,7 +7,7 @@ import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import StudentIceWidget from '../../components/student/ice/StudentIceWidget';
-import { Ice, ICourseInstance, IFavoriteInterest, IHelpMessage, IOpportunityInstance } from '../../../typings/radgrad';
+import { Ice, ICourseInstance, IFavoriteInterest, IHelpMessage, IOpportunityInstance, IStudentProfile } from '../../../typings/radgrad';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
@@ -50,10 +50,10 @@ const StudentIcePage: React.FC<IStudentIcePageProps> = ({ helpMessages, earnedIC
 
 const StudentHomeIcePageContainer = withTracker(() => {
   const { username } = useParams();
-  const studentID = Users.getProfile(username).userID; // TODO type this.
+  const studentID: IStudentProfile = Users.getProfile(username).userID; 
   const earnedICE: Ice = StudentProfiles.getEarnedICE(username);
   const projectedICE: Ice = StudentProfiles.getProjectedICE(username);
-  const helpMessages = HelpMessages.findNonRetired({}); // TODO type this.
+  const helpMessages: IHelpMessage = HelpMessages.findNonRetired({});
   const favoriteInterests: IFavoriteInterest[] = FavoriteInterests.findNonRetired({ userID: studentID });
   const courseInstances: ICourseInstance[] = CourseInstances.findNonRetired({ studentID });
   const opportunityInstances: IOpportunityInstance[] = OpportunityInstances.findNonRetired({ studentID });
