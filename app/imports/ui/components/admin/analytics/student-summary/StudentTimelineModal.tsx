@@ -72,7 +72,6 @@ const getBehaviors = (sessionArr: UserInteraction[]): { type: string, stats: str
   const actions = {
     careerGoalIDs: [],
     interestIDs: [],
-    academicPlanID: [],
     [UserInteractionsTypes.PAGEVIEW]: [],
     [UserInteractionsTypes.LOGIN]: [],
     [UserInteractionsTypes.LEVEL]: [],

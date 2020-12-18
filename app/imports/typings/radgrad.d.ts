@@ -175,12 +175,6 @@ export interface SocialPair {
   value: Profile[];
 }
 
-// AcademicPlans
-interface AcademicPlanGroup {
-  name: string;
-  courseSlugs: string[];
-}
-
 // AcademicYearInstances
 export interface AcademicYearInstance {
   _id: string;

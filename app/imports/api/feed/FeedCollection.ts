@@ -112,6 +112,7 @@ class FeedCollection extends BaseCollection {
    * define that new feed.
    */
   public define(feedDefinition: FeedDefine) {
+    // console.log('Feed.define', feedDefinition);
     if (feedDefinition.feedType === this.NEW_USER) {
       return this.defineNewUser(feedDefinition);
     }

@@ -32,7 +32,6 @@ class StudentProfileCollection extends BaseProfileCollection {
       level: { type: SimpleSchema.Integer, min: 1, max: 6 },
       declaredAcademicTermID: { type: SimpleSchema.RegEx.Id, optional: true },
       isAlumni: Boolean,
-      shareAcademicPlan: { type: Boolean, optional: true },
       shareOpportunities: { type: Boolean, optional: true },
       shareCourses: { type: Boolean, optional: true },
       shareLevel: { type: Boolean, optional: true },
@@ -50,8 +49,6 @@ class StudentProfileCollection extends BaseProfileCollection {
       'careerGoals.$': String,
       retired: { type: Boolean, optional: true },
       level: { type: SimpleSchema.Integer, min: 1, max: 6 },
-      favoriteAcademicPlans: { type: Array, optional: true },
-      'favoriteAcademicPlans.$': String,
       declaredAcademicTerm: { type: String, optional: true },
       isAlumni: { type: Boolean, optional: true },
       favoriteCourses: { type: Array, optional: true },
@@ -63,7 +60,6 @@ class StudentProfileCollection extends BaseProfileCollection {
       shareWebsite: { type: Boolean, optional: true },
       shareInterests: { type: Boolean, optional: true },
       shareCareerGoals: { type: Boolean, optional: true },
-      shareAcademicPlan: { type: Boolean, optional: true },
       shareOpportunities: { type: Boolean, optional: true },
       shareCourses: { type: Boolean, optional: true },
       shareLevel: { type: Boolean, optional: true },
@@ -79,8 +75,6 @@ class StudentProfileCollection extends BaseProfileCollection {
       'careerGoals.$': String,
       retired: { type: Boolean, optional: true },
       level: { type: SimpleSchema.Integer, min: 1, max: 6 },
-      favoriteAcademicPlans: { type: Array, optional: true },
-      'favoriteAcademicPlans.$': String,
       declaredAcademicTermID: { type: String, optional: true },
       isAlumni: { type: Boolean, optional: true },
       favoriteCourses: { type: Array, optional: true },
@@ -92,7 +86,6 @@ class StudentProfileCollection extends BaseProfileCollection {
       shareWebsite: { type: Boolean, optional: true },
       shareInterests: { type: Boolean, optional: true },
       shareCareerGoals: { type: Boolean, optional: true },
-      shareAcademicPlan: { type: Boolean, optional: true },
       shareOpportunities: { type: Boolean, optional: true },
       shareCourses: { type: Boolean, optional: true },
       shareLevel: { type: Boolean, optional: true },
@@ -112,7 +105,6 @@ class StudentProfileCollection extends BaseProfileCollection {
    * @param careerGoals An array of career goals. (optional)
    * @param level An integer between 1 and 6 indicating the student's level.
    * @param retired boolean. (optional defaults to false)
-   * @param academicPlan An optional slug indicating the academic plan.
    * @param declaredAcademicTerm An optional string indicating the student's declared academic term.
    * @param isAlumni An optional boolean indicating if this student has graduated. Defaults to false.
    * @param shareUsername An optional boolean indicating if this student is sharing their username. Defaults to false.
@@ -120,20 +112,18 @@ class StudentProfileCollection extends BaseProfileCollection {
    * @param shareWebsite An optional boolean indicating if this student is sharing their website. Defaults to false.
    * @param shareInterests An optional boolean indicating if this student is sharing their interests. Defaults to false.
    * @param shareCareerGoals An optional boolean indicating if this student is sharing their career goals. Defaults to false.
-   * @param shareAcademicPlan An optional boolean indicating if this student is sharing their academic plans. Defaults to false.
    * @param shareCourses An optional boolean indicating if this student is sharing their courses. Defaults to false.
    * @param shareOpportunities An optional boolean indicating if this student is sharing their opportunities. Defaults to false.
    * @param shareLevel An optional boolean indicating if this student is sharing their level. Defaults to false.
    * @throws { Meteor.Error } If username has been previously defined, or if any interests, careerGoals, level,
-   * academicPlan, or declaredAcademicTerm are invalid.
    * @return { String } The docID of the StudentProfile.
    */
 
   public define({
     username, firstName, lastName, picture = defaultProfilePicture, website, interests,
-    careerGoals, level, favoriteAcademicPlans = [], declaredAcademicTerm, favoriteCourses = [], favoriteOpportunities = [],
+    careerGoals, level, declaredAcademicTerm, favoriteCourses = [], favoriteOpportunities = [],
     isAlumni = false, retired = false, shareUsername = false, sharePicture = false, shareWebsite = false,
-    shareInterests = false, shareCareerGoals = false, shareAcademicPlan = false, shareCourses = false,
+    shareInterests = false, shareCareerGoals = false, shareCourses = false,
     shareOpportunities = false, shareLevel = false,
   }: StudentProfileDefine) {
     if (Meteor.isServer) {
@@ -164,7 +154,6 @@ class StudentProfileCollection extends BaseProfileCollection {
         shareWebsite,
         shareInterests,
         shareCareerGoals,
-        shareAcademicPlan,
         shareCourses,
         shareOpportunities,
         shareLevel,
@@ -203,7 +192,6 @@ class StudentProfileCollection extends BaseProfileCollection {
    * @param interests
    * @param careerGoals
    * @param level
-   * @param academicPlan
    * @param declaredAcademicTerm
    * @param isAlumni
    * @param retired
@@ -212,16 +200,15 @@ class StudentProfileCollection extends BaseProfileCollection {
    * @param shareWebsite
    * @param shareInterests
    * @param shareCareerGoals
-   * @param shareAcademicPlan
    * @param shareCourses
    * @param shareOpportunities
    * @param shareLevel
    */
   public update(docID, {
-    firstName, lastName, picture, website, interests, careerGoals, level, favoriteAcademicPlans, favoriteCourses,
+    firstName, lastName, picture, website, interests, careerGoals, level, favoriteCourses,
     favoriteOpportunities, declaredAcademicTerm,
     isAlumni, retired, courseExplorerFilter, opportunityExplorerSortOrder, shareUsername, sharePicture, shareWebsite, shareInterests,
-    shareCareerGoals, shareAcademicPlan, shareCourses, shareOpportunities, shareLevel, lastRegistrarLoad,
+    shareCareerGoals, shareCourses, shareOpportunities, shareLevel, lastRegistrarLoad,
   }: StudentProfileUpdate) {
     this.assertDefined(docID);
     const profile = this.findDoc(docID);
@@ -270,9 +257,6 @@ class StudentProfileCollection extends BaseProfileCollection {
     }
     if (_.isBoolean(shareCareerGoals)) {
       updateData.shareCareerGoals = shareCareerGoals;
-    }
-    if (_.isBoolean(shareAcademicPlan)) {
-      updateData.shareAcademicPlan = shareAcademicPlan;
     }
     if (_.isBoolean(shareCourses)) {
       updateData.shareCourses = shareCourses;
@@ -504,15 +488,6 @@ class StudentProfileCollection extends BaseProfileCollection {
                 ],
               }, '$level', 0],
             },
-            academicPlanID: {
-              $cond: [{
-                $or: [
-                  { $ifNull: ['$shareAcademicPlan', false] },
-                  { $eq: [userID, '$userID'] },
-                  { $eq: [Roles.userIsInRole(userID, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY]), true] },
-                ],
-              }, '$academicPlanID', ''],
-            },
             declaredAcademicTermID: 1,
             isAlumni: 1,
             shareUsername: 1,
@@ -520,7 +495,6 @@ class StudentProfileCollection extends BaseProfileCollection {
             shareWebsite: 1,
             shareInterests: 1,
             shareCareerGoals: 1,
-            shareAcademicPlan: 1,
             shareOpportunities: 1,
             shareCourses: 1,
             shareLevel: 1,
@@ -532,7 +506,6 @@ class StudentProfileCollection extends BaseProfileCollection {
                   '$shareWebsite',
                   '$shareInterests',
                   '$shareCareerGoals',
-                  '$shareAcademicPlan',
                   '$shareOpportunities',
                   '$shareCourses',
                   '$shareLevel',
@@ -578,11 +551,10 @@ class StudentProfileCollection extends BaseProfileCollection {
     const shareOpportunities = doc.shareOpportunities;
     const shareCourses = doc.shareCourses;
     const shareLevel = doc.shareLevel;
-    const shareAcademicPlan = doc.shareAcademicPlan;
     return {
       username, firstName, lastName, picture, website, interests, careerGoals, level,
       favoriteCourses, favoriteOpportunities, declaredAcademicTerm, isAlumni, retired, shareUsername, sharePicture,
-      shareWebsite, shareInterests, shareCareerGoals, shareOpportunities, shareCourses, shareLevel, shareAcademicPlan,
+      shareWebsite, shareInterests, shareCareerGoals, shareOpportunities, shareCourses, shareLevel,
     };
   }
 }

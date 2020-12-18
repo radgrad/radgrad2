@@ -29,8 +29,6 @@ interface UpdateUserProps {
   interests: Interest[];
   careerGoals: CareerGoal[];
   academicTerms: AcademicTerm[];
-  // academicPlans: AcademicPlan[];
-  // collection: BaseCollection;
   id: string;
   formRef: React.RefObject<unknown>;
   handleUpdate: (doc) => any;
@@ -136,20 +134,11 @@ const UpdateUserForm: React.FC<UpdateUserProps> = ({ id, interests, setAdminData
       optional: true,
       allowedValues: academicTermNames,
     },
-    // academicPlans: {
-    //   type: Array,
-    //   optional: true,
-    // },
-    // 'academicPlans.$': {
-    //   type: String,
-    //   allowedValues: academicPlanNames,
-    // },
     shareUsername: { type: Boolean, optional: true },
     sharePicture: { type: Boolean, optional: true },
     shareWebsite: { type: Boolean, optional: true },
     shareInterests: { type: Boolean, optional: true },
     shareCareerGoals: { type: Boolean, optional: true },
-    shareAcademicPlan: { type: Boolean, optional: true },
     shareOpportunities: { type: Boolean, optional: true },
     shareCourses: { type: Boolean, optional: true },
     shareLevel: { type: Boolean, optional: true },
@@ -209,7 +198,6 @@ const UpdateUserForm: React.FC<UpdateUserProps> = ({ id, interests, setAdminData
               <BoolField name="shareWebsite" />
               <BoolField name="shareInterests" />
               <BoolField name="shareCareerGoals" />
-              <BoolField name="shareAcademicPlan" />
               <BoolField name="shareOpportunities" />
               <BoolField name="shareCourses" />
               <BoolField name="shareLevel" />

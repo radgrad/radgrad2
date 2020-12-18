@@ -68,8 +68,6 @@ class PublicStatsCollection extends BaseCollection {
 
   public levelSixTotalKey: string;
 
-  public firstAcademicPlanKey: string;
-
   public firstCareerGoalKey: string;
 
   public firstInterestKey: string;

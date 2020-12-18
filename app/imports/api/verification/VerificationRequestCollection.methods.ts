@@ -72,6 +72,7 @@ export const processVerificationEventMethod = new ValidatedMethod({
 
     // Make sure there's an opportunity instance for this student.
     let opportunityInstanceID = getOpportunityInstanceID(student, opportunity, academicTerm);
+    console.log(opportunityInstanceID);
     if (!opportunityInstanceID) {
       resultMessage += '  No opportunity instance found. Defining a new one.\n';
       opportunityInstanceID = OpportunityInstances.define({ academicTerm, opportunity, student, verified });
@@ -79,11 +80,12 @@ export const processVerificationEventMethod = new ValidatedMethod({
 
     // Make sure there's a verification request for this opportunity instance.
     let verificationRequestID = VerificationRequests.findOne({ opportunityInstanceID });
+    console.log(verificationRequestID);
     if (!verificationRequestID) {
       resultMessage += '  No verification request found. Defining a new one.\n';
       verificationRequestID = VerificationRequests.define({ student, opportunityInstance: opportunityInstanceID });
     }
-
+    console.log(resultMessage);
     // If this event has already been verified, then return now.
     if (OpportunityInstances.findDoc(opportunityInstanceID).verified) {
       const opp = Opportunities.findDoc(opportunity);
@@ -92,11 +94,13 @@ export const processVerificationEventMethod = new ValidatedMethod({
 
     // Otherwise verify the opportunity instance and the VerificationRequestID.
     resultMessage += '  Setting the opportunity instance and verification request to verified.\n';
+    console.log(resultMessage);
     OpportunityInstances.update(opportunityInstanceID, { verified: true });
     VerificationRequests.setVerified(verificationRequestID, Meteor.userId());
 
     // Create a Feed entry for this verification event.
     resultMessage += '  Creating a feed entry.\n';
+    console.log(resultMessage);
     Feeds.define({ feedType: Feeds.VERIFIED_OPPORTUNITY, user: student, opportunity, academicTerm });
 
     return resultMessage;

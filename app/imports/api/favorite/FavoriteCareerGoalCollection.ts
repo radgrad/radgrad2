@@ -190,8 +190,8 @@ class FavoriteCareerGoalCollection extends BaseCollection {
   }
 
   /**
-   * Returns an object representing the FavoriteAcademicPlan docID in a format acceptable to define().
-   * @param docID The docID of a FavoriteAcademicPlan.
+   * Returns an object representing the FavoriteCareerGoal docID in a format acceptable to define().
+   * @param docID The docID of a FavoriteCareerGoal.
    * @returns { Object } An object representing the definition of docID.
    */
   dumpOne(docID): FavoriteCareerGoalDefine {
