@@ -23,10 +23,6 @@ class AdvisorNavBar {
     await testController.click('#advisor-menu-moderation');
   }
 
-  async gotoAcademicPlanPage(testController) {
-    await testController.click('#advisor-menu-academic-plan');
-  }
-
   async gotoScoreboardPage(testController) {
     await testController.click('#advisor-menu-scoreboard');
   }
