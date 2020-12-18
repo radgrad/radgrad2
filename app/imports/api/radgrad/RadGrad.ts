@@ -1,6 +1,5 @@
 import _ from 'lodash';
 import { Meteor } from 'meteor/meteor';
-import { AcademicPlans } from '../degree-plan/AcademicPlanCollection';
 import { AcademicYearInstances } from '../degree-plan/AcademicYearInstanceCollection';
 import { AdvisorLogs } from '../log/AdvisorLogCollection';
 import { AdminProfiles } from '../user/AdminProfileCollection';
@@ -19,7 +18,6 @@ import { InterestTypes } from '../interest/InterestTypeCollection';
 import { Opportunities } from '../opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollection';
 import { OpportunityTypes } from '../opportunity/OpportunityTypeCollection';
-import { PlanChoices } from '../degree-plan/PlanChoiceCollection';
 import { PublicStats } from '../public-stats/PublicStatsCollection';
 import { Reviews } from '../review/ReviewCollection';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
@@ -28,7 +26,6 @@ import { StudentProfiles } from '../user/StudentProfileCollection';
 import { Teasers } from '../teaser/TeaserCollection';
 import { UserInteractions } from '../analytic/UserInteractionCollection';
 import { VerificationRequests } from '../verification/VerificationRequestCollection';
-import { FavoriteAcademicPlans } from '../favorite/FavoriteAcademicPlanCollection';
 import { FavoriteCareerGoals } from '../favorite/FavoriteCareerGoalCollection';
 import { FavoriteCourses } from '../favorite/FavoriteCourseCollection';
 import { FavoriteInterests } from '../favorite/FavoriteInterestCollection';
@@ -54,7 +51,6 @@ class RadGradClass {
      * This list is used for things like checking integrity.
      */
     this.collections = [
-      AcademicPlans,
       AcademicYearInstances,
       AdminProfiles,
       AdvisorLogs,
@@ -64,7 +60,6 @@ class RadGradClass {
       Courses,
       CourseInstances,
       FacultyProfiles,
-      FavoriteAcademicPlans,
       FavoriteCareerGoals,
       FavoriteCourses,
       FavoriteInterests,
@@ -80,7 +75,6 @@ class RadGradClass {
       OpportunityTypes,
       PageInterests,
       PageInterestsDailySnapshots,
-      PlanChoices,
       PublicStats,
       Reviews,
       AcademicTerms,
@@ -104,7 +98,6 @@ class RadGradClass {
       InterestTypes,
       Interests,
       CareerGoals,
-      AcademicPlans,
       AdminProfiles,
       AdvisorProfiles,
       FacultyProfiles,
@@ -124,8 +117,6 @@ class RadGradClass {
       PageInterests,
       PageInterestsDailySnapshots,
       Reviews,
-      PlanChoices,
-      FavoriteAcademicPlans,
       FavoriteCareerGoals,
       FavoriteCourses,
       FavoriteInterests,

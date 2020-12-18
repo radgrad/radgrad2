@@ -9,13 +9,11 @@ import { Courses } from '../course/CourseCollection';
 import { CourseInstances } from '../course/CourseInstanceCollection';
 import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollection';
 import { StudentParticipationDefine, StudentParticipationUpdate } from '../../typings/radgrad';
-import { AcademicPlans } from '../degree-plan/AcademicPlanCollection';
 import { CareerGoals } from '../career/CareerGoalCollection';
 import { Interests } from '../interest/InterestCollection';
 import { StudentProfiles } from '../user/StudentProfileCollection';
 import { FavoriteCareerGoals } from '../favorite/FavoriteCareerGoalCollection';
 import { profileGetInterestIDs } from '../../ui/components/shared/utilities/data-model';
-import { FavoriteAcademicPlans } from '../favorite/FavoriteAcademicPlanCollection';
 
 class StudentParticipationCollection extends BaseCollection {
   constructor() {
@@ -95,14 +93,12 @@ class StudentParticipationCollection extends BaseCollection {
       .forEach(doc => {
         if (!Courses.isDefined(doc.itemID) &&
           !Opportunities.isDefined(doc.itemID) &&
-          !AcademicPlans.isDefined(doc.itemID) &&
           !CareerGoals.isDefined(doc.itemID) &&
           !Interests.isDefined(doc.itemID)) {
           problems.push(`Bad itemID. ${doc.itemID} is neither a Course or Opportunity ID.`);
         }
         if (!Slugs.isSlugForEntity(doc.itemSlug, Courses.getType()) &&
           !Slugs.isSlugForEntity(doc.itemSlug, Opportunities.getType()) &&
-          !Slugs.isSlugForEntity(doc.itemSlug, AcademicPlans.getType()) &&
           !Slugs.isSlugForEntity(doc.itemSlug, CareerGoals.getType()) &&
           !Slugs.isSlugForEntity(doc.itemSlug, Interests.getType())) {
           problems.push(`Bad itemSlug. ${doc.itemSlug} is neither a Course or Opportunity slug.`);
@@ -144,20 +140,6 @@ class StudentParticipationCollection extends BaseCollection {
         this.collection.upsert({ itemSlug }, { $set: { itemID, itemSlug, itemCount } });
       });
       const students = StudentProfiles.findNonRetired({ isAlumni: false });
-      // AcademicPlans
-      const academicPlans = AcademicPlans.findNonRetired();
-      _.forEach(academicPlans, (p) => {
-        const itemID = p._id;
-        const itemSlug = Slugs.getNameFromID(p.slugID);
-        const filterd = _.filter(students, (s) => {
-          const favPlans = FavoriteAcademicPlans.findNonRetired({ studentID: s.userID });
-          const planIDs = _.map(favPlans, (fav) => fav.academicPlanID);
-          return _.includes(planIDs, itemID);
-        });
-        // console.log('students with academicplan %o = %o', itemID, filterd);
-        const itemCount = filterd.length;
-        this.collection.upsert({ itemSlug }, { $set: { itemID, itemSlug, itemCount } });
-      });
       // CareerGoals
       const careerGoals = CareerGoals.findNonRetired();
       _.forEach(careerGoals, (c) => {

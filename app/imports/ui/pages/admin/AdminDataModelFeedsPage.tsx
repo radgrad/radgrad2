@@ -6,9 +6,7 @@ import Swal from 'sweetalert2';
 import { connect } from 'react-redux';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
-import { PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
 import { FeedbackInstances } from '../../../api/feedback/FeedbackInstanceCollection';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
@@ -50,7 +48,6 @@ import {
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import { RootState } from '../../../redux/types';
-import withInstanceSubscriptions from '../../layouts/utilities/InstanceSubscriptionsHOC';
 
 const collection = Feeds; // the collection to use.
 
@@ -333,7 +330,6 @@ const AdminDataModelFeedsPage: React.FC<AdminDataModelFeedsPageProps> = (props) 
 const AdminDataModelFeedsPageCon = connect(mapStateToProps)(AdminDataModelFeedsPage);
 
 const AdminDataModelFeedsPageContainer = withTracker(() => ({
-  academicPlanCount: AcademicPlans.count(),
   academicTermCount: AcademicTerms.count(),
   academicYearCount: AcademicYearInstances.count(),
   advisorLogCount: AdvisorLogs.count(),
@@ -348,7 +344,6 @@ const AdminDataModelFeedsPageContainer = withTracker(() => ({
   opportunityCount: Opportunities.count(),
   opportunityInstanceCount: OpportunityInstances.count(),
   opportunityTypeCount: OpportunityTypes.count(),
-  planChoiceCount: PlanChoices.count(),
   reviewCount: Reviews.count(),
   slugCount: Slugs.count(),
   teaserCount: Teasers.count(),
@@ -361,4 +356,4 @@ const AdminDataModelFeedsPageContainer = withTracker(() => ({
   students: StudentProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch(),
 }))(AdminDataModelFeedsPageCon);
 
-export default withInstanceSubscriptions(AdminDataModelFeedsPageContainer);
+export default AdminDataModelFeedsPageContainer;

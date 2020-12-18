@@ -7,9 +7,7 @@ import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
-import { PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
 import { Feeds } from '../../../api/feed/FeedCollection';
 import { FeedbackInstances } from '../../../api/feedback/FeedbackInstanceCollection';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
@@ -34,7 +32,6 @@ import AddOpportunityTypeForm from '../../components/admin/datamodel/opportunity
 import UpdateOpportunityTypeForm from '../../components/admin/datamodel/opportunity/UpdateOpportunityTypeForm';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { itemToSlugName } from '../../components/shared/utilities/data-model';
-import withInstanceSubscriptions from '../../layouts/utilities/InstanceSubscriptionsHOC';
 
 const collection = OpportunityTypes; // the collection to use.
 
@@ -240,7 +237,6 @@ const AdminDataModelOpportunityTypesPage: React.FC<AdminDataModelOpportunityType
 };
 
 const AdminDataModelOpportunityTypesPageContainer = withTracker(() => ({
-  academicPlanCount: AcademicPlans.count(),
   academicTermCount: AcademicTerms.count(),
   academicYearCount: AcademicYearInstances.count(),
   advisorLogCount: AdvisorLogs.count(),
@@ -255,7 +251,6 @@ const AdminDataModelOpportunityTypesPageContainer = withTracker(() => ({
   opportunityCount: Opportunities.count(),
   opportunityInstanceCount: OpportunityInstances.count(),
   opportunityTypeCount: OpportunityTypes.count(),
-  planChoiceCount: PlanChoices.count(),
   reviewCount: Reviews.count(),
   slugCount: Slugs.count(),
   teaserCount: Teasers.count(),
@@ -264,4 +259,4 @@ const AdminDataModelOpportunityTypesPageContainer = withTracker(() => ({
   items: OpportunityTypes.find({}).fetch(),
 }))(AdminDataModelOpportunityTypesPage);
 
-export default withInstanceSubscriptions(AdminDataModelOpportunityTypesPageContainer);
+export default AdminDataModelOpportunityTypesPageContainer;

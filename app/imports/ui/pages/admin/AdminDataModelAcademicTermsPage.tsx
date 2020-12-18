@@ -5,9 +5,7 @@ import _ from 'lodash';
 import Swal from 'sweetalert2';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { Courses } from '../../../api/course/CourseCollection';
-import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
-import { PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
 import { Feeds } from '../../../api/feed/FeedCollection';
 import { FeedbackInstances } from '../../../api/feedback/FeedbackInstanceCollection';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
@@ -37,7 +35,6 @@ import AdminDataModelUpdateForm from '../../components/admin/datamodel/AdminData
 import AdminDataModelAddForm from '../../components/admin/datamodel/AdminDataModelAddForm';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
-import withInstanceSubscriptions from '../../layouts/utilities/InstanceSubscriptionsHOC';
 
 function numReferences(term) {
   let references = 0;
@@ -241,7 +238,6 @@ const AdminDataModelAcademicTermsPage: React.FC<AdminDataModelAcademicTermsPageP
 };
 
 const AdminDataModelAcademicTermsPageContainer = withTracker(() => ({
-  academicPlanCount: AcademicPlans.count(),
   academicTermCount: AcademicTerms.count(),
   academicYearCount: AcademicYearInstances.count(),
   advisorLogCount: AdvisorLogs.count(),
@@ -256,7 +252,6 @@ const AdminDataModelAcademicTermsPageContainer = withTracker(() => ({
   opportunityCount: Opportunities.count(),
   opportunityInstanceCount: OpportunityInstances.count(),
   opportunityTypeCount: OpportunityTypes.count(),
-  planChoiceCount: PlanChoices.count(),
   reviewCount: Reviews.count(),
   slugCount: Slugs.count(),
   teaserCount: Teasers.count(),
@@ -265,4 +260,4 @@ const AdminDataModelAcademicTermsPageContainer = withTracker(() => ({
   items: AcademicTerms.find({}).fetch(),
 }))(AdminDataModelAcademicTermsPage);
 
-export default withInstanceSubscriptions(AdminDataModelAcademicTermsPageContainer);
+export default AdminDataModelAcademicTermsPageContainer;

@@ -1,6 +1,5 @@
 import { AdminProfiles } from '../../../api/user/AdminProfileCollection';
 import * as TYPES from './types';
-import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
 import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';
@@ -15,7 +14,6 @@ import { InterestTypes } from '../../../api/interest/InterestTypeCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';
-import { PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
 import { Reviews } from '../../../api/review/ReviewCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
@@ -28,9 +26,6 @@ export const setCollectionShowCount = (collectionName: string, count: number) =>
   const retVal: { type?: string, payload?: number } = {};
   retVal.payload = count;
   switch (collectionName) {
-    case AcademicPlans.getCollectionName():
-      retVal.type = TYPES.SET_ACADEMIC_PLANS_SHOW_COUNT;
-      break;
     case AcademicTerms.getCollectionName():
       retVal.type = TYPES.SET_ACADEMIC_TERMS_SHOW_COUNT;
       break;
@@ -73,9 +68,6 @@ export const setCollectionShowCount = (collectionName: string, count: number) =>
     case OpportunityTypes.getCollectionName():
       retVal.type = TYPES.SET_OPPORTUNITY_TYPES_SHOW_COUNT;
       break;
-    case PlanChoices.getCollectionName():
-      retVal.type = TYPES.SET_PLAN_CHOICES_SHOW_COUNT;
-      break;
     case Reviews.getCollectionName():
       retVal.type = TYPES.SET_REVIEWS_SHOW_COUNT;
       break;
@@ -110,9 +102,6 @@ export const setCollectionShowIndex = (collectionName: string, index: number) =>
   const retVal: { type?: string, payload?: number } = {};
   retVal.payload = index;
   switch (collectionName) {
-    case AcademicPlans.getCollectionName():
-      retVal.type = TYPES.SET_ACADEMIC_PLANS_SHOW_INDEX;
-      break;
     case AcademicTerms.getCollectionName():
       retVal.type = TYPES.SET_ACADEMIC_TERMS_SHOW_INDEX;
       break;
@@ -154,9 +143,6 @@ export const setCollectionShowIndex = (collectionName: string, index: number) =>
       break;
     case OpportunityTypes.getCollectionName():
       retVal.type = TYPES.SET_OPPORTUNITY_TYPES_SHOW_INDEX;
-      break;
-    case PlanChoices.getCollectionName():
-      retVal.type = TYPES.SET_PLAN_CHOICES_SHOW_INDEX;
       break;
     case Reviews.getCollectionName():
       retVal.type = TYPES.SET_REVIEWS_SHOW_INDEX;

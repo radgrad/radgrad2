@@ -1,7 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
 import {
-  AcademicPlan,
   CareerGoal,
   Course,
   Interest,
@@ -18,39 +17,24 @@ import { StudentProfiles } from '../../../../../api/user/StudentProfileCollectio
 import { Opportunities } from '../../../../../api/opportunity/OpportunityCollection';
 import {
   profileGetCareerGoalIDs,
-  profileGetFavoriteAcademicPlans,
 } from '../../utilities/data-model';
 import { defaultProfilePicture } from '../../../../../api/user/BaseProfileCollection';
 import { FavoriteCareerGoals } from '../../../../../api/favorite/FavoriteCareerGoalCollection';
-import { FavoriteAcademicPlans } from '../../../../../api/favorite/FavoriteAcademicPlanCollection';
 import { FavoriteInterests } from '../../../../../api/favorite/FavoriteInterestCollection';
 import { FavoriteOpportunities } from '../../../../../api/favorite/FavoriteOpportunityCollection';
 import { MatchProps } from '../../utilities/router';
 
-export type ExplorerInterfaces = AcademicPlan | CareerGoal | Course | Interest | Opportunity;
+export type ExplorerInterfaces = CareerGoal | Course | Interest | Opportunity;
 
-export type IExplorerTypes = 'plans' | 'career-goals' | 'courses' | 'interests' | 'opportunities';
+export type IExplorerTypes = 'career-goals' | 'courses' | 'interests' | 'opportunities';
 
 export const isType = (typeToCheck: string, type: IExplorerTypes): boolean => type === typeToCheck;
-
-/* ####################################### ACADEMIC PLANS HELPER FUNCTIONS ####################################### */
-export const noPlan = (match: Router.MatchProps): boolean => {
-  const profile = Users.getProfile(Router.getUsername(match));
-  return profileGetFavoriteAcademicPlans(profile).length === 0;
-};
 
 export const interestedStudents = (item: { _id: string }, type: string): StudentProfile[] => {
   const interested = [];
   let profiles = StudentProfiles.findNonRetired({ isAlumni: false });
 
-  if (type === EXPLORER_TYPE.ACADEMICPLANS) {
-    profiles = _.filter(profiles, (profile) => {
-      const studentID = profile.userID;
-      const favPlans = FavoriteAcademicPlans.findNonRetired({ studentID });
-      const favIDs = _.map(favPlans, (fav) => fav.academicPlanID);
-      return _.includes(favIDs, item._id);
-    });
-  } else if (type === EXPLORER_TYPE.CAREERGOALS) {
+  if (type === EXPLORER_TYPE.CAREERGOALS) {
     profiles = _.filter(profiles, (profile) => {
       const userID = profile.userID;
       const favCareerGoals = FavoriteCareerGoals.findNonRetired({ userID });
@@ -162,8 +146,6 @@ export const matchingOpportunities = (match: MatchProps): Opportunity[] => {
 
 export const noItems = (noItemsType: string, match: Router.MatchProps): boolean => {
   switch (noItemsType) {
-    case 'noPlan':
-      return noPlan(match);
     case 'noInterests':
       return noInterests(match);
     case 'noCareerGoals':
@@ -231,8 +213,6 @@ export const buildNoItemsMessage = (noItemsMessageType, type: IExplorerTypes): E
 
 export const checkForNoItems = (match: MatchProps, type: IExplorerTypes): Element | JSX.Element | string => {
   switch (type) {
-    case EXPLORER_TYPE.ACADEMICPLANS:
-      return noItems('noPlan', match) ? buildNoItemsMessage('noPlan', type) : '';
     case EXPLORER_TYPE.CAREERGOALS:
       return (
         <React.Fragment>

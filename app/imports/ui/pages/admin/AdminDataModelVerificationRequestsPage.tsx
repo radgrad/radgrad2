@@ -6,9 +6,7 @@ import _ from 'lodash';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
-import { PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
 import { Feeds } from '../../../api/feed/FeedCollection';
 import { FeedbackInstances } from '../../../api/feedback/FeedbackInstanceCollection';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
@@ -49,7 +47,6 @@ import {
   profileNameToUsername,
 } from '../../components/shared/utilities/data-model';
 import BackToTopButton from '../../components/shared/BackToTopButton';
-import withInstanceSubscriptions from '../../layouts/utilities/InstanceSubscriptionsHOC';
 
 const collection = VerificationRequests; // the collection to use.
 
@@ -293,7 +290,6 @@ const AdminDataModelVerificationRequestsPageContainer = withTracker(() => {
     academicTerms,
     opportunities,
     opportunityInstances,
-    academicPlanCount: AcademicPlans.count(),
     academicTermCount: AcademicTerms.count(),
     academicYearCount: AcademicYearInstances.count(),
     advisorLogCount: AdvisorLogs.count(),
@@ -308,7 +304,6 @@ const AdminDataModelVerificationRequestsPageContainer = withTracker(() => {
     opportunityCount: Opportunities.count(),
     opportunityInstanceCount: OpportunityInstances.count(),
     opportunityTypeCount: OpportunityTypes.count(),
-    planChoiceCount: PlanChoices.count(),
     reviewCount: Reviews.count(),
     slugCount: Slugs.count(),
     teaserCount: Teasers.count(),
@@ -318,4 +313,4 @@ const AdminDataModelVerificationRequestsPageContainer = withTracker(() => {
   };
 })(AdminDataModelVerificationRequestsPage);
 
-export default withInstanceSubscriptions(AdminDataModelVerificationRequestsPageContainer);
+export default AdminDataModelVerificationRequestsPageContainer;

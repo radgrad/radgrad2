@@ -29,18 +29,17 @@ interface ExplorerMenuNonMobileWidgetProps {
 }
 
 const getTypeName = (type: string): string => {
-  const names = ['Academic Plans', 'Career Goals', 'Courses', 'Interests', 'Opportunities', 'Users'];
+  const names = ['Career Goals', 'Courses', 'Interests', 'Opportunities', 'Users'];
+  // TODO QA this feels wrong.
   switch (type) {
-    case EXPLORER_TYPE.ACADEMICPLANS:
-      return names[0];
     case EXPLORER_TYPE.CAREERGOALS:
-      return names[1];
+      return names[0];
     case EXPLORER_TYPE.COURSES:
-      return names[2];
+      return names[1];
     case EXPLORER_TYPE.INTERESTS:
-      return names[3];
+      return names[2];
     case EXPLORER_TYPE.OPPORTUNITIES:
-      return names[4];
+      return names[3];
     default:
       return '';
   }
@@ -70,32 +69,6 @@ const ExplorerMenuNonMobileWidget: React.FC<ExplorerMenuNonMobileWidgetProps> = 
       <style>{mediaStyles}</style>
       <MediaContextProvider>
         <Media greaterThanOrEqual="tablet">
-          {isType(EXPLORER_TYPE.ACADEMICPLANS, type) ?
-            (
-              <React.Fragment>
-                <Button as={Link} to={`${baseRoute}/${EXPLORER_TYPE.HOME}/${type}`} style={marginTopStyle}>
-                  <Icon name="chevron circle left" />
-                  <br />
-                  Back to {getTypeName(type)}
-                </Button>
-                {isStudent ?
-                  (
-                    <Menu vertical text>
-                      <Header as="h4" dividing>MY FAVORITE ACADEMIC PLANS</Header>
-                      {menuAddedList.map((listItem) => (
-                        <ExplorerMenuNonMobileItem
-                          listItem={listItem}
-                          type={EXPLORER_TYPE.ACADEMICPLANS}
-                          key={listItem.item._id}
-                        />
-                      ))}
-                    </Menu>
-                  )
-                  : ''}
-              </React.Fragment>
-            )
-            : ''}
-
           {isType(EXPLORER_TYPE.COURSES, type) ?
             (
               <React.Fragment>

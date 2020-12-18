@@ -7,9 +7,7 @@ import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
-import { PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
 import { Feeds } from '../../../api/feed/FeedCollection';
 import { FeedbackInstances } from '../../../api/feedback/FeedbackInstanceCollection';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
@@ -33,7 +31,6 @@ import {
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
-import withInstanceSubscriptions from '../../layouts/utilities/InstanceSubscriptionsHOC';
 import { makeYoutubeLink } from './utilities/datamodel';
 import AddTeaserForm from '../../components/admin/datamodel/teaser/AddTeaserForm';
 import UpdateTeaserForm from '../../components/admin/datamodel/teaser/UpdateTeasersForm';
@@ -272,7 +269,6 @@ const AdminDataModelTeasersPageContainer = withTracker(() => {
   const interests = Interests.find({}, { sort: { name: 1 } }).fetch();
   const opportunities = Opportunities.find({}, { sort: { name: 1 } }).fetch();
   return {
-    academicPlanCount: AcademicPlans.count(),
     academicTermCount: AcademicTerms.count(),
     academicYearCount: AcademicYearInstances.count(),
     advisorLogCount: AdvisorLogs.count(),
@@ -287,7 +283,6 @@ const AdminDataModelTeasersPageContainer = withTracker(() => {
     opportunityCount: Opportunities.count(),
     opportunityInstanceCount: OpportunityInstances.count(),
     opportunityTypeCount: OpportunityTypes.count(),
-    planChoiceCount: PlanChoices.count(),
     reviewCount: Reviews.count(),
     slugCount: Slugs.count(),
     teaserCount: Teasers.count(),
@@ -301,4 +296,4 @@ const AdminDataModelTeasersPageContainer = withTracker(() => {
   };
 })(AdminDataModelTeasersPage);
 
-export default withInstanceSubscriptions(AdminDataModelTeasersPageContainer);
+export default AdminDataModelTeasersPageContainer;

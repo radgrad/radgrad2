@@ -6,9 +6,7 @@ import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
-import { PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
 import { Feeds } from '../../../api/feed/FeedCollection';
 import { FeedbackInstances } from '../../../api/feedback/FeedbackInstanceCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
@@ -32,7 +30,6 @@ import AddHelpMessageForm from '../../components/admin/datamodel/help/AddHelpMes
 import UpdateHelpMessageForm from '../../components/admin/datamodel/help/UpdateHelpMessageForm';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
-import withInstanceSubscriptions from '../../layouts/utilities/InstanceSubscriptionsHOC';
 
 const collection = HelpMessages; // the collection to use.
 
@@ -227,7 +224,6 @@ const AdminDataModelHelpMessagesPage: React.FC<AdminDataModelHelpMessagesPagePro
 };
 
 const AdminDataModelHelpMessagesPageContainer = withTracker(() => ({
-  academicPlanCount: AcademicPlans.count(),
   academicTermCount: AcademicTerms.count(),
   academicYearCount: AcademicYearInstances.count(),
   advisorLogCount: AdvisorLogs.count(),
@@ -242,7 +238,6 @@ const AdminDataModelHelpMessagesPageContainer = withTracker(() => ({
   opportunityCount: Opportunities.count(),
   opportunityInstanceCount: OpportunityInstances.count(),
   opportunityTypeCount: OpportunityTypes.count(),
-  planChoiceCount: PlanChoices.count(),
   reviewCount: Reviews.count(),
   slugCount: Slugs.count(),
   teaserCount: Teasers.count(),
@@ -251,4 +246,4 @@ const AdminDataModelHelpMessagesPageContainer = withTracker(() => ({
   items: HelpMessages.find({}).fetch(),
 }))(AdminDataModelHelpMessagesPage);
 
-export default withInstanceSubscriptions(AdminDataModelHelpMessagesPageContainer);
+export default AdminDataModelHelpMessagesPageContainer;

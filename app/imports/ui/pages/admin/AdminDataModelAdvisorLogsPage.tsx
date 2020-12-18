@@ -7,9 +7,7 @@ import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
-import { PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
 import { Feeds } from '../../../api/feed/FeedCollection';
 import { FeedbackInstances } from '../../../api/feedback/FeedbackInstanceCollection';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
@@ -38,7 +36,6 @@ import AdminDataModelUpdateForm from '../../components/admin/datamodel/AdminData
 import AddAdvisorLogFormContainer from '../../components/admin/datamodel/advisor-log/AddAdvisorLogForm';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
-import withInstanceSubscriptions from '../../layouts/utilities/InstanceSubscriptionsHOC';
 
 const descriptionPairs = (advisorLog: AdvisorLog): DescriptionPair[] => [
   { label: 'Advisor', value: `${Users.getFullName(advisorLog.advisorID)}` },
@@ -236,7 +233,6 @@ const AdminDataModelAdvisorLogsPage: React.FC<AdminDataModelAdvisorLogsPageProps
 };
 
 const AdminDataModelAdvisorLogsPageContainer = withTracker(() => ({
-  academicPlanCount: AcademicPlans.count(),
   academicTermCount: AcademicTerms.count(),
   academicYearCount: AcademicYearInstances.count(),
   advisorLogCount: AdvisorLogs.count(),
@@ -251,7 +247,6 @@ const AdminDataModelAdvisorLogsPageContainer = withTracker(() => ({
   opportunityCount: Opportunities.count(),
   opportunityInstanceCount: OpportunityInstances.count(),
   opportunityTypeCount: OpportunityTypes.count(),
-  planChoiceCount: PlanChoices.count(),
   reviewCount: Reviews.count(),
   slugCount: Slugs.count(),
   teaserCount: Teasers.count(),
@@ -262,4 +257,4 @@ const AdminDataModelAdvisorLogsPageContainer = withTracker(() => ({
   students: StudentProfiles.find({ isAlumni: false }, { $sort: { lastName: 1, firstName: 1 } }).fetch(),
 }))(AdminDataModelAdvisorLogsPage);
 
-export default withInstanceSubscriptions(AdminDataModelAdvisorLogsPageContainer);
+export default AdminDataModelAdvisorLogsPageContainer;

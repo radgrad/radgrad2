@@ -5,9 +5,7 @@ import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
-import { PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
 import { Feeds } from '../../../api/feed/FeedCollection';
 import { FeedbackInstances } from '../../../api/feedback/FeedbackInstanceCollection';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
@@ -26,7 +24,6 @@ import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import UploadFixtureWidget from '../../components/admin/datamodel/UploadFixtureWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
-import withInstanceSubscriptions from '../../layouts/utilities/InstanceSubscriptionsHOC';
 
 // props not deconstructed because AdminDataModeMenuProps has 21 numbers.
 const AdminDataModelPage: React.FC<AdminDataModeMenuProps> = (props) => {
@@ -58,7 +55,6 @@ const AdminDataModelPage: React.FC<AdminDataModeMenuProps> = (props) => {
 };
 
 const AdminDataModelPageContainer = withTracker(() => ({
-  academicPlanCount: AcademicPlans.count(),
   academicTermCount: AcademicTerms.count(),
   academicYearCount: AcademicYearInstances.count(),
   advisorLogCount: AdvisorLogs.count(),
@@ -73,7 +69,6 @@ const AdminDataModelPageContainer = withTracker(() => ({
   opportunityCount: Opportunities.count(),
   opportunityInstanceCount: OpportunityInstances.count(),
   opportunityTypeCount: OpportunityTypes.count(),
-  planChoiceCount: PlanChoices.count(),
   reviewCount: Reviews.count(),
   slugCount: Slugs.count(),
   teaserCount: Teasers.count(),
@@ -81,4 +76,4 @@ const AdminDataModelPageContainer = withTracker(() => ({
   verificationRequestCount: VerificationRequests.count(),
 }))(AdminDataModelPage);
 
-export default withInstanceSubscriptions(AdminDataModelPageContainer);
+export default AdminDataModelPageContainer;

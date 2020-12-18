@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import { AcademicPlans } from '../degree-plan/AcademicPlanCollection';
 import { CourseInstances } from '../course/CourseInstanceCollection';
 import { Courses } from '../course/CourseCollection';
 import { FeedbackInstances } from './FeedbackInstanceCollection';
@@ -7,14 +6,13 @@ import { clearFeedbackInstancesMethod } from './FeedbackInstanceCollection.metho
 import { defineMethod } from '../base/BaseCollection.methods';
 import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollection';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
-import { StudentProfiles } from '../user/StudentProfileCollection';
-import * as courseUtils from '../course/CourseUtilities';
+// import { StudentProfiles } from '../user/StudentProfileCollection';
+// import * as courseUtils from '../course/CourseUtilities';
 import * as oppUtils from '../opportunity/OpportunityUtilities';
 import * as yearUtils from '../degree-plan/AcademicYearUtilities';
 import * as planUtils from '../degree-plan/PlanChoiceUtilities';
 import { Slugs } from '../slug/SlugCollection';
 import { Users } from '../user/UserCollection';
-import { FavoriteAcademicPlans } from '../favorite/FavoriteAcademicPlanCollection';
 
 /**
  * Provides FeedbackFunctions. Each FeedbackFunction is a method of the singleton instance FeedbackFunctions.
@@ -34,13 +32,13 @@ import { FavoriteAcademicPlans } from '../favorite/FavoriteAcademicPlanCollectio
 export class FeedbackFunctionClass {
   public feedbackFunctionNames = [
     'checkPrerequisites',
-    'checkCompletePlan',
-    'checkOverloadedAcademicTerms',
     'generateRecommendedCourse',
     'generateRecommended400LevelCourse',
     'generateRecommendedCurrentAcademicTermOpportunities',
     'generateNextLevelRecommendation',
   ];
+
+  // TODO need to create generateRecommendedCourse feedback function that just uses interests.
 
   /**
    * Checks the student's degree plan to ensure that all the prerequisites are met.
@@ -94,57 +92,6 @@ export class FeedbackFunctionClass {
   }
 
   /**
-   * Checks the student's degree plan to ensure that it satisfies the degree requirements.
-   * @param user the student's ID.
-   */
-  public checkCompletePlan(user: string) {
-    const functionName = 'checkCompletePlan';
-    console.log(`Running feedback function ${functionName}`);
-    const feedbackType = FeedbackInstances.WARNING;
-
-    // First clear any feedback instances previously created for this student.
-    clearFeedbackInstancesMethod.call({ user, functionName });
-
-    const studentProfile = Users.getProfile(user);
-    const courseIDs = StudentProfiles.getCourseIDs(user);
-    const favPlans = FavoriteAcademicPlans.find({ studentID: studentProfile.userID }).fetch();
-    _.forEach(favPlans, (fav) => {
-      let courses = [];
-      const academicPlan = AcademicPlans.findDoc(fav.academicPlanID);
-      courses = academicPlan.courseList.slice(0);
-      courses = this.missingCourses(courseIDs, courses);
-      if (courses.length > 0) {
-        let description = 'Your degree plan is missing: \n\n';
-        const basePath = this.getBasePath(user);
-        _.forEach(courses, (slug) => {
-          if (!planUtils.isSingleChoice(slug)) {
-            const slugs = planUtils.complexChoiceToArray(slug);
-            description = `${description}\n\n- `;
-            _.forEach(slugs, (s) => {
-              const id = Slugs.getEntityID(planUtils.stripCounter(s), 'Course');
-              const course = Courses.findDoc(id);
-              description = `${description} [${course.num} ${course.shortName}](${basePath}explorer/courses/${s}) or `;
-            });
-            description = description.substring(0, description.length - 4);
-            description = `${description}, `;
-          } else if (slug.indexOf('400+') !== -1) {
-            description = `${description} \n- a 400 level elective, `;
-          } else if (slug.indexOf('300+') !== -1) {
-            description = `${description} \n- a 300+ level elective, `;
-          } else {
-            const id = Slugs.getEntityID(planUtils.stripCounter(slug), 'Course');
-            const course = Courses.findDoc(id);
-            description = `${description} \n- [${course.num} ${course.shortName}](${basePath}explorer/courses/${planUtils.stripCounter(slug)}), `;
-          }
-        });
-        description = description.substring(0, description.length - 2);
-        const definitionData = { user, functionName, description, feedbackType };
-        defineMethod.call({ collectionName: 'FeedbackInstanceCollection', definitionData });
-      }
-    });
-  }
-
-  /**
    * Checks the student's degree plan to ensure that there aren't too many courses in any one academicTerm.
    * @param user the student's ID.
    */
@@ -176,108 +123,6 @@ export class FeedbackFunctionClass {
       const definitionData = { user, functionName, description, feedbackType };
       defineMethod.call({ collectionName: 'FeedbackInstanceCollection', definitionData });
     }
-  }
-
-  /**
-   * Creates recommended courses based upon the student's interests. Only generates feedback if the student's plan
-   * is missing courses.
-   * @param user the student's ID.
-   */
-  public generateRecommendedCourse(user: string) {
-    const functionName = 'generateRecommendedCourse';
-    console.log(`Running feedback function ${functionName}`);
-    const feedbackType = FeedbackInstances.RECOMMENDATION;
-
-    // First clear any feedback instances previously created for this student.
-    clearFeedbackInstancesMethod.call({ user, functionName });
-
-    const coursesTakenSlugs = [];
-    const studentProfile = Users.getProfile(user);
-    const courseIDs = StudentProfiles.getCourseIDs(user);
-    const favPlans = FavoriteAcademicPlans.find({ studentID: studentProfile.userID }).fetch();
-    _.forEach(favPlans, (fav) => {
-      const academicPlanID = fav.academicPlanID;
-      const academicPlan = AcademicPlans.findDoc(academicPlanID);
-      const coursesNeeded = academicPlan.courseList.slice(0);
-      _.forEach(courseIDs, (cID) => {
-        const course = Courses.findDoc(cID);
-        coursesTakenSlugs.push(Slugs.getNameFromID(course.slugID));
-      });
-      const missing = this.missingCourses(courseIDs, coursesNeeded);
-      if (missing.length > 0) {
-        let description = 'Consider taking the following class to meet the degree requirement: ';
-        // if (missing.length > 1) {
-        //   description = 'Consider taking the following classes to meet the degree requirement: ';
-        // }
-        const basePath = this.getBasePath(user);
-        let slug = missing[0];
-        if (planUtils.isComplexChoice(slug) || planUtils.isSimpleChoice(slug)) {
-          slug = planUtils.complexChoiceToArray(slug);
-        }
-        if (Array.isArray(slug)) {
-          const course = courseUtils.chooseBetween(slug, user, coursesTakenSlugs);
-          if (course) {
-            const courseSlug = Slugs.findDoc(course.slugID);
-            description = `${description} \n\n- [${course.num} ${course.shortName}](${basePath}explorer/courses/${courseSlug.name}), `;
-          }
-        } else if (slug.startsWith('ics_4')) {
-          const bestChoice = courseUtils.chooseStudent400LevelCourse(user, coursesTakenSlugs);
-          if (bestChoice) {
-            const cSlug = Slugs.findDoc(bestChoice.slugID);
-            description = `${description} \n- [${bestChoice.num} ${bestChoice.shortName}](${basePath}explorer/courses/${cSlug.name}), `;
-          }
-        } else if (slug.startsWith('ics')) {
-          const courseID = Slugs.getEntityID(planUtils.stripCounter(slug), 'Course');
-          const course = Courses.findDoc(courseID);
-          description = `${description} \n\n- [${course.num} ${course.shortName}](${basePath}explorer/courses/${slug}), `;
-        }
-        const definitionData = { user, functionName, description, feedbackType };
-        defineMethod.call({ collectionName: 'FeedbackInstanceCollection', definitionData });
-      }
-    });
-  }
-
-  public generateRecommended400LevelCourse(user: string) {
-    const functionName = 'generateRecommended400LevelCourse';
-    // console.log(`Running feedback function ${functionName}`);
-    const feedbackType = FeedbackInstances.RECOMMENDATION;
-
-    // First clear any feedback instances previously created for this student.
-    clearFeedbackInstancesMethod.call({ user, functionName });
-
-    const coursesTakenSlugs = [];
-    const studentProfile = Users.getProfile(user);
-    const courseIDs = StudentProfiles.getCourseIDs(user);
-    const favPlans = FavoriteAcademicPlans.find({ studentID: studentProfile.userID }).fetch();
-    _.forEach(favPlans, (fav) => {
-      const academicPlan = AcademicPlans.findDoc(fav.academicPlanID);
-      const coursesNeeded = academicPlan.courseList.slice(0);
-      _.forEach(courseIDs, (cID) => {
-        const course = Courses.findDoc(cID);
-        coursesTakenSlugs.push(Slugs.getNameFromID(course.slugID));
-      });
-      if (this.missingCourses(courseIDs, coursesNeeded).length > 0) {
-        let bestChoices = courseUtils.bestStudent400LevelCourses(user, coursesTakenSlugs);
-        const basePath = this.getBasePath(user);
-        if (bestChoices) {
-          const len = bestChoices.length;
-          if (len > 5) {
-            bestChoices = _.drop(bestChoices, len - 5);
-          }
-          let description = 'Consider taking the following classes to meet the degree requirement: ';
-          _.forEach(bestChoices, (course) => {
-            const slug = Slugs.findDoc(course.slugID);
-            description = `${description} \n- [${course.num} ${course.shortName}](${basePath}explorer/courses/${slug.name}), `;
-          });
-          description = description.substring(0, description.length - 2);
-          const definitionData = { user, functionName, description, feedbackType };
-          defineMethod.call({ collectionName: 'FeedbackInstanceCollection', definitionData });
-        }
-      } else {
-        // TODO Why is this second call to clear needed? We do it at the top of this function.
-        clearFeedbackInstancesMethod.call({ user, functionName });
-      }
-    });
   }
 
   /**

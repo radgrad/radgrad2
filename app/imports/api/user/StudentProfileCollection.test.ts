@@ -9,7 +9,6 @@ import { makeSampleInterestArray, makeSampleInterestSlugArray } from '../interes
 import { makeSampleCareerGoalSlugArray } from '../career/SampleCareerGoals';
 import { FavoriteInterests } from '../favorite/FavoriteInterestCollection';
 import { FavoriteCareerGoals } from '../favorite/FavoriteCareerGoalCollection';
-import { makeSampleAcademicPlan } from '../degree-plan/SampleAcademicPlans';
 import { makeSampleAcademicTermSlug } from '../academic-term/SampleAcademicTerms';
 import { makeSampleCourseSlugArray } from '../course/SampleCourses';
 import { makeSampleOpportunitySlugArray } from '../opportunity/SampleOpportunities';
@@ -38,13 +37,12 @@ if (Meteor.isServer) {
             const interests = makeSampleInterestArray();
             const careerGoals = makeSampleCareerGoalSlugArray();
             const level = faker.random.number({ min: 1, max: 6 });
-            const favoriteAcademicPlans = [makeSampleAcademicPlan()];
             const declaredAcademicTerm = makeSampleAcademicTermSlug();
             const favoriteCourses = makeSampleCourseSlugArray(2);
             const favoriteOpportunities = makeSampleOpportunitySlugArray(sponsor, 2);
             const docID = StudentProfiles.define({
               username, firstName, lastName, picture, website, interests,
-              careerGoals, level, favoriteAcademicPlans, declaredAcademicTerm,
+              careerGoals, level, declaredAcademicTerm,
               favoriteCourses, favoriteOpportunities, retired,
             });
             expect(StudentProfiles.isDefined(docID)).to.be.true;

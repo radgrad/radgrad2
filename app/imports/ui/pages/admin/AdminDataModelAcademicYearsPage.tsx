@@ -6,8 +6,6 @@ import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
-import { PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
 import { Feeds } from '../../../api/feed/FeedCollection';
 import { FeedbackInstances } from '../../../api/feedback/FeedbackInstanceCollection';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
@@ -33,7 +31,6 @@ import AddAcademicYearInstanceFormContainer from '../../components/admin/datamod
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
-import withInstanceSubscriptions from '../../layouts/utilities/InstanceSubscriptionsHOC';
 
 const descriptionPairs = (year: AcademicYearInstance): DescriptionPair[] => [
   { label: 'Student', value: Users.getFullName(year.studentID) },
@@ -222,7 +219,6 @@ const AdminDataModelAcademicYearsPage: React.FC<AdminDataModelAcademicYearsPageP
 };
 
 const AdminDataModelAcademicYearsPageContainer = withTracker(() => ({
-  academicPlanCount: AcademicPlans.count(),
   academicTermCount: AcademicTerms.count(),
   academicYearCount: AcademicYearInstances.count(),
   advisorLogCount: AdvisorLogs.count(),
@@ -237,7 +233,6 @@ const AdminDataModelAcademicYearsPageContainer = withTracker(() => ({
   opportunityCount: Opportunities.count(),
   opportunityInstanceCount: OpportunityInstances.count(),
   opportunityTypeCount: OpportunityTypes.count(),
-  planChoiceCount: PlanChoices.count(),
   reviewCount: Reviews.count(),
   slugCount: Slugs.count(),
   teaserCount: Teasers.count(),
@@ -247,4 +242,4 @@ const AdminDataModelAcademicYearsPageContainer = withTracker(() => ({
   students: StudentProfiles.find({ isAlumni: false }).fetch(),
 }))(AdminDataModelAcademicYearsPage);
 
-export default withInstanceSubscriptions(AdminDataModelAcademicYearsPageContainer);
+export default AdminDataModelAcademicYearsPageContainer;

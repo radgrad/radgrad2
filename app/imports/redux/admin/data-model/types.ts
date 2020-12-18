@@ -1,5 +1,3 @@
-export const SET_ACADEMIC_PLANS_SHOW_INDEX = 'radgrad/admin/data-model/SET_ACADEMIC_PLANS_SHOW_INDEX';
-export const SET_ACADEMIC_PLANS_SHOW_COUNT = 'radgrad/admin/data-model/SET_ACADEMIC_PLANS_SHOW_COUNT';
 export const SET_ACADEMIC_TERMS_SHOW_INDEX = 'radgrad/admin/data-model/SET_ACADEMIC_TERMS_SHOW_INDEX';
 export const SET_ACADEMIC_TERMS_SHOW_COUNT = 'radgrad/admin/data-model/SET_ACADEMIC_TERMS_SHOW_COUNT';
 export const SET_ACADEMIC_YEARS_SHOW_INDEX = 'radgrad/admin/data-model/SET_ACADEMIC_YEARS_SHOW_INDEX';

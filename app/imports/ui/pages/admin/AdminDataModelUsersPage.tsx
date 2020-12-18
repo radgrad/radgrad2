@@ -8,7 +8,6 @@ import Swal from 'sweetalert2';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
-import { PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
 import { Feeds } from '../../../api/feed/FeedCollection';
 import { FeedbackInstances } from '../../../api/feedback/FeedbackInstanceCollection';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
@@ -25,12 +24,10 @@ import { VerificationRequests } from '../../../api/verification/VerificationRequ
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import {
-  AcademicPlan,
   AcademicTerm,
   BaseProfile, CareerGoal,
   CombinedProfileDefine,
   AdvisorOrFacultyProfile,
-  FavoriteAcademicPlan,
   FavoriteCareerGoal, FavoriteInterest, Interest,
   StudentProfile,
 } from '../../../typings/radgrad';
@@ -38,7 +35,6 @@ import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { makeMarkdownLink } from './utilities/datamodel';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
-import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { ROLE } from '../../../api/role/Role';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
@@ -48,7 +44,6 @@ import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import {
-  academicPlanSlugFromName,
   careerGoalSlugFromName, declaredAcademicTermSlugFromName,
   interestSlugFromName,
 } from '../../components/shared/utilities/form';
@@ -57,7 +52,6 @@ import { Users } from '../../../api/user/UserCollection';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
-import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
 import { RootState } from '../../../redux/types';
 
 interface AdminDataModelUsersPageProps extends AdminDataModeMenuProps {
@@ -67,13 +61,11 @@ interface AdminDataModelUsersPageProps extends AdminDataModeMenuProps {
   students: StudentProfile[];
   isCloudinaryUsed: boolean;
   cloudinaryUrl: string;
-  favoriteAcademicPlans: FavoriteAcademicPlan[];
   favoriteCareerGoals: FavoriteCareerGoal[];
   favoriteInterests: FavoriteInterest[];
   interests: Interest[];
   careerGoals: CareerGoal[];
   academicTerms: AcademicTerm[];
-  academicPlans: AcademicPlan[];
 }
 
 const descriptionPairs = (props: AdminDataModelUsersPageProps) => (user: BaseProfile) => {
@@ -93,13 +85,6 @@ const descriptionPairs = (props: AdminDataModelUsersPageProps) => (user: BasePro
   pairs.push({ label: 'Interests', value: _.sortBy(Interests.findNames(interestIDs)) });
   if (user.role === ROLE.STUDENT) {
     pairs.push({ label: 'Level', value: `${user.level}` });
-    const favoritePlans = _.filter(props.favoriteAcademicPlans, (fav) => fav.studentID === user.userID);
-    // const favoritePlans = FavoriteAcademicPlans.findNonRetired({ studentID: user.userID });
-    const planNames = _.map(favoritePlans, (f) => AcademicPlans.findDoc(f.academicPlanID).name);
-    pairs.push({
-      label: 'Degree',
-      value: (planNames.length > 0) ? planNames.join(', ') : '',
-    });
     pairs.push({
       label: 'Declared Semester',
       value: (user.declaredAcademicTermID) ? AcademicTerms.toString(user.declaredAcademicTermID) : '',
@@ -150,9 +135,6 @@ const AdminDataModelUsersPage: React.FC<AdminDataModelUsersPageProps> = (props) 
     const definitionData: CombinedProfileDefine = doc;
     definitionData.interests = _.map(doc.interests, (interest) => interestSlugFromName(interest));
     definitionData.careerGoals = _.map(doc.careerGoals, (goal) => careerGoalSlugFromName(goal));
-    if (!_.isNil(doc.academicPlan)) {
-      definitionData.academicPlan = academicPlanSlugFromName(doc.academicPlan);
-    }
     if (!_.isNil(doc.declaredAcademicTerm)) {
       definitionData.declaredAcademicTerm = declaredAcademicTermSlugFromName(doc.declaredAcademicTerm);
     }
@@ -387,7 +369,6 @@ const AdminDataModelUsersPage: React.FC<AdminDataModelUsersPageProps> = (props) 
               interests={props.interests}
               careerGoals={props.careerGoals}
               academicTerms={props.academicTerms}
-              academicPlans={props.academicPlans}
             />
           ) : (
             <AddUserForm
@@ -396,7 +377,6 @@ const AdminDataModelUsersPage: React.FC<AdminDataModelUsersPageProps> = (props) 
               interests={props.interests}
               careerGoals={props.careerGoals}
               academicTerms={props.academicTerms}
-              academicPlans={props.academicPlans}
             />
           )}
           <Tab panes={panes} defaultActiveIndex={3} />
@@ -420,7 +400,6 @@ export default withTracker(() => {
   const advisors = AdvisorProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch();
   const faculty = FacultyProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch();
   const students = StudentProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch();
-  const favoriteAcademicPlans = FavoriteAcademicPlans.find().fetch();
   const favoriteCareerGoals = FavoriteCareerGoals.find().fetch();
   const favoriteInterests = FavoriteInterests.find().fetch();
   const interests = Interests.find({}, { sort: { name: 1 } }).fetch();
@@ -428,20 +407,16 @@ export default withTracker(() => {
   let academicTerms = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
   academicTerms = _.filter(academicTerms, (term) => (term.termNumber <= currentTerm.termNumber && term.termNumber > currentTerm.termNumber - 8));
-  const academicPlans = AcademicPlans.getLatestPlans();
   return {
     interests,
     careerGoals,
     academicTerms,
-    academicPlans,
     admins,
     advisors,
     faculty,
     students,
-    favoriteAcademicPlans,
     favoriteCareerGoals,
     favoriteInterests,
-    academicPlanCount: AcademicPlans.count(),
     academicTermCount: AcademicTerms.count(),
     academicYearCount: AcademicYearInstances.count(),
     advisorLogCount: AdvisorLogs.count(),
@@ -456,7 +431,6 @@ export default withTracker(() => {
     opportunityCount: Opportunities.count(),
     opportunityInstanceCount: OpportunityInstances.count(),
     opportunityTypeCount: OpportunityTypes.count(),
-    planChoiceCount: PlanChoices.count(),
     reviewCount: Reviews.count(),
     slugCount: Slugs.count(),
     teaserCount: Teasers.count(),

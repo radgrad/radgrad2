@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Tab, Header, Form, Radio } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
-import { AcademicPlans } from '../../../../api/degree-plan/AcademicPlanCollection';
 import { defineMethod } from '../../../../api/base/BaseCollection.methods';
 import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
 import { Feeds } from '../../../../api/feed/FeedCollection';
@@ -25,7 +24,6 @@ const AdvisorAddStudentWidget: React.FC<AdvisorAddStudentWidgetProps> = ({ inter
   const [careerGoalsState, setCareerGoals] = useState([]);
   const [userInterests, setUserInterests] = useState([]);
   const [declaredAcademicTerm, setDeclaredAcademicTerm] = useState(undefined);
-  const [academicPlanID, setAcademicPlanID] = useState(undefined);
 
   const handleFormChange = (e, { name, value }) => {
     switch (name) {
@@ -56,9 +54,6 @@ const AdvisorAddStudentWidget: React.FC<AdvisorAddStudentWidgetProps> = ({ inter
       case 'declaredAcademicTerm':
         setDeclaredAcademicTerm(value);
         break;
-      case 'academicPlanID':
-        setAcademicPlanID(value);
-        break;
       default:
     }
   };
@@ -75,7 +70,6 @@ const AdvisorAddStudentWidget: React.FC<AdvisorAddStudentWidgetProps> = ({ inter
     definitionData.careerGoals = careerGoalsState;
     definitionData.userInterests = userInterests;
     definitionData.declaredAcademicTerm = declaredAcademicTerm;
-    definitionData.academicPlanID = academicPlanID;
     definitionData.level = 1;
 
     defineMethod.call({ collectionName, definitionData }, (error) => {
@@ -104,7 +98,6 @@ const AdvisorAddStudentWidget: React.FC<AdvisorAddStudentWidgetProps> = ({ inter
         setCareerGoals([]);
         setUserInterests([]);
         setDeclaredAcademicTerm(undefined);
-        setAcademicPlanID(undefined);
       }
     });
   };
@@ -250,19 +243,6 @@ const AdvisorAddStudentWidget: React.FC<AdvisorAddStudentWidgetProps> = ({ inter
               )}
               selection
               placeholder="Select AcademicTerm"
-            />
-          </Form.Field>
-          <Form.Field>
-            <Form.Dropdown
-              selection
-              name="academicPlanID"
-              label="Academic Plan"
-              value={academicPlanID}
-              onChange={handleFormChange}
-              options={AcademicPlans.findNonRetired().map(
-                (ele, i) => ({ key: i, text: ele.name, value: ele._id }),
-              )}
-              placeholder="Select Academic Plan"
             />
           </Form.Field>
         </Form.Group>

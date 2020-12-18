@@ -27,7 +27,7 @@ const { Media, MediaContextProvider } = AppMedia;
 interface CardExplorerMenuMobileWidgetProps {
   menuAddedList: { item: ExplorerInterfaces, count: number }[];
   menuCareerList: { item: Interest, count: number }[] | undefined;
-  type: 'plans' | 'career-goals' | 'courses' | 'interests' | 'opportunities';
+  type: 'career-goals' | 'courses' | 'interests' | 'opportunities';
 }
 
 const ExplorerMultipleItemsMenuMobileWidget: React.FC<CardExplorerMenuMobileWidgetProps> = ({ menuAddedList, menuCareerList, type }) => {
@@ -40,27 +40,6 @@ const ExplorerMultipleItemsMenuMobileWidget: React.FC<CardExplorerMenuMobileWidg
       {/* The following components are rendered ONLY for STUDENTS: Academic Plans, Courses, and Opportunities. */}
       <MediaContextProvider>
         <Media lessThan="tablet">
-          {(isType(EXPLORER_TYPE.ACADEMICPLANS, type) && isStudent) ?
-            (
-              <Dropdown className="selection" fluid text="Select Item" style={{ marginTop: '1rem' }}>
-                <Dropdown.Menu>
-                  <Dropdown.Header as="h4">MY FAVORITE ACADEMIC PLANS</Dropdown.Header>
-                  <Dropdown.Divider />
-                  {
-                    // eslint-disable-next-line react/prop-types
-                    menuAddedList.map((listItem) => (
-                      <ExplorerMenuMobileItem
-                        type={EXPLORER_TYPE.ACADEMICPLANS}
-                        listItem={listItem}
-                        key={listItem.item._id}
-                      />
-                    ))
-                  }
-                </Dropdown.Menu>
-              </Dropdown>
-            )
-            : ''}
-
           {(isType(EXPLORER_TYPE.COURSES, type) && isStudent) ?
             (
               <Dropdown className="selection" fluid text="Select Item" style={{ marginTop: '1rem' }}>

@@ -10,10 +10,8 @@ import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidge
 import DegreeExperiencePlannerWidget from '../../components/student/degree-planner/DegreeExperiencePlannerWidget';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
 import { defineMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import {
-  AcademicPlan,
   AcademicTerm, AcademicYearInstance, Course,
   CourseInstance,
   CourseInstanceDefine,
@@ -32,17 +30,15 @@ import { getUsername, MatchProps } from '../../components/shared/utilities/route
 import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
 import { UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
 import GuidedTourDegreePlanner from '../../components/student/degree-planner/GuidedTourDegreePlanner';
-import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
-import { passedCourse } from '../../../api/degree-plan/AcademicPlanUtilities';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
 import { FavoriteOpportunities } from '../../../api/favorite/FavoriteOpportunityCollection';
 import { FavoriteCourses } from '../../../api/favorite/FavoriteCourseCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
+import { passedCourse } from '../../../api/course/CourseUtilities';
 
 interface StudentDegreePlannerProps {
   takenSlugs: string[];
-  plans: AcademicPlan[];
   selectCourseInstance: (courseInstanceID: string) => SelectPayload;
   selectOpportunityInstance: (opportunityInstanceID: string) => SelectPayload;
   selectFavoriteDetailsTab: () => SelectTab;
@@ -245,7 +241,7 @@ const onDragEnd = (onDragEndProps) => (result) => {
   }
 };
 
-const StudentDegreePlannerPage: React.FC<StudentDegreePlannerProps> = ({ academicYearInstances, studentID, match, courses, opportunities, courseInstances, opportunityInstances, plans, selectCourseInstance, selectFavoriteDetailsTab, selectOpportunityInstance, takenSlugs, verificationRequests }) => {
+const StudentDegreePlannerPage: React.FC<StudentDegreePlannerProps> = ({ academicYearInstances, studentID, match, courses, opportunities, courseInstances, opportunityInstances, selectCourseInstance, selectFavoriteDetailsTab, selectOpportunityInstance, takenSlugs, verificationRequests }) => {
   const onDragEndProps = { match, selectCourseInstance, selectOpportunityInstance };
   const paddedStyle = {
     paddingTop: 0,
@@ -273,7 +269,6 @@ const StudentDegreePlannerPage: React.FC<StudentDegreePlannerProps> = ({ academi
 
             <Grid.Column width={6} style={paddedStyle}>
               <TabbedFavoritesWidget
-                academicPlans={plans}
                 takenSlugs={takenSlugs}
                 opportunities={opportunities}
                 studentID={studentID}
@@ -304,18 +299,15 @@ export default withTracker(() => {
   const { username } = useParams();
   const profile = Users.getProfile(username);
   const studentID = profile.userID;
-  const favorites = FavoriteAcademicPlans.findNonRetired({ studentID });
   const favoriteOpportunities = FavoriteOpportunities.findNonRetired({ studentID });
   const opportunities = _.map(favoriteOpportunities, (f) => Opportunities.findDoc(f.opportunityID));
   const favoriteCourses = FavoriteCourses.findNonRetired({ studentID });
   const courses = _.map(favoriteCourses, (f) => Courses.findDoc(f.courseID));
-  const plans = _.map(favorites, (fav) => AcademicPlans.findDoc(fav.academicPlanID));
   const academicYearInstances: AcademicYearInstance[] = AcademicYearInstances.findNonRetired({ studentID }, { sort: { year: 1 } });
   const courseInstances = CourseInstances.findNonRetired({ studentID: profile.userID });
   const opportunityInstances = OpportunityInstances.findNonRetired({ studentID: profile.userID });
   const verificationRequests = VerificationRequests.findNonRetired({ studentID });
   return {
-    plans,
     takenSlugs: takenSlugs(courseInstances),
     academicYearInstances,
     opportunityInstances,

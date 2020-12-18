@@ -49,26 +49,6 @@ const ExplorerMultipleItemsMenuNonMobileWidget: React.FC<CardExplorerMenuNonMobi
             FACULTY have a 'Suggest a Opportunity / Career Goal' mailto link. */}
       <MediaContextProvider>
         <Media greaterThanOrEqual="tablet">
-          {(isType(EXPLORER_TYPE.ACADEMICPLANS, type)) ?
-            (
-              <Menu vertical text className="cardMenu">
-                <Header as="h4" className="cardMenu_header">
-                  <Icon name="graduation cap" size="mini" />
-                  <Header.Content>MY FAVORITE ACADEMIC PLANS</Header.Content>
-                </Header>
-                {
-                  menuAddedList.map((listItem) => (
-                    <ExplorerMenuNonMobileItem
-                      listItem={listItem}
-                      type={EXPLORER_TYPE.ACADEMICPLANS}
-                      key={listItem.item._id}
-                    />
-                  ))
-                }
-              </Menu>
-            )
-            : ''}
-
           {(isType(EXPLORER_TYPE.COURSES, type) && isStudent) ?
             (
               <Menu vertical text className="cardMenu">

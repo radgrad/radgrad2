@@ -36,7 +36,7 @@ const handleUpdateInformation = (doc): void => {
         allowEnterKey: false,
       });
       // Define a user interaction that describes a user updating their share information
-      const keys = ['shareUsername', 'sharePicture', 'shareWebsite', 'shareInterests', 'shareCareerGoals', 'shareAcademicPlan', 'shareCourses', 'shareOpportunities', 'shareLevel'];
+      const keys = ['shareUsername', 'sharePicture', 'shareWebsite', 'shareInterests', 'shareCareerGoals', 'shareCourses', 'shareOpportunities', 'shareLevel'];
       const modifiedList = [];
       const previousStudentProfileData = StudentProfiles.findNonRetired({ username });
       if (previousStudentProfileData.length > 1) {
@@ -91,11 +91,6 @@ const StudentShareInfoWidget: React.FC<StudentShareInfoWidgetProps> = ({ profile
       label: 'Career Goals',
       optional: true,
     },
-    shareAcademicPlan: {
-      type: Boolean,
-      label: 'Academic Plan',
-      optional: true,
-    },
     shareOpportunities: {
       type: Boolean,
       label: 'Opportunities',
@@ -124,10 +119,9 @@ const StudentShareInfoWidget: React.FC<StudentShareInfoWidgetProps> = ({ profile
                 <BoolField name="sharePicture" />
                 <BoolField name="shareWebsite" />
                 <BoolField name="shareInterests" />
-                <BoolField name="shareCareerGoals" />
               </Form.Group>
               <Form.Group>
-                <BoolField name="shareAcademicPlan" />
+                <BoolField name="shareCareerGoals" />
                 <BoolField name="shareCourses" />
                 <BoolField name="shareOpportunities" />
                 <BoolField name="shareLevel" />

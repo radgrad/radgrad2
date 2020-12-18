@@ -2,7 +2,6 @@ import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import _ from 'lodash';
 import BaseCollection from '../base/BaseCollection';
-import { AcademicPlans } from '../degree-plan/AcademicPlanCollection';
 import { CareerGoals } from '../career/CareerGoalCollection';
 import { Courses } from '../course/CourseCollection';
 import { Interests } from '../interest/InterestCollection';
@@ -30,8 +29,6 @@ import { StudentProfiles } from '../user/StudentProfileCollection';
  */
 class PublicStatsCollection extends BaseCollection {
   private readonly stats: any[];
-
-  public academicPlansTotalKey: string;
 
   public coursesTotalKey: string;
 
@@ -88,8 +85,6 @@ class PublicStatsCollection extends BaseCollection {
       value: { type: String },
     }));
     this.stats = [];
-    this.academicPlansTotalKey = 'academicPlansTotal';
-    this.stats.push(this.academicPlansTotalKey);
     this.coursesTotalKey = 'coursesTotal';
     this.stats.push(this.coursesTotalKey);
     this.careerGoalsTotalKey = 'careerGoalsTotal';
@@ -128,19 +123,12 @@ class PublicStatsCollection extends BaseCollection {
     this.stats.push(this.levelFiveTotalKey);
     this.levelSixTotalKey = 'levelSixTotal';
     this.stats.push(this.levelSixTotalKey);
-    this.firstAcademicPlanKey = 'firstAcademicPlan';
-    this.stats.push(this.firstAcademicPlanKey);
     this.firstCareerGoalKey = 'firstCareerGoal';
     this.stats.push(this.firstCareerGoalKey);
     this.firstInterestKey = 'firstInterest';
     this.stats.push(this.firstInterestKey);
     this.firstOpportunityKey = 'firstOpportunity';
     this.stats.push(this.firstOpportunityKey);
-  }
-
-  public academicPlansTotal() {
-    const count: number = AcademicPlans.find().count();
-    this.collection.upsert({ key: this.academicPlansTotalKey }, { $set: { value: `${count}` } });
   }
 
   public careerGoalsTotal() {
@@ -247,16 +235,6 @@ class PublicStatsCollection extends BaseCollection {
     courseNumbers = _.union(courseNumbers);
     if (courseNumbers.length > 0) {
       this.collection.upsert({ key: this.courseReviewsCoursesKey }, { $set: { value: courseNumbers.join(', ') } });
-    }
-  }
-
-  public firstAcademicPlan() {
-    let planName = '';
-    const termNumber = AcademicPlans.getLatestAcademicTermNumber();
-    const plan = AcademicPlans.findOne({ termNumber });
-    if (plan) {
-      planName = (Slugs.findDoc(plan.slugID)).name;
-      this.collection.upsert({ key: this.firstAcademicPlanKey }, { $set: { value: planName } });
     }
   }
 

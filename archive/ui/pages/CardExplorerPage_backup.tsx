@@ -6,7 +6,6 @@ import { withTracker } from 'meteor/react-meteor-data';
 import StudentPageMenuWidget from '../../../app/imports/ui/components/student/StudentPageMenuWidget';
 import FacultyPageMenuWidget from '../../../app/imports/ui/components/faculty/FacultyPageMenuWidget';
 import CardExplorerWidget from '../../../app/imports/ui/components/shared/explorer/browser-view/ExplorerMultipleItemsWidget';
-import { AcademicPlans } from '../../../app/imports/api/degree-plan/AcademicPlanCollection';
 import { CareerGoals } from '../../../app/imports/api/career/CareerGoalCollection';
 import { Courses } from '../../../app/imports/api/course/CourseCollection';
 import { Interests } from '../../../app/imports/api/interest/InterestCollection';
@@ -39,13 +38,10 @@ interface ICardExplorerPageProps {
       username: string;
     }
   };
-  /* eslint-disable react/no-unused-prop-types */
-  favoritePlans: AcademicPlan[];
   favoriteCareerGoals: CareerGoal[];
   favoriteCourses: Course[];
   favoriteInterests: Interest[];
   favoriteOpportunities: Opportunity[];
-  /* eslint-enable */
 }
 
 const getMenuWidget = (props: ICardExplorerPageProps): JSX.Element => {
@@ -63,8 +59,6 @@ const getMenuWidget = (props: ICardExplorerPageProps): JSX.Element => {
 const getCollection = (props: ICardExplorerPageProps): object => {
   const type = Router.getLastUrlParam(props.match);
   switch (type) {
-    case EXPLORER_TYPE.ACADEMICPLANS:
-      return AcademicPlans;
     case EXPLORER_TYPE.CAREERGOALS:
       return CareerGoals;
     case EXPLORER_TYPE.COURSES:
@@ -79,8 +73,6 @@ const getCollection = (props: ICardExplorerPageProps): object => {
       return {};
   }
 };
-
-const addedPlans = (props: ICardExplorerPageProps): { item: AcademicPlan, count: number }[] => _.map(props.favoritePlans, (f: any) => ({ item: AcademicPlans.findDoc(f.academicPlanID), count: 1 }));
 
 const addedCareerGoals = (props: ICardExplorerPageProps): { item: CareerGoal, count: number }[] => _.map(props.favoriteCareerGoals, (f: any) => ({ item: CareerGoals.findDoc(f.careerGoalID), count: 1 }));
 
@@ -102,8 +94,6 @@ const addedOpportunities = (props: ICardExplorerPageProps): { item: Opportunity,
 const getAddedList = (props: ICardExplorerPageProps): { item: AcademicPlan | CareerGoal | Course | Interest | Opportunity, count: number }[] => {
   const type = Router.getLastUrlParam(props.match);
   switch (type) {
-    case EXPLORER_TYPE.ACADEMICPLANS:
-      return addedPlans(props);
     case EXPLORER_TYPE.CAREERGOALS:
       return addedCareerGoals(props);
     case EXPLORER_TYPE.COURSES:

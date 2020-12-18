@@ -5,9 +5,7 @@ import Swal from 'sweetalert2';
 import _ from 'lodash';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
-import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
-import { PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
 import { Feeds } from '../../../api/feed/FeedCollection';
 import { FeedbackInstances } from '../../../api/feedback/FeedbackInstanceCollection';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
@@ -28,7 +26,6 @@ import { Course, DescriptionPair, Interest } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import withInstanceSubscriptions from '../../layouts/utilities/InstanceSubscriptionsHOC';
 import { makeMarkdownLink } from './utilities/datamodel';
 import { Interests } from '../../../api/interest/InterestCollection';
 import {
@@ -269,7 +266,6 @@ const AdminDataModelCoursesPage: React.FC<AdminDataModelCoursesPageProps> = (pro
 };
 
 const AdminDataModelCoursesPageContainer = withTracker(() => ({
-  academicPlanCount: AcademicPlans.count(),
   academicTermCount: AcademicTerms.count(),
   academicYearCount: AcademicYearInstances.count(),
   advisorLogCount: AdvisorLogs.count(),
@@ -284,7 +280,6 @@ const AdminDataModelCoursesPageContainer = withTracker(() => ({
   opportunityCount: Opportunities.count(),
   opportunityInstanceCount: OpportunityInstances.count(),
   opportunityTypeCount: OpportunityTypes.count(),
-  planChoiceCount: PlanChoices.count(),
   reviewCount: Reviews.count(),
   slugCount: Slugs.count(),
   teaserCount: Teasers.count(),
@@ -295,4 +290,4 @@ const AdminDataModelCoursesPageContainer = withTracker(() => ({
   courses: Courses.find({}, { sort: { num: 1 } }).fetch(),
 }))(AdminDataModelCoursesPage);
 
-export default withInstanceSubscriptions(AdminDataModelCoursesPageContainer);
+export default AdminDataModelCoursesPageContainer;

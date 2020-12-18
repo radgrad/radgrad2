@@ -13,7 +13,6 @@ import { AdvisorProfiles } from '../user/AdvisorProfileCollection';
 import { FacultyProfiles } from '../user/FacultyProfileCollection';
 import { StudentProfiles } from '../user/StudentProfileCollection';
 import { AcademicYearInstances } from '../degree-plan/AcademicYearInstanceCollection';
-import { PlanChoices } from '../degree-plan/PlanChoiceCollection';
 import { Feeds } from '../feed/FeedCollection';
 import { FeedbackInstances } from '../feedback/FeedbackInstanceCollection';
 import { HelpMessages } from '../help/HelpMessageCollection';
@@ -61,13 +60,6 @@ export const loadCollectionNewDataOnly = (collection: BaseCollection, loadJSON, 
           count++;
         }
       }
-        break;
-      case PlanChoices.getType():
-        if (PlanChoices.find({ choice: definition.choice })
-          .count() === 0) {
-          collection.define(definition);
-          count++;
-        }
         break;
       case Feeds.getType():
         if (Feeds.find({

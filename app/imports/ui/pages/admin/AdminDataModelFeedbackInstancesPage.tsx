@@ -6,9 +6,7 @@ import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
-import { PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
 import { Feeds } from '../../../api/feed/FeedCollection';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
@@ -37,7 +35,6 @@ import UpdateFeedbackInstanceForm from '../../components/admin/datamodel/feedbac
 import { profileNameToUsername } from '../../components/shared/utilities/data-model';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
-import withInstanceSubscriptions from '../../layouts/utilities/InstanceSubscriptionsHOC';
 
 const collection = FeedbackInstances; // the collection to use.
 
@@ -252,7 +249,6 @@ const AdminDataModelFeedbackInstancesPage: React.FC<AdminDataModelFeedbackInstan
 };
 
 const AdminDataModelFeedbackInstancesPageContainer = withTracker(() => ({
-  academicPlanCount: AcademicPlans.count(),
   academicTermCount: AcademicTerms.count(),
   academicYearCount: AcademicYearInstances.count(),
   advisorLogCount: AdvisorLogs.count(),
@@ -267,7 +263,6 @@ const AdminDataModelFeedbackInstancesPageContainer = withTracker(() => ({
   opportunityCount: Opportunities.count(),
   opportunityInstanceCount: OpportunityInstances.count(),
   opportunityTypeCount: OpportunityTypes.count(),
-  planChoiceCount: PlanChoices.count(),
   reviewCount: Reviews.count(),
   slugCount: Slugs.count(),
   teaserCount: Teasers.count(),
@@ -277,4 +272,4 @@ const AdminDataModelFeedbackInstancesPageContainer = withTracker(() => ({
   students: StudentProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch(),
 }))(AdminDataModelFeedbackInstancesPage);
 
-export default withInstanceSubscriptions(AdminDataModelFeedbackInstancesPageContainer);
+export default AdminDataModelFeedbackInstancesPageContainer;

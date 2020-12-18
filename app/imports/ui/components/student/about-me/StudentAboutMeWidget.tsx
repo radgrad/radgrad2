@@ -3,13 +3,11 @@ import _ from 'lodash';
 import { useRouteMatch, Link } from 'react-router-dom';
 import { Grid, Segment, Header, Icon, Label, Divider, Button } from 'semantic-ui-react';
 import {
-  FavoriteAcademicPlan,
   FavoriteCareerGoal,
   FavoriteInterest,
   StudentProfile,
 } from '../../../../typings/radgrad';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
-import { AcademicPlans } from '../../../../api/degree-plan/AcademicPlanCollection';
 import StudentAboutMeUpdatePictureForm from './StudentAboutMeUpdatePictureForm';
 import StudentShareInfoWidget from './StudentShareInfoWidget';
 import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
@@ -26,17 +24,15 @@ interface StudentAboutMeWidgetProps {
   profile: StudentProfile;
   favoriteCareerGoals: FavoriteCareerGoal[];
   favoriteInterests: FavoriteInterest[];
-  favoriteAcademicPlans: FavoriteAcademicPlan[];
 }
 
-const StudentAboutMeWidget: React.FC<StudentAboutMeWidgetProps> = ({ profile, favoriteInterests, favoriteCareerGoals, favoriteAcademicPlans }) => {
+const StudentAboutMeWidget: React.FC<StudentAboutMeWidgetProps> = ({ profile, favoriteInterests, favoriteCareerGoals }) => {
   const marginBottomStyle = { marginBottom: 0 };
   const match = useRouteMatch();
   const name = profileToFullName(profile);
   const email = profile.username;
   const careerGoals = _.map(favoriteCareerGoals, (f) => CareerGoals.findDoc(f.careerGoalID));
   const interests = _.map(favoriteInterests, (f) => Interests.findDoc(f.interestID));
-  const academicPlans = _.map(favoriteAcademicPlans, (f) => AcademicPlans.findDoc(f.academicPlanID));
   const labelStyle = { marginBottom: '2px' };
   const favorites = { color: '#53A78F', marginLeft: 10 };
   return (
@@ -153,27 +149,6 @@ const StudentAboutMeWidget: React.FC<StudentAboutMeWidgetProps> = ({ profile, fa
               <Icon name="graduation cap" />
               <Header.Content>My Favorite Academic Plan</Header.Content>
             </Header>
-          </Grid.Row>
-          <Grid.Row>
-            <Grid.Column width={11}>
-              {academicPlans.length !== 0 ?
-                academicPlans.map((plan) => {
-                  const slugName = itemToSlugName(plan);
-                  const route = Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}/${slugName}`);
-                  return (
-                    <Label style={labelStyle} key={plan._id} as={Link} to={route} size="tiny">
-                      <Icon name="map outline" fitted /> {plan.name}
-                    </Label>
-                  );
-                })
-                :
-                <p style={marginBottomStyle}>No academic plans favorited yet.</p>}
-            </Grid.Column>
-            <Grid.Column textAlign="right" width={5}>
-              <Link to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}`)}>
-                <Button basic color="green" content="VIEW MORE" />
-              </Link>
-            </Grid.Column>
           </Grid.Row>
         </Grid>
       </Segment>

@@ -10,7 +10,6 @@ import {
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
-import { AcademicPlans } from '../../../../api/degree-plan/AcademicPlanCollection';
 import { openCloudinaryWidget } from '../../shared/OpenCloudinaryWidget';
 import { updateMethod } from '../../../../api/base/BaseCollection.methods';
 import { RadGrad } from '../../../../api/radgrad/RadGrad';
@@ -18,7 +17,6 @@ import { defaultCalcLevel } from '../../../../api/level/LevelProcessor';
 import { setSelectedStudentUsername } from '../../../../redux/advisor/home/actions';
 import { FavoriteInterests } from '../../../../api/favorite/FavoriteInterestCollection';
 import { FavoriteCareerGoals } from '../../../../api/favorite/FavoriteCareerGoalCollection';
-import { FavoriteAcademicPlans } from '../../../../api/favorite/FavoriteAcademicPlanCollection';
 import { RootState } from '../../../../redux/types';
 import { BaseProfile, CareerGoal, Interest } from '../../../../typings/radgrad';
 
@@ -45,8 +43,6 @@ const AdvisorUpdateStudentWidget: React.FC<AdvisorUpdateStudentWidgetProps> = ({
   const careerGoalIDs = _.map(favCareerGoals, (fav) => fav.careerGoalID);
   const favInterests = FavoriteInterests.findNonRetired({ userID });
   const interestIDs = _.map(favInterests, (fav) => fav.interestID);
-  const favPlans = FavoriteAcademicPlans.findNonRetired({ studentID: userID });
-  const favPlanIDs = _.map(favPlans, (fav) => fav.academicPlanID);
   const [firstNameState, setFirstName] = useState(doc.firstName);
   const [lastNameState, setLastName] = useState(doc.lastName);
   const [pictureState, setPicture] = useState(doc.picture);
@@ -55,7 +51,6 @@ const AdvisorUpdateStudentWidget: React.FC<AdvisorUpdateStudentWidgetProps> = ({
   const [userInterestsState, setUserInterests] = useState(interestIDs);
   const [isAlumniState, setIsAlumni] = useState(doc.isAlumni);
   const [declaredAcademicTermState, setDeclaredAcademicTerm] = useState(doc.declaredAcademicTermID || '');
-  const [favoriteAcademicPlansState, setFavoriteAcademicPlans] = useState(favPlanIDs);
 
   const handleUploadClick = async (): Promise<void> => {
     try {
@@ -115,9 +110,6 @@ const AdvisorUpdateStudentWidget: React.FC<AdvisorUpdateStudentWidgetProps> = ({
       case 'declaredAcademicTerm':
         setDeclaredAcademicTerm(value);
         break;
-      case 'favoriteAcademicPlans':
-        setFavoriteAcademicPlans(value);
-        break;
       default:
       // do nothing
     }
@@ -144,7 +136,6 @@ const AdvisorUpdateStudentWidget: React.FC<AdvisorUpdateStudentWidgetProps> = ({
     updateData.website = websiteState;
     updateData.isAlumni = isAlumniState;
     updateData.level = calcLevel();
-    updateData.favoriteAcademicPlans = favoriteAcademicPlansState;
     const prop = declaredAcademicTermState;
     if ((prop !== '') && (prop)) updateData.declaredAcademicTerm = prop;
 
@@ -299,20 +290,6 @@ const AdvisorUpdateStudentWidget: React.FC<AdvisorUpdateStudentWidgetProps> = ({
                 (ele, i) => ({ key: i, text: `${ele.term} ${ele.year}`, value: ele._id }),
               )}
               value={declaredAcademicTermState}
-            />
-          </Form.Field>
-          <Form.Field>
-            <Form.Dropdown
-              name="favoriteAcademicPlans"
-              label="Academic Plans"
-              selection
-              multiple
-              placeholder="Select Academic Plan"
-              onChange={handleFormChange}
-              options={AcademicPlans.findNonRetired().map(
-                (ele, i) => ({ key: i, text: ele.name, value: ele._id }),
-              )}
-              value={favoriteAcademicPlansState}
             />
           </Form.Field>
         </Form.Group>

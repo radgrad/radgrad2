@@ -51,8 +51,7 @@ const TimelineChartTab: React.FC<TimelineChartTabProps> = ({ startDate, endDate,
         if (_.some(interactionsWithinDate, { type: UserInteractionsTypes.LOGIN })) {
           obj[date].push(behaviorList[0]);
         }
-        if (_.some(interactionsWithinDate, (i) => i.type === FAVORITE_TYPE.CAREERGOAL || i.type === FAVORITE_TYPE.INTEREST
-          || i.type === FAVORITE_TYPE.ACADEMICPLAN)) {
+        if (_.some(interactionsWithinDate, (i) => i.type === FAVORITE_TYPE.CAREERGOAL || i.type === FAVORITE_TYPE.INTEREST)) {
           obj[date].push(behaviorList[1]);
         }
         if (_.some(interactionsWithinDate, (i) => i.type === UserInteractionsTypes.PAGEVIEW && i.typeData[0].includes(`${EXPLORER_TYPE.HOME}/`))) {

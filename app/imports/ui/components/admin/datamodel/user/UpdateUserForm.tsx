@@ -10,7 +10,7 @@ import { AdminProfiles } from '../../../../../api/user/AdminProfileCollection';
 import { AcademicTerm, BaseProfile, CareerGoal, Interest } from '../../../../../typings/radgrad';
 import { ROLE } from '../../../../../api/role/Role';
 import {
-  academicPlanIdToName, academicTermIdToName,
+  academicTermIdToName,
   academicTermToName,
   careerGoalIdToName,
   docToName,
@@ -24,7 +24,6 @@ import { openCloudinaryWidget } from '../../../shared/OpenCloudinaryWidget';
 import { cloudinaryActions } from '../../../../../redux/shared/cloudinary';
 import { FavoriteInterests } from '../../../../../api/favorite/FavoriteInterestCollection';
 import { FavoriteCareerGoals } from '../../../../../api/favorite/FavoriteCareerGoalCollection';
-import { FavoriteAcademicPlans } from '../../../../../api/favorite/FavoriteAcademicPlanCollection';
 
 interface UpdateUserProps {
   interests: Interest[];
@@ -97,9 +96,6 @@ const UpdateUserForm: React.FC<UpdateUserProps> = ({ id, interests, setAdminData
   const favCareerGoals = FavoriteCareerGoals.find({ userID }).fetch();
   const favCareerGoalIDs = _.map(favCareerGoals, (fav) => fav.careerGoalID);
   model.careerGoals = _.map(favCareerGoalIDs, careerGoalIdToName);
-  const favPlans = FavoriteAcademicPlans.find({ studentID: userID }).fetch();
-  const favPlanIDs = _.map(favPlans, (fav) => fav.academicPlanID);
-  model.academicPlans = _.map(favPlanIDs, (academicPlanID) => academicPlanIdToName(academicPlanID));
   if (model.declaredAcademicTermID) {
     model.declaredAcademicTerm = academicTermIdToName(model.declaredAcademicTermID);
   }

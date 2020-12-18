@@ -6,9 +6,7 @@ import _ from 'lodash';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
-import { PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
 import { Feeds } from '../../../api/feed/FeedCollection';
 import { FeedbackInstances } from '../../../api/feedback/FeedbackInstanceCollection';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
@@ -48,7 +46,6 @@ import {
 import { interestSlugFromName } from '../../components/shared/utilities/form';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
-import withInstanceSubscriptions from '../../layouts/utilities/InstanceSubscriptionsHOC';
 import { makeMarkdownLink } from './utilities/datamodel';
 
 const collection = Opportunities; // the collection to use.
@@ -290,7 +287,6 @@ const AdminDataModelOpportunitiesPageContainer = withTracker(() => {
   const sponsors = _.sortBy(sponsorDocs, ['lastName', 'firstName']);
   const opportunityTypes = OpportunityTypes.find({}, { sort: { name: 1 } }).fetch();
   return {
-    academicPlanCount: AcademicPlans.count(),
     academicTermCount: AcademicTerms.count(),
     academicYearCount: AcademicYearInstances.count(),
     advisorLogCount: AdvisorLogs.count(),
@@ -305,7 +301,6 @@ const AdminDataModelOpportunitiesPageContainer = withTracker(() => {
     opportunityCount: Opportunities.count(),
     opportunityInstanceCount: OpportunityInstances.count(),
     opportunityTypeCount: OpportunityTypes.count(),
-    planChoiceCount: PlanChoices.count(),
     reviewCount: Reviews.count(),
     slugCount: Slugs.count(),
     teaserCount: Teasers.count(),
@@ -319,4 +314,4 @@ const AdminDataModelOpportunitiesPageContainer = withTracker(() => {
   };
 })(AdminDataModelOpportunitiesPage);
 
-export default withInstanceSubscriptions(AdminDataModelOpportunitiesPageContainer);
+export default AdminDataModelOpportunitiesPageContainer;

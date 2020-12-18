@@ -16,19 +16,6 @@ export function stripCounter(planChoice: string) {
 }
 
 /**
- * Returns the count of the given planChoice.
- * @param {string} planChoice the planChoice
- * @returns {number} the count value of the planChoice, or 0 if none.
- */
-export function getPlanCount(planChoice: string): number {
-  const index = planChoice.indexOf('-');
-  if (index !== -1) {
-    return parseInt(planChoice.substring(index + 1), 10);
-  }
-  return 0;
-}
-
-/**
  * Returns true if the planChoice is a single choice.
  * @param planChoice the plan choice.
  * @returns {boolean}
