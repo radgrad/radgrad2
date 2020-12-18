@@ -40,7 +40,7 @@ const schema = new SimpleSchema({
 const formSchema = new SimpleSchema2Bridge(schema);
 
 interface IAdminAnalyticsNewsletterWidgetProps {
-  startTestNewsletter: () => any;
+  startTestNewsletter: () => any; // TODO: Change to INewsletterAction? Might need to export.
   testNewsletterDone: () => any;
   testNewsletterWorking: boolean;
   startLevelNewsletter: () => any;
@@ -50,6 +50,8 @@ interface IAdminAnalyticsNewsletterWidgetProps {
   allNewsletterDone: () => any;
   allNewsletterWorking: boolean;
 }
+
+// TODO: Do we need redux to manage page-local state? Can't we do this with useState?
 
 const mapStateToProps = (state: RootState) => ({
   testNewsletterWorking: state.admin.analytics.newsletter.testNewsletter,
@@ -86,7 +88,7 @@ const AdminAnalyticsNewsletterWidget: React.FC<IAdminAnalyticsNewsletterWidgetPr
       case 'inputMessage':
         setInputMessage(value);
         break;
-      case 'onSubmitInputMessage':
+      case 'onSubmitInputMessage': // TODO: this does not appear to be in the form. Can it be removed?
         setOnSubmitInputMessage(value);
         break;
       case 'bcc':
@@ -132,7 +134,7 @@ const AdminAnalyticsNewsletterWidget: React.FC<IAdminAnalyticsNewsletterWidgetPr
       const bccListArray = _.map(bcc.split(','), email => email.trim());
       const adminEmail = RadGradProperties.getAdminEmail();
       const from = RadGradProperties.getNewsletterFrom();
-      const adminMessage = $('.adminMessage').html();
+      const adminMessage = $('.adminMessage').html(); // TODO: Would be better as an ID, not a class.
       _.forEach(studentEmailsArr, (studentEmail) => {
         setTimeout(() => {
           const student = StudentProfiles.findByUsername(studentEmail);
@@ -170,6 +172,7 @@ const AdminAnalyticsNewsletterWidget: React.FC<IAdminAnalyticsNewsletterWidgetPr
       if (sendToStudentsToo) {
         numEmails *= 2;
       }
+      // TODO: Make a function to reduce duplication.
       Swal.fire({
         title: 'Emails Succesfully Sent',
         icon: 'success',
@@ -304,6 +307,7 @@ const AdminAnalyticsNewsletterWidget: React.FC<IAdminAnalyticsNewsletterWidgetPr
     }
   };
 
+  // TODO: Buttons should be disabled with MAIL_URL has default (changeme) credentials?
   return (
     <Segment padded>
       <Header dividing as="h4">NEWSLETTER OPTIONS</Header>
