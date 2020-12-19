@@ -43,14 +43,7 @@ export const interestedStudents = (item: { _id: string }, type: string): Student
   const interested = [];
   let profiles = StudentProfiles.findNonRetired({ isAlumni: false });
 
-  if (type === EXPLORER_TYPE.ACADEMICPLANS) {
-    profiles = _.filter(profiles, (profile) => {
-      const studentID = profile.userID;
-      const favPlans = FavoriteAcademicPlans.findNonRetired({ studentID });
-      const favIDs = _.map(favPlans, (fav) => fav.academicPlanID);
-      return _.includes(favIDs, item._id);
-    });
-  } else if (type === EXPLORER_TYPE.CAREERGOALS) {
+  if (type === EXPLORER_TYPE.CAREERGOALS) {
     profiles = _.filter(profiles, (profile) => {
       const userID = profile.userID;
       const favCareerGoals = FavoriteCareerGoals.findNonRetired({ userID });
@@ -231,8 +224,6 @@ export const buildNoItemsMessage = (noItemsMessageType, type: IExplorerTypes): E
 
 export const checkForNoItems = (match: MatchProps, type: IExplorerTypes): Element | JSX.Element | string => {
   switch (type) {
-    case EXPLORER_TYPE.ACADEMICPLANS:
-      return noItems('noPlan', match) ? buildNoItemsMessage('noPlan', type) : '';
     case EXPLORER_TYPE.CAREERGOALS:
       return (
         <React.Fragment>

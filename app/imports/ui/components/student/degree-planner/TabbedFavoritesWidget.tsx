@@ -5,7 +5,6 @@ import { degreePlannerActions, degreePlannerTypes } from '../../../../redux/stud
 import FavoriteOpportunitiesWidget from './FavoriteOpportunitiesWidget';
 import FavoriteCoursesWidget from './FavoriteCoursesWidget';
 import DepDetailsWidget from './DepDetailsWidget';
-import FavoriteAcademicPlansWidget from './FavoriteAcademicPlansWidget';
 import { RootState } from '../../../../redux/types';
 import {
   AcademicPlan,
@@ -93,18 +92,6 @@ const TabbedFavoritesWidget: React.FC<TabbedFavoritesWidgetProps> = ({ selectFav
           active={active(selectedTab) === 0}
         >
           <FavoriteOpportunitiesWidget opportunities={opportunities} studentID={studentID} opportunityInstances={opportunityInstances} />
-        </Tab.Pane>
-      ),
-    },
-    {
-      menuItem: (
-        <Menu.Item key="FavoritePlans">
-          <Icon name="heart" fitted color="red" /> PLAN
-        </Menu.Item>
-      ),
-      pane: (
-        <Tab.Pane key="FavoritePlansPane" active={active(selectedTab) === 1}>
-          <FavoriteAcademicPlansWidget plans={academicPlans} takenSlugs={takenSlugs} />
         </Tab.Pane>
       ),
     },

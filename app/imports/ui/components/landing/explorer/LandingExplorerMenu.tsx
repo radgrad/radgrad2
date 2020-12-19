@@ -11,7 +11,6 @@ const LandingExplorerMenu: React.FC = () => {
   const fullPath = `${match.path}`;
   const pathBack = fullPath.substring(0, fullPath.lastIndexOf('/'));
   const menuItems = [
-    { key: 'Academic Plans', route: EXPLORER_TYPE.ACADEMICPLANS },
     { key: 'Career Goals', route: EXPLORER_TYPE.CAREERGOALS },
     { key: 'Courses', route: EXPLORER_TYPE.COURSES },
     { key: 'Interests', route: EXPLORER_TYPE.INTERESTS },

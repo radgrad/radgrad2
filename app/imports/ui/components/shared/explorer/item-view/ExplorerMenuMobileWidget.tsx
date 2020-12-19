@@ -36,26 +36,6 @@ const ExplorerMenuMobileWidget: React.FC<ExplorerMenuMobileWidgetProps> = ({ men
       <style>{mediaStyles}</style>
       <MediaContextProvider>
         <Media lessThan="tablet">
-          {(isType(EXPLORER_TYPE.ACADEMICPLANS, type) && isStudent) ?
-            (
-              <Dropdown className="selection" fluid text="Select Item" style={{ marginTop: '1rem' }}>
-                <Dropdown.Menu>
-                  <Dropdown.Header as="h4">MY FAVORITE ACADEMIC PLANS</Dropdown.Header>
-                  <Dropdown.Divider />
-                  {
-                    menuAddedList.map((listItem) => (
-                      <ExplorerMenuMobileItem
-                        type={EXPLORER_TYPE.ACADEMICPLANS}
-                        listItem={listItem}
-                        key={listItem.item._id}
-                      />
-                    ))
-                  }
-                </Dropdown.Menu>
-              </Dropdown>
-            )
-            : ''}
-
           {(isType(EXPLORER_TYPE.COURSES, type) && isStudent) ?
             (
               <React.Fragment>

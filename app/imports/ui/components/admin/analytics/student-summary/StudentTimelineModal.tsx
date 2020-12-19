@@ -123,7 +123,6 @@ const getBehaviors = (sessionArr: UserInteraction[]): { type: string, stats: str
         behaviors[StudentSummaryBehaviorTypes.OUTLOOK].push(`Academic plan at end of session: ${_.last(array)}`);
       } else if (action === UserInteractionsTypes.PAGEVIEW) {
         const explorerPages = {
-          [EXPLORER_TYPE.ACADEMICPLANS]: [],
           [EXPLORER_TYPE.CAREERGOALS]: [],
           [EXPLORER_TYPE.COURSES]: [],
           [EXPLORER_TYPE.INTERESTS]: [],

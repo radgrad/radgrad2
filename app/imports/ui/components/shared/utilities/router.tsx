@@ -68,9 +68,6 @@ export const buildExplorerRoute = (match: MatchProps, type: string): string => {
   const baseExplorerRouteName = `/${EXPLORER_TYPE.HOME}`;
   let route = '';
   switch (type) {
-    case EXPLORER_TYPE.ACADEMICPLANS:
-      route = `${baseExplorerRouteName}/${EXPLORER_TYPE.ACADEMICPLANS}`;
-      break;
     case EXPLORER_TYPE.CAREERGOALS:
       route = `${baseExplorerRouteName}/${EXPLORER_TYPE.CAREERGOALS}`;
       break;
@@ -99,9 +96,6 @@ export const buildExplorerSlugRoute = (match: MatchProps, type: string, slug: st
     const baseExplorerRouteName = `/${EXPLORER_TYPE.HOME}`;
     let route = '';
     switch (type) {
-      case EXPLORER_TYPE.ACADEMICPLANS:
-        route = `${baseExplorerRouteName}/${EXPLORER_TYPE.ACADEMICPLANS}/${slug}`;
-        break;
       case EXPLORER_TYPE.CAREERGOALS:
         route = `${baseExplorerRouteName}/${EXPLORER_TYPE.CAREERGOALS}/${slug}`;
         break;

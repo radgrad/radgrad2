@@ -8,7 +8,7 @@ import { Users } from '../../../../../api/user/UserCollection';
 import { CourseInstances } from '../../../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../../../api/opportunity/OpportunityInstanceCollection';
 import * as Router from '../../utilities/router';
-import { itemToSlugName, profileGetCareerGoalIDs, profileGetFavoriteAcademicPlanIDs } from '../../utilities/data-model';
+import { itemToSlugName, profileGetCareerGoalIDs } from '../../utilities/data-model';
 
 export type ExplorerInterfaces = AcademicPlan | CareerGoal | Course | Interest | Opportunity;
 
@@ -30,14 +30,6 @@ const itemName = (item: ListItem): string => {
   return `${item.item.name}`;
 };
 
-const userPlans = (plan: AcademicPlan, match): string => {
-  let ret = '';
-  const profile = Users.getProfile(Router.getUsername(match));
-  if (_.includes(profileGetFavoriteAcademicPlanIDs(profile), plan._id)) {
-    ret = 'check green circle outline icon';
-  }
-  return ret;
-};
 const userCareerGoals = (careerGoal: CareerGoal, match): string => {
   let ret = '';
   const profile = Users.getProfile(Router.getUsername(match));
@@ -92,8 +84,6 @@ const userOpportunities = (opportunity: Opportunity, match): string => {
 // Determines whether or not we show a "check green circle outline icon" for an item
 const getItemStatus = (item: ExplorerInterfaces, type: string, match): string => {
   switch (type) {
-    case EXPLORER_TYPE.ACADEMICPLANS:
-      return userPlans(item as AcademicPlan, match);
     case EXPLORER_TYPE.CAREERGOALS:
       return userCareerGoals(item as CareerGoal, match);
     case EXPLORER_TYPE.COURSES:
