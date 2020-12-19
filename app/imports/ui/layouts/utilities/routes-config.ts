@@ -57,7 +57,6 @@ import AdminDataModelInterestTypesPage from '../../pages/admin/AdminDataModelInt
 import AdminDataModelOpportunitiesPage from '../../pages/admin/AdminDataModelOpportunitiesPage';
 import AdminDataModelOpportunityInstancesPage from '../../pages/admin/AdminDataModelOpportunityInstancesPage';
 import AdminDataModelOpportunityTypesPage from '../../pages/admin/AdminDataModelOpportunityTypesPage';
-import AdminDataModelPlanChoicesPage from '../../pages/admin/AdminDataModelPlanChoicesPage';
 import AdminDataModelReviewsPage from '../../pages/admin/AdminDataModelReviewsPage';
 import AdminDataModelSlugsPage from '../../pages/admin/AdminDataModelSlugsPage';
 import AdminDataModelTeasersPage from '../../pages/admin/AdminDataModelTeasersPage';
@@ -171,11 +170,6 @@ export const routes = {
       path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL}/opportunity-types`,
       exact: true,
       component: AdminDataModelOpportunityTypesPage,
-    },
-    {
-      path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL}/plan-choices`,
-      exact: true,
-      component: AdminDataModelPlanChoicesPage,
     },
     {
       path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL}/reviews`,
