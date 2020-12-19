@@ -216,7 +216,6 @@ function processRadGradCollections(data: IDataDump) {
   return result;
 }
 
-
 async function convertRadGrad1DatabaseDumpToRadGrad2() {
   const argv = process.argv;
   if (argv.length < 4) {
