@@ -147,32 +147,6 @@ export function reducer(state: State = initialState, action): State {
   let collect;
   const paginationState = state.pagination;
   switch (action.type) {
-    case TYPES.SET_ACADEMIC_PLANS_SHOW_INDEX:
-      collect = paginationState.AcademicPlanCollection;
-      s = {
-        ...state,
-        pagination: {
-          ...paginationState,
-          AcademicPlanCollection: {
-            ...collect,
-            showIndex: action.payload,
-          },
-        },
-      };
-      return s;
-    case TYPES.SET_ACADEMIC_PLANS_SHOW_COUNT:
-      collect = paginationState.AcademicPlanCollection;
-      s = {
-        ...state,
-        pagination: {
-          ...paginationState,
-          AcademicPlanCollection: {
-            ...collect,
-            showCount: action.payload,
-          },
-        },
-      };
-      return s;
     case TYPES.SET_ACADEMIC_TERMS_SHOW_INDEX:
       collect = paginationState.AcademicTermCollection;
       s = {
