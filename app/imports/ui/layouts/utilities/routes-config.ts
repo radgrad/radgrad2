@@ -14,9 +14,6 @@ import LandingInterestsCardExplorerContainer from '../../pages/landing/LandingIn
 import LandingInterestExplorerContainer from '../../pages/landing/LandingInterestExplorerPage';
 import LandingOpportunitiesCardExplorerContainer from '../../pages/landing/LandingOpportunitiesCardExplorerPage';
 import LandingOpportunityExplorerContainer from '../../pages/landing/LandingOpportunityExplorerPage';
-import LandingAcademicPlansCardExplorerContainer from '../../pages/landing/LandingAcademicPlansCardExplorerPage';
-import LandingAcademicPlanExplorerContainer from '../../pages/landing/LandingAcademicPlanExplorerPage';
-import AcademicPlanBrowserViewPage from '../../pages/shared/browser-view/AcademicPlanBrowserViewPage';
 import CareerGoalBrowserViewPage from '../../pages/shared/browser-view/CareerGoalBrowserViewPage';
 import InterestBrowserViewPage from '../../pages/shared/browser-view/InterestBrowserViewPage';
 import ExplorerHomePageContainer from '../../pages/shared/ExplorerHomePage';
@@ -33,7 +30,6 @@ import AdvisorHomePageContainer from '../../pages/advisor/AdvisorHomePage';
 import AdvisorAboutMePageContainer from '../../pages/advisor/AdvisorAboutMePage';
 import AdvisorVerificationRequestPageContainer from '../../pages/advisor/AdvisorVerificationRequestPage';
 import AdvisorModerationPageContainer from '../../pages/advisor/AdvisorModerationPage';
-import AdvisorAcademicPlanPageContainer from '../../pages/advisor/AdvisorAcademicPlanPage';
 import FacultyVerificationPageContainer from '../../pages/faculty/FacultyVerificationPage';
 import FacultyHomePageContainer from '../../pages/faculty/FacultyHomePage';
 import FacultyManageOpportunitiesPageContainer from '../../pages/faculty/FacultyManageOpportunitiesPage';
@@ -46,7 +42,6 @@ import StudentHomeLogPageContainer from '../../pages/student/StudentHomeLogPage'
 import AlumniHomePageContainer from '../../pages/alumni/AlumniHomePage';
 import AdminDumpDatabasePageContainer from '../../pages/admin/AdminDumpDatabasePage';
 import AdminCheckDatabaseIntegrityPageContainer from '../../pages/admin/AdminCheckDatabaseIntegrityPage';
-import AdminDataModelAcademicPlansPage from '../../pages/admin/AdminDataModelAcademicPlansPage';
 import AdminDataModelAcademicTermsPage from '../../pages/admin/AdminDataModelAcademicTermsPage';
 import AdminDataModelAcademicYearsPage from '../../pages/admin/AdminDataModelAcademicYearsPage';
 import AdminDataModelAdvisorLogsPage from '../../pages/admin/AdminDataModelAdvisorLogsPage';
@@ -90,7 +85,6 @@ import ExplorerOpportunitiesPage from '../../pages/shared/ExplorerOpportunitiesP
 import CommunityRadGradVideosPage from '../../pages/shared/CommunityRadGradVideosPage';
 import CommunityUsersPage from '../../pages/shared/CommunityUsersPage';
 import CourseBrowserViewPage from '../../pages/shared/browser-view/CourseBrowserViewPage';
-import AcademicPlanViewPageContainer from '../../pages/shared/item-view/AcademicPlanViewPage';
 import CareerGoalViewPageContainer from '../../pages/shared/item-view/CareerGoalViewPage';
 import CourseViewPageContainer from '../../pages/shared/item-view/CourseViewPage';
 import InterestViewPageContainer from '../../pages/shared/item-view/InterestViewPage';
@@ -107,11 +101,6 @@ export const routes = {
       path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL}`,
       exact: true,
       component: AdminDataModelPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL}/academic-plans`,
-      exact: true,
-      component: AdminDataModelAcademicPlansPage,
     },
     {
       path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL}/academic-terms`,
@@ -346,10 +335,6 @@ export const routes = {
       component: AdvisorModerationPageContainer,
     },
     {
-      path: `/${URL_ROLES.ADVISOR}/${USERNAME}/academic-plan`,
-      component: AdvisorAcademicPlanPageContainer,
-    },
-    {
       path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${SCOREBOARD}`,
       exact: true,
       component: ScoreboardPageContainer,
@@ -369,16 +354,6 @@ export const routes = {
       path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${EXPLORER_TYPE.HOME}`,
       exact: true,
       component: ExplorerHomePageContainer,
-    },
-    {
-      path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}`,
-      exact: true,
-      component: AcademicPlanBrowserViewPage,
-    },
-    {
-      path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}/${EXPLORER_PARAM.ACADEMICPLAN}`,
-      exact: true,
-      component: AcademicPlanViewPageContainer,
     },
     {
       path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}`,
@@ -500,16 +475,6 @@ export const routes = {
       path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}`,
       exact: true,
       component: ExplorerHomePageContainer,
-    },
-    {
-      path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}`,
-      exact: true,
-      component: AcademicPlanBrowserViewPage,
-    },
-    {
-      path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}/${EXPLORER_PARAM.ACADEMICPLAN}`,
-      exact: true,
-      component: AcademicPlanViewPageContainer,
     },
     {
       path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}`,
@@ -681,16 +646,6 @@ export const routes = {
       exact: false,
       component: LandingOpportunityExplorerContainer,
     },
-    {
-      path: `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}`,
-      exact: true,
-      component: LandingAcademicPlansCardExplorerContainer,
-    },
-    {
-      path: `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}/${EXPLORER_PARAM.ACADEMICPLAN}`,
-      exact: false,
-      component: LandingAcademicPlanExplorerContainer,
-    },
   ],
   STUDENT: [
     /* ############################## HOME ############################## */
@@ -772,17 +727,6 @@ export const routes = {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}`,
       exact: true,
       component: ExplorerHomePageContainer,
-    },
-    /* ############################## Explorers ACADEMIC PLANS ############################## */
-    {
-      path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}`,
-      exact: true,
-      component: AcademicPlanBrowserViewPage,
-    },
-    {
-      path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}/${EXPLORER_PARAM.ACADEMICPLAN}`,
-      exact: true,
-      component: AcademicPlanViewPageContainer,
     },
     /* ############################## Explorers CAREER GOALS ############################## */
     {

@@ -32,7 +32,6 @@ export const URL_ROLES = {
 
 export const EXPLORER_TYPE = {
   HOME: 'explorer',
-  ACADEMICPLANS: 'plans',
   CAREERGOALS: 'career-goals',
   COURSES: 'courses',
   INTERESTS: 'interests',
@@ -41,7 +40,6 @@ export const EXPLORER_TYPE = {
 };
 
 export const EXPLORER_PARAM = {
-  ACADEMICPLAN: ':plan',
   CAREERGOAL: ':careergoal',
   COURSE: ':course',
   INTEREST: ':interest',
