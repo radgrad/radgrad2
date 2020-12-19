@@ -34,9 +34,6 @@ test('Test advisor top-level pages', async (testController) => {
   await advisorNavBar.gotoModerationPage(testController);
   await advisorModerationPage.isDisplayed(testController);
 
-  await advisorNavBar.gotoAcademicPlanPage(testController);
-  await advisorAcademicPlanPage.isDisplayed(testController);
-
   await advisorNavBar.gotoScoreboardPage(testController);
   await advisorScoreboardPage.isDisplayed(testController);
 });

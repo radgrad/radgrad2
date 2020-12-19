@@ -38,9 +38,6 @@ test('Test all student top-level pages', async (testController) => {
   await studentNavBar.gotoInterestsExplorerPage(testController);
   await studentInterestsExplorerPage.isDisplayed(testController);
 
-  await studentNavBar.gotoAcademicPlansExplorerPage(testController);
-  await studentAcademicPlansExplorerPage.isDisplayed(testController);
-
   await studentNavBar.gotoOpportunitiesPage(testController);
   await studentOpportunitiesPage.isDisplayed(testController);
 
