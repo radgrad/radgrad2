@@ -34,9 +34,6 @@ const AdminDataModelMenu: React.FC<AdminDataModeMenuProps> = ({ academicPlanCoun
   // console.log(this.props, baseRoute);
   return (
     <Menu vertical text id="leftHandMenu">
-      <Menu.Item id="data-model-academic-plans" as={NavLink} exact to={`${baseRoute}academic-plans`}>
-        Academic Plans ({academicPlanCount})
-      </Menu.Item>
       <Menu.Item id="data-model-academic-terms" as={NavLink} exact to={`${baseRoute}academic-terms`}>
         Academic Terms ({academicTermCount})
       </Menu.Item>
@@ -78,9 +75,6 @@ const AdminDataModelMenu: React.FC<AdminDataModeMenuProps> = ({ academicPlanCoun
       </Menu.Item>
       <Menu.Item id="data-model-opportunity-types" as={NavLink} exact to={`${baseRoute}opportunity-types`}>
         Opportunity Types ({opportunityTypeCount})
-      </Menu.Item>
-      <Menu.Item id="data-model-plan-choices" as={NavLink} exact to={`${baseRoute}plan-choices`}>
-        Plan Choices ({planChoiceCount})
       </Menu.Item>
       <Menu.Item id="data-model-reviews" as={NavLink} exact to={`${baseRoute}reviews`}>
         Reviews ({reviewCount})
