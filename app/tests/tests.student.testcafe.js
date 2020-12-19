@@ -3,7 +3,7 @@ import { signinPage } from './signin.page';
 import { studentHomePage } from './student.home.page';
 import { studentNavBar } from './navbar.student.component';
 import { studentCareerGoalsExplorerPage, studentInterestsExplorerPage,
-  studentOpportunitiesPage, studentAcademicPlansExplorerPage, studentDegreePlannerPage,
+  studentOpportunitiesPage, studentDegreePlannerPage,
   studentCoursesExplorerPage, studentCommunityRadGradVideosPage, studentCommunityUsersPage,
   studentAboutMePage, studentAdvisorLogPage, studentICEPointsPage, studentLevelsPage } from './simple.page';
 

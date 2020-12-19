@@ -4,7 +4,6 @@ import SimpleSchema from 'simpl-schema';
 import { Roles } from 'meteor/alanning:roles';
 import { ReactiveAggregate } from 'meteor/jcbernack:reactive-aggregate';
 import BaseProfileCollection, { defaultProfilePicture } from './BaseProfileCollection';
-import { AcademicPlans } from '../degree-plan/AcademicPlanCollection';
 import { CareerGoals } from '../career/CareerGoalCollection';
 import { Courses } from '../course/CourseCollection';
 import { CourseInstances } from '../course/CourseInstanceCollection';
@@ -374,9 +373,6 @@ class StudentProfileCollection extends BaseProfileCollection {
       if (!_.isBoolean(doc.isAlumni)) {
         problems.push(`Invalid isAlumni: ${doc.isAlumni} in ${doc.username}`);
       }
-      if (doc.academicPlanID && !AcademicPlans.isDefined(doc.academicPlanID)) {
-        problems.push(`Bad academicPlanID: ${doc.academicPlanID} in ${doc.username}`);
-      }
       if (doc.declaredAcademicTermID && !AcademicTerms.isDefined(doc.declaredAcademicTermID)) {
         problems.push(`Bad termID: ${doc.declaredAcademicTermID} in ${doc.username}`);
       }
@@ -581,8 +577,6 @@ class StudentProfileCollection extends BaseProfileCollection {
     const favCareerGoals = FavoriteCareerGoals.findNonRetired({ userID });
     const careerGoals = _.map(favCareerGoals, (fav) => CareerGoals.findSlugByID(fav.careerGoalID));
     const level = doc.level;
-    const favAcademicPlans = FavoriteAcademicPlans.findNonRetired({ studentID: userID });
-    const favoriteAcademicPlans = _.map(favAcademicPlans, (fav) => AcademicPlans.findSlugByID(fav.academicPlanID));
     const favCourses = FavoriteCourses.findNonRetired({ studentID: userID });
     const favoriteCourses = _.map(favCourses, (fav) => Courses.findSlugByID(fav.courseID));
     const favOpps = FavoriteOpportunities.findNonRetired({ studentID: userID });
@@ -600,7 +594,7 @@ class StudentProfileCollection extends BaseProfileCollection {
     const shareLevel = doc.shareLevel;
     const shareAcademicPlan = doc.shareAcademicPlan;
     return {
-      username, firstName, lastName, picture, website, interests, careerGoals, level, favoriteAcademicPlans,
+      username, firstName, lastName, picture, website, interests, careerGoals, level,
       favoriteCourses, favoriteOpportunities, declaredAcademicTerm, isAlumni, retired, shareUsername, sharePicture,
       shareWebsite, shareInterests, shareCareerGoals, shareOpportunities, shareCourses, shareLevel, shareAcademicPlan,
     };

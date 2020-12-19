@@ -2,7 +2,7 @@ import { landingNavBar } from './navbar.landing.component';
 import { advisorNavBar } from './navbar.advisor.component';
 import { signinPage } from './signin.page';
 import { advisorHomePage, advisorVerificationRequestsPage, advisorModerationPage,
-  advisorAcademicPlanPage, advisorScoreboardPage } from './simple.page';
+  advisorScoreboardPage } from './simple.page';
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 /* global fixture:false, test:false */
