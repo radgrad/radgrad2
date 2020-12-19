@@ -3,23 +3,8 @@ import React, { useState } from 'react';
 import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import _ from 'lodash';
-import { CareerGoals } from '../../../api/career/CareerGoalCollection';
-import { Courses } from '../../../api/course/CourseCollection';
-import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
-import { PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
-import { Feeds } from '../../../api/feed/FeedCollection';
-import { FeedbackInstances } from '../../../api/feedback/FeedbackInstanceCollection';
-import { HelpMessages } from '../../../api/help/HelpMessageCollection';
-import { InterestTypes } from '../../../api/interest/InterestTypeCollection';
-import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';
-import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
-import { Reviews } from '../../../api/review/ReviewCollection';
-import { Slugs } from '../../../api/slug/SlugCollection';
-import { Teasers } from '../../../api/teaser/TeaserCollection';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
-import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
@@ -47,8 +32,7 @@ import {
 import { interestSlugFromName } from '../../components/shared/utilities/form';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
-import withInstanceSubscriptions from '../../layouts/utilities/InstanceSubscriptionsHOC';
-import { makeMarkdownLink } from './utilities/datamodel';
+import { getDatamodelCount, makeMarkdownLink } from './utilities/datamodel';
 
 const collection = Opportunities; // the collection to use.
 
@@ -288,28 +272,9 @@ const AdminDataModelOpportunitiesPageContainer = withTracker(() => {
   const sponsorDocs = _.union(faculty, advisors);
   const sponsors = _.sortBy(sponsorDocs, ['lastName', 'firstName']);
   const opportunityTypes = OpportunityTypes.find({}, { sort: { name: 1 } }).fetch();
+  const modelCount = getDatamodelCount();
   return {
-    academicTermCount: AcademicTerms.count(),
-    academicYearCount: AcademicYearInstances.count(),
-    advisorLogCount: AdvisorLogs.count(),
-    careerGoalCount: CareerGoals.count(),
-    courseInstanceCount: CourseInstances.count(),
-    courseCount: Courses.count(),
-    feedCount: Feeds.count(),
-    feedbackCount: FeedbackInstances.count(),
-    helpMessageCount: HelpMessages.count(),
-    interestCount: Interests.count(),
-    interestTypeCount: InterestTypes.count(),
-    opportunityCount: Opportunities.count(),
-    opportunityInstanceCount: OpportunityInstances.count(),
-    opportunityTypeCount: OpportunityTypes.count(),
-    planChoiceCount: PlanChoices.count(),
-    reviewCount: Reviews.count(),
-    slugCount: Slugs.count(),
-    teaserCount: Teasers.count(),
-    usersCount: Users.count(),
-    verificationRequestCount: VerificationRequests.count(),
-    items: Opportunities.find({}).fetch(),
+    ...modelCount,
     sponsors,
     terms,
     opportunityTypes,
@@ -317,4 +282,4 @@ const AdminDataModelOpportunitiesPageContainer = withTracker(() => {
   };
 })(AdminDataModelOpportunitiesPage);
 
-export default withInstanceSubscriptions(AdminDataModelOpportunitiesPageContainer);
+export default AdminDataModelOpportunitiesPageContainer;

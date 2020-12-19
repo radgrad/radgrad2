@@ -5,23 +5,7 @@ import moment from 'moment';
 import { connect } from 'react-redux';
 import { withTracker } from 'meteor/react-meteor-data';
 import Swal from 'sweetalert2';
-import { Courses } from '../../../api/course/CourseCollection';
-import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
-import { PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
-import { Feeds } from '../../../api/feed/FeedCollection';
-import { FeedbackInstances } from '../../../api/feedback/FeedbackInstanceCollection';
-import { HelpMessages } from '../../../api/help/HelpMessageCollection';
-import { InterestTypes } from '../../../api/interest/InterestTypeCollection';
-import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';
-import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
-import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
-import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';
-import { Reviews } from '../../../api/review/ReviewCollection';
-import { Slugs } from '../../../api/slug/SlugCollection';
-import { Teasers } from '../../../api/teaser/TeaserCollection';
 import { AdminProfiles } from '../../../api/user/AdminProfileCollection';
-import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import {
@@ -36,9 +20,8 @@ import {
 } from '../../../typings/radgrad';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
-import { makeMarkdownLink } from './utilities/datamodel';
+import { getDatamodelCount, makeMarkdownLink } from './utilities/datamodel';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
-import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { ROLE } from '../../../api/role/Role';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
@@ -93,13 +76,6 @@ const descriptionPairs = (props: AdminDataModelUsersPageProps) => (user: BasePro
   pairs.push({ label: 'Interests', value: _.sortBy(Interests.findNames(interestIDs)) });
   if (user.role === ROLE.STUDENT) {
     pairs.push({ label: 'Level', value: `${user.level}` });
-    const favoritePlans = _.filter(props.favoriteAcademicPlans, (fav) => fav.studentID === user.userID);
-    // const favoritePlans = FavoriteAcademicPlans.findNonRetired({ studentID: user.userID });
-    const planNames = _.map(favoritePlans, (f) => AcademicPlans.findDoc(f.academicPlanID).name);
-    pairs.push({
-      label: 'Degree',
-      value: (planNames.length > 0) ? planNames.join(', ') : '',
-    });
     pairs.push({
       label: 'Declared Semester',
       value: (user.declaredAcademicTermID) ? AcademicTerms.toString(user.declaredAcademicTermID) : '',
@@ -425,12 +401,12 @@ export default withTracker(() => {
   let academicTerms = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
   academicTerms = _.filter(academicTerms, (term) => (term.termNumber <= currentTerm.termNumber && term.termNumber > currentTerm.termNumber - 8));
-  const academicPlans = AcademicPlans.getLatestPlans();
+  const modelCount = getDatamodelCount();
   return {
+    ...modelCount,
     interests,
     careerGoals,
     academicTerms,
-    academicPlans,
     admins,
     advisors,
     faculty,
@@ -438,26 +414,5 @@ export default withTracker(() => {
     favoriteAcademicPlans,
     favoriteCareerGoals,
     favoriteInterests,
-    academicPlanCount: AcademicPlans.count(),
-    academicTermCount: AcademicTerms.count(),
-    academicYearCount: AcademicYearInstances.count(),
-    advisorLogCount: AdvisorLogs.count(),
-    careerGoalCount: CareerGoals.count(),
-    courseInstanceCount: CourseInstances.count(),
-    courseCount: Courses.count(),
-    feedCount: Feeds.count(),
-    feedbackCount: FeedbackInstances.count(),
-    helpMessageCount: HelpMessages.count(),
-    interestCount: Interests.count(),
-    interestTypeCount: InterestTypes.count(),
-    opportunityCount: Opportunities.count(),
-    opportunityInstanceCount: OpportunityInstances.count(),
-    opportunityTypeCount: OpportunityTypes.count(),
-    planChoiceCount: PlanChoices.count(),
-    reviewCount: Reviews.count(),
-    slugCount: Slugs.count(),
-    teaserCount: Teasers.count(),
-    usersCount: Users.count(),
-    verificationRequestCount: VerificationRequests.count(),
   };
 })(AdminDataModelUsersPageCon);

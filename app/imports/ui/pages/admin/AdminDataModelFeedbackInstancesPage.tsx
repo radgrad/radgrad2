@@ -2,25 +2,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
 import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
-import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
-import { CareerGoals } from '../../../api/career/CareerGoalCollection';
-import { Courses } from '../../../api/course/CourseCollection';
-import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
-import { PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
-import { Feeds } from '../../../api/feed/FeedCollection';
-import { HelpMessages } from '../../../api/help/HelpMessageCollection';
-import { Interests } from '../../../api/interest/InterestCollection';
-import { InterestTypes } from '../../../api/interest/InterestTypeCollection';
-import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';
-import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
-import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
-import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';
-import { Reviews } from '../../../api/review/ReviewCollection';
-import { Slugs } from '../../../api/slug/SlugCollection';
-import { Teasers } from '../../../api/teaser/TeaserCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
-import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
@@ -36,7 +18,7 @@ import UpdateFeedbackInstanceForm from '../../components/admin/datamodel/feedbac
 import { profileNameToUsername } from '../../components/shared/utilities/data-model';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
-import withInstanceSubscriptions from '../../layouts/utilities/InstanceSubscriptionsHOC';
+import { getDatamodelCount } from './utilities/datamodel';
 
 const collection = FeedbackInstances; // the collection to use.
 
@@ -250,29 +232,15 @@ const AdminDataModelFeedbackInstancesPage: React.FC<AdminDataModelFeedbackInstan
   );
 };
 
-const AdminDataModelFeedbackInstancesPageContainer = withTracker(() => ({
-  academicTermCount: AcademicTerms.count(),
-  academicYearCount: AcademicYearInstances.count(),
-  advisorLogCount: AdvisorLogs.count(),
-  careerGoalCount: CareerGoals.count(),
-  courseInstanceCount: CourseInstances.count(),
-  courseCount: Courses.count(),
-  feedCount: Feeds.count(),
-  feedbackCount: FeedbackInstances.count(),
-  helpMessageCount: HelpMessages.count(),
-  interestCount: Interests.count(),
-  interestTypeCount: InterestTypes.count(),
-  opportunityCount: Opportunities.count(),
-  opportunityInstanceCount: OpportunityInstances.count(),
-  opportunityTypeCount: OpportunityTypes.count(),
-  planChoiceCount: PlanChoices.count(),
-  reviewCount: Reviews.count(),
-  slugCount: Slugs.count(),
-  teaserCount: Teasers.count(),
-  usersCount: Users.count(),
-  verificationRequestCount: VerificationRequests.count(),
-  items: FeedbackInstances.find({}).fetch(),
-  students: StudentProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch(),
-}))(AdminDataModelFeedbackInstancesPage);
+const AdminDataModelFeedbackInstancesPageContainer = withTracker(() => {
+  const items = FeedbackInstances.find({}).fetch();
+  const students = StudentProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch();
+  const modelCount = getDatamodelCount();
+  return {
+    ...modelCount,
+    items,
+    students,
+  };
+})(AdminDataModelFeedbackInstancesPage);
 
-export default withInstanceSubscriptions(AdminDataModelFeedbackInstancesPageContainer);
+export default AdminDataModelFeedbackInstancesPageContainer;
