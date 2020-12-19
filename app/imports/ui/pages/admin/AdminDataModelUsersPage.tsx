@@ -48,8 +48,8 @@ import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import {
-  academicPlanSlugFromName,
-  careerGoalSlugFromName, declaredAcademicTermSlugFromName,
+  careerGoalSlugFromName,
+  declaredAcademicTermSlugFromName,
   interestSlugFromName,
 } from '../../components/shared/utilities/form';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
@@ -150,9 +150,6 @@ const AdminDataModelUsersPage: React.FC<AdminDataModelUsersPageProps> = (props) 
     const definitionData: CombinedProfileDefine = doc;
     definitionData.interests = _.map(doc.interests, (interest) => interestSlugFromName(interest));
     definitionData.careerGoals = _.map(doc.careerGoals, (goal) => careerGoalSlugFromName(goal));
-    if (!_.isNil(doc.academicPlan)) {
-      definitionData.academicPlan = academicPlanSlugFromName(doc.academicPlan);
-    }
     if (!_.isNil(doc.declaredAcademicTerm)) {
       definitionData.declaredAcademicTerm = declaredAcademicTermSlugFromName(doc.declaredAcademicTerm);
     }

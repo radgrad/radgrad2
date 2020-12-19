@@ -1,7 +1,6 @@
 import _ from 'lodash';
 
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
-import { RadGradProperties } from '../../../../api/radgrad/RadGradProperties';
 import { Users } from '../../../../api/user/UserCollection';
 import { Courses } from '../../../../api/course/CourseCollection';
 import { Interests } from '../../../../api/interest/InterestCollection';
@@ -10,14 +9,12 @@ import { Opportunities } from '../../../../api/opportunity/OpportunityCollection
 import { InterestTypes } from '../../../../api/interest/InterestTypeCollection';
 import { OpportunityTypes } from '../../../../api/opportunity/OpportunityTypeCollection';
 import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
-import { AcademicPlans } from '../../../../api/degree-plan/AcademicPlanCollection';
 import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
 import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
 import { defaultProfilePicture } from '../../../../api/user/BaseProfileCollection';
 import { StudentParticipations } from '../../../../api/public-stats/StudentParticipationCollection';
 import { FavoriteCareerGoals } from '../../../../api/favorite/FavoriteCareerGoalCollection';
 import { FavoriteInterests } from '../../../../api/favorite/FavoriteInterestCollection';
-import { FavoriteAcademicPlans } from '../../../../api/favorite/FavoriteAcademicPlanCollection';
 import { AcademicTerm } from '../../../../typings/radgrad';
 // import Router from './RouterHelperFunctions';
 
@@ -30,10 +27,6 @@ interface HasSlugID {
 }
 
 export const itemToSlugName = (doc) => (doc.slugID ? Slugs.getNameFromID(doc.slugID) : doc.username);
-
-export const academicPlanIdToName = (id) => AcademicPlans.findDoc(id).name;
-
-export const academicPlanNameToSlug = (name) => itemToSlugName(AcademicPlans.findDoc(name));
 
 export const academicTermIdToName = (id) => AcademicTerms.toString(id, false);
 
@@ -185,29 +178,6 @@ export const opportunityInstanceNameToId = (name) => {
 export const opportunityTypeNameToSlug = (name) => itemToSlugName(OpportunityTypes.findDoc(name));
 
 export const opportunityTypeIdToName = (id) => OpportunityTypes.findDoc(id).name;
-
-export const profileGetFavoriteAcademicPlans = (profile) => {
-  const studentID = profile.userID;
-  const favPlans = FavoriteAcademicPlans.findNonRetired({ studentID });
-  return _.map(favPlans, (fav) => AcademicPlans.findDoc(fav.academicPlanID));
-};
-
-export const profileFavoriteBamAcademicPlan = (profile) => {
-  let numTermsPerYear = 3;
-  if (RadGradProperties.getQuarterSystem()) {
-    numTermsPerYear = 4;
-  }
-  const favPlans = profileGetFavoriteAcademicPlans(profile);
-  let notBAM = true;
-  favPlans.forEach((plan) => {
-    if (plan.coursesPerAcademicTerm.length >= (4 * numTermsPerYear) + 1) {
-      notBAM = false;
-    }
-  });
-  return !notBAM;
-};
-
-export const profileGetFavoriteAcademicPlanIDs = (profile) => _.map(profileGetFavoriteAcademicPlans(profile), (plan) => plan._id);
 
 export const profileGetCareerGoals = (profile) => {
   const userID = profile.userID;

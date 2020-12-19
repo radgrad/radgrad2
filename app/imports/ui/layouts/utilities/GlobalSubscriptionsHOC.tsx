@@ -5,7 +5,6 @@ import { Dimmer, Loader } from 'semantic-ui-react';
 import { AdminProfiles } from '../../../api/user/AdminProfileCollection';
 import { PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
-import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Users } from '../../../api/user/UserCollection';
@@ -49,7 +48,6 @@ function withGlobalSubscription(WrappedComponent) {
 
   return withTracker(() => {
     const handles = [
-      globalSubs.subscribe(AcademicPlans.getPublicationName()),
       globalSubs.subscribe(AcademicTerms.getPublicationName()),
       globalSubs.subscribe(AdminProfiles.getPublicationName()),
       globalSubs.subscribe(AdvisorProfiles.getPublicationName()),

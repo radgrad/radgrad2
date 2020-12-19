@@ -4,7 +4,6 @@ import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
 import { PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
 import { Feeds } from '../../../api/feed/FeedCollection';
@@ -281,7 +280,6 @@ const AdminDataModelReviewsPageContainer = withTracker(() => {
   const students = StudentProfiles.find({}, { sort: { lastName: 1 } }).fetch();
   const opportunities = Opportunities.find({}, { sort: { name: 1 } }).fetch();
   return {
-    academicPlanCount: AcademicPlans.count(),
     academicTermCount: AcademicTerms.count(),
     academicYearCount: AcademicYearInstances.count(),
     advisorLogCount: AdvisorLogs.count(),

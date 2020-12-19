@@ -18,7 +18,6 @@ import { StudentProfiles } from '../../../../../api/user/StudentProfileCollectio
 import { Opportunities } from '../../../../../api/opportunity/OpportunityCollection';
 import {
   profileGetCareerGoalIDs,
-  profileGetFavoriteAcademicPlans,
 } from '../../utilities/data-model';
 import { defaultProfilePicture } from '../../../../../api/user/BaseProfileCollection';
 import { FavoriteCareerGoals } from '../../../../../api/favorite/FavoriteCareerGoalCollection';
@@ -33,11 +32,6 @@ export type IExplorerTypes = 'plans' | 'career-goals' | 'courses' | 'interests' 
 export const isType = (typeToCheck: string, type: IExplorerTypes): boolean => type === typeToCheck;
 
 /* ####################################### ACADEMIC PLANS HELPER FUNCTIONS ####################################### */
-export const noPlan = (match: Router.MatchProps): boolean => {
-  const profile = Users.getProfile(Router.getUsername(match));
-  return profileGetFavoriteAcademicPlans(profile).length === 0;
-};
-
 export const interestedStudents = (item: { _id: string }, type: string): StudentProfile[] => {
   const interested = [];
   let profiles = StudentProfiles.findNonRetired({ isAlumni: false });
@@ -154,8 +148,6 @@ export const matchingOpportunities = (match: MatchProps): Opportunity[] => {
 
 export const noItems = (noItemsType: string, match: Router.MatchProps): boolean => {
   switch (noItemsType) {
-    case 'noPlan':
-      return noPlan(match);
     case 'noInterests':
       return noInterests(match);
     case 'noCareerGoals':
@@ -167,13 +159,6 @@ export const noItems = (noItemsType: string, match: Router.MatchProps): boolean 
 
 export const buildNoItemsMessage = (noItemsMessageType, type: IExplorerTypes): Element | JSX.Element | string => {
   switch (noItemsMessageType) {
-    case 'noPlan':
-      return (
-        <p>
-          You have not favorited any Academic Plans. To favorite academic plans, click on &quot;View More&quot;
-          to view the details for an Academic Plan and favorite from there.
-        </p>
-      );
     case 'noInterests':
       if (isType(EXPLORER_TYPE.CAREERGOALS, type)) {
         return (

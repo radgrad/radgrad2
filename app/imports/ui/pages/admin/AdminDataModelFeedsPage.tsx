@@ -6,7 +6,6 @@ import Swal from 'sweetalert2';
 import { connect } from 'react-redux';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
 import { PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
 import { FeedbackInstances } from '../../../api/feedback/FeedbackInstanceCollection';
@@ -333,7 +332,6 @@ const AdminDataModelFeedsPage: React.FC<AdminDataModelFeedsPageProps> = (props) 
 const AdminDataModelFeedsPageCon = connect(mapStateToProps)(AdminDataModelFeedsPage);
 
 const AdminDataModelFeedsPageContainer = withTracker(() => ({
-  academicPlanCount: AcademicPlans.count(),
   academicTermCount: AcademicTerms.count(),
   academicYearCount: AcademicYearInstances.count(),
   advisorLogCount: AdvisorLogs.count(),
