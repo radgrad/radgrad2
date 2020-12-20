@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import _ from 'lodash';
+import * as _ from 'lodash';
 import * as moment from 'moment';
 
 let radgradDump;
@@ -342,7 +342,7 @@ const analyzeData = () => {
   // console.log(names.join(', '));
   // loginAnalysis('2019-01-01', '2019-05-31');
   // console.log(sessionInformationBetween('2019-08-01', '2019-12-31'));
-  console.log(studentSessionInformationToCSV(studentSessionInformationBetween('2019-08-01', '2019-12-31', false)));
+  console.log(studentSessionInformationToCSV(studentSessionInformationBetween('2019-01-01', '2019-12-31', false)));
   // console.log(pageViewsBetween('2019-01-01', '2019-05-31'));
   // console.log(opportunityICE());
 };

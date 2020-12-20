@@ -8,7 +8,7 @@ import * as _ from 'lodash';
 // const _ = require('lodash');
 import * as moment from 'moment';
 // const moment = require('moment');
-import { alumniRegex } from './deparment-config';
+import { alumniRegex } from './department-config';
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 

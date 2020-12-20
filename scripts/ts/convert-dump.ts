@@ -217,7 +217,7 @@ function processRadGradCollections(data: IDataDump) {
 }
 
 
-async function convertRadGrad1DatabaseDumpToRadGrad2() {
+async function convertDump() {
   const argv = process.argv;
   if (argv.length < 4) {
     console.error('Usage: node dist/convert <RadGrad1 JSON filename> <RadGrad2 JSON filename>');
@@ -237,4 +237,4 @@ async function convertRadGrad1DatabaseDumpToRadGrad2() {
 /**
  * Run the conversion.
  */
-convertRadGrad1DatabaseDumpToRadGrad2();
+convertDump();
