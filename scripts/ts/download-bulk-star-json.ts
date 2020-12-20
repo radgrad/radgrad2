@@ -8,6 +8,7 @@ import * as _ from 'lodash';
 // const _ = require('lodash');
 import * as moment from 'moment';
 // const moment = require('moment');
+import { program } from 'commander';
 import { alumniRegex } from './department-config';
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
@@ -165,4 +166,10 @@ async function downloadStarData() {
 /**
  * emails.txt must have student email addresses, one per line. Then run node download-bulk-star-json.js
  */
-downloadStarData();
+// downloadStarData();
+
+program
+  .description('Request user, password, and email info, then download STAR data. emails.txt must have student email addresses, one per line.')
+  .action(() => downloadStarData());
+
+program.parse(process.argv);

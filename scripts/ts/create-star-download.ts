@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as _ from 'lodash';
-import * as moment from 'moment';
 import * as faker from 'faker';
+import { program } from 'commander';
 
 interface IStarCourseData {
   attributes: string[];
@@ -144,17 +144,17 @@ const makeStudentStarData = (studentProfile): IStudentStarData => {
   return retVal;
 };
 
-export const initDataDump = () => {
-  const { argv } = process;
-  // console.log(argv);
-  if (argv.length < 3) {
-    console.error('Usage: node dist/create-star-downloads.js <fileName>');
-    return undefined;
-  }
-  const filename = argv[2];
-  const data = fs.readFileSync(filename);
-  return JSON.parse(data.toString());
-};
+// export const initDataDump = () => {
+//   const {argv} = process;
+//   // console.log(argv);
+//   if (argv.length < 3) {
+//     console.error('Usage: node dist/create-star-downloads.js <fileName>');
+//     return undefined;
+//   }
+//   const filename = argv[2];
+//   const data = fs.readFileSync(filename);
+//   return JSON.parse(data.toString());
+// };
 
 const getCollectionData = (radgradDump, collectionName) => _.find(radgradDump.collections, (c) => c.name === collectionName).contents;
 
@@ -165,8 +165,9 @@ const getStudentCourseInstances = (radgradDump, student) => {
   return _.filter(courseInstances, (ci) => ci.student === student.username);
 };
 
-const buildStarData = () => {
-  const radgradDump = initDataDump();
+const buildStarData = (starDataFile) => {
+  const data = fs.readFileSync(starDataFile);
+  const radgradDump = JSON.parse(data.toString());
   const profiles = getStudentProfiles(radgradDump);
   const retVal = [];
   _.forEach(profiles, (p) => {
@@ -183,5 +184,14 @@ const buildStarData = () => {
   return retVal;
 };
 
-const starData = buildStarData();
-console.log(JSON.stringify(starData, null, 2));
+program
+  .arguments('<starDataFile>')
+  .description('Parse a STAR data file and output a JSON string with RadGrad student and courseInstance data.', {
+    starDataFile: 'A file containing STAR data produced by the download-bulk-start-json script.',
+  })
+  .action((starDataFile) => {
+    const starData = buildStarData(starDataFile);
+    console.log(JSON.stringify(starData, null, 2));
+  });
+
+program.parse(process.argv);

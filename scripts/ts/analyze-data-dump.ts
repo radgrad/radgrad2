@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import * as _ from 'lodash';
 import * as moment from 'moment';
+import { program } from 'commander';
 
 let radgradDump;
 
@@ -311,18 +312,6 @@ const explorerPageViewsBetween = (startStr, endStr) => {
   return _.pickBy(views, (value, key) => key.includes('explorer'));
 };
 
-export const initDataDump = () => {
-  const { argv } = process;
-  // console.log(argv);
-  if (argv.length < 3) {
-    console.error('Usage: node analyze-data-dump.js <fileName>');
-  } else {
-    const filename = argv[2];
-    const data = fs.readFileSync(filename);
-    radgradDump = JSON.parse(data.toString());
-  }
-};
-
 const opportunityICE = () => {
   const opportunities = getCollectionData('OpportunityCollection');
   const info = _.map(opportunities, (o) => {
@@ -334,8 +323,9 @@ const opportunityICE = () => {
   return info;
 };
 
-const analyzeData = () => {
-  initDataDump();
+const analyzeData = (dumpFile) => {
+  const data = fs.readFileSync(dumpFile);
+  radgradDump = JSON.parse(data.toString());
   // console.log('# Registered students: %o', getRegisteredStudentUsernames().length);
   // console.log('# Active students Spring 19: %o', getActiveStudentsBetween('2019-01-01', '2019-05-31').length);
   // const names = getActiveStudentNamesBetween('2019-01-01', '2019-05-31');
@@ -347,4 +337,11 @@ const analyzeData = () => {
   // console.log(opportunityICE());
 };
 
-analyzeData();
+program
+  .arguments('<dumpfile>')
+  .description('Parse a RadGrad1 database dump file to generate statistics on student usage.', {
+    dumpfile: 'A RadGrad1 database dump file',
+  })
+  .action((dumpFile) => analyzeData(dumpFile));
+
+program.parse(process.argv);
