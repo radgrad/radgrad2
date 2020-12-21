@@ -1,7 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
 import {
-  AcademicPlan,
   CareerGoal,
   Course,
   Interest,
@@ -25,7 +24,7 @@ import { FavoriteInterests } from '../../../../../api/favorite/FavoriteInterestC
 import { FavoriteOpportunities } from '../../../../../api/favorite/FavoriteOpportunityCollection';
 import { MatchProps } from '../../utilities/router';
 
-export type ExplorerInterfaces = AcademicPlan | CareerGoal | Course | Interest | Opportunity;
+export type ExplorerInterfaces = CareerGoal | Course | Interest | Opportunity;
 
 export type IExplorerTypes = 'plans' | 'career-goals' | 'courses' | 'interests' | 'opportunities';
 

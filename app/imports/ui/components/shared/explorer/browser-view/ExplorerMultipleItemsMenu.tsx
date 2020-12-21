@@ -11,7 +11,7 @@ import CardExplorerMenuNonMobileWidget from './ExplorerMultipleItemsMenuNonMobil
 import CardExplorerMenuMobileWidget from './ExplorerMultipleItemsMenuMobileWidget';
 import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
 
-type ExplorerInterfaces = AcademicPlan | CareerGoal | Course | Interest | Opportunity;
+type ExplorerInterfaces = CareerGoal | Course | Interest | Opportunity;
 
 export interface ExplorerMenuItem {
   item: ExplorerInterfaces,

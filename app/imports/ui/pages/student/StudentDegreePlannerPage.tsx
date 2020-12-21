@@ -31,12 +31,12 @@ import { getUsername, MatchProps } from '../../components/shared/utilities/route
 import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
 import { UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
 import GuidedTourDegreePlanner from '../../components/student/degree-planner/GuidedTourDegreePlanner';
-import { passedCourse } from '../../../api/degree-plan/AcademicPlanUtilities';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
 import { FavoriteOpportunities } from '../../../api/favorite/FavoriteOpportunityCollection';
 import { FavoriteCourses } from '../../../api/favorite/FavoriteCourseCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
+import { passedCourse } from '../../../api/course/CourseUtilities';
 
 interface StudentDegreePlannerProps {
   takenSlugs: string[];

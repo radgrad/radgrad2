@@ -51,7 +51,9 @@ export const getStudent = (studentID: string): string => {
 
 export const getSlug = (slugID: string): string => Slugs.getNameFromID(slugID);
 
-export const createDefinitionData = (studentID: string, item: AcademicPlan | CareerGoal | Course | Interest | Opportunity, type: IFavoriteTypes): FavoriteAcademicPlanDefine | FavoriteCareerGoalDefine | FavoriteCourseDefine | FavoriteInterestDefine | FavoriteOpportunityDefine => {
+type ItemType = CareerGoal | Course | Interest | Opportunity;
+
+export const createDefinitionData = (studentID: string, item: ItemType, type: IFavoriteTypes): FavoriteAcademicPlanDefine | FavoriteCareerGoalDefine | FavoriteCourseDefine | FavoriteInterestDefine | FavoriteOpportunityDefine => {
   const student = getStudent(studentID);
   const slug = getSlug(item.slugID);
   let definitionData;
@@ -87,7 +89,7 @@ export const createDefinitionData = (studentID: string, item: AcademicPlan | Car
   return definitionData;
 };
 
-export const createInteractionData = (studentID: string, item: AcademicPlan | CareerGoal | Course | Interest | Opportunity, type: IFavoriteTypes, favorite: boolean): UserInteractionDefine => {
+export const createInteractionData = (studentID: string, item: ItemType, type: IFavoriteTypes, favorite: boolean): UserInteractionDefine => {
   const student = getStudent(studentID);
   const slug = getSlug(item.slugID);
   let interactionData: UserInteractionDefine;
@@ -128,7 +130,7 @@ export const createInteractionData = (studentID: string, item: AcademicPlan | Ca
   return interactionData;
 };
 
-export const createPageInterestData = (studentID: string, item: AcademicPlan | CareerGoal | Course | Interest | Opportunity, type: IFavoriteTypes): PageInterestDefine => {
+export const createPageInterestData = (studentID: string, item: ItemType, type: IFavoriteTypes): PageInterestDefine => {
   const username = getStudent(studentID);
   const name = Slugs.getNameFromID(item.slugID);
   let category: IPageInterestsCategoryTypes;

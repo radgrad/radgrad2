@@ -2,7 +2,6 @@ import React from 'react';
 import { Button, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import {
-  AcademicPlan,
   CareerGoal,
   Course,
   Interest,
@@ -27,14 +26,15 @@ import {
 import { Users } from '../../../../../api/user/UserCollection';
 import { ROLE } from '../../../../../api/role/Role';
 
+type ItemType = CareerGoal | Course | Interest | Opportunity;
 export interface FavoriteButtonProps {
-  item: AcademicPlan | CareerGoal | Course | Interest | Opportunity;
+  item: ItemType;
   studentID: string;
   type: IFavoriteTypes;
   added: boolean;
 }
 
-const handleAdd = (studentID: string, item: AcademicPlan | CareerGoal | Course | Interest | Opportunity, type: IFavoriteTypes) => () => {
+const handleAdd = (studentID: string, item: ItemType, type: IFavoriteTypes) => () => {
   const collectionName = getCollectionName(type);
   const definitionData = createDefinitionData(studentID, item, type);
   const interactionData = createInteractionData(studentID, item, type, true);
@@ -74,7 +74,7 @@ const handleAdd = (studentID: string, item: AcademicPlan | CareerGoal | Course |
   });
 };
 
-const handleRemove = (studentID: string, item: AcademicPlan | CareerGoal | Course | Interest | Opportunity, type: IFavoriteTypes) => () => {
+const handleRemove = (studentID: string, item: ItemType, type: IFavoriteTypes) => () => {
   const collectionName = getCollectionName(type);
   const interactionData = createInteractionData(studentID, item, type, false);
   let instance;

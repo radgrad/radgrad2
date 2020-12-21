@@ -10,7 +10,7 @@ import { OpportunityInstances } from '../../../../../api/opportunity/Opportunity
 import * as Router from '../../utilities/router';
 import { itemToSlugName, profileGetCareerGoalIDs } from '../../utilities/data-model';
 
-export type ExplorerInterfaces = AcademicPlan | CareerGoal | Course | Interest | Opportunity;
+export type ExplorerInterfaces = CareerGoal | Course | Interest | Opportunity;
 
 export interface ListItem {
   item: ExplorerInterfaces;

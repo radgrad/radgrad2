@@ -185,11 +185,6 @@ export interface SocialPair {
 }
 
 // AcademicPlans
-interface AcademicPlanGroup {
-  name: string;
-  courseSlugs: string[];
-}
-
 export interface AcademicPlan {
   _id: string;
   name: string;
