@@ -18,8 +18,7 @@ if (Meteor.isClient) {
       const student = 'abi@hawaii.edu';
       const opportunity = 'acm-icpc';
       const academicTerm = AcademicTerms.getAcademicTerm(new Date('2016-11-18T00:00:00.000Z'));
-      const result = await processVerificationEventMethod.callPromise({ student, opportunity, academicTerm });
-      console.log(result);
+      await processVerificationEventMethod.callPromise({ student, opportunity, academicTerm });
     });
   });
 }

@@ -1,6 +1,5 @@
 import _ from 'lodash';
 import { Meteor } from 'meteor/meteor';
-import { AcademicPlans } from '../degree-plan/AcademicPlanCollection';
 import { AcademicYearInstances } from '../degree-plan/AcademicYearInstanceCollection';
 import { AdvisorLogs } from '../log/AdvisorLogCollection';
 import { AdminProfiles } from '../user/AdminProfileCollection';
@@ -53,7 +52,6 @@ class RadGradClass {
      * This list is used for things like checking integrity.
      */
     this.collections = [
-      AcademicPlans,
       AcademicYearInstances,
       AdminProfiles,
       AdvisorLogs,
@@ -102,7 +100,6 @@ class RadGradClass {
       InterestTypes,
       Interests,
       CareerGoals,
-      AcademicPlans,
       AdminProfiles,
       AdvisorProfiles,
       FacultyProfiles,
