@@ -13,7 +13,6 @@ import { Users } from './UserCollection';
 import { ROLE } from '../role/Role';
 import { VerificationRequests } from '../verification/VerificationRequestCollection';
 import { BaseProfile } from '../../typings/radgrad';
-import { FavoriteAcademicPlans } from '../favorite/FavoriteAcademicPlanCollection';
 import { FavoriteCareerGoals } from '../favorite/FavoriteCareerGoalCollection';
 import { FavoriteCourses } from '../favorite/FavoriteCourseCollection';
 import { FavoriteInterests } from '../favorite/FavoriteInterestCollection';
@@ -87,6 +86,7 @@ class BaseProfileCollection extends BaseSlugCollection {
     let id;
     // If we've been passed a document, check to see if it has an _id field and use that if available.
     if (_.isObject(instance) && _.has(instance, '_id')) {
+      // @ts-ignore
       instance = instance._id; // eslint-disable-line no-param-reassign, dot-notation
     }
     // If instance is the value of the username field for some document in the collection, then return its ID.
@@ -194,7 +194,7 @@ class BaseProfileCollection extends BaseSlugCollection {
     if (!Users.isReferenced(userID)) {
       // Automatically remove references to user from other collections that are "private" to this user.
       _.forEach([Feeds, CourseInstances, OpportunityInstances, AcademicYearInstances, FeedbackInstances, AdvisorLogs,
-        VerificationRequests, FavoriteAcademicPlans, FavoriteCareerGoals, FavoriteCourses, FavoriteInterests,
+        VerificationRequests, FavoriteCareerGoals, FavoriteCourses, FavoriteInterests,
         FavoriteOpportunities], (collection) => collection.removeUser(userID));
       Meteor.users.remove({ _id: userID });
       Slugs.getCollection().remove({ name: profile.username });

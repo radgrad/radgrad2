@@ -10,7 +10,6 @@ import {
   Opportunity,
   PageInterestDefine,
 } from '../../../../../typings/radgrad';
-import { FavoriteAcademicPlans } from '../../../../../api/favorite/FavoriteAcademicPlanCollection';
 import { FavoriteCareerGoals } from '../../../../../api/favorite/FavoriteCareerGoalCollection';
 import { FavoriteCourses } from '../../../../../api/favorite/FavoriteCourseCollection';
 import { FavoriteInterests } from '../../../../../api/favorite/FavoriteInterestCollection';
@@ -80,12 +79,6 @@ const handleRemove = (studentID: string, item: AcademicPlan | CareerGoal | Cours
   const interactionData = createInteractionData(studentID, item, type, false);
   let instance;
   switch (type) {
-    case FAVORITE_TYPE.ACADEMICPLAN:
-      instance = FavoriteAcademicPlans.findNonRetired({
-        studentID,
-        academicPlanID: item._id,
-      })[0]._id;
-      break;
     case FAVORITE_TYPE.CAREERGOAL:
       instance = FavoriteCareerGoals.findNonRetired({
         userID: studentID,

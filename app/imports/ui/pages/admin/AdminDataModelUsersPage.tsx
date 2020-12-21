@@ -14,7 +14,6 @@ import {
   BaseProfile, CareerGoal,
   CombinedProfileDefine,
   AdvisorOrFacultyProfile,
-  FavoriteAcademicPlan,
   FavoriteCareerGoal, FavoriteInterest, Interest,
   StudentProfile,
 } from '../../../typings/radgrad';
@@ -40,7 +39,6 @@ import { Users } from '../../../api/user/UserCollection';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
-import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
 import { RootState } from '../../../redux/types';
 
 interface AdminDataModelUsersPageProps extends AdminDataModeMenuProps {
@@ -50,7 +48,6 @@ interface AdminDataModelUsersPageProps extends AdminDataModeMenuProps {
   students: StudentProfile[];
   isCloudinaryUsed: boolean;
   cloudinaryUrl: string;
-  favoriteAcademicPlans: FavoriteAcademicPlan[];
   favoriteCareerGoals: FavoriteCareerGoal[];
   favoriteInterests: FavoriteInterest[];
   interests: Interest[];
@@ -393,7 +390,6 @@ export default withTracker(() => {
   const advisors = AdvisorProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch();
   const faculty = FacultyProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch();
   const students = StudentProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch();
-  const favoriteAcademicPlans = FavoriteAcademicPlans.find().fetch();
   const favoriteCareerGoals = FavoriteCareerGoals.find().fetch();
   const favoriteInterests = FavoriteInterests.find().fetch();
   const interests = Interests.find({}, { sort: { name: 1 } }).fetch();
@@ -411,7 +407,6 @@ export default withTracker(() => {
     advisors,
     faculty,
     students,
-    favoriteAcademicPlans,
     favoriteCareerGoals,
     favoriteInterests,
   };

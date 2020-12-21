@@ -10,7 +10,7 @@ import { AdminProfiles } from '../../../../../api/user/AdminProfileCollection';
 import { AcademicTerm, BaseProfile, CareerGoal, Interest } from '../../../../../typings/radgrad';
 import { ROLE } from '../../../../../api/role/Role';
 import {
-  academicPlanIdToName, academicTermIdToName,
+  academicTermIdToName,
   academicTermToName,
   careerGoalIdToName,
   docToName,
@@ -24,14 +24,11 @@ import { openCloudinaryWidget } from '../../../shared/OpenCloudinaryWidget';
 import { cloudinaryActions } from '../../../../../redux/shared/cloudinary';
 import { FavoriteInterests } from '../../../../../api/favorite/FavoriteInterestCollection';
 import { FavoriteCareerGoals } from '../../../../../api/favorite/FavoriteCareerGoalCollection';
-import { FavoriteAcademicPlans } from '../../../../../api/favorite/FavoriteAcademicPlanCollection';
 
 interface UpdateUserProps {
   interests: Interest[];
   careerGoals: CareerGoal[];
   academicTerms: AcademicTerm[];
-  // academicPlans: AcademicPlan[];
-  // collection: BaseCollection;
   id: string;
   formRef: React.RefObject<unknown>;
   handleUpdate: (doc) => any;
@@ -97,9 +94,6 @@ const UpdateUserForm: React.FC<UpdateUserProps> = ({ id, interests, setAdminData
   const favCareerGoals = FavoriteCareerGoals.find({ userID }).fetch();
   const favCareerGoalIDs = _.map(favCareerGoals, (fav) => fav.careerGoalID);
   model.careerGoals = _.map(favCareerGoalIDs, careerGoalIdToName);
-  const favPlans = FavoriteAcademicPlans.find({ studentID: userID }).fetch();
-  const favPlanIDs = _.map(favPlans, (fav) => fav.academicPlanID);
-  model.academicPlans = _.map(favPlanIDs, (academicPlanID) => academicPlanIdToName(academicPlanID));
   if (model.declaredAcademicTermID) {
     model.declaredAcademicTerm = academicTermIdToName(model.declaredAcademicTermID);
   }
@@ -140,20 +134,11 @@ const UpdateUserForm: React.FC<UpdateUserProps> = ({ id, interests, setAdminData
       optional: true,
       allowedValues: academicTermNames,
     },
-    // academicPlans: {
-    //   type: Array,
-    //   optional: true,
-    // },
-    // 'academicPlans.$': {
-    //   type: String,
-    //   allowedValues: academicPlanNames,
-    // },
     shareUsername: { type: Boolean, optional: true },
     sharePicture: { type: Boolean, optional: true },
     shareWebsite: { type: Boolean, optional: true },
     shareInterests: { type: Boolean, optional: true },
     shareCareerGoals: { type: Boolean, optional: true },
-    shareAcademicPlan: { type: Boolean, optional: true },
     shareOpportunities: { type: Boolean, optional: true },
     shareCourses: { type: Boolean, optional: true },
     shareLevel: { type: Boolean, optional: true },
@@ -213,7 +198,6 @@ const UpdateUserForm: React.FC<UpdateUserProps> = ({ id, interests, setAdminData
               <BoolField name="shareWebsite" />
               <BoolField name="shareInterests" />
               <BoolField name="shareCareerGoals" />
-              <BoolField name="shareAcademicPlan" />
               <BoolField name="shareOpportunities" />
               <BoolField name="shareCourses" />
               <BoolField name="shareLevel" />

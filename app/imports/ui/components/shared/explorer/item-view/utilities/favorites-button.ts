@@ -1,5 +1,4 @@
 import { FAVORITE_TYPE, IFavoriteTypes } from '../../../../../../api/favorite/FavoriteTypes';
-import { FavoriteAcademicPlans } from '../../../../../../api/favorite/FavoriteAcademicPlanCollection';
 import { FavoriteCareerGoals } from '../../../../../../api/favorite/FavoriteCareerGoalCollection';
 import { FavoriteCourses } from '../../../../../../api/favorite/FavoriteCourseCollection';
 import { FavoriteInterests } from '../../../../../../api/favorite/FavoriteInterestCollection';
@@ -26,9 +25,6 @@ import {
 export const getCollectionName = (type: IFavoriteTypes): string => {
   let collectionName: string;
   switch (type) {
-    case FAVORITE_TYPE.ACADEMICPLAN:
-      collectionName = FavoriteAcademicPlans.getCollectionName();
-      break;
     case FAVORITE_TYPE.CAREERGOAL:
       collectionName = FavoriteCareerGoals.getCollectionName();
       break;
@@ -60,12 +56,6 @@ export const createDefinitionData = (studentID: string, item: AcademicPlan | Car
   const slug = getSlug(item.slugID);
   let definitionData;
   switch (type) {
-    case FAVORITE_TYPE.ACADEMICPLAN:
-      definitionData = {
-        student,
-        academicPlan: slug,
-      };
-      break;
     case FAVORITE_TYPE.CAREERGOAL:
       definitionData = {
         username: student,
@@ -103,13 +93,6 @@ export const createInteractionData = (studentID: string, item: AcademicPlan | Ca
   let interactionData: UserInteractionDefine;
   const interactionType = favorite ? UserInteractionsTypes.FAVORITEITEM : UserInteractionsTypes.UNFAVORITEITEM;
   switch (type) {
-    case FAVORITE_TYPE.ACADEMICPLAN:
-      interactionData = {
-        username: student,
-        type: interactionType,
-        typeData: [type, slug],
-      };
-      break;
     case FAVORITE_TYPE.CAREERGOAL:
       interactionData = {
         username: student,
@@ -150,9 +133,6 @@ export const createPageInterestData = (studentID: string, item: AcademicPlan | C
   const name = Slugs.getNameFromID(item.slugID);
   let category: IPageInterestsCategoryTypes;
   switch (type) {
-    case FAVORITE_TYPE.ACADEMICPLAN:
-      category = PageInterestsCategoryTypes.ACADEMIC_PLAN;
-      break;
     case FAVORITE_TYPE.CAREERGOAL:
       category = PageInterestsCategoryTypes.CAREERGOAL;
       break;

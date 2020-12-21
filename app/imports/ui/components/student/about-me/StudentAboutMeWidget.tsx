@@ -3,7 +3,6 @@ import _ from 'lodash';
 import { useRouteMatch, Link } from 'react-router-dom';
 import { Grid, Segment, Header, Icon, Label, Divider, Button } from 'semantic-ui-react';
 import {
-  FavoriteAcademicPlan,
   FavoriteCareerGoal,
   FavoriteInterest,
   StudentProfile,
@@ -25,10 +24,9 @@ interface StudentAboutMeWidgetProps {
   profile: StudentProfile;
   favoriteCareerGoals: FavoriteCareerGoal[];
   favoriteInterests: FavoriteInterest[];
-  favoriteAcademicPlans: FavoriteAcademicPlan[];
 }
 
-const StudentAboutMeWidget: React.FC<StudentAboutMeWidgetProps> = ({ profile, favoriteInterests, favoriteCareerGoals, favoriteAcademicPlans }) => {
+const StudentAboutMeWidget: React.FC<StudentAboutMeWidgetProps> = ({ profile, favoriteInterests, favoriteCareerGoals }) => {
   const marginBottomStyle = { marginBottom: 0 };
   const match = useRouteMatch();
   const name = profileToFullName(profile);

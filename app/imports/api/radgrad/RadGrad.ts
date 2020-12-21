@@ -28,7 +28,6 @@ import { StudentProfiles } from '../user/StudentProfileCollection';
 import { Teasers } from '../teaser/TeaserCollection';
 import { UserInteractions } from '../analytic/UserInteractionCollection';
 import { VerificationRequests } from '../verification/VerificationRequestCollection';
-import { FavoriteAcademicPlans } from '../favorite/FavoriteAcademicPlanCollection';
 import { FavoriteCareerGoals } from '../favorite/FavoriteCareerGoalCollection';
 import { FavoriteCourses } from '../favorite/FavoriteCourseCollection';
 import { FavoriteInterests } from '../favorite/FavoriteInterestCollection';
@@ -64,7 +63,6 @@ class RadGradClass {
       Courses,
       CourseInstances,
       FacultyProfiles,
-      FavoriteAcademicPlans,
       FavoriteCareerGoals,
       FavoriteCourses,
       FavoriteInterests,
@@ -125,7 +123,6 @@ class RadGradClass {
       PageInterestsDailySnapshots,
       Reviews,
       PlanChoices,
-      FavoriteAcademicPlans,
       FavoriteCareerGoals,
       FavoriteCourses,
       FavoriteInterests,
