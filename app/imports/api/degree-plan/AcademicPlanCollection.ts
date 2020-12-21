@@ -5,7 +5,6 @@ import BaseSlugCollection from '../base/BaseSlugCollection';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Slugs } from '../slug/SlugCollection';
 import { AcademicPlanDefine, AcademicPlanUpdate } from '../../typings/radgrad';
-import { FavoriteAcademicPlans } from '../favorite/FavoriteAcademicPlanCollection';
 import { RadGradProperties } from '../radgrad/RadGradProperties';
 import { stripCounter } from './PlanChoiceUtilities';
 import { PlanChoices } from './PlanChoiceCollection';
@@ -169,12 +168,6 @@ class AcademicPlanCollection extends BaseSlugCollection {
    */
   public removeIt(instance: string) {
     const academicPlanID = this.getID(instance);
-    // Check that no student is using this AcademicPlan.
-    const favPlans = FavoriteAcademicPlans.find({ academicPlanID }).fetch();
-    const isReferenced = favPlans.length > 0;
-    if (isReferenced) {
-      throw new Meteor.Error(`AcademicPlan ${instance} is referenced.`);
-    }
     return super.removeIt(academicPlanID);
   }
 
