@@ -1,17 +1,17 @@
 import React from 'react';
 import { Header } from 'semantic-ui-react';
 import { RadGradProperties } from '../../../../api/radgrad/RadGradProperties';
-import { IAcademicPlan } from '../../../../typings/radgrad';
+import { AcademicPlan } from '../../../../typings/radgrad';
 import { getPlanChoices } from '../../../../api/degree-plan/AcademicPlanUtilities';
 import LandingAcademicTermView from './LandingAcademicTermView';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 
-interface ILandingAcademicPlanYearViewProps {
+interface LandingAcademicPlanYearViewProps {
   yearNumber: number;
-  academicPlan: IAcademicPlan;
+  academicPlan: AcademicPlan;
 }
 
-const LandingAcademicPlanYearView: React.FC<ILandingAcademicPlanYearViewProps> = ({ yearNumber, academicPlan }) => {
+const LandingAcademicPlanYearView: React.FC<LandingAcademicPlanYearViewProps> = ({ yearNumber, academicPlan }) => {
   const quarter = RadGradProperties.getQuarterSystem();
   let termNum = quarter ? yearNumber * 4 : yearNumber * 3;
   // console.log('LandingAcademicPlanYearView props=%o quarter=%o', props, quarter);

@@ -6,18 +6,18 @@ import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
-import { IAcademicPlan, IAcademicTerm, ICareerGoal, IInterest } from '../../../../../typings/radgrad';
+import { AcademicPlan, AcademicTerm, CareerGoal, Interest } from '../../../../../typings/radgrad';
 import { ROLE } from '../../../../../api/role/Role';
 import { academicTermToName, docToName } from '../../../shared/utilities/data-model';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
 import { openCloudinaryWidget } from '../../../shared/OpenCloudinaryWidget';
 import { cloudinaryActions } from '../../../../../redux/shared/cloudinary';
 
-interface IAddUserProps {
-  interests: IInterest[];
-  careerGoals: ICareerGoal[];
-  academicTerms: IAcademicTerm[];
-  academicPlans: IAcademicPlan[];
+interface AddUserProps {
+  interests: Interest[];
+  careerGoals: CareerGoal[];
+  academicTerms: AcademicTerm[];
+  academicPlans: AcademicPlan[];
   formRef: React.RefObject<unknown>;
   handleAdd: (doc) => any;
   setAdminDataModelUsersIsCloudinaryUsed: (isCloudinaryUsed: boolean) => any;
@@ -29,7 +29,7 @@ const mapDispatchToProps = (dispatch) => ({
   setAdminDataModelUsersCloudinaryUrl: (cloudinaryUrl: string) => dispatch(cloudinaryActions.setAdminDataModelUsersCloudinaryUrl(cloudinaryUrl)),
 });
 
-const AddUserForm: React.FC<IAddUserProps> = ({ interests, handleAdd, formRef, academicTerms, careerGoals, academicPlans, setAdminDataModelUsersCloudinaryUrl, setAdminDataModelUsersIsCloudinaryUsed }) => {
+const AddUserForm: React.FC<AddUserProps> = ({ interests, handleAdd, formRef, academicTerms, careerGoals, academicPlans, setAdminDataModelUsersCloudinaryUrl, setAdminDataModelUsersIsCloudinaryUsed }) => {
   const [role, setRole] = useState<string>('');
   const [pictureURL, setPictureURL] = useState<string>('');
 

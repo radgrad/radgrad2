@@ -4,13 +4,13 @@ import { AutoForm } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import BaseCollection from '../../../../api/base/BaseCollection';
 
-interface IAdminDataModelAddFormProps {
+interface AdminDataModelAddFormProps {
   collection: BaseCollection;
   formRef: React.RefObject<unknown>;
   handleAdd: (doc) => any;
 }
 
-const AdminDataModelAddForm: React.FC<IAdminDataModelAddFormProps> = ({ collection, formRef, handleAdd }) => (
+const AdminDataModelAddForm: React.FC<AdminDataModelAddFormProps> = ({ collection, formRef, handleAdd }) => (
   <Segment padded>
     <Header dividing>
       Add

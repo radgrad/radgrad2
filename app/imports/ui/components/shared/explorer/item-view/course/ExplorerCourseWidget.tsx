@@ -9,10 +9,11 @@ import { CourseScoreboard } from '../../../../../../startup/client/collections';
 import InterestList from '../../../InterestList';
 import { isSingleChoice } from '../../../../../../api/degree-plan/PlanChoiceUtilities';
 import StudentExplorerReviewWidget from '../../../../student/explorer/StudentExplorerReviewWidget';
-import { IAcademicTerm, ICourse, IDescriptionPair, IReview } from '../../../../../../typings/radgrad';
+import { AcademicTerm, Course, DescriptionPair, Review } from '../../../../../../typings/radgrad';
 import * as Router from '../../../utilities/router';
 import { EXPLORER_TYPE } from '../../../../../layouts/utilities/route-constants';
 import { Teasers } from '../../../../../../api/teaser/TeaserCollection';
+// @ts-ignore
 import ExplorerReviewWidget from '../ExplorerReviewWidget';
 import FavoritesButton from '../FavoritesButton';
 import { isSame, toUpper } from '../../../utilities/general';
@@ -26,12 +27,12 @@ import TeaserVideo from '../../../TeaserVideo';
 import { Users } from '../../../../../../api/user/UserCollection';
 import { FavoriteCourses } from '../../../../../../api/favorite/FavoriteCourseCollection';
 
-interface IExplorerCoursesWidgetProps {
+interface ExplorerCoursesWidgetProps {
   name: string;
   shortName: string;
-  descriptionPairs: IDescriptionPair[];
-  item: ICourse;
-  itemReviews: IReview[];
+  descriptionPairs: DescriptionPair[];
+  item: Course;
+  itemReviews: Review[];
   completed: boolean;
 }
 
@@ -101,7 +102,7 @@ const choices = (prerequisite: { course: string; status: string }): string[] => 
 
 const isFirst = (index: number): boolean => index === 0;
 
-const findReview = (studentID: string, itemReviews: IReview[]): IReview => {
+const findReview = (studentID: string, itemReviews: Review[]): Review => {
   const userReviewArr = _.filter(itemReviews, (review) => review.studentID === studentID);
   if (userReviewArr.length > 0) {
     return userReviewArr[0];
@@ -119,7 +120,7 @@ const teaserUrlHelper = (courseSlug): string => {
   return oppTeaser && oppTeaser[0] && oppTeaser[0].url;
 };
 
-const ExplorerCourseWidget: React.FC<IExplorerCoursesWidgetProps> = ({ name, shortName, descriptionPairs, item, completed, itemReviews }) => {
+const ExplorerCourseWidget: React.FC<ExplorerCoursesWidgetProps> = ({ name, shortName, descriptionPairs, item, completed, itemReviews }) => {
   const segmentStyle = { backgroundColor: 'white' };
   const zeroMarginTopStyle = { marginTop: 0 };
   const fiveMarginTopStyle = { marginTop: '5px' };
@@ -150,7 +151,7 @@ const ExplorerCourseWidget: React.FC<IExplorerCoursesWidgetProps> = ({ name, sho
     limit: numTerms,
   });
   const scores = [];
-  _.forEach(academicTerms, (term: IAcademicTerm) => {
+  _.forEach(academicTerms, (term: AcademicTerm) => {
     const id = `${item._id} ${term._id}`;
     const score = CourseScoreboard.find({ _id: id }).fetch() as { count: number }[];
     if (score.length > 0) {

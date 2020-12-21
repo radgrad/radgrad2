@@ -5,7 +5,7 @@ import { Link, useRouteMatch } from 'react-router-dom';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { RadGradProperties } from '../../../../api/radgrad/RadGradProperties';
 import { CourseScoreboard } from '../../../../startup/client/collections';
-import { IAcademicTerm, ICourse, ICourseInstance } from '../../../../typings/radgrad';
+import { AcademicTerm, Course, CourseInstance } from '../../../../typings/radgrad';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import { Slugs } from '../../../../api/slug/SlugCollection';
 import IceHeader from '../../shared/IceHeader';
@@ -16,13 +16,13 @@ import FutureParticipation from '../../shared/explorer/FutureParticipation';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import { buildRouteName } from './DepUtilityFunctions';
 
-interface IFavoriteCourseCardProps {
-  course: ICourse;
+interface FavoriteCourseCardProps {
+  course: Course;
   studentID: string;
-  courseInstances: ICourseInstance[];
+  courseInstances: CourseInstance[];
 }
 
-const FavoriteCourseCard: React.FC<IFavoriteCourseCardProps> = ({ course, courseInstances, studentID }) => {
+const FavoriteCourseCard: React.FC<FavoriteCourseCardProps> = ({ course, courseInstances, studentID }) => {
   const match = useRouteMatch();
   const instances = _.filter(courseInstances, (i) => i.courseID === course._id);
   const terms = _.map(instances, (i) => AcademicTerms.findDoc(i.termID));
@@ -44,7 +44,7 @@ const FavoriteCourseCard: React.FC<IFavoriteCourseCardProps> = ({ course, course
     limit: numTerms,
   });
   const scores = [];
-  _.forEach(academicTerms, (term: IAcademicTerm) => {
+  _.forEach(academicTerms, (term: AcademicTerm) => {
     const id = `${course._id} ${term._id}`;
     const score = CourseScoreboard.find({ _id: id }).fetch() as { count: number }[];
     if (score.length > 0) {

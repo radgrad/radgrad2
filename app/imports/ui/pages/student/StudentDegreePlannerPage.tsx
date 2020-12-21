@@ -13,21 +13,22 @@ import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
 import { defineMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import {
-  IAcademicPlan,
-  IAcademicTerm, IAcademicYearInstance, ICourse,
-  ICourseInstance,
-  ICourseInstanceDefine,
-  ICourseInstanceUpdate, IMeteorError, IOpportunity, IOpportunityInstance,
-  IOpportunityInstanceDefine,
-  IOpportunityInstanceUpdate, IUserInteractionDefine, IVerificationRequest,
+  AcademicPlan,
+  AcademicTerm, AcademicYearInstance, Course,
+  CourseInstance,
+  CourseInstanceDefine,
+  CourseInstanceUpdate, MeteorError, Opportunity, OpportunityInstance,
+  OpportunityInstanceDefine,
+  OpportunityInstanceUpdate, UserInteractionDefine, VerificationRequest,
 } from '../../../typings/radgrad';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { degreePlannerActions } from '../../../redux/student/degree-planner';
+import { SelectPayload, SelectTab } from '../../../redux/student/degree-planner/actions';
 import TabbedFavoritesWidget from '../../components/student/degree-planner/TabbedFavoritesWidget';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
-import { getUsername, IMatchProps } from '../../components/shared/utilities/router';
+import { getUsername, MatchProps } from '../../components/shared/utilities/router';
 import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
 import { UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
 import GuidedTourDegreePlanner from '../../components/student/degree-planner/GuidedTourDegreePlanner';
@@ -39,20 +40,20 @@ import { FavoriteOpportunities } from '../../../api/favorite/FavoriteOpportunity
 import { FavoriteCourses } from '../../../api/favorite/FavoriteCourseCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 
-interface IStudentDegreePlannerProps {
+interface StudentDegreePlannerProps {
   takenSlugs: string[];
-  plans: IAcademicPlan[];
-  selectCourseInstance: (courseInstanceID: string) => any;
-  selectOpportunityInstance: (opportunityInstanceID: string) => any;
-  selectFavoriteDetailsTab: () => any;
-  match: IMatchProps;
-  academicYearInstances: IAcademicYearInstance[];
-  courseInstances: ICourseInstance[];
-  opportunityInstances: IOpportunityInstance[];
-  opportunities: IOpportunity[];
+  plans: AcademicPlan[];
+  selectCourseInstance: (courseInstanceID: string) => SelectPayload;
+  selectOpportunityInstance: (opportunityInstanceID: string) => SelectPayload;
+  selectFavoriteDetailsTab: () => SelectTab;
+  match: MatchProps;
+  academicYearInstances: AcademicYearInstance[];
+  courseInstances: CourseInstance[];
+  opportunityInstances: OpportunityInstance[];
+  opportunities: Opportunity[];
   studentID: string;
-  courses: ICourse[];
-  verificationRequests: IVerificationRequest[];
+  courses: Course[];
+  verificationRequests: VerificationRequest[];
 }
 
 const mapDispatchToProps = (dispatch) => ({
@@ -61,13 +62,14 @@ const mapDispatchToProps = (dispatch) => ({
   selectFavoriteDetailsTab: () => dispatch(degreePlannerActions.selectFavoriteDetailsTab()),
 });
 
-const onDragEnd = (props: IStudentDegreePlannerProps) => (result) => {
+const onDragEnd = (onDragEndProps) => (result) => {
+  const { match, selectCourseInstance, selectOpportunityInstance } = onDragEndProps;
   if (!result.destination) {
     return;
   }
   const termSlug: string = result.destination.droppableId;
   const slug: string = result.draggableId;
-  const student = getUsername(props.match);
+  const student = getUsername(match);
   const isCourseDrop = Courses.isDefined(slug);
   const isCourseInstanceDrop = CourseInstances.isDefined(slug);
   const isOppDrop = Opportunities.isDefined(slug);
@@ -79,8 +81,8 @@ const onDragEnd = (props: IStudentDegreePlannerProps) => (result) => {
   // Variables for dealing with defining user interaction
   const academicTermSplit = result.destination.droppableId.split('-'); // droppableID is in the form "Term-Year"
   const academicTermToString = academicTermSplit.join(' '); // AcademicTerms.getAcademicTermFromToString splits based on whitespace
-  const academicTerm: IAcademicTerm = AcademicTerms.getAcademicTermFromToString(academicTermToString);
-  let interactionData: IUserInteractionDefine;
+  const academicTerm: AcademicTerm = AcademicTerms.getAcademicTermFromToString(academicTermToString);
+  let interactionData: UserInteractionDefine;
 
   if (isCourseDrop) {
     if (isPastDrop) {
@@ -93,7 +95,7 @@ const onDragEnd = (props: IStudentDegreePlannerProps) => (result) => {
       const courseID = Courses.findIdBySlug(slug);
       const course = Courses.findDoc(courseID);
       const collectionName = CourseInstances.getCollectionName();
-      const definitionData: ICourseInstanceDefine = {
+      const definitionData: CourseInstanceDefine = {
         academicTerm: termSlug,
         course: slug,
         verified: false,
@@ -113,13 +115,12 @@ const onDragEnd = (props: IStudentDegreePlannerProps) => (result) => {
        */
       // Before we define a course instance, check if it already exists first
       const termID = academicTerm._id;
-      const instanceExists: ICourseInstance = CourseInstances.findCourseInstanceDoc(termID, courseID, student);
+      const instanceExists: CourseInstance = CourseInstances.findCourseInstanceDoc(termID, courseID, student);
       defineMethod.call({ collectionName, definitionData }, (error, res) => {
         if (error) {
           console.error(error);
         } else {
-          props.selectCourseInstance(res);
-          // props.selectFavoriteDetailsTab();
+          selectCourseInstance(res);
           if (!instanceExists) {
             interactionData = {
               username: student,
@@ -154,15 +155,15 @@ const onDragEnd = (props: IStudentDegreePlannerProps) => (result) => {
         });
       } else {
         const termID = AcademicTerms.findIdBySlug(termSlug);
-        const updateData: ICourseInstanceUpdate = {};
+        const updateData: CourseInstanceUpdate = {};
         updateData.termID = termID;
         updateData.id = slug;
         const collectionName = CourseInstances.getCollectionName();
-        updateMethod.call({ collectionName, updateData }, (error: IMeteorError) => {
+        updateMethod.call({ collectionName, updateData }, (error: MeteorError) => {
           if (error) {
             console.error(error);
           } else {
-            props.selectCourseInstance(slug);
+            selectCourseInstance(slug);
             interactionData = {
               username: student,
               type: UserInteractionsTypes.UPDATECOURSE,
@@ -182,7 +183,7 @@ const onDragEnd = (props: IStudentDegreePlannerProps) => (result) => {
     const opportunity = Opportunities.findDoc(opportunityID);
     const sponsor = Users.getProfile(opportunity.sponsorID).username;
     const collectionName = OpportunityInstances.getCollectionName();
-    const definitionData: IOpportunityInstanceDefine = {
+    const definitionData: OpportunityInstanceDefine = {
       academicTerm: termSlug,
       opportunity: slug,
       verified: false,
@@ -198,12 +199,12 @@ const onDragEnd = (props: IStudentDegreePlannerProps) => (result) => {
      * opportunity instance and only create a user interaction if it was not a duplicate.
      */
     const termID = academicTerm._id;
-    const instanceExists: IOpportunityInstance = OpportunityInstances.findOpportunityInstanceDoc(termID, opportunityID, student);
+    const instanceExists: OpportunityInstance = OpportunityInstances.findOpportunityInstanceDoc(termID, opportunityID, student);
     defineMethod.call({ collectionName, definitionData }, (error, res) => {
       if (error) {
         console.error(error);
       } else {
-        props.selectOpportunityInstance(res);
+        selectOpportunityInstance(res);
         if (!instanceExists) {
           interactionData = {
             username: student,
@@ -220,7 +221,7 @@ const onDragEnd = (props: IStudentDegreePlannerProps) => (result) => {
     });
   } else if (isOppInstDrop) {
     const termID = AcademicTerms.findIdBySlug(termSlug);
-    const updateData: IOpportunityInstanceUpdate = {};
+    const updateData: OpportunityInstanceUpdate = {};
     updateData.termID = termID;
     updateData.id = slug;
     const collectionName = OpportunityInstances.getCollectionName();
@@ -228,7 +229,7 @@ const onDragEnd = (props: IStudentDegreePlannerProps) => (result) => {
       if (error) {
         console.error(error);
       } else {
-        props.selectOpportunityInstance(slug);
+        selectOpportunityInstance(slug);
         interactionData = {
           username: student,
           type: UserInteractionsTypes.UPDATEOPPORTUNITY,
@@ -244,7 +245,8 @@ const onDragEnd = (props: IStudentDegreePlannerProps) => (result) => {
   }
 };
 
-const StudentDegreePlannerPage: React.FC<IStudentDegreePlannerProps> = (props) => {
+const StudentDegreePlannerPage: React.FC<StudentDegreePlannerProps> = ({ academicYearInstances, studentID, match, courses, opportunities, courseInstances, opportunityInstances, plans, selectCourseInstance, selectFavoriteDetailsTab, selectOpportunityInstance, takenSlugs, verificationRequests }) => {
+  const onDragEndProps = { match, selectCourseInstance, selectOpportunityInstance };
   const paddedStyle = {
     paddingTop: 0,
     paddingLeft: 10,
@@ -255,7 +257,7 @@ const StudentDegreePlannerPage: React.FC<IStudentDegreePlannerProps> = (props) =
     marginRight: 10,
   };
   return (
-    <DragDropContext onDragEnd={onDragEnd(props)}>
+    <DragDropContext onDragEnd={onDragEnd(onDragEndProps)}>
       <StudentPageMenuWidget />
       <GuidedTourDegreePlanner />
       <Container id="degree-planner-page">
@@ -263,22 +265,22 @@ const StudentDegreePlannerPage: React.FC<IStudentDegreePlannerProps> = (props) =
           <Grid.Row stretched>
             <Grid.Column width={10} style={paddedStyle}>
               <DegreeExperiencePlannerWidget
-                academicYearInstances={props.academicYearInstances}
-                courseInstances={props.courseInstances}
-                opportunityInstances={props.opportunityInstances}
+                academicYearInstances={academicYearInstances}
+                courseInstances={courseInstances}
+                opportunityInstances={opportunityInstances}
               />
             </Grid.Column>
 
             <Grid.Column width={6} style={paddedStyle}>
               <TabbedFavoritesWidget
-                academicPlans={props.plans}
-                takenSlugs={props.takenSlugs}
-                opportunities={props.opportunities}
-                studentID={props.studentID}
-                courses={props.courses}
-                courseInstances={props.courseInstances}
-                opportunityInstances={props.opportunityInstances}
-                verificationRequests={props.verificationRequests}
+                academicPlans={plans}
+                takenSlugs={takenSlugs}
+                opportunities={opportunities}
+                studentID={studentID}
+                courses={courses}
+                courseInstances={courseInstances}
+                opportunityInstances={opportunityInstances}
+                verificationRequests={verificationRequests}
               />
             </Grid.Column>
           </Grid.Row>
@@ -288,7 +290,7 @@ const StudentDegreePlannerPage: React.FC<IStudentDegreePlannerProps> = (props) =
   );
 };
 
-const takenSlugs = (courseInstances: ICourseInstance[]): string[] => {
+const takenSlugs = (courseInstances: CourseInstance[]): string[] => {
   const passedCourseInstances = _.filter(courseInstances, (ci) => passedCourse(ci));
   return _.map(passedCourseInstances, (ci) => {
     const doc = CourseInstances.getCourseDoc(ci._id);
@@ -308,7 +310,7 @@ export default withTracker(() => {
   const favoriteCourses = FavoriteCourses.findNonRetired({ studentID });
   const courses = _.map(favoriteCourses, (f) => Courses.findDoc(f.courseID));
   const plans = _.map(favorites, (fav) => AcademicPlans.findDoc(fav.academicPlanID));
-  const academicYearInstances: IAcademicYearInstance[] = AcademicYearInstances.findNonRetired({ studentID }, { sort: { year: 1 } });
+  const academicYearInstances: AcademicYearInstance[] = AcademicYearInstances.findNonRetired({ studentID }, { sort: { year: 1 } });
   const courseInstances = CourseInstances.findNonRetired({ studentID: profile.userID });
   const opportunityInstances = OpportunityInstances.findNonRetired({ studentID: profile.userID });
   const verificationRequests = VerificationRequests.findNonRetired({ studentID });

@@ -7,7 +7,7 @@ import { Users } from '../user/UserCollection';
 import { UserInteractions } from './UserInteractionCollection';
 import { makeSampleUser } from '../user/SampleUsers';
 import { removeAllEntities } from '../base/BaseUtilities';
-import { IUserInteraction } from '../../typings/radgrad';
+import { UserInteraction } from '../../typings/radgrad';
 
 /* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
 /* eslint-env mocha */
@@ -41,7 +41,7 @@ if (Meteor.isServer) {
       const type: string = faker.lorem.word();
       const typeData: string[] = [faker.lorem.word(), faker.lorem.word()];
       const docID1: string = UserInteractions.define({ username, type, typeData });
-      const docID1Object: IUserInteraction = UserInteractions.findOne({ _id: docID1 });
+      const docID1Object: UserInteraction = UserInteractions.findOne({ _id: docID1 });
       const docID1Timestamp: Date = docID1Object.timestamp;
       const docID2: string = UserInteractions.define({ username, type, typeData, timestamp: docID1Timestamp });
 

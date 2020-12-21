@@ -4,21 +4,21 @@ import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, SelectField, NumField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
-import { IAcademicTerm, ICourse, IOpportunity, IStudentProfile } from '../../../../../typings/radgrad';
+import { AcademicTerm, Course, Opportunity, StudentProfile } from '../../../../../typings/radgrad';
 import { AcademicTerms } from '../../../../../api/academic-term/AcademicTermCollection';
 import { academicTermToName, courseToName, docToName, profileToName } from '../../../shared/utilities/data-model';
 import { Reviews } from '../../../../../api/review/ReviewCollection';
 
-interface IAddReviewFormProps {
-  terms: IAcademicTerm[];
-  courses: ICourse[];
-  students: IStudentProfile[];
-  opportunities: IOpportunity[];
+interface AddReviewFormProps {
+  terms: AcademicTerm[];
+  courses: Course[];
+  students: StudentProfile[];
+  opportunities: Opportunity[];
   formRef: React.RefObject<unknown>;
   handleAdd: (doc) => any;
 }
 
-const AddReviewForm: React.FC<IAddReviewFormProps> = ({ terms, formRef, handleAdd, courses, opportunities, students }) => {
+const AddReviewForm: React.FC<AddReviewFormProps> = ({ terms, formRef, handleAdd, courses, opportunities, students }) => {
   const [reviewType, setReviewType] = useState('');
 
   const handleModelChange = (model) => {

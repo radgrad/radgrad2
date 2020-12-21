@@ -4,7 +4,7 @@ import { Users } from '../../../../api/user/UserCollection';
 import { EXPLORER_TYPE, URL_ROLES } from '../../../layouts/utilities/route-constants';
 import { Slugs } from '../../../../api/slug/SlugCollection';
 
-export interface IMatchProps {
+export interface MatchProps {
   isExact: boolean;
   path: string;
   url: string;
@@ -13,7 +13,7 @@ export interface IMatchProps {
   }
 }
 
-export interface ILocationProps {
+export interface LocationProps {
   pathname: string;
   search: string;
   hash: string;
@@ -21,20 +21,20 @@ export interface ILocationProps {
 }
 
 // Returns the USERNAME param based on React-Router's match object
-export const getUsername = (match: IMatchProps): string => match.params.username; // TODO should we use _.get here? What would we default to?
+export const getUsername = (match: MatchProps): string => match.params.username; // TODO should we use _.get here? What would we default to?
 
 // Returns the User ID based off of the USERNAME param
-export const getUserIdFromRoute = (match: IMatchProps): string => {
+export const getUserIdFromRoute = (match: MatchProps): string => {
   const username = getUsername(match);
   return username && Users.getID(username);
 };
 
 // Returns the URL based on React-Router's match object.
-const getUrl = (match: IMatchProps): string => match.url;
+const getUrl = (match: MatchProps): string => match.url;
 
 // Slits the URL into an array of parameter strings.
 // i.e., /student/abi@hawaii.edu/explorer => ["", "student", "abi@hawaii.edu", "explorer"]
-export const splitUrlIntoArray = (match: IMatchProps): string[] => {
+export const splitUrlIntoArray = (match: MatchProps): string[] => {
   const url = getUrl(match);
   return url.split('/');
 };
@@ -42,7 +42,7 @@ export const splitUrlIntoArray = (match: IMatchProps): string[] => {
 // Returns the base route of the URL (role + username)
 // i.e. /student/abi@hawaii.edu
 // Note, this function does NOT add a ending forward slash.
-export const getBaseRoute = (match: IMatchProps): string => {
+export const getBaseRoute = (match: MatchProps): string => {
   const username = match.params.username;
   const baseUrl = match.url;
   const baseIndex = baseUrl.indexOf(username);
@@ -51,7 +51,7 @@ export const getBaseRoute = (match: IMatchProps): string => {
 
 // Builds a route name and returns it. Make sure routeName is preceeded by a forward slash ('/').
 // i.e., buildRouteName('/explorer/plans') => /role/:username/explorer/plans
-export const buildRouteName = (match: IMatchProps, routeName: string): string => {
+export const buildRouteName = (match: MatchProps, routeName: string): string => {
   // I have commented the following code out because of an edge case with OpportunityCollection descriptions and renderLink.
   // OpportunityCollection description contains links with the following format [Title](some http link). Because of this,
   // this error always gets thrown.
@@ -64,7 +64,7 @@ export const buildRouteName = (match: IMatchProps, routeName: string): string =>
 };
 
 // Builds a route to the CARD page of an explorer based on the type
-export const buildExplorerRoute = (match: IMatchProps, type: string): string => {
+export const buildExplorerRoute = (match: MatchProps, type: string): string => {
   const baseExplorerRouteName = `/${EXPLORER_TYPE.HOME}`;
   let route = '';
   switch (type) {
@@ -92,7 +92,7 @@ export const buildExplorerRoute = (match: IMatchProps, type: string): string => 
 
 // Builds a route to the INDIVIDUAL page of an explorer item based on the type and slug
 // Use EXPLORER_TYPE constants for the type
-export const buildExplorerSlugRoute = (match: IMatchProps, type: string, slug: string): string => {
+export const buildExplorerSlugRoute = (match: MatchProps, type: string, slug: string): string => {
   if (!Slugs.isDefined(slug)) {
     console.error(`Bad slug: ${slug}`);
   } else {
@@ -125,7 +125,7 @@ export const buildExplorerSlugRoute = (match: IMatchProps, type: string, slug: s
 
 // Returns the parameter by index (the parameters AFTER the base route)
 // i.e., /student/abi@hawaii.edu/param1/param2/param3 (index = 1 returns param1, index = 2 returns param2, etc...)
-export const getUrlParam = (match: IMatchProps, index: number) => {
+export const getUrlParam = (match: MatchProps, index: number) => {
   if (index <= 0) {
     throw new Error('getUrlParam() function from router.tsx requires index to be greater than 0');
   }
@@ -137,7 +137,7 @@ export const getUrlParam = (match: IMatchProps, index: number) => {
 
 // Returns all the parameters AFTER the base route based on the match object
 // i.e., /student/abi@hawaii.edu/param1/param2/param3 => ["param1", "param2", "param3"]
-export const getAllUrlParams = (match: IMatchProps) => {
+export const getAllUrlParams = (match: MatchProps) => {
   const parameters = splitUrlIntoArray(match);
   const username = getUsername(match);
   const usernameIndex = parameters.indexOf(username);
@@ -147,7 +147,7 @@ export const getAllUrlParams = (match: IMatchProps) => {
 // Returns all the parameters AFTER the base route based on the location object's pathname parameter
 // This functions exactly at as getAllUrlParams() except it looks at the location.pathname as the url instead of match.url
 // i.e., /student/abi@hawaii.edu/param1/param2/param3 => ["param1", "param2", "param3"]
-export const getAllUrlParamsByLocationObject = (match: IMatchProps, location: ILocationProps) => {
+export const getAllUrlParamsByLocationObject = (match: MatchProps, location: LocationProps) => {
   const parameters = location.pathname.split('/');
   const username = getUsername(match);
   const usernameIndex = parameters.indexOf(username);
@@ -156,14 +156,14 @@ export const getAllUrlParamsByLocationObject = (match: IMatchProps, location: IL
 
 // Returns the last param of the URL
 // i.e., /student/abi@hawaii/edu/param1/param2/param3/param4 => param4
-export const getLastUrlParam = (match: IMatchProps): string => {
+export const getLastUrlParam = (match: MatchProps): string => {
   const parameters = splitUrlIntoArray(match);
   return parameters[parameters.length - 1];
 };
 
 // Returns the role of the USERNAME of the url
 // i.e., /advisor/someadvisor@hawaii.edu => advisor
-export const getRoleByUrl = (match: IMatchProps): string => {
+export const getRoleByUrl = (match: MatchProps): string => {
   const url = match.url;
   const username = getUsername(match);
   const indexUsername = url.indexOf(username);
@@ -171,37 +171,37 @@ export const getRoleByUrl = (match: IMatchProps): string => {
 };
 
 // Returns if the role by URL is Admin
-export const isUrlRoleAdmin = (match: IMatchProps): boolean => {
+export const isUrlRoleAdmin = (match: MatchProps): boolean => {
   const role = getRoleByUrl(match);
   return role === URL_ROLES.ADMIN;
 };
 
 // Returns if the role by URL is Advisor
-export const isUrlRoleAdvisor = (match: IMatchProps): boolean => {
+export const isUrlRoleAdvisor = (match: MatchProps): boolean => {
   const role = getRoleByUrl(match);
   return role === URL_ROLES.ADVISOR;
 };
 
 // Returns if the role by URL is Alumni
-export const isUrlRoleAlumni = (match: IMatchProps): boolean => {
+export const isUrlRoleAlumni = (match: MatchProps): boolean => {
   const role = getRoleByUrl(match);
   return role === URL_ROLES.ALUMNI;
 };
 
 // Returns if the role by URL is Faculty
-export const isUrlRoleFaculty = (match: IMatchProps): boolean => {
+export const isUrlRoleFaculty = (match: MatchProps): boolean => {
   const role = getRoleByUrl(match);
   return role === URL_ROLES.FACULTY;
 };
 
 // Returns if the role by URL is Student
-export const isUrlRoleStudent = (match: IMatchProps): boolean => {
+export const isUrlRoleStudent = (match: MatchProps): boolean => {
   const role = getRoleByUrl(match);
   return role === URL_ROLES.STUDENT;
 };
 
 // To be used in <Markdown>s. This makes it so that any external links are opened in a new tab when clicked.
-export const renderLink = (props: { href: string; children: React.ReactNode }, match: IMatchProps): JSX.Element => {
+export const renderLink = (props: { href: string; children: React.ReactNode }, match: MatchProps): JSX.Element => {
   const isExternal = props.href.match(/^(https?:)?\/\//);
   const baseRoute = getBaseRoute(match);
   // External Links (aka non-radgrad links)

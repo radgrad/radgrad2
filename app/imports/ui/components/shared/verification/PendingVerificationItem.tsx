@@ -1,29 +1,31 @@
+// @ts-ignore
 import React, { useState } from 'react';
 import { Header, Grid, Form } from 'semantic-ui-react';
+// @ts-ignore
 import moment from 'moment';
 import {
-  IAcademicTerm,
-  IOpportunity,
-  IProcessed,
-  IVerificationRequest,
+  AcademicTerm,
+  Opportunity,
+  Processed,
+  VerificationRequest,
 } from '../../../../typings/radgrad';
 import { VerificationRequests } from '../../../../api/verification/VerificationRequestCollection';
 import { processPendingVerificationMethod } from '../../../../api/verification/VerificationRequestCollection.methods';
 import { updateLevelMethod } from '../../../../api/level/LevelProcessor.methods';
 
-interface IPendingVerificationItemProps {
-  verificationRequest: IVerificationRequest;
+interface PendingVerificationItemProps {
+  verificationRequest: VerificationRequest;
 }
 
-const PendingVerificationItem: React.FC<IPendingVerificationItemProps> = ({ verificationRequest }) => {
+const PendingVerificationItem: React.FC<PendingVerificationItemProps> = ({ verificationRequest }) => {
   const [feedbackState, setFeedback] = useState('');
   const studentProfile = VerificationRequests.getStudentDoc(verificationRequest._id);
   const sponsorProfile = VerificationRequests.getSponsorDoc(verificationRequest._id);
 
   const buildHeaderString = () => {
     const id = verificationRequest._id;
-    const opp: IOpportunity = VerificationRequests.getOpportunityDoc(id);
-    const term: IAcademicTerm = VerificationRequests.getAcademicTermDoc(id);
+    const opp: Opportunity = VerificationRequests.getOpportunityDoc(id);
+    const term: AcademicTerm = VerificationRequests.getAcademicTermDoc(id);
     return `${opp.name}, ${term.term} ${term.year}`;
   };
 
@@ -90,7 +92,7 @@ const PendingVerificationItem: React.FC<IPendingVerificationItemProps> = ({ veri
         <Grid.Column>
           {`Submitted: ${moment(verificationRequest.submittedOn).calendar()}`}
           <br />
-          {verificationRequest.processed.map((verificationRequestm: IProcessed, ind) => (
+          {verificationRequest.processed.map((verificationRequestm: Processed, ind) => (
             <React.Fragment key={`${verificationRequestm.verifier}${verificationRequestm.date}`}>
               Processed: {moment(verificationRequestm.date).calendar()} by {verificationRequestm.verifier} ({verificationRequestm.status}{verificationRequestm.feedback ? `, ${verificationRequestm.feedback}` : ''})
               <br />

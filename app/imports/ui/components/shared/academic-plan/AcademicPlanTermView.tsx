@@ -9,7 +9,7 @@ import * as PlanChoiceUtils from '../../../../api/degree-plan/PlanChoiceUtilitie
 import { isPlanChoiceSatisfied } from '../../../../api/degree-plan/AcademicPlanUtilities';
 import SatisfiedPlanChoicePill from './SatisfiedPlanChoicePill';
 
-interface IAcademicPlanTermViewProps {
+interface AcademicPlanTermViewProps {
   title: string;
   id: string;
   choices: string[];
@@ -17,7 +17,7 @@ interface IAcademicPlanTermViewProps {
   takenSlugs: string[];
 }
 
-const AcademicPlanTermView: React.FC<IAcademicPlanTermViewProps> = ({ title, id, choices, studentID, takenSlugs }) => {
+const AcademicPlanTermView: React.FC<AcademicPlanTermViewProps> = ({ title, id, choices, studentID, takenSlugs }) => {
   // console.log('AcademicPlanTermView', props);
   const noPaddingStyle = {
     padding: 2,

@@ -6,12 +6,12 @@ import SimpleSchema from 'simpl-schema';
 import Swal from 'sweetalert2';
 import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
 import { updateMethod } from '../../../../api/base/BaseCollection.methods';
-import { IStudentProfile, IUserInteractionDefine } from '../../../../typings/radgrad';
+import { StudentProfile, UserInteractionDefine } from '../../../../typings/radgrad';
 import { UserInteractionsTypes } from '../../../../api/analytic/UserInteractionsTypes';
 import { userInteractionDefineMethod } from '../../../../api/analytic/UserInteractionCollection.methods';
 
-interface IStudentShareInfoWidgetProps {
-  profile: IStudentProfile;
+interface StudentShareInfoWidgetProps {
+  profile: StudentProfile;
 }
 
 const handleUpdateInformation = (doc): void => {
@@ -49,7 +49,7 @@ const handleUpdateInformation = (doc): void => {
           modifiedList.push(`${key}:${doc[key]}`);
         }
       });
-      const interactionData: IUserInteractionDefine = {
+      const interactionData: UserInteractionDefine = {
         username,
         type: UserInteractionsTypes.SHAREINFORMATION,
         typeData: modifiedList,
@@ -63,7 +63,7 @@ const handleUpdateInformation = (doc): void => {
   });
 };
 
-const StudentShareInfoWidget: React.FC<IStudentShareInfoWidgetProps> = ({ profile }) => {
+const StudentShareInfoWidget: React.FC<StudentShareInfoWidgetProps> = ({ profile }) => {
   const model = profile;
   const schema = new SimpleSchema({
     shareUsername: {

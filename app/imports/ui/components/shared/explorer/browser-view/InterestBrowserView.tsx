@@ -3,14 +3,14 @@ import { connect } from 'react-redux';
 import { Card, Header, Segment } from 'semantic-ui-react';
 import { scrollPositionActions } from '../../../../../redux/shared/scrollPosition';
 import { RootState } from '../../../../../redux/types';
-import { IInterest } from '../../../../../typings/radgrad';
+import { Interest } from '../../../../../typings/radgrad';
 import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
 import ProfileCard from './ProfileCard';
 
-interface IInterestBrowserViewProps {
-  favoriteInterests: IInterest[];
-  favoriteCareerGoalsInterests: IInterest[];
-  interests: IInterest[];
+interface InterestBrowserViewProps {
+  favoriteInterests: Interest[];
+  favoriteCareerGoalsInterests: Interest[];
+  interests: Interest[];
   // Saving Scroll Position
   interestsScrollPosition: number;
   setInterestsScrollPosition: (scrollPosition: number) => any;
@@ -24,7 +24,7 @@ const mapDispatchToProps = (dispatch) => ({
   setInterestsScrollPosition: (scrollPosition: number) => dispatch(scrollPositionActions.setExplorerInterestsScrollPosition(scrollPosition)),
 });
 
-const InterestBrowserView: React.FC<IInterestBrowserViewProps> = ({ favoriteInterests, favoriteCareerGoalsInterests, interests, interestsScrollPosition, setInterestsScrollPosition }) => {
+const InterestBrowserView: React.FC<InterestBrowserViewProps> = ({ favoriteInterests, favoriteCareerGoalsInterests, interests, interestsScrollPosition, setInterestsScrollPosition }) => {
   // TODO do we want to filter out the favoriteInterests and favoriteCareerGoalInterests from interests?
   const cardGroupElement: HTMLElement = document.getElementById('interestsCardGroup');
   useEffect(() => {

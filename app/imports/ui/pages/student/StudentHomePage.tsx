@@ -11,13 +11,13 @@ import StudentHomeRecommendedWidget from '../../components/student/home/StudentH
 import StudentHomeBannersWidget from '../../components/student/home/StudentHomeBannersWidget';
 import StudentHomeRadGradVideosWidget from '../../components/student/home/StudentHomeRadGradVideosWidget';
 import StudentHomeNewOpportunitiesWidget from '../../components/student/home/StudentHomeNewOpportunitiesWidget';
-import { buildExplorerRoute, IMatchProps } from '../../components/shared/utilities/router';
+import { buildExplorerRoute, MatchProps } from '../../components/shared/utilities/router';
 import { EXPLORER_TYPE } from '../../layouts/utilities/route-constants';
 import GuidedTourStudentHomePageWidget from '../../components/student/home/GuidedTourStudentHomePageWidget';
 import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';
 
-interface IStudentHomePageProps {
-  match: IMatchProps;
+interface StudentHomePageProps {
+  match: MatchProps;
   favoriteInterests: { interestID: string, count, number }[];
   interests: number;
   careerGoals: string;
@@ -25,7 +25,7 @@ interface IStudentHomePageProps {
   ready: boolean;
 }
 
-const StudentHomePage: React.FC<IStudentHomePageProps> = ({ match, favoriteInterests, interests,
+const StudentHomePage: React.FC<StudentHomePageProps> = ({ match, favoriteInterests, interests,
   careerGoals, courses, ready }) => (
     <div id="student-home-page">
       <StudentPageMenuWidget />

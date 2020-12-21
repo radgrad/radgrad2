@@ -3,11 +3,11 @@ import { Container, Divider, Feed, Header, Segment } from 'semantic-ui-react';
 import StudentFeedItem from './CommunityFeedItem';
 import { IFeed } from '../../../../typings/radgrad';
 
-interface IStudentFeedWidgetProps {
+interface StudentFeedWidgetProps {
   feeds: IFeed[];
 }
 
-const CommunityFeedWidget: React.FC<IStudentFeedWidgetProps> = ({ feeds }) => {
+const CommunityFeedWidget: React.FC<StudentFeedWidgetProps> = ({ feeds }) => {
   const feedStyle = {
     maxHeight: '325px',
     overflowY: 'scroll',

@@ -6,14 +6,14 @@ import { docToName, itemToSlugName } from './utilities/data-model';
 import { MatchingInterests } from '../../../api/interest/MatchingInterests';
 import { EXPLORER_TYPE } from '../../layouts/utilities/route-constants';
 
-interface IInterestListProps {
+interface InterestListProps {
   item: {
     interestIDs: string[];
   }
   size: SemanticSIZES;
 }
 
-const InterestList: React.FC<IInterestListProps> = ({ size, item }) => {
+const InterestList: React.FC<InterestListProps> = ({ size, item }) => {
   const match = useRouteMatch();
   const matchingUserInterests = MatchingInterests.matchingUserInterests(Router.getUsername(match), item);
   const matchingCareerInterests = MatchingInterests.matchingCareerGoalInterests(Router.getUsername(match), item);

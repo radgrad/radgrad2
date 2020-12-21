@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { Segment, Header, Form } from 'semantic-ui-react';
 import moment from 'moment';
 import { processVerificationEventMethod } from '../../../../api/verification/VerificationRequestCollection.methods';
-import { IOpportunity } from '../../../../typings/radgrad';
+import { Opportunity } from '../../../../typings/radgrad';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 
-interface IEventVerificationsWidgetProps {
-  eventOpportunities: IOpportunity[];
+interface EventVerificationsWidgetProps {
+  eventOpportunities: Opportunity[];
 }
 
 /**
@@ -16,7 +16,7 @@ interface IEventVerificationsWidgetProps {
  * @param eventOpportunities {IEventOpportunity[]} An array of IOpportunities where eventDate exists
  * @returns {Segment}
  */
-const EventVerificationsWidget: React.FC<IEventVerificationsWidgetProps> = ({ eventOpportunities }) => {
+const EventVerificationsWidget: React.FC<EventVerificationsWidgetProps> = ({ eventOpportunities }) => {
   const [studentState, setStudent] = useState('');
   const [opportunityState, setOpportunity] = useState('');
   const [logState, setLog] = useState('');

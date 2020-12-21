@@ -5,7 +5,7 @@ import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import _ from 'lodash';
 import Swal from 'sweetalert2';
-import { IAcademicTerm, IBaseProfile, IInterest, IOpportunityType } from '../../../../../typings/radgrad';
+import { AcademicTerm, BaseProfile, Interest, OpportunityType } from '../../../../../typings/radgrad';
 import BaseCollection from '../../../../../api/base/BaseCollection';
 import {
   academicTermIdToName,
@@ -18,11 +18,11 @@ import { iceSchema } from '../../../../../api/ice/IceProcessor';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
 import { openCloudinaryWidget } from '../../../shared/OpenCloudinaryWidget';
 
-interface IUpdateOpportunityFormProps {
-  sponsors: IBaseProfile[];
-  terms: IAcademicTerm[];
-  interests: IInterest[];
-  opportunityTypes: IOpportunityType[];
+interface UpdateOpportunityFormProps {
+  sponsors: BaseProfile[];
+  terms: AcademicTerm[];
+  interests: Interest[];
+  opportunityTypes: OpportunityType[];
   collection: BaseCollection;
   id: string;
   formRef: React.RefObject<unknown>;
@@ -31,7 +31,7 @@ interface IUpdateOpportunityFormProps {
   itemTitleString: (item) => React.ReactNode;
 }
 
-const UpdateOpportunityForm: React.FC<IUpdateOpportunityFormProps> = ({ sponsors, opportunityTypes, terms, interests, formRef, handleUpdate, handleCancel, itemTitleString, collection, id }) => {
+const UpdateOpportunityForm: React.FC<UpdateOpportunityFormProps> = ({ sponsors, opportunityTypes, terms, interests, formRef, handleUpdate, handleCancel, itemTitleString, collection, id }) => {
   const model = collection.findDoc(id);
   const [pictureURL, setPictureURL] = useState(model.picture);
   const handleUploadPicture = async (e): Promise<void> => {

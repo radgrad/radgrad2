@@ -4,16 +4,16 @@ import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, SelectField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
-import { IInterestType } from '../../../../../typings/radgrad';
+import { InterestType } from '../../../../../typings/radgrad';
 import { docToName } from '../../../shared/utilities/data-model';
 
-interface IAddInterestFormProps {
-  interestTypes: IInterestType[];
+interface AddInterestFormProps {
+  interestTypes: InterestType[];
   formRef: React.RefObject<unknown>;
   handleAdd: (doc) => any;
 }
 
-const AddInterestForm: React.FC<IAddInterestFormProps> = ({ interestTypes, formRef, handleAdd }) => {
+const AddInterestForm: React.FC<AddInterestFormProps> = ({ interestTypes, formRef, handleAdd }) => {
   const interestTypeNames = _.map(interestTypes, docToName);
   const schema = new SimpleSchema({
     name: String,

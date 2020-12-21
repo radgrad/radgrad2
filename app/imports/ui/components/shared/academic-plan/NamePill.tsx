@@ -1,9 +1,9 @@
 import React from 'react';
 
-interface INamePillProps {
+interface NamePillProps {
   name: string;
 }
 
-const NamePill: React.FC<INamePillProps> = ({ name }) => (<b>{name}</b>);
+const NamePill: React.FC<NamePillProps> = ({ name }) => (<b>{name}</b>);
 
 export default NamePill;

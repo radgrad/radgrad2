@@ -1,17 +1,17 @@
 import React from 'react';
 import { Card, Grid, Message, SemanticWIDTHS, Tab } from 'semantic-ui-react';
-import { IAdvisorOrFacultyProfile, IStudentProfile } from '../../../../typings/radgrad';
+import { AdvisorOrFacultyProfile, StudentProfile } from '../../../../typings/radgrad';
 import { URL_ROLES } from '../../../layouts/utilities/route-constants';
 import UserProfileCard from './UserProfileCard';
 
-interface ICommunityUsersWidgetProps {
+interface CommunityUsersWidgetProps {
   loggedInRole: string;
-  advisors: IAdvisorOrFacultyProfile[];
-  faculty: IAdvisorOrFacultyProfile[];
-  students: IStudentProfile[];
+  advisors: AdvisorOrFacultyProfile[];
+  faculty: AdvisorOrFacultyProfile[];
+  students: StudentProfile[];
 }
 
-const CommunityUsersWidget: React.FC<ICommunityUsersWidgetProps> = ({ advisors, faculty, loggedInRole, students }) => {
+const CommunityUsersWidget: React.FC<CommunityUsersWidgetProps> = ({ advisors, faculty, loggedInRole, students }) => {
   const tabPaneStyle: React.CSSProperties = {
     overflowX: 'hidden',
     overflowY: 'hidden',

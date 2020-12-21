@@ -4,11 +4,11 @@ import { NavLink, useRouteMatch } from 'react-router-dom';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import * as Router from '../utilities/router';
 
-interface IExplorerNavDropdownProps {
+interface ExplorerNavDropdownProps {
   text: string;
 }
 
-const ExplorerNavDropdown: React.FC<IExplorerNavDropdownProps> = ({ text }) => {
+const ExplorerNavDropdown: React.FC<ExplorerNavDropdownProps> = ({ text }) => {
   const menuItems = [
     { key: 'Academic Plans', route: EXPLORER_TYPE.ACADEMICPLANS },
     { key: 'Career Goals', route: EXPLORER_TYPE.CAREERGOALS },

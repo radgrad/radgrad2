@@ -2,13 +2,13 @@ import React from 'react';
 import { Button, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import {
-  IAcademicPlan,
-  ICareerGoal,
-  ICourse,
-  IInterest,
-  IMeteorError,
-  IOpportunity,
-  IPageInterestDefine,
+  AcademicPlan,
+  CareerGoal,
+  Course,
+  Interest,
+  MeteorError,
+  Opportunity,
+  PageInterestDefine,
 } from '../../../../../typings/radgrad';
 import { FavoriteAcademicPlans } from '../../../../../api/favorite/FavoriteAcademicPlanCollection';
 import { FavoriteCareerGoals } from '../../../../../api/favorite/FavoriteCareerGoalCollection';
@@ -28,19 +28,19 @@ import {
 import { Users } from '../../../../../api/user/UserCollection';
 import { ROLE } from '../../../../../api/role/Role';
 
-export interface IFavoriteButtonProps {
-  item: IAcademicPlan | ICareerGoal | ICourse | IInterest | IOpportunity;
+export interface FavoriteButtonProps {
+  item: AcademicPlan | CareerGoal | Course | Interest | Opportunity;
   studentID: string;
   type: IFavoriteTypes;
   added: boolean;
 }
 
-const handleAdd = (props: IFavoriteButtonProps) => () => {
-  const collectionName = getCollectionName(props.type);
-  const definitionData = createDefinitionData(props);
-  const interactionData = createInteractionData(props, true);
+const handleAdd = (studentID: string, item: AcademicPlan | CareerGoal | Course | Interest | Opportunity, type: IFavoriteTypes) => () => {
+  const collectionName = getCollectionName(type);
+  const definitionData = createDefinitionData(studentID, item, type);
+  const interactionData = createInteractionData(studentID, item, type, true);
 
-  defineMethod.call({ collectionName, definitionData }, (error: IMeteorError) => {
+  defineMethod.call({ collectionName, definitionData }, (error: MeteorError) => {
     if (error) {
       Swal.fire({
         title: 'Failed to Favorite',
@@ -57,14 +57,14 @@ const handleAdd = (props: IFavoriteButtonProps) => () => {
         showConfirmButton: false,
         timer: 1500,
       });
-      userInteractionDefineMethod.call(interactionData, (userInteractionError: IMeteorError) => {
+      userInteractionDefineMethod.call(interactionData, (userInteractionError: MeteorError) => {
         if (userInteractionError) {
           console.error('Error creating UserInteraction.', userInteractionError);
         }
       });
-      const isStudent = Users.getProfile(props.studentID).role === ROLE.STUDENT;
+      const isStudent = Users.getProfile(studentID).role === ROLE.STUDENT;
       if (isStudent) {
-        const pageInterestData: IPageInterestDefine = createPageInterestData(props);
+        const pageInterestData: PageInterestDefine = createPageInterestData(studentID, item, type);
         pageInterestDefineMethod.call(pageInterestData, (pageInterestError) => {
           if (pageInterestError) {
             console.error('Error creating PageInterest.', pageInterestError);
@@ -75,47 +75,47 @@ const handleAdd = (props: IFavoriteButtonProps) => () => {
   });
 };
 
-const handleRemove = (props: IFavoriteButtonProps) => () => {
-  const collectionName = getCollectionName(props.type);
-  const interactionData = createInteractionData(props, false);
+const handleRemove = (studentID: string, item: AcademicPlan | CareerGoal | Course | Interest | Opportunity, type: IFavoriteTypes) => () => {
+  const collectionName = getCollectionName(type);
+  const interactionData = createInteractionData(studentID, item, type, false);
   let instance;
-  switch (props.type) {
+  switch (type) {
     case FAVORITE_TYPE.ACADEMICPLAN:
       instance = FavoriteAcademicPlans.findNonRetired({
-        studentID: props.studentID,
-        academicPlanID: props.item._id,
+        studentID,
+        academicPlanID: item._id,
       })[0]._id;
       break;
     case FAVORITE_TYPE.CAREERGOAL:
       instance = FavoriteCareerGoals.findNonRetired({
-        userID: props.studentID,
-        careerGoalID: props.item._id,
+        userID: studentID,
+        careerGoalID: item._id,
       })[0]._id;
       break;
     case FAVORITE_TYPE.COURSE:
       instance = FavoriteCourses.findNonRetired({
-        studentID: props.studentID,
-        courseID: props.item._id,
+        studentID,
+        courseID: item._id,
       })[0]._id;
       break;
     case FAVORITE_TYPE.INTEREST:
       instance = FavoriteInterests.findNonRetired({
-        userID: props.studentID,
-        interestID: props.item._id,
+        userID: studentID,
+        interestID: item._id,
       })[0]._id;
       break;
     case FAVORITE_TYPE.OPPORTUNITY:
       instance = FavoriteOpportunities.findNonRetired({
-        studentID: props.studentID,
-        opportunityID: props.item._id,
+        studentID,
+        opportunityID: item._id,
       })[0]._id;
       break;
     default:
-      console.error(`Bad favorite type: ${props.type}`);
+      console.error(`Bad favorite type: ${type}`);
       break;
   }
 
-  removeItMethod.call({ collectionName, instance }, (error: IMeteorError) => {
+  removeItMethod.call({ collectionName, instance }, (error: MeteorError) => {
     if (error) {
       Swal.fire({
         title: 'Failed to Unfavorite',
@@ -127,18 +127,18 @@ const handleRemove = (props: IFavoriteButtonProps) => () => {
       });
     }
   });
-  userInteractionDefineMethod.call(interactionData, (userInteractionError: IMeteorError) => {
+  userInteractionDefineMethod.call(interactionData, (userInteractionError: MeteorError) => {
     if (userInteractionError) {
       console.error('Error creating UserInteraction.', userInteractionError);
     }
   });
 };
 
-const FavoritesButton: React.FC<IFavoriteButtonProps> = (props) => (
+const FavoritesButton: React.FC<FavoriteButtonProps> = ({ studentID, item, type, added }) => (
   <React.Fragment>
-    {props.added ?
+    {added ?
       (
-        <Button onClick={handleRemove(props)} size="mini" color="green" floated="right" basic>
+        <Button onClick={handleRemove(studentID, item, type)} size="mini" color="green" floated="right" basic>
           <Icon
             name="heart outline"
             color="red"
@@ -149,7 +149,7 @@ const FavoritesButton: React.FC<IFavoriteButtonProps> = (props) => (
       )
       :
       (
-        <Button size="mini" onClick={handleAdd(props)} color="green" floated="right" basic>
+        <Button size="mini" onClick={handleAdd(studentID, item, type)} color="green" floated="right" basic>
           <Icon
             name="heart"
             color="red"

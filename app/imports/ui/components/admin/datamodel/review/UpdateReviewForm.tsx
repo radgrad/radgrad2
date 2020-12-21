@@ -4,12 +4,12 @@ import { AutoForm, SelectField, NumField, LongTextField, BoolField, SubmitField 
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import _ from 'lodash';
-import { IAcademicTerm } from '../../../../../typings/radgrad';
+import { AcademicTerm } from '../../../../../typings/radgrad';
 import BaseCollection from '../../../../../api/base/BaseCollection';
 import { academicTermIdToName, academicTermToName } from '../../../shared/utilities/data-model';
 
-interface IUpdateReviewFormProps {
-  terms: IAcademicTerm[];
+interface UpdateReviewFormProps {
+  terms: AcademicTerm[];
   collection: BaseCollection;
   id: string;
   formRef: React.RefObject<unknown>;
@@ -18,7 +18,7 @@ interface IUpdateReviewFormProps {
   itemTitleString: (item) => React.ReactNode;
 }
 
-const UpdateReviewForm: React.FC<IUpdateReviewFormProps> = ({ terms, collection, id, formRef, handleCancel, handleUpdate, itemTitleString }) => {
+const UpdateReviewForm: React.FC<UpdateReviewFormProps> = ({ terms, collection, id, formRef, handleCancel, handleUpdate, itemTitleString }) => {
   // TODO why aren't we passed in the model/item?
   const model = collection.findDoc(id);
   model.academicTerm = academicTermIdToName(model.termID);

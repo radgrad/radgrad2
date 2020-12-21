@@ -23,10 +23,10 @@ import { Teasers } from '../../../api/teaser/TeaserCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import AdminDataModelMenu, { IAdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
+import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import ListSlugCollectionWidget from '../../components/admin/datamodel/ListSlugCollectionWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
-import { IDescriptionPair, ISlug } from '../../../typings/radgrad';
+import { DescriptionPair, Slug } from '../../../typings/radgrad';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import withInstanceSubscriptions from '../../layouts/utilities/InstanceSubscriptionsHOC';
@@ -37,7 +37,7 @@ const collection = Slugs; // the collection to use.
  * Returns an array of Description pairs used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const descriptionPairs = (item: ISlug): IDescriptionPair[] => [
+const descriptionPairs = (item: Slug): DescriptionPair[] => [
   { label: 'Name', value: `${item.name}` },
   { label: 'Entity Name', value: `${item.entityName}` },
   { label: 'Entity ID', value: `${item.entityID}` },
@@ -47,24 +47,25 @@ const descriptionPairs = (item: ISlug): IDescriptionPair[] => [
  * Returns the title string for the item. Used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const itemTitleString = (item: ISlug): string => `${item.name}: ${item.entityName}`;
+const itemTitleString = (item: Slug): string => `${item.name}: ${item.entityName}`;
 
 /**
  * Returns the ReactNode used in the ListCollectionWidget. By default we indicate if the item is retired.
  * @param item an item from the collection.
  */
-const itemTitle = (item: ISlug): React.ReactNode => (
+const itemTitle = (item: Slug): React.ReactNode => (
   <React.Fragment>
     <Icon name="dropdown" />
     {itemTitleString(item)}
   </React.Fragment>
 );
 
-interface IAdminDataModelSlugsPageProps extends IAdminDataModeMenuProps {
-  items: ISlug[];
+interface AdminDataModelSlugsPageProps extends AdminDataModeMenuProps {
+  items: Slug[];
 }
 
-const AdminDataModelSlugsPage: React.FC<IAdminDataModelSlugsPageProps> = (props) => {
+// props not deconstructed because AdminDataModeMenuProps has 21 numbers.
+const AdminDataModelSlugsPage: React.FC<AdminDataModelSlugsPageProps> = (props) => {
   const handleDelete = (event) => {
     event.preventDefault();
     // console.log('handleDelete inst=%o', inst);

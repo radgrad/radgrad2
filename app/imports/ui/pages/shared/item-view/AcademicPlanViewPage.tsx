@@ -3,7 +3,7 @@ import { useParams, useRouteMatch } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Container, Grid } from 'semantic-ui-react';
 import _ from 'lodash';
-import { IAcademicPlan, IFavoriteAcademicPlan, IHelpMessage } from '../../../../typings/radgrad';
+import { AcademicPlan, FavoriteAcademicPlan, HelpMessage } from '../../../../typings/radgrad';
 import { getMenuWidget } from '../utilities/getMenuWidget';
 import { HelpMessages } from '../../../../api/help/HelpMessageCollection';
 import HelpPanelWidget from '../../../components/shared/HelpPanelWidget';
@@ -13,13 +13,13 @@ import { FavoriteAcademicPlans } from '../../../../api/favorite/FavoriteAcademic
 import { AcademicPlans } from '../../../../api/degree-plan/AcademicPlanCollection';
 import ExplorerPlanWidget from '../../../components/shared/explorer/item-view/academic-plan/ExplorerPlanWidget';
 
-interface IAcademicPlanViewPageProps {
-  plan: IAcademicPlan;
-  favoriteAcademicPlans: IFavoriteAcademicPlan[];
-  helpMessages: IHelpMessage[];
+interface AcademicPlanViewPageProps {
+  plan: AcademicPlan;
+  favoriteAcademicPlans: FavoriteAcademicPlan[];
+  helpMessages: HelpMessage[];
 }
 
-const AcademicPlanViewPage: React.FC<IAcademicPlanViewPageProps> = ({ plan, favoriteAcademicPlans, helpMessages }) => {
+const AcademicPlanViewPage: React.FC<AcademicPlanViewPageProps> = ({ plan, favoriteAcademicPlans, helpMessages }) => {
   const match = useRouteMatch();
   const menuAddedList = _.map(favoriteAcademicPlans, (f) => ({
     item: AcademicPlans.findDoc(f.academicPlanID),

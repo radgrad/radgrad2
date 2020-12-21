@@ -3,11 +3,11 @@ import ExplorerMenuNonMobileWidget from './ExplorerMenuNonMobileWidget';
 import ExplorerMenuMobileWidget from './ExplorerMenuMobileWidget';
 import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
 import ExplorerNavDropdown from '../ExplorerNavDropdown';
-import { IListItem } from './ExplorerMenuMobileItem';
+import { ListItem } from './ExplorerMenuMobileItem';
 
-interface IExplorerMenuProps {
-  menuAddedList: IListItem[];
-  menuCareerList?: IListItem[] | undefined;
+interface ExplorerMenuProps {
+  menuAddedList: ListItem[];
+  menuCareerList?: ListItem[] | undefined;
   type: 'plans' | 'career-goals' | 'courses' | 'interests' | 'opportunities' | 'users'; // TODO should this be a defined type?
 }
 
@@ -30,7 +30,7 @@ const getTypeName = (type: string): string => {
   }
 };
 
-const ExplorerMenu: React.FC<IExplorerMenuProps> = ({ menuAddedList, menuCareerList, type }) => (
+const ExplorerMenu: React.FC<ExplorerMenuProps> = ({ menuAddedList, menuCareerList, type }) => (
   <React.Fragment>
     <ExplorerNavDropdown text={getTypeName(type)} />
     <br />

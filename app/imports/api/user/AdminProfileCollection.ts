@@ -7,7 +7,7 @@ import { Interests } from '../interest/InterestCollection';
 import { CareerGoals } from '../career/CareerGoalCollection';
 import { Slugs } from '../slug/SlugCollection';
 import { ROLE } from '../role/Role';
-import { IProfileDefine, IProfileUpdate } from '../../typings/radgrad';
+import { ProfileDefine, ProfileUpdate } from '../../typings/radgrad';
 import { FavoriteInterests } from '../favorite/FavoriteInterestCollection';
 import { FavoriteCareerGoals } from '../favorite/FavoriteCareerGoalCollection';
 
@@ -34,7 +34,7 @@ class AdminProfileCollection extends BaseProfileCollection {
    * @return { String } The docID of the AdminProfile.
    */
   public define({ username, firstName, lastName, picture = defaultProfilePicture, website, interests,
-    careerGoals, retired = false }: IProfileDefine) {
+    careerGoals, retired = false }: ProfileDefine) {
     if (Meteor.isServer) {
       const user = Meteor.users.findOne({ username });
       // console.log(`AdminProfile.define ${user}`);
@@ -64,7 +64,7 @@ class AdminProfileCollection extends BaseProfileCollection {
    * You cannot change the username or role once defined.
    * @param docID the id of the AdminProfile.
    */
-  public update(docID, { firstName, lastName, picture, website, interests, careerGoals, retired, courseExplorerFilter, opportunityExplorerSortOrder }: IProfileUpdate) {
+  public update(docID, { firstName, lastName, picture, website, interests, careerGoals, retired, courseExplorerFilter, opportunityExplorerSortOrder }: ProfileUpdate) {
     this.assertDefined(docID);
     const updateData = {};
     this.updateCommonFields(updateData, { firstName, lastName, picture, website, retired, courseExplorerFilter, opportunityExplorerSortOrder });
@@ -113,7 +113,7 @@ class AdminProfileCollection extends BaseProfileCollection {
    * @param docID The docID of a AdminProfile
    * @returns { Object } An object representing the definition of docID.
    */
-  public dumpOne(docID: string): IProfileDefine {
+  public dumpOne(docID: string): ProfileDefine {
     const doc = this.findDoc(docID);
     const username = doc.username;
     const firstName = doc.firstName;

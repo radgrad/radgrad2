@@ -14,25 +14,27 @@ import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';
-import { IAdvisorLog, ICareerGoal, IHelpMessage, IInterest, IStudentProfile } from '../../../typings/radgrad';
+import { AdvisorLog, CareerGoal, HelpMessage, Interest, StudentProfile } from '../../../typings/radgrad';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { RootState } from '../../../redux/types';
 
-export interface IFilterStudents {
+export interface FilterStudents {
   selectedUsername: string;
-  usernameDoc: IStudentProfile;
-  interests: IInterest[];
-  careerGoals: ICareerGoal[];
-  advisorLogs: IAdvisorLog[];
-  helpMessages: IHelpMessage[];
+  usernameDoc: StudentProfile;
+  interests: Interest[];
+  careerGoals: CareerGoal[];
+  advisorLogs: AdvisorLog[];
+  helpMessages: HelpMessage[];
+  students: StudentProfile[],
+  alumni: StudentProfile[],
 }
 
 const mapStateToProps = (state: RootState) => ({
   selectedUsername: state.advisor.home.selectedUsername,
 });
 
-const renderSelectedStudentWidgets = (props: IFilterStudents, username: string) => {
-  if (props.selectedUsername === '') {
+const renderSelectedStudentWidgets = (selectedUsername: string, usernameDoc: StudentProfile, careerGoals: CareerGoal[], interests: Interest[], advisorLogs: AdvisorLog[], username: string) => {
+  if (selectedUsername === '') {
     return undefined;
   }
   return (
@@ -40,21 +42,21 @@ const renderSelectedStudentWidgets = (props: IFilterStudents, username: string) 
       <Grid.Column width={1} />
       <Grid.Column width={9} stretched>
         <AdvisorUpdateStudentWidget
-          usernameDoc={props.usernameDoc}
+          usernameDoc={usernameDoc}
           studentCollectionName={StudentProfiles.getCollectionName()}
-          careerGoals={props.careerGoals}
-          interests={props.interests}
+          careerGoals={careerGoals}
+          interests={interests}
         />
       </Grid.Column>
 
       <Grid.Column width={5} stretched>
         <AdvisorLogEntryWidget
-          usernameDoc={props.usernameDoc}
-          advisorLogs={props.advisorLogs}
+          usernameDoc={usernameDoc}
+          advisorLogs={advisorLogs}
           advisorUsername={username}
         />
         <AdvisorStarUploadWidget
-          usernameDoc={props.usernameDoc}
+          usernameDoc={usernameDoc}
           advisorUsername={username}
         />
 
@@ -65,7 +67,7 @@ const renderSelectedStudentWidgets = (props: IFilterStudents, username: string) 
   );
 };
 
-const AdvisorHomePage: React.FC<IFilterStudents> = (props) => {
+const AdvisorHomePage: React.FC<FilterStudents> = ({ helpMessages, advisorLogs, interests, careerGoals, usernameDoc, selectedUsername, students, alumni }) => {
   const { username } = useParams();
   return (
     <div id="advisor-home-page">
@@ -74,42 +76,48 @@ const AdvisorHomePage: React.FC<IFilterStudents> = (props) => {
         <Grid stackable>
           <Grid.Row>
             <Grid.Column width={1} />
-            <Grid.Column width={14}><HelpPanelWidget helpMessages={props.helpMessages} /></Grid.Column>
+            <Grid.Column width={14}><HelpPanelWidget helpMessages={helpMessages} /></Grid.Column>
             <Grid.Column width={1} />
           </Grid.Row>
 
           <Grid.Row>
             <Grid.Column width={1} />
             <Grid.Column width={14}>
+              {/* TODO make this communicate, selecting a student doesn't change the form */}
               <AdvisorStudentSelectorWidget
-                careerGoals={props.careerGoals}
-                interests={props.interests}
+                careerGoals={careerGoals}
+                interests={interests}
                 advisorUsername={username}
+                students={students}
+                alumni={alumni}
               />
             </Grid.Column>
             <Grid.Column width={1} />
           </Grid.Row>
-          {renderSelectedStudentWidgets(props, username)}
+          {renderSelectedStudentWidgets(selectedUsername, usernameDoc, careerGoals, interests, advisorLogs, username)}
         </Grid>
       </div>
     </div>
   );
 };
 
-const AdvisorHomePageTracker = withTracker((props) => {
-  const usernameDoc = StudentProfiles.findByUsername(props.selectedUsername);
+const AdvisorHomePageTracker = withTracker(({ selectedUsername }) => {
+  const usernameDoc = StudentProfiles.findByUsername(selectedUsername);
   const userID = usernameDoc ? usernameDoc.userID : '';
-  // const students = StudentProfiles.findNonRetired({ isAlumni: false }, { sort: { lastName: 1, firstName: 1 } });
-  // const alumni = StudentProfiles.findNonRetired({ isAlumni: true }, { sort: { lastName: 1, firstName: 1 } });
+  const interests = Interests.findNonRetired({});
+  const careerGoals = CareerGoals.findNonRetired({});
+  const students = StudentProfiles.findNonRetired({ isAlumni: false }, { sort: { username: 1 } });
+  const alumni = StudentProfiles.findNonRetired({ isAlumni: true }, { sort: { username: 1 } });
+  const advisorLogs = AdvisorLogs.findNonRetired({ studentID: userID }, { sort: { createdOn: -1 } });
   const helpMessages = HelpMessages.findNonRetired({});
   return {
-    usernameDoc: usernameDoc,
-    interests: Interests.findNonRetired(),
-    careerGoals: CareerGoals.findNonRetired(),
-    advisorLogs: AdvisorLogs.findNonRetired({ studentID: userID }, { sort: { createdOn: -1 } }),
-    // students,
-    // alumni,
+    usernameDoc,
+    interests,
+    careerGoals,
+    advisorLogs,
     helpMessages,
+    students,
+    alumni,
   };
 })(AdvisorHomePage);
 

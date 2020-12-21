@@ -8,7 +8,7 @@ import { Opportunities } from '../opportunity/OpportunityCollection';
 import { Users } from '../user/UserCollection';
 import { Courses } from '../course/CourseCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
-import { IReviewDefine, IReviewUpdate, IReviewUpdateData } from '../../typings/radgrad';
+import { ReviewDefine, ReviewUpdate, ReviewUpdateData } from '../../typings/radgrad';
 
 /**
  * Represents a course or opportunity review by a student.
@@ -91,7 +91,7 @@ class ReviewCollection extends BaseSlugCollection {
    * undefined reviewee, undefined academicTerm, or invalid rating.
    * @returns The newly created docID.
    */
-  public define({ slug, student, reviewType, reviewee, academicTerm, rating = 3, comments, moderated = false, visible = true, moderatorComments, retired = false }: IReviewDefine) {
+  public define({ slug, student, reviewType, reviewee, academicTerm, rating = 3, comments, moderated = false, visible = true, moderatorComments, retired = false }: ReviewDefine) {
     // Validate student, get studentID.
     const studentID = Users.getID(student);
     Users.assertInRole(studentID, [ROLE.STUDENT, ROLE.ALUMNI]);
@@ -161,9 +161,9 @@ class ReviewCollection extends BaseSlugCollection {
    * Update the review. Only academicTerm, rating, comments, moderated, visible, and moderatorComments can be updated.
    * @param docID The review docID (required).
    */
-  public update(docID, { academicTerm, rating, comments, moderated, visible, moderatorComments, retired }: IReviewUpdate) {
+  public update(docID, { academicTerm, rating, comments, moderated, visible, moderatorComments, retired }: ReviewUpdate) {
     this.assertDefined(docID);
-    const updateData: IReviewUpdateData = {};
+    const updateData: ReviewUpdateData = {};
     if (academicTerm) {
       updateData.termID = AcademicTerms.getID(academicTerm);
     }
@@ -252,7 +252,7 @@ class ReviewCollection extends BaseSlugCollection {
    * @param docID The docID of an Review.
    * @returns { Object } An object representing the definition of docID.
    */
-  public dumpOne(docID: string): IReviewDefine {
+  public dumpOne(docID: string): ReviewDefine {
     const doc = this.findDoc(docID);
     const slug = Slugs.getNameFromID(doc.slugID);
     const student = Users.getProfile(doc.studentID).username;

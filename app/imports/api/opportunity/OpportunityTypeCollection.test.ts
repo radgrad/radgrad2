@@ -5,7 +5,7 @@ import faker from 'faker';
 import 'mocha';
 import { OpportunityTypes } from './OpportunityTypeCollection';
 import { removeAllEntities } from '../base/BaseUtilities';
-import { IOpportunityType } from '../../typings/radgrad';
+import { OpportunityType } from '../../typings/radgrad';
 import { Slugs } from '../slug/SlugCollection';
 
 /* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
@@ -36,7 +36,7 @@ if (Meteor.isServer) {
             retired: fcRetired,
           });
           expect(OpportunityTypes.isDefined(docID)).to.be.true;
-          const doc: IOpportunityType = OpportunityTypes.findDoc(docID);
+          const doc: OpportunityType = OpportunityTypes.findDoc(docID);
           expect(doc.name).to.equal(fcName);
           expect(doc.description).to.equal(fcDescription);
           expect(Slugs.getNameFromID(doc.slugID)).to.equal(fcSlug);

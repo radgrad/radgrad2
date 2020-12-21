@@ -3,16 +3,16 @@ import { Container, Header, Grid, Image, Popup, Divider, Segment } from 'semanti
 import _ from 'lodash';
 import { ROLE } from '../../../../../../api/role/Role';
 import { Users } from '../../../../../../api/user/UserCollection';
-import { IInterest } from '../../../../../../typings/radgrad';
+import { Interest } from '../../../../../../typings/radgrad';
 import WidgetHeaderNumber from '../../WidgetHeaderNumber';
 import { studentsParticipating } from '../../../utilities/data-model';
 import { getUserIDsWithFavoriteInterestMethod } from '../../../../../../api/favorite/FavoriteInterestCollection.methods';
 
-interface IInterestedProfileWidgetProps {
-  interest: IInterest;
+interface nterestedProfileWidgetProps {
+  interest: Interest;
 }
 
-const InterestedProfilesWidget: React.FC<IInterestedProfileWidgetProps> = ({ interest }) => {
+const InterestedProfilesWidget: React.FC<nterestedProfileWidgetProps> = ({ interest }) => {
   // console.log('InterestedProfileWidget', props);
   const [faculty, setFaculty] = useState([]);
   const [students, setStudents] = useState([]);

@@ -3,12 +3,12 @@ import { Grid } from 'semantic-ui-react';
 import { RadGradProperties } from '../../../../api/radgrad/RadGradProperties';
 import AdvisorAPBYearView from './AdvisorAPBYearView';
 
-interface IAdvisorAPBPlanViewWidgetProps {
+interface AdvisorAPBPlanViewWidgetProps {
   coursesPerTerm: number[];
   choiceList: string[];
 }
 
-const AdvisorAPBPlanViewWidget: React.FC<IAdvisorAPBPlanViewWidgetProps> = ({ coursesPerTerm, choiceList }) => {
+const AdvisorAPBPlanViewWidget: React.FC<AdvisorAPBPlanViewWidgetProps> = ({ coursesPerTerm, choiceList }) => {
   const quarterSystem = RadGradProperties.getQuarterSystem();
   return (
     <Grid widths="equal" columns={5}>

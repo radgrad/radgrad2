@@ -21,16 +21,16 @@ import { Teasers } from '../../../api/teaser/TeaserCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import AdminDataModelMenu, { IAdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
+import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import {
-  IAcademicTerm,
-  IAcademicTermDefine,
-  IDescriptionPair,
+  AcademicTerm,
+  AcademicTermDefine,
+  DescriptionPair,
 } from '../../../typings/radgrad';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import AdminDataModelUpdateForm from '../../components/admin/datamodel/AdminDataModelUpdateForm';
@@ -56,7 +56,7 @@ function numReferences(term) {
   return references;
 }
 
-function descriptionPairs(term: IAcademicTerm): IDescriptionPair[] {
+function descriptionPairs(term: AcademicTerm): DescriptionPair[] {
   return [
     { label: 'Term', value: AcademicTerms.toString(term._id, false) },
     { label: 'Term Number', value: `${term.termNumber}` },
@@ -65,7 +65,7 @@ function descriptionPairs(term: IAcademicTerm): IDescriptionPair[] {
   ];
 }
 
-const itemTitle = (term: IAcademicTerm): React.ReactNode => (
+const itemTitle = (term: AcademicTerm): React.ReactNode => (
   <React.Fragment>
     {term.retired ? <Icon name="eye slash" /> : ''}
     <Icon name="dropdown" />
@@ -75,8 +75,8 @@ const itemTitle = (term: IAcademicTerm): React.ReactNode => (
 
 const itemTitleString = (term) => AcademicTerms.toString(term._id, false);
 
-interface IAdminDataModelAcademicTermsPageProps extends IAdminDataModeMenuProps {
-  items: IAcademicTerm[];
+interface AdminDataModelAcademicTermsPageProps extends AdminDataModeMenuProps {
+  items: AcademicTerm[];
 }
 
 /**
@@ -84,7 +84,8 @@ interface IAdminDataModelAcademicTermsPageProps extends IAdminDataModeMenuProps 
  * @param props the Properties.
  * @constructor
  */
-const AdminDataModelAcademicTermsPage: React.FC<IAdminDataModelAcademicTermsPageProps> = (props) => {
+const AdminDataModelAcademicTermsPage: React.FC<AdminDataModelAcademicTermsPageProps> = (props) => {
+  // TODO deconstruct props
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');
@@ -93,7 +94,7 @@ const AdminDataModelAcademicTermsPage: React.FC<IAdminDataModelAcademicTermsPage
   const handleAdd = (doc) => {
     // console.log('handleAdd(%o)', doc);
     const collectionName = AcademicTerms.getCollectionName();
-    const definitionData: IAcademicTermDefine = doc;
+    const definitionData: AcademicTermDefine = doc;
     defineMethod.call({ collectionName, definitionData }, (error) => {
       if (error) {
         Swal.fire({

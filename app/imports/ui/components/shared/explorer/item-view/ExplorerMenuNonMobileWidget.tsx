@@ -7,7 +7,7 @@ import * as Router from '../../utilities/router';
 import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
 import ExplorerMenuNonMobileItem from './ExplorerMenuNonMobileItem';
 import { buildRouteName, isUrlRoleFaculty } from '../../utilities/router';
-import { IListItem } from './ExplorerMenuMobileItem';
+import { ListItem } from './ExplorerMenuMobileItem';
 
 const AppMedia = createMedia({
   breakpoints: {
@@ -22,9 +22,9 @@ const AppMedia = createMedia({
 const mediaStyles = AppMedia.createMediaStyle();
 const { Media, MediaContextProvider } = AppMedia;
 
-interface IExplorerMenuNonMobileWidgetProps {
-  menuAddedList: IListItem[];
-  menuCareerList: IListItem[] | undefined;
+interface ExplorerMenuNonMobileWidgetProps {
+  menuAddedList: ListItem[];
+  menuCareerList: ListItem[] | undefined;
   type: 'plans' | 'career-goals' | 'courses' | 'interests' | 'opportunities' | 'users'; // TODO should this be a defined type?
 }
 
@@ -49,7 +49,7 @@ const getTypeName = (type: string): string => {
 const isType = (typeToCheck: string, type: string): boolean => type === typeToCheck;
 
 // TODO QA this does a lot can we simplify this?
-const ExplorerMenuNonMobileWidget: React.FC<IExplorerMenuNonMobileWidgetProps> = ({ menuAddedList, menuCareerList, type }) => {
+const ExplorerMenuNonMobileWidget: React.FC<ExplorerMenuNonMobileWidgetProps> = ({ menuAddedList, menuCareerList, type }) => {
   // console.log('ExplorerMenuNonMobileWidget', props);
   const marginTopStyle = { marginTop: '5px' };
   const match = useRouteMatch();

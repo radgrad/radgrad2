@@ -3,26 +3,26 @@ import _ from 'lodash';
 import { NavLink, useRouteMatch } from 'react-router-dom';
 import { Dropdown } from 'semantic-ui-react';
 import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
-import { IAcademicPlan, ICareerGoal, ICourse, IInterest, IOpportunity } from '../../../../../typings/radgrad';
+import { AcademicPlan, CareerGoal, Course, Interest, Opportunity } from '../../../../../typings/radgrad';
 import { Users } from '../../../../../api/user/UserCollection';
 import { CourseInstances } from '../../../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../../../api/opportunity/OpportunityInstanceCollection';
 import * as Router from '../../utilities/router';
 import { itemToSlugName, profileGetCareerGoalIDs, profileGetFavoriteAcademicPlanIDs } from '../../utilities/data-model';
 
-export type ExplorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IInterest | IOpportunity;
+export type ExplorerInterfaces = AcademicPlan | CareerGoal | Course | Interest | Opportunity;
 
-export interface IListItem {
+export interface ListItem {
   item: ExplorerInterfaces;
   count: number;
 }
 
-interface IExplorerMenuMobileItemProps {
+interface ExplorerMenuMobileItemProps {
   type: string;
-  listItem: IListItem;
+  listItem: ListItem;
 }
 
-const itemName = (item: IListItem): string => {
+const itemName = (item: ListItem): string => {
   const countStr = `x${item.count}`;
   if (item.count > 1) {
     return `${item.item.name} ${countStr}`;
@@ -30,7 +30,7 @@ const itemName = (item: IListItem): string => {
   return `${item.item.name}`;
 };
 
-const userPlans = (plan: IAcademicPlan, match): string => {
+const userPlans = (plan: AcademicPlan, match): string => {
   let ret = '';
   const profile = Users.getProfile(Router.getUsername(match));
   if (_.includes(profileGetFavoriteAcademicPlanIDs(profile), plan._id)) {
@@ -38,7 +38,7 @@ const userPlans = (plan: IAcademicPlan, match): string => {
   }
   return ret;
 };
-const userCareerGoals = (careerGoal: ICareerGoal, match): string => {
+const userCareerGoals = (careerGoal: CareerGoal, match): string => {
   let ret = '';
   const profile = Users.getProfile(Router.getUsername(match));
   if (_.includes(profileGetCareerGoalIDs(profile), careerGoal._id)) {
@@ -47,7 +47,7 @@ const userCareerGoals = (careerGoal: ICareerGoal, match): string => {
   return ret;
 };
 
-const userCourses = (course: ICourse, match): string => {
+const userCourses = (course: Course, match): string => {
   let ret = '';
   const ci = CourseInstances.findNonRetired({
     studentID: Router.getUserIdFromRoute(match),
@@ -60,7 +60,7 @@ const userCourses = (course: ICourse, match): string => {
   return ret;
 };
 
-const courseName = (course: { item: ICourse, count: number }): string => {
+const courseName = (course: { item: Course, count: number }): string => {
   const countStr = `x${course.count}`;
   if (course.count > 1) {
     return `${course.item.shortName} ${countStr}`;
@@ -68,7 +68,7 @@ const courseName = (course: { item: ICourse, count: number }): string => {
   return `${course.item.shortName}`;
 };
 
-const userInterests = (interest: IInterest, match): string => {
+const userInterests = (interest: Interest, match): string => {
   let ret = '';
   const profile = Users.getProfile(Router.getUsername(match));
   if (_.includes(Users.getInterestIDs(profile.userID), interest._id)) {
@@ -77,7 +77,7 @@ const userInterests = (interest: IInterest, match): string => {
   return ret;
 };
 
-const userOpportunities = (opportunity: IOpportunity, match): string => {
+const userOpportunities = (opportunity: Opportunity, match): string => {
   let ret = '';
   const oi = OpportunityInstances.findNonRetired({
     studentID: Router.getUserIdFromRoute(match),
@@ -93,21 +93,21 @@ const userOpportunities = (opportunity: IOpportunity, match): string => {
 const getItemStatus = (item: ExplorerInterfaces, type: string, match): string => {
   switch (type) {
     case EXPLORER_TYPE.ACADEMICPLANS:
-      return userPlans(item as IAcademicPlan, match);
+      return userPlans(item as AcademicPlan, match);
     case EXPLORER_TYPE.CAREERGOALS:
-      return userCareerGoals(item as ICareerGoal, match);
+      return userCareerGoals(item as CareerGoal, match);
     case EXPLORER_TYPE.COURSES:
-      return userCourses(item as ICourse, match);
+      return userCourses(item as Course, match);
     case EXPLORER_TYPE.INTERESTS:
-      return userInterests(item as IInterest, match);
+      return userInterests(item as Interest, match);
     case EXPLORER_TYPE.OPPORTUNITIES:
-      return userOpportunities(item as IOpportunity, match);
+      return userOpportunities(item as Opportunity, match);
     default:
       return '';
   }
 };
 
-const ExplorerMenuMobileItem: React.FC<IExplorerMenuMobileItemProps> = ({ type, listItem }) => {
+const ExplorerMenuMobileItem: React.FC<ExplorerMenuMobileItemProps> = ({ type, listItem }) => {
   const match = useRouteMatch();
   const iconStyle: React.CSSProperties = {
     position: 'absolute',
@@ -125,7 +125,7 @@ const ExplorerMenuMobileItem: React.FC<IExplorerMenuMobileItemProps> = ({ type, 
           {
                          type !== EXPLORER_TYPE.COURSES ?
                            itemName(listItem)
-                           : courseName(listItem as { item: ICourse, count: number })
+                           : courseName(listItem as { item: Course, count: number })
                        }
         </React.Fragment>
                    )}

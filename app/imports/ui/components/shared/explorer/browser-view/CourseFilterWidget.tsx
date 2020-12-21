@@ -15,7 +15,7 @@ export const courseFilterKeys = {
   sixHundredPlus: '600+',
 };
 
-interface ICourseFilterWidgetProps {
+interface CourseFilterWidgetProps {
   filterChoice: string;
   setFilterChoice: (key: string, value: string) => any;
 }
@@ -28,7 +28,7 @@ const mapDispatchToProps = (dispatch) => ({
   setFilterChoice: (explorerType: string, value: string) => dispatch(cardExplorerActions.setCoursesFilterValue(explorerType, value)),
 });
 
-const CourseFilterWidget: React.FC<ICourseFilterWidgetProps> = ({ filterChoice, setFilterChoice }) => {
+const CourseFilterWidget: React.FC<CourseFilterWidgetProps> = ({ filterChoice, setFilterChoice }) => {
 
   const handleChange = (type, value) => {
     setFilterChoice(EXPLORER_TYPE.COURSES, value);

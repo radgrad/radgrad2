@@ -2,7 +2,7 @@ import React from 'react';
 import { Menu } from 'semantic-ui-react';
 import { NavLink, useParams, useRouteMatch } from 'react-router-dom';
 
-export interface IAdminDataModeMenuProps {
+export interface AdminDataModeMenuProps {
   academicPlanCount: number;
   academicTermCount: number;
   academicYearCount: number;
@@ -26,7 +26,7 @@ export interface IAdminDataModeMenuProps {
   verificationRequestCount: number;
 }
 
-const AdminDataModelMenu: React.FC<IAdminDataModeMenuProps> = ({ academicPlanCount, academicTermCount, academicYearCount, advisorLogCount, careerGoalCount, courseCount, courseInstanceCount, feedCount, feedbackCount, helpMessageCount, interestCount, interestTypeCount, opportunityCount, opportunityInstanceCount, opportunityTypeCount, planChoiceCount, reviewCount, slugCount, teaserCount, usersCount, verificationRequestCount }) => {
+const AdminDataModelMenu: React.FC<AdminDataModeMenuProps> = ({ academicPlanCount, academicTermCount, academicYearCount, advisorLogCount, careerGoalCount, courseCount, courseInstanceCount, feedCount, feedbackCount, helpMessageCount, interestCount, interestTypeCount, opportunityCount, opportunityInstanceCount, opportunityTypeCount, planChoiceCount, reviewCount, slugCount, teaserCount, usersCount, verificationRequestCount }) => {
   const { username } = useParams();
   const baseUrl = useRouteMatch().url;
   const baseIndex = baseUrl.indexOf(username);

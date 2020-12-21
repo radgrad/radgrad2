@@ -3,7 +3,7 @@ import { Loader } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { SubsManager } from 'meteor/meteorhacks:subs-manager';
 
-interface ILoading {
+interface Loading {
   loading: boolean;
 }
 
@@ -12,7 +12,7 @@ export function withListSubscriptions(WrappedComponent, subscriptionNames: strin
   // expireLimit set to 30 minutes because: why not.
   const localSubs = new SubsManager({ cacheLimit: subscriptionNames.length, expireIn: 30 });
 
-  const GenericSubscription: React.FC<ILoading> = (props) => ((props.loading) ? <Loader active>Getting data</Loader> : <WrappedComponent {...props} />);
+  const GenericSubscription: React.FC<Loading> = (props) => ((props.loading) ? <Loader active>Getting data</Loader> : <WrappedComponent {...props} />);
 
   return withTracker(() => {
     const handles = [];

@@ -13,7 +13,7 @@ import Verification from '../../components/landing/guided-tour/faculty/verificat
 import Explorer from '../../components/landing/guided-tour/faculty/explorer';
 import WhatsNext from '../../components/landing/guided-tour/faculty/whats-next';
 
-const LandingGuidedTourFacultyPage = () => {
+const LandingGuidedTourFacultyPage: React.FC = () => {
 
   const settings = {
     dots: true,

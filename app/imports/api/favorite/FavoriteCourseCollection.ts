@@ -6,7 +6,7 @@ import BaseCollection from '../base/BaseCollection';
 import { Courses } from '../course/CourseCollection';
 import { Users } from '../user/UserCollection';
 import { ROLE } from '../role/Role';
-import { IFavoriteCourseDefine, IFavoriteUpdate } from '../../typings/radgrad';
+import { FavoriteCourseDefine, FavoriteUpdate } from '../../typings/radgrad';
 
 class FavoriteCourseCollection extends BaseCollection {
   public readonly publicationNames: {
@@ -49,7 +49,7 @@ class FavoriteCourseCollection extends BaseCollection {
    */
   update(docID, { retired }) {
     this.assertDefined(docID);
-    const updateData: IFavoriteUpdate = {};
+    const updateData: FavoriteUpdate = {};
     if (_.isBoolean(retired)) {
       updateData.retired = retired;
     }
@@ -188,7 +188,7 @@ class FavoriteCourseCollection extends BaseCollection {
    * @param docID The docID of a FavoriteCourse.
    * @returns { Object } An object representing the definition of docID.
    */
-  dumpOne(docID): IFavoriteCourseDefine {
+  dumpOne(docID): FavoriteCourseDefine {
     const doc = this.findDoc(docID);
     const course = Courses.findSlugByID(doc.courseID);
     const student = Users.getProfile(doc.studentID).username;

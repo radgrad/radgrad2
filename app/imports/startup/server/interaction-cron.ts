@@ -5,9 +5,9 @@ import { IceSnapshots } from '../../api/analytic/IceSnapshotCollection';
 import { StudentProfiles } from '../../api/user/StudentProfileCollection';
 import { UserInteractions } from '../../api/analytic/UserInteractionCollection';
 import {
-  IIceSnapshotDefine,
-  IPageInterest,
-  IPageInterestInfo,
+  IceSnapshotDefine,
+  PageInterest,
+  PageInterestInfo,
 } from '../../typings/radgrad';
 import { UserInteractionsTypes } from '../../api/analytic/UserInteractionsTypes';
 import { PageInterestsDailySnapshots } from '../../api/page-tracking/PageInterestsDailySnapshotCollection';
@@ -16,7 +16,7 @@ import { PageInterestsCategoryTypes } from '../../api/page-tracking/PageInterest
 
 function createIceSnapshot(doc) {
   const ice = StudentProfiles.getProjectedICE(doc.username);
-  const snapshotData: IIceSnapshotDefine = {
+  const snapshotData: IceSnapshotDefine = {
     username: doc.username,
     level: doc.level,
     i: ice.i,
@@ -81,18 +81,18 @@ SyncedCron.add({
   },
 });
 
-function createDailySnapshot(pageInterests: IPageInterest[]) {
+function createDailySnapshot(pageInterests: PageInterest[]) {
   interface snapshotDoc {
-    careerGoals: IPageInterestInfo[];
-    courses: IPageInterestInfo[];
-    interests: IPageInterestInfo[];
-    opportunities: IPageInterestInfo[];
+    careerGoals: PageInterestInfo[];
+    courses: PageInterestInfo[];
+    interests: PageInterestInfo[];
+    opportunities: PageInterestInfo[];
   }
 
   const doc: snapshotDoc = { careerGoals: [], courses: [], interests: [], opportunities: [] };
   const found = { careerGoals: [], courses: [], interests: [], opportunities: [] };
-  pageInterests.forEach((pageInterest: IPageInterest) => {
-    const objectInstance: IPageInterestInfo = { name: pageInterest.name, views: 0 };
+  pageInterests.forEach((pageInterest: PageInterest) => {
+    const objectInstance: PageInterestInfo = { name: pageInterest.name, views: 0 };
     // If we have not yet discovered the first instance of a page interest for that area,
     // we push it to its corresponding array in the found object
     if (pageInterest.category === PageInterestsCategoryTypes.CAREERGOAL && found.careerGoals.indexOf(pageInterest.name) === -1) {
@@ -150,7 +150,7 @@ SyncedCron.add({
     if (PageInterestsDailySnapshots.find({}).count() === 0) {
       createDailySnapshot(PageInterests.find({}).fetch());
     } else {
-      // const recentSnapshot: IPageInterestsDailySnapshot = PageInterestsDailySnapshots.findOne({}, { sort: { timestamp: -1 } });
+      // const recentSnapshot: PageInterestsDailySnapshot = PageInterestsDailySnapshots.findOne({}, { sort: { timestamp: -1 } });
       // FIXME https://github.com/radgrad/radgrad2/issues/138#issuecomment-640179173 See edge cases
       const gte = moment().subtract(1, 'day').startOf('day').toDate();
       const lte = moment().subtract(1, 'day').endOf('day').toDate();

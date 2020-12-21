@@ -5,14 +5,15 @@ import { FavoriteCourses } from '../../../../../../api/favorite/FavoriteCourseCo
 import { FavoriteInterests } from '../../../../../../api/favorite/FavoriteInterestCollection';
 import { FavoriteOpportunities } from '../../../../../../api/favorite/FavoriteOpportunityCollection';
 import {
-  IBaseProfile,
-  IFavoriteAcademicPlanDefine,
-  IFavoriteCareerGoalDefine,
-  IFavoriteCourseDefine,
-  IFavoriteInterestDefine,
-  IFavoriteOpportunityDefine,
-  IPageInterestDefine,
-  IUserInteractionDefine,
+  AcademicPlan,
+  BaseProfile, CareerGoal, Course,
+  FavoriteAcademicPlanDefine,
+  FavoriteCareerGoalDefine,
+  FavoriteCourseDefine,
+  FavoriteInterestDefine,
+  FavoriteOpportunityDefine, Interest, Opportunity,
+  PageInterestDefine,
+  UserInteractionDefine,
 } from '../../../../../../typings/radgrad';
 import { Users } from '../../../../../../api/user/UserCollection';
 import { Slugs } from '../../../../../../api/slug/SlugCollection';
@@ -21,7 +22,6 @@ import {
   IPageInterestsCategoryTypes,
   PageInterestsCategoryTypes,
 } from '../../../../../../api/page-tracking/PageInterestsCategoryTypes';
-import { IFavoriteButtonProps } from '../FavoritesButton';
 
 export const getCollectionName = (type: IFavoriteTypes): string => {
   let collectionName: string;
@@ -49,17 +49,17 @@ export const getCollectionName = (type: IFavoriteTypes): string => {
 };
 
 export const getStudent = (studentID: string): string => {
-  const profile: IBaseProfile = Users.getProfile(studentID);
+  const profile: BaseProfile = Users.getProfile(studentID);
   return profile.username;
 };
 
 export const getSlug = (slugID: string): string => Slugs.getNameFromID(slugID);
 
-export const createDefinitionData = (props: IFavoriteButtonProps): IFavoriteAcademicPlanDefine | IFavoriteCareerGoalDefine | IFavoriteCourseDefine | IFavoriteInterestDefine | IFavoriteOpportunityDefine => {
-  const student = getStudent(props.studentID);
-  const slug = getSlug(props.item.slugID);
+export const createDefinitionData = (studentID: string, item: AcademicPlan | CareerGoal | Course | Interest | Opportunity, type: IFavoriteTypes): FavoriteAcademicPlanDefine | FavoriteCareerGoalDefine | FavoriteCourseDefine | FavoriteInterestDefine | FavoriteOpportunityDefine => {
+  const student = getStudent(studentID);
+  const slug = getSlug(item.slugID);
   let definitionData;
-  switch (props.type) {
+  switch (type) {
     case FAVORITE_TYPE.ACADEMICPLAN:
       definitionData = {
         student,
@@ -91,65 +91,65 @@ export const createDefinitionData = (props: IFavoriteButtonProps): IFavoriteAcad
       };
       break;
     default:
-      console.error(`Bad favorite type: ${props.type}`);
+      console.error(`Bad favorite type: ${type}`);
       break;
   }
   return definitionData;
 };
 
-export const createInteractionData = (props: IFavoriteButtonProps, favorite: boolean): IUserInteractionDefine => {
-  const student = getStudent(props.studentID);
-  const slug = getSlug(props.item.slugID);
-  let interactionData: IUserInteractionDefine;
-  const type = favorite ? UserInteractionsTypes.FAVORITEITEM : UserInteractionsTypes.UNFAVORITEITEM;
-  switch (props.type) {
+export const createInteractionData = (studentID: string, item: AcademicPlan | CareerGoal | Course | Interest | Opportunity, type: IFavoriteTypes, favorite: boolean): UserInteractionDefine => {
+  const student = getStudent(studentID);
+  const slug = getSlug(item.slugID);
+  let interactionData: UserInteractionDefine;
+  const interactionType = favorite ? UserInteractionsTypes.FAVORITEITEM : UserInteractionsTypes.UNFAVORITEITEM;
+  switch (type) {
     case FAVORITE_TYPE.ACADEMICPLAN:
       interactionData = {
         username: student,
-        type,
-        typeData: [props.type, slug],
+        type: interactionType,
+        typeData: [type, slug],
       };
       break;
     case FAVORITE_TYPE.CAREERGOAL:
       interactionData = {
         username: student,
-        type,
-        typeData: [props.type, slug],
+        type: interactionType,
+        typeData: [type, slug],
       };
       break;
     case FAVORITE_TYPE.COURSE:
       interactionData = {
         username: student,
-        type,
-        typeData: [props.type, slug],
+        type: interactionType,
+        typeData: [type, slug],
       };
       break;
     case FAVORITE_TYPE.INTEREST:
       interactionData = {
         username: student,
-        type,
-        typeData: [props.type, slug],
+        type: interactionType,
+        typeData: [type, slug],
       };
       break;
     case FAVORITE_TYPE.OPPORTUNITY:
       interactionData = {
         username: student,
-        type,
-        typeData: [props.type, slug],
+        type: interactionType,
+        typeData: [type, slug],
       };
       break;
     default:
-      console.error(`Bad favorite type: ${props.type}`);
+      console.error(`Bad favorite type: ${type}`);
       break;
   }
   return interactionData;
 };
 
-export const createPageInterestData = (props: IFavoriteButtonProps): IPageInterestDefine => {
-  const username = getStudent(props.studentID);
-  const name = Slugs.getNameFromID(props.item.slugID);
+export const createPageInterestData = (studentID: string, item: AcademicPlan | CareerGoal | Course | Interest | Opportunity, type: IFavoriteTypes): PageInterestDefine => {
+  const username = getStudent(studentID);
+  const name = Slugs.getNameFromID(item.slugID);
   let category: IPageInterestsCategoryTypes;
-  switch (props.type) {
+  switch (type) {
     case FAVORITE_TYPE.ACADEMICPLAN:
       category = PageInterestsCategoryTypes.ACADEMIC_PLAN;
       break;
@@ -166,7 +166,7 @@ export const createPageInterestData = (props: IFavoriteButtonProps): IPageIntere
       category = PageInterestsCategoryTypes.OPPORTUNITY;
       break;
     default:
-      console.error(`Bad favorite type: ${props.type}`);
+      console.error(`Bad favorite type: ${type}`);
       break;
   }
   return { username, category, name };

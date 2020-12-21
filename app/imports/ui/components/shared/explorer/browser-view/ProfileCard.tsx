@@ -14,7 +14,7 @@ import { interestedStudents } from '../utilities/explorer';
 import { buildExplorerSlugRoute } from '../../utilities/router';
 import InterestList from '../../InterestList';
 
-interface IProfileCardProps {
+interface ProfileCardProps {
   item: {
     _id: string;
     name: string;
@@ -23,9 +23,9 @@ interface IProfileCardProps {
   type: string;
 }
 
-// TODO Why is this called ProfileCard? We used to store information about interests, career goals and academic plans in the IProfile. We've moved them to Favorites.
+// TODO Why is this called ProfileCard? We used to store information about interests, career goals and academic plans in the Profile. We've moved them to Favorites.
 
-const ProfileCard: React.FC<IProfileCardProps> = ({ item, type }) => {
+const ProfileCard: React.FC<ProfileCardProps> = ({ item, type }) => {
   const match = useRouteMatch();
   const itemName = docToName(item);
   const itemShortDescription = docToShortDescription(item);

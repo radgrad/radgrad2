@@ -3,7 +3,7 @@ import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollect
 import { Slugs } from '../../../../api/slug/SlugCollection';
 import { OpportunityTypes } from '../../../../api/opportunity/OpportunityTypeCollection';
 import { Teasers } from '../../../../api/teaser/TeaserCollection';
-import { IOpportunity } from '../../../../typings/radgrad';
+import { Opportunity } from '../../../../typings/radgrad';
 
 export function itemShortDescription(item: { description: string; }) {
   let description = item.description;
@@ -42,7 +42,7 @@ export function getOpportunityTypeName(opportunityTypeID) {
   }
 }
 
-export function teaser(opportunity: IOpportunity) {
+export function teaser(opportunity: Opportunity) {
   const oppTeaser = Teasers.findNonRetired({ targetSlugID: opportunity.slugID });
   if (oppTeaser.length > 1) {
     return undefined;

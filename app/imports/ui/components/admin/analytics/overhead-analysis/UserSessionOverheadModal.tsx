@@ -2,17 +2,17 @@ import React from 'react';
 import { Button, Modal, Table } from 'semantic-ui-react';
 import moment from 'moment';
 import _ from 'lodash';
-import { IUserInteraction } from '../../../../../typings/radgrad';
+import { UserInteraction } from '../../../../../typings/radgrad';
 import { Users } from '../../../../../api/user/UserCollection';
 
-interface IUserSessionOverheadModalProps {
+interface UserSessionOverheadModalProps {
   username: string;
-  userInteractionsByUser: IUserInteraction[];
+  userInteractionsByUser: UserInteraction[];
 }
 
 const formatDate = (date: Date): string => moment(date).format('MM/DD/YY HH:mm');
 
-const UserSessionOverheadModal: React.FC<IUserSessionOverheadModalProps> = ({ username, userInteractionsByUser }) => {
+const UserSessionOverheadModal: React.FC<UserSessionOverheadModalProps> = ({ username, userInteractionsByUser }) => {
   const fullName = Users.getFullName(username);
 
   const fullNameStyle: React.CSSProperties = { color: '#6FBE44' };

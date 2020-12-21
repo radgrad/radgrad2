@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid, Header, Divider, Segment } from 'semantic-ui-react';
 import Markdown from 'react-markdown';
 import { useRouteMatch, Link } from 'react-router-dom';
-import { ICareerGoal, ICourse, IInterest, IOpportunity, ISlug, ITeaser } from '../../../../typings/radgrad';
+import { CareerGoal, Course, Interest, Opportunity, Slug, Teaser } from '../../../../typings/radgrad';
 import TeaserVideo from '../../shared/TeaserVideo';
 import { Slugs } from '../../../../api/slug/SlugCollection';
 import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
@@ -10,18 +10,18 @@ import { Courses } from '../../../../api/course/CourseCollection';
 import { Interests } from '../../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
 import { docToShortDescription } from '../../shared/utilities/data-model';
-import { buildExplorerSlugRoute, IMatchProps, renderLink } from '../../shared/utilities/router';
+import { buildExplorerSlugRoute, MatchProps, renderLink } from '../../shared/utilities/router';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 
-interface IRecommendedItemInformationProps {
-  teaser: ITeaser;
+interface RecommendedItemInformationProps {
+  teaser: Teaser;
 }
 
-const getTeaserTargetSlug = (teaser: ITeaser): ISlug => Slugs.findOne({ _id: teaser.targetSlugID });
+const getTeaserTargetSlug = (teaser: Teaser): Slug => Slugs.findOne({ _id: teaser.targetSlugID });
 
-const getTeaserTitle = (teaser: ITeaser): string => {
-  const slug: ISlug = getTeaserTargetSlug(teaser);
-  let doc: ICareerGoal | ICourse | IInterest | IOpportunity;
+const getTeaserTitle = (teaser: Teaser): string => {
+  const slug: Slug = getTeaserTargetSlug(teaser);
+  let doc: CareerGoal | Course | Interest | Opportunity;
   if (slug.entityName === CareerGoals.getType()) {
     doc = CareerGoals.findOne({ _id: slug.entityID });
   } else if (slug.entityName === Courses.getType()) {
@@ -34,9 +34,9 @@ const getTeaserTitle = (teaser: ITeaser): string => {
   return doc.name;
 };
 
-const getTeaserDescription = (teaser: ITeaser): string => {
-  const slug: ISlug = getTeaserTargetSlug(teaser);
-  let doc: ICareerGoal | ICourse | IInterest | IOpportunity;
+const getTeaserDescription = (teaser: Teaser): string => {
+  const slug: Slug = getTeaserTargetSlug(teaser);
+  let doc: CareerGoal | Course | Interest | Opportunity;
   if (slug.entityName === CareerGoals.getType()) {
     doc = CareerGoals.findOne({ _id: slug.entityID });
   } else if (slug.entityName === Courses.getType()) {
@@ -50,8 +50,8 @@ const getTeaserDescription = (teaser: ITeaser): string => {
   return docToShortDescription(doc, maxLengthDescription);
 };
 
-const getTeaserRoute = (match: IMatchProps, teaser: ITeaser): string => {
-  const slug: ISlug = Slugs.findOne({ _id: teaser.targetSlugID });
+const getTeaserRoute = (match: MatchProps, teaser: Teaser): string => {
+  const slug: Slug = Slugs.findOne({ _id: teaser.targetSlugID });
   switch (slug.entityName) {
     case CareerGoals.getType():
       return buildExplorerSlugRoute(match, EXPLORER_TYPE.CAREERGOALS, slug.name);
@@ -67,7 +67,7 @@ const getTeaserRoute = (match: IMatchProps, teaser: ITeaser): string => {
   return undefined;
 };
 
-const RecommendedItemInformation: React.FC<IRecommendedItemInformationProps> = ({ teaser }) => {
+const RecommendedItemInformation: React.FC<RecommendedItemInformationProps> = ({ teaser }) => {
   const match = useRouteMatch();
 
   const viewMoreButtonStyle: React.CSSProperties = {

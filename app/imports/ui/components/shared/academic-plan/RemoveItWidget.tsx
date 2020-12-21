@@ -6,14 +6,14 @@ import { Button, Icon, Modal } from 'semantic-ui-react';
 import { removeItMethod } from '../../../../api/base/BaseCollection.methods';
 import { degreePlannerActions } from '../../../../redux/student/degree-planner';
 import { userInteractionDefineMethod } from '../../../../api/analytic/UserInteractionCollection.methods';
-import { IAcademicTerm, ICourseInstance, IOpportunityInstance, IUserInteractionDefine } from '../../../../typings/radgrad';
+import { AcademicTerm, CourseInstance, OpportunityInstance, UserInteractionDefine } from '../../../../typings/radgrad';
 import { UserInteractionsTypes } from '../../../../api/analytic/UserInteractionsTypes';
 import { CourseInstances } from '../../../../api/course/CourseInstanceCollection';
 import { getUsername } from '../utilities/router';
 import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 
-interface IRemoveItWidgetProps {
+interface RemoveItWidgetProps {
   collectionName: string;
   id: string;
   name: string;
@@ -25,7 +25,7 @@ const mapDispatchToProps = (dispatch) => ({
   selectCourseInstance: (courseInstanceID) => dispatch(degreePlannerActions.selectCourseInstance(courseInstanceID)),
 });
 
-const RemoveItWidget: React.FC<IRemoveItWidgetProps> = ({ collectionName, id, name, courseNumber, selectCourseInstance }) => {
+const RemoveItWidget: React.FC<RemoveItWidgetProps> = ({ collectionName, id, name, courseNumber, selectCourseInstance }) => {
   const match = useRouteMatch();
   const [modalOpenState, setModalOpen] = useState(false);
   const handleOpen = () => setModalOpen(true);
@@ -39,7 +39,7 @@ const RemoveItWidget: React.FC<IRemoveItWidgetProps> = ({ collectionName, id, na
     const instance = id;
     let type;
     let slugName;
-    let instanceObject: ICourseInstance | IOpportunityInstance;
+    let instanceObject: CourseInstance | OpportunityInstance;
     if (collectionName === CourseInstances.getCollectionName()) {
       type = UserInteractionsTypes.REMOVECOURSE;
       slugName = CourseInstances.getCourseSlug(instance);
@@ -60,9 +60,9 @@ const RemoveItWidget: React.FC<IRemoveItWidgetProps> = ({ collectionName, id, na
           timer: 1500,
         });
         const username = getUsername(match);
-        const instanceAcademicTerm: IAcademicTerm = AcademicTerms.findDoc({ _id: instanceObject.termID });
+        const instanceAcademicTerm: AcademicTerm = AcademicTerms.findDoc({ _id: instanceObject.termID });
         const typeData = [instanceAcademicTerm.term, instanceAcademicTerm.year, slugName];
-        const interactionData: IUserInteractionDefine = { username, type, typeData };
+        const interactionData: UserInteractionDefine = { username, type, typeData };
         userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
           if (userInteractionError) {
             console.error('Error creating UserInteraction.', userInteractionError);

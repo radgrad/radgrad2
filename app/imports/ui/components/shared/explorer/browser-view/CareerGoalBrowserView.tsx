@@ -3,15 +3,15 @@ import { connect } from 'react-redux';
 import { Card, Header, Segment } from 'semantic-ui-react';
 import { scrollPositionActions } from '../../../../../redux/shared/scrollPosition';
 import { RootState } from '../../../../../redux/types';
-import { ICareerGoal } from '../../../../../typings/radgrad';
+import { CareerGoal } from '../../../../../typings/radgrad';
 import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
 import ProfileCard from './ProfileCard';
 import PreferredChoice from '../../../../../api/degree-plan/PreferredChoice';
 
-interface ICareerGoalBrowserViewProps {
-  favoriteCareerGoals: ICareerGoal[];
+interface CareerGoalBrowserViewProps {
+  favoriteCareerGoals: CareerGoal[];
   favoriteCombinedInterestIDs: string[];
-  careerGoals: ICareerGoal[];
+  careerGoals: CareerGoal[];
   // Saving Scroll Position
   careerGoalsScrollPosition: number;
   setCareerGoalsScrollPosition: (scrollPosition: number) => any;
@@ -25,7 +25,7 @@ const mapDispatchToProps = (dispatch) => ({
   setCareerGoalsScrollPosition: (scrollPosition: number) => dispatch(scrollPositionActions.setExplorerCareerGoalsScrollPosition(scrollPosition)),
 });
 
-const CareerGoalBrowserView: React.FC<ICareerGoalBrowserViewProps> = ({ favoriteCareerGoals, favoriteCombinedInterestIDs, careerGoals, careerGoalsScrollPosition, setCareerGoalsScrollPosition }) => {
+const CareerGoalBrowserView: React.FC<CareerGoalBrowserViewProps> = ({ favoriteCareerGoals, favoriteCombinedInterestIDs, careerGoals, careerGoalsScrollPosition, setCareerGoalsScrollPosition }) => {
   // TODO do we want to filter out the favorite career goals?
   const cardGroupElement: HTMLElement = document.getElementById('careerGoalsCardGroup');
   const preferred = new PreferredChoice(careerGoals, favoriteCombinedInterestIDs);

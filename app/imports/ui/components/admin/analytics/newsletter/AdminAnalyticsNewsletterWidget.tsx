@@ -16,7 +16,7 @@ import { RootState } from '../../../../../redux/types';
 import {
   getRecList,
   getStudentEmailsByLevel,
-  IEmailData,
+  EmailData,
 } from './utilities/newsletter';
 
 /**
@@ -39,7 +39,7 @@ const schema = new SimpleSchema({
 });
 const formSchema = new SimpleSchema2Bridge(schema);
 
-interface IAdminAnalyticsNewsletterWidgetProps {
+interface AdminAnalyticsNewsletterWidgetProps {
   startTestNewsletter: () => any;
   testNewsletterDone: () => any;
   testNewsletterWorking: boolean;
@@ -66,7 +66,7 @@ const mapDispatchToProps = (dispatch) => ({
   allNewsletterDone: () => dispatch(analyticsActions.allNewsletterDone()),
 });
 
-const AdminAnalyticsNewsletterWidget: React.FC<IAdminAnalyticsNewsletterWidgetProps> = ({ startAllNewsletter, allNewsletterDone, allNewsletterWorking, levelNewsletterDone, levelNewsletterWorking, startLevelNewsletter, startTestNewsletter, testNewsletterDone, testNewsletterWorking }) => {
+const AdminAnalyticsNewsletterWidget: React.FC<AdminAnalyticsNewsletterWidgetProps> = ({ startAllNewsletter, allNewsletterDone, allNewsletterWorking, levelNewsletterDone, levelNewsletterWorking, startLevelNewsletter, startTestNewsletter, testNewsletterDone, testNewsletterWorking }) => {
   const [subjectLine, setSubjectLine] = useState<string>('');
   const [bcc, setBcc] = useState<string>('');
   const [inputMessage, setInputMessage] = useState<string>('');
@@ -143,7 +143,7 @@ const AdminAnalyticsNewsletterWidget: React.FC<IAdminAnalyticsNewsletterWidgetPr
             if (sendToStudentsToo) {
               sendList.push(studentEmail);
             }
-            const emailData: IEmailData = {
+            const emailData: EmailData = {
               to: sendList,
               bcc: bccListArray,
               from: from,
@@ -203,7 +203,7 @@ const AdminAnalyticsNewsletterWidget: React.FC<IAdminAnalyticsNewsletterWidgetPr
           const student = StudentProfiles.findByUsername(studentEmail);
           if (student) {
             const suggestedRecs = getRecList(student);
-            const emailData: IEmailData = {
+            const emailData: EmailData = {
               to: studentEmail,
               bcc: bccListArray,
               from: from,
@@ -260,7 +260,7 @@ const AdminAnalyticsNewsletterWidget: React.FC<IAdminAnalyticsNewsletterWidgetPr
           const student = StudentProfiles.findByUsername(studentEmail);
           if (student) {
             const suggestedRecs = getRecList(student);
-            const emailData: IEmailData = {
+            const emailData: EmailData = {
               to: studentEmail,
               bcc: bccListArray,
               from: from,

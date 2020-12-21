@@ -1,11 +1,11 @@
 import React from 'react';
 import { Rating } from 'semantic-ui-react';
 
-interface IStudentExplorerReviewStarsWidgetProps {
+interface StudentExplorerReviewStarsWidgetProps {
   rating: number;
 }
 
-const StudentExplorerReviewStarsWidget: React.FC<IStudentExplorerReviewStarsWidgetProps> = ({ rating }) => (
+const StudentExplorerReviewStarsWidget: React.FC<StudentExplorerReviewStarsWidgetProps> = ({ rating }) => (
   <Rating size="large" icon="star" rating={rating} maxRating={5} disabled />
 );
 

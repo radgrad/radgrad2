@@ -2,11 +2,11 @@ import React from 'react';
 import { Segment, Header, Grid, Label } from 'semantic-ui-react';
 import { Users } from '../../../../api/user/UserCollection';
 
-export interface IAdminAnalyticsLoggedInUsersWidget {
+export interface AdminAnalyticsLoggedInUsersWidgetProps {
   loggedInUsers: { status: { idle: boolean }, _id: string }[];
 }
 
-const AdminAnalyticsLoggedInUsersWidget: React.FC<IAdminAnalyticsLoggedInUsersWidget> = ({ loggedInUsers }) => (
+const AdminAnalyticsLoggedInUsersWidget: React.FC<AdminAnalyticsLoggedInUsersWidgetProps> = ({ loggedInUsers }) => (
   <Segment>
     <Header as="h4" dividing>LOGGED IN USERS</Header>
     <Grid padded stackable>

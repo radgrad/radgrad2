@@ -1,7 +1,7 @@
 import * as fs from 'fs';
-// import * as inquirer from 'inquirer';
 import * as _ from 'lodash';
 import * as moment from 'moment';
+import { program } from 'commander';
 
 interface ICollection {
   name: string;
@@ -216,25 +216,21 @@ function processRadGradCollections(data: IDataDump) {
   return result;
 }
 
-
-async function convertRadGrad1DatabaseDumpToRadGrad2() {
-  const argv = process.argv;
-  if (argv.length < 4) {
-    console.error('Usage: node dist/convert <RadGrad1 JSON filename> <RadGrad2 JSON filename>');
-  } else {
-    const filename = argv[2];
-    const outFileName = argv[3];
-    // console.log(userParams.radgrad1);
-    const data = fs.readFileSync(filename);
-    const radgrad1: IDataDump = JSON.parse(data.toString());
-    // console.log(radgrad1);
-    const radgrad2 = processRadGradCollections(radgrad1);
-    const data2 = JSON.stringify(radgrad2, null, 2);
-    fs.writeFileSync(outFileName, data2);
-  }
+async function convertDump(radgrad1DumpFile, outFileName) {
+  const data = fs.readFileSync(radgrad1DumpFile);
+  const radgrad1: IDataDump = JSON.parse(data.toString());
+  // console.log(radgrad1);
+  const radgrad2 = processRadGradCollections(radgrad1);
+  const data2 = JSON.stringify(radgrad2, null, 2);
+  fs.writeFileSync(outFileName, data2);
 }
 
-/**
- * Run the conversion.
- */
-convertRadGrad1DatabaseDumpToRadGrad2();
+program
+  .arguments('<radgrad1DumpFile> <outFileName>')
+  .description('Parse a RadGrad1 dump file and create a new one in RadGrad2 format.', {
+    radgrad1DumpFile: 'A pre-existing RadGrad1 database dump file',
+    outFileName: 'The name of the RadGrad2 database dump file to be created',
+  })
+  .action((radgrad1DumpFile, outFileName) => convertDump(radgrad1DumpFile, outFileName));
+
+program.parse(process.argv);

@@ -4,12 +4,12 @@ import { getNotSatisfiedStyle, getSatisfiedStyle } from './utilities/styles';
 import NamePill from './NamePill';
 import { PlanChoices } from '../../../../api/degree-plan/PlanChoiceCollection';
 
-interface IPlanChoicePillProps {
+interface PlanChoicePillProps {
   choice: string;
   satisfied: boolean;
 }
 
-const StaticPlanChoicePill: React.FC<IPlanChoicePillProps> = ({ choice, satisfied }) => {
+const StaticPlanChoicePill: React.FC<PlanChoicePillProps> = ({ choice, satisfied }) => {
   const style = satisfied ? getSatisfiedStyle() : getNotSatisfiedStyle();
   return (
     <Grid.Row style={style}>

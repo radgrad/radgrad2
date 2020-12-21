@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { StudentProfiles } from '../../../../../../api/user/StudentProfileCollection';
-import { ICourseInstance, IOpportunity, IOpportunityInstance, IStudentProfile } from '../../../../../../typings/radgrad';
+import { CourseInstance, Opportunity, OpportunityInstance, StudentProfile } from '../../../../../../typings/radgrad';
 import { Users } from '../../../../../../api/user/UserCollection';
 import { Courses } from '../../../../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../../../../api/course/CourseInstanceCollection';
@@ -10,12 +10,14 @@ import { AcademicTerms } from '../../../../../../api/academic-term/AcademicTermC
 import { Slugs } from '../../../../../../api/slug/SlugCollection';
 import { Reviews } from '../../../../../../api/review/ReviewCollection';
 
-interface IHtml {
+/** @namespace ui.components.admin.analytics.newsletter.utilities */
+
+interface Html {
   header?: string;
   info?: string;
 }
 
-export interface IEmailData {
+export interface EmailData {
   to: string | string[];
   bcc: string[];
   from: string;
@@ -24,9 +26,9 @@ export interface IEmailData {
   templateData: {
     adminMessage: any;
     firstName: string;
-    firstRec: IHtml | string;
-    secondRec: IHtml | string;
-    thirdRec: IHtml | string;
+    firstRec: Html | string;
+    secondRec: Html | string;
+    thirdRec: Html | string;
   }
   filename: string;
 }
@@ -86,7 +88,7 @@ const levelMap = {
     ' off proudly!',
 };
 
-const iceRecHelper = (student: IStudentProfile, value, component): string => {
+const iceRecHelper = (student: StudentProfile, value, component): string => {
   let html = '';
   if (value >= 100) {
     html += `Congratulations! You have achieved 100 ${iceMap[component].name} points!`;
@@ -153,12 +155,12 @@ const iceRecHelper = (student: IStudentProfile, value, component): string => {
   return html;
 };
 
-const iceRecommendation = (student: IStudentProfile): IHtml | string => {
+const iceRecommendation = (student: StudentProfile): Html | string => {
   const ice = StudentProfiles.getProjectedICE(student.username);
   if (ice.i >= 100 && ice.c >= 100 && ice.e >= 100) {
     return '';
   }
-  const html: IHtml = {};
+  const html: Html = {};
   html.header = 'Finish Your Degree Plan';
   html.info = '<p>To achieve a complete degree plan, obtain 100 points in each ICE component!</p>';
   _.each(ice, function (value, component) {
@@ -177,8 +179,8 @@ const iceRecommendation = (student: IStudentProfile): IHtml | string => {
   return html;
 };
 
-const verifyOppRecommendation = (student: IStudentProfile): IHtml | string => {
-  const unverifiedOpps: IOpportunityInstance[] = OpportunityInstances.find({
+const verifyOppRecommendation = (student: StudentProfile): Html | string => {
+  const unverifiedOpps: OpportunityInstance[] = OpportunityInstances.find({
     studentID: student.userID,
     verified: false,
   }).fetch();
@@ -190,7 +192,7 @@ const verifyOppRecommendation = (student: IStudentProfile): IHtml | string => {
   if (currentUnverifiedOpps.length === 0) {
     return '';
   }
-  const html: IHtml = {};
+  const html: Html = {};
   html.header = 'Verify Your Opportunities';
   html.info = '<p>You have unverified opportunities. To verify them, visit your RadGrad Degree Planner and'
     + ' click on the opportunity with the red question mark.'
@@ -205,7 +207,7 @@ const verifyOppRecommendation = (student: IStudentProfile): IHtml | string => {
   _.each(currentUnverifiedOpps, function (unverifiedOpp) {
     const { termID } = unverifiedOpp;
     const termName = AcademicTerms.toString(termID, false);
-    const opp: IOpportunity = Opportunities.findOne({ _id: unverifiedOpp.opportunityID });
+    const opp: Opportunity = Opportunities.findOne({ _id: unverifiedOpp.opportunityID });
     const oppSlug = Slugs.getNameFromID(opp.slugID);
     html.info += '<li><a style="color: #6FBE44; font-weight: bold"'
       + ` href="https://radgrad.ics.hawaii.edu/student/${student.username}`
@@ -215,11 +217,11 @@ const verifyOppRecommendation = (student: IStudentProfile): IHtml | string => {
   return html;
 };
 
-const levelRecommendation = (student: IStudentProfile): IHtml | string => {
+const levelRecommendation = (student: StudentProfile): Html | string => {
   if (student.level > 5) {
     return '';
   }
-  const html: IHtml = {};
+  const html: Html = {};
   html.header = 'Level Up and Upgrade Your RadGrad Sticker';
   html.info = '<img src='
     + `"https://radgrad.ics.hawaii.edu/images/level-icons/radgrad-level-${student.level}-icon.png"`
@@ -236,8 +238,8 @@ const levelRecommendation = (student: IStudentProfile): IHtml | string => {
   return html;
 };
 
-const reviewCourseRecommendation = (student: IStudentProfile): IHtml | string => {
-  const courseInstances: ICourseInstance[] = CourseInstances.find({
+const reviewCourseRecommendation = (student: StudentProfile): Html | string => {
+  const courseInstances: CourseInstance[] = CourseInstances.find({
     studentID: student.userID,
     verified: true,
   }).fetch();
@@ -260,7 +262,7 @@ const reviewCourseRecommendation = (student: IStudentProfile): IHtml | string =>
     }
   });
   suggestedReviewCourses = suggestedReviewCourses.concat(remainingCourses);
-  const html: IHtml = {};
+  const html: Html = {};
   html.header = 'Review Courses You Have Completed';
   html.info = '<p>Contribute to the ICS community by providing reviews for courses you have completed.'
     + ' Here are some suggested courses to review:</p>';
@@ -280,7 +282,7 @@ const reviewCourseRecommendation = (student: IStudentProfile): IHtml | string =>
   return html;
 };
 
-export const reviewOppRecommendation = (student: IStudentProfile): IHtml | string => {
+export const reviewOppRecommendation = (student: StudentProfile): Html | string => {
   const completedOpps = _.map(OpportunityInstances.find({ studentID: student.userID, verified: true }).fetch(),
     function (instance) {
       return instance.opportunityID;
@@ -302,7 +304,7 @@ export const reviewOppRecommendation = (student: IStudentProfile): IHtml | strin
   });
   suggestedReviewOpps = suggestedReviewOpps.concat(remainingOpps);
   suggestedReviewOpps = _.uniq(suggestedReviewOpps);
-  const html: IHtml = {};
+  const html: Html = {};
   html.header = 'Review Opportunities You Have Completed';
   html.info = '<p>Contribute to the ICS community by providing reviews for opportunities you have completed.'
     + ' Here are some suggested opportunities to review:</p>';
@@ -311,7 +313,7 @@ export const reviewOppRecommendation = (student: IStudentProfile): IHtml | strin
     if (index === 3) {
       return false;
     }
-    const opportunity: IOpportunity = Opportunities.findOne({ _id: oppID });
+    const opportunity: Opportunity = Opportunities.findOne({ _id: oppID });
     const oppSlug = Slugs.findDoc(opportunity.slugID).name;
     const oppName = Opportunities.findDocBySlug(oppSlug).name;
     html.info += '<li><a style="color: #6FBE44; font-weight: bold"'
@@ -327,7 +329,7 @@ export const reviewOppRecommendation = (student: IStudentProfile): IHtml | strin
 // or implement a better system such that we can incorporate more recommendations on a rotational/conditional basis
 const recList = [iceRecommendation, verifyOppRecommendation, levelRecommendation, reviewCourseRecommendation, reviewOppRecommendation];
 
-export const getRecList = (student: IStudentProfile) => {
+export const getRecList = (student: StudentProfile) => {
   const suggestedRecs = [];
   _.each(recList, function (func) {
     const html = func(student);

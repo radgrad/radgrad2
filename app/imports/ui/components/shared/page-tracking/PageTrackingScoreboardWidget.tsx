@@ -6,31 +6,31 @@ import { useRouteMatch } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import moment from 'moment';
 import { PageInterestsDailySnapshots } from '../../../../api/page-tracking/PageInterestsDailySnapshotCollection';
-import { IPageInterestsDailySnapshot } from '../../../../typings/radgrad';
+import { PageInterestsDailySnapshot } from '../../../../typings/radgrad';
 import {
   aggregateDailySnapshots,
   getCategory, getUrlCategory,
-  IAggregatedDailySnapshot,
+  AggregatedDailySnapshot,
   parseName,
 } from './utilities/page-tracking';
 import { IPageInterestsCategoryTypes } from '../../../../api/page-tracking/PageInterestsCategoryTypes';
 import PageTrackingWidgetMessage from './PageTrackingWidgetMessage';
 
-interface IPageTrackingScoreboardWidgetProps {
-  pageInterestsDailySnapshots: IPageInterestsDailySnapshot[];
+interface PageTrackingScoreboardWidgetProps {
+  pageInterestsDailySnapshots: PageInterestsDailySnapshot[];
 }
 
-const PageTrackingScoreboardWidget: React.FC<IPageTrackingScoreboardWidgetProps> = ({ pageInterestsDailySnapshots }) => {
+const PageTrackingScoreboardWidget: React.FC<PageTrackingScoreboardWidgetProps> = ({ pageInterestsDailySnapshots }) => {
   const match = useRouteMatch();
   const urlCategory: IPageInterestsCategoryTypes = getUrlCategory(match);
   // See page-tracking-general.ts to see urlCategory vs category
   const category = getCategory(urlCategory);
 
-  const aggregatedDailySnapshot: IAggregatedDailySnapshot = aggregateDailySnapshots(pageInterestsDailySnapshots);
+  const aggregatedDailySnapshot: AggregatedDailySnapshot = aggregateDailySnapshots(pageInterestsDailySnapshots);
 
   /* ######################### Table State ######################### */
-  const [data, setData] = useState<IAggregatedDailySnapshot>(aggregatedDailySnapshot);
-  const [dataBeforeFilter] = useState<IAggregatedDailySnapshot>(data);
+  const [data, setData] = useState<AggregatedDailySnapshot>(aggregatedDailySnapshot);
+  const [dataBeforeFilter] = useState<AggregatedDailySnapshot>(data);
   const [column, setColumn] = useState<'name' | 'views'>(undefined);
   const [direction, setDirection] = useState<'ascending' | 'descending'>(undefined);
   /* ######################### Date Picker State ######################### */
@@ -45,7 +45,7 @@ const PageTrackingScoreboardWidget: React.FC<IPageTrackingScoreboardWidgetProps>
   const handleSort = (e, clickedColumn) => {
     if (column !== clickedColumn) {
       setColumn(clickedColumn);
-      const newData: IAggregatedDailySnapshot = { ...data, [category]: _.sortBy(data[category], [clickedColumn]) };
+      const newData: AggregatedDailySnapshot = { ...data, [category]: _.sortBy(data[category], [clickedColumn]) };
       setData(newData);
       setDirection('ascending');
       return;
@@ -53,7 +53,7 @@ const PageTrackingScoreboardWidget: React.FC<IPageTrackingScoreboardWidgetProps>
 
     // Create new data by first creating a slice of data[category] so we do not mutate state directly,
     // and then reverse that slice. Then rebuild a new data object by combining old data with the new reversed data.
-    const newData: IAggregatedDailySnapshot = { ...data, [category]: data[category].slice().reverse() };
+    const newData: AggregatedDailySnapshot = { ...data, [category]: data[category].slice().reverse() };
     setData(newData);
     setDirection(direction === 'ascending' ? 'descending' : 'ascending');
   };
@@ -67,16 +67,16 @@ const PageTrackingScoreboardWidget: React.FC<IPageTrackingScoreboardWidgetProps>
       });
       return;
     }
-    const filteredDailySnapshots: IPageInterestsDailySnapshot[] = PageInterestsDailySnapshots.find({
+    const filteredDailySnapshots: PageInterestsDailySnapshot[] = PageInterestsDailySnapshots.find({
       timestamp: {
         $gte: startDate,
         $lte: moment(endDate).endOf('day').toDate(),
       },
     }).fetch();
-    const filteredAggregatedDailySnapshots: IAggregatedDailySnapshot = aggregateDailySnapshots(filteredDailySnapshots);
+    const filteredAggregatedDailySnapshots: AggregatedDailySnapshot = aggregateDailySnapshots(filteredDailySnapshots);
     // Handle sort to main sort properties (ascending/descending for a clicked column) when we filter data
     if (column !== undefined) {
-      const newData: IAggregatedDailySnapshot = {
+      const newData: AggregatedDailySnapshot = {
         ...filteredAggregatedDailySnapshots,
         [category]: _.sortBy(filteredAggregatedDailySnapshots[category], [column]),
       };

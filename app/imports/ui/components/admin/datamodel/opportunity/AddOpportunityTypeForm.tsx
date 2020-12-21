@@ -4,12 +4,12 @@ import { AutoForm, TextField, LongTextField, BoolField, SubmitField } from 'unif
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import { OpportunityTypes } from '../../../../../api/opportunity/OpportunityTypeCollection';
 
-interface IAddOpportunityTypeFormProps {
+interface AddOpportunityTypeFormProps {
   formRef: React.RefObject<unknown>;
   handleAdd: (doc) => any;
 }
 
-const AddOpportunityTypeForm: React.FC<IAddOpportunityTypeFormProps> = ({ formRef, handleAdd }) => (
+const AddOpportunityTypeForm: React.FC<AddOpportunityTypeFormProps> = ({ formRef, handleAdd }) => (
   <Segment padded>
     <Header dividing>Add Interest Type</Header>
     <AutoForm schema={new SimpleSchema2Bridge(OpportunityTypes.getDefineSchema())} onSubmit={handleAdd} ref={formRef} showInlineError>

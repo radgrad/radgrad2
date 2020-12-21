@@ -3,7 +3,7 @@ import _ from 'lodash';
 import { useParams, useRouteMatch, Link } from 'react-router-dom';
 import { Card, Icon, Popup, Image } from 'semantic-ui-react';
 import Markdown from 'react-markdown';
-import { IPlanCard } from '../../../../../typings/radgrad';
+import { PlanCard } from '../../../../../typings/radgrad';
 import WidgetHeaderNumber from '../WidgetHeaderNumber';
 import AcademicPlanStaticViewer from '../AcademicPlanStaticViewer';
 import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
@@ -21,7 +21,7 @@ import { CourseInstances } from '../../../../../api/course/CourseInstanceCollect
 import { passedCourse } from '../../../../../api/degree-plan/AcademicPlanUtilities';
 import { Slugs } from '../../../../../api/slug/SlugCollection';
 
-const AcademicPlanCard: React.FC<IPlanCard> = ({ type, item }) => {
+const AcademicPlanCard: React.FC<PlanCard> = ({ type, item }) => {
   const match = useRouteMatch();
   const { username } = useParams();
   const profile = Users.findProfileFromUsername(username);

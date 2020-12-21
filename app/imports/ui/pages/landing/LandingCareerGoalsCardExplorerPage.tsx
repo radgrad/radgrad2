@@ -5,7 +5,7 @@ import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import ExplorerMenuBarContainer from '../../components/landing/explorer/LandingExplorerMenuBar';
-import { ICareerGoal, IHelpMessage } from '../../../typings/radgrad';
+import { CareerGoal, HelpMessage } from '../../../typings/radgrad';
 import LandingExplorerCardContainer from '../../components/landing/explorer/LandingExplorerCard';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/explorer/LandingExplorerMenu';
@@ -13,13 +13,13 @@ import BackToTopButton from '../../components/shared/BackToTopButton';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import { withListSubscriptions } from '../../layouts/utilities/SubscriptionListHOC';
 
-interface ICareerGoalsCardExplorerProps {
-  careerGoals: ICareerGoal[];
+interface CareerGoalsCardExplorerProps {
+  careerGoals: CareerGoal[];
   count: number;
-  helpMessages: IHelpMessage[];
+  helpMessages: HelpMessage[];
 }
 
-const LandingCareerGoalsCardExplorerPage: React.FC<ICareerGoalsCardExplorerProps> = ({ count, helpMessages, careerGoals }) => {
+const LandingCareerGoalsCardExplorerPage: React.FC<CareerGoalsCardExplorerProps> = ({ count, helpMessages, careerGoals }) => {
   const inlineStyle = {
     maxHeight: 750,
     marginTop: 10,

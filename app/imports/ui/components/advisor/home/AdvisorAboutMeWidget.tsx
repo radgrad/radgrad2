@@ -8,17 +8,17 @@ import { Interests } from '../../../../api/interest/InterestCollection';
 import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
 import { openCloudinaryWidget } from '../../shared/OpenCloudinaryWidget';
 import { updateMethod } from '../../../../api/base/BaseCollection.methods';
-import { IAdvisorOrFacultyProfile, IFavoriteCareerGoal, IFavoriteInterest } from '../../../../typings/radgrad';
+import { AdvisorOrFacultyProfile, FavoriteCareerGoal, FavoriteInterest } from '../../../../typings/radgrad';
 import { AdvisorProfiles } from '../../../../api/user/AdvisorProfileCollection';
 
-interface IAdvisorAboutMeWidgetProps {
-  profile: IAdvisorOrFacultyProfile;
-  favoriteInterests: IFavoriteInterest[];
-  favoriteCareerGoals: IFavoriteCareerGoal[];
+interface AdvisorAboutMeWidgetProps {
+  profile: AdvisorOrFacultyProfile;
+  favoriteInterests: FavoriteInterest[];
+  favoriteCareerGoals: FavoriteCareerGoal[];
 }
 
 /** The Advisor About Me Widget shows basic information of the specified user. */
-const AdvisorAboutMeWidget: React.FC<IAdvisorAboutMeWidgetProps> = ({ profile, favoriteCareerGoals, favoriteInterests }) => {
+const AdvisorAboutMeWidget: React.FC<AdvisorAboutMeWidgetProps> = ({ profile, favoriteCareerGoals, favoriteInterests }) => {
 
   const [websiteState, setWebsite] = useState(profile.website);
   const [pictureState, setPicture] = useState(profile.picture);

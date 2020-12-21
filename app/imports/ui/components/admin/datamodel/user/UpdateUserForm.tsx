@@ -7,7 +7,7 @@ import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import Swal from 'sweetalert2';
 import { AdminProfiles } from '../../../../../api/user/AdminProfileCollection';
-import { IAcademicTerm, IBaseProfile, ICareerGoal, IInterest } from '../../../../../typings/radgrad';
+import { AcademicTerm, BaseProfile, CareerGoal, Interest } from '../../../../../typings/radgrad';
 import { ROLE } from '../../../../../api/role/Role';
 import {
   academicPlanIdToName, academicTermIdToName,
@@ -26,11 +26,11 @@ import { FavoriteInterests } from '../../../../../api/favorite/FavoriteInterestC
 import { FavoriteCareerGoals } from '../../../../../api/favorite/FavoriteCareerGoalCollection';
 import { FavoriteAcademicPlans } from '../../../../../api/favorite/FavoriteAcademicPlanCollection';
 
-interface IUpdateUserProps {
-  interests: IInterest[];
-  careerGoals: ICareerGoal[];
-  academicTerms: IAcademicTerm[];
-  // academicPlans: IAcademicPlan[];
+interface UpdateUserProps {
+  interests: Interest[];
+  careerGoals: CareerGoal[];
+  academicTerms: AcademicTerm[];
+  // academicPlans: AcademicPlan[];
   // collection: BaseCollection;
   id: string;
   formRef: React.RefObject<unknown>;
@@ -46,7 +46,7 @@ const mapDispatchToProps = (dispatch) => ({
   setAdminDataModelUsersCloudinaryUrl: (cloudinaryUrl: string) => dispatch(cloudinaryActions.setAdminDataModelUsersCloudinaryUrl(cloudinaryUrl)),
 });
 
-const UpdateUserForm: React.FC<IUpdateUserProps> = ({ id, interests, setAdminDataModelUsersIsCloudinaryUsed, setAdminDataModelUsersCloudinaryUrl, careerGoals, academicTerms, formRef, itemTitleString, handleCancel, handleUpdate }) => {
+const UpdateUserForm: React.FC<UpdateUserProps> = ({ id, interests, setAdminDataModelUsersIsCloudinaryUsed, setAdminDataModelUsersCloudinaryUrl, careerGoals, academicTerms, formRef, itemTitleString, handleCancel, handleUpdate }) => {
   // console.log('UpdateUserForm', props);
   let collection;
   if (StudentProfiles.isDefined(id)) {
@@ -61,7 +61,7 @@ const UpdateUserForm: React.FC<IUpdateUserProps> = ({ id, interests, setAdminDat
   if (AdminProfiles.isDefined(id)) {
     collection = AdminProfiles;
   }
-  const profile: IBaseProfile = collection.findDoc(id);
+  const profile: BaseProfile = collection.findDoc(id);
   const [pictureURL, setPictureURL] = useState(profile.picture);
 
   const handleUpload = async (e): Promise<void> => {

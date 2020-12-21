@@ -7,7 +7,7 @@ import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
 import { FavoriteCareerGoals } from '../../../../api/favorite/FavoriteCareerGoalCollection';
 import { HelpMessages } from '../../../../api/help/HelpMessageCollection';
 import { Users } from '../../../../api/user/UserCollection';
-import { ICareerGoal, IHelpMessage } from '../../../../typings/radgrad';
+import { CareerGoal, HelpMessage } from '../../../../typings/radgrad';
 import CareerGoalBrowserViewContainer from '../../../components/shared/explorer/browser-view/CareerGoalBrowserView';
 import ExplorerMultipleItemsMenu from '../../../components/shared/explorer/browser-view/ExplorerMultipleItemsMenu';
 import { IExplorerTypes } from '../../../components/shared/explorer/utilities/explorer';
@@ -15,14 +15,14 @@ import HelpPanelWidget from '../../../components/shared/HelpPanelWidget';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import { getMenuWidget } from '../utilities/getMenuWidget';
 
-interface ICareerGoalBrowserViewPageProps {
-  favoriteCareerGoals: ICareerGoal[];
+interface CareerGoalBrowserViewPageProps {
+  favoriteCareerGoals: CareerGoal[];
   favoriteCombinedInterestIDs: string[];
-  careerGoals: ICareerGoal[];
-  helpMessages: IHelpMessage[];
+  careerGoals: CareerGoal[];
+  helpMessages: HelpMessage[];
 }
 
-const CareerGoalBrowserViewPage: React.FC<ICareerGoalBrowserViewPageProps> = ({ favoriteCareerGoals, favoriteCombinedInterestIDs, careerGoals, helpMessages }) => {
+const CareerGoalBrowserViewPage: React.FC<CareerGoalBrowserViewPageProps> = ({ favoriteCareerGoals, favoriteCombinedInterestIDs, careerGoals, helpMessages }) => {
   const match = useRouteMatch();
   const menuAddedList = _.map(favoriteCareerGoals, (f) => ({ item: f, count: 1 }));
   return (

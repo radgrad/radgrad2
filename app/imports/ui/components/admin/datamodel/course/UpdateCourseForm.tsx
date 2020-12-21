@@ -5,7 +5,7 @@ import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import _ from 'lodash';
 import BaseCollection from '../../../../../api/base/BaseCollection';
-import { ICourse, IInterest } from '../../../../../typings/radgrad';
+import { Course, Interest } from '../../../../../typings/radgrad';
 import {
   courseSlugToName, courseToName,
   docToName,
@@ -13,10 +13,10 @@ import {
 } from '../../../shared/utilities/data-model';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
 
-interface IUpdateCourseFormProps {
+interface UpdateCourseFormProps {
   collection: BaseCollection;
-  interests: IInterest[];
-  courses: ICourse[];
+  interests: Interest[];
+  courses: Course[];
   id: string;
   formRef: React.RefObject<unknown>;
   handleUpdate: (doc) => any;
@@ -24,7 +24,7 @@ interface IUpdateCourseFormProps {
   itemTitleString: (item) => React.ReactNode;
 }
 
-const UpdateCourseForm: React.FC<IUpdateCourseFormProps> = ({ collection, courses, interests, id, formRef, handleCancel, handleUpdate, itemTitleString }) => {
+const UpdateCourseForm: React.FC<UpdateCourseFormProps> = ({ collection, courses, interests, id, formRef, handleCancel, handleUpdate, itemTitleString }) => {
   const model = id ? collection.findDoc(id) : undefined;
   model.interests = _.map(model.interestIDs, interestIdToName);
   model.prerequisiteNames = _.map(model.prerequisites, courseSlugToName);

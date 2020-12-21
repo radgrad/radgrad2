@@ -23,15 +23,15 @@ import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import AdminDataModelMenu, { IAdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
+import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import {
-  IAcademicTerm, IBaseProfile,
-  IDescriptionPair,
-  IOpportunity,
-  IOpportunityInstance,
-  IStudentProfile,
+  AcademicTerm, BaseProfile,
+  DescriptionPair,
+  Opportunity,
+  OpportunityInstance,
+  StudentProfile,
 } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
@@ -55,7 +55,7 @@ const collection = OpportunityInstances; // the collection to use.
  * Returns an array of Description pairs used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const descriptionPairs = (item: IOpportunityInstance): IDescriptionPair[] => [
+const descriptionPairs = (item: OpportunityInstance): DescriptionPair[] => [
   { label: 'Academic Term', value: AcademicTerms.toString(item.termID) },
   { label: 'Opportunity', value: (Opportunities.findDoc(item.opportunityID)).name },
   { label: 'Verified', value: item.verified ? 'True' : 'False' },
@@ -71,7 +71,7 @@ const descriptionPairs = (item: IOpportunityInstance): IDescriptionPair[] => [
  * Returns the title string for the item. Used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const itemTitleString = (item: IOpportunityInstance): string => {
+const itemTitleString = (item: OpportunityInstance): string => {
   const oppName = Opportunities.findDoc(item.opportunityID).name;
   const username = Users.getProfile(item.studentID).username;
   const semester = AcademicTerms.toString(item.termID, true);
@@ -82,7 +82,7 @@ const itemTitleString = (item: IOpportunityInstance): string => {
  * Returns the ReactNode used in the ListCollectionWidget. By default we indicate if the item is retired.
  * @param item an item from the collection.
  */
-const itemTitle = (item: IOpportunityInstance): React.ReactNode => (
+const itemTitle = (item: OpportunityInstance): React.ReactNode => (
   <React.Fragment>
     {item.retired ? <Icon name="eye slash" /> : ''}
     <Icon name="dropdown" />
@@ -90,15 +90,17 @@ const itemTitle = (item: IOpportunityInstance): React.ReactNode => (
   </React.Fragment>
 );
 
-interface IAdminDataModelOpportunityInstancesPageProps extends IAdminDataModeMenuProps {
-  items: IOpportunityInstance[];
-  terms: IAcademicTerm[];
-  opportunities: IOpportunity[];
-  students: IStudentProfile[];
-  sponsors: IBaseProfile[];
+interface AdminDataModelOpportunityInstancesPageProps extends AdminDataModeMenuProps {
+  items: OpportunityInstance[];
+  terms: AcademicTerm[];
+  opportunities: Opportunity[];
+  students: StudentProfile[];
+  sponsors: BaseProfile[];
 }
 
-const AdminDataModelOpportunityInstancesPage: React.FC<IAdminDataModelOpportunityInstancesPageProps> = (props) => {
+// props not deconstructed because AdminDataModeMenuProps has 21 numbers.
+const AdminDataModelOpportunityInstancesPage: React.FC<AdminDataModelOpportunityInstancesPageProps> = (props) => {
+  // TODO deconstruct props
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');

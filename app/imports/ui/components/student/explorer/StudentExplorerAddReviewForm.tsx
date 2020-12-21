@@ -12,7 +12,7 @@ import { CourseInstances } from '../../../../api/course/CourseInstanceCollection
 import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import { defineMethod } from '../../../../api/base/BaseCollection.methods';
-import { IAcademicTerm, IReviewDefine, IUserInteractionDefine } from '../../../../typings/radgrad';
+import { AcademicTerm, ReviewDefine, UserInteractionDefine } from '../../../../typings/radgrad';
 import { UserInteractionsTypes } from '../../../../api/analytic/UserInteractionsTypes';
 import { userInteractionDefineMethod } from '../../../../api/analytic/UserInteractionCollection.methods';
 import { getUserIdFromRoute, getUsername } from '../../shared/utilities/router';
@@ -20,7 +20,7 @@ import { Courses } from '../../../../api/course/CourseCollection';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
 import { ReviewTypes } from '../../../../api/review/ReviewTypes';
 
-interface IStudentExplorerAddReviewFormProps {
+interface StudentExplorerAddReviewFormProps {
   itemToReview: {
     [key: string]: any; // TODO this is a poor way to type this.
   }
@@ -29,7 +29,7 @@ interface IStudentExplorerAddReviewFormProps {
 
 const collection = Reviews;
 
-const StudentExplorerAddReviewForm: React.FC<IStudentExplorerAddReviewFormProps> = ({ itemToReview, reviewType }) => {
+const StudentExplorerAddReviewForm: React.FC<StudentExplorerAddReviewFormProps> = ({ itemToReview, reviewType }) => {
   // console.log('StudentExplorerAddReviewForm', props);
   const match = useRouteMatch();
   const formRef = React.createRef();
@@ -40,12 +40,12 @@ const StudentExplorerAddReviewForm: React.FC<IStudentExplorerAddReviewFormProps>
     setActive(!activeState);
   };
 
-  const handleAdd = (doc: IReviewDefine): void => {
+  const handleAdd = (doc: ReviewDefine): void => {
     const collectionName = collection.getCollectionName();
     const username = getUsername(match);
     const academicTermDoc = AcademicTerms.getAcademicTermFromToString(doc.academicTerm);
     const academicTermSlug = AcademicTerms.findSlugByID(academicTermDoc._id);
-    const definitionData: IReviewDefine = doc;
+    const definitionData: ReviewDefine = doc;
     definitionData.academicTerm = academicTermSlug;
     definitionData.student = username;
     definitionData.reviewType = reviewType as ReviewTypes;
@@ -75,7 +75,7 @@ const StudentExplorerAddReviewForm: React.FC<IStudentExplorerAddReviewFormProps>
           const revieweeID = Opportunities.getID(reviewee);
           slug = Opportunities.findSlugByID(revieweeID);
         }
-        const interactionData: IUserInteractionDefine = {
+        const interactionData: UserInteractionDefine = {
           username,
           type: UserInteractionsTypes.ADDREVIEW,
           typeData: [reviewType, academicTermSlug, slug],
@@ -90,7 +90,7 @@ const StudentExplorerAddReviewForm: React.FC<IStudentExplorerAddReviewFormProps>
     });
   };
 
-  const academicTerm = (): IAcademicTerm[] => {
+  const academicTerm = (): AcademicTerm[] => {
     const academicTerms = [];
     let instances;
     if (reviewType === 'course') {

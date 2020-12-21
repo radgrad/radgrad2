@@ -1,17 +1,17 @@
 import React from 'react';
 import { Header } from 'semantic-ui-react';
-import { IOpportunity } from '../../../../typings/radgrad';
+import { Opportunity } from '../../../../typings/radgrad';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
-import OpportunityInformationItem, { IOpportunityInformationItemConfiguration } from '../../shared/explorer/opportunities/OpportunityInformationItem';
+import OpportunityInformationItem, { OpportunityInformationItemConfiguration } from '../../shared/explorer/opportunities/OpportunityInformationItem';
 
-const getNewOpportunities = (numOpportunities): IOpportunity[] => {
+const getNewOpportunities = (numOpportunities): Opportunity[] => {
   // To get the new opportunities, we make the assumption that newer opportunities are added to the end of the collection
   // therefore, we pull the new opportunities from the end of the collection.
-  const descendingOpportunities: IOpportunity[] = Opportunities.findNonRetired({}, { sort: { timestamp: -1 } });
+  const descendingOpportunities: Opportunity[] = Opportunities.findNonRetired({}, { sort: { timestamp: -1 } });
   return descendingOpportunities.slice(0, numOpportunities);
 };
 
-const opportunityInformationItemConfiguration: IOpportunityInformationItemConfiguration = {
+const opportunityInformationItemConfiguration: OpportunityInformationItemConfiguration = {
   showLogo: false,
   showMetadata: false,
   showStudentsParticipating: false,

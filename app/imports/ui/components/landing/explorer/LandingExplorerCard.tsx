@@ -6,19 +6,19 @@ import { getSlug, itemShortDescription } from '../utilities/helper-functions';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import * as Router from '../../shared/utilities/router';
 
-interface IItemProps {
+interface ItemProps {
   name: string;
   num?: string;
   description: string;
   slugID: string;
 }
 
-interface ILandingExplorerCardProps {
-  item: IItemProps;
+interface LandingExplorerCardProps {
+  item: ItemProps;
   type: string;
 }
 
-const LandingExplorerCard: React.FC<ILandingExplorerCardProps> = ({ item, type }) => {
+const LandingExplorerCard: React.FC<LandingExplorerCardProps> = ({ item, type }) => {
   const routeToItem = `#/${EXPLORER_TYPE.HOME}/${type}/${getSlug(item)}`;
   let title = item.name;
   if (type === EXPLORER_TYPE.COURSES) {

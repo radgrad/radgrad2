@@ -23,12 +23,12 @@ import { Teasers } from '../../../api/teaser/TeaserCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import AdminDataModelMenu, { IAdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
+import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import AdminDataModelUpdateForm from '../../components/admin/datamodel/AdminDataModelUpdateForm'; // this should be replaced by specific UpdateForm
 import AdminDataModelAddForm from '../../components/admin/datamodel/AdminDataModelAddForm'; // this should be replaced by specific AddForm
-import { IDescriptionPair, IPlanChoiceDefine } from '../../../typings/radgrad';
+import { DescriptionPair, PlanChoiceDefine } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
 import BackToTopButton from '../../components/shared/BackToTopButton';
@@ -40,7 +40,7 @@ const collection = PlanChoices; // the collection to use.
  * Returns an array of Description pairs used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const descriptionPairs = (item: IPlanChoiceDefine): IDescriptionPair[] => [
+const descriptionPairs = (item: PlanChoiceDefine): DescriptionPair[] => [
   { label: 'Choice', value: item.choice },
   { label: 'Retired', value: item.retired ? 'True' : 'False' },
 ];
@@ -49,13 +49,13 @@ const descriptionPairs = (item: IPlanChoiceDefine): IDescriptionPair[] => [
  * Returns the title string for the item. Used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const itemTitleString = (item: IPlanChoiceDefine): string => item.choice;
+const itemTitleString = (item: PlanChoiceDefine): string => item.choice;
 
 /**
  * Returns the ReactNode used in the ListCollectionWidget. By default we indicate if the item is retired.
  * @param item an item from the collection.
  */
-const itemTitle = (item: IPlanChoiceDefine): React.ReactNode => (
+const itemTitle = (item: PlanChoiceDefine): React.ReactNode => (
   <React.Fragment>
     {item.retired ? <Icon name="eye slash" /> : ''}
     <Icon name="dropdown" />
@@ -63,11 +63,13 @@ const itemTitle = (item: IPlanChoiceDefine): React.ReactNode => (
   </React.Fragment>
 );
 
-interface IAdminDataModelPlanChoicesPageProps extends IAdminDataModeMenuProps {
+interface AdminDataModelPlanChoicesPageProps extends AdminDataModeMenuProps {
   items: string[];
 }
 
-const AdminDataModelPlanChoicesPage: React.FC<IAdminDataModelPlanChoicesPageProps> = (props) => {
+// props not deconstructed because AdminDataModeMenuProps has 21 numbers.
+const AdminDataModelPlanChoicesPage: React.FC<AdminDataModelPlanChoicesPageProps> = (props) => {
+  // TODO deconstruct props
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');

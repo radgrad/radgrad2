@@ -4,7 +4,7 @@ import SimpleSchema from 'simpl-schema';
 import { ROLE } from '../role/Role';
 import { Users } from '../user/UserCollection';
 import BaseCollection from '../base/BaseCollection';
-import { IFeedbackInstanceDefine, IFeedbackInstanceUpdate } from '../../typings/radgrad';
+import { FeedbackInstanceDefine, FeedbackInstanceUpdate } from '../../typings/radgrad';
 
 /**
  * Each FeedbackInstance represents one recommendation or warning for a user.
@@ -66,7 +66,7 @@ class FeedbackInstanceCollection extends BaseCollection {
    * @throws {Meteor.Error} If user or feedbackType cannot be resolved.
    * @returns The newly created docID.
    */
-  public define({ user, functionName, description, feedbackType, retired = false }: IFeedbackInstanceDefine) {
+  public define({ user, functionName, description, feedbackType, retired = false }: FeedbackInstanceDefine) {
     // Validate Feedback and user.
     const userID = Users.getID(user);
     if (!_.includes(this.feedbackTypes, feedbackType)) {
@@ -89,7 +89,7 @@ class FeedbackInstanceCollection extends BaseCollection {
    * @param feedbackType
    * @param functionName
    */
-  public update(docID: string, { user, description, feedbackType, functionName, retired }: IFeedbackInstanceUpdate) {
+  public update(docID: string, { user, description, feedbackType, functionName, retired }: FeedbackInstanceUpdate) {
     this.assertDefined(docID);
     const updateData: { userID?: string; description?: string; feedbackType?: string; functionName?: string; retired?: boolean; } = {};
     if (user) {
@@ -227,7 +227,7 @@ class FeedbackInstanceCollection extends BaseCollection {
    * @param docID The docID of a FeedbackInstance.
    * @returns { Object } An object representing the definition of docID.
    */
-  public dumpOne(docID: string): IFeedbackInstanceDefine {
+  public dumpOne(docID: string): FeedbackInstanceDefine {
     const doc = this.findDoc(docID);
     const user = Users.getProfile(doc.userID).username;
     const functionName = doc.functionName;

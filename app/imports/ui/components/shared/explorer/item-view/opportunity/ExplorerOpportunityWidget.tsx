@@ -6,7 +6,7 @@ import Markdown from 'react-markdown';
 import { AcademicTerms } from '../../../../../../api/academic-term/AcademicTermCollection';
 import { RadGradProperties } from '../../../../../../api/radgrad/RadGradProperties';
 import { OpportunityScoreboard } from '../../../../../../startup/client/collections';
-import { IAcademicTerm, IOpportunity, IReview } from '../../../../../../typings/radgrad';
+import { AcademicTerm, Opportunity, Review } from '../../../../../../typings/radgrad';
 import StudentExplorerReviewWidget from '../../../../student/explorer/StudentExplorerReviewWidget';
 import { Reviews } from '../../../../../../api/review/ReviewCollection';
 import IceHeader from '../../../IceHeader';
@@ -23,17 +23,18 @@ import { FAVORITE_TYPE } from '../../../../../../api/favorite/FavoriteTypes';
 import TeaserVideo from '../../../TeaserVideo';
 import { Users } from '../../../../../../api/user/UserCollection';
 import { FavoriteOpportunities } from '../../../../../../api/favorite/FavoriteOpportunityCollection';
+// @ts-ignore
 import ExplorerReviewWidget from '../ExplorerReviewWidget';
 
-interface IExplorerOpportunitiesWidgetProps {
+interface ExplorerOpportunitiesWidgetProps {
   name: string;
   descriptionPairs: any[];
-  item: IOpportunity
-  itemReviews: IReview[];
+  item: Opportunity
+  itemReviews: Review[];
   completed: boolean;
 }
 
-const review = (item: IOpportunity, match): IReview => {
+const review = (item: Opportunity, match): Review => {
   const reviews = Reviews.findNonRetired({
     studentID: Router.getUserIdFromRoute(match),
     revieweeID: item._id,
@@ -51,7 +52,7 @@ const teaserUrlHelper = (opportunitySlug): string => {
   return oppTeaser && oppTeaser[0] && oppTeaser[0].url;
 };
 
-const ExplorerOpportunityWidget: React.FC<IExplorerOpportunitiesWidgetProps> = ({ name, descriptionPairs, item, completed, itemReviews }) => {
+const ExplorerOpportunityWidget: React.FC<ExplorerOpportunitiesWidgetProps> = ({ name, descriptionPairs, item, completed, itemReviews }) => {
   const segmentStyle = { backgroundColor: 'white' };
   const zeroMarginTopStyle = { marginTop: 0 };
   const fiveMarginTopStyle = { marginTop: '5px' };
@@ -80,7 +81,7 @@ const ExplorerOpportunityWidget: React.FC<IExplorerOpportunitiesWidgetProps> = (
     limit: numTerms,
   });
   const scores = [];
-  _.forEach(academicTerms, (term: IAcademicTerm) => {
+  _.forEach(academicTerms, (term: AcademicTerm) => {
     const id = `${item._id} ${term._id}`;
     const score = OpportunityScoreboard.find({ _id: id }).fetch() as { count: number }[];
     if (score.length > 0) {

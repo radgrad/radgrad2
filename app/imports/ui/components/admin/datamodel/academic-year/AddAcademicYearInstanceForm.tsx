@@ -8,13 +8,13 @@ import _ from 'lodash';
 import moment from 'moment';
 import { profileToUsername } from '../../../shared/utilities/data-model';
 
-interface IAddAcademicYearInstanceProps {
+interface AddAcademicYearInstanceProps {
   students: Meteor.User[];
   formRef: React.RefObject<unknown>;
   handleAdd: (doc) => any;
 }
 
-const AddAcademicYearInstanceForm: React.FC<IAddAcademicYearInstanceProps> = ({ students, formRef, handleAdd }) => {
+const AddAcademicYearInstanceForm: React.FC<AddAcademicYearInstanceProps> = ({ students, formRef, handleAdd }) => {
   const studentNames = _.map(students, profileToUsername);
   const schema = new SimpleSchema({
     student: {

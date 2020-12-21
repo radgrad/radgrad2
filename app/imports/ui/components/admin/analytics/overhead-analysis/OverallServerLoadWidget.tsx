@@ -6,7 +6,7 @@ import _ from 'lodash';
 import { RootState } from '../../../../../redux/types';
 import { IAdminAnalyticsOverheadAnalysisBuckets } from '../../../../../redux/admin/analytics/reducers';
 
-interface IOverallServerLoadWidgetProps {
+interface OverallServerLoadWidgetProps {
   overheadBuckets: IAdminAnalyticsOverheadAnalysisBuckets;
 }
 
@@ -61,7 +61,7 @@ const createChartOptions = (overheadBuckets: IAdminAnalyticsOverheadAnalysisBuck
   };
 };
 
-const OverallServerLoadWidget: React.FC<IOverallServerLoadWidgetProps> = ({ overheadBuckets }) => {
+const OverallServerLoadWidget: React.FC<OverallServerLoadWidgetProps> = ({ overheadBuckets }) => {
   const chartOptions = createChartOptions(overheadBuckets);
   return (
     <HighchartsReact highcharts={Highcharts} options={chartOptions} />

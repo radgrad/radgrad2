@@ -4,20 +4,20 @@ import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, SelectField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
-import { IInterest, IOpportunity, ICareerGoal, ICourse } from '../../../../../typings/radgrad';
+import { Interest, Opportunity, CareerGoal, Course } from '../../../../../typings/radgrad';
 import { docToName, slugIDToSlugNameAndType } from '../../../shared/utilities/data-model';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
 
-interface IAddTeaserFormProps {
-  careerGoals: ICareerGoal[];
-  courses: ICourse[];
-  interests: IInterest[];
-  opportunities: IOpportunity[];
+interface AddTeaserFormProps {
+  careerGoals: CareerGoal[];
+  courses: Course[];
+  interests: Interest[];
+  opportunities: Opportunity[];
   formRef: React.RefObject<unknown>;
   handleAdd: (doc) => any;
 }
 
-const AddTeaserForm: React.FC<IAddTeaserFormProps> = ({ careerGoals, courses, interests, opportunities, formRef, handleAdd }) => {
+const AddTeaserForm: React.FC<AddTeaserFormProps> = ({ careerGoals, courses, interests, opportunities, formRef, handleAdd }) => {
   let careerGoalSlugNames = _.map(careerGoals, (goal) => slugIDToSlugNameAndType(goal.slugID));
   careerGoalSlugNames = _.sortBy(careerGoalSlugNames);
   let courseSlugNames = _.map(courses, (c) => slugIDToSlugNameAndType(c.slugID));

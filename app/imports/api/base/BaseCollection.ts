@@ -4,7 +4,7 @@ import _ from 'lodash';
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { ROLE } from '../role/Role';
-import { IDumpOne } from '../../typings/radgrad';
+import { DumpOne } from '../../typings/radgrad';
 
 /**
  * BaseCollection is an abstract superclass of all RadGrad data model entities.
@@ -315,9 +315,9 @@ class BaseCollection {
    * @returns {Object} An object representing the contents of this collection.
    */
   public dumpAll() {
-    const dumpObject: { name: string; contents: IDumpOne[]; } = {
+    const dumpObject: { name: string; contents: DumpOne[]; } = {
       name: this.collectionName,
-      contents: this.find().map((docID): IDumpOne => this.dumpOne(docID)),
+      contents: this.find().map((docID): DumpOne => this.dumpOne(docID)),
     };
     // If a collection doesn't want to be dumped, it can just return null from dumpOne.
     dumpObject.contents = _.without(dumpObject.contents, null);
@@ -334,7 +334,7 @@ class BaseCollection {
    * @param docID A docID from this collection.
    * @returns { Object } An object representing this document.
    */
-  public dumpOne(docID): IDumpOne {
+  public dumpOne(docID): DumpOne {
     throw new Meteor.Error(`Default dumpOne method invoked by collection ${this.collectionName} on ${docID}`);
   }
 

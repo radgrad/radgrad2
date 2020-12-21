@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid, Container } from 'semantic-ui-react';
 import styles from './utilities/landing-styles';
 
-interface ILandingSection2Props {
+interface LandingSection2Props {
   careerGoals: string;
   interests: string;
   opportunities: string;
@@ -10,7 +10,7 @@ interface ILandingSection2Props {
 }
 
 const whiteBG: React.CSSProperties = { backgroundColor: '#ffffff', width: '100%' };
-const LandingSection2: React.FC<ILandingSection2Props> = ({ careerGoals, interests, opportunities, users }) => (
+const LandingSection2: React.FC<LandingSection2Props> = ({ careerGoals, interests, opportunities, users }) => (
   <div style={whiteBG}>
     <Container>
       <div style={styles['header-section']}>

@@ -7,23 +7,23 @@ import BackToTopButton from '../../components/shared/BackToTopButton';
 import StudentAboutMeWidget from '../../components/student/about-me/StudentAboutMeWidget';
 import { Users } from '../../../api/user/UserCollection';
 import {
-  IFavoriteAcademicPlan,
-  IFavoriteCareerGoal,
-  IFavoriteInterest,
-  IStudentProfile,
+  FavoriteAcademicPlan,
+  FavoriteCareerGoal,
+  FavoriteInterest,
+  StudentProfile,
 } from '../../../typings/radgrad';
 import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
 import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 
-interface IStudentAboutMePageProps {
-  profile: IStudentProfile;
-  favoriteCareerGoals: IFavoriteCareerGoal[];
-  favoriteInterests: IFavoriteInterest[];
-  favoriteAcademicPlans: IFavoriteAcademicPlan[];
+interface StudentAboutMePageProps {
+  profile: StudentProfile;
+  favoriteCareerGoals: FavoriteCareerGoal[];
+  favoriteInterests: FavoriteInterest[];
+  favoriteAcademicPlans: FavoriteAcademicPlan[];
 }
 
-const StudentAboutMePage: React.FC<IStudentAboutMePageProps> = ({ profile, favoriteCareerGoals, favoriteAcademicPlans, favoriteInterests }) => (
+const StudentAboutMePage: React.FC<StudentAboutMePageProps> = ({ profile, favoriteCareerGoals, favoriteAcademicPlans, favoriteInterests }) => (
   <div id="student-about-me-page">
     <StudentPageMenuWidget />
     <Container>
@@ -48,7 +48,7 @@ const StudentAboutMePage: React.FC<IStudentAboutMePageProps> = ({ profile, favor
 
 const StudentAboutMePageContainer = withTracker(() => {
   const { username } = useParams();
-  const profile = Users.getProfile(username) as IStudentProfile;
+  const profile = Users.getProfile(username) as StudentProfile;
   const favoriteAcademicPlans = FavoriteAcademicPlans.findNonRetired({ studentID: profile.userID });
   const favoriteCareerGoals = FavoriteCareerGoals.findNonRetired({ userID: profile.userID });
   const favoriteInterests = FavoriteInterests.findNonRetired({ userID: profile.userID });

@@ -1,111 +1,111 @@
 import * as TYPES from './types';
 import {
   IAdminAnalyticsOverheadAnalysisBuckets,
-  IAdminAnalyticsOverheadAnalysisData,
+  AdminAnalyticsOverheadAnalysisData,
   IAdminAnalyticsUserInteraction,
 } from './reducers';
 
-interface IAction {
+interface Action {
   type: string;
 }
 
-export interface ISetDateRangeProps {
+export interface SetDateRangeProps {
   startDate: Date;
   endDate: Date;
 }
 
-interface ISetDateRangeAction extends IAction {
+interface SetDateRangeAction extends Action {
   payload: {
     startDate: Date;
     endDate: Date;
   };
 }
 
-interface ISetOverheadAnalysisBucketsAction extends IAction {
+interface SetOverheadAnalysisBucketsAction extends Action {
   payload: IAdminAnalyticsOverheadAnalysisBuckets;
 }
 
-interface ISetOverheadAnalysisDataAction extends IAction {
-  payload: IAdminAnalyticsOverheadAnalysisData[];
+interface SetOverheadAnalysisDataAction extends Action {
+  payload: AdminAnalyticsOverheadAnalysisData[];
 }
 
-interface ISetUserInteractionsAction extends IAction {
+interface SetUserInteractionsAction extends Action {
   payload: IAdminAnalyticsUserInteraction;
 }
 
-interface INewsletterAction extends IAction {
+interface NewsletterAction extends Action {
   payload: boolean;
 }
 
 // Admin Analytics Overhead Analysis
-export const setOverheadAnalysisDateRange = (dateRange: ISetDateRangeProps): ISetDateRangeAction => ({
+export const setOverheadAnalysisDateRange = (dateRange: SetDateRangeProps): SetDateRangeAction => ({
   type: TYPES.SET_OVERHEAD_ANALYSIS_DATE_RANGE,
   payload: dateRange,
 });
 
-export const setOverheadAnalysisBuckets = (overheadBuckets: IAdminAnalyticsOverheadAnalysisBuckets): ISetOverheadAnalysisBucketsAction => ({
+export const setOverheadAnalysisBuckets = (overheadBuckets: IAdminAnalyticsOverheadAnalysisBuckets): SetOverheadAnalysisBucketsAction => ({
   type: TYPES.SET_OVERHEAD_ANALYSIS_OVERHEAD_BUCKETS,
   payload: overheadBuckets,
 });
 
-export const setOverheadAnalysisUserInteractions = (userInteractions: IAdminAnalyticsUserInteraction): ISetUserInteractionsAction => ({
+export const setOverheadAnalysisUserInteractions = (userInteractions: IAdminAnalyticsUserInteraction): SetUserInteractionsAction => ({
   type: TYPES.SET_OVERHEAD_ANALYSIS_USER_INTERACTIONS,
   payload: userInteractions,
 });
 
-export const setOverheadAnalysisData = (overheadData: IAdminAnalyticsOverheadAnalysisData[]): ISetOverheadAnalysisDataAction => ({
+export const setOverheadAnalysisData = (overheadData: AdminAnalyticsOverheadAnalysisData[]): SetOverheadAnalysisDataAction => ({
   type: TYPES.SET_OVERHEAD_ANALYSIS_OVERHEAD_DATA,
   payload: overheadData,
 });
 
 // Admin Analytics Student Summary
-export const setStudentSummaryDateRange = (dateRange: ISetDateRangeProps): ISetDateRangeAction => ({
+export const setStudentSummaryDateRange = (dateRange: SetDateRangeProps): SetDateRangeAction => ({
   type: TYPES.SET_STUDENT_SUMMARY_DATE_RANGE,
   payload: dateRange,
 });
 
-export const setStudentSummaryUserInteractions = (userInteractions: IAdminAnalyticsUserInteraction): ISetUserInteractionsAction => ({
+export const setStudentSummaryUserInteractions = (userInteractions: IAdminAnalyticsUserInteraction): SetUserInteractionsAction => ({
   type: TYPES.SET_STUDENT_SUMMARY_USER_INTERACTIONS,
   payload: userInteractions,
 });
 
 // Admin Analytics Newsletter
-export const startGetStudentEmails = (): INewsletterAction => ({
+export const startGetStudentEmails = (): NewsletterAction => ({
   type: TYPES.GET_EMAILS_WORKING,
   payload: true,
 });
 
-export const getStudentEmailsDone = (): INewsletterAction => ({
+export const getStudentEmailsDone = (): NewsletterAction => ({
   type: TYPES.GET_EMAILS_DONE,
   payload: false,
 });
 
-export const startTestNewsletter = (): INewsletterAction => ({
+export const startTestNewsletter = (): NewsletterAction => ({
   type: TYPES.TEST_EMAIL_WORKING,
   payload: true,
 });
 
-export const testNewsletterDone = (): INewsletterAction => ({
+export const testNewsletterDone = (): NewsletterAction => ({
   type: TYPES.TEST_EMAIL_DONE,
   payload: false,
 });
 
-export const startLevelNewsletter = (): INewsletterAction => ({
+export const startLevelNewsletter = (): NewsletterAction => ({
   type: TYPES.LEVEL_EMAIL_WORKING,
   payload: true,
 });
 
-export const levelNewsletterDone = (): INewsletterAction => ({
+export const levelNewsletterDone = (): NewsletterAction => ({
   type: TYPES.LEVEL_EMAIL_DONE,
   payload: false,
 });
 
-export const startAllNewsletter = (): INewsletterAction => ({
+export const startAllNewsletter = (): NewsletterAction => ({
   type: TYPES.ALL_EMAIL_WORKING,
   payload: true,
 });
 
-export const allNewsletterDone = (): INewsletterAction => ({
+export const allNewsletterDone = (): NewsletterAction => ({
   type: TYPES.ALL_EMAIL_DONE,
   payload: false,
 });

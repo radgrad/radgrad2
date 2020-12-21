@@ -1,7 +1,7 @@
 import SimpleSchema from 'simpl-schema';
 import BaseCollection from '../base/BaseCollection';
 import { Users } from '../user/UserCollection';
-import { IIceSnapshotDefine } from '../../typings/radgrad';
+import { IceSnapshotDefine } from '../../typings/radgrad';
 
 /**
  * Represents a snapshot of a student's ICE points and their level. Used to check if a student
@@ -34,7 +34,7 @@ class IceSnapshotCollection extends BaseCollection {
    * @param e The student's current experience points.
    * @param updated Timestamp of most recent snapshot.
    */
-  public define({ username, level, i, c, e, updated }: IIceSnapshotDefine) {
+  public define({ username, level, i, c, e, updated }: IceSnapshotDefine) {
     return this.collection.insert({ username, level, i, c, e, updated });
   }
 
@@ -60,7 +60,7 @@ class IceSnapshotCollection extends BaseCollection {
    * @param docID The docID of a IceSnapshot.
    * @returns { Object } An object representing the definition of docID.
    */
-  public dumpOne(docID: string): IIceSnapshotDefine {
+  public dumpOne(docID: string): IceSnapshotDefine {
     const doc = this.findDoc(docID);
     const username = doc.username;
     const updated = doc.updated;

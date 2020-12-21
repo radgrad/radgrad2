@@ -5,12 +5,12 @@ import { PlanChoices } from '../../../../api/degree-plan/PlanChoiceCollection';
 import { buildSimpleName, complexChoiceToArray, stripCounter } from '../../../../api/degree-plan/PlanChoiceUtilities';
 import { getNotSatisfiedStyle, getSatisfiedStyle } from './utilities/styles';
 
-interface ISatisfiedPlanChoicePillProps {
+interface SatisfiedPlanChoicePillProps {
   choice: string;
   satisfied: boolean;
 }
 
-const SatisfiedPlanChoicePill: React.FC<ISatisfiedPlanChoicePillProps> = ({ choice, satisfied }) => {
+const SatisfiedPlanChoicePill: React.FC<SatisfiedPlanChoicePillProps> = ({ choice, satisfied }) => {
   const style = satisfied ? getSatisfiedStyle() : getNotSatisfiedStyle();
   const stripped = stripCounter(choice);
   const courseSlugs = complexChoiceToArray(stripped);

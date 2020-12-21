@@ -7,9 +7,9 @@ import Swal from 'sweetalert2';
 import { RadGradProperties } from '../../../../api/radgrad/RadGradProperties';
 import { CourseScoreboard } from '../../../../startup/client/collections';
 import {
-  IAcademicTerm,
-  ICourseInstance,
-  IUserInteractionDefine,
+  AcademicTerm,
+  CourseInstance,
+  UserInteractionDefine,
 } from '../../../../typings/radgrad';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import IceHeader from '../../shared/IceHeader';
@@ -24,8 +24,8 @@ import { getUsername } from '../../shared/utilities/router';
 import { UserInteractionsTypes } from '../../../../api/analytic/UserInteractionsTypes';
 import { userInteractionDefineMethod } from '../../../../api/analytic/UserInteractionCollection.methods';
 
-interface IDetailCourseCardProps {
-  instance: ICourseInstance;
+interface DetailCourseCardProps {
+  instance: CourseInstance;
   selectCourseInstance: (courseInstanceID: string) => any;
 }
 
@@ -37,7 +37,7 @@ const handleRemove = (selectCourseInstance, match) => (event, { value }) => {
   event.preventDefault();
   const collectionName = CourseInstances.getCollectionName();
   const instance = value;
-  const instanceObject: ICourseInstance = CourseInstances.findDoc({ _id: instance });
+  const instanceObject: CourseInstance = CourseInstances.findDoc({ _id: instance });
   const slugName = CourseInstances.getCourseSlug(instance);
   removeItMethod.call({ collectionName, instance }, (error) => {
     if (error) {
@@ -49,8 +49,8 @@ const handleRemove = (selectCourseInstance, match) => (event, { value }) => {
         showConfirmButton: false,
         timer: 1500,
       });
-      const academicTerm: IAcademicTerm = AcademicTerms.findDoc({ _id: instanceObject.termID });
-      const interactionData: IUserInteractionDefine = {
+      const academicTerm: AcademicTerm = AcademicTerms.findDoc({ _id: instanceObject.termID });
+      const interactionData: UserInteractionDefine = {
         username: getUsername(match),
         type: UserInteractionsTypes.REMOVECOURSE,
         typeData: [academicTerm.term, academicTerm.year, slugName],
@@ -65,7 +65,7 @@ const handleRemove = (selectCourseInstance, match) => (event, { value }) => {
   selectCourseInstance('');
 };
 
-const DetailCourseCard: React.FC<IDetailCourseCardProps> = ({ instance, selectCourseInstance }) => {
+const DetailCourseCard: React.FC<DetailCourseCardProps> = ({ instance, selectCourseInstance }) => {
   const match = useRouteMatch();
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
   const courseTerm = AcademicTerms.findDoc(instance.termID);
@@ -83,7 +83,7 @@ const DetailCourseCard: React.FC<IDetailCourseCardProps> = ({ instance, selectCo
     limit: numTerms,
   });
   const scores = [];
-  _.forEach(academicTerms, (term: IAcademicTerm) => {
+  _.forEach(academicTerms, (term: AcademicTerm) => {
     const id = `${course._id} ${term._id}`;
     const score = CourseScoreboard.find({ _id: id }).fetch() as { count: number }[];
     if (score.length > 0) {

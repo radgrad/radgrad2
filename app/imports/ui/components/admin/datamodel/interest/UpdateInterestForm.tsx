@@ -7,11 +7,11 @@ import SimpleSchema from 'simpl-schema';
 import { InterestTypes } from '../../../../../api/interest/InterestTypeCollection';
 import { Slugs } from '../../../../../api/slug/SlugCollection';
 import { docToName } from '../../../shared/utilities/data-model';
-import { IInterestType } from '../../../../../typings/radgrad';
+import { InterestType } from '../../../../../typings/radgrad';
 import BaseCollection from '../../../../../api/base/BaseCollection';
 
-interface IUpdateInterestFormProps {
-  interestTypes: IInterestType[];
+interface UpdateInterestFormProps {
+  interestTypes: InterestType[];
   collection: BaseCollection;
   id: string;
   formRef: React.RefObject<unknown>;
@@ -20,7 +20,7 @@ interface IUpdateInterestFormProps {
   itemTitleString: (item) => React.ReactNode;
 }
 
-const UpdateInterestForm: React.FC<IUpdateInterestFormProps> = ({ interestTypes, collection, id, formRef, handleCancel, handleUpdate, itemTitleString }) => {
+const UpdateInterestForm: React.FC<UpdateInterestFormProps> = ({ interestTypes, collection, id, formRef, handleCancel, handleUpdate, itemTitleString }) => {
   const interestTypeNames = _.map(interestTypes, docToName);
   const model = collection.findDoc(id);
   model.slug = Slugs.getNameFromID(model.slugID);

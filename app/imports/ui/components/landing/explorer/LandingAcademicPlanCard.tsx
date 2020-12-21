@@ -1,15 +1,15 @@
 import React from 'react';
 import { Button, Card, Icon } from 'semantic-ui-react';
 import { getSlug, itemShortDescription } from '../utilities/helper-functions';
-import { IAcademicPlan } from '../../../../typings/radgrad';
+import { AcademicPlan } from '../../../../typings/radgrad';
 import LandingAcademicPlanViewer from './LandingAcademicPlanViewer';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 
-interface ILandingAcademicPlanCardProps {
-  plan: IAcademicPlan;
+interface LandingAcademicPlanCardProps {
+  plan: AcademicPlan;
 }
 
-const LandingAcademicPlanCard: React.FC<ILandingAcademicPlanCardProps> = ({ plan }) => {
+const LandingAcademicPlanCard: React.FC<LandingAcademicPlanCardProps> = ({ plan }) => {
   const routeToItem = `#/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.ACADEMICPLANS}/${getSlug(plan)}`;
   const title = plan.name;
   return (

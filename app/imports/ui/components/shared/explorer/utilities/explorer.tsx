@@ -1,12 +1,12 @@
 import React from 'react';
 import _ from 'lodash';
 import {
-  IAcademicPlan,
-  ICareerGoal,
-  ICourse,
-  IInterest,
-  IOpportunity,
-  IStudentProfile,
+  AcademicPlan,
+  CareerGoal,
+  Course,
+  Interest,
+  Opportunity,
+  StudentProfile,
 } from '../../../../../typings/radgrad';
 import * as Router from '../../utilities/router';
 import { Users } from '../../../../../api/user/UserCollection';
@@ -25,21 +25,21 @@ import { FavoriteCareerGoals } from '../../../../../api/favorite/FavoriteCareerG
 import { FavoriteAcademicPlans } from '../../../../../api/favorite/FavoriteAcademicPlanCollection';
 import { FavoriteInterests } from '../../../../../api/favorite/FavoriteInterestCollection';
 import { FavoriteOpportunities } from '../../../../../api/favorite/FavoriteOpportunityCollection';
-import { IMatchProps } from '../../utilities/router';
+import { MatchProps } from '../../utilities/router';
 
-export type ExplorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IInterest | IOpportunity;
+export type ExplorerInterfaces = AcademicPlan | CareerGoal | Course | Interest | Opportunity;
 
 export type IExplorerTypes = 'plans' | 'career-goals' | 'courses' | 'interests' | 'opportunities';
 
 export const isType = (typeToCheck: string, type: IExplorerTypes): boolean => type === typeToCheck;
 
 /* ####################################### ACADEMIC PLANS HELPER FUNCTIONS ####################################### */
-export const noPlan = (match: Router.IMatchProps): boolean => {
+export const noPlan = (match: Router.MatchProps): boolean => {
   const profile = Users.getProfile(Router.getUsername(match));
   return profileGetFavoriteAcademicPlans(profile).length === 0;
 };
 
-export const interestedStudents = (item: { _id: string }, type: string): IStudentProfile[] => {
+export const interestedStudents = (item: { _id: string }, type: string): StudentProfile[] => {
   const interested = [];
   let profiles = StudentProfiles.findNonRetired({ isAlumni: false });
 
@@ -80,7 +80,7 @@ export const interestedStudents = (item: { _id: string }, type: string): IStuden
 };
 
 /* ####################################### CAREER GOALS HELPER FUNCTIONS ######################################### */
-export const noCareerGoals = (match: Router.IMatchProps): boolean => {
+export const noCareerGoals = (match: Router.MatchProps): boolean => {
   const username = Router.getUsername(match);
   if (username) {
     const profile = Users.getProfile(username);
@@ -90,7 +90,7 @@ export const noCareerGoals = (match: Router.IMatchProps): boolean => {
 };
 
 /* ####################################### INTERESTS HELPER FUNCTIONS ############################################ */
-export const userInterests = (interest: IInterest, match: Router.IMatchProps): string => {
+export const userInterests = (interest: Interest, match: Router.MatchProps): string => {
   let ret = '';
   const profile = Users.getProfile(Router.getUsername(match));
   if (_.includes(Users.getInterestIDs(profile.userID), interest._id)) {
@@ -99,7 +99,7 @@ export const userInterests = (interest: IInterest, match: Router.IMatchProps): s
   return ret;
 };
 
-export const noInterests = (match: Router.IMatchProps): boolean => {
+export const noInterests = (match: Router.MatchProps): boolean => {
   const username = Router.getUsername(match);
   if (username) {
     const profile = Users.getProfile(username);
@@ -110,7 +110,7 @@ export const noInterests = (match: Router.IMatchProps): boolean => {
 };
 
 /* ####################################### OPPORTUNITIES HELPER FUNCTIONS ######################################## */
-export const availableOpps = (match: IMatchProps): unknown[] => {
+export const availableOpps = (match: MatchProps): unknown[] => {
   const notRetired = Opportunities.findNonRetired({});
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
   // console.log(notRetired.length);
@@ -148,7 +148,7 @@ export const availableOpps = (match: IMatchProps): unknown[] => {
   return notRetired;
 };
 
-export const matchingOpportunities = (match: IMatchProps): IOpportunity[] => {
+export const matchingOpportunities = (match: MatchProps): Opportunity[] => {
   const allOpportunities = availableOpps(match);
   // console.log('allOpportunities ', allOpportunities);
   const username = Router.getUsername(match);
@@ -160,7 +160,7 @@ export const matchingOpportunities = (match: IMatchProps): IOpportunity[] => {
 
 /* ####################################### GENERAL HELPER FUNCTIONS ############################################ */
 
-export const noItems = (noItemsType: string, match: Router.IMatchProps): boolean => {
+export const noItems = (noItemsType: string, match: Router.MatchProps): boolean => {
   switch (noItemsType) {
     case 'noPlan':
       return noPlan(match);
@@ -229,7 +229,7 @@ export const buildNoItemsMessage = (noItemsMessageType, type: IExplorerTypes): E
   }
 };
 
-export const checkForNoItems = (match: IMatchProps, type: IExplorerTypes): Element | JSX.Element | string => {
+export const checkForNoItems = (match: MatchProps, type: IExplorerTypes): Element | JSX.Element | string => {
   switch (type) {
     case EXPLORER_TYPE.ACADEMICPLANS:
       return noItems('noPlan', match) ? buildNoItemsMessage('noPlan', type) : '';

@@ -5,7 +5,7 @@ import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import { HelpMessages } from '../../../../../api/help/HelpMessageCollection';
 import BaseCollection from '../../../../../api/base/BaseCollection';
 
-interface IUpdateHelpMessageFormProps {
+interface UpdateHelpMessageFormProps {
   collection: BaseCollection;
   id: string;
   formRef: React.RefObject<unknown>;
@@ -14,7 +14,7 @@ interface IUpdateHelpMessageFormProps {
   itemTitleString: (item) => React.ReactNode;
 }
 
-const UpdateHelpMessageForm: React.FC<IUpdateHelpMessageFormProps> = ({ collection, id, formRef, handleUpdate, handleCancel, itemTitleString }) => {
+const UpdateHelpMessageForm: React.FC<UpdateHelpMessageFormProps> = ({ collection, id, formRef, handleUpdate, handleCancel, itemTitleString }) => {
   const model = collection.findDoc(id);
   return (
     <Segment padded>

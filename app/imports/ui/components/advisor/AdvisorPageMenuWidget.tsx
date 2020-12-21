@@ -6,14 +6,14 @@ import { Reviews } from '../../../api/review/ReviewCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import { buildRouteName } from '../shared/utilities/router';
 import { COMMUNITY, EXPLORER_TYPE } from '../../layouts/utilities/route-constants';
-import { IAdvisorOrFacultyProfile } from '../../../typings/radgrad';
+import { AdvisorOrFacultyProfile } from '../../../typings/radgrad';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 
 const AdvisorPageMenuWidget: React.FC = () => {
   const match = useRouteMatch();
   const { username } = useParams();
   const divStyle = { marginBottom: 30 };
-  const profile: IAdvisorOrFacultyProfile = AdvisorProfiles.getProfile(username);
+  const profile: AdvisorOrFacultyProfile = AdvisorProfiles.getProfile(username);
   let numMod = 0;
   numMod += Reviews.findNonRetired({ moderated: false }).length;
   let moderationLabel = 'Moderation';

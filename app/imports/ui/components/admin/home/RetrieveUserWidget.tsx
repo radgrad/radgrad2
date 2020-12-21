@@ -2,8 +2,8 @@ import React from 'react';
 import { Button, Grid, Header, Segment, Tab } from 'semantic-ui-react';
 import _ from 'lodash';
 import { updateAllStudentLevelsMethod } from '../../../../api/level/LevelProcessor.methods';
-import { IFilterUsers } from '../../../pages/admin/AdminHomePage'; // TODO resolve circular imports
-import { IAdvisorOrFacultyProfile, IStudentProfile } from '../../../../typings/radgrad';
+import { FilterUsers } from '../../../pages/admin/AdminHomePage'; // TODO resolve circular imports
+import { AdvisorOrFacultyProfile, StudentProfile } from '../../../../typings/radgrad';
 
 function url(user) {
   return `/#/${user.role.toLowerCase()}/${user.username}/home`;
@@ -15,11 +15,11 @@ function name(user) {
 
 const shortUserName = (user) => user.username.substr(0, user.username.indexOf('@'));
 
-interface IRetrieveUserWidgetProps extends IFilterUsers {
-  advisors: IAdvisorOrFacultyProfile[];
-  faculty: IAdvisorOrFacultyProfile[];
-  students: IStudentProfile[];
-  alumni: IStudentProfile[];
+interface RetrieveUserWidgetProps extends FilterUsers {
+  advisors: AdvisorOrFacultyProfile[];
+  faculty: AdvisorOrFacultyProfile[];
+  students: StudentProfile[];
+  alumni: StudentProfile[];
   firstNameRegex?: string;
   lastNameRegex?: string;
   userNameRegex?: string;
@@ -35,7 +35,7 @@ const handleUpdateLevelButton = (event) => {
   });
 };
 
-const RetrieveUserWidget: React.FC<IRetrieveUserWidgetProps> = ({ advisors, faculty, students, alumni, firstNameRegex, lastNameRegex, userNameRegex }) => {
+const RetrieveUserWidget: React.FC<RetrieveUserWidgetProps> = ({ advisors, faculty, students, alumni, firstNameRegex, lastNameRegex, userNameRegex }) => {
   let advisorsToShow = advisors;
   let facultyToShow = faculty;
   let studentsToShow = students;

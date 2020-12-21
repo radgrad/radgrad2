@@ -4,14 +4,14 @@ import { Form, Segment } from 'semantic-ui-react';
 import { AutoForm, SelectField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
-import { IAcademicPlan } from '../../../../typings/radgrad';
+import { AcademicPlan } from '../../../../typings/radgrad';
 import AdvisorAcademicPlanViewer from './AdvisorAcademicPlanViewer';
 
-interface IAdvisorAcademicPlanViewerWidgetProps {
-  plans: IAcademicPlan[],
+interface AdvisorAcademicPlanViewerWidgetProps {
+  plans: AcademicPlan[],
 }
 
-const AdvisorAcademicPlanViewerWidget: React.FC<IAdvisorAcademicPlanViewerWidgetProps> = ({ plans }) => {
+const AdvisorAcademicPlanViewerWidget: React.FC<AdvisorAcademicPlanViewerWidgetProps> = ({ plans }) => {
   let planNames = _.map(_.filter(plans, (p) => p.year === plans[0].year), (plan) => plan.name);
 
   const [planNamesState, setPlanNames] = useState(planNames);

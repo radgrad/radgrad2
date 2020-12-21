@@ -5,7 +5,7 @@ import { Segment, Grid, Header, Tab, Form, Button, Image, Popup } from 'semantic
 import Swal from 'sweetalert2';
 import { ZipZap } from 'meteor/udondan:zipzap';
 import moment from 'moment';
-import { ICareerGoal, IInterest, IStudentProfile } from '../../../../typings/radgrad';
+import { CareerGoal, Interest, StudentProfile } from '../../../../typings/radgrad';
 import AdvisorAddStudentWidget from './AdvisorAddStudentWidget';
 import { generateStudentEmailsMethod } from '../../../../api/user/UserCollection.methods';
 import { starBulkLoadJsonDataMethod } from '../../../../api/star/StarProcessor.methods';
@@ -15,16 +15,16 @@ import { RootState } from '../../../../redux/types';
 /* global FileReader */
 /* eslint-disable react/prop-types */
 
-interface IAdvisorStudentSelectorWidgetProps {
+interface AdvisorStudentSelectorWidgetProps {
   dispatch: (any) => void;
   firstName: string;
   lastName: string;
   username: string;
-  students: IStudentProfile[];
-  alumni: IStudentProfile[];
+  students: StudentProfile[];
+  alumni: StudentProfile[];
   advisorUsername: string;
-  interests: IInterest[];
-  careerGoals: ICareerGoal[];
+  interests: Interest[];
+  careerGoals: CareerGoal[];
 }
 
 const mapStateToProps = (state: RootState) => ({
@@ -33,7 +33,7 @@ const mapStateToProps = (state: RootState) => ({
   username: state.advisor.home.username,
 });
 
-const AdvisorStudentSelectorWidget: React.FC<IAdvisorStudentSelectorWidgetProps> = ({ dispatch, advisorUsername, careerGoals, interests, students, username, alumni, firstName, lastName }) => {
+const AdvisorStudentSelectorWidget: React.FC<AdvisorStudentSelectorWidgetProps> = ({ dispatch, advisorUsername, careerGoals, interests, students, username, alumni, firstName, lastName }) => {
   const [fileDataState, setFileData] = useState('');
   const [isEmailWorkingState, setIsEmailWorking] = useState(false);
   const [isUploadWorkingState, setIsUploadWorking] = useState(false);

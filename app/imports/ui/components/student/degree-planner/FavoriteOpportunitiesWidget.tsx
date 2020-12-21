@@ -2,18 +2,18 @@ import React from 'react';
 import { Card, Icon, Message } from 'semantic-ui-react';
 import { Link, useRouteMatch } from 'react-router-dom';
 import _ from 'lodash';
-import { IOpportunity, IOpportunityInstance } from '../../../../typings/radgrad';
+import { Opportunity, OpportunityInstance } from '../../../../typings/radgrad';
 import * as Router from '../../shared/utilities/router';
 import FavoriteOpportunityCard from './FavoriteOpportunityCard';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 
-interface IFavoriteOpportunitiesWidgetProps {
+interface FavoriteOpportunitiesWidgetProps {
   studentID: string;
-  opportunities: IOpportunity[];
-  opportunityInstances: IOpportunityInstance[];
+  opportunities: Opportunity[];
+  opportunityInstances: OpportunityInstance[];
 }
 
-const FavoriteOpportunitiesWidget: React.FC<IFavoriteOpportunitiesWidgetProps> = ({ studentID, opportunities, opportunityInstances }) => {
+const FavoriteOpportunitiesWidget: React.FC<FavoriteOpportunitiesWidgetProps> = ({ studentID, opportunities, opportunityInstances }) => {
   const match = useRouteMatch();
   const hasFavorites = opportunities.length > 0;
   return (

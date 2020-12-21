@@ -5,7 +5,7 @@ import _ from 'lodash';
 import { useRouteMatch } from 'react-router-dom';
 import { ROLE } from '../../../../api/role/Role';
 import BaseCollection from '../../../../api/base/BaseCollection';
-import { IDescriptionPair } from '../../../../typings/radgrad';
+import { DescriptionPair } from '../../../../typings/radgrad';
 import AdminPaginationWidget from '../../admin/datamodel/AdminPaginationWidget';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
 import { Slugs } from '../../../../api/slug/SlugCollection';
@@ -15,10 +15,10 @@ import { getUserIdFromRoute } from '../../shared/utilities/router';
 import { Users } from '../../../../api/user/UserCollection';
 import { RootState } from '../../../../redux/types';
 
-interface IListOpportunitiesWidgetProps {
+interface ListOpportunitiesWidgetProps {
   collection: BaseCollection;
   findOptions?: { [key: string]: unknown };
-  descriptionPairs: (item) => IDescriptionPair[];
+  descriptionPairs: (item) => DescriptionPair[];
   handleOpenUpdate: (evt: any, id: any) => any;
   handleDelete: (evt: any, id: any) => any;
   pagination: any;
@@ -44,7 +44,7 @@ const titleICE = (opportunity) => ` (ICE: ${opportunity.ice.i}/${opportunity.ice
 
 const slugName = (slugID) => ` (${Slugs.findDoc(slugID).name})`;
 
-const ListOpportunitiesWidget: React.FC<IListOpportunitiesWidgetProps> = ({ pagination, collection, handleOpenUpdate, handleDelete, descriptionPairs, findOptions }) => {
+const ListOpportunitiesWidget: React.FC<ListOpportunitiesWidgetProps> = ({ pagination, collection, handleOpenUpdate, handleDelete, descriptionPairs, findOptions }) => {
   // console.log('ListOpportunitiesWidget.render props=%o', props);
   const match = useRouteMatch();
   const facultyCounter = facultyCount(match);

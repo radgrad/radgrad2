@@ -5,7 +5,7 @@ import { useRouteMatch } from 'react-router-dom';
 import { renderLink } from '../utilities/router';
 import { IFeed } from '../../../../typings/radgrad';
 
-interface IStudentFeedItemProps {
+interface StudentFeedItemProps {
   feed: IFeed;
 }
 
@@ -32,7 +32,7 @@ const feedTimestamp = (feed): string => {
   return ret;
 };
 
-const CommunityFeedItem: React.FC<IStudentFeedItemProps> = ({ feed }) => {
+const CommunityFeedItem: React.FC<StudentFeedItemProps> = ({ feed }) => {
   const match = useRouteMatch();
   return (
     <React.Fragment>

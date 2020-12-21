@@ -4,15 +4,15 @@ import Swal from 'sweetalert2';
 import { AdvisorLogs } from '../../../../api/log/AdvisorLogCollection';
 import { Users } from '../../../../api/user/UserCollection';
 import { defineMethod } from '../../../../api/base/BaseCollection.methods';
-import { IAdvisorLog, IAdvisorLogDefine, IStudentProfile } from '../../../../typings/radgrad';
+import { AdvisorLog, AdvisorLogDefine, StudentProfile } from '../../../../typings/radgrad';
 
-export interface IAdvisorLogEntryWidgetProps {
-  advisorLogs: IAdvisorLog[];
-  usernameDoc: IStudentProfile;
+export interface AdvisorLogEntryWidgetProps {
+  advisorLogs: AdvisorLog[];
+  usernameDoc: StudentProfile;
   advisorUsername: string;
 }
 
-const AdvisorLogEntryWidget: React.FC<IAdvisorLogEntryWidgetProps> = ({ advisorLogs, usernameDoc, advisorUsername }) => {
+const AdvisorLogEntryWidget: React.FC<AdvisorLogEntryWidgetProps> = ({ advisorLogs, usernameDoc, advisorUsername }) => {
   const [commentState, setComment] = useState('');
   const [advisorLogsState] = useState(advisorLogs);
 
@@ -36,7 +36,7 @@ const AdvisorLogEntryWidget: React.FC<IAdvisorLogEntryWidgetProps> = ({ advisorL
 
   const onSubmit = () => {
     const collectionName = AdvisorLogs.getCollectionName();
-    const definitionData: IAdvisorLogDefine = {
+    const definitionData: AdvisorLogDefine = {
       advisor: advisorUsername,
       student: usernameDoc.username,
       text: commentState,

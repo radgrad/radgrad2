@@ -3,14 +3,14 @@ import { Divider, Grid } from 'semantic-ui-react';
 import AdvisorAPBTermView from './AdvisorAPBTermView';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 
-interface IAdvisorAPBYearViewProps {
+interface AdvisorAPBYearViewProps {
   yearNumber: number;
   coursesPerTerm: number[];
   choiceList: string[];
   quarterSystem: boolean;
 }
 
-const AdvisorAPBYearView: React.FC<IAdvisorAPBYearViewProps> = ({ yearNumber, coursesPerTerm, choiceList, quarterSystem }) => {
+const AdvisorAPBYearView: React.FC<AdvisorAPBYearViewProps> = ({ yearNumber, coursesPerTerm, choiceList, quarterSystem }) => {
   const academicYearStyle = {
     padding: '0 0.6rem',
   };

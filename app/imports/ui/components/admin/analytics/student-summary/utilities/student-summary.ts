@@ -1,4 +1,4 @@
-export interface IStudentSummaryBehaviorCategory {
+export interface StudentSummaryBehaviorCategory {
   type: string;
   count: number;
   users: string[];
@@ -20,7 +20,7 @@ export enum StudentSummaryBehaviorTypes {
   LOGOUT = 'Log Out',
 }
 
-export const behaviorCategories: IStudentSummaryBehaviorCategory[] = [
+export const behaviorCategories: StudentSummaryBehaviorCategory[] = [
   { type: 'Log In', count: 0, users: [], description: 'Logged into Application' },
   { type: 'Change Outlook', count: 0, users: [], description: 'Updated Interests, Career Goals, or Academic Plans' },
   { type: 'Exploration', count: 0, users: [], description: 'Viewed entries in Explorer' },

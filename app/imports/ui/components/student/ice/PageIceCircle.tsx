@@ -3,13 +3,14 @@ import { PositionProperties } from 'react-native';
 import { Link, useRouteMatch } from 'react-router-dom';
 import { buildRouteName } from '../../shared/utilities/router';
 
-interface IPageIceCircleProps {
+interface PageIceCircleProps {
   earned: number;
   planned: number;
   type: string;
 }
 // TODO remove this file use shared/MenuIceCircle
-const PageIceCircle: React.FC<IPageIceCircleProps> = ({ planned, type, earned }) => {
+const PageIceCircle: React.FC<PageIceCircleProps> = ({ planned, type, earned }) => {
+
   const match = useRouteMatch();
   const styles = {
     position: 'absolute' as PositionProperties.absolute,

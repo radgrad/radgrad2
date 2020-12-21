@@ -6,15 +6,15 @@ import { updateMethod } from '../../../../api/base/BaseCollection.methods';
 import { getUsername } from '../../shared/utilities/router';
 import { UserInteractionsTypes } from '../../../../api/analytic/UserInteractionsTypes';
 import { userInteractionDefineMethod } from '../../../../api/analytic/UserInteractionCollection.methods';
-import { IUserInteractionDefine } from '../../../../typings/radgrad';
+import { UserInteractionDefine } from '../../../../typings/radgrad';
 
-interface IStudentAboutMeUpdateWebsiteFormProps {
+interface StudentAboutMeUpdateWebsiteFormProps {
   website: string;
   docID: string;
   collectionName: string;
 }
 
-const StudentAboutMeUpdateWebsiteForm: React.FC<IStudentAboutMeUpdateWebsiteFormProps> = ({ website, docID, collectionName }) => {
+const StudentAboutMeUpdateWebsiteForm: React.FC<StudentAboutMeUpdateWebsiteFormProps> = ({ website, docID, collectionName }) => {
   const [websiteState, setWebsite] = useState(website);
   const match = useRouteMatch();
   const handleFormChange = (e, { value }) => setWebsite(value);
@@ -40,7 +40,7 @@ const StudentAboutMeUpdateWebsiteForm: React.FC<IStudentAboutMeUpdateWebsiteForm
           allowEnterKey: false,
         });
         const username = getUsername(match);
-        const interactionData: IUserInteractionDefine = {
+        const interactionData: UserInteractionDefine = {
           username,
           type: UserInteractionsTypes.WEBSITE,
           typeData: [websiteState],

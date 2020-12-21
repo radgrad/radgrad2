@@ -3,30 +3,30 @@ import { Accordion, Button, Icon } from 'semantic-ui-react';
 import _ from 'lodash';
 import Markdown from 'react-markdown';
 import { useRouteMatch } from 'react-router-dom';
-import { IDescriptionPair } from '../../../../typings/radgrad';
+import { DescriptionPair } from '../../../../typings/radgrad';
 import * as Router from '../../shared/utilities/router';
 
-interface IAdminDataModelAccordionProps {
+interface AdminDataModelAccordionProps {
   id: string;
   retired: boolean;
   name: string;
   slug?: string;
   additionalTitleInfo?: string;
-  descriptionPairs: IDescriptionPair[];
+  descriptionPairs: DescriptionPair[];
   updateDisabled: boolean;
   deleteDisabled: boolean;
   handleOpenUpdate: (evt: any, id: any) => any;
   handleDelete: (evt: any, id: any) => any;
 }
 
-const AdminDataModelAccordion: React.FC<IAdminDataModelAccordionProps> = ({ id, retired, name, slug, additionalTitleInfo, deleteDisabled, descriptionPairs, handleOpenUpdate, handleDelete, updateDisabled }) => {
+const AdminDataModelAccordion: React.FC<AdminDataModelAccordionProps> = ({ id, retired, name, slug, additionalTitleInfo, deleteDisabled, descriptionPairs, handleOpenUpdate, handleDelete, updateDisabled }) => {
   const [active, setActive] = useState(false);
 
   const handleClick = () => {
     setActive(!active);
   };
 
-  const getDescriptionPairValue = (descriptionPair: IDescriptionPair): string => {
+  const getDescriptionPairValue = (descriptionPair: DescriptionPair): string => {
     if (Array.isArray(descriptionPair.value)) {
       return descriptionPair.value.join(', ');
     }

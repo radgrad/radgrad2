@@ -4,7 +4,7 @@ import moment from 'moment';
 import _ from 'lodash';
 import { Slugs } from '../slug/SlugCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
-import { IAcademicTermDefine, IAcademicTermUpdate } from '../../typings/radgrad';
+import { AcademicTermDefine, AcademicTermUpdate } from '../../typings/radgrad';
 import { RadGradProperties } from '../radgrad/RadGradProperties';
 import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollection';
 import { CourseInstances } from '../course/CourseInstanceCollection';
@@ -78,7 +78,7 @@ class AcademicTermCollection extends BaseSlugCollection {
    * @param docID The docID of a Academic Term.
    * @returns { Object } An object representing the definition of docID.
    */
-  public dumpOne(docID: string): IAcademicTermDefine {
+  public dumpOne(docID: string): AcademicTermDefine {
     const doc = this.findDoc(docID);
     const term = doc.term;
     const year = doc.year;
@@ -97,7 +97,7 @@ class AcademicTermCollection extends BaseSlugCollection {
    * @throws { Meteor.Error } If the term or year are not correctly specified.
    * @returns The docID for this academicTerm instance.
    */
-  public define({ term, year, retired = false }: IAcademicTermDefine) {
+  public define({ term, year, retired = false }: AcademicTermDefine) {
     // Check that term and year are valid.
     if (this.terms.indexOf(term) < 0) {
       throw new Meteor.Error(`Invalid term: ${term}`);
@@ -153,9 +153,9 @@ class AcademicTermCollection extends BaseSlugCollection {
    * @param docID the id of the academicTerm.
    * @param retired optional boolean.
    */
-  public update(docID, { retired }: IAcademicTermUpdate) {
+  public update(docID, { retired }: AcademicTermUpdate) {
     // console.log(`AcademicTerm.update(${docID}, ${retired})`);
-    const updateData: IAcademicTermUpdate = {};
+    const updateData: AcademicTermUpdate = {};
     if (_.isBoolean(retired)) {
       updateData.retired = retired;
       this.collection.update(docID, { $set: updateData });

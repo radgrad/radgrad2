@@ -25,14 +25,14 @@ import { VerificationRequests } from '../../../api/verification/VerificationRequ
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import {
-  IAcademicPlan,
-  IAcademicTerm,
-  IBaseProfile, ICareerGoal,
-  ICombinedProfileDefine,
-  IAdvisorOrFacultyProfile,
-  IFavoriteAcademicPlan,
-  IFavoriteCareerGoal, IFavoriteInterest, IInterest,
-  IStudentProfile,
+  AcademicPlan,
+  AcademicTerm,
+  BaseProfile, CareerGoal,
+  CombinedProfileDefine,
+  AdvisorOrFacultyProfile,
+  FavoriteAcademicPlan,
+  FavoriteCareerGoal, FavoriteInterest, Interest,
+  StudentProfile,
 } from '../../../typings/radgrad';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
@@ -41,7 +41,7 @@ import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection
 import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
 import { ROLE } from '../../../api/role/Role';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import AdminDataModelMenu, { IAdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
+import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import AddUserForm from '../../components/admin/datamodel/user/AddUserForm';
 import UpdateUserForm from '../../components/admin/datamodel/user/UpdateUserForm';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
@@ -60,26 +60,23 @@ import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollect
 import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
 import { RootState } from '../../../redux/types';
 
-interface IAdminDataModelUsersPageProps extends IAdminDataModeMenuProps {
-  admins: IBaseProfile[];
-  advisors: IAdvisorOrFacultyProfile[];
-  faculty: IAdvisorOrFacultyProfile[];
-  students: IStudentProfile[];
+interface AdminDataModelUsersPageProps extends AdminDataModeMenuProps {
+  admins: BaseProfile[];
+  advisors: AdvisorOrFacultyProfile[];
+  faculty: AdvisorOrFacultyProfile[];
+  students: StudentProfile[];
   isCloudinaryUsed: boolean;
   cloudinaryUrl: string;
-  // eslint-disable-next-line react/no-unused-prop-types
-  favoriteAcademicPlans: IFavoriteAcademicPlan[];
-  // eslint-disable-next-line react/no-unused-prop-types
-  favoriteCareerGoals: IFavoriteCareerGoal[];
-  // eslint-disable-next-line react/no-unused-prop-types
-  favoriteInterests: IFavoriteInterest[];
-  interests: IInterest[];
-  careerGoals: ICareerGoal[];
-  academicTerms: IAcademicTerm[];
-  academicPlans: IAcademicPlan[];
+  favoriteAcademicPlans: FavoriteAcademicPlan[];
+  favoriteCareerGoals: FavoriteCareerGoal[];
+  favoriteInterests: FavoriteInterest[];
+  interests: Interest[];
+  careerGoals: CareerGoal[];
+  academicTerms: AcademicTerm[];
+  academicPlans: AcademicPlan[];
 }
 
-const descriptionPairs = (props: IAdminDataModelUsersPageProps) => (user: IBaseProfile) => {
+const descriptionPairs = (props: AdminDataModelUsersPageProps) => (user: BaseProfile) => {
   const pairs = [];
   pairs.push({ label: 'Username', value: user.username });
   pairs.push({ label: 'Name', value: `${user.firstName}  ${user.lastName}` });
@@ -123,12 +120,12 @@ const descriptionPairs = (props: IAdminDataModelUsersPageProps) => (user: IBaseP
   return pairs;
 };
 
-const itemTitleString = (user: IBaseProfile): string => {
+const itemTitleString = (user: BaseProfile): string => {
   const alumni = user.isAlumni ? 'Alumni' : '';
   return `${user.firstName} ${user.lastName} (${user.username}) ${alumni}`;
 };
 
-const itemTitle = (user: IBaseProfile): React.ReactNode => (
+const itemTitle = (user: BaseProfile): React.ReactNode => (
   <React.Fragment>
     {user.retired ? <Icon name="eye slash" /> : ''}
     <Icon name="dropdown" />
@@ -141,15 +138,16 @@ const mapStateToProps = (state: RootState): unknown => ({
   cloudinaryUrl: state.shared.cloudinary.adminDataModelUsers.cloudinaryUrl,
 });
 
-const AdminDataModelUsersPage: React.FC<IAdminDataModelUsersPageProps> = (props) => {
+// props not deconstructed because AdminDataModeMenuProps has 21 numbers.
+const AdminDataModelUsersPage: React.FC<AdminDataModelUsersPageProps> = (props) => {
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');
   const [showUpdateFormState, setShowUpdateForm] = useState(false);
 
-  const handleAdd = (doc: ICombinedProfileDefine) => {
+  const handleAdd = (doc: CombinedProfileDefine) => {
     // console.log('handleAdd(%o)', doc);
-    const definitionData: ICombinedProfileDefine = doc;
+    const definitionData: CombinedProfileDefine = doc;
     definitionData.interests = _.map(doc.interests, (interest) => interestSlugFromName(interest));
     definitionData.careerGoals = _.map(doc.careerGoals, (goal) => careerGoalSlugFromName(goal));
     if (!_.isNil(doc.academicPlan)) {

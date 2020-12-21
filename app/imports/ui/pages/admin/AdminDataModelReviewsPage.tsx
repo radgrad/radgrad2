@@ -19,16 +19,16 @@ import { Teasers } from '../../../api/teaser/TeaserCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import AdminDataModelMenu, { IAdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
+import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import {
-  IAcademicTerm,
-  ICourse,
-  IDescriptionPair,
-  IOpportunity,
-  IReview,
-  IStudentProfile,
+  AcademicTerm,
+  Course,
+  DescriptionPair,
+  Opportunity,
+  Review,
+  StudentProfile,
 } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Courses } from '../../../api/course/CourseCollection';
@@ -54,7 +54,7 @@ const collection = Reviews; // the collection to use.
  * Returns an array of Description pairs used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const descriptionPairs = (item: IReview): IDescriptionPair[] => {
+const descriptionPairs = (item: Review): DescriptionPair[] => {
   let reviewee;
   if (item.reviewType === 'course') {
     reviewee = Courses.findDoc(item.revieweeID);
@@ -79,13 +79,13 @@ const descriptionPairs = (item: IReview): IDescriptionPair[] => {
  * Returns the title string for the item. Used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const itemTitleString = (item: IReview): string => `(${Slugs.getNameFromID(item.slugID)})`;
+const itemTitleString = (item: Review): string => `(${Slugs.getNameFromID(item.slugID)})`;
 
 /**
  * Returns the ReactNode used in the ListCollectionWidget. By default we indicate if the item is retired.
  * @param item an item from the collection.
  */
-const itemTitle = (item: IReview): React.ReactNode => (
+const itemTitle = (item: Review): React.ReactNode => (
   <React.Fragment>
     {item.retired ? <Icon name="eye slash" /> : ''}
     <Icon name="dropdown" />
@@ -93,15 +93,17 @@ const itemTitle = (item: IReview): React.ReactNode => (
   </React.Fragment>
 );
 
-interface IAdminDataModelReviewsPageProps extends IAdminDataModeMenuProps {
-  items: IReview[];
-  terms: IAcademicTerm[];
-  courses: ICourse[];
-  students: IStudentProfile[];
-  opportunities: IOpportunity[];
+interface AdminDataModelReviewsPageProps extends AdminDataModeMenuProps {
+  items: Review[];
+  terms: AcademicTerm[];
+  courses: Course[];
+  students: StudentProfile[];
+  opportunities: Opportunity[];
 }
 
-const AdminDataModelReviewsPage: React.FC<IAdminDataModelReviewsPageProps> = (props) => {
+// props not deconstructed because AdminDataModeMenuProps has 21 numbers.
+const AdminDataModelReviewsPage: React.FC<AdminDataModelReviewsPageProps> = (props) => {
+  // TODO deconstruct props
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');

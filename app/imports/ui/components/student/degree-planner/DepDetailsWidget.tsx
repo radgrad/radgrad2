@@ -5,13 +5,13 @@ import DetailCourseCard from './DetailCourseCard';
 import { CourseInstances } from '../../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
 import DetailOpportunityCard from './DetailOpportunityCard';
-import { ICourseInstance, IOpportunityInstance, IVerificationRequest } from '../../../../typings/radgrad';
+import { CourseInstance, OpportunityInstance, VerificationRequest } from '../../../../typings/radgrad';
 import { RootState } from '../../../../redux/types';
 
-interface IDepDetailsWidgetProps {
+interface DepDetailsWidgetProps {
   selectedCourseInstanceID: string;
   selectedOpportunityInstanceID: string;
-  verificationRequests: IVerificationRequest[];
+  verificationRequests: VerificationRequest[];
 }
 
 const mapStateToProps = (state: RootState) => ({
@@ -19,10 +19,10 @@ const mapStateToProps = (state: RootState) => ({
   selectedOpportunityInstanceID: state.student.degreePlanner.inspector.depInspector.selectedOpportunityInstanceID,
 });
 
-const DepDetailsWidget: React.FC<IDepDetailsWidgetProps> = ({ selectedCourseInstanceID, selectedOpportunityInstanceID, verificationRequests }) => {
+const DepDetailsWidget: React.FC<DepDetailsWidgetProps> = ({ selectedCourseInstanceID, selectedOpportunityInstanceID, verificationRequests }) => {
   const courseP = selectedCourseInstanceID !== '';
   const opportunityP = selectedOpportunityInstanceID !== '';
-  let instance: (ICourseInstance | IOpportunityInstance);
+  let instance: (CourseInstance | OpportunityInstance);
   if (courseP) {
     instance = CourseInstances.findDoc(selectedCourseInstanceID);
   } else if (opportunityP) {

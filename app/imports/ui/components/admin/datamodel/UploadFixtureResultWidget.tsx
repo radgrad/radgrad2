@@ -1,12 +1,12 @@
 import React from 'react';
 import { Message } from 'semantic-ui-react';
 
-interface IUploadMessageWidgetProps {
+interface UploadMessageWidgetProps {
   message: string;
   error: boolean;
 }
 
-const UploadFixtureResultWidget: React.FC<IUploadMessageWidgetProps> = ({ error, message }) => {
+const UploadFixtureResultWidget: React.FC<UploadMessageWidgetProps> = ({ error, message }) => {
   if (error) {
     return (
       <Message negative>

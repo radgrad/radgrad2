@@ -3,7 +3,7 @@ import { Image, Divider, Grid, Header, Icon } from 'semantic-ui-react';
 import { useRouteMatch, Link } from 'react-router-dom';
 import Markdown from 'react-markdown';
 import _ from 'lodash';
-import { IOpportunity, ISlug } from '../../../../../typings/radgrad';
+import { Opportunity, Slug } from '../../../../../typings/radgrad';
 import { docToShortDescription } from '../../utilities/data-model';
 import IceHeader from '../../IceHeader';
 import { buildExplorerSlugRoute, renderLink } from '../../utilities/router';
@@ -16,34 +16,34 @@ import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
 import { StudentParticipations } from '../../../../../api/public-stats/StudentParticipationCollection';
 
 // Certain parts of pages don't show other information such students participating, logo, opportunity, type, and academic terms
-export interface IOpportunityInformationItemConfiguration {
+export interface OpportunityInformationItemConfiguration {
   showLogo: boolean;
   showMetadata: boolean;
   showStudentsParticipating: boolean;
 }
 
-interface IOpportunityItemWidgetProps {
-  informationConfiguration: IOpportunityInformationItemConfiguration;
-  opportunity: IOpportunity;
+interface OpportunityItemWidgetProps {
+  informationConfiguration: OpportunityInformationItemConfiguration;
+  opportunity: Opportunity;
 }
 
-const getOpportunityType = (opportunity: IOpportunity): string => {
+const getOpportunityType = (opportunity: Opportunity): string => {
   const oppType = opportunity.opportunityTypeID;
   const oppSlug = OpportunityTypes.findSlugByID(oppType);
   return OpportunityTypes.findDocBySlug(oppSlug).name;
 };
 
-const getOpportunityAcademicTerms = (opportunity: IOpportunity): string[] => {
+const getOpportunityAcademicTerms = (opportunity: Opportunity): string[] => {
   const termIDs = opportunity.termIDs;
   return _.map(termIDs, (termID) => AcademicTerms.toString(termID));
 };
 
-const getNumberOfStudentsParticipating = (opportunity: IOpportunity): number => {
+const getNumberOfStudentsParticipating = (opportunity: Opportunity): number => {
   const participatingStudents = StudentParticipations.findDoc({ itemID: opportunity._id });
   return participatingStudents.itemCount;
 };
 
-const OpportunityInformationItem: React.FC<IOpportunityItemWidgetProps> = ({ informationConfiguration, opportunity }) => {
+const OpportunityInformationItem: React.FC<OpportunityItemWidgetProps> = ({ informationConfiguration, opportunity }) => {
   const match = useRouteMatch();
   const interestListStyle: React.CSSProperties = {
     marginTop: '5px',
@@ -55,7 +55,7 @@ const OpportunityInformationItem: React.FC<IOpportunityItemWidgetProps> = ({ inf
   const opportunityShortDescription = docToShortDescription(opportunity);
   const opportunityAcademicTerms = getOpportunityAcademicTerms(opportunity);
   const academicTerms = replaceTermString(opportunityAcademicTerms);
-  const opportunitySlugDoc: ISlug = Slugs.findOne({ _id: opportunity.slugID });
+  const opportunitySlugDoc: Slug = Slugs.findOne({ _id: opportunity.slugID });
   const opportunitySlug = opportunitySlugDoc.name;
   return (
     <Grid.Row>

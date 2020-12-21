@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
 import fc from 'fast-check';
 import faker from 'faker';
-import { IReview, ReviewRatings } from '../../typings/radgrad';
+import { Review, ReviewRatings } from '../../typings/radgrad';
 import { makeSampleAcademicTerm } from '../academic-term/SampleAcademicTerms';
 import { makeSampleCourse } from '../course/SampleCourses';
 import { ROLE } from '../role/Role';
@@ -115,7 +115,7 @@ if (Meteor.isServer) {
       Reviews.removeIt(docID);
       expect(Reviews.isDefined(docID)).to.be.false;
       docID = Reviews.restoreOne(dumpObject);
-      const restored: IReview = Reviews.findDoc(docID);
+      const restored: Review = Reviews.findDoc(docID);
       expect(restored.comments).to.equal(origDoc.comments);
       expect(restored.reviewType).to.equal(origDoc.reviewType);
       expect(restored.moderated).to.equal(origDoc.moderated);

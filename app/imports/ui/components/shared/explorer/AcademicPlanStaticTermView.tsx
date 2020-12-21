@@ -9,13 +9,13 @@ import LandingPlanChoicePill from '../../landing/LandingPlanChoicePill';
 import SatisfiedPlanChoicePill from '../academic-plan/SatisfiedPlanChoicePill';
 import StaticPlanChoicePill from '../academic-plan/StaticPlanChoicePill';
 
-interface IAcademicPlanTermViewProps {
+interface AcademicPlanTermViewProps {
   title: string;
   choices: string[];
   takenSlugs: string[];
 }
 
-const AcademicPlanStaticTermView: React.FC<IAcademicPlanTermViewProps> = ({ title, choices, takenSlugs }) => {
+const AcademicPlanStaticTermView: React.FC<AcademicPlanTermViewProps> = ({ title, choices, takenSlugs }) => {
   const match = useRouteMatch();
   const isStudent = Router.isUrlRoleStudent(match);
   const noPaddingStyle = {

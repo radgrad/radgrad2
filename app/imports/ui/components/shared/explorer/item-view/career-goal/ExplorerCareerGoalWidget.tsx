@@ -4,7 +4,7 @@ import Markdown from 'react-markdown';
 import { useParams, useRouteMatch } from 'react-router-dom';
 import InterestList from '../../../InterestList';
 import { Users } from '../../../../../../api/user/UserCollection';
-import { ICareerGoal, IDescriptionPair, ISocialPair } from '../../../../../../typings/radgrad';
+import { CareerGoal, DescriptionPair, SocialPair } from '../../../../../../typings/radgrad';
 import { renderLink, getUserIdFromRoute } from '../../../utilities/router';
 import WidgetHeaderNumber from '../../WidgetHeaderNumber';
 import FavoritesButton from '../FavoritesButton';
@@ -18,11 +18,11 @@ import { FAVORITE_TYPE } from '../../../../../../api/favorite/FavoriteTypes';
 import TeaserVideo from '../../../TeaserVideo';
 import { FavoriteCareerGoals } from '../../../../../../api/favorite/FavoriteCareerGoalCollection';
 
-interface IExplorerCareerGoalsWidgetProps {
+interface ExplorerCareerGoalsWidgetProps {
   name: string;
-  descriptionPairs: IDescriptionPair[];
-  item: ICareerGoal;
-  socialPairs: ISocialPair[];
+  descriptionPairs: DescriptionPair[];
+  item: CareerGoal;
+  socialPairs: SocialPair[];
 }
 
 const teaserUrlHelper = (careerGoalSlug): string => {
@@ -35,7 +35,7 @@ const teaserUrlHelper = (careerGoalSlug): string => {
   return oppTeaser && oppTeaser[0] && oppTeaser[0].url;
 };
 
-const ExplorerCareerGoalWidget: React.FC<IExplorerCareerGoalsWidgetProps> = ({ name, descriptionPairs, socialPairs, item }) => {
+const ExplorerCareerGoalWidget: React.FC<ExplorerCareerGoalsWidgetProps> = ({ name, descriptionPairs, socialPairs, item }) => {
   const marginStyle = {
     marginTop: 5,
   };

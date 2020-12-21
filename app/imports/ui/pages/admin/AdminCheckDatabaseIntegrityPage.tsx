@@ -9,7 +9,7 @@ import { databaseActions } from '../../../redux/admin/database';
 import { RootState } from '../../../redux/types';
 import withInstanceSubscriptions from '../../layouts/utilities/InstanceSubscriptionsHOC';
 
-interface IAdminCheckDatabaseIntegrityPageProps {
+interface AdminCheckDatabaseIntegrityPageProps {
   startCheckIntegrity: () => any;
   checkIntegrityDone: () => any;
   checkIntegrityWorking?: boolean;
@@ -24,7 +24,7 @@ const mapDispatchToProps = (dispatch) => ({
   checkIntegrityDone: () => dispatch(databaseActions.checkIntegrityDone()),
 });
 
-const AdminCheckDatabaseIntegrityPage: React.FC<IAdminCheckDatabaseIntegrityPageProps> = ({ startCheckIntegrity, checkIntegrityDone, checkIntegrityWorking }) => {
+const AdminCheckDatabaseIntegrityPage: React.FC<AdminCheckDatabaseIntegrityPageProps> = ({ startCheckIntegrity, checkIntegrityDone, checkIntegrityWorking }) => {
   const initState = {
     count: 0,
     message: '',

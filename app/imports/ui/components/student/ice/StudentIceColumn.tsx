@@ -9,18 +9,18 @@ import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
 import { Slugs } from '../../../../api/slug/SlugCollection';
 import { Courses } from '../../../../api/course/CourseCollection';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
-import { Ice, ICourse , ICourseInstance, IFavoriteInterest, IOpportunityInstance } from '../../../../typings/radgrad';
 
-export interface IStudentIceColumnProps {
-  // TODO make this an exported enum in radgrad.d.ts
+import { Ice, CourseInstance, FavoriteInterest, OpportunityInstance } from '../../../../typings/radgrad';
+
+export interface StudentIceColumnProps {
   type: 'Innovation' | 'Competency' | 'Experience';
-  earnedICE: Ice;
-  projectedICE: Ice;
-  favoriteInterests: IFavoriteInterest[];
-  courseInstances: ICourseInstance[];
-  opportunityInstances: IOpportunityInstance[];
+  favoriteInterests: FavoriteInterest[];
+  courseInstances: CourseInstance[];
+  opportunityInstances: OpportunityInstance[];
 }
-const StudentIceColumn: React.FC<IStudentIceColumnProps> = ({ type, favoriteInterests, courseInstances, opportunityInstances, earnedICE, projectedICE }) => {
+
+const StudentIceColumn: React.FC<StudentIceColumnProps> = ({ type, favoriteInterests, courseInstances, opportunityInstances }) => {
+
   const match = useRouteMatch();
   const [verifiedColumnOpenState, setVerifiedColumnOpen] = useState(true);
   const [unVerifiedColumnOpenState, setUnVerifiedColumnOpen] = useState(false);

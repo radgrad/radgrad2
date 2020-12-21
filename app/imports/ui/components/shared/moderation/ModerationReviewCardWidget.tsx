@@ -7,13 +7,13 @@ import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollect
 import { Users } from '../../../../api/user/UserCollection';
 import { updateMethod } from '../../../../api/base/BaseCollection.methods';
 
-interface IModerationReviewCardWidget {
+interface ModerationReviewCardWidget {
   item: any; // TODO can we type this?
   handleAccept: (item, comment) => any,
   handleReject: (item, comment) => any,
 }
 
-const ModerationReviewCardWidget: React.FC<IModerationReviewCardWidget> = ({ item, handleAccept, handleReject }) => {
+const ModerationReviewCardWidget: React.FC<ModerationReviewCardWidget> = ({ item, handleAccept, handleReject }) => {
   const [moderatorCommentState, setModeratorComment] = useState('');
 
   const getReviewee = () => {

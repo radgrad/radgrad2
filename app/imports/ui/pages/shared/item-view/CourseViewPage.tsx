@@ -8,7 +8,7 @@ import { getMenuWidget } from '../utilities/getMenuWidget';
 import { HelpMessages } from '../../../../api/help/HelpMessageCollection';
 import HelpPanelWidget from '../../../components/shared/HelpPanelWidget';
 import ExplorerMenu from '../../../components/shared/explorer/item-view/ExplorerMenu';
-import { ICourse, IDescriptionPair, IFavoriteCourse, IHelpMessage, IReview } from '../../../../typings/radgrad';
+import { Course, DescriptionPair, FavoriteCourse, HelpMessage, Review } from '../../../../typings/radgrad';
 import { Courses } from '../../../../api/course/CourseCollection';
 import { FavoriteCourses } from '../../../../api/favorite/FavoriteCourseCollection';
 import { Users } from '../../../../api/user/UserCollection';
@@ -20,11 +20,11 @@ import { CourseInstances } from '../../../../api/course/CourseInstanceCollection
 import * as Router from '../../../components/shared/utilities/router';
 import { Slugs } from '../../../../api/slug/SlugCollection';
 
-interface ICourseViewPageProps {
-  favoriteCourses: IFavoriteCourse[];
-  course: ICourse;
-  helpMessages: IHelpMessage[];
-  itemReviews: IReview[];
+interface CourseViewPageProps {
+  favoriteCourses: FavoriteCourse[];
+  course: Course;
+  helpMessages: HelpMessage[];
+  itemReviews: Review[];
 }
 
 // TODO this seems very complicated to get the description pairs.
@@ -62,7 +62,7 @@ const prerequisiteStatus = (prerequisite: string, match) => {
   return ret;
 };
 
-const prerequisites = (theCourse: ICourse, match): any[] => {
+const prerequisites = (theCourse: Course, match): any[] => {
   const list = theCourse.prerequisites;
   const complete = [];
   const incomplete = [];
@@ -84,7 +84,7 @@ const prerequisites = (theCourse: ICourse, match): any[] => {
   return [complete, incomplete, notInPlan];
 };
 
-const descriptionPairsCourses = (theCourse: ICourse, match): IDescriptionPair[] => [
+const descriptionPairsCourses = (theCourse: Course, match): DescriptionPair[] => [
   { label: 'Course Number', value: theCourse.num },
   { label: 'Credit Hours', value: theCourse.creditHrs },
   { label: 'Description', value: theCourse.description },
@@ -103,7 +103,7 @@ const isCourseCompleted = (courseSlugName, match): boolean => {
   return ret;
 };
 
-const CourseViewPage: React.FC<ICourseViewPageProps> = ({ favoriteCourses, course, helpMessages, itemReviews }) => {
+const CourseViewPage: React.FC<CourseViewPageProps> = ({ favoriteCourses, course, helpMessages, itemReviews }) => {
   const match = useRouteMatch();
   const menuAddedList = _.map(favoriteCourses, (f) => ({
     item: Courses.findDoc(f.courseID), count: 1,

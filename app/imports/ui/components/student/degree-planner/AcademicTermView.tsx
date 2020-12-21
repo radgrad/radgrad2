@@ -2,24 +2,24 @@ import React from 'react';
 import _ from 'lodash';
 import { Container, Header, Grid } from 'semantic-ui-react';
 import { Droppable } from 'react-beautiful-dnd';
-import { IAcademicTerm, ICourseInstance, IOpportunityInstance } from '../../../../typings/radgrad';
+import { AcademicTerm, CourseInstance, OpportunityInstance } from '../../../../typings/radgrad';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import DraggableCourseInstancePill from './DraggableCourseInstancePill';
 import DraggableOpportunityInstancePill from './DraggableOpportunityInstancePill';
 import { Slugs } from '../../../../api/slug/SlugCollection';
 import { getDroppableListStyle } from '../../shared/academic-plan/utilities/styles';
 
-interface IAcademicTermViewProps {
-  term: IAcademicTerm;
+interface AcademicTermViewProps {
+  term: AcademicTerm;
   // eslint-disable-next-line react/no-unused-prop-types
   studentID: string;
   handleClickCourseInstance: (event, { value }) => any;
   handleClickOpportunityInstance: (event, { value }) => any;
-  courseInstances: ICourseInstance[];
-  opportunityInstances: IOpportunityInstance[];
+  courseInstances: CourseInstance[];
+  opportunityInstances: OpportunityInstance[];
 }
 
-const AcademicTermView: React.FC<IAcademicTermViewProps> = ({ term, studentID, handleClickCourseInstance,
+const AcademicTermView: React.FC<AcademicTermViewProps> = ({ term, studentID, handleClickCourseInstance,
   handleClickOpportunityInstance, courseInstances, opportunityInstances }) => {
   const termSlug = Slugs.getNameFromID(term.slugID);
   const paddedStyle = {

@@ -27,7 +27,7 @@ import { Feeds } from '../../../api/feed/FeedCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { PageInterestsDailySnapshots } from '../../../api/page-tracking/PageInterestsDailySnapshotCollection';
 
-interface ILoading {
+interface Loading {
   loading: boolean;
 }
 
@@ -36,7 +36,7 @@ interface ILoading {
 const globalSubs = new SubsManager({ cacheLimit: 30, expireIn: 30 });
 
 function withGlobalSubscription(WrappedComponent) {
-  const GlobalSubscription: React.FC<ILoading> = (props) => ((props.loading) ? (
+  const GlobalSubscription: React.FC<Loading> = (props) => ((props.loading) ? (
     <React.Fragment>
       <Dimmer active inverted>
         <Loader>Loading global data</Loader>

@@ -16,7 +16,7 @@ declare namespace cloudinary {
   function openUploadWidget(options: any, resultCallback?: (error: null | string, result: { event: string; info?: { [key: string]: any } }) => any): any;
 }
 
-export interface IMeteorError {
+export interface MeteorError {
   details: any;
   error: string;
   errorType: string;
@@ -32,19 +32,19 @@ export interface Ice {
   e: number;
 }
 
-interface IDocument {
+interface Document {
   _id: string;
 }
 
-export interface IDumpOne {
+export interface DumpOne {
   slug?: string;
 }
 
-export interface IUpdate {
+export interface Update {
   id?: string;
 }
 
-export interface IPagination {
+export interface Pagination {
   AcademicPlanCollection?: {
     showIndex: number;
     showCount: number;
@@ -141,16 +141,16 @@ export interface IPagination {
 
 // Card Explorer Cards. Note that this does not refer to specifically ExplorerCard.tsx. But rather all the Cards that are
 // used to implement the Card Explorer Widgets (AcademicPlanCard, ProfileCard, TermCard, ExplorerCard, and UserProfileCard).
-export interface ICardExplorerCards {
+export interface CardExplorerCards {
   item: any;
 }
 
-export interface IPlanCard extends ICardExplorerCards {
+export interface PlanCard extends CardExplorerCards {
   type: string;
   canAdd?: boolean;
 }
 
-export interface IProfileCard extends ICardExplorerCards {
+export interface ProfileCard extends CardExplorerCards {
   type: string;
   canAdd: boolean;
   match: {
@@ -163,33 +163,34 @@ export interface IProfileCard extends ICardExplorerCards {
   };
 }
 
-export interface ITermCard extends ICardExplorerCards {
+export interface TermCard extends CardExplorerCards {
   type: string;
   isStudent: boolean;
   canAdd: boolean;
 }
 
-export interface IUserProfileCard extends ICardExplorerCards {
+export interface UserProfileCard extends CardExplorerCards {
 }
 
-export interface IDescriptionPair {
+// TODO this is a very bad interface.
+export interface DescriptionPair {
   label: string;
   value: string | number | string[] | any[] | unknown;
 }
 
-export interface ISocialPair {
+export interface SocialPair {
   label: string;
   amount?: number;
-  value: IProfile[];
+  value: Profile[];
 }
 
 // AcademicPlans
-interface IAcademicPlanGroup {
+interface AcademicPlanGroup {
   name: string;
   courseSlugs: string[];
 }
 
-export interface IAcademicPlan {
+export interface AcademicPlan {
   _id: string;
   name: string;
   description: string;
@@ -203,7 +204,7 @@ export interface IAcademicPlan {
   retired?: boolean;
 }
 
-export interface IAcademicPlanDefine extends IDumpOne {
+export interface AcademicPlanDefine extends DumpOne {
   slug: string;
   name: string;
   description: string;
@@ -213,7 +214,7 @@ export interface IAcademicPlanDefine extends IDumpOne {
   retired?: boolean;
 }
 
-export interface IAcademicPlanUpdate extends IUpdate {
+export interface AcademicPlanUpdate extends Update {
   name?: string;
   academicTerm?: string;
   coursesPerAcademicTerm?: number[];
@@ -222,7 +223,7 @@ export interface IAcademicPlanUpdate extends IUpdate {
 }
 
 // AcademicYearInstances
-export interface IAcademicYearInstance {
+export interface AcademicYearInstance {
   _id: string;
   year: number;
   springYear: number;
@@ -231,14 +232,14 @@ export interface IAcademicYearInstance {
   retired?: boolean;
 }
 
-export interface IAcademicYearInstanceDefine extends IDumpOne {
+export interface AcademicYearInstanceDefine extends DumpOne {
   year: number;
   student: string;
   retired?: boolean;
 }
 
 // AdvisorLogs
-export interface IAdvisorLog {
+export interface AdvisorLog {
   _id?: string;
   advisorID: string;
   studentID: string;
@@ -247,7 +248,7 @@ export interface IAdvisorLog {
   retired?: boolean;
 }
 
-export interface IAdvisorLogDefine extends IDumpOne {
+export interface AdvisorLogDefine extends DumpOne {
   advisor: string;
   student: string;
   text: string;
@@ -255,13 +256,13 @@ export interface IAdvisorLogDefine extends IDumpOne {
   retired?: boolean;
 }
 
-export interface IAdvisorLogUpdate extends IUpdate {
+export interface AdvisorLogUpdate extends Update {
   text?: string;
   retired?: boolean;
 }
 
 // CareerGoals
-export interface ICareerGoal {
+export interface CareerGoal {
   _id: string;
   name: string;
   slugID: string;
@@ -270,7 +271,7 @@ export interface ICareerGoal {
   retired?: boolean;
 }
 
-export interface ICareerGoalDefine extends IDumpOne {
+export interface CareerGoalDefine extends DumpOne {
   name: string;
   slug: string;
   description: string;
@@ -278,7 +279,7 @@ export interface ICareerGoalDefine extends IDumpOne {
   retired?: boolean;
 }
 
-export interface ICareerGoalUpdate extends IUpdate {
+export interface CareerGoalUpdate extends Update {
   name?: string;
   description?: string;
   interests?: string[];
@@ -286,24 +287,24 @@ export interface ICareerGoalUpdate extends IUpdate {
 }
 
 // StudentParticipations
-export interface IStudentParticipation {
+export interface StudentParticipation {
   itemID: string;
   itemSlug: string;
   itemCount: number;
 }
 
-export interface IStudentParticipationDefine extends IDumpOne {
+export interface StudentParticipationDefine extends DumpOne {
   itemID: string;
   itemSlug: string;
   itemCount: number;
 }
 
-export interface IStudentParticipationUpdate extends IUpdate {
+export interface StudentParticipationUpdate extends Update {
   itemCount?: number;
 }
 
 // CourseInstances
-export interface ICourseInstance {
+export interface CourseInstance {
   _id: string;
   termID: string;
   courseID: string;
@@ -317,7 +318,7 @@ export interface ICourseInstance {
   retired?: boolean;
 }
 
-export interface ICourseInstanceDefine extends IDumpOne {
+export interface CourseInstanceDefine extends DumpOne {
   academicTerm: string;
   course: string;
   verified?: boolean;
@@ -329,7 +330,7 @@ export interface ICourseInstanceDefine extends IDumpOne {
   retired?: boolean;
 }
 
-export interface ICourseInstanceUpdate extends IUpdate {
+export interface CourseInstanceUpdate extends Update {
   termID?: string;
   verified?: boolean;
   fromRegistrar?: boolean;
@@ -340,13 +341,13 @@ export interface ICourseInstanceUpdate extends IUpdate {
   retired?: boolean;
 }
 
-export interface IScoreboard {
+export interface Scoreboard {
   _id: string;
   count: number;
 }
 
 // Courses
-export interface ICourse {
+export interface Course {
   _id: string;
   name: string;
   shortName: string;
@@ -361,7 +362,7 @@ export interface ICourse {
   retired?: boolean;
 }
 
-export interface ICourseDefine extends IDumpOne {
+export interface CourseDefine extends DumpOne {
   name: string;
   shortName?: string;
   slug: string;
@@ -375,7 +376,7 @@ export interface ICourseDefine extends IDumpOne {
   retired?: boolean;
 }
 
-export interface ICourseUpdate extends IUpdate {
+export interface CourseUpdate extends Update {
   name?: string;
   shortName?: string;
   num?: string;
@@ -388,70 +389,70 @@ export interface ICourseUpdate extends IUpdate {
 }
 
 // Favoirites
-export interface IFavoriteAcademicPlanDefine extends IDumpOne {
+export interface FavoriteAcademicPlanDefine extends DumpOne {
   academicPlan: string;
   student: string;
   retired?: boolean;
 }
 
-export interface IFavoriteAcademicPlan {
+export interface FavoriteAcademicPlan {
   academicPlanID: string;
   studentID: string;
   retired: boolean;
 }
 
-export interface IFavoriteCareerGoalDefine extends IDumpOne {
+export interface FavoriteCareerGoalDefine extends DumpOne {
   careerGoal: string;
   username: string;
   share?: boolean;
   retired?: boolean;
 }
 
-export interface IFavoriteCareerGoal {
+export interface FavoriteCareerGoal {
   careerGoalID: string;
   userID: string;
   retired: boolean;
 }
 
-export interface IFavoriteCourseDefine extends IDumpOne {
+export interface FavoriteCourseDefine extends DumpOne {
   course: string;
   student: string;
   retired?: boolean;
 }
 
-export interface IFavoriteCourse {
+export interface FavoriteCourse {
   courseID: string;
   studentID: string;
   retired: boolean;
 }
 
-export interface IFavoriteInterestDefine extends IDumpOne {
+export interface FavoriteInterestDefine extends DumpOne {
   interest: string;
   username: string;
   share?: boolean;
   retired?: boolean;
 }
 
-export interface IFavoriteInterest {
+export interface FavoriteInterest {
   interestID: string;
   userID: string;
   share: boolean;
   retired: boolean;
 }
 
-export interface IFavoriteOpportunityDefine extends IDumpOne {
+export interface FavoriteOpportunityDefine extends DumpOne {
   opportunity: string;
   student: string;
   retired?: boolean;
 }
 
-export interface IFavoriteOpportunity {
+export interface FavoriteOpportunity {
   opportunityID: string;
   studentID: string;
   retired: boolean;
 }
 
-export interface IFavoriteUpdate extends IUpdate {
+export interface FavoriteUpdate extends Update {
   share?: boolean;
   retired?: boolean;
 }
@@ -470,7 +471,7 @@ export interface IFeed {
   retired?: boolean;
 }
 
-export interface IFeedDefine extends IDumpOne {
+export interface FeedDefine extends DumpOne {
   user?: string;
   course?: string;
   opportunity?: string;
@@ -481,7 +482,7 @@ export interface IFeedDefine extends IDumpOne {
   retired?: boolean;
 }
 
-export interface IFeedUpdate extends IUpdate {
+export interface FeedUpdate extends Update {
   description?: string;
   picture?: string;
   users?: string[];
@@ -492,7 +493,7 @@ export interface IFeedUpdate extends IUpdate {
 }
 
 // FeedBackInstances
-export interface IFeedbackInstance {
+export interface FeedbackInstance {
   userID: string;
   functionName: string;
   description: string;
@@ -500,7 +501,7 @@ export interface IFeedbackInstance {
   retired?: boolean;
 }
 
-export interface IFeedbackInstanceDefine extends IDumpOne {
+export interface FeedbackInstanceDefine extends DumpOne {
   user: string;
   functionName: string;
   description: string;
@@ -508,7 +509,7 @@ export interface IFeedbackInstanceDefine extends IDumpOne {
   retired?: boolean;
 }
 
-export interface IFeedbackInstanceUpdate extends IUpdate {
+export interface FeedbackInstanceUpdate extends Update {
   user?: string;
   functionName?: string;
   description?: string;
@@ -517,21 +518,21 @@ export interface IFeedbackInstanceUpdate extends IUpdate {
 }
 
 // Help Messages
-export interface IHelpMessage {
+export interface HelpMessage {
   _id: string;
   routeName: string;
   title: string;
   text: string;
   retired: boolean;
 }
-export interface IHelpMessageDefine extends IDumpOne {
+export interface HelpMessageDefine extends DumpOne {
   routeName: string;
   title: string;
   text: string;
   retired?: boolean;
 }
 
-export interface IHelpMessageUpdate extends IUpdate {
+export interface HelpMessageUpdate extends Update {
   routeName?: string;
   title?: string;
   text?: string;
@@ -539,7 +540,7 @@ export interface IHelpMessageUpdate extends IUpdate {
 }
 
 // Interests
-export interface IInterest {
+export interface Interest {
   _id: string;
   name: string;
   slugID: string;
@@ -548,7 +549,7 @@ export interface IInterest {
   retired?: boolean;
 }
 
-export interface IInterestDefine extends IDumpOne {
+export interface InterestDefine extends DumpOne {
   name: string;
   slug: string;
   description: string;
@@ -556,7 +557,7 @@ export interface IInterestDefine extends IDumpOne {
   retired?: boolean;
 }
 
-export interface IInterestUpdate extends IUpdate {
+export interface InterestUpdate extends Update {
   name?: string;
   description?: string;
   interestType?: string;
@@ -564,7 +565,7 @@ export interface IInterestUpdate extends IUpdate {
 }
 
 // InterestTypes
-export interface IInterestType {
+export interface InterestType {
   name: string;
   slugID: string;
   description: string;
@@ -572,21 +573,21 @@ export interface IInterestType {
   retired?: boolean;
 }
 
-export interface ITypeDefine extends IDumpOne {
+export interface TypeDefine extends DumpOne {
   name: string;
   slug: string;
   description: string;
   retired?: boolean;
 }
 
-export interface ITypeUpdate extends IUpdate {
+export interface TypeUpdate extends Update {
   name?: string;
   description?: string;
   retired?: boolean;
 }
 
 // IceSnapshots
-export interface IIceSnapshotDefine extends IDumpOne {
+export interface IceSnapshotDefine extends DumpOne {
   username: string;
   level: number;
   i: number;
@@ -596,7 +597,7 @@ export interface IIceSnapshotDefine extends IDumpOne {
 }
 
 // Opportunities
-export interface IOpportunity {
+export interface Opportunity {
   _id: string;
   name: string;
   slugID: string;
@@ -613,7 +614,7 @@ export interface IOpportunity {
   retired?: boolean;
 }
 
-export interface IOpportunityDefine extends IDumpOne {
+export interface OpportunityDefine extends DumpOne {
   name: string;
   slug: string;
   description: string;
@@ -628,7 +629,7 @@ export interface IOpportunityDefine extends IDumpOne {
   retired?: boolean;
 }
 
-export interface IOpportunityUpdate extends IUpdate {
+export interface OpportunityUpdate extends Update {
   name?: string;
   description?: string;
   opportunityType?: string;
@@ -642,7 +643,7 @@ export interface IOpportunityUpdate extends IUpdate {
   retired?: boolean;
 }
 
-export interface IOpportunityUpdateData {
+export interface OpportunityUpdateData {
   name?: string;
   description?: string;
   opportunityTypeID?: string;
@@ -657,7 +658,7 @@ export interface IOpportunityUpdateData {
 }
 
 // OpportunityInstances
-export interface IOpportunityInstance {
+export interface OpportunityInstance {
   _id: string;
   termID: string;
   opportunityID: string;
@@ -669,7 +670,7 @@ export interface IOpportunityInstance {
   retired?: boolean;
 }
 
-export interface IOpportunityInstanceDefine extends IDumpOne {
+export interface OpportunityInstanceDefine extends DumpOne {
   academicTerm: string;
   opportunity: string;
   sponsor?: string;
@@ -678,7 +679,7 @@ export interface IOpportunityInstanceDefine extends IDumpOne {
   retired?: boolean;
 }
 
-export interface IOpportunityInstanceUpdate extends IUpdate {
+export interface OpportunityInstanceUpdate extends Update {
   termID?: string;
   verified?: boolean;
   ice?: Ice;
@@ -686,7 +687,7 @@ export interface IOpportunityInstanceUpdate extends IUpdate {
 }
 
 // OpportunityType
-export interface IOpportunityType {
+export interface OpportunityType {
   _id: string;
   description: string;
   name: string;
@@ -694,20 +695,20 @@ export interface IOpportunityType {
   retired?: boolean;
 }
 
-export interface IOpportunityTypeDefine extends IDumpOne {
+export interface OpportunityTypeDefine extends DumpOne {
   description: string;
   name: string;
   slug: string;
   retired?: boolean;
 }
 
-export interface IOpportunityTypeUpdate extends IUpdate {
+export interface OpportunityTypeUpdate extends Update {
   description?: string;
   name?: string;
   retired?: boolean;
 }
 
-export interface IPageInterest extends IDocument {
+export interface PageInterest extends Document {
   username: string;
   category: string;
   name: string;
@@ -715,7 +716,7 @@ export interface IPageInterest extends IDocument {
   retired: boolean;
 }
 
-export interface IPageInterestDefine extends IDumpOne {
+export interface PageInterestDefine extends DumpOne {
   username: string;
   category: string;
   name: string;
@@ -723,42 +724,42 @@ export interface IPageInterestDefine extends IDumpOne {
   retired?: boolean;
 }
 
-export interface IPageInterestInfo {
+export interface PageInterestInfo {
   name: string;
   views: number;
 }
 
-export interface IPageInterestsDailySnapshot extends IDocument {
-  careerGoals: IPageInterestInfo[];
-  courses: IPageInterestInfo[];
-  interests: IPageInterestInfo[];
-  opportunities: IPageInterestInfo[];
+export interface PageInterestsDailySnapshot extends Document {
+  careerGoals: PageInterestInfo[];
+  courses: PageInterestInfo[];
+  interests: PageInterestInfo[];
+  opportunities: PageInterestInfo[];
   timestamp: Date;
   retired: boolean;
 }
 
-export interface IPageInterestsDailySnapshotDefine extends IDumpOne {
-  careerGoals: IPageInterestInfo[];
-  courses: IPageInterestInfo[];
-  interests: IPageInterestInfo[];
-  opportunities: IPageInterestInfo[];
+export interface PageInterestsDailySnapshotDefine extends DumpOne {
+  careerGoals: PageInterestInfo[];
+  courses: PageInterestInfo[];
+  interests: PageInterestInfo[];
+  opportunities: PageInterestInfo[];
   timestamp?: Date;
   retired?: boolean;
 }
 
 // PlanChoice
-export interface IPlanChoiceDefine extends IDumpOne {
+export interface PlanChoiceDefine extends DumpOne {
   choice: string;
   retired?: boolean;
 }
 
-export interface IPlanChoiceUpdate extends IUpdate {
+export interface PlanChoiceUpdate extends Update {
   choice?: string;
   retired?: boolean;
 }
 
 // Profiles
-export interface IBaseProfile {
+export interface BaseProfile {
   _id: string;
   userID?: string;
   username: string;
@@ -793,7 +794,7 @@ export interface IBaseProfile {
   lastRegistrarLoad?: Date;
 }
 
-export interface IProfile {
+export interface Profile {
   _id: string;
   userID: string;
   username: string;
@@ -808,11 +809,11 @@ export interface IProfile {
 }
 
 // Advisor and Faculty Profiles
-export interface IAdvisorOrFacultyProfile extends IProfile {
+export interface AdvisorOrFacultyProfile extends Profile {
   aboutMe?: string;
 }
 
-export interface IProfileDefine extends IDumpOne {
+export interface ProfileDefine extends DumpOne {
   username: string;
   firstName: string;
   lastName: string;
@@ -823,11 +824,11 @@ export interface IProfileDefine extends IDumpOne {
   retired?: boolean;
 }
 
-export interface IAdvisorOrFacultyProfileDefine extends IProfileDefine {
+export interface AdvisorOrFacultyProfileDefine extends ProfileDefine {
   aboutMe?: string;
 }
 
-export interface ICombinedProfileDefine extends IProfileDefine {
+export interface CombinedProfileDefine extends ProfileDefine {
   role: string;
   company?: string;
   career?: string;
@@ -850,7 +851,7 @@ export interface ICombinedProfileDefine extends IProfileDefine {
   shareLevel?: boolean;
 }
 
-export interface IProfileUpdate extends IUpdate {
+export interface ProfileUpdate extends Update {
   firstName?: string;
   lastName?: string;
   picture?: string;
@@ -862,11 +863,11 @@ export interface IProfileUpdate extends IUpdate {
   opportunityExplorerSortOrder?: string;
 }
 
-export interface IAdvisorOrFacultyProfileUpdate extends IProfileUpdate {
+export interface AdvisorOrFacultyProfileUpdate extends ProfileUpdate {
   aboutMe?: string;
 }
 
-export interface IStudentProfile extends IProfile {
+export interface StudentProfile extends Profile {
   level: number;
   declaredAcademicTermID?: string;
   academicPlanID?: string;
@@ -882,7 +883,7 @@ export interface IStudentProfile extends IProfile {
   shareLevel?: boolean;
 }
 
-export interface IStudentProfileDefine extends IProfileDefine {
+export interface StudentProfileDefine extends ProfileDefine {
   level: number;
   declaredAcademicTerm?: string;
   favoriteAcademicPlans?: string[];
@@ -901,7 +902,7 @@ export interface IStudentProfileDefine extends IProfileDefine {
   shareLevel?: boolean;
 }
 
-export interface IStudentProfileUpdate extends IProfileUpdate {
+export interface StudentProfileUpdate extends ProfileUpdate {
   level?: number;
   declaredAcademicTerm?: string;
   favoriteAcademicPlans?: string[];
@@ -921,7 +922,7 @@ export interface IStudentProfileUpdate extends IProfileUpdate {
   lastRegistrarLoad?: Date;
 }
 
-export interface IStudentProfileUpdateData {
+export interface StudentProfileUpdateData {
   level?: number;
   declaredAcademicTermID?: string;
   academicPlanID?: string;
@@ -943,7 +944,7 @@ export interface IStudentProfileUpdateData {
 // Reviews
 type ReviewRatings = 1 | 2 | 3 | 4 | 5;
 
-export interface IReview {
+export interface Review {
   _id: string;
   slugID: string;
   studentID: string;
@@ -958,7 +959,7 @@ export interface IReview {
   retired?: boolean;
 }
 
-export interface IReviewDefine extends IDumpOne {
+export interface ReviewDefine extends DumpOne {
   slug?: string;
   student: string;
   reviewType: IReviewTypes;
@@ -972,7 +973,7 @@ export interface IReviewDefine extends IDumpOne {
   retired?: boolean;
 }
 
-export interface IReviewUpdate extends IUpdate {
+export interface ReviewUpdate extends Update {
   academicTerm?: string;
   rating?: ReviewRatings;
   comments?: string;
@@ -982,7 +983,7 @@ export interface IReviewUpdate extends IUpdate {
   retired?: boolean;
 }
 
-export interface IReviewUpdateData {
+export interface ReviewUpdateData {
   termID?: string;
   rating?: ReviewRatings;
   comments?: string;
@@ -993,7 +994,7 @@ export interface IReviewUpdateData {
 }
 
 // AcademicTerms
-export interface IAcademicTerm {
+export interface AcademicTerm {
   _id: string;
   term: string;
   year: number;
@@ -1002,35 +1003,35 @@ export interface IAcademicTerm {
   retired?: boolean;
 }
 
-export interface IAcademicTermDefine extends IDumpOne {
+export interface AcademicTermDefine extends DumpOne {
   term: string;
   year: number;
   retired?: boolean;
 }
 
-export interface IAcademicTermUpdate extends IUpdate {
+export interface AcademicTermUpdate extends Update {
   retired?: boolean;
 }
 
-export interface ISettingsUpdate extends IUpdate {
+export interface SettingsUpdate extends Update {
   quarterSystem?: boolean;
 }
 
 // Slugs
-export interface ISlug {
+export interface Slug {
   _id: string;
   name: string;
   entityName: string;
   entityID: string;
 }
 
-export interface ISlugDefine extends IDumpOne {
+export interface SlugDefine extends DumpOne {
   name: string;
   entityName: string;
 }
 
 // StarDataObject
-export interface IStarDataObject {
+export interface StarDataObject {
   semester: string;
   name: string;
   num: string;
@@ -1040,7 +1041,7 @@ export interface IStarDataObject {
 }
 
 // Teasers
-export interface ITeaser {
+export interface Teaser {
   _id: string;
   title: string;
   slugID: string;
@@ -1054,7 +1055,7 @@ export interface ITeaser {
   retired?: boolean;
 }
 
-export interface ITeaserDefine extends IDumpOne {
+export interface TeaserDefine extends DumpOne {
   title: string;
   slug: string;
   author: string;
@@ -1067,7 +1068,7 @@ export interface ITeaserDefine extends IDumpOne {
   retired?: boolean;
 }
 
-export interface ITeaserUpdate extends IUpdate {
+export interface TeaserUpdate extends Update {
   title?: string;
   targetSlug?: string;
   interests?: string[];
@@ -1078,7 +1079,7 @@ export interface ITeaserUpdate extends IUpdate {
   retired?: boolean;
 }
 
-export interface ITeaserUpdateData {
+export interface TeaserUpdateData {
   title?: string;
   targetSlugID?: string;
   interestIDs?: string[];
@@ -1090,7 +1091,7 @@ export interface ITeaserUpdateData {
 }
 
 // UserInteractions
-export interface IUserInteraction {
+export interface UserInteraction {
   _id: string;
   username: string;
   type: string;
@@ -1098,7 +1099,7 @@ export interface IUserInteraction {
   timestamp: Date;
 }
 
-export interface IUserInteractionDefine extends IDumpOne {
+export interface UserInteractionDefine extends DumpOne {
   username: string;
   type: string;
   typeData: string[];
@@ -1106,37 +1107,37 @@ export interface IUserInteractionDefine extends IDumpOne {
 }
 
 // VerificationRequests
-interface IProcessed {
+interface Processed {
   date: Date;
   status: string;
   verifier: string;
   feedback?: string;
 }
 
-export interface IVerificationRequest {
+export interface VerificationRequest {
   _id: string;
   studentID: string;
   opportunityInstanceID: string;
   submittedOn: Date;
   status: string;
-  processed: IProcessed[];
+  processed: Processed[];
   ice?: Ice;
   retired?: boolean;
 }
 
-export interface IVerificationRequestDefine extends IDumpOne {
+export interface VerificationRequestDefine extends DumpOne {
   student?: string;
   opportunityInstance?: string;
   submittedOn?: any;
   status?: string;
-  processed?: IProcessed[];
+  processed?: Processed[];
   academicTerm?: string;
   opportunity?: string;
   retired?: boolean;
 }
 
-export interface IVerificationRequestUpdate extends IUpdate {
+export interface VerificationRequestUpdate extends Update {
   status?: string;
-  processed?: IProcessed[];
+  processed?: Processed[];
   retired?: boolean;
 }

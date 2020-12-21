@@ -7,18 +7,18 @@ import SimpleSchema from 'simpl-schema';
 import { AcademicTerms } from '../../../../../api/academic-term/AcademicTermCollection';
 import { Feeds } from '../../../../../api/feed/FeedCollection';
 import { academicTermToName, courseToName, docToName, profileToName } from '../../../shared/utilities/data-model';
-import { IAcademicTerm, ICourse, IOpportunity, IStudentProfile } from '../../../../../typings/radgrad';
+import { AcademicTerm, Course, Opportunity, StudentProfile } from '../../../../../typings/radgrad';
 
-interface IAddFeedFromProps {
-  academicTerms: IAcademicTerm[];
-  courses: ICourse[];
-  opportunities: IOpportunity[];
-  students: IStudentProfile[];
+interface AddFeedFromProps {
+  academicTerms: AcademicTerm[];
+  courses: Course[];
+  opportunities: Opportunity[];
+  students: StudentProfile[];
   formRef: React.RefObject<unknown>;
   handleAdd: (doc) => any;
 }
 
-const AddFeedForm: React.FC<IAddFeedFromProps> = ({ academicTerms, courses, opportunities, students, formRef, handleAdd }) => {
+const AddFeedForm: React.FC<AddFeedFromProps> = ({ academicTerms, courses, opportunities, students, formRef, handleAdd }) => {
   const [feedType, setFeedType] = useState(Feeds.NEW_USER);
 
   const handleModelChange = (model) => {

@@ -24,17 +24,17 @@ import {
   opportunityIdToName,
   profileToName, userIdToName,
 } from '../../../shared/utilities/data-model';
-import { IAcademicTerm, ICourse, IOpportunity, IStudentProfile } from '../../../../../typings/radgrad';
+import { AcademicTerm, Course, Opportunity, StudentProfile } from '../../../../../typings/radgrad';
 import BaseCollection from '../../../../../api/base/BaseCollection';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
 import { openCloudinaryWidget } from '../../../shared/OpenCloudinaryWidget';
 import { cloudinaryActions } from '../../../../../redux/shared/cloudinary';
 
-interface IUpdateFeedFormProps {
-  academicTerms: IAcademicTerm[];
-  courses: ICourse[];
-  opportunities: IOpportunity[];
-  students: IStudentProfile[];
+interface UpdateFeedFormProps {
+  academicTerms: AcademicTerm[];
+  courses: Course[];
+  opportunities: Opportunity[];
+  students: StudentProfile[];
   collection: BaseCollection;
   id: string;
   formRef: React.RefObject<unknown>;
@@ -50,7 +50,7 @@ const mapDispatchToProps = (dispatch: any): unknown => ({
   setAdminDataModelFeedsCloudinaryUrl: (cloudinaryUrl: string) => dispatch(cloudinaryActions.setAdminDataModelFeedsCloudinaryUrl(cloudinaryUrl)),
 });
 
-const UpdateFeedForm: React.FC<IUpdateFeedFormProps> = ({ academicTerms, formRef, students, opportunities, courses, id, collection, itemTitleString, handleCancel, handleUpdate, setAdminDataModelFeedsCloudinaryUrl, setAdminDataModelFeedsIsCloudinaryUsed }) => {
+const UpdateFeedForm: React.FC<UpdateFeedFormProps> = ({ academicTerms, formRef, students, opportunities, courses, id, collection, itemTitleString, handleCancel, handleUpdate, setAdminDataModelFeedsCloudinaryUrl, setAdminDataModelFeedsIsCloudinaryUsed }) => {
   const [pictureURL, setPictureURL] = useState(collection.findDoc(id).picture);
 
   const handleUpload = async (e): Promise<void> => {

@@ -7,15 +7,15 @@ import SimpleSchema from 'simpl-schema';
 import { profileToName } from '../../../shared/utilities/data-model';
 import { FeedbackFunctions } from '../../../../../api/feedback/FeedbackFunctions';
 import { FeedbackInstances } from '../../../../../api/feedback/FeedbackInstanceCollection';
-import { IStudentProfile } from '../../../../../typings/radgrad';
+import { StudentProfile } from '../../../../../typings/radgrad';
 
-interface IAddFeedbackInstanceFormProps {
-  students: IStudentProfile[];
+interface AddFeedbackInstanceFormProps {
+  students: StudentProfile[];
   formRef: React.RefObject<unknown>;
   handleAdd: (doc) => any;
 }
 
-const AddFeedbackInstanceForm: React.FC<IAddFeedbackInstanceFormProps> = ({ students, formRef, handleAdd }) => {
+const AddFeedbackInstanceForm: React.FC<AddFeedbackInstanceFormProps> = ({ students, formRef, handleAdd }) => {
   const studentNames = _.map(students, profileToName);
   // console.log(FeedbackFunctions.feedbackFunctionNames);
   const schema = new SimpleSchema({

@@ -6,7 +6,7 @@ import { Grid, Header, Segment } from 'semantic-ui-react';
 import { Courses } from '../../../api/course/CourseCollection';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import ExplorerMenuBarContainer from '../../components/landing/explorer/LandingExplorerMenuBar';
-import { ICourse, IHelpMessage } from '../../../typings/radgrad';
+import { Course, HelpMessage } from '../../../typings/radgrad';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/explorer/LandingExplorerMenu';
 import { Interests } from '../../../api/interest/InterestCollection';
@@ -17,18 +17,18 @@ import * as Router from '../../components/shared/utilities/router';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 
-interface ICourseExplorerProps {
-  course: ICourse;
-  helpMessages: IHelpMessage[];
+interface CourseExplorerProps {
+  course: Course;
+  helpMessages: HelpMessage[];
 }
 
 /**
  * The landing course explorer page.
- * @param {React.PropsWithChildren<ICourseExplorerProps>} props
+ * @param {React.PropsWithChildren<CourseExplorerProps>} props
  * @return {JSX.Element}
  * @constructor
  */
-const LandingCourseExplorerPage: React.FC<ICourseExplorerProps> = ({ helpMessages, course }) => {
+const LandingCourseExplorerPage: React.FC<CourseExplorerProps> = ({ helpMessages, course }) => {
   const match = useRouteMatch();
   return (
     <div id="landing-course-explorer-page">

@@ -10,7 +10,7 @@ import { makeSampleUser } from '../user/SampleUsers';
 import { removeAllEntities } from '../base/BaseUtilities';
 // import { Courses } from './CourseCollection';
 import { makeSampleAcademicTerm } from '../academic-term/SampleAcademicTerms';
-import { ICourseInstance } from '../../typings/radgrad';
+import { CourseInstance } from '../../typings/radgrad';
 import { Slugs } from '../slug/SlugCollection';
 import { Courses } from './CourseCollection';
 import { Users } from '../user/UserCollection';
@@ -39,7 +39,7 @@ if (Meteor.isServer) {
         fc.property(fc.boolean(), fc.boolean(), fc.lorem(5), fc.integer(1, 15), fc.boolean(), (fcVerified, fcFromRegistrar, fcNote, fcCreditHrs, fcRetired) => {
           const docID = CourseInstances.define({ academicTerm: termID, course: courseID, creditHrs: fcCreditHrs, fromRegistrar: fcFromRegistrar, grade, note: fcNote, student, retired: fcRetired, verified: fcVerified });
           expect(CourseInstances.isDefined(docID)).to.be.true;
-          const ci: ICourseInstance = CourseInstances.findDoc(docID);
+          const ci: CourseInstance = CourseInstances.findDoc(docID);
           expect(ci.courseID).to.equal(courseID);
           expect(ci.studentID).to.equal(student);
           expect(ci.termID).to.equal(termID);
@@ -75,7 +75,7 @@ if (Meteor.isServer) {
           const termID = makeSampleAcademicTerm();
           const gradeChange = getRandomGrade();
           CourseInstances.update(docID, { termID, creditHrs: fcCreditHrs, fromRegistrar: fcFromRegistrar, grade: gradeChange, note: fcNote, retired: fcRetired, verified: fcVerified });
-          const ci: ICourseInstance = CourseInstances.findDoc(docID);
+          const ci: CourseInstance = CourseInstances.findDoc(docID);
           // console.log(ci, gradeChange);
           expect(ci.termID).to.equal(termID);
           expect(ci.creditHrs).to.equal(fcCreditHrs);
@@ -105,7 +105,7 @@ if (Meteor.isServer) {
     });
 
     it('Can removeUser', function test6() {
-      const ci: ICourseInstance = CourseInstances.findOne({});
+      const ci: CourseInstance = CourseInstances.findOne({});
       const studentID = ci.studentID;
       CourseInstances.removeUser(studentID);
 

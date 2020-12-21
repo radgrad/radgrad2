@@ -1,10 +1,10 @@
 import React from 'react';
 
-interface IRadGradMenuLevelProps {
+interface RadGradMenuLevelProps {
   level: number;
 }
 
-const RadGradMenuLevel: React.FC<IRadGradMenuLevelProps> = ({ level }) => {
+const RadGradMenuLevel: React.FC<RadGradMenuLevelProps> = ({ level }) => {
   const iconName = `/images/level-icons/radgrad-level-${level}-icon.png`;
   const iconStyle = {
     backgroundImage: `url('${iconName}'`,

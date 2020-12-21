@@ -4,12 +4,12 @@ import { AutoForm, TextField, LongTextField, BoolField, SubmitField } from 'unif
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import { InterestTypes } from '../../../../../api/interest/InterestTypeCollection';
 
-interface IAddInterestTypeFormProps {
+interface AddInterestTypeFormProps {
   formRef: React.RefObject<unknown>;
   handleAdd: (doc) => any;
 }
 
-const AddInterestTypeForm: React.FC<IAddInterestTypeFormProps> = ({ formRef, handleAdd }) => (
+const AddInterestTypeForm: React.FC<AddInterestTypeFormProps> = ({ formRef, handleAdd }) => (
   <Segment padded>
     <Header dividing>Add Interest Type</Header>
     <AutoForm schema={new SimpleSchema2Bridge(InterestTypes.getDefineSchema())} onSubmit={handleAdd} ref={formRef} showInlineError>

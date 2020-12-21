@@ -1,8 +1,8 @@
-import { IDescriptionPair, Ice } from '../../../../../../../typings/radgrad';
+import { DescriptionPair, Ice } from '../../../../../../../typings/radgrad';
 import { isICE } from '../../../../../../../api/ice/IceProcessor';
 
 // eslint-disable-next-line @typescript-eslint/ban-types
-export const toValueArray = (pair: IDescriptionPair): any[] => {
+export const toValueArray = (pair: DescriptionPair): any[] => {
   const value = pair.value;
   if (typeof value === 'string') {
     return [value];
@@ -14,7 +14,7 @@ export const toValueArray = (pair: IDescriptionPair): any[] => {
   return [];
 };
 
-export const toValueString = (pair: IDescriptionPair): string => {
+export const toValueString = (pair: DescriptionPair): string => {
   const value = pair.value;
   // console.log(pair);
   if (typeof value === 'string') {
@@ -30,4 +30,4 @@ export const toValueString = (pair: IDescriptionPair): string => {
   return '';
 };
 
-export const toId = (pair: IDescriptionPair): string => `${pair.label}${toValueString(pair)}`;
+export const toId = (pair: DescriptionPair): string => `${pair.label}${toValueString(pair)}`;

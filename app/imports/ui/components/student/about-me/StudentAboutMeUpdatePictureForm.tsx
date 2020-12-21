@@ -7,15 +7,15 @@ import { openCloudinaryWidget } from '../../shared/OpenCloudinaryWidget';
 import { getUsername } from '../../shared/utilities/router';
 import { UserInteractionsTypes } from '../../../../api/analytic/UserInteractionsTypes';
 import { userInteractionDefineMethod } from '../../../../api/analytic/UserInteractionCollection.methods';
-import { IUserInteractionDefine } from '../../../../typings/radgrad';
+import { UserInteractionDefine } from '../../../../typings/radgrad';
 
-interface IStudentAboutMeUpdatePictureFormProps {
+interface StudentAboutMeUpdatePictureFormProps {
   picture: string;
   docID: string;
   collectionName: string;
 }
 
-const StudentAboutMeUpdatePictureForm: React.FC<IStudentAboutMeUpdatePictureFormProps> = ({ picture, collectionName, docID }) => {
+const StudentAboutMeUpdatePictureForm: React.FC<StudentAboutMeUpdatePictureFormProps> = ({ picture, collectionName, docID }) => {
   const [pictureState, setPicture] = useState(picture);
   const match = useRouteMatch();
   const handleUploadPicture = async (e): Promise<void> => {
@@ -42,7 +42,7 @@ const StudentAboutMeUpdatePictureForm: React.FC<IStudentAboutMeUpdatePictureForm
               allowEnterKey: false,
             });
             const username = getUsername(match);
-            const interactionData: IUserInteractionDefine = {
+            const interactionData: UserInteractionDefine = {
               username,
               type: UserInteractionsTypes.PICTURE,
               typeData: [cloudinaryResult.info.url],

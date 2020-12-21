@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Pagination, PaginationProps } from 'semantic-ui-react';
 import { cardExplorerActions } from '../../../../../redux/shared/cardExplorer';
 
-interface IExplorerOpportunitiesPaginationWidgetProps {
+interface ExplorerOpportunitiesPaginationWidgetProps {
   type: string;
   totalCount: number;
   displayCount: number;
@@ -14,7 +14,7 @@ const mapDispatchToProps = (dispatch) => ({
   setShowIndex: (explorerType: string, index: number) => dispatch(cardExplorerActions.setShowIndex(explorerType, index)),
 });
 
-const ExplorerOpportunitiesPaginationWidget: React.FC<IExplorerOpportunitiesPaginationWidgetProps> = ({ type, totalCount, displayCount, setShowIndex }) => {
+const ExplorerOpportunitiesPaginationWidget: React.FC<ExplorerOpportunitiesPaginationWidgetProps> = ({ type, totalCount, displayCount, setShowIndex }) => {
   const totalPages = Math.ceil(totalCount / displayCount);
 
   const handlePaginationChange = (e, data: PaginationProps) => {

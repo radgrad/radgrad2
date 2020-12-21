@@ -2,7 +2,7 @@ import { check } from 'meteor/check';
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import BaseCollection from '../base/BaseCollection';
-import { ISlugDefine } from '../../typings/radgrad';
+import { SlugDefine } from '../../typings/radgrad';
 
 /**
  * Slugifies the give text.
@@ -50,7 +50,7 @@ class SlugCollection extends BaseCollection {
    * @returns { String } The docID of the created Slug.
    * @throws { Meteor.Error } If the slug already exists.
    */
-  public define({ name, entityName }: ISlugDefine) {
+  public define({ name, entityName }: SlugDefine) {
     check(name, String); // TODO: Do we need this? I don't think so, Typescript ensures the type.
     check(entityName, String);
     if (super.isDefined(name)) {
@@ -167,7 +167,7 @@ class SlugCollection extends BaseCollection {
    * @param docID The docID of a Slug.
    * @returns { Object } An object representing the definition of docID.
    */
-  public dumpOne(docID): ISlugDefine {
+  public dumpOne(docID): SlugDefine {
     const doc = this.findDoc(docID);
     const name = doc.name;
     const entityName = doc.entityName;

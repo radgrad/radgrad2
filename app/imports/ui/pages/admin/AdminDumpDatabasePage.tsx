@@ -12,12 +12,12 @@ import { databaseActions } from '../../../redux/admin/database';
 import { analyticsActions } from '../../../redux/admin/analytics';
 import { RootState } from '../../../redux/types';
 
-interface ICollection {
+interface Collection {
   name?: string;
   contents?: string[];
 }
 
-interface IAdminDumpDatabasePageProps {
+interface AdminDumpDatabasePageProps {
   startDumpDatabase: () => any;
   dumpDatabaseDone: () => any;
   dumpDatabaseWorking?: boolean;
@@ -40,7 +40,7 @@ const mapDispatchToProps = (dispatch) => ({
   getStudentEmailsDone: () => dispatch(analyticsActions.getStudentEmailsDone()),
 });
 
-const AdminDumpDatabasePage: React.FC<IAdminDumpDatabasePageProps> = ({ startDumpDatabase, dumpDatabaseDone, dumpDatabaseWorking, getStudentEmailsDone, getStudentEmailsWorking, startGetStudentEmails }) => {
+const AdminDumpDatabasePage: React.FC<AdminDumpDatabasePageProps> = ({ startDumpDatabase, dumpDatabaseDone, dumpDatabaseWorking, getStudentEmailsDone, getStudentEmailsWorking, startGetStudentEmails }) => {
   const [isErrorState, setIsError] = useState(false);
   const [resultsState, setResults] = useState([]);
 
@@ -67,7 +67,7 @@ const AdminDumpDatabasePage: React.FC<IAdminDumpDatabasePageProps> = ({ startDum
         setIsError(true);
       }
       // console.log(error, result);
-      const data: ICollection = {};
+      const data: Collection = {};
       data.name = 'Students';
       data.contents = result.students;
       setResults([data]);

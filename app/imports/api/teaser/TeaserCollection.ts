@@ -4,7 +4,7 @@ import { Slugs } from '../slug/SlugCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
 import { Interests } from '../interest/InterestCollection';
 import { Opportunities } from '../opportunity/OpportunityCollection';
-import { ITeaserDefine, ITeaserUpdate, ITeaserUpdateData } from '../../typings/radgrad';
+import { TeaserDefine, TeaserUpdate, TeaserUpdateData } from '../../typings/radgrad';
 
 /**
  * Represents a teaser instance, such as "ACM Webmasters".
@@ -81,7 +81,7 @@ class TeaserCollection extends BaseSlugCollection {
    * if the slug is already defined, or if the opportunity is supplied and not found.
    * @returns The newly created docID.
    */
-  public define({ title, slug, author, url, description, duration, interests, opportunity, targetSlug, retired = false }: ITeaserDefine) {
+  public define({ title, slug, author, url, description, duration, interests, opportunity, targetSlug, retired = false }: TeaserDefine) {
     // Get InterestIDs, throw error if any of them are not found.
     const interestIDs = Interests.getIDs(interests);
     // Get SlugID, throw error if found.
@@ -108,9 +108,9 @@ class TeaserCollection extends BaseSlugCollection {
    * @param docID The docID to be updated.
    * @throws { Meteor.Error } If docID is not defined, or if any interest or opportunity is undefined.
    */
-  public update(docID, { title, targetSlug, interests, author, url, description, duration, retired }: ITeaserUpdate) {
+  public update(docID, { title, targetSlug, interests, author, url, description, duration, retired }: TeaserUpdate) {
     this.assertDefined(docID);
-    const updateData: ITeaserUpdateData = {};
+    const updateData: TeaserUpdateData = {};
     if (title) {
       updateData.title = title;
     }
@@ -221,7 +221,7 @@ class TeaserCollection extends BaseSlugCollection {
    * @param docID The docID of a Teaser.
    * @returns { Object } An object representing the definition of docID.
    */
-  public dumpOne(docID: string): ITeaserDefine {
+  public dumpOne(docID: string): TeaserDefine {
     const doc = this.findDoc(docID);
     const title = doc.title;
     const slug = Slugs.getNameFromID(doc.slugID);

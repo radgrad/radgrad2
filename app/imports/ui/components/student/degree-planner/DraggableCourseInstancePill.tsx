@@ -1,14 +1,14 @@
 import React from 'react';
 import { Grid, Popup } from 'semantic-ui-react';
 import { Draggable } from 'react-beautiful-dnd';
-import { ICourseInstance } from '../../../../typings/radgrad';
+import { CourseInstance } from '../../../../typings/radgrad';
 import { getDraggablePillStyle } from '../../shared/academic-plan/utilities/styles';
 import NamePill from '../../shared/academic-plan/NamePill';
 import { Courses } from '../../../../api/course/CourseCollection';
 import RemoveItWidget from '../../shared/academic-plan/RemoveItWidget';
 
-interface ICourseInstancePillProps {
-  instance: ICourseInstance;
+interface CourseInstancePillProps {
+  instance: CourseInstance;
   index: number;
   inPast: boolean;
   handleClickCourseInstance: (event, { value }) => any;
@@ -24,7 +24,7 @@ const handleClick = (instance, handleClickCourseInstance) => (event) => {
   handleClickCourseInstance(event, { value: instance._id });
 };
 
-const DraggableCourseInstancePill: React.FC<ICourseInstancePillProps> = ({ instance, index, inPast, handleClickCourseInstance }) => (
+const DraggableCourseInstancePill: React.FC<CourseInstancePillProps> = ({ instance, index, inPast, handleClickCourseInstance }) => (
   <Popup
     trigger={(
       <div>

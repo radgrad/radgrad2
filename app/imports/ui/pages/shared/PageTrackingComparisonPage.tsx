@@ -4,7 +4,7 @@ import { Grid } from 'semantic-ui-react';
 import { useRouteMatch } from 'react-router-dom';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import { PageInterestsDailySnapshots } from '../../../api/page-tracking/PageInterestsDailySnapshotCollection';
-import { IHelpMessage, IPageInterestsDailySnapshot } from '../../../typings/radgrad';
+import { HelpMessage, PageInterestsDailySnapshot } from '../../../typings/radgrad';
 import * as Router from '../../components/shared/utilities/router';
 import { URL_ROLES } from '../../layouts/utilities/route-constants';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
@@ -17,12 +17,12 @@ import PageTrackingComparisonWidget from '../../components/shared/page-tracking/
 import BackToTopButton from '../../components/shared/BackToTopButton';
 
 // TODO is it better to create the IPageTrackingComparisonPageProps this way or should is extend IHelpMessageProps, IPageTrackingComparisonWidgetProps?
-interface IPageTrackingComparisonPageProps {
-  helpMessages: IHelpMessage[];
-  pageInterestsDailySnapshots: IPageInterestsDailySnapshot[];
+interface PageTrackingComparisonPageProps {
+  helpMessages: HelpMessage[];
+  pageInterestsDailySnapshots: PageInterestsDailySnapshot[];
 }
 
-const PageTrackingComparisonPage: React.FC<IPageTrackingComparisonPageProps> = ({ helpMessages, pageInterestsDailySnapshots }) => {
+const PageTrackingComparisonPage: React.FC<PageTrackingComparisonPageProps> = ({ helpMessages, pageInterestsDailySnapshots }) => {
   const match = useRouteMatch();
   const renderPageMenuWidget = (): JSX.Element => {
     const role = Router.getRoleByUrl(match);
@@ -72,7 +72,7 @@ const PageTrackingComparisonPage: React.FC<IPageTrackingComparisonPageProps> = (
 
 const PageTrackingComparisonPageContainer = withTracker(() => {
   const helpMessages = HelpMessages.findNonRetired({});
-  const pageInterestsDailySnapshots: IPageInterestsDailySnapshot[] = PageInterestsDailySnapshots.find({}).fetch();
+  const pageInterestsDailySnapshots: PageInterestsDailySnapshot[] = PageInterestsDailySnapshots.find({}).fetch();
   return {
     helpMessages,
     pageInterestsDailySnapshots,

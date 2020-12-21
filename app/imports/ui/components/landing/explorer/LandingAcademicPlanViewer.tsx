@@ -1,13 +1,13 @@
 import React from 'react';
 import { Grid } from 'semantic-ui-react';
-import { IAcademicPlan } from '../../../../typings/radgrad';
+import { AcademicPlan } from '../../../../typings/radgrad';
 import LandingAcademicPlanYearView from './LandingAcademicPlanYearView';
 
-interface ILandingAcademicPlanViewerProps {
-  plan: IAcademicPlan;
+interface LandingAcademicPlanViewerProps {
+  plan: AcademicPlan;
 }
 
-const LandingAcademicPlanViewer: React.FC<ILandingAcademicPlanViewerProps> = ({ plan }) => {
+const LandingAcademicPlanViewer: React.FC<LandingAcademicPlanViewerProps> = ({ plan }) => {
   // console.log(plan);
   const numYears = (plan.coursesPerAcademicTerm.length % 5) === 0 ? 5 : 4;
   let yearNumber = 0;

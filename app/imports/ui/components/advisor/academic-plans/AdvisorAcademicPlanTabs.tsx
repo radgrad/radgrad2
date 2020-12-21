@@ -2,15 +2,15 @@ import React from 'react';
 import { Segment, Tab } from 'semantic-ui-react';
 import AdvisorAcademicPlanViewerWidget from './AdvisorAcademicPlanViewerWidget';
 import AdvisorAPBuilderWidget from './AdvisorAPBuilderWidget';
-import { IAcademicPlan, IPlanChoiceDefine, IAcademicTerm } from '../../../../typings/radgrad';
+import { AcademicPlan, PlanChoiceDefine, AcademicTerm } from '../../../../typings/radgrad';
 
-interface IAdvisorAcademicPlanTabsProps {
-  choices: IPlanChoiceDefine[],
-  terms: IAcademicTerm[],
-  plans: IAcademicPlan[],
+interface AdvisorAcademicPlanTabsProps {
+  choices: PlanChoiceDefine[],
+  terms: AcademicTerm[],
+  plans: AcademicPlan[],
 }
 
-const AdvisorAcademicPlanTabs: React.FC<IAdvisorAcademicPlanTabsProps> = ({ plans, terms, choices }) => {
+const AdvisorAcademicPlanTabs: React.FC<AdvisorAcademicPlanTabsProps> = ({ plans, terms, choices }) => {
   const panes = [
     {
       menuItem: 'Viewer',

@@ -7,7 +7,7 @@ import { AcademicTerms } from '../../../../../api/academic-term/AcademicTermColl
 import { RadGradProperties } from '../../../../../api/radgrad/RadGradProperties';
 import { CourseScoreboard, OpportunityScoreboard } from '../../../../../startup/client/collections';
 
-import { IAcademicTerm, ITermCard } from '../../../../../typings/radgrad';
+import { AcademicTerm, TermCard } from '../../../../../typings/radgrad';
 import IceHeader from '../../IceHeader';
 import InterestList from '../../InterestList';
 import WidgetHeaderNumber from '../WidgetHeaderNumber';
@@ -61,7 +61,7 @@ const buildRouteName = (item, type, match) => {
 // TODO Why is this named this?
 // TODO Redesign the Cards.
 
-const TermCard: React.FC<ITermCard> = ({ item, type }) => {
+const TermCard: React.FC<TermCard> = ({ item, type }) => {
   const match = useRouteMatch();
   const name = itemName(item, type);
   const isTypeOpportunity = isType('opportunities', type);
@@ -75,7 +75,7 @@ const TermCard: React.FC<ITermCard> = ({ item, type }) => {
     limit: numTerms,
   });
   const scores = [];
-  _.forEach(academicTerms, (term: IAcademicTerm) => {
+  _.forEach(academicTerms, (term: AcademicTerm) => {
     const id = `${item._id} ${term._id}`;
     if (type === EXPLORER_TYPE.COURSES) {
       const score = CourseScoreboard.find({ _id: id }).fetch() as { count: number }[];

@@ -13,7 +13,7 @@ import { CourseInstances } from '../../../../api/course/CourseInstanceCollection
 import { Users } from '../../../../api/user/UserCollection';
 import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
 import RatingField from './RatingField';
-import { IAcademicTerm, IReview, IReviewUpdate, IUserInteractionDefine } from '../../../../typings/radgrad';
+import { AcademicTerm, Review, ReviewUpdate, UserInteractionDefine } from '../../../../typings/radgrad';
 import { UserInteractionsTypes } from '../../../../api/analytic/UserInteractionsTypes';
 import { userInteractionDefineMethod } from '../../../../api/analytic/UserInteractionCollection.methods';
 import { getUsername } from '../../shared/utilities/router';
@@ -21,14 +21,14 @@ import { Courses } from '../../../../api/course/CourseCollection';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
 import { IReviewTypes, ReviewTypes } from '../../../../api/review/ReviewTypes';
 
-interface IStudentExplorerEditReviewWidgetProps {
-  review: IReview;
+interface StudentExplorerEditReviewWidgetProps {
+  review: Review;
   itemToReview: any;
 }
 
 const collection = Reviews;
 
-const StudentExplorerEditReviewForm: React.FC<IStudentExplorerEditReviewWidgetProps> = ({ review, itemToReview }) => {
+const StudentExplorerEditReviewForm: React.FC<StudentExplorerEditReviewWidgetProps> = ({ review, itemToReview }) => {
   const formRef = React.createRef();
   const [activeState, setActive] = useState(false);
   const [confirmOpenState, setConfirmOpen] = useState(false);
@@ -39,12 +39,12 @@ const StudentExplorerEditReviewForm: React.FC<IStudentExplorerEditReviewWidgetPr
     setActive(!activeState);
   };
 
-  const handleUpdate = (doc: IReviewUpdate): void => {
+  const handleUpdate = (doc: ReviewUpdate): void => {
     const collectionName = collection.getCollectionName();
     const username = getUsername(match);
     const academicTermDoc = AcademicTerms.getAcademicTermFromToString(doc.academicTerm);
     const academicTermSlug = AcademicTerms.findSlugByID(academicTermDoc._id);
-    const updateData: IReviewUpdate = doc;
+    const updateData: ReviewUpdate = doc;
     updateData.academicTerm = academicTermSlug;
     updateData.moderated = false;
     updateData.id = review._id;
@@ -73,7 +73,7 @@ const StudentExplorerEditReviewForm: React.FC<IStudentExplorerEditReviewWidgetPr
           const revieweeID = Opportunities.getID(review.revieweeID);
           slug = Opportunities.findSlugByID(revieweeID);
         }
-        const interactionData: IUserInteractionDefine = {
+        const interactionData: UserInteractionDefine = {
           username,
           type: UserInteractionsTypes.EDITREVIEW,
           typeData: [reviewType, updateData.academicTerm, slug],
@@ -124,7 +124,7 @@ const StudentExplorerEditReviewForm: React.FC<IStudentExplorerEditReviewWidgetPr
     return username && Users.getID(username);
   };
 
-  const academicTerm = (): IAcademicTerm[] => {
+  const academicTerm = (): AcademicTerm[] => {
     const academicTerms = [];
     let instances;
     if (review.reviewType === ReviewTypes.COURSE) {

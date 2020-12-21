@@ -7,8 +7,8 @@ import { PageInterests } from './PageInterestCollection';
 import { makeSampleUser } from '../user/SampleUsers';
 import { Users } from '../user/UserCollection';
 import {
-  IPageInterest,
-  IPageInterestDefine,
+  PageInterest,
+  PageInterestDefine,
 } from '../../typings/radgrad';
 import { makeSamplePageInterest } from './SamplePageInterests';
 
@@ -46,7 +46,7 @@ if (Meteor.isServer) {
       const category = faker.lorem.word();
       const name = faker.lorem.slug();
       const docID1 = PageInterests.define({ username, category, name });
-      const docID1Object: IPageInterest = PageInterests.findOne({ _id: docID1 });
+      const docID1Object: PageInterest = PageInterests.findOne({ _id: docID1 });
       const docID1Timestamp: Date = docID1Object.timestamp;
       const docID2 = PageInterests.define({ username, category, name, timestamp: docID1Timestamp });
 
@@ -58,13 +58,13 @@ if (Meteor.isServer) {
 
     it('Can dumpOne, removeIt, and restoreOne', function test3() {
       let docID = makeSamplePageInterest();
-      const original: IPageInterest = PageInterests.findDoc(docID);
-      const dumpObject: IPageInterestDefine = PageInterests.dumpOne(docID);
+      const original: PageInterest = PageInterests.findDoc(docID);
+      const dumpObject: PageInterestDefine = PageInterests.dumpOne(docID);
       PageInterests.removeIt(docID);
       expect(PageInterests.isDefined(docID)).to.be.false;
       docID = PageInterests.restoreOne(dumpObject);
       expect(PageInterests.isDefined(docID)).to.be.true;
-      const restored: IPageInterest = PageInterests.findDoc(docID);
+      const restored: PageInterest = PageInterests.findDoc(docID);
 
       expect(original.username).to.deep.equal(restored.username);
       expect(original.category).to.deep.equal(restored.category);

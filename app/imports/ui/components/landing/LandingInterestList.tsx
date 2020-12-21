@@ -5,16 +5,16 @@ import _ from 'lodash';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { EXPLORER_TYPE } from '../../layouts/utilities/route-constants';
 import { Slugs } from '../../../api/slug/SlugCollection';
-import { IInterest } from '../../../typings/radgrad';
+import { Interest } from '../../../typings/radgrad';
 
-interface IWithInterestsProps {
+interface WithInterestsProps {
   interestIDs: string[];
 }
 
-const getSlugName = (interest: IInterest) => Slugs.getNameFromID(interest.slugID);
+const getSlugName = (interest: Interest) => Slugs.getNameFromID(interest.slugID);
 
-const LandingInterestList: React.FC<IWithInterestsProps> = ({ interestIDs }) => {
-  const interests: IInterest[] = _.map(interestIDs, (id) => Interests.findDoc(id));
+const LandingInterestList: React.FC<WithInterestsProps> = ({ interestIDs }) => {
+  const interests: Interest[] = _.map(interestIDs, (id) => Interests.findDoc(id));
   const labelStyle = { marginBottom: '2px' };
   return (
     <React.Fragment>

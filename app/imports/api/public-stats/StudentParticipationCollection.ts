@@ -8,7 +8,7 @@ import { Slugs } from '../slug/SlugCollection';
 import { Courses } from '../course/CourseCollection';
 import { CourseInstances } from '../course/CourseInstanceCollection';
 import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollection';
-import { IStudentParticipationDefine, IStudentParticipationUpdate } from '../../typings/radgrad';
+import { StudentParticipationDefine, StudentParticipationUpdate } from '../../typings/radgrad';
 import { AcademicPlans } from '../degree-plan/AcademicPlanCollection';
 import { CareerGoals } from '../career/CareerGoalCollection';
 import { Interests } from '../interest/InterestCollection';
@@ -39,7 +39,7 @@ class StudentParticipationCollection extends BaseCollection {
    * @param itemCount the number of students that have the course or opportunity in their plan.
    * @returns {any} The id of the record.
    */
-  define({ itemSlug, itemCount }: IStudentParticipationDefine) {
+  define({ itemSlug, itemCount }: StudentParticipationDefine) {
     const doc = this.collection.findOne({ itemSlug });
     if (doc) {
       return doc._id;
@@ -58,9 +58,9 @@ class StudentParticipationCollection extends BaseCollection {
    * @param docID the ID of the record.
    * @param itemCount the new itemCount.
    */
-  update(docID: string, { itemCount }: IStudentParticipationUpdate) {
+  update(docID: string, { itemCount }: StudentParticipationUpdate) {
     this.assertDefined(docID);
-    const updateData: IStudentParticipationUpdate = {};
+    const updateData: StudentParticipationUpdate = {};
     updateData.itemCount = itemCount;
     this.collection.update(docID, { $set: updateData });
   }
@@ -116,7 +116,7 @@ class StudentParticipationCollection extends BaseCollection {
    * @param docID The docID of a StudentParticipation item.
    * @returns { Object } An object representing the definition of docID.
    */
-  dumpOne(docID: string): IStudentParticipationDefine {
+  dumpOne(docID: string): StudentParticipationDefine {
     const doc = this.findDoc(docID);
     const itemID = doc.itemID;
     const itemSlug = doc.itemSlug;

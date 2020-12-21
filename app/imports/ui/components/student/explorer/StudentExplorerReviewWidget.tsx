@@ -14,12 +14,12 @@ import {
   userToFullName,
   academicTermNameToShortName,
 } from '../../shared/utilities/data-model';
-import { IReview } from '../../../../typings/radgrad';
+import { Review } from '../../../../typings/radgrad';
 
-interface IStudentExplorerReviewWidgetProps {
+interface StudentExplorerReviewWidgetProps {
   itemToReview: any;
-  userReview: IReview;
-  itemReviews: IReview[];
+  userReview: Review;
+  itemReviews: Review[];
   completed: boolean;
   reviewType: string;
 }
@@ -39,7 +39,7 @@ const reviewData = (review: { [key: string]: any }): { [key: string]: any } => {
   };
 };
 
-const StudentExplorerReviewWidget: React.FC<IStudentExplorerReviewWidgetProps> = ({ itemReviews, userReview, completed, reviewType, itemToReview }) => {
+const StudentExplorerReviewWidget: React.FC<StudentExplorerReviewWidgetProps> = ({ itemReviews, userReview, completed, reviewType, itemToReview }) => {
   const match = useRouteMatch();
   const uppercaseStyle = { textTransform: 'uppercase' };
   const commentsStyle = { paddingTop: '5px' };

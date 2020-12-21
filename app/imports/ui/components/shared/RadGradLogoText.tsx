@@ -1,10 +1,10 @@
 import React from 'react';
 
-interface IRadGradLogoProps {
+interface RadGradLogoProps {
   style?: any;
 }
 
-const RadGradLogoText: React.FC<IRadGradLogoProps> = ({ style }) => {
+const RadGradLogoText: React.FC<RadGradLogoProps> = ({ style }) => {
   const radStyle = { fontWeight: 700 };
   const gradStyle = { fontWeight: 400 };
   return (

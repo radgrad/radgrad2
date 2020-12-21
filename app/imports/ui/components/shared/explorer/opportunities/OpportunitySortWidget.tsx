@@ -15,7 +15,7 @@ export const opportunitySortKeys = {
   experience: 'Experience',
 };
 
-interface IOpportunitySortWidgetProps {
+interface OpportunitySortWidgetProps {
   sortChoice: string;
   setOpportunitiesSortValue: (explorerType: string, value: string) => any;
 }
@@ -28,7 +28,7 @@ const mapDispatchToProps = (dispatch) => ({
   setOpportunitiesSortValue: (explorerType: string, value: string) => dispatch(cardExplorerActions.setOpportunitiesSortValue(explorerType, value)),
 });
 
-const OpportunitySortWidget: React.FC<IOpportunitySortWidgetProps> = ({ sortChoice, setOpportunitiesSortValue }) => {
+const OpportunitySortWidget: React.FC<OpportunitySortWidgetProps> = ({ sortChoice, setOpportunitiesSortValue }) => {
 
   const handleChange = (type, value) => {
     setOpportunitiesSortValue(EXPLORER_TYPE.OPPORTUNITIES, value);

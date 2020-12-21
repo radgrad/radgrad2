@@ -12,7 +12,7 @@ import { Slugs } from '../slug/SlugCollection';
 import { Users } from './UserCollection';
 import { ROLE } from '../role/Role';
 import { VerificationRequests } from '../verification/VerificationRequestCollection';
-import { IBaseProfile } from '../../typings/radgrad';
+import { BaseProfile } from '../../typings/radgrad';
 import { FavoriteAcademicPlans } from '../favorite/FavoriteAcademicPlanCollection';
 import { FavoriteCareerGoals } from '../favorite/FavoriteCareerGoalCollection';
 import { FavoriteCourses } from '../favorite/FavoriteCourseCollection';
@@ -69,7 +69,7 @@ class BaseProfileCollection extends BaseSlugCollection {
    * @param profile A Profile object.
    * @returns  { String } The name of a profile collection.
    */
-  public getCollectionNameForProfile(profile: IBaseProfile) {
+  public getCollectionNameForProfile(profile: BaseProfile) {
     return rolesToCollectionNames[profile.role];
   }
 

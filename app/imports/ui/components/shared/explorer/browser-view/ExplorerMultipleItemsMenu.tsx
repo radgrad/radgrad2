@@ -1,30 +1,30 @@
 import React from 'react';
 import {
-  IAcademicPlan,
-  ICareerGoal,
-  ICourse,
-  IInterest,
-  IOpportunity,
+  AcademicPlan,
+  CareerGoal,
+  Course,
+  Interest,
+  Opportunity,
 } from '../../../../../typings/radgrad';
 import { IExplorerTypes } from '../utilities/explorer';
 import CardExplorerMenuNonMobileWidget from './ExplorerMultipleItemsMenuNonMobileWidget';
 import CardExplorerMenuMobileWidget from './ExplorerMultipleItemsMenuMobileWidget';
 import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
 
-type explorerInterfaces = IAcademicPlan | ICareerGoal | ICourse | IInterest | IOpportunity;
+type ExplorerInterfaces = AcademicPlan | CareerGoal | Course | Interest | Opportunity;
 
-export interface IExplorerMenuItem {
-  item: explorerInterfaces,
+export interface ExplorerMenuItem {
+  item: ExplorerInterfaces,
   count: number,
 }
 
-interface ICardExplorerMenuProps {
-  menuAddedList: IExplorerMenuItem[];
-  menuCareerList: { item: IInterest, count: number }[] | undefined;
+interface CardExplorerMenuProps {
+  menuAddedList: ExplorerMenuItem[];
+  menuCareerList: { item: Interest, count: number }[] | undefined;
   type: IExplorerTypes;
 }
 
-const ExplorerMultipleItemsMenu: React.FC<ICardExplorerMenuProps> = ({ menuAddedList, menuCareerList, type }) => {
+const ExplorerMultipleItemsMenu: React.FC<CardExplorerMenuProps> = ({ menuAddedList, menuCareerList, type }) => {
   const isTypeInterest = type === EXPLORER_TYPE.INTERESTS;
 
   return (

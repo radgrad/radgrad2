@@ -6,7 +6,7 @@ import { _ } from 'meteor/erasaur:meteor-lodash'; // CAM: replacing this with lo
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 
-interface ILoading {
+interface Loading {
   loading: boolean;
 }
 
@@ -15,7 +15,7 @@ interface ILoading {
 const additionalSubs = new SubsManager({ cacheLimit: 2, expireIn: 30 });
 
 function withAdditionalSubscriptions(WrappedComponent) {
-  const AdditionalSubscriptions: React.FC<ILoading> = (props) => ((props.loading) ? <Loader active>Getting additional data</Loader> :
+  const AdditionalSubscriptions: React.FC<Loading> = (props) => ((props.loading) ? <Loader active>Getting additional data</Loader> :
   <WrappedComponent {...props} />);
 
   return withTracker(() => {

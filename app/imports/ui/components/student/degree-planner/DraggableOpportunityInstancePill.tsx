@@ -1,15 +1,15 @@
 import React from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import { Grid, Icon, Popup } from 'semantic-ui-react';
-import { IOpportunityInstance } from '../../../../typings/radgrad';
+import { OpportunityInstance } from '../../../../typings/radgrad';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
 import { getDraggablePillStyle } from '../../shared/academic-plan/utilities/styles';
 import NamePill from '../../shared/academic-plan/NamePill';
 import IceHeader from '../../shared/IceHeader';
 import RemoveItWidget from '../../shared/academic-plan/RemoveItWidget';
 
-interface IOpportunityInstancePillProps {
-  instance: IOpportunityInstance;
+interface OpportunityInstancePillProps {
+  instance: OpportunityInstance;
   index: number;
   handleClickOpportunityInstance: (event, { value }) => any;
 }
@@ -20,7 +20,7 @@ const handleClick = (instance, handleClickOpportunityInstance) => (event) => {
   handleClickOpportunityInstance(event, { value: instance._id });
 };
 
-const DraggableOpportunityInstancePill: React.FC<IOpportunityInstancePillProps> = ({ instance, index, handleClickOpportunityInstance }) => {
+const DraggableOpportunityInstancePill: React.FC<OpportunityInstancePillProps> = ({ instance, index, handleClickOpportunityInstance }) => {
   const opp = Opportunities.findDoc(instance.opportunityID);
   return (
     <Popup trigger={(

@@ -4,11 +4,11 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Container, Grid } from 'semantic-ui-react';
 import _ from 'lodash';
 import {
-  ICourse,
-  IHelpMessage,
-  IInterest,
-  IOpportunity,
-  IProfile,
+  Course,
+  HelpMessage,
+  Interest,
+  Opportunity,
+  Profile,
 } from '../../../../typings/radgrad';
 import { getMenuWidget } from '../utilities/getMenuWidget';
 import { HelpMessages } from '../../../../api/help/HelpMessageCollection';
@@ -20,17 +20,17 @@ import HelpPanelWidget from '../../../components/shared/HelpPanelWidget';
 import ExplorerMenu from '../../../components/shared/explorer/item-view/ExplorerMenu';
 import ExplorerInterestWidget from '../../../components/shared/explorer/item-view/interest/ExplorerInterestWidget';
 
-interface IInterestViewPageProps {
-  courses: ICourse[];
-  favoriteInterests: IInterest[];
-  favoriteCareerGoalInterests: IInterest[];
-  helpMessages: IHelpMessage[];
-  interest: IInterest;
-  opportunities: IOpportunity[];
-  profile: IProfile;
+interface InterestViewPageProps {
+  courses: Course[];
+  favoriteInterests: Interest[];
+  favoriteCareerGoalInterests: Interest[];
+  helpMessages: HelpMessage[];
+  interest: Interest;
+  opportunities: Opportunity[];
+  profile: Profile;
 }
 
-const InterestViewPage: React.FC<IInterestViewPageProps> = ({ courses, favoriteCareerGoalInterests, favoriteInterests, helpMessages, interest, opportunities, profile }) => {
+const InterestViewPage: React.FC<InterestViewPageProps> = ({ courses, favoriteCareerGoalInterests, favoriteInterests, helpMessages, interest, opportunities, profile }) => {
   const match = useRouteMatch();
   const menuAddedList = _.map(favoriteInterests, (item) => ({
     item, count: 1,

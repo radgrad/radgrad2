@@ -4,20 +4,20 @@ import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, SelectField, NumField, SubmitField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
-import { IAcademicTerm, ICourse, IStudentProfile } from '../../../../../typings/radgrad';
+import { AcademicTerm, Course, StudentProfile } from '../../../../../typings/radgrad';
 import { AcademicTerms } from '../../../../../api/academic-term/AcademicTermCollection';
 import { CourseInstances } from '../../../../../api/course/CourseInstanceCollection';
 import { academicTermToName, courseToName, profileToName } from '../../../shared/utilities/data-model';
 
-interface IAddCourseInstanceFormProps {
-  terms: IAcademicTerm[];
-  courses: ICourse[];
-  students: IStudentProfile[];
+interface AddCourseInstanceFormProps {
+  terms: AcademicTerm[];
+  courses: Course[];
+  students: StudentProfile[];
   formRef: React.RefObject<unknown>;
   handleAdd: (doc) => any;
 }
 
-const AddCourseInstanceForm: React.FC<IAddCourseInstanceFormProps> = ({ terms, courses, students, formRef, handleAdd }) => {
+const AddCourseInstanceForm: React.FC<AddCourseInstanceFormProps> = ({ terms, courses, students, formRef, handleAdd }) => {
   const termNames = _.map(terms, academicTermToName);
   const currentTermName = AcademicTerms.toString(AcademicTerms.getCurrentTermID(), false);
   const courseNames = _.map(courses, courseToName);

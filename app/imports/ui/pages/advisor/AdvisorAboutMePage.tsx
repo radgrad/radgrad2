@@ -6,10 +6,10 @@ import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
 import {
-  IAdvisorOrFacultyProfile,
-  IFavoriteCareerGoal,
-  IFavoriteInterest,
-  IHelpMessage,
+  AdvisorOrFacultyProfile,
+  FavoriteCareerGoal,
+  FavoriteInterest,
+  HelpMessage,
 } from '../../../typings/radgrad';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import { Users } from '../../../api/user/UserCollection';
@@ -17,14 +17,14 @@ import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollect
 import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
 import AdvisorAboutMeWidget from '../../components/advisor/home/AdvisorAboutMeWidget';
 
-interface IAdvisorAboutMePageProps {
-  profile: IAdvisorOrFacultyProfile,
-  favoriteInterests: IFavoriteInterest[];
-  favoriteCareerGoals: IFavoriteCareerGoal[];
-  helpMessages: IHelpMessage[];
+interface AdvisorAboutMePageProps {
+  profile: AdvisorOrFacultyProfile,
+  favoriteInterests: FavoriteInterest[];
+  favoriteCareerGoals: FavoriteCareerGoal[];
+  helpMessages: HelpMessage[];
 }
 
-const AdvisorAboutMePage: React.FC<IAdvisorAboutMePageProps> = ({ profile, favoriteInterests, favoriteCareerGoals, helpMessages }) => (
+const AdvisorAboutMePage: React.FC<AdvisorAboutMePageProps> = ({ profile, favoriteInterests, favoriteCareerGoals, helpMessages }) => (
   <div id="advisor-about-me-page">
     <AdvisorPageMenuWidget />
     <Grid stackable>
@@ -51,11 +51,11 @@ const AdvisorAboutMePage: React.FC<IAdvisorAboutMePageProps> = ({ profile, favor
 
 const AdvisorAboutMePageContainer = withTracker(() => {
   const { username } = useParams();
-  const profile: IAdvisorOrFacultyProfile = Users.getProfile(username);
+  const profile: AdvisorOrFacultyProfile = Users.getProfile(username);
   const userID = profile.userID;
-  const favoriteInterests: IFavoriteInterest[] = FavoriteInterests.findNonRetired({ userID });
-  const favoriteCareerGoals: IFavoriteCareerGoal[] = FavoriteCareerGoals.findNonRetired({ userID });
-  const helpMessages: IHelpMessage[] = HelpMessages.findNonRetired({});
+  const favoriteInterests: FavoriteInterest[] = FavoriteInterests.findNonRetired({ userID });
+  const favoriteCareerGoals: FavoriteCareerGoal[] = FavoriteCareerGoals.findNonRetired({ userID });
+  const helpMessages: HelpMessage[] = HelpMessages.findNonRetired({});
   return {
     profile,
     favoriteCareerGoals,

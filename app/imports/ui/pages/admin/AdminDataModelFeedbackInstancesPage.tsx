@@ -23,11 +23,11 @@ import { Teasers } from '../../../api/teaser/TeaserCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import AdminDataModelMenu, { IAdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
+import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import {
-  IDescriptionPair,
-  IFeedbackInstanceDefine, IStudentProfile, IFeedbackInstance,
+  DescriptionPair,
+  FeedbackInstanceDefine, StudentProfile, FeedbackInstance,
 } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { FeedbackInstances } from '../../../api/feedback/FeedbackInstanceCollection';
@@ -45,7 +45,7 @@ const collection = FeedbackInstances; // the collection to use.
  * Returns an array of Description pairs used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const descriptionPairs = (item: IFeedbackInstance): IDescriptionPair[] => [
+const descriptionPairs = (item: FeedbackInstance): DescriptionPair[] => [
   { label: 'Student', value: Users.getFullName(item.userID) },
   { label: 'Function Name', value: item.functionName },
   { label: 'Description', value: item.description },
@@ -57,7 +57,7 @@ const descriptionPairs = (item: IFeedbackInstance): IDescriptionPair[] => [
  * Returns the title string for the item. Used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const itemTitleString = (item: IFeedbackInstance): string => {
+const itemTitleString = (item: FeedbackInstance): string => {
   const username = Users.getProfile(item.userID).username;
   const feedbackName = item.functionName;
   return `${username}-${feedbackName}`;
@@ -67,7 +67,7 @@ const itemTitleString = (item: IFeedbackInstance): string => {
  * Returns the ReactNode used in the ListCollectionWidget. By default we indicate if the item is retired.
  * @param item an item from the collection.
  */
-const itemTitle = (item: IFeedbackInstance): React.ReactNode => (
+const itemTitle = (item: FeedbackInstance): React.ReactNode => (
   <React.Fragment>
     {item.retired ? <Icon name="eye slash" /> : ''}
     <Icon name="dropdown" />
@@ -75,12 +75,14 @@ const itemTitle = (item: IFeedbackInstance): React.ReactNode => (
   </React.Fragment>
 );
 
-interface IAdminDataModelFeedbackInstancesPageProps extends IAdminDataModeMenuProps {
-  items: IFeedbackInstance[];
-  students: IStudentProfile[];
+interface AdminDataModelFeedbackInstancesPageProps extends AdminDataModeMenuProps {
+  items: FeedbackInstance[];
+  students: StudentProfile[];
 }
 
-const AdminDataModelFeedbackInstancesPage: React.FC<IAdminDataModelFeedbackInstancesPageProps> = (props) => {
+// props not deconstructed because AdminDataModeMenuProps has 21 numbers.
+const AdminDataModelFeedbackInstancesPage: React.FC<AdminDataModelFeedbackInstancesPageProps> = (props) => {
+  // TODO deconstruct props
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');
@@ -89,7 +91,7 @@ const AdminDataModelFeedbackInstancesPage: React.FC<IAdminDataModelFeedbackInsta
   const handleAdd = (doc) => {
     // console.log('FeedbackInstances.handleAdd(%o)', doc);
     const collectionName = collection.getCollectionName();
-    const definitionData: IFeedbackInstanceDefine = {
+    const definitionData: FeedbackInstanceDefine = {
       user: profileNameToUsername(doc.user),
       functionName: doc.functionName,
       description: doc.description,

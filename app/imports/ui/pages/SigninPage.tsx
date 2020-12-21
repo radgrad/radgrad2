@@ -10,7 +10,7 @@ import LandingNavBarContainer from '../components/landing/LandingNavBar';
  * SigninPage page overrides the form’s submit event and call Meteor’s loginWithPassword().
  * Authentication errors modify the component’s state to be displayed
  */
-const SigninPage = () => {
+const SigninPage: React.FC = () => {
   const [emailState, setEmail] = useState('');
   const [passwordState, setPassword] = useState('');
   const [errorState, setError] = useState('');
@@ -66,7 +66,8 @@ const SigninPage = () => {
   // Otherwise return the Login form.
   return (
     <div>
-      <LandingNavBarContainer />
+      {/* TODO get currentUser */}
+      <LandingNavBarContainer currentUser="" />
       <Container id="signin-page" style={containerStyle}>
         <Grid textAlign="center" verticalAlign="middle" centered columns={2}>
           <Grid.Column>
