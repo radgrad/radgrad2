@@ -6946,21 +6946,6 @@
       ]
     },
     {
-      "name": "FavoriteAcademicPlanCollection",
-      "contents": [
-        {
-          "academicPlan": "bs-cs-2019",
-          "student": "abi@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicPlan": "bs-cs-2020",
-          "student": "abi@hawaii.edu",
-          "retired": false
-        }
-      ]
-    },
-    {
       "name": "FavoriteCareerGoalCollection",
       "contents": [
         {
@@ -12899,10 +12884,6 @@
           "careerGoals": [
           ],
           "level": 1,
-          "favoriteAcademicPlans": [
-            "bs-cs-2019",
-            "bs-cs-2020"
-          ],
           "favoriteCourses": [],
           "favoriteOpportunities": [],
           "declaredAcademicTerm": "Fall-2017",
@@ -12935,10 +12916,6 @@
             "data-scientist"
           ],
           "level": 1,
-          "favoriteAcademicPlans": [
-            "bs-cs-2019",
-            "bs-cs-2020"
-          ],
           "favoriteCourses": [],
           "favoriteOpportunities": [],
           "declaredAcademicTerm": "Fall-2017",
@@ -12966,7 +12943,6 @@
             "software-developer"
           ],
           "level": 5,
-          "favoriteAcademicPlans": [],
           "favoriteCourses": [],
           "favoriteOpportunities": [],
           "declaredAcademicTerm": "Fall-2018",
@@ -12997,7 +12973,6 @@
             "graduate-school"
           ],
           "level": 4,
-          "favoriteAcademicPlans": [],
           "favoriteCourses": [],
           "favoriteOpportunities": [],
           "declaredAcademicTerm": "Fall-2019",
@@ -13024,7 +12999,6 @@
             "data-scientist"
           ],
           "level": 2,
-          "favoriteAcademicPlans": [],
           "favoriteCourses": [],
           "favoriteOpportunities": [],
           "isAlumni": false,
@@ -13051,7 +13025,6 @@
             "full-stack-developer"
           ],
           "level": 1,
-          "favoriteAcademicPlans": [],
           "favoriteCourses": [],
           "favoriteOpportunities": [],
           "isAlumni": true,
@@ -13090,7 +13063,6 @@
             "ux-designer"
           ],
           "level": 5,
-          "favoriteAcademicPlans": [],
           "favoriteCourses": [],
           "favoriteOpportunities": [],
           "isAlumni": false,
@@ -13117,7 +13089,6 @@
             "full-stack-developer"
           ],
           "level": 6,
-          "favoriteAcademicPlans": [],
           "favoriteCourses": [],
           "favoriteOpportunities": [],
           "declaredAcademicTerm": "Fall-2017",
@@ -13145,7 +13116,6 @@
             "full-stack-developer"
           ],
           "level": 5,
-          "favoriteAcademicPlans": [],
           "favoriteCourses": [],
           "favoriteOpportunities": [],
           "declaredAcademicTerm": "Fall-2018",
@@ -13175,7 +13145,6 @@
             "software-developer"
           ],
           "level": 3,
-          "favoriteAcademicPlans": [],
           "favoriteCourses": [],
           "favoriteOpportunities": [],
           "isAlumni": false,
@@ -13202,7 +13171,6 @@
             "data-scientist"
           ],
           "level": 4,
-          "favoriteAcademicPlans": [],
           "favoriteCourses": [],
           "favoriteOpportunities": [],
           "declaredAcademicTerm": "Fall-2019",

@@ -1594,10 +1594,6 @@
       ]
     },
     {
-      "name": "FavoriteAcademicPlanCollection",
-      "contents": []
-    },
-    {
       "name": "FavoriteCareerGoalCollection",
       "contents": []
     },
@@ -2751,7 +2747,6 @@
           "interests": [],
           "careerGoals": [],
           "level": 1,
-          "favoriteAcademicPlans": [],
           "favoriteCourses": [],
           "favoriteOpportunities": [],
           "declaredAcademicTerm": "Fall-2017",
@@ -2775,7 +2770,6 @@
           "interests": [],
           "careerGoals": [],
           "level": 6,
-          "favoriteAcademicPlans": [],
           "favoriteCourses": [],
           "favoriteOpportunities": [],
           "declaredAcademicTerm": "Fall-2018",
@@ -2799,7 +2793,6 @@
           "interests": [],
           "careerGoals": [],
           "level": 4,
-          "favoriteAcademicPlans": [],
           "favoriteCourses": [],
           "favoriteOpportunities": [],
           "declaredAcademicTerm": "Fall-2019",
@@ -2823,7 +2816,6 @@
           "interests": [],
           "careerGoals": [],
           "level": 2,
-          "favoriteAcademicPlans": [],
           "favoriteCourses": [],
           "favoriteOpportunities": [],
           "isAlumni": false,
@@ -2846,7 +2838,6 @@
           "interests": [],
           "careerGoals": [],
           "level": 1,
-          "favoriteAcademicPlans": [],
           "favoriteCourses": [],
           "favoriteOpportunities": [],
           "isAlumni": true,
@@ -2869,7 +2860,6 @@
           "interests": [],
           "careerGoals": [],
           "level": 6,
-          "favoriteAcademicPlans": [],
           "favoriteCourses": [],
           "favoriteOpportunities": [],
           "isAlumni": false,
