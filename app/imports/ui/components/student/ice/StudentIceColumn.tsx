@@ -17,9 +17,11 @@ export interface StudentIceColumnProps {
   favoriteInterests: FavoriteInterest[];
   courseInstances: CourseInstance[];
   opportunityInstances: OpportunityInstance[];
+  projectedICE: Ice;
+  earnedICE: Ice;
 }
 
-const StudentIceColumn: React.FC<StudentIceColumnProps> = ({ type, favoriteInterests, courseInstances, opportunityInstances }) => {
+const StudentIceColumn: React.FC<StudentIceColumnProps> = ({ type, favoriteInterests, courseInstances, opportunityInstances, projectedICE, earnedICE }) => {
 
   const match = useRouteMatch();
   const [verifiedColumnOpenState, setVerifiedColumnOpen] = useState(true);
@@ -41,7 +43,7 @@ const StudentIceColumn: React.FC<StudentIceColumnProps> = ({ type, favoriteInter
     setRecommendedColumnOpen(!recommendedColumnOpenState);
   };
 
-  //returns the CSS name of a color found in app/public/semantic.min.css depending on the color the widget should be
+  // returns the CSS name of a color found in app/public/semantic.min.css depending on the color the widget should be
   const getVerifiedColor = (): string => {
     switch (type) {
       case 'Innovation':
@@ -55,8 +57,8 @@ const StudentIceColumn: React.FC<StudentIceColumnProps> = ({ type, favoriteInter
     }
   };
 
-  //returns the CSS name of a color found in app/public/semantic.min.css depending on the color the widget should be
-  //-proj colors are slightly lighter colors of the same shade.
+  // returns the CSS name of a color found in app/public/semantic.min.css depending on the color the widget should be
+  // -proj colors are slightly lighter colors of the same shade.
   const getUnverifiedColor = (): string => {
     switch (type) {
       case 'Innovation':
@@ -116,7 +118,6 @@ const StudentIceColumn: React.FC<StudentIceColumnProps> = ({ type, favoriteInter
 
   const verifiedColor = getVerifiedColor();
   const unverifiedColor = getUnverifiedColor();
-
 
   const username = Router.getUsername(match);
   const earnedICEPoints = getPoints(earnedICE);

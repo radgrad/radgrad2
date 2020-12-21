@@ -4,7 +4,6 @@ import { Ice, CourseInstance, FavoriteInterest, OpportunityInstance } from '../.
 import StudentIceColumn from './StudentIceColumn';
 import PageIceCircle from './PageIceCircle';
 
-
 export interface StudentIceWidgetProps {
   earnedICE: Ice;
   projectedICE: Ice;
