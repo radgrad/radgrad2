@@ -7,7 +7,9 @@ import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import StudentIceWidget from '../../components/student/ice/StudentIceWidget';
+
 import { Ice, CourseInstance, FavoriteInterest, HelpMessage, OpportunityInstance } from '../../../typings/radgrad';
+
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
@@ -22,7 +24,6 @@ interface StudentIcePageProps {
   courseInstances: CourseInstance[];
   opportunityInstances: OpportunityInstance[];
 }
-
 const StudentIcePage: React.FC<StudentIcePageProps> = ({ helpMessages, earnedICE, projectedICE,
   favoriteInterests, courseInstances, opportunityInstances }) => (
     <div id="student-ice-points-page">
@@ -51,13 +52,14 @@ const StudentIcePage: React.FC<StudentIcePageProps> = ({ helpMessages, earnedICE
 
 const StudentHomeIcePageContainer = withTracker(() => {
   const { username } = useParams();
-  const studentID = Users.getProfile(username).userID;
+  const studentID: IStudentProfile = Users.getProfile(username).userID;
   const earnedICE: Ice = StudentProfiles.getEarnedICE(username);
   const projectedICE: Ice = StudentProfiles.getProjectedICE(username);
   const helpMessages = HelpMessages.findNonRetired({});
   const favoriteInterests: FavoriteInterest[] = FavoriteInterests.findNonRetired({ userID: studentID });
   const courseInstances: CourseInstance[] = CourseInstances.findNonRetired({ studentID });
   const opportunityInstances: OpportunityInstance[] = OpportunityInstances.findNonRetired({ studentID });
+
   return {
     helpMessages,
     earnedICE,

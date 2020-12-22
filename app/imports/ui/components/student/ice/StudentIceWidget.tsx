@@ -13,8 +13,9 @@ export interface StudentIceWidgetProps {
 }
 
 const StudentIceWidget: React.FC<StudentIceWidgetProps> = ({ earnedICE, projectedICE, favoriteInterests, courseInstances, opportunityInstances }) => {
-  const innovationColumnStyle = { paddingLeft: 0 };
-  const experienceColumnStyle = { paddingRight: 0 };
+  const innovationColumnStyle: React.CSSProperties = { paddingLeft: 0 };
+  const experienceColumnStyle: React.CSSProperties = { paddingRight: 0 };
+
   const styleInfo: React.CSSProperties = { textAlign: 'left', paddingTop: 10 };
   return (
     <>
@@ -24,13 +25,17 @@ const StudentIceWidget: React.FC<StudentIceWidgetProps> = ({ earnedICE, projecte
           <Grid.Row>
             <Grid.Column style={innovationColumnStyle}>
               <Segment basic>
+                {/* TODO Consolidate type so it is consistent to be 'innovation' */}
                 <PageIceCircle earned={earnedICE.i} planned={projectedICE.i} type="innov" />
                 <Header as="h3" textAlign="center" className="ice-innovation-color">INNOVATION</Header>
+                {/* TODO pass in earnedICE and projectedICE */}
                 <StudentIceColumn
                   type="Innovation"
                   favoriteInterests={favoriteInterests}
                   courseInstances={courseInstances}
                   opportunityInstances={opportunityInstances}
+                  earnedICE={earnedICE}
+                  projectedICE={projectedICE}
                 />
                 <div style={styleInfo}>
                   You earn innovation points by completing opportunities that involve &#8220; innovation &#8220;, such
@@ -49,6 +54,8 @@ const StudentIceWidget: React.FC<StudentIceWidgetProps> = ({ earnedICE, projecte
                   favoriteInterests={favoriteInterests}
                   courseInstances={courseInstances}
                   opportunityInstances={opportunityInstances}
+                  earnedICE={earnedICE}
+                  projectedICE={projectedICE}
                 />
                 <div style={styleInfo}>
                   You earn competency points by completing classes. The number of competency points depends upon your
@@ -67,6 +74,8 @@ const StudentIceWidget: React.FC<StudentIceWidgetProps> = ({ earnedICE, projecte
                   favoriteInterests={favoriteInterests}
                   courseInstances={courseInstances}
                   opportunityInstances={opportunityInstances}
+                  earnedICE={earnedICE}
+                  projectedICE={projectedICE}
                 />
                 <div style={styleInfo}>
                   You earn experience points by completing opportunities that provide &#8220;real world

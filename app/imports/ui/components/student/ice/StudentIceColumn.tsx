@@ -9,6 +9,7 @@ import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
 import { Slugs } from '../../../../api/slug/SlugCollection';
 import { Courses } from '../../../../api/course/CourseCollection';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
+
 import { Ice, CourseInstance, FavoriteInterest, OpportunityInstance } from '../../../../typings/radgrad';
 
 export interface StudentIceColumnProps {
@@ -16,9 +17,12 @@ export interface StudentIceColumnProps {
   favoriteInterests: FavoriteInterest[];
   courseInstances: CourseInstance[];
   opportunityInstances: OpportunityInstance[];
+  projectedICE: Ice;
+  earnedICE: Ice;
 }
 
-const StudentIceColumn: React.FC<StudentIceColumnProps> = ({ type, favoriteInterests, courseInstances, opportunityInstances }) => {
+const StudentIceColumn: React.FC<StudentIceColumnProps> = ({ type, favoriteInterests, courseInstances, opportunityInstances, projectedICE, earnedICE }) => {
+
   const match = useRouteMatch();
   const [verifiedColumnOpenState, setVerifiedColumnOpen] = useState(true);
   const [unVerifiedColumnOpenState, setUnVerifiedColumnOpen] = useState(false);
@@ -39,6 +43,7 @@ const StudentIceColumn: React.FC<StudentIceColumnProps> = ({ type, favoriteInter
     setRecommendedColumnOpen(!recommendedColumnOpenState);
   };
 
+  // returns the CSS name of a color found in app/public/semantic.min.css depending on the color the widget should be
   const getVerifiedColor = (): string => {
     switch (type) {
       case 'Innovation':
@@ -52,6 +57,8 @@ const StudentIceColumn: React.FC<StudentIceColumnProps> = ({ type, favoriteInter
     }
   };
 
+  // returns the CSS name of a color found in app/public/semantic.min.css depending on the color the widget should be
+  // -proj colors are slightly lighter colors of the same shade.
   const getUnverifiedColor = (): string => {
     switch (type) {
       case 'Innovation':
@@ -94,6 +101,8 @@ const StudentIceColumn: React.FC<StudentIceColumnProps> = ({ type, favoriteInter
   };
 
   const getCourseSlug = (course) => {
+    // TODO if typeof course is ICourse else if ... else.
+    //  type course as ICourse | ICourseInstance
     if (course.courseID) {
       return Slugs.findDoc(Courses.findDoc(course.courseID).slugID).name;
     }
@@ -111,8 +120,6 @@ const StudentIceColumn: React.FC<StudentIceColumnProps> = ({ type, favoriteInter
   const unverifiedColor = getUnverifiedColor();
 
   const username = Router.getUsername(match);
-  const earnedICE = StudentProfiles.getEarnedICE(username);
-  const projectedICE = StudentProfiles.getProjectedICE(username);
   const earnedICEPoints = getPoints(earnedICE);
   const projectedICEPoints = getPoints(projectedICE);
   const unverifiedICEPoints = remainingICEPoints(earnedICEPoints, projectedICEPoints);
