@@ -4,9 +4,7 @@ import { FavoriteCourses } from '../../../../../../api/favorite/FavoriteCourseCo
 import { FavoriteInterests } from '../../../../../../api/favorite/FavoriteInterestCollection';
 import { FavoriteOpportunities } from '../../../../../../api/favorite/FavoriteOpportunityCollection';
 import {
-  AcademicPlan,
   BaseProfile, CareerGoal, Course,
-  FavoriteAcademicPlanDefine,
   FavoriteCareerGoalDefine,
   FavoriteCourseDefine,
   FavoriteInterestDefine,
@@ -53,7 +51,7 @@ export const getSlug = (slugID: string): string => Slugs.getNameFromID(slugID);
 
 type ItemType = CareerGoal | Course | Interest | Opportunity;
 
-export const createDefinitionData = (studentID: string, item: ItemType, type: IFavoriteTypes): FavoriteAcademicPlanDefine | FavoriteCareerGoalDefine | FavoriteCourseDefine | FavoriteInterestDefine | FavoriteOpportunityDefine => {
+export const createDefinitionData = (studentID: string, item: ItemType, type: IFavoriteTypes): FavoriteCareerGoalDefine | FavoriteCourseDefine | FavoriteInterestDefine | FavoriteOpportunityDefine => {
   const student = getStudent(studentID);
   const slug = getSlug(item.slugID);
   let definitionData;

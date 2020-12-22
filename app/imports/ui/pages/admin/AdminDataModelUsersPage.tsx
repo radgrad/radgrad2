@@ -9,7 +9,6 @@ import { AdminProfiles } from '../../../api/user/AdminProfileCollection';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import {
-  AcademicPlan,
   AcademicTerm,
   BaseProfile, CareerGoal,
   CombinedProfileDefine,
@@ -53,7 +52,6 @@ interface AdminDataModelUsersPageProps extends AdminDataModeMenuProps {
   interests: Interest[];
   careerGoals: CareerGoal[];
   academicTerms: AcademicTerm[];
-  academicPlans: AcademicPlan[];
 }
 
 const descriptionPairs = (props: AdminDataModelUsersPageProps) => (user: BaseProfile) => {
@@ -357,7 +355,6 @@ const AdminDataModelUsersPage: React.FC<AdminDataModelUsersPageProps> = (props) 
               interests={props.interests}
               careerGoals={props.careerGoals}
               academicTerms={props.academicTerms}
-              academicPlans={props.academicPlans}
             />
           ) : (
             <AddUserForm
@@ -366,7 +363,6 @@ const AdminDataModelUsersPage: React.FC<AdminDataModelUsersPageProps> = (props) 
               interests={props.interests}
               careerGoals={props.careerGoals}
               academicTerms={props.academicTerms}
-              academicPlans={props.academicPlans}
             />
           )}
           <Tab panes={panes} defaultActiveIndex={3} />

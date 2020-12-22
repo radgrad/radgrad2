@@ -3,7 +3,7 @@ import _ from 'lodash';
 import { NavLink, useRouteMatch } from 'react-router-dom';
 import { Dropdown } from 'semantic-ui-react';
 import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
-import { AcademicPlan, CareerGoal, Course, Interest, Opportunity } from '../../../../../typings/radgrad';
+import { CareerGoal, Course, Interest, Opportunity } from '../../../../../typings/radgrad';
 import { Users } from '../../../../../api/user/UserCollection';
 import { CourseInstances } from '../../../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../../../api/opportunity/OpportunityInstanceCollection';

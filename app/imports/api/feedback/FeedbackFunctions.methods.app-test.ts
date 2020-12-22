@@ -10,7 +10,7 @@ if (Meteor.isClient) {
 
     before(function (done) {
       defineTestFixturesMethod.call(['minimal', 'abi.student',
-        'extended.courses.interests', 'academicplan', 'abi.courseinstances'], done);
+        'extended.courses.interests', 'abi.courseinstances'], done);
     });
   });
 }

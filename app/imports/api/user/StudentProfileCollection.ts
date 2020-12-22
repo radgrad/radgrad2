@@ -32,7 +32,6 @@ class StudentProfileCollection extends BaseProfileCollection {
       level: { type: SimpleSchema.Integer, min: 1, max: 6 },
       declaredAcademicTermID: { type: SimpleSchema.RegEx.Id, optional: true },
       isAlumni: Boolean,
-      shareAcademicPlan: { type: Boolean, optional: true },
       shareOpportunities: { type: Boolean, optional: true },
       shareCourses: { type: Boolean, optional: true },
       shareLevel: { type: Boolean, optional: true },
@@ -117,7 +116,7 @@ class StudentProfileCollection extends BaseProfileCollection {
    * @param shareOpportunities An optional boolean indicating if this student is sharing their opportunities. Defaults to false.
    * @param shareLevel An optional boolean indicating if this student is sharing their level. Defaults to false.
    * @throws { Meteor.Error } If username has been previously defined, or if any interests, careerGoals, level,
-   * academicPlan, or declaredAcademicTerm are invalid.
+   * or declaredAcademicTerm are invalid.
    * @return { String } The docID of the StudentProfile.
    */
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  AcademicPlan,
   CareerGoal,
   Course,
   Interest,

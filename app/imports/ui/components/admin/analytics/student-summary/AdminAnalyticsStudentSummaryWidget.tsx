@@ -39,8 +39,7 @@ const AdminAnalyticsStudentSummaryWidget: React.FC<AdminAnalyticsStudentSummaryW
       behaviorCategories[0].count++;
       behaviorCategories[0].users.push(user);
     }
-    if (_.some(interactions, (i: any) => i.type === FAVORITE_TYPE.CAREERGOAL || i.type === FAVORITE_TYPE.INTEREST
-      || i.type === FAVORITE_TYPE.ACADEMICPLAN)) {
+    if (_.some(interactions, (i: any) => i.type === FAVORITE_TYPE.CAREERGOAL || i.type === FAVORITE_TYPE.INTEREST)) {
       behaviorCategories[1].count++;
       behaviorCategories[1].users.push(user);
     }

@@ -7,7 +7,6 @@ import 'slick-carousel/slick/slick-theme.css';
 import DegreePlanWork from './slides/DegreePlanWork';
 import DegreePlanPane from './slides/DegreePlanPane';
 import FavoritesPane from './slides/FavoritesPane';
-import FavoriteAcademicPlans from './slides/FavoriteAcademicPlans';
 import Recommendations from './slides/Recommendations';
 import styles from '../../../pages/landing/utilities/guidedtour-style';
 
@@ -28,7 +27,6 @@ const GuidedTourDegreePlanner: React.FC = () => {
             <DegreePlanWork />
             <DegreePlanPane />
             <FavoritesPane />
-            <FavoriteAcademicPlans />
             <Recommendations />
           </Slider>
         </Segment>

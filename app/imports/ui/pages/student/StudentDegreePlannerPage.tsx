@@ -12,7 +12,6 @@ import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { defineMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import {
-  AcademicPlan,
   AcademicTerm, AcademicYearInstance, Course,
   CourseInstance,
   CourseInstanceDefine,
@@ -40,7 +39,6 @@ import { passedCourse } from '../../../api/course/CourseUtilities';
 
 interface StudentDegreePlannerProps {
   takenSlugs: string[];
-  plans: AcademicPlan[];
   selectCourseInstance: (courseInstanceID: string) => SelectPayload;
   selectOpportunityInstance: (opportunityInstanceID: string) => SelectPayload;
   selectFavoriteDetailsTab: () => SelectTab;
@@ -243,7 +241,7 @@ const onDragEnd = (onDragEndProps) => (result) => {
   }
 };
 
-const StudentDegreePlannerPage: React.FC<StudentDegreePlannerProps> = ({ academicYearInstances, studentID, match, courses, opportunities, courseInstances, opportunityInstances, plans, selectCourseInstance, selectFavoriteDetailsTab, selectOpportunityInstance, takenSlugs, verificationRequests }) => {
+const StudentDegreePlannerPage: React.FC<StudentDegreePlannerProps> = ({ academicYearInstances, studentID, match, courses, opportunities, courseInstances, opportunityInstances, selectCourseInstance, selectFavoriteDetailsTab, selectOpportunityInstance, takenSlugs, verificationRequests }) => {
   const onDragEndProps = { match, selectCourseInstance, selectOpportunityInstance };
   const paddedStyle = {
     paddingTop: 0,
@@ -271,7 +269,6 @@ const StudentDegreePlannerPage: React.FC<StudentDegreePlannerProps> = ({ academi
 
             <Grid.Column width={6} style={paddedStyle}>
               <TabbedFavoritesWidget
-                academicPlans={plans}
                 takenSlugs={takenSlugs}
                 opportunities={opportunities}
                 studentID={studentID}

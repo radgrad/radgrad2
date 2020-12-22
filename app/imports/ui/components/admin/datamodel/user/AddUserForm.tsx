@@ -115,7 +115,6 @@ const AddUserForm: React.FC<AddUserProps> = ({ interests, handleAdd, formRef, ac
     shareWebsite: { type: Boolean, optional: true },
     shareInterests: { type: Boolean, optional: true },
     shareCareerGoals: { type: Boolean, optional: true },
-    shareAcademicPlan: { type: Boolean, optional: true },
     shareOpportunities: { type: Boolean, optional: true },
     shareCourses: { type: Boolean, optional: true },
     shareLevel: { type: Boolean, optional: true },
@@ -172,7 +171,6 @@ const AddUserForm: React.FC<AddUserProps> = ({ interests, handleAdd, formRef, ac
               <BoolField name="shareWebsite" />
               <BoolField name="shareInterests" />
               <BoolField name="shareCareerGoals" />
-              <BoolField name="shareAcademicPlan" />
               <BoolField name="shareOpportunities" />
               <BoolField name="shareCourses" />
               <BoolField name="shareLevel" />

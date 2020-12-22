@@ -70,19 +70,6 @@ const AdvisorUpdateStudentWidget: React.FC<AdvisorUpdateStudentWidgetProps> = ({
     }
   };
 
-  // const prePopulateForm = (doc) => {
-  //   setFirstName(doc.firstName);
-  //   setLastName(doc.lastName);
-  //   setPicture(doc.picture);
-  //   setWebsite(doc.website);
-  //   setCareerGoals(doc ? doc.careerGoalIDs : []);
-  //   setUserInterests(doc ? doc.interestIDs : []);
-  //   setIsAlumni(doc.isAlumni);
-  //   setDeclaredAcademicTerm(doc.declaredAcademicTerm || '');
-  //   setFavoriteAcademicPlans([]);
-  //   props.dispatch(setIsLoaded(true));
-  // };
-
   const handleFormChange = (e, { name, value }): void => {
     // console.log(`handleFormChange name=${name}`, value);
     switch (name) {
