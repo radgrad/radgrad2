@@ -4817,12 +4817,6 @@
           "retired": false
         },
         {
-          "routeName": "/advisor/:username/academic-plan",
-          "title": "Learn About Academic Plan Construction",
-          "text": "This page allows you to manage Academic Plans. It has two tabs: Viewer and Builder.\n\n* The Viewer tab allows you to view created *Academic Plans*. Choose the year then the Academic Plan name.\n* The \"Builder\" tab allows you to create new *Academic Plans*. Choose the degree you are building an Academic Plan for and enter the name of the Academic Plan, then select the year that the Academic Plan will be effective for. The bottom left side of the tab has the years of the plan. The bottom right side has the different \"Course Choices\". \n     * To create a plan drag a choice to its year and academic term. You can rearrange the choice by dragging them. To delete a choice drag it to the trash area. Once the plan is complete press the \"Save Academic Plan\" button.\n     * Below the Course Choices is the link (chain) icon where you can create an *OR* choice. For example, if you want to create the choice *ICS 312 or ICS 331*, drag the ICS 312 button into the link area and then drag the ICS 331 button. This will create a *ICS 312 or ICS 331* button. If you want to save the choice, drag it back into the Course Choices area.",
-          "retired": false
-        },
-        {
           "routeName": "/advisor/:username/moderation",
           "title": "Learn About Moderation",
           "text": "On RadGrad, students can provide public feedback with course reviews, and opportunity reviews. To maintain a high-integrity learning environment, all of these public feedbacks require moderation. \n\n**Course and Opportunity Reviews:**\nCourse reviews and Opportunity reviews will be visible to the public unless they are rejected through moderation. \n\n\nIf the review or question is acceptable by RadGrad standards, you can accept it by clicking on the green \"ACCEPT\" button. If the review or question is unacceptable in any way by RadGrad standards, you can decline it by clicking on the red \"DECLINE\" button. You may also provide any feedback for your response. The student will be able to see your response on their RadGrad site. A student may decide to either discard their review or question or edit it and resubmit it for further moderation. There is currently no limit to the amount of edits that a student may make.",
@@ -4847,45 +4841,39 @@
           "retired": false
         },
         {
-          "routeName": "/explorer/plans",
-          "title": "So. You want to explore?",
-          "text": "The Explorer provides detailed information about Academic Plans, Career Goals, Courses, Degrees, Interests, and Opportunities.\n\nJust click the dropdown menu to the left of the page to select the type of information you wish to explore.",
-          "retired": false
-        },
-        {
           "routeName": "/explorer/career-goals",
           "title": "So. You want to explore?",
-          "text": "The Explorer provides detailed information about Academic Plans, Career Goals, Courses, Degrees, Interests, and Opportunities.\n\nJust click the dropdown menu to the left of the page to select the type of information you wish to explore.",
+          "text": "The Explorer provides detailed information about Career Goals, Courses, Degrees, Interests, and Opportunities.\n\nJust click the dropdown menu to the left of the page to select the type of information you wish to explore.",
           "retired": false
         },
         {
           "routeName": "/explorer/courses",
           "title": "So. You want to explore?",
-          "text": "The Explorer provides detailed information about Academic Plans, Career Goals, Courses, Degrees, Interests, and Opportunities.\n\nJust click the dropdown menu to the left of the page to select the type of information you wish to explore.",
+          "text": "The Explorer provides detailed information about Career Goals, Courses, Degrees, Interests, and Opportunities.\n\nJust click the dropdown menu to the left of the page to select the type of information you wish to explore.",
           "retired": false
         },
         {
           "routeName": "/explorer/degrees",
           "title": "So. You want to explore?",
-          "text": "The Explorer provides detailed information about Academic Plans, Career Goals, Courses, Degrees, Interests, and Opportunities.\n\nJust click the dropdown menu to the left of the page to select the type of information you wish to explore.",
+          "text": "The Explorer provides detailed information about Career Goals, Courses, Degrees, Interests, and Opportunities.\n\nJust click the dropdown menu to the left of the page to select the type of information you wish to explore.",
           "retired": false
         },
         {
           "routeName": "/explorer/interests",
           "title": "So. You want to explore?",
-          "text": "The Explorer provides detailed information about Academic Plans, Career Goals, Courses, Degrees, Interests, and Opportunities.\n\nJust click the dropdown menu to the left of the page to select the type of information you wish to explore.",
+          "text": "The Explorer provides detailed information about Career Goals, Courses, Degrees, Interests, and Opportunities.\n\nJust click the dropdown menu to the left of the page to select the type of information you wish to explore.",
           "retired": false
         },
         {
           "routeName": "/explorer/opportunities",
           "title": "So. You want to explore?",
-          "text": "The Explorer provides detailed information about Academic Plans, Career Goals, Courses, Degrees, Interests, and Opportunities.\n\nJust click the dropdown menu to the left of the page to select the type of information you wish to explore.",
+          "text": "The Explorer provides detailed information about Career Goals, Courses, Degrees, Interests, and Opportunities.\n\nJust click the dropdown menu to the left of the page to select the type of information you wish to explore.",
           "retired": false
         },
         {
           "routeName": "/faculty/:username/explorer",
           "title": "Learn about the Explorer",
-          "text": "The Explorer provides detailed information about Academic Plans, Career Goals, Courses, Degrees, Interests, and Opportunities.\n\nJust click the dropdown menu to the left of the page to select the type of information you wish to explore.",
+          "text": "The Explorer provides detailed information about Career Goals, Courses, Degrees, Interests, and Opportunities.\n\nJust click the dropdown menu to the left of the page to select the type of information you wish to explore.",
           "retired": false
         },
         {
@@ -4916,12 +4904,6 @@
           "routeName": "/faculty/:username/explorer/courses",
           "title": "About courses",
           "text": "This page is intended to list all courses available in our degree program.\n\nIf you notice that a course is missing, or its description is no longer accurate, please contact a RadGrad administrator ([radgrad@hawaii.edu](mailto:radgrad@hawaii.edu)) and request an update.",
-          "retired": false
-        },
-        {
-          "routeName": "/faculty/:username/explorer/plans",
-          "title": "About academic plans",
-          "text": "RadGrad distinguishes between \"degree programs\" and \"academic plans\":\n\n* A \"degree program\" is a course of study toward a specific degree (and, optionally, specialization). For example, \"B.A. in Computer Science\" or \"B.S. in Computer Sciences/Security Sciences\" are degree programs.\n\n* An \"academic plan\" is the set of departmental course requirements that must be fulfilled in order to complete a degree program.  Departments can change the requirements once a year, and so academic plans have a year associated with them that indicates the year that they became the default requirements for their associated degree program.\n\nOnce students declare our major, they can choose the current academic plan associated with a degree program, or any future update to the academic plan.  For example, say a student wants to get a B.S. in Computer Science, and they declare our major in 2016.  Then, they can choose the B.S. in Computer Science academic plan from 2015 (since that was the one currently in effect when they declared their major).  They can also choose any future updated version of the academic plan, such as the B.S. in Computer Science from 2017.\n\nThis page lists all of the currently defined academic plans.  If you discover that an academic plan is missing or that it does not accurately represent the degree requirements, please contact a RadGrad administrator ([radgrad@hawaii.edu](mailto:radgrad@hawaii.edu)).",
           "retired": false
         },
         {
@@ -4961,60 +4943,6 @@
           "retired": false
         },
         {
-          "routeName": "/mentor/:username/home",
-          "title": "Why do mentors need profiles?",
-          "text": "Thank you for volunteering to be a RadGrad mentor! \n\nThere are really two aspects to RadGrad mentorship:\n\n1. Answering questions from students about life after graduation in the Mentor Space page.\n\n2. Being available as a resource for students interested in specific disciplinary areas (\"interests\") or professional paths (\"career goals\").   \n\nBy filling out your profile, you make it easy for students to find you when they are exploring matching opportunities, interests, and career goals.",
-          "retired": false
-        },
-        {
-          "routeName": "/mentor/:username/explorer/career-goals",
-          "title": "About career goals",
-          "text": "The list of Career Goals is managed by RadGrad administrators, and is intended to cover the future careers most appropriate for our student population.\n\nAs a mentor, it is useful for you to select one or more career goals for which you have some direct experience or expertise, as that will indicate to students that you can be contacted for advice concerning that career goal.\n\nIf you have suggestions for how to improve the set of Career Goals, please contact a RadGrad administrator ([radgrad@hawaii.edu](mailto:radgrad@hawaii.edu)).",
-          "retired": false
-        },
-        {
-          "routeName": "/mentor/:username/explorer/courses",
-          "title": "About courses",
-          "text": "This page is intended to list all courses available in our degree program.\n\nIf you notice that a course is missing, or its description is no longer accurate, please contact a RadGrad administrator ([radgrad@hawaii.edu](mailto:radgrad@hawaii.edu)) and request an update.",
-          "retired": false
-        },
-        {
-          "routeName": "/mentor/:username/explorer/plans",
-          "title": "About academic plans",
-          "text": "RadGrad distinguishes between \"degree programs\" and \"academic plans\":\n\n*  A \"degree program\" is a course of study toward a specific degree (and, optionally, specialization). For example, \"B.A. in Computer Science\" or \"B.S. in Computer Sciences/Security Sciences\" are degree programs.\n\n* An \"academic plan\" is the set of departmental course requirements that must be fulfilled in order to complete a degree program. Departments can change the requirements once a year, and so academic plans have a year associated with them that indicates the year that they became the default requirements for their associated degree program.\n\nOnce students declare our major, they can choose the current academic plan associated with a degree program, or any future update to the academic plan. For example, say a student wants to get a B.S. in Computer Science, and they declare our major in 2016. Then, they can choose the B.S. in Computer Science academic plan from 2015 (since that was the one currently in effect when they declared their major). They can also choose any future updated version of the academic plan, such as the B.S. in Computer Science from 2017.\n\nThis page lists all of the currently defined academic plans. If you discover that an academic plan is missing or that it does not accurately represent the degree requirements, please contact a RadGrad administrator.",
-          "retired": false
-        },
-        {
-          "routeName": "/mentor/:username/explorer/interests",
-          "title": "About interests",
-          "text": "Interests represent disciplinary areas.\n\nAs a mentor, you will want to choose a set of Interests so that you \"match\" with students interested in the same disciplinary areas. This increases the ability of students to connect with you around shared interests.\n\nIf you would like to request new interests or edits to any existing interest, please contact a RadGrad administrator ([radgrad@hawaii.edu](mailto:radgrad@hawaii.edu)).",
-          "retired": false
-        },
-        {
-          "routeName": "/mentor/:username/explorer/opportunities",
-          "title": "About opportunities",
-          "text": "In RadGrad, opportunities are activities outside of regular coursework that enable students to earn \"Innovation\" and \"Experience\" points. When students pick an opportunity, they associate it with a specific academic term.\n\nFor mentors, opportunities provide a mechanism for you to advertise internships in your company to students for Fall, Spring, or Summer. Advertising your internships as opportunities has the following advantages to you:\n\n1. By specifying one or more \"interests\" (i.e. disciplinary areas) associated with your internship opportunity, RadGrad can recommend your project to students who have also specified those interest areas.\n\n2. Because students gain ICE points for completing opportunities, and because we recommend you award the maximum number of Experience points (25) for participating in a full-time summer internship, students who wish to achieve the higher levels in RadGrad will almost certainly need to participate in an internship for at least one academic term.\n\n3. Students can pick your internship for multiple academic terms and gain opportunity points for each academic term.\n\n4. Finally, you might be able to arrange for the student to enroll in an independent study course with a faculty member in addition to this opportunity. That gives the student the ability to \"double dip\", and gain both Innovation and Experience points for the same work.\n\nThis page shows currently defined opportunities, but does not allow you to define a new one.  If you wish to define a new RadGrad opportunity (typically for an internship at your company), then contact a RadGrad administrator ([radgrad@hawaii.edu](mailto:radgrad@hawaii.edu)) for assistance.",
-          "retired": false
-        },
-        {
-          "routeName": "/mentor/:username/explorer/users",
-          "title": "About users",
-          "text": "This page provides a browser for the users currently registered with RadGrad.\n\nRadGrad is not an open system. In order for someone to login to RadGrad, they must have been explicitly registered by a RadGrad advisor or admin.\n\nIf there is someone who you believe should have a RadGrad account, or if you believe there is a RadGrad user who should no longer have access to the system, please contact a RadGrad administrator ([radgrad@hawaii.edu](mailto:radgrad@hawaii.edu)).",
-          "retired": false
-        },
-        {
-          "routeName": "/mentor/:username/explorer",
-          "title": "Learn about the Explorer",
-          "text": "The Explorer provides detailed information about Career Goals, Courses, Academic Plans, Interests, Opportunities, and Users.\n\nJust click the dropdown menu to the left to select the type of information you wish to explore.",
-          "retired": false
-        },
-        {
-          "routeName": "/mentor/:username/mentor-space",
-          "title": "How does Mentor Space work?",
-          "text": "Mentor Space enables students to connect with you, the RadGrad mentors: ICS alumni and other high tech professionals who are volunteering their time to help get the latest information about careers and job opportunities in Hawaii and beyond.\n\nThere are two basic ways students interact with you. \n\n1. The best way is for students to propose a new question using the \"Ask a new question\" form. This question will be reviewed by RadGrad administrators, potentially edited for clarity, and then released for all the mentors to answer. We believe this approach is the best way to interact with mentors because students can get a variety of perspectives from different fields and different geographic areas, and because your answers are available to all current and future RadGrad students. \n\n2. A second way is for a student to contact you directly with questions.  This can work if their questions are not of general interest or are not \"archival\" in nature (i.e. \"Are there any job openings at your company right now?\").  We don't strongly encourage this form of interaction, but it's certainly possible via RadGrad since you are providing your email and LinkedIn contact details. \n\nIf you encounter any inappropriate interactions with any students, please contact a RadGrad administrator ([radgrad@hawaii.edu](mailto:radgrad@hawaii.edu)) immediately so we can address the problem with the student.",
-          "retired": false
-        },
-        {
           "routeName": "/student/:username/home",
           "title": "Make the most of your home page",
           "text": "This page presents RadGrad's recommendations for courses and opportunities based on your interests, as well as new events in the RadGrad community.\n\n#### RECOMMENDED OPPORTUNITIES\n\n<img class=\"ui medium left floated image\" src=\"/images/help/home-recommended-opportunities.png\">\n\nThis pane shows recommended opportunities based upon your interests and career goals.  Click \"View More\" to go to a page with details, \"Add to plan\" to add it to your Degree Plan, and \"Hide\" if you're not interested in this content and don't want to see it in this pane.\n\n<div class=\"ui hidden clearing divider\"></div>\n\n#### RECOMMENDED COURSES\n\n<img class=\"ui medium left floated image\" src=\"/images/help/home-recommended-courses.png\">\n\nThis pane shows recommended courses based upon your interests and career goals.  Click \"View More\" to go to a page with details, \"Add to plan\" to add it to your Degree Plan, and \"Hide\" if you're not interested in this content and don't want to see it in this pane.\n\n<div class=\"ui hidden clearing divider\"></div>\n\n#### RECENT COMMUNITY ACTIVITY\n\n<img class=\"ui medium left floated image\" src=\"/images/help/home-community-activity.png\">\n\nThe \"Recent Community Activity\" pane lets you know when a new student joins RadGrad, or when a new course, opportunity, or review becomes available. You can click on the link to learn more about the update.\n\n<div class=\"ui hidden clearing divider\"></div>\n\n#### TEASERS\n\n<img class=\"ui medium left floated image\" src=\"/images/help/home-teasers.png\">\n\nFinally, the \"Teaser\" pane provides very short videos by ICS community members that match your interests or career goals. When you have a spare moment, take a look at a video or two!\n\n<div class=\"ui hidden clearing divider\"></div>",
@@ -5023,7 +4951,7 @@
         {
           "routeName": "/student/:username/degree-planner",
           "title": "Make the Degree Planner work for you!",
-          "text": "The Degree Planner helps you organize your ICS Degree experience on an academic term-by-term basis. You can plan the courses you need to satisfy your chosen degree plan as well as the the extracurricular opportunities that provide you with real world experiences and chances to innovate outside the classroom. \n\nIn terms of ICE, courses earn you Competency points, while opportunities earn you Innovation and Experience points. All three are critical to becoming a well-rounded graduate who is most attractive to employers and graduate schools!\n\n#### DEGREE PLAN\n\n<img class=\"ui medium left floated image\" src=\"/images/help/degree-planner-plan.png\">\n\nThe \"Degree Plan\" pane shows you your courses and opportunities on an academic term-by-term basis.\n\nFor past academic terms, courses and opportunities are listed in light grey and are read-only.  To modify the contents of your degree plan for previous academic terms, please see an ICS advisor. You will generally want to ask them to update your historical data from your STAR data after each academic term.\n\nFor current and future academic terms, you can freely add and delete courses and opportunities according to your preferences. For future courses, you can even indicate the grade you plan to achieve in the course, which enables RadGrad to estimate your final Competency points. \n\nClicking on a course or opportunity will display details about it in the \"Inspector\" pane.\n\n<div class=\"ui hidden clearing divider\"></div>\n\n#### INSPECTOR\n\n<img class=\"ui medium left floated image\" src=\"/images/help/inspector-course.png\">\n\nThe \"Inspector\" pane provides dropdown menus  that allow you to view details about any course or opportunity in the system.  This includes the ICE points you can earn for that course or opportunity.\n\nThe Inspector also allows you to add a course or opportunity to your degree plan by \"dragging\" the associated button naming the course or opportunity to any current or future academic term. \n\nClick on any course or opportunity in your degree plan to bring up details about them in the \"Inspector\".\n\n<div class=\"ui hidden clearing divider\"></div>\n\n<img class=\"ui medium left floated image\" src=\"/images/help/inspector-opportunity.png\">\n\nFor opportunities, you can also request verification through the Inspector pane. Clicking the button will send a message to an advisor who will check your verification evidence.  When verified, the associated ICE points will be awarded to you.\n\n<div class=\"ui clearing hidden divider\"></div>\n\n#### ACADEMIC PLAN\n\n<img class=\"ui medium left floated image\" src=\"/images/help/degree-planner-academic-plan.png\">\n\nThe \"Academic Plan\" pane provides you with the requirements for graduating with any of the degree programs. Since the department evolves the requirements for Academic Plans on occasion, you must select both an academic plan (such as B.S. in Computer Sciences) as well as the year that the specified requirements were enacted (say, 2016). You are eligible to select any degree plan available during the year you declare yourself as an ICS major, and you can switch to any future degree plan if you prefer. \n\nOnce you have selected an Academic Plan, RadGrad will indicate which requirements you have and have not satisfied in your degree plan&mdash;requirements you have satisfied are listed in green, and those you have not are listed in red.\n\nIn the sample Academic Plan image, you can see that the student has satisfied all the requirements except for one 400-level course because it is presented in red.\n\n<div class=\"ui clearing hidden divider\"></div>\n\n#### RECOMMENDATIONS & WARNINGS\n\n<img class=\"ui medium left floated image\" src=\"/images/help/degree-planner-recommendations-warnings.png\">\n\nRadGrad can offer personalized recommendations for courses and opportunities based upon your desired degree, your interests, and your career goals. \n\nIt will also flag problems with your degree plan, such as adding a course without the appropriate prerequisite.\n\n<div class=\"ui hidden clearing divider\"></div>",
+          "text": "The Degree Planner helps you organize your ICS Degree experience on an academic term-by-term basis. You can plan the courses you need to satisfy your chosen degree plan as well as the the extracurricular opportunities that provide you with real world experiences and chances to innovate outside the classroom. \n\nIn terms of ICE, courses earn you Competency points, while opportunities earn you Innovation and Experience points. All three are critical to becoming a well-rounded graduate who is most attractive to employers and graduate schools!\n\n#### DEGREE PLAN\n\n<img class=\"ui medium left floated image\" src=\"/images/help/degree-planner-plan.png\">\n\nThe \"Degree Plan\" pane shows you your courses and opportunities on an academic term-by-term basis.\n\nFor past academic terms, courses and opportunities are listed in light grey and are read-only.  To modify the contents of your degree plan for previous academic terms, please see an ICS advisor. You will generally want to ask them to update your historical data from your STAR data after each academic term.\n\nFor current and future academic terms, you can freely add and delete courses and opportunities according to your preferences. For future courses, you can even indicate the grade you plan to achieve in the course, which enables RadGrad to estimate your final Competency points. \n\nClicking on a course or opportunity will display details about it in the \"Inspector\" pane.\n\n<div class=\"ui hidden clearing divider\"></div>\n\n#### INSPECTOR\n\n<img class=\"ui medium left floated image\" src=\"/images/help/inspector-course.png\">\n\nThe \"Inspector\" pane provides dropdown menus  that allow you to view details about any course or opportunity in the system.  This includes the ICE points you can earn for that course or opportunity.\n\nThe Inspector also allows you to add a course or opportunity to your degree plan by \"dragging\" the associated button naming the course or opportunity to any current or future academic term. \n\nClick on any course or opportunity in your degree plan to bring up details about them in the \"Inspector\".\n\n<div class=\"ui hidden clearing divider\"></div>\n\n<img class=\"ui medium left floated image\" src=\"/images/help/inspector-opportunity.png\">\n\nFor opportunities, you can also request verification through the Inspector pane. Clicking the button will send a message to an advisor who will check your verification evidence.  When verified, the associated ICE points will be awarded to you.\n\n<div class=\"ui clearing hidden divider\"></div>\n\n#### RECOMMENDATIONS & WARNINGS\n\n<img class=\"ui medium left floated image\" src=\"/images/help/degree-planner-recommendations-warnings.png\">\n\nRadGrad can offer personalized recommendations for courses and opportunities based upon your desired degree, your interests, and your career goals. \n\nIt will also flag problems with your degree plan, such as adding a course without the appropriate prerequisite.\n\n<div class=\"ui hidden clearing divider\"></div>",
           "retired": false
         },
         {
@@ -5047,7 +4975,7 @@
         {
           "routeName": "/student/:username/explorer",
           "title": "So. You want to explore?",
-          "text": "The Explorer provides detailed information about Career Goals, Courses, Academic Plans, Interests, Opportunities, and Users.\n\nJust click the dropdown menu to the left to select the type of information you wish to explore.",
+          "text": "The Explorer provides detailed information about Career Goals, Courses, Interests, Opportunities, and Users.\n\nJust click the dropdown menu to the left to select the type of information you wish to explore.",
           "retired": false
         },
         {
@@ -5072,12 +5000,6 @@
           "routeName": "/student/:username/explorer/courses",
           "title": "Why explore the courses?",
           "text": "The Courses Explorer enables you to make a deep dive into each of the courses associated with the degree program.\n\nIn addition to a brief description of the course, it provides additional useful information:\n\n* The Prerequisites pane shows which prerequisites you've already completed, which ones you have not completed but plan to complete, and which ones are not yet even listed in your degree plan.\n\n* The Course Reviews pane reveals what other RadGrad users have said about this course. Note that Course Reviews are not anonymous: you need to stand behind what you say!",
-          "retired": false
-        },
-        {
-          "routeName": "/student/:username/explorer/plans",
-          "title": "What are Academic Plans, and why do I need one?",
-          "text": "When you meet with your Advisor, you will normally discuss the pros and cons of various \"Degree Programs\", such as a \"B.S. in Computer Science\". \n\nWhat you don't normally discuss, at least at your first meeting, is the fact that there exist multiple versions of every Degree Program.  Every so often, the faculty meet and approve changes to a given Degree Program, dropping some requirements and adding others, in order for the Degree Program to stay modern and useful to students. \n\nThus, the specific requirements for any Degree Program are \"time stamped\": there is a B.S. in Computer Science approved in 2015 with one set of requirements, and another B.S. in Computer Science approved in 2017 with a slightly different set of requirements.\n\nIn RadGrad, we use \"Degree Program\" to refer to the general degree (i.e. B.S. in Computer Science), and \"Academic Plan\" to refer to a Degree Program with a specific set of requirements approved in a given academic year. (i.e. B.S. in Computer Science (2015)).\n\nThe set of Academic Plans available to you depend upon the academic term in which you declared yourself in this major.  All of the Academic Plans in effect at that point in time are available to you, as well as any Academic Plans the faculty create during the remainder of your time as a student. \n\nWhen you select an Academic Plan in this explorer, it shows the requirements over the course of eight academic terms, and displays in red any requirements that your current Degree Plan does not satisfy.",
           "retired": false
         },
         {
