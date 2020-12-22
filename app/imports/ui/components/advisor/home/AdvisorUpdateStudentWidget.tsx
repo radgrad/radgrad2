@@ -36,14 +36,13 @@ const mapStateToProps = (state: RootState) => ({
 });
 
 const AdvisorUpdateStudentWidget: React.FC<AdvisorUpdateStudentWidgetProps> = ({ dispatch, interests, careerGoals, usernameDoc, isLoaded, selectedUsername, studentCollectionName }) => {
-  // console.log('AdvisorUpdateStudentWidget', props);
   const doc = usernameDoc;
   const userID = doc.userID;
   const favCareerGoals = FavoriteCareerGoals.findNonRetired({ userID });
   const careerGoalIDs = _.map(favCareerGoals, (fav) => fav.careerGoalID);
   const favInterests = FavoriteInterests.findNonRetired({ userID });
   const interestIDs = _.map(favInterests, (fav) => fav.interestID);
-  const [firstNameState, setFirstName] = useState(doc.firstName);
+  const [firstNameState, setFirstName] = useState<string>(doc.firstName);
   const [lastNameState, setLastName] = useState(doc.lastName);
   const [pictureState, setPicture] = useState(doc.picture);
   const [websiteState, setWebsite] = useState(doc.website);
@@ -51,7 +50,6 @@ const AdvisorUpdateStudentWidget: React.FC<AdvisorUpdateStudentWidgetProps> = ({
   const [userInterestsState, setUserInterests] = useState(interestIDs);
   const [isAlumniState, setIsAlumni] = useState(doc.isAlumni);
   const [declaredAcademicTermState, setDeclaredAcademicTerm] = useState(doc.declaredAcademicTermID || '');
-
   const handleUploadClick = async (): Promise<void> => {
     try {
       const cloudinaryResult = await openCloudinaryWidget();

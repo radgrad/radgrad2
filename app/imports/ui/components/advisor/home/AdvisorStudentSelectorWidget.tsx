@@ -13,7 +13,6 @@ import { homeActions } from '../../../../redux/advisor/home';
 import { RootState } from '../../../../redux/types';
 
 /* global FileReader */
-/* eslint-disable react/prop-types */
 
 interface AdvisorStudentSelectorWidgetProps {
   dispatch: (any) => void;

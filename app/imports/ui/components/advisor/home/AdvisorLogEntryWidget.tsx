@@ -14,7 +14,6 @@ export interface AdvisorLogEntryWidgetProps {
 
 const AdvisorLogEntryWidget: React.FC<AdvisorLogEntryWidgetProps> = ({ advisorLogs, usernameDoc, advisorUsername }) => {
   const [commentState, setComment] = useState('');
-  const [advisorLogsState] = useState(advisorLogs);
 
   // For use with Date.getMinutes()
   const formatMinuteString = (min) => {
@@ -88,7 +87,7 @@ const AdvisorLogEntryWidget: React.FC<AdvisorLogEntryWidgetProps> = ({ advisorLo
       </p>
       <div style={{ height: '200px' }}>
         <div style={{ height: '100%', overflowY: 'auto' }}>
-          {advisorLogsState.length > 0 ? advisorLogsState.map(
+          {advisorLogs.length > 0 ? advisorLogs.map(
             (ele) => (
               <Segment key={ele._id}>
                 <strong>
