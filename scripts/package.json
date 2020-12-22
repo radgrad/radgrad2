@@ -6,7 +6,8 @@
   "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "tsc": "tsc"
+    "tsc": "tsc",
+    "convert": "npm run tsc && node js/convert-dump.js data/custom/2019-11-01-08-42-13.json ../app/private/database/custom/convert-test.json"
   },
   "author": "",
   "license": "ISC",

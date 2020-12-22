@@ -180,38 +180,52 @@ function processRadGradCollection(collection: ICollection) {
   return result;
 }
 
+const addedCollections = ['AdminProfileCollection', 'FavoriteAcademicPlanCollection', 'FavoriteCareerGoalCollection', 'FavoriteCourseCollection', 'FavoriteInterestCollection', 'FavoriteOpportunityCollection', 'PageInterestCollection', 'PageInterestsDailySnapshotCollection'];
+
 const addMissingCollections = (result) => {
-  let coll: any = {};
-  coll.name = 'AdminProfileCollection';
-  coll.contents = [];
-  result.collections.push(coll);
-  coll = {};
-  coll.contents = [];
-  coll.name = 'FavoriteAcademicPlanCollection';
-  result.collections.push(coll);
-  coll = {};
-  coll.contents = [];
-  coll.name = 'FavoriteCareerGoalCollection';
-  result.collections.push(coll);
-  coll = {};
-  coll.contents = [];
-  coll.name = 'FavoriteCourseCollection';
-  result.collections.push(coll);
-  coll = {};
-  coll.contents = [];
-  coll.name = 'FavoriteInterestCollection';
-  result.collections.push(coll);
-  coll = {};
-  coll.contents = [];
-  coll.name = 'FavoriteOpportunityCollection';
-  result.collections.push(coll);
+  addedCollections.forEach(collectionName => {
+    const coll: any = {};
+    coll.name = collectionName;
+    coll.contents = [];
+    result.collections.push(coll);
+  });
+  // let coll: any = {};
+  // coll.name = 'AdminProfileCollection';
+  // coll.contents = [];
+  // result.collections.push(coll);
+  // coll = {};
+  // coll.contents = [];
+  // coll.name = 'FavoriteAcademicPlanCollection';
+  // result.collections.push(coll);
+  // coll = {};
+  // coll.contents = [];
+  // coll.name = 'FavoriteCareerGoalCollection';
+  // result.collections.push(coll);
+  // coll = {};
+  // coll.contents = [];
+  // coll.name = 'FavoriteCourseCollection';
+  // result.collections.push(coll);
+  // coll = {};
+  // coll.contents = [];
+  // coll.name = 'FavoriteInterestCollection';
+  // result.collections.push(coll);
+  // coll = {};
+  // coll.contents = [];
+  // coll.name = 'FavoriteOpportunityCollection';
+  // result.collections.push(coll);
 };
+
+const deletedCollections = ['DesiredDegreeCollection', 'MentorAnswerCollection', 'MentorProfileCollection', 'MentorQuestionCollection'];
 
 function processRadGradCollections(data: IDataDump) {
   const result: any = {};
   result.timestamp = moment().format(databaseFileDateFormat);
   result.collections = [];
-  _.forEach(data.collections, (c) => result.collections.push(processRadGradCollection(c)));
+  _.forEach(data.collections, (c) => {
+    if (!deletedCollections.includes(c.name)) {
+      result.collections.push(processRadGradCollection(c));
+    }
+  });
   addMissingCollections(result);
   return result;
 }
@@ -219,10 +233,10 @@ function processRadGradCollections(data: IDataDump) {
 async function convertDump(radgrad1DumpFile, outFileName) {
   const data = fs.readFileSync(radgrad1DumpFile);
   const radgrad1: IDataDump = JSON.parse(data.toString());
-  // console.log(radgrad1);
   const radgrad2 = processRadGradCollections(radgrad1);
   const data2 = JSON.stringify(radgrad2, null, 2);
   fs.writeFileSync(outFileName, data2);
+  console.log(`Convert Dump: ${radgrad1DumpFile} --> ${outFileName}`);
 }
 
 program
