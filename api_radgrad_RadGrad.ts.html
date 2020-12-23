@@ -105,7 +105,6 @@ import { InterestTypes } from '../interest/InterestTypeCollection';
 import { Opportunities } from '../opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollection';
 import { OpportunityTypes } from '../opportunity/OpportunityTypeCollection';
-import { PlanChoices } from '../degree-plan/PlanChoiceCollection';
 import { PublicStats } from '../public-stats/PublicStatsCollection';
 import { Reviews } from '../review/ReviewCollection';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
@@ -131,7 +130,7 @@ class RadGradClass {
 
   private readonly collectionAssociation;
 
-  public calcLevel?: (studentID: string) => any;
+  public calcLevel?: (studentID: string) => number;
 
   constructor() {
     /**
@@ -163,7 +162,6 @@ class RadGradClass {
       OpportunityTypes,
       PageInterests,
       PageInterestsDailySnapshots,
-      PlanChoices,
       PublicStats,
       Reviews,
       AcademicTerms,
@@ -206,7 +204,6 @@ class RadGradClass {
       PageInterests,
       PageInterestsDailySnapshots,
       Reviews,
-      PlanChoices,
       FavoriteCareerGoals,
       FavoriteCourses,
       FavoriteInterests,
