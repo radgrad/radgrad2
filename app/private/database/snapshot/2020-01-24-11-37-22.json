@@ -2,10 +2,6 @@
   "timestamp": "2020-01-24T21:37:22.805Z",
   "collections": [
     {
-      "name": "AcademicPlanCollection",
-      "contents": []
-    },
-    {
       "name": "AcademicTermCollection",
       "contents": [
         {

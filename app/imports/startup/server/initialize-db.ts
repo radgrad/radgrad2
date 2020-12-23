@@ -76,10 +76,10 @@ function loadDatabase() {
     const extraCollectionNames = _.difference(collectionNames, loadNames);
 
     if (extraRestoreNames.length) {
-      console.log(`Error: Expected collections are missing from collection list: ${extraRestoreNames}`);
+      console.log(`Error: The following collections are in ${loadFileName}, but not in RadGrad.collectionLoadSequence: ${extraRestoreNames}`);
     }
     if (extraCollectionNames.length) {
-      console.log(`Error: Expected collections are missing from restore JSON file: ${extraCollectionNames}`);
+      console.log(`Error: The following collections are in RadGrad.collectionLoadSequence, but missing from ${loadFileName}: ${extraCollectionNames}`);
     }
 
     if (!extraRestoreNames.length && !extraCollectionNames.length) {
