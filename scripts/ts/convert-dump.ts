@@ -180,7 +180,7 @@ function processRadGradCollection(collection: ICollection) {
   return result;
 }
 
-const addedCollections = ['AdminProfileCollection', 'FavoriteAcademicPlanCollection', 'FavoriteCareerGoalCollection', 'FavoriteCourseCollection', 'FavoriteInterestCollection', 'FavoriteOpportunityCollection', 'PageInterestCollection', 'PageInterestsDailySnapshotCollection'];
+const addedCollections = ['AdminProfileCollection', 'FavoriteAcademicPlanCollection', 'FavoriteCareerGoalCollection', 'FavoriteCourseCollection', 'FavoriteInterestCollection', 'FavoriteOpportunityCollection', 'PageInterestCollection', 'PageInterestsDailySnapshotCollection', 'UserInteractionCollection'];
 
 const addMissingCollections = (result) => {
   addedCollections.forEach(collectionName => {
@@ -189,33 +189,9 @@ const addMissingCollections = (result) => {
     coll.contents = [];
     result.collections.push(coll);
   });
-  // let coll: any = {};
-  // coll.name = 'AdminProfileCollection';
-  // coll.contents = [];
-  // result.collections.push(coll);
-  // coll = {};
-  // coll.contents = [];
-  // coll.name = 'FavoriteAcademicPlanCollection';
-  // result.collections.push(coll);
-  // coll = {};
-  // coll.contents = [];
-  // coll.name = 'FavoriteCareerGoalCollection';
-  // result.collections.push(coll);
-  // coll = {};
-  // coll.contents = [];
-  // coll.name = 'FavoriteCourseCollection';
-  // result.collections.push(coll);
-  // coll = {};
-  // coll.contents = [];
-  // coll.name = 'FavoriteInterestCollection';
-  // result.collections.push(coll);
-  // coll = {};
-  // coll.contents = [];
-  // coll.name = 'FavoriteOpportunityCollection';
-  // result.collections.push(coll);
 };
 
-const deletedCollections = ['DesiredDegreeCollection', 'MentorAnswerCollection', 'MentorProfileCollection', 'MentorQuestionCollection'];
+const deletedCollections = ['DesiredDegreeCollection', 'MentorAnswerCollection', 'MentorProfileCollection', 'MentorQuestionCollection', 'UserInteractionCollection'];
 
 function processRadGradCollections(data: IDataDump) {
   const result: any = {};
