@@ -10,8 +10,8 @@ import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollect
 import { Slugs } from '../../../../api/slug/SlugCollection';
 import IceHeader from '../../shared/IceHeader';
 import { makeCourseICE } from '../../../../api/ice/IceProcessor';
-import { getInspectorDraggablePillStyle } from '../../shared/academic-plan/utilities/styles';
-import NamePill from '../../shared/academic-plan/NamePill';
+import { getInspectorDraggablePillStyle } from './utilities/styles';
+import NamePill from './NamePill';
 import FutureParticipation from '../../shared/explorer/FutureParticipation';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import { buildRouteName } from './DepUtilityFunctions';

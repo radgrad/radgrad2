@@ -9,7 +9,7 @@ import { userInteractionDefineMethod } from '../../../../api/analytic/UserIntera
 import { AcademicTerm, CourseInstance, OpportunityInstance, UserInteractionDefine } from '../../../../typings/radgrad';
 import { UserInteractionsTypes } from '../../../../api/analytic/UserInteractionsTypes';
 import { CourseInstances } from '../../../../api/course/CourseInstanceCollection';
-import { getUsername } from '../utilities/router';
+import { getUsername } from '../../shared/utilities/router';
 import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 

@@ -12,7 +12,6 @@ import { InterestTypes } from '../../../../api/interest/InterestTypeCollection';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
 import { OpportunityTypes } from '../../../../api/opportunity/OpportunityTypeCollection';
-import { PlanChoices } from '../../../../api/degree-plan/PlanChoiceCollection';
 import { Reviews } from '../../../../api/review/ReviewCollection';
 import { Slugs } from '../../../../api/slug/SlugCollection';
 import { Teasers } from '../../../../api/teaser/TeaserCollection';
@@ -40,7 +39,6 @@ export const getDatamodelCount = () => {
   const opportunityCount = Opportunities.count();
   const opportunityInstanceCount = OpportunityInstances.count();
   const opportunityTypeCount = OpportunityTypes.count();
-  const planChoiceCount = PlanChoices.count();
   const reviewCount = Reviews.count();
   const slugCount = Slugs.count();
   const teaserCount = Teasers.count();
@@ -61,7 +59,6 @@ export const getDatamodelCount = () => {
     opportunityCount,
     opportunityInstanceCount,
     opportunityTypeCount,
-    planChoiceCount,
     reviewCount,
     slugCount,
     teaserCount,

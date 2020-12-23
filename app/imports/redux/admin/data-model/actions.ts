@@ -14,7 +14,6 @@ import { InterestTypes } from '../../../api/interest/InterestTypeCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';
-import { PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
 import { Reviews } from '../../../api/review/ReviewCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
@@ -23,7 +22,7 @@ import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 
-export const setCollectionShowCount = (collectionName: string, count: number) => {
+export const setCollectionShowCount = (collectionName: string, count: number): { type?: string, payload?: number } => {
   const retVal: { type?: string, payload?: number } = {};
   retVal.payload = count;
   switch (collectionName) {
@@ -69,9 +68,6 @@ export const setCollectionShowCount = (collectionName: string, count: number) =>
     case OpportunityTypes.getCollectionName():
       retVal.type = TYPES.SET_OPPORTUNITY_TYPES_SHOW_COUNT;
       break;
-    case PlanChoices.getCollectionName():
-      retVal.type = TYPES.SET_PLAN_CHOICES_SHOW_COUNT;
-      break;
     case Reviews.getCollectionName():
       retVal.type = TYPES.SET_REVIEWS_SHOW_COUNT;
       break;
@@ -102,7 +98,7 @@ export const setCollectionShowCount = (collectionName: string, count: number) =>
   return retVal;
 };
 
-export const setCollectionShowIndex = (collectionName: string, index: number) => {
+export const setCollectionShowIndex = (collectionName: string, index: number): { type?: string, payload?: number } => {
   const retVal: { type?: string, payload?: number } = {};
   retVal.payload = index;
   switch (collectionName) {
@@ -148,9 +144,6 @@ export const setCollectionShowIndex = (collectionName: string, index: number) =>
     case OpportunityTypes.getCollectionName():
       retVal.type = TYPES.SET_OPPORTUNITY_TYPES_SHOW_INDEX;
       break;
-    case PlanChoices.getCollectionName():
-      retVal.type = TYPES.SET_PLAN_CHOICES_SHOW_INDEX;
-      break;
     case Reviews.getCollectionName():
       retVal.type = TYPES.SET_REVIEWS_SHOW_INDEX;
       break;
@@ -181,7 +174,7 @@ export const setCollectionShowIndex = (collectionName: string, index: number) =>
   return retVal;
 };
 
-export const setUploadFixtureWorking = (working: boolean) => {
+export const setUploadFixtureWorking = (working: boolean): { type?: string, payload?: boolean } => {
   const retVal: { type?: string, payload?: boolean } = {};
   retVal.payload = working;
   if (working) {

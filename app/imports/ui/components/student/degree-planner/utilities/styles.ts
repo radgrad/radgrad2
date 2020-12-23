@@ -1,6 +1,6 @@
 const grid = 2;
 
-const getDraggablePillStyle = (isDragging, draggableStyle) => ({
+const getDraggablePillStyle = (isDragging: boolean, draggableStyle: React.CSSProperties): React.CSSProperties => ({
   // some basic styles to make the items look a bit nicer
   userSelect: 'none',
   padding: grid,
@@ -16,7 +16,7 @@ const getDraggablePillStyle = (isDragging, draggableStyle) => ({
   ...draggableStyle,
 });
 
-const getInspectorDraggablePillStyle = (isDragging, draggableStyle) => ({
+const getInspectorDraggablePillStyle = (isDragging: boolean, draggableStyle: React.CSSProperties): React.CSSProperties => ({
   // some basic styles to make the items look a bit nicer
   userSelect: 'none',
   padding: grid,
@@ -32,17 +32,17 @@ const getInspectorDraggablePillStyle = (isDragging, draggableStyle) => ({
   ...draggableStyle,
 });
 
-const getDroppableListStyle = (isDraggingOver) => ({
+const getDroppableListStyle = (isDraggingOver: boolean): React.CSSProperties => ({
   background: isDraggingOver ? '#348C72' : 'white',
   padding: grid,
   width: '100%',
 });
 
-const getSatisfiedStyle = () => ({
+const getSatisfiedStyle = (): React.CSSProperties => ({
   color: '#348C72',
 });
 
-const getNotSatisfiedStyle = () => ({
+const getNotSatisfiedStyle = (): React.CSSProperties => ({
   color: '#FF0000',
 });
 

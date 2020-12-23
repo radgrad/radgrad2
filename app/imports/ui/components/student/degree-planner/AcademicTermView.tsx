@@ -7,7 +7,7 @@ import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollect
 import DraggableCourseInstancePill from './DraggableCourseInstancePill';
 import DraggableOpportunityInstancePill from './DraggableOpportunityInstancePill';
 import { Slugs } from '../../../../api/slug/SlugCollection';
-import { getDroppableListStyle } from '../../shared/academic-plan/utilities/styles';
+import { getDroppableListStyle } from './utilities/styles';
 
 interface AcademicTermViewProps {
   term: AcademicTerm;

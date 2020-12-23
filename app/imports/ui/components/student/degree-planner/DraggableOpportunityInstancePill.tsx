@@ -3,10 +3,10 @@ import { Draggable } from 'react-beautiful-dnd';
 import { Grid, Icon, Popup } from 'semantic-ui-react';
 import { OpportunityInstance } from '../../../../typings/radgrad';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
-import { getDraggablePillStyle } from '../../shared/academic-plan/utilities/styles';
-import NamePill from '../../shared/academic-plan/NamePill';
+import { getDraggablePillStyle } from './utilities/styles';
+import NamePill from './NamePill';
 import IceHeader from '../../shared/IceHeader';
-import RemoveItWidget from '../../shared/academic-plan/RemoveItWidget';
+import RemoveItWidget from './RemoveItWidget';
 
 interface OpportunityInstancePillProps {
   instance: OpportunityInstance;

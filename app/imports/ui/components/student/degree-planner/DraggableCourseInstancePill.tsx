@@ -2,10 +2,10 @@ import React from 'react';
 import { Grid, Popup } from 'semantic-ui-react';
 import { Draggable } from 'react-beautiful-dnd';
 import { CourseInstance } from '../../../../typings/radgrad';
-import { getDraggablePillStyle } from '../../shared/academic-plan/utilities/styles';
-import NamePill from '../../shared/academic-plan/NamePill';
+import { getDraggablePillStyle } from './utilities/styles';
+import NamePill from './NamePill';
 import { Courses } from '../../../../api/course/CourseCollection';
-import RemoveItWidget from '../../shared/academic-plan/RemoveItWidget';
+import RemoveItWidget from './RemoveItWidget';
 
 interface CourseInstancePillProps {
   instance: CourseInstance;
