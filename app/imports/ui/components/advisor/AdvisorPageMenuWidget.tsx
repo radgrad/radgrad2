@@ -34,7 +34,6 @@ const AdvisorPageMenuWidget: React.FC = () => {
     { label: 'Scoreboard', route: 'scoreboard', regex: 'scoreboard', id: 'advisor-menu-scoreboard' },
   ];
   const explorerDropdownItems = [
-    { key: 'Academic Plans', route: EXPLORER_TYPE.ACADEMICPLANS, id: 'advisor-menu-academic-plans' },
     { key: 'Career Goals', route: EXPLORER_TYPE.CAREERGOALS, id: 'advisor-menu-career-goals' },
     { key: 'Courses', route: EXPLORER_TYPE.COURSES, id: 'advisor-menu-courses' },
     { key: 'Interests', route: EXPLORER_TYPE.INTERESTS, id: 'advisor-menu-interests' },

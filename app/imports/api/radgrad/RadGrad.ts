@@ -1,6 +1,5 @@
 import _ from 'lodash';
 import { Meteor } from 'meteor/meteor';
-import { AcademicPlans } from '../degree-plan/AcademicPlanCollection';
 import { AcademicYearInstances } from '../degree-plan/AcademicYearInstanceCollection';
 import { AdvisorLogs } from '../log/AdvisorLogCollection';
 import { AdminProfiles } from '../user/AdminProfileCollection';
@@ -28,7 +27,6 @@ import { StudentProfiles } from '../user/StudentProfileCollection';
 import { Teasers } from '../teaser/TeaserCollection';
 import { UserInteractions } from '../analytic/UserInteractionCollection';
 import { VerificationRequests } from '../verification/VerificationRequestCollection';
-import { FavoriteAcademicPlans } from '../favorite/FavoriteAcademicPlanCollection';
 import { FavoriteCareerGoals } from '../favorite/FavoriteCareerGoalCollection';
 import { FavoriteCourses } from '../favorite/FavoriteCourseCollection';
 import { FavoriteInterests } from '../favorite/FavoriteInterestCollection';
@@ -54,7 +52,6 @@ class RadGradClass {
      * This list is used for things like checking integrity.
      */
     this.collections = [
-      AcademicPlans,
       AcademicYearInstances,
       AdminProfiles,
       AdvisorLogs,
@@ -64,7 +61,6 @@ class RadGradClass {
       Courses,
       CourseInstances,
       FacultyProfiles,
-      FavoriteAcademicPlans,
       FavoriteCareerGoals,
       FavoriteCourses,
       FavoriteInterests,
@@ -104,7 +100,6 @@ class RadGradClass {
       InterestTypes,
       Interests,
       CareerGoals,
-      AcademicPlans,
       AdminProfiles,
       AdvisorProfiles,
       FacultyProfiles,
@@ -125,7 +120,6 @@ class RadGradClass {
       PageInterestsDailySnapshots,
       Reviews,
       PlanChoices,
-      FavoriteAcademicPlans,
       FavoriteCareerGoals,
       FavoriteCourses,
       FavoriteInterests,

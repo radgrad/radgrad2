@@ -45,10 +45,6 @@ export interface Update {
 }
 
 export interface Pagination {
-  AcademicPlanCollection?: {
-    showIndex: number;
-    showCount: number;
-  };
   AcademicTermCollection?: {
     showIndex: number;
     showCount: number;
@@ -140,7 +136,7 @@ export interface Pagination {
 }
 
 // Card Explorer Cards. Note that this does not refer to specifically ExplorerCard.tsx. But rather all the Cards that are
-// used to implement the Card Explorer Widgets (AcademicPlanCard, ProfileCard, TermCard, ExplorerCard, and UserProfileCard).
+// used to implement the Card Explorer Widgets (ProfileCard, TermCard, ExplorerCard, and UserProfileCard).
 export interface CardExplorerCards {
   item: any;
 }
@@ -182,44 +178,6 @@ export interface SocialPair {
   label: string;
   amount?: number;
   value: Profile[];
-}
-
-// AcademicPlans
-interface AcademicPlanGroup {
-  name: string;
-  courseSlugs: string[];
-}
-
-export interface AcademicPlan {
-  _id: string;
-  name: string;
-  description: string;
-  slugID: string;
-  effectiveAcademicTermID: string;
-  academicTermNumber: number;
-  year: number;
-  coursesPerAcademicTerm: number[];
-  choiceList: string[];
-  isBAM?: boolean;
-  retired?: boolean;
-}
-
-export interface AcademicPlanDefine extends DumpOne {
-  slug: string;
-  name: string;
-  description: string;
-  academicTerm: string;
-  coursesPerAcademicTerm: number[];
-  choiceList: string[];
-  retired?: boolean;
-}
-
-export interface AcademicPlanUpdate extends Update {
-  name?: string;
-  academicTerm?: string;
-  coursesPerAcademicTerm?: number[];
-  choiceList?: string[];
-  retired?: boolean;
 }
 
 // AcademicYearInstances
@@ -389,18 +347,6 @@ export interface CourseUpdate extends Update {
 }
 
 // Favoirites
-export interface FavoriteAcademicPlanDefine extends DumpOne {
-  academicPlan: string;
-  student: string;
-  retired?: boolean;
-}
-
-export interface FavoriteAcademicPlan {
-  academicPlanID: string;
-  studentID: string;
-  retired: boolean;
-}
-
 export interface FavoriteCareerGoalDefine extends DumpOne {
   careerGoal: string;
   username: string;
@@ -776,14 +722,12 @@ export interface BaseProfile {
   motivation?: string;
   level?: number;
   declaredAcademicTermID?: string;
-  academicPlanID?: string;
   isAlumni?: boolean;
   shareUsername?: boolean;
   sharePicture?: boolean;
   shareWebsite?: boolean;
   shareInterests?: boolean;
   shareCareerGoals?: boolean;
-  shareAcademicPlan?: boolean;
   shareCourses?: boolean;
   shareOpportunities?: boolean;
   shareLevel?: boolean;
@@ -837,7 +781,6 @@ export interface CombinedProfileDefine extends ProfileDefine {
   motivation?: string;
   level?: number;
   declaredAcademicTerm?: string;
-  academicPlan?: string;
   isAlumni?: boolean;
   retired?: boolean;
   shareUsername?: boolean;
@@ -845,7 +788,6 @@ export interface CombinedProfileDefine extends ProfileDefine {
   shareWebsite?: boolean;
   shareInterests?: boolean;
   shareCareerGoals?: boolean;
-  shareAcademicPlan?: boolean;
   shareCourses?: boolean;
   shareOpportunities?: boolean;
   shareLevel?: boolean;
@@ -870,14 +812,12 @@ export interface AdvisorOrFacultyProfileUpdate extends ProfileUpdate {
 export interface StudentProfile extends Profile {
   level: number;
   declaredAcademicTermID?: string;
-  academicPlanID?: string;
   isAlumni?: boolean;
   shareUsername?: boolean;
   sharePicture?: boolean;
   shareWebsite?: boolean;
   shareInterests?: boolean;
   shareCareerGoals?: boolean;
-  shareAcademicPlan?: boolean;
   shareCourses?: boolean;
   shareOpportunities?: boolean;
   shareLevel?: boolean;
@@ -886,7 +826,6 @@ export interface StudentProfile extends Profile {
 export interface StudentProfileDefine extends ProfileDefine {
   level: number;
   declaredAcademicTerm?: string;
-  favoriteAcademicPlans?: string[];
   favoriteCourses?: string[];
   favoriteOpportunities?: string[];
   isAlumni?: boolean;
@@ -896,7 +835,6 @@ export interface StudentProfileDefine extends ProfileDefine {
   shareWebsite?: boolean;
   shareInterests?: boolean;
   shareCareerGoals?: boolean;
-  shareAcademicPlan?: boolean;
   shareCourses?: boolean;
   shareOpportunities?: boolean;
   shareLevel?: boolean;
@@ -905,7 +843,6 @@ export interface StudentProfileDefine extends ProfileDefine {
 export interface StudentProfileUpdate extends ProfileUpdate {
   level?: number;
   declaredAcademicTerm?: string;
-  favoriteAcademicPlans?: string[];
   favoriteCourses?: string[];
   favoriteOpportunities?: string[];
   isAlumni?: boolean;
@@ -915,7 +852,6 @@ export interface StudentProfileUpdate extends ProfileUpdate {
   shareWebsite?: boolean;
   shareInterests?: boolean;
   shareCareerGoals?: boolean;
-  shareAcademicPlan?: boolean;
   shareCourses?: boolean;
   shareOpportunities?: boolean;
   shareLevel?: boolean;
@@ -925,7 +861,6 @@ export interface StudentProfileUpdate extends ProfileUpdate {
 export interface StudentProfileUpdateData {
   level?: number;
   declaredAcademicTermID?: string;
-  academicPlanID?: string;
   isAlumni?: boolean;
   role?: string;
   retired?: boolean;
@@ -934,7 +869,6 @@ export interface StudentProfileUpdateData {
   shareWebsite?: boolean;
   shareInterests?: boolean;
   shareCareerGoals?: boolean;
-  shareAcademicPlan?: boolean;
   shareCourses?: boolean;
   shareOpportunities?: boolean;
   shareLevel?: boolean;

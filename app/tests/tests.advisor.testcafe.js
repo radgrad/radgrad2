@@ -2,7 +2,7 @@ import { landingNavBar } from './navbar.landing.component';
 import { advisorNavBar } from './navbar.advisor.component';
 import { signinPage } from './signin.page';
 import { advisorHomePage, advisorVerificationRequestsPage, advisorModerationPage,
-  advisorAcademicPlanPage, advisorScoreboardPage } from './simple.page';
+  advisorScoreboardPage } from './simple.page';
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 /* global fixture:false, test:false */
@@ -33,9 +33,6 @@ test('Test advisor top-level pages', async (testController) => {
 
   await advisorNavBar.gotoModerationPage(testController);
   await advisorModerationPage.isDisplayed(testController);
-
-  await advisorNavBar.gotoAcademicPlanPage(testController);
-  await advisorAcademicPlanPage.isDisplayed(testController);
 
   await advisorNavBar.gotoScoreboardPage(testController);
   await advisorScoreboardPage.isDisplayed(testController);

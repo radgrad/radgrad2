@@ -51,9 +51,9 @@ test('Test all admin top-level pages', async (testController) => {
 test('Test admin data model page and subpages', async (testController) => {
   await adminNavBar.gotoAdminLogin(testController);
   await signinPage.signin(testController, credentials.admin);
-  const subPages = ['academic-plans', 'academic-terms', 'academic-year-instances', 'advisor-logs', 'career-goals',
+  const subPages = ['academic-terms', 'academic-year-instances', 'advisor-logs', 'career-goals',
     'course-instances', 'courses', 'feeds', 'feedback-instances', 'help-messages', 'interests',
-    'interest-types', 'opportunities', 'opportunity-instances', 'opportunity-types', 'plan-choices', 'reviews',
+    'interest-types', 'opportunities', 'opportunity-instances', 'opportunity-types', 'reviews',
     'slugs', 'teasers', 'users', 'verification-requests'];
   // const promises = subPages.map(async (subPage) => adminNavBar.gotoDataModelPageSubPageAndVerify(testController, subPage));
   // await Promise.all(promises);
@@ -77,8 +77,6 @@ test('Test admin data model page and subpages', async (testController) => {
   await adminNavBar.gotoDataModelPageSubPageAndVerify(testController, subPages[16]);
   await adminNavBar.gotoDataModelPageSubPageAndVerify(testController, subPages[17]);
   await adminNavBar.gotoDataModelPageSubPageAndVerify(testController, subPages[18]);
-  await adminNavBar.gotoDataModelPageSubPageAndVerify(testController, subPages[19]);
-  await adminNavBar.gotoDataModelPageSubPageAndVerify(testController, subPages[20]);
 });
 
 test('Test admin ensure logout', async (testController) => {

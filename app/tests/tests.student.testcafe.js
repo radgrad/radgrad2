@@ -3,7 +3,7 @@ import { signinPage } from './signin.page';
 import { studentHomePage } from './student.home.page';
 import { studentNavBar } from './navbar.student.component';
 import { studentCareerGoalsExplorerPage, studentInterestsExplorerPage,
-  studentOpportunitiesPage, studentAcademicPlansExplorerPage, studentDegreePlannerPage,
+  studentOpportunitiesPage, studentDegreePlannerPage,
   studentCoursesExplorerPage, studentCommunityRadGradVideosPage, studentCommunityUsersPage,
   studentAboutMePage, studentAdvisorLogPage, studentICEPointsPage, studentLevelsPage } from './simple.page';
 
@@ -37,9 +37,6 @@ test('Test all student top-level pages', async (testController) => {
 
   await studentNavBar.gotoInterestsExplorerPage(testController);
   await studentInterestsExplorerPage.isDisplayed(testController);
-
-  await studentNavBar.gotoAcademicPlansExplorerPage(testController);
-  await studentAcademicPlansExplorerPage.isDisplayed(testController);
 
   await studentNavBar.gotoOpportunitiesPage(testController);
   await studentOpportunitiesPage.isDisplayed(testController);

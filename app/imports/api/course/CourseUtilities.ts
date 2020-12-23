@@ -5,7 +5,8 @@ import { Courses } from './CourseCollection';
 import PreferredChoice from '../degree-plan/PreferredChoice';
 import { Users } from '../user/UserCollection';
 import { profileGetInterestIDs } from '../../ui/components/shared/utilities/data-model';
-import { Course } from '../../typings/radgrad';
+import { Course, CourseInstance } from '../../typings/radgrad';
+import { Slugs } from '../slug/SlugCollection';
 
 /**
  * Returns true if the coursesTakenSlugs fulfills courseID's prerequisites.
@@ -169,4 +170,14 @@ export function getDepartment(courseSlug): string {
  */
 export function getCourseNumber(courseSlug): string {
   return courseSlug.split('_')[1];
+}
+
+export function passedCourse(ci: CourseInstance): boolean {
+  const courseDoc = CourseInstances.getCourseDoc(ci._id);
+  const courseSlug = Slugs.getNameFromID(courseDoc.slugID);
+  // TODO: We need another way of representing 'passing'
+  if (courseSlug.includes('111') || courseSlug.includes('141') || courseSlug.includes('211') || courseSlug.includes('241')) {
+    return _.includes(['B', 'B+', 'A-', 'A', 'A+'], ci.grade);
+  }
+  return _.includes(['C', 'C+', 'B-', 'B', 'B+', 'A-', 'A', 'A+'], ci.grade);
 }

@@ -4,23 +4,7 @@ import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import _ from 'lodash';
 import Swal from 'sweetalert2';
 import { connect } from 'react-redux';
-import { CareerGoals } from '../../../api/career/CareerGoalCollection';
-import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
-import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
-import { PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
-import { FeedbackInstances } from '../../../api/feedback/FeedbackInstanceCollection';
-import { HelpMessages } from '../../../api/help/HelpMessageCollection';
-import { Interests } from '../../../api/interest/InterestCollection';
-import { InterestTypes } from '../../../api/interest/InterestTypeCollection';
-import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';
-import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
-import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';
-import { Reviews } from '../../../api/review/ReviewCollection';
-import { Slugs } from '../../../api/slug/SlugCollection';
-import { Teasers } from '../../../api/teaser/TeaserCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
-import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
@@ -50,7 +34,7 @@ import {
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import { RootState } from '../../../redux/types';
-import withInstanceSubscriptions from '../../layouts/utilities/InstanceSubscriptionsHOC';
+import { getDatamodelCount } from './utilities/datamodel';
 
 const collection = Feeds; // the collection to use.
 
@@ -332,33 +316,21 @@ const AdminDataModelFeedsPage: React.FC<AdminDataModelFeedsPageProps> = (props) 
 
 const AdminDataModelFeedsPageCon = connect(mapStateToProps)(AdminDataModelFeedsPage);
 
-const AdminDataModelFeedsPageContainer = withTracker(() => ({
-  academicPlanCount: AcademicPlans.count(),
-  academicTermCount: AcademicTerms.count(),
-  academicYearCount: AcademicYearInstances.count(),
-  advisorLogCount: AdvisorLogs.count(),
-  careerGoalCount: CareerGoals.count(),
-  courseInstanceCount: CourseInstances.count(),
-  courseCount: Courses.count(),
-  feedCount: Feeds.count(),
-  feedbackCount: FeedbackInstances.count(),
-  helpMessageCount: HelpMessages.count(),
-  interestCount: Interests.count(),
-  interestTypeCount: InterestTypes.count(),
-  opportunityCount: Opportunities.count(),
-  opportunityInstanceCount: OpportunityInstances.count(),
-  opportunityTypeCount: OpportunityTypes.count(),
-  planChoiceCount: PlanChoices.count(),
-  reviewCount: Reviews.count(),
-  slugCount: Slugs.count(),
-  teaserCount: Teasers.count(),
-  usersCount: Users.count(),
-  verificationRequestCount: VerificationRequests.count(),
-  items: Feeds.find({}).fetch(),
-  academicTerms: AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch(),
-  courses: Courses.find({}, { sort: { num: 1 } }).fetch(),
-  opportunities: Opportunities.find({}, { sort: { name: 1 } }).fetch(),
-  students: StudentProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch(),
-}))(AdminDataModelFeedsPageCon);
+const AdminDataModelFeedsPageContainer = withTracker(() => {
+  const items = Feeds.find({}).fetch();
+  const academicTerms = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();
+  const courses = Courses.find({}, { sort: { num: 1 } }).fetch();
+  const opportunities = Opportunities.find({}, { sort: { name: 1 } }).fetch();
+  const students = StudentProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch();
+  const modelCount = getDatamodelCount();
+  return {
+    ...modelCount,
+    items,
+    academicTerms,
+    courses,
+    opportunities,
+    students,
+  };
+})(AdminDataModelFeedsPageCon);
 
-export default withInstanceSubscriptions(AdminDataModelFeedsPageContainer);
+export default AdminDataModelFeedsPageContainer;

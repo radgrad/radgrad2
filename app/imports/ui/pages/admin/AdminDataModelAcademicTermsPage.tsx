@@ -3,23 +3,6 @@ import React, { useState } from 'react';
 import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import _ from 'lodash';
 import Swal from 'sweetalert2';
-import { CareerGoals } from '../../../api/career/CareerGoalCollection';
-import { Courses } from '../../../api/course/CourseCollection';
-import { AcademicPlans } from '../../../api/degree-plan/AcademicPlanCollection';
-import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
-import { PlanChoices } from '../../../api/degree-plan/PlanChoiceCollection';
-import { Feeds } from '../../../api/feed/FeedCollection';
-import { FeedbackInstances } from '../../../api/feedback/FeedbackInstanceCollection';
-import { HelpMessages } from '../../../api/help/HelpMessageCollection';
-import { Interests } from '../../../api/interest/InterestCollection';
-import { InterestTypes } from '../../../api/interest/InterestTypeCollection';
-import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';
-import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';
-import { Reviews } from '../../../api/review/ReviewCollection';
-import { Slugs } from '../../../api/slug/SlugCollection';
-import { Teasers } from '../../../api/teaser/TeaserCollection';
-import { Users } from '../../../api/user/UserCollection';
-import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
@@ -37,7 +20,7 @@ import AdminDataModelUpdateForm from '../../components/admin/datamodel/AdminData
 import AdminDataModelAddForm from '../../components/admin/datamodel/AdminDataModelAddForm';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
-import withInstanceSubscriptions from '../../layouts/utilities/InstanceSubscriptionsHOC';
+import { getDatamodelCount } from './utilities/datamodel';
 
 function numReferences(term) {
   let references = 0;
@@ -240,29 +223,14 @@ const AdminDataModelAcademicTermsPage: React.FC<AdminDataModelAcademicTermsPageP
   );
 };
 
-const AdminDataModelAcademicTermsPageContainer = withTracker(() => ({
-  academicPlanCount: AcademicPlans.count(),
-  academicTermCount: AcademicTerms.count(),
-  academicYearCount: AcademicYearInstances.count(),
-  advisorLogCount: AdvisorLogs.count(),
-  careerGoalCount: CareerGoals.count(),
-  courseInstanceCount: CourseInstances.count(),
-  courseCount: Courses.count(),
-  feedCount: Feeds.count(),
-  feedbackCount: FeedbackInstances.count(),
-  helpMessageCount: HelpMessages.count(),
-  interestCount: Interests.count(),
-  interestTypeCount: InterestTypes.count(),
-  opportunityCount: Opportunities.count(),
-  opportunityInstanceCount: OpportunityInstances.count(),
-  opportunityTypeCount: OpportunityTypes.count(),
-  planChoiceCount: PlanChoices.count(),
-  reviewCount: Reviews.count(),
-  slugCount: Slugs.count(),
-  teaserCount: Teasers.count(),
-  usersCount: Users.count(),
-  verificationRequestCount: VerificationRequests.count(),
-  items: AcademicTerms.find({}).fetch(),
-}))(AdminDataModelAcademicTermsPage);
+// TODO add the consts and a return.
+const AdminDataModelAcademicTermsPageContainer = withTracker(() => {
+  const items = AcademicTerms.find({}).fetch();
+  const modelCount = getDatamodelCount();
+  return {
+    ...modelCount,
+    items,
+  };
+})(AdminDataModelAcademicTermsPage);
 
-export default withInstanceSubscriptions(AdminDataModelAcademicTermsPageContainer);
+export default AdminDataModelAcademicTermsPageContainer;

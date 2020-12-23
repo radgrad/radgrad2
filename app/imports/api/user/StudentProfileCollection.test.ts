@@ -9,7 +9,6 @@ import { makeSampleInterestArray, makeSampleInterestSlugArray } from '../interes
 import { makeSampleCareerGoalSlugArray } from '../career/SampleCareerGoals';
 import { FavoriteInterests } from '../favorite/FavoriteInterestCollection';
 import { FavoriteCareerGoals } from '../favorite/FavoriteCareerGoalCollection';
-import { makeSampleAcademicPlan } from '../degree-plan/SampleAcademicPlans';
 import { makeSampleAcademicTermSlug } from '../academic-term/SampleAcademicTerms';
 import { makeSampleCourseSlugArray } from '../course/SampleCourses';
 import { makeSampleOpportunitySlugArray } from '../opportunity/SampleOpportunities';
@@ -38,13 +37,12 @@ if (Meteor.isServer) {
             const interests = makeSampleInterestArray();
             const careerGoals = makeSampleCareerGoalSlugArray();
             const level = faker.random.number({ min: 1, max: 6 });
-            const favoriteAcademicPlans = [makeSampleAcademicPlan()];
             const declaredAcademicTerm = makeSampleAcademicTermSlug();
             const favoriteCourses = makeSampleCourseSlugArray(2);
             const favoriteOpportunities = makeSampleOpportunitySlugArray(sponsor, 2);
             const docID = StudentProfiles.define({
               username, firstName, lastName, picture, website, interests,
-              careerGoals, level, favoriteAcademicPlans, declaredAcademicTerm,
+              careerGoals, level, declaredAcademicTerm,
               favoriteCourses, favoriteOpportunities, retired,
             });
             expect(StudentProfiles.isDefined(docID)).to.be.true;
@@ -88,8 +86,8 @@ if (Meteor.isServer) {
       fc.assert(
         fc.property(fc.lorem(1), fc.lorem(1), fc.lorem(1), fc.boolean(),
           fc.boolean(), fc.boolean(), fc.boolean(), fc.boolean(), fc.boolean(), fc.boolean(), fc.boolean(),
-          fc.boolean(), fc.boolean(), fc.boolean(),
-          (firstName, lastName, picture, isAlumni, retired, shareUsername, sharePicture, shareWebsite, shareInterests, shareCareerGoals, shareAcademicPlan, shareCourses, shareOpportunities, shareLevel) => {
+          fc.boolean(), fc.boolean(),
+          (firstName, lastName, picture, isAlumni, retired, shareUsername, sharePicture, shareWebsite, shareInterests, shareCareerGoals, shareCourses, shareOpportunities, shareLevel) => {
             const website = faker.internet.url();
             const interests = makeSampleInterestArray(3);
             const careerGoals = makeSampleCareerGoalSlugArray(4);
@@ -101,7 +99,7 @@ if (Meteor.isServer) {
               interests,
               careerGoals,
               isAlumni, retired, shareUsername,
-              sharePicture, shareWebsite, shareInterests, shareCareerGoals, shareAcademicPlan, shareCourses,
+              sharePicture, shareWebsite, shareInterests, shareCareerGoals, shareCourses,
               shareOpportunities, shareLevel,
             });
             doc = StudentProfiles.findDoc(docID);
@@ -118,7 +116,6 @@ if (Meteor.isServer) {
             expect(doc.shareWebsite).to.equal(shareWebsite);
             expect(doc.shareInterests).to.equal(shareInterests);
             expect(doc.shareCareerGoals).to.equal(shareCareerGoals);
-            expect(doc.shareAcademicPlan).to.equal(shareAcademicPlan);
             expect(doc.shareCourses).to.equal(shareCourses);
             expect(doc.shareOpportunities).to.equal(shareOpportunities);
             expect(doc.shareLevel).to.equal(shareLevel);
@@ -147,7 +144,6 @@ if (Meteor.isServer) {
       expect(doc.shareWebsite).to.equal(origDoc.shareWebsite);
       expect(doc.shareInterests).to.equal(origDoc.shareInterests);
       expect(doc.shareCareerGoals).to.equal(origDoc.shareCareerGoals);
-      expect(doc.shareAcademicPlan).to.equal(origDoc.shareAcademicPlan);
       expect(doc.shareCourses).to.equal(origDoc.shareCourses);
       expect(doc.shareOpportunities).to.equal(origDoc.shareOpportunities);
       expect(doc.shareLevel).to.equal(origDoc.shareLevel);

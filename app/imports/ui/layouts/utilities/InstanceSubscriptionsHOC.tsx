@@ -9,7 +9,6 @@ import { FeedbackInstances } from '../../../api/feedback/FeedbackInstanceCollect
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import { getUserIdFromRoute } from '../../components/shared/utilities/router';
-import { FavoriteAcademicPlans } from '../../../api/favorite/FavoriteAcademicPlanCollection';
 import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
 import { FavoriteCourses } from '../../../api/favorite/FavoriteCourseCollection';
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
@@ -52,7 +51,6 @@ function withInstanceSubscriptions(WrappedComponent) {
         handles.push(instanceSubs.subscribe(FeedbackInstances.getPublicationName(), userID));
         handles.push(instanceSubs.subscribe(OpportunityInstances.getPublicationName(), userID));
         handles.push(instanceSubs.subscribe(VerificationRequests.getPublicationName(), userID));
-        handles.push(instanceSubs.subscribe(FavoriteAcademicPlans.getPublicationName(), userID));
         handles.push(instanceSubs.subscribe(FavoriteCareerGoals.getPublicationName(), userID));
         handles.push(instanceSubs.subscribe(FavoriteCourses.getPublicationName(), userID));
         handles.push(instanceSubs.subscribe(FavoriteInterests.getPublicationName(), userID));

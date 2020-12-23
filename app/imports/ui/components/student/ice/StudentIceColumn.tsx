@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
 import { Accordion, Icon } from 'semantic-ui-react';
-import { useRouteMatch } from 'react-router-dom';
-import * as Router from '../../shared/utilities/router';
 import StudentIceColumnVerified from './StudentIceColumnVerified';
 import StudentIceColumnUnverified from './StudentIceColumnUnverified';
 import StudentIceColumnRecommended from './StudentIceColumnRecommended';
-import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
 import { Slugs } from '../../../../api/slug/SlugCollection';
 import { Courses } from '../../../../api/course/CourseCollection';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
@@ -23,7 +20,6 @@ export interface StudentIceColumnProps {
 
 const StudentIceColumn: React.FC<StudentIceColumnProps> = ({ type, favoriteInterests, courseInstances, opportunityInstances, projectedICE, earnedICE }) => {
 
-  const match = useRouteMatch();
   const [verifiedColumnOpenState, setVerifiedColumnOpen] = useState(true);
   const [unVerifiedColumnOpenState, setUnVerifiedColumnOpen] = useState(false);
   const [recommendedColumnOpenState, setRecommendedColumnOpen] = useState(false);
@@ -119,7 +115,6 @@ const StudentIceColumn: React.FC<StudentIceColumnProps> = ({ type, favoriteInter
   const verifiedColor = getVerifiedColor();
   const unverifiedColor = getUnverifiedColor();
 
-  const username = Router.getUsername(match);
   const earnedICEPoints = getPoints(earnedICE);
   const projectedICEPoints = getPoints(projectedICE);
   const unverifiedICEPoints = remainingICEPoints(earnedICEPoints, projectedICEPoints);
@@ -135,7 +130,7 @@ const StudentIceColumn: React.FC<StudentIceColumnProps> = ({ type, favoriteInter
       </Accordion.Title>
       <Accordion.Content active={verifiedColumnOpenState}>
         <StudentIceColumnVerified
-          type={type}
+          iceType={type}
           earnedICEPoints={earnedICEPoints}
           getCourseSlug={getCourseSlug}
           matchingPoints={matchingPoints}
@@ -153,7 +148,7 @@ const StudentIceColumn: React.FC<StudentIceColumnProps> = ({ type, favoriteInter
       </Accordion.Title>
       <Accordion.Content active={unVerifiedColumnOpenState}>
         <StudentIceColumnUnverified
-          type={type}
+          iceType={type}
           earnedICEPoints={earnedICEPoints}
           icePoints={icePoints}
           projectedICEPoints={projectedICEPoints}

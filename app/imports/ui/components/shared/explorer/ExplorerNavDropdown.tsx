@@ -10,7 +10,6 @@ interface ExplorerNavDropdownProps {
 
 const ExplorerNavDropdown: React.FC<ExplorerNavDropdownProps> = ({ text }) => {
   const menuItems = [
-    { key: 'Academic Plans', route: EXPLORER_TYPE.ACADEMICPLANS },
     { key: 'Career Goals', route: EXPLORER_TYPE.CAREERGOALS },
     { key: 'Courses', route: EXPLORER_TYPE.COURSES },
     { key: 'Interests', route: EXPLORER_TYPE.INTERESTS },

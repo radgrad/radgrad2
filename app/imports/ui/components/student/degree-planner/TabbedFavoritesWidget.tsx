@@ -5,10 +5,8 @@ import { degreePlannerActions, degreePlannerTypes } from '../../../../redux/stud
 import FavoriteOpportunitiesWidget from './FavoriteOpportunitiesWidget';
 import FavoriteCoursesWidget from './FavoriteCoursesWidget';
 import DepDetailsWidget from './DepDetailsWidget';
-import FavoriteAcademicPlansWidget from './FavoriteAcademicPlansWidget';
 import { RootState } from '../../../../redux/types';
 import {
-  AcademicPlan,
   Course,
   CourseInstance,
   Opportunity,
@@ -18,7 +16,6 @@ import {
 
 interface TabbedFavoritesWidgetProps {
   takenSlugs: string[];
-  academicPlans: AcademicPlan[];
   selectedTab: string;
   selectFavoriteOpportunitiesTab: () => { type: string, selectedTab: string };
   selectFavoritePlansTab: () => { type: string, selectedTab: string };
@@ -58,7 +55,7 @@ const active = (selectedTab) => {
   }
 };
 
-const TabbedFavoritesWidget: React.FC<TabbedFavoritesWidgetProps> = ({ selectFavoritePlansTab, selectFavoriteOpportunitiesTab, studentID, takenSlugs, academicPlans, courseInstances, courses, selectFavoriteDetailsTab, selectFavoriteCoursesTab, selectedTab, opportunities, verificationRequests, opportunityInstances }) => {
+const TabbedFavoritesWidget: React.FC<TabbedFavoritesWidgetProps> = ({ selectFavoritePlansTab, selectFavoriteOpportunitiesTab, studentID, takenSlugs, courseInstances, courses, selectFavoriteDetailsTab, selectFavoriteCoursesTab, selectedTab, opportunities, verificationRequests, opportunityInstances }) => {
   const handleTabChange = (event, instance) => {
     const { activeIndex } = instance;
     event.preventDefault();
@@ -93,18 +90,6 @@ const TabbedFavoritesWidget: React.FC<TabbedFavoritesWidgetProps> = ({ selectFav
           active={active(selectedTab) === 0}
         >
           <FavoriteOpportunitiesWidget opportunities={opportunities} studentID={studentID} opportunityInstances={opportunityInstances} />
-        </Tab.Pane>
-      ),
-    },
-    {
-      menuItem: (
-        <Menu.Item key="FavoritePlans">
-          <Icon name="heart" fitted color="red" /> PLAN
-        </Menu.Item>
-      ),
-      pane: (
-        <Tab.Pane key="FavoritePlansPane" active={active(selectedTab) === 1}>
-          <FavoriteAcademicPlansWidget plans={academicPlans} takenSlugs={takenSlugs} />
         </Tab.Pane>
       ),
     },

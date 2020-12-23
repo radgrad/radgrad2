@@ -6,7 +6,7 @@ import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
-import { AcademicPlan, AcademicTerm, CareerGoal, Interest } from '../../../../../typings/radgrad';
+import { AcademicTerm, CareerGoal, Interest } from '../../../../../typings/radgrad';
 import { ROLE } from '../../../../../api/role/Role';
 import { academicTermToName, docToName } from '../../../shared/utilities/data-model';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
@@ -17,7 +17,6 @@ interface AddUserProps {
   interests: Interest[];
   careerGoals: CareerGoal[];
   academicTerms: AcademicTerm[];
-  academicPlans: AcademicPlan[];
   formRef: React.RefObject<unknown>;
   handleAdd: (doc) => any;
   setAdminDataModelUsersIsCloudinaryUsed: (isCloudinaryUsed: boolean) => any;
@@ -29,7 +28,7 @@ const mapDispatchToProps = (dispatch) => ({
   setAdminDataModelUsersCloudinaryUrl: (cloudinaryUrl: string) => dispatch(cloudinaryActions.setAdminDataModelUsersCloudinaryUrl(cloudinaryUrl)),
 });
 
-const AddUserForm: React.FC<AddUserProps> = ({ interests, handleAdd, formRef, academicTerms, careerGoals, academicPlans, setAdminDataModelUsersCloudinaryUrl, setAdminDataModelUsersIsCloudinaryUsed }) => {
+const AddUserForm: React.FC<AddUserProps> = ({ interests, handleAdd, formRef, academicTerms, careerGoals, setAdminDataModelUsersCloudinaryUrl, setAdminDataModelUsersIsCloudinaryUsed }) => {
   const [role, setRole] = useState<string>('');
   const [pictureURL, setPictureURL] = useState<string>('');
 
@@ -71,7 +70,6 @@ const AddUserForm: React.FC<AddUserProps> = ({ interests, handleAdd, formRef, ac
   const interestNames = _.map(interests, docToName);
   const careerGoalNames = _.map(careerGoals, docToName);
   const academicTermNames = _.map(academicTerms, academicTermToName);
-  const academicPlanNames = _.map(academicPlans, docToName);
   const roles = [ROLE.ADVISOR, ROLE.FACULTY, ROLE.STUDENT];
   const schema = new SimpleSchema({
     username: String,
@@ -112,17 +110,11 @@ const AddUserForm: React.FC<AddUserProps> = ({ interests, handleAdd, formRef, ac
       optional: true,
       allowedValues: academicTermNames,
     },
-    academicPlan: {
-      type: String,
-      optional: true,
-      allowedValues: academicPlanNames,
-    },
     shareUsername: { type: Boolean, optional: true },
     sharePicture: { type: Boolean, optional: true },
     shareWebsite: { type: Boolean, optional: true },
     shareInterests: { type: Boolean, optional: true },
     shareCareerGoals: { type: Boolean, optional: true },
-    shareAcademicPlan: { type: Boolean, optional: true },
     shareOpportunities: { type: Boolean, optional: true },
     shareCourses: { type: Boolean, optional: true },
     shareLevel: { type: Boolean, optional: true },
@@ -172,7 +164,6 @@ const AddUserForm: React.FC<AddUserProps> = ({ interests, handleAdd, formRef, ac
             <Form.Group widths="equal">
               <NumField name="level" />
               <SelectField name="declaredAcademicTerm" />
-              <SelectField name="academicPlan" />
             </Form.Group>
             <Form.Group widths="equal">
               <BoolField name="shareUsername" />
@@ -180,7 +171,6 @@ const AddUserForm: React.FC<AddUserProps> = ({ interests, handleAdd, formRef, ac
               <BoolField name="shareWebsite" />
               <BoolField name="shareInterests" />
               <BoolField name="shareCareerGoals" />
-              <BoolField name="shareAcademicPlan" />
               <BoolField name="shareOpportunities" />
               <BoolField name="shareCourses" />
               <BoolField name="shareLevel" />

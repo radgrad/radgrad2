@@ -25,14 +25,12 @@ export const adminScoreboardPage = new SimplePage('scoreboard-page');
 export const advisorHomePage = new SimplePage('advisor-home-page');
 export const advisorVerificationRequestsPage = new SimplePage('advisor-verification-requests-page');
 export const advisorModerationPage = new SimplePage('advisor-moderation-page');
-export const advisorAcademicPlanPage = new SimplePage('advisor-academic-plan-page');
 export const advisorScoreboardPage = new SimplePage('scoreboard-page'); // same page as adminScoreboardPage
 
 export const facultyHomePage = new SimplePage('faculty-home-page');
 export const facultyVerificationPage = new SimplePage('faculty-verification-page');
 export const facultyManageOpportunitiesPage = new SimplePage('faculty-manage-opportunities-page');
 
-export const studentAcademicPlansExplorerPage = new SimplePage('academic-plan-browser-view-page');
 export const studentCareerGoalsExplorerPage = new SimplePage('career-goal-browser-view-page');
 export const studentCoursesExplorerPage = new SimplePage('course-browser-view-page');
 export const studentDegreePlannerPage = new SimplePage('degree-planner-page');

@@ -1,13 +1,10 @@
 import { FAVORITE_TYPE, IFavoriteTypes } from '../../../../../../api/favorite/FavoriteTypes';
-import { FavoriteAcademicPlans } from '../../../../../../api/favorite/FavoriteAcademicPlanCollection';
 import { FavoriteCareerGoals } from '../../../../../../api/favorite/FavoriteCareerGoalCollection';
 import { FavoriteCourses } from '../../../../../../api/favorite/FavoriteCourseCollection';
 import { FavoriteInterests } from '../../../../../../api/favorite/FavoriteInterestCollection';
 import { FavoriteOpportunities } from '../../../../../../api/favorite/FavoriteOpportunityCollection';
 import {
-  AcademicPlan,
   BaseProfile, CareerGoal, Course,
-  FavoriteAcademicPlanDefine,
   FavoriteCareerGoalDefine,
   FavoriteCourseDefine,
   FavoriteInterestDefine,
@@ -26,9 +23,6 @@ import {
 export const getCollectionName = (type: IFavoriteTypes): string => {
   let collectionName: string;
   switch (type) {
-    case FAVORITE_TYPE.ACADEMICPLAN:
-      collectionName = FavoriteAcademicPlans.getCollectionName();
-      break;
     case FAVORITE_TYPE.CAREERGOAL:
       collectionName = FavoriteCareerGoals.getCollectionName();
       break;
@@ -55,17 +49,13 @@ export const getStudent = (studentID: string): string => {
 
 export const getSlug = (slugID: string): string => Slugs.getNameFromID(slugID);
 
-export const createDefinitionData = (studentID: string, item: AcademicPlan | CareerGoal | Course | Interest | Opportunity, type: IFavoriteTypes): FavoriteAcademicPlanDefine | FavoriteCareerGoalDefine | FavoriteCourseDefine | FavoriteInterestDefine | FavoriteOpportunityDefine => {
+type ItemType = CareerGoal | Course | Interest | Opportunity;
+
+export const createDefinitionData = (studentID: string, item: ItemType, type: IFavoriteTypes): FavoriteCareerGoalDefine | FavoriteCourseDefine | FavoriteInterestDefine | FavoriteOpportunityDefine => {
   const student = getStudent(studentID);
   const slug = getSlug(item.slugID);
   let definitionData;
   switch (type) {
-    case FAVORITE_TYPE.ACADEMICPLAN:
-      definitionData = {
-        student,
-        academicPlan: slug,
-      };
-      break;
     case FAVORITE_TYPE.CAREERGOAL:
       definitionData = {
         username: student,
@@ -97,19 +87,12 @@ export const createDefinitionData = (studentID: string, item: AcademicPlan | Car
   return definitionData;
 };
 
-export const createInteractionData = (studentID: string, item: AcademicPlan | CareerGoal | Course | Interest | Opportunity, type: IFavoriteTypes, favorite: boolean): UserInteractionDefine => {
+export const createInteractionData = (studentID: string, item: ItemType, type: IFavoriteTypes, favorite: boolean): UserInteractionDefine => {
   const student = getStudent(studentID);
   const slug = getSlug(item.slugID);
   let interactionData: UserInteractionDefine;
   const interactionType = favorite ? UserInteractionsTypes.FAVORITEITEM : UserInteractionsTypes.UNFAVORITEITEM;
   switch (type) {
-    case FAVORITE_TYPE.ACADEMICPLAN:
-      interactionData = {
-        username: student,
-        type: interactionType,
-        typeData: [type, slug],
-      };
-      break;
     case FAVORITE_TYPE.CAREERGOAL:
       interactionData = {
         username: student,
@@ -145,14 +128,11 @@ export const createInteractionData = (studentID: string, item: AcademicPlan | Ca
   return interactionData;
 };
 
-export const createPageInterestData = (studentID: string, item: AcademicPlan | CareerGoal | Course | Interest | Opportunity, type: IFavoriteTypes): PageInterestDefine => {
+export const createPageInterestData = (studentID: string, item: ItemType, type: IFavoriteTypes): PageInterestDefine => {
   const username = getStudent(studentID);
   const name = Slugs.getNameFromID(item.slugID);
   let category: IPageInterestsCategoryTypes;
   switch (type) {
-    case FAVORITE_TYPE.ACADEMICPLAN:
-      category = PageInterestsCategoryTypes.ACADEMIC_PLAN;
-      break;
     case FAVORITE_TYPE.CAREERGOAL:
       category = PageInterestsCategoryTypes.CAREERGOAL;
       break;

@@ -72,7 +72,6 @@ const getBehaviors = (sessionArr: UserInteraction[]): { type: string, stats: str
   const actions = {
     careerGoalIDs: [],
     interestIDs: [],
-    academicPlanID: [],
     [UserInteractionsTypes.PAGEVIEW]: [],
     [UserInteractionsTypes.LOGIN]: [],
     [UserInteractionsTypes.LEVEL]: [],
@@ -118,12 +117,8 @@ const getBehaviors = (sessionArr: UserInteraction[]): { type: string, stats: str
       } else if (action === FAVORITE_TYPE.INTEREST) {
         behaviors[StudentSummaryBehaviorTypes.OUTLOOK].push(`User modified interests ${array.length} time(s)`);
         behaviors[StudentSummaryBehaviorTypes.OUTLOOK].push(`Interests at end of session: ${_.last(array)}`);
-      } else if (action === FAVORITE_TYPE.ACADEMICPLAN) {
-        behaviors[StudentSummaryBehaviorTypes.OUTLOOK].push(`User modified academic plan ${array.length} time(s)`);
-        behaviors[StudentSummaryBehaviorTypes.OUTLOOK].push(`Academic plan at end of session: ${_.last(array)}`);
       } else if (action === UserInteractionsTypes.PAGEVIEW) {
         const explorerPages = {
-          [EXPLORER_TYPE.ACADEMICPLANS]: [],
           [EXPLORER_TYPE.CAREERGOALS]: [],
           [EXPLORER_TYPE.COURSES]: [],
           [EXPLORER_TYPE.INTERESTS]: [],

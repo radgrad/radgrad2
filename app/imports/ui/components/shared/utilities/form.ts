@@ -1,7 +1,6 @@
 import { Interests } from '../../../../api/interest/InterestCollection';
 import { Slugs } from '../../../../api/slug/SlugCollection';
 import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
-import { AcademicPlans } from '../../../../api/degree-plan/AcademicPlanCollection';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 
 export const interestSlugFromName = (name: string): string => {
@@ -12,11 +11,6 @@ export const interestSlugFromName = (name: string): string => {
 export const careerGoalSlugFromName = (name: string): string => {
   const careerGoal = CareerGoals.findDoc(name);
   return Slugs.findDoc(careerGoal.slugID).name;
-};
-
-export const academicPlanSlugFromName = (name: string): string => {
-  const plan = AcademicPlans.findDoc(name);
-  return Slugs.findDoc(plan.slugID).name;
 };
 
 export const declaredAcademicTermSlugFromName = (name: string): string => {
