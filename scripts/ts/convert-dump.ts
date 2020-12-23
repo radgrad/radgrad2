@@ -2,7 +2,7 @@ import * as fs from 'fs';
 // import * as inquirer from 'inquirer';
 import * as _ from 'lodash';
 import * as moment from 'moment';
-import { program } from 'commander';
+import {program} from 'commander';
 
 interface ICollection {
   name: string;
@@ -181,18 +181,23 @@ function processRadGradCollection(collection: ICollection) {
   return result;
 }
 
-const addedCollections = ['AdminProfileCollection', 'FavoriteAcademicPlanCollection', 'FavoriteCareerGoalCollection', 'FavoriteCourseCollection', 'FavoriteInterestCollection', 'FavoriteOpportunityCollection', 'PageInterestCollection', 'PageInterestsDailySnapshotCollection', 'UserInteractionCollection'];
+const reinitializedCollections = ['CourseInstanceCollection', 'FeedbackInstanceCollection', 'OpportunityInstanceCollection', 'VerificationRequestCollection', 'IceSnapshotCollection'];
+
+const addedCollections = ['AdminProfileCollection', 'FavoriteCareerGoalCollection', 'FavoriteCourseCollection', 'FavoriteInterestCollection', 'FavoriteOpportunityCollection', 'PageInterestCollection', 'PageInterestsDailySnapshotCollection', 'UserInteractionCollection'].concat(reinitializedCollections);
 
 const addMissingCollections = (result) => {
   addedCollections.forEach(collectionName => {
-    const coll: any = {};
-    coll.name = collectionName;
-    coll.contents = [];
-    result.collections.push(coll);
+    if (!(result.collections.find(entry => entry.name === collectionName))) {
+      const coll: any = {};
+      coll.name = collectionName;
+      coll.contents = [];
+      result.collections.push(coll);
+    }
   });
 };
 
-const deletedCollections = ['DesiredDegreeCollection', 'MentorAnswerCollection', 'MentorProfileCollection', 'MentorQuestionCollection', 'UserInteractionCollection'];
+const deletedCollections = ['DesiredDegreeCollection', 'MentorAnswerCollection', 'MentorProfileCollection', 'MentorQuestionCollection', 'UserInteractionCollection', 'AcademicPlanCollection',
+  'FavoriteAcademicPlanCollection'].concat(reinitializedCollections);
 
 function processRadGradCollections(data: IDataDump) {
   const result: any = {};
@@ -207,11 +212,23 @@ function processRadGradCollections(data: IDataDump) {
   return result;
 }
 
+const compareEntries = (entry1, entry2) => {
+  if (entry1.name < entry2.name) {
+    return -1;
+  }
+  if (entry1.name > entry2.name) {
+    return 1;
+  }
+  return 0;
+};
+
 async function convertDump(radgrad1DumpFile, outFileName) {
   const data = fs.readFileSync(radgrad1DumpFile);
   const radgrad1: IDataDump = JSON.parse(data.toString());
   const radgrad2 = processRadGradCollections(radgrad1);
   const data2 = JSON.stringify(radgrad2, null, 2);
+  radgrad2.collections.sort((entry1, entry2) => compareEntries(entry1, entry2));
+  radgrad2.collections.forEach(entry => console.log(entry.name, entry.contents.length));
   fs.writeFileSync(outFileName, data2);
   console.log(`Convert Dump: ${radgrad1DumpFile} --> ${outFileName}`);
 }
