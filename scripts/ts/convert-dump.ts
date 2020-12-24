@@ -2,7 +2,7 @@ import * as fs from 'fs';
 // import * as inquirer from 'inquirer';
 import * as _ from 'lodash';
 import * as moment from 'moment';
-import {program} from 'commander';
+import { program } from 'commander';
 
 interface ICollection {
   name: string;
@@ -181,8 +181,8 @@ function processRadGradCollection(collection: ICollection) {
   return result;
 }
 
-const reinitializedCollections = ['FavoriteCareerGoalCollection', 'FavoriteCourseCollection',
-  'FavoriteInterestCollection', 'FavoriteOpportunityCollection'];
+const reinitializedCollections = ['FavoriteCareerGoalCollection',
+  'FavoriteInterestCollection'];
 
 const addedCollections = ['AdminProfileCollection', 'PageInterestCollection', 'PageInterestsDailySnapshotCollection', 'UserInteractionCollection'].concat(reinitializedCollections);
 
