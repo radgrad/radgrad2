@@ -181,9 +181,10 @@ function processRadGradCollection(collection: ICollection) {
   return result;
 }
 
-const reinitializedCollections = ['CourseInstanceCollection', 'FeedbackInstanceCollection', 'OpportunityInstanceCollection', 'VerificationRequestCollection', 'IceSnapshotCollection'];
+const reinitializedCollections = ['FavoriteCareerGoalCollection', 'FavoriteCourseCollection',
+  'FavoriteInterestCollection', 'FavoriteOpportunityCollection'];
 
-const addedCollections = ['AdminProfileCollection', 'FavoriteCareerGoalCollection', 'FavoriteCourseCollection', 'FavoriteInterestCollection', 'FavoriteOpportunityCollection', 'PageInterestCollection', 'PageInterestsDailySnapshotCollection', 'UserInteractionCollection'].concat(reinitializedCollections);
+const addedCollections = ['AdminProfileCollection', 'PageInterestCollection', 'PageInterestsDailySnapshotCollection', 'UserInteractionCollection'].concat(reinitializedCollections);
 
 const addMissingCollections = (result) => {
   addedCollections.forEach(collectionName => {
@@ -197,7 +198,7 @@ const addMissingCollections = (result) => {
 };
 
 const deletedCollections = ['DesiredDegreeCollection', 'MentorAnswerCollection', 'MentorProfileCollection', 'MentorQuestionCollection', 'UserInteractionCollection', 'AcademicPlanCollection',
-  'FavoriteAcademicPlanCollection'].concat(reinitializedCollections);
+  'FavoriteAcademicPlanCollection', 'PlanChoiceCollection'].concat(reinitializedCollections);
 
 function processRadGradCollections(data: IDataDump) {
   const result: any = {};
