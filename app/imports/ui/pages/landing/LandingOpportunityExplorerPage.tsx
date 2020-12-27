@@ -11,7 +11,7 @@ import { HelpMessage, Opportunity } from '../../../typings/radgrad';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/explorer/LandingExplorerMenu';
 import { Interests } from '../../../api/interest/InterestCollection';
-import { withListSubscriptions } from '../../layouts/utilities/SubscriptionListHOC';
+import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
 import LandingInterestList from '../../components/landing/LandingInterestList';
 import { getOpportunityTypeName, semesters, teaser } from '../../components/landing/utilities/helper-functions';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
@@ -165,15 +165,6 @@ const LandingOpportunityExplorerPage: React.FC<OpportunityExplorerProps> = ({ op
   );
 };
 
-const WithSubs = withListSubscriptions(LandingOpportunityExplorerPage, [
-  AcademicTerms.getPublicationName(),
-  Interests.getPublicationName(),
-  Opportunities.getPublicationName(),
-  Slugs.getPublicationName(),
-  Teasers.getPublicationName(),
-  HelpMessages.getPublicationName(),
-]);
-
 const LandingOpportunityExplorerContainer = withTracker(() => {
   const { opportunity } = useParams();
   // console.log(Slugs.find().fetch());
@@ -183,6 +174,13 @@ const LandingOpportunityExplorerContainer = withTracker(() => {
     quarters: RadGradProperties.getQuarterSystem(),
     helpMessages: HelpMessages.findNonRetired({}),
   };
-})(WithSubs);
+})(LandingOpportunityExplorerPage);
 
-export default LandingOpportunityExplorerContainer;
+export default withListSubscriptions(LandingOpportunityExplorerContainer, [
+  AcademicTerms.getPublicationName(),
+  Interests.getPublicationName(),
+  Opportunities.getPublicationName(),
+  Slugs.getPublicationName(),
+  Teasers.getPublicationName(),
+  HelpMessages.getPublicationName(),
+]);

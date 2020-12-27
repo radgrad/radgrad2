@@ -11,7 +11,7 @@ import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/explorer/LandingExplorerMenu';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
-import { withListSubscriptions } from '../../layouts/utilities/SubscriptionListHOC';
+import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
 
 interface CareerGoalsCardExplorerProps {
   careerGoals: CareerGoal[];
@@ -61,17 +61,15 @@ const LandingCareerGoalsCardExplorerPage: React.FC<CareerGoalsCardExplorerProps>
   );
 };
 
-const WithSubs = withListSubscriptions(LandingCareerGoalsCardExplorerPage, [
+const LandingCareerGoalsCardExplorerContainer = withTracker(() => ({
+  careerGoals: CareerGoals.findNonRetired({}),
+  count: CareerGoals.countNonRetired(),
+  helpMessages: HelpMessages.findNonRetired({}),
+}))(LandingCareerGoalsCardExplorerPage);
+
+export default withListSubscriptions(LandingCareerGoalsCardExplorerContainer, [
   CareerGoals.getPublicationName(),
   Slugs.getPublicationName(),
   Interests.getPublicationName(),
   HelpMessages.getPublicationName(),
 ]);
-
-const LandingCareerGoalsCardExplorerContainer = withTracker(() => ({
-  careerGoals: CareerGoals.findNonRetired({}),
-  count: CareerGoals.countNonRetired(),
-  helpMessages: HelpMessages.findNonRetired({}),
-}))(WithSubs);
-
-export default LandingCareerGoalsCardExplorerContainer;

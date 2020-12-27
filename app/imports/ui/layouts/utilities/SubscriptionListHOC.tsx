@@ -7,7 +7,7 @@ interface Loading {
   loading: boolean;
 }
 
-export function withListSubscriptions(WrappedComponent, subscriptionNames: string[]) {
+const withListSubscriptions = (WrappedComponent, subscriptionNames: string[]) => {
   // cacheLimit default is 10, so increased to handle all our subscriptions.
   // expireLimit set to 30 minutes because: why not.
   const localSubs = new SubsManager({ cacheLimit: subscriptionNames.length, expireIn: 30 });
@@ -23,6 +23,6 @@ export function withListSubscriptions(WrappedComponent, subscriptionNames: strin
       loading,
     };
   })(GenericSubscription);
-}
+};
 
 export default withListSubscriptions;

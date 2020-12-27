@@ -11,7 +11,7 @@ import { Interests } from '../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/explorer/LandingExplorerMenu';
-import { withListSubscriptions } from '../../layouts/utilities/SubscriptionListHOC';
+import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
 import { getSlugFromEntityID } from '../../components/landing/utilities/helper-functions';
 import * as Router from '../../components/shared/utilities/router';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
@@ -98,14 +98,6 @@ const LandingInterestExplorerPage: React.FC<InterestExplorerProps> = ({ currentU
   );
 };
 
-const WithSubs = withListSubscriptions(LandingInterestExplorerPage, [
-  Courses.getPublicationName(),
-  Interests.getPublicationName(),
-  Opportunities.getPublicationName(),
-  Slugs.getPublicationName(),
-  HelpMessages.getPublicationName(),
-]);
-
 const LandingInterestExplorerContainer = withTracker(() => {
   const { interest } = useParams();
   const id = Slugs.getEntityID(interest, 'Interest');
@@ -115,6 +107,12 @@ const LandingInterestExplorerContainer = withTracker(() => {
     opportunities: Opportunities.findNonRetired({ interestIDs: id }),
     helpMessages: HelpMessages.findNonRetired({}),
   };
-})(WithSubs);
+})(LandingInterestExplorerPage);
 
-export default LandingInterestExplorerContainer;
+export default withListSubscriptions(LandingInterestExplorerContainer, [
+  Courses.getPublicationName(),
+  Interests.getPublicationName(),
+  Opportunities.getPublicationName(),
+  Slugs.getPublicationName(),
+  HelpMessages.getPublicationName(),
+]);
