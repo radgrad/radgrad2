@@ -63,6 +63,7 @@ function getRestoreFileAge(loadFileName) {
  */
 function loadDatabase() {
   const loadFileName = Meteor.settings.databaseRestoreFileName;
+  console.log('Starting loadDatabase: total Docs: ', totalDocuments(), 'loadFileName: ', loadFileName);
   if (loadFileName && (totalDocuments() === 0 || totalDocuments() === 1)) {
     const loadFileAge = getRestoreFileAge(loadFileName);
     console.log(`Loading database2 from file ${loadFileName}, dumped ${loadFileAge}.`);
@@ -164,11 +165,14 @@ Meteor.startup(() => {
     removeAllEntities();
     defineTestAdminUser();
   } else {
+    console.log(`Beginning startup at ${moment().format('MMMM Do YYYY, h:mm:ss a')}`);
     defineAdminUser();
     loadDatabase();
     // startupCheckIntegrity();
+    console.log('Invoking startupPublicStats');
     startupPublicStats();
     startupStudentParticipation();
     SyncedCron.start();
+    console.log(`Finished startup at ${moment().format('MMMM Do YYYY, h:mm:ss a')}`);
   }
 });

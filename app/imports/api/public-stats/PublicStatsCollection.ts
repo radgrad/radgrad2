@@ -130,29 +130,29 @@ class PublicStatsCollection extends BaseCollection {
   }
 
   public careerGoalsTotal() {
-    const count = CareerGoals.find().count();
+    const count = CareerGoals.find().count() || 0;
     this.collection.upsert({ key: this.careerGoalsTotalKey }, { $set: { value: `${count}` } });
   }
 
   public coursesTotal() {
-    const count = Courses.findNonRetired().length;
+    const count = Courses.findNonRetired().length || 0;
     this.collection.upsert({ key: this.coursesTotalKey }, { $set: { value: `${count}` } });
   }
 
   public careerGoalsList() {
     const goals = CareerGoals.findNonRetired();
-    const names = _.map(goals, 'name');
+    const names = _.map(goals, 'name') || ['defaultCareerGoal'];
     this.collection.upsert({ key: this.careerGoalsListKey }, { $set: { value: names.join(', ') } });
   }
 
   public interestsTotal() {
-    const numInterests = Interests.countNonRetired();
+    const numInterests = Interests.countNonRetired() || 0;
     this.collection.upsert({ key: this.interestsTotalKey }, { $set: { value: `${numInterests}` } });
   }
 
   public interestsList() {
     const interests = Interests.findNonRetired();
-    const names = _.map(interests, 'name');
+    const names = _.map(interests, 'name') || ['defaultInterest'];
     this.collection.upsert({ key: this.interestsListKey }, { $set: { value: names.join(', ') } });
   }
 
@@ -163,7 +163,7 @@ class PublicStatsCollection extends BaseCollection {
 
   public opportunitiesProjectsTotal() {
     const projectType = OpportunityTypes.findDoc({ name: 'Project' });
-    const numProjects = Opportunities.findNonRetired({ opportunityTypeID: projectType._id }).length;
+    const numProjects = Opportunities.findNonRetired({ opportunityTypeID: projectType._id }).length || 0;
     this.collection.upsert({ key: this.opportunitiesProjectsTotalKey }, { $set: { value: `${numProjects}` } });
   }
 

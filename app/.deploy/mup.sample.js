@@ -3,9 +3,7 @@ module.exports = {
     one: {
       host: 'radgrad2.ics.hawaii.edu',
       username: '',
-      // pem: './path/to/pem'
       password: ''
-      // or neither for authenticate from ssh-agent
     }
   },
 
@@ -28,15 +26,11 @@ module.exports = {
     },
 
     docker: {
-      // abernix/meteord:node-12-base works with Meteor 1.9 - 1.10
-      // If you are using a different version of Meteor,
-      // refer to the docs for the correct image to use.
       image: 'abernix/meteord:node-12-base',
     },
 
-    // Show progress bar while uploading bundle to server
-    // You might need to disable it on CI servers
-    enableUploadProgressBar: true
+    enableUploadProgressBar: true,
+    deployCheckWaitTime: 900
   },
 
   mongo: {
