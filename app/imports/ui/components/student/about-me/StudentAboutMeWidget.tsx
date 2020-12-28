@@ -144,12 +144,6 @@ const StudentAboutMeWidget: React.FC<StudentAboutMeWidgetProps> = ({ profile, fa
               <Divider />
             </Grid.Column>
           </Grid.Row>
-          <Grid.Row>
-            <Header as="h2" style={favorites}>
-              <Icon name="graduation cap" />
-              <Header.Content>My Favorite Academic Plan</Header.Content>
-            </Header>
-          </Grid.Row>
         </Grid>
       </Segment>
     </>

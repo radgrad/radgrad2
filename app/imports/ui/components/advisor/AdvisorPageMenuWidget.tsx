@@ -30,7 +30,6 @@ const AdvisorPageMenuWidget: React.FC = () => {
     { label: 'Student Configuration', route: 'home', id: 'advisor-menu-home' },
     { label: requestsLabel, route: 'verification-requests', id: 'advisor-menu-verification-requests' },
     { label: moderationLabel, route: 'moderation', id: 'advisor-menu-moderation' },
-    { label: 'Academic Plan', route: 'academic-plan', id: 'advisor-menu-academic-plan' },
     { label: 'Scoreboard', route: 'scoreboard', regex: 'scoreboard', id: 'advisor-menu-scoreboard' },
   ];
   const explorerDropdownItems = [

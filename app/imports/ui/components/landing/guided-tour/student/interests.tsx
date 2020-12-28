@@ -19,7 +19,7 @@ const GuidedTourStudentInterests: React.FC<InterestsProps> = ({ interests }) => 
         <div>
           <Header style={styles.h1}>Interests: the hashtags of the RadGrad world</Header>
           <p style={styles.p}>One useful resource in RadGrad is the Explorer page, which enables you to learn about the
-            latest computer science interest areas, courses, opportunities, academic plans, and even the other members
+            latest computer science interest areas, courses, opportunities, and even the other members
             of RadGrad.</p>
           <p style={styles.p}>
             Once you have specified one or more of RadGrad&apos;s

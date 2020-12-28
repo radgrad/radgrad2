@@ -20,7 +20,7 @@ const GuidedTourFacultyExplorer: React.FC = () => (
           </p>
           <p style={styles.p}>
             The Explorer page allows you to review all of the defined Interests and Career Goals, as well as
-            Opportunities, Academic Plans, Courses, and Users.
+            Opportunities, Courses, and Users.
           </p>
           <p style={styles.p}>
             To request additions or modifications to any of these entities, you can contact a RadGrad Admin.
