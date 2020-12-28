@@ -19,6 +19,10 @@ import {
   EmailData,
 } from './utilities/newsletter';
 
+/* Technical Debt:
+ *   * Redux is not indicated when the goal is to manage form-local state.
+ */
+
 /**
  * Schema for the form that controls sending email.
  */
