@@ -3,18 +3,18 @@ import _ from 'lodash';
 import { Button, Grid, Header, Icon, Label, Popup, Segment, Table } from 'semantic-ui-react';
 import moment from 'moment';
 import { ZipZap } from 'meteor/udondan:zipzap';
-import { AcademicTerm, Opportunity } from '../../../../typings/radgrad';
+import { AcademicTerm, Opportunity, Scoreboard } from '../../../../typings/radgrad';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 
 interface OpportunityScoreboardWidgetProps {
   opportunities: Opportunity[];
   terms: AcademicTerm[];
-  scores: any[];
+  scores: Scoreboard[];
 }
 
 const databaseFileDateFormat = 'YYYY-MM-DD-HH-mm-ss';
 
-const getOpportunityScore = (opportunityID, termID, scores) => {
+const getOpportunityScore = (opportunityID: string, termID: string, scores: Scoreboard[]) => {
   const id = `${opportunityID} ${termID}`;
   const scoreItem = _.find(scores, (p) => p._id === id);
   // console.log(scoreItem, courseID, termID);
@@ -24,7 +24,7 @@ const getOpportunityScore = (opportunityID, termID, scores) => {
   return 0;
 };
 
-const saveAsCSV = (terms: AcademicTerm[], opportunities: Opportunity[], scores) => () => {
+const saveAsCSV = (terms: AcademicTerm[], opportunities: Opportunity[], scores: Scoreboard[]) => () => {
   let result = '';
   const headerArr = ['Opportunity'];
   _.forEach(terms, (term) => headerArr.push(AcademicTerms.getShortName(term._id)));

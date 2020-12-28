@@ -11,7 +11,7 @@ import { CareerGoal, HelpMessage } from '../../../typings/radgrad';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/explorer/LandingExplorerMenu';
 import { Interests } from '../../../api/interest/InterestCollection';
-import { withListSubscriptions } from '../../layouts/utilities/SubscriptionListHOC';
+import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
 import LandingInterestList from '../../components/landing/LandingInterestList';
 import * as Router from '../../components/shared/utilities/router';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
@@ -63,13 +63,6 @@ const LandingCareerGoalExplorerPage: React.FC<CareerGoalExplorerProps> = ({ care
   );
 };
 
-const WithSubs = withListSubscriptions(LandingCareerGoalExplorerPage, [
-  CareerGoals.getPublicationName(),
-  Slugs.getPublicationName(),
-  Interests.getPublicationName(),
-  HelpMessages.getPublicationName(),
-]);
-
 const LandingCareerGoalExplorerContainer = withTracker(() => {
   const { careergoal } = useParams();
   // console.log(Slugs.find().fetch());
@@ -78,6 +71,11 @@ const LandingCareerGoalExplorerContainer = withTracker(() => {
     careerGoal: CareerGoals.findDoc(id),
     currentUser: Meteor.user() ? Meteor.user().username : '',
   };
-})(WithSubs);
+})(LandingCareerGoalExplorerPage);
 
-export default LandingCareerGoalExplorerContainer;
+export default withListSubscriptions(LandingCareerGoalExplorerContainer, [
+  CareerGoals.getPublicationName(),
+  Slugs.getPublicationName(),
+  Interests.getPublicationName(),
+  HelpMessages.getPublicationName(),
+]);

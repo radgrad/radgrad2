@@ -10,7 +10,7 @@ import { Course, HelpMessage } from '../../../typings/radgrad';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/explorer/LandingExplorerMenu';
 import { Interests } from '../../../api/interest/InterestCollection';
-import { withListSubscriptions } from '../../layouts/utilities/SubscriptionListHOC';
+import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
 import LandingInterestList from '../../components/landing/LandingInterestList';
 import LandingPrerequisiteList from '../../components/landing/LandingPrerequisiteList';
 import * as Router from '../../components/shared/utilities/router';
@@ -94,13 +94,6 @@ const LandingCourseExplorerPage: React.FC<CourseExplorerProps> = ({ helpMessages
   );
 };
 
-const WithSubs = withListSubscriptions(LandingCourseExplorerPage, [
-  Courses.getPublicationName(),
-  Slugs.getPublicationName(),
-  Interests.getPublicationName(),
-  HelpMessages.getPublicationName(),
-]);
-
 const LandingCourseExplorerContainer = withTracker(() => {
   const { course } = useParams();
   const id = Slugs.getEntityID(course, 'Course');
@@ -109,6 +102,11 @@ const LandingCourseExplorerContainer = withTracker(() => {
     course: Courses.findDoc(id),
     helpMessages,
   };
-})(WithSubs);
+})(LandingCourseExplorerPage);
 
-export default LandingCourseExplorerContainer;
+export default withListSubscriptions(LandingCourseExplorerContainer, [
+  Courses.getPublicationName(),
+  Slugs.getPublicationName(),
+  Interests.getPublicationName(),
+  HelpMessages.getPublicationName(),
+]);

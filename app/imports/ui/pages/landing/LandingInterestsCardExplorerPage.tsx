@@ -9,7 +9,7 @@ import LandingExplorerCardContainer from '../../components/landing/explorer/Land
 import LandingExplorerMenuContainer from '../../components/landing/explorer/LandingExplorerMenu';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
-import { withListSubscriptions } from '../../layouts/utilities/SubscriptionListHOC';
+import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
 
 interface InterestsCardExplorerProps {
   interests: Interest[];
@@ -59,15 +59,13 @@ const LandingInterestsCardExplorerPage: React.FC<InterestsCardExplorerProps> = (
   );
 };
 
-const WithSubs = withListSubscriptions(LandingInterestsCardExplorerPage, [
-  Interests.getPublicationName(),
-  HelpMessages.getPublicationName(),
-]);
-
 const LandingInterestsCardExplorerContainer = withTracker(() => ({
   interests: Interests.findNonRetired({}),
   count: Interests.countNonRetired(),
   helpMessages: HelpMessages.findNonRetired({}),
-}))(WithSubs);
+}))(LandingInterestsCardExplorerPage);
 
-export default LandingInterestsCardExplorerContainer;
+export default withListSubscriptions(LandingInterestsCardExplorerContainer, [
+  Interests.getPublicationName(),
+  HelpMessages.getPublicationName(),
+]);

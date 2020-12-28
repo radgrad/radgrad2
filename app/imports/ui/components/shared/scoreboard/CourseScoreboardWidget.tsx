@@ -3,18 +3,18 @@ import _ from 'lodash';
 import { ZipZap } from 'meteor/udondan:zipzap';
 import moment from 'moment';
 import { Button, Grid, Header, Icon, Label, Popup, Segment, Table } from 'semantic-ui-react';
-import { AcademicTerm, Course } from '../../../../typings/radgrad';
+import { AcademicTerm, Course, Scoreboard } from '../../../../typings/radgrad';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 
 interface CourseScoreboardWidgetProps {
   courses: Course[],
   terms: AcademicTerm[];
-  scores: any[];
+  scores: Scoreboard[];
 }
 
 const databaseFileDateFormat = 'YYYY-MM-DD-HH-mm-ss';
 
-const getCourseScore = (courseID, termID, scores) => {
+const getCourseScore = (courseID: string, termID: string, scores: Scoreboard[]): number => {
   const id = `${courseID} ${termID}`;
   const scoreItem = _.find(scores, (p) => p._id === id);
   // console.log(scoreItem, courseID, termID);
@@ -24,7 +24,7 @@ const getCourseScore = (courseID, termID, scores) => {
   return 0;
 };
 
-const handleSaveAsCSV = (terms: AcademicTerm[], courses: Course[], scores) => () => {
+const handleSaveAsCSV = (terms: AcademicTerm[], courses: Course[], scores: Scoreboard[]) => () => {
   let result = '';
   const headerArr = ['Course'];
   _.forEach(terms, (term) => headerArr.push(AcademicTerms.getShortName(term._id)));

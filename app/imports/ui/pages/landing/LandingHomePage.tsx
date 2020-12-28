@@ -10,7 +10,7 @@ import LandingSection2 from '../../components/landing/LandingSection2';
 import LandingSection3 from '../../components/landing/LandingSection3';
 import LandingSection9Container from '../../components/landing/LandingSection9';
 import LandingFooter from '../../components/landing/LandingFooter';
-import { withListSubscriptions } from '../../layouts/utilities/SubscriptionListHOC';
+import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 
 interface LandingHomeProps {
@@ -46,9 +46,7 @@ const LandingHomePage: React.FC<LandingHomeProps> = ({ currentUser, opportunitie
   </div>
 );
 
-const WithSubs = withListSubscriptions(LandingHomePage, [PublicStats.getPublicationName()]);
-
-/** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
+/* withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 const LandingHomeContainer =
   withTracker(() => {
     let role;
@@ -79,6 +77,6 @@ const LandingHomeContainer =
       opportunities: PublicStats.getPublicStat(PublicStats.opportunitiesTotalKey),
       users: PublicStats.getPublicStat(PublicStats.usersTotalKey),
     };
-  })(WithSubs);
+  })(LandingHomePage);
 
-export default LandingHomeContainer;
+export default withListSubscriptions(LandingHomeContainer, [PublicStats.getPublicationName()]);

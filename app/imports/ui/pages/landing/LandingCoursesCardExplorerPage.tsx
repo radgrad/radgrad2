@@ -9,7 +9,7 @@ import LandingExplorerCardContainer from '../../components/landing/explorer/Land
 import LandingExplorerMenuContainer from '../../components/landing/explorer/LandingExplorerMenu';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
-import { withListSubscriptions } from '../../layouts/utilities/SubscriptionListHOC';
+import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
 
 interface CoursesCardExplorerProps {
   courses: Course[];
@@ -59,15 +59,13 @@ const LandingCoursesCardExplorerPage: React.FC<CoursesCardExplorerProps> = ({ co
   );
 };
 
-const WithSubs = withListSubscriptions(LandingCoursesCardExplorerPage, [
-  Courses.getPublicationName(),
-  HelpMessages.getPublicationName(),
-]);
-
 const LandingCoursesCardExplorerContainer = withTracker(() => ({
   courses: Courses.findNonRetired({}, { sort: { shortName: 1 } }),
   count: Courses.countNonRetired(),
   helpMessages: HelpMessages.findNonRetired({}),
-}))(WithSubs);
+}))(LandingCoursesCardExplorerPage);
 
-export default LandingCoursesCardExplorerContainer;
+export default withListSubscriptions(LandingCoursesCardExplorerContainer, [
+  Courses.getPublicationName(),
+  HelpMessages.getPublicationName(),
+]);
