@@ -4,6 +4,11 @@ import { Ice, CourseInstance, FavoriteInterest, OpportunityInstance } from '../.
 import StudentIceColumn from './StudentIceColumn';
 import PageIceCircle from './PageIceCircle';
 
+/* Technical Debt:
+ *   * L33: Consolidate type so it is consistently referred to as "Innovation".
+ *   * L35: Pass in earnedICS and projectedICE to avoid redundant computation.
+ */
+
 export interface StudentIceWidgetProps {
   earnedICE: Ice;
   projectedICE: Ice;
@@ -25,10 +30,8 @@ const StudentIceWidget: React.FC<StudentIceWidgetProps> = ({ earnedICE, projecte
           <Grid.Row>
             <Grid.Column style={innovationColumnStyle}>
               <Segment basic>
-                {/* TODO Consolidate type so it is consistent to be 'innovation' */}
                 <PageIceCircle earned={earnedICE.i} planned={projectedICE.i} type="innov" />
                 <Header as="h3" textAlign="center" className="ice-innovation-color">INNOVATION</Header>
-                {/* TODO pass in earnedICE and projectedICE */}
                 <StudentIceColumn
                   type="Innovation"
                   favoriteInterests={favoriteInterests}

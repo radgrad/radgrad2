@@ -11,7 +11,7 @@ const FavoritesPane: React.FC = () => (
         </Grid.Column>
         <Grid.Column width={11}>
           <Header style={styles.h1}>Favorites & Details Pane</Header>
-          <p style={styles.p}>The Favorites/Details pane provides four tabs showing your favorite opportunities, favorite academic plan, favorite courses and the details about an opportunity or course in your plan.
+          <p style={styles.p}>The Favorites/Details pane provides four tabs showing your favorite opportunities, favorite courses and the details about an opportunity or course in your plan.
             <br />
             You can add a course or opportunity to your degree plan by &#34;dragging&#34; the associated button naming the course or opportunity to any current or future semester.
             <br />
