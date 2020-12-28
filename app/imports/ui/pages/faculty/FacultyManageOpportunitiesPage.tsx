@@ -4,6 +4,9 @@ import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import _ from 'lodash';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
+import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
+import { Slugs } from '../../../api/slug/SlugCollection';
+import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 import ListOpportunitiesWidget from '../../components/faculty/manage-opportunities/FacultyListOpportunitiesWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
@@ -33,6 +36,7 @@ import {
 import { interestSlugFromName } from '../../components/shared/utilities/form';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
+import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
 
 const collection = Opportunities; // the collection to use.
 
@@ -255,7 +259,7 @@ const FacultyManageOpportunitiesPage: React.FC<FacultyManageOpportunitiesPagePro
   );
 };
 
-export default withTracker(() => {
+const FacultyManageOpportunitiesPageContainer = withTracker(() => {
   const faculty = FacultyProfiles.find({}).fetch();
   const advisors = AdvisorProfiles.find({}).fetch();
   const sponsorDocs = _.union(faculty, advisors);
@@ -276,3 +280,16 @@ export default withTracker(() => {
     helpMessages,
   };
 })(FacultyManageOpportunitiesPage);
+
+export default withListSubscriptions(FacultyManageOpportunitiesPageContainer, [
+  AcademicTerms.getPublicationName(),
+  AdvisorProfiles.getPublicationName(),
+  FacultyProfiles.getPublicationName(),
+  Interests.getPublicationName(),
+  HelpMessages.getPublicationName(),
+  Opportunities.getPublicationName(), // for the menu
+  OpportunityInstances.getPublicationName(), // for the menu
+  OpportunityTypes.getPublicationName(),
+  Slugs.getPublicationName(), // for list opportunities
+  VerificationRequests.getPublicationName(), // for the menu
+]);

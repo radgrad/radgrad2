@@ -132,7 +132,6 @@ const FacultyProtectedRoute = ({ component: Component, ...rest }) => {
   if (_.isNil(Meteor.userId())) {
     return (<Redirect to={{ pathname: '/', state: { from: rest.location } }} />);
   }
-  const WrappedComponent = withGlobalSubscription(withInstanceSubscriptions(Component));
   return (
     <Route
       {...rest}
@@ -140,7 +139,7 @@ const FacultyProtectedRoute = ({ component: Component, ...rest }) => {
         const isLogged = Meteor.userId() !== null;
         const isAllowed = Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN, ROLE.FACULTY]);
         return (isLogged && isAllowed) ?
-          (<WrappedComponent {...props} />) :
+          (<Component {...props} />) :
           // eslint-disable-next-line react/prop-types
           (<Redirect to={{ pathname: '/', state: { from: props.location } }} />
           );

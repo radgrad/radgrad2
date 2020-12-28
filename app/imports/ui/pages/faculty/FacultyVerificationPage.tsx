@@ -98,9 +98,11 @@ const FacultyVerificationPageWithTracker = withTracker(() => {
   const linkedOppInstances = OpportunityInstances.findNonRetired({ sponsorID: userID });
   const isLinkedReq = (verReq: VerificationRequest) => !!linkedOppInstances.find(oppI => verReq.opportunityInstanceID === oppI._id);
   const helpMessages = HelpMessages.findNonRetired({});
+  const verificationRequests = VerificationRequests.findNonRetired().filter(ele => isLinkedReq(ele));
+  const eventOpportunities = Opportunities.findNonRetired({ eventDate: { $exists: true } });
   return {
-    verificationRequests: VerificationRequests.findNonRetired().filter(ele => isLinkedReq(ele)),
-    eventOpportunities: Opportunities.findNonRetired({ eventDate: { $exists: true } }),
+    verificationRequests,
+    eventOpportunities,
     helpMessages,
   };
 })(FacultyVerificationPage);
