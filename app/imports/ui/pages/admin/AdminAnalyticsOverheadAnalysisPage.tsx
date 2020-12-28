@@ -36,9 +36,11 @@ const AdminAnalyticsOverheadAnalysisPage: React.FC<HelpPanelWidgetProps> = ({ he
   </div>
 );
 
-export default withTracker(() => {
+const AdminAnalyticsOverheadAnalaysisPageContainer = withTracker(() => {
   const helpMessages = HelpMessages.findNonRetired({});
   return {
     helpMessages,
   };
 })(AdminAnalyticsOverheadAnalysisPage);
+
+export default AdminAnalyticsOverheadAnalaysisPageContainer;

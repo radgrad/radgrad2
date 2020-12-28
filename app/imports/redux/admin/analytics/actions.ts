@@ -33,7 +33,7 @@ interface SetUserInteractionsAction extends Action {
   payload: IAdminAnalyticsUserInteraction;
 }
 
-interface NewsletterAction extends Action {
+export interface NewsletterAction extends Action {
   payload: boolean;
 }
 

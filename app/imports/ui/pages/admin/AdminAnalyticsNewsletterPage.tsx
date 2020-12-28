@@ -30,4 +30,4 @@ const AdminAnalyticsNewsletterPage: React.FC = () => {
   );
 };
 
-export default withInstanceSubscriptions(AdminAnalyticsNewsletterPage);
+export default AdminAnalyticsNewsletterPage;

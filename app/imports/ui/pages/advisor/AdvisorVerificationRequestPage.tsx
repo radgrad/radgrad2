@@ -97,4 +97,5 @@ const AdvisorVerificationRequestPageContainerTracker = withTracker(() => ({
   }),
   helpMessages: HelpMessages.findNonRetired({}),
 }))(AdvisorVerificationRequestPage);
+
 export default withAdditionalSubscriptions(AdvisorVerificationRequestPageContainerTracker);

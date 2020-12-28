@@ -7,6 +7,7 @@ import HelpPanelWidget, { HelpPanelWidgetProps } from '../../components/shared/H
 import ModerationWidget, { ModerationWidgetProps } from '../../components/shared/moderation/ModerationWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { Reviews } from '../../../api/review/ReviewCollection';
+import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
 
 interface AdvisorModerationPageProps extends HelpPanelWidgetProps, ModerationWidgetProps {
 }
@@ -37,7 +38,7 @@ const AdvisorModerationPage: React.FC<AdvisorModerationPageProps> = ({ courseRev
   </div>
 );
 
-export default withTracker(() => {
+const AdvisorModerationPageContainer = withTracker(() => {
   const helpMessages = HelpMessages.findNonRetired({});
   const opportunityReviews = Reviews.findNonRetired({ moderated: false, reviewType: 'opportunity' });
   const courseReviews = Reviews.findNonRetired({ moderated: false, reviewType: 'course' });
@@ -47,3 +48,8 @@ export default withTracker(() => {
     opportunityReviews,
   };
 })(AdvisorModerationPage);
+
+export default withListSubscriptions(AdvisorModerationPageContainer, [
+  HelpMessages.getPublicationName(),
+  Reviews.getPublicationName(),
+]);

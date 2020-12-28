@@ -30,10 +30,11 @@ const AdminAnalyticsUserInteractionsPage: React.FC<AdminAnalyticsUserInteraction
   );
 };
 
-const con = withTracker(() => {
+const AdminAnalyticsUserInteractionsPageContainer = withTracker(() => {
   const students = StudentProfiles.find({ isAlumni: false }).fetch();
   return {
     students,
   };
 })(AdminAnalyticsUserInteractionsPage);
-export default con;
+
+export default AdminAnalyticsUserInteractionsPageContainer;

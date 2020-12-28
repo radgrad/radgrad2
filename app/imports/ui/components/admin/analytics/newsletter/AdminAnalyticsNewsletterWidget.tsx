@@ -18,6 +18,7 @@ import {
   getStudentEmailsByLevel,
   EmailData,
 } from './utilities/newsletter';
+import { NewsletterAction } from '../../../../../redux/admin/analytics/actions';
 
 /**
  * Schema for the form that controls sending email.
@@ -40,14 +41,14 @@ const schema = new SimpleSchema({
 const formSchema = new SimpleSchema2Bridge(schema);
 
 interface AdminAnalyticsNewsletterWidgetProps {
-  startTestNewsletter: () => any;
-  testNewsletterDone: () => any;
+  startTestNewsletter: () => NewsletterAction;
+  testNewsletterDone: () => NewsletterAction;
   testNewsletterWorking: boolean;
-  startLevelNewsletter: () => any;
-  levelNewsletterDone: () => any;
+  startLevelNewsletter: () => NewsletterAction;
+  levelNewsletterDone: () => NewsletterAction;
   levelNewsletterWorking: boolean;
-  startAllNewsletter: () => any;
-  allNewsletterDone: () => any;
+  startAllNewsletter: () => NewsletterAction;
+  allNewsletterDone: () => NewsletterAction;
   allNewsletterWorking: boolean;
 }
 

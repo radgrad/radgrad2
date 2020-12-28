@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Button, Form, Grid, Header, Message } from 'semantic-ui-react';
+import { DatabaseAction } from '../../../redux/admin/database/actions';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDatabaseMenuContainer from '../../components/admin/database/AdminDatabaseMenu';
 import { checkIntegrity } from '../../../api/integrity/IntegrityChecker';
 import { checkIntegrityMethod } from '../../../api/integrity/IntegrityChecker.methods';
 import { databaseActions } from '../../../redux/admin/database';
 import { RootState } from '../../../redux/types';
-import withInstanceSubscriptions from '../../layouts/utilities/InstanceSubscriptionsHOC';
 
 interface AdminCheckDatabaseIntegrityPageProps {
-  startCheckIntegrity: () => any;
-  checkIntegrityDone: () => any;
+  startCheckIntegrity: () => DatabaseAction;
+  checkIntegrityDone: () => DatabaseAction;
   checkIntegrityWorking?: boolean;
 }
 
@@ -92,4 +92,4 @@ const AdminCheckDatabaseIntegrityPage: React.FC<AdminCheckDatabaseIntegrityPageP
 };
 
 const AdminCheckDatabaseIntegrityPageContainer = connect(mapStateToProps, mapDispatchToProps)(AdminCheckDatabaseIntegrityPage);
-export default withInstanceSubscriptions(AdminCheckDatabaseIntegrityPageContainer);
+export default AdminCheckDatabaseIntegrityPageContainer;

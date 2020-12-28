@@ -3,6 +3,8 @@ import { Grid } from 'semantic-ui-react';
 import { useParams } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
+import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
+import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
 import {
@@ -16,6 +18,7 @@ import { Users } from '../../../api/user/UserCollection';
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
 import AdvisorAboutMeWidget from '../../components/advisor/home/AdvisorAboutMeWidget';
+import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
 
 interface AdvisorAboutMePageProps {
   profile: AdvisorOrFacultyProfile,
@@ -64,4 +67,11 @@ const AdvisorAboutMePageContainer = withTracker(() => {
   };
 })(AdvisorAboutMePage);
 
-export default AdvisorAboutMePageContainer;
+export default withListSubscriptions(AdvisorAboutMePageContainer, [
+  Users.getPublicationName(),
+  FacultyProfiles.getPublicationName(),
+  AdvisorProfiles.getPublicationName(),
+  FavoriteCareerGoals.getPublicationName(),
+  FavoriteInterests.getPublicationName(),
+  HelpMessages.getPublicationName(),
+]);

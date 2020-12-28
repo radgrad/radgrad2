@@ -4,6 +4,7 @@ import { Grid } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { useParams } from 'react-router-dom';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
+import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
 import AdvisorStudentSelectorWidget from '../../components/advisor/home/AdvisorStudentSelectorWidget';
 import AdvisorUpdateStudentWidget from '../../components/advisor/home/AdvisorUpdateStudentWidget';
@@ -17,6 +18,7 @@ import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';
 import { AdvisorLog, CareerGoal, HelpMessage, Interest, StudentProfile } from '../../../typings/radgrad';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { RootState } from '../../../redux/types';
+import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
 
 export interface FilterStudents {
   selectedUsername: string;
@@ -121,4 +123,13 @@ const AdvisorHomePageTracker = withTracker(({ selectedUsername }) => {
   };
 })(AdvisorHomePage);
 
-export default connect(mapStateToProps)(AdvisorHomePageTracker);
+const AdvisorHomePageContainer = connect(mapStateToProps)(AdvisorHomePageTracker);
+
+export default withListSubscriptions(AdvisorHomePageContainer, [
+  AdvisorProfiles.getPublicationName(),
+  StudentProfiles.getPublicationName(),
+  Interests.getPublicationName(),
+  CareerGoals.getPublicationName(),
+  AdvisorLogs.getPublicationName(),
+  HelpMessages.getPublicationName(),
+]);

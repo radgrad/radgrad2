@@ -4,6 +4,7 @@ import React from 'react';
 import _ from 'lodash';
 import { HashRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import '/public/semantic.min.css';
+import { StudentProfiles } from '../../api/user/StudentProfileCollection';
 import NotFoundPage from '../pages/NotFoundPage';
 import SigninPage from '../pages/SigninPage';
 import SignoutPage from '../pages/SignoutPage';
@@ -17,6 +18,7 @@ import {
 import { Users } from '../../api/user/UserCollection';
 import NotAuthorizedPage from '../pages/NotAuthorizedPage';
 import withPageTracker from './utilities/PageTrackerHOC';
+import withListSubscriptions from './utilities/SubscriptionListHOC';
 
 // Hack to refresh other RadGrad tabs when logged out on one tab
 window.addEventListener('storage', function (event) {
@@ -88,7 +90,7 @@ const AdminProtectedRoute = ({ component: Component, ...rest }) => {
   if (_.isNil(Meteor.userId())) {
     return (<Redirect to={{ pathname: '/', state: { from: rest.location } }} />);
   }
-  const WrappedComponent = withInstanceSubscriptions(Component);
+  const WrappedComponent = withGlobalSubscription(withInstanceSubscriptions(Component));
   return (
     <Route
       {...rest}
@@ -110,7 +112,6 @@ const AdvisorProtectedRoute = ({ component: Component, ...rest }) => {
   if (_.isNil(Meteor.userId())) {
     return (<Redirect to={{ pathname: '/', state: { from: rest.location } }} />);
   }
-  const WrappedComponent = withInstanceSubscriptions(Component);
   return (
     <Route
       {...rest}
@@ -118,7 +119,7 @@ const AdvisorProtectedRoute = ({ component: Component, ...rest }) => {
         const isLogged = Meteor.userId() !== null;
         const isAllowed = Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN, ROLE.ADVISOR]);
         return (isLogged && isAllowed) ?
-          (<WrappedComponent {...props} />) :
+          (<Component {...props} />) :
           // eslint-disable-next-line react/prop-types
           (<Redirect to={{ pathname: '/', state: { from: props.location } }} />
           );
@@ -131,7 +132,7 @@ const FacultyProtectedRoute = ({ component: Component, ...rest }) => {
   if (_.isNil(Meteor.userId())) {
     return (<Redirect to={{ pathname: '/', state: { from: rest.location } }} />);
   }
-  const WrappedComponent = withInstanceSubscriptions(Component);
+  const WrappedComponent = withGlobalSubscription(withInstanceSubscriptions(Component));
   return (
     <Route
       {...rest}
@@ -152,7 +153,7 @@ const StudentProtectedRoute = ({ component: Component, ...rest }) => {
   if (_.isNil(Meteor.userId())) {
     return (<Redirect to={{ pathname: '/', state: { from: rest.location } }} />);
   }
-  const ComponentWithSubscriptions = withInstanceSubscriptions(Component);
+  const ComponentWithSubscriptions = withGlobalSubscription(withInstanceSubscriptions(Component));
   const isStudent = Roles.userIsInRole(Meteor.userId(), ROLE.STUDENT);
   // Because ROLE.ADMIN and ROLE.ADVISOR are allowed to go to StudentProtectedRoutes, they can trigger the
   // userInteractionDefineMethod.call() inside of withHistoryListen. Since we only want to track the pageViews of
@@ -185,4 +186,5 @@ const StudentProtectedRoute = ({ component: Component, ...rest }) => {
   );
 };
 
-export default withGlobalSubscription(App);
+// export default withGlobalSubscription(App);
+export default withListSubscriptions(App, [StudentProfiles.getPublicationName(), Users.getPublicationName()]);
