@@ -11,6 +11,12 @@ import ExplorerSummerOpportunitiesWidget
 import ExplorerOpportunitiesHeaderWidget
   from '../../components/shared/explorer/opportunities/ExplorerOpportunitiesHeaderWidget';
 import { getMenuWidget } from './utilities/getMenuWidget';
+import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
+import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
+import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
+import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
+import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
+import { FavoriteOpportunities } from '../../../api/favorite/FavoriteOpportunityCollection';
 
 const ExplorerOpportunitiesPage: React.FC = () => {
   const opportunitiesVideoHeaderStyle: React.CSSProperties = {
@@ -53,4 +59,10 @@ const ExplorerOpportunitiesPage: React.FC = () => {
   );
 };
 
-export default ExplorerOpportunitiesPage;
+export default withListSubscriptions(ExplorerOpportunitiesPage, [
+  AcademicTerms.getPublicationName(), // for CardExplorerOpportunitiesWidget
+  FavoriteInterests.getPublicationName(), // for CardExplorerOpportunitiesWidget
+  FavoriteOpportunities.getPublicationName(),
+  Opportunities.getPublicationName(),
+  OpportunityInstances.getPublicationName(),
+]);

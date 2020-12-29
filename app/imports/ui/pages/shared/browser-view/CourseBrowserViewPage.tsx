@@ -15,6 +15,14 @@ import { FavoriteCourses } from '../../../../api/favorite/FavoriteCourseCollecti
 import { HelpMessages } from '../../../../api/help/HelpMessageCollection';
 import CourseBrowserViewContainer from '../../../components/shared/explorer/browser-view/CourseBrowserView';
 import { getMenuWidget } from '../utilities/getMenuWidget';
+import { AdvisorProfiles } from '../../../../api/user/AdvisorProfileCollection';
+import { FacultyProfiles } from '../../../../api/user/FacultyProfileCollection';
+import { StudentParticipations } from '../../../../api/public-stats/StudentParticipationCollection';
+import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
+import withListSubscriptions from '../../../layouts/utilities/SubscriptionListHOC';
+import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
+import { Slugs } from '../../../../api/slug/SlugCollection';
+import { Interests } from '../../../../api/interest/InterestCollection';
 
 interface CourseBrowserViewPageProps {
   favoriteCourses: FavoriteCourse[];
@@ -57,7 +65,7 @@ const CourseBrowserViewPage: React.FC<CourseBrowserViewPageProps> = ({ favoriteC
   );
 };
 
-export default withTracker(() => {
+const CourseBrowserViewPageContainer = withTracker(() => {
   const { username } = useParams();
   const profile = Users.getProfile(username);
   // console.log(profile);
@@ -71,3 +79,17 @@ export default withTracker(() => {
     helpMessages,
   };
 })(CourseBrowserViewPage);
+
+export default withListSubscriptions(CourseBrowserViewPageContainer, [
+  AcademicTerms.getPublicationName(),
+  AdvisorProfiles.getPublicationName(),
+  Courses.getPublicationName(),
+  FacultyProfiles.getPublicationName(),
+  FavoriteCourses.getPublicationName(),
+  HelpMessages.getPublicationName(),
+  Interests.getPublicationName(),
+  StudentParticipations.getPublicationName(),
+  Slugs.getPublicationName(),
+  StudentProfiles.getPublicationName(),
+  Users.getPublicationName(),
+]);

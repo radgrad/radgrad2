@@ -14,6 +14,13 @@ import { IExplorerTypes } from '../../../components/shared/explorer/utilities/ex
 import HelpPanelWidget from '../../../components/shared/HelpPanelWidget';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import { getMenuWidget } from '../utilities/getMenuWidget';
+import withListSubscriptions from '../../../layouts/utilities/SubscriptionListHOC';
+import { AdvisorProfiles } from '../../../../api/user/AdvisorProfileCollection';
+import { FacultyProfiles } from '../../../../api/user/FacultyProfileCollection';
+import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
+import { Slugs } from '../../../../api/slug/SlugCollection';
+import { Interests } from '../../../../api/interest/InterestCollection';
+import { StudentParticipations } from '../../../../api/public-stats/StudentParticipationCollection';
 
 interface CareerGoalBrowserViewPageProps {
   favoriteCareerGoals: CareerGoal[];
@@ -55,7 +62,7 @@ const CareerGoalBrowserViewPage: React.FC<CareerGoalBrowserViewPageProps> = ({ f
   );
 };
 
-export default withTracker(() => {
+const CareerGoalBrowserViewPageContainer = withTracker(() => {
   const { username } = useParams();
   const profile = Users.getProfile(username);
   const favCar = FavoriteCareerGoals.findNonRetired({ userID: profile.userID });
@@ -70,3 +77,16 @@ export default withTracker(() => {
     helpMessages,
   };
 })(CareerGoalBrowserViewPage);
+
+export default withListSubscriptions(CareerGoalBrowserViewPageContainer, [
+  AdvisorProfiles.getPublicationName(),
+  CareerGoals.getPublicationName(),
+  FacultyProfiles.getPublicationName(),
+  FavoriteCareerGoals.getPublicationName(),
+  HelpMessages.getPublicationName(),
+  Interests.getPublicationName(),
+  Slugs.getPublicationName(),
+  StudentParticipations.getPublicationName(),
+  StudentProfiles.getPublicationName(),
+  Users.getPublicationName(),
+]);

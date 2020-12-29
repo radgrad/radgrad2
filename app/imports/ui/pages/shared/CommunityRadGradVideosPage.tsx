@@ -8,6 +8,14 @@ import * as Router from '../../components/shared/utilities/router';
 import { URL_ROLES } from '../../layouts/utilities/route-constants';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
+import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
+import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
+import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
+import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
+import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
+import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
+import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
+import { Reviews } from '../../../api/review/ReviewCollection';
 
 const CommunityRadGradVideosPage: React.FC = () => {
   const match = useRouteMatch();
@@ -39,4 +47,12 @@ const CommunityRadGradVideosPage: React.FC = () => {
   );
 };
 
-export default CommunityRadGradVideosPage;
+export default withListSubscriptions(CommunityRadGradVideosPage, [
+  AdvisorProfiles.getPublicationName(), // for Advisor Menu
+  FacultyProfiles.getPublicationName(), // for Faculty Menu
+  Opportunities.getPublicationName(), // for Faculty Menu
+  OpportunityInstances.getPublicationName(), // for Faculty Menu
+  Reviews.getPublicationName(), // for Advisor Menu
+  StudentProfiles.getPublicationName(), // for Student Menu
+  VerificationRequests.getPublicationName(), // for Advisor, Faculty Menus
+]);

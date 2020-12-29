@@ -18,6 +18,10 @@ import CommunityUsersWidget from '../../components/shared/community-users/Commun
 import CommunityFeedWidget from '../../components/shared/community-users/CommunityFeedWidget';
 import { isUrlRoleStudent } from '../../components/shared/utilities/router';
 import BackToTopButton from '../../components/shared/BackToTopButton';
+import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
+import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
+import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
+import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 
 interface CommunityUsersPageProps {
   feeds: IFeed[];
@@ -84,13 +88,20 @@ const CommunityUsersPageContainer = withTracker(() => {
   if (isUrlRoleStudent(match)) {
     students = _.filter(students, (s) => s.optedIn);
   }
+  const feeds = Feeds.findNonRetired({}, { sort: { timestamp: -1 } });
   return {
     advisors,
     faculty,
-    feeds: Feeds.findNonRetired({}, { sort: { timestamp: -1 } }),
+    feeds,
     students,
     helpMessages,
   };
 })(CommunityUsersPage);
 
-export default CommunityUsersPageContainer;
+export default withListSubscriptions(CommunityUsersPageContainer, [
+  AdvisorProfiles.getPublicationName(),
+  FacultyProfiles.getPublicationName(),
+  Feeds.getPublicationName(),
+  HelpMessages.getPublicationName(),
+  StudentProfiles.getPublicationName(),
+]);

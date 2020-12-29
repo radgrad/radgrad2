@@ -1,3 +1,4 @@
+// TODO QA naming convention.
 const why_radgrad = 'uGxwFldWtfs';
 const interests_in_radgrad = 'X4xbvrO7n9g';
 const career_goals_in_radgrad = 'ANVIqkkSVPY';

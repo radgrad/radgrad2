@@ -14,6 +14,18 @@ import {
   PAGE_TRACKING_SCOREBOARD,
 } from '../../layouts/utilities/route-constants';
 import { PageInterestsCategoryTypes } from '../../../api/page-tracking/PageInterestsCategoryTypes';
+import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
+import { CareerGoals } from '../../../api/career/CareerGoalCollection';
+import { Courses } from '../../../api/course/CourseCollection';
+import { Interests } from '../../../api/interest/InterestCollection';
+import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
+import { StudentParticipations } from '../../../api/public-stats/StudentParticipationCollection';
+import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
+import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
+import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
+import { Users } from '../../../api/user/UserCollection';
+import { Slugs } from '../../../api/slug/SlugCollection';
+import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 
 interface ExplorerHomePageProps {
   helpMessages: HelpMessage[];
@@ -89,4 +101,17 @@ const ExplorerHomePageContainer = withTracker(() => {
   };
 })(ExplorerHomePage);
 
-export default ExplorerHomePageContainer;
+export default withListSubscriptions(ExplorerHomePageContainer, [
+  AcademicTerms.getPublicationName(),
+  AdvisorProfiles.getPublicationName(),
+  CareerGoals.getPublicationName(),
+  Courses.getPublicationName(),
+  FacultyProfiles.getPublicationName(), // for explorers
+  HelpMessages.getPublicationName(),
+  Interests.getPublicationName(),
+  Opportunities.getPublicationName(),
+  Slugs.getPublicationName(),
+  StudentParticipations.getPublicationName(), // for explorers
+  StudentProfiles.getPublicationName(),
+  Users.getPublicationName(),
+]);
