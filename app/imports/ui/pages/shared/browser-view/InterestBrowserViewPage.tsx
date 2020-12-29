@@ -70,12 +70,10 @@ const InterestBrowserViewPageContainer = withTracker(() => {
   const { username } = useParams();
   const profile = Users.getProfile(username);
   const allInterests = Users.getInterestIDsByType(profile.userID);
-  console.log(FavoriteInterests.findNonRetired({ userID: profile.userID }));
   const favoriteInterests = _.map(allInterests[0], (id) => Interests.findDoc(id));
   const favoriteCareerGoalInterests = _.map(allInterests[1], (id) => Interests.findDoc(id));
   const interests = Interests.findNonRetired({}); // TODO should we filter out the favorited ones?
   const helpMessages = HelpMessages.findNonRetired({});
-  console.log(allInterests);
   return {
     favoriteCareerGoalInterests,
     favoriteInterests,
