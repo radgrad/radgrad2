@@ -8,7 +8,7 @@ import { HelpMessage, Opportunity } from '../../../typings/radgrad';
 import LandingExplorerCardContainer from '../../components/landing/explorer/LandingExplorerCard';
 import LandingExplorerMenuContainer from '../../components/landing/explorer/LandingExplorerMenu';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
-import { withListSubscriptions } from '../../layouts/utilities/SubscriptionListHOC';
+import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
 
 interface OpportunitiesCardExplorerProps {
   opportunities: Opportunity[];
@@ -56,15 +56,13 @@ const LandingOpportunitiesCardExplorerPage: React.FC<OpportunitiesCardExplorerPr
   );
 };
 
-const WithSubs = withListSubscriptions(LandingOpportunitiesCardExplorerPage, [
-  Opportunities.getPublicationName(),
-  HelpMessages.getPublicationName(),
-]);
-
 const LandingOpportunitiesCardExplorerContainer = withTracker(() => ({
   opportunities: Opportunities.findNonRetired({}, { sort: { name: 1 } }),
   count: Opportunities.countNonRetired(),
   helpMessages: HelpMessages.findNonRetired({}),
-}))(WithSubs);
+}))(LandingOpportunitiesCardExplorerPage);
 
-export default LandingOpportunitiesCardExplorerContainer;
+export default withListSubscriptions(LandingOpportunitiesCardExplorerContainer, [
+  Opportunities.getPublicationName(),
+  HelpMessages.getPublicationName(),
+]);

@@ -20,9 +20,9 @@ import { Interests } from '../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';
 import { StudentParticipations } from '../../../api/public-stats/StudentParticipationCollection';
-import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
+// import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { Feeds } from '../../../api/feed/FeedCollection';
-import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
+// import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { PageInterestsDailySnapshots } from '../../../api/page-tracking/PageInterestsDailySnapshotCollection';
 
 interface Loading {
@@ -33,7 +33,7 @@ interface Loading {
 // expireLimit set to 30 minutes because: why not.
 const globalSubs = new SubsManager({ cacheLimit: 30, expireIn: 30 });
 
-function withGlobalSubscription(WrappedComponent) {
+const withGlobalSubscription = (WrappedComponent) => {
   const GlobalSubscription: React.FC<Loading> = (props) => ((props.loading) ? (
     <React.Fragment>
       <Dimmer active inverted>
@@ -51,7 +51,6 @@ function withGlobalSubscription(WrappedComponent) {
       globalSubs.subscribe(AdminProfiles.getPublicationName()),
       globalSubs.subscribe(AdvisorProfiles.getPublicationName()),
       globalSubs.subscribe(CareerGoals.getPublicationName()),
-      globalSubs.subscribe(CourseInstances.publicationNames.scoreboard),
       globalSubs.subscribe(Courses.getPublicationName()),
       globalSubs.subscribe(FacultyProfiles.getPublicationName()),
       globalSubs.subscribe(Feeds.getPublicationName()),
@@ -59,7 +58,6 @@ function withGlobalSubscription(WrappedComponent) {
       globalSubs.subscribe(Interests.getPublicationName()),
       globalSubs.subscribe(InterestTypes.getPublicationName()),
       globalSubs.subscribe(Opportunities.getPublicationName()),
-      globalSubs.subscribe(OpportunityInstances.publicationNames.scoreboard),
       globalSubs.subscribe(OpportunityTypes.getPublicationName()),
       globalSubs.subscribe(PageInterestsDailySnapshots.getPublicationName()),
       globalSubs.subscribe(PublicStats.getPublicationName()),
@@ -75,6 +73,6 @@ function withGlobalSubscription(WrappedComponent) {
       loading,
     };
   })(GlobalSubscription);
-}
+};
 
 export default withGlobalSubscription;

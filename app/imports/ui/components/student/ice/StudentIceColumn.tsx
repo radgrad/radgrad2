@@ -6,8 +6,13 @@ import StudentIceColumnRecommended from './StudentIceColumnRecommended';
 import { Slugs } from '../../../../api/slug/SlugCollection';
 import { Courses } from '../../../../api/course/CourseCollection';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
-
 import { Ice, CourseInstance, FavoriteInterest, OpportunityInstance } from '../../../../typings/radgrad';
+
+/* Technical Debt
+ *   * Improve typing of getCourseSlug:  if typeof course is ICourse else if ... else
+ *     type course as ICourse | ICourseInstance
+ *
+ */
 
 export interface StudentIceColumnProps {
   type: 'Innovation' | 'Competency' | 'Experience';
@@ -97,8 +102,6 @@ const StudentIceColumn: React.FC<StudentIceColumnProps> = ({ type, favoriteInter
   };
 
   const getCourseSlug = (course) => {
-    // TODO if typeof course is ICourse else if ... else.
-    //  type course as ICourse | ICourseInstance
     if (course.courseID) {
       return Slugs.findDoc(Courses.findDoc(course.courseID).slugID).name;
     }
