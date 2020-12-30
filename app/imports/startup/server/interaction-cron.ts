@@ -24,7 +24,7 @@ function createIceSnapshot(doc) {
     e: ice.e,
     updated: moment().toDate(),
   };
-  console.log('Creating snapshot for: ', doc.username);
+  // console.log('Creating snapshot for: ', doc.username);
   IceSnapshots.define(snapshotData);
 }
 
@@ -48,7 +48,7 @@ SyncedCron.add({
         createIceSnapshot(doc);
       } else {
         if (level !== iceSnap.level) {
-          console.log('Updating snapshot for user: ', username);
+          // console.log('Updating snapshot for user: ', username);
           IceSnapshots.getCollection().update({ username }, { $set: { level, updated: moment().toDate() } });
           if (level > iceSnap.level) {
             UserInteractions.define({ username, type: UserInteractionsTypes.LEVEL, typeData: [level] });
@@ -56,7 +56,7 @@ SyncedCron.add({
         }
         const ice: { i: number, c: number, e: number } = StudentProfiles.getProjectedICE(doc.username);
         if ((iceSnap.i !== ice.i) || (iceSnap.c !== ice.c) || (iceSnap.e !== ice.e)) {
-          console.log('Updating snapshot for user: ', username);
+          // console.log('Updating snapshot for user: ', username);
           IceSnapshots.getCollection().update({ username }, {
             $set: {
               i: ice.i,

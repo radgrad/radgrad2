@@ -152,7 +152,7 @@ const AdminAnalyticsNewsletterWidget: React.FC<AdminAnalyticsNewsletterWidgetPro
               bcc: bccListArray,
               from: from,
               replyTo: RadGradProperties.getAdminEmail(),
-              subject: `Newsletter View For ${student.firstName} ${student.lastName}`,
+              subject: subjectLine,
               templateData: {
                 adminMessage,
                 firstName: student.firstName,

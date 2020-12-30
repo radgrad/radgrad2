@@ -20,13 +20,11 @@ export function sendEmail({ to, bcc, from, replyTo, subject, templateData, filen
   if (Meteor.isServer) {
     SSR.compileTemplate('htmlEmail', Assets.getText(`email/${filename}`));
     const html = SSR.render('htmlEmail', templateData);
-    Email.send({
-      to,
-      bcc,
-      replyTo,
-      from,
-      subject,
-      html,
-    });
+    // console.log('About to send email to; ', to);
+    try {
+      Email.send({ to, bcc, replyTo, from, subject, html });
+    } catch (e) {
+      console.log('Error sending email', e);
+    }
   }
 }
