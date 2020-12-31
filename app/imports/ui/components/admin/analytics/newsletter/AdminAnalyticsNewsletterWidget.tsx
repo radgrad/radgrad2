@@ -128,6 +128,7 @@ const AdminAnalyticsNewsletterWidget: React.FC<AdminAnalyticsNewsletterWidgetPro
 
   /**
    * Sends test emails to the admin and optionally the student(s).
+   * NOTE: At least one student must be specified in students field.
    */
   const onClickSendStudentsToo = () => {
     if (onSubmitInputMessage.length !== 0 && subjectLine.length !== 0) {
