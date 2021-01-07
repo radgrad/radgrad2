@@ -4,7 +4,6 @@ import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminAnalyticsMenuWidget from '../../components/admin/analytics/AdminAnalyticsMenuWidget';
 import AdminAnalyticsNewsletterWidget
   from '../../components/admin/analytics/newsletter/AdminAnalyticsNewsletterWidget';
-import withInstanceSubscriptions from '../../layouts/utilities/InstanceSubscriptionsHOC';
 
 const AdminAnalyticsNewsletterPage: React.FC = () => {
   // console.log(currentUser, iconName);
@@ -30,4 +29,4 @@ const AdminAnalyticsNewsletterPage: React.FC = () => {
   );
 };
 
-export default withInstanceSubscriptions(AdminAnalyticsNewsletterPage);
+export default AdminAnalyticsNewsletterPage;
