@@ -88,7 +88,7 @@ const AdminProtectedRoute = ({ component: Component, ...rest }) => {
   if (_.isNil(Meteor.userId())) {
     return (<Redirect to={{ pathname: '/', state: { from: rest.location } }} />);
   }
-  const WrappedComponent = withInstanceSubscriptions(Component);
+  const WrappedComponent = withGlobalSubscription(withInstanceSubscriptions(Component));
   return (
     <Route
       {...rest}
@@ -110,7 +110,7 @@ const AdvisorProtectedRoute = ({ component: Component, ...rest }) => {
   if (_.isNil(Meteor.userId())) {
     return (<Redirect to={{ pathname: '/', state: { from: rest.location } }} />);
   }
-  const WrappedComponent = withInstanceSubscriptions(Component);
+  const WrappedComponent = withGlobalSubscription(withInstanceSubscriptions(Component));
   return (
     <Route
       {...rest}
@@ -131,7 +131,7 @@ const FacultyProtectedRoute = ({ component: Component, ...rest }) => {
   if (_.isNil(Meteor.userId())) {
     return (<Redirect to={{ pathname: '/', state: { from: rest.location } }} />);
   }
-  const WrappedComponent = withInstanceSubscriptions(Component);
+  const WrappedComponent = withGlobalSubscription(withInstanceSubscriptions(Component));
   return (
     <Route
       {...rest}
@@ -152,7 +152,7 @@ const StudentProtectedRoute = ({ component: Component, ...rest }) => {
   if (_.isNil(Meteor.userId())) {
     return (<Redirect to={{ pathname: '/', state: { from: rest.location } }} />);
   }
-  const ComponentWithSubscriptions = withInstanceSubscriptions(Component);
+  const ComponentWithSubscriptions = withGlobalSubscription(withInstanceSubscriptions(Component));
   const isStudent = Roles.userIsInRole(Meteor.userId(), ROLE.STUDENT);
   // Because ROLE.ADMIN and ROLE.ADVISOR are allowed to go to StudentProtectedRoutes, they can trigger the
   // userInteractionDefineMethod.call() inside of withHistoryListen. Since we only want to track the pageViews of
@@ -185,4 +185,4 @@ const StudentProtectedRoute = ({ component: Component, ...rest }) => {
   );
 };
 
-export default withGlobalSubscription(App);
+export default App;

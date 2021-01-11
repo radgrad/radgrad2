@@ -4839,37 +4839,31 @@
         {
           "routeName": "/explorer/career-goals",
           "title": "So. You want to explore?",
-          "text": "The Explorer provides detailed information about Career Goals, Courses, Degrees, Interests, and Opportunities.\n\nJust click the dropdown menu to the left of the page to select the type of information you wish to explore.",
+          "text": "The Explorer provides detailed information about Career Goals, Courses, Interests, and Opportunities.\n\nJust click the dropdown menu to the left of the page to select the type of information you wish to explore.",
           "retired": false
         },
         {
           "routeName": "/explorer/courses",
           "title": "So. You want to explore?",
-          "text": "The Explorer provides detailed information about Career Goals, Courses, Degrees, Interests, and Opportunities.\n\nJust click the dropdown menu to the left of the page to select the type of information you wish to explore.",
-          "retired": false
-        },
-        {
-          "routeName": "/explorer/degrees",
-          "title": "So. You want to explore?",
-          "text": "The Explorer provides detailed information about Career Goals, Courses, Degrees, Interests, and Opportunities.\n\nJust click the dropdown menu to the left of the page to select the type of information you wish to explore.",
+          "text": "The Explorer provides detailed information about Career Goals, Courses, Interests, and Opportunities.\n\nJust click the dropdown menu to the left of the page to select the type of information you wish to explore.",
           "retired": false
         },
         {
           "routeName": "/explorer/interests",
           "title": "So. You want to explore?",
-          "text": "The Explorer provides detailed information about Career Goals, Courses, Degrees, Interests, and Opportunities.\n\nJust click the dropdown menu to the left of the page to select the type of information you wish to explore.",
+          "text": "The Explorer provides detailed information about Career Goals, Courses, Interests, and Opportunities.\n\nJust click the dropdown menu to the left of the page to select the type of information you wish to explore.",
           "retired": false
         },
         {
           "routeName": "/explorer/opportunities",
           "title": "So. You want to explore?",
-          "text": "The Explorer provides detailed information about Career Goals, Courses, Degrees, Interests, and Opportunities.\n\nJust click the dropdown menu to the left of the page to select the type of information you wish to explore.",
+          "text": "The Explorer provides detailed information about Career Goals, Courses, Interests, and Opportunities.\n\nJust click the dropdown menu to the left of the page to select the type of information you wish to explore.",
           "retired": false
         },
         {
           "routeName": "/faculty/:username/explorer",
           "title": "Learn about the Explorer",
-          "text": "The Explorer provides detailed information about Career Goals, Courses, Degrees, Interests, and Opportunities.\n\nJust click the dropdown menu to the left of the page to select the type of information you wish to explore.",
+          "text": "The Explorer provides detailed information about Career Goals, Courses, Interests, and Opportunities.\n\nJust click the dropdown menu to the left of the page to select the type of information you wish to explore.",
           "retired": false
         },
         {
