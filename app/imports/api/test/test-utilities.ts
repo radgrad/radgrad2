@@ -7,6 +7,13 @@ import { Users } from '../user/UserCollection';
 import { removeAllEntities } from '../base/BaseUtilities';
 
 /**
+ * Sleeps for ms milliseconds.
+ *
+ * @param ms {number} the number of milliseconds to sleep.
+ */
+export const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
+/**
  * Returns the definition array associated with collectionName in the loadJSON structure,
  * or an empty array if none was found.
  * @param loadJSON The load file contents.
