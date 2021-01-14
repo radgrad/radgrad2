@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import { DDP } from 'meteor/ddp-client';
+// import { DDP } from 'meteor/ddp-client';
 import _ from 'lodash';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { RadGrad } from '../radgrad/RadGrad';
@@ -99,10 +99,13 @@ export const defineTestFixturesMethod = new ValidatedMethod({
  */
 export function withRadGradSubscriptions(userID?: string) {
   return new Promise((resolve) => {
-    _.each(RadGrad.collections, (collection) => collection.subscribe(userID));
+    const handles = [];
+    _.each(RadGrad.collections, (collection) => handles.push(collection.subscribe(userID)));
     Users.subscribe();
     const poll = Meteor.setInterval(() => {
-      if (DDP._allSubscriptionsReady()) {
+      // if (DDP._allSubscriptionsReady()) {
+      if (_.reduce(handles, (ready, h) => ready && h.ready(), true)) {
+        console.log('done');
         Meteor.clearInterval(poll);
         resolve();
       }
