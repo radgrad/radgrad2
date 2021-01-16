@@ -46,6 +46,7 @@ const withGlobalSubscription = (WrappedComponent) => {
   );
 
   return withTracker(() => {
+    // console.log('withGlobalSubscription');
     const handles = [
       globalSubs.subscribe(AcademicTerms.getPublicationName()),
       globalSubs.subscribe(AdminProfiles.getPublicationName()),
