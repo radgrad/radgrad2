@@ -101,11 +101,9 @@ export function withRadGradSubscriptions(userID?: string) {
   return new Promise((resolve) => {
     const handles = [];
     _.each(RadGrad.collections, (collection) => handles.push(collection.subscribe(userID)));
-    Users.subscribe();
+    handles.push(Users.subscribe());
     const poll = Meteor.setInterval(() => {
-      // if (DDP._allSubscriptionsReady()) {
-      if (_.reduce(handles, (ready, h) => ready && h.ready(), true)) {
-        console.log('done');
+      if (DDP._allSubscriptionsReady()) {
         Meteor.clearInterval(poll);
         resolve();
       }

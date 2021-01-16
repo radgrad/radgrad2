@@ -49,33 +49,43 @@ const LandingHomePage: React.FC<LandingHomeProps> = ({ currentUser, opportunitie
 /* withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 const LandingHomeContainer =
   withTracker(() => {
-    let role;
+    let role = 'student';
     if (Meteor.userId()) {
-      const profile = Users.getProfile(Meteor.userId());
-      if (profile.role === ROLE.ADMIN) {
-        role = 'admin';
-      }
-      if (profile.role === ROLE.ADVISOR) {
-        role = 'advisor';
-      }
-      if (profile.role === ROLE.ALUMNI) {
-        role = 'alumni';
-      }
-      if (profile.role === ROLE.FACULTY) {
-        role = 'faculty';
-      }
-      if (profile.role === ROLE.STUDENT) {
-        role = 'student';
+      try {
+        const profile = Users.getProfile(Meteor.userId());
+        if (profile.role === ROLE.ADMIN) {
+          role = 'admin';
+        }
+        if (profile.role === ROLE.ADVISOR) {
+          role = 'advisor';
+        }
+        if (profile.role === ROLE.ALUMNI) {
+          role = 'alumni';
+        }
+        if (profile.role === ROLE.FACULTY) {
+          role = 'faculty';
+        }
+        if (profile.role === ROLE.STUDENT) {
+          role = 'student';
+        }
+      } catch (err) {
+        // Not sure what to do here.
       }
     }
+    const currentUser = Meteor.user() ? Meteor.user().username : '';
+    const iconName = (role === 'admin') ? 'user plus' : 'user';
+    const careerGoals = PublicStats.getPublicStat(PublicStats.careerGoalsTotalKey);
+    const interests = PublicStats.getPublicStat(PublicStats.interestsTotalKey);
+    const opportunities = PublicStats.getPublicStat(PublicStats.opportunitiesTotalKey);
+    const users = PublicStats.getPublicStat(PublicStats.usersTotalKey);
     return {
-      currentUser: Meteor.user() ? Meteor.user().username : '',
-      iconName: (role === 'admin') ? 'user plus' : 'user',
+      currentUser,
+      iconName,
       role,
-      careerGoals: PublicStats.getPublicStat(PublicStats.careerGoalsTotalKey),
-      interests: PublicStats.getPublicStat(PublicStats.interestsTotalKey),
-      opportunities: PublicStats.getPublicStat(PublicStats.opportunitiesTotalKey),
-      users: PublicStats.getPublicStat(PublicStats.usersTotalKey),
+      careerGoals,
+      interests,
+      opportunities,
+      users,
     };
   })(LandingHomePage);
 

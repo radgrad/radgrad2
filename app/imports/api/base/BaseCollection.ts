@@ -82,8 +82,9 @@ class BaseCollection {
   public subscribe(userID = undefined) {
     if (Meteor.isClient) {
       // console.log(`${this.collectionName}.subscribe`, userID);
-      Meteor.subscribe(this.collectionName, userID);
+      return Meteor.subscribe(this.collectionName, userID);
     }
+    return null;
   }
 
   /**
