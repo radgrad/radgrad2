@@ -28,12 +28,12 @@ assignees: ''
 
 (Please edit the following list if necessary to indicate the actual checklists to be used.)
 
-* [Architecture](https://www.radgrad.org/docs/developers/reviews/reference/architecture-checklist)
-* [Design](https://www.radgrad.org/docs/developers/reviews/reference/design-checklist)
-* [User Interface](https://www.radgrad.org/docs/developers/reviews/reference/ui-checklist)
-* [JS and TS](https://www.radgrad.org/docs/developers/reviews/reference/js-ts-checklist)
-* [React](https://www.radgrad.org/docs/developers/reviews/reference/react-checklist)
-* [Testing](https://www.radgrad.org/docs/developers/reviews/reference/testing-checklist)
+* [Architecture](https://www.radgrad.org/docs/developers/checklists/architecture-checklist)
+* [Design](https://www.radgrad.org/docs/developers/checklists/design-checklist)
+* [User Interface](https://www.radgrad.org/docs/developers/checklists/ui-checklist)
+* [JS and TS](https://www.radgrad.org/docs/developers/checklists/js-ts-checklist)
+* [React](https://www.radgrad.org/docs/developers/checklists/react-checklist)
+* [Testing](https://www.radgrad.org/docs/developers/checklists/testing-checklist)
 
 ## Due date
 
