@@ -9,13 +9,20 @@ assignees: ''
 
 (Delete all text in parentheses when filling out this template, including this text.)
 
+## Overview
+
+(Provide an introduction to this review. What are the goals? What should reviewers keep in mind as they do it?)
+
 ## Review Branch
 
 (Please indicate the review branch here. It should be named review-xxx, where xxx is this issue number.)
 
-## Files to be reviewed
+## Files to review
 
 (Please list the files to be reviewed here. It would be great to provide the URL to each file in the review branch.)
+
+* file1
+* file2
 
 ## Checklists
 
@@ -23,17 +30,15 @@ assignees: ''
 
 * [Architecture](https://www.radgrad.org/docs/developers/reviews/reference/architecture-checklist)
 * [Design](https://www.radgrad.org/docs/developers/reviews/reference/design-checklist)
+* [User Interface](https://www.radgrad.org/docs/developers/reviews/reference/ui-checklist)
 * [JS and TS](https://www.radgrad.org/docs/developers/reviews/reference/js-ts-checklist)
 * [React](https://www.radgrad.org/docs/developers/reviews/reference/react-checklist)
-
-## Specific requests for this review
-
-(If there are particular issues you would like the reviewers to focus on, provide them here).
+* [Testing](https://www.radgrad.org/docs/developers/reviews/reference/testing-checklist)
 
 ## Due date
 
 (Indicate when the review meeting is scheduled to occur.)
 
-## Documentation
+## For more information
 
 The review process is documented at: https://www.radgrad.org/docs/developers/reviews/overview
