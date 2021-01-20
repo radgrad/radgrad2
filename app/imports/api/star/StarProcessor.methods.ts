@@ -7,7 +7,6 @@ import { Feeds } from '../feed/FeedCollection';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { StudentProfiles } from '../user/StudentProfileCollection';
 import { Users } from '../user/UserCollection';
-import { advisorLogsDefineMethod } from '../log/AdvisorLogCollection.methods';
 import { defineMethod } from '../base/BaseCollection.methods';
 import { getDepartment } from '../course/CourseUtilities';
 import {
@@ -78,11 +77,6 @@ function processStudentStarDefinitions(advisor, student, definitions) {
     text = `${text} course from STAR.`;
   }
   // console.log(`${student} had ${numInterstingCourses} course(s)`);
-  advisorLogsDefineMethod.call({ advisor, student, text }, (error) => {
-    if (error) {
-      console.log('Error creating AdvisorLog', error);
-    }
-  });
   // update the student's lastRegistrarLoad
   const lastRegistrarLoad = new Date();
   const docID = studentID;

@@ -196,29 +196,6 @@ export interface AcademicYearInstanceDefine extends DumpOne {
   retired?: boolean;
 }
 
-// AdvisorLogs
-export interface AdvisorLog {
-  _id?: string;
-  advisorID: string;
-  studentID: string;
-  text: string;
-  createdOn: Date;
-  retired?: boolean;
-}
-
-export interface AdvisorLogDefine extends DumpOne {
-  advisor: string;
-  student: string;
-  text: string;
-  createdOn?: any;
-  retired?: boolean;
-}
-
-export interface AdvisorLogUpdate extends Update {
-  text?: string;
-  retired?: boolean;
-}
-
 // CareerGoals
 export interface CareerGoal {
   _id: string;

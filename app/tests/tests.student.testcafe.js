@@ -5,7 +5,7 @@ import { studentNavBar } from './navbar.student.component';
 import { studentCareerGoalsExplorerPage, studentInterestsExplorerPage,
   studentOpportunitiesPage, studentDegreePlannerPage,
   studentCoursesExplorerPage, studentCommunityRadGradVideosPage, studentCommunityUsersPage,
-  studentAboutMePage, studentAdvisorLogPage, studentICEPointsPage, studentLevelsPage } from './simple.page';
+  studentAboutMePage, studentICEPointsPage, studentLevelsPage } from './simple.page';
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 /* global fixture:false, test:false */
@@ -58,8 +58,5 @@ test('Test all student top-level pages', async (testController) => {
 
   await studentNavBar.gotoLevelsPage(testController);
   await studentLevelsPage.isDisplayed(testController);
-
-  await studentNavBar.gotoAdvisorLogPage(testController);
-  await studentAdvisorLogPage.isDisplayed(testController);
 
 });

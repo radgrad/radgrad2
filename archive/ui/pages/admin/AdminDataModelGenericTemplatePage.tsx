@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
-import AdminPageMenuWidget from '../../../app/imports/ui/components/admin/AdminPageMenuWidget';
-import AdminDataModelMenu from '../../../app/imports/ui/components/admin/datamodel/AdminDataModelMenu';
-import ListCollectionWidget from '../../../app/imports/ui/components/admin/datamodel/ListCollectionWidget';
-import AdminDataModelUpdateForm from '../../../app/imports/ui/components/admin/datamodel/AdminDataModelUpdateForm'; // this should be replaced by specific UpdateForm
-import AdminDataModelAddForm from '../../../app/imports/ui/components/admin/datamodel/AdminDataModelAddForm'; // this should be replaced by specific AddForm
-import { DescriptionPair } from '../../../app/imports/typings/radgrad';
-import { defineMethod, removeItMethod, updateMethod } from '../../../app/imports/api/base/BaseCollection.methods';
-import BackToTopButton from '../../../app/imports/ui/components/shared/BackToTopButton';
-import { dataModelActions } from '../../../app/imports/redux/admin/data-model';
+import AdminPageMenuWidget from '../../../../app/imports/ui/components/admin/AdminPageMenuWidget';
+import AdminDataModelMenu from '../../../../app/imports/ui/components/admin/datamodel/AdminDataModelMenu';
+import ListCollectionWidget from '../../../../app/imports/ui/components/admin/datamodel/ListCollectionWidget';
+import AdminDataModelUpdateForm from '../../../../app/imports/ui/components/admin/datamodel/AdminDataModelUpdateForm'; // this should be replaced by specific UpdateForm
+import AdminDataModelAddForm from '../../../../app/imports/ui/components/admin/datamodel/AdminDataModelAddForm'; // this should be replaced by specific AddForm
+import { DescriptionPair } from '../../../../app/imports/typings/radgrad';
+import { defineMethod, removeItMethod, updateMethod } from '../../../../app/imports/api/base/BaseCollection.methods';
+import BackToTopButton from '../../../../app/imports/ui/components/shared/BackToTopButton';
+import { dataModelActions } from '../../../../app/imports/redux/admin/data-model';
 
 const collection = null; // the collection to use.
 

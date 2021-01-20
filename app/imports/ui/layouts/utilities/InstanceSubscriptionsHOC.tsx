@@ -4,7 +4,6 @@ import { SubsManager } from 'meteor/meteorhacks:subs-manager';
 import { Dimmer, Loader } from 'semantic-ui-react';
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';
 import { FeedbackInstances } from '../../../api/feedback/FeedbackInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
@@ -46,7 +45,6 @@ function withInstanceSubscriptions(WrappedComponent) {
       const userID = getUserIdFromRoute(props.match);
       if (userID) { // if logged out don't subscribe
         handles.push(instanceSubs.subscribe(AcademicYearInstances.getPublicationName(), userID));
-        handles.push(instanceSubs.subscribe(AdvisorLogs.getPublicationName(), userID));
         handles.push(instanceSubs.subscribe(CourseInstances.getPublicationName(), userID));
         handles.push(instanceSubs.subscribe(FeedbackInstances.getPublicationName(), userID));
         handles.push(instanceSubs.subscribe(OpportunityInstances.getPublicationName(), userID));

@@ -7,14 +7,12 @@ import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
 import AdvisorStudentSelectorWidget from '../../components/advisor/home/AdvisorStudentSelectorWidget';
 import AdvisorUpdateStudentWidget from '../../components/advisor/home/AdvisorUpdateStudentWidget';
-import AdvisorLogEntryWidget from '../../components/advisor/home/AdvisorLogEntryWidget';
 import AdvisorStarUploadWidget from '../../components/advisor/home/AdvisorStarUploadWidget';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
-import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';
-import { AdvisorLog, CareerGoal, HelpMessage, Interest, StudentProfile } from '../../../typings/radgrad';
+import { CareerGoal, HelpMessage, Interest, StudentProfile } from '../../../typings/radgrad';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { RootState } from '../../../redux/types';
 
@@ -23,7 +21,6 @@ export interface FilterStudents {
   usernameDoc: StudentProfile;
   interests: Interest[];
   careerGoals: CareerGoal[];
-  advisorLogs: AdvisorLog[];
   helpMessages: HelpMessage[];
   students: StudentProfile[],
   alumni: StudentProfile[],
@@ -33,7 +30,7 @@ const mapStateToProps = (state: RootState) => ({
   selectedUsername: state.advisor.home.selectedUsername,
 });
 
-const renderSelectedStudentWidgets = (selectedUsername: string, usernameDoc: StudentProfile, careerGoals: CareerGoal[], interests: Interest[], advisorLogs: AdvisorLog[], username: string) => {
+const renderSelectedStudentWidgets = (selectedUsername: string, usernameDoc: StudentProfile, careerGoals: CareerGoal[], interests: Interest[], username: string) => {
   if (selectedUsername === '') {
     return undefined;
   }
@@ -50,11 +47,6 @@ const renderSelectedStudentWidgets = (selectedUsername: string, usernameDoc: Stu
       </Grid.Column>
 
       <Grid.Column width={5} stretched>
-        <AdvisorLogEntryWidget
-          usernameDoc={usernameDoc}
-          advisorLogs={advisorLogs}
-          advisorUsername={username}
-        />
         <AdvisorStarUploadWidget
           usernameDoc={usernameDoc}
           advisorUsername={username}
@@ -67,7 +59,7 @@ const renderSelectedStudentWidgets = (selectedUsername: string, usernameDoc: Stu
   );
 };
 
-const AdvisorHomePage: React.FC<FilterStudents> = ({ helpMessages, advisorLogs, interests, careerGoals, usernameDoc, selectedUsername, students, alumni }) => {
+const AdvisorHomePage: React.FC<FilterStudents> = ({ helpMessages, interests, careerGoals, usernameDoc, selectedUsername, students, alumni }) => {
   const { username } = useParams();
   return (
     <div id="advisor-home-page">
@@ -94,7 +86,7 @@ const AdvisorHomePage: React.FC<FilterStudents> = ({ helpMessages, advisorLogs, 
             </Grid.Column>
             <Grid.Column width={1} />
           </Grid.Row>
-          {renderSelectedStudentWidgets(selectedUsername, usernameDoc, careerGoals, interests, advisorLogs, username)}
+          {renderSelectedStudentWidgets(selectedUsername, usernameDoc, careerGoals, interests, username)}
         </Grid>
       </div>
     </div>
@@ -103,18 +95,15 @@ const AdvisorHomePage: React.FC<FilterStudents> = ({ helpMessages, advisorLogs, 
 
 const AdvisorHomePageTracker = withTracker(({ selectedUsername }) => {
   const usernameDoc = StudentProfiles.findByUsername(selectedUsername);
-  const userID = usernameDoc ? usernameDoc.userID : '';
   const interests = Interests.findNonRetired({});
   const careerGoals = CareerGoals.findNonRetired({});
   const students = StudentProfiles.findNonRetired({ isAlumni: false }, { sort: { username: 1 } });
   const alumni = StudentProfiles.findNonRetired({ isAlumni: true }, { sort: { username: 1 } });
-  const advisorLogs = AdvisorLogs.findNonRetired({ studentID: userID }, { sort: { createdOn: -1 } });
   const helpMessages = HelpMessages.findNonRetired({});
   return {
     usernameDoc,
     interests,
     careerGoals,
-    advisorLogs,
     helpMessages,
     students,
     alumni,

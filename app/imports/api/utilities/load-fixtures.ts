@@ -16,7 +16,6 @@ import { AcademicYearInstances } from '../degree-plan/AcademicYearInstanceCollec
 import { Feeds } from '../feed/FeedCollection';
 import { FeedbackInstances } from '../feedback/FeedbackInstanceCollection';
 import { HelpMessages } from '../help/HelpMessageCollection';
-import { AdvisorLogs } from '../log/AdvisorLogCollection';
 
 export const loadCollectionNewDataOnly = (collection: BaseCollection, loadJSON, printToConsole) => {
   let retVal = '';
@@ -91,18 +90,6 @@ export const loadCollectionNewDataOnly = (collection: BaseCollection, loadJSON, 
           collection.define(definition);
           count++;
         }
-        break;
-      case AdvisorLogs.getType(): {
-        const advisorID = Users.getID(definition.advisor);
-        studentID = Users.getID(definition.student);
-        if (AdvisorLogs.find({
-          advisorID, studentID, text: definition.text, createdOn: definition.createdOn,
-        })
-          .count() === 0) {
-          collection.define(definition);
-          count++;
-        }
-      }
         break;
       case OpportunityInstances.getType():
         termID = AcademicTerms.getID(definition.academicTerm);

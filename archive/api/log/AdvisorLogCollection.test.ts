@@ -2,11 +2,11 @@ import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
 import fc from 'fast-check';
 import faker from 'faker';
-import { removeAllEntities } from '../base/BaseUtilities';
-import { makeSampleUser } from '../user/SampleUsers';
+import { removeAllEntities } from '../../../app/imports/api/base/BaseUtilities';
+import { makeSampleUser } from '../../../app/imports/api/user/SampleUsers';
 import { AdvisorLogs } from './AdvisorLogCollection';
-import { ROLE } from '../role/Role';
-import { Users } from '../user/UserCollection';
+import { ROLE } from '../../../app/imports/api/role/Role';
+import { Users } from '../../../app/imports/api/user/UserCollection';
 // import { PublicationCollector } from 'meteor/johanbrook:publication-collector';
 
 /* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */

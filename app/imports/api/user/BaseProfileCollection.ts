@@ -3,7 +3,6 @@ import _ from 'lodash';
 import SimpleSchema from 'simpl-schema';
 import BaseSlugCollection from '../base/BaseSlugCollection';
 import { AcademicYearInstances } from '../degree-plan/AcademicYearInstanceCollection';
-import { AdvisorLogs } from '../log/AdvisorLogCollection';
 import { CourseInstances } from '../course/CourseInstanceCollection';
 import { FeedbackInstances } from '../feedback/FeedbackInstanceCollection';
 import { Feeds } from '../feed/FeedCollection';
@@ -193,8 +192,7 @@ class BaseProfileCollection extends BaseSlugCollection {
     const userID = profile.userID;
     if (!Users.isReferenced(userID)) {
       // Automatically remove references to user from other collections that are "private" to this user.
-      _.forEach([Feeds, CourseInstances, OpportunityInstances, AcademicYearInstances, FeedbackInstances, AdvisorLogs,
-        VerificationRequests, FavoriteCareerGoals, FavoriteCourses, FavoriteInterests,
+      _.forEach([Feeds, CourseInstances, OpportunityInstances, AcademicYearInstances, FeedbackInstances, VerificationRequests, FavoriteCareerGoals, FavoriteCourses, FavoriteInterests,
         FavoriteOpportunities], (collection) => collection.removeUser(userID));
       Meteor.users.remove({ _id: userID });
       Slugs.getCollection().remove({ name: profile.username });

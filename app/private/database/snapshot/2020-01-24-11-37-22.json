@@ -162,60 +162,6 @@
       ]
     },
     {
-      "name": "AdvisorLogCollection",
-      "contents": [
-        {
-          "student": "abi@hawaii.edu",
-          "advisor": "glau@hawaii.edu",
-          "text": "Set up RadGrad account. Congratulations on your Level 1 RadGrad sticker! Check out the GreyHats meeting every Friday afternoon if you are still interested in learning about security.",
-          "createdOn": "2017-08-26T20:52:13.660Z",
-          "retired": false
-        },
-        {
-          "student": "abi@hawaii.edu",
-          "advisor": "glau@hawaii.edu",
-          "text": "Updated RadGrad STAR data. Congratulations on leveling up to Level 2! Keep up the good work.",
-          "createdOn": "2018-01-09T19:15:13.660Z",
-          "retired": false
-        },
-        {
-          "student": "abi@hawaii.edu",
-          "advisor": "glau@hawaii.edu",
-          "text": "Updated RadGrad STAR data. Congratulations on leveling up to Level 3!",
-          "createdOn": "2018-08-24T22:19:13.660Z",
-          "retired": false
-        },
-        {
-          "student": "abi@hawaii.edu",
-          "advisor": "glau@hawaii.edu",
-          "text": "Make sure to sign up for ICS212 and ICS321 next academicTerm to fulfill prerequisites for upper level courses.",
-          "createdOn": "2018-11-06T20:56:13.660Z",
-          "retired": false
-        },
-        {
-          "student": "abi@hawaii.edu",
-          "advisor": "glau@hawaii.edu",
-          "text": "Updated RadGrad STAR data. Congratulations on leveling up to Level 4! I recommend you check out the GenCyber Internship for this summer.",
-          "createdOn": "2019-01-26T20:32:13.660Z",
-          "retired": false
-        },
-        {
-          "student": "abi@hawaii.edu",
-          "advisor": "glau@hawaii.edu",
-          "text": "Updated RadGrad STAR data. Congratulations on leveling up to Level 5!",
-          "createdOn": "2019-03-30T19:56:13.660Z",
-          "retired": false
-        },
-        {
-          "student": "abi@hawaii.edu",
-          "advisor": "glau@hawaii.edu",
-          "text": "Updated RadGrad STAR data. Keep up the good work! Still on track to graduate Spring 2018.",
-          "createdOn": "2019-04-11T21:54:13.660Z",
-          "retired": false
-        }
-      ]
-    },
-    {
       "name": "AdvisorProfileCollection",
       "contents": [
         {

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Segment, Header, Form } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
-import { AdvisorLogs } from '../../../../api/log/AdvisorLogCollection';
-import { Users } from '../../../../api/user/UserCollection';
-import { defineMethod } from '../../../../api/base/BaseCollection.methods';
-import { AdvisorLog, AdvisorLogDefine, StudentProfile } from '../../../../typings/radgrad';
+import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';
+import { Users } from '../../../../app/imports/api/user/UserCollection';
+import { defineMethod } from '../../../../app/imports/api/base/BaseCollection.methods';
+import { AdvisorLog, AdvisorLogDefine, StudentProfile } from '../../../../app/imports/typings/radgrad';
 
 export interface AdvisorLogEntryWidgetProps {
   advisorLogs: AdvisorLog[];

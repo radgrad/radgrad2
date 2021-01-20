@@ -19,7 +19,6 @@ import DegreePlan from '../../components/landing/guided-tour/student/degree-plan
 import ICE from '../../components/landing/guided-tour/student/ice';
 import Levels from '../../components/landing/guided-tour/student/levels';
 import SampleStudent from '../../components/landing/guided-tour/student/sample-student';
-import AdvisorLog from '../../components/landing/guided-tour/student/advisor-log';
 import WhatsNext from '../../components/landing/guided-tour/student/whats-next';
 
 interface GuidedTourStudentProps {
@@ -55,7 +54,6 @@ const renderPage: React.FC<GuidedTourStudentProps> = ({ courses, careerGoals, in
             <ICE />
             <Levels />
             <SampleStudent />
-            <AdvisorLog />
             <WhatsNext />
           </Slider>
         </Segment>

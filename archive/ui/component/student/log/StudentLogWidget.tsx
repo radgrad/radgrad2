@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Segment, Header, Item, Image } from 'semantic-ui-react';
-import { AdvisorLog, BaseProfile } from '../../../../typings/radgrad';
-import { Users } from '../../../../api/user/UserCollection';
+import { AdvisorLog, BaseProfile } from '../../../../../app/imports/typings/radgrad';
+import { Users } from '../../../../../app/imports/api/user/UserCollection';
 
 export interface StudentLogWidgetProps {
   advisorLogs: AdvisorLog[];

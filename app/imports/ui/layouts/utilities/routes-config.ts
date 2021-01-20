@@ -38,13 +38,11 @@ import StudentDegreePlannerPage from '../../pages/student/StudentDegreePlannerPa
 import StudentAboutMePage from '../../pages/student/StudentAboutMePage';
 import StudentIcePage from '../../pages/student/StudentIcePage';
 import StudentHomeLevelsPageContainer from '../../pages/student/StudentHomeLevelsPage';
-import StudentHomeLogPageContainer from '../../pages/student/StudentHomeLogPage';
 import AlumniHomePageContainer from '../../pages/alumni/AlumniHomePage';
 import AdminDumpDatabasePageContainer from '../../pages/admin/AdminDumpDatabasePage';
 import AdminCheckDatabaseIntegrityPageContainer from '../../pages/admin/AdminCheckDatabaseIntegrityPage';
 import AdminDataModelAcademicTermsPage from '../../pages/admin/AdminDataModelAcademicTermsPage';
 import AdminDataModelAcademicYearsPage from '../../pages/admin/AdminDataModelAcademicYearsPage';
-import AdminDataModelAdvisorLogsPage from '../../pages/admin/AdminDataModelAdvisorLogsPage';
 import AdminDataModelCareerGoalsPage from '../../pages/admin/AdminDataModelCareerGoalsPage';
 import AdminDataModelUsersPage from '../../pages/admin/AdminDataModelUsersPage';
 import AdminDataModelCourseInstancesPage from '../../pages/admin/AdminDataModelCourseInstancesPage';
@@ -110,11 +108,6 @@ export const routes = {
       path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL}/academic-year-instances`,
       exact: true,
       component: AdminDataModelAcademicYearsPage,
-    },
-    {
-      path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL}/advisor-logs`,
-      exact: true,
-      component: AdminDataModelAdvisorLogsPage,
     },
     {
       path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL}/${EXPLORER_TYPE.CAREERGOALS}`,
@@ -662,11 +655,6 @@ export const routes = {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${HOME}/levels`,
       exact: true,
       component: StudentHomeLevelsPageContainer,
-    },
-    {
-      path: `/${URL_ROLES.STUDENT}/${USERNAME}/${HOME}/log`,
-      exact: true,
-      component: StudentHomeLogPageContainer,
     },
     /* ############################## DEGREE PLANNER ############################## */
     {

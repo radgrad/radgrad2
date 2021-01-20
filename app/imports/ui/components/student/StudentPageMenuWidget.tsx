@@ -17,7 +17,6 @@ const studentHomePageItems = [
   { key: 'About Me', route: 'aboutme', id: 'student-menu-about-me' },
   { key: 'ICE Points', route: 'ice', id: 'student-menu-ice-points' },
   { key: 'Levels', route: 'levels', id: 'student-menu-levels' },
-  { key: 'Advisor Log', route: 'log', id: 'student-menu-advisor-log' },
 ];
 
 const communityDropdownItems = [
