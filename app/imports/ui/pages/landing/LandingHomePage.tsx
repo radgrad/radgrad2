@@ -3,7 +3,6 @@ import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';
 import { ROLE } from '../../../api/role/Role';
-import { Users } from '../../../api/user/UserCollection';
 import LandingNavBar from '../../components/landing/LandingNavBar';
 import LandingSection1 from '../../components/landing/LandingSection1';
 import LandingSection2 from '../../components/landing/LandingSection2';
@@ -51,25 +50,12 @@ const LandingHomeContainer =
   withTracker(() => {
     let role = 'student';
     if (Meteor.userId()) {
-      try {
-        const profile = Users.getProfile(Meteor.userId());
-        if (profile.role === ROLE.ADMIN) {
-          role = 'admin';
-        }
-        if (profile.role === ROLE.ADVISOR) {
-          role = 'advisor';
-        }
-        if (profile.role === ROLE.ALUMNI) {
-          role = 'alumni';
-        }
-        if (profile.role === ROLE.FACULTY) {
-          role = 'faculty';
-        }
-        if (profile.role === ROLE.STUDENT) {
-          role = 'student';
-        }
-      } catch (err) {
-        // Not sure what to do here.
+      if (Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN])) {
+        role = 'admin';
+      } else if (Roles.userIsInRole(Meteor.userId(), [ROLE.ADVISOR])) {
+        role = 'advisor';
+      } else if (Roles.userIsInRole(Meteor.userId(), [ROLE.FACULTY])) {
+        role = 'advisor';
       }
     }
     const currentUser = Meteor.user() ? Meteor.user().username : '';

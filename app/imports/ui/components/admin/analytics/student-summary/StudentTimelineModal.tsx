@@ -9,7 +9,6 @@ import { UserInteractionsTypes } from '../../../../../api/analytic/UserInteracti
 import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
 import { StudentSummaryBehaviorTypes } from './utilities/student-summary';
 
-// TODO fix push of undefined error also username of undefined error.
 // TODO QA this is a very unstructured component.
 
 interface StudentTimelineModalProps {
@@ -92,7 +91,9 @@ const getBehaviors = (sessionArr: UserInteraction[]): { type: string, stats: str
     [UserInteractionsTypes.VERIFYREQUEST]: [],
   };
   _.each(sessionArr, function (interaction) {
-    actions[interaction.type].push(interaction.typeData.join(', '));
+    if (actions[interaction.type]) { // there are interaction types that we've removed, but are still in the UserInteractions
+      actions[interaction.type].push(interaction.typeData.join(', '));
+    }
   });
   const behaviors = {
     [StudentSummaryBehaviorTypes.LOGIN]: [],
@@ -132,7 +133,9 @@ const getBehaviors = (sessionArr: UserInteraction[]): { type: string, stats: str
                 // FIXME not exactly sure if this code is needed, since there isn't a third parameter after "users". Is this code necessary?
                 parsedUrl[2] = parsedUrl[2].split(/[@%]/)[0];
               }
-              explorerPages[parsedUrl[1]].push(parsedUrl[2]);
+              if (explorerPages[parsedUrl[1]]) { // there are explorer pages that we removed.
+                explorerPages[parsedUrl[1]].push(parsedUrl[2]);
+              }
             }
           }
         });
