@@ -20,7 +20,8 @@
     "test-all": "meteor reset && meteor npm run lint && meteor npm run test-unit && meteor npm run test-integration && meteor npm run test-acceptance",
     "generate-docs": "npx jsdoc -c jsdoc.json",
     "gh-pages": "gh-pages -d ../api-docs",
-    "unimported": "npx unimported"
+    "unimported": "npx unimported",
+    "prettier": "npx prettier -w ./imports/**/*.ts ./imports/**/*.tsx"
   },
   "dependencies": {
     "@artsy/fresnel": "^1.3.1",
@@ -235,6 +236,7 @@
     }
   },
   "prettier": {
+    "printWidth": 240,
     "singleQuote": true,
     "trailingComma": "all"
   }
