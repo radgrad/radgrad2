@@ -34,16 +34,16 @@ interface Loading {
 const globalSubs = new SubsManager({ cacheLimit: 30, expireIn: 30 });
 
 const withGlobalSubscription = (WrappedComponent) => {
-  const GlobalSubscription: React.FC<Loading> = (props) => ((props.loading) ? (
-    <React.Fragment>
-      <Dimmer active inverted>
-        <Loader>Loading global data</Loader>
-      </Dimmer>
-    </React.Fragment>
-  )
-    :
-    <WrappedComponent {...props} />
-  );
+  const GlobalSubscription: React.FC<Loading> = (props) =>
+    (props.loading ? (
+      <React.Fragment>
+        <Dimmer active inverted>
+          <Loader>Loading global data</Loader>
+        </Dimmer>
+      </React.Fragment>
+    ) : (
+      <WrappedComponent {...props} />
+    ));
 
   return withTracker(() => {
     // console.log('withGlobalSubscription');

@@ -30,47 +30,39 @@ const StudentSummaryTab: React.FC<StudentSummaryTabProps> = ({ startDate, endDat
   };
   return (
     <div>
-      {
-        behaviors.map((behavior, index) => (
-          <Accordion key={behavior.type}>
-            <div>
-              <Accordion.Title active={activeIndex === index} index={index} onClick={handleClick}>
-                <Grid>
-                  <Grid.Column width={1}>
-                    <Icon name="dropdown" />
-                  </Grid.Column>
-                  <Grid.Column width={4}>
-                    Behavior:
-                    <div style={paddedLabelStyle}>{behavior.type}</div>
-                  </Grid.Column>
-                  <Grid.Column width={3}>
-                    Users:
-                    <div style={paddedLabelStyle}>{behavior.count}</div>
-                    <div style={paddedLabelStyle}>{`(${percent(behavior.count)}%)`}</div>
-                  </Grid.Column>
-                  <Grid.Column width={8}>
-                    Description:
-                    <div style={paddedLabelStyle}>{behavior.description}</div>
-                  </Grid.Column>
-                </Grid>
-              </Accordion.Title>
-              <Accordion.Content active={activeIndex === index}>
-                <Grid stackable padded>
-                  {behavior.users.map((user) => (
-                    <StudentTimelineModal
-                      key={user}
-                      username={user}
-                      startDate={startDate}
-                      endDate={endDate}
-                      interactions={interactionsByUser[user]}
-                    />
-                  ))}
-                </Grid>
-              </Accordion.Content>
-            </div>
-          </Accordion>
-        ))
-      }
+      {behaviors.map((behavior, index) => (
+        <Accordion key={behavior.type}>
+          <div>
+            <Accordion.Title active={activeIndex === index} index={index} onClick={handleClick}>
+              <Grid>
+                <Grid.Column width={1}>
+                  <Icon name="dropdown" />
+                </Grid.Column>
+                <Grid.Column width={4}>
+                  Behavior:
+                  <div style={paddedLabelStyle}>{behavior.type}</div>
+                </Grid.Column>
+                <Grid.Column width={3}>
+                  Users:
+                  <div style={paddedLabelStyle}>{behavior.count}</div>
+                  <div style={paddedLabelStyle}>{`(${percent(behavior.count)}%)`}</div>
+                </Grid.Column>
+                <Grid.Column width={8}>
+                  Description:
+                  <div style={paddedLabelStyle}>{behavior.description}</div>
+                </Grid.Column>
+              </Grid>
+            </Accordion.Title>
+            <Accordion.Content active={activeIndex === index}>
+              <Grid stackable padded>
+                {behavior.users.map((user) => (
+                  <StudentTimelineModal key={user} username={user} startDate={startDate} endDate={endDate} interactions={interactionsByUser[user]} />
+                ))}
+              </Grid>
+            </Accordion.Content>
+          </div>
+        </Accordion>
+      ))}
     </div>
   );
 };

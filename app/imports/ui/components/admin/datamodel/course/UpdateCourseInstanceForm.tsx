@@ -51,17 +51,9 @@ const UpdateCourseInstanceForm: React.FC<UpdateCourseInstanceFormProps> = ({ ter
     <Segment padded>
       <Header dividing>
         Update
-        {collection.getType()}
-        :
-        {itemTitleString(model)}
+        {collection.getType()}:{itemTitleString(model)}
       </Header>
-      <AutoForm
-        schema={formSchema}
-        onSubmit={handleUpdate}
-        ref={formRef}
-        showInlineError
-        model={model}
-      >
+      <AutoForm schema={formSchema} onSubmit={handleUpdate} ref={formRef} showInlineError model={model}>
         <Form.Group widths="equal">
           <SelectField name="academicTerm" />
           <AutoField name="ice" />

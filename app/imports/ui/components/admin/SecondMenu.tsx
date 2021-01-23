@@ -18,16 +18,7 @@ interface SecondMenuProps {
 const SecondMenu: React.FC<SecondMenuProps> = ({ menuItems, numItems }) => {
   const match = useRouteMatch();
   return (
-    <Menu
-      attached="top"
-      borderless
-      widths={numItems}
-      secondary
-      inverted
-      pointing
-      className="radgrad-second-menu mobile hidden"
-      id="secondMenu"
-    >
+    <Menu attached="top" borderless widths={numItems} secondary inverted pointing className="radgrad-second-menu mobile hidden" id="secondMenu">
       {menuItems.map((item) => (
         <Menu.Item id={item.id} key={item.label} as={NavLink} exact={false} to={buildRouteName(match, `/${item.route}`)}>
           {item.label}

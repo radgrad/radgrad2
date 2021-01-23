@@ -6,12 +6,7 @@ import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import FacultyAboutMeWidget from '../../components/faculty/home/FacultyAboutMeWidget';
-import {
-  AdvisorOrFacultyProfile,
-  FavoriteCareerGoal,
-  FavoriteInterest,
-  HelpMessage,
-} from '../../../typings/radgrad';
+import { AdvisorOrFacultyProfile, FavoriteCareerGoal, FavoriteInterest, HelpMessage } from '../../../typings/radgrad';
 import { Users } from '../../../api/user/UserCollection';
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
@@ -29,18 +24,16 @@ const FacultyHomePage: React.FC<FacultyHomePageProps> = ({ profile, helpMessages
     <Grid stackable>
       <Grid.Row>
         <Grid.Column width={1} />
-        <Grid.Column width={14}><HelpPanelWidget helpMessages={helpMessages} /></Grid.Column>
+        <Grid.Column width={14}>
+          <HelpPanelWidget helpMessages={helpMessages} />
+        </Grid.Column>
         <Grid.Column width={1} />
       </Grid.Row>
 
       <Grid.Row>
         <Grid.Column width={1} />
         <Grid.Column width={14}>
-          <FacultyAboutMeWidget
-            profile={profile}
-            favoriteInterests={favoriteInterests}
-            favoriteCareerGoals={favoriteCareerGoals}
-          />
+          <FacultyAboutMeWidget profile={profile} favoriteInterests={favoriteInterests} favoriteCareerGoals={favoriteCareerGoals} />
         </Grid.Column>
         <Grid.Column width={1} />
       </Grid.Row>

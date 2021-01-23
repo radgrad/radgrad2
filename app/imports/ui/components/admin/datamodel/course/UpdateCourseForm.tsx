@@ -6,11 +6,7 @@ import SimpleSchema from 'simpl-schema';
 import _ from 'lodash';
 import BaseCollection from '../../../../../api/base/BaseCollection';
 import { Course, Interest } from '../../../../../typings/radgrad';
-import {
-  courseSlugToName, courseToName,
-  docToName,
-  interestIdToName,
-} from '../../../shared/utilities/data-model';
+import { courseSlugToName, courseToName, docToName, interestIdToName } from '../../../shared/utilities/data-model';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
 
 interface UpdateCourseFormProps {
@@ -58,17 +54,9 @@ const UpdateCourseForm: React.FC<UpdateCourseFormProps> = ({ collection, courses
     <Segment padded>
       <Header dividing>
         Update
-        {collection.getType()}
-        :
-        {itemTitleString(model)}
+        {collection.getType()}:{itemTitleString(model)}
       </Header>
-      <AutoForm
-        schema={formSchema}
-        onSubmit={handleUpdate}
-        ref={formRef}
-        showInlineError
-        model={model}
-      >
+      <AutoForm schema={formSchema} onSubmit={handleUpdate} ref={formRef} showInlineError model={model}>
         <Form.Group widths="equal">
           <TextField name="name" />
           <TextField name="shortName" />

@@ -29,7 +29,7 @@ import ExplorerReviewWidget from '../ExplorerReviewWidget';
 interface ExplorerOpportunitiesWidgetProps {
   name: string;
   descriptionPairs: any[];
-  item: Opportunity
+  item: Opportunity;
   itemReviews: Review[];
   completed: boolean;
 }
@@ -76,10 +76,13 @@ const ExplorerOpportunityWidget: React.FC<ExplorerOpportunitiesWidgetProps> = ({
   const quarter = RadGradProperties.getQuarterSystem();
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
   const numTerms = quarter ? 12 : 9;
-  const academicTerms = AcademicTerms.findNonRetired({ termNumber: { $gte: currentTerm.termNumber } }, {
-    sort: { termNumber: 1 },
-    limit: numTerms,
-  });
+  const academicTerms = AcademicTerms.findNonRetired(
+    { termNumber: { $gte: currentTerm.termNumber } },
+    {
+      sort: { termNumber: 1 },
+      limit: numTerms,
+    },
+  );
   const scores = [];
   _.forEach(academicTerms, (term: AcademicTerm) => {
     const id = `${item._id} ${term._id}`;
@@ -96,30 +99,15 @@ const ExplorerOpportunityWidget: React.FC<ExplorerOpportunitiesWidgetProps> = ({
     <div id="explorerOpportunityWidget">
       <Segment padded className="container" style={segmentStyle}>
         <Segment clearing basic style={clearingBasicSegmentStyle}>
-          <Header as="h4" floated="left">{upperName}</Header>
+          <Header as="h4" floated="left">
+            {upperName}
+          </Header>
           <React.Fragment>
-            {isStudent ?
-              (
-                <FavoritesButton
-                  item={item}
-                  studentID={Router.getUserIdFromRoute(match)}
-                  type={FAVORITE_TYPE.OPPORTUNITY}
-                  added={added}
-                />
-              )
-              : ''}
+            {isStudent ? <FavoritesButton item={item} studentID={Router.getUserIdFromRoute(match)} type={FAVORITE_TYPE.OPPORTUNITY} added={added} /> : ''}
 
-            {
-              descriptionPairs.map((descriptionPair) => (
-                <React.Fragment key={toId(descriptionPair)}>
-                  {
-                    isSame(descriptionPair.label, 'ICE') ?
-                      <IceHeader ice={descriptionPair.value} />
-                      : ''
-                  }
-                </React.Fragment>
-              ))
-            }
+            {descriptionPairs.map((descriptionPair) => (
+              <React.Fragment key={toId(descriptionPair)}>{isSame(descriptionPair.label, 'ICE') ? <IceHeader ice={descriptionPair.value} /> : ''}</React.Fragment>
+            ))}
           </React.Fragment>
         </Segment>
 
@@ -127,208 +115,209 @@ const ExplorerOpportunityWidget: React.FC<ExplorerOpportunitiesWidgetProps> = ({
         <div style={fiveMarginTopStyle}>
           <InterestList item={item} size="mini" />
         </div>
-        {hasTeaser ?
-          (
+        {hasTeaser ? (
+          <Grid stackable columns={2}>
+            <Grid.Column width={9}>
+              {descriptionPairs.map((descriptionPair) => (
+                <React.Fragment key={toId(descriptionPair)}>
+                  {isSame(descriptionPair.label, 'Opportunity Type') ? (
+                    <React.Fragment>
+                      <b>{descriptionPair.label}: </b>
+                      {descriptionPair.value ? (
+                        <React.Fragment>
+                          {descriptionPair.value}
+                          <br />
+                        </React.Fragment>
+                      ) : (
+                        <React.Fragment>
+                          N/A <br />
+                        </React.Fragment>
+                      )}
+                    </React.Fragment>
+                  ) : (
+                    ''
+                  )}
+                  {isSame(descriptionPair.label, 'Sponsor') ? (
+                    <React.Fragment>
+                      <b>{descriptionPair.label}: </b>
+                      {descriptionPair.value ? (
+                        <React.Fragment>
+                          <span style={breakWordStyle}> {descriptionPair.value}</span>
+                          <br />
+                        </React.Fragment>
+                      ) : (
+                        <React.Fragment>
+                          N/A <br />
+                        </React.Fragment>
+                      )}
+                    </React.Fragment>
+                  ) : (
+                    ''
+                  )}
+                  {isSame(descriptionPair.label, 'Academic Terms') ? (
+                    <React.Fragment>
+                      <b>{descriptionPair.label}: </b>
+                      {descriptionPair.value ? (
+                        <React.Fragment>
+                          <span style={breakWordStyle}> {replaceTermString(descriptionPair.value)}</span>
+                          <br />
+                        </React.Fragment>
+                      ) : (
+                        <React.Fragment>
+                          N/A <br />
+                        </React.Fragment>
+                      )}
+                    </React.Fragment>
+                  ) : (
+                    ''
+                  )}
+                  {isSame(descriptionPair.label, 'Description') ? (
+                    <React.Fragment>
+                      <b>{descriptionPair.label}: </b>
+                      {descriptionPair.value ? <Markdown escapeHtml source={descriptionPair.value} renderers={{ link: (localProps) => Router.renderLink(localProps, match) }} /> : <React.Fragment> N/A </React.Fragment>}
+                    </React.Fragment>
+                  ) : (
+                    ''
+                  )}
+                </React.Fragment>
+              ))}
+            </Grid.Column>
+
+            <Grid.Column width={7}>
+              {descriptionPairs.map((descriptionPair) => (
+                <React.Fragment key={toId(descriptionPair)}>
+                  {isSame(descriptionPair.label, 'Event Date') ? (
+                    <React.Fragment>
+                      <b>{descriptionPair.label}: </b>
+                      {descriptionPair.value ? (
+                        <React.Fragment>
+                          <span style={breakWordStyle}>{descriptionPair.value.toString()}</span>
+                          <br />
+                        </React.Fragment>
+                      ) : (
+                        <React.Fragment>
+                          N/A <br />
+                        </React.Fragment>
+                      )}
+                    </React.Fragment>
+                  ) : (
+                    ''
+                  )}
+                  {isSame(descriptionPair.label, 'Teaser') && teaserUrlHelper(opportunity) ? (
+                    <React.Fragment>
+                      <b>{descriptionPair.label}: </b>
+                      {descriptionPair.value ? <TeaserVideo id={teaserUrlHelper(opportunity)} /> : <p>N/A </p>}
+                    </React.Fragment>
+                  ) : (
+                    ''
+                  )}
+                </React.Fragment>
+              ))}
+            </Grid.Column>
+          </Grid>
+        ) : (
+          <React.Fragment>
             <Grid stackable columns={2}>
-              <Grid.Column width={9}>
+              <Grid.Column width={5}>
                 {descriptionPairs.map((descriptionPair) => (
                   <React.Fragment key={toId(descriptionPair)}>
-                    {isSame(descriptionPair.label, 'Opportunity Type') ?
-                      (
-                        <React.Fragment>
-                          <b>{descriptionPair.label}: </b>
-                          {descriptionPair.value ?
-                            (
-                              <React.Fragment>{descriptionPair.value}<br /></React.Fragment>
-                            )
-                            : (<React.Fragment>N/A <br /></React.Fragment>)}
-                        </React.Fragment>
-                      )
-                      : ''}
-                    {isSame(descriptionPair.label, 'Sponsor') ?
-                      (
-                        <React.Fragment>
-                          <b>{descriptionPair.label}: </b>
-                          {descriptionPair.value ?
-                            (
-                              <React.Fragment>
-                                <span style={breakWordStyle}> {descriptionPair.value}</span><br />
-                              </React.Fragment>
-                            )
-                            : (<React.Fragment>N/A <br /></React.Fragment>)}
-                        </React.Fragment>
-                      )
-                      : ''}
-                    {isSame(descriptionPair.label, 'Academic Terms') ?
-                      (
-                        <React.Fragment>
-                          <b>{descriptionPair.label}: </b>
-                          {descriptionPair.value ?
-                            (
-                              <React.Fragment>
-                                <span style={breakWordStyle}> {replaceTermString(descriptionPair.value)}</span>
-                                <br />
-                              </React.Fragment>
-                            )
-                            : (<React.Fragment>N/A <br /></React.Fragment>)}
-                        </React.Fragment>
-                      )
-                      : ''}
-                    {isSame(descriptionPair.label, 'Description') ?
-                      (
-                        <React.Fragment>
-                          <b>{descriptionPair.label}: </b>
-                          {descriptionPair.value ?
-                            (
-                              <Markdown
-                                escapeHtml
-                                source={descriptionPair.value}
-                                renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}
-                              />
-                            )
-                            : <React.Fragment> N/A </React.Fragment>}
-                        </React.Fragment>
-                      )
-                      : ''}
+                    {isSame(descriptionPair.label, 'Opportunity Type') ? (
+                      <React.Fragment>
+                        <b>{descriptionPair.label}: </b>
+                        {descriptionPair.value ? (
+                          <React.Fragment>
+                            {descriptionPair.value} <br />
+                          </React.Fragment>
+                        ) : (
+                          <React.Fragment>
+                            N/A <br />
+                          </React.Fragment>
+                        )}
+                      </React.Fragment>
+                    ) : (
+                      ''
+                    )}
+                    {isSame(descriptionPair.label, 'Sponsor') ? (
+                      <React.Fragment>
+                        <b>{descriptionPair.label}: </b>
+                        {descriptionPair.value ? (
+                          <React.Fragment>
+                            <span style={breakWordStyle}>{descriptionPair.value}</span>
+                            <br />
+                          </React.Fragment>
+                        ) : (
+                          <React.Fragment>
+                            N/A <br />
+                          </React.Fragment>
+                        )}
+                      </React.Fragment>
+                    ) : (
+                      ''
+                    )}
                   </React.Fragment>
                 ))}
               </Grid.Column>
 
-              <Grid.Column width={7}>
+              <Grid.Column width={11}>
                 {descriptionPairs.map((descriptionPair) => (
                   <React.Fragment key={toId(descriptionPair)}>
-                    {isSame(descriptionPair.label, 'Event Date') ?
-                      (
-                        <React.Fragment>
-                          <b>{descriptionPair.label}: </b>
-                          {descriptionPair.value ?
-                            (
-                              <React.Fragment>
-                                <span style={breakWordStyle}>{descriptionPair.value.toString()}</span>
-                                <br />
-                              </React.Fragment>
-                            )
-                            : (<React.Fragment>N/A <br /></React.Fragment>)}
-                        </React.Fragment>
-                      )
-                      : ''}
-                    {(isSame(descriptionPair.label, 'Teaser') && teaserUrlHelper(opportunity)) ?
-                      (
-                        <React.Fragment>
-                          <b>{descriptionPair.label}: </b>
-                          {descriptionPair.value ?
-                            (<TeaserVideo id={teaserUrlHelper(opportunity)} />)
-                            : <p>N/A </p>}
-                        </React.Fragment>
-                      )
-                      : ''}
+                    {isSame(descriptionPair.label, 'Academic Terms') ? (
+                      <React.Fragment>
+                        <b>{descriptionPair.label}: </b>
+                        {descriptionPair.value ? (
+                          <React.Fragment>
+                            <span style={breakWordStyle}>{replaceTermString(descriptionPair.value)}</span>
+                            <br />
+                          </React.Fragment>
+                        ) : (
+                          <React.Fragment>
+                            N/A <br />
+                          </React.Fragment>
+                        )}
+                      </React.Fragment>
+                    ) : (
+                      ''
+                    )}
+                    {isSame(descriptionPair.label, 'Event Date') ? (
+                      <React.Fragment>
+                        <b>{descriptionPair.label}: </b>
+                        {descriptionPair.value ? (
+                          <React.Fragment>
+                            <span style={breakWordStyle}>{descriptionPair.value.toString()}</span>
+                            <br />
+                          </React.Fragment>
+                        ) : (
+                          <React.Fragment>
+                            N/A <br />
+                          </React.Fragment>
+                        )}
+                      </React.Fragment>
+                    ) : (
+                      ''
+                    )}
                   </React.Fragment>
                 ))}
               </Grid.Column>
             </Grid>
-          )
-          :
-          (
-            <React.Fragment>
-              <Grid stackable columns={2}>
-                <Grid.Column width={5}>
-                  {descriptionPairs.map((descriptionPair) => (
-                    <React.Fragment key={toId(descriptionPair)}>
-                      {isSame(descriptionPair.label, 'Opportunity Type') ?
-                        (
-                          <React.Fragment>
-                            <b>{descriptionPair.label}: </b>
-                            {descriptionPair.value ?
-                              (
-                                <React.Fragment>{descriptionPair.value} <br /></React.Fragment>
-                              )
-                              : (<React.Fragment>N/A <br /></React.Fragment>)}
-                          </React.Fragment>
-                        )
-                        : ''}
-                      {isSame(descriptionPair.label, 'Sponsor') ?
-                        (
-                          <React.Fragment>
-                            <b>{descriptionPair.label}: </b>
-                            {descriptionPair.value ?
-                              (
-                                <React.Fragment>
-                                  <span style={breakWordStyle}>{descriptionPair.value}</span>
-                                  <br />
-                                </React.Fragment>
-                              )
-                              : (<React.Fragment>N/A <br /></React.Fragment>)}
-                          </React.Fragment>
-                        )
-                        : ''}
-                    </React.Fragment>
-                  ))}
-                </Grid.Column>
 
-                <Grid.Column width={11}>
-                  {descriptionPairs.map((descriptionPair) => (
-                    <React.Fragment key={toId(descriptionPair)}>
-                      {isSame(descriptionPair.label, 'Academic Terms') ?
-                        (
-                          <React.Fragment>
-                            <b>{descriptionPair.label}: </b>
-                            {descriptionPair.value ?
-                              (
-                                <React.Fragment>
-                                  <span style={breakWordStyle}>{replaceTermString(descriptionPair.value)}</span>
-                                  <br />
-                                </React.Fragment>
-                              )
-                              : (<React.Fragment>N/A <br /></React.Fragment>)}
-                          </React.Fragment>
-                        )
-                        : ''}
-                      {isSame(descriptionPair.label, 'Event Date') ?
-                        (
-                          <React.Fragment>
-                            <b>{descriptionPair.label}: </b>
-                            {descriptionPair.value ?
-                              (
-                                <React.Fragment>
-                                  <span style={breakWordStyle}>{descriptionPair.value.toString()}</span>
-                                  <br />
-                                </React.Fragment>
-                              )
-                              : (<React.Fragment>N/A <br /></React.Fragment>)}
-                          </React.Fragment>
-                        )
-                        : ''}
-                    </React.Fragment>
-                  ))}
-                </Grid.Column>
-              </Grid>
-
-              <Grid stackable columns={1}>
-                <Grid.Column style={zeroMarginTopStyle}>
-                  {descriptionPairs.map((descriptionPair) => (
-                    <React.Fragment key={toId(descriptionPair)}>
-                      {isSame(descriptionPair.label, 'Description') ?
-                        (
-                          <React.Fragment>
-                            <b>{descriptionPair.label}: </b>
-                            {descriptionPair.value ?
-                              (
-                                <Markdown
-                                  escapeHtml
-                                  source={descriptionPair.value}
-                                  renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}
-                                />
-                              )
-                              : <React.Fragment> N/A </React.Fragment>}
-                          </React.Fragment>
-                        )
-                        : ''}
-                    </React.Fragment>
-                  ))}
-                </Grid.Column>
-              </Grid>
-            </React.Fragment>
-          )}
+            <Grid stackable columns={1}>
+              <Grid.Column style={zeroMarginTopStyle}>
+                {descriptionPairs.map((descriptionPair) => (
+                  <React.Fragment key={toId(descriptionPair)}>
+                    {isSame(descriptionPair.label, 'Description') ? (
+                      <React.Fragment>
+                        <b>{descriptionPair.label}: </b>
+                        {descriptionPair.value ? <Markdown escapeHtml source={descriptionPair.value} renderers={{ link: (localProps) => Router.renderLink(localProps, match) }} /> : <React.Fragment> N/A </React.Fragment>}
+                      </React.Fragment>
+                    ) : (
+                      ''
+                    )}
+                  </React.Fragment>
+                ))}
+              </Grid.Column>
+            </Grid>
+          </React.Fragment>
+        )}
       </Segment>
 
       <Segment textAlign="center">
@@ -337,19 +326,13 @@ const ExplorerOpportunityWidget: React.FC<ExplorerOpportunitiesWidgetProps> = ({
         <FutureParticipation academicTerms={academicTerms} scores={scores} />
       </Segment>
 
-      {isStudent ?
-        (
-          <Segment>
-            <StudentExplorerReviewWidget
-              itemToReview={item}
-              userReview={review(item, match)}
-              completed={completed}
-              reviewType="opportunity"
-              itemReviews={itemReviews}
-            />
-          </Segment>
-        )
-        : <ExplorerReviewWidget itemReviews={itemReviews} reviewType="opportunity" />}
+      {isStudent ? (
+        <Segment>
+          <StudentExplorerReviewWidget itemToReview={item} userReview={review(item, match)} completed={completed} reviewType="opportunity" itemReviews={itemReviews} />
+        </Segment>
+      ) : (
+        <ExplorerReviewWidget itemReviews={itemReviews} reviewType="opportunity" />
+      )}
     </div>
   );
 };

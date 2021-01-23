@@ -15,8 +15,7 @@ interface Loading {
 const additionalSubs = new SubsManager({ cacheLimit: 2, expireIn: 30 });
 
 function withAdditionalSubscriptions(WrappedComponent) {
-  const AdditionalSubscriptions: React.FC<Loading> = (props) => ((props.loading) ? <Loader active>Getting additional data</Loader> :
-  <WrappedComponent {...props} />);
+  const AdditionalSubscriptions: React.FC<Loading> = (props) => (props.loading ? <Loader active>Getting additional data</Loader> : <WrappedComponent {...props} />);
 
   return withTracker(() => {
     const requests = VerificationRequests.findNonRetired({});

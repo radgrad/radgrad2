@@ -33,45 +33,21 @@ const StudentPageMenuWidget: React.FC = () => {
   const projectedIce = StudentProfiles.getProjectedICE(username);
   return (
     <div style={divStyle}>
-      <FirstMenuContainer
-        profile={profile}
-        displayLevelAndIce
-        earnedICE={earnedIce}
-        projectedICE={projectedIce}
-      />
+      <FirstMenuContainer profile={profile} displayLevelAndIce earnedICE={earnedIce} projectedICE={projectedIce} />
       <div className="radgrad-menu" id="menu">
         <Container>
-          <Menu
-            attached="top"
-            borderless
-            secondary
-            inverted
-            pointing
-            id="secondMenu"
-          >
+          <Menu attached="top" borderless secondary inverted pointing id="secondMenu">
             <Menu.Item as={NavLink} exact to={`/student/${username}/home`}>
               Home
             </Menu.Item>
             <Dropdown item text="EXPLORE" id="student-menu-explore">
               <Dropdown.Menu>
                 {explorerDropdownItems.map((item) => (
-                  <Dropdown.Item
-                    key={item.key}
-                    id={item.id}
-                    as={NavLink}
-                    exact
-                    to={buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${item.route}`)}
-                    content={item.key}
-                  />
+                  <Dropdown.Item key={item.key} id={item.id} as={NavLink} exact to={buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${item.route}`)} content={item.key} />
                 ))}
               </Dropdown.Menu>
             </Dropdown>
-            <Menu.Item
-              as={NavLink}
-              id="student-menu-opportunities"
-              exact
-              to={buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}`)}
-            >
+            <Menu.Item as={NavLink} id="student-menu-opportunities" exact to={buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}`)}>
               OPPORTUNITIES
             </Menu.Item>
             <Menu.Item id="student-menu-degree-planner" as={NavLink} exact to={buildRouteName(match, `/${DEGREEPLANNER}`)}>
@@ -80,14 +56,7 @@ const StudentPageMenuWidget: React.FC = () => {
             <Dropdown item id="student-menu-community" text="COMMUNITY">
               <Dropdown.Menu>
                 {communityDropdownItems.map((item) => (
-                  <Dropdown.Item
-                    key={item.key}
-                    id={item.id}
-                    as={NavLink}
-                    exact
-                    to={buildRouteName(match, `/${COMMUNITY.HOME}/${item.route}`)}
-                    content={item.key}
-                  />
+                  <Dropdown.Item key={item.key} id={item.id} as={NavLink} exact to={buildRouteName(match, `/${COMMUNITY.HOME}/${item.route}`)} content={item.key} />
                 ))}
               </Dropdown.Menu>
             </Dropdown>
@@ -95,14 +64,7 @@ const StudentPageMenuWidget: React.FC = () => {
               <Dropdown id="dropdown-user-fullname" item text={`Aloha, ${profile.firstName} ${profile.lastName}!`}>
                 <Dropdown.Menu>
                   {studentHomePageItems.map((item) => (
-                    <Dropdown.Item
-                      key={item.key}
-                      id={item.id}
-                      as={NavLink}
-                      exact
-                      to={buildRouteName(match, `/home/${item.route}`)}
-                      content={item.key}
-                    />
+                    <Dropdown.Item key={item.key} id={item.id} as={NavLink} exact to={buildRouteName(match, `/home/${item.route}`)} content={item.key} />
                   ))}
                   <Dropdown.Item id="student-menu-signout" as={NavLink} exact to="/signout" content="Sign Out" />
                 </Dropdown.Menu>

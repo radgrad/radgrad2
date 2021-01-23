@@ -19,9 +19,7 @@ const RadGradMenuLevel: React.FC<RadGradMenuLevelProps> = ({ level }) => {
     backgroundSize: '100% 100%',
     display: 'flex',
   };
-  return (
-    <div style={iconStyle} />
-  );
+  return <div style={iconStyle} />;
 };
 
 export default RadGradMenuLevel;

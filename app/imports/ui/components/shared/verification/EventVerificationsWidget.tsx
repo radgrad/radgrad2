@@ -47,23 +47,26 @@ const EventVerificationsWidget: React.FC<EventVerificationsWidgetProps> = ({ eve
   // };
 
   const onSubmit = () => {
-    const opportunity = eventOpportunities.find(ele => ele._id === opportunityState);
+    const opportunity = eventOpportunities.find((ele) => ele._id === opportunityState);
 
     onLog(`Verifying ${opportunity.name} for ${studentState}...`);
 
     const academicTerm = AcademicTerms.getAcademicTerm(opportunity.eventDate);
 
-    processVerificationEventMethod.call({
-      student: studentState,
-      opportunity: opportunityState,
-      academicTerm,
-    }, (e, result) => {
-      if (e) {
-        onLog(`Error: problem during processing: ${e}\n`);
-      } else {
-        onLog(result);
-      }
-    });
+    processVerificationEventMethod.call(
+      {
+        student: studentState,
+        opportunity: opportunityState,
+        academicTerm,
+      },
+      (e, result) => {
+        if (e) {
+          onLog(`Error: problem during processing: ${e}\n`);
+        } else {
+          onLog(result);
+        }
+      },
+    );
   };
 
   // componentDidUpdate(prevProps: Readonly<IEventVerificationsWidgetProps>, prevState: Readonly<{}>): void {
@@ -78,13 +81,11 @@ const EventVerificationsWidget: React.FC<EventVerificationsWidgetProps> = ({ eve
       <Form onSubmit={onSubmit}>
         <Form.Group inline>
           <Form.Dropdown
-            options={eventOpportunities.map(
-              (ele, i) => ({
-                key: i,
-                text: `${ele.name} (${moment(ele.eventDate).format('MM/DD/YY')})`,
-                value: ele._id,
-              }),
-            )}
+            options={eventOpportunities.map((ele, i) => ({
+              key: i,
+              text: `${ele.name} (${moment(ele.eventDate).format('MM/DD/YY')})`,
+              value: ele._id,
+            }))}
             label="Select recent event: "
             placeholder="Select One..."
             name="opportunity"

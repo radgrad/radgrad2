@@ -12,12 +12,19 @@ import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { defineMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import {
-  AcademicTerm, AcademicYearInstance, Course,
+  AcademicTerm,
+  AcademicYearInstance,
+  Course,
   CourseInstance,
   CourseInstanceDefine,
-  CourseInstanceUpdate, MeteorError, Opportunity, OpportunityInstance,
+  CourseInstanceUpdate,
+  MeteorError,
+  Opportunity,
+  OpportunityInstance,
   OpportunityInstanceDefine,
-  OpportunityInstanceUpdate, UserInteractionDefine, VerificationRequest,
+  OpportunityInstanceUpdate,
+  UserInteractionDefine,
+  VerificationRequest,
 } from '../../../typings/radgrad';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
@@ -241,7 +248,20 @@ const onDragEnd = (onDragEndProps) => (result) => {
   }
 };
 
-const StudentDegreePlannerPage: React.FC<StudentDegreePlannerProps> = ({ academicYearInstances, studentID, match, courses, opportunities, courseInstances, opportunityInstances, selectCourseInstance, selectFavoriteDetailsTab, selectOpportunityInstance, takenSlugs, verificationRequests }) => {
+const StudentDegreePlannerPage: React.FC<StudentDegreePlannerProps> = ({
+  academicYearInstances,
+  studentID,
+  match,
+  courses,
+  opportunities,
+  courseInstances,
+  opportunityInstances,
+  selectCourseInstance,
+  selectFavoriteDetailsTab,
+  selectOpportunityInstance,
+  takenSlugs,
+  verificationRequests,
+}) => {
   const onDragEndProps = { match, selectCourseInstance, selectOpportunityInstance };
   const paddedStyle = {
     paddingTop: 0,
@@ -260,11 +280,7 @@ const StudentDegreePlannerPage: React.FC<StudentDegreePlannerProps> = ({ academi
         <Grid stackable style={marginStyle}>
           <Grid.Row stretched>
             <Grid.Column width={10} style={paddedStyle}>
-              <DegreeExperiencePlannerWidget
-                academicYearInstances={academicYearInstances}
-                courseInstances={courseInstances}
-                opportunityInstances={opportunityInstances}
-              />
+              <DegreeExperiencePlannerWidget academicYearInstances={academicYearInstances} courseInstances={courseInstances} opportunityInstances={opportunityInstances} />
             </Grid.Column>
 
             <Grid.Column width={6} style={paddedStyle}>

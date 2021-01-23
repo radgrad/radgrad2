@@ -82,12 +82,15 @@ const AddUserForm: React.FC<AddUserProps> = ({ interests, handleAdd, formRef, ac
     },
     picture: {
       type: String,
-      label:
-  <React.Fragment>
-    Picture (
-    <button type="button" onClick={handleUpload}>Upload</button>
-    )
-  </React.Fragment>,
+      label: (
+        <React.Fragment>
+          Picture (
+          <button type="button" onClick={handleUpload}>
+            Upload
+          </button>
+          )
+        </React.Fragment>
+      ),
       optional: true,
     },
     website: { type: String, optional: true },
@@ -133,13 +136,7 @@ const AddUserForm: React.FC<AddUserProps> = ({ interests, handleAdd, formRef, ac
   return (
     <Segment padded>
       <Header dividing>Add User</Header>
-      <AutoForm
-        schema={formSchema}
-        onSubmit={(doc) => handleAddUser(doc)}
-        ref={formRef}
-        showInlineError
-        onChangeModel={handleModelChange}
-      >
+      <AutoForm schema={formSchema} onSubmit={(doc) => handleAddUser(doc)} ref={formRef} showInlineError onChangeModel={handleModelChange}>
         <Form.Group widths="equal">
           <TextField name="username" placeholder="johndoe@foo.edu" />
           <SelectField name="role" />
@@ -148,7 +145,9 @@ const AddUserForm: React.FC<AddUserProps> = ({ interests, handleAdd, formRef, ac
           <TextField name="firstName" placeholder="John" />
           <TextField name="lastName" placeholder="Doe" />
         </Form.Group>
-        <Header dividing as="h4">Optional fields (all users)</Header>
+        <Header dividing as="h4">
+          Optional fields (all users)
+        </Header>
         <Form.Group widths="equal">
           <TextField name="picture" value={pictureURL} onChange={handlePictureUrlChange} />
           <TextField name="website" />
@@ -160,7 +159,9 @@ const AddUserForm: React.FC<AddUserProps> = ({ interests, handleAdd, formRef, ac
         <BoolField name="retired" />
         {role === ROLE.STUDENT ? (
           <div>
-            <Header dividing as="h4">Student fields</Header>
+            <Header dividing as="h4">
+              Student fields
+            </Header>
             <Form.Group widths="equal">
               <NumField name="level" />
               <SelectField name="declaredAcademicTerm" />
@@ -177,13 +178,19 @@ const AddUserForm: React.FC<AddUserProps> = ({ interests, handleAdd, formRef, ac
               <BoolField name="isAlumni" />
             </Form.Group>
           </div>
-        ) : ''}
+        ) : (
+          ''
+        )}
         {role === ROLE.FACULTY ? (
           <div>
-            <Header dividing as="h4">Faculty field</Header>
+            <Header dividing as="h4">
+              Faculty field
+            </Header>
             <LongTextField name="aboutMe" />
           </div>
-        ) : ''}
+        ) : (
+          ''
+        )}
         <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined} />
       </AutoForm>
     </Segment>

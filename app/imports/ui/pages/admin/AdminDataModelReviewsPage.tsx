@@ -7,14 +7,7 @@ import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
-import {
-  AcademicTerm,
-  Course,
-  DescriptionPair,
-  Opportunity,
-  Review,
-  StudentProfile,
-} from '../../../typings/radgrad';
+import { AcademicTerm, Course, DescriptionPair, Opportunity, Review, StudentProfile } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Courses } from '../../../api/course/CourseCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
@@ -24,12 +17,7 @@ import { Slugs } from '../../../api/slug/SlugCollection';
 import { Reviews } from '../../../api/review/ReviewCollection';
 import AddReviewForm from '../../components/admin/datamodel/review/AddReviewForm';
 import UpdateReviewForm from '../../components/admin/datamodel/review/UpdateReviewForm';
-import {
-  academicTermNameToSlug,
-  courseNameToSlug,
-  opportunityNameToSlug,
-  profileNameToUsername,
-} from '../../components/shared/utilities/data-model';
+import { academicTermNameToSlug, courseNameToSlug, opportunityNameToSlug, profileNameToUsername } from '../../components/shared/utilities/data-model';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { getDatamodelCount } from './utilities/datamodel';
 
@@ -209,31 +197,15 @@ const AdminDataModelReviewsPage: React.FC<AdminDataModelReviewsPageProps> = (pro
     <div id="data-model-reviews-page">
       <AdminPageMenuWidget />
       <Grid container stackable style={paddedStyle}>
-
         <Grid.Column width={3}>
           <AdminDataModelMenu {...props} />
         </Grid.Column>
 
         <Grid.Column width={13}>
           {showUpdateFormState ? (
-            <UpdateReviewForm
-              collection={collection}
-              id={idState}
-              formRef={formRef}
-              handleUpdate={handleUpdate}
-              handleCancel={handleCancel}
-              itemTitleString={itemTitleString}
-              terms={props.terms}
-            />
+            <UpdateReviewForm collection={collection} id={idState} formRef={formRef} handleUpdate={handleUpdate} handleCancel={handleCancel} itemTitleString={itemTitleString} terms={props.terms} />
           ) : (
-            <AddReviewForm
-              formRef={formRef}
-              handleAdd={handleAdd}
-              terms={props.terms}
-              students={props.students}
-              opportunities={props.opportunities}
-              courses={props.courses}
-            />
+            <AddReviewForm formRef={formRef} handleAdd={handleAdd} terms={props.terms} students={props.students} opportunities={props.opportunities} courses={props.courses} />
           )}
           <ListCollectionWidget
             collection={collection}
@@ -248,12 +220,7 @@ const AdminDataModelReviewsPage: React.FC<AdminDataModelReviewsPageProps> = (pro
           />
         </Grid.Column>
       </Grid>
-      <Confirm
-        open={confirmOpenState}
-        onCancel={handleCancel}
-        onConfirm={handleConfirmDelete}
-        header="Delete Review?"
-      />
+      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Review?" />
 
       <BackToTopButton />
     </div>

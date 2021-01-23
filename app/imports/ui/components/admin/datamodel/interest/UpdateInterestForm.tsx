@@ -42,17 +42,9 @@ const UpdateInterestForm: React.FC<UpdateInterestFormProps> = ({ interestTypes, 
     <Segment padded>
       <Header dividing>
         Update
-        {collection.getType()}
-        :
-        {itemTitleString(model)}
+        {collection.getType()}:{itemTitleString(model)}
       </Header>
-      <AutoForm
-        schema={formSchema}
-        onSubmit={handleUpdate}
-        ref={formRef}
-        showInlineError
-        model={model}
-      >
+      <AutoForm schema={formSchema} onSubmit={handleUpdate} ref={formRef} showInlineError model={model}>
         <Form.Group widths="equal">
           <TextField name="slug" disabled />
           <TextField name="name" />

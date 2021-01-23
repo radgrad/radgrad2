@@ -188,86 +188,56 @@ const StudentExplorerEditReviewForm: React.FC<StudentExplorerEditReviewWidgetPro
       <Accordion.Title style={accordionTitleStyle} active={activeState} onClick={handleAccordionClick}>
         <Icon name="dropdown" />
         <a>Edit Review </a>
-        {
-          review.moderated ? (
-            <React.Fragment>
-              {
-                  review.visible ?
-                    <i className="green checkmark icon" />
-                    :
-                    <i className="red warning circle icon" />
-              }
-            </React.Fragment>
-          )
-            : (
-              <React.Fragment>
-                {
-                  review.visible ?
-                    <i className="yellow checkmark icon" />
-                    :
-                    <i className="yellow warning circle icon" />
-                }
-              </React.Fragment>
-            )
-        }
+        {review.moderated ? (
+          <React.Fragment>{review.visible ? <i className="green checkmark icon" /> : <i className="red warning circle icon" />}</React.Fragment>
+        ) : (
+          <React.Fragment>{review.visible ? <i className="yellow checkmark icon" /> : <i className="yellow warning circle icon" />}</React.Fragment>
+        )}
       </Accordion.Title>
 
       <Accordion.Content active={activeState}>
         <div className="ui padded container" style={paddedContainerStyle}>
-          {
-            review.visible ? (
-              <React.Fragment>
-                {
-                  review.moderated ? (
-                    <Message positive>
-                      <p>
-                        <i className="green checkmark icon" />
-                        Your post is visible to the RadGrad community and has
-                        been approved by moderators.
-                      </p>
-                    </Message>
-                  )
-                    : (
-                      <Message warning>
-                        <p>
-                          <i className="yellow checkmark icon" />
-                          Your post is visible to the RadGrad community but has
-                          not yet been approved by moderators.
-                        </p>
-                      </Message>
-                    )
-                  }
-              </React.Fragment>
-            )
-              : (
-                <React.Fragment>
-                  {
-                    review.moderated ? (
-                      <Message negative>
-                        <p>
-                          <i className="warning red circle icon" />
-                          Your post has been hidden by moderators for the
-                          following reasons:
-                        </p>
-                        <br />
-                        <i>{review.moderatorComments}</i>
-                      </Message>
-                    )
-                      : (
-                        <Message warning>
-                          <p>
-                            <i className="warning yellow circle icon" />
-                            Your edited post is waiting for moderator
-                            approval. Your post has currently been hidden by moderators for the following reasons:
-                            <br />
-                            <i>{review.moderatorComments}</i>
-                          </p>
-                        </Message>
-                      )
-                  }
-                </React.Fragment>
-              )
-          }
+          {review.visible ? (
+            <React.Fragment>
+              {review.moderated ? (
+                <Message positive>
+                  <p>
+                    <i className="green checkmark icon" />
+                    Your post is visible to the RadGrad community and has been approved by moderators.
+                  </p>
+                </Message>
+              ) : (
+                <Message warning>
+                  <p>
+                    <i className="yellow checkmark icon" />
+                    Your post is visible to the RadGrad community but has not yet been approved by moderators.
+                  </p>
+                </Message>
+              )}
+            </React.Fragment>
+          ) : (
+            <React.Fragment>
+              {review.moderated ? (
+                <Message negative>
+                  <p>
+                    <i className="warning red circle icon" />
+                    Your post has been hidden by moderators for the following reasons:
+                  </p>
+                  <br />
+                  <i>{review.moderatorComments}</i>
+                </Message>
+              ) : (
+                <Message warning>
+                  <p>
+                    <i className="warning yellow circle icon" />
+                    Your edited post is waiting for moderator approval. Your post has currently been hidden by moderators for the following reasons:
+                    <br />
+                    <i>{review.moderatorComments}</i>
+                  </p>
+                </Message>
+              )}
+            </React.Fragment>
+          )}
 
           <AutoForm schema={formSchema} onSubmit={handleUpdate} ref={formRef} model={model}>
             <Form.Group widths="equal">
@@ -278,13 +248,10 @@ const StudentExplorerEditReviewForm: React.FC<StudentExplorerEditReviewWidgetPro
             <LongTextField name="comments" />
 
             <SubmitField className="green basic mini" value="UPDATE" disabled={false} inputRef={undefined} />
-            <Button basic color="red" size="mini" onClick={handleDelete}>DELETE</Button>
-            <Confirm
-              open={confirmOpenState}
-              onCancel={handleCancelDelete}
-              onConfirm={handleConfirmDelete}
-              header="Delete Review?"
-            />
+            <Button basic color="red" size="mini" onClick={handleDelete}>
+              DELETE
+            </Button>
+            <Confirm open={confirmOpenState} onCancel={handleCancelDelete} onConfirm={handleConfirmDelete} header="Delete Review?" />
           </AutoForm>
         </div>
       </Accordion.Content>

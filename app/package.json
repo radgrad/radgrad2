@@ -21,7 +21,7 @@
     "generate-docs": "npx jsdoc -c jsdoc.json",
     "gh-pages": "gh-pages -d ../api-docs",
     "unimported": "npx unimported",
-    "prettier": "npx prettier -w ./imports/**/*.ts ./imports/**/*.tsx"
+    "prettier-format": "npx prettier -w ./imports/**/*.ts ./imports/**/*.tsx"
   },
   "dependencies": {
     "@artsy/fresnel": "^1.3.1",

@@ -2,13 +2,7 @@ import React from 'react';
 import { NavLink, useRouteMatch } from 'react-router-dom';
 import { Menu } from 'semantic-ui-react';
 import { buildRouteName } from '../utilities/router';
-import {
-  COURSE_SCOREBOARD,
-  OPPORTUNITY_SCOREBOARD,
-  PAGE_TRACKING_COMPARISON,
-  PAGE_TRACKING_SCOREBOARD,
-  SCOREBOARD,
-} from '../../../layouts/utilities/route-constants';
+import { COURSE_SCOREBOARD, OPPORTUNITY_SCOREBOARD, PAGE_TRACKING_COMPARISON, PAGE_TRACKING_SCOREBOARD, SCOREBOARD } from '../../../layouts/utilities/route-constants';
 import { PageInterestsCategoryTypes } from '../../../../api/page-tracking/PageInterestsCategoryTypes';
 
 const menuItems = [
@@ -29,12 +23,7 @@ const menuItems = [
 const ScoreboardPageMenu: React.FC = () => {
   const match = useRouteMatch();
   const menuOptions = menuItems.map((item) => (
-    <Menu.Item
-      key={item.key}
-      as={NavLink}
-      exact
-      to={buildRouteName(match, item.route)}
-    >
+    <Menu.Item key={item.key} as={NavLink} exact to={buildRouteName(match, item.route)}>
       {item.text}
     </Menu.Item>
   ));

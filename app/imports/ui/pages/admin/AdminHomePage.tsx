@@ -44,20 +44,8 @@ const AdminHomePage: React.FC<AdminHomePageProps> = ({ alumni, students, faculty
     <div id="admin-home-page">
       <AdminPageMenuWidget />
       <Container textAlign="center" fluid={false}>
-        <FilterUserWidget
-          updateFirstNameRegex={updateFirstNameRegex}
-          updateLastNameRegex={updateLastNameRegex}
-          updateUserNameRegex={updateUserNameRegex}
-        />
-        <RetrieveUserWidget
-          firstNameRegex={firstNameRegexState}
-          lastNameRegex={lastNameRegexState}
-          userNameRegex={usernameRegexState}
-          advisors={advisors}
-          faculty={faculty}
-          alumni={alumni}
-          students={students}
-        />
+        <FilterUserWidget updateFirstNameRegex={updateFirstNameRegex} updateLastNameRegex={updateLastNameRegex} updateUserNameRegex={updateUserNameRegex} />
+        <RetrieveUserWidget firstNameRegex={firstNameRegexState} lastNameRegex={lastNameRegexState} userNameRegex={usernameRegexState} advisors={advisors} faculty={faculty} alumni={alumni} students={students} />
       </Container>
     </div>
   );

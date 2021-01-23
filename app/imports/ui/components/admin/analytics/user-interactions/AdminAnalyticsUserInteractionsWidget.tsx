@@ -27,7 +27,6 @@ const AdminAnalyticsUserInteractionsWidget: React.FC<AdminAnalyticsUserInteracti
         setInteractions(result);
       }
     });
-
   };
 
   const getStudentName = () => {
@@ -53,19 +52,13 @@ const AdminAnalyticsUserInteractionsWidget: React.FC<AdminAnalyticsUserInteracti
   return (
     <div>
       <Segment padded>
-        <Header as="h4" dividing>USERS</Header>
+        <Header as="h4" dividing>
+          USERS
+        </Header>
         <Grid padded stackable style={usersStyle}>
           {students.map((student) => (
             <Grid.Column width={4} style={columnStyle} key={student._id}>
-              <Button
-                size="tiny"
-                color="grey"
-                basic
-                fluid
-                style={buttonStyle}
-                value={student.username}
-                onClick={handleClick}
-              >
+              <Button size="tiny" color="grey" basic fluid style={buttonStyle} value={student.username} onClick={handleClick}>
                 {`${student.firstName} ${student.lastName}`}
               </Button>
             </Grid.Column>
@@ -94,7 +87,6 @@ const AdminAnalyticsUserInteractionsWidget: React.FC<AdminAnalyticsUserInteracti
             ))}
           </Table.Body>
         </Table>
-
       </Segment>
     </div>
   );

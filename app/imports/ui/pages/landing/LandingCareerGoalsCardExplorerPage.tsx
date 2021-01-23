@@ -30,7 +30,9 @@ const LandingCareerGoalsCardExplorerPage: React.FC<CareerGoalsCardExplorerProps>
       <Grid stackable>
         <Grid.Row>
           <Grid.Column width={1} />
-          <Grid.Column width={14}><HelpPanelWidget helpMessages={helpMessages} /></Grid.Column>
+          <Grid.Column width={14}>
+            <HelpPanelWidget helpMessages={helpMessages} />
+          </Grid.Column>
           <Grid.Column width={1} />
         </Grid.Row>
 
@@ -67,9 +69,4 @@ const LandingCareerGoalsCardExplorerContainer = withTracker(() => ({
   helpMessages: HelpMessages.findNonRetired({}),
 }))(LandingCareerGoalsCardExplorerPage);
 
-export default withListSubscriptions(LandingCareerGoalsCardExplorerContainer, [
-  CareerGoals.getPublicationName(),
-  Slugs.getPublicationName(),
-  Interests.getPublicationName(),
-  HelpMessages.getPublicationName(),
-]);
+export default withListSubscriptions(LandingCareerGoalsCardExplorerContainer, [CareerGoals.getPublicationName(), Slugs.getPublicationName(), Interests.getPublicationName(), HelpMessages.getPublicationName()]);

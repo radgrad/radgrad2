@@ -7,15 +7,12 @@ const AdminDatabasePage: React.FC = () => (
   <div id="admin-database-page">
     <AdminPageMenuWidget />
     <Grid container stackable>
-
       <Grid.Column width={3}>
         <AdminDatabaseMenu />
       </Grid.Column>
 
       <Grid.Column width={13}>
-        <Message floating>
-          Click on a page in the menu to the left.
-        </Message>
+        <Message floating>Click on a page in the menu to the left.</Message>
       </Grid.Column>
     </Grid>
   </div>

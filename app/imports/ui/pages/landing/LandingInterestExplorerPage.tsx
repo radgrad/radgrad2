@@ -34,7 +34,9 @@ const LandingInterestExplorerPage: React.FC<InterestExplorerProps> = ({ currentU
       <Grid stackable>
         <Grid.Row>
           <Grid.Column width={1} />
-          <Grid.Column width={14}><HelpPanelWidget helpMessages={helpMessages} /></Grid.Column>
+          <Grid.Column width={14}>
+            <HelpPanelWidget helpMessages={helpMessages} />
+          </Grid.Column>
           <Grid.Column width={1} />
         </Grid.Row>
 
@@ -50,45 +52,39 @@ const LandingInterestExplorerPage: React.FC<InterestExplorerProps> = ({ currentU
                 <span>{interest.name}</span>
               </Header>
               <b>Description:</b>
-              <Markdown
-                escapeHtml
-                source={interest.description}
-                renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}
-              />
+              <Markdown escapeHtml source={interest.description} renderers={{ link: (localProps) => Router.renderLink(localProps, match) }} />
             </Segment>
             <Segment padded>
-              <Header as="h4" dividing>Related Courses</Header>
-              {courses.length > 0 ?
-                (
-                  <List horizontal bulleted>
-                    {courses.map((course) => (
-                      <List.Item
-                        key={course._id}
-                        href={`#/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${getSlugFromEntityID(course._id)}`}
-                      >
-                        {course.name}
-                      </List.Item>
-                    ))}
-                  </List>
-                )
-                : 'N/A'}
+              <Header as="h4" dividing>
+                Related Courses
+              </Header>
+              {courses.length > 0 ? (
+                <List horizontal bulleted>
+                  {courses.map((course) => (
+                    <List.Item key={course._id} href={`#/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${getSlugFromEntityID(course._id)}`}>
+                      {course.name}
+                    </List.Item>
+                  ))}
+                </List>
+              ) : (
+                'N/A'
+              )}
             </Segment>
             <Segment padded>
-              <Header as="h4" dividing>Related Opportunities</Header>
-              {opportunities.length > 0 ?
-                (
-                  <List horizontal bulleted>
-                    {opportunities.map((opportunity) => (
-                      <List.Item
-                        key={opportunity._id}
-                        href={`#/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${getSlugFromEntityID(opportunity._id)}`}
-                      >
-                        {opportunity.name}
-                      </List.Item>
-                    ))}
-                  </List>
-                )
-                : 'N/A'}
+              <Header as="h4" dividing>
+                Related Opportunities
+              </Header>
+              {opportunities.length > 0 ? (
+                <List horizontal bulleted>
+                  {opportunities.map((opportunity) => (
+                    <List.Item key={opportunity._id} href={`#/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${getSlugFromEntityID(opportunity._id)}`}>
+                      {opportunity.name}
+                    </List.Item>
+                  ))}
+                </List>
+              ) : (
+                'N/A'
+              )}
             </Segment>
           </Grid.Column>
           <Grid.Column width={1} />
@@ -109,10 +105,4 @@ const LandingInterestExplorerContainer = withTracker(() => {
   };
 })(LandingInterestExplorerPage);
 
-export default withListSubscriptions(LandingInterestExplorerContainer, [
-  Courses.getPublicationName(),
-  Interests.getPublicationName(),
-  Opportunities.getPublicationName(),
-  Slugs.getPublicationName(),
-  HelpMessages.getPublicationName(),
-]);
+export default withListSubscriptions(LandingInterestExplorerContainer, [Courses.getPublicationName(), Interests.getPublicationName(), Opportunities.getPublicationName(), Slugs.getPublicationName(), HelpMessages.getPublicationName()]);

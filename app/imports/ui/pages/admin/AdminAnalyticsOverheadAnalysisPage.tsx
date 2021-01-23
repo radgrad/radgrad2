@@ -4,8 +4,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminAnalyticsMenuWidget from '../../components/admin/analytics/AdminAnalyticsMenuWidget';
-import AdminAnalyticsOverheadAnalysisWidget
-  from '../../components/admin/analytics/overhead-analysis/AdminAnalyticsOverheadAnalysisWidget';
+import AdminAnalyticsOverheadAnalysisWidget from '../../components/admin/analytics/overhead-analysis/AdminAnalyticsOverheadAnalysisWidget';
 import HelpPanelWidget, { HelpPanelWidgetProps } from '../../components/shared/HelpPanelWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 
@@ -15,7 +14,9 @@ const AdminAnalyticsOverheadAnalysisPage: React.FC<HelpPanelWidgetProps> = ({ he
     <Grid stackable>
       <Grid.Row>
         <Grid.Column width={1} />
-        <Grid.Column width={14}><HelpPanelWidget helpMessages={helpMessages} /></Grid.Column>
+        <Grid.Column width={14}>
+          <HelpPanelWidget helpMessages={helpMessages} />
+        </Grid.Column>
         <Grid.Column width={1} />
       </Grid.Row>
 

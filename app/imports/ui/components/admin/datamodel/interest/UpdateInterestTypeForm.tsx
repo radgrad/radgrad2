@@ -20,17 +20,9 @@ const UpdateInterestTypeForm: React.FC<UpdateInterestTypeFormProps> = ({ collect
     <Segment padded>
       <Header dividing>
         Update
-        {collection.getType()}
-        :
-        {itemTitleString(model)}
+        {collection.getType()}:{itemTitleString(model)}
       </Header>
-      <AutoForm
-        schema={new SimpleSchema2Bridge(InterestTypes.getUpdateSchema())}
-        onSubmit={handleUpdate}
-        ref={formRef}
-        showInlineError
-        model={model}
-      >
+      <AutoForm schema={new SimpleSchema2Bridge(InterestTypes.getUpdateSchema())} onSubmit={handleUpdate} ref={formRef} showInlineError model={model}>
         <TextField name="name" />
         <LongTextField name="description" />
         <BoolField name="retired" />

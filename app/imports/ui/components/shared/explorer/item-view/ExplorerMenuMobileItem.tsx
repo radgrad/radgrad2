@@ -47,12 +47,11 @@ const userCourses = (course: Course, match): string => {
   });
   if (ci.length > 0) {
     ret = 'check green circle outline icon';
-
   }
   return ret;
 };
 
-const courseName = (course: { item: Course, count: number }): string => {
+const courseName = (course: { item: Course; count: number }): string => {
   const countStr = `x${course.count}`;
   if (course.count > 1) {
     return `${course.item.shortName} ${countStr}`;
@@ -109,16 +108,12 @@ const ExplorerMenuMobileItem: React.FC<ExplorerMenuMobileItemProps> = ({ type, l
       as={NavLink}
       exact
       to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${type}/${itemToSlugName(listItem.item)}`)}
-      text={(
+      text={
         <React.Fragment>
           <i className={getItemStatus(listItem.item, type, match)} style={iconStyle} />
-          {
-                         type !== EXPLORER_TYPE.COURSES ?
-                           itemName(listItem)
-                           : courseName(listItem as { item: Course, count: number })
-                       }
+          {type !== EXPLORER_TYPE.COURSES ? itemName(listItem) : courseName(listItem as { item: Course; count: number })}
         </React.Fragment>
-                   )}
+      }
     />
   );
 };

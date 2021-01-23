@@ -51,7 +51,9 @@ const CommunityUsersPage: React.FC<CommunityUsersPageProps> = ({ faculty, helpMe
       <Container>
         <Grid stackable>
           <Grid.Row>
-            <Grid.Column width={16}><HelpPanelWidget helpMessages={helpMessages} /></Grid.Column>
+            <Grid.Column width={16}>
+              <HelpPanelWidget helpMessages={helpMessages} />
+            </Grid.Column>
           </Grid.Row>
 
           <Grid.Row>
@@ -60,12 +62,7 @@ const CommunityUsersPage: React.FC<CommunityUsersPageProps> = ({ faculty, helpMe
             </Grid.Column>
 
             <Grid.Column width={11}>
-              <CommunityUsersWidget
-                advisors={advisors}
-                faculty={faculty}
-                students={students}
-                loggedInRole={Router.getRoleByUrl(match)}
-              />
+              <CommunityUsersWidget advisors={advisors} faculty={faculty} students={students} loggedInRole={Router.getRoleByUrl(match)} />
             </Grid.Column>
           </Grid.Row>
         </Grid>

@@ -28,12 +28,14 @@ const getRelatedCourses = (courses: Course[], interestID: string) => getObjectsT
 
 const getAssociationRelatedCourses = (courses: Course[], studentID: string) => {
   const inPlanInstances = CourseInstances.findNonRetired({
-    studentID, verified: false,
+    studentID,
+    verified: false,
   });
   const inPlanIDs = _.uniq(_.map(inPlanInstances, 'courseID'));
 
   const completedInstance = CourseInstances.findNonRetired({
-    studentID, verified: true,
+    studentID,
+    verified: true,
   });
   const completedIDs = _.uniq(_.map(completedInstance, 'courseID'));
 
@@ -54,12 +56,14 @@ const getRelatedOpportunities = (opportunities: Opportunity[], interestID: strin
 
 const getAssociationRelatedOpportunities = (opportunities: Opportunity[], studentID: string) => {
   const inPlanInstances = OpportunityInstances.find({
-    studentID, verified: false,
+    studentID,
+    verified: false,
   }).fetch();
   const inPlanIDs = _.uniq(_.map(inPlanInstances, 'opportunityID'));
 
   const completedInstances = OpportunityInstances.find({
-    studentID, verified: true,
+    studentID,
+    verified: true,
   }).fetch();
   const completedIDs = _.uniq(_.map(completedInstances, 'opportunityID'));
 
@@ -100,12 +104,7 @@ const ExplorerInterestWidget: React.FC<xplorerInterestsWidgetProps> = ({ profile
         <Segment>
           <Header>
             {interest.name}
-            <FavoritesButton
-              type={FAVORITE_TYPE.INTEREST}
-              studentID={profile.userID}
-              item={interest}
-              added={added}
-            />
+            <FavoritesButton type={FAVORITE_TYPE.INTEREST} studentID={profile.userID} item={interest} added={added} />
           </Header>
           <Divider />
           {hasTeaser ? (
@@ -115,11 +114,7 @@ const ExplorerInterestWidget: React.FC<xplorerInterestsWidgetProps> = ({ profile
                   <b>Description: </b>
                 </div>
                 <div>
-                  <Markdown
-                    escapeHtml
-                    source={interest.description}
-                    renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}
-                  />
+                  <Markdown escapeHtml source={interest.description} renderers={{ link: (localProps) => Router.renderLink(localProps, match) }} />
                 </div>
               </Grid.Column>
               <Grid.Column width={7}>
@@ -142,18 +137,11 @@ const ExplorerInterestWidget: React.FC<xplorerInterestsWidgetProps> = ({ profile
       <Grid stackable columns={2}>
         <Grid.Column width={10}>
           {/* TODO fix this; make sure to test for students and  faculty */}
-          <InterestedRelatedWidget
-            relatedCourses={relatedCourses}
-            relatedOpportunities={relatedOpportunities}
-            isStudent={Router.getRoleByUrl(match) === 'student'}
-            baseURL={getBaseURL(match)}
-          />
+          <InterestedRelatedWidget relatedCourses={relatedCourses} relatedOpportunities={relatedOpportunities} isStudent={Router.getRoleByUrl(match) === 'student'} baseURL={getBaseURL(match)} />
         </Grid.Column>
 
         <Grid.Column width={6}>
-          <InterestedProfilesWidget
-            interest={interest}
-          />
+          <InterestedProfilesWidget interest={interest} />
         </Grid.Column>
       </Grid>
     </div>

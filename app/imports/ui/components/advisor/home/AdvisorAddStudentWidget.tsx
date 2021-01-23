@@ -121,88 +121,55 @@ const AdvisorAddStudentWidget: React.FC<AdvisorAddStudentWidgetProps> = ({ inter
 
   return (
     <Tab.Pane key="new">
-      <Header as="h4" dividing>ADD STUDENT</Header>
+      <Header as="h4" dividing>
+        ADD STUDENT
+      </Header>
       {/* TODO should we be using Uniforms? */}
       <Form widths="equal" onSubmit={onSubmit}>
         <Form.Group>
           <Form.Field>
-            <Form.Input
-              name="firstName"
-              label="First Name"
-              value={firstName}
-              onChange={handleFormChange}
-              required
-            />
+            <Form.Input name="firstName" label="First Name" value={firstName} onChange={handleFormChange} required />
           </Form.Field>
           <Form.Field>
-            <Form.Input
-              name="lastName"
-              label="Last Name"
-              value={lastName}
-              onChange={handleFormChange}
-              required
-            />
+            <Form.Input name="lastName" label="Last Name" value={lastName} onChange={handleFormChange} required />
           </Form.Field>
         </Form.Group>
         <Form.Group>
           <Form.Field>
-            <Form.Input
-              name="username"
-              label="Username"
-              value={username}
-              onChange={handleFormChange}
-              required
-            />
+            <Form.Input name="username" label="Username" value={username} onChange={handleFormChange} required />
           </Form.Field>
           <Form.Field>
+            <Form.Field>Alumni</Form.Field>
             <Form.Field>
-              Alumni
+              <Radio name="isAlumni" label="True" value="true" onChange={handleFormChange} checked={isAlumni === true} required />
             </Form.Field>
             <Form.Field>
-              <Radio
-                name="isAlumni"
-                label="True"
-                value="true"
-                onChange={handleFormChange}
-                checked={isAlumni === true}
-                required
-              />
-            </Form.Field>
-            <Form.Field>
-              <Radio
-                name="isAlumni"
-                label="False"
-                value="false"
-                onChange={handleFormChange}
-                checked={isAlumni === false}
-                required
-              />
+              <Radio name="isAlumni" label="False" value="false" onChange={handleFormChange} checked={isAlumni === false} required />
             </Form.Field>
           </Form.Field>
         </Form.Group>
-        <Header as="h4" dividing>Optional Fields</Header>
+        <Header as="h4" dividing>
+          Optional Fields
+        </Header>
         <Form.Group>
           <Form.Field>
             <Form.Input
               name="picture"
-              label={(
+              label={
                 <React.Fragment>
                   Picture (
-                  <button type="button" onClick={handleUploadClick}>Upload</button>
+                  <button type="button" onClick={handleUploadClick}>
+                    Upload
+                  </button>
                   )
                 </React.Fragment>
-              )}
+              }
               onChange={handleFormChange}
               value={picture || ''}
             />
           </Form.Field>
           <Form.Field>
-            <Form.Input
-              name="website"
-              label="Website"
-              value={website || ''}
-              onChange={handleFormChange}
-            />
+            <Form.Input name="website" label="Website" value={website || ''} onChange={handleFormChange} />
           </Form.Field>
         </Form.Group>
         <Form.Group>
@@ -213,9 +180,7 @@ const AdvisorAddStudentWidget: React.FC<AdvisorAddStudentWidgetProps> = ({ inter
             label="Select Career Goal(s)"
             value={careerGoalsState}
             onChange={handleFormChange}
-            options={careerGoals.map(
-              (ele, i) => ({ key: i, text: ele.name, value: ele._id }),
-            )}
+            options={careerGoals.map((ele, i) => ({ key: i, text: ele.name, value: ele._id }))}
             placeholder="Select Career Goal(s)"
           />
           <Form.Dropdown
@@ -225,9 +190,7 @@ const AdvisorAddStudentWidget: React.FC<AdvisorAddStudentWidgetProps> = ({ inter
             label="Select Interest(s)"
             value={userInterests}
             onChange={handleFormChange}
-            options={interests.map(
-              (ele, i) => ({ key: i, text: ele.name, value: ele._id }),
-            )}
+            options={interests.map((ele, i) => ({ key: i, text: ele.name, value: ele._id }))}
             placeholder="Select Interest(s)"
           />
         </Form.Group>
@@ -238,9 +201,7 @@ const AdvisorAddStudentWidget: React.FC<AdvisorAddStudentWidgetProps> = ({ inter
               label="Declared Academic Term"
               value={declaredAcademicTerm}
               onChange={handleFormChange}
-              options={AcademicTerms.findNonRetired().map(
-                (ele, i) => ({ key: i, text: `${ele.term} ${ele.year}`, value: ele._id }),
-              )}
+              options={AcademicTerms.findNonRetired().map((ele, i) => ({ key: i, text: `${ele.term} ${ele.year}`, value: ele._id }))}
               selection
               placeholder="Select AcademicTerm"
             />

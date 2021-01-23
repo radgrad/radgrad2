@@ -65,13 +65,7 @@ const RetrieveUserWidget: React.FC<RetrieveUserWidgetProps> = ({ advisors, facul
           <Grid>
             {advisorsToShow.map((user) => (
               <Grid.Column key={user._id} width={2} style={linkStyle}>
-                <a
-                  id={shortUserName(user)}
-                  className="ui basic grey fluid label"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                  href={url(user)}
-                >
+                <a id={shortUserName(user)} className="ui basic grey fluid label" rel="noopener noreferrer" target="_blank" href={url(user)}>
                   {name(user)}
                 </a>
               </Grid.Column>
@@ -87,13 +81,7 @@ const RetrieveUserWidget: React.FC<RetrieveUserWidgetProps> = ({ advisors, facul
           <Grid>
             {facultyToShow.map((user) => (
               <Grid.Column key={user._id} width={2} style={linkStyle}>
-                <a
-                  id={shortUserName(user)}
-                  className="ui basic grey fluid label"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                  href={url(user)}
-                >
+                <a id={shortUserName(user)} className="ui basic grey fluid label" rel="noopener noreferrer" target="_blank" href={url(user)}>
                   {name(user)}
                 </a>
               </Grid.Column>
@@ -117,8 +105,7 @@ const RetrieveUserWidget: React.FC<RetrieveUserWidgetProps> = ({ advisors, facul
             ))}
             <Grid.Row centered>
               <Button color="green" basic style={marginStyle} onClick={handleUpdateLevelButton}>
-                Update Student
-                Levels
+                Update Student Levels
               </Button>
             </Grid.Row>
           </Grid>
@@ -144,7 +131,9 @@ const RetrieveUserWidget: React.FC<RetrieveUserWidgetProps> = ({ advisors, facul
   ];
   return (
     <Segment padded>
-      <Header dividing as="h4">RETRIEVE USER</Header>
+      <Header dividing as="h4">
+        RETRIEVE USER
+      </Header>
       <Tab panes={panes} renderActiveOnly={false} defaultActiveIndex={2} />
     </Segment>
   );

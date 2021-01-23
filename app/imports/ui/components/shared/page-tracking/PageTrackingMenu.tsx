@@ -2,9 +2,7 @@ import React from 'react';
 import { NavLink, Link, useRouteMatch } from 'react-router-dom';
 import { Button, Menu } from 'semantic-ui-react';
 
-import {
-  PageInterestsCategoryTypes,
-} from '../../../../api/page-tracking/PageInterestsCategoryTypes';
+import { PageInterestsCategoryTypes } from '../../../../api/page-tracking/PageInterestsCategoryTypes';
 import { buildRouteName, MatchProps } from '../utilities/router';
 import { PAGE_TRACKING_COMPARISON, PAGE_TRACKING_SCOREBOARD } from '../../../layouts/utilities/route-constants';
 
@@ -48,7 +46,9 @@ const PageTrackingMenu: React.FC<PageTrackingScoreboardMenuProps> = ({ type }) =
   const buttonRoute = getButtonRoute(match, type, PageInterestsCategoryTypes.CAREERGOAL);
   return (
     <>
-      <Button as={Link} to={buttonRoute}>{buttonText}</Button>
+      <Button as={Link} to={buttonRoute}>
+        {buttonText}
+      </Button>
       <Menu vertical>
         {menuItems.map((item) => (
           <Menu.Item key={item.key} as={NavLink} content={item.text} to={getMenuItemRoute(match, type, item.key)} />

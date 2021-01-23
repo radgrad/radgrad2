@@ -54,20 +54,24 @@ const getSessionDuration = (sessionArr: UserInteraction[]): string => {
 // Helper function to format the typeData of addCourse, removeCourse, updateCourse, addOpportunity, removeOpportunity, and updateOpportunity
 // strArray is an array of strings, the expected format of a string input in this array is "Term, Year, slug"
 // This helper function maps the array such that the string is reformatted to "slug (Term Year)"
-const formatCourseOpportunitySlugMessages = (strArray: string[]): string[] => strArray.map((str) => {
-  const split = str.split(', ');
-  return `${split[2]} (${split[0]} ${split[1]})`;
-});
+const formatCourseOpportunitySlugMessages = (strArray: string[]): string[] =>
+  strArray.map((str) => {
+    const split = str.split(', ');
+    return `${split[2]} (${split[0]} ${split[1]})`;
+  });
 
 // Helper function to format the typeData of addReview and editReview
 // strArray is an array of strings, the format of the expected string input is ["reviewType, Term-Year, slug"
 // This helper function maps the array such that the string is reformatted to "slug (Term Year)"
-const formatReviewSlugMessages = (strArray: string[]): string => strArray.map((str) => {
-  const split = str.split(', ');
-  return `${split[2]} (${split[0]})`;
-}).join(', ');
+const formatReviewSlugMessages = (strArray: string[]): string =>
+  strArray
+    .map((str) => {
+      const split = str.split(', ');
+      return `${split[2]} (${split[0]})`;
+    })
+    .join(', ');
 
-const getBehaviors = (sessionArr: UserInteraction[]): { type: string, stats: string[] }[] => {
+const getBehaviors = (sessionArr: UserInteraction[]): { type: string; stats: string[] }[] => {
   const actions = {
     careerGoalIDs: [],
     interestIDs: [],
@@ -91,7 +95,8 @@ const getBehaviors = (sessionArr: UserInteraction[]): { type: string, stats: str
     [UserInteractionsTypes.VERIFYREQUEST]: [],
   };
   _.each(sessionArr, function (interaction) {
-    if (actions[interaction.type]) { // there are interaction types that we've removed, but are still in the UserInteractions
+    if (actions[interaction.type]) {
+      // there are interaction types that we've removed, but are still in the UserInteractions
       actions[interaction.type].push(interaction.typeData.join(', '));
     }
   });
@@ -133,7 +138,8 @@ const getBehaviors = (sessionArr: UserInteraction[]): { type: string, stats: str
                 // FIXME not exactly sure if this code is needed, since there isn't a third parameter after "users". Is this code necessary?
                 parsedUrl[2] = parsedUrl[2].split(/[@%]/)[0];
               }
-              if (explorerPages[parsedUrl[1]]) { // there are explorer pages that we removed.
+              if (explorerPages[parsedUrl[1]]) {
+                // there are explorer pages that we removed.
                 explorerPages[parsedUrl[1]].push(parsedUrl[2]);
               }
             }
@@ -216,7 +222,13 @@ const StudentTimelineModal: React.FC<StudentTimelineModalProps> = ({ endDate, us
     color: '#6FBE44',
   };
   return (
-    <Modal trigger={(<Button color="grey" basic size="tiny" style={buttonStyle}>{username}</Button>)}>
+    <Modal
+      trigger={
+        <Button color="grey" basic size="tiny" style={buttonStyle}>
+          {username}
+        </Button>
+      }
+    >
       <Modal.Header>
         {profileIDToFullname(username)}&apos;s Timeline from {startDate} to {endDate}
       </Modal.Header>
@@ -227,12 +239,7 @@ const StudentTimelineModal: React.FC<StudentTimelineModalProps> = ({ endDate, us
             const time = moment(session[0].timestamp).utc(true).format('h:mma');
             const duration = getSessionDuration(session);
             return (
-              <Segment
-                color="green"
-                textAlign="left"
-                style={widthStyle}
-                key={`${_.uniqueId(`segment-${session[index].username}`)}`}
-              >
+              <Segment color="green" textAlign="left" style={widthStyle} key={`${_.uniqueId(`segment-${session[index].username}`)}`}>
                 <Header dividing color="grey">
                   Day: <div style={headerStyle}>{day} </div>
                   Time: <div style={headerStyle}>{time} </div>
@@ -244,7 +251,9 @@ const StudentTimelineModal: React.FC<StudentTimelineModalProps> = ({ endDate, us
                       <Header as="h5">{behavior.type}</Header>
                       <List>
                         {behavior.stats.map((stat) => (
-                          <List.Item style={colorStyle} key={`${_.uniqueId(`statkey:${stat}`)}`}>{stat}</List.Item>
+                          <List.Item style={colorStyle} key={`${_.uniqueId(`statkey:${stat}`)}`}>
+                            {stat}
+                          </List.Item>
                         ))}
                       </List>
                     </Segment>

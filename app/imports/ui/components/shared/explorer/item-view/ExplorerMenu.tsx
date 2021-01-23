@@ -33,16 +33,8 @@ const ExplorerMenu: React.FC<ExplorerMenuProps> = ({ menuAddedList, menuCareerLi
     <ExplorerNavDropdown text={getTypeName(type)} />
     <br />
 
-    <ExplorerMenuNonMobileWidget
-      menuAddedList={menuAddedList}
-      menuCareerList={type && menuCareerList ? menuCareerList : undefined}
-      type={type}
-    />
-    <ExplorerMenuMobileWidget
-      menuAddedList={menuAddedList}
-      menuCareerList={type && menuCareerList ? menuCareerList : undefined}
-      type={type}
-    />
+    <ExplorerMenuNonMobileWidget menuAddedList={menuAddedList} menuCareerList={type && menuCareerList ? menuCareerList : undefined} type={type} />
+    <ExplorerMenuMobileWidget menuAddedList={menuAddedList} menuCareerList={type && menuCareerList ? menuCareerList : undefined} type={type} />
   </React.Fragment>
 );
 

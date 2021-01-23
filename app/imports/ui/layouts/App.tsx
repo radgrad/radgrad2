@@ -11,9 +11,7 @@ import { ROLE } from '../../api/role/Role';
 import { routes } from './utilities/routes-config';
 import withGlobalSubscription from './utilities/GlobalSubscriptionsHOC';
 import withInstanceSubscriptions from './utilities/InstanceSubscriptionsHOC';
-import {
-  getUsername,
-} from '../components/shared/utilities/router';
+import { getUsername } from '../components/shared/utilities/router';
 import { Users } from '../../api/user/UserCollection';
 import NotAuthorizedPage from '../pages/NotAuthorizedPage';
 import withPageTracker from './utilities/PageTrackerHOC';
@@ -68,10 +66,7 @@ const ProtectedRoute = ({ component: Component, ...rest }) => (
     {...rest}
     render={(props: any) => {
       const isLogged = Meteor.userId() !== null;
-      return isLogged ?
-        (<Component {...props} />) :
-        (<Redirect to={{ pathname: '/', state: { from: props.location } }} />
-        );
+      return isLogged ? <Component {...props} /> : <Redirect to={{ pathname: '/', state: { from: props.location } }} />;
     }}
   />
 );
@@ -84,7 +79,7 @@ const ProtectedRoute = ({ component: Component, ...rest }) => (
 const AdminProtectedRoute = ({ component: Component, ...rest }) => {
   // console.log('AdminProtectedRoute', rest);
   if (_.isNil(Meteor.userId())) {
-    return (<Redirect to={{ pathname: '/', state: { from: rest.location } }} />);
+    return <Redirect to={{ pathname: '/', state: { from: rest.location } }} />;
   }
   const WrappedComponent = withGlobalSubscription(withInstanceSubscriptions(Component));
   return (
@@ -95,10 +90,7 @@ const AdminProtectedRoute = ({ component: Component, ...rest }) => {
         const isLogged = userId !== null;
         const isAdmin = Roles.userIsInRole(userId, [ROLE.ADMIN]);
         // console.log('AdminProtectedRoute', props);
-        return (isLogged && isAdmin) ?
-          (<WrappedComponent {...props} />) :
-          (<Redirect to={{ pathname: '/', state: { from: props.location } }} />
-          );
+        return isLogged && isAdmin ? <WrappedComponent {...props} /> : <Redirect to={{ pathname: '/', state: { from: props.location } }} />;
       }}
     />
   );
@@ -106,7 +98,7 @@ const AdminProtectedRoute = ({ component: Component, ...rest }) => {
 
 const AdvisorProtectedRoute = ({ component: Component, ...rest }) => {
   if (_.isNil(Meteor.userId())) {
-    return (<Redirect to={{ pathname: '/', state: { from: rest.location } }} />);
+    return <Redirect to={{ pathname: '/', state: { from: rest.location } }} />;
   }
   const WrappedComponent = withGlobalSubscription(withInstanceSubscriptions(Component));
   return (
@@ -115,10 +107,7 @@ const AdvisorProtectedRoute = ({ component: Component, ...rest }) => {
       render={(props: any) => {
         const isLogged = Meteor.userId() !== null;
         const isAllowed = Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN, ROLE.ADVISOR]);
-        return (isLogged && isAllowed) ?
-          (<WrappedComponent {...props} />) :
-          (<Redirect to={{ pathname: '/', state: { from: props.location } }} />
-          );
+        return isLogged && isAllowed ? <WrappedComponent {...props} /> : <Redirect to={{ pathname: '/', state: { from: props.location } }} />;
       }}
     />
   );
@@ -126,7 +115,7 @@ const AdvisorProtectedRoute = ({ component: Component, ...rest }) => {
 
 const FacultyProtectedRoute = ({ component: Component, ...rest }) => {
   if (_.isNil(Meteor.userId())) {
-    return (<Redirect to={{ pathname: '/', state: { from: rest.location } }} />);
+    return <Redirect to={{ pathname: '/', state: { from: rest.location } }} />;
   }
   const WrappedComponent = withGlobalSubscription(withInstanceSubscriptions(Component));
   return (
@@ -135,10 +124,7 @@ const FacultyProtectedRoute = ({ component: Component, ...rest }) => {
       render={(props: any) => {
         const isLogged = Meteor.userId() !== null;
         const isAllowed = Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN, ROLE.FACULTY]);
-        return (isLogged && isAllowed) ?
-          (<WrappedComponent {...props} />) :
-          (<Redirect to={{ pathname: '/', state: { from: props.location } }} />
-          );
+        return isLogged && isAllowed ? <WrappedComponent {...props} /> : <Redirect to={{ pathname: '/', state: { from: props.location } }} />;
       }}
     />
   );
@@ -146,7 +132,7 @@ const FacultyProtectedRoute = ({ component: Component, ...rest }) => {
 
 const StudentProtectedRoute = ({ component: Component, ...rest }) => {
   if (_.isNil(Meteor.userId())) {
-    return (<Redirect to={{ pathname: '/', state: { from: rest.location } }} />);
+    return <Redirect to={{ pathname: '/', state: { from: rest.location } }} />;
   }
   const ComponentWithSubscriptions = withGlobalSubscription(withInstanceSubscriptions(Component));
   const isStudent = Roles.userIsInRole(Meteor.userId(), ROLE.STUDENT);
@@ -163,7 +149,7 @@ const StudentProtectedRoute = ({ component: Component, ...rest }) => {
         const userId = Meteor.userId();
         const isLogged = userId !== null;
         if (!isLogged) {
-          return (<Redirect to={{ pathname: '/', state: { from: props.location } }} />);
+          return <Redirect to={{ pathname: '/', state: { from: props.location } }} />;
         }
         let isAllowed = Roles.userIsInRole(userId, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.STUDENT]);
         const routeUsername = getUsername(props.match);
@@ -176,9 +162,7 @@ const StudentProtectedRoute = ({ component: Component, ...rest }) => {
         if (isStudent) {
           isAllowed = routeUsername === loggedInUserName;
         }
-        return (isAllowed) ?
-          (<WrappedComponent {...props} />) :
-          (<NotAuthorizedPage />);
+        return isAllowed ? <WrappedComponent {...props} /> : <NotAuthorizedPage />;
       }}
     />
   );

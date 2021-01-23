@@ -45,7 +45,9 @@ const InterestBrowserView: React.FC<InterestBrowserViewProps> = ({ favoriteInter
       <Segment>
         <Header dividing>INTERESTS {interests.length}</Header>
         <Card.Group itemsPerRow={2} stackable id="interestsCardGroup">
-          {interests.map((interest) => <ProfileCard key={interest._id} item={interest} type={EXPLORER_TYPE.INTERESTS} />)}
+          {interests.map((interest) => (
+            <ProfileCard key={interest._id} item={interest} type={EXPLORER_TYPE.INTERESTS} />
+          ))}
         </Card.Group>
       </Segment>
     </div>

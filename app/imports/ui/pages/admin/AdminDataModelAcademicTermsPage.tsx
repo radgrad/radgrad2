@@ -10,11 +10,7 @@ import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/Ba
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
-import {
-  AcademicTerm,
-  AcademicTermDefine,
-  DescriptionPair,
-} from '../../../typings/radgrad';
+import { AcademicTerm, AcademicTermDefine, DescriptionPair } from '../../../typings/radgrad';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import AdminDataModelUpdateForm from '../../components/admin/datamodel/AdminDataModelUpdateForm';
 import AdminDataModelAddForm from '../../components/admin/datamodel/AdminDataModelAddForm';
@@ -146,7 +142,7 @@ const AdminDataModelAcademicTermsPage: React.FC<AdminDataModelAcademicTermsPageP
   const handleUpdate = (doc) => {
     // console.log('handleUpdate doc=%o', doc);
     const collectionName = AcademicTerms.getCollectionName();
-    const updateData: { id?: string, retired?: boolean } = {};
+    const updateData: { id?: string; retired?: boolean } = {};
     updateData.id = doc._id;
     updateData.retired = doc.retired;
     // console.log('parameter = %o', { collectionName, updateData });
@@ -181,21 +177,13 @@ const AdminDataModelAcademicTermsPage: React.FC<AdminDataModelAcademicTermsPageP
     <div id="data-model-academic-terms-page">
       <AdminPageMenuWidget />
       <Grid container stackable style={paddedStyle}>
-
         <Grid.Column width={3}>
           <AdminDataModelMenu {...props} />
         </Grid.Column>
 
         <Grid.Column width={13}>
           {showUpdateFormState ? (
-            <AdminDataModelUpdateForm
-              collection={AcademicTerms}
-              id={idState}
-              formRef={formRef}
-              handleUpdate={handleUpdate}
-              handleCancel={handleCancel}
-              itemTitleString={itemTitleString}
-            />
+            <AdminDataModelUpdateForm collection={AcademicTerms} id={idState} formRef={formRef} handleUpdate={handleUpdate} handleCancel={handleCancel} itemTitleString={itemTitleString} />
           ) : (
             <AdminDataModelAddForm collection={AcademicTerms} formRef={formRef} handleAdd={handleAdd} />
           )}
@@ -212,12 +200,7 @@ const AdminDataModelAcademicTermsPage: React.FC<AdminDataModelAcademicTermsPageP
           />
         </Grid.Column>
       </Grid>
-      <Confirm
-        open={confirmOpenState}
-        onCancel={handleCancel}
-        onConfirm={handleConfirmDelete}
-        header="Delete Academic Term?"
-      />
+      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Academic Term?" />
       <BackToTopButton />
     </div>
   );

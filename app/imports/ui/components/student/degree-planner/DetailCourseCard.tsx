@@ -6,11 +6,7 @@ import { Link, useRouteMatch } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { RadGradProperties } from '../../../../api/radgrad/RadGradProperties';
 import { CourseScoreboard } from '../../../../startup/client/collections';
-import {
-  AcademicTerm,
-  CourseInstance,
-  UserInteractionDefine,
-} from '../../../../typings/radgrad';
+import { AcademicTerm, CourseInstance, UserInteractionDefine } from '../../../../typings/radgrad';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import IceHeader from '../../shared/IceHeader';
 import { Courses } from '../../../../api/course/CourseCollection';
@@ -78,10 +74,13 @@ const DetailCourseCard: React.FC<DetailCourseCardProps> = ({ instance, selectCou
 
   const quarter = RadGradProperties.getQuarterSystem();
   const numTerms = quarter ? 12 : 9;
-  const academicTerms = AcademicTerms.findNonRetired({ termNumber: { $gte: currentTerm.termNumber } }, {
-    sort: { termNumber: 1 },
-    limit: numTerms,
-  });
+  const academicTerms = AcademicTerms.findNonRetired(
+    { termNumber: { $gte: currentTerm.termNumber } },
+    {
+      sort: { termNumber: 1 },
+      limit: numTerms,
+    },
+  );
   const scores = [];
   _.forEach(academicTerms, (term: AcademicTerm) => {
     const id = `${course._id} ${term._id}`;
@@ -105,39 +104,25 @@ const DetailCourseCard: React.FC<DetailCourseCardProps> = ({ instance, selectCou
           </Card.Header>
         </Card.Content>
         <Card.Content>
-          {futureP ?
-            (
-              <React.Fragment>
-                <p>
-                  <b>Scheduled:</b> {termName}
-                </p>
-                <FutureParticipation academicTerms={academicTerms} scores={scores} />
-                <Button
-                  floated="right"
-                  basic
-                  color="green"
-                  value={instance._id}
-                  onClick={handleRemove(selectCourseInstance, match)}
-                  size="tiny"
-                >
-                  Remove
-                </Button>
-              </React.Fragment>
-            )
-            :
-            (
+          {futureP ? (
+            <React.Fragment>
               <p>
-                <b>Taken:</b> {termName}
+                <b>Scheduled:</b> {termName}
               </p>
-            )}
+              <FutureParticipation academicTerms={academicTerms} scores={scores} />
+              <Button floated="right" basic color="green" value={instance._id} onClick={handleRemove(selectCourseInstance, match)} size="tiny">
+                Remove
+              </Button>
+            </React.Fragment>
+          ) : (
+            <p>
+              <b>Taken:</b> {termName}
+            </p>
+          )}
         </Card.Content>
         <Card.Content>
           <p style={textAlignRight}>
-            <Link
-              to={buildRouteName(match, course, EXPLORER_TYPE.COURSES)}
-              rel="noopener noreferrer"
-              target="_blank"
-            >
+            <Link to={buildRouteName(match, course, EXPLORER_TYPE.COURSES)} rel="noopener noreferrer" target="_blank">
               View in Explorer <Icon name="arrow right" />
             </Link>
           </p>

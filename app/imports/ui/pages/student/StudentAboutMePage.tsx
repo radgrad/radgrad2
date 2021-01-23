@@ -6,11 +6,7 @@ import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidge
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import StudentAboutMeWidget from '../../components/student/about-me/StudentAboutMeWidget';
 import { Users } from '../../../api/user/UserCollection';
-import {
-  FavoriteCareerGoal,
-  FavoriteInterest,
-  StudentProfile,
-} from '../../../typings/radgrad';
+import { FavoriteCareerGoal, FavoriteInterest, StudentProfile } from '../../../typings/radgrad';
 import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 
@@ -28,11 +24,7 @@ const StudentAboutMePage: React.FC<StudentAboutMePageProps> = ({ profile, favori
         <Grid.Row>
           <Grid.Column width={2} />
           <Grid.Column width={12}>
-            <StudentAboutMeWidget
-              profile={profile}
-              favoriteCareerGoals={favoriteCareerGoals}
-              favoriteInterests={favoriteInterests}
-            />
+            <StudentAboutMeWidget profile={profile} favoriteCareerGoals={favoriteCareerGoals} favoriteInterests={favoriteInterests} />
           </Grid.Column>
           <Grid.Column width={2} />
         </Grid.Row>

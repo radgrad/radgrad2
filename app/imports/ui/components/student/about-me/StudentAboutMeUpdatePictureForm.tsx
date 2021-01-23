@@ -23,7 +23,7 @@ const StudentAboutMeUpdatePictureForm: React.FC<StudentAboutMeUpdatePictureFormP
     try {
       const cloudinaryResult = await openCloudinaryWidget();
       if (cloudinaryResult.event === 'success') {
-        const updateData: { id: string; picture: string; } = { id: docID, picture: cloudinaryResult.info.url };
+        const updateData: { id: string; picture: string } = { id: docID, picture: cloudinaryResult.info.url };
         updateMethod.call({ collectionName, updateData }, (error) => {
           if (error) {
             Swal.fire({
@@ -77,7 +77,9 @@ const StudentAboutMeUpdatePictureForm: React.FC<StudentAboutMeUpdatePictureFormP
     <React.Fragment>
       <Grid.Column width={6}>
         <Image src={pictureState} style={imageStyle} floated="left" />
-        <Button basic color="green" onClick={handleUploadPicture}>UPLOAD</Button>
+        <Button basic color="green" onClick={handleUploadPicture}>
+          UPLOAD
+        </Button>
       </Grid.Column>
     </React.Fragment>
   );

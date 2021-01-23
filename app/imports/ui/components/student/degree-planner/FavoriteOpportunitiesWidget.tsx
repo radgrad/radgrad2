@@ -18,23 +18,21 @@ const FavoriteOpportunitiesWidget: React.FC<FavoriteOpportunitiesWidgetProps> = 
   const hasFavorites = opportunities.length > 0;
   return (
     <div>
-      {hasFavorites ?
-        (
-          <Card.Group itemsPerRow={1}>
-            {_.map(opportunities, (o) => (
-              <FavoriteOpportunityCard key={o._id} opportunity={o} studentID={studentID} opportunityInstances={opportunityInstances} />))}
-          </Card.Group>
-        )
-        :
-        (
-          <Message>
-            <Message.Header>No Favorite Opportunities</Message.Header>
-            <p>You can favorite opportunities in the explorer.</p>
-            <Link to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}`)}>
-              View in Explorer <Icon name="arrow right" />
-            </Link>
-          </Message>
-        )}
+      {hasFavorites ? (
+        <Card.Group itemsPerRow={1}>
+          {_.map(opportunities, (o) => (
+            <FavoriteOpportunityCard key={o._id} opportunity={o} studentID={studentID} opportunityInstances={opportunityInstances} />
+          ))}
+        </Card.Group>
+      ) : (
+        <Message>
+          <Message.Header>No Favorite Opportunities</Message.Header>
+          <p>You can favorite opportunities in the explorer.</p>
+          <Link to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}`)}>
+            View in Explorer <Icon name="arrow right" />
+          </Link>
+        </Message>
+      )}
     </div>
   );
 };

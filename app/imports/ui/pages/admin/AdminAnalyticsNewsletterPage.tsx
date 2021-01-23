@@ -2,8 +2,7 @@ import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminAnalyticsMenuWidget from '../../components/admin/analytics/AdminAnalyticsMenuWidget';
-import AdminAnalyticsNewsletterWidget
-  from '../../components/admin/analytics/newsletter/AdminAnalyticsNewsletterWidget';
+import AdminAnalyticsNewsletterWidget from '../../components/admin/analytics/newsletter/AdminAnalyticsNewsletterWidget';
 
 const AdminAnalyticsNewsletterPage: React.FC = () => {
   // console.log(currentUser, iconName);

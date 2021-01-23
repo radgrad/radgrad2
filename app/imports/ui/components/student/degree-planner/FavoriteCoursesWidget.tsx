@@ -18,22 +18,21 @@ const FavoriteCoursesWidget: React.FC<FavoriteCoursesWidgetProps> = ({ studentID
   const hasFavorites = courses.length > 0;
   return (
     <div>
-      {hasFavorites ?
-        (
-          <Card.Group itemsPerRow={1}>
-            {_.map(courses, (c) => <FavoriteCourseCard key={c._id} course={c} studentID={studentID} courseInstances={courseInstances} />)}
-          </Card.Group>
-        )
-        :
-        (
-          <Message>
-            <Message.Header>No Favorite Courses</Message.Header>
-            <p>You can favorite courses in the explorer.</p>
-            <Link to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}`)}>
-              View in Explorer <Icon name="arrow right" />
-            </Link>
-          </Message>
-        )}
+      {hasFavorites ? (
+        <Card.Group itemsPerRow={1}>
+          {_.map(courses, (c) => (
+            <FavoriteCourseCard key={c._id} course={c} studentID={studentID} courseInstances={courseInstances} />
+          ))}
+        </Card.Group>
+      ) : (
+        <Message>
+          <Message.Header>No Favorite Courses</Message.Header>
+          <p>You can favorite courses in the explorer.</p>
+          <Link to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}`)}>
+            View in Explorer <Icon name="arrow right" />
+          </Link>
+        </Message>
+      )}
     </div>
   );
 };

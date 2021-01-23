@@ -11,27 +11,14 @@ import ListCollectionWidget from '../../components/admin/datamodel/ListCollectio
 import { dataModelActions } from '../../../redux/admin/data-model';
 import AdminDataModelUpdateForm from '../../components/admin/datamodel/AdminDataModelUpdateForm'; // this should be replaced by specific UpdateForm
 // import AdminDataModelAddForm from '../../components/admin/AdminDataModelAddForm';
-import {
-  AcademicTerm,
-  DescriptionPair,
-  Opportunity, OpportunityInstance,
-  StudentProfile,
-  VerificationRequest,
-} from '../../../typings/radgrad';
+import { AcademicTerm, DescriptionPair, Opportunity, OpportunityInstance, StudentProfile, VerificationRequest } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import AddVerificationRequestForm from '../../components/admin/datamodel/verification-request/AddVerificationRequestForm';
-import {
-  academicTermNameToSlug,
-  opportunityInstanceNameToId,
-  opportunityInstanceNameToTermSlug,
-  opportunityInstanceNameToUsername,
-  opportunityNameToSlug,
-  profileNameToUsername,
-} from '../../components/shared/utilities/data-model';
+import { academicTermNameToSlug, opportunityInstanceNameToId, opportunityInstanceNameToTermSlug, opportunityInstanceNameToUsername, opportunityNameToSlug, profileNameToUsername } from '../../components/shared/utilities/data-model';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { getDatamodelCount } from './utilities/datamodel';
 
@@ -217,30 +204,15 @@ const AdminDataModelVerificationRequestsPage: React.FC<AdminDataModelVerificatio
     <div id="data-model-verification-requests-page">
       <AdminPageMenuWidget />
       <Grid container stackable style={paddedStyle}>
-
         <Grid.Column width={3}>
           <AdminDataModelMenu {...props} />
         </Grid.Column>
 
         <Grid.Column width={13}>
           {showUpdateFormState ? (
-            <AdminDataModelUpdateForm
-              collection={collection}
-              id={idState}
-              formRef={formRef}
-              handleUpdate={handleUpdate}
-              handleCancel={handleCancel}
-              itemTitleString={itemTitleString}
-            />
+            <AdminDataModelUpdateForm collection={collection} id={idState} formRef={formRef} handleUpdate={handleUpdate} handleCancel={handleCancel} itemTitleString={itemTitleString} />
           ) : (
-            <AddVerificationRequestForm
-              formRef={formRef}
-              handleAdd={handleAdd}
-              opportunities={props.opportunities}
-              students={props.students}
-              opportunityInstances={props.opportunityInstances}
-              academicTerms={props.academicTerms}
-            />
+            <AddVerificationRequestForm formRef={formRef} handleAdd={handleAdd} opportunities={props.opportunities} students={props.students} opportunityInstances={props.opportunityInstances} academicTerms={props.academicTerms} />
           )}
           <ListCollectionWidget
             collection={collection}
@@ -255,12 +227,7 @@ const AdminDataModelVerificationRequestsPage: React.FC<AdminDataModelVerificatio
           />
         </Grid.Column>
       </Grid>
-      <Confirm
-        open={confirmOpenState}
-        onCancel={handleCancel}
-        onConfirm={handleConfirmDelete}
-        header="Delete Verification Request?"
-      />
+      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Verification Request?" />
 
       <BackToTopButton />
     </div>

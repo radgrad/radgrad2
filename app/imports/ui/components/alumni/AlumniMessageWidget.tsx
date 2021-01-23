@@ -11,16 +11,8 @@ const AdminMessageWidget: React.FC = () => {
       <Header dividing>WELCOME BACK</Header>
       <p />
       We think you have graduated and are now an Alumni. Since you have graduated,
-      <RadGradLogoText />
-      {' '}
-      no longer
-      has
-      any experiences for you.
-      <Markdown
-        escapeHtml={false}
-        source={'#### Are we wrong?\n' +
-        `If this is in error, please email [${adminEmail}](mailto:${adminEmail}).`}
-      />
+      <RadGradLogoText /> no longer has any experiences for you.
+      <Markdown escapeHtml={false} source={'#### Are we wrong?\n' + `If this is in error, please email [${adminEmail}](mailto:${adminEmail}).`} />
     </Message>
   );
 };

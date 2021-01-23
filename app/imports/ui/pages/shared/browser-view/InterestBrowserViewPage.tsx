@@ -31,22 +31,16 @@ const InterestBrowserViewPage: React.FC<InterestBrowserViewPageProps> = ({ favor
       <Container>
         <Grid stackable>
           <Grid.Row className="helpPanel">
-            <Grid.Column width={16}><HelpPanelWidget helpMessages={helpMessages} /></Grid.Column>
+            <Grid.Column width={16}>
+              <HelpPanelWidget helpMessages={helpMessages} />
+            </Grid.Column>
           </Grid.Row>
           <Grid.Row>
             <Grid.Column width={4}>
-              <ExplorerMultipleItemsMenu
-                menuAddedList={menuAddedItems}
-                type={EXPLORER_TYPE.INTERESTS as IExplorerTypes}
-                menuCareerList={menuCareerList}
-              />
+              <ExplorerMultipleItemsMenu menuAddedList={menuAddedItems} type={EXPLORER_TYPE.INTERESTS as IExplorerTypes} menuCareerList={menuCareerList} />
             </Grid.Column>
             <Grid.Column width={12}>
-              <InterestBrowserViewContainer
-                favoriteInterests={favoriteInterests}
-                favoriteCareerGoalInterests={favoriteCareerGoalInterests}
-                interests={interests}
-              />
+              <InterestBrowserViewContainer favoriteInterests={favoriteInterests} favoriteCareerGoalInterests={favoriteCareerGoalInterests} interests={interests} />
             </Grid.Column>
           </Grid.Row>
         </Grid>

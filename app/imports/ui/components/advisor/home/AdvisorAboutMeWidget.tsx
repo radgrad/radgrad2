@@ -19,7 +19,6 @@ interface AdvisorAboutMeWidgetProps {
 
 /** The Advisor About Me Widget shows basic information of the specified user. */
 const AdvisorAboutMeWidget: React.FC<AdvisorAboutMeWidgetProps> = ({ profile, favoriteCareerGoals, favoriteInterests }) => {
-
   const [websiteState, setWebsite] = useState(profile.website);
   const [pictureState, setPicture] = useState(profile.picture);
   const [aboutMeState, setAboutMe] = useState(profile.aboutMe);
@@ -107,11 +106,10 @@ const AdvisorAboutMeWidget: React.FC<AdvisorAboutMeWidgetProps> = ({ profile, fa
   const generateInterestRoute = (label) => {
     label = label.toString().toLowerCase().split(' ').join('-'); // eslint-disable-line no-param-reassign
     // example url /advisor/binsted@hawaii.edu/explorer/interests/artificial-intelligence
-    const explorePath = [profile.role.toLowerCase(), username,
-      'explorer', 'interests', label];
+    const explorePath = [profile.role.toLowerCase(), username, 'explorer', 'interests', label];
     let exploreRoute = explorePath.join('/');
     exploreRoute = `/${exploreRoute}`;
-    return (exploreRoute);
+    return exploreRoute;
   };
 
   /**
@@ -122,11 +120,10 @@ const AdvisorAboutMeWidget: React.FC<AdvisorAboutMeWidgetProps> = ({ profile, fa
   const generateCareerGoalsRoute = (label) => {
     label = label.toString().toLowerCase().split(' ').join('-'); // eslint-disable-line no-param-reassign
     // example url /faculty/binsted@hawaii.edu/explorer/interests/mobile-app-developer
-    const explorePath = [profile.role.toLowerCase(), username,
-      'explorer', 'career-goals', label];
+    const explorePath = [profile.role.toLowerCase(), username, 'explorer', 'career-goals', label];
     let exploreRoute = explorePath.join('/');
     exploreRoute = `/${exploreRoute}`;
-    return (exploreRoute);
+    return exploreRoute;
   };
 
   const handleUploadPicture = async (e): Promise<void> => {
@@ -135,7 +132,7 @@ const AdvisorAboutMeWidget: React.FC<AdvisorAboutMeWidgetProps> = ({ profile, fa
     try {
       const cloudinaryResult = await openCloudinaryWidget();
       if (cloudinaryResult.event === 'success') {
-        const updateData: { id: string; picture: string; } = { id: profile._id, picture: cloudinaryResult.info.url };
+        const updateData: { id: string; picture: string } = { id: profile._id, picture: cloudinaryResult.info.url };
         updateMethod.call({ collectionName, updateData }, (error) => {
           if (error) {
             Swal.fire({
@@ -196,78 +193,76 @@ const AdvisorAboutMeWidget: React.FC<AdvisorAboutMeWidgetProps> = ({ profile, fa
       <Grid>
         <Grid.Row>
           <Grid.Column>
-            <Header as="h3" dividing textAlign="left">Profile</Header>
+            <Header as="h3" dividing textAlign="left">
+              Profile
+            </Header>
           </Grid.Column>
         </Grid.Row>
         <Grid.Row>
           <Grid.Column floated="left" width={2}>
-            <Header as="h5" textAlign="left">Name</Header>
+            <Header as="h5" textAlign="left">
+              Name
+            </Header>
           </Grid.Column>
           <Grid.Column floated="left" width={6}>
-            <Header as="h5" textAlign="left">{Users.getFullName(profile.userID)}</Header>
+            <Header as="h5" textAlign="left">
+              {Users.getFullName(profile.userID)}
+            </Header>
           </Grid.Column>
           <Grid.Column floated="left" width={2}>
-            <Header as="h5" textAlign="left">Email</Header>
+            <Header as="h5" textAlign="left">
+              Email
+            </Header>
           </Grid.Column>
           <Grid.Column floated="left" width={6}>
-            <Header as="h5" textAlign="left">{username}</Header>
+            <Header as="h5" textAlign="left">
+              {username}
+            </Header>
           </Grid.Column>
         </Grid.Row>
         <Grid.Row>
           <Grid.Column floated="left" width={2}>
-            <Header as="h5" textAlign="left">Interests</Header>
+            <Header as="h5" textAlign="left">
+              Interests
+            </Header>
           </Grid.Column>
           <Grid.Column floated="left" width={6}>
             <Grid>
               <Grid.Row divided textAlign="left">
                 <Label.Group>
-                  {
-                    advisorInterests.length > 0 ? (
-                      _.map(advisorInterests, (interests, index) => (
-                        <Label
-                          size="small"
-                          key={index}
-                          as={NavLink}
-                          exact
-                          to={generateInterestRoute(interests)}
-                        >
-                          <Icon
-                            name="star"
-                          />
-                          {interests}
-                        </Label>
-                      ))
-                    )
-                      : <p style={marginStyle}>No interests favorited yet.</p>
-                  }
+                  {advisorInterests.length > 0 ? (
+                    _.map(advisorInterests, (interests, index) => (
+                      <Label size="small" key={index} as={NavLink} exact to={generateInterestRoute(interests)}>
+                        <Icon name="star" />
+                        {interests}
+                      </Label>
+                    ))
+                  ) : (
+                    <p style={marginStyle}>No interests favorited yet.</p>
+                  )}
                 </Label.Group>
               </Grid.Row>
               <Link to={exploreRoute}>Edit in Interest Explorer</Link>
             </Grid>
           </Grid.Column>
           <Grid.Column floated="left" width={2}>
-            <Header as="h5" textAlign="left">Career Goals</Header>
+            <Header as="h5" textAlign="left">
+              Career Goals
+            </Header>
           </Grid.Column>
           <Grid.Column floated="left" width={6}>
             <Grid>
               <Grid.Row divided textAlign="left">
                 <Label.Group>
-                  {
-                    advisorCareerGoals.length > 0 ? (
-                      _.map(advisorCareerGoals, (careerGoals, index) => (
-                        <Label
-                          size="small"
-                          key={index}
-                          as={NavLink}
-                          exact
-                          to={generateCareerGoalsRoute(careerGoals)}
-                        >
-                          <Icon name="suitcase" /> {careerGoals}
-                        </Label>
-                      ))
-                    )
-                      : <p style={marginStyle}>No career goals favorited yet.</p>
-                  }
+                  {advisorCareerGoals.length > 0 ? (
+                    _.map(advisorCareerGoals, (careerGoals, index) => (
+                      <Label size="small" key={index} as={NavLink} exact to={generateCareerGoalsRoute(careerGoals)}>
+                        <Icon name="suitcase" /> {careerGoals}
+                      </Label>
+                    ))
+                  ) : (
+                    <p style={marginStyle}>No career goals favorited yet.</p>
+                  )}
                 </Label.Group>
               </Grid.Row>
               <Link to={careerRoute}>Edit in Career Goal Explorer</Link>
@@ -276,48 +271,48 @@ const AdvisorAboutMeWidget: React.FC<AdvisorAboutMeWidgetProps> = ({ profile, fa
         </Grid.Row>
         <Grid.Row>
           <Grid.Column floated="left" width={2}>
-            <Header as="h5" textAlign="left">Website</Header>
+            <Header as="h5" textAlign="left">
+              Website
+            </Header>
           </Grid.Column>
           <Grid.Column floated="left" width={6}>
             <Form onSubmit={handleSubmitWebsite}>
               <Form.Group>
-                <Form.Input
-                  name="website"
-                  onChange={handleChange}
-                  value={websiteState}
-                />
-                <Form.Button basic color="green">Update</Form.Button>
+                <Form.Input name="website" onChange={handleChange} value={websiteState} />
+                <Form.Button basic color="green">
+                  Update
+                </Form.Button>
               </Form.Group>
             </Form>
           </Grid.Column>
           <Grid.Column floated="left" width={2}>
-            <Header as="h5" textAlign="left">Picture</Header>
+            <Header as="h5" textAlign="left">
+              Picture
+            </Header>
           </Grid.Column>
           <Grid.Column floated="left" width={6}>
             <Form onSubmit={handleUploadPicture}>
               <Form.Group>
-                <Form.Input
-                  name="picture"
-                  onChange={handleChange}
-                  value={pictureState}
-                />
-                <Form.Button basic color="green">Upload</Form.Button>
+                <Form.Input name="picture" onChange={handleChange} value={pictureState} />
+                <Form.Button basic color="green">
+                  Upload
+                </Form.Button>
               </Form.Group>
             </Form>
           </Grid.Column>
         </Grid.Row>
         <Grid.Column floated="left" width={2}>
-          <Header as="h5" textAlign="left">About Me</Header>
+          <Header as="h5" textAlign="left">
+            About Me
+          </Header>
         </Grid.Column>
         <Grid.Column floated="left" width={14}>
           <Form onSubmit={handleSubmitAboutMe}>
             <Form.Group>
-              <Form.TextArea
-                name="aboutMe"
-                onChange={handleChange}
-                value={aboutMeState}
-              />
-              <Form.Button basic color="green">Update</Form.Button>
+              <Form.TextArea name="aboutMe" onChange={handleChange} value={aboutMeState} />
+              <Form.Button basic color="green">
+                Update
+              </Form.Button>
             </Form.Group>
           </Form>
         </Grid.Column>

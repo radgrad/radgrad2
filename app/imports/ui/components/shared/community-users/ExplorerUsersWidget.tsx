@@ -25,7 +25,7 @@ const isRole = (userProfile, compareRole: string, ...otherRoles: string[]): bool
  * @param handleClose {function} Handler to close component (dimmer) when clicking outside of the component
  * @return {Dimmer} */
 const ExplorerUsersWidget: React.FC<ExplorerUsersWidgetProps> = ({ userProfile, isActive, handleClose }) => {
-  if (!(userProfile)) return undefined;
+  if (!userProfile) return undefined;
   const overflowStyle: React.CSSProperties = { overflow: 'scroll' };
   const cardStyle: React.CSSProperties = {
     textAlign: 'left',
@@ -50,13 +50,7 @@ const ExplorerUsersWidget: React.FC<ExplorerUsersWidgetProps> = ({ userProfile, 
     interestIDs,
   };
   return (
-    <Dimmer
-      style={overflowStyle}
-      active={isActive}
-      onClickOutside={handleClose}
-      page
-      id="explorerUserWidget"
-    >
+    <Dimmer style={overflowStyle} active={isActive} onClickOutside={handleClose} page id="explorerUserWidget">
       <Grid centered>
         <Grid.Column width={12}>
           <Card fluid style={cardStyle}>
@@ -66,13 +60,7 @@ const ExplorerUsersWidget: React.FC<ExplorerUsersWidgetProps> = ({ userProfile, 
               <Card.Meta>
                 {capitalizeFirstLetter(p.role)}
                 <br />
-                {level ? (
-                  <Image
-                    style={{ padding: '5px' }}
-                    size="mini"
-                    src={`/images/level-icons/radgrad-level-${level}-icon.png`}
-                  />
-                ) : undefined}
+                {level ? <Image style={{ padding: '5px' }} size="mini" src={`/images/level-icons/radgrad-level-${level}-icon.png`} /> : undefined}
                 {isRole(userProfile, ROLE.ADVISOR, ROLE.FACULTY) ? (
                   <React.Fragment>
                     {p.username}
@@ -82,8 +70,11 @@ const ExplorerUsersWidget: React.FC<ExplorerUsersWidgetProps> = ({ userProfile, 
                 {sharedUsername}
                 <br />
               </Card.Meta>
-              {p.website ?
-                <a href={p.website} target="_blank" rel="noopener noreferrer">{p.website}</a> : undefined}
+              {p.website ? (
+                <a href={p.website} target="_blank" rel="noopener noreferrer">
+                  {p.website}
+                </a>
+              ) : undefined}
               {p.motivation || undefined}
             </Card.Content>
             <Card.Content extra>

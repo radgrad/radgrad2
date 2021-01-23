@@ -7,7 +7,7 @@ import { AcademicTerm, Course, Scoreboard } from '../../../../typings/radgrad';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 
 interface CourseScoreboardWidgetProps {
-  courses: Course[],
+  courses: Course[];
   terms: AcademicTerm[];
   scores: Scoreboard[];
 }
@@ -63,10 +63,7 @@ const CourseScoreboardWidget: React.FC<CourseScoreboardWidgetProps> = ({ courses
               <Table.Row>
                 <Table.HeaderCell width={1}>Course</Table.HeaderCell>
                 {_.map(terms, (term) => (
-                  <Table.HeaderCell
-                    width={1}
-                    key={term._id}
-                  >
+                  <Table.HeaderCell width={1} key={term._id}>
                     {AcademicTerms.getShortName(term._id)}
                   </Table.HeaderCell>
                 ))}
@@ -78,7 +75,9 @@ const CourseScoreboardWidget: React.FC<CourseScoreboardWidgetProps> = ({ courses
               <Table.Body>
                 {_.map(courses, (c, index) => (
                   <Table.Row key={index}>
-                    <Table.Cell width={1}><Popup content={c.shortName} trigger={<Label>{c.num}</Label>} /></Table.Cell>
+                    <Table.Cell width={1}>
+                      <Popup content={c.shortName} trigger={<Label>{c.num}</Label>} />
+                    </Table.Cell>
                     {_.map(terms, (t) => {
                       const score = getCourseScore(c._id, t._id, scores);
                       return (
@@ -96,7 +95,9 @@ const CourseScoreboardWidget: React.FC<CourseScoreboardWidgetProps> = ({ courses
         </Grid.Row>
         <Grid.Row>
           <Grid.Column width={1} />
-          <Button basic color="green" onClick={handleSaveAsCSV(terms, courses, scores)}>Save as CSV</Button>
+          <Button basic color="green" onClick={handleSaveAsCSV(terms, courses, scores)}>
+            Save as CSV
+          </Button>
         </Grid.Row>
       </Grid>
     </Segment>

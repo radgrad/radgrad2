@@ -53,34 +53,19 @@ const UserSessionOverheadWidget: React.FC<UserSessionOverheadWidgetProps> = ({ o
         <Table fixed celled striped sortable style={firstTableStyle}>
           <Table.Header>
             <Table.Row>
-              <Table.HeaderCell
-                sorted={column === 'username' ? direction : undefined}
-                onClick={(e) => handleSort(e, 'username')}
-              >
+              <Table.HeaderCell sorted={column === 'username' ? direction : undefined} onClick={(e) => handleSort(e, 'username')}>
                 Username
               </Table.HeaderCell>
-              <Table.HeaderCell
-                sorted={column === 'sessions' ? direction : undefined}
-                onClick={(e) => handleSort(e, 'sessions')}
-              >
+              <Table.HeaderCell sorted={column === 'sessions' ? direction : undefined} onClick={(e) => handleSort(e, 'sessions')}>
                 # Sessions
               </Table.HeaderCell>
-              <Table.HeaderCell
-                sorted={column === 'num-docs' ? direction : undefined}
-                onClick={(e) => handleSort(e, 'num-docs')}
-              >
+              <Table.HeaderCell sorted={column === 'num-docs' ? direction : undefined} onClick={(e) => handleSort(e, 'num-docs')}>
                 # Docs
               </Table.HeaderCell>
-              <Table.HeaderCell
-                sorted={column === 'docs-per-min' ? direction : undefined}
-                onClick={(e) => handleSort(e, 'docs-per-min')}
-              >
+              <Table.HeaderCell sorted={column === 'docs-per-min' ? direction : undefined} onClick={(e) => handleSort(e, 'docs-per-min')}>
                 Docs/Min
               </Table.HeaderCell>
-              <Table.HeaderCell
-                sorted={column === 'total-time' ? direction : undefined}
-                onClick={(e) => handleSort(e, 'total-time')}
-              >
+              <Table.HeaderCell sorted={column === 'total-time' ? direction : undefined} onClick={(e) => handleSort(e, 'total-time')}>
                 Total Time
               </Table.HeaderCell>
               <Table.HeaderCell>Show Docs</Table.HeaderCell>
@@ -99,10 +84,7 @@ const UserSessionOverheadWidget: React.FC<UserSessionOverheadWidgetProps> = ({ o
                 <Table.Cell>{user['docs-per-min']}</Table.Cell>
                 <Table.Cell>{user['total-time']}</Table.Cell>
                 <Table.Cell>
-                  <UserSessionOverheadModal
-                    username={user.username}
-                    userInteractionsByUser={userInteractions[user.username]}
-                  />
+                  <UserSessionOverheadModal username={user.username} userInteractionsByUser={userInteractions[user.username]} />
                 </Table.Cell>
               </Table.Row>
             ))}

@@ -18,13 +18,7 @@ const StudentHomeBannersWidget: React.FC = () => {
             <div className="action-box action-box1">
               <h2>Develop your ability to innovate and to have experiences</h2>
               <p>Be a well-rounded graduate who is attractive to employers and/or graduate programs</p>
-              <Button
-                as={Link}
-                to={buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}`)}
-                basic
-                inverted
-                color="yellow"
-              >
+              <Button as={Link} to={buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}`)} basic inverted color="yellow">
                 Learn More
               </Button>
             </div>
@@ -35,13 +29,7 @@ const StudentHomeBannersWidget: React.FC = () => {
             <div className="action-box action-box2">
               <h2>Explore Courses and Get Useful Information</h2>
               <p>It enables you to take a deep dive into each of the courses associated with the degree program.</p>
-              <Button
-                as={Link}
-                to={buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}`)}
-                basic
-                inverted
-                color="yellow"
-              >
+              <Button as={Link} to={buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}`)} basic inverted color="yellow">
                 Learn More
               </Button>
             </div>
@@ -51,15 +39,8 @@ const StudentHomeBannersWidget: React.FC = () => {
           <Card.Content>
             <div className="action-box action-box3">
               <h2>Specify Your Career Goals</h2>
-              <p>The set of career goals are curated by the faculty to represent a good selection of the most promising
-                career paths.</p>
-              <Button
-                as={Link}
-                to={buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}`)}
-                basic
-                inverted
-                color="yellow"
-              >
+              <p>The set of career goals are curated by the faculty to represent a good selection of the most promising career paths.</p>
+              <Button as={Link} to={buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}`)} basic inverted color="yellow">
                 Learn More
               </Button>
             </div>

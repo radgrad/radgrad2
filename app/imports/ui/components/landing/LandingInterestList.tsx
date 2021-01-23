@@ -18,15 +18,11 @@ const LandingInterestList: React.FC<WithInterestsProps> = ({ interestIDs }) => {
   const labelStyle = { marginBottom: '2px' };
   return (
     <React.Fragment>
-      <Header as="h4" dividing>Related Interests</Header>
+      <Header as="h4" dividing>
+        Related Interests
+      </Header>
       {interests.map((interest) => (
-        <Label
-          as={Link}
-          key={interest._id}
-          to={`/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}/${getSlugName(interest)}`}
-          color="grey"
-          style={labelStyle}
-        >
+        <Label as={Link} key={interest._id} to={`/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}/${getSlugName(interest)}`} color="grey" style={labelStyle}>
           {interest.name}
         </Label>
       ))}

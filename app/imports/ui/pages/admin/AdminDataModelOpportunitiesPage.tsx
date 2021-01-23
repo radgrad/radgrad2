@@ -8,14 +8,7 @@ import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
-import {
-  AcademicTerm,
-  BaseProfile,
-  DescriptionPair,
-  Interest,
-  Opportunity,
-  OpportunityType,
-} from '../../../typings/radgrad';
+import { AcademicTerm, BaseProfile, DescriptionPair, Interest, Opportunity, OpportunityType } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';
@@ -24,11 +17,7 @@ import { Interests } from '../../../api/interest/InterestCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import AddOpportunityForm from '../../components/admin/datamodel/opportunity/AddOpportunityForm';
 import UpdateOpportunityForm from '../../components/admin/datamodel/opportunity/UpdateOpportunityForm';
-import {
-  academicTermNameToSlug, itemToSlugName,
-  opportunityTypeNameToSlug,
-  profileNameToUsername,
-} from '../../components/shared/utilities/data-model';
+import { academicTermNameToSlug, itemToSlugName, opportunityTypeNameToSlug, profileNameToUsername } from '../../components/shared/utilities/data-model';
 import { interestSlugFromName } from '../../components/shared/utilities/form';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
@@ -203,7 +192,6 @@ const AdminDataModelOpportunitiesPage: React.FC<AdminDataModelOpportunitiesPageP
     <div id="data-model-opportunities-page">
       <AdminPageMenuWidget />
       <Grid container stackable style={paddedStyle}>
-
         <Grid.Column width={3}>
           <AdminDataModelMenu {...props} />
         </Grid.Column>
@@ -223,14 +211,7 @@ const AdminDataModelOpportunitiesPage: React.FC<AdminDataModelOpportunitiesPageP
               opportunityTypes={props.opportunityTypes}
             />
           ) : (
-            <AddOpportunityForm
-              formRef={formRef}
-              handleAdd={handleAdd}
-              sponsors={props.sponsors}
-              terms={props.terms}
-              interests={props.interests}
-              opportunityTypes={props.opportunityTypes}
-            />
+            <AddOpportunityForm formRef={formRef} handleAdd={handleAdd} sponsors={props.sponsors} terms={props.terms} interests={props.interests} opportunityTypes={props.opportunityTypes} />
           )}
           <ListCollectionWidget
             collection={collection}
@@ -245,12 +226,7 @@ const AdminDataModelOpportunitiesPage: React.FC<AdminDataModelOpportunitiesPageP
           />
         </Grid.Column>
       </Grid>
-      <Confirm
-        open={confirmOpenState}
-        onCancel={handleCancel}
-        onConfirm={handleConfirmDelete}
-        header="Delete Opportunity?"
-      />
+      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Opportunity?" />
 
       <BackToTopButton />
     </div>
@@ -264,7 +240,7 @@ const AdminDataModelOpportunitiesPageContainer = withTracker(() => {
   const before = currentTermNumber + 16;
   // console.log(currentTermNumber, after, before);
   const allTerms = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();
-  const terms = _.filter(allTerms, t => t.termNumber >= after && t.termNumber <= before);
+  const terms = _.filter(allTerms, (t) => t.termNumber >= after && t.termNumber <= before);
   // const terms = allTerms;
   // console.log(terms);
   const faculty = FacultyProfiles.find({}).fetch();

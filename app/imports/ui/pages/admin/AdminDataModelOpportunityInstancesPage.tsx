@@ -10,13 +10,7 @@ import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
-import {
-  AcademicTerm, BaseProfile,
-  DescriptionPair,
-  Opportunity,
-  OpportunityInstance,
-  StudentProfile,
-} from '../../../typings/radgrad';
+import { AcademicTerm, BaseProfile, DescriptionPair, Opportunity, OpportunityInstance, StudentProfile } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
@@ -24,11 +18,7 @@ import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Users } from '../../../api/user/UserCollection';
 import AddOpportunityInstanceForm from '../../components/admin/datamodel/opportunity/AddOpportunityInstanceForm';
 import UpdateOpportunityInstanceForm from '../../components/admin/datamodel/opportunity/UpdateOpportunityInstanceForm';
-import {
-  academicTermNameToDoc,
-  opportunityNameToSlug,
-  profileNameToUsername,
-} from '../../components/shared/utilities/data-model';
+import { academicTermNameToDoc, opportunityNameToSlug, profileNameToUsername } from '../../components/shared/utilities/data-model';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { getDatamodelCount } from './utilities/datamodel';
@@ -41,12 +31,15 @@ const collection = OpportunityInstances; // the collection to use.
  */
 const descriptionPairs = (item: OpportunityInstance): DescriptionPair[] => [
   { label: 'Academic Term', value: AcademicTerms.toString(item.termID) },
-  { label: 'Opportunity', value: (Opportunities.findDoc(item.opportunityID)).name },
+  { label: 'Opportunity', value: Opportunities.findDoc(item.opportunityID).name },
   { label: 'Verified', value: item.verified ? 'True' : 'False' },
   { label: 'Student', value: Users.getFullName(item.studentID) },
   {
-    label: 'ICE', value: item.ice ? `${item.ice.i}, ${item.ice.c}, 
-        ${item.ice.e}` : '',
+    label: 'ICE',
+    value: item.ice
+      ? `${item.ice.i}, ${item.ice.c}, 
+        ${item.ice.e}`
+      : '',
   },
   { label: 'Retired', value: item.retired ? 'True' : 'False' },
 ];
@@ -213,31 +206,15 @@ const AdminDataModelOpportunityInstancesPage: React.FC<AdminDataModelOpportunity
     <div id="data-model-opportunity-instances-page">
       <AdminPageMenuWidget />
       <Grid container stackable style={paddedStyle}>
-
         <Grid.Column width={3}>
           <AdminDataModelMenu {...props} />
         </Grid.Column>
 
         <Grid.Column width={13}>
           {showUpdateFormState ? (
-            <UpdateOpportunityInstanceForm
-              collection={collection}
-              id={idState}
-              formRef={formRef}
-              handleUpdate={handleUpdate}
-              handleCancel={handleCancel}
-              itemTitleString={itemTitleString}
-              terms={props.terms}
-            />
+            <UpdateOpportunityInstanceForm collection={collection} id={idState} formRef={formRef} handleUpdate={handleUpdate} handleCancel={handleCancel} itemTitleString={itemTitleString} terms={props.terms} />
           ) : (
-            <AddOpportunityInstanceForm
-              formRef={formRef}
-              handleAdd={handleAdd}
-              opportunities={props.opportunities}
-              sponsors={props.sponsors}
-              students={props.students}
-              terms={props.terms}
-            />
+            <AddOpportunityInstanceForm formRef={formRef} handleAdd={handleAdd} opportunities={props.opportunities} sponsors={props.sponsors} students={props.students} terms={props.terms} />
           )}
           <ListCollectionWidget
             collection={collection}
@@ -252,12 +229,7 @@ const AdminDataModelOpportunityInstancesPage: React.FC<AdminDataModelOpportunity
           />
         </Grid.Column>
       </Grid>
-      <Confirm
-        open={confirmOpenState}
-        onCancel={handleCancel}
-        onConfirm={handleConfirmDelete}
-        header="Delete Opportunity Instance?"
-      />
+      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Opportunity Instance?" />
 
       <BackToTopButton />
     </div>

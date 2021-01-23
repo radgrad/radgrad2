@@ -10,10 +10,10 @@ import { RootState } from '../../../../../redux/types';
 import { AdminAnalyticsDateRange } from '../../../../../redux/admin/analytics/reducers';
 
 interface AdminAnalyticsOverheadAnalysisWidgetProps {
-  dateRange: AdminAnalyticsDateRange
+  dateRange: AdminAnalyticsDateRange;
 }
 
-const mapStateToProps = (state: RootState): {[key: string]: any} => ({
+const mapStateToProps = (state: RootState): { [key: string]: any } => ({
   dateRange: state.admin.analytics.overheadAnalysis.dateRange,
 });
 

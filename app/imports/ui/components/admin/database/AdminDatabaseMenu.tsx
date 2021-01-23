@@ -10,8 +10,12 @@ const AdminDatabaseMenu: React.FC = () => {
 
   return (
     <Menu vertical text id="leftHandMenu">
-      <Menu.Item as={NavLink} exact to={`${baseRoute}integrity-check`}>Integrity Check</Menu.Item>
-      <Menu.Item as={NavLink} exact to={`${baseRoute}dump`}>Dump DB</Menu.Item>
+      <Menu.Item as={NavLink} exact to={`${baseRoute}integrity-check`}>
+        Integrity Check
+      </Menu.Item>
+      <Menu.Item as={NavLink} exact to={`${baseRoute}dump`}>
+        Dump DB
+      </Menu.Item>
     </Menu>
   );
 };

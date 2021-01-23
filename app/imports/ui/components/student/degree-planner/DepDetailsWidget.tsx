@@ -22,20 +22,16 @@ const mapStateToProps = (state: RootState) => ({
 const DepDetailsWidget: React.FC<DepDetailsWidgetProps> = ({ selectedCourseInstanceID, selectedOpportunityInstanceID, verificationRequests }) => {
   const courseP = selectedCourseInstanceID !== '';
   const opportunityP = selectedOpportunityInstanceID !== '';
-  let instance: (CourseInstance | OpportunityInstance);
+  let instance: CourseInstance | OpportunityInstance;
   if (courseP) {
     instance = CourseInstances.findDoc(selectedCourseInstanceID);
   } else if (opportunityP) {
     instance = OpportunityInstances.findDoc(selectedOpportunityInstanceID);
   }
   if (!(courseP || opportunityP)) {
-    return (
-      <Message>
-        No course or opportunity selected. Click on a course or opportunity from the degree planner.
-      </Message>
-    );
+    return <Message>No course or opportunity selected. Click on a course or opportunity from the degree planner.</Message>;
   }
-  return (courseP ? <DetailCourseCard instance={instance} /> : <DetailOpportunityCard instance={instance} verificationRequests={verificationRequests} />);
+  return courseP ? <DetailCourseCard instance={instance} /> : <DetailOpportunityCard instance={instance} verificationRequests={verificationRequests} />;
 };
 
 export default connect(mapStateToProps, null)(DepDetailsWidget);

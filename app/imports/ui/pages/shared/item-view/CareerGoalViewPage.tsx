@@ -3,21 +3,13 @@ import { useParams, useRouteMatch } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Container, Grid } from 'semantic-ui-react';
 import _ from 'lodash';
-import {
-  CareerGoal,
-  DescriptionPair,
-  FavoriteCareerGoal,
-  HelpMessage,
-  Profile,
-  SocialPair,
-} from '../../../../typings/radgrad';
+import { CareerGoal, DescriptionPair, FavoriteCareerGoal, HelpMessage, Profile, SocialPair } from '../../../../typings/radgrad';
 import { getMenuWidget } from '../utilities/getMenuWidget';
 import { HelpMessages } from '../../../../api/help/HelpMessageCollection';
 import HelpPanelWidget from '../../../components/shared/HelpPanelWidget';
 import ExplorerMenu from '../../../components/shared/explorer/item-view/ExplorerMenu';
 import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
-import ExplorerCareerGoalWidget
-  from '../../../components/shared/explorer/item-view/career-goal/ExplorerCareerGoalWidget';
+import ExplorerCareerGoalWidget from '../../../components/shared/explorer/item-view/career-goal/ExplorerCareerGoalWidget';
 import { Interests } from '../../../../api/interest/InterestCollection';
 import { teaser } from '../../../components/shared/explorer/item-view/utilities/teaser';
 import { Users } from '../../../../api/user/UserCollection';
@@ -54,11 +46,13 @@ const numStudentsCareerGoals = (theCareerGoal: CareerGoal): number => FavoriteCa
 
 const socialPairsCareerGoals = (theCareerGoal: CareerGoal): SocialPair[] => [
   {
-    label: 'students', amount: numStudentsCareerGoals(theCareerGoal),
+    label: 'students',
+    amount: numStudentsCareerGoals(theCareerGoal),
     value: interestedUsersCareerGoals(theCareerGoal, ROLE.STUDENT),
   },
   {
-    label: 'faculty members', amount: numUsersCareerGoals(theCareerGoal, ROLE.FACULTY),
+    label: 'faculty members',
+    amount: numUsersCareerGoals(theCareerGoal, ROLE.FACULTY),
     value: interestedUsersCareerGoals(theCareerGoal, ROLE.FACULTY),
   },
   {
@@ -71,7 +65,8 @@ const socialPairsCareerGoals = (theCareerGoal: CareerGoal): SocialPair[] => [
 const CareerGoalViewPage: React.FC<CareerGoalViewPageProps> = ({ careerGoal, favoriteCareerGoals, helpMessages }) => {
   const match = useRouteMatch();
   const menuAddedList = _.map(favoriteCareerGoals, (f) => ({
-    item: CareerGoals.findDoc(f.careerGoalID), count: 1,
+    item: CareerGoals.findDoc(f.careerGoalID),
+    count: 1,
   }));
   const descriptionPairs: DescriptionPair[] = [
     { label: 'Description', value: careerGoal.description },
@@ -85,7 +80,9 @@ const CareerGoalViewPage: React.FC<CareerGoalViewPageProps> = ({ careerGoal, fav
       <Container>
         <Grid stackable>
           <Grid.Row className="helpPanel">
-            <Grid.Column width={16}><HelpPanelWidget helpMessages={helpMessages} /></Grid.Column>
+            <Grid.Column width={16}>
+              <HelpPanelWidget helpMessages={helpMessages} />
+            </Grid.Column>
           </Grid.Row>
           <Grid.Row>
             <Grid.Column width={3}>

@@ -155,7 +155,7 @@ export interface ProfileCard extends CardExplorerCards {
     url: string;
     params: {
       username: string;
-    }
+    };
   };
 }
 
@@ -165,8 +165,7 @@ export interface TermCard extends CardExplorerCards {
   canAdd: boolean;
 }
 
-export interface UserProfileCard extends CardExplorerCards {
-}
+export interface UserProfileCard extends CardExplorerCards {}
 
 // TODO this is a very bad interface.
 export interface DescriptionPair {

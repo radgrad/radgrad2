@@ -22,8 +22,8 @@ export interface FilterStudents {
   interests: Interest[];
   careerGoals: CareerGoal[];
   helpMessages: HelpMessage[];
-  students: StudentProfile[],
-  alumni: StudentProfile[],
+  students: StudentProfile[];
+  alumni: StudentProfile[];
 }
 
 const mapStateToProps = (state: RootState) => ({
@@ -38,20 +38,11 @@ const renderSelectedStudentWidgets = (selectedUsername: string, usernameDoc: Stu
     <Grid.Row>
       <Grid.Column width={1} />
       <Grid.Column width={9} stretched>
-        <AdvisorUpdateStudentWidget
-          usernameDoc={usernameDoc}
-          studentCollectionName={StudentProfiles.getCollectionName()}
-          careerGoals={careerGoals}
-          interests={interests}
-        />
+        <AdvisorUpdateStudentWidget usernameDoc={usernameDoc} studentCollectionName={StudentProfiles.getCollectionName()} careerGoals={careerGoals} interests={interests} />
       </Grid.Column>
 
       <Grid.Column width={5} stretched>
-        <AdvisorStarUploadWidget
-          usernameDoc={usernameDoc}
-          advisorUsername={username}
-        />
-
+        <AdvisorStarUploadWidget usernameDoc={usernameDoc} advisorUsername={username} />
       </Grid.Column>
       <Grid.Column width={1} />
       <BackToTopButton />
@@ -68,7 +59,9 @@ const AdvisorHomePage: React.FC<FilterStudents> = ({ helpMessages, interests, ca
         <Grid stackable>
           <Grid.Row>
             <Grid.Column width={1} />
-            <Grid.Column width={14}><HelpPanelWidget helpMessages={helpMessages} /></Grid.Column>
+            <Grid.Column width={14}>
+              <HelpPanelWidget helpMessages={helpMessages} />
+            </Grid.Column>
             <Grid.Column width={1} />
           </Grid.Row>
 
@@ -76,13 +69,7 @@ const AdvisorHomePage: React.FC<FilterStudents> = ({ helpMessages, interests, ca
             <Grid.Column width={1} />
             <Grid.Column width={14}>
               {/* TODO make this communicate, selecting a student doesn't change the form */}
-              <AdvisorStudentSelectorWidget
-                careerGoals={careerGoals}
-                interests={interests}
-                advisorUsername={username}
-                students={students}
-                alumni={alumni}
-              />
+              <AdvisorStudentSelectorWidget careerGoals={careerGoals} interests={interests} advisorUsername={username} students={students} alumni={alumni} />
             </Grid.Column>
             <Grid.Column width={1} />
           </Grid.Row>

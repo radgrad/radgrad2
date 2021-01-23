@@ -5,10 +5,7 @@ import { Dropdown } from 'semantic-ui-react';
 import { Roles } from 'meteor/alanning:roles';
 import { Users } from '../../../api/user/UserCollection';
 import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
-import {
-  USERINTERACTIONSNOTYPEDATA,
-  UserInteractionsTypes,
-} from '../../../api/analytic/UserInteractionsTypes';
+import { USERINTERACTIONSNOTYPEDATA, UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
 import { UserInteractionDefine } from '../../../typings/radgrad';
 import { ROLE } from '../../../api/role/Role';
 

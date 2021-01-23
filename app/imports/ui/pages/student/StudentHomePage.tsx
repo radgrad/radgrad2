@@ -18,47 +18,40 @@ import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';
 
 interface StudentHomePageProps {
   match: MatchProps;
-  favoriteInterests: { interestID: string, count, number }[];
+  favoriteInterests: { interestID: string; count; number }[];
   interests: number;
   careerGoals: string;
   courses: number;
   ready: boolean;
 }
 
-const StudentHomePage: React.FC<StudentHomePageProps> = ({ match, favoriteInterests, interests,
-  careerGoals, courses, ready }) => (
-    <div id="student-home-page">
-      <StudentPageMenuWidget />
-      <GuidedTourStudentHomePageWidget
-        interests={interests}
-        careerGoals={careerGoals}
-        courses={courses}
-      />
-      <Container>
-        <Grid stackable>
-          <Grid.Row>
-            <StudentHomeBannersWidget />
-          </Grid.Row>
-          <Grid.Row>
-            <Grid.Column width={11}>
-              <StudentHomeRecommendedWidget />
-              <StudentHomeRadGradVideosWidget />
+const StudentHomePage: React.FC<StudentHomePageProps> = ({ match, favoriteInterests, interests, careerGoals, courses, ready }) => (
+  <div id="student-home-page">
+    <StudentPageMenuWidget />
+    <GuidedTourStudentHomePageWidget interests={interests} careerGoals={careerGoals} courses={courses} />
+    <Container>
+      <Grid stackable>
+        <Grid.Row>
+          <StudentHomeBannersWidget />
+        </Grid.Row>
+        <Grid.Row>
+          <Grid.Column width={11}>
+            <StudentHomeRecommendedWidget />
+            <StudentHomeRadGradVideosWidget />
+          </Grid.Column>
+          <Grid.Column width={5}>
+            <StudentHomeNewOpportunitiesWidget />
+            <Link to={buildExplorerRoute(match, EXPLORER_TYPE.OPPORTUNITIES)}>
+              <u>More Opportunities</u>
+            </Link>
+            <StudentHomeFavoriteInterestsList favoriteInterests={favoriteInterests} />
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
+    </Container>
 
-            </Grid.Column>
-            <Grid.Column width={5}>
-              <StudentHomeNewOpportunitiesWidget />
-              <Link to={buildExplorerRoute(match, EXPLORER_TYPE.OPPORTUNITIES)}>
-                <u>More Opportunities</u>
-              </Link>
-              <StudentHomeFavoriteInterestsList favoriteInterests={favoriteInterests} />
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </Container>
-
-      <BackToTopButton />
-    </div>
-
+    <BackToTopButton />
+  </div>
 );
 
 const countInArray = (array, value) => array.reduce((n, x) => n + (x === value), 0);

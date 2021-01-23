@@ -22,7 +22,7 @@ interface Loading {
     url: string;
     params: {
       username: string;
-    }
+    };
   };
 }
 
@@ -31,19 +31,23 @@ interface Loading {
 const instanceSubs = new SubsManager({ cacheLimit: 15, expireIn: 30 });
 
 function withInstanceSubscriptions(WrappedComponent) {
-  const InstanceSubscriptions: React.FC<Loading> = (props) => ((props.loading) ? (
-    <React.Fragment>
-      <Dimmer active inverted><Loader>Loading user-specific data</Loader></Dimmer>
-    </React.Fragment>
-  )
-    :
-    <WrappedComponent {...props} />);
+  const InstanceSubscriptions: React.FC<Loading> = (props) =>
+    (props.loading ? (
+      <React.Fragment>
+        <Dimmer active inverted>
+          <Loader>Loading user-specific data</Loader>
+        </Dimmer>
+      </React.Fragment>
+    ) : (
+      <WrappedComponent {...props} />
+    ));
 
   return withTracker((props) => {
     const handles = [];
     if (props.match) {
       const userID = getUserIdFromRoute(props.match);
-      if (userID) { // if logged out don't subscribe
+      if (userID) {
+        // if logged out don't subscribe
         handles.push(instanceSubs.subscribe(AcademicYearInstances.getPublicationName(), userID));
         handles.push(instanceSubs.subscribe(CourseInstances.getPublicationName(), userID));
         handles.push(instanceSubs.subscribe(FeedbackInstances.getPublicationName(), userID));

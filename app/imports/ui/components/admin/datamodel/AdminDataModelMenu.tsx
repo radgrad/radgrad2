@@ -23,7 +23,26 @@ export interface AdminDataModeMenuProps {
   verificationRequestCount: number;
 }
 
-const AdminDataModelMenu: React.FC<AdminDataModeMenuProps> = ({ academicTermCount, academicYearCount, careerGoalCount, courseCount, courseInstanceCount, feedCount, feedbackCount, helpMessageCount, interestCount, interestTypeCount, opportunityCount, opportunityInstanceCount, opportunityTypeCount, reviewCount, slugCount, teaserCount, usersCount, verificationRequestCount }) => {
+const AdminDataModelMenu: React.FC<AdminDataModeMenuProps> = ({
+  academicTermCount,
+  academicYearCount,
+  careerGoalCount,
+  courseCount,
+  courseInstanceCount,
+  feedCount,
+  feedbackCount,
+  helpMessageCount,
+  interestCount,
+  interestTypeCount,
+  opportunityCount,
+  opportunityInstanceCount,
+  opportunityTypeCount,
+  reviewCount,
+  slugCount,
+  teaserCount,
+  usersCount,
+  verificationRequestCount,
+}) => {
   const { username } = useParams();
   const baseUrl = useRouteMatch().url;
   const baseIndex = baseUrl.indexOf(username);

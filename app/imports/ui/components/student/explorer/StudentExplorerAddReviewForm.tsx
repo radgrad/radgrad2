@@ -23,7 +23,7 @@ import { ReviewTypes } from '../../../../api/review/ReviewTypes';
 interface StudentExplorerAddReviewFormProps {
   itemToReview: {
     [key: string]: any; // TODO this is a poor way to type this.
-  }
+  };
   reviewType: string;
 }
 

@@ -20,17 +20,9 @@ const UpdateHelpMessageForm: React.FC<UpdateHelpMessageFormProps> = ({ collectio
     <Segment padded>
       <Header dividing>
         Update
-        {collection.getType()}
-        :
-        {itemTitleString(model)}
+        {collection.getType()}:{itemTitleString(model)}
       </Header>
-      <AutoForm
-        schema={new SimpleSchema2Bridge(HelpMessages.getUpdateSchema())}
-        onSubmit={handleUpdate}
-        ref={formRef}
-        showInlineError
-        model={model}
-      >
+      <AutoForm schema={new SimpleSchema2Bridge(HelpMessages.getUpdateSchema())} onSubmit={handleUpdate} ref={formRef} showInlineError model={model}>
         <Form.Group widths="equal">
           <TextField name="routeName" />
           <TextField name="title" />

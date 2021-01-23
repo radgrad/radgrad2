@@ -29,7 +29,6 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const CourseFilterWidget: React.FC<CourseFilterWidgetProps> = ({ filterChoice, setFilterChoice }) => {
-
   const handleChange = (type, value) => {
     setFilterChoice(EXPLORER_TYPE.COURSES, value);
   };
@@ -37,12 +36,7 @@ const CourseFilterWidget: React.FC<CourseFilterWidgetProps> = ({ filterChoice, s
   const schema = new SimpleSchema({
     filterCoursesBy: {
       type: String,
-      allowedValues: [
-        courseFilterKeys.none,
-        courseFilterKeys.threeHundredPLus,
-        courseFilterKeys.fourHundredPlus,
-        courseFilterKeys.sixHundredPlus,
-      ],
+      allowedValues: [courseFilterKeys.none, courseFilterKeys.threeHundredPLus, courseFilterKeys.fourHundredPlus, courseFilterKeys.sixHundredPlus],
       optional: true,
     },
   });

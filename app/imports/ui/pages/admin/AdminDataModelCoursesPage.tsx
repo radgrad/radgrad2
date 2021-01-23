@@ -12,11 +12,7 @@ import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { getDatamodelCount, makeMarkdownLink } from './utilities/datamodel';
 import { Interests } from '../../../api/interest/InterestCollection';
-import {
-  courseNameToSlug,
-  courseToName, itemToSlugName,
-  interestNameToId,
-} from '../../components/shared/utilities/data-model';
+import { courseNameToSlug, courseToName, itemToSlugName, interestNameToId } from '../../components/shared/utilities/data-model';
 import AddCourseForm from '../../components/admin/datamodel/course/AddCourseForm';
 import { interestSlugFromName } from '../../components/shared/utilities/form';
 import UpdateCourseForm from '../../components/admin/datamodel/course/UpdateCourseForm';
@@ -199,30 +195,15 @@ const AdminDataModelCoursesPage: React.FC<AdminDataModelCoursesPageProps> = (pro
     <div id="data-model-courses-page">
       <AdminPageMenuWidget />
       <Grid container stackable style={paddedStyle}>
-
         <Grid.Column width={3}>
           <AdminDataModelMenu {...props} />
         </Grid.Column>
 
         <Grid.Column width={13}>
           {showUpdateFormState ? (
-            <UpdateCourseForm
-              collection={collection}
-              id={idState}
-              formRef={formRef}
-              handleUpdate={handleUpdate}
-              handleCancel={handleCancel}
-              itemTitleString={itemTitleString}
-              interests={props.interests}
-              courses={props.courses}
-            />
+            <UpdateCourseForm collection={collection} id={idState} formRef={formRef} handleUpdate={handleUpdate} handleCancel={handleCancel} itemTitleString={itemTitleString} interests={props.interests} courses={props.courses} />
           ) : (
-            <AddCourseForm
-              formRef={formRef}
-              handleAdd={handleAdd}
-              interests={props.interests}
-              courses={props.courses}
-            />
+            <AddCourseForm formRef={formRef} handleAdd={handleAdd} interests={props.interests} courses={props.courses} />
           )}
           <ListCollectionWidget
             collection={collection}
@@ -237,12 +218,7 @@ const AdminDataModelCoursesPage: React.FC<AdminDataModelCoursesPageProps> = (pro
           />
         </Grid.Column>
       </Grid>
-      <Confirm
-        open={confirmOpenState}
-        onCancel={handleCancel}
-        onConfirm={handleConfirmDelete}
-        header="Delete Course?"
-      />
+      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Course?" />
 
       <BackToTopButton />
     </div>

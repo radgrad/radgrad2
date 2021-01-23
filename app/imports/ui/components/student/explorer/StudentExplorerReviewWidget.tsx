@@ -9,11 +9,7 @@ import StudentExplorerReviewStarsWidget from './StudentExplorerReviewStarsWidget
 import StudentExplorerEditReviewForm from './StudentExplorerEditReviewForm';
 import StudentExplorerAddReviewForm from './StudentExplorerAddReviewForm';
 import * as Router from '../../shared/utilities/router';
-import {
-  profileIDToPicture,
-  userToFullName,
-  academicTermNameToShortName,
-} from '../../shared/utilities/data-model';
+import { profileIDToPicture, userToFullName, academicTermNameToShortName } from '../../shared/utilities/data-model';
 import { Review } from '../../../../typings/radgrad';
 
 interface StudentExplorerReviewWidgetProps {
@@ -34,8 +30,12 @@ const reviewData = (review: { [key: string]: any }): { [key: string]: any } => {
   const reviewRating = review.rating;
   const reviewComments = review.comments;
   return {
-    name: userName, username: userUsername, picture: userPicture, term: reviewTerm,
-    rating: reviewRating, comments: reviewComments,
+    name: userName,
+    username: userUsername,
+    picture: userPicture,
+    term: reviewTerm,
+    rating: reviewRating,
+    comments: reviewComments,
   };
 };
 
@@ -58,108 +58,80 @@ const StudentExplorerReviewWidget: React.FC<StudentExplorerReviewWidgetProps> = 
       </Header>
 
       <List verticalAlign="middle" relaxed="very" divided>
-        {
-          userReview ? (
-            <List.Item>
-              <Grid>
-                <Grid.Column width={4}>
-                  <Image floated="left" verticalAlign="middle" circular size="mini" src={picture} />
-                  <b>{name}</b>
-                  <br />
-                  {AcademicTerms.getShortName(term)}
-                </Grid.Column>
+        {userReview ? (
+          <List.Item>
+            <Grid>
+              <Grid.Column width={4}>
+                <Image floated="left" verticalAlign="middle" circular size="mini" src={picture} />
+                <b>{name}</b>
+                <br />
+                {AcademicTerms.getShortName(term)}
+              </Grid.Column>
 
-                <Grid.Column width={12}>
-                  <StudentExplorerReviewStarsWidget rating={rating} />
-                  <br />
-                  <div style={commentsStyle}>
-                    <Markdown
-                      escapeHtml
-                      source={comments}
-                      renderers={{ link: (props2) => Router.renderLink(props2, match) }}
-                    />
-                  </div>
-                </Grid.Column>
-              </Grid>
+              <Grid.Column width={12}>
+                <StudentExplorerReviewStarsWidget rating={rating} />
+                <br />
+                <div style={commentsStyle}>
+                  <Markdown escapeHtml source={comments} renderers={{ link: (props2) => Router.renderLink(props2, match) }} />
+                </div>
+              </Grid.Column>
+            </Grid>
 
-              <StudentExplorerEditReviewForm review={userReview} itemToReview={itemToReview} />
+            <StudentExplorerEditReviewForm review={userReview} itemToReview={itemToReview} />
+          </List.Item>
+        ) : (
+          <List.Item>
+            <Grid>
+              <Grid.Column width={4}>
+                <Image floated="left" verticalAlign="middle" circular size="mini" src={currentUserPicture} />
+                <b>{currentUserName}</b>
+              </Grid.Column>
 
-            </List.Item>
-          )
-            : (
-              <List.Item>
-                <Grid>
-                  <Grid.Column width={4}>
-                    <Image floated="left" verticalAlign="middle" circular size="mini" src={currentUserPicture} />
-                    <b>{currentUserName}</b>
-                  </Grid.Column>
+              <Grid.Column width={12}>
+                {completed ? (
+                  <p>
+                    <i>You have not reviewed this yet.</i>
+                  </p>
+                ) : (
+                  <p>
+                    <i>You must complete this {` ${reviewType}`} first to leave a review.</i>
+                  </p>
+                )}
+              </Grid.Column>
+            </Grid>
+            {completed ? <StudentExplorerAddReviewForm itemToReview={itemToReview} reviewType={reviewType} /> : ''}
+          </List.Item>
+        )}
 
-                  <Grid.Column width={12}>
-                    {
-                      completed ?
-                        <p><i>You have not reviewed this yet.</i></p>
-                        : (
-                          <p>
-                            <i>
-                              You must complete this {` ${reviewType}`} first to leave a review.
-                            </i>
-                          </p>
-                        )
-                    }
-                  </Grid.Column>
-                </Grid>
-                {
-                  completed ?
-                    <StudentExplorerAddReviewForm itemToReview={itemToReview} reviewType={reviewType} />
-                    : ''
-                }
-              </List.Item>
-            )
-        }
+        {theReviews ? (
+          <React.Fragment>
+            {theReviews.map((review, index) => {
+              const aReview = reviewData(review);
+              return (
+                <List.Item key={review._id}>
+                  <Grid>
+                    <Grid.Column width={4}>
+                      <Image floated="left" verticalAlign="middle" circular size="mini" src={aReview.picture} />
+                      <b>{aReview.name}</b>
+                      <br />
+                      {academicTermNameToShortName(aReview.term)}
+                    </Grid.Column>
 
-        {
-          theReviews ? (
-            <React.Fragment>
-              {
-                  theReviews.map((review, index) => {
-                    const aReview = reviewData(review);
-                    return (
-                      <List.Item key={review._id}>
-                        <Grid>
-                          <Grid.Column width={4}>
-                            <Image
-                              floated="left"
-                              verticalAlign="middle"
-                              circular
-                              size="mini"
-                              src={aReview.picture}
-                            />
-                            <b>{aReview.name}</b>
-                            <br />
-                            {academicTermNameToShortName(aReview.term)}
-                          </Grid.Column>
-
-                          <Grid.Column width={12}>
-                            <StudentExplorerReviewStarsWidget rating={aReview.rating} />
-                            <br />
-                            <div style={commentsStyle}>
-                              <Markdown
-                                escapeHtml
-                                source={aReview.comments}
-                                renderers={{ link: (props2) => Router.renderLink(props2, match) }}
-                              />
-                            </div>
-                          </Grid.Column>
-                        </Grid>
-                      </List.Item>
-                    );
-                  })
-                }
-            </React.Fragment>
-          )
-            :
-            <i>No reviews to display</i>
-        }
+                    <Grid.Column width={12}>
+                      <StudentExplorerReviewStarsWidget rating={aReview.rating} />
+                      <br />
+                      <div style={commentsStyle}>
+                        <Markdown escapeHtml source={aReview.comments} renderers={{ link: (props2) => Router.renderLink(props2, match) }} />
+                      </div>
+                    </Grid.Column>
+                  </Grid>
+                </List.Item>
+              );
+            })}
+          </React.Fragment>
+        ) : (
+          <i>No reviews to display</i>
+        )}
       </List>
     </div>
   );

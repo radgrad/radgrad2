@@ -30,7 +30,9 @@ const LandingCareerGoalExplorerPage: React.FC<CareerGoalExplorerProps> = ({ care
       <Grid stackable>
         <Grid.Row>
           <Grid.Column width={1} />
-          <Grid.Column width={14}><HelpPanelWidget helpMessages={helpMessages} /></Grid.Column>
+          <Grid.Column width={14}>
+            <HelpPanelWidget helpMessages={helpMessages} />
+          </Grid.Column>
           <Grid.Column width={1} />
         </Grid.Row>
 
@@ -45,14 +47,8 @@ const LandingCareerGoalExplorerPage: React.FC<CareerGoalExplorerProps> = ({ care
               <span>{careerGoal.name}</span>
             </Header>
             <b>Description:</b>
-            <Markdown
-              escapeHtml
-              source={careerGoal.description}
-              renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}
-            />
-            {careerGoal.interestIDs.length > 0 ?
-              (<LandingInterestList interestIDs={careerGoal.interestIDs} />)
-              : 'N/A'}
+            <Markdown escapeHtml source={careerGoal.description} renderers={{ link: (localProps) => Router.renderLink(localProps, match) }} />
+            {careerGoal.interestIDs.length > 0 ? <LandingInterestList interestIDs={careerGoal.interestIDs} /> : 'N/A'}
           </Segment>
         </Grid.Column>
         <Grid.Column width={1} />
@@ -73,9 +69,4 @@ const LandingCareerGoalExplorerContainer = withTracker(() => {
   };
 })(LandingCareerGoalExplorerPage);
 
-export default withListSubscriptions(LandingCareerGoalExplorerContainer, [
-  CareerGoals.getPublicationName(),
-  Slugs.getPublicationName(),
-  Interests.getPublicationName(),
-  HelpMessages.getPublicationName(),
-]);
+export default withListSubscriptions(LandingCareerGoalExplorerContainer, [CareerGoals.getPublicationName(), Slugs.getPublicationName(), Interests.getPublicationName(), HelpMessages.getPublicationName()]);

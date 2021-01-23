@@ -20,17 +20,11 @@ const ExplorerOpportunitiesPaginationWidget: React.FC<ExplorerOpportunitiesPagin
   const handlePaginationChange = (e, data: PaginationProps) => {
     e.preventDefault();
     // <Pagination> starts at value 1 for the first Pagination
-    const index = data.activePage as number - 1;
+    const index = (data.activePage as number) - 1;
     setShowIndex(type, index);
   };
 
-  return (
-    <Pagination
-      secondary
-      totalPages={totalPages}
-      onPageChange={(event, data) => handlePaginationChange(event, data)}
-    />
-  );
+  return <Pagination secondary totalPages={totalPages} onPageChange={(event, data) => handlePaginationChange(event, data)} />;
 };
 
 export default connect(null, mapDispatchToProps)(ExplorerOpportunitiesPaginationWidget);

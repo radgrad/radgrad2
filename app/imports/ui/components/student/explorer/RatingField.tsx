@@ -58,35 +58,10 @@ const renderDropdown = ({ placeholder, onChange, value }) => {
       value: 5,
     },
   ];
-  return (
-    <Dropdown
-      placeholder={placeholder}
-      selection
-      options={options}
-      onChange={(event, data) => onChange(data.value)}
-      value={value}
-    />
-  );
+  return <Dropdown placeholder={placeholder} selection options={options} onChange={(event, data) => onChange(data.value)} value={value} />;
 };
 
-const Rating = ({
-  allowedValues,
-  checkboxes,
-  className,
-  disabled,
-  error,
-  errorMessage,
-  fieldType,
-  id,
-  inputRef,
-  label,
-  name,
-  onChange,
-  placeholder,
-  showInlineError,
-  value,
-  ...props
-}) => (
+const Rating = ({ allowedValues, checkboxes, className, disabled, error, errorMessage, fieldType, id, inputRef, label, name, onChange, placeholder, showInlineError, value, ...props }) => (
   <div className={classnames({ disabled, error }, className, 'field')} {...filterDOMProps(props)}>
     {label && <label htmlFor={id}>{label}</label>}
     {renderDropdown({

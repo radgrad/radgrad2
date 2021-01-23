@@ -14,8 +14,7 @@ interface AcademicYearViewProps {
   opportunityInstances: OpportunityInstance[];
 }
 
-const AcademicYearView: React.FC<AcademicYearViewProps> = ({ academicYear, studentID, handleClickCourseInstance,
-  handleClickOpportunityInstance, courseInstances, opportunityInstances }) => {
+const AcademicYearView: React.FC<AcademicYearViewProps> = ({ academicYear, studentID, handleClickCourseInstance, handleClickOpportunityInstance, courseInstances, opportunityInstances }) => {
   const termIDs = academicYear.termIDs;
   const terms = _.map(termIDs, (id) => AcademicTerms.findDoc(id));
   return (

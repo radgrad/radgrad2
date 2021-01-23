@@ -57,7 +57,9 @@ const renderPage: React.FC<GuidedTourStudentProps> = ({ courses, careerGoals, in
             <WhatsNext />
           </Slider>
         </Segment>
-        <List.Item style={styles.a} as={NavLink} to="/">Return to RadGrad</List.Item>
+        <List.Item style={styles.a} as={NavLink} to="/">
+          Return to RadGrad
+        </List.Item>
       </Container>
       <LandingFooter />
     </div>
@@ -65,7 +67,7 @@ const renderPage: React.FC<GuidedTourStudentProps> = ({ courses, careerGoals, in
 };
 
 // eslint-disable-next-line react/prop-types
-const LandingGuidedTourStudentPage: React.FC<GuidedTourStudentProps> = (props) => ((props.ready) ? renderPage(props) : <Loader active>Getting data</Loader>);
+const LandingGuidedTourStudentPage: React.FC<GuidedTourStudentProps> = (props) => (props.ready ? renderPage(props) : <Loader active>Getting data</Loader>);
 
 const GuidedTourStudentContainer = withTracker(() => {
   const subscription = Meteor.subscribe(PublicStats.getPublicationName());

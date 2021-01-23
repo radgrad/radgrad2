@@ -9,13 +9,7 @@ import Swal from 'sweetalert2';
 import { AdminProfiles } from '../../../../../api/user/AdminProfileCollection';
 import { AcademicTerm, BaseProfile, CareerGoal, Interest } from '../../../../../typings/radgrad';
 import { ROLE } from '../../../../../api/role/Role';
-import {
-  academicTermIdToName,
-  academicTermToName,
-  careerGoalIdToName,
-  docToName,
-  interestIdToName,
-} from '../../../shared/utilities/data-model';
+import { academicTermIdToName, academicTermToName, careerGoalIdToName, docToName, interestIdToName } from '../../../shared/utilities/data-model';
 import { StudentProfiles } from '../../../../../api/user/StudentProfileCollection';
 import { FacultyProfiles } from '../../../../../api/user/FacultyProfileCollection';
 import { AdvisorProfiles } from '../../../../../api/user/AdvisorProfileCollection';
@@ -106,12 +100,15 @@ const UpdateUserForm: React.FC<UpdateUserProps> = ({ id, interests, setAdminData
     lastName: { type: String, optional: true },
     picture: {
       type: String,
-      label:
-  <React.Fragment>
-    Picture (
-    <button type="button" onClick={handleUpload}>Upload</button>
-    )
-  </React.Fragment>,
+      label: (
+        <React.Fragment>
+          Picture (
+          <button type="button" onClick={handleUpload}>
+            Upload
+          </button>
+          )
+        </React.Fragment>
+      ),
       optional: true,
     },
     website: { type: String, optional: true },
@@ -159,23 +156,17 @@ const UpdateUserForm: React.FC<UpdateUserProps> = ({ id, interests, setAdminData
     <Segment padded>
       <Header dividing>
         Update
-        {collection.getType()}
-        :
-        {itemTitleString(model)}
+        {collection.getType()}:{itemTitleString(model)}
       </Header>
-      <AutoForm
-        schema={formSchema}
-        onSubmit={handleUpdate}
-        ref={formRef}
-        showInlineError
-        model={model}
-      >
+      <AutoForm schema={formSchema} onSubmit={handleUpdate} ref={formRef} showInlineError model={model}>
         <Form.Group widths="equal">
           <TextField name="username" placeholder="johndoe@foo.edu" />
           <TextField name="firstName" placeholder="John" />
           <TextField name="lastName" placeholder="Doe" />
         </Form.Group>
-        <Header dividing as="h4">Optional fields (all users)</Header>
+        <Header dividing as="h4">
+          Optional fields (all users)
+        </Header>
         <Form.Group widths="equal">
           <TextField name="picture" value={pictureURL} onChange={handlePictureUrlChange} />
           <TextField name="website" />
@@ -187,7 +178,9 @@ const UpdateUserForm: React.FC<UpdateUserProps> = ({ id, interests, setAdminData
         <BoolField name="retired" />
         {model.role === ROLE.STUDENT || model.role === ROLE.ALUMNI ? (
           <div>
-            <Header dividing as="h4">Student fields</Header>
+            <Header dividing as="h4">
+              Student fields
+            </Header>
             <Form.Group widths="equal">
               <NumField name="level" />
               <SelectField name="declaredAcademicTerm" />
@@ -204,13 +197,19 @@ const UpdateUserForm: React.FC<UpdateUserProps> = ({ id, interests, setAdminData
               <BoolField name="isAlumni" />
             </Form.Group>
           </div>
-        ) : ''}
+        ) : (
+          ''
+        )}
         {model.role === ROLE.FACULTY ? (
           <div>
-            <Header dividing as="h4">Faculty field</Header>
+            <Header dividing as="h4">
+              Faculty field
+            </Header>
             <LongTextField name="aboutMe" />
           </div>
-        ) : ''}
+        ) : (
+          ''
+        )}
         <SubmitField inputRef={undefined} value="Update" disabled={false} className="" />
         <Button onClick={handleCancel}>Cancel</Button>
       </AutoForm>

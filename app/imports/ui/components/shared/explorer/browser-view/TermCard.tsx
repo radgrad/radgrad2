@@ -13,12 +13,7 @@ import InterestList from '../../InterestList';
 import WidgetHeaderNumber from '../WidgetHeaderNumber';
 import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
 import * as Router from '../../utilities/router';
-import {
-  docToShortDescription,
-  opportunityTerms,
-  studentsParticipating,
-  itemToSlugName,
-} from '../../utilities/data-model';
+import { docToShortDescription, opportunityTerms, studentsParticipating, itemToSlugName } from '../../utilities/data-model';
 import { replaceTermStringNextFour } from '../../utilities/general';
 import FutureParticipation from '../FutureParticipation';
 
@@ -70,10 +65,13 @@ const TermCard: React.FC<TermCard> = ({ item, type }) => {
   const quarter = RadGradProperties.getQuarterSystem();
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
   const numTerms = quarter ? 12 : 9;
-  const academicTerms = AcademicTerms.findNonRetired({ termNumber: { $gte: currentTerm.termNumber } }, {
-    sort: { termNumber: 1 },
-    limit: numTerms,
-  });
+  const academicTerms = AcademicTerms.findNonRetired(
+    { termNumber: { $gte: currentTerm.termNumber } },
+    {
+      sort: { termNumber: 1 },
+      limit: numTerms,
+    },
+  );
   const scores = [];
   _.forEach(academicTerms, (term: AcademicTerm) => {
     const id = `${item._id} ${term._id}`;
@@ -101,17 +99,11 @@ const TermCard: React.FC<TermCard> = ({ item, type }) => {
           {isTypeOpportunity ? <IceHeader ice={item.ice} /> : ''}
         </Card.Header>
 
-        <Card.Meta>
-          {itemTerms ? replaceTermStringNextFour(itemTerms(item, type)) : ''}
-        </Card.Meta>
+        <Card.Meta>{itemTerms ? replaceTermStringNextFour(itemTerms(item, type)) : ''}</Card.Meta>
       </Card.Content>
 
       <Card.Content>
-        <Markdown
-          escapeHtml
-          source={itemShortDescription}
-          renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}
-        />
+        <Markdown escapeHtml source={itemShortDescription} renderers={{ link: (localProps) => Router.renderLink(localProps, match) }} />
         <InterestList item={item} size="mini" />
       </Card.Content>
 

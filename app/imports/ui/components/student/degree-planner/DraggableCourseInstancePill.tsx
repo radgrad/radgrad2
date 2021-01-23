@@ -26,41 +26,24 @@ const handleClick = (instance, handleClickCourseInstance) => (event) => {
 
 const DraggableCourseInstancePill: React.FC<CourseInstancePillProps> = ({ instance, index, inPast, handleClickCourseInstance }) => (
   <Popup
-    trigger={(
+    trigger={
       <div>
         <Draggable key={instance._id} draggableId={instance._id} index={index}>
           {(prov, snap) => (
-            <div
-              ref={prov.innerRef}
-              {...prov.draggableProps}
-              {...prov.dragHandleProps}
-              style={getDraggablePillStyle(
-                snap.isDragging,
-                prov.draggableProps.style,
-              )}
-            >
+            <div ref={prov.innerRef} {...prov.draggableProps} {...prov.dragHandleProps} style={getDraggablePillStyle(snap.isDragging, prov.draggableProps.style)}>
               <Grid>
                 <Grid.Row>
                   <Grid.Column width={11} onClick={handleClick(instance, handleClickCourseInstance)}>
                     <NamePill name={instance.note} />
                   </Grid.Column>
-                  <Grid.Column width={2}>
-                    {inPast ? '' : (
-                      <RemoveItWidget
-                        collectionName="CourseInstanceCollection"
-                        id={instance._id}
-                        name={getName(instance)}
-                        courseNumber={instance.note}
-                      />
-                    )}
-                  </Grid.Column>
+                  <Grid.Column width={2}>{inPast ? '' : <RemoveItWidget collectionName="CourseInstanceCollection" id={instance._id} name={getName(instance)} courseNumber={instance.note} />}</Grid.Column>
                 </Grid.Row>
               </Grid>
             </div>
           )}
         </Draggable>
       </div>
-    )}
+    }
     content={getName(instance)}
   />
 );

@@ -93,11 +93,7 @@ const RecommendedItemInformation: React.FC<RecommendedItemInformationProps> = ({
 
             {/* Description */}
             <Grid.Row>
-              <Markdown
-                escapeHtml
-                source={`${getTeaserDescription(teaser)}...`}
-                renderers={{ link: (p) => renderLink(p, match) }}
-              />
+              <Markdown escapeHtml source={`${getTeaserDescription(teaser)}...`} renderers={{ link: (p) => renderLink(p, match) }} />
             </Grid.Row>
 
             {/* View More Button */}

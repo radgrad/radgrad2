@@ -2,20 +2,14 @@ import React, { useEffect, useRef } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { useRouteMatch } from 'react-router-dom';
 import { connect } from 'react-redux';
-import {
-  getAllUrlParamsByLocationObject, getUsername,
-  LocationProps,
-} from '../../components/shared/utilities/router';
+import { getAllUrlParamsByLocationObject, getUsername, LocationProps } from '../../components/shared/utilities/router';
 import { RootState } from '../../../redux/types';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { PageInterestDefine } from '../../../typings/radgrad';
 import { UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
 import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
 import { EXPLORER_TYPE } from './route-constants';
-import {
-  IPageInterestsCategoryTypes,
-  PageInterestsCategoryTypes,
-} from '../../../api/page-tracking/PageInterestsCategoryTypes';
+import { IPageInterestsCategoryTypes, PageInterestsCategoryTypes } from '../../../api/page-tracking/PageInterestsCategoryTypes';
 import { pageInterestDefineMethod } from '../../../api/page-tracking/PageInterestCollection.methods';
 import { calculateEngagedInterestTime, isValidParameter } from '../../components/shared/page-tracking/utilities/page-tracking';
 
@@ -111,9 +105,7 @@ function withPageTracker(WrappedComponent) {
       }
     }, [match, prevProps, router.location]);
 
-    return (
-      <WrappedComponent {...props} />
-    );
+    return <WrappedComponent {...props} />;
   };
 
   return connect(mapStateToProps)(PageTracker);

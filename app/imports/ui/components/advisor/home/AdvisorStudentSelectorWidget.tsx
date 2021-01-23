@@ -91,7 +91,7 @@ const AdvisorStudentSelectorWidget: React.FC<AdvisorStudentSelectorWidgetProps> 
     setIsUploadWorking(true);
     const advisor = advisorUsername;
     const jsonData = fileDataState;
-    starBulkLoadJsonDataMethod.call({ advisor, jsonData }, ((error) => {
+    starBulkLoadJsonDataMethod.call({ advisor, jsonData }, (error) => {
       if (error) {
         Swal.fire({
           title: 'Error loading bulk STAR data',
@@ -108,7 +108,7 @@ const AdvisorStudentSelectorWidget: React.FC<AdvisorStudentSelectorWidgetProps> 
         });
         setFileData('');
       }
-    }));
+    });
     setIsUploadWorking(false);
   };
 
@@ -153,13 +153,13 @@ const AdvisorStudentSelectorWidget: React.FC<AdvisorStudentSelectorWidgetProps> 
     overflow: 'hidden',
   };
 
-  const filterFirst = _.filter(students, s => s.firstName.toLowerCase().includes(firstName.toLowerCase()));
-  const filterLast = _.filter(filterFirst, s => s.lastName.toLowerCase().includes(lastName.toLowerCase()));
-  const filteredStudents = _.filter(filterLast, s => s.username.toLowerCase().includes(username.toLowerCase()));
+  const filterFirst = _.filter(students, (s) => s.firstName.toLowerCase().includes(firstName.toLowerCase()));
+  const filterLast = _.filter(filterFirst, (s) => s.lastName.toLowerCase().includes(lastName.toLowerCase()));
+  const filteredStudents = _.filter(filterLast, (s) => s.username.toLowerCase().includes(username.toLowerCase()));
 
-  const filterAlumiFirst = _.filter(alumni, s => s.firstName.toLowerCase().includes(firstName.toLowerCase()));
-  const filterAlumniLast = _.filter(filterAlumiFirst, s => s.lastName.toLowerCase().includes(lastName.toLowerCase()));
-  const filteredAlumni = _.filter(filterAlumniLast, s => s.username.toLowerCase().includes(username.toLowerCase()));
+  const filterAlumiFirst = _.filter(alumni, (s) => s.firstName.toLowerCase().includes(firstName.toLowerCase()));
+  const filterAlumniLast = _.filter(filterAlumiFirst, (s) => s.lastName.toLowerCase().includes(lastName.toLowerCase()));
+  const filteredAlumni = _.filter(filterAlumniLast, (s) => s.username.toLowerCase().includes(username.toLowerCase()));
 
   const levelOnes = _.filter(filteredStudents, (s) => s.level === 1).length;
   const levelTwos = _.filter(filteredStudents, (s) => s.level === 2).length;
@@ -172,32 +172,19 @@ const AdvisorStudentSelectorWidget: React.FC<AdvisorStudentSelectorWidgetProps> 
       menuItem: 'Update Existing',
       render: () => (
         <Tab.Pane key="update">
-          <Header as="h4" dividing>FILTER STUDENTS</Header>
+          <Header as="h4" dividing>
+            FILTER STUDENTS
+          </Header>
           <Form onSubmit={clearFilter}>
             <Form.Group inline>
               <Form.Field>
-                <Form.Input
-                  name="firstName"
-                  label={{ basic: 'true', children: 'First Name:' }}
-                  value={firstName}
-                  onChange={handleChangeFirstName}
-                />
+                <Form.Input name="firstName" label={{ basic: 'true', children: 'First Name:' }} value={firstName} onChange={handleChangeFirstName} />
               </Form.Field>
               <Form.Field>
-                <Form.Input
-                  name="lastName"
-                  label={{ basic: 'true', children: 'Last Name:' }}
-                  value={lastName}
-                  onChange={handleChangeLastName}
-                />
+                <Form.Input name="lastName" label={{ basic: 'true', children: 'Last Name:' }} value={lastName} onChange={handleChangeLastName} />
               </Form.Field>
               <Form.Field>
-                <Form.Input
-                  name="userName"
-                  label={{ basic: 'true', children: 'Username:' }}
-                  value={username}
-                  onChange={handleChangeUserName}
-                />
+                <Form.Input name="userName" label={{ basic: 'true', children: 'Username:' }} value={username} onChange={handleChangeUserName} />
               </Form.Field>
               <Form.Button basic color="green" content="Clear Filter" />
             </Form.Group>
@@ -210,89 +197,66 @@ const AdvisorStudentSelectorWidget: React.FC<AdvisorStudentSelectorWidgetProps> 
             <Image avatar src="/images/level-icons/radgrad-level-5-icon.png" /> {levelFives} &nbsp;
             <Image avatar src="/images/level-icons/radgrad-level-6-icon.png" /> {levelSixes} &nbsp;
           </Header>
-          <Tab panes={[
-            {
-              menuItem: `Students (${filteredStudents.length})`,
-              render: () => (
-                <Tab.Pane>
-                  <Grid stackable>
-                    {filteredStudents.map((student) => (
-                      <Grid.Column style={columnStyle} width={3} key={student._id}>
-                        <Popup
-                          content={`${student.lastName}, ${student.firstName}`}
-                          position="top center"
-                          trigger={(
-                            <Button
-                              basic
-                              color="grey"
-                              fluid
-                              style={buttonStyle}
-                              studentusername={student.username}
-                              onClick={handleSelectStudent}
-                            >
-                              <Image avatar src={`/images/level-icons/radgrad-level-${student.level}-icon.png`} />
-                              {student.lastName}
-                              ,
-                              {student.firstName}
-                              <br />
-                              {student.username}
-                            </Button>
-                          )}
-                        />
-                      </Grid.Column>
-                    ))}
-                  </Grid>
-                </Tab.Pane>
-              ),
-            },
-            {
-              menuItem: `Alumni (${filteredAlumni.length})`,
-              render: () => (
-                <Tab.Pane>
-                  <Grid stackable>
-                    {filteredAlumni.map((student) => (
-                      <Grid.Column style={columnStyle} width={3} key={student._id}>
-                        <Popup
-                          content={`${student.lastName}, ${student.firstName}`}
-                          position="top center"
-                          trigger={(
-                            <Button
-                              basic
-                              color="grey"
-                              fluid
-                              style={buttonStyle}
-                              studentusername={student.username}
-                              onClick={handleSelectStudent}
-                            >
-                              <Image avatar src={`/images/level-icons/radgrad-level-${student.level}-icon.png`} />
-                              {student.lastName}
-                              ,
-                              {student.firstName}
-                              <br />
-                              {student.username}
-                            </Button>
-                          )}
-                        />
-                      </Grid.Column>
-                    ))}
-                  </Grid>
-                </Tab.Pane>
-              ),
-            },
-          ]}
+          <Tab
+            panes={[
+              {
+                menuItem: `Students (${filteredStudents.length})`,
+                render: () => (
+                  <Tab.Pane>
+                    <Grid stackable>
+                      {filteredStudents.map((student) => (
+                        <Grid.Column style={columnStyle} width={3} key={student._id}>
+                          <Popup
+                            content={`${student.lastName}, ${student.firstName}`}
+                            position="top center"
+                            trigger={
+                              <Button basic color="grey" fluid style={buttonStyle} studentusername={student.username} onClick={handleSelectStudent}>
+                                <Image avatar src={`/images/level-icons/radgrad-level-${student.level}-icon.png`} />
+                                {student.lastName},{student.firstName}
+                                <br />
+                                {student.username}
+                              </Button>
+                            }
+                          />
+                        </Grid.Column>
+                      ))}
+                    </Grid>
+                  </Tab.Pane>
+                ),
+              },
+              {
+                menuItem: `Alumni (${filteredAlumni.length})`,
+                render: () => (
+                  <Tab.Pane>
+                    <Grid stackable>
+                      {filteredAlumni.map((student) => (
+                        <Grid.Column style={columnStyle} width={3} key={student._id}>
+                          <Popup
+                            content={`${student.lastName}, ${student.firstName}`}
+                            position="top center"
+                            trigger={
+                              <Button basic color="grey" fluid style={buttonStyle} studentusername={student.username} onClick={handleSelectStudent}>
+                                <Image avatar src={`/images/level-icons/radgrad-level-${student.level}-icon.png`} />
+                                {student.lastName},{student.firstName}
+                                <br />
+                                {student.username}
+                              </Button>
+                            }
+                          />
+                        </Grid.Column>
+                      ))}
+                    </Grid>
+                  </Tab.Pane>
+                ),
+              },
+            ]}
           />
         </Tab.Pane>
-      )
-      ,
+      ),
     },
     {
       menuItem: 'Add New',
-      render: () => (
-        <AdvisorAddStudentWidget
-          interests={interests}
-          careerGoals={careerGoals}
-        />
-      ),
+      render: () => <AdvisorAddStudentWidget interests={interests} careerGoals={careerGoals} />,
     },
     {
       menuItem: 'Bulk STAR Upload',
@@ -304,36 +268,21 @@ const AdvisorStudentSelectorWidget: React.FC<AdvisorStudentSelectorWidgetProps> 
               <Form.Input type="file" onChange={readFile} label="BULK STAR JSON" />
             </Form.Field>
             <Form.Group inline>
-              <Form.Button
-                size="tiny"
-                basic
-                color="green"
-                content="LOAD BULK STAR DATA"
-                type="Submit"
-                loading={isUploadWorkingState}
-                disabled={isUploadWorkingState || (fileDataState === '')}
-              />
-              <Form.Button
-                size="tiny"
-                basic
-                color="green"
-                content="GET STUDENT EMAILS"
-                onClick={getStudentEmails}
-                loading={isEmailWorkingState}
-                disabled={isEmailWorkingState}
-              />
+              <Form.Button size="tiny" basic color="green" content="LOAD BULK STAR DATA" type="Submit" loading={isUploadWorkingState} disabled={isUploadWorkingState || fileDataState === ''} />
+              <Form.Button size="tiny" basic color="green" content="GET STUDENT EMAILS" onClick={getStudentEmails} loading={isEmailWorkingState} disabled={isEmailWorkingState} />
             </Form.Group>
           </Form>
           {generatedDataState ? <Segment>{generatedDataState}</Segment> : undefined}
         </Tab.Pane>
-      )
-      ,
+      ),
     },
   ];
 
   return (
     <Segment>
-      <Header as="h4" dividing>SELECT STUDENT</Header>
+      <Header as="h4" dividing>
+        SELECT STUDENT
+      </Header>
       <Tab panes={panes} onTabChange={handleTabChange} />
     </Segment>
   );

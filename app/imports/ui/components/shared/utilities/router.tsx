@@ -10,7 +10,7 @@ export interface MatchProps {
   url: string;
   params?: {
     username: string;
-  }
+  };
 }
 
 export interface LocationProps {
@@ -200,7 +200,11 @@ export const renderLink = (props: { href: string; children: React.ReactNode }, m
   const baseRoute = getBaseRoute(match);
   // External Links (aka non-radgrad links)
   if (isExternal) {
-    return <a href={props.href} target="_blank" rel="noopener noreferrer">{props.children}</a>;
+    return (
+      <a href={props.href} target="_blank" rel="noopener noreferrer">
+        {props.children}
+      </a>
+    );
   }
   // Viewing the Landing Explorers not logged in will cause the match.path to not have a ":username" param
   // Since baseRoute is calculated on the assumption that there is a ":username" param, we need to handle this case

@@ -12,7 +12,7 @@ const withListSubscriptions = (WrappedComponent, subscriptionNames: string[]) =>
   // expireLimit set to 30 minutes because: why not.
   const localSubs = new SubsManager({ cacheLimit: subscriptionNames.length, expireIn: 30 });
 
-  const GenericSubscription: React.FC<Loading> = (props) => ((props.loading) ? <Loader active>Getting data</Loader> : <WrappedComponent {...props} />);
+  const GenericSubscription: React.FC<Loading> = (props) => (props.loading ? <Loader active>Getting data</Loader> : <WrappedComponent {...props} />);
 
   return withTracker(() => {
     const handles = [];

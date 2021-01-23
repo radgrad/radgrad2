@@ -5,8 +5,8 @@ import { Review } from '../../../../typings/radgrad';
 import ModerationColumnWidget from './ModerationColumnWidget';
 
 export interface ModerationWidgetProps {
-  opportunityReviews: Review[],
-  courseReviews: Review[],
+  opportunityReviews: Review[];
+  courseReviews: Review[];
 }
 
 const handleAcceptReview = (item, comments) => {
@@ -34,22 +34,10 @@ const handleRejectReview = (item, comments) => {
 const ModerationWidget: React.FC<ModerationWidgetProps> = ({ courseReviews, opportunityReviews }) => (
   <Grid columns="equal" divided="vertically">
     <Grid.Column>
-      <ModerationColumnWidget
-        handleAccept={handleAcceptReview}
-        handleReject={handleRejectReview}
-        reviews={courseReviews}
-        isReview
-        type="COURSE"
-      />
+      <ModerationColumnWidget handleAccept={handleAcceptReview} handleReject={handleRejectReview} reviews={courseReviews} isReview type="COURSE" />
     </Grid.Column>
     <Grid.Column>
-      <ModerationColumnWidget
-        handleAccept={handleAcceptReview}
-        handleReject={handleRejectReview}
-        reviews={opportunityReviews}
-        isReview
-        type="OPPORTUNITY"
-      />
+      <ModerationColumnWidget handleAccept={handleAcceptReview} handleReject={handleRejectReview} reviews={opportunityReviews} isReview type="OPPORTUNITY" />
     </Grid.Column>
   </Grid>
 );

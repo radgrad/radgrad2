@@ -7,13 +7,7 @@ import Swal from 'sweetalert2';
 import { RadGradProperties } from '../../../../api/radgrad/RadGradProperties';
 import { OpportunityScoreboard } from '../../../../startup/client/collections';
 import { getUsername } from '../../shared/utilities/router';
-import {
-  AcademicTerm,
-  OpportunityInstance,
-  UserInteractionDefine,
-  VerificationRequest,
-  VerificationRequestDefine,
-} from '../../../../typings/radgrad';
+import { AcademicTerm, OpportunityInstance, UserInteractionDefine, VerificationRequest, VerificationRequestDefine } from '../../../../typings/radgrad';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
 import IceHeader from '../../shared/IceHeader';
@@ -122,10 +116,13 @@ const DetailOpportunityCard: React.FC<DetailOpportunityCardProps> = ({ instance,
 
   const quarter = RadGradProperties.getQuarterSystem();
   const numTerms = quarter ? 12 : 9;
-  const academicTerms = AcademicTerms.findNonRetired({ termNumber: { $gte: currentTerm.termNumber } }, {
-    sort: { termNumber: 1 },
-    limit: numTerms,
-  });
+  const academicTerms = AcademicTerms.findNonRetired(
+    { termNumber: { $gte: currentTerm.termNumber } },
+    {
+      sort: { termNumber: 1 },
+      limit: numTerms,
+    },
+  );
   const scores = [];
   _.forEach(academicTerms, (term: AcademicTerm) => {
     const id = `${opportunity._id} ${term._id}`;
@@ -145,64 +142,42 @@ const DetailOpportunityCard: React.FC<DetailOpportunityCardProps> = ({ instance,
           <Card.Header>{opportunity.name}</Card.Header>
         </Card.Content>
         <Card.Content>
-          {futureP ?
-            (
-              <React.Fragment>
-                <p>
-                  <b>Scheduled:</b> {termName}
-                </p>
-                <FutureParticipation academicTerms={academicTerms} scores={scores} />
-                <Button
-                  floated="right"
-                  basic
-                  color="green"
-                  value={instance._id}
-                  onClick={handleRemove(selectOpportunityInstance, match)}
-                  size="tiny"
-                >
+          {futureP ? (
+            <React.Fragment>
+              <p>
+                <b>Scheduled:</b> {termName}
+              </p>
+              <FutureParticipation academicTerms={academicTerms} scores={scores} />
+              <Button floated="right" basic color="green" value={instance._id} onClick={handleRemove(selectOpportunityInstance, match)} size="tiny">
+                Remove
+              </Button>
+            </React.Fragment>
+          ) : (
+            <React.Fragment>
+              <p>
+                <b>Participated:</b> {termName}
+              </p>
+              {verificationRequested ? (
+                ''
+              ) : (
+                <Button floated="right" basic color="green" value={instance._id} onClick={handleRemove(selectOpportunityInstance, match)} size="tiny">
                   Remove
                 </Button>
-              </React.Fragment>
-            )
-            :
-            (
-              <React.Fragment>
-                <p>
-                  <b>Participated:</b> {termName}
-                </p>
-                {verificationRequested ?
-                  ''
-                  :
-                  (
-                    <Button
-                      floated="right"
-                      basic
-                      color="green"
-                      value={instance._id}
-                      onClick={handleRemove(selectOpportunityInstance, match)}
-                      size="tiny"
-                    >
-                      Remove
-                    </Button>
-                  )}
-              </React.Fragment>
-            )}
+              )}
+            </React.Fragment>
+          )}
         </Card.Content>
         {verificationRequested ? <VerificationRequestStatus request={verificationRequeststoShow[0]} /> : ''}
-        {!futureP && !verificationRequested ?
-          (
-            <Card.Content>
-              <RequestVerificationForm handleOnModelChange={handleVerificationRequest(instance, match)} />
-            </Card.Content>
-          )
-          : ''}
+        {!futureP && !verificationRequested ? (
+          <Card.Content>
+            <RequestVerificationForm handleOnModelChange={handleVerificationRequest(instance, match)} />
+          </Card.Content>
+        ) : (
+          ''
+        )}
         <Card.Content>
           <p style={textAlignRight}>
-            <Link
-              to={buildRouteName(match, opportunity, EXPLORER_TYPE.OPPORTUNITIES)}
-              rel="noopener noreferrer"
-              target="_blank"
-            >
+            <Link to={buildRouteName(match, opportunity, EXPLORER_TYPE.OPPORTUNITIES)} rel="noopener noreferrer" target="_blank">
               View in Explorer <Icon name="arrow right" />
             </Link>
           </p>

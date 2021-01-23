@@ -100,7 +100,9 @@ const AddOpportunityForm: React.FC<AddOpportunityFormProps> = ({ sponsors, formR
         <BoolField name="retired" />
         <Form.Group widths="equal">
           <Form.Input name="picture" value={pictureURL} onChange={handlePictureUrlChange} />
-          <Form.Button basic color="green" onClick={handleUploadPicture}>Upload</Form.Button>
+          <Form.Button basic color="green" onClick={handleUploadPicture}>
+            Upload
+          </Form.Button>
         </Form.Group>
         <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined} />
       </AutoForm>

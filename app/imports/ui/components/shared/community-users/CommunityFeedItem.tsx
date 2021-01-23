@@ -42,17 +42,11 @@ const CommunityFeedItem: React.FC<StudentFeedItemProps> = ({ feed }) => {
         </Feed.Label>
         <Feed.Content style={{ marginTop: '0px' }}>
           <Feed.Summary>
-            <Markdown
-              escapeHtml
-              source={feed.description}
-              renderers={{ link: (localProps) => renderLink(localProps, match) }}
-            />
+            <Markdown escapeHtml source={feed.description} renderers={{ link: (localProps) => renderLink(localProps, match) }} />
           </Feed.Summary>
 
           <Feed.Extra text>
-            <Feed.Date style={{ marginTop: '0px' }}>
-              {feedTimestamp(feed)}
-            </Feed.Date>
+            <Feed.Date style={{ marginTop: '0px' }}>{feedTimestamp(feed)}</Feed.Date>
           </Feed.Extra>
         </Feed.Content>
       </Feed.Event>

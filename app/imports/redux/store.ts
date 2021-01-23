@@ -8,13 +8,14 @@ import student from './student';
 
 /* global window */
 
-export const rootReducer = (history: History) => combineReducers({
-  router: connectRouter(history),
-  admin,
-  advisor,
-  shared,
-  student,
-});
+export const rootReducer = (history: History) =>
+  combineReducers({
+    router: connectRouter(history),
+    admin,
+    advisor,
+    shared,
+    student,
+  });
 
 export const history = createHashHistory();
 
@@ -23,11 +24,9 @@ export default function configureStore(preloadedState) {
     rootReducer(history),
     preloadedState,
     compose(
-      applyMiddleware(
-        routerMiddleware(history),
-      ),
+      applyMiddleware(routerMiddleware(history)),
       // @ts-ignore
-      window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f,
+      window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f,
     ),
   );
   return store;

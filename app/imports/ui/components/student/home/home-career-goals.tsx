@@ -18,9 +18,8 @@ const GuidedTourStudentCareerPath: React.FC<CareerPathProps> = ({ careerGoals })
         <div>
           <Header style={styles.h1}>Define your career path</Header>
           <p style={styles.p}>
-            Interests are important, but getting a job that&apos;s right for you is even more important. RadGrad
-            provides a curated list of career goals that include many of the best careers in technology, including:
-            {' '}<strong style={styles.strong}>{careerGoals}</strong>.
+            Interests are important, but getting a job that&apos;s right for you is even more important. RadGrad provides a curated list of career goals that include many of the best careers in technology, including:{' '}
+            <strong style={styles.strong}>{careerGoals}</strong>.
           </p>
         </div>
       </Grid.Column>

@@ -4,8 +4,7 @@ import { Grid } from 'semantic-ui-react';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminAnalyticsMenuWidget from '../../components/admin/analytics/AdminAnalyticsMenuWidget';
-import AdminAnalyticsUserInteractionsWidget, { AdminAnalyticsUserInteractionsWidgetProps }
-  from '../../components/admin/analytics/user-interactions/AdminAnalyticsUserInteractionsWidget';
+import AdminAnalyticsUserInteractionsWidget, { AdminAnalyticsUserInteractionsWidgetProps } from '../../components/admin/analytics/user-interactions/AdminAnalyticsUserInteractionsWidget';
 
 const AdminAnalyticsUserInteractionsPage: React.FC<AdminAnalyticsUserInteractionsWidgetProps> = ({ students }) => {
   const paddedStyle = {

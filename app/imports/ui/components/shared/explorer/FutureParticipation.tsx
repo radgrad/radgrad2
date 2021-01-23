@@ -9,7 +9,7 @@ interface FutureParticipationProps {
   scores: number[];
 }
 
-const termName = (termID) => (AcademicTerms.getShortName(termID));
+const termName = (termID) => AcademicTerms.getShortName(termID);
 
 const columnColor = (count) => {
   if (count > 29) {
@@ -24,10 +24,7 @@ const columnColor = (count) => {
 const FutureParticipation: React.FC<FutureParticipationProps> = ({ academicTerms, scores }) => (
   <Grid columns="equal" padded={false}>
     {_.map(academicTerms, (term, index) => (
-      <Grid.Column
-        key={term._id}
-        color={columnColor(scores[index])}
-      >
+      <Grid.Column key={term._id} color={columnColor(scores[index])}>
         <b>{termName(term._id)}</b>
         <br />
         {scores[index]}

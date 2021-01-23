@@ -6,12 +6,7 @@ import { AutoForm, SelectField, BoolField, SubmitField } from 'uniforms-semantic
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import { AcademicTerm, Opportunity, OpportunityInstance, StudentProfile } from '../../../../../typings/radgrad';
 import { AcademicTerms } from '../../../../../api/academic-term/AcademicTermCollection';
-import {
-  academicTermToName,
-  docToName,
-  opportunityInstanceToName,
-  profileToName,
-} from '../../../shared/utilities/data-model';
+import { academicTermToName, docToName, opportunityInstanceToName, profileToName } from '../../../shared/utilities/data-model';
 import { VerificationRequests } from '../../../../../api/verification/VerificationRequestCollection';
 
 interface AddVerificationRequestFormProps {

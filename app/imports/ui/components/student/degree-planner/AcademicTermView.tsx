@@ -19,8 +19,7 @@ interface AcademicTermViewProps {
   opportunityInstances: OpportunityInstance[];
 }
 
-const AcademicTermView: React.FC<AcademicTermViewProps> = ({ term, studentID, handleClickCourseInstance,
-  handleClickOpportunityInstance, courseInstances, opportunityInstances }) => {
+const AcademicTermView: React.FC<AcademicTermViewProps> = ({ term, studentID, handleClickCourseInstance, handleClickOpportunityInstance, courseInstances, opportunityInstances }) => {
   const termSlug = Slugs.getNameFromID(term.slugID);
   const paddedStyle = {
     margin: 10,
@@ -33,36 +32,18 @@ const AcademicTermView: React.FC<AcademicTermViewProps> = ({ term, studentID, ha
   const opportunityInstancesToShow = _.filter(opportunityInstances, (oi) => oi.termID === term._id);
   return (
     <Container style={paddedStyle}>
-      <Header
-        dividing
-        disabled={inPast}
-        color={isCurrent ? 'green' : 'black'}
-      >
+      <Header dividing disabled={inPast} color={isCurrent ? 'green' : 'black'}>
         {AcademicTerms.toString(term._id)}
       </Header>
       <Grid stackable stretched>
         <Droppable droppableId={`${termSlug}`}>
           {(provided, snapshot) => (
-            <div
-              ref={provided.innerRef}
-              style={getDroppableListStyle(snapshot.isDraggingOver)}
-            >
+            <div ref={provided.innerRef} style={getDroppableListStyle(snapshot.isDraggingOver)}>
               {_.map(courseInstancesToShow, (ci, index) => (
-                <DraggableCourseInstancePill
-                  key={ci._id}
-                  instance={ci}
-                  index={index}
-                  inPast={inPast}
-                  handleClickCourseInstance={handleClickCourseInstance}
-                />
+                <DraggableCourseInstancePill key={ci._id} instance={ci} index={index} inPast={inPast} handleClickCourseInstance={handleClickCourseInstance} />
               ))}
               {_.map(opportunityInstancesToShow, (oi, index) => (
-                <DraggableOpportunityInstancePill
-                  key={oi._id}
-                  instance={oi}
-                  index={courseInstancesToShow.length + index}
-                  handleClickOpportunityInstance={handleClickOpportunityInstance}
-                />
+                <DraggableOpportunityInstancePill key={oi._id} instance={oi} index={courseInstancesToShow.length + index} handleClickOpportunityInstance={handleClickOpportunityInstance} />
               ))}
               {provided.placeholder}
             </div>

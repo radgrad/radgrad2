@@ -10,8 +10,7 @@ import { Users } from '../../../api/user/UserCollection';
 import { AcademicYearInstance, DescriptionPair, StudentProfile } from '../../../typings/radgrad';
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
 import AdminDataModelUpdateForm from '../../components/admin/datamodel/AdminDataModelUpdateForm';
-import AddAcademicYearInstanceFormContainer
-  from '../../components/admin/datamodel/academic-year/AddAcademicYearInstanceForm';
+import AddAcademicYearInstanceFormContainer from '../../components/admin/datamodel/academic-year/AddAcademicYearInstanceForm';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
@@ -21,7 +20,6 @@ const descriptionPairs = (year: AcademicYearInstance): DescriptionPair[] => [
   { label: 'Student', value: Users.getFullName(year.studentID) },
   { label: 'Year', value: `${year.year}` },
   { label: 'Retired', value: year.retired ? 'True' : 'False' },
-
 ];
 
 const itemTitle = (year: AcademicYearInstance): React.ReactNode => {
@@ -120,7 +118,7 @@ const AdminDataModelAcademicYearsPage: React.FC<AdminDataModelAcademicYearsPageP
   const handleUpdate = (doc) => {
     // console.log('handleUpdate(%o)', doc);
     const collectionName = AcademicYearInstances.getCollectionName();
-    const updateData: { id?: string, retired?: boolean } = {};
+    const updateData: { id?: string; retired?: boolean } = {};
     updateData.id = doc._id;
     updateData.retired = doc.retired;
     // console.log('parameter = %o', { collectionName, updateData });
@@ -163,20 +161,9 @@ const AdminDataModelAcademicYearsPage: React.FC<AdminDataModelAcademicYearsPageP
 
         <Grid.Column width={13}>
           {showUpdateFormState ? (
-            <AdminDataModelUpdateForm
-              collection={AcademicYearInstances}
-              id={idState}
-              formRef={formRef}
-              handleUpdate={handleUpdate}
-              handleCancel={handleCancel}
-              itemTitleString={itemTitleString}
-            />
+            <AdminDataModelUpdateForm collection={AcademicYearInstances} id={idState} formRef={formRef} handleUpdate={handleUpdate} handleCancel={handleCancel} itemTitleString={itemTitleString} />
           ) : (
-            <AddAcademicYearInstanceFormContainer
-              formRef={formRef}
-              handleAdd={handleAdd}
-              students={props.students}
-            />
+            <AddAcademicYearInstanceFormContainer formRef={formRef} handleAdd={handleAdd} students={props.students} />
           )}
           <ListCollectionWidget
             collection={AcademicYearInstances}
@@ -191,12 +178,7 @@ const AdminDataModelAcademicYearsPage: React.FC<AdminDataModelAcademicYearsPageP
           />
         </Grid.Column>
       </Grid>
-      <Confirm
-        open={confirmOpenState}
-        onCancel={handleCancel}
-        onConfirm={handleConfirmDelete}
-        header="Delete Academic Year Instance?"
-      />
+      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Academic Year Instance?" />
 
       <BackToTopButton />
     </div>

@@ -19,16 +19,9 @@ const AdminDataModelUpdateForm: React.FC<AdminDataModelUpdateFormProps> = ({ col
     <Segment padded>
       <Header dividing>
         Update
-        {collection.getType()}
-        :
-        {itemTitleString(model)}
+        {collection.getType()}:{itemTitleString(model)}
       </Header>
-      <AutoForm
-        ref={formRef}
-        schema={new SimpleSchema2Bridge(collection.getUpdateSchema())}
-        model={model}
-        onSubmit={handleUpdate}
-      >
+      <AutoForm ref={formRef} schema={new SimpleSchema2Bridge(collection.getUpdateSchema())} model={model} onSubmit={handleUpdate}>
         <AutoFields autoField={undefined} element={undefined} fields={undefined} omitFields={undefined} />
         <p />
         <SubmitField className="" inputRef={undefined} disabled={false} value={undefined} />

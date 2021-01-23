@@ -6,13 +6,7 @@ import SimpleSchema from 'simpl-schema';
 import _ from 'lodash';
 import { CareerGoal, Course, Interest, Opportunity } from '../../../../../typings/radgrad';
 import BaseCollection from '../../../../../api/base/BaseCollection';
-import {
-  docToName,
-  interestIdToName, itemToSlugName,
-  opportunityIdToName,
-  slugIDToSlugNameAndType,
-  docToSlugNameAndType,
-} from '../../../shared/utilities/data-model';
+import { docToName, interestIdToName, itemToSlugName, opportunityIdToName, slugIDToSlugNameAndType, docToSlugNameAndType } from '../../../shared/utilities/data-model';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
 
 interface UpdateTeaserFormProps {
@@ -63,17 +57,9 @@ const UpdateTeaserForm: React.FC<UpdateTeaserFormProps> = ({ careerGoals, course
     <Segment padded>
       <Header dividing>
         Update
-        {collection.getType()}
-        :
-        {itemTitleString(model)}
+        {collection.getType()}:{itemTitleString(model)}
       </Header>
-      <AutoForm
-        schema={formSchema}
-        onSubmit={handleUpdate}
-        ref={formRef}
-        showInlineError
-        model={model}
-      >
+      <AutoForm schema={formSchema} onSubmit={handleUpdate} ref={formRef} showInlineError model={model}>
         <Form.Group widths="equal">
           <TextField name="title" />
           <TextField name="slug" disabled />

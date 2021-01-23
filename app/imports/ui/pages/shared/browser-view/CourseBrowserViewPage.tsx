@@ -35,18 +35,18 @@ const CourseBrowserViewPage: React.FC<CourseBrowserViewPageProps> = ({ favoriteC
       <Container>
         <Grid stackable>
           <Grid.Row className="helpPanel">
-            <Grid.Column width={16}><HelpPanelWidget helpMessages={helpMessages} /></Grid.Column>
+            <Grid.Column width={16}>
+              <HelpPanelWidget helpMessages={helpMessages} />
+            </Grid.Column>
           </Grid.Row>
           <Grid.Row>
             {showFavorites ? (
               <Grid.Column width={4}>
-                <ExplorerMultipleItemsMenu
-                  menuAddedList={menuAddedList}
-                  type={EXPLORER_TYPE.COURSES as IExplorerTypes}
-                  menuCareerList={undefined}
-                />
+                <ExplorerMultipleItemsMenu menuAddedList={menuAddedList} type={EXPLORER_TYPE.COURSES as IExplorerTypes} menuCareerList={undefined} />
               </Grid.Column>
-            ) : ' '}
+            ) : (
+              ' '
+            )}
             <Grid.Column width={columnWidth}>
               <CourseBrowserViewContainer favoriteCourses={favoriteCourses} courses={courses} />
             </Grid.Column>

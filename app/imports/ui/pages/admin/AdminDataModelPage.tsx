@@ -16,16 +16,12 @@ const AdminDataModelPage: React.FC<AdminDataModeMenuProps> = (props) => {
     <div id="admin-data-model-page" className="layout-page">
       <AdminPageMenuWidget />
       <Grid container stackable style={paddedStyle}>
-
         <Grid.Column width={3}>
           <AdminDataModelMenu {...props} />
         </Grid.Column>
 
         <Grid.Column width={13}>
-          <Message
-            floating
-            content="Click on a data model element in the menu to the left to display those items."
-          />
+          <Message floating content="Click on a data model element in the menu to the left to display those items." />
           <UploadFixtureWidget />
         </Grid.Column>
       </Grid>

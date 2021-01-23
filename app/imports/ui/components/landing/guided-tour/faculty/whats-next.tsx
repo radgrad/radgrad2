@@ -22,18 +22,10 @@ const GuidedTourFacultyWhatsNext: React.FC = () => {
                 If you do not have a RadGrad account yet, please contact a RadGrad administrator at
                 <a href={mailto}> {adminEmail}</a> to request one.
               </p>
-              <p>
-                If you have a RadGrad account, then please login, update your profile if necessary, and create one or
-                more opportunities for your research projects and/or other activities of interest.
-              </p>
+              <p>If you have a RadGrad account, then please login, update your profile if necessary, and create one or more opportunities for your research projects and/or other activities of interest.</p>
               <p>
                 If you just have questions about RadGrad, feel free to contact us at&nbsp;
-                <a
-                  href={mailto}
-                >
-                  {adminEmail}
-                </a>
-                .
+                <a href={mailto}>{adminEmail}</a>.
               </p>
             </div>
           </Grid.Column>

@@ -2,12 +2,7 @@ import React, { useState } from 'react';
 import _ from 'lodash';
 import Swal from 'sweetalert2';
 import { connect } from 'react-redux';
-import {
-  Segment,
-  Header,
-  Form,
-  Radio,
-} from 'semantic-ui-react';
+import { Segment, Header, Form, Radio } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import { openCloudinaryWidget } from '../../shared/OpenCloudinaryWidget';
@@ -122,7 +117,7 @@ const AdvisorUpdateStudentWidget: React.FC<AdvisorUpdateStudentWidgetProps> = ({
     updateData.isAlumni = isAlumniState;
     updateData.level = calcLevel();
     const prop = declaredAcademicTermState;
-    if ((prop !== '') && (prop)) updateData.declaredAcademicTerm = prop;
+    if (prop !== '' && prop) updateData.declaredAcademicTerm = prop;
 
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
@@ -149,58 +144,37 @@ const AdvisorUpdateStudentWidget: React.FC<AdvisorUpdateStudentWidgetProps> = ({
 
   return (
     <Segment padded>
-      <Header as="h4" dividing>UPDATE STUDENT</Header>
+      <Header as="h4" dividing>
+        UPDATE STUDENT
+      </Header>
       <Form onSubmit={handleUpdateSubmit}>
         <Form.Group widths="equal">
-          <Form.Input
-            name="username"
-            label="Username"
-            value={usernameDoc.username}
-            disabled
-          />
-          <Form.Input
-            name="role"
-            label="Role"
-            value={usernameDoc.role}
-            disabled
-          />
+          <Form.Input name="username" label="Username" value={usernameDoc.username} disabled />
+          <Form.Input name="role" label="Role" value={usernameDoc.role} disabled />
         </Form.Group>
         <Form.Group widths="equal">
-          <Form.Input
-            name="firstName"
-            label="First"
-            onChange={handleFormChange}
-            value={firstNameState}
-            required
-          />
-          <Form.Input
-            name="lastName"
-            label="Last"
-            onChange={handleFormChange}
-            value={lastNameState}
-            required
-          />
+          <Form.Input name="firstName" label="First" onChange={handleFormChange} value={firstNameState} required />
+          <Form.Input name="lastName" label="Last" onChange={handleFormChange} value={lastNameState} required />
         </Form.Group>
-        <Header as="h4" dividing>Optional fields (all users)</Header>
+        <Header as="h4" dividing>
+          Optional fields (all users)
+        </Header>
         <Form.Group widths="equal">
           <Form.Input
             name="picture"
-            label={(
+            label={
               <React.Fragment>
                 Picture (
-                <button type="button" onClick={handleUploadClick}>Upload</button>
+                <button type="button" onClick={handleUploadClick}>
+                  Upload
+                </button>
                 )
               </React.Fragment>
-            )}
+            }
             onChange={handleFormChange}
             value={pictureState}
           />
-          <Form.Input
-            name="website"
-            label="Website"
-            onChange={handleFormChange}
-            value={websiteState || ''}
-          />
+          <Form.Input name="website" label="Website" onChange={handleFormChange} value={websiteState || ''} />
         </Form.Group>
         <Form.Group widths="equal">
           <Form.Dropdown
@@ -210,9 +184,7 @@ const AdvisorUpdateStudentWidget: React.FC<AdvisorUpdateStudentWidgetProps> = ({
             label="Select Career Goal(s)"
             placeholder="Select Career Goal(s)"
             onChange={handleFormChange}
-            options={careerGoals.map(
-              (ele, i) => ({ key: i, text: ele.name, value: ele._id }),
-            )}
+            options={careerGoals.map((ele, i) => ({ key: i, text: ele.name, value: ele._id }))}
             value={careerGoalsState}
           />
           <Form.Dropdown
@@ -222,45 +194,22 @@ const AdvisorUpdateStudentWidget: React.FC<AdvisorUpdateStudentWidgetProps> = ({
             label="Select Interest(s)"
             placeholder="Select Interest(s)"
             onChange={handleFormChange}
-            options={interests.map(
-              (ele, i) => ({ key: i, text: ele.name, value: ele._id }),
-            )}
+            options={interests.map((ele, i) => ({ key: i, text: ele.name, value: ele._id }))}
             value={userInterestsState}
           />
-
         </Form.Group>
         <Form.Group widths="equal">
           <Form.Field>
+            <Form.Field>Is Alumni</Form.Field>
             <Form.Field>
-              Is Alumni
+              <Radio label="True" name="isAlumni" value="true" checked={isAlumniState === true} onChange={handleFormChange} />
             </Form.Field>
             <Form.Field>
-              <Radio
-                label="True"
-                name="isAlumni"
-                value="true"
-                checked={isAlumniState === true}
-                onChange={handleFormChange}
-              />
-            </Form.Field>
-            <Form.Field>
-              <Radio
-                label="False"
-                name="isAlumni"
-                value="false"
-                checked={isAlumniState === false}
-                onChange={handleFormChange}
-              />
+              <Radio label="False" name="isAlumni" value="false" checked={isAlumniState === false} onChange={handleFormChange} />
             </Form.Field>
           </Form.Field>
           <Form.Field>
-            <Form.Input
-              name="level"
-              label="Level"
-              onChange={handleFormChange}
-              value={usernameDoc.level}
-              disabled
-            />
+            <Form.Input name="level" label="Level" onChange={handleFormChange} value={usernameDoc.level} disabled />
           </Form.Field>
         </Form.Group>
         <Form.Group widths="equal">
@@ -271,28 +220,26 @@ const AdvisorUpdateStudentWidget: React.FC<AdvisorUpdateStudentWidgetProps> = ({
               selection
               placeholder="Select Semester"
               onChange={handleFormChange}
-              options={AcademicTerms.findNonRetired().map(
-                (ele, i) => ({ key: i, text: `${ele.term} ${ele.year}`, value: ele._id }),
-              )}
+              options={AcademicTerms.findNonRetired().map((ele, i) => ({ key: i, text: `${ele.term} ${ele.year}`, value: ele._id }))}
               value={declaredAcademicTermState}
             />
           </Form.Field>
         </Form.Group>
-        {// TODO -- Find a way to test RadGrad.calcLevel
+        {
+          // TODO -- Find a way to test RadGrad.calcLevel
         }
-        {hasNewLevel() ?
-          <Segment inverted color="green" secondary><Header as="h3">New Level!!</Header></Segment> : undefined}
+        {hasNewLevel() ? (
+          <Segment inverted color="green" secondary>
+            <Header as="h3">New Level!!</Header>
+          </Segment>
+        ) : undefined}
         <Form.Group inline>
           <Form.Button content="Update" type="Submit" basic color="green" />
           <Form.Button content="Cancel" onClick={handleCancel} basic color="green" />
         </Form.Group>
       </Form>
       <b>{`View ${usernameDoc.firstName}'s degree plan: `}</b>
-      <Link
-        target="_blank"
-        rel="noopener noreferrer"
-        to={`/student/${usernameDoc.username}/degree-planner/`}
-      >
+      <Link target="_blank" rel="noopener noreferrer" to={`/student/${usernameDoc.username}/degree-planner/`}>
         /student/
         {usernameDoc.username}
         /degree-planner

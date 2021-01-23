@@ -35,15 +35,10 @@ const ListCollectionWidget: React.FC<ListCollectionWidgetProps> = ({ collection,
   return (
     <Segment padded>
       <Header dividing>
-        {collection.getCollectionName()}
-        ({count})
+        {collection.getCollectionName()}({count})
       </Header>
       <Grid>
-        <AdminPaginationWidget
-          collection={collection}
-          setShowIndex={dataModelActions.setCollectionShowIndex}
-          setShowCount={dataModelActions.setCollectionShowCount}
-        />
+        <AdminPaginationWidget collection={collection} setShowIndex={dataModelActions.setCollectionShowIndex} setShowCount={dataModelActions.setCollectionShowCount} />
         {_.map(itemsToShow, (item) => (
           <AdminCollectionAccordion
             key={item._id}

@@ -68,8 +68,12 @@ const ModerationQuestionCardWidget: React.FC<ModerationQuestionCardWidget> = ({ 
       <Segment>
         <Form>
           <Form.TextArea label="Moderator Comments" value={moderatorCommentState} onChange={handleChange} />
-          <Button className="ui basic green mini button" onClick={handleAcceptClick}>ACCEPT</Button>
-          <Button className="ui basic red mini button" onClick={handleRejectClick}>REJECT</Button>
+          <Button className="ui basic green mini button" onClick={handleAcceptClick}>
+            ACCEPT
+          </Button>
+          <Button className="ui basic red mini button" onClick={handleRejectClick}>
+            REJECT
+          </Button>
         </Form>
       </Segment>
     </Container>

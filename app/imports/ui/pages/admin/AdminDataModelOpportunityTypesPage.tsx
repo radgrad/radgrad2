@@ -178,21 +178,13 @@ const AdminDataModelOpportunityTypesPage: React.FC<AdminDataModelOpportunityType
     <div id="data-model-opportunity-types-page">
       <AdminPageMenuWidget />
       <Grid container stackable style={paddedStyle}>
-
         <Grid.Column width={3}>
           <AdminDataModelMenu {...props} />
         </Grid.Column>
 
         <Grid.Column width={13}>
           {showUpdateFormState ? (
-            <UpdateOpportunityTypeForm
-              collection={collection}
-              id={idState}
-              formRef={formRef}
-              handleUpdate={handleUpdate}
-              handleCancel={handleCancel}
-              itemTitleString={itemTitleString}
-            />
+            <UpdateOpportunityTypeForm collection={collection} id={idState} formRef={formRef} handleUpdate={handleUpdate} handleCancel={handleCancel} itemTitleString={itemTitleString} />
           ) : (
             <AddOpportunityTypeForm formRef={formRef} handleAdd={handleAdd} />
           )}
@@ -209,12 +201,7 @@ const AdminDataModelOpportunityTypesPage: React.FC<AdminDataModelOpportunityType
           />
         </Grid.Column>
       </Grid>
-      <Confirm
-        open={confirmOpenState}
-        onCancel={handleCancel}
-        onConfirm={handleConfirmDelete}
-        header="Delete Opportunity Type?"
-      />
+      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Opportunity Type?" />
 
       <BackToTopButton />
     </div>

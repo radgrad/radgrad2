@@ -8,12 +8,7 @@ const CommunityRadGradVideosWidget: React.FC = () => (
   <React.Fragment>
     {radgradVideos.map((video) => (
       <div style={videoStyle} key={video.youtubeID}>
-        <Embed
-          active
-          autoplay={false}
-          source="youtube"
-          id={video.youtubeID}
-        />
+        <Embed active autoplay={false} source="youtube" id={video.youtubeID} />
       </div>
     ))}
   </React.Fragment>

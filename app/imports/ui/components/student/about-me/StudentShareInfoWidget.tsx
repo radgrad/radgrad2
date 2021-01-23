@@ -130,12 +130,7 @@ const StudentShareInfoWidget: React.FC<StudentShareInfoWidgetProps> = ({ profile
           </Grid.Row>
           <Grid.Row>
             <Grid.Column>
-              <SubmitField
-                className="basic green shareInfo"
-                value="UPDATE"
-                disabled={false}
-                inputRef={undefined}
-              />
+              <SubmitField className="basic green shareInfo" value="UPDATE" disabled={false} inputRef={undefined} />
             </Grid.Column>
           </Grid.Row>
         </AutoForm>
