@@ -5,7 +5,7 @@ import { Grid, Container, Card, Image } from 'semantic-ui-react';
 import _ from 'lodash';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
-import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
+import StudentPageMenu from '../../components/student/StudentPageMenu';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import StudentLevelsWidget from '../../components/student/levels/StudentLevelsWidget';
 import StudentLevelsOthersWidget from '../../components/student/levels/StudentLevelsOthersWidget';
@@ -19,9 +19,9 @@ interface StudentHomeLevelsPageProps {
   students: StudentProfile[]
 }
 
-const StudentHomeLevelsPage: React.FC<StudentHomeLevelsPageProps> = ({ profile, students, helpMessages }) => (
+const StudentLevelsPage: React.FC<StudentHomeLevelsPageProps> = ({ profile, students, helpMessages }) => (
   <div id="student-levels-page">
-    <StudentPageMenuWidget />
+    <StudentPageMenu />
     <Container>
       <Grid stackable>
         <Grid.Row>
@@ -185,16 +185,16 @@ const getStudentsAtSameLevel = (profiles, currentProfile:StudentProfile): Studen
 };
 
 const StudentHomeLevelsPageContainer = withTracker(() => {
-  const helpMessages = HelpMessages.findNonRetired({});
+  const helpMessages:HelpMessage[] = HelpMessages.findNonRetired({});
   const { username } = useParams();
-  const profile = Users.getProfile(username) as StudentProfile;
-  const profiles = Users.findProfilesWithRole(ROLE.STUDENT, {}, {});
+  const profile:StudentProfile = Users.getProfile(username) as StudentProfile;
+  const profiles:StudentProfile[] = Users.findProfilesWithRole(ROLE.STUDENT, {}, {});
   const students: StudentProfile[] = getStudentsAtSameLevel(profiles, profile);
   return {
     helpMessages,
     profile,
     students,
   };
-})(StudentHomeLevelsPage);
+})(StudentLevelsPage);
 
 export default StudentHomeLevelsPageContainer;

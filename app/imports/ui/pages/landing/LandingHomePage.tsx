@@ -14,29 +14,29 @@ import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 
 interface LandingHomeProps {
-  careerGoals: string;
-  interests: string;
-  opportunities: string;
-  users: string;
+  careerGoalsCount: string;
+  interestsCount: string;
+  opportunitiesCount: string;
+  usersCount: string;
   currentUser: string;
-  iconName: string;
+  roleName: string;
   role: string;
 }
 
 /** A simple static component to render some text for the landing page. */
-const LandingHomePage: React.FC<LandingHomeProps> = ({ currentUser, opportunities, interests, careerGoals, users, role, iconName }) => (
+const LandingHomePage: React.FC<LandingHomeProps> = ({ currentUser, opportunitiesCount, interestsCount, careerGoalsCount, usersCount, role, roleName }) => (
   <div id="landing-page">
     <LandingNavBar
       currentUser={currentUser}
-      iconName={iconName}
+      roleName={roleName}
       role={role}
     />
     <LandingSection1 />
     <LandingSection2
-      careerGoals={careerGoals}
-      interests={interests}
-      opportunities={opportunities}
-      users={users}
+      careerGoals={careerGoalsCount}
+      interests={interestsCount}
+      opportunities={opportunitiesCount}
+      users={usersCount}
     />
     <LandingSection3 />
     <LandingSection9Container />
@@ -68,14 +68,20 @@ const LandingHomeContainer =
         role = 'student';
       }
     }
+    const roleName = (role === 'admin') ? 'user plus' : 'user';
+    const currentUser = Meteor.user() ? Meteor.user().username : '';
+    const careerGoalsCount = PublicStats.getPublicStat(PublicStats.careerGoalsTotalKey);
+    const interestsCount = PublicStats.getPublicStat(PublicStats.interestsTotalKey);
+    const opportunitiesCount = PublicStats.getPublicStat(PublicStats.opportunitiesTotalKey);
+    const usersCount = PublicStats.getPublicStat(PublicStats.usersTotalKey);
     return {
-      currentUser: Meteor.user() ? Meteor.user().username : '',
-      iconName: (role === 'admin') ? 'user plus' : 'user',
+      currentUser,
+      roleName,
       role,
-      careerGoals: PublicStats.getPublicStat(PublicStats.careerGoalsTotalKey),
-      interests: PublicStats.getPublicStat(PublicStats.interestsTotalKey),
-      opportunities: PublicStats.getPublicStat(PublicStats.opportunitiesTotalKey),
-      users: PublicStats.getPublicStat(PublicStats.usersTotalKey),
+      careerGoalsCount,
+      interestsCount,
+      opportunitiesCount,
+      usersCount,
     };
   })(LandingHomePage);
 

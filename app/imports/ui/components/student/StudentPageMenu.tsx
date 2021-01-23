@@ -25,7 +25,7 @@ const communityDropdownItems = [
   { key: 'RadGrad Videos', route: COMMUNITY.RADGRADVIDEOS, id: 'student-menu-radgrad-videos' },
 ];
 
-const StudentPageMenuWidget: React.FC = () => {
+const StudentPageMenu: React.FC = () => {
   const match = useRouteMatch();
   const username = getUsername(match);
   const divStyle = { marginBottom: 30 };
@@ -116,4 +116,4 @@ const StudentPageMenuWidget: React.FC = () => {
   );
 };
 
-export default StudentPageMenuWidget;
+export default StudentPageMenu;

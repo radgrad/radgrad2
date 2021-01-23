@@ -4,12 +4,10 @@ import React from 'react';
 import { Grid, Container } from 'semantic-ui-react';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
-import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
+import StudentPageMenu from '../../components/student/StudentPageMenu';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import StudentIceWidget from '../../components/student/ice/StudentIceWidget';
-
 import { Ice, CourseInstance, FavoriteInterest, HelpMessage, OpportunityInstance } from '../../../typings/radgrad';
-
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
@@ -27,7 +25,7 @@ interface StudentIcePageProps {
 const StudentIcePage: React.FC<StudentIcePageProps> = ({ helpMessages, earnedICE, projectedICE,
   favoriteInterests, courseInstances, opportunityInstances }) => (
     <div id="student-ice-points-page">
-      <StudentPageMenuWidget />
+      <StudentPageMenu />
       <Container>
         <Grid stackable>
           <Grid.Row>
@@ -55,7 +53,7 @@ const StudentHomeIcePageContainer = withTracker(() => {
   const studentID: string = Users.getProfile(username).userID;
   const earnedICE: Ice = StudentProfiles.getEarnedICE(username);
   const projectedICE: Ice = StudentProfiles.getProjectedICE(username);
-  const helpMessages = HelpMessages.findNonRetired({});
+  const helpMessages: HelpMessage[] = HelpMessages.findNonRetired({});
   const favoriteInterests: FavoriteInterest[] = FavoriteInterests.findNonRetired({ userID: studentID });
   const courseInstances: CourseInstance[] = CourseInstances.findNonRetired({ studentID });
   const opportunityInstances: OpportunityInstance[] = OpportunityInstances.findNonRetired({ studentID });

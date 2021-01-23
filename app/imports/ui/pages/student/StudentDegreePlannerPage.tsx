@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 import { useParams } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import _ from 'lodash';
-import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
+import StudentPageMenu from '../../components/student/StudentPageMenu';
 import DegreeExperiencePlannerWidget from '../../components/student/degree-planner/DegreeExperiencePlannerWidget';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
@@ -254,7 +254,7 @@ const StudentDegreePlannerPage: React.FC<StudentDegreePlannerProps> = ({ academi
   };
   return (
     <DragDropContext onDragEnd={onDragEnd(onDragEndProps)}>
-      <StudentPageMenuWidget />
+      <StudentPageMenu />
       <GuidedTourDegreePlanner />
       <Container id="degree-planner-page">
         <Grid stackable style={marginStyle}>

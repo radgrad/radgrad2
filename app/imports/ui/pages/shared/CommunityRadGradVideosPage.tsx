@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import { Container, Header } from 'semantic-ui-react';
-import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
+import StudentPageMenu from '../../components/student/StudentPageMenu';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import CommunityRadGradVideosWidget from '../../components/shared/community-radgrad-videos/CommunityRadGradVideosWidget';
 import * as Router from '../../components/shared/utilities/router';
@@ -15,7 +15,7 @@ const CommunityRadGradVideosPage: React.FC = () => {
     const role = Router.getRoleByUrl(match);
     switch (role) {
       case URL_ROLES.STUDENT:
-        return <StudentPageMenuWidget />;
+        return <StudentPageMenu />;
       case URL_ROLES.FACULTY:
         return <FacultyPageMenuWidget />;
       case URL_ROLES.ADVISOR:

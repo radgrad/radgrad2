@@ -15,7 +15,7 @@ interface GuidedTourStudentProps {
   courses: number;
 }
 
-const GuidedTourStudentHomePageWidget: React.FC<GuidedTourStudentProps> = ({ interests, careerGoals, courses }) => {
+const GuidedTourStudentHomePage: React.FC<GuidedTourStudentProps> = ({ interests, careerGoals, courses }) => {
   const settings = {
     dots: true,
     infinite: false,
@@ -39,4 +39,4 @@ const GuidedTourStudentHomePageWidget: React.FC<GuidedTourStudentProps> = ({ int
   );
 };
 
-export default GuidedTourStudentHomePageWidget;
+export default GuidedTourStudentHomePage;

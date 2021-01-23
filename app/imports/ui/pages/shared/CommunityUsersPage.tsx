@@ -11,7 +11,7 @@ import { AdvisorOrFacultyProfile, IFeed, HelpMessage, StudentProfile } from '../
 import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
 import * as Router from '../../components/shared/utilities/router';
 import { URL_ROLES } from '../../layouts/utilities/route-constants';
-import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
+import StudentPageMenu from '../../components/student/StudentPageMenu';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import CommunityUsersWidget from '../../components/shared/community-users/CommunityUsersWidget';
@@ -33,7 +33,7 @@ const CommunityUsersPage: React.FC<CommunityUsersPageProps> = ({ faculty, helpMe
     const role = Router.getRoleByUrl(match);
     switch (role) {
       case URL_ROLES.STUDENT:
-        return <StudentPageMenuWidget />;
+        return <StudentPageMenu />;
       case URL_ROLES.FACULTY:
         return <FacultyPageMenuWidget />;
       case URL_ROLES.ADVISOR:

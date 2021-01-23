@@ -3,7 +3,7 @@ import { Grid } from 'semantic-ui-react';
 import _ from 'lodash';
 import { withRouter } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
-import StudentPageMenuWidget from '../../../app/imports/ui/components/student/StudentPageMenuWidget';
+import StudentPageMenu from '../../../app/imports/ui/components/student/StudentPageMenu';
 import FacultyPageMenuWidget from '../../../app/imports/ui/components/faculty/FacultyPageMenuWidget';
 import CardExplorerWidget from '../../../app/imports/ui/components/shared/explorer/browser-view/ExplorerMultipleItemsWidget';
 import { AcademicPlans } from '../../../app/imports/api/degree-plan/AcademicPlanCollection';
@@ -52,7 +52,7 @@ const getMenuWidget = (props: ICardExplorerPageProps): JSX.Element => {
   const role = Router.getRoleByUrl(props.match);
   switch (role) {
     case URL_ROLES.STUDENT:
-      return <StudentPageMenuWidget />;
+      return <StudentPageMenu />;
     case URL_ROLES.FACULTY:
       return <FacultyPageMenuWidget />;
     default:

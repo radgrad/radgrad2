@@ -5,7 +5,7 @@ import { Grid, Container } from 'semantic-ui-react';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';
 import { Users } from '../../../api/user/UserCollection';
-import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
+import StudentPageMenu from '../../components/student/StudentPageMenu';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import HelpPanelWidget, { HelpPanelWidgetProps } from '../../components/shared/HelpPanelWidget';
 import StudentLogWidget, { StudentLogWidgetProps } from '../../components/student/log/StudentLogWidget';
@@ -14,7 +14,7 @@ interface StudentHomeLogPageProps extends HelpPanelWidgetProps, StudentLogWidget
 
 const StudentHomeLogPage: React.FC<StudentHomeLogPageProps> = ({ advisorLogs, helpMessages }) => (
   <div id="student-advisor-log-page">
-    <StudentPageMenuWidget />
+    <StudentPageMenu />
     <Container>
       <Grid stackable>
         <Grid.Row>

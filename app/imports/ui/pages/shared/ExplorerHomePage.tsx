@@ -5,7 +5,7 @@ import { Link, useRouteMatch } from 'react-router-dom';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import { HelpMessage } from '../../../typings/radgrad';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
-import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
+import StudentPageMenu from '../../components/student/StudentPageMenu';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 import * as Router from '../../components/shared/utilities/router';
 import ExplorerNavDropdown from '../../components/shared/explorer/ExplorerNavDropdown';
@@ -23,7 +23,7 @@ const renderPageMenuWidget = (match): JSX.Element => {
   const role = Router.getRoleByUrl(match);
   switch (role) {
     case 'student':
-      return <StudentPageMenuWidget />;
+      return <StudentPageMenu />;
     case 'faculty':
       return <FacultyPageMenuWidget />;
     default:

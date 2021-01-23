@@ -10,7 +10,7 @@ import { URL_ROLES } from '../../layouts/utilities/route-constants';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
-import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
+import StudentPageMenu from '../../components/student/StudentPageMenu';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import PageTrackingMenu from '../../components/shared/page-tracking/PageTrackingMenu';
 import PageTrackingComparisonWidget from '../../components/shared/page-tracking/PageTrackingComparisonWidget';
@@ -34,7 +34,7 @@ const PageTrackingComparisonPage: React.FC<PageTrackingComparisonPageProps> = ({
       case URL_ROLES.FACULTY:
         return <FacultyPageMenuWidget />;
       case URL_ROLES.STUDENT:
-        return <StudentPageMenuWidget />;
+        return <StudentPageMenu />;
       default:
         console.error('renderPageMenuWidget(): Unable to render the correct menu widget for the current role');
         return undefined;

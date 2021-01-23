@@ -6,7 +6,7 @@ import RadGradLoginButtons from './RadGradLoginButtons';
 
 export interface NavBarProps {
   currentUser: string;
-  iconName?: string;
+  roleName?: string;
   role?: string;
 }
 
@@ -18,7 +18,7 @@ const onClick = () => {
 /**
  * LandingNavBar rendered on each of the landing pages.
  */
-const LandingNavBar: React.FC<NavBarProps> = ({ currentUser, iconName, role }) => {
+const LandingNavBar: React.FC<NavBarProps> = ({ currentUser, roleName, role }) => {
   const imageStyle = { width: 45 };
   const url = `/#/${role}/${currentUser}/home`;
   // Capitalize first letter
