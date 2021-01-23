@@ -265,21 +265,13 @@ const AdminDataModelInterestTypesPage: React.FC&lt;AdminDataModelInterestTypesPa
     &lt;div id="data-model-interest-types-page">
       &lt;AdminPageMenuWidget />
       &lt;Grid container stackable style={paddedStyle}>
-
         &lt;Grid.Column width={3}>
           &lt;AdminDataModelMenu {...props} />
         &lt;/Grid.Column>
 
         &lt;Grid.Column width={13}>
           {showUpdateFormState ? (
-            &lt;UpdateInterestTypeForm
-              collection={collection}
-              id={idState}
-              formRef={formRef}
-              handleUpdate={handleUpdate}
-              handleCancel={handleCancel}
-              itemTitleString={itemTitleString}
-            />
+            &lt;UpdateInterestTypeForm collection={collection} id={idState} formRef={formRef} handleUpdate={handleUpdate} handleCancel={handleCancel} itemTitleString={itemTitleString} />
           ) : (
             &lt;AddInterestTypeForm formRef={formRef} handleAdd={handleAdd} />
           )}
@@ -296,12 +288,7 @@ const AdminDataModelInterestTypesPage: React.FC&lt;AdminDataModelInterestTypesPa
           />
         &lt;/Grid.Column>
       &lt;/Grid>
-      &lt;Confirm
-        open={confirmOpenState}
-        onCancel={handleCancel}
-        onConfirm={handleConfirmDelete}
-        header="Delete Interest Type?"
-      />
+      &lt;Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Interest Type?" />
 
       &lt;BackToTopButton />
     &lt;/div>

@@ -163,38 +163,12 @@ const SigninPage: React.FC = () => {
             &lt;/Header>
             &lt;Form onSubmit={handleSubmit}>
               &lt;Segment stacked>
-                &lt;Form.Input
-                  label="Email"
-                  id="signin-form-email"
-                  icon="user"
-                  iconPosition="left"
-                  name="email"
-                  type="email"
-                  placeholder="E-mail address"
-                  onChange={handleChange}
-                />
-                &lt;Form.Input
-                  label="Password"
-                  id="signin-form-password"
-                  icon="lock"
-                  iconPosition="left"
-                  name="password"
-                  placeholder="Password"
-                  type="password"
-                  onChange={handleChange}
-                />
+                &lt;Form.Input label="Email" id="signin-form-email" icon="user" iconPosition="left" name="email" type="email" placeholder="E-mail address" onChange={handleChange} />
+                &lt;Form.Input label="Password" id="signin-form-password" icon="lock" iconPosition="left" name="password" placeholder="Password" type="password" onChange={handleChange} />
                 &lt;Form.Button id="signin-form-submit" content="Submit" />
               &lt;/Segment>
             &lt;/Form>
-            {errorState === '' ? (
-              ''
-            ) : (
-              &lt;Message
-                error
-                header="Login was not successful"
-                content={errorState}
-              />
-            )}
+            {errorState === '' ? '' : &lt;Message error header="Login was not successful" content={errorState} />}
           &lt;/Grid.Column>
         &lt;/Grid>
       &lt;/Container>

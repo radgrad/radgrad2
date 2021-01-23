@@ -123,7 +123,9 @@ const LandingCourseExplorerPage: React.FC&lt;CourseExplorerProps> = ({ helpMessa
       &lt;Grid stackable>
         &lt;Grid.Row>
           &lt;Grid.Column width={1} />
-          &lt;Grid.Column width={14}>&lt;HelpPanelWidget helpMessages={helpMessages} />&lt;/Grid.Column>
+          &lt;Grid.Column width={14}>
+            &lt;HelpPanelWidget helpMessages={helpMessages} />
+          &lt;/Grid.Column>
           &lt;Grid.Column width={1} />
         &lt;/Grid.Row>
 
@@ -148,28 +150,22 @@ const LandingCourseExplorerPage: React.FC&lt;CourseExplorerProps> = ({ helpMessa
                 &lt;/Grid.Column>
                 &lt;Grid.Column width="ten">
                   &lt;b>Syllabus: &lt;/b>
-                  {course.syllabus ?
-                    (
-                      &lt;a href={course.syllabus} target="_blank" rel="noopener noreferrer">
-                        {course.syllabus}
-                      &lt;/a>
-                    )
-                    : 'None available'}
+                  {course.syllabus ? (
+                    &lt;a href={course.syllabus} target="_blank" rel="noopener noreferrer">
+                      {course.syllabus}
+                    &lt;/a>
+                  ) : (
+                    'None available'
+                  )}
                 &lt;/Grid.Column>
               &lt;/Grid>
               &lt;b>Description:&lt;/b>
-              &lt;Markdown
-                escapeHtml
-                source={course.description}
-                renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}
-              />
-              &lt;Header as="h4" dividing>Prerequisites&lt;/Header>
-              {course.prerequisites.length > 0 ?
-                (&lt;LandingPrerequisiteList prerequisites={course.prerequisites} />)
-                : 'N/A'}
-              {course.interestIDs.length > 0 ?
-                (&lt;LandingInterestList interestIDs={course.interestIDs} />)
-                : 'N/A'}
+              &lt;Markdown escapeHtml source={course.description} renderers={{ link: (localProps) => Router.renderLink(localProps, match) }} />
+              &lt;Header as="h4" dividing>
+                Prerequisites
+              &lt;/Header>
+              {course.prerequisites.length > 0 ? &lt;LandingPrerequisiteList prerequisites={course.prerequisites} /> : 'N/A'}
+              {course.interestIDs.length > 0 ? &lt;LandingInterestList interestIDs={course.interestIDs} /> : 'N/A'}
             &lt;/Segment>
           &lt;/Grid.Column>
           &lt;Grid.Column width={1} />
@@ -191,12 +187,7 @@ const LandingCourseExplorerContainer = withTracker(() => {
   };
 })(LandingCourseExplorerPage);
 
-export default withListSubscriptions(LandingCourseExplorerContainer, [
-  Courses.getPublicationName(),
-  Slugs.getPublicationName(),
-  Interests.getPublicationName(),
-  HelpMessages.getPublicationName(),
-]);
+export default withListSubscriptions(LandingCourseExplorerContainer, [Courses.getPublicationName(), Slugs.getPublicationName(), Interests.getPublicationName(), HelpMessages.getPublicationName()]);
 </code></pre>
         </article>
     </section>

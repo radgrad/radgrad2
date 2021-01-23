@@ -184,7 +184,8 @@ const CompletedVerificationsWidget: React.FC&lt;CompletedVerificationsWidgetProp
               &lt;br />
               {ele.processed.map((elem: Processed) => (
                 &lt;React.Fragment key={`${elem.verifier}${elem.date}`}>
-                  Processed: {moment(elem.date).calendar()} by {elem.verifier} ({elem.status}{elem.feedback ? `, ${elem.feedback}` : ''})
+                  Processed: {moment(elem.date).calendar()} by {elem.verifier} ({elem.status}
+                  {elem.feedback ? `, ${elem.feedback}` : ''})
                   &lt;br />
                 &lt;/React.Fragment>
               ))}

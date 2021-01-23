@@ -99,11 +99,7 @@ import { Interests } from '../../../api/interest/InterestCollection';
 import { InterestTypes } from '../../../api/interest/InterestTypeCollection';
 import AddInterestForm from '../../components/admin/datamodel/interest/AddInterestForm';
 import UpdateInterestForm from '../../components/admin/datamodel/interest/UpdateInterestForm';
-import {
-  itemToSlugName,
-  interestTypeNameToId,
-  interestTypeNameToSlug,
-} from '../../components/shared/utilities/data-model';
+import { itemToSlugName, interestTypeNameToId, interestTypeNameToSlug } from '../../components/shared/utilities/data-model';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { getDatamodelCount } from './utilities/datamodel';
 
@@ -262,28 +258,15 @@ const AdminDataModelInterestsPage: React.FC&lt;AdminDataModelInterestsPageProps>
     &lt;div id="data-model-interests-page">
       &lt;AdminPageMenuWidget />
       &lt;Grid container stackable style={paddedStyle}>
-
         &lt;Grid.Column width={3}>
           &lt;AdminDataModelMenu {...props} />
         &lt;/Grid.Column>
 
         &lt;Grid.Column width={13}>
           {showUpdateFormState ? (
-            &lt;UpdateInterestForm
-              collection={collection}
-              id={idState}
-              formRef={formRef}
-              handleUpdate={handleUpdate}
-              handleCancel={handleCancel}
-              itemTitleString={itemTitleString}
-              interestTypes={props.interestTypes}
-            />
+            &lt;UpdateInterestForm collection={collection} id={idState} formRef={formRef} handleUpdate={handleUpdate} handleCancel={handleCancel} itemTitleString={itemTitleString} interestTypes={props.interestTypes} />
           ) : (
-            &lt;AddInterestForm
-              formRef={formRef}
-              handleAdd={handleAdd}
-              interestTypes={props.interestTypes}
-            />
+            &lt;AddInterestForm formRef={formRef} handleAdd={handleAdd} interestTypes={props.interestTypes} />
           )}
           &lt;ListCollectionWidget
             collection={collection}
@@ -298,12 +281,7 @@ const AdminDataModelInterestsPage: React.FC&lt;AdminDataModelInterestsPageProps>
           />
         &lt;/Grid.Column>
       &lt;/Grid>
-      &lt;Confirm
-        open={confirmOpenState}
-        onCancel={handleCancel}
-        onConfirm={handleConfirmDelete}
-        header="Delete Interest?"
-      />
+      &lt;Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Interest?" />
 
       &lt;BackToTopButton />
     &lt;/div>

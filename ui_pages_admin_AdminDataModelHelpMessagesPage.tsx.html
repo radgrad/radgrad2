@@ -250,21 +250,13 @@ const AdminDataModelHelpMessagesPage: React.FC&lt;AdminDataModelHelpMessagesPage
     &lt;div id="data-model-help-messages-page">
       &lt;AdminPageMenuWidget />
       &lt;Grid container stackable style={paddedStyle}>
-
         &lt;Grid.Column width={3}>
           &lt;AdminDataModelMenu {...props} />
         &lt;/Grid.Column>
 
         &lt;Grid.Column width={13}>
           {showUpdateFormState ? (
-            &lt;UpdateHelpMessageForm
-              collection={collection}
-              id={idState}
-              formRef={formRef}
-              handleUpdate={handleUpdate}
-              handleCancel={handleCancel}
-              itemTitleString={itemTitleString}
-            />
+            &lt;UpdateHelpMessageForm collection={collection} id={idState} formRef={formRef} handleUpdate={handleUpdate} handleCancel={handleCancel} itemTitleString={itemTitleString} />
           ) : (
             &lt;AddHelpMessageForm formRef={formRef} handleAdd={handleAdd} />
           )}
@@ -281,12 +273,7 @@ const AdminDataModelHelpMessagesPage: React.FC&lt;AdminDataModelHelpMessagesPage
           />
         &lt;/Grid.Column>
       &lt;/Grid>
-      &lt;Confirm
-        open={confirmOpenState}
-        onCancel={handleCancel}
-        onConfirm={handleConfirmDelete}
-        header="Delete Help Message?"
-      />
+      &lt;Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Help Message?" />
 
       &lt;BackToTopButton />
     &lt;/div>

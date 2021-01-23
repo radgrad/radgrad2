@@ -111,7 +111,6 @@ const LandingNavBar: React.FC&lt;NavBarProps> = ({ currentUser, iconName, role }
   // Capitalize first letter
   const displayRole = currentUser ? role.charAt(0).toUpperCase() + role.slice(1) : '';
   return (
-
     &lt;Menu attached="top" borderless size="small">
       &lt;Container>
         &lt;Menu.Item as={NavLink} activeClassName="" exact to="/">
@@ -122,11 +121,15 @@ const LandingNavBar: React.FC&lt;NavBarProps> = ({ currentUser, iconName, role }
             &lt;/Header>
           &lt;/div>
         &lt;/Menu.Item>
-        &lt;Menu.Item position="right">&lt;Button onClick={onClick}>GUIDED TOURS&lt;/Button>&lt;/Menu.Item>
+        &lt;Menu.Item position="right">
+          &lt;Button onClick={onClick}>GUIDED TOURS&lt;/Button>
+        &lt;/Menu.Item>
         &lt;Menu.Item>
           {currentUser ? (
             &lt;div>
-              &lt;Button basic color="green" compact>&lt;a href={url}>{displayRole} Home&lt;/a>&lt;/Button>
+              &lt;Button basic color="green" compact>
+                &lt;a href={url}>{displayRole} Home&lt;/a>
+              &lt;/Button>
             &lt;/div>
           ) : (
             &lt;RadGradLoginButtons />
@@ -134,7 +137,6 @@ const LandingNavBar: React.FC&lt;NavBarProps> = ({ currentUser, iconName, role }
         &lt;/Menu.Item>
       &lt;/Container>
     &lt;/Menu>
-
   );
 };
 

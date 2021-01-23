@@ -93,10 +93,7 @@ import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
-import {
-  DescriptionPair,
-  FeedbackInstanceDefine, StudentProfile, FeedbackInstance,
-} from '../../../typings/radgrad';
+import { DescriptionPair, FeedbackInstanceDefine, StudentProfile, FeedbackInstance } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { FeedbackInstances } from '../../../api/feedback/FeedbackInstanceCollection';
 import { Users } from '../../../api/user/UserCollection';
@@ -271,28 +268,15 @@ const AdminDataModelFeedbackInstancesPage: React.FC&lt;AdminDataModelFeedbackIns
     &lt;div id="data-model-feedback-instances-page">
       &lt;AdminPageMenuWidget />
       &lt;Grid container stackable style={paddedStyle}>
-
         &lt;Grid.Column width={3}>
           &lt;AdminDataModelMenu {...props} />
         &lt;/Grid.Column>
 
         &lt;Grid.Column width={13}>
           {showUpdateFormState ? (
-            &lt;UpdateFeedbackInstanceForm
-              collection={collection}
-              id={idState}
-              formRef={formRef}
-              handleUpdate={handleUpdate}
-              handleCancel={handleCancel}
-              itemTitleString={itemTitleString}
-              students={props.students}
-            />
+            &lt;UpdateFeedbackInstanceForm collection={collection} id={idState} formRef={formRef} handleUpdate={handleUpdate} handleCancel={handleCancel} itemTitleString={itemTitleString} students={props.students} />
           ) : (
-            &lt;AddFeedbackInstanceForm
-              formRef={formRef}
-              handleAdd={handleAdd}
-              students={props.students}
-            />
+            &lt;AddFeedbackInstanceForm formRef={formRef} handleAdd={handleAdd} students={props.students} />
           )}
           &lt;ListCollectionWidget
             collection={collection}
@@ -307,12 +291,7 @@ const AdminDataModelFeedbackInstancesPage: React.FC&lt;AdminDataModelFeedbackIns
           />
         &lt;/Grid.Column>
       &lt;/Grid>
-      &lt;Confirm
-        open={confirmOpenState}
-        onCancel={handleCancel}
-        onConfirm={handleConfirmDelete}
-        header="Delete Feedback Instance?"
-      />
+      &lt;Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Feedback Instance?" />
 
       &lt;BackToTopButton />
     &lt;/div>

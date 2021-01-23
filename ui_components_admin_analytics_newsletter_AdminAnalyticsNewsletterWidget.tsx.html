@@ -100,11 +100,7 @@ import { sendEmailMethod } from '../../../../../api/analytic/Email.methods';
 import { RadGradProperties } from '../../../../../api/radgrad/RadGradProperties';
 import { analyticsActions } from '../../../../../redux/admin/analytics';
 import { RootState } from '../../../../../redux/types';
-import {
-  getRecList,
-  getStudentEmailsByLevel,
-  EmailData,
-} from './utilities/newsletter';
+import { getRecList, getStudentEmailsByLevel, EmailData } from './utilities/newsletter';
 
 /* Technical Debt:
  *   * Redux is not indicated when the goal is to manage form-local state.
@@ -157,7 +153,17 @@ const mapDispatchToProps = (dispatch) => ({
   allNewsletterDone: () => dispatch(analyticsActions.allNewsletterDone()),
 });
 
-const AdminAnalyticsNewsletterWidget: React.FC&lt;AdminAnalyticsNewsletterWidgetProps> = ({ startAllNewsletter, allNewsletterDone, allNewsletterWorking, levelNewsletterDone, levelNewsletterWorking, startLevelNewsletter, startTestNewsletter, testNewsletterDone, testNewsletterWorking }) => {
+const AdminAnalyticsNewsletterWidget: React.FC&lt;AdminAnalyticsNewsletterWidgetProps> = ({
+  startAllNewsletter,
+  allNewsletterDone,
+  allNewsletterWorking,
+  levelNewsletterDone,
+  levelNewsletterWorking,
+  startLevelNewsletter,
+  startTestNewsletter,
+  testNewsletterDone,
+  testNewsletterWorking,
+}) => {
   const [subjectLine, setSubjectLine] = useState&lt;string>('');
   const [bcc, setBcc] = useState&lt;string>('');
   const [inputMessage, setInputMessage] = useState&lt;string>('');
@@ -202,7 +208,7 @@ const AdminAnalyticsNewsletterWidget: React.FC&lt;AdminAnalyticsNewsletterWidget
         setSendToAll(value);
         break;
       default:
-        // do nothing
+      // do nothing
     }
   };
 
@@ -220,7 +226,7 @@ const AdminAnalyticsNewsletterWidget: React.FC&lt;AdminAnalyticsNewsletterWidget
     if (onSubmitInputMessage.length !== 0 &amp;&amp; subjectLine.length !== 0) {
       startTestNewsletter();
       const studentEmailsArr = studentEmails.split(',');
-      const bccListArray = _.map(bcc.split(','), email => email.trim());
+      const bccListArray = _.map(bcc.split(','), (email) => email.trim());
       const adminEmail = RadGradProperties.getAdminEmail();
       const from = RadGradProperties.getNewsletterFrom();
       const adminMessage = $('.adminMessage').html();
@@ -286,7 +292,7 @@ const AdminAnalyticsNewsletterWidget: React.FC&lt;AdminAnalyticsNewsletterWidget
     if (onSubmitInputMessage.length !== 0 &amp;&amp; subjectLine.length !== 0 &amp;&amp; level !== 0) {
       startLevelNewsletter();
       const studentEmailsArr = getStudentEmailsByLevel(level);
-      const bccListArray = _.map(bcc.split(','), email => email.trim());
+      const bccListArray = _.map(bcc.split(','), (email) => email.trim());
       const from = RadGradProperties.getNewsletterFrom();
       const adminMessage = $('.adminMessage').html();
       _.forEach(studentEmailsArr, (studentEmail) => {
@@ -343,7 +349,7 @@ const AdminAnalyticsNewsletterWidget: React.FC&lt;AdminAnalyticsNewsletterWidget
       startAllNewsletter();
       const profiles = StudentProfiles.find({ isAlumni: false }).fetch();
       const studentEmailsArr = _.map(profiles, (p) => p.username);
-      const bccListArray = _.map(bcc.split(','), email => email.trim());
+      const bccListArray = _.map(bcc.split(','), (email) => email.trim());
       const from = RadGradProperties.getNewsletterFrom();
       const adminMessage = $('.adminMessage').html();
       _.forEach(studentEmailsArr, (studentEmail) => {
@@ -397,7 +403,9 @@ const AdminAnalyticsNewsletterWidget: React.FC&lt;AdminAnalyticsNewsletterWidget
 
   return (
     &lt;Segment padded>
-      &lt;Header dividing as="h4">NEWSLETTER OPTIONS&lt;/Header>
+      &lt;Header dividing as="h4">
+        NEWSLETTER OPTIONS
+      &lt;/Header>
       &lt;AutoForm schema={formSchema} onChange={handleChange}>
         &lt;TextField name="subjectLine" />
         &lt;TextField name="bcc" />
@@ -405,8 +413,12 @@ const AdminAnalyticsNewsletterWidget: React.FC&lt;AdminAnalyticsNewsletterWidget
           &lt;LongTextField name="inputMessage" />
           &lt;AdminAnalyticsNewsletterMessagePreviewWidget message={onSubmitInputMessage} />
         &lt;/Form.Group>
-        &lt;Button color="green" basic onClick={onClickPreviewSave}>Preview And Save&lt;/Button>
-        &lt;Header as="h4" dividing>SEND NEWSLETTER&lt;/Header>
+        &lt;Button color="green" basic onClick={onClickPreviewSave}>
+          Preview And Save
+        &lt;/Button>
+        &lt;Header as="h4" dividing>
+          SEND NEWSLETTER
+        &lt;/Header>
         &lt;Segment>
           &lt;TextField name="studentEmails" />
           &lt;BoolField name="sendToStudentsToo" />

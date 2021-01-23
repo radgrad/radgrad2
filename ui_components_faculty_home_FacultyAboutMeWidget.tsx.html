@@ -193,11 +193,10 @@ const FacultyAboutMeWidget: React.FC&lt;FacultyPageAboutMeWidgetProps> = ({ prof
   const generateInterestRoute = (label) => {
     label = label.toString().toLowerCase().split(' ').join('-'); // eslint-disable-line no-param-reassign
     // example url /advisor/binsted@hawaii.edu/explorer/interests/artificial-intelligence
-    const explorePath = [profile.role.toLowerCase(), username,
-      'explorer', 'interests', label];
+    const explorePath = [profile.role.toLowerCase(), username, 'explorer', 'interests', label];
     let exploreRoute = explorePath.join('/');
     exploreRoute = `/${exploreRoute}`;
-    return (exploreRoute);
+    return exploreRoute;
   };
 
   /**
@@ -208,11 +207,10 @@ const FacultyAboutMeWidget: React.FC&lt;FacultyPageAboutMeWidgetProps> = ({ prof
   const generateCareerGoalsRoute = (label) => {
     label = label.toString().toLowerCase().split(' ').join('-'); // eslint-disable-line no-param-reassign
     // example url /faculty/binsted@hawaii.edu/explorer/interests/mobile-app-developer
-    const explorePath = [profile.role.toLowerCase(), username,
-      'explorer', 'career-goals', label];
+    const explorePath = [profile.role.toLowerCase(), username, 'explorer', 'career-goals', label];
     let exploreRoute = explorePath.join('/');
     exploreRoute = `/${exploreRoute}`;
-    return (exploreRoute);
+    return exploreRoute;
   };
 
   const handleUploadPicture = async (e): Promise&lt;void> => {
@@ -221,7 +219,7 @@ const FacultyAboutMeWidget: React.FC&lt;FacultyPageAboutMeWidgetProps> = ({ prof
     try {
       const cloudinaryResult = await openCloudinaryWidget();
       if (cloudinaryResult.event === 'success') {
-        const updateData: { id: string; picture: string; } = { id: profile._id, picture: cloudinaryResult.info.url };
+        const updateData: { id: string; picture: string } = { id: profile._id, picture: cloudinaryResult.info.url };
         updateMethod.call({ collectionName, updateData }, (error) => {
           if (error) {
             Swal.fire({
@@ -282,78 +280,76 @@ const FacultyAboutMeWidget: React.FC&lt;FacultyPageAboutMeWidgetProps> = ({ prof
       &lt;Grid>
         &lt;Grid.Row>
           &lt;Grid.Column>
-            &lt;Header as="h3" dividing textAlign="left">Profile&lt;/Header>
+            &lt;Header as="h3" dividing textAlign="left">
+              Profile
+            &lt;/Header>
           &lt;/Grid.Column>
         &lt;/Grid.Row>
         &lt;Grid.Row>
           &lt;Grid.Column floated="left" width={2}>
-            &lt;Header as="h5" textAlign="left">Name&lt;/Header>
+            &lt;Header as="h5" textAlign="left">
+              Name
+            &lt;/Header>
           &lt;/Grid.Column>
           &lt;Grid.Column floated="left" width={6}>
-            &lt;Header as="h5" textAlign="left">{Users.getFullName(profile.userID)}&lt;/Header>
+            &lt;Header as="h5" textAlign="left">
+              {Users.getFullName(profile.userID)}
+            &lt;/Header>
           &lt;/Grid.Column>
           &lt;Grid.Column floated="left" width={2}>
-            &lt;Header as="h5" textAlign="left">Email&lt;/Header>
+            &lt;Header as="h5" textAlign="left">
+              Email
+            &lt;/Header>
           &lt;/Grid.Column>
           &lt;Grid.Column floated="left" width={6}>
-            &lt;Header as="h5" textAlign="left">{username}&lt;/Header>
+            &lt;Header as="h5" textAlign="left">
+              {username}
+            &lt;/Header>
           &lt;/Grid.Column>
         &lt;/Grid.Row>
         &lt;Grid.Row>
           &lt;Grid.Column floated="left" width={2}>
-            &lt;Header as="h5" textAlign="left">Interests&lt;/Header>
+            &lt;Header as="h5" textAlign="left">
+              Interests
+            &lt;/Header>
           &lt;/Grid.Column>
           &lt;Grid.Column floated="left" width={6}>
             &lt;Grid>
               &lt;Grid.Row divided textAlign="left">
                 &lt;Label.Group>
-                  {
-                    advisorInterests.length > 0 ? (
-                      _.map(advisorInterests, (interests, index) => (
-                        &lt;Label
-                          size="small"
-                          key={index}
-                          as={NavLink}
-                          exact
-                          to={generateInterestRoute(interests)}
-                        >
-                          &lt;Icon
-                            name="star"
-                          />
-                          {interests}
-                        &lt;/Label>
-                      ))
-                    )
-                      : &lt;p style={marginStyle}>No interests favorited yet.&lt;/p>
-                  }
+                  {advisorInterests.length > 0 ? (
+                    _.map(advisorInterests, (interests, index) => (
+                      &lt;Label size="small" key={index} as={NavLink} exact to={generateInterestRoute(interests)}>
+                        &lt;Icon name="star" />
+                        {interests}
+                      &lt;/Label>
+                    ))
+                  ) : (
+                    &lt;p style={marginStyle}>No interests favorited yet.&lt;/p>
+                  )}
                 &lt;/Label.Group>
               &lt;/Grid.Row>
               &lt;Link to={exploreRoute}>Edit in Interest Explorer&lt;/Link>
             &lt;/Grid>
           &lt;/Grid.Column>
           &lt;Grid.Column floated="left" width={2}>
-            &lt;Header as="h5" textAlign="left">Career Goals&lt;/Header>
+            &lt;Header as="h5" textAlign="left">
+              Career Goals
+            &lt;/Header>
           &lt;/Grid.Column>
           &lt;Grid.Column floated="left" width={6}>
             &lt;Grid>
               &lt;Grid.Row divided textAlign="left">
                 &lt;Label.Group>
-                  {
-                    advisorCareerGoals.length > 0 ? (
-                      _.map(advisorCareerGoals, (careerGoals, index) => (
-                        &lt;Label
-                          size="small"
-                          key={index}
-                          as={NavLink}
-                          exact
-                          to={generateCareerGoalsRoute(careerGoals)}
-                        >
-                          &lt;Icon name="suitcase" /> {careerGoals}
-                        &lt;/Label>
-                      ))
-                    )
-                      : &lt;p style={marginStyle}>No career goals favorited yet.&lt;/p>
-                  }
+                  {advisorCareerGoals.length > 0 ? (
+                    _.map(advisorCareerGoals, (careerGoals, index) => (
+                      &lt;Label size="small" key={index} as={NavLink} exact to={generateCareerGoalsRoute(careerGoals)}>
+                        &lt;Icon name="suitcase" /> {careerGoals}
+                      &lt;/Label>
+                    ))
+                  ) : (
+                    &lt;p style={marginStyle}>No career goals favorited yet.&lt;/p>
+                  )}
                 &lt;/Label.Group>
               &lt;/Grid.Row>
               &lt;Link to={careerRoute}>Edit in Career Goal Explorer&lt;/Link>
@@ -362,48 +358,48 @@ const FacultyAboutMeWidget: React.FC&lt;FacultyPageAboutMeWidgetProps> = ({ prof
         &lt;/Grid.Row>
         &lt;Grid.Row>
           &lt;Grid.Column floated="left" width={2}>
-            &lt;Header as="h5" textAlign="left">Website&lt;/Header>
+            &lt;Header as="h5" textAlign="left">
+              Website
+            &lt;/Header>
           &lt;/Grid.Column>
           &lt;Grid.Column floated="left" width={6}>
             &lt;Form onSubmit={handleSubmitWebsite}>
               &lt;Form.Group>
-                &lt;Form.Input
-                  name="website"
-                  onChange={handleChange}
-                  value={websiteState}
-                />
-                &lt;Form.Button basic color="green">Update&lt;/Form.Button>
+                &lt;Form.Input name="website" onChange={handleChange} value={websiteState} />
+                &lt;Form.Button basic color="green">
+                  Update
+                &lt;/Form.Button>
               &lt;/Form.Group>
             &lt;/Form>
           &lt;/Grid.Column>
           &lt;Grid.Column floated="left" width={2}>
-            &lt;Header as="h5" textAlign="left">Picture&lt;/Header>
+            &lt;Header as="h5" textAlign="left">
+              Picture
+            &lt;/Header>
           &lt;/Grid.Column>
           &lt;Grid.Column floated="left" width={6}>
             &lt;Form onSubmit={handleUploadPicture}>
               &lt;Form.Group>
-                &lt;Form.Input
-                  name="picture"
-                  onChange={handleChange}
-                  value={pictureState}
-                />
-                &lt;Form.Button basic color="green">Upload&lt;/Form.Button>
+                &lt;Form.Input name="picture" onChange={handleChange} value={pictureState} />
+                &lt;Form.Button basic color="green">
+                  Upload
+                &lt;/Form.Button>
               &lt;/Form.Group>
             &lt;/Form>
           &lt;/Grid.Column>
         &lt;/Grid.Row>
         &lt;Grid.Column floated="left" width={2}>
-          &lt;Header as="h5" textAlign="left">About Me&lt;/Header>
+          &lt;Header as="h5" textAlign="left">
+            About Me
+          &lt;/Header>
         &lt;/Grid.Column>
         &lt;Grid.Column floated="left" width={14}>
           &lt;Form onSubmit={handleSubmitAboutMe}>
             &lt;Form.Group>
-              &lt;Form.TextArea
-                name="aboutMe"
-                onChange={handleChange}
-                value={aboutMeState}
-              />
-              &lt;Form.Button basic color="green">Update&lt;/Form.Button>
+              &lt;Form.TextArea name="aboutMe" onChange={handleChange} value={aboutMeState} />
+              &lt;Form.Button basic color="green">
+                Update
+              &lt;/Form.Button>
             &lt;/Form.Group>
           &lt;/Form>
         &lt;/Grid.Column>
