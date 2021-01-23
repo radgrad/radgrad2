@@ -18,7 +18,7 @@
     "test-acceptance-development": "testcafe chrome tests/*.testcafe.js",
     "test-acceptance": "testcafe chrome:headless tests/*.testcafe.js -q --app \"meteor npm run start\"",
     "test-all": "meteor reset && meteor npm run lint && meteor npm run test-unit && meteor npm run test-integration && meteor npm run test-acceptance",
-    "generate-docs": "node_modules/.bin/jsdoc -c jsdoc.json",
+    "generate-docs": "npx jsdoc -c jsdoc.json",
     "gh-pages": "gh-pages -d ../api-docs",
     "unimported": "npx unimported"
   },
@@ -91,6 +91,7 @@
     "eslint": "^7.18.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-airbnb-typescript": "^12.0.0",
+    "eslint-config-prettier": "^7.2.0",
     "eslint-config-react-app": "^6.0.0",
     "eslint-plugin-flowtype": "^5.2.0",
     "eslint-plugin-import": "^2.22.1",
@@ -146,7 +147,9 @@
       "plugin:meteor/recommended",
       "plugin:@typescript-eslint/eslint-recommended",
       "plugin:@typescript-eslint/recommended",
-      "react-app"
+      "react-app",
+      "prettier",
+      "prettier/react"
     ],
     "parserOptions": {
       "project": "./tsconfig.eslint.json"
@@ -230,5 +233,9 @@
       "@typescript-eslint/no-unused-vars": "error",
       "@typescript-eslint/no-useless-constructor": "error"
     }
+  },
+  "prettier": {
+    "singleQuote": true,
+    "trailingComma": "all"
   }
 }
