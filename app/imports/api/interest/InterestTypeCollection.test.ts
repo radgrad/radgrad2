@@ -27,9 +27,10 @@ if (Meteor.isServer) {
     it('Can define and removeIt', function test1(done) {
       fc.assert(
         fc.property(fc.lorem(3), fc.lorem(1), fc.lorem(24), fc.boolean(), (fcName, fcSlug, fcDescription, fcRetired) => {
+          const localSlug = `${fcSlug}-${new Date().getTime()}`;
           const docID = InterestTypes.define({
             name: fcName,
-            slug: fcSlug,
+            slug: localSlug,
             description: fcDescription,
             retired: fcRetired,
           });
@@ -37,7 +38,7 @@ if (Meteor.isServer) {
           const typeDoc = InterestTypes.findDoc(docID);
           expect(typeDoc.name).to.equal(fcName);
           expect(typeDoc.description).to.equal(fcDescription);
-          expect(Slugs.getNameFromID(typeDoc.slugID)).to.equal(fcSlug);
+          expect(Slugs.getNameFromID(typeDoc.slugID)).to.equal(localSlug);
           expect(typeDoc.retired).to.equal(fcRetired);
           InterestTypes.removeIt(docID);
           expect(InterestTypes.isDefined(docID)).to.be.false;
