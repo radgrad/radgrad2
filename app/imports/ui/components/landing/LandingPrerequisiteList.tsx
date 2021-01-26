@@ -12,9 +12,14 @@ const LandingPrerequisiteList: React.FC<PrerequisitesListProps> = ({ prerequisit
   const courses = _.map(prerequisites, (slug) => Courses.findDocBySlug(slug));
   return (
     <List horizontal bulleted>
-      {// console.log(course.name);
-       courses.map((course) => (<List.Item key={course._id} href={`#/explorer/courses/${getSlugFromEntityID(course._id)}`}>{course.name}</List.Item>))
-}
+      {
+        // console.log(course.name);
+        courses.map((course) => (
+          <List.Item key={course._id} href={`#/explorer/courses/${getSlugFromEntityID(course._id)}`}>
+            {course.name}
+          </List.Item>
+        ))
+      }
     </List>
   );
 };

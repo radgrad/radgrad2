@@ -30,7 +30,9 @@ const LandingExplorerMenu: React.FC = () => {
     <div>
       <Dropdown selection options={menuOptions} text={getRouteName(location.pathname)} />
 
-      {_.isEmpty(match.params) ? '' : (
+      {_.isEmpty(match.params) ? (
+        ''
+      ) : (
         <Button as={Link} to={pathBack} style={backButtonStyle}>
           <Icon name="chevron circle left" />
           <br />

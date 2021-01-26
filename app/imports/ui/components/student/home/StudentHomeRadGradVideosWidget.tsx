@@ -14,12 +14,18 @@ const StudentHomeRadGradVideosWidget: React.FC = () => {
   const slicedRadGradVideos = shuffledRadGradVideos.slice(0, numberOfVideos);
   return (
     <Grid>
-      <Grid.Row><Header>RADGRAD VIDEOS</Header></Grid.Row>
+      <Grid.Row>
+        <Header>RADGRAD VIDEOS</Header>
+      </Grid.Row>
       <Grid.Row columns={3}>
         {slicedRadGradVideos.map((video) => (
           <Grid.Column key={video.youtubeID}>
-            <Grid.Row><TeaserVideo id={video.youtubeID} /></Grid.Row>
-            <Grid.Row style={videoTitleStyle}><Header>{video.title}</Header></Grid.Row>
+            <Grid.Row>
+              <TeaserVideo id={video.youtubeID} />
+            </Grid.Row>
+            <Grid.Row style={videoTitleStyle}>
+              <Header>{video.title}</Header>
+            </Grid.Row>
             {/* TODO: see issue-281 and the FIGMA mockup */}
             <Grid.Row>{video.author}</Grid.Row>
             <Grid.Row>{/*  TODO: Video Upload Date; see issue-281 and FIGMA mockup */}</Grid.Row>

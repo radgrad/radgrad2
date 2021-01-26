@@ -48,7 +48,9 @@ const PageTrackingComparisonPage: React.FC<PageTrackingComparisonPageProps> = ({
       <Grid stackable>
         <Grid.Row>
           <Grid.Column width={1} />
-          <Grid.Column width={14}><HelpPanelWidget helpMessages={helpMessages} /></Grid.Column>
+          <Grid.Column width={14}>
+            <HelpPanelWidget helpMessages={helpMessages} />
+          </Grid.Column>
           <Grid.Column width={1} />
         </Grid.Row>
 

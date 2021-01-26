@@ -14,7 +14,10 @@ const LandingSection1: React.FC = () => (
         </Grid.Column>
         <Grid.Column width={10} verticalAlign="middle">
           <div style={styles['inverted-main-header']}>
-            Welcome to <span style={styles['green-text']}><RadGradLogoText style={headerStyle} /></span>
+            Welcome to{' '}
+            <span style={styles['green-text']}>
+              <RadGradLogoText style={headerStyle} />
+            </span>
           </div>
           <span style={styles['inverted-main-description']}>
             Developing awesome computer scientists, <b>ONE</b> graduate at a time.

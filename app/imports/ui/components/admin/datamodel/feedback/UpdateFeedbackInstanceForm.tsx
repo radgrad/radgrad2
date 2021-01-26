@@ -45,16 +45,9 @@ const UpdateFeedbackInstanceForm: React.FC<UpdateFeedbackInstanceFormProps> = ({
     <Segment padded>
       <Header dividing>
         Update
-        {collection.getType()}
-        :
-        {itemTitleString(model)}
+        {collection.getType()}:{itemTitleString(model)}
       </Header>
-      <AutoForm
-        ref={formRef}
-        schema={formSchema}
-        model={model}
-        onSubmit={handleUpdate}
-      >
+      <AutoForm ref={formRef} schema={formSchema} model={model} onSubmit={handleUpdate}>
         <Form.Group>
           <SelectField name="user" />
           <SelectField name="functionName" />

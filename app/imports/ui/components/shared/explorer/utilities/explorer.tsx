@@ -1,12 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-import {
-  CareerGoal,
-  Course,
-  Interest,
-  Opportunity,
-  StudentProfile,
-} from '../../../../../typings/radgrad';
+import { CareerGoal, Course, Interest, Opportunity, StudentProfile } from '../../../../../typings/radgrad';
 import * as Router from '../../utilities/router';
 import { Users } from '../../../../../api/user/UserCollection';
 import { OpportunityInstances } from '../../../../../api/opportunity/OpportunityInstanceCollection';
@@ -15,9 +9,7 @@ import { AcademicTerms } from '../../../../../api/academic-term/AcademicTermColl
 import PreferredChoice from '../../../../../api/degree-plan/PreferredChoice';
 import { StudentProfiles } from '../../../../../api/user/StudentProfileCollection';
 import { Opportunities } from '../../../../../api/opportunity/OpportunityCollection';
-import {
-  profileGetCareerGoalIDs,
-} from '../../utilities/data-model';
+import { profileGetCareerGoalIDs } from '../../utilities/data-model';
 import { defaultProfilePicture } from '../../../../../api/user/BaseProfileCollection';
 import { FavoriteCareerGoals } from '../../../../../api/favorite/FavoriteCareerGoalCollection';
 import { FavoriteInterests } from '../../../../../api/favorite/FavoriteInterestCollection';
@@ -128,7 +120,7 @@ export const availableOpps = (match: MatchProps): unknown[] => {
       return filteredOpps;
     }
   } else if (Router.isUrlRoleFaculty(match)) {
-    return _.filter(notRetired, o => o.sponsorID !== Router.getUserIdFromRoute(match));
+    return _.filter(notRetired, (o) => o.sponsorID !== Router.getUserIdFromRoute(match));
   }
   return notRetired;
 };
@@ -160,45 +152,25 @@ export const buildNoItemsMessage = (noItemsMessageType, type: IExplorerTypes): E
   switch (noItemsMessageType) {
     case 'noInterests':
       if (isType(EXPLORER_TYPE.CAREERGOALS, type)) {
-        return (
-          <p>
-            Favorite interests to see sorted Career Goals. To favorite Interests, select &quot;Interests&quot; in the
-            dropdown on the left.
-          </p>
-        );
+        return <p>Favorite interests to see sorted Career Goals. To favorite Interests, select &quot;Interests&quot; in the dropdown on the left.</p>;
       }
       if (isType(EXPLORER_TYPE.COURSES, type)) {
-        return (
-          <p>
-            Favorite interests to see sorted Courses. To favorite Interests, select &quot;Interests&quot; in the
-            dropdown menu on the left.
-          </p>
-        );
+        return <p>Favorite interests to see sorted Courses. To favorite Interests, select &quot;Interests&quot; in the dropdown menu on the left.</p>;
       }
       if (isType(EXPLORER_TYPE.INTERESTS, type)) {
         return (
           <p>
-            You have not favorited any Interests or Career Goals. To favorite Interests, click on &quot;View
-            More&quot; to view the details for an Interest and favorite from there. To favorite Career Goals,
-            select &quot;Career Goals&quot; in the dropdown menu on the left.
+            You have not favorited any Interests or Career Goals. To favorite Interests, click on &quot;View More&quot; to view the details for an Interest and favorite from there. To favorite Career Goals, select &quot;Career Goals&quot;
+            in the dropdown menu on the left.
           </p>
         );
       }
       if (isType(EXPLORER_TYPE.OPPORTUNITIES, type)) {
-        return (
-          <p>
-            Favorite interests to see sorted Opportunities. To favorite Interests, select &quot;Interests&quot; in the
-            dropdown menu on the left.
-          </p>
-        );
+        return <p>Favorite interests to see sorted Opportunities. To favorite Interests, select &quot;Interests&quot; in the dropdown menu on the left.</p>;
       }
       return '';
     case 'noCareerGoals':
-      return (
-        <p>You have not favorited any Career Goals. To favorite Career Goals, click on &quot;View More&quot; to view the
-          details for a Career Goal and favorite from there.
-        </p>
-      );
+      return <p>You have not favorited any Career Goals. To favorite Career Goals, click on &quot;View More&quot; to view the details for a Career Goal and favorite from there.</p>;
     default:
       console.error(`Bad noItemsMessageType: ${noItemsMessageType}`);
       return undefined;
@@ -222,6 +194,5 @@ export const checkForNoItems = (match: MatchProps, type: IExplorerTypes): Elemen
       return noItems('noInterests', match) ? buildNoItemsMessage('noInterests', type) : '';
     default:
       return '';
-
   }
 };

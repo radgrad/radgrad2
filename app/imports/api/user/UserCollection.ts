@@ -497,6 +497,7 @@ class UserCollection {
    */
   public subscribe() {
     if (Meteor.isClient) {
+      // console.log(`${this.collectionName}.subscribe`);
       return Meteor.subscribe(this.collectionName);
     }
     return null;

@@ -72,44 +72,20 @@ const AdminPaginationWidget: React.FC<AdminPaginationWidgetProps> = ({ paginatio
   }
   const label = count <= showCount ? 'Showing all' : `${startIndex + 1} - ${endIndex} of ${count}`;
   const firstDisabled = startIndex < showCount;
-  const lastDisabled = (count - startIndex) <= showCount;
+  const lastDisabled = count - startIndex <= showCount;
   return (
     <Grid.Row centered>
-      <Button
-        basic
-        color="green"
-        onClick={handleFirstClick(dispatch, setShowIndex, collection)}
-        style={heightStyle}
-      >
-        <Icon
-          name="fast backward"
-        /> First
+      <Button basic color="green" onClick={handleFirstClick(dispatch, setShowIndex, collection)} style={heightStyle}>
+        <Icon name="fast backward" /> First
       </Button>
-      <Button
-        basic
-        color="green"
-        disabled={firstDisabled}
-        onClick={handlePrevClick(pagination, collection, dispatch, setShowIndex)}
-        style={heightStyle}
-      >
+      <Button basic color="green" disabled={firstDisabled} onClick={handlePrevClick(pagination, collection, dispatch, setShowIndex)} style={heightStyle}>
         <Icon name="step backward" /> Prev
       </Button>
       <Message style={messageStyle}>{label}</Message>
-      <Button
-        basic
-        color="green"
-        disabled={lastDisabled}
-        onClick={handleNextClick(pagination, collection, dispatch, setShowIndex)}
-        style={heightStyle}
-      >
+      <Button basic color="green" disabled={lastDisabled} onClick={handleNextClick(pagination, collection, dispatch, setShowIndex)} style={heightStyle}>
         <Icon name="step forward" /> Next
       </Button>
-      <Button
-        basic
-        color="green"
-        onClick={handleLastClick(collection, pagination, dispatch, setShowIndex)}
-        style={heightStyle}
-      >
+      <Button basic color="green" onClick={handleLastClick(collection, pagination, dispatch, setShowIndex)} style={heightStyle}>
         <Icon name="fast forward" /> Last
       </Button>
       {/* <Dropdown selection={true} options={options} className="jsNum"/> */}

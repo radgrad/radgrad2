@@ -106,7 +106,8 @@ const isCourseCompleted = (courseSlugName, match): boolean => {
 const CourseViewPage: React.FC<CourseViewPageProps> = ({ favoriteCourses, course, helpMessages, itemReviews }) => {
   const match = useRouteMatch();
   const menuAddedList = _.map(favoriteCourses, (f) => ({
-    item: Courses.findDoc(f.courseID), count: 1,
+    item: Courses.findDoc(f.courseID),
+    count: 1,
   }));
   const descriptionPairs = descriptionPairsCourses(course, match);
   const courseSlug = Slugs.getNameFromID(course.slugID);
@@ -117,7 +118,9 @@ const CourseViewPage: React.FC<CourseViewPageProps> = ({ favoriteCourses, course
       <Container>
         <Grid stackable>
           <Grid.Row className="helpPanel">
-            <Grid.Column width={16}><HelpPanelWidget helpMessages={helpMessages} /></Grid.Column>
+            <Grid.Column width={16}>
+              <HelpPanelWidget helpMessages={helpMessages} />
+            </Grid.Column>
           </Grid.Row>
           <Grid.Row>
             <Grid.Column width={3}>

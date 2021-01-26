@@ -5,7 +5,7 @@ import { getLevelHintStringMarkdown } from '../../../../api/level/LevelProcessor
 import { StudentProfile } from '../../../../typings/radgrad';
 
 export interface StudentLevelsWidgetProps {
-  profile: StudentProfile,
+  profile: StudentProfile;
 }
 
 const getStudentLevelName = (profile: StudentProfile): string => {
@@ -46,17 +46,16 @@ const StudentLevelsWidget: React.FC<StudentLevelsWidgetProps> = ({ profile }) =>
   const studentLevelHint = getStudentLevelHint(profile);
   return (
     <Segment padded id="studentLevelsWidget">
-      <Header as="h4" dividing>CURRENT LEVEL</Header>
+      <Header as="h4" dividing>
+        CURRENT LEVEL
+      </Header>
       <Grid stackable>
         <Grid.Column width={16}>
           <Container>
-            <Image
-              size="small"
-              centered
-              style={imageStyle}
-              src={`/images/level-icons/radgrad-level-${studentLevelNumber}-icon.png`}
-            />
-            <Header as="h3" textAlign="center">{studentLevelName}</Header>
+            <Image size="small" centered style={imageStyle} src={`/images/level-icons/radgrad-level-${studentLevelNumber}-icon.png`} />
+            <Header as="h3" textAlign="center">
+              {studentLevelName}
+            </Header>
           </Container>
         </Grid.Column>
       </Grid>

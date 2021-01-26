@@ -14,7 +14,6 @@ import Explorer from '../../components/landing/guided-tour/faculty/explorer';
 import WhatsNext from '../../components/landing/guided-tour/faculty/whats-next';
 
 const LandingGuidedTourFacultyPage: React.FC = () => {
-
   const settings = {
     dots: true,
     infinite: false,
@@ -36,7 +35,9 @@ const LandingGuidedTourFacultyPage: React.FC = () => {
             <WhatsNext />
           </Slider>
         </Segment>
-        <List.Item style={styles.a} as={NavLink} to="/">Return to RadGrad</List.Item>
+        <List.Item style={styles.a} as={NavLink} to="/">
+          Return to RadGrad
+        </List.Item>
       </Container>
       <LandingFooter />
     </div>

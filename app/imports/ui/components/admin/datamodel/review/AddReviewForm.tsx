@@ -68,13 +68,7 @@ const AddReviewForm: React.FC<AddReviewFormProps> = ({ terms, formRef, handleAdd
   return (
     <Segment padded>
       <Header dividing>Add Course Instance</Header>
-      <AutoForm
-        schema={formSchema}
-        onSubmit={handleAdd}
-        ref={formRef}
-        showInlineError
-        onChangeModel={handleModelChange}
-      >
+      <AutoForm schema={formSchema} onSubmit={handleAdd} ref={formRef} showInlineError onChangeModel={handleModelChange}>
         <Form.Group widths="equal">
           <TextField name="slug" />
           <SelectField name="reviewType" />

@@ -46,11 +46,7 @@ const InterestedProfilesWidget: React.FC<nterestedProfileWidgetProps> = ({ inter
               <Container textAlign="center">
                 <Image.Group size="mini">
                   {students.map((student) => (
-                    <Popup
-                      key={student._id}
-                      trigger={<Image src={student.picture} circular size="mini" />}
-                      content={`${student.firstName} ${student.lastName}`}
-                    />
+                    <Popup key={student._id} trigger={<Image src={student.picture} circular size="mini" />} content={`${student.firstName} ${student.lastName}`} />
                   ))}
                 </Image.Group>
               </Container>
@@ -69,11 +65,7 @@ const InterestedProfilesWidget: React.FC<nterestedProfileWidgetProps> = ({ inter
               <Container textAlign="center">
                 <Image.Group size="mini">
                   {faculty.map((fac) => (
-                    <Popup
-                      key={fac._id}
-                      trigger={<Image src={fac.picture} circular />}
-                      content={`${fac.firstName} ${fac.lastName}`}
-                    />
+                    <Popup key={fac._id} trigger={<Image src={fac.picture} circular />} content={`${fac.firstName} ${fac.lastName}`} />
                   ))}
                 </Image.Group>
               </Container>
@@ -92,11 +84,7 @@ const InterestedProfilesWidget: React.FC<nterestedProfileWidgetProps> = ({ inter
               <Container textAlign="center">
                 <Image.Group size="mini">
                   {advisor.map((adv) => (
-                    <Popup
-                      key={adv._id}
-                      trigger={<Image src={adv.picture} circular />}
-                      content={`${adv.firstName} ${adv.lastName}`}
-                    />
+                    <Popup key={adv._id} trigger={<Image src={adv.picture} circular />} content={`${adv.firstName} ${adv.lastName}`} />
                   ))}
                 </Image.Group>
               </Container>

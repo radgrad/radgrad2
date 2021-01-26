@@ -15,17 +15,13 @@ const GuidedTourAdvisorDegreePlan: React.FC = () => (
         <Header style={styles.h1}>Collaborative degree planning</Header>
 
         <p style={styles.p}>
-          Without RadGrad, a CS degree plan could be nothing more than some notes on paper. RadGrad provides a simple,
-          online representation that focuses on just the computer science part of their university program. RadGrad
-          augments but does not replace systems like STAR, which must also represent College and University degree
-          requirements.
+          Without RadGrad, a CS degree plan could be nothing more than some notes on paper. RadGrad provides a simple, online representation that focuses on just the computer science part of their university program. RadGrad augments but
+          does not replace systems like STAR, which must also represent College and University degree requirements.
         </p>
 
         <p style={styles.p}>
-          Where RadGrad goes beyond STAR is in its representation of &quot;opportunities&quot;: experiences outside the
-          classroom. Advisors and faculty can add and modify the set of opportunities at any time, and those students
-          whose interests match will be automatically notified by RadGrad that a new opportunity of interest to them is
-          available.
+          Where RadGrad goes beyond STAR is in its representation of &quot;opportunities&quot;: experiences outside the classroom. Advisors and faculty can add and modify the set of opportunities at any time, and those students whose
+          interests match will be automatically notified by RadGrad that a new opportunity of interest to them is available.
         </p>
       </Grid.Column>
     </Grid>

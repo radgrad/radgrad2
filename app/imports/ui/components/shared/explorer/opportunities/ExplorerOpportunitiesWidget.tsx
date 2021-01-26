@@ -69,28 +69,22 @@ const ExplorerOpportunitiesWidget: React.FC<CardExplorerOpportunitiesWidgetProps
   return (
     <div id="opportunities-page">
       <Grid.Row>
-        <Header>OPPORTUNITIES <WidgetHeaderNumber inputValue={opportunitiesItemCount} /></Header>
+        <Header>
+          OPPORTUNITIES <WidgetHeaderNumber inputValue={opportunitiesItemCount} />
+        </Header>
         <OpportunitySortWidget />
         <Divider />
       </Grid.Row>
       <Grid.Row>
         {checkForNoItems(match, EXPLORER_TYPE.OPPORTUNITIES as IExplorerTypes)}
         {opportunities.map((opportunity) => (
-          <OpportunityInformationItem
-            key={opportunity._id}
-            opportunity={opportunity}
-            informationConfiguration={opportunityInformationItemConfiguration}
-          />
+          <OpportunityInformationItem key={opportunity._id} opportunity={opportunity} informationConfiguration={opportunityInformationItemConfiguration} />
         ))}
       </Grid.Row>
       <Grid>
         <Grid.Row>
           <Container textAlign="center">
-            <CardExplorersPaginationWidget
-              type={EXPLORER_TYPE.OPPORTUNITIES}
-              totalCount={opportunitiesCount}
-              displayCount={displayOpportunitiesCount}
-            />
+            <CardExplorersPaginationWidget type={EXPLORER_TYPE.OPPORTUNITIES} totalCount={opportunitiesCount} displayCount={displayOpportunitiesCount} />
           </Container>
         </Grid.Row>
       </Grid>

@@ -59,11 +59,11 @@ const StudentAboutMeUpdateWebsiteForm: React.FC<StudentAboutMeUpdateWebsiteFormP
       <Grid.Column>
         <Form onSubmit={handleUpdateWebsite}>
           <Form.Group>
-            <Form.Input
-              onChange={handleFormChange}
-              value={websiteState}
-            />
-            <Form.Button basic color="green"> UPDATE</Form.Button>
+            <Form.Input onChange={handleFormChange} value={websiteState} />
+            <Form.Button basic color="green">
+              {' '}
+              UPDATE
+            </Form.Button>
           </Form.Group>
         </Form>
       </Grid.Column>

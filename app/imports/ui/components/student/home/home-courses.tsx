@@ -18,14 +18,10 @@ const GuidedTourStudentCourses: React.FC<CoursesProps> = ({ courses }) => (
         <div>
           <Header style={styles.h1}>Coursing through your degree program</Header>
           <p style={styles.p}>
-            RadGrad provides information about <strong style={styles.strong}>{courses}</strong> courses.
-            That&apos;s a lot! You might be wondering, &quot;Which ones should I take? Will this course benefit me? Do I
-            need to take it?&quot; RadGrad can help answer all these questions.
+            RadGrad provides information about <strong style={styles.strong}>{courses}</strong> courses. That&apos;s a lot! You might be wondering, &quot;Which ones should I take? Will this course benefit me? Do I need to take it?&quot;
+            RadGrad can help answer all these questions.
           </p>
-          <p style={styles.p}>
-            Once RadGrad knows about your interests and career goals, it will recommend courses that are directly
-            related to them. It can also tell you which ones are required for your chosen degree program.
-          </p>
+          <p style={styles.p}>Once RadGrad knows about your interests and career goals, it will recommend courses that are directly related to them. It can also tell you which ones are required for your chosen degree program.</p>
         </div>
       </Grid.Column>
     </Grid>

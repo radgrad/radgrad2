@@ -65,18 +65,16 @@ const OpportunityInformationItem: React.FC<OpportunityItemWidgetProps> = ({ info
           <Grid.Column width={3}>
             <Image src={opportunity.picture} />
           </Grid.Column>
-        ) : ''}
+        ) : (
+          ''
+        )}
 
         {/* Opportunity Information */}
         <Grid.Column width={informationConfiguration.showLogo ? 13 : undefined}>
           {/* Header (Name and ICE Points) */}
           <Grid.Row columns={2}>
             <Header as="h3">
-              <Link
-                to={buildExplorerSlugRoute(match, EXPLORER_TYPE.OPPORTUNITIES, opportunitySlug)}
-              >
-                {opportunity.name.toUpperCase()}
-              </Link>
+              <Link to={buildExplorerSlugRoute(match, EXPLORER_TYPE.OPPORTUNITIES, opportunitySlug)}>{opportunity.name.toUpperCase()}</Link>
               <IceHeader ice={opportunityICE} />
             </Header>
           </Grid.Row>
@@ -91,24 +89,19 @@ const OpportunityInformationItem: React.FC<OpportunityItemWidgetProps> = ({ info
                 <b>Academic Terms: </b> {academicTerms}
               </Grid.Row>
             </>
-          ) : ''}
+          ) : (
+            ''
+          )}
 
           {/* Description */}
           <Grid.Row>
-            <Markdown
-              escapeHtml
-              source={`${opportunityShortDescription}...`}
-              renderers={{ link: (p) => renderLink(p, match) }}
-            />
+            <Markdown escapeHtml source={`${opportunityShortDescription}...`} renderers={{ link: (p) => renderLink(p, match) }} />
           </Grid.Row>
 
           {/* Misc (Related Interest Labels and Students Participating) */}
           <Grid.Row>
             <Grid>
-              <Grid.Column
-                width={informationConfiguration.showStudentsParticipating ? 11 : undefined}
-                style={interestListStyle}
-              >
+              <Grid.Column width={informationConfiguration.showStudentsParticipating ? 11 : undefined} style={interestListStyle}>
                 <InterestList size="mini" item={opportunity} />
               </Grid.Column>
               {informationConfiguration.showStudentsParticipating ? (
@@ -116,7 +109,9 @@ const OpportunityInformationItem: React.FC<OpportunityItemWidgetProps> = ({ info
                   <Icon size="large" name="user circle" />
                   <b>{numberOfStudentsParticipating} students are participating</b>
                 </Grid.Column>
-              ) : ''}
+              ) : (
+                ''
+              )}
             </Grid>
           </Grid.Row>
         </Grid.Column>

@@ -9,8 +9,8 @@ import { updateMethod } from '../../../../api/base/BaseCollection.methods';
 
 interface ModerationReviewCardWidget {
   item: any; // TODO can we type this?
-  handleAccept: (item, comment) => any,
-  handleReject: (item, comment) => any,
+  handleAccept: (item, comment) => any;
+  handleReject: (item, comment) => any;
 }
 
 const ModerationReviewCardWidget: React.FC<ModerationReviewCardWidget> = ({ item, handleAccept, handleReject }) => {
@@ -83,7 +83,6 @@ const ModerationReviewCardWidget: React.FC<ModerationReviewCardWidget> = ({ item
   const termDoc = AcademicTerms.findDoc(item.termID);
 
   return (
-
     <Container textAlign="left">
       <strong>Student: </strong>
       {student}
@@ -91,36 +90,25 @@ const ModerationReviewCardWidget: React.FC<ModerationReviewCardWidget> = ({ item
       <strong>Reviewee: </strong>
       {reviewee}
       <br />
-      <strong>Semester: </strong>
-      {' '}
-      {`${termDoc.term}  ${termDoc.year}`}
-      {' '}
-      <br />
+      <strong>Semester: </strong> {`${termDoc.term}  ${termDoc.year}`} <br />
       <strong>Rating: </strong>
-      <Rating
-        size="small"
-        icon="star"
-        rating={item.rating}
-        maxRating="5"
-        disabled
-      />
+      <Rating size="small" icon="star" rating={item.rating} maxRating="5" disabled />
       <br />
       <strong>Comments: </strong>
       {item.comments}
       <br />
       <Segment>
         <Form>
-          <Form.TextArea
-            label="Moderator Comments"
-            onChange={handleChange}
-            value={moderatorCommentState}
-          />
-          <Button className="ui basic green mini button" onClick={handleAcceptClick}>ACCEPT</Button>
-          <Button className="ui basic red mini button" onClick={handleRejectClick}>REJECT</Button>
+          <Form.TextArea label="Moderator Comments" onChange={handleChange} value={moderatorCommentState} />
+          <Button className="ui basic green mini button" onClick={handleAcceptClick}>
+            ACCEPT
+          </Button>
+          <Button className="ui basic red mini button" onClick={handleRejectClick}>
+            REJECT
+          </Button>
         </Form>
       </Segment>
     </Container>
-
   );
 };
 

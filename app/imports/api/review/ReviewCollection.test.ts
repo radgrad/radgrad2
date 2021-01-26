@@ -41,8 +41,9 @@ if (Meteor.isServer) {
             const sponsor = makeSampleUser(ROLE.FACULTY);
             reviewee = makeSampleOpportunity(sponsor);
           }
+          const localSlug = `${fcSlug}-${new Date().getTime()}`;
           const docID = Reviews.define({
-            slug: fcSlug,
+            slug: localSlug,
             student,
             reviewType,
             reviewee,
@@ -76,15 +77,17 @@ if (Meteor.isServer) {
         rating,
         comments,
       });
-      expect(() => Reviews.define({
-        slug,
-        student,
-        reviewType,
-        reviewee,
-        academicTerm,
-        rating,
-        comments,
-      })).to.throw(Error);
+      expect(() =>
+        Reviews.define({
+          slug,
+          student,
+          reviewType,
+          reviewee,
+          academicTerm,
+          rating,
+          comments,
+        }),
+      ).to.throw(Error);
       done();
     });
 

@@ -21,35 +21,25 @@ const handleChangeUserNameRegex = (updateUserNameRegex: (regex: string) => void)
 
 const FilterUserWidget: React.FC<UpdateRegex> = ({ updateFirstNameRegex, updateLastNameRegex, updateUserNameRegex }) => (
   <Segment>
-    <Header as="h4" dividing>FILTER USERS</Header>
+    <Header as="h4" dividing>
+      FILTER USERS
+    </Header>
     <Form>
       <Form.Group widths="equal">
         <Form.Field>
           {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
           <label>First Name</label>
-          <Form.Input
-            placeholder="First Name Regex"
-            name="firstNameRegex"
-            onChange={handleChangeFirstNameRegex(updateFirstNameRegex)}
-          />
+          <Form.Input placeholder="First Name Regex" name="firstNameRegex" onChange={handleChangeFirstNameRegex(updateFirstNameRegex)} />
         </Form.Field>
         <Form.Field>
           {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
           <label>Last Name</label>
-          <Form.Input
-            placeholder="Last Name Regex"
-            name="lastNameRegex"
-            onChange={handleChangeLastNameRegex(updateLastNameRegex)}
-          />
+          <Form.Input placeholder="Last Name Regex" name="lastNameRegex" onChange={handleChangeLastNameRegex(updateLastNameRegex)} />
         </Form.Field>
         <Form.Field>
           {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
           <label>Username</label>
-          <Form.Input
-            placeholder="Username Regex"
-            name="userNameRegex"
-            onChange={handleChangeUserNameRegex(updateUserNameRegex)}
-          />
+          <Form.Input placeholder="Username Regex" name="userNameRegex" onChange={handleChangeUserNameRegex(updateUserNameRegex)} />
         </Form.Field>
       </Form.Group>
     </Form>

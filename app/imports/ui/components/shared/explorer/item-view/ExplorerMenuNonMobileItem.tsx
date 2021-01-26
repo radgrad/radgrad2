@@ -45,7 +45,7 @@ const userCourses = (course: Course, match): string => {
   return ret;
 };
 
-const courseName = (course: { item: Course, count: number }): string => {
+const courseName = (course: { item: Course; count: number }): string => {
   const countStr = `x${course.count}`;
   if (course.count > 1) {
     return `${course.item.shortName} ${countStr}`;
@@ -70,12 +70,11 @@ const userOpportunities = (opportunity: Opportunity, match): string => {
   });
   if (oi.length > 0) {
     ret = 'check green circle outline icon';
-
   }
   return ret;
 };
 
-const opportunityItemName = (item: { item: Opportunity, count: number }): string => {
+const opportunityItemName = (item: { item: Opportunity; count: number }): string => {
   const countStr = `x${item.count}`;
   const iceString = `(${item.item.ice.i}/${item.item.ice.c}/${item.item.ice.e})`;
   if (item.count > 1) {
@@ -109,15 +108,11 @@ const ExplorerMenuNonMobileItem: React.FC<ExplorerMenuNonMobileItemProps> = ({ t
   };
 
   return (
-    <Menu.Item
-      as={NavLink}
-      exact
-      to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${type}/${itemToSlugName(listItem.item)}`)}
-    >
+    <Menu.Item as={NavLink} exact to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${type}/${itemToSlugName(listItem.item)}`)}>
       <i className={getItemStatus(listItem.item, match)} style={iconStyle} />
-      {type === EXPLORER_TYPE.OPPORTUNITIES && opportunityItemName(listItem as { item: Opportunity, count: number })}
-      {type === EXPLORER_TYPE.COURSES && courseName(listItem as { item: Course, count: number })}
-      {(type !== EXPLORER_TYPE.COURSES && type !== EXPLORER_TYPE.OPPORTUNITIES) && itemName(listItem)}
+      {type === EXPLORER_TYPE.OPPORTUNITIES && opportunityItemName(listItem as { item: Opportunity; count: number })}
+      {type === EXPLORER_TYPE.COURSES && courseName(listItem as { item: Course; count: number })}
+      {type !== EXPLORER_TYPE.COURSES && type !== EXPLORER_TYPE.OPPORTUNITIES && itemName(listItem)}
     </Menu.Item>
   );
 };

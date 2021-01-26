@@ -31,11 +31,7 @@ const LandingExplorerCard: React.FC<LandingExplorerCardProps> = ({ item, type })
         <div className="header">{title}</div>
       </Card.Content>
       <Card.Content className="content">
-        <Markdown
-          escapeHtml
-          source={`${itemShortDescription(item)}...`}
-          renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}
-        />
+        <Markdown escapeHtml source={`${itemShortDescription(item)}...`} renderers={{ link: (localProps) => Router.renderLink(localProps, match) }} />
       </Card.Content>
       <Button.Group attached="bottom" className="radgrad-home-buttons ui center aligned three bottom attached {{hidden}} buttons">
         <a href={routeToItem} className="ui button">

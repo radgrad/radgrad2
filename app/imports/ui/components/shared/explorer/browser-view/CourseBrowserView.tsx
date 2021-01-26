@@ -31,7 +31,6 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const CourseBrowserView: React.FC<CourseBrowserViewProps> = ({ favoriteCourses, courses, coursesScrollPosition, setCoursesScrollPosition, filterCoursesChoice }) => {
-
   const { username } = useParams();
   const profile = Users.getProfile(username);
   const isStudent = profile.role === ROLE.STUDENT;
@@ -79,7 +78,9 @@ const CourseBrowserView: React.FC<CourseBrowserViewProps> = ({ favoriteCourses, 
         <Header dividing>COURSES {courses.length}</Header>
         <CourseFilterWidget />
         <Card.Group itemsPerRow={2} stackable id="coursesCardGroup">
-          {items.map((course) => (<TermCard key={course._id} type="courses" isStudent={isStudent} canAdd={false} item={course} />))}
+          {items.map((course) => (
+            <TermCard key={course._id} type="courses" isStudent={isStudent} canAdd={false} item={course} />
+          ))}
         </Card.Group>
         <BackToTopButton />
       </Segment>

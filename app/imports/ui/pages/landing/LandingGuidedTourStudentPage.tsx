@@ -19,7 +19,6 @@ import DegreePlan from '../../components/landing/guided-tour/student/degree-plan
 import ICE from '../../components/landing/guided-tour/student/ice';
 import Levels from '../../components/landing/guided-tour/student/levels';
 import SampleStudent from '../../components/landing/guided-tour/student/sample-student';
-import AdvisorLog from '../../components/landing/guided-tour/student/advisor-log';
 import WhatsNext from '../../components/landing/guided-tour/student/whats-next';
 
 interface GuidedTourStudentProps {
@@ -55,11 +54,12 @@ const renderPage: React.FC<GuidedTourStudentProps> = ({ courses, careerGoals, in
             <ICE />
             <Levels />
             <SampleStudent />
-            <AdvisorLog />
             <WhatsNext />
           </Slider>
         </Segment>
-        <List.Item style={styles.a} as={NavLink} to="/">Return to RadGrad</List.Item>
+        <List.Item style={styles.a} as={NavLink} to="/">
+          Return to RadGrad
+        </List.Item>
       </Container>
       <LandingFooter />
     </div>
@@ -67,7 +67,7 @@ const renderPage: React.FC<GuidedTourStudentProps> = ({ courses, careerGoals, in
 };
 
 // eslint-disable-next-line react/prop-types
-const LandingGuidedTourStudentPage: React.FC<GuidedTourStudentProps> = (props) => ((props.ready) ? renderPage(props) : <Loader active>Getting data</Loader>);
+const LandingGuidedTourStudentPage: React.FC<GuidedTourStudentProps> = (props) => (props.ready ? renderPage(props) : <Loader active>Getting data</Loader>);
 
 const GuidedTourStudentContainer = withTracker(() => {
   const subscription = Meteor.subscribe(PublicStats.getPublicationName());

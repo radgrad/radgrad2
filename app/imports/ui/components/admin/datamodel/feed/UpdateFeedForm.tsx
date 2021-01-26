@@ -1,29 +1,14 @@
 import React, { useState } from 'react';
 import _ from 'lodash';
 import { Button, Form, Header, Segment } from 'semantic-ui-react';
-import {
-  AutoForm,
-  DateField,
-  TextField,
-  LongTextField,
-  SelectField,
-  NumField,
-  BoolField,
-  SubmitField,
-} from 'uniforms-semantic';
+import { AutoForm, DateField, TextField, LongTextField, SelectField, NumField, BoolField, SubmitField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
 import { AcademicTerms } from '../../../../../api/academic-term/AcademicTermCollection';
 import { Feeds } from '../../../../../api/feed/FeedCollection';
-import {
-  academicTermToName,
-  courseToName,
-  docToName,
-  opportunityIdToName,
-  profileToName, userIdToName,
-} from '../../../shared/utilities/data-model';
+import { academicTermToName, courseToName, docToName, opportunityIdToName, profileToName, userIdToName } from '../../../shared/utilities/data-model';
 import { AcademicTerm, Course, Opportunity, StudentProfile } from '../../../../../typings/radgrad';
 import BaseCollection from '../../../../../api/base/BaseCollection';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
@@ -50,7 +35,20 @@ const mapDispatchToProps = (dispatch: any): unknown => ({
   setAdminDataModelFeedsCloudinaryUrl: (cloudinaryUrl: string) => dispatch(cloudinaryActions.setAdminDataModelFeedsCloudinaryUrl(cloudinaryUrl)),
 });
 
-const UpdateFeedForm: React.FC<UpdateFeedFormProps> = ({ academicTerms, formRef, students, opportunities, courses, id, collection, itemTitleString, handleCancel, handleUpdate, setAdminDataModelFeedsCloudinaryUrl, setAdminDataModelFeedsIsCloudinaryUsed }) => {
+const UpdateFeedForm: React.FC<UpdateFeedFormProps> = ({
+  academicTerms,
+  formRef,
+  students,
+  opportunities,
+  courses,
+  id,
+  collection,
+  itemTitleString,
+  handleCancel,
+  handleUpdate,
+  setAdminDataModelFeedsCloudinaryUrl,
+  setAdminDataModelFeedsIsCloudinaryUsed,
+}) => {
   const [pictureURL, setPictureURL] = useState(collection.findDoc(id).picture);
 
   const handleUpload = async (e): Promise<void> => {
@@ -121,12 +119,15 @@ const UpdateFeedForm: React.FC<UpdateFeedFormProps> = ({ academicTerms, formRef,
     'users.$': { type: String, allowedValues: studentNames },
     picture: {
       type: String,
-      label:
-  <React.Fragment>
-    Picture (
-    <button type="button" onClick={handleUpload}>Upload</button>
-    )
-  </React.Fragment>,
+      label: (
+        <React.Fragment>
+          Picture (
+          <button type="button" onClick={handleUpload}>
+            Upload
+          </button>
+          )
+        </React.Fragment>
+      ),
       defaultValue: model.picture,
       optional: true,
     },
@@ -174,16 +175,9 @@ const UpdateFeedForm: React.FC<UpdateFeedFormProps> = ({ academicTerms, formRef,
     <Segment padded>
       <Header dividing>
         Update
-        {collection.getType()}
-        :
-        {itemTitleString(model)}
+        {collection.getType()}:{itemTitleString(model)}
       </Header>
-      <AutoForm
-        ref={formRef}
-        schema={formSchema}
-        model={model}
-        onSubmit={handleUpdate}
-      >
+      <AutoForm ref={formRef} schema={formSchema} model={model} onSubmit={handleUpdate}>
         <Form.Group widths="equal">
           <DateField name="timestamp" disabled />
           <TextField name="feedType" disabled />
@@ -191,66 +185,94 @@ const UpdateFeedForm: React.FC<UpdateFeedFormProps> = ({ academicTerms, formRef,
         <LongTextField name="description" />
         {model.feedType === Feeds.NEW_COURSE ? (
           <div>
-            <Header dividing as="h4">New course field</Header>
+            <Header dividing as="h4">
+              New course field
+            </Header>
             <Form.Group widths="equal">
               <SelectField name="course" />
             </Form.Group>
           </div>
-        ) : ''}
+        ) : (
+          ''
+        )}
         {model.feedType === Feeds.NEW_COURSE_REVIEW ? (
           <div>
-            <Header dividing as="h4">New course review fields</Header>
+            <Header dividing as="h4">
+              New course review fields
+            </Header>
             <Form.Group widths="equal">
               <SelectField name="user" />
               <SelectField name="course" />
             </Form.Group>
           </div>
-        ) : ''}
+        ) : (
+          ''
+        )}
         {model.feedType === Feeds.NEW_LEVEL ? (
           <div>
-            <Header dividing as="h4">New course review fields</Header>
+            <Header dividing as="h4">
+              New course review fields
+            </Header>
             <Form.Group widths="equal">
               <SelectField name="user" />
               <NumField name="level" />
             </Form.Group>
           </div>
-        ) : ''}
+        ) : (
+          ''
+        )}
         {model.feedType === Feeds.NEW_OPPORTUNITY ? (
           <div>
-            <Header dividing as="h4">New opportunity field</Header>
+            <Header dividing as="h4">
+              New opportunity field
+            </Header>
             <Form.Group widths="equal">
               <SelectField name="opportunity" />
             </Form.Group>
           </div>
-        ) : ''}
+        ) : (
+          ''
+        )}
         {model.feedType === Feeds.NEW_OPPORTUNITY_REVIEW ? (
           <div>
-            <Header dividing as="h4">New opportunity review fields</Header>
+            <Header dividing as="h4">
+              New opportunity review fields
+            </Header>
             <Form.Group widths="equal">
               <SelectField name="user" />
               <SelectField name="opportunity" />
             </Form.Group>
           </div>
-        ) : ''}
+        ) : (
+          ''
+        )}
         {model.feedType === Feeds.NEW_USER ? (
           <div>
-            <Header dividing as="h4">New user fields</Header>
+            <Header dividing as="h4">
+              New user fields
+            </Header>
             <Form.Group widths="equal">
               <MultiSelectField name="users" />
               <TextField name="picture" value={pictureURL} onChange={handlePictureUrlChange} />
             </Form.Group>
           </div>
-        ) : ''}
+        ) : (
+          ''
+        )}
         {model.feedType === Feeds.VERIFIED_OPPORTUNITY ? (
           <div>
-            <Header dividing as="h4">New verified opportunity fields</Header>
+            <Header dividing as="h4">
+              New verified opportunity fields
+            </Header>
             <Form.Group widths="equal">
               <SelectField name="user" />
               <SelectField name="opportunity" />
               <SelectField name="academicTerm" />
             </Form.Group>
           </div>
-        ) : ''}
+        ) : (
+          ''
+        )}
         <Form.Group widths="equal">
           <BoolField name="retired" />
         </Form.Group>

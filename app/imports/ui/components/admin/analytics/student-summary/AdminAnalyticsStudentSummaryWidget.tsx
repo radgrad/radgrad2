@@ -17,7 +17,7 @@ interface AdminAnalyticsStudentSummaryWidgetProps {
   userInteractions: IAdminAnalyticsUserInteraction;
 }
 
-const mapStateToProps = (state: RootState): {[key: string]: any} => ({
+const mapStateToProps = (state: RootState): { [key: string]: any } => ({
   dateRange: state.admin.analytics.studentSummary.dateRange,
   userInteractions: state.admin.analytics.studentSummary.userInteractions,
 });
@@ -47,12 +47,18 @@ const AdminAnalyticsStudentSummaryWidget: React.FC<AdminAnalyticsStudentSummaryW
       behaviorCategories[2].count++;
       behaviorCategories[2].users.push(user);
     }
-    if (_.some(interactions, (i: any) => i.type === UserInteractionsTypes.ADDCOURSE
-      || i.type === UserInteractionsTypes.REMOVECOURSE
-      || i.type === UserInteractionsTypes.UPDATECOURSE
-      || i.type === UserInteractionsTypes.ADDOPPORTUNITY
-      || i.type === UserInteractionsTypes.REMOVEOPPORTUNITY
-      || i.type === UserInteractionsTypes.UPDATEOPPORTUNITY)) {
+    if (
+      _.some(
+        interactions,
+        (i: any) =>
+          i.type === UserInteractionsTypes.ADDCOURSE ||
+          i.type === UserInteractionsTypes.REMOVECOURSE ||
+          i.type === UserInteractionsTypes.UPDATECOURSE ||
+          i.type === UserInteractionsTypes.ADDOPPORTUNITY ||
+          i.type === UserInteractionsTypes.REMOVEOPPORTUNITY ||
+          i.type === UserInteractionsTypes.UPDATEOPPORTUNITY,
+      )
+    ) {
       behaviorCategories[3].count++;
       behaviorCategories[3].users.push(user);
     }
@@ -96,12 +102,7 @@ const AdminAnalyticsStudentSummaryWidget: React.FC<AdminAnalyticsStudentSummaryW
         <Header as="h4" dividing>
           SUMMARY STATISTICS: {dateRangeToString(dateRange)}
         </Header>
-        <SummaryStatisticsTabs
-          behaviors={behaviorCategories}
-          startDate={dateRange.startDate}
-          endDate={dateRange.endDate}
-          interactionsByUser={interactionsByUser}
-        />
+        <SummaryStatisticsTabs behaviors={behaviorCategories} startDate={dateRange.startDate} endDate={dateRange.endDate} interactionsByUser={interactionsByUser} />
       </Segment>
     </div>
   );

@@ -8,15 +8,7 @@ import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
-import {
-  AcademicTerm,
-  Course,
-  DescriptionPair,
-  IFeed,
-  FeedDefine,
-  Opportunity,
-  StudentProfile,
-} from '../../../typings/radgrad';
+import { AcademicTerm, Course, DescriptionPair, IFeed, FeedDefine, Opportunity, StudentProfile } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Feeds } from '../../../api/feed/FeedCollection';
 import { Users } from '../../../api/user/UserCollection';
@@ -25,12 +17,7 @@ import { Courses } from '../../../api/course/CourseCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import AddFeedForm from '../../components/admin/datamodel/feed/AddFeedForm';
 import UpdateFeedForm from '../../components/admin/datamodel/feed/UpdateFeedForm';
-import {
-  academicTermNameToSlug,
-  courseNameToSlug,
-  opportunityNameToSlug,
-  profileNameToUsername,
-} from '../../components/shared/utilities/data-model';
+import { academicTermNameToSlug, courseNameToSlug, opportunityNameToSlug, profileNameToUsername } from '../../components/shared/utilities/data-model';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import { RootState } from '../../../redux/types';
@@ -260,7 +247,6 @@ const AdminDataModelFeedsPage: React.FC<AdminDataModelFeedsPageProps> = (props) 
     <div id="data-model-feeds-page">
       <AdminPageMenuWidget />
       <Grid container stackable style={paddedStyle}>
-
         <Grid.Column width={3}>
           <AdminDataModelMenu {...props} />
         </Grid.Column>
@@ -280,14 +266,7 @@ const AdminDataModelFeedsPage: React.FC<AdminDataModelFeedsPageProps> = (props) 
               opportunities={props.opportunities}
             />
           ) : (
-            <AddFeedForm
-              formRef={formRef}
-              handleAdd={handleAdd}
-              academicTerms={props.academicTerms}
-              courses={props.courses}
-              students={props.students}
-              opportunities={props.opportunities}
-            />
+            <AddFeedForm formRef={formRef} handleAdd={handleAdd} academicTerms={props.academicTerms} courses={props.courses} students={props.students} opportunities={props.opportunities} />
           )}
           <ListCollectionWidget
             collection={collection}
@@ -302,12 +281,7 @@ const AdminDataModelFeedsPage: React.FC<AdminDataModelFeedsPageProps> = (props) 
           />
         </Grid.Column>
       </Grid>
-      <Confirm
-        open={confirmOpenState}
-        onCancel={handleCancel}
-        onConfirm={handleConfirmDelete}
-        header="Delete Feed?"
-      />
+      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Feed?" />
 
       <BackToTopButton />
     </div>

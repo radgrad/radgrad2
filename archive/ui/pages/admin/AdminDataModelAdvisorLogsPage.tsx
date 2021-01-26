@@ -3,23 +3,23 @@ import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
 import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
-import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
-import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
-import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
-import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
-import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
-import { Users } from '../../../api/user/UserCollection';
+import { AdvisorProfiles } from '../../../../app/imports/api/user/AdvisorProfileCollection';
+import { StudentProfiles } from '../../../../app/imports/api/user/StudentProfileCollection';
+import AdminPageMenuWidget from '../../../../app/imports/ui/components/admin/AdminPageMenuWidget';
+import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../../../app/imports/ui/components/admin/datamodel/AdminDataModelMenu';
+import ListCollectionWidget from '../../../../app/imports/ui/components/admin/datamodel/ListCollectionWidget';
+import { Users } from '../../../../app/imports/api/user/UserCollection';
 import {
   AdvisorLog, AdvisorLogUpdate,
   DescriptionPair,
-} from '../../../typings/radgrad';
+} from '../../../../app/imports/typings/radgrad';
 import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';
-import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
-import AdminDataModelUpdateForm from '../../components/admin/datamodel/AdminDataModelUpdateForm';
-import AddAdvisorLogFormContainer from '../../components/admin/datamodel/advisor-log/AddAdvisorLogForm';
-import BackToTopButton from '../../components/shared/BackToTopButton';
-import { dataModelActions } from '../../../redux/admin/data-model';
-import { getDatamodelCount } from './utilities/datamodel';
+import { defineMethod, removeItMethod, updateMethod } from '../../../../app/imports/api/base/BaseCollection.methods';
+import AdminDataModelUpdateForm from '../../../../app/imports/ui/components/admin/datamodel/AdminDataModelUpdateForm';
+import AddAdvisorLogFormContainer from '../../component/admin/advisor-log/AddAdvisorLogForm';
+import BackToTopButton from '../../../../app/imports/ui/components/shared/BackToTopButton';
+import { dataModelActions } from '../../../../app/imports/redux/admin/data-model';
+import { getDatamodelCount } from '../../../../app/imports/ui/pages/admin/utilities/datamodel';
 
 const descriptionPairs = (advisorLog: AdvisorLog): DescriptionPair[] => [
   { label: 'Advisor', value: `${Users.getFullName(advisorLog.advisorID)}` },

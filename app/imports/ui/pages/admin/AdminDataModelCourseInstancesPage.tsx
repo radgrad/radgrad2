@@ -6,13 +6,7 @@ import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
-import {
-  AcademicTerm,
-  Course,
-  CourseInstance,
-  CourseInstanceDefine,
-  DescriptionPair, StudentProfile,
-} from '../../../typings/radgrad';
+import { AcademicTerm, Course, CourseInstance, CourseInstanceDefine, DescriptionPair, StudentProfile } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
@@ -20,11 +14,7 @@ import { Courses } from '../../../api/course/CourseCollection';
 import { Users } from '../../../api/user/UserCollection';
 import AddCourseInstanceForm from '../../components/admin/datamodel/course/AddCourseInstanceForm';
 import { Slugs } from '../../../api/slug/SlugCollection';
-import {
-  academicTermNameToDoc,
-  courseNameToCourseDoc,
-  profileNameToUsername,
-} from '../../components/shared/utilities/data-model';
+import { academicTermNameToDoc, courseNameToCourseDoc, profileNameToUsername } from '../../components/shared/utilities/data-model';
 import UpdateCourseInstanceForm from '../../components/admin/datamodel/course/UpdateCourseInstanceForm';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
@@ -38,7 +28,7 @@ const collection = CourseInstances;
  */
 const descriptionPairs = (item: CourseInstance): DescriptionPair[] => [
   { label: 'Academic Term', value: AcademicTerms.toString(item.termID) },
-  { label: 'Course', value: (Courses.findDoc(item.courseID)).name },
+  { label: 'Course', value: Courses.findDoc(item.courseID).name },
   { label: 'Verified', value: item.verified ? 'True' : 'False' },
   { label: 'From Registrar', value: item.fromRegistrar ? 'True' : 'False' },
   { label: 'Grade', value: item.grade },
@@ -122,7 +112,6 @@ const AdminDataModelCourseInstancesPage: React.FC<AdminDataModelCourseInstancesP
         formRef.current.reset();
       }
     });
-
   };
 
   const handleCancel = (event) => {
@@ -209,30 +198,15 @@ const AdminDataModelCourseInstancesPage: React.FC<AdminDataModelCourseInstancesP
     <div id="data-model-course-instances-page">
       <AdminPageMenuWidget />
       <Grid container stackable style={paddedStyle}>
-
         <Grid.Column width={3}>
           <AdminDataModelMenu {...props} />
         </Grid.Column>
 
         <Grid.Column width={13}>
           {showUpdateFormState ? (
-            <UpdateCourseInstanceForm
-              collection={collection}
-              id={idState}
-              formRef={formRef}
-              handleUpdate={handleUpdate}
-              handleCancel={handleCancel}
-              itemTitleString={itemTitleString}
-              terms={props.terms}
-            />
+            <UpdateCourseInstanceForm collection={collection} id={idState} formRef={formRef} handleUpdate={handleUpdate} handleCancel={handleCancel} itemTitleString={itemTitleString} terms={props.terms} />
           ) : (
-            <AddCourseInstanceForm
-              formRef={formRef}
-              handleAdd={handleAdd}
-              terms={props.terms}
-              courses={props.courses}
-              students={props.students}
-            />
+            <AddCourseInstanceForm formRef={formRef} handleAdd={handleAdd} terms={props.terms} courses={props.courses} students={props.students} />
           )}
           <ListCollectionWidget
             collection={collection}
@@ -247,12 +221,7 @@ const AdminDataModelCourseInstancesPage: React.FC<AdminDataModelCourseInstancesP
           />
         </Grid.Column>
       </Grid>
-      <Confirm
-        open={confirmOpenState}
-        onCancel={handleCancel}
-        onConfirm={handleConfirmDelete}
-        header="Delete Course Instance?"
-      />
+      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Course Instance?" />
 
       <BackToTopButton />
     </div>

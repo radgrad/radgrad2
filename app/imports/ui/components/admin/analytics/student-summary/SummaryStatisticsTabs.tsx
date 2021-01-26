@@ -31,12 +31,7 @@ const SummaryStatisticsTabs: React.FC<SummaryStatisticsTabsProps> = ({ startDate
       ),
       pane: (
         <Tab.Pane key="summaryTabPane" active={activeIndex === 0}>
-          <StudentSummaryTab
-            behaviors={behaviors}
-            startDate={startDate ? moment(startDate).format('MM-DD-YYYY') : ''}
-            endDate={endDate ? moment(endDate).format('MM-DD-YYYY') : ''}
-            interactionsByUser={interactionsByUser}
-          />
+          <StudentSummaryTab behaviors={behaviors} startDate={startDate ? moment(startDate).format('MM-DD-YYYY') : ''} endDate={endDate ? moment(endDate).format('MM-DD-YYYY') : ''} interactionsByUser={interactionsByUser} />
         </Tab.Pane>
       ),
     },
@@ -48,12 +43,7 @@ const SummaryStatisticsTabs: React.FC<SummaryStatisticsTabsProps> = ({ startDate
       ),
       pane: (
         <Tab.Pane key="timelineTab" active={activeIndex === 1}>
-          <TimelineChartTab
-            interactionsByUser={interactionsByUser}
-            startDate={startDate}
-            endDate={endDate}
-            key="timeline-chart-tab-pane"
-          />
+          <TimelineChartTab interactionsByUser={interactionsByUser} startDate={startDate} endDate={endDate} key="timeline-chart-tab-pane" />
         </Tab.Pane>
       ),
     },

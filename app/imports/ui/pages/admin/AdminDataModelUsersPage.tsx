@@ -8,14 +8,7 @@ import Swal from 'sweetalert2';
 import { AdminProfiles } from '../../../api/user/AdminProfileCollection';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
-import {
-  AcademicTerm,
-  BaseProfile, CareerGoal,
-  CombinedProfileDefine,
-  AdvisorOrFacultyProfile,
-  FavoriteCareerGoal, FavoriteInterest, Interest,
-  StudentProfile,
-} from '../../../typings/radgrad';
+import { AcademicTerm, BaseProfile, CareerGoal, CombinedProfileDefine, AdvisorOrFacultyProfile, FavoriteCareerGoal, FavoriteInterest, Interest, StudentProfile } from '../../../typings/radgrad';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { getDatamodelCount, makeMarkdownLink } from './utilities/datamodel';
@@ -28,11 +21,7 @@ import UpdateUserForm from '../../components/admin/datamodel/user/UpdateUserForm
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
-import {
-  careerGoalSlugFromName,
-  declaredAcademicTermSlugFromName,
-  interestSlugFromName,
-} from '../../components/shared/utilities/form';
+import { careerGoalSlugFromName, declaredAcademicTermSlugFromName, interestSlugFromName } from '../../components/shared/utilities/form';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Users } from '../../../api/user/UserCollection';
 import BackToTopButton from '../../components/shared/BackToTopButton';
@@ -73,7 +62,7 @@ const descriptionPairs = (props: AdminDataModelUsersPageProps) => (user: BasePro
     pairs.push({ label: 'Level', value: `${user.level}` });
     pairs.push({
       label: 'Declared Semester',
-      value: (user.declaredAcademicTermID) ? AcademicTerms.toString(user.declaredAcademicTermID) : '',
+      value: user.declaredAcademicTermID ? AcademicTerms.toString(user.declaredAcademicTermID) : '',
     });
     pairs.push({ label: 'Opted In', value: user.optedIn ? 'True' : 'False' });
     if (user.lastRegistrarLoad) {
@@ -271,7 +260,8 @@ const AdminDataModelUsersPage: React.FC<AdminDataModelUsersPageProps> = (props) 
   };
   const panes = [
     {
-      menuItem: `Admins (${props.admins.length})`, render: () => (
+      menuItem: `Admins (${props.admins.length})`,
+      render: () => (
         <Tab.Pane>
           <ListCollectionWidget
             collection={AdminProfiles}
@@ -287,7 +277,8 @@ const AdminDataModelUsersPage: React.FC<AdminDataModelUsersPageProps> = (props) 
       ),
     },
     {
-      menuItem: `Advisors (${props.advisors.length})`, render: () => (
+      menuItem: `Advisors (${props.advisors.length})`,
+      render: () => (
         <Tab.Pane>
           <ListCollectionWidget
             collection={AdvisorProfiles}
@@ -303,7 +294,8 @@ const AdminDataModelUsersPage: React.FC<AdminDataModelUsersPageProps> = (props) 
       ),
     },
     {
-      menuItem: `Faculty (${props.faculty.length})`, render: () => (
+      menuItem: `Faculty (${props.faculty.length})`,
+      render: () => (
         <Tab.Pane>
           <ListCollectionWidget
             collection={FacultyProfiles}
@@ -319,7 +311,8 @@ const AdminDataModelUsersPage: React.FC<AdminDataModelUsersPageProps> = (props) 
       ),
     },
     {
-      menuItem: `Students (${props.students.length})`, render: () => (
+      menuItem: `Students (${props.students.length})`,
+      render: () => (
         <Tab.Pane>
           <ListCollectionWidget
             collection={StudentProfiles}
@@ -339,7 +332,6 @@ const AdminDataModelUsersPage: React.FC<AdminDataModelUsersPageProps> = (props) 
     <div id="data-model-users-page" className="layout-page">
       <AdminPageMenuWidget />
       <Grid container stackable style={paddedStyle}>
-
         <Grid.Column width={3}>
           <AdminDataModelMenu {...props} />
         </Grid.Column>
@@ -357,23 +349,12 @@ const AdminDataModelUsersPage: React.FC<AdminDataModelUsersPageProps> = (props) 
               academicTerms={props.academicTerms}
             />
           ) : (
-            <AddUserForm
-              formRef={formRef}
-              handleAdd={handleAdd}
-              interests={props.interests}
-              careerGoals={props.careerGoals}
-              academicTerms={props.academicTerms}
-            />
+            <AddUserForm formRef={formRef} handleAdd={handleAdd} interests={props.interests} careerGoals={props.careerGoals} academicTerms={props.academicTerms} />
           )}
           <Tab panes={panes} defaultActiveIndex={3} />
         </Grid.Column>
       </Grid>
-      <Confirm
-        open={confirmOpenState}
-        onCancel={handleCancel}
-        onConfirm={handleConfirmDelete}
-        header="Delete User?"
-      />
+      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete User?" />
 
       <BackToTopButton />
     </div>
@@ -392,7 +373,7 @@ export default withTracker(() => {
   const careerGoals = CareerGoals.find({}, { sort: { name: 1 } }).fetch();
   let academicTerms = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
-  academicTerms = _.filter(academicTerms, (term) => (term.termNumber <= currentTerm.termNumber && term.termNumber > currentTerm.termNumber - 8));
+  academicTerms = _.filter(academicTerms, (term) => term.termNumber <= currentTerm.termNumber && term.termNumber > currentTerm.termNumber - 8);
   const modelCount = getDatamodelCount();
   return {
     ...modelCount,

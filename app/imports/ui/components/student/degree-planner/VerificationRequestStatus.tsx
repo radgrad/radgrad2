@@ -14,29 +14,39 @@ const VerificationRequestStatus: React.FC<VerificationRequestStatusProps> = ({ r
   return (
     <Card.Content>
       <Header>Verification Status</Header>
-      <span><strong>Date Submitted:</strong> {whenSubmitted}</span>
+      <span>
+        <strong>Date Submitted:</strong> {whenSubmitted}
+      </span>
       <br />
-      <span><strong>Status:</strong> {request.status}</span>
+      <span>
+        <strong>Status:</strong> {request.status}
+      </span>
       <br />
-      {request.processed.length > 0 ?
-        (
-          <React.Fragment>
-            <strong>Documentation: </strong>
-            <List bulleted>
-              {_.map(request.processed, (process, index) => (
-                <List.Item key={index}>
-                  <b>({process.status}) {moment(process.date).calendar()}</b>
-                  <br />
-                  By {process.verifier}
-                  {process.feedback ?
-                    (<React.Fragment>: <em>{process.feedback}</em></React.Fragment>)
-                    : ''}
-                </List.Item>
-              ))}
-            </List>
-          </React.Fragment>
-        )
-        : ''}
+      {request.processed.length > 0 ? (
+        <React.Fragment>
+          <strong>Documentation: </strong>
+          <List bulleted>
+            {_.map(request.processed, (process, index) => (
+              <List.Item key={index}>
+                <b>
+                  ({process.status}) {moment(process.date).calendar()}
+                </b>
+                <br />
+                By {process.verifier}
+                {process.feedback ? (
+                  <React.Fragment>
+                    : <em>{process.feedback}</em>
+                  </React.Fragment>
+                ) : (
+                  ''
+                )}
+              </List.Item>
+            ))}
+          </List>
+        </React.Fragment>
+      ) : (
+        ''
+      )}
     </Card.Content>
   );
 };

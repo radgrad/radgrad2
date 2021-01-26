@@ -8,9 +8,7 @@ const LandingFooter: React.FC = () => (
       <Container>
         <Grid>
           <Grid.Row columns={2}>
-            <Grid.Column>
-              RadGrad @ 2020
-            </Grid.Column>
+            <Grid.Column>RadGrad @ 2020</Grid.Column>
             <Grid.Column textAlign="right">
               <List bulleted horizontal>
                 <List.Item as="a" href="http://radgrad.org/" style={styles['footer-item:before, .footer-item']}>

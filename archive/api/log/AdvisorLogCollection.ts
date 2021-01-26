@@ -2,10 +2,10 @@ import { Meteor } from 'meteor/meteor';
 import moment from 'moment';
 import SimpleSchema from 'simpl-schema';
 import _ from 'lodash';
-import BaseCollection from '../base/BaseCollection';
-import { ROLE } from '../role/Role';
-import { Users } from '../user/UserCollection';
-import { AdvisorLogDefine, AdvisorLogUpdate } from '../../typings/radgrad';
+import BaseCollection from '../../../app/imports/api/base/BaseCollection';
+import { ROLE } from '../../../app/imports/api/role/Role';
+import { Users } from '../../../app/imports/api/user/UserCollection';
+import { AdvisorLogDefine, AdvisorLogUpdate } from '../../../app/imports/typings/radgrad';
 
 /**
  * Represents a log of an Advisor talking to a Student.

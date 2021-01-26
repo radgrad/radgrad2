@@ -10,7 +10,6 @@ interface PageIceCircleProps {
 }
 // TODO remove this file use shared/MenuIceCircle
 const PageIceCircle: React.FC<PageIceCircleProps> = ({ planned, type, earned }) => {
-
   const match = useRouteMatch();
   const styles = {
     position: 'absolute' as PositionProperties.absolute,
@@ -21,8 +20,8 @@ const PageIceCircle: React.FC<PageIceCircleProps> = ({ planned, type, earned }) 
     fontSize: '0.40em',
   };
   // TODO display current value not capped at 100
-  const p = (planned < 100) ? planned : 100;
-  const e = (earned < 100) ? earned : 100;
+  const p = planned < 100 ? planned : 100;
+  const e = earned < 100 ? earned : 100;
   // TODO cap class name p100
   const classNamesPlanned = `radgrad-ice-circle p${p} radgrad-proj-${type}`;
   const classNamesEarned = `radgrad-ice-circle p${e} radgrad-earn-${type}`;

@@ -2,9 +2,9 @@ import { Meteor } from 'meteor/meteor';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import _ from 'lodash';
 import { AdvisorLogs } from './AdvisorLogCollection';
-import { ROLE } from '../role/Role';
-import { AdvisorLogUpdate } from '../../typings/radgrad';
-import { Users } from '../user/UserCollection';
+import { ROLE } from '../../../app/imports/api/role/Role';
+import { AdvisorLogUpdate } from '../../../app/imports/typings/radgrad';
+import { Users } from '../../../app/imports/api/user/UserCollection';
 
 /**
  * The validated method for defining AdvisorLogs.

@@ -12,8 +12,7 @@ import { Users } from '../../../../api/user/UserCollection';
 import { FavoriteOpportunities } from '../../../../api/favorite/FavoriteOpportunityCollection';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
 import ExplorerMenu from '../../../components/shared/explorer/item-view/ExplorerMenu';
-import ExplorerOpportunityWidget
-  from '../../../components/shared/explorer/item-view/opportunity/ExplorerOpportunityWidget';
+import ExplorerOpportunityWidget from '../../../components/shared/explorer/item-view/opportunity/ExplorerOpportunityWidget';
 import { teaser } from '../../../components/shared/explorer/item-view/utilities/teaser';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import { OpportunityTypes } from '../../../../api/opportunity/OpportunityTypeCollection';
@@ -40,7 +39,7 @@ const academicTerms = (theOpp: Opportunity): string[] => {
 
 const sponsor = (theOpp: Opportunity): string => Users.getFullName(theOpp.sponsorID);
 
-const descriptionPairsOpportunities = (theOpp: Opportunity): { label: string, value: any }[] => [
+const descriptionPairsOpportunities = (theOpp: Opportunity): { label: string; value: any }[] => [
   { label: 'Opportunity Type', value: opportunityType(theOpp) },
   { label: 'Academic Terms', value: academicTerms(theOpp) },
   { label: 'Event Date', value: theOpp.eventDate },
@@ -65,7 +64,8 @@ const isCompleted = (opportunityID: string, studentID: string): boolean => {
 const OpportunityViewPage: React.FC<OpportunityViewPageProps> = ({ favoriteOpportunities, helpMessages, itemReviews, opportunity, profile }) => {
   const match = useRouteMatch();
   const menuAddedList = _.map(favoriteOpportunities, (item) => ({
-    item, count: 1,
+    item,
+    count: 1,
   }));
   const descriptionPairs = descriptionPairsOpportunities(opportunity);
   const studentID = profile.userID;
@@ -76,7 +76,9 @@ const OpportunityViewPage: React.FC<OpportunityViewPageProps> = ({ favoriteOppor
       <Container>
         <Grid stackable>
           <Grid.Row className="helpPanel">
-            <Grid.Column width={16}><HelpPanelWidget helpMessages={helpMessages} /></Grid.Column>
+            <Grid.Column width={16}>
+              <HelpPanelWidget helpMessages={helpMessages} />
+            </Grid.Column>
           </Grid.Row>
           <Grid.Row>
             <Grid.Column width={3}>

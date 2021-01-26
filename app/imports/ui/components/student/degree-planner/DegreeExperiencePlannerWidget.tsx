@@ -8,11 +8,7 @@ import _ from 'lodash';
 import { Users } from '../../../../api/user/UserCollection';
 import { AcademicYearInstances } from '../../../../api/degree-plan/AcademicYearInstanceCollection';
 import AcademicYearView from './AcademicYearView';
-import {
-  AcademicYearInstance,
-  AcademicYearInstanceDefine, CourseInstance,
-  MeteorError, OpportunityInstance,
-} from '../../../../typings/radgrad';
+import { AcademicYearInstance, AcademicYearInstanceDefine, CourseInstance, MeteorError, OpportunityInstance } from '../../../../typings/radgrad';
 import { CourseInstances } from '../../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
 import { defineMethod, removeItMethod } from '../../../../api/base/BaseCollection.methods';
@@ -208,7 +204,7 @@ const DEPWidget: React.FC<DePProps> = ({ selectCourseInstance, selectOpportunity
 
   const isYearEmpty = (year): boolean => {
     const mapped = year.termIDs.map((termID) => isTermEmpty(termID));
-    return mapped.every(bool => bool === true);
+    return mapped.every((bool) => bool === true);
   };
 
   return (
@@ -242,33 +238,35 @@ const DEPWidget: React.FC<DePProps> = ({ selectCourseInstance, selectOpportunity
           </Grid.Column>
           <Grid.Column textAlign="center">
             {/* This makes the "Add Academic Year" button only appear if the last Academic Year column is visible */}
-            {!(visibleStartIndexState < yearsState.length - 4) ?
-              (
-                <Button color="green" onClick={handleAddYear}>
-                  <Icon name="plus circle" /> Add Academic Year
-                </Button>
-              )
-              : ''}
+            {!(visibleStartIndexState < yearsState.length - 4) ? (
+              <Button color="green" onClick={handleAddYear}>
+                <Icon name="plus circle" /> Add Academic Year
+              </Button>
+            ) : (
+              ''
+            )}
           </Grid.Column>
           <Grid.Column textAlign="right">
             {yearsState.length > 0 ? (
               <React.Fragment>
-                {visibleStartIndexState < yearsState.length - 4 ?
-                  (
-                    <Button color="green" icon labelPosition="right" onClick={handleClickNextYear}>
-                      <Icon name="arrow circle right" />
-                      Next Year
-                    </Button>
-                  )
-                  :
-                  (isYearEmpty(yearsState[yearsState.length - 1]) && visibleStartIndexState !== 0) && (
+                {visibleStartIndexState < yearsState.length - 4 ? (
+                  <Button color="green" icon labelPosition="right" onClick={handleClickNextYear}>
+                    <Icon name="arrow circle right" />
+                    Next Year
+                  </Button>
+                ) : (
+                  isYearEmpty(yearsState[yearsState.length - 1]) &&
+                  visibleStartIndexState !== 0 && (
                     <Button color="green" icon labelPosition="right" onClick={handleDeleteYear}>
                       <Icon name="minus circle" />
                       Delete Year
                     </Button>
-                  )}
+                  )
+                )}
               </React.Fragment>
-            ) : ''}
+            ) : (
+              ''
+            )}
           </Grid.Column>
         </Grid.Row>
       </Grid>

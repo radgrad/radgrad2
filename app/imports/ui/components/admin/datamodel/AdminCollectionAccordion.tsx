@@ -16,8 +16,7 @@ interface AdminCollectionAccordionProps {
   handleDelete: (evt: any, id: any) => any;
 }
 
-const AdminCollectionAccordion: React.FC<AdminCollectionAccordionProps> = ({ id, title, descriptionPairs, updateDisabled, deleteDisabled, handleDelete, handleOpenUpdate,
-}) => {
+const AdminCollectionAccordion: React.FC<AdminCollectionAccordionProps> = ({ id, title, descriptionPairs, updateDisabled, deleteDisabled, handleDelete, handleOpenUpdate }) => {
   const [active, setActive] = useState(false);
 
   const handleClick = () => {
@@ -43,35 +42,15 @@ const AdminCollectionAccordion: React.FC<AdminCollectionAccordionProps> = ({ id,
       <Accordion.Content active={active}>
         {_.map(descriptionPairs, (descriptionPair, index) => (
           <React.Fragment key={index}>
-            <b>
-              {descriptionPair.label}:
-            </b>
-            <Markdown
-              escapeHtml
-              source={getDescriptionPairValue(descriptionPair)}
-              renderers={{ link: (lProps) => Router.renderLink(lProps, match) }}
-            />
+            <b>{descriptionPair.label}:</b>
+            <Markdown escapeHtml source={getDescriptionPairValue(descriptionPair)} renderers={{ link: (lProps) => Router.renderLink(lProps, match) }} />
           </React.Fragment>
         ))}
         <p>
-          <Button
-            id={id}
-            color="green"
-            basic
-            size="mini"
-            disabled={updateDisabled}
-            onClick={handleOpenUpdate}
-          >
+          <Button id={id} color="green" basic size="mini" disabled={updateDisabled} onClick={handleOpenUpdate}>
             Update
           </Button>
-          <Button
-            id={id}
-            color="green"
-            basic
-            size="mini"
-            disabled={deleteDisabled}
-            onClick={handleDelete}
-          >
+          <Button id={id} color="green" basic size="mini" disabled={deleteDisabled} onClick={handleDelete}>
             Delete
           </Button>
         </p>

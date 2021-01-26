@@ -31,22 +31,16 @@ const CareerGoalBrowserViewPage: React.FC<CareerGoalBrowserViewPageProps> = ({ f
       <Container>
         <Grid stackable>
           <Grid.Row className="helpPanel">
-            <Grid.Column width={16}><HelpPanelWidget helpMessages={helpMessages} /></Grid.Column>
+            <Grid.Column width={16}>
+              <HelpPanelWidget helpMessages={helpMessages} />
+            </Grid.Column>
           </Grid.Row>
           <Grid.Row>
             <Grid.Column width={4}>
-              <ExplorerMultipleItemsMenu
-                menuAddedList={menuAddedList}
-                type={EXPLORER_TYPE.CAREERGOALS as IExplorerTypes}
-                menuCareerList={undefined}
-              />
+              <ExplorerMultipleItemsMenu menuAddedList={menuAddedList} type={EXPLORER_TYPE.CAREERGOALS as IExplorerTypes} menuCareerList={undefined} />
             </Grid.Column>
             <Grid.Column width={12}>
-              <CareerGoalBrowserViewContainer
-                favoriteCareerGoals={favoriteCareerGoals}
-                favoriteCombinedInterestIDs={favoriteCombinedInterestIDs}
-                careerGoals={careerGoals}
-              />
+              <CareerGoalBrowserViewContainer favoriteCareerGoals={favoriteCareerGoals} favoriteCombinedInterestIDs={favoriteCombinedInterestIDs} careerGoals={careerGoals} />
             </Grid.Column>
           </Grid.Row>
         </Grid>

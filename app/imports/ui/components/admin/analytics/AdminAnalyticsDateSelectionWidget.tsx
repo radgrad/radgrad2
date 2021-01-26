@@ -9,11 +9,7 @@ import _ from 'lodash';
 import { ANALYTICS } from '../../../layouts/utilities/route-constants';
 import { analyticsActions } from '../../../../redux/admin/analytics';
 import { userInteractionFindMethod } from '../../../../api/analytic/UserInteractionCollection.methods';
-import {
-  IAdminAnalyticsOverheadAnalysisBuckets,
-  AdminAnalyticsOverheadAnalysisData,
-  IAdminAnalyticsUserInteraction,
-} from '../../../../redux/admin/analytics/reducers';
+import { IAdminAnalyticsOverheadAnalysisBuckets, AdminAnalyticsOverheadAnalysisData, IAdminAnalyticsUserInteraction } from '../../../../redux/admin/analytics/reducers';
 
 interface AdminAnalyticsDateSelectionWidgetProps {
   page: string;
@@ -34,7 +30,15 @@ const mapDispatchToProps = (dispatch: any): any => ({
   setStudentSummaryUserInteractions: (userInteractions: IAdminAnalyticsUserInteraction) => dispatch(analyticsActions.setStudentSummaryUserInteractions(userInteractions)),
 });
 
-const AdminAnalyticsDateSelectionWidget: React.FC<AdminAnalyticsDateSelectionWidgetProps> = ({ page, setOverheadAnalysisBuckets, setOverheadAnalysisData, setOverheadAnalysisDateRange, setOverheadAnalysisUserInteractions, setStudentSummaryDateRange, setStudentSummaryUserInteractions }) => {
+const AdminAnalyticsDateSelectionWidget: React.FC<AdminAnalyticsDateSelectionWidgetProps> = ({
+  page,
+  setOverheadAnalysisBuckets,
+  setOverheadAnalysisData,
+  setOverheadAnalysisDateRange,
+  setOverheadAnalysisUserInteractions,
+  setStudentSummaryDateRange,
+  setStudentSummaryUserInteractions,
+}) => {
   const [startDate, setStartDate] = useState(undefined);
   const [endDate, setEndDate] = useState(undefined);
 
@@ -165,25 +169,21 @@ const AdminAnalyticsDateSelectionWidget: React.FC<AdminAnalyticsDateSelectionWid
   return (
     <Container>
       <Segment padded>
-        <Header dividing as="h4">SELECT A DATE PERIOD</Header>
+        <Header dividing as="h4">
+          SELECT A DATE PERIOD
+        </Header>
         <Form>
           <Form.Group>
             <Form.Input label="Start Date" required>
-              <DatePicker
-                onChange={handleChangeStartDate}
-                selected={startDate}
-                maxDate={endDate}
-              />
+              <DatePicker onChange={handleChangeStartDate} selected={startDate} maxDate={endDate} />
             </Form.Input>
             <Form.Input label="End Date" required>
-              <DatePicker
-                onChange={handleChangeEndDate}
-                selected={endDate}
-                minDate={startDate}
-              />
+              <DatePicker onChange={handleChangeEndDate} selected={endDate} minDate={startDate} />
             </Form.Input>
           </Form.Group>
-          <Form.Button basic color="green" onClick={handleSubmit}>Search</Form.Button>
+          <Form.Button basic color="green" onClick={handleSubmit}>
+            Search
+          </Form.Button>
         </Form>
       </Segment>
     </Container>

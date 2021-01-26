@@ -28,7 +28,9 @@ const LandingInterestsCardExplorerPage: React.FC<InterestsCardExplorerProps> = (
       <Grid stackable container padded="vertically">
         <Grid.Row>
           <Grid.Column width={1} />
-          <Grid.Column width={14}><HelpPanelWidget helpMessages={helpMessages} /></Grid.Column>
+          <Grid.Column width={14}>
+            <HelpPanelWidget helpMessages={helpMessages} />
+          </Grid.Column>
           <Grid.Column width={1} />
         </Grid.Row>
 
@@ -65,7 +67,4 @@ const LandingInterestsCardExplorerContainer = withTracker(() => ({
   helpMessages: HelpMessages.findNonRetired({}),
 }))(LandingInterestsCardExplorerPage);
 
-export default withListSubscriptions(LandingInterestsCardExplorerContainer, [
-  Interests.getPublicationName(),
-  HelpMessages.getPublicationName(),
-]);
+export default withListSubscriptions(LandingInterestsCardExplorerContainer, [Interests.getPublicationName(), HelpMessages.getPublicationName()]);

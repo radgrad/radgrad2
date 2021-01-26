@@ -45,11 +45,15 @@ const AdvisorStarUploadWidget: React.FC<AdvisorStarUploadWidgetProps> = ({ usern
 
   return (
     <Segment padded>
-      <Header as="h4" dividing>UPLOAD STAR DATA</Header>
+      <Header as="h4" dividing>
+        UPLOAD STAR DATA
+      </Header>
       <Form widths="equal" onSubmit={onSubmit}>
         <Form.Field>
           <Form.Input type="file" onChange={readFile} label="STAR CSV" />
-          <Form.Button basic color="green" type="Submit">LOAD STAR DATA</Form.Button>
+          <Form.Button basic color="green" type="Submit">
+            LOAD STAR DATA
+          </Form.Button>
         </Form.Field>
       </Form>
     </Segment>

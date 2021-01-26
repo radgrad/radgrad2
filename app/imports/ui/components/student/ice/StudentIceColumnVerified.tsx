@@ -35,7 +35,15 @@ const academicTerms = (year: AcademicYearInstance): AcademicTerm[] => {
   return yearTerms;
 };
 
-const getEventsHelper = (iceType: string, instanceType: 'course' | 'opportunity', earned: boolean, term: AcademicTerm, courseInstances: CourseInstance[], opportunityInstances: OpportunityInstance[], match): (OpportunityInstance | CourseInstance)[] => {
+const getEventsHelper = (
+  iceType: string,
+  instanceType: 'course' | 'opportunity',
+  earned: boolean,
+  term: AcademicTerm,
+  courseInstances: CourseInstance[],
+  opportunityInstances: OpportunityInstance[],
+  match,
+): (OpportunityInstance | CourseInstance)[] => {
   if (getUserIdFromRoute(match)) {
     let allInstances: any[];
     const iceInstances = [];
@@ -66,8 +74,7 @@ const getEventsHelper = (iceType: string, instanceType: 'course' | 'opportunity'
 
 const hasEvents = (earned: boolean, term: AcademicTerm, iceType: 'Innovation' | 'Competency' | 'Experience', courseInstances: CourseInstance[], opportunityInstances: OpportunityInstance[], match): boolean => {
   let ret = false;
-  if ((getEventsHelper(iceType, 'course', earned, term, courseInstances, opportunityInstances, match).length > 0) ||
-    (getEventsHelper(iceType, 'opportunity', earned, term, courseInstances, opportunityInstances, match).length > 0)) {
+  if (getEventsHelper(iceType, 'course', earned, term, courseInstances, opportunityInstances, match).length > 0 || getEventsHelper(iceType, 'opportunity', earned, term, courseInstances, opportunityInstances, match).length > 0) {
     ret = true;
   }
   return ret;
@@ -75,7 +82,15 @@ const hasEvents = (earned: boolean, term: AcademicTerm, iceType: 'Innovation' | 
 
 const printTerm = (term: AcademicTerm): string => AcademicTerms.toString(term._id, false);
 
-const getEvents = (instanceType: 'course' | 'opportunity', earned: boolean, term: AcademicTerm, iceType: 'Innovation' | 'Competency' | 'Experience', courseInstances: CourseInstance[], opportunityInstances: OpportunityInstance[], match): (OpportunityInstance | CourseInstance)[] => getEventsHelper(iceType, instanceType, earned, term, courseInstances, opportunityInstances, match);
+const getEvents = (
+  instanceType: 'course' | 'opportunity',
+  earned: boolean,
+  term: AcademicTerm,
+  iceType: 'Innovation' | 'Competency' | 'Experience',
+  courseInstances: CourseInstance[],
+  opportunityInstances: OpportunityInstance[],
+  match,
+): (OpportunityInstance | CourseInstance)[] => getEventsHelper(iceType, instanceType, earned, term, courseInstances, opportunityInstances, match);
 
 const opportunityName = (opportunityInstance: OpportunityInstance): string => {
   const opportunity = Opportunities.findDoc(opportunityInstance.opportunityID);
@@ -92,63 +107,56 @@ const StudentIceColumnVerified: React.FC<StudentIceColumnVerifiedProps> = ({ ice
   return (
     <React.Fragment>
       {matchingPoints(earnedICEPoints, 0) ? (
-        <p>
-          You have no verified {iceType} points.
-        </p>
-      )
-        : (
-          <React.Fragment>
-            <p>
-              You have {earnedICEPoints} verified {iceType} points for the following:
-            </p>
-            <List relaxed="very">
-              {years(match).map((year) => (
-                academicTerms(year).map((term, index) => {
-                  const opportunityEvents = getEvents('opportunity', true, term, iceType, courseInstances, opportunityInstances, match);
-                  const courseEvents = getEvents('course', true, term, iceType, courseInstances, opportunityInstances, match);
-                  const key = `${year._id}${index}`;
-                  return (
-                    <React.Fragment key={key}>
-                      {hasEvents(true, term, iceType, courseInstances, opportunityInstances, match) ? (
-                        <List.Item>
-                          <List.Header>{printTerm(term)}</List.Header>
-                          {opportunityEvents.map((event) => {
-                            const opportunitySlug = getOpportunitySlug(event as OpportunityInstance);
-                            const route = buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${opportunitySlug}`);
-                            const points = icePoints(event.ice);
-                            return (
-                              <Link
-                                key={`${opportunitySlug}-${route}-${points}-${opportunityName(event as OpportunityInstance)}`}
-                                to={route}
-                              >
-                                <b>+{points}</b> {opportunityName(event as OpportunityInstance)}
-                                <br />
-                              </Link>
-                            );
-                          })}
-                          {courseEvents.map((event) => {
-                            const courseSlug = getCourseSlug(event);
-                            const route = buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${courseSlug}`);
-                            const points = icePoints(event.ice);
-                            return (
-                              <Link
-                                key={`${courseSlug}-${route}-${points}-${courseName(event as CourseInstance)}`}
-                                to={route}
-                              >
-                                <b>+{points}</b> {courseName(event as CourseInstance)}
-                                <br />
-                              </Link>
-                            );
-                          })}
-                        </List.Item>
-                      ) : ''}
-                    </React.Fragment>
-                  );
-                })
-              ))}
-            </List>
-          </React.Fragment>
-        )}
+        <p>You have no verified {iceType} points.</p>
+      ) : (
+        <React.Fragment>
+          <p>
+            You have {earnedICEPoints} verified {iceType} points for the following:
+          </p>
+          <List relaxed="very">
+            {years(match).map((year) =>
+              academicTerms(year).map((term, index) => {
+                const opportunityEvents = getEvents('opportunity', true, term, iceType, courseInstances, opportunityInstances, match);
+                const courseEvents = getEvents('course', true, term, iceType, courseInstances, opportunityInstances, match);
+                const key = `${year._id}${index}`;
+                return (
+                  <React.Fragment key={key}>
+                    {hasEvents(true, term, iceType, courseInstances, opportunityInstances, match) ? (
+                      <List.Item>
+                        <List.Header>{printTerm(term)}</List.Header>
+                        {opportunityEvents.map((event) => {
+                          const opportunitySlug = getOpportunitySlug(event as OpportunityInstance);
+                          const route = buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${opportunitySlug}`);
+                          const points = icePoints(event.ice);
+                          return (
+                            <Link key={`${opportunitySlug}-${route}-${points}-${opportunityName(event as OpportunityInstance)}`} to={route}>
+                              <b>+{points}</b> {opportunityName(event as OpportunityInstance)}
+                              <br />
+                            </Link>
+                          );
+                        })}
+                        {courseEvents.map((event) => {
+                          const courseSlug = getCourseSlug(event);
+                          const route = buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${courseSlug}`);
+                          const points = icePoints(event.ice);
+                          return (
+                            <Link key={`${courseSlug}-${route}-${points}-${courseName(event as CourseInstance)}`} to={route}>
+                              <b>+{points}</b> {courseName(event as CourseInstance)}
+                              <br />
+                            </Link>
+                          );
+                        })}
+                      </List.Item>
+                    ) : (
+                      ''
+                    )}
+                  </React.Fragment>
+                );
+              }),
+            )}
+          </List>
+        </React.Fragment>
+      )}
     </React.Fragment>
   );
 };

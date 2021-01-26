@@ -23,7 +23,7 @@ const FirstMenu: React.FC<RadGradMenuProfileProps> = ({ profile, displayLevelAnd
   const signoutStyle = { marginTop: '32px' };
   const isStudent = isUrlRoleStudent(match);
   const currentUser = Meteor.user() ? Meteor.user().username : '';
-  const iconName = (Roles.userIsInRole(Meteor.userId(), ['ADMIN'])) ? 'user plus' : 'user';
+  const iconName = Roles.userIsInRole(Meteor.userId(), ['ADMIN']) ? 'user plus' : 'user';
   return (
     <Container>
       <Menu attached="top" borderless className="radgrad-first-menu" id="firstMenu">
@@ -46,29 +46,20 @@ const FirstMenu: React.FC<RadGradMenuProfileProps> = ({ profile, displayLevelAnd
             </div>
           ) : (
             <div style={flexStyle}>
-              <RadGradMenuProfile
-                profile={profile}
-                displayLevelAndIce={displayLevelAndIce}
-                projectedICE={projectedICE}
-                earnedICE={earnedICE}
-              />
+              <RadGradMenuProfile profile={profile} displayLevelAndIce={displayLevelAndIce} projectedICE={projectedICE} earnedICE={earnedICE} />
               {/*
                   TODO Temporary until we have a re-design of the "SecondMenu"s of non-student roles
                         See FIGMA mockup; remove this Dropdown once the above is accomplished
                */}
-              {(!isStudent) ? (
-                <Dropdown
-                  text={currentUser}
-                  id="first-menu-username"
-                  pointing="top right"
-                  icon={iconName}
-                  style={signoutStyle}
-                >
+              {!isStudent ? (
+                <Dropdown text={currentUser} id="first-menu-username" pointing="top right" icon={iconName} style={signoutStyle}>
                   <Dropdown.Menu>
                     <Dropdown.Item icon="sign out" text="Sign Out" as={NavLink} exact to="/signout" />
                   </Dropdown.Menu>
                 </Dropdown>
-              ) : ''}
+              ) : (
+                ''
+              )}
               {/* END */}
             </div>
           )}

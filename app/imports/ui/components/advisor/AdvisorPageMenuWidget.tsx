@@ -44,28 +44,13 @@ const AdvisorPageMenuWidget: React.FC = () => {
     { key: 'RadGrad Videos', route: COMMUNITY.RADGRADVIDEOS, id: 'faculty-menu-radgrad-videos' },
   ];
 
-  const advisorHomePageItems = [
-    { key: 'About Me', route: 'aboutme', id: 'advisor-menu-about-me' },
-  ];
+  const advisorHomePageItems = [{ key: 'About Me', route: 'aboutme', id: 'advisor-menu-about-me' }];
   return (
     <div style={divStyle}>
       <FirstMenuContainer profile={profile} displayLevelAndIce={false} />
-      <Menu
-        attached="top"
-        borderless
-        secondary
-        inverted
-        pointing
-        id="secondMenu"
-      >
+      <Menu attached="top" borderless secondary inverted pointing id="secondMenu">
         {menuItems.map((item) => (
-          <Menu.Item
-            id={item.id}
-            key={item.label}
-            as={NavLink}
-            exact
-            to={buildRouteName(match, `/${item.route}`)}
-          >
+          <Menu.Item id={item.id} key={item.label} as={NavLink} exact to={buildRouteName(match, `/${item.route}`)}>
             {item.label}
           </Menu.Item>
         ))}
@@ -73,28 +58,14 @@ const AdvisorPageMenuWidget: React.FC = () => {
         <Dropdown id="advisor-menu-explore" item text="EXPLORE">
           <Dropdown.Menu>
             {explorerDropdownItems.map((item) => (
-              <Dropdown.Item
-                key={item.key}
-                id={item.id}
-                as={NavLink}
-                exact
-                to={buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${item.route}`)}
-                content={item.key}
-              />
+              <Dropdown.Item key={item.key} id={item.id} as={NavLink} exact to={buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${item.route}`)} content={item.key} />
             ))}
           </Dropdown.Menu>
         </Dropdown>
         <Dropdown item id="student-menu-community" text="COMMUNITY">
           <Dropdown.Menu>
             {communityDropdownItems.map((item) => (
-              <Dropdown.Item
-                key={item.key}
-                id={item.id}
-                as={NavLink}
-                exact
-                to={buildRouteName(match, `/${COMMUNITY.HOME}/${item.route}`)}
-                content={item.key}
-              />
+              <Dropdown.Item key={item.key} id={item.id} as={NavLink} exact to={buildRouteName(match, `/${COMMUNITY.HOME}/${item.route}`)} content={item.key} />
             ))}
           </Dropdown.Menu>
         </Dropdown>
@@ -103,14 +74,7 @@ const AdvisorPageMenuWidget: React.FC = () => {
           <Dropdown id="advisor-menu-full-name" item text={`Aloha, ${profile.firstName} ${profile.lastName}!`}>
             <Dropdown.Menu>
               {advisorHomePageItems.map((item) => (
-                <Dropdown.Item
-                  key={item.key}
-                  id={item.id}
-                  as={NavLink}
-                  exact
-                  to={buildRouteName(match, `/home/${item.route}`)}
-                  content={item.key}
-                />
+                <Dropdown.Item key={item.key} id={item.id} as={NavLink} exact to={buildRouteName(match, `/home/${item.route}`)} content={item.key} />
               ))}
               <Dropdown.Item id="advisor-menu-signout" as={NavLink} exact to="/signout" content="Sign Out" />
             </Dropdown.Menu>

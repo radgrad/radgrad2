@@ -2,7 +2,6 @@ import { AdminProfiles } from '../../../api/user/AdminProfileCollection';
 import * as TYPES from './types';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
-import { AdvisorLogs } from '../../../api/log/AdvisorLogCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { Courses } from '../../../api/course/CourseCollection';
@@ -31,9 +30,6 @@ export const setCollectionShowCount = (collectionName: string, count: number): {
       break;
     case AcademicYearInstances.getCollectionName():
       retVal.type = TYPES.SET_ACADEMIC_YEARS_SHOW_COUNT;
-      break;
-    case AdvisorLogs.getCollectionName():
-      retVal.type = TYPES.SET_ADVISOR_LOGS_SHOW_COUNT;
       break;
     case CareerGoals.getCollectionName():
       retVal.type = TYPES.SET_CAREER_GOALS_SHOW_COUNT;
@@ -107,9 +103,6 @@ export const setCollectionShowIndex = (collectionName: string, index: number): {
       break;
     case AcademicYearInstances.getCollectionName():
       retVal.type = TYPES.SET_ACADEMIC_YEARS_SHOW_INDEX;
-      break;
-    case AdvisorLogs.getCollectionName():
-      retVal.type = TYPES.SET_ADVISOR_LOGS_SHOW_INDEX;
       break;
     case CareerGoals.getCollectionName():
       retVal.type = TYPES.SET_CAREER_GOALS_SHOW_INDEX;

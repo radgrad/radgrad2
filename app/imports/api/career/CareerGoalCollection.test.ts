@@ -30,9 +30,10 @@ if (Meteor.isServer) {
       fc.assert(
         fc.property(fc.lorem(1), fc.lorem(1), fc.lorem(5, true), (fcName, fcSlug, fcDescription) => {
           const interests = [makeSampleInterest(), makeSampleInterest()];
-          const docID = CareerGoals.define({ name: fcName, slug: fcSlug, description: fcDescription, interests });
+          const localSlug = `${fcSlug}-${new Date().getTime()}`;
+          const docID = CareerGoals.define({ name: fcName, slug: localSlug, description: fcDescription, interests });
           expect(CareerGoals.isDefined(docID)).to.be.true;
-          expect(CareerGoals.findSlugByID(docID)).to.equal(fcSlug);
+          expect(CareerGoals.findSlugByID(docID)).to.equal(localSlug);
           CareerGoals.removeIt(docID);
           expect(CareerGoals.isDefined(docID)).to.be.false;
         }),

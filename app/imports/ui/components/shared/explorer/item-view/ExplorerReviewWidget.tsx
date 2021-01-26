@@ -25,8 +25,12 @@ const reviewData = (review: { [key: string]: any }): { [key: string]: any } => {
   const reviewRating = review.rating;
   const reviewComments = review.comments;
   return {
-    name: userName, username: userUsername, picture: userPicture, term: reviewTerm,
-    rating: reviewRating, comments: reviewComments,
+    name: userName,
+    username: userUsername,
+    picture: userPicture,
+    term: reviewTerm,
+    rating: reviewRating,
+    comments: reviewComments,
   };
 };
 
@@ -40,49 +44,35 @@ const ExplorerReviewWidget: React.FC<ExplorerReviewWidgetProps> = ({ itemReviews
         {reviewType} REVIEWS
       </Header>
       <List verticalAlign="middle" relaxed="very" divided>
-        {
-          itemReviews ? (
-            <React.Fragment>
-              {
-                  itemReviews.map((review, index) => {
-                    const aReview = reviewData(review);
-                    return (
-                      <List.Item key={review._id}>
-                        <Grid>
-                          <Grid.Column width={4}>
-                            <Image
-                              floated="left"
-                              verticalAlign="middle"
-                              circular
-                              size="mini"
-                              src={aReview.picture}
-                            />
-                            <b>{aReview.name}</b>
-                            <br />
-                            {academicTermNameToShortName(aReview.term)}
-                          </Grid.Column>
+        {itemReviews ? (
+          <React.Fragment>
+            {itemReviews.map((review, index) => {
+              const aReview = reviewData(review);
+              return (
+                <List.Item key={review._id}>
+                  <Grid>
+                    <Grid.Column width={4}>
+                      <Image floated="left" verticalAlign="middle" circular size="mini" src={aReview.picture} />
+                      <b>{aReview.name}</b>
+                      <br />
+                      {academicTermNameToShortName(aReview.term)}
+                    </Grid.Column>
 
-                          <Grid.Column width={12}>
-                            <StudentExplorerReviewStarsWidget rating={aReview.rating} />
-                            <br />
-                            <div style={commentsStyle}>
-                              <Markdown
-                                escapeHtml
-                                source={aReview.comments}
-                                renderers={{ link: (props2) => Router.renderLink(props2, match) }}
-                              />
-                            </div>
-                          </Grid.Column>
-                        </Grid>
-                      </List.Item>
-                    );
-                  })
-                }
-            </React.Fragment>
-          )
-            :
-            <i>No reviews to display</i>
-        }
+                    <Grid.Column width={12}>
+                      <StudentExplorerReviewStarsWidget rating={aReview.rating} />
+                      <br />
+                      <div style={commentsStyle}>
+                        <Markdown escapeHtml source={aReview.comments} renderers={{ link: (props2) => Router.renderLink(props2, match) }} />
+                      </div>
+                    </Grid.Column>
+                  </Grid>
+                </List.Item>
+              );
+            })}
+          </React.Fragment>
+        ) : (
+          <i>No reviews to display</i>
+        )}
       </List>
     </div>
   );

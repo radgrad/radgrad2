@@ -14,7 +14,6 @@ import ReviewModeration from '../../components/landing/guided-tour/advisor/revie
 import WhatsNext from '../../components/landing/guided-tour/advisor/whats-next';
 
 const LandingGuidedTourAdvisorPage: React.FC = () => {
-
   const settings = {
     dots: true,
     infinite: false,
@@ -36,12 +35,13 @@ const LandingGuidedTourAdvisorPage: React.FC = () => {
             <WhatsNext />
           </Slider>
         </Segment>
-        <List.Item style={styles.a} as={NavLink} to="/">Return to RadGrad</List.Item>
+        <List.Item style={styles.a} as={NavLink} to="/">
+          Return to RadGrad
+        </List.Item>
         <p />
       </Container>
       <LandingFooter />
     </div>
-
   );
 };
 

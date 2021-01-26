@@ -3,12 +3,7 @@ import React, { useState } from 'react';
 import { Header, Grid, Form } from 'semantic-ui-react';
 // @ts-ignore
 import moment from 'moment';
-import {
-  AcademicTerm,
-  Opportunity,
-  Processed,
-  VerificationRequest,
-} from '../../../../typings/radgrad';
+import { AcademicTerm, Opportunity, Processed, VerificationRequest } from '../../../../typings/radgrad';
 import { VerificationRequests } from '../../../../api/verification/VerificationRequestCollection';
 import { processPendingVerificationMethod } from '../../../../api/verification/VerificationRequestCollection.methods';
 import { updateLevelMethod } from '../../../../api/level/LevelProcessor.methods';
@@ -37,9 +32,9 @@ const PendingVerificationItem: React.FC<PendingVerificationItemProps> = ({ verif
     const feedback = feedbackState;
     processPendingVerificationMethod.call({ verificationRequestID: id, command, feedback }, (error, result) => {
       if (result) {
-        updateLevelMethod.call({ studentID: student.userID }, err => {
+        updateLevelMethod.call({ studentID: student.userID }, (err) => {
           if (err) {
-            console.error((`Error updating ${student._id} level ${err.message}`));
+            console.error(`Error updating ${student._id} level ${err.message}`);
           }
         });
       }
@@ -58,34 +53,10 @@ const PendingVerificationItem: React.FC<PendingVerificationItemProps> = ({ verif
           Sponsor: {sponsorProfile.firstName} {sponsorProfile.lastName}
           <br />
           <Form style={{ paddingTop: '14px' }}>
-            <Form.Input
-              placeholder="Optional feedback"
-              onChange={handleChange}
-              value={feedbackState}
-            />
+            <Form.Input placeholder="Optional feedback" onChange={handleChange} value={feedbackState} />
             <Form.Group inline>
-              <Form.Button
-                basic
-                compact
-                color="green"
-                content="Accept"
-                type="submit"
-                command={VerificationRequests.ACCEPTED}
-                onClick={handleForm}
-                student={studentProfile}
-                id={verificationRequest._id}
-              />
-              <Form.Button
-                basic
-                compact
-                color="red"
-                content="Decline"
-                type="submit"
-                command={VerificationRequests.REJECTED}
-                onClick={handleForm}
-                student={studentProfile}
-                id={verificationRequest._id}
-              />
+              <Form.Button basic compact color="green" content="Accept" type="submit" command={VerificationRequests.ACCEPTED} onClick={handleForm} student={studentProfile} id={verificationRequest._id} />
+              <Form.Button basic compact color="red" content="Decline" type="submit" command={VerificationRequests.REJECTED} onClick={handleForm} student={studentProfile} id={verificationRequest._id} />
             </Form.Group>
           </Form>
         </Grid.Column>
@@ -94,7 +65,8 @@ const PendingVerificationItem: React.FC<PendingVerificationItemProps> = ({ verif
           <br />
           {verificationRequest.processed.map((verificationRequestm: Processed, ind) => (
             <React.Fragment key={`${verificationRequestm.verifier}${verificationRequestm.date}`}>
-              Processed: {moment(verificationRequestm.date).calendar()} by {verificationRequestm.verifier} ({verificationRequestm.status}{verificationRequestm.feedback ? `, ${verificationRequestm.feedback}` : ''})
+              Processed: {moment(verificationRequestm.date).calendar()} by {verificationRequestm.verifier} ({verificationRequestm.status}
+              {verificationRequestm.feedback ? `, ${verificationRequestm.feedback}` : ''})
               <br />
             </React.Fragment>
           ))}

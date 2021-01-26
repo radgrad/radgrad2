@@ -37,10 +37,13 @@ const FavoriteOpportunityCard: React.FC<FavoriteOpportunityCardProps> = ({ oppor
   const quarter = RadGradProperties.getQuarterSystem();
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
   const numTerms = quarter ? 12 : 9;
-  const academicTerms = AcademicTerms.findNonRetired({ termNumber: { $gte: currentTerm.termNumber } }, {
-    sort: { termNumber: 1 },
-    limit: numTerms,
-  });
+  const academicTerms = AcademicTerms.findNonRetired(
+    { termNumber: { $gte: currentTerm.termNumber } },
+    {
+      sort: { termNumber: 1 },
+      limit: numTerms,
+    },
+  );
   const scores = [];
   _.forEach(academicTerms, (term: AcademicTerm) => {
     const id = `${opportunity._id} ${term._id}`;
@@ -59,27 +62,19 @@ const FavoriteOpportunityCard: React.FC<FavoriteOpportunityCardProps> = ({ oppor
         <Card.Header>{opportunity.name}</Card.Header>
       </Card.Content>
       <Card.Content>
-        {instances.length > 0 ?
-          (
-            <React.Fragment>
-              <b>Scheduled:</b> {termNames}
-            </React.Fragment>
-          )
-          : <b>Not In Plan (Drag to move)</b>}
+        {instances.length > 0 ? (
+          <React.Fragment>
+            <b>Scheduled:</b> {termNames}
+          </React.Fragment>
+        ) : (
+          <b>Not In Plan (Drag to move)</b>
+        )}
         <Droppable droppableId={droppableID}>
           {(provided) => (
             <div ref={provided.innerRef}>
               <Draggable key={slug} draggableId={slug} index={0}>
                 {(prov, snap) => (
-                  <div
-                    ref={prov.innerRef}
-                    {...prov.draggableProps}
-                    {...prov.dragHandleProps}
-                    style={getInspectorDraggablePillStyle(
-                      snap.isDragging,
-                      prov.draggableProps.style,
-                    )}
-                  >
+                  <div ref={prov.innerRef} {...prov.draggableProps} {...prov.dragHandleProps} style={getInspectorDraggablePillStyle(snap.isDragging, prov.draggableProps.style)}>
                     <NamePill name={opportunity.name} />
                   </div>
                 )}
@@ -94,11 +89,7 @@ const FavoriteOpportunityCard: React.FC<FavoriteOpportunityCardProps> = ({ oppor
       </Card.Content>
       <Card.Content>
         <p style={textAlignRight}>
-          <Link
-            to={buildRouteName(match, opportunity, EXPLORER_TYPE.OPPORTUNITIES)}
-            rel="noopener noreferrer"
-            target="_blank"
-          >
+          <Link to={buildRouteName(match, opportunity, EXPLORER_TYPE.OPPORTUNITIES)} rel="noopener noreferrer" target="_blank">
             View in Explorer <Icon name="arrow right" />
           </Link>
         </p>

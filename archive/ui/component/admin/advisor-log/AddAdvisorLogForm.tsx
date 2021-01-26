@@ -5,7 +5,7 @@ import { Header, Segment } from 'semantic-ui-react';
 import { AutoForm, SelectField, LongTextField, SubmitField } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
 import _ from 'lodash';
-import { profileToUsername } from '../../../shared/utilities/data-model';
+import { profileToUsername } from '../../../../../app/imports/ui/components/shared/utilities/data-model';
 
 interface AddAdvisorLogFormProps {
   advisors: Meteor.User[];

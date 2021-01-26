@@ -12,7 +12,6 @@ import { removeAllEntities } from '../base/BaseUtilities';
 
 if (Meteor.isServer) {
   describe('InterestCollection', function testSuite() {
-
     before(function setup() {
       removeAllEntities();
     });
@@ -25,7 +24,8 @@ if (Meteor.isServer) {
       const interestTypeID = makeSampleInterestType();
       fc.assert(
         fc.property(fc.lorem(3), fc.lorem(1), fc.lorem(24), fc.boolean(), (fcName, fcSlug, fcDescription, fcRetired) => {
-          const docID = Interests.define({ name: fcName, slug: fcSlug, description: fcDescription, interestType: interestTypeID, retired: fcRetired });
+          const localSlug = `${fcSlug}-${new Date().getTime()}`;
+          const docID = Interests.define({ name: fcName, slug: localSlug, description: fcDescription, interestType: interestTypeID, retired: fcRetired });
           expect(Interests.isDefined(docID)).to.be.true;
           const interestDoc = Interests.findDoc(docID);
           expect(interestDoc.name).to.equal(fcName);

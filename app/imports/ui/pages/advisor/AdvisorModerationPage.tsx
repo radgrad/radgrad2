@@ -8,8 +8,7 @@ import ModerationWidget, { ModerationWidgetProps } from '../../components/shared
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { Reviews } from '../../../api/review/ReviewCollection';
 
-interface AdvisorModerationPageProps extends HelpPanelWidgetProps, ModerationWidgetProps {
-}
+interface AdvisorModerationPageProps extends HelpPanelWidgetProps, ModerationWidgetProps {}
 
 const AdvisorModerationPage: React.FC<AdvisorModerationPageProps> = ({ courseReviews, helpMessages, opportunityReviews }) => (
   <div id="advisor-moderation-page">
@@ -17,17 +16,16 @@ const AdvisorModerationPage: React.FC<AdvisorModerationPageProps> = ({ courseRev
     <Grid stackable>
       <Grid.Row>
         <Grid.Column width={1} />
-        <Grid.Column width={14}><HelpPanelWidget helpMessages={helpMessages} /></Grid.Column>
+        <Grid.Column width={14}>
+          <HelpPanelWidget helpMessages={helpMessages} />
+        </Grid.Column>
         <Grid.Column width={1} />
       </Grid.Row>
 
       <Grid.Row>
         <Grid.Column width={1} />
         <Grid.Column width={14}>
-          <ModerationWidget
-            courseReviews={courseReviews}
-            opportunityReviews={opportunityReviews}
-          />
+          <ModerationWidget courseReviews={courseReviews} opportunityReviews={opportunityReviews} />
         </Grid.Column>
         <Grid.Column width={1} />
       </Grid.Row>

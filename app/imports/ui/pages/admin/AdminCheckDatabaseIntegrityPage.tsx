@@ -57,14 +57,15 @@ const AdminCheckDatabaseIntegrityPage: React.FC<AdminCheckDatabaseIntegrityPageP
     <div>
       <AdminPageMenuWidget />
       <Grid container stackable style={paddedStyle}>
-
         <Grid.Column width={5}>
           <AdminDatabaseMenuContainer />
         </Grid.Column>
 
         <Grid.Column width={11}>
           <Form>
-            <Button color="green" loading={working} basic type="submit" onClick={clickSubmit}>Check Integrity</Button>
+            <Button color="green" loading={working} basic type="submit" onClick={clickSubmit}>
+              Check Integrity
+            </Button>
           </Form>
           <Grid stackable width="equal" style={paddedStyle}>
             <Grid.Column width={8}>
@@ -73,7 +74,9 @@ const AdminCheckDatabaseIntegrityPage: React.FC<AdminCheckDatabaseIntegrityPageP
                   <Header> Integrity Check (Client-side DB)</Header>
                   <pre>{clientResultState.message}</pre>
                 </Message>
-              ) : ''}
+              ) : (
+                ''
+              )}
             </Grid.Column>
             <Grid.Column width={8}>
               {showServer ? (
@@ -81,7 +84,9 @@ const AdminCheckDatabaseIntegrityPage: React.FC<AdminCheckDatabaseIntegrityPageP
                   <Header> Integrity Check (Server-side DB)</Header>
                   <pre>{serverResultState.message}</pre>
                 </Message>
-              ) : ''}
+              ) : (
+                ''
+              )}
             </Grid.Column>
           </Grid>
         </Grid.Column>

@@ -10,22 +10,14 @@ import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
-import {
-  CareerGoal, Course,
-  DescriptionPair, Interest, Opportunity,
-  Teaser,
-} from '../../../typings/radgrad';
+import { CareerGoal, Course, DescriptionPair, Interest, Opportunity, Teaser } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { getDatamodelCount, makeYoutubeLink } from './utilities/datamodel';
 import AddTeaserForm from '../../components/admin/datamodel/teaser/AddTeaserForm';
 import UpdateTeaserForm from '../../components/admin/datamodel/teaser/UpdateTeasersForm';
-import {
-  itemToSlugName,
-  interestNameToSlug,
-  slugNameAndTypeToName,
-} from '../../components/shared/utilities/data-model';
+import { itemToSlugName, interestNameToSlug, slugNameAndTypeToName } from '../../components/shared/utilities/data-model';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { Slugs } from '../../../api/slug/SlugCollection';
 
@@ -196,7 +188,6 @@ const AdminDataModelTeasersPage: React.FC<AdminDataModelTeasersPageProps> = (pro
     <div id="data-model-teasers-page">
       <AdminPageMenuWidget />
       <Grid container stackable style={paddedStyle}>
-
         <Grid.Column width={3}>
           <AdminDataModelMenu {...props} />
         </Grid.Column>
@@ -216,14 +207,7 @@ const AdminDataModelTeasersPage: React.FC<AdminDataModelTeasersPageProps> = (pro
               careerGoals={props.careerGoals}
             />
           ) : (
-            <AddTeaserForm
-              formRef={formRef}
-              handleAdd={handleAdd}
-              opportunities={props.opportunities}
-              courses={props.courses}
-              interests={props.interests}
-              careerGoals={props.careerGoals}
-            />
+            <AddTeaserForm formRef={formRef} handleAdd={handleAdd} opportunities={props.opportunities} courses={props.courses} interests={props.interests} careerGoals={props.careerGoals} />
           )}
           <ListCollectionWidget
             collection={collection}
@@ -238,12 +222,7 @@ const AdminDataModelTeasersPage: React.FC<AdminDataModelTeasersPageProps> = (pro
           />
         </Grid.Column>
       </Grid>
-      <Confirm
-        open={confirmOpenState}
-        onCancel={handleCancel}
-        onConfirm={handleConfirmDelete}
-        header="Delete Teaser?"
-      />
+      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Teaser?" />
 
       <BackToTopButton />
     </div>

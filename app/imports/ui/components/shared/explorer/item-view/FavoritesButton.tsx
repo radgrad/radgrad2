@@ -1,14 +1,7 @@
 import React from 'react';
 import { Button, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
-import {
-  CareerGoal,
-  Course,
-  Interest,
-  MeteorError,
-  Opportunity,
-  PageInterestDefine,
-} from '../../../../../typings/radgrad';
+import { CareerGoal, Course, Interest, MeteorError, Opportunity, PageInterestDefine } from '../../../../../typings/radgrad';
 import { FavoriteCareerGoals } from '../../../../../api/favorite/FavoriteCareerGoalCollection';
 import { FavoriteCourses } from '../../../../../api/favorite/FavoriteCourseCollection';
 import { FavoriteInterests } from '../../../../../api/favorite/FavoriteInterestCollection';
@@ -17,12 +10,7 @@ import { defineMethod, removeItMethod } from '../../../../../api/base/BaseCollec
 import { userInteractionDefineMethod } from '../../../../../api/analytic/UserInteractionCollection.methods';
 import { FAVORITE_TYPE, IFavoriteTypes } from '../../../../../api/favorite/FavoriteTypes';
 import { pageInterestDefineMethod } from '../../../../../api/page-tracking/PageInterestCollection.methods';
-import {
-  createDefinitionData,
-  createInteractionData,
-  createPageInterestData,
-  getCollectionName,
-} from './utilities/favorites-button';
+import { createDefinitionData, createInteractionData, createPageInterestData, getCollectionName } from './utilities/favorites-button';
 import { Users } from '../../../../../api/user/UserCollection';
 import { ROLE } from '../../../../../api/role/Role';
 
@@ -129,30 +117,19 @@ const handleRemove = (studentID: string, item: ItemType, type: IFavoriteTypes) =
 
 const FavoritesButton: React.FC<FavoriteButtonProps> = ({ studentID, item, type, added }) => (
   <React.Fragment>
-    {added ?
-      (
-        <Button onClick={handleRemove(studentID, item, type)} size="mini" color="green" floated="right" basic>
-          <Icon
-            name="heart outline"
-            color="red"
-          />
-          <Icon name="minus" />
-          REMOVE FROM FAVORITES
-        </Button>
-      )
-      :
-      (
-        <Button size="mini" onClick={handleAdd(studentID, item, type)} color="green" floated="right" basic>
-          <Icon
-            name="heart"
-            color="red"
-          />
-          <Icon
-            name="plus"
-          />
-          ADD TO FAVORITES
-        </Button>
-      )}
+    {added ? (
+      <Button onClick={handleRemove(studentID, item, type)} size="mini" color="green" floated="right" basic>
+        <Icon name="heart outline" color="red" />
+        <Icon name="minus" />
+        REMOVE FROM FAVORITES
+      </Button>
+    ) : (
+      <Button size="mini" onClick={handleAdd(studentID, item, type)} color="green" floated="right" basic>
+        <Icon name="heart" color="red" />
+        <Icon name="plus" />
+        ADD TO FAVORITES
+      </Button>
+    )}
   </React.Fragment>
 );
 

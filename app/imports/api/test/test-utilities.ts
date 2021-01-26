@@ -1,10 +1,17 @@
 import { Meteor } from 'meteor/meteor';
-import { DDP } from 'meteor/ddp-client';
+// import { DDP } from 'meteor/ddp-client';
 import _ from 'lodash';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { RadGrad } from '../radgrad/RadGrad';
 import { Users } from '../user/UserCollection';
 import { removeAllEntities } from '../base/BaseUtilities';
+
+/**
+ * Sleeps for ms milliseconds.
+ *
+ * @param ms {number} the number of milliseconds to sleep.
+ */
+export const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
 /**
  * Returns the definition array associated with collectionName in the loadJSON structure,
@@ -92,8 +99,9 @@ export const defineTestFixturesMethod = new ValidatedMethod({
  */
 export function withRadGradSubscriptions(userID?: string) {
   return new Promise((resolve) => {
-    _.each(RadGrad.collections, (collection) => collection.subscribe(userID));
-    Users.subscribe();
+    const handles = [];
+    _.each(RadGrad.collections, (collection) => handles.push(collection.subscribe(userID)));
+    handles.push(Users.subscribe());
     const poll = Meteor.setInterval(() => {
       if (DDP._allSubscriptionsReady()) {
         Meteor.clearInterval(poll);

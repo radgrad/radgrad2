@@ -57,56 +57,32 @@ const ListOpportunitiesWidget: React.FC<ListOpportunitiesWidgetProps> = ({ pagin
   // console.log('startIndex=%o endIndex=%o items=%o', startIndex, endIndex, items);
   return (
     <Segment padded>
-      {
-        isInRole(match) ? (
-          <div>
-            <Header dividing>
-              {' '}
-              YOUR OPPORTUNITIES (
-              {facultyCounter}
-              )
-              {' '}
-            </Header>
-            {_.map(factoryOpp, (item) => (
-              <AdminDataModelAccordion
-                key={item._id}
-                id={item._id}
-                retired={item.retired}
-                name={item.name}
-                slug={slugName(item.slugID)}
-                descriptionPairs={descriptionPairs(item)}
-                updateDisabled={false}
-                deleteDisabled={false}
-                handleOpenUpdate={handleOpenUpdate}
-                handleDelete={handleDelete}
-                additionalTitleInfo={titleICE(item)}
-              />
-            ))}
-            <Header dividing>
-              {' '}
-              ALL OTHER OPPORTUNITIES (
-              {count(match)}
-              )
-            </Header>
-            {' '}
-            <br />
-          </div>
-        )
-          : (
-            <Header dividing>
-              OPPORTUNITIES (
-              {count}
-              )
-            </Header>
-          )
-      }
+      {isInRole(match) ? (
+        <div>
+          <Header dividing> YOUR OPPORTUNITIES ({facultyCounter}) </Header>
+          {_.map(factoryOpp, (item) => (
+            <AdminDataModelAccordion
+              key={item._id}
+              id={item._id}
+              retired={item.retired}
+              name={item.name}
+              slug={slugName(item.slugID)}
+              descriptionPairs={descriptionPairs(item)}
+              updateDisabled={false}
+              deleteDisabled={false}
+              handleOpenUpdate={handleOpenUpdate}
+              handleDelete={handleDelete}
+              additionalTitleInfo={titleICE(item)}
+            />
+          ))}
+          <Header dividing> ALL OTHER OPPORTUNITIES ({count(match)})</Header> <br />
+        </div>
+      ) : (
+        <Header dividing>OPPORTUNITIES ({count})</Header>
+      )}
 
       <Grid>
-        <AdminPaginationWidget
-          collection={collection}
-          setShowIndex={dataModelActions.setCollectionShowIndex}
-          setShowCount={dataModelActions.setCollectionShowCount}
-        />
+        <AdminPaginationWidget collection={collection} setShowIndex={dataModelActions.setCollectionShowIndex} setShowCount={dataModelActions.setCollectionShowCount} />
         {_.map(items, (item) => (
           <AdminDataModelAccordion
             key={item._id}

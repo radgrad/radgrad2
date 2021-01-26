@@ -76,25 +76,20 @@ const RemoveItWidget: React.FC<RemoveItWidgetProps> = ({ collectionName, id, nam
   return (
     <Modal
       trigger={
-        (
-          <Button icon circular basic onClick={handleOpen} style={buttonStyle}>
-            <Icon
-              name="remove circle"
-              color="red"
-            />
-          </Button>
-        )
+        <Button icon circular basic onClick={handleOpen} style={buttonStyle}>
+          <Icon name="remove circle" color="red" />
+        </Button>
       }
       open={modalOpenState}
       onClose={handleClose}
       size="small"
     >
-      <Modal.Header>
-        Remove {name}
-      </Modal.Header>
+      <Modal.Header>Remove {name}</Modal.Header>
       <Modal.Content>
         <Modal.Description>
-          <p>Do you want to remove {courseNumber} {name} from your plan?</p>
+          <p>
+            Do you want to remove {courseNumber} {name} from your plan?
+          </p>
         </Modal.Description>
       </Modal.Content>
       <Modal.Actions>
@@ -107,7 +102,6 @@ const RemoveItWidget: React.FC<RemoveItWidgetProps> = ({ collectionName, id, nam
           No
         </Button>
       </Modal.Actions>
-
     </Modal>
   );
 };

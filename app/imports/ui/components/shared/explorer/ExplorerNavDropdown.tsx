@@ -24,9 +24,7 @@ const ExplorerNavDropdown: React.FC<ExplorerNavDropdownProps> = ({ text }) => {
     to: Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${item.route}`),
     style: { textDecoration: 'none' },
   }));
-  return (
-    <Dropdown selection fluid options={menuOptions} text={text} id="selectExplorerMenu" />
-  );
+  return <Dropdown selection fluid options={menuOptions} text={text} id="selectExplorerMenu" />;
 };
 
 export default ExplorerNavDropdown;

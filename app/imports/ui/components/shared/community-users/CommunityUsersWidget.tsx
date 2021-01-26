@@ -29,12 +29,10 @@ const CommunityUsersWidget: React.FC<CommunityUsersWidgetProps> = ({ advisors, f
       render: () => (
         <Tab.Pane key="advisors">
           <Grid stackable>
-            <Card.Group
-              stackable
-              itemsPerRow={advisors.length > 3 ? 3 : advisors.length as SemanticWIDTHS}
-              style={userStackableCardsStyle}
-            >
-              {advisors.map((ele) => <UserProfileCard key={ele._id} item={ele} />)}
+            <Card.Group stackable itemsPerRow={advisors.length > 3 ? 3 : (advisors.length as SemanticWIDTHS)} style={userStackableCardsStyle}>
+              {advisors.map((ele) => (
+                <UserProfileCard key={ele._id} item={ele} />
+              ))}
             </Card.Group>
           </Grid>
         </Tab.Pane>
@@ -45,12 +43,10 @@ const CommunityUsersWidget: React.FC<CommunityUsersWidgetProps> = ({ advisors, f
       render: () => (
         <Tab.Pane key="faculty">
           <Grid stackable>
-            <Card.Group
-              stackable
-              itemsPerRow={faculty.length > 3 ? 3 : faculty.length as SemanticWIDTHS}
-              style={userStackableCardsStyle}
-            >
-              {faculty.map((ele) => <UserProfileCard key={ele._id} item={ele} />)}
+            <Card.Group stackable itemsPerRow={faculty.length > 3 ? 3 : (faculty.length as SemanticWIDTHS)} style={userStackableCardsStyle}>
+              {faculty.map((ele) => (
+                <UserProfileCard key={ele._id} item={ele} />
+              ))}
             </Card.Group>
           </Grid>
         </Tab.Pane>
@@ -67,13 +63,13 @@ const CommunityUsersWidget: React.FC<CommunityUsersWidgetProps> = ({ advisors, f
                   <Message>Only showing students who have opted to share their information.</Message>
                 </Grid.Column>
               </Grid.Row>
-            ) : ''}
-            <Card.Group
-              stackable
-              itemsPerRow={students.length > 3 ? 3 : students.length as SemanticWIDTHS}
-              style={userStackableCardsStyle}
-            >
-              {students.map((ele) => <UserProfileCard key={ele._id} item={ele} />)}
+            ) : (
+              ''
+            )}
+            <Card.Group stackable itemsPerRow={students.length > 3 ? 3 : (students.length as SemanticWIDTHS)} style={userStackableCardsStyle}>
+              {students.map((ele) => (
+                <UserProfileCard key={ele._id} item={ele} />
+              ))}
             </Card.Group>
           </Grid>
         </Tab.Pane>
@@ -81,9 +77,7 @@ const CommunityUsersWidget: React.FC<CommunityUsersWidgetProps> = ({ advisors, f
     },
   ];
 
-  return (
-    <Tab panes={panes} defaultActiveIndex={2} style={tabPaneStyle} id="usersTab" />
-  );
+  return <Tab panes={panes} defaultActiveIndex={2} style={tabPaneStyle} id="usersTab" />;
 };
 
 export default CommunityUsersWidget;

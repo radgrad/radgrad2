@@ -7,13 +7,7 @@ import _ from 'lodash';
 import Swal from 'sweetalert2';
 import { AcademicTerm, BaseProfile, Interest, OpportunityType } from '../../../../../typings/radgrad';
 import BaseCollection from '../../../../../api/base/BaseCollection';
-import {
-  academicTermIdToName,
-  academicTermToName,
-  docToName, interestIdToName,
-  opportunityTypeIdToName,
-  profileToName, userIdToName,
-} from '../../../shared/utilities/data-model';
+import { academicTermIdToName, academicTermToName, docToName, interestIdToName, opportunityTypeIdToName, profileToName, userIdToName } from '../../../shared/utilities/data-model';
 import { iceSchema } from '../../../../../api/ice/IceProcessor';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
 import { openCloudinaryWidget } from '../../../shared/OpenCloudinaryWidget';
@@ -92,13 +86,7 @@ const UpdateOpportunityForm: React.FC<UpdateOpportunityFormProps> = ({ sponsors,
   return (
     <Segment padded>
       <Header dividing>Update Opportunity : {itemTitleString(model)}</Header>
-      <AutoForm
-        schema={formSchema}
-        onSubmit={(doc) => handleUpdateOpportunity(doc)}
-        ref={formRef}
-        showInlineError
-        model={model}
-      >
+      <AutoForm schema={formSchema} onSubmit={(doc) => handleUpdateOpportunity(doc)} ref={formRef} showInlineError model={model}>
         <Form.Group widths="equal">
           <TextField name="name" />
         </Form.Group>
@@ -120,7 +108,9 @@ const UpdateOpportunityForm: React.FC<UpdateOpportunityFormProps> = ({ sponsors,
         <BoolField name="retired" />
         <Form.Group widths="equal">
           <Form.Input name="picture" value={pictureURL} onChange={handlePictureUrlChange} />
-          <Form.Button basic color="green" onClick={handleUploadPicture}>Upload</Form.Button>
+          <Form.Button basic color="green" onClick={handleUploadPicture}>
+            Upload
+          </Form.Button>
         </Form.Group>
         <SubmitField inputRef={undefined} disabled={false} value="Update" className="" />
         <Button onClick={handleCancel}>Cancel</Button>

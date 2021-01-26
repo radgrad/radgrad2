@@ -22,30 +22,25 @@ interface StudentIcePageProps {
   courseInstances: CourseInstance[];
   opportunityInstances: OpportunityInstance[];
 }
-const StudentIcePage: React.FC<StudentIcePageProps> = ({ helpMessages, earnedICE, projectedICE,
-  favoriteInterests, courseInstances, opportunityInstances }) => (
-    <div id="student-ice-points-page">
-      <StudentPageMenu />
-      <Container>
-        <Grid stackable>
-          <Grid.Row>
-            <Grid.Column width={16}><HelpPanelWidget helpMessages={helpMessages} /></Grid.Column>
-          </Grid.Row>
-          <Grid.Row>
-            <Grid.Column width={16} stretched>
-              <StudentIceWidget
-                earnedICE={earnedICE}
-                projectedICE={projectedICE}
-                favoriteInterests={favoriteInterests}
-                courseInstances={courseInstances}
-                opportunityInstances={opportunityInstances}
-              />
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-        <BackToTopButton />
-      </Container>
-    </div>
+const StudentIcePage: React.FC<StudentIcePageProps> = ({ helpMessages, earnedICE, projectedICE, favoriteInterests, courseInstances, opportunityInstances }) => (
+  <div id="student-ice-points-page">
+    <StudentPageMenu />
+    <Container>
+      <Grid stackable>
+        <Grid.Row>
+          <Grid.Column width={16}>
+            <HelpPanelWidget helpMessages={helpMessages} />
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row>
+          <Grid.Column width={16} stretched>
+            <StudentIceWidget earnedICE={earnedICE} projectedICE={projectedICE} favoriteInterests={favoriteInterests} courseInstances={courseInstances} opportunityInstances={opportunityInstances} />
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
+      <BackToTopButton />
+    </Container>
+  </div>
 );
 
 const StudentHomeIcePageContainer = withTracker(() => {

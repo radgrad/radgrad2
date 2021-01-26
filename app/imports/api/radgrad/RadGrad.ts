@@ -1,7 +1,6 @@
 import _ from 'lodash';
 import { Meteor } from 'meteor/meteor';
 import { AcademicYearInstances } from '../degree-plan/AcademicYearInstanceCollection';
-import { AdvisorLogs } from '../log/AdvisorLogCollection';
 import { AdminProfiles } from '../user/AdminProfileCollection';
 import { AdvisorProfiles } from '../user/AdvisorProfileCollection';
 import { CareerGoals } from '../career/CareerGoalCollection';
@@ -53,7 +52,6 @@ class RadGradClass {
     this.collections = [
       AcademicYearInstances,
       AdminProfiles,
-      AdvisorLogs,
       AdvisorProfiles,
       CareerGoals,
       StudentParticipations,
@@ -111,7 +109,6 @@ class RadGradClass {
       FeedbackInstances,
       VerificationRequests,
       Feeds,
-      AdvisorLogs,
       IceSnapshots,
       UserInteractions,
       PageInterests,

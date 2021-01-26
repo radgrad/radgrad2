@@ -5,26 +5,14 @@ import { useRouteMatch } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import _ from 'lodash';
 import moment from 'moment';
-import {
-  IPageInterestsCategoryTypes,
-  PageInterestsCategoryTypes,
-} from '../../../../api/page-tracking/PageInterestsCategoryTypes';
-import {
-  CareerGoal,
-  Course,
-  Interest,
-  Opportunity, PageInterestInfo,
-  PageInterestsDailySnapshot,
-} from '../../../../typings/radgrad';
+import { IPageInterestsCategoryTypes, PageInterestsCategoryTypes } from '../../../../api/page-tracking/PageInterestsCategoryTypes';
+import { CareerGoal, Course, Interest, Opportunity, PageInterestInfo, PageInterestsDailySnapshot } from '../../../../typings/radgrad';
 import { PageInterestsDailySnapshots } from '../../../../api/page-tracking/PageInterestsDailySnapshotCollection';
 import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
 import { Courses } from '../../../../api/course/CourseCollection';
 import { Interests } from '../../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
-import {
-  aggregateDailySnapshots, getCategory, getUrlCategory,
-  AggregatedDailySnapshot, parseName, slugIDToSlugName,
-} from './utilities/page-tracking';
+import { aggregateDailySnapshots, getCategory, getUrlCategory, AggregatedDailySnapshot, parseName, slugIDToSlugName } from './utilities/page-tracking';
 import PageTrackingWidgetMessage from './PageTrackingWidgetMessage';
 
 interface PageTrackingComparisonWidgetProps {
@@ -47,11 +35,12 @@ const getOptions = (urlCategory: IPageInterestsCategoryTypes) => {
   }
 };
 
-const getOptionsHelper = (docs: (CareerGoal | Course | Interest | Opportunity)[]) => docs.map((doc) => ({
-  key: doc._id,
-  text: doc.name,
-  value: doc.slugID,
-}));
+const getOptionsHelper = (docs: (CareerGoal | Course | Interest | Opportunity)[]) =>
+  docs.map((doc) => ({
+    key: doc._id,
+    text: doc.name,
+    value: doc.slugID,
+  }));
 
 const PageTrackingComparisonWidget: React.FC<PageTrackingComparisonWidgetProps> = ({ pageInterestsDailySnapshots }) => {
   const match = useRouteMatch();
@@ -77,7 +66,7 @@ const PageTrackingComparisonWidget: React.FC<PageTrackingComparisonWidgetProps> 
   const setItemsToData = (event: React.SyntheticEvent, filtered: boolean) => {
     event.preventDefault();
     const category: string = getCategory(urlCategory);
-    let aggregatedSnapshot: (PageInterestInfo[] | AggregatedDailySnapshot);
+    let aggregatedSnapshot: PageInterestInfo[] | AggregatedDailySnapshot;
     if (filtered) {
       const filteredDailySnapshots: PageInterestsDailySnapshot[] = PageInterestsDailySnapshots.find({
         timestamp: {
@@ -120,7 +109,7 @@ const PageTrackingComparisonWidget: React.FC<PageTrackingComparisonWidgetProps> 
     setSelectedOptions(value);
   };
 
-  const handleSort = (event, clickedColumn: ('name' | 'views')): void => {
+  const handleSort = (event, clickedColumn: 'name' | 'views'): void => {
     event.preventDefault();
     if (column !== clickedColumn) {
       setColumn(clickedColumn);
@@ -158,89 +147,58 @@ const PageTrackingComparisonWidget: React.FC<PageTrackingComparisonWidgetProps> 
         {/* Search Dropdown */}
         <Grid.Row>
           <Grid.Column>
-            <Dropdown
-              placeholder="Search"
-              onChange={handleChange}
-              fluid
-              multiple
-              search
-              selection
-              options={getOptions(urlCategory)}
-            />
+            <Dropdown placeholder="Search" onChange={handleChange} fluid multiple search selection options={getOptions(urlCategory)} />
           </Grid.Column>
         </Grid.Row>
         {/* Table View */}
-        {data ?
-          (
-            <>
-              <div style={tableStyle}>
-                <Table celled striped sortable style={tableStyle}>
-                  <Table.Header>
-                    <Table.Row>
-                      <Table.HeaderCell
-                        sorted={column === 'name' ? direction : undefined}
-                        onClick={(e) => handleSort(e, 'name')}
-                      >
-                        Name
-                      </Table.HeaderCell>
-                      <Table.HeaderCell
-                        sorted={column === 'views' ? direction : undefined}
-                        onClick={(e) => handleSort(e, 'views')}
-                      >
-                        Page Views
-                      </Table.HeaderCell>
+        {data ? (
+          <>
+            <div style={tableStyle}>
+              <Table celled striped sortable style={tableStyle}>
+                <Table.Header>
+                  <Table.Row>
+                    <Table.HeaderCell sorted={column === 'name' ? direction : undefined} onClick={(e) => handleSort(e, 'name')}>
+                      Name
+                    </Table.HeaderCell>
+                    <Table.HeaderCell sorted={column === 'views' ? direction : undefined} onClick={(e) => handleSort(e, 'views')}>
+                      Page Views
+                    </Table.HeaderCell>
+                  </Table.Row>
+                </Table.Header>
+                <Table.Body>
+                  {/* TODO Show items that have 0 views */}
+                  {data.map((item) => (
+                    <Table.Row key={`${urlCategory}-${item.name}:${item.views}`}>
+                      <Table.Cell width={10}>{parseName(urlCategory, item.name)}</Table.Cell>
+                      <Table.Cell width={6}>{item.views}</Table.Cell>
                     </Table.Row>
-                  </Table.Header>
-                  <Table.Body>
-                    {/* TODO Show items that have 0 views */}
-                    {data.map((item) => (
-                      <Table.Row key={`${urlCategory}-${item.name}:${item.views}`}>
-                        <Table.Cell width={10}>{parseName(urlCategory, item.name)}</Table.Cell>
-                        <Table.Cell width={6}>{item.views}</Table.Cell>
-                      </Table.Row>
-                    ))}
-                  </Table.Body>
-                </Table>
-              </div>
-              <PageTrackingWidgetMessage />
-            </>
-          )
-          : undefined}
+                  ))}
+                </Table.Body>
+              </Table>
+            </div>
+            <PageTrackingWidgetMessage />
+          </>
+        ) : undefined}
       </Grid.Column>
 
       <Grid.Column width={5}>
         {/* Search Button */}
-        <Grid.Row><Button onClick={(e) => setItemsToData(e, false)}>Search</Button></Grid.Row>
+        <Grid.Row>
+          <Button onClick={(e) => setItemsToData(e, false)}>Search</Button>
+        </Grid.Row>
         {/* Date Filter */}
         <Header>FILTER BY DATE</Header>
         <Grid.Row style={marginBottomStyle}>
-          <Button size="mini" onClick={handleFilter}>Filter</Button>
-          <Button size="mini" onClick={handleClear}>Clear</Button>
+          <Button size="mini" onClick={handleFilter}>
+            Filter
+          </Button>
+          <Button size="mini" onClick={handleClear}>
+            Clear
+          </Button>
         </Grid.Row>
         <Grid.Row>
-          <DatePicker
-            selectsStart
-            showMonthDropdown
-            showYearDropdown
-            onChange={(date) => setStartDate(date)}
-            placeholderText="Start Date"
-            selected={startDate}
-            startDate={startDate}
-            endDate={endDate}
-            maxDate={endDate || new Date()}
-          />
-          <DatePicker
-            selectsEnd
-            showMonthDropdown
-            showYearDropdown
-            onChange={(date) => setEndDate(date)}
-            placeholderText="End Date"
-            selected={endDate}
-            startDate={startDate}
-            endDate={endDate}
-            minDate={startDate}
-            maxDate={new Date()}
-          />
+          <DatePicker selectsStart showMonthDropdown showYearDropdown onChange={(date) => setStartDate(date)} placeholderText="Start Date" selected={startDate} startDate={startDate} endDate={endDate} maxDate={endDate || new Date()} />
+          <DatePicker selectsEnd showMonthDropdown showYearDropdown onChange={(date) => setEndDate(date)} placeholderText="End Date" selected={endDate} startDate={startDate} endDate={endDate} minDate={startDate} maxDate={new Date()} />
         </Grid.Row>
       </Grid.Column>
     </Grid>

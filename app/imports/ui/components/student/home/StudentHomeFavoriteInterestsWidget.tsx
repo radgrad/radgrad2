@@ -7,7 +7,7 @@ import { Interests } from '../../../../api/interest/InterestCollection';
 import { Interest } from '../../../../typings/radgrad';
 
 interface StudentHomeFavoriteInterestsWidgetProps {
-  favoriteInterests: { interestID: string, count: number }[];
+  favoriteInterests: { interestID: string; count: number }[];
 }
 
 const StudentHomeFavoriteInterestsList: React.FC<StudentHomeFavoriteInterestsWidgetProps> = ({ favoriteInterests }) => {
@@ -26,10 +26,7 @@ const StudentHomeFavoriteInterestsList: React.FC<StudentHomeFavoriteInterestsWid
           return (
             <Grid.Row key={object.interestID} style={gridRowStyle} columns={2}>
               <Grid.Column width={13}>
-                <Link
-                  style={whiteColorStyle}
-                  to={buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}/${slug}`)}
-                >
+                <Link style={whiteColorStyle} to={buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}/${slug}`)}>
                   {name.toUpperCase()}
                 </Link>
               </Grid.Column>

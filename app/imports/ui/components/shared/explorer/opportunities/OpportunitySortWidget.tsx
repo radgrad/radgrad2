@@ -29,7 +29,6 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const OpportunitySortWidget: React.FC<OpportunitySortWidgetProps> = ({ sortChoice, setOpportunitiesSortValue }) => {
-
   const handleChange = (type, value) => {
     setOpportunitiesSortValue(EXPLORER_TYPE.OPPORTUNITIES, value);
   };
@@ -38,12 +37,7 @@ const OpportunitySortWidget: React.FC<OpportunitySortWidgetProps> = ({ sortChoic
   const schema = new SimpleSchema({
     sortOpportunitiesBy: {
       type: String,
-      allowedValues: [
-        opportunitySortKeys.recommended,
-        opportunitySortKeys.alphabetic,
-        opportunitySortKeys.experience,
-        opportunitySortKeys.innovation,
-      ],
+      allowedValues: [opportunitySortKeys.recommended, opportunitySortKeys.alphabetic, opportunitySortKeys.experience, opportunitySortKeys.innovation],
       optional: true,
     },
   });

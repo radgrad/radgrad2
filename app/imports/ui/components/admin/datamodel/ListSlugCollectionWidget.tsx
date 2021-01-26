@@ -38,22 +38,9 @@ const ListSlugCollectionWidget: React.FC<ListSlugCollectionWidgetProps> = ({ col
         {collection.getCollectionName()} ({count})
       </Header>
       <Grid>
-        <AdminPaginationWidget
-          collection={collection}
-          setShowIndex={dataModelActions.setCollectionShowIndex}
-          setShowCount={dataModelActions.setCollectionShowCount}
-        />
+        <AdminPaginationWidget collection={collection} setShowIndex={dataModelActions.setCollectionShowIndex} setShowCount={dataModelActions.setCollectionShowCount} />
         {_.map(itemsToShow, (item) => (
-          <AdminCollectionAccordion
-            key={item._id}
-            id={item._id}
-            title={itemTitle(item)}
-            descriptionPairs={descriptionPairs(item)}
-            updateDisabled
-            deleteDisabled
-            handleOpenUpdate={handleOpenUpdate}
-            handleDelete={handleDelete}
-          />
+          <AdminCollectionAccordion key={item._id} id={item._id} title={itemTitle(item)} descriptionPairs={descriptionPairs(item)} updateDisabled deleteDisabled handleOpenUpdate={handleOpenUpdate} handleDelete={handleDelete} />
         ))}
       </Grid>
     </Segment>

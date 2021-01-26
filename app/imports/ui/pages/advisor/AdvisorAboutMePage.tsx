@@ -5,12 +5,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
-import {
-  AdvisorOrFacultyProfile,
-  FavoriteCareerGoal,
-  FavoriteInterest,
-  HelpMessage,
-} from '../../../typings/radgrad';
+import { AdvisorOrFacultyProfile, FavoriteCareerGoal, FavoriteInterest, HelpMessage } from '../../../typings/radgrad';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import { Users } from '../../../api/user/UserCollection';
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
@@ -18,7 +13,7 @@ import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCol
 import AdvisorAboutMeWidget from '../../components/advisor/home/AdvisorAboutMeWidget';
 
 interface AdvisorAboutMePageProps {
-  profile: AdvisorOrFacultyProfile,
+  profile: AdvisorOrFacultyProfile;
   favoriteInterests: FavoriteInterest[];
   favoriteCareerGoals: FavoriteCareerGoal[];
   helpMessages: HelpMessage[];
@@ -30,17 +25,15 @@ const AdvisorAboutMePage: React.FC<AdvisorAboutMePageProps> = ({ profile, favori
     <Grid stackable>
       <Grid.Row>
         <Grid.Column width={1} />
-        <Grid.Column width={14}><HelpPanelWidget helpMessages={helpMessages} /></Grid.Column>
+        <Grid.Column width={14}>
+          <HelpPanelWidget helpMessages={helpMessages} />
+        </Grid.Column>
         <Grid.Column width={1} />
       </Grid.Row>
       <Grid.Row>
         <Grid.Column width={1} />
         <Grid.Column width={14}>
-          <AdvisorAboutMeWidget
-            profile={profile}
-            favoriteInterests={favoriteInterests}
-            favoriteCareerGoals={favoriteCareerGoals}
-          />
+          <AdvisorAboutMeWidget profile={profile} favoriteInterests={favoriteInterests} favoriteCareerGoals={favoriteCareerGoals} />
         </Grid.Column>
         <Grid.Column width={1} />
       </Grid.Row>

@@ -36,7 +36,9 @@ const LandingCourseExplorerPage: React.FC<CourseExplorerProps> = ({ helpMessages
       <Grid stackable>
         <Grid.Row>
           <Grid.Column width={1} />
-          <Grid.Column width={14}><HelpPanelWidget helpMessages={helpMessages} /></Grid.Column>
+          <Grid.Column width={14}>
+            <HelpPanelWidget helpMessages={helpMessages} />
+          </Grid.Column>
           <Grid.Column width={1} />
         </Grid.Row>
 
@@ -61,28 +63,22 @@ const LandingCourseExplorerPage: React.FC<CourseExplorerProps> = ({ helpMessages
                 </Grid.Column>
                 <Grid.Column width="ten">
                   <b>Syllabus: </b>
-                  {course.syllabus ?
-                    (
-                      <a href={course.syllabus} target="_blank" rel="noopener noreferrer">
-                        {course.syllabus}
-                      </a>
-                    )
-                    : 'None available'}
+                  {course.syllabus ? (
+                    <a href={course.syllabus} target="_blank" rel="noopener noreferrer">
+                      {course.syllabus}
+                    </a>
+                  ) : (
+                    'None available'
+                  )}
                 </Grid.Column>
               </Grid>
               <b>Description:</b>
-              <Markdown
-                escapeHtml
-                source={course.description}
-                renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}
-              />
-              <Header as="h4" dividing>Prerequisites</Header>
-              {course.prerequisites.length > 0 ?
-                (<LandingPrerequisiteList prerequisites={course.prerequisites} />)
-                : 'N/A'}
-              {course.interestIDs.length > 0 ?
-                (<LandingInterestList interestIDs={course.interestIDs} />)
-                : 'N/A'}
+              <Markdown escapeHtml source={course.description} renderers={{ link: (localProps) => Router.renderLink(localProps, match) }} />
+              <Header as="h4" dividing>
+                Prerequisites
+              </Header>
+              {course.prerequisites.length > 0 ? <LandingPrerequisiteList prerequisites={course.prerequisites} /> : 'N/A'}
+              {course.interestIDs.length > 0 ? <LandingInterestList interestIDs={course.interestIDs} /> : 'N/A'}
             </Segment>
           </Grid.Column>
           <Grid.Column width={1} />
@@ -104,9 +100,4 @@ const LandingCourseExplorerContainer = withTracker(() => {
   };
 })(LandingCourseExplorerPage);
 
-export default withListSubscriptions(LandingCourseExplorerContainer, [
-  Courses.getPublicationName(),
-  Slugs.getPublicationName(),
-  Interests.getPublicationName(),
-  HelpMessages.getPublicationName(),
-]);
+export default withListSubscriptions(LandingCourseExplorerContainer, [Courses.getPublicationName(), Slugs.getPublicationName(), Interests.getPublicationName(), HelpMessages.getPublicationName()]);

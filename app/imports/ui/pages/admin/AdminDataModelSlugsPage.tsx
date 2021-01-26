@@ -71,7 +71,6 @@ const AdminDataModelSlugsPage: React.FC<AdminDataModelSlugsPageProps> = (props) 
     <div id="data-model-slugs-page">
       <AdminPageMenuWidget />
       <Grid container stackable style={paddedStyle}>
-
         <Grid.Column width={3}>
           <AdminDataModelMenu {...props} />
         </Grid.Column>

@@ -63,10 +63,7 @@ const OpportunityScoreboardWidget: React.FC<OpportunityScoreboardWidgetProps> = 
               <Table.Row>
                 <Table.HeaderCell width={1}>Opportunity</Table.HeaderCell>
                 {_.map(terms, (term) => (
-                  <Table.HeaderCell
-                    width={1}
-                    key={term._id}
-                  >
+                  <Table.HeaderCell width={1} key={term._id}>
                     {AcademicTerms.getShortName(term._id)}
                   </Table.HeaderCell>
                 ))}
@@ -78,7 +75,9 @@ const OpportunityScoreboardWidget: React.FC<OpportunityScoreboardWidgetProps> = 
               <Table.Body>
                 {_.map(opportunities, (c, index) => (
                   <Table.Row key={index}>
-                    <Table.Cell width={1}><Popup content={c.name} trigger={<Label>{c.name}</Label>} /></Table.Cell>
+                    <Table.Cell width={1}>
+                      <Popup content={c.name} trigger={<Label>{c.name}</Label>} />
+                    </Table.Cell>
                     {_.map(terms, (t) => {
                       const score = getOpportunityScore(c._id, t._id, scores);
                       return (
@@ -96,7 +95,9 @@ const OpportunityScoreboardWidget: React.FC<OpportunityScoreboardWidgetProps> = 
         </Grid.Row>
         <Grid.Row>
           <Grid.Column width={1} />
-          <Button basic color="green" onClick={saveAsCSV(terms, opportunities, scores)}>Save as CSV</Button>
+          <Button basic color="green" onClick={saveAsCSV(terms, opportunities, scores)}>
+            Save as CSV
+          </Button>
         </Grid.Row>
       </Grid>
     </Segment>

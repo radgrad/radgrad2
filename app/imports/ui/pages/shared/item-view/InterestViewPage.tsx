@@ -3,13 +3,7 @@ import { useParams, useRouteMatch } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Container, Grid } from 'semantic-ui-react';
 import _ from 'lodash';
-import {
-  Course,
-  HelpMessage,
-  Interest,
-  Opportunity,
-  Profile,
-} from '../../../../typings/radgrad';
+import { Course, HelpMessage, Interest, Opportunity, Profile } from '../../../../typings/radgrad';
 import { getMenuWidget } from '../utilities/getMenuWidget';
 import { HelpMessages } from '../../../../api/help/HelpMessageCollection';
 import { Interests } from '../../../../api/interest/InterestCollection';
@@ -33,10 +27,12 @@ interface InterestViewPageProps {
 const InterestViewPage: React.FC<InterestViewPageProps> = ({ courses, favoriteCareerGoalInterests, favoriteInterests, helpMessages, interest, opportunities, profile }) => {
   const match = useRouteMatch();
   const menuAddedList = _.map(favoriteInterests, (item) => ({
-    item, count: 1,
+    item,
+    count: 1,
   }));
   const menuCareerList = _.map(favoriteCareerGoalInterests, (item) => ({
-    item, count: 1,
+    item,
+    count: 1,
   }));
   return (
     <div id="interest-view-page">
@@ -44,7 +40,9 @@ const InterestViewPage: React.FC<InterestViewPageProps> = ({ courses, favoriteCa
       <Container>
         <Grid stackable>
           <Grid.Row className="helpPanel">
-            <Grid.Column width={16}><HelpPanelWidget helpMessages={helpMessages} /></Grid.Column>
+            <Grid.Column width={16}>
+              <HelpPanelWidget helpMessages={helpMessages} />
+            </Grid.Column>
           </Grid.Row>
           <Grid.Row>
             <Grid.Column width={3}>

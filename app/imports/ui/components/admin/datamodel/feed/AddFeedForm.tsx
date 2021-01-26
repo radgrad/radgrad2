@@ -108,78 +108,100 @@ const AddFeedForm: React.FC<AddFeedFromProps> = ({ academicTerms, courses, oppor
   return (
     <Segment padded>
       <Header dividing>Add Feed</Header>
-      <AutoForm
-        schema={formSchema}
-        onSubmit={handleAdd}
-        ref={formRef}
-        showInlineError
-        onChangeModel={handleModelChange}
-      >
+      <AutoForm schema={formSchema} onSubmit={handleAdd} ref={formRef} showInlineError onChangeModel={handleModelChange}>
         <Form.Group widths="equal">
           <DateField name="timestamp" />
           <SelectField name="feedType" />
         </Form.Group>
         {feedType === Feeds.NEW_COURSE ? (
           <div>
-            <Header dividing as="h4">New course field</Header>
+            <Header dividing as="h4">
+              New course field
+            </Header>
             <Form.Group widths="equal">
               <SelectField name="course" />
             </Form.Group>
           </div>
-        ) : ''}
+        ) : (
+          ''
+        )}
         {feedType === Feeds.NEW_COURSE_REVIEW ? (
           <div>
-            <Header dividing as="h4">New course review fields</Header>
+            <Header dividing as="h4">
+              New course review fields
+            </Header>
             <Form.Group widths="equal">
               <SelectField name="user" />
               <SelectField name="course" />
             </Form.Group>
           </div>
-        ) : ''}
+        ) : (
+          ''
+        )}
         {feedType === Feeds.NEW_LEVEL ? (
           <div>
-            <Header dividing as="h4">New course review fields</Header>
+            <Header dividing as="h4">
+              New course review fields
+            </Header>
             <Form.Group widths="equal">
               <SelectField name="user" />
               <NumField name="level" />
             </Form.Group>
           </div>
-        ) : ''}
+        ) : (
+          ''
+        )}
         {feedType === Feeds.NEW_OPPORTUNITY ? (
           <div>
-            <Header dividing as="h4">New opportunity field</Header>
+            <Header dividing as="h4">
+              New opportunity field
+            </Header>
             <Form.Group widths="equal">
               <SelectField name="opportunity" />
             </Form.Group>
           </div>
-        ) : ''}
+        ) : (
+          ''
+        )}
         {feedType === Feeds.NEW_OPPORTUNITY_REVIEW ? (
           <div>
-            <Header dividing as="h4">New opportunity review fields</Header>
+            <Header dividing as="h4">
+              New opportunity review fields
+            </Header>
             <Form.Group widths="equal">
               <SelectField name="user" />
               <SelectField name="opportunity" />
             </Form.Group>
           </div>
-        ) : ''}
+        ) : (
+          ''
+        )}
         {feedType === Feeds.NEW_USER ? (
           <div>
-            <Header dividing as="h4">New user fields</Header>
+            <Header dividing as="h4">
+              New user fields
+            </Header>
             <Form.Group widths="equal">
               <SelectField name="user" />
             </Form.Group>
           </div>
-        ) : ''}
+        ) : (
+          ''
+        )}
         {feedType === Feeds.VERIFIED_OPPORTUNITY ? (
           <div>
-            <Header dividing as="h4">New verified opportunity fields</Header>
+            <Header dividing as="h4">
+              New verified opportunity fields
+            </Header>
             <Form.Group widths="equal">
               <SelectField name="user" />
               <SelectField name="opportunity" />
               <SelectField name="academicTerm" />
             </Form.Group>
           </div>
-        ) : ''}
+        ) : (
+          ''
+        )}
         <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined} />
       </AutoForm>
     </Segment>

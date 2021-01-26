@@ -27,7 +27,9 @@ const LandingOpportunitiesCardExplorerPage: React.FC<OpportunitiesCardExplorerPr
       <Grid stackable>
         <Grid.Row>
           <Grid.Column width={1} />
-          <Grid.Column width={14}><HelpPanelWidget helpMessages={helpMessages} /></Grid.Column>
+          <Grid.Column width={14}>
+            <HelpPanelWidget helpMessages={helpMessages} />
+          </Grid.Column>
           <Grid.Column width={1} />
         </Grid.Row>
 
@@ -62,7 +64,4 @@ const LandingOpportunitiesCardExplorerContainer = withTracker(() => ({
   helpMessages: HelpMessages.findNonRetired({}),
 }))(LandingOpportunitiesCardExplorerPage);
 
-export default withListSubscriptions(LandingOpportunitiesCardExplorerContainer, [
-  Opportunities.getPublicationName(),
-  HelpMessages.getPublicationName(),
-]);
+export default withListSubscriptions(LandingOpportunitiesCardExplorerContainer, [Opportunities.getPublicationName(), HelpMessages.getPublicationName()]);

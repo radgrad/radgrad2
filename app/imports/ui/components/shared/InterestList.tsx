@@ -9,7 +9,7 @@ import { EXPLORER_TYPE } from '../../layouts/utilities/route-constants';
 interface InterestListProps {
   item: {
     interestIDs: string[];
-  }
+  };
   size: SemanticSIZES;
 }
 
@@ -20,56 +20,32 @@ const InterestList: React.FC<InterestListProps> = ({ size, item }) => {
   const otherInterests = MatchingInterests.notMatchingInterests(Router.getUsername(match), item);
   return (
     <Label.Group size={size}>
-      {
-        matchingUserInterests.map((interest) => {
-          const interestSlug = itemToSlugName(interest);
-          return (
-            <Label
-              as={Link}
-              key={interest._id}
-              to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}/${interestSlug}`)}
-              size={size}
-            >
-              <i className="fitted star icon" /> {docToName(interest)}
-            </Label>
-          );
-        })
-      }
+      {matchingUserInterests.map((interest) => {
+        const interestSlug = itemToSlugName(interest);
+        return (
+          <Label as={Link} key={interest._id} to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}/${interestSlug}`)} size={size}>
+            <i className="fitted star icon" /> {docToName(interest)}
+          </Label>
+        );
+      })}
 
-      {
-        matchingCareerInterests.map((interest) => {
-          const interestSlug = itemToSlugName(interest);
-          return (
-            <Label
-              as={Link}
-              key={interest._id}
-              to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}/${interestSlug}`)}
-              size={size}
-            >
-              <i className="fitted suitcase icon" />
-              {' '}
-              {docToName(interest)}
-            </Label>
-          );
-        })
-      }
+      {matchingCareerInterests.map((interest) => {
+        const interestSlug = itemToSlugName(interest);
+        return (
+          <Label as={Link} key={interest._id} to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}/${interestSlug}`)} size={size}>
+            <i className="fitted suitcase icon" /> {docToName(interest)}
+          </Label>
+        );
+      })}
 
-      {
-        otherInterests.map((interest) => {
-          const interestSlug = itemToSlugName(interest);
-          return (
-            <Label
-              as={Link}
-              key={interest._id}
-              to={Router.buildRouteName(match, `/explorer/interests/${interestSlug}`)}
-              size={size}
-              color="grey"
-            >
-              {docToName(interest)}
-            </Label>
-          );
-        })
-      }
+      {otherInterests.map((interest) => {
+        const interestSlug = itemToSlugName(interest);
+        return (
+          <Label as={Link} key={interest._id} to={Router.buildRouteName(match, `/explorer/interests/${interestSlug}`)} size={size} color="grey">
+            {docToName(interest)}
+          </Label>
+        );
+      })}
     </Label.Group>
   );
 };

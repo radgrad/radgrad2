@@ -6,21 +6,15 @@ import FavoriteOpportunitiesWidget from './FavoriteOpportunitiesWidget';
 import FavoriteCoursesWidget from './FavoriteCoursesWidget';
 import DepDetailsWidget from './DepDetailsWidget';
 import { RootState } from '../../../../redux/types';
-import {
-  Course,
-  CourseInstance,
-  Opportunity,
-  OpportunityInstance,
-  VerificationRequest,
-} from '../../../../typings/radgrad';
+import { Course, CourseInstance, Opportunity, OpportunityInstance, VerificationRequest } from '../../../../typings/radgrad';
 
 interface TabbedFavoritesWidgetProps {
   takenSlugs: string[];
   selectedTab: string;
-  selectFavoriteOpportunitiesTab: () => { type: string, selectedTab: string };
-  selectFavoritePlansTab: () => { type: string, selectedTab: string };
-  selectFavoriteCoursesTab: () => { type: string, selectedTab: string };
-  selectFavoriteDetailsTab: () => { type: string, selectedTab: string };
+  selectFavoriteOpportunitiesTab: () => { type: string; selectedTab: string };
+  selectFavoritePlansTab: () => { type: string; selectedTab: string };
+  selectFavoriteCoursesTab: () => { type: string; selectedTab: string };
+  selectFavoriteDetailsTab: () => { type: string; selectedTab: string };
   opportunities: Opportunity[];
   studentID: string;
   courses: Course[];
@@ -55,7 +49,20 @@ const active = (selectedTab) => {
   }
 };
 
-const TabbedFavoritesWidget: React.FC<TabbedFavoritesWidgetProps> = ({ selectFavoritePlansTab, selectFavoriteOpportunitiesTab, studentID, takenSlugs, courseInstances, courses, selectFavoriteDetailsTab, selectFavoriteCoursesTab, selectedTab, opportunities, verificationRequests, opportunityInstances }) => {
+const TabbedFavoritesWidget: React.FC<TabbedFavoritesWidgetProps> = ({
+  selectFavoritePlansTab,
+  selectFavoriteOpportunitiesTab,
+  studentID,
+  takenSlugs,
+  courseInstances,
+  courses,
+  selectFavoriteDetailsTab,
+  selectFavoriteCoursesTab,
+  selectedTab,
+  opportunities,
+  verificationRequests,
+  opportunityInstances,
+}) => {
   const handleTabChange = (event, instance) => {
     const { activeIndex } = instance;
     event.preventDefault();
@@ -85,10 +92,7 @@ const TabbedFavoritesWidget: React.FC<TabbedFavoritesWidgetProps> = ({ selectFav
         </Menu.Item>
       ),
       pane: (
-        <Tab.Pane
-          key="FavoriteOpportunitiesPane"
-          active={active(selectedTab) === 0}
-        >
+        <Tab.Pane key="FavoriteOpportunitiesPane" active={active(selectedTab) === 0}>
           <FavoriteOpportunitiesWidget opportunities={opportunities} studentID={studentID} opportunityInstances={opportunityInstances} />
         </Tab.Pane>
       ),
@@ -106,9 +110,7 @@ const TabbedFavoritesWidget: React.FC<TabbedFavoritesWidgetProps> = ({ selectFav
       ),
     },
     {
-      menuItem: (
-        <Menu.Item key="FavoriteDetails">DETAILS</Menu.Item>
-      ),
+      menuItem: <Menu.Item key="FavoriteDetails">DETAILS</Menu.Item>,
       pane: (
         <Tab.Pane key="FavoriteDetailsPane" active={active(selectedTab) === 3}>
           <DepDetailsWidget verificationRequests={verificationRequests} />
@@ -118,12 +120,7 @@ const TabbedFavoritesWidget: React.FC<TabbedFavoritesWidgetProps> = ({ selectFav
   ];
   return (
     <Segment padded id="tabbedFavoritesWidget">
-      <Tab
-        panes={panes}
-        renderActiveOnly={false}
-        onTabChange={(event, instance) => handleTabChange(event, instance)}
-        activeIndex={active(selectedTab)}
-      />
+      <Tab panes={panes} renderActiveOnly={false} onTabChange={(event, instance) => handleTabChange(event, instance)} activeIndex={active(selectedTab)} />
     </Segment>
   );
 };

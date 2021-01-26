@@ -9,10 +9,7 @@ import StudentPageMenu from '../../components/student/StudentPageMenu';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 import * as Router from '../../components/shared/utilities/router';
 import ExplorerNavDropdown from '../../components/shared/explorer/ExplorerNavDropdown';
-import {
-  PAGE_TRACKING_COMPARISON,
-  PAGE_TRACKING_SCOREBOARD,
-} from '../../layouts/utilities/route-constants';
+import { PAGE_TRACKING_COMPARISON, PAGE_TRACKING_SCOREBOARD } from '../../layouts/utilities/route-constants';
 import { PageInterestsCategoryTypes } from '../../../api/page-tracking/PageInterestsCategoryTypes';
 
 interface ExplorerHomePageProps {
@@ -39,7 +36,9 @@ const ExplorerHomePage: React.FC<ExplorerHomePageProps> = ({ helpMessages }) => 
       <Grid stackable>
         <Grid.Row>
           <Grid.Column width={1} />
-          <Grid.Column width={14}><HelpPanelWidget helpMessages={helpMessages} /></Grid.Column>
+          <Grid.Column width={14}>
+            <HelpPanelWidget helpMessages={helpMessages} />
+          </Grid.Column>
           <Grid.Column width={1} />
         </Grid.Row>
 
@@ -50,28 +49,16 @@ const ExplorerHomePage: React.FC<ExplorerHomePageProps> = ({ helpMessages }) => 
           </Grid.Column>
           <Grid.Column width={11}>
             <Message>
-              <Message.Header>
-                MOST VIEWED CATEGORIES
-              </Message.Header>
-              Interested in seeing which areas of the different topic categories (Career Goals, Courses, Interests, and
-              Opportunities) are visited the most? Go to the <b>Page Tracking Scoreboard Page</b> or
+              <Message.Header>MOST VIEWED CATEGORIES</Message.Header>
+              Interested in seeing which areas of the different topic categories (Career Goals, Courses, Interests, and Opportunities) are visited the most? Go to the <b>Page Tracking Scoreboard Page</b> or
               <b>Comparison Page</b>!
               <p>
-                <Link
-                  to={Router.buildRouteName(match, `/${PAGE_TRACKING_SCOREBOARD}/${PageInterestsCategoryTypes.CAREERGOAL}`)}
-                >
-                  Scoreboard Page
-                </Link>
-                : Sort and filter the number of views a student has visited that page for the different topic categories.
+                <Link to={Router.buildRouteName(match, `/${PAGE_TRACKING_SCOREBOARD}/${PageInterestsCategoryTypes.CAREERGOAL}`)}>Scoreboard Page</Link>: Sort and filter the number of views a student has visited that page for the different
+                topic categories.
               </p>
               <p>
-                <Link
-                  to={Router.buildRouteName(match, `/${PAGE_TRACKING_COMPARISON}/${PageInterestsCategoryTypes.CAREERGOAL}`)}
-                >
-                  Comparison Page
-                </Link>
-                : Pick out specific areas for a topic category to view the number of views a student has visited those
-                particular pages.
+                <Link to={Router.buildRouteName(match, `/${PAGE_TRACKING_COMPARISON}/${PageInterestsCategoryTypes.CAREERGOAL}`)}>Comparison Page</Link>: Pick out specific areas for a topic category to view the number of views a student has
+                visited those particular pages.
               </p>
             </Message>
           </Grid.Column>

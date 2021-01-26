@@ -198,7 +198,7 @@ const addMissingCollections = (result) => {
 };
 
 const deletedCollections = ['DesiredDegreeCollection', 'MentorAnswerCollection', 'MentorProfileCollection', 'MentorQuestionCollection', 'UserInteractionCollection', 'AcademicPlanCollection',
-  'FavoriteAcademicPlanCollection', 'PlanChoiceCollection'].concat(reinitializedCollections);
+  'FavoriteAcademicPlanCollection', 'PlanChoiceCollection', 'AdvisorLogCollection'].concat(reinitializedCollections);
 
 function processRadGradCollections(data: IDataDump) {
   const result: any = {};

@@ -155,7 +155,7 @@ export interface ProfileCard extends CardExplorerCards {
     url: string;
     params: {
       username: string;
-    }
+    };
   };
 }
 
@@ -165,8 +165,7 @@ export interface TermCard extends CardExplorerCards {
   canAdd: boolean;
 }
 
-export interface UserProfileCard extends CardExplorerCards {
-}
+export interface UserProfileCard extends CardExplorerCards {}
 
 // TODO this is a very bad interface.
 export interface DescriptionPair {
@@ -193,29 +192,6 @@ export interface AcademicYearInstance {
 export interface AcademicYearInstanceDefine extends DumpOne {
   year: number;
   student: string;
-  retired?: boolean;
-}
-
-// AdvisorLogs
-export interface AdvisorLog {
-  _id?: string;
-  advisorID: string;
-  studentID: string;
-  text: string;
-  createdOn: Date;
-  retired?: boolean;
-}
-
-export interface AdvisorLogDefine extends DumpOne {
-  advisor: string;
-  student: string;
-  text: string;
-  createdOn?: any;
-  retired?: boolean;
-}
-
-export interface AdvisorLogUpdate extends Update {
-  text?: string;
   retired?: boolean;
 }
 

@@ -27,7 +27,8 @@ const availableCourses = (match): Course[] => {
   const courses = Courses.findNonRetired({});
   if (courses.length > 0) {
     return _.filter(courses, (course) => {
-      if (course.num === 'ICS 499') { // TODO: hardcoded ICS string
+      if (course.num === 'ICS 499') {
+        // TODO: hardcoded ICS string
         return true;
       }
       const ci = CourseInstances.findNonRetired({
@@ -143,48 +144,37 @@ const StudentIceColumnRecommended: React.FC<StudentIceColumnRecommendedProps> = 
   return (
     <React.Fragment>
       {matchingPoints(100, earnedICEPoints) ? (
-        <p>
-          Congratulations! You have 100 (or more) verified {type} points!
-        </p>
-      )
-        :
-        matchingPoints(100, projectedICEPoints) ? (
-          <p>
-            You already have at least 100 verified or unverified {type} points.
-          </p>
-        )
-          :
-          hasNoInterests(favoriteInterests) ?
-            <p>Consider adding interests to see recommendations here.</p>
-            : (
-              <React.Fragment>
-                <p>
-                  Consider the following to acquire 100 {type} points.
-                </p>
-                <List>
-                  {recommendedEvents(projectedICEPoints, favoriteInterests, type, match).map((event) => {
-                    const courseSlug = getCourseSlug(event);
-                    const courseRoute = buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${courseSlug}`);
-                    const opportunitySlug = getOpportunitySlug(event);
-                    const opportunityRoute = buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${opportunitySlug}`);
-                    return (
-                      <List.Item key={event._id}>
-                        {type === 'Competency' ? (
-                          <Link to={courseRoute}>
-                            <b>+9</b> {event.shortName}
-                          </Link>
-                        )
-                          : (
-                            <Link to={opportunityRoute}>
-                              <b>+{icePoints(event.ice)}</b> {event.name}
-                            </Link>
-                          )}
-                      </List.Item>
-                    );
-                  })}
-                </List>
-              </React.Fragment>
-            )}
+        <p>Congratulations! You have 100 (or more) verified {type} points!</p>
+      ) : matchingPoints(100, projectedICEPoints) ? (
+        <p>You already have at least 100 verified or unverified {type} points.</p>
+      ) : hasNoInterests(favoriteInterests) ? (
+        <p>Consider adding interests to see recommendations here.</p>
+      ) : (
+        <React.Fragment>
+          <p>Consider the following to acquire 100 {type} points.</p>
+          <List>
+            {recommendedEvents(projectedICEPoints, favoriteInterests, type, match).map((event) => {
+              const courseSlug = getCourseSlug(event);
+              const courseRoute = buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${courseSlug}`);
+              const opportunitySlug = getOpportunitySlug(event);
+              const opportunityRoute = buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${opportunitySlug}`);
+              return (
+                <List.Item key={event._id}>
+                  {type === 'Competency' ? (
+                    <Link to={courseRoute}>
+                      <b>+9</b> {event.shortName}
+                    </Link>
+                  ) : (
+                    <Link to={opportunityRoute}>
+                      <b>+{icePoints(event.ice)}</b> {event.name}
+                    </Link>
+                  )}
+                </List.Item>
+              );
+            })}
+          </List>
+        </React.Fragment>
+      )}
     </React.Fragment>
   );
 };

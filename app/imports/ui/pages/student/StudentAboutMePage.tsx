@@ -23,11 +23,7 @@ const StudentAboutMePage: React.FC<StudentAboutMePageProps> = ({ profile, favori
       <Grid stackable>
         <Grid.Row>
           <Grid.Column width={12}>
-            <StudentAboutMeWidget
-              profile={profile}
-              favoriteCareerGoals={favoriteCareerGoals}
-              favoriteInterests={favoriteInterests}
-            />
+            <StudentAboutMeWidget profile={profile} favoriteCareerGoals={favoriteCareerGoals} favoriteInterests={favoriteInterests} />
           </Grid.Column>
         </Grid.Row>
       </Grid>

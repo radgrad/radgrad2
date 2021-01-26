@@ -30,9 +30,7 @@ const AdminDatabaseAccordion: React.FC<AdminDatabaseAccordionProps> = ({ index, 
       <Accordion.Title active={activeIndex === index} index={index} onClick={handleClick}>
         <Icon name="dropdown" /> {name} ({contents.length})
       </Accordion.Title>
-      <Accordion.Content active={activeIndex === index}>
-        {prettyPrint()}
-      </Accordion.Content>
+      <Accordion.Content active={activeIndex === index}>{prettyPrint()}</Accordion.Content>
     </Accordion>
   );
 };

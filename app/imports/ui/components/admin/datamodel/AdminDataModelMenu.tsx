@@ -5,7 +5,6 @@ import { NavLink, useParams, useRouteMatch } from 'react-router-dom';
 export interface AdminDataModeMenuProps {
   academicTermCount: number;
   academicYearCount: number;
-  advisorLogCount: number;
   careerGoalCount: number;
   courseInstanceCount: number;
   courseCount: number;
@@ -24,7 +23,26 @@ export interface AdminDataModeMenuProps {
   verificationRequestCount: number;
 }
 
-const AdminDataModelMenu: React.FC<AdminDataModeMenuProps> = ({ academicTermCount, academicYearCount, advisorLogCount, careerGoalCount, courseCount, courseInstanceCount, feedCount, feedbackCount, helpMessageCount, interestCount, interestTypeCount, opportunityCount, opportunityInstanceCount, opportunityTypeCount, reviewCount, slugCount, teaserCount, usersCount, verificationRequestCount }) => {
+const AdminDataModelMenu: React.FC<AdminDataModeMenuProps> = ({
+  academicTermCount,
+  academicYearCount,
+  careerGoalCount,
+  courseCount,
+  courseInstanceCount,
+  feedCount,
+  feedbackCount,
+  helpMessageCount,
+  interestCount,
+  interestTypeCount,
+  opportunityCount,
+  opportunityInstanceCount,
+  opportunityTypeCount,
+  reviewCount,
+  slugCount,
+  teaserCount,
+  usersCount,
+  verificationRequestCount,
+}) => {
   const { username } = useParams();
   const baseUrl = useRouteMatch().url;
   const baseIndex = baseUrl.indexOf(username);
@@ -37,9 +55,6 @@ const AdminDataModelMenu: React.FC<AdminDataModeMenuProps> = ({ academicTermCoun
       </Menu.Item>
       <Menu.Item id="data-model-academic-year-instances" as={NavLink} exact to={`${baseRoute}academic-year-instances`}>
         Academic Year Instances ({academicYearCount})
-      </Menu.Item>
-      <Menu.Item id="data-model-advisor-logs" as={NavLink} exact to={`${baseRoute}advisor-logs`}>
-        Advisor Logs ({advisorLogCount})
       </Menu.Item>
       <Menu.Item id="data-model-career-goals" as={NavLink} exact to={`${baseRoute}career-goals`}>
         Career Goals ({careerGoalCount})

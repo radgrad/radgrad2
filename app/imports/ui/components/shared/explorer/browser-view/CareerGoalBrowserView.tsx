@@ -48,7 +48,9 @@ const CareerGoalBrowserView: React.FC<CareerGoalBrowserViewProps> = ({ favoriteC
       <Segment>
         <Header dividing>CAREER GOALS {careerGoals.length}</Header>
         <Card.Group itemsPerRow={2} stackable id="careerGoalsCardGroup">
-          {ordered.map((goal) => <ProfileCard key={goal._id} item={goal} type={EXPLORER_TYPE.CAREERGOALS} />)}
+          {ordered.map((goal) => (
+            <ProfileCard key={goal._id} item={goal} type={EXPLORER_TYPE.CAREERGOALS} />
+          ))}
         </Card.Group>
       </Segment>
     </div>

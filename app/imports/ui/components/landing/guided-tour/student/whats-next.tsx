@@ -18,17 +18,10 @@ const GuidedTourStudentWhatsNext: React.FC = () => {
           <Grid.Column width="twelve">
             <div style={styles.p}>
               <Header style={styles.h1}>What&apos;s next?</Header>
-              <p>
-                If you haven&apos;t gotten your RadGrad account yet, please see your advisor to get set up, or attend
-                one of the &quot;RadGrad Registration&quot; meetings.
-              </p>
+              <p>If you haven&apos;t gotten your RadGrad account yet, please see your advisor to get set up, or attend one of the &quot;RadGrad Registration&quot; meetings.</p>
               <p>
                 If you just have questions about RadGrad, feel free to contact us at&nbsp;
-                <a
-                  href={mailto}
-                >
-                  {adminEmail}
-                </a>.
+                <a href={mailto}>{adminEmail}</a>.
               </p>
             </div>
           </Grid.Column>

@@ -23,7 +23,7 @@ const UserProfileCard: React.FC<UserProfileCard> = ({ item }) => {
     setIsActive(!isActiveState);
   };
 
-  if (!(item)) return undefined;
+  if (!item) return undefined;
   const p = item;
   const favIDs = FavoriteInterests.find({ userID: p.userID }).fetch();
   p.interestIDs = _.map(favIDs, (f) => f.interestID);
@@ -52,13 +52,7 @@ const UserProfileCard: React.FC<UserProfileCard> = ({ item }) => {
         <Image src={p.picture ? p.picture : defaultProfilePicture} floated="right" size="tiny" />
         <Card.Header>{`${p.firstName} ${p.lastName}`}</Card.Header>
         <Card.Meta>
-          {level > 0 ? (
-            <Image
-              style={{ padding: '5px' }}
-              size="mini"
-              src={`/images/level-icons/radgrad-level-${level}-icon.png`}
-            />
-          ) : undefined}
+          {level > 0 ? <Image style={{ padding: '5px' }} size="mini" src={`/images/level-icons/radgrad-level-${level}-icon.png`} /> : undefined}
           {isRole(ROLE.ADVISOR, ROLE.FACULTY) ? (
             <div style={usernameStyle}>
               {p.username}
@@ -68,29 +62,14 @@ const UserProfileCard: React.FC<UserProfileCard> = ({ item }) => {
           {sharedUsername}
           <br />
         </Card.Meta>
-        {p.website ? (
-          <Button
-            basic
-            compact
-            color="green"
-            size="small"
-            content="WEBSITE"
-            onClick={openInNewTab}
-          />
-        ) : undefined}
+        {p.website ? <Button basic compact color="green" size="small" content="WEBSITE" onClick={openInNewTab} /> : undefined}
       </Card.Content>
       <Card.Content extra>
         <InterestList item={p} size="mini" />
-        {isRole(ROLE.ADVISOR, ROLE.FACULTY) ? (
-          <Markdown source={p.aboutMe} />
-        ) : undefined}
+        {isRole(ROLE.ADVISOR, ROLE.FACULTY) ? <Markdown source={p.aboutMe} /> : undefined}
       </Card.Content>
       <Button onClick={toggleFullSize} content="View Profile" />
-      <ExplorerUsersWidget
-        userProfile={item}
-        isActive={isActiveState}
-        handleClose={toggleFullSize}
-      />
+      <ExplorerUsersWidget userProfile={item} isActive={isActiveState} handleClose={toggleFullSize} />
     </Card>
   );
 };

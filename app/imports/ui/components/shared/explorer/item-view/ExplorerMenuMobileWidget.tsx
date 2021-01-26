@@ -36,100 +36,76 @@ const ExplorerMenuMobileWidget: React.FC<ExplorerMenuMobileWidgetProps> = ({ men
       <style>{mediaStyles}</style>
       <MediaContextProvider>
         <Media lessThan="tablet">
-          {(isType(EXPLORER_TYPE.COURSES, type) && isStudent) ?
-            (
-              <React.Fragment>
-                <Dropdown className="selection" fluid text="Select Item" style={{ marginTop: '1rem' }}>
-                  <Dropdown.Menu>
-                    <Dropdown.Header as="h4">MY FAVORITE COURSES</Dropdown.Header>
-                    <Dropdown.Divider />
-                    {
-                      menuAddedList.map((listItem) => (
-                        <ExplorerMenuMobileItem
-                          type={EXPLORER_TYPE.COURSES}
-                          listItem={listItem}
-                          key={listItem.item._id}
-                        />
-                      ))
-                    }
-                  </Dropdown.Menu>
-                </Dropdown>
-              </React.Fragment>
-            )
-            : ''}
-
-          {isType(EXPLORER_TYPE.OPPORTUNITIES, type) ?
-            (
-              <React.Fragment>
-                {isStudent ?
-                  (
-                    <Dropdown className="selection" fluid text="Select Item" style={{ marginTop: '1rem' }}>
-                      <Dropdown.Menu>
-                        <Dropdown.Header as="h4">MY FAVORITE OPPORTUNITIES</Dropdown.Header>
-                        <Dropdown.Divider />
-                        {menuAddedList.map((listItem) => (
-                          <ExplorerMenuMobileItem
-                            type={EXPLORER_TYPE.OPPORTUNITIES}
-                            listItem={listItem}
-                            key={listItem.item._id}
-                          />
-                        ))}
-                      </Dropdown.Menu>
-                    </Dropdown>
-                  )
-                  : ''}
-              </React.Fragment>
-            )
-            : ''}
-
-          {/* Components renderable to STUDENTS and FACULTY. */}
-          {isType(EXPLORER_TYPE.INTERESTS, type) ?
-            (
+          {isType(EXPLORER_TYPE.COURSES, type) && isStudent ? (
+            <React.Fragment>
               <Dropdown className="selection" fluid text="Select Item" style={{ marginTop: '1rem' }}>
                 <Dropdown.Menu>
-                  <Dropdown.Header as="h4">MY FAVORITE INTERESTS</Dropdown.Header>
+                  <Dropdown.Header as="h4">MY FAVORITE COURSES</Dropdown.Header>
                   <Dropdown.Divider />
                   {menuAddedList.map((listItem) => (
-                    <ExplorerMenuMobileItem
-                      type={EXPLORER_TYPE.INTERESTS}
-                      listItem={listItem}
-                      key={listItem.item._id}
-                    />
-                  ))}
-
-                  <Dropdown.Header as="h4">SUGGESTED CAREER GOAL INTERESTS</Dropdown.Header>
-                  <Dropdown.Divider />
-                  {menuCareerList.map((listItem) => (
-                    <ExplorerMenuMobileItem
-                      type={EXPLORER_TYPE.INTERESTS}
-                      listItem={listItem}
-                      key={listItem.item._id}
-                    />
+                    <ExplorerMenuMobileItem type={EXPLORER_TYPE.COURSES} listItem={listItem} key={listItem.item._id} />
                   ))}
                 </Dropdown.Menu>
               </Dropdown>
-            )
-            : ''}
+            </React.Fragment>
+          ) : (
+            ''
+          )}
 
-          {isType(EXPLORER_TYPE.CAREERGOALS, type) ?
-            (
-              <Dropdown className="selection" fluid text="Select Item" style={{ marginTop: '1rem' }}>
-                <Dropdown.Menu>
-                  <Dropdown.Header as="h4">MY FAVORITE CAREER GOALS</Dropdown.Header>
-                  <Dropdown.Divider />
-                  {
-                    menuAddedList.map((listItem) => (
-                      <ExplorerMenuMobileItem
-                        type={EXPLORER_TYPE.CAREERGOALS}
-                        listItem={listItem}
-                        key={listItem.item._id}
-                      />
-                    ))
-                  }
-                </Dropdown.Menu>
-              </Dropdown>
-            )
-            : ''}
+          {isType(EXPLORER_TYPE.OPPORTUNITIES, type) ? (
+            <React.Fragment>
+              {isStudent ? (
+                <Dropdown className="selection" fluid text="Select Item" style={{ marginTop: '1rem' }}>
+                  <Dropdown.Menu>
+                    <Dropdown.Header as="h4">MY FAVORITE OPPORTUNITIES</Dropdown.Header>
+                    <Dropdown.Divider />
+                    {menuAddedList.map((listItem) => (
+                      <ExplorerMenuMobileItem type={EXPLORER_TYPE.OPPORTUNITIES} listItem={listItem} key={listItem.item._id} />
+                    ))}
+                  </Dropdown.Menu>
+                </Dropdown>
+              ) : (
+                ''
+              )}
+            </React.Fragment>
+          ) : (
+            ''
+          )}
+
+          {/* Components renderable to STUDENTS and FACULTY. */}
+          {isType(EXPLORER_TYPE.INTERESTS, type) ? (
+            <Dropdown className="selection" fluid text="Select Item" style={{ marginTop: '1rem' }}>
+              <Dropdown.Menu>
+                <Dropdown.Header as="h4">MY FAVORITE INTERESTS</Dropdown.Header>
+                <Dropdown.Divider />
+                {menuAddedList.map((listItem) => (
+                  <ExplorerMenuMobileItem type={EXPLORER_TYPE.INTERESTS} listItem={listItem} key={listItem.item._id} />
+                ))}
+
+                <Dropdown.Header as="h4">SUGGESTED CAREER GOAL INTERESTS</Dropdown.Header>
+                <Dropdown.Divider />
+                {menuCareerList.map((listItem) => (
+                  <ExplorerMenuMobileItem type={EXPLORER_TYPE.INTERESTS} listItem={listItem} key={listItem.item._id} />
+                ))}
+              </Dropdown.Menu>
+            </Dropdown>
+          ) : (
+            ''
+          )}
+
+          {isType(EXPLORER_TYPE.CAREERGOALS, type) ? (
+            <Dropdown className="selection" fluid text="Select Item" style={{ marginTop: '1rem' }}>
+              <Dropdown.Menu>
+                <Dropdown.Header as="h4">MY FAVORITE CAREER GOALS</Dropdown.Header>
+                <Dropdown.Divider />
+                {menuAddedList.map((listItem) => (
+                  <ExplorerMenuMobileItem type={EXPLORER_TYPE.CAREERGOALS} listItem={listItem} key={listItem.item._id} />
+                ))}
+              </Dropdown.Menu>
+            </Dropdown>
+          ) : (
+            ''
+          )}
         </Media>
       </MediaContextProvider>
     </React.Fragment>

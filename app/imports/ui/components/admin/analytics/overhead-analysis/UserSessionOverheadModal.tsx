@@ -23,8 +23,16 @@ const UserSessionOverheadModal: React.FC<UserSessionOverheadModalProps> = ({ use
   };
 
   return (
-    <Modal trigger={<Button size="tiny" color="green" basic fluid>SHOW</Button>}>
-      <Modal.Header>User Interactions: <span style={fullNameStyle}>{fullName}</span></Modal.Header>
+    <Modal
+      trigger={
+        <Button size="tiny" color="green" basic fluid>
+          SHOW
+        </Button>
+      }
+    >
+      <Modal.Header>
+        User Interactions: <span style={fullNameStyle}>{fullName}</span>
+      </Modal.Header>
       <Modal.Content>
         <div style={tableStyle}>
           <Table celled padded columns={3}>

@@ -36,11 +36,7 @@ const ExplorerSummerOpportunitiesWidget: React.FC = () => {
       <Header>SUMMER INTERNSHIP OPPORTUNITIES</Header>
       <Divider />
       {summerInternshipOpportunities.map((opportunity) => (
-        <OpportunityInformationItem
-          key={opportunity._id}
-          opportunity={opportunity}
-          informationConfiguration={opportunityInformationItemConfiguration}
-        />
+        <OpportunityInformationItem key={opportunity._id} opportunity={opportunity} informationConfiguration={opportunityInformationItemConfiguration} />
       ))}
     </>
   );

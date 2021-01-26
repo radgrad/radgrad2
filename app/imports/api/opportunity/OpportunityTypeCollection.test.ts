@@ -58,11 +58,13 @@ if (Meteor.isServer) {
         description,
       });
       expect(OpportunityTypes.isDefined(docID)).to.be.true;
-      expect(() => OpportunityTypes.define({
-        name,
-        slug,
-        description,
-      })).to.throw(Error);
+      expect(() =>
+        OpportunityTypes.define({
+          name,
+          slug,
+          description,
+        }),
+      ).to.throw(Error);
     });
 
     it('Can update', function test3(done) {
@@ -105,7 +107,7 @@ if (Meteor.isServer) {
 
     it('Can findDocBySlug', function test() {
       name = faker.lorem.words();
-      slug = faker.lorem.word();
+      slug = `${faker.lorem.word()}-${new Date().getTime()}`;
       description = faker.lorem.paragraph();
       OpportunityTypes.define({ name, slug, description });
       const doc = OpportunityTypes.findDocBySlug(slug);

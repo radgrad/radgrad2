@@ -40,17 +40,9 @@ const UpdateReviewForm: React.FC<UpdateReviewFormProps> = ({ terms, collection, 
     <Segment padded>
       <Header dividing>
         Update
-        {collection.getType()}
-        :
-        {itemTitleString(model)}
+        {collection.getType()}:{itemTitleString(model)}
       </Header>
-      <AutoForm
-        schema={formSchema}
-        onSubmit={handleUpdate}
-        ref={formRef}
-        showInlineError
-        model={model}
-      >
+      <AutoForm schema={formSchema} onSubmit={handleUpdate} ref={formRef} showInlineError model={model}>
         <Form.Group widths="equal">
           <SelectField name="academicTerm" />
           <NumField name="rating" />

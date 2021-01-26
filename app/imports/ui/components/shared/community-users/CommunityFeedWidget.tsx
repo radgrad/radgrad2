@@ -18,18 +18,18 @@ const CommunityFeedWidget: React.FC<StudentFeedWidgetProps> = ({ feeds }) => {
     <Container id="community-feed-widget">
       <Segment padded>
         <Header dividing>RADGRAD COMMUNITY ACTIVITY</Header>
-        {feeds ?
-          (
-            <Feed style={feedStyle}>
-              {feeds.map((feed) => (
-                <React.Fragment key={feed._id}>
-                  <StudentFeedItem feed={feed} />
-                  <Divider />
-                </React.Fragment>
-              ))}
-            </Feed>
-          )
-          : <p>No recent feeds.</p>}
+        {feeds ? (
+          <Feed style={feedStyle}>
+            {feeds.map((feed) => (
+              <React.Fragment key={feed._id}>
+                <StudentFeedItem feed={feed} />
+                <Divider />
+              </React.Fragment>
+            ))}
+          </Feed>
+        ) : (
+          <p>No recent feeds.</p>
+        )}
       </Segment>
     </Container>
   );

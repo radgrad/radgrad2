@@ -7,14 +7,7 @@ import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 import ListOpportunitiesWidget from '../../components/faculty/manage-opportunities/FacultyListOpportunitiesWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
-import {
-  AcademicTerm,
-  BaseProfile,
-  DescriptionPair, HelpMessage,
-  Interest,
-  Opportunity,
-  OpportunityType,
-} from '../../../typings/radgrad';
+import { AcademicTerm, BaseProfile, DescriptionPair, HelpMessage, Interest, Opportunity, OpportunityType } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';
@@ -25,11 +18,7 @@ import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 import AddOpportunityForm from '../../components/admin/datamodel/opportunity/AddOpportunityForm';
 import UpdateOpportunityForm from '../../components/admin/datamodel/opportunity/UpdateOpportunityForm';
-import {
-  academicTermNameToSlug,
-  opportunityTypeNameToSlug,
-  profileNameToUsername,
-} from '../../components/shared/utilities/data-model';
+import { academicTermNameToSlug, opportunityTypeNameToSlug, profileNameToUsername } from '../../components/shared/utilities/data-model';
 import { interestSlugFromName } from '../../components/shared/utilities/form';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
@@ -199,7 +188,9 @@ const FacultyManageOpportunitiesPage: React.FC<FacultyManageOpportunitiesPagePro
       <Grid stackable>
         <Grid.Row>
           <Grid.Column width={1} />
-          <Grid.Column width={14}><HelpPanelWidget helpMessages={helpMessages} /></Grid.Column>
+          <Grid.Column width={14}>
+            <HelpPanelWidget helpMessages={helpMessages} />
+          </Grid.Column>
           <Grid.Column width={1} />
         </Grid.Row>
 
@@ -220,14 +211,7 @@ const FacultyManageOpportunitiesPage: React.FC<FacultyManageOpportunitiesPagePro
                 opportunityTypes={opportunityTypes}
               />
             ) : (
-              <AddOpportunityForm
-                formRef={formRef}
-                handleAdd={handleAdd}
-                sponsors={sponsors}
-                terms={terms}
-                interests={interests}
-                opportunityTypes={opportunityTypes}
-              />
+              <AddOpportunityForm formRef={formRef} handleAdd={handleAdd} sponsors={sponsors} terms={terms} interests={interests} opportunityTypes={opportunityTypes} />
             )}
             <ListOpportunitiesWidget
               collection={collection}
@@ -243,12 +227,7 @@ const FacultyManageOpportunitiesPage: React.FC<FacultyManageOpportunitiesPagePro
           <Grid.Column width={1} />
         </Grid.Row>
       </Grid>
-      <Confirm
-        open={confirmOpenState}
-        onCancel={handleCancel}
-        onConfirm={handleConfirmDelete}
-        header="Delete Opportunity?"
-      />
+      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Opportunity?" />
 
       <BackToTopButton />
     </div>
@@ -264,7 +243,7 @@ export default withTracker(() => {
   const currentTermNumber = AcademicTerms.getCurrentAcademicTermDoc().termNumber;
   const after = currentTermNumber - 8;
   const before = currentTermNumber + 16;
-  const terms = _.filter(allTerms, t => t.termNumber >= after && t.termNumber <= before);
+  const terms = _.filter(allTerms, (t) => t.termNumber >= after && t.termNumber <= before);
   const interests = Interests.find({}, { sort: { name: 1 } }).fetch();
   const opportunityTypes = OpportunityTypes.find({}, { sort: { name: 1 } }).fetch();
   const helpMessages = HelpMessages.findNonRetired({});

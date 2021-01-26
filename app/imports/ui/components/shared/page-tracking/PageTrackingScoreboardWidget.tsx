@@ -7,12 +7,7 @@ import Swal from 'sweetalert2';
 import moment from 'moment';
 import { PageInterestsDailySnapshots } from '../../../../api/page-tracking/PageInterestsDailySnapshotCollection';
 import { PageInterestsDailySnapshot } from '../../../../typings/radgrad';
-import {
-  aggregateDailySnapshots,
-  getCategory, getUrlCategory,
-  AggregatedDailySnapshot,
-  parseName,
-} from './utilities/page-tracking';
+import { aggregateDailySnapshots, getCategory, getUrlCategory, AggregatedDailySnapshot, parseName } from './utilities/page-tracking';
 import { IPageInterestsCategoryTypes } from '../../../../api/page-tracking/PageInterestsCategoryTypes';
 import PageTrackingWidgetMessage from './PageTrackingWidgetMessage';
 
@@ -100,33 +95,25 @@ const PageTrackingScoreboardWidget: React.FC<PageTrackingScoreboardWidgetProps> 
           <Table celled striped sortable>
             <Table.Header>
               <Table.Row>
-                <Table.HeaderCell
-                  sorted={column === 'name' ? direction : undefined}
-                  onClick={(e) => handleSort(e, 'name')}
-                >
+                <Table.HeaderCell sorted={column === 'name' ? direction : undefined} onClick={(e) => handleSort(e, 'name')}>
                   Name
                 </Table.HeaderCell>
-                <Table.HeaderCell
-                  sorted={column === 'views' ? direction : undefined}
-                  onClick={(e) => handleSort(e, 'views')}
-                >
+                <Table.HeaderCell sorted={column === 'views' ? direction : undefined} onClick={(e) => handleSort(e, 'views')}>
                   Page Views
                 </Table.HeaderCell>
               </Table.Row>
             </Table.Header>
             <Table.Body>
-              {data[category].length > 0 ?
-                (
-                  <React.Fragment>
-                    {data[category].map((snapshot) => (
-                      <Table.Row key={`${category}-${snapshot.name}:${snapshot.views}`}>
-                        <Table.Cell width={10}>{parseName(urlCategory, snapshot.name)}</Table.Cell>
-                        <Table.Cell width={6}>{snapshot.views}</Table.Cell>
-                      </Table.Row>
-                    ))}
-                  </React.Fragment>
-                )
-                : undefined}
+              {data[category].length > 0 ? (
+                <React.Fragment>
+                  {data[category].map((snapshot) => (
+                    <Table.Row key={`${category}-${snapshot.name}:${snapshot.views}`}>
+                      <Table.Cell width={10}>{parseName(urlCategory, snapshot.name)}</Table.Cell>
+                      <Table.Cell width={6}>{snapshot.views}</Table.Cell>
+                    </Table.Row>
+                  ))}
+                </React.Fragment>
+              ) : undefined}
             </Table.Body>
           </Table>
         </div>
@@ -137,33 +124,16 @@ const PageTrackingScoreboardWidget: React.FC<PageTrackingScoreboardWidgetProps> 
       <Grid.Column width={5}>
         <Header>FILTER BY DATE</Header>
         <Grid.Row style={marginBottomStyle}>
-          <Button size="mini" onClick={handleFilter}>Filter</Button>
-          <Button size="mini" onClick={handleClear}>Clear</Button>
+          <Button size="mini" onClick={handleFilter}>
+            Filter
+          </Button>
+          <Button size="mini" onClick={handleClear}>
+            Clear
+          </Button>
         </Grid.Row>
         <Grid.Row>
-          <DatePicker
-            selectsStart
-            showMonthDropdown
-            showYearDropdown
-            onChange={(date) => setStartDate(date)}
-            placeholderText="Start Date"
-            selected={startDate}
-            startDate={startDate}
-            endDate={endDate}
-            maxDate={endDate || new Date()}
-          />
-          <DatePicker
-            selectsEnd
-            showMonthDropdown
-            showYearDropdown
-            onChange={(date) => setEndDate(date)}
-            placeholderText="End Date"
-            selected={endDate}
-            startDate={startDate}
-            endDate={endDate}
-            minDate={startDate}
-            maxDate={new Date()}
-          />
+          <DatePicker selectsStart showMonthDropdown showYearDropdown onChange={(date) => setStartDate(date)} placeholderText="Start Date" selected={startDate} startDate={startDate} endDate={endDate} maxDate={endDate || new Date()} />
+          <DatePicker selectsEnd showMonthDropdown showYearDropdown onChange={(date) => setEndDate(date)} placeholderText="End Date" selected={endDate} startDate={startDate} endDate={endDate} minDate={startDate} maxDate={new Date()} />
         </Grid.Row>
       </Grid.Column>
     </Grid>

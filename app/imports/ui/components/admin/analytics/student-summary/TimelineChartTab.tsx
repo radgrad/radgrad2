@@ -57,12 +57,18 @@ const TimelineChartTab: React.FC<TimelineChartTabProps> = ({ startDate, endDate,
         if (_.some(interactionsWithinDate, (i) => i.type === UserInteractionsTypes.PAGEVIEW && i.typeData[0].includes(`${EXPLORER_TYPE.HOME}/`))) {
           obj[date].push(behaviorList[2]);
         }
-        if (_.some(interactionsWithinDate, (i) => i.type === UserInteractionsTypes.ADDCOURSE
-          || i.type === UserInteractionsTypes.REMOVECOURSE
-          || i.type === UserInteractionsTypes.UPDATECOURSE
-          || i.type === UserInteractionsTypes.ADDOPPORTUNITY
-          || i.type === UserInteractionsTypes.REMOVEOPPORTUNITY
-          || i.type === UserInteractionsTypes.UPDATEOPPORTUNITY)) {
+        if (
+          _.some(
+            interactionsWithinDate,
+            (i) =>
+              i.type === UserInteractionsTypes.ADDCOURSE ||
+              i.type === UserInteractionsTypes.REMOVECOURSE ||
+              i.type === UserInteractionsTypes.UPDATECOURSE ||
+              i.type === UserInteractionsTypes.ADDOPPORTUNITY ||
+              i.type === UserInteractionsTypes.REMOVEOPPORTUNITY ||
+              i.type === UserInteractionsTypes.UPDATEOPPORTUNITY,
+          )
+        ) {
           obj[date].push(behaviorList[3]);
         }
         if (_.some(interactionsWithinDate, (i) => i.type === UserInteractionsTypes.VERIFYREQUEST)) {
@@ -136,27 +142,27 @@ const TimelineChartTab: React.FC<TimelineChartTabProps> = ({ startDate, endDate,
       },
       series,
       responsive: {
-        rules: [{
-          condition: {
-            maxWidth: 500,
-          },
-          chartOptions: {
-            legend: {
-              layout: 'horizontal',
-              align: 'center',
-              verticalAlign: 'bottom',
+        rules: [
+          {
+            condition: {
+              maxWidth: 500,
+            },
+            chartOptions: {
+              legend: {
+                layout: 'horizontal',
+                align: 'center',
+                verticalAlign: 'bottom',
+              },
             },
           },
-        }],
+        ],
       },
       credits: {
         enabled: false,
       },
     };
   }
-  return (
-    <HighchartsReact highcharts={Highcharts} options={chartOptions} />
-  );
+  return <HighchartsReact highcharts={Highcharts} options={chartOptions} />;
 };
 
 export default TimelineChartTab;

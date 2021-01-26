@@ -9,8 +9,12 @@ const RadGradLogoText: React.FC<RadGradLogoProps> = ({ style }) => {
   const gradStyle = { fontWeight: 400 };
   return (
     <div style={style}>
-      <span className="radgrad-brand-font" style={radStyle}>RAD</span>
-      <span className="radgrad-brand-font" style={gradStyle}>GRAD</span>
+      <span className="radgrad-brand-font" style={radStyle}>
+        RAD
+      </span>
+      <span className="radgrad-brand-font" style={gradStyle}>
+        GRAD
+      </span>
     </div>
   );
 };

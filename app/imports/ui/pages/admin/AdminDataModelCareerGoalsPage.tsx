@@ -7,10 +7,7 @@ import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
 import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { Users } from '../../../api/user/UserCollection';
-import {
-  CareerGoal, CareerGoalUpdate,
-  DescriptionPair, Interest,
-} from '../../../typings/radgrad';
+import { CareerGoal, CareerGoalUpdate, DescriptionPair, Interest } from '../../../typings/radgrad';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import AdminDataModelUpdateForm from '../../components/admin/datamodel/AdminDataModelUpdateForm';
@@ -176,21 +173,13 @@ const AdminDataModelCareerGoalsPage: React.FC<AdminDataModelCareerGoalsPageProps
     <div id="data-model-career-goals-page">
       <AdminPageMenuWidget />
       <Grid container stackable style={paddedStyle}>
-
         <Grid.Column width={3}>
           <AdminDataModelMenu {...props} />
         </Grid.Column>
 
         <Grid.Column width={13}>
           {showUpdateFormState ? (
-            <AdminDataModelUpdateForm
-              collection={CareerGoals}
-              id={idState}
-              formRef={formRef}
-              handleUpdate={handleUpdate}
-              handleCancel={handleCancel}
-              itemTitleString={itemTitleString}
-            />
+            <AdminDataModelUpdateForm collection={CareerGoals} id={idState} formRef={formRef} handleUpdate={handleUpdate} handleCancel={handleCancel} itemTitleString={itemTitleString} />
           ) : (
             <AddCareerGoalForm formRef={formRef} handleAdd={handleAdd} interests={props.interests} />
           )}
@@ -206,12 +195,7 @@ const AdminDataModelCareerGoalsPage: React.FC<AdminDataModelCareerGoalsPageProps
           />
         </Grid.Column>
       </Grid>
-      <Confirm
-        open={confirmOpenState}
-        onCancel={handleCancel}
-        onConfirm={handleConfirmDelete}
-        header="Delete Career Goal?"
-      />
+      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Career Goal?" />
 
       <BackToTopButton />
     </div>

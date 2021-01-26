@@ -49,9 +49,7 @@ const ScoreboardPage: React.FC<ScoreboardPageProps> = ({ courses, courseScores, 
         <Grid.Column width={3}>
           <ScoreboardPageMenu />
         </Grid.Column>
-        <Grid.Column width={13}>
-          {content}
-        </Grid.Column>
+        <Grid.Column width={13}>{content}</Grid.Column>
       </Grid>
 
       <BackToTopButton />
@@ -66,10 +64,13 @@ const ScoreboardPageContainer = withTracker(() => {
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
   const isQuarterSystem = RadGradProperties.getQuarterSystem();
   const limit = isQuarterSystem ? 12 : 9;
-  const terms = AcademicTerms.findNonRetired({ termNumber: { $gte: currentTerm.termNumber } }, {
-    sort: { termNumber: 1 },
-    limit: limit,
-  });
+  const terms = AcademicTerms.findNonRetired(
+    { termNumber: { $gte: currentTerm.termNumber } },
+    {
+      sort: { termNumber: 1 },
+      limit: limit,
+    },
+  );
   const courseScores = CourseScoreboard.find().fetch();
   const oppScores = OpportunityScoreboard.find().fetch();
   return {
@@ -82,7 +83,4 @@ const ScoreboardPageContainer = withTracker(() => {
   };
 })(ScoreboardPage);
 
-export default withListSubscriptions(ScoreboardPageContainer, [
-  CourseInstances.getPublicationNames().scoreboard,
-  OpportunityInstances.getPublicationNames().scoreboard,
-]);
+export default withListSubscriptions(ScoreboardPageContainer, [CourseInstances.getPublicationNames().scoreboard, OpportunityInstances.getPublicationNames().scoreboard]);

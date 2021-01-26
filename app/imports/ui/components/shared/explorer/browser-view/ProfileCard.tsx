@@ -4,12 +4,7 @@ import { Card, Icon, Image, Popup } from 'semantic-ui-react';
 import Markdown from 'react-markdown';
 import * as Router from '../../utilities/router';
 import WidgetHeaderNumber from '../WidgetHeaderNumber';
-import {
-  docToName,
-  docToShortDescription, itemToSlugName, profileIDToFullname,
-  profileIDToPicture,
-  studentsParticipating,
-} from '../../utilities/data-model';
+import { docToName, docToShortDescription, itemToSlugName, profileIDToFullname, profileIDToPicture, studentsParticipating } from '../../utilities/data-model';
 import { interestedStudents } from '../utilities/explorer';
 import { buildExplorerSlugRoute } from '../../utilities/router';
 import InterestList from '../../InterestList';
@@ -39,11 +34,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ item, type }) => {
         <Card.Header>{itemName}</Card.Header>
       </Card.Content>
       <Card.Content>
-        <Markdown
-          escapeHtml
-          source={`${itemShortDescription}...`}
-          renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}
-        />
+        <Markdown escapeHtml source={`${itemShortDescription}...`} renderers={{ link: (localProps) => Router.renderLink(localProps, match) }} />
         <InterestList item={item} size="small" />
       </Card.Content>
       <Card.Content>
@@ -52,11 +43,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ item, type }) => {
         </span>
         <Image.Group size="mini">
           {interested.map((student) => (
-            <Popup
-              key={`${item._id}${student._id}`}
-              trigger={<Image src={profileIDToPicture(student.userID)} circular bordered />}
-              content={profileIDToFullname(student.userID)}
-            />
+            <Popup key={`${item._id}${student._id}`} trigger={<Image src={profileIDToPicture(student.userID)} circular bordered />} content={profileIDToFullname(student.userID)} />
           ))}
         </Image.Group>
       </Card.Content>

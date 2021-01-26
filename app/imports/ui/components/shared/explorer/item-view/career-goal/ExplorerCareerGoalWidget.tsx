@@ -58,12 +58,7 @@ const ExplorerCareerGoalWidget: React.FC<ExplorerCareerGoalsWidgetProps> = ({ na
         <Segment>
           <Segment basic clearing vertical>
             <Grid.Row verticalAlign="middle">
-              <FavoritesButton
-                item={item}
-                studentID={getUserIdFromRoute(match)}
-                type={FAVORITE_TYPE.CAREERGOAL}
-                added={added}
-              />
+              <FavoritesButton item={item} studentID={getUserIdFromRoute(match)} type={FAVORITE_TYPE.CAREERGOAL} added={added} />
               <Header floated="left">{upperName}</Header>
             </Grid.Row>
           </Segment>
@@ -71,99 +66,61 @@ const ExplorerCareerGoalWidget: React.FC<ExplorerCareerGoalsWidgetProps> = ({ na
           <div style={{ marginTop: '5px' }}>
             <InterestList item={item} size="mini" />
           </div>
-          {
-            hasTeaser ?
-              (
-                <Grid stackable columns={2}>
-                  <Grid.Column width={9}>
-                    {descriptionPairs.map((descriptionPair) => (
-                      <React.Fragment key={toId(descriptionPair)}>
-                        {
-                          isSame(descriptionPair.label, 'Description') ? (
-                            <React.Fragment>
-                              <b>
-                                {descriptionPair.label}
-                                :
-                                <br />
-                              </b>
-                              {
-                                  descriptionPair.value ? (
-                                    <Markdown
-                                      escapeHtml={false}
-                                      source={`${descriptionPair.value}`}
-                                      renderers={{ link: (localProps) => renderLink(localProps, match) }}
-                                    />
-                                  )
-                                    :
-                                    'N/A'
-                                }
-                            </React.Fragment>
-                          )
-                            : ''
-                        }
+          {hasTeaser ? (
+            <Grid stackable columns={2}>
+              <Grid.Column width={9}>
+                {descriptionPairs.map((descriptionPair) => (
+                  <React.Fragment key={toId(descriptionPair)}>
+                    {isSame(descriptionPair.label, 'Description') ? (
+                      <React.Fragment>
+                        <b>
+                          {descriptionPair.label}
+                          :
+                          <br />
+                        </b>
+                        {descriptionPair.value ? <Markdown escapeHtml={false} source={`${descriptionPair.value}`} renderers={{ link: (localProps) => renderLink(localProps, match) }} /> : 'N/A'}
                       </React.Fragment>
-                    ))}
-                  </Grid.Column>
-                  <Grid.Column width={7}>
-                    {
-                      descriptionPairs.map((descriptionPair) => (
-                        <React.Fragment key={toId(descriptionPair)}>
-                          {
-                            isSame(descriptionPair.label, 'Teaser') && teaserUrlHelper(careergoal) ? (
-                              <React.Fragment>
-                                <b>
-                                  {descriptionPair.label}
-                                  :
-                                </b>
-                                {
-                                    descriptionPair.value ?
-                                      (<TeaserVideo id={teaserUrlHelper(careergoal)} />)
-                                      :
-                                      <p> N/A </p>
-                                  }
-                              </React.Fragment>
-                            )
-                              : ''
-                          }
-                        </React.Fragment>
-                      ))
-                    }
-                  </Grid.Column>
-                </Grid>
-              )
-              :
-              (
-                <Grid.Column>
-                  {descriptionPairs.map((descriptionPair) => (
-                    <React.Fragment key={toId(descriptionPair)}>
-                      {
-                        isSame(descriptionPair.label, 'Description') ? (
-                          <React.Fragment>
-                            <b>
-                              {descriptionPair.label}
-                              :
-                              <br />
-                            </b>
-                            {
-                                descriptionPair.value ? (
-                                  <Markdown
-                                    escapeHtml={false}
-                                    source={`${descriptionPair.value}`}
-                                    renderers={{ link: (localProps) => renderLink(localProps, match) }}
-                                  />
-                                )
-                                  :
-                                  'N/A'
-                              }
-                          </React.Fragment>
-                        )
-                          : ''
-                      }
+                    ) : (
+                      ''
+                    )}
+                  </React.Fragment>
+                ))}
+              </Grid.Column>
+              <Grid.Column width={7}>
+                {descriptionPairs.map((descriptionPair) => (
+                  <React.Fragment key={toId(descriptionPair)}>
+                    {isSame(descriptionPair.label, 'Teaser') && teaserUrlHelper(careergoal) ? (
+                      <React.Fragment>
+                        <b>{descriptionPair.label}:</b>
+                        {descriptionPair.value ? <TeaserVideo id={teaserUrlHelper(careergoal)} /> : <p> N/A </p>}
+                      </React.Fragment>
+                    ) : (
+                      ''
+                    )}
+                  </React.Fragment>
+                ))}
+              </Grid.Column>
+            </Grid>
+          ) : (
+            <Grid.Column>
+              {descriptionPairs.map((descriptionPair) => (
+                <React.Fragment key={toId(descriptionPair)}>
+                  {isSame(descriptionPair.label, 'Description') ? (
+                    <React.Fragment>
+                      <b>
+                        {descriptionPair.label}
+                        :
+                        <br />
+                      </b>
+                      {descriptionPair.value ? <Markdown escapeHtml={false} source={`${descriptionPair.value}`} renderers={{ link: (localProps) => renderLink(localProps, match) }} /> : 'N/A'}
                     </React.Fragment>
-                  ))}
-                </Grid.Column>
-              )
-          }
+                  ) : (
+                    ''
+                  )}
+                </React.Fragment>
+              ))}
+            </Grid.Column>
+          )}
           <br />
           <Divider />
           <Grid stackable celled="internally">
@@ -175,11 +132,7 @@ const ExplorerCareerGoalWidget: React.FC<ExplorerCareerGoalsWidgetProps> = ({ na
 
                 <Image.Group size="mini" style={imageGroupStyle}>
                   {socialPair.value.map((user) => (
-                    <Popup
-                      key={user._id}
-                      trigger={<Image src={userToPicture(user)} circular bordered />}
-                      content={userToFullName(user)}
-                    />
+                    <Popup key={user._id} trigger={<Image src={userToPicture(user)} circular bordered />} content={userToFullName(user)} />
                   ))}
                 </Image.Group>
               </Grid.Column>

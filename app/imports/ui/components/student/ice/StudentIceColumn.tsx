@@ -24,7 +24,6 @@ export interface StudentIceColumnProps {
 }
 
 const StudentIceColumn: React.FC<StudentIceColumnProps> = ({ type, favoriteInterests, courseInstances, opportunityInstances, projectedICE, earnedICE }) => {
-
   const [verifiedColumnOpenState, setVerifiedColumnOpen] = useState(true);
   const [unVerifiedColumnOpenState, setUnVerifiedColumnOpen] = useState(false);
   const [recommendedColumnOpenState, setRecommendedColumnOpen] = useState(false);
@@ -127,9 +126,7 @@ const StudentIceColumn: React.FC<StudentIceColumnProps> = ({ type, favoriteInter
       <Accordion.Title active={verifiedColumnOpenState} onClick={handleVerifiedColumnClick}>
         <Icon name="dropdown" />
         Verified
-        <div className={`ui right floated ${verifiedColor}`}>
-          {earnedICEPoints} pts
-        </div>
+        <div className={`ui right floated ${verifiedColor}`}>{earnedICEPoints} pts</div>
       </Accordion.Title>
       <Accordion.Content active={verifiedColumnOpenState}>
         <StudentIceColumnVerified

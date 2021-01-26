@@ -55,17 +55,20 @@ const UploadFixtureWidget: React.FC<UploadFixtureWidgetProps> = ({ setUploadFixt
   };
   return (
     <Segment padded>
-      <Header as="h4" dividing>UPLOAD FIXTURE</Header>
+      <Header as="h4" dividing>
+        UPLOAD FIXTURE
+      </Header>
       <Form widths="equal" onSubmit={onSubmit}>
         <Form.Field>
           <Form.Input type="file" onChange={readFile} label="FIXTURE" />
-          <Form.Button basic color="green" loading={uploadFixtureWorking} type="Submit">UPLOAD FIXTURE</Form.Button>
+          <Form.Button basic color="green" loading={uploadFixtureWorking} type="Submit">
+            UPLOAD FIXTURE
+          </Form.Button>
         </Form.Field>
       </Form>
       {uploadResult ? <UploadFixtureResultWidget error={error} message={uploadResult} /> : ''}
     </Segment>
   );
-
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UploadFixtureWidget);

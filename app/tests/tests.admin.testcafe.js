@@ -51,7 +51,7 @@ test('Test all admin top-level pages', async (testController) => {
 test('Test admin data model page and subpages', async (testController) => {
   await adminNavBar.gotoAdminLogin(testController);
   await signinPage.signin(testController, credentials.admin);
-  const subPages = ['academic-terms', 'academic-year-instances', 'advisor-logs', 'career-goals',
+  const subPages = ['academic-terms', 'academic-year-instances', 'career-goals',
     'course-instances', 'courses', 'feeds', 'feedback-instances', 'help-messages', 'interests',
     'interest-types', 'opportunities', 'opportunity-instances', 'opportunity-types', 'reviews',
     'slugs', 'teasers', 'users', 'verification-requests'];
@@ -76,7 +76,6 @@ test('Test admin data model page and subpages', async (testController) => {
   await adminNavBar.gotoDataModelPageSubPageAndVerify(testController, subPages[15]);
   await adminNavBar.gotoDataModelPageSubPageAndVerify(testController, subPages[16]);
   await adminNavBar.gotoDataModelPageSubPageAndVerify(testController, subPages[17]);
-  await adminNavBar.gotoDataModelPageSubPageAndVerify(testController, subPages[18]);
 });
 
 test('Test admin ensure logout', async (testController) => {
