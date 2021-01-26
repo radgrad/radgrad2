@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container, List, Grid } from 'semantic-ui-react';
 import styles from './utilities/landing-styles';
+import { buildVersion } from '../../../build-version';
 
 const LandingFooter: React.FC = () => (
   <footer>
@@ -8,7 +9,9 @@ const LandingFooter: React.FC = () => (
       <Container>
         <Grid>
           <Grid.Row columns={2}>
-            <Grid.Column>RadGrad @ 2020</Grid.Column>
+            <Grid.Column>
+              <strong>RadGrad {`${buildVersion.version} (${buildVersion.bugFix})`}</strong>
+            </Grid.Column>
             <Grid.Column textAlign="right">
               <List bulleted horizontal>
                 <List.Item as="a" href="http://radgrad.org/" style={styles['footer-item:before, .footer-item']}>
