@@ -832,6 +832,7 @@ export interface StudentProfileUpdate extends ProfileUpdate {
   shareOpportunities?: boolean;
   shareLevel?: boolean;
   lastRegistrarLoad?: Date;
+  agreedToTermsDate?: Date;
 }
 
 export interface StudentProfileUpdateData {
@@ -849,6 +850,7 @@ export interface StudentProfileUpdateData {
   shareOpportunities?: boolean;
   shareLevel?: boolean;
   lastRegistrarLoad?: Date;
+  agreedToTermsDate?: Date;
 }
 
 // Reviews
