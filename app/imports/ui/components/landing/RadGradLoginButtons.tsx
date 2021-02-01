@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { Link, Redirect } from 'react-router-dom';
-import { Dropdown } from 'semantic-ui-react';
+import { Dropdown, Message } from 'semantic-ui-react';
 import { Roles } from 'meteor/alanning:roles';
 import { Users } from '../../../api/user/UserCollection';
 import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
@@ -15,15 +15,16 @@ const RadGradLoginButtons: React.FC = () => {
 
   const handleClick = (e, instance) => {
     e.preventDefault();
-    const callback = function loginCallback(error) {
+    // console.log(instance);
+    const callback = (error) => {
       if (error) {
         console.error('Error during CAS Login: ', error);
-        instance.$('div .ui.error.message.hidden').text('You are not yet registered. Go see your Advisor.');
-        instance.$('div .ui.error.message.hidden').removeClass('hidden');
       } else {
         const username = Meteor.user().username;
         const userId = Meteor.userId();
         let role = Roles.getRolesForUser(userId)[0];
+        // console.log(username, userId, Roles.getRolesForUser(userId), role);
+        // console.log(Users.count(), Users.getProfile(userId));
         const isStudent = role.toLowerCase() === 'student';
         if (isStudent) {
           const profile = Users.findProfileFromUsername(username);
@@ -44,7 +45,7 @@ const RadGradLoginButtons: React.FC = () => {
           }
         }
         if (Roles.userIsInRole(userId, [ROLE.ADVISOR])) {
-          setPathname(`/${ROLE.ADVISOR.toLowerCase}/${username}/home`);
+          setPathname(`/${ROLE.ADVISOR.toLowerCase()}/${username}/home`);
         } else if (Roles.userIsInRole(userId, [ROLE.FACULTY])) {
           setPathname(`/${ROLE.FACULTY.toLowerCase()}/${username}/home`);
         } else if (Roles.userIsInRole(userId, [ROLE.STUDENT])) {
@@ -69,14 +70,19 @@ const RadGradLoginButtons: React.FC = () => {
   }
 
   return development ? (
-    <Dropdown id="LOGIN" text="LOGIN" pointing="top right">
-      <Dropdown.Menu>
-        <Dropdown.Item id="student" text={studentLabel} as={Link} to="/signin" />
-        <Dropdown.Item id="faculty" text={facultyLabel} as={Link} to="/signin" />
-        <Dropdown.Item id="advisor" text={advisorLabel} as={Link} to="/signin" />
-        <Dropdown.Item id="admin" text={adminLabel} as={Link} to="/signin" />
-      </Dropdown.Menu>
-    </Dropdown>
+    <div>
+      <Dropdown id="LOGIN" text="LOGIN" pointing="top right">
+        <Dropdown.Menu>
+          <Dropdown.Item id="student" text={studentLabel} as={Link} to="/signin" />
+          <Dropdown.Item id="faculty" text={facultyLabel} as={Link} to="/signin" />
+          <Dropdown.Item id="advisor" text={advisorLabel} as={Link} to="/signin" />
+          <Dropdown.Item id="admin" text={adminLabel} as={Link} to="/signin" />
+        </Dropdown.Menu>
+      </Dropdown>
+      <Message hidden negative>
+        {`You are not yet registered. Send an email to ${Meteor.settings.public.adminProfile.username} to register.`}
+      </Message>
+    </div>
   ) : (
     <Dropdown id="LOGIN" text="LOGIN" pointing="top right">
       <Dropdown.Menu>

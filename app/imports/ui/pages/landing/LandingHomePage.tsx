@@ -3,6 +3,10 @@ import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';
 import { ROLE } from '../../../api/role/Role';
+import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
+import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
+import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
+import { Users } from '../../../api/user/UserCollection';
 import LandingNavBar from '../../components/landing/LandingNavBar';
 import LandingSection1 from '../../components/landing/LandingSection1';
 import LandingSection2 from '../../components/landing/LandingSection2';
@@ -22,7 +26,7 @@ interface LandingHomeProps {
   role: string;
 }
 
-/** A simple static component to render some text for the landing page. */
+/* A simple static component to render some text for the landing page. */
 const LandingHomePage: React.FC<LandingHomeProps> = ({ currentUser, opportunities, interests, careerGoals, users, role, iconName }) => (
   <div id="landing-page">
     <LandingNavBar currentUser={currentUser} iconName={iconName} role={role} />
@@ -45,7 +49,7 @@ const LandingHomeContainer = withTracker(() => {
     } else if (Roles.userIsInRole(Meteor.userId(), [ROLE.ADVISOR])) {
       role = 'advisor';
     } else if (Roles.userIsInRole(Meteor.userId(), [ROLE.FACULTY])) {
-      role = 'advisor';
+      role = 'faculty';
     }
   }
   const currentUser = Meteor.user() ? Meteor.user().username : '';
@@ -65,4 +69,4 @@ const LandingHomeContainer = withTracker(() => {
   };
 })(LandingHomePage);
 
-export default withListSubscriptions(LandingHomeContainer, [PublicStats.getPublicationName()]);
+export default withListSubscriptions(LandingHomeContainer, [PublicStats.getPublicationName(), Users.getPublicationName(), AdvisorProfiles.getPublicationName(), FacultyProfiles.getPublicationName(), StudentProfiles.getPublicationName()]);
