@@ -24,10 +24,7 @@ function splitEmails(emails, key, emailsPerFile) {
   retVal.keys = [];
   while (end < numEmails + emailsPerFile) {
     retVal.keys.push(`${key}-${count}`);
-    fs.writeFileSync(
-      `emails${key}-${count}.txt`,
-      emailArr.slice(start, end).join('\n'),
-    );
+    fs.writeFileSync(`emails${key}-${count}.txt`, emailArr.slice(start, end).join('\n'));
     count++;
     start += emailsPerFile;
     end += emailsPerFile;
@@ -40,9 +37,7 @@ function getStarArrivalTime(emails) {
   const numEmails = emailData.toString().split('\n').length;
   const arrivalTime = moment().add(numEmails * 10, 's');
   // eslint-disable-next-line
-  return `Obtaining STAR data for ${numEmails} users. Results expected at ${arrivalTime.format(
-    'h:mm A',
-  )} (${arrivalTime.fromNow()})`;
+  return `Obtaining STAR data for ${numEmails} users. Results expected at ${arrivalTime.format('h:mm A')} (${arrivalTime.fromNow()})`;
 }
 
 /**
@@ -61,14 +56,10 @@ function getCourseData(username, password, emails) {
 
   return new Promise((res, rej) => {
     // eslint-disable-next-line no-unused-vars
-    request.post(
-      'https://www.star.hawaii.edu/api/radgrad',
-      params,
-      function (err, httpRes, body) {
-        if (err) return rej(err);
-        return res(httpRes);
-      },
-    );
+    request.post('https://www.star.hawaii.edu/api/radgrad', params, function (err, httpRes, body) {
+      if (err) return rej(err);
+      return res(httpRes);
+    });
   });
 }
 
@@ -176,10 +167,6 @@ async function downloadStarData() {
  */
 // downloadStarData();
 
-program
-  .description(
-    'Request user, password, and email info, then download STAR data. emails.txt must have student email addresses, one per line.',
-  )
-  .action(() => downloadStarData());
+program.description('Request user, password, and email info, then download STAR data. emails.txt must have student email addresses, one per line.').action(() => downloadStarData());
 
 program.parse(process.argv);

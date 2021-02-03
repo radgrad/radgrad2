@@ -22,7 +22,8 @@
     "eslint-plugin-meteor": "^7.2.2",
     "eslint-plugin-react": "^7.21.5",
     "eslint-plugin-typescript": "^0.14.0",
-    "jsdoc": "^3.6.6"
+    "jsdoc": "^3.6.6",
+    "prettier": "2.2.1"
   },
   "dependencies": {
     "@types/mocha": "^7.0.2",
@@ -41,5 +42,10 @@
     "typescript": "^3.9.7",
     "typescript-eslint-parser": "^22.0.0",
     "typescript-estree": "^18.1.0"
+  },
+  "prettier": {
+    "printWidth": 240,
+    "singleQuote": true,
+    "trailingComma": "all"
   }
 }
