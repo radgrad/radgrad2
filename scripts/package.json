@@ -21,6 +21,7 @@
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-meteor": "^7.2.2",
     "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-typescript": "^0.14.0",
     "jsdoc": "^3.6.6",
     "prettier": "2.2.1"
@@ -42,6 +43,130 @@
     "typescript": "^3.9.7",
     "typescript-eslint-parser": "^22.0.0",
     "typescript-estree": "^18.1.0"
+  },
+  "eslintConfig": {
+    "settings": {
+      "import/extensions": [
+        ".js",
+        ".jsx",
+        ".ts",
+        ".tsx"
+      ],
+      "import/parsers": {
+        "@typescript-eslint/parser": [
+          ".ts",
+          ".tsx"
+        ]
+      },
+      "import/resolver": {
+        "node": {
+          "extensions": [
+            ".js",
+            ".jsx",
+            ".ts",
+            ".tsx"
+          ]
+        }
+      }
+    },
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+      "@typescript-eslint",
+      "meteor",
+      "react"
+    ],
+    "extends": [
+      "airbnb-typescript",
+      "eslint:recommended",
+      "plugin:meteor/recommended",
+      "plugin:@typescript-eslint/eslint-recommended",
+      "plugin:@typescript-eslint/recommended",
+      "react-app",
+      "prettier",
+      "prettier/react"
+    ],
+    "parserOptions": {
+      "project": "./tsconfig.eslint.json"
+    },
+    "rules": {
+      "arrow-parens": "off",
+      "camelcase": "off",
+      "class-methods-use-this": "off",
+      "func-names": "off",
+      "jsx-a11y/anchor-is-valid": "off",
+      "import/extensions": "off",
+      "import/no-cycle": "warn",
+      "import/no-unresolved": "off",
+      "import/no-absolute-path": "off",
+      "import/imports-first": "off",
+      "import/prefer-default-export": "off",
+      "import/no-extraneous-dependencies": "off",
+      "indent": "off",
+      "linebreak-style": "off",
+      "lines-between-class-members": "off",
+      "max-len": "off",
+      "meteor/eventmap-params": [
+        2,
+        {
+          "eventParamName": "event",
+          "templateInstanceParamName": "instance"
+        }
+      ],
+      "meteor/template-names": "off",
+      "no-confusing-arrow": [
+        "error",
+        {
+          "allowParens": true
+        }
+      ],
+      "no-console": [
+        "warn",
+        {
+          "allow": [
+            "off",
+            "error"
+          ]
+        }
+      ],
+      "no-plusplus": "off",
+      "no-underscore-dangle": "off",
+      "no-nested-ternary": "off",
+      "no-shadow": "off",
+      "no-unused-vars": "off",
+      "no-useless-constructor": "off",
+      "object-curly-newline": "off",
+      "object-property-newline": "off",
+      "object-shorthand": "off",
+      "operator-linebreak": "off",
+      "padded-blocks": "off",
+      "prefer-arrow-callback": "off",
+      "prefer-destructuring": "off",
+      "prefer-promise-reject-errors": "off",
+      "react/destructuring-assignment": "off",
+      "react/jsx-closing-tag-location": "off",
+      "react/jsx-filename-extension": [
+        1,
+        {
+          "extensions": [
+            "js",
+            ".jsx",
+            "ts",
+            ".tsx"
+          ]
+        }
+      ],
+      "react/jsx-fragments": "off",
+      "react/jsx-one-expression-per-line": "off",
+      "react/jsx-props-no-spreading": "off",
+      "react/prefer-stateless-function": "off",
+      "react/prop-types": "off",
+      "react/require-default-props": "off",
+      "react/sort-comp": "off",
+      "@typescript-eslint/ban-ts-comment": "warn",
+      "@typescript-eslint/naming-convention": "warn",
+      "@typescript-eslint/no-unused-vars": "error",
+      "@typescript-eslint/no-useless-constructor": "error"
+    }
   },
   "prettier": {
     "printWidth": 240,
