@@ -33,6 +33,7 @@ import AdvisorModerationPageContainer from '../../pages/advisor/AdvisorModeratio
 import FacultyVerificationPageContainer from '../../pages/faculty/FacultyVerificationPage';
 import FacultyHomePageContainer from '../../pages/faculty/FacultyHomePage';
 import FacultyManageOpportunitiesPageContainer from '../../pages/faculty/FacultyManageOpportunitiesPage';
+import StudentChecklistsPage from '../../pages/student/StudentChecklistsPage';
 import StudentHomePageContainer from '../../pages/student/StudentHomePage';
 import StudentDegreePlannerPage from '../../pages/student/StudentDegreePlannerPage';
 import StudentAboutMePage from '../../pages/student/StudentAboutMePage';
@@ -73,7 +74,11 @@ import {
   OPPORTUNITY_SCOREBOARD,
   EXPLORER_PARAM,
   GUIDEDTOUR,
-  PAGE_TRACKING_SCOREBOARD, PAGE_TRACKING_COMPARISON, DEGREEPLANNER, COMMUNITY,
+  PAGE_TRACKING_SCOREBOARD,
+  PAGE_TRACKING_COMPARISON,
+  DEGREEPLANNER,
+  COMMUNITY,
+  CHECKLISTS,
 } from './route-constants';
 import PageTrackingScoreboardPage from '../../pages/shared/PageTrackingScoreboardPage';
 import PageTrackingComparisonPage from '../../pages/shared/PageTrackingComparisonPage';
@@ -215,47 +220,39 @@ export const routes = {
       component: AdminAnalyticsPageContainer,
     },
     {
-      path:
-        `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.HOME}/${ANALYTICS.NEWSLETTER}`,
+      path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.HOME}/${ANALYTICS.NEWSLETTER}`,
       exact: true,
-      component:
-      AdminAnalyticsNewsletterPageContainer,
+      component: AdminAnalyticsNewsletterPageContainer,
     },
     {
       path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.HOME}/${ANALYTICS.OVERHEADANALYSIS}`,
       exact: true,
-      component:
-      AdminAnalyticsOverheadAnalysisPageContainer,
+      component: AdminAnalyticsOverheadAnalysisPageContainer,
     },
     {
       path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.HOME}/${ANALYTICS.STUDENTSUMMARY}`,
       exact: true,
-      component:
-      AdminAnalyticsStudentSummaryPageContainer,
+      component: AdminAnalyticsStudentSummaryPageContainer,
     },
     {
       path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.HOME}/${ANALYTICS.USERINTERACTIONS}`,
       exact: true,
-      component:
-      AdminAnalyticsUserInteractionsPageContainer,
+      component: AdminAnalyticsUserInteractionsPageContainer,
     },
     {
       path: `/${URL_ROLES.ADMIN}/${USERNAME}/${SCOREBOARD}`,
       exact: true,
-      component:
-      ScoreboardPageContainer,
+      component: ScoreboardPageContainer,
     },
     {
       path: `/${URL_ROLES.ADMIN}/${USERNAME}/${SCOREBOARD}/${COURSE_SCOREBOARD}`,
       exact: true,
-      component:
-      ScoreboardPageContainer,
+      component: ScoreboardPageContainer,
     },
     {
       path: `/${URL_ROLES.ADMIN}/${USERNAME}/${SCOREBOARD}/${OPPORTUNITY_SCOREBOARD}`,
       exact: true,
-      component:
-      ScoreboardPageContainer,
+      component: ScoreboardPageContainer,
     },
     /* ############################## Page Tracking SCOREBOARD ############################## */
     {
@@ -435,7 +432,6 @@ export const routes = {
       exact: true,
       component: CommunityUsersPage,
     },
-
   ],
   ALUMNI: [
     {
@@ -640,6 +636,11 @@ export const routes = {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${HOME}`,
       exact: true,
       component: StudentHomePageContainer,
+    },
+    {
+      path: `/${URL_ROLES.STUDENT}/${USERNAME}/${CHECKLISTS}`,
+      exact: true,
+      component: StudentChecklistsPage,
     },
     {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${HOME}/aboutme`,

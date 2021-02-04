@@ -8,16 +8,13 @@ import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import { ROLE } from '../../../api/role/Role';
 import { Users } from '../../../api/user/UserCollection';
 import { AdvisorOrFacultyProfile, IFeed, HelpMessage, StudentProfile } from '../../../typings/radgrad';
-import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
 import * as Router from '../../components/shared/utilities/router';
-import { URL_ROLES } from '../../layouts/utilities/route-constants';
-import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
-import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import CommunityUsersWidget from '../../components/shared/community-users/CommunityUsersWidget';
 import CommunityFeedWidget from '../../components/shared/community-users/CommunityFeedWidget';
 import { isUrlRoleStudent } from '../../components/shared/utilities/router';
 import BackToTopButton from '../../components/shared/BackToTopButton';
+import { getMenuWidget } from './utilities/getMenuWidget';
 
 interface CommunityUsersPageProps {
   feeds: IFeed[];
@@ -29,21 +26,7 @@ interface CommunityUsersPageProps {
 
 const CommunityUsersPage: React.FC<CommunityUsersPageProps> = ({ faculty, helpMessages, advisors, students, feeds }) => {
   const match = useRouteMatch();
-  const getMenuWidget = (): JSX.Element => {
-    const role = Router.getRoleByUrl(match);
-    switch (role) {
-      case URL_ROLES.STUDENT:
-        return <StudentPageMenuWidget />;
-      case URL_ROLES.FACULTY:
-        return <FacultyPageMenuWidget />;
-      case URL_ROLES.ADVISOR:
-        return <AdvisorPageMenuWidget />;
-      default:
-        return <React.Fragment />;
-    }
-  };
-
-  const menuWidget = getMenuWidget();
+  const menuWidget = getMenuWidget(match);
   return (
     <div id="community-users-page">
       {menuWidget}
