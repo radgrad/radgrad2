@@ -33,6 +33,7 @@ import AdvisorModerationPageContainer from '../../pages/advisor/AdvisorModeratio
 import FacultyVerificationPageContainer from '../../pages/faculty/FacultyVerificationPage';
 import FacultyHomePageContainer from '../../pages/faculty/FacultyHomePage';
 import FacultyManageOpportunitiesPageContainer from '../../pages/faculty/FacultyManageOpportunitiesPage';
+import NewsPage from '../../pages/shared/NewsPage';
 import StudentChecklistsPage from '../../pages/student/StudentChecklistsPage';
 import StudentHomePageContainer from '../../pages/student/StudentHomePage';
 import StudentDegreePlannerPage from '../../pages/student/StudentDegreePlannerPage';
@@ -61,6 +62,9 @@ import AdminDataModelSlugsPage from '../../pages/admin/AdminDataModelSlugsPage';
 import AdminDataModelTeasersPage from '../../pages/admin/AdminDataModelTeasersPage';
 import AdminDataModelVerificationRequestsPage from '../../pages/admin/AdminDataModelVerificationRequestsPage';
 import ScoreboardPageContainer from '../../pages/shared/ScoreboardPage';
+import StudentPrivacyPage from '../../pages/student/StudentPrivacyPage';
+import StudentReviewsPage from '../../pages/student/StudentReviewsPage';
+import StudentVerificationPage from '../../pages/student/StudentVerificationPage';
 import {
   URL_ROLES,
   USERNAME,
@@ -79,6 +83,12 @@ import {
   DEGREEPLANNER,
   COMMUNITY,
   CHECKLISTS,
+  STUDENT_PRIVACY,
+  STUDENT_VERIFICATION,
+  STUDENT_REVIEWS,
+  NEWS,
+  ICE,
+  LEVELS,
 } from './route-constants';
 import PageTrackingScoreboardPage from '../../pages/shared/PageTrackingScoreboardPage';
 import PageTrackingComparisonPage from '../../pages/shared/PageTrackingComparisonPage';
@@ -643,17 +653,37 @@ export const routes = {
       component: StudentChecklistsPage,
     },
     {
+      path: `/${URL_ROLES.STUDENT}/${USERNAME}/${STUDENT_VERIFICATION}`,
+      exact: true,
+      component: StudentVerificationPage,
+    },
+    {
+      path: `/${URL_ROLES.STUDENT}/${USERNAME}/${STUDENT_PRIVACY}`,
+      exact: true,
+      component: StudentPrivacyPage,
+    },
+    {
+      path: `/${URL_ROLES.STUDENT}/${USERNAME}/${STUDENT_REVIEWS}`,
+      exact: true,
+      component: StudentReviewsPage,
+    },
+    {
+      path: `/${URL_ROLES.STUDENT}/${USERNAME}/${NEWS}`,
+      exact: true,
+      component: NewsPage,
+    },
+    {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${HOME}/aboutme`,
       exact: true,
       component: StudentAboutMePage,
     },
     {
-      path: `/${URL_ROLES.STUDENT}/${USERNAME}/${HOME}/ice`,
+      path: `/${URL_ROLES.STUDENT}/${USERNAME}/${HOME}/${ICE}`,
       exact: true,
       component: StudentIcePage,
     },
     {
-      path: `/${URL_ROLES.STUDENT}/${USERNAME}/${HOME}/levels`,
+      path: `/${URL_ROLES.STUDENT}/${USERNAME}/${HOME}/${LEVELS}`,
       exact: true,
       component: StudentHomeLevelsPageContainer,
     },

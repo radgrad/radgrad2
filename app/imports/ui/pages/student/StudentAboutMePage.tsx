@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid, Container } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { useParams } from 'react-router-dom';
-import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
+import StudentPageMenu from '../../components/student/StudentPageMenu';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import StudentAboutMeWidget from '../../components/student/about-me/StudentAboutMeWidget';
 import { Users } from '../../../api/user/UserCollection';
@@ -18,7 +18,7 @@ interface StudentAboutMePageProps {
 
 const StudentAboutMePage: React.FC<StudentAboutMePageProps> = ({ profile, favoriteCareerGoals, favoriteInterests }) => (
   <div id="student-about-me-page">
-    <StudentPageMenuWidget />
+    <StudentPageMenu />
     <Container>
       <Grid stackable>
         <Grid.Row>

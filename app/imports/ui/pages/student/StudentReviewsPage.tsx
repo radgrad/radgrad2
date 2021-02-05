@@ -2,11 +2,11 @@ import React from 'react';
 import { Header } from 'semantic-ui-react';
 import StudentPageMenu from '../../components/student/StudentPageMenu';
 
-const StudentChecklistsPage: React.FC = () => (
-  <div id="student-checklists-page">
+const StudentReviewsPage: React.FC = () => (
+  <div id="student-reviews-page">
     <StudentPageMenu />
-    <Header>Student Checklists Page Placeholder</Header>
+    <Header>Student Reviews Page Placeholder</Header>
   </div>
 );
 
-export default StudentChecklistsPage;
+export default StudentReviewsPage;

@@ -2,10 +2,19 @@ import { landingNavBar } from './navbar.landing.component';
 import { signinPage } from './signin.page';
 import { studentHomePage } from './student.home.page';
 import { studentNavBar } from './navbar.student.component';
-import { studentCareerGoalsExplorerPage, studentInterestsExplorerPage,
-  studentOpportunitiesPage, studentDegreePlannerPage,
-  studentCoursesExplorerPage, studentCommunityRadGradVideosPage, studentCommunityUsersPage,
-  studentAboutMePage, studentICEPointsPage, studentLevelsPage } from './simple.page';
+import {
+  studentCareerGoalsExplorerPage,
+  studentInterestsExplorerPage,
+  studentOpportunitiesPage,
+  studentDegreePlannerPage,
+  studentCoursesExplorerPage,
+  studentICEPointsPage,
+  studentLevelsPage,
+  studentChecklistsPage,
+  studentVerificationPage,
+  studentReviewsPage,
+  studentNewsPage,
+} from './simple.page';
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 /* global fixture:false, test:false */
@@ -29,14 +38,17 @@ test('Test all student top-level pages', async (testController) => {
   await landingNavBar.gotoStudentLogin(testController);
   await signinPage.signin(testController, credentials.student.abi);
 
-  await studentNavBar.gotoCourseExplorerPage(testController);
-  await studentCoursesExplorerPage.isDisplayed(testController);
+  await studentNavBar.gotoChecklistsPage(testController);
+  await studentChecklistsPage.isDisplayed(testController);
+
+  await studentNavBar.gotoInterestsExplorerPage(testController);
+  await studentInterestsExplorerPage.isDisplayed(testController);
 
   await studentNavBar.gotoCareerGoalsExplorerPage(testController);
   await studentCareerGoalsExplorerPage.isDisplayed(testController);
 
-  await studentNavBar.gotoInterestsExplorerPage(testController);
-  await studentInterestsExplorerPage.isDisplayed(testController);
+  await studentNavBar.gotoCourseExplorerPage(testController);
+  await studentCoursesExplorerPage.isDisplayed(testController);
 
   await studentNavBar.gotoOpportunitiesPage(testController);
   await studentOpportunitiesPage.isDisplayed(testController);
@@ -44,14 +56,8 @@ test('Test all student top-level pages', async (testController) => {
   await studentNavBar.gotoDegreePlannerPage(testController);
   await studentDegreePlannerPage.isDisplayed(testController);
 
-  await studentNavBar.gotoCommunityUsersPage(testController);
-  await studentCommunityUsersPage.isDisplayed(testController);
-
-  await studentNavBar.gotoCommunityRadgradVideosPage(testController);
-  await studentCommunityRadGradVideosPage.isDisplayed(testController);
-
-  await studentNavBar.gotoAboutMePage(testController);
-  await studentAboutMePage.isDisplayed(testController);
+  await studentNavBar.gotoVerificationPage(testController);
+  await studentVerificationPage.isDisplayed(testController);
 
   await studentNavBar.gotoICEPointsPage(testController);
   await studentICEPointsPage.isDisplayed(testController);
@@ -59,4 +65,9 @@ test('Test all student top-level pages', async (testController) => {
   await studentNavBar.gotoLevelsPage(testController);
   await studentLevelsPage.isDisplayed(testController);
 
+  await studentNavBar.gotoReviewsPage(testController);
+  await studentReviewsPage.isDisplayed(testController);
+
+  await studentNavBar.gotoNewsPage(testController);
+  await studentNewsPage.isDisplayed(testController);
 });

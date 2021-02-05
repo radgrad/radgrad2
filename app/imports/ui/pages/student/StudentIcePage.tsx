@@ -4,7 +4,7 @@ import React from 'react';
 import { Grid, Container } from 'semantic-ui-react';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
-import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
+import StudentPageMenu from '../../components/student/StudentPageMenu';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import StudentIceWidget from '../../components/student/ice/StudentIceWidget';
 
@@ -26,7 +26,7 @@ interface StudentIcePageProps {
 }
 const StudentIcePage: React.FC<StudentIcePageProps> = ({ helpMessages, earnedICE, projectedICE, favoriteInterests, courseInstances, opportunityInstances }) => (
   <div id="student-ice-points-page">
-    <StudentPageMenuWidget />
+    <StudentPageMenu />
     <Container>
       <Grid stackable>
         <Grid.Row>
