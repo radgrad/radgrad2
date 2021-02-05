@@ -1,7 +1,6 @@
 import { Selector } from 'testcafe';
 
 class StudentNavBar {
-
   /** If someone is logged in, then log them out, otherwise do nothing. */
   async ensureLogout(testController) {
     const loggedInUser = await Selector('#navbar-current-user').exists;
@@ -15,18 +14,19 @@ class StudentNavBar {
     await testController.click('#second-menu-home');
   }
 
+  async gotoChecklistsPage(testController) {
+    await testController.click('#student-menu-checklists');
+  }
+
   async gotoCourseExplorerPage(testController) {
-    await testController.click('#student-menu-explore');
     await testController.click('#student-menu-courses');
   }
 
   async gotoCareerGoalsExplorerPage(testController) {
-    await testController.click('#student-menu-explore');
     await testController.click('#student-menu-career-goals');
   }
 
   async gotoInterestsExplorerPage(testController) {
-    await testController.click('#student-menu-explore');
     await testController.click('#student-menu-interests');
   }
 
@@ -36,6 +36,22 @@ class StudentNavBar {
 
   async gotoDegreePlannerPage(testController) {
     await testController.click('#student-menu-degree-planner');
+  }
+
+  async gotoVerificationPage(testController) {
+    await testController.click('#student-menu-verification');
+  }
+
+  async gotoPrivacyPage(testController) {
+    await testController.click('#student-menu-privacy');
+  }
+
+  async gotoReviewsPage(testController) {
+    await testController.click('#student-menu-reviews');
+  }
+
+  async gotoNewsPage(testController) {
+    await testController.click('#student-menu-news');
   }
 
   async gotoCommunityUsersPage(testController) {
@@ -48,28 +64,15 @@ class StudentNavBar {
     await testController.click('#student-menu-radgrad-videos');
   }
 
-  async gotoAboutMePage(testController) {
-    await testController.click('#dropdown-user-fullname');
-    await testController.click('#student-menu-about-me');
-  }
-
   async gotoICEPointsPage(testController) {
-    await testController.click('#dropdown-user-fullname');
     await testController.click('#student-menu-ice-points');
   }
 
   async gotoLevelsPage(testController) {
-    await testController.click('#dropdown-user-fullname');
     await testController.click('#student-menu-levels');
   }
 
-  async gotoAdvisorLogPage(testController) {
-    await testController.click('#dropdown-user-fullname');
-    await testController.click('#student-menu-advisor-log');
-  }
-
   async signout(testController) {
-    await testController.click('#dropdown-user-fullname');
     await testController.click('#student-menu-signout');
   }
 }

@@ -1,17 +1,24 @@
 // Widely used params as constants
 import { ROLE } from '../../../api/role/Role';
 
-export const USERNAME = ':username';
-export const HOME = 'home';
+export const CHECKLISTS = 'checklists';
+export const DATAMODEL = 'datamodel';
 export const DEGREEPLANNER = 'degree-planner';
 export const GUIDEDTOUR = 'guidedtour';
-export const DATAMODEL = 'datamodel';
+export const HOME = 'home';
+export const ICE = 'ice';
+export const LEVELS = 'levels';
 export const MODERATION = 'moderation';
+export const NEWS = 'news';
 export const SCOREBOARD = 'scoreboard';
 export const COURSE_SCOREBOARD = `course-${SCOREBOARD}`;
 export const OPPORTUNITY_SCOREBOARD = `opportunity-${SCOREBOARD}`;
+export const USERNAME = ':username';
 export const PAGE_TRACKING_SCOREBOARD = 'page-tracking-scoreboard';
 export const PAGE_TRACKING_COMPARISON = 'page-tracking-comparison';
+export const STUDENT_PRIVACY = 'student-privacy';
+export const STUDENT_REVIEWS = 'student-reviews';
+export const STUDENT_VERIFICATION = 'student-verification';
 
 export const ANALYTICS = {
   HOME: 'analytics',

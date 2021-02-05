@@ -5,34 +5,21 @@ import { Link, useRouteMatch } from 'react-router-dom';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import { HelpMessage } from '../../../typings/radgrad';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
-import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
-import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
 import * as Router from '../../components/shared/utilities/router';
 import ExplorerNavDropdown from '../../components/shared/explorer/ExplorerNavDropdown';
 import { PAGE_TRACKING_COMPARISON, PAGE_TRACKING_SCOREBOARD } from '../../layouts/utilities/route-constants';
 import { PageInterestsCategoryTypes } from '../../../api/page-tracking/PageInterestsCategoryTypes';
+import { getMenuWidget } from './utilities/getMenuWidget';
 
 interface ExplorerHomePageProps {
   helpMessages: HelpMessage[];
 }
 
-const renderPageMenuWidget = (match): JSX.Element => {
-  const role = Router.getRoleByUrl(match);
-  switch (role) {
-    case 'student':
-      return <StudentPageMenuWidget />;
-    case 'faculty':
-      return <FacultyPageMenuWidget />;
-    default:
-      return <React.Fragment />;
-  }
-};
-
 const ExplorerHomePage: React.FC<ExplorerHomePageProps> = ({ helpMessages }) => {
   const match = useRouteMatch();
   return (
     <div>
-      {renderPageMenuWidget(match)}
+      {getMenuWidget(match)}
       <Grid stackable>
         <Grid.Row>
           <Grid.Column width={1} />

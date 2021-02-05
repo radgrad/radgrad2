@@ -32,6 +32,7 @@ export const facultyVerificationPage = new SimplePage('faculty-verification-page
 export const facultyManageOpportunitiesPage = new SimplePage('faculty-manage-opportunities-page');
 
 export const studentCareerGoalsExplorerPage = new SimplePage('career-goal-browser-view-page');
+export const studentChecklistsPage = new SimplePage('student-checklists-page');
 export const studentCoursesExplorerPage = new SimplePage('course-browser-view-page');
 export const studentDegreePlannerPage = new SimplePage('degree-planner-page');
 export const studentInterestsExplorerPage = new SimplePage('interest-browser-view-page');
@@ -41,3 +42,7 @@ export const studentCommunityRadGradVideosPage = new SimplePage('community-radgr
 export const studentAboutMePage = new SimplePage('student-about-me-page');
 export const studentICEPointsPage = new SimplePage('student-ice-points-page');
 export const studentLevelsPage = new SimplePage('student-levels-page');
+export const studentVerificationPage = new SimplePage('student-verification-page');
+export const studentReviewsPage = new SimplePage('student-reviews-page');
+export const studentPrivacyPage = new SimplePage('student-privacy-page');
+export const studentNewsPage = new SimplePage('news-page');

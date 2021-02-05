@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import _ from 'lodash';
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 import BackToTopButton from '../../components/shared/BackToTopButton';
-import StudentPageMenuWidget from '../../components/student/StudentPageMenuWidget';
+import StudentPageMenu from '../../components/student/StudentPageMenu';
 import StudentHomeFavoriteInterestsList from '../../components/student/home/StudentHomeFavoriteInterestsWidget';
 import StudentHomeRecommendedWidget from '../../components/student/home/StudentHomeRecommendedWidget';
 import StudentHomeBannersWidget from '../../components/student/home/StudentHomeBannersWidget';
@@ -27,7 +27,7 @@ interface StudentHomePageProps {
 
 const StudentHomePage: React.FC<StudentHomePageProps> = ({ match, favoriteInterests, interests, careerGoals, courses, ready }) => (
   <div id="student-home-page">
-    <StudentPageMenuWidget />
+    <StudentPageMenu />
     <GuidedTourStudentHomePageWidget interests={interests} careerGoals={careerGoals} courses={courses} />
     <Container>
       <Grid stackable>

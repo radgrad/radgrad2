@@ -1,11 +1,10 @@
 import React from 'react';
-import { NavLink, useRouteMatch } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { Dropdown, Header, Image, Menu, Container } from 'semantic-ui-react';
 import { Meteor } from 'meteor/meteor';
 import { Roles } from 'meteor/alanning:roles';
 import RadGradLogoText from './RadGradLogoText';
 import RadGradMenuProfile, { RadGradMenuProfileProps } from './RadGradMenuProfile';
-import { isUrlRoleStudent } from './utilities/router';
 
 /**
  * First menu for all profiles.
@@ -16,12 +15,10 @@ import { isUrlRoleStudent } from './utilities/router';
  * @constructor
  */
 const FirstMenu: React.FC<RadGradMenuProfileProps> = ({ profile, displayLevelAndIce, earnedICE, projectedICE }) => {
-  const match = useRouteMatch();
   const imageStyle = { width: '50px' };
   const flexStyle = { display: 'flex' };
   const noPadding = { paddingTop: 0, paddingBottom: 0 };
   const signoutStyle = { marginTop: '32px' };
-  const isStudent = isUrlRoleStudent(match);
   const currentUser = Meteor.user() ? Meteor.user().username : '';
   const iconName = Roles.userIsInRole(Meteor.userId(), ['ADMIN']) ? 'user plus' : 'user';
   return (
@@ -46,21 +43,14 @@ const FirstMenu: React.FC<RadGradMenuProfileProps> = ({ profile, displayLevelAnd
             </div>
           ) : (
             <div style={flexStyle}>
-              <RadGradMenuProfile profile={profile} displayLevelAndIce={displayLevelAndIce} projectedICE={projectedICE} earnedICE={earnedICE} />
-              {/*
-                  TODO Temporary until we have a re-design of the "SecondMenu"s of non-student roles
-                        See FIGMA mockup; remove this Dropdown once the above is accomplished
-               */}
-              {!isStudent ? (
-                <Dropdown text={currentUser} id="first-menu-username" pointing="top right" icon={iconName} style={signoutStyle}>
-                  <Dropdown.Menu>
-                    <Dropdown.Item icon="sign out" text="Sign Out" as={NavLink} exact to="/signout" />
-                  </Dropdown.Menu>
-                </Dropdown>
-              ) : (
-                ''
-              )}
-              {/* END */}
+              <RadGradMenuProfile profile={profile} displayLevelAndIce={displayLevelAndIce} projectedICE={projectedICE}
+                                  earnedICE={earnedICE} />
+              <Dropdown text={currentUser} id="first-menu-username" pointing="top right" icon={iconName}
+                        style={signoutStyle}>
+                <Dropdown.Menu>
+                  <Dropdown.Item icon="sign out" text="Sign Out" as={NavLink} exact to="/signout" />
+                </Dropdown.Menu>
+              </Dropdown>
             </div>
           )}
         </Menu.Item>
