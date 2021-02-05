@@ -45,7 +45,7 @@ const FirstMenu: React.FC<RadGradMenuProfileProps> = ({ profile, displayLevelAnd
             <div style={flexStyle}>
               <RadGradMenuProfile profile={profile} displayLevelAndIce={displayLevelAndIce} projectedICE={projectedICE}
                                   earnedICE={earnedICE} />
-              <Dropdown text={currentUser} id="first-menu-username" pointing="top right" icon={iconName}
+              <Dropdown text={currentUser} id="first-menu-username" pointing="top right" icon="caret down"
                         style={signoutStyle}>
                 <Dropdown.Menu>
                   <Dropdown.Item icon="sign out" text="Sign Out" as={NavLink} exact to="/signout" />

@@ -6,7 +6,7 @@ import { FilterUsers } from '../../../pages/admin/AdminHomePage'; // TODO resolv
 import { AdvisorOrFacultyProfile, StudentProfile } from '../../../../typings/radgrad';
 
 function url(user) {
-  return `/#/${user.role.toLowerCase()}/${user.username}/home`;
+  return `/#/${user.role.toLowerCase()}/${user.username}/checklists`;
 }
 
 function name(user) {
