@@ -80,6 +80,11 @@ const StudentPageMenu: React.FC = () => {
                 News
               </Menu.Item>
             </Grid.Column>
+            <Grid.Column>
+              <Menu.Item id="student-sign-out" as={NavLink} exact to="/signout">
+                Logout
+              </Menu.Item>
+            </Grid.Column>
           </Grid>
         </Menu>
       </div>

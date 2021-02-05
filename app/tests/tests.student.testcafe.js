@@ -13,7 +13,7 @@ import {
   studentChecklistsPage,
   studentVerificationPage,
   studentReviewsPage,
-  studentNewsPage,
+  studentNewsPage, studentPrivacyPage,
 } from './simple.page';
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
@@ -58,6 +58,9 @@ test('Test all student top-level pages', async (testController) => {
 
   await studentNavBar.gotoVerificationPage(testController);
   await studentVerificationPage.isDisplayed(testController);
+
+  await studentNavBar.gotoPrivacyPage(testController);
+  await studentPrivacyPage.isDisplayed(testController);
 
   await studentNavBar.gotoICEPointsPage(testController);
   await studentICEPointsPage.isDisplayed(testController);

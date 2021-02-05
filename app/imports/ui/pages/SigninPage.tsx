@@ -55,7 +55,7 @@ const SigninPage: React.FC = () => {
   } else if (Roles.userIsInRole(userId, [ROLE.FACULTY])) {
     pathname = `/faculty/${username}/home`;
   } else if (Roles.userIsInRole(userId, [ROLE.STUDENT])) {
-    pathname = `/student/${username}/home`;
+    pathname = `/student/${username}/checklists`;
   }
   const { from } = { from: { pathname } };
   // if correct authentication, redirect to page instead of login screen
