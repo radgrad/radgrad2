@@ -23,7 +23,7 @@ const StudentAboutMeUpdatePictureForm: React.FC<StudentAboutMeUpdatePictureFormP
     try {
       const cloudinaryResult = await openCloudinaryWidget();
       if (cloudinaryResult.event === 'success') {
-        const updateData: { id: string; picture: string } = { id: docID, picture: cloudinaryResult.info.url };
+        const updateData: { id: string; picture: string } = { id: docID, picture: cloudinaryResult.info.secure_url };
         updateMethod.call({ collectionName, updateData }, (error) => {
           if (error) {
             Swal.fire({
@@ -32,7 +32,7 @@ const StudentAboutMeUpdatePictureForm: React.FC<StudentAboutMeUpdatePictureFormP
               icon: 'error',
             });
           } else {
-            setPicture(cloudinaryResult.info.url);
+            setPicture(cloudinaryResult.info.secure_url);
             Swal.fire({
               title: 'Update Succeeded',
               icon: 'success',
@@ -45,7 +45,7 @@ const StudentAboutMeUpdatePictureForm: React.FC<StudentAboutMeUpdatePictureFormP
             const interactionData: UserInteractionDefine = {
               username,
               type: UserInteractionsTypes.PICTURE,
-              typeData: [cloudinaryResult.info.url],
+              typeData: [cloudinaryResult.info.secure_url],
             };
             userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
               if (userInteractionError) {

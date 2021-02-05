@@ -57,8 +57,8 @@ const UpdateFeedForm: React.FC<UpdateFeedFormProps> = ({
       const cloudinaryResult = await openCloudinaryWidget();
       if (cloudinaryResult.event === 'success') {
         setAdminDataModelFeedsIsCloudinaryUsed(true);
-        setAdminDataModelFeedsCloudinaryUrl(cloudinaryResult.info.url);
-        setPictureURL(cloudinaryResult.info.url);
+        setAdminDataModelFeedsCloudinaryUrl(cloudinaryResult.info.secure_url);
+        setPictureURL(cloudinaryResult.info.secure_url);
       }
     } catch (error) {
       Swal.fire({

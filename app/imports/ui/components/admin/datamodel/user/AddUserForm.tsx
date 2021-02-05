@@ -42,8 +42,8 @@ const AddUserForm: React.FC<AddUserProps> = ({ interests, handleAdd, formRef, ac
       const cloudinaryResult = await openCloudinaryWidget();
       if (cloudinaryResult.event === 'success') {
         setAdminDataModelUsersIsCloudinaryUsed(true);
-        setAdminDataModelUsersCloudinaryUrl(cloudinaryResult.info.url);
-        setPictureURL(cloudinaryResult.info.url);
+        setAdminDataModelUsersCloudinaryUrl(cloudinaryResult.info.secure_url);
+        setPictureURL(cloudinaryResult.info.secure_url);
       }
     } catch (error) {
       Swal.fire({
