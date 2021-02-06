@@ -11,10 +11,6 @@ class StudentNavBar {
   }
 
   async gotoHomePage(testController) {
-    await testController.click('#second-menu-home');
-  }
-
-  async gotoHomePage(testController) {
     await testController.click('#student-menu-home');
   }
 
