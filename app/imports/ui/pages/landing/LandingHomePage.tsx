@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
+import { Redirect } from 'react-router';
 import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';
 import { ROLE } from '../../../api/role/Role';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
@@ -24,11 +25,24 @@ interface LandingHomeProps {
   currentUser: string;
   iconName: string;
   role: string;
+  location: {
+    pathname: string;
+    hash: string;
+    state?: {
+      from?: {
+        pathname: string;
+      };
+    }
+  };
 }
 
 /* A simple static component to render some text for the landing page. */
-const LandingHomePage: React.FC<LandingHomeProps> = ({ currentUser, opportunities, interests, careerGoals, users, role, iconName }) => (
-  <div id="landing-page">
+const LandingHomePage: React.FC<LandingHomeProps> = ({ currentUser, opportunities, interests, careerGoals, users, role, iconName, location }) => {
+  // CAM: This is set in the Redirect from StudentProtectedRoutes on a reload. We want to go back to the page we came from.
+  if (location?.state?.from) {
+    return (<Redirect to={{ pathname: `${location.state.from.pathname}` }} />);
+  }
+  return (<div id="landing-page">
     <LandingNavBar currentUser={currentUser} iconName={iconName} role={role} />
     <LandingSection1 />
     <LandingSection2 careerGoals={careerGoals} interests={interests} opportunities={opportunities} users={users} />
@@ -37,8 +51,8 @@ const LandingHomePage: React.FC<LandingHomeProps> = ({ currentUser, opportunitie
     <LandingFooter />
 
     <BackToTopButton />
-  </div>
-);
+  </div>);
+};
 
 /* withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 const LandingHomeContainer = withTracker(() => {

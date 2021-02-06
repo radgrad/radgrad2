@@ -64,7 +64,7 @@ const App: React.FC = () => (
 const ProtectedRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
-    render={(props: any) => {
+    render={(props) => {
       const isLogged = Meteor.userId() !== null;
       return isLogged ? <Component {...props} /> : <Redirect to={{ pathname: '/', state: { from: props.location } }} />;
     }}
@@ -85,7 +85,7 @@ const AdminProtectedRoute = ({ component: Component, ...rest }) => {
   return (
     <Route
       {...rest}
-      render={(props: any) => {
+      render={(props) => {
         const userId = Meteor.userId();
         const isLogged = userId !== null;
         const isAdmin = Roles.userIsInRole(userId, [ROLE.ADMIN]);
@@ -104,7 +104,7 @@ const AdvisorProtectedRoute = ({ component: Component, ...rest }) => {
   return (
     <Route
       {...rest}
-      render={(props: any) => {
+      render={(props) => {
         const isLogged = Meteor.userId() !== null;
         const isAllowed = Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN, ROLE.ADVISOR]);
         return isLogged && isAllowed ? <WrappedComponent {...props} /> : <Redirect to={{ pathname: '/', state: { from: props.location } }} />;
@@ -121,7 +121,7 @@ const FacultyProtectedRoute = ({ component: Component, ...rest }) => {
   return (
     <Route
       {...rest}
-      render={(props: any) => {
+      render={(props) => {
         const isLogged = Meteor.userId() !== null;
         const isAllowed = Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN, ROLE.FACULTY]);
         return isLogged && isAllowed ? <WrappedComponent {...props} /> : <Redirect to={{ pathname: '/', state: { from: props.location } }} />;
@@ -131,22 +131,29 @@ const FacultyProtectedRoute = ({ component: Component, ...rest }) => {
 };
 
 const StudentProtectedRoute = ({ component: Component, ...rest }) => {
+  // console.log('StudentProtectedRoute', rest.computedMatch.url, rest.location);
+
   const userId = Meteor.userId();
   if (_.isNil(userId)) {
     return <Redirect to={{ pathname: '/', state: { from: rest.location } }} />;
   }
-  const ComponentWithSubscriptions = withGlobalSubscription(withInstanceSubscriptions(Component));
+  const ComponentGlobal = withGlobalSubscription(Component);
+  const ComponentInstance = withInstanceSubscriptions(ComponentGlobal);
   const isStudent = Roles.userIsInRole(Meteor.userId(), ROLE.STUDENT);
   // Because ROLE.ADMIN and ROLE.ADVISOR are allowed to go to StudentProtectedRoutes, they can trigger the
   // userInteractionDefineMethod.call() inside of withHistoryListen. Since we only want to track the pageViews of
   // STUDENTS, we should only use withHistoryListen if LOGGED IN user is a student.
-  const WrappedComponent = isStudent ? withPageTracker(ComponentWithSubscriptions) : ComponentWithSubscriptions;
-  console.log(Meteor.user()?.username, Users.count());
-
+  const WrappedComponent = isStudent ? withPageTracker(ComponentInstance) : ComponentInstance;
+  // console.log(Meteor.user()?.username, Users.count());
+  // CAM: I think this happens on a reload so send us back to the LandingPage. By setting the state to where
+  //      we are, we can have the LandingPage redirect us back after the subscriptions are done.
+  if (_.isNil(Meteor.user())) {
+    return <Redirect to={{ pathname: '/', state: { from: rest.location } }} />;
+  }
   return (
     <Route
       {...rest}
-      render={(props: any) => {
+      render={(props) => {
         // console.log('StudentProtectedRoute', props);
         let isAllowed = Roles.userIsInRole(userId, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.STUDENT]);
         const routeUsername = getUsername(props.match);
