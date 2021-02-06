@@ -1,8 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { Dropdown, Header, Image, Menu, Container } from 'semantic-ui-react';
+import { Dropdown, Header, Image, Menu } from 'semantic-ui-react';
 import { Meteor } from 'meteor/meteor';
-import { Roles } from 'meteor/alanning:roles';
 import RadGradLogoText from './RadGradLogoText';
 import RadGradMenuProfile, { RadGradMenuProfileProps } from './RadGradMenuProfile';
 
@@ -20,9 +19,7 @@ const FirstMenu: React.FC<RadGradMenuProfileProps> = ({ profile, displayLevelAnd
   const noPadding = { paddingTop: 0, paddingBottom: 0 };
   const signoutStyle = { marginTop: '32px' };
   const currentUser = Meteor.user() ? Meteor.user().username : '';
-  const iconName = Roles.userIsInRole(Meteor.userId(), ['ADMIN']) ? 'user plus' : 'user';
   return (
-    <Container>
       <Menu attached="top" borderless className="radgrad-first-menu" id="firstMenu">
         <Menu.Item as={NavLink} activeClassName="" exact to="/" style={noPadding}>
           <Image style={imageStyle} circular src="/images/radgrad_logo.png" />
@@ -55,7 +52,6 @@ const FirstMenu: React.FC<RadGradMenuProfileProps> = ({ profile, displayLevelAnd
           )}
         </Menu.Item>
       </Menu>
-    </Container>
   );
 };
 

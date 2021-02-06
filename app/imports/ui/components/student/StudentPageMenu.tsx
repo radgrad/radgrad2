@@ -1,6 +1,6 @@
 import React from 'react';
 import {NavLink, useRouteMatch} from 'react-router-dom';
-import {Grid, Menu, Container} from 'semantic-ui-react';
+import { Menu } from 'semantic-ui-react';
 import {StudentProfiles} from '../../../api/user/StudentProfileCollection';
 import {StudentProfile} from '../../../typings/radgrad';
 import {
@@ -14,7 +14,7 @@ import {
   STUDENT_PRIVACY,
   STUDENT_REVIEWS,
   STUDENT_VERIFICATION,
-  URL_ROLES
+  URL_ROLES,
 } from '../../layouts/utilities/route-constants';
 import FirstMenu from '../shared/FirstMenu';
 import {getUsername} from '../shared/utilities/router';
