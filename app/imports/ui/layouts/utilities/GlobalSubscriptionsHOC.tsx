@@ -35,7 +35,7 @@ const globalSubs = new SubsManager({ cacheLimit: 30, expireIn: 30 });
 
 const withGlobalSubscription = (WrappedComponent) => {
   const GlobalSubscription: React.FC<Loading> = (props) =>
-    (props.loading ? (
+    props.loading ? (
       <React.Fragment>
         <Dimmer active inverted>
           <Loader>Loading global data</Loader>
@@ -43,10 +43,10 @@ const withGlobalSubscription = (WrappedComponent) => {
       </React.Fragment>
     ) : (
       <WrappedComponent {...props} />
-    ));
+    );
 
   return withTracker(() => {
-    // console.log('withGlobalSubscription');
+    console.log('withGlobalSubscription');
     const handles = [
       globalSubs.subscribe(AcademicTerms.getPublicationName()),
       globalSubs.subscribe(AdminProfiles.getPublicationName()),
@@ -70,6 +70,7 @@ const withGlobalSubscription = (WrappedComponent) => {
       globalSubs.subscribe(Users.getPublicationName()),
     ];
     const loading = handles.some((handle) => !handle.ready());
+    console.log('withGlobalSubscription', loading);
     return {
       loading,
     };

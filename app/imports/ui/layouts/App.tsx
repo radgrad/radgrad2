@@ -131,7 +131,8 @@ const FacultyProtectedRoute = ({ component: Component, ...rest }) => {
 };
 
 const StudentProtectedRoute = ({ component: Component, ...rest }) => {
-  if (_.isNil(Meteor.userId())) {
+  const userId = Meteor.userId();
+  if (_.isNil(userId)) {
     return <Redirect to={{ pathname: '/', state: { from: rest.location } }} />;
   }
   const ComponentWithSubscriptions = withGlobalSubscription(withInstanceSubscriptions(Component));
@@ -140,29 +141,26 @@ const StudentProtectedRoute = ({ component: Component, ...rest }) => {
   // userInteractionDefineMethod.call() inside of withHistoryListen. Since we only want to track the pageViews of
   // STUDENTS, we should only use withHistoryListen if LOGGED IN user is a student.
   const WrappedComponent = isStudent ? withPageTracker(ComponentWithSubscriptions) : ComponentWithSubscriptions;
+  console.log(Meteor.user()?.username, Users.count());
 
   return (
     <Route
       {...rest}
       render={(props: any) => {
         // console.log('StudentProtectedRoute', props);
-        const userId = Meteor.userId();
-        const isLogged = userId !== null;
-        if (!isLogged) {
-          return <Redirect to={{ pathname: '/', state: { from: props.location } }} />;
-        }
         let isAllowed = Roles.userIsInRole(userId, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.STUDENT]);
         const routeUsername = getUsername(props.match);
         let loggedInUserName = routeUsername;
         try {
           loggedInUserName = Users.getProfile(userId).username;
+          if (isStudent) {
+            isAllowed = routeUsername === loggedInUserName;
+          }
+          return isAllowed ? <WrappedComponent {...props} /> : <NotAuthorizedPage />;
         } catch (e) {
           // too early
         }
-        if (isStudent) {
-          isAllowed = routeUsername === loggedInUserName;
-        }
-        return isAllowed ? <WrappedComponent {...props} /> : <NotAuthorizedPage />;
+        return '';
       }}
     />
   );
