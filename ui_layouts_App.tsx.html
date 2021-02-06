@@ -151,7 +151,7 @@ const App: React.FC = () => (
 const ProtectedRoute = ({ component: Component, ...rest }) => (
   &lt;Route
     {...rest}
-    render={(props: any) => {
+    render={(props) => {
       const isLogged = Meteor.userId() !== null;
       return isLogged ? &lt;Component {...props} /> : &lt;Redirect to={{ pathname: '/', state: { from: props.location } }} />;
     }}
@@ -172,7 +172,7 @@ const AdminProtectedRoute = ({ component: Component, ...rest }) => {
   return (
     &lt;Route
       {...rest}
-      render={(props: any) => {
+      render={(props) => {
         const userId = Meteor.userId();
         const isLogged = userId !== null;
         const isAdmin = Roles.userIsInRole(userId, [ROLE.ADMIN]);
@@ -191,7 +191,7 @@ const AdvisorProtectedRoute = ({ component: Component, ...rest }) => {
   return (
     &lt;Route
       {...rest}
-      render={(props: any) => {
+      render={(props) => {
         const isLogged = Meteor.userId() !== null;
         const isAllowed = Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN, ROLE.ADVISOR]);
         return isLogged &amp;&amp; isAllowed ? &lt;WrappedComponent {...props} /> : &lt;Redirect to={{ pathname: '/', state: { from: props.location } }} />;
@@ -208,7 +208,7 @@ const FacultyProtectedRoute = ({ component: Component, ...rest }) => {
   return (
     &lt;Route
       {...rest}
-      render={(props: any) => {
+      render={(props) => {
         const isLogged = Meteor.userId() !== null;
         const isAllowed = Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN, ROLE.FACULTY]);
         return isLogged &amp;&amp; isAllowed ? &lt;WrappedComponent {...props} /> : &lt;Redirect to={{ pathname: '/', state: { from: props.location } }} />;
@@ -218,38 +218,43 @@ const FacultyProtectedRoute = ({ component: Component, ...rest }) => {
 };
 
 const StudentProtectedRoute = ({ component: Component, ...rest }) => {
-  if (_.isNil(Meteor.userId())) {
+  // console.log('StudentProtectedRoute', rest.computedMatch.url, rest.location);
+
+  const userId = Meteor.userId();
+  if (_.isNil(userId)) {
     return &lt;Redirect to={{ pathname: '/', state: { from: rest.location } }} />;
   }
-  const ComponentWithSubscriptions = withGlobalSubscription(withInstanceSubscriptions(Component));
+  const ComponentGlobal = withGlobalSubscription(Component);
+  const ComponentInstance = withInstanceSubscriptions(ComponentGlobal);
   const isStudent = Roles.userIsInRole(Meteor.userId(), ROLE.STUDENT);
   // Because ROLE.ADMIN and ROLE.ADVISOR are allowed to go to StudentProtectedRoutes, they can trigger the
   // userInteractionDefineMethod.call() inside of withHistoryListen. Since we only want to track the pageViews of
   // STUDENTS, we should only use withHistoryListen if LOGGED IN user is a student.
-  const WrappedComponent = isStudent ? withPageTracker(ComponentWithSubscriptions) : ComponentWithSubscriptions;
-
+  const WrappedComponent = isStudent ? withPageTracker(ComponentInstance) : ComponentInstance;
+  // console.log(Meteor.user()?.username, Users.count());
+  // CAM: I think this happens on a reload so send us back to the LandingPage. By setting the state to where
+  //      we are, we can have the LandingPage redirect us back after the subscriptions are done.
+  if (_.isNil(Meteor.user())) {
+    return &lt;Redirect to={{ pathname: '/', state: { from: rest.location } }} />;
+  }
   return (
     &lt;Route
       {...rest}
-      render={(props: any) => {
+      render={(props) => {
         // console.log('StudentProtectedRoute', props);
-        const userId = Meteor.userId();
-        const isLogged = userId !== null;
-        if (!isLogged) {
-          return &lt;Redirect to={{ pathname: '/', state: { from: props.location } }} />;
-        }
         let isAllowed = Roles.userIsInRole(userId, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.STUDENT]);
         const routeUsername = getUsername(props.match);
         let loggedInUserName = routeUsername;
         try {
           loggedInUserName = Users.getProfile(userId).username;
+          if (isStudent) {
+            isAllowed = routeUsername === loggedInUserName;
+          }
+          return isAllowed ? &lt;WrappedComponent {...props} /> : &lt;NotAuthorizedPage />;
         } catch (e) {
           // too early
         }
-        if (isStudent) {
-          isAllowed = routeUsername === loggedInUserName;
-        }
-        return isAllowed ? &lt;WrappedComponent {...props} /> : &lt;NotAuthorizedPage />;
+        return '';
       }}
     />
   );
