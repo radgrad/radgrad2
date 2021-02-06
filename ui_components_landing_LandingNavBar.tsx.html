@@ -87,7 +87,7 @@
         <article>
             <pre class="prettyprint source linenums"><code>import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { Button, Header, Image, Menu, Container } from 'semantic-ui-react';
+import { Button, Header, Image, Menu } from 'semantic-ui-react';
 import RadGradLogoText from '../shared/RadGradLogoText';
 import RadGradLoginButtons from './RadGradLoginButtons';
 
@@ -115,7 +115,6 @@ const LandingNavBar: React.FC&lt;NavBarProps> = ({ currentUser, iconName, role }
   const displayRole = currentUser ? role.charAt(0).toUpperCase() + role.slice(1) : '';
   return (
     &lt;Menu attached="top" borderless size="small">
-      &lt;Container>
         &lt;Menu.Item as={NavLink} activeClassName="" exact to="/">
           &lt;Image style={imageStyle} circular src="/images/radgrad_logo.png" />
           &lt;div className="mobile hidden item">
@@ -138,7 +137,6 @@ const LandingNavBar: React.FC&lt;NavBarProps> = ({ currentUser, iconName, role }
             &lt;RadGradLoginButtons />
           )}
         &lt;/Menu.Item>
-      &lt;/Container>
     &lt;/Menu>
   );
 };
