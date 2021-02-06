@@ -4,7 +4,6 @@ import { Menu } from 'semantic-ui-react';
 import {StudentProfiles} from '../../../api/user/StudentProfileCollection';
 import {StudentProfile} from '../../../typings/radgrad';
 import {
-  CHECKLISTS,
   DEGREEPLANNER,
   EXPLORER_TYPE,
   HOME,
@@ -31,7 +30,7 @@ const StudentPageMenu: React.FC = () => {
       <FirstMenu profile={profile} displayLevelAndIce earnedICE={earnedIce} projectedICE={projectedIce}/>
       <div className="radgrad-menu" id="menu">
         <Menu attached="top" borderless inverted stackable id="secondMenu">
-          <Menu.Item id="student-menu-checklists" as={NavLink} exact to={`/${URL_ROLES.STUDENT}/${username}/${CHECKLISTS}`}>Checklists</Menu.Item>
+          <Menu.Item id="student-menu-home" as={NavLink} exact to={`/${URL_ROLES.STUDENT}/${username}/${HOME}`}>Home</Menu.Item>
           <Menu.Item id="student-menu-interests" as={NavLink} exact to={`/${URL_ROLES.STUDENT}/${username}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}`}>Interests</Menu.Item>
           <Menu.Item id="student-menu-career-goals" as={NavLink} exact to={`/${URL_ROLES.STUDENT}/${username}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}`}>Careers</Menu.Item>
           <Menu.Item id="student-menu-courses" as={NavLink} exact

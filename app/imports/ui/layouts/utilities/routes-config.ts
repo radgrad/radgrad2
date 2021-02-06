@@ -34,7 +34,6 @@ import FacultyVerificationPageContainer from '../../pages/faculty/FacultyVerific
 import FacultyHomePageContainer from '../../pages/faculty/FacultyHomePage';
 import FacultyManageOpportunitiesPageContainer from '../../pages/faculty/FacultyManageOpportunitiesPage';
 import NewsPage from '../../pages/shared/NewsPage';
-import StudentChecklistsPage from '../../pages/student/StudentChecklistsPage';
 import StudentHomePageContainer from '../../pages/student/StudentHomePage';
 import StudentDegreePlannerPage from '../../pages/student/StudentDegreePlannerPage';
 import StudentAboutMePage from '../../pages/student/StudentAboutMePage';
@@ -82,7 +81,6 @@ import {
   PAGE_TRACKING_COMPARISON,
   DEGREEPLANNER,
   COMMUNITY,
-  CHECKLISTS,
   STUDENT_PRIVACY,
   STUDENT_VERIFICATION,
   STUDENT_REVIEWS,
@@ -646,11 +644,6 @@ export const routes = {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${HOME}`,
       exact: true,
       component: StudentHomePageContainer,
-    },
-    {
-      path: `/${URL_ROLES.STUDENT}/${USERNAME}/${CHECKLISTS}`,
-      exact: true,
-      component: StudentChecklistsPage,
     },
     {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${STUDENT_VERIFICATION}`,

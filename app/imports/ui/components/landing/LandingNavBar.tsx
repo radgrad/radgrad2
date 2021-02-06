@@ -20,10 +20,7 @@ const onClick = () => {
  */
 const LandingNavBar: React.FC<NavBarProps> = ({ currentUser, iconName, role }) => {
   const imageStyle = { width: 45 };
-  let url = `/#/${role}/${currentUser}/home`;
-  if (role === 'student') {
-    url = `/#/${role}/${currentUser}/checklists`;
-  }
+  const url = `/#/${role}/${currentUser}/home`;
   // Capitalize first letter
   const displayRole = currentUser ? role.charAt(0).toUpperCase() + role.slice(1) : '';
   return (
