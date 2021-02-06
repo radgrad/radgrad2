@@ -10,7 +10,6 @@ import {
   studentCoursesExplorerPage,
   studentICEPointsPage,
   studentLevelsPage,
-  studentChecklistsPage,
   studentVerificationPage,
   studentReviewsPage,
   studentNewsPage, studentPrivacyPage,
@@ -38,8 +37,8 @@ test('Test all student top-level pages', async (testController) => {
   await landingNavBar.gotoStudentLogin(testController);
   await signinPage.signin(testController, credentials.student.abi);
 
-  await studentNavBar.gotoChecklistsPage(testController);
-  await studentChecklistsPage.isDisplayed(testController);
+  await studentNavBar.gotoHomePage(testController);
+  await studentHomePage.isDisplayed(testController);
 
   await studentNavBar.gotoInterestsExplorerPage(testController);
   await studentInterestsExplorerPage.isDisplayed(testController);
