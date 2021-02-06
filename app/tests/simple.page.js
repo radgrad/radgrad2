@@ -32,7 +32,7 @@ export const facultyVerificationPage = new SimplePage('faculty-verification-page
 export const facultyManageOpportunitiesPage = new SimplePage('faculty-manage-opportunities-page');
 
 export const studentCareerGoalsExplorerPage = new SimplePage('career-goal-browser-view-page');
-export const studentChecklistsPage = new SimplePage('student-checklists-page');
+export const studentHomePage = new SimplePage('student-home-page');
 export const studentCoursesExplorerPage = new SimplePage('course-browser-view-page');
 export const studentDegreePlannerPage = new SimplePage('degree-planner-page');
 export const studentInterestsExplorerPage = new SimplePage('interest-browser-view-page');

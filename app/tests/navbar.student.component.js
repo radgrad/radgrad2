@@ -14,8 +14,8 @@ class StudentNavBar {
     await testController.click('#second-menu-home');
   }
 
-  async gotoChecklistsPage(testController) {
-    await testController.click('#student-menu-checklists');
+  async gotoHomePage(testController) {
+    await testController.click('#student-menu-home');
   }
 
   async gotoCourseExplorerPage(testController) {
