@@ -95,17 +95,13 @@ export interface NavBarProps {
   currentUser: string;
   iconName?: string;
   role?: string;
+  instanceName: string;
 }
-
-const onClick = () => {
-  const el = document.getElementById('landing-section-9');
-  window.scrollTo(0, el.offsetTop);
-};
 
 /**
  * LandingNavBar rendered on each of the landing pages.
  */
-const LandingNavBar: React.FC&lt;NavBarProps> = ({ currentUser, iconName, role }) => {
+const LandingNavBar: React.FC&lt;NavBarProps> = ({ currentUser, iconName, role, instanceName }) => {
   const imageStyle = { width: 45 };
   const url = `/#/${role}/${currentUser}/home`;
   // Capitalize first letter
@@ -121,9 +117,6 @@ const LandingNavBar: React.FC&lt;NavBarProps> = ({ currentUser, iconName, role }
           &lt;/div>
         &lt;/Menu.Item>
         &lt;Menu.Item position="right">
-          &lt;Button onClick={onClick}>GUIDED TOURS&lt;/Button>
-        &lt;/Menu.Item>
-        &lt;Menu.Item>
           {currentUser ? (
             &lt;div>
               &lt;Button basic color="green" compact>
@@ -131,7 +124,7 @@ const LandingNavBar: React.FC&lt;NavBarProps> = ({ currentUser, iconName, role }
               &lt;/Button>
             &lt;/div>
           ) : (
-            &lt;RadGradLoginButtons />
+            &lt;RadGradLoginButtons instanceName={instanceName} size="medium" />
           )}
         &lt;/Menu.Item>
     &lt;/Menu>
