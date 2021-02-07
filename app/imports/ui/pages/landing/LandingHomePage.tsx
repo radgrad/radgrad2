@@ -25,9 +25,11 @@ interface LandingHomeProps {
   currentUser: string;
   iconName: string;
   role: string;
+  tagline: string;
+  instanceName: string;
+  landingSubject: string;
+  userGuideURL: string;
   location: {
-    pathname: string;
-    hash: string;
     state?: {
       from?: {
         pathname: string;
@@ -37,18 +39,18 @@ interface LandingHomeProps {
 }
 
 /* A simple static component to render some text for the landing page. */
-const LandingHomePage: React.FC<LandingHomeProps> = ({ currentUser, opportunities, interests, careerGoals, users, role, iconName, location }) => {
+const LandingHomePage: React.FC<LandingHomeProps> = ({ currentUser, opportunities, interests, careerGoals, users, role, iconName, location, tagline, instanceName, landingSubject, userGuideURL }) => {
   // CAM: This is set in the Redirect from StudentProtectedRoutes on a reload. We want to go back to the page we came from.
   if (location?.state?.from) {
     return (<Redirect to={{ pathname: `${location.state.from.pathname}` }} />);
   }
   return (<div id="landing-page">
-    <LandingNavBar currentUser={currentUser} iconName={iconName} role={role} />
-    <LandingSection1 />
+    <LandingNavBar currentUser={currentUser} iconName={iconName} role={role} instanceName={instanceName} />
+    <LandingSection1 tagline={tagline} />
     <LandingSection2 careerGoals={careerGoals} interests={interests} opportunities={opportunities} users={users} />
-    <LandingSection3 />
-    <LandingSection9Container />
-    <LandingFooter />
+    <LandingSection3 landingSubject={landingSubject} />
+    <LandingSection9Container instanceName={instanceName} userGuideURL={userGuideURL} />
+    <LandingFooter instanceName={instanceName} />
 
     <BackToTopButton />
   </div>);
@@ -72,6 +74,10 @@ const LandingHomeContainer = withTracker(() => {
   const interests = PublicStats.getPublicStat(PublicStats.interestsTotalKey);
   const opportunities = PublicStats.getPublicStat(PublicStats.opportunitiesTotalKey);
   const users = PublicStats.getPublicStat(PublicStats.usersTotalKey);
+  const tagline = Meteor.settings.public.tagline;
+  const instanceName = Meteor.settings.public.instanceName;
+  const landingSubject = Meteor.settings.public.landingSubject;
+  const userGuideURL = Meteor.settings.public.userGuideURL;
   return {
     currentUser,
     iconName,
@@ -80,6 +86,10 @@ const LandingHomeContainer = withTracker(() => {
     interests,
     opportunities,
     users,
+    tagline,
+    instanceName,
+    landingSubject,
+    userGuideURL,
   };
 })(LandingHomePage);
 

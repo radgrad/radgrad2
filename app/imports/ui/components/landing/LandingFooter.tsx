@@ -3,14 +3,17 @@ import { Container, List, Grid } from 'semantic-ui-react';
 import styles from './utilities/landing-styles';
 import { buildVersion } from '../../../build-version';
 
-const LandingFooter: React.FC = () => (
+interface LandingFooterProps {
+  instanceName: string;
+}
+const LandingFooter: React.FC<LandingFooterProps> = ({ instanceName }) => (
   <footer>
     <div style={styles['footer-section']}>
       <Container>
         <Grid>
           <Grid.Row columns={2}>
             <Grid.Column>
-              <strong>RadGrad {`${buildVersion.version} (${buildVersion.bugFix})`}</strong>
+              <strong>&copy; {`${instanceName}`} RadGrad {`${buildVersion.version} (${buildVersion.bugFix})`}</strong>
             </Grid.Column>
             <Grid.Column textAlign="right">
               <List bulleted horizontal>

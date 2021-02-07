@@ -90,7 +90,11 @@
       "lastName": "Admin"
     },
     "emailDomain": "hawaii.edu",
-    "newsletterFrom": "Phillip Johnson <donotreply@mail.gun.radgrad.org>"
+    "newsletterFrom": "Phillip Johnson <donotreply@mail.gun.radgrad.org>",
+    "tagline": "Developing awesome _computer scientists_, **ONE** graduate at a time.",
+    "landingSubject": "Computer science",
+    "instanceName": "UHM/ICS",
+    "userGuideURL": "https://www.radgrad.org/docs/users/"
   },
   "env": {
     "MAIL_URL": "smtps://changeme:changeme@smtp.mailgun.org:465"
