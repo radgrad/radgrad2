@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Container } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
@@ -36,13 +36,13 @@ import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection
 import { getUsername, MatchProps } from '../../components/shared/utilities/router';
 import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
 import { UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
-import GuidedTourDegreePlanner from '../../components/student/degree-planner/GuidedTourDegreePlanner';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
 import { FavoriteOpportunities } from '../../../api/favorite/FavoriteOpportunityCollection';
 import { FavoriteCourses } from '../../../api/favorite/FavoriteCourseCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import { passedCourse } from '../../../api/course/CourseUtilities';
+import HeaderPane from '../../components/shared/HeaderPane';
 
 interface StudentDegreePlannerProps {
   takenSlugs: string[];
@@ -275,9 +275,12 @@ const StudentDegreePlannerPage: React.FC<StudentDegreePlannerProps> = ({
   return (
     <DragDropContext onDragEnd={onDragEnd(onDragEndProps)}>
       <StudentPageMenu />
-      <GuidedTourDegreePlanner />
-      <Container id="degree-planner-page">
-        <Grid stackable style={marginStyle}>
+      <HeaderPane
+        title="Degree Planner"
+        line1="Plan out your courses and opportunities on a semester-by-semester basis. "
+        line2="Completing the Courses to your degree plan earns you Competency points, while completing Opportunities earns you Innovation and/or Experience points.  All are important to becoming a well-rounded professional."
+      />
+        <Grid stackable style={marginStyle} id="degree-planner-page">
           <Grid.Row stretched>
             <Grid.Column width={10} style={paddedStyle}>
               <DegreeExperiencePlannerWidget academicYearInstances={academicYearInstances} courseInstances={courseInstances} opportunityInstances={opportunityInstances} />
@@ -296,7 +299,6 @@ const StudentDegreePlannerPage: React.FC<StudentDegreePlannerProps> = ({
             </Grid.Column>
           </Grid.Row>
         </Grid>
-      </Container>
     </DragDropContext>
   );
 };

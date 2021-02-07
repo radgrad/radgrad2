@@ -38,7 +38,7 @@ import StudentHomePageContainer from '../../pages/student/StudentHomePage';
 import StudentDegreePlannerPage from '../../pages/student/StudentDegreePlannerPage';
 import StudentAboutMePage from '../../pages/student/StudentAboutMePage';
 import StudentIcePage from '../../pages/student/StudentIcePage';
-import StudentHomeLevelsPageContainer from '../../pages/student/StudentHomeLevelsPage';
+import StudentLevelsPageContainer from '../../pages/student/StudentHomeLevelsPage';
 import AlumniHomePageContainer from '../../pages/alumni/AlumniHomePage';
 import AdminDumpDatabasePageContainer from '../../pages/admin/AdminDumpDatabasePage';
 import AdminCheckDatabaseIntegrityPageContainer from '../../pages/admin/AdminCheckDatabaseIntegrityPage';
@@ -678,7 +678,7 @@ export const routes = {
     {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${HOME}/${LEVELS}`,
       exact: true,
-      component: StudentHomeLevelsPageContainer,
+      component: StudentLevelsPageContainer,
     },
     /* ############################## DEGREE PLANNER ############################## */
     {
