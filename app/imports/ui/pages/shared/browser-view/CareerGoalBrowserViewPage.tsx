@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import { useParams, useRouteMatch } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Container, Grid } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
 import { FavoriteCareerGoals } from '../../../../api/favorite/FavoriteCareerGoalCollection';
 import { Users } from '../../../../api/user/UserCollection';

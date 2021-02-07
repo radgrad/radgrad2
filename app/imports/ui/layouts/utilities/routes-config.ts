@@ -38,7 +38,7 @@ import StudentHomePageContainer from '../../pages/student/StudentHomePage';
 import StudentDegreePlannerPage from '../../pages/student/StudentDegreePlannerPage';
 import StudentAboutMePage from '../../pages/student/StudentAboutMePage';
 import StudentIcePage from '../../pages/student/StudentIcePage';
-import StudentLevelsPageContainer from '../../pages/student/StudentHomeLevelsPage';
+import StudentLevelsPageContainer from '../../pages/student/StudentLevelsPage';
 import AlumniHomePageContainer from '../../pages/alumni/AlumniHomePage';
 import AdminDumpDatabasePageContainer from '../../pages/admin/AdminDumpDatabasePage';
 import AdminCheckDatabaseIntegrityPageContainer from '../../pages/admin/AdminCheckDatabaseIntegrityPage';

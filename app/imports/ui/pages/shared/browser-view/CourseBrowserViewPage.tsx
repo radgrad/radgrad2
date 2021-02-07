@@ -3,16 +3,14 @@ import { useParams, useRouteMatch } from 'react-router-dom';
 import _ from 'lodash';
 import { Grid } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Course, FavoriteCourse, HelpMessage } from '../../../../typings/radgrad';
+import { Course, FavoriteCourse } from '../../../../typings/radgrad';
 import * as Router from '../../../components/shared/utilities/router';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import { Courses } from '../../../../api/course/CourseCollection';
-import HelpPanelWidget from '../../../components/shared/HelpPanelWidget';
 import ExplorerMultipleItemsMenu from '../../../components/shared/explorer/browser-view/ExplorerMultipleItemsMenu';
 import { IExplorerTypes } from '../../../components/shared/explorer/utilities/explorer';
 import { Users } from '../../../../api/user/UserCollection';
 import { FavoriteCourses } from '../../../../api/favorite/FavoriteCourseCollection';
-import { HelpMessages } from '../../../../api/help/HelpMessageCollection';
 import CourseBrowserViewContainer from '../../../components/shared/explorer/browser-view/CourseBrowserView';
 import { getMenuWidget } from '../utilities/getMenuWidget';
 import HeaderPane from '../../../components/shared/HeaderPane';
@@ -62,7 +60,6 @@ export default withTracker(() => {
   const studentID = profile.userID;
   const favoriteCourses = FavoriteCourses.findNonRetired({ studentID });
   const courses = Courses.findNonRetired({}); // TODO if user is undergrad student why are we showing grad courses?
-  const helpMessages = HelpMessages.findNonRetired({});
   return {
     courses,
     favoriteCourses,
