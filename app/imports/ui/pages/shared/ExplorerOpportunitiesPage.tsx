@@ -1,13 +1,13 @@
 import React from 'react';
-import { Grid, Container, Card } from 'semantic-ui-react';
+import { Grid, Card } from 'semantic-ui-react';
 import { useRouteMatch } from 'react-router-dom';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import CardExplorerOpportunitiesWidget from '../../components/shared/explorer/opportunities/ExplorerOpportunitiesWidget';
 import TeaserVideo from '../../components/shared/TeaserVideo';
 import { radgradVideos } from '../../../api/radgrad/radgrad-videos';
 import ExplorerSummerOpportunitiesWidget from '../../components/shared/explorer/opportunities/ExplorerSummerOpportunitiesWidget';
-import ExplorerOpportunitiesHeaderWidget from '../../components/shared/explorer/opportunities/ExplorerOpportunitiesHeaderWidget';
 import { getMenuWidget } from './utilities/getMenuWidget';
+import HeaderPane from '../../components/shared/HeaderPane';
 
 const ExplorerOpportunitiesPage: React.FC = () => {
   const opportunitiesVideoHeaderStyle: React.CSSProperties = {
@@ -18,9 +18,12 @@ const ExplorerOpportunitiesPage: React.FC = () => {
   return (
     <div id="student-opportunities-page">
       {getMenuWidget(match)}
-      <ExplorerOpportunitiesHeaderWidget />
-      <Container>
-        <Grid stackable divided="vertically">
+      <HeaderPane
+        title="Opportunities Explorer"
+        line1="Your degree experience isn't complete if you don't take advantage of extracurricular activities, which RadGrad calls Opportunities. An Opportunity can give you the chance to be Innovative and/or obtain professional Experience. "
+        line2="Use this page to add Opportunities to your profile, then put them in your plan on the Degree Planner page. Once they are in your plan, RadGrad can update your total expected Innovation and Experience points. "
+      />
+        <Grid stackable divided="vertically" style={{marginLeft: '10px', marginRight: '10px'}}>
           <Grid.Row>
             <Grid.Column width={11}>
               <CardExplorerOpportunitiesWidget />
@@ -45,7 +48,6 @@ const ExplorerOpportunitiesPage: React.FC = () => {
         </Grid>
 
         <BackToTopButton />
-      </Container>
     </div>
   );
 };

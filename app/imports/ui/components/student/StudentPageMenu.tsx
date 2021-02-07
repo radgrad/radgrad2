@@ -24,9 +24,8 @@ const StudentPageMenu: React.FC = () => {
   const profile: StudentProfile = StudentProfiles.getProfile(username);
   const earnedIce = StudentProfiles.getEarnedICE(username);
   const projectedIce = StudentProfiles.getProjectedICE(username);
-  const divStyle = {marginBottom: 30};
   return (
-    <div style={divStyle}>
+    <div>
       <FirstMenu profile={profile} displayLevelAndIce earnedICE={earnedIce} projectedICE={projectedIce}/>
       <div className="radgrad-menu" id="menu">
         <Menu attached="top" borderless inverted stackable id="secondMenu">
