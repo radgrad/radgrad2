@@ -6,7 +6,7 @@ import FirstMenu from '../shared/FirstMenu';
 import { Reviews } from '../../../api/review/ReviewCollection';
 import SecondMenu from './SecondMenu';
 
-const AdminPageMenuWidget: React.FC = () => {
+const AdminPageMenu: React.FC = () => {
   const divStyle = { marginBottom: 30 };
   const { username } = useParams();
   const profile = AdminProfiles.getProfile(username);
@@ -24,12 +24,13 @@ const AdminPageMenuWidget: React.FC = () => {
     { id: 'second-menu-analytics', label: 'Analytics', route: 'analytics', regex: 'analytics' },
     { id: 'second-menu-scoreboard', label: 'Scoreboard', route: 'scoreboard', regex: 'scoreboard' },
   ];
+  const instanceName = Meteor.settings.public.instanceName;
   return (
     <div style={divStyle}>
-      <FirstMenu profile={profile} displayLevelAndIce={false} />
+      <FirstMenu profile={profile} displayLevelAndIce={false} instanceName={instanceName} />
       <SecondMenu menuItems={menuItems} numItems={menuItems.length as SemanticWIDTHS} />
     </div>
   );
 };
 
-export default AdminPageMenuWidget;
+export default AdminPageMenu;

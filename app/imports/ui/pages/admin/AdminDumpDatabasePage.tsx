@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Button, Form, Grid, Message } from 'semantic-ui-react';
 import moment from 'moment';
 import { ZipZap } from 'meteor/udondan:zipzap';
-import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
+import AdminPageMenu from '../../components/admin/AdminPageMenu';
 import AdminDatabaseMenu from '../../components/admin/database/AdminDatabaseMenu';
 import { dumpDatabaseMethod } from '../../../api/base/BaseCollection.methods';
 import { generateStudentEmailsMethod } from '../../../api/user/UserCollection.methods';
@@ -90,7 +90,7 @@ const AdminDumpDatabasePage: React.FC<AdminDumpDatabasePageProps> = ({ startDump
   const getWorking = getStudentEmailsWorking;
   return (
     <div>
-      <AdminPageMenuWidget />
+      <AdminPageMenu />
       <Grid container stackable style={paddedStyle}>
         <Grid.Column width={5}>
           <AdminDatabaseMenu />

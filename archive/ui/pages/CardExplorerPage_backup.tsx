@@ -4,7 +4,7 @@ import _ from "lodash";
 import { withRouter } from "react-router-dom";
 import { withTracker } from "meteor/react-meteor-data";
 import StudentPageMenuWidget from "../component/student/StudentPageMenuWidget";
-import FacultyPageMenuWidget from "../../../app/imports/ui/components/faculty/FacultyPageMenuWidget";
+import FacultyPageMenu from "../../../app/imports/ui/components/faculty/FacultyPageMenu";
 import CardExplorerWidget from "../../../app/imports/ui/components/shared/explorer/browser-view/ExplorerMultipleItemsWidget";
 import { AcademicPlans } from "../../../app/imports/api/degree-plan/AcademicPlanCollection";
 import { CareerGoals } from "../../../app/imports/api/career/CareerGoalCollection";
@@ -57,7 +57,7 @@ const getMenuWidget = (props: ICardExplorerPageProps): JSX.Element => {
     case URL_ROLES.STUDENT:
       return <StudentPageMenuWidget />;
     case URL_ROLES.FACULTY:
-      return <FacultyPageMenuWidget />;
+      return <FacultyPageMenu />;
     default:
       return <React.Fragment />;
   }

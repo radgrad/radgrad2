@@ -9,10 +9,9 @@ import { COMMUNITY, EXPLORER_TYPE } from '../../layouts/utilities/route-constant
 import { AdvisorOrFacultyProfile } from '../../../typings/radgrad';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 
-const AdvisorPageMenuWidget: React.FC = () => {
+const AdvisorPageMenu: React.FC = () => {
   const match = useRouteMatch();
   const { username } = useParams();
-  const divStyle = { marginBottom: 30 };
   const profile: AdvisorOrFacultyProfile = AdvisorProfiles.getProfile(username);
   let numMod = 0;
   numMod += Reviews.findNonRetired({ moderated: false }).length;
@@ -31,6 +30,7 @@ const AdvisorPageMenuWidget: React.FC = () => {
     { label: requestsLabel, route: 'verification-requests', id: 'advisor-menu-verification-requests' },
     { label: moderationLabel, route: 'moderation', id: 'advisor-menu-moderation' },
     { label: 'Scoreboard', route: 'scoreboard', regex: 'scoreboard', id: 'advisor-menu-scoreboard' },
+    { label: 'Community', route: `${COMMUNITY}`, regex: `${COMMUNITY}`, id: 'advisor-menu-community' },
   ];
   const explorerDropdownItems = [
     { key: 'Career Goals', route: EXPLORER_TYPE.CAREERGOALS, id: 'advisor-menu-career-goals' },
@@ -39,15 +39,11 @@ const AdvisorPageMenuWidget: React.FC = () => {
     { key: 'Opportunities', route: EXPLORER_TYPE.OPPORTUNITIES, id: 'advisor-menu-opportunities' },
   ];
 
-  const communityDropdownItems = [
-    { key: 'Members', route: COMMUNITY.USERS, id: 'facutly-menu-users' },
-    { key: 'RadGrad Videos', route: COMMUNITY.RADGRADVIDEOS, id: 'faculty-menu-radgrad-videos' },
-  ];
-
   const advisorHomePageItems = [{ key: 'About Me', route: 'aboutme', id: 'advisor-menu-about-me' }];
+  const instanceName = Meteor.settings.public.instanceName;
   return (
-    <div style={divStyle}>
-      <FirstMenuContainer profile={profile} displayLevelAndIce={false} />
+    <div>
+      <FirstMenuContainer profile={profile} displayLevelAndIce={false} instanceName={instanceName} />
       <Menu attached="top" borderless secondary inverted pointing id="secondMenu">
         {menuItems.map((item) => (
           <Menu.Item id={item.id} key={item.label} as={NavLink} exact to={buildRouteName(match, `/${item.route}`)}>
@@ -62,14 +58,6 @@ const AdvisorPageMenuWidget: React.FC = () => {
             ))}
           </Dropdown.Menu>
         </Dropdown>
-        <Dropdown item id="student-menu-community" text="COMMUNITY">
-          <Dropdown.Menu>
-            {communityDropdownItems.map((item) => (
-              <Dropdown.Item key={item.key} id={item.id} as={NavLink} exact to={buildRouteName(match, `/${COMMUNITY.HOME}/${item.route}`)} content={item.key} />
-            ))}
-          </Dropdown.Menu>
-        </Dropdown>
-
         <Menu.Menu position="right">
           <Dropdown id="advisor-menu-full-name" item text={`Aloha, ${profile.firstName} ${profile.lastName}!`}>
             <Dropdown.Menu>
@@ -85,4 +73,4 @@ const AdvisorPageMenuWidget: React.FC = () => {
   );
 };
 
-export default AdvisorPageMenuWidget;
+export default AdvisorPageMenu;

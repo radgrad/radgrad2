@@ -5,7 +5,7 @@ import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import { AdvisorProfiles } from '../../../../app/imports/api/user/AdvisorProfileCollection';
 import { StudentProfiles } from '../../../../app/imports/api/user/StudentProfileCollection';
-import AdminPageMenuWidget from '../../../../app/imports/ui/components/admin/AdminPageMenuWidget';
+import AdminPageMenu from '../../../../app/imports/ui/components/admin/AdminPageMenu';
 import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../../../app/imports/ui/components/admin/datamodel/AdminDataModelMenu';
 import ListCollectionWidget from '../../../../app/imports/ui/components/admin/datamodel/ListCollectionWidget';
 import { Users } from '../../../../app/imports/api/user/UserCollection';
@@ -166,7 +166,7 @@ const AdminDataModelAdvisorLogsPage: React.FC<AdminDataModelAdvisorLogsPageProps
   };
   return (
     <div id="data-model-advisor-logs-page">
-      <AdminPageMenuWidget />
+      <AdminPageMenu />
       <Grid container stackable style={paddedStyle}>
 
         <Grid.Column width={3}>

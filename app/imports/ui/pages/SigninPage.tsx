@@ -15,6 +15,7 @@ const SigninPage: React.FC = () => {
   const [passwordState, setPassword] = useState('');
   const [errorState, setError] = useState('');
   const [redirectToRefererState, setRedirectToReferer] = useState(false);
+  const instanceName = Meteor.settings.public.instanceName;
 
   /** Update the form controls each time the user interacts with them. */
   const handleChange = (e, { name, value }) => {
@@ -67,7 +68,7 @@ const SigninPage: React.FC = () => {
   return (
     <div>
       {/* TODO get currentUser */}
-      <LandingNavBarContainer currentUser="" />
+      <LandingNavBarContainer currentUser="" instanceName={instanceName} />
       <Container id="signin-page" style={containerStyle}>
         <Grid textAlign="center" verticalAlign="middle" centered columns={2}>
           <Grid.Column>

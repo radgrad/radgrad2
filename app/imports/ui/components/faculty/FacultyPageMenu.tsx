@@ -8,12 +8,10 @@ import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstan
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { buildRouteName } from '../shared/utilities/router';
-import { COMMUNITY, EXPLORER_TYPE } from '../../layouts/utilities/route-constants';
+import { EXPLORER_TYPE } from '../../layouts/utilities/route-constants';
 import { AdvisorOrFacultyProfile } from '../../../typings/radgrad';
 
-const FacultyPageMenuWidget: React.FC = () => {
-  const divStyle = { marginBottom: 30 };
-
+const FacultyPageMenu: React.FC = () => {
   const match = useRouteMatch();
   const { username } = useParams();
   const profile: AdvisorOrFacultyProfile = FacultyProfiles.getProfile(username);
@@ -37,6 +35,7 @@ const FacultyPageMenuWidget: React.FC = () => {
     { label: requestsLabel, route: 'verification-requests', id: 'faculty-menu-verification' },
     { label: 'Manage Opportunities', route: 'manage-opportunities', id: 'faculty-menu-manage-opportunities' },
     { label: 'Scoreboard', route: 'scoreboard' },
+    { label: 'Community', route: 'community' },
   ];
   const explorerDropdownItems = [
     { key: 'Career Goals', route: EXPLORER_TYPE.CAREERGOALS },
@@ -44,18 +43,14 @@ const FacultyPageMenuWidget: React.FC = () => {
     { key: 'Interests', route: EXPLORER_TYPE.INTERESTS },
     { key: 'Opportunities', route: EXPLORER_TYPE.OPPORTUNITIES },
   ];
-  const communityDropdownItems = [
-    { key: 'Members', route: COMMUNITY.USERS, id: 'facutly-menu-users' },
-    { key: 'RadGrad Videos', route: COMMUNITY.RADGRADVIDEOS, id: 'faculty-menu-radgrad-videos' },
-  ];
 
   const facultyHomePageItems = [
     // { key: 'About Me', route: 'aboutme' },
   ];
-
+  const instanceName = Meteor.settings.public.instanceName;
   return (
-    <div style={divStyle}>
-      <FirstMenuContainer profile={profile} displayLevelAndIce={false} />
+    <div>
+      <FirstMenuContainer profile={profile} displayLevelAndIce={false} instanceName={instanceName} />
       <Menu attached="top" borderless secondary inverted pointing id="secondMenu">
         {menuItems.map((item) => (
           <Menu.Item id={item.id} key={item.label} as={NavLink} exact={false} to={buildRouteName(match, `/${item.route}`)}>
@@ -67,13 +62,6 @@ const FacultyPageMenuWidget: React.FC = () => {
           <Dropdown.Menu>
             {explorerDropdownItems.map((item) => (
               <Dropdown.Item key={item.key} as={NavLink} exact to={buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${item.route}`)} content={item.key} />
-            ))}
-          </Dropdown.Menu>
-        </Dropdown>
-        <Dropdown item id="student-menu-community" text="COMMUNITY">
-          <Dropdown.Menu>
-            {communityDropdownItems.map((item) => (
-              <Dropdown.Item key={item.key} id={item.id} as={NavLink} exact to={buildRouteName(match, `/${COMMUNITY.HOME}/${item.route}`)} content={item.key} />
             ))}
           </Dropdown.Menu>
         </Dropdown>
@@ -92,4 +80,4 @@ const FacultyPageMenuWidget: React.FC = () => {
   );
 };
 
-export default FacultyPageMenuWidget;
+export default FacultyPageMenu;

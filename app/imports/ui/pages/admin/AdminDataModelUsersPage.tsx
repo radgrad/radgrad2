@@ -14,7 +14,7 @@ import { Interests } from '../../../api/interest/InterestCollection';
 import { getDatamodelCount, makeMarkdownLink } from './utilities/datamodel';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { ROLE } from '../../../api/role/Role';
-import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
+import AdminPageMenu from '../../components/admin/AdminPageMenu';
 import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import AddUserForm from '../../components/admin/datamodel/user/AddUserForm';
 import UpdateUserForm from '../../components/admin/datamodel/user/UpdateUserForm';
@@ -330,7 +330,7 @@ const AdminDataModelUsersPage: React.FC<AdminDataModelUsersPageProps> = (props) 
   ];
   return (
     <div id="data-model-users-page" className="layout-page">
-      <AdminPageMenuWidget />
+      <AdminPageMenu />
       <Grid container stackable style={paddedStyle}>
         <Grid.Column width={3}>
           <AdminDataModelMenu {...props} />

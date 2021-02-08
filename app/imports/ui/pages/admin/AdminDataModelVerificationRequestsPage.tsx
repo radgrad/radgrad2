@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 import _ from 'lodash';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
-import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
+import AdminPageMenu from '../../components/admin/AdminPageMenu';
 import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
@@ -202,7 +202,7 @@ const AdminDataModelVerificationRequestsPage: React.FC<AdminDataModelVerificatio
   };
   return (
     <div id="data-model-verification-requests-page">
-      <AdminPageMenuWidget />
+      <AdminPageMenu />
       <Grid container stackable style={paddedStyle}>
         <Grid.Column width={3}>
           <AdminDataModelMenu {...props} />

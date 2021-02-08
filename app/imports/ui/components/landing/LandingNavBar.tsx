@@ -25,7 +25,7 @@ const LandingNavBar: React.FC<NavBarProps> = ({ currentUser, iconName, role, ins
           <Image style={imageStyle} circular src="/images/radgrad_logo.png" />
           <div className="mobile hidden item">
             <Header as="h2">
-              <RadGradLogoText />
+              <RadGradLogoText instanceName={instanceName} />
             </Header>
           </div>
         </Menu.Item>
