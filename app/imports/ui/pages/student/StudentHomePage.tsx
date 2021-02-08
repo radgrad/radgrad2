@@ -7,9 +7,9 @@ const headerPaneTitle = 'Make the most of RadGrad';
 const headerPaneBody = `
 This page contains a personalized set of recommendations to help RadGrad help you!
 
-  * If you have **improve** recommendations, please do those right away. They make a big difference. 
-  * Periodically RadGrad will ask you to **review** pages or settings to make sure you are up to date.
-  * The **awesome** section just records what you've already done.
+  * Please act on suggestions in the <span style="color:red">red section</span> right away. They really help RadGrad help you. 
+  * Suggestions in the <span style="color:yellow">yellow section</span> are requests for you to review your settings or areas of the site that might have changed recently. 
+  * The <span style="color:green">green section</span> lists everything that looks good for now!
 `;
 
 const StudentHomePage: React.FC = () => (
