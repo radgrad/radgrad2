@@ -20,6 +20,16 @@ interface CourseBrowserViewPageProps {
   courses: Course[];
 }
 
+const headerPaneTitle = 'Find the courses you like';
+const headerPaneBody = `
+The RadGrad course explorer provides helpful information about courses, including reviews by students from previous semesters, as well as the number of students planning to take the course in an upcoming semester. 
+
+ 1. Use this explorer to find and add courses to your profile.
+ 2. Add them in your plan on the Degree Planner page. 
+ 
+Once they are in your plan, RadGrad can update your Competency points and do a better job of community building. 
+`;
+
 const CourseBrowserViewPage: React.FC<CourseBrowserViewPageProps> = ({ favoriteCourses, courses }) => {
   const match = useRouteMatch();
   const favoriteCourseDocs = _.map(favoriteCourses, (f) => Courses.findDoc(f.courseID));
@@ -30,12 +40,8 @@ const CourseBrowserViewPage: React.FC<CourseBrowserViewPageProps> = ({ favoriteC
   return (
     <div id="course-browser-view-page">
       {getMenuWidget(match)}
-      <HeaderPane
-        title="Course Explorer"
-        line1="The RadGrad course explorer provides unique information about courses, including reviews by students from previous semesters, as well as the number of students planning to take the course in an upcoming semester. "
-        line2="Use this page to add courses to your profile, then put them in your plan on the Degree Planner page. Once they are in your plan, RadGrad can update your total expected Competency points. "
-      />
-        <Grid stackable style={{marginLeft: '10px', marginRight: '10px'}}>
+      <HeaderPane title={headerPaneTitle} body={headerPaneBody}/>
+      <Grid stackable style={{marginLeft: '10px', marginRight: '10px'}}>
           <Grid.Row>
             {showFavorites ? (
               <Grid.Column width={4}>

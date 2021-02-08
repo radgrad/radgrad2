@@ -33,7 +33,7 @@ import AdvisorModerationPageContainer from '../../pages/advisor/AdvisorModeratio
 import FacultyVerificationPageContainer from '../../pages/faculty/FacultyVerificationPage';
 import FacultyHomePageContainer from '../../pages/faculty/FacultyHomePage';
 import FacultyManageOpportunitiesPageContainer from '../../pages/faculty/FacultyManageOpportunitiesPage';
-import NewsPage from '../../pages/shared/NewsPage';
+import CommunityPage from '../../pages/shared/CommunityPage';
 import StudentHomePageContainer from '../../pages/student/StudentHomePage';
 import StudentDegreePlannerPage from '../../pages/student/StudentDegreePlannerPage';
 import StudentAboutMePage from '../../pages/student/StudentAboutMePage';
@@ -84,7 +84,6 @@ import {
   STUDENT_PRIVACY,
   STUDENT_VERIFICATION,
   STUDENT_REVIEWS,
-  NEWS,
   ICE,
   LEVELS,
 } from './route-constants';
@@ -92,8 +91,6 @@ import PageTrackingScoreboardPage from '../../pages/shared/PageTrackingScoreboar
 import PageTrackingComparisonPage from '../../pages/shared/PageTrackingComparisonPage';
 import { PageInterestsCategoryTypes } from '../../../api/page-tracking/PageInterestsCategoryTypes';
 import ExplorerOpportunitiesPage from '../../pages/shared/ExplorerOpportunitiesPage';
-import CommunityRadGradVideosPage from '../../pages/shared/CommunityRadGradVideosPage';
-import CommunityUsersPage from '../../pages/shared/CommunityUsersPage';
 import CourseBrowserViewPage from '../../pages/shared/browser-view/CourseBrowserViewPage';
 import CareerGoalViewPageContainer from '../../pages/shared/item-view/CareerGoalViewPage';
 import CourseViewPageContainer from '../../pages/shared/item-view/CourseViewPage';
@@ -193,7 +190,7 @@ export const routes = {
       component: AdminDataModelTeasersPage,
     },
     {
-      path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL}/${COMMUNITY.USERS}`,
+      path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL}/users`,
       exact: true,
       component: AdminDataModelUsersPage,
     },
@@ -429,16 +426,10 @@ export const routes = {
       exact: true,
       component: PageTrackingComparisonPage,
     },
-    /* ############################## Community ############################## */
     {
-      path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${COMMUNITY.HOME}/${COMMUNITY.RADGRADVIDEOS}`,
+      path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${COMMUNITY}`,
       exact: true,
-      component: CommunityRadGradVideosPage,
-    },
-    {
-      path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${COMMUNITY.HOME}/${COMMUNITY.USERS}`,
-      exact: true,
-      component: CommunityUsersPage,
+      component: CommunityPage,
     },
   ],
   ALUMNI: [
@@ -508,11 +499,6 @@ export const routes = {
       component: OpportunityViewPageContainer,
     },
     {
-      path: `/${URL_ROLES.FACULTY}/${USERNAME}/${COMMUNITY.HOME}/${COMMUNITY.USERS}`,
-      exact: true,
-      component: CommunityUsersPage,
-    },
-    {
       path: `/${URL_ROLES.FACULTY}/${USERNAME}/${SCOREBOARD}`,
       exact: true,
       component: ScoreboardPageContainer,
@@ -569,11 +555,10 @@ export const routes = {
       exact: true,
       component: PageTrackingComparisonPage,
     },
-    /* ############################## Community ############################## */
     {
-      path: `/${URL_ROLES.FACULTY}/${USERNAME}/${COMMUNITY.HOME}/${COMMUNITY.RADGRADVIDEOS}`,
+      path: `/${URL_ROLES.FACULTY}/${USERNAME}/${COMMUNITY}`,
       exact: true,
-      component: CommunityRadGradVideosPage,
+      component: CommunityPage,
     },
   ],
   LANDING: [
@@ -661,9 +646,9 @@ export const routes = {
       component: StudentReviewsPage,
     },
     {
-      path: `/${URL_ROLES.STUDENT}/${USERNAME}/${NEWS}`,
+      path: `/${URL_ROLES.STUDENT}/${USERNAME}/${COMMUNITY}`,
       exact: true,
-      component: NewsPage,
+      component: CommunityPage,
     },
     {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${HOME}/aboutme`,
@@ -777,17 +762,6 @@ export const routes = {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${EXPLORER_PARAM.OPPORTUNITY}`,
       exact: true,
       component: OpportunityViewPageContainer,
-    },
-    /* ############################## Community ############################## */
-    {
-      path: `/${URL_ROLES.STUDENT}/${USERNAME}/${COMMUNITY.HOME}/${COMMUNITY.USERS}`,
-      exact: true,
-      component: CommunityUsersPage,
-    },
-    {
-      path: `/${URL_ROLES.STUDENT}/${USERNAME}/${COMMUNITY.HOME}/${COMMUNITY.RADGRADVIDEOS}`,
-      exact: true,
-      component: CommunityRadGradVideosPage,
     },
   ],
 };

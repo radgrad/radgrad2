@@ -46,8 +46,8 @@ class StudentNavBar {
     await testController.click('#student-menu-reviews');
   }
 
-  async gotoNewsPage(testController) {
-    await testController.click('#student-menu-news');
+  async gotoCommunityPage(testController) {
+    await testController.click('#student-menu-community');
   }
 
   async gotoCommunityUsersPage(testController) {

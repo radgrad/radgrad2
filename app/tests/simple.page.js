@@ -45,4 +45,4 @@ export const studentLevelsPage = new SimplePage('student-levels-page');
 export const studentVerificationPage = new SimplePage('student-verification-page');
 export const studentReviewsPage = new SimplePage('student-reviews-page');
 export const studentPrivacyPage = new SimplePage('student-privacy-page');
-export const studentNewsPage = new SimplePage('news-page');
+export const studentCommunityPage = new SimplePage('community-page');

@@ -20,6 +20,15 @@ interface InterestBrowserViewPageProps {
   interests: Interest[];
 }
 
+const headerPaneTitle = 'Find your interests';
+const headerPaneBody = `
+Interests specify disciplinary areas as well as other areas with a strong overlap.
+
+Specify at least three interests so RadGrad can recommend related courses, opportunities, and community members.
+
+If we've missed a disciplinary area of interest to you, please click the button below to ask a RadGrad administrator to add it to the system. 
+`;
+
 const InterestBrowserViewPage: React.FC<InterestBrowserViewPageProps> = ({ favoriteInterests, favoriteCareerGoalInterests, interests }) => {
   const menuAddedItems = _.map(favoriteInterests, (doc) => ({ item: doc, count: 1 }));
   const menuCareerList = _.map(favoriteCareerGoalInterests, (doc) => ({ item: doc, count: 1 }));
@@ -27,12 +36,8 @@ const InterestBrowserViewPage: React.FC<InterestBrowserViewPageProps> = ({ favor
   return (
     <div id="interest-browser-view-page">
       {getMenuWidget(match)}
-      <HeaderPane
-        title="Interest Explorer"
-        line1="Interests specify disciplinary areas of computer science (AI, Software Engineering) as well as other areas with a strong overlap (Entrepreneurship, Sustainability)."
-        line2="Specify at least three interests so RadGrad can recommend related courses, opportunities, and community members."
-      />
-        <Grid stackable style={{marginLeft: '10px', marginRight: '10px'}}>
+      <HeaderPane title={headerPaneTitle} body={headerPaneBody}/>
+      <Grid stackable style={{marginLeft: '10px', marginRight: '10px'}}>
           <Grid.Row>
             <Grid.Column width={4}>
               <ExplorerMultipleItemsMenu menuAddedList={menuAddedItems} type={EXPLORER_TYPE.INTERESTS as IExplorerTypes} menuCareerList={menuCareerList} />

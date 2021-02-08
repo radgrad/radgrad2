@@ -248,6 +248,15 @@ const onDragEnd = (onDragEndProps) => (result) => {
   }
 };
 
+const headerPaneTitle = 'Plan your courses and opportunities';
+const headerPaneBody = `
+Use this degree planner to map out your courses and opportunities each semester.
+  * Opportunities will earn you **Innovation** and **Experience** points.
+  * Courses will earn you **Competency** points.
+
+Telling RadGrad what you've planned and completed helps the system provide better recommendations and supports community building.
+`;
+
 const StudentDegreePlannerPage: React.FC<StudentDegreePlannerProps> = ({
   academicYearInstances,
   studentID,
@@ -275,12 +284,8 @@ const StudentDegreePlannerPage: React.FC<StudentDegreePlannerProps> = ({
   return (
     <DragDropContext onDragEnd={onDragEnd(onDragEndProps)}>
       <StudentPageMenu />
-      <HeaderPane
-        title="Degree Planner"
-        line1="Plan out your courses and opportunities on a semester-by-semester basis. "
-        line2="Completing the Courses to your degree plan earns you Competency points, while completing Opportunities earns you Innovation and/or Experience points.  All are important to becoming a well-rounded professional."
-      />
-        <Grid stackable style={marginStyle} id="degree-planner-page">
+      <HeaderPane title={headerPaneTitle} body={headerPaneBody}/>
+      <Grid stackable style={marginStyle} id="degree-planner-page">
           <Grid.Row stretched>
             <Grid.Column width={10} style={paddedStyle}>
               <DegreeExperiencePlannerWidget academicYearInstances={academicYearInstances} courseInstances={courseInstances} opportunityInstances={opportunityInstances} />

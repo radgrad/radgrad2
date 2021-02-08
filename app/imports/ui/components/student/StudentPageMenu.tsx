@@ -9,7 +9,7 @@ import {
   HOME,
   ICE,
   LEVELS,
-  NEWS,
+  COMMUNITY,
   STUDENT_PRIVACY,
   STUDENT_REVIEWS,
   STUDENT_VERIFICATION,
@@ -56,7 +56,7 @@ const StudentPageMenu: React.FC = () => {
           <Menu.Item id="student-menu-reviews" as={NavLink} exact
                      to={`/${URL_ROLES.STUDENT}/${username}/${STUDENT_REVIEWS}`}>Reviews
           </Menu.Item>
-          <Menu.Item id="student-menu-news" as={NavLink} exact to={`/${URL_ROLES.STUDENT}/${username}/${NEWS}`}>News
+          <Menu.Item id="student-menu-community" as={NavLink} exact to={`/${URL_ROLES.STUDENT}/${username}/${COMMUNITY}`}>Community
           </Menu.Item>
         </Menu>
       </div>

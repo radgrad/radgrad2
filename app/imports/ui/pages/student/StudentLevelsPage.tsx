@@ -19,15 +19,18 @@ interface StudentLevelsPageProps {
   students: StudentProfile[];
 }
 
+const headerPaneTitle = 'From Grasshopper to Ninja';
+const headerPaneBody = `
+RadGrad helps you mark your progress with six Levels.
+
+This page helps you learn about Levels and how to reach the next one from where you are now.
+`;
+
 const StudentLevelsPage: React.FC<StudentLevelsPageProps> = ({ profile, students, helpMessages }) => (
   <div id="student-levels-page">
     <StudentPageMenu />
-    <HeaderPane
-      title="Levels Page"
-      line1="RadGrad helps you mark your progress with six Levels, from Grasshopper to Ninja!"
-      line2="This page provides information about your current Level plus a directory of all Levels in the system."
-    />
-      <Grid stackable style={{marginRight: '10px', marginLeft: '10px'}}>
+    <HeaderPane title={headerPaneTitle} body={headerPaneBody}/>
+    <Grid stackable style={{marginRight: '10px', marginLeft: '10px'}}>
         <Grid.Row>
           <Grid.Column width={16}>
             <Grid stackable columns="equal">
