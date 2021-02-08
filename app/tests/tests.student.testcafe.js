@@ -12,7 +12,8 @@ import {
   studentLevelsPage,
   studentVerificationPage,
   studentReviewsPage,
-  studentNewsPage, studentPrivacyPage,
+  studentCommunityPage,
+  studentPrivacyPage,
 } from './simple.page';
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
@@ -70,6 +71,6 @@ test('Test all student top-level pages', async (testController) => {
   await studentNavBar.gotoReviewsPage(testController);
   await studentReviewsPage.isDisplayed(testController);
 
-  await studentNavBar.gotoNewsPage(testController);
-  await studentNewsPage.isDisplayed(testController);
+  await studentNavBar.gotoCommunityPage(testController);
+  await studentCommunityPage.isDisplayed(testController);
 });

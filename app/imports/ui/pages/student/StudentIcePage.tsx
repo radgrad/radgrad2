@@ -20,15 +20,21 @@ interface StudentIcePageProps {
   courseInstances: CourseInstance[];
   opportunityInstances: OpportunityInstance[];
 }
+
+const headerPaneTitle = 'Innovation, Competency, Experience?';
+const headerPaneBody = `
+Gaining **Innovation**, **Competency**, and **Experience** (ICE) are more important to RadGrad than your GPA, because they are also more important to future employers and graduate programs. 
+
+You earn Innovation and Experience points by completing Opportunities. You earn Competency points by completing Courses.
+
+This page provides a breakdown of these three components of a successful undergraduate experience.
+`;
+
 const StudentIcePage: React.FC<StudentIcePageProps> = ({  earnedICE, projectedICE, favoriteInterests, courseInstances, opportunityInstances }) => (
   <div id="student-ice-points-page">
     <StudentPageMenu />
-    <HeaderPane
-      title="ICE Page"
-      line1="Gaining Innovation, Competency, and Experience are more important in RadGrad than your GPA."
-      line2="This page provides a breakdown of these three components of a successful undergraduate experience."
-    />
-      <Grid stackable style={{marginRight: '10px', marginLeft: '10px'}}>
+    <HeaderPane title={headerPaneTitle} body={headerPaneBody}/>
+    <Grid stackable style={{marginRight: '10px', marginLeft: '10px'}}>
         <Grid.Row>
           <Grid.Column width={16} stretched>
             <StudentIceWidget earnedICE={earnedICE} projectedICE={projectedICE} favoriteInterests={favoriteInterests} courseInstances={courseInstances} opportunityInstances={opportunityInstances} />

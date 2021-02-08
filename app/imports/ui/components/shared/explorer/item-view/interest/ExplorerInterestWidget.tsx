@@ -15,7 +15,7 @@ import { FAVORITE_TYPE } from '../../../../../../api/favorite/FavoriteTypes';
 import TeaserVideo from '../../../TeaserVideo';
 import { FavoriteInterests } from '../../../../../../api/favorite/FavoriteInterestCollection';
 
-interface xplorerInterestsWidgetProps {
+interface ExplorerInterestsWidgetProps {
   profile: Profile;
   interest: Interest;
   opportunities: Opportunity[];
@@ -72,12 +72,12 @@ const getAssociationRelatedOpportunities = (opportunities: Opportunity[], studen
   const relatedCompletedIDs = _.intersection(relatedIDs, completedIDs);
   const relatedNotInPlanIDs = _.difference(relatedIDs, relatedInPlanIDs, relatedCompletedIDs);
 
-  const relatedOpportunites = {
+  const relatedOpportunities = {
     completed: relatedCompletedIDs,
     inPlan: relatedInPlanIDs,
     notInPlan: relatedNotInPlanIDs,
   };
-  return relatedOpportunites;
+  return relatedOpportunities;
 };
 
 const getBaseURL = (match) => {
@@ -90,7 +90,7 @@ const getBaseURL = (match) => {
   return temp.join('/');
 };
 
-const ExplorerInterestWidget: React.FC<xplorerInterestsWidgetProps> = ({ profile, interest, courses, opportunities }) => {
+const ExplorerInterestWidget: React.FC<ExplorerInterestsWidgetProps> = ({ profile, interest, courses, opportunities }) => {
   const interestID = interest._id;
   const relatedCourses = getAssociationRelatedCourses(getRelatedCourses(courses, interestID), profile.userID);
   const relatedOpportunities = getAssociationRelatedOpportunities(getRelatedOpportunities(opportunities, interestID), profile.userID);

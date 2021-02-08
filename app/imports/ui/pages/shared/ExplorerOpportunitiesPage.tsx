@@ -9,6 +9,16 @@ import ExplorerSummerOpportunitiesWidget from '../../components/shared/explorer/
 import { getMenuWidget } from './utilities/getMenuWidget';
 import HeaderPane from '../../components/shared/HeaderPane';
 
+const headerPaneTitle = 'Find interesting opportunities';
+const headerPaneBody = `
+Your degree experience isn't complete if you don't take advantage of extracurricular activities, which RadGrad calls **Opportunities**. An Opportunity can give you the chance to be Innovative and/or obtain professional Experience. 
+
+ 1. Use this explorer to find and add opportunities to your profile.
+ 2. Add them in your plan on the Degree Planner page. 
+ 
+Once they are in your plan, RadGrad can update your Innovation and Experience points and do a better job of community building. 
+`;
+
 const ExplorerOpportunitiesPage: React.FC = () => {
   const opportunitiesVideoHeaderStyle: React.CSSProperties = {
     marginTop: '5px',
@@ -18,12 +28,8 @@ const ExplorerOpportunitiesPage: React.FC = () => {
   return (
     <div id="student-opportunities-page">
       {getMenuWidget(match)}
-      <HeaderPane
-        title="Opportunities Explorer"
-        line1="Your degree experience isn't complete if you don't take advantage of extracurricular activities, which RadGrad calls Opportunities. An Opportunity can give you the chance to be Innovative and/or obtain professional Experience. "
-        line2="Use this page to add Opportunities to your profile, then put them in your plan on the Degree Planner page. Once they are in your plan, RadGrad can update your total expected Innovation and Experience points. "
-      />
-        <Grid stackable divided="vertically" style={{marginLeft: '10px', marginRight: '10px'}}>
+      <HeaderPane title={headerPaneTitle} body={headerPaneBody}/>
+      <Grid stackable divided="vertically" style={{marginLeft: '10px', marginRight: '10px'}}>
           <Grid.Row>
             <Grid.Column width={11}>
               <CardExplorerOpportunitiesWidget />

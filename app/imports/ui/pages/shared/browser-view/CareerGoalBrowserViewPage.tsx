@@ -20,18 +20,23 @@ interface CareerGoalBrowserViewPageProps {
   careerGoals: CareerGoal[];
 }
 
+const headerPaneTitle = 'Find your career goals';
+const headerPaneBody = `
+Career Goals are curated by the faculty to represent a good selection of the most promising career paths. Most career goals encompass several job titles. 
+
+Specify at least three career goals so RadGrad can recommend related courses, opportunities, and community members.
+
+If we've missed a career goal of interest to you, please click the button below to ask a RadGrad administrator to add it to the system. 
+`;
+
 const CareerGoalBrowserViewPage: React.FC<CareerGoalBrowserViewPageProps> = ({ favoriteCareerGoals, favoriteCombinedInterestIDs, careerGoals }) => {
   const match = useRouteMatch();
   const menuAddedList = _.map(favoriteCareerGoals, (f) => ({ item: f, count: 1 }));
   return (
     <div id="career-goal-browser-view-page">
       {getMenuWidget(match)}
-      <HeaderPane
-        title="Career Goal Explorer"
-        line1="Career Goals are curated by the faculty to represent a good selection of the most promising career paths. Most career goals encompass several job titles. "
-        line2="Specify at least three career goals so RadGrad can recommend related courses, opportunities, and community members. Note that new career goals often appear in the midst of your degree program!"
-      />
-        <Grid stackable style={{marginLeft: '10px', marginRight: '10px'}}>
+      <HeaderPane title={headerPaneTitle} body={headerPaneBody}/>
+      <Grid stackable style={{marginLeft: '10px', marginRight: '10px'}}>
           <Grid.Row>
             <Grid.Column width={4}>
               <ExplorerMultipleItemsMenu menuAddedList={menuAddedList} type={EXPLORER_TYPE.CAREERGOALS as IExplorerTypes} menuCareerList={undefined} />
