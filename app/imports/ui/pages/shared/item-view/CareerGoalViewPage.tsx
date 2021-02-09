@@ -1,3 +1,4 @@
+import { push } from 'connected-react-router';
 import React from 'react';
 import { useParams, useRouteMatch } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
@@ -74,10 +75,11 @@ const CareerGoalViewPage: React.FC<CareerGoalViewPageProps> = ({ careerGoal, fav
     { label: 'Teaser', value: teaser(careerGoal) },
   ];
   const socialPairs = socialPairsCareerGoals(careerGoal);
+  const pushDownStyle = { paddingTop: 15 };
   return (
     <div id="career-goal-view-page">
       {getMenuWidget(match)}
-      <Container>
+      <Container style={pushDownStyle}>
         <Grid stackable>
           <Grid.Row className="helpPanel">
             <Grid.Column width={16}>
