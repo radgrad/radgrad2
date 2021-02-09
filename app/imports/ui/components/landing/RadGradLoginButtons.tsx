@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { Link, Redirect } from 'react-router-dom';
-import { Dropdown, Message } from 'semantic-ui-react';
+import { Button, Dropdown, Message, SemanticSIZES } from 'semantic-ui-react';
 import { Roles } from 'meteor/alanning:roles';
 import { Users } from '../../../api/user/UserCollection';
 import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
@@ -9,7 +9,12 @@ import { USERINTERACTIONSNOTYPEDATA, UserInteractionsTypes } from '../../../api/
 import { UserInteractionDefine } from '../../../typings/radgrad';
 import { ROLE } from '../../../api/role/Role';
 
-const RadGradLoginButtons: React.FC = () => {
+interface RadGradLoginButtonsProps {
+  size: SemanticSIZES;
+  instanceName: string;
+}
+
+const RadGradLoginButtons: React.FC<RadGradLoginButtonsProps> = ({ instanceName, size }) => {
   const [pathname, setPathname] = useState<string>('');
   const [redirectToRefererState, setRedirectToReferer] = useState<boolean>(false);
 
@@ -71,27 +76,31 @@ const RadGradLoginButtons: React.FC = () => {
 
   return development ? (
     <div>
-      <Dropdown id="LOGIN" text="LOGIN" pointing="top right">
-        <Dropdown.Menu>
-          <Dropdown.Item id="student" text={studentLabel} as={Link} to="/signin" />
-          <Dropdown.Item id="faculty" text={facultyLabel} as={Link} to="/signin" />
-          <Dropdown.Item id="advisor" text={advisorLabel} as={Link} to="/signin" />
-          <Dropdown.Item id="admin" text={adminLabel} as={Link} to="/signin" />
-        </Dropdown.Menu>
-      </Dropdown>
+      <Button size={size}>
+        <Dropdown id="LOGIN" text={`${instanceName} LOGIN`} pointing="top right">
+          <Dropdown.Menu>
+            <Dropdown.Item id="student" text={studentLabel} as={Link} to="/signin" />
+            <Dropdown.Item id="faculty" text={facultyLabel} as={Link} to="/signin" />
+            <Dropdown.Item id="advisor" text={advisorLabel} as={Link} to="/signin" />
+            <Dropdown.Item id="admin" text={adminLabel} as={Link} to="/signin" />
+          </Dropdown.Menu>
+        </Dropdown>
+      </Button>
       <Message hidden negative>
         {`You are not yet registered. Send an email to ${Meteor.settings.public.adminProfile.username} to register.`}
       </Message>
     </div>
   ) : (
-    <Dropdown id="LOGIN" text="LOGIN" pointing="top right">
-      <Dropdown.Menu>
-        <Dropdown.Item id="student" text={studentLabel} onClick={handleClick} />
-        <Dropdown.Item id="faculty" text={facultyLabel} onClick={handleClick} />
-        <Dropdown.Item id="advisor" text={advisorLabel} onClick={handleClick} />
-        <Dropdown.Item id="admin" text={adminLabel} as={Link} to="/signin" />
-      </Dropdown.Menu>
-    </Dropdown>
+    <Button size={size}>
+      <Dropdown id="LOGIN" text={`${instanceName} LOGIN FOR`} pointing="top right">
+        <Dropdown.Menu>
+          <Dropdown.Item id="student" text={studentLabel} onClick={handleClick} />
+          <Dropdown.Item id="faculty" text={facultyLabel} onClick={handleClick} />
+          <Dropdown.Item id="advisor" text={advisorLabel} onClick={handleClick} />
+          <Dropdown.Item id="admin" text={adminLabel} as={Link} to="/signin" />
+        </Dropdown.Menu>
+      </Dropdown>
+    </Button>
   );
 };
 

@@ -13,6 +13,23 @@ export default {
     paddingBottom: 40,
     marginTop: 0,
   },
+  'section-9': {
+    paddingTop: 40,
+    paddingBottom: 40,
+    marginTop: 0,
+  },
+  'ready-to-get-started': {
+    paddingTop: 50,
+    paddingBottom: 50,
+    backgroundColor: '#279474',
+    color: 'white',
+  },
+  'need-more-info': {
+    paddingTop: 50,
+    paddingBottom: 50,
+    backgroundColor: '#6FBE44',
+    color: 'white',
+  },
   'inverted-main-header': {
     color: 'white',
     fontSize: 55,
@@ -23,6 +40,9 @@ export default {
     color: 'rgba(255,255,255,.7)',
     fontSize: 20,
   },
+  'landing-number-column': {
+    textAlign: 'center',
+  },
   'home-number': {
     color: '#279474',
     fontSize: 65,
@@ -30,7 +50,7 @@ export default {
     paddingRight: 10,
     verticalAlign: 'middle',
     lineHeight: 0.6,
-
+    textAlign: 'center',
   },
   'float-right': {
     float: 'right',
@@ -95,6 +115,7 @@ export default {
   },
   'header-description': {
     fontSize: 18,
+    textAlign: 'center',
   },
   'header-section': {
     backgroundColor: '#ffffff',

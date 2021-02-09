@@ -1,7 +1,6 @@
 // Widely used params as constants
 import { ROLE } from '../../../api/role/Role';
 
-export const CHECKLISTS = 'checklists';
 export const DATAMODEL = 'datamodel';
 export const DEGREEPLANNER = 'degree-planner';
 export const GUIDEDTOUR = 'guidedtour';
@@ -9,7 +8,7 @@ export const HOME = 'home';
 export const ICE = 'ice';
 export const LEVELS = 'levels';
 export const MODERATION = 'moderation';
-export const NEWS = 'news';
+export const COMMUNITY = 'community';
 export const SCOREBOARD = 'scoreboard';
 export const COURSE_SCOREBOARD = `course-${SCOREBOARD}`;
 export const OPPORTUNITY_SCOREBOARD = `opportunity-${SCOREBOARD}`;
@@ -52,10 +51,4 @@ export const EXPLORER_PARAM = {
   INTEREST: ':interest',
   OPPORTUNITY: ':opportunity',
   FACULTY: ':faculty',
-};
-
-export const COMMUNITY = {
-  HOME: 'community',
-  USERS: 'users',
-  RADGRADVIDEOS: 'radgrad-videos',
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Container } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
@@ -36,13 +36,13 @@ import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection
 import { getUsername, MatchProps } from '../../components/shared/utilities/router';
 import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
 import { UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
-import GuidedTourDegreePlanner from '../../components/student/degree-planner/GuidedTourDegreePlanner';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
 import { FavoriteOpportunities } from '../../../api/favorite/FavoriteOpportunityCollection';
 import { FavoriteCourses } from '../../../api/favorite/FavoriteCourseCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import { passedCourse } from '../../../api/course/CourseUtilities';
+import HeaderPane from '../../components/shared/HeaderPane';
 
 interface StudentDegreePlannerProps {
   takenSlugs: string[];
@@ -248,6 +248,15 @@ const onDragEnd = (onDragEndProps) => (result) => {
   }
 };
 
+const headerPaneTitle = 'Plan your courses and opportunities';
+const headerPaneBody = `
+Use this degree planner to map out your courses and opportunities each semester.
+  * Opportunities will earn you **Innovation** and **Experience** points.
+  * Courses will earn you **Competency** points.
+
+Telling RadGrad what you've planned and completed helps the system provide better recommendations and supports community building.
+`;
+
 const StudentDegreePlannerPage: React.FC<StudentDegreePlannerProps> = ({
   academicYearInstances,
   studentID,
@@ -275,9 +284,8 @@ const StudentDegreePlannerPage: React.FC<StudentDegreePlannerProps> = ({
   return (
     <DragDropContext onDragEnd={onDragEnd(onDragEndProps)}>
       <StudentPageMenu />
-      <GuidedTourDegreePlanner />
-      <Container id="degree-planner-page">
-        <Grid stackable style={marginStyle}>
+      <HeaderPane title={headerPaneTitle} body={headerPaneBody}/>
+      <Grid stackable style={marginStyle} id="degree-planner-page">
           <Grid.Row stretched>
             <Grid.Column width={10} style={paddedStyle}>
               <DegreeExperiencePlannerWidget academicYearInstances={academicYearInstances} courseInstances={courseInstances} opportunityInstances={opportunityInstances} />
@@ -296,7 +304,6 @@ const StudentDegreePlannerPage: React.FC<StudentDegreePlannerProps> = ({
             </Grid.Column>
           </Grid.Row>
         </Grid>
-      </Container>
     </DragDropContext>
   );
 };

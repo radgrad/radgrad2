@@ -34,6 +34,7 @@ interface Loading {
 const globalSubs = new SubsManager({ cacheLimit: 30, expireIn: 30 });
 
 const withGlobalSubscription = (WrappedComponent) => {
+  // console.log('withGlobalSubscriptionHOC');
   const GlobalSubscription: React.FC<Loading> = (props) =>
     (props.loading ? (
       <React.Fragment>
@@ -46,7 +47,6 @@ const withGlobalSubscription = (WrappedComponent) => {
     ));
 
   return withTracker(() => {
-    // console.log('withGlobalSubscription');
     const handles = [
       globalSubs.subscribe(AcademicTerms.getPublicationName()),
       globalSubs.subscribe(AdminProfiles.getPublicationName()),
@@ -70,6 +70,7 @@ const withGlobalSubscription = (WrappedComponent) => {
       globalSubs.subscribe(Users.getPublicationName()),
     ];
     const loading = handles.some((handle) => !handle.ready());
+    // console.log('withGlobalSubscription', loading);
     return {
       loading,
     };

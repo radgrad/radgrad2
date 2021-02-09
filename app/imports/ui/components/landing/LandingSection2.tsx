@@ -14,39 +14,42 @@ const LandingSection2: React.FC<LandingSection2Props> = ({ careerGoals, interest
   <div style={whiteBG}>
     <Container>
       <div style={styles['header-section']}>
-        <Grid stackable>
+        <Grid stackable centered>
           <Grid.Column width={4}>
-            <span style={styles['home-number']}>{careerGoals}</span>
-            <span style={styles['home-number-label']}>
-              <a id="landing-career-goals-link" style={{ fontWeight: 'normal' }} href="#/explorer/career-goals">
+            <div style={styles['landing-number-column']}>
+              <span style={styles['home-number']}>{careerGoals}</span>
+              <p />
+              <p style={styles['home-number-label']}>
                 CAREER GOALS
-              </a>
-            </span>
+              </p></div>
           </Grid.Column>
           <Grid.Column width={4}>
-            <span style={styles['home-number']}>{interests}</span>
-            <span style={styles['home-number-label']}>
-              <a id="landing-interests-link" style={{ fontWeight: 'normal' }} href="#/explorer/interests">
+            <div style={styles['landing-number-column']}>
+              <span style={styles['home-number']}>{interests}</span>
+              <p />
+              <p style={styles['home-number-label']}>
                 INTERESTS
-              </a>
-            </span>
+              </p>
+            </div>
           </Grid.Column>
           <Grid.Column width={4}>
-            <span style={styles['home-number']}>{opportunities}</span>
-            <span style={styles['home-number-label']}>
-              <a id="landing-opportunities-link" style={{ fontWeight: 'normal' }} href="#/explorer/opportunities">
+            <div style={styles['landing-number-column']}>
+              <span style={styles['home-number']}>{opportunities}</span>
+              <p />
+              <p style={styles['home-number-label']}>
                 OPPORTUNITIES
-              </a>
-            </span>
+              </p>
+            </div>
           </Grid.Column>
           <Grid.Column style={styles['float-left']} width={4}>
-            <div style={styles['home-number']}>
-              <span style={styles['float-left']}>{users}</span>
-            </div>
-            <div style={styles['home-number-label-last']}>
-              STUDENTS, FACULTY,
-              <br />
-              ALUMNI
+            <div style={styles['landing-number-column']}>
+              <span style={styles['home-number']}>
+              {users}
+            </span>
+              <p />
+              <p style={styles['home-number-label-last']}>
+                STUDENTS, FACULTY, ALUMNI
+              </p>
             </div>
           </Grid.Column>
         </Grid>

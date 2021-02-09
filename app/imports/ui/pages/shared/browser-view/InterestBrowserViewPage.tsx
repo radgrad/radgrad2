@@ -1,40 +1,43 @@
 import React from 'react';
-import { Grid, Container } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import _ from 'lodash';
-import { useParams, useRouteMatch } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
-import { HelpMessages } from '../../../../api/help/HelpMessageCollection';
+import {useRouteMatch} from 'react-router';
 import { Interests } from '../../../../api/interest/InterestCollection';
 import { Users } from '../../../../api/user/UserCollection';
-import { HelpMessage, Interest } from '../../../../typings/radgrad';
+import { Interest } from '../../../../typings/radgrad';
 import ExplorerMultipleItemsMenu from '../../../components/shared/explorer/browser-view/ExplorerMultipleItemsMenu';
 import InterestBrowserViewContainer from '../../../components/shared/explorer/browser-view/InterestBrowserView';
 import { IExplorerTypes } from '../../../components/shared/explorer/utilities/explorer';
-import HelpPanelWidget from '../../../components/shared/HelpPanelWidget';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
-import { getMenuWidget } from '../utilities/getMenuWidget';
+import HeaderPane from '../../../components/shared/HeaderPane';
+import {getMenuWidget} from '../utilities/getMenuWidget';
 
 interface InterestBrowserViewPageProps {
   favoriteInterests: Interest[];
   favoriteCareerGoalInterests: Interest[];
   interests: Interest[];
-  helpMessages: HelpMessage[];
 }
 
-const InterestBrowserViewPage: React.FC<InterestBrowserViewPageProps> = ({ favoriteInterests, favoriteCareerGoalInterests, interests, helpMessages }) => {
-  const match = useRouteMatch();
+const headerPaneTitle = 'Find your interests';
+const headerPaneBody = `
+Interests specify disciplinary areas as well as other areas with a strong overlap.
+
+Specify at least three interests so RadGrad can recommend related courses, opportunities, and community members.
+
+If we've missed a disciplinary area of interest to you, please click the button below to ask a RadGrad administrator to add it to the system. 
+`;
+
+const InterestBrowserViewPage: React.FC<InterestBrowserViewPageProps> = ({ favoriteInterests, favoriteCareerGoalInterests, interests }) => {
   const menuAddedItems = _.map(favoriteInterests, (doc) => ({ item: doc, count: 1 }));
   const menuCareerList = _.map(favoriteCareerGoalInterests, (doc) => ({ item: doc, count: 1 }));
+  const match = useRouteMatch();
   return (
     <div id="interest-browser-view-page">
       {getMenuWidget(match)}
-      <Container>
-        <Grid stackable>
-          <Grid.Row className="helpPanel">
-            <Grid.Column width={16}>
-              <HelpPanelWidget helpMessages={helpMessages} />
-            </Grid.Column>
-          </Grid.Row>
+      <HeaderPane title={headerPaneTitle} body={headerPaneBody}/>
+      <Grid stackable style={{marginLeft: '10px', marginRight: '10px'}}>
           <Grid.Row>
             <Grid.Column width={4}>
               <ExplorerMultipleItemsMenu menuAddedList={menuAddedItems} type={EXPLORER_TYPE.INTERESTS as IExplorerTypes} menuCareerList={menuCareerList} />
@@ -44,7 +47,6 @@ const InterestBrowserViewPage: React.FC<InterestBrowserViewPageProps> = ({ favor
             </Grid.Column>
           </Grid.Row>
         </Grid>
-      </Container>
     </div>
   );
 };
@@ -56,12 +58,9 @@ export default withTracker(() => {
   const favoriteInterests = _.map(allInterests[0], (id) => Interests.findDoc(id));
   const favoriteCareerGoalInterests = _.map(allInterests[1], (id) => Interests.findDoc(id));
   const interests = Interests.findNonRetired({}); // TODO should we filter out the favorited ones?
-  const helpMessages = HelpMessages.findNonRetired({});
-
   return {
     favoriteCareerGoalInterests,
     favoriteInterests,
-    helpMessages,
     interests,
   };
 })(InterestBrowserViewPage);

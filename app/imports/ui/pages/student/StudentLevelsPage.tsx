@@ -1,10 +1,9 @@
 import { withTracker } from 'meteor/react-meteor-data';
 import { useParams } from 'react-router-dom';
 import React from 'react';
-import { Grid, Container, Card, Image } from 'semantic-ui-react';
+import { Grid, Card, Image } from 'semantic-ui-react';
 import _ from 'lodash';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
-import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import StudentPageMenu from '../../components/student/StudentPageMenu';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import StudentLevelsWidget from '../../components/student/levels/StudentLevelsWidget';
@@ -12,21 +11,36 @@ import StudentLevelsOthersWidget from '../../components/student/levels/StudentLe
 import { Users } from '../../../api/user/UserCollection';
 import { StudentProfile, HelpMessage } from '../../../typings/radgrad';
 import { ROLE } from '../../../api/role/Role';
+import HeaderPane from '../../components/shared/HeaderPane';
 
-interface StudentHomeLevelsPageProps {
+interface StudentLevelsPageProps {
   profile: StudentProfile;
   helpMessages: HelpMessage[];
   students: StudentProfile[];
 }
 
-const StudentHomeLevelsPage: React.FC<StudentHomeLevelsPageProps> = ({ profile, students, helpMessages }) => (
+const headerPaneTitle = 'From Grasshopper to Ninja';
+const headerPaneBody = `
+RadGrad helps you mark your progress with six Levels.
+
+This page helps you learn about Levels and how to reach the next one from where you are now.
+`;
+
+const StudentLevelsPage: React.FC<StudentLevelsPageProps> = ({ profile, students, helpMessages }) => (
   <div id="student-levels-page">
     <StudentPageMenu />
-    <Container>
-      <Grid stackable>
+    <HeaderPane title={headerPaneTitle} body={headerPaneBody}/>
+    <Grid stackable style={{marginRight: '10px', marginLeft: '10px'}}>
         <Grid.Row>
           <Grid.Column width={16}>
-            <HelpPanelWidget helpMessages={helpMessages} />
+            <Grid stackable columns="equal">
+              <Grid.Column stretched>
+                <StudentLevelsWidget profile={profile} />
+              </Grid.Column>
+              <Grid.Column stretched>
+                <StudentLevelsOthersWidget students={students} profile={profile} />
+              </Grid.Column>
+            </Grid>
           </Grid.Column>
         </Grid.Row>
         <Grid.Row>
@@ -102,21 +116,9 @@ const StudentHomeLevelsPage: React.FC<StudentHomeLevelsPageProps> = ({ profile, 
             </Card.Group>
           </Grid.Column>
         </Grid.Row>
-        <Grid.Row>
-          <Grid.Column width={16}>
-            <Grid container stackable columns="equal">
-              <Grid.Column stretched>
-                <StudentLevelsWidget profile={profile} />
-              </Grid.Column>
-              <Grid.Column stretched>
-                <StudentLevelsOthersWidget students={students} profile={profile} />
-              </Grid.Column>
-            </Grid>
-          </Grid.Column>
-        </Grid.Row>
+
       </Grid>
       <BackToTopButton />
-    </Container>
   </div>
 );
 
@@ -132,7 +134,7 @@ const getStudentsAtSameLevel = (profiles, currentProfile: StudentProfile): Stude
   return students;
 };
 
-const StudentHomeLevelsPageContainer = withTracker(() => {
+const StudentLevelsPageContainer = withTracker(() => {
   const helpMessages = HelpMessages.findNonRetired({});
   const { username } = useParams();
   const profile = Users.getProfile(username) as StudentProfile;
@@ -143,6 +145,6 @@ const StudentHomeLevelsPageContainer = withTracker(() => {
     profile,
     students,
   };
-})(StudentHomeLevelsPage);
+})(StudentLevelsPage);
 
-export default StudentHomeLevelsPageContainer;
+export default StudentLevelsPageContainer;

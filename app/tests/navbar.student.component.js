@@ -11,11 +11,7 @@ class StudentNavBar {
   }
 
   async gotoHomePage(testController) {
-    await testController.click('#second-menu-home');
-  }
-
-  async gotoChecklistsPage(testController) {
-    await testController.click('#student-menu-checklists');
+    await testController.click('#student-menu-home');
   }
 
   async gotoCourseExplorerPage(testController) {
@@ -50,8 +46,8 @@ class StudentNavBar {
     await testController.click('#student-menu-reviews');
   }
 
-  async gotoNewsPage(testController) {
-    await testController.click('#student-menu-news');
+  async gotoCommunityPage(testController) {
+    await testController.click('#student-menu-community');
   }
 
   async gotoCommunityUsersPage(testController) {

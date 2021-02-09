@@ -7,7 +7,7 @@
     "../../../../../../typings/radgrad",
     "../../../../../../../typings/radgrad"
   ],
-  "ignoreUnimported": [],
+  "ignoreUnimported": ["update-build-version.ts"],
   "ignoreUnused": [
     "@babel/runtime",
     "bcrypt",
@@ -17,7 +17,8 @@
     "react-dnd-html5-backend",
     "semantic-ui-css",
     "styled-components",
-    "sweetalert2-react-content"
+    "sweetalert2-react-content",
+    "fibers"
   ],
   "ignorePatterns": [
     "**/node_modules/**",

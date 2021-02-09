@@ -30,7 +30,8 @@ interface Loading {
 // expireLimit set to 30 minutes because: why not.
 const instanceSubs = new SubsManager({ cacheLimit: 15, expireIn: 30 });
 
-function withInstanceSubscriptions(WrappedComponent) {
+const withInstanceSubscriptions = (WrappedComponent) => {
+  // console.log('withInstanceSubscriptionsHOC');
   const InstanceSubscriptions: React.FC<Loading> = (props) =>
     (props.loading ? (
       <React.Fragment>
@@ -61,10 +62,11 @@ function withInstanceSubscriptions(WrappedComponent) {
       }
     }
     const loading = handles.some((handle) => !handle.ready());
+    // console.log('withInstanceSubscription', loading);
     return {
       loading,
     };
   })(InstanceSubscriptions);
-}
+};
 
 export default withInstanceSubscriptions;

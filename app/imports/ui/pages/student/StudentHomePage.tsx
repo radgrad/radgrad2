@@ -1,86 +1,27 @@
-import { withTracker } from 'meteor/react-meteor-data';
 import React from 'react';
-import { Grid, Container } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
-import _ from 'lodash';
-import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
-import BackToTopButton from '../../components/shared/BackToTopButton';
+import {Header} from 'semantic-ui-react';
 import StudentPageMenu from '../../components/student/StudentPageMenu';
-import StudentHomeFavoriteInterestsList from '../../components/student/home/StudentHomeFavoriteInterestsWidget';
-import StudentHomeRecommendedWidget from '../../components/student/home/StudentHomeRecommendedWidget';
-import StudentHomeBannersWidget from '../../components/student/home/StudentHomeBannersWidget';
-import StudentHomeRadGradVideosWidget from '../../components/student/home/StudentHomeRadGradVideosWidget';
-import StudentHomeNewOpportunitiesWidget from '../../components/student/home/StudentHomeNewOpportunitiesWidget';
-import { buildExplorerRoute, MatchProps } from '../../components/shared/utilities/router';
-import { EXPLORER_TYPE } from '../../layouts/utilities/route-constants';
-import GuidedTourStudentHomePageWidget from '../../components/student/home/GuidedTourStudentHomePageWidget';
-import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';
+import HeaderPane from '../../components/shared/HeaderPane';
 
-interface StudentHomePageProps {
-  match: MatchProps;
-  favoriteInterests: { interestID: string; count; number }[];
-  interests: number;
-  careerGoals: string;
-  courses: number;
-  ready: boolean;
-}
+const headerPaneTitle = 'Make the most of RadGrad';
+const headerPaneBody = `
+This page contains a personalized set of recommendations to help RadGrad help you! It's divided into three sections. Not all of them might be present at any particular time.
 
-const StudentHomePage: React.FC<StudentHomePageProps> = ({ match, favoriteInterests, interests, careerGoals, courses, ready }) => (
+<span style="color:red">The red section:</span> Please act on these right away. They really help RadGrad help you. 
+
+<span style="color:yellow">The yellow section:</span> Requests for you to review your settings or areas of the site that might have changed recently. 
+
+<span style="color:green">The green section:</span>  Looks good for now!
+`;
+
+const StudentHomePage: React.FC = () => (
   <div id="student-home-page">
-    <StudentPageMenu />
-    <GuidedTourStudentHomePageWidget interests={interests} careerGoals={careerGoals} courses={courses} />
-    <Container>
-      <Grid stackable>
-        <Grid.Row>
-          <StudentHomeBannersWidget />
-        </Grid.Row>
-        <Grid.Row>
-          <Grid.Column width={11}>
-            <StudentHomeRecommendedWidget />
-            <StudentHomeRadGradVideosWidget />
-          </Grid.Column>
-          <Grid.Column width={5}>
-            <StudentHomeNewOpportunitiesWidget />
-            <Link to={buildExplorerRoute(match, EXPLORER_TYPE.OPPORTUNITIES)}>
-              <u>More Opportunities</u>
-            </Link>
-            <StudentHomeFavoriteInterestsList favoriteInterests={favoriteInterests} />
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
-    </Container>
-
-    <BackToTopButton />
+    <StudentPageMenu/>
+    <HeaderPane title={headerPaneTitle} body={headerPaneBody}/>
+    <div style={{marginRight: '10px', marginLeft: '10px'}}>
+      <Header>Student Home Page Placeholder</Header>
+    </div>
   </div>
 );
 
-const countInArray = (array, value) => array.reduce((n, x) => n + (x === value), 0);
-
-export default withTracker(() => {
-  let key;
-  key = PublicStats.interestsTotalKey;
-  const interests = PublicStats.findDoc({ key }).value;
-  key = PublicStats.careerGoalsListKey;
-  const careerGoals = PublicStats.findDoc({ key }).value;
-  key = PublicStats.coursesTotalKey;
-  const courses = PublicStats.findDoc({ key }).value;
-  const favoriteInterests = FavoriteInterests.findNonRetired({});
-  const favIDs = _.map(favoriteInterests, (f) => f.interestID);
-  const favInterestObjects = [];
-  _.forEach(favIDs, (id) => {
-    const count = countInArray(favIDs, id);
-    favInterestObjects.push({ interestID: id, count });
-  });
-  const noDups = _.uniqBy(favInterestObjects, 'interestID');
-  // Sort in descending order
-  const sorted = _.sortBy(noDups, 'count');
-  _.reverse(sorted);
-  // Only get the first 10 items
-  const highestTen = sorted.slice(0, 10);
-  return {
-    favoriteInterests: highestTen,
-    interests,
-    careerGoals,
-    courses,
-  };
-})(StudentHomePage);
+export default StudentHomePage;
