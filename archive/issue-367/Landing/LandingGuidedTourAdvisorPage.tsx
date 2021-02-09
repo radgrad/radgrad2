@@ -2,16 +2,16 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Container, List, Segment } from 'semantic-ui-react';
 import Slider from 'react-slick';
-import styles from './utilities/guidedtour-style';
+import styles from '../../../app/imports/ui/pages/landing/utilities/guidedtour-style';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import LandingFooter from '../../components/landing/LandingFooter';
-import WhyRadGrad from '../../components/landing/guided-tour/advisor/why-radgrad';
-import Welcome from '../../components/landing/guided-tour/advisor/welcome';
-import DegreePlan from '../../components/landing/guided-tour/advisor/degree-plan';
-import Opportunities from '../../components/landing/guided-tour/advisor/opportunities';
-import ReviewModeration from '../../components/landing/guided-tour/advisor/review-moderation';
-import WhatsNext from '../../components/landing/guided-tour/advisor/whats-next';
+import LandingFooter from '../../../app/imports/ui/components/landing/LandingFooter';
+import WhyRadGrad from '../../../app/imports/ui/components/landing/guided-tour/advisor/why-radgrad';
+import Welcome from '../../../app/imports/ui/components/landing/guided-tour/advisor/welcome';
+import DegreePlan from '../../../app/imports/ui/components/landing/guided-tour/advisor/degree-plan';
+import Opportunities from '../../../app/imports/ui/components/landing/guided-tour/advisor/opportunities';
+import ReviewModeration from '../../../app/imports/ui/components/landing/guided-tour/advisor/review-moderation';
+import WhatsNext from '../../../app/imports/ui/components/landing/guided-tour/advisor/whats-next';
 
 const LandingGuidedTourAdvisorPage: React.FC = () => {
   const settings = {

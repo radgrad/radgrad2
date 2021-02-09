@@ -4,11 +4,11 @@ import { Container, Segment } from 'semantic-ui-react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import DegreePlanWork from './slides/DegreePlanWork';
-import DegreePlanPane from './slides/DegreePlanPane';
-import FavoritesPane from './slides/FavoritesPane';
-import Recommendations from './slides/Recommendations';
-import styles from '../../../pages/landing/utilities/guidedtour-style';
+import DegreePlanWork from '../../app/imports/ui/components/student/degree-planner/slides/DegreePlanWork';
+import DegreePlanPane from '../../app/imports/ui/components/student/degree-planner/slides/DegreePlanPane';
+import FavoritesPane from '../../app/imports/ui/components/student/degree-planner/slides/FavoritesPane';
+import Recommendations from '../../app/imports/ui/components/student/degree-planner/slides/Recommendations';
+import styles from '../../app/imports/ui/pages/landing/utilities/guidedtour-style';
 
 const GuidedTourDegreePlanner: React.FC = () => {
   const settings = {

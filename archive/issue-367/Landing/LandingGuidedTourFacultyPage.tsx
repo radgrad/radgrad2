@@ -2,16 +2,16 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Container, List, Segment } from 'semantic-ui-react';
 import Slider from 'react-slick';
-import styles from './utilities/guidedtour-style';
+import styles from '../../../app/imports/ui/pages/landing/utilities/guidedtour-style';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import LandingFooter from '../../components/landing/LandingFooter';
-import WhyRadGrad from '../../components/landing/guided-tour/faculty/why-radgrad';
-import SetUp from '../../components/landing/guided-tour/faculty/set-up';
-import Opportunities from '../../components/landing/guided-tour/faculty/opportunities';
-import Verification from '../../components/landing/guided-tour/faculty/verification';
-import Explorer from '../../components/landing/guided-tour/faculty/explorer';
-import WhatsNext from '../../components/landing/guided-tour/faculty/whats-next';
+import LandingFooter from '../../../app/imports/ui/components/landing/LandingFooter';
+import WhyRadGrad from '../../../app/imports/ui/components/landing/guided-tour/faculty/why-radgrad';
+import SetUp from '../../../app/imports/ui/components/landing/guided-tour/faculty/set-up';
+import Opportunities from '../../../app/imports/ui/components/landing/guided-tour/faculty/opportunities';
+import Verification from '../../../app/imports/ui/components/landing/guided-tour/faculty/verification';
+import Explorer from '../../../app/imports/ui/components/landing/guided-tour/faculty/explorer';
+import WhatsNext from '../../../app/imports/ui/components/landing/guided-tour/faculty/whats-next';
 
 const LandingGuidedTourFacultyPage: React.FC = () => {
   const settings = {
