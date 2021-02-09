@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { Container, Form, Grid, Header, Message, Segment } from 'semantic-ui-react';
 import { ROLE } from '../../api/role/Role';
-import LandingNavBarContainer from '../components/landing/LandingNavBar';
+import LandingNavBar from '../components/landing/LandingNavBar';
 
 /**
  * SigninPage page overrides the form’s submit event and call Meteor’s loginWithPassword().
@@ -67,8 +67,7 @@ const SigninPage: React.FC = () => {
   // Otherwise return the Login form.
   return (
     <div>
-      {/* TODO get currentUser */}
-      <LandingNavBarContainer currentUser="" instanceName={instanceName} />
+      <LandingNavBar currentUser="" instanceName={instanceName} />
       <Container id="signin-page" style={containerStyle}>
         <Grid textAlign="center" verticalAlign="middle" centered columns={2}>
           <Grid.Column>

@@ -16,9 +16,12 @@ export interface NavBarProps {
  */
 const LandingNavBar: React.FC<NavBarProps> = ({ currentUser, iconName, role, instanceName }) => {
   const imageStyle = { width: 45 };
-  const url = `/#/${role}/${currentUser}/home`;
+  let url = `/#/${role}/${currentUser}/home`;
+  if (!role) {
+    url = '/#/';
+  }
   // Capitalize first letter
-  const displayRole = currentUser ? role.charAt(0).toUpperCase() + role.slice(1) : '';
+  const displayRole = currentUser && role ? role.charAt(0).toUpperCase() + role.slice(1) : '';
   return (
     <Menu attached="top" borderless size="small">
         <Menu.Item as={NavLink} activeClassName="" exact to="/">
