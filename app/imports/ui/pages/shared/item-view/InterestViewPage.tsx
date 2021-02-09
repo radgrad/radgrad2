@@ -34,10 +34,11 @@ const InterestViewPage: React.FC<InterestViewPageProps> = ({ courses, favoriteCa
     item,
     count: 1,
   }));
+  const pushDownStyle = { paddingTop: 15 };
   return (
     <div id="interest-view-page">
       {getMenuWidget(match)}
-      <Container>
+      <Container style={pushDownStyle}>
         <Grid stackable>
           <Grid.Row className="helpPanel">
             <Grid.Column width={16}>
