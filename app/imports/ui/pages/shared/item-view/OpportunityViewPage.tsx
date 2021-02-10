@@ -70,10 +70,11 @@ const OpportunityViewPage: React.FC<OpportunityViewPageProps> = ({ favoriteOppor
   const descriptionPairs = descriptionPairsOpportunities(opportunity);
   const studentID = profile.userID;
   const completed = isCompleted(opportunity._id, studentID);
+  const pushDownStyle = { paddingTop: 15 };
   return (
     <div id="opportunity-view-page">
       {getMenuWidget(match)}
-      <Container>
+      <Container style={pushDownStyle}>
         <Grid stackable>
           <Grid.Row className="helpPanel">
             <Grid.Column width={16}>

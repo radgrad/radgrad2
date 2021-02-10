@@ -10,10 +10,9 @@ import { CourseScoreboard, OpportunityScoreboard } from '../../../../../startup/
 import { AcademicTerm, TermCard } from '../../../../../typings/radgrad';
 import IceHeader from '../../IceHeader';
 import InterestList from '../../InterestList';
-import WidgetHeaderNumber from '../WidgetHeaderNumber';
 import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
 import * as Router from '../../utilities/router';
-import { docToShortDescription, opportunityTerms, studentsParticipating, itemToSlugName } from '../../utilities/data-model';
+import { docToShortDescription, opportunityTerms, itemToSlugName } from '../../utilities/data-model';
 import { replaceTermStringNextFour } from '../../utilities/general';
 import FutureParticipation from '../FutureParticipation';
 
@@ -61,7 +60,6 @@ const TermCard: React.FC<TermCard> = ({ item, type }) => {
   const name = itemName(item, type);
   const isTypeOpportunity = isType('opportunities', type);
   const itemShortDescription = docToShortDescription(item);
-  const numberStudents = studentsParticipating(item);
   const quarter = RadGradProperties.getQuarterSystem();
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
   const numTerms = quarter ? 12 : 9;
@@ -109,12 +107,6 @@ const TermCard: React.FC<TermCard> = ({ item, type }) => {
 
       <Card.Content>
         <FutureParticipation academicTerms={academicTerms} scores={scores} />
-      </Card.Content>
-
-      <Card.Content>
-        <span>
-          STUDENTS PARTICIPATING <WidgetHeaderNumber inputValue={numberStudents} />
-        </span>
       </Card.Content>
 
       <Link className="ui button" to={buildRouteName(item, type, match)}>

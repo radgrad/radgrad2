@@ -24,7 +24,7 @@ interface CardExplorerOpportunitiesWidgetProps {
 const opportunityInformationItemConfiguration: OpportunityInformationItemConfiguration = {
   showLogo: true,
   showMetadata: true,
-  showStudentsParticipating: true,
+  showStudentsParticipating: false,
 };
 
 const mapStateToProps = (state: RootState) => ({

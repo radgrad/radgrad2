@@ -33,13 +33,13 @@ const getTypeName = (type: string): string => {
   // TODO QA this feels terrible.
   switch (type) {
     case EXPLORER_TYPE.CAREERGOALS:
-      return names[1];
+      return names[0];
     case EXPLORER_TYPE.COURSES:
-      return names[2];
+      return names[1];
     case EXPLORER_TYPE.INTERESTS:
-      return names[3];
+      return names[2];
     case EXPLORER_TYPE.OPPORTUNITIES:
-      return names[4];
+      return names[3];
     default:
       return '';
   }
