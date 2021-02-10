@@ -85,15 +85,23 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import React from 'react';
+            <pre class="prettyprint source linenums"><code>import { Meteor } from 'meteor/meteor';
+import React from 'react';
 import { Header } from 'semantic-ui-react';
+import LandingNavBar from '../components/landing/LandingNavBar';
 
 /** Render a Not Found page if the user enters a URL that doesn't match any route. */
-const NotFoundPage: React.FC = () => (
-  &lt;Header as="h2" textAlign="center">
-    &lt;p>Page not found&lt;/p>
-  &lt;/Header>
-);
+const NotFoundPage: React.FC = () => {
+  const currentUser = Meteor.user() ? Meteor.user().username : '';
+  return (
+    &lt;div>
+      &lt;LandingNavBar currentUser={currentUser} instanceName={Meteor.settings.public.instanceName} />
+      &lt;Header as="h2" textAlign="center">
+        &lt;p>Page not found&lt;/p>
+      &lt;/Header>
+    &lt;/div>
+  );
+};
 
 export default NotFoundPage;
 </code></pre>

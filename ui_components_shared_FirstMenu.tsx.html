@@ -92,6 +92,10 @@ import { Meteor } from 'meteor/meteor';
 import RadGradLogoText from './RadGradLogoText';
 import RadGradMenuProfile, { RadGradMenuProfileProps } from './RadGradMenuProfile';
 
+interface FirstMenuProps extends RadGradMenuProfileProps {
+  instanceName: string;
+}
+
 /**
  * First menu for all profiles.
  * @param profile the user's profile.
@@ -100,7 +104,7 @@ import RadGradMenuProfile, { RadGradMenuProfileProps } from './RadGradMenuProfil
  * @param projectedICE the planned ICE points.
  * @constructor
  */
-const FirstMenu: React.FC&lt;RadGradMenuProfileProps> = ({ profile, displayLevelAndIce, earnedICE, projectedICE }) => {
+const FirstMenu: React.FC&lt;FirstMenuProps> = ({ profile, displayLevelAndIce, earnedICE, projectedICE, instanceName }) => {
   const imageStyle = { width: '50px' };
   const flexStyle = { display: 'flex' };
   const noPadding = { paddingTop: 0, paddingBottom: 0 };
@@ -112,7 +116,7 @@ const FirstMenu: React.FC&lt;RadGradMenuProfileProps> = ({ profile, displayLevel
           &lt;Image style={imageStyle} circular src="/images/radgrad_logo.png" />
           &lt;div className="mobile hidden item">
             &lt;Header as="h1" className="inline">
-              &lt;RadGradLogoText />
+              &lt;RadGradLogoText instanceName={instanceName} />
             &lt;/Header>
           &lt;/div>
         &lt;/Menu.Item>

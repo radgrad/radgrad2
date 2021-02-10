@@ -90,7 +90,7 @@ import React, { useState } from 'react';
 import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
-import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
+import AdminPageMenu from '../../components/admin/AdminPageMenu';
 import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { AcademicTerm, Course, CourseInstance, CourseInstanceDefine, DescriptionPair, StudentProfile } from '../../../typings/radgrad';
@@ -283,7 +283,7 @@ const AdminDataModelCourseInstancesPage: React.FC&lt;AdminDataModelCourseInstanc
   };
   return (
     &lt;div id="data-model-course-instances-page">
-      &lt;AdminPageMenuWidget />
+      &lt;AdminPageMenu />
       &lt;Grid container stackable style={paddedStyle}>
         &lt;Grid.Column width={3}>
           &lt;AdminDataModelMenu {...props} />

@@ -99,9 +99,10 @@ const SignoutPage: React.FC = () => {
       localStorage.setItem('logoutEvent', 'true');
     }
   });
+  const instanceName = Meteor.settings.public.instanceName;
   return (
     &lt;div id="signout-page">
-      &lt;LandingNavBarContainer currentUser={undefined} />
+      &lt;LandingNavBarContainer currentUser={undefined} instanceName={instanceName} />
       &lt;Header as="h2" textAlign="center">
         &lt;p>You are signed out.&lt;/p>
       &lt;/Header>

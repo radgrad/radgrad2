@@ -103,16 +103,19 @@ export interface NavBarProps {
  */
 const LandingNavBar: React.FC&lt;NavBarProps> = ({ currentUser, iconName, role, instanceName }) => {
   const imageStyle = { width: 45 };
-  const url = `/#/${role}/${currentUser}/home`;
+  let url = `/#/${role}/${currentUser}/home`;
+  if (!role) {
+    url = '/#/';
+  }
   // Capitalize first letter
-  const displayRole = currentUser ? role.charAt(0).toUpperCase() + role.slice(1) : '';
+  const displayRole = currentUser &amp;&amp; role ? role.charAt(0).toUpperCase() + role.slice(1) : '';
   return (
     &lt;Menu attached="top" borderless size="small">
         &lt;Menu.Item as={NavLink} activeClassName="" exact to="/">
           &lt;Image style={imageStyle} circular src="/images/radgrad_logo.png" />
           &lt;div className="mobile hidden item">
             &lt;Header as="h2">
-              &lt;RadGradLogoText />
+              &lt;RadGradLogoText instanceName={instanceName} />
             &lt;/Header>
           &lt;/div>
         &lt;/Menu.Item>
