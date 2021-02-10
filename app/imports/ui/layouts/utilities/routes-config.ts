@@ -61,7 +61,7 @@ import OpportunityViewPage from '../../pages/shared/item-view/OpportunityViewPag
 import PageTrackingScoreboardPage from '../../pages/shared/PageTrackingScoreboardPage';
 import PageTrackingComparisonPage from '../../pages/shared/PageTrackingComparisonPage';
 import { PageInterestsCategoryTypes } from '../../../api/page-tracking/PageInterestsCategoryTypes';
-import ReviewModerationPage from "../../pages/shared/ReviewModerationPage";
+import ReviewModerationPage from '../../pages/shared/ReviewModerationPage';
 import ScoreboardPage from '../../pages/shared/ScoreboardPage';
 import StudentHomePage from '../../pages/student/StudentHomePage';
 import StudentDegreePlannerPage from '../../pages/student/StudentDegreePlannerPage';

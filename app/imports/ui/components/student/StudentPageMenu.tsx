@@ -42,7 +42,7 @@ const StudentPageMenu: React.FC = () => {
   return (
     <div>
       <FirstMenu profile={profile} displayLevelAndIce earnedICE={earnedIce} projectedICE={projectedIce} instanceName={instanceName} />
-      <Menu borderless inverted stackable id="secondMenu" attached="top" style={{paddingLeft: '20px', marginTop: '0px'}}>
+      <Menu borderless inverted stackable id="secondMenu" attached="top" style={{paddingLeft: '10px', marginTop: '0px'}}>
         {menuItems.map(item => <Menu.Item key={item.label} id={`student-menu-${item.label.toLowerCase()}`} as={NavLink} exact to={item.to}>{item.label}</Menu.Item>)}
       </Menu>
     </div>

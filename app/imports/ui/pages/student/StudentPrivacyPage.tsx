@@ -1,7 +1,6 @@
 import React from 'react';
-import { Header } from 'semantic-ui-react';
-import StudentPageMenu from '../../components/student/StudentPageMenu';
-import HeaderPane from '../../components/shared/HeaderPane';
+import {Header} from 'semantic-ui-react';
+import PageLayout from '../PageLayout';
 
 const headerPaneTitle = 'Control what others see about you';
 const headerPaneBody = `
@@ -11,13 +10,9 @@ Providing access to information about your profile allows RadGrad to help you fi
 `;
 
 const StudentPrivacyPage: React.FC = () => (
-  <div id="student-privacy-page">
-    <StudentPageMenu />
-    <HeaderPane title={headerPaneTitle} body={headerPaneBody}/>
-    <div style={{marginRight: '10px', marginLeft: '10px'}}>
-      <Header>Student Privacy Page Placeholder</Header>
-    </div>
-  </div>
+  <PageLayout id="student-privacy-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
+    <Header>Student Privacy Page Placeholder</Header>
+  </PageLayout>
 );
 
 export default StudentPrivacyPage;

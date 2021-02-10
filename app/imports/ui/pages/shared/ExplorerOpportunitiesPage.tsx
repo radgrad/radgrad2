@@ -1,13 +1,10 @@
 import React from 'react';
 import { Grid, Card } from 'semantic-ui-react';
-import { useRouteMatch } from 'react-router-dom';
-import BackToTopButton from '../../components/shared/BackToTopButton';
 import CardExplorerOpportunitiesWidget from '../../components/shared/explorer/opportunities/ExplorerOpportunitiesWidget';
 import TeaserVideo from '../../components/shared/TeaserVideo';
 import { radgradVideos } from '../../../api/radgrad/radgrad-videos';
 import ExplorerSummerOpportunitiesWidget from '../../components/shared/explorer/opportunities/ExplorerSummerOpportunitiesWidget';
-import { getMenuWidget } from './utilities/getMenuWidget';
-import HeaderPane from '../../components/shared/HeaderPane';
+import PageLayout from '../PageLayout';
 
 const headerPaneTitle = 'Find interesting opportunities';
 const headerPaneBody = `
@@ -23,13 +20,10 @@ const ExplorerOpportunitiesPage: React.FC = () => {
   const opportunitiesVideoHeaderStyle: React.CSSProperties = {
     marginTop: '5px',
   };
-  const match = useRouteMatch();
   const opportunitiesInRadGradVideo: { title: string; youtubeID: string; author: string } = radgradVideos.filter((video) => video.title === 'Opportunities in RadGrad')[0];
   return (
-    <div id="student-opportunities-page">
-      {getMenuWidget(match)}
-      <HeaderPane title={headerPaneTitle} body={headerPaneBody}/>
-      <Grid stackable divided="vertically" style={{marginLeft: '10px', marginRight: '10px'}}>
+    <PageLayout id="explorer-opportunities-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
+      <Grid stackable divided="vertically">
           <Grid.Row>
             <Grid.Column width={11}>
               <CardExplorerOpportunitiesWidget />
@@ -52,9 +46,7 @@ const ExplorerOpportunitiesPage: React.FC = () => {
             </Grid.Column>
           </Grid.Row>
         </Grid>
-
-        <BackToTopButton />
-    </div>
+    </PageLayout>
   );
 };
 

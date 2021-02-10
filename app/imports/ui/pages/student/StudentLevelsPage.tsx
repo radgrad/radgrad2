@@ -4,14 +4,12 @@ import React from 'react';
 import { Grid, Card, Image } from 'semantic-ui-react';
 import _ from 'lodash';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
-import StudentPageMenu from '../../components/student/StudentPageMenu';
-import BackToTopButton from '../../components/shared/BackToTopButton';
 import StudentLevelsWidget from '../../components/student/levels/StudentLevelsWidget';
 import StudentLevelsOthersWidget from '../../components/student/levels/StudentLevelsOthersWidget';
 import { Users } from '../../../api/user/UserCollection';
 import { StudentProfile, HelpMessage } from '../../../typings/radgrad';
 import { ROLE } from '../../../api/role/Role';
-import HeaderPane from '../../components/shared/HeaderPane';
+import PageLayout from '../PageLayout';
 
 interface StudentLevelsPageProps {
   profile: StudentProfile;
@@ -27,10 +25,8 @@ This page helps you learn about Levels and how to reach the next one from where 
 `;
 
 const StudentLevelsPage: React.FC<StudentLevelsPageProps> = ({ profile, students, helpMessages }) => (
-  <div id="student-levels-page">
-    <StudentPageMenu />
-    <HeaderPane title={headerPaneTitle} body={headerPaneBody}/>
-    <Grid stackable style={{marginRight: '10px', marginLeft: '10px'}}>
+  <PageLayout id="student-levels-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
+    <Grid stackable>
         <Grid.Row>
           <Grid.Column width={16}>
             <Grid stackable columns="equal">
@@ -118,8 +114,7 @@ const StudentLevelsPage: React.FC<StudentLevelsPageProps> = ({ profile, students
         </Grid.Row>
 
       </Grid>
-      <BackToTopButton />
-  </div>
+  </PageLayout>
 );
 
 const getStudentsAtSameLevel = (profiles, currentProfile: StudentProfile): StudentProfile[] => {

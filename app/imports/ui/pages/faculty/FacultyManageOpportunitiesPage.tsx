@@ -4,7 +4,6 @@ import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import _ from 'lodash';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
-import FacultyPageMenu from '../../components/faculty/FacultyPageMenu';
 import ListOpportunitiesWidget from '../../components/faculty/manage-opportunities/FacultyListOpportunitiesWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import { AcademicTerm, BaseProfile, DescriptionPair, HelpMessage, Interest, Opportunity, OpportunityType } from '../../../typings/radgrad';
@@ -20,9 +19,7 @@ import AddOpportunityForm from '../../components/admin/datamodel/opportunity/Add
 import UpdateOpportunityForm from '../../components/admin/datamodel/opportunity/UpdateOpportunityForm';
 import { academicTermNameToSlug, opportunityTypeNameToSlug, profileNameToUsername } from '../../components/shared/utilities/data-model';
 import { interestSlugFromName } from '../../components/shared/utilities/form';
-import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
-import BackToTopButton from '../../components/shared/BackToTopButton';
-import PageLayout from "../PageLayout";
+import PageLayout from '../PageLayout';
 
 const collection = Opportunities; // the collection to use.
 
