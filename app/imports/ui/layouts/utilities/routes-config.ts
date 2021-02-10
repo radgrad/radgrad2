@@ -2,43 +2,17 @@
  * This object holds all the routes for RadGrad2. The keys are the Roles the values are an array of route information.
  * Route information consists of a path, the path to the component, a Component to render.
  */
-import LandingHomePage from '../../pages/landing/LandingHomePage';
-import LandingCareerGoalsCardExplorerContainer from '../../pages/landing/LandingCareerGoalsCardExplorerPage';
-import LandingCareerGoalExplorerContainer from '../../pages/landing/LandingCareerGoalExplorerPage';
-import LandingCoursesCardExplorerContainer from '../../pages/landing/LandingCoursesCardExplorerPage';
-import LandingCourseExplorerContainer from '../../pages/landing/LandingCourseExplorerPage';
-import LandingInterestsCardExplorerContainer from '../../pages/landing/LandingInterestsCardExplorerPage';
-import LandingInterestExplorerContainer from '../../pages/landing/LandingInterestExplorerPage';
-import LandingOpportunitiesCardExplorerContainer from '../../pages/landing/LandingOpportunitiesCardExplorerPage';
-import LandingOpportunityExplorerContainer from '../../pages/landing/LandingOpportunityExplorerPage';
-import CareerGoalBrowserViewPage from '../../pages/shared/browser-view/CareerGoalBrowserViewPage';
-import InterestBrowserViewPage from '../../pages/shared/browser-view/InterestBrowserViewPage';
-import ExplorerHomePageContainer from '../../pages/shared/ExplorerHomePage';
-import AdminHomePageContainer from '../../pages/admin/AdminHomePage';
-import AdminDataModelPageContainer from '../../pages/admin/AdminDataModelPage';
-import AdminDatabasePageContainer from '../../pages/admin/AdminDatabasePage';
-import AdminModerationPageContainer from '../../pages/admin/AdminModerationPage';
-import AdminAnalyticsPageContainer from '../../pages/admin/AdminAnalyticsPage';
-import AdminAnalyticsNewsletterPageContainer from '../../pages/admin/AdminAnalyticsNewsletterPage';
-import AdminAnalyticsOverheadAnalysisPageContainer from '../../pages/admin/AdminAnalyticsOverheadAnalysisPage';
-import AdminAnalyticsStudentSummaryPageContainer from '../../pages/admin/AdminAnalyticsStudentSummaryPage';
-import AdminAnalyticsUserInteractionsPageContainer from '../../pages/admin/AdminAnalyticsUserInteractionsPage';
-import AdvisorHomePageContainer from '../../pages/advisor/AdvisorHomePage';
-import AdvisorAboutMePageContainer from '../../pages/advisor/AdvisorAboutMePage';
-import AdvisorVerificationRequestPageContainer from '../../pages/advisor/AdvisorVerificationRequestPage';
-import AdvisorModerationPageContainer from '../../pages/advisor/AdvisorModerationPage';
-import FacultyVerificationPageContainer from '../../pages/faculty/FacultyVerificationPage';
-import FacultyHomePageContainer from '../../pages/faculty/FacultyHomePage';
-import FacultyManageOpportunitiesPageContainer from '../../pages/faculty/FacultyManageOpportunitiesPage';
-import CommunityPage from '../../pages/shared/CommunityPage';
-import StudentHomePageContainer from '../../pages/student/StudentHomePage';
-import StudentDegreePlannerPage from '../../pages/student/StudentDegreePlannerPage';
-import StudentAboutMePage from '../../pages/student/StudentAboutMePage';
-import StudentIcePage from '../../pages/student/StudentIcePage';
-import StudentLevelsPageContainer from '../../pages/student/StudentLevelsPage';
-import AlumniHomePageContainer from '../../pages/alumni/AlumniHomePage';
-import AdminDumpDatabasePageContainer from '../../pages/admin/AdminDumpDatabasePage';
-import AdminCheckDatabaseIntegrityPageContainer from '../../pages/admin/AdminCheckDatabaseIntegrityPage';
+import AdminHomePage from '../../pages/admin/AdminHomePage';
+import AdminDataModelPage from '../../pages/admin/AdminDataModelPage';
+import AdminDatabasePage from '../../pages/admin/AdminDatabasePage';
+import AdminModerationPage from '../../pages/admin/AdminModerationPage';
+import AdminAnalyticsPage from '../../pages/admin/AdminAnalyticsPage';
+import AdminAnalyticsNewsletterPage from '../../pages/admin/AdminAnalyticsNewsletterPage';
+import AdminAnalyticsOverheadAnalysisPage from '../../pages/admin/AdminAnalyticsOverheadAnalysisPage';
+import AdminAnalyticsStudentSummaryPage from '../../pages/admin/AdminAnalyticsStudentSummaryPage';
+import AdminAnalyticsUserInteractionsPage from '../../pages/admin/AdminAnalyticsUserInteractionsPage';import LandingHomePage from '../../pages/landing/LandingHomePage';
+import AdminDumpDatabasePage from '../../pages/admin/AdminDumpDatabasePage';
+import AdminCheckDatabaseIntegrityPage from '../../pages/admin/AdminCheckDatabaseIntegrityPage';
 import AdminDataModelAcademicTermsPage from '../../pages/admin/AdminDataModelAcademicTermsPage';
 import AdminDataModelAcademicYearsPage from '../../pages/admin/AdminDataModelAcademicYearsPage';
 import AdminDataModelCareerGoalsPage from '../../pages/admin/AdminDataModelCareerGoalsPage';
@@ -57,53 +31,80 @@ import AdminDataModelReviewsPage from '../../pages/admin/AdminDataModelReviewsPa
 import AdminDataModelSlugsPage from '../../pages/admin/AdminDataModelSlugsPage';
 import AdminDataModelTeasersPage from '../../pages/admin/AdminDataModelTeasersPage';
 import AdminDataModelVerificationRequestsPage from '../../pages/admin/AdminDataModelVerificationRequestsPage';
-import ScoreboardPageContainer from '../../pages/shared/ScoreboardPage';
-import StudentPrivacyPage from '../../pages/student/StudentPrivacyPage';
-import StudentReviewsPage from '../../pages/student/StudentReviewsPage';
-import StudentVerificationPage from '../../pages/student/StudentVerificationPage';
-import {
-  URL_ROLES,
-  USERNAME,
-  HOME,
-  DATAMODEL,
-  EXPLORER_TYPE,
-  MODERATION,
-  ANALYTICS,
-  SCOREBOARD,
-  COURSE_SCOREBOARD,
-  OPPORTUNITY_SCOREBOARD,
-  EXPLORER_PARAM,
-  PAGE_TRACKING_SCOREBOARD,
-  PAGE_TRACKING_COMPARISON,
-  DEGREEPLANNER,
-  COMMUNITY,
-  STUDENT_PRIVACY,
-  STUDENT_VERIFICATION,
-  STUDENT_REVIEWS,
-  ICE,
-  LEVELS,
-} from './route-constants';
+import AdvisorHomePage from '../../pages/advisor/AdvisorHomePage';
+import AdvisorAboutMePage from '../../pages/advisor/AdvisorAboutMePage';
+import AdvisorVerificationRequestPage from '../../pages/advisor/AdvisorVerificationRequestPage';
+import AdvisorModerationPage from '../../pages/advisor/AdvisorModerationPage';
+import AlumniHomePage from '../../pages/alumni/AlumniHomePage';
+import CareerGoalBrowserViewPage from '../../pages/shared/browser-view/CareerGoalBrowserViewPage';
+import CommunityPage from '../../pages/shared/CommunityPage';
+import CourseBrowserViewPage from '../../pages/shared/browser-view/CourseBrowserViewPage';
+import CareerGoalViewPage from '../../pages/shared/item-view/CareerGoalViewPage';
+import CourseViewPage from '../../pages/shared/item-view/CourseViewPage';
+import ExplorerHomePagePage from '../../pages/shared/ExplorerHomePage';
+import ExplorerOpportunitiesPage from '../../pages/shared/ExplorerOpportunitiesPage';
+import FacultyPrivacyPage from '../../pages/faculty/FacultyPrivacyPage';
+import FacultyVerificationPage from '../../pages/faculty/FacultyVerificationPage';
+import FacultyHomePage from '../../pages/faculty/FacultyHomePage';
+import FacultyManageOpportunitiesPage from '../../pages/faculty/FacultyManageOpportunitiesPage';
+import InterestBrowserViewPage from '../../pages/shared/browser-view/InterestBrowserViewPage';
+import InterestViewPage from '../../pages/shared/item-view/InterestViewPage';
+import LandingCareerGoalsExplorerPage from '../../pages/landing/LandingCareerGoalsCardExplorerPage';
+import LandingCareerGoalExplorerPage from '../../pages/landing/LandingCareerGoalExplorerPage';
+import LandingCoursesExplorerPage from '../../pages/landing/LandingCoursesCardExplorerPage';
+import LandingCourseExplorerPage from '../../pages/landing/LandingCourseExplorerPage';
+import LandingInterestsExplorerPage from '../../pages/landing/LandingInterestsCardExplorerPage';
+import LandingInterestExplorerPage from '../../pages/landing/LandingInterestExplorerPage';
+import LandingOpportunitiesExplorerPage from '../../pages/landing/LandingOpportunitiesCardExplorerPage';
+import LandingOpportunityExplorerPage from '../../pages/landing/LandingOpportunityExplorerPage';
+import OpportunityViewPage from '../../pages/shared/item-view/OpportunityViewPage';
 import PageTrackingScoreboardPage from '../../pages/shared/PageTrackingScoreboardPage';
 import PageTrackingComparisonPage from '../../pages/shared/PageTrackingComparisonPage';
 import { PageInterestsCategoryTypes } from '../../../api/page-tracking/PageInterestsCategoryTypes';
-import ExplorerOpportunitiesPage from '../../pages/shared/ExplorerOpportunitiesPage';
-import CourseBrowserViewPage from '../../pages/shared/browser-view/CourseBrowserViewPage';
-import CareerGoalViewPageContainer from '../../pages/shared/item-view/CareerGoalViewPage';
-import CourseViewPageContainer from '../../pages/shared/item-view/CourseViewPage';
-import InterestViewPageContainer from '../../pages/shared/item-view/InterestViewPage';
-import OpportunityViewPageContainer from '../../pages/shared/item-view/OpportunityViewPage';
+import ScoreboardPage from '../../pages/shared/ScoreboardPage';
+import StudentHomePage from '../../pages/student/StudentHomePage';
+import StudentDegreePlannerPage from '../../pages/student/StudentDegreePlannerPage';
+import StudentAboutMePage from '../../pages/student/StudentAboutMePage';
+import StudentIcePage from '../../pages/student/StudentIcePage';
+import StudentLevelsPage from '../../pages/student/StudentLevelsPage';
+import StudentPrivacyPage from '../../pages/student/StudentPrivacyPage';
+import StudentReviewsPage from '../../pages/student/StudentReviewsPage';
+import StudentVerificationPage from '../../pages/student/StudentVerificationPage';
+
+import {
+  ANALYTICS,
+  COMMUNITY,
+  COURSE_SCOREBOARD,
+  DATAMODEL,
+  DEGREEPLANNER,
+  EXPLORER_PARAM,
+  EXPLORER_TYPE,
+  HOME,
+  ICE,
+  LEVELS,
+  MODERATION,
+  OPPORTUNITY_SCOREBOARD,
+  PAGE_TRACKING_SCOREBOARD,
+  PAGE_TRACKING_COMPARISON,
+  PRIVACY,
+  SCOREBOARD,
+  STUDENT_REVIEWS,
+  STUDENT_VERIFICATION,
+  URL_ROLES,
+  USERNAME,
+} from './route-constants';
 
 export const routes = {
   ADMIN: [
     {
       path: `/${URL_ROLES.ADMIN}/${USERNAME}/${HOME}`,
       exact: true,
-      component: AdminHomePageContainer,
+      component: AdminHomePage,
     },
     {
       path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL}`,
       exact: true,
-      component: AdminDataModelPageContainer,
+      component: AdminDataModelPage,
     },
     {
       path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL}/academic-terms`,
@@ -198,62 +199,62 @@ export const routes = {
     {
       path: `/${URL_ROLES.ADMIN}/${USERNAME}/database`,
       exact: true,
-      component: AdminDatabasePageContainer,
+      component: AdminDatabasePage,
     },
     {
       path: `/${URL_ROLES.ADMIN}/${USERNAME}/database/dump`,
       exact: true,
-      component: AdminDumpDatabasePageContainer,
+      component: AdminDumpDatabasePage,
     },
     {
       path: `/${URL_ROLES.ADMIN}/${USERNAME}/database/integrity-check`,
       exact: true,
-      component: AdminCheckDatabaseIntegrityPageContainer,
+      component: AdminCheckDatabaseIntegrityPage,
     },
     {
       path: `/${URL_ROLES.ADMIN}/${USERNAME}/${MODERATION}`,
       exact: true,
-      component: AdminModerationPageContainer,
+      component: AdminModerationPage,
     },
     {
       path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.HOME}`,
       exact: true,
-      component: AdminAnalyticsPageContainer,
+      component: AdminAnalyticsPage,
     },
     {
       path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.HOME}/${ANALYTICS.NEWSLETTER}`,
       exact: true,
-      component: AdminAnalyticsNewsletterPageContainer,
+      component: AdminAnalyticsNewsletterPage,
     },
     {
       path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.HOME}/${ANALYTICS.OVERHEADANALYSIS}`,
       exact: true,
-      component: AdminAnalyticsOverheadAnalysisPageContainer,
+      component: AdminAnalyticsOverheadAnalysisPage,
     },
     {
       path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.HOME}/${ANALYTICS.STUDENTSUMMARY}`,
       exact: true,
-      component: AdminAnalyticsStudentSummaryPageContainer,
+      component: AdminAnalyticsStudentSummaryPage,
     },
     {
       path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.HOME}/${ANALYTICS.USERINTERACTIONS}`,
       exact: true,
-      component: AdminAnalyticsUserInteractionsPageContainer,
+      component: AdminAnalyticsUserInteractionsPage,
     },
     {
       path: `/${URL_ROLES.ADMIN}/${USERNAME}/${SCOREBOARD}`,
       exact: true,
-      component: ScoreboardPageContainer,
+      component: ScoreboardPage,
     },
     {
       path: `/${URL_ROLES.ADMIN}/${USERNAME}/${SCOREBOARD}/${COURSE_SCOREBOARD}`,
       exact: true,
-      component: ScoreboardPageContainer,
+      component: ScoreboardPage,
     },
     {
       path: `/${URL_ROLES.ADMIN}/${USERNAME}/${SCOREBOARD}/${OPPORTUNITY_SCOREBOARD}`,
       exact: true,
-      component: ScoreboardPageContainer,
+      component: ScoreboardPage,
     },
     /* ############################## Page Tracking SCOREBOARD ############################## */
     {
@@ -301,44 +302,44 @@ export const routes = {
   ADVISOR: [
     {
       path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${HOME}`,
-      component: AdvisorHomePageContainer,
+      component: AdvisorHomePage,
       exact: true,
     },
     {
       path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${HOME}/aboutme`,
-      component: AdvisorAboutMePageContainer,
+      component: AdvisorAboutMePage,
       exact: true,
     },
     {
       path: `/${URL_ROLES.ADVISOR}/${USERNAME}/verification-requests`,
       exact: true,
-      component: AdvisorVerificationRequestPageContainer,
+      component: AdvisorVerificationRequestPage,
     },
     {
       path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${MODERATION}`,
       exact: true,
-      component: AdvisorModerationPageContainer,
+      component: AdvisorModerationPage,
     },
     {
       path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${SCOREBOARD}`,
       exact: true,
-      component: ScoreboardPageContainer,
+      component: ScoreboardPage,
     },
     {
       path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${SCOREBOARD}/${COURSE_SCOREBOARD}`,
       exact: true,
-      component: ScoreboardPageContainer,
+      component: ScoreboardPage,
     },
     {
       path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${SCOREBOARD}/${OPPORTUNITY_SCOREBOARD}`,
       exact: true,
-      component: ScoreboardPageContainer,
+      component: ScoreboardPage,
     },
     /* ############################## Explorers ############################## */
     {
       path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${EXPLORER_TYPE.HOME}`,
       exact: true,
-      component: ExplorerHomePageContainer,
+      component: ExplorerHomePagePage,
     },
     {
       path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}`,
@@ -348,7 +349,7 @@ export const routes = {
     {
       path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}/${EXPLORER_PARAM.CAREERGOAL}`,
       exact: true,
-      component: CareerGoalViewPageContainer,
+      component: CareerGoalViewPage,
     },
     {
       path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}`,
@@ -358,7 +359,7 @@ export const routes = {
     {
       path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${EXPLORER_PARAM.COURSE}`,
       exact: true,
-      component: CourseViewPageContainer,
+      component: CourseViewPage,
     },
     {
       path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}`,
@@ -368,7 +369,7 @@ export const routes = {
     {
       path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}/${EXPLORER_PARAM.INTEREST}`,
       exact: true,
-      component: InterestViewPageContainer,
+      component: InterestViewPage,
     },
     {
       path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}`,
@@ -378,7 +379,7 @@ export const routes = {
     {
       path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${EXPLORER_PARAM.OPPORTUNITY}`,
       exact: true,
-      component: OpportunityViewPageContainer,
+      component: OpportunityViewPage,
     },
     /* ############################## Page Tracking SCOREBOARD ############################## */
     {
@@ -431,28 +432,28 @@ export const routes = {
   ALUMNI: [
     {
       path: `/${URL_ROLES.ALUMNI}/${USERNAME}/${HOME}`,
-      component: AlumniHomePageContainer,
+      component: AlumniHomePage,
     },
   ],
   FACULTY: [
     {
       path: `/${URL_ROLES.FACULTY}/${USERNAME}/${HOME}`,
-      component: FacultyHomePageContainer,
+      component: FacultyHomePage,
     },
     {
       path: `/${URL_ROLES.FACULTY}/${USERNAME}/verification-requests`,
       exact: true,
-      component: FacultyVerificationPageContainer,
+      component: FacultyVerificationPage,
     },
     {
       path: `/${URL_ROLES.FACULTY}/${USERNAME}/manage-opportunities`,
       exact: true,
-      component: FacultyManageOpportunitiesPageContainer,
+      component: FacultyManageOpportunitiesPage,
     },
     {
       path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}`,
       exact: true,
-      component: ExplorerHomePageContainer,
+      component: ExplorerHomePagePage,
     },
     {
       path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}`,
@@ -462,7 +463,7 @@ export const routes = {
     {
       path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}/${EXPLORER_PARAM.CAREERGOAL}`,
       exact: true,
-      component: CareerGoalViewPageContainer,
+      component: CareerGoalViewPage,
     },
     {
       path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}`,
@@ -472,7 +473,7 @@ export const routes = {
     {
       path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${EXPLORER_PARAM.COURSE}`,
       exact: true,
-      component: CourseViewPageContainer,
+      component: CourseViewPage,
     },
     {
       path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}`,
@@ -482,7 +483,7 @@ export const routes = {
     {
       path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}/${EXPLORER_PARAM.INTEREST}`,
       exact: true,
-      component: InterestViewPageContainer,
+      component: InterestViewPage,
     },
     {
       path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}`,
@@ -492,22 +493,27 @@ export const routes = {
     {
       path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${EXPLORER_PARAM.OPPORTUNITY}`,
       exact: true,
-      component: OpportunityViewPageContainer,
+      component: OpportunityViewPage,
     },
     {
       path: `/${URL_ROLES.FACULTY}/${USERNAME}/${SCOREBOARD}`,
       exact: true,
-      component: ScoreboardPageContainer,
+      component: ScoreboardPage,
     },
     {
       path: `/${URL_ROLES.FACULTY}/${USERNAME}/${SCOREBOARD}/${COURSE_SCOREBOARD}`,
       exact: true,
-      component: ScoreboardPageContainer,
+      component: ScoreboardPage,
     },
     {
       path: `/${URL_ROLES.FACULTY}/${USERNAME}/${SCOREBOARD}/${OPPORTUNITY_SCOREBOARD}`,
       exact: true,
-      component: ScoreboardPageContainer,
+      component: ScoreboardPage,
+    },
+    {
+      path: `/${URL_ROLES.FACULTY}/${USERNAME}/${PRIVACY}`,
+      exact: true,
+      component: FacultyPrivacyPage,
     },
     /* ############################## Page Tracking SCOREBOARD ############################## */
     {
@@ -566,42 +572,42 @@ export const routes = {
     {
       path: `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}`,
       exact: true,
-      component: LandingCareerGoalsCardExplorerContainer,
+      component: LandingCareerGoalsExplorerPage,
     },
     {
       path: `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}/${EXPLORER_PARAM.CAREERGOAL}`,
       exact: false,
-      component: LandingCareerGoalExplorerContainer,
+      component: LandingCareerGoalExplorerPage,
     },
     {
       path: `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}`,
       exact: true,
-      component: LandingCoursesCardExplorerContainer,
+      component: LandingCoursesExplorerPage,
     },
     {
       path: `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${EXPLORER_PARAM.COURSE}`,
       exact: false,
-      component: LandingCourseExplorerContainer,
+      component: LandingCourseExplorerPage,
     },
     {
       path: `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}`,
       exact: true,
-      component: LandingInterestsCardExplorerContainer,
+      component: LandingInterestsExplorerPage,
     },
     {
       path: `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}/${EXPLORER_PARAM.INTEREST}`,
       exact: false,
-      component: LandingInterestExplorerContainer,
+      component: LandingInterestExplorerPage,
     },
     {
       path: `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}`,
       exact: true,
-      component: LandingOpportunitiesCardExplorerContainer,
+      component: LandingOpportunitiesExplorerPage,
     },
     {
       path: `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${EXPLORER_PARAM.OPPORTUNITY}`,
       exact: false,
-      component: LandingOpportunityExplorerContainer,
+      component: LandingOpportunityExplorerPage,
     },
   ],
   STUDENT: [
@@ -609,7 +615,7 @@ export const routes = {
     {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${HOME}`,
       exact: true,
-      component: StudentHomePageContainer,
+      component: StudentHomePage,
     },
     {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${STUDENT_VERIFICATION}`,
@@ -617,7 +623,7 @@ export const routes = {
       component: StudentVerificationPage,
     },
     {
-      path: `/${URL_ROLES.STUDENT}/${USERNAME}/${STUDENT_PRIVACY}`,
+      path: `/${URL_ROLES.STUDENT}/${USERNAME}/${PRIVACY}`,
       exact: true,
       component: StudentPrivacyPage,
     },
@@ -644,7 +650,7 @@ export const routes = {
     {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${HOME}/${LEVELS}`,
       exact: true,
-      component: StudentLevelsPageContainer,
+      component: StudentLevelsPage,
     },
     /* ############################## DEGREE PLANNER ############################## */
     {
@@ -698,7 +704,7 @@ export const routes = {
     {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}`,
       exact: true,
-      component: ExplorerHomePageContainer,
+      component: ExplorerHomePagePage,
     },
     /* ############################## Explorers CAREER GOALS ############################## */
     {
@@ -709,7 +715,7 @@ export const routes = {
     {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}/${EXPLORER_PARAM.CAREERGOAL}`,
       exact: true,
-      component: CareerGoalViewPageContainer,
+      component: CareerGoalViewPage,
     },
     /* ############################## Explorers COURSES ############################## */
     {
@@ -720,7 +726,7 @@ export const routes = {
     {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${EXPLORER_PARAM.COURSE}`,
       exact: true,
-      component: CourseViewPageContainer,
+      component: CourseViewPage,
     },
     /* ############################## Explorers INTERESTS ############################## */
     {
@@ -731,7 +737,7 @@ export const routes = {
     {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}/${EXPLORER_PARAM.INTEREST}`,
       exact: true,
-      component: InterestViewPageContainer,
+      component: InterestViewPage,
     },
     /* ############################## Explorers OPPORTUNITIES ############################## */
     {
@@ -742,7 +748,7 @@ export const routes = {
     {
       path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${EXPLORER_PARAM.OPPORTUNITY}`,
       exact: true,
-      component: OpportunityViewPageContainer,
+      component: OpportunityViewPage,
     },
   ],
 };

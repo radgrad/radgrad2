@@ -6,6 +6,7 @@ export const DEGREEPLANNER = 'degree-planner';
 export const HOME = 'home';
 export const ICE = 'ice';
 export const LEVELS = 'levels';
+export const PRIVACY = 'privacy';
 export const MODERATION = 'moderation';
 export const COMMUNITY = 'community';
 export const SCOREBOARD = 'scoreboard';
@@ -14,7 +15,6 @@ export const OPPORTUNITY_SCOREBOARD = `opportunity-${SCOREBOARD}`;
 export const USERNAME = ':username';
 export const PAGE_TRACKING_SCOREBOARD = 'page-tracking-scoreboard';
 export const PAGE_TRACKING_COMPARISON = 'page-tracking-comparison';
-export const STUDENT_PRIVACY = 'student-privacy';
 export const STUDENT_REVIEWS = 'student-reviews';
 export const STUDENT_VERIFICATION = 'student-verification';
 
