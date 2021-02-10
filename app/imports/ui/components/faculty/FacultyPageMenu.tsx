@@ -44,7 +44,7 @@ const FacultyPageMenu: React.FC = () => {
           </Menu.Item>
         ))}
 
-        <Dropdown item text="Explorers">
+        <Dropdown item text="Explorers" id="faculty-menu-explorers">
           <Dropdown.Menu>
             {explorerDropdownItems.map((item) => (
               <Dropdown.Item id={`faculty-menu-explorer-${item.label.toLowerCase()}`} key={item.label} as={NavLink} exact to={buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${item.route}`)} content={item.label} />
@@ -52,7 +52,7 @@ const FacultyPageMenu: React.FC = () => {
           </Dropdown.Menu>
         </Dropdown>
 
-        <Dropdown item text="Manage">
+        <Dropdown item text="Manage" id="faculty-menu-manage">
           <Dropdown.Menu>
             {manageDropdownItems.map((item) => (
               <Dropdown.Item id={`faculty-menu-manage-${item.label.toLowerCase()}`} key={item.label} as={NavLink} exact to={buildRouteName(match, `/${item.route}`)} content={item.label} />

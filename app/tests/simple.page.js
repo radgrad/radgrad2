@@ -29,6 +29,14 @@ export const advisorScoreboardPage = new SimplePage('scoreboard-page'); // same 
 
 export const facultyHomePage = new SimplePage('faculty-home-page');
 export const facultyVerificationPage = new SimplePage('faculty-verification-page');
+export const facultyReviewPage = new SimplePage('review-moderation-page');
+export const facultyPrivacyPage = new SimplePage('faculty-privacy-page');
+export const facultyScoreboardPage = new SimplePage('scoreboard-page');
+export const facultyCommunityPage = new SimplePage('community-page');
+export const facultyCareerGoalsPage = new SimplePage('career-goal-browser-view-page');
+export const facultyCoursesPage = new SimplePage('course-browser-view-page');
+export const facultyInterestsPage = new SimplePage('interest-browser-view-page');
+export const facultyOpportunitiesPage = new SimplePage('explorer-opportunities-page');
 export const facultyManageOpportunitiesPage = new SimplePage('faculty-manage-opportunities-page');
 
 export const studentCareerGoalsExplorerPage = new SimplePage('career-goal-browser-view-page');
@@ -36,8 +44,8 @@ export const studentHomePage = new SimplePage('student-home-page');
 export const studentCoursesExplorerPage = new SimplePage('course-browser-view-page');
 export const studentDegreePlannerPage = new SimplePage('degree-planner-page');
 export const studentInterestsExplorerPage = new SimplePage('interest-browser-view-page');
-export const studentOpportunitiesPage = new SimplePage('student-opportunities-page');
-export const studentCommunityUsersPage = new SimplePage('community-users-page');
+export const studentOpportunitiesPage = new SimplePage('explorer-opportunities-page');
+export const studentCommunityUsersPage = new SimplePage('community-page');
 export const studentCommunityRadGradVideosPage = new SimplePage('community-radgrad-videos-page');
 export const studentAboutMePage = new SimplePage('student-about-me-page');
 export const studentICEPointsPage = new SimplePage('student-ice-points-page');
