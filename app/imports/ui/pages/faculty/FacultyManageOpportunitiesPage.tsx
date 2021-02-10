@@ -22,8 +22,32 @@ import { academicTermNameToSlug, opportunityTypeNameToSlug, profileNameToUsernam
 import { interestSlugFromName } from '../../components/shared/utilities/form';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
+import PageLayout from "../PageLayout";
 
 const collection = Opportunities; // the collection to use.
+
+const headerPaneTitle = 'Manage Opportunities';
+const headerPaneBody = `
+In RadGrad, opportunities are activities outside of regular coursework that enable students to earn "Innovation" and "Experience" points. When students pick an opportunity, they associate it with a specific academic term (Fall, Spring, or Summer).
+
+For faculty, the most important reason to create opportunities is because it provides a mechanism for you to advertise your research projects to students. Advertising your research projects as opportunities has the following advantages to you:
+
+  1. By specifying one or more "interests" (i.e. disciplinary areas) associated with your research project, RadGrad can recommend your project to students who have also specified those interest areas.
+
+  2. Because students earn ICE points for completing opportunities, and because we recommend you award the maximum number of Innovation points for participating in a research project for each academic term, students who wish to achieve the higher levels in RadGrad will almost certainly need to participate in a faculty research project.
+
+  3. Students can pick your research project for multiple academic terms and earn Innovation points for each academic term.
+
+  4. If you want to, you can offer the student the ability to enroll in an independent study course with you in addition to this opportunity. That gives the student the ability to earn both Innovation and Competency points for the same work.
+
+Taken together, these advantages increase the odds that you will connect with qualified, motivated students when you specify one or more of your research projects as opportunities.
+
+Students do not automatically earn points just for adding one of your opportunities to their degree plan. In order to get the points, they must ask you to "verify" their participation. If you do not feel they participated enough to warrant the points at the end of an academic term, you do not have to verify their participation.
+
+Unless your project entails regular contact and interaction with industry professionals, your opportunity should not provide any Experience points.
+
+You can review the existing opportunities listed below to see how points are currently awarded so that you can define your opportunity consistently.
+`;
 
 /**
  * Returns an array of Description pairs used in the ListCollectionWidget.
@@ -183,20 +207,10 @@ const FacultyManageOpportunitiesPage: React.FC<FacultyManageOpportunitiesPagePro
     sort: { name: 1 }, // determine how you want to sort the items in the list
   };
   return (
-    <div id="faculty-manage-opportunities-page">
-      <FacultyPageMenu />
-      <Grid stackable>
+    <PageLayout id="faculty-manage-opportunities-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
+      <Grid>
         <Grid.Row>
-          <Grid.Column width={1} />
-          <Grid.Column width={14}>
-            <HelpPanelWidget helpMessages={helpMessages} />
-          </Grid.Column>
-          <Grid.Column width={1} />
-        </Grid.Row>
-
-        <Grid.Row>
-          <Grid.Column width={1} />
-          <Grid.Column width={14}>
+          <Grid.Column>
             {showUpdateFormState ? (
               <UpdateOpportunityForm
                 collection={collection}
@@ -224,13 +238,10 @@ const FacultyManageOpportunitiesPage: React.FC<FacultyManageOpportunitiesPagePro
               setShowCount={dataModelActions.setCollectionShowCount}
             />
           </Grid.Column>
-          <Grid.Column width={1} />
         </Grid.Row>
       </Grid>
       <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Opportunity?" />
-
-      <BackToTopButton />
-    </div>
+    </PageLayout>
   );
 };
 

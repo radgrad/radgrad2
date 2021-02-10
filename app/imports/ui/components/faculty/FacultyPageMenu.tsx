@@ -36,7 +36,7 @@ const FacultyPageMenu: React.FC = () => {
   return (
     <div>
       <FirstMenuContainer profile={profile} displayLevelAndIce={false} instanceName={instanceName} />
-      <Menu attached="top" borderless inverted stackable id="secondMenu">
+      <Menu attached="top" borderless inverted stackable id="secondMenu" style={{paddingLeft: '10px'}}>
         {menuItems.map((item) => (
           <Menu.Item id={`faculty-menu-${item.label.toLowerCase()}`} key={item.label} as={NavLink} exact={false} to={buildRouteName(match, `/${item.route}`)}>
             {item.label}

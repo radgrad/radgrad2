@@ -6,8 +6,8 @@ const invertedSection = {
   paddingTop: 25,
   paddingBottom: 25,
   marginBottom: '10px',
-  paddingLeft: '10px',
-  paddingRight: '10px',
+  paddingLeft: '20px',
+  paddingRight: '20px',
 };
 const titleStyle = {color: '#6FBE44', fontFamily: 'Nunito', fontSize: '45px', fontWeight: 600};
 const lineStyle = {color: 'white', fontSize: '18px', fontWeight: 400, paddingTop: '18px'};

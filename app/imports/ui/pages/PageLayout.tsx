@@ -16,7 +16,7 @@ const PageLayout: React.FC<PageLayoutProps> = ({id, headerPaneTitle, headerPaneB
     <div id={id}>
       {getMenuWidget(match)}
       <HeaderPane title={headerPaneTitle} body={headerPaneBody}/>
-      <div style={{marginRight: '10px', marginLeft: '10px'}}>
+      <div style={{marginRight: '20px', marginLeft: '20px'}}>
         {children}
       </div>
     </div>
