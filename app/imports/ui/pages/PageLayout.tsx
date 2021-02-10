@@ -1,5 +1,5 @@
 import React from 'react';
-import { useRouteMatch } from 'react-router-dom';
+import {useRouteMatch} from 'react-router-dom';
 import HeaderPane from '../components/shared/HeaderPane';
 import {getMenuWidget} from './shared/utilities/getMenuWidget';
 

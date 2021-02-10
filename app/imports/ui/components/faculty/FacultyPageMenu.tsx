@@ -1,11 +1,7 @@
 import React from 'react';
 import { Dropdown, Menu } from 'semantic-ui-react';
 import { NavLink, useParams, useRouteMatch } from 'react-router-dom';
-import _ from 'lodash';
 import FirstMenuContainer from '../shared/FirstMenu';
-import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
-import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
-import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { buildRouteName } from '../shared/utilities/router';
 import { EXPLORER_TYPE } from '../../layouts/utilities/route-constants';
@@ -15,66 +11,52 @@ const FacultyPageMenu: React.FC = () => {
   const match = useRouteMatch();
   const { username } = useParams();
   const profile: AdvisorOrFacultyProfile = FacultyProfiles.getProfile(username);
-  // const sponsorID = Users.getID(username);
-  let openRequests = VerificationRequests.findNonRetired({ status: VerificationRequests.OPEN });
-  openRequests = _.filter(openRequests, (request) => {
-    if (OpportunityInstances.isDefined(request.opportunityInstanceID)) {
-      const oi = OpportunityInstances.findDoc(request.opportunityInstanceID);
-      return Opportunities.findDoc(oi.opportunityID).sponsorID === profile.userID;
-    }
-    return false;
-  });
 
-  const numRequests = openRequests.length;
-  let requestsLabel = 'Verification';
-  if (numRequests > 0) {
-    requestsLabel = `${requestsLabel} (${numRequests})`;
-  }
   const menuItems = [
-    { label: 'Home', route: 'home', id: 'faculty-menu-home' },
-    { label: requestsLabel, route: 'verification-requests', id: 'faculty-menu-verification' },
-    { label: 'Manage Opportunities', route: 'manage-opportunities', id: 'faculty-menu-manage-opportunities' },
+    { label: 'Home', route: 'home' },
+    { label: 'Verification', route: 'verification-requests'},
     { label: 'Scoreboard', route: 'scoreboard' },
     { label: 'Community', route: 'community' },
   ];
+
   const explorerDropdownItems = [
-    { key: 'Career Goals', route: EXPLORER_TYPE.CAREERGOALS },
-    { key: 'Courses', route: EXPLORER_TYPE.COURSES },
-    { key: 'Interests', route: EXPLORER_TYPE.INTERESTS },
-    { key: 'Opportunities', route: EXPLORER_TYPE.OPPORTUNITIES },
+    { label: 'Careers', route: EXPLORER_TYPE.CAREERGOALS },
+    { label: 'Courses', route: EXPLORER_TYPE.COURSES },
+    { label: 'Interests', route: EXPLORER_TYPE.INTERESTS },
+    { label: 'Opportunities', route: EXPLORER_TYPE.OPPORTUNITIES },
   ];
 
-  const facultyHomePageItems = [
-    // { key: 'About Me', route: 'aboutme' },
+  /* In future, Faculty should be able to manage courses as well. */
+  const manageDropdownItems = [
+    { label: 'Opportunities', route: 'manage-opportunities' },
   ];
+
   const instanceName = Meteor.settings.public.instanceName;
   return (
     <div>
       <FirstMenuContainer profile={profile} displayLevelAndIce={false} instanceName={instanceName} />
-      <Menu attached="top" borderless secondary inverted pointing id="secondMenu">
+      <Menu attached="top" borderless inverted stackable id="secondMenu">
         {menuItems.map((item) => (
-          <Menu.Item id={item.id} key={item.label} as={NavLink} exact={false} to={buildRouteName(match, `/${item.route}`)}>
+          <Menu.Item id={`faculty-menu-${item.label.toLowerCase()}`} key={item.label} as={NavLink} exact={false} to={buildRouteName(match, `/${item.route}`)}>
             {item.label}
           </Menu.Item>
         ))}
 
-        <Dropdown item text="EXPLORE">
+        <Dropdown item text="Explorers">
           <Dropdown.Menu>
             {explorerDropdownItems.map((item) => (
-              <Dropdown.Item key={item.key} as={NavLink} exact to={buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${item.route}`)} content={item.key} />
+              <Dropdown.Item id={`faculty-menu-explorer-${item.label.toLowerCase()}`} key={item.label} as={NavLink} exact to={buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${item.route}`)} content={item.label} />
             ))}
           </Dropdown.Menu>
         </Dropdown>
-        <Menu.Menu position="right">
-          <Dropdown item text={`Aloha, ${profile.firstName} ${profile.lastName}!`}>
-            <Dropdown.Menu>
-              {facultyHomePageItems.map((item) => (
-                <Dropdown.Item key={item.key} as={NavLink} exact to={buildRouteName(match, `/home/${item.route}`)} content={item.key} />
-              ))}
-              <Dropdown.Item as={NavLink} exact to="/signout" content="Sign Out" />
-            </Dropdown.Menu>
-          </Dropdown>
-        </Menu.Menu>
+
+        <Dropdown item text="Manage">
+          <Dropdown.Menu>
+            {manageDropdownItems.map((item) => (
+              <Dropdown.Item id={`faculty-menu-manage-${item.label.toLowerCase()}`} key={item.label} as={NavLink} exact to={buildRouteName(match, `/${item.route}`)} content={item.label} />
+            ))}
+          </Dropdown.Menu>
+        </Dropdown>
       </Menu>
     </div>
   );
