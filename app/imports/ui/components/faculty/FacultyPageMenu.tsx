@@ -1,7 +1,7 @@
 import React from 'react';
 import { Dropdown, Menu } from 'semantic-ui-react';
 import { NavLink, useParams, useRouteMatch } from 'react-router-dom';
-import FirstMenuContainer from '../shared/FirstMenu';
+import FirstMenu from '../shared/FirstMenu';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { buildRouteName } from '../shared/utilities/router';
 import { EXPLORER_TYPE } from '../../layouts/utilities/route-constants';
@@ -36,8 +36,8 @@ const FacultyPageMenu: React.FC = () => {
   const instanceName = Meteor.settings.public.instanceName;
   return (
     <div>
-      <FirstMenuContainer profile={profile} displayLevelAndIce={false} instanceName={instanceName} />
-      <Menu attached="top" borderless inverted stackable id="secondMenu" style={{paddingLeft: '10px'}}>
+      <FirstMenu profile={profile} displayLevelAndIce={false} instanceName={instanceName} />
+      <Menu borderless inverted stackable id="secondMenu" attached="top" style={{paddingLeft: '20px', marginTop: '0px'}}>
         {menuItems.map((item) => (
           <Menu.Item id={`faculty-menu-${item.label.toLowerCase()}`} key={item.label} as={NavLink} exact={false} to={buildRouteName(match, `/${item.route}`)}>
             {item.label}
