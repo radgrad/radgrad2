@@ -61,6 +61,7 @@ import OpportunityViewPage from '../../pages/shared/item-view/OpportunityViewPag
 import PageTrackingScoreboardPage from '../../pages/shared/PageTrackingScoreboardPage';
 import PageTrackingComparisonPage from '../../pages/shared/PageTrackingComparisonPage';
 import { PageInterestsCategoryTypes } from '../../../api/page-tracking/PageInterestsCategoryTypes';
+import ReviewModerationPage from "../../pages/shared/ReviewModerationPage";
 import ScoreboardPage from '../../pages/shared/ScoreboardPage';
 import StudentHomePage from '../../pages/student/StudentHomePage';
 import StudentDegreePlannerPage from '../../pages/student/StudentDegreePlannerPage';
@@ -87,6 +88,7 @@ import {
   PAGE_TRACKING_SCOREBOARD,
   PAGE_TRACKING_COMPARISON,
   PRIVACY,
+  REVIEWMODERATION,
   SCOREBOARD,
   STUDENT_REVIEWS,
   STUDENT_VERIFICATION,
@@ -514,6 +516,11 @@ export const routes = {
       path: `/${URL_ROLES.FACULTY}/${USERNAME}/${PRIVACY}`,
       exact: true,
       component: FacultyPrivacyPage,
+    },
+    {
+      path: `/${URL_ROLES.FACULTY}/${USERNAME}/${REVIEWMODERATION}`,
+      exact: true,
+      component: ReviewModerationPage,
     },
     /* ############################## Page Tracking SCOREBOARD ############################## */
     {

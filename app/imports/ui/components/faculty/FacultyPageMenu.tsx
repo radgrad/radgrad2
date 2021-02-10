@@ -15,6 +15,7 @@ const FacultyPageMenu: React.FC = () => {
   const menuItems = [
     { label: 'Home', route: 'home' },
     { label: 'Verification', route: 'verification-requests'},
+    { label: 'Review', route: 'review-moderation'},
     { label: 'Privacy', route: 'privacy'},
     { label: 'Scoreboard', route: 'scoreboard' },
     { label: 'Community', route: 'community' },
