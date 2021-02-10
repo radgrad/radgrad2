@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
-import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
+import AdminPageMenu from '../../components/admin/AdminPageMenu';
 import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { Users } from '../../../api/user/UserCollection';
@@ -153,7 +153,7 @@ const AdminDataModelAcademicYearsPage: React.FC<AdminDataModelAcademicYearsPageP
   };
   return (
     <div id="data-model-academic-year-instances-page">
-      <AdminPageMenuWidget />
+      <AdminPageMenu />
       <Grid container stackable style={paddedStyle}>
         <Grid.Column width={3}>
           <AdminDataModelMenu {...props} />

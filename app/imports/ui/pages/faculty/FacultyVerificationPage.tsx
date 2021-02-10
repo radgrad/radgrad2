@@ -3,7 +3,7 @@ import { Grid, Menu } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { useParams, useRouteMatch } from 'react-router-dom';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
-import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
+import FacultyPageMenu from '../../components/faculty/FacultyPageMenu';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import PendingVerificationsWidget from '../../components/shared/verification/PendingVerificationsWidget';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
@@ -30,7 +30,7 @@ const FacultyVerificationPage: React.FC<FacultyVerificationPageProps> = ({ verif
 
   return (
     <div id="faculty-verification-page">
-      <FacultyPageMenuWidget />
+      <FacultyPageMenu />
       <Grid stackable>
         <Grid.Row>
           <Grid.Column width={1} />

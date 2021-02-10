@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import _ from 'lodash';
 import Swal from 'sweetalert2';
-import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
+import AdminPageMenu from '../../components/admin/AdminPageMenu';
 import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
@@ -175,7 +175,7 @@ const AdminDataModelAcademicTermsPage: React.FC<AdminDataModelAcademicTermsPageP
   };
   return (
     <div id="data-model-academic-terms-page">
-      <AdminPageMenuWidget />
+      <AdminPageMenu />
       <Grid container stackable style={paddedStyle}>
         <Grid.Column width={3}>
           <AdminDataModelMenu {...props} />

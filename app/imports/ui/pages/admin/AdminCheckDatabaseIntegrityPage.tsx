@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Button, Form, Grid, Header, Message } from 'semantic-ui-react';
-import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
+import AdminPageMenu from '../../components/admin/AdminPageMenu';
 import AdminDatabaseMenuContainer from '../../components/admin/database/AdminDatabaseMenu';
 import { checkIntegrity } from '../../../api/integrity/IntegrityChecker';
 import { checkIntegrityMethod } from '../../../api/integrity/IntegrityChecker.methods';
@@ -55,7 +55,7 @@ const AdminCheckDatabaseIntegrityPage: React.FC<AdminCheckDatabaseIntegrityPageP
   const working = checkIntegrityWorking;
   return (
     <div>
-      <AdminPageMenuWidget />
+      <AdminPageMenu />
       <Grid container stackable style={paddedStyle}>
         <Grid.Column width={5}>
           <AdminDatabaseMenuContainer />

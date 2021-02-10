@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid } from 'semantic-ui-react';
-import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
+import AdminPageMenu from '../../components/admin/AdminPageMenu';
 import AdminAnalyticsMenuWidget from '../../components/admin/analytics/AdminAnalyticsMenuWidget';
 import AdminAnalyticsStudentSummaryWidget from '../../components/admin/analytics/student-summary/AdminAnalyticsStudentSummaryWidget';
 
@@ -10,7 +10,7 @@ const AdminAnalyticsStudentSummaryPage: React.FC = () => {
   };
   return (
     <div>
-      <AdminPageMenuWidget />
+      <AdminPageMenu />
       <Grid container stackable style={paddedStyle} columns={1}>
         <Grid.Column>
           <Grid>

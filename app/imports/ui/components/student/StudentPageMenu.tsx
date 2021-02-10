@@ -24,9 +24,10 @@ const StudentPageMenu: React.FC = () => {
   const profile: StudentProfile = StudentProfiles.getProfile(username);
   const earnedIce = StudentProfiles.getEarnedICE(username);
   const projectedIce = StudentProfiles.getProjectedICE(username);
+  const instanceName = Meteor.settings.public.instanceName;
   return (
     <div>
-      <FirstMenu profile={profile} displayLevelAndIce earnedICE={earnedIce} projectedICE={projectedIce}/>
+      <FirstMenu profile={profile} displayLevelAndIce earnedICE={earnedIce} projectedICE={projectedIce} instanceName={instanceName} />
       <div className="radgrad-menu" id="menu">
         <Menu attached="top" borderless inverted stackable id="secondMenu">
           <Menu.Item id="student-menu-home" as={NavLink} exact to={`/${URL_ROLES.STUDENT}/${username}/${HOME}`}>Home</Menu.Item>

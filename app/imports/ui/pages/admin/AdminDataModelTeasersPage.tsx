@@ -6,7 +6,7 @@ import _ from 'lodash';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
-import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
+import AdminPageMenu from '../../components/admin/AdminPageMenu';
 import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
@@ -186,7 +186,7 @@ const AdminDataModelTeasersPage: React.FC<AdminDataModelTeasersPageProps> = (pro
   };
   return (
     <div id="data-model-teasers-page">
-      <AdminPageMenuWidget />
+      <AdminPageMenu />
       <Grid container stackable style={paddedStyle}>
         <Grid.Column width={3}>
           <AdminDataModelMenu {...props} />

@@ -4,7 +4,7 @@ import { Grid } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { useParams } from 'react-router-dom';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
-import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
+import AdvisorPageMenu from '../../components/advisor/AdvisorPageMenu';
 import AdvisorStudentSelectorWidget from '../../components/advisor/home/AdvisorStudentSelectorWidget';
 import AdvisorUpdateStudentWidget from '../../components/advisor/home/AdvisorUpdateStudentWidget';
 import AdvisorStarUploadWidget from '../../components/advisor/home/AdvisorStarUploadWidget';
@@ -54,7 +54,7 @@ const AdvisorHomePage: React.FC<FilterStudents> = ({ helpMessages, interests, ca
   const { username } = useParams();
   return (
     <div id="advisor-home-page">
-      <AdvisorPageMenuWidget />
+      <AdvisorPageMenu />
       <div className="pusher">
         <Grid stackable>
           <Grid.Row>

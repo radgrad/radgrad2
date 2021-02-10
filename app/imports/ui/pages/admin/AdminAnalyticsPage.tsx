@@ -2,13 +2,13 @@ import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Grid } from 'semantic-ui-react';
-import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
+import AdminPageMenu from '../../components/admin/AdminPageMenu';
 import AdminAnalyticsMenuWidget from '../../components/admin/analytics/AdminAnalyticsMenuWidget';
 import AdminAnalyticsLoggedInUsersWidget, { AdminAnalyticsLoggedInUsersWidgetProps } from '../../components/admin/analytics/AdminAnalyticsLoggedInUsersWidget';
 
 const AdminAnalyticsPage: React.FC<AdminAnalyticsLoggedInUsersWidgetProps> = ({ loggedInUsers }) => (
   <div id="admin-analytics-page">
-    <AdminPageMenuWidget />
+    <AdminPageMenu />
     <Grid container stackable columns={1}>
       <Grid.Column>
         <Grid>

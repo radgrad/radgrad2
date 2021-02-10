@@ -3,9 +3,6 @@
  * Route information consists of a path, the path to the component, a Component to render.
  */
 import LandingHomePage from '../../pages/landing/LandingHomePage';
-import LandingGuidedTourAdvisorPage from '../../pages/landing/LandingGuidedTourAdvisorPage';
-import LandingGuidedTourFacultyPage from '../../pages/landing/LandingGuidedTourFacultyPage';
-import GuidedTourStudentContainer from '../../pages/landing/LandingGuidedTourStudentPage';
 import LandingCareerGoalsCardExplorerContainer from '../../pages/landing/LandingCareerGoalsCardExplorerPage';
 import LandingCareerGoalExplorerContainer from '../../pages/landing/LandingCareerGoalExplorerPage';
 import LandingCoursesCardExplorerContainer from '../../pages/landing/LandingCoursesCardExplorerPage';
@@ -76,7 +73,6 @@ import {
   COURSE_SCOREBOARD,
   OPPORTUNITY_SCOREBOARD,
   EXPLORER_PARAM,
-  GUIDEDTOUR,
   PAGE_TRACKING_SCOREBOARD,
   PAGE_TRACKING_COMPARISON,
   DEGREEPLANNER,
@@ -566,21 +562,6 @@ export const routes = {
       path: '/',
       exact: true,
       component: LandingHomePage,
-    },
-    {
-      path: `/${GUIDEDTOUR}/${URL_ROLES.STUDENT}`,
-      exact: true,
-      component: GuidedTourStudentContainer,
-    },
-    {
-      path: `/${GUIDEDTOUR}/${URL_ROLES.ADVISOR}`,
-      exact: true,
-      component: LandingGuidedTourAdvisorPage,
-    },
-    {
-      path: `/${GUIDEDTOUR}/${URL_ROLES.FACULTY}`,
-      exact: true,
-      component: LandingGuidedTourFacultyPage,
     },
     {
       path: `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}`,

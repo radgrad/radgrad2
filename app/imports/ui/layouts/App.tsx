@@ -156,6 +156,13 @@ const StudentProtectedRoute = ({ component: Component, ...rest }) => {
       render={(props) => {
         // console.log('StudentProtectedRoute', props);
         let isAllowed = Roles.userIsInRole(userId, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.STUDENT]);
+        let role = 'student';
+        if (Roles.userIsInRole(userId, [ROLE.ADMIN])) {
+          role = 'admin';
+        }
+        if (Roles.userIsInRole(userId, [ROLE.ADVISOR])) {
+          role = 'admin';
+        }
         const routeUsername = getUsername(props.match);
         let loggedInUserName = routeUsername;
         try {
@@ -163,7 +170,7 @@ const StudentProtectedRoute = ({ component: Component, ...rest }) => {
           if (isStudent) {
             isAllowed = routeUsername === loggedInUserName;
           }
-          return isAllowed ? <WrappedComponent {...props} /> : <NotAuthorizedPage />;
+          return isAllowed ? <WrappedComponent {...props} /> : <NotAuthorizedPage role={role} />;
         } catch (e) {
           // too early
         }

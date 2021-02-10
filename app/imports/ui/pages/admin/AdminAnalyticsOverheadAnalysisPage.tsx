@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
-import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
+import AdminPageMenu from '../../components/admin/AdminPageMenu';
 import AdminAnalyticsMenuWidget from '../../components/admin/analytics/AdminAnalyticsMenuWidget';
 import AdminAnalyticsOverheadAnalysisWidget from '../../components/admin/analytics/overhead-analysis/AdminAnalyticsOverheadAnalysisWidget';
 import HelpPanelWidget, { HelpPanelWidgetProps } from '../../components/shared/HelpPanelWidget';
@@ -10,7 +10,7 @@ import BackToTopButton from '../../components/shared/BackToTopButton';
 
 const AdminAnalyticsOverheadAnalysisPage: React.FC<HelpPanelWidgetProps> = ({ helpMessages }) => (
   <div>
-    <AdminPageMenuWidget />
+    <AdminPageMenu />
     <Grid stackable>
       <Grid.Row>
         <Grid.Column width={1} />

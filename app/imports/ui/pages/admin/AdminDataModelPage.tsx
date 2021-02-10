@@ -1,7 +1,7 @@
 import { withTracker } from 'meteor/react-meteor-data';
 import React from 'react';
 import { Grid, Message } from 'semantic-ui-react';
-import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
+import AdminPageMenu from '../../components/admin/AdminPageMenu';
 import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import UploadFixtureWidget from '../../components/admin/datamodel/UploadFixtureWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
@@ -14,7 +14,7 @@ const AdminDataModelPage: React.FC<AdminDataModeMenuProps> = (props) => {
   };
   return (
     <div id="admin-data-model-page" className="layout-page">
-      <AdminPageMenuWidget />
+      <AdminPageMenu />
       <Grid container stackable style={paddedStyle}>
         <Grid.Column width={3}>
           <AdminDataModelMenu {...props} />

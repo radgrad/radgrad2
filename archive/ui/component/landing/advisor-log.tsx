@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid, Header, Image } from 'semantic-ui-react';
-import styles from '../../../../app/imports/ui/pages/landing/utilities/guidedtour-style';
+import styles from '../../../issue-367/guidedtour-style';
 
 const GuidedTourStudentAdvisorLog: React.FC = () => (
   <div>
