@@ -3,7 +3,7 @@ import { Grid, Menu } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { useParams } from 'react-router-dom';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
-import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
+import AdvisorPageMenu from '../../components/advisor/AdvisorPageMenu';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import PendingVerificationsWidget from '../../components/shared/verification/PendingVerificationsWidget';
 import EventVerificationsWidget from '../../components/shared/verification/EventVerificationsWidget';
@@ -28,7 +28,7 @@ const AdvisorVerificationRequestPage: React.FC<AdvisorVerificationRequestPagePro
 
   return (
     <div id="advisor-verification-requests-page">
-      <AdvisorPageMenuWidget />
+      <AdvisorPageMenu />
       <Grid stackable>
         <Grid.Row>
           <Grid.Column width={1} />

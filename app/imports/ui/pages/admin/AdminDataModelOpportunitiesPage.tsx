@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 import _ from 'lodash';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
-import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
+import AdminPageMenu from '../../components/admin/AdminPageMenu';
 import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { AcademicTerm, BaseProfile, DescriptionPair, Interest, Opportunity, OpportunityType } from '../../../typings/radgrad';
@@ -190,7 +190,7 @@ const AdminDataModelOpportunitiesPage: React.FC<AdminDataModelOpportunitiesPageP
   };
   return (
     <div id="data-model-opportunities-page">
-      <AdminPageMenuWidget />
+      <AdminPageMenu />
       <Grid container stackable style={paddedStyle}>
         <Grid.Column width={3}>
           <AdminDataModelMenu {...props} />

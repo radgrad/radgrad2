@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Container } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { AdvisorOrFacultyProfile, StudentProfile } from '../../../typings/radgrad';
-import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
+import AdminPageMenu from '../../components/admin/AdminPageMenu';
 import RetrieveUserWidget from '../../components/admin/home/RetrieveUserWidget';
 import FilterUserWidget from '../../components/admin/home/FilterUserWidget';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
@@ -42,7 +42,7 @@ const AdminHomePage: React.FC<AdminHomePageProps> = ({ alumni, students, faculty
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   return (
     <div id="admin-home-page">
-      <AdminPageMenuWidget />
+      <AdminPageMenu />
       <Container textAlign="center" fluid={false}>
         <FilterUserWidget updateFirstNameRegex={updateFirstNameRegex} updateLastNameRegex={updateLastNameRegex} updateUserNameRegex={updateUserNameRegex} />
         <RetrieveUserWidget firstNameRegex={firstNameRegexState} lastNameRegex={lastNameRegexState} userNameRegex={usernameRegexState} advisors={advisors} faculty={faculty} alumni={alumni} students={students} />

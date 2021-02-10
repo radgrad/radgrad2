@@ -13,7 +13,7 @@ const LandingFooter: React.FC<LandingFooterProps> = ({ instanceName }) => (
         <Grid>
           <Grid.Row columns={2}>
             <Grid.Column>
-              <strong>&copy; {`${instanceName}`} RadGrad {`${buildVersion.version} (${buildVersion.bugFix})`}</strong>
+              <strong>RadGrad {`${buildVersion.version} (${buildVersion.bugFix})`}</strong>
             </Grid.Column>
             <Grid.Column textAlign="right">
               <List bulleted horizontal>

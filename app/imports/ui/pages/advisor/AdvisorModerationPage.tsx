@@ -2,7 +2,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
-import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
+import AdvisorPageMenu from '../../components/advisor/AdvisorPageMenu';
 import HelpPanelWidget, { HelpPanelWidgetProps } from '../../components/shared/HelpPanelWidget';
 import ModerationWidget, { ModerationWidgetProps } from '../../components/shared/moderation/ModerationWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
@@ -12,7 +12,7 @@ interface AdvisorModerationPageProps extends HelpPanelWidgetProps, ModerationWid
 
 const AdvisorModerationPage: React.FC<AdvisorModerationPageProps> = ({ courseReviews, helpMessages, opportunityReviews }) => (
   <div id="advisor-moderation-page">
-    <AdvisorPageMenuWidget />
+    <AdvisorPageMenu />
     <Grid stackable>
       <Grid.Row>
         <Grid.Column width={1} />
