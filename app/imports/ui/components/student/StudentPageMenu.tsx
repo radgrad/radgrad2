@@ -24,40 +24,26 @@ const StudentPageMenu: React.FC = () => {
   const profile: StudentProfile = StudentProfiles.getProfile(username);
   const earnedIce = StudentProfiles.getEarnedICE(username);
   const projectedIce = StudentProfiles.getProjectedICE(username);
+  const menuItems = [
+    {label: 'Home',  to: `/${URL_ROLES.STUDENT}/${username}/${HOME}`},
+    {label: 'Interests',  to: `/${URL_ROLES.STUDENT}/${username}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}`},
+    {label: 'Careers',  to: `/${URL_ROLES.STUDENT}/${username}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}`},
+    {label: 'Courses',  to: `/${URL_ROLES.STUDENT}/${username}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}`},
+    {label: 'Opportunities',  to: `/${URL_ROLES.STUDENT}/${username}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}`},
+    {label: 'Planner',  to: `/${URL_ROLES.STUDENT}/${username}/${DEGREEPLANNER}`},
+    {label: 'Verification',  to: `/${URL_ROLES.STUDENT}/${username}/${STUDENT_VERIFICATION}`},
+    {label: 'Privacy',  to: `/${URL_ROLES.STUDENT}/${username}/${STUDENT_PRIVACY}`},
+    {label: 'ICE',  to: `/${URL_ROLES.STUDENT}/${username}/${HOME}/${ICE}`},
+    {label: 'Levels',  to: `/${URL_ROLES.STUDENT}/${username}/${HOME}/${LEVELS}`},
+    {label: 'Reviews',  to: `/${URL_ROLES.STUDENT}/${username}/${STUDENT_REVIEWS}`},
+    {label: 'Community',  to: `/${URL_ROLES.STUDENT}/${username}/${COMMUNITY}`},
+  ];
   return (
     <div>
       <FirstMenu profile={profile} displayLevelAndIce earnedICE={earnedIce} projectedICE={projectedIce}/>
       <div className="radgrad-menu" id="menu">
         <Menu attached="top" borderless inverted stackable id="secondMenu">
-          <Menu.Item id="student-menu-home" as={NavLink} exact to={`/${URL_ROLES.STUDENT}/${username}/${HOME}`}>Home</Menu.Item>
-          <Menu.Item id="student-menu-interests" as={NavLink} exact to={`/${URL_ROLES.STUDENT}/${username}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}`}>Interests</Menu.Item>
-          <Menu.Item id="student-menu-career-goals" as={NavLink} exact to={`/${URL_ROLES.STUDENT}/${username}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}`}>Careers</Menu.Item>
-          <Menu.Item id="student-menu-courses" as={NavLink} exact
-                     to={`/${URL_ROLES.STUDENT}/${username}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}`}>Courses
-          </Menu.Item>
-          <Menu.Item id="student-menu-opportunities" as={NavLink} exact
-                     to={`/${URL_ROLES.STUDENT}/${username}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}`}>Opportunities
-          </Menu.Item>
-          <Menu.Item id="student-menu-degree-planner" as={NavLink} exact
-                     to={`/${URL_ROLES.STUDENT}/${username}/${DEGREEPLANNER}`}>Planner
-          </Menu.Item>
-          <Menu.Item id="student-menu-verification" as={NavLink} exact
-                     to={`/${URL_ROLES.STUDENT}/${username}/${STUDENT_VERIFICATION}`}>Verification
-          </Menu.Item>
-          <Menu.Item id="student-menu-privacy" as={NavLink} exact
-                     to={`/${URL_ROLES.STUDENT}/${username}/${STUDENT_PRIVACY}`}>Privacy
-          </Menu.Item>
-          <Menu.Item id="student-menu-ice-points" as={NavLink} exact
-                     to={`/${URL_ROLES.STUDENT}/${username}/${HOME}/${ICE}`}>ICE
-          </Menu.Item>
-          <Menu.Item id="student-menu-levels" as={NavLink} exact
-                     to={`/${URL_ROLES.STUDENT}/${username}/${HOME}/${LEVELS}`}>Levels
-          </Menu.Item>
-          <Menu.Item id="student-menu-reviews" as={NavLink} exact
-                     to={`/${URL_ROLES.STUDENT}/${username}/${STUDENT_REVIEWS}`}>Reviews
-          </Menu.Item>
-          <Menu.Item id="student-menu-community" as={NavLink} exact to={`/${URL_ROLES.STUDENT}/${username}/${COMMUNITY}`}>Community
-          </Menu.Item>
+          {menuItems.map(item => <Menu.Item key={item.label} id={`student-menu-${item.label.toLowerCase()}`} as={NavLink} exact to={item.to}>{item.label}</Menu.Item>)}
         </Menu>
       </div>
     </div>

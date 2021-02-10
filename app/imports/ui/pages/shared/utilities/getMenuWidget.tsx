@@ -3,7 +3,7 @@ import AdminPageMenuWidget from '../../../components/admin/AdminPageMenuWidget';
 import * as Router from '../../../components/shared/utilities/router';
 import { URL_ROLES } from '../../../layouts/utilities/route-constants';
 import StudentPageMenu from '../../../components/student/StudentPageMenu';
-import FacultyPageMenuWidget from '../../../components/faculty/FacultyPageMenuWidget';
+import FacultyPageMenu from '../../../components/faculty/FacultyPageMenu';
 import AdvisorPageMenuWidget from '../../../components/advisor/AdvisorPageMenuWidget';
 
 export const getMenuWidget = (match): JSX.Element => {
@@ -14,7 +14,7 @@ export const getMenuWidget = (match): JSX.Element => {
     case URL_ROLES.STUDENT:
       return <StudentPageMenu />;
     case URL_ROLES.FACULTY:
-      return <FacultyPageMenuWidget />;
+      return <FacultyPageMenu />;
     case URL_ROLES.ADVISOR:
       return <AdvisorPageMenuWidget />;
     default:

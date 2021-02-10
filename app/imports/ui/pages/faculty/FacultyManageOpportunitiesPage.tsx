@@ -4,7 +4,7 @@ import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import _ from 'lodash';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
-import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
+import FacultyPageMenu from '../../components/faculty/FacultyPageMenu';
 import ListOpportunitiesWidget from '../../components/faculty/manage-opportunities/FacultyListOpportunitiesWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import { AcademicTerm, BaseProfile, DescriptionPair, HelpMessage, Interest, Opportunity, OpportunityType } from '../../../typings/radgrad';
@@ -184,7 +184,7 @@ const FacultyManageOpportunitiesPage: React.FC<FacultyManageOpportunitiesPagePro
   };
   return (
     <div id="faculty-manage-opportunities-page">
-      <FacultyPageMenuWidget />
+      <FacultyPageMenu />
       <Grid stackable>
         <Grid.Row>
           <Grid.Column width={1} />

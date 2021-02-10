@@ -1,7 +1,6 @@
 import React from 'react';
 import {Header} from 'semantic-ui-react';
-import StudentPageMenu from '../../components/student/StudentPageMenu';
-import HeaderPane from '../../components/shared/HeaderPane';
+import PageLayout from '../PageLayout';
 
 const headerPaneTitle = 'Make the most of RadGrad';
 const headerPaneBody = `
@@ -15,13 +14,9 @@ This page contains a personalized set of recommendations to help RadGrad help yo
 `;
 
 const StudentHomePage: React.FC = () => (
-  <div id="student-home-page">
-    <StudentPageMenu/>
-    <HeaderPane title={headerPaneTitle} body={headerPaneBody}/>
-    <div style={{marginRight: '10px', marginLeft: '10px'}}>
-      <Header>Student Home Page Placeholder</Header>
-    </div>
-  </div>
+  <PageLayout id="student-home-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
+    <Header>Student Home Page Placeholder</Header>
+  </PageLayout>
 );
 
 export default StudentHomePage;

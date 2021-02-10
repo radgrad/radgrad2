@@ -2,7 +2,7 @@ import React from 'react';
 import { Dropdown, Menu } from 'semantic-ui-react';
 import { NavLink, useParams, useRouteMatch } from 'react-router-dom';
 import _ from 'lodash';
-import FirstMenuContainer from '../shared/FirstMenu';
+import FirstMenu from '../shared/FirstMenu';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
@@ -11,9 +11,7 @@ import { buildRouteName } from '../shared/utilities/router';
 import { COMMUNITY, EXPLORER_TYPE } from '../../layouts/utilities/route-constants';
 import { AdvisorOrFacultyProfile } from '../../../typings/radgrad';
 
-const FacultyPageMenuWidget: React.FC = () => {
-  const divStyle = { marginBottom: 30 };
-
+const FacultyPageMenu: React.FC = () => {
   const match = useRouteMatch();
   const { username } = useParams();
   const profile: AdvisorOrFacultyProfile = FacultyProfiles.getProfile(username);
@@ -54,8 +52,8 @@ const FacultyPageMenuWidget: React.FC = () => {
   ];
 
   return (
-    <div style={divStyle}>
-      <FirstMenuContainer profile={profile} displayLevelAndIce={false} />
+    <div>
+      <FirstMenu profile={profile} displayLevelAndIce={false} />
       <Menu attached="top" borderless secondary inverted pointing id="secondMenu">
         {menuItems.map((item) => (
           <Menu.Item id={item.id} key={item.label} as={NavLink} exact={false} to={buildRouteName(match, `/${item.route}`)}>
@@ -92,4 +90,4 @@ const FacultyPageMenuWidget: React.FC = () => {
   );
 };
 
-export default FacultyPageMenuWidget;
+export default FacultyPageMenu;
