@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Grid } from 'semantic-ui-react';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
-import FacultyPageMenuWidget from '../../components/faculty/FacultyPageMenuWidget';
+import FacultyPageMenu from '../../components/faculty/FacultyPageMenu';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import FacultyAboutMeWidget from '../../components/faculty/home/FacultyAboutMeWidget';
 import { AdvisorOrFacultyProfile, FavoriteCareerGoal, FavoriteInterest, HelpMessage } from '../../../typings/radgrad';
@@ -20,7 +20,7 @@ interface FacultyHomePageProps {
 
 const FacultyHomePage: React.FC<FacultyHomePageProps> = ({ profile, helpMessages, favoriteCareerGoals, favoriteInterests }) => (
   <div id="faculty-home-page">
-    <FacultyPageMenuWidget />
+    <FacultyPageMenu />
     <Grid stackable>
       <Grid.Row>
         <Grid.Column width={1} />

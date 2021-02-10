@@ -3,7 +3,6 @@ import { ROLE } from '../../../api/role/Role';
 
 export const DATAMODEL = 'datamodel';
 export const DEGREEPLANNER = 'degree-planner';
-export const GUIDEDTOUR = 'guidedtour';
 export const HOME = 'home';
 export const ICE = 'ice';
 export const LEVELS = 'levels';

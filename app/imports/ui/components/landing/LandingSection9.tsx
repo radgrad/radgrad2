@@ -24,7 +24,7 @@ const LandingSection9: React.FC<LandingSection9Props> = ({ instanceName, userGui
           <Header as="h1" style={styles['inverted-header2']}>
             <Icon size="large" name="exclamation" /> Need more information?
           </Header>
-          <UserGuideButtons userGuideURL={userGuideURL} />
+          <UserGuideButtons />
         </div>
       </Grid.Column>
     </Grid>

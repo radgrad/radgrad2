@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
-import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
+import AdminPageMenu from '../../components/admin/AdminPageMenu';
 import AdminModerationWidget, { ModerationWidgetProps } from '../../components/shared/moderation/ModerationWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
 import { Reviews } from '../../../api/review/ReviewCollection';
@@ -12,7 +12,7 @@ const AdminModerationPage: React.FC<ModerationWidgetProps> = ({ courseReviews, o
   };
   return (
     <div id="admin-moderation-page">
-      <AdminPageMenuWidget />
+      <AdminPageMenu />
       <Grid container stackable style={paddedStyle}>
         <Grid.Column>
           <AdminModerationWidget courseReviews={courseReviews} opportunityReviews={opportunityReviews} />

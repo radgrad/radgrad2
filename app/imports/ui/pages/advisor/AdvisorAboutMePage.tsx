@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import BackToTopButton from '../../components/shared/BackToTopButton';
-import AdvisorPageMenuWidget from '../../components/advisor/AdvisorPageMenuWidget';
+import AdvisorPageMenu from '../../components/advisor/AdvisorPageMenu';
 import { AdvisorOrFacultyProfile, FavoriteCareerGoal, FavoriteInterest, HelpMessage } from '../../../typings/radgrad';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import { Users } from '../../../api/user/UserCollection';
@@ -21,7 +21,7 @@ interface AdvisorAboutMePageProps {
 
 const AdvisorAboutMePage: React.FC<AdvisorAboutMePageProps> = ({ profile, favoriteInterests, favoriteCareerGoals, helpMessages }) => (
   <div id="advisor-about-me-page">
-    <AdvisorPageMenuWidget />
+    <AdvisorPageMenu />
     <Grid stackable>
       <Grid.Row>
         <Grid.Column width={1} />

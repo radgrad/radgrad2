@@ -2,7 +2,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
-import AdminPageMenuWidget from '../../components/admin/AdminPageMenuWidget';
+import AdminPageMenu from '../../components/admin/AdminPageMenu';
 import AdminAnalyticsMenuWidget from '../../components/admin/analytics/AdminAnalyticsMenuWidget';
 import AdminAnalyticsUserInteractionsWidget, { AdminAnalyticsUserInteractionsWidgetProps } from '../../components/admin/analytics/user-interactions/AdminAnalyticsUserInteractionsWidget';
 
@@ -12,7 +12,7 @@ const AdminAnalyticsUserInteractionsPage: React.FC<AdminAnalyticsUserInteraction
   };
   return (
     <div>
-      <AdminPageMenuWidget />
+      <AdminPageMenu />
       <Grid container stackable style={paddedStyle} columns={1}>
         <Grid.Column>
           <Grid>

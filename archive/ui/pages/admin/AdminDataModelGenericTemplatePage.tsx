@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
-import AdminPageMenuWidget from '../../../../app/imports/ui/components/admin/AdminPageMenuWidget';
+import AdminPageMenu from '../../../../app/imports/ui/components/admin/AdminPageMenu';
 import AdminDataModelMenu from '../../../../app/imports/ui/components/admin/datamodel/AdminDataModelMenu';
 import ListCollectionWidget from '../../../../app/imports/ui/components/admin/datamodel/ListCollectionWidget';
 import AdminDataModelUpdateForm from '../../../../app/imports/ui/components/admin/datamodel/AdminDataModelUpdateForm'; // this should be replaced by specific UpdateForm
@@ -149,7 +149,7 @@ const AdminDataModelGenericTemplatePage = () => {
   };
   return (
     <div>
-      <AdminPageMenuWidget />
+      <AdminPageMenu />
       <Grid container stackable style={paddedStyle}>
 
         <Grid.Column width={3}>
