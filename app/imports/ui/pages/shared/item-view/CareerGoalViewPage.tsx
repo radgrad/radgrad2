@@ -1,4 +1,3 @@
-import { push } from 'connected-react-router';
 import React from 'react';
 import { useParams, useRouteMatch } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
