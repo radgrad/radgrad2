@@ -34,7 +34,7 @@ const App: React.FC = () => (
         <AdminProtectedRoute key={route.path} {...route} />
       ))}
       {routes.ADVISOR.map((route) => (
-        <AdvisorProtectedRoute key={route.path} {...route} />
+        <AdvisorProtectedRoute key={route.path} {... _.defaults(route, {exact: true})} />
       ))}
       {routes.FACULTY.map((route) => (
         <FacultyProtectedRoute key={route.path} {...route} />
