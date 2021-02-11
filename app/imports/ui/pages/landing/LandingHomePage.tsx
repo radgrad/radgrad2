@@ -46,9 +46,9 @@ const LandingHomePage: React.FC<LandingHomeProps> = ({ currentUser, opportunitie
   }
   return (<div id="landing-page">
     <LandingNavBar currentUser={currentUser} iconName={iconName} role={role} instanceName={instanceName} />
-    <LandingSection1 tagline={tagline} />
+    <LandingSection1 tagline={tagline} instanceName={instanceName} />
     <LandingSection2 careerGoals={careerGoals} interests={interests} opportunities={opportunities} users={users} />
-    <LandingSection3 landingSubject={landingSubject} />
+    <LandingSection3 landingSubject={landingSubject} instanceName={instanceName} />
     <LandingSection9Container instanceName={instanceName} userGuideURL={userGuideURL} />
     <LandingFooter instanceName={instanceName} />
 

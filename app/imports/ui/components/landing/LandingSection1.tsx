@@ -8,10 +8,11 @@ import styles from './utilities/landing-styles';
 const headerStyle = { fontSize: '60px', display: 'inline' };
 
 interface LandingSection1Props {
+  instanceName: string;
   tagline: string;
 }
 
-const LandingSection1: React.FC<LandingSection1Props> = ({ tagline}) => (
+const LandingSection1: React.FC<LandingSection1Props> = ({ instanceName, tagline}) => (
     <div id="landing-section-1" style={styles['inverted-section']}>
       <Container>
         <Grid stackable>
@@ -22,7 +23,7 @@ const LandingSection1: React.FC<LandingSection1Props> = ({ tagline}) => (
             <div style={styles['inverted-main-header']}>
               Welcome to{' '}
               <span style={styles['green-text']}>
-              <RadGradLogoText style={headerStyle} />
+              <RadGradLogoText style={headerStyle} instanceName={instanceName} />
             </span>
             </div>
             <span style={styles['inverted-main-description']}>
