@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Grid } from 'semantic-ui-react';
 import Markdown from 'react-markdown';
 import RadGradLogoText from '../shared/RadGradLogoText';
-import LandingFactiods from './LandingFactoids';
+import LandingFactoids from './LandingFactoids';
 import styles from './utilities/landing-styles';
 
 const headerStyle = { fontSize: '60px', display: 'inline' };
@@ -17,7 +17,7 @@ const LandingSection1: React.FC<LandingSection1Props> = ({ instanceName, tagline
       <Container>
         <Grid stackable>
           <Grid.Column width={6}>
-            <LandingFactiods />
+            <LandingFactoids />
           </Grid.Column>
           <Grid.Column width={10} verticalAlign="middle">
             <div style={styles['inverted-main-header']}>

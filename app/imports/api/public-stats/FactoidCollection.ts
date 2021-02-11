@@ -11,13 +11,13 @@ const interestFactoid = new SimpleSchema({
   description: { type: String },
 });
 
-const levelsFactoid = new SimpleSchema({
+const levelFactoid = new SimpleSchema({
   levelIconName: { type: String },
   numberOfStudents: { type: Number },
   description: { type: String },
 });
 
-const reviewsFactoid = new SimpleSchema({
+const reviewFactoid = new SimpleSchema({
   name: { type: String },
   description: { type: String },
 });
@@ -35,8 +35,8 @@ class FactoidCollection extends BaseCollection {
     super('Factoid', new SimpleSchema({
       interestFactoid,
       careerGoalFactoid: interestFactoid,
-      levelsFactoid,
-      reviewsFactoid,
+      levelFactoid,
+      reviewFactoid,
       opportunityFactoid,
     }));
   }

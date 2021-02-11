@@ -322,6 +322,34 @@ export interface CourseUpdate extends Update {
   retired?: boolean;
 }
 
+// Factoids
+export interface InterestOrCareerGoalFactoid {
+  name: string;
+  numberOfStudents: number;
+  numberOfOpportunities: number;
+  numberOfCourses: number;
+  description: string;
+}
+
+export interface LevelFactoid {
+  levelIconName: string;
+  numberOfStudents: number;
+  description: string;
+}
+
+export interface ReviewFactoid {
+  name: string;
+  description: string;
+}
+
+export interface OpportunityFactoid {
+  picture: string;
+  name: string;
+  ice: Ice;
+  description: string;
+  numberOfStudents: number;
+}
+
 // Favoirites
 export interface FavoriteCareerGoalDefine extends DumpOne {
   careerGoal: string;
