@@ -10,7 +10,8 @@ import AdminAnalyticsPage from '../../pages/admin/AdminAnalyticsPage';
 import AdminAnalyticsNewsletterPage from '../../pages/admin/AdminAnalyticsNewsletterPage';
 import AdminAnalyticsOverheadAnalysisPage from '../../pages/admin/AdminAnalyticsOverheadAnalysisPage';
 import AdminAnalyticsStudentSummaryPage from '../../pages/admin/AdminAnalyticsStudentSummaryPage';
-import AdminAnalyticsUserInteractionsPage from '../../pages/admin/AdminAnalyticsUserInteractionsPage';import LandingHomePage from '../../pages/landing/LandingHomePage';
+import AdminAnalyticsUserInteractionsPage from '../../pages/admin/AdminAnalyticsUserInteractionsPage';
+import LandingHomePage from '../../pages/landing/LandingHomePage';
 import AdminDumpDatabasePage from '../../pages/admin/AdminDumpDatabasePage';
 import AdminCheckDatabaseIntegrityPage from '../../pages/admin/AdminCheckDatabaseIntegrityPage';
 import AdminDataModelAcademicTermsPage from '../../pages/admin/AdminDataModelAcademicTermsPage';
@@ -33,7 +34,6 @@ import AdminDataModelTeasersPage from '../../pages/admin/AdminDataModelTeasersPa
 import AdminDataModelVerificationRequestsPage from '../../pages/admin/AdminDataModelVerificationRequestsPage';
 import AdvisorHomePage from '../../pages/advisor/AdvisorHomePage';
 import AdvisorAboutMePage from '../../pages/advisor/AdvisorAboutMePage';
-import AdvisorVerificationRequestPage from '../../pages/advisor/AdvisorVerificationRequestPage';
 import AdvisorManageStudentsPage from '../../pages/advisor/AdvisorManageStudentsPage';
 import AdvisorModerationPage from '../../pages/advisor/AdvisorModerationPage';
 import AlumniHomePage from '../../pages/alumni/AlumniHomePage';
@@ -58,6 +58,7 @@ import LandingInterestsExplorerPage from '../../pages/landing/LandingInterestsCa
 import LandingInterestExplorerPage from '../../pages/landing/LandingInterestExplorerPage';
 import LandingOpportunitiesExplorerPage from '../../pages/landing/LandingOpportunitiesCardExplorerPage';
 import LandingOpportunityExplorerPage from '../../pages/landing/LandingOpportunityExplorerPage';
+import ManageVerificationsPage from '../../pages/shared/ManageVerificationsPage';
 import OpportunityViewPage from '../../pages/shared/item-view/OpportunityViewPage';
 import PageTrackingScoreboardPage from '../../pages/shared/PageTrackingScoreboardPage';
 import PageTrackingComparisonPage from '../../pages/shared/PageTrackingComparisonPage';
@@ -85,6 +86,7 @@ import {
   ICE,
   LEVELS,
   MANAGESTUDENTS,
+  MANAGE_VERIFICATIONS,
   MODERATION,
   OPPORTUNITY_SCOREBOARD,
   PAGE_TRACKING_SCOREBOARD,
@@ -97,6 +99,8 @@ import {
   URL_ROLES,
   USERNAME,
 } from './route-constants';
+
+
 
 
 export const routes = {
@@ -311,14 +315,14 @@ export const routes = {
       exact: true,
     },
     {
-      path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${HOME}/aboutme`,
-      component: AdvisorAboutMePage,
+      path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${MANAGE_VERIFICATIONS}`,
+      component: ManageVerificationsPage,
       exact: true,
     },
     {
-      path: `/${URL_ROLES.ADVISOR}/${USERNAME}/verification-requests`,
+      path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${HOME}/aboutme`,
+      component: AdvisorAboutMePage,
       exact: true,
-      component: AdvisorVerificationRequestPage,
     },
     {
       path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${MODERATION}`,

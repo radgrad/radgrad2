@@ -4,17 +4,15 @@ import { Grid } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { useParams } from 'react-router-dom';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
-import AdvisorPageMenu from '../../components/advisor/AdvisorPageMenu';
 import AdvisorStudentSelectorWidget from '../../components/advisor/home/AdvisorStudentSelectorWidget';
 import AdvisorUpdateStudentWidget from '../../components/advisor/home/AdvisorUpdateStudentWidget';
 import AdvisorStarUploadWidget from '../../components/advisor/home/AdvisorStarUploadWidget';
-import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { CareerGoal, HelpMessage, Interest, StudentProfile } from '../../../typings/radgrad';
-import BackToTopButton from '../../components/shared/BackToTopButton';
 import { RootState } from '../../../redux/types';
+import PageLayout from '../PageLayout';
 
 export interface FilterStudents {
   selectedUsername: string;
@@ -36,47 +34,38 @@ const renderSelectedStudentWidgets = (selectedUsername: string, usernameDoc: Stu
   }
   return (
     <Grid.Row>
-      <Grid.Column width={1} />
-      <Grid.Column width={9} stretched>
+      <Grid.Column width={10} stretched>
         <AdvisorUpdateStudentWidget usernameDoc={usernameDoc} studentCollectionName={StudentProfiles.getCollectionName()} careerGoals={careerGoals} interests={interests} />
       </Grid.Column>
 
-      <Grid.Column width={5} stretched>
+      <Grid.Column width={6} stretched>
         <AdvisorStarUploadWidget usernameDoc={usernameDoc} advisorUsername={username} />
       </Grid.Column>
-      <Grid.Column width={1} />
-      <BackToTopButton />
     </Grid.Row>
   );
 };
 
+const headerPaneTitle = 'Manage students';
+const headerPaneBody = `
+Use this page to add students to RadGrad and/or help them during advising sessions.
+
+For more details, please see [RadGrad Advisor User Guide](https://www.radgrad.org/docs/users/advisors/overview)
+`;
+
 const AdvisorManageStudentsPage: React.FC<FilterStudents> = ({ helpMessages, interests, careerGoals, usernameDoc, selectedUsername, students, alumni }) => {
   const { username } = useParams();
   return (
-    <div id="advisor-home-page">
-      <AdvisorPageMenu />
-      <div className="pusher">
+    <PageLayout id="advisor-home-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
         <Grid stackable>
           <Grid.Row>
-            <Grid.Column width={1} />
-            <Grid.Column width={14}>
-              <HelpPanelWidget helpMessages={helpMessages} />
-            </Grid.Column>
-            <Grid.Column width={1} />
-          </Grid.Row>
-
-          <Grid.Row>
-            <Grid.Column width={1} />
-            <Grid.Column width={14}>
+            <Grid.Column width={16}>
               {/* TODO make this communicate, selecting a student doesn't change the form */}
               <AdvisorStudentSelectorWidget careerGoals={careerGoals} interests={interests} advisorUsername={username} students={students} alumni={alumni} />
             </Grid.Column>
-            <Grid.Column width={1} />
           </Grid.Row>
           {renderSelectedStudentWidgets(selectedUsername, usernameDoc, careerGoals, interests, username)}
         </Grid>
-      </div>
-    </div>
+    </PageLayout>
   );
 };
 

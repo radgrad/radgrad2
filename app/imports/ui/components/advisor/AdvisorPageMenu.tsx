@@ -18,7 +18,7 @@ const AdvisorPageMenu: React.FC = () => {
   const menuItems = [
     { label: 'Home', route: 'home' },
     { label: 'Students', route: 'manage-students' },
-    { label: 'Verification', route: 'verification-requests'},
+    { label: 'Verification', route: 'manage-verifications'},
     { label: 'Review', route: 'review-moderation'},
     { label: 'Privacy', route: 'privacy'},
     { label: 'Scoreboard', route: 'scoreboard' },

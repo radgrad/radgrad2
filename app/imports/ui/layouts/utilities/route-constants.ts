@@ -9,6 +9,7 @@ export const HOME = 'home';
 export const ICE = 'ice';
 export const LEVELS = 'levels';
 export const MANAGESTUDENTS = 'manage-students';
+export const MANAGE_VERIFICATIONS = 'manage-verifications';
 export const MODERATION = 'moderation';
 export const OPPORTUNITY_SCOREBOARD = 'opportunity-scoreboard';
 export const PAGE_TRACKING_SCOREBOARD = 'page-tracking-scoreboard';
