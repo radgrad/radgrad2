@@ -1,73 +1,68 @@
 import React from 'react';
-import { NavLink, useParams, useRouteMatch } from 'react-router-dom';
 import { Dropdown, Menu } from 'semantic-ui-react';
-import FirstMenuContainer from '../shared/FirstMenu';
-import { Reviews } from '../../../api/review/ReviewCollection';
-import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
-import { buildRouteName } from '../shared/utilities/router';
-import { COMMUNITY, EXPLORER_TYPE } from '../../layouts/utilities/route-constants';
-import { AdvisorOrFacultyProfile } from '../../../typings/radgrad';
+import { NavLink, useParams, useRouteMatch } from 'react-router-dom';
+import FirstMenu from '../shared/FirstMenu';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
+import { buildRouteName } from '../shared/utilities/router';
+import { EXPLORER_TYPE } from '../../layouts/utilities/route-constants';
+import { AdvisorOrFacultyProfile } from '../../../typings/radgrad';
+
+// TODO: Advisor menu and Faculty menu currently differ by only one item: Manage Students page.
+// Consider combining into a single component?
 
 const AdvisorPageMenu: React.FC = () => {
   const match = useRouteMatch();
   const { username } = useParams();
   const profile: AdvisorOrFacultyProfile = AdvisorProfiles.getProfile(username);
-  let numMod = 0;
-  numMod += Reviews.findNonRetired({ moderated: false }).length;
-  let moderationLabel = 'Moderation';
-  if (numMod > 0) {
-    moderationLabel = `${moderationLabel} (${numMod})`;
-  }
-  let numRequests = 0;
-  numRequests += VerificationRequests.findNonRetired({ status: 'Open' }).length;
-  let requestsLabel = 'Verification Requests';
-  if (numRequests > 0) {
-    requestsLabel = `${requestsLabel} (${numRequests})`;
-  }
+
   const menuItems = [
-    { label: 'Student Configuration', route: 'home', id: 'advisor-menu-home' },
-    { label: requestsLabel, route: 'verification-requests', id: 'advisor-menu-verification-requests' },
-    { label: moderationLabel, route: 'moderation', id: 'advisor-menu-moderation' },
-    { label: 'Scoreboard', route: 'scoreboard', regex: 'scoreboard', id: 'advisor-menu-scoreboard' },
-    { label: 'Community', route: `${COMMUNITY}`, regex: `${COMMUNITY}`, id: 'advisor-menu-community' },
-  ];
-  const explorerDropdownItems = [
-    { key: 'Career Goals', route: EXPLORER_TYPE.CAREERGOALS, id: 'advisor-menu-career-goals' },
-    { key: 'Courses', route: EXPLORER_TYPE.COURSES, id: 'advisor-menu-courses' },
-    { key: 'Interests', route: EXPLORER_TYPE.INTERESTS, id: 'advisor-menu-interests' },
-    { key: 'Opportunities', route: EXPLORER_TYPE.OPPORTUNITIES, id: 'advisor-menu-opportunities' },
+    { label: 'Home', route: 'home' },
+    { label: 'Students', route: 'manage-students' },
+    { label: 'Verification', route: 'verification-requests'},
+    { label: 'Review', route: 'review-moderation'},
+    { label: 'Privacy', route: 'privacy'},
+    { label: 'Scoreboard', route: 'scoreboard' },
+    { label: 'Community', route: 'community' },
   ];
 
-  const advisorHomePageItems = [{ key: 'About Me', route: 'aboutme', id: 'advisor-menu-about-me' }];
+  const explorerDropdownItems = [
+    { label: 'Careers', route: EXPLORER_TYPE.CAREERGOALS },
+    { label: 'Courses', route: EXPLORER_TYPE.COURSES },
+    { label: 'Interests', route: EXPLORER_TYPE.INTERESTS },
+    { label: 'Opportunities', route: EXPLORER_TYPE.OPPORTUNITIES },
+  ];
+
+  /* In future, Advisors should be able to manage courses as well. */
+  const manageDropdownItems = [
+    { label: 'Opportunities', route: 'manage-opportunities' },
+  ];
+
   const instanceName = Meteor.settings.public.instanceName;
   return (
     <div>
-      <FirstMenuContainer profile={profile} displayLevelAndIce={false} instanceName={instanceName} />
-      <Menu attached="top" borderless secondary inverted pointing id="secondMenu">
+      <FirstMenu profile={profile} displayLevelAndIce={false} instanceName={instanceName} />
+      <Menu borderless inverted stackable id="secondMenu" attached="top" style={{paddingLeft: '10px', marginTop: '0px'}}>
         {menuItems.map((item) => (
-          <Menu.Item id={item.id} key={item.label} as={NavLink} exact to={buildRouteName(match, `/${item.route}`)}>
+          <Menu.Item id={`advisor-menu-${item.label.toLowerCase()}`} key={item.label} as={NavLink} exact={false} to={buildRouteName(match, `/${item.route}`)}>
             {item.label}
           </Menu.Item>
         ))}
 
-        <Dropdown id="advisor-menu-explore" item text="EXPLORE">
+        <Dropdown item text="Explorers" id="advisor-menu-explorers">
           <Dropdown.Menu>
             {explorerDropdownItems.map((item) => (
-              <Dropdown.Item key={item.key} id={item.id} as={NavLink} exact to={buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${item.route}`)} content={item.key} />
+              <Dropdown.Item id={`advisor-menu-explorer-${item.label.toLowerCase()}`} key={item.label} as={NavLink} exact to={buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${item.route}`)} content={item.label} />
             ))}
           </Dropdown.Menu>
         </Dropdown>
-        <Menu.Menu position="right">
-          <Dropdown id="advisor-menu-full-name" item text={`Aloha, ${profile.firstName} ${profile.lastName}!`}>
-            <Dropdown.Menu>
-              {advisorHomePageItems.map((item) => (
-                <Dropdown.Item key={item.key} id={item.id} as={NavLink} exact to={buildRouteName(match, `/home/${item.route}`)} content={item.key} />
-              ))}
-              <Dropdown.Item id="advisor-menu-signout" as={NavLink} exact to="/signout" content="Sign Out" />
-            </Dropdown.Menu>
-          </Dropdown>
-        </Menu.Menu>
+
+        <Dropdown item text="Manage" id="advisor-menu-manage">
+          <Dropdown.Menu>
+            {manageDropdownItems.map((item) => (
+              <Dropdown.Item id={`advisor-menu-manage-${item.label.toLowerCase()}`} key={item.label} as={NavLink} exact to={buildRouteName(match, `/${item.route}`)} content={item.label} />
+            ))}
+          </Dropdown.Menu>
+        </Dropdown>
       </Menu>
     </div>
   );

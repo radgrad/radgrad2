@@ -34,6 +34,7 @@ import AdminDataModelVerificationRequestsPage from '../../pages/admin/AdminDataM
 import AdvisorHomePage from '../../pages/advisor/AdvisorHomePage';
 import AdvisorAboutMePage from '../../pages/advisor/AdvisorAboutMePage';
 import AdvisorVerificationRequestPage from '../../pages/advisor/AdvisorVerificationRequestPage';
+import AdvisorManageStudentsPage from '../../pages/advisor/AdvisorManageStudentsPage';
 import AdvisorModerationPage from '../../pages/advisor/AdvisorModerationPage';
 import AlumniHomePage from '../../pages/alumni/AlumniHomePage';
 import CareerGoalBrowserViewPage from '../../pages/shared/browser-view/CareerGoalBrowserViewPage';
@@ -83,6 +84,7 @@ import {
   HOME,
   ICE,
   LEVELS,
+  MANAGESTUDENTS,
   MODERATION,
   OPPORTUNITY_SCOREBOARD,
   PAGE_TRACKING_SCOREBOARD,
@@ -95,6 +97,7 @@ import {
   URL_ROLES,
   USERNAME,
 } from './route-constants';
+
 
 export const routes = {
   ADMIN: [
@@ -429,6 +432,11 @@ export const routes = {
       path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${COMMUNITY}`,
       exact: true,
       component: CommunityPage,
+    },
+    {
+      path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${MANAGESTUDENTS}`,
+      exact: true,
+      component: AdvisorManageStudentsPage,
     },
   ],
   ALUMNI: [
