@@ -5,7 +5,7 @@ import IceHeader from '../../shared/IceHeader';
 
 const OpportunityFactiod: React.FC<OpportunityFactoid> = ({ picture, name, numberOfStudents, ice, description }) => (
   <div id="opportunity-factoid">
-    <Header inverted>Get real world experience.</Header>
+    <Header inverted>&quot;Get real world experience.&quot;</Header>
     <Card>
       <Card.Content>
         <Card.Header>{name}</Card.Header>

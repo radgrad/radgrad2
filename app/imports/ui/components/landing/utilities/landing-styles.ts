@@ -162,4 +162,13 @@ export default {
     fontWeight: 100,
     fontcolor: 'red',
   },
+  'ice-innovation-color': {
+    color:'#80ad27',
+  },
+  'ice-competency-color': {
+    color:'#26407c',
+  },
+  'ice-experience-color': {
+    color:'#952263',
+  },
 } as React.CSSProperties;

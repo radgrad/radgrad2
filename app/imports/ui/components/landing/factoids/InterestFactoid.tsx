@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, Header, Icon, Label, List } from 'semantic-ui-react';
 import { InterestOrCareerGoalFactoid } from '../../../../typings/radgrad';
+import styles from '../utilities/landing-styles';
 
 const InterestFactoid: React.FC<InterestOrCareerGoalFactoid> = ({
   name,
@@ -10,7 +11,7 @@ const InterestFactoid: React.FC<InterestOrCareerGoalFactoid> = ({
   numberOfStudents,
 }) => (
   <div id='interest-factoid'>
-    <Header inverted>Specify Interests to improve RadGrad recommendations.</Header>
+    <Header inverted>&quot;Specify <span style={styles['green-text']}>Interests</span> to improve <span style={styles['green-text']}>RadGrad</span> recommendations.&quot;</Header>
     <Card fluid>
       <Card.Content>
         <Card.Header>{name}</Card.Header>

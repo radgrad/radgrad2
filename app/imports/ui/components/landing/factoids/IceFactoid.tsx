@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, Header } from 'semantic-ui-react';
 import { makeSampleIce } from '../../../../api/ice/SampleIce';
 import MenuIceCircle from '../../shared/MenuIceCircle';
+import styles from '../utilities/landing-styles';
 
 const IceFactoid: React.FC = () => {
   const projectedICE = makeSampleIce();
@@ -9,7 +10,7 @@ const IceFactoid: React.FC = () => {
   const flexStyle = { display: 'flex', paddingTop: '5px', paddingRight: '13px', marginTop: '3px' };
   return (
     <div id="ice-factoid">
-      <Header inverted>RadGrad tracks ICE, not GPA.</Header>
+      <Header inverted>&quot;<span style={styles['green-text']}>RadGrad</span> tracks ICE, not GPA.&quot;</Header>
       <Card fluid>
       <Card.Content>
         <Card.Header>RadGrad helps you develop Innovation, Competency, and Experience.</Card.Header>
