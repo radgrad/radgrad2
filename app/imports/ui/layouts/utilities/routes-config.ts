@@ -41,7 +41,6 @@ import CommunityPage from '../../pages/shared/CommunityPage';
 import CourseBrowserViewPage from '../../pages/shared/browser-view/CourseBrowserViewPage';
 import CareerGoalViewPage from '../../pages/shared/item-view/CareerGoalViewPage';
 import CourseViewPage from '../../pages/shared/item-view/CourseViewPage';
-import ExplorerHomePagePage from '../../pages/shared/ExplorerHomePage';
 import ExplorerOpportunitiesPage from '../../pages/shared/ExplorerOpportunitiesPage';
 import FacultyPrivacyPage from '../../pages/faculty/FacultyPrivacyPage';
 import FacultyVerificationPage from '../../pages/faculty/FacultyVerificationPage';
@@ -72,24 +71,24 @@ import StudentVerificationPage from '../../pages/student/StudentVerificationPage
 import {
   ANALYTICS,
   COMMUNITY,
+  DATABASE,
   DATAMODEL,
   DEGREEPLANNER,
   EXPLORER,
-  EXPLORER_PARAM,
-  EXPLORER_TYPE,
   HOME,
   ICE,
   LEVELS,
+  MANAGE_OPPORTUNITIES,
   MANAGE_REVIEWS,
   MANAGE_STUDENTS,
   MANAGE_VERIFICATIONS,
-  MODERATION,
   PRIVACY,
   SCOREBOARD,
   STUDENT_REVIEWS,
   STUDENT_VERIFICATION,
   URL_ROLES,
   USERNAME,
+  VERIFICATION_REQUESTS,
 } from './route-constants';
 
 // TODO: Scoreboard -> Forecast,
@@ -116,15 +115,14 @@ export const routes = {
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL.TEASERS}`, component: AdminDataModelTeasersPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL.USERS}`, component: AdminDataModelUsersPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL.VERIFICATION_REQUESTS}`, component: AdminDataModelVerificationRequestsPage },
-    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/database`, component: AdminDatabasePage },
-    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/database/dump`, component: AdminDumpDatabasePage },
-    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/database/integrity-check`, component: AdminCheckDatabaseIntegrityPage },
-    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${MODERATION}`, component: AdminModerationPage },
+    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATABASE.HOME}`, component: AdminDatabasePage },
+    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATABASE.DUMP}`, component: AdminDumpDatabasePage },
+    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATABASE.INTEGRITY_CHECK}`, component: AdminCheckDatabaseIntegrityPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.HOME}`, component: AdminAnalyticsPage },
-    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.HOME}/${ANALYTICS.NEWSLETTER}`, component: AdminAnalyticsNewsletterPage },
-    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.HOME}/${ANALYTICS.OVERHEADANALYSIS}`, component: AdminAnalyticsOverheadAnalysisPage },
-    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.HOME}/${ANALYTICS.STUDENTSUMMARY}`, component: AdminAnalyticsStudentSummaryPage },
-    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.HOME}/${ANALYTICS.USERINTERACTIONS}`, component: AdminAnalyticsUserInteractionsPage },
+    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.NEWSLETTER}`, component: AdminAnalyticsNewsletterPage },
+    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.OVERHEAD_ANALYSIS}`, component: AdminAnalyticsOverheadAnalysisPage },
+    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.STUDENT_SUMMARY}`, component: AdminAnalyticsStudentSummaryPage },
+    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.USER_INTERACTIONS}`, component: AdminAnalyticsUserInteractionsPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${SCOREBOARD}`, component: ScoreboardPage },
   ],
 
@@ -141,7 +139,6 @@ export const routes = {
     { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${HOME}`, component: AdvisorHomePage },
     { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${MANAGE_STUDENTS}`, component: AdvisorManageStudentsPage },
     { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${MANAGE_VERIFICATIONS}`, component: ManageVerificationsPage  },
-    { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${MODERATION}`, component: AdvisorModerationPage },
     { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${SCOREBOARD}`, component: ScoreboardPage },
   ],
 
@@ -151,8 +148,8 @@ export const routes = {
 
   FACULTY: [
     { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${HOME}`, component: FacultyHomePage },
-    { path: `/${URL_ROLES.FACULTY}/${USERNAME}/verification-requests`, component: FacultyVerificationPage },
-    { path: `/${URL_ROLES.FACULTY}/${USERNAME}/manage-opportunities`, component: FacultyManageOpportunitiesPage },
+    { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${VERIFICATION_REQUESTS}`, component: FacultyVerificationPage },
+    { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${MANAGE_OPPORTUNITIES}`, component: FacultyManageOpportunitiesPage },
     { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER.CAREERGOALS}`, component: CareerGoalBrowserViewPage },
     { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER.CAREERGOALS_PARAM}`, component: CareerGoalViewPage },
     { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER.COURSES}`, component: CourseBrowserViewPage },
