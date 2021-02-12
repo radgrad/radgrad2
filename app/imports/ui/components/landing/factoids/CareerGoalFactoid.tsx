@@ -1,9 +1,9 @@
 import React from 'react';
 import { Card, Header, Icon, Label, List } from 'semantic-ui-react';
-import { InterestOrCareerGoalFactoid } from '../../../../typings/radgrad';
+import { InterestOrCareerGoalFactoidProps } from '../../../../typings/radgrad';
 import styles from '../utilities/landing-styles';
 
-const CareerGoalFactoid: React.FC<InterestOrCareerGoalFactoid> = ({
+const CareerGoalFactoid: React.FC<InterestOrCareerGoalFactoidProps> = ({
   name,
   description,
   numberOfCourses,

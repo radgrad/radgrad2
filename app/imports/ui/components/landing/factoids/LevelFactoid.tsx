@@ -1,9 +1,9 @@
 import React from 'react';
 import { Card, Header, Icon, Label, List } from 'semantic-ui-react';
-import { LevelFactoid } from '../../../../typings/radgrad';
+import { LevelFactoidProps } from '../../../../typings/radgrad';
 import RadGradMenuLevel from '../../shared/RadGradMenuLevel';
 
-const LevelFactoid: React.FC<LevelFactoid> = ({ level, numberOfStudents, description }) => (
+const LevelFactoid: React.FC<LevelFactoidProps> = ({ level, numberOfStudents, description }) => (
     <div id="level-factoid">
       <Header inverted>&quot;Levels show progress from Grasshopper to Ninja.&quot;</Header>
       <Card>

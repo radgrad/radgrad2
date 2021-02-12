@@ -323,7 +323,7 @@ export interface CourseUpdate extends Update {
 }
 
 // Factoids
-export interface InterestOrCareerGoalFactoid {
+export interface InterestOrCareerGoalFactoidProps {
   name: string;
   numberOfStudents: number;
   numberOfOpportunities: number;
@@ -331,18 +331,18 @@ export interface InterestOrCareerGoalFactoid {
   description: string;
 }
 
-export interface LevelFactoid {
+export interface LevelFactoidProps {
   level: number;
   numberOfStudents: number;
   description: string;
 }
 
-export interface ReviewFactoid {
+export interface ReviewFactoidProps {
   name: string;
   description: string;
 }
 
-export interface OpportunityFactoid {
+export interface OpportunityFactoidProps {
   picture: string;
   name: string;
   ice: Ice;
