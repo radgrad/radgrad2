@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Header, Icon, Image, Label, List } from 'semantic-ui-react';
+import { Card, Header, Icon, Label, List } from 'semantic-ui-react';
 import { OpportunityFactoid } from '../../../../typings/radgrad';
 import IceHeader from '../../shared/IceHeader';
 
