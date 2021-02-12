@@ -5,6 +5,7 @@ import FirstMenu from '../shared/FirstMenu';
 import { buildRouteName } from '../shared/utilities/router';
 import { AdminProfiles } from '../../../api/user/AdminProfileCollection';
 import {
+  ANALYTICS,
   COMMUNITY,
   DATAMODEL,
   DATABASE,
@@ -14,6 +15,8 @@ import {
   MANAGE,
   PRIVACY,
 } from '../../layouts/utilities/route-constants';
+
+const convertLabelToId = (prefix, label) => `${prefix}-${label.replaceAll(' ', '-').toLowerCase()}`;
 
 const AdminPageMenu: React.FC = () => {
   const match = useRouteMatch();
@@ -66,13 +69,21 @@ const AdminPageMenu: React.FC = () => {
     { label: 'Integrity Check', route: DATABASE.INTEGRITY_CHECK},
   ];
 
+  const analyticsDropdownItems = [
+    { label: 'Newsletter', route: ANALYTICS.NEWSLETTER},
+    { label: 'Overhead Analysis', route: ANALYTICS.OVERHEAD_ANALYSIS},
+    { label: 'Student Summary', route: ANALYTICS.STUDENT_SUMMARY},
+    { label: 'User Interactions', route: ANALYTICS.USER_INTERACTIONS},
+    { label: 'Logged In Users', route: ANALYTICS.LOGGED_IN_USERS},
+  ];
+
   const instanceName = Meteor.settings.public.instanceName;
   return (
     <div>
       <FirstMenu profile={profile} displayLevelAndIce={false} instanceName={instanceName} />
       <Menu borderless inverted stackable id="secondMenu" attached="top" style={{paddingLeft: '10px', marginTop: '0px'}}>
         {menuItems.map((item) => (
-          <Menu.Item id={`admin-menu-${item.label.toLowerCase()}`} key={item.label} as={NavLink} exact={false} to={buildRouteName(match, `/${item.route}`)}>
+          <Menu.Item id={convertLabelToId('admin-menu', item.label)} key={item.label} as={NavLink} exact={false} to={buildRouteName(match, `/${item.route}`)}>
             {item.label}
           </Menu.Item>
         ))}
@@ -80,7 +91,7 @@ const AdminPageMenu: React.FC = () => {
         <Dropdown item text="Explorers" id="admin-menu-explorers">
           <Dropdown.Menu>
             {explorerDropdownItems.map((item) => (
-              <Dropdown.Item id={`admin-menu-explorer-${item.label.toLowerCase()}`} key={item.label} as={NavLink} exact to={buildRouteName(match, `/${item.route}`)} content={item.label} />
+              <Dropdown.Item id={convertLabelToId('admin-menu-explorer', item.label)} key={item.label} as={NavLink} exact to={buildRouteName(match, `/${item.route}`)} content={item.label} />
             ))}
           </Dropdown.Menu>
         </Dropdown>
@@ -88,7 +99,7 @@ const AdminPageMenu: React.FC = () => {
         <Dropdown item text="Manage" id="admin-menu-manage">
           <Dropdown.Menu>
             {manageDropdownItems.map((item) => (
-              <Dropdown.Item id={`admin-menu-manage-${item.label.toLowerCase()}`} key={item.label} as={NavLink} exact to={buildRouteName(match, `/${item.route}`)} content={item.label} />
+              <Dropdown.Item id={convertLabelToId('admin-menu-manage', item.label)} key={item.label} as={NavLink} exact to={buildRouteName(match, `/${item.route}`)} content={item.label} />
             ))}
           </Dropdown.Menu>
         </Dropdown>
@@ -96,7 +107,7 @@ const AdminPageMenu: React.FC = () => {
         <Dropdown item text="Data Model" id="admin-menu-data-model">
           <Dropdown.Menu>
             {datamodelDropdownItems.map((item) => (
-              <Dropdown.Item id={`admin-menu-manage-${item.label.toLowerCase()}`} key={item.label} as={NavLink} exact to={buildRouteName(match, `/${item.route}`)} content={item.label} />
+              <Dropdown.Item id={convertLabelToId('admin-menu-data-model', item.label)} key={item.label} as={NavLink} exact to={buildRouteName(match, `/${item.route}`)} content={item.label} />
             ))}
           </Dropdown.Menu>
         </Dropdown>
@@ -104,7 +115,15 @@ const AdminPageMenu: React.FC = () => {
         <Dropdown item text="Database" id="admin-menu-database">
           <Dropdown.Menu>
             {databaseDropdownItems.map((item) => (
-              <Dropdown.Item id={`admin-menu-manage-${item.label.toLowerCase()}`} key={item.label} as={NavLink} exact to={buildRouteName(match, `/${item.route}`)} content={item.label} />
+              <Dropdown.Item id={convertLabelToId('admin-menu-database', item.label)} key={item.label} as={NavLink} exact to={buildRouteName(match, `/${item.route}`)} content={item.label} />
+            ))}
+          </Dropdown.Menu>
+        </Dropdown>
+
+        <Dropdown item text="Analytics" id="admin-menu-analytics">
+          <Dropdown.Menu>
+            {analyticsDropdownItems.map((item) => (
+              <Dropdown.Item id={convertLabelToId('admin-menu-analytics', item.label)} key={item.label} as={NavLink} exact to={buildRouteName(match, `/${item.route}`)} content={item.label} />
             ))}
           </Dropdown.Menu>
         </Dropdown>

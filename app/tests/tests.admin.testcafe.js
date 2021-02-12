@@ -46,17 +46,11 @@ test('Test all admin top-level pages', async (testController) => {
   await adminNavBar.gotoDatabasePage(testController);
   await adminDatabasePage.isDisplayed(testController);
 
-  // await adminNavBar.gotoModerationPage(testController);
-  // await adminModerationPage.isDisplayed(testController);
-
   await adminNavBar.gotoAnalyticsPage(testController);
   await adminAnalyticsPage.isDisplayed(testController);
-
-  // await adminNavBar.gotoScoreboardPage(testController);
-  // await adminScoreboardPage.isDisplayed(testController);
 });
 
-test('Test admin data model page and subpages', async (testController) => {
+test('Test admin data model pages', async (testController) => {
   await adminNavBar.gotoAdminLogin(testController);
   await signinPage.signin(testController, credentials.admin);
   const subPages = ['academic-terms', 'academic-year-instances', 'careergoals',
@@ -66,24 +60,24 @@ test('Test admin data model page and subpages', async (testController) => {
   // const promises = subPages.map(async (subPage) => adminNavBar.gotoDataModelPageSubPageAndVerify(testController, subPage));
   // await Promise.all(promises);
   // We do it this way instead of the above map() and Promise.all() because it's much easier to debug.
-  await adminNavBar.gotoDataModelPageSubPageAndVerify(testController, subPages[0]);
-  await adminNavBar.gotoDataModelPageSubPageAndVerify(testController, subPages[1]);
+  await adminNavBar.gotoDataModelPageAndVerify(testController, subPages[0]);
+  await adminNavBar.gotoDataModelPageAndVerify(testController, subPages[1]);
   // await adminNavBar.gotoDataModelPageSubPageAndVerify(testController, subPages[2]);
-  await adminNavBar.gotoDataModelPageSubPageAndVerify(testController, subPages[3]);
-  await adminNavBar.gotoDataModelPageSubPageAndVerify(testController, subPages[4]);
-  await adminNavBar.gotoDataModelPageSubPageAndVerify(testController, subPages[5]);
-  await adminNavBar.gotoDataModelPageSubPageAndVerify(testController, subPages[6]);
-  await adminNavBar.gotoDataModelPageSubPageAndVerify(testController, subPages[7]);
-  await adminNavBar.gotoDataModelPageSubPageAndVerify(testController, subPages[8]);
-  await adminNavBar.gotoDataModelPageSubPageAndVerify(testController, subPages[9]);
-  await adminNavBar.gotoDataModelPageSubPageAndVerify(testController, subPages[10]);
-  await adminNavBar.gotoDataModelPageSubPageAndVerify(testController, subPages[11]);
-  await adminNavBar.gotoDataModelPageSubPageAndVerify(testController, subPages[12]);
-  await adminNavBar.gotoDataModelPageSubPageAndVerify(testController, subPages[13]);
-  await adminNavBar.gotoDataModelPageSubPageAndVerify(testController, subPages[14]);
-  await adminNavBar.gotoDataModelPageSubPageAndVerify(testController, subPages[15]);
-  await adminNavBar.gotoDataModelPageSubPageAndVerify(testController, subPages[16]);
-  await adminNavBar.gotoDataModelPageSubPageAndVerify(testController, subPages[17]);
+  await adminNavBar.gotoDataModelPageAndVerify(testController, subPages[3]);
+  await adminNavBar.gotoDataModelPageAndVerify(testController, subPages[4]);
+  await adminNavBar.gotoDataModelPageAndVerify(testController, subPages[5]);
+  await adminNavBar.gotoDataModelPageAndVerify(testController, subPages[6]);
+  await adminNavBar.gotoDataModelPageAndVerify(testController, subPages[7]);
+  await adminNavBar.gotoDataModelPageAndVerify(testController, subPages[8]);
+  await adminNavBar.gotoDataModelPageAndVerify(testController, subPages[9]);
+  await adminNavBar.gotoDataModelPageAndVerify(testController, subPages[10]);
+  await adminNavBar.gotoDataModelPageAndVerify(testController, subPages[11]);
+  await adminNavBar.gotoDataModelPageAndVerify(testController, subPages[12]);
+  await adminNavBar.gotoDataModelPageAndVerify(testController, subPages[13]);
+  await adminNavBar.gotoDataModelPageAndVerify(testController, subPages[14]);
+  await adminNavBar.gotoDataModelPageAndVerify(testController, subPages[15]);
+  await adminNavBar.gotoDataModelPageAndVerify(testController, subPages[16]);
+  await adminNavBar.gotoDataModelPageAndVerify(testController, subPages[17]);
 });
 
 test('Test admin ensure logout', async (testController) => {

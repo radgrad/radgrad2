@@ -26,6 +26,7 @@ export const ANALYTICS = {
   OVERHEAD_ANALYSIS: 'analytics/overhead-analysis',
   STUDENT_SUMMARY: 'analytics/student-summary',
   USER_INTERACTIONS: 'analytics/user-interactions',
+  LOGGED_IN_USERS: 'analytics/logged-in-users',
 };
 
 export const DATABASE = {
@@ -38,7 +39,7 @@ export const DATAMODEL = {
   HOME: 'datamodel',
   ACADEMIC_TERMS: 'datamodel/academic-terms',
   ACADEMIC_YEAR_INSTANCES: 'datamodel/academic-year-instances',
-  CAREERGOALS: 'datamodel/careergoals',
+  CAREERGOALS: 'datamodel/career-goals',
   COURSE_INSTANCES: 'datamodel/course-instances',
   COURSES: 'datamodel/courses',
   FEEDS: 'datamodel/feeds',

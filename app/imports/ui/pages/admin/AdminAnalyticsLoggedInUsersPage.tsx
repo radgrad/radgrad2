@@ -6,7 +6,7 @@ import AdminPageMenu from '../../components/admin/AdminPageMenu';
 import AdminAnalyticsMenuWidget from '../../components/admin/analytics/AdminAnalyticsMenuWidget';
 import AdminAnalyticsLoggedInUsersWidget, { AdminAnalyticsLoggedInUsersWidgetProps } from '../../components/admin/analytics/AdminAnalyticsLoggedInUsersWidget';
 
-const AdminAnalyticsPage: React.FC<AdminAnalyticsLoggedInUsersWidgetProps> = ({ loggedInUsers }) => (
+const AdminAnalyticsLoggedInUsersPage: React.FC<AdminAnalyticsLoggedInUsersWidgetProps> = ({ loggedInUsers }) => (
   <div id="admin-analytics-page">
     <AdminPageMenu />
     <Grid container stackable columns={1}>
@@ -26,4 +26,4 @@ const AdminAnalyticsPage: React.FC<AdminAnalyticsLoggedInUsersWidgetProps> = ({ 
 
 export default withTracker(() => ({
   loggedInUsers: Meteor.users.find({ 'status.online': true }).fetch(),
-}))(AdminAnalyticsPage);
+}))(AdminAnalyticsLoggedInUsersPage);

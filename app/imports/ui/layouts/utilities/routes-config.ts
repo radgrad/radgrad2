@@ -5,7 +5,7 @@
 import AdminHomePage from '../../pages/admin/AdminHomePage';
 import AdminDataModelPage from '../../pages/admin/AdminDataModelPage';
 import AdminDatabasePage from '../../pages/admin/AdminDatabasePage';
-import AdminAnalyticsPage from '../../pages/admin/AdminAnalyticsPage';
+import AdminAnalyticsLoggedInUsersPage from '../../pages/admin/AdminAnalyticsLoggedInUsersPage';
 import AdminAnalyticsNewsletterPage from '../../pages/admin/AdminAnalyticsNewsletterPage';
 import AdminAnalyticsOverheadAnalysisPage from '../../pages/admin/AdminAnalyticsOverheadAnalysisPage';
 import AdminAnalyticsStudentSummaryPage from '../../pages/admin/AdminAnalyticsStudentSummaryPage';
@@ -87,15 +87,16 @@ import {
 
 
 
+
 // TODO: Scoreboard -> Forecast,
 
 export const routes = {
   ADMIN: [
-    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.HOME}`, component: AdminAnalyticsPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.NEWSLETTER}`, component: AdminAnalyticsNewsletterPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.OVERHEAD_ANALYSIS}`, component: AdminAnalyticsOverheadAnalysisPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.STUDENT_SUMMARY}`, component: AdminAnalyticsStudentSummaryPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.USER_INTERACTIONS}`, component: AdminAnalyticsUserInteractionsPage },
+    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.LOGGED_IN_USERS}`, component: AdminAnalyticsLoggedInUsersPage },
 
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${COMMUNITY}`, component: CommunityPage },
     

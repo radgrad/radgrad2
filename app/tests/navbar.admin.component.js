@@ -11,7 +11,7 @@ class AdminNavBar {
     }
   }
 
-  async gotoAdminLogin(testController) {
+  async gotoadminLogin(testController) {
     await testController.click('#LOGIN');
     await testController.click('#admin');
   }
@@ -33,44 +33,46 @@ class AdminNavBar {
   }
 
   async gotoCareerGoalsExplorerPage(testController) {
-    await testController.click('#advisor-menu-explorers');
-    await testController.click('#advisor-menu-explorer-careers');
+    await testController.click('#admin-menu-explorers');
+    await testController.click('#admin-menu-explorer-careers');
   }
 
   async gotoCoursesExplorerPage(testController) {
-    await testController.click('#advisor-menu-explorers');
-    await testController.click('#advisor-menu-explorer-courses');
+    await testController.click('#admin-menu-explorers');
+    await testController.click('#admin-menu-explorer-courses');
   }
 
   async gotoInterestsExplorerPage(testController) {
-    await testController.click('#advisor-menu-explorers');
-    await testController.click('#advisor-menu-explorer-interests');
+    await testController.click('#admin-menu-explorers');
+    await testController.click('#admin-menu-explorer-interests');
   }
 
   async gotoOpportunitiesExplorerPage(testController) {
-    await testController.click('#advisor-menu-explorers');
-    await testController.click('#advisor-menu-explorer-opportunities');
+    await testController.click('#admin-menu-explorers');
+    await testController.click('#admin-menu-explorer-opportunities');
   }
 
-  async gotoDataModelPage(testController) {
-    await testController.click('#second-menu-data-model');
+  async gotoManageStudentsPage(testController) {
+    await testController.click('#admin-menu-manage');
+    await testController.click('#admin-menu-manage-students');
   }
 
-  async gotoDataModelPageSubPageAndVerify(testController, subPageId) {
-    await testController.click('#second-menu-data-model');
-    await testController.click(`#data-model-${subPageId}`);
-    const pageIdSelector = Selector(`#data-model-${subPageId}-page`);
+  async gotoManageVerificationPage(testController) {
+    await testController.click('#admin-menu-manage');
+    await testController.click('#admin-menu-manage-verification');
+  }
+
+  async gotoManageReviewPage(testController) {
+    await testController.click('#admin-menu-manage');
+    await testController.click('#admin-menu-manage-review');
+  }
+
+  async gotoDataModelPageAndVerify(testController, pageName) {
+    await testController.click('admin-menu-data-model');
+    await testController.click(`#admin-data-model-${pageName}`);
+    const pageIdSelector = Selector(`#data-model-${pageName}-page`);
     await testController.expect(pageIdSelector.exists).ok();
   }
-
-  async gotoDatabasePage(testController) {
-    await testController.click('#second-menu-data-base');
-  }
-
-  async gotoAnalyticsPage(testController) {
-    await testController.click('#second-menu-analytics');
-  }
-
 
   /** Check that the specified user is currently logged in. */
   async isLoggedIn(testController, credentials) {
