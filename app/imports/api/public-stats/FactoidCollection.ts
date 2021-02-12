@@ -12,7 +12,7 @@ const interestFactoid = new SimpleSchema({
 });
 
 const levelFactoid = new SimpleSchema({
-  levelIconName: { type: String },
+  level: { type: Number },
   numberOfStudents: { type: Number },
   description: { type: String },
 });

@@ -9,6 +9,7 @@ import LandingExplorerCardContainer from '../../components/landing/explorer/Land
 import LandingExplorerMenuContainer from '../../components/landing/explorer/LandingExplorerMenu';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
+import { Slugs } from '../../../api/slug/SlugCollection';
 
 interface OpportunitiesCardExplorerProps {
   opportunities: Opportunity[];
@@ -64,4 +65,4 @@ const LandingOpportunitiesCardExplorerContainer = withTracker(() => ({
   helpMessages: HelpMessages.findNonRetired({}),
 }))(LandingOpportunitiesCardExplorerPage);
 
-export default withListSubscriptions(LandingOpportunitiesCardExplorerContainer, [Opportunities.getPublicationName(), HelpMessages.getPublicationName()]);
+export default withListSubscriptions(LandingOpportunitiesCardExplorerContainer, [Opportunities.getPublicationName(), HelpMessages.getPublicationName(), Slugs.getPublicationName()]);

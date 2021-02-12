@@ -19,6 +19,8 @@ import { Teasers } from '../../../api/teaser/TeaserCollection';
 import * as Router from '../../components/shared/utilities/router';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import { Users } from '../../../api/user/UserCollection';
+import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
+import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 
 // import HelpPanelWidgetContainer from '../../components/shared/HelpPanelWidget';
 
@@ -205,4 +207,7 @@ export default withListSubscriptions(LandingOpportunityExplorerContainer, [
   Slugs.getPublicationName(),
   Teasers.getPublicationName(),
   HelpMessages.getPublicationName(),
+  FacultyProfiles.getPublicationName(),
+  AdvisorProfiles.getPublicationName(),
+  Users.getPublicationName(),
 ]);

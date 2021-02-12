@@ -332,7 +332,7 @@ export interface InterestOrCareerGoalFactoid {
 }
 
 export interface LevelFactoid {
-  levelIconName: string;
+  level: number;
   numberOfStudents: number;
   description: string;
 }

@@ -20,7 +20,7 @@ export function getSlug(item: { slugID: string; }) {
   try {
     return Slugs.getNameFromID(item.slugID);
   } catch (e) {
-    // console.log('helper-functions.getSlug', e, item);
+    console.log('helper-functions.getSlug', e, item);
     // console.trace();
     return '';
   }
