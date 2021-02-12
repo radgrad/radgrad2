@@ -1,8 +1,20 @@
 import { landingNavBar } from './navbar.landing.component';
 import { advisorNavBar } from './navbar.advisor.component';
 import { signinPage } from './signin.page';
-import { advisorHomePage, advisorVerificationRequestsPage, advisorModerationPage,
-  advisorScoreboardPage } from './simple.page';
+import {
+  advisorHomePage,
+  advisorFacultyPrivacyPage,
+  forecastsPage,
+  communityPage,
+  careerGoalExplorerPage,
+  courseExplorerPage,
+  interestExplorerPage,
+  opportunityExplorerPage,
+  manageStudentsPage,
+  manageVerificationPage,
+  manageReviewsPage,
+  manageOpportunitiesPage,
+} from './simple.page';
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 /* global fixture:false, test:false */
@@ -28,12 +40,36 @@ test('Test advisor top-level pages', async (testController) => {
   await advisorNavBar.gotoHomePage(testController);
   await advisorHomePage.isDisplayed(testController);
 
-  await advisorNavBar.gotoVerificationRequestsPage(testController);
-  await advisorVerificationRequestsPage.isDisplayed(testController);
+  await advisorNavBar.gotoPrivacyPage(testController);
+  await advisorFacultyPrivacyPage.isDisplayed(testController);
 
-  await advisorNavBar.gotoModerationPage(testController);
-  await advisorModerationPage.isDisplayed(testController);
+  await advisorNavBar.gotoForecastsPage(testController);
+  await forecastsPage.isDisplayed(testController);
 
-  await advisorNavBar.gotoScoreboardPage(testController);
-  await advisorScoreboardPage.isDisplayed(testController);
+  await advisorNavBar.gotoCommunityPage(testController);
+  await communityPage.isDisplayed(testController);
+
+  await advisorNavBar.gotoCareerGoalsExplorerPage(testController);
+  await careerGoalExplorerPage.isDisplayed(testController);
+
+  await advisorNavBar.gotoCoursesExplorerPage(testController);
+  await courseExplorerPage.isDisplayed(testController);
+
+  await advisorNavBar.gotoInterestsExplorerPage(testController);
+  await interestExplorerPage.isDisplayed(testController);
+
+  await advisorNavBar.gotoOpportunitiesExplorerPage(testController);
+  await opportunityExplorerPage.isDisplayed(testController);
+
+  await advisorNavBar.gotoManageStudentsPage(testController);
+  await manageStudentsPage.isDisplayed(testController);
+
+  await advisorNavBar.gotoManageVerificationPage(testController);
+  await manageVerificationPage.isDisplayed(testController);
+
+  await advisorNavBar.gotoManageReviewPage(testController);
+  await manageReviewsPage.isDisplayed(testController);
+
+  await advisorNavBar.gotoManageOpportunitiesPage(testController);
+  await manageOpportunitiesPage.isDisplayed(testController);
 });

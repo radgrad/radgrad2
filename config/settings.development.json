@@ -90,8 +90,8 @@
       "lastName": "Admin"
     },
     "emailDomain": "hawaii.edu",
-    "newsletterFrom": "Phillip Johnson <donotreply@mail.gun.radgrad.org>",
-    "tagline": "Developing awesome _computer scientists_, **ONE** graduate at a time.",
+    "newsletterFrom": "RadGrad Administrator <donotreply@mail.gun.radgrad.org>",
+    "tagline": "Developing awesome computer scientists, **one** graduate at a time.",
     "landingSubject": "Computer science",
     "instanceName": "UHM/ICS",
     "userGuideURL": "https://www.radgrad.org/docs/users/"

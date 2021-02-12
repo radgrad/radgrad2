@@ -5,7 +5,7 @@ import {StudentProfiles} from '../../../api/user/StudentProfileCollection';
 import {StudentProfile} from '../../../typings/radgrad';
 import {
   DEGREEPLANNER,
-  EXPLORER_TYPE,
+  EXPLORER,
   HOME,
   ICE,
   LEVELS,
@@ -26,18 +26,18 @@ const StudentPageMenu: React.FC = () => {
   const projectedIce = StudentProfiles.getProjectedICE(username);
   const instanceName = Meteor.settings.public.instanceName;
   const menuItems = [
-    {label: 'Home',  to: `/${URL_ROLES.STUDENT}/${username}/${HOME}`},
-    {label: 'Interests',  to: `/${URL_ROLES.STUDENT}/${username}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}`},
-    {label: 'Careers',  to: `/${URL_ROLES.STUDENT}/${username}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}`},
-    {label: 'Courses',  to: `/${URL_ROLES.STUDENT}/${username}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}`},
-    {label: 'Opportunities',  to: `/${URL_ROLES.STUDENT}/${username}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}`},
-    {label: 'Planner',  to: `/${URL_ROLES.STUDENT}/${username}/${DEGREEPLANNER}`},
-    {label: 'Verification',  to: `/${URL_ROLES.STUDENT}/${username}/${STUDENT_VERIFICATION}`},
-    {label: 'Privacy',  to: `/${URL_ROLES.STUDENT}/${username}/${PRIVACY}`},
-    {label: 'ICE',  to: `/${URL_ROLES.STUDENT}/${username}/${HOME}/${ICE}`},
-    {label: 'Levels',  to: `/${URL_ROLES.STUDENT}/${username}/${HOME}/${LEVELS}`},
-    {label: 'Reviews',  to: `/${URL_ROLES.STUDENT}/${username}/${STUDENT_REVIEWS}`},
-    {label: 'Community',  to: `/${URL_ROLES.STUDENT}/${username}/${COMMUNITY}`},
+    { to: `/${URL_ROLES.STUDENT}/${username}/${HOME}`, label: 'Home' },
+    { to: `/${URL_ROLES.STUDENT}/${username}/${EXPLORER.INTERESTS}`, label: 'Interests'  },
+    { to: `/${URL_ROLES.STUDENT}/${username}/${EXPLORER.CAREERGOALS}`, label: 'Careers' },
+    { to: `/${URL_ROLES.STUDENT}/${username}/${EXPLORER.COURSES}`, label: 'Courses' },
+    { to: `/${URL_ROLES.STUDENT}/${username}/${EXPLORER.OPPORTUNITIES}`, label: 'Opportunities' },
+    { to: `/${URL_ROLES.STUDENT}/${username}/${DEGREEPLANNER}`, label: 'Planner' },
+    { to: `/${URL_ROLES.STUDENT}/${username}/${STUDENT_VERIFICATION}`, label: 'Verification' },
+    { to: `/${URL_ROLES.STUDENT}/${username}/${PRIVACY}`, label: 'Privacy' },
+    { to: `/${URL_ROLES.STUDENT}/${username}/${ICE}`, label: 'ICE' },
+    { to: `/${URL_ROLES.STUDENT}/${username}/${LEVELS}`, label: 'Levels' },
+    { to: `/${URL_ROLES.STUDENT}/${username}/${STUDENT_REVIEWS}`, label: 'Reviews' },
+    { to: `/${URL_ROLES.STUDENT}/${username}/${COMMUNITY}`, label: 'Community' },
   ];
   return (
     <div>

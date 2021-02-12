@@ -2,29 +2,55 @@
 import { ROLE } from '../../../api/role/Role';
 
 export const COMMUNITY = 'community';
-export const COURSE_SCOREBOARD = 'course-scoreboard';
-export const DATAMODEL = 'datamodel';
 export const DEGREEPLANNER = 'degree-planner';
 export const HOME = 'home';
 export const ICE = 'ice';
 export const LEVELS = 'levels';
-export const MODERATION = 'moderation';
-export const OPPORTUNITY_SCOREBOARD = 'opportunity-scoreboard';
-export const PAGE_TRACKING_SCOREBOARD = 'page-tracking-scoreboard';
-export const PAGE_TRACKING_COMPARISON = 'page-tracking-comparison';
+export const MANAGE_OPPORTUNITIES = 'manage-opportunities';
+export const MANAGE_REVIEWS = 'manage-reviews';
+export const MANAGE_STUDENTS = 'manage-students';
+export const MANAGE_VERIFICATIONS = 'manage-verifications';
 export const PRIVACY = 'privacy';
-export const REVIEWMODERATION = 'review-moderation';
-export const SCOREBOARD = 'scoreboard';
+export const FORECASTS = 'forecasts';
 export const STUDENT_REVIEWS = 'student-reviews';
 export const STUDENT_VERIFICATION = 'student-verification';
 export const USERNAME = ':username';
+export const VERIFICATION_REQUESTS = 'verification-requests';
 
 export const ANALYTICS = {
   HOME: 'analytics',
-  NEWSLETTER: 'newsletter',
-  OVERHEADANALYSIS: 'overhead-analysis',
-  STUDENTSUMMARY: 'student-summary',
-  USERINTERACTIONS: 'user-interactions',
+  NEWSLETTER: 'analytics/newsletter',
+  OVERHEAD_ANALYSIS: 'analytics/overhead-analysis',
+  STUDENT_SUMMARY: 'analytics/student-summary',
+  USER_INTERACTIONS: 'analytics/user-interactions',
+};
+
+export const DATABASE = {
+  HOME: 'database',
+  DUMP: 'database/dump',
+  INTEGRITY_CHECK: 'database/integrity-check',
+};
+
+export const DATAMODEL = {
+  HOME: 'datamodel',
+  ACADEMIC_TERMS: 'datamodel/academic-terms',
+  ACADEMIC_YEAR_INSTANCES: 'datamodel/academic-year-instances',
+  CAREERGOALS: 'datamodel/careergoals',
+  COURSE_INSTANCES: 'datamodel/course-instances',
+  COURSES: 'datamodel/courses',
+  FEEDS: 'datamodel/feeds',
+  FEEDBACK_INSTANCES: 'datamodel/feedback-instances',
+  HELP_MESSAGES: 'datamodel/help-messages',
+  INTERESTS: 'datamodel/interests',
+  INTEREST_TYPES: 'datamodel/interest-types',
+  OPPORTUNITIES: 'datamodel/opportunities',
+  OPPORTUNITY_INSTANCES: 'datamodel/opportunity-instances',
+  OPPORTUNITY_TYPES: 'datamodel/opportunity-types',
+  REVIEWS: 'datamodel/reviews',
+  SLUGS: 'datamodel/slugs',
+  TEASERS: 'datamodel/teasers',
+  USERS: 'datamodel/users',
+  VERIFICATION_REQUESTS: 'datamodel/verification-requests',
 };
 
 // The roles based on the URL (i.e., /student/abi@hawaii => the role is student)
@@ -36,6 +62,18 @@ export const URL_ROLES = {
   STUDENT: ROLE.STUDENT.toLowerCase(),
 };
 
+export const EXPLORER = {
+  HOME: 'explorer',
+  CAREERGOALS: 'explorer/career-goals',
+  COURSES: 'explorer/courses',
+  INTERESTS: 'explorer/interests',
+  OPPORTUNITIES: 'explorer/opportunities',
+  CAREERGOALS_PARAM: 'explorer/career-goals/:careergoal',
+  COURSES_PARAM: 'explorer/courses/:course',
+  INTERESTS_PARAM: 'explorer/interests/:interest',
+  OPPORTUNITIES_PARAM: 'explorer/opportunities/:opportunity',
+};
+
 export const EXPLORER_TYPE = {
   HOME: 'explorer',
   CAREERGOALS: 'career-goals',
@@ -43,12 +81,4 @@ export const EXPLORER_TYPE = {
   INTERESTS: 'interests',
   OPPORTUNITIES: 'opportunities',
   FACULTY: 'faculty',
-};
-
-export const EXPLORER_PARAM = {
-  CAREERGOAL: ':careergoal',
-  COURSE: ':course',
-  INTEREST: ':interest',
-  OPPORTUNITY: ':opportunity',
-  FACULTY: ':faculty',
 };

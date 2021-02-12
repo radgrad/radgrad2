@@ -4,7 +4,7 @@ import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import _ from 'lodash';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
-import ListOpportunitiesWidget from '../../components/faculty/manage-opportunities/FacultyListOpportunitiesWidget';
+import ListOpportunitiesWidget from '../../components/shared/manage-opportunities/ListOpportunitiesWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import { AcademicTerm, BaseProfile, DescriptionPair, HelpMessage, Interest, Opportunity, OpportunityType } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
@@ -78,7 +78,7 @@ const itemTitle = (item: Opportunity): React.ReactNode => (
   </React.Fragment>
 );
 
-interface FacultyManageOpportunitiesPageProps {
+interface ManageOpportunitiesPageProps {
   sponsors: BaseProfile[];
   terms: AcademicTerm[];
   interests: Interest[];
@@ -86,7 +86,7 @@ interface FacultyManageOpportunitiesPageProps {
   helpMessages: HelpMessage[];
 }
 
-const FacultyManageOpportunitiesPage: React.FC<FacultyManageOpportunitiesPageProps> = ({ sponsors, helpMessages, interests, terms, opportunityTypes }) => {
+const ManageOpportunitiesPage: React.FC<ManageOpportunitiesPageProps> = ({ sponsors, helpMessages, interests, terms, opportunityTypes }) => {
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');
@@ -204,7 +204,7 @@ const FacultyManageOpportunitiesPage: React.FC<FacultyManageOpportunitiesPagePro
     sort: { name: 1 }, // determine how you want to sort the items in the list
   };
   return (
-    <PageLayout id="faculty-manage-opportunities-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
+    <PageLayout id="manage-opportunities-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
       <Grid>
         <Grid.Row>
           <Grid.Column>
@@ -262,4 +262,4 @@ export default withTracker(() => {
     opportunityTypes,
     helpMessages,
   };
-})(FacultyManageOpportunitiesPage);
+})(ManageOpportunitiesPage);

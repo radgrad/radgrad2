@@ -4,8 +4,17 @@ import { NavLink, useParams, useRouteMatch } from 'react-router-dom';
 import FirstMenu from '../shared/FirstMenu';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { buildRouteName } from '../shared/utilities/router';
-import { EXPLORER_TYPE } from '../../layouts/utilities/route-constants';
 import { AdvisorOrFacultyProfile } from '../../../typings/radgrad';
+import {
+  COMMUNITY,
+  EXPLORER,
+  HOME,
+  MANAGE_OPPORTUNITIES,
+  MANAGE_VERIFICATIONS,
+  MANAGE_REVIEWS,
+  PRIVACY,
+  FORECASTS,
+} from '../../layouts/utilities/route-constants';
 
 const FacultyPageMenu: React.FC = () => {
   const match = useRouteMatch();
@@ -13,24 +22,24 @@ const FacultyPageMenu: React.FC = () => {
   const profile: AdvisorOrFacultyProfile = FacultyProfiles.getProfile(username);
 
   const menuItems = [
-    { label: 'Home', route: 'home' },
-    { label: 'Verification', route: 'verification-requests'},
-    { label: 'Review', route: 'review-moderation'},
-    { label: 'Privacy', route: 'privacy'},
-    { label: 'Scoreboard', route: 'scoreboard' },
-    { label: 'Community', route: 'community' },
+    { label: 'Home', route: HOME },
+    { label: 'Privacy', route: PRIVACY},
+    { label: 'Forecasts', route: FORECASTS },
+    { label: 'Community', route: COMMUNITY },
   ];
 
   const explorerDropdownItems = [
-    { label: 'Careers', route: EXPLORER_TYPE.CAREERGOALS },
-    { label: 'Courses', route: EXPLORER_TYPE.COURSES },
-    { label: 'Interests', route: EXPLORER_TYPE.INTERESTS },
-    { label: 'Opportunities', route: EXPLORER_TYPE.OPPORTUNITIES },
+    { label: 'Careers', route: EXPLORER.CAREERGOALS },
+    { label: 'Courses', route: EXPLORER.COURSES },
+    { label: 'Interests', route: EXPLORER.INTERESTS },
+    { label: 'Opportunities', route: EXPLORER.OPPORTUNITIES },
   ];
 
   /* In future, Faculty should be able to manage courses as well. */
   const manageDropdownItems = [
-    { label: 'Opportunities', route: 'manage-opportunities' },
+    { label: 'Opportunities', route: MANAGE_OPPORTUNITIES },
+    { label: 'Verification', route: MANAGE_VERIFICATIONS},
+    { label: 'Review', route: MANAGE_REVIEWS},
   ];
 
   const instanceName = Meteor.settings.public.instanceName;
@@ -47,7 +56,7 @@ const FacultyPageMenu: React.FC = () => {
         <Dropdown item text="Explorers" id="faculty-menu-explorers">
           <Dropdown.Menu>
             {explorerDropdownItems.map((item) => (
-              <Dropdown.Item id={`faculty-menu-explorer-${item.label.toLowerCase()}`} key={item.label} as={NavLink} exact to={buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${item.route}`)} content={item.label} />
+              <Dropdown.Item id={`faculty-menu-explorer-${item.label.toLowerCase()}`} key={item.label} as={NavLink} exact to={buildRouteName(match, `/${item.route}`)} content={item.label} />
             ))}
           </Dropdown.Menu>
         </Dropdown>
