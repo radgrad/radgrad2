@@ -1,34 +1,114 @@
 import React from 'react';
-import { SemanticWIDTHS } from 'semantic-ui-react';
-import { useParams } from 'react-router-dom';
-import { AdminProfiles } from '../../../api/user/AdminProfileCollection';
+import { Dropdown, Menu } from 'semantic-ui-react';
+import { NavLink, useParams, useRouteMatch } from 'react-router-dom';
 import FirstMenu from '../shared/FirstMenu';
-import { Reviews } from '../../../api/review/ReviewCollection';
-import SecondMenu from './SecondMenu';
+import { buildRouteName } from '../shared/utilities/router';
+import { AdminProfiles } from '../../../api/user/AdminProfileCollection';
+import {
+  COMMUNITY,
+  DATAMODEL,
+  DATABASE,
+  EXPLORER,
+  FORECASTS,
+  HOME,
+  MANAGE,
+  PRIVACY,
+} from '../../layouts/utilities/route-constants';
 
 const AdminPageMenu: React.FC = () => {
-  const divStyle = { marginBottom: 30 };
+  const match = useRouteMatch();
   const { username } = useParams();
   const profile = AdminProfiles.getProfile(username);
-  let numMod = 0;
-  numMod += Reviews.find({ moderated: false }).fetch().length;
-  let moderationLabel = 'Moderation';
-  if (numMod > 0) {
-    moderationLabel = `${moderationLabel} (${numMod})`;
-  }
+
   const menuItems = [
-    { id: 'second-menu-home', label: 'Home', route: 'home', regex: 'home' },
-    { id: 'second-menu-data-model', label: 'Data Model', route: 'datamodel', regex: 'datamodel' },
-    { id: 'second-menu-data-base', label: 'Data Base', route: 'database', regex: 'database' },
-    { id: 'second-menu-moderation', label: moderationLabel, route: 'manage-reviews', regex: 'moderation' },
-    { id: 'second-menu-analytics', label: 'Analytics', route: 'analytics', regex: 'analytics' },
-    { id: 'second-menu-scoreboard', label: 'Scoreboard', route: 'scoreboard', regex: 'scoreboard' },
+    { label: 'Home', route: HOME },
+    { label: 'Privacy', route: PRIVACY},
+    { label: 'Forecasts', route: FORECASTS },
+    { label: 'Community', route: COMMUNITY },
   ];
+
+  const explorerDropdownItems = [
+    { label: 'Careers', route: EXPLORER.CAREERGOALS },
+    { label: 'Courses', route: EXPLORER.COURSES },
+    { label: 'Interests', route: EXPLORER.INTERESTS },
+    { label: 'Opportunities', route: EXPLORER.OPPORTUNITIES },
+  ];
+
+  /* Admins don't manage opportunities, since that's part of the data model */
+  const manageDropdownItems = [
+    { label: 'Students', route: MANAGE.STUDENTS },
+    { label: 'Verification', route: MANAGE.VERIFICATIONS },
+    { label: 'Review', route: MANAGE.REVIEWS },
+  ];
+
+  const datamodelDropdownItems = [
+    { label: 'Academic Terms', route: DATAMODEL.ACADEMIC_TERMS},
+    { label: 'Academic Year Instances', route: DATAMODEL.ACADEMIC_YEAR_INSTANCES},
+    { label: 'Career Goals', route: DATAMODEL.CAREERGOALS},
+    { label: 'Course Instances', route: DATAMODEL.COURSE_INSTANCES},
+    { label: 'Courses', route: DATAMODEL.COURSES},
+    { label: 'Feeds', route: DATAMODEL.FEEDS},
+    { label: 'Feedback Instances', route: DATAMODEL.FEEDBACK_INSTANCES},
+    { label: 'Interests', route: DATAMODEL.INTERESTS},
+    { label: 'Interest Types', route: DATAMODEL.INTEREST_TYPES},
+    { label: 'Opportunities', route: DATAMODEL.OPPORTUNITIES},
+    { label: 'Opportunity Instances', route: DATAMODEL.OPPORTUNITY_INSTANCES},
+    { label: 'Opportunity Types', route: DATAMODEL.OPPORTUNITY_TYPES},
+    { label: 'Reviews', route: DATAMODEL.REVIEWS},
+    { label: 'Slugs', route: DATAMODEL.SLUGS},
+    { label: 'Teasers', route: DATAMODEL.TEASERS},
+    { label: 'Users', route: DATAMODEL.USERS},
+    { label: 'Verification Requests', route: DATAMODEL.VERIFICATION_REQUESTS},
+  ];
+
+  const databaseDropdownItems = [
+    { label: 'Dump database', route: DATABASE.DUMP},
+    { label: 'Integrity Check', route: DATABASE.INTEGRITY_CHECK},
+  ];
+
   const instanceName = Meteor.settings.public.instanceName;
   return (
-    <div style={divStyle}>
+    <div>
       <FirstMenu profile={profile} displayLevelAndIce={false} instanceName={instanceName} />
-      <SecondMenu menuItems={menuItems} numItems={menuItems.length as SemanticWIDTHS} />
+      <Menu borderless inverted stackable id="secondMenu" attached="top" style={{paddingLeft: '10px', marginTop: '0px'}}>
+        {menuItems.map((item) => (
+          <Menu.Item id={`admin-menu-${item.label.toLowerCase()}`} key={item.label} as={NavLink} exact={false} to={buildRouteName(match, `/${item.route}`)}>
+            {item.label}
+          </Menu.Item>
+        ))}
+
+        <Dropdown item text="Explorers" id="admin-menu-explorers">
+          <Dropdown.Menu>
+            {explorerDropdownItems.map((item) => (
+              <Dropdown.Item id={`admin-menu-explorer-${item.label.toLowerCase()}`} key={item.label} as={NavLink} exact to={buildRouteName(match, `/${item.route}`)} content={item.label} />
+            ))}
+          </Dropdown.Menu>
+        </Dropdown>
+
+        <Dropdown item text="Manage" id="admin-menu-manage">
+          <Dropdown.Menu>
+            {manageDropdownItems.map((item) => (
+              <Dropdown.Item id={`admin-menu-manage-${item.label.toLowerCase()}`} key={item.label} as={NavLink} exact to={buildRouteName(match, `/${item.route}`)} content={item.label} />
+            ))}
+          </Dropdown.Menu>
+        </Dropdown>
+
+        <Dropdown item text="Data Model" id="admin-menu-data-model">
+          <Dropdown.Menu>
+            {datamodelDropdownItems.map((item) => (
+              <Dropdown.Item id={`admin-menu-manage-${item.label.toLowerCase()}`} key={item.label} as={NavLink} exact to={buildRouteName(match, `/${item.route}`)} content={item.label} />
+            ))}
+          </Dropdown.Menu>
+        </Dropdown>
+
+        <Dropdown item text="Database" id="admin-menu-database">
+          <Dropdown.Menu>
+            {databaseDropdownItems.map((item) => (
+              <Dropdown.Item id={`admin-menu-manage-${item.label.toLowerCase()}`} key={item.label} as={NavLink} exact to={buildRouteName(match, `/${item.route}`)} content={item.label} />
+            ))}
+          </Dropdown.Menu>
+        </Dropdown>
+      </Menu>
     </div>
   );
 };

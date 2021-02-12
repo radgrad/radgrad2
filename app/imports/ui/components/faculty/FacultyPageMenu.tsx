@@ -9,9 +9,7 @@ import {
   COMMUNITY,
   EXPLORER,
   HOME,
-  MANAGE_OPPORTUNITIES,
-  MANAGE_VERIFICATIONS,
-  MANAGE_REVIEWS,
+  MANAGE,
   PRIVACY,
   FORECASTS,
 } from '../../layouts/utilities/route-constants';
@@ -37,9 +35,9 @@ const FacultyPageMenu: React.FC = () => {
 
   /* In future, Faculty should be able to manage courses as well. */
   const manageDropdownItems = [
-    { label: 'Opportunities', route: MANAGE_OPPORTUNITIES },
-    { label: 'Verification', route: MANAGE_VERIFICATIONS},
-    { label: 'Review', route: MANAGE_REVIEWS},
+    { label: 'Opportunities', route: MANAGE.OPPORTUNITIES },
+    { label: 'Verification', route: MANAGE.VERIFICATIONS},
+    { label: 'Review', route: MANAGE.REVIEWS},
   ];
 
   const instanceName = Meteor.settings.public.instanceName;

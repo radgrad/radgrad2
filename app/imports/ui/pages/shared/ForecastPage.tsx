@@ -28,7 +28,7 @@ When students add courses to their Degree Plan, information is provided about po
 
 This page provides summary statistics about student interest in courses and opportunities for future semesters.
 
-For more information, please see the [Faculty User Guide](https://www.radgrad.org/docs/users/faculty/overview).
+For more information, please see the [Faculty User Guide](https://www.radgrad.org/docs/users/faculty/overview?target=_blank).
 `;
 
 const ForecastPage: React.FC<ForecastPageProps> = ({ courses, courseScores, opportunities, oppScores, terms }) => (

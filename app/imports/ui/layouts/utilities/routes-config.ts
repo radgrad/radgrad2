@@ -77,10 +77,7 @@ import {
   HOME,
   ICE,
   LEVELS,
-  MANAGE_OPPORTUNITIES,
-  MANAGE_REVIEWS,
-  MANAGE_STUDENTS,
-  MANAGE_VERIFICATIONS,
+  MANAGE,
   PRIVACY,
   STUDENT_REVIEWS,
   STUDENT_VERIFICATION,
@@ -95,7 +92,18 @@ import {
 
 export const routes = {
   ADMIN: [
-    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${HOME}`, component: AdminHomePage },
+    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.HOME}`, component: AdminAnalyticsPage },
+    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.NEWSLETTER}`, component: AdminAnalyticsNewsletterPage },
+    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.OVERHEAD_ANALYSIS}`, component: AdminAnalyticsOverheadAnalysisPage },
+    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.STUDENT_SUMMARY}`, component: AdminAnalyticsStudentSummaryPage },
+    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.USER_INTERACTIONS}`, component: AdminAnalyticsUserInteractionsPage },
+
+    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${COMMUNITY}`, component: CommunityPage },
+    
+    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATABASE.HOME}`, component: AdminDatabasePage },
+    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATABASE.DUMP}`, component: AdminDumpDatabasePage },
+    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATABASE.INTEGRITY_CHECK}`, component: AdminCheckDatabaseIntegrityPage },
+    
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL.HOME}`, component: AdminDataModelPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL.ACADEMIC_TERMS}`, component: AdminDataModelAcademicTermsPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL.ACADEMIC_YEAR_INSTANCES}`, component: AdminDataModelAcademicYearsPage },
@@ -115,16 +123,26 @@ export const routes = {
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL.TEASERS}`, component: AdminDataModelTeasersPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL.USERS}`, component: AdminDataModelUsersPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL.VERIFICATION_REQUESTS}`, component: AdminDataModelVerificationRequestsPage },
-    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATABASE.HOME}`, component: AdminDatabasePage },
-    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATABASE.DUMP}`, component: AdminDumpDatabasePage },
-    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATABASE.INTEGRITY_CHECK}`, component: AdminCheckDatabaseIntegrityPage },
-    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.HOME}`, component: AdminAnalyticsPage },
-    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.NEWSLETTER}`, component: AdminAnalyticsNewsletterPage },
-    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.OVERHEAD_ANALYSIS}`, component: AdminAnalyticsOverheadAnalysisPage },
-    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.STUDENT_SUMMARY}`, component: AdminAnalyticsStudentSummaryPage },
-    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.USER_INTERACTIONS}`, component: AdminAnalyticsUserInteractionsPage },
+
+    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${EXPLORER.CAREERGOALS}`, component: CareerGoalBrowserViewPage },
+    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${EXPLORER.CAREERGOALS_PARAM}`, component: CareerGoalViewPage },
+    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${EXPLORER.COURSES}`, component: CourseBrowserViewPage },
+    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${EXPLORER.COURSES_PARAM}`, component: CourseViewPage },
+    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${EXPLORER.INTERESTS}`, component: InterestBrowserViewPage },
+    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${EXPLORER.INTERESTS_PARAM}`, component: InterestViewPage },
+    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${EXPLORER.OPPORTUNITIES}`, component: ExplorerOpportunitiesPage },
+    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${EXPLORER.OPPORTUNITIES_PARAM}`, component: OpportunityViewPage },
+
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${FORECASTS}`, component: ForecastPage },
-    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${MANAGE_REVIEWS}`, component: ManageReviewsPage },
+    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${HOME}`, component: AdminHomePage },
+    
+    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${MANAGE.REVIEWS}`, component: ManageReviewsPage },
+    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${MANAGE.STUDENTS}`, component: AdvisorManageStudentsPage },
+    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${MANAGE.REVIEWS}`, component: ManageReviewsPage },
+    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${MANAGE.VERIFICATIONS}`, component: ManageVerificationsPage  },
+
+    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${PRIVACY}`, component: AdvisorFacultyPrivacyPage },
+
   ],
 
   ADVISOR: [
@@ -139,10 +157,10 @@ export const routes = {
     { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${EXPLORER.OPPORTUNITIES_PARAM}`, component: OpportunityViewPage },
     { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${FORECASTS}`, component: ForecastPage },
     { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${HOME}`, component: AdvisorHomePage },
-    { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${MANAGE_OPPORTUNITIES}`, component: ManageOpportunitiesPage },
-    { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${MANAGE_STUDENTS}`, component: AdvisorManageStudentsPage },
-    { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${MANAGE_REVIEWS}`, component: ManageReviewsPage },
-    { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${MANAGE_VERIFICATIONS}`, component: ManageVerificationsPage  },
+    { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${MANAGE.OPPORTUNITIES}`, component: ManageOpportunitiesPage },
+    { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${MANAGE.STUDENTS}`, component: AdvisorManageStudentsPage },
+    { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${MANAGE.REVIEWS}`, component: ManageReviewsPage },
+    { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${MANAGE.VERIFICATIONS}`, component: ManageVerificationsPage  },
     { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${PRIVACY}`, component: AdvisorFacultyPrivacyPage },
   ],
 
@@ -162,9 +180,9 @@ export const routes = {
     { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER.OPPORTUNITIES_PARAM}`, component: OpportunityViewPage },
     { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${FORECASTS}`, component: ForecastPage },
     { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${HOME}`, component: FacultyHomePage },
-    { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${MANAGE_OPPORTUNITIES}`, component: ManageOpportunitiesPage },
-    { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${MANAGE_REVIEWS}`, component: ManageReviewsPage },
-    { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${MANAGE_VERIFICATIONS}`, component: ManageVerificationsPage },
+    { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${MANAGE.OPPORTUNITIES}`, component: ManageOpportunitiesPage },
+    { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${MANAGE.REVIEWS}`, component: ManageReviewsPage },
+    { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${MANAGE.VERIFICATIONS}`, component: ManageVerificationsPage },
     { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${PRIVACY}`, component: AdvisorFacultyPrivacyPage },
     { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${VERIFICATION_REQUESTS}`, component: FacultyVerificationPage },
   ],

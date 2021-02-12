@@ -6,16 +6,19 @@ export const DEGREEPLANNER = 'degree-planner';
 export const HOME = 'home';
 export const ICE = 'ice';
 export const LEVELS = 'levels';
-export const MANAGE_OPPORTUNITIES = 'manage-opportunities';
-export const MANAGE_REVIEWS = 'manage-reviews';
-export const MANAGE_STUDENTS = 'manage-students';
-export const MANAGE_VERIFICATIONS = 'manage-verifications';
 export const PRIVACY = 'privacy';
 export const FORECASTS = 'forecasts';
 export const STUDENT_REVIEWS = 'student-reviews';
 export const STUDENT_VERIFICATION = 'student-verification';
 export const USERNAME = ':username';
 export const VERIFICATION_REQUESTS = 'verification-requests';
+
+export const MANAGE = {
+  OPPORTUNITIES: 'manage-opportunities',
+  REVIEWS: 'manage-reviews',
+  VERIFICATIONS: 'manage-verifications',
+  STUDENTS: 'manage-students',
+};
 
 export const ANALYTICS = {
   HOME: 'analytics',

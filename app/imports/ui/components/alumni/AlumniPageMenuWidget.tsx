@@ -8,9 +8,10 @@ const divStyle = { marginBottom: 30 };
 const AlumniPageMenuWidget: React.FC = () => {
   const { username } = useParams();
   const profile = StudentProfiles.getProfile(username);
+  const instanceName = Meteor.settings.public.instanceName;
   return (
     <div style={divStyle}>
-      <FirstMenuContainer profile={profile} displayLevelAndIce={false} />
+      <FirstMenuContainer profile={profile} displayLevelAndIce={false} instanceName={instanceName} />
     </div>
   );
 };
