@@ -7,8 +7,6 @@ import {
   adminDatabasePage,
   adminDataModelPage,
   adminHomePage,
-  adminModerationPage,
-  adminScoreboardPage,
 } from './simple.page';
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
