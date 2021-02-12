@@ -3,16 +3,11 @@ import { signinPage } from './signin.page';
 import { studentHomePage } from './student.home.page';
 import { studentNavBar } from './navbar.student.component';
 import {
-  studentCareerGoalsExplorerPage,
-  studentInterestsExplorerPage,
-  studentOpportunitiesPage,
   studentDegreePlannerPage,
-  studentCoursesExplorerPage,
   studentICEPointsPage,
   studentLevelsPage,
   studentVerificationPage,
   studentReviewsPage,
-  studentCommunityPage,
   studentPrivacyPage,
   interestExplorerPage,
   careerGoalExplorerPage,

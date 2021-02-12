@@ -14,7 +14,7 @@ import {
   PRIVACY,
   FORECASTS,
   COMMUNITY,
-  EXPLORER
+  EXPLORER,
 } from '../../layouts/utilities/route-constants';
 
 // TODO: Advisor menu and Faculty menu currently differ by only one item: Manage Students page.

@@ -3,8 +3,12 @@ import { adminNavBar } from './navbar.admin.component';
 import { signinPage } from './signin.page';
 import { landingPage } from './landing.page';
 import {
-  adminAnalyticsPage, adminDatabasePage, adminDataModelPage, adminHomePage,
-  adminModerationPage, adminScoreboardPage,
+  adminAnalyticsPage,
+  adminDatabasePage,
+  adminDataModelPage,
+  adminHomePage,
+  adminModerationPage,
+  adminScoreboardPage,
 } from './simple.page';
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare

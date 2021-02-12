@@ -3,9 +3,6 @@ import { advisorNavBar } from './navbar.advisor.component';
 import { signinPage } from './signin.page';
 import {
   advisorHomePage,
-  advisorVerificationRequestsPage,
-  advisorModerationPage,
-  advisorScoreboardPage,
   advisorFacultyPrivacyPage,
   forecastsPage,
   communityPage,
@@ -15,7 +12,8 @@ import {
   opportunityExplorerPage,
   manageStudentsPage,
   manageVerificationPage,
-  manageReviewsPage, manageOpportunitiesPage
+  manageReviewsPage,
+  manageOpportunitiesPage,
 } from './simple.page';
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare

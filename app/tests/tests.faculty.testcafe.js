@@ -2,22 +2,17 @@ import { landingNavBar } from './navbar.landing.component';
 import { facultyNavBar } from './navbar.faculty.component';
 import { signinPage } from './signin.page';
 import {
-  facultyCareerGoalsPage,
-  facultyCoursesPage,
-  facultyOpportunitiesPage,
-  facultyInterestsPage,
   facultyHomePage,
-  facultyVerificationPage,
   manageOpportunitiesPage,
   manageReviewsPage,
   communityPage,
-  facultyPrivacyPage,
   forecastsPage,
   careerGoalExplorerPage,
   interestExplorerPage,
   opportunityExplorerPage,
   courseExplorerPage,
-  advisorFacultyPrivacyPage, manageVerificationPage,
+  advisorFacultyPrivacyPage,
+  manageVerificationPage,
 } from './simple.page';
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
