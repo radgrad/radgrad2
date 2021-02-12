@@ -56,7 +56,7 @@ const AdminDataModelMenu: React.FC<AdminDataModeMenuProps> = ({
       <Menu.Item id="data-model-academic-year-instances" as={NavLink} exact to={`${baseRoute}academic-year-instances`}>
         Academic Year Instances ({academicYearCount})
       </Menu.Item>
-      <Menu.Item id="data-model-career-goals" as={NavLink} exact to={`${baseRoute}career-goals`}>
+      <Menu.Item id="data-model-career-goals" as={NavLink} exact to={`${baseRoute}careergoals`}>
         Career Goals ({careerGoalCount})
       </Menu.Item>
       <Menu.Item id="data-model-course-instances" as={NavLink} exact to={`${baseRoute}course-instances`}>

@@ -20,7 +20,7 @@ const AdminPageMenu: React.FC = () => {
     { id: 'second-menu-home', label: 'Home', route: 'home', regex: 'home' },
     { id: 'second-menu-data-model', label: 'Data Model', route: 'datamodel', regex: 'datamodel' },
     { id: 'second-menu-data-base', label: 'Data Base', route: 'database', regex: 'database' },
-    { id: 'second-menu-moderation', label: moderationLabel, route: 'moderation', regex: 'moderation' },
+    { id: 'second-menu-moderation', label: moderationLabel, route: 'manage-reviews', regex: 'moderation' },
     { id: 'second-menu-analytics', label: 'Analytics', route: 'analytics', regex: 'analytics' },
     { id: 'second-menu-scoreboard', label: 'Scoreboard', route: 'scoreboard', regex: 'scoreboard' },
   ];

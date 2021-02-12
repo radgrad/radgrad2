@@ -1,6 +1,8 @@
 import React from 'react';
-import {Header} from 'semantic-ui-react';
+import {withTracker} from 'meteor/react-meteor-data';
 import PageLayout from '../PageLayout';
+import {Reviews} from '../../../api/review/ReviewCollection';
+import AdminModerationWidget, { ModerationWidgetProps } from '../../components/shared/moderation/ModerationWidget';
 
 const headerPaneTitle = 'Manage student-submitted reviews';
 const headerPaneBody = `
@@ -9,10 +11,15 @@ Students can submit reviews of courses and opportunities.
 Faculty and advisors should check these reviews to ensure they are appropriate for public display.
 `;
 
-const ManageReviewsPage: React.FC = () => (
+const ManageReviewsPage: React.FC<ModerationWidgetProps> = ({ courseReviews, opportunityReviews }) => (
   <PageLayout id="manage-reviews-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
-    <Header>Manage Reviews Page Placeholder</Header>
+    <AdminModerationWidget courseReviews={courseReviews} opportunityReviews={opportunityReviews} />
   </PageLayout>
 );
 
-export default ManageReviewsPage;
+const ManageReviewsPageContainer = withTracker(() => ({
+  opportunityReviews: Reviews.findNonRetired({ moderated: false, reviewType: 'opportunity' }),
+  courseReviews: Reviews.findNonRetired({ moderated: false, reviewType: 'course' }),
+}))(ManageReviewsPage);
+
+export default ManageReviewsPageContainer;

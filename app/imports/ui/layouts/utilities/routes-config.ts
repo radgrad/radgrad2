@@ -124,6 +124,7 @@ export const routes = {
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.STUDENT_SUMMARY}`, component: AdminAnalyticsStudentSummaryPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.USER_INTERACTIONS}`, component: AdminAnalyticsUserInteractionsPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${FORECASTS}`, component: ForecastPage },
+    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${MANAGE_REVIEWS}`, component: ManageReviewsPage },
   ],
 
   ADVISOR: [
