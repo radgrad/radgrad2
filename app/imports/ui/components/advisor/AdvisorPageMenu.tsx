@@ -12,7 +12,7 @@ import {
   MANAGE_VERIFICATIONS,
   MANAGE_REVIEWS,
   PRIVACY,
-  SCOREBOARD,
+  FORECASTS,
   COMMUNITY,
   EXPLORER
 } from '../../layouts/utilities/route-constants';
@@ -28,7 +28,7 @@ const AdvisorPageMenu: React.FC = () => {
   const menuItems = [
     { label: 'Home', route: HOME },
     { label: 'Privacy', route: PRIVACY},
-    { label: 'Scoreboard', route: SCOREBOARD },
+    { label: 'Forecasts', route: FORECASTS },
     { label: 'Community', route: COMMUNITY },
   ];
 

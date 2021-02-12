@@ -57,7 +57,7 @@ import ManageOpportunitiesPage from '../../pages/shared/ManageOpportunitiesPage'
 import ManageVerificationsPage from '../../pages/shared/ManageVerificationsPage';
 import ManageReviewsPage from '../../pages/shared/ManageReviewsPage';
 import OpportunityViewPage from '../../pages/shared/item-view/OpportunityViewPage';
-import ScoreboardPage from '../../pages/shared/ScoreboardPage';
+import ForecastPage from '../../pages/shared/ForecastPage';
 import StudentHomePage from '../../pages/student/StudentHomePage';
 import StudentDegreePlannerPage from '../../pages/student/StudentDegreePlannerPage';
 import StudentIcePage from '../../pages/student/StudentIcePage';
@@ -73,6 +73,7 @@ import {
   DATAMODEL,
   DEGREEPLANNER,
   EXPLORER,
+  FORECASTS,
   HOME,
   ICE,
   LEVELS,
@@ -81,7 +82,6 @@ import {
   MANAGE_STUDENTS,
   MANAGE_VERIFICATIONS,
   PRIVACY,
-  SCOREBOARD,
   STUDENT_REVIEWS,
   STUDENT_VERIFICATION,
   URL_ROLES,
@@ -123,7 +123,7 @@ export const routes = {
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.OVERHEAD_ANALYSIS}`, component: AdminAnalyticsOverheadAnalysisPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.STUDENT_SUMMARY}`, component: AdminAnalyticsStudentSummaryPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.USER_INTERACTIONS}`, component: AdminAnalyticsUserInteractionsPage },
-    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${SCOREBOARD}`, component: ScoreboardPage },
+    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${FORECASTS}`, component: ForecastPage },
   ],
 
   ADVISOR: [
@@ -136,13 +136,13 @@ export const routes = {
     { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${EXPLORER.INTERESTS_PARAM}`, component: InterestViewPage },
     { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${EXPLORER.OPPORTUNITIES}`, component: ExplorerOpportunitiesPage },
     { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${EXPLORER.OPPORTUNITIES_PARAM}`, component: OpportunityViewPage },
+    { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${FORECASTS}`, component: ForecastPage },
     { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${HOME}`, component: AdvisorHomePage },
     { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${MANAGE_OPPORTUNITIES}`, component: ManageOpportunitiesPage },
     { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${MANAGE_STUDENTS}`, component: AdvisorManageStudentsPage },
     { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${MANAGE_REVIEWS}`, component: ManageReviewsPage },
     { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${MANAGE_VERIFICATIONS}`, component: ManageVerificationsPage  },
     { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${PRIVACY}`, component: AdvisorFacultyPrivacyPage },
-    { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${SCOREBOARD}`, component: ScoreboardPage },
   ],
 
   ALUMNI: [
@@ -159,11 +159,12 @@ export const routes = {
     { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER.INTERESTS_PARAM}`, component: InterestViewPage },
     { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER.OPPORTUNITIES}`, component: ExplorerOpportunitiesPage },
     { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER.OPPORTUNITIES_PARAM}`, component: OpportunityViewPage },
+    { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${FORECASTS}`, component: ForecastPage },
     { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${HOME}`, component: FacultyHomePage },
     { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${MANAGE_OPPORTUNITIES}`, component: ManageOpportunitiesPage },
     { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${MANAGE_REVIEWS}`, component: ManageReviewsPage },
+    { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${MANAGE_VERIFICATIONS}`, component: ManageVerificationsPage },
     { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${PRIVACY}`, component: AdvisorFacultyPrivacyPage },
-    { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${SCOREBOARD}`, component: ScoreboardPage },
     { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${VERIFICATION_REQUESTS}`, component: FacultyVerificationPage },
   ],
 

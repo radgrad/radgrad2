@@ -11,7 +11,7 @@ export const MANAGE_REVIEWS = 'manage-reviews';
 export const MANAGE_STUDENTS = 'manage-students';
 export const MANAGE_VERIFICATIONS = 'manage-verifications';
 export const PRIVACY = 'privacy';
-export const SCOREBOARD = 'scoreboard';
+export const FORECASTS = 'forecasts';
 export const STUDENT_REVIEWS = 'student-reviews';
 export const STUDENT_VERIFICATION = 'student-verification';
 export const USERNAME = ':username';
@@ -64,11 +64,11 @@ export const URL_ROLES = {
 
 export const EXPLORER = {
   HOME: 'explorer',
-  CAREERGOALS: 'explorer/careergoals',
+  CAREERGOALS: 'explorer/career-goals',
   COURSES: 'explorer/courses',
   INTERESTS: 'explorer/interests',
   OPPORTUNITIES: 'explorer/opportunities',
-  CAREERGOALS_PARAM: 'explorer/careergoals/:careergoal',
+  CAREERGOALS_PARAM: 'explorer/career-goals/:careergoal',
   COURSES_PARAM: 'explorer/courses/:course',
   INTERESTS_PARAM: 'explorer/interests/:interest',
   OPPORTUNITIES_PARAM: 'explorer/opportunities/:opportunity',

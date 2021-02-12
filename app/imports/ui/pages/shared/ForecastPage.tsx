@@ -9,12 +9,12 @@ import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstan
 import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
 import { CourseScoreboard, OpportunityScoreboard } from '../../../startup/client/collections';
 import { AcademicTerm, Course, Opportunity, Scoreboard } from '../../../typings/radgrad';
-import CourseScoreboardWidget from '../../components/shared/scoreboard/CourseScoreboardWidget';
-import OpportunityScoreboardWidget from '../../components/shared/scoreboard/OpportunityScoreboardWidget';
+import CourseForecast from '../../components/shared/scoreboard/CourseForecast';
+import OpportunityForecast from '../../components/shared/scoreboard/OpportunityForecast';
 import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
 import PageLayout from '../PageLayout';
 
-export interface ScoreboardPageProps {
+export interface ForecastPageProps {
   courses: Course[];
   courseScores: Scoreboard[];
   opportunities: Opportunity[];
@@ -22,7 +22,7 @@ export interface ScoreboardPageProps {
   oppScores: Scoreboard[];
 }
 
-const headerPaneTitle = 'Use scoreboards to predict future enrollment';
+const headerPaneTitle = 'Use forecasts to predict future enrollment';
 const headerPaneBody = `
 When students add courses to their Degree Plan, information is provided about potential future enrollment.
 
@@ -31,14 +31,14 @@ This page provides summary statistics about student interest in courses and oppo
 For more information, please see the [Faculty User Guide](https://www.radgrad.org/docs/users/faculty/overview).
 `;
 
-const ScoreboardPage: React.FC<ScoreboardPageProps> = ({ courses, courseScores, opportunities, oppScores, terms }) => (
+const ForecastPage: React.FC<ForecastPageProps> = ({ courses, courseScores, opportunities, oppScores, terms }) => (
     <PageLayout id="scoreboard-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
-      <CourseScoreboardWidget courses={courses} terms={terms} scores={courseScores} />
-      <OpportunityScoreboardWidget opportunities={opportunities} terms={terms} scores={oppScores} />
+      <CourseForecast courses={courses} terms={terms} scores={courseScores} />
+      <OpportunityForecast opportunities={opportunities} terms={terms} scores={oppScores} />
     </PageLayout>
 );
 
-const ScoreboardPageContainer = withTracker(() => {
+const ForecastPageContainer = withTracker(() => {
   const courses = Courses.findNonRetired({ num: { $ne: 'other' } }, { sort: { num: 1 } });
   const helpMessages = HelpMessages.findNonRetired({});
   const opportunities = Opportunities.findNonRetired({}, { sort: { name: 1 } });
@@ -62,6 +62,6 @@ const ScoreboardPageContainer = withTracker(() => {
     oppScores,
     terms,
   };
-})(ScoreboardPage);
+})(ForecastPage);
 
-export default withListSubscriptions(ScoreboardPageContainer, [CourseInstances.getPublicationNames().scoreboard, OpportunityInstances.getPublicationNames().scoreboard]);
+export default withListSubscriptions(ForecastPageContainer, [CourseInstances.getPublicationNames().scoreboard, OpportunityInstances.getPublicationNames().scoreboard]);
