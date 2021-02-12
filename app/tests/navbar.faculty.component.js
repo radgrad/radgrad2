@@ -15,20 +15,12 @@ class FacultyNavBar {
     await testController.click('#faculty-menu-home');
   }
 
-  async gotoVerificationPage(testController) {
-    await testController.click('#faculty-menu-verification');
-  }
-
-  async gotoReviewPage(testController) {
-    await testController.click('#faculty-menu-review');
-  }
-
   async gotoPrivacyPage(testController) {
     await testController.click('#faculty-menu-privacy');
   }
 
-  async gotoScoreboardPage(testController) {
-    await testController.click('#faculty-menu-scoreboard');
+  async gotoForecastsPage(testController) {
+    await testController.click('#faculty-menu-forecasts');
   }
 
   async gotoCommunityPage(testController) {
@@ -58,6 +50,16 @@ class FacultyNavBar {
   async gotoManageOpportunitiesPage(testController) {
     await testController.click('#faculty-menu-manage');
     await testController.click('#faculty-menu-manage-opportunities');
+  }
+
+  async gotoManageVerificationPage(testController) {
+    await testController.click('#faculty-menu-manage');
+    await testController.click('#faculty-menu-manage-verification');
+  }
+
+  async gotoManageReviewPage(testController) {
+    await testController.click('#faculty-menu-manage');
+    await testController.click('#faculty-menu-manage-review');
   }
 
   /** Check that the specified user is currently logged in. */

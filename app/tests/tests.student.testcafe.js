@@ -14,6 +14,11 @@ import {
   studentReviewsPage,
   studentCommunityPage,
   studentPrivacyPage,
+  interestExplorerPage,
+  careerGoalExplorerPage,
+  courseExplorerPage,
+  opportunityExplorerPage,
+  communityPage,
 } from './simple.page';
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
@@ -42,16 +47,16 @@ test('Test all student top-level pages', async (testController) => {
   await studentHomePage.isDisplayed(testController);
 
   await studentNavBar.gotoInterestsExplorerPage(testController);
-  await studentInterestsExplorerPage.isDisplayed(testController);
+  await interestExplorerPage.isDisplayed(testController);
 
   await studentNavBar.gotoCareerGoalsExplorerPage(testController);
-  await studentCareerGoalsExplorerPage.isDisplayed(testController);
+  await careerGoalExplorerPage.isDisplayed(testController);
 
   await studentNavBar.gotoCourseExplorerPage(testController);
-  await studentCoursesExplorerPage.isDisplayed(testController);
+  await courseExplorerPage.isDisplayed(testController);
 
   await studentNavBar.gotoOpportunitiesPage(testController);
-  await studentOpportunitiesPage.isDisplayed(testController);
+  await opportunityExplorerPage.isDisplayed(testController);
 
   await studentNavBar.gotoDegreePlannerPage(testController);
   await studentDegreePlannerPage.isDisplayed(testController);
@@ -72,5 +77,5 @@ test('Test all student top-level pages', async (testController) => {
   await studentReviewsPage.isDisplayed(testController);
 
   await studentNavBar.gotoCommunityPage(testController);
-  await studentCommunityPage.isDisplayed(testController);
+  await communityPage.isDisplayed(testController);
 });

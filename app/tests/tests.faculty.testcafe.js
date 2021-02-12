@@ -1,7 +1,24 @@
 import { landingNavBar } from './navbar.landing.component';
 import { facultyNavBar } from './navbar.faculty.component';
 import { signinPage } from './signin.page';
-import { facultyHomePage, facultyManageOpportunitiesPage, facultyVerificationPage, facultyReviewPage, facultyCareerGoalsPage, facultyCommunityPage, facultyCoursesPage, facultyInterestsPage, facultyOpportunitiesPage, facultyPrivacyPage, facultyScoreboardPage } from './simple.page';
+import {
+  facultyCareerGoalsPage,
+  facultyCoursesPage,
+  facultyOpportunitiesPage,
+  facultyInterestsPage,
+  facultyHomePage,
+  facultyVerificationPage,
+  manageOpportunitiesPage,
+  manageReviewsPage,
+  communityPage,
+  facultyPrivacyPage,
+  forecastsPage,
+  careerGoalExplorerPage,
+  interestExplorerPage,
+  opportunityExplorerPage,
+  courseExplorerPage,
+  advisorFacultyPrivacyPage, manageVerificationPage,
+} from './simple.page';
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 /* global fixture:false, test:false */
@@ -27,33 +44,34 @@ test('Test faculty top-level pages', async (testController) => {
   await facultyNavBar.gotoHomePage(testController);
   await facultyHomePage.isDisplayed(testController);
 
-  await facultyNavBar.gotoVerificationPage(testController);
-  await facultyVerificationPage.isDisplayed(testController);
-
-  await facultyNavBar.gotoReviewPage(testController);
-  await facultyReviewPage.isDisplayed(testController);
-
   await facultyNavBar.gotoPrivacyPage(testController);
-  await facultyPrivacyPage.isDisplayed(testController);
+  await advisorFacultyPrivacyPage.isDisplayed(testController);
 
-  await facultyNavBar.gotoScoreboardPage(testController);
-  await facultyScoreboardPage.isDisplayed(testController);
+  await facultyNavBar.gotoForecastsPage(testController);
+  await forecastsPage.isDisplayed(testController);
 
   await facultyNavBar.gotoCommunityPage(testController);
-  await facultyCommunityPage.isDisplayed(testController);
-
-  await facultyNavBar.gotoCoursesExplorerPage(testController);
-  await facultyCoursesPage.isDisplayed(testController);
+  await communityPage.isDisplayed(testController);
 
   await facultyNavBar.gotoCareerGoalsExplorerPage(testController);
-  await facultyCareerGoalsPage.isDisplayed(testController);
+  await careerGoalExplorerPage.isDisplayed(testController);
+
+  await facultyNavBar.gotoCoursesExplorerPage(testController);
+  await courseExplorerPage.isDisplayed(testController);
 
   await facultyNavBar.gotoInterestsExplorerPage(testController);
-  await facultyInterestsPage.isDisplayed(testController);
+  await interestExplorerPage.isDisplayed(testController);
 
   await facultyNavBar.gotoOpportunitiesExplorerPage(testController);
-  await facultyOpportunitiesPage.isDisplayed(testController);
+  await opportunityExplorerPage.isDisplayed(testController);
 
   await facultyNavBar.gotoManageOpportunitiesPage(testController);
-  await facultyManageOpportunitiesPage.isDisplayed(testController);
+  await manageOpportunitiesPage.isDisplayed(testController);
+
+  await facultyNavBar.gotoManageVerificationPage(testController);
+  await manageVerificationPage.isDisplayed(testController);
+
+  await facultyNavBar.gotoManageReviewPage(testController);
+  await manageReviewsPage.isDisplayed(testController);
+
 });

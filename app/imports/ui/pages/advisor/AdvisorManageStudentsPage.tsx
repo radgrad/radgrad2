@@ -55,7 +55,7 @@ For more details, please see [RadGrad Advisor User Guide](https://www.radgrad.or
 const AdvisorManageStudentsPage: React.FC<FilterStudents> = ({ helpMessages, interests, careerGoals, usernameDoc, selectedUsername, students, alumni }) => {
   const { username } = useParams();
   return (
-    <PageLayout id="advisor-home-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
+    <PageLayout id="manage-students-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
         <Grid stackable>
           <Grid.Row>
             <Grid.Column width={16}>

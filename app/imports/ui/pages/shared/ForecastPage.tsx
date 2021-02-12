@@ -32,7 +32,7 @@ For more information, please see the [Faculty User Guide](https://www.radgrad.or
 `;
 
 const ForecastPage: React.FC<ForecastPageProps> = ({ courses, courseScores, opportunities, oppScores, terms }) => (
-    <PageLayout id="scoreboard-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
+    <PageLayout id="forecasts-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
       <CourseForecast courses={courses} terms={terms} scores={courseScores} />
       <OpportunityForecast opportunities={opportunities} terms={terms} scores={oppScores} />
     </PageLayout>
