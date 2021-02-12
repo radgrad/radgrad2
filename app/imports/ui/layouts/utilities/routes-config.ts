@@ -20,7 +20,6 @@ import AdminDataModelCourseInstancesPage from '../../pages/admin/AdminDataModelC
 import AdminDataModelCoursesPage from '../../pages/admin/AdminDataModelCoursesPage';
 import AdminDataModelFeedsPage from '../../pages/admin/AdminDataModelFeedsPage';
 import AdminDataModelFeedbackInstancesPage from '../../pages/admin/AdminDataModelFeedbackInstancesPage';
-import AdminDataModelHelpMessagesPage from '../../pages/admin/AdminDataModelHelpMessagesPage';
 import AdminDataModelInterestsPage from '../../pages/admin/AdminDataModelInterestsPage';
 import AdminDataModelInterestTypesPage from '../../pages/admin/AdminDataModelInterestTypesPage';
 import AdminDataModelOpportunitiesPage from '../../pages/admin/AdminDataModelOpportunitiesPage';
@@ -30,7 +29,7 @@ import AdminDataModelReviewsPage from '../../pages/admin/AdminDataModelReviewsPa
 import AdminDataModelSlugsPage from '../../pages/admin/AdminDataModelSlugsPage';
 import AdminDataModelTeasersPage from '../../pages/admin/AdminDataModelTeasersPage';
 import AdminDataModelVerificationRequestsPage from '../../pages/admin/AdminDataModelVerificationRequestsPage';
-import AdvisorFacultyPrivacyPage from '../../pages/shared/AdvisorFacultyPrivacyPage';
+import AdminAdvisorFacultyPrivacyPage from '../../pages/shared/AdminAdvisorFacultyPrivacyPage';
 import AdvisorHomePage from '../../pages/advisor/AdvisorHomePage';
 import AdvisorManageStudentsPage from '../../pages/advisor/AdvisorManageStudentsPage';
 import AlumniHomePage from '../../pages/alumni/AlumniHomePage';
@@ -112,7 +111,6 @@ export const routes = {
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL.COURSES}`, component: AdminDataModelCoursesPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL.FEEDS}`, component: AdminDataModelFeedsPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL.FEEDBACK_INSTANCES}`, component: AdminDataModelFeedbackInstancesPage },
-    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL.HELP_MESSAGES}`, component: AdminDataModelHelpMessagesPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL.INTERESTS}`, component: AdminDataModelInterestsPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL.INTEREST_TYPES}`, component: AdminDataModelInterestTypesPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL.OPPORTUNITIES}`, component: AdminDataModelOpportunitiesPage },
@@ -141,7 +139,7 @@ export const routes = {
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${MANAGE.REVIEWS}`, component: ManageReviewsPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${MANAGE.VERIFICATIONS}`, component: ManageVerificationsPage  },
 
-    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${PRIVACY}`, component: AdvisorFacultyPrivacyPage },
+    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${PRIVACY}`, component: AdminAdvisorFacultyPrivacyPage },
 
   ],
 
@@ -161,7 +159,7 @@ export const routes = {
     { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${MANAGE.STUDENTS}`, component: AdvisorManageStudentsPage },
     { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${MANAGE.REVIEWS}`, component: ManageReviewsPage },
     { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${MANAGE.VERIFICATIONS}`, component: ManageVerificationsPage  },
-    { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${PRIVACY}`, component: AdvisorFacultyPrivacyPage },
+    { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${PRIVACY}`, component: AdminAdvisorFacultyPrivacyPage },
   ],
 
   ALUMNI: [
@@ -183,7 +181,7 @@ export const routes = {
     { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${MANAGE.OPPORTUNITIES}`, component: ManageOpportunitiesPage },
     { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${MANAGE.REVIEWS}`, component: ManageReviewsPage },
     { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${MANAGE.VERIFICATIONS}`, component: ManageVerificationsPage },
-    { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${PRIVACY}`, component: AdvisorFacultyPrivacyPage },
+    { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${PRIVACY}`, component: AdminAdvisorFacultyPrivacyPage },
     { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${VERIFICATION_REQUESTS}`, component: FacultyVerificationPage },
   ],
 

@@ -11,8 +11,45 @@ class AdminNavBar {
     }
   }
 
+  async gotoAdminLogin(testController) {
+    await testController.click('#LOGIN');
+    await testController.click('#admin');
+  }
+
   async gotoHomePage(testController) {
-    await testController.click('#second-menu-home');
+    await testController.click('#admin-menu-home');
+  }
+
+  async gotoPrivacyPage(testController) {
+    await testController.click('#admin-menu-privacy');
+  }
+
+  async gotoForecastsPage(testController) {
+    await testController.click('#admin-menu-forecasts');
+  }
+
+  async gotoCommunityPage(testController) {
+    await testController.click('#admin-menu-community');
+  }
+
+  async gotoCareerGoalsExplorerPage(testController) {
+    await testController.click('#advisor-menu-explorers');
+    await testController.click('#advisor-menu-explorer-careers');
+  }
+
+  async gotoCoursesExplorerPage(testController) {
+    await testController.click('#advisor-menu-explorers');
+    await testController.click('#advisor-menu-explorer-courses');
+  }
+
+  async gotoInterestsExplorerPage(testController) {
+    await testController.click('#advisor-menu-explorers');
+    await testController.click('#advisor-menu-explorer-interests');
+  }
+
+  async gotoOpportunitiesExplorerPage(testController) {
+    await testController.click('#advisor-menu-explorers');
+    await testController.click('#advisor-menu-explorer-opportunities');
   }
 
   async gotoDataModelPage(testController) {
@@ -30,22 +67,10 @@ class AdminNavBar {
     await testController.click('#second-menu-data-base');
   }
 
-  async gotoModerationPage(testController) {
-    await testController.click('#second-menu-moderation');
-  }
-
   async gotoAnalyticsPage(testController) {
     await testController.click('#second-menu-analytics');
   }
 
-  async gotoScoreboardPage(testController) {
-    await testController.click('#second-menu-scoreboard');
-  }
-
-  async gotoAdminLogin(testController) {
-    await testController.click('#LOGIN');
-    await testController.click('#admin');
-  }
 
   /** Check that the specified user is currently logged in. */
   async isLoggedIn(testController, credentials) {
