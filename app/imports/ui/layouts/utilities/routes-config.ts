@@ -10,7 +10,6 @@ import AdminAnalyticsNewsletterPage from '../../pages/admin/AdminAnalyticsNewsle
 import AdminAnalyticsOverheadAnalysisPage from '../../pages/admin/AdminAnalyticsOverheadAnalysisPage';
 import AdminAnalyticsStudentSummaryPage from '../../pages/admin/AdminAnalyticsStudentSummaryPage';
 import AdminAnalyticsUserInteractionsPage from '../../pages/admin/AdminAnalyticsUserInteractionsPage';
-import LandingHomePage from '../../pages/landing/LandingHomePage';
 import AdminDumpDatabasePage from '../../pages/admin/AdminDumpDatabasePage';
 import AdminCheckDatabaseIntegrityPage from '../../pages/admin/AdminCheckDatabaseIntegrityPage';
 import AdminDataModelAcademicTermsPage from '../../pages/admin/AdminDataModelAcademicTermsPage';
@@ -31,6 +30,7 @@ import AdminDataModelReviewsPage from '../../pages/admin/AdminDataModelReviewsPa
 import AdminDataModelSlugsPage from '../../pages/admin/AdminDataModelSlugsPage';
 import AdminDataModelTeasersPage from '../../pages/admin/AdminDataModelTeasersPage';
 import AdminDataModelVerificationRequestsPage from '../../pages/admin/AdminDataModelVerificationRequestsPage';
+import AdvisorFacultyPrivacyPage from '../../pages/shared/AdvisorFacultyPrivacyPage';
 import AdvisorHomePage from '../../pages/advisor/AdvisorHomePage';
 import AdvisorManageStudentsPage from '../../pages/advisor/AdvisorManageStudentsPage';
 import AlumniHomePage from '../../pages/alumni/AlumniHomePage';
@@ -40,12 +40,11 @@ import CourseBrowserViewPage from '../../pages/shared/browser-view/CourseBrowser
 import CareerGoalViewPage from '../../pages/shared/item-view/CareerGoalViewPage';
 import CourseViewPage from '../../pages/shared/item-view/CourseViewPage';
 import ExplorerOpportunitiesPage from '../../pages/shared/ExplorerOpportunitiesPage';
-import FacultyPrivacyPage from '../../pages/faculty/FacultyPrivacyPage';
 import FacultyVerificationPage from '../../pages/faculty/FacultyVerificationPage';
 import FacultyHomePage from '../../pages/faculty/FacultyHomePage';
-import FacultyManageOpportunitiesPage from '../../pages/faculty/FacultyManageOpportunitiesPage';
 import InterestBrowserViewPage from '../../pages/shared/browser-view/InterestBrowserViewPage';
 import InterestViewPage from '../../pages/shared/item-view/InterestViewPage';
+import LandingHomePage from '../../pages/landing/LandingHomePage';
 import LandingCareerGoalsExplorerPage from '../../pages/landing/LandingCareerGoalsCardExplorerPage';
 import LandingCareerGoalExplorerPage from '../../pages/landing/LandingCareerGoalExplorerPage';
 import LandingCoursesExplorerPage from '../../pages/landing/LandingCoursesCardExplorerPage';
@@ -54,9 +53,10 @@ import LandingInterestsExplorerPage from '../../pages/landing/LandingInterestsCa
 import LandingInterestExplorerPage from '../../pages/landing/LandingInterestExplorerPage';
 import LandingOpportunitiesExplorerPage from '../../pages/landing/LandingOpportunitiesCardExplorerPage';
 import LandingOpportunityExplorerPage from '../../pages/landing/LandingOpportunityExplorerPage';
+import ManageOpportunitiesPage from '../../pages/shared/ManageOpportunitiesPage';
 import ManageVerificationsPage from '../../pages/shared/ManageVerificationsPage';
+import ManageReviewsPage from '../../pages/shared/ManageReviewsPage';
 import OpportunityViewPage from '../../pages/shared/item-view/OpportunityViewPage';
-import ReviewModerationPage from '../../pages/shared/ReviewModerationPage';
 import ScoreboardPage from '../../pages/shared/ScoreboardPage';
 import StudentHomePage from '../../pages/student/StudentHomePage';
 import StudentDegreePlannerPage from '../../pages/student/StudentDegreePlannerPage';
@@ -88,6 +88,8 @@ import {
   USERNAME,
   VERIFICATION_REQUESTS,
 } from './route-constants';
+
+
 
 // TODO: Scoreboard -> Forecast,
 
@@ -135,8 +137,11 @@ export const routes = {
     { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${EXPLORER.OPPORTUNITIES}`, component: ExplorerOpportunitiesPage },
     { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${EXPLORER.OPPORTUNITIES_PARAM}`, component: OpportunityViewPage },
     { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${HOME}`, component: AdvisorHomePage },
+    { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${MANAGE_OPPORTUNITIES}`, component: ManageOpportunitiesPage },
     { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${MANAGE_STUDENTS}`, component: AdvisorManageStudentsPage },
+    { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${MANAGE_REVIEWS}`, component: ManageReviewsPage },
     { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${MANAGE_VERIFICATIONS}`, component: ManageVerificationsPage  },
+    { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${PRIVACY}`, component: AdvisorFacultyPrivacyPage },
     { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${SCOREBOARD}`, component: ScoreboardPage },
   ],
 
@@ -155,9 +160,9 @@ export const routes = {
     { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER.OPPORTUNITIES}`, component: ExplorerOpportunitiesPage },
     { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER.OPPORTUNITIES_PARAM}`, component: OpportunityViewPage },
     { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${HOME}`, component: FacultyHomePage },
-    { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${MANAGE_OPPORTUNITIES}`, component: FacultyManageOpportunitiesPage },
-    { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${MANAGE_REVIEWS}`, component: ReviewModerationPage },
-    { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${PRIVACY}`, component: FacultyPrivacyPage },
+    { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${MANAGE_OPPORTUNITIES}`, component: ManageOpportunitiesPage },
+    { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${MANAGE_REVIEWS}`, component: ManageReviewsPage },
+    { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${PRIVACY}`, component: AdvisorFacultyPrivacyPage },
     { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${SCOREBOARD}`, component: ScoreboardPage },
     { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${VERIFICATION_REQUESTS}`, component: FacultyVerificationPage },
   ],
