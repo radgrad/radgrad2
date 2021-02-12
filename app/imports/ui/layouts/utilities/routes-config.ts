@@ -5,7 +5,6 @@
 import AdminHomePage from '../../pages/admin/AdminHomePage';
 import AdminDataModelPage from '../../pages/admin/AdminDataModelPage';
 import AdminDatabasePage from '../../pages/admin/AdminDatabasePage';
-import AdminModerationPage from '../../pages/admin/AdminModerationPage';
 import AdminAnalyticsPage from '../../pages/admin/AdminAnalyticsPage';
 import AdminAnalyticsNewsletterPage from '../../pages/admin/AdminAnalyticsNewsletterPage';
 import AdminAnalyticsOverheadAnalysisPage from '../../pages/admin/AdminAnalyticsOverheadAnalysisPage';
@@ -34,7 +33,6 @@ import AdminDataModelTeasersPage from '../../pages/admin/AdminDataModelTeasersPa
 import AdminDataModelVerificationRequestsPage from '../../pages/admin/AdminDataModelVerificationRequestsPage';
 import AdvisorHomePage from '../../pages/advisor/AdvisorHomePage';
 import AdvisorManageStudentsPage from '../../pages/advisor/AdvisorManageStudentsPage';
-import AdvisorModerationPage from '../../pages/advisor/AdvisorModerationPage';
 import AlumniHomePage from '../../pages/alumni/AlumniHomePage';
 import CareerGoalBrowserViewPage from '../../pages/shared/browser-view/CareerGoalBrowserViewPage';
 import CommunityPage from '../../pages/shared/CommunityPage';
@@ -147,9 +145,7 @@ export const routes = {
   ],
 
   FACULTY: [
-    { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${HOME}`, component: FacultyHomePage },
-    { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${VERIFICATION_REQUESTS}`, component: FacultyVerificationPage },
-    { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${MANAGE_OPPORTUNITIES}`, component: FacultyManageOpportunitiesPage },
+    { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${COMMUNITY}`, component: CommunityPage },
     { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER.CAREERGOALS}`, component: CareerGoalBrowserViewPage },
     { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER.CAREERGOALS_PARAM}`, component: CareerGoalViewPage },
     { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER.COURSES}`, component: CourseBrowserViewPage },
@@ -158,10 +154,12 @@ export const routes = {
     { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER.INTERESTS_PARAM}`, component: InterestViewPage },
     { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER.OPPORTUNITIES}`, component: ExplorerOpportunitiesPage },
     { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER.OPPORTUNITIES_PARAM}`, component: OpportunityViewPage },
-    { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${SCOREBOARD}`, component: ScoreboardPage },
-    { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${PRIVACY}`, component: FacultyPrivacyPage },
+    { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${HOME}`, component: FacultyHomePage },
+    { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${MANAGE_OPPORTUNITIES}`, component: FacultyManageOpportunitiesPage },
     { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${MANAGE_REVIEWS}`, component: ReviewModerationPage },
-    { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${COMMUNITY}`, component: CommunityPage },
+    { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${PRIVACY}`, component: FacultyPrivacyPage },
+    { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${SCOREBOARD}`, component: ScoreboardPage },
+    { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${VERIFICATION_REQUESTS}`, component: FacultyVerificationPage },
   ],
 
   LANDING: [
@@ -177,13 +175,7 @@ export const routes = {
   ],
   
   STUDENT: [
-    { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${HOME}`, component: StudentHomePage },
-    { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${STUDENT_VERIFICATION}`, component: StudentVerificationPage },
-    { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${PRIVACY}`, component: StudentPrivacyPage },
-    { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${STUDENT_REVIEWS}`, component: StudentReviewsPage },
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${COMMUNITY}`, component: CommunityPage },
-    { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${HOME}/${ICE}`, component: StudentIcePage },
-    { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${HOME}/${LEVELS}`, component: StudentLevelsPage },
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${DEGREEPLANNER}`, component: StudentDegreePlannerPage },
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER.CAREERGOALS}`, component: CareerGoalBrowserViewPage },
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER.CAREERGOALS_PARAM}`, component: CareerGoalViewPage },
@@ -193,5 +185,11 @@ export const routes = {
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER.INTERESTS_PARAM}`, component: InterestViewPage },
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER.OPPORTUNITIES}`, component: ExplorerOpportunitiesPage },
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER.OPPORTUNITIES_PARAM}`, component: OpportunityViewPage },
+    { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${HOME}`, component: StudentHomePage },
+    { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${ICE}`, component: StudentIcePage },
+    { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${LEVELS}`, component: StudentLevelsPage },
+    { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${PRIVACY}`, component: StudentPrivacyPage },
+    { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${STUDENT_REVIEWS}`, component: StudentReviewsPage },
+    { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${STUDENT_VERIFICATION}`, component: StudentVerificationPage },
   ],
 };
