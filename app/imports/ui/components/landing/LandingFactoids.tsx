@@ -28,9 +28,11 @@ const LandingFactoids: React.FC = () => {
   function tick() {
     setIndex((index + 1) % factoidInfo.length);
   }
-
+  const landingStyle = {
+    height: 200,
+  };
   return (
-    <div id="landing-factoids">
+    <div id="landing-factoids" style={landingStyle}>
       {factoidInfo[index]}
     </div>
   );
