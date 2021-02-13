@@ -1,12 +1,10 @@
 import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
-import { Confirm, Grid, Icon } from 'semantic-ui-react';
+import { Confirm, Icon } from 'semantic-ui-react';
 import _ from 'lodash';
 import Swal from 'sweetalert2';
 import { connect } from 'react-redux';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
-import AdminPageMenu from '../../components/admin/AdminPageMenu';
-import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { AcademicTerm, Course, DescriptionPair, IFeed, FeedDefine, Opportunity, StudentProfile } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
@@ -18,14 +16,14 @@ import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection
 import AddFeedForm from '../../components/admin/datamodel/feed/AddFeedForm';
 import UpdateFeedForm from '../../components/admin/datamodel/feed/UpdateFeedForm';
 import { academicTermNameToSlug, courseNameToSlug, opportunityNameToSlug, profileNameToUsername } from '../../components/shared/utilities/data-model';
-import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import { RootState } from '../../../redux/types';
 import { getDatamodelCount } from './utilities/datamodel';
+import PageLayout from '../PageLayout';
 
 const collection = Feeds; // the collection to use.
 
-interface AdminDataModelFeedsPageProps extends AdminDataModeMenuProps {
+interface AdminDataModelFeedsPageProps {
   isCloudinaryUsed: boolean;
   cloudinaryUrl: string;
   items: IFeed[];
@@ -237,54 +235,41 @@ const AdminDataModelFeedsPage: React.FC<AdminDataModelFeedsPageProps> = (props) 
     });
   };
 
-  const paddedStyle = {
-    paddingTop: 20,
-  };
   const findOptions = {
     sort: { name: 1 }, // determine how you want to sort the items in the list
   };
   return (
-    <div id="data-model-feeds-page">
-      <AdminPageMenu />
-      <Grid container stackable style={paddedStyle}>
-        <Grid.Column width={3}>
-          <AdminDataModelMenu {...props} />
-        </Grid.Column>
-
-        <Grid.Column width={13}>
-          {showUpdateFormState ? (
-            <UpdateFeedForm
-              collection={collection}
-              id={idState}
-              formRef={formRef}
-              handleUpdate={handleUpdate}
-              handleCancel={handleCancel}
-              itemTitleString={itemTitleString}
-              academicTerms={props.academicTerms}
-              courses={props.courses}
-              students={props.students}
-              opportunities={props.opportunities}
-            />
-          ) : (
-            <AddFeedForm formRef={formRef} handleAdd={handleAdd} academicTerms={props.academicTerms} courses={props.courses} students={props.students} opportunities={props.opportunities} />
-          )}
-          <ListCollectionWidget
-            collection={collection}
-            findOptions={findOptions}
-            descriptionPairs={descriptionPairs}
-            itemTitle={itemTitle}
-            handleOpenUpdate={handleOpenUpdate}
-            handleDelete={handleDelete}
-            setShowIndex={dataModelActions.setCollectionShowIndex}
-            setShowCount={dataModelActions.setCollectionShowCount}
-            items={props.items}
-          />
-        </Grid.Column>
-      </Grid>
-      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Feed?" />
-
-      <BackToTopButton />
-    </div>
+    <PageLayout id="data-model-feeds-page" headerPaneTitle="Feeds">
+      {showUpdateFormState ? (
+        <UpdateFeedForm
+          collection={collection}
+          id={idState}
+          formRef={formRef}
+          handleUpdate={handleUpdate}
+          handleCancel={handleCancel}
+          itemTitleString={itemTitleString}
+          academicTerms={props.academicTerms}
+          courses={props.courses}
+          students={props.students}
+          opportunities={props.opportunities}
+        />
+      ) : (
+        <AddFeedForm formRef={formRef} handleAdd={handleAdd} academicTerms={props.academicTerms} courses={props.courses}
+                     students={props.students} opportunities={props.opportunities}/>
+      )}
+      <ListCollectionWidget
+        collection={collection}
+        findOptions={findOptions}
+        descriptionPairs={descriptionPairs}
+        itemTitle={itemTitle}
+        handleOpenUpdate={handleOpenUpdate}
+        handleDelete={handleDelete}
+        setShowIndex={dataModelActions.setCollectionShowIndex}
+        setShowCount={dataModelActions.setCollectionShowCount}
+        items={props.items}
+      />
+      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Feed?"/>
+    </PageLayout>
   );
 };
 

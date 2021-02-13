@@ -1,13 +1,11 @@
 import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
-import { Confirm, Grid, Icon } from 'semantic-ui-react';
+import { Confirm, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import _ from 'lodash';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
-import AdminPageMenu from '../../components/admin/AdminPageMenu';
-import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import { AcademicTerm, BaseProfile, DescriptionPair, Opportunity, OpportunityInstance, StudentProfile } from '../../../typings/radgrad';
@@ -20,8 +18,8 @@ import AddOpportunityInstanceForm from '../../components/admin/datamodel/opportu
 import UpdateOpportunityInstanceForm from '../../components/admin/datamodel/opportunity/UpdateOpportunityInstanceForm';
 import { academicTermNameToDoc, opportunityNameToSlug, profileNameToUsername } from '../../components/shared/utilities/data-model';
 import { Slugs } from '../../../api/slug/SlugCollection';
-import BackToTopButton from '../../components/shared/BackToTopButton';
 import { getDatamodelCount } from './utilities/datamodel';
+import PageLayout from '../PageLayout';
 
 const collection = OpportunityInstances; // the collection to use.
 
@@ -67,7 +65,7 @@ const itemTitle = (item: OpportunityInstance): React.ReactNode => (
   </React.Fragment>
 );
 
-interface AdminDataModelOpportunityInstancesPageProps extends AdminDataModeMenuProps {
+interface AdminDataModelOpportunityInstancesPageProps {
   items: OpportunityInstance[];
   terms: AcademicTerm[];
   opportunities: Opportunity[];
@@ -196,43 +194,33 @@ const AdminDataModelOpportunityInstancesPage: React.FC<AdminDataModelOpportunity
     });
   };
 
-  const paddedStyle = {
-    paddingTop: 20,
-  };
   const findOptions = {
     sort: { name: 1 }, // determine how you want to sort the items in the list
   };
   return (
-    <div id="data-model-opportunity-instances-page">
-      <AdminPageMenu />
-      <Grid container stackable style={paddedStyle}>
-        <Grid.Column width={3}>
-          <AdminDataModelMenu {...props} />
-        </Grid.Column>
-
-        <Grid.Column width={13}>
-          {showUpdateFormState ? (
-            <UpdateOpportunityInstanceForm collection={collection} id={idState} formRef={formRef} handleUpdate={handleUpdate} handleCancel={handleCancel} itemTitleString={itemTitleString} terms={props.terms} />
-          ) : (
-            <AddOpportunityInstanceForm formRef={formRef} handleAdd={handleAdd} opportunities={props.opportunities} sponsors={props.sponsors} students={props.students} terms={props.terms} />
-          )}
-          <ListCollectionWidget
-            collection={collection}
-            findOptions={findOptions}
-            descriptionPairs={descriptionPairs}
-            itemTitle={itemTitle}
-            handleOpenUpdate={handleOpenUpdate}
-            handleDelete={handleDelete}
-            setShowIndex={dataModelActions.setCollectionShowIndex}
-            setShowCount={dataModelActions.setCollectionShowCount}
-            items={props.items}
-          />
-        </Grid.Column>
-      </Grid>
-      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Opportunity Instance?" />
-
-      <BackToTopButton />
-    </div>
+    <PageLayout id="data-model-opportunity-instances-page" headerPaneTitle="Opportunity Instances">
+      {showUpdateFormState ? (
+        <UpdateOpportunityInstanceForm collection={collection} id={idState} formRef={formRef}
+                                       handleUpdate={handleUpdate} handleCancel={handleCancel}
+                                       itemTitleString={itemTitleString} terms={props.terms}/>
+      ) : (
+        <AddOpportunityInstanceForm formRef={formRef} handleAdd={handleAdd} opportunities={props.opportunities}
+                                    sponsors={props.sponsors} students={props.students} terms={props.terms}/>
+      )}
+      <ListCollectionWidget
+        collection={collection}
+        findOptions={findOptions}
+        descriptionPairs={descriptionPairs}
+        itemTitle={itemTitle}
+        handleOpenUpdate={handleOpenUpdate}
+        handleDelete={handleDelete}
+        setShowIndex={dataModelActions.setCollectionShowIndex}
+        setShowCount={dataModelActions.setCollectionShowCount}
+        items={props.items}
+      />
+      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete}
+               header="Delete Opportunity Instance?"/>
+    </PageLayout>
   );
 };
 

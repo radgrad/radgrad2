@@ -1,10 +1,8 @@
 import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
-import { Confirm, Grid, Icon } from 'semantic-ui-react';
+import { Confirm, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
-import AdminPageMenu from '../../components/admin/AdminPageMenu';
-import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { DescriptionPair, FeedbackInstanceDefine, StudentProfile, FeedbackInstance } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
@@ -13,9 +11,9 @@ import { Users } from '../../../api/user/UserCollection';
 import AddFeedbackInstanceForm from '../../components/admin/datamodel/feedback/AddFeedbackInstanceForm';
 import UpdateFeedbackInstanceForm from '../../components/admin/datamodel/feedback/UpdateFeedbackInstanceForm';
 import { profileNameToUsername } from '../../components/shared/utilities/data-model';
-import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import { getDatamodelCount } from './utilities/datamodel';
+import PageLayout from '../PageLayout';
 
 const collection = FeedbackInstances; // the collection to use.
 
@@ -53,7 +51,7 @@ const itemTitle = (item: FeedbackInstance): React.ReactNode => (
   </React.Fragment>
 );
 
-interface AdminDataModelFeedbackInstancesPageProps extends AdminDataModeMenuProps {
+interface AdminDataModelFeedbackInstancesPageProps  {
   items: FeedbackInstance[];
   students: StudentProfile[];
 }
@@ -171,43 +169,32 @@ const AdminDataModelFeedbackInstancesPage: React.FC<AdminDataModelFeedbackInstan
     });
   };
 
-  const paddedStyle = {
-    paddingTop: 20,
-  };
   const findOptions = {
     sort: { name: 1 }, // determine how you want to sort the items in the list
   };
   return (
-    <div id="data-model-feedback-instances-page">
-      <AdminPageMenu />
-      <Grid container stackable style={paddedStyle}>
-        <Grid.Column width={3}>
-          <AdminDataModelMenu {...props} />
-        </Grid.Column>
-
-        <Grid.Column width={13}>
-          {showUpdateFormState ? (
-            <UpdateFeedbackInstanceForm collection={collection} id={idState} formRef={formRef} handleUpdate={handleUpdate} handleCancel={handleCancel} itemTitleString={itemTitleString} students={props.students} />
-          ) : (
-            <AddFeedbackInstanceForm formRef={formRef} handleAdd={handleAdd} students={props.students} />
-          )}
-          <ListCollectionWidget
-            collection={collection}
-            findOptions={findOptions}
-            descriptionPairs={descriptionPairs}
-            itemTitle={itemTitle}
-            handleOpenUpdate={handleOpenUpdate}
-            handleDelete={handleDelete}
-            setShowIndex={dataModelActions.setCollectionShowIndex}
-            setShowCount={dataModelActions.setCollectionShowCount}
-            items={props.items}
-          />
-        </Grid.Column>
-      </Grid>
-      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Feedback Instance?" />
-
-      <BackToTopButton />
-    </div>
+    <PageLayout id="data-model-feedback-instances-page" headerPaneTitle="Feedback Instances">
+      {showUpdateFormState ? (
+        <UpdateFeedbackInstanceForm collection={collection} id={idState} formRef={formRef} handleUpdate={handleUpdate}
+                                    handleCancel={handleCancel} itemTitleString={itemTitleString}
+                                    students={props.students}/>
+      ) : (
+        <AddFeedbackInstanceForm formRef={formRef} handleAdd={handleAdd} students={props.students}/>
+      )}
+      <ListCollectionWidget
+        collection={collection}
+        findOptions={findOptions}
+        descriptionPairs={descriptionPairs}
+        itemTitle={itemTitle}
+        handleOpenUpdate={handleOpenUpdate}
+        handleDelete={handleDelete}
+        setShowIndex={dataModelActions.setCollectionShowIndex}
+        setShowCount={dataModelActions.setCollectionShowCount}
+        items={props.items}
+      />
+      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete}
+               header="Delete Feedback Instance?"/>
+    </PageLayout>
   );
 };
 

@@ -1,12 +1,10 @@
 import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
-import { Confirm, Grid, Icon } from 'semantic-ui-react';
+import { Confirm, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import _ from 'lodash';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
-import AdminPageMenu from '../../components/admin/AdminPageMenu';
-import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { AcademicTerm, BaseProfile, DescriptionPair, Interest, Opportunity, OpportunityType } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
@@ -19,9 +17,9 @@ import AddOpportunityForm from '../../components/admin/datamodel/opportunity/Add
 import UpdateOpportunityForm from '../../components/admin/datamodel/opportunity/UpdateOpportunityForm';
 import { academicTermNameToSlug, itemToSlugName, opportunityTypeNameToSlug, profileNameToUsername } from '../../components/shared/utilities/data-model';
 import { interestSlugFromName } from '../../components/shared/utilities/form';
-import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import { getDatamodelCount, makeMarkdownLink } from './utilities/datamodel';
+import PageLayout from '../PageLayout';
 
 const collection = Opportunities; // the collection to use.
 
@@ -58,7 +56,7 @@ const itemTitle = (item: Opportunity): React.ReactNode => (
   </React.Fragment>
 );
 
-interface AdminDataModelOpportunitiesPageProps extends AdminDataModeMenuProps {
+interface AdminDataModelOpportunitiesPageProps {
   items: Opportunity[];
   sponsors: BaseProfile[];
   terms: AcademicTerm[];
@@ -182,54 +180,43 @@ const AdminDataModelOpportunitiesPage: React.FC<AdminDataModelOpportunitiesPageP
     });
   };
 
-  const paddedStyle = {
-    paddingTop: 20,
-  };
   const findOptions = {
     sort: { name: 1 }, // determine how you want to sort the items in the list
   };
   return (
-    <div id="data-model-opportunities-page">
-      <AdminPageMenu />
-      <Grid container stackable style={paddedStyle}>
-        <Grid.Column width={3}>
-          <AdminDataModelMenu {...props} />
-        </Grid.Column>
+    <PageLayout id="data-model-opportunities-page" headerPaneTitle="Opportunities">
+      {showUpdateFormState ? (
+        <UpdateOpportunityForm
+          collection={collection}
+          id={idState}
+          formRef={formRef}
+          handleUpdate={handleUpdate}
+          handleCancel={handleCancel}
+          itemTitleString={itemTitleString}
+          sponsors={props.sponsors}
+          terms={props.terms}
+          interests={props.interests}
+          opportunityTypes={props.opportunityTypes}
+        />
+      ) : (
+        <AddOpportunityForm formRef={formRef} handleAdd={handleAdd} sponsors={props.sponsors} terms={props.terms}
+                            interests={props.interests} opportunityTypes={props.opportunityTypes}/>
+      )}
+      <ListCollectionWidget
+        collection={collection}
+        findOptions={findOptions}
+        descriptionPairs={descriptionPairs}
+        itemTitle={itemTitle}
+        handleOpenUpdate={handleOpenUpdate}
+        handleDelete={handleDelete}
+        setShowIndex={dataModelActions.setCollectionShowIndex}
+        setShowCount={dataModelActions.setCollectionShowCount}
+        items={props.items}
+      />
 
-        <Grid.Column width={13}>
-          {showUpdateFormState ? (
-            <UpdateOpportunityForm
-              collection={collection}
-              id={idState}
-              formRef={formRef}
-              handleUpdate={handleUpdate}
-              handleCancel={handleCancel}
-              itemTitleString={itemTitleString}
-              sponsors={props.sponsors}
-              terms={props.terms}
-              interests={props.interests}
-              opportunityTypes={props.opportunityTypes}
-            />
-          ) : (
-            <AddOpportunityForm formRef={formRef} handleAdd={handleAdd} sponsors={props.sponsors} terms={props.terms} interests={props.interests} opportunityTypes={props.opportunityTypes} />
-          )}
-          <ListCollectionWidget
-            collection={collection}
-            findOptions={findOptions}
-            descriptionPairs={descriptionPairs}
-            itemTitle={itemTitle}
-            handleOpenUpdate={handleOpenUpdate}
-            handleDelete={handleDelete}
-            setShowIndex={dataModelActions.setCollectionShowIndex}
-            setShowCount={dataModelActions.setCollectionShowCount}
-            items={props.items}
-          />
-        </Grid.Column>
-      </Grid>
-      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Opportunity?" />
-
-      <BackToTopButton />
-    </div>
+      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete}
+               header="Delete Opportunity?"/>
+    </PageLayout>
   );
 };
 
@@ -238,22 +225,19 @@ const AdminDataModelOpportunitiesPageContainer = withTracker(() => {
   const currentTermNumber = AcademicTerms.getCurrentAcademicTermDoc().termNumber;
   const after = currentTermNumber - 8;
   const before = currentTermNumber + 16;
-  // console.log(currentTermNumber, after, before);
   const allTerms = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();
   const terms = _.filter(allTerms, (t) => t.termNumber >= after && t.termNumber <= before);
-  // const terms = allTerms;
-  // console.log(terms);
   const faculty = FacultyProfiles.find({}).fetch();
   const advisors = AdvisorProfiles.find({}).fetch();
   const sponsorDocs = _.union(faculty, advisors);
   const sponsors = _.sortBy(sponsorDocs, ['lastName', 'firstName']);
-  const opportunityTypes = OpportunityTypes.find({}, { sort: { name: 1 } }).fetch();
+  const items = Opportunities.find({}, { sort: { name: 1 } }).fetch();
   const modelCount = getDatamodelCount();
   return {
     ...modelCount,
     sponsors,
     terms,
-    opportunityTypes,
+    items,
     interests,
   };
 })(AdminDataModelOpportunitiesPage);
