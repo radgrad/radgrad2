@@ -1,10 +1,8 @@
 import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
 import _ from 'lodash';
-import { Confirm, Grid, Icon } from 'semantic-ui-react';
+import { Confirm, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
-import AdminPageMenu from '../../components/admin/AdminPageMenu';
-import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { Users } from '../../../api/user/UserCollection';
 import { CareerGoal, CareerGoalUpdate, DescriptionPair, Interest } from '../../../typings/radgrad';
@@ -14,10 +12,10 @@ import AdminDataModelUpdateForm from '../../components/admin/datamodel/AdminData
 import AddCareerGoalForm from '../../components/admin/datamodel/career-goal/AddCareerGoalForm';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
-import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import { profileGetCareerGoalIDs, itemToSlugName } from '../../components/shared/utilities/data-model';
 import { getDatamodelCount } from './utilities/datamodel';
+import PageLayout from '../PageLayout';
 
 function numReferences(careerGoal) {
   let references = 0;
@@ -45,7 +43,7 @@ const itemTitle = (careerGoal: CareerGoal): React.ReactNode => (
   </React.Fragment>
 );
 
-interface AdminDataModelCareerGoalsPageProps extends AdminDataModeMenuProps {
+interface AdminDataModelCareerGoalsPageProps {
   items: CareerGoal[];
   interests: Interest[];
 }
@@ -166,39 +164,28 @@ const AdminDataModelCareerGoalsPage: React.FC<AdminDataModelCareerGoalsPageProps
     });
   };
 
-  const paddedStyle = {
-    paddingTop: 20,
-  };
   return (
-    <div id="data-model-career-goals-page">
-      <AdminPageMenu />
-      <Grid container stackable style={paddedStyle}>
-        <Grid.Column width={3}>
-          <AdminDataModelMenu {...props} />
-        </Grid.Column>
+    <PageLayout id="data-model-career-goals-page" headerPaneTitle="Career Goals">
+      {showUpdateFormState ? (
+        <AdminDataModelUpdateForm collection={CareerGoals} id={idState} formRef={formRef} handleUpdate={handleUpdate}
+                                  handleCancel={handleCancel} itemTitleString={itemTitleString}/>
+      ) : (
+        <AddCareerGoalForm formRef={formRef} handleAdd={handleAdd} interests={props.interests}/>
+      )}
+      <ListCollectionWidget
+        collection={CareerGoals}
+        descriptionPairs={descriptionPairs}
+        itemTitle={itemTitle}
+        handleOpenUpdate={handleOpenUpdate}
+        handleDelete={handleDelete}
+        setShowIndex={dataModelActions.setCollectionShowIndex}
+        setShowCount={dataModelActions.setCollectionShowCount}
+        items={props.items}
+      />
 
-        <Grid.Column width={13}>
-          {showUpdateFormState ? (
-            <AdminDataModelUpdateForm collection={CareerGoals} id={idState} formRef={formRef} handleUpdate={handleUpdate} handleCancel={handleCancel} itemTitleString={itemTitleString} />
-          ) : (
-            <AddCareerGoalForm formRef={formRef} handleAdd={handleAdd} interests={props.interests} />
-          )}
-          <ListCollectionWidget
-            collection={CareerGoals}
-            descriptionPairs={descriptionPairs}
-            itemTitle={itemTitle}
-            handleOpenUpdate={handleOpenUpdate}
-            handleDelete={handleDelete}
-            setShowIndex={dataModelActions.setCollectionShowIndex}
-            setShowCount={dataModelActions.setCollectionShowCount}
-            items={props.items}
-          />
-        </Grid.Column>
-      </Grid>
-      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Career Goal?" />
-
-      <BackToTopButton />
-    </div>
+      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete}
+               header="Delete Career Goal?"/>
+    </PageLayout>
   );
 };
 

@@ -1,10 +1,8 @@
 import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
-import { Confirm, Grid, Icon } from 'semantic-ui-react';
+import { Confirm, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
-import AdminPageMenu from '../../components/admin/AdminPageMenu';
-import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { Users } from '../../../api/user/UserCollection';
 import { AcademicYearInstance, DescriptionPair, StudentProfile } from '../../../typings/radgrad';
@@ -12,9 +10,9 @@ import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInst
 import AdminDataModelUpdateForm from '../../components/admin/datamodel/AdminDataModelUpdateForm';
 import AddAcademicYearInstanceFormContainer from '../../components/admin/datamodel/academic-year/AddAcademicYearInstanceForm';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
-import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import { getDatamodelCount } from './utilities/datamodel';
+import PageLayout from '../PageLayout';
 
 const descriptionPairs = (year: AcademicYearInstance): DescriptionPair[] => [
   { label: 'Student', value: Users.getFullName(year.studentID) },
@@ -35,7 +33,7 @@ const itemTitle = (year: AcademicYearInstance): React.ReactNode => {
 
 const itemTitleString = (year: AcademicYearInstance): string => `${Users.getFullName(year.studentID)} ${year.year}`;
 
-interface AdminDataModelAcademicYearsPageProps extends AdminDataModeMenuProps {
+interface AdminDataModelAcademicYearsPageProps {
   items: AcademicYearInstance[];
   students: StudentProfile[];
 }
@@ -145,43 +143,33 @@ const AdminDataModelAcademicYearsPage: React.FC<AdminDataModelAcademicYearsPageP
     });
   };
 
-  const paddedStyle = {
-    paddingTop: 20,
-  };
   const findOptions = {
     sort: { year: 1 },
   };
   return (
-    <div id="data-model-academic-year-instances-page">
-      <AdminPageMenu />
-      <Grid container stackable style={paddedStyle}>
-        <Grid.Column width={3}>
-          <AdminDataModelMenu {...props} />
-        </Grid.Column>
+    <PageLayout id="data-model-academic-year-instances-page" headerPaneTitle="Academic Year Instances">
+      {showUpdateFormState ? (
+        <AdminDataModelUpdateForm collection={AcademicYearInstances} id={idState} formRef={formRef}
+                                  handleUpdate={handleUpdate} handleCancel={handleCancel}
+                                  itemTitleString={itemTitleString}/>
+      ) : (
+        <AddAcademicYearInstanceFormContainer formRef={formRef} handleAdd={handleAdd} students={props.students}/>
+      )}
+      <ListCollectionWidget
+        collection={AcademicYearInstances}
+        findOptions={findOptions}
+        descriptionPairs={descriptionPairs}
+        itemTitle={itemTitle}
+        handleOpenUpdate={handleOpenUpdate}
+        handleDelete={handleDelete}
+        setShowIndex={dataModelActions.setCollectionShowIndex}
+        setShowCount={dataModelActions.setCollectionShowCount}
+        items={props.items}
+      />
 
-        <Grid.Column width={13}>
-          {showUpdateFormState ? (
-            <AdminDataModelUpdateForm collection={AcademicYearInstances} id={idState} formRef={formRef} handleUpdate={handleUpdate} handleCancel={handleCancel} itemTitleString={itemTitleString} />
-          ) : (
-            <AddAcademicYearInstanceFormContainer formRef={formRef} handleAdd={handleAdd} students={props.students} />
-          )}
-          <ListCollectionWidget
-            collection={AcademicYearInstances}
-            findOptions={findOptions}
-            descriptionPairs={descriptionPairs}
-            itemTitle={itemTitle}
-            handleOpenUpdate={handleOpenUpdate}
-            handleDelete={handleDelete}
-            setShowIndex={dataModelActions.setCollectionShowIndex}
-            setShowCount={dataModelActions.setCollectionShowCount}
-            items={props.items}
-          />
-        </Grid.Column>
-      </Grid>
-      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Academic Year Instance?" />
-
-      <BackToTopButton />
-    </div>
+      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete}
+               header="Delete Academic Year Instance?"/>
+    </PageLayout>
   );
 };
 

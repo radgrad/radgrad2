@@ -1,10 +1,8 @@
 import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
-import { Confirm, Grid, Icon } from 'semantic-ui-react';
+import { Confirm, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
-import AdminPageMenu from '../../components/admin/AdminPageMenu';
-import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { AcademicTerm, Course, CourseInstance, CourseInstanceDefine, DescriptionPair, StudentProfile } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
@@ -16,9 +14,9 @@ import AddCourseInstanceForm from '../../components/admin/datamodel/course/AddCo
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { academicTermNameToDoc, courseNameToCourseDoc, profileNameToUsername } from '../../components/shared/utilities/data-model';
 import UpdateCourseInstanceForm from '../../components/admin/datamodel/course/UpdateCourseInstanceForm';
-import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import { getDatamodelCount } from './utilities/datamodel';
+import PageLayout from '../PageLayout';
 
 const collection = CourseInstances;
 
@@ -62,7 +60,7 @@ const itemTitle = (item: CourseInstance): React.ReactNode => (
   </React.Fragment>
 );
 
-interface AdminDataModelCourseInstancesPageProps extends AdminDataModeMenuProps {
+interface AdminDataModelCourseInstancesPageProps {
   items: CourseInstance[];
   terms: AcademicTerm[];
   courses: Course[];
@@ -188,43 +186,32 @@ const AdminDataModelCourseInstancesPage: React.FC<AdminDataModelCourseInstancesP
     });
   };
 
-  const paddedStyle = {
-    paddingTop: 20,
-  };
   const findOptions = {
     sort: { note: 1 }, // determine how you want to sort the items in the list
   };
   return (
-    <div id="data-model-course-instances-page">
-      <AdminPageMenu />
-      <Grid container stackable style={paddedStyle}>
-        <Grid.Column width={3}>
-          <AdminDataModelMenu {...props} />
-        </Grid.Column>
-
-        <Grid.Column width={13}>
-          {showUpdateFormState ? (
-            <UpdateCourseInstanceForm collection={collection} id={idState} formRef={formRef} handleUpdate={handleUpdate} handleCancel={handleCancel} itemTitleString={itemTitleString} terms={props.terms} />
-          ) : (
-            <AddCourseInstanceForm formRef={formRef} handleAdd={handleAdd} terms={props.terms} courses={props.courses} students={props.students} />
-          )}
-          <ListCollectionWidget
-            collection={collection}
-            findOptions={findOptions}
-            descriptionPairs={descriptionPairs}
-            itemTitle={itemTitle}
-            handleOpenUpdate={handleOpenUpdate}
-            handleDelete={handleDelete}
-            setShowIndex={dataModelActions.setCollectionShowIndex}
-            setShowCount={dataModelActions.setCollectionShowCount}
-            items={props.items}
-          />
-        </Grid.Column>
-      </Grid>
-      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Course Instance?" />
-
-      <BackToTopButton />
-    </div>
+    <PageLayout id="data-model-course-instances-page" headerPaneTitle="Course Instances">
+      {showUpdateFormState ? (
+        <UpdateCourseInstanceForm collection={collection} id={idState} formRef={formRef} handleUpdate={handleUpdate}
+                                  handleCancel={handleCancel} itemTitleString={itemTitleString} terms={props.terms}/>
+      ) : (
+        <AddCourseInstanceForm formRef={formRef} handleAdd={handleAdd} terms={props.terms} courses={props.courses}
+                               students={props.students}/>
+      )}
+      <ListCollectionWidget
+        collection={collection}
+        findOptions={findOptions}
+        descriptionPairs={descriptionPairs}
+        itemTitle={itemTitle}
+        handleOpenUpdate={handleOpenUpdate}
+        handleDelete={handleDelete}
+        setShowIndex={dataModelActions.setCollectionShowIndex}
+        setShowCount={dataModelActions.setCollectionShowCount}
+        items={props.items}
+      />
+      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete}
+               header="Delete Course Instance?"/>
+    </PageLayout>
   );
 };
 

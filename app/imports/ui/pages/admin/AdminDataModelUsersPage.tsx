@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Confirm, Grid, Icon, Tab } from 'semantic-ui-react';
+import { Confirm, Icon, Tab } from 'semantic-ui-react';
 import _ from 'lodash';
 import moment from 'moment';
 import { connect } from 'react-redux';
@@ -14,8 +14,6 @@ import { Interests } from '../../../api/interest/InterestCollection';
 import { getDatamodelCount, makeMarkdownLink } from './utilities/datamodel';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { ROLE } from '../../../api/role/Role';
-import AdminPageMenu from '../../components/admin/AdminPageMenu';
-import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import AddUserForm from '../../components/admin/datamodel/user/AddUserForm';
 import UpdateUserForm from '../../components/admin/datamodel/user/UpdateUserForm';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
@@ -24,12 +22,12 @@ import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { careerGoalSlugFromName, declaredAcademicTermSlugFromName, interestSlugFromName } from '../../components/shared/utilities/form';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Users } from '../../../api/user/UserCollection';
-import BackToTopButton from '../../components/shared/BackToTopButton';
 import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 import { RootState } from '../../../redux/types';
+import PageLayout from '../PageLayout';
 
-interface AdminDataModelUsersPageProps extends AdminDataModeMenuProps {
+interface AdminDataModelUsersPageProps {
   admins: BaseProfile[];
   advisors: AdvisorOrFacultyProfile[];
   faculty: AdvisorOrFacultyProfile[];
@@ -233,7 +231,6 @@ const AdminDataModelUsersPage: React.FC<AdminDataModelUsersPageProps> = (props) 
     if (isCloudinaryUsed) {
       updateData.picture = cloudinaryUrl;
     }
-    console.log(collectionName, updateData);
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
         Swal.fire({
@@ -255,9 +252,6 @@ const AdminDataModelUsersPage: React.FC<AdminDataModelUsersPageProps> = (props) 
     });
   };
 
-  const paddedStyle = {
-    paddingTop: 20,
-  };
   const panes = [
     {
       menuItem: `Admins (${props.admins.length})`,
@@ -329,35 +323,26 @@ const AdminDataModelUsersPage: React.FC<AdminDataModelUsersPageProps> = (props) 
     },
   ];
   return (
-    <div id="data-model-users-page" className="layout-page">
-      <AdminPageMenu />
-      <Grid container stackable style={paddedStyle}>
-        <Grid.Column width={3}>
-          <AdminDataModelMenu {...props} />
-        </Grid.Column>
+    <PageLayout id="data-model-users-page" headerPaneTitle="Users">
+      {showUpdateFormState ? (
+        <UpdateUserForm
+          id={idState}
+          formRef={formRef}
+          handleUpdate={handleUpdate}
+          handleCancel={handleCancel}
+          itemTitleString={itemTitleString}
+          interests={props.interests}
+          careerGoals={props.careerGoals}
+          academicTerms={props.academicTerms}
+        />
+      ) : (
+        <AddUserForm formRef={formRef} handleAdd={handleAdd} interests={props.interests} careerGoals={props.careerGoals}
+                     academicTerms={props.academicTerms}/>
+      )}
+      <Tab panes={panes} defaultActiveIndex={3}/>
 
-        <Grid.Column width={13}>
-          {showUpdateFormState ? (
-            <UpdateUserForm
-              id={idState}
-              formRef={formRef}
-              handleUpdate={handleUpdate}
-              handleCancel={handleCancel}
-              itemTitleString={itemTitleString}
-              interests={props.interests}
-              careerGoals={props.careerGoals}
-              academicTerms={props.academicTerms}
-            />
-          ) : (
-            <AddUserForm formRef={formRef} handleAdd={handleAdd} interests={props.interests} careerGoals={props.careerGoals} academicTerms={props.academicTerms} />
-          )}
-          <Tab panes={panes} defaultActiveIndex={3} />
-        </Grid.Column>
-      </Grid>
-      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete User?" />
-
-      <BackToTopButton />
-    </div>
+      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete User?"/>
+    </PageLayout>
   );
 };
 
