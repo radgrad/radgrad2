@@ -10,7 +10,7 @@ interface LandingSection9Props {
 }
 const LandingSection9: React.FC<LandingSection9Props> = ({ instanceName, userGuideURL }) => (
   <div id="landing-section-9" style={styles['section-9']}>
-    <Grid doubled stackable container columns={2}>
+    <Grid doubling stackable container columns={2}>
       <Grid.Column>
         <div style={styles['ready-to-get-started']}>
           <Grid>
