@@ -163,6 +163,18 @@ const convertCareerGoal = (goal) => {
   return result;
 };
 
+const convertPictureUrl = (profile) => {
+  const result: any = {};
+  for (const key in profile) { // eslint-disable-line no-restricted-syntax
+    if (key === 'picture') {
+      result.picture = profile.picture.replace(/http:\/\/res.cloudinary.com/g, 'https://res.cloudinary.com/');
+    } else {
+      result[key] = profile[key];
+    }
+  }
+  return result;
+};
+
 function processRadGradCollection(collection: ICollection) {
   const result: any = {};
   // console.log(collection.name, collection.contents);
@@ -173,6 +185,9 @@ function processRadGradCollection(collection: ICollection) {
   } else if (collection.name === 'CareerGoalCollection') {
     result.name = collection.name;
     result.contents = _.map(collection.contents, convertCareerGoal);
+  } else if (collection.name === 'StudentProfileCollection' || collection.name === 'AdvisorProfileCollection' || collection.name === 'FacultyProfileCollection') {
+    result.name = collection.name;
+    result.contents = _.map(collection.contents, convertPictureUrl);
   } else {
     result.name = collection.name;
     result.contents = _.map(collection.contents, convertObject);

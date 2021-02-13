@@ -3,14 +3,13 @@ import { connect } from 'react-redux';
 import { Button, Form, Grid, Message } from 'semantic-ui-react';
 import moment from 'moment';
 import { ZipZap } from 'meteor/udondan:zipzap';
-import AdminPageMenu from '../../components/admin/AdminPageMenu';
-import AdminDatabaseMenu from '../../components/admin/database/AdminDatabaseMenu';
 import { dumpDatabaseMethod } from '../../../api/base/BaseCollection.methods';
 import { generateStudentEmailsMethod } from '../../../api/user/UserCollection.methods';
 import AdminDatabaseAccordion from '../../components/admin/database/AdminDatabaseAccordion';
 import { databaseActions } from '../../../redux/admin/database';
 import { analyticsActions } from '../../../redux/admin/analytics';
 import { RootState } from '../../../redux/types';
+import PageLayout from '../PageLayout';
 
 interface Collection {
   name?: string;
@@ -81,44 +80,32 @@ const AdminDatabaseDumpPage: React.FC<AdminDatabaseDumpPageProps> = ({ startDump
     });
   };
 
-  const paddedStyle = {
-    paddingTop: 20,
-  };
   const errorCondition = isErrorState;
   const showMessage = resultsState.length > 0;
   const dumpWorking = dumpDatabaseWorking;
   const getWorking = getStudentEmailsWorking;
   return (
-    <div id="database-dump-database-page">
-      <AdminPageMenu />
-      <Grid container stackable style={paddedStyle}>
-        <Grid.Column width={5}>
-          <AdminDatabaseMenu />
-        </Grid.Column>
-
-        <Grid.Column width={11}>
-          <Form>
-            <Button color="green" loading={dumpWorking} basic type="submit" onClick={clickDump}>
-              Dump Database
-            </Button>
-            <Button color="green" loading={getWorking} basic type="submit" onClick={clickEmails}>
-              Get Student Emails
-            </Button>
-          </Form>
-          {showMessage ? (
-            <Grid stackable style={paddedStyle}>
-              <Message positive={!errorCondition} error={errorCondition}>
-                {resultsState.map((item, index) => (
-                  <AdminDatabaseAccordion key={item.name} index={index} name={item.name} contents={item.contents} />
-                ))}
-              </Message>
-            </Grid>
-          ) : (
-            ''
-          )}
-        </Grid.Column>
-      </Grid>
-    </div>
+    <PageLayout id="database-dump-database-page" headerPaneTitle="Dump Database">
+      <Form>
+        <Button color="green" loading={dumpWorking} basic type="submit" onClick={clickDump}>
+          Dump Database
+        </Button>
+        <Button color="green" loading={getWorking} basic type="submit" onClick={clickEmails}>
+          Get Student Emails
+        </Button>
+      </Form>
+      {showMessage ? (
+        <Grid stackable style={{paddingTop: '20px'}}>
+          <Message positive={!errorCondition} error={errorCondition}>
+            {resultsState.map((item, index) => (
+              <AdminDatabaseAccordion key={item.name} index={index} name={item.name} contents={item.contents}/>
+            ))}
+          </Message>
+        </Grid>
+      ) : (
+        ''
+      )}
+    </PageLayout>
   );
 };
 

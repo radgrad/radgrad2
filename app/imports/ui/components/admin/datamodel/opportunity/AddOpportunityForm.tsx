@@ -31,7 +31,7 @@ const AddOpportunityForm: React.FC<AddOpportunityFormProps> = ({ sponsors, formR
     try {
       const cloudinaryResult = await openCloudinaryWidget();
       if (cloudinaryResult.event === 'success') {
-        setPictureURL(cloudinaryResult.info.url);
+        setPictureURL(cloudinaryResult.info.secure_url);
       }
     } catch (error) {
       Swal.fire({

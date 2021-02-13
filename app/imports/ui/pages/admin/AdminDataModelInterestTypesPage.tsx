@@ -1,10 +1,8 @@
 import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
-import { Confirm, Grid, Icon } from 'semantic-ui-react';
+import { Confirm, Icon } from 'semantic-ui-react';
 import _ from 'lodash';
 import Swal from 'sweetalert2';
-import AdminPageMenu from '../../components/admin/AdminPageMenu';
-import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { DescriptionPair, InterestType } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
@@ -13,10 +11,10 @@ import { Interests } from '../../../api/interest/InterestCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import AddInterestTypeForm from '../../components/admin/datamodel/interest/AddInterestTypeForm';
 import UpdateInterestTypeForm from '../../components/admin/datamodel/interest/UpdateInterestTypeForm';
-import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import { itemToSlugName } from '../../components/shared/utilities/data-model';
 import { getDatamodelCount } from './utilities/datamodel';
+import PageLayout from '../PageLayout';
 
 const collection = InterestTypes; // the collection to use.
 
@@ -60,7 +58,7 @@ const itemTitle = (item: InterestType): React.ReactNode => (
   </React.Fragment>
 );
 
-interface AdminDataModelInterestTypesPageProps extends AdminDataModeMenuProps {
+interface AdminDataModelInterestTypesPageProps {
   items: InterestType[];
 }
 
@@ -168,43 +166,31 @@ const AdminDataModelInterestTypesPage: React.FC<AdminDataModelInterestTypesPageP
     });
   };
 
-  const paddedStyle = {
-    paddingTop: 20,
-  };
   const findOptions = {
     sort: { name: 1 }, // determine how you want to sort the items in the list
   };
   return (
-    <div id="data-model-interest-types-page">
-      <AdminPageMenu />
-      <Grid container stackable style={paddedStyle}>
-        <Grid.Column width={3}>
-          <AdminDataModelMenu {...props} />
-        </Grid.Column>
-
-        <Grid.Column width={13}>
-          {showUpdateFormState ? (
-            <UpdateInterestTypeForm collection={collection} id={idState} formRef={formRef} handleUpdate={handleUpdate} handleCancel={handleCancel} itemTitleString={itemTitleString} />
-          ) : (
-            <AddInterestTypeForm formRef={formRef} handleAdd={handleAdd} />
-          )}
-          <ListCollectionWidget
-            collection={collection}
-            findOptions={findOptions}
-            descriptionPairs={descriptionPairs}
-            itemTitle={itemTitle}
-            handleOpenUpdate={handleOpenUpdate}
-            handleDelete={handleDelete}
-            setShowIndex={dataModelActions.setCollectionShowIndex}
-            setShowCount={dataModelActions.setCollectionShowCount}
-            items={props.items}
-          />
-        </Grid.Column>
-      </Grid>
-      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Interest Type?" />
-
-      <BackToTopButton />
-    </div>
+    <PageLayout id="data-model-interest-types-page" headerPaneTitle="Interest Types">
+      {showUpdateFormState ? (
+        <UpdateInterestTypeForm collection={collection} id={idState} formRef={formRef} handleUpdate={handleUpdate}
+                                handleCancel={handleCancel} itemTitleString={itemTitleString}/>
+      ) : (
+        <AddInterestTypeForm formRef={formRef} handleAdd={handleAdd}/>
+      )}
+      <ListCollectionWidget
+        collection={collection}
+        findOptions={findOptions}
+        descriptionPairs={descriptionPairs}
+        itemTitle={itemTitle}
+        handleOpenUpdate={handleOpenUpdate}
+        handleDelete={handleDelete}
+        setShowIndex={dataModelActions.setCollectionShowIndex}
+        setShowCount={dataModelActions.setCollectionShowCount}
+        items={props.items}
+      />
+      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete}
+               header="Delete Interest Type?"/>
+    </PageLayout>
   );
 };
 

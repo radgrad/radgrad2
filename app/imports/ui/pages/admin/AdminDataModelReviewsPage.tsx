@@ -1,10 +1,8 @@
 import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
-import { Confirm, Grid, Icon } from 'semantic-ui-react';
+import { Confirm, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
-import AdminPageMenu from '../../components/admin/AdminPageMenu';
-import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import { AcademicTerm, Course, DescriptionPair, Opportunity, Review, StudentProfile } from '../../../typings/radgrad';
@@ -18,8 +16,8 @@ import { Reviews } from '../../../api/review/ReviewCollection';
 import AddReviewForm from '../../components/admin/datamodel/review/AddReviewForm';
 import UpdateReviewForm from '../../components/admin/datamodel/review/UpdateReviewForm';
 import { academicTermNameToSlug, courseNameToSlug, opportunityNameToSlug, profileNameToUsername } from '../../components/shared/utilities/data-model';
-import BackToTopButton from '../../components/shared/BackToTopButton';
 import { getDatamodelCount } from './utilities/datamodel';
+import PageLayout from '../PageLayout';
 
 const collection = Reviews; // the collection to use.
 
@@ -66,7 +64,7 @@ const itemTitle = (item: Review): React.ReactNode => (
   </React.Fragment>
 );
 
-interface AdminDataModelReviewsPageProps extends AdminDataModeMenuProps {
+interface AdminDataModelReviewsPageProps {
   items: Review[];
   terms: AcademicTerm[];
   courses: Course[];
@@ -187,43 +185,31 @@ const AdminDataModelReviewsPage: React.FC<AdminDataModelReviewsPageProps> = (pro
     });
   };
 
-  const paddedStyle = {
-    paddingTop: 20,
-  };
   const findOptions = {
     sort: { name: 1 }, // determine how you want to sort the items in the list
   };
   return (
-    <div id="data-model-reviews-page">
-      <AdminPageMenu />
-      <Grid container stackable style={paddedStyle}>
-        <Grid.Column width={3}>
-          <AdminDataModelMenu {...props} />
-        </Grid.Column>
-
-        <Grid.Column width={13}>
-          {showUpdateFormState ? (
-            <UpdateReviewForm collection={collection} id={idState} formRef={formRef} handleUpdate={handleUpdate} handleCancel={handleCancel} itemTitleString={itemTitleString} terms={props.terms} />
-          ) : (
-            <AddReviewForm formRef={formRef} handleAdd={handleAdd} terms={props.terms} students={props.students} opportunities={props.opportunities} courses={props.courses} />
-          )}
-          <ListCollectionWidget
-            collection={collection}
-            findOptions={findOptions}
-            descriptionPairs={descriptionPairs}
-            itemTitle={itemTitle}
-            handleOpenUpdate={handleOpenUpdate}
-            handleDelete={handleDelete}
-            setShowIndex={dataModelActions.setCollectionShowIndex}
-            setShowCount={dataModelActions.setCollectionShowCount}
-            items={props.items}
-          />
-        </Grid.Column>
-      </Grid>
-      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Review?" />
-
-      <BackToTopButton />
-    </div>
+    <PageLayout id="data-model-reviews-page" headerPaneTitle="Reviews">
+      {showUpdateFormState ? (
+        <UpdateReviewForm collection={collection} id={idState} formRef={formRef} handleUpdate={handleUpdate}
+                          handleCancel={handleCancel} itemTitleString={itemTitleString} terms={props.terms}/>
+      ) : (
+        <AddReviewForm formRef={formRef} handleAdd={handleAdd} terms={props.terms} students={props.students}
+                       opportunities={props.opportunities} courses={props.courses}/>
+      )}
+      <ListCollectionWidget
+        collection={collection}
+        findOptions={findOptions}
+        descriptionPairs={descriptionPairs}
+        itemTitle={itemTitle}
+        handleOpenUpdate={handleOpenUpdate}
+        handleDelete={handleDelete}
+        setShowIndex={dataModelActions.setCollectionShowIndex}
+        setShowCount={dataModelActions.setCollectionShowCount}
+        items={props.items}
+      />
+      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Review?"/>
+    </PageLayout>
   );
 };
 

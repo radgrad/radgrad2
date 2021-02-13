@@ -14,8 +14,8 @@ const LandingSection2: React.FC<LandingSection2Props> = ({ careerGoals, interest
   <div style={whiteBG}>
     <Container>
       <div style={styles['header-section']}>
-        <Grid stackable centered>
-          <Grid.Column width={4}>
+        <Grid stackable centered columns={4}>
+          <Grid.Column>
             <div style={styles['landing-number-column']}>
               <span style={styles['home-number']}>{careerGoals}</span>
               <p />
@@ -23,7 +23,7 @@ const LandingSection2: React.FC<LandingSection2Props> = ({ careerGoals, interest
                 CAREER GOALS
               </p></div>
           </Grid.Column>
-          <Grid.Column width={4}>
+          <Grid.Column>
             <div style={styles['landing-number-column']}>
               <span style={styles['home-number']}>{interests}</span>
               <p />
@@ -32,7 +32,7 @@ const LandingSection2: React.FC<LandingSection2Props> = ({ careerGoals, interest
               </p>
             </div>
           </Grid.Column>
-          <Grid.Column width={4}>
+          <Grid.Column>
             <div style={styles['landing-number-column']}>
               <span style={styles['home-number']}>{opportunities}</span>
               <p />
@@ -41,13 +41,13 @@ const LandingSection2: React.FC<LandingSection2Props> = ({ careerGoals, interest
               </p>
             </div>
           </Grid.Column>
-          <Grid.Column style={styles['float-left']} width={4}>
+          <Grid.Column>
             <div style={styles['landing-number-column']}>
               <span style={styles['home-number']}>
               {users}
             </span>
               <p />
-              <p style={styles['home-number-label-last']}>
+              <p style={styles['home-number-label']}>
                 STUDENTS, FACULTY, ALUMNI
               </p>
             </div>

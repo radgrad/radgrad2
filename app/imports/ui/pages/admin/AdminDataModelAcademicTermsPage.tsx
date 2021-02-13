@@ -1,10 +1,8 @@
 import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
-import { Confirm, Grid, Icon } from 'semantic-ui-react';
+import { Confirm, Icon } from 'semantic-ui-react';
 import _ from 'lodash';
 import Swal from 'sweetalert2';
-import AdminPageMenu from '../../components/admin/AdminPageMenu';
-import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
@@ -14,9 +12,9 @@ import { AcademicTerm, AcademicTermDefine, DescriptionPair } from '../../../typi
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import AdminDataModelUpdateForm from '../../components/admin/datamodel/AdminDataModelUpdateForm';
 import AdminDataModelAddForm from '../../components/admin/datamodel/AdminDataModelAddForm';
-import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import { getDatamodelCount } from './utilities/datamodel';
+import PageLayout from '../PageLayout';
 
 function numReferences(term) {
   let references = 0;
@@ -54,7 +52,7 @@ const itemTitle = (term: AcademicTerm): React.ReactNode => (
 
 const itemTitleString = (term) => AcademicTerms.toString(term._id, false);
 
-interface AdminDataModelAcademicTermsPageProps extends AdminDataModeMenuProps {
+interface AdminDataModelAcademicTermsPageProps {
   items: AcademicTerm[];
 }
 
@@ -167,42 +165,30 @@ const AdminDataModelAcademicTermsPage: React.FC<AdminDataModelAcademicTermsPageP
     });
   };
 
-  const paddedStyle = {
-    paddingTop: 20,
-  };
   const findOptions = {
     sort: { termNumber: 1 },
   };
   return (
-    <div id="data-model-academic-terms-page">
-      <AdminPageMenu />
-      <Grid container stackable style={paddedStyle}>
-        <Grid.Column width={3}>
-          <AdminDataModelMenu {...props} />
-        </Grid.Column>
-
-        <Grid.Column width={13}>
-          {showUpdateFormState ? (
-            <AdminDataModelUpdateForm collection={AcademicTerms} id={idState} formRef={formRef} handleUpdate={handleUpdate} handleCancel={handleCancel} itemTitleString={itemTitleString} />
-          ) : (
-            <AdminDataModelAddForm collection={AcademicTerms} formRef={formRef} handleAdd={handleAdd} />
-          )}
-          <ListCollectionWidget
-            collection={AcademicTerms}
-            findOptions={findOptions}
-            descriptionPairs={descriptionPairs}
-            itemTitle={itemTitle}
-            handleOpenUpdate={handleOpenUpdate}
-            handleDelete={handleDelete}
-            setShowIndex={dataModelActions.setCollectionShowIndex}
-            setShowCount={dataModelActions.setCollectionShowCount}
-            items={props.items}
-          />
-        </Grid.Column>
-      </Grid>
+    <PageLayout id="data-model-academic-terms-page" headerPaneTitle="Academic Terms" >
+      {showUpdateFormState ? (
+        <AdminDataModelUpdateForm collection={AcademicTerms} id={idState} formRef={formRef} handleUpdate={handleUpdate}
+                                  handleCancel={handleCancel} itemTitleString={itemTitleString}/>
+      ) : (
+        <AdminDataModelAddForm collection={AcademicTerms} formRef={formRef} handleAdd={handleAdd}/>
+      )}
+      <ListCollectionWidget
+        collection={AcademicTerms}
+        findOptions={findOptions}
+        descriptionPairs={descriptionPairs}
+        itemTitle={itemTitle}
+        handleOpenUpdate={handleOpenUpdate}
+        handleDelete={handleDelete}
+        setShowIndex={dataModelActions.setCollectionShowIndex}
+        setShowCount={dataModelActions.setCollectionShowCount}
+        items={props.items}
+      />
       <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Academic Term?" />
-      <BackToTopButton />
-    </div>
+    </PageLayout>
   );
 };
 

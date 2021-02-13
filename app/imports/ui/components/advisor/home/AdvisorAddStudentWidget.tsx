@@ -105,7 +105,7 @@ const AdvisorAddStudentWidget: React.FC<AdvisorAddStudentWidgetProps> = ({ inter
     try {
       const cloudinaryResult = await openCloudinaryWidget();
       if (cloudinaryResult.event === 'success') {
-        setPicture(cloudinaryResult.info.url);
+        setPicture(cloudinaryResult.info.secure_url);
       }
     } catch (error) {
       Swal.fire({

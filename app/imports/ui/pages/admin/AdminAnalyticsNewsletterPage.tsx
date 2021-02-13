@@ -1,31 +1,11 @@
 import React from 'react';
-import { Grid } from 'semantic-ui-react';
-import AdminPageMenu from '../../components/admin/AdminPageMenu';
-import AdminAnalyticsMenuWidget from '../../components/admin/analytics/AdminAnalyticsMenuWidget';
 import AdminAnalyticsNewsletterWidget from '../../components/admin/analytics/newsletter/AdminAnalyticsNewsletterWidget';
+import PageLayout from '../PageLayout';
 
-const AdminAnalyticsNewsletterPage: React.FC = () => {
-  // console.log(currentUser, iconName);
-  const paddedStyle = {
-    paddingTop: 20,
-  };
-  return (
-    <div id="analytics-newsletter-page">
-      <AdminPageMenu />
-      <Grid container stackable style={paddedStyle} columns={1}>
-        <Grid.Column>
-          <Grid>
-            <Grid.Column width={3}>
-              <AdminAnalyticsMenuWidget />
-            </Grid.Column>
-            <Grid.Column width={13}>
-              <AdminAnalyticsNewsletterWidget />
-            </Grid.Column>
-          </Grid>
-        </Grid.Column>
-      </Grid>
-    </div>
-  );
-};
+const AdminAnalyticsNewsletterPage: React.FC = () => (
+  <PageLayout id="analytics-newsletter-page" headerPaneTitle="Newsletter">
+    <AdminAnalyticsNewsletterWidget/>
+  </PageLayout>
+);
 
 export default AdminAnalyticsNewsletterPage;

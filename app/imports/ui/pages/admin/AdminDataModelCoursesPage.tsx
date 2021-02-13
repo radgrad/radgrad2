@@ -1,10 +1,8 @@
 import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
-import { Confirm, Grid, Icon } from 'semantic-ui-react';
+import { Confirm, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import _ from 'lodash';
-import AdminPageMenu from '../../components/admin/AdminPageMenu';
-import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { Course, DescriptionPair, Interest } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
@@ -16,8 +14,8 @@ import { courseNameToSlug, courseToName, itemToSlugName, interestNameToId } from
 import AddCourseForm from '../../components/admin/datamodel/course/AddCourseForm';
 import { interestSlugFromName } from '../../components/shared/utilities/form';
 import UpdateCourseForm from '../../components/admin/datamodel/course/UpdateCourseForm';
-import BackToTopButton from '../../components/shared/BackToTopButton';
 import { dataModelActions } from '../../../redux/admin/data-model';
+import PageLayout from '../PageLayout';
 
 const collection = Courses; // the collection to use.
 
@@ -57,7 +55,7 @@ const itemTitle = (item: Course): React.ReactNode => (
   </React.Fragment>
 );
 
-interface AdminDataModelCoursesPageProps extends AdminDataModeMenuProps {
+interface AdminDataModelCoursesPageProps {
   items: Course[];
   interests: Interest[];
   courses: Course[];
@@ -185,43 +183,32 @@ const AdminDataModelCoursesPage: React.FC<AdminDataModelCoursesPageProps> = (pro
     });
   };
 
-  const paddedStyle = {
-    paddingTop: 20,
-  };
   const findOptions = {
     sort: { num: 1 }, // determine how you want to sort the items in the list
   };
   return (
-    <div id="data-model-courses-page">
-      <AdminPageMenu />
-      <Grid container stackable style={paddedStyle}>
-        <Grid.Column width={3}>
-          <AdminDataModelMenu {...props} />
-        </Grid.Column>
+    <PageLayout id="data-model-courses-page" headerPaneTitle="Courses">
+      {showUpdateFormState ? (
+        <UpdateCourseForm collection={collection} id={idState} formRef={formRef} handleUpdate={handleUpdate}
+                          handleCancel={handleCancel} itemTitleString={itemTitleString} interests={props.interests}
+                          courses={props.courses}/>
+      ) : (
+        <AddCourseForm formRef={formRef} handleAdd={handleAdd} interests={props.interests} courses={props.courses}/>
+      )}
+      <ListCollectionWidget
+        collection={collection}
+        findOptions={findOptions}
+        descriptionPairs={descriptionPairs}
+        itemTitle={itemTitle}
+        handleOpenUpdate={handleOpenUpdate}
+        handleDelete={handleDelete}
+        setShowIndex={dataModelActions.setCollectionShowIndex}
+        setShowCount={dataModelActions.setCollectionShowCount}
+        items={props.items}
+      />
 
-        <Grid.Column width={13}>
-          {showUpdateFormState ? (
-            <UpdateCourseForm collection={collection} id={idState} formRef={formRef} handleUpdate={handleUpdate} handleCancel={handleCancel} itemTitleString={itemTitleString} interests={props.interests} courses={props.courses} />
-          ) : (
-            <AddCourseForm formRef={formRef} handleAdd={handleAdd} interests={props.interests} courses={props.courses} />
-          )}
-          <ListCollectionWidget
-            collection={collection}
-            findOptions={findOptions}
-            descriptionPairs={descriptionPairs}
-            itemTitle={itemTitle}
-            handleOpenUpdate={handleOpenUpdate}
-            handleDelete={handleDelete}
-            setShowIndex={dataModelActions.setCollectionShowIndex}
-            setShowCount={dataModelActions.setCollectionShowCount}
-            items={props.items}
-          />
-        </Grid.Column>
-      </Grid>
-      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Course?" />
-
-      <BackToTopButton />
-    </div>
+      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Course?"/>
+    </PageLayout>
   );
 };
 

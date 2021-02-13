@@ -23,7 +23,7 @@ const LandingSection3: React.FC<LandingSection3Props> = ({ instanceName, landing
         <br />
         RadGrad provides &quot;Explorers&quot; for <a href="/#/explorer/career-goals">career goals</a>, <a
         href="/#/explorer/interests">interests</a>, <a href="/#/explorer/courses">courses</a>, <a
-        href="/#/explorer/opportunities">opportunities</a>, and more so you can stay on top of the latest trends. <br />
+        href="/#/explorer/opportunities">opportunities</a>, and more so you can stay on top of the latest trends.
       </p>
       <Grid doubling columns={2}>
         <Grid.Column>

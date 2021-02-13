@@ -43,7 +43,7 @@ const AdminAnalyticsOverheadAnalysisWidget: React.FC<AdminAnalyticsOverheadAnaly
   ];
   return (
     <React.Fragment>
-      <AdminAnalyticsDateSelectionWidget page={ANALYTICS.OVERHEADANALYSIS} />
+      <AdminAnalyticsDateSelectionWidget page={ANALYTICS.OVERHEAD_ANALYSIS} />
       <Segment padded className="container">
         <Header dividing>{dateRangeToString(dateRange)}</Header>
         <Tab panes={panes} menu={tabMenuSettings} />

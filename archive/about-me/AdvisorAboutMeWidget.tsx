@@ -132,7 +132,7 @@ const AdvisorAboutMeWidget: React.FC<AdvisorAboutMeWidgetProps> = ({ profile, fa
     try {
       const cloudinaryResult = await openCloudinaryWidget();
       if (cloudinaryResult.event === 'success') {
-        const updateData: { id: string; picture: string } = { id: profile._id, picture: cloudinaryResult.info.url };
+        const updateData: { id: string; picture: string } = { id: profile._id, picture: cloudinaryResult.info.secure_url };
         updateMethod.call({ collectionName, updateData }, (error) => {
           if (error) {
             Swal.fire({
@@ -141,7 +141,7 @@ const AdvisorAboutMeWidget: React.FC<AdvisorAboutMeWidgetProps> = ({ profile, fa
               icon: 'error',
             });
           } else {
-            setPicture(cloudinaryResult.info.url);
+            setPicture(cloudinaryResult.info.secure_url);
             Swal.fire({
               title: 'Update Succeeded',
               icon: 'success',

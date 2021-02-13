@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Button, Form, Grid, Header, Message } from 'semantic-ui-react';
-import AdminPageMenu from '../../components/admin/AdminPageMenu';
-import AdminDatabaseMenuContainer from '../../components/admin/database/AdminDatabaseMenu';
 import { checkIntegrity } from '../../../api/integrity/IntegrityChecker';
 import { checkIntegrityMethod } from '../../../api/integrity/IntegrityChecker.methods';
 import { databaseActions } from '../../../redux/admin/database';
 import { RootState } from '../../../redux/types';
+import PageLayout from '../PageLayout';
 
 interface AdminDatabaseCheckIntegrityPageProps {
   startCheckIntegrity: () => any;
@@ -54,44 +53,35 @@ const AdminDatabaseCheckIntegrityPage: React.FC<AdminDatabaseCheckIntegrityPageP
   const clientError = clientResultState.count !== 0;
   const working = checkIntegrityWorking;
   return (
-    <div id="database-check-integrity-page">
-      <AdminPageMenu />
-      <Grid container stackable style={paddedStyle}>
-        <Grid.Column width={5}>
-          <AdminDatabaseMenuContainer />
+    <PageLayout id="database-check-integrity-page" headerPaneTitle="Check Integrity">
+      <Form>
+        <Button color="green" loading={working} basic type="submit" onClick={clickSubmit}>
+          Check Integrity
+        </Button>
+      </Form>
+      <Grid stackable width="equal" style={paddedStyle}>
+        <Grid.Column width={8}>
+          {showClient ? (
+            <Message error={clientError} positive={!clientError}>
+              <Header> Integrity Check (Client-side DB)</Header>
+              <pre>{clientResultState.message}</pre>
+            </Message>
+          ) : (
+            ''
+          )}
         </Grid.Column>
-
-        <Grid.Column width={11}>
-          <Form>
-            <Button color="green" loading={working} basic type="submit" onClick={clickSubmit}>
-              Check Integrity
-            </Button>
-          </Form>
-          <Grid stackable width="equal" style={paddedStyle}>
-            <Grid.Column width={8}>
-              {showClient ? (
-                <Message error={clientError} positive={!clientError}>
-                  <Header> Integrity Check (Client-side DB)</Header>
-                  <pre>{clientResultState.message}</pre>
-                </Message>
-              ) : (
-                ''
-              )}
-            </Grid.Column>
-            <Grid.Column width={8}>
-              {showServer ? (
-                <Message error={serverError} positive={!serverError}>
-                  <Header> Integrity Check (Server-side DB)</Header>
-                  <pre>{serverResultState.message}</pre>
-                </Message>
-              ) : (
-                ''
-              )}
-            </Grid.Column>
-          </Grid>
+        <Grid.Column width={8}>
+          {showServer ? (
+            <Message error={serverError} positive={!serverError}>
+              <Header> Integrity Check (Server-side DB)</Header>
+              <pre>{serverResultState.message}</pre>
+            </Message>
+          ) : (
+            ''
+          )}
         </Grid.Column>
       </Grid>
-    </div>
+    </PageLayout>
   );
 };
 
