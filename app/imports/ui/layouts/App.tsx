@@ -77,7 +77,7 @@ const ProtectedRoute = ({ component: Component, ...rest }) => (
  * @param {any} { component: Component, ...rest }
  */
 const AdminProtectedRoute = ({ component: Component, ...rest }) => {
-  console.log('AdminProtectedRoute', rest);
+  // console.log('AdminProtectedRoute', rest);
   if (_.isNil(Meteor.userId())) {
     return <Redirect to={{ pathname: '/', state: { from: rest.location } }} />;
   }
@@ -131,7 +131,7 @@ const FacultyProtectedRoute = ({ component: Component, ...rest }) => {
 };
 
 const StudentProtectedRoute = ({ component: Component, ...rest }) => {
-  console.log('StudentProtectedRoute', rest.computedMatch.url, rest.location);
+  // console.log('StudentProtectedRoute', rest.computedMatch.url, rest.location);
 
   const userId = Meteor.userId();
   if (_.isNil(userId)) {
@@ -154,7 +154,7 @@ const StudentProtectedRoute = ({ component: Component, ...rest }) => {
     <Route
       {...rest}
       render={(props) => {
-        console.log('StudentProtectedRoute', props);
+        // console.log('StudentProtectedRoute', props);
         let isAllowed = Roles.userIsInRole(userId, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.STUDENT]);
         let role = 'student';
         if (Roles.userIsInRole(userId, [ROLE.ADMIN])) {
