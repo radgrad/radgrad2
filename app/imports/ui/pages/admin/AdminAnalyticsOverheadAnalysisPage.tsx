@@ -9,7 +9,7 @@ import HelpPanelWidget, { HelpPanelWidgetProps } from '../../components/shared/H
 import BackToTopButton from '../../components/shared/BackToTopButton';
 
 const AdminAnalyticsOverheadAnalysisPage: React.FC<HelpPanelWidgetProps> = ({ helpMessages }) => (
-  <div>
+  <div id="analytics-overhead-analysis-page">
     <AdminPageMenu />
     <Grid stackable>
       <Grid.Row>

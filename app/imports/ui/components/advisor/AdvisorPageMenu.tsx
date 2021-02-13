@@ -7,10 +7,7 @@ import { buildRouteName } from '../shared/utilities/router';
 import { AdvisorOrFacultyProfile } from '../../../typings/radgrad';
 import {
   HOME,
-  MANAGE_OPPORTUNITIES,
-  MANAGE_STUDENTS,
-  MANAGE_VERIFICATIONS,
-  MANAGE_REVIEWS,
+  MANAGE,
   PRIVACY,
   FORECASTS,
   COMMUNITY,
@@ -41,10 +38,10 @@ const AdvisorPageMenu: React.FC = () => {
 
   /* In future, Advisors should be able to manage courses as well. */
   const manageDropdownItems = [
-    { label: 'Students', route: MANAGE_STUDENTS },
-    { label: 'Verification', route: MANAGE_VERIFICATIONS},
-    { label: 'Review', route: MANAGE_REVIEWS},
-    { label: 'Opportunities', route: MANAGE_OPPORTUNITIES },
+    { label: 'Students', route: MANAGE.STUDENTS },
+    { label: 'Verification', route: MANAGE.VERIFICATIONS},
+    { label: 'Review', route: MANAGE.REVIEWS},
+    { label: 'Opportunities', route: MANAGE.OPPORTUNITIES },
   ];
 
   const instanceName = Meteor.settings.public.instanceName;

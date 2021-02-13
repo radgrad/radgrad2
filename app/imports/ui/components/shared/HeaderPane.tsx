@@ -20,7 +20,7 @@ export interface HeaderPaneProps {
 const HeaderPane: React.FC<HeaderPaneProps> = ({title = 'Default title', body = 'Default body'}) => (
   <div style={invertedSection}>
     <div style={titleStyle}><ReactMarkdownWithHtml allowDangerousHtml source={title}/></div>
-    <div style={lineStyle}><ReactMarkdownWithHtml allowDangerousHtml source={body}/></div>
+    <div style={lineStyle}><ReactMarkdownWithHtml linkTarget="_blank" allowDangerousHtml source={body}/></div>
   </div>
 );
 
