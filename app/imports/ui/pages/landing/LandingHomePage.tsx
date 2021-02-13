@@ -10,6 +10,12 @@ import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Users } from '../../../api/user/UserCollection';
+import {
+  InterestOrCareerGoalFactoidProps,
+  LevelFactoidProps,
+  OpportunityFactoidProps,
+  ReviewFactoidProps,
+} from '../../../typings/radgrad';
 import LandingNavBar from '../../components/landing/LandingNavBar';
 import LandingSection1 from '../../components/landing/LandingSection1';
 import LandingSection2 from '../../components/landing/LandingSection2';
@@ -38,17 +44,22 @@ interface LandingHomeProps {
       };
     }
   };
+  careerGoalFactoid: InterestOrCareerGoalFactoidProps,
+  interestFactoid: InterestOrCareerGoalFactoidProps,
+  levelFactoid: LevelFactoidProps,
+  opportunityFactoid: OpportunityFactoidProps,
+  reviewFactoid: ReviewFactoidProps,
 }
 
 /* A simple static component to render some text for the landing page. */
-const LandingHomePage: React.FC<LandingHomeProps> = ({ currentUser, opportunities, interests, careerGoals, users, role, iconName, location, tagline, instanceName, landingSubject, userGuideURL }) => {
+const LandingHomePage: React.FC<LandingHomeProps> = ({ currentUser, opportunities, interests, careerGoals, users, role, iconName, location, tagline, instanceName, landingSubject, userGuideURL, careerGoalFactoid, interestFactoid, levelFactoid, opportunityFactoid, reviewFactoid }) => {
   // CAM: This is set in the Redirect from StudentProtectedRoutes on a reload. We want to go back to the page we came from.
   if (location?.state?.from) {
     return (<Redirect to={{ pathname: `${location.state.from.pathname}` }} />);
   }
   return (<div id="landing-page">
     <LandingNavBar currentUser={currentUser} iconName={iconName} role={role} instanceName={instanceName} />
-    <LandingSection1 tagline={tagline} instanceName={instanceName} />
+    <LandingSection1 tagline={tagline} instanceName={instanceName} careerGoalFactoid={careerGoalFactoid} interestFactoid={interestFactoid} levelFactoid={levelFactoid} opportunityFactoid={opportunityFactoid} reviewFactoid={reviewFactoid} />
     <LandingSection2 careerGoals={careerGoals} interests={interests} opportunities={opportunities} users={users} />
     <LandingSection3 landingSubject={landingSubject} instanceName={instanceName} />
     <LandingSection9Container instanceName={instanceName} userGuideURL={userGuideURL} />
@@ -80,6 +91,11 @@ const LandingHomeContainer = withTracker(() => {
   const instanceName = Meteor.settings.public.instanceName;
   const landingSubject = Meteor.settings.public.landingSubject;
   const userGuideURL = Meteor.settings.public.userGuideURL;
+  const careerGoalFactoid = Factoids.getCareerGoalFactoid();
+  const interestFactoid = Factoids.getInterestFactoid();
+  const levelFactoid = Factoids.getLevelFactoid();
+  const opportunityFactoid = Factoids.getOpportunityFactoid();
+  const reviewFactoid = Factoids.getReviewFactoid();
   return {
     currentUser,
     iconName,
@@ -92,6 +108,11 @@ const LandingHomeContainer = withTracker(() => {
     instanceName,
     landingSubject,
     userGuideURL,
+    careerGoalFactoid,
+    interestFactoid,
+    levelFactoid,
+    opportunityFactoid,
+    reviewFactoid,
   };
 })(LandingHomePage);
 

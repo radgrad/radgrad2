@@ -1,4 +1,5 @@
 import React from 'react';
+import Markdown from 'react-markdown';
 import { Card, Header, Icon, Label, List } from 'semantic-ui-react';
 import { InterestOrCareerGoalFactoidProps } from '../../../../typings/radgrad';
 import styles from '../utilities/landing-styles';
@@ -26,7 +27,9 @@ const CareerGoalFactoid: React.FC<InterestOrCareerGoalFactoidProps> = ({
             <List.Content><Label><Icon name='bullseye' /> {numberOfOpportunities}</Label></List.Content>
           </List.Item>
         </List>
-        <Card.Description>{description}</Card.Description>
+        <Card.Description>
+          <Markdown escapeHtml source={description} />
+        </Card.Description>
       </Card.Content>
     </Card>
   </div>

@@ -44,8 +44,8 @@ class FactoidCollection extends BaseCollection {
       careerGoalFactoid: { type: careerGoalFactoid, optional: true },
       interestFactoid: { type: interestFactoid, optional: true },
       levelFactoid: { type: levelFactoid, optional: true },
-      reviewFactoid: { type: reviewFactoid, optional: true },
       opportunityFactoid: { type: opportunityFactoid, optional: true },
+      reviewFactoid: { type: reviewFactoid, optional: true },
     }));
   }
 

@@ -6,7 +6,7 @@ import RadGradMenuLevel from '../../shared/RadGradMenuLevel';
 const LevelFactoid: React.FC<LevelFactoidProps> = ({ level, numberOfStudents, description }) => (
     <div id="level-factoid">
       <Header inverted>&quot;Levels show progress from Grasshopper to Ninja.&quot;</Header>
-      <Card>
+      <Card fluid>
         <Card.Content>
           <Card.Header>Level {level}: <RadGradMenuLevel level={level} /></Card.Header>
           <List horizontal>

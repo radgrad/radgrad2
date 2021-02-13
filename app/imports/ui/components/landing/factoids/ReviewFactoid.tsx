@@ -6,7 +6,7 @@ import styles from '../utilities/landing-styles';
 const ReviewFactoid :React.FC<ReviewFactoidProps> = ({ name, description }) => (
   <div id="review-factoid">
     <Header inverted>&quot;<span style={styles['green-text']}>RadGrad</span> provides high quality reviews of courses and extracurricular activities.&quot;</Header>
-    <Card>
+    <Card fluid>
       <Card.Content>
         <Card.Header>{name}</Card.Header>
         <Card.Description>{description}</Card.Description>
