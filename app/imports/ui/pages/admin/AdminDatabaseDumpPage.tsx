@@ -17,7 +17,7 @@ interface Collection {
   contents?: string[];
 }
 
-interface AdminDumpDatabasePageProps {
+interface AdminDatabaseDumpPageProps {
   startDumpDatabase: () => any;
   dumpDatabaseDone: () => any;
   dumpDatabaseWorking?: boolean;
@@ -40,7 +40,7 @@ const mapDispatchToProps = (dispatch) => ({
   getStudentEmailsDone: () => dispatch(analyticsActions.getStudentEmailsDone()),
 });
 
-const AdminDumpDatabasePage: React.FC<AdminDumpDatabasePageProps> = ({ startDumpDatabase, dumpDatabaseDone, dumpDatabaseWorking, getStudentEmailsDone, getStudentEmailsWorking, startGetStudentEmails }) => {
+const AdminDatabaseDumpPage: React.FC<AdminDatabaseDumpPageProps> = ({ startDumpDatabase, dumpDatabaseDone, dumpDatabaseWorking, getStudentEmailsDone, getStudentEmailsWorking, startGetStudentEmails }) => {
   const [isErrorState, setIsError] = useState(false);
   const [resultsState, setResults] = useState([]);
 
@@ -89,7 +89,7 @@ const AdminDumpDatabasePage: React.FC<AdminDumpDatabasePageProps> = ({ startDump
   const dumpWorking = dumpDatabaseWorking;
   const getWorking = getStudentEmailsWorking;
   return (
-    <div>
+    <div id="database-dump-database-page">
       <AdminPageMenu />
       <Grid container stackable style={paddedStyle}>
         <Grid.Column width={5}>
@@ -122,5 +122,5 @@ const AdminDumpDatabasePage: React.FC<AdminDumpDatabasePageProps> = ({ startDump
   );
 };
 
-const AdminDumpDatabasePageContainer = connect(mapStateToProps, mapDispatchToProps)(AdminDumpDatabasePage);
-export default AdminDumpDatabasePageContainer;
+const AdminDatabaseDumpPageContainer = connect(mapStateToProps, mapDispatchToProps)(AdminDatabaseDumpPage);
+export default AdminDatabaseDumpPageContainer;
