@@ -87,11 +87,9 @@
         <article>
             <pre class="prettyprint source linenums"><code>import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
-import { Confirm, Grid, Icon } from 'semantic-ui-react';
+import { Confirm, Icon } from 'semantic-ui-react';
 import _ from 'lodash';
 import Swal from 'sweetalert2';
-import AdminPageMenu from '../../components/admin/AdminPageMenu';
-import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import { DescriptionPair, OpportunityType } from '../../../typings/radgrad';
@@ -101,9 +99,9 @@ import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollec
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import AddOpportunityTypeForm from '../../components/admin/datamodel/opportunity/AddOpportunityTypeForm';
 import UpdateOpportunityTypeForm from '../../components/admin/datamodel/opportunity/UpdateOpportunityTypeForm';
-import BackToTopButton from '../../components/shared/BackToTopButton';
 import { itemToSlugName } from '../../components/shared/utilities/data-model';
 import { getDatamodelCount } from './utilities/datamodel';
+import PageLayout from '../PageLayout';
 
 const collection = OpportunityTypes; // the collection to use.
 
@@ -147,7 +145,7 @@ const itemTitle = (item: OpportunityType): React.ReactNode => (
   &lt;/React.Fragment>
 );
 
-interface AdminDataModelOpportunityTypesPageProps extends AdminDataModeMenuProps {
+interface AdminDataModelOpportunityTypesPageProps {
   items: OpportunityType[];
 }
 
@@ -255,43 +253,31 @@ const AdminDataModelOpportunityTypesPage: React.FC&lt;AdminDataModelOpportunityT
     });
   };
 
-  const paddedStyle = {
-    paddingTop: 20,
-  };
   const findOptions = {
     sort: { name: 1 }, // determine how you want to sort the items in the list
   };
   return (
-    &lt;div id="data-model-opportunity-types-page">
-      &lt;AdminPageMenu />
-      &lt;Grid container stackable style={paddedStyle}>
-        &lt;Grid.Column width={3}>
-          &lt;AdminDataModelMenu {...props} />
-        &lt;/Grid.Column>
-
-        &lt;Grid.Column width={13}>
-          {showUpdateFormState ? (
-            &lt;UpdateOpportunityTypeForm collection={collection} id={idState} formRef={formRef} handleUpdate={handleUpdate} handleCancel={handleCancel} itemTitleString={itemTitleString} />
-          ) : (
-            &lt;AddOpportunityTypeForm formRef={formRef} handleAdd={handleAdd} />
-          )}
-          &lt;ListCollectionWidget
-            collection={collection}
-            findOptions={findOptions}
-            descriptionPairs={descriptionPairs}
-            itemTitle={itemTitle}
-            handleOpenUpdate={handleOpenUpdate}
-            handleDelete={handleDelete}
-            setShowIndex={dataModelActions.setCollectionShowIndex}
-            setShowCount={dataModelActions.setCollectionShowCount}
-            items={props.items}
-          />
-        &lt;/Grid.Column>
-      &lt;/Grid>
-      &lt;Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Opportunity Type?" />
-
-      &lt;BackToTopButton />
-    &lt;/div>
+    &lt;PageLayout id="data-model-opportunity-types-page" headerPaneTitle="Opportunity Types">
+      {showUpdateFormState ? (
+        &lt;UpdateOpportunityTypeForm collection={collection} id={idState} formRef={formRef} handleUpdate={handleUpdate}
+                                   handleCancel={handleCancel} itemTitleString={itemTitleString}/>
+      ) : (
+        &lt;AddOpportunityTypeForm formRef={formRef} handleAdd={handleAdd}/>
+      )}
+      &lt;ListCollectionWidget
+        collection={collection}
+        findOptions={findOptions}
+        descriptionPairs={descriptionPairs}
+        itemTitle={itemTitle}
+        handleOpenUpdate={handleOpenUpdate}
+        handleDelete={handleDelete}
+        setShowIndex={dataModelActions.setCollectionShowIndex}
+        setShowCount={dataModelActions.setCollectionShowCount}
+        items={props.items}
+      />
+      &lt;Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete}
+               header="Delete Opportunity Type?"/>
+    &lt;/PageLayout>
   );
 };
 
