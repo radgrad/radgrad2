@@ -2,7 +2,6 @@ import React from 'react';
 import Markdown from 'react-markdown';
 import { Card, Header, Icon, Label, List } from 'semantic-ui-react';
 import { InterestOrCareerGoalFactoidProps } from '../../../../typings/radgrad';
-import * as Router from '../../shared/utilities/router';
 import styles from '../utilities/landing-styles';
 
 const InterestFactoid: React.FC<InterestOrCareerGoalFactoidProps> = ({
