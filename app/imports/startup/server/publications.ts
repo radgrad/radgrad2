@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Roles } from 'meteor/alanning:roles';
 import _ from 'lodash';
+import { Factoids } from '../../api/public-stats/FactoidCollection';
 import { RadGrad } from '../../api/radgrad/RadGrad';
 import { ROLE } from '../../api/role/Role';
 import { Users } from '../../api/user/UserCollection';
@@ -13,6 +14,9 @@ _.forEach(RadGrad.collections, (collection) => {
 
 // User collection is not part of RadGrad collections, so publish it separately.
 Users.publish();
+
+// Factoid collection is not part of RadGrad collections, we don't want to dump them or restore them.
+Factoids.publish();
 
 // User Status
 Meteor.publish('userStatus', function userStatus() {
