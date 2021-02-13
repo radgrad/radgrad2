@@ -16,7 +16,7 @@ const credentials = {
 
 fixture('Admin UI acceptance tests').page('http://localhost:3200');
 
-test.skip('Test that landing page shows up', async (testController) => {
+test('Test that landing page shows up', async (testController) => {
   // Note: landingPage.isDisplayed waits 10 seconds to ensure app comes up---needed for CI mode.
   // You probably want to skip this test during development, but make sure it's enabled before committing to master.
   await landingPage.isDisplayed(testController);
