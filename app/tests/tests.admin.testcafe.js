@@ -3,9 +3,6 @@ import { adminNavBar } from './navbar.admin.component';
 import { signinPage } from './signin.page';
 import { landingPage } from './landing.page';
 import {
-  adminAnalyticsPage,
-  adminDatabasePage,
-  adminDataModelPage,
   adminHomePage,
 } from './simple.page';
 
@@ -40,50 +37,47 @@ test('Test all admin top-level pages', async (testController) => {
   await adminNavBar.gotoHomePage(testController);
   await adminHomePage.isDisplayed(testController);
 
-  await adminNavBar.gotoDataModelPage(testController);
-  await adminDataModelPage.isDisplayed(testController);
-
-  await adminNavBar.gotoDatabasePage(testController);
-  await adminDatabasePage.isDisplayed(testController);
-
-  // await adminNavBar.gotoModerationPage(testController);
-  // await adminModerationPage.isDisplayed(testController);
-
-  await adminNavBar.gotoAnalyticsPage(testController);
-  await adminAnalyticsPage.isDisplayed(testController);
-
-  // await adminNavBar.gotoScoreboardPage(testController);
-  // await adminScoreboardPage.isDisplayed(testController);
 });
 
-test('Test admin data model page and subpages', async (testController) => {
+test('Test admin analytics pages', async (testController) => {
   await adminNavBar.gotoAdminLogin(testController);
   await signinPage.signin(testController, credentials.admin);
-  const subPages = ['academic-terms', 'academic-year-instances', 'careergoals',
-    'course-instances', 'courses', 'feeds', 'feedback-instances', 'help-messages', 'interests',
-    'interest-types', 'opportunities', 'opportunity-instances', 'opportunity-types', 'reviews',
-    'slugs', 'teasers', 'users', 'verification-requests'];
-  // const promises = subPages.map(async (subPage) => adminNavBar.gotoDataModelPageSubPageAndVerify(testController, subPage));
-  // await Promise.all(promises);
-  // We do it this way instead of the above map() and Promise.all() because it's much easier to debug.
-  await adminNavBar.gotoDataModelPageSubPageAndVerify(testController, subPages[0]);
-  await adminNavBar.gotoDataModelPageSubPageAndVerify(testController, subPages[1]);
-  // await adminNavBar.gotoDataModelPageSubPageAndVerify(testController, subPages[2]);
-  await adminNavBar.gotoDataModelPageSubPageAndVerify(testController, subPages[3]);
-  await adminNavBar.gotoDataModelPageSubPageAndVerify(testController, subPages[4]);
-  await adminNavBar.gotoDataModelPageSubPageAndVerify(testController, subPages[5]);
-  await adminNavBar.gotoDataModelPageSubPageAndVerify(testController, subPages[6]);
-  await adminNavBar.gotoDataModelPageSubPageAndVerify(testController, subPages[7]);
-  await adminNavBar.gotoDataModelPageSubPageAndVerify(testController, subPages[8]);
-  await adminNavBar.gotoDataModelPageSubPageAndVerify(testController, subPages[9]);
-  await adminNavBar.gotoDataModelPageSubPageAndVerify(testController, subPages[10]);
-  await adminNavBar.gotoDataModelPageSubPageAndVerify(testController, subPages[11]);
-  await adminNavBar.gotoDataModelPageSubPageAndVerify(testController, subPages[12]);
-  await adminNavBar.gotoDataModelPageSubPageAndVerify(testController, subPages[13]);
-  await adminNavBar.gotoDataModelPageSubPageAndVerify(testController, subPages[14]);
-  await adminNavBar.gotoDataModelPageSubPageAndVerify(testController, subPages[15]);
-  await adminNavBar.gotoDataModelPageSubPageAndVerify(testController, subPages[16]);
-  await adminNavBar.gotoDataModelPageSubPageAndVerify(testController, subPages[17]);
+  // Unrolling the loop makes this easier to debug.
+  await adminNavBar.gotoMenuPageAndVerify(testController, 'analytics', 'newsletter');
+  await adminNavBar.gotoMenuPageAndVerify(testController, 'analytics', 'overhead-analysis');
+  await adminNavBar.gotoMenuPageAndVerify(testController, 'analytics', 'student-summary');
+  await adminNavBar.gotoMenuPageAndVerify(testController, 'analytics', 'logged-in-users');
+});
+
+test('Test admin database pages', async (testController) => {
+  await adminNavBar.gotoAdminLogin(testController);
+  await signinPage.signin(testController, credentials.admin);
+  // Unrolling the loop makes this easier to debug.
+  await adminNavBar.gotoMenuPageAndVerify(testController, 'database', 'dump-database');
+  await adminNavBar.gotoMenuPageAndVerify(testController, 'database', 'check-integrity');
+});
+
+test('Test admin data model pages', async (testController) => {
+  await adminNavBar.gotoAdminLogin(testController);
+  await signinPage.signin(testController, credentials.admin);
+  // Unrolling the loop makes this easier to debug.
+  await adminNavBar.gotoMenuPageAndVerify(testController, 'data-model', 'academic-terms');
+  await adminNavBar.gotoMenuPageAndVerify(testController, 'data-model', 'academic-year-instances');
+  await adminNavBar.gotoMenuPageAndVerify(testController, 'data-model', 'career-goals');
+  await adminNavBar.gotoMenuPageAndVerify(testController, 'data-model', 'course-instances');
+  await adminNavBar.gotoMenuPageAndVerify(testController, 'data-model', 'courses');
+  await adminNavBar.gotoMenuPageAndVerify(testController, 'data-model', 'feeds');
+  await adminNavBar.gotoMenuPageAndVerify(testController, 'data-model', 'feedback-instances');
+  await adminNavBar.gotoMenuPageAndVerify(testController, 'data-model', 'interests');
+  await adminNavBar.gotoMenuPageAndVerify(testController, 'data-model', 'interest-types');
+  await adminNavBar.gotoMenuPageAndVerify(testController, 'data-model', 'opportunities');
+  await adminNavBar.gotoMenuPageAndVerify(testController, 'data-model', 'opportunity-instances');
+  await adminNavBar.gotoMenuPageAndVerify(testController, 'data-model', 'opportunity-types');
+  await adminNavBar.gotoMenuPageAndVerify(testController, 'data-model', 'reviews');
+  await adminNavBar.gotoMenuPageAndVerify(testController, 'data-model', 'slugs');
+  await adminNavBar.gotoMenuPageAndVerify(testController, 'data-model', 'teasers');
+  await adminNavBar.gotoMenuPageAndVerify(testController, 'data-model', 'users');
+  await adminNavBar.gotoMenuPageAndVerify(testController, 'data-model', 'verification-requests');
 });
 
 test('Test admin ensure logout', async (testController) => {

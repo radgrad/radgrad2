@@ -11,7 +11,7 @@ const AdminAnalyticsUserInteractionsPage: React.FC<AdminAnalyticsUserInteraction
     paddingTop: 20,
   };
   return (
-    <div>
+    <div id="analytics-user-interactions-page">
       <AdminPageMenu />
       <Grid container stackable style={paddedStyle} columns={1}>
         <Grid.Column>

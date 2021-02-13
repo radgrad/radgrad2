@@ -11,40 +11,67 @@ class AdminNavBar {
     }
   }
 
-  async gotoHomePage(testController) {
-    await testController.click('#second-menu-home');
-  }
-
-  async gotoDataModelPage(testController) {
-    await testController.click('#second-menu-data-model');
-  }
-
-  async gotoDataModelPageSubPageAndVerify(testController, subPageId) {
-    await testController.click('#second-menu-data-model');
-    await testController.click(`#data-model-${subPageId}`);
-    const pageIdSelector = Selector(`#data-model-${subPageId}-page`);
-    await testController.expect(pageIdSelector.exists).ok();
-  }
-
-  async gotoDatabasePage(testController) {
-    await testController.click('#second-menu-data-base');
-  }
-
-  async gotoModerationPage(testController) {
-    await testController.click('#second-menu-moderation');
-  }
-
-  async gotoAnalyticsPage(testController) {
-    await testController.click('#second-menu-analytics');
-  }
-
-  async gotoScoreboardPage(testController) {
-    await testController.click('#second-menu-scoreboard');
-  }
-
   async gotoAdminLogin(testController) {
     await testController.click('#LOGIN');
     await testController.click('#admin');
+  }
+
+  async gotoHomePage(testController) {
+    await testController.click('#admin-menu-home');
+  }
+
+  async gotoPrivacyPage(testController) {
+    await testController.click('#admin-menu-privacy');
+  }
+
+  async gotoForecastsPage(testController) {
+    await testController.click('#admin-menu-forecasts');
+  }
+
+  async gotoCommunityPage(testController) {
+    await testController.click('#admin-menu-community');
+  }
+
+  async gotoCareerGoalsExplorerPage(testController) {
+    await testController.click('#admin-menu-explorers');
+    await testController.click('#admin-menu-explorer-careers');
+  }
+
+  async gotoCoursesExplorerPage(testController) {
+    await testController.click('#admin-menu-explorers');
+    await testController.click('#admin-menu-explorer-courses');
+  }
+
+  async gotoInterestsExplorerPage(testController) {
+    await testController.click('#admin-menu-explorers');
+    await testController.click('#admin-menu-explorer-interests');
+  }
+
+  async gotoOpportunitiesExplorerPage(testController) {
+    await testController.click('#admin-menu-explorers');
+    await testController.click('#admin-menu-explorer-opportunities');
+  }
+
+  async gotoManageStudentsPage(testController) {
+    await testController.click('#admin-menu-manage');
+    await testController.click('#admin-menu-manage-students');
+  }
+
+  async gotoManageVerificationPage(testController) {
+    await testController.click('#admin-menu-manage');
+    await testController.click('#admin-menu-manage-verification');
+  }
+
+  async gotoManageReviewPage(testController) {
+    await testController.click('#admin-menu-manage');
+    await testController.click('#admin-menu-manage-review');
+  }
+
+  async gotoMenuPageAndVerify(testController, menu, pageName) {
+    await testController.click(`#admin-menu-${menu}`);
+    await testController.click(`#admin-menu-${menu}-${pageName}`);
+    const pageIdSelector = Selector(`#${menu}-${pageName}-page`);
+    await testController.expect(pageIdSelector.exists).ok();
   }
 
   /** Check that the specified user is currently logged in. */

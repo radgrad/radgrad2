@@ -6,10 +6,6 @@ export const DEGREEPLANNER = 'degree-planner';
 export const HOME = 'home';
 export const ICE = 'ice';
 export const LEVELS = 'levels';
-export const MANAGE_OPPORTUNITIES = 'manage-opportunities';
-export const MANAGE_REVIEWS = 'manage-reviews';
-export const MANAGE_STUDENTS = 'manage-students';
-export const MANAGE_VERIFICATIONS = 'manage-verifications';
 export const PRIVACY = 'privacy';
 export const FORECASTS = 'forecasts';
 export const STUDENT_REVIEWS = 'student-reviews';
@@ -17,30 +13,37 @@ export const STUDENT_VERIFICATION = 'student-verification';
 export const USERNAME = ':username';
 export const VERIFICATION_REQUESTS = 'verification-requests';
 
+export const MANAGE = {
+  OPPORTUNITIES: 'manage-opportunities',
+  REVIEWS: 'manage-reviews',
+  VERIFICATIONS: 'manage-verifications',
+  STUDENTS: 'manage-students',
+};
+
 export const ANALYTICS = {
   HOME: 'analytics',
   NEWSLETTER: 'analytics/newsletter',
   OVERHEAD_ANALYSIS: 'analytics/overhead-analysis',
   STUDENT_SUMMARY: 'analytics/student-summary',
   USER_INTERACTIONS: 'analytics/user-interactions',
+  LOGGED_IN_USERS: 'analytics/logged-in-users',
 };
 
 export const DATABASE = {
   HOME: 'database',
   DUMP: 'database/dump',
-  INTEGRITY_CHECK: 'database/integrity-check',
+  CHECK_INTEGRITY: 'database/check-integrity',
 };
 
 export const DATAMODEL = {
   HOME: 'datamodel',
   ACADEMIC_TERMS: 'datamodel/academic-terms',
   ACADEMIC_YEAR_INSTANCES: 'datamodel/academic-year-instances',
-  CAREERGOALS: 'datamodel/careergoals',
+  CAREERGOALS: 'datamodel/career-goals',
   COURSE_INSTANCES: 'datamodel/course-instances',
   COURSES: 'datamodel/courses',
   FEEDS: 'datamodel/feeds',
   FEEDBACK_INSTANCES: 'datamodel/feedback-instances',
-  HELP_MESSAGES: 'datamodel/help-messages',
   INTERESTS: 'datamodel/interests',
   INTEREST_TYPES: 'datamodel/interest-types',
   OPPORTUNITIES: 'datamodel/opportunities',
