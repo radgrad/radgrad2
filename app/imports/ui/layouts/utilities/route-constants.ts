@@ -32,7 +32,7 @@ export const ANALYTICS = {
 export const DATABASE = {
   HOME: 'database',
   DUMP: 'database/dump',
-  INTEGRITY_CHECK: 'database/integrity-check',
+  CHECK_INTEGRITY: 'database/check-integrity',
 };
 
 export const DATAMODEL = {

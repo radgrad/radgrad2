@@ -7,7 +7,7 @@ import AdminAnalyticsMenuWidget from '../../components/admin/analytics/AdminAnal
 import AdminAnalyticsLoggedInUsersWidget, { AdminAnalyticsLoggedInUsersWidgetProps } from '../../components/admin/analytics/AdminAnalyticsLoggedInUsersWidget';
 
 const AdminAnalyticsLoggedInUsersPage: React.FC<AdminAnalyticsLoggedInUsersWidgetProps> = ({ loggedInUsers }) => (
-  <div id="admin-analytics-page">
+  <div id="analytics-logged-in-users-page">
     <AdminPageMenu />
     <Grid container stackable columns={1}>
       <Grid.Column>

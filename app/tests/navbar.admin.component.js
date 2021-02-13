@@ -11,7 +11,7 @@ class AdminNavBar {
     }
   }
 
-  async gotoadminLogin(testController) {
+  async gotoAdminLogin(testController) {
     await testController.click('#LOGIN');
     await testController.click('#admin');
   }
@@ -67,10 +67,10 @@ class AdminNavBar {
     await testController.click('#admin-menu-manage-review');
   }
 
-  async gotoDataModelPageAndVerify(testController, pageName) {
-    await testController.click('admin-menu-data-model');
-    await testController.click(`#admin-data-model-${pageName}`);
-    const pageIdSelector = Selector(`#data-model-${pageName}-page`);
+  async gotoMenuPageAndVerify(testController, menu, pageName) {
+    await testController.click(`#admin-menu-${menu}`);
+    await testController.click(`#admin-menu-${menu}-${pageName}`);
+    const pageIdSelector = Selector(`#${menu}-${pageName}-page`);
     await testController.expect(pageIdSelector.exists).ok();
   }
 

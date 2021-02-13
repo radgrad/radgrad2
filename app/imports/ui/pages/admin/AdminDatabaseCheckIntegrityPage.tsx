@@ -8,7 +8,7 @@ import { checkIntegrityMethod } from '../../../api/integrity/IntegrityChecker.me
 import { databaseActions } from '../../../redux/admin/database';
 import { RootState } from '../../../redux/types';
 
-interface AdminCheckDatabaseIntegrityPageProps {
+interface AdminDatabaseCheckIntegrityPageProps {
   startCheckIntegrity: () => any;
   checkIntegrityDone: () => any;
   checkIntegrityWorking?: boolean;
@@ -23,7 +23,7 @@ const mapDispatchToProps = (dispatch) => ({
   checkIntegrityDone: () => dispatch(databaseActions.checkIntegrityDone()),
 });
 
-const AdminCheckDatabaseIntegrityPage: React.FC<AdminCheckDatabaseIntegrityPageProps> = ({ startCheckIntegrity, checkIntegrityDone, checkIntegrityWorking }) => {
+const AdminDatabaseCheckIntegrityPage: React.FC<AdminDatabaseCheckIntegrityPageProps> = ({ startCheckIntegrity, checkIntegrityDone, checkIntegrityWorking }) => {
   const initState = {
     count: 0,
     message: '',
@@ -54,7 +54,7 @@ const AdminCheckDatabaseIntegrityPage: React.FC<AdminCheckDatabaseIntegrityPageP
   const clientError = clientResultState.count !== 0;
   const working = checkIntegrityWorking;
   return (
-    <div>
+    <div id="database-check-integrity-page">
       <AdminPageMenu />
       <Grid container stackable style={paddedStyle}>
         <Grid.Column width={5}>
@@ -95,5 +95,5 @@ const AdminCheckDatabaseIntegrityPage: React.FC<AdminCheckDatabaseIntegrityPageP
   );
 };
 
-const AdminCheckDatabaseIntegrityPageContainer = connect(mapStateToProps, mapDispatchToProps)(AdminCheckDatabaseIntegrityPage);
-export default AdminCheckDatabaseIntegrityPageContainer;
+const AdminDatabaseCheckIntegrityPageContainer = connect(mapStateToProps, mapDispatchToProps)(AdminDatabaseCheckIntegrityPage);
+export default AdminDatabaseCheckIntegrityPageContainer;

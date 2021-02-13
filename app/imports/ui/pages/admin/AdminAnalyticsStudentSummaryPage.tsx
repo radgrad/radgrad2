@@ -9,7 +9,7 @@ const AdminAnalyticsStudentSummaryPage: React.FC = () => {
     paddingTop: 20,
   };
   return (
-    <div>
+    <div id="analytics-student-summary-page">
       <AdminPageMenu />
       <Grid container stackable style={paddedStyle} columns={1}>
         <Grid.Column>
