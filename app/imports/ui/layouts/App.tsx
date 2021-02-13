@@ -28,22 +28,22 @@ const App: React.FC = () => (
   <Router>
     <Switch>
       {routes.LANDING.map((route) => (
-        <Route key={route.path} {...route} />
+        <Route key={route.path} {... _.defaults(route, {exact: true})} />
       ))}
       {routes.ADMIN.map((route) => (
-        <AdminProtectedRoute key={route.path} {...route} />
+        <AdminProtectedRoute key={route.path} {... _.defaults(route, {exact: true})} />
       ))}
       {routes.ADVISOR.map((route) => (
-        <AdvisorProtectedRoute key={route.path} {...route} />
+        <AdvisorProtectedRoute key={route.path} {... _.defaults(route, {exact: true})} />
       ))}
       {routes.FACULTY.map((route) => (
-        <FacultyProtectedRoute key={route.path} {...route} />
+        <FacultyProtectedRoute key={route.path} {... _.defaults(route, {exact: true})} />
       ))}
       {routes.STUDENT.map((route) => (
-        <StudentProtectedRoute key={route.path} {...route} />
+        <StudentProtectedRoute key={route.path} {... _.defaults(route, {exact: true})} />
       ))}
       {routes.ALUMNI.map((route) => (
-        <StudentProtectedRoute key={route.path} {...route} />
+        <StudentProtectedRoute key={route.path} {... _.defaults(route, {exact: true})} />
       ))}
       <Route path="/signin">
         <SigninPage />

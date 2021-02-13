@@ -6,7 +6,7 @@ import { Button, Grid, Header, Icon, Label, Popup, Segment, Table } from 'semant
 import { AcademicTerm, Course, Scoreboard } from '../../../../typings/radgrad';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 
-interface CourseScoreboardWidgetProps {
+interface CourseForecastProps {
   courses: Course[];
   terms: AcademicTerm[];
   scores: Scoreboard[];
@@ -46,7 +46,7 @@ const handleSaveAsCSV = (terms: AcademicTerm[], courses: Course[], scores: Score
   zip.saveAs(`${dir}.zip`);
 };
 
-const CourseScoreboardWidget: React.FC<CourseScoreboardWidgetProps> = ({ courses, terms, scores }) => {
+const CourseForecast: React.FC<CourseForecastProps> = ({ courses, terms, scores }) => {
   const scrollBody: React.CSSProperties = {
     display: 'inline-block',
     height: 500,
@@ -54,8 +54,8 @@ const CourseScoreboardWidget: React.FC<CourseScoreboardWidgetProps> = ({ courses
     width: '100%',
   };
   return (
-    <Segment textAlign="center" id="courseScoreboardWidget">
-      <Header>Future Course Scoreboard</Header>
+    <Segment textAlign="center" id="course-forecast">
+      <Header>Future Course Forecast</Header>
       <Grid>
         <Grid.Row>
           <Table celled fixed>
@@ -104,4 +104,4 @@ const CourseScoreboardWidget: React.FC<CourseScoreboardWidgetProps> = ({ courses
   );
 };
 
-export default CourseScoreboardWidget;
+export default CourseForecast;

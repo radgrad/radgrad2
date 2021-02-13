@@ -15,12 +15,51 @@ class FacultyNavBar {
     await testController.click('#faculty-menu-home');
   }
 
-  async gotoVerificationPage(testController) {
-    await testController.click('#faculty-menu-verification');
+  async gotoPrivacyPage(testController) {
+    await testController.click('#faculty-menu-privacy');
+  }
+
+  async gotoForecastsPage(testController) {
+    await testController.click('#faculty-menu-forecasts');
+  }
+
+  async gotoCommunityPage(testController) {
+    await testController.click('#faculty-menu-community');
+  }
+
+  async gotoCareerGoalsExplorerPage(testController) {
+    await testController.click('#faculty-menu-explorers');
+    await testController.click('#faculty-menu-explorer-careers');
+  }
+
+  async gotoCoursesExplorerPage(testController) {
+    await testController.click('#faculty-menu-explorers');
+    await testController.click('#faculty-menu-explorer-courses');
+  }
+
+  async gotoInterestsExplorerPage(testController) {
+    await testController.click('#faculty-menu-explorers');
+    await testController.click('#faculty-menu-explorer-interests');
+  }
+
+  async gotoOpportunitiesExplorerPage(testController) {
+    await testController.click('#faculty-menu-explorers');
+    await testController.click('#faculty-menu-explorer-opportunities');
   }
 
   async gotoManageOpportunitiesPage(testController) {
+    await testController.click('#faculty-menu-manage');
     await testController.click('#faculty-menu-manage-opportunities');
+  }
+
+  async gotoManageVerificationPage(testController) {
+    await testController.click('#faculty-menu-manage');
+    await testController.click('#faculty-menu-manage-verification');
+  }
+
+  async gotoManageReviewPage(testController) {
+    await testController.click('#faculty-menu-manage');
+    await testController.click('#faculty-menu-manage-review');
   }
 
   /** Check that the specified user is currently logged in. */

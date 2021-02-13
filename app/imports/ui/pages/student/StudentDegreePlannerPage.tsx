@@ -6,7 +6,6 @@ import Swal from 'sweetalert2';
 import { useParams } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import _ from 'lodash';
-import StudentPageMenu from '../../components/student/StudentPageMenu';
 import DegreeExperiencePlannerWidget from '../../components/student/degree-planner/DegreeExperiencePlannerWidget';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
@@ -42,7 +41,7 @@ import { FavoriteOpportunities } from '../../../api/favorite/FavoriteOpportunity
 import { FavoriteCourses } from '../../../api/favorite/FavoriteCourseCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import { passedCourse } from '../../../api/course/CourseUtilities';
-import HeaderPane from '../../components/shared/HeaderPane';
+import PageLayout from '../PageLayout';
 
 interface StudentDegreePlannerProps {
   takenSlugs: string[];
@@ -277,15 +276,10 @@ const StudentDegreePlannerPage: React.FC<StudentDegreePlannerProps> = ({
     paddingLeft: 10,
     paddingRight: 20,
   };
-  const marginStyle = {
-    marginLeft: 10,
-    marginRight: 10,
-  };
   return (
     <DragDropContext onDragEnd={onDragEnd(onDragEndProps)}>
-      <StudentPageMenu />
-      <HeaderPane title={headerPaneTitle} body={headerPaneBody}/>
-      <Grid stackable style={marginStyle} id="degree-planner-page">
+      <PageLayout id="degree-planner-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
+      <Grid stackable>
           <Grid.Row stretched>
             <Grid.Column width={10} style={paddedStyle}>
               <DegreeExperiencePlannerWidget academicYearInstances={academicYearInstances} courseInstances={courseInstances} opportunityInstances={opportunityInstances} />
@@ -304,6 +298,7 @@ const StudentDegreePlannerPage: React.FC<StudentDegreePlannerProps> = ({
             </Grid.Column>
           </Grid.Row>
         </Grid>
+      </PageLayout>
     </DragDropContext>
   );
 };

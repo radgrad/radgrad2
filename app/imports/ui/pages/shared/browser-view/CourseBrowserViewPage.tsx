@@ -12,8 +12,7 @@ import { IExplorerTypes } from '../../../components/shared/explorer/utilities/ex
 import { Users } from '../../../../api/user/UserCollection';
 import { FavoriteCourses } from '../../../../api/favorite/FavoriteCourseCollection';
 import CourseBrowserViewContainer from '../../../components/shared/explorer/browser-view/CourseBrowserView';
-import { getMenuWidget } from '../utilities/getMenuWidget';
-import HeaderPane from '../../../components/shared/HeaderPane';
+import PageLayout from '../../PageLayout';
 
 interface CourseBrowserViewPageProps {
   favoriteCourses: FavoriteCourse[];
@@ -38,24 +37,23 @@ const CourseBrowserViewPage: React.FC<CourseBrowserViewPageProps> = ({ favoriteC
   const showFavorites = role === 'student';
   const columnWidth = showFavorites ? 12 : 16;
   return (
-    <div id="course-browser-view-page">
-      {getMenuWidget(match)}
-      <HeaderPane title={headerPaneTitle} body={headerPaneBody}/>
-      <Grid stackable style={{marginLeft: '10px', marginRight: '10px'}}>
-          <Grid.Row>
-            {showFavorites ? (
-              <Grid.Column width={4}>
-                <ExplorerMultipleItemsMenu menuAddedList={menuAddedList} type={EXPLORER_TYPE.COURSES as IExplorerTypes} menuCareerList={undefined} />
-              </Grid.Column>
-            ) : (
-              ' '
-            )}
-            <Grid.Column width={columnWidth}>
-              <CourseBrowserViewContainer favoriteCourses={favoriteCourses} courses={courses} />
+    <PageLayout id="course-browser-view-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
+      <Grid stackable>
+        <Grid.Row>
+          {showFavorites ? (
+            <Grid.Column width={4}>
+              <ExplorerMultipleItemsMenu menuAddedList={menuAddedList} type={EXPLORER_TYPE.COURSES as IExplorerTypes}
+                                         menuCareerList={undefined}/>
             </Grid.Column>
-          </Grid.Row>
-        </Grid>
-    </div>
+          ) : (
+            ' '
+          )}
+          <Grid.Column width={columnWidth}>
+            <CourseBrowserViewContainer favoriteCourses={favoriteCourses} courses={courses}/>
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
+    </PageLayout>
   );
 };
 

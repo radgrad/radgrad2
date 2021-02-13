@@ -5,12 +5,12 @@ import {StudentProfiles} from '../../../api/user/StudentProfileCollection';
 import {StudentProfile} from '../../../typings/radgrad';
 import {
   DEGREEPLANNER,
-  EXPLORER_TYPE,
+  EXPLORER,
   HOME,
   ICE,
   LEVELS,
   COMMUNITY,
-  STUDENT_PRIVACY,
+  PRIVACY,
   STUDENT_REVIEWS,
   STUDENT_VERIFICATION,
   URL_ROLES,
@@ -25,42 +25,26 @@ const StudentPageMenu: React.FC = () => {
   const earnedIce = StudentProfiles.getEarnedICE(username);
   const projectedIce = StudentProfiles.getProjectedICE(username);
   const instanceName = Meteor.settings.public.instanceName;
+  const menuItems = [
+    { to: `/${URL_ROLES.STUDENT}/${username}/${HOME}`, label: 'Home' },
+    { to: `/${URL_ROLES.STUDENT}/${username}/${EXPLORER.INTERESTS}`, label: 'Interests'  },
+    { to: `/${URL_ROLES.STUDENT}/${username}/${EXPLORER.CAREERGOALS}`, label: 'Careers' },
+    { to: `/${URL_ROLES.STUDENT}/${username}/${EXPLORER.COURSES}`, label: 'Courses' },
+    { to: `/${URL_ROLES.STUDENT}/${username}/${EXPLORER.OPPORTUNITIES}`, label: 'Opportunities' },
+    { to: `/${URL_ROLES.STUDENT}/${username}/${DEGREEPLANNER}`, label: 'Planner' },
+    { to: `/${URL_ROLES.STUDENT}/${username}/${STUDENT_VERIFICATION}`, label: 'Verification' },
+    { to: `/${URL_ROLES.STUDENT}/${username}/${PRIVACY}`, label: 'Privacy' },
+    { to: `/${URL_ROLES.STUDENT}/${username}/${ICE}`, label: 'ICE' },
+    { to: `/${URL_ROLES.STUDENT}/${username}/${LEVELS}`, label: 'Levels' },
+    { to: `/${URL_ROLES.STUDENT}/${username}/${STUDENT_REVIEWS}`, label: 'Reviews' },
+    { to: `/${URL_ROLES.STUDENT}/${username}/${COMMUNITY}`, label: 'Community' },
+  ];
   return (
     <div>
       <FirstMenu profile={profile} displayLevelAndIce earnedICE={earnedIce} projectedICE={projectedIce} instanceName={instanceName} />
-      <div className="radgrad-menu" id="menu">
-        <Menu attached="top" borderless inverted stackable id="secondMenu">
-          <Menu.Item id="student-menu-home" as={NavLink} exact to={`/${URL_ROLES.STUDENT}/${username}/${HOME}`}>Home</Menu.Item>
-          <Menu.Item id="student-menu-interests" as={NavLink} exact to={`/${URL_ROLES.STUDENT}/${username}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}`}>Interests</Menu.Item>
-          <Menu.Item id="student-menu-career-goals" as={NavLink} exact to={`/${URL_ROLES.STUDENT}/${username}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}`}>Careers</Menu.Item>
-          <Menu.Item id="student-menu-courses" as={NavLink} exact
-                     to={`/${URL_ROLES.STUDENT}/${username}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}`}>Courses
-          </Menu.Item>
-          <Menu.Item id="student-menu-opportunities" as={NavLink} exact
-                     to={`/${URL_ROLES.STUDENT}/${username}/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}`}>Opportunities
-          </Menu.Item>
-          <Menu.Item id="student-menu-degree-planner" as={NavLink} exact
-                     to={`/${URL_ROLES.STUDENT}/${username}/${DEGREEPLANNER}`}>Planner
-          </Menu.Item>
-          <Menu.Item id="student-menu-verification" as={NavLink} exact
-                     to={`/${URL_ROLES.STUDENT}/${username}/${STUDENT_VERIFICATION}`}>Verification
-          </Menu.Item>
-          <Menu.Item id="student-menu-privacy" as={NavLink} exact
-                     to={`/${URL_ROLES.STUDENT}/${username}/${STUDENT_PRIVACY}`}>Privacy
-          </Menu.Item>
-          <Menu.Item id="student-menu-ice-points" as={NavLink} exact
-                     to={`/${URL_ROLES.STUDENT}/${username}/${HOME}/${ICE}`}>ICE
-          </Menu.Item>
-          <Menu.Item id="student-menu-levels" as={NavLink} exact
-                     to={`/${URL_ROLES.STUDENT}/${username}/${HOME}/${LEVELS}`}>Levels
-          </Menu.Item>
-          <Menu.Item id="student-menu-reviews" as={NavLink} exact
-                     to={`/${URL_ROLES.STUDENT}/${username}/${STUDENT_REVIEWS}`}>Reviews
-          </Menu.Item>
-          <Menu.Item id="student-menu-community" as={NavLink} exact to={`/${URL_ROLES.STUDENT}/${username}/${COMMUNITY}`}>Community
-          </Menu.Item>
-        </Menu>
-      </div>
+      <Menu borderless inverted stackable id="secondMenu" attached="top" style={{paddingLeft: '10px', marginTop: '0px'}}>
+        {menuItems.map(item => <Menu.Item key={item.label} id={`student-menu-${item.label.toLowerCase()}`} as={NavLink} exact to={item.to}>{item.label}</Menu.Item>)}
+      </Menu>
     </div>
   );
 };

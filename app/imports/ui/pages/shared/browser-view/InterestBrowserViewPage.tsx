@@ -3,7 +3,6 @@ import { Grid } from 'semantic-ui-react';
 import _ from 'lodash';
 import { useParams } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
-import {useRouteMatch} from 'react-router';
 import { Interests } from '../../../../api/interest/InterestCollection';
 import { Users } from '../../../../api/user/UserCollection';
 import { Interest } from '../../../../typings/radgrad';
@@ -11,8 +10,7 @@ import ExplorerMultipleItemsMenu from '../../../components/shared/explorer/brows
 import InterestBrowserViewContainer from '../../../components/shared/explorer/browser-view/InterestBrowserView';
 import { IExplorerTypes } from '../../../components/shared/explorer/utilities/explorer';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
-import HeaderPane from '../../../components/shared/HeaderPane';
-import {getMenuWidget} from '../utilities/getMenuWidget';
+import PageLayout from '../../PageLayout';
 
 interface InterestBrowserViewPageProps {
   favoriteInterests: Interest[];
@@ -32,12 +30,9 @@ If we've missed a disciplinary area of interest to you, please click the button 
 const InterestBrowserViewPage: React.FC<InterestBrowserViewPageProps> = ({ favoriteInterests, favoriteCareerGoalInterests, interests }) => {
   const menuAddedItems = _.map(favoriteInterests, (doc) => ({ item: doc, count: 1 }));
   const menuCareerList = _.map(favoriteCareerGoalInterests, (doc) => ({ item: doc, count: 1 }));
-  const match = useRouteMatch();
   return (
-    <div id="interest-browser-view-page">
-      {getMenuWidget(match)}
-      <HeaderPane title={headerPaneTitle} body={headerPaneBody}/>
-      <Grid stackable style={{marginLeft: '10px', marginRight: '10px'}}>
+    <PageLayout id="interest-browser-view-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
+      <Grid stackable>
           <Grid.Row>
             <Grid.Column width={4}>
               <ExplorerMultipleItemsMenu menuAddedList={menuAddedItems} type={EXPLORER_TYPE.INTERESTS as IExplorerTypes} menuCareerList={menuCareerList} />
@@ -47,7 +42,7 @@ const InterestBrowserViewPage: React.FC<InterestBrowserViewPageProps> = ({ favor
             </Grid.Column>
           </Grid.Row>
         </Grid>
-    </div>
+    </PageLayout>
   );
 };
 

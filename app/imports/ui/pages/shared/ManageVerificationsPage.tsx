@@ -12,12 +12,12 @@ import CompletedVerificationsWidget from '../../components/shared/verification/C
 import withAdditionalSubscriptions from '../../layouts/utilities/AdvisorFacultyAdditionalSubscriptionsHOC';
 import PageLayout from '../PageLayout';
 
-interface FacultyVerificationPageProps {
+interface ManageVerificationPageProps {
   verificationRequests: VerificationRequest[];
   eventOpportunities: Opportunity[];
 }
 
-const headerPaneTitle = 'Verify student participation';
+const headerPaneTitle = 'Manage student verification requests';
 const headerPaneBody = `
 Student participation in RadGrad Opportunities involves the following:
 
@@ -30,11 +30,11 @@ You can accept or decline these verification requests on this page. Accepting me
 For more information, please see the [Faculty User Guide](https://www.radgrad.org/docs/users/faculty/overview).
 `;
 
-const FacultyVerificationPage: React.FC<FacultyVerificationPageProps> = ({verificationRequests, eventOpportunities}) => {
+const ManageVerificationsPage: React.FC<ManageVerificationPageProps> = ({verificationRequests, eventOpportunities}) => {
   const match = useRouteMatch();
 
   return (
-    <PageLayout id="faculty-verification-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
+    <PageLayout id="manage-verification-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
       <PendingVerificationsWidget pendingVerifications={verificationRequests.filter((ele) => ele.status === VerificationRequests.OPEN)}/>
       <EventVerificationsWidget eventOpportunities={eventOpportunities}/>
       <CompletedVerificationsWidget username={match.params.username} completedVerifications={verificationRequests.filter((ele) => VerificationRequests.ACCEPTED === ele.status || ele.status === VerificationRequests.REJECTED)}/>
@@ -42,7 +42,7 @@ const FacultyVerificationPage: React.FC<FacultyVerificationPageProps> = ({verifi
   );
 };
 
-const FacultyVerificationPageWithTracker = withTracker(() => {
+const ManageVerificationPageWithTracker = withTracker(() => {
   const {username} = useParams();
   const userID = Users.getID(username);
   const linkedOppInstances = OpportunityInstances.findNonRetired({sponsorID: userID});
@@ -51,7 +51,7 @@ const FacultyVerificationPageWithTracker = withTracker(() => {
     verificationRequests: VerificationRequests.findNonRetired().filter((ele) => isLinkedReq(ele)),
     eventOpportunities: Opportunities.findNonRetired({eventDate: {$exists: true}}),
   };
-})(FacultyVerificationPage);
-const FacultyVerificationPageContainer = withAdditionalSubscriptions(FacultyVerificationPageWithTracker);
+})(ManageVerificationsPage);
+const ManageVerificationPageContainer = withAdditionalSubscriptions(ManageVerificationPageWithTracker);
 
-export default FacultyVerificationPageContainer;
+export default ManageVerificationPageContainer;

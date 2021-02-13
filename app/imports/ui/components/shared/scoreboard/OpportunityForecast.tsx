@@ -6,7 +6,7 @@ import { ZipZap } from 'meteor/udondan:zipzap';
 import { AcademicTerm, Opportunity, Scoreboard } from '../../../../typings/radgrad';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 
-interface OpportunityScoreboardWidgetProps {
+interface OpportunityForecastProps {
   opportunities: Opportunity[];
   terms: AcademicTerm[];
   scores: Scoreboard[];
@@ -46,7 +46,7 @@ const saveAsCSV = (terms: AcademicTerm[], opportunities: Opportunity[], scores: 
   zip.saveAs(`${dir}.zip`);
 };
 
-const OpportunityScoreboardWidget: React.FC<OpportunityScoreboardWidgetProps> = ({ opportunities, terms, scores }) => {
+const OpportunityForecast: React.FC<OpportunityForecastProps> = ({ opportunities, terms, scores }) => {
   const scrollBody: React.CSSProperties = {
     display: 'inline-block',
     height: 500,
@@ -54,8 +54,8 @@ const OpportunityScoreboardWidget: React.FC<OpportunityScoreboardWidgetProps> = 
     width: '100%',
   };
   return (
-    <Segment textAlign="center" id="opportunityScoreboardWidget">
-      <Header>Future Opportunity Scoreboard</Header>
+    <Segment textAlign="center" id="opportunity-forecast">
+      <Header>Future Opportunity Forecast</Header>
       <Grid>
         <Grid.Row>
           <Table celled fixed>
@@ -104,4 +104,4 @@ const OpportunityScoreboardWidget: React.FC<OpportunityScoreboardWidgetProps> = 
   );
 };
 
-export default OpportunityScoreboardWidget;
+export default OpportunityForecast;

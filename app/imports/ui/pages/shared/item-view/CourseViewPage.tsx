@@ -112,10 +112,11 @@ const CourseViewPage: React.FC<CourseViewPageProps> = ({ favoriteCourses, course
   const descriptionPairs = descriptionPairsCourses(course, match);
   const courseSlug = Slugs.getNameFromID(course.slugID);
   const completed = isCourseCompleted(courseSlug, match);
+  const pushDownStyle = { paddingTop: 15 };
   return (
     <div id="course-view-page">
       {getMenuWidget(match)}
-      <Container>
+      <Container style={pushDownStyle}>
         <Grid stackable>
           <Grid.Row className="helpPanel">
             <Grid.Column width={16}>

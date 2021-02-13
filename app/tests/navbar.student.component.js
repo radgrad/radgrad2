@@ -14,16 +14,16 @@ class StudentNavBar {
     await testController.click('#student-menu-home');
   }
 
+  async gotoInterestsExplorerPage(testController) {
+    await testController.click('#student-menu-interests');
+  }
+
   async gotoCourseExplorerPage(testController) {
     await testController.click('#student-menu-courses');
   }
 
   async gotoCareerGoalsExplorerPage(testController) {
-    await testController.click('#student-menu-career-goals');
-  }
-
-  async gotoInterestsExplorerPage(testController) {
-    await testController.click('#student-menu-interests');
+    await testController.click('#student-menu-careers');
   }
 
   async gotoOpportunitiesPage(testController) {
@@ -31,7 +31,7 @@ class StudentNavBar {
   }
 
   async gotoDegreePlannerPage(testController) {
-    await testController.click('#student-menu-degree-planner');
+    await testController.click('#student-menu-planner');
   }
 
   async gotoVerificationPage(testController) {
@@ -42,30 +42,20 @@ class StudentNavBar {
     await testController.click('#student-menu-privacy');
   }
 
+  async gotoICEPointsPage(testController) {
+    await testController.click('#student-menu-ice');
+  }
+
+  async gotoLevelsPage(testController) {
+    await testController.click('#student-menu-levels');
+  }
+
   async gotoReviewsPage(testController) {
     await testController.click('#student-menu-reviews');
   }
 
   async gotoCommunityPage(testController) {
     await testController.click('#student-menu-community');
-  }
-
-  async gotoCommunityUsersPage(testController) {
-    await testController.click('#student-menu-community');
-    await testController.click('#student-menu-users');
-  }
-
-  async gotoCommunityRadgradVideosPage(testController) {
-    await testController.click('#student-menu-community');
-    await testController.click('#student-menu-radgrad-videos');
-  }
-
-  async gotoICEPointsPage(testController) {
-    await testController.click('#student-menu-ice-points');
-  }
-
-  async gotoLevelsPage(testController) {
-    await testController.click('#student-menu-levels');
   }
 
   async signout(testController) {

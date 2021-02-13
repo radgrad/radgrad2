@@ -28,21 +28,26 @@ export const advisorModerationPage = new SimplePage('advisor-moderation-page');
 export const advisorScoreboardPage = new SimplePage('scoreboard-page'); // same page as adminScoreboardPage
 
 export const facultyHomePage = new SimplePage('faculty-home-page');
-export const facultyVerificationPage = new SimplePage('faculty-verification-page');
-export const facultyManageOpportunitiesPage = new SimplePage('faculty-manage-opportunities-page');
 
-export const studentCareerGoalsExplorerPage = new SimplePage('career-goal-browser-view-page');
 export const studentHomePage = new SimplePage('student-home-page');
-export const studentCoursesExplorerPage = new SimplePage('course-browser-view-page');
 export const studentDegreePlannerPage = new SimplePage('degree-planner-page');
-export const studentInterestsExplorerPage = new SimplePage('interest-browser-view-page');
-export const studentOpportunitiesPage = new SimplePage('student-opportunities-page');
-export const studentCommunityUsersPage = new SimplePage('community-users-page');
-export const studentCommunityRadGradVideosPage = new SimplePage('community-radgrad-videos-page');
-export const studentAboutMePage = new SimplePage('student-about-me-page');
 export const studentICEPointsPage = new SimplePage('student-ice-points-page');
 export const studentLevelsPage = new SimplePage('student-levels-page');
 export const studentVerificationPage = new SimplePage('student-verification-page');
 export const studentReviewsPage = new SimplePage('student-reviews-page');
 export const studentPrivacyPage = new SimplePage('student-privacy-page');
-export const studentCommunityPage = new SimplePage('community-page');
+
+// Common Explorer Pages
+export const courseExplorerPage = new SimplePage('course-browser-view-page');
+export const interestExplorerPage = new SimplePage('interest-browser-view-page');
+export const careerGoalExplorerPage = new SimplePage('career-goal-browser-view-page');
+export const opportunityExplorerPage = new SimplePage('explorer-opportunities-page');
+
+// Common pages shared across different roles.
+export const manageOpportunitiesPage = new SimplePage('manage-opportunities-page');
+export const manageVerificationPage = new SimplePage('manage-verification-page');
+export const manageReviewsPage = new SimplePage('manage-reviews-page');
+export const manageStudentsPage = new SimplePage('manage-students-page');
+export const forecastsPage = new SimplePage('forecasts-page');
+export const communityPage = new SimplePage('community-page');
+export const advisorFacultyPrivacyPage = new SimplePage('advisor-faculty-privacy-page');

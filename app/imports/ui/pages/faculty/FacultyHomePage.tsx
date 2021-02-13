@@ -1,54 +1,22 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
-import { withTracker } from 'meteor/react-meteor-data';
-import { Grid } from 'semantic-ui-react';
-import { HelpMessages } from '../../../api/help/HelpMessageCollection';
-import FacultyPageMenu from '../../components/faculty/FacultyPageMenu';
-import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
-import FacultyAboutMeWidget from '../../components/faculty/home/FacultyAboutMeWidget';
-import { AdvisorOrFacultyProfile, FavoriteCareerGoal, FavoriteInterest, HelpMessage } from '../../../typings/radgrad';
-import { Users } from '../../../api/user/UserCollection';
-import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
-import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
+import { Header } from 'semantic-ui-react';
+import PageLayout from '../PageLayout';
 
-interface FacultyHomePageProps {
-  profile: AdvisorOrFacultyProfile;
-  favoriteInterests: FavoriteInterest[];
-  favoriteCareerGoals: FavoriteCareerGoal[];
-  helpMessages: HelpMessage[];
-}
+const headerPaneTitle = 'Help students make the most of RadGrad';
+const headerPaneBody = `
+This page contains a personalized set of recommendations to help you configure RadGrad to best support students.
 
-const FacultyHomePage: React.FC<FacultyHomePageProps> = ({ profile, helpMessages, favoriteCareerGoals, favoriteInterests }) => (
-  <div id="faculty-home-page">
-    <FacultyPageMenu />
-    <Grid stackable>
-      <Grid.Row>
-        <Grid.Column width={1} />
-        <Grid.Column width={14}>
-          <HelpPanelWidget helpMessages={helpMessages} />
-        </Grid.Column>
-        <Grid.Column width={1} />
-      </Grid.Row>
+<span style="color:red">The red section:</span> Please act on these right away.
 
-      <Grid.Row>
-        <Grid.Column width={1} />
-        <Grid.Column width={14}>
-          <FacultyAboutMeWidget profile={profile} favoriteInterests={favoriteInterests} favoriteCareerGoals={favoriteCareerGoals} />
-        </Grid.Column>
-        <Grid.Column width={1} />
-      </Grid.Row>
-    </Grid>
-  </div>
+<span style="color:yellow">The yellow section:</span> Requests for you to review your settings or areas of the site that might have changed recently. 
+
+<span style="color:green">The green section:</span>  Looks good for now!
+`;
+
+const FacultyHomePage: React.FC = () => (
+ <PageLayout id="faculty-home-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
+   <Header>Faculty Home Page Placeholder</Header>
+ </PageLayout>
 );
 
-const FacultyHomePageContainer = withTracker(() => {
-  const { username } = useParams();
-  const profile: AdvisorOrFacultyProfile = Users.getProfile(username);
-  const userID = profile.userID;
-  const favoriteInterests: FavoriteInterest[] = FavoriteInterests.findNonRetired({ userID });
-  const favoriteCareerGoals: FavoriteCareerGoal[] = FavoriteCareerGoals.findNonRetired({ userID });
-  const helpMessages = HelpMessages.findNonRetired({});
-  return { profile, favoriteInterests, favoriteCareerGoals, helpMessages };
-})(FacultyHomePage);
-
-export default FacultyHomePageContainer;
+export default FacultyHomePage;
