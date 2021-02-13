@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Header, Icon, Button } from 'semantic-ui-react';
+import { Grid, Header, Icon} from 'semantic-ui-react';
 import RadGradLoginButtons from './RadGradLoginButtons';
 import UserGuideButtons from './UserGuideButtons';
 import styles from './utilities/landing-styles';
