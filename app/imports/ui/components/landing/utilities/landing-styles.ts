@@ -1,3 +1,4 @@
+// @ts-ignore
 export default {
   'landing-menu > .item, .landing-menu .right.menu > .item': {
     position: 'initial',
@@ -19,16 +20,22 @@ export default {
     marginTop: 0,
   },
   'ready-to-get-started': {
-    paddingTop: 50,
-    paddingBottom: 50,
+    paddingTop: 40,
+    paddingBottom: 40,
+    paddingLeft: 20,
     backgroundColor: '#279474',
     color: 'white',
+    borderRadius: 10,
+
   },
   'need-more-info': {
-    paddingTop: 50,
-    paddingBottom: 50,
+    paddingTop: 40,
+    paddingBottom: 40,
+    paddingLeft: 20,
     backgroundColor: '#6FBE44',
     color: 'white',
+    borderRadius: 10,
+
   },
   'inverted-main-header': {
     color: 'white',
@@ -42,11 +49,14 @@ export default {
   },
   'landing-number-column': {
     textAlign: 'center',
+    paddingRight: 20,
+    paddingLeft: 20,
+    fontSize: 20,
   },
   'home-number': {
     color: '#279474',
-    fontSize: 65,
-    fontWeight: 500,
+    fontSize: 80,
+    fontWeight: 700,
     paddingRight: 10,
     verticalAlign: 'middle',
     lineHeight: 0.6,
@@ -63,12 +73,7 @@ export default {
   },
   'home-number-label': {
     color: '#333333',
-    fontSize: 17,
-  },
-  'home-number-label-last': {
-    fontSize: 17,
-    paddingLeft: 10,
-    float: 'left',
+    fontSize: 20,
   },
   'main-header-ice': {
     textAlign: 'left',
@@ -98,7 +103,7 @@ export default {
   },
   'inverted-header2': {
     color: 'white',
-    fontSize: 35,
+    fontSize: 30,
   },
   'mobile-header': {
     fontSize: 60,
@@ -109,13 +114,16 @@ export default {
   },
   'inverted-description p > strong, .header-description p > strong': {
     color: '#6FBE44',
+
   },
   'header-text': {
     fontSize: 45,
   },
   'header-description': {
-    fontSize: 18,
+    fontSize: 20,
     textAlign: 'center',
+    paddingRight: 100,
+    paddingLeft: 100,
   },
   'header-section': {
     backgroundColor: '#ffffff',
@@ -154,7 +162,7 @@ export default {
   },
   'footer-section': {
     backgroundColor: '#252525',
-    padding: '1rem 0',
+    padding: '2rem 0',
     color: 'white',
     fontSize: 13,
   },
@@ -162,4 +170,16 @@ export default {
     fontWeight: 100,
     fontcolor: 'red',
   },
+  'guide-button': {
+    backgroundColor: '#279474',
+  },
+  'guide-button-dropdown': {
+    fontSize: 15,
+    marginTop: 20,
+    padding: 20,
+    width: 120,
+
+  },
+
+
 } as React.CSSProperties;
