@@ -3,10 +3,12 @@ import Markdown from 'react-markdown';
 import { Card, Header, Icon, Label, List } from 'semantic-ui-react';
 import { OpportunityFactoidProps } from '../../../../typings/radgrad';
 import IceHeader from '../../shared/IceHeader';
+import styles from "../utilities/landing-styles";
 
 const OpportunityFactiod: React.FC<OpportunityFactoidProps> = ({ picture, name, numberOfStudents, ice, description }) => (
   <div id="opportunity-factoid">
-    <Header inverted>&quot;Get real world experience.&quot;</Header>
+    <Header inverted style={styles['green-text']}>RadGrad Opportunities help you find relevant real-world experiences.</Header>
+
     <Card fluid>
       <Card.Content>
         <Card.Header>{name}</Card.Header>

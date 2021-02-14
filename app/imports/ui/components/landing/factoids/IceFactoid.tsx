@@ -10,7 +10,7 @@ const IceFactoid: React.FC = () => {
   const flexStyle = { display: 'flex', paddingTop: '5px', paddingRight: '13px', marginTop: '3px' };
   return (
     <div id="ice-factoid">
-      <Header inverted>&quot;<span style={styles['green-text']}>RadGrad</span> tracks ICE, not GPA.&quot;</Header>
+      <Header inverted style={styles['green-text']}>RadGrad tracks Innovation, Competency, and Real world Experience</Header>
       <Card fluid>
       <Card.Content>
         <Card.Header>RadGrad helps you develop Innovation, Competency, and Experience.</Card.Header>

@@ -12,7 +12,7 @@ const InterestFactoid: React.FC<InterestOrCareerGoalFactoidProps> = ({
   numberOfStudents,
 }) => (
   <div id='interest-factoid'>
-    <Header inverted>&quot;Specify <span style={styles['green-text']}>Interests</span> to improve <span style={styles['green-text']}>RadGrad</span> recommendations.&quot;</Header>
+    <Header inverted style={styles['green-text']}>Specifying Interests helps RadGrad improve recommendations.</Header>
     <Card fluid>
       <Card.Content>
         <Card.Header>{name}</Card.Header>

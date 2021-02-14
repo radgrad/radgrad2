@@ -6,7 +6,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Grid, Header, Segment } from 'semantic-ui-react';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
-import ExplorerMenuBarContainer from '../../components/landing/explorer/LandingExplorerMenuBar';
+import LandingExplorerMenuBar from '../../components/landing/explorer/LandingExplorerMenuBar';
 import { CareerGoal, HelpMessage } from '../../../typings/radgrad';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/explorer/LandingExplorerMenu';
@@ -16,27 +16,31 @@ import LandingInterestList from '../../components/landing/LandingInterestList';
 import * as Router from '../../components/shared/utilities/router';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import BackToTopButton from '../../components/shared/BackToTopButton';
+import PageLayout from '../PageLayout';
 
 interface CareerGoalExplorerProps {
   careerGoal: CareerGoal;
   helpMessages: HelpMessage[];
 }
 
+const headerPaneTitle = 'The Career Goal Explorer';
+const headerPaneBody = `
+Career Goals are curated by the faculty to represent a good selection of the most promising career paths. Most career goals encompass several job titles. 
+
+Registered users can add Career Goals to their profile which enables RadGrad to improve its ability to recommend extracurricular activities (called "Opportunities" in RadGrad). 
+
+This page provides an overview of the Career Goals currently available in RadGrad. 
+`;
+
 const LandingCareerGoalExplorerPage: React.FC<CareerGoalExplorerProps> = ({ careerGoal, helpMessages }) => {
   const match = useRouteMatch();
   return (
+    <div>
+      <LandingExplorerMenuBar />
+    <PageLayout id="career-goal-browser-view-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
     <div id="landing-career-goal-explorer-page">
-      <ExplorerMenuBarContainer />
-      <Grid stackable>
-        <Grid.Row>
-          <Grid.Column width={1} />
-          <Grid.Column width={14}>
-            <HelpPanelWidget helpMessages={helpMessages} />
-          </Grid.Column>
-          <Grid.Column width={1} />
-        </Grid.Row>
 
-        <Grid.Column width={1} />
+      <Grid stackable>
         <Grid.Column width={3}>
           <LandingExplorerMenuContainer />
         </Grid.Column>
@@ -55,6 +59,8 @@ const LandingCareerGoalExplorerPage: React.FC<CareerGoalExplorerProps> = ({ care
       </Grid>
 
       <BackToTopButton />
+    </div>
+    </PageLayout>
     </div>
   );
 };

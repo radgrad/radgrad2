@@ -44,7 +44,7 @@ import FacultyHomePage from '../../pages/faculty/FacultyHomePage';
 import InterestBrowserViewPage from '../../pages/shared/browser-view/InterestBrowserViewPage';
 import InterestViewPage from '../../pages/shared/item-view/InterestViewPage';
 import LandingHomePage from '../../pages/landing/LandingHomePage';
-import LandingCareerGoalsExplorerPage from '../../pages/landing/LandingCareerGoalsCardExplorerPage';
+import LandingCareerGoalsExplorerPage from '../../pages/landing/LandingCareerGoalsExplorerPage';
 import LandingCareerGoalExplorerPage from '../../pages/landing/LandingCareerGoalExplorerPage';
 import LandingCoursesExplorerPage from '../../pages/landing/LandingCoursesCardExplorerPage';
 import LandingCourseExplorerPage from '../../pages/landing/LandingCourseExplorerPage';
