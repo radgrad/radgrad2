@@ -168,7 +168,8 @@ Meteor.startup(() => {
     // startupCheckIntegrity();
     console.log('Startup: Starting up public stats.');
     startupPublicStats();
-    // startupStudentParticipation();
+    console.log('Startup: Starting up student participation.');
+    startupStudentParticipation();
     console.log('Startup: Updating factoids.');
     updateFactoids();
     SyncedCron.start();
