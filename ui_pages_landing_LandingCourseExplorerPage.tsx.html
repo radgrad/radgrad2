@@ -87,27 +87,33 @@
         <article>
             <pre class="prettyprint source linenums"><code>import React from 'react';
 import Markdown from 'react-markdown';
-import { useParams, useRouteMatch } from 'react-router-dom';
-import { withTracker } from 'meteor/react-meteor-data';
-import { Grid, Header, Segment } from 'semantic-ui-react';
-import { Courses } from '../../../api/course/CourseCollection';
-import { HelpMessages } from '../../../api/help/HelpMessageCollection';
-import ExplorerMenuBarContainer from '../../components/landing/explorer/LandingExplorerMenuBar';
-import { Course, HelpMessage } from '../../../typings/radgrad';
-import { Slugs } from '../../../api/slug/SlugCollection';
+import {useParams, useRouteMatch} from 'react-router-dom';
+import {withTracker} from 'meteor/react-meteor-data';
+import {Grid, Header, Segment} from 'semantic-ui-react';
+import {Courses} from '../../../api/course/CourseCollection';
+import {HelpMessages} from '../../../api/help/HelpMessageCollection';
+import {Course, HelpMessage} from '../../../typings/radgrad';
+import {Slugs} from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/explorer/LandingExplorerMenu';
-import { Interests } from '../../../api/interest/InterestCollection';
+import {Interests} from '../../../api/interest/InterestCollection';
 import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
 import LandingInterestList from '../../components/landing/LandingInterestList';
 import LandingPrerequisiteList from '../../components/landing/LandingPrerequisiteList';
 import * as Router from '../../components/shared/utilities/router';
-import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
-import BackToTopButton from '../../components/shared/BackToTopButton';
+import LandingExplorerMenuBar from '../../components/landing/explorer/LandingExplorerMenuBar';
+import PageLayout from '../PageLayout';
 
 interface CourseExplorerProps {
   course: Course;
   helpMessages: HelpMessage[];
 }
+
+const headerPaneTitle = 'The Course Explorer';
+const headerPaneBody = `
+The RadGrad course explorer provides helpful information about courses, including reviews by students from previous semesters, as well as the number of students planning to take the course in an upcoming semester. 
+
+This public explorer does not show reviews or the forecasts for future semesters, but does provide an overview of the courses currently available in the system.
+`;
 
 /**
  * The landing course explorer page.
@@ -115,70 +121,63 @@ interface CourseExplorerProps {
  * @return {JSX.Element}
  * @constructor
  */
-const LandingCourseExplorerPage: React.FC&lt;CourseExplorerProps> = ({ helpMessages, course }) => {
+const LandingCourseExplorerPage: React.FC&lt;CourseExplorerProps> = ({helpMessages, course}) => {
   const match = useRouteMatch();
   return (
-    &lt;div id="landing-course-explorer-page">
-      &lt;ExplorerMenuBarContainer />
-      &lt;Grid stackable>
-        &lt;Grid.Row>
-          &lt;Grid.Column width={1} />
-          &lt;Grid.Column width={14}>
-            &lt;HelpPanelWidget helpMessages={helpMessages} />
-          &lt;/Grid.Column>
-          &lt;Grid.Column width={1} />
-        &lt;/Grid.Row>
+    &lt;div>
+      &lt;LandingExplorerMenuBar/>
+      &lt;PageLayout id="landing-course-explorer-page" headerPaneTitle={headerPaneTitle}
+                  headerPaneBody={headerPaneBody}>
+        &lt;Grid stackable>
+          &lt;Grid.Row>
+            &lt;Grid.Column width={3}>
+              &lt;LandingExplorerMenuContainer/>
+            &lt;/Grid.Column>
 
-        &lt;Grid.Row>
-          &lt;Grid.Column width={1} />
-          &lt;Grid.Column width={3}>
-            &lt;LandingExplorerMenuContainer />
-          &lt;/Grid.Column>
-
-          &lt;Grid.Column width={11}>
-            &lt;Segment padded style={{ overflow: 'auto', maxHeight: 750 }}>
-              &lt;Header as="h4" dividing>
+            &lt;Grid.Column width={13}>
+              &lt;Segment>
+                &lt;Header as="h4" dividing>
                 &lt;span>
                   {course.shortName} ({course.name})
                 &lt;/span>
-              &lt;/Header>
-              &lt;Grid columns={2} stackable>
-                &lt;Grid.Column width="six">
-                  &lt;b>Course Number:&lt;/b> {course.num}
-                  &lt;br />
-                  &lt;b>Credit Hours:&lt;/b> {course.creditHrs}
-                &lt;/Grid.Column>
-                &lt;Grid.Column width="ten">
-                  &lt;b>Syllabus: &lt;/b>
-                  {course.syllabus ? (
-                    &lt;a href={course.syllabus} target="_blank" rel="noopener noreferrer">
-                      {course.syllabus}
-                    &lt;/a>
-                  ) : (
-                    'None available'
-                  )}
-                &lt;/Grid.Column>
-              &lt;/Grid>
-              &lt;b>Description:&lt;/b>
-              &lt;Markdown escapeHtml source={course.description} renderers={{ link: (localProps) => Router.renderLink(localProps, match) }} />
-              &lt;Header as="h4" dividing>
-                Prerequisites
-              &lt;/Header>
-              {course.prerequisites.length > 0 ? &lt;LandingPrerequisiteList prerequisites={course.prerequisites} /> : 'N/A'}
-              {course.interestIDs.length > 0 ? &lt;LandingInterestList interestIDs={course.interestIDs} /> : 'N/A'}
-            &lt;/Segment>
-          &lt;/Grid.Column>
-          &lt;Grid.Column width={1} />
-        &lt;/Grid.Row>
-      &lt;/Grid>
-
-      &lt;BackToTopButton />
+                &lt;/Header>
+                &lt;Grid columns={2} stackable>
+                  &lt;Grid.Column width="six">
+                    &lt;b>Course Number:&lt;/b> {course.num}
+                    &lt;br/>
+                    &lt;b>Credit Hours:&lt;/b> {course.creditHrs}
+                  &lt;/Grid.Column>
+                  &lt;Grid.Column width="ten">
+                    &lt;b>Syllabus: &lt;/b>
+                    {course.syllabus ? (
+                      &lt;a href={course.syllabus} target="_blank" rel="noopener noreferrer">
+                        {course.syllabus}
+                      &lt;/a>
+                    ) : (
+                      'None available'
+                    )}
+                  &lt;/Grid.Column>
+                &lt;/Grid>
+                &lt;b>Description:&lt;/b>
+                &lt;Markdown escapeHtml source={course.description}
+                          renderers={{link: (localProps) => Router.renderLink(localProps, match)}}/>
+                &lt;Header as="h4" dividing>
+                  Prerequisites
+                &lt;/Header>
+                {course.prerequisites.length > 0 ?
+                  &lt;LandingPrerequisiteList prerequisites={course.prerequisites}/> : 'N/A'}
+                {course.interestIDs.length > 0 ? &lt;LandingInterestList interestIDs={course.interestIDs}/> : 'N/A'}
+              &lt;/Segment>
+            &lt;/Grid.Column>
+          &lt;/Grid.Row>
+        &lt;/Grid>
+      &lt;/PageLayout>
     &lt;/div>
   );
 };
 
 const LandingCourseExplorerContainer = withTracker(() => {
-  const { course } = useParams();
+  const {course} = useParams();
   const id = Slugs.getEntityID(course, 'Course');
   const helpMessages = HelpMessages.findNonRetired({});
   return {
