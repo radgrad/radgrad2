@@ -40,8 +40,8 @@ const LandingCareerGoalExplorerPage: React.FC<CareerGoalExplorerProps> = ({caree
             <LandingExplorerMenuContainer/>
           </Grid.Column>
 
-          <Grid.Column width={11}>
-            <Segment padded style={{overflow: 'auto', maxHeight: 750}}>
+          <Grid.Column width={13}>
+            <Segment>
               <Header as="h4" dividing>
                 <span>{careerGoal.name}</span>
               </Header>
@@ -52,7 +52,6 @@ const LandingCareerGoalExplorerPage: React.FC<CareerGoalExplorerProps> = ({caree
                 <LandingInterestList interestIDs={careerGoal.interestIDs}/> : 'N/A'}
             </Segment>
           </Grid.Column>
-          <Grid.Column width={1}/>
         </Grid>
       </PageLayout>
     </div>

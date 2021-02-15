@@ -18,7 +18,7 @@ const headerPaneTitle = 'The Course Explorer';
 const headerPaneBody = `
 The RadGrad course explorer provides helpful information about courses, including reviews by students from previous semesters, as well as the number of students planning to take the course in an upcoming semester. 
 
-This public explorer does not show these reviews or the forecasts for future semesters, but does provide an overview of the courses currently available in the system.
+This public explorer does not show reviews or the forecasts for future semesters, but does provide an overview of the courses currently available in the system.
 `;
 
 const LandingCoursesExplorerPage: React.FC<LandingCoursesExplorerPageProps> = ({courses, count}) => (

@@ -2,30 +2,30 @@ import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Card, Grid, Header, Segment } from 'semantic-ui-react';
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
+import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import ExplorerMenuBarContainer from '../../components/landing/explorer/LandingExplorerMenuBar';
-import { HelpMessage, Interest } from '../../../typings/radgrad';
-import { Interests } from '../../../api/interest/InterestCollection';
+import { HelpMessage, Opportunity } from '../../../typings/radgrad';
 import LandingExplorerCardContainer from '../../components/landing/explorer/LandingExplorerCard';
 import LandingExplorerMenuContainer from '../../components/landing/explorer/LandingExplorerMenu';
-import BackToTopButton from '../../components/shared/BackToTopButton';
 import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
+import { Slugs } from '../../../api/slug/SlugCollection';
 
-interface InterestsCardExplorerProps {
-  interests: Interest[];
+interface OpportunitiesCardExplorerProps {
+  opportunities: Opportunity[];
   count: number;
   helpMessages: HelpMessage[];
 }
 
-const LandingInterestsCardExplorerPage: React.FC<InterestsCardExplorerProps> = ({ interests, count, helpMessages }) => {
+const LandingOpportunitiesExplorerPage: React.FC<OpportunitiesCardExplorerProps> = ({ opportunities, helpMessages, count }) => {
   const inlineStyle = {
     maxHeight: 750,
     marginTop: 10,
   };
   return (
-    <div id="landing-interests-card-explorer-page">
+    <div id="landing-opportunities-card-explorer-page">
       <ExplorerMenuBarContainer />
-      <Grid stackable container padded="vertically">
+      <Grid stackable>
         <Grid.Row>
           <Grid.Column width={1} />
           <Grid.Column width={14}>
@@ -43,11 +43,11 @@ const LandingInterestsCardExplorerPage: React.FC<InterestsCardExplorerProps> = (
           <Grid.Column width={11}>
             <Segment padded style={{ overflow: 'auto', maxHeight: 750 }}>
               <Header as="h4" dividing>
-                <span>INTERESTS</span> ({count})
+                <span>OPPORTUNITIES</span> ({count})
               </Header>
               <Card.Group stackable itemsPerRow={2} style={inlineStyle}>
-                {interests.map((interest) => (
-                  <LandingExplorerCardContainer key={interest._id} type="interests" item={interest} />
+                {opportunities.map((opportunity) => (
+                  <LandingExplorerCardContainer key={opportunity._id} type="opportunities" item={opportunity} />
                 ))}
               </Card.Group>
             </Segment>
@@ -55,16 +55,14 @@ const LandingInterestsCardExplorerPage: React.FC<InterestsCardExplorerProps> = (
           <Grid.Column width={1} />
         </Grid.Row>
       </Grid>
-
-      <BackToTopButton />
     </div>
   );
 };
 
-const LandingInterestsCardExplorerContainer = withTracker(() => ({
-  interests: Interests.findNonRetired({}),
-  count: Interests.countNonRetired(),
+const LandingOpportunitiesCardExplorerContainer = withTracker(() => ({
+  opportunities: Opportunities.findNonRetired({}, { sort: { name: 1 } }),
+  count: Opportunities.countNonRetired(),
   helpMessages: HelpMessages.findNonRetired({}),
-}))(LandingInterestsCardExplorerPage);
+}))(LandingOpportunitiesExplorerPage);
 
-export default withListSubscriptions(LandingInterestsCardExplorerContainer, [Interests.getPublicationName(), HelpMessages.getPublicationName()]);
+export default withListSubscriptions(LandingOpportunitiesCardExplorerContainer, [Opportunities.getPublicationName(), HelpMessages.getPublicationName(), Slugs.getPublicationName()]);
