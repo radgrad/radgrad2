@@ -825,6 +825,11 @@ export interface StudentProfile extends Profile {
   shareCourses?: boolean;
   shareOpportunities?: boolean;
   shareLevel?: boolean;
+  lastRegistrarLoad?: Date;
+  lastVisitedCareerGoals?: Date;
+  lastVisitedCourses?: Date;
+  lastVisitedInterests?: Date;
+  lastVisitedOpportunities?: Date;
 }
 
 export interface StudentProfileDefine extends ProfileDefine {

@@ -1,17 +1,17 @@
 import React from 'react';
+import { Segment } from 'semantic-ui-react';
 import { ChecklistState } from '../../../api/checklist/ChecklistState';
 
 /**
  * Base class for all checklist items.
  */
-class Checklist {
+export class Checklist {
   private name: string;
 
-  private state: ChecklistState;
+  protected state: ChecklistState;
 
   constructor(name: string) {
     this.name = name;
-    this.updateState();
   }
 
   /**
@@ -20,6 +20,10 @@ class Checklist {
    */
   protected updateState() {
     this.state = 'Improve';
+  }
+
+  public getState() {
+    return this.state;
   }
 
   /**
@@ -60,12 +64,12 @@ class Checklist {
 
   public getChecklistItem(): JSX.Element {
     return (
-      <div id={`checklist-${this.name}`}>
+      <Segment id={`checklist-${this.name}`}>
         {this.getTitle()}
         {this.getDescription()}
         {this.getDetails()}
         {this.getActions()}
-      </div>
+      </Segment>
     );
   }
 
