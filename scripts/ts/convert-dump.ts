@@ -167,7 +167,7 @@ const convertPictureUrl = (profile) => {
   const result: any = {};
   for (const key in profile) { // eslint-disable-line no-restricted-syntax
     if (key === 'picture') {
-      result.picture = profile.picture.replace(/http:\/\/res.cloudinary.com/g, 'https://res.cloudinary.com/');
+      result.picture = profile.picture.replace(/http:\/\/res.cloudinary.com/g, 'https://res.cloudinary.com');
     } else {
       result[key] = profile[key];
     }
