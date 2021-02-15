@@ -842,6 +842,12 @@ export interface StudentProfileDefine extends ProfileDefine {
   shareCourses?: boolean;
   shareOpportunities?: boolean;
   shareLevel?: boolean;
+  lastRegistrarLoad?: Date;
+  agreedToTermsDate?: Date;
+  lastVisitedCareerGoals?: Date;
+  lastVisitedCourses?: Date;
+  lastVisitedInterests?: Date;
+  lastVisitedOpportunities?: Date;
 }
 
 export interface StudentProfileUpdate extends ProfileUpdate {
@@ -861,6 +867,10 @@ export interface StudentProfileUpdate extends ProfileUpdate {
   shareLevel?: boolean;
   lastRegistrarLoad?: Date;
   agreedToTermsDate?: Date;
+  lastVisitedCareerGoals?: Date;
+  lastVisitedCourses?: Date;
+  lastVisitedInterests?: Date;
+  lastVisitedOpportunities?: Date;
 }
 
 export interface StudentProfileUpdateData {
@@ -879,6 +889,10 @@ export interface StudentProfileUpdateData {
   shareLevel?: boolean;
   lastRegistrarLoad?: Date;
   agreedToTermsDate?: Date;
+  lastVisitedCareerGoals?: Date;
+  lastVisitedCourses?: Date;
+  lastVisitedInterests?: Date;
+  lastVisitedOpportunities?: Date;
 }
 
 // Reviews
