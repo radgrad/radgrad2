@@ -3,9 +3,7 @@ import Markdown from 'react-markdown';
 import { useParams, useRouteMatch } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Grid, Header, List, Segment } from 'semantic-ui-react';
-import { HelpMessages } from '../../../api/help/HelpMessageCollection';
-import ExplorerMenuBarContainer from '../../components/landing/explorer/LandingExplorerMenuBar';
-import { Course, HelpMessage, Interest, Opportunity } from '../../../typings/radgrad';
+import { Course, Interest, Opportunity } from '../../../typings/radgrad';
 import { Courses } from '../../../api/course/CourseCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
@@ -14,40 +12,38 @@ import LandingExplorerMenuContainer from '../../components/landing/explorer/Land
 import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
 import { getSlugFromEntityID } from '../../components/landing/utilities/helper-functions';
 import * as Router from '../../components/shared/utilities/router';
-import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import { EXPLORER_TYPE } from '../../layouts/utilities/route-constants';
+import LandingExplorerMenuBar from '../../components/landing/explorer/LandingExplorerMenuBar';
+import PageLayout from '../PageLayout';
 
 interface InterestExplorerProps {
   currentUser: string;
   interest: Interest;
   courses: Course[];
   opportunities: Opportunity[];
-  helpMessages: HelpMessage[];
 }
 
-const LandingInterestExplorerPage: React.FC<InterestExplorerProps> = ({ currentUser, opportunities, courses, helpMessages, interest }) => {
-  // console.log(interest);
+const headerPaneTitle = 'The Interest Explorer';
+const headerPaneBody = `
+Interests are curated by the faculty to provide information about topic areas important to the discipline and future career goals.  Interests are used by RadGrad to recommend courses and opportunities relevant to the user. Interests are also used to build community by allowing registered users to find others with matching interests.
+
+This public explorer does not provide information about community members.
+`;
+
+const LandingInterestExplorerPage: React.FC<InterestExplorerProps> = ({ currentUser, opportunities, courses, interest }) => {
   const match = useRouteMatch();
   return (
-    <div id="landing-interest-explorer-page">
-      <ExplorerMenuBarContainer />
+    <div>
+      <LandingExplorerMenuBar/>
+      <PageLayout id="landing-interest-explorer-page" headerPaneTitle={headerPaneTitle}
+                  headerPaneBody={headerPaneBody}>
       <Grid stackable>
         <Grid.Row>
-          <Grid.Column width={1} />
-          <Grid.Column width={14}>
-            <HelpPanelWidget helpMessages={helpMessages} />
-          </Grid.Column>
-          <Grid.Column width={1} />
-        </Grid.Row>
-
-        <Grid.Row>
-          <Grid.Column width={1} />
           <Grid.Column width={3}>
             <LandingExplorerMenuContainer />
           </Grid.Column>
-
-          <Grid.Column width={11}>
-            <Segment padded style={{ overflow: 'auto', maxHeight: 750 }}>
+          <Grid.Column width={13}>
+            <Segment>
               <Header as="h4" dividing>
                 <span>{interest.name}</span>
               </Header>
@@ -70,7 +66,7 @@ const LandingInterestExplorerPage: React.FC<InterestExplorerProps> = ({ currentU
                 'N/A'
               )}
             </Segment>
-            <Segment padded>
+            <Segment>
               <Header as="h4" dividing>
                 Related Opportunities
               </Header>
@@ -87,9 +83,9 @@ const LandingInterestExplorerPage: React.FC<InterestExplorerProps> = ({ currentU
               )}
             </Segment>
           </Grid.Column>
-          <Grid.Column width={1} />
         </Grid.Row>
       </Grid>
+      </PageLayout>
     </div>
   );
 };
@@ -101,8 +97,7 @@ const LandingInterestExplorerContainer = withTracker(() => {
     interest: Interests.findDoc(id),
     courses: Courses.findNonRetired({ interestIDs: id }),
     opportunities: Opportunities.findNonRetired({ interestIDs: id }),
-    helpMessages: HelpMessages.findNonRetired({}),
   };
 })(LandingInterestExplorerPage);
 
-export default withListSubscriptions(LandingInterestExplorerContainer, [Courses.getPublicationName(), Interests.getPublicationName(), Opportunities.getPublicationName(), Slugs.getPublicationName(), HelpMessages.getPublicationName()]);
+export default withListSubscriptions(LandingInterestExplorerContainer, [Courses.getPublicationName(), Interests.getPublicationName(), Opportunities.getPublicationName(), Slugs.getPublicationName()]);

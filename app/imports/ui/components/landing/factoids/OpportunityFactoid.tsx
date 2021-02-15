@@ -3,7 +3,7 @@ import Markdown from 'react-markdown';
 import { Card, Header, Icon, Label, List } from 'semantic-ui-react';
 import { OpportunityFactoidProps } from '../../../../typings/radgrad';
 import IceHeader from '../../shared/IceHeader';
-import styles from "../utilities/landing-styles";
+import styles from '../utilities/landing-styles';
 
 const OpportunityFactiod: React.FC<OpportunityFactoidProps> = ({ picture, name, numberOfStudents, ice, description }) => (
   <div id="opportunity-factoid">

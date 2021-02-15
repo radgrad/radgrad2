@@ -3,11 +3,9 @@ import Markdown from 'react-markdown';
 import { useParams, useRouteMatch } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Embed, Grid, Header, Segment } from 'semantic-ui-react';
-import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
-import ExplorerMenuBarContainer from '../../components/landing/explorer/LandingExplorerMenuBar';
-import { HelpMessage, Opportunity } from '../../../typings/radgrad';
+import { Opportunity } from '../../../typings/radgrad';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/explorer/LandingExplorerMenu';
 import { Interests } from '../../../api/interest/InterestCollection';
@@ -17,20 +15,25 @@ import { getOpportunityTypeName, semesters, teaser } from '../../components/land
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
 import * as Router from '../../components/shared/utilities/router';
-import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import { Users } from '../../../api/user/UserCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
-
-// import HelpPanelWidgetContainer from '../../components/shared/HelpPanelWidget';
+import LandingExplorerMenuBar from '../../components/landing/explorer/LandingExplorerMenuBar';
+import PageLayout from '../PageLayout';
 
 interface OpportunityExplorerProps {
   opportunity: Opportunity;
   quarters: boolean;
-  helpMessages: HelpMessage[];
 }
 
-const LandingOpportunityExplorerPage: React.FC<OpportunityExplorerProps> = ({ opportunity, helpMessages, quarters }) => {
+const headerPaneTitle = 'The Opportunity Explorer';
+const headerPaneBody = `
+Opportunities are extracurricular activities that relate to this discipline. They are curated by the faculty to ensure that each Opportunity provides an educationally enriching experience.  Registered users can access reviews of (re-occuring) Opportunities to learn about the experiences of previous students. Registered users can also build community by finding other users who are interested in this Opportunity.
+
+This public explorer does not provide information about community members or the reviews associated with Opportunities.
+`;
+
+const LandingOpportunityExplorerPage: React.FC<OpportunityExplorerProps> = ({ opportunity, quarters }) => {
   const match = useRouteMatch();
   const hasTeaser = Teasers.findNonRetired({ targetSlugID: opportunity.slugID }).length > 0;
   const opportunityTypeName = getOpportunityTypeName(opportunity.opportunityTypeID);
@@ -39,25 +42,18 @@ const LandingOpportunityExplorerPage: React.FC<OpportunityExplorerProps> = ({ op
   const sponsor = Users.getFullName(opportunity.sponsorID);
 
   return (
-    <div id="landing-opportunity-explorer-page">
-      <ExplorerMenuBarContainer />
+    <div>
+      <LandingExplorerMenuBar/>
+      <PageLayout id="landing-opportunity-explorer-page" headerPaneTitle={headerPaneTitle}
+                  headerPaneBody={headerPaneBody}>
       <Grid stackable>
         <Grid.Row>
-          <Grid.Column width={1} />
-          <Grid.Column width={14}>
-            <HelpPanelWidget helpMessages={helpMessages} />
-          </Grid.Column>
-          <Grid.Column width={1} />
-        </Grid.Row>
-
-        <Grid.Row>
-          <Grid.Column width={1} />
           <Grid.Column width={3}>
             <LandingExplorerMenuContainer />
           </Grid.Column>
 
-          <Grid.Column width={11}>
-            <Segment padded style={{ overflow: 'auto', maxHeight: 750 }}>
+          <Grid.Column width={13}>
+            <Segment>
               <Header as="h4" dividing>
                 <span>{opportunity.name}</span>
               </Header>
@@ -182,9 +178,9 @@ const LandingOpportunityExplorerPage: React.FC<OpportunityExplorerProps> = ({ op
               )}
             </Segment>
           </Grid.Column>
-          <Grid.Column width={1} />
         </Grid.Row>
       </Grid>
+      </PageLayout>
     </div>
   );
 };
@@ -196,7 +192,6 @@ const LandingOpportunityExplorerContainer = withTracker(() => {
   return {
     opportunity: Opportunities.findDoc(id),
     quarters: RadGradProperties.getQuarterSystem(),
-    helpMessages: HelpMessages.findNonRetired({}),
   };
 })(LandingOpportunityExplorerPage);
 
@@ -206,7 +201,6 @@ export default withListSubscriptions(LandingOpportunityExplorerContainer, [
   Opportunities.getPublicationName(),
   Slugs.getPublicationName(),
   Teasers.getPublicationName(),
-  HelpMessages.getPublicationName(),
   FacultyProfiles.getPublicationName(),
   AdvisorProfiles.getPublicationName(),
   Users.getPublicationName(),

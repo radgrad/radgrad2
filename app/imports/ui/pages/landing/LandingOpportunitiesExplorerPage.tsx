@@ -1,68 +1,48 @@
 import React from 'react';
-import { withTracker } from 'meteor/react-meteor-data';
-import { Card, Grid, Header, Segment } from 'semantic-ui-react';
-import { HelpMessages } from '../../../api/help/HelpMessageCollection';
-import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
-import ExplorerMenuBarContainer from '../../components/landing/explorer/LandingExplorerMenuBar';
-import { HelpMessage, Opportunity } from '../../../typings/radgrad';
-import LandingExplorerCardContainer from '../../components/landing/explorer/LandingExplorerCard';
-import LandingExplorerMenuContainer from '../../components/landing/explorer/LandingExplorerMenu';
-import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
+import {withTracker} from 'meteor/react-meteor-data';
+import {Card, Header, Segment} from 'semantic-ui-react';
+import {Opportunities} from '../../../api/opportunity/OpportunityCollection';
+import {Opportunity} from '../../../typings/radgrad';
+import LandingExplorerCard from '../../components/landing/explorer/LandingExplorerCard';
 import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
-import { Slugs } from '../../../api/slug/SlugCollection';
+import {Slugs} from '../../../api/slug/SlugCollection';
+import LandingExplorerMenuBar from '../../components/landing/explorer/LandingExplorerMenuBar';
+import PageLayout from '../PageLayout';
 
-interface OpportunitiesCardExplorerProps {
+interface LandingOpportunitiesExplorerPageProps {
   opportunities: Opportunity[];
   count: number;
-  helpMessages: HelpMessage[];
 }
 
-const LandingOpportunitiesExplorerPage: React.FC<OpportunitiesCardExplorerProps> = ({ opportunities, helpMessages, count }) => {
-  const inlineStyle = {
-    maxHeight: 750,
-    marginTop: 10,
-  };
-  return (
-    <div id="landing-opportunities-card-explorer-page">
-      <ExplorerMenuBarContainer />
-      <Grid stackable>
-        <Grid.Row>
-          <Grid.Column width={1} />
-          <Grid.Column width={14}>
-            <HelpPanelWidget helpMessages={helpMessages} />
-          </Grid.Column>
-          <Grid.Column width={1} />
-        </Grid.Row>
+const headerPaneTitle = 'The Opportunity Explorer';
+const headerPaneBody = `
+Opportunities are extracurricular activities that relate to this discipline. They are curated by the faculty to ensure that each Opportunity provides an educationally enriching experience.  Registered users can access reviews of (re-occuring) Opportunities to learn about the experiences of previous students. Registered users can also build community by finding other users who are interested in this Opportunity.
 
-        <Grid.Row>
-          <Grid.Column width={1} />
-          <Grid.Column width={3}>
-            <LandingExplorerMenuContainer />
-          </Grid.Column>
+This public explorer does not provide information about community members or the reviews associated with Opportunities.
+`;
 
-          <Grid.Column width={11}>
-            <Segment padded style={{ overflow: 'auto', maxHeight: 750 }}>
-              <Header as="h4" dividing>
-                <span>OPPORTUNITIES</span> ({count})
-              </Header>
-              <Card.Group stackable itemsPerRow={2} style={inlineStyle}>
-                {opportunities.map((opportunity) => (
-                  <LandingExplorerCardContainer key={opportunity._id} type="opportunities" item={opportunity} />
-                ))}
-              </Card.Group>
-            </Segment>
-          </Grid.Column>
-          <Grid.Column width={1} />
-        </Grid.Row>
-      </Grid>
-    </div>
-  );
-};
+const LandingOpportunitiesExplorerPage: React.FC<LandingOpportunitiesExplorerPageProps> = ({opportunities, count}) => (
+  <div>
+    <LandingExplorerMenuBar/>
+    <PageLayout id="landing-opportunities-explorer-page" headerPaneTitle={headerPaneTitle}
+                headerPaneBody={headerPaneBody}>
+      <Segment>
+        <Header as="h4" dividing>
+          <span>OPPORTUNITIES</span> ({count})
+        </Header>
+        <Card.Group stackable>
+          {opportunities.map((opportunity) => (
+            <LandingExplorerCard key={opportunity._id} type="opportunities" item={opportunity}/>
+          ))}
+        </Card.Group>
+      </Segment>
+    </PageLayout>
+  </div>
+);
 
-const LandingOpportunitiesCardExplorerContainer = withTracker(() => ({
-  opportunities: Opportunities.findNonRetired({}, { sort: { name: 1 } }),
+const LandingOpportunitiesExplorerPageContainer = withTracker(() => ({
+  opportunities: Opportunities.findNonRetired({}, {sort: {name: 1}}),
   count: Opportunities.countNonRetired(),
-  helpMessages: HelpMessages.findNonRetired({}),
 }))(LandingOpportunitiesExplorerPage);
 
-export default withListSubscriptions(LandingOpportunitiesCardExplorerContainer, [Opportunities.getPublicationName(), HelpMessages.getPublicationName(), Slugs.getPublicationName()]);
+export default withListSubscriptions(LandingOpportunitiesExplorerPageContainer, [Opportunities.getPublicationName(), Slugs.getPublicationName()]);
