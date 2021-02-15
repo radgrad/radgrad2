@@ -1,70 +1,48 @@
 import React from 'react';
-import { withTracker } from 'meteor/react-meteor-data';
-import { Card, Grid, Header, Segment } from 'semantic-ui-react';
-import { Courses } from '../../../api/course/CourseCollection';
-import { HelpMessages } from '../../../api/help/HelpMessageCollection';
-import ExplorerMenuBarContainer from '../../components/landing/explorer/LandingExplorerMenuBar';
-import { Course, HelpMessage } from '../../../typings/radgrad';
+import {withTracker} from 'meteor/react-meteor-data';
+import {Card, Header, Segment} from 'semantic-ui-react';
+import {Courses} from '../../../api/course/CourseCollection';
+import LandingExplorerMenuBar from '../../components/landing/explorer/LandingExplorerMenuBar';
+import {Course} from '../../../typings/radgrad';
 import LandingExplorerCardContainer from '../../components/landing/explorer/LandingExplorerCard';
-import LandingExplorerMenuContainer from '../../components/landing/explorer/LandingExplorerMenu';
-import BackToTopButton from '../../components/shared/BackToTopButton';
-import HelpPanelWidget from '../../components/shared/HelpPanelWidget';
 import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
+import PageLayout from '../PageLayout';
+import {Slugs} from '../../../api/slug/SlugCollection';
 
-interface CoursesCardExplorerProps {
+interface LandingCoursesExplorerPageProps {
   courses: Course[];
   count: number;
-  helpMessages: HelpMessage[];
 }
 
-const LandingCoursesCardExplorerPage: React.FC<CoursesCardExplorerProps> = ({ courses, count, helpMessages }) => {
-  const inlineStyle = {
-    maxHeight: 750,
-    marginTop: 10,
-  };
-  return (
-    <div id="landing-courses-card-explorer-page">
-      <ExplorerMenuBarContainer />
-      <Grid stackable>
-        <Grid.Row>
-          <Grid.Column width={1} />
-          <Grid.Column width={14}>
-            <HelpPanelWidget helpMessages={helpMessages} />
-          </Grid.Column>
-          <Grid.Column width={1} />
-        </Grid.Row>
+const headerPaneTitle = 'The Course Explorer';
+const headerPaneBody = `
+The RadGrad course explorer provides helpful information about courses, including reviews by students from previous semesters, as well as the number of students planning to take the course in an upcoming semester. 
 
-        <Grid.Row>
-          <Grid.Column width={1} />
-          <Grid.Column width={3}>
-            <LandingExplorerMenuContainer />
-          </Grid.Column>
+This public explorer does not show these reviews or the forecasts for future semesters, but does provide an overview of the courses currently available in the system.
+`;
 
-          <Grid.Column width={11}>
-            <Segment padded style={{ overflow: 'auto', maxHeight: 750 }}>
-              <Header as="h4" dividing>
-                <span>COURSES</span> ({count})
-              </Header>
-              <Card.Group stackable itemsPerRow={2} style={inlineStyle}>
-                {courses.map((goal) => (
-                  <LandingExplorerCardContainer key={goal._id} type="courses" item={goal} />
-                ))}
-              </Card.Group>
-            </Segment>
-          </Grid.Column>
-          <Grid.Column width={1} />
-        </Grid.Row>
-      </Grid>
-
-      <BackToTopButton />
-    </div>
-  );
-};
+const LandingCoursesExplorerPage: React.FC<LandingCoursesExplorerPageProps> = ({courses, count}) => (
+  <div>
+    <LandingExplorerMenuBar/>
+    <PageLayout id="landing-courses-explorer-page" headerPaneTitle={headerPaneTitle}
+                headerPaneBody={headerPaneBody}>
+      <Segment>
+        <Header as="h4" dividing>
+          <span>COURSES</span> ({count})
+        </Header>
+        <Card.Group stackable>
+          {courses.map((goal) => (
+            <LandingExplorerCardContainer key={goal._id} type="courses" item={goal}/>
+          ))}
+        </Card.Group>
+      </Segment>
+    </PageLayout>
+  </div>
+);
 
 const LandingCoursesCardExplorerContainer = withTracker(() => ({
-  courses: Courses.findNonRetired({}, { sort: { shortName: 1 } }),
+  courses: Courses.findNonRetired({}, {sort: {shortName: 1}}),
   count: Courses.countNonRetired(),
-  helpMessages: HelpMessages.findNonRetired({}),
-}))(LandingCoursesCardExplorerPage);
+}))(LandingCoursesExplorerPage);
 
-export default withListSubscriptions(LandingCoursesCardExplorerContainer, [Courses.getPublicationName(), HelpMessages.getPublicationName()]);
+export default withListSubscriptions(LandingCoursesCardExplorerContainer, [Courses.getPublicationName(), Slugs.getPublicationName()]);

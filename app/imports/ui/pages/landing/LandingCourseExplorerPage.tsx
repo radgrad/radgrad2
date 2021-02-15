@@ -22,6 +22,13 @@ interface CourseExplorerProps {
   helpMessages: HelpMessage[];
 }
 
+const headerPaneTitle = 'The Course Explorer';
+const headerPaneBody = `
+The RadGrad course explorer provides helpful information about courses, including reviews by students from previous semesters, as well as the number of students planning to take the course in an upcoming semester. 
+
+This public explorer does not show these reviews or the forecasts for future semesters, but does provide an overview of the courses currently available in the system.
+`;
+
 /**
  * The landing course explorer page.
  * @param {React.PropsWithChildren<CourseExplorerProps>} props
