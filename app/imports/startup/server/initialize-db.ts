@@ -105,7 +105,7 @@ const startupPublicStats = () => {
   });
 };
 
-const startupStudentParticipation = () => {
+const startupStudentParticipation = () => { // eslint-disable-line @typescript-eslint/no-unused-vars
   StudentParticipations.upsertEnrollmentData();
   SyncedCron.add({
     name: 'Run StudentParticipations.upsertEnrollmentData',
@@ -161,11 +161,15 @@ Meteor.startup(() => {
     removeAllEntities();
     defineTestAdminUser();
   } else {
+    console.log('Startup: Defining admin user if necessary.');
     defineAdminUser();
+    console.log('Startup: Loading database if necessary.');
     loadDatabase();
     // startupCheckIntegrity();
+    console.log('Startup: Starting up public stats.');
     startupPublicStats();
-    startupStudentParticipation();
+    // startupStudentParticipation();
+    console.log('Startup: Updating factoids.');
     updateFactoids();
     SyncedCron.start();
   }
