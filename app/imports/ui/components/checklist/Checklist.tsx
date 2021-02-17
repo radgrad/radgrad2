@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React from 'react';
 import { Segment } from 'semantic-ui-react';
 import { ChecklistState } from '../../../api/checklist/ChecklistState';
@@ -94,4 +95,11 @@ export class Checklist {
     );
   }
 
+  protected isSixMonthsOld(dateString?: string): boolean {
+    if (dateString) {
+      const lastVisit = moment(dateString, 'YYYY-MM-DD');
+      return lastVisit.isBefore(moment().subtract(6, 'months'));
+    }
+    return true;
+  }
 }

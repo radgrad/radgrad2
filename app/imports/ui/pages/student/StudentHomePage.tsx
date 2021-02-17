@@ -2,6 +2,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import React from 'react';
 import {Header} from 'semantic-ui-react';
 import { CareerGoalsChecklist } from '../../components/checklist/CareerGoalsChecklist';
+import { CoursesChecklist } from '../../components/checklist/CoursesChecklist';
 import { InterestsChecklist } from '../../components/checklist/InterestsChecklist';
 import PageLayout from '../PageLayout';
 
@@ -43,6 +44,7 @@ export default withTracker(() => {
   const checklists = [];
   checklists.push(new InterestsChecklist('Student Interests', currentUser));
   checklists.push(new CareerGoalsChecklist('Student Career Goals', currentUser));
+  checklists.push(new CoursesChecklist('Student Courses', currentUser));
   checklists.forEach((checklist) => {
     checklist.updateState();
     switch (checklist.getState()) {

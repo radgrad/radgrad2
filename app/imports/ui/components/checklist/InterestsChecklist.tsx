@@ -33,7 +33,7 @@ export class InterestsChecklist extends Checklist {
       // console.log(this.profile.lastVisitedInterests, PublicStats.getPublicStat(PublicStats.interestsUpdateTime));
       if (lastVisit.isBefore(moment(PublicStats.getPublicStat(PublicStats.interestsUpdateTime), 'YYYY-MM-DD-HH-mm-ss'))) {
         this.state = 'Review';
-      } else if (this.isSixMonthsOld()) {
+      } else if (this.isSixMonthsOld(this.profile.lastVisitedInterests)) {
         this.state = 'Review';
       } else {
         this.state = 'OK';
@@ -63,7 +63,7 @@ export class InterestsChecklist extends Checklist {
       case 'OK':
         return <p>Congrats!  You have at least three Interests in your profile, and you&apos;ve reviewed them within the past six months to be sure they are up to date.</p>;
       case 'Review':
-        if (this.isSixMonthsOld()) {
+        if (this.isSixMonthsOld(this.profile.lastVisitedInterests)) {
           return <p>You have at least three Interests in your profile, but it&apos;s been at least six months since you&apos;ve reviewed them. So, we want to check that they actually reflect your current Interests.</p>;
         }
         return <p>There are new Interests since you last reviewed your Interests. Perhaps you want to add them?</p>;
@@ -117,13 +117,5 @@ export class InterestsChecklist extends Checklist {
       default:
         return <React.Fragment />;
     }
-  }
-
-  private isSixMonthsOld(): boolean {
-    if (this.profile.lastVisitedInterests) {
-      const lastVisit = moment(this.profile.lastVisitedInterests);
-      return lastVisit.isBefore(moment().subtract(6, 'months'));
-    }
-    return true;
   }
 }

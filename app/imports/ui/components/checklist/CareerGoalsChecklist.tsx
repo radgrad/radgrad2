@@ -35,7 +35,7 @@ export class CareerGoalsChecklist extends Checklist {
       // console.log(this.profile.lastVisitedCareerGoals, PublicStats.getPublicStat(PublicStats.Career GoalsUpdateTime));
       if (lastVisit.isBefore(moment(PublicStats.getPublicStat(PublicStats.careerGoalsUpdateTime), 'YYYY-MM-DD-HH-mm-ss'))) {
         this.state = 'Review';
-      } else if (this.isSixMonthsOld()) {
+      } else if (this.isSixMonthsOld(this.profile.lastVisitedCareerGoals)) {
         this.state = 'Review';
       } else {
         this.state = 'OK';
@@ -65,7 +65,7 @@ export class CareerGoalsChecklist extends Checklist {
       case 'OK':
         return <p>Congrats!  You have at least three Career Goals in your profile, and you&apos;ve reviewed them within the past six months to be sure they are up to date.</p>;
       case 'Review':
-        if (this.isSixMonthsOld()) {
+        if (this.isSixMonthsOld(this.profile.lastVisitedCareerGoals)) {
           return <p>You have at least three Career Goals in your profile, but it&apos;s been at least six months since you&apos;ve reviewed them. So, we want to check that they actually reflect your current Career Goals.</p>;
         }
         return <p>There are new Career Goals since you last reviewed your Career Goals. Perhaps you want to add them?</p>;
@@ -120,13 +120,5 @@ export class CareerGoalsChecklist extends Checklist {
       default:
         return <React.Fragment />;
     }
-  }
-
-  private isSixMonthsOld(): boolean {
-    if (this.profile.lastVisitedCareerGoals) {
-      const lastVisit = moment(this.profile.lastVisitedCareerGoals);
-      return lastVisit.isBefore(moment().subtract(6, 'months'));
-    }
-    return true;
   }
 }
