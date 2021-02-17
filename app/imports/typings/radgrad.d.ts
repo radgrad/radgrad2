@@ -709,6 +709,7 @@ export interface PlanChoiceUpdate extends Update {
 }
 
 // Profiles
+// TODO: This is wrong we have too much in the BaseProfile
 export interface BaseProfile {
   _id: string;
   userID?: string;
@@ -739,7 +740,11 @@ export interface BaseProfile {
   courseExplorerFilter?: string;
   opportunityExplorerSortOrder?: string;
   aboutMe?: string;
-  lastRegistrarLoad?: Date;
+  lastRegistrarLoad?: string;
+  lastVisitedCareerGoals?: string;
+  lastVisitedCourses?: string;
+  lastVisitedInterests?: string;
+  lastVisitedOpportunities?: string;
 }
 
 export interface Profile {
@@ -825,11 +830,11 @@ export interface StudentProfile extends Profile {
   shareCourses?: boolean;
   shareOpportunities?: boolean;
   shareLevel?: boolean;
-  lastRegistrarLoad?: Date;
-  lastVisitedCareerGoals?: Date;
-  lastVisitedCourses?: Date;
-  lastVisitedInterests?: Date;
-  lastVisitedOpportunities?: Date;
+  lastRegistrarLoad?: string;
+  lastVisitedCareerGoals?: string;
+  lastVisitedCourses?: string;
+  lastVisitedInterests?: string;
+  lastVisitedOpportunities?: string;
 }
 
 export interface StudentProfileDefine extends ProfileDefine {
@@ -847,12 +852,11 @@ export interface StudentProfileDefine extends ProfileDefine {
   shareCourses?: boolean;
   shareOpportunities?: boolean;
   shareLevel?: boolean;
-  lastRegistrarLoad?: Date;
-  agreedToTermsDate?: Date;
-  lastVisitedCareerGoals?: Date;
-  lastVisitedCourses?: Date;
-  lastVisitedInterests?: Date;
-  lastVisitedOpportunities?: Date;
+  lastRegistrarLoad?: string;
+  lastVisitedCareerGoals?: string;
+  lastVisitedCourses?: string;
+  lastVisitedInterests?: string;
+  lastVisitedOpportunities?: string;
 }
 
 export interface StudentProfileUpdate extends ProfileUpdate {
@@ -870,12 +874,11 @@ export interface StudentProfileUpdate extends ProfileUpdate {
   shareCourses?: boolean;
   shareOpportunities?: boolean;
   shareLevel?: boolean;
-  lastRegistrarLoad?: Date;
-  agreedToTermsDate?: Date;
-  lastVisitedCareerGoals?: Date;
-  lastVisitedCourses?: Date;
-  lastVisitedInterests?: Date;
-  lastVisitedOpportunities?: Date;
+  lastRegistrarLoad?: string;
+  lastVisitedCareerGoals?: string;
+  lastVisitedCourses?: string;
+  lastVisitedInterests?: string;
+  lastVisitedOpportunities?: string;
 }
 
 export interface StudentProfileUpdateData {
@@ -892,12 +895,11 @@ export interface StudentProfileUpdateData {
   shareCourses?: boolean;
   shareOpportunities?: boolean;
   shareLevel?: boolean;
-  lastRegistrarLoad?: Date;
-  agreedToTermsDate?: Date;
-  lastVisitedCareerGoals?: Date;
-  lastVisitedCourses?: Date;
-  lastVisitedInterests?: Date;
-  lastVisitedOpportunities?: Date;
+  lastRegistrarLoad?: string;
+  lastVisitedCareerGoals?: string;
+  lastVisitedCourses?: string;
+  lastVisitedInterests?: string;
+  lastVisitedOpportunities?: string;
 }
 
 // Reviews

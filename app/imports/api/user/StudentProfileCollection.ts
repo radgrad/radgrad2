@@ -37,12 +37,11 @@ class StudentProfileCollection extends BaseProfileCollection {
         shareOpportunities: { type: Boolean, optional: true },
         shareCourses: { type: Boolean, optional: true },
         shareLevel: { type: Boolean, optional: true },
-        lastRegistrarLoad: { type: Date, optional: true },
-        agreedToTermsDate: { type: Date, optional: true },
-        lastVisitedCareerGoals: { type: Date, optional: true },
-        lastVisitedCourses: { type: Date, optional: true },
-        lastVisitedInterests: { type: Date, optional: true },
-        lastVisitedOpportunities: { type: Date, optional: true },
+        lastRegistrarLoad: { type: String, optional: true },
+        lastVisitedCareerGoals: { type: String, optional: true },
+        lastVisitedCourses: { type: String, optional: true },
+        lastVisitedInterests: { type: String, optional: true },
+        lastVisitedOpportunities: { type: String, optional: true },
       }),
     );
     this.defineSchema = new SimpleSchema({
@@ -71,12 +70,11 @@ class StudentProfileCollection extends BaseProfileCollection {
       shareOpportunities: { type: Boolean, optional: true },
       shareCourses: { type: Boolean, optional: true },
       shareLevel: { type: Boolean, optional: true },
-      lastRegistrarLoad: { type: Date, optional: true },
-      agreedToTermsDate: { type: Date, optional: true },
-      lastVisitedCareerGoals: { type: Date, optional: true },
-      lastVisitedCourses: { type: Date, optional: true },
-      lastVisitedInterests: { type: Date, optional: true },
-      lastVisitedOpportunities: { type: Date, optional: true },
+      lastRegistrarLoad: { type: String, optional: true },
+      lastVisitedCareerGoals: { type: String, optional: true },
+      lastVisitedCourses: { type: String, optional: true },
+      lastVisitedInterests: { type: String, optional: true },
+      lastVisitedOpportunities: { type: String, optional: true },
     });
     this.updateSchema = new SimpleSchema({
       firstName: { type: String, optional: true },
@@ -103,12 +101,11 @@ class StudentProfileCollection extends BaseProfileCollection {
       shareOpportunities: { type: Boolean, optional: true },
       shareCourses: { type: Boolean, optional: true },
       shareLevel: { type: Boolean, optional: true },
-      lastRegistrarLoad: { type: Date, optional: true },
-      agreedToTermsDate: { type: Date, optional: true },
-      lastVisitedCareerGoals: { type: Date, optional: true },
-      lastVisitedCourses: { type: Date, optional: true },
-      lastVisitedInterests: { type: Date, optional: true },
-      lastVisitedOpportunities: { type: Date, optional: true },
+      lastRegistrarLoad: { type: String, optional: true },
+      lastVisitedCareerGoals: { type: String, optional: true },
+      lastVisitedCourses: { type: String, optional: true },
+      lastVisitedInterests: { type: String, optional: true },
+      lastVisitedOpportunities: { type: String, optional: true },
     });
   }
 
@@ -162,7 +159,6 @@ class StudentProfileCollection extends BaseProfileCollection {
     shareOpportunities = false,
     shareLevel = false,
     lastRegistrarLoad,
-    agreedToTermsDate,
     lastVisitedCareerGoals,
     lastVisitedCourses,
     lastVisitedInterests,
@@ -200,7 +196,6 @@ class StudentProfileCollection extends BaseProfileCollection {
         shareOpportunities,
         shareLevel,
         lastRegistrarLoad,
-        agreedToTermsDate,
         lastVisitedCareerGoals,
         lastVisitedCourses,
         lastVisitedInterests,
@@ -371,8 +366,9 @@ class StudentProfileCollection extends BaseProfileCollection {
       updateData.lastVisitedOpportunities = lastVisitedOpportunities;
     }
 
-    // console.log('StudentProfile.update %o', updateData);
+    console.log('StudentProfile.update %o', updateData);
     this.collection.update(docID, { $set: updateData });
+    // console.log(this.findDoc(docID));
     const username = profile.username;
     if (interests) {
       FavoriteInterests.removeUser(username);
@@ -609,6 +605,11 @@ class StudentProfileCollection extends BaseProfileCollection {
                   false,
                 ],
               },
+              lastRegistrarLoad: 1,
+              lastVisitedCareerGoals: 1,
+              lastVisitedCourses: 1,
+              lastVisitedInterests: 1,
+              lastVisitedOpportunities: 1,
             },
           },
         ]);
@@ -649,6 +650,11 @@ class StudentProfileCollection extends BaseProfileCollection {
     const shareOpportunities = doc.shareOpportunities;
     const shareCourses = doc.shareCourses;
     const shareLevel = doc.shareLevel;
+    const lastRegistrarLoad = doc.lastRegistrarLoad;
+    const lastVisitedCareerGoals = doc.lastVisitedCareerGoals;
+    const lastVisitedCourses = doc.lastVisitedCourses;
+    const lastVisitedInterests = doc.lastVisitedInterests;
+    const lastVisitedOpportunities = doc.lastVisitedOpportunities;
     return {
       username,
       firstName,
@@ -671,6 +677,11 @@ class StudentProfileCollection extends BaseProfileCollection {
       shareOpportunities,
       shareCourses,
       shareLevel,
+      lastRegistrarLoad,
+      lastVisitedCareerGoals,
+      lastVisitedCourses,
+      lastVisitedInterests,
+      lastVisitedOpportunities,
     };
   }
 }

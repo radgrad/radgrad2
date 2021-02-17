@@ -2,6 +2,7 @@ import moment from 'moment';
 import React from 'react';
 import { Header } from 'semantic-ui-react';
 import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';
+import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { StudentProfile } from '../../../typings/radgrad';
 import ProfileInterestList from '../shared/ProfileInterestList';
@@ -14,15 +15,18 @@ export class InterestsChecklist extends Checklist {
   constructor(name: string, student: string) {
     super(name);
     this.profile = Users.getProfile(student);
+    console.log('InterestChecklist', this.profile, StudentProfiles.findDoc(student));
     this.updateState();
   }
 
   public updateState(): void {
     const interests = Users.getInterestIDsByType(this.profile.userID);
     if (interests[0].length < 3) {
+      console.log('not enough interests');
       this.state = 'Improve';
     } else if (this.profile.lastVisitedInterests) {
       const lastVisit = moment(this.profile.lastVisitedInterests);
+      console.log(this.profile.lastVisitedInterests, PublicStats.getPublicStat(PublicStats.interestsUpdateTime));
       if (lastVisit.isBefore(moment(PublicStats.getPublicStat(PublicStats.interestsUpdateTime)))) {
         this.state = 'Review';
       } else if (this.isSixMonthsOld()) {
@@ -31,8 +35,10 @@ export class InterestsChecklist extends Checklist {
         this.state = 'OK';
       }
     } else {
+      console.log('no last visited page');
       this.state = 'Review';
     }
+    console.log('updatestate', this.state);
   }
 
   public getTitle(): JSX.Element {
@@ -71,7 +77,7 @@ export class InterestsChecklist extends Checklist {
   private isSixMonthsOld(): boolean {
     if (this.profile.lastVisitedInterests) {
       const lastVisit = moment(this.profile.lastVisitedInterests);
-      return lastVisit.isBefore(moment().subtract('months', 6));
+      return lastVisit.isBefore(moment().subtract(6, 'months'));
     }
     return true;
   }

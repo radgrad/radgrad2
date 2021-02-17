@@ -64,7 +64,7 @@ export class Checklist {
 
   public getChecklistItem(): JSX.Element {
     return (
-      <Segment id={`checklist-${this.name}`}>
+      <Segment id={`checklist-${this.name}`} key={`checklist-${this.name}`}>
         {this.getTitle()}
         {this.getDescription()}
         {this.getDetails()}

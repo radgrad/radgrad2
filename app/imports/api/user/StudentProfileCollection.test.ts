@@ -15,6 +15,8 @@ import { makeSampleOpportunitySlugArray } from '../opportunity/SampleOpportuniti
 import { makeSampleUser } from './SampleUsers';
 import { ROLE } from '../role/Role';
 
+// Technical Debt: need to check the last* fields of the student profile. We are not testing them.
+
 /* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
 /* eslint-env mocha */
 
