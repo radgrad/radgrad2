@@ -3,10 +3,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Header } from 'semantic-ui-react';
 import { ChecklistState } from '../../../api/checklist/ChecklistState';
+import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { Ice, StudentProfile } from '../../../typings/radgrad';
+import ProfileFutureCoursesList from '../shared/ProfileFutureCoursesList';
 import ProfileInterestList from '../shared/ProfileInterestList';
 import { Checklist } from './Checklist';
 
@@ -78,12 +80,11 @@ export class CoursesChecklist extends Checklist {
   }
 
   public getDetails(state: ChecklistState): JSX.Element {
-    const interests = Users.getInterestIDsByType(this.profile.userID);
-    if (interests[0].length === 0) {
-      return <p>You have not yet added any Interests to your profile</p>;
+    const futureCourseInstances = CourseInstances.findNonRetired({ studentID: this.profile.userID, verified: false });
+    if (futureCourseInstances[0].length === 0) {
+      return <p>You do not have any future Courses in your Degree Plan.</p>;
     }
-    return <div><p>Here are your current interests:&nbsp;</p><ProfileInterestList profile={this.profile}
-                                                                                  size="medium" /></div>;
+    return <div><p>Here are your future Courses: &nbsp;</p><ProfileFutureCoursesList profile={this.profile} size="medium" /></div>;
   }
 
 
