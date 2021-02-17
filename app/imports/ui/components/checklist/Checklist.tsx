@@ -18,11 +18,11 @@ export class Checklist {
    * Updates the state of this Checklist.
    * @protected
    */
-  protected updateState() {
+  protected updateState(): void {
     this.state = 'Improve';
   }
 
-  public getState() {
+  public getState(): ChecklistState {
     return this.state;
   }
 
@@ -38,7 +38,7 @@ export class Checklist {
    * Returns the title of the checklist item.
    * @return {JSX.Element}
    */
-  public getTitle(): JSX.Element {
+  public getTitle(state: ChecklistState): JSX.Element {
     return <React.Fragment />;
   }
 
@@ -46,7 +46,7 @@ export class Checklist {
    * Returns the description section of the checklist item.
    * @return {JSX.Element}
    */
-  public getDescription(): JSX.Element {
+  public getDescription(state: ChecklistState): JSX.Element {
     return <React.Fragment />;
   }
 
@@ -54,21 +54,42 @@ export class Checklist {
    * Returns the details section of the checklist item.
    * @return {JSX.Element}
    */
-  public getDetails(): JSX.Element {
+  public getDetails(state: ChecklistState): JSX.Element {
     return <React.Fragment />;
   }
 
-  public getActions(): JSX.Element {
+  /**
+   * Returns the actions section of the checklist item.
+   * @return {JSX.Element}
+   */
+  public getActions(state: ChecklistState): JSX.Element {
     return <React.Fragment />;
   }
 
   public getChecklistItem(): JSX.Element {
+    let segmentStyle;
+    switch (this.getState()) {
+      case 'Improve':
+        segmentStyle = {
+          backgroundColor: '#C94963',
+        };
+        break;
+      case 'Review':
+        segmentStyle = {
+          backgroundColor: '#CEB23F',
+        };
+        break;
+      case 'OK':
+        segmentStyle = {
+          backgroundColor: '#6FBE44',
+        };
+    }
     return (
-      <Segment id={`checklist-${this.name}`} key={`checklist-${this.name}`}>
-        {this.getTitle()}
-        {this.getDescription()}
-        {this.getDetails()}
-        {this.getActions()}
+      <Segment id={`checklist-${this.name}`} key={`checklist-${this.name}`} style={segmentStyle}>
+        {this.getTitle(this.getState())}
+        {this.getDescription(this.getState())}
+        {this.getDetails(this.getState())}
+        {this.getActions(this.getState())}
       </Segment>
     );
   }

@@ -1,6 +1,7 @@
 import { withTracker } from 'meteor/react-meteor-data';
 import React from 'react';
 import {Header} from 'semantic-ui-react';
+import { CareerGoalsChecklist } from '../../components/checklist/CareerGoalsChecklist';
 import { InterestsChecklist } from '../../components/checklist/InterestsChecklist';
 import PageLayout from '../PageLayout';
 
@@ -35,25 +36,30 @@ const StudentHomePage: React.FC<StudentHomePageProps> = ({ okItems, reviewItems,
 
 export default withTracker(() => {
   const currentUser = Meteor.user() ? Meteor.user().username : '';
-  console.log(currentUser);
+  // console.log(currentUser);
   const okItems = [];
   const reviewItems = [];
   const improveItems = [];
-  const interestChecklist = new InterestsChecklist('Student Interests', currentUser);
-  interestChecklist.updateState();
-  switch (interestChecklist.getState()) {
-    case 'Improve':
-      improveItems.push(interestChecklist.getChecklistItem());
-      break;
-    case 'Review':
-      reviewItems.push(interestChecklist.getChecklistItem());
-      break;
-    case 'OK':
-      okItems.push(interestChecklist.getChecklistItem());
-      break;
-    default:
+  const checklists = [];
+  checklists.push(new InterestsChecklist('Student Interests', currentUser));
+  checklists.push(new CareerGoalsChecklist('Student Career Goals', currentUser));
+  checklists.forEach((checklist) => {
+    checklist.updateState();
+    switch (checklist.getState()) {
+      case 'Improve':
+        improveItems.push(checklist.getChecklistItem());
+        break;
+      case 'Review':
+        reviewItems.push(checklist.getChecklistItem());
+        break;
+      case 'OK':
+        okItems.push(checklist.getChecklistItem());
+        break;
+      default:
       // do nothing
-  }
+    }
+
+  });
   return {
     okItems,
     reviewItems,

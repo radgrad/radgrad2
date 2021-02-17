@@ -366,7 +366,7 @@ class StudentProfileCollection extends BaseProfileCollection {
       updateData.lastVisitedOpportunities = lastVisitedOpportunities;
     }
 
-    console.log('StudentProfile.update %o', updateData);
+    // console.log('StudentProfile.update %o', updateData);
     this.collection.update(docID, { $set: updateData });
     // console.log(this.findDoc(docID));
     const username = profile.username;

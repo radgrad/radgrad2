@@ -23,8 +23,6 @@ interface CareerGoalBrowserViewPageProps {
   careerGoals: CareerGoal[];
 }
 
-const updated = false;
-
 const headerPaneTitle = 'Find your career goals';
 const headerPaneBody = `
 Career Goals are curated by the faculty to represent a good selection of the most promising career paths. Most career goals encompass several job titles. 
@@ -62,6 +60,20 @@ const CareerGoalBrowserViewPage: React.FC<CareerGoalBrowserViewPageProps> = ({
 export default withTracker(() => {
   const { username } = useParams();
   const profile = Users.getProfile(username);
+  if (profile.role === ROLE.STUDENT) {
+    const lastVisited = moment().format('YYYY-MM-DD');
+    if (lastVisited !== profile.lastVisitedCareerGoals) {
+      const collectionName = StudentProfiles.getCollectionName();
+      const updateData: StudentProfileUpdate = {};
+      updateData.id = profile._id;
+      updateData.lastVisitedCareerGoals = lastVisited;
+      updateMethod.call({ collectionName, updateData }, (error, result) => {
+        if (error) {
+          console.error('Error updating StudentProfile', collectionName, updateData, error);
+        }
+      });
+    }
+  }
   const favCar = FavoriteCareerGoals.findNonRetired({ userID: profile.userID });
   const favoriteCareerGoals = _.map(favCar, (f) => CareerGoals.findDoc(f.careerGoalID));
   const favoriteCombinedInterestIDs = Users.getInterestIDs(username);

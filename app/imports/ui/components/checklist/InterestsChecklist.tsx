@@ -1,10 +1,14 @@
 import moment from 'moment';
 import React from 'react';
-import { Header } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
+import { Button, Header } from 'semantic-ui-react';
+import { updateMethod } from '../../../api/base/BaseCollection.methods';
+import { ChecklistState } from '../../../api/checklist/ChecklistState';
 import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Users } from '../../../api/user/UserCollection';
-import { StudentProfile } from '../../../typings/radgrad';
+import { StudentProfile, StudentProfileUpdate } from '../../../typings/radgrad';
+import { EXPLORER, URL_ROLES } from '../../layouts/utilities/route-constants';
 import ProfileInterestList from '../shared/ProfileInterestList';
 import { Checklist } from './Checklist';
 
@@ -15,19 +19,19 @@ export class InterestsChecklist extends Checklist {
   constructor(name: string, student: string) {
     super(name);
     this.profile = Users.getProfile(student);
-    console.log('InterestChecklist', this.profile, StudentProfiles.findDoc(student));
+    // console.log('InterestChecklist', this.profile, StudentProfiles.findDoc(student));
     this.updateState();
   }
 
   public updateState(): void {
     const interests = Users.getInterestIDsByType(this.profile.userID);
     if (interests[0].length < 3) {
-      console.log('not enough interests');
+      // console.log('not enough interests');
       this.state = 'Improve';
     } else if (this.profile.lastVisitedInterests) {
-      const lastVisit = moment(this.profile.lastVisitedInterests);
-      console.log(this.profile.lastVisitedInterests, PublicStats.getPublicStat(PublicStats.interestsUpdateTime));
-      if (lastVisit.isBefore(moment(PublicStats.getPublicStat(PublicStats.interestsUpdateTime)))) {
+      const lastVisit = moment(this.profile.lastVisitedInterests, 'YYYY-MM-DD', true);
+      // console.log(this.profile.lastVisitedInterests, PublicStats.getPublicStat(PublicStats.interestsUpdateTime));
+      if (lastVisit.isBefore(moment(PublicStats.getPublicStat(PublicStats.interestsUpdateTime), 'YYYY-MM-DD-HH-mm-ss'))) {
         this.state = 'Review';
       } else if (this.isSixMonthsOld()) {
         this.state = 'Review';
@@ -35,14 +39,14 @@ export class InterestsChecklist extends Checklist {
         this.state = 'OK';
       }
     } else {
-      console.log('no last visited page');
+      // console.log('no last visited page');
       this.state = 'Review';
     }
-    console.log('updatestate', this.state);
+    // console.log('updatestate', this.state);
   }
 
-  public getTitle(): JSX.Element {
-    switch (this.state) {
+  public getTitle(state: ChecklistState): JSX.Element {
+    switch (state) {
       case 'OK':
         return <Header>Your Interests appear to be OK.</Header>;
       case 'Review':
@@ -54,8 +58,8 @@ export class InterestsChecklist extends Checklist {
     }
   }
 
-  public getDescription(): JSX.Element {
-    switch (this.state) {
+  public getDescription(state: ChecklistState): JSX.Element {
+    switch (state) {
       case 'OK':
         return <p>Congrats!  You have at least three Interests in your profile, and you&apos;ve reviewed them within the past six months to be sure they are up to date.</p>;
       case 'Review':
@@ -70,8 +74,49 @@ export class InterestsChecklist extends Checklist {
     }
   }
 
-  public getDetails(): JSX.Element {
-    return <ProfileInterestList profile={this.profile} size="medium" />;
+  public getDetails(state: ChecklistState): JSX.Element {
+    const interests = Users.getInterestIDsByType(this.profile.userID);
+    if (interests[0].length === 0) {
+      return <p>You have not yet added any Interests to your profile</p>;
+    }
+    return <div><p>Here are your current interests:&nbsp;</p><ProfileInterestList profile={this.profile} size="medium" /></div>;
+  }
+
+  /**
+   * Returns the actions section of the checklist item.
+   * @return {JSX.Element}
+   */
+  public getActions(state: ChecklistState): JSX.Element {
+    const handleVerification = () => {
+      const collectionName = StudentProfiles.getCollectionName();
+      const updateData: StudentProfileUpdate = {};
+      updateData.id = this.profile._id;
+      updateData.lastVisitedInterests = moment().format('YYYY-MM-DD');
+      updateMethod.call({ collectionName, updateData }, (error) => {
+        if (error) {
+          console.error('Failed to update lastVisitedInterests', error);
+        }
+      });
+    };
+    switch (state) {
+      case 'OK':
+        return <p>Click this button to go to the Interests Explorer if you want to look for new Interests anyway.&nbsp;
+        <Button as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.INTERESTS}`}>Go To Interests Explorer</Button> </p>;
+      case 'Review':
+        return <div>
+          <p>Clicking either button sets the timestamp for the last time this item was reviewed, so it will
+          move into the OK state and won&apos;t move back into the Review state for another six months.</p>
+          <Button as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.INTERESTS}`}>Go To Interests Explorer</Button>
+          <Button onClick={handleVerification}>My Interests are OK</Button>
+        </div>;
+      case 'Improve':
+        return <div><p>Click &quot;Go To Interest Explorer&quot; to search for the Interests and add at least three to
+          your Profile.</p>
+          <Button as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.INTERESTS}`}>Go To Interests Explorer</Button>
+        </div>;
+      default:
+        return <React.Fragment />;
+    }
   }
 
   private isSixMonthsOld(): boolean {

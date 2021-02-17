@@ -1,9 +1,13 @@
+import moment from 'moment';
 import React from 'react';
 import { useParams, useRouteMatch } from 'react-router-dom';
 import _ from 'lodash';
 import { Grid } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Course, FavoriteCourse } from '../../../../typings/radgrad';
+import { updateMethod } from '../../../../api/base/BaseCollection.methods';
+import { ROLE } from '../../../../api/role/Role';
+import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
+import { Course, FavoriteCourse, StudentProfileUpdate } from '../../../../typings/radgrad';
 import * as Router from '../../../components/shared/utilities/router';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import { Courses } from '../../../../api/course/CourseCollection';
@@ -60,7 +64,20 @@ const CourseBrowserViewPage: React.FC<CourseBrowserViewPageProps> = ({ favoriteC
 export default withTracker(() => {
   const { username } = useParams();
   const profile = Users.getProfile(username);
-  // console.log(profile);
+  if (profile.role === ROLE.STUDENT) {
+    const lastVisited = moment().format('YYYY-MM-DD');
+    if (lastVisited !== profile.lastVisitedCourses) {
+      const collectionName = StudentProfiles.getCollectionName();
+      const updateData: StudentProfileUpdate = {};
+      updateData.id = profile._id;
+      updateData.lastVisitedCourses = lastVisited;
+      updateMethod.call({ collectionName, updateData }, (error, result) => {
+        if (error) {
+          console.error('Error updating StudentProfile', collectionName, updateData, error);
+        }
+      });
+    }
+  }
   const studentID = profile.userID;
   const favoriteCourses = FavoriteCourses.findNonRetired({ studentID });
   const courses = Courses.findNonRetired({}); // TODO if user is undergrad student why are we showing grad courses?

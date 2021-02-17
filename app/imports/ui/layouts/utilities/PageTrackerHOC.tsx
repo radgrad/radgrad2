@@ -2,14 +2,10 @@ import React, { useEffect, useRef } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { useRouteMatch } from 'react-router-dom';
 import { connect } from 'react-redux';
-import moment from 'moment';
-import { updateMethod } from '../../../api/base/BaseCollection.methods';
-import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
-import { Users } from '../../../api/user/UserCollection';
 import { getAllUrlParamsByLocationObject, getUsername, LocationProps } from '../../components/shared/utilities/router';
 import { RootState } from '../../../redux/types';
 import { Slugs } from '../../../api/slug/SlugCollection';
-import { PageInterestDefine, StudentProfileUpdate } from '../../../typings/radgrad';
+import { PageInterestDefine } from '../../../typings/radgrad';
 import { UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
 import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
 import { EXPLORER_TYPE } from './route-constants';
@@ -44,37 +40,6 @@ function withPageTracker(WrappedComponent) {
     const prevProps = usePreviousProps(props);
     const match = useRouteMatch();
     const { router } = props;
-    const studentUser = getUsername(match);
-    const studentProfile = Users.getProfile(studentUser);
-    const collectionName = StudentProfiles.getCollectionName();
-    const updateData: StudentProfileUpdate = {};
-    updateData.id = studentProfile._id;
-    const lastVisited = moment().format('YYYY-MM-DD-HH-mm');
-    const routeParams = getAllUrlParamsByLocationObject(match, router.location);
-    if (routeParams[0] === EXPLORER_TYPE.HOME && routeParams.length > 1) {
-      switch (routeParams[1]) {
-        case EXPLORER_TYPE.CAREERGOALS:
-          updateData.lastVisitedCareerGoals = lastVisited;
-          break;
-        case EXPLORER_TYPE.COURSES:
-          updateData.lastVisitedCourses = lastVisited;
-          break;
-        case EXPLORER_TYPE.INTERESTS:
-          updateData.lastVisitedInterests = lastVisited;
-          break;
-        case EXPLORER_TYPE.OPPORTUNITIES:
-          updateData.lastVisitedOpportunities = lastVisited;
-          break;
-      }
-      updateMethod.call({ collectionName, updateData }, (error, result) => {
-        if (error) {
-          console.error('Error updating StudentProfile', collectionName, updateData, error);
-        } else {
-          console.log('updated StudentProfile', updateData, result);
-        }
-      });
-
-    }
     useEffect(() => {
       // @ts-ignore
       if (prevProps && prevProps.router.location !== router.location) {
@@ -114,15 +79,12 @@ function withPageTracker(WrappedComponent) {
               break;
             case EXPLORER_TYPE.COURSES:
               category = PageInterestsCategoryTypes.COURSE;
-              updateData.lastVisitedCourses = lastVisited;
               break;
             case EXPLORER_TYPE.INTERESTS:
               category = PageInterestsCategoryTypes.INTEREST;
-              updateData.lastVisitedInterests = lastVisited;
               break;
             case EXPLORER_TYPE.OPPORTUNITIES:
               category = PageInterestsCategoryTypes.OPPORTUNITY;
-              updateData.lastVisitedOpportunities = lastVisited;
               break;
           }
           const engagedInterestTime = calculateEngagedInterestTime(urlSlug);
