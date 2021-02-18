@@ -1,13 +1,15 @@
 import moment from 'moment';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Header } from 'semantic-ui-react';
+import { Button, Header } from 'semantic-ui-react';
+import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { ChecklistState } from '../../../api/checklist/ChecklistState';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Users } from '../../../api/user/UserCollection';
-import { Ice, StudentProfile } from '../../../typings/radgrad';
+import { Ice, StudentProfile, StudentProfileUpdate } from '../../../typings/radgrad';
+import { DEGREEPLANNER, EXPLORER, ICE, URL_ROLES } from '../../layouts/utilities/route-constants';
 import ProfileFutureCoursesList from '../shared/ProfileFutureCoursesList';
 import ProfileInterestList from '../shared/ProfileInterestList';
 import { Checklist } from './Checklist';
@@ -87,5 +89,42 @@ export class CoursesChecklist extends Checklist {
     return <div><p>Here are your future Courses: &nbsp;</p><ProfileFutureCoursesList profile={this.profile} size="medium" /></div>;
   }
 
-
+  public getActions(state: ChecklistState): JSX.Element {
+    const handleVerification = () => {
+      const collectionName = StudentProfiles.getCollectionName();
+      const updateData: StudentProfileUpdate = {};
+      updateData.id = this.profile._id;
+      updateData.lastVisitedCourses = moment().format('YYYY-MM-DD');
+      updateMethod.call({ collectionName, updateData }, (error) => {
+        if (error) {
+          console.error('Failed to update lastVisitedCourses', error);
+        }
+      });
+    };
+    switch (state) {
+      case 'OK':
+        return <div>
+          <p>Click &quot;Go To Degree Planner&quot; if you still want to see the courses in your Degree Plan, or
+          click &quot;Go to Course Explorer&quot; if you still want to search for additional Courses to include in your
+          Degree Plan.</p>
+          <Button as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${DEGREEPLANNER}`}>Go To Degree Planner</Button>
+          <Button as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.COURSES}`}>Go To Course Explorer</Button>
+        </div>;
+      case 'Improve':
+        return <div><p>Click &quot;Go To Course Explorer&quot; to review the available Courses in RadGrad and add interesting ones to your profile. Or, click &quot;Go To Degree Planner&quot; to go directly to the Degree Planner page to add courses from your profile to a future semester in your degree plan</p>
+          <Button as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.COURSES}`}>Go To Course Explorer</Button>
+          <Button as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${DEGREEPLANNER}`}>Go To Degree Planner</Button>
+        </div>;
+      case 'Review':
+        return <div>
+          <p>Click &quot;Go To Course Explorer&quot; to search for courses and add new ones to your profile, or to see new reviews. Click &quot;Go To Degree Planner&quot; to review your degree plan and potentially move or remove Courses. Click &quot;Go To ICE page&quot; to learn more about Competency points.  Click &quot;My Courses are OK&quot; to confirm that your current Degree Plan is correct.</p>
+          <Button as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${DEGREEPLANNER}`}>Go To Degree Planner</Button>
+          <Button as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.COURSES}`}>Go To Course Explorer</Button>
+          <Button as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${ICE}`}>Go To ICE</Button>
+          <Button onClick={handleVerification}>My Courses are OK</Button>
+        </div>;
+      default:
+        return <React.Fragment />;
+    }
+  }
 }
