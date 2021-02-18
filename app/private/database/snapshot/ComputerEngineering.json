@@ -2,149 +2,6 @@
   "timestamp": "2020-01-24T21:37:22.805Z",
   "collections": [
     {
-      "name": "AcademicPlanCollection",
-      "contents": [
-        {
-          "slug": "bs-ce-2018",
-          "degreeSlug": "bs-ce",
-          "name": "B.S. in Computer Engineering (2018)",
-          "description": "The BS in CompE is devoted to computer hardware and software, computer organization and architecture, computer security, software engineering, computer networks and Internet technology, emedded systems, computer-aided design, multi-core and parallel computing, wireless networks, as well as other topics. The program is in the Department of Electrical Engineering.",
-          "academicTerm": "Fall-2018",
-          "coursesPerAcademicTerm": [
-            0,
-            1,
-            0,
-            3,
-            2,
-            0,
-            4,
-            4,
-            0,
-            4,
-            4,
-            0
-          ],
-          "courseList": [
-            "ee_160-1",
-            "ee_211-1",
-            "ee_260-1",
-            "ee_296-1",
-            "ee_205-1",
-            "ee_213-1",
-            "ee_324-1",
-            "ee_361-1",
-            "ee_362-1",
-            "ee_371-1",
-            "ee_315-1",
-            "ee_323-1",
-            "ee_367,ics_311-1",
-            "ee_396-1",
-            "ee_342-1",
-            "ee_467,ics_314-1",
-            "ee_468-1",
-            "ee_300+,ics_300+-1",
-            "ee_495-1",
-            "ee_496-1",
-            "ee_300+,ics_300+-2",
-            "cee_270,me_311,cee_300+,me_300+,oe_300+,be_300+-1"
-          ],
-          "retired": false
-        },
-        {
-          "slug": "bs-ce-2019",
-          "degreeSlug": "bs-ce",
-          "name": "B.S. in Computer Engineering (2019)",
-          "description": "The BS in CompE is devoted to computer hardware and software, computer organization and architecture, computer security, software engineering, computer networks and Internet technology, emedded systems, computer-aided design, multi-core and parallel computing, wireless networks, as well as other topics. The program is in the Department of Electrical Engineering.",
-          "academicTerm": "Fall-2019",
-          "coursesPerAcademicTerm": [
-            0,
-            1,
-            0,
-            3,
-            2,
-            0,
-            4,
-            4,
-            0,
-            4,
-            4,
-            0
-          ],
-          "courseList": [
-            "ee_160-1",
-            "ee_211-1",
-            "ee_260-1",
-            "ee_296-1",
-            "ee_205-1",
-            "ee_213-1",
-            "ee_324-1",
-            "ee_361-1",
-            "ee_362-1",
-            "ee_371-1",
-            "ee_315-1",
-            "ee_323-1",
-            "ee_367,ics_311-1",
-            "ee_396-1",
-            "ee_342-1",
-            "ee_467,ics_314-1",
-            "ee_468-1",
-            "ee_300+,ics_300+-1",
-            "ee_495-1",
-            "ee_496-1",
-            "ee_300+,ics_300+-2",
-            "cee_270,me_311,cee_300+,me_300+,oe_300+,be_300+-1"
-          ],
-          "retired": false
-        },
-        {
-          "slug": "bs-ce-2020",
-          "degreeSlug": "bs-ce",
-          "name": "B.S. in Computer Engineering (2020)",
-          "description": "The BS in CompE is devoted to computer hardware and software, computer organization and architecture, computer security, software engineering, computer networks and Internet technology, emedded systems, computer-aided design, multi-core and parallel computing, wireless networks, as well as other topics. The program is in the Department of Electrical Engineering.",
-          "academicTerm": "Fall-2020",
-          "coursesPerAcademicTerm": [
-            0,
-            1,
-            0,
-            3,
-            2,
-            0,
-            4,
-            4,
-            0,
-            4,
-            4,
-            0
-          ],
-          "courseList": [
-            "ee_160-1",
-            "ee_211-1",
-            "ee_260-1",
-            "ee_296-1",
-            "ee_205-1",
-            "ee_213-1",
-            "ee_324-1",
-            "ee_361-1",
-            "ee_362-1",
-            "ee_371-1",
-            "ee_315-1",
-            "ee_323-1",
-            "ee_367,ics_311-1",
-            "ee_396-1",
-            "ee_342-1",
-            "ee_467,ics_314-1",
-            "ee_468-1",
-            "ee_300+,ics_300+-1",
-            "ee_495-1",
-            "ee_496-1",
-            "ee_300+,ics_300+-2",
-            "cee_270,me_311,cee_300+,me_300+,oe_300+,be_300+-1"
-          ],
-          "retired": false
-        }
-      ]
-    },
-    {
       "name": "AcademicTermCollection",
       "contents": [
         {
@@ -278,10 +135,6 @@
           "lastName": "Admin"
         }
       ]
-    },
-    {
-      "name": "AdvisorLogCollection",
-      "contents": []
     },
     {
       "name": "AdvisorProfileCollection",
@@ -2791,18 +2644,6 @@
       ]
     },
     {
-      "name": "DesiredDegreeCollection",
-      "contents": [
-        {
-          "name": "B.S. in Computer Engineering",
-          "shortName": "B.S. CE",
-          "slug": "bs-ce",
-          "description": "The Department of Information and Computer Sciences and the Department of Electrical Engineering offer a joint Bachelor of Science degree in Computer Engineering (BSCE).  The BSCE degree program provides you with the opportunity to learn about computer hardware and software, computer organization and architecture, computer security, software engineering, computer networks and Internet technology, embedded systems, computer-aided design, multi-core and parallel computing, wireless networks, and other topics.",
-          "retired": false
-        }
-      ]
-    },
-    {
       "name": "FacultyProfileCollection",
       "contents": [
         {
@@ -5196,6 +5037,12 @@
           "interestType": "technologies"
         },
         {
+          "name": "Graphic Design",
+          "slug": "graphic-design",
+          "description": "Graphic design is the process of visual communication and problem-solving using one or more of typography, photography and illustration. [Learn more here.](https://en.wikipedia.org/wiki/Graphic_design)",
+          "interestType": "non-ceng-disciplines",
+        },
+        {
           "name": "GraphQL",
           "slug": "graphql",
           "description": "GraphQL is a query language for APIs and a runtime for fulfilling those queries with your existing data. Basically, it provides a uniform way to query both relational (Postgres,MySQL) and non-relational (MongoDB) databases. \n\nAccording to the developers, \"GraphQL provides a complete and understandable description of the data in your API, gives clients the power to ask for exactly what they need and nothing more, makes it easier to evolve APIs over time, and enables powerful developer tools.\"\n\nFor more information, see [https://graphql.org/](https://graphql.org/).",
@@ -5531,250 +5378,6 @@
           "retired": false
         }
       ]
-    },
-    {
-      "name": "MentorAnswerCollection",
-      "contents": []
-    },
-    {
-      "name": "MentorProfileCollection",
-      "contents": [
-        {
-          "username": "rbrewer@excitedcuriosity.org",
-          "firstName": "Robert",
-          "lastName": "Brewer",
-          "picture": "/images/mentors/brewer.jpg",
-          "interests": [
-            "algorithms",
-            "data-science",
-            "data-visualization",
-            "entrepreneurship",
-            "hci",
-            "research",
-            "software-engineering",
-            "sustainability"
-          ],
-          "careerGoals": [
-            "data-scientist",
-            "database-administrator",
-            "devops-engineer",
-            "game-developer",
-            "graduate-school",
-            "information-system-manager",
-            "network-engineer",
-            "research-scientist",
-            "software-developer",
-            "startup-cofounder",
-            "teacher",
-            "ux-designer"
-          ],
-          "company": "Tableau",
-          "career": "Software Engineer",
-          "location": "Palo Alto, CA",
-          "linkedin": "robertsbrewer",
-          "motivation": "I founded a startup in Hawaii and now work in Silicon Valley. I am happy to share my experiences with new grads.",
-          "retired": false
-        },
-        {
-          "username": "jgeis@hawaii.edu",
-          "firstName": "Jennifer",
-          "lastName": "Geis",
-          "picture": "/images/mentors/geis.jpg",
-          "interests": [
-            "application-development",
-            "civic-engagement",
-            "data-science",
-            "data-visualization",
-            "it-management",
-            "software-engineering",
-            "web-development"
-          ],
-          "careerGoals": [
-            "graduate-school",
-            "information-system-manager",
-            "software-developer"
-          ],
-          "company": "UH",
-          "career": "IT Specialist",
-          "location": "Honolulu, HI",
-          "linkedin": "jgeis",
-          "motivation": "I received both a B.S. and M.S. in Computer Science from UH. I've worked in the private sector and done the start-up thing and now work at UH Information and Technology Services. Being from Hawaii my goal was to orient my career so I could stay here and I've learned some lessons along the way. My experiences could prove useful to you if: (a) you want to talk about getting the most out of your UH ICS experience, or (b) you are interested in one day working for UH, or (c) staying in Hawaii is one of your goals.",
-          "retired": false
-        },
-        {
-          "username": "austen.ito@gmail.com",
-          "firstName": "Austen",
-          "lastName": "Ito",
-          "picture": "/images/mentors/ito.png",
-          "interests": [
-            "entrepreneurship",
-            "game-design",
-            "mobile",
-            "robotics",
-            "software-engineering",
-            "web-development"
-          ],
-          "careerGoals": [
-            "iot-architect",
-            "robotics-engineer",
-            "software-developer",
-            "startup-cofounder",
-            "ux-designer"
-          ],
-          "company": "Bonobos",
-          "career": "Software Engineer",
-          "location": "New York City, NY",
-          "linkedin": "austen-ito-9a561a9",
-          "motivation": "I graduated from ICS, helped start the first Honolulu Makerspace, have worked for Code Camps, and have held software jobs in DC, NYC, and HI. I can try to help you whether you intend to stay local or move to the mainland.",
-          "retired": false
-        },
-        {
-          "username": "kagawaa@gmail.com",
-          "firstName": "Aaron",
-          "lastName": "Kagawa",
-          "picture": "/images/mentors/kagawa.jpg",
-          "interests": [
-            "application-development",
-            "civic-engagement",
-            "data-visualization",
-            "entrepreneurship",
-            "it-management",
-            "software-engineering"
-          ],
-          "careerGoals": [
-            "data-scientist",
-            "devops-engineer",
-            "graduate-school",
-            "information-system-manager",
-            "software-developer",
-            "startup-cofounder"
-          ],
-          "company": "LiveAction",
-          "career": "Software Engineer",
-          "location": "Honolulu, HI",
-          "linkedin": "aaronkagawa",
-          "motivation": "As an ICS undergrad and graduate student, I know how important mentoring can be to your career, and I hope I can help future ICS grads get off to a great start.",
-          "retired": false
-        },
-        {
-          "username": "pkarjala@hawaii.edu",
-          "firstName": "Patrick",
-          "lastName": "Karjala",
-          "picture": "/images/mentors/karjala.jpg",
-          "interests": [
-            "application-development",
-            "it-management",
-            "web-development"
-          ],
-          "careerGoals": [
-            "software-developer",
-            "ux-designer"
-          ],
-          "company": "Slickage Studios",
-          "career": "CEO",
-          "location": "Honolulu, HI",
-          "linkedin": "patrickakarjala",
-          "motivation": "I completed my undergraduate CS degree in 2004, and am now enrolled in the UH ICS MS program. I currently work for the Distance Course Design and Consulting group at UH Manoa, doing full stack web application development. I am glad to answer questions regarding any topic of computer science, especially those geared toward collaborative development and networking (both computer and interpersonal).",
-          "retired": false
-        },
-        {
-          "username": "gelee@hawaii.edu",
-          "firstName": "George",
-          "lastName": "Lee",
-          "picture": "/images/mentors/lee.jpg",
-          "interests": [
-            "algorithms",
-            "application-development",
-            "civic-engagement",
-            "databases",
-            "entrepreneurship",
-            "it-management",
-            "software-engineering",
-            "web-development"
-          ],
-          "careerGoals": [
-            "devops-engineer",
-            "full-stack-developer",
-            "game-developer",
-            "graduate-school",
-            "iot-architect",
-            "mobile-app-developer",
-            "software-developer",
-            "startup-cofounder",
-            "teacher",
-            "ux-designer"
-          ],
-          "company": "Hobnob Invites",
-          "career": "Developer",
-          "location": "Honolulu, HI",
-          "linkedin": "keokilee",
-          "motivation": "I founded a startup in Hawaii and now work in Silicon Valley. I am happy to share my experiences with new grads.",
-          "retired": false
-        },
-        {
-          "username": "dan@ikayzo.com",
-          "firstName": "Daniel",
-          "lastName": "Leuck",
-          "picture": "/images/mentors/leuck.jpg",
-          "interests": [
-            "algorithms",
-            "application-development",
-            "artificial-intelligence",
-            "civic-engagement",
-            "cryptography",
-            "data-science",
-            "entrepreneurship",
-            "it-management",
-            "mobile",
-            "software-engineering",
-            "web-development"
-          ],
-          "careerGoals": [
-            "data-scientist",
-            "devops-engineer",
-            "full-stack-developer",
-            "game-developer",
-            "information-system-manager",
-            "mobile-app-developer",
-            "software-developer",
-            "startup-cofounder",
-            "ux-designer"
-          ],
-          "company": "Ikayzo",
-          "career": "CEO",
-          "location": "Honolulu, HI",
-          "linkedin": "dleuck",
-          "motivation": "The UH ICS Department is an engine for the high tech industry in Hawaii. The better prepared we can make ICS graduates, the more success our industry will have and the more opportunities there will be for all.",
-          "retired": false
-        },
-        {
-          "username": "yuka@excitedcuriosity.org",
-          "firstName": "Yuka",
-          "lastName": "Nagashima",
-          "picture": "/images/mentors/nagashima.jpg",
-          "interests": [
-            "application-development",
-            "civic-engagement",
-            "entrepreneurship",
-            "it-management"
-          ],
-          "careerGoals": [
-            "software-developer",
-            "startup-cofounder",
-            "teacher"
-          ],
-          "company": "Paideia Enterprises",
-          "career": "Owner",
-          "location": "San Francisco, CA",
-          "linkedin": "yukanagashima",
-          "motivation": "I was the Executive Director of the High Technology Development Corporation for the State of Hawaii from 2006 to 2013, co-founded startups, and have a continuing interest in supporting the growth of the Hawaii high tech industry. I can also provide advice to those interested in moving to Silicon Valley after graduation.",
-          "retired": false
-        }
-      ]
-    },
-    {
-      "name": "MentorQuestionCollection",
-      "contents": []
     },
     {
       "name": "OpportunityCollection",
@@ -8586,466 +8189,456 @@
       ]
     },
     {
-      "name": "PlanChoiceCollection",
+      "name": "PageInterestCollection",
       "contents": [
         {
-          "choice": "ics_212",
+          "username": "samplestudent@hawaii.edu",
+          "category": "career-goal",
+          "name": "data-scientist",
+          "timestamp": "2020-06-16T03:36:16.455Z",
           "retired": false
         },
         {
-          "choice": "ics_311",
+          "username": "samplestudent@hawaii.edu",
+          "category": "career-goal",
+          "name": "iot-architect",
+          "timestamp": "2020-06-16T03:39:09.113Z",
           "retired": false
         },
         {
-          "choice": "ics_312",
+          "username": "gcalica@hawaii.edu",
+          "category": "career-goal",
+          "name": "vr-ar-engineer",
+          "timestamp": "2020-06-16T03:39:33.536Z",
           "retired": false
         },
         {
-          "choice": "ics_313",
+          "username": "gcalica@hawaii.edu",
+          "category": "career-goal",
+          "name": "game-developer",
+          "timestamp": "2020-06-16T03:39:37.060Z",
           "retired": false
         },
         {
-          "choice": "ics_314",
+          "username": "gcalica@hawaii.edu",
+          "category": "career-goal",
+          "name": "ux-designer",
+          "timestamp": "2020-06-16T03:39:40.293Z",
           "retired": false
         },
         {
-          "choice": "ics_321",
+          "username": "gcalica@hawaii.edu",
+          "category": "career-goal",
+          "name": "devops-engineer",
+          "timestamp": "2020-06-16T03:39:43.540Z",
           "retired": false
         },
         {
-          "choice": "ics_331",
+          "username": "gcalica@hawaii.edu",
+          "category": "career-goal",
+          "name": "database-administrator",
+          "timestamp": "2020-06-16T03:39:47.193Z",
           "retired": false
         },
         {
-          "choice": "ics_332",
+          "username": "gcalica@hawaii.edu",
+          "category": "career-goal",
+          "name": "information-security-analyst",
+          "timestamp": "2020-06-16T03:39:51.084Z",
           "retired": false
         },
         {
-          "choice": "ics_351",
+          "username": "gcalica@hawaii.edu",
+          "category": "career-goal",
+          "name": "network-engineer",
+          "timestamp": "2020-06-16T03:39:54.087Z",
           "retired": false
         },
         {
-          "choice": "ics_355",
+          "username": "gcalica@hawaii.edu",
+          "category": "career-goal",
+          "name": "robotics-engineer",
+          "timestamp": "2020-06-16T03:39:58.323Z",
           "retired": false
         },
         {
-          "choice": "ics_361",
+          "username": "gcalica@hawaii.edu",
+          "category": "career-goal",
+          "name": "software-developer",
+          "timestamp": "2020-06-16T03:40:12.035Z",
           "retired": false
         },
         {
-          "choice": "ics_390",
+          "username": "gcalica@hawaii.edu",
+          "category": "career-goal",
+          "name": "graduate-school",
+          "timestamp": "2020-06-16T03:40:38.381Z",
           "retired": false
         },
         {
-          "choice": "ics_414",
+          "username": "gcalica@hawaii.edu",
+          "category": "career-goal",
+          "name": "research-scientist",
+          "timestamp": "2020-06-16T03:40:43.429Z",
           "retired": false
         },
         {
-          "choice": "ics_415",
+          "username": "gcalica@hawaii.edu",
+          "category": "career-goal",
+          "name": "information-system-manager",
+          "timestamp": "2020-06-16T03:40:49.539Z",
           "retired": false
         },
         {
-          "choice": "ics_419",
+          "username": "gcalica@hawaii.edu",
+          "category": "career-goal",
+          "name": "mobile-app-developer",
+          "timestamp": "2020-06-16T03:40:53.463Z",
           "retired": false
         },
         {
-          "choice": "ics_421",
+          "username": "gcalica@hawaii.edu",
+          "category": "career-goal",
+          "name": "startup-cofounder",
+          "timestamp": "2020-06-16T03:41:00.303Z",
           "retired": false
         },
         {
-          "choice": "ics_422",
+          "username": "gcalica@hawaii.edu",
+          "category": "career-goal",
+          "name": "teacher",
+          "timestamp": "2020-06-16T03:41:03.791Z",
           "retired": false
         },
         {
-          "choice": "ics_423",
+          "username": "gcalica@hawaii.edu",
+          "category": "course",
+          "name": "ee_406",
+          "timestamp": "2020-06-16T03:41:15.924Z",
           "retired": false
         },
         {
-          "choice": "ics_424",
+          "username": "gcalica@hawaii.edu",
+          "category": "course",
+          "name": "ics_101",
+          "timestamp": "2020-06-16T03:41:20.196Z",
           "retired": false
         },
         {
-          "choice": "ics_425",
+          "username": "gcalica@hawaii.edu",
+          "category": "course",
+          "name": "ics_102",
+          "timestamp": "2020-06-16T03:41:25.591Z",
           "retired": false
         },
         {
-          "choice": "ics_426",
+          "username": "gcalica@hawaii.edu",
+          "category": "interest",
+          "name": "android",
+          "timestamp": "2020-06-16T03:41:32.242Z",
           "retired": false
         },
         {
-          "choice": "ics_431",
+          "username": "gcalica@hawaii.edu",
+          "category": "interest",
+          "name": "angular",
+          "timestamp": "2020-06-16T03:41:35.055Z",
           "retired": false
         },
         {
-          "choice": "ics_432",
+          "username": "gcalica@hawaii.edu",
+          "category": "interest",
+          "name": "apache-spark",
+          "timestamp": "2020-06-16T03:41:38.434Z",
           "retired": false
         },
         {
-          "choice": "ics_435",
+          "username": "gcalica@hawaii.edu",
+          "category": "opportunity",
+          "name": "google-summer-of-code",
+          "timestamp": "2020-06-16T03:41:46.111Z",
           "retired": false
         },
         {
-          "choice": "ics_441",
+          "username": "gcalica@hawaii.edu",
+          "category": "opportunity",
+          "name": "acm-manoa",
+          "timestamp": "2020-06-16T03:41:51.166Z",
           "retired": false
         },
         {
-          "choice": "ics_442",
+          "username": "gcalica@hawaii.edu",
+          "category": "opportunity",
+          "name": "oceanit-student-intern",
+          "timestamp": "2020-06-16T03:41:56.885Z",
           "retired": false
         },
         {
-          "choice": "ics_443",
+          "username": "gcalica@hawaii.edu",
+          "category": "career-goal",
+          "name": "data-scientist",
+          "timestamp": "2020-06-17T03:36:16.455Z",
           "retired": false
         },
         {
-          "choice": "ics_451",
+          "username": "gcalica@hawaii.edu",
+          "category": "career-goal",
+          "name": "iot-architect",
+          "timestamp": "2020-06-17T03:39:09.113Z",
           "retired": false
         },
         {
-          "choice": "ics_452",
+          "username": "gcalica@hawaii.edu",
+          "category": "career-goal",
+          "name": "vr-ar-engineer",
+          "timestamp": "2020-06-17T03:39:33.536Z",
           "retired": false
         },
         {
-          "choice": "ics_455",
+          "username": "gcalica@hawaii.edu",
+          "category": "career-goal",
+          "name": "game-developer",
+          "timestamp": "2020-06-17T03:39:37.060Z",
           "retired": false
         },
         {
-          "choice": "ics_461",
+          "username": "gcalica@hawaii.edu",
+          "category": "career-goal",
+          "name": "ux-designer",
+          "timestamp": "2020-06-17T03:39:40.293Z",
           "retired": false
         },
         {
-          "choice": "ics_462",
+          "username": "gcalica@hawaii.edu",
+          "category": "career-goal",
+          "name": "devops-engineer",
+          "timestamp": "2020-06-17T03:39:43.540Z",
           "retired": false
         },
         {
-          "choice": "ics_464",
+          "username": "gcalica@hawaii.edu",
+          "category": "career-goal",
+          "name": "mobile-app-developer",
+          "timestamp": "2020-06-17T03:40:53.463Z",
           "retired": false
         },
         {
-          "choice": "ics_465",
+          "username": "gcalica@hawaii.edu",
+          "category": "career-goal",
+          "name": "teacher",
+          "timestamp": "2020-06-17T03:41:03.791Z",
           "retired": false
         },
         {
-          "choice": "ics_466",
+          "username": "gcalica@hawaii.edu",
+          "category": "course",
+          "name": "ics_102",
+          "timestamp": "2020-06-17T03:41:25.591Z",
           "retired": false
         },
         {
-          "choice": "ics_469",
+          "username": "gcalica@hawaii.edu",
+          "category": "interest",
+          "name": "android",
+          "timestamp": "2020-06-17T03:41:32.242Z",
           "retired": false
         },
         {
-          "choice": "ics_471",
+          "username": "samplestudent@hawaii.edu",
+          "category": "opportunity",
+          "name": "oceanit-student-intern",
+          "timestamp": "2020-06-17T03:41:56.885Z",
           "retired": false
         },
         {
-          "choice": "ics_475",
+          "username": "samplestudent@hawaii.edu",
+          "category": "opportunity",
+          "name": "google-summer-of-code",
+          "timestamp": "2020-06-18T03:41:56.885Z",
           "retired": false
         },
         {
-          "choice": "ics_476",
+          "username": "samplestudent@hawaii.edu",
+          "category": "opportunity",
+          "name": "acm-manoa",
+          "timestamp": "2020-06-19T03:41:56.885Z",
           "retired": false
-        },
-        {
-          "choice": "ics_481",
-          "retired": false
-        },
-        {
-          "choice": "ics_483",
-          "retired": false
-        },
-        {
-          "choice": "ics_484",
-          "retired": false
-        },
-        {
-          "choice": "ics_485",
-          "retired": false
-        },
-        {
-          "choice": "ics_491",
-          "retired": false
-        },
-        {
-          "choice": "ics_495",
-          "retired": false
-        },
-        {
-          "choice": "ics_499",
-          "retired": false
-        },
-        {
-          "choice": "ics_300+",
-          "retired": false
-        },
-        {
-          "choice": "ics_400+",
-          "retired": false
-        },
-        {
-          "choice": "ee_160",
-          "retired": false
-        },
-        {
-          "choice": "ee_205",
-          "retired": false
-        },
-        {
-          "choice": "ee_211",
-          "retired": false
-        },
-        {
-          "choice": "ee_213",
-          "retired": false
-        },
-        {
-          "choice": "ee_260",
-          "retired": false
-        },
-        {
-          "choice": "ee_296",
-          "retired": false
-        },
-        {
-          "choice": "ee_315",
-          "retired": false
-        },
-        {
-          "choice": "ee_323",
-          "retired": false
-        },
-        {
-          "choice": "ee_324",
-          "retired": false
-        },
-        {
-          "choice": "ee_342",
-          "retired": false
-        },
-        {
-          "choice": "ee_361",
-          "retired": false
-        },
-        {
-          "choice": "ee_362",
-          "retired": false
-        },
-        {
-          "choice": "ee_367",
-          "retired": false
-        },
-        {
-          "choice": "ee_371",
-          "retired": false
-        },
-        {
-          "choice": "ee_396",
-          "retired": false
-        },
-        {
-          "choice": "ee_406",
-          "retired": false
-        },
-        {
-          "choice": "ee_467",
-          "retired": false
-        },
-        {
-          "choice": "ee_468",
-          "retired": false
-        },
-        {
-          "choice": "ee_495",
-          "retired": false
-        },
-        {
-          "choice": "ee_496",
-          "retired": false
-        },
-        {
-          "choice": "ee_300+",
-          "retired": false
-        },
-        {
-          "choice": "cee_270",
-          "retired": false
-        },
-        {
-          "choice": "me_311",
-          "retired": false
-        },
-        {
-          "choice": "cee_300+",
-          "retired": false
-        },
-        {
-          "choice": "me_300+",
-          "retired": false
-        },
-        {
-          "choice": "oe_300+",
-          "retired": false
-        },
-        {
-          "choice": "be_300+",
-          "retired": false
-        },
-        {
-          "choice": "ics_500",
-          "retired": false
-        },
-        {
-          "choice": "ics_606",
-          "retired": false
-        },
-        {
-          "choice": "ics_611",
-          "retired": false
-        },
-        {
-          "choice": "ics_612",
-          "retired": false
-        },
-        {
-          "choice": "ics_613",
-          "retired": false
-        },
-        {
-          "choice": "ics_614",
-          "retired": false
-        },
-        {
-          "choice": "ics_616",
-          "retired": false
-        },
-        {
-          "choice": "ics_621",
-          "retired": false
-        },
-        {
-          "choice": "ics_622",
-          "retired": false
-        },
-        {
-          "choice": "ics_623",
-          "retired": false
-        },
-        {
-          "choice": "ics_624",
-          "retired": false
-        },
-        {
-          "choice": "ics_632",
-          "retired": false
-        },
-        {
-          "choice": "ics_635",
-          "retired": false
-        },
-        {
-          "choice": "ics_636",
-          "retired": false
-        },
-        {
-          "choice": "ics_641",
-          "retired": false
-        },
-        {
-          "choice": "ics_643",
-          "retired": false
-        },
-        {
-          "choice": "ics_651",
-          "retired": false
-        },
-        {
-          "choice": "ics_655",
-          "retired": false
-        },
-        {
-          "choice": "ics_660",
-          "retired": false
-        },
-        {
-          "choice": "ics_661",
-          "retired": false
-        },
-        {
-          "choice": "ics_663",
-          "retired": false
-        },
-        {
-          "choice": "ics_664",
-          "retired": false
-        },
-        {
-          "choice": "ics_665",
-          "retired": false
-        },
-        {
-          "choice": "ics_667",
-          "retired": false
-        },
-        {
-          "choice": "ics_668",
-          "retired": false
-        },
-        {
-          "choice": "ics_669",
-          "retired": false
-        },
-        {
-          "choice": "ics_674",
-          "retired": false
-        },
-        {
-          "choice": "ics_675",
-          "retired": false
-        },
-        {
-          "choice": "ics_676",
-          "retired": false
-        },
-        {
-          "choice": "ics_681",
-          "retired": false
-        },
-        {
-          "choice": "ics_682",
-          "retired": false
-        },
-        {
-          "choice": "ics_683",
-          "retired": false
-        },
-        {
-          "choice": "ics_685",
-          "retired": false
-        },
-        {
-          "choice": "ics_686",
-          "retired": false
-        },
-        {
-          "choice": "ics_690",
-          "retired": false
-        },
-        {
-          "choice": "ics_691",
-          "retired": false
-        },
-        {
-          "choice": "ics_695",
-          "retired": false
-        },
-        {
-          "choice": "ics_699",
-          "retired": false
-        },
-        {
-          "choice": "ics_700",
-          "retired": false
-        },
+        }
+      ]
+    },
+    {
+      "name": "PageInterestsDailySnapshotCollection",
+      "contents": [
         {
-          "choice": "ics_800",
+          "careerGoals": [
+            {
+              "name": "data-scientist",
+              "views": 1
+            },
+            {
+              "name": "iot-architect",
+              "views": 1
+            },
+            {
+              "name": "vr-ar-engineer",
+              "views": 1
+            },
+            {
+              "name": "game-developer",
+              "views": 1
+            },
+            {
+              "name": "ux-designer",
+              "views": 1
+            },
+            {
+              "name": "devops-engineer",
+              "views": 1
+            },
+            {
+              "name": "database-administrator",
+              "views": 1
+            },
+            {
+              "name": "information-security-analyst",
+              "views": 1
+            },
+            {
+              "name": "network-engineer",
+              "views": 1
+            },
+            {
+              "name": "robotics-engineer",
+              "views": 1
+            },
+            {
+              "name": "software-developer",
+              "views": 1
+            },
+            {
+              "name": "graduate-school",
+              "views": 1
+            },
+            {
+              "name": "research-scientist",
+              "views": 1
+            },
+            {
+              "name": "information-system-manager",
+              "views": 1
+            },
+            {
+              "name": "mobile-app-developer",
+              "views": 1
+            },
+            {
+              "name": "startup-cofounder",
+              "views": 1
+            },
+            {
+              "name": "teacher",
+              "views": 1
+            }
+          ],
+          "courses": [
+            {
+              "name": "ee_406",
+              "views": 1
+            },
+            {
+              "name": "ics_101",
+              "views": 1
+            },
+            {
+              "name": "ics_102",
+              "views": 1
+            }
+          ],
+          "interests": [
+            {
+              "name": "android",
+              "views": 1
+            },
+            {
+              "name": "angular",
+              "views": 1
+            },
+            {
+              "name": "apache-spark",
+              "views": 1
+            }
+          ],
+          "opportunities": [
+            {
+              "name": "google-summer-of-code",
+              "views": 1
+            },
+            {
+              "name": "acm-manoa",
+              "views": 1
+            },
+            {
+              "name": "oceanit-student-intern",
+              "views": 1
+            }
+          ],
+          "timestamp": "2020-06-16T09:59:59.000Z",
+          "retired": false
+        },
+        {
+          "careerGoals": [
+            {
+              "name": "data-scientist",
+              "views": 1
+            },
+            {
+              "name": "iot-architect",
+              "views": 1
+            },
+            {
+              "name": "vr-ar-engineer",
+              "views": 1
+            },
+            {
+              "name": "game-developer",
+              "views": 1
+            },
+            {
+              "name": "ux-designer",
+              "views": 1
+            },
+            {
+              "name": "devops-engineer",
+              "views": 1
+            },
+            {
+              "name": "mobile-app-developer",
+              "views": 1
+            },
+            {
+              "name": "teacher",
+              "views": 1
+            }
+          ],
+          "courses": [
+            {
+              "name": "ics_102",
+              "views": 1
+            }
+          ],
+          "interests": [
+            {
+              "name": "android",
+              "views": 1
+            }
+          ],
+          "opportunities": [
+            {
+              "name": "oceanit-student-intern",
+              "views": 1
+            }
+          ],
+          "timestamp": "2020-06-17T09:59:59.999Z",
           "retired": false
         }
       ]
