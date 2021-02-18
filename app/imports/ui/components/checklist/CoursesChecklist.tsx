@@ -11,7 +11,6 @@ import { Users } from '../../../api/user/UserCollection';
 import { Ice, StudentProfile, StudentProfileUpdate } from '../../../typings/radgrad';
 import { DEGREEPLANNER, EXPLORER, ICE, URL_ROLES } from '../../layouts/utilities/route-constants';
 import ProfileFutureCoursesList from '../shared/ProfileFutureCoursesList';
-import ProfileInterestList from '../shared/ProfileInterestList';
 import { Checklist } from './Checklist';
 
 export class CoursesChecklist extends Checklist {
@@ -44,7 +43,7 @@ export class CoursesChecklist extends Checklist {
       // console.log('no last visited page');
       this.state = 'Review';
     }
-    console.log(this.state);
+    // console.log(this.state);
   }
 
   public getTitle(state: ChecklistState): JSX.Element {
