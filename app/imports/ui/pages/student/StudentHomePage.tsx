@@ -4,6 +4,7 @@ import {Header} from 'semantic-ui-react';
 import { CareerGoalsChecklist } from '../../components/checklist/CareerGoalsChecklist';
 import { CoursesChecklist } from '../../components/checklist/CoursesChecklist';
 import { InterestsChecklist } from '../../components/checklist/InterestsChecklist';
+import { OpportunitiesChecklist } from '../../components/checklist/OpportunitiesChecklist';
 import PageLayout from '../PageLayout';
 
 interface StudentHomePageProps {
@@ -45,6 +46,7 @@ export default withTracker(() => {
   checklists.push(new InterestsChecklist('Student Interests', currentUser));
   checklists.push(new CareerGoalsChecklist('Student Career Goals', currentUser));
   checklists.push(new CoursesChecklist('Student Courses', currentUser));
+  checklists.push(new OpportunitiesChecklist('Student Opportunities', currentUser));
   checklists.forEach((checklist) => {
     checklist.updateState();
     switch (checklist.getState()) {

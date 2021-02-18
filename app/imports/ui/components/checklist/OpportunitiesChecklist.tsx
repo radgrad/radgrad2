@@ -11,6 +11,7 @@ import { Users } from '../../../api/user/UserCollection';
 import { Ice, StudentProfile, StudentProfileUpdate } from '../../../typings/radgrad';
 import { DEGREEPLANNER, EXPLORER, ICE, URL_ROLES } from '../../layouts/utilities/route-constants';
 import { Checklist } from './Checklist';
+import ProfileFutureOpportunitiesList from '../shared/ProfileFutureOpportunitiesList';
 
 export class OpportunitiesChecklist extends Checklist {
   private profile: StudentProfile;
@@ -34,7 +35,8 @@ export class OpportunitiesChecklist extends Checklist {
         this.state = 'Review';
       } else if (this.isSixMonthsOld(this.profile.lastVisitedOpportunities)) {
         this.state = 'Review';
-        // TODO check for new course reviews for future course instances.
+        // TODO check for new opportunity reviews for future opportunity instances.
+        // CAM How do I know the review is new?
       } else {
         this.state = 'OK';
       }
@@ -106,12 +108,12 @@ export class OpportunitiesChecklist extends Checklist {
         </div>;
       case 'Improve':
         return <div><p>Click &quot;Go To Opportunity Explorer&quot; to review the available Opportunities in RadGrad and add interesting ones to your profile. Or, click &quot;Go To Degree Planner&quot; to go directly to the Degree Planner page to add opportunities from your profile to a future semester in your degree plan</p>
-          <Button as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.OPPORTUNITIES}`}>Go To Course Explorer</Button>
+          <Button as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.OPPORTUNITIES}`}>Go To Opportunity Explorer</Button>
           <Button as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${DEGREEPLANNER}`}>Go To Degree Planner</Button>
         </div>;
       case 'Review':
         return <div>
-          <p>Click &quot;Go To Course Explorer&quot; to search for opportunities and add new ones to your profile, or to see new reviews. Click &quot;Go To Degree Planner&quot; to review your degree plan and potentially move or remove opportunities. Click &quot;Go To ICE page&quot; to learn more about Competency points.  Click &quot;My Opportunities are OK&quot; to confirm that your current Degree Plan is correct.</p>
+          <p>Click &quot;Go To Opportunity Explorer&quot; to search for opportunities and add new ones to your profile, or to see new reviews. Click &quot;Go To Degree Planner&quot; to review your degree plan and potentially move or remove opportunities. Click &quot;Go To ICE page&quot; to learn more about Competency points.  Click &quot;My Opportunities are OK&quot; to confirm that your current Degree Plan is correct.</p>
           <Button as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${DEGREEPLANNER}`}>Go To Degree Planner</Button>
           <Button as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.OPPORTUNITIES}`}>Go To Opportunity Explorer</Button>
           <Button as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${ICE}`}>Go To ICE</Button>
