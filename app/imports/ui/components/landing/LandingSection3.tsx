@@ -5,16 +5,17 @@ import RadGradLogoText from '../shared/RadGradLogoText';
 
 interface LandingSection3Props {
   landingSubject: string;
+  instanceName: string;
 }
 
 const headerStyle = { fontSize: '50px', display: 'inline' };
-const LandingSection3: React.FC<LandingSection3Props> = ({ landingSubject }) => (
+const LandingSection3: React.FC<LandingSection3Props> = ({ instanceName, landingSubject }) => (
   <div id="landing-section-3" style={styles['header-section-gray']}>
     <Container textAlign="center">
       <Header as="h1" style={styles['header-text']} textAlign="center">
         Why Use{' '}
         <span style={styles['green-text']}>
-          <RadGradLogoText style={headerStyle} />?
+          <RadGradLogoText style={headerStyle} instanceName={instanceName} />?
         </span>
       </Header>
       <p style={styles['header-description']}>

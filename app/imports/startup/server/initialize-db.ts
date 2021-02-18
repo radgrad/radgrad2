@@ -11,6 +11,7 @@ import { removeAllEntities } from '../../api/base/BaseUtilities';
 import { checkIntegrity } from '../../api/integrity/IntegrityChecker';
 import { StudentParticipations } from '../../api/public-stats/StudentParticipationCollection';
 import { AdminProfiles } from '../../api/user/AdminProfileCollection';
+import { updateFactoids } from './factoids';
 
 /** global Assets */
 /* eslint-disable no-console */
@@ -20,18 +21,14 @@ import { AdminProfiles } from '../../api/user/AdminProfileCollection';
  * @returns { Array } An array of collection document counts.
  * @memberOf startup/server
  */
-function documentCounts() {
-  return _.map(RadGrad.collectionLoadSequence, (collection) => collection.count());
-}
+const documentCounts = () => _.map(RadGrad.collectionLoadSequence, (collection) => collection.count());
 
 /**
  * Returns the total number of documents in the loadable collections.
  * @returns { Number } The total number of RadGrad documents in the loadable collections.
  * @memberOf startup/server
  */
-function totalDocuments() {
-  return _.reduce(documentCounts(), (sum, count) => sum + count, 0);
-}
+const totalDocuments = () => _.reduce(documentCounts(), (sum, count) => sum + count, 0);
 
 /**
  * The load/fixture file date format.
@@ -47,11 +44,11 @@ const loadFileDateFormat = 'YYYY-MM-DD-HH-mm-ss';
  * @returns { String } A string indicating how long ago the file was created.
  * @memberOf startup/server
  */
-function getRestoreFileAge(loadFileName) {
+const getRestoreFileAge = (loadFileName) => {
   const terms = _.words(loadFileName, /[^/. ]+/g);
   const dateString = terms[terms.length - 2];
   return moment(dateString, loadFileDateFormat).fromNow();
-}
+};
 
 /**
  * If the database is empty, this function looks up the name of the load file in the settings file,
@@ -61,7 +58,7 @@ function getRestoreFileAge(loadFileName) {
  * this file, a string is also printed out.
  * @memberOf startup/server
  */
-function loadDatabase() {
+const loadDatabase = () => {
   const loadFileName = Meteor.settings.databaseRestoreFileName;
   if (loadFileName && (totalDocuments() === 0 || totalDocuments() === 1)) {
     const loadFileAge = getRestoreFileAge(loadFileName);
@@ -88,14 +85,14 @@ function loadDatabase() {
     }
     console.log('Finished loading database.');
   }
-}
+};
 
 /**
  * Runs the PublicStats generator to collect stats on the database, then sets up a cron job to update the stats
  * once a day.
  * @memberOf startup/server
  */
-function startupPublicStats() {
+const startupPublicStats = () => {
   PublicStats.generateStats();
   SyncedCron.add({
     name: 'Run the PublicStats.generateStats method',
@@ -106,9 +103,9 @@ function startupPublicStats() {
       PublicStats.generateStats();
     },
   });
-}
+};
 
-function startupStudentParticipation() {
+const startupStudentParticipation = () => { // eslint-disable-line @typescript-eslint/no-unused-vars
   StudentParticipations.upsertEnrollmentData();
   SyncedCron.add({
     name: 'Run StudentParticipations.upsertEnrollmentData',
@@ -119,21 +116,21 @@ function startupStudentParticipation() {
       StudentParticipations.upsertEnrollmentData();
     },
   });
-}
+};
 
 /**
  * Check the integrity of the newly loaded collections; print out problems if any occur.
  * @memberOf startup/server
  */
-function startupCheckIntegrity() { // eslint-disable-line @typescript-eslint/no-unused-vars
+const startupCheckIntegrity = () => { // eslint-disable-line @typescript-eslint/no-unused-vars
   // console.log('Checking DB integrity.');
   const integrity = checkIntegrity();
   if (integrity.count > 0) {
     console.log(checkIntegrity().message);
   }
-}
+};
 
-function defineAdminUser() {
+const defineAdminUser = () => {
   const adminProfile = RadGradProperties.getAdminProfile();
   if (!adminProfile) {
     console.error('\n\nNO ADMIN PROFILE SPECIFIED IN SETTINGS FILE! SHUTDOWN AND FIX!!\n\n');
@@ -143,9 +140,9 @@ function defineAdminUser() {
   if (!user) {
     AdminProfiles.define(adminProfile);
   }
-}
+};
 
-function defineTestAdminUser() {
+const defineTestAdminUser = () => {
   if (Meteor.isTest || Meteor.isAppTest) {
     const adminProfile = {
       username: 'radgrad@hawaii.edu',
@@ -154,7 +151,7 @@ function defineTestAdminUser() {
     };
     AdminProfiles.define(adminProfile);
   }
-}
+};
 
 // Add a startup callback that distinguishes between test and dev/prod mode and does the right thing.
 Meteor.startup(() => {
@@ -164,11 +161,17 @@ Meteor.startup(() => {
     removeAllEntities();
     defineTestAdminUser();
   } else {
+    console.log('Startup: Defining admin user if necessary.');
     defineAdminUser();
+    console.log('Startup: Loading database if necessary.');
     loadDatabase();
     // startupCheckIntegrity();
+    console.log('Startup: Starting up public stats.');
     startupPublicStats();
+    console.log('Startup: Starting up student participation.');
     startupStudentParticipation();
+    console.log('Startup: Updating factoids.');
+    updateFactoids();
     SyncedCron.start();
   }
 });

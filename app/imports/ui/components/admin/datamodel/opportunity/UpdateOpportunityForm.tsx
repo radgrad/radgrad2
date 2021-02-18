@@ -33,7 +33,7 @@ const UpdateOpportunityForm: React.FC<UpdateOpportunityFormProps> = ({ sponsors,
     try {
       const cloudinaryResult = await openCloudinaryWidget();
       if (cloudinaryResult.event === 'success') {
-        setPictureURL(cloudinaryResult.info.url);
+        setPictureURL(cloudinaryResult.info.secure_url);
       }
     } catch (error) {
       Swal.fire({

@@ -180,6 +180,4 @@ export default {
     width: 120,
 
   },
-
-
 } as React.CSSProperties;

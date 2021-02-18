@@ -13,8 +13,9 @@ import { UserInteractionsTypes } from '../../api/analytic/UserInteractionsTypes'
 import { PageInterestsDailySnapshots } from '../../api/page-tracking/PageInterestsDailySnapshotCollection';
 import { PageInterests } from '../../api/page-tracking/PageInterestCollection';
 import { PageInterestsCategoryTypes } from '../../api/page-tracking/PageInterestsCategoryTypes';
+import { updateFactoids } from './factoids';
 
-function createIceSnapshot(doc) {
+const createIceSnapshot = (doc) => {
   const ice = StudentProfiles.getProjectedICE(doc.username);
   const snapshotData: IceSnapshotDefine = {
     username: doc.username,
@@ -26,7 +27,7 @@ function createIceSnapshot(doc) {
   };
   console.log('Creating snapshot for: ', doc.username);
   IceSnapshots.define(snapshotData);
-}
+};
 
 /**
  * Adds a cron job which creates or updates a student's Ice Snapshot. This is used to determine
@@ -81,7 +82,7 @@ SyncedCron.add({
   },
 });
 
-function createDailySnapshot(pageInterests: PageInterest[]) {
+const createDailySnapshot = (pageInterests: PageInterest[]) => {
   interface snapshotDoc {
     careerGoals: PageInterestInfo[];
     courses: PageInterestInfo[];
@@ -138,7 +139,7 @@ function createDailySnapshot(pageInterests: PageInterest[]) {
     interests: doc.interests,
     opportunities: doc.opportunities,
   });
-}
+};
 
 SyncedCron.add({
   name: 'Create PageInterests Daily Snapshot',
@@ -157,5 +158,16 @@ SyncedCron.add({
       const pageInterestsSinceRecentSnapshot = PageInterests.find({ timestamp: { $gte: gte, $lte: lte } }).fetch();
       createDailySnapshot(pageInterestsSinceRecentSnapshot);
     }
+  },
+});
+
+SyncedCron.add({
+  name: 'Update Factoids',
+  schedule(parser) {
+    // return parser.text('every 20 seconds');
+    return parser.text('every 24 hours');
+  },
+  job() {
+    updateFactoids();
   },
 });

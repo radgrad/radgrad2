@@ -11,7 +11,7 @@ import { Opportunities } from '../../../../api/opportunity/OpportunityCollection
 import { Slugs } from '../../../../api/slug/SlugCollection';
 import AdminDataModelAccordion from '../../admin/datamodel/AdminDataModelAccordion';
 import { dataModelActions } from '../../../../redux/admin/data-model';
-import { getUserIdFromRoute } from '../../shared/utilities/router';
+import { getUserIdFromRoute } from '../utilities/router';
 import { Users } from '../../../../api/user/UserCollection';
 import { RootState } from '../../../../redux/types';
 
