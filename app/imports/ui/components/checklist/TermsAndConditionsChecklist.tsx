@@ -8,7 +8,7 @@ import { ChecklistState } from '../../../api/checklist/ChecklistState';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { StudentProfile, StudentProfileUpdate } from '../../../typings/radgrad';
-import { TERMS_AND_CONDITIONS, URL_ROLES } from '../../layouts/utilities/route-constants';
+import { DEGREEPLANNER, TERMS_AND_CONDITIONS, URL_ROLES } from '../../layouts/utilities/route-constants';
 import { Checklist } from './Checklist';
 
 
@@ -56,7 +56,7 @@ export class TermsAndConditionsChecklist extends Checklist {
 
   public getDetails(state: ChecklistState): JSX.Element {
     if (this.state === 'Improve') {
-      return <p>(Put the terms and conditions here.)</p>;
+      return <p><Button as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${TERMS_AND_CONDITIONS}`}>View the Terms and Conditions</Button></p>;
     }
     return <React.Fragment />;
   }

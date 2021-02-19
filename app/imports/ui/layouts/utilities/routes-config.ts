@@ -63,6 +63,7 @@ import StudentIcePage from '../../pages/student/StudentIcePage';
 import StudentLevelsPage from '../../pages/student/StudentLevelsPage';
 import StudentPrivacyPage from '../../pages/student/StudentPrivacyPage';
 import StudentReviewsPage from '../../pages/student/StudentReviewsPage';
+import StudentTermsAndConditionsPage from '../../pages/student/StudentTermsAndConditionsPage';
 import StudentVerificationPage from '../../pages/student/StudentVerificationPage';
 
 import {
@@ -79,7 +80,7 @@ import {
   MANAGE,
   PRIVACY,
   STUDENT_REVIEWS,
-  STUDENT_VERIFICATION,
+  STUDENT_VERIFICATION, TERMS_AND_CONDITIONS,
   URL_ROLES,
   USERNAME,
   VERIFICATION_REQUESTS,
@@ -99,11 +100,11 @@ export const routes = {
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.LOGGED_IN_USERS}`, component: AdminAnalyticsLoggedInUsersPage },
 
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${COMMUNITY}`, component: CommunityPage },
-    
+
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATABASE.HOME}`, component: AdminDatabasePage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATABASE.DUMP}`, component: AdminDatabaseDumpPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATABASE.CHECK_INTEGRITY}`, component: AdminDatabaseCheckIntegrityPage },
-    
+
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL.HOME}`, component: AdminDataModelPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL.ACADEMIC_TERMS}`, component: AdminDataModelAcademicTermsPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL.ACADEMIC_YEAR_INSTANCES}`, component: AdminDataModelAcademicYearsPage },
@@ -134,7 +135,7 @@ export const routes = {
 
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${FORECASTS}`, component: ForecastPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${HOME}`, component: AdminHomePage },
-    
+
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${MANAGE.REVIEWS}`, component: ManageReviewsPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${MANAGE.STUDENTS}`, component: AdvisorManageStudentsPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${MANAGE.REVIEWS}`, component: ManageReviewsPage },
@@ -197,7 +198,7 @@ export const routes = {
     { path: `/${EXPLORER.OPPORTUNITIES}`, component: LandingOpportunitiesExplorerPage },
     { path: `/${EXPLORER.OPPORTUNITIES_PARAM}`, component: LandingOpportunityExplorerPage, exact: false },
   ],
-  
+
   STUDENT: [
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${COMMUNITY}`, component: CommunityPage },
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${DEGREEPLANNER}`, component: StudentDegreePlannerPage },
@@ -215,5 +216,6 @@ export const routes = {
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${PRIVACY}`, component: StudentPrivacyPage },
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${STUDENT_REVIEWS}`, component: StudentReviewsPage },
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${STUDENT_VERIFICATION}`, component: StudentVerificationPage },
+    { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${TERMS_AND_CONDITIONS}`, component: StudentTermsAndConditionsPage },
   ],
 };
