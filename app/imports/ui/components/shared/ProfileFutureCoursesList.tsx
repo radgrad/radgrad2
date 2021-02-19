@@ -16,7 +16,7 @@ const ProfileFutureCoursesList: React.FC<ProfileFutureCoursesListProps> = ({ pro
   const futureCourseInstances = CourseInstances.findNonRetired({ studentID: profile.userID, verified: false });
   const futureCourses = futureCourseInstances.map((ci) => Courses.findDoc(ci.courseID));
   return (
-    <CourseList courses={futureCourses} size={size} />
+    <CourseList courses={futureCourses} size={size} keyStr="future" />
   );
 };
 

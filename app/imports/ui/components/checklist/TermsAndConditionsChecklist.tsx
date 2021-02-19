@@ -8,17 +8,20 @@ import { ChecklistState } from '../../../api/checklist/ChecklistState';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { StudentProfile, StudentProfileUpdate } from '../../../typings/radgrad';
-import { DEGREEPLANNER, TERMS_AND_CONDITIONS, URL_ROLES } from '../../layouts/utilities/route-constants';
+import { TERMS_AND_CONDITIONS, URL_ROLES } from '../../layouts/utilities/route-constants';
 import { Checklist } from './Checklist';
 
 
 export class TermsAndConditionsChecklist extends Checklist {
   private profile: StudentProfile;
 
+  private disagreeToTerms: boolean;
+
   constructor(name: string, student: string) {
     super(name);
     this.profile = Users.getProfile(student);
     // console.log('TermsAndConditionsChecklist', this.profile, StudentProfiles.findDoc(student));
+    this.disagreeToTerms = false;
     this.updateState();
   }
 
@@ -45,10 +48,16 @@ export class TermsAndConditionsChecklist extends Checklist {
     const adminEmail = Meteor.settings.public.adminProfile.username;
     switch (state) {
       case 'OK':
-        return <p>Congrats!  You&apos;ve approved the terms and conditions. To see a copy of the terms and conditions, please go to <Button as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${TERMS_AND_CONDITIONS}`}>Go To
-          Terms and Conditions</Button>.  If you no longer approve of the Terms and Conditions and wish to be removed from the system, please contact a RadGrad administrator at <a href={`mailto:${adminEmail}?subject=Remove student from RadGrad`}>Remove me from RadGrad</a> and request removal from the system.</p>;
+        return <p>Congrats! You&apos;ve approved the terms and conditions. To see a copy of the terms and conditions,
+          please go to <Button as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${TERMS_AND_CONDITIONS}`}>Go
+            To
+            Terms and Conditions</Button>. If you no longer approve of the Terms and Conditions and wish to be removed
+          from the system, please contact a RadGrad administrator at <a
+            href={`mailto:${adminEmail}?subject=Remove student from RadGrad`}>Remove me from RadGrad</a> and request
+          removal from the system.</p>;
       case 'Improve':
-        return <p>Use of RadGrad requires your consent to the following Terms and Conditions. Please read them and indicate whether you approve or not.</p>;
+        return <p>Use of RadGrad requires your consent to the following Terms and Conditions. Please read them and
+          indicate whether you approve or not.</p>;
       default:
         return <React.Fragment />;
     }
@@ -56,7 +65,8 @@ export class TermsAndConditionsChecklist extends Checklist {
 
   public getDetails(state: ChecklistState): JSX.Element {
     if (this.state === 'Improve') {
-      return <p><Button as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${TERMS_AND_CONDITIONS}`}>View the Terms and Conditions</Button></p>;
+      return <p><Button as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${TERMS_AND_CONDITIONS}`}>View the
+        Terms and Conditions</Button></p>;
     }
     return <React.Fragment />;
   }
@@ -76,22 +86,30 @@ export class TermsAndConditionsChecklist extends Checklist {
     };
     const handleReject = () => {
       console.log('signout');
-      // what do we do here?
-      return <Redirect to={{ pathname: '/signout' }} />;
+      // need to inform the admin that a student has disagreed to the terms.
+      this.disagreeToTerms = true;
     };
     switch (state) {
       case 'OK':
         return <a href={`mailto:${adminEmail}?subject=Remove student from RadGrad`}>Remove me from RadGrad</a>;
       case 'Improve':
         return <div>
-          <p>Click &quot;I approve&quot; to indicate your consent.  Click &quot;I do not approve&quot; to initiate your removal from RadGrad.
-        </p>
+          <p>Click &quot;I approve&quot; to indicate your consent. Click &quot;I do not approve&quot; to initiate your
+            removal from RadGrad.
+          </p>
           <Button onClick={handleAccept}>I approve</Button>
           <Button onClick={handleReject}>I do not approve</Button>
         </div>;
       default:
         return <React.Fragment />;
     }
+  }
+
+  public getChecklistItem(): JSX.Element {
+    if (this.disagreeToTerms) {
+      return <Redirect to={{ pathname: '/signout' }} />;
+    }
+    return super.getChecklistItem();
   }
 
 }

@@ -150,6 +150,11 @@ export const getFutureOpportunities = (studentID: string): Opportunity[] => {
   return futureOIs.map((oi) => Opportunities.findDoc(oi.opportunityID));
 };
 
+export const getUniqFutureOpportunities = (studentID: string): Opportunity[] => {
+  const futureOpportunities = getFutureOpportunities(studentID);
+  return _.uniqBy(futureOpportunities, '_id');
+};
+
 export const opportunityInstanceToName = (oi) => {
   const student = StudentProfiles.findDoc({ userID: oi.studentID }).username;
   const opportunity = Opportunities.findDoc(oi.opportunityID).name;
