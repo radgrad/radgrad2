@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid } from 'semantic-ui-react';
+import { Grid, Image } from 'semantic-ui-react';
 import ReactMarkdownWithHtml from 'react-markdown/with-html';
 
 const invertedSection = {
