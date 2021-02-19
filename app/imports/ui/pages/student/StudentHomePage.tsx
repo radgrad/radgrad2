@@ -6,6 +6,7 @@ import { CoursesChecklist } from '../../components/checklist/CoursesChecklist';
 import { InterestsChecklist } from '../../components/checklist/InterestsChecklist';
 import { OpportunitiesChecklist } from '../../components/checklist/OpportunitiesChecklist';
 import { ReviewChecklist } from '../../components/checklist/ReviewChecklist';
+import { TermsAndConditionsChecklist } from '../../components/checklist/TermsAndConditionsChecklist';
 import PageLayout from '../PageLayout';
 
 interface StudentHomePageProps {
@@ -43,6 +44,7 @@ export default withTracker(() => {
   const reviewItems = [];
   const improveItems = [];
   const checklists = [];
+  checklists.push(new TermsAndConditionsChecklist('Student Terms and Conditions', currentUser));
   checklists.push(new InterestsChecklist('Student Interests', currentUser));
   checklists.push(new CareerGoalsChecklist('Student Career Goals', currentUser));
   checklists.push(new CoursesChecklist('Student Courses', currentUser));

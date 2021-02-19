@@ -12,6 +12,7 @@ export const STUDENT_REVIEWS = 'student-reviews';
 export const STUDENT_VERIFICATION = 'student-verification';
 export const USERNAME = ':username';
 export const VERIFICATION_REQUESTS = 'verification-requests';
+export const TERMS_AND_CONDITIONS = 'terms-and-conditions';
 
 export const MANAGE = {
   OPPORTUNITIES: 'manage-opportunities',

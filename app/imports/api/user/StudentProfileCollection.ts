@@ -42,6 +42,7 @@ class StudentProfileCollection extends BaseProfileCollection {
         lastVisitedCourses: { type: String, optional: true },
         lastVisitedInterests: { type: String, optional: true },
         lastVisitedOpportunities: { type: String, optional: true },
+        acceptedTermsAndConditions: { type: String, optional: true },
       }),
     );
     this.defineSchema = new SimpleSchema({
@@ -75,6 +76,7 @@ class StudentProfileCollection extends BaseProfileCollection {
       lastVisitedCourses: { type: String, optional: true },
       lastVisitedInterests: { type: String, optional: true },
       lastVisitedOpportunities: { type: String, optional: true },
+      acceptedTermsAndConditions: { type: String, optional: true },
     });
     this.updateSchema = new SimpleSchema({
       firstName: { type: String, optional: true },
@@ -106,6 +108,7 @@ class StudentProfileCollection extends BaseProfileCollection {
       lastVisitedCourses: { type: String, optional: true },
       lastVisitedInterests: { type: String, optional: true },
       lastVisitedOpportunities: { type: String, optional: true },
+      acceptedTermsAndConditions: { type: String, optional: true },
     });
   }
 
@@ -163,6 +166,7 @@ class StudentProfileCollection extends BaseProfileCollection {
     lastVisitedCourses,
     lastVisitedInterests,
     lastVisitedOpportunities,
+    acceptedTermsAndConditions,
   }: StudentProfileDefine) {
     if (Meteor.isServer) {
       // Validate parameters.
@@ -200,6 +204,7 @@ class StudentProfileCollection extends BaseProfileCollection {
         lastVisitedCourses,
         lastVisitedInterests,
         lastVisitedOpportunities,
+        acceptedTermsAndConditions,
       });
       const userID = Users.define({ username, role });
       this.collection.update(profileID, { $set: { userID } });
@@ -283,6 +288,7 @@ class StudentProfileCollection extends BaseProfileCollection {
       lastVisitedCourses,
       lastVisitedInterests,
       lastVisitedOpportunities,
+      acceptedTermsAndConditions,
     }: StudentProfileUpdate,
   ) {
     this.assertDefined(docID);
@@ -365,7 +371,9 @@ class StudentProfileCollection extends BaseProfileCollection {
     if (lastVisitedOpportunities) {
       updateData.lastVisitedOpportunities = lastVisitedOpportunities;
     }
-
+    if (acceptedTermsAndConditions) {
+      updateData.acceptedTermsAndConditions = acceptedTermsAndConditions;
+    }
     // console.log('StudentProfile.update %o', updateData);
     this.collection.update(docID, { $set: updateData });
     // console.log(this.findDoc(docID));
@@ -610,6 +618,7 @@ class StudentProfileCollection extends BaseProfileCollection {
               lastVisitedCourses: 1,
               lastVisitedInterests: 1,
               lastVisitedOpportunities: 1,
+              acceptedTermsAndConditions: 1,
             },
           },
         ]);
@@ -655,6 +664,7 @@ class StudentProfileCollection extends BaseProfileCollection {
     const lastVisitedCourses = doc.lastVisitedCourses;
     const lastVisitedInterests = doc.lastVisitedInterests;
     const lastVisitedOpportunities = doc.lastVisitedOpportunities;
+    const acceptedTermsAndConditions = doc.acceptedTermsAndConditions;
     return {
       username,
       firstName,
@@ -682,6 +692,7 @@ class StudentProfileCollection extends BaseProfileCollection {
       lastVisitedCourses,
       lastVisitedInterests,
       lastVisitedOpportunities,
+      acceptedTermsAndConditions,
     };
   }
 }

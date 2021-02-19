@@ -66,17 +66,17 @@ export class ReviewChecklist extends Checklist {
   public getDetails(state: ChecklistState): JSX.Element {
     const studentID = this.profile.userID;
     const ois = OpportunityInstances.findNonRetired({ studentID, verified: true });
-    const opportunities = _.uniq(ois.map((oi) => Opportunities.findDoc(oi.opportunityID)));
+    const opportunityIDs = _.uniq(ois.map((oi) => oi.opportunityID));
+    const opportunities = opportunityIDs.map((oID) => Opportunities.findDoc(oID));
     const cis = CourseInstances.findNonRetired({ studentID, verified: true });
-    const courses = _.uniq(cis.map((ci) => Courses.findDoc(ci.courseID)));
+    const courseIDs = _.uniq(cis.map((ci) => ci.courseID));
+    const courses = courseIDs.map((cID) => Courses.findDoc(cID));
     const reviews = Reviews.findNonRetired({ studentID });
-    console.log(reviews);
     const courseReviews = _.filter(reviews, (rev) => rev.reviewType === Reviews.COURSE);
     const opportunityReviews = _.filter(reviews, (rev) => rev.reviewType !== Reviews.COURSE);
     const nonReviewedCourses = _.filter(courses, (course) => {
       let reviewed = true;
       courseReviews.forEach((review) => {
-        console.log(review.revieweeID, course._id);
         if (review.revieweeID === course._id) {
           reviewed = false;
         }
