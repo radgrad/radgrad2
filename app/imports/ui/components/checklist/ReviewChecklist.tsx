@@ -1,6 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
-import { Header } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
+import { Button, Header } from 'semantic-ui-react';
 import { ChecklistState } from '../../../api/checklist/ChecklistState';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
@@ -9,6 +10,7 @@ import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstan
 import { Reviews } from '../../../api/review/ReviewCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { StudentProfile } from '../../../typings/radgrad';
+import { EXPLORER, STUDENT_REVIEWS, URL_ROLES } from '../../layouts/utilities/route-constants';
 import CourseList from '../shared/CourseList';
 import OpportunityList from '../shared/OpportunityList';
 import { Checklist } from './Checklist';
@@ -67,17 +69,38 @@ export class ReviewChecklist extends Checklist {
     const opportunities = _.uniq(ois.map((oi) => Opportunities.findDoc(oi.opportunityID)));
     const cis = CourseInstances.findNonRetired({ studentID, verified: true });
     const courses = _.uniq(cis.map((ci) => Courses.findDoc(ci.courseID)));
-    // const reviews = Reviews.findNonRetired({ studentID });
-    // const courseReviews = _.filter(reviews, (rev) => rev.reviewType === Reviews.COURSE);
-    // const opportunityReviews = _.filter(reviews, (rev) => rev.reviewType !== Reviews.COURSE);
+    const reviews = Reviews.findNonRetired({ studentID });
+    const courseReviews = _.filter(reviews, (rev) => rev.reviewType === Reviews.COURSE);
+    const opportunityReviews = _.filter(reviews, (rev) => rev.reviewType !== Reviews.COURSE);
+    const nonReviewedCourses = _.filter(courses, (course) => {
+      let reviewed = false;
+      courseReviews.forEach((review) => {
+        console.log(review.revieweeID, course._id);
+        if (review.revieweeID === course._id) {
+          reviewed = true;
+        }
+      });
+      return reviewed;
+    });
+    const nonReviewedOpportunities = _.filter(opportunities, (opportunity) => {
+      let reviewed = false;
+      opportunityReviews.forEach((review) => {
+        if (review.revieweeID === opportunity._id) {
+          reviewed = true;
+        }
+      });
+      return reviewed;
+    });
     switch (state) {
       case 'OK':
         return <p>You have written reviews for the following Courses and Opportunities: <CourseList courses={courses}
                                                                                                     size="medium" />
           <OpportunityList opportunities={opportunities} size="medium" />.</p>;
       case 'Review':
-        return <p>You have the following completed Courses and Opportunities for which you have not written a review:
-          (list unreviewed but completed Courses and Opportunities here).</p>;
+        return <div>
+          <p>You have the following completed Courses and Opportunities for which you have not written a review:</p>
+          <CourseList courses={nonReviewedCourses} size="medium" /><OpportunityList
+          opportunities={nonReviewedOpportunities} size="medium" /></div>;
       default:
         return <React.Fragment />;
     }
@@ -87,12 +110,21 @@ export class ReviewChecklist extends Checklist {
     switch (state) {
       case 'Review':
         return <div>
-          <p>Click &quot;Go To Reviews&quot; to add reviews for your completed Courses or Opportunities</p>
-        </div>;
+          <p>Click &quot;Go To Reviews&quot; to add reviews for your completed Courses or Opportunities.</p>
+          <Button as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${STUDENT_REVIEWS}`}>Go To
+            Reviews</Button></div>;
       case 'OK':
+        return <div>
+          <p>Click &quot;Go to Course Explorer&quot; if you want to see your Course reviews and potentially update them,
+            or click &quot;Go to Opportunity Explorer&quot; if you want to see your Opportunity reviews and potentially
+            update them.</p>
+          <Button as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.COURSES}`}>Go To Course
+            Explorer</Button>
+          <Button as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.OPPORTUNITIES}`}>Go To
+            Opportunity Explorer</Button>
+        </div>;
       default:
         return <React.Fragment />;
-
     }
   }
 }

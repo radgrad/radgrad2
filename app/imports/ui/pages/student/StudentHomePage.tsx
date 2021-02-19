@@ -5,6 +5,7 @@ import { CareerGoalsChecklist } from '../../components/checklist/CareerGoalsChec
 import { CoursesChecklist } from '../../components/checklist/CoursesChecklist';
 import { InterestsChecklist } from '../../components/checklist/InterestsChecklist';
 import { OpportunitiesChecklist } from '../../components/checklist/OpportunitiesChecklist';
+import { ReviewChecklist } from '../../components/checklist/ReviewChecklist';
 import PageLayout from '../PageLayout';
 
 interface StudentHomePageProps {
@@ -26,7 +27,6 @@ This page contains a personalized set of recommendations to help RadGrad help yo
 
 const StudentHomePage: React.FC<StudentHomePageProps> = ({ okItems, reviewItems, improveItems}) => (
   <PageLayout id="student-home-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
-    <Header>Student Home Page Placeholder</Header>
     <Header as="h3" color="red">Improve checklist items</Header>
     {improveItems.map((item) => item)}
     <Header as="h3" color="yellow">Review checklist items</Header>
@@ -47,6 +47,7 @@ export default withTracker(() => {
   checklists.push(new CareerGoalsChecklist('Student Career Goals', currentUser));
   checklists.push(new CoursesChecklist('Student Courses', currentUser));
   checklists.push(new OpportunitiesChecklist('Student Opportunities', currentUser));
+  checklists.push(new ReviewChecklist('Student Reviews', currentUser));
   checklists.forEach((checklist) => {
     checklist.updateState();
     switch (checklist.getState()) {
