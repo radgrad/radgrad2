@@ -9,16 +9,17 @@ import * as Router from './utilities/router';
 interface OpportunityListProps {
   opportunities: Opportunity[];
   size: SemanticSIZES;
+  keyStr: string;
 }
 
-const OpportunityList:React.FC<OpportunityListProps> = ({ opportunities, size }) => {
+const OpportunityList:React.FC<OpportunityListProps> = ({ opportunities, size, keyStr }) => {
   const match = useRouteMatch();
   return (
     <Label.Group size={size}>
       {opportunities.map((opp) => {
         const slug = itemToSlugName(opp);
         return (
-          <Label as={Link} key={opp._id}
+          <Label as={Link} key={`${opp._id}-${keyStr}`}
                  to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${slug}`)}
                  size={size}>
             {opp.name}

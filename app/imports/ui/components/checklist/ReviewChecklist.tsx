@@ -70,37 +70,38 @@ export class ReviewChecklist extends Checklist {
     const cis = CourseInstances.findNonRetired({ studentID, verified: true });
     const courses = _.uniq(cis.map((ci) => Courses.findDoc(ci.courseID)));
     const reviews = Reviews.findNonRetired({ studentID });
+    console.log(reviews);
     const courseReviews = _.filter(reviews, (rev) => rev.reviewType === Reviews.COURSE);
     const opportunityReviews = _.filter(reviews, (rev) => rev.reviewType !== Reviews.COURSE);
     const nonReviewedCourses = _.filter(courses, (course) => {
-      let reviewed = false;
+      let reviewed = true;
       courseReviews.forEach((review) => {
         console.log(review.revieweeID, course._id);
         if (review.revieweeID === course._id) {
-          reviewed = true;
+          reviewed = false;
         }
       });
       return reviewed;
     });
     const nonReviewedOpportunities = _.filter(opportunities, (opportunity) => {
-      let reviewed = false;
+      let reviewed = true;
       opportunityReviews.forEach((review) => {
         if (review.revieweeID === opportunity._id) {
-          reviewed = true;
+          reviewed = false;
         }
       });
       return reviewed;
     });
     switch (state) {
       case 'OK':
-        return <p>You have written reviews for the following Courses and Opportunities: <CourseList courses={courses}
-                                                                                                    size="medium" />
-          <OpportunityList opportunities={opportunities} size="medium" />.</p>;
+        return <p>You have written reviews for the following Courses and Opportunities:
+          <CourseList courses={courses} keyStr="review"                                                              size="medium" />
+          <OpportunityList opportunities={opportunities} size="medium" keyStr="review" />.</p>;
       case 'Review':
         return <div>
           <p>You have the following completed Courses and Opportunities for which you have not written a review:</p>
-          <CourseList courses={nonReviewedCourses} size="medium" /><OpportunityList
-          opportunities={nonReviewedOpportunities} size="medium" /></div>;
+          <CourseList courses={nonReviewedCourses} size="medium" keyStr="review" /><OpportunityList
+          opportunities={nonReviewedOpportunities} size="medium" keyStr="review" /></div>;
       default:
         return <React.Fragment />;
     }
