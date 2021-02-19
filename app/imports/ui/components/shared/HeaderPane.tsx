@@ -1,4 +1,5 @@
 import React from 'react';
+import { Grid } from 'semantic-ui-react';
 import ReactMarkdownWithHtml from 'react-markdown/with-html';
 
 const invertedSection = {
@@ -10,17 +11,23 @@ const invertedSection = {
   paddingRight: '20px',
 };
 const titleStyle = {color: '#6FBE44', fontFamily: 'Nunito', fontSize: '45px', fontWeight: 600};
-const lineStyle = {color: 'white', fontSize: '18px', fontWeight: 400, paddingTop: '18px'};
+const lineStyle = {color: 'white', fontSize: '1.5rem', fontWeight: 400, paddingTop: '18px'};
 
 export interface HeaderPaneProps {
   title: string,
-  body: string
+  body: string,
+  image: string
 }
 
-const HeaderPane: React.FC<HeaderPaneProps> = ({title = 'Default title', body}) => (
+const HeaderPane: React.FC<HeaderPaneProps> = ({title = 'Default title', body, image }) => (
   <div style={invertedSection}>
-    <div style={titleStyle}><ReactMarkdownWithHtml allowDangerousHtml source={title}/></div>
-    { body ? <div style={lineStyle}><ReactMarkdownWithHtml linkTarget="_blank" allowDangerousHtml source={body}/></div> : ''}
+    <Grid>
+      <Grid.Column width={3}><Image src={image} size="medium" /></Grid.Column>
+      <Grid.Column width={13}>
+       <div style={titleStyle}><ReactMarkdownWithHtml allowDangerousHtml source={title}/></div>
+      { body ? <div style={lineStyle}><ReactMarkdownWithHtml linkTarget="_blank" allowDangerousHtml source={body}/></div> : ''}
+      </Grid.Column>
+    </Grid>
   </div>
 );
 

@@ -10,7 +10,20 @@ interface LandingSection9Props {
 }
 const LandingSection9: React.FC<LandingSection9Props> = ({ instanceName, userGuideURL }) => (
   <div id="landing-section-9" style={styles['section-9']}>
-    <Grid doubling stackable container columns={2}>
+    <Grid doubling stackable container columns={3}>
+      <Grid.Column>
+        <div style={styles['ready-to-get-started']}>
+          <Grid>
+            <Grid.Column width={5}><Icon name="sign-in" size='massive'/></Grid.Column>
+            <Grid.Column width={11}>
+              <Header style={styles['inverted-header2']}>
+                Ready to get started?
+              </Header>
+              <RadGradLoginButtons size="huge" instanceName={instanceName} />
+            </Grid.Column>
+          </Grid>
+        </div>
+      </Grid.Column>
       <Grid.Column>
         <div style={styles['ready-to-get-started']}>
           <Grid>

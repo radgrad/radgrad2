@@ -2,6 +2,7 @@ import React from 'react';
 import {Header} from 'semantic-ui-react';
 import PageLayout from '../PageLayout';
 
+const headerPaneImage = '/images/header-img/header-interests.png';
 const headerPaneTitle = 'Make the most of RadGrad';
 const headerPaneBody = `
 This page contains a personalized set of recommendations to help RadGrad help you! It's divided into three sections. Not all of them might be present at any particular time.
@@ -14,7 +15,7 @@ This page contains a personalized set of recommendations to help RadGrad help yo
 `;
 
 const StudentHomePage: React.FC = () => (
-  <PageLayout id="student-home-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
+  <PageLayout id="student-home-page" headerPaneImage={headerPaneImage} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
     <Header>Student Home Page Placeholder</Header>
   </PageLayout>
 );

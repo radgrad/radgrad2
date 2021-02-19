@@ -1,8 +1,9 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { Button, Header, Image, Menu } from 'semantic-ui-react';
+import { Button, Header, Image, Menu, Dropdown } from 'semantic-ui-react';
 import RadGradLogoText from '../shared/RadGradLogoText';
 import RadGradLoginButtons from './RadGradLoginButtons';
+//import styles from "./utilities/landing-styles";
 
 export interface NavBarProps {
   currentUser: string;

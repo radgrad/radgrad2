@@ -1,4 +1,3 @@
-// @ts-ignore
 export default {
   'landing-menu > .item, .landing-menu .right.menu > .item': {
     position: 'initial',
@@ -39,7 +38,7 @@ export default {
   },
   'inverted-main-header': {
     color: 'white',
-    fontSize: 55,
+    fontSize: '4rem',
     lineHeight: 1,
     paddingBottom: 10,
   },
@@ -51,7 +50,7 @@ export default {
     textAlign: 'center',
     paddingRight: 20,
     paddingLeft: 20,
-    fontSize: 20,
+    fontSize: '1.3rem',
   },
   'home-number': {
     color: '#279474',
@@ -117,10 +116,10 @@ export default {
 
   },
   'header-text': {
-    fontSize: 45,
+    fontSize: '2.5rem',
   },
   'header-description': {
-    fontSize: 20,
+    fontSize: '1.3rem',
     textAlign: 'center',
     paddingRight: 100,
     paddingLeft: 100,
@@ -179,5 +178,9 @@ export default {
     padding: 20,
     width: 120,
 
+  },
+  'explorer-dropdown':{
+    marginRight: 10,
+    backgroundColor: '#279474',
   },
 } as React.CSSProperties;
