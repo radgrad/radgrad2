@@ -9,7 +9,6 @@ interface State {
   pagination: {
     AcademicTermCollection: PaginationState;
     AcademicYearInstanceCollection: PaginationState;
-    AdvisorLogCollection: PaginationState;
     CareerGoalCollection: PaginationState;
     CourseInstanceCollection: PaginationState;
     CourseCollection: PaginationState;
@@ -43,10 +42,6 @@ const initialState: State = {
       showCount: 25,
     },
     AcademicYearInstanceCollection: {
-      showIndex: 0,
-      showCount: 25,
-    },
-    AdvisorLogCollection: {
       showIndex: 0,
       showCount: 25,
     },
@@ -188,32 +183,6 @@ export function reducer(state: State = initialState, action): State {
         pagination: {
           ...paginationState,
           AcademicYearInstanceCollection: {
-            ...collect,
-            showCount: action.payload,
-          },
-        },
-      };
-      return s;
-    case TYPES.SET_ADVISOR_LOGS_SHOW_INDEX:
-      collect = paginationState.AdvisorLogCollection;
-      s = {
-        ...state,
-        pagination: {
-          ...paginationState,
-          AdvisorLogCollection: {
-            ...collect,
-            showIndex: action.payload,
-          },
-        },
-      };
-      return s;
-    case TYPES.SET_ADVISOR_LOGS_SHOW_COUNT:
-      collect = paginationState.AdvisorLogCollection;
-      s = {
-        ...state,
-        pagination: {
-          ...paginationState,
-          AdvisorLogCollection: {
             ...collect,
             showCount: action.payload,
           },
@@ -500,32 +469,6 @@ export function reducer(state: State = initialState, action): State {
         pagination: {
           ...paginationState,
           OpportunityTypeCollection: {
-            ...collect,
-            showCount: action.payload,
-          },
-        },
-      };
-      return s;
-    case TYPES.SET_PLAN_CHOICES_SHOW_INDEX:
-      collect = paginationState.PlanChoiceCollection;
-      s = {
-        ...state,
-        pagination: {
-          ...paginationState,
-          PlanChoiceCollection: {
-            ...collect,
-            showIndex: action.payload,
-          },
-        },
-      };
-      return s;
-    case TYPES.SET_PLAN_CHOICES_SHOW_COUNT:
-      collect = paginationState.PlanChoiceCollection;
-      s = {
-        ...state,
-        pagination: {
-          ...paginationState,
-          PlanChoiceCollection: {
             ...collect,
             showCount: action.payload,
           },

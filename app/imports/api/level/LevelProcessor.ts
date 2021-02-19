@@ -144,15 +144,6 @@ export function updateStudentLevel(advisor, studentID) {
   }
   const profile = StudentProfiles.getProfile(studentID);
   if (profile.level !== level) {
-    const text = `Congratulations! ${profile.firstName} you're now Level ${level}.
-         Come by to get your RadGrad sticker.`;
-    // send email notification to student. issue-199
-    const student = studentID;
-    defineMethod.call({ collectionName: 'AdvisorLogCollection', definitionData: { advisor, student, text } }, (error) => {
-      if (error) {
-        console.error('Error creating AdvisorLog.', error);
-      }
-    });
     const feedData = {
       feedType: Feeds.NEW_LEVEL,
       user: profile.username,

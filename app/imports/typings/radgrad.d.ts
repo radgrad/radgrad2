@@ -53,10 +53,6 @@ export interface Pagination {
     showIndex: number;
     showCount: number;
   };
-  AdvisorLogCollection?: {
-    showIndex: number;
-    showCount: number;
-  };
   CareerGoalCollection?: {
     showIndex: number;
     showCount: number;
