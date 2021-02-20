@@ -14,7 +14,6 @@ interface State {
     CourseCollection: PaginationState;
     FeedCollection: PaginationState;
     FeedbackInstanceCollection: PaginationState;
-    HelpMessageCollection: PaginationState;
     InterestCollection: PaginationState;
     InterestTypeCollection: PaginationState;
     OpportunityCollection: PaginationState;
@@ -62,10 +61,6 @@ const initialState: State = {
       showCount: 25,
     },
     FeedbackInstanceCollection: {
-      showIndex: 0,
-      showCount: 25,
-    },
-    HelpMessageCollection: {
       showIndex: 0,
       showCount: 25,
     },
@@ -313,32 +308,6 @@ export function reducer(state: State = initialState, action): State {
         pagination: {
           ...paginationState,
           FeedbackInstanceCollection: {
-            ...collect,
-            showCount: action.payload,
-          },
-        },
-      };
-      return s;
-    case TYPES.SET_HELP_MESSAGES_SHOW_INDEX:
-      collect = paginationState.HelpMessageCollection;
-      s = {
-        ...state,
-        pagination: {
-          ...paginationState,
-          HelpMessageCollection: {
-            ...collect,
-            showIndex: action.payload,
-          },
-        },
-      };
-      return s;
-    case TYPES.SET_HELP_MESSAGES_SHOW_COUNT:
-      collect = paginationState.HelpMessageCollection;
-      s = {
-        ...state,
-        pagination: {
-          ...paginationState,
-          HelpMessageCollection: {
             ...collect,
             showCount: action.payload,
           },

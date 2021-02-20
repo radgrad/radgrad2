@@ -4,8 +4,7 @@ import {useParams, useRouteMatch} from 'react-router-dom';
 import {withTracker} from 'meteor/react-meteor-data';
 import {Grid, Header, Segment} from 'semantic-ui-react';
 import {Courses} from '../../../api/course/CourseCollection';
-import {HelpMessages} from '../../../api/help/HelpMessageCollection';
-import {Course, HelpMessage} from '../../../typings/radgrad';
+import {Course} from '../../../typings/radgrad';
 import {Slugs} from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/explorer/LandingExplorerMenu';
 import {Interests} from '../../../api/interest/InterestCollection';
@@ -18,7 +17,6 @@ import PageLayout from '../PageLayout';
 
 interface CourseExplorerProps {
   course: Course;
-  helpMessages: HelpMessage[];
 }
 
 const headerPaneTitle = 'The Course Explorer';
@@ -34,7 +32,7 @@ This public explorer does not show reviews or the forecasts for future semesters
  * @return {JSX.Element}
  * @constructor
  */
-const LandingCourseExplorerPage: React.FC<CourseExplorerProps> = ({helpMessages, course}) => {
+const LandingCourseExplorerPage: React.FC<CourseExplorerProps> = ({course}) => {
   const match = useRouteMatch();
   return (
     <div>
@@ -92,11 +90,9 @@ const LandingCourseExplorerPage: React.FC<CourseExplorerProps> = ({helpMessages,
 const LandingCourseExplorerContainer = withTracker(() => {
   const {course} = useParams();
   const id = Slugs.getEntityID(course, 'Course');
-  const helpMessages = HelpMessages.findNonRetired({});
   return {
     course: Courses.findDoc(id),
-    helpMessages,
   };
 })(LandingCourseExplorerPage);
 
-export default withListSubscriptions(LandingCourseExplorerContainer, [Courses.getPublicationName(), Slugs.getPublicationName(), Interests.getPublicationName(), HelpMessages.getPublicationName()]);
+export default withListSubscriptions(LandingCourseExplorerContainer, [Courses.getPublicationName(), Slugs.getPublicationName(), Interests.getPublicationName()]);

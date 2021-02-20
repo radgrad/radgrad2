@@ -3,7 +3,6 @@ import React from 'react';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
@@ -40,7 +39,6 @@ const ForecastPage: React.FC<ForecastPageProps> = ({ courses, courseScores, oppo
 
 const ForecastPageContainer = withTracker(() => {
   const courses = Courses.findNonRetired({ num: { $ne: 'other' } }, { sort: { num: 1 } });
-  const helpMessages = HelpMessages.findNonRetired({});
   const opportunities = Opportunities.findNonRetired({}, { sort: { name: 1 } });
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
   const isQuarterSystem = RadGradProperties.getQuarterSystem();
@@ -57,7 +55,6 @@ const ForecastPageContainer = withTracker(() => {
   return {
     courses,
     courseScores,
-    helpMessages,
     opportunities,
     oppScores,
     terms,

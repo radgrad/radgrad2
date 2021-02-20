@@ -10,7 +10,6 @@ import { CourseInstances } from '../course/CourseInstanceCollection';
 import { FacultyProfiles } from '../user/FacultyProfileCollection';
 import { FeedbackInstances } from '../feedback/FeedbackInstanceCollection';
 import { Feeds } from '../feed/FeedCollection';
-import { HelpMessages } from '../help/HelpMessageCollection';
 import { IceSnapshots } from '../analytic/IceSnapshotCollection';
 import { Interests } from '../interest/InterestCollection';
 import { InterestTypes } from '../interest/InterestTypeCollection';
@@ -64,7 +63,6 @@ class RadGradClass {
       FavoriteOpportunities,
       Feeds,
       FeedbackInstances,
-      HelpMessages,
       IceSnapshots,
       Interests,
       InterestTypes,
@@ -92,7 +90,6 @@ class RadGradClass {
      */
     this.collectionLoadSequence = [
       AcademicTerms,
-      HelpMessages,
       InterestTypes,
       Interests,
       CareerGoals,

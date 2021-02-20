@@ -5,10 +5,8 @@ import { Container, Grid } from 'semantic-ui-react';
 import _ from 'lodash';
 import { Reviews } from '../../../../api/review/ReviewCollection';
 import { getMenuWidget } from '../utilities/getMenuWidget';
-import { HelpMessages } from '../../../../api/help/HelpMessageCollection';
-import HelpPanelWidget from '../../../components/shared/HelpPanelWidget';
 import ExplorerMenu from '../../../components/shared/explorer/item-view/ExplorerMenu';
-import { Course, DescriptionPair, FavoriteCourse, HelpMessage, Review } from '../../../../typings/radgrad';
+import { Course, DescriptionPair, FavoriteCourse, Review } from '../../../../typings/radgrad';
 import { Courses } from '../../../../api/course/CourseCollection';
 import { FavoriteCourses } from '../../../../api/favorite/FavoriteCourseCollection';
 import { Users } from '../../../../api/user/UserCollection';
@@ -23,7 +21,6 @@ import { Slugs } from '../../../../api/slug/SlugCollection';
 interface CourseViewPageProps {
   favoriteCourses: FavoriteCourse[];
   course: Course;
-  helpMessages: HelpMessage[];
   itemReviews: Review[];
 }
 
@@ -103,7 +100,7 @@ const isCourseCompleted = (courseSlugName, match): boolean => {
   return ret;
 };
 
-const CourseViewPage: React.FC<CourseViewPageProps> = ({ favoriteCourses, course, helpMessages, itemReviews }) => {
+const CourseViewPage: React.FC<CourseViewPageProps> = ({ favoriteCourses, course, itemReviews }) => {
   const match = useRouteMatch();
   const menuAddedList = _.map(favoriteCourses, (f) => ({
     item: Courses.findDoc(f.courseID),
@@ -118,11 +115,6 @@ const CourseViewPage: React.FC<CourseViewPageProps> = ({ favoriteCourses, course
       {getMenuWidget(match)}
       <Container style={pushDownStyle}>
         <Grid stackable>
-          <Grid.Row className="helpPanel">
-            <Grid.Column width={16}>
-              <HelpPanelWidget helpMessages={helpMessages} />
-            </Grid.Column>
-          </Grid.Row>
           <Grid.Row>
             <Grid.Column width={3}>
               <ExplorerMenu menuAddedList={menuAddedList} type="courses" />
@@ -143,12 +135,10 @@ const CourseViewPageContainer = withTracker(() => {
   const courseDoc = Courses.findDocBySlug(course);
   const profile = Users.getProfile(username);
   const favoriteCourses = FavoriteCourses.findNonRetired({ studentID: profile.userID });
-  const helpMessages = HelpMessages.findNonRetired({});
   const itemReviews = Reviews.findNonRetired({ revieweeID: courseDoc._id });
   return {
     course: courseDoc,
     favoriteCourses,
-    helpMessages,
     itemReviews,
   };
 })(CourseViewPage);

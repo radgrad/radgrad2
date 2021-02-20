@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
-import { defineMethod, removeItMethod, updateMethod } from '../base/BaseCollection.methods';
+import { defineMethod, removeItMethod, updateMethod } from '../../../app/imports/api/base/BaseCollection.methods';
 import { HelpMessages } from './HelpMessageCollection';
-import { defineTestFixturesMethod, withRadGradSubscriptions, withLoggedInUser } from '../test/test-utilities';
+import { defineTestFixturesMethod, withRadGradSubscriptions, withLoggedInUser } from '../../../app/imports/api/test/test-utilities';
 
 /* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
 /* eslint-env mocha */

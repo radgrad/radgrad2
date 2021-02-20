@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Button, Grid } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { useParams } from 'react-router-dom';
-import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import AdvisorStudentSelectorWidget from '../../components/advisor/home/AdvisorStudentSelectorWidget';
 import AdvisorUpdateStudentWidget from '../../components/advisor/home/AdvisorUpdateStudentWidget';
 import AdvisorStarUploadWidget from '../../components/advisor/home/AdvisorStarUploadWidget';
@@ -90,12 +89,10 @@ const AdvisorManageStudentsTracker = withTracker(({ selectedUsername }) => {
   const careerGoals = CareerGoals.findNonRetired({});
   const students = StudentProfiles.findNonRetired({ isAlumni: false }, { sort: { username: 1 } });
   const alumni = StudentProfiles.findNonRetired({ isAlumni: true }, { sort: { username: 1 } });
-  const helpMessages = HelpMessages.findNonRetired({});
   return {
     usernameDoc,
     interests,
     careerGoals,
-    helpMessages,
     students,
     alumni,
   };

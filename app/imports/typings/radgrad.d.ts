@@ -73,10 +73,6 @@ export interface Pagination {
     showIndex: number;
     showCount: number;
   };
-  HelpMessageCollection?: {
-    showIndex: number;
-    showCount: number;
-  };
   InterestCollection?: {
     showIndex: number;
     showCount: number;
@@ -460,28 +456,6 @@ export interface FeedbackInstanceUpdate extends Update {
   functionName?: string;
   description?: string;
   feedbackType?: string;
-  retired?: boolean;
-}
-
-// Help Messages
-export interface HelpMessage {
-  _id: string;
-  routeName: string;
-  title: string;
-  text: string;
-  retired: boolean;
-}
-export interface HelpMessageDefine extends DumpOne {
-  routeName: string;
-  title: string;
-  text: string;
-  retired?: boolean;
-}
-
-export interface HelpMessageUpdate extends Update {
-  routeName?: string;
-  title?: string;
-  text?: string;
   retired?: boolean;
 }
 
