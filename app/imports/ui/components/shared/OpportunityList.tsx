@@ -1,5 +1,5 @@
 import React from 'react';
-import { Label, SemanticSIZES } from 'semantic-ui-react';
+import { Icon, Label, SemanticSIZES } from 'semantic-ui-react';
 import { Link, useRouteMatch } from 'react-router-dom';
 import { Opportunity } from '../../../typings/radgrad';
 import { EXPLORER_TYPE } from '../../layouts/utilities/route-constants';
@@ -22,6 +22,7 @@ const OpportunityList:React.FC<OpportunityListProps> = ({ opportunities, size, k
           <Label as={Link} key={`${opp._id}-${keyStr}`}
                  to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${slug}`)}
                  size={size}>
+            <Icon name="bolt" />
             {opp.name}
           </Label>
         );

@@ -51,7 +51,7 @@ export default withTracker(() => {
   checklists.push(new CoursesChecklist('Student Courses', currentUser));
   checklists.push(new OpportunitiesChecklist('Student Opportunities', currentUser));
   checklists.push(new ReviewChecklist('Student Reviews', currentUser));
-  checklists.push(new VerificationChecklist('Student Verificaton', currentUser));
+  checklists.push(new VerificationChecklist('Student Verification', currentUser));
   checklists.forEach((checklist) => {
     checklist.updateState();
     switch (checklist.getState()) {

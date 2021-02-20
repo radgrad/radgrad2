@@ -1,5 +1,5 @@
 import React from 'react';
-import { Label, SemanticSIZES } from 'semantic-ui-react';
+import { Icon, Label, SemanticSIZES } from 'semantic-ui-react';
 import { Link, useRouteMatch } from 'react-router-dom';
 import { Course } from '../../../typings/radgrad';
 import { EXPLORER_TYPE } from '../../layouts/utilities/route-constants';
@@ -22,6 +22,7 @@ const CourseList: React.FC<CourseListProps> = ({ courses, size, keyStr }) => {
           <Label as={Link} key={`${course._id}-${keyStr}`}
                  to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${slug}`)}
                  size={size}>
+            <Icon name="book"/>
             {course.num}
           </Label>
         );
