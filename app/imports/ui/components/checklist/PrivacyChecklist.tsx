@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { ChecklistState } from '../../../api/checklist/ChecklistState';
 import { Users } from '../../../api/user/UserCollection';
 import { StudentProfile } from '../../../typings/radgrad';
-import { LEVELS, PRIVACY, URL_ROLES } from '../../layouts/utilities/route-constants';
+import { PRIVACY, URL_ROLES } from '../../layouts/utilities/route-constants';
 import StudentPrivacySettingList from '../student/StudentPrivacySettingList';
 import { Checklist } from './Checklist';
 
