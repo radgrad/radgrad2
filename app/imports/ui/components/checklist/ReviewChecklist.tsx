@@ -42,9 +42,9 @@ export class ReviewChecklist extends Checklist {
   public getTitle(state: ChecklistState): JSX.Element {
     switch (state) {
       case 'Review':
-        return <Header>Please consider writing reviews for your completed Courses and Opportunities.</Header>;
+        return <Header>Please consider writing reviews for your completed Courses and Opportunities</Header>;
       case 'OK':
-        return <Header>Thanks for having written reviews.</Header>;
+        return <Header>Thanks for having written reviews</Header>;
       default:
         return <React.Fragment />;
     }

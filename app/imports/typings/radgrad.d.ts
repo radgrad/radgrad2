@@ -831,6 +831,8 @@ export interface StudentProfile extends Profile {
   lastVisitedCourses?: string;
   lastVisitedInterests?: string;
   lastVisitedOpportunities?: string;
+  lastVisitedPrivacy?: string;
+  lastLeveledUp?: string;
   acceptedTermsAndConditions?: string;
 }
 
@@ -854,6 +856,8 @@ export interface StudentProfileDefine extends ProfileDefine {
   lastVisitedCourses?: string;
   lastVisitedInterests?: string;
   lastVisitedOpportunities?: string;
+  lastVisitedPrivacy?: string;
+  lastLeveledUp?: string;
   acceptedTermsAndConditions?: string;
 }
 
@@ -877,6 +881,8 @@ export interface StudentProfileUpdate extends ProfileUpdate {
   lastVisitedCourses?: string;
   lastVisitedInterests?: string;
   lastVisitedOpportunities?: string;
+  lastVisitedPrivacy?: string;
+  lastLeveledUp?: string;
   acceptedTermsAndConditions?: string;
 }
 
@@ -899,6 +905,8 @@ export interface StudentProfileUpdateData {
   lastVisitedCourses?: string;
   lastVisitedInterests?: string;
   lastVisitedOpportunities?: string;
+  lastVisitedPrivacy?: string;
+  lastLeveledUp?: string;
   acceptedTermsAndConditions?: string;
 }
 

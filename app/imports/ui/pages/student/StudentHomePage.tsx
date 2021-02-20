@@ -4,7 +4,9 @@ import {Header} from 'semantic-ui-react';
 import { CareerGoalsChecklist } from '../../components/checklist/CareerGoalsChecklist';
 import { CoursesChecklist } from '../../components/checklist/CoursesChecklist';
 import { InterestsChecklist } from '../../components/checklist/InterestsChecklist';
+import { LevelChecklist } from '../../components/checklist/LevelChecklist';
 import { OpportunitiesChecklist } from '../../components/checklist/OpportunitiesChecklist';
+import { PrivacyChecklist } from '../../components/checklist/PrivacyChecklist';
 import { ReviewChecklist } from '../../components/checklist/ReviewChecklist';
 import { TermsAndConditionsChecklist } from '../../components/checklist/TermsAndConditionsChecklist';
 import { VerificationChecklist } from '../../components/checklist/VerificationChecklist';
@@ -52,6 +54,8 @@ export default withTracker(() => {
   checklists.push(new OpportunitiesChecklist('Student Opportunities', currentUser));
   checklists.push(new ReviewChecklist('Student Reviews', currentUser));
   checklists.push(new VerificationChecklist('Student Verification', currentUser));
+  checklists.push(new LevelChecklist('Student Levels', currentUser));
+  checklists.push(new PrivacyChecklist('Student Privacy', currentUser));
   checklists.forEach((checklist) => {
     checklist.updateState();
     switch (checklist.getState()) {

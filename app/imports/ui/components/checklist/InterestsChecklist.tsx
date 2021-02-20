@@ -48,11 +48,11 @@ export class InterestsChecklist extends Checklist {
   public getTitle(state: ChecklistState): JSX.Element {
     switch (state) {
       case 'OK':
-        return <Header>Your Interests appear to be OK.</Header>;
+        return <Header>Your Interests appear to be OK</Header>;
       case 'Review':
-        return <Header>Please confirm that your current Interests are OK.</Header>;
+        return <Header>Please confirm that your current Interests are OK</Header>;
       case 'Improve':
-        return <Header>Please add at least three Interests to your profile.</Header>;
+        return <Header>Please add at least three Interests to your profile</Header>;
       default:
         return <React.Fragment />;
     }

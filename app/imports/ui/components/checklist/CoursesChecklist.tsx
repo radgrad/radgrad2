@@ -49,12 +49,12 @@ export class CoursesChecklist extends Checklist {
   public getTitle(state: ChecklistState): JSX.Element {
     switch (state) {
       case 'OK':
-        return <Header>The Courses in your Degree Plan appear to be OK.</Header>;
+        return <Header>The Courses in your Degree Plan appear to be OK</Header>;
       case 'Review':
-        return <Header>Please confirm that the courses in your Degree Plan are correct.</Header>;
+        return <Header>Please confirm that the courses in your Degree Plan are correct</Header>;
       case 'Improve':
         return <Header>Please add more future Courses to your degree plan so that you are on track to earn 100
-          Competency points.</Header>;
+          Competency points</Header>;
       default:
         return <React.Fragment />;
     }

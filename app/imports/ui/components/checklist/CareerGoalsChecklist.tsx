@@ -50,11 +50,11 @@ export class CareerGoalsChecklist extends Checklist {
   public getTitle(state: ChecklistState): JSX.Element {
     switch (state) {
       case 'OK':
-        return <Header>Your Career Goals appear to be OK.</Header>;
+        return <Header>Your Career Goals appear to be OK</Header>;
       case 'Review':
-        return <Header>Please confirm that your current Career Goals are OK.</Header>;
+        return <Header>Please confirm that your current Career Goals are OK</Header>;
       case 'Improve':
-        return <Header>Please add at least three Career Goals to your profile.</Header>;
+        return <Header>Please add at least three Career Goals to your profile</Header>;
       default:
         return <React.Fragment />;
     }
