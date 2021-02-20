@@ -5,7 +5,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> api/level</title>
+  <title> Checklist</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -73,8 +73,8 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Namespace</p>
-                    <h1>api/level</h1>
+                    <p>Class</p>
+                    <h1>Checklist</h1>
                 </header>
                 
 
@@ -85,7 +85,9 @@
 
 <header>
     
-        <h2>api/level</h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>Checklist<span class="signature">()</span><span class="type-signature"></span></h2>
+        
+            <div class="class-description"><p>Base class for all checklist items.</p></div>
         
     
 </header>
@@ -94,8 +96,40 @@
     <div class="container-overview">
     
         
+            <div class='vertical-section'>
+                <div class="members">
+                    <div class="member">
+                        <div class=name>
+                            <span class="tag">Constructor</span>
+                        </div>
+                        
 
+
+    
+    <h4 class="name" id="Checklist">
+        <a class="href-link" href="#Checklist">#</a>
         
+        <span class="code-name">
+            
+                new Checklist<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
 
 
 <dl class="details">
@@ -131,21 +165,53 @@
 
     
         <p class="tag-source">
-            <a href="api_level_index.ts.html" class="button">View Source</a>
+            <a href="ui_components_checklist_Checklist.tsx.html" class="button">View Source</a>
             <span>
-                <a href="api_level_index.ts.html">api/level/index.ts</a>, <a href="api_level_index.ts.html#line2">line 2</a>
+                <a href="ui_components_checklist_Checklist.tsx.html">ui/components/checklist/Checklist.tsx</a>, <a href="ui_components_checklist_Checklist.tsx.html#line8">line 8</a>
             </span>
         </p>
     
 </dl>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
         
     
     </div>
     
     
 
+    
+
+    
+        <h3 class="subsection-title">Classes</h3>
+
+        <dl>
+            <dt><a href="Checklist.html">Checklist</a></dt>
+            <dd></dd>
+        </dl>
     
 
     
@@ -158,32 +224,38 @@
 
     
         <div class='vertical-section'>
-            <h1>Members</h1>
+            <h1>Methods</h1>
             <div class="members">
             
                 <div class="member">
 
-<h4 class="name" id=".exports.calcLevelMethod">
-    <a class="href-link" href="#.exports.calcLevelMethod">#</a>
+
     
+    <h4 class="name" id="getActions">
+        <a class="href-link" href="#getActions">#</a>
         
-            <span class='tag'>static</span>
-        
-            <span class='tag'>constant</span>
-        
+        <span class="code-name">
+            
+                getActions<span class="signature">()</span><span class="type-signature"> &rarr; {JSX.Element}</span>
+            
+        </span>
+    </h4>
     
-    <span class="code-name">
-        exports.calcLevelMethod
-    </span>
+
     
-</h4>
+    
+    <div class="description">
+        <p>Returns the actions section of the checklist item.</p>
+    </div>
+    
 
 
 
 
-<div class="description">
-    <p>The LevelProcessor calcLevel ValidatedMethod.</p>
-</div>
+
+
+
+
 
 
 
@@ -222,14 +294,53 @@
 
     
         <p class="tag-source">
-            <a href="api_level_LevelProcessor.methods.ts.html" class="button">View Source</a>
+            <a href="ui_components_checklist_Checklist.tsx.html" class="button">View Source</a>
             <span>
-                <a href="api_level_LevelProcessor.methods.ts.html">api/level/LevelProcessor.methods.ts</a>, <a href="api_level_LevelProcessor.methods.ts.html#line13">line 13</a>
+                <a href="ui_components_checklist_Checklist.tsx.html">ui/components/checklist/Checklist.tsx</a>, <a href="ui_components_checklist_Checklist.tsx.html#line54">line 54</a>
             </span>
         </p>
     
 </dl>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<span class="param-type">JSX.Element</span>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
 
 
 
@@ -238,27 +349,33 @@
             
                 <div class="member">
 
-<h4 class="name" id=".exports.defaultCalcLevel">
-    <a class="href-link" href="#.exports.defaultCalcLevel">#</a>
+
     
+    <h4 class="name" id="getDescription">
+        <a class="href-link" href="#getDescription">#</a>
         
-            <span class='tag'>static</span>
-        
-            <span class='tag'>constant</span>
-        
+        <span class="code-name">
+            
+                getDescription<span class="signature">()</span><span class="type-signature"> &rarr; {JSX.Element}</span>
+            
+        </span>
+    </h4>
     
-    <span class="code-name">
-        exports.defaultCalcLevel
-    </span>
+
     
-</h4>
+    
+    <div class="description">
+        <p>Returns the description section of the checklist item.</p>
+    </div>
+    
 
 
 
 
-<div class="description">
-    <p>Calculates the given student's Level.</p>
-</div>
+
+
+
+
 
 
 
@@ -297,14 +414,53 @@
 
     
         <p class="tag-source">
-            <a href="api_level_LevelProcessor.ts.html" class="button">View Source</a>
+            <a href="ui_components_checklist_Checklist.tsx.html" class="button">View Source</a>
             <span>
-                <a href="api_level_LevelProcessor.ts.html">api/level/LevelProcessor.ts</a>, <a href="api_level_LevelProcessor.ts.html#line19">line 19</a>
+                <a href="ui_components_checklist_Checklist.tsx.html">ui/components/checklist/Checklist.tsx</a>, <a href="ui_components_checklist_Checklist.tsx.html#line40">line 40</a>
             </span>
         </p>
     
 </dl>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<span class="param-type">JSX.Element</span>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
 
 
 
@@ -313,27 +469,33 @@
             
                 <div class="member">
 
-<h4 class="name" id=".exports.updateAllStudentLevels">
-    <a class="href-link" href="#.exports.updateAllStudentLevels">#</a>
+
     
+    <h4 class="name" id="getDetails">
+        <a class="href-link" href="#getDetails">#</a>
         
-            <span class='tag'>static</span>
-        
-            <span class='tag'>constant</span>
-        
+        <span class="code-name">
+            
+                getDetails<span class="signature">()</span><span class="type-signature"> &rarr; {JSX.Element}</span>
+            
+        </span>
+    </h4>
     
-    <span class="code-name">
-        exports.updateAllStudentLevels
-    </span>
+
     
-</h4>
+    
+    <div class="description">
+        <p>Returns the details section of the checklist item.</p>
+    </div>
+    
 
 
 
 
-<div class="description">
-    <p>Updates all the students level.</p>
-</div>
+
+
+
+
 
 
 
@@ -372,14 +534,53 @@
 
     
         <p class="tag-source">
-            <a href="api_level_LevelProcessor.ts.html" class="button">View Source</a>
+            <a href="ui_components_checklist_Checklist.tsx.html" class="button">View Source</a>
             <span>
-                <a href="api_level_LevelProcessor.ts.html">api/level/LevelProcessor.ts</a>, <a href="api_level_LevelProcessor.ts.html#line174">line 174</a>
+                <a href="ui_components_checklist_Checklist.tsx.html">ui/components/checklist/Checklist.tsx</a>, <a href="ui_components_checklist_Checklist.tsx.html#line47">line 47</a>
             </span>
         </p>
     
 </dl>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<span class="param-type">JSX.Element</span>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
 
 
 
@@ -388,27 +589,33 @@
             
                 <div class="member">
 
-<h4 class="name" id=".exports.updateAllStudentLevelsMethod">
-    <a class="href-link" href="#.exports.updateAllStudentLevelsMethod">#</a>
+
     
+    <h4 class="name" id="getName">
+        <a class="href-link" href="#getName">#</a>
         
-            <span class='tag'>static</span>
-        
-            <span class='tag'>constant</span>
-        
+        <span class="code-name">
+            
+                getName<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span>
+            
+        </span>
+    </h4>
     
-    <span class="code-name">
-        exports.updateAllStudentLevelsMethod
-    </span>
+
     
-</h4>
+    
+    <div class="description">
+        <p>Returns the name of the checklist.</p>
+    </div>
+    
 
 
 
 
-<div class="description">
-    <p>The LevelProcessor update all students' level validated method.</p>
-</div>
+
+
+
+
 
 
 
@@ -447,14 +654,53 @@
 
     
         <p class="tag-source">
-            <a href="api_level_LevelProcessor.methods.ts.html" class="button">View Source</a>
+            <a href="ui_components_checklist_Checklist.tsx.html" class="button">View Source</a>
             <span>
-                <a href="api_level_LevelProcessor.methods.ts.html">api/level/LevelProcessor.methods.ts</a>, <a href="api_level_LevelProcessor.methods.ts.html#line52">line 52</a>
+                <a href="ui_components_checklist_Checklist.tsx.html">ui/components/checklist/Checklist.tsx</a>, <a href="ui_components_checklist_Checklist.tsx.html#line26">line 26</a>
             </span>
         </p>
     
 </dl>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<span class="param-type">string</span>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
 
 
 
@@ -463,27 +709,33 @@
             
                 <div class="member">
 
-<h4 class="name" id=".exports.updateLevelMethod">
-    <a class="href-link" href="#.exports.updateLevelMethod">#</a>
+
     
+    <h4 class="name" id="getTitle">
+        <a class="href-link" href="#getTitle">#</a>
         
-            <span class='tag'>static</span>
-        
-            <span class='tag'>constant</span>
-        
+        <span class="code-name">
+            
+                getTitle<span class="signature">()</span><span class="type-signature"> &rarr; {JSX.Element}</span>
+            
+        </span>
+    </h4>
     
-    <span class="code-name">
-        exports.updateLevelMethod
-    </span>
+
     
-</h4>
+    
+    <div class="description">
+        <p>Returns the title of the checklist item.</p>
+    </div>
+    
 
 
 
 
-<div class="description">
-    <p>The LevelProcessor updateLevel ValidatedMethod.</p>
-</div>
+
+
+
+
 
 
 
@@ -522,14 +774,53 @@
 
     
         <p class="tag-source">
-            <a href="api_level_LevelProcessor.methods.ts.html" class="button">View Source</a>
+            <a href="ui_components_checklist_Checklist.tsx.html" class="button">View Source</a>
             <span>
-                <a href="api_level_LevelProcessor.methods.ts.html">api/level/LevelProcessor.methods.ts</a>, <a href="api_level_LevelProcessor.methods.ts.html#line34">line 34</a>
+                <a href="ui_components_checklist_Checklist.tsx.html">ui/components/checklist/Checklist.tsx</a>, <a href="ui_components_checklist_Checklist.tsx.html#line33">line 33</a>
             </span>
         </p>
     
 </dl>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<span class="param-type">JSX.Element</span>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
 
 
 
@@ -538,27 +829,37 @@
             
                 <div class="member">
 
-<h4 class="name" id=".exports.updateStudentLevel">
-    <a class="href-link" href="#.exports.updateStudentLevel">#</a>
+
     
+    <h4 class="name" id="updateState">
+        <a class="href-link" href="#updateState">#</a>
         
-            <span class='tag'>static</span>
+            
+                <span class='tag'>protected</span>
+            
         
-            <span class='tag'>constant</span>
-        
+        <span class="code-name">
+            
+                updateState<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
     
-    <span class="code-name">
-        exports.updateStudentLevel
-    </span>
+
     
-</h4>
+    
+    <div class="description">
+        <p>Updates the state of this Checklist.</p>
+    </div>
+    
 
 
 
 
-<div class="description">
-    <p>Updates the student's level.</p>
-</div>
+
+
+
+
 
 
 
@@ -597,13 +898,29 @@
 
     
         <p class="tag-source">
-            <a href="api_level_LevelProcessor.ts.html" class="button">View Source</a>
+            <a href="ui_components_checklist_Checklist.tsx.html" class="button">View Source</a>
             <span>
-                <a href="api_level_LevelProcessor.ts.html">api/level/LevelProcessor.ts</a>, <a href="api_level_LevelProcessor.ts.html#line141">line 141</a>
+                <a href="ui_components_checklist_Checklist.tsx.html">ui/components/checklist/Checklist.tsx</a>, <a href="ui_components_checklist_Checklist.tsx.html#line16">line 16</a>
             </span>
         </p>
     
 </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -613,8 +930,6 @@
             
             </div>
         </div>
-    
-
     
 
     
