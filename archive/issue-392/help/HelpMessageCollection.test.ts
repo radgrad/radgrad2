@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import fc from 'fast-check';
 import faker from 'faker';
 import 'mocha';
-import { removeAllEntities } from '../base/BaseUtilities';
+import { removeAllEntities } from '../../../app/imports/api/base/BaseUtilities';
 import { HelpMessages } from './HelpMessageCollection';
 
 /* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */

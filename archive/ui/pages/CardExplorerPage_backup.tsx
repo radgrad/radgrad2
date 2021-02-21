@@ -20,7 +20,7 @@ import {
   Interest,
   Opportunity,
 } from "../../../app/imports/typings/radgrad";
-import HelpPanelWidget from "../../../app/imports/ui/components/shared/HelpPanelWidget";
+import HelpPanelWidget from "../../issue-392/HelpPanelWidget";
 import * as Router from "../../../app/imports/ui/components/shared/utilities/router";
 import {
   EXPLORER_TYPE,

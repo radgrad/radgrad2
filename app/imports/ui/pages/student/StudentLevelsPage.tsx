@@ -3,17 +3,15 @@ import { useParams } from 'react-router-dom';
 import React from 'react';
 import { Grid, Card, Image } from 'semantic-ui-react';
 import _ from 'lodash';
-import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import StudentLevelsWidget from '../../components/student/levels/StudentLevelsWidget';
 import StudentLevelsOthersWidget from '../../components/student/levels/StudentLevelsOthersWidget';
 import { Users } from '../../../api/user/UserCollection';
-import { StudentProfile, HelpMessage } from '../../../typings/radgrad';
+import { StudentProfile } from '../../../typings/radgrad';
 import { ROLE } from '../../../api/role/Role';
 import PageLayout from '../PageLayout';
 
 interface StudentLevelsPageProps {
   profile: StudentProfile;
-  helpMessages: HelpMessage[];
   students: StudentProfile[];
 }
 
@@ -24,7 +22,7 @@ RadGrad helps you mark your progress with six Levels.
 This page helps you learn about Levels and how to reach the next one from where you are now.
 `;
 
-const StudentLevelsPage: React.FC<StudentLevelsPageProps> = ({ profile, students, helpMessages }) => (
+const StudentLevelsPage: React.FC<StudentLevelsPageProps> = ({ profile, students }) => (
   <PageLayout id="student-levels-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
     <Grid stackable>
         <Grid.Row>
@@ -130,13 +128,11 @@ const getStudentsAtSameLevel = (profiles, currentProfile: StudentProfile): Stude
 };
 
 const StudentLevelsPageContainer = withTracker(() => {
-  const helpMessages = HelpMessages.findNonRetired({});
   const { username } = useParams();
   const profile = Users.getProfile(username) as StudentProfile;
   const profiles = Users.findProfilesWithRole(ROLE.STUDENT, {}, {});
   const students: StudentProfile[] = getStudentsAtSameLevel(profiles, profile);
   return {
-    helpMessages,
     profile,
     students,
   };

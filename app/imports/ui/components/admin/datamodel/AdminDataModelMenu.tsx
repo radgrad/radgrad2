@@ -10,7 +10,6 @@ export interface AdminDataModeMenuProps {
   courseCount: number;
   feedCount: number;
   feedbackCount: number;
-  helpMessageCount: number;
   interestCount: number;
   interestTypeCount: number;
   opportunityCount: number;
@@ -31,7 +30,6 @@ const AdminDataModelMenu: React.FC<AdminDataModeMenuProps> = ({
   courseInstanceCount,
   feedCount,
   feedbackCount,
-  helpMessageCount,
   interestCount,
   interestTypeCount,
   opportunityCount,

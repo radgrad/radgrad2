@@ -4,10 +4,8 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Container, Grid } from 'semantic-ui-react';
 import _ from 'lodash';
 import { Reviews } from '../../../../api/review/ReviewCollection';
-import { HelpMessage, Opportunity, Profile, Review } from '../../../../typings/radgrad';
+import { Opportunity, Profile, Review } from '../../../../typings/radgrad';
 import { getMenuWidget } from '../utilities/getMenuWidget';
-import HelpPanelWidget from '../../../components/shared/HelpPanelWidget';
-import { HelpMessages } from '../../../../api/help/HelpMessageCollection';
 import { Users } from '../../../../api/user/UserCollection';
 import { FavoriteOpportunities } from '../../../../api/favorite/FavoriteOpportunityCollection';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
@@ -20,7 +18,6 @@ import { OpportunityInstances } from '../../../../api/opportunity/OpportunityIns
 
 interface OpportunityViewPageProps {
   favoriteOpportunities: Opportunity[];
-  helpMessages: HelpMessage[];
   itemReviews: Review[];
   opportunity: Opportunity;
   profile: Profile;
@@ -61,7 +58,7 @@ const isCompleted = (opportunityID: string, studentID: string): boolean => {
   return completed;
 };
 
-const OpportunityViewPage: React.FC<OpportunityViewPageProps> = ({ favoriteOpportunities, helpMessages, itemReviews, opportunity, profile }) => {
+const OpportunityViewPage: React.FC<OpportunityViewPageProps> = ({ favoriteOpportunities, itemReviews, opportunity, profile }) => {
   const match = useRouteMatch();
   const menuAddedList = _.map(favoriteOpportunities, (item) => ({
     item,
@@ -76,11 +73,6 @@ const OpportunityViewPage: React.FC<OpportunityViewPageProps> = ({ favoriteOppor
       {getMenuWidget(match)}
       <Container style={pushDownStyle}>
         <Grid stackable>
-          <Grid.Row className="helpPanel">
-            <Grid.Column width={16}>
-              <HelpPanelWidget helpMessages={helpMessages} />
-            </Grid.Column>
-          </Grid.Row>
           <Grid.Row>
             <Grid.Column width={3}>
               <ExplorerMenu menuAddedList={menuAddedList} type="opportunities" />
@@ -100,12 +92,10 @@ const OpportunityViewPageContainer = withTracker(() => {
   const profile = Users.getProfile(username);
   const favOpps = FavoriteOpportunities.findNonRetired({ studentID: profile.userID });
   const favoriteOpportunities = _.map(favOpps, (f) => Opportunities.findDoc(f.opportunityID));
-  const helpMessages = HelpMessages.findNonRetired({});
   const opportunityDoc = Opportunities.findDocBySlug(opportunity);
   const itemReviews = Reviews.findNonRetired({ revieweeID: opportunityDoc._id });
   return {
     favoriteOpportunities,
-    helpMessages,
     itemReviews,
     opportunity: opportunityDoc,
     profile,

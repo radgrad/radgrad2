@@ -7,7 +7,6 @@ import '../imports/api/degree-plan';
 import '../imports/api/favorite';
 import '../imports/api/feed';
 import '../imports/api/feedback';
-import '../imports/api/help';
 import '../imports/api/ice';
 import '../imports/api/integrity';
 import '../imports/api/interest';
