@@ -19,22 +19,29 @@ export default {
     marginTop: 0,
   },
   'ready-to-get-started': {
-    paddingTop: 40,
-    paddingBottom: 40,
+    paddingTop: 20,
+    paddingBottom: 60,
     paddingLeft: 20,
-    backgroundColor: '#279474',
+    backgroundColor: '#6fbe44',
     color: 'white',
     borderRadius: 10,
 
   },
   'need-more-info': {
-    paddingTop: 40,
-    paddingBottom: 40,
+    paddingTop: 20,
+    paddingBottom: 60,
     paddingLeft: 20,
-    backgroundColor: '#6FBE44',
+    backgroundColor: '#2f9276',
     color: 'white',
     borderRadius: 10,
-
+  },
+  'browse-explorers': {
+    paddingTop: 20,
+    paddingBottom: 30,
+    paddingLeft: 20,
+    backgroundColor: '#106735',
+    color: 'white',
+    borderRadius: 10,
   },
   'inverted-main-header': {
     color: 'white',
@@ -102,7 +109,7 @@ export default {
   },
   'inverted-header2': {
     color: 'white',
-    fontSize: 30,
+    fontSize: '1.7rem',
   },
   'mobile-header': {
     fontSize: 60,
@@ -116,7 +123,7 @@ export default {
 
   },
   'header-text': {
-    fontSize: '2.5rem',
+    fontSize: '4.0rem',
   },
   'header-description': {
     fontSize: '1.3rem',
@@ -169,18 +176,7 @@ export default {
     fontWeight: 100,
     fontcolor: 'red',
   },
-  'guide-button': {
-    backgroundColor: '#279474',
-  },
-  'guide-button-dropdown': {
-    fontSize: 15,
-    marginTop: 20,
-    padding: 20,
-    width: 120,
-
-  },
   'explorer-dropdown':{
     marginRight: 10,
-    backgroundColor: '#279474',
   },
 } as React.CSSProperties;
