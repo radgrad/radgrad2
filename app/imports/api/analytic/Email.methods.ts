@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Roles } from 'meteor/alanning:roles';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
-import { sendEmail } from './Email';
+import { sendEmail, sendEmailParams } from './Email';
 import { ROLE } from '../role/Role';
 
 /**
@@ -11,7 +11,7 @@ import { ROLE } from '../role/Role';
 export const sendEmailMethod = new ValidatedMethod({
   name: 'Email.sendEmail',
   validate: null,
-  run(emailData) {
+  run(emailData: sendEmailParams) {
     // Let other method calls from the same client start running,
     // without waiting for the email sending to complete.
     this.unblock();
