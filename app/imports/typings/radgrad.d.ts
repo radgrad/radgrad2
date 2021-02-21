@@ -53,10 +53,6 @@ export interface Pagination {
     showIndex: number;
     showCount: number;
   };
-  AdvisorLogCollection?: {
-    showIndex: number;
-    showCount: number;
-  };
   CareerGoalCollection?: {
     showIndex: number;
     showCount: number;
@@ -74,10 +70,6 @@ export interface Pagination {
     showCount: number;
   };
   FeedbackInstanceCollection?: {
-    showIndex: number;
-    showCount: number;
-  };
-  HelpMessageCollection?: {
     showIndex: number;
     showCount: number;
   };
@@ -467,28 +459,6 @@ export interface FeedbackInstanceUpdate extends Update {
   retired?: boolean;
 }
 
-// Help Messages
-export interface HelpMessage {
-  _id: string;
-  routeName: string;
-  title: string;
-  text: string;
-  retired: boolean;
-}
-export interface HelpMessageDefine extends DumpOne {
-  routeName: string;
-  title: string;
-  text: string;
-  retired?: boolean;
-}
-
-export interface HelpMessageUpdate extends Update {
-  routeName?: string;
-  title?: string;
-  text?: string;
-  retired?: boolean;
-}
-
 // Interests
 export interface Interest {
   _id: string;
@@ -709,6 +679,7 @@ export interface PlanChoiceUpdate extends Update {
 }
 
 // Profiles
+// TODO: This is wrong we have too much in the BaseProfile
 export interface BaseProfile {
   _id: string;
   userID?: string;
@@ -739,7 +710,11 @@ export interface BaseProfile {
   courseExplorerFilter?: string;
   opportunityExplorerSortOrder?: string;
   aboutMe?: string;
-  lastRegistrarLoad?: Date;
+  lastRegistrarLoad?: string;
+  lastVisitedCareerGoals?: string;
+  lastVisitedCourses?: string;
+  lastVisitedInterests?: string;
+  lastVisitedOpportunities?: string;
 }
 
 export interface Profile {
@@ -825,6 +800,14 @@ export interface StudentProfile extends Profile {
   shareCourses?: boolean;
   shareOpportunities?: boolean;
   shareLevel?: boolean;
+  lastRegistrarLoad?: string;
+  lastVisitedCareerGoals?: string;
+  lastVisitedCourses?: string;
+  lastVisitedInterests?: string;
+  lastVisitedOpportunities?: string;
+  lastVisitedPrivacy?: string;
+  lastLeveledUp?: string;
+  acceptedTermsAndConditions?: string;
 }
 
 export interface StudentProfileDefine extends ProfileDefine {
@@ -842,6 +825,14 @@ export interface StudentProfileDefine extends ProfileDefine {
   shareCourses?: boolean;
   shareOpportunities?: boolean;
   shareLevel?: boolean;
+  lastRegistrarLoad?: string;
+  lastVisitedCareerGoals?: string;
+  lastVisitedCourses?: string;
+  lastVisitedInterests?: string;
+  lastVisitedOpportunities?: string;
+  lastVisitedPrivacy?: string;
+  lastLeveledUp?: string;
+  acceptedTermsAndConditions?: string;
 }
 
 export interface StudentProfileUpdate extends ProfileUpdate {
@@ -859,8 +850,14 @@ export interface StudentProfileUpdate extends ProfileUpdate {
   shareCourses?: boolean;
   shareOpportunities?: boolean;
   shareLevel?: boolean;
-  lastRegistrarLoad?: Date;
-  agreedToTermsDate?: Date;
+  lastRegistrarLoad?: string;
+  lastVisitedCareerGoals?: string;
+  lastVisitedCourses?: string;
+  lastVisitedInterests?: string;
+  lastVisitedOpportunities?: string;
+  lastVisitedPrivacy?: string;
+  lastLeveledUp?: string;
+  acceptedTermsAndConditions?: string;
 }
 
 export interface StudentProfileUpdateData {
@@ -877,8 +874,14 @@ export interface StudentProfileUpdateData {
   shareCourses?: boolean;
   shareOpportunities?: boolean;
   shareLevel?: boolean;
-  lastRegistrarLoad?: Date;
-  agreedToTermsDate?: Date;
+  lastRegistrarLoad?: string;
+  lastVisitedCareerGoals?: string;
+  lastVisitedCourses?: string;
+  lastVisitedInterests?: string;
+  lastVisitedOpportunities?: string;
+  lastVisitedPrivacy?: string;
+  lastLeveledUp?: string;
+  acceptedTermsAndConditions?: string;
 }
 
 // Reviews

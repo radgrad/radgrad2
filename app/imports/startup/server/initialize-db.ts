@@ -83,6 +83,13 @@ const loadDatabase = () => {
     if (!extraRestoreNames.length && !extraCollectionNames.length) {
       _.each(collectionList, (collection) => loadCollection(collection, loadJSON, true));
     }
+    const loadTimeString = loadFileName.substring(loadFileName.lastIndexOf('/') + 1, loadFileName.indexOf('.'));
+    // console.log(loadTimeString);
+    // CAM is this the right time to set?
+    PublicStats.setCareerGoalUpdateTime(loadTimeString);
+    PublicStats.setCoursesUpdateTime(loadTimeString);
+    PublicStats.setInterestsUpdateTime(loadTimeString);
+    PublicStats.setOpportunitiesUpdateTime(loadTimeString);
     console.log('Finished loading database.');
   }
 };

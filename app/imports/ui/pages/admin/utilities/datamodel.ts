@@ -5,7 +5,6 @@ import { CourseInstances } from '../../../../api/course/CourseInstanceCollection
 import { Courses } from '../../../../api/course/CourseCollection';
 import { Feeds } from '../../../../api/feed/FeedCollection';
 import { FeedbackInstances } from '../../../../api/feedback/FeedbackInstanceCollection';
-import { HelpMessages } from '../../../../api/help/HelpMessageCollection';
 import { Interests } from '../../../../api/interest/InterestCollection';
 import { InterestTypes } from '../../../../api/interest/InterestTypeCollection';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
@@ -31,7 +30,6 @@ export const getDatamodelCount = () => {
   const courseCount = Courses.count();
   const feedCount = Feeds.count();
   const feedbackCount = FeedbackInstances.count();
-  const helpMessageCount = HelpMessages.count();
   const interestCount = Interests.count();
   const interestTypeCount = InterestTypes.count();
   const opportunityCount = Opportunities.count();
@@ -50,7 +48,6 @@ export const getDatamodelCount = () => {
     courseCount,
     feedCount,
     feedbackCount,
-    helpMessageCount,
     interestCount,
     interestTypeCount,
     opportunityCount,

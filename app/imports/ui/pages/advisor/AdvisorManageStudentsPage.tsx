@@ -1,9 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Grid } from 'semantic-ui-react';
+import { Button, Grid } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { useParams } from 'react-router-dom';
-import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import AdvisorStudentSelectorWidget from '../../components/advisor/home/AdvisorStudentSelectorWidget';
 import AdvisorUpdateStudentWidget from '../../components/advisor/home/AdvisorUpdateStudentWidget';
 import AdvisorStarUploadWidget from '../../components/advisor/home/AdvisorStarUploadWidget';
@@ -13,6 +12,7 @@ import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { CareerGoal, HelpMessage, Interest, StudentProfile } from '../../../typings/radgrad';
 import { RootState } from '../../../redux/types';
 import PageLayout from '../PageLayout';
+import { updateAllStudentLevelsMethod } from '../../../api/level/LevelProcessor.methods';
 
 export interface FilterStudents {
   selectedUsername: string;
@@ -52,8 +52,19 @@ Use this page to add students to RadGrad and/or help them during advising sessio
 For more details, please see [RadGrad Advisor User Guide](https://www.radgrad.org/docs/users/advisors/overview)
 `;
 
+const handleUpdateLevelButton = (event) => {
+  event.preventDefault();
+  updateAllStudentLevelsMethod.call((error, result) => {
+    if (error) {
+      console.error('There was an error updating the student levels', error);
+    }
+    console.log(result);
+  });
+};
+
 const AdvisorManageStudentsPage: React.FC<FilterStudents> = ({ helpMessages, interests, careerGoals, usernameDoc, selectedUsername, students, alumni }) => {
   const { username } = useParams();
+  const marginStyle = { margin: 10 };
   return (
     <PageLayout id="manage-students-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
         <Grid stackable>
@@ -61,6 +72,9 @@ const AdvisorManageStudentsPage: React.FC<FilterStudents> = ({ helpMessages, int
             <Grid.Column width={16}>
               {/* TODO make this communicate, selecting a student doesn't change the form */}
               <AdvisorStudentSelectorWidget careerGoals={careerGoals} interests={interests} advisorUsername={username} students={students} alumni={alumni} />
+              <Button color="green" basic style={marginStyle} onClick={handleUpdateLevelButton}>
+                Update Student Levels
+              </Button>
             </Grid.Column>
           </Grid.Row>
           {renderSelectedStudentWidgets(selectedUsername, usernameDoc, careerGoals, interests, username)}
@@ -75,12 +89,10 @@ const AdvisorManageStudentsTracker = withTracker(({ selectedUsername }) => {
   const careerGoals = CareerGoals.findNonRetired({});
   const students = StudentProfiles.findNonRetired({ isAlumni: false }, { sort: { username: 1 } });
   const alumni = StudentProfiles.findNonRetired({ isAlumni: true }, { sort: { username: 1 } });
-  const helpMessages = HelpMessages.findNonRetired({});
   return {
     usernameDoc,
     interests,
     careerGoals,
-    helpMessages,
     students,
     alumni,
   };

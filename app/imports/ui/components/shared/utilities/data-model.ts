@@ -15,7 +15,7 @@ import { defaultProfilePicture } from '../../../../api/user/BaseProfileCollectio
 import { StudentParticipations } from '../../../../api/public-stats/StudentParticipationCollection';
 import { FavoriteCareerGoals } from '../../../../api/favorite/FavoriteCareerGoalCollection';
 import { FavoriteInterests } from '../../../../api/favorite/FavoriteInterestCollection';
-import { AcademicTerm } from '../../../../typings/radgrad';
+import { AcademicTerm, Opportunity } from '../../../../typings/radgrad';
 // import Router from './RouterHelperFunctions';
 
 interface HasName {
@@ -132,12 +132,27 @@ export const opportunityTermsNotTaken = (opportunity, studentID) => {
 export const unverifiedOpportunityTermNames = (opportunity, studentID) => {
   const termNames = [];
   const ois = OpportunityInstances.findNonRetired({ studentID, opportunityID: opportunity._id });
-  _.forEach(ois, (o) => {
+  ois.forEach((o) => {
     if (!o.verified) {
       termNames.push(AcademicTerms.toString(o.termID, false));
     }
   });
   return termNames;
+};
+
+export const getFutureOpportunities = (studentID: string): Opportunity[] => {
+  const ois = OpportunityInstances.findNonRetired({ studentID });
+  const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
+  const futureOIs = _.filter(ois, (oi) => {
+    const term = AcademicTerms.findDoc(oi.termID);
+    return term.termNumber >= currentTerm.termNumber;
+  });
+  return futureOIs.map((oi) => Opportunities.findDoc(oi.opportunityID));
+};
+
+export const getUniqFutureOpportunities = (studentID: string): Opportunity[] => {
+  const futureOpportunities = getFutureOpportunities(studentID);
+  return _.uniqBy(futureOpportunities, '_id');
 };
 
 export const opportunityInstanceToName = (oi) => {

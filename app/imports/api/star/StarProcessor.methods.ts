@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import _ from 'lodash';
+import moment from 'moment';
 import { CourseInstances } from '../course/CourseInstanceCollection';
 import { Courses } from '../course/CourseCollection';
 import { Feeds } from '../feed/FeedCollection';
@@ -78,7 +79,7 @@ function processStudentStarDefinitions(advisor, student, definitions) {
   }
   // console.log(`${student} had ${numInterstingCourses} course(s)`);
   // update the student's lastRegistrarLoad
-  const lastRegistrarLoad = new Date();
+  const lastRegistrarLoad = moment().format('YYYY-MM-DD-HH-mm-ss');
   const docID = studentID;
   StudentProfiles.update(docID, { lastRegistrarLoad });
 }

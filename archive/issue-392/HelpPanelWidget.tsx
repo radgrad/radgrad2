@@ -3,8 +3,8 @@ import Markdown from 'react-markdown';
 import { useRouteMatch } from 'react-router-dom';
 import _ from 'lodash';
 import { Grid, Header, Divider } from 'semantic-ui-react';
-import * as Router from './utilities/router';
-import { HelpMessage } from '../../../typings/radgrad';
+import * as Router from '../../app/imports/ui/components/shared/utilities/router';
+import { HelpMessage } from '../../app/imports/typings/radgrad';
 
 export interface HelpPanelWidgetProps {
   helpMessages: HelpMessage[];

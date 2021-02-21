@@ -7,7 +7,6 @@ import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { Feeds } from '../../../api/feed/FeedCollection';
 import { FeedbackInstances } from '../../../api/feedback/FeedbackInstanceCollection';
-import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { InterestTypes } from '../../../api/interest/InterestTypeCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
@@ -45,9 +44,6 @@ export const setCollectionShowCount = (collectionName: string, count: number): {
       break;
     case FeedbackInstances.getCollectionName():
       retVal.type = TYPES.SET_FEEDBACK_INSTANCES_SHOW_COUNT;
-      break;
-    case HelpMessages.getCollectionName():
-      retVal.type = TYPES.SET_HELP_MESSAGES_SHOW_COUNT;
       break;
     case Interests.getCollectionName():
       retVal.type = TYPES.SET_INTERESTS_SHOW_COUNT;
@@ -118,9 +114,6 @@ export const setCollectionShowIndex = (collectionName: string, index: number): {
       break;
     case FeedbackInstances.getCollectionName():
       retVal.type = TYPES.SET_FEEDBACK_INSTANCES_SHOW_INDEX;
-      break;
-    case HelpMessages.getCollectionName():
-      retVal.type = TYPES.SET_HELP_MESSAGES_SHOW_INDEX;
       break;
     case Interests.getCollectionName():
       retVal.type = TYPES.SET_INTERESTS_SHOW_INDEX;

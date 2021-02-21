@@ -1,11 +1,15 @@
+import moment from 'moment';
 import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import _ from 'lodash';
 import { useParams } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
+import { updateMethod } from '../../../../api/base/BaseCollection.methods';
 import { Interests } from '../../../../api/interest/InterestCollection';
+import { ROLE } from '../../../../api/role/Role';
+import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
 import { Users } from '../../../../api/user/UserCollection';
-import { Interest } from '../../../../typings/radgrad';
+import { Interest, StudentProfileUpdate } from '../../../../typings/radgrad';
 import ExplorerMultipleItemsMenu from '../../../components/shared/explorer/browser-view/ExplorerMultipleItemsMenu';
 import InterestBrowserViewContainer from '../../../components/shared/explorer/browser-view/InterestBrowserView';
 import { IExplorerTypes } from '../../../components/shared/explorer/utilities/explorer';
@@ -49,6 +53,20 @@ const InterestBrowserViewPage: React.FC<InterestBrowserViewPageProps> = ({ favor
 export default withTracker(() => {
   const { username } = useParams();
   const profile = Users.getProfile(username);
+  if (profile.role === ROLE.STUDENT) {
+    const lastVisited = moment().format('YYYY-MM-DD');
+    if (lastVisited !== profile.lastVisitedInterests) {
+      const collectionName = StudentProfiles.getCollectionName();
+      const updateData: StudentProfileUpdate = {};
+      updateData.id = profile._id;
+      updateData.lastVisitedInterests = lastVisited;
+      updateMethod.call({ collectionName, updateData }, (error, result) => {
+        if (error) {
+          console.error('Error updating StudentProfile', collectionName, updateData, error);
+        }
+      });
+    }
+  }
   const allInterests = Users.getInterestIDsByType(profile.userID);
   const favoriteInterests = _.map(allInterests[0], (id) => Interests.findDoc(id));
   const favoriteCareerGoalInterests = _.map(allInterests[1], (id) => Interests.findDoc(id));

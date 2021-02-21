@@ -18,9 +18,6 @@ const getStudentLevelName = (profile: StudentProfile): string => {
 const getStudentLevelHint = (profile: StudentProfile): string => {
   let levelNumber = 0;
   levelNumber = profile.level;
-  // const helpMessage = HelpMessages.findDocByRouteName('/student/:username/home/levels').text;
-  // const delimiter = '<div class="header">';
-  // const levelMessages = helpMessage.split(delimiter);
   switch (levelNumber) {
     case 1:
       return getLevelHintStringMarkdown('two');

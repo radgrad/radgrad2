@@ -66,6 +66,18 @@ const descriptionPairs = (props: AdminDataModelUsersPageProps) => (user: BasePro
     if (user.lastRegistrarLoad) {
       pairs.push({ label: 'Last Registrar Load', value: `${moment(user.lastRegistrarLoad).format()}` });
     }
+    if (user.lastVisitedCareerGoals) {
+      pairs.push({ label: 'Last visited career goals', value: `${moment(user.lastVisitedCareerGoals).format()}`});
+    }
+    if (user.lastVisitedCourses) {
+      pairs.push({ label: 'Last visited courses', value: `${moment(user.lastVisitedCourses).format()}`});
+    }
+    if (user.lastVisitedInterests) {
+      pairs.push({ label: 'Last visited interests', value: `${moment(user.lastVisitedInterests).format()}`});
+    }
+    if (user.lastVisitedOpportunities) {
+      pairs.push({ label: 'Last visited opportunities', value: `${moment(user.lastVisitedOpportunities).format()}`});
+    }
   }
   if (user.role === ROLE.FACULTY) {
     pairs.push({ label: 'About Me', value: `${user.aboutMe}` });

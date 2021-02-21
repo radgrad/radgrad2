@@ -3,10 +3,9 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Confirm, Grid, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import _ from 'lodash';
-import { HelpMessages } from '../../../api/help/HelpMessageCollection';
 import ListOpportunitiesWidget from '../../components/shared/manage-opportunities/ListOpportunitiesWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
-import { AcademicTerm, BaseProfile, DescriptionPair, HelpMessage, Interest, Opportunity, OpportunityType } from '../../../typings/radgrad';
+import { AcademicTerm, BaseProfile, DescriptionPair, Interest, Opportunity, OpportunityType } from '../../../typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';
@@ -83,10 +82,9 @@ interface ManageOpportunitiesPageProps {
   terms: AcademicTerm[];
   interests: Interest[];
   opportunityTypes: OpportunityType[];
-  helpMessages: HelpMessage[];
 }
 
-const ManageOpportunitiesPage: React.FC<ManageOpportunitiesPageProps> = ({ sponsors, helpMessages, interests, terms, opportunityTypes }) => {
+const ManageOpportunitiesPage: React.FC<ManageOpportunitiesPageProps> = ({ sponsors, interests, terms, opportunityTypes }) => {
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');
@@ -254,12 +252,10 @@ export default withTracker(() => {
   const terms = _.filter(allTerms, (t) => t.termNumber >= after && t.termNumber <= before);
   const interests = Interests.find({}, { sort: { name: 1 } }).fetch();
   const opportunityTypes = OpportunityTypes.find({}, { sort: { name: 1 } }).fetch();
-  const helpMessages = HelpMessages.findNonRetired({});
   return {
     sponsors,
     terms,
     interests,
     opportunityTypes,
-    helpMessages,
   };
 })(ManageOpportunitiesPage);

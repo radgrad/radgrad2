@@ -35,6 +35,7 @@ class FavoriteCareerGoalCollection extends BaseCollection {
    * @returns {void|*|boolean|{}}
    */
   define({ careerGoal, username, share = false, retired = false }: FavoriteCareerGoalDefine) {
+    // console.log(`FavoriteCareerGoal.define ${careerGoal}, ${username}, ${share}, ${retired}`);
     const careerGoalID = CareerGoals.getID(careerGoal);
     const userID = Users.getID(username);
     const doc = this.collection.findOne({ userID, careerGoalID });
@@ -66,6 +67,7 @@ class FavoriteCareerGoalCollection extends BaseCollection {
    * @param docID The docID of the FavoriteCareerGoal.
    */
   removeIt(docID) {
+    // console.log(`FavoriteCareerGoal.removeIt ${docID}`);
     this.assertDefined(docID);
     // OK, clear to delete.
     return super.removeIt(docID);
@@ -96,7 +98,7 @@ class FavoriteCareerGoalCollection extends BaseCollection {
         if (_.includes([ROLE.ADMIN, ROLE.ADVISOR], profile.role)) {
           return collection.find();
         }
-        return collection.find({ share: true });
+        return collection.find({ $or: [{ share: true }, { userID }] });
       });
       Meteor.publish(this.publicationNames.scoreboard, function publishCareerGoalScoreboard() {
         ReactiveAggregate(this, collection, [

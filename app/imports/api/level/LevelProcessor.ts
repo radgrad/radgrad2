@@ -1,14 +1,15 @@
 import _ from 'lodash';
 import { Meteor } from 'meteor/meteor';
+import moment from 'moment';
 import { CourseInstances } from '../course/CourseInstanceCollection';
 import { Feeds } from '../feed/FeedCollection';
 import { getEarnedICE, getProjectedICE } from '../ice/IceProcessor';
 import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollection';
 import { Reviews } from '../review/ReviewCollection';
 import { StudentProfiles } from '../user/StudentProfileCollection';
-import { defineMethod } from '../base/BaseCollection.methods';
+import { defineMethod, updateMethod } from '../base/BaseCollection.methods';
 import { RadGrad } from '../radgrad/RadGrad';
-import { Ice } from '../../typings/radgrad';
+import { Ice, StudentProfileUpdate } from '../../typings/radgrad';
 
 /**
  * Calculates the given student's Level.
@@ -16,7 +17,7 @@ import { Ice } from '../../typings/radgrad';
  * @returns {number}
  * @memberOf api/level
  */
-export function defaultCalcLevel(studentID) {
+export const defaultCalcLevel = (studentID: string): number => {
   const instances = _.concat(CourseInstances.find({ studentID })
     .fetch(),
   OpportunityInstances.find({ studentID })
@@ -73,9 +74,9 @@ export function defaultCalcLevel(studentID) {
   }
   // console.log('defaultCalcLevel', studentID, earnedICE, plannedICE, numReviews, level);
   return level;
-}
+};
 
-export function testCalcLevel(studentID) {
+export const testCalcLevel = (studentID: string): number => {
   const instances = _.concat(CourseInstances.find({ studentID })
     .fetch(),
   OpportunityInstances.find({ studentID })
@@ -127,15 +128,14 @@ export function testCalcLevel(studentID) {
   }
   // console.log('defaultCalcLevel', studentID, earnedICE, plannedICE, numReviews, hasPicture, level);
   return level;
-}
+};
 
 /**
  * Updates the student's level.
- * @param advisor the advisors ID.
  * @param studentID the studentID.
  * @memberOf api/level
  */
-export function updateStudentLevel(advisor, studentID) {
+export const updateStudentLevel = (studentID: string): void => {
   let level;
   if (RadGrad.calcLevel) {
     level = RadGrad.calcLevel(studentID);
@@ -144,38 +144,36 @@ export function updateStudentLevel(advisor, studentID) {
   }
   const profile = StudentProfiles.getProfile(studentID);
   if (profile.level !== level) {
-    const text = `Congratulations! ${profile.firstName} you're now Level ${level}.
-         Come by to get your RadGrad sticker.`;
-    // send email notification to student. issue-199
-    const student = studentID;
-    defineMethod.call({ collectionName: 'AdvisorLogCollection', definitionData: { advisor, student, text } }, (error) => {
-      if (error) {
-        console.error('Error creating AdvisorLog.', error);
+    let collectionName = StudentProfiles.getCollectionName();
+    const updateData: StudentProfileUpdate = {};
+    updateData.id = profile._id;
+    updateData.lastLeveledUp = moment().format('YYYY-MM-DD');
+    updateMethod.call({ collectionName, updateData }, (err) => {
+      if (err) {
+        console.error('Failed to update lastLeveledUp', err);
       }
     });
-    const feedData = {
+    const definitionData = {
       feedType: Feeds.NEW_LEVEL,
       user: profile.username,
       level,
     };
-    defineMethod.call({ collectionName: 'FeedCollection', definitionData: feedData });
+    collectionName = Feeds.getCollectionName();
+    defineMethod.call({ collectionName, definitionData });
   }
   StudentProfiles.setLevel(studentID, level);
-}
+};
 
 /**
  * Updates all the students level.
- * @param advisor the advisors ID.
  * @memberOf api/level
  */
-export function updateAllStudentLevels(advisor) {
-  StudentProfiles.find()
-    .forEach((student) => {
-      updateStudentLevel(advisor, student.userID);
-    });
-  return StudentProfiles.find()
-    .count();
-}
+export const updateAllStudentLevels = (): number => {
+  StudentProfiles.find().forEach((student) => {
+    updateStudentLevel(student.userID);
+  });
+  return StudentProfiles.find().count();
+};
 
 export const getLevelCriteriaStringMarkdown = (level: string): string => {
   if (!_.includes(['six', 'five', 'four', 'three', 'two'], level)) {

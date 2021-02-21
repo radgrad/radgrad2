@@ -10,7 +10,6 @@ import { Opportunities } from '../opportunity/OpportunityCollection';
 import { OpportunityTypes } from '../opportunity/OpportunityTypeCollection';
 import { Reviews } from '../review/ReviewCollection';
 import { Users } from '../user/UserCollection';
-import { Slugs } from '../slug/SlugCollection';
 import { StudentProfiles } from '../user/StudentProfileCollection';
 
 /**
@@ -28,23 +27,31 @@ import { StudentProfiles } from '../user/StudentProfileCollection';
  * @memberOf api/public-stats
  */
 class PublicStatsCollection extends BaseCollection {
-  private readonly stats: any[];
+  private readonly stats: string[];
 
   public coursesTotalKey: string;
+
+  public coursesUpdateTime: string; // format YYYY-MM-DD-HH-mm-ss
 
   public careerGoalsTotalKey: string;
 
   public careerGoalsListKey: string;
 
+  public careerGoalsUpdateTime: string; // format YYYY-MM-DD-HH-mm-ss
+
   public interestsTotalKey: string;
 
   public interestsListKey: string;
+
+  public interestsUpdateTime: string; // format YYYY-MM-DD-HH-mm-ss
 
   public opportunitiesTotalKey: string;
 
   public opportunitiesProjectsTotalKey: string;
 
   public opportunitiesProjectsListKey: string;
+
+  public opportunitiesUpdateTime: string; // format YYYY-MM-DD-HH-mm-ss
 
   public usersTotalKey: string;
 
@@ -68,12 +75,6 @@ class PublicStatsCollection extends BaseCollection {
 
   public levelSixTotalKey: string;
 
-  public firstCareerGoalKey: string;
-
-  public firstInterestKey: string;
-
-  public firstOpportunityKey: string;
-
   /**
    * Creates the PublicStats collection.
    */
@@ -85,20 +86,24 @@ class PublicStatsCollection extends BaseCollection {
     this.stats = [];
     this.coursesTotalKey = 'coursesTotal';
     this.stats.push(this.coursesTotalKey);
+    this.coursesUpdateTime = 'coursesUpdateTime';
     this.careerGoalsTotalKey = 'careerGoalsTotal';
     this.stats.push(this.careerGoalsTotalKey);
     this.careerGoalsListKey = 'careerGoalsList';
     this.stats.push(this.careerGoalsListKey);
+    this.careerGoalsUpdateTime = 'careerGoalUpdateTime';
     this.interestsTotalKey = 'interestsTotal';
     this.stats.push(this.interestsTotalKey);
     this.interestsListKey = 'interestsList';
     this.stats.push(this.interestsListKey);
+    this.interestsUpdateTime = 'interestsUpdateTime';
     this.opportunitiesTotalKey = 'opportunitiesTotal';
     this.stats.push(this.opportunitiesTotalKey);
     this.opportunitiesProjectsTotalKey = 'opportunitiesProjectsTotal';
     this.stats.push(this.opportunitiesProjectsTotalKey);
     this.opportunitiesProjectsListKey = 'opportunitiesProjectsList';
     this.stats.push(this.opportunitiesProjectsListKey);
+    this.opportunitiesUpdateTime = 'opportunitiesUpdateTime';
     this.usersTotalKey = 'usersTotal';
     this.stats.push(this.usersTotalKey);
     this.usersStudentsTotalKey = 'usersStudentsTotal';
@@ -121,12 +126,6 @@ class PublicStatsCollection extends BaseCollection {
     this.stats.push(this.levelFiveTotalKey);
     this.levelSixTotalKey = 'levelSixTotal';
     this.stats.push(this.levelSixTotalKey);
-    this.firstCareerGoalKey = 'firstCareerGoal';
-    this.stats.push(this.firstCareerGoalKey);
-    this.firstInterestKey = 'firstInterest';
-    this.stats.push(this.firstInterestKey);
-    this.firstOpportunityKey = 'firstOpportunity';
-    this.stats.push(this.firstOpportunityKey);
   }
 
   public careerGoalsTotal() {
@@ -134,15 +133,23 @@ class PublicStatsCollection extends BaseCollection {
     this.collection.upsert({ key: this.careerGoalsTotalKey }, { $set: { value: `${count}` } });
   }
 
+  public careerGoalsList() {
+    const goals = CareerGoals.findNonRetired();
+    const names = _.map(goals, 'name');
+    this.collection.upsert({ key: this.careerGoalsListKey }, { $set: { value: names.join(', ') } });
+  }
+
+  public setCareerGoalUpdateTime(time: string) {
+    this.collection.upsert({ key: this.careerGoalsUpdateTime }, { $set: { value: time } });
+  }
+
   public coursesTotal() {
     const count = Courses.findNonRetired().length;
     this.collection.upsert({ key: this.coursesTotalKey }, { $set: { value: `${count}` } });
   }
 
-  public careerGoalsList() {
-    const goals = CareerGoals.findNonRetired();
-    const names = _.map(goals, 'name');
-    this.collection.upsert({ key: this.careerGoalsListKey }, { $set: { value: names.join(', ') } });
+  public setCoursesUpdateTime(time: string) {
+    this.collection.upsert({ key: this.coursesUpdateTime }, { $set: { value: time } });
   }
 
   public interestsTotal() {
@@ -154,6 +161,10 @@ class PublicStatsCollection extends BaseCollection {
     const interests = Interests.findNonRetired();
     const names = _.map(interests, 'name');
     this.collection.upsert({ key: this.interestsListKey }, { $set: { value: names.join(', ') } });
+  }
+
+  public setInterestsUpdateTime(time: string) {
+    this.collection.upsert({ key: this.interestsUpdateTime }, { $set: { value: time } });
   }
 
   public opportunitiesTotal() {
@@ -172,6 +183,10 @@ class PublicStatsCollection extends BaseCollection {
     const projects = Opportunities.findNonRetired({ opportunityTypeID: projectType._id });
     const names = _.map(projects, 'name');
     this.collection.upsert({ key: this.opportunitiesProjectsListKey }, { $set: { value: names.join(', ') } });
+  }
+
+  public setOpportunitiesUpdateTime(time: string) {
+    this.collection.upsert({ key: this.opportunitiesUpdateTime }, { $set: { value: time } });
   }
 
   public upsertLevelTotal(level, key) {
@@ -230,33 +245,9 @@ class PublicStatsCollection extends BaseCollection {
       const course = Courses.findDoc(review.revieweeID);
       courseNumbers.push(course.num);
     });
-    courseNumbers = _.union(courseNumbers);
+    courseNumbers = _.uniq(courseNumbers);
     if (courseNumbers.length > 0) {
       this.collection.upsert({ key: this.courseReviewsCoursesKey }, { $set: { value: courseNumbers.join(', ') } });
-    }
-  }
-
-  public firstCareerGoal() {
-    const careerGoals = CareerGoals.findNonRetired({}, { sort: { name: 1 } });
-    if (careerGoals.length > 0) {
-      const name = Slugs.findDoc(careerGoals[0].slugID).name;
-      this.collection.upsert({ key: this.firstCareerGoalKey }, { $set: { value: name } });
-    }
-  }
-
-  public firstInterest() {
-    const interests = Interests.findNonRetired({}, { sort: { name: 1 } });
-    if (interests.length > 0) {
-      const name = Slugs.findDoc(interests[0].slugID).name;
-      this.collection.upsert({ key: this.firstInterestKey }, { $set: { value: name } });
-    }
-  }
-
-  public firstOpportunity() {
-    const interests = Opportunities.findNonRetired({}, { sort: { name: 1 } });
-    if (interests.length > 0) {
-      const name = Slugs.findDoc(interests[0].slugID).name;
-      this.collection.upsert({ key: this.firstOpportunityKey }, { $set: { value: name } });
     }
   }
 
@@ -297,16 +288,3 @@ class PublicStatsCollection extends BaseCollection {
  * @memberOf api/public-stats
  */
 export const PublicStats = new PublicStatsCollection();
-
-// /**
-//  * Create a global helper called publicStats that returns the value associated with the passed key.
-//  */
-// if (Meteor.isClient) {
-//   Template.registerHelper('publicStats', (key) => {
-//     const stat = PublicStats.isDefined({ key }) && PublicStats.findDoc({ key });
-//     if (stat) {
-//       return stat.value;
-//     }
-//     return null;
-//   });
-// }
