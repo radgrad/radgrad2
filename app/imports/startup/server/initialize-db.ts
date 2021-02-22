@@ -62,8 +62,7 @@ const loadDatabase = () => {
   const loadFileName = Meteor.settings.databaseRestoreFileName;
   if (loadFileName && (totalDocuments() === 0 || totalDocuments() === 1)) {
     const loadFileAge = getRestoreFileAge(loadFileName);
-    console.log(`Loading database2 from file ${loadFileName}, dumped ${loadFileAge}.`);
-    console.log('Asset file path', Assets.absoluteFilePath(loadFileName));
+    console.log(`Loading database from file ${loadFileName}, dumped ${loadFileAge}.`);
     const loadJSON = JSON.parse(Assets.getText(loadFileName));
     // The list of collections, ordered so that they can be sequentially restored.
     const collectionList = RadGrad.collectionLoadSequence;
