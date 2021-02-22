@@ -92,8 +92,17 @@ import { SSR } from 'meteor/meteorhacks:ssr'; // non-relative module
 /* eslint-disable no-unused-vars */
 declare const Assets: any;
 
-// use typescript to your advantage and make an interface that requires those props passed in
-// utilizing the interfaces
+// According to https://docs.meteor.com/api/email.html#Email-send
+export interface sendEmailParams {
+  to: string | string[];
+  bcc: string | string[];
+  from: string;
+  replyTo: string | string[];
+  subject: string;
+  templateData: any;
+  filename: string;
+}
+
 /**
  * Email sender to distribute RadGrad newsletter. Utilizes SSR to compile and render HTML/CSS code within the email.
  * @param to The recipient.
@@ -103,7 +112,7 @@ declare const Assets: any;
  * @param templateData Custom data to be rendered in the email template. SSR is used to compile and
  * render the final content.
  */
-export function sendEmail({ to, bcc, from, replyTo, subject, templateData, filename }) {
+export const sendEmail = ({ to, bcc, from, replyTo, subject, templateData, filename }: sendEmailParams): void => {
   if (Meteor.isServer) {
     SSR.compileTemplate('htmlEmail', Assets.getText(`email/${filename}`));
     const html = SSR.render('htmlEmail', templateData);
@@ -116,7 +125,7 @@ export function sendEmail({ to, bcc, from, replyTo, subject, templateData, filen
       html,
     });
   }
-}
+};
 </code></pre>
         </article>
     </section>
