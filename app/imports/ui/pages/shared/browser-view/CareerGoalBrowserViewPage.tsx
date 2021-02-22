@@ -31,6 +31,7 @@ Specify at least three career goals so RadGrad can recommend related courses, op
 
 If we've missed a career goal of interest to you, please click the button below to ask a RadGrad administrator to add it to the system. 
 `;
+const headerPaneImage = 'header-career.png';
 
 const CareerGoalBrowserViewPage: React.FC<CareerGoalBrowserViewPageProps> = ({
   favoriteCareerGoals,
@@ -39,7 +40,7 @@ const CareerGoalBrowserViewPage: React.FC<CareerGoalBrowserViewPageProps> = ({
 }) => {
   const menuAddedList = _.map(favoriteCareerGoals, (f) => ({ item: f, count: 1 }));
   return (
-    <PageLayout id="career-goal-browser-view-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
+    <PageLayout id="career-goal-browser-view-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
       <Grid stackable>
         <Grid.Row>
           <Grid.Column width={4}>

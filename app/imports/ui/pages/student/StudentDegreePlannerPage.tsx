@@ -255,6 +255,7 @@ Use this degree planner to map out your courses and opportunities each semester.
 
 Telling RadGrad what you've planned and completed helps the system provide better recommendations and supports community building.
 `;
+const headerPaneImage = 'header-planner.png';
 
 const StudentDegreePlannerPage: React.FC<StudentDegreePlannerProps> = ({
   academicYearInstances,
@@ -278,7 +279,7 @@ const StudentDegreePlannerPage: React.FC<StudentDegreePlannerProps> = ({
   };
   return (
     <DragDropContext onDragEnd={onDragEnd(onDragEndProps)}>
-      <PageLayout id="degree-planner-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
+      <PageLayout id="degree-planner-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
       <Grid stackable>
           <Grid.Row stretched>
             <Grid.Column width={10} style={paddedStyle}>

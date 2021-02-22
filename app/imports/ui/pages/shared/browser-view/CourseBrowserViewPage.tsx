@@ -32,6 +32,8 @@ The RadGrad course explorer provides helpful information about courses, includin
  
 Once they are in your plan, RadGrad can update your Competency points and do a better job of community building. 
 `;
+const headerPaneImage = 'header-courses.png';
+
 
 const CourseBrowserViewPage: React.FC<CourseBrowserViewPageProps> = ({ favoriteCourses, courses }) => {
   const match = useRouteMatch();
@@ -41,7 +43,7 @@ const CourseBrowserViewPage: React.FC<CourseBrowserViewPageProps> = ({ favoriteC
   const showFavorites = role === 'student';
   const columnWidth = showFavorites ? 12 : 16;
   return (
-    <PageLayout id="course-browser-view-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
+    <PageLayout id="course-browser-view-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
       <Grid stackable>
         <Grid.Row>
           {showFavorites ? (

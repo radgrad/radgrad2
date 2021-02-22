@@ -28,9 +28,10 @@ This page contains a personalized set of recommendations to help RadGrad help yo
 
 <span style="color:green">The green section:</span>  Looks good for now!
 `;
+const headerPaneImage = 'header-home.png';
 
 const StudentHomePage: React.FC<StudentHomePageProps> = ({ okItems, reviewItems, improveItems}) => (
-  <PageLayout id="student-home-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
+  <PageLayout id="student-home-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
     <Header as="h3" color="red">Improve checklist items</Header>
     {improveItems.map((item) => item)}
     <Header as="h3" color="yellow">Review checklist items</Header>

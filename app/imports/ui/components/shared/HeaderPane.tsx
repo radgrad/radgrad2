@@ -22,10 +22,10 @@ export interface HeaderPaneProps {
 const HeaderPane: React.FC<HeaderPaneProps> = ({title = 'Default title', body, image }) => (
   <div style={invertedSection}>
     <Grid stackable>
-      <Grid.Column width={3}><Image src={image} size="medium" /></Grid.Column>
+      <Grid.Column verticalAlign='middle' width={3}><Image src={`images/header-panel/${image || 'header-default.png'}`}  size="medium" /></Grid.Column>
       <Grid.Column width={13}>
        <div style={titleStyle}><ReactMarkdownWithHtml allowDangerousHtml source={title}/></div>
-      { body ? <p style={lineStyle}><ReactMarkdownWithHtml linkTarget="_blank" allowDangerousHtml source={body}/></p> : ''}
+          { body ? <div style={lineStyle}><ReactMarkdownWithHtml linkTarget="_blank" allowDangerousHtml source={body}/></div> : ''}
       </Grid.Column>
     </Grid>
   </div>
