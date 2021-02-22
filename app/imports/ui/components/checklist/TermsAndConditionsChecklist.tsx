@@ -3,8 +3,10 @@ import React from 'react';
 import { Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
 import { Button, Header } from 'semantic-ui-react';
+import { sendRefusedTermsEmailMethod } from '../../../api/analytic/Email.methods';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { ChecklistState } from '../../../api/checklist/ChecklistState';
+import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { StudentProfile, StudentProfileUpdate } from '../../../typings/radgrad';
@@ -15,18 +17,15 @@ import { Checklist } from './Checklist';
 export class TermsAndConditionsChecklist extends Checklist {
   private profile: StudentProfile;
 
-  private disagreeToTerms: boolean;
-
   constructor(name: string, student: string) {
     super(name);
     this.profile = Users.getProfile(student);
     // console.log('TermsAndConditionsChecklist', this.profile, StudentProfiles.findDoc(student));
-    this.disagreeToTerms = false;
     this.updateState();
   }
 
   public updateState(): void {
-    if (this.profile.acceptedTermsAndConditions) {
+    if (this.profile.acceptedTermsAndConditions || this.profile.refusedTermsAndConditions) {
       this.state = 'OK';
     } else {
       this.state = 'Improve';
@@ -85,9 +84,32 @@ export class TermsAndConditionsChecklist extends Checklist {
       });
     };
     const handleReject = () => {
-      console.log('signout');
       // need to inform the admin that a student has disagreed to the terms.
-      this.disagreeToTerms = true;
+      const emailData = {
+        to: RadGradProperties.getAdminEmail(),
+        bcc: '',
+        from: RadGradProperties.getAdminEmail(),
+        replyTo: RadGradProperties.getAdminEmail(),
+        subject: `${this.profile.username} refused the terms and conditions`,
+        templateData: {
+          username: this.profile.username,
+        },
+        filename: 'refusedTerms.html',
+      };
+      sendRefusedTermsEmailMethod.call(emailData, (error) => {
+        if (error) {
+          console.error('Failed to send email.', error);
+        }
+      });
+      const collectionName = StudentProfiles.getCollectionName();
+      const updateData: StudentProfileUpdate = {};
+      updateData.id = this.profile._id;
+      updateData.refusedTermsAndConditions = moment().format('YYYY-MM-DD');
+      updateMethod.call({ collectionName, updateData }, (error) => {
+        if (error) {
+          console.error('Failed to update refusedTermsAndConditions', error);
+        }
+      });
     };
     switch (state) {
       case 'OK':
@@ -106,8 +128,8 @@ export class TermsAndConditionsChecklist extends Checklist {
   }
 
   public getChecklistItem(): JSX.Element {
-    if (this.disagreeToTerms) {
-      return <Redirect to={{ pathname: '/signout' }} />;
+    if (this.profile.refusedTermsAndConditions) {
+      return <Redirect to={{ pathname: '/signout' }} key={`${this.profile.username}-refused-terms`} />;
     }
     return super.getChecklistItem();
   }

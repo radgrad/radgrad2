@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 import { SemanticSIZES } from 'semantic-ui-react';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
@@ -14,7 +15,8 @@ interface ProfileFutureCoursesListProps {
 const ProfileFutureCoursesList: React.FC<ProfileFutureCoursesListProps> = ({ profile, size }) => {
   // TODO do we want courses in the current academic term?
   const futureCourseInstances = CourseInstances.findNonRetired({ studentID: profile.userID, verified: false });
-  const futureCourses = futureCourseInstances.map((ci) => Courses.findDoc(ci.courseID));
+  const courseIDs = _.uniq(futureCourseInstances.map((ci) => ci.courseID));
+  const futureCourses = courseIDs.map((ci) => Courses.findDoc(ci));
   return (
     <CourseList courses={futureCourses} size={size} keyStr="future" />
   );

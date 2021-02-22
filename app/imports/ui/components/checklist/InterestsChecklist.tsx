@@ -25,7 +25,7 @@ export class InterestsChecklist extends Checklist {
 
   public updateState(): void {
     const interests = Users.getInterestIDsByType(this.profile.userID);
-    if (interests[0].length < 3) {
+    if (interests[0].length + interests[1].length < 3) {
       // console.log('not enough interests');
       this.state = 'Improve';
     } else if (this.profile.lastVisitedInterests) {
