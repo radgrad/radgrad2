@@ -43,8 +43,8 @@ const StudentPrivacySettingList: React.FC<StudentPrivacySettingListProps> = ({ p
 
   return (
     <Label.Group size={size}>
-      {share.map((label) => <Label><Icon name="share"/>{label}</Label>)}
-      {hide.map((label) => <Label color='red'><Icon name="hide"/>{label}</Label>)}
+      {share.map((label) => <Label key={label}><Icon name="share"/>{label}</Label>)}
+      {hide.map((label) => <Label key={label} color='red'><Icon name="hide"/>{label}</Label>)}
     </Label.Group>
   );
 };
