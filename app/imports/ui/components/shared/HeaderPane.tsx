@@ -16,7 +16,7 @@ const lineStyle = {color: '#eeeeee', fontSize: '1.3rem', lineHeight:'3.0rem'};
 export interface HeaderPaneProps {
   title: string,
   body: string,
-  image: string
+  image?: string
 }
 
 const HeaderPane: React.FC<HeaderPaneProps> = ({title = 'Default title', body, image }) => (

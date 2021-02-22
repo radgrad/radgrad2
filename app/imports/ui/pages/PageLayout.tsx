@@ -5,7 +5,7 @@ import {getMenuWidget} from './shared/utilities/getMenuWidget';
 
 interface PageLayoutProps {
   id: string,
-  headerPaneImage: string,
+  headerPaneImage?: string,
   headerPaneTitle: string,
   headerPaneBody?: string,
   children?: React.ReactNode,
