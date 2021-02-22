@@ -23,3 +23,17 @@ export const sendEmailMethod = new ValidatedMethod({
     sendEmail(emailData);
   },
 });
+
+export const sendRefusedTermsEmailMethod = new ValidatedMethod({
+  name: 'Email.sendRefusedTermsEmail',
+  validate: null,
+  run(emailData: sendEmailParams) {
+    // Let other method calls from the same client start running,
+    // without waiting for the email sending to complete.
+    this.unblock();
+    if (!this.userId) {
+      throw new Meteor.Error('unauthorized', 'You must be logged in to send emails.', Error().stack);
+    }
+    sendEmail(emailData);
+  },
+});

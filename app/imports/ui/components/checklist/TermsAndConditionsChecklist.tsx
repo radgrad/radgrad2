@@ -3,8 +3,10 @@ import React from 'react';
 import { Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
 import { Button, Header } from 'semantic-ui-react';
+import { sendRefusedTermsEmailMethod } from '../../../api/analytic/Email.methods';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { ChecklistState } from '../../../api/checklist/ChecklistState';
+import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { StudentProfile, StudentProfileUpdate } from '../../../typings/radgrad';
@@ -87,7 +89,25 @@ export class TermsAndConditionsChecklist extends Checklist {
     const handleReject = () => {
       console.log('signout');
       // need to inform the admin that a student has disagreed to the terms.
+      const emailData = {
+        to: RadGradProperties.getAdminEmail(),
+        bcc: '',
+        from: RadGradProperties.getAdminEmail(),
+        replyTo: RadGradProperties.getAdminEmail(),
+        subject: `${this.profile.username} refused the terms and conditions`,
+        templateData: {
+          username: this.profile.username,
+        },
+        filename: 'refusedTerms.html',
+      };
+      sendRefusedTermsEmailMethod.call(emailData, (error) => {
+        if (error) {
+          console.error('Failed to send email.', error);
+        }
+      });
       this.disagreeToTerms = true;
+      // console.log(this.disagreeToTerms);
+      this.state = 'OK';
     };
     switch (state) {
       case 'OK':
@@ -106,6 +126,7 @@ export class TermsAndConditionsChecklist extends Checklist {
   }
 
   public getChecklistItem(): JSX.Element {
+    console.log(this.disagreeToTerms);
     if (this.disagreeToTerms) {
       return <Redirect to={{ pathname: '/signout' }} />;
     }
