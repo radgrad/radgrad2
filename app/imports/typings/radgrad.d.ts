@@ -808,6 +808,7 @@ export interface StudentProfile extends Profile {
   lastVisitedPrivacy?: string;
   lastLeveledUp?: string;
   acceptedTermsAndConditions?: string;
+  refusedTermsAndConditions?: string;
 }
 
 export interface StudentProfileDefine extends ProfileDefine {
@@ -833,6 +834,7 @@ export interface StudentProfileDefine extends ProfileDefine {
   lastVisitedPrivacy?: string;
   lastLeveledUp?: string;
   acceptedTermsAndConditions?: string;
+  refusedTermsAndConditions?: string;
 }
 
 export interface StudentProfileUpdate extends ProfileUpdate {
@@ -858,6 +860,7 @@ export interface StudentProfileUpdate extends ProfileUpdate {
   lastVisitedPrivacy?: string;
   lastLeveledUp?: string;
   acceptedTermsAndConditions?: string;
+  refusedTermsAndConditions?: string;
 }
 
 export interface StudentProfileUpdateData {
@@ -882,6 +885,7 @@ export interface StudentProfileUpdateData {
   lastVisitedPrivacy?: string;
   lastLeveledUp?: string;
   acceptedTermsAndConditions?: string;
+  refusedTermsAndConditions?: string;
 }
 
 // Reviews

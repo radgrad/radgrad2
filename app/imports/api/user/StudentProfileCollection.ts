@@ -45,6 +45,7 @@ class StudentProfileCollection extends BaseProfileCollection {
         lastVisitedPrivacy: { type: String, optional: true },
         lastLeveledUp: { type: String, optional: true },
         acceptedTermsAndConditions: { type: String, optional: true },
+        refusedTermsAndConditions: { type: String, optional: true },
       }),
     );
     this.defineSchema = new SimpleSchema({
@@ -81,6 +82,7 @@ class StudentProfileCollection extends BaseProfileCollection {
       lastVisitedPrivacy: { type: String, optional: true },
       lastLeveledUp: { type: String, optional: true },
       acceptedTermsAndConditions: { type: String, optional: true },
+      refusedTermsAndConditions: { type: String, optional: true },
     });
     this.updateSchema = new SimpleSchema({
       firstName: { type: String, optional: true },
@@ -115,6 +117,7 @@ class StudentProfileCollection extends BaseProfileCollection {
       lastVisitedPrivacy: { type: String, optional: true },
       lastLeveledUp: { type: String, optional: true },
       acceptedTermsAndConditions: { type: String, optional: true },
+      refusedTermsAndConditions: { type: String, optional: true },
     });
   }
 
@@ -175,6 +178,7 @@ class StudentProfileCollection extends BaseProfileCollection {
     lastVisitedPrivacy,
     lastLeveledUp,
     acceptedTermsAndConditions,
+    refusedTermsAndConditions,
   }: StudentProfileDefine) {
     if (Meteor.isServer) {
       // Validate parameters.
@@ -215,6 +219,7 @@ class StudentProfileCollection extends BaseProfileCollection {
         lastVisitedPrivacy,
         lastLeveledUp,
         acceptedTermsAndConditions,
+        refusedTermsAndConditions,
       });
       const userID = Users.define({ username, role });
       this.collection.update(profileID, { $set: { userID } });
@@ -301,6 +306,7 @@ class StudentProfileCollection extends BaseProfileCollection {
       lastVisitedPrivacy,
       lastLeveledUp,
       acceptedTermsAndConditions,
+      refusedTermsAndConditions,
     }: StudentProfileUpdate,
   ) {
     this.assertDefined(docID);
@@ -391,6 +397,9 @@ class StudentProfileCollection extends BaseProfileCollection {
     }
     if (acceptedTermsAndConditions) {
       updateData.acceptedTermsAndConditions = acceptedTermsAndConditions;
+    }
+    if (refusedTermsAndConditions) {
+      updateData.refusedTermsAndConditions = refusedTermsAndConditions;
     }
     // console.log('StudentProfile.update %o', updateData);
     this.collection.update(docID, { $set: updateData });
@@ -639,6 +648,7 @@ class StudentProfileCollection extends BaseProfileCollection {
               lastVisitedPrivacy: 1,
               lastLeveledUp: 1,
               acceptedTermsAndConditions: 1,
+              refusedTermsAndConditions: 1,
             },
           },
         ]);
