@@ -21,9 +21,11 @@ RadGrad helps you mark your progress with six Levels.
 
 This page helps you learn about Levels and how to reach the next one from where you are now.
 `;
+const headerPaneImage = 'header-level.png';
+
 
 const StudentLevelsPage: React.FC<StudentLevelsPageProps> = ({ profile, students }) => (
-  <PageLayout id="student-levels-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
+  <PageLayout id="student-levels-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
     <Grid stackable>
         <Grid.Row>
           <Grid.Column width={16}>

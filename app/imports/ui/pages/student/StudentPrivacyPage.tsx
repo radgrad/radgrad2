@@ -16,9 +16,11 @@ This page allows you to control what aspects of your profile are visible to othe
 
 Providing access to information about your profile allows RadGrad to help you find similarly minded community members. You can opt-in or opt-out at any time.
 `;
+const headerPaneImage = 'header-privacy.png';
+
 
 const StudentPrivacyPage: React.FC = () => (
-  <PageLayout id="student-privacy-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
+  <PageLayout id="student-privacy-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
     <Header>Student Privacy Page Placeholder</Header>
   </PageLayout>
 );

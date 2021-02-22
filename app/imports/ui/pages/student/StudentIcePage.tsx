@@ -27,9 +27,11 @@ You earn Innovation and Experience points by completing Opportunities. You earn 
 
 This page provides a breakdown of these three components of a successful undergraduate experience.
 `;
+const headerPaneImage = 'header-ice.png';
+
 
 const StudentIcePage: React.FC<StudentIcePageProps> = ({  earnedICE, projectedICE, favoriteInterests, courseInstances, opportunityInstances }) => (
-  <PageLayout id="student-ice-points-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
+  <PageLayout id="student-ice-points-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
     <Grid stackable>
       <Grid.Row>
         <Grid.Column width={16} stretched>

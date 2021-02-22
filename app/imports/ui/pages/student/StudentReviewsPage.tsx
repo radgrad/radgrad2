@@ -8,8 +8,10 @@ Providing reviews helps future students make the most of their courses and oppor
 
 And, providing reviews is important to reaching higher Levels in RadGrad. 
 `;
+const headerPaneImage = 'header-review.png';
+
 const StudentReviewsPage: React.FC = () => (
-  <PageLayout id="student-reviews-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
+  <PageLayout id="student-reviews-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
     <Header>Student Reviews Page Placeholder</Header>
   </PageLayout>
 );

@@ -30,12 +30,14 @@ Specify at least three interests so RadGrad can recommend related courses, oppor
 
 If we've missed a disciplinary area of interest to you, please click the button below to ask a RadGrad administrator to add it to the system. 
 `;
+const headerPaneImage = 'header-interests.png';
+
 
 const InterestBrowserViewPage: React.FC<InterestBrowserViewPageProps> = ({ favoriteInterests, favoriteCareerGoalInterests, interests }) => {
   const menuAddedItems = _.map(favoriteInterests, (doc) => ({ item: doc, count: 1 }));
   const menuCareerList = _.map(favoriteCareerGoalInterests, (doc) => ({ item: doc, count: 1 }));
   return (
-    <PageLayout id="interest-browser-view-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
+    <PageLayout id="interest-browser-view-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
       <Grid stackable>
           <Grid.Row>
             <Grid.Column width={4}>
