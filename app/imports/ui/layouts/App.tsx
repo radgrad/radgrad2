@@ -6,6 +6,7 @@ import { HashRouter as Router, Redirect, Route, Switch } from 'react-router-dom'
 import '/public/semantic.min.css';
 import NotFoundPage from '../pages/NotFoundPage';
 import SigninPage from '../pages/SigninPage';
+import SignoutDidntAgreeToTermsPage from '../pages/SignoutDidntAgreeToTermsPage';
 import SignoutPage from '../pages/SignoutPage';
 import { ROLE } from '../../api/role/Role';
 import { routes } from './utilities/routes-config';
@@ -49,6 +50,7 @@ const App: React.FC = () => (
         <SigninPage />
       </Route>
       <ProtectedRoute path="/signout" component={SignoutPage} />
+      <ProtectedRoute path="/signout-refused" component={SignoutDidntAgreeToTermsPage} />
       <Route>
         <NotFoundPage />
       </Route>
