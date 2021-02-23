@@ -129,7 +129,7 @@ export class TermsAndConditionsChecklist extends Checklist {
 
   public getChecklistItem(): JSX.Element {
     if (this.profile.refusedTermsAndConditions) {
-      return <Redirect to={{ pathname: '/signout' }} key={`${this.profile.username}-refused-terms`} />;
+      return <Redirect to={{ pathname: '/signout-refused' }} key={`${this.profile.username}-refused-terms`} />;
     }
     return super.getChecklistItem();
   }
