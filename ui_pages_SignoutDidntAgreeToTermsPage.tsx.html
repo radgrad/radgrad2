@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> api/analytic/index.ts</title>
+  <title> ui/pages/SignoutDidntAgreeToTermsPage.tsx</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -76,7 +76,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>api/analytic/index.ts</h1>
+                    <h1>ui/pages/SignoutDidntAgreeToTermsPage.tsx</h1>
                 </header>
                 
 
@@ -85,13 +85,33 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/** @namespace api/analytic */
-import './UserInteractionCollection';
-import './UserInteractionsTypes';
-import './UserInteractionCollection.methods';
-import './IceSnapshotCollection';
-import './Email';
-import './Email.methods';
+            <pre class="prettyprint source linenums"><code>import { Meteor } from 'meteor/meteor';
+import React from 'react';
+import { Header } from 'semantic-ui-react';
+import LandingNavBarContainer from '../components/landing/LandingNavBar';
+
+/** After the user clicks the "SignoutPage" link in the NavBar, log them out and display this page. */
+const SignoutDidntAgreeToTermsPage: React.FC = () => {
+  Meteor.logout(function callback(error) {
+    if (error) {
+      console.error('Error logging out ', error);
+    } else {
+      localStorage.setItem('logoutEvent', 'true');
+    }
+  });
+  const instanceName = Meteor.settings.public.instanceName;
+  return (
+    &lt;div id="signout-page">
+      &lt;LandingNavBarContainer currentUser={undefined} instanceName={instanceName} />
+      &lt;Header as="h2" textAlign="center">
+        &lt;p>Since you didn&amp;apos;t approve the terms and conditions, we signed you out.&lt;/p>
+        &lt;p>We will remove your information shortly.&lt;/p>
+      &lt;/Header>
+    &lt;/div>
+  );
+};
+
+export default SignoutDidntAgreeToTermsPage;
 </code></pre>
         </article>
     </section>
