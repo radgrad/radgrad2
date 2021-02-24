@@ -21,7 +21,7 @@ Here are the terms and conditions for using RadGrad.
  * Therefore, the way this page needs to work is:
  *   1. The page is retrieved and displayed in the client.
  *   2. An asynchronous call is made to the server. The server loads the terms and conditions (T&C) text from a file.
- *   3. If the load is successful, the text is returned to the client and displayed. Otherwise, display an error message.
+ *   3. The resulting T&C text (or an error message) is returned to the client and the page is re-rendered.
  *
  * Implementing this requires the use of Meteor Methods, useState, and useEffect.
  *
