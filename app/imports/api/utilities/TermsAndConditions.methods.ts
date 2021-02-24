@@ -12,7 +12,15 @@ export const getTermsAndConditions = new ValidatedMethod({
   mixins: [CallPromiseMixin],
   validate: null,
   run() {
-    const fileName = Meteor.settings.termsAndConditionsFileName;
-    return fileName ? JSON.parse(Assets.getText(fileName)) : 'No terms and conditions available';
+    let terms = '';
+    if (Meteor.isServer) {
+      const fileName = Meteor.settings.termsAndConditionsFileName;
+      if (fileName) {
+        terms = Assets.getText(fileName);
+      } else {
+        terms = 'Terms unknown';
+      }
+    }
+    return terms;
   },
 });

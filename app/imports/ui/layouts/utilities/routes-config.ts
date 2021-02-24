@@ -86,9 +86,6 @@ import {
   VERIFICATION_REQUESTS,
 } from './route-constants';
 
-
-
-
 // TODO: Scoreboard -> Forecast,
 
 export const routes = {
