@@ -10,6 +10,8 @@ Knowing what the terms and conditions for joining RadGrad.
 Your first name, last name, and email address are visible to other students, faculty, and advisors. 
 `;
 
+// https://medium.com/capbase-engineering/asynchronous-functional-programming-using-react-hooks-e51a748e6869
+
 const StudentTermsAndConditionsPage: React.FC = () => {
   const markdown = await getTermsAndConditions.call();
   return (
