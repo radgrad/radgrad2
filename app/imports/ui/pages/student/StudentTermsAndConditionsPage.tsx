@@ -25,9 +25,9 @@ Here are the terms and conditions for using RadGrad.
  *
  * Implementing this requires the use of Meteor Methods, useState, and useEffect.
  *
- * First, there is a Meteor Method called getTermsAndConditions. Meteor methods run on both the client and server side.
- * When it runs on the client side, it immediately returns the empty string. (This particular value is important.)
- * When it runs on the server side, it tries to load the T&C text and return it.
+ * First, there is a Meteor Method called getTermsAndConditions. NOTE: Meteor methods run on both the client and server side.
+ * When this method runs on the client side, we have it immediately returns the empty string. (This particular value is important.)
+ * When this method runs on the server side, we have it try to load the T&C text and return it.
  *
  * Second, we have to use React's useState and useEffect hooks to invoke the Meteor Method and ensure that the page
  * is re-rendered exactly once when the Method returns.
@@ -35,16 +35,18 @@ Here are the terms and conditions for using RadGrad.
  * We use useState to create a state variable called 'terms', with initial value of the empty string. Note that whenever
  * the 'terms' variable changes value, the page will be re-rendered.
  *
- * We use useEffect to define a function that is run each time the page is rendered.  This function checks the terms
- * variable, and returns immediately if the terms variable is the empty string. In the case that the terms variable is
- * the empty string, then it invokes the fetchTerms function, which invokes the Meteor Method. The Meteor Method will
- * run immediately on the client side, but it will set the terms variable to the empty string, so that doesn't change
- * the state. Eventually the promise will return, resulting in the then() or catch() chained function calls. Hopefully
- * it's always the then() chain that gets executed, which sets the terms variable to the contents of the file on the
- * server side. Now the terms variable is not the empty string, so when useEffect is called again after the page
+ * The useEffect construct accepts a function that is run each time the page is rendered.  This function checks the 'terms'
+ * variable, and returns immediately if the 'terms' variable is not the empty string. In the case that the terms variable is
+ * the empty string, then it invokes fetchTerms(), which invokes our Meteor Method. This Meteor Method will
+ * run immediately on the client side, but in this case it sets the 'terms' variable to the empty string, so that doesn't change
+ * the state and so no rendering is triggered.
+ *
+ * Eventually, though, the promise will return, invoking either the then() or catch() chained function calls. Hopefully
+ * it's always the then() chain that gets executed, which sets the 'terms' variable to the contents of the file on the
+ * server side. Now the 'terms' variable is not the empty string, so when useEffect is called again after the page
  * re-renders, it doesn't do call fetchTerms again.
  *
- * The final part of the design is to render the markdown section of the page with either the terms variable value (if
+ * The final part of the design is to render the markdown section of the page with either the 'terms' variable value (if
  * it's not the empty string), or the value of the awaitingTerms variable.  We do this so that if it takes a while
  * to get the result back from the server, the page will display "Waiting to receive terms and conditions...." while
  * waiting.
