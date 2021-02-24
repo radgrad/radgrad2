@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> api/career/index.ts</title>
+  <title> api/utilities/TermsAndConditions.methods.ts</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -76,7 +76,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>api/career/index.ts</h1>
+                    <h1>api/utilities/TermsAndConditions.methods.ts</h1>
                 </header>
                 
 
@@ -85,8 +85,32 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/** @namespace api/career */
-import './CareerGoalCollection';
+            <pre class="prettyprint source linenums"><code>import {ValidatedMethod} from 'meteor/mdg:validated-method';
+import {CallPromiseMixin} from 'meteor/didericis:callpromise-mixin';
+
+/**
+ * Meteor method used to define new instances of the given collection name.
+ * @param collectionName the name of the collection.
+ * @param definitionDate the object used in the collection.define method.
+ * @memberOf api/base
+ */
+export const getTermsAndConditions = new ValidatedMethod({
+  name: 'TermsAndConditions.getTermsAndConditions',
+  mixins: [CallPromiseMixin],
+  validate: null,
+  run() {
+    let terms = '';
+    if (Meteor.isServer) {
+      const fileName = Meteor.settings.termsAndConditionsFileName;
+      if (fileName) {
+        terms = Assets.getText(fileName);
+      } else {
+        terms = 'Terms unknown';
+      }
+    }
+    return terms;
+  },
+});
 </code></pre>
         </article>
     </section>
