@@ -15,7 +15,7 @@ Here are the terms and conditions for using RadGrad.
  * on the server side, the location of which is indicated via a settings property.
  *
  * This page provides a simple example of how to display a page in React where its contents must be fetched
- * asynchronously from the server side.  Normally, we do this via useTracker and Collections, but here is a situation
+ * asynchronously from the server side.  Normally, we do this via publications and subscriptions, but here is a situation
  * where we need some data from the server that is not stored in a Collection!
  *
  * Therefore, the way this page needs to work is:
@@ -34,7 +34,7 @@ Here are the terms and conditions for using RadGrad.
  *
  * We use useState to create a state variable called 'terms', with initial value of the empty string. Note that whenever
  * the 'terms' variable changes value, the page will be re-rendered.
- * 
+ *
  * We use useEffect to define a function that is run each time the page is rendered.  This function checks the terms
  * variable, and returns immediately if the terms variable is the empty string. In the case that the terms variable is
  * the empty string, then it invokes the fetchTerms function, which invokes the Meteor Method. The Meteor Method will
