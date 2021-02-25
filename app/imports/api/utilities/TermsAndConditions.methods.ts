@@ -2,10 +2,7 @@ import {ValidatedMethod} from 'meteor/mdg:validated-method';
 import {CallPromiseMixin} from 'meteor/didericis:callpromise-mixin';
 
 /**
- * Meteor method used to define new instances of the given collection name.
- * @param collectionName the name of the collection.
- * @param definitionDate the object used in the collection.define method.
- * @memberOf api/base
+ * Meteor method used to retrieve the terms and conditions string from a file and return it to the client.
  */
 export const getTermsAndConditions = new ValidatedMethod({
   name: 'TermsAndConditions.getTermsAndConditions',
