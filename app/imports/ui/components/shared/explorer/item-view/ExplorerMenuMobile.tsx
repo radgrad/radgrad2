@@ -21,14 +21,13 @@ const { Media, MediaContextProvider } = AppMedia;
 
 interface ExplorerMenuMobileWidgetProps {
   menuAddedList: ListItem[];
-  menuCareerList?: ListItem[] | undefined;
   type: 'plans' | 'career-goals' | 'courses' | 'interests' | 'opportunities' | 'users'; // TODO should this be a defined type?
 }
 
 const isType = (typeToCheck: string, type: string): boolean => type === typeToCheck;
 
 // TODO QA this does a lot can we simplify this?
-const ExplorerMenuMobileWidget: React.FC<ExplorerMenuMobileWidgetProps> = ({ menuAddedList, menuCareerList, type }) => {
+const ExplorerMenuMobile: React.FC<ExplorerMenuMobileWidgetProps> = ({ menuAddedList, type }) => {
   const match = useRouteMatch();
   const isStudent = Router.isUrlRoleStudent(match);
   return (
@@ -81,12 +80,6 @@ const ExplorerMenuMobileWidget: React.FC<ExplorerMenuMobileWidgetProps> = ({ men
                 {menuAddedList.map((listItem) => (
                   <ExplorerMenuMobileItem type={EXPLORER_TYPE.INTERESTS} listItem={listItem} key={listItem.item._id} />
                 ))}
-
-                <Dropdown.Header as="h4">SUGGESTED CAREER GOAL INTERESTS</Dropdown.Header>
-                <Dropdown.Divider />
-                {menuCareerList.map((listItem) => (
-                  <ExplorerMenuMobileItem type={EXPLORER_TYPE.INTERESTS} listItem={listItem} key={listItem.item._id} />
-                ))}
               </Dropdown.Menu>
             </Dropdown>
           ) : (
@@ -112,4 +105,4 @@ const ExplorerMenuMobileWidget: React.FC<ExplorerMenuMobileWidgetProps> = ({ men
   );
 };
 
-export default ExplorerMenuMobileWidget;
+export default ExplorerMenuMobile;

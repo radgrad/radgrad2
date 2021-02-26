@@ -1,6 +1,6 @@
 import React from 'react';
-import ExplorerMenuNonMobileWidget from './ExplorerMenuNonMobileWidget';
-import ExplorerMenuMobileWidget from './ExplorerMenuMobileWidget';
+import ExplorerMenuNonMobile from './ExplorerMenuNonMobile';
+import ExplorerMenuMobile from './ExplorerMenuMobile';
 import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
 import ExplorerNavDropdown from '../ExplorerNavDropdown';
 import { ListItem } from './ExplorerMenuMobileItem';
@@ -33,8 +33,8 @@ const ExplorerMenu: React.FC<ExplorerMenuProps> = ({ menuAddedList, menuCareerLi
     <ExplorerNavDropdown text={getTypeName(type)} />
     <br />
 
-    <ExplorerMenuNonMobileWidget menuAddedList={menuAddedList} menuCareerList={type && menuCareerList ? menuCareerList : undefined} type={type} />
-    <ExplorerMenuMobileWidget menuAddedList={menuAddedList} menuCareerList={type && menuCareerList ? menuCareerList : undefined} type={type} />
+    <ExplorerMenuNonMobile menuAddedList={menuAddedList} menuCareerList={type && menuCareerList ? menuCareerList : undefined} type={type} />
+    <ExplorerMenuMobile menuAddedList={menuAddedList} menuCareerList={type && menuCareerList ? menuCareerList : undefined} type={type} />
   </React.Fragment>
 );
 
