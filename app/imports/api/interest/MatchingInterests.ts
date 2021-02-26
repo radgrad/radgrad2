@@ -27,18 +27,7 @@ class MatchingInterestsClass {
    */
   public matchingUserInterests(username: string, item: HasInterests) {
     // console.log(username, Users.getInterestIDsByType(username), item);
-    const userInterestIDs = Users.getInterestIDsByType(username)[0];
-    return this.matchingInterests(userInterestIDs, item.interestIDs);
-  }
-
-  /**
-   * Returns the matching CareerGoal interests for username and item.
-   * @param {string} username the name of the user.
-   * @param {HasInterests} item the item with interestIDs.
-   * @returns {Interest[]}
-   */
-  public matchingCareerGoalInterests(username: string, item: HasInterests) {
-    const userInterestIDs = Users.getInterestIDsByType(username)[1];
+    const userInterestIDs = Users.getInterestIDs(username);
     return this.matchingInterests(userInterestIDs, item.interestIDs);
   }
 

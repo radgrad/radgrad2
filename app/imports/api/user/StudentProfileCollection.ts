@@ -519,49 +519,6 @@ class StudentProfileCollection extends BaseProfileCollection {
   }
 
   /**
-   * Returns the user's interests as IDs. It is a union of interestIDs and careerGoal interestIDs.
-   * @param userID
-   * @returns {Array}
-   */
-  public getInterestIDs(userID: string) {
-    let interestIDs = [];
-    const favoriteInterests = FavoriteInterests.findNonRetired({ userID });
-    _.forEach(favoriteInterests, (fav) => {
-      interestIDs.push(fav.interestID);
-    });
-    const favoriteCareerGoals = FavoriteCareerGoals.findNonRetired({ userID });
-    _.forEach(favoriteCareerGoals, (fav) => {
-      const goal = CareerGoals.findDoc(fav.careerGoalID);
-      interestIDs = _.union(interestIDs, goal.interestIDs);
-    });
-    return interestIDs;
-  }
-
-  /**
-   * Returns the user's interest IDs in an Array with two sub-arrays. The first sub-array is the interest IDs that the
-   * User selected. The second sub-array is the interestIDs from the user's career goals.
-   * @param userID The user's ID.
-   */
-  public getInterestIDsByType(userID: string) {
-    const interestIDs = [];
-    const userInterests = [];
-    const favoriteInterests = FavoriteInterests.findNonRetired({ userID });
-    _.forEach(favoriteInterests, (fav) => {
-      userInterests.push(fav.interestID);
-    });
-    interestIDs.push(userInterests);
-    let careerInterestIDs = [];
-    const favoriteCareerGoals = FavoriteCareerGoals.findNonRetired({ userID });
-    _.forEach(favoriteCareerGoals, (fav) => {
-      const goal = CareerGoals.findDoc(fav.careerGoalID);
-      careerInterestIDs = _.union(careerInterestIDs, goal.interestIDs);
-    });
-    careerInterestIDs = _.difference(careerInterestIDs, userInterests);
-    interestIDs.push(careerInterestIDs);
-    return interestIDs;
-  }
-
-  /**
    * Updates user's level.
    * @param user The user (username or userID).
    * @param level The new level.

@@ -6,7 +6,6 @@ import * as Router from '../../utilities/router';
 import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
 import ExplorerMenuMobileItem from '../item-view/ExplorerMenuMobileItem';
 import { ExplorerInterfaces, isType } from '../utilities/explorer';
-import { Interest } from '../../../../../typings/radgrad';
 
 const AppMedia = createMedia({
   breakpoints: {
@@ -23,11 +22,10 @@ const { Media, MediaContextProvider } = AppMedia;
 
 interface CardExplorerMenuMobileWidgetProps {
   menuAddedList: { item: ExplorerInterfaces; count: number }[];
-  menuCareerList: { item: Interest; count: number }[] | undefined;
   type: 'plans' | 'career-goals' | 'courses' | 'interests' | 'opportunities';
 }
 
-const ExplorerMultipleItemsMenuMobileWidget: React.FC<CardExplorerMenuMobileWidgetProps> = ({ menuAddedList, menuCareerList, type }) => {
+const ExplorerMultipleItemsMenuMobileWidget: React.FC<CardExplorerMenuMobileWidgetProps> = ({ menuAddedList, type }) => {
   const match = useRouteMatch();
   const isStudent = Router.isUrlRoleStudent(match);
   return (
@@ -75,12 +73,6 @@ const ExplorerMultipleItemsMenuMobileWidget: React.FC<CardExplorerMenuMobileWidg
                 <Dropdown.Header as="h4">MY FAVORITE INTERESTS</Dropdown.Header>
                 <Dropdown.Divider />
                 {menuAddedList.map((listItem) => (
-                  <ExplorerMenuMobileItem type={EXPLORER_TYPE.INTERESTS} listItem={listItem} key={listItem.item._id} />
-                ))}
-
-                <Dropdown.Header as="h4">SUGGESTED CAREER GOAL INTERESTS</Dropdown.Header>
-                <Dropdown.Divider />
-                {menuCareerList.map((listItem) => (
                   <ExplorerMenuMobileItem type={EXPLORER_TYPE.INTERESTS} listItem={listItem} key={listItem.item._id} />
                 ))}
               </Dropdown.Menu>

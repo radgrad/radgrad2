@@ -3,7 +3,6 @@ import React from 'react';
 import { Menu, Header, Button, Icon } from 'semantic-ui-react';
 import { useRouteMatch, Link } from 'react-router-dom';
 import { RadGradProperties } from '../../../../../api/radgrad/RadGradProperties';
-import { Interest } from '../../../../../typings/radgrad';
 import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
 import ExplorerMenuNonMobileItem from '../item-view/ExplorerMenuNonMobileItem';
 import { ExplorerInterfaces, IExplorerTypes, isType } from '../utilities/explorer';
@@ -25,12 +24,11 @@ const { Media, MediaContextProvider } = AppMedia;
 
 interface CardExplorerMenuNonMobileWidgetProps {
   menuAddedList: { item: ExplorerInterfaces; count: number }[];
-  menuCareerList: { item: Interest; count: number }[] | undefined;
   // eslint-disable-next-line react/no-unused-prop-types
   type: IExplorerTypes;
 }
 
-const ExplorerMultipleItemsMenuNonMobileWidget: React.FC<CardExplorerMenuNonMobileWidgetProps> = ({ menuAddedList, menuCareerList, type }) => {
+const ExplorerMultipleItemsMenuNonMobileWidget: React.FC<CardExplorerMenuNonMobileWidgetProps> = ({ menuAddedList, type }) => {
   const match = useRouteMatch();
   const adminEmail = RadGradProperties.getAdminEmail();
   const isStudent = isUrlRoleStudent(match);
@@ -101,13 +99,6 @@ const ExplorerMultipleItemsMenuNonMobileWidget: React.FC<CardExplorerMenuNonMobi
                 <Header.Content>MY INTERESTS</Header.Content>
               </Header>
               {menuAddedList.map((listItem) => (
-                <ExplorerMenuNonMobileItem listItem={listItem} type={EXPLORER_TYPE.INTERESTS} key={listItem.item._id} />
-              ))}
-
-              <Header as="h4" dividing>
-                SUGGESTED CAREER GOAL INTERESTS
-              </Header>
-              {menuCareerList.map((listItem) => (
                 <ExplorerMenuNonMobileItem listItem={listItem} type={EXPLORER_TYPE.INTERESTS} key={listItem.item._id} />
               ))}
             </Menu>

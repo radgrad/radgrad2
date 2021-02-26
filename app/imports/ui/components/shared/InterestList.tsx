@@ -16,7 +16,6 @@ interface InterestListProps {
 const InterestList: React.FC<InterestListProps> = ({ size, item }) => {
   const match = useRouteMatch();
   const matchingUserInterests = MatchingInterests.matchingUserInterests(Router.getUsername(match), item);
-  const matchingCareerInterests = MatchingInterests.matchingCareerGoalInterests(Router.getUsername(match), item);
   const otherInterests = MatchingInterests.notMatchingInterests(Router.getUsername(match), item);
   return (
     <Label.Group size={size}>
@@ -25,15 +24,6 @@ const InterestList: React.FC<InterestListProps> = ({ size, item }) => {
         return (
           <Label as={Link} key={interest._id} to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}/${interestSlug}`)} size={size}>
             <i className="fitted star icon" /> {docToName(interest)}
-          </Label>
-        );
-      })}
-
-      {matchingCareerInterests.map((interest) => {
-        const interestSlug = itemToSlugName(interest);
-        return (
-          <Label as={Link} key={interest._id} to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}/${interestSlug}`)} size={size}>
-            <i className="fitted suitcase icon" /> {docToName(interest)}
           </Label>
         );
       })}

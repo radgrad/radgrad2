@@ -444,34 +444,6 @@ class UserCollection {
   }
 
   /**
-   * Returns the user's interest IDs in an Array with two sub-arrays. The first sub-array is the interest IDs that the
-   * User selected. The second sub-array is the interestIDs from the user's career goals that are not already present
-   * in the first subarray.
-   * @param user The username or userID.
-   * @returns { Array } An array with two subarrays, each containing interestIDs.
-   */
-  public getInterestIDsByType(user) {
-    const profile = this.getProfile(user);
-    const userID = profile.userID;
-    const interestIDs = [];
-    const userInterests = [];
-    const favoriteInterests = FavoriteInterests.findNonRetired({ userID });
-    _.forEach(favoriteInterests, (fav) => {
-      userInterests.push(fav.interestID);
-    });
-    interestIDs.push(userInterests);
-    let careerInterestIDs = [];
-    const favoriteCareerGoals = FavoriteCareerGoals.findNonRetired({ userID });
-    _.forEach(favoriteCareerGoals, (fav) => {
-      const goal = CareerGoals.findDoc(fav.careerGoalID);
-      careerInterestIDs = _.union(careerInterestIDs, goal.interestIDs);
-    });
-    careerInterestIDs = _.difference(careerInterestIDs, userInterests);
-    interestIDs.push(careerInterestIDs);
-    return interestIDs;
-  }
-
-  /**
    * Publish the username field for all users.
    */
   public publish() {
