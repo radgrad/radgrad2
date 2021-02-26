@@ -26,7 +26,6 @@ class MatchingInterestsClass {
    * @returns {Interest[]}
    */
   public matchingUserInterests(username: string, item: HasInterests) {
-    // console.log(username, Users.getInterestIDsByType(username), item);
     const userInterestIDs = Users.getInterestIDs(username);
     return this.matchingInterests(userInterestIDs, item.interestIDs);
   }
