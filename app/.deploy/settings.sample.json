@@ -1,63 +1,27 @@
 {
-  "cas": {
-    "baseUrl": "https://cas-test.its.hawaii.edu/cas/",
-    "autoClose": true
-  },
+  "cas": {"baseUrl": "https://authn.hawaii.edu/cas/", "autoClose": true},
+  "databaseRestoreFileName": "database/custom/2020-12-21-17-49-13.json",
+  "termsAndConditionsFileName": "terms-and-conditions/terms-and-conditions.ics.md",
+  "env": {"MAIL_URL": "changeme"},
+  "monti": {"appId": "changeme", "appSecret": "changeme"},
   "public": {
-    "cas": {
-      "loginUrl": "https://cas-test.its.hawaii.edu/cas/login",
-      "serviceParam": "service",
-      "popupWidth": 810,
-      "popupHeight": 610
-    },
-    "fixUserInteractions": false,
-    "databaseRestoreFileName": "database/snapshot/2020-01-24-11-37-22.json",
-    "appLogging": { "enable": true, "filter": ["*"], "client": true, "server": true },
-    "admin": { "username": "radgrad@hawaii.edu", "development": true },
-    "cloudinary": {"cloud_name": "radgrad", "upload_preset": "CHANGEME"},
+    "tagline": "Developing awesome computer scientists, **one** graduate at a time.",
+    "landingSubject": "Computer science",
+    "instanceName": "UHM/ICS",
+    "userGuideURL": "https://www.radgrad.org/docs/users/",
+    "cas": {"loginUrl": "https://authn.hawaii.edu/cas/", "serviceParam": "service", "popupWidth": 810, "popupHeight": 610},
+    "development": false,
+    "cloudinary": {"cloud_name": "radgrad", "upload_preset": "changeme"},
     "level": {
-      "six": {
-        "plannedICE": {"i": 100, "c": 100, "e": 100},
-        "earnedICE": {"i": 100, "c": 100, "e": 100},
-        "reviews": 6
-      },
-      "five": {
-        "plannedICE": {"i": 100, "c": 100, "e": 100},
-        "earnedICE": {"i": 80, "c": 80, "e": 80},
-        "reviews": 1
-      },
-      "four": {
-        "plannedICE": {"i": 100, "c": 100, "e": 100},
-        "earnedICE": {"i": 30, "c": 36, "e": 30},
-        "reviews": 0
-      },
-      "three": {
-        "plannedICE": {"i": 0, "c": 0, "e": 0},
-        "earnedICE": {"i": 1, "c": 24, "e": 1},
-        "reviews": 0
-      },
-      "two": {
-        "plannedICE": {"i": 0, "c": 0, "e": 0},
-        "earnedICE": {"i": 0, "c": 12, "e": 0},
-        "reviews": 0
-      }
+      "six": { "plannedICE": { "i": 100, "c": 100, "e": 100 }, "earnedICE": {"i": 100, "c": 100, "e": 100}, "reviews": 6 },
+      "five": { "plannedICE": { "i": 100, "c": 100, "e": 100 }, "earnedICE": { "i": 80, "c": 80, "e": 80 }, "reviews": 1 },
+      "four": { "plannedICE": {"i": 100, "c": 100, "e": 100}, "earnedICE": {"i": 30, "c": 36, "e": 30}, "reviews": 0},
+      "three": {"plannedICE": {"i": 0, "c": 0, "e": 0}, "earnedICE": {"i": 1, "c": 24, "e": 1}, "reviews": 0 },
+      "two": {"plannedICE": {"i": 0, "c": 0, "e": 0}, "earnedICE": {"i": 0, "c": 12, "e": 0}, "reviews": 0 }
     },
-    "RadGrad": {
-      "quarterSystem": false,
-      "adminProfile": {
-        "username":"radgrad@hawaii.edu",
-        "firstName": "RadGrad",
-        "lastName": "Admin"
-      },
-      "emailDomain": "hawaii.edu",
-      "newsletterFrom": "Philip Johnson <donotreply@mail.gun.radgrad.org>"
-    }
-  },
-  "monti": {
-    "appId": "changeme",
-    "appSecret": "changeme"
-  },
-  "env": {
-    "MAIL_URL": "smtps://changeme:changeme@smtp.mailgun.org:465"
+    "quarterSystem": false,
+    "adminProfile": {"username": "changeme", "firstName": "RadGrad", "lastName": "Admin"},
+    "emailDomain": "changeme",
+    "newsletterFrom": "RadGrad Admin <changeme>"
   }
 }
