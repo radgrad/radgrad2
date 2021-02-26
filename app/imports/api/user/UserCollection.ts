@@ -2,7 +2,6 @@ import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { Roles } from 'meteor/alanning:roles';
 import _ from 'lodash';
-import { CareerGoals } from '../career/CareerGoalCollection';
 import { Opportunities } from '../opportunity/OpportunityCollection';
 import { RadGradProperties } from '../radgrad/RadGradProperties';
 import { Reviews } from '../review/ReviewCollection';
@@ -12,7 +11,6 @@ import { AdvisorProfiles } from './AdvisorProfileCollection';
 import { StudentProfiles } from './StudentProfileCollection';
 import { FacultyProfiles } from './FacultyProfileCollection';
 import { FavoriteInterests } from '../favorite/FavoriteInterestCollection';
-import { FavoriteCareerGoals } from '../favorite/FavoriteCareerGoalCollection';
 
 /**
  * Represents a user, which is someone who has a Meteor account.
