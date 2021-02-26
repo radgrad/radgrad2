@@ -435,15 +435,10 @@ class UserCollection {
   public getInterestIDs(user) {
     const profile = this.getProfile(user);
     const userID = profile.userID;
-    let interestIDs = [];
+    const interestIDs = [];
     const favoriteInterests = FavoriteInterests.findNonRetired({ userID });
-    _.forEach(favoriteInterests, (fav) => {
+    favoriteInterests.forEach((fav) => {
       interestIDs.push(fav.interestID);
-    });
-    const favoriteCareerGoals = FavoriteCareerGoals.findNonRetired({ userID });
-    _.forEach(favoriteCareerGoals, (fav) => {
-      const goal = CareerGoals.findDoc(fav.careerGoalID);
-      interestIDs = _.union(interestIDs, goal.interestIDs);
     });
     return interestIDs;
   }

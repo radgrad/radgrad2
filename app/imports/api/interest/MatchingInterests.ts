@@ -15,17 +15,8 @@ class MatchingInterestsClass {
    * @returns {Interest[]}
    */
   private matchingInterests(ids1: string[], ids2: string[]): Interest[] {
-    const matching = [];
-    const interests1 = _.map(ids1, (id) => Interests.findDoc(id));
-    const interests2 = _.map(ids2, (id) => Interests.findDoc(id));
-    _.forEach(interests1, (interest1) => {
-      _.forEach(interests2, (interest2) => {
-        if (_.isEqual(interest1, interest2)) {
-          matching.push(interest2);
-        }
-      });
-    });
-    return matching;
+    const matchingIDs = _.intersection(ids1, ids2);
+    return matchingIDs.map((id) => Interests.findDoc(id));
   }
 
   /**
