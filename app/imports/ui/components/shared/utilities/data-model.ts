@@ -26,15 +26,15 @@ interface HasSlugID {
   slugID: string;
 }
 
-export const itemToSlugName = (doc) => (doc.slugID ? Slugs.getNameFromID(doc.slugID) : doc.username);
+export const itemToSlugName = (doc): string => (doc.slugID ? Slugs.getNameFromID(doc.slugID) : doc.username);
 
-export const academicTermIdToName = (id) => AcademicTerms.toString(id, false);
+export const academicTermIdToName = (id: string): string => AcademicTerms.toString(id, false);
 
-export const academicTermToName = (term) => AcademicTerms.toString(term._id, false);
+export const academicTermToName = (term): string => AcademicTerms.toString(term._id, false);
 
 export const academicTermNameToDoc = (name) => AcademicTerms.getAcademicTermFromToString(name);
 
-export const academicTermNameToShortName = (termID) => {
+export const academicTermNameToShortName = (termID): string => {
   const academicTerm: AcademicTerm = AcademicTerms.findOne(termID);
   const termYear = `${academicTerm.year}`.substring(2, 4);
 
@@ -59,21 +59,21 @@ export const academicTermNameToShortName = (termID) => {
   return `${termName} ${termYear}`;
 };
 
-export const academicTermNameToSlug = (name) => itemToSlugName(AcademicTerms.getAcademicTermFromToString(name));
+export const academicTermNameToSlug = (name: string): string => itemToSlugName(AcademicTerms.getAcademicTermFromToString(name));
 
-export const careerGoalIdToName = (id) => CareerGoals.findDoc(id).name;
+export const careerGoalIdToName = (id: string): string => CareerGoals.findDoc(id).name;
 
-export const careerGoalNameToSlug = (name) => itemToSlugName(CareerGoals.findDoc(name));
+export const careerGoalNameToSlug = (name: string): string => itemToSlugName(CareerGoals.findDoc(name));
 
-export const courseToName = (course) => `${course.num}: ${course.shortName}`;
+export const courseToName = (course): string => `${course.num}: ${course.shortName}`;
 
-export const courseNameToCourseDoc = (name) => Courses.findDoc({ shortName: name.substring(name.indexOf(':') + 2) });
+export const courseNameToCourseDoc = (name: string) => Courses.findDoc({ shortName: name.substring(name.indexOf(':') + 2) });
 
-export const courseNameToSlug = (name) => itemToSlugName(Courses.findDoc({ shortName: name.substring(name.indexOf(':') + 2) }));
+export const courseNameToSlug = (name: string): string => itemToSlugName(Courses.findDoc({ shortName: name.substring(name.indexOf(':') + 2) }));
 
 export const courseSlugToName = (slug) => courseToName(Courses.findDoc(Slugs.getEntityID(slug, 'Course')));
 
-export const docToName = (doc: HasName) => doc.name;
+export const docToName = (doc: HasName): string => doc.name;
 
 export const docToSlugNameAndType = (doc: HasSlugID) => `${Slugs.findDoc(doc.slugID).name} (${Slugs.findDoc(doc.slugID).entityName})`;
 
