@@ -5040,7 +5040,7 @@
           "name": "Graphic Design",
           "slug": "graphic-design",
           "description": "Graphic design is the process of visual communication and problem-solving using one or more of typography, photography and illustration. [Learn more here.](https://en.wikipedia.org/wiki/Graphic_design)",
-          "interestType": "non-ceng-disciplines",
+          "interestType": "non-ceng-disciplines"
         },
         {
           "name": "GraphQL",
@@ -8646,6 +8646,54 @@
     {
       "name": "ReviewCollection",
       "contents": [
+        {
+          "slug": "review-course-ics111-abi",
+          "student": "abi@hawaii.edu",
+          "reviewType": "course",
+          "reviewee": "ics_111",
+          "academicTerm": "Fall-2016",
+          "rating": 5,
+          "comments": "Lecture can be boring. Tests can be tricky... so pay attention and read the questions and answers twice before answering them. Lab is were all the fun is. If you're not an ICS major or don't like programing, you probably shouldn't take the course.",
+          "moderated": true,
+          "visible": true,
+          "retired": false
+        },
+        {
+          "slug": "review-course-ics111-alfred",
+          "student": "alfred@hawaii.edu",
+          "reviewType": "course",
+          "reviewee": "ics_111",
+          "academicTerm": "Fall-2017",
+          "rating": 5,
+          "comments": "ICS 111 was fun, and I learned a lot. The projects weren't difficult nor were the assignments. Come to the lectures, do the readings, and take the time to understand the concepts, and you'll do fine.",
+          "moderated": true,
+          "visible": true,
+          "retired": false
+        },
+        {
+          "slug": "review-course-ics211-alfred",
+          "student": "alfred@hawaii.edu",
+          "reviewType": "course",
+          "reviewee": "ics_211",
+          "academicTerm": "Spring-2018",
+          "rating": 5,
+          "comments": "A step up from ICS 111, ICS 211 taught me a lot about data structures. Lectures were engaging, and the programming assignments were challenging. Most people will do well in this course if they put their time into learning the concepts and if they start the assignments early!",
+          "moderated": true,
+          "visible": true,
+          "retired": false
+        },
+        {
+          "slug": "review-course-ics241-alfred",
+          "student": "alfred@hawaii.edu",
+          "reviewType": "course",
+          "reviewee": "ics_241",
+          "academicTerm": "Spring-2018",
+          "rating": 3,
+          "comments": "I understand how Discrete Math relates to Information and Computer Science, but I still didn't enjoy this course-- the content, that is. Initially the homework problems were, to me, difficult. Fortunately, the professor tried very hard to teach the concepts well, and I received a lot of help from the TA and the professor during office hours.",
+          "moderated": true,
+          "visible": true,
+          "retired": false
+        },
         {
           "slug": "review-course-ics311-alfred",
           "student": "alfred@hawaii.edu",

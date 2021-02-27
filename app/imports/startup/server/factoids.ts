@@ -19,6 +19,8 @@ import { FavoriteCareerGoals } from '../../api/favorite/FavoriteCareerGoalCollec
 
 const getRandomDocument = (collection: BaseCollection) => {
   const documents = collection.findNonRetired({});
+  if (collection.collectionName == "ReviewCollection")
+    console.log(documents);
   return documents[Math.floor(Math.random() * documents.length)];
 };
 
@@ -114,6 +116,9 @@ const buildOpportunityFactoid = (): OpportunityFactoidProps => {
 const buildReviewFactoid = (): ReviewFactoidProps => {
   const review = getRandomDocument(Reviews);
   let name = '';
+    console.log(review);
+    console.log(Reviews);
+    console.log(Reviews.COURSE);
   if (review.reviewType === Reviews.COURSE) {
     name = `Course: ${Courses.findDoc(review.revieweeID).name}`;
   } else {
