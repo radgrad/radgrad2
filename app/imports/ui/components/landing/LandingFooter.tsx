@@ -13,7 +13,7 @@ const LandingFooter: React.FC<LandingFooterProps> = ({ instanceName }) => (
         <Grid>
           <Grid.Row columns={2}>
             <Grid.Column>
-              UHM/ICS RadGrad {`${buildVersion.version}`} (Deployed on {`${buildVersion.bugFix}`})
+              {`${instanceName}`} RadGrad {`${buildVersion.version}`} (Deployed on {`${buildVersion.bugFix}`})
 
             </Grid.Column>
             <Grid.Column textAlign="right">
