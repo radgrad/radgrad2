@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Confirm, Icon, Tab } from 'semantic-ui-react';
+import { Button, Confirm, Icon, Tab } from 'semantic-ui-react';
 import _ from 'lodash';
 import moment from 'moment';
 import { connect } from 'react-redux';
@@ -26,6 +26,7 @@ import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCol
 import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
 import { RootState } from '../../../redux/types';
 import PageLayout from '../PageLayout';
+import { careerGoalInterestConversionMethod } from '../../../api/utilities/InterestConversion.methods';
 
 interface AdminDataModelUsersPageProps {
   admins: BaseProfile[];
@@ -264,6 +265,10 @@ const AdminDataModelUsersPage: React.FC<AdminDataModelUsersPageProps> = (props) 
     });
   };
 
+  const handleConvert = () => {
+    careerGoalInterestConversionMethod.call({});
+  };
+
   const panes = [
     {
       menuItem: `Admins (${props.admins.length})`,
@@ -352,7 +357,7 @@ const AdminDataModelUsersPage: React.FC<AdminDataModelUsersPageProps> = (props) 
                      academicTerms={props.academicTerms}/>
       )}
       <Tab panes={panes} defaultActiveIndex={3}/>
-
+      <Button onClick={handleConvert}>Convert Career Goal Interests</Button>
       <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete User?"/>
     </PageLayout>
   );
