@@ -62,8 +62,7 @@ const loadDatabase = () => {
   const loadFileName = Meteor.settings.databaseRestoreFileName;
   if (loadFileName && (totalDocuments() === 0 || totalDocuments() === 1)) {
     const loadFileAge = getRestoreFileAge(loadFileName);
-    console.log(`Loading database2 from file ${loadFileName}, dumped ${loadFileAge}.`);
-    console.log('Asset file path', Assets.absoluteFilePath(loadFileName));
+    console.log(`Loading database from file ${loadFileName}, dumped ${loadFileAge}.`);
     const loadJSON = JSON.parse(Assets.getText(loadFileName));
     // The list of collections, ordered so that they can be sequentially restored.
     const collectionList = RadGrad.collectionLoadSequence;
@@ -83,6 +82,13 @@ const loadDatabase = () => {
     if (!extraRestoreNames.length && !extraCollectionNames.length) {
       _.each(collectionList, (collection) => loadCollection(collection, loadJSON, true));
     }
+    const loadTimeString = loadFileName.substring(loadFileName.lastIndexOf('/') + 1, loadFileName.indexOf('.'));
+    // console.log(loadTimeString);
+    // CAM is this the right time to set?
+    PublicStats.setCareerGoalUpdateTime(loadTimeString);
+    PublicStats.setCoursesUpdateTime(loadTimeString);
+    PublicStats.setInterestsUpdateTime(loadTimeString);
+    PublicStats.setOpportunitiesUpdateTime(loadTimeString);
     console.log('Finished loading database.');
   }
 };

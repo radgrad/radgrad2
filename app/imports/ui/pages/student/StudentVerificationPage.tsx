@@ -10,9 +10,10 @@ This page lists all Opportunities in your Degree Plan from a previous semester. 
 
 If you didn't do it, then please go to the Degree Plan page and delete it.  
 `;
+const headerPaneImage = 'header-verification.png';
 
 const StudentVerificationPage: React.FC = () => (
-  <PageLayout id="student-verification-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
+  <PageLayout id="student-verification-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
     <Header>Student Verification Page Placeholder</Header>
   </PageLayout>
 );

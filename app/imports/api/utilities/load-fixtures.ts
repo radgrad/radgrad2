@@ -15,7 +15,6 @@ import { StudentProfiles } from '../user/StudentProfileCollection';
 import { AcademicYearInstances } from '../degree-plan/AcademicYearInstanceCollection';
 import { Feeds } from '../feed/FeedCollection';
 import { FeedbackInstances } from '../feedback/FeedbackInstanceCollection';
-import { HelpMessages } from '../help/HelpMessageCollection';
 
 export const loadCollectionNewDataOnly = (collection: BaseCollection, loadJSON, printToConsole) => {
   let retVal = '';
@@ -83,13 +82,6 @@ export const loadCollectionNewDataOnly = (collection: BaseCollection, loadJSON, 
           count++;
         }
       }
-        break;
-      case HelpMessages.getType():
-        if (HelpMessages.find({ routeName: definition.routeName })
-          .count() === 0) {
-          collection.define(definition);
-          count++;
-        }
         break;
       case OpportunityInstances.getType():
         termID = AcademicTerms.getID(definition.academicTerm);

@@ -2,14 +2,14 @@ import { withTracker } from "meteor/react-meteor-data";
 import { useParams } from "react-router-dom";
 import React from "react";
 import { Grid, Container } from "semantic-ui-react";
-import { HelpMessages } from "../../../../app/imports/api/help/HelpMessageCollection";
+import { HelpMessages } from "../../../issue-392/help/HelpMessageCollection";
 import { AdvisorLogs } from "../../../api/log/AdvisorLogCollection";
 import { Users } from "../../../../app/imports/api/user/UserCollection";
 import StudentPageMenuWidget from "../../component/student/StudentPageMenuWidget";
 import BackToTopButton from "../../../../app/imports/ui/components/shared/BackToTopButton";
 import HelpPanelWidget, {
   HelpPanelWidgetProps,
-} from "../../../../app/imports/ui/components/shared/HelpPanelWidget";
+} from "../../../issue-392/HelpPanelWidget";
 import StudentLogWidget, {
   StudentLogWidgetProps,
 } from "../../component/student/log/StudentLogWidget";

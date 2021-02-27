@@ -1,4 +1,3 @@
-// @ts-ignore
 export default {
   'landing-menu > .item, .landing-menu .right.menu > .item': {
     position: 'initial',
@@ -20,26 +19,33 @@ export default {
     marginTop: 0,
   },
   'ready-to-get-started': {
-    paddingTop: 40,
-    paddingBottom: 40,
+    paddingTop: 20,
+    paddingBottom: 60,
     paddingLeft: 20,
-    backgroundColor: '#279474',
+    backgroundColor: '#6fbe44',
     color: 'white',
     borderRadius: 10,
 
   },
   'need-more-info': {
-    paddingTop: 40,
-    paddingBottom: 40,
+    paddingTop: 20,
+    paddingBottom: 60,
     paddingLeft: 20,
-    backgroundColor: '#6FBE44',
+    backgroundColor: '#2f9276',
     color: 'white',
     borderRadius: 10,
-
+  },
+  'browse-explorers': {
+    paddingTop: 20,
+    paddingBottom: 30,
+    paddingLeft: 20,
+    backgroundColor: '#106735',
+    color: 'white',
+    borderRadius: 10,
   },
   'inverted-main-header': {
     color: 'white',
-    fontSize: 55,
+    fontSize: '4rem',
     lineHeight: 1,
     paddingBottom: 10,
   },
@@ -51,7 +57,7 @@ export default {
     textAlign: 'center',
     paddingRight: 20,
     paddingLeft: 20,
-    fontSize: 20,
+    fontSize: '1.3rem',
   },
   'home-number': {
     color: '#279474',
@@ -103,7 +109,7 @@ export default {
   },
   'inverted-header2': {
     color: 'white',
-    fontSize: 30,
+    fontSize: '1.7rem',
   },
   'mobile-header': {
     fontSize: 60,
@@ -117,10 +123,10 @@ export default {
 
   },
   'header-text': {
-    fontSize: 45,
+    fontSize: '4.0rem',
   },
   'header-description': {
-    fontSize: 20,
+    fontSize: '1.3rem',
     textAlign: 'center',
     paddingRight: 100,
     paddingLeft: 100,
@@ -170,14 +176,7 @@ export default {
     fontWeight: 100,
     fontcolor: 'red',
   },
-  'guide-button': {
-    backgroundColor: '#279474',
-  },
-  'guide-button-dropdown': {
-    fontSize: 15,
-    marginTop: 20,
-    padding: 20,
-    width: 120,
-
+  'explorer-dropdown':{
+    marginRight: 10,
   },
 } as React.CSSProperties;

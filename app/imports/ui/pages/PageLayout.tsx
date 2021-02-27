@@ -5,17 +5,18 @@ import {getMenuWidget} from './shared/utilities/getMenuWidget';
 
 interface PageLayoutProps {
   id: string,
+  headerPaneImage?: string,
   headerPaneTitle: string,
   headerPaneBody?: string,
   children?: React.ReactNode,
 }
 
-const PageLayout: React.FC<PageLayoutProps> = ({id, headerPaneTitle, headerPaneBody = '', children}) => {
+const PageLayout: React.FC<PageLayoutProps> = ({id, headerPaneImage, headerPaneTitle, headerPaneBody = '', children}) => {
   const match = useRouteMatch();
   return (
     <div id={id}>
       {getMenuWidget(match)}
-      <HeaderPane title={headerPaneTitle} body={headerPaneBody}/>
+      <HeaderPane image={headerPaneImage} title={headerPaneTitle} body={headerPaneBody}/>
       <div style={{marginRight: '20px', marginLeft: '20px'}}>
         {children}
       </div>

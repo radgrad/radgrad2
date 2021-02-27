@@ -37,8 +37,15 @@ class StudentProfileCollection extends BaseProfileCollection {
         shareOpportunities: { type: Boolean, optional: true },
         shareCourses: { type: Boolean, optional: true },
         shareLevel: { type: Boolean, optional: true },
-        lastRegistrarLoad: { type: Date, optional: true },
-        agreedToTermsDate: { type: Date, optional: true },
+        lastRegistrarLoad: { type: String, optional: true },
+        lastVisitedCareerGoals: { type: String, optional: true },
+        lastVisitedCourses: { type: String, optional: true },
+        lastVisitedInterests: { type: String, optional: true },
+        lastVisitedOpportunities: { type: String, optional: true },
+        lastVisitedPrivacy: { type: String, optional: true },
+        lastLeveledUp: { type: String, optional: true },
+        acceptedTermsAndConditions: { type: String, optional: true },
+        refusedTermsAndConditions: { type: String, optional: true },
       }),
     );
     this.defineSchema = new SimpleSchema({
@@ -67,6 +74,15 @@ class StudentProfileCollection extends BaseProfileCollection {
       shareOpportunities: { type: Boolean, optional: true },
       shareCourses: { type: Boolean, optional: true },
       shareLevel: { type: Boolean, optional: true },
+      lastRegistrarLoad: { type: String, optional: true },
+      lastVisitedCareerGoals: { type: String, optional: true },
+      lastVisitedCourses: { type: String, optional: true },
+      lastVisitedInterests: { type: String, optional: true },
+      lastVisitedOpportunities: { type: String, optional: true },
+      lastVisitedPrivacy: { type: String, optional: true },
+      lastLeveledUp: { type: String, optional: true },
+      acceptedTermsAndConditions: { type: String, optional: true },
+      refusedTermsAndConditions: { type: String, optional: true },
     });
     this.updateSchema = new SimpleSchema({
       firstName: { type: String, optional: true },
@@ -93,7 +109,15 @@ class StudentProfileCollection extends BaseProfileCollection {
       shareOpportunities: { type: Boolean, optional: true },
       shareCourses: { type: Boolean, optional: true },
       shareLevel: { type: Boolean, optional: true },
-      lastRegistrarLoad: { type: Date, optional: true },
+      lastRegistrarLoad: { type: String, optional: true },
+      lastVisitedCareerGoals: { type: String, optional: true },
+      lastVisitedCourses: { type: String, optional: true },
+      lastVisitedInterests: { type: String, optional: true },
+      lastVisitedOpportunities: { type: String, optional: true },
+      lastVisitedPrivacy: { type: String, optional: true },
+      lastLeveledUp: { type: String, optional: true },
+      acceptedTermsAndConditions: { type: String, optional: true },
+      refusedTermsAndConditions: { type: String, optional: true },
     });
   }
 
@@ -146,6 +170,15 @@ class StudentProfileCollection extends BaseProfileCollection {
     shareCourses = false,
     shareOpportunities = false,
     shareLevel = false,
+    lastRegistrarLoad,
+    lastVisitedCareerGoals,
+    lastVisitedCourses,
+    lastVisitedInterests,
+    lastVisitedOpportunities,
+    lastVisitedPrivacy,
+    lastLeveledUp,
+    acceptedTermsAndConditions,
+    refusedTermsAndConditions,
   }: StudentProfileDefine) {
     if (Meteor.isServer) {
       // Validate parameters.
@@ -178,6 +211,15 @@ class StudentProfileCollection extends BaseProfileCollection {
         shareCourses,
         shareOpportunities,
         shareLevel,
+        lastRegistrarLoad,
+        lastVisitedCareerGoals,
+        lastVisitedCourses,
+        lastVisitedInterests,
+        lastVisitedOpportunities,
+        lastVisitedPrivacy,
+        lastLeveledUp,
+        acceptedTermsAndConditions,
+        refusedTermsAndConditions,
       });
       const userID = Users.define({ username, role });
       this.collection.update(profileID, { $set: { userID } });
@@ -185,7 +227,11 @@ class StudentProfileCollection extends BaseProfileCollection {
         interests.forEach((interest) => FavoriteInterests.define({ interest, share: shareInterests, username }));
       }
       if (careerGoals) {
-        careerGoals.forEach((careerGoal) => FavoriteCareerGoals.define({ careerGoal, share: shareCareerGoals, username }));
+        careerGoals.forEach((careerGoal) => FavoriteCareerGoals.define({
+          careerGoal,
+          share: shareCareerGoals,
+          username,
+        }));
       }
       if (favoriteCourses) {
         favoriteCourses.forEach((course) => FavoriteCourses.define({ course, student: username }));
@@ -253,12 +299,28 @@ class StudentProfileCollection extends BaseProfileCollection {
       shareOpportunities,
       shareLevel,
       lastRegistrarLoad,
+      lastVisitedCareerGoals,
+      lastVisitedCourses,
+      lastVisitedInterests,
+      lastVisitedOpportunities,
+      lastVisitedPrivacy,
+      lastLeveledUp,
+      acceptedTermsAndConditions,
+      refusedTermsAndConditions,
     }: StudentProfileUpdate,
   ) {
     this.assertDefined(docID);
     const profile = this.findDoc(docID);
     const updateData: StudentProfileUpdateData = {};
-    this.updateCommonFields(updateData, { firstName, lastName, picture, website, retired, courseExplorerFilter, opportunityExplorerSortOrder });
+    this.updateCommonFields(updateData, {
+      firstName,
+      lastName,
+      picture,
+      website,
+      retired,
+      courseExplorerFilter,
+      opportunityExplorerSortOrder,
+    });
     if (declaredAcademicTerm) {
       updateData.declaredAcademicTermID = AcademicTerms.getID(declaredAcademicTerm);
     }
@@ -315,8 +377,33 @@ class StudentProfileCollection extends BaseProfileCollection {
     if (lastRegistrarLoad) {
       updateData.lastRegistrarLoad = lastRegistrarLoad;
     }
+    if (lastVisitedCareerGoals) {
+      updateData.lastVisitedCareerGoals = lastVisitedCareerGoals;
+    }
+    if (lastVisitedCourses) {
+      updateData.lastVisitedCourses = lastVisitedCourses;
+    }
+    if (lastVisitedInterests) {
+      updateData.lastVisitedInterests = lastVisitedInterests;
+    }
+    if (lastVisitedOpportunities) {
+      updateData.lastVisitedOpportunities = lastVisitedOpportunities;
+    }
+    if (lastVisitedPrivacy) {
+      updateData.lastVisitedPrivacy = lastVisitedPrivacy;
+    }
+    if (lastLeveledUp) {
+      updateData.lastLeveledUp = lastLeveledUp;
+    }
+    if (acceptedTermsAndConditions) {
+      updateData.acceptedTermsAndConditions = acceptedTermsAndConditions;
+    }
+    if (refusedTermsAndConditions) {
+      updateData.refusedTermsAndConditions = refusedTermsAndConditions;
+    }
     // console.log('StudentProfile.update %o', updateData);
     this.collection.update(docID, { $set: updateData });
+    // console.log(this.findDoc(docID));
     const username = profile.username;
     if (interests) {
       FavoriteInterests.removeUser(username);
@@ -553,6 +640,15 @@ class StudentProfileCollection extends BaseProfileCollection {
                   false,
                 ],
               },
+              lastRegistrarLoad: 1,
+              lastVisitedCareerGoals: 1,
+              lastVisitedCourses: 1,
+              lastVisitedInterests: 1,
+              lastVisitedOpportunities: 1,
+              lastVisitedPrivacy: 1,
+              lastLeveledUp: 1,
+              acceptedTermsAndConditions: 1,
+              refusedTermsAndConditions: 1,
             },
           },
         ]);
@@ -593,6 +689,14 @@ class StudentProfileCollection extends BaseProfileCollection {
     const shareOpportunities = doc.shareOpportunities;
     const shareCourses = doc.shareCourses;
     const shareLevel = doc.shareLevel;
+    const lastRegistrarLoad = doc.lastRegistrarLoad;
+    const lastVisitedCareerGoals = doc.lastVisitedCareerGoals;
+    const lastVisitedCourses = doc.lastVisitedCourses;
+    const lastVisitedInterests = doc.lastVisitedInterests;
+    const lastVisitedOpportunities = doc.lastVisitedOpportunities;
+    const lastVisitedPrivacy = doc.lastVisitedPrivacy;
+    const lastLeveledUp = doc.lastLeveledUp;
+    const acceptedTermsAndConditions = doc.acceptedTermsAndConditions;
     return {
       username,
       firstName,
@@ -615,6 +719,14 @@ class StudentProfileCollection extends BaseProfileCollection {
       shareOpportunities,
       shareCourses,
       shareLevel,
+      lastRegistrarLoad,
+      lastVisitedCareerGoals,
+      lastVisitedCourses,
+      lastVisitedInterests,
+      lastVisitedOpportunities,
+      lastVisitedPrivacy,
+      lastLeveledUp,
+      acceptedTermsAndConditions,
     };
   }
 }

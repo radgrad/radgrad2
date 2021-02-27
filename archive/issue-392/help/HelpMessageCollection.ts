@@ -1,7 +1,7 @@
 import SimpleSchema from 'simpl-schema';
 import _ from 'lodash';
-import BaseCollection from '../base/BaseCollection';
-import { HelpMessageDefine, HelpMessageUpdate } from '../../typings/radgrad';
+import BaseCollection from '../../../app/imports/api/base/BaseCollection';
+import { HelpMessageDefine, HelpMessageUpdate } from '../../../app/imports/typings/radgrad';
 
 /**
  * Represents a Help message for a RadGrad page.

@@ -3,10 +3,8 @@ import { useParams, useRouteMatch } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Container, Grid } from 'semantic-ui-react';
 import _ from 'lodash';
-import { CareerGoal, DescriptionPair, FavoriteCareerGoal, HelpMessage, Profile, SocialPair } from '../../../../typings/radgrad';
+import { CareerGoal, DescriptionPair, FavoriteCareerGoal, Profile, SocialPair } from '../../../../typings/radgrad';
 import { getMenuWidget } from '../utilities/getMenuWidget';
-import { HelpMessages } from '../../../../api/help/HelpMessageCollection';
-import HelpPanelWidget from '../../../components/shared/HelpPanelWidget';
 import ExplorerMenu from '../../../components/shared/explorer/item-view/ExplorerMenu';
 import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
 import ExplorerCareerGoalWidget from '../../../components/shared/explorer/item-view/career-goal/ExplorerCareerGoalWidget';
@@ -21,7 +19,6 @@ import { defaultProfilePicture } from '../../../../api/user/BaseProfileCollectio
 interface CareerGoalViewPageProps {
   favoriteCareerGoals: FavoriteCareerGoal[];
   careerGoal: CareerGoal;
-  helpMessages: HelpMessage[];
 }
 
 const interestedUsersCareerGoals = (theCareerGoal: CareerGoal, role: string): Profile[] => {
@@ -62,7 +59,7 @@ const socialPairsCareerGoals = (theCareerGoal: CareerGoal): SocialPair[] => [
   },
 ];
 
-const CareerGoalViewPage: React.FC<CareerGoalViewPageProps> = ({ careerGoal, favoriteCareerGoals, helpMessages }) => {
+const CareerGoalViewPage: React.FC<CareerGoalViewPageProps> = ({ careerGoal, favoriteCareerGoals }) => {
   const match = useRouteMatch();
   const menuAddedList = _.map(favoriteCareerGoals, (f) => ({
     item: CareerGoals.findDoc(f.careerGoalID),
@@ -80,11 +77,6 @@ const CareerGoalViewPage: React.FC<CareerGoalViewPageProps> = ({ careerGoal, fav
       {getMenuWidget(match)}
       <Container style={pushDownStyle}>
         <Grid stackable>
-          <Grid.Row className="helpPanel">
-            <Grid.Column width={16}>
-              <HelpPanelWidget helpMessages={helpMessages} />
-            </Grid.Column>
-          </Grid.Row>
           <Grid.Row>
             <Grid.Column width={3}>
               <ExplorerMenu menuAddedList={menuAddedList} type="career-goals" />
@@ -104,11 +96,9 @@ const CareerGoalViewPageContainer = withTracker(() => {
   const profile = Users.getProfile(username);
   const favoriteCareerGoals = FavoriteCareerGoals.findNonRetired({ userID: profile.userID });
   const careerGoalDoc = CareerGoals.findDocBySlug(careergoal);
-  const helpMessages = HelpMessages.findNonRetired({});
   return {
     careerGoal: careerGoalDoc,
     favoriteCareerGoals,
-    helpMessages,
   };
 })(CareerGoalViewPage);
 

@@ -19,9 +19,9 @@ interface Html {
 
 export interface EmailData {
   to: string | string[];
-  bcc: string[];
+  bcc: string | string[];
   from: string;
-  replyTo: string;
+  replyTo: string | string[];
   subject: string;
   templateData: {
     adminMessage: any;

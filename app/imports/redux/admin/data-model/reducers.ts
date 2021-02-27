@@ -9,13 +9,11 @@ interface State {
   pagination: {
     AcademicTermCollection: PaginationState;
     AcademicYearInstanceCollection: PaginationState;
-    AdvisorLogCollection: PaginationState;
     CareerGoalCollection: PaginationState;
     CourseInstanceCollection: PaginationState;
     CourseCollection: PaginationState;
     FeedCollection: PaginationState;
     FeedbackInstanceCollection: PaginationState;
-    HelpMessageCollection: PaginationState;
     InterestCollection: PaginationState;
     InterestTypeCollection: PaginationState;
     OpportunityCollection: PaginationState;
@@ -46,10 +44,6 @@ const initialState: State = {
       showIndex: 0,
       showCount: 25,
     },
-    AdvisorLogCollection: {
-      showIndex: 0,
-      showCount: 25,
-    },
     CareerGoalCollection: {
       showIndex: 0,
       showCount: 25,
@@ -67,10 +61,6 @@ const initialState: State = {
       showCount: 25,
     },
     FeedbackInstanceCollection: {
-      showIndex: 0,
-      showCount: 25,
-    },
-    HelpMessageCollection: {
       showIndex: 0,
       showCount: 25,
     },
@@ -188,32 +178,6 @@ export function reducer(state: State = initialState, action): State {
         pagination: {
           ...paginationState,
           AcademicYearInstanceCollection: {
-            ...collect,
-            showCount: action.payload,
-          },
-        },
-      };
-      return s;
-    case TYPES.SET_ADVISOR_LOGS_SHOW_INDEX:
-      collect = paginationState.AdvisorLogCollection;
-      s = {
-        ...state,
-        pagination: {
-          ...paginationState,
-          AdvisorLogCollection: {
-            ...collect,
-            showIndex: action.payload,
-          },
-        },
-      };
-      return s;
-    case TYPES.SET_ADVISOR_LOGS_SHOW_COUNT:
-      collect = paginationState.AdvisorLogCollection;
-      s = {
-        ...state,
-        pagination: {
-          ...paginationState,
-          AdvisorLogCollection: {
             ...collect,
             showCount: action.payload,
           },
@@ -350,32 +314,6 @@ export function reducer(state: State = initialState, action): State {
         },
       };
       return s;
-    case TYPES.SET_HELP_MESSAGES_SHOW_INDEX:
-      collect = paginationState.HelpMessageCollection;
-      s = {
-        ...state,
-        pagination: {
-          ...paginationState,
-          HelpMessageCollection: {
-            ...collect,
-            showIndex: action.payload,
-          },
-        },
-      };
-      return s;
-    case TYPES.SET_HELP_MESSAGES_SHOW_COUNT:
-      collect = paginationState.HelpMessageCollection;
-      s = {
-        ...state,
-        pagination: {
-          ...paginationState,
-          HelpMessageCollection: {
-            ...collect,
-            showCount: action.payload,
-          },
-        },
-      };
-      return s;
     case TYPES.SET_INTERESTS_SHOW_INDEX:
       collect = paginationState.InterestCollection;
       s = {
@@ -500,32 +438,6 @@ export function reducer(state: State = initialState, action): State {
         pagination: {
           ...paginationState,
           OpportunityTypeCollection: {
-            ...collect,
-            showCount: action.payload,
-          },
-        },
-      };
-      return s;
-    case TYPES.SET_PLAN_CHOICES_SHOW_INDEX:
-      collect = paginationState.PlanChoiceCollection;
-      s = {
-        ...state,
-        pagination: {
-          ...paginationState,
-          PlanChoiceCollection: {
-            ...collect,
-            showIndex: action.payload,
-          },
-        },
-      };
-      return s;
-    case TYPES.SET_PLAN_CHOICES_SHOW_COUNT:
-      collect = paginationState.PlanChoiceCollection;
-      s = {
-        ...state,
-        pagination: {
-          ...paginationState,
-          PlanChoiceCollection: {
             ...collect,
             showCount: action.payload,
           },

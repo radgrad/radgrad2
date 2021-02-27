@@ -121,13 +121,13 @@ const FavoritesButton: React.FC<FavoriteButtonProps> = ({ studentID, item, type,
       <Button onClick={handleRemove(studentID, item, type)} size="mini" color="green" floated="right" basic>
         <Icon name="heart outline" color="red" />
         <Icon name="minus" />
-        REMOVE FROM FAVORITES
+        REMOVE FROM PROFILE
       </Button>
     ) : (
       <Button size="mini" onClick={handleAdd(studentID, item, type)} color="green" floated="right" basic>
         <Icon name="heart" color="red" />
         <Icon name="plus" />
-        ADD TO FAVORITES
+        ADD TO PROFILE
       </Button>
     )}
   </React.Fragment>
