@@ -1,8 +1,8 @@
-import { FAVORITE_TYPE, IFavoriteTypes } from '../../../../../../api/favorite/FavoriteTypes';
-import { FavoriteCareerGoals } from '../../../../../../api/favorite/FavoriteCareerGoalCollection';
-import { FavoriteCourses } from '../../../../../../api/favorite/FavoriteCourseCollection';
-import { FavoriteInterests } from '../../../../../../api/favorite/FavoriteInterestCollection';
-import { FavoriteOpportunities } from '../../../../../../api/favorite/FavoriteOpportunityCollection';
+import { PROFILE_ENTRY_TYPE, IFavoriteTypes } from '../../../../../../api/user/profile-entries/ProfileEntryTypes';
+import { ProfileCareerGoals } from '../../../../../../api/user/profile-entries/ProfileCareerGoalCollection';
+import { ProfileCourses } from '../../../../../../api/user/profile-entries/ProfileCourseCollection';
+import { ProfileInterests } from '../../../../../../api/user/profile-entries/ProfileInterestCollection';
+import { ProfileOpportunities } from '../../../../../../api/user/profile-entries/ProfileOpportunityCollection';
 import {
   BaseProfile, CareerGoal, Course,
   FavoriteCareerGoalDefine,
@@ -23,17 +23,17 @@ import {
 export const getCollectionName = (type: IFavoriteTypes): string => {
   let collectionName: string;
   switch (type) {
-    case FAVORITE_TYPE.CAREERGOAL:
-      collectionName = FavoriteCareerGoals.getCollectionName();
+    case PROFILE_ENTRY_TYPE.CAREERGOAL:
+      collectionName = ProfileCareerGoals.getCollectionName();
       break;
-    case FAVORITE_TYPE.COURSE:
-      collectionName = FavoriteCourses.getCollectionName();
+    case PROFILE_ENTRY_TYPE.COURSE:
+      collectionName = ProfileCourses.getCollectionName();
       break;
-    case FAVORITE_TYPE.INTEREST:
-      collectionName = FavoriteInterests.getCollectionName();
+    case PROFILE_ENTRY_TYPE.INTEREST:
+      collectionName = ProfileInterests.getCollectionName();
       break;
-    case FAVORITE_TYPE.OPPORTUNITY:
-      collectionName = FavoriteOpportunities.getCollectionName();
+    case PROFILE_ENTRY_TYPE.OPPORTUNITY:
+      collectionName = ProfileOpportunities.getCollectionName();
       break;
     default:
       console.error(`Bad favorite type: ${type}`);
@@ -56,25 +56,25 @@ export const createDefinitionData = (studentID: string, item: ItemType, type: IF
   const slug = getSlug(item.slugID);
   let definitionData;
   switch (type) {
-    case FAVORITE_TYPE.CAREERGOAL:
+    case PROFILE_ENTRY_TYPE.CAREERGOAL:
       definitionData = {
         username: student,
         careerGoal: slug,
       };
       break;
-    case FAVORITE_TYPE.COURSE:
+    case PROFILE_ENTRY_TYPE.COURSE:
       definitionData = {
         student,
         course: slug,
       };
       break;
-    case FAVORITE_TYPE.INTEREST:
+    case PROFILE_ENTRY_TYPE.INTEREST:
       definitionData = {
         username: student,
         interest: slug,
       };
       break;
-    case FAVORITE_TYPE.OPPORTUNITY:
+    case PROFILE_ENTRY_TYPE.OPPORTUNITY:
       definitionData = {
         student,
         opportunity: slug,
@@ -93,28 +93,28 @@ export const createInteractionData = (studentID: string, item: ItemType, type: I
   let interactionData: UserInteractionDefine;
   const interactionType = favorite ? UserInteractionsTypes.FAVORITEITEM : UserInteractionsTypes.UNFAVORITEITEM;
   switch (type) {
-    case FAVORITE_TYPE.CAREERGOAL:
+    case PROFILE_ENTRY_TYPE.CAREERGOAL:
       interactionData = {
         username: student,
         type: interactionType,
         typeData: [type, slug],
       };
       break;
-    case FAVORITE_TYPE.COURSE:
+    case PROFILE_ENTRY_TYPE.COURSE:
       interactionData = {
         username: student,
         type: interactionType,
         typeData: [type, slug],
       };
       break;
-    case FAVORITE_TYPE.INTEREST:
+    case PROFILE_ENTRY_TYPE.INTEREST:
       interactionData = {
         username: student,
         type: interactionType,
         typeData: [type, slug],
       };
       break;
-    case FAVORITE_TYPE.OPPORTUNITY:
+    case PROFILE_ENTRY_TYPE.OPPORTUNITY:
       interactionData = {
         username: student,
         type: interactionType,
@@ -133,16 +133,16 @@ export const createPageInterestData = (studentID: string, item: ItemType, type: 
   const name = Slugs.getNameFromID(item.slugID);
   let category: IPageInterestsCategoryTypes;
   switch (type) {
-    case FAVORITE_TYPE.CAREERGOAL:
+    case PROFILE_ENTRY_TYPE.CAREERGOAL:
       category = PageInterestsCategoryTypes.CAREERGOAL;
       break;
-    case FAVORITE_TYPE.COURSE:
+    case PROFILE_ENTRY_TYPE.COURSE:
       category = PageInterestsCategoryTypes.COURSE;
       break;
-    case FAVORITE_TYPE.INTEREST:
+    case PROFILE_ENTRY_TYPE.INTEREST:
       category = PageInterestsCategoryTypes.INTEREST;
       break;
-    case FAVORITE_TYPE.OPPORTUNITY:
+    case PROFILE_ENTRY_TYPE.OPPORTUNITY:
       category = PageInterestsCategoryTypes.OPPORTUNITY;
       break;
     default:

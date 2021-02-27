@@ -13,8 +13,8 @@ import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
 import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
 import { defaultProfilePicture } from '../../../../api/user/BaseProfileCollection';
 import { StudentParticipations } from '../../../../api/public-stats/StudentParticipationCollection';
-import { FavoriteCareerGoals } from '../../../../api/favorite/FavoriteCareerGoalCollection';
-import { FavoriteInterests } from '../../../../api/favorite/FavoriteInterestCollection';
+import { ProfileCareerGoals } from '../../../../api/user/profile-entries/ProfileCareerGoalCollection';
+import { ProfileInterests } from '../../../../api/user/profile-entries/ProfileInterestCollection';
 import { AcademicTerm, Opportunity } from '../../../../typings/radgrad';
 // import Router from './RouterHelperFunctions';
 
@@ -196,7 +196,7 @@ export const opportunityTypeIdToName = (id) => OpportunityTypes.findDoc(id).name
 
 export const profileGetCareerGoals = (profile) => {
   const userID = profile.userID;
-  const favCareerGoals = FavoriteCareerGoals.findNonRetired({ userID });
+  const favCareerGoals = ProfileCareerGoals.findNonRetired({ userID });
   return _.map(favCareerGoals, (fav) => CareerGoals.findDoc(fav.careerGoalID));
 };
 
@@ -204,7 +204,7 @@ export const profileGetCareerGoalIDs = (profile) => _.map(profileGetCareerGoals(
 
 export const profileGetInterests = (profile) => {
   const userID = profile.userID;
-  const favInterests = FavoriteInterests.findNonRetired({ userID });
+  const favInterests = ProfileInterests.findNonRetired({ userID });
   return _.map(favInterests, (fav) => Interests.findDoc(fav.interestID));
 };
 

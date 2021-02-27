@@ -2,23 +2,23 @@ import { Meteor } from 'meteor/meteor';
 import { CallPromiseMixin } from 'meteor/didericis:callpromise-mixin';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import _ from 'lodash';
-import { ROLE } from '../role/Role';
-import { AdvisorProfiles } from '../user/AdvisorProfileCollection';
-import { FacultyProfiles } from '../user/FacultyProfileCollection';
-import { StudentProfiles } from '../user/StudentProfileCollection';
-import { FavoriteInterests } from './FavoriteInterestCollection';
+import { ROLE } from '../../role/Role';
+import { AdvisorProfiles } from '../AdvisorProfileCollection';
+import { FacultyProfiles } from '../FacultyProfileCollection';
+import { StudentProfiles } from '../StudentProfileCollection';
+import { ProfileInterests } from './ProfileInterestCollection';
 
-export const getUserIDsWithFavoriteInterestMethod = new ValidatedMethod({
-  name: 'FavoriteInterests.users',
+export const getUserIDsWithProfileInterestMethod = new ValidatedMethod({
+  name: 'ProfileInterests.users',
   mixins: [CallPromiseMixin],
   validate: null,
   run({ interestID, role }) {
     if (!this.userId) {
-      throw new Meteor.Error('unauthorized', 'You must be logged in to get favorites.');
+      throw new Meteor.Error('unauthorized', 'You must be logged in to get profile entries.');
     }
     if (Meteor.isServer) {
       let userIDs;
-      const favUserIDs = _.map(FavoriteInterests.find({ interestID }).fetch(), 'userID');
+      const favUserIDs = _.map(ProfileInterests.find({ interestID }).fetch(), 'userID');
       switch (role.toUpperCase()) {
         case ROLE.ADVISOR:
           userIDs = _.map(AdvisorProfiles.find().fetch(), 'userID');

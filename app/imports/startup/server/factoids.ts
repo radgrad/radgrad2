@@ -2,8 +2,8 @@ import _ from 'lodash';
 import BaseCollection from '../../api/base/BaseCollection';
 import { CareerGoals } from '../../api/career/CareerGoalCollection';
 import { Courses } from '../../api/course/CourseCollection';
-import { FavoriteInterests } from '../../api/favorite/FavoriteInterestCollection';
-import { FavoriteOpportunities } from '../../api/favorite/FavoriteOpportunityCollection';
+import { ProfileInterests } from '../../api/user/profile-entries/ProfileInterestCollection';
+import { ProfileOpportunities } from '../../api/user/profile-entries/ProfileOpportunityCollection';
 import { Interests } from '../../api/interest/InterestCollection';
 import { Opportunities } from '../../api/opportunity/OpportunityCollection';
 import { Factoids } from '../../api/public-stats/FactoidCollection';
@@ -15,7 +15,7 @@ import {
   OpportunityFactoidProps,
   ReviewFactoidProps,
 } from '../../typings/radgrad';
-import { FavoriteCareerGoals } from '../../api/favorite/FavoriteCareerGoalCollection';
+import { ProfileCareerGoals } from '../../api/user/profile-entries/ProfileCareerGoalCollection';
 
 const getRandomDocument = (collection: BaseCollection) => {
   const documents = collection.findNonRetired({});
@@ -40,7 +40,7 @@ const buildCareerGoalFactoid = (): InterestOrCareerGoalFactoidProps => {
   const factoid = {
     name: goal.name,
     description: getShortenedDescription(goal.description),
-    numberOfStudents: FavoriteCareerGoals.findNonRetired({ careerGoalID: goal._id }).length,
+    numberOfStudents: ProfileCareerGoals.findNonRetired({ careerGoalID: goal._id }).length,
     numberOfCourses: courses.length,
     numberOfOpportunities: opportunities.length,
   };
@@ -57,7 +57,7 @@ const buildInterestFactoid = (): InterestOrCareerGoalFactoidProps => {
   const factoid = {
     name: interest.name,
     description: getShortenedDescription(interest.description),
-    numberOfStudents: FavoriteInterests.findNonRetired({ interestID: interest._id }).length,
+    numberOfStudents: ProfileInterests.findNonRetired({ interestID: interest._id }).length,
     numberOfCourses: courses.length,
     numberOfOpportunities: opportunities.length,
   };
@@ -105,7 +105,7 @@ const buildOpportunityFactoid = (): OpportunityFactoidProps => {
     picture: opportunity.picture,
     description: getShortenedDescription(opportunity.description),
     ice: opportunity.ice,
-    numberOfStudents: FavoriteOpportunities.findNonRetired({ opportunityID: opportunity._id }).length,
+    numberOfStudents: ProfileOpportunities.findNonRetired({ opportunityID: opportunity._id }).length,
   };
   // console.log(factoid);
   return factoid;

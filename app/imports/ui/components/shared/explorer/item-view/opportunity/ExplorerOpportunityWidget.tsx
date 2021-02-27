@@ -14,15 +14,15 @@ import InterestList from '../../../InterestList';
 import { Slugs } from '../../../../../../api/slug/SlugCollection';
 import { Teasers } from '../../../../../../api/teaser/TeaserCollection';
 import * as Router from '../../../utilities/router';
-import FavoritesButton from '../FavoritesButton';
+import AddToProfileButton from '../AddToProfileButton';
 import { toUpper, replaceTermString, isSame } from '../../../utilities/general';
 import FutureParticipation from '../../FutureParticipation';
 import { Opportunities } from '../../../../../../api/opportunity/OpportunityCollection';
 import { toId } from '../course/utilities/description-pair';
-import { FAVORITE_TYPE } from '../../../../../../api/favorite/FavoriteTypes';
+import { PROFILE_ENTRY_TYPE } from '../../../../../../api/user/profile-entries/ProfileEntryTypes';
 import TeaserVideo from '../../../TeaserVideo';
 import { Users } from '../../../../../../api/user/UserCollection';
-import { FavoriteOpportunities } from '../../../../../../api/favorite/FavoriteOpportunityCollection';
+import { ProfileOpportunities } from '../../../../../../api/user/profile-entries/ProfileOpportunityCollection';
 // @ts-ignore
 import ExplorerReviewWidget from '../ExplorerReviewWidget';
 
@@ -94,7 +94,7 @@ const ExplorerOpportunityWidget: React.FC<ExplorerOpportunitiesWidgetProps> = ({
     }
   });
   const profile = Users.getProfile(username);
-  const added = FavoriteOpportunities.findNonRetired({ userID: profile.userID, opportunityID: item._id }).length > 0;
+  const added = ProfileOpportunities.findNonRetired({ userID: profile.userID, opportunityID: item._id }).length > 0;
   return (
     <div id="explorerOpportunityWidget">
       <Segment padded className="container" style={segmentStyle}>
@@ -103,7 +103,7 @@ const ExplorerOpportunityWidget: React.FC<ExplorerOpportunitiesWidgetProps> = ({
             {upperName}
           </Header>
           <React.Fragment>
-            {isStudent ? <FavoritesButton item={item} studentID={Router.getUserIdFromRoute(match)} type={FAVORITE_TYPE.OPPORTUNITY} added={added} /> : ''}
+            {isStudent ? <AddToProfileButton item={item} studentID={Router.getUserIdFromRoute(match)} type={PROFILE_ENTRY_TYPE.OPPORTUNITY} added={added} /> : ''}
 
             {descriptionPairs.map((descriptionPair) => (
               <React.Fragment key={toId(descriptionPair)}>{isSame(descriptionPair.label, 'ICE') ? <IceHeader ice={descriptionPair.value} /> : ''}</React.Fragment>

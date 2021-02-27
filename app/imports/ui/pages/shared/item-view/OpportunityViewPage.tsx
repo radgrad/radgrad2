@@ -7,7 +7,7 @@ import { Reviews } from '../../../../api/review/ReviewCollection';
 import { Opportunity, Profile, Review } from '../../../../typings/radgrad';
 import { getMenuWidget } from '../utilities/getMenuWidget';
 import { Users } from '../../../../api/user/UserCollection';
-import { FavoriteOpportunities } from '../../../../api/favorite/FavoriteOpportunityCollection';
+import { ProfileOpportunities } from '../../../../api/user/profile-entries/ProfileOpportunityCollection';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
 import ExplorerMenu from '../../../components/shared/explorer/item-view/ExplorerMenu';
 import ExplorerOpportunityWidget from '../../../components/shared/explorer/item-view/opportunity/ExplorerOpportunityWidget';
@@ -90,7 +90,7 @@ const OpportunityViewPage: React.FC<OpportunityViewPageProps> = ({ favoriteOppor
 const OpportunityViewPageContainer = withTracker(() => {
   const { opportunity, username } = useParams();
   const profile = Users.getProfile(username);
-  const favOpps = FavoriteOpportunities.findNonRetired({ studentID: profile.userID });
+  const favOpps = ProfileOpportunities.findNonRetired({ studentID: profile.userID });
   const favoriteOpportunities = _.map(favOpps, (f) => Opportunities.findDoc(f.opportunityID));
   const opportunityDoc = Opportunities.findDocBySlug(opportunity);
   const itemReviews = Reviews.findNonRetired({ revieweeID: opportunityDoc._id });

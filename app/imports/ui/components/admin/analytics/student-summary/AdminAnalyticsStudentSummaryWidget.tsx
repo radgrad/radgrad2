@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import moment from 'moment';
 import { Segment, Header } from 'semantic-ui-react';
-import { FAVORITE_TYPE } from '../../../../../api/favorite/FavoriteTypes';
+import { PROFILE_ENTRY_TYPE } from '../../../../../api/user/profile-entries/ProfileEntryTypes';
 import { ANALYTICS, EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
 import AdminAnalyticsDateSelectionWidget from '../AdminAnalyticsDateSelectionWidget';
 import SummaryStatisticsTabs from './SummaryStatisticsTabs';
@@ -39,7 +39,7 @@ const AdminAnalyticsStudentSummaryWidget: React.FC<AdminAnalyticsStudentSummaryW
       behaviorCategories[0].count++;
       behaviorCategories[0].users.push(user);
     }
-    if (_.some(interactions, (i: any) => i.type === FAVORITE_TYPE.CAREERGOAL || i.type === FAVORITE_TYPE.INTEREST)) {
+    if (_.some(interactions, (i: any) => i.type === PROFILE_ENTRY_TYPE.CAREERGOAL || i.type === PROFILE_ENTRY_TYPE.INTEREST)) {
       behaviorCategories[1].count++;
       behaviorCategories[1].users.push(user);
     }

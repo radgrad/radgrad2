@@ -10,8 +10,8 @@ import { updateMethod } from '../../../../api/base/BaseCollection.methods';
 import { RadGrad } from '../../../../api/radgrad/RadGrad';
 import { defaultCalcLevel } from '../../../../api/level/LevelProcessor';
 import { setSelectedStudentUsername } from '../../../../redux/advisor/home/actions';
-import { FavoriteInterests } from '../../../../api/favorite/FavoriteInterestCollection';
-import { FavoriteCareerGoals } from '../../../../api/favorite/FavoriteCareerGoalCollection';
+import { ProfileInterests } from '../../../../api/user/profile-entries/ProfileInterestCollection';
+import { ProfileCareerGoals } from '../../../../api/user/profile-entries/ProfileCareerGoalCollection';
 import { RootState } from '../../../../redux/types';
 import { BaseProfile, CareerGoal, Interest } from '../../../../typings/radgrad';
 
@@ -33,9 +33,9 @@ const mapStateToProps = (state: RootState) => ({
 const AdvisorUpdateStudentWidget: React.FC<AdvisorUpdateStudentWidgetProps> = ({ dispatch, interests, careerGoals, usernameDoc, isLoaded, selectedUsername, studentCollectionName }) => {
   const doc = usernameDoc;
   const userID = doc.userID;
-  const favCareerGoals = FavoriteCareerGoals.findNonRetired({ userID });
+  const favCareerGoals = ProfileCareerGoals.findNonRetired({ userID });
   const careerGoalIDs = _.map(favCareerGoals, (fav) => fav.careerGoalID);
-  const favInterests = FavoriteInterests.findNonRetired({ userID });
+  const favInterests = ProfileInterests.findNonRetired({ userID });
   const interestIDs = _.map(favInterests, (fav) => fav.interestID);
   const [firstNameState, setFirstName] = useState<string>(doc.firstName);
   const [lastNameState, setLastName] = useState(doc.lastName);

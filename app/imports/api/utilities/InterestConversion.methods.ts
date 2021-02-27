@@ -3,8 +3,8 @@ import {ValidatedMethod} from 'meteor/mdg:validated-method';
 import {CallPromiseMixin} from 'meteor/didericis:callpromise-mixin';
 import { defineMethod } from '../base/BaseCollection.methods';
 import { CareerGoals } from '../career/CareerGoalCollection';
-import { FavoriteCareerGoals } from '../favorite/FavoriteCareerGoalCollection';
-import { FavoriteInterests } from '../favorite/FavoriteInterestCollection';
+import { ProfileCareerGoals } from '../user/profile-entries/ProfileCareerGoalCollection';
+import { ProfileInterests } from '../user/profile-entries/ProfileInterestCollection';
 import { Users } from '../user/UserCollection';
 
 export const careerGoalInterestConversionMethod = new ValidatedMethod({
@@ -16,10 +16,10 @@ export const careerGoalInterestConversionMethod = new ValidatedMethod({
     // console.log(users);
     const userIDs = users.map((u) => u.userID);
     userIDs.forEach((userID) => {
-      const favInterests = FavoriteInterests.findNonRetired({ userID });
+      const favInterests = ProfileInterests.findNonRetired({ userID });
       const share = favInterests.length > 0 ? favInterests[0].share : false;
       const interestIDs = favInterests.map((fav) => fav.interestID);
-      const favCareerGoals = FavoriteCareerGoals.findNonRetired({ userID });
+      const favCareerGoals = ProfileCareerGoals.findNonRetired({ userID });
       let careerGoalInterests = [];
       favCareerGoals.forEach((fav) => {
         const careerGoal = CareerGoals.findDoc(fav.careerGoalID);
@@ -29,7 +29,7 @@ export const careerGoalInterestConversionMethod = new ValidatedMethod({
       // console.log(careerGoalInterests);
       const missingInterestIDs = _.difference(_.uniq(careerGoalInterests), interestIDs);
       missingInterestIDs.forEach((interestID) => {
-        const collectionName = FavoriteInterests.getCollectionName();
+        const collectionName = ProfileInterests.getCollectionName();
         const definitionData = {
           username: userID,
           interest: interestID,

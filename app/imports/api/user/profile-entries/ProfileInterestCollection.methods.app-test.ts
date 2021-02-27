@@ -1,15 +1,15 @@
 import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
-import { defineMethod, removeItMethod, updateMethod } from '../base/BaseCollection.methods';
-import { defineTestFixturesMethod, withRadGradSubscriptions, withLoggedInUser } from '../test/test-utilities';
-import { FavoriteInterests } from './FavoriteInterestCollection';
+import { defineMethod, removeItMethod, updateMethod } from '../../base/BaseCollection.methods';
+import { defineTestFixturesMethod, withRadGradSubscriptions, withLoggedInUser } from '../../test/test-utilities';
+import { ProfileInterests } from './ProfileInterestCollection';
 
 /* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
 /* eslint-env mocha */
 
 if (Meteor.isClient) {
-  describe('FavoriteInterestCollection', function testSuite() {
-    const collectionName = FavoriteInterests.getCollectionName();
+  describe('ProfileInterestCollection', function testSuite() {
+    const collectionName = ProfileInterests.getCollectionName();
     const definitionData = {
       interest: 'algorithms',
       username: 'abi@hawaii.edu',
@@ -24,15 +24,15 @@ if (Meteor.isClient) {
       await withLoggedInUser();
       await withRadGradSubscriptions(Meteor.userId());
       const docID = await defineMethod.callPromise({ collectionName, definitionData });
-      expect(FavoriteInterests.isDefined(docID), 'define: isDefined').to.be.true;
-      expect(FavoriteInterests.countNonRetired()).to.equal(1);
+      expect(ProfileInterests.isDefined(docID), 'define: isDefined').to.be.true;
+      expect(ProfileInterests.countNonRetired()).to.equal(1);
       updateData.id = docID;
       await updateMethod.callPromise({ collectionName, updateData });
-      expect(FavoriteInterests.countNonRetired()).to.equal(0);
-      expect(FavoriteInterests.isDefined(docID), 'retired: isDefined').to.be.true; // still in client collection
+      expect(ProfileInterests.countNonRetired()).to.equal(0);
+      expect(ProfileInterests.isDefined(docID), 'retired: isDefined').to.be.true; // still in client collection
       await removeItMethod.callPromise({ collectionName, instance: docID });
-      expect(FavoriteInterests.countNonRetired()).to.equal(0);
-      expect(FavoriteInterests.isDefined(docID), 'removeIt: isDefined').to.be.false;
+      expect(ProfileInterests.countNonRetired()).to.equal(0);
+      expect(ProfileInterests.isDefined(docID), 'removeIt: isDefined').to.be.false;
     });
   });
 }

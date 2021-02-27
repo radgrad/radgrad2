@@ -7,8 +7,8 @@ import { removeAllEntities } from '../base/BaseUtilities';
 import { StudentProfiles } from './StudentProfileCollection';
 import { makeSampleInterestArray, makeSampleInterestSlugArray } from '../interest/SampleInterests';
 import { makeSampleCareerGoalSlugArray } from '../career/SampleCareerGoals';
-import { FavoriteInterests } from '../favorite/FavoriteInterestCollection';
-import { FavoriteCareerGoals } from '../favorite/FavoriteCareerGoalCollection';
+import { ProfileInterests } from './profile-entries/ProfileInterestCollection';
+import { ProfileCareerGoals } from './profile-entries/ProfileCareerGoalCollection';
 import { makeSampleAcademicTermSlug } from '../academic-term/SampleAcademicTerms';
 import { makeSampleCourseSlugArray } from '../course/SampleCourses';
 import { makeSampleOpportunitySlugArray } from '../opportunity/SampleOpportunities';
@@ -48,14 +48,14 @@ if (Meteor.isServer) {
               favoriteCourses, favoriteOpportunities, retired,
             });
             expect(StudentProfiles.isDefined(docID)).to.be.true;
-            expect(FavoriteInterests.count()).to.equal(interests.length);
-            expect(FavoriteCareerGoals.count()).to.equal(careerGoals.length);
+            expect(ProfileInterests.count()).to.equal(interests.length);
+            expect(ProfileCareerGoals.count()).to.equal(careerGoals.length);
             const doc = StudentProfiles.findDoc(docID);
             expect(doc.username).to.equal(username);
             StudentProfiles.removeIt(docID);
             expect(StudentProfiles.isDefined(docID)).to.be.false;
-            expect(FavoriteInterests.count()).to.equal(0);
-            expect(FavoriteCareerGoals.count()).to.equal(0);
+            expect(ProfileInterests.count()).to.equal(0);
+            expect(ProfileCareerGoals.count()).to.equal(0);
           }),
       );
       done();
@@ -109,8 +109,8 @@ if (Meteor.isServer) {
             expect(doc.lastName).to.equal(lastName);
             expect(doc.picture).to.equal(picture);
             expect(doc.website).to.equal(website);
-            // expect(FavoriteInterests.count()).to.equal(interests.length);
-            // expect(FavoriteCareerGoals.count()).to.equal(careerGoals.length);
+            // expect(ProfileInterests.count()).to.equal(interests.length);
+            // expect(ProfileCareerGoals.count()).to.equal(careerGoals.length);
             expect(doc.retired).to.equal(retired);
             expect(doc.isAlumni).to.equal(isAlumni);
             expect(doc.shareUsername).to.equal(shareUsername);

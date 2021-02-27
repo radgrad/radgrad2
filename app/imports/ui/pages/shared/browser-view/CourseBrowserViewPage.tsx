@@ -14,7 +14,7 @@ import { Courses } from '../../../../api/course/CourseCollection';
 import ExplorerMultipleItemsMenu from '../../../components/shared/explorer/browser-view/ExplorerMultipleItemsMenu';
 import { IExplorerTypes } from '../../../components/shared/explorer/utilities/explorer';
 import { Users } from '../../../../api/user/UserCollection';
-import { FavoriteCourses } from '../../../../api/favorite/FavoriteCourseCollection';
+import { ProfileCourses } from '../../../../api/user/profile-entries/ProfileCourseCollection';
 import CourseBrowserViewContainer from '../../../components/shared/explorer/browser-view/CourseBrowserView';
 import PageLayout from '../../PageLayout';
 
@@ -81,7 +81,7 @@ export default withTracker(() => {
     }
   }
   const studentID = profile.userID;
-  const favoriteCourses = FavoriteCourses.findNonRetired({ studentID });
+  const favoriteCourses = ProfileCourses.findNonRetired({ studentID });
   const courses = Courses.findNonRetired({}); // TODO if user is undergrad student why are we showing grad courses?
   return {
     courses,

@@ -11,9 +11,9 @@ import { StudentProfiles } from '../../../../../api/user/StudentProfileCollectio
 import { Opportunities } from '../../../../../api/opportunity/OpportunityCollection';
 import { profileGetCareerGoalIDs } from '../../utilities/data-model';
 import { defaultProfilePicture } from '../../../../../api/user/BaseProfileCollection';
-import { FavoriteCareerGoals } from '../../../../../api/favorite/FavoriteCareerGoalCollection';
-import { FavoriteInterests } from '../../../../../api/favorite/FavoriteInterestCollection';
-import { FavoriteOpportunities } from '../../../../../api/favorite/FavoriteOpportunityCollection';
+import { ProfileCareerGoals } from '../../../../../api/user/profile-entries/ProfileCareerGoalCollection';
+import { ProfileInterests } from '../../../../../api/user/profile-entries/ProfileInterestCollection';
+import { ProfileOpportunities } from '../../../../../api/user/profile-entries/ProfileOpportunityCollection';
 import { MatchProps } from '../../utilities/router';
 
 export type ExplorerInterfaces = CareerGoal | Course | Interest | Opportunity;
@@ -30,14 +30,14 @@ export const interestedStudents = (item: { _id: string }, type: string): Student
   if (type === EXPLORER_TYPE.CAREERGOALS) {
     profiles = _.filter(profiles, (profile) => {
       const userID = profile.userID;
-      const favCareerGoals = FavoriteCareerGoals.findNonRetired({ userID });
+      const favCareerGoals = ProfileCareerGoals.findNonRetired({ userID });
       const favIDs = _.map(favCareerGoals, (fav) => fav.careerGoalID);
       return _.includes(favIDs, item._id);
     });
   } else if (type === EXPLORER_TYPE.INTERESTS) {
     profiles = _.filter(profiles, (profile) => {
       const userID = profile.userID;
-      const favInterests = FavoriteInterests.findNonRetired({ userID });
+      const favInterests = ProfileInterests.findNonRetired({ userID });
       const favIDs = _.map(favInterests, (fav) => fav.interestID);
       return _.includes(favIDs, item._id);
     });
@@ -113,7 +113,7 @@ export const availableOpps = (match: MatchProps): unknown[] => {
         return inFuture;
       });
       // console.log('second filter ', filteredOpps.length);
-      const favorites = FavoriteOpportunities.findNonRetired({ studentID });
+      const favorites = ProfileOpportunities.findNonRetired({ studentID });
       const favIDs = _.map(favorites, (fav) => fav.opportunityID);
       filteredOpps = _.filter(filteredOpps, (f) => !_.includes(favIDs, f._id));
       // console.log('third filter ', filteredOpps.length);

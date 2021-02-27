@@ -16,10 +16,10 @@ import { Slugs } from '../slug/SlugCollection';
 import { ROLE } from '../role/Role';
 import { getProjectedICE, getEarnedICE } from '../ice/IceProcessor';
 import { StudentProfileDefine, StudentProfileUpdate, StudentProfileUpdateData } from '../../typings/radgrad';
-import { FavoriteInterests } from '../favorite/FavoriteInterestCollection';
-import { FavoriteCareerGoals } from '../favorite/FavoriteCareerGoalCollection';
-import { FavoriteCourses } from '../favorite/FavoriteCourseCollection';
-import { FavoriteOpportunities } from '../favorite/FavoriteOpportunityCollection';
+import { ProfileInterests } from './profile-entries/ProfileInterestCollection';
+import { ProfileCareerGoals } from './profile-entries/ProfileCareerGoalCollection';
+import { ProfileCourses } from './profile-entries/ProfileCourseCollection';
+import { ProfileOpportunities } from './profile-entries/ProfileOpportunityCollection';
 
 /**
  * Represents a Student Profile.
@@ -224,21 +224,21 @@ class StudentProfileCollection extends BaseProfileCollection {
       const userID = Users.define({ username, role });
       this.collection.update(profileID, { $set: { userID } });
       if (interests) {
-        interests.forEach((interest) => FavoriteInterests.define({ interest, share: shareInterests, username }));
+        interests.forEach((interest) => ProfileInterests.define({ interest, share: shareInterests, username }));
       }
       if (careerGoals) {
-        careerGoals.forEach((careerGoal) => FavoriteCareerGoals.define({
+        careerGoals.forEach((careerGoal) => ProfileCareerGoals.define({
           careerGoal,
           share: shareCareerGoals,
           username,
         }));
       }
       if (favoriteCourses) {
-        favoriteCourses.forEach((course) => FavoriteCourses.define({ course, student: username }));
+        favoriteCourses.forEach((course) => ProfileCourses.define({ course, student: username }));
       }
       if (favoriteOpportunities) {
         favoriteOpportunities.forEach((opportunity) =>
-          FavoriteOpportunities.define({
+          ProfileOpportunities.define({
             opportunity,
             student: username,
           }),
@@ -406,20 +406,20 @@ class StudentProfileCollection extends BaseProfileCollection {
     // console.log(this.findDoc(docID));
     const username = profile.username;
     if (interests) {
-      FavoriteInterests.removeUser(username);
-      interests.forEach((interest) => FavoriteInterests.define({ interest, username }));
+      ProfileInterests.removeUser(username);
+      interests.forEach((interest) => ProfileInterests.define({ interest, username }));
     }
     if (careerGoals) {
-      FavoriteCareerGoals.removeUser(username);
-      careerGoals.forEach((careerGoal) => FavoriteCareerGoals.define({ careerGoal, username }));
+      ProfileCareerGoals.removeUser(username);
+      careerGoals.forEach((careerGoal) => ProfileCareerGoals.define({ careerGoal, username }));
     }
     if (favoriteCourses) {
-      FavoriteCourses.removeUser(username);
-      favoriteCourses.forEach((course) => FavoriteCourses.define({ course, student: username }));
+      ProfileCourses.removeUser(username);
+      favoriteCourses.forEach((course) => ProfileCourses.define({ course, student: username }));
     }
     if (favoriteOpportunities) {
-      FavoriteOpportunities.removeUser(username);
-      favoriteOpportunities.forEach((opportunity) => FavoriteOpportunities.define({ opportunity, student: username }));
+      ProfileOpportunities.removeUser(username);
+      favoriteOpportunities.forEach((opportunity) => ProfileOpportunities.define({ opportunity, student: username }));
     }
   }
 
@@ -626,14 +626,14 @@ class StudentProfileCollection extends BaseProfileCollection {
     const picture = doc.picture;
     const website = doc.website;
     const userID = Users.getID(username);
-    const favInterests = FavoriteInterests.findNonRetired({ userID });
+    const favInterests = ProfileInterests.findNonRetired({ userID });
     const interests = _.map(favInterests, (fav) => Interests.findSlugByID(fav.interestID));
-    const favCareerGoals = FavoriteCareerGoals.findNonRetired({ userID });
+    const favCareerGoals = ProfileCareerGoals.findNonRetired({ userID });
     const careerGoals = _.map(favCareerGoals, (fav) => CareerGoals.findSlugByID(fav.careerGoalID));
     const level = doc.level;
-    const favCourses = FavoriteCourses.findNonRetired({ studentID: userID });
+    const favCourses = ProfileCourses.findNonRetired({ studentID: userID });
     const favoriteCourses = _.map(favCourses, (fav) => Courses.findSlugByID(fav.courseID));
-    const favOpps = FavoriteOpportunities.findNonRetired({ studentID: userID });
+    const favOpps = ProfileOpportunities.findNonRetired({ studentID: userID });
     const favoriteOpportunities = _.map(favOpps, (fav) => Opportunities.findSlugByID(fav.opportunityID));
     const declaredAcademicTerm = doc.declaredAcademicTermID && AcademicTerms.findSlugByID(doc.declaredAcademicTermID);
     const isAlumni = doc.isAlumni;

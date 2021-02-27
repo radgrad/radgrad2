@@ -2,13 +2,13 @@ import React from 'react';
 import { Button, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import { CareerGoal, Course, Interest, MeteorError, Opportunity, PageInterestDefine } from '../../../../../typings/radgrad';
-import { FavoriteCareerGoals } from '../../../../../api/favorite/FavoriteCareerGoalCollection';
-import { FavoriteCourses } from '../../../../../api/favorite/FavoriteCourseCollection';
-import { FavoriteInterests } from '../../../../../api/favorite/FavoriteInterestCollection';
-import { FavoriteOpportunities } from '../../../../../api/favorite/FavoriteOpportunityCollection';
+import { ProfileCareerGoals } from '../../../../../api/user/profile-entries/ProfileCareerGoalCollection';
+import { ProfileCourses } from '../../../../../api/user/profile-entries/ProfileCourseCollection';
+import { ProfileInterests } from '../../../../../api/user/profile-entries/ProfileInterestCollection';
+import { ProfileOpportunities } from '../../../../../api/user/profile-entries/ProfileOpportunityCollection';
 import { defineMethod, removeItMethod } from '../../../../../api/base/BaseCollection.methods';
 import { userInteractionDefineMethod } from '../../../../../api/analytic/UserInteractionCollection.methods';
-import { FAVORITE_TYPE, IFavoriteTypes } from '../../../../../api/favorite/FavoriteTypes';
+import { PROFILE_ENTRY_TYPE, IFavoriteTypes } from '../../../../../api/user/profile-entries/ProfileEntryTypes';
 import { pageInterestDefineMethod } from '../../../../../api/page-tracking/PageInterestCollection.methods';
 import { createDefinitionData, createInteractionData, createPageInterestData, getCollectionName } from './utilities/favorites-button';
 import { Users } from '../../../../../api/user/UserCollection';
@@ -67,26 +67,26 @@ const handleRemove = (studentID: string, item: ItemType, type: IFavoriteTypes) =
   const interactionData = createInteractionData(studentID, item, type, false);
   let instance;
   switch (type) {
-    case FAVORITE_TYPE.CAREERGOAL:
-      instance = FavoriteCareerGoals.findNonRetired({
+    case PROFILE_ENTRY_TYPE.CAREERGOAL:
+      instance = ProfileCareerGoals.findNonRetired({
         userID: studentID,
         careerGoalID: item._id,
       })[0]._id;
       break;
-    case FAVORITE_TYPE.COURSE:
-      instance = FavoriteCourses.findNonRetired({
+    case PROFILE_ENTRY_TYPE.COURSE:
+      instance = ProfileCourses.findNonRetired({
         studentID,
         courseID: item._id,
       })[0]._id;
       break;
-    case FAVORITE_TYPE.INTEREST:
-      instance = FavoriteInterests.findNonRetired({
+    case PROFILE_ENTRY_TYPE.INTEREST:
+      instance = ProfileInterests.findNonRetired({
         userID: studentID,
         interestID: item._id,
       })[0]._id;
       break;
-    case FAVORITE_TYPE.OPPORTUNITY:
-      instance = FavoriteOpportunities.findNonRetired({
+    case PROFILE_ENTRY_TYPE.OPPORTUNITY:
+      instance = ProfileOpportunities.findNonRetired({
         studentID,
         opportunityID: item._id,
       })[0]._id;
@@ -115,7 +115,7 @@ const handleRemove = (studentID: string, item: ItemType, type: IFavoriteTypes) =
   });
 };
 
-const FavoritesButton: React.FC<FavoriteButtonProps> = ({ studentID, item, type, added }) => (
+const AddToProfileButton: React.FC<FavoriteButtonProps> = ({ studentID, item, type, added }) => (
   <React.Fragment>
     {added ? (
       <Button onClick={handleRemove(studentID, item, type)} size="mini" color="green" floated="right" basic>
@@ -133,4 +133,4 @@ const FavoritesButton: React.FC<FavoriteButtonProps> = ({ studentID, item, type,
   </React.Fragment>
 );
 
-export default FavoritesButton;
+export default AddToProfileButton;

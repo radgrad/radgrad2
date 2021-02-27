@@ -6,7 +6,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Grid } from 'semantic-ui-react';
 import { updateMethod } from '../../../../api/base/BaseCollection.methods';
 import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
-import { FavoriteCareerGoals } from '../../../../api/favorite/FavoriteCareerGoalCollection';
+import { ProfileCareerGoals } from '../../../../api/user/profile-entries/ProfileCareerGoalCollection';
 import { ROLE } from '../../../../api/role/Role';
 import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
 import { Users } from '../../../../api/user/UserCollection';
@@ -75,7 +75,7 @@ export default withTracker(() => {
       });
     }
   }
-  const favCar = FavoriteCareerGoals.findNonRetired({ userID: profile.userID });
+  const favCar = ProfileCareerGoals.findNonRetired({ userID: profile.userID });
   const favoriteCareerGoals = _.map(favCar, (f) => CareerGoals.findDoc(f.careerGoalID));
   const favoriteCombinedInterestIDs = Users.getInterestIDs(username);
   const careerGoals = CareerGoals.findNonRetired({});

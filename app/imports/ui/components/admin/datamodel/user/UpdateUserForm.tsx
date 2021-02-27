@@ -16,8 +16,8 @@ import { AdvisorProfiles } from '../../../../../api/user/AdvisorProfileCollectio
 import MultiSelectField from '../../../form-fields/MultiSelectField';
 import { openCloudinaryWidget } from '../../../shared/OpenCloudinaryWidget';
 import { cloudinaryActions } from '../../../../../redux/shared/cloudinary';
-import { FavoriteInterests } from '../../../../../api/favorite/FavoriteInterestCollection';
-import { FavoriteCareerGoals } from '../../../../../api/favorite/FavoriteCareerGoalCollection';
+import { ProfileInterests } from '../../../../../api/user/profile-entries/ProfileInterestCollection';
+import { ProfileCareerGoals } from '../../../../../api/user/profile-entries/ProfileCareerGoalCollection';
 
 interface UpdateUserProps {
   interests: Interest[];
@@ -82,10 +82,10 @@ const UpdateUserForm: React.FC<UpdateUserProps> = ({ id, interests, setAdminData
 
   const model = collection.findDoc(id);
   const userID = model.userID;
-  const favInterests = FavoriteInterests.find({ userID }).fetch();
+  const favInterests = ProfileInterests.find({ userID }).fetch();
   const favInterestIDs = _.map(favInterests, (fav) => fav.interestID);
   model.interests = _.map(favInterestIDs, interestIdToName);
-  const favCareerGoals = FavoriteCareerGoals.find({ userID }).fetch();
+  const favCareerGoals = ProfileCareerGoals.find({ userID }).fetch();
   const favCareerGoalIDs = _.map(favCareerGoals, (fav) => fav.careerGoalID);
   model.careerGoals = _.map(favCareerGoalIDs, careerGoalIdToName);
   if (model.declaredAcademicTermID) {

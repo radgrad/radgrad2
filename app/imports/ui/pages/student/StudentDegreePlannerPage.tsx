@@ -37,8 +37,8 @@ import { userInteractionDefineMethod } from '../../../api/analytic/UserInteracti
 import { UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
-import { FavoriteOpportunities } from '../../../api/favorite/FavoriteOpportunityCollection';
-import { FavoriteCourses } from '../../../api/favorite/FavoriteCourseCollection';
+import { ProfileOpportunities } from '../../../api/user/profile-entries/ProfileOpportunityCollection';
+import { ProfileCourses } from '../../../api/user/profile-entries/ProfileCourseCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import { passedCourse } from '../../../api/course/CourseUtilities';
 import PageLayout from '../PageLayout';
@@ -318,9 +318,9 @@ export default withTracker(() => {
   const { username } = useParams();
   const profile = Users.getProfile(username);
   const studentID = profile.userID;
-  const favoriteOpportunities = FavoriteOpportunities.findNonRetired({ studentID });
+  const favoriteOpportunities = ProfileOpportunities.findNonRetired({ studentID });
   const opportunities = _.map(favoriteOpportunities, (f) => Opportunities.findDoc(f.opportunityID));
-  const favoriteCourses = FavoriteCourses.findNonRetired({ studentID });
+  const favoriteCourses = ProfileCourses.findNonRetired({ studentID });
   const courses = _.map(favoriteCourses, (f) => Courses.findDoc(f.courseID));
   const academicYearInstances: AcademicYearInstance[] = AcademicYearInstances.findNonRetired({ studentID }, { sort: { year: 1 } });
   const courseInstances = CourseInstances.findNonRetired({ studentID: profile.userID });

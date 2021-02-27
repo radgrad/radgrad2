@@ -11,7 +11,7 @@ import ExplorerCareerGoalWidget from '../../../components/shared/explorer/item-v
 import { Interests } from '../../../../api/interest/InterestCollection';
 import { teaser } from '../../../components/shared/explorer/item-view/utilities/teaser';
 import { Users } from '../../../../api/user/UserCollection';
-import { FavoriteCareerGoals } from '../../../../api/favorite/FavoriteCareerGoalCollection';
+import { ProfileCareerGoals } from '../../../../api/user/profile-entries/ProfileCareerGoalCollection';
 import { ROLE } from '../../../../api/role/Role';
 import { profileGetCareerGoalIDs } from '../../../components/shared/utilities/data-model';
 import { defaultProfilePicture } from '../../../../api/user/BaseProfileCollection';
@@ -39,7 +39,7 @@ const interestedUsersCareerGoals = (theCareerGoal: CareerGoal, role: string): Pr
 
 const numUsersCareerGoals = (theCareerGoal: CareerGoal, role: string): number => interestedUsersCareerGoals(theCareerGoal, role).length;
 
-const numStudentsCareerGoals = (theCareerGoal: CareerGoal): number => FavoriteCareerGoals.findNonRetired({ careerGoalID: theCareerGoal._id }).length;
+const numStudentsCareerGoals = (theCareerGoal: CareerGoal): number => ProfileCareerGoals.findNonRetired({ careerGoalID: theCareerGoal._id }).length;
 
 const socialPairsCareerGoals = (theCareerGoal: CareerGoal): SocialPair[] => [
   {
@@ -94,7 +94,7 @@ const CareerGoalViewPage: React.FC<CareerGoalViewPageProps> = ({ careerGoal, fav
 const CareerGoalViewPageContainer = withTracker(() => {
   const { careergoal, username } = useParams();
   const profile = Users.getProfile(username);
-  const favoriteCareerGoals = FavoriteCareerGoals.findNonRetired({ userID: profile.userID });
+  const favoriteCareerGoals = ProfileCareerGoals.findNonRetired({ userID: profile.userID });
   const careerGoalDoc = CareerGoals.findDocBySlug(careergoal);
   return {
     careerGoal: careerGoalDoc,

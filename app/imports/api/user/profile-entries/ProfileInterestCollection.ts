@@ -2,21 +2,21 @@ import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import _ from 'lodash';
 import { ReactiveAggregate } from 'meteor/jcbernack:reactive-aggregate';
-import BaseCollection from '../base/BaseCollection';
-import { CareerGoals } from '../career/CareerGoalCollection';
-import { Users } from '../user/UserCollection';
-import { FavoriteCareerGoalDefine, FavoriteUpdate } from '../../typings/radgrad';
-import { ROLE } from '../role/Role';
+import BaseCollection from '../../base/BaseCollection';
+import { Interests } from '../../interest/InterestCollection';
+import { Users } from '../UserCollection';
+import { ROLE } from '../../role/Role';
+import { FavoriteInterestDefine, FavoriteUpdate } from '../../../typings/radgrad';
 
-class FavoriteCareerGoalCollection extends BaseCollection {
+class ProfileInterestCollection extends BaseCollection {
   public readonly publicationNames: {
     scoreboard: string;
   };
 
-  /** Creates the FavoriteCareerGoal collection */
+  /** Creates the FavoriteInterest collection */
   constructor() {
-    super('FavoriteCareerGoal', new SimpleSchema({
-      careerGoalID: SimpleSchema.RegEx.Id,
+    super('FavoriteInterest', new SimpleSchema({
+      interestID: SimpleSchema.RegEx.Id,
       userID: SimpleSchema.RegEx.Id,
       share: Boolean,
       retired: { type: Boolean, optional: true },
@@ -27,54 +27,52 @@ class FavoriteCareerGoalCollection extends BaseCollection {
   }
 
   /**
-   * Defines a new FavoriteCareerGoal.
-   * @param careerGoal the careerGoal slug.
-   * @param username the user's username.
-   * @param share {Boolean} share the favorite career goal? Defaults to false.
+   * Defines a new FavoriteInterest.
+   * @param interest the interest slug.
+   * @param student the student's username.
+   * @param share {Boolean}, is the interest to be shared? Defaults to false.
    * @param retired the retired status.
    * @returns {void|*|boolean|{}}
    */
-  define({ careerGoal, username, share = false, retired = false }: FavoriteCareerGoalDefine) {
-    // console.log(`FavoriteCareerGoal.define ${careerGoal}, ${username}, ${share}, ${retired}`);
-    const careerGoalID = CareerGoals.getID(careerGoal);
+  define({ interest, username, share = false, retired = false }) {
+    const interestID = Interests.getID(interest);
     const userID = Users.getID(username);
-    const doc = this.collection.findOne({ userID, careerGoalID });
+    const doc = this.collection.findOne({ userID, interestID });
     if (doc) {
       return doc._id;
     }
-    return this.collection.insert({ careerGoalID, userID, share, retired });
+    return this.collection.insert({ interestID, userID, share, retired });
   }
 
   /**
    * Updates the retired status.
-   * @param docID the ID of the FavoriteCareerGoal.
+   * @param docID the ID of the FavoriteInterest.
    * @param retired the new retired value.
    */
   update(docID, { share, retired }: { share?: boolean, retired?: boolean }) {
     this.assertDefined(docID);
     const updateData: FavoriteUpdate = {};
-    if (_.isBoolean(share)) {
-      updateData.share = share;
-    }
     if (_.isBoolean(retired)) {
       updateData.retired = retired;
+    }
+    if (_.isBoolean(share)) {
+      updateData.share = share;
     }
     this.collection.update(docID, { $set: updateData });
   }
 
   /**
-   * Remove the FavoriteCareerGoal.
-   * @param docID The docID of the FavoriteCareerGoal.
+   * Remove the FavoriteInterest.
+   * @param docID The docID of the FavoriteInterest.
    */
   removeIt(docID) {
-    // console.log(`FavoriteCareerGoal.removeIt ${docID}`);
     this.assertDefined(docID);
     // OK, clear to delete.
     return super.removeIt(docID);
   }
 
   /**
-   * Removes all the FavoriteCareerGoals for the user.
+   * Removes all the ProfileInterests for the user.
    * @param user the username.
    */
   removeUser(user) {
@@ -83,33 +81,38 @@ class FavoriteCareerGoalCollection extends BaseCollection {
   }
 
   /**
-   * Publish CareerGoalFavorites. If logged in as ADMIN get all, otherwise only get the CareerGoalFavorites for the
-   * userID.
-   * Also publishes the CareerGoalFavorites scoreboard.
+   * Publish InterestFavorites. If logged in as ADMIN get all, otherwise only get the InterestFavorites for the
+   * studentID.
+   * Also publishes the InterestFavorites scoreboard.
    */
   publish() {
     if (Meteor.isServer) {
       const collection = this.collection;
-      Meteor.publish(this.collectionName, function filterStudentID(userID) { // eslint-disable-line meteor/audit-argument-checks
-        if (_.isNil(userID)) {
+      Meteor.publish(this.collectionName, function filterStudentID(studentID) { // eslint-disable-line meteor/audit-argument-checks
+        if (_.isNil(studentID)) {
           return this.ready();
         }
-        const profile = Users.getProfile(userID);
+        const profile = Users.getProfile(studentID);
         if (_.includes([ROLE.ADMIN, ROLE.ADVISOR], profile.role)) {
           return collection.find();
         }
-        return collection.find({ $or: [{ share: true }, { userID }] });
+        return collection.find({
+          $or: [
+            { userID: studentID },
+            { share: true },
+          ],
+        });
       });
-      Meteor.publish(this.publicationNames.scoreboard, function publishCareerGoalScoreboard() {
+      Meteor.publish(this.publicationNames.scoreboard, function publishInterestScoreboard() {
         ReactiveAggregate(this, collection, [
           {
             $group: {
-              _id: '$careerGoalID',
+              _id: '$interestID',
               count: { $sum: 1 },
             },
           },
-          { $project: { count: 1, careerGoalID: 1 } },
-        ], { clientCollection: 'CareerGoalFavoritesScoreboard' });
+          { $project: { count: 1, interestID: 1 } },
+        ], { clientCollection: 'InterestFavoritesScoreboard' });
       });
     }
   }
@@ -126,31 +129,31 @@ class FavoriteCareerGoalCollection extends BaseCollection {
   }
 
   /**
-   * Returns the CareerGoal associated with the FavoriteCareerGoal with the given instanceID.
-   * @param instanceID The id of the CareerGoalInstance.
-   * @returns {Object} The associated CareerGoal.
+   * Returns the Interest associated with the FavoriteInterest with the given instanceID.
+   * @param instanceID The id of the InterestInstance.
+   * @returns {Object} The associated Interest.
    * @throws {Meteor.Error} If instanceID is not a valid ID.
    */
-  getCareerGoalDoc(instanceID) {
+  getInterestDoc(instanceID) {
     this.assertDefined(instanceID);
     const instance = this.collection.findOne({ _id: instanceID });
-    return CareerGoals.findDoc(instance.careerGoalID);
+    return Interests.findDoc(instance.interestID);
   }
 
   /**
-   * Returns the CareerGoal slug for the favorite's corresponding CareerGoal.
-   * @param instanceID The FavoriteCareerGoal ID.
-   * @return {string} The careerGoal slug.
+   * Returns the Interest slug for the favorite's corresponding Interest.
+   * @param instanceID The FavoriteInterest ID.
+   * @return {string} The interest slug.
    */
-  getCareerGoalSlug(instanceID) {
+  getInterestSlug(instanceID) {
     this.assertDefined(instanceID);
     const instance = this.collection.findOne({ _id: instanceID });
-    return CareerGoals.findSlugByID(instance.careerGoalID);
+    return Interests.findSlugByID(instance.interestID);
   }
 
   /**
-   * Returns the Student profile associated with the FavoriteCareerGoal with the given instanceID.
-   * @param instanceID The ID of the FavoriteCareerGoal.
+   * Returns the Student profile associated with the FavoriteInterest with the given instanceID.
+   * @param instanceID The ID of the FavoriteInterest.
    * @returns {Object} The associated Student profile.
    * @throws {Meteor.Error} If instanceID is not a valid ID.
    */
@@ -162,7 +165,7 @@ class FavoriteCareerGoalCollection extends BaseCollection {
 
   /**
    * Returns the username associated with the userID.
-   * @param instanceID the FavoriteCareerGoal id.
+   * @param instanceID the FavoriteInterest id.
    * @returns {*}
    */
   getStudentUsername(instanceID) {
@@ -174,15 +177,15 @@ class FavoriteCareerGoalCollection extends BaseCollection {
   /**
    * Returns an array of strings, each one representing an integrity problem with this collection.
    * Returns an empty array if no problems were found.
-   * Checks semesterID, careerGoalID, and userID.
+   * Checks semesterID, interestID, and userID.
    * @returns {Array} A (possibly empty) array of strings indicating integrity issues.
    */
   checkIntegrity() {
     const problems = [];
     this.find()
       .forEach(doc => {
-        if (!CareerGoals.isDefined(doc.careerGoalID)) {
-          problems.push(`Bad careerGoalID: ${doc.careerGoalID}`);
+        if (!Interests.isDefined(doc.interestID)) {
+          problems.push(`Bad interestID: ${doc.interestID}`);
         }
         if (!Users.isDefined(doc.userID)) {
           problems.push(`Bad userID: ${doc.userID}`);
@@ -192,19 +195,18 @@ class FavoriteCareerGoalCollection extends BaseCollection {
   }
 
   /**
-   * Returns an object representing the FavoriteCareerGoal docID in a format acceptable to define().
-   * @param docID The docID of a FavoriteCareerGoal.
-   * @returns { Object } An object representing the definition of docID.
+   * Returns an object representing the FavoriteInterest with given docID in a format acceptable to define().
+   * @param docID the docID of a FavoriteInterest
+   * @returns {FavoriteInterestDefine}
    */
-  dumpOne(docID): FavoriteCareerGoalDefine {
+  dumpOne(docID): FavoriteInterestDefine {
     const doc = this.findDoc(docID);
-    const careerGoal = CareerGoals.findSlugByID(doc.careerGoalID);
+    const interest = Interests.findSlugByID(doc.interestID);
     const username = Users.getProfile(doc.userID).username;
     const share = doc.share;
     const retired = doc.retired;
-    return { careerGoal, username, share, retired };
+    return { interest, username, share, retired };
   }
-
 }
 
-export const FavoriteCareerGoals = new FavoriteCareerGoalCollection();
+export const ProfileInterests = new ProfileInterestCollection();

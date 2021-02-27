@@ -2,13 +2,13 @@ import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import _ from 'lodash';
 import { ReactiveAggregate } from 'meteor/jcbernack:reactive-aggregate';
-import BaseCollection from '../base/BaseCollection';
-import { Courses } from '../course/CourseCollection';
-import { Users } from '../user/UserCollection';
-import { ROLE } from '../role/Role';
-import { FavoriteCourseDefine, FavoriteUpdate } from '../../typings/radgrad';
+import BaseCollection from '../../base/BaseCollection';
+import { Courses } from '../../course/CourseCollection';
+import { Users } from '../UserCollection';
+import { ROLE } from '../../role/Role';
+import { FavoriteCourseDefine, FavoriteUpdate } from '../../../typings/radgrad';
 
-class FavoriteCourseCollection extends BaseCollection {
+class ProfileCourseCollection extends BaseCollection {
   public readonly publicationNames: {
     scoreboard: string;
   };
@@ -67,7 +67,7 @@ class FavoriteCourseCollection extends BaseCollection {
   }
 
   /**
-   * Removes all the FavoriteCourses for the user.
+   * Removes all the ProfileCourses for the user.
    * @param user the username.
    */
   removeUser(user) {
@@ -198,4 +198,4 @@ class FavoriteCourseCollection extends BaseCollection {
 
 }
 
-export const FavoriteCourses = new FavoriteCourseCollection();
+export const ProfileCourses = new ProfileCourseCollection();

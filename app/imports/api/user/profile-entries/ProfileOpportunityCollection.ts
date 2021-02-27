@@ -2,13 +2,13 @@ import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import _ from 'lodash';
 import { ReactiveAggregate } from 'meteor/jcbernack:reactive-aggregate';
-import BaseCollection from '../base/BaseCollection';
-import { Users } from '../user/UserCollection';
-import { ROLE } from '../role/Role';
-import { Opportunities } from '../opportunity/OpportunityCollection';
-import { FavoriteOpportunityDefine, FavoriteUpdate } from '../../typings/radgrad';
+import BaseCollection from '../../base/BaseCollection';
+import { Users } from '../UserCollection';
+import { ROLE } from '../../role/Role';
+import { Opportunities } from '../../opportunity/OpportunityCollection';
+import { FavoriteOpportunityDefine, FavoriteUpdate } from '../../../typings/radgrad';
 
-class FavoriteOpportunityCollection extends BaseCollection {
+class ProfileOpportunityCollection extends BaseCollection {
   public readonly publicationNames: {
     scoreboard: string;
   };
@@ -67,7 +67,7 @@ class FavoriteOpportunityCollection extends BaseCollection {
   }
 
   /**
-   * Removes all the FavoriteOpportunities for the user.
+   * Removes all the ProfileOpportunities for the user.
    * @param user the username.
    */
   removeUser(user) {
@@ -199,4 +199,4 @@ class FavoriteOpportunityCollection extends BaseCollection {
 
 }
 
-export const FavoriteOpportunities = new FavoriteOpportunityCollection();
+export const ProfileOpportunities = new ProfileOpportunityCollection();

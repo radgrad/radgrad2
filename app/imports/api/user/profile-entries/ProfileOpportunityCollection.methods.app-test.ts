@@ -1,15 +1,15 @@
 import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
-import { defineMethod, removeItMethod, updateMethod } from '../base/BaseCollection.methods';
-import { defineTestFixturesMethod, withRadGradSubscriptions, withLoggedInUser } from '../test/test-utilities';
-import { FavoriteOpportunities } from './FavoriteOpportunityCollection';
+import { defineMethod, removeItMethod, updateMethod } from '../../base/BaseCollection.methods';
+import { defineTestFixturesMethod, withRadGradSubscriptions, withLoggedInUser } from '../../test/test-utilities';
+import { ProfileOpportunities } from './ProfileOpportunityCollection';
 
 /* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
 /* eslint-env mocha */
 
 if (Meteor.isClient) {
-  describe('FavoriteOpportunityCollection', function testSuite() {
-    const collectionName = FavoriteOpportunities.getCollectionName();
+  describe('ProfileOpportunityCollection', function testSuite() {
+    const collectionName = ProfileOpportunities.getCollectionName();
     const definitionData = {
       opportunity: 'acm-icpc',
       student: 'abi@hawaii.edu',
@@ -24,15 +24,15 @@ if (Meteor.isClient) {
       await withLoggedInUser();
       await withRadGradSubscriptions(Meteor.userId());
       const docID = await defineMethod.callPromise({ collectionName, definitionData });
-      expect(FavoriteOpportunities.isDefined(docID), 'define: isDefined').to.be.true;
-      expect(FavoriteOpportunities.countNonRetired()).to.equal(1);
+      expect(ProfileOpportunities.isDefined(docID), 'define: isDefined').to.be.true;
+      expect(ProfileOpportunities.countNonRetired()).to.equal(1);
       updateData.id = docID;
       await updateMethod.callPromise({ collectionName, updateData });
-      expect(FavoriteOpportunities.countNonRetired()).to.equal(0);
-      expect(FavoriteOpportunities.isDefined(docID), 'retired: isDefined').to.be.true; // still in client collection
+      expect(ProfileOpportunities.countNonRetired()).to.equal(0);
+      expect(ProfileOpportunities.isDefined(docID), 'retired: isDefined').to.be.true; // still in client collection
       await removeItMethod.callPromise({ collectionName, instance: docID });
-      expect(FavoriteOpportunities.countNonRetired()).to.equal(0);
-      expect(FavoriteOpportunities.isDefined(docID), 'removeIt: isDefined').to.be.false;
+      expect(ProfileOpportunities.countNonRetired()).to.equal(0);
+      expect(ProfileOpportunities.isDefined(docID), 'removeIt: isDefined').to.be.false;
     });
   });
 }

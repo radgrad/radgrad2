@@ -3,7 +3,7 @@ import React from 'react';
 import _ from 'lodash';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
-import { FAVORITE_TYPE } from '../../../../../api/favorite/FavoriteTypes';
+import { PROFILE_ENTRY_TYPE } from '../../../../../api/user/profile-entries/ProfileEntryTypes';
 import { StudentProfiles } from '../../../../../api/user/StudentProfileCollection';
 import { IAdminAnalyticsUserInteraction } from '../../../../../redux/admin/analytics/reducers';
 import { StudentSummaryBehaviorTypes } from './utilities/student-summary';
@@ -51,7 +51,7 @@ const TimelineChartTab: React.FC<TimelineChartTabProps> = ({ startDate, endDate,
         if (_.some(interactionsWithinDate, { type: UserInteractionsTypes.LOGIN })) {
           obj[date].push(behaviorList[0]);
         }
-        if (_.some(interactionsWithinDate, (i) => i.type === FAVORITE_TYPE.CAREERGOAL || i.type === FAVORITE_TYPE.INTEREST)) {
+        if (_.some(interactionsWithinDate, (i) => i.type === PROFILE_ENTRY_TYPE.CAREERGOAL || i.type === PROFILE_ENTRY_TYPE.INTEREST)) {
           obj[date].push(behaviorList[1]);
         }
         if (_.some(interactionsWithinDate, (i) => i.type === UserInteractionsTypes.PAGEVIEW && i.typeData[0].includes(`${EXPLORER_TYPE.HOME}/`))) {

@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Grid, Header, List, Modal, Segment } from 'semantic-ui-react';
 import moment from 'moment';
 import _ from 'lodash';
-import { FAVORITE_TYPE } from '../../../../../api/favorite/FavoriteTypes';
+import { PROFILE_ENTRY_TYPE } from '../../../../../api/user/profile-entries/ProfileEntryTypes';
 import { profileIDToFullname } from '../../../shared/utilities/data-model';
 import { UserInteraction } from '../../../../../typings/radgrad';
 import { UserInteractionsTypes } from '../../../../../api/analytic/UserInteractionsTypes';
@@ -117,10 +117,10 @@ const getBehaviors = (sessionArr: UserInteraction[]): { type: string; stats: str
     if (array.length !== 0) {
       if (action === UserInteractionsTypes.LOGIN) {
         behaviors[StudentSummaryBehaviorTypes.LOGIN].push(`User logged in ${array.length} time(s)`);
-      } else if (action === FAVORITE_TYPE.CAREERGOAL) {
+      } else if (action === PROFILE_ENTRY_TYPE.CAREERGOAL) {
         behaviors[StudentSummaryBehaviorTypes.OUTLOOK].push(`User modified career goals ${array.length} time(s)`);
         behaviors[StudentSummaryBehaviorTypes.OUTLOOK].push(`Career goals at end of session: ${_.last(array)}`);
-      } else if (action === FAVORITE_TYPE.INTEREST) {
+      } else if (action === PROFILE_ENTRY_TYPE.INTEREST) {
         behaviors[StudentSummaryBehaviorTypes.OUTLOOK].push(`User modified interests ${array.length} time(s)`);
         behaviors[StudentSummaryBehaviorTypes.OUTLOOK].push(`Interests at end of session: ${_.last(array)}`);
       } else if (action === UserInteractionsTypes.PAGEVIEW) {

@@ -22,8 +22,8 @@ import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { careerGoalSlugFromName, declaredAcademicTermSlugFromName, interestSlugFromName } from '../../components/shared/utilities/form';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Users } from '../../../api/user/UserCollection';
-import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
-import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
+import { ProfileCareerGoals } from '../../../api/user/profile-entries/ProfileCareerGoalCollection';
+import { ProfileInterests } from '../../../api/user/profile-entries/ProfileInterestCollection';
 import { RootState } from '../../../redux/types';
 import PageLayout from '../PageLayout';
 import { careerGoalInterestConversionMethod } from '../../../api/utilities/InterestConversion.methods';
@@ -50,11 +50,11 @@ const descriptionPairs = (props: AdminDataModelUsersPageProps) => (user: BasePro
   pairs.push({ label: 'Picture', value: makeMarkdownLink(user.picture) });
   pairs.push({ label: 'Website', value: makeMarkdownLink(user.website) });
   const favoriteCareerGoals = _.filter(props.favoriteCareerGoals, (fav) => fav.userID === user.userID);
-  // const favoriteCareerGoals = FavoriteCareerGoals.findNonRetired({ studentID: user.userID });
+  // const favoriteCareerGoals = ProfileCareerGoals.findNonRetired({ studentID: user.userID });
   const careerGoalIDs = _.map(favoriteCareerGoals, (f) => f.careerGoalID);
   pairs.push({ label: 'Career Goals', value: _.sortBy(CareerGoals.findNames(careerGoalIDs)) });
   const favoriteInterests = _.filter(props.favoriteInterests, (fav) => fav.userID === user.userID);
-  // const favoriteInterests = FavoriteInterests.findNonRetired({ studentID: user.userID });
+  // const favoriteInterests = ProfileInterests.findNonRetired({ studentID: user.userID });
   const interestIDs = _.map(favoriteInterests, (f) => f.interestID);
   pairs.push({ label: 'Interests', value: _.sortBy(Interests.findNames(interestIDs)) });
   if (user.role === ROLE.STUDENT) {
@@ -357,7 +357,7 @@ const AdminDataModelUsersPage: React.FC<AdminDataModelUsersPageProps> = (props) 
                      academicTerms={props.academicTerms}/>
       )}
       <Tab panes={panes} defaultActiveIndex={3}/>
-      <Button onClick={handleConvert}>Convert Career Goal Interests</Button>
+      <Button color="green" basic onClick={handleConvert}>Convert Career Goal Interests</Button>
       <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete User?"/>
     </PageLayout>
   );
@@ -369,8 +369,8 @@ export default withTracker(() => {
   const advisors = AdvisorProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch();
   const faculty = FacultyProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch();
   const students = StudentProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch();
-  const favoriteCareerGoals = FavoriteCareerGoals.find().fetch();
-  const favoriteInterests = FavoriteInterests.find().fetch();
+  const favoriteCareerGoals = ProfileCareerGoals.find().fetch();
+  const favoriteInterests = ProfileInterests.find().fetch();
   const interests = Interests.find({}, { sort: { name: 1 } }).fetch();
   const careerGoals = CareerGoals.find({}, { sort: { name: 1 } }).fetch();
   let academicTerms = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();

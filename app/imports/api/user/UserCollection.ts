@@ -10,7 +10,7 @@ import { AdminProfiles } from './AdminProfileCollection';
 import { AdvisorProfiles } from './AdvisorProfileCollection';
 import { StudentProfiles } from './StudentProfileCollection';
 import { FacultyProfiles } from './FacultyProfileCollection';
-import { FavoriteInterests } from '../favorite/FavoriteInterestCollection';
+import { ProfileInterests } from './profile-entries/ProfileInterestCollection';
 
 /**
  * Represents a user, which is someone who has a Meteor account.
@@ -434,7 +434,7 @@ class UserCollection {
     const profile = this.getProfile(user);
     const userID = profile.userID;
     const interestIDs = [];
-    const favoriteInterests = FavoriteInterests.findNonRetired({ userID });
+    const favoriteInterests = ProfileInterests.findNonRetired({ userID });
     favoriteInterests.forEach((fav) => {
       interestIDs.push(fav.interestID);
     });
