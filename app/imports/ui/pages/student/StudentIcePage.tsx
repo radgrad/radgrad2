@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import React from 'react';
 import { Grid} from 'semantic-ui-react';
 import StudentIceWidget from '../../components/student/ice/StudentIceWidget';
-import { Ice, CourseInstance, FavoriteInterest, OpportunityInstance } from '../../../typings/radgrad';
+import { Ice, CourseInstance, ProfileInterest, OpportunityInstance } from '../../../typings/radgrad';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { ProfileInterests } from '../../../api/user/profile-entries/ProfileInterestCollection';
@@ -14,7 +14,7 @@ import PageLayout from '../PageLayout';
 interface StudentIcePageProps {
   earnedICE: Ice;
   projectedICE: Ice;
-  favoriteInterests: FavoriteInterest[];
+  favoriteInterests: ProfileInterest[];
   courseInstances: CourseInstance[];
   opportunityInstances: OpportunityInstance[];
 }
@@ -47,7 +47,7 @@ const StudentHomeIcePageContainer = withTracker(() => {
   const studentID: string = Users.getProfile(username).userID;
   const earnedICE: Ice = StudentProfiles.getEarnedICE(username);
   const projectedICE: Ice = StudentProfiles.getProjectedICE(username);
-  const favoriteInterests: FavoriteInterest[] = ProfileInterests.findNonRetired({ userID: studentID });
+  const favoriteInterests: ProfileInterest[] = ProfileInterests.findNonRetired({ userID: studentID });
   const courseInstances: CourseInstance[] = CourseInstances.findNonRetired({ studentID });
   const opportunityInstances: OpportunityInstance[] = OpportunityInstances.findNonRetired({ studentID });
   return {

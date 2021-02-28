@@ -6,14 +6,14 @@ import BaseCollection from '../../base/BaseCollection';
 import { Interests } from '../../interest/InterestCollection';
 import { Users } from '../UserCollection';
 import { ROLE } from '../../role/Role';
-import { FavoriteInterestDefine, FavoriteUpdate } from '../../../typings/radgrad';
+import { ProfileInterestDefine, ProfileEntryUpdate } from '../../../typings/radgrad';
 
 class ProfileInterestCollection extends BaseCollection {
   public readonly publicationNames: {
     scoreboard: string;
   };
 
-  /** Creates the FavoriteInterest collection */
+  /** Creates the ProfileInterest collection */
   constructor() {
     super('FavoriteInterest', new SimpleSchema({
       interestID: SimpleSchema.RegEx.Id,
@@ -27,7 +27,7 @@ class ProfileInterestCollection extends BaseCollection {
   }
 
   /**
-   * Defines a new FavoriteInterest.
+   * Defines a new ProfileInterest.
    * @param interest the interest slug.
    * @param student the student's username.
    * @param share {Boolean}, is the interest to be shared? Defaults to false.
@@ -46,12 +46,12 @@ class ProfileInterestCollection extends BaseCollection {
 
   /**
    * Updates the retired status.
-   * @param docID the ID of the FavoriteInterest.
+   * @param docID the ID of the ProfileInterest.
    * @param retired the new retired value.
    */
   update(docID, { share, retired }: { share?: boolean, retired?: boolean }) {
     this.assertDefined(docID);
-    const updateData: FavoriteUpdate = {};
+    const updateData: ProfileEntryUpdate = {};
     if (_.isBoolean(retired)) {
       updateData.retired = retired;
     }
@@ -62,8 +62,8 @@ class ProfileInterestCollection extends BaseCollection {
   }
 
   /**
-   * Remove the FavoriteInterest.
-   * @param docID The docID of the FavoriteInterest.
+   * Remove the ProfileInterest.
+   * @param docID The docID of the ProfileInterest.
    */
   removeIt(docID) {
     this.assertDefined(docID);
@@ -129,7 +129,7 @@ class ProfileInterestCollection extends BaseCollection {
   }
 
   /**
-   * Returns the Interest associated with the FavoriteInterest with the given instanceID.
+   * Returns the Interest associated with the ProfileInterest with the given instanceID.
    * @param instanceID The id of the InterestInstance.
    * @returns {Object} The associated Interest.
    * @throws {Meteor.Error} If instanceID is not a valid ID.
@@ -142,7 +142,7 @@ class ProfileInterestCollection extends BaseCollection {
 
   /**
    * Returns the Interest slug for the favorite's corresponding Interest.
-   * @param instanceID The FavoriteInterest ID.
+   * @param instanceID The ProfileInterest ID.
    * @return {string} The interest slug.
    */
   getInterestSlug(instanceID) {
@@ -152,8 +152,8 @@ class ProfileInterestCollection extends BaseCollection {
   }
 
   /**
-   * Returns the Student profile associated with the FavoriteInterest with the given instanceID.
-   * @param instanceID The ID of the FavoriteInterest.
+   * Returns the Student profile associated with the ProfileInterest with the given instanceID.
+   * @param instanceID The ID of the ProfileInterest.
    * @returns {Object} The associated Student profile.
    * @throws {Meteor.Error} If instanceID is not a valid ID.
    */
@@ -165,7 +165,7 @@ class ProfileInterestCollection extends BaseCollection {
 
   /**
    * Returns the username associated with the userID.
-   * @param instanceID the FavoriteInterest id.
+   * @param instanceID the ProfileInterest id.
    * @returns {*}
    */
   getStudentUsername(instanceID) {
@@ -195,11 +195,11 @@ class ProfileInterestCollection extends BaseCollection {
   }
 
   /**
-   * Returns an object representing the FavoriteInterest with given docID in a format acceptable to define().
-   * @param docID the docID of a FavoriteInterest
-   * @returns {FavoriteInterestDefine}
+   * Returns an object representing the ProfileInterest with given docID in a format acceptable to define().
+   * @param docID the docID of a ProfileInterest
+   * @returns {ProfileInterestDefine}
    */
-  dumpOne(docID): FavoriteInterestDefine {
+  dumpOne(docID): ProfileInterestDefine {
     const doc = this.findDoc(docID);
     const interest = Interests.findSlugByID(doc.interestID);
     const username = Users.getProfile(doc.userID).username;

@@ -6,7 +6,7 @@ import _ from 'lodash';
 import { Reviews } from '../../../../api/review/ReviewCollection';
 import { getMenuWidget } from '../utilities/getMenuWidget';
 import ExplorerMenu from '../../../components/shared/explorer/item-view/ExplorerMenu';
-import { Course, DescriptionPair, FavoriteCourse, Review } from '../../../../typings/radgrad';
+import { Course, DescriptionPair, ProfileCourse, Review } from '../../../../typings/radgrad';
 import { Courses } from '../../../../api/course/CourseCollection';
 import { ProfileCourses } from '../../../../api/user/profile-entries/ProfileCourseCollection';
 import { Users } from '../../../../api/user/UserCollection';
@@ -19,7 +19,7 @@ import * as Router from '../../../components/shared/utilities/router';
 import { Slugs } from '../../../../api/slug/SlugCollection';
 
 interface CourseViewPageProps {
-  favoriteCourses: FavoriteCourse[];
+  favoriteCourses: ProfileCourse[];
   course: Course;
   itemReviews: Review[];
 }

@@ -3,7 +3,7 @@ import { Link, useRouteMatch } from 'react-router-dom';
 import { List } from 'semantic-ui-react';
 import _ from 'lodash';
 import { buildRouteName, getUserIdFromRoute } from '../../shared/utilities/router';
-import { Ice, Course, FavoriteInterest, Opportunity } from '../../../../typings/radgrad';
+import { Ice, Course, ProfileInterest, Opportunity } from '../../../../typings/radgrad';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import { Courses } from '../../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../../api/course/CourseInstanceCollection';
@@ -18,10 +18,10 @@ interface StudentIceColumnRecommendedProps {
   icePoints: (ice: Ice) => number;
   getCourseSlug: (course) => string;
   getOpportunitySlug: (opportunity) => string;
-  favoriteInterests: FavoriteInterest[];
+  favoriteInterests: ProfileInterest[];
 }
 
-const hasNoInterests = (favoriteInterests: FavoriteInterest[]): boolean => favoriteInterests.length === 0;
+const hasNoInterests = (favoriteInterests: ProfileInterest[]): boolean => favoriteInterests.length === 0;
 
 const availableCourses = (match): Course[] => {
   const courses = Courses.findNonRetired({});
@@ -41,7 +41,7 @@ const availableCourses = (match): Course[] => {
   return [];
 };
 
-const matchingOpportunities = (favoriteInterests: FavoriteInterest[]): Opportunity[] => {
+const matchingOpportunities = (favoriteInterests: ProfileInterest[]): Opportunity[] => {
   const allOpportunities = Opportunities.findNonRetired();
   const matching = [];
   const userInterests = [];
@@ -67,7 +67,7 @@ const matchingOpportunities = (favoriteInterests: FavoriteInterest[]): Opportuni
   return matching;
 };
 
-const matchingCourses = (favoriteInterests: FavoriteInterest[], match): Course[] => {
+const matchingCourses = (favoriteInterests: ProfileInterest[], match): Course[] => {
   const allCourses: Course[] = availableCourses(match);
   const matching: Course[] = [];
   const userInterests = [];
@@ -93,7 +93,7 @@ const matchingCourses = (favoriteInterests: FavoriteInterest[], match): Course[]
   return matching;
 };
 
-const recommendedEvents = (projectedPoints: number, favoriteInterests: FavoriteInterest[], type, match): any[] => {
+const recommendedEvents = (projectedPoints: number, favoriteInterests: ProfileInterest[], type, match): any[] => {
   if (getUserIdFromRoute(match)) {
     let allInstances: any[];
     const recommendedInstances = [];

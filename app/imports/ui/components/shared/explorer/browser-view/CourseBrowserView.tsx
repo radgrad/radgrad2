@@ -6,14 +6,14 @@ import _ from 'lodash';
 import { Users } from '../../../../../api/user/UserCollection';
 import { scrollPositionActions } from '../../../../../redux/shared/scrollPosition';
 import { RootState } from '../../../../../redux/types';
-import { Course, FavoriteCourse } from '../../../../../typings/radgrad';
+import { Course, ProfileCourse } from '../../../../../typings/radgrad';
 import TermCard from './TermCard';
 import { ROLE } from '../../../../../api/role/Role';
 import CourseFilterWidget, { courseFilterKeys } from './CourseFilterWidget';
 import BackToTopButton from '../../BackToTopButton';
 
 interface CourseBrowserViewProps {
-  favoriteCourses: FavoriteCourse[];
+  favoriteCourses: ProfileCourse[];
   courses: Course[];
   // Saving Scroll Position
   coursesScrollPosition: number;

@@ -5,7 +5,7 @@ import { ReactiveAggregate } from 'meteor/jcbernack:reactive-aggregate';
 import BaseCollection from '../../base/BaseCollection';
 import { CareerGoals } from '../../career/CareerGoalCollection';
 import { Users } from '../UserCollection';
-import { FavoriteCareerGoalDefine, FavoriteUpdate } from '../../../typings/radgrad';
+import { ProfileCareerGoalDefine, ProfileEntryUpdate } from '../../../typings/radgrad';
 import { ROLE } from '../../role/Role';
 
 class ProfileCareerGoalCollection extends BaseCollection {
@@ -13,7 +13,7 @@ class ProfileCareerGoalCollection extends BaseCollection {
     scoreboard: string;
   };
 
-  /** Creates the FavoriteCareerGoal collection */
+  /** Creates the ProfileCareerGoal collection */
   constructor() {
     super('FavoriteCareerGoal', new SimpleSchema({
       careerGoalID: SimpleSchema.RegEx.Id,
@@ -27,15 +27,15 @@ class ProfileCareerGoalCollection extends BaseCollection {
   }
 
   /**
-   * Defines a new FavoriteCareerGoal.
+   * Defines a new ProfileCareerGoal.
    * @param careerGoal the careerGoal slug.
    * @param username the user's username.
    * @param share {Boolean} share the favorite career goal? Defaults to false.
    * @param retired the retired status.
    * @returns {void|*|boolean|{}}
    */
-  define({ careerGoal, username, share = false, retired = false }: FavoriteCareerGoalDefine) {
-    // console.log(`FavoriteCareerGoal.define ${careerGoal}, ${username}, ${share}, ${retired}`);
+  define({ careerGoal, username, share = false, retired = false }: ProfileCareerGoalDefine) {
+    // console.log(`ProfileCareerGoal.define ${careerGoal}, ${username}, ${share}, ${retired}`);
     const careerGoalID = CareerGoals.getID(careerGoal);
     const userID = Users.getID(username);
     const doc = this.collection.findOne({ userID, careerGoalID });
@@ -47,12 +47,12 @@ class ProfileCareerGoalCollection extends BaseCollection {
 
   /**
    * Updates the retired status.
-   * @param docID the ID of the FavoriteCareerGoal.
+   * @param docID the ID of the ProfileCareerGoal.
    * @param retired the new retired value.
    */
   update(docID, { share, retired }: { share?: boolean, retired?: boolean }) {
     this.assertDefined(docID);
-    const updateData: FavoriteUpdate = {};
+    const updateData: ProfileEntryUpdate = {};
     if (_.isBoolean(share)) {
       updateData.share = share;
     }
@@ -63,11 +63,11 @@ class ProfileCareerGoalCollection extends BaseCollection {
   }
 
   /**
-   * Remove the FavoriteCareerGoal.
-   * @param docID The docID of the FavoriteCareerGoal.
+   * Remove the ProfileCareerGoal.
+   * @param docID The docID of the ProfileCareerGoal.
    */
   removeIt(docID) {
-    // console.log(`FavoriteCareerGoal.removeIt ${docID}`);
+    // console.log(`ProfileCareerGoal.removeIt ${docID}`);
     this.assertDefined(docID);
     // OK, clear to delete.
     return super.removeIt(docID);
@@ -126,7 +126,7 @@ class ProfileCareerGoalCollection extends BaseCollection {
   }
 
   /**
-   * Returns the CareerGoal associated with the FavoriteCareerGoal with the given instanceID.
+   * Returns the CareerGoal associated with the ProfileCareerGoal with the given instanceID.
    * @param instanceID The id of the CareerGoalInstance.
    * @returns {Object} The associated CareerGoal.
    * @throws {Meteor.Error} If instanceID is not a valid ID.
@@ -139,7 +139,7 @@ class ProfileCareerGoalCollection extends BaseCollection {
 
   /**
    * Returns the CareerGoal slug for the favorite's corresponding CareerGoal.
-   * @param instanceID The FavoriteCareerGoal ID.
+   * @param instanceID The ProfileCareerGoal ID.
    * @return {string} The careerGoal slug.
    */
   getCareerGoalSlug(instanceID) {
@@ -149,8 +149,8 @@ class ProfileCareerGoalCollection extends BaseCollection {
   }
 
   /**
-   * Returns the Student profile associated with the FavoriteCareerGoal with the given instanceID.
-   * @param instanceID The ID of the FavoriteCareerGoal.
+   * Returns the Student profile associated with the ProfileCareerGoal with the given instanceID.
+   * @param instanceID The ID of the ProfileCareerGoal.
    * @returns {Object} The associated Student profile.
    * @throws {Meteor.Error} If instanceID is not a valid ID.
    */
@@ -162,7 +162,7 @@ class ProfileCareerGoalCollection extends BaseCollection {
 
   /**
    * Returns the username associated with the userID.
-   * @param instanceID the FavoriteCareerGoal id.
+   * @param instanceID the ProfileCareerGoal id.
    * @returns {*}
    */
   getStudentUsername(instanceID) {
@@ -192,11 +192,11 @@ class ProfileCareerGoalCollection extends BaseCollection {
   }
 
   /**
-   * Returns an object representing the FavoriteCareerGoal docID in a format acceptable to define().
-   * @param docID The docID of a FavoriteCareerGoal.
+   * Returns an object representing the ProfileCareerGoal docID in a format acceptable to define().
+   * @param docID The docID of a ProfileCareerGoal.
    * @returns { Object } An object representing the definition of docID.
    */
-  dumpOne(docID): FavoriteCareerGoalDefine {
+  dumpOne(docID): ProfileCareerGoalDefine {
     const doc = this.findDoc(docID);
     const careerGoal = CareerGoals.findSlugByID(doc.careerGoalID);
     const username = Users.getProfile(doc.userID).username;

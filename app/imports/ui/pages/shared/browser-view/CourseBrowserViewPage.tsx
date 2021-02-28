@@ -7,7 +7,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { updateMethod } from '../../../../api/base/BaseCollection.methods';
 import { ROLE } from '../../../../api/role/Role';
 import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
-import { Course, FavoriteCourse, StudentProfileUpdate } from '../../../../typings/radgrad';
+import { Course, ProfileCourse, StudentProfileUpdate } from '../../../../typings/radgrad';
 import * as Router from '../../../components/shared/utilities/router';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import { Courses } from '../../../../api/course/CourseCollection';
@@ -19,7 +19,7 @@ import CourseBrowserViewContainer from '../../../components/shared/explorer/brow
 import PageLayout from '../../PageLayout';
 
 interface CourseBrowserViewPageProps {
-  favoriteCourses: FavoriteCourse[];
+  favoriteCourses: ProfileCourse[];
   courses: Course[];
 }
 

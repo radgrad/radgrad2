@@ -5,10 +5,10 @@ import { ProfileInterests } from '../../../../../../api/user/profile-entries/Pro
 import { ProfileOpportunities } from '../../../../../../api/user/profile-entries/ProfileOpportunityCollection';
 import {
   BaseProfile, CareerGoal, Course,
-  FavoriteCareerGoalDefine,
-  FavoriteCourseDefine,
-  FavoriteInterestDefine,
-  FavoriteOpportunityDefine, Interest, Opportunity,
+  ProfileCareerGoalDefine,
+  ProfileCourseDefine,
+  ProfileInterestDefine,
+  ProfileOpportunityDefine, Interest, Opportunity,
   PageInterestDefine,
   UserInteractionDefine,
 } from '../../../../../../typings/radgrad';
@@ -51,7 +51,7 @@ export const getSlug = (slugID: string): string => Slugs.getNameFromID(slugID);
 
 type ItemType = CareerGoal | Course | Interest | Opportunity;
 
-export const createDefinitionData = (studentID: string, item: ItemType, type: IFavoriteTypes): FavoriteCareerGoalDefine | FavoriteCourseDefine | FavoriteInterestDefine | FavoriteOpportunityDefine => {
+export const createDefinitionData = (studentID: string, item: ItemType, type: IFavoriteTypes): ProfileCareerGoalDefine | ProfileCourseDefine | ProfileInterestDefine | ProfileOpportunityDefine => {
   const student = getStudent(studentID);
   const slug = getSlug(item.slugID);
   let definitionData;

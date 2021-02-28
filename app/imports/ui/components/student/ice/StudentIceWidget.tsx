@@ -1,6 +1,6 @@
 import React from 'react';
 import { Segment, Grid, Header } from 'semantic-ui-react';
-import { Ice, CourseInstance, FavoriteInterest, OpportunityInstance } from '../../../../typings/radgrad';
+import { Ice, CourseInstance, ProfileInterest, OpportunityInstance } from '../../../../typings/radgrad';
 import StudentIceColumn from './StudentIceColumn';
 import PageIceCircle from './PageIceCircle';
 
@@ -12,7 +12,7 @@ import PageIceCircle from './PageIceCircle';
 export interface StudentIceWidgetProps {
   earnedICE: Ice;
   projectedICE: Ice;
-  favoriteInterests: FavoriteInterest[];
+  favoriteInterests: ProfileInterest[];
   courseInstances: CourseInstance[];
   opportunityInstances: OpportunityInstance[];
 }

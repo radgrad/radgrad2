@@ -7,6 +7,7 @@ import { Users } from '../../../../../../api/user/UserCollection';
 import { CareerGoal, DescriptionPair, SocialPair } from '../../../../../../typings/radgrad';
 import { renderLink, getUserIdFromRoute } from '../../../utilities/router';
 import WidgetHeaderNumber from '../../WidgetHeaderNumber';
+import AddCareerGoalToProfileButton from '../AddCareerGoalToProfileButton';
 import AddToProfileButton from '../AddToProfileButton';
 import { toUpper, isSame } from '../../../utilities/general';
 import { userToFullName, userToPicture } from '../../../utilities/data-model';
@@ -18,7 +19,7 @@ import { PROFILE_ENTRY_TYPE } from '../../../../../../api/user/profile-entries/P
 import TeaserVideo from '../../../TeaserVideo';
 import { ProfileCareerGoals } from '../../../../../../api/user/profile-entries/ProfileCareerGoalCollection';
 
-interface ExplorerCareerGoalsWidgetProps {
+interface ExplorerCareerGoalProps {
   name: string;
   descriptionPairs: DescriptionPair[];
   item: CareerGoal;
@@ -35,7 +36,7 @@ const teaserUrlHelper = (careerGoalSlug): string => {
   return oppTeaser && oppTeaser[0] && oppTeaser[0].url;
 };
 
-const ExplorerCareerGoalWidget: React.FC<ExplorerCareerGoalsWidgetProps> = ({ name, descriptionPairs, socialPairs, item }) => {
+const ExplorerCareerGoal: React.FC<ExplorerCareerGoalProps> = ({ name, descriptionPairs, socialPairs, item }) => {
   const marginStyle = {
     marginTop: 5,
   };
@@ -58,7 +59,7 @@ const ExplorerCareerGoalWidget: React.FC<ExplorerCareerGoalsWidgetProps> = ({ na
         <Segment>
           <Segment basic clearing vertical>
             <Grid.Row verticalAlign="middle">
-              <AddToProfileButton item={item} studentID={getUserIdFromRoute(match)} type={PROFILE_ENTRY_TYPE.CAREERGOAL} added={added} />
+              <AddCareerGoalToProfileButton careerGoal={item} userID={getUserIdFromRoute(match)} added={added} />
               <Header floated="left">{upperName}</Header>
             </Grid.Row>
           </Segment>
@@ -144,4 +145,4 @@ const ExplorerCareerGoalWidget: React.FC<ExplorerCareerGoalsWidgetProps> = ({ na
   );
 };
 
-export default ExplorerCareerGoalWidget;
+export default ExplorerCareerGoal;

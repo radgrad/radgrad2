@@ -6,7 +6,7 @@ import StudentIceColumnRecommended from './StudentIceColumnRecommended';
 import { Slugs } from '../../../../api/slug/SlugCollection';
 import { Courses } from '../../../../api/course/CourseCollection';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
-import { Ice, CourseInstance, FavoriteInterest, OpportunityInstance } from '../../../../typings/radgrad';
+import { Ice, CourseInstance, ProfileInterest, OpportunityInstance } from '../../../../typings/radgrad';
 
 /* Technical Debt
  *   * Improve typing of getCourseSlug:  if typeof course is ICourse else if ... else
@@ -16,7 +16,7 @@ import { Ice, CourseInstance, FavoriteInterest, OpportunityInstance } from '../.
 
 export interface StudentIceColumnProps {
   type: 'Innovation' | 'Competency' | 'Experience';
-  favoriteInterests: FavoriteInterest[];
+  favoriteInterests: ProfileInterest[];
   courseInstances: CourseInstance[];
   opportunityInstances: OpportunityInstance[];
   projectedICE: Ice;

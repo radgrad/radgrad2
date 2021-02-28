@@ -342,59 +342,59 @@ export interface OpportunityFactoidProps {
   numberOfStudents: number;
 }
 
-// Favoirites
-export interface FavoriteCareerGoalDefine extends DumpOne {
+// Profile Entries
+export interface ProfileCareerGoalDefine extends DumpOne {
   careerGoal: string;
   username: string;
   share?: boolean;
   retired?: boolean;
 }
 
-export interface FavoriteCareerGoal {
+export interface ProfileCareerGoal {
   careerGoalID: string;
   userID: string;
   retired: boolean;
 }
 
-export interface FavoriteCourseDefine extends DumpOne {
+export interface ProfileCourseDefine extends DumpOne {
   course: string;
   student: string;
   retired?: boolean;
 }
 
-export interface FavoriteCourse {
+export interface ProfileCourse {
   courseID: string;
   studentID: string;
   retired: boolean;
 }
 
-export interface FavoriteInterestDefine extends DumpOne {
+export interface ProfileInterestDefine extends DumpOne {
   interest: string;
   username: string;
   share?: boolean;
   retired?: boolean;
 }
 
-export interface FavoriteInterest {
+export interface ProfileInterest {
   interestID: string;
   userID: string;
   share: boolean;
   retired: boolean;
 }
 
-export interface FavoriteOpportunityDefine extends DumpOne {
+export interface ProfileOpportunityDefine extends DumpOne {
   opportunity: string;
   student: string;
   retired?: boolean;
 }
 
-export interface FavoriteOpportunity {
+export interface ProfileOpportunity {
   opportunityID: string;
   studentID: string;
   retired: boolean;
 }
 
-export interface FavoriteUpdate extends Update {
+export interface ProfileEntryUpdate extends Update {
   share?: boolean;
   retired?: boolean;
 }

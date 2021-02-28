@@ -6,14 +6,14 @@ import BaseCollection from '../../base/BaseCollection';
 import { Users } from '../UserCollection';
 import { ROLE } from '../../role/Role';
 import { Opportunities } from '../../opportunity/OpportunityCollection';
-import { FavoriteOpportunityDefine, FavoriteUpdate } from '../../../typings/radgrad';
+import { ProfileOpportunityDefine, ProfileEntryUpdate } from '../../../typings/radgrad';
 
 class ProfileOpportunityCollection extends BaseCollection {
   public readonly publicationNames: {
     scoreboard: string;
   };
 
-  /** Creates the FavoriteOpportunity collection */
+  /** Creates the ProfileOpportunity collection */
   constructor() {
     super('FavoriteOpportunity', new SimpleSchema({
       opportunityID: SimpleSchema.RegEx.Id,
@@ -26,7 +26,7 @@ class ProfileOpportunityCollection extends BaseCollection {
   }
 
   /**
-   * Defines a new FavoriteOpportunity.
+   * Defines a new ProfileOpportunity.
    * @param opportunity the opportunity slug.
    * @param student the student's username.
    * @param retired the retired status.
@@ -44,12 +44,12 @@ class ProfileOpportunityCollection extends BaseCollection {
 
   /**
    * Updates the retired status.
-   * @param docID the ID of the FavoriteOpportunity.
+   * @param docID the ID of the ProfileOpportunity.
    * @param retired the new retired value.
    */
   update(docID, { retired }) {
     this.assertDefined(docID);
-    const updateData: FavoriteUpdate = {};
+    const updateData: ProfileEntryUpdate = {};
     if (_.isBoolean(retired)) {
       updateData.retired = retired;
     }
@@ -57,8 +57,8 @@ class ProfileOpportunityCollection extends BaseCollection {
   }
 
   /**
-   * Remove the FavoriteOpportunity.
-   * @param docID The docID of the FavoriteOpportunity.
+   * Remove the ProfileOpportunity.
+   * @param docID The docID of the ProfileOpportunity.
    */
   removeIt(docID) {
     this.assertDefined(docID);
@@ -119,7 +119,7 @@ class ProfileOpportunityCollection extends BaseCollection {
   }
 
   /**
-   * Returns the Opportunity associated with the FavoriteOpportunity with the given instanceID.
+   * Returns the Opportunity associated with the ProfileOpportunity with the given instanceID.
    * @param instanceID The id of the OpportunityInstance.
    * @returns {Object} The associated Opportunity.
    * @throws {Meteor.Error} If instanceID is not a valid ID.
@@ -132,7 +132,7 @@ class ProfileOpportunityCollection extends BaseCollection {
 
   /**
    * Returns the Opportunity slug for the favorite's corresponding Opportunity.
-   * @param instanceID The FavoriteOpportunity ID.
+   * @param instanceID The ProfileOpportunity ID.
    * @return {string} The opportunity slug.
    */
   getOpportunitySlug(instanceID) {
@@ -142,8 +142,8 @@ class ProfileOpportunityCollection extends BaseCollection {
   }
 
   /**
-   * Returns the Student profile associated with the FavoriteOpportunity with the given instanceID.
-   * @param instanceID The ID of the FavoriteOpportunity.
+   * Returns the Student profile associated with the ProfileOpportunity with the given instanceID.
+   * @param instanceID The ID of the ProfileOpportunity.
    * @returns {Object} The associated Student profile.
    * @throws {Meteor.Error} If instanceID is not a valid ID.
    */
@@ -155,7 +155,7 @@ class ProfileOpportunityCollection extends BaseCollection {
 
   /**
    * Returns the username associated with the studentID.
-   * @param instanceID the FavoriteOpportunity id.
+   * @param instanceID the ProfileOpportunity id.
    * @returns {*}
    */
   getStudentUsername(instanceID) {
@@ -185,11 +185,11 @@ class ProfileOpportunityCollection extends BaseCollection {
   }
 
   /**
-   * Returns an object representing the FavoriteOpportunity docID in a format acceptable to define().
-   * @param docID The docID of a FavoriteOpportunity.
+   * Returns an object representing the ProfileOpportunity docID in a format acceptable to define().
+   * @param docID The docID of a ProfileOpportunity.
    * @returns { Object } An object representing the definition of docID.
    */
-  dumpOne(docID): FavoriteOpportunityDefine {
+  dumpOne(docID): ProfileOpportunityDefine {
     const doc = this.findDoc(docID);
     const opportunity = Opportunities.findSlugByID(doc.opportunityID);
     const student = Users.getProfile(doc.studentID).username;
