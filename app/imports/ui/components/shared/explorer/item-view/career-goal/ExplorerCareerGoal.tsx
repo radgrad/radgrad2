@@ -8,14 +8,12 @@ import { CareerGoal, DescriptionPair, SocialPair } from '../../../../../../typin
 import { renderLink, getUserIdFromRoute } from '../../../utilities/router';
 import WidgetHeaderNumber from '../../WidgetHeaderNumber';
 import AddCareerGoalToProfileButton from '../AddCareerGoalToProfileButton';
-import AddToProfileButton from '../AddToProfileButton';
 import { toUpper, isSame } from '../../../utilities/general';
 import { userToFullName, userToPicture } from '../../../utilities/data-model';
 import { Teasers } from '../../../../../../api/teaser/TeaserCollection';
 import { Slugs } from '../../../../../../api/slug/SlugCollection';
 import { CareerGoals } from '../../../../../../api/career/CareerGoalCollection';
 import { toId } from '../course/utilities/description-pair';
-import { PROFILE_ENTRY_TYPE } from '../../../../../../api/user/profile-entries/ProfileEntryTypes';
 import TeaserVideo from '../../../TeaserVideo';
 import { ProfileCareerGoals } from '../../../../../../api/user/profile-entries/ProfileCareerGoalCollection';
 
