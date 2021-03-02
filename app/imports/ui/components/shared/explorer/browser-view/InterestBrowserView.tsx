@@ -25,7 +25,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const InterestBrowserView: React.FC<InterestBrowserViewProps> = ({ favoriteInterests, favoriteCareerGoalsInterests, interests, interestsScrollPosition, setInterestsScrollPosition }) => {
-  // TODO do we want to filter out the favoriteInterests and favoriteCareerGoalInterests from interests?
+  // TODO do we want to filter out the profileInterests and favoriteCareerGoalInterests from interests?
   const cardGroupElement: HTMLElement = document.getElementById('interestsCardGroup');
   useEffect(() => {
     const savedScrollPosition = interestsScrollPosition;

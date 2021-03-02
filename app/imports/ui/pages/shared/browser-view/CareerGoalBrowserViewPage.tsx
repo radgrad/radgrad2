@@ -18,8 +18,8 @@ import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import PageLayout from '../../PageLayout';
 
 interface CareerGoalBrowserViewPageProps {
-  favoriteCareerGoals: CareerGoal[];
-  favoriteCombinedInterestIDs: string[];
+  profileCareerGoals: CareerGoal[];
+  profileInterestIDs: string[];
   careerGoals: CareerGoal[];
 }
 
@@ -34,11 +34,11 @@ If we've missed a career goal of interest to you, please click the button below 
 const headerPaneImage = 'header-career.png';
 
 const CareerGoalBrowserViewPage: React.FC<CareerGoalBrowserViewPageProps> = ({
-  favoriteCareerGoals,
-  favoriteCombinedInterestIDs,
+  profileCareerGoals,
+  profileInterestIDs,
   careerGoals,
 }) => {
-  const menuAddedList = _.map(favoriteCareerGoals, (f) => ({ item: f, count: 1 }));
+  const menuAddedList = _.map(profileCareerGoals, (f) => ({ item: f, count: 1 }));
   return (
     <PageLayout id="career-goal-browser-view-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
       <Grid stackable>
@@ -48,8 +48,8 @@ const CareerGoalBrowserViewPage: React.FC<CareerGoalBrowserViewPageProps> = ({
                                        menuCareerList={undefined} />
           </Grid.Column>
           <Grid.Column width={12}>
-            <CareerGoalBrowserViewContainer favoriteCareerGoals={favoriteCareerGoals}
-                                            favoriteCombinedInterestIDs={favoriteCombinedInterestIDs}
+            <CareerGoalBrowserViewContainer favoriteCareerGoals={profileCareerGoals}
+                                            favoriteCombinedInterestIDs={profileInterestIDs}
                                             careerGoals={careerGoals} />
           </Grid.Column>
         </Grid.Row>
@@ -76,12 +76,12 @@ export default withTracker(() => {
     }
   }
   const favCar = ProfileCareerGoals.findNonRetired({ userID: profile.userID });
-  const favoriteCareerGoals = _.map(favCar, (f) => CareerGoals.findDoc(f.careerGoalID));
-  const favoriteCombinedInterestIDs = Users.getInterestIDs(username);
+  const profileCareerGoals = _.map(favCar, (f) => CareerGoals.findDoc(f.careerGoalID));
+  const profileInterestIDs = Users.getInterestIDs(username);
   const careerGoals = CareerGoals.findNonRetired({});
   return {
     careerGoals,
-    favoriteCareerGoals,
-    favoriteCombinedInterestIDs,
+    profileCareerGoals,
+    profileInterestIDs,
   };
 })(CareerGoalBrowserViewPage);

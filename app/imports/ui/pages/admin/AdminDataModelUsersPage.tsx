@@ -35,8 +35,8 @@ interface AdminDataModelUsersPageProps {
   students: StudentProfile[];
   isCloudinaryUsed: boolean;
   cloudinaryUrl: string;
-  favoriteCareerGoals: ProfileCareerGoal[];
-  favoriteInterests: ProfileInterest[];
+  profileCareerGoals: ProfileCareerGoal[];
+  profileInterests: ProfileInterest[];
   interests: Interest[];
   careerGoals: CareerGoal[];
   academicTerms: AcademicTerm[];
@@ -49,13 +49,13 @@ const descriptionPairs = (props: AdminDataModelUsersPageProps) => (user: BasePro
   pairs.push({ label: 'Role', value: user.role });
   pairs.push({ label: 'Picture', value: makeMarkdownLink(user.picture) });
   pairs.push({ label: 'Website', value: makeMarkdownLink(user.website) });
-  const favoriteCareerGoals = _.filter(props.favoriteCareerGoals, (fav) => fav.userID === user.userID);
-  // const favoriteCareerGoals = ProfileCareerGoals.findNonRetired({ studentID: user.userID });
-  const careerGoalIDs = _.map(favoriteCareerGoals, (f) => f.careerGoalID);
+  const profileCareerGoals = _.filter(props.profileCareerGoals, (fav) => fav.userID === user.userID);
+  // const profileCareerGoals = ProfileCareerGoals.findNonRetired({ studentID: user.userID });
+  const careerGoalIDs = _.map(profileCareerGoals, (f) => f.careerGoalID);
   pairs.push({ label: 'Career Goals', value: _.sortBy(CareerGoals.findNames(careerGoalIDs)) });
-  const favoriteInterests = _.filter(props.favoriteInterests, (fav) => fav.userID === user.userID);
-  // const favoriteInterests = ProfileInterests.findNonRetired({ studentID: user.userID });
-  const interestIDs = _.map(favoriteInterests, (f) => f.interestID);
+  const profileInterests = _.filter(props.profileInterests, (fav) => fav.userID === user.userID);
+  // const profileInterests = ProfileInterests.findNonRetired({ studentID: user.userID });
+  const interestIDs = _.map(profileInterests, (f) => f.interestID);
   pairs.push({ label: 'Interests', value: _.sortBy(Interests.findNames(interestIDs)) });
   if (user.role === ROLE.STUDENT) {
     pairs.push({ label: 'Level', value: `${user.level}` });
@@ -369,8 +369,8 @@ export default withTracker(() => {
   const advisors = AdvisorProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch();
   const faculty = FacultyProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch();
   const students = StudentProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch();
-  const favoriteCareerGoals = ProfileCareerGoals.find().fetch();
-  const favoriteInterests = ProfileInterests.find().fetch();
+  const profileCareerGoals = ProfileCareerGoals.find().fetch();
+  const profileInterests = ProfileInterests.find().fetch();
   const interests = Interests.find({}, { sort: { name: 1 } }).fetch();
   const careerGoals = CareerGoals.find({}, { sort: { name: 1 } }).fetch();
   let academicTerms = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();
@@ -386,7 +386,7 @@ export default withTracker(() => {
     advisors,
     faculty,
     students,
-    favoriteCareerGoals,
-    favoriteInterests,
+    profileCareerGoals,
+    profileInterests,
   };
 })(AdminDataModelUsersPageCon);
