@@ -596,7 +596,7 @@
           "num": "EE 323",
           "description": "Semiconductor structures, operating principles and characteristics of diodes and amplifying devices. Their application as circuit elements in building basic digital, analog, and integrated circuit subsystems.",
           "creditHrs": 4,
-          "interests": ["circuit-analysis", "Microelectronics"],
+          "interests": ["circuit-analysis", "microelectronics"],
           "prerequisites": [
             "ee_213"
           ],
