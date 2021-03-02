@@ -37,8 +37,6 @@ const active = (selectedTab) => {
   switch (selectedTab) {
     case degreePlannerTypes.SELECT_PROFILE_OPPORTUNITIES:
       return 0;
-    case degreePlannerTypes.SELECT_PROFILE_PLANS:
-      return 1;
     case degreePlannerTypes.SELECT_PROFILE_COURSES:
       return 2;
     case degreePlannerTypes.SELECT_PROFILE_DETAILS:
