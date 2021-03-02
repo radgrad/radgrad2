@@ -119,7 +119,7 @@ const convertProfile = (profile, data) => {
 
 const processRadGradCollection = (collection: ICollection) => {
   const result: any = {};
-  console.log(collection.name/* , collection.contents */);
+  // console.log(collection.name/* , collection.contents */);
   if (collection.name === 'SemesterCollection') {
     result.name = 'AcademicTermCollection';
     result.contents = collection.contents;
@@ -146,7 +146,7 @@ const processRadGradCollection = (collection: ICollection) => {
     result.name = collection.name;
     result.contents = _.map(collection.contents, convertObject);
   }
-  console.log(result.name/* , result.contents */);
+  // console.log(result.name/* , result.contents */);
   return result;
 };
 
