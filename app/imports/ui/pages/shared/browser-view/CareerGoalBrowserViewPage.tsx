@@ -11,7 +11,7 @@ import { ROLE } from '../../../../api/role/Role';
 import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
 import { Users } from '../../../../api/user/UserCollection';
 import { CareerGoal, StudentProfileUpdate } from '../../../../typings/radgrad';
-import CareerGoalBrowserViewContainer from '../../../components/shared/explorer/browser-view/CareerGoalBrowserView';
+import CareerGoalBrowserView from '../../../components/shared/explorer/browser-view/CareerGoalBrowserView';
 import ExplorerMultipleItemsMenu from '../../../components/shared/explorer/browser-view/ExplorerMultipleItemsMenu';
 import { IExplorerTypes } from '../../../components/shared/explorer/utilities/explorer';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
@@ -44,13 +44,12 @@ const CareerGoalBrowserViewPage: React.FC<CareerGoalBrowserViewPageProps> = ({
       <Grid stackable>
         <Grid.Row>
           <Grid.Column width={4}>
-            <ExplorerMultipleItemsMenu menuAddedList={menuAddedList} type={EXPLORER_TYPE.CAREERGOALS as IExplorerTypes}
-                                       menuCareerList={undefined} />
+            <ExplorerMultipleItemsMenu menuAddedList={menuAddedList} type={EXPLORER_TYPE.CAREERGOALS as IExplorerTypes} />
           </Grid.Column>
           <Grid.Column width={12}>
-            <CareerGoalBrowserViewContainer favoriteCareerGoals={profileCareerGoals}
-                                            favoriteCombinedInterestIDs={profileInterestIDs}
-                                            careerGoals={careerGoals} />
+            <CareerGoalBrowserView profileCareerGoals={profileCareerGoals}
+                                   profileInterestIDs={profileInterestIDs}
+                                   careerGoals={careerGoals} />
           </Grid.Column>
         </Grid.Row>
       </Grid>

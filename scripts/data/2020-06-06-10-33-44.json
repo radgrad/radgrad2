@@ -10426,8 +10426,8 @@
             "bs-cs-2019",
             "bs-cs-2020"
           ],
-          "favoriteCourses": [],
-          "favoriteOpportunities": [],
+          "profileCourses": [],
+          "profileOpportunities": [],
           "declaredAcademicTerm": "Fall-2017",
           "isAlumni": false,
           "retired": false,
@@ -10457,8 +10457,8 @@
           "favoriteAcademicPlans": [
             "bs-cs-2019"
           ],
-          "favoriteCourses": [],
-          "favoriteOpportunities": [
+          "profileCourses": [],
+          "profileOpportunities": [
             "cloud-honolulu"
           ],
           "declaredAcademicTerm": "Fall-2018",
@@ -10493,8 +10493,8 @@
           "favoriteAcademicPlans": [
             "ba-ics-2019"
           ],
-          "favoriteCourses": [],
-          "favoriteOpportunities": [
+          "profileCourses": [],
+          "profileOpportunities": [
             "google-summer-of-code",
             "sadowski-lab-research-assistant",
             "oceanit-student-intern",
@@ -10526,8 +10526,8 @@
           ],
           "level": 2,
           "favoriteAcademicPlans": [],
-          "favoriteCourses": [],
-          "favoriteOpportunities": [],
+          "profileCourses": [],
+          "profileOpportunities": [],
           "isAlumni": false,
           "retired": false,
           "shareUsername": false,
@@ -10554,8 +10554,8 @@
           ],
           "level": 1,
           "favoriteAcademicPlans": [],
-          "favoriteCourses": [],
-          "favoriteOpportunities": [],
+          "profileCourses": [],
+          "profileOpportunities": [],
           "isAlumni": true,
           "retired": false,
           "shareUsername": false,
@@ -10577,8 +10577,8 @@
           "careerGoals": [],
           "level": 1,
           "favoriteAcademicPlans": [],
-          "favoriteCourses": [],
-          "favoriteOpportunities": [],
+          "profileCourses": [],
+          "profileOpportunities": [],
           "isAlumni": false,
           "retired": false,
           "shareUsername": false,

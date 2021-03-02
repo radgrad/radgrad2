@@ -10,7 +10,7 @@ import { defineMethod, removeItMethod } from '../../../../../api/base/BaseCollec
 import { userInteractionDefineMethod } from '../../../../../api/analytic/UserInteractionCollection.methods';
 import { PROFILE_ENTRY_TYPE, IProfileEntryTypes } from '../../../../../api/user/profile-entries/ProfileEntryTypes';
 import { pageInterestDefineMethod } from '../../../../../api/page-tracking/PageInterestCollection.methods';
-import { createDefinitionData, createInteractionData, createPageInterestData, getCollectionName } from './utilities/favorites-button';
+import { createDefinitionData, createInteractionData, createPageInterestData, getCollectionName } from './utilities/profile-button';
 import { Users } from '../../../../../api/user/UserCollection';
 import { ROLE } from '../../../../../api/role/Role';
 
@@ -30,7 +30,7 @@ const handleAdd = (studentID: string, item: ItemType, type: IProfileEntryTypes) 
   defineMethod.call({ collectionName, definitionData }, (error: MeteorError) => {
     if (error) {
       Swal.fire({
-        title: 'Failed to Favorite',
+        title: 'Failed to add to profile',
         icon: 'error',
         text: error.message,
         allowOutsideClick: false,
@@ -39,7 +39,7 @@ const handleAdd = (studentID: string, item: ItemType, type: IProfileEntryTypes) 
       });
     } else {
       Swal.fire({
-        title: 'Favorited',
+        title: 'Added to profile',
         icon: 'success',
         showConfirmButton: false,
         timer: 1500,
@@ -92,14 +92,14 @@ const handleRemove = (studentID: string, item: ItemType, type: IProfileEntryType
       })[0]._id;
       break;
     default:
-      console.error(`Bad favorite type: ${type}`);
+      console.error(`Bad profile entry type: ${type}`);
       break;
   }
 
   removeItMethod.call({ collectionName, instance }, (error: MeteorError) => {
     if (error) {
       Swal.fire({
-        title: 'Failed to Unfavorite',
+        title: 'Failed to remove from profile',
         icon: 'error',
         text: error.message,
         allowOutsideClick: false,

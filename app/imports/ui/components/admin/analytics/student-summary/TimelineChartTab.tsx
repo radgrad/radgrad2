@@ -38,8 +38,8 @@ const TimelineChartTab: React.FC<TimelineChartTabProps> = ({ startDate, endDate,
       StudentSummaryBehaviorTypes.LEVEL,
       StudentSummaryBehaviorTypes.COMPLETEPLAN,
       StudentSummaryBehaviorTypes.PROFILE,
-      StudentSummaryBehaviorTypes.FAVORITE,
-      StudentSummaryBehaviorTypes.UNFAVORITE,
+      StudentSummaryBehaviorTypes.ADD_TO_PROFILE,
+      StudentSummaryBehaviorTypes.REMOVE_FROM_PROFILE,
       StudentSummaryBehaviorTypes.LOGOUT,
     ];
     _.each(behaviorsByDate, function (array, date, obj) {
@@ -86,10 +86,10 @@ const TimelineChartTab: React.FC<TimelineChartTabProps> = ({ startDate, endDate,
         if (_.some(interactionsWithinDate, (i) => i.type === UserInteractionsTypes.PICTURE || i.type === UserInteractionsTypes.WEBSITE)) {
           obj[date].push(behaviorList[8]);
         }
-        if (_.some(interactionsWithinDate, (i) => i.type === UserInteractionsTypes.FAVORITEITEM)) {
+        if (_.some(interactionsWithinDate, (i) => i.type === UserInteractionsTypes.ADD_TO_PROFILE)) {
           obj[date].push(behaviorList[9]);
         }
-        if (_.some(interactionsWithinDate, (i) => i.type === UserInteractionsTypes.UNFAVORITEITEM)) {
+        if (_.some(interactionsWithinDate, (i) => i.type === UserInteractionsTypes.REMOVE_FROM_PROFILE)) {
           obj[date].push(behaviorList[10]);
         }
         if (_.some(interactionsWithinDate, (i) => i.type === UserInteractionsTypes.LOGOUT)) {

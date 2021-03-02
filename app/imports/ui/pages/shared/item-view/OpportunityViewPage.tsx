@@ -17,7 +17,7 @@ import { OpportunityTypes } from '../../../../api/opportunity/OpportunityTypeCol
 import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
 
 interface OpportunityViewPageProps {
-  favoriteOpportunities: Opportunity[];
+  profileOpportunities: Opportunity[];
   itemReviews: Review[];
   opportunity: Opportunity;
   profile: Profile;
@@ -58,9 +58,9 @@ const isCompleted = (opportunityID: string, studentID: string): boolean => {
   return completed;
 };
 
-const OpportunityViewPage: React.FC<OpportunityViewPageProps> = ({ favoriteOpportunities, itemReviews, opportunity, profile }) => {
+const OpportunityViewPage: React.FC<OpportunityViewPageProps> = ({ profileOpportunities, itemReviews, opportunity, profile }) => {
   const match = useRouteMatch();
-  const menuAddedList = _.map(favoriteOpportunities, (item) => ({
+  const menuAddedList = _.map(profileOpportunities, (item) => ({
     item,
     count: 1,
   }));
@@ -91,11 +91,11 @@ const OpportunityViewPageContainer = withTracker(() => {
   const { opportunity, username } = useParams();
   const profile = Users.getProfile(username);
   const favOpps = ProfileOpportunities.findNonRetired({ studentID: profile.userID });
-  const favoriteOpportunities = _.map(favOpps, (f) => Opportunities.findDoc(f.opportunityID));
+  const profileOpportunities = _.map(favOpps, (f) => Opportunities.findDoc(f.opportunityID));
   const opportunityDoc = Opportunities.findDocBySlug(opportunity);
   const itemReviews = Reviews.findNonRetired({ revieweeID: opportunityDoc._id });
   return {
-    favoriteOpportunities,
+    profileOpportunities,
     itemReviews,
     opportunity: opportunityDoc,
     profile,

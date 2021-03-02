@@ -62,10 +62,10 @@ class StudentProfileCollection extends BaseProfileCollection {
       level: { type: SimpleSchema.Integer, min: 1, max: 6 },
       declaredAcademicTerm: { type: String, optional: true },
       isAlumni: { type: Boolean, optional: true },
-      favoriteCourses: { type: Array, optional: true },
-      'favoriteCourses.$': String,
-      favoriteOpportunities: { type: Array, optional: true },
-      'favoriteOpportunities.$': String,
+      profileCourses: { type: Array, optional: true },
+      'profileCourses.$': String,
+      profileOpportunities: { type: Array, optional: true },
+      'profileOpportunities.$': String,
       shareUsername: { type: Boolean, optional: true },
       sharePicture: { type: Boolean, optional: true },
       shareWebsite: { type: Boolean, optional: true },
@@ -97,10 +97,10 @@ class StudentProfileCollection extends BaseProfileCollection {
       level: { type: SimpleSchema.Integer, min: 1, max: 6 },
       declaredAcademicTermID: { type: String, optional: true },
       isAlumni: { type: Boolean, optional: true },
-      favoriteCourses: { type: Array, optional: true },
-      'favoriteCourses.$': String,
-      favoriteOpportunities: { type: Array, optional: true },
-      'favoriteOpportunities.$': String,
+      profileCourses: { type: Array, optional: true },
+      'profileCourses.$': String,
+      profileOpportunities: { type: Array, optional: true },
+      'profileOpportunities.$': String,
       shareUsername: { type: Boolean, optional: true },
       sharePicture: { type: Boolean, optional: true },
       shareWebsite: { type: Boolean, optional: true },
@@ -158,8 +158,8 @@ class StudentProfileCollection extends BaseProfileCollection {
     careerGoals,
     level,
     declaredAcademicTerm,
-    favoriteCourses = [],
-    favoriteOpportunities = [],
+    profileCourses = [],
+    profileOpportunities = [],
     isAlumni = false,
     retired = false,
     shareUsername = false,
@@ -233,11 +233,11 @@ class StudentProfileCollection extends BaseProfileCollection {
           username,
         }));
       }
-      if (favoriteCourses) {
-        favoriteCourses.forEach((course) => ProfileCourses.define({ course, student: username }));
+      if (profileCourses) {
+        profileCourses.forEach((course) => ProfileCourses.define({ course, student: username }));
       }
-      if (favoriteOpportunities) {
-        favoriteOpportunities.forEach((opportunity) =>
+      if (profileOpportunities) {
+        profileOpportunities.forEach((opportunity) =>
           ProfileOpportunities.define({
             opportunity,
             student: username,
@@ -283,8 +283,8 @@ class StudentProfileCollection extends BaseProfileCollection {
       interests,
       careerGoals,
       level,
-      favoriteCourses,
-      favoriteOpportunities,
+      profileCourses,
+      profileOpportunities,
       declaredAcademicTerm,
       isAlumni,
       retired,
@@ -413,13 +413,13 @@ class StudentProfileCollection extends BaseProfileCollection {
       ProfileCareerGoals.removeUser(username);
       careerGoals.forEach((careerGoal) => ProfileCareerGoals.define({ careerGoal, username }));
     }
-    if (favoriteCourses) {
+    if (profileCourses) {
       ProfileCourses.removeUser(username);
-      favoriteCourses.forEach((course) => ProfileCourses.define({ course, student: username }));
+      profileCourses.forEach((course) => ProfileCourses.define({ course, student: username }));
     }
-    if (favoriteOpportunities) {
+    if (profileOpportunities) {
       ProfileOpportunities.removeUser(username);
-      favoriteOpportunities.forEach((opportunity) => ProfileOpportunities.define({ opportunity, student: username }));
+      profileOpportunities.forEach((opportunity) => ProfileOpportunities.define({ opportunity, student: username }));
     }
   }
 
@@ -632,9 +632,9 @@ class StudentProfileCollection extends BaseProfileCollection {
     const careerGoals = _.map(favCareerGoals, (fav) => CareerGoals.findSlugByID(fav.careerGoalID));
     const level = doc.level;
     const favCourses = ProfileCourses.findNonRetired({ studentID: userID });
-    const favoriteCourses = _.map(favCourses, (fav) => Courses.findSlugByID(fav.courseID));
+    const profileCourses = _.map(favCourses, (fav) => Courses.findSlugByID(fav.courseID));
     const favOpps = ProfileOpportunities.findNonRetired({ studentID: userID });
-    const favoriteOpportunities = _.map(favOpps, (fav) => Opportunities.findSlugByID(fav.opportunityID));
+    const profileOpportunities = _.map(favOpps, (fav) => Opportunities.findSlugByID(fav.opportunityID));
     const declaredAcademicTerm = doc.declaredAcademicTermID && AcademicTerms.findSlugByID(doc.declaredAcademicTermID);
     const isAlumni = doc.isAlumni;
     const retired = doc.retired;
@@ -663,8 +663,8 @@ class StudentProfileCollection extends BaseProfileCollection {
       interests,
       careerGoals,
       level,
-      favoriteCourses,
-      favoriteOpportunities,
+      profileCourses,
+      profileOpportunities,
       declaredAcademicTerm,
       isAlumni,
       retired,

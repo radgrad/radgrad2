@@ -19,7 +19,7 @@ import * as Router from '../../../components/shared/utilities/router';
 import { Slugs } from '../../../../api/slug/SlugCollection';
 
 interface CourseViewPageProps {
-  favoriteCourses: ProfileCourse[];
+  profileCourses: ProfileCourse[];
   course: Course;
   itemReviews: Review[];
 }
@@ -100,9 +100,9 @@ const isCourseCompleted = (courseSlugName, match): boolean => {
   return ret;
 };
 
-const CourseViewPage: React.FC<CourseViewPageProps> = ({ favoriteCourses, course, itemReviews }) => {
+const CourseViewPage: React.FC<CourseViewPageProps> = ({ profileCourses, course, itemReviews }) => {
   const match = useRouteMatch();
-  const menuAddedList = _.map(favoriteCourses, (f) => ({
+  const menuAddedList = _.map(profileCourses, (f) => ({
     item: Courses.findDoc(f.courseID),
     count: 1,
   }));
@@ -134,11 +134,11 @@ const CourseViewPageContainer = withTracker(() => {
   // console.log(course, username);
   const courseDoc = Courses.findDocBySlug(course);
   const profile = Users.getProfile(username);
-  const favoriteCourses = ProfileCourses.findNonRetired({ studentID: profile.userID });
+  const profileCourses = ProfileCourses.findNonRetired({ studentID: profile.userID });
   const itemReviews = Reviews.findNonRetired({ revieweeID: courseDoc._id });
   return {
     course: courseDoc,
-    favoriteCourses,
+    profileCourses,
     itemReviews,
   };
 })(CourseViewPage);

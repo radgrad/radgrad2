@@ -13,7 +13,7 @@ import { Slugs } from '../slug/SlugCollection';
  * Represents a student's interest view for a specific topic category page
  * The different topic categories that a page could be are Career Goal, Course, Interest, and Opportunity
  * Definition of a student's interest view when they visit a page
- * 1. When they Favorite that page and don't unfavorite it before leaving the page
+ * 1. When they add to profile on that page and don't remove it before leaving the page
  * 2. They play the Teaser video at that page or open it as an external link
  * 3. They click an external link in the DESCRIPTION of that page
  *    - Profile Pictures and the interests tags do not count

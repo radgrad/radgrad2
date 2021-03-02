@@ -48,14 +48,13 @@ const CourseBrowserViewPage: React.FC<CourseBrowserViewPageProps> = ({ profileCo
         <Grid.Row>
           {showProfileEntries ? (
             <Grid.Column width={4}>
-              <ExplorerMultipleItemsMenu menuAddedList={menuAddedList} type={EXPLORER_TYPE.COURSES as IExplorerTypes}
-                                         menuCareerList={undefined}/>
+              <ExplorerMultipleItemsMenu menuAddedList={menuAddedList} type={EXPLORER_TYPE.COURSES as IExplorerTypes} />
             </Grid.Column>
           ) : (
             ' '
           )}
           <Grid.Column width={columnWidth}>
-            <CourseBrowserView favoriteCourses={profileCourses} courses={courses}/>
+            <CourseBrowserView profileCourses={profileCourses} courses={courses}/>
           </Grid.Column>
         </Grid.Row>
       </Grid>

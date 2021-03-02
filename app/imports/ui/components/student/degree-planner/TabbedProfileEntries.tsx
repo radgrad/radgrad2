@@ -86,39 +86,39 @@ const TabbedProfileEntries: React.FC<TabbedProfileEntriesProps> = ({
   const panes = [
     {
       menuItem: (
-        <Menu.Item key="FavoriteOpportunities">
+        <Menu.Item key="ProfileOpportunities">
           <Icon name="heart" fitted color="red" /> OPPS
         </Menu.Item>
       ),
       pane: (
-        <Tab.Pane key="FavoriteOpportunitiesPane" active={active(selectedTab) === 0}>
+        <Tab.Pane key="ProfileOpportunitiesPane" active={active(selectedTab) === 0}>
           <ProfileOpportunities opportunities={opportunities} studentID={studentID} opportunityInstances={opportunityInstances} />
         </Tab.Pane>
       ),
     },
     {
       menuItem: (
-        <Menu.Item key="FavoriteCourses">
+        <Menu.Item key="ProfileCourses">
           <Icon name="heart" fitted color="red" /> COURSE
         </Menu.Item>
       ),
       pane: (
-        <Tab.Pane key="FavoriteCoursesPane" active={active(selectedTab) === 2}>
+        <Tab.Pane key="ProfileCoursesPane" active={active(selectedTab) === 2}>
           <ProfileCourses studentID={studentID} courses={courses} courseInstances={courseInstances} />
         </Tab.Pane>
       ),
     },
     {
-      menuItem: <Menu.Item key="FavoriteDetails">DETAILS</Menu.Item>,
+      menuItem: <Menu.Item key="ProfileDetails">DETAILS</Menu.Item>,
       pane: (
-        <Tab.Pane key="FavoriteDetailsPane" active={active(selectedTab) === 3}>
+        <Tab.Pane key="ProfileDetailsPane" active={active(selectedTab) === 3}>
           <DepDetailsWidget verificationRequests={verificationRequests} />
         </Tab.Pane>
       ),
     },
   ];
   return (
-    <Segment padded id="tabbedFavoritesWidget">
+    <Segment padded id="tabbedProfilesWidget">
       <Tab panes={panes} renderActiveOnly={false} onTabChange={(event, instance) => handleTabChange(event, instance)} activeIndex={active(selectedTab)} />
     </Segment>
   );

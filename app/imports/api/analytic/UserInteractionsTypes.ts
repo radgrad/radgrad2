@@ -20,10 +20,9 @@ export enum UserInteractionsTypes {
   // Removing a course/opportunity from the planner
   REMOVECOURSE = 'removeCourse',
   REMOVEOPPORTUNITY = 'removeOpportunity',
-  // CAM: Not going to change this since we have a bunch of user interactions with this term type in them.
-  // TODO is this the correct answer?
-  FAVORITEITEM = 'favoriteItem',
-  UNFAVORITEITEM = 'unFavoriteItem',
+  // Profile entities
+  ADD_TO_PROFILE = 'addToProfile',
+  REMOVE_FROM_PROFILE = 'removeFromProfile',
   /* Reviews */
   ADDREVIEW = 'addReview',
   EDITREVIEW = 'editReview',

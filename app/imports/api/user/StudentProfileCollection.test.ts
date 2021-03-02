@@ -40,12 +40,12 @@ if (Meteor.isServer) {
             const careerGoals = makeSampleCareerGoalSlugArray();
             const level = faker.random.number({ min: 1, max: 6 });
             const declaredAcademicTerm = makeSampleAcademicTermSlug();
-            const favoriteCourses = makeSampleCourseSlugArray(2);
-            const favoriteOpportunities = makeSampleOpportunitySlugArray(sponsor, 2);
+            const profileCourses = makeSampleCourseSlugArray(2);
+            const profileOpportunities = makeSampleOpportunitySlugArray(sponsor, 2);
             const docID = StudentProfiles.define({
               username, firstName, lastName, picture, website, interests,
               careerGoals, level, declaredAcademicTerm,
-              favoriteCourses, favoriteOpportunities, retired,
+              profileCourses, profileOpportunities, retired,
             });
             expect(StudentProfiles.isDefined(docID)).to.be.true;
             expect(ProfileInterests.count()).to.equal(interests.length);

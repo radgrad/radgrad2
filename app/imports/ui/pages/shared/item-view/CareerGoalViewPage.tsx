@@ -17,7 +17,7 @@ import { profileGetCareerGoalIDs } from '../../../components/shared/utilities/da
 import { defaultProfilePicture } from '../../../../api/user/BaseProfileCollection';
 
 interface CareerGoalViewPageProps {
-  favoriteCareerGoals: ProfileCareerGoal[];
+  profileCareerGoals: ProfileCareerGoal[];
   careerGoal: CareerGoal;
 }
 
@@ -59,9 +59,9 @@ const socialPairsCareerGoals = (theCareerGoal: CareerGoal): SocialPair[] => [
   },
 ];
 
-const CareerGoalViewPage: React.FC<CareerGoalViewPageProps> = ({ careerGoal, favoriteCareerGoals }) => {
+const CareerGoalViewPage: React.FC<CareerGoalViewPageProps> = ({ careerGoal, profileCareerGoals }) => {
   const match = useRouteMatch();
-  const menuAddedList = _.map(favoriteCareerGoals, (f) => ({
+  const menuAddedList = _.map(profileCareerGoals, (f) => ({
     item: CareerGoals.findDoc(f.careerGoalID),
     count: 1,
   }));
@@ -94,11 +94,11 @@ const CareerGoalViewPage: React.FC<CareerGoalViewPageProps> = ({ careerGoal, fav
 const CareerGoalViewPageContainer = withTracker(() => {
   const { careergoal, username } = useParams();
   const profile = Users.getProfile(username);
-  const favoriteCareerGoals = ProfileCareerGoals.findNonRetired({ userID: profile.userID });
+  const profileCareerGoals = ProfileCareerGoals.findNonRetired({ userID: profile.userID });
   const careerGoalDoc = CareerGoals.findDocBySlug(careergoal);
   return {
     careerGoal: careerGoalDoc,
-    favoriteCareerGoals,
+    profileCareerGoals,
   };
 })(CareerGoalViewPage);
 
