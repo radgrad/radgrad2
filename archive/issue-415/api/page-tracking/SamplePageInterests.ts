@@ -1,6 +1,6 @@
 import faker from 'faker';
-import { makeSampleUser } from '../user/SampleUsers';
-import { Users } from '../user/UserCollection';
+import { makeSampleUser } from '../../../../app/imports/api/user/SampleUsers';
+import { Users } from '../../../../app/imports/api/user/UserCollection';
 import { PageInterests } from './PageInterestCollection';
 
 export const makeSamplePageInterest = (): string => {

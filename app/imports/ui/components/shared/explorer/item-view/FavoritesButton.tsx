@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
-import { CareerGoal, Course, Interest, MeteorError, Opportunity, PageInterestDefine } from '../../../../../typings/radgrad';
+import { CareerGoal, Course, Interest, MeteorError, Opportunity } from '../../../../../typings/radgrad';
 import { FavoriteCareerGoals } from '../../../../../api/favorite/FavoriteCareerGoalCollection';
 import { FavoriteCourses } from '../../../../../api/favorite/FavoriteCourseCollection';
 import { FavoriteInterests } from '../../../../../api/favorite/FavoriteInterestCollection';
@@ -9,10 +9,7 @@ import { FavoriteOpportunities } from '../../../../../api/favorite/FavoriteOppor
 import { defineMethod, removeItMethod } from '../../../../../api/base/BaseCollection.methods';
 import { userInteractionDefineMethod } from '../../../../../api/analytic/UserInteractionCollection.methods';
 import { FAVORITE_TYPE, IFavoriteTypes } from '../../../../../api/favorite/FavoriteTypes';
-import { pageInterestDefineMethod } from '../../../../../api/page-tracking/PageInterestCollection.methods';
-import { createDefinitionData, createInteractionData, createPageInterestData, getCollectionName } from './utilities/favorites-button';
-import { Users } from '../../../../../api/user/UserCollection';
-import { ROLE } from '../../../../../api/role/Role';
+import { createDefinitionData, createInteractionData, getCollectionName } from './utilities/favorites-button';
 
 type ItemType = CareerGoal | Course | Interest | Opportunity;
 export interface FavoriteButtonProps {
@@ -49,15 +46,6 @@ const handleAdd = (studentID: string, item: ItemType, type: IFavoriteTypes) => (
           console.error('Error creating UserInteraction.', userInteractionError);
         }
       });
-      const isStudent = Users.getProfile(studentID).role === ROLE.STUDENT;
-      if (isStudent) {
-        const pageInterestData: PageInterestDefine = createPageInterestData(studentID, item, type);
-        pageInterestDefineMethod.call(pageInterestData, (pageInterestError) => {
-          if (pageInterestError) {
-            console.error('Error creating PageInterest.', pageInterestError);
-          }
-        });
-      }
     }
   });
 };

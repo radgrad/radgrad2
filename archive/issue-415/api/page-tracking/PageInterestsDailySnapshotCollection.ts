@@ -1,8 +1,8 @@
 import SimpleSchema from 'simpl-schema';
 import moment from 'moment';
-import BaseCollection from '../base/BaseCollection';
-import { PageInterestsDailySnapshot, PageInterestsDailySnapshotDefine } from '../../typings/radgrad';
-import { Slugs } from '../slug/SlugCollection';
+import BaseCollection from '../../../../app/imports/api/base/BaseCollection';
+import { PageInterestsDailySnapshot, PageInterestsDailySnapshotDefine } from '../../../../app/imports/typings/radgrad';
+import { Slugs } from '../../../../app/imports/api/slug/SlugCollection';
 
 /**
  * Represents a snapshot of the aggregated student interest views for the different categories for a particular day

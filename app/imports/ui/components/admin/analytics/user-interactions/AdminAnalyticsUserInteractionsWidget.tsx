@@ -23,7 +23,6 @@ const AdminAnalyticsUserInteractionsWidget: React.FC<AdminAnalyticsUserInteracti
       if (error) {
         console.error('Error finding user interactions.', error);
       } else {
-        // TODO Should PageInterests from PageInterestsCollection be part of this page?
         setInteractions(result);
       }
     });

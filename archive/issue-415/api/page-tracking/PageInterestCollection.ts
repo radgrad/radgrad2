@@ -2,12 +2,12 @@ import { Meteor } from 'meteor/meteor';
 import moment from 'moment';
 import _ from 'lodash';
 import SimpleSchema from 'simpl-schema';
-import BaseCollection from '../base/BaseCollection';
-import { ROLE } from '../role/Role';
-import { PageInterest, PageInterestDefine } from '../../typings/radgrad';
-import { Users } from '../user/UserCollection';
+import BaseCollection from '../../../../app/imports/api/base/BaseCollection';
+import { ROLE } from '../../../../app/imports/api/role/Role';
+import { PageInterest, PageInterestDefine } from '../../../../app/imports/typings/radgrad';
+import { Users } from '../../../../app/imports/api/user/UserCollection';
 import { PageInterestsCategoryTypes } from './PageInterestsCategoryTypes';
-import { Slugs } from '../slug/SlugCollection';
+import { Slugs } from '../../../../app/imports/api/slug/SlugCollection';
 
 /**
  * Represents a student's interest view for a specific topic category page
