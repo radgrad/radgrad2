@@ -11771,7 +11771,7 @@
         },
         {
           "username": "gcalica@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "academicPlan",
             "ba-ics-2019"
@@ -11780,7 +11780,7 @@
         },
         {
           "username": "gcalica@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "academicPlan",
             "ba-cs-ds-2019"
@@ -11789,7 +11789,7 @@
         },
         {
           "username": "gcalica@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "academicPlan",
             "ba-ics-2020"
@@ -11798,7 +11798,7 @@
         },
         {
           "username": "gcalica@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "academicPlan",
             "ba-cs-ds-2019"
@@ -11807,7 +11807,7 @@
         },
         {
           "username": "gcalica@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "careerGoal",
             "data-scientist"
@@ -11816,7 +11816,7 @@
         },
         {
           "username": "gcalica@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "careerGoal",
             "teacher"
@@ -11825,7 +11825,7 @@
         },
         {
           "username": "gcalica@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "careerGoal",
             "database-administrator"
@@ -11834,7 +11834,7 @@
         },
         {
           "username": "gcalica@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "careerGoal",
             "graduate-school"
@@ -11843,7 +11843,7 @@
         },
         {
           "username": "gcalica@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "course",
             "ics_111"
@@ -11852,7 +11852,7 @@
         },
         {
           "username": "gcalica@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "course",
             "ics_426"
@@ -11861,7 +11861,7 @@
         },
         {
           "username": "gcalica@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "course",
             "ics_414"
@@ -11870,7 +11870,7 @@
         },
         {
           "username": "gcalica@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "course",
             "ics_331"
@@ -11879,7 +11879,7 @@
         },
         {
           "username": "gcalica@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "interest",
             "android"
@@ -11888,7 +11888,7 @@
         },
         {
           "username": "gcalica@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "interest",
             "civic-engagement"
@@ -11897,7 +11897,7 @@
         },
         {
           "username": "gcalica@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "interest",
             "angular"
@@ -11906,7 +11906,7 @@
         },
         {
           "username": "gcalica@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "interest",
             "django"
@@ -11915,7 +11915,7 @@
         },
         {
           "username": "gcalica@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "opportunity",
             "cyber-hui"
@@ -11924,7 +11924,7 @@
         },
         {
           "username": "gcalica@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "opportunity",
             "nsf-reu"
@@ -11933,7 +11933,7 @@
         },
         {
           "username": "gcalica@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "opportunity",
             "code-for-hawaii"
@@ -11942,7 +11942,7 @@
         },
         {
           "username": "gcalica@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "opportunity",
             "nsf-reu"
@@ -12413,7 +12413,7 @@
         },
         {
           "username": "heacheng@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "academicPlan",
             "ba-ics-2019"
@@ -12422,7 +12422,7 @@
         },
         {
           "username": "heacheng@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "academicPlan",
             "ba-cs-ds-2019"
@@ -12431,7 +12431,7 @@
         },
         {
           "username": "heacheng@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "academicPlan",
             "ba-ics-2020"
@@ -12440,7 +12440,7 @@
         },
         {
           "username": "heacheng@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "academicPlan",
             "ba-cs-ds-2019"
@@ -12449,7 +12449,7 @@
         },
         {
           "username": "heacheng@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "careerGoal",
             "data-scientist"
@@ -12458,7 +12458,7 @@
         },
         {
           "username": "heacheng@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "careerGoal",
             "teacher"
@@ -12467,7 +12467,7 @@
         },
         {
           "username": "heacheng@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "careerGoal",
             "database-administrator"
@@ -12476,7 +12476,7 @@
         },
         {
           "username": "heacheng@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "careerGoal",
             "graduate-school"
@@ -12485,7 +12485,7 @@
         },
         {
           "username": "heacheng@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "course",
             "ics_111"
@@ -12494,7 +12494,7 @@
         },
         {
           "username": "heacheng@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "course",
             "ics_426"
@@ -12503,7 +12503,7 @@
         },
         {
           "username": "heacheng@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "course",
             "ics_414"
@@ -12512,7 +12512,7 @@
         },
         {
           "username": "heacheng@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "course",
             "ics_331"
@@ -12521,7 +12521,7 @@
         },
         {
           "username": "heacheng@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "interest",
             "android"
@@ -12530,7 +12530,7 @@
         },
         {
           "username": "heacheng@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "interest",
             "civic-engagement"
@@ -12539,7 +12539,7 @@
         },
         {
           "username": "heacheng@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "interest",
             "angular"
@@ -12548,7 +12548,7 @@
         },
         {
           "username": "heacheng@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "interest",
             "django"
@@ -12557,7 +12557,7 @@
         },
         {
           "username": "heacheng@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "opportunity",
             "cyber-hui"
@@ -12566,7 +12566,7 @@
         },
         {
           "username": "heacheng@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "opportunity",
             "nsf-reu"
@@ -12575,7 +12575,7 @@
         },
         {
           "username": "heacheng@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "opportunity",
             "code-for-hawaii"
@@ -12584,7 +12584,7 @@
         },
         {
           "username": "heacheng@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "opportunity",
             "nsf-reu"
@@ -13007,7 +13007,7 @@
         },
         {
           "username": "abi@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "academicPlan",
             "ba-ics-2019"
@@ -13016,7 +13016,7 @@
         },
         {
           "username": "abi@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "academicPlan",
             "ba-ics-2020"
@@ -13025,7 +13025,7 @@
         },
         {
           "username": "abi@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "careerGoal",
             "data-scientist"
@@ -13034,7 +13034,7 @@
         },
         {
           "username": "abi@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "careerGoal",
             "database-administrator"
@@ -13043,7 +13043,7 @@
         },
         {
           "username": "abi@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "course",
             "ics_111"
@@ -13052,7 +13052,7 @@
         },
         {
           "username": "abi@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "course",
             "ics_414"
@@ -13061,7 +13061,7 @@
         },
         {
           "username": "abi@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "interest",
             "android"
@@ -13070,7 +13070,7 @@
         },
         {
           "username": "abi@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "interest",
             "angular"
@@ -13079,7 +13079,7 @@
         },
         {
           "username": "abi@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "opportunity",
             "cyber-hui"
@@ -13088,7 +13088,7 @@
         },
         {
           "username": "abi@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "opportunity",
             "code-for-hawaii"
@@ -13451,7 +13451,7 @@
         },
         {
           "username": "samplestudent@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "academicPlan",
             "ba-ics-2019"
@@ -13460,7 +13460,7 @@
         },
         {
           "username": "samplestudent@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "academicPlan",
             "ba-ics-2020"
@@ -13469,7 +13469,7 @@
         },
         {
           "username": "samplestudent@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "careerGoal",
             "data-scientist"
@@ -13478,7 +13478,7 @@
         },
         {
           "username": "samplestudent@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "careerGoal",
             "database-administrator"
@@ -13487,7 +13487,7 @@
         },
         {
           "username": "samplestudent@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "course",
             "ics_111"
@@ -13496,7 +13496,7 @@
         },
         {
           "username": "samplestudent@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "course",
             "ics_414"
@@ -13505,7 +13505,7 @@
         },
         {
           "username": "samplestudent@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "interest",
             "android"
@@ -13514,7 +13514,7 @@
         },
         {
           "username": "samplestudent@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "interest",
             "angular"
@@ -13523,7 +13523,7 @@
         },
         {
           "username": "samplestudent@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "opportunity",
             "cyber-hui"
@@ -13532,7 +13532,7 @@
         },
         {
           "username": "samplestudent@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "opportunity",
             "code-for-hawaii"
