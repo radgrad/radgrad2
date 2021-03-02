@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { expect } from 'chai';
 import fc from 'fast-check';
 import moment from 'moment';
-import { removeAllEntities } from '../base/BaseUtilities';
+import { removeAllEntities } from '../../../../app/imports/api/base/BaseUtilities';
 import { PageInterestsDailySnapshots } from './PageInterestsDailySnapshotCollection';
 import {
   makeSamplePageInterestInfoArray,
@@ -12,7 +12,7 @@ import {
   PageInterestInfo,
   PageInterestsDailySnapshot,
   PageInterestsDailySnapshotDefine,
-} from '../../typings/radgrad';
+} from '../../../../app/imports/typings/radgrad';
 
 /* eslint @typescript-eslint/no-unused-expressions: "off" */
 /* eslint-env mocha */

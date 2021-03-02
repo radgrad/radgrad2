@@ -1,7 +1,7 @@
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { CallPromiseMixin } from 'meteor/didericis:callpromise-mixin';
 import { PageInterests } from './PageInterestCollection';
-import { PageInterest } from '../../typings/radgrad';
+import { PageInterest } from '../../../../app/imports/typings/radgrad';
 
 /**
  * The validated method for defining PageInterests.

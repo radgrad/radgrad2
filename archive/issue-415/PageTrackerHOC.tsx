@@ -2,16 +2,16 @@ import React, { useEffect, useRef } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { useRouteMatch } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getAllUrlParamsByLocationObject, getUsername, LocationProps } from '../../components/shared/utilities/router';
-import { RootState } from '../../../redux/types';
-import { Slugs } from '../../../api/slug/SlugCollection';
-import { PageInterestDefine } from '../../../typings/radgrad';
-import { UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
-import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
-import { EXPLORER_TYPE } from './route-constants';
-import { IPageInterestsCategoryTypes, PageInterestsCategoryTypes } from '../../../api/page-tracking/PageInterestsCategoryTypes';
-import { pageInterestDefineMethod } from '../../../api/page-tracking/PageInterestCollection.methods';
-import { calculateEngagedInterestTime, isValidParameter } from '../../components/shared/page-tracking/utilities/page-tracking';
+import { getAllUrlParamsByLocationObject, getUsername, LocationProps } from '../../app/imports/ui/components/shared/utilities/router';
+import { RootState } from '../../app/imports/redux/types';
+import { Slugs } from '../../app/imports/api/slug/SlugCollection';
+import { PageInterestDefine } from '../../app/imports/typings/radgrad';
+import { UserInteractionsTypes } from '../../app/imports/api/analytic/UserInteractionsTypes';
+import { userInteractionDefineMethod } from '../../app/imports/api/analytic/UserInteractionCollection.methods';
+import { EXPLORER_TYPE } from '../../app/imports/ui/layouts/utilities/route-constants';
+import { IPageInterestsCategoryTypes, PageInterestsCategoryTypes } from './api/page-tracking/PageInterestsCategoryTypes';
+import { pageInterestDefineMethod } from './api/page-tracking/PageInterestCollection.methods';
+import { calculateEngagedInterestTime, isValidParameter } from './page-tracking/utilities/page-tracking';
 
 interface PageTrackerProps {
   history: {

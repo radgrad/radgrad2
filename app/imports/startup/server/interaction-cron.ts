@@ -6,13 +6,8 @@ import { StudentProfiles } from '../../api/user/StudentProfileCollection';
 import { UserInteractions } from '../../api/analytic/UserInteractionCollection';
 import {
   IceSnapshotDefine,
-  PageInterest,
-  PageInterestInfo,
 } from '../../typings/radgrad';
 import { UserInteractionsTypes } from '../../api/analytic/UserInteractionsTypes';
-import { PageInterestsDailySnapshots } from '../../api/page-tracking/PageInterestsDailySnapshotCollection';
-import { PageInterests } from '../../api/page-tracking/PageInterestCollection';
-import { PageInterestsCategoryTypes } from '../../api/page-tracking/PageInterestsCategoryTypes';
 import { updateFactoids } from './factoids';
 
 const createIceSnapshot = (doc) => {
@@ -79,85 +74,6 @@ SyncedCron.add({
         }
       }
     });
-  },
-});
-
-const createDailySnapshot = (pageInterests: PageInterest[]) => {
-  interface snapshotDoc {
-    careerGoals: PageInterestInfo[];
-    courses: PageInterestInfo[];
-    interests: PageInterestInfo[];
-    opportunities: PageInterestInfo[];
-  }
-
-  const doc: snapshotDoc = { careerGoals: [], courses: [], interests: [], opportunities: [] };
-  const found = { careerGoals: [], courses: [], interests: [], opportunities: [] };
-  pageInterests.forEach((pageInterest: PageInterest) => {
-    const objectInstance: PageInterestInfo = { name: pageInterest.name, views: 0 };
-    // If we have not yet discovered the first instance of a page interest for that area,
-    // we push it to its corresponding array in the found object
-    if (pageInterest.category === PageInterestsCategoryTypes.CAREERGOAL && found.careerGoals.indexOf(pageInterest.name) === -1) {
-      found.careerGoals.push(pageInterest.name);
-      objectInstance.views = 1;
-      doc.careerGoals.push(objectInstance);
-    } else if (pageInterest.category === PageInterestsCategoryTypes.COURSE && found.courses.indexOf(pageInterest.name) === -1) {
-      found.courses.push(pageInterest.name);
-      objectInstance.views = 1;
-      doc.courses.push(objectInstance);
-    } else if (pageInterest.category === PageInterestsCategoryTypes.INTEREST && found.interests.indexOf(pageInterest.name) === -1) {
-      found.interests.push(pageInterest.name);
-      objectInstance.views = 1;
-      doc.interests.push(objectInstance);
-    } else if (pageInterest.category === PageInterestsCategoryTypes.OPPORTUNITY && found.opportunities.indexOf(pageInterest.name) === -1) {
-      found.opportunities.push(pageInterest.name);
-      objectInstance.views = 1;
-      doc.opportunities.push(objectInstance);
-    } else {
-      // Otherwise, just increment the existing value in doc array
-      switch (pageInterest.category) {
-        case PageInterestsCategoryTypes.CAREERGOAL:
-          doc.careerGoals.filter((careerGoal) => careerGoal.name === pageInterest.name)[0].views++;
-          break;
-        case PageInterestsCategoryTypes.COURSE:
-          doc.courses.filter((course) => course.name === pageInterest.name)[0].views++;
-          break;
-        case PageInterestsCategoryTypes.INTEREST:
-          doc.interests.filter((interest) => interest.name === pageInterest.name)[0].views++;
-          break;
-        case PageInterestsCategoryTypes.OPPORTUNITY:
-          doc.opportunities.filter((opportunity) => opportunity.name === pageInterest.name)[0].views++;
-          break;
-        default:
-          console.error(`Bad pageInterest.category: ${pageInterest.category}`);
-          break;
-      }
-    }
-  });
-  PageInterestsDailySnapshots.define({
-    careerGoals: doc.careerGoals,
-    courses: doc.courses,
-    interests: doc.interests,
-    opportunities: doc.opportunities,
-  });
-};
-
-SyncedCron.add({
-  name: 'Create PageInterests Daily Snapshot',
-  schedule(parser) {
-    return parser.text('every 24 hours');
-  },
-  job() {
-    // If we currently do not have any daily snapshots, initialize the first snapshot
-    if (PageInterestsDailySnapshots.find({}).count() === 0) {
-      createDailySnapshot(PageInterests.find({}).fetch());
-    } else {
-      // const recentSnapshot: PageInterestsDailySnapshot = PageInterestsDailySnapshots.findOne({}, { sort: { timestamp: -1 } });
-      // FIXME https://github.com/radgrad/radgrad2/issues/138#issuecomment-640179173 See edge cases
-      const gte = moment().subtract(1, 'day').startOf('day').toDate();
-      const lte = moment().subtract(1, 'day').endOf('day').toDate();
-      const pageInterestsSinceRecentSnapshot = PageInterests.find({ timestamp: { $gte: gte, $lte: lte } }).fetch();
-      createDailySnapshot(pageInterestsSinceRecentSnapshot);
-    }
   },
 });
 

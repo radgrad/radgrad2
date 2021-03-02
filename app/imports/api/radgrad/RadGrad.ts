@@ -28,8 +28,6 @@ import { FavoriteCareerGoals } from '../favorite/FavoriteCareerGoalCollection';
 import { FavoriteCourses } from '../favorite/FavoriteCourseCollection';
 import { FavoriteInterests } from '../favorite/FavoriteInterestCollection';
 import { FavoriteOpportunities } from '../favorite/FavoriteOpportunityCollection';
-import { PageInterestsDailySnapshots } from '../page-tracking/PageInterestsDailySnapshotCollection';
-import { PageInterests } from '../page-tracking/PageInterestCollection';
 
 /**
  * @memberOf api/radgrad
@@ -69,8 +67,6 @@ class RadGradClass {
       Opportunities,
       OpportunityInstances,
       OpportunityTypes,
-      PageInterests,
-      PageInterestsDailySnapshots,
       PublicStats,
       Reviews,
       AcademicTerms,
@@ -108,8 +104,6 @@ class RadGradClass {
       Feeds,
       IceSnapshots,
       UserInteractions,
-      PageInterests,
-      PageInterestsDailySnapshots,
       Reviews,
       FavoriteCareerGoals,
       FavoriteCourses,

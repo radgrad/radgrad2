@@ -1,15 +1,15 @@
 import { expect } from 'chai';
 import fc from 'fast-check';
 import faker from 'faker';
-import { removeAllEntities } from '../base/BaseUtilities';
+import { removeAllEntities } from '../../../../app/imports/api/base/BaseUtilities';
 import 'mocha';
 import { PageInterests } from './PageInterestCollection';
-import { makeSampleUser } from '../user/SampleUsers';
-import { Users } from '../user/UserCollection';
+import { makeSampleUser } from '../../../../app/imports/api/user/SampleUsers';
+import { Users } from '../../../../app/imports/api/user/UserCollection';
 import {
   PageInterest,
   PageInterestDefine,
-} from '../../typings/radgrad';
+} from '../../../../app/imports/typings/radgrad';
 import { makeSamplePageInterest } from './SamplePageInterests';
 
 /* eslint @typescript-eslint/no-unused-expressions: "off" */
