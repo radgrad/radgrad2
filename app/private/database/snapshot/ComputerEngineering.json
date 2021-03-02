@@ -8087,6 +8087,42 @@
           "shareLevel": false
         },
         {
+          "username": "jatinp@hawaii.edu",
+          "firstName": "Jatin",
+          "lastName": "Pandya",
+          "picture": "https://jatinp101.github.io/images/JatinPadya%20(1).jpg",
+          "website": "http://jatinp101.github.io",
+          "interests": [
+            "algorithms",
+            "application-development",
+            "artificial-intelligence",
+            "civic-engagement",
+            "entrepreneurship",
+            "javascript",
+            "software-engineering",
+            "hardware"
+          ],
+          "careerGoals": [
+            "full-stack-developer",
+            "research-scientist",
+            "software-developer",
+            "startup-cofounder"
+          ],
+          "level": 6,
+          "favoriteCourses": [],
+          "favoriteOpportunities": [],
+          "isAlumni": false,
+          "retired": false,
+          "shareUsername": false,
+          "sharePicture": false,
+          "shareWebsite": false,
+          "shareInterests": false,
+          "shareCareerGoals": false,
+          "shareOpportunities": false,
+          "shareCourses": false,
+          "shareLevel": false
+        },
+        {
           "username": "gcalica@hawaii.edu",
           "firstName": "Gian",
           "lastName": "Calica",
