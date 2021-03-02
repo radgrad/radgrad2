@@ -19,8 +19,6 @@ import { FavoriteCareerGoals } from '../../api/favorite/FavoriteCareerGoalCollec
 
 const getRandomDocument = (collection: BaseCollection) => {
   const documents = collection.findNonRetired({});
-  if (collection.collectionName == "ReviewCollection")
-    console.log(documents);
   return documents[Math.floor(Math.random() * documents.length)];
 };
 

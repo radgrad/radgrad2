@@ -510,7 +510,7 @@
           "num": "EE 160",
           "description": "Introductory course on computer programming and modern computing environments in C with an emphasis on algorithm and program design, implementation, and debugging. Includes a hands-on laboratory to develop and practice programming skills.",
           "creditHrs": 4,
-          "interests": [],
+          "interests": ["application-development", "algorithms", "c", "python"],
           "prerequisites": [],
           "retired": false
         },
@@ -521,7 +521,7 @@
           "num": "EE 205",
           "description": "Second-level programming for computer engineers. Object-oriented programming paradigm, definition and use of classes, fundamentals of object-oriented design in modern object-oriented languages such as C++. Common data structures, simple searching and sorting techniques.",
           "creditHrs": 3,
-          "interests": [],
+          "interests": ["application-development", "algorithms", "software-engineering", "c"],
           "prerequisites": [
             "ee_160"
           ],
@@ -534,7 +534,7 @@
           "num": "EE 211",
           "description": "Linear passive circuits, time domain analysis, transient and steady-state responses, phasors, impedance and admittance; power and energy, frequency responses, resonance.",
           "creditHrs": 4,
-          "interests": [],
+          "interests": ["circuit-analysis"],
           "prerequisites": [],
           "retired": false
         },
@@ -545,7 +545,7 @@
           "num": "EE 213",
           "description": "Laplace transforms and their application to circuits, Fourier transforms and their applications to circuits, frequency selective circuits, introduction to and design of active filters, convolution, and state space analysis of circuits.",
           "creditHrs": 4,
-          "interests": [],
+          "interests": ["circuit-analysis", "systems-signals", "data-science"],
           "prerequisites": [
             "ee_211"
           ],
@@ -558,8 +558,9 @@
           "num": "EE 260",
           "description": "Introduction to the design of digital systems with an emphasis on design methods and the implementation and use of fundamental digital components.",
           "creditHrs": 4,
-          "interests": [],
+          "interests": ["circuit-analysis", "digital-design", "verilog", "fpga", "vhdl"],
           "prerequisites": [
+            "ics_111",
             "ee_160"
           ],
           "retired": false
@@ -570,7 +571,7 @@
           "slug": "ee_296",
           "num": "EE 296",
           "description": "Sophomore level individual or team project under EE faculty direction and guidance. The project provides design experience and develops practical skills.",
-          "creditHrs": 3,
+          "creditHrs": 1,
           "interests": [],
           "prerequisites": [],
           "retired": false
@@ -582,7 +583,7 @@
           "num": "EE 315",
           "description": "Discrete-time and continuous time signals and systems, linear systems, convolution, Fourier series, Fourier transform, sampling.",
           "creditHrs": 3,
-          "interests": [],
+          "interests": ["systems-signals", "data-science"],
           "prerequisites": [
             "ee_213"
           ],
@@ -594,8 +595,8 @@
           "slug": "ee_323",
           "num": "EE 323",
           "description": "Semiconductor structures, operating principles and characteristics of diodes and amplifying devices. Their application as circuit elements in building basic digital, analog, and integrated circuit subsystems.",
-          "creditHrs": 3,
-          "interests": [],
+          "creditHrs": 4,
+          "interests": ["circuit-analysis", "Microelectronics"],
           "prerequisites": [
             "ee_213"
           ],
@@ -609,7 +610,9 @@
           "description": "Review of quantum mechanics fundamentals, H-atom, and chemical bonding. Introduction to band structure models and materials. Semiconductor doping, charge carrier statistics and charge transport, including ambipolar transport. Metal-semiconductor and PN junctions.",
           "creditHrs": 3,
           "interests": [],
-          "prerequisites": [],
+          "prerequisites": [
+            "ee_213"
+          ],
           "retired": false
         },
         {
@@ -619,10 +622,21 @@
           "num": "EE 342",
           "description": "Probability, statistics, random variables, distributions, densities, expectations, limit theorems, and applications to electrical engineering.",
           "creditHrs": 3,
-          "interests": [],
+          "interests": ["systems-signals", "data-science"],
           "prerequisites": [
             "ee_315"
           ],
+          "retired": false
+        },
+        {
+          "name": " Linear Algebra & Machine Learning",
+          "shortName": "Linear Algebra & Machine Learning",
+          "slug": "ee_345",
+          "num": "EE 345",
+          "description": "Mathematical and algorithmic fundamentals of linear algebra and their applications and illustrations to machine learning. Lab introduces programming with data and uses machine learning libraries for an introduction to commonly used technologies",
+          "creditHrs": 4,
+          "interests": ["systems-signals", "data-science", "machine-learning"],
+          "prerequisites": [],
           "retired": false
         },
         {
@@ -631,10 +645,11 @@
           "slug": "ee_361",
           "num": "EE 361",
           "description": "Design methodology, processor design, control design, memory organization, system organization.",
-          "creditHrs": 3,
-          "interests": [],
+          "creditHrs": 4,
+          "interests": ["digital-design", "verilog", "fpga", "vhdl", "computer-architecture"],
           "prerequisites": [
             "ee_160",
+            "ics_111",
             "ee_260"
           ],
           "retired": false
@@ -646,7 +661,7 @@
           "num": "EE 362",
           "description": "Logic, sets, number theory, properties of functions, properties of relations, methods of proofs, recursion, counting, probability, trees, graphs, analysis of algorithms, finite state autonoma.",
           "creditHrs": 3,
-          "interests": [],
+          "interests": ["algorithms"],
           "prerequisites": [
             "ee_160",
             "ee_260"
@@ -658,11 +673,14 @@
           "shortName": "Data Structures",
           "slug": "ee_367",
           "num": "EE 367",
-          "description": "Introduction to computer programming algorithms with emphasis on advanced data structures, input-output routines, files, and interpreters.",
-          "creditHrs": 3,
-          "interests": [],
+          "description": "Design and analysis of data structures and algorithms, including correctness and performance. Topics include time complexity, hash tables, sorting, search trees, self-balancing trees, greedy algorithms, dynamic programming, and graph algorithms.",
+          "creditHrs": 4,
+          "interests": ["application-development", "algorithms", "software-engineering", "c"],
           "prerequisites": [
-            "ee_205"
+            "ics_212",
+            "ics_241",
+            "ee_205",
+            "ee_362"
           ],
           "retired": false
         },
@@ -685,7 +703,7 @@
           "slug": "ee_396",
           "num": "EE 396",
           "description": "Junior level individual or team project under EE faculty direction and guidance. The project provides design experience and develops practical skills. It may be a continuation of EE 296 or a new project.",
-          "creditHrs": 3,
+          "creditHrs": 2,
           "interests": [],
           "prerequisites": [
             "ee_296"
@@ -699,7 +717,11 @@
           "num": "EE 406",
           "description": "Review basic network mechanisms, introduce basic cryptography concepts, and study algorithms and protocols used in computer and network security. Discuss practical security mechanisms.",
           "creditHrs": 3,
-          "interests": [],
+          "interests": [
+            "networks",
+            "security",
+            "hardware"
+          ],
           "prerequisites": [
             "ee_367"
           ],
@@ -712,7 +734,12 @@
           "num": "EE 467",
           "description": "Introduction to advanced techniques for designing, implementing, and testing computer software with a particular focus on using object-oriented design, analysis, and programming to produce high-quality computer programs that solve non-trivial problems.",
           "creditHrs": 3,
-          "interests": [],
+          "interests": [
+            "software-engineering",
+            "javascript",
+            "application-development",
+            "it-management"
+          ],
           "prerequisites": [
             "ee_367"
           ],
@@ -725,7 +752,11 @@
           "num": "EE 468",
           "description": "Computer system organization; multiprocessor systems, memory hierarchies, assemblers, compilers, operating systems, virtual machine, memory management, processor management; information management.",
           "creditHrs": 3,
-          "interests": [],
+          "interests": [
+          "operating-systems",
+          "computer-architecture",
+          "application-development"
+        ],
           "prerequisites": [
             "ee_361",
             "ee_367"
@@ -749,9 +780,58 @@
           "slug": "ee_496",
           "num": "EE 496",
           "description": "Significant project integrating the design content of previous courses and incorporating engineering standards and realistic constraints. Written report must document all aspects of the design process: reliability, safety, economics, ethics.",
-          "creditHrs": 1,
+          "creditHrs": 3,
           "interests": [],
+          "prerequisites": ["ee_396"],
+          "retired": false
+        },
+        {
+          "name": "Introduction to Computer Science I",
+          "shortName": "Comp Sci I",
+          "slug": "ics_111",
+          "num": "ICS 111",
+          "description": "Overview of computer science, including Java programming, control structures, subroutines, objects and classes, GUI programming, arrays, and recursion.",
+          "creditHrs": 4,
+          "interests": [
+            "java"
+          ],
+          "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS111.html",
+          "corequisites": [],
           "prerequisites": [],
+          "retired": false
+        },
+        {
+          "name": "Discrete Mathematics for Computer Science I",
+          "shortName": "Discrete Math I",
+          "slug": "ics_141",
+          "num": "ICS 141",
+          "description": "Introduction to propositional and predicate logic, sets, functions, linear algebra, algorithms, mathematical reasoning, recursion, counting techniques, and probability theory. [View more information here.](http://courses.ics.hawaii.edu/ReviewICS141/)",
+          "creditHrs": 3,
+          "interests": [
+            "algorithms"
+          ],
+          "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS141.html",
+          "corequisites": [],
+          "prerequisites": [],
+          "retired": false
+        },
+        {
+          "name": "Introduction to Computer Science II",
+          "shortName": "Comp Sci II",
+          "slug": "ics_211",
+          "num": "ICS 211",
+          "description": "Object-oriented programming, algorithms and their complexity, introduction to software engineering, lists, stacks, queues, trees hash tables, and searching and sorting algorithms. [View more information here.](http://courses.ics.hawaii.edu/ReviewICS211/)",
+          "creditHrs": 4,
+          "interests": [
+            "algorithms",
+            "software-engineering",
+            "java"
+          ],
+          "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS211.html",
+          "corequisites": [],
+          "prerequisites": [
+            "ics_111"
+          ],
           "retired": false
         },
         {
@@ -763,7 +843,26 @@
           "creditHrs": 3,
           "interests": ["application-development","c"],
           "syllabus":"http://courses.ics.hawaii.edu/syllabuses/ICS212.html",
-          "prerequisites":[]
+          "prerequisites":[
+            "ics_211"
+          ]
+        },
+        {
+          "name": "Discrete Mathematics for Computer Science II",
+          "shortName": "Discrete Math II",
+          "slug": "ics_241",
+          "num": "ICS 241",
+          "description": "Program correctness, recurrence relations and their solutions, divide and conquer relations, relations and their properties, graph theory, trees and their applications, Boolean algebra, introduction to formal languages and automata theory. [View more information here.](http://courses.ics.hawaii.edu/ReviewICS241/)",
+          "creditHrs": 3,
+          "interests": [
+            "algorithms"
+          ],
+          "syllabus": "http://courses.ics.hawaii.edu/syllabuses/ICS241.html",
+          "corequisites": [],
+          "prerequisites": [
+            "ics_141"
+          ],
+          "retired": false
         },
         {
           "name": "Algorithms",
@@ -7402,461 +7501,6 @@
           "name": "Project",
           "slug": "project",
           "description": "A project related to computer engineering.",
-          "retired": false
-        }
-      ]
-    },
-    {
-      "name": "PageInterestCollection",
-      "contents": [
-        {
-          "username": "samplestudent@hawaii.edu",
-          "category": "career-goal",
-          "name": "data-scientist",
-          "timestamp": "2020-06-16T03:36:16.455Z",
-          "retired": false
-        },
-        {
-          "username": "samplestudent@hawaii.edu",
-          "category": "career-goal",
-          "name": "iot-architect",
-          "timestamp": "2020-06-16T03:39:09.113Z",
-          "retired": false
-        },
-        {
-          "username": "gcalica@hawaii.edu",
-          "category": "career-goal",
-          "name": "vr-ar-engineer",
-          "timestamp": "2020-06-16T03:39:33.536Z",
-          "retired": false
-        },
-        {
-          "username": "gcalica@hawaii.edu",
-          "category": "career-goal",
-          "name": "game-developer",
-          "timestamp": "2020-06-16T03:39:37.060Z",
-          "retired": false
-        },
-        {
-          "username": "gcalica@hawaii.edu",
-          "category": "career-goal",
-          "name": "ux-designer",
-          "timestamp": "2020-06-16T03:39:40.293Z",
-          "retired": false
-        },
-        {
-          "username": "gcalica@hawaii.edu",
-          "category": "career-goal",
-          "name": "devops-engineer",
-          "timestamp": "2020-06-16T03:39:43.540Z",
-          "retired": false
-        },
-        {
-          "username": "gcalica@hawaii.edu",
-          "category": "career-goal",
-          "name": "database-administrator",
-          "timestamp": "2020-06-16T03:39:47.193Z",
-          "retired": false
-        },
-        {
-          "username": "gcalica@hawaii.edu",
-          "category": "career-goal",
-          "name": "information-security-analyst",
-          "timestamp": "2020-06-16T03:39:51.084Z",
-          "retired": false
-        },
-        {
-          "username": "gcalica@hawaii.edu",
-          "category": "career-goal",
-          "name": "network-engineer",
-          "timestamp": "2020-06-16T03:39:54.087Z",
-          "retired": false
-        },
-        {
-          "username": "gcalica@hawaii.edu",
-          "category": "career-goal",
-          "name": "robotics-engineer",
-          "timestamp": "2020-06-16T03:39:58.323Z",
-          "retired": false
-        },
-        {
-          "username": "gcalica@hawaii.edu",
-          "category": "career-goal",
-          "name": "software-developer",
-          "timestamp": "2020-06-16T03:40:12.035Z",
-          "retired": false
-        },
-        {
-          "username": "gcalica@hawaii.edu",
-          "category": "career-goal",
-          "name": "graduate-school",
-          "timestamp": "2020-06-16T03:40:38.381Z",
-          "retired": false
-        },
-        {
-          "username": "gcalica@hawaii.edu",
-          "category": "career-goal",
-          "name": "research-scientist",
-          "timestamp": "2020-06-16T03:40:43.429Z",
-          "retired": false
-        },
-        {
-          "username": "gcalica@hawaii.edu",
-          "category": "career-goal",
-          "name": "information-system-manager",
-          "timestamp": "2020-06-16T03:40:49.539Z",
-          "retired": false
-        },
-        {
-          "username": "gcalica@hawaii.edu",
-          "category": "career-goal",
-          "name": "mobile-app-developer",
-          "timestamp": "2020-06-16T03:40:53.463Z",
-          "retired": false
-        },
-        {
-          "username": "gcalica@hawaii.edu",
-          "category": "career-goal",
-          "name": "startup-cofounder",
-          "timestamp": "2020-06-16T03:41:00.303Z",
-          "retired": false
-        },
-        {
-          "username": "gcalica@hawaii.edu",
-          "category": "career-goal",
-          "name": "teacher",
-          "timestamp": "2020-06-16T03:41:03.791Z",
-          "retired": false
-        },
-        {
-          "username": "gcalica@hawaii.edu",
-          "category": "course",
-          "name": "ee_406",
-          "timestamp": "2020-06-16T03:41:15.924Z",
-          "retired": false
-        },
-        {
-          "username": "gcalica@hawaii.edu",
-          "category": "course",
-          "name": "ics_101",
-          "timestamp": "2020-06-16T03:41:20.196Z",
-          "retired": false
-        },
-        {
-          "username": "gcalica@hawaii.edu",
-          "category": "course",
-          "name": "ics_102",
-          "timestamp": "2020-06-16T03:41:25.591Z",
-          "retired": false
-        },
-        {
-          "username": "gcalica@hawaii.edu",
-          "category": "interest",
-          "name": "android",
-          "timestamp": "2020-06-16T03:41:32.242Z",
-          "retired": false
-        },
-        {
-          "username": "gcalica@hawaii.edu",
-          "category": "interest",
-          "name": "angular",
-          "timestamp": "2020-06-16T03:41:35.055Z",
-          "retired": false
-        },
-        {
-          "username": "gcalica@hawaii.edu",
-          "category": "interest",
-          "name": "apache-spark",
-          "timestamp": "2020-06-16T03:41:38.434Z",
-          "retired": false
-        },
-        {
-          "username": "gcalica@hawaii.edu",
-          "category": "opportunity",
-          "name": "google-summer-of-code",
-          "timestamp": "2020-06-16T03:41:46.111Z",
-          "retired": false
-        },
-        {
-          "username": "gcalica@hawaii.edu",
-          "category": "opportunity",
-          "name": "acm-manoa",
-          "timestamp": "2020-06-16T03:41:51.166Z",
-          "retired": false
-        },
-        {
-          "username": "gcalica@hawaii.edu",
-          "category": "opportunity",
-          "name": "oceanit-student-intern",
-          "timestamp": "2020-06-16T03:41:56.885Z",
-          "retired": false
-        },
-        {
-          "username": "gcalica@hawaii.edu",
-          "category": "career-goal",
-          "name": "data-scientist",
-          "timestamp": "2020-06-17T03:36:16.455Z",
-          "retired": false
-        },
-        {
-          "username": "gcalica@hawaii.edu",
-          "category": "career-goal",
-          "name": "iot-architect",
-          "timestamp": "2020-06-17T03:39:09.113Z",
-          "retired": false
-        },
-        {
-          "username": "gcalica@hawaii.edu",
-          "category": "career-goal",
-          "name": "vr-ar-engineer",
-          "timestamp": "2020-06-17T03:39:33.536Z",
-          "retired": false
-        },
-        {
-          "username": "gcalica@hawaii.edu",
-          "category": "career-goal",
-          "name": "game-developer",
-          "timestamp": "2020-06-17T03:39:37.060Z",
-          "retired": false
-        },
-        {
-          "username": "gcalica@hawaii.edu",
-          "category": "career-goal",
-          "name": "ux-designer",
-          "timestamp": "2020-06-17T03:39:40.293Z",
-          "retired": false
-        },
-        {
-          "username": "gcalica@hawaii.edu",
-          "category": "career-goal",
-          "name": "devops-engineer",
-          "timestamp": "2020-06-17T03:39:43.540Z",
-          "retired": false
-        },
-        {
-          "username": "gcalica@hawaii.edu",
-          "category": "career-goal",
-          "name": "mobile-app-developer",
-          "timestamp": "2020-06-17T03:40:53.463Z",
-          "retired": false
-        },
-        {
-          "username": "gcalica@hawaii.edu",
-          "category": "career-goal",
-          "name": "teacher",
-          "timestamp": "2020-06-17T03:41:03.791Z",
-          "retired": false
-        },
-        {
-          "username": "gcalica@hawaii.edu",
-          "category": "course",
-          "name": "ics_102",
-          "timestamp": "2020-06-17T03:41:25.591Z",
-          "retired": false
-        },
-        {
-          "username": "gcalica@hawaii.edu",
-          "category": "interest",
-          "name": "android",
-          "timestamp": "2020-06-17T03:41:32.242Z",
-          "retired": false
-        },
-        {
-          "username": "samplestudent@hawaii.edu",
-          "category": "opportunity",
-          "name": "oceanit-student-intern",
-          "timestamp": "2020-06-17T03:41:56.885Z",
-          "retired": false
-        },
-        {
-          "username": "samplestudent@hawaii.edu",
-          "category": "opportunity",
-          "name": "google-summer-of-code",
-          "timestamp": "2020-06-18T03:41:56.885Z",
-          "retired": false
-        },
-        {
-          "username": "samplestudent@hawaii.edu",
-          "category": "opportunity",
-          "name": "acm-manoa",
-          "timestamp": "2020-06-19T03:41:56.885Z",
-          "retired": false
-        }
-      ]
-    },
-    {
-      "name": "PageInterestsDailySnapshotCollection",
-      "contents": [
-        {
-          "careerGoals": [
-            {
-              "name": "data-scientist",
-              "views": 1
-            },
-            {
-              "name": "iot-architect",
-              "views": 1
-            },
-            {
-              "name": "vr-ar-engineer",
-              "views": 1
-            },
-            {
-              "name": "game-developer",
-              "views": 1
-            },
-            {
-              "name": "ux-designer",
-              "views": 1
-            },
-            {
-              "name": "devops-engineer",
-              "views": 1
-            },
-            {
-              "name": "database-administrator",
-              "views": 1
-            },
-            {
-              "name": "information-security-analyst",
-              "views": 1
-            },
-            {
-              "name": "network-engineer",
-              "views": 1
-            },
-            {
-              "name": "robotics-engineer",
-              "views": 1
-            },
-            {
-              "name": "software-developer",
-              "views": 1
-            },
-            {
-              "name": "graduate-school",
-              "views": 1
-            },
-            {
-              "name": "research-scientist",
-              "views": 1
-            },
-            {
-              "name": "information-system-manager",
-              "views": 1
-            },
-            {
-              "name": "mobile-app-developer",
-              "views": 1
-            },
-            {
-              "name": "startup-cofounder",
-              "views": 1
-            },
-            {
-              "name": "teacher",
-              "views": 1
-            }
-          ],
-          "courses": [
-            {
-              "name": "ee_406",
-              "views": 1
-            },
-            {
-              "name": "ics_101",
-              "views": 1
-            },
-            {
-              "name": "ics_102",
-              "views": 1
-            }
-          ],
-          "interests": [
-            {
-              "name": "android",
-              "views": 1
-            },
-            {
-              "name": "angular",
-              "views": 1
-            },
-            {
-              "name": "apache-spark",
-              "views": 1
-            }
-          ],
-          "opportunities": [
-            {
-              "name": "google-summer-of-code",
-              "views": 1
-            },
-            {
-              "name": "acm-manoa",
-              "views": 1
-            },
-            {
-              "name": "oceanit-student-intern",
-              "views": 1
-            }
-          ],
-          "timestamp": "2020-06-16T09:59:59.000Z",
-          "retired": false
-        },
-        {
-          "careerGoals": [
-            {
-              "name": "data-scientist",
-              "views": 1
-            },
-            {
-              "name": "iot-architect",
-              "views": 1
-            },
-            {
-              "name": "vr-ar-engineer",
-              "views": 1
-            },
-            {
-              "name": "game-developer",
-              "views": 1
-            },
-            {
-              "name": "ux-designer",
-              "views": 1
-            },
-            {
-              "name": "devops-engineer",
-              "views": 1
-            },
-            {
-              "name": "mobile-app-developer",
-              "views": 1
-            },
-            {
-              "name": "teacher",
-              "views": 1
-            }
-          ],
-          "courses": [
-            {
-              "name": "ics_102",
-              "views": 1
-            }
-          ],
-          "interests": [
-            {
-              "name": "android",
-              "views": 1
-            }
-          ],
-          "opportunities": [
-            {
-              "name": "oceanit-student-intern",
-              "views": 1
-            }
-          ],
-          "timestamp": "2020-06-17T09:59:59.999Z",
           "retired": false
         }
       ]
