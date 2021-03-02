@@ -15,7 +15,7 @@ class ProfileInterestCollection extends BaseCollection {
 
   /** Creates the ProfileInterest collection */
   constructor() {
-    super('FavoriteInterest', new SimpleSchema({
+    super('ProfileInterest', new SimpleSchema({
       interestID: SimpleSchema.RegEx.Id,
       userID: SimpleSchema.RegEx.Id,
       share: Boolean,
@@ -81,9 +81,9 @@ class ProfileInterestCollection extends BaseCollection {
   }
 
   /**
-   * Publish InterestFavorites. If logged in as ADMIN get all, otherwise only get the InterestFavorites for the
+   * Publish ProfileInterests. If logged in as ADMIN get all, otherwise only get the ProfileInterests for the
    * studentID.
-   * Also publishes the InterestFavorites scoreboard.
+   * Also publishes the ProfileInterests scoreboard.
    */
   publish() {
     if (Meteor.isServer) {
@@ -112,7 +112,7 @@ class ProfileInterestCollection extends BaseCollection {
             },
           },
           { $project: { count: 1, interestID: 1 } },
-        ], { clientCollection: 'InterestFavoritesScoreboard' });
+        ], { clientCollection: 'ProfileInterestsScoreboard' });
       });
     }
   }
@@ -141,7 +141,7 @@ class ProfileInterestCollection extends BaseCollection {
   }
 
   /**
-   * Returns the Interest slug for the favorite's corresponding Interest.
+   * Returns the Interest slug for the profile's corresponding Interest.
    * @param instanceID The ProfileInterest ID.
    * @return {string} The interest slug.
    */

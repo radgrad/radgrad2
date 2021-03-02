@@ -3856,7 +3856,7 @@
       ]
     },
     {
-      "name": "FavoriteCareerGoalCollection",
+      "name": "ProfileCareerGoalCollection",
       "contents": [
         {
           "careerGoal": "graduate-school",
@@ -4413,11 +4413,11 @@
       ]
     },
     {
-      "name": "FavoriteCourseCollection",
+      "name": "ProfileCourseCollection",
       "contents": []
     },
     {
-      "name": "FavoriteInterestCollection",
+      "name": "ProfileInterestCollection",
       "contents": [
         {
           "interest": "application-development",
@@ -5682,7 +5682,7 @@
       ]
     },
     {
-      "name": "FavoriteOpportunityCollection",
+      "name": "ProfileOpportunityCollection",
       "contents": []
     },
     {

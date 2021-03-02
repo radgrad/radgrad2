@@ -1,4 +1,4 @@
-// types for Favorites
+// types for profile entries
 export enum PROFILE_ENTRY_TYPE {
   CAREERGOAL = 'careerGoal',
   COURSE = 'course',

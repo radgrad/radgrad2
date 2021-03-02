@@ -15,7 +15,7 @@ class ProfileOpportunityCollection extends BaseCollection {
 
   /** Creates the ProfileOpportunity collection */
   constructor() {
-    super('FavoriteOpportunity', new SimpleSchema({
+    super('ProfileOpportunity', new SimpleSchema({
       opportunityID: SimpleSchema.RegEx.Id,
       studentID: SimpleSchema.RegEx.Id,
       retired: { type: Boolean, optional: true },
@@ -76,9 +76,9 @@ class ProfileOpportunityCollection extends BaseCollection {
   }
 
   /**
-   * Publish OpportunityFavorites. If logged in as ADMIN get all, otherwise only get the OpportunityFavorites for the
+   * Publish ProfileOpportunities. If logged in as ADMIN get all, otherwise only get the ProfileOpportunities for the
    * studentID.
-   * Also publishes the OpportunityFavorites scoreboard.
+   * Also publishes the ProfileOpportunities scoreboard.
    */
   publish() {
     if (Meteor.isServer) {
@@ -102,7 +102,7 @@ class ProfileOpportunityCollection extends BaseCollection {
             },
           },
           { $project: { count: 1, opportunityID: 1 } },
-        ], { clientCollection: 'OpportunityFavoritesScoreboard' });
+        ], { clientCollection: 'ProfileOpportunitiesScoreboard' });
       });
     }
   }
@@ -131,7 +131,7 @@ class ProfileOpportunityCollection extends BaseCollection {
   }
 
   /**
-   * Returns the Opportunity slug for the favorite's corresponding Opportunity.
+   * Returns the Opportunity slug for the profile's corresponding Opportunity.
    * @param instanceID The ProfileOpportunity ID.
    * @return {string} The opportunity slug.
    */
