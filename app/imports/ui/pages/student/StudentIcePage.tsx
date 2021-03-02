@@ -35,7 +35,7 @@ const StudentIcePage: React.FC<StudentIcePageProps> = ({  earnedICE, projectedIC
     <Grid stackable>
       <Grid.Row>
         <Grid.Column width={16} stretched>
-          <StudentIceWidget earnedICE={earnedICE} projectedICE={projectedICE} favoriteInterests={favoriteInterests} courseInstances={courseInstances} opportunityInstances={opportunityInstances} />
+          <StudentIceWidget earnedICE={earnedICE} projectedICE={projectedICE} profileInterests={favoriteInterests} courseInstances={courseInstances} opportunityInstances={opportunityInstances} />
         </Grid.Column>
       </Grid.Row>
     </Grid>

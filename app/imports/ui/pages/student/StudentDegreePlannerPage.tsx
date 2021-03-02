@@ -30,7 +30,7 @@ import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstan
 import { Users } from '../../../api/user/UserCollection';
 import { degreePlannerActions } from '../../../redux/student/degree-planner';
 import { SelectPayload, SelectTab } from '../../../redux/student/degree-planner/actions';
-import TabbedFavoritesWidget from '../../components/student/degree-planner/TabbedFavoritesWidget';
+import TabbedFavoritesWidget from '../../components/student/degree-planner/TabbedProfileEntries';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { getUsername, MatchProps } from '../../components/shared/utilities/router';
 import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
@@ -61,7 +61,7 @@ interface StudentDegreePlannerProps {
 const mapDispatchToProps = (dispatch) => ({
   selectCourseInstance: (courseInstanceID) => dispatch(degreePlannerActions.selectCourseInstance(courseInstanceID)),
   selectOpportunityInstance: (opportunityInstanceID) => dispatch(degreePlannerActions.selectOpportunityInstance(opportunityInstanceID)),
-  selectFavoriteDetailsTab: () => dispatch(degreePlannerActions.selectFavoriteDetailsTab()),
+  selectFavoriteDetailsTab: () => dispatch(degreePlannerActions.selectProfileDetailsTab()),
 });
 
 const onDragEnd = (onDragEndProps) => (result) => {

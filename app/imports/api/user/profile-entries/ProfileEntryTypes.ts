@@ -6,7 +6,7 @@ export enum PROFILE_ENTRY_TYPE {
   OPPORTUNITY = 'opportunity',
 }
 
-export type IFavoriteTypes =
+export type IProfileEntryTypes =
   PROFILE_ENTRY_TYPE.CAREERGOAL
   | PROFILE_ENTRY_TYPE.COURSE
   | PROFILE_ENTRY_TYPE.INTEREST

@@ -34,22 +34,17 @@ export const selectInspectorTab = (): SelectTab => ({
   selectedTab: TYPES.SELECT_INSPECTOR,
 });
 
-export const selectFavoriteOpportunitiesTab = (): SelectTab => ({
-  type: TYPES.SELECT_FAVORITE_OPPORTUNITIES,
-  selectedTab: TYPES.SELECT_FAVORITE_OPPORTUNITIES,
+export const selectProfileOpportunitiesTab = (): SelectTab => ({
+  type: TYPES.SELECT_PROFILE_OPPORTUNITIES,
+  selectedTab: TYPES.SELECT_PROFILE_OPPORTUNITIES,
 });
 
-export const selectFavoritePlansTab = (): SelectTab => ({
-  type: TYPES.SELECT_FAVORITE_PLANS,
-  selectedTab: TYPES.SELECT_FAVORITE_PLANS,
+export const selectProfileCoursesTab = (): SelectTab => ({
+  type: TYPES.SELECT_PROFILE_COURSES,
+  selectedTab: TYPES.SELECT_PROFILE_COURSES,
 });
 
-export const selectFavoriteCoursesTab = (): SelectTab => ({
-  type: TYPES.SELECT_FAVORITE_COURSES,
-  selectedTab: TYPES.SELECT_FAVORITE_COURSES,
-});
-
-export const selectFavoriteDetailsTab = (): SelectTab => ({
-  type: TYPES.SELECT_FAVORITE_DETAILS,
-  selectedTab: TYPES.SELECT_FAVORITE_DETAILS,
+export const selectProfileDetailsTab = (): SelectTab => ({
+  type: TYPES.SELECT_PROFILE_DETAILS,
+  selectedTab: TYPES.SELECT_PROFILE_DETAILS,
 });

@@ -20,7 +20,8 @@ export enum UserInteractionsTypes {
   // Removing a course/opportunity from the planner
   REMOVECOURSE = 'removeCourse',
   REMOVEOPPORTUNITY = 'removeOpportunity',
-  /* Favorites */
+  // CAM: Not going to change this since we have a bunch of user interactions with this term type in them.
+  // TODO is this the correct answer?
   FAVORITEITEM = 'favoriteItem',
   UNFAVORITEITEM = 'unFavoriteItem',
   /* Reviews */

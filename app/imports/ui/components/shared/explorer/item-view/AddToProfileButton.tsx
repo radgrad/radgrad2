@@ -8,21 +8,21 @@ import { ProfileInterests } from '../../../../../api/user/profile-entries/Profil
 import { ProfileOpportunities } from '../../../../../api/user/profile-entries/ProfileOpportunityCollection';
 import { defineMethod, removeItMethod } from '../../../../../api/base/BaseCollection.methods';
 import { userInteractionDefineMethod } from '../../../../../api/analytic/UserInteractionCollection.methods';
-import { PROFILE_ENTRY_TYPE, IFavoriteTypes } from '../../../../../api/user/profile-entries/ProfileEntryTypes';
+import { PROFILE_ENTRY_TYPE, IProfileEntryTypes } from '../../../../../api/user/profile-entries/ProfileEntryTypes';
 import { pageInterestDefineMethod } from '../../../../../api/page-tracking/PageInterestCollection.methods';
 import { createDefinitionData, createInteractionData, createPageInterestData, getCollectionName } from './utilities/favorites-button';
 import { Users } from '../../../../../api/user/UserCollection';
 import { ROLE } from '../../../../../api/role/Role';
 
 type ItemType = CareerGoal | Course | Interest | Opportunity;
-export interface FavoriteButtonProps {
+export interface AddToProfileButtonProps {
   item: ItemType;
   studentID: string;
-  type: IFavoriteTypes;
+  type: IProfileEntryTypes;
   added: boolean;
 }
 
-const handleAdd = (studentID: string, item: ItemType, type: IFavoriteTypes) => () => {
+const handleAdd = (studentID: string, item: ItemType, type: IProfileEntryTypes) => () => {
   const collectionName = getCollectionName(type);
   const definitionData = createDefinitionData(studentID, item, type);
   const interactionData = createInteractionData(studentID, item, type, true);
@@ -62,7 +62,7 @@ const handleAdd = (studentID: string, item: ItemType, type: IFavoriteTypes) => (
   });
 };
 
-const handleRemove = (studentID: string, item: ItemType, type: IFavoriteTypes) => () => {
+const handleRemove = (studentID: string, item: ItemType, type: IProfileEntryTypes) => () => {
   const collectionName = getCollectionName(type);
   const interactionData = createInteractionData(studentID, item, type, false);
   let instance;
@@ -115,7 +115,7 @@ const handleRemove = (studentID: string, item: ItemType, type: IFavoriteTypes) =
   });
 };
 
-const AddToProfileButton: React.FC<FavoriteButtonProps> = ({ studentID, item, type, added }) => (
+const AddToProfileButton: React.FC<AddToProfileButtonProps> = ({ studentID, item, type, added }) => (
   <React.Fragment>
     {added ? (
       <Button onClick={handleRemove(studentID, item, type)} size="mini" color="green" floated="right" basic>

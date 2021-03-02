@@ -123,8 +123,8 @@ class CareerGoalCollection extends BaseSlugCollection {
   public removeIt(instance: string) {
     const careerGoalID = this.getID(instance);
     // Check that this is not referenced by any User.
-    const favorites = ProfileCareerGoals.find({ careerGoalID }).fetch();
-    if (favorites.length > 0) {
+    const profileEntities = ProfileCareerGoals.find({ careerGoalID }).fetch();
+    if (profileEntities.length > 0) {
       throw new Meteor.Error(`Career Goal ${instance} is referenced.`);
     }
     // OK, clear to delete.

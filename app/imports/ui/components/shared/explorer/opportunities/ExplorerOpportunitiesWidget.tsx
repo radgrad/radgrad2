@@ -43,9 +43,9 @@ const ExplorerOpportunitiesWidget: React.FC<CardExplorerOpportunitiesWidgetProps
       // eslint-disable-next-line no-case-declarations
       const userID = Router.getUserIdFromRoute(match);
       // eslint-disable-next-line no-case-declarations
-      const favorites = ProfileInterests.findNonRetired({ userID });
+      const profileEntries = ProfileInterests.findNonRetired({ userID });
       // eslint-disable-next-line no-case-declarations
-      const interestIDs = _.map(favorites, (f) => f.interestID);
+      const interestIDs = _.map(profileEntries, (f) => f.interestID);
       // eslint-disable-next-line no-case-declarations
       const preferred = new PreferedChoice(opportunities, interestIDs);
       opportunities = preferred.getOrderedChoices();

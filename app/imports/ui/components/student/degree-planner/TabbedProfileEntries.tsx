@@ -2,19 +2,19 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Icon, Menu, Segment, Tab } from 'semantic-ui-react';
 import { degreePlannerActions, degreePlannerTypes } from '../../../../redux/student/degree-planner';
-import FavoriteOpportunitiesWidget from './FavoriteOpportunitiesWidget';
-import FavoriteCoursesWidget from './FavoriteCoursesWidget';
+import ProfileOpportunities from './ProfileOpportunities';
+import ProfileCourses from './ProfileCourses';
 import DepDetailsWidget from './DepDetailsWidget';
 import { RootState } from '../../../../redux/types';
 import { Course, CourseInstance, Opportunity, OpportunityInstance, VerificationRequest } from '../../../../typings/radgrad';
 
-interface TabbedFavoritesWidgetProps {
+interface TabbedProfileEntriesProps {
   takenSlugs: string[];
   selectedTab: string;
-  selectFavoriteOpportunitiesTab: () => { type: string; selectedTab: string };
-  selectFavoritePlansTab: () => { type: string; selectedTab: string };
-  selectFavoriteCoursesTab: () => { type: string; selectedTab: string };
-  selectFavoriteDetailsTab: () => { type: string; selectedTab: string };
+  selectProfileOpportunitiesTab: () => { type: string; selectedTab: string };
+  selectProfilePlansTab: () => { type: string; selectedTab: string };
+  selectProfileCoursesTab: () => { type: string; selectedTab: string };
+  selectProfileDetailsTab: () => { type: string; selectedTab: string };
   opportunities: Opportunity[];
   studentID: string;
   courses: Course[];
@@ -28,36 +28,35 @@ const mapStateToProps = (state: RootState) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  selectFavoriteOpportunitiesTab: () => dispatch(degreePlannerActions.selectFavoriteOpportunitiesTab()),
-  selectFavoritePlansTab: () => dispatch(degreePlannerActions.selectFavoritePlansTab()),
-  selectFavoriteCoursesTab: () => dispatch(degreePlannerActions.selectFavoriteCoursesTab()),
-  selectFavoriteDetailsTab: () => dispatch(degreePlannerActions.selectFavoriteDetailsTab()),
+  selectProfileOpportunitiesTab: () => dispatch(degreePlannerActions.selectProfileOpportunitiesTab()),
+  selectProfileCoursesTab: () => dispatch(degreePlannerActions.selectProfileCoursesTab()),
+  selectProfileDetailsTab: () => dispatch(degreePlannerActions.selectProfileDetailsTab()),
 });
 
 const active = (selectedTab) => {
   switch (selectedTab) {
-    case degreePlannerTypes.SELECT_FAVORITE_OPPORTUNITIES:
+    case degreePlannerTypes.SELECT_PROFILE_OPPORTUNITIES:
       return 0;
-    case degreePlannerTypes.SELECT_FAVORITE_PLANS:
+    case degreePlannerTypes.SELECT_PROFILE_PLANS:
       return 1;
-    case degreePlannerTypes.SELECT_FAVORITE_COURSES:
+    case degreePlannerTypes.SELECT_PROFILE_COURSES:
       return 2;
-    case degreePlannerTypes.SELECT_FAVORITE_DETAILS:
+    case degreePlannerTypes.SELECT_PROFILE_DETAILS:
       return 3;
     default:
       return 0;
   }
 };
 
-const TabbedFavoritesWidget: React.FC<TabbedFavoritesWidgetProps> = ({
-  selectFavoritePlansTab,
-  selectFavoriteOpportunitiesTab,
+const TabbedProfileEntries: React.FC<TabbedProfileEntriesProps> = ({
+  selectProfilePlansTab,
+  selectProfileOpportunitiesTab,
   studentID,
   takenSlugs,
   courseInstances,
   courses,
-  selectFavoriteDetailsTab,
-  selectFavoriteCoursesTab,
+  selectProfileDetailsTab,
+  selectProfileCoursesTab,
   selectedTab,
   opportunities,
   verificationRequests,
@@ -68,16 +67,16 @@ const TabbedFavoritesWidget: React.FC<TabbedFavoritesWidgetProps> = ({
     event.preventDefault();
     switch (activeIndex) {
       case 0:
-        selectFavoriteOpportunitiesTab();
+        selectProfileOpportunitiesTab();
         break;
       case 1:
-        selectFavoritePlansTab();
+        selectProfilePlansTab();
         break;
       case 2:
-        selectFavoriteCoursesTab();
+        selectProfileCoursesTab();
         break;
       case 3:
-        selectFavoriteDetailsTab();
+        selectProfileDetailsTab();
         break;
       default:
         console.error(`Bad tab index: ${activeIndex}`);
@@ -93,7 +92,7 @@ const TabbedFavoritesWidget: React.FC<TabbedFavoritesWidgetProps> = ({
       ),
       pane: (
         <Tab.Pane key="FavoriteOpportunitiesPane" active={active(selectedTab) === 0}>
-          <FavoriteOpportunitiesWidget opportunities={opportunities} studentID={studentID} opportunityInstances={opportunityInstances} />
+          <ProfileOpportunities opportunities={opportunities} studentID={studentID} opportunityInstances={opportunityInstances} />
         </Tab.Pane>
       ),
     },
@@ -105,7 +104,7 @@ const TabbedFavoritesWidget: React.FC<TabbedFavoritesWidgetProps> = ({
       ),
       pane: (
         <Tab.Pane key="FavoriteCoursesPane" active={active(selectedTab) === 2}>
-          <FavoriteCoursesWidget studentID={studentID} courses={courses} courseInstances={courseInstances} />
+          <ProfileCourses studentID={studentID} courses={courses} courseInstances={courseInstances} />
         </Tab.Pane>
       ),
     },
@@ -125,4 +124,4 @@ const TabbedFavoritesWidget: React.FC<TabbedFavoritesWidgetProps> = ({
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(TabbedFavoritesWidget);
+export default connect(mapStateToProps, mapDispatchToProps)(TabbedProfileEntries);
