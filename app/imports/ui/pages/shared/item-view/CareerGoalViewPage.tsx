@@ -3,21 +3,21 @@ import { useParams, useRouteMatch } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Container, Grid } from 'semantic-ui-react';
 import _ from 'lodash';
-import { CareerGoal, DescriptionPair, FavoriteCareerGoal, Profile, SocialPair } from '../../../../typings/radgrad';
+import { CareerGoal, DescriptionPair, ProfileCareerGoal, Profile, SocialPair } from '../../../../typings/radgrad';
 import { getMenuWidget } from '../utilities/getMenuWidget';
 import ExplorerMenu from '../../../components/shared/explorer/item-view/ExplorerMenu';
 import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
-import ExplorerCareerGoalWidget from '../../../components/shared/explorer/item-view/career-goal/ExplorerCareerGoalWidget';
+import ExplorerCareerGoal from '../../../components/shared/explorer/item-view/career-goal/ExplorerCareerGoal';
 import { Interests } from '../../../../api/interest/InterestCollection';
 import { teaser } from '../../../components/shared/explorer/item-view/utilities/teaser';
 import { Users } from '../../../../api/user/UserCollection';
-import { FavoriteCareerGoals } from '../../../../api/favorite/FavoriteCareerGoalCollection';
+import { ProfileCareerGoals } from '../../../../api/user/profile-entries/ProfileCareerGoalCollection';
 import { ROLE } from '../../../../api/role/Role';
 import { profileGetCareerGoalIDs } from '../../../components/shared/utilities/data-model';
 import { defaultProfilePicture } from '../../../../api/user/BaseProfileCollection';
 
 interface CareerGoalViewPageProps {
-  favoriteCareerGoals: FavoriteCareerGoal[];
+  profileCareerGoals: ProfileCareerGoal[];
   careerGoal: CareerGoal;
 }
 
@@ -39,7 +39,7 @@ const interestedUsersCareerGoals = (theCareerGoal: CareerGoal, role: string): Pr
 
 const numUsersCareerGoals = (theCareerGoal: CareerGoal, role: string): number => interestedUsersCareerGoals(theCareerGoal, role).length;
 
-const numStudentsCareerGoals = (theCareerGoal: CareerGoal): number => FavoriteCareerGoals.findNonRetired({ careerGoalID: theCareerGoal._id }).length;
+const numStudentsCareerGoals = (theCareerGoal: CareerGoal): number => ProfileCareerGoals.findNonRetired({ careerGoalID: theCareerGoal._id }).length;
 
 const socialPairsCareerGoals = (theCareerGoal: CareerGoal): SocialPair[] => [
   {
@@ -59,9 +59,9 @@ const socialPairsCareerGoals = (theCareerGoal: CareerGoal): SocialPair[] => [
   },
 ];
 
-const CareerGoalViewPage: React.FC<CareerGoalViewPageProps> = ({ careerGoal, favoriteCareerGoals }) => {
+const CareerGoalViewPage: React.FC<CareerGoalViewPageProps> = ({ careerGoal, profileCareerGoals }) => {
   const match = useRouteMatch();
-  const menuAddedList = _.map(favoriteCareerGoals, (f) => ({
+  const menuAddedList = _.map(profileCareerGoals, (f) => ({
     item: CareerGoals.findDoc(f.careerGoalID),
     count: 1,
   }));
@@ -82,7 +82,7 @@ const CareerGoalViewPage: React.FC<CareerGoalViewPageProps> = ({ careerGoal, fav
               <ExplorerMenu menuAddedList={menuAddedList} type="career-goals" />
             </Grid.Column>
             <Grid.Column width={13}>
-              <ExplorerCareerGoalWidget name={careerGoal.name} descriptionPairs={descriptionPairs} item={careerGoal} socialPairs={socialPairs} />
+              <ExplorerCareerGoal name={careerGoal.name} descriptionPairs={descriptionPairs} item={careerGoal} socialPairs={socialPairs} />
             </Grid.Column>
           </Grid.Row>
         </Grid>
@@ -94,11 +94,11 @@ const CareerGoalViewPage: React.FC<CareerGoalViewPageProps> = ({ careerGoal, fav
 const CareerGoalViewPageContainer = withTracker(() => {
   const { careergoal, username } = useParams();
   const profile = Users.getProfile(username);
-  const favoriteCareerGoals = FavoriteCareerGoals.findNonRetired({ userID: profile.userID });
+  const profileCareerGoals = ProfileCareerGoals.findNonRetired({ userID: profile.userID });
   const careerGoalDoc = CareerGoals.findDocBySlug(careergoal);
   return {
     careerGoal: careerGoalDoc,
-    favoriteCareerGoals,
+    profileCareerGoals,
   };
 })(CareerGoalViewPage);
 

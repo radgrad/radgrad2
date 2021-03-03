@@ -7,18 +7,17 @@ import { Users } from '../../../../../../api/user/UserCollection';
 import { CareerGoal, DescriptionPair, SocialPair } from '../../../../../../typings/radgrad';
 import { renderLink, getUserIdFromRoute } from '../../../utilities/router';
 import WidgetHeaderNumber from '../../WidgetHeaderNumber';
-import FavoritesButton from '../FavoritesButton';
+import AddCareerGoalToProfileButton from '../AddCareerGoalToProfileButton';
 import { toUpper, isSame } from '../../../utilities/general';
 import { userToFullName, userToPicture } from '../../../utilities/data-model';
 import { Teasers } from '../../../../../../api/teaser/TeaserCollection';
 import { Slugs } from '../../../../../../api/slug/SlugCollection';
 import { CareerGoals } from '../../../../../../api/career/CareerGoalCollection';
 import { toId } from '../course/utilities/description-pair';
-import { FAVORITE_TYPE } from '../../../../../../api/favorite/FavoriteTypes';
 import TeaserVideo from '../../../TeaserVideo';
-import { FavoriteCareerGoals } from '../../../../../../api/favorite/FavoriteCareerGoalCollection';
+import { ProfileCareerGoals } from '../../../../../../api/user/profile-entries/ProfileCareerGoalCollection';
 
-interface ExplorerCareerGoalsWidgetProps {
+interface ExplorerCareerGoalProps {
   name: string;
   descriptionPairs: DescriptionPair[];
   item: CareerGoal;
@@ -35,7 +34,7 @@ const teaserUrlHelper = (careerGoalSlug): string => {
   return oppTeaser && oppTeaser[0] && oppTeaser[0].url;
 };
 
-const ExplorerCareerGoalWidget: React.FC<ExplorerCareerGoalsWidgetProps> = ({ name, descriptionPairs, socialPairs, item }) => {
+const ExplorerCareerGoal: React.FC<ExplorerCareerGoalProps> = ({ name, descriptionPairs, socialPairs, item }) => {
   const marginStyle = {
     marginTop: 5,
   };
@@ -51,14 +50,14 @@ const ExplorerCareerGoalWidget: React.FC<ExplorerCareerGoalsWidgetProps> = ({ na
   const hasTeaser = Teasers.findNonRetired({ targetSlugID: item.slugID }).length > 0;
   const { careergoal, username } = useParams();
   const profile = Users.getProfile(username);
-  const added = FavoriteCareerGoals.findNonRetired({ userID: profile.userID, careerGoalID: item._id }).length > 0;
+  const added = ProfileCareerGoals.findNonRetired({ userID: profile.userID, careerGoalID: item._id }).length > 0;
   return (
     <Grid container stackable style={marginStyle} id="explorerCareerGoalWidget">
       <Grid.Column width={16}>
         <Segment>
           <Segment basic clearing vertical>
             <Grid.Row verticalAlign="middle">
-              <FavoritesButton item={item} studentID={getUserIdFromRoute(match)} type={FAVORITE_TYPE.CAREERGOAL} added={added} />
+              <AddCareerGoalToProfileButton careerGoal={item} userID={getUserIdFromRoute(match)} added={added} />
               <Header floated="left">{upperName}</Header>
             </Grid.Row>
           </Segment>
@@ -144,4 +143,4 @@ const ExplorerCareerGoalWidget: React.FC<ExplorerCareerGoalsWidgetProps> = ({ na
   );
 };
 
-export default ExplorerCareerGoalWidget;
+export default ExplorerCareerGoal;

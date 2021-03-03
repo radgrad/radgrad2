@@ -2,24 +2,24 @@ import React from 'react';
 import { Button, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import { CareerGoal, Course, Interest, MeteorError, Opportunity } from '../../../../../typings/radgrad';
-import { FavoriteCareerGoals } from '../../../../../api/favorite/FavoriteCareerGoalCollection';
-import { FavoriteCourses } from '../../../../../api/favorite/FavoriteCourseCollection';
-import { FavoriteInterests } from '../../../../../api/favorite/FavoriteInterestCollection';
-import { FavoriteOpportunities } from '../../../../../api/favorite/FavoriteOpportunityCollection';
+import { ProfileCareerGoals } from '../../../../../api/user/profile-entries/ProfileCareerGoalCollection';
+import { ProfileCourses } from '../../../../../api/user/profile-entries/ProfileCourseCollection';
+import { ProfileInterests } from '../../../../../api/user/profile-entries/ProfileInterestCollection';
+import { ProfileOpportunities } from '../../../../../api/user/profile-entries/ProfileOpportunityCollection';
 import { defineMethod, removeItMethod } from '../../../../../api/base/BaseCollection.methods';
 import { userInteractionDefineMethod } from '../../../../../api/analytic/UserInteractionCollection.methods';
-import { FAVORITE_TYPE, IFavoriteTypes } from '../../../../../api/favorite/FavoriteTypes';
-import { createDefinitionData, createInteractionData, getCollectionName } from './utilities/favorites-button';
+import { PROFILE_ENTRY_TYPE, IProfileEntryTypes } from '../../../../../api/user/profile-entries/ProfileEntryTypes';
+import { createDefinitionData, createInteractionData, getCollectionName } from './utilities/profile-button';
 
 type ItemType = CareerGoal | Course | Interest | Opportunity;
-export interface FavoriteButtonProps {
+export interface AddToProfileButtonProps {
   item: ItemType;
   studentID: string;
-  type: IFavoriteTypes;
+  type: IProfileEntryTypes;
   added: boolean;
 }
 
-const handleAdd = (studentID: string, item: ItemType, type: IFavoriteTypes) => () => {
+const handleAdd = (studentID: string, item: ItemType, type: IProfileEntryTypes) => () => {
   const collectionName = getCollectionName(type);
   const definitionData = createDefinitionData(studentID, item, type);
   const interactionData = createInteractionData(studentID, item, type, true);
@@ -27,7 +27,7 @@ const handleAdd = (studentID: string, item: ItemType, type: IFavoriteTypes) => (
   defineMethod.call({ collectionName, definitionData }, (error: MeteorError) => {
     if (error) {
       Swal.fire({
-        title: 'Failed to Favorite',
+        title: 'Failed to add to profile',
         icon: 'error',
         text: error.message,
         allowOutsideClick: false,
@@ -36,7 +36,7 @@ const handleAdd = (studentID: string, item: ItemType, type: IFavoriteTypes) => (
       });
     } else {
       Swal.fire({
-        title: 'Favorited',
+        title: 'Added to profile',
         icon: 'success',
         showConfirmButton: false,
         timer: 1500,
@@ -50,44 +50,44 @@ const handleAdd = (studentID: string, item: ItemType, type: IFavoriteTypes) => (
   });
 };
 
-const handleRemove = (studentID: string, item: ItemType, type: IFavoriteTypes) => () => {
+const handleRemove = (studentID: string, item: ItemType, type: IProfileEntryTypes) => () => {
   const collectionName = getCollectionName(type);
   const interactionData = createInteractionData(studentID, item, type, false);
   let instance;
   switch (type) {
-    case FAVORITE_TYPE.CAREERGOAL:
-      instance = FavoriteCareerGoals.findNonRetired({
+    case PROFILE_ENTRY_TYPE.CAREERGOAL:
+      instance = ProfileCareerGoals.findNonRetired({
         userID: studentID,
         careerGoalID: item._id,
       })[0]._id;
       break;
-    case FAVORITE_TYPE.COURSE:
-      instance = FavoriteCourses.findNonRetired({
+    case PROFILE_ENTRY_TYPE.COURSE:
+      instance = ProfileCourses.findNonRetired({
         studentID,
         courseID: item._id,
       })[0]._id;
       break;
-    case FAVORITE_TYPE.INTEREST:
-      instance = FavoriteInterests.findNonRetired({
+    case PROFILE_ENTRY_TYPE.INTEREST:
+      instance = ProfileInterests.findNonRetired({
         userID: studentID,
         interestID: item._id,
       })[0]._id;
       break;
-    case FAVORITE_TYPE.OPPORTUNITY:
-      instance = FavoriteOpportunities.findNonRetired({
+    case PROFILE_ENTRY_TYPE.OPPORTUNITY:
+      instance = ProfileOpportunities.findNonRetired({
         studentID,
         opportunityID: item._id,
       })[0]._id;
       break;
     default:
-      console.error(`Bad favorite type: ${type}`);
+      console.error(`Bad profile entry type: ${type}`);
       break;
   }
 
   removeItMethod.call({ collectionName, instance }, (error: MeteorError) => {
     if (error) {
       Swal.fire({
-        title: 'Failed to Unfavorite',
+        title: 'Failed to remove from profile',
         icon: 'error',
         text: error.message,
         allowOutsideClick: false,
@@ -103,7 +103,7 @@ const handleRemove = (studentID: string, item: ItemType, type: IFavoriteTypes) =
   });
 };
 
-const FavoritesButton: React.FC<FavoriteButtonProps> = ({ studentID, item, type, added }) => (
+const AddToProfileButton: React.FC<AddToProfileButtonProps> = ({ studentID, item, type, added }) => (
   <React.Fragment>
     {added ? (
       <Button onClick={handleRemove(studentID, item, type)} size="mini" color="green" floated="right" basic>
@@ -121,4 +121,4 @@ const FavoritesButton: React.FC<FavoriteButtonProps> = ({ studentID, item, type,
   </React.Fragment>
 );
 
-export default FavoritesButton;
+export default AddToProfileButton;

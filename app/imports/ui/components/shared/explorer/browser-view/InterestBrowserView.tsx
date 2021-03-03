@@ -8,8 +8,8 @@ import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
 import ProfileCard from './ProfileCard';
 
 interface InterestBrowserViewProps {
-  favoriteInterests: Interest[];
-  favoriteCareerGoalsInterests: Interest[];
+  profileInterests: Interest[];
+  profileCareerGoalsInterests: Interest[];
   interests: Interest[];
   // Saving Scroll Position
   interestsScrollPosition: number;
@@ -24,8 +24,8 @@ const mapDispatchToProps = (dispatch) => ({
   setInterestsScrollPosition: (scrollPosition: number) => dispatch(scrollPositionActions.setExplorerInterestsScrollPosition(scrollPosition)),
 });
 
-const InterestBrowserView: React.FC<InterestBrowserViewProps> = ({ favoriteInterests, favoriteCareerGoalsInterests, interests, interestsScrollPosition, setInterestsScrollPosition }) => {
-  // TODO do we want to filter out the favoriteInterests and favoriteCareerGoalInterests from interests?
+const InterestBrowserView: React.FC<InterestBrowserViewProps> = ({ profileInterests, profileCareerGoalsInterests, interests, interestsScrollPosition, setInterestsScrollPosition }) => {
+  // TODO do we want to filter out the profileInterests from interests?
   const cardGroupElement: HTMLElement = document.getElementById('interestsCardGroup');
   useEffect(() => {
     const savedScrollPosition = interestsScrollPosition;

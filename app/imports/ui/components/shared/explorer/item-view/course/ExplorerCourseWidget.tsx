@@ -15,17 +15,17 @@ import { EXPLORER_TYPE } from '../../../../../layouts/utilities/route-constants'
 import { Teasers } from '../../../../../../api/teaser/TeaserCollection';
 // @ts-ignore
 import ExplorerReviewWidget from '../ExplorerReviewWidget';
-import FavoritesButton from '../FavoritesButton';
+import AddToProfileButton from '../AddToProfileButton';
 import { isSame, toUpper } from '../../../utilities/general';
 import { courseSlugToName } from '../../../utilities/data-model';
 import { Slugs } from '../../../../../../api/slug/SlugCollection';
 import { Courses } from '../../../../../../api/course/CourseCollection';
 import { toValueArray, toValueString } from './utilities/description-pair';
-import { FAVORITE_TYPE } from '../../../../../../api/favorite/FavoriteTypes';
+import { PROFILE_ENTRY_TYPE } from '../../../../../../api/user/profile-entries/ProfileEntryTypes';
 import FutureParticipation from '../../FutureParticipation';
 import TeaserVideo from '../../../TeaserVideo';
 import { Users } from '../../../../../../api/user/UserCollection';
-import { FavoriteCourses } from '../../../../../../api/favorite/FavoriteCourseCollection';
+import { ProfileCourses } from '../../../../../../api/user/profile-entries/ProfileCourseCollection';
 
 interface ExplorerCoursesWidgetProps {
   name: string;
@@ -164,7 +164,7 @@ const ExplorerCourseWidget: React.FC<ExplorerCoursesWidgetProps> = ({ name, shor
     }
   });
   const profile = Users.getProfile(username);
-  const added = FavoriteCourses.findNonRetired({ studentID: profile.userID, courseID: item._id }).length > 0;
+  const added = ProfileCourses.findNonRetired({ studentID: profile.userID, courseID: item._id }).length > 0;
   return (
     <div id="explorerCourseWidget">
       <Segment padded className="container" style={segmentStyle}>
@@ -172,7 +172,7 @@ const ExplorerCourseWidget: React.FC<ExplorerCoursesWidgetProps> = ({ name, shor
           <Header as="h4" floated="left">
             <div style={breakWordStyle}>{upperShortName}</div>({name})
           </Header>
-          {isStudent ? <FavoritesButton item={item} studentID={Router.getUserIdFromRoute(match)} type={FAVORITE_TYPE.COURSE} added={added} /> : undefined}
+          {isStudent ? <AddToProfileButton item={item} studentID={Router.getUserIdFromRoute(match)} type={PROFILE_ENTRY_TYPE.COURSE} added={added} /> : undefined}
         </Segment>
 
         <Divider style={zeroMarginTopStyle} />

@@ -21,14 +21,13 @@ const { Media, MediaContextProvider } = AppMedia;
 
 interface ExplorerMenuMobileWidgetProps {
   menuAddedList: ListItem[];
-  menuCareerList?: ListItem[] | undefined;
   type: 'plans' | 'career-goals' | 'courses' | 'interests' | 'opportunities' | 'users'; // TODO should this be a defined type?
 }
 
 const isType = (typeToCheck: string, type: string): boolean => type === typeToCheck;
 
 // TODO QA this does a lot can we simplify this?
-const ExplorerMenuMobileWidget: React.FC<ExplorerMenuMobileWidgetProps> = ({ menuAddedList, menuCareerList, type }) => {
+const ExplorerMenuMobile: React.FC<ExplorerMenuMobileWidgetProps> = ({ menuAddedList, type }) => {
   const match = useRouteMatch();
   const isStudent = Router.isUrlRoleStudent(match);
   return (
@@ -40,7 +39,7 @@ const ExplorerMenuMobileWidget: React.FC<ExplorerMenuMobileWidgetProps> = ({ men
             <React.Fragment>
               <Dropdown className="selection" fluid text="Select Item" style={{ marginTop: '1rem' }}>
                 <Dropdown.Menu>
-                  <Dropdown.Header as="h4">MY FAVORITE COURSES</Dropdown.Header>
+                  <Dropdown.Header as="h4">MY PROFILE COURSES</Dropdown.Header>
                   <Dropdown.Divider />
                   {menuAddedList.map((listItem) => (
                     <ExplorerMenuMobileItem type={EXPLORER_TYPE.COURSES} listItem={listItem} key={listItem.item._id} />
@@ -57,7 +56,7 @@ const ExplorerMenuMobileWidget: React.FC<ExplorerMenuMobileWidgetProps> = ({ men
               {isStudent ? (
                 <Dropdown className="selection" fluid text="Select Item" style={{ marginTop: '1rem' }}>
                   <Dropdown.Menu>
-                    <Dropdown.Header as="h4">MY FAVORITE OPPORTUNITIES</Dropdown.Header>
+                    <Dropdown.Header as="h4">MY PROFILE OPPORTUNITIES</Dropdown.Header>
                     <Dropdown.Divider />
                     {menuAddedList.map((listItem) => (
                       <ExplorerMenuMobileItem type={EXPLORER_TYPE.OPPORTUNITIES} listItem={listItem} key={listItem.item._id} />
@@ -76,15 +75,9 @@ const ExplorerMenuMobileWidget: React.FC<ExplorerMenuMobileWidgetProps> = ({ men
           {isType(EXPLORER_TYPE.INTERESTS, type) ? (
             <Dropdown className="selection" fluid text="Select Item" style={{ marginTop: '1rem' }}>
               <Dropdown.Menu>
-                <Dropdown.Header as="h4">MY FAVORITE INTERESTS</Dropdown.Header>
+                <Dropdown.Header as="h4">MY PROFILE INTERESTS</Dropdown.Header>
                 <Dropdown.Divider />
                 {menuAddedList.map((listItem) => (
-                  <ExplorerMenuMobileItem type={EXPLORER_TYPE.INTERESTS} listItem={listItem} key={listItem.item._id} />
-                ))}
-
-                <Dropdown.Header as="h4">SUGGESTED CAREER GOAL INTERESTS</Dropdown.Header>
-                <Dropdown.Divider />
-                {menuCareerList.map((listItem) => (
                   <ExplorerMenuMobileItem type={EXPLORER_TYPE.INTERESTS} listItem={listItem} key={listItem.item._id} />
                 ))}
               </Dropdown.Menu>
@@ -96,7 +89,7 @@ const ExplorerMenuMobileWidget: React.FC<ExplorerMenuMobileWidgetProps> = ({ men
           {isType(EXPLORER_TYPE.CAREERGOALS, type) ? (
             <Dropdown className="selection" fluid text="Select Item" style={{ marginTop: '1rem' }}>
               <Dropdown.Menu>
-                <Dropdown.Header as="h4">MY FAVORITE CAREER GOALS</Dropdown.Header>
+                <Dropdown.Header as="h4">MY PROFILE CAREER GOALS</Dropdown.Header>
                 <Dropdown.Divider />
                 {menuAddedList.map((listItem) => (
                   <ExplorerMenuMobileItem type={EXPLORER_TYPE.CAREERGOALS} listItem={listItem} key={listItem.item._id} />
@@ -112,4 +105,4 @@ const ExplorerMenuMobileWidget: React.FC<ExplorerMenuMobileWidgetProps> = ({ men
   );
 };
 
-export default ExplorerMenuMobileWidget;
+export default ExplorerMenuMobile;

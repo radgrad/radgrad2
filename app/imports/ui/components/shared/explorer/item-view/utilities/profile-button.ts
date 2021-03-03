@@ -1,37 +1,37 @@
-import { FAVORITE_TYPE, IFavoriteTypes } from '../../../../../../api/favorite/FavoriteTypes';
-import { FavoriteCareerGoals } from '../../../../../../api/favorite/FavoriteCareerGoalCollection';
-import { FavoriteCourses } from '../../../../../../api/favorite/FavoriteCourseCollection';
-import { FavoriteInterests } from '../../../../../../api/favorite/FavoriteInterestCollection';
-import { FavoriteOpportunities } from '../../../../../../api/favorite/FavoriteOpportunityCollection';
+import { PROFILE_ENTRY_TYPE, IProfileEntryTypes } from '../../../../../../api/user/profile-entries/ProfileEntryTypes';
+import { ProfileCareerGoals } from '../../../../../../api/user/profile-entries/ProfileCareerGoalCollection';
+import { ProfileCourses } from '../../../../../../api/user/profile-entries/ProfileCourseCollection';
+import { ProfileInterests } from '../../../../../../api/user/profile-entries/ProfileInterestCollection';
+import { ProfileOpportunities } from '../../../../../../api/user/profile-entries/ProfileOpportunityCollection';
 import {
   BaseProfile, CareerGoal, Course,
-  FavoriteCareerGoalDefine,
-  FavoriteCourseDefine,
-  FavoriteInterestDefine,
-  FavoriteOpportunityDefine, Interest, Opportunity,
+  ProfileCareerGoalDefine,
+  ProfileCourseDefine,
+  ProfileInterestDefine,
+  ProfileOpportunityDefine, Interest, Opportunity,
   UserInteractionDefine,
 } from '../../../../../../typings/radgrad';
 import { Users } from '../../../../../../api/user/UserCollection';
 import { Slugs } from '../../../../../../api/slug/SlugCollection';
 import { UserInteractionsTypes } from '../../../../../../api/analytic/UserInteractionsTypes';
 
-export const getCollectionName = (type: IFavoriteTypes): string => {
+export const getCollectionName = (type: IProfileEntryTypes): string => {
   let collectionName: string;
   switch (type) {
-    case FAVORITE_TYPE.CAREERGOAL:
-      collectionName = FavoriteCareerGoals.getCollectionName();
+    case PROFILE_ENTRY_TYPE.CAREERGOAL:
+      collectionName = ProfileCareerGoals.getCollectionName();
       break;
-    case FAVORITE_TYPE.COURSE:
-      collectionName = FavoriteCourses.getCollectionName();
+    case PROFILE_ENTRY_TYPE.COURSE:
+      collectionName = ProfileCourses.getCollectionName();
       break;
-    case FAVORITE_TYPE.INTEREST:
-      collectionName = FavoriteInterests.getCollectionName();
+    case PROFILE_ENTRY_TYPE.INTEREST:
+      collectionName = ProfileInterests.getCollectionName();
       break;
-    case FAVORITE_TYPE.OPPORTUNITY:
-      collectionName = FavoriteOpportunities.getCollectionName();
+    case PROFILE_ENTRY_TYPE.OPPORTUNITY:
+      collectionName = ProfileOpportunities.getCollectionName();
       break;
     default:
-      console.error(`Bad favorite type: ${type}`);
+      console.error(`Bad profile entry type: ${type}`);
       break;
   }
   return collectionName;
@@ -46,70 +46,70 @@ export const getSlug = (slugID: string): string => Slugs.getNameFromID(slugID);
 
 type ItemType = CareerGoal | Course | Interest | Opportunity;
 
-export const createDefinitionData = (studentID: string, item: ItemType, type: IFavoriteTypes): FavoriteCareerGoalDefine | FavoriteCourseDefine | FavoriteInterestDefine | FavoriteOpportunityDefine => {
+export const createDefinitionData = (studentID: string, item: ItemType, type: IProfileEntryTypes): ProfileCareerGoalDefine | ProfileCourseDefine | ProfileInterestDefine | ProfileOpportunityDefine => {
   const student = getStudent(studentID);
   const slug = getSlug(item.slugID);
   let definitionData;
   switch (type) {
-    case FAVORITE_TYPE.CAREERGOAL:
+    case PROFILE_ENTRY_TYPE.CAREERGOAL:
       definitionData = {
         username: student,
         careerGoal: slug,
       };
       break;
-    case FAVORITE_TYPE.COURSE:
+    case PROFILE_ENTRY_TYPE.COURSE:
       definitionData = {
         student,
         course: slug,
       };
       break;
-    case FAVORITE_TYPE.INTEREST:
+    case PROFILE_ENTRY_TYPE.INTEREST:
       definitionData = {
         username: student,
         interest: slug,
       };
       break;
-    case FAVORITE_TYPE.OPPORTUNITY:
+    case PROFILE_ENTRY_TYPE.OPPORTUNITY:
       definitionData = {
         student,
         opportunity: slug,
       };
       break;
     default:
-      console.error(`Bad favorite type: ${type}`);
+      console.error(`Bad profile entry type: ${type}`);
       break;
   }
   return definitionData;
 };
 
-export const createInteractionData = (studentID: string, item: ItemType, type: IFavoriteTypes, favorite: boolean): UserInteractionDefine => {
+export const createInteractionData = (studentID: string, item: ItemType, type: IProfileEntryTypes, added: boolean): UserInteractionDefine => {
   const student = getStudent(studentID);
   const slug = getSlug(item.slugID);
   let interactionData: UserInteractionDefine;
-  const interactionType = favorite ? UserInteractionsTypes.FAVORITEITEM : UserInteractionsTypes.UNFAVORITEITEM;
+  const interactionType = added ? UserInteractionsTypes.ADD_TO_PROFILE : UserInteractionsTypes.REMOVE_FROM_PROFILE;
   switch (type) {
-    case FAVORITE_TYPE.CAREERGOAL:
+    case PROFILE_ENTRY_TYPE.CAREERGOAL:
       interactionData = {
         username: student,
         type: interactionType,
         typeData: [type, slug],
       };
       break;
-    case FAVORITE_TYPE.COURSE:
+    case PROFILE_ENTRY_TYPE.COURSE:
       interactionData = {
         username: student,
         type: interactionType,
         typeData: [type, slug],
       };
       break;
-    case FAVORITE_TYPE.INTEREST:
+    case PROFILE_ENTRY_TYPE.INTEREST:
       interactionData = {
         username: student,
         type: interactionType,
         typeData: [type, slug],
       };
       break;
-    case FAVORITE_TYPE.OPPORTUNITY:
+    case PROFILE_ENTRY_TYPE.OPPORTUNITY:
       interactionData = {
         username: student,
         type: interactionType,
@@ -117,7 +117,7 @@ export const createInteractionData = (studentID: string, item: ItemType, type: I
       };
       break;
     default:
-      console.error(`Bad favorite type: ${type}`);
+      console.error(`Bad profile entry type: ${type}`);
       break;
   }
   return interactionData;

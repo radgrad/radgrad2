@@ -14,20 +14,15 @@ import ExplorerInterestWidget from '../../../components/shared/explorer/item-vie
 
 interface InterestViewPageProps {
   courses: Course[];
-  favoriteInterests: Interest[];
-  favoriteCareerGoalInterests: Interest[];
+  profileInterests: Interest[];
   interest: Interest;
   opportunities: Opportunity[];
   profile: Profile;
 }
 
-const InterestViewPage: React.FC<InterestViewPageProps> = ({ courses, favoriteCareerGoalInterests, favoriteInterests, interest, opportunities, profile }) => {
+const InterestViewPage: React.FC<InterestViewPageProps> = ({ courses, profileInterests, interest, opportunities, profile }) => {
   const match = useRouteMatch();
-  const menuAddedList = _.map(favoriteInterests, (item) => ({
-    item,
-    count: 1,
-  }));
-  const menuCareerList = _.map(favoriteCareerGoalInterests, (item) => ({
+  const menuAddedList = _.map(profileInterests, (item) => ({
     item,
     count: 1,
   }));
@@ -39,7 +34,7 @@ const InterestViewPage: React.FC<InterestViewPageProps> = ({ courses, favoriteCa
         <Grid stackable>
           <Grid.Row>
             <Grid.Column width={3}>
-              <ExplorerMenu menuAddedList={menuAddedList} type="interests" menuCareerList={menuCareerList} />
+              <ExplorerMenu menuAddedList={menuAddedList} type="interests" />
             </Grid.Column>
             <Grid.Column width={13}>
               <ExplorerInterestWidget profile={profile} interest={interest} opportunities={opportunities} courses={courses} />
@@ -57,13 +52,11 @@ const InterestViewPageContainer = withTracker(() => {
   const profile = Users.getProfile(username);
   const courses = Courses.findNonRetired({});
   const opportunities = Opportunities.findNonRetired({});
-  const allInterests = Users.getInterestIDsByType(profile.userID);
-  const favoriteInterests = _.map(allInterests[0], (id) => Interests.findDoc(id));
-  const favoriteCareerGoalInterests = _.map(allInterests[1], (id) => Interests.findDoc(id));
+  const allInterests = Users.getInterestIDs(profile.userID);
+  const profileInterests = allInterests.map((id) => Interests.findDoc(id));
   return {
     courses,
-    favoriteCareerGoalInterests,
-    favoriteInterests,
+    profileInterests,
     interest: interestDoc,
     opportunities,
     profile,

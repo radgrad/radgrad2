@@ -1,8 +1,9 @@
 import * as fs from 'fs';
 // import * as inquirer from 'inquirer';
 import * as _ from 'lodash';
-import * as moment from 'moment';
+import moment from 'moment';
 import { program } from 'commander';
+import { getCollectionData, getCollectionDocFromSlug } from './data-dump-utils';
 
 interface ICollection {
   name: string;
@@ -16,92 +17,7 @@ interface IDataDump {
 
 const databaseFileDateFormat = 'YYYY-MM-DD-HH-mm-ss';
 
-const convertHelpRouteName = (name: string): string => {
-  switch (name) {
-    case 'Advisor_Student_Configuration_Page':
-      return '/advisor/:username/home';
-    case 'Advisor_Verification_Requests_Pending_Page':
-      return '/advisor/:username/verification-requests';
-    case 'Advisor_Event_Verification_Page':
-      return '/advisor/:username/event-verification';
-    case 'Advisor_Completed_Verifications_Page':
-      return '/advisor/:username/completed-verifications';
-    case 'Advisor_Academic_Plan_Page':
-      return '/advisor/:username/academic-plan';
-    case 'Advisor_Moderation_Page':
-      return '/advisor/:username/moderation';
-    case 'Faculty_Home_Page':
-      return '/faculty/:username/home';
-    case 'Faculty_Manage_Opportunities_Page':
-      return '/faculty/:username/manage-opportunities';
-    case 'Faculty_Explorer_Page':
-      return '/faculty/:username/explorer';
-    case 'Faculty_Explorer_CareerGoals_Page':
-      return '/faculty/:username/explorer/career-goals';
-    case 'Faculty_Explorer_Courses_Page':
-      return '/faculty/:username/explorer/courses';
-    case 'Faculty_Explorer_Plans_Page':
-      return '/faculty/:username/explorer/academic-plans';
-    case 'Faculty_Explorer_Interests_Page':
-      return '/faculty/:username/explorer/interests';
-    case 'Faculty_Explorer_Opportunities_Page':
-      return '/faculty/:username/explorer/opportunities';
-    case 'Faculty_Explorer_Users_Page':
-      return '/faculty/:username/explorer/users';
-    case 'Faculty_Verification_Page':
-      return '/faculty/:username/verification-requests';
-    case 'Mentor_Home_Page':
-      return '/mentor/:username/home';
-    case 'Mentor_Explorer_Page':
-      return '/mentor/:username/explorer';
-    case 'Mentor_Explorer_CareerGoals_Page':
-      return '/mentor/:username/explorer/career-goals';
-    case 'Mentor_Explorer_Courses_Page':
-      return '/mentor/:username/explorer/courses';
-    case 'Mentor_Explorer_Plans_Page':
-      return '/mentor/:username/explorer/academic-plans';
-    case 'Mentor_Explorer_Interests_Page':
-      return '/mentor/:username/explorer/interests';
-    case 'Mentor_Explorer_Opportunities_Page':
-      return '/mentor/:username/explorer/opportunities';
-    case 'Mentor_Explorer_Users_Page':
-      return '/mentor/:username/explorer/users';
-    case 'Mentor_MentorSpace_Page':
-      return '/mentor/:username/mentor-space';
-    case 'Student_Home_Page':
-      return '/student/:username/home';
-    case 'Student_Degree_Planner_Page':
-      return '/student/:username/degree-planner';
-    case 'Student_Home_AboutMe_Page':
-      return '/student/:username/home/about-me';
-    case 'Student_Home_Ice_Page':
-      return '/student/:username/home/ice';
-    case 'Student_Home_Levels_Page':
-      return '/student/:username/home/levels';
-    case 'Student_Ice':
-      return '/student/:username/ice';
-    case 'Student_Explorer_Page':
-      return '/student/:username/explorer';
-    case 'Student_MentorSpace_Page':
-      return '/student/:username/mentor-space';
-    case 'Student_Home_Log_Page':
-      return '/student/:username/home/log';
-    case 'Student_Explorer_CareerGoals_Page':
-      return '/student/:username/explorer/career-goals';
-    case 'Student_Explorer_Courses_Page':
-      return '/student/:username/explorer/courses';
-    case 'Student_Explorer_Plans_Page':
-      return '/student/:username/explorer/academic-plans';
-    case 'Student_Explorer_Interests_Page':
-      return '/student/:username/explorer/interests';
-    case 'Student_Explorer_Opportunities_Page':
-      return '/student/:username/explorer/opportunities';
-    case 'Student_Explorer_Users_Page':
-      return '/student/:username/explorer/users';
-    default:
-      return name;
-  }
-};
+let radGrad1DataDump: IDataDump;
 
 const convertObject = (item) => {
   const result: any = {};
@@ -120,14 +36,17 @@ const convertObject = (item) => {
       case 'number':
         result.num = item[key];
         break;
-      case 'routeName':
-        result[key] = convertHelpRouteName(item[key]);
-        break;
       case 'semester':
         result.academicTerm = item[key];
         break;
       case 'semesters':
         result.academicTerms = item[key];
+        break;
+      case 'favoriteCourses':
+        result.profileCourses = item[key];
+        break;
+      case 'favoriteOpportunities':
+        result.profileOpportunities = item[key];
         break;
       default:
         result[key] = item[key];
@@ -163,11 +82,34 @@ const convertCareerGoal = (goal) => {
   return result;
 };
 
-const convertPictureUrl = (profile) => {
+const convertProfileInterestCareerGoal = (profileInterest) => {
+  const result: any = {};
+  for (const key in profileInterest) { // eslint-disable-line no-restricted-syntax
+    if (key === 'student') {
+      result.username = profileInterest.student;
+    } else {
+      result[key] = profileInterest[key];
+    }
+  }
+  return result;
+};
+
+const convertProfile = (profile, data) => {
   const result: any = {};
   for (const key in profile) { // eslint-disable-line no-restricted-syntax
     if (key === 'picture') {
       result.picture = profile.picture.replace(/http:\/\/res.cloudinary.com/g, 'https://res.cloudinary.com');
+    } else if (key === 'interests') {
+      let interests = profile.interests;
+      const careerGoalCollection = getCollectionData(data, 'CareerGoalCollection');
+      const favoriteCareerGoalCollection = getCollectionData(data, 'FavoriteCareerGoalCollection');
+      const profileFavoriteCareerGoals = _.filter(favoriteCareerGoalCollection, (entry) => entry.username === profile.username);
+      const profileCareerGoalSlugs = profileFavoriteCareerGoals.map((fav) => fav.careerGoal);
+      const profileCareerGoals = profileCareerGoalSlugs.map((slug) => getCollectionDocFromSlug(careerGoalCollection, slug));
+      profileCareerGoals.forEach((careerGoal) => {
+        interests = _.union(interests, careerGoal.interests);
+      });
+      result[key] = _.uniq(interests);
     } else {
       result[key] = profile[key];
     }
@@ -175,9 +117,9 @@ const convertPictureUrl = (profile) => {
   return result;
 };
 
-function processRadGradCollection(collection: ICollection) {
+const processRadGradCollection = (collection: ICollection) => {
   const result: any = {};
-  // console.log(collection.name, collection.contents);
+  // console.log(collection.name/* , collection.contents */);
   if (collection.name === 'SemesterCollection') {
     result.name = 'AcademicTermCollection';
     result.contents = collection.contents;
@@ -187,17 +129,28 @@ function processRadGradCollection(collection: ICollection) {
     result.contents = _.map(collection.contents, convertCareerGoal);
   } else if (collection.name === 'StudentProfileCollection' || collection.name === 'AdvisorProfileCollection' || collection.name === 'FacultyProfileCollection') {
     result.name = collection.name;
-    result.contents = _.map(collection.contents, convertPictureUrl);
+    result.contents = _.map(collection.contents, (profile) => convertProfile(profile, radGrad1DataDump));
+  } else if (collection.name === 'FavoriteCareerGoalCollection') {
+    result.name = 'ProfileCareerGoalCollection';
+    result.contents = collection.contents.map(convertProfileInterestCareerGoal);
+  } else if (collection.name === 'FavoriteCourseCollection') {
+    result.name = 'ProfileCourseCollection';
+    result.contents = collection.contents.map(convertObject);
+  } else if (collection.name === 'FavoriteInterestCollection') {
+    result.name = 'ProfileInterestCollection';
+    result.contents = collection.contents.map(convertProfileInterestCareerGoal);
+  } else if (collection.name === 'FavoriteOpportunityCollection') {
+    result.name = 'ProfileOpportunityCollection';
+    result.contents = collection.contents.map(convertObject);
   } else {
     result.name = collection.name;
     result.contents = _.map(collection.contents, convertObject);
   }
-  // console.log(result.name, result.contents);
+  // console.log(result.name/* , result.contents */);
   return result;
-}
+};
 
-const reinitializedCollections = ['FavoriteCareerGoalCollection',
-  'FavoriteInterestCollection'];
+const reinitializedCollections = [];
 
 const addedCollections = ['AdminProfileCollection', 'PageInterestCollection', 'PageInterestsDailySnapshotCollection', 'UserInteractionCollection'].concat(reinitializedCollections);
 
@@ -215,7 +168,7 @@ const addMissingCollections = (result) => {
 const deletedCollections = ['DesiredDegreeCollection', 'MentorAnswerCollection', 'MentorProfileCollection', 'MentorQuestionCollection', 'UserInteractionCollection', 'AcademicPlanCollection',
   'FavoriteAcademicPlanCollection', 'PlanChoiceCollection', 'AdvisorLogCollection', 'HelpMessageCollection', 'PageInterestCollection', 'PageInterestsDailySnapshotCollection'].concat(reinitializedCollections);
 
-function processRadGradCollections(data: IDataDump) {
+const processRadGradCollections = (data: IDataDump) => {
   const result: any = {};
   result.timestamp = moment().format(databaseFileDateFormat);
   result.collections = [];
@@ -226,7 +179,7 @@ function processRadGradCollections(data: IDataDump) {
   });
   addMissingCollections(result);
   return result;
-}
+};
 
 const compareEntries = (entry1, entry2) => {
   if (entry1.name < entry2.name) {
@@ -240,8 +193,8 @@ const compareEntries = (entry1, entry2) => {
 
 async function convertDump(radgrad1DumpFile, outFileName) {
   const data = fs.readFileSync(radgrad1DumpFile);
-  const radgrad1: IDataDump = JSON.parse(data.toString());
-  const radgrad2 = processRadGradCollections(radgrad1);
+  radGrad1DataDump = JSON.parse(data.toString());
+  const radgrad2 = processRadGradCollections(radGrad1DataDump);
   const data2 = JSON.stringify(radgrad2, null, 2);
   radgrad2.collections.sort((entry1, entry2) => compareEntries(entry1, entry2));
   radgrad2.collections.forEach(entry => console.log(entry.name, entry.contents.length));

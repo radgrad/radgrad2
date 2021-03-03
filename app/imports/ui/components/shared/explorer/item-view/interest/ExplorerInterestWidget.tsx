@@ -8,12 +8,12 @@ import { CourseInstances } from '../../../../../../api/course/CourseInstanceColl
 import { OpportunityInstances } from '../../../../../../api/opportunity/OpportunityInstanceCollection';
 import InterestedProfilesWidget from './InterestedProfilesWidget';
 import InterestedRelatedWidget from './InterestedRelatedWidget';
-import FavoritesButton from '../FavoritesButton';
+import AddToProfileButton from '../AddToProfileButton';
 import * as Router from '../../../utilities/router';
 import { Teasers } from '../../../../../../api/teaser/TeaserCollection';
-import { FAVORITE_TYPE } from '../../../../../../api/favorite/FavoriteTypes';
+import { PROFILE_ENTRY_TYPE } from '../../../../../../api/user/profile-entries/ProfileEntryTypes';
 import TeaserVideo from '../../../TeaserVideo';
-import { FavoriteInterests } from '../../../../../../api/favorite/FavoriteInterestCollection';
+import { ProfileInterests } from '../../../../../../api/user/profile-entries/ProfileInterestCollection';
 
 interface ExplorerInterestsWidgetProps {
   profile: Profile;
@@ -97,14 +97,14 @@ const ExplorerInterestWidget: React.FC<ExplorerInterestsWidgetProps> = ({ profil
   const teaser = Teasers.findNonRetired({ targetSlugID: interest.slugID });
   const hasTeaser = teaser.length > 0;
   const match = useRouteMatch();
-  const added = FavoriteInterests.findNonRetired({ userID: profile.userID, interestID }).length > 0;
+  const added = ProfileInterests.findNonRetired({ userID: profile.userID, interestID }).length > 0;
   return (
     <div id="explorerInterestWidget">
       <SegmentGroup>
         <Segment>
           <Header>
             {interest.name}
-            <FavoritesButton type={FAVORITE_TYPE.INTEREST} studentID={profile.userID} item={interest} added={added} />
+            <AddToProfileButton type={PROFILE_ENTRY_TYPE.INTEREST} studentID={profile.userID} item={interest} added={added} />
           </Header>
           <Divider />
           {hasTeaser ? (

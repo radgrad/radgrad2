@@ -17,7 +17,7 @@ import { degreePlannerActions } from '../../../../redux/student/degree-planner';
 interface DePProps {
   selectCourseInstance: (courseInstanceID: string) => any;
   selectOpportunityInstance: (opportunityInstanceID: string) => any;
-  selectFavoriteDetailsTab: () => any;
+  selectProfileDetailsTab: () => any;
   academicYearInstances: AcademicYearInstance[];
   courseInstances: CourseInstance[];
   opportunityInstances: OpportunityInstance[];
@@ -26,10 +26,10 @@ interface DePProps {
 const mapDispatchToProps = (dispatch) => ({
   selectCourseInstance: (courseInstanceID) => dispatch(degreePlannerActions.selectCourseInstance(courseInstanceID)),
   selectOpportunityInstance: (opportunityInstanceID) => dispatch(degreePlannerActions.selectOpportunityInstance(opportunityInstanceID)),
-  selectFavoriteDetailsTab: () => dispatch(degreePlannerActions.selectFavoriteDetailsTab()),
+  selectProfileDetailsTab: () => dispatch(degreePlannerActions.selectProfileDetailsTab()),
 });
 
-const DEPWidget: React.FC<DePProps> = ({ selectCourseInstance, selectOpportunityInstance, selectFavoriteDetailsTab, academicYearInstances, courseInstances, opportunityInstances }) => {
+const DEPWidget: React.FC<DePProps> = ({ selectCourseInstance, selectOpportunityInstance, selectProfileDetailsTab, academicYearInstances, courseInstances, opportunityInstances }) => {
   const { username } = useParams();
   const studentID = Users.getID(username);
 
@@ -68,13 +68,13 @@ const DEPWidget: React.FC<DePProps> = ({ selectCourseInstance, selectOpportunity
   const handleClickCourseInstance = (event, { value }) => {
     event.preventDefault();
     selectCourseInstance(value);
-    selectFavoriteDetailsTab();
+    selectProfileDetailsTab();
   };
 
   const handleClickOpportunityInstance = (event, { value }) => {
     event.preventDefault();
     selectOpportunityInstance(value);
-    selectFavoriteDetailsTab();
+    selectProfileDetailsTab();
   };
 
   const handleClickPrevYear = (event) => {

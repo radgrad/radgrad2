@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as _ from 'lodash';
-import * as moment from 'moment';
+import moment from 'moment';
 import { program } from 'commander';
 
 let radgradDump;
@@ -284,7 +284,6 @@ const sessionInformationBetween = (startStr, endStr) => {
   retVal.averageSessionTime = sessionTime / sessions;
   return retVal;
 };
-
 
 const pageViewsBetween = (startStr, endStr) => {
   const pageViews = getInteractionsByTypeBetween('pageView', startStr, endStr);

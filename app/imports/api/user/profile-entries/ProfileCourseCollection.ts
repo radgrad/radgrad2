@@ -2,20 +2,20 @@ import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import _ from 'lodash';
 import { ReactiveAggregate } from 'meteor/jcbernack:reactive-aggregate';
-import BaseCollection from '../base/BaseCollection';
-import { Courses } from '../course/CourseCollection';
-import { Users } from '../user/UserCollection';
-import { ROLE } from '../role/Role';
-import { FavoriteCourseDefine, FavoriteUpdate } from '../../typings/radgrad';
+import BaseCollection from '../../base/BaseCollection';
+import { Courses } from '../../course/CourseCollection';
+import { Users } from '../UserCollection';
+import { ROLE } from '../../role/Role';
+import { ProfileCourseDefine, ProfileEntryUpdate } from '../../../typings/radgrad';
 
-class FavoriteCourseCollection extends BaseCollection {
+class ProfileCourseCollection extends BaseCollection {
   public readonly publicationNames: {
     scoreboard: string;
   };
 
-  /** Creates the FavoriteCourse collection */
+  /** Creates the ProfileCourse collection */
   constructor() {
-    super('FavoriteCourse', new SimpleSchema({
+    super('ProfileCourse', new SimpleSchema({
       courseID: SimpleSchema.RegEx.Id,
       studentID: SimpleSchema.RegEx.Id,
       retired: { type: Boolean, optional: true },
@@ -26,7 +26,7 @@ class FavoriteCourseCollection extends BaseCollection {
   }
 
   /**
-   * Defines a new FavoriteCourse.
+   * Defines a new ProfileCourse.
    * @param course the course slug.
    * @param student the student's username.
    * @param retired the retired status.
@@ -44,12 +44,12 @@ class FavoriteCourseCollection extends BaseCollection {
 
   /**
    * Updates the retired status.
-   * @param docID the ID of the FavoriteCourse.
+   * @param docID the ID of the ProfileCourse.
    * @param retired the new retired value.
    */
   update(docID, { retired }) {
     this.assertDefined(docID);
-    const updateData: FavoriteUpdate = {};
+    const updateData: ProfileEntryUpdate = {};
     if (_.isBoolean(retired)) {
       updateData.retired = retired;
     }
@@ -57,8 +57,8 @@ class FavoriteCourseCollection extends BaseCollection {
   }
 
   /**
-   * Remove the FavoriteCourse.
-   * @param docID The docID of the FavoriteCourse.
+   * Remove the ProfileCourse.
+   * @param docID The docID of the ProfileCourse.
    */
   removeIt(docID) {
     this.assertDefined(docID);
@@ -67,7 +67,7 @@ class FavoriteCourseCollection extends BaseCollection {
   }
 
   /**
-   * Removes all the FavoriteCourses for the user.
+   * Removes all the ProfileCourses for the user.
    * @param user the username.
    */
   removeUser(user) {
@@ -76,8 +76,8 @@ class FavoriteCourseCollection extends BaseCollection {
   }
 
   /**
-   * Publish CourseFavorites. If logged in as ADMIN get all, otherwise only get the CourseFavorites for the studentID.
-   * Also publishes the CourseFavorites scoreboard.
+   * Publish ProfileCourses. If logged in as ADMIN get all, otherwise only get the ProfileCourses for the studentID.
+   * Also publishes the ProfileCourses scoreboard.
    */
   publish() {
     if (Meteor.isServer) {
@@ -101,7 +101,7 @@ class FavoriteCourseCollection extends BaseCollection {
             },
           },
           { $project: { count: 1, courseID: 1 } },
-        ], { clientCollection: 'CourseFavoritesScoreboard' });
+        ], { clientCollection: 'ProfileCourseScoreboard' });
       });
     }
   }
@@ -118,7 +118,7 @@ class FavoriteCourseCollection extends BaseCollection {
   }
 
   /**
-   * Returns the Course associated with the FavoriteCourse with the given instanceID.
+   * Returns the Course associated with the ProfileCourse with the given instanceID.
    * @param instanceID The id of the CourseInstance.
    * @returns {Object} The associated Course.
    * @throws {Meteor.Error} If instanceID is not a valid ID.
@@ -130,8 +130,8 @@ class FavoriteCourseCollection extends BaseCollection {
   }
 
   /**
-   * Returns the Course slug for the favorite's corresponding Course.
-   * @param instanceID The FavoriteCourse ID.
+   * Returns the Course slug for the profile's corresponding Course.
+   * @param instanceID The ProfileCourse ID.
    * @return {string} The course slug.
    */
   getCourseSlug(instanceID) {
@@ -141,8 +141,8 @@ class FavoriteCourseCollection extends BaseCollection {
   }
 
   /**
-   * Returns the Student profile associated with the FavoriteCourse with the given instanceID.
-   * @param instanceID The ID of the FavoriteCourse.
+   * Returns the Student profile associated with the ProfileCourse with the given instanceID.
+   * @param instanceID The ID of the ProfileCourse.
    * @returns {Object} The associated Student profile.
    * @throws {Meteor.Error} If instanceID is not a valid ID.
    */
@@ -154,7 +154,7 @@ class FavoriteCourseCollection extends BaseCollection {
 
   /**
    * Returns the username associated with the studentID.
-   * @param instanceID the FavoriteCourse id.
+   * @param instanceID the ProfileCourse id.
    * @returns {*}
    */
   getStudentUsername(instanceID) {
@@ -184,11 +184,11 @@ class FavoriteCourseCollection extends BaseCollection {
   }
 
   /**
-   * Returns an object representing the FavoriteCourse docID in a format acceptable to define().
-   * @param docID The docID of a FavoriteCourse.
+   * Returns an object representing the ProfileCourse docID in a format acceptable to define().
+   * @param docID The docID of a ProfileCourse.
    * @returns { Object } An object representing the definition of docID.
    */
-  dumpOne(docID): FavoriteCourseDefine {
+  dumpOne(docID): ProfileCourseDefine {
     const doc = this.findDoc(docID);
     const course = Courses.findSlugByID(doc.courseID);
     const student = Users.getProfile(doc.studentID).username;
@@ -198,4 +198,4 @@ class FavoriteCourseCollection extends BaseCollection {
 
 }
 
-export const FavoriteCourses = new FavoriteCourseCollection();
+export const ProfileCourses = new ProfileCourseCollection();

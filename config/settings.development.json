@@ -1,6 +1,6 @@
 {
   "cas": { "baseUrl": "https://cas-test.its.hawaii.edu/cas/", "autoClose": true },
-  "databaseRestoreFileName": "database/snapshot/2020-01-24-11-37-22.json",
+  "databaseRestoreFileName": "database/snapshot/2021-02-27-09-22-37.json",
   "termsAndConditionsFileName": "terms-and-conditions/terms-and-conditions.ics.md",
   "env": { "MAIL_URL": "smtps://changeme:changeme@smtp.mailgun.org:465" },
 

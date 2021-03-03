@@ -15,17 +15,8 @@ class MatchingInterestsClass {
    * @returns {Interest[]}
    */
   private matchingInterests(ids1: string[], ids2: string[]): Interest[] {
-    const matching = [];
-    const interests1 = _.map(ids1, (id) => Interests.findDoc(id));
-    const interests2 = _.map(ids2, (id) => Interests.findDoc(id));
-    _.forEach(interests1, (interest1) => {
-      _.forEach(interests2, (interest2) => {
-        if (_.isEqual(interest1, interest2)) {
-          matching.push(interest2);
-        }
-      });
-    });
-    return matching;
+    const matchingIDs = _.intersection(ids1, ids2);
+    return matchingIDs.map((id) => Interests.findDoc(id));
   }
 
   /**
@@ -35,19 +26,7 @@ class MatchingInterestsClass {
    * @returns {Interest[]}
    */
   public matchingUserInterests(username: string, item: HasInterests) {
-    // console.log(username, Users.getInterestIDsByType(username), item);
-    const userInterestIDs = Users.getInterestIDsByType(username)[0];
-    return this.matchingInterests(userInterestIDs, item.interestIDs);
-  }
-
-  /**
-   * Returns the matching CareerGoal interests for username and item.
-   * @param {string} username the name of the user.
-   * @param {HasInterests} item the item with interestIDs.
-   * @returns {Interest[]}
-   */
-  public matchingCareerGoalInterests(username: string, item: HasInterests) {
-    const userInterestIDs = Users.getInterestIDsByType(username)[1];
+    const userInterestIDs = Users.getInterestIDs(username);
     return this.matchingInterests(userInterestIDs, item.interestIDs);
   }
 

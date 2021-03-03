@@ -20,7 +20,7 @@ interface ProfileCardProps {
   type: string;
 }
 
-// TODO Why is this called ProfileCard? We used to store information about interests, career goals and academic plans in the Profile. We've moved them to Favorites.
+// TODO Why is this called ProfileCard? We used to store information about interests, career goals and academic plans in the Profile. We've moved them to the Profile*Collections.
 
 const ProfileCard: React.FC<ProfileCardProps> = ({ item, type }) => {
   const match = useRouteMatch();

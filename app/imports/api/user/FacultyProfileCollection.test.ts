@@ -6,8 +6,8 @@ import { removeAllEntities } from '../base/BaseUtilities';
 import { FacultyProfiles } from './FacultyProfileCollection';
 import { makeSampleInterestArray, makeSampleInterestSlugArray } from '../interest/SampleInterests';
 import { makeSampleCareerGoalSlugArray } from '../career/SampleCareerGoals';
-import { FavoriteInterests } from '../favorite/FavoriteInterestCollection';
-import { FavoriteCareerGoals } from '../favorite/FavoriteCareerGoalCollection';
+import { ProfileInterests } from './profile-entries/ProfileInterestCollection';
+import { ProfileCareerGoals } from './profile-entries/ProfileCareerGoalCollection';
 
 /* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
 /* eslint-env mocha */
@@ -29,12 +29,12 @@ if (Meteor.isServer) {
           const careerGoals = makeSampleCareerGoalSlugArray();
           const docID = FacultyProfiles.define({ username, firstName, lastName, picture, website, interests, careerGoals });
           expect(FacultyProfiles.isDefined(docID)).to.be.true;
-          expect(FavoriteInterests.count()).to.equal(interests.length);
-          expect(FavoriteCareerGoals.count()).to.equal(careerGoals.length);
+          expect(ProfileInterests.count()).to.equal(interests.length);
+          expect(ProfileCareerGoals.count()).to.equal(careerGoals.length);
           FacultyProfiles.removeIt(docID);
           expect(FacultyProfiles.isDefined(docID)).to.be.false;
-          expect(FavoriteInterests.count()).to.equal(0);
-          expect(FavoriteCareerGoals.count()).to.equal(0);
+          expect(ProfileInterests.count()).to.equal(0);
+          expect(ProfileCareerGoals.count()).to.equal(0);
         }),
       );
       done();
@@ -67,8 +67,8 @@ if (Meteor.isServer) {
           expect(doc.lastName).to.equal(lastName);
           expect(doc.picture).to.equal(picture);
           expect(doc.website).to.equal(website);
-          expect(FavoriteInterests.count()).to.equal(interests.length);
-          expect(FavoriteCareerGoals.count()).to.equal(careerGoals.length);
+          expect(ProfileInterests.count()).to.equal(interests.length);
+          expect(ProfileCareerGoals.count()).to.equal(careerGoals.length);
         }),
       );
       done();
@@ -80,8 +80,8 @@ if (Meteor.isServer) {
       const dumpObject = FacultyProfiles.dumpOne(docID);
       FacultyProfiles.removeIt(docID);
       expect(FacultyProfiles.isDefined(docID)).to.be.false;
-      expect(FavoriteInterests.count()).to.equal(0);
-      expect(FavoriteCareerGoals.count()).to.equal(0);
+      expect(ProfileInterests.count()).to.equal(0);
+      expect(ProfileCareerGoals.count()).to.equal(0);
       docID = FacultyProfiles.restoreOne(dumpObject);
       expect(FacultyProfiles.isDefined(docID)).to.be.true;
       const doc = FacultyProfiles.findDoc(docID);

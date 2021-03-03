@@ -4,30 +4,30 @@ import { Link, useRouteMatch } from 'react-router-dom';
 import _ from 'lodash';
 import { Course, CourseInstance } from '../../../../typings/radgrad';
 import * as Router from '../../shared/utilities/router';
-import FavoriteCourseCard from './FavoriteCourseCard';
+import ProfileCourseCard from './ProfileCourseCard';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 
-interface FavoriteCoursesWidgetProps {
+interface ProfileCoursesProps {
   studentID: string;
   courses: Course[];
   courseInstances: CourseInstance[];
 }
 
-const FavoriteCoursesWidget: React.FC<FavoriteCoursesWidgetProps> = ({ studentID, courses, courseInstances }) => {
+const ProfileCourses: React.FC<ProfileCoursesProps> = ({ studentID, courses, courseInstances }) => {
   const match = useRouteMatch();
-  const hasFavorites = courses.length > 0;
+  const hasProfileEntries = courses.length > 0;
   return (
     <div>
-      {hasFavorites ? (
+      {hasProfileEntries ? (
         <Card.Group itemsPerRow={1}>
           {_.map(courses, (c) => (
-            <FavoriteCourseCard key={c._id} course={c} studentID={studentID} courseInstances={courseInstances} />
+            <ProfileCourseCard key={c._id} course={c} studentID={studentID} courseInstances={courseInstances} />
           ))}
         </Card.Group>
       ) : (
         <Message>
-          <Message.Header>No Favorite Courses</Message.Header>
-          <p>You can favorite courses in the explorer.</p>
+          <Message.Header>No Profile Courses</Message.Header>
+          <p>You can add courses to your profile in the explorer.</p>
           <Link to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}`)}>
             View in Explorer <Icon name="arrow right" />
           </Link>
@@ -37,4 +37,4 @@ const FavoriteCoursesWidget: React.FC<FavoriteCoursesWidgetProps> = ({ studentID
   );
 };
 
-export default FavoriteCoursesWidget;
+export default ProfileCourses;

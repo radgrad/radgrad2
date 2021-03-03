@@ -15,8 +15,8 @@ export enum StudentSummaryBehaviorTypes {
   LEVEL = 'Level Up',
   COMPLETEPLAN = 'Complete Plan',
   PROFILE = 'Profile',
-  FAVORITE = 'Favorite Item',
-  UNFAVORITE = 'Unfavorite Item',
+  ADD_TO_PROFILE = 'Add Item to Profile',
+  REMOVE_FROM_PROFILE = 'Remove Item from Profile',
   LOGOUT = 'Log Out',
 }
 
@@ -30,7 +30,7 @@ export const behaviorCategories: StudentSummaryBehaviorCategory[] = [
   { type: 'Level Up', count: 0, users: [], description: 'Leveled up' },
   { type: 'Complete Plan', count: 0, users: [], description: 'Created a plan with 100 ICE' },
   { type: 'Profile', count: 0, users: [], description: 'Updated profile picture or website URL' },
-  { type: 'Favorite Item', count: 0, users: [], description: 'Favorited an item' },
-  { type: 'Unfavorite Item', count: 0, users: [], description: 'Unfavorited an item' },
+  { type: 'Add Item to Profile', count: 0, users: [], description: 'Added an item to their profile' },
+  { type: 'Remove Item from Profile', count: 0, users: [], description: 'Removed an item from their profile' },
   { type: 'Log Out', count: 0, users: [], description: 'Logged out' },
 ];

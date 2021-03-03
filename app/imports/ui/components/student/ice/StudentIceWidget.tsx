@@ -1,6 +1,6 @@
 import React from 'react';
 import { Segment, Grid, Header } from 'semantic-ui-react';
-import { Ice, CourseInstance, FavoriteInterest, OpportunityInstance } from '../../../../typings/radgrad';
+import { Ice, CourseInstance, ProfileInterest, OpportunityInstance } from '../../../../typings/radgrad';
 import StudentIceColumn from './StudentIceColumn';
 import PageIceCircle from './PageIceCircle';
 
@@ -12,12 +12,12 @@ import PageIceCircle from './PageIceCircle';
 export interface StudentIceWidgetProps {
   earnedICE: Ice;
   projectedICE: Ice;
-  favoriteInterests: FavoriteInterest[];
+  profileInterests: ProfileInterest[];
   courseInstances: CourseInstance[];
   opportunityInstances: OpportunityInstance[];
 }
 
-const StudentIceWidget: React.FC<StudentIceWidgetProps> = ({ earnedICE, projectedICE, favoriteInterests, courseInstances, opportunityInstances }) => {
+const StudentIceWidget: React.FC<StudentIceWidgetProps> = ({ earnedICE, projectedICE, profileInterests, courseInstances, opportunityInstances }) => {
   const innovationColumnStyle: React.CSSProperties = { paddingLeft: 0 };
   const experienceColumnStyle: React.CSSProperties = { paddingRight: 0 };
 
@@ -36,7 +36,7 @@ const StudentIceWidget: React.FC<StudentIceWidgetProps> = ({ earnedICE, projecte
                 <Header as="h3" textAlign="center" className="ice-innovation-color">
                   INNOVATION
                 </Header>
-                <StudentIceColumn type="Innovation" favoriteInterests={favoriteInterests} courseInstances={courseInstances} opportunityInstances={opportunityInstances} earnedICE={earnedICE} projectedICE={projectedICE} />
+                <StudentIceColumn type="Innovation" profileInterests={profileInterests} courseInstances={courseInstances} opportunityInstances={opportunityInstances} earnedICE={earnedICE} projectedICE={projectedICE} />
                 <div style={styleInfo}>
                   You earn innovation points by completing opportunities that involve &#8220; innovation &#8220;, such as <strong>research projects, hackathons,</strong> or{' '}
                   <strong>other activities producing new insights or technologies.</strong>
@@ -50,7 +50,7 @@ const StudentIceWidget: React.FC<StudentIceWidgetProps> = ({ earnedICE, projecte
                 <Header as="h3" textAlign="center" className="ice-competency-color">
                   COMPETENCY
                 </Header>
-                <StudentIceColumn type="Competency" favoriteInterests={favoriteInterests} courseInstances={courseInstances} opportunityInstances={opportunityInstances} earnedICE={earnedICE} projectedICE={projectedICE} />
+                <StudentIceColumn type="Competency" profileInterests={profileInterests} courseInstances={courseInstances} opportunityInstances={opportunityInstances} earnedICE={earnedICE} projectedICE={projectedICE} />
                 <div style={styleInfo}>
                   You earn competency points by completing classes. The number of competency points depends upon your grade: you get <strong>10 points for any kind of A, 6 points for any kind of B, and no points for a C or below</strong>.
                 </div>
@@ -63,7 +63,7 @@ const StudentIceWidget: React.FC<StudentIceWidgetProps> = ({ earnedICE, projecte
                 <Header as="h3" textAlign="center" className="ice-experience-color">
                   Experience
                 </Header>
-                <StudentIceColumn type="Experience" favoriteInterests={favoriteInterests} courseInstances={courseInstances} opportunityInstances={opportunityInstances} earnedICE={earnedICE} projectedICE={projectedICE} />
+                <StudentIceColumn type="Experience" profileInterests={profileInterests} courseInstances={courseInstances} opportunityInstances={opportunityInstances} earnedICE={earnedICE} projectedICE={projectedICE} />
                 <div style={styleInfo}>
                   You earn experience points by completing opportunities that provide &#8220;real world experience&#8220;, such as <strong>internships</strong> or <strong>business plan competitions</strong>.
                 </div>

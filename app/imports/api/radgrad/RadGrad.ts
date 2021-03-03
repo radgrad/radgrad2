@@ -24,10 +24,10 @@ import { StudentProfiles } from '../user/StudentProfileCollection';
 import { Teasers } from '../teaser/TeaserCollection';
 import { UserInteractions } from '../analytic/UserInteractionCollection';
 import { VerificationRequests } from '../verification/VerificationRequestCollection';
-import { FavoriteCareerGoals } from '../favorite/FavoriteCareerGoalCollection';
-import { FavoriteCourses } from '../favorite/FavoriteCourseCollection';
-import { FavoriteInterests } from '../favorite/FavoriteInterestCollection';
-import { FavoriteOpportunities } from '../favorite/FavoriteOpportunityCollection';
+import { ProfileCareerGoals } from '../user/profile-entries/ProfileCareerGoalCollection';
+import { ProfileCourses } from '../user/profile-entries/ProfileCourseCollection';
+import { ProfileInterests } from '../user/profile-entries/ProfileInterestCollection';
+import { ProfileOpportunities } from '../user/profile-entries/ProfileOpportunityCollection';
 
 /**
  * @memberOf api/radgrad
@@ -55,10 +55,10 @@ class RadGradClass {
       Courses,
       CourseInstances,
       FacultyProfiles,
-      FavoriteCareerGoals,
-      FavoriteCourses,
-      FavoriteInterests,
-      FavoriteOpportunities,
+      ProfileCareerGoals,
+      ProfileCourses,
+      ProfileInterests,
+      ProfileOpportunities,
       Feeds,
       FeedbackInstances,
       IceSnapshots,
@@ -105,10 +105,10 @@ class RadGradClass {
       IceSnapshots,
       UserInteractions,
       Reviews,
-      FavoriteCareerGoals,
-      FavoriteCourses,
-      FavoriteInterests,
-      FavoriteOpportunities,
+      ProfileCareerGoals,
+      ProfileCourses,
+      ProfileInterests,
+      ProfileOpportunities,
     ];
 
     /**

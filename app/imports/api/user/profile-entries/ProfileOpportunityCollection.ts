@@ -2,20 +2,20 @@ import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import _ from 'lodash';
 import { ReactiveAggregate } from 'meteor/jcbernack:reactive-aggregate';
-import BaseCollection from '../base/BaseCollection';
-import { Users } from '../user/UserCollection';
-import { ROLE } from '../role/Role';
-import { Opportunities } from '../opportunity/OpportunityCollection';
-import { FavoriteOpportunityDefine, FavoriteUpdate } from '../../typings/radgrad';
+import BaseCollection from '../../base/BaseCollection';
+import { Users } from '../UserCollection';
+import { ROLE } from '../../role/Role';
+import { Opportunities } from '../../opportunity/OpportunityCollection';
+import { ProfileOpportunityDefine, ProfileEntryUpdate } from '../../../typings/radgrad';
 
-class FavoriteOpportunityCollection extends BaseCollection {
+class ProfileOpportunityCollection extends BaseCollection {
   public readonly publicationNames: {
     scoreboard: string;
   };
 
-  /** Creates the FavoriteOpportunity collection */
+  /** Creates the ProfileOpportunity collection */
   constructor() {
-    super('FavoriteOpportunity', new SimpleSchema({
+    super('ProfileOpportunity', new SimpleSchema({
       opportunityID: SimpleSchema.RegEx.Id,
       studentID: SimpleSchema.RegEx.Id,
       retired: { type: Boolean, optional: true },
@@ -26,7 +26,7 @@ class FavoriteOpportunityCollection extends BaseCollection {
   }
 
   /**
-   * Defines a new FavoriteOpportunity.
+   * Defines a new ProfileOpportunity.
    * @param opportunity the opportunity slug.
    * @param student the student's username.
    * @param retired the retired status.
@@ -44,12 +44,12 @@ class FavoriteOpportunityCollection extends BaseCollection {
 
   /**
    * Updates the retired status.
-   * @param docID the ID of the FavoriteOpportunity.
+   * @param docID the ID of the ProfileOpportunity.
    * @param retired the new retired value.
    */
   update(docID, { retired }) {
     this.assertDefined(docID);
-    const updateData: FavoriteUpdate = {};
+    const updateData: ProfileEntryUpdate = {};
     if (_.isBoolean(retired)) {
       updateData.retired = retired;
     }
@@ -57,8 +57,8 @@ class FavoriteOpportunityCollection extends BaseCollection {
   }
 
   /**
-   * Remove the FavoriteOpportunity.
-   * @param docID The docID of the FavoriteOpportunity.
+   * Remove the ProfileOpportunity.
+   * @param docID The docID of the ProfileOpportunity.
    */
   removeIt(docID) {
     this.assertDefined(docID);
@@ -67,7 +67,7 @@ class FavoriteOpportunityCollection extends BaseCollection {
   }
 
   /**
-   * Removes all the FavoriteOpportunities for the user.
+   * Removes all the ProfileOpportunities for the user.
    * @param user the username.
    */
   removeUser(user) {
@@ -76,9 +76,9 @@ class FavoriteOpportunityCollection extends BaseCollection {
   }
 
   /**
-   * Publish OpportunityFavorites. If logged in as ADMIN get all, otherwise only get the OpportunityFavorites for the
+   * Publish ProfileOpportunities. If logged in as ADMIN get all, otherwise only get the ProfileOpportunities for the
    * studentID.
-   * Also publishes the OpportunityFavorites scoreboard.
+   * Also publishes the ProfileOpportunities scoreboard.
    */
   publish() {
     if (Meteor.isServer) {
@@ -102,7 +102,7 @@ class FavoriteOpportunityCollection extends BaseCollection {
             },
           },
           { $project: { count: 1, opportunityID: 1 } },
-        ], { clientCollection: 'OpportunityFavoritesScoreboard' });
+        ], { clientCollection: 'ProfileOpportunitiesScoreboard' });
       });
     }
   }
@@ -119,7 +119,7 @@ class FavoriteOpportunityCollection extends BaseCollection {
   }
 
   /**
-   * Returns the Opportunity associated with the FavoriteOpportunity with the given instanceID.
+   * Returns the Opportunity associated with the ProfileOpportunity with the given instanceID.
    * @param instanceID The id of the OpportunityInstance.
    * @returns {Object} The associated Opportunity.
    * @throws {Meteor.Error} If instanceID is not a valid ID.
@@ -131,8 +131,8 @@ class FavoriteOpportunityCollection extends BaseCollection {
   }
 
   /**
-   * Returns the Opportunity slug for the favorite's corresponding Opportunity.
-   * @param instanceID The FavoriteOpportunity ID.
+   * Returns the Opportunity slug for the profile's corresponding Opportunity.
+   * @param instanceID The ProfileOpportunity ID.
    * @return {string} The opportunity slug.
    */
   getOpportunitySlug(instanceID) {
@@ -142,8 +142,8 @@ class FavoriteOpportunityCollection extends BaseCollection {
   }
 
   /**
-   * Returns the Student profile associated with the FavoriteOpportunity with the given instanceID.
-   * @param instanceID The ID of the FavoriteOpportunity.
+   * Returns the Student profile associated with the ProfileOpportunity with the given instanceID.
+   * @param instanceID The ID of the ProfileOpportunity.
    * @returns {Object} The associated Student profile.
    * @throws {Meteor.Error} If instanceID is not a valid ID.
    */
@@ -155,7 +155,7 @@ class FavoriteOpportunityCollection extends BaseCollection {
 
   /**
    * Returns the username associated with the studentID.
-   * @param instanceID the FavoriteOpportunity id.
+   * @param instanceID the ProfileOpportunity id.
    * @returns {*}
    */
   getStudentUsername(instanceID) {
@@ -185,11 +185,11 @@ class FavoriteOpportunityCollection extends BaseCollection {
   }
 
   /**
-   * Returns an object representing the FavoriteOpportunity docID in a format acceptable to define().
-   * @param docID The docID of a FavoriteOpportunity.
+   * Returns an object representing the ProfileOpportunity docID in a format acceptable to define().
+   * @param docID The docID of a ProfileOpportunity.
    * @returns { Object } An object representing the definition of docID.
    */
-  dumpOne(docID): FavoriteOpportunityDefine {
+  dumpOne(docID): ProfileOpportunityDefine {
     const doc = this.findDoc(docID);
     const opportunity = Opportunities.findSlugByID(doc.opportunityID);
     const student = Users.getProfile(doc.studentID).username;
@@ -199,4 +199,4 @@ class FavoriteOpportunityCollection extends BaseCollection {
 
 }
 
-export const FavoriteOpportunities = new FavoriteOpportunityCollection();
+export const ProfileOpportunities = new ProfileOpportunityCollection();

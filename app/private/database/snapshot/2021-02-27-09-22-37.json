@@ -1,5 +1,5 @@
 {
-  "timestamp": "2020-01-24T21:37:22.805Z",
+  "timestamp": "2021-02-27T19:22:37.366Z",
   "collections": [
     {
       "name": "AcademicTermCollection",
@@ -157,7 +157,11 @@
         {
           "username": "radgrad@hawaii.edu",
           "firstName": "RadGrad",
-          "lastName": "Admin"
+          "lastName": "Admin",
+          "picture": "/images/default-profile-picture.png",
+          "interests": [],
+          "careerGoals": [],
+          "retired": false
         }
       ]
     },
@@ -173,7 +177,10 @@
             "application-development",
             "it-management",
             "security",
-            "teaching"
+            "teaching",
+            "research",
+            "databases",
+            "networks"
           ],
           "careerGoals": [
             "graduate-school",
@@ -189,7 +196,10 @@
           "picture": "/images/mockup/cmoore.jpg",
           "interests": [
             "research",
-            "software-engineering"
+            "software-engineering",
+            "application-development",
+            "databases",
+            "networks"
           ],
           "careerGoals": [
             "devops-engineer"
@@ -408,6 +418,18 @@
     {
       "name": "CourseCollection",
       "contents": [
+        {
+          "name": "Introduction to Computer and Network Security",
+          "shortName": "Introduction to Computer and Network Security",
+          "slug": "ee_406",
+          "num": "EE 406",
+          "description": "We will discuss basic computer and network security issues in this course. We will first review basic networking and cryptography concepts, and then study algorithms and protocols used in computer and network security. We will further discuss practical security mechanisms, including Web security, TCP/IP security, firewalls, IPSec, Virtual Private Networks, intrusion detection systems, etc..",
+          "creditHrs": 3,
+          "interests": [],
+          "corequisites": [],
+          "prerequisites": [],
+          "retired": false
+        },
         {
           "name": "Digital Tools for the Information World",
           "shortName": "Digital Tools",
@@ -1699,8 +1721,8 @@
           "num": "ICS 643",
           "description": "Design and analysis of parallel algorithms, with emphasis on advanced techniques and latest advances in parallel algorithms.",
           "creditHrs": 3,
-          "corequisites": [],
           "interests": [],
+          "corequisites": [],
           "prerequisites": [
             "ics_311"
           ],
@@ -2109,18 +2131,6 @@
           "prerequisites": [
             "math_242"
           ],
-          "retired": false
-        },
-        {
-          "name": "Introduction to Computer and Network Security",
-          "shortName": "Introduction to Computer and Network Security",
-          "slug": "ee_406",
-          "num": "EE 406",
-          "description": "We will discuss basic computer and network security issues in this course. We will first review basic networking and cryptography concepts, and then study algorithms and protocols used in computer and network security. We will further discuss practical security mechanisms, including Web security, TCP/IP security, firewalls, IPSec, Virtual Private Networks, intrusion detection systems, etc..",
-          "creditHrs": 3,
-          "interests": [],
-          "corequisites": [],
-          "prerequisites": [],
           "retired": false
         },
         {
@@ -3458,7 +3468,8 @@
           "website": "http://www2.hawaii.edu/~suthers/",
           "interests": [
             "hci",
-            "research"
+            "research",
+            "teaching"
           ],
           "careerGoals": [
             "research-scientist",
@@ -3475,7 +3486,8 @@
           "interests": [
             "civic-engagement",
             "hci",
-            "research"
+            "research",
+            "teaching"
           ],
           "careerGoals": [
             "research-scientist",
@@ -3492,7 +3504,17 @@
             "algorithms",
             "hardware",
             "research",
-            "security"
+            "security",
+            "databases",
+            "networks",
+            "it-management",
+            "computer-architecture",
+            "data-science",
+            "data-visualization",
+            "hci",
+            "robotics",
+            "software-engineering",
+            "application-development"
           ],
           "careerGoals": [
             "graduate-school",
@@ -3528,7 +3550,13 @@
           "interests": [
             "data-science",
             "research",
-            "sustainability"
+            "sustainability",
+            "algorithms",
+            "databases",
+            "machine-learning",
+            "application-development",
+            "software-engineering",
+            "teaching"
           ],
           "careerGoals": [
             "data-scientist",
@@ -3547,7 +3575,14 @@
           "website": "http://www2.hawaii.edu/~leighj/JASON_LEIGH/Jason_Leigh_Home_Page.html",
           "interests": [
             "data-visualization",
-            "research"
+            "research",
+            "teaching",
+            "algorithms",
+            "artificial-intelligence",
+            "cognitive-science",
+            "computer-graphics",
+            "game-design",
+            "virtual-reality"
           ],
           "careerGoals": [
             "graduate-school",
@@ -3568,7 +3603,10 @@
             "computer-vision",
             "data-science",
             "data-visualization",
-            "teaching"
+            "teaching",
+            "databases",
+            "machine-learning",
+            "research"
           ],
           "careerGoals": [
             "data-scientist",
@@ -3586,7 +3624,17 @@
           "website": "http://www2.hawaii.edu/~janst/",
           "interests": [
             "hci",
-            "research"
+            "research",
+            "application-development",
+            "databases",
+            "networks",
+            "software-engineering",
+            "web-development",
+            "android",
+            "mobile",
+            "ios",
+            "entrepreneurship",
+            "teaching"
           ],
           "careerGoals": [
             "devops-engineer",
@@ -3609,7 +3657,13 @@
             "civic-engagement",
             "research",
             "software-engineering",
-            "sustainability"
+            "sustainability",
+            "application-development",
+            "databases",
+            "networks",
+            "web-development",
+            "entrepreneurship",
+            "teaching"
           ],
           "careerGoals": [
             "devops-engineer",
@@ -3649,7 +3703,12 @@
           "website": "http://navet.ics.hawaii.edu/~poisson/BiL/index.html",
           "interests": [
             "bioinformatics",
-            "research"
+            "research",
+            "algorithms",
+            "data-science",
+            "databases",
+            "machine-learning",
+            "teaching"
           ],
           "careerGoals": [
             "data-scientist",
@@ -3667,7 +3726,8 @@
           "interests": [
             "mobile",
             "networks",
-            "research"
+            "research",
+            "hardware"
           ],
           "careerGoals": [
             "graduate-school",
@@ -3684,7 +3744,10 @@
           "website": "dusko.org",
           "interests": [
             "research",
-            "security"
+            "security",
+            "databases",
+            "networks",
+            "teaching"
           ],
           "careerGoals": [
             "graduate-school",
@@ -3702,7 +3765,9 @@
           "interests": [
             "networks",
             "research",
-            "security"
+            "security",
+            "databases",
+            "teaching"
           ],
           "careerGoals": [
             "graduate-school",
@@ -3719,7 +3784,14 @@
           "picture": "/images/people/crosby.jpg",
           "interests": [
             "hci",
-            "research"
+            "research",
+            "algorithms",
+            "data-science",
+            "databases",
+            "machine-learning",
+            "networks",
+            "security",
+            "teaching"
           ],
           "careerGoals": [
             "data-scientist",
@@ -3741,7 +3813,10 @@
             "hci",
             "psychology",
             "research",
-            "teaching"
+            "teaching",
+            "android",
+            "mobile",
+            "ios"
           ],
           "careerGoals": [
             "mobile-app-developer",
@@ -3758,7 +3833,16 @@
           "website": "http://www2.hawaii.edu/~chin/",
           "interests": [
             "artificial-intelligence",
-            "research"
+            "research",
+            "algorithms",
+            "data-science",
+            "databases",
+            "machine-learning",
+            "computer-graphics",
+            "game-design",
+            "unity",
+            "virtual-reality",
+            "teaching"
           ],
           "careerGoals": [
             "data-scientist",
@@ -3772,856 +3856,1833 @@
       ]
     },
     {
-      "name": "FavoriteCareerGoalCollection",
+      "name": "ProfileCareerGoalCollection",
       "contents": [
+        {
+          "careerGoal": "graduate-school",
+          "username": "glau@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "careerGoal": "information-security-analyst",
+          "username": "glau@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "careerGoal": "teacher",
+          "username": "glau@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "careerGoal": "devops-engineer",
+          "username": "cmoore@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "careerGoal": "research-scientist",
+          "username": "sstill@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
         {
           "careerGoal": "research-scientist",
           "username": "sugihara@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "research-scientist",
           "username": "suthers@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "teacher",
           "username": "suthers@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "research-scientist",
           "username": "scottpr@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "teacher",
           "username": "scottpr@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "graduate-school",
           "username": "pseidel@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "information-security-analyst",
           "username": "pseidel@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "information-system-manager",
           "username": "pseidel@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "iot-architect",
           "username": "pseidel@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "robotics-engineer",
           "username": "pseidel@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "software-developer",
           "username": "pseidel@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "research-scientist",
           "username": "nodari@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "graduate-school",
           "username": "nodari@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "data-scientist",
           "username": "lipyeow@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "database-administrator",
           "username": "lipyeow@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "graduate-school",
           "username": "lipyeow@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "research-scientist",
           "username": "lipyeow@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "teacher",
           "username": "lipyeow@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "graduate-school",
           "username": "leighj@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "research-scientist",
           "username": "leighj@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "teacher",
           "username": "leighj@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "vr-ar-engineer",
           "username": "leighj@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "data-scientist",
           "username": "kyungim@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "graduate-school",
           "username": "kyungim@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "research-scientist",
           "username": "kyungim@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "teacher",
           "username": "kyungim@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "devops-engineer",
           "username": "janst@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "full-stack-developer",
           "username": "janst@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "mobile-app-developer",
           "username": "janst@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "research-scientist",
           "username": "janst@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "software-developer",
           "username": "janst@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "startup-cofounder",
           "username": "janst@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "teacher",
           "username": "janst@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "devops-engineer",
           "username": "johnson@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "full-stack-developer",
           "username": "johnson@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "software-developer",
           "username": "johnson@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "startup-cofounder",
           "username": "johnson@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "research-scientist",
           "username": "johnson@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "teacher",
           "username": "johnson@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "graduate-school",
           "username": "henric@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "research-scientist",
           "username": "henric@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "teacher",
           "username": "henric@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "data-scientist",
           "username": "guylaine@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "research-scientist",
           "username": "guylaine@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "teacher",
           "username": "guylaine@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "graduate-school",
           "username": "esb@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "network-engineer",
           "username": "esb@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "research-scientist",
           "username": "esb@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "graduate-school",
           "username": "dusko@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "information-security-analyst",
           "username": "dusko@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "teacher",
           "username": "dusko@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "graduate-school",
           "username": "depengli@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "information-security-analyst",
           "username": "depengli@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "research-scientist",
           "username": "depengli@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "teacher",
           "username": "depengli@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "data-scientist",
           "username": "crosby@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "graduate-school",
           "username": "crosby@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "information-security-analyst",
           "username": "crosby@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "research-scientist",
           "username": "crosby@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "teacher",
           "username": "crosby@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "mobile-app-developer",
           "username": "binsted@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "research-scientist",
           "username": "binsted@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "teacher",
           "username": "binsted@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "data-scientist",
           "username": "chin@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "game-developer",
           "username": "chin@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "graduate-school",
           "username": "chin@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "research-scientist",
           "username": "chin@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "teacher",
           "username": "chin@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "software-developer",
           "username": "abi@hawaii.edu",
+          "share": false,
           "retired": false
         },
         {
           "careerGoal": "database-administrator",
           "username": "abi@hawaii.edu",
+          "share": false,
           "retired": false
         },
         {
           "careerGoal": "iot-architect",
           "username": "abi@hawaii.edu",
+          "share": false,
+          "retired": false
+        },
+        {
+          "careerGoal": "data-scientist",
+          "username": "abi@hawaii.edu",
+          "share": false,
           "retired": false
         },
         {
           "careerGoal": "software-developer",
           "username": "alfred@hawaii.edu",
+          "share": false,
           "retired": false
         },
         {
           "careerGoal": "data-scientist",
           "username": "betty@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "graduate-school",
           "username": "betty@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "data-scientist",
           "username": "charley@hawaii.edu",
+          "share": false,
           "retired": false
         },
         {
           "careerGoal": "full-stack-developer",
           "username": "ella@hawaii.edu",
+          "share": false,
           "retired": false
         },
         {
           "careerGoal": "full-stack-developer",
           "username": "samplestudent@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "research-scientist",
           "username": "samplestudent@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "software-developer",
           "username": "samplestudent@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "startup-cofounder",
           "username": "samplestudent@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "ux-designer",
           "username": "samplestudent@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "full-stack-developer",
           "username": "gcalica@hawaii.edu",
+          "share": false,
           "retired": false
         },
         {
           "careerGoal": "full-stack-developer",
           "username": "mercedez@hawaii.edu",
+          "share": false,
           "retired": false
         },
         {
           "careerGoal": "data-scientist",
           "username": "qauchida@hawaii.edu",
+          "share": false,
           "retired": false
         },
         {
           "careerGoal": "software-developer",
           "username": "qauchida@hawaii.edu",
+          "share": false,
           "retired": false
         },
         {
           "careerGoal": "data-scientist",
           "username": "gbarcelo@hawaii.edu",
-          "retired": false
-        },
-        {
-          "careerGoal": "data-scientist",
-          "username": "abi@hawaii.edu",
+          "share": false,
           "retired": false
         }
       ]
     },
     {
-      "name": "FavoriteCourseCollection",
+      "name": "ProfileCourseCollection",
       "contents": []
     },
     {
-      "name": "FavoriteInterestCollection",
+      "name": "ProfileInterestCollection",
       "contents": [
+        {
+          "interest": "application-development",
+          "username": "glau@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "it-management",
+          "username": "glau@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "security",
+          "username": "glau@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "teaching",
+          "username": "glau@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "research",
+          "username": "cmoore@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "software-engineering",
+          "username": "cmoore@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "machine-learning",
+          "username": "sstill@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
         {
           "interest": "research",
           "username": "sstill@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "research",
           "username": "sugihara@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "robotics",
           "username": "sugihara@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "hci",
           "username": "suthers@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "research",
           "username": "suthers@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "civic-engagement",
           "username": "scottpr@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "hci",
           "username": "scottpr@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "research",
           "username": "scottpr@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "algorithms",
           "username": "pseidel@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "hardware",
           "username": "pseidel@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "research",
           "username": "pseidel@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "security",
           "username": "pseidel@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "algorithms",
           "username": "nodari@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "research",
           "username": "nodari@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "data-science",
           "username": "lipyeow@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "research",
           "username": "lipyeow@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "sustainability",
           "username": "lipyeow@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "data-visualization",
           "username": "leighj@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "research",
           "username": "leighj@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "algorithms",
           "username": "kyungim@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "computer-vision",
           "username": "kyungim@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "data-science",
           "username": "kyungim@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "data-visualization",
           "username": "kyungim@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "teaching",
           "username": "kyungim@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "hci",
           "username": "janst@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "research",
           "username": "janst@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "civic-engagement",
           "username": "johnson@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "research",
           "username": "johnson@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "software-engineering",
           "username": "johnson@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "sustainability",
           "username": "johnson@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "algorithms",
           "username": "henric@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "hpc",
           "username": "henric@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "parallel-programming",
           "username": "henric@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "research",
           "username": "henric@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "teaching",
           "username": "henric@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "bioinformatics",
           "username": "guylaine@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "research",
           "username": "guylaine@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "mobile",
           "username": "esb@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "networks",
           "username": "esb@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "research",
           "username": "esb@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "research",
           "username": "dusko@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "security",
           "username": "dusko@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "networks",
           "username": "depengli@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "research",
           "username": "depengli@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "security",
           "username": "depengli@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "hci",
           "username": "crosby@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "research",
           "username": "crosby@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "artificial-intelligence",
           "username": "binsted@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "hci",
           "username": "binsted@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "psychology",
           "username": "binsted@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "research",
           "username": "binsted@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "teaching",
           "username": "binsted@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "artificial-intelligence",
           "username": "chin@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "research",
           "username": "chin@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "application-development",
           "username": "abi@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "research",
           "username": "abi@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "android",
           "username": "abi@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "hardware",
           "username": "alfred@hawaii.edu",
+          "share": false,
           "retired": false
         },
         {
           "interest": "it-management",
           "username": "alfred@hawaii.edu",
+          "share": false,
           "retired": false
         },
         {
           "interest": "data-science",
           "username": "betty@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "data-visualization",
           "username": "betty@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "research",
           "username": "betty@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "bioinformatics",
           "username": "charley@hawaii.edu",
+          "share": false,
           "retired": false
         },
         {
           "interest": "civic-engagement",
           "username": "ella@hawaii.edu",
+          "share": false,
           "retired": false
         },
         {
           "interest": "web-development",
           "username": "ella@hawaii.edu",
+          "share": false,
           "retired": false
         },
         {
           "interest": "algorithms",
           "username": "samplestudent@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "application-development",
           "username": "samplestudent@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "artificial-intelligence",
           "username": "samplestudent@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "civic-engagement",
           "username": "samplestudent@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "data-visualization",
           "username": "samplestudent@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "entrepreneurship",
           "username": "samplestudent@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "game-design",
           "username": "samplestudent@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "javascript",
           "username": "samplestudent@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "software-engineering",
           "username": "samplestudent@hawaii.edu",
+          "share": true,
           "retired": false
         },
         {
           "interest": "algorithms",
           "username": "gcalica@hawaii.edu",
+          "share": false,
           "retired": false
         },
         {
           "interest": "algorithms",
           "username": "mercedez@hawaii.edu",
+          "share": false,
           "retired": false
         },
         {
           "interest": "application-development",
           "username": "qauchida@hawaii.edu",
+          "share": false,
           "retired": false
         },
         {
           "interest": "research",
           "username": "qauchida@hawaii.edu",
+          "share": false,
           "retired": false
         },
         {
           "interest": "data-science",
           "username": "gbarcelo@hawaii.edu",
+          "share": false,
           "retired": false
         },
         {
           "interest": "data-visualization",
           "username": "gbarcelo@hawaii.edu",
+          "share": false,
+          "retired": false
+        },
+        {
+          "interest": "software-engineering",
+          "username": "abi@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "databases",
+          "username": "abi@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "algorithms",
+          "username": "abi@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "computer-architecture",
+          "username": "abi@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "data-science",
+          "username": "abi@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "data-visualization",
+          "username": "abi@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "hardware",
+          "username": "abi@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "hci",
+          "username": "abi@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "networks",
+          "username": "abi@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "security",
+          "username": "abi@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "machine-learning",
+          "username": "abi@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "application-development",
+          "username": "alfred@hawaii.edu",
+          "share": false,
+          "retired": false
+        },
+        {
+          "interest": "software-engineering",
+          "username": "alfred@hawaii.edu",
+          "share": false,
+          "retired": false
+        },
+        {
+          "interest": "algorithms",
+          "username": "betty@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "databases",
+          "username": "betty@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "machine-learning",
+          "username": "betty@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "algorithms",
+          "username": "charley@hawaii.edu",
+          "share": false,
+          "retired": false
+        },
+        {
+          "interest": "data-science",
+          "username": "charley@hawaii.edu",
+          "share": false,
+          "retired": false
+        },
+        {
+          "interest": "databases",
+          "username": "charley@hawaii.edu",
+          "share": false,
+          "retired": false
+        },
+        {
+          "interest": "machine-learning",
+          "username": "charley@hawaii.edu",
+          "share": false,
+          "retired": false
+        },
+        {
+          "interest": "research",
+          "username": "charley@hawaii.edu",
+          "share": false,
+          "retired": false
+        },
+        {
+          "interest": "databases",
+          "username": "ella@hawaii.edu",
+          "share": false,
+          "retired": false
+        },
+        {
+          "interest": "software-engineering",
+          "username": "ella@hawaii.edu",
+          "share": false,
+          "retired": false
+        },
+        {
+          "interest": "databases",
+          "username": "samplestudent@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "web-development",
+          "username": "samplestudent@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "research",
+          "username": "samplestudent@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "computer-graphics",
+          "username": "samplestudent@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "hci",
+          "username": "samplestudent@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "databases",
+          "username": "gcalica@hawaii.edu",
+          "share": false,
+          "retired": false
+        },
+        {
+          "interest": "software-engineering",
+          "username": "gcalica@hawaii.edu",
+          "share": false,
+          "retired": false
+        },
+        {
+          "interest": "web-development",
+          "username": "gcalica@hawaii.edu",
+          "share": false,
+          "retired": false
+        },
+        {
+          "interest": "databases",
+          "username": "mercedez@hawaii.edu",
+          "share": false,
+          "retired": false
+        },
+        {
+          "interest": "software-engineering",
+          "username": "mercedez@hawaii.edu",
+          "share": false,
+          "retired": false
+        },
+        {
+          "interest": "web-development",
+          "username": "mercedez@hawaii.edu",
+          "share": false,
+          "retired": false
+        },
+        {
+          "interest": "algorithms",
+          "username": "qauchida@hawaii.edu",
+          "share": false,
+          "retired": false
+        },
+        {
+          "interest": "data-science",
+          "username": "qauchida@hawaii.edu",
+          "share": false,
+          "retired": false
+        },
+        {
+          "interest": "databases",
+          "username": "qauchida@hawaii.edu",
+          "share": false,
+          "retired": false
+        },
+        {
+          "interest": "machine-learning",
+          "username": "qauchida@hawaii.edu",
+          "share": false,
+          "retired": false
+        },
+        {
+          "interest": "software-engineering",
+          "username": "qauchida@hawaii.edu",
+          "share": false,
+          "retired": false
+        },
+        {
+          "interest": "algorithms",
+          "username": "gbarcelo@hawaii.edu",
+          "share": false,
+          "retired": false
+        },
+        {
+          "interest": "databases",
+          "username": "gbarcelo@hawaii.edu",
+          "share": false,
+          "retired": false
+        },
+        {
+          "interest": "machine-learning",
+          "username": "gbarcelo@hawaii.edu",
+          "share": false,
+          "retired": false
+        },
+        {
+          "interest": "research",
+          "username": "gbarcelo@hawaii.edu",
+          "share": false,
+          "retired": false
+        },
+        {
+          "interest": "research",
+          "username": "glau@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "databases",
+          "username": "glau@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "networks",
+          "username": "glau@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "application-development",
+          "username": "cmoore@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "databases",
+          "username": "cmoore@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "networks",
+          "username": "cmoore@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "teaching",
+          "username": "suthers@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "teaching",
+          "username": "scottpr@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "databases",
+          "username": "pseidel@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "networks",
+          "username": "pseidel@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "it-management",
+          "username": "pseidel@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "computer-architecture",
+          "username": "pseidel@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "data-science",
+          "username": "pseidel@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "data-visualization",
+          "username": "pseidel@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "hci",
+          "username": "pseidel@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "robotics",
+          "username": "pseidel@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "software-engineering",
+          "username": "pseidel@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "application-development",
+          "username": "pseidel@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "algorithms",
+          "username": "lipyeow@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "databases",
+          "username": "lipyeow@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "machine-learning",
+          "username": "lipyeow@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "application-development",
+          "username": "lipyeow@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "software-engineering",
+          "username": "lipyeow@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "teaching",
+          "username": "lipyeow@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "teaching",
+          "username": "leighj@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "algorithms",
+          "username": "leighj@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "artificial-intelligence",
+          "username": "leighj@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "cognitive-science",
+          "username": "leighj@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "computer-graphics",
+          "username": "leighj@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "game-design",
+          "username": "leighj@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "virtual-reality",
+          "username": "leighj@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "databases",
+          "username": "kyungim@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "machine-learning",
+          "username": "kyungim@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "research",
+          "username": "kyungim@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "application-development",
+          "username": "janst@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "databases",
+          "username": "janst@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "networks",
+          "username": "janst@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "software-engineering",
+          "username": "janst@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "web-development",
+          "username": "janst@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "android",
+          "username": "janst@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "mobile",
+          "username": "janst@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "ios",
+          "username": "janst@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "entrepreneurship",
+          "username": "janst@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "teaching",
+          "username": "janst@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "application-development",
+          "username": "johnson@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "databases",
+          "username": "johnson@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "networks",
+          "username": "johnson@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "web-development",
+          "username": "johnson@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "entrepreneurship",
+          "username": "johnson@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "teaching",
+          "username": "johnson@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "algorithms",
+          "username": "guylaine@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "data-science",
+          "username": "guylaine@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "databases",
+          "username": "guylaine@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "machine-learning",
+          "username": "guylaine@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "teaching",
+          "username": "guylaine@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "hardware",
+          "username": "esb@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "databases",
+          "username": "dusko@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "networks",
+          "username": "dusko@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "teaching",
+          "username": "dusko@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "databases",
+          "username": "depengli@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "teaching",
+          "username": "depengli@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "algorithms",
+          "username": "crosby@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "data-science",
+          "username": "crosby@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "databases",
+          "username": "crosby@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "machine-learning",
+          "username": "crosby@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "networks",
+          "username": "crosby@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "security",
+          "username": "crosby@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "teaching",
+          "username": "crosby@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "android",
+          "username": "binsted@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "mobile",
+          "username": "binsted@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "ios",
+          "username": "binsted@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "algorithms",
+          "username": "chin@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "data-science",
+          "username": "chin@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "databases",
+          "username": "chin@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "machine-learning",
+          "username": "chin@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "computer-graphics",
+          "username": "chin@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "game-design",
+          "username": "chin@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "unity",
+          "username": "chin@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "virtual-reality",
+          "username": "chin@hawaii.edu",
+          "share": true,
+          "retired": false
+        },
+        {
+          "interest": "teaching",
+          "username": "chin@hawaii.edu",
+          "share": true,
           "retired": false
         }
       ]
     },
     {
-      "name": "FavoriteOpportunityCollection",
+      "name": "ProfileOpportunityCollection",
       "contents": []
     },
     {
@@ -5346,6 +6407,7 @@
             "Summer-2021",
             "Fall-2021"
           ],
+          "timestamp": "2021-02-27T18:36:33.413Z",
           "retired": true
         },
         {
@@ -5368,6 +6430,7 @@
             "Fall-2020",
             "Fall-2021"
           ],
+          "timestamp": "2021-02-27T18:36:33.564Z",
           "retired": false
         },
         {
@@ -5398,6 +6461,7 @@
             "Fall-2020",
             "Spring-2021"
           ],
+          "timestamp": "2021-02-27T18:36:33.615Z",
           "retired": false
         },
         {
@@ -5424,6 +6488,7 @@
             "Spring-2021",
             "Summer-2021"
           ],
+          "timestamp": "2021-02-27T18:36:33.695Z",
           "retired": false
         },
         {
@@ -5462,6 +6527,7 @@
             "Summer-2021",
             "Spring-2022"
           ],
+          "timestamp": "2021-02-27T18:36:33.781Z",
           "retired": false
         },
         {
@@ -5484,6 +6550,7 @@
             "Summer-2020",
             "Fall-2020"
           ],
+          "timestamp": "2021-02-27T18:36:33.955Z",
           "retired": false
         },
         {
@@ -5512,6 +6579,7 @@
             "Spring-2019",
             "Spring-2020"
           ],
+          "timestamp": "2021-02-27T18:36:34.000Z",
           "retired": true
         },
         {
@@ -5537,6 +6605,7 @@
             "Fall-2020",
             "Spring-2021"
           ],
+          "timestamp": "2021-02-27T18:36:34.061Z",
           "retired": false
         },
         {
@@ -5569,6 +6638,7 @@
             "Spring-2021",
             "Summer-2021"
           ],
+          "timestamp": "2021-02-27T18:36:34.126Z",
           "retired": true
         },
         {
@@ -5588,6 +6658,7 @@
           "academicTerms": [
             "Summer-2017"
           ],
+          "timestamp": "2021-02-27T18:36:34.269Z",
           "retired": true
         },
         {
@@ -5610,6 +6681,7 @@
             "Spring-2020",
             "Fall-2020"
           ],
+          "timestamp": "2021-02-27T18:36:34.292Z",
           "retired": false
         },
         {
@@ -5635,6 +6707,7 @@
             "Summer-2021",
             "Fall-2021"
           ],
+          "timestamp": "2021-02-27T18:36:34.334Z",
           "retired": false
         },
         {
@@ -5658,6 +6731,7 @@
             "Fall-2020",
             "Spring-2021"
           ],
+          "timestamp": "2021-02-27T18:36:34.401Z",
           "retired": false
         },
         {
@@ -5682,6 +6756,7 @@
             "Spring-2021"
           ],
           "eventDate": "2016-11-18T00:00:00.000Z",
+          "timestamp": "2021-02-27T18:36:34.454Z",
           "retired": false
         },
         {
@@ -5711,6 +6786,7 @@
             "Spring-2021",
             "Summer-2021"
           ],
+          "timestamp": "2021-02-27T18:36:34.513Z",
           "retired": true
         },
         {
@@ -5734,6 +6810,7 @@
             "Summer-2020",
             "Summer-2021"
           ],
+          "timestamp": "2021-02-27T18:36:34.614Z",
           "retired": false
         },
         {
@@ -5759,6 +6836,7 @@
             "Fall-2020",
             "Spring-2021"
           ],
+          "timestamp": "2021-02-27T18:36:34.659Z",
           "retired": false
         },
         {
@@ -5779,6 +6857,7 @@
             "Spring-2020",
             "Spring-2021"
           ],
+          "timestamp": "2021-02-27T18:36:34.721Z",
           "retired": false
         },
         {
@@ -5803,6 +6882,7 @@
           "academicTerms": [
             "Spring-2020"
           ],
+          "timestamp": "2021-02-27T18:36:34.759Z",
           "retired": false
         },
         {
@@ -5831,6 +6911,7 @@
             "Fall-2020",
             "Spring-2021"
           ],
+          "timestamp": "2021-02-27T18:36:34.794Z",
           "retired": false
         },
         {
@@ -5853,6 +6934,7 @@
             "Spring-2020",
             "Summer-2020"
           ],
+          "timestamp": "2021-02-27T18:36:34.858Z",
           "retired": false
         },
         {
@@ -5875,6 +6957,7 @@
             "Spring-2020",
             "Fall-2020"
           ],
+          "timestamp": "2021-02-27T18:36:34.904Z",
           "retired": false
         },
         {
@@ -5904,6 +6987,7 @@
             "Spring-2020",
             "Summer-2020"
           ],
+          "timestamp": "2021-02-27T18:36:34.947Z",
           "retired": true
         },
         {
@@ -5929,6 +7013,7 @@
             "Summer-2018",
             "Summer-2019"
           ],
+          "timestamp": "2021-02-27T18:36:35.049Z",
           "retired": true
         },
         {
@@ -5952,6 +7037,7 @@
             "Summer-2020",
             "Fall-2020"
           ],
+          "timestamp": "2021-02-27T18:36:35.110Z",
           "retired": false
         },
         {
@@ -5974,6 +7060,7 @@
             "Spring-2020",
             "Summer-2020"
           ],
+          "timestamp": "2021-02-27T18:36:35.159Z",
           "retired": false
         },
         {
@@ -5996,6 +7083,7 @@
             "Summer-2020",
             "Spring-2021"
           ],
+          "timestamp": "2021-02-27T18:36:35.201Z",
           "retired": false
         },
         {
@@ -6025,6 +7113,7 @@
             "Summer-2020",
             "Fall-2020"
           ],
+          "timestamp": "2021-02-27T18:36:35.241Z",
           "retired": true
         },
         {
@@ -6049,6 +7138,7 @@
             "Summer-2018",
             "Fall-2018"
           ],
+          "timestamp": "2021-02-27T18:36:35.335Z",
           "retired": true
         },
         {
@@ -6073,6 +7163,7 @@
             "Fall-2018",
             "Spring-2019"
           ],
+          "timestamp": "2021-02-27T18:36:35.392Z",
           "retired": true
         },
         {
@@ -6095,6 +7186,7 @@
             "Spring-2017",
             "Summer-2017"
           ],
+          "timestamp": "2021-02-27T18:36:35.449Z",
           "retired": true
         },
         {
@@ -6140,6 +7232,7 @@
             "Spring-2021",
             "Summer-2021"
           ],
+          "timestamp": "2021-02-27T18:36:35.488Z",
           "retired": true
         },
         {
@@ -6170,6 +7263,7 @@
             "Spring-2021",
             "Fall-2021"
           ],
+          "timestamp": "2021-02-27T18:36:35.678Z",
           "retired": false
         },
         {
@@ -6191,6 +7285,7 @@
             "Fall-2019",
             "Spring-2020"
           ],
+          "timestamp": "2021-02-27T18:36:35.737Z",
           "retired": false
         },
         {
@@ -6211,6 +7306,7 @@
             "Summer-2020",
             "Summer-2021"
           ],
+          "timestamp": "2021-02-27T18:36:35.766Z",
           "retired": false
         },
         {
@@ -6232,6 +7328,7 @@
             "Summer-2021",
             "Summer-2022"
           ],
+          "timestamp": "2021-02-27T18:36:35.793Z",
           "retired": false
         },
         {
@@ -6254,6 +7351,7 @@
             "Summer-2020",
             "Fall-2020"
           ],
+          "timestamp": "2021-02-27T18:36:35.827Z",
           "retired": false
         },
         {
@@ -6277,6 +7375,7 @@
             "Fall-2020",
             "Spring-2021"
           ],
+          "timestamp": "2021-02-27T18:36:35.868Z",
           "retired": false
         },
         {
@@ -6297,6 +7396,7 @@
             "Spring-2020",
             "Spring-2021"
           ],
+          "timestamp": "2021-02-27T18:36:35.915Z",
           "retired": false
         },
         {
@@ -6328,6 +7428,7 @@
             "Summer-2020",
             "Summer-2021"
           ],
+          "timestamp": "2021-02-27T18:36:35.942Z",
           "retired": false
         },
         {
@@ -6353,6 +7454,7 @@
             "Fall-2020",
             "Spring-2021"
           ],
+          "timestamp": "2021-02-27T18:36:35.993Z",
           "retired": false
         },
         {
@@ -6377,6 +7479,7 @@
             "Fall-2021",
             "Fall-2022"
           ],
+          "timestamp": "2021-02-27T18:36:36.039Z",
           "retired": false
         },
         {
@@ -6399,6 +7502,7 @@
             "Spring-2020",
             "Summer-2020"
           ],
+          "timestamp": "2021-02-27T18:36:36.080Z",
           "retired": false
         },
         {
@@ -6433,6 +7537,7 @@
             "Summer-2018",
             "Fall-2018"
           ],
+          "timestamp": "2021-02-27T18:36:36.117Z",
           "retired": false
         },
         {
@@ -6460,6 +7565,7 @@
             "Fall-2020",
             "Fall-2021"
           ],
+          "timestamp": "2021-02-27T18:36:36.245Z",
           "retired": false
         },
         {
@@ -6482,6 +7588,7 @@
           "academicTerms": [
             "Fall-2019"
           ],
+          "timestamp": "2021-02-27T18:36:36.286Z",
           "retired": false
         },
         {
@@ -6509,6 +7616,7 @@
             "Spring-2021",
             "Summer-2021"
           ],
+          "timestamp": "2021-02-27T18:36:36.313Z",
           "retired": false
         },
         {
@@ -6533,6 +7641,7 @@
             "Summer-2018",
             "Fall-2018"
           ],
+          "timestamp": "2021-02-27T18:36:36.379Z",
           "retired": true
         },
         {
@@ -6555,6 +7664,7 @@
             "Summer-2020",
             "Fall-2020"
           ],
+          "timestamp": "2021-02-27T18:36:36.432Z",
           "retired": false
         },
         {
@@ -6585,6 +7695,7 @@
             "Summer-2019",
             "Fall-2019"
           ],
+          "timestamp": "2021-02-27T18:36:36.474Z",
           "retired": true
         },
         {
@@ -6609,6 +7720,7 @@
             "Summer-2018",
             "Fall-2018"
           ],
+          "timestamp": "2021-02-27T18:36:36.557Z",
           "retired": true
         },
         {
@@ -6634,6 +7746,7 @@
             "Summer-2021",
             "Summer-2022"
           ],
+          "timestamp": "2021-02-27T18:36:36.618Z",
           "retired": false
         },
         {
@@ -6669,6 +7782,7 @@
             "Spring-2020",
             "Summer-2020"
           ],
+          "timestamp": "2021-02-27T18:36:36.666Z",
           "retired": true
         },
         {
@@ -6691,6 +7805,7 @@
             "Fall-2020",
             "Spring-2021"
           ],
+          "timestamp": "2021-02-27T18:36:36.796Z",
           "retired": false
         },
         {
@@ -6716,6 +7831,7 @@
             "Summer-2018",
             "Fall-2018"
           ],
+          "timestamp": "2021-02-27T18:36:36.836Z",
           "retired": true
         },
         {
@@ -6738,6 +7854,7 @@
             "Summer-2020",
             "Fall-2020"
           ],
+          "timestamp": "2021-02-27T18:36:36.895Z",
           "retired": false
         },
         {
@@ -6758,6 +7875,7 @@
           "academicTerms": [
             "Spring-2020"
           ],
+          "timestamp": "2021-02-27T18:36:36.935Z",
           "retired": false
         },
         {
@@ -6781,6 +7899,7 @@
             "Fall-2019",
             "Fall-2020"
           ],
+          "timestamp": "2021-02-27T18:36:36.957Z",
           "retired": false
         },
         {
@@ -6806,6 +7925,7 @@
             "Summer-2020",
             "Fall-2020"
           ],
+          "timestamp": "2021-02-27T18:36:36.995Z",
           "retired": false
         },
         {
@@ -6839,6 +7959,7 @@
             "Summer-2021",
             "Fall-2021"
           ],
+          "timestamp": "2021-02-27T18:36:37.043Z",
           "retired": true
         },
         {
@@ -6859,6 +7980,7 @@
             "Fall-2019",
             "Spring-2020"
           ],
+          "timestamp": "2021-02-27T18:36:37.161Z",
           "retired": false
         },
         {
@@ -6881,6 +8003,7 @@
             "Fall-2019",
             "Spring-2020"
           ],
+          "timestamp": "2021-02-27T18:36:37.189Z",
           "retired": false
         },
         {
@@ -6906,6 +8029,7 @@
           "academicTerms": [
             "Summer-2018"
           ],
+          "timestamp": "2021-02-27T18:36:37.220Z",
           "retired": true
         },
         {
@@ -6925,6 +8049,7 @@
           "academicTerms": [
             "Spring-2020"
           ],
+          "timestamp": "2021-02-27T18:36:37.253Z",
           "retired": false
         },
         {
@@ -6953,6 +8078,7 @@
             "Summer-2020",
             "Fall-2020"
           ],
+          "timestamp": "2021-02-27T18:36:37.274Z",
           "retired": false
         },
         {
@@ -6978,6 +8104,7 @@
             "Spring-2020",
             "Fall-2020"
           ],
+          "timestamp": "2021-02-27T18:36:37.332Z",
           "retired": false
         },
         {
@@ -7004,6 +8131,7 @@
             "Fall-2020",
             "Spring-2021"
           ],
+          "timestamp": "2021-02-27T18:36:37.373Z",
           "retired": false
         },
         {
@@ -7026,6 +8154,7 @@
             "Spring-2020",
             "Summer-2020"
           ],
+          "timestamp": "2021-02-27T18:36:37.430Z",
           "retired": false
         },
         {
@@ -7051,6 +8180,7 @@
             "Fall-2020",
             "Spring-2021"
           ],
+          "timestamp": "2021-02-27T18:36:37.467Z",
           "retired": false
         },
         {
@@ -7074,6 +8204,7 @@
             "Summer-2020",
             "Spring-2021"
           ],
+          "timestamp": "2021-02-27T18:36:37.526Z",
           "retired": false
         },
         {
@@ -7099,6 +8230,7 @@
           "academicTerms": [
             "Summer-2020"
           ],
+          "timestamp": "2021-02-27T18:36:37.561Z",
           "retired": false
         },
         {
@@ -7120,6 +8252,7 @@
             "Summer-2021",
             "Summer-2022"
           ],
+          "timestamp": "2021-02-27T18:36:37.591Z",
           "retired": false
         },
         {
@@ -7151,6 +8284,7 @@
             "Summer-2021",
             "Summer-2022"
           ],
+          "timestamp": "2021-02-27T18:36:37.626Z",
           "retired": false
         },
         {
@@ -7177,6 +8311,7 @@
             "Spring-2020",
             "Summer-2020"
           ],
+          "timestamp": "2021-02-27T18:36:37.680Z",
           "retired": false
         },
         {
@@ -7200,6 +8335,7 @@
             "Spring-2020",
             "Summer-2020"
           ],
+          "timestamp": "2021-02-27T18:36:37.726Z",
           "retired": false
         },
         {
@@ -7226,6 +8362,7 @@
             "Summer-2019",
             "Summer-2020"
           ],
+          "timestamp": "2021-02-27T18:36:37.763Z",
           "retired": true
         },
         {
@@ -7247,6 +8384,7 @@
           "academicTerms": [
             "Summer-2020"
           ],
+          "timestamp": "2021-02-27T18:36:37.834Z",
           "retired": false
         },
         {
@@ -7269,6 +8407,7 @@
             "Fall-2019",
             "Spring-2020"
           ],
+          "timestamp": "2021-02-27T18:36:37.858Z",
           "retired": false
         },
         {
@@ -7292,6 +8431,7 @@
             "Fall-2020",
             "Spring-2021"
           ],
+          "timestamp": "2021-02-27T18:36:37.888Z",
           "retired": false
         },
         {
@@ -7317,6 +8457,7 @@
             "Summer-2020",
             "Fall-2020"
           ],
+          "timestamp": "2021-02-27T18:36:37.934Z",
           "retired": false
         },
         {
@@ -7345,6 +8486,7 @@
             "Spring-2020",
             "Summer-2020"
           ],
+          "timestamp": "2021-02-27T18:36:37.983Z",
           "retired": false
         },
         {
@@ -7369,6 +8511,7 @@
           "academicTerms": [
             "Fall-2019"
           ],
+          "timestamp": "2021-02-27T18:36:38.033Z",
           "retired": false
         },
         {
@@ -7399,6 +8542,7 @@
             "Fall-2020",
             "Spring-2021"
           ],
+          "timestamp": "2021-02-27T18:36:38.061Z",
           "retired": false
         },
         {
@@ -7421,6 +8565,7 @@
             "Summer-2019",
             "Summer-2020"
           ],
+          "timestamp": "2021-02-27T18:36:38.125Z",
           "retired": false
         },
         {
@@ -7444,6 +8589,7 @@
             "Spring-2020",
             "Fall-2020"
           ],
+          "timestamp": "2021-02-27T18:36:38.158Z",
           "retired": false
         },
         {
@@ -7464,6 +8610,7 @@
             "Spring-2020",
             "Spring-2021"
           ],
+          "timestamp": "2021-02-27T18:36:38.200Z",
           "retired": false
         },
         {
@@ -7485,6 +8632,7 @@
           "academicTerms": [
             "Fall-2019"
           ],
+          "timestamp": "2021-02-27T18:36:38.229Z",
           "retired": false
         },
         {
@@ -7507,6 +8655,7 @@
             "Summer-2019",
             "Fall-2019"
           ],
+          "timestamp": "2021-02-27T18:36:38.252Z",
           "retired": false
         },
         {
@@ -7527,6 +8676,7 @@
             "Summer-2020",
             "Summer-2021"
           ],
+          "timestamp": "2021-02-27T18:36:38.284Z",
           "retired": false
         },
         {
@@ -7551,6 +8701,7 @@
             "Fall-2020",
             "Spring-2021"
           ],
+          "timestamp": "2021-02-27T18:36:38.313Z",
           "retired": false
         },
         {
@@ -7574,6 +8725,7 @@
             "Fall-2020",
             "Spring-2021"
           ],
+          "timestamp": "2021-02-27T18:36:38.360Z",
           "retired": false
         },
         {
@@ -7609,6 +8761,7 @@
             "Summer-2020",
             "Fall-2020"
           ],
+          "timestamp": "2021-02-27T18:36:38.406Z",
           "retired": true
         },
         {
@@ -7630,6 +8783,7 @@
             "Summer-2019",
             "Summer-2020"
           ],
+          "timestamp": "2021-02-27T18:36:38.508Z",
           "retired": false
         },
         {
@@ -7651,6 +8805,7 @@
           "academicTerms": [
             "Summer-2020"
           ],
+          "timestamp": "2021-02-27T18:36:38.539Z",
           "retired": false
         },
         {
@@ -7672,6 +8827,7 @@
             "Fall-2020"
           ],
           "eventDate": "2016-10-11T00:00:00.000Z",
+          "timestamp": "2021-02-27T18:36:38.561Z",
           "retired": false
         },
         {
@@ -7694,6 +8850,7 @@
             "Fall-2020",
             "Spring-2021"
           ],
+          "timestamp": "2021-02-27T18:36:38.587Z",
           "retired": false
         },
         {
@@ -7716,6 +8873,7 @@
             "Spring-2020",
             "Fall-2020"
           ],
+          "timestamp": "2021-02-27T18:36:38.631Z",
           "retired": false
         },
         {
@@ -7744,6 +8902,7 @@
             "Summer-2019",
             "Fall-2019"
           ],
+          "timestamp": "2021-02-27T18:36:38.674Z",
           "retired": true
         },
         {
@@ -7782,6 +8941,7 @@
             "Spring-2021",
             "Summer-2021"
           ],
+          "timestamp": "2021-02-27T18:36:38.757Z",
           "retired": true
         }
       ]
@@ -8524,10 +9684,8 @@
           "lastName": "Park",
           "picture": "/images/mockup/hanna.png",
           "website": "http://hannaparkUH.github.io",
-          "interests": [
-          ],
-          "careerGoals": [
-          ],
+          "interests": [],
+          "careerGoals": [],
           "level": 1,
           "profileCourses": [],
           "profileOpportunities": [],
@@ -8552,7 +9710,18 @@
           "interests": [
             "application-development",
             "research",
-            "android"
+            "android",
+            "software-engineering",
+            "databases",
+            "algorithms",
+            "computer-architecture",
+            "data-science",
+            "data-visualization",
+            "hardware",
+            "hci",
+            "networks",
+            "security",
+            "machine-learning"
           ],
           "careerGoals": [
             "software-developer",
@@ -8582,7 +9751,9 @@
           "picture": "/images/mockup/alfred.png",
           "interests": [
             "hardware",
-            "it-management"
+            "it-management",
+            "application-development",
+            "software-engineering"
           ],
           "careerGoals": [
             "software-developer"
@@ -8611,7 +9782,10 @@
           "interests": [
             "data-science",
             "data-visualization",
-            "research"
+            "research",
+            "algorithms",
+            "databases",
+            "machine-learning"
           ],
           "careerGoals": [
             "data-scientist",
@@ -8638,7 +9812,12 @@
           "lastName": "Sherry",
           "picture": "/images/mockup/charley.jpg",
           "interests": [
-            "bioinformatics"
+            "bioinformatics",
+            "algorithms",
+            "data-science",
+            "databases",
+            "machine-learning",
+            "research"
           ],
           "careerGoals": [
             "data-scientist"
@@ -8664,7 +9843,9 @@
           "picture": "/images/mockup/ella.jpg",
           "interests": [
             "civic-engagement",
-            "web-development"
+            "web-development",
+            "databases",
+            "software-engineering"
           ],
           "careerGoals": [
             "full-stack-developer"
@@ -8698,7 +9879,12 @@
             "entrepreneurship",
             "game-design",
             "javascript",
-            "software-engineering"
+            "software-engineering",
+            "databases",
+            "web-development",
+            "research",
+            "computer-graphics",
+            "hci"
           ],
           "careerGoals": [
             "full-stack-developer",
@@ -8728,7 +9914,10 @@
           "picture": "/images/default-profile-picture.png",
           "website": "http://gcalica.github.io",
           "interests": [
-            "algorithms"
+            "algorithms",
+            "databases",
+            "software-engineering",
+            "web-development"
           ],
           "careerGoals": [
             "full-stack-developer"
@@ -8755,7 +9944,10 @@
           "picture": "/images/default-profile-picture.png",
           "website": "http://mercedezcastro.github.io",
           "interests": [
-            "algorithms"
+            "algorithms",
+            "databases",
+            "software-engineering",
+            "web-development"
           ],
           "careerGoals": [
             "full-stack-developer"
@@ -8783,7 +9975,12 @@
           "website": "http://qauchida.github.io",
           "interests": [
             "application-development",
-            "research"
+            "research",
+            "algorithms",
+            "data-science",
+            "databases",
+            "machine-learning",
+            "software-engineering"
           ],
           "careerGoals": [
             "data-scientist",
@@ -8810,7 +10007,11 @@
           "picture": "/images/default-profile-picture.png",
           "interests": [
             "data-science",
-            "data-visualization"
+            "data-visualization",
+            "algorithms",
+            "databases",
+            "machine-learning",
+            "research"
           ],
           "careerGoals": [
             "data-scientist"
@@ -10171,7 +11372,7 @@
         },
         {
           "username": "gcalica@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "academicPlan",
             "ba-ics-2019"
@@ -10180,7 +11381,7 @@
         },
         {
           "username": "gcalica@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "academicPlan",
             "ba-cs-ds-2019"
@@ -10189,7 +11390,7 @@
         },
         {
           "username": "gcalica@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "academicPlan",
             "ba-ics-2020"
@@ -10198,7 +11399,7 @@
         },
         {
           "username": "gcalica@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "academicPlan",
             "ba-cs-ds-2019"
@@ -10207,7 +11408,7 @@
         },
         {
           "username": "gcalica@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "careerGoal",
             "data-scientist"
@@ -10216,7 +11417,7 @@
         },
         {
           "username": "gcalica@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "careerGoal",
             "teacher"
@@ -10225,7 +11426,7 @@
         },
         {
           "username": "gcalica@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "careerGoal",
             "database-administrator"
@@ -10234,7 +11435,7 @@
         },
         {
           "username": "gcalica@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "careerGoal",
             "graduate-school"
@@ -10243,7 +11444,7 @@
         },
         {
           "username": "gcalica@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "course",
             "ics_111"
@@ -10252,7 +11453,7 @@
         },
         {
           "username": "gcalica@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "course",
             "ics_426"
@@ -10261,7 +11462,7 @@
         },
         {
           "username": "gcalica@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "course",
             "ics_414"
@@ -10270,7 +11471,7 @@
         },
         {
           "username": "gcalica@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "course",
             "ics_331"
@@ -10279,7 +11480,7 @@
         },
         {
           "username": "gcalica@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "interest",
             "android"
@@ -10288,7 +11489,7 @@
         },
         {
           "username": "gcalica@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "interest",
             "civic-engagement"
@@ -10297,7 +11498,7 @@
         },
         {
           "username": "gcalica@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "interest",
             "angular"
@@ -10306,7 +11507,7 @@
         },
         {
           "username": "gcalica@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "interest",
             "django"
@@ -10315,7 +11516,7 @@
         },
         {
           "username": "gcalica@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "opportunity",
             "cyber-hui"
@@ -10324,7 +11525,7 @@
         },
         {
           "username": "gcalica@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "opportunity",
             "nsf-reu"
@@ -10333,7 +11534,7 @@
         },
         {
           "username": "gcalica@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "opportunity",
             "code-for-hawaii"
@@ -10342,7 +11543,7 @@
         },
         {
           "username": "gcalica@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "opportunity",
             "nsf-reu"
@@ -10813,7 +12014,7 @@
         },
         {
           "username": "heacheng@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "academicPlan",
             "ba-ics-2019"
@@ -10822,7 +12023,7 @@
         },
         {
           "username": "heacheng@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "academicPlan",
             "ba-cs-ds-2019"
@@ -10831,7 +12032,7 @@
         },
         {
           "username": "heacheng@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "academicPlan",
             "ba-ics-2020"
@@ -10840,7 +12041,7 @@
         },
         {
           "username": "heacheng@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "academicPlan",
             "ba-cs-ds-2019"
@@ -10849,7 +12050,7 @@
         },
         {
           "username": "heacheng@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "careerGoal",
             "data-scientist"
@@ -10858,7 +12059,7 @@
         },
         {
           "username": "heacheng@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "careerGoal",
             "teacher"
@@ -10867,7 +12068,7 @@
         },
         {
           "username": "heacheng@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "careerGoal",
             "database-administrator"
@@ -10876,7 +12077,7 @@
         },
         {
           "username": "heacheng@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "careerGoal",
             "graduate-school"
@@ -10885,7 +12086,7 @@
         },
         {
           "username": "heacheng@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "course",
             "ics_111"
@@ -10894,7 +12095,7 @@
         },
         {
           "username": "heacheng@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "course",
             "ics_426"
@@ -10903,7 +12104,7 @@
         },
         {
           "username": "heacheng@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "course",
             "ics_414"
@@ -10912,7 +12113,7 @@
         },
         {
           "username": "heacheng@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "course",
             "ics_331"
@@ -10921,7 +12122,7 @@
         },
         {
           "username": "heacheng@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "interest",
             "android"
@@ -10930,7 +12131,7 @@
         },
         {
           "username": "heacheng@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "interest",
             "civic-engagement"
@@ -10939,7 +12140,7 @@
         },
         {
           "username": "heacheng@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "interest",
             "angular"
@@ -10948,7 +12149,7 @@
         },
         {
           "username": "heacheng@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "interest",
             "django"
@@ -10957,7 +12158,7 @@
         },
         {
           "username": "heacheng@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "opportunity",
             "cyber-hui"
@@ -10966,7 +12167,7 @@
         },
         {
           "username": "heacheng@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "opportunity",
             "nsf-reu"
@@ -10975,7 +12176,7 @@
         },
         {
           "username": "heacheng@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "opportunity",
             "code-for-hawaii"
@@ -10984,7 +12185,7 @@
         },
         {
           "username": "heacheng@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "opportunity",
             "nsf-reu"
@@ -11407,7 +12608,7 @@
         },
         {
           "username": "abi@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "academicPlan",
             "ba-ics-2019"
@@ -11416,7 +12617,7 @@
         },
         {
           "username": "abi@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "academicPlan",
             "ba-ics-2020"
@@ -11425,7 +12626,7 @@
         },
         {
           "username": "abi@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "careerGoal",
             "data-scientist"
@@ -11434,7 +12635,7 @@
         },
         {
           "username": "abi@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "careerGoal",
             "database-administrator"
@@ -11443,7 +12644,7 @@
         },
         {
           "username": "abi@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "course",
             "ics_111"
@@ -11452,7 +12653,7 @@
         },
         {
           "username": "abi@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "course",
             "ics_414"
@@ -11461,7 +12662,7 @@
         },
         {
           "username": "abi@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "interest",
             "android"
@@ -11470,7 +12671,7 @@
         },
         {
           "username": "abi@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "interest",
             "angular"
@@ -11479,7 +12680,7 @@
         },
         {
           "username": "abi@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "opportunity",
             "cyber-hui"
@@ -11488,7 +12689,7 @@
         },
         {
           "username": "abi@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "opportunity",
             "code-for-hawaii"
@@ -11851,7 +13052,7 @@
         },
         {
           "username": "samplestudent@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "academicPlan",
             "ba-ics-2019"
@@ -11860,7 +13061,7 @@
         },
         {
           "username": "samplestudent@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "academicPlan",
             "ba-ics-2020"
@@ -11869,7 +13070,7 @@
         },
         {
           "username": "samplestudent@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "careerGoal",
             "data-scientist"
@@ -11878,7 +13079,7 @@
         },
         {
           "username": "samplestudent@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "careerGoal",
             "database-administrator"
@@ -11887,7 +13088,7 @@
         },
         {
           "username": "samplestudent@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "course",
             "ics_111"
@@ -11896,7 +13097,7 @@
         },
         {
           "username": "samplestudent@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "course",
             "ics_414"
@@ -11905,7 +13106,7 @@
         },
         {
           "username": "samplestudent@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "interest",
             "android"
@@ -11914,7 +13115,7 @@
         },
         {
           "username": "samplestudent@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "interest",
             "angular"
@@ -11923,7 +13124,7 @@
         },
         {
           "username": "samplestudent@hawaii.edu",
-          "type": "favoriteItem",
+          "type": "addToProfile",
           "typeData": [
             "opportunity",
             "cyber-hui"
@@ -11932,7 +13133,7 @@
         },
         {
           "username": "samplestudent@hawaii.edu",
-          "type": "unFavoriteItem",
+          "type": "unaddToProfile",
           "typeData": [
             "opportunity",
             "code-for-hawaii"

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Button, Header } from 'semantic-ui-react';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { ChecklistState } from '../../../api/checklist/ChecklistState';
-import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
+import { ProfileCareerGoals } from '../../../api/user/profile-entries/ProfileCareerGoalCollection';
 import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Users } from '../../../api/user/UserCollection';
@@ -26,7 +26,7 @@ export class CareerGoalsChecklist extends Checklist {
 
   public updateState(): void {
     const userID = this.profile.userID;
-    const careerGoals = FavoriteCareerGoals.findNonRetired({ userID });
+    const careerGoals = ProfileCareerGoals.findNonRetired({ userID });
     if (careerGoals.length < 3) {
       // console.log('not enough careergoals');
       this.state = 'Improve';
@@ -78,7 +78,7 @@ export class CareerGoalsChecklist extends Checklist {
 
   public getDetails(state: ChecklistState): JSX.Element {
     const userID = this.profile.userID;
-    const careerGoals = FavoriteCareerGoals.findNonRetired({ userID });
+    const careerGoals = ProfileCareerGoals.findNonRetired({ userID });
     if (careerGoals[0].length === 0) {
       return <p>You have not yet added any Career Goals to your profile</p>;
     }

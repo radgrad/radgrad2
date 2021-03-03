@@ -6,7 +6,6 @@ export const SELECT_OPPORTUNITY_INSTANCE = 'radgrad/student/degree-planner/SELEC
 export const SELECT_PLAN = 'radgrad/student/degree-planner/PLAN';
 export const SELECT_INSPECTOR = 'radgrad/student/degree-planner/INSPECTOR';
 
-export const SELECT_FAVORITE_OPPORTUNITIES = 'radgrad/student/degree-planner/FAVORITE_OPPORTUNITIES';
-export const SELECT_FAVORITE_PLANS = 'radgrad/student/degree-planner/FAVORITE_PLANS';
-export const SELECT_FAVORITE_COURSES = 'radgrad/student/degree-planner/FAVORITE_COURSES';
-export const SELECT_FAVORITE_DETAILS = 'radgrad/student/degree-planner/FAVORITE_DETAILS';
+export const SELECT_PROFILE_OPPORTUNITIES = 'radgrad/student/degree-planner/PROFILE_OPPORTUNITIES';
+export const SELECT_PROFILE_COURSES = 'radgrad/student/degree-planner/PROFILE_COURSES';
+export const SELECT_PROFILE_DETAILS = 'radgrad/student/degree-planner/PROFILE_DETAILS';

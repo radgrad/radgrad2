@@ -12,7 +12,7 @@ import { StudentParticipationDefine, StudentParticipationUpdate } from '../../ty
 import { CareerGoals } from '../career/CareerGoalCollection';
 import { Interests } from '../interest/InterestCollection';
 import { StudentProfiles } from '../user/StudentProfileCollection';
-import { FavoriteCareerGoals } from '../favorite/FavoriteCareerGoalCollection';
+import { ProfileCareerGoals } from '../user/profile-entries/ProfileCareerGoalCollection';
 import { profileGetInterestIDs } from '../../ui/components/shared/utilities/data-model';
 
 class StudentParticipationCollection extends BaseCollection {
@@ -145,7 +145,7 @@ class StudentParticipationCollection extends BaseCollection {
       _.forEach(careerGoals, (c) => {
         const itemID = c._id;
         const itemSlug = Slugs.getNameFromID(c.slugID);
-        const filtered = _.filter(students, (s) => FavoriteCareerGoals.findNonRetired({ studentID: s.userID, careerGoalID: itemID }).length > 0);
+        const filtered = _.filter(students, (s) => ProfileCareerGoals.findNonRetired({ studentID: s.userID, careerGoalID: itemID }).length > 0);
         // console.log('students with careerGoal %o = %o', itemID, filtered);
         const itemCount = filtered.length;
         this.collection.upsert({ itemSlug }, { $set: { itemID, itemSlug, itemCount } });

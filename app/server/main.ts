@@ -4,7 +4,7 @@ import '../imports/api/base';
 import '../imports/api/career';
 import '../imports/api/course';
 import '../imports/api/degree-plan';
-import '../imports/api/favorite';
+import '../imports/api/user/profile-entries';
 import '../imports/api/feed';
 import '../imports/api/feedback';
 import '../imports/api/ice';
@@ -20,6 +20,7 @@ import '../imports/api/slug';
 import '../imports/api/star';
 import '../imports/api/teaser';
 import '../imports/api/user';
+import '../imports/api/utilities/InterestConversion.methods';
 import '../imports/api/verification';
 
 import '../imports/startup/both';

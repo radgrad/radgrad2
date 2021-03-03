@@ -12,10 +12,10 @@ import { Users } from './UserCollection';
 import { ROLE } from '../role/Role';
 import { VerificationRequests } from '../verification/VerificationRequestCollection';
 import { BaseProfile } from '../../typings/radgrad';
-import { FavoriteCareerGoals } from '../favorite/FavoriteCareerGoalCollection';
-import { FavoriteCourses } from '../favorite/FavoriteCourseCollection';
-import { FavoriteInterests } from '../favorite/FavoriteInterestCollection';
-import { FavoriteOpportunities } from '../favorite/FavoriteOpportunityCollection';
+import { ProfileCareerGoals } from './profile-entries/ProfileCareerGoalCollection';
+import { ProfileCourses } from './profile-entries/ProfileCourseCollection';
+import { ProfileInterests } from './profile-entries/ProfileInterestCollection';
+import { ProfileOpportunities } from './profile-entries/ProfileOpportunityCollection';
 
 export const defaultProfilePicture = '/images/default-profile-picture.png';
 
@@ -192,8 +192,8 @@ class BaseProfileCollection extends BaseSlugCollection {
     const userID = profile.userID;
     if (!Users.isReferenced(userID)) {
       // Automatically remove references to user from other collections that are "private" to this user.
-      _.forEach([Feeds, CourseInstances, OpportunityInstances, AcademicYearInstances, FeedbackInstances, VerificationRequests, FavoriteCareerGoals, FavoriteCourses, FavoriteInterests,
-        FavoriteOpportunities], (collection) => collection.removeUser(userID));
+      _.forEach([Feeds, CourseInstances, OpportunityInstances, AcademicYearInstances, FeedbackInstances, VerificationRequests, ProfileCareerGoals, ProfileCourses, ProfileInterests,
+        ProfileOpportunities], (collection) => collection.removeUser(userID));
       Meteor.users.remove({ _id: userID });
       Slugs.getCollection().remove({ name: profile.username });
       return super.removeIt(profileID);

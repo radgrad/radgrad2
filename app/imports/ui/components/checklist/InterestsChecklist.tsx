@@ -24,8 +24,8 @@ export class InterestsChecklist extends Checklist {
   }
 
   public updateState(): void {
-    const interests = Users.getInterestIDsByType(this.profile.userID);
-    if (interests[0].length + interests[1].length < 3) {
+    const interests = Users.getInterestIDs(this.profile.userID);
+    if (interests.length < 3) {
       // console.log('not enough interests');
       this.state = 'Improve';
     } else if (this.profile.lastVisitedInterests) {
@@ -75,8 +75,8 @@ export class InterestsChecklist extends Checklist {
   }
 
   public getDetails(state: ChecklistState): JSX.Element {
-    const interests = Users.getInterestIDsByType(this.profile.userID);
-    if (interests[0].length === 0) {
+    const interests = Users.getInterestIDs(this.profile.userID);
+    if (interests.length === 0) {
       return <p>You have not yet added any Interests to your profile</p>;
     }
     return <div><p>Here are your current interests:&nbsp;</p><ProfileInterestList profile={this.profile} size="medium" /></div>;

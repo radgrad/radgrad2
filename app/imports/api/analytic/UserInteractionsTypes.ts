@@ -20,9 +20,9 @@ export enum UserInteractionsTypes {
   // Removing a course/opportunity from the planner
   REMOVECOURSE = 'removeCourse',
   REMOVEOPPORTUNITY = 'removeOpportunity',
-  /* Favorites */
-  FAVORITEITEM = 'favoriteItem',
-  UNFAVORITEITEM = 'unFavoriteItem',
+  // Profile entities
+  ADD_TO_PROFILE = 'addToProfile',
+  REMOVE_FROM_PROFILE = 'removeFromProfile',
   /* Reviews */
   ADDREVIEW = 'addReview',
   EDITREVIEW = 'editReview',

@@ -6,9 +6,9 @@ import _ from 'lodash';
 import { Reviews } from '../../../../api/review/ReviewCollection';
 import { getMenuWidget } from '../utilities/getMenuWidget';
 import ExplorerMenu from '../../../components/shared/explorer/item-view/ExplorerMenu';
-import { Course, DescriptionPair, FavoriteCourse, Review } from '../../../../typings/radgrad';
+import { Course, DescriptionPair, ProfileCourse, Review } from '../../../../typings/radgrad';
 import { Courses } from '../../../../api/course/CourseCollection';
-import { FavoriteCourses } from '../../../../api/favorite/FavoriteCourseCollection';
+import { ProfileCourses } from '../../../../api/user/profile-entries/ProfileCourseCollection';
 import { Users } from '../../../../api/user/UserCollection';
 import ExplorerCourseWidget from '../../../components/shared/explorer/item-view/course/ExplorerCourseWidget';
 import { Interests } from '../../../../api/interest/InterestCollection';
@@ -19,7 +19,7 @@ import * as Router from '../../../components/shared/utilities/router';
 import { Slugs } from '../../../../api/slug/SlugCollection';
 
 interface CourseViewPageProps {
-  favoriteCourses: FavoriteCourse[];
+  profileCourses: ProfileCourse[];
   course: Course;
   itemReviews: Review[];
 }
@@ -100,9 +100,9 @@ const isCourseCompleted = (courseSlugName, match): boolean => {
   return ret;
 };
 
-const CourseViewPage: React.FC<CourseViewPageProps> = ({ favoriteCourses, course, itemReviews }) => {
+const CourseViewPage: React.FC<CourseViewPageProps> = ({ profileCourses, course, itemReviews }) => {
   const match = useRouteMatch();
-  const menuAddedList = _.map(favoriteCourses, (f) => ({
+  const menuAddedList = _.map(profileCourses, (f) => ({
     item: Courses.findDoc(f.courseID),
     count: 1,
   }));
@@ -134,11 +134,11 @@ const CourseViewPageContainer = withTracker(() => {
   // console.log(course, username);
   const courseDoc = Courses.findDocBySlug(course);
   const profile = Users.getProfile(username);
-  const favoriteCourses = FavoriteCourses.findNonRetired({ studentID: profile.userID });
+  const profileCourses = ProfileCourses.findNonRetired({ studentID: profile.userID });
   const itemReviews = Reviews.findNonRetired({ revieweeID: courseDoc._id });
   return {
     course: courseDoc,
-    favoriteCourses,
+    profileCourses,
     itemReviews,
   };
 })(CourseViewPage);
