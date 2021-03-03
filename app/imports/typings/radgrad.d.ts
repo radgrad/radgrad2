@@ -628,45 +628,6 @@ export interface OpportunityTypeUpdate extends Update {
   retired?: boolean;
 }
 
-export interface PageInterest extends Document {
-  username: string;
-  category: string;
-  name: string;
-  timestamp: Date;
-  retired: boolean;
-}
-
-export interface PageInterestDefine extends DumpOne {
-  username: string;
-  category: string;
-  name: string;
-  timestamp?: Date;
-  retired?: boolean;
-}
-
-export interface PageInterestInfo {
-  name: string;
-  views: number;
-}
-
-export interface PageInterestsDailySnapshot extends Document {
-  careerGoals: PageInterestInfo[];
-  courses: PageInterestInfo[];
-  interests: PageInterestInfo[];
-  opportunities: PageInterestInfo[];
-  timestamp: Date;
-  retired: boolean;
-}
-
-export interface PageInterestsDailySnapshotDefine extends DumpOne {
-  careerGoals: PageInterestInfo[];
-  courses: PageInterestInfo[];
-  interests: PageInterestInfo[];
-  opportunities: PageInterestInfo[];
-  timestamp?: Date;
-  retired?: boolean;
-}
-
 // PlanChoice
 export interface PlanChoiceDefine extends DumpOne {
   choice: string;

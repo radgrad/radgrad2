@@ -1,5 +1,5 @@
 import faker from 'faker';
-import { PageInterestInfo } from '../../typings/radgrad';
+import { PageInterestInfo } from '../../../../app/imports/typings/radgrad';
 import { PageInterestsDailySnapshots } from './PageInterestsDailySnapshotCollection';
 
 /**

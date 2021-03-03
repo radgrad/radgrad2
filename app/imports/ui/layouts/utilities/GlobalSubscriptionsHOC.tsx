@@ -22,7 +22,6 @@ import { StudentParticipations } from '../../../api/public-stats/StudentParticip
 // import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { Feeds } from '../../../api/feed/FeedCollection';
 // import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
-import { PageInterestsDailySnapshots } from '../../../api/page-tracking/PageInterestsDailySnapshotCollection';
 
 interface Loading {
   loading: boolean;
@@ -58,7 +57,6 @@ const withGlobalSubscription = (WrappedComponent) => {
       globalSubs.subscribe(InterestTypes.getPublicationName()),
       globalSubs.subscribe(Opportunities.getPublicationName()),
       globalSubs.subscribe(OpportunityTypes.getPublicationName()),
-      globalSubs.subscribe(PageInterestsDailySnapshots.getPublicationName()),
       globalSubs.subscribe(PublicStats.getPublicationName()),
       globalSubs.subscribe(Reviews.getPublicationName()),
       globalSubs.subscribe(StudentParticipations.getPublicationName()),

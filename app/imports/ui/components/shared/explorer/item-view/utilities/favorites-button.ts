@@ -9,16 +9,11 @@ import {
   ProfileCourseDefine,
   ProfileInterestDefine,
   ProfileOpportunityDefine, Interest, Opportunity,
-  PageInterestDefine,
   UserInteractionDefine,
 } from '../../../../../../typings/radgrad';
 import { Users } from '../../../../../../api/user/UserCollection';
 import { Slugs } from '../../../../../../api/slug/SlugCollection';
 import { UserInteractionsTypes } from '../../../../../../api/analytic/UserInteractionsTypes';
-import {
-  IPageInterestsCategoryTypes,
-  PageInterestsCategoryTypes,
-} from '../../../../../../api/page-tracking/PageInterestsCategoryTypes';
 
 export const getCollectionName = (type: IFavoriteTypes): string => {
   let collectionName: string;
@@ -126,28 +121,4 @@ export const createInteractionData = (studentID: string, item: ItemType, type: I
       break;
   }
   return interactionData;
-};
-
-export const createPageInterestData = (studentID: string, item: ItemType, type: IFavoriteTypes): PageInterestDefine => {
-  const username = getStudent(studentID);
-  const name = Slugs.getNameFromID(item.slugID);
-  let category: IPageInterestsCategoryTypes;
-  switch (type) {
-    case PROFILE_ENTRY_TYPE.CAREERGOAL:
-      category = PageInterestsCategoryTypes.CAREERGOAL;
-      break;
-    case PROFILE_ENTRY_TYPE.COURSE:
-      category = PageInterestsCategoryTypes.COURSE;
-      break;
-    case PROFILE_ENTRY_TYPE.INTEREST:
-      category = PageInterestsCategoryTypes.INTEREST;
-      break;
-    case PROFILE_ENTRY_TYPE.OPPORTUNITY:
-      category = PageInterestsCategoryTypes.OPPORTUNITY;
-      break;
-    default:
-      console.error(`Bad favorite type: ${type}`);
-      break;
-  }
-  return { username, category, name };
 };

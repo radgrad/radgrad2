@@ -28,8 +28,6 @@ import { ProfileCareerGoals } from '../user/profile-entries/ProfileCareerGoalCol
 import { ProfileCourses } from '../user/profile-entries/ProfileCourseCollection';
 import { ProfileInterests } from '../user/profile-entries/ProfileInterestCollection';
 import { ProfileOpportunities } from '../user/profile-entries/ProfileOpportunityCollection';
-import { PageInterestsDailySnapshots } from '../page-tracking/PageInterestsDailySnapshotCollection';
-import { PageInterests } from '../page-tracking/PageInterestCollection';
 
 /**
  * @memberOf api/radgrad
@@ -69,8 +67,6 @@ class RadGradClass {
       Opportunities,
       OpportunityInstances,
       OpportunityTypes,
-      PageInterests,
-      PageInterestsDailySnapshots,
       PublicStats,
       Reviews,
       AcademicTerms,
@@ -108,8 +104,6 @@ class RadGradClass {
       Feeds,
       IceSnapshots,
       UserInteractions,
-      PageInterests,
-      PageInterestsDailySnapshots,
       Reviews,
       ProfileCareerGoals,
       ProfileCourses,
