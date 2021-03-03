@@ -79,7 +79,7 @@ export class OpportunitiesChecklist extends Checklist {
 
   public getDetails(state: ChecklistState): JSX.Element {
     const futureOpportunityInstances = OpportunityInstances.findNonRetired({ studentID: this.profile.userID, verified: false });
-    if (futureOpportunityInstances[0].length === 0) {
+    if (futureOpportunityInstances.length === 0) {
       return <p>You do not have any future Opportunities in your Degree Plan.</p>;
     }
     return <div><p>Here are your future Opportunities: &nbsp;</p><ProfileFutureOpportunitiesList profile={this.profile} size="medium" /></div>;

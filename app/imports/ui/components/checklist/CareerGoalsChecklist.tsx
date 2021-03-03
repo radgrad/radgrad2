@@ -79,7 +79,7 @@ export class CareerGoalsChecklist extends Checklist {
   public getDetails(state: ChecklistState): JSX.Element {
     const userID = this.profile.userID;
     const careerGoals = ProfileCareerGoals.findNonRetired({ userID });
-    if (careerGoals[0].length === 0) {
+    if (careerGoals.length === 0) {
       return <p>You have not yet added any Career Goals to your profile</p>;
     }
     return <div><p>Here are your current Career Goals:&nbsp;</p><ProfileCareerGoalList profile={this.profile} size="medium" /></div>;
