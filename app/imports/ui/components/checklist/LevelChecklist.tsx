@@ -7,6 +7,7 @@ import { StudentProfile } from '../../../typings/radgrad';
 import { LEVELS, URL_ROLES } from '../../layouts/utilities/route-constants';
 import RadGradMenuLevel from '../shared/RadGradMenuLevel';
 import { Checklist } from './Checklist';
+import '../../../../client/style.css';
 
 export class LevelChecklist extends Checklist {
   private profile: StudentProfile;
@@ -34,9 +35,9 @@ export class LevelChecklist extends Checklist {
   public getTitle(state: ChecklistState): JSX.Element {
     switch (state) {
       case 'Review':
-        return <Header>We notice you have not achieved a new Level in a while</Header>;
+        return <Header as='h1'>We notice you have not achieved a <strong>New Level</strong> in a while</Header>;
       case 'OK':
-        return <Header>You recently achieved a new Level</Header>;
+        return <Header as='h1'>You recently achieved a <strong>New Level</strong></Header>;
       default:
         return <React.Fragment />;
     }
@@ -57,12 +58,12 @@ export class LevelChecklist extends Checklist {
   public getDetails(state: ChecklistState): JSX.Element {
     switch (state) {
       case 'Review':
-        return <div>
+        return <div className='centeredBox'>
           <p>The Level page contains more information about your current Level and how to achieve the next one.</p>
-          <Button as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${LEVELS}`}>Go To Levels Page</Button></div>;
+          <Button size='huge' color='teal'  as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${LEVELS}`}>Go To Levels Page</Button></div>;
       case 'OK':
-        return <div><p>For more details about your Level please go to </p>
-          <Button as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${LEVELS}`}>Go To Levels Page</Button></div>;
+        return <div className='centeredBox'><p>For more details about your Level please go to </p>
+          <Button size='huge' color='teal'  as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${LEVELS}`}>Go To Levels Page</Button></div>;
       default:
         return <React.Fragment />;
     }

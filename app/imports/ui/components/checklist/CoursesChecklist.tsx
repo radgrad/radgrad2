@@ -12,6 +12,7 @@ import { Ice, StudentProfile, StudentProfileUpdate } from '../../../typings/radg
 import { DEGREEPLANNER, EXPLORER, ICE, URL_ROLES } from '../../layouts/utilities/route-constants';
 import ProfileFutureCoursesList from '../shared/ProfileFutureCoursesList';
 import { Checklist } from './Checklist';
+import '../../../../client/style.css';
 
 export class CoursesChecklist extends Checklist {
   private profile: StudentProfile;
@@ -49,12 +50,12 @@ export class CoursesChecklist extends Checklist {
   public getTitle(state: ChecklistState): JSX.Element {
     switch (state) {
       case 'OK':
-        return <Header>The Courses in your Degree Plan appear to be OK</Header>;
+        return <Header as='h1'>The <strong>Courses</strong> in your <strong>Degree Plan</strong> appear to be OK</Header>;
       case 'Review':
-        return <Header>Please confirm that the courses in your Degree Plan are correct</Header>;
+        return <Header as='h1'>Please confirm that the <strong>Courses</strong> in your <strong>Degree Plan</strong> are correct</Header>;
       case 'Improve':
-        return <Header>Please add more future Courses to your degree plan so that you are on track to earn 100
-          Competency points</Header>;
+        return <Header as='h1'>Please add more <strong>Future Courses</strong> to your <strong>Degree Plan</strong> so that you are on track to earn <strong>100
+          Competency</strong> points</Header>;
       default:
         return <React.Fragment />;
     }
@@ -85,7 +86,7 @@ export class CoursesChecklist extends Checklist {
     if (futureCourseInstances[0].length === 0) {
       return <p>You do not have any future Courses in your Degree Plan.</p>;
     }
-    return <div><p>Here are your future Courses: &nbsp;</p><ProfileFutureCoursesList profile={this.profile} size="medium" /></div>;
+    return <div className='highlightBox'><p>Here are your future Courses: &nbsp;</p><ProfileFutureCoursesList profile={this.profile} size="medium" /></div>;
   }
 
   public getActions(state: ChecklistState): JSX.Element {
@@ -102,25 +103,25 @@ export class CoursesChecklist extends Checklist {
     };
     switch (state) {
       case 'OK':
-        return <div>
+        return <div className='centeredBox'>
           <p>Click &quot;Go To Degree Planner&quot; if you still want to see the courses in your Degree Plan, or
           click &quot;Go to Course Explorer&quot; if you still want to search for additional Courses to include in your
           Degree Plan.</p>
-          <Button as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${DEGREEPLANNER}`}>Go To Degree Planner</Button>
-          <Button as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.COURSES}`}>Go To Course Explorer</Button>
+          <Button size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${DEGREEPLANNER}`}>Go To Degree Planner</Button>&nbsp;&nbsp;
+          <Button basic size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.COURSES}`}>Go To Course Explorer</Button>
         </div>;
       case 'Improve':
-        return <div><p>Click &quot;Go To Course Explorer&quot; to review the available Courses in RadGrad and add interesting ones to your profile. Or, click &quot;Go To Degree Planner&quot; to go directly to the Degree Planner page to add courses from your profile to a future semester in your degree plan</p>
-          <Button as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.COURSES}`}>Go To Course Explorer</Button>
-          <Button as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${DEGREEPLANNER}`}>Go To Degree Planner</Button>
+        return <div className='centeredBox'><p>Click &quot;Go To Course Explorer&quot; to review the available Courses in RadGrad and add interesting ones to your profile. Or, click &quot;Go To Degree Planner&quot; to go directly to the Degree Planner page to add courses from your profile to a future semester in your degree plan</p>
+          <Button size='huge' color='teal'  as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.COURSES}`}>Go To Course Explorer</Button>&nbsp;&nbsp;
+          <Button basic size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${DEGREEPLANNER}`}>Go To Degree Planner</Button>
         </div>;
       case 'Review':
-        return <div>
+        return <div className='centeredBox'>
           <p>Click &quot;Go To Course Explorer&quot; to search for courses and add new ones to your profile, or to see new reviews. Click &quot;Go To Degree Planner&quot; to review your degree plan and potentially move or remove Courses. Click &quot;Go To ICE page&quot; to learn more about Competency points.  Click &quot;My Courses are OK&quot; to confirm that your current Degree Plan is correct.</p>
-          <Button as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${DEGREEPLANNER}`}>Go To Degree Planner</Button>
-          <Button as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.COURSES}`}>Go To Course Explorer</Button>
-          <Button as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${ICE}`}>Go To ICE</Button>
-          <Button onClick={handleVerification}>My Courses are OK</Button>
+          <Button size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${DEGREEPLANNER}`}>Go To Degree Planner</Button>&nbsp;&nbsp;
+          <Button basic size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.COURSES}`}>Go To Course Explorer</Button><br/><br/>
+          <Button size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${ICE}`}>Go To ICE</Button>&nbsp;&nbsp;
+          <Button basic size='huge' color='teal' onClick={handleVerification}>My Courses are OK</Button>
         </div>;
       default:
         return <React.Fragment />;

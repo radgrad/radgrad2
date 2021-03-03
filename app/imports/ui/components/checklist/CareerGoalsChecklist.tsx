@@ -12,6 +12,7 @@ import { StudentProfile, StudentProfileUpdate } from '../../../typings/radgrad';
 import { EXPLORER, URL_ROLES } from '../../layouts/utilities/route-constants';
 import ProfileCareerGoalList from '../shared/ProfileCareerGoalList';
 import { Checklist } from './Checklist';
+import '../../../../client/style.css';
 
 
 export class CareerGoalsChecklist extends Checklist {
@@ -50,11 +51,11 @@ export class CareerGoalsChecklist extends Checklist {
   public getTitle(state: ChecklistState): JSX.Element {
     switch (state) {
       case 'OK':
-        return <Header>Your Career Goals appear to be OK</Header>;
+        return <Header as='h1'>Your <strong>Career Goals</strong> appear to be OK</Header>;
       case 'Review':
-        return <Header>Please confirm that your current Career Goals are OK</Header>;
+        return <Header as='h1'>Please confirm that your current <strong>Career Goals</strong> are OK</Header>;
       case 'Improve':
-        return <Header>Please add at least three Career Goals to your profile</Header>;
+        return <Header as='h1'>Please add at least three <strong>Career Goals</strong> to your profile</Header>;
       default:
         return <React.Fragment />;
     }
@@ -82,7 +83,7 @@ export class CareerGoalsChecklist extends Checklist {
     if (careerGoals[0].length === 0) {
       return <p>You have not yet added any Career Goals to your profile</p>;
     }
-    return <div><p>Here are your current Career Goals:&nbsp;</p><ProfileCareerGoalList profile={this.profile} size="medium" /></div>;
+    return <div className='highlightBox'><p>Here are your current Career Goals:&nbsp;</p><ProfileCareerGoalList profile={this.profile} size="medium" /></div>;
   }
 
   /**
@@ -103,19 +104,19 @@ export class CareerGoalsChecklist extends Checklist {
     };
     switch (state) {
       case 'OK':
-        return <p>Click this button to go to the Career Goals Explorer if you want to look for new Career Goals anyway.&nbsp;
-        <Button as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.CAREERGOALS}`}>Go To Career Goals Explorer</Button> </p>;
+        return <div className='centeredBox'><p>Click this button to go to the Career Goals Explorer if you want to look for new Career Goals anyway.&nbsp;
+          <Button size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.CAREERGOALS}`}>Go To Career Goals Explorer</Button> </p></div>;
       case 'Review':
-        return <div>
+        return <div className='centeredBox'>
           <p>Clicking either button sets the timestamp for the last time this item was reviewed, so it will
           move into the OK state and won&apos;t move back into the Review state for another six months.</p>
-          <Button as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.CAREERGOALS}`}>Go To Career Goals Explorer</Button>
-          <Button onClick={handleVerification}>My Career Goals are OK</Button>
+          <Button size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.CAREERGOALS}`}>Go To Career Goals Explorer</Button>&nbsp;&nbsp;
+          <Button basic size='huge' color='teal' onClick={handleVerification}>My Career Goals are OK</Button>
         </div>;
       case 'Improve':
-        return <div><p>Click &quot;Go To Interest Explorer&quot; to search for the Career Goals and add at least three to
+        return <div className='centeredBox'><p>Click &quot;Go To Interest Explorer&quot; to search for the Career Goals and add at least three to
           your Profile.</p>
-          <Button as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.CAREERGOALS}`}>Go To Career Goals Explorer</Button>
+          <Button size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.CAREERGOALS}`}>Go To Career Goals Explorer</Button>
         </div>;
       default:
         return <React.Fragment />;

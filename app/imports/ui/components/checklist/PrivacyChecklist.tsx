@@ -7,6 +7,7 @@ import { StudentProfile } from '../../../typings/radgrad';
 import { PRIVACY, URL_ROLES } from '../../layouts/utilities/route-constants';
 import StudentPrivacySettingList from '../student/StudentPrivacySettingList';
 import { Checklist } from './Checklist';
+import '../../../../client/style.css';
 
 export class PrivacyChecklist extends Checklist {
   private profile: StudentProfile;
@@ -34,9 +35,9 @@ export class PrivacyChecklist extends Checklist {
   public getTitle(state: ChecklistState): JSX.Element {
     switch (state) {
       case 'Review':
-        return <Header>We notice you have not reviewed your privacy settings recently</Header>;
+        return <Header as='h1'>We notice you have not reviewed your <strong>Privacy Settings</strong> recently</Header>;
       case 'OK':
-        return <Header>You recently reviewed your privacy settings</Header>;
+        return <Header as='h1'>You recently reviewed your <strong>Privacy Settings</strong></Header>;
       default:
         return <React.Fragment />;
     }
@@ -59,11 +60,11 @@ export class PrivacyChecklist extends Checklist {
   public getDetails(state: ChecklistState): JSX.Element {
     switch (state) {
       case 'Review':
-        return <div><p>Your current privacy settings are:</p>
+        return <div className='highlightBox'><p>Your current privacy settings are:</p>
           <StudentPrivacySettingList profile={this.profile} size="medium" /></div>;
       case 'OK':
-        return <div><p>The Privacy page allows you to change your privacy settings </p>
-          <Button as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${PRIVACY}`}>Go To Privacy Page</Button>
+        return <div className='centeredBox'><p>The Privacy page allows you to change your privacy settings </p>
+          <Button size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${PRIVACY}`}>Go To Privacy Page</Button>
         </div>;
       default:
         return <React.Fragment />;
@@ -73,8 +74,8 @@ export class PrivacyChecklist extends Checklist {
   public getActions(state: ChecklistState): JSX.Element {
     switch (state) {
       case 'Review':
-        return <div><p>Click &quot;Go to Privacy Page&quot; to go to the privacy page.</p>
-          <Button as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${PRIVACY}`}>Go To Privacy Page</Button>
+        return <div className='centeredBox'><p>Click &quot;Go to Privacy Page&quot; to go to the privacy page.</p>
+          <Button size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${PRIVACY}`}>Go To Privacy Page</Button>
         </div>;
       default:
         return <React.Fragment />;

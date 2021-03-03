@@ -1,7 +1,8 @@
 import moment from 'moment';
 import React from 'react';
-import { Segment } from 'semantic-ui-react';
+import { Segment, Grid, Label, Header, Icon} from 'semantic-ui-react';
 import { ChecklistState } from '../../../api/checklist/ChecklistState';
+import '../../../../client/style.css';
 
 /**
  * Base class for all checklist items.
@@ -26,6 +27,7 @@ export class Checklist {
   public getState(): ChecklistState {
     return this.state;
   }
+
 
   /**
    * Returns the name of the checklist.
@@ -68,30 +70,47 @@ export class Checklist {
   }
 
   public getChecklistItem(): JSX.Element {
-    let segmentStyle;
+    let containerStyle;
     switch (this.getState()) {
       case 'Improve':
-        segmentStyle = {
-          backgroundColor: '#C94963',
+        containerStyle = {
+          backgroundColor: '#fae9e9',
+          width: '100%',
         };
         break;
       case 'Review':
-        segmentStyle = {
-          backgroundColor: '#CEB23F',
+        containerStyle = {
+          backgroundColor: '#f9fae9',
+          width: '100%',
         };
         break;
       case 'OK':
-        segmentStyle = {
-          backgroundColor: '#6FBE44',
+        containerStyle = {
+          backgroundColor: '#e2fbdd',
+          width: '100%',
         };
     }
     return (
-      <Segment id={`checklist-${this.name}`} key={`checklist-${this.name}`} style={segmentStyle}>
-        {this.getTitle(this.getState())}
-        {this.getDescription(this.getState())}
-        {this.getDetails(this.getState())}
-        {this.getActions(this.getState())}
-      </Segment>
+      <div style={containerStyle} >
+        <Grid centered>
+          <Grid.Column width={10} >
+            <div className="checklist">
+              <Header as='h3' color='grey' attached='top'>
+                <Icon color='grey' name='heart' />INTERESTS
+              </Header>
+              <Segment attached raised placeholder id={`checklist-${this.name}`} key={`checklist-${this.name}`} padded='very'>
+                <div className="labelStatus"><Label as='a' color='red' ribbon='right'>
+                  REVIEW
+                </Label></div>
+                {this.getTitle(this.getState())}
+                {this.getDescription(this.getState())}
+                {this.getDetails(this.getState())}
+                {this.getActions(this.getState())}
+              </Segment>
+            </div>
+          </Grid.Column>
+         </Grid>
+      </div>
     );
   }
 
