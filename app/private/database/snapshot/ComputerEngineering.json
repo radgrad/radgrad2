@@ -7187,7 +7187,7 @@
             "Spring-2021",
             "Summer-2021"
           ],
-          "retired": true
+          "retired": false
         },
         {
           "name": "VIP Projects",
@@ -7225,7 +7225,7 @@
             "Spring-2021",
             "Summer-2021"
           ],
-          "retired": true
+          "retired": false
         },
         {
           "name": "Agilent",
@@ -7264,7 +7264,7 @@
             "Spring-2021",
             "Summer-2021"
           ],
-          "retired": true
+          "retired": false
         },
         {
           "name": "AMD",
@@ -7304,7 +7304,7 @@
             "Spring-2021",
             "Summer-2021"
           ],
-          "retired": true
+          "retired": false
         },
         {
           "name": "Cirrus Logic",
@@ -7343,7 +7343,7 @@
             "Spring-2021",
             "Summer-2021"
           ],
-          "retired": true
+          "retired": false
         },
         {
           "name": "Fast Enterprises",
@@ -7382,7 +7382,7 @@
             "Spring-2021",
             "Summer-2021"
           ],
-          "retired": true
+          "retired": false
         },
         {
           "name": "Qualcomm",
@@ -7422,7 +7422,7 @@
             "Spring-2021",
             "Summer-2021"
           ],
-          "retired": true
+          "retired": false
         },
         {
           "name": "Research Assistantship in Data Sciences and Health Informatics with the Social Science Research Institute",
@@ -7462,7 +7462,7 @@
             "Spring-2021",
             "Summer-2021"
           ],
-          "retired": true
+          "retired": false
         }
       ]
     },
