@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> ui/pages/student/StudentTermsAndConditionsPage.tsx</title>
+  <title> api/user/profile-entries/ProfileOpportunityCollection.ts</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -76,7 +76,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>ui/pages/student/StudentTermsAndConditionsPage.tsx</h1>
+                    <h1>api/user/profile-entries/ProfileOpportunityCollection.ts</h1>
                 </header>
                 
 
@@ -85,80 +85,208 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import React, {useEffect, useState} from 'react';
-import ReactMarkdownWithHtml from 'react-markdown/with-html';
-import PageLayout from '../PageLayout';
-import {getTermsAndConditions} from '../../../api/utilities/TermsAndConditions.methods';
+            <pre class="prettyprint source linenums"><code>import { Meteor } from 'meteor/meteor';
+import SimpleSchema from 'simpl-schema';
+import _ from 'lodash';
+import { ReactiveAggregate } from 'meteor/jcbernack:reactive-aggregate';
+import BaseCollection from '../../base/BaseCollection';
+import { Users } from '../UserCollection';
+import { ROLE } from '../../role/Role';
+import { Opportunities } from '../../opportunity/OpportunityCollection';
+import { ProfileOpportunityDefine, ProfileEntryUpdate } from '../../../typings/radgrad';
 
-const headerPaneTitle = 'Terms and Conditions';
-const headerPaneBody = `
-Here are the terms and conditions for using RadGrad.
-`;
+class ProfileOpportunityCollection extends BaseCollection {
+  public readonly publicationNames: {
+    scoreboard: string;
+  };
 
-/**
- * Student Terms and Conditions Page Processing
- *
- * The goal of this page is to display the Terms and Conditions, where Terms and Conditions are located in a file
- * on the server side, the location of which is indicated via a settings property.
- *
- * This page provides a simple example of how to display a page in React where its contents must be fetched
- * asynchronously from the server side.  Normally, we do this via publications and subscriptions, but here is a situation
- * where we need some data from the server that is not stored in a Collection!
- *
- * Therefore, the way this page needs to work is:
- *   1. The page is retrieved and displayed in the client.
- *   2. An asynchronous call is made to the server. The server loads the terms and conditions (T&amp;C) text from a file.
- *   3. The resulting T&amp;C text (or an error message) is returned to the client and the page is re-rendered.
- *
- * Implementing this requires the use of Meteor Methods, useState, and useEffect.
- *
- * First, there is a Meteor Method called getTermsAndConditions. NOTE: Meteor methods run on both the client and server side.
- * When this method runs on the client side, we have it immediately returns the empty string. (This particular value is important.)
- * When this method runs on the server side, we have it try to load the T&amp;C text and return it.
- *
- * Second, we have to use React's useState and useEffect hooks to invoke the Meteor Method and ensure that the page
- * is re-rendered exactly once when the Method returns.
- *
- * We use useState to create a state variable called 'terms', with initial value of the empty string. Note that whenever
- * the 'terms' variable changes value, the page will be re-rendered.
- *
- * The useEffect construct accepts a function that is run each time the page is rendered.  This function checks the 'terms'
- * variable, and returns immediately if the 'terms' variable is not the empty string. In the case that the terms variable is
- * the empty string, then it invokes fetchTerms(), which invokes our Meteor Method. This Meteor Method will
- * run immediately on the client side, but in this case it sets the 'terms' variable to the empty string, so that doesn't change
- * the state and so no rendering is triggered.
- *
- * Eventually, though, the promise will return, invoking either the then() or catch() chained function calls. Hopefully
- * it's always the then() chain that gets executed, which sets the 'terms' variable to the contents of the file on the
- * server side. Now the 'terms' variable is not the empty string, so when useEffect is called again after the page
- * re-renders, it doesn't do call fetchTerms again.
- *
- * The final part of the design is to render the markdown section of the page with either the 'terms' variable value (if
- * it's not the empty string), or the value of the awaitingTerms variable.  We do this so that if it takes a while
- * to get the result back from the server, the page will display "Waiting to receive terms and conditions...." while
- * waiting.
- */
-const StudentTermsAndConditionsPage: React.FC = () => {
-  const awaitingTerms = 'Waiting to receive terms and conditions from server...';
-  const [terms, setTerms] = useState('');
-  useEffect(() => {
-    function fetchTerms() {
-      getTermsAndConditions.callPromise({})
-        .then(result => setTerms(result))
-        .catch(error => setTerms(`Server Error: ${error}`));
+  /** Creates the ProfileOpportunity collection */
+  constructor() {
+    super('ProfileOpportunity', new SimpleSchema({
+      opportunityID: SimpleSchema.RegEx.Id,
+      studentID: SimpleSchema.RegEx.Id,
+      retired: { type: Boolean, optional: true },
+    }));
+    this.publicationNames = {
+      scoreboard: `${this.collectionName}.scoreboard`,
+    };
+  }
+
+  /**
+   * Defines a new ProfileOpportunity.
+   * @param opportunity the opportunity slug.
+   * @param student the student's username.
+   * @param retired the retired status.
+   * @returns {void|*|boolean|{}}
+   */
+  define({ opportunity, student, retired = false }) {
+    const opportunityID = Opportunities.getID(opportunity);
+    const studentID = Users.getID(student);
+    const doc = this.collection.findOne({ studentID, opportunityID });
+    if (doc) {
+      return doc._id;
     }
-    // Only fetch terms if they haven't been fetched before.
-    terms || fetchTerms();
-  });
+    return this.collection.insert({ opportunityID, studentID, retired });
+  }
 
-  return (
-    &lt;PageLayout id="student-terms-and-conditions-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
-      &lt;ReactMarkdownWithHtml linkTarget="_blank" allowDangerousHtml source={terms || awaitingTerms}/>
-    &lt;/PageLayout>
-  );
-};
+  /**
+   * Updates the retired status.
+   * @param docID the ID of the ProfileOpportunity.
+   * @param retired the new retired value.
+   */
+  update(docID, { retired }) {
+    this.assertDefined(docID);
+    const updateData: ProfileEntryUpdate = {};
+    if (_.isBoolean(retired)) {
+      updateData.retired = retired;
+    }
+    this.collection.update(docID, { $set: updateData });
+  }
 
-export default StudentTermsAndConditionsPage;
+  /**
+   * Remove the ProfileOpportunity.
+   * @param docID The docID of the ProfileOpportunity.
+   */
+  removeIt(docID) {
+    this.assertDefined(docID);
+    // OK, clear to delete.
+    return super.removeIt(docID);
+  }
+
+  /**
+   * Removes all the ProfileOpportunities for the user.
+   * @param user the username.
+   */
+  removeUser(user) {
+    const studentID = Users.getID(user);
+    this.collection.remove({ studentID });
+  }
+
+  /**
+   * Publish ProfileOpportunities. If logged in as ADMIN get all, otherwise only get the ProfileOpportunities for the
+   * studentID.
+   * Also publishes the ProfileOpportunities scoreboard.
+   */
+  publish() {
+    if (Meteor.isServer) {
+      const collection = this.collection;
+      Meteor.publish(this.collectionName, function filterStudentID(studentID) { // eslint-disable-line meteor/audit-argument-checks
+        if (_.isNil(studentID)) {
+          return this.ready();
+        }
+        const profile = Users.getProfile(studentID);
+        if (_.includes([ROLE.ADMIN, ROLE.ADVISOR], profile.role)) {
+          return collection.find();
+        }
+        return collection.find({ studentID });
+      });
+      Meteor.publish(this.publicationNames.scoreboard, function publishOpportunityScoreboard() {
+        ReactiveAggregate(this, collection, [
+          {
+            $group: {
+              _id: '$opportunityID',
+              count: { $sum: 1 },
+            },
+          },
+          { $project: { count: 1, opportunityID: 1 } },
+        ], { clientCollection: 'ProfileOpportunitiesScoreboard' });
+      });
+    }
+  }
+
+  /**
+   * Implementation of assertValidRoleForMethod. Asserts that userId is logged in as an Admin, Advisor or
+   * Student.
+   * This is used in the define, update, and removeIt Meteor methods associated with each class.
+   * @param userId The userId of the logged in user. Can be null or undefined
+   * @throws { Meteor.Error } If there is no logged in user, or the user is not an Admin or Advisor.
+   */
+  assertValidRoleForMethod(userId) {
+    this.assertRole(userId, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.STUDENT]);
+  }
+
+  /**
+   * Returns the Opportunity associated with the ProfileOpportunity with the given instanceID.
+   * @param instanceID The id of the OpportunityInstance.
+   * @returns {Object} The associated Opportunity.
+   * @throws {Meteor.Error} If instanceID is not a valid ID.
+   */
+  getOpportunityDoc(instanceID) {
+    this.assertDefined(instanceID);
+    const instance = this.collection.findOne({ _id: instanceID });
+    return Opportunities.findDoc(instance.opportunityID);
+  }
+
+  /**
+   * Returns the Opportunity slug for the profile's corresponding Opportunity.
+   * @param instanceID The ProfileOpportunity ID.
+   * @return {string} The opportunity slug.
+   */
+  getOpportunitySlug(instanceID) {
+    this.assertDefined(instanceID);
+    const instance = this.collection.findOne({ _id: instanceID });
+    return Opportunities.findSlugByID(instance.opportunityID);
+  }
+
+  /**
+   * Returns the Student profile associated with the ProfileOpportunity with the given instanceID.
+   * @param instanceID The ID of the ProfileOpportunity.
+   * @returns {Object} The associated Student profile.
+   * @throws {Meteor.Error} If instanceID is not a valid ID.
+   */
+  getStudentDoc(instanceID) {
+    this.assertDefined(instanceID);
+    const instance = this.collection.findOne({ _id: instanceID });
+    return Users.getProfile(instance.studentID);
+  }
+
+  /**
+   * Returns the username associated with the studentID.
+   * @param instanceID the ProfileOpportunity id.
+   * @returns {*}
+   */
+  getStudentUsername(instanceID) {
+    this.assertDefined(instanceID);
+    const instance = this.collection.findOne({ _id: instanceID });
+    return Users.getProfile(instance.studentID).username;
+  }
+
+  /**
+   * Returns an array of strings, each one representing an integrity problem with this collection.
+   * Returns an empty array if no problems were found.
+   * Checks semesterID, opportunityID, and studentID.
+   * @returns {Array} A (possibly empty) array of strings indicating integrity issues.
+   */
+  checkIntegrity() {
+    const problems = [];
+    this.find()
+      .forEach(doc => {
+        if (!Opportunities.isDefined(doc.opportunityID)) {
+          problems.push(`Bad opportunityID: ${doc.opportunityID}`);
+        }
+        if (!Users.isDefined(doc.studentID)) {
+          problems.push(`Bad studentID: ${doc.studentID}`);
+        }
+      });
+    return problems;
+  }
+
+  /**
+   * Returns an object representing the ProfileOpportunity docID in a format acceptable to define().
+   * @param docID The docID of a ProfileOpportunity.
+   * @returns { Object } An object representing the definition of docID.
+   */
+  dumpOne(docID): ProfileOpportunityDefine {
+    const doc = this.findDoc(docID);
+    const opportunity = Opportunities.findSlugByID(doc.opportunityID);
+    const student = Users.getProfile(doc.studentID).username;
+    const retired = doc.retired;
+    return { opportunity, student, retired };
+  }
+
+}
+
+export const ProfileOpportunities = new ProfileOpportunityCollection();
 </code></pre>
         </article>
     </section>
