@@ -401,6 +401,7 @@
           "slug": "embedded-systems-verification-engineer",
           "interests": [
             "computer-architecture",
+            "hpc",
             "hardware",
             "networks",
             "security"
@@ -414,8 +415,8 @@
           "interests": [
             "algorithms",
             "computer-architecture",
+            "hpc",
             "hardware",
-            "hci",
             "networks",
             "security"
           ],
@@ -430,7 +431,7 @@
             "circuit-analysis",
             "digital-design",
             "hardware",
-            "hci",
+            "hpc",
             "networks",
             "security"
           ],
@@ -4626,19 +4627,19 @@
         {
           "name": "FPGA (Field-Programmable Gate Array)",
           "slug": "fpga",
-          "description": "A field-programmable gate array is an integrated circuit designed to be configured by a customer or a designer after manufacturing – hence the term \"field-programmable\".",
+          "description": "A field-programmable gate array is an integrated circuit designed to be configured by a customer or a designer after manufacturing – hence the term \"field-programmable\".[Learn more here.](https://en.wikipedia.org/wiki/Field-programmable_gate_array)",
           "interestType": "ceng-disciplines"
         },
         {
           "name": "VHDL (Very High Speed Integrated Circuit Hardware Description Language)",
           "slug": "vhdl",
-          "description": "VHDL is a hardware description language used in electronic design automation to describe digital and mixed-signal systems such as field-programmable gate arrays and integrated circuits.",
+          "description": "VHDL is a hardware description language used in electronic design automation to describe digital and mixed-signal systems such as field-programmable gate arrays and integrated circuits. VHDL can also be used as a general-purpose parallel programming language.[Learn more here.](https://en.wikipedia.org/wiki/VHDL)",
           "interestType": "ceng-disciplines"
         },
         {
           "name": "Verilog",
           "slug": "verilog",
-          "description": "Verilog, standardized as IEEE 1364, is a hardware description language used to model electronic systems.",
+          "description": "Verilog, standardized as IEEE 1364, is a hardware description language used to model electronic systems. It is most commonly used in the design and verification of digital circuits at the register-transfer level of abstraction. [Learn more here.](https://en.wikipedia.org/wiki/Verilog)",
           "interestType": "ceng-disciplines"
         },
         {
@@ -4650,25 +4651,25 @@
         {
           "name": "Circuit Analysis",
           "slug": "circuit-analysis",
-          "description": "Circuit (Network) Analysis is the process of finding the voltages across, and the currents through, all network components.",
+          "description": "Circuit analysis, or solving a circuit, means figuring out voltages and currents in each element. Here's an overview of circuit analysis, with some context for the various tools and methods we use to analyze circuits. [Learn more here.](https://www.khanacademy.org/science/electrical-engineering/ee-circuit-analysis-topic/ee-dc-circuit-analysis/a/ee-circuit-analysis-overview)",
           "interestType": "ceng-disciplines"
         },
         {
           "name": "Systems",
           "slug": "systems-signals",
-          "description": "In signal processing, a signal is a function that conveys information about a phenomenon. In electronics and telecommunications, it refers to any time varying voltage, current or electromagnetic wave that carries information. A signal may also be defined as an observable change in a quality such as quantity.",
+          "description": "Systems in EE covers communications, controls, and signal processing. Communications systems is a collection of individual telecommunications networks, transmission systems, relay stations, tributary stations, and terminal equipment usually capable of interconnection and interoperation to form an integrated whole. [Learn more here.](https://en.wikipedia.org/wiki/Communications_system) A control system manages, commands, directs, or regulates the behavior of other devices or systems using control loops. It can range from a single home heating controller using a thermostat controlling a domestic boiler to large industrial control systems which are used for controlling processes or machines. [Learn more here.](https://en.wikipedia.org/wiki/Control_system) Signal processing is an electrical engineering subfield that focuses on analysing, modifying, and synthesizing signals such as sound, images, and scientific measurements.[1] Signal processing techniques can be used to improve transmission, storage efficiency and subjective quality and to also emphasize or detect components of interest in a measured signal. [Learn more here.](https://en.wikipedia.org/wiki/Signal_processing)",
           "interestType": "ceng-disciplines"
         },
         {
           "name": "Microelectronics",
           "slug": "microelectronics",
-          "description": "As the name suggests, microelectronics relates to the study and manufacture (or microfabrication) of very small electronic designs and components. Usually, but not always, this means micrometre-scale or smaller. These devices are typically made from semiconductor materials.",
+          "description": "Microelectronics is a subfield of electronics. As the name suggests, microelectronics relates to the study and manufacture of very small electronic designs and components. Usually, but not always, this means micrometre-scale or smaller. These devices are typically made from semiconductor materials. [Learn more here.](https://en.wikipedia.org/wiki/Microelectronics)",
           "interestType": "ceng-disciplines"
         },
         {
           "name": "Digital Design (Logic Synthesis)",
           "slug": "digital-design",
-          "description": "In computer engineering, logic synthesis is a process by which an abstract specification of desired circuit behavior, typically at register transfer level (RTL), is turned into a design implementation in terms of logic gates, typically by a computer program called a synthesis tool.",
+          "description": "In computer engineering, logic synthesis is a process by which an abstract specification of desired circuit behavior, typically at register transfer level (RTL), is turned into a design implementation in terms of logic gates, typically by a computer program called a synthesis tool. [Learn more here.](https://en.wikipedia.org/wiki/Logic_synthesis)",
           "interestType": "ceng-disciplines"
         }
       ]
