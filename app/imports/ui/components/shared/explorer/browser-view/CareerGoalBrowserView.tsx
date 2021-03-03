@@ -9,8 +9,8 @@ import ProfileCard from './ProfileCard';
 import PreferredChoice from '../../../../../api/degree-plan/PreferredChoice';
 
 interface CareerGoalBrowserViewProps {
-  favoriteCareerGoals: CareerGoal[];
-  favoriteCombinedInterestIDs: string[];
+  profileCareerGoals: CareerGoal[];
+  profileInterestIDs: string[];
   careerGoals: CareerGoal[];
   // Saving Scroll Position
   careerGoalsScrollPosition: number;
@@ -25,10 +25,10 @@ const mapDispatchToProps = (dispatch) => ({
   setCareerGoalsScrollPosition: (scrollPosition: number) => dispatch(scrollPositionActions.setExplorerCareerGoalsScrollPosition(scrollPosition)),
 });
 
-const CareerGoalBrowserView: React.FC<CareerGoalBrowserViewProps> = ({ favoriteCareerGoals, favoriteCombinedInterestIDs, careerGoals, careerGoalsScrollPosition, setCareerGoalsScrollPosition }) => {
-  // TODO do we want to filter out the favorite career goals?
+const CareerGoalBrowserView: React.FC<CareerGoalBrowserViewProps> = ({ profileCareerGoals, profileInterestIDs, careerGoals, careerGoalsScrollPosition, setCareerGoalsScrollPosition }) => {
+  // TODO do we want to filter out the profile career goals?
   const cardGroupElement: HTMLElement = document.getElementById('careerGoalsCardGroup');
-  const preferred = new PreferredChoice(careerGoals, favoriteCombinedInterestIDs);
+  const preferred = new PreferredChoice(careerGoals, profileInterestIDs);
   const ordered = preferred.getOrderedChoices();
   useEffect(() => {
     const savedScrollPosition = careerGoalsScrollPosition;

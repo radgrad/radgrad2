@@ -88,8 +88,8 @@ const getBehaviors = (sessionArr: UserInteraction[]): { type: string; stats: str
     [UserInteractionsTypes.ADDOPPORTUNITY]: [],
     [UserInteractionsTypes.REMOVEOPPORTUNITY]: [],
     [UserInteractionsTypes.UPDATEOPPORTUNITY]: [],
-    [UserInteractionsTypes.FAVORITEITEM]: [],
-    [UserInteractionsTypes.UNFAVORITEITEM]: [],
+    [UserInteractionsTypes.ADD_TO_PROFILE]: [],
+    [UserInteractionsTypes.REMOVE_FROM_PROFILE]: [],
     [UserInteractionsTypes.ADDREVIEW]: [],
     [UserInteractionsTypes.EDITREVIEW]: [],
     [UserInteractionsTypes.VERIFYREQUEST]: [],
@@ -110,8 +110,8 @@ const getBehaviors = (sessionArr: UserInteraction[]): { type: string; stats: str
     [StudentSummaryBehaviorTypes.LEVEL]: [],
     [StudentSummaryBehaviorTypes.COMPLETEPLAN]: [],
     [StudentSummaryBehaviorTypes.PROFILE]: [],
-    [StudentSummaryBehaviorTypes.FAVORITE]: [],
-    [StudentSummaryBehaviorTypes.UNFAVORITE]: [],
+    [StudentSummaryBehaviorTypes.ADD_TO_PROFILE]: [],
+    [StudentSummaryBehaviorTypes.REMOVE_FROM_PROFILE]: [],
   };
   _.each(actions, function (array: string[], action: string) {
     if (array.length !== 0) {
@@ -177,15 +177,15 @@ const getBehaviors = (sessionArr: UserInteraction[]): { type: string; stats: str
         behaviors[StudentSummaryBehaviorTypes.PROFILE].push(`User updated their picture ${array.length} time(s)`);
       } else if (action === UserInteractionsTypes.WEBSITE) {
         behaviors[StudentSummaryBehaviorTypes.PROFILE].push(`User updated their website ${array.length} time(s)`);
-      } else if (action === UserInteractionsTypes.FAVORITEITEM) {
-        behaviors[StudentSummaryBehaviorTypes.FAVORITE].push(`User favorited ${array.length} time(s)`);
+      } else if (action === UserInteractionsTypes.ADD_TO_PROFILE) {
+        behaviors[StudentSummaryBehaviorTypes.ADD_TO_PROFILE].push(`User added items to profile ${array.length} time(s)`);
         _.each(array, function (item) {
-          behaviors[StudentSummaryBehaviorTypes.FAVORITE].push(`Item: ${item}`);
+          behaviors[StudentSummaryBehaviorTypes.ADD_TO_PROFILE].push(`Item: ${item}`);
         });
-      } else if (action === UserInteractionsTypes.UNFAVORITEITEM) {
-        behaviors[StudentSummaryBehaviorTypes.UNFAVORITE].push(`User unfavorited ${array.length} time(s)`);
+      } else if (action === UserInteractionsTypes.REMOVE_FROM_PROFILE) {
+        behaviors[StudentSummaryBehaviorTypes.REMOVE_FROM_PROFILE].push(`User removed items from profile ${array.length} time(s)`);
         _.each(array, function (item) {
-          behaviors[StudentSummaryBehaviorTypes.UNFAVORITE].push(`Item: ${item}`);
+          behaviors[StudentSummaryBehaviorTypes.REMOVE_FROM_PROFILE].push(`Item: ${item}`);
         });
       }
     }

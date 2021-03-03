@@ -15,7 +15,7 @@ class ProfileCareerGoalCollection extends BaseCollection {
 
   /** Creates the ProfileCareerGoal collection */
   constructor() {
-    super('FavoriteCareerGoal', new SimpleSchema({
+    super('ProfileCareerGoal', new SimpleSchema({
       careerGoalID: SimpleSchema.RegEx.Id,
       userID: SimpleSchema.RegEx.Id,
       share: Boolean,
@@ -30,7 +30,7 @@ class ProfileCareerGoalCollection extends BaseCollection {
    * Defines a new ProfileCareerGoal.
    * @param careerGoal the careerGoal slug.
    * @param username the user's username.
-   * @param share {Boolean} share the favorite career goal? Defaults to false.
+   * @param share {Boolean} share the career goal? Defaults to false.
    * @param retired the retired status.
    * @returns {void|*|boolean|{}}
    */
@@ -83,9 +83,9 @@ class ProfileCareerGoalCollection extends BaseCollection {
   }
 
   /**
-   * Publish CareerGoalFavorites. If logged in as ADMIN get all, otherwise only get the CareerGoalFavorites for the
+   * Publish ProfileCareerGoals. If logged in as ADMIN get all, otherwise only get the ProfileCareerGoals for the
    * userID.
-   * Also publishes the CareerGoalFavorites scoreboard.
+   * Also publishes the ProfileCareerGoals scoreboard.
    */
   publish() {
     if (Meteor.isServer) {
@@ -109,7 +109,7 @@ class ProfileCareerGoalCollection extends BaseCollection {
             },
           },
           { $project: { count: 1, careerGoalID: 1 } },
-        ], { clientCollection: 'CareerGoalFavoritesScoreboard' });
+        ], { clientCollection: 'ProfileCareerGoalsScoreboard' });
       });
     }
   }
@@ -138,7 +138,7 @@ class ProfileCareerGoalCollection extends BaseCollection {
   }
 
   /**
-   * Returns the CareerGoal slug for the favorite's corresponding CareerGoal.
+   * Returns the CareerGoal slug for the Profile's corresponding CareerGoal.
    * @param instanceID The ProfileCareerGoal ID.
    * @return {string} The careerGoal slug.
    */

@@ -19,93 +19,6 @@ const databaseFileDateFormat = 'YYYY-MM-DD-HH-mm-ss';
 
 let radGrad1DataDump: IDataDump;
 
-// const convertHelpRouteName = (name: string): string => {
-//   switch (name) {
-//     case 'Advisor_Student_Configuration_Page':
-//       return '/advisor/:username/home';
-//     case 'Advisor_Verification_Requests_Pending_Page':
-//       return '/advisor/:username/verification-requests';
-//     case 'Advisor_Event_Verification_Page':
-//       return '/advisor/:username/event-verification';
-//     case 'Advisor_Completed_Verifications_Page':
-//       return '/advisor/:username/completed-verifications';
-//     case 'Advisor_Academic_Plan_Page':
-//       return '/advisor/:username/academic-plan';
-//     case 'Advisor_Moderation_Page':
-//       return '/advisor/:username/moderation';
-//     case 'Faculty_Home_Page':
-//       return '/faculty/:username/home';
-//     case 'Faculty_Manage_Opportunities_Page':
-//       return '/faculty/:username/manage-opportunities';
-//     case 'Faculty_Explorer_Page':
-//       return '/faculty/:username/explorer';
-//     case 'Faculty_Explorer_CareerGoals_Page':
-//       return '/faculty/:username/explorer/career-goals';
-//     case 'Faculty_Explorer_Courses_Page':
-//       return '/faculty/:username/explorer/courses';
-//     case 'Faculty_Explorer_Plans_Page':
-//       return '/faculty/:username/explorer/academic-plans';
-//     case 'Faculty_Explorer_Interests_Page':
-//       return '/faculty/:username/explorer/interests';
-//     case 'Faculty_Explorer_Opportunities_Page':
-//       return '/faculty/:username/explorer/opportunities';
-//     case 'Faculty_Explorer_Users_Page':
-//       return '/faculty/:username/explorer/users';
-//     case 'Faculty_Verification_Page':
-//       return '/faculty/:username/verification-requests';
-//     case 'Mentor_Home_Page':
-//       return '/mentor/:username/home';
-//     case 'Mentor_Explorer_Page':
-//       return '/mentor/:username/explorer';
-//     case 'Mentor_Explorer_CareerGoals_Page':
-//       return '/mentor/:username/explorer/career-goals';
-//     case 'Mentor_Explorer_Courses_Page':
-//       return '/mentor/:username/explorer/courses';
-//     case 'Mentor_Explorer_Plans_Page':
-//       return '/mentor/:username/explorer/academic-plans';
-//     case 'Mentor_Explorer_Interests_Page':
-//       return '/mentor/:username/explorer/interests';
-//     case 'Mentor_Explorer_Opportunities_Page':
-//       return '/mentor/:username/explorer/opportunities';
-//     case 'Mentor_Explorer_Users_Page':
-//       return '/mentor/:username/explorer/users';
-//     case 'Mentor_MentorSpace_Page':
-//       return '/mentor/:username/mentor-space';
-//     case 'Student_Home_Page':
-//       return '/student/:username/home';
-//     case 'Student_Degree_Planner_Page':
-//       return '/student/:username/degree-planner';
-//     case 'Student_Home_AboutMe_Page':
-//       return '/student/:username/home/about-me';
-//     case 'Student_Home_Ice_Page':
-//       return '/student/:username/home/ice';
-//     case 'Student_Home_Levels_Page':
-//       return '/student/:username/home/levels';
-//     case 'Student_Ice':
-//       return '/student/:username/ice';
-//     case 'Student_Explorer_Page':
-//       return '/student/:username/explorer';
-//     case 'Student_MentorSpace_Page':
-//       return '/student/:username/mentor-space';
-//     case 'Student_Home_Log_Page':
-//       return '/student/:username/home/log';
-//     case 'Student_Explorer_CareerGoals_Page':
-//       return '/student/:username/explorer/career-goals';
-//     case 'Student_Explorer_Courses_Page':
-//       return '/student/:username/explorer/courses';
-//     case 'Student_Explorer_Plans_Page':
-//       return '/student/:username/explorer/academic-plans';
-//     case 'Student_Explorer_Interests_Page':
-//       return '/student/:username/explorer/interests';
-//     case 'Student_Explorer_Opportunities_Page':
-//       return '/student/:username/explorer/opportunities';
-//     case 'Student_Explorer_Users_Page':
-//       return '/student/:username/explorer/users';
-//     default:
-//       return name;
-//   }
-// };
-
 const convertObject = (item) => {
   const result: any = {};
   for (const key in item) { // eslint-disable-line
@@ -128,6 +41,12 @@ const convertObject = (item) => {
         break;
       case 'semesters':
         result.academicTerms = item[key];
+        break;
+      case 'favoriteCourses':
+        result.profileCourses = item[key];
+        break;
+      case 'favoriteOpportunities':
+        result.profileOpportunities = item[key];
         break;
       default:
         result[key] = item[key];
@@ -163,6 +82,18 @@ const convertCareerGoal = (goal) => {
   return result;
 };
 
+const convertProfileInterestCareerGoal = (profileInterest) => {
+  const result: any = {};
+  for (const key in profileInterest) { // eslint-disable-line no-restricted-syntax
+    if (key === 'student') {
+      result.username = profileInterest.student;
+    } else {
+      result[key] = profileInterest[key];
+    }
+  }
+  return result;
+};
+
 const convertProfile = (profile, data) => {
   const result: any = {};
   for (const key in profile) { // eslint-disable-line no-restricted-syntax
@@ -188,7 +119,7 @@ const convertProfile = (profile, data) => {
 
 const processRadGradCollection = (collection: ICollection) => {
   const result: any = {};
-  // console.log(collection.name, collection.contents);
+  // console.log(collection.name/* , collection.contents */);
   if (collection.name === 'SemesterCollection') {
     result.name = 'AcademicTermCollection';
     result.contents = collection.contents;
@@ -199,16 +130,27 @@ const processRadGradCollection = (collection: ICollection) => {
   } else if (collection.name === 'StudentProfileCollection' || collection.name === 'AdvisorProfileCollection' || collection.name === 'FacultyProfileCollection') {
     result.name = collection.name;
     result.contents = _.map(collection.contents, (profile) => convertProfile(profile, radGrad1DataDump));
+  } else if (collection.name === 'FavoriteCareerGoalCollection') {
+    result.name = 'ProfileCareerGoalCollection';
+    result.contents = collection.contents.map(convertProfileInterestCareerGoal);
+  } else if (collection.name === 'FavoriteCourseCollection') {
+    result.name = 'ProfileCourseCollection';
+    result.contents = collection.contents.map(convertObject);
+  } else if (collection.name === 'FavoriteInterestCollection') {
+    result.name = 'ProfileInterestCollection';
+    result.contents = collection.contents.map(convertProfileInterestCareerGoal);
+  } else if (collection.name === 'FavoriteOpportunityCollection') {
+    result.name = 'ProfileOpportunityCollection';
+    result.contents = collection.contents.map(convertObject);
   } else {
     result.name = collection.name;
     result.contents = _.map(collection.contents, convertObject);
   }
-  // console.log(result.name, result.contents);
+  // console.log(result.name/* , result.contents */);
   return result;
 };
 
-const reinitializedCollections = ['FavoriteCareerGoalCollection',
-  'FavoriteInterestCollection'];
+const reinitializedCollections = [];
 
 const addedCollections = ['AdminProfileCollection', 'PageInterestCollection', 'PageInterestsDailySnapshotCollection', 'UserInteractionCollection'].concat(reinitializedCollections);
 

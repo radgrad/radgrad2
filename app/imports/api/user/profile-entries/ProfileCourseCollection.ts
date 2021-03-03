@@ -15,7 +15,7 @@ class ProfileCourseCollection extends BaseCollection {
 
   /** Creates the ProfileCourse collection */
   constructor() {
-    super('FavoriteCourse', new SimpleSchema({
+    super('ProfileCourse', new SimpleSchema({
       courseID: SimpleSchema.RegEx.Id,
       studentID: SimpleSchema.RegEx.Id,
       retired: { type: Boolean, optional: true },
@@ -76,8 +76,8 @@ class ProfileCourseCollection extends BaseCollection {
   }
 
   /**
-   * Publish CourseFavorites. If logged in as ADMIN get all, otherwise only get the CourseFavorites for the studentID.
-   * Also publishes the CourseFavorites scoreboard.
+   * Publish ProfileCourses. If logged in as ADMIN get all, otherwise only get the ProfileCourses for the studentID.
+   * Also publishes the ProfileCourses scoreboard.
    */
   publish() {
     if (Meteor.isServer) {
@@ -101,7 +101,7 @@ class ProfileCourseCollection extends BaseCollection {
             },
           },
           { $project: { count: 1, courseID: 1 } },
-        ], { clientCollection: 'CourseFavoritesScoreboard' });
+        ], { clientCollection: 'ProfileCourseScoreboard' });
       });
     }
   }
@@ -130,7 +130,7 @@ class ProfileCourseCollection extends BaseCollection {
   }
 
   /**
-   * Returns the Course slug for the favorite's corresponding Course.
+   * Returns the Course slug for the profile's corresponding Course.
    * @param instanceID The ProfileCourse ID.
    * @return {string} The course slug.
    */

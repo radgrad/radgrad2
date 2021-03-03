@@ -14,7 +14,7 @@ import PageLayout from '../PageLayout';
 interface StudentIcePageProps {
   earnedICE: Ice;
   projectedICE: Ice;
-  favoriteInterests: ProfileInterest[];
+  profileInterests: ProfileInterest[];
   courseInstances: CourseInstance[];
   opportunityInstances: OpportunityInstance[];
 }
@@ -30,12 +30,12 @@ This page provides a breakdown of these three components of a successful undergr
 const headerPaneImage = 'header-ice.png';
 
 
-const StudentIcePage: React.FC<StudentIcePageProps> = ({  earnedICE, projectedICE, favoriteInterests, courseInstances, opportunityInstances }) => (
+const StudentIcePage: React.FC<StudentIcePageProps> = ({  earnedICE, projectedICE, profileInterests, courseInstances, opportunityInstances }) => (
   <PageLayout id="student-ice-points-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
     <Grid stackable>
       <Grid.Row>
         <Grid.Column width={16} stretched>
-          <StudentIceWidget earnedICE={earnedICE} projectedICE={projectedICE} favoriteInterests={favoriteInterests} courseInstances={courseInstances} opportunityInstances={opportunityInstances} />
+          <StudentIceWidget earnedICE={earnedICE} projectedICE={projectedICE} profileInterests={profileInterests} courseInstances={courseInstances} opportunityInstances={opportunityInstances} />
         </Grid.Column>
       </Grid.Row>
     </Grid>
@@ -47,13 +47,13 @@ const StudentHomeIcePageContainer = withTracker(() => {
   const studentID: string = Users.getProfile(username).userID;
   const earnedICE: Ice = StudentProfiles.getEarnedICE(username);
   const projectedICE: Ice = StudentProfiles.getProjectedICE(username);
-  const favoriteInterests: ProfileInterest[] = ProfileInterests.findNonRetired({ userID: studentID });
+  const profileInterests: ProfileInterest[] = ProfileInterests.findNonRetired({ userID: studentID });
   const courseInstances: CourseInstance[] = CourseInstances.findNonRetired({ studentID });
   const opportunityInstances: OpportunityInstance[] = OpportunityInstances.findNonRetired({ studentID });
   return {
     earnedICE,
     projectedICE,
-    favoriteInterests,
+    profileInterests,
     courseInstances,
     opportunityInstances,
   };

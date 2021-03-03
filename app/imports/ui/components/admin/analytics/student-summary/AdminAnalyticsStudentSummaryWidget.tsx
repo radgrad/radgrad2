@@ -82,11 +82,11 @@ const AdminAnalyticsStudentSummaryWidget: React.FC<AdminAnalyticsStudentSummaryW
       behaviorCategories[8].count++;
       behaviorCategories[8].users.push(user);
     }
-    if (_.some(interactions, { type: UserInteractionsTypes.FAVORITEITEM })) {
+    if (_.some(interactions, { type: UserInteractionsTypes.ADD_TO_PROFILE })) {
       behaviorCategories[9].count++;
       behaviorCategories[9].users.push(user);
     }
-    if (_.some(interactions, { type: UserInteractionsTypes.UNFAVORITEITEM })) {
+    if (_.some(interactions, { type: UserInteractionsTypes.REMOVE_FROM_PROFILE })) {
       behaviorCategories[10].count++;
       behaviorCategories[10].users.push(user);
     }

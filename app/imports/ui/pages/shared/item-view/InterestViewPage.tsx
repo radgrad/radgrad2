@@ -14,15 +14,15 @@ import ExplorerInterestWidget from '../../../components/shared/explorer/item-vie
 
 interface InterestViewPageProps {
   courses: Course[];
-  favoriteInterests: Interest[];
+  profileInterests: Interest[];
   interest: Interest;
   opportunities: Opportunity[];
   profile: Profile;
 }
 
-const InterestViewPage: React.FC<InterestViewPageProps> = ({ courses, favoriteInterests, interest, opportunities, profile }) => {
+const InterestViewPage: React.FC<InterestViewPageProps> = ({ courses, profileInterests, interest, opportunities, profile }) => {
   const match = useRouteMatch();
-  const menuAddedList = _.map(favoriteInterests, (item) => ({
+  const menuAddedList = _.map(profileInterests, (item) => ({
     item,
     count: 1,
   }));
@@ -53,10 +53,10 @@ const InterestViewPageContainer = withTracker(() => {
   const courses = Courses.findNonRetired({});
   const opportunities = Opportunities.findNonRetired({});
   const allInterests = Users.getInterestIDs(profile.userID);
-  const favoriteInterests = allInterests.map((id) => Interests.findDoc(id));
+  const profileInterests = allInterests.map((id) => Interests.findDoc(id));
   return {
     courses,
-    favoriteInterests,
+    profileInterests,
     interest: interestDoc,
     opportunities,
     profile,

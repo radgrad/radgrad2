@@ -13,7 +13,7 @@ import CourseFilterWidget, { courseFilterKeys } from './CourseFilterWidget';
 import BackToTopButton from '../../BackToTopButton';
 
 interface CourseBrowserViewProps {
-  favoriteCourses: ProfileCourse[];
+  profileCourses: ProfileCourse[];
   courses: Course[];
   // Saving Scroll Position
   coursesScrollPosition: number;
@@ -30,7 +30,7 @@ const mapDispatchToProps = (dispatch) => ({
   setCoursesScrollPosition: (scrollPosition: number) => dispatch(scrollPositionActions.setExplorerCoursesScrollPosition(scrollPosition)),
 });
 
-const CourseBrowserView: React.FC<CourseBrowserViewProps> = ({ favoriteCourses, courses, coursesScrollPosition, setCoursesScrollPosition, filterCoursesChoice }) => {
+const CourseBrowserView: React.FC<CourseBrowserViewProps> = ({ profileCourses, courses, coursesScrollPosition, setCoursesScrollPosition, filterCoursesChoice }) => {
   const { username } = useParams();
   const profile = Users.getProfile(username);
   const isStudent = profile.role === ROLE.STUDENT;

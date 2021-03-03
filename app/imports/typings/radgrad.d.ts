@@ -775,8 +775,8 @@ export interface StudentProfile extends Profile {
 export interface StudentProfileDefine extends ProfileDefine {
   level: number;
   declaredAcademicTerm?: string;
-  favoriteCourses?: string[];
-  favoriteOpportunities?: string[];
+  profileCourses?: string[];
+  profileOpportunities?: string[];
   isAlumni?: boolean;
   retired?: boolean;
   shareUsername?: boolean;
@@ -801,8 +801,8 @@ export interface StudentProfileDefine extends ProfileDefine {
 export interface StudentProfileUpdate extends ProfileUpdate {
   level?: number;
   declaredAcademicTerm?: string;
-  favoriteCourses?: string[];
-  favoriteOpportunities?: string[];
+  profileCourses?: string[];
+  profileOpportunities?: string[];
   isAlumni?: boolean;
   retired?: boolean;
   shareUsername?: boolean;

@@ -113,8 +113,8 @@ export const availableOpps = (match: MatchProps): unknown[] => {
         return inFuture;
       });
       // console.log('second filter ', filteredOpps.length);
-      const favorites = ProfileOpportunities.findNonRetired({ studentID });
-      const favIDs = _.map(favorites, (fav) => fav.opportunityID);
+      const profileEntries = ProfileOpportunities.findNonRetired({ studentID });
+      const favIDs = _.map(profileEntries, (fav) => fav.opportunityID);
       filteredOpps = _.filter(filteredOpps, (f) => !_.includes(favIDs, f._id));
       // console.log('third filter ', filteredOpps.length);
       return filteredOpps;
@@ -152,25 +152,29 @@ export const buildNoItemsMessage = (noItemsMessageType, type: IExplorerTypes): E
   switch (noItemsMessageType) {
     case 'noInterests':
       if (isType(EXPLORER_TYPE.CAREERGOALS, type)) {
-        return <p>Favorite interests to see sorted Career Goals. To favorite Interests, select &quot;Interests&quot; in the dropdown on the left.</p>;
+        return <p>Add interests to your profile to see sorted Career Goals. To add Interests to your profile,
+          select &quot;Interests&quot; in the dropdown on the left.</p>;
       }
       if (isType(EXPLORER_TYPE.COURSES, type)) {
-        return <p>Favorite interests to see sorted Courses. To favorite Interests, select &quot;Interests&quot; in the dropdown menu on the left.</p>;
+        return <p>Add interests to your profile to see sorted Courses. To add Interests to your profile,
+          select &quot;Interests&quot; in the dropdown menu on the left.</p>;
       }
       if (isType(EXPLORER_TYPE.INTERESTS, type)) {
         return (
           <p>
-            You have not favorited any Interests or Career Goals. To favorite Interests, click on &quot;View More&quot; to view the details for an Interest and favorite from there. To favorite Career Goals, select &quot;Career Goals&quot;
-            in the dropdown menu on the left.
+            You have not added any Interests or Career Goals to your profile. To add Interests, click on &quot;View
+            More&quot; to view the details for an Interest and add to profile from there. To add Career Goals,
+            select &quot;Career Goals&quot; in the dropdown menu on the left.
           </p>
         );
       }
       if (isType(EXPLORER_TYPE.OPPORTUNITIES, type)) {
-        return <p>Favorite interests to see sorted Opportunities. To favorite Interests, select &quot;Interests&quot; in the dropdown menu on the left.</p>;
+        return <p>Add interests to your profile to see sorted Opportunities. To add Interests,
+          select &quot;Interests&quot; in the dropdown menu on the left.</p>;
       }
       return '';
     case 'noCareerGoals':
-      return <p>You have not favorited any Career Goals. To favorite Career Goals, click on &quot;View More&quot; to view the details for a Career Goal and favorite from there.</p>;
+      return <p>You have not added any Career Goals to your profile. To add Career Goals, click on &quot;View More&quot; to view the details for a Career Goal and add them from there.</p>;
     default:
       console.error(`Bad noItemsMessageType: ${noItemsMessageType}`);
       return undefined;

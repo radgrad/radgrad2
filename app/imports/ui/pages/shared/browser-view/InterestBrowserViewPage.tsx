@@ -17,7 +17,7 @@ import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import PageLayout from '../../PageLayout';
 
 interface InterestBrowserViewPageProps {
-  favoriteInterests: Interest[];
+  profileInterests: Interest[];
   interests: Interest[];
 }
 
@@ -32,8 +32,8 @@ If we've missed a disciplinary area of interest to you, please click the button 
 const headerPaneImage = 'header-interests.png';
 
 
-const InterestBrowserViewPage: React.FC<InterestBrowserViewPageProps> = ({ favoriteInterests, interests }) => {
-  const menuAddedItems = _.map(favoriteInterests, (doc) => ({ item: doc, count: 1 }));
+const InterestBrowserViewPage: React.FC<InterestBrowserViewPageProps> = ({ profileInterests, interests }) => {
+  const menuAddedItems = _.map(profileInterests, (doc) => ({ item: doc, count: 1 }));
   return (
     <PageLayout id="interest-browser-view-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
       <Grid stackable>
@@ -42,7 +42,7 @@ const InterestBrowserViewPage: React.FC<InterestBrowserViewPageProps> = ({ favor
               <ExplorerMultipleItemsMenu menuAddedList={menuAddedItems} type={EXPLORER_TYPE.INTERESTS as IExplorerTypes} />
             </Grid.Column>
             <Grid.Column width={12}>
-              <InterestBrowserViewContainer favoriteInterests={favoriteInterests} interests={interests} />
+              <InterestBrowserViewContainer profileInterests={profileInterests} interests={interests} />
             </Grid.Column>
           </Grid.Row>
         </Grid>
@@ -68,10 +68,10 @@ export default withTracker(() => {
     }
   }
   const allInterests = Users.getInterestIDs(profile.userID);
-  const favoriteInterests = allInterests.map((id) => Interests.findDoc(id));
-  const interests = Interests.findNonRetired({}); // TODO should we filter out the favorited ones?
+  const profileInterests = allInterests.map((id) => Interests.findDoc(id));
+  const interests = Interests.findNonRetired({}); // TODO should we filter out the ones in the profile?
   return {
-    favoriteInterests,
+    profileInterests,
     interests,
   };
 })(InterestBrowserViewPage);
