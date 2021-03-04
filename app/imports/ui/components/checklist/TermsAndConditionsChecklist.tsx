@@ -27,7 +27,7 @@ export class TermsAndConditionsChecklist extends Checklist {
 
   public updateState(): void {
     if (this.profile.acceptedTermsAndConditions || this.profile.refusedTermsAndConditions) {
-      this.state = 'OK';
+      this.state = 'Awesome';
     } else {
       this.state = 'Improve';
     }
@@ -35,7 +35,7 @@ export class TermsAndConditionsChecklist extends Checklist {
 
   public getTitle(state: ChecklistState): JSX.Element {
     switch (state) {
-      case 'OK':
+      case 'Awesome':
         return <Header as='h1'>Thanks for having approved the terms and conditions</Header>;
       case 'Improve':
         return <Header as='h1'>Please approve the terms and conditions</Header>;
@@ -47,7 +47,7 @@ export class TermsAndConditionsChecklist extends Checklist {
   public getDescription(state: ChecklistState): JSX.Element {
     const adminEmail = Meteor.settings.public.adminProfile.username;
     switch (state) {
-      case 'OK':
+      case 'Awesome':
         return <div><p>Congrats! You&apos;ve approved the terms and conditions. To see a copy of the terms and conditions,
           please go to <Button size='medium' color='green'  as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${TERMS_AND_CONDITIONS}`}>Go
             To
@@ -113,7 +113,7 @@ export class TermsAndConditionsChecklist extends Checklist {
       });
     };
     switch (state) {
-      case 'OK':
+      case 'Awesome':
         return <a href={`mailto:${adminEmail}?subject=Remove student from RadGrad`}>Remove me from RadGrad</a>;
       case 'Improve':
         return <div className="centeredBox">

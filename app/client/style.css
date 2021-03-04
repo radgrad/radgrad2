@@ -99,6 +99,7 @@
 .labelStatus{
   margin-top: -80px !important;
   margin-right: -28px !important;
+  text-transform: uppercase !important;
 }
 .highlightBox{
   background-color: #eefaf6;

@@ -39,7 +39,7 @@ export class CareerGoalsChecklist extends Checklist {
       } else if (this.isSixMonthsOld(this.profile.lastVisitedCareerGoals)) {
         this.state = 'Review';
       } else {
-        this.state = 'OK';
+        this.state = 'Awesome';
       }
     } else {
       // console.log('no last visited page');
@@ -50,7 +50,7 @@ export class CareerGoalsChecklist extends Checklist {
 
   public getTitle(state: ChecklistState): JSX.Element {
     switch (state) {
-      case 'OK':
+      case 'Awesome':
         return <Header as='h1'>Your <strong>Career Goals</strong> appear to be OK</Header>;
       case 'Review':
         return <Header as='h1'>Please confirm that your current <strong>Career Goals</strong> are OK</Header>;
@@ -63,7 +63,7 @@ export class CareerGoalsChecklist extends Checklist {
 
   public getDescription(state: ChecklistState): JSX.Element {
     switch (state) {
-      case 'OK':
+      case 'Awesome':
         return <p>Congrats!  You have at least three Career Goals in your profile, and you&apos;ve reviewed them within the past six months to be sure they are up to date.</p>;
       case 'Review':
         if (this.isSixMonthsOld(this.profile.lastVisitedCareerGoals)) {
@@ -103,7 +103,7 @@ export class CareerGoalsChecklist extends Checklist {
       });
     };
     switch (state) {
-      case 'OK':
+      case 'Awesome':
         return <div className='centeredBox'><p>Click this button to go to the Career Goals Explorer if you want to look for new Career Goals anyway.&nbsp;
           <Button size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.CAREERGOALS}`}>Go To Career Goals Explorer</Button> </p></div>;
       case 'Review':

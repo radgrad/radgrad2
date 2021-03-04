@@ -47,7 +47,7 @@ export class VerificationChecklist extends Checklist {
     if (unverified.length > 0) {
       this.state = 'Improve';
     } else {
-      this.state = 'OK';
+      this.state = 'Awesome';
     }
   }
 
@@ -55,7 +55,7 @@ export class VerificationChecklist extends Checklist {
     switch (state) {
       case 'Improve':
         return <Header as='h1'>You have <strong>Unverified Opportunities</strong> from a prior academic term</Header>;
-      case 'OK':
+      case 'Awesome':
         return <Header as='h1'>You do not have any <strong>Unverified Opportunities</strong></Header>;
       default:
         return <React.Fragment />;
@@ -64,7 +64,7 @@ export class VerificationChecklist extends Checklist {
 
   public getDescription(state: ChecklistState): JSX.Element {
     switch (state) {
-      case 'OK':
+      case 'Awesome':
         return <p>Congrats!  You do not have any Opportunities requiring verification at this time.</p>;
       case 'Improve':
         return <p>RadGrad requires an administrator to verify your participation in completed Opportunities in order to earn the Innovation and/or Experience points associated with it. By earning points, you can advance to new Levels, and RadGrad can make better recommendations due to a better understanding of your skills and experiences.</p>;

@@ -38,7 +38,7 @@ export class CoursesChecklist extends Checklist {
         this.state = 'Review';
         // TODO check for new course reviews for future course instances.
       } else {
-        this.state = 'OK';
+        this.state = 'Awesome';
       }
     } else {
       // console.log('no last visited page');
@@ -49,7 +49,7 @@ export class CoursesChecklist extends Checklist {
 
   public getTitle(state: ChecklistState): JSX.Element {
     switch (state) {
-      case 'OK':
+      case 'Awesome':
         return <Header as='h1'>The <strong>Courses</strong> in your <strong>Degree Plan</strong> appear to be OK</Header>;
       case 'Review':
         return <Header as='h1'>Please confirm that the <strong>Courses</strong> in your <strong>Degree Plan</strong> are correct</Header>;
@@ -63,7 +63,7 @@ export class CoursesChecklist extends Checklist {
 
   public getDescription(state: ChecklistState): JSX.Element {
     switch (state) {
-      case 'OK':
+      case 'Awesome':
         return <p>Congrats! Your Degree Plan contains Courses that should eventually earn you at least 100 Competency
           points, and you&apos;ve reviewed your Degree Plan within the past six months to be sure it is up to date.</p>;
       case 'Review':
@@ -102,7 +102,7 @@ export class CoursesChecklist extends Checklist {
       });
     };
     switch (state) {
-      case 'OK':
+      case 'Awesome':
         return <div className='centeredBox'>
           <p>Click &quot;Go To Degree Planner&quot; if you still want to see the courses in your Degree Plan, or
           click &quot;Go to Course Explorer&quot; if you still want to search for additional Courses to include in your

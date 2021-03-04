@@ -37,7 +37,7 @@ export class InterestsChecklist extends Checklist {
       } else if (this.isSixMonthsOld(this.profile.lastVisitedInterests)) {
         this.state = 'Review';
       } else {
-        this.state = 'OK';
+        this.state = 'Awesome';
       }
     } else {
       // console.log('no last visited page');
@@ -48,7 +48,7 @@ export class InterestsChecklist extends Checklist {
 
   public getTitle(state: ChecklistState): JSX.Element {
     switch (state) {
-      case 'OK':
+      case 'Awesome':
         return <Header as='h1'>Your <strong>Interests</strong> appear to be OK</Header>;
       case 'Review':
         return <Header as='h1'>Please confirm that your current <strong>Interests</strong> are OK</Header>;
@@ -61,7 +61,7 @@ export class InterestsChecklist extends Checklist {
 
   public getDescription(state: ChecklistState): JSX.Element {
     switch (state) {
-      case 'OK':
+      case 'Awesome':
         return <p>Congrats!  You have at least three Interests in your profile, and you&apos;ve reviewed them within the past six months to be sure they are up to date.</p>;
       case 'Review':
         if (this.isSixMonthsOld(this.profile.lastVisitedInterests)) {
@@ -100,7 +100,7 @@ export class InterestsChecklist extends Checklist {
       });
     };
     switch (state) {
-      case 'OK':
+      case 'Awesome':
         return <div className='centeredBox'><p>Click this button to go to the Interests Explorer if you want to look for new Interests anyway.&nbsp;
           <Button size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.INTERESTS}`}>Go To Interests Explorer</Button> </p></div>;
       case 'Review':

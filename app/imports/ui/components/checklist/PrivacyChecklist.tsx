@@ -24,7 +24,7 @@ export class PrivacyChecklist extends Checklist {
       if (this.isSixMonthsOld(this.profile.lastVisitedPrivacy)) {
         this.state = 'Review';
       } else {
-        this.state = 'OK';
+        this.state = 'Awesome';
       }
     } else {
       // no lastLeveledUp info
@@ -36,7 +36,7 @@ export class PrivacyChecklist extends Checklist {
     switch (state) {
       case 'Review':
         return <Header as='h1'>We notice you have not reviewed your <strong>Privacy Settings</strong> recently</Header>;
-      case 'OK':
+      case 'Awesome':
         return <Header as='h1'>You recently reviewed your <strong>Privacy Settings</strong></Header>;
       default:
         return <React.Fragment />;
@@ -50,7 +50,7 @@ export class PrivacyChecklist extends Checklist {
           interests and goals. However, we don&apos;t want to share your information without your consent. The more
           information that you choose to share, the easier it is for RadGrad to help connect you with other
           students.</p>;
-      case 'OK':
+      case 'Awesome':
         return <p>Thanks for reviewing your privacy settings.</p>;
       default:
         return <React.Fragment />;
@@ -62,7 +62,7 @@ export class PrivacyChecklist extends Checklist {
       case 'Review':
         return <div className='highlightBox'><p>Your current privacy settings are:</p>
           <StudentPrivacySettingList profile={this.profile} size="medium" /></div>;
-      case 'OK':
+      case 'Awesome':
         return <div className='centeredBox'><p>The Privacy page allows you to change your privacy settings </p>
           <Button size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${PRIVACY}`}>Go To Privacy Page</Button>
         </div>;

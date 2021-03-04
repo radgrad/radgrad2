@@ -10,6 +10,8 @@ import '../../../../client/style.css';
 export class Checklist {
   private name: string;
 
+  private icon: string;
+
   protected state: ChecklistState;
 
   constructor(name: string) {
@@ -37,10 +39,14 @@ export class Checklist {
     return this.name;
   }
 
+  public getIcon(): string {
+    return this.icon;
+  }
   /**
    * Returns the title of the checklist item.
    * @return {JSX.Element}
    */
+
   public getTitle(state: ChecklistState): JSX.Element {
     return <React.Fragment />;
   }
@@ -84,24 +90,43 @@ export class Checklist {
           width: '100%',
         };
         break;
-      case 'OK':
+      case 'Awesome':
         containerStyle = {
           backgroundColor: '#e2fbdd',
           width: '100%',
         };
     }
+
+    let color;
+    switch (this.getState()) {
+      case 'Improve':
+        color = {
+          color: 'red',
+        };
+        break;
+      case 'Review':
+        color = {
+          color: 'yellow',
+        };
+        break;
+      case 'Awesome':
+        color = {
+          color: 'green',
+        };
+    }
+
     return (
       <div style={containerStyle} >
         <Grid centered>
           <Grid.Column width={10} >
             <div className="checklist">
               <Header as='h3' color='grey' attached='top'>
-                <Icon color='grey' name='heart' />INTERESTS
+                {this.getIcon()}{this.getName()}
               </Header>
               <Segment attached raised placeholder id={`checklist-${this.name}`} key={`checklist-${this.name}`} padded='very'>
-                <div className="labelStatus"><Label as='a' color='red' ribbon='right'>
-                  REVIEW
-                </Label></div>
+                <div className="labelStatus">
+                  <Label as='a' size='large' ribbon='right' color={color}>{this.getState()}</Label>
+                </div>
                 {this.getTitle(this.getState())}
                 {this.getDescription(this.getState())}
                 {this.getDetails(this.getState())}

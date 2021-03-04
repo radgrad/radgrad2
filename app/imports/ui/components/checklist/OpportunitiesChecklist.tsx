@@ -1,7 +1,7 @@
 import moment from 'moment';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Header} from 'semantic-ui-react';
+import { Button, Header, Icon} from 'semantic-ui-react';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { ChecklistState } from '../../../api/checklist/ChecklistState';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
@@ -39,7 +39,7 @@ export class OpportunitiesChecklist extends Checklist {
         // TODO check for new opportunity reviews for future opportunity instances.
         // CAM How do I know the review is new?
       } else {
-        this.state = 'OK';
+        this.state = 'Awesome';
       }
     } else {
       // console.log('no last visited page');
@@ -48,10 +48,13 @@ export class OpportunitiesChecklist extends Checklist {
     // console.log(this.state);
   }
 
+  public getIcon() {
+    return <Icon color='grey' name='lightbulb' />;
+  }
 
   public getTitle(state: ChecklistState): JSX.Element {
     switch (state) {
-      case 'OK':
+      case 'Awesome':
         return <Header as='h1'>The <strong>Opportunities</strong> in your Degree Plan appear to be OK</Header>;
       case 'Review':
         return <Header as='h1'>Please confirm that the <strong>Opportunities</strong> in your Degree Plan are correct</Header>;
@@ -64,7 +67,7 @@ export class OpportunitiesChecklist extends Checklist {
 
   public getDescription(state: ChecklistState): JSX.Element {
     switch (state) {
-      case 'OK':
+      case 'Awesome':
         return <p>Congrats! Your Degree Plan contains Opportunities that should eventually earn you at least 100 Innovation and 100 Experience points, and you&apos;ve reviewed your Degree Plan within the past six months to be sure it is up to date.</p>;
       case 'Review':
         if (this.isSixMonthsOld(this.profile.lastVisitedOpportunities)) {
@@ -100,7 +103,7 @@ export class OpportunitiesChecklist extends Checklist {
       });
     };
     switch (state) {
-      case 'OK':
+      case 'Awesome':
         return <div className="centeredBox">
           <p>Click &quot;Go To Degree Planner&quot; if you still want to see the Opportunities in your Degree Plan, or
           click &quot;Go to Opportunity Explorer&quot; if you still want to search for additional Opportunities to include in your

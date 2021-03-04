@@ -24,7 +24,7 @@ export class LevelChecklist extends Checklist {
       if (this.isSixMonthsOld(this.profile.lastLeveledUp)) {
         this.state = 'Review';
       } else {
-        this.state = 'OK';
+        this.state = 'Awesome';
       }
     } else {
       // no lastLeveledUp info
@@ -36,7 +36,7 @@ export class LevelChecklist extends Checklist {
     switch (state) {
       case 'Review':
         return <Header as='h1'>We notice you have not achieved a <strong>New Level</strong> in a while</Header>;
-      case 'OK':
+      case 'Awesome':
         return <Header as='h1'>You recently achieved a <strong>New Level</strong></Header>;
       default:
         return <React.Fragment />;
@@ -48,7 +48,7 @@ export class LevelChecklist extends Checklist {
     switch (state) {
       case 'Review':
         return <p>RadGrad is designed to enable you to advance to a higher Level once per semester, as long as you are regularly completing Courses and Opportunities. We notice that you have not achieved a new Level since {`${levelUpDate}`}.</p>;
-      case 'OK':
+      case 'Awesome':
         return <div>Congrats!  You recently achieved Level {this.profile.level}. <RadGradMenuLevel level={this.profile.level} />  Keep up the good work!</div>;
       default:
         return <React.Fragment />;
@@ -61,7 +61,7 @@ export class LevelChecklist extends Checklist {
         return <div className='centeredBox'>
           <p>The Level page contains more information about your current Level and how to achieve the next one.</p>
           <Button size='huge' color='teal'  as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${LEVELS}`}>Go To Levels Page</Button></div>;
-      case 'OK':
+      case 'Awesome':
         return <div className='centeredBox'><p>For more details about your Level please go to </p>
           <Button size='huge' color='teal'  as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${LEVELS}`}>Go To Levels Page</Button></div>;
       default:
