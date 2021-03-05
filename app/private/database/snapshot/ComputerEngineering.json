@@ -765,6 +765,21 @@
           "retired": false
         },
         {
+          "name": "Wireless Data Networks",
+          "shortName": "Wireless Data Networks",
+          "slug": "ee_469",
+          "num": "EE 469",
+          "description": "Mobile agent’s platforms and systems, mobile agent-based service implementation, middleware, and configuration, wireless local area networks, wireless protocols, network architecture supporting wireless applications, routing protocols in mobile and wireless networks, handoff in mobile and wireless networks.",
+          "creditHrs": 3,
+          "interests": [
+            "networks"
+          ],
+          "prerequisites": [
+            "ee_367"
+          ],
+          "retired": false
+        },
+        {
           "name": "Ethics in Electrical Engineering",
           "shortName": "Ethics",
           "slug": "ee_495",
