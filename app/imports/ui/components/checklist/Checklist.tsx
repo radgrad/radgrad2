@@ -30,7 +30,6 @@ export class Checklist {
     return this.state;
   }
 
-
   /**
    * Returns the name of the checklist.
    * @return {string}
@@ -39,9 +38,14 @@ export class Checklist {
     return this.name;
   }
 
+  /**
+   * Returns the icon of the checklist.
+   * @return {}
+   */
   public getIcon(): string {
     return this.icon;
   }
+
   /**
    * Returns the title of the checklist item.
    * @return {JSX.Element}
