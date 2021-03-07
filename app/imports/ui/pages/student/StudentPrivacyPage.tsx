@@ -9,6 +9,7 @@ import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { StudentProfileUpdate } from '../../../typings/radgrad';
 import PageLayout from '../PageLayout';
+import ProfileLabel from '../../components/profile/ProfileLabel';
 
 const headerPaneTitle = 'Control what others see about you';
 const headerPaneBody = `
@@ -19,11 +20,22 @@ Providing access to information about your profile allows RadGrad to help you fi
 const headerPaneImage = 'header-privacy.png';
 
 
-const StudentPrivacyPage: React.FC = () => (
-  <PageLayout id="student-privacy-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
-    <Header>Student Privacy Page Placeholder</Header>
-  </PageLayout>
-);
+const StudentPrivacyPage: React.FC = () => {
+  const image = 'https://philipmjohnson.github.io/images/philip2.jpeg';
+  const name = 'Philip Johnson';
+  return (
+    <PageLayout id="student-privacy-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
+      <Header>Student Privacy Page Placeholder</Header>
+      <ProfileLabel image={image} name={name} level={1} />
+      <ProfileLabel image={image} name={name} level={2} />
+      <ProfileLabel image={image} name={name} level={3} />
+      <ProfileLabel image={image} name={name} level={4} />
+      <ProfileLabel image={image} name={name} level={5} />
+      <ProfileLabel image={image} name={name} level={6} />
+    </PageLayout>
+  );
+}
+
 
 export default withTracker(() => {
   const { username } = useParams();
