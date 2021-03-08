@@ -7,7 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "tsc": "tsc",
-    "convert": "npm run tsc && node js/convert-dump.js data/custom/2020-12-21-17-49-13.json ../app/private/database/custom/2020-12-21-17-49-13.json",
+    "convert": "npm run tsc && node js/convert-dump.js data/2020-06-06-10-33-44.json data/Radgrad2-2020-06-06-10-33-44.json",
     "download-star-data": "npm run tsc && node js/download-bulk-star-json.js"
   },
   "author": "",

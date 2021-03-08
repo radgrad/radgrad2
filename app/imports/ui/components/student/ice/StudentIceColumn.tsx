@@ -6,7 +6,7 @@ import StudentIceColumnRecommended from './StudentIceColumnRecommended';
 import { Slugs } from '../../../../api/slug/SlugCollection';
 import { Courses } from '../../../../api/course/CourseCollection';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
-import { Ice, CourseInstance, FavoriteInterest, OpportunityInstance } from '../../../../typings/radgrad';
+import { Ice, CourseInstance, ProfileInterest, OpportunityInstance } from '../../../../typings/radgrad';
 
 /* Technical Debt
  *   * Improve typing of getCourseSlug:  if typeof course is ICourse else if ... else
@@ -16,14 +16,14 @@ import { Ice, CourseInstance, FavoriteInterest, OpportunityInstance } from '../.
 
 export interface StudentIceColumnProps {
   type: 'Innovation' | 'Competency' | 'Experience';
-  favoriteInterests: FavoriteInterest[];
+  profileInterests: ProfileInterest[];
   courseInstances: CourseInstance[];
   opportunityInstances: OpportunityInstance[];
   projectedICE: Ice;
   earnedICE: Ice;
 }
 
-const StudentIceColumn: React.FC<StudentIceColumnProps> = ({ type, favoriteInterests, courseInstances, opportunityInstances, projectedICE, earnedICE }) => {
+const StudentIceColumn: React.FC<StudentIceColumnProps> = ({ type, profileInterests, courseInstances, opportunityInstances, projectedICE, earnedICE }) => {
   const [verifiedColumnOpenState, setVerifiedColumnOpen] = useState(true);
   const [unVerifiedColumnOpenState, setUnVerifiedColumnOpen] = useState(false);
   const [recommendedColumnOpenState, setRecommendedColumnOpen] = useState(false);
@@ -174,7 +174,7 @@ const StudentIceColumn: React.FC<StudentIceColumnProps> = ({ type, favoriteInter
           matchingPoints={matchingPoints}
           icePoints={icePoints}
           getOpportunitySlug={getOpportunitySlug}
-          favoriteInterests={favoriteInterests}
+          profileInterests={profileInterests}
         />
       </Accordion.Content>
     </Accordion>

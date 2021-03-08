@@ -3,12 +3,18 @@
     "target": "es6",
     "module": "commonjs",
     "outDir": "js",
-    "sourceMap": true
+    "moduleResolution": "node",
+    "alwaysStrict": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": false,
+    "esModuleInterop": true,
+    "sourceMap": true,
   },
   "include": [
     "ts/**/*.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    ".meteor"
   ]
 }

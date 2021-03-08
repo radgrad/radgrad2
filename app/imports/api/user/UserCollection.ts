@@ -2,7 +2,6 @@ import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { Roles } from 'meteor/alanning:roles';
 import _ from 'lodash';
-import { CareerGoals } from '../career/CareerGoalCollection';
 import { Opportunities } from '../opportunity/OpportunityCollection';
 import { RadGradProperties } from '../radgrad/RadGradProperties';
 import { Reviews } from '../review/ReviewCollection';
@@ -11,8 +10,7 @@ import { AdminProfiles } from './AdminProfileCollection';
 import { AdvisorProfiles } from './AdvisorProfileCollection';
 import { StudentProfiles } from './StudentProfileCollection';
 import { FacultyProfiles } from './FacultyProfileCollection';
-import { FavoriteInterests } from '../favorite/FavoriteInterestCollection';
-import { FavoriteCareerGoals } from '../favorite/FavoriteCareerGoalCollection';
+import { ProfileInterests } from './profile-entries/ProfileInterestCollection';
 
 /**
  * Represents a user, which is someone who has a Meteor account.
@@ -435,44 +433,11 @@ class UserCollection {
   public getInterestIDs(user) {
     const profile = this.getProfile(user);
     const userID = profile.userID;
-    let interestIDs = [];
-    const favoriteInterests = FavoriteInterests.findNonRetired({ userID });
-    _.forEach(favoriteInterests, (fav) => {
+    const interestIDs = [];
+    const profileInterests = ProfileInterests.findNonRetired({ userID });
+    profileInterests.forEach((fav) => {
       interestIDs.push(fav.interestID);
     });
-    const favoriteCareerGoals = FavoriteCareerGoals.findNonRetired({ userID });
-    _.forEach(favoriteCareerGoals, (fav) => {
-      const goal = CareerGoals.findDoc(fav.careerGoalID);
-      interestIDs = _.union(interestIDs, goal.interestIDs);
-    });
-    return interestIDs;
-  }
-
-  /**
-   * Returns the user's interest IDs in an Array with two sub-arrays. The first sub-array is the interest IDs that the
-   * User selected. The second sub-array is the interestIDs from the user's career goals that are not already present
-   * in the first subarray.
-   * @param user The username or userID.
-   * @returns { Array } An array with two subarrays, each containing interestIDs.
-   */
-  public getInterestIDsByType(user) {
-    const profile = this.getProfile(user);
-    const userID = profile.userID;
-    const interestIDs = [];
-    const userInterests = [];
-    const favoriteInterests = FavoriteInterests.findNonRetired({ userID });
-    _.forEach(favoriteInterests, (fav) => {
-      userInterests.push(fav.interestID);
-    });
-    interestIDs.push(userInterests);
-    let careerInterestIDs = [];
-    const favoriteCareerGoals = FavoriteCareerGoals.findNonRetired({ userID });
-    _.forEach(favoriteCareerGoals, (fav) => {
-      const goal = CareerGoals.findDoc(fav.careerGoalID);
-      careerInterestIDs = _.union(careerInterestIDs, goal.interestIDs);
-    });
-    careerInterestIDs = _.difference(careerInterestIDs, userInterests);
-    interestIDs.push(careerInterestIDs);
     return interestIDs;
   }
 

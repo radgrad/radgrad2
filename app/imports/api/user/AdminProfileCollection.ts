@@ -8,8 +8,8 @@ import { CareerGoals } from '../career/CareerGoalCollection';
 import { Slugs } from '../slug/SlugCollection';
 import { ROLE } from '../role/Role';
 import { ProfileDefine, ProfileUpdate } from '../../typings/radgrad';
-import { FavoriteInterests } from '../favorite/FavoriteInterestCollection';
-import { FavoriteCareerGoals } from '../favorite/FavoriteCareerGoalCollection';
+import { ProfileInterests } from './profile-entries/ProfileInterestCollection';
+import { ProfileCareerGoals } from './profile-entries/ProfileCareerGoalCollection';
 
 /**
  * Represents a Admin Profile.
@@ -47,10 +47,10 @@ class AdminProfileCollection extends BaseProfileCollection {
         const userID = Users.define({ username, role });
         this.collection.update(profileID, { $set: { userID } });
         if (interests) {
-          interests.forEach((interest) => FavoriteInterests.define({ interest, username }));
+          interests.forEach((interest) => ProfileInterests.define({ interest, username }));
         }
         if (careerGoals) {
-          careerGoals.forEach((careerGoal) => FavoriteCareerGoals.define({ careerGoal, username }));
+          careerGoals.forEach((careerGoal) => ProfileCareerGoals.define({ careerGoal, username }));
         }
         return profileID;
       }
@@ -72,12 +72,12 @@ class AdminProfileCollection extends BaseProfileCollection {
     const profile = this.findDoc(docID);
     const username = profile.username;
     if (interests) {
-      FavoriteInterests.removeUser(username);
-      interests.forEach((interest) => FavoriteInterests.define({ interest, username }));
+      ProfileInterests.removeUser(username);
+      interests.forEach((interest) => ProfileInterests.define({ interest, username }));
     }
     if (careerGoals) {
-      FavoriteCareerGoals.removeUser(username);
-      careerGoals.forEach((careerGoal) => FavoriteCareerGoals.define({ careerGoal, username }));
+      ProfileCareerGoals.removeUser(username);
+      careerGoals.forEach((careerGoal) => ProfileCareerGoals.define({ careerGoal, username }));
     }
   }
 
@@ -121,9 +121,9 @@ class AdminProfileCollection extends BaseProfileCollection {
     const picture = doc.picture;
     const website = doc.website;
     const userID = Users.getID(username);
-    const favInterests = FavoriteInterests.findNonRetired({ userID });
+    const favInterests = ProfileInterests.findNonRetired({ userID });
     const interests = _.map(favInterests, (fav) => Interests.findSlugByID(fav.interestID));
-    const favCareerGoals = FavoriteCareerGoals.findNonRetired({ userID });
+    const favCareerGoals = ProfileCareerGoals.findNonRetired({ userID });
     const careerGoals = _.map(favCareerGoals, (fav) => CareerGoals.findSlugByID(fav.careerGoalID));
     const retired = doc.retired;
     return { username, firstName, lastName, picture, website, interests, careerGoals, retired };

@@ -3,7 +3,7 @@ import { Link, useRouteMatch } from 'react-router-dom';
 import { List } from 'semantic-ui-react';
 import _ from 'lodash';
 import { buildRouteName, getUserIdFromRoute } from '../../shared/utilities/router';
-import { Ice, Course, FavoriteInterest, Opportunity } from '../../../../typings/radgrad';
+import { Ice, Course, ProfileInterest, Opportunity } from '../../../../typings/radgrad';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import { Courses } from '../../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../../api/course/CourseInstanceCollection';
@@ -18,10 +18,10 @@ interface StudentIceColumnRecommendedProps {
   icePoints: (ice: Ice) => number;
   getCourseSlug: (course) => string;
   getOpportunitySlug: (opportunity) => string;
-  favoriteInterests: FavoriteInterest[];
+  profileInterests: ProfileInterest[];
 }
 
-const hasNoInterests = (favoriteInterests: FavoriteInterest[]): boolean => favoriteInterests.length === 0;
+const hasNoInterests = (profileInterests: ProfileInterest[]): boolean => profileInterests.length === 0;
 
 const availableCourses = (match): Course[] => {
   const courses = Courses.findNonRetired({});
@@ -41,11 +41,11 @@ const availableCourses = (match): Course[] => {
   return [];
 };
 
-const matchingOpportunities = (favoriteInterests: FavoriteInterest[]): Opportunity[] => {
+const matchingOpportunities = (profileInterests: ProfileInterest[]): Opportunity[] => {
   const allOpportunities = Opportunities.findNonRetired();
   const matching = [];
   const userInterests = [];
-  _.forEach(favoriteInterests, (f) => {
+  _.forEach(profileInterests, (f) => {
     userInterests.push(Interests.findDoc(f.interestID));
   });
   let opportunityInterests = [];
@@ -67,11 +67,11 @@ const matchingOpportunities = (favoriteInterests: FavoriteInterest[]): Opportuni
   return matching;
 };
 
-const matchingCourses = (favoriteInterests: FavoriteInterest[], match): Course[] => {
+const matchingCourses = (profileInterests: ProfileInterest[], match): Course[] => {
   const allCourses: Course[] = availableCourses(match);
   const matching: Course[] = [];
   const userInterests = [];
-  _.forEach(favoriteInterests, (f) => {
+  _.forEach(profileInterests, (f) => {
     userInterests.push(Interests.findDoc(f.interestID));
   });
   let courseInterests = [];
@@ -93,16 +93,16 @@ const matchingCourses = (favoriteInterests: FavoriteInterest[], match): Course[]
   return matching;
 };
 
-const recommendedEvents = (projectedPoints: number, favoriteInterests: FavoriteInterest[], type, match): any[] => {
+const recommendedEvents = (projectedPoints: number, profileInterests: ProfileInterest[], type, match): any[] => {
   if (getUserIdFromRoute(match)) {
     let allInstances: any[];
     const recommendedInstances = [];
     let totalIce = 0;
     const remainder = 100 - projectedPoints;
     if (type === 'Competency') {
-      allInstances = matchingCourses(favoriteInterests, match);
+      allInstances = matchingCourses(profileInterests, match);
     } else {
-      allInstances = matchingOpportunities(favoriteInterests);
+      allInstances = matchingOpportunities(profileInterests);
     }
 
     if (type === 'Innovation') {
@@ -138,7 +138,7 @@ const recommendedEvents = (projectedPoints: number, favoriteInterests: FavoriteI
   return null;
 };
 
-const StudentIceColumnRecommended: React.FC<StudentIceColumnRecommendedProps> = ({ earnedICEPoints, type, favoriteInterests, getCourseSlug, getOpportunitySlug, icePoints, matchingPoints, projectedICEPoints }) => {
+const StudentIceColumnRecommended: React.FC<StudentIceColumnRecommendedProps> = ({ earnedICEPoints, type, profileInterests, getCourseSlug, getOpportunitySlug, icePoints, matchingPoints, projectedICEPoints }) => {
   const match = useRouteMatch();
 
   return (
@@ -147,13 +147,13 @@ const StudentIceColumnRecommended: React.FC<StudentIceColumnRecommendedProps> = 
         <p>Congratulations! You have 100 (or more) verified {type} points!</p>
       ) : matchingPoints(100, projectedICEPoints) ? (
         <p>You already have at least 100 verified or unverified {type} points.</p>
-      ) : hasNoInterests(favoriteInterests) ? (
+      ) : hasNoInterests(profileInterests) ? (
         <p>Consider adding interests to see recommendations here.</p>
       ) : (
         <React.Fragment>
           <p>Consider the following to acquire 100 {type} points.</p>
           <List>
-            {recommendedEvents(projectedICEPoints, favoriteInterests, type, match).map((event) => {
+            {recommendedEvents(projectedICEPoints, profileInterests, type, match).map((event) => {
               const courseSlug = getCourseSlug(event);
               const courseRoute = buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${courseSlug}`);
               const opportunitySlug = getOpportunitySlug(event);

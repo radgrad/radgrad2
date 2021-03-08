@@ -6,7 +6,6 @@ import * as Router from '../../utilities/router';
 import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
 import ExplorerMenuMobileItem from '../item-view/ExplorerMenuMobileItem';
 import { ExplorerInterfaces, isType } from '../utilities/explorer';
-import { Interest } from '../../../../../typings/radgrad';
 
 const AppMedia = createMedia({
   breakpoints: {
@@ -23,11 +22,10 @@ const { Media, MediaContextProvider } = AppMedia;
 
 interface CardExplorerMenuMobileWidgetProps {
   menuAddedList: { item: ExplorerInterfaces; count: number }[];
-  menuCareerList: { item: Interest; count: number }[] | undefined;
   type: 'plans' | 'career-goals' | 'courses' | 'interests' | 'opportunities';
 }
 
-const ExplorerMultipleItemsMenuMobileWidget: React.FC<CardExplorerMenuMobileWidgetProps> = ({ menuAddedList, menuCareerList, type }) => {
+const ExplorerMultipleItemsMenuMobileWidget: React.FC<CardExplorerMenuMobileWidgetProps> = ({ menuAddedList, type }) => {
   const match = useRouteMatch();
   const isStudent = Router.isUrlRoleStudent(match);
   return (
@@ -40,7 +38,7 @@ const ExplorerMultipleItemsMenuMobileWidget: React.FC<CardExplorerMenuMobileWidg
           {isType(EXPLORER_TYPE.COURSES, type) && isStudent ? (
             <Dropdown className="selection" fluid text="Select Item" style={{ marginTop: '1rem' }}>
               <Dropdown.Menu>
-                <Dropdown.Header as="h4">MY FAVORITE COURSES</Dropdown.Header>
+                <Dropdown.Header as="h4">MY PROFILE COURSES</Dropdown.Header>
                 <Dropdown.Divider />
                 {
                   // eslint-disable-next-line react/prop-types
@@ -57,7 +55,7 @@ const ExplorerMultipleItemsMenuMobileWidget: React.FC<CardExplorerMenuMobileWidg
           {isType(EXPLORER_TYPE.OPPORTUNITIES, type) && isStudent ? (
             <Dropdown className="selection" fluid text="Select Item" style={{ marginTop: '1rem' }}>
               <Dropdown.Menu>
-                <Dropdown.Header as="h4">MY FAVORITE OPPORTUNITIES</Dropdown.Header>
+                <Dropdown.Header as="h4">MY PROFILE OPPORTUNITIES</Dropdown.Header>
                 <Dropdown.Divider />
                 {menuAddedList.map((listItem) => (
                   <ExplorerMenuMobileItem type={EXPLORER_TYPE.OPPORTUNITIES} listItem={listItem} key={listItem.item._id} />
@@ -72,15 +70,9 @@ const ExplorerMultipleItemsMenuMobileWidget: React.FC<CardExplorerMenuMobileWidg
           {isType(EXPLORER_TYPE.INTERESTS, type) ? (
             <Dropdown className="selection" fluid text="Select Item" style={{ marginTop: '1rem' }}>
               <Dropdown.Menu>
-                <Dropdown.Header as="h4">MY FAVORITE INTERESTS</Dropdown.Header>
+                <Dropdown.Header as="h4">MY PROFILE INTERESTS</Dropdown.Header>
                 <Dropdown.Divider />
                 {menuAddedList.map((listItem) => (
-                  <ExplorerMenuMobileItem type={EXPLORER_TYPE.INTERESTS} listItem={listItem} key={listItem.item._id} />
-                ))}
-
-                <Dropdown.Header as="h4">SUGGESTED CAREER GOAL INTERESTS</Dropdown.Header>
-                <Dropdown.Divider />
-                {menuCareerList.map((listItem) => (
                   <ExplorerMenuMobileItem type={EXPLORER_TYPE.INTERESTS} listItem={listItem} key={listItem.item._id} />
                 ))}
               </Dropdown.Menu>
@@ -92,7 +84,7 @@ const ExplorerMultipleItemsMenuMobileWidget: React.FC<CardExplorerMenuMobileWidg
           {isType(EXPLORER_TYPE.CAREERGOALS, type) ? (
             <Dropdown className="selection" fluid text="Select Item" style={{ marginTop: '1rem' }}>
               <Dropdown.Menu>
-                <Dropdown.Header as="h4">MY FAVORITE CAREER GOALS</Dropdown.Header>
+                <Dropdown.Header as="h4">MY PROFILE CAREER GOALS</Dropdown.Header>
                 <Dropdown.Divider />
                 {menuAddedList.map((listItem) => (
                   <ExplorerMenuMobileItem type={EXPLORER_TYPE.CAREERGOALS} listItem={listItem} key={listItem.item._id} />

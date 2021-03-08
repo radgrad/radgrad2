@@ -6,20 +6,20 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Grid } from 'semantic-ui-react';
 import { updateMethod } from '../../../../api/base/BaseCollection.methods';
 import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
-import { FavoriteCareerGoals } from '../../../../api/favorite/FavoriteCareerGoalCollection';
+import { ProfileCareerGoals } from '../../../../api/user/profile-entries/ProfileCareerGoalCollection';
 import { ROLE } from '../../../../api/role/Role';
 import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
 import { Users } from '../../../../api/user/UserCollection';
 import { CareerGoal, StudentProfileUpdate } from '../../../../typings/radgrad';
-import CareerGoalBrowserViewContainer from '../../../components/shared/explorer/browser-view/CareerGoalBrowserView';
+import CareerGoalBrowserView from '../../../components/shared/explorer/browser-view/CareerGoalBrowserView';
 import ExplorerMultipleItemsMenu from '../../../components/shared/explorer/browser-view/ExplorerMultipleItemsMenu';
 import { IExplorerTypes } from '../../../components/shared/explorer/utilities/explorer';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import PageLayout from '../../PageLayout';
 
 interface CareerGoalBrowserViewPageProps {
-  favoriteCareerGoals: CareerGoal[];
-  favoriteCombinedInterestIDs: string[];
+  profileCareerGoals: CareerGoal[];
+  profileInterestIDs: string[];
   careerGoals: CareerGoal[];
 }
 
@@ -34,23 +34,22 @@ If we've missed a career goal of interest to you, please click the button below 
 const headerPaneImage = 'header-career.png';
 
 const CareerGoalBrowserViewPage: React.FC<CareerGoalBrowserViewPageProps> = ({
-  favoriteCareerGoals,
-  favoriteCombinedInterestIDs,
+  profileCareerGoals,
+  profileInterestIDs,
   careerGoals,
 }) => {
-  const menuAddedList = _.map(favoriteCareerGoals, (f) => ({ item: f, count: 1 }));
+  const menuAddedList = _.map(profileCareerGoals, (f) => ({ item: f, count: 1 }));
   return (
     <PageLayout id="career-goal-browser-view-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
       <Grid stackable>
         <Grid.Row>
           <Grid.Column width={4}>
-            <ExplorerMultipleItemsMenu menuAddedList={menuAddedList} type={EXPLORER_TYPE.CAREERGOALS as IExplorerTypes}
-                                       menuCareerList={undefined} />
+            <ExplorerMultipleItemsMenu menuAddedList={menuAddedList} type={EXPLORER_TYPE.CAREERGOALS as IExplorerTypes} />
           </Grid.Column>
           <Grid.Column width={12}>
-            <CareerGoalBrowserViewContainer favoriteCareerGoals={favoriteCareerGoals}
-                                            favoriteCombinedInterestIDs={favoriteCombinedInterestIDs}
-                                            careerGoals={careerGoals} />
+            <CareerGoalBrowserView profileCareerGoals={profileCareerGoals}
+                                   profileInterestIDs={profileInterestIDs}
+                                   careerGoals={careerGoals} />
           </Grid.Column>
         </Grid.Row>
       </Grid>
@@ -75,13 +74,13 @@ export default withTracker(() => {
       });
     }
   }
-  const favCar = FavoriteCareerGoals.findNonRetired({ userID: profile.userID });
-  const favoriteCareerGoals = _.map(favCar, (f) => CareerGoals.findDoc(f.careerGoalID));
-  const favoriteCombinedInterestIDs = Users.getInterestIDs(username);
+  const favCar = ProfileCareerGoals.findNonRetired({ userID: profile.userID });
+  const profileCareerGoals = _.map(favCar, (f) => CareerGoals.findDoc(f.careerGoalID));
+  const profileInterestIDs = Users.getInterestIDs(username);
   const careerGoals = CareerGoals.findNonRetired({});
   return {
     careerGoals,
-    favoriteCareerGoals,
-    favoriteCombinedInterestIDs,
+    profileCareerGoals,
+    profileInterestIDs,
   };
 })(CareerGoalBrowserViewPage);

@@ -5,7 +5,7 @@ import { Slugs } from '../slug/SlugCollection';
 import { Interests } from '../interest/InterestCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
 import { CareerGoalDefine, CareerGoalUpdate } from '../../typings/radgrad';
-import { FavoriteCareerGoals } from '../favorite/FavoriteCareerGoalCollection';
+import { ProfileCareerGoals } from '../user/profile-entries/ProfileCareerGoalCollection';
 
 /**
  * CareerGoals represent the professional future(s) that the student wishes to work toward.
@@ -108,9 +108,9 @@ class CareerGoalCollection extends BaseSlugCollection {
     }
     if (_.isBoolean(retired)) {
       updateData.retired = retired;
-      // Need to update the FavoriteCareerGoals
-      // const favorites = FavoriteCareerGoals.find({ careerGoalID: docID }).fetch();
-      // _.forEach(favorites, (fav) => {});
+      // TODO Need to update the ProfileCareerGoals
+      // const profileCareerGoals = ProfileCareerGoals.find({ careerGoalID: docID }).fetch();
+      // profileCareerGoals.forEach((goal) => {});
     }
     this.collection.update(docID, { $set: updateData });
   }
@@ -123,8 +123,8 @@ class CareerGoalCollection extends BaseSlugCollection {
   public removeIt(instance: string) {
     const careerGoalID = this.getID(instance);
     // Check that this is not referenced by any User.
-    const favorites = FavoriteCareerGoals.find({ careerGoalID }).fetch();
-    if (favorites.length > 0) {
+    const profileEntities = ProfileCareerGoals.find({ careerGoalID }).fetch();
+    if (profileEntities.length > 0) {
       throw new Meteor.Error(`Career Goal ${instance} is referenced.`);
     }
     // OK, clear to delete.

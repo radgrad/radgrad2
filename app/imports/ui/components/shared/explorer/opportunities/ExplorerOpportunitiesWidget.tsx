@@ -8,7 +8,7 @@ import { availableOpps, checkForNoItems, IExplorerTypes, matchingOpportunities }
 import OpportunitySortWidget, { opportunitySortKeys } from './OpportunitySortWidget';
 import OpportunityInformationItem, { OpportunityInformationItemConfiguration } from './OpportunityInformationItem';
 import * as Router from '../../utilities/router';
-import { FavoriteInterests } from '../../../../../api/favorite/FavoriteInterestCollection';
+import { ProfileInterests } from '../../../../../api/user/profile-entries/ProfileInterestCollection';
 import PreferedChoice from '../../../../../api/degree-plan/PreferredChoice';
 import { Opportunity } from '../../../../../typings/radgrad';
 import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
@@ -43,9 +43,9 @@ const ExplorerOpportunitiesWidget: React.FC<CardExplorerOpportunitiesWidgetProps
       // eslint-disable-next-line no-case-declarations
       const userID = Router.getUserIdFromRoute(match);
       // eslint-disable-next-line no-case-declarations
-      const favorites = FavoriteInterests.findNonRetired({ userID });
+      const profileEntries = ProfileInterests.findNonRetired({ userID });
       // eslint-disable-next-line no-case-declarations
-      const interestIDs = _.map(favorites, (f) => f.interestID);
+      const interestIDs = _.map(profileEntries, (f) => f.interestID);
       // eslint-disable-next-line no-case-declarations
       const preferred = new PreferedChoice(opportunities, interestIDs);
       opportunities = preferred.getOrderedChoices();

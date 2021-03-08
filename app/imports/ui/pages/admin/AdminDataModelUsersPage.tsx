@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Confirm, Icon, Tab } from 'semantic-ui-react';
+import { Button, Confirm, Icon, Tab } from 'semantic-ui-react';
 import _ from 'lodash';
 import moment from 'moment';
 import { connect } from 'react-redux';
@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
 import { AdminProfiles } from '../../../api/user/AdminProfileCollection';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
-import { AcademicTerm, BaseProfile, CareerGoal, CombinedProfileDefine, AdvisorOrFacultyProfile, FavoriteCareerGoal, FavoriteInterest, Interest, StudentProfile } from '../../../typings/radgrad';
+import { AcademicTerm, BaseProfile, CareerGoal, CombinedProfileDefine, AdvisorOrFacultyProfile, ProfileCareerGoal, ProfileInterest, Interest, StudentProfile } from '../../../typings/radgrad';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { getDatamodelCount, makeMarkdownLink } from './utilities/datamodel';
@@ -22,10 +22,11 @@ import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { careerGoalSlugFromName, declaredAcademicTermSlugFromName, interestSlugFromName } from '../../components/shared/utilities/form';
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Users } from '../../../api/user/UserCollection';
-import { FavoriteCareerGoals } from '../../../api/favorite/FavoriteCareerGoalCollection';
-import { FavoriteInterests } from '../../../api/favorite/FavoriteInterestCollection';
+import { ProfileCareerGoals } from '../../../api/user/profile-entries/ProfileCareerGoalCollection';
+import { ProfileInterests } from '../../../api/user/profile-entries/ProfileInterestCollection';
 import { RootState } from '../../../redux/types';
 import PageLayout from '../PageLayout';
+import { careerGoalInterestConversionMethod } from '../../../api/utilities/InterestConversion.methods';
 
 interface AdminDataModelUsersPageProps {
   admins: BaseProfile[];
@@ -34,8 +35,8 @@ interface AdminDataModelUsersPageProps {
   students: StudentProfile[];
   isCloudinaryUsed: boolean;
   cloudinaryUrl: string;
-  favoriteCareerGoals: FavoriteCareerGoal[];
-  favoriteInterests: FavoriteInterest[];
+  profileCareerGoals: ProfileCareerGoal[];
+  profileInterests: ProfileInterest[];
   interests: Interest[];
   careerGoals: CareerGoal[];
   academicTerms: AcademicTerm[];
@@ -48,13 +49,13 @@ const descriptionPairs = (props: AdminDataModelUsersPageProps) => (user: BasePro
   pairs.push({ label: 'Role', value: user.role });
   pairs.push({ label: 'Picture', value: makeMarkdownLink(user.picture) });
   pairs.push({ label: 'Website', value: makeMarkdownLink(user.website) });
-  const favoriteCareerGoals = _.filter(props.favoriteCareerGoals, (fav) => fav.userID === user.userID);
-  // const favoriteCareerGoals = FavoriteCareerGoals.findNonRetired({ studentID: user.userID });
-  const careerGoalIDs = _.map(favoriteCareerGoals, (f) => f.careerGoalID);
+  const profileCareerGoals = _.filter(props.profileCareerGoals, (fav) => fav.userID === user.userID);
+  // const profileCareerGoals = ProfileCareerGoals.findNonRetired({ studentID: user.userID });
+  const careerGoalIDs = _.map(profileCareerGoals, (f) => f.careerGoalID);
   pairs.push({ label: 'Career Goals', value: _.sortBy(CareerGoals.findNames(careerGoalIDs)) });
-  const favoriteInterests = _.filter(props.favoriteInterests, (fav) => fav.userID === user.userID);
-  // const favoriteInterests = FavoriteInterests.findNonRetired({ studentID: user.userID });
-  const interestIDs = _.map(favoriteInterests, (f) => f.interestID);
+  const profileInterests = _.filter(props.profileInterests, (fav) => fav.userID === user.userID);
+  // const profileInterests = ProfileInterests.findNonRetired({ studentID: user.userID });
+  const interestIDs = _.map(profileInterests, (f) => f.interestID);
   pairs.push({ label: 'Interests', value: _.sortBy(Interests.findNames(interestIDs)) });
   if (user.role === ROLE.STUDENT) {
     pairs.push({ label: 'Level', value: `${user.level}` });
@@ -264,6 +265,10 @@ const AdminDataModelUsersPage: React.FC<AdminDataModelUsersPageProps> = (props) 
     });
   };
 
+  const handleConvert = () => {
+    careerGoalInterestConversionMethod.call({});
+  };
+
   const panes = [
     {
       menuItem: `Admins (${props.admins.length})`,
@@ -352,7 +357,7 @@ const AdminDataModelUsersPage: React.FC<AdminDataModelUsersPageProps> = (props) 
                      academicTerms={props.academicTerms}/>
       )}
       <Tab panes={panes} defaultActiveIndex={3}/>
-
+      <Button color="green" basic onClick={handleConvert}>Convert Career Goal Interests</Button>
       <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete User?"/>
     </PageLayout>
   );
@@ -364,8 +369,8 @@ export default withTracker(() => {
   const advisors = AdvisorProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch();
   const faculty = FacultyProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch();
   const students = StudentProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch();
-  const favoriteCareerGoals = FavoriteCareerGoals.find().fetch();
-  const favoriteInterests = FavoriteInterests.find().fetch();
+  const profileCareerGoals = ProfileCareerGoals.find().fetch();
+  const profileInterests = ProfileInterests.find().fetch();
   const interests = Interests.find({}, { sort: { name: 1 } }).fetch();
   const careerGoals = CareerGoals.find({}, { sort: { name: 1 } }).fetch();
   let academicTerms = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();
@@ -381,7 +386,7 @@ export default withTracker(() => {
     advisors,
     faculty,
     students,
-    favoriteCareerGoals,
-    favoriteInterests,
+    profileCareerGoals,
+    profileInterests,
   };
 })(AdminDataModelUsersPageCon);

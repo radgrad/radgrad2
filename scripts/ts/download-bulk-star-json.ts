@@ -1,12 +1,12 @@
-import * as request from 'request';
+import request from 'request';
 // const request = require('request');
 import * as fs from 'fs';
 // const fs = require('fs');
-import * as inquirer from 'inquirer';
+import inquirer from 'inquirer';
 // const inquirer = require('inquirer');
-import * as _ from 'lodash';
+import _ from 'lodash';
 // const _ = require('lodash');
-import * as moment from 'moment';
+import moment from 'moment';
 // const moment = require('moment');
 import { program } from 'commander';
 import { alumniRegex } from './department-config';

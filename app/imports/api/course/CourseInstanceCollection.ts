@@ -8,9 +8,24 @@ import { ROLE } from '../role/Role';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Users } from '../user/UserCollection';
 import BaseCollection from '../base/BaseCollection';
-import { makeCourseICE, iceSchema } from '../ice/IceProcessor';
+import { makeCourseICE } from '../ice/IceProcessor';
 import { CourseInstanceDefine, CourseInstanceUpdate } from '../../typings/radgrad';
 import { CourseScoreboardName } from '../../startup/both/names';
+
+const iceSchema = new SimpleSchema({
+  i: {
+    type: SimpleSchema.Integer,
+    min: 0,
+  },
+  c: {
+    type: SimpleSchema.Integer,
+    min: 0,
+  },
+  e: {
+    type: SimpleSchema.Integer,
+    min: 0,
+  },
+});
 
 /**
  * Represents the taking of a course by a specific student in a specific academicTerm.

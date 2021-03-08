@@ -83,7 +83,7 @@ export class CoursesChecklist extends Checklist {
 
   public getDetails(state: ChecklistState): JSX.Element {
     const futureCourseInstances = CourseInstances.findNonRetired({ studentID: this.profile.userID, verified: false });
-    if (futureCourseInstances[0].length === 0) {
+    if (futureCourseInstances.length === 0) {
       return <p>You do not have any future Courses in your Degree Plan.</p>;
     }
     return <div className='highlightBox'><p>Here are your future Courses: &nbsp;</p><ProfileFutureCoursesList profile={this.profile} size="medium" /></div>;

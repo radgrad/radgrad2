@@ -14,7 +14,7 @@ class PreferredChoice {
    * @param choices
    * @param interestIDs
    */
-  constructor(choices, interestIDs) {
+  constructor(choices, interestIDs: string[]) {
     this.rankedChoices = {};
     let max = 0;
     _.forEach(choices, (choice) => {
@@ -62,4 +62,4 @@ class PreferredChoice {
   }
 }
 
-export { PreferredChoice as default };
+export default PreferredChoice;

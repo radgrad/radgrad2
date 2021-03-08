@@ -7,19 +7,19 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { updateMethod } from '../../../../api/base/BaseCollection.methods';
 import { ROLE } from '../../../../api/role/Role';
 import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
-import { Course, FavoriteCourse, StudentProfileUpdate } from '../../../../typings/radgrad';
+import { Course, ProfileCourse, StudentProfileUpdate } from '../../../../typings/radgrad';
 import * as Router from '../../../components/shared/utilities/router';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import { Courses } from '../../../../api/course/CourseCollection';
 import ExplorerMultipleItemsMenu from '../../../components/shared/explorer/browser-view/ExplorerMultipleItemsMenu';
 import { IExplorerTypes } from '../../../components/shared/explorer/utilities/explorer';
 import { Users } from '../../../../api/user/UserCollection';
-import { FavoriteCourses } from '../../../../api/favorite/FavoriteCourseCollection';
-import CourseBrowserViewContainer from '../../../components/shared/explorer/browser-view/CourseBrowserView';
+import { ProfileCourses } from '../../../../api/user/profile-entries/ProfileCourseCollection';
+import CourseBrowserView from '../../../components/shared/explorer/browser-view/CourseBrowserView';
 import PageLayout from '../../PageLayout';
 
 interface CourseBrowserViewPageProps {
-  favoriteCourses: FavoriteCourse[];
+  profileCourses: ProfileCourse[];
   courses: Course[];
 }
 
@@ -35,27 +35,26 @@ Once they are in your plan, RadGrad can update your Competency points and do a b
 const headerPaneImage = 'header-courses.png';
 
 
-const CourseBrowserViewPage: React.FC<CourseBrowserViewPageProps> = ({ favoriteCourses, courses }) => {
+const CourseBrowserViewPage: React.FC<CourseBrowserViewPageProps> = ({ profileCourses, courses }) => {
   const match = useRouteMatch();
-  const favoriteCourseDocs = _.map(favoriteCourses, (f) => Courses.findDoc(f.courseID));
-  const menuAddedList = _.map(favoriteCourseDocs, (c) => ({ item: c, count: 1 })); // TODO why supply count?
+  const profileCourseDocs = _.map(profileCourses, (f) => Courses.findDoc(f.courseID));
+  const menuAddedList = _.map(profileCourseDocs, (c) => ({ item: c, count: 1 })); // TODO why supply count?
   const role = Router.getRoleByUrl(match);
-  const showFavorites = role === 'student';
-  const columnWidth = showFavorites ? 12 : 16;
+  const showProfileEntries = role === 'student';
+  const columnWidth = showProfileEntries ? 12 : 16;
   return (
     <PageLayout id="course-browser-view-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
       <Grid stackable>
         <Grid.Row>
-          {showFavorites ? (
+          {showProfileEntries ? (
             <Grid.Column width={4}>
-              <ExplorerMultipleItemsMenu menuAddedList={menuAddedList} type={EXPLORER_TYPE.COURSES as IExplorerTypes}
-                                         menuCareerList={undefined}/>
+              <ExplorerMultipleItemsMenu menuAddedList={menuAddedList} type={EXPLORER_TYPE.COURSES as IExplorerTypes} />
             </Grid.Column>
           ) : (
             ' '
           )}
           <Grid.Column width={columnWidth}>
-            <CourseBrowserViewContainer favoriteCourses={favoriteCourses} courses={courses}/>
+            <CourseBrowserView profileCourses={profileCourses} courses={courses}/>
           </Grid.Column>
         </Grid.Row>
       </Grid>
@@ -81,10 +80,10 @@ export default withTracker(() => {
     }
   }
   const studentID = profile.userID;
-  const favoriteCourses = FavoriteCourses.findNonRetired({ studentID });
+  const profileCourses = ProfileCourses.findNonRetired({ studentID });
   const courses = Courses.findNonRetired({}); // TODO if user is undergrad student why are we showing grad courses?
   return {
     courses,
-    favoriteCourses,
+    profileCourses,
   };
 })(CourseBrowserViewPage);

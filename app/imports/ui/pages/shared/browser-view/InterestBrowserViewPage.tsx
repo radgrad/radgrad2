@@ -17,8 +17,7 @@ import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import PageLayout from '../../PageLayout';
 
 interface InterestBrowserViewPageProps {
-  favoriteInterests: Interest[];
-  favoriteCareerGoalInterests: Interest[];
+  profileInterests: Interest[];
   interests: Interest[];
 }
 
@@ -33,18 +32,17 @@ If we've missed a disciplinary area of interest to you, please click the button 
 const headerPaneImage = 'header-interests.png';
 
 
-const InterestBrowserViewPage: React.FC<InterestBrowserViewPageProps> = ({ favoriteInterests, favoriteCareerGoalInterests, interests }) => {
-  const menuAddedItems = _.map(favoriteInterests, (doc) => ({ item: doc, count: 1 }));
-  const menuCareerList = _.map(favoriteCareerGoalInterests, (doc) => ({ item: doc, count: 1 }));
+const InterestBrowserViewPage: React.FC<InterestBrowserViewPageProps> = ({ profileInterests, interests }) => {
+  const menuAddedItems = _.map(profileInterests, (doc) => ({ item: doc, count: 1 }));
   return (
     <PageLayout id="interest-browser-view-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
       <Grid stackable>
           <Grid.Row>
             <Grid.Column width={4}>
-              <ExplorerMultipleItemsMenu menuAddedList={menuAddedItems} type={EXPLORER_TYPE.INTERESTS as IExplorerTypes} menuCareerList={menuCareerList} />
+              <ExplorerMultipleItemsMenu menuAddedList={menuAddedItems} type={EXPLORER_TYPE.INTERESTS as IExplorerTypes} />
             </Grid.Column>
             <Grid.Column width={12}>
-              <InterestBrowserViewContainer favoriteInterests={favoriteInterests} favoriteCareerGoalInterests={favoriteCareerGoalInterests} interests={interests} />
+              <InterestBrowserViewContainer profileInterests={profileInterests} interests={interests} />
             </Grid.Column>
           </Grid.Row>
         </Grid>
@@ -69,13 +67,11 @@ export default withTracker(() => {
       });
     }
   }
-  const allInterests = Users.getInterestIDsByType(profile.userID);
-  const favoriteInterests = _.map(allInterests[0], (id) => Interests.findDoc(id));
-  const favoriteCareerGoalInterests = _.map(allInterests[1], (id) => Interests.findDoc(id));
-  const interests = Interests.findNonRetired({}); // TODO should we filter out the favorited ones?
+  const allInterests = Users.getInterestIDs(profile.userID);
+  const profileInterests = allInterests.map((id) => Interests.findDoc(id));
+  const interests = Interests.findNonRetired({}); // TODO should we filter out the ones in the profile?
   return {
-    favoriteCareerGoalInterests,
-    favoriteInterests,
+    profileInterests,
     interests,
   };
 })(InterestBrowserViewPage);

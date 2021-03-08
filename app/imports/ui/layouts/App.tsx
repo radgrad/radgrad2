@@ -15,7 +15,6 @@ import withInstanceSubscriptions from './utilities/InstanceSubscriptionsHOC';
 import { getUsername } from '../components/shared/utilities/router';
 import { Users } from '../../api/user/UserCollection';
 import NotAuthorizedPage from '../pages/NotAuthorizedPage';
-import withPageTracker from './utilities/PageTrackerHOC';
 
 // Hack to refresh other RadGrad tabs when logged out on one tab
 window.addEventListener('storage', function (event) {
@@ -145,7 +144,7 @@ const StudentProtectedRoute = ({ component: Component, ...rest }) => {
   // Because ROLE.ADMIN and ROLE.ADVISOR are allowed to go to StudentProtectedRoutes, they can trigger the
   // userInteractionDefineMethod.call() inside of withHistoryListen. Since we only want to track the pageViews of
   // STUDENTS, we should only use withHistoryListen if LOGGED IN user is a student.
-  const WrappedComponent = isStudent ? withPageTracker(ComponentInstance) : ComponentInstance;
+  const WrappedComponent = ComponentInstance;
   // console.log(Meteor.user()?.username, Users.count());
   // CAM: I think this happens on a reload so send us back to the LandingPage. By setting the state to where
   //      we are, we can have the LandingPage redirect us back after the subscriptions are done.
