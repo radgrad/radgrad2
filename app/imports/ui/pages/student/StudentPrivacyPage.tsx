@@ -10,6 +10,7 @@ import {Users} from '../../../api/user/UserCollection';
 import {StudentProfileUpdate} from '../../../typings/radgrad';
 import PageLayout from '../PageLayout';
 import ProfileLabel from '../../components/profile/ProfileLabel';
+import ProfileCard from '../../components/profile/ProfileCard';
 
 const headerPaneTitle = 'Control what others see about you';
 const headerPaneBody = `
@@ -21,12 +22,42 @@ const headerPaneImage = 'header-privacy.png';
 
 
 const StudentPrivacyPage: React.FC = () => {
-  const image = 'https://philipmjohnson.github.io/images/philip2.jpeg';
   const name = 'Philip Johnson';
+  const email = 'johnson@hawaii.edu';
+  const image = 'https://philipmjohnson.github.io/images/philip2.jpeg';
+  const website = 'https://philipmjohnson.org';
   return (
     <PageLayout id="student-privacy-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
-      <Header>Student Privacy Page Placeholder</Header>
-      <div>
+      <Header>Profile Card Examples</Header>
+
+      <div style={{paddingBottom: '20px'}}>
+        <ProfileCard name={name} email={email} image={image} level={5} website={website}/>
+      </div>
+
+      <div style={{paddingBottom: '20px'}}>
+        <ProfileCard name={name} email={email} level={5} website={website}/>
+      </div>
+
+      <div style={{paddingBottom: '20px'}}>
+        <ProfileCard name={name} email={email} image={image} level={5} ice/>
+      </div>
+
+      <div style={{paddingBottom: '20px'}}>
+        <ProfileCard name={name} email={email} image={image} level={5}/>
+      </div>
+
+      <div style={{paddingBottom: '20px'}}>
+        <ProfileCard name={name} email={email} image={image}/>
+      </div>
+
+      <div style={{paddingBottom: '20px'}}>
+        <ProfileCard name={name} email={email}/>
+      </div>
+
+
+
+      <Header>Profile Label Examples</Header>
+      <div style={{paddingBottom: '20px'}}>
         <ProfileLabel image={image} name={name} level={1}/>
         <ProfileLabel image={image} name={name} level={2}/>
         <ProfileLabel image={image} name={name} level={3}/>
@@ -34,7 +65,7 @@ const StudentPrivacyPage: React.FC = () => {
         <ProfileLabel image={image} name={name} level={5}/>
         <ProfileLabel image={image} name={name} level={6}/>
       </div>
-      <div style={{paddingTop: '20px'}}>
+      <div style={{paddingBottom: '20px'}}>
         <ProfileLabel  name={name} level={1}/>
         <ProfileLabel  name={name} level={2}/>
         <ProfileLabel  name={name} level={3}/>
@@ -43,13 +74,15 @@ const StudentPrivacyPage: React.FC = () => {
         <ProfileLabel  name={name} level={6}/>
       </div>
 
-      <div style={{paddingTop: '20px'}}>
+      <div style={{paddingBottom: '20px'}}>
         <ProfileLabel image={image} name={name} />
       </div>
 
-      <div style={{paddingTop: '20px'}}>
+      <div style={{paddingBottom: '20px'}}>
         <ProfileLabel name={name} />
       </div>
+
+
     </PageLayout>
   );
 };
