@@ -1,13 +1,13 @@
 import moment from 'moment';
 import React from 'react';
 import {Header} from 'semantic-ui-react';
-import { useParams } from 'react-router-dom';
-import { withTracker } from 'meteor/react-meteor-data';
-import { updateMethod } from '../../../api/base/BaseCollection.methods';
-import { ROLE } from '../../../api/role/Role';
-import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
-import { Users } from '../../../api/user/UserCollection';
-import { StudentProfileUpdate } from '../../../typings/radgrad';
+import {useParams} from 'react-router-dom';
+import {withTracker} from 'meteor/react-meteor-data';
+import {updateMethod} from '../../../api/base/BaseCollection.methods';
+import {ROLE} from '../../../api/role/Role';
+import {StudentProfiles} from '../../../api/user/StudentProfileCollection';
+import {Users} from '../../../api/user/UserCollection';
+import {StudentProfileUpdate} from '../../../typings/radgrad';
 import PageLayout from '../PageLayout';
 import ProfileLabel from '../../components/profile/ProfileLabel';
 
@@ -26,19 +26,37 @@ const StudentPrivacyPage: React.FC = () => {
   return (
     <PageLayout id="student-privacy-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
       <Header>Student Privacy Page Placeholder</Header>
-      <ProfileLabel image={image} name={name} level={1} />
-      <ProfileLabel image={image} name={name} level={2} />
-      <ProfileLabel image={image} name={name} level={3} />
-      <ProfileLabel image={image} name={name} level={4} />
-      <ProfileLabel image={image} name={name} level={5} />
-      <ProfileLabel image={image} name={name} level={6} />
+      <div>
+        <ProfileLabel image={image} name={name} level={1}/>
+        <ProfileLabel image={image} name={name} level={2}/>
+        <ProfileLabel image={image} name={name} level={3}/>
+        <ProfileLabel image={image} name={name} level={4}/>
+        <ProfileLabel image={image} name={name} level={5}/>
+        <ProfileLabel image={image} name={name} level={6}/>
+      </div>
+      <div style={{paddingTop: '20px'}}>
+        <ProfileLabel  name={name} level={1}/>
+        <ProfileLabel  name={name} level={2}/>
+        <ProfileLabel  name={name} level={3}/>
+        <ProfileLabel  name={name} level={4}/>
+        <ProfileLabel  name={name} level={5}/>
+        <ProfileLabel  name={name} level={6}/>
+      </div>
+
+      <div style={{paddingTop: '20px'}}>
+        <ProfileLabel image={image} name={name} />
+      </div>
+
+      <div style={{paddingTop: '20px'}}>
+        <ProfileLabel name={name} />
+      </div>
     </PageLayout>
   );
-}
+};
 
 
 export default withTracker(() => {
-  const { username } = useParams();
+  const {username} = useParams();
   const profile = Users.getProfile(username);
   if (profile.role === ROLE.STUDENT) {
     const lastVisited = moment().format('YYYY-MM-DD');
@@ -47,7 +65,7 @@ export default withTracker(() => {
       const updateData: StudentProfileUpdate = {};
       updateData.id = profile._id;
       updateData.lastVisitedPrivacy = lastVisited;
-      updateMethod.call({ collectionName, updateData }, (error, result) => {
+      updateMethod.call({collectionName, updateData}, (error, result) => {
         if (error) {
           console.error('Error updating StudentProfile', collectionName, updateData, error);
         }

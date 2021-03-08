@@ -19,12 +19,12 @@ export interface ProfileLabelProps {
 
 const ProfileLabel: React.FC<ProfileLabelProps> = ({name, level, image}) => {
   const levelURL = `/images/level-icons/radgrad-level-${level}-icon.png`;
-  const className = `profileLabel Level${level}BackgroundColor`;
+  const className = `profileLabel Level${level || 0}BackgroundColor`;
   return (
     <Label image className={className}>
       { image ? <img src={image}/> : ''}
       {name}
-      <Label.Detail className='profileLabel'>{ level ? <img src={levelURL}/> : ''}</Label.Detail>
+      { level ? <Label.Detail className='profileLabel'><img src={levelURL}/></Label.Detail> : ''}
     </Label>
   );
 };
