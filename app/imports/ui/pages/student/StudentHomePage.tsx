@@ -30,7 +30,7 @@ This page contains a personalized set of recommendations to help RadGrad help yo
 const headerPaneImage = 'header-home.png';
 
 const StudentHomePage: React.FC<StudentHomePageProps> = ({ okItems, reviewItems, improveItems}) => (
-  <PageLayout id="student-home-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
+  <PageLayout id="student-home-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage} disableMargin>
     {improveItems.map((item) => item)}
     {reviewItems.map((item) => item)}
     {okItems.map((item) => item)}
