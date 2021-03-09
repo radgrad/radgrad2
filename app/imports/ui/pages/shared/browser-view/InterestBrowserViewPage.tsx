@@ -1,6 +1,6 @@
 import moment from 'moment';
 import React from 'react';
-import {Button, Grid, Icon} from 'semantic-ui-react';
+import {Grid} from 'semantic-ui-react';
 // import _ from 'lodash';
 import { useParams } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
@@ -13,8 +13,6 @@ import { Users } from '../../../../api/user/UserCollection';
 import { Interest, StudentProfileUpdate } from '../../../../typings/radgrad';
 import InterestBrowserViewContainer from '../../../components/shared/explorer/browser-view/InterestBrowserView';
 import PageLayout from '../../PageLayout';
-import WidgetHeaderNumber from '../../../components/shared/explorer/WidgetHeaderNumber';
-import {RadGradProperties} from '../../../../api/radgrad/RadGradProperties';
 
 interface InterestBrowserViewPageProps {
   profileInterests: Interest[];
@@ -31,23 +29,15 @@ Specify at least three interests so RadGrad can recommend related courses, oppor
 If we've missed a disciplinary area of interest to you, please click the button below to ask a RadGrad administrator to add it to the system. 
 `;
 const headerPaneImage = 'header-interests.png';
-const adminEmail = RadGradProperties.getAdminEmail();
 
 const InterestBrowserViewPage: React.FC<InterestBrowserViewPageProps> = ({ profileInterests, interests, nonProfileInterests }) => (
     <PageLayout id="interest-browser-view-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
       <Grid>
         <Grid.Row>
-            <p color='grey'><Icon name='heart' color='grey' size='large'/>
-            INTERESTS IN MY PROFILE <WidgetHeaderNumber inputValue={profileInterests.length} /> </p>
-          <InterestBrowserViewContainer profileInterests={profileInterests} interests={profileInterests} />
+          <InterestBrowserViewContainer interests={profileInterests} inProfile />
         </Grid.Row>
         <Grid.Row>
-            <span color='grey'>INTERESTS NOT IN MY PROFILE <WidgetHeaderNumber inputValue={nonProfileInterests.length} /> </span>
-            <Button floated='right' basic color='teal' href={`mailto:${adminEmail}?subject=New Interest Suggestion`}>
-              <Icon name='mail' />
-              &nbsp;&nbsp;SUGGEST a NEW INTEREST
-            </Button>
-          <InterestBrowserViewContainer profileInterests={profileInterests} interests={nonProfileInterests} />
+          <InterestBrowserViewContainer interests={nonProfileInterests} />
         </Grid.Row>
       </Grid>
     </PageLayout>

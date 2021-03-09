@@ -1,15 +1,17 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Card, Segment } from 'semantic-ui-react';
+import {Button, Card, Divider, Icon, Segment} from 'semantic-ui-react';
 import { scrollPositionActions } from '../../../../../redux/shared/scrollPosition';
 import { RootState } from '../../../../../redux/types';
 import { Interest } from '../../../../../typings/radgrad';
 import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
 import ProfileCard from './ProfileCard';
+import WidgetHeaderNumber from '../WidgetHeaderNumber';
+import {RadGradProperties} from '../../../../../api/radgrad/RadGradProperties';
 
 interface InterestBrowserViewProps {
-  profileInterests: Interest[];
   interests: Interest[];
+  inProfile: boolean;
   // Saving Scroll Position
   interestsScrollPosition: number;
   setInterestsScrollPosition: (scrollPosition: number) => any;
@@ -23,8 +25,9 @@ const mapDispatchToProps = (dispatch) => ({
   setInterestsScrollPosition: (scrollPosition: number) => dispatch(scrollPositionActions.setExplorerInterestsScrollPosition(scrollPosition)),
 });
 
-const InterestBrowserView: React.FC<InterestBrowserViewProps> = ({ profileInterests, interests, interestsScrollPosition, setInterestsScrollPosition }) => {
-  // TODO do we want to filter out the profileInterests from interests?
+const adminEmail = RadGradProperties.getAdminEmail();
+
+const InterestBrowserView: React.FC<InterestBrowserViewProps> = ({ interests, inProfile, interestsScrollPosition, setInterestsScrollPosition }) => {
   const cardGroupElement: HTMLElement = document.getElementById('interestsCardGroup');
   useEffect(() => {
     const savedScrollPosition = interestsScrollPosition;
@@ -42,9 +45,25 @@ const InterestBrowserView: React.FC<InterestBrowserViewProps> = ({ profileIntere
   return (
     <div id="interest-browser-view">
       <Segment>
+        <header>
+          {inProfile
+            ? <p color='grey'><Icon name='heart' color='grey' size='large'/>
+              INTERESTS IN MY PROFILE <WidgetHeaderNumber inputValue={interests.length}/>
+               { interests.length < 3 ?
+                  <span><Icon name='exclamation triangle' color='red'/> Please add atleast <b>three interests</b> to your profile</span> : '' }
+              </p>
+            : <p color='grey'>INTERESTS NOT IN MY PROFILE <WidgetHeaderNumber inputValue={interests.length}/>
+              <Button floated='right' basic color='teal' href={`mailto:${adminEmail}?subject=New Interest Suggestion`}>
+              <Icon name='mail' />
+              &nbsp;&nbsp;SUGGEST a NEW INTEREST
+              </Button>
+              </p>
+              }
+          </header>
+          <Divider />
         <Card.Group itemsPerRow={4} stackable id="interestsCardGroup">
           {interests.map((interest) => (
-            <ProfileCard key={interest._id} item={interest} type={EXPLORER_TYPE.INTERESTS} />
+            <ProfileCard key={interest._id} item={interest} type={EXPLORER_TYPE.INTERESTS} cardLinkName={inProfile? 'See Details / Remove from Profile':'See Details / Add to Profile'}/>
           ))}
         </Card.Group>
       </Segment>
