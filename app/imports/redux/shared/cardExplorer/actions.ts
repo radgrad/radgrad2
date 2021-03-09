@@ -27,6 +27,19 @@ export const setOpportunitiesSortValue = (explorerType: string, value: string): 
   return retVal;
 };
 
+export const setInterestsSortValue = (explorerType: string, value: string): { type?: string, payload?: string } => {
+  const retVal: { type?: string, payload?: string } = {};
+  retVal.payload = value;
+  switch (explorerType) {
+    case EXPLORER_TYPE.INTERESTS:
+      retVal.type = TYPES.SET_OPPORTUNITIES_SORT_VALUE;
+      break;
+    default:
+      break;
+  }
+  return retVal;
+};
+
 export const setCoursesFilterValue = (explorerType: string, value: string): { type?: string, payload?: string } => {
   const retVal: { type?: string, payload?: string } = {};
   retVal.payload = value;

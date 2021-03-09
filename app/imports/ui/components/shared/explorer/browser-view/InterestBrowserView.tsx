@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Card, Header, Segment } from 'semantic-ui-react';
+import { Card, Segment } from 'semantic-ui-react';
 import { scrollPositionActions } from '../../../../../redux/shared/scrollPosition';
 import { RootState } from '../../../../../redux/types';
 import { Interest } from '../../../../../typings/radgrad';
@@ -9,7 +9,6 @@ import ProfileCard from './ProfileCard';
 
 interface InterestBrowserViewProps {
   profileInterests: Interest[];
-  profileCareerGoalsInterests: Interest[];
   interests: Interest[];
   // Saving Scroll Position
   interestsScrollPosition: number;
@@ -24,7 +23,7 @@ const mapDispatchToProps = (dispatch) => ({
   setInterestsScrollPosition: (scrollPosition: number) => dispatch(scrollPositionActions.setExplorerInterestsScrollPosition(scrollPosition)),
 });
 
-const InterestBrowserView: React.FC<InterestBrowserViewProps> = ({ profileInterests, profileCareerGoalsInterests, interests, interestsScrollPosition, setInterestsScrollPosition }) => {
+const InterestBrowserView: React.FC<InterestBrowserViewProps> = ({ profileInterests, interests, interestsScrollPosition, setInterestsScrollPosition }) => {
   // TODO do we want to filter out the profileInterests from interests?
   const cardGroupElement: HTMLElement = document.getElementById('interestsCardGroup');
   useEffect(() => {
@@ -43,8 +42,7 @@ const InterestBrowserView: React.FC<InterestBrowserViewProps> = ({ profileIntere
   return (
     <div id="interest-browser-view">
       <Segment>
-        <Header dividing>INTERESTS {interests.length}</Header>
-        <Card.Group itemsPerRow={2} stackable id="interestsCardGroup">
+        <Card.Group itemsPerRow={4} stackable id="interestsCardGroup">
           {interests.map((interest) => (
             <ProfileCard key={interest._id} item={interest} type={EXPLORER_TYPE.INTERESTS} />
           ))}

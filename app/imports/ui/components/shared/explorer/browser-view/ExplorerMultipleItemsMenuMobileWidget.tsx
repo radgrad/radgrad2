@@ -66,21 +66,6 @@ const ExplorerMultipleItemsMenuMobileWidget: React.FC<CardExplorerMenuMobileWidg
             ''
           )}
 
-          {/* Components renderable to STUDENTS and FACULTY. */}
-          {isType(EXPLORER_TYPE.INTERESTS, type) ? (
-            <Dropdown className="selection" fluid text="Select Item" style={{ marginTop: '1rem' }}>
-              <Dropdown.Menu>
-                <Dropdown.Header as="h4">MY PROFILE INTERESTS</Dropdown.Header>
-                <Dropdown.Divider />
-                {menuAddedList.map((listItem) => (
-                  <ExplorerMenuMobileItem type={EXPLORER_TYPE.INTERESTS} listItem={listItem} key={listItem.item._id} />
-                ))}
-              </Dropdown.Menu>
-            </Dropdown>
-          ) : (
-            ''
-          )}
-
           {isType(EXPLORER_TYPE.CAREERGOALS, type) ? (
             <Dropdown className="selection" fluid text="Select Item" style={{ marginTop: '1rem' }}>
               <Dropdown.Menu>
