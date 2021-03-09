@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Header } from 'semantic-ui-react';
+import { Button, Header, Icon } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { ChecklistState } from '../../../api/checklist/ChecklistState';
 import { Users } from '../../../api/user/UserCollection';
@@ -30,6 +30,10 @@ export class PrivacyChecklist extends Checklist {
       // no lastLeveledUp info
       this.state = 'Review';
     }
+  }
+
+  public getIcon(): string | JSX.Element {
+    return <Icon name="privacy" color="grey" /> ;
   }
 
   public getTitle(state: ChecklistState): JSX.Element {

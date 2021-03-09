@@ -2,7 +2,7 @@ import moment from 'moment';
 import React from 'react';
 import { Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
-import { Button, Header } from 'semantic-ui-react';
+import { Button, Header, Icon } from 'semantic-ui-react';
 import { sendRefusedTermsEmailMethod } from '../../../api/analytic/Email.methods';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { ChecklistState } from '../../../api/checklist/ChecklistState';
@@ -31,6 +31,10 @@ export class TermsAndConditionsChecklist extends Checklist {
     } else {
       this.state = 'Improve';
     }
+  }
+
+  public getIcon(): string | JSX.Element {
+    return <Icon name="file alternate" color="grey" /> ;
   }
 
   public getTitle(state: ChecklistState): JSX.Element {

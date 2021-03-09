@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import { Link } from 'react-router-dom';
-import { Button, Header } from 'semantic-ui-react';
+import { Button, Header, Icon } from 'semantic-ui-react';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { ChecklistState } from '../../../api/checklist/ChecklistState';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
@@ -49,6 +49,10 @@ export class VerificationChecklist extends Checklist {
     } else {
       this.state = 'Awesome';
     }
+  }
+
+  public getIcon(): string | JSX.Element {
+    return <Icon name="check square" color="grey" /> ;
   }
 
   public getTitle(state: ChecklistState): JSX.Element {

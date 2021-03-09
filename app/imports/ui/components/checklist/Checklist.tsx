@@ -1,6 +1,6 @@
 import moment from 'moment';
 import React from 'react';
-import { Segment, Grid, Label, Header, Icon} from 'semantic-ui-react';
+import { Segment, Grid, Label, Header } from 'semantic-ui-react';
 import { ChecklistState } from '../../../api/checklist/ChecklistState';
 import '../../../../client/style.css';
 
@@ -42,7 +42,7 @@ export class Checklist {
    * Returns the icon of the checklist.
    * @return {}
    */
-  public getIcon(): string {
+  public getIcon(): string | JSX.Element {
     return this.icon;
   }
 
@@ -104,30 +104,25 @@ export class Checklist {
     let color;
     switch (this.getState()) {
       case 'Improve':
-        color = {
-          color: 'red',
-        };
+        color = 'red';
         break;
       case 'Review':
-        color = {
-          color: 'yellow',
-        };
+        color = 'yellow';
         break;
       case 'Awesome':
-        color = {
-          color: 'green',
-        };
+        color = 'green';
     }
 
     return (
-      <div style={containerStyle} >
+      <div style={containerStyle} key={this.name}>
         <Grid centered>
-          <Grid.Column width={10} >
+          <Grid.Column width={10}>
             <div className="checklist">
               <Header as='h3' color='grey' attached='top'>
                 {this.getIcon()}{this.getName()}
               </Header>
-              <Segment attached raised placeholder id={`checklist-${this.name}`} key={`checklist-${this.name}`} padded='very'>
+              <Segment attached raised placeholder id={`checklist-${this.name}`} key={`checklist-${this.name}`}
+                       padded='very'>
                 <div className="labelStatus">
                   <Label as='a' size='large' ribbon='right' color={color}>{this.getState()}</Label>
                 </div>
@@ -138,7 +133,7 @@ export class Checklist {
               </Segment>
             </div>
           </Grid.Column>
-         </Grid>
+        </Grid>
       </div>
     );
   }

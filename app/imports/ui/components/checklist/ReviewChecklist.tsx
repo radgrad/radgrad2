@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import { Link } from 'react-router-dom';
-import { Button, Header } from 'semantic-ui-react';
+import { Button, Header, Icon } from 'semantic-ui-react';
 import { ChecklistState } from '../../../api/checklist/ChecklistState';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
@@ -38,6 +38,10 @@ export class ReviewChecklist extends Checklist {
     } else {
       this.state = 'Awesome';
     }
+  }
+
+  public getIcon(): string | JSX.Element {
+    return <Icon name="star half" color="grey" /> ;
   }
 
   public getTitle(state: ChecklistState): JSX.Element {

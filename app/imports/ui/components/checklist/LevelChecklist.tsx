@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Header } from 'semantic-ui-react';
+import { Button, Header, Icon } from 'semantic-ui-react';
 import { ChecklistState } from '../../../api/checklist/ChecklistState';
 import { Users } from '../../../api/user/UserCollection';
 import { StudentProfile } from '../../../typings/radgrad';
@@ -30,6 +30,10 @@ export class LevelChecklist extends Checklist {
       // no lastLeveledUp info
       this.state = 'Review';
     }
+  }
+
+  public getIcon(): string | JSX.Element {
+    return <Icon name="sort amount up" color="grey" /> ;
   }
 
   public getTitle(state: ChecklistState): JSX.Element {

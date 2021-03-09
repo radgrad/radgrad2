@@ -1,7 +1,7 @@
 import moment from 'moment';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Header } from 'semantic-ui-react';
+import { Button, Header, Icon } from 'semantic-ui-react';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { ChecklistState } from '../../../api/checklist/ChecklistState';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
@@ -45,6 +45,10 @@ export class CoursesChecklist extends Checklist {
       this.state = 'Review';
     }
     // console.log(this.state);
+  }
+
+  public getIcon(): string | JSX.Element {
+    return <Icon name="book" color="grey" /> ;
   }
 
   public getTitle(state: ChecklistState): JSX.Element {
