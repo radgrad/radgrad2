@@ -87,14 +87,17 @@
         <article>
             <pre class="prettyprint source linenums"><code>import moment from 'moment';
 import React from 'react';
-import { Segment } from 'semantic-ui-react';
+import { Segment, Grid, Label, Header } from 'semantic-ui-react';
 import { ChecklistState } from '../../../api/checklist/ChecklistState';
+import '../../../../client/style.css';
 
 /**
  * Base class for all checklist items.
  */
 export class Checklist {
   private name: string;
+
+  private icon: string;
 
   protected state: ChecklistState;
 
@@ -123,9 +126,18 @@ export class Checklist {
   }
 
   /**
+   * Returns the icon of the checklist.
+   * @return {}
+   */
+  public getIcon(): string | JSX.Element {
+    return this.icon;
+  }
+
+  /**
    * Returns the title of the checklist item.
    * @return {JSX.Element}
    */
+
   public getTitle(state: ChecklistState): JSX.Element {
     return &lt;React.Fragment />;
   }
@@ -155,30 +167,61 @@ export class Checklist {
   }
 
   public getChecklistItem(): JSX.Element {
-    let segmentStyle;
+    let containerStyle;
     switch (this.getState()) {
       case 'Improve':
-        segmentStyle = {
-          backgroundColor: '#C94963',
+        containerStyle = {
+          backgroundColor: '#fae9e9',
+          width: '100%',
         };
         break;
       case 'Review':
-        segmentStyle = {
-          backgroundColor: '#CEB23F',
+        containerStyle = {
+          backgroundColor: '#f9fae9',
+          width: '100%',
         };
         break;
-      case 'OK':
-        segmentStyle = {
-          backgroundColor: '#6FBE44',
+      case 'Awesome':
+        containerStyle = {
+          backgroundColor: '#e2fbdd',
+          width: '100%',
         };
     }
+
+    let color;
+    switch (this.getState()) {
+      case 'Improve':
+        color = 'red';
+        break;
+      case 'Review':
+        color = 'yellow';
+        break;
+      case 'Awesome':
+        color = 'green';
+    }
+
     return (
-      &lt;Segment id={`checklist-${this.name}`} key={`checklist-${this.name}`} style={segmentStyle}>
-        {this.getTitle(this.getState())}
-        {this.getDescription(this.getState())}
-        {this.getDetails(this.getState())}
-        {this.getActions(this.getState())}
-      &lt;/Segment>
+      &lt;div style={containerStyle} key={this.name}>
+        &lt;Grid centered>
+          &lt;Grid.Column width={10}>
+            &lt;div className="checklist">
+              &lt;Header as='h3' color='grey' attached='top'>
+                {this.getIcon()}{this.getName()}
+              &lt;/Header>
+              &lt;Segment attached raised placeholder id={`checklist-${this.name}`} key={`checklist-${this.name}`}
+                       padded='very'>
+                &lt;div className="labelStatus">
+                  &lt;Label as='a' size='large' ribbon='right' color={color}>{this.getState()}&lt;/Label>
+                &lt;/div>
+                {this.getTitle(this.getState())}
+                {this.getDescription(this.getState())}
+                {this.getDetails(this.getState())}
+                {this.getActions(this.getState())}
+              &lt;/Segment>
+            &lt;/div>
+          &lt;/Grid.Column>
+        &lt;/Grid>
+      &lt;/div>
     );
   }
 
