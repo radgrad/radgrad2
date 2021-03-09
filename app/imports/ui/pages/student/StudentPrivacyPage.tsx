@@ -26,16 +26,20 @@ const StudentPrivacyPage: React.FC = () => {
   const email = 'johnson@hawaii.edu';
   const image = 'https://philipmjohnson.github.io/images/philip2.jpeg';
   const website = 'https://philipmjohnson.org';
+  const interests = ['Algorithms', 'Android', 'Angular'];
+  const careerGoals = ['Data Scientist', 'Database Administrator', 'DevOps Engineer', 'Full Stack Developer', 'Game Developer'];
+  const courses = ['ICS 111', 'ICS 211', 'ICS 241', 'ICS 311', 'ICS 314'];
+  const opportunities = ['ACM ICPC', 'ACM Manoa', 'ALLNET', 'Asteroid Detection', 'HACC'];
   return (
     <PageLayout id="student-privacy-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
       <Header>Profile Card Examples</Header>
 
       <div style={{paddingBottom: '20px'}}>
-        <ProfileCard name={name} email={email} image={image} level={5} website={website}/>
+        <ProfileCard name={name} email={email} image={image} level={5} website={website} interests={interests} careerGoals={careerGoals} courses={courses} opportunities={opportunities} ice/>
       </div>
 
       <div style={{paddingBottom: '20px'}}>
-        <ProfileCard name={name} email={email} level={5} website={website}/>
+        <ProfileCard name={name} email={email}  website={website} interests={interests} careerGoals={careerGoals} />
       </div>
 
       <div style={{paddingBottom: '20px'}}>
@@ -43,7 +47,11 @@ const StudentPrivacyPage: React.FC = () => {
       </div>
 
       <div style={{paddingBottom: '20px'}}>
-        <ProfileCard name={name} email={email} image={image} level={5}/>
+        <ProfileCard name={name} email={email} level={2} ice/>
+      </div>
+
+      <div style={{paddingBottom: '20px'}}>
+        <ProfileCard name={name} email={email} image={image} level={4}/>
       </div>
 
       <div style={{paddingBottom: '20px'}}>
