@@ -87,35 +87,18 @@ export class Checklist {
 
   public getChecklistItem(): JSX.Element {
     let containerStyle;
-    switch (this.getState()) {
-      case CHECKSTATE.IMPROVE:
-        containerStyle = {
-          backgroundColor: '#fae9e9',
-          width: '100%',
-        };
-        break;
-      case CHECKSTATE.REVIEW:
-        containerStyle = {
-          backgroundColor: '#f9fae9',
-          width: '100%',
-        };
-        break;
-      case CHECKSTATE.OK:
-        containerStyle = {
-          backgroundColor: '#e2fbdd',
-          width: '100%',
-        };
-    }
-
     let color;
     switch (this.getState()) {
       case CHECKSTATE.IMPROVE:
+        containerStyle = { backgroundColor: '#fae9e9', width: '100%'};
         color = 'red';
         break;
       case CHECKSTATE.REVIEW:
+        containerStyle = { backgroundColor: '#f9fae9', width: '100%'};
         color = 'yellow';
         break;
       case CHECKSTATE.OK:
+        containerStyle = {backgroundColor: '#e2fbdd', width: '100%'};
         color = 'green';
     }
 
@@ -127,8 +110,7 @@ export class Checklist {
               <Header as='h3' color='grey' attached='top'>
                 {this.getIcon()}{this.getName()}
               </Header>
-              <Segment attached raised placeholder id={`checklist-${this.name}`} key={`checklist-${this.name}`}
-                       padded='very'>
+              <Segment attached raised placeholder id={`checklist-${this.name}`} key={`checklist-${this.name}`} padded='very'>
                 <div className="labelStatus">
                   <Label as='a' size='large' ribbon='right' color={color}>{this.getState()}</Label>
                 </div>
