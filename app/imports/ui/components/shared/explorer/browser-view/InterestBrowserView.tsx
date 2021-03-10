@@ -33,6 +33,7 @@ const adminEmail = RadGradProperties.getAdminEmail();
 const InterestBrowserView: React.FC<InterestBrowserViewProps> = ({ interests, inProfile, interestsScrollPosition, setInterestsScrollPosition, sortValue }) => {
   const cardGroupElement: HTMLElement = document.getElementById('interestsCardGroup');
   switch (sortValue) {
+    // TODO: Add sort by Most Recent
     case interestSortKeys.mostRecent:
       break;
     default:
@@ -61,7 +62,7 @@ const InterestBrowserView: React.FC<InterestBrowserViewProps> = ({ interests, in
                   <span style={{ float: 'right' }}><Icon name='exclamation triangle' color='red'/> Please add atleast <b>three interests</b> to your profile</span> : '' }
               </p>
             : <p color='grey'>INTERESTS NOT IN MY PROFILE <WidgetHeaderNumber inputValue={interests.length}/>
-              <Button size="mini" color="teal" floated="right" basic>
+              <Button size="mini" color="teal" floated="right" href={`mailto:${adminEmail}?subject=New Interest Suggestion`} basic>
                 <Icon name="mail"  />
                   SUGGEST A NEW INTEREST
               </Button>
