@@ -1,21 +1,27 @@
 import moment from 'moment';
 import React from 'react';
-import { Segment, Grid, Label, Header } from 'semantic-ui-react';
-import { ChecklistState } from '../../../api/checklist/ChecklistState';
+import {Grid, Header, Icon, Label, Segment, SemanticICONS} from 'semantic-ui-react';
 import '../../../../client/style.css';
+
+export const enum CHECKSTATE {
+  OK = 'OK',
+  REVIEW = 'REVIEW',
+  IMPROVE = 'IMPROVE',
+}
 
 /**
  * Base class for all checklist items.
  */
 export class Checklist {
-  private name: string;
+  protected name = 'Checklist Name';
+  protected iconName: SemanticICONS = 'question';
+  protected state: CHECKSTATE = CHECKSTATE.OK;
+  protected title = {};
 
-  private icon: string;
-
-  protected state: ChecklistState;
-
-  constructor(name: string) {
-    this.name = name;
+  constructor() {
+    this.title[CHECKSTATE.OK] = 'Item is OK';
+    this.title[CHECKSTATE.REVIEW] = 'Item should be reviewed';
+    this.title[CHECKSTATE.IMPROVE] = 'Item should be improved';
   }
 
   /**
@@ -23,10 +29,10 @@ export class Checklist {
    * @protected
    */
   protected updateState(): void {
-    this.state = 'Improve';
+    this.state = CHECKSTATE.IMPROVE;
   }
 
-  public getState(): ChecklistState {
+  public getState(): CHECKSTATE {
     return this.state;
   }
 
@@ -42,8 +48,8 @@ export class Checklist {
    * Returns the icon of the checklist.
    * @return {}
    */
-  public getIcon(): string | JSX.Element {
-    return this.icon;
+  public getIcon(): JSX.Element {
+    return <Icon name={this.iconName} color="grey" />;
   }
 
   /**
@@ -51,15 +57,15 @@ export class Checklist {
    * @return {JSX.Element}
    */
 
-  public getTitle(state: ChecklistState): JSX.Element {
-    return <React.Fragment />;
+  public getTitle(state: CHECKSTATE): JSX.Element {
+    return <Header as='h1'>{this.title[state]}</Header>;
   }
 
   /**
    * Returns the description section of the checklist item.
    * @return {JSX.Element}
    */
-  public getDescription(state: ChecklistState): JSX.Element {
+  public getDescription(state: CHECKSTATE): JSX.Element {
     return <React.Fragment />;
   }
 
@@ -67,7 +73,7 @@ export class Checklist {
    * Returns the details section of the checklist item.
    * @return {JSX.Element}
    */
-  public getDetails(state: ChecklistState): JSX.Element {
+  public getDetails(state: CHECKSTATE): JSX.Element {
     return <React.Fragment />;
   }
 
@@ -75,26 +81,26 @@ export class Checklist {
    * Returns the actions section of the checklist item.
    * @return {JSX.Element}
    */
-  public getActions(state: ChecklistState): JSX.Element {
+  public getActions(state: CHECKSTATE): JSX.Element {
     return <React.Fragment />;
   }
 
   public getChecklistItem(): JSX.Element {
     let containerStyle;
     switch (this.getState()) {
-      case 'Improve':
+      case CHECKSTATE.IMPROVE:
         containerStyle = {
           backgroundColor: '#fae9e9',
           width: '100%',
         };
         break;
-      case 'Review':
+      case CHECKSTATE.REVIEW:
         containerStyle = {
           backgroundColor: '#f9fae9',
           width: '100%',
         };
         break;
-      case 'Awesome':
+      case CHECKSTATE.OK:
         containerStyle = {
           backgroundColor: '#e2fbdd',
           width: '100%',
@@ -103,13 +109,13 @@ export class Checklist {
 
     let color;
     switch (this.getState()) {
-      case 'Improve':
+      case CHECKSTATE.IMPROVE:
         color = 'red';
         break;
-      case 'Review':
+      case CHECKSTATE.REVIEW:
         color = 'yellow';
         break;
-      case 'Awesome':
+      case CHECKSTATE.OK:
         color = 'green';
     }
 

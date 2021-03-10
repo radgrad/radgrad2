@@ -231,6 +231,7 @@
       "react/sort-comp": "off",
       "@typescript-eslint/ban-ts-comment": "warn",
       "@typescript-eslint/naming-convention": "warn",
+      "@typescript-eslint/lines-between-class-members": "off",
       "@typescript-eslint/no-unused-vars": "error",
       "@typescript-eslint/no-useless-constructor": "error"
     }

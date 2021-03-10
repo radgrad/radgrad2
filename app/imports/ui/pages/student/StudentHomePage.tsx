@@ -10,6 +10,7 @@ import { ReviewChecklist } from '../../components/checklist/ReviewChecklist';
 import { TermsAndConditionsChecklist } from '../../components/checklist/TermsAndConditionsChecklist';
 import { VerificationChecklist } from '../../components/checklist/VerificationChecklist';
 import PageLayout from '../PageLayout';
+import {CHECKSTATE} from '../../components/checklist/Checklist';
 
 interface StudentHomePageProps {
   okItems: JSX.Element[];
@@ -21,11 +22,11 @@ const headerPaneTitle = 'Make the most of RadGrad';
 const headerPaneBody = `
 This page contains a personalized set of recommendations to help RadGrad help you! It's divided into three sections. Not all of them might be present at any particular time.
 
-<span style="color:red">The red section:</span> Please act on these right away. They really help RadGrad help you. 
+<span style="color:red">IMPROVE:</span> Please act on these right away. They really help RadGrad help you. 
 
-<span style="color:yellow">The yellow section:</span> Requests for you to review your settings or areas of the site that might have changed recently. 
+<span style="color:yellow">REVIEW:</span> Please review your settings or things that might have changed recently. 
 
-<span style="color:green">The green section:</span>  Looks good for now!
+<span style="color:lightgreen">OK:</span>  Looks good for now!
 `;
 const headerPaneImage = 'header-home.png';
 
@@ -39,30 +40,28 @@ const StudentHomePage: React.FC<StudentHomePageProps> = ({ okItems, reviewItems,
 
 export default withTracker(() => {
   const currentUser = Meteor.user() ? Meteor.user().username : '';
-  // console.log(currentUser);
   const okItems = [];
   const reviewItems = [];
   const improveItems = [];
   const checklists = [];
-  checklists.push(new TermsAndConditionsChecklist('Terms and Conditions', currentUser));
-  checklists.push(new InterestsChecklist('Interests', currentUser));
-  checklists.push(new CareerGoalsChecklist('Career Goals', currentUser));
-  checklists.push(new CoursesChecklist('Courses', currentUser));
-  checklists.push(new OpportunitiesChecklist('Opportunities', currentUser));
-  checklists.push(new ReviewChecklist('Reviews', currentUser));
-  checklists.push(new VerificationChecklist('Verification', currentUser));
-  checklists.push(new LevelChecklist('Levels', currentUser));
-  checklists.push(new PrivacyChecklist('Privacy', currentUser));
+  checklists.push(new TermsAndConditionsChecklist(currentUser));
+  checklists.push(new InterestsChecklist(currentUser));
+  checklists.push(new CareerGoalsChecklist(currentUser));
+  checklists.push(new CoursesChecklist(currentUser));
+  checklists.push(new OpportunitiesChecklist(currentUser));
+  checklists.push(new ReviewChecklist(currentUser));
+  checklists.push(new VerificationChecklist(currentUser));
+  checklists.push(new LevelChecklist(currentUser));
+  checklists.push(new PrivacyChecklist(currentUser));
   checklists.forEach((checklist) => {
-    checklist.updateState();
     switch (checklist.getState()) {
-      case 'Improve':
+      case CHECKSTATE.IMPROVE:
         improveItems.push(checklist.getChecklistItem());
         break;
-      case 'Review':
+      case CHECKSTATE.REVIEW:
         reviewItems.push(checklist.getChecklistItem());
         break;
-      case 'Awesome':
+      case CHECKSTATE.OK:
         okItems.push(checklist.getChecklistItem());
         break;
       default:

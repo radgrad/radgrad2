@@ -9,3 +9,5 @@ export const CHECKLIST_STATE = {
 export const CHECKLIST_STATES = _.values(CHECKLIST_STATE);
 
 export type ChecklistState = 'Awesome' | 'Review' | 'Improve';
+
+
