@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import {Button, Card, Divider, Icon, Segment} from 'semantic-ui-react';
+import {Button, Card, Header, Icon, Segment} from 'semantic-ui-react';
 import { scrollPositionActions } from '../../../../../redux/shared/scrollPosition';
 import { RootState } from '../../../../../redux/types';
 import { Interest } from '../../../../../typings/radgrad';
@@ -50,11 +50,10 @@ const InterestBrowserView: React.FC<InterestBrowserViewProps> = ({ interests, in
       }
     };
   }, [cardGroupElement, interestsScrollPosition, setInterestsScrollPosition]);
-
   return (
     <div id="interest-browser-view">
       <Segment>
-        <header>
+          <Header as="h4" dividing>
           {inProfile
             ? <p color='grey'><Icon name='heart' color='grey' size='large'/>
               INTERESTS IN MY PROFILE <WidgetHeaderNumber inputValue={interests.length}/>
@@ -64,12 +63,11 @@ const InterestBrowserView: React.FC<InterestBrowserViewProps> = ({ interests, in
             : <p color='grey'>INTERESTS NOT IN MY PROFILE <WidgetHeaderNumber inputValue={interests.length}/>
               <Button floated='right' basic color='teal' href={`mailto:${adminEmail}?subject=New Interest Suggestion`}>
               <Icon name='mail' />
-              &nbsp;&nbsp;SUGGEST a NEW INTEREST
+              &nbsp;&nbsp;SUGGEST A NEW INTEREST
               </Button>
               </p>
               }
-          </header>
-          <Divider />
+          </Header>
           {!inProfile ? <InterestSortWidget /> :''}
         <Card.Group itemsPerRow={4} stackable id="interestsCardGroup">
           {interests.map((interest) => (

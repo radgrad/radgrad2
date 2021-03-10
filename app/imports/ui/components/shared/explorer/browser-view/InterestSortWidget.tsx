@@ -44,7 +44,7 @@ const InterestSortWidget: React.FC<InterestSortWidgetProps> = ({ sortChoice, set
   };
   return (
         <AutoForm schema={formSchema} model={model} onChange={handleChange}>
-            <RadioField name="sortInterestsBy" label="Sort By:" inline />
+            <RadioField name="sortInterestsBy" label="Sort By:" inline style={{float:'right'}} />
         </AutoForm>
   );
 };
