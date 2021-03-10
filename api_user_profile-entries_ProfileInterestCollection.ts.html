@@ -89,6 +89,7 @@
 import SimpleSchema from 'simpl-schema';
 import _ from 'lodash';
 import { ReactiveAggregate } from 'meteor/jcbernack:reactive-aggregate';
+import { ProfileInterestsForecastName } from '../../../startup/both/names';
 import BaseCollection from '../../base/BaseCollection';
 import { Interests } from '../../interest/InterestCollection';
 import { Users } from '../UserCollection';
@@ -97,7 +98,7 @@ import { ProfileInterestDefine, ProfileEntryUpdate } from '../../../typings/radg
 
 class ProfileInterestCollection extends BaseCollection {
   public readonly publicationNames: {
-    scoreboard: string;
+    forecast: string;
   };
 
   /** Creates the ProfileInterest collection */
@@ -109,7 +110,7 @@ class ProfileInterestCollection extends BaseCollection {
       retired: { type: Boolean, optional: true },
     }));
     this.publicationNames = {
-      scoreboard: `${this.collectionName}.scoreboard`,
+      forecast: `${this.collectionName}.forecast`,
     };
   }
 
@@ -170,7 +171,7 @@ class ProfileInterestCollection extends BaseCollection {
   /**
    * Publish ProfileInterests. If logged in as ADMIN get all, otherwise only get the ProfileInterests for the
    * studentID.
-   * Also publishes the ProfileInterests scoreboard.
+   * Also publishes the ProfileInterests forecast.
    */
   publish() {
     if (Meteor.isServer) {
@@ -190,7 +191,7 @@ class ProfileInterestCollection extends BaseCollection {
           ],
         });
       });
-      Meteor.publish(this.publicationNames.scoreboard, function publishInterestScoreboard() {
+      Meteor.publish(this.publicationNames.forecast, function publishInterestForecast() {
         ReactiveAggregate(this, collection, [
           {
             $group: {
@@ -199,7 +200,7 @@ class ProfileInterestCollection extends BaseCollection {
             },
           },
           { $project: { count: 1, interestID: 1 } },
-        ], { clientCollection: 'ProfileInterestsScoreboard' });
+        ], { clientCollection: ProfileInterestsForecastName });
       });
     }
   }
