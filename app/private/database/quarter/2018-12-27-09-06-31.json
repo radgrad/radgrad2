@@ -7975,6 +7975,29 @@
       "name": "StudentProfileCollection",
       "contents": [
         {
+          "username": "heacheng@hawaii.edu",
+          "firstName": "Hanna",
+          "lastName": "Park",
+          "picture": "/images/mockup/hanna.png",
+          "website": "http://hannaparkUH.github.io",
+          "interests": [],
+          "careerGoals": [],
+          "level": 1,
+          "profileCourses": [],
+          "profileOpportunities": [],
+          "declaredAcademicTerm": "Fall-2017",
+          "isAlumni": false,
+          "retired": false,
+          "shareUsername": false,
+          "sharePicture": false,
+          "shareWebsite": false,
+          "shareInterests": false,
+          "shareCareerGoals": false,
+          "shareOpportunities": false,
+          "shareCourses": true,
+          "shareLevel": false
+        },
+        {
           "username": "abi@hawaii.edu",
           "firstName": "Abigail",
           "lastName": "Kealoha",
@@ -8123,6 +8146,36 @@
           "isAlumni": false
         },
         {
+          "username": "mercedez@hawaii.edu",
+          "firstName": "Mercedez",
+          "lastName": "Castro",
+          "picture": "/images/default-profile-picture.png",
+          "website": "http://mercedezcastro.github.io",
+          "interests": [
+            "algorithms",
+            "databases",
+            "software-engineering",
+            "web-development"
+          ],
+          "careerGoals": [
+            "full-stack-developer"
+          ],
+          "level": 5,
+          "profileCourses": [],
+          "profileOpportunities": [],
+          "declaredAcademicTerm": "Fall-2018",
+          "isAlumni": false,
+          "retired": false,
+          "shareUsername": false,
+          "sharePicture": false,
+          "shareWebsite": false,
+          "shareInterests": false,
+          "shareCareerGoals": false,
+          "shareOpportunities": false,
+          "shareCourses": false,
+          "shareLevel": false
+        },
+        {
           "username": "qauchida@hawaii.edu",
           "firstName": "Quinne",
           "lastName": "Uchida",
@@ -8142,6 +8195,37 @@
           "hiddenCourses": [],
           "hiddenOpportunities": [],
           "isAlumni": false
+        },
+        {
+          "username": "gbarcelo@hawaii.edu",
+          "firstName": "Glen",
+          "lastName": "Barcelo",
+          "picture": "/images/default-profile-picture.png",
+          "interests": [
+            "data-science",
+            "data-visualization",
+            "algorithms",
+            "databases",
+            "machine-learning",
+            "research"
+          ],
+          "careerGoals": [
+            "data-scientist"
+          ],
+          "level": 4,
+          "profileCourses": [],
+          "profileOpportunities": [],
+          "declaredAcademicTerm": "Fall-2019",
+          "isAlumni": false,
+          "retired": false,
+          "shareUsername": false,
+          "sharePicture": false,
+          "shareWebsite": false,
+          "shareInterests": false,
+          "shareCareerGoals": false,
+          "shareOpportunities": false,
+          "shareCourses": false,
+          "shareLevel": false
         }
       ]
     },
