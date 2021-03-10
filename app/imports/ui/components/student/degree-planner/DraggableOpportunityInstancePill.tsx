@@ -20,6 +20,14 @@ const handleClick = (instance, handleClickOpportunityInstance) => (event) => {
   handleClickOpportunityInstance(event, { value: instance._id });
 };
 
+const shortenName = (name: string): string => {
+  console.log(name, name.length);
+  if (name.length > 20) {
+    return `${name.substring(0, 17)}...`;
+  }
+  return name;
+};
+
 const DraggableOpportunityInstancePill: React.FC<OpportunityInstancePillProps> = ({ instance, index, handleClickOpportunityInstance }) => {
   const opp = Opportunities.findDoc(instance.opportunityID);
   return (
@@ -31,10 +39,10 @@ const DraggableOpportunityInstancePill: React.FC<OpportunityInstancePillProps> =
               <div ref={prov.innerRef} {...prov.draggableProps} {...prov.dragHandleProps} style={getDraggablePillStyle(snap.isDragging, prov.draggableProps.style)}>
                 <Grid>
                   <Grid.Row>
-                    <Grid.Column width={11} onClick={handleClick(instance, handleClickOpportunityInstance)}>
-                      <NamePill name={opp.name} />
+                    <Grid.Column width={13} onClick={handleClick(instance, handleClickOpportunityInstance)}>
+                      <NamePill name={shortenName(opp.name)} />
                     </Grid.Column>
-                    <Grid.Column width={1}>{instance.verified ? '' : <RemoveItWidget collectionName="OpportunityInstanceCollection" id={instance._id} name={opp.name} courseNumber="" />}</Grid.Column>
+                    <Grid.Column width={2}>{instance.verified ? '' : <RemoveItWidget collectionName="OpportunityInstanceCollection" id={instance._id} name={opp.name} courseNumber="" />}</Grid.Column>
                   </Grid.Row>
                 </Grid>
               </div>
