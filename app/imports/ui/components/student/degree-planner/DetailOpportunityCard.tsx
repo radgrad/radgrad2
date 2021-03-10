@@ -5,7 +5,7 @@ import { Link, useRouteMatch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
 import { RadGradProperties } from '../../../../api/radgrad/RadGradProperties';
-import { OpportunityScoreboard } from '../../../../startup/client/collections';
+import { OpportunityForecastCollection } from '../../../../startup/client/collections';
 import { getUsername } from '../../shared/utilities/router';
 import { AcademicTerm, OpportunityInstance, UserInteractionDefine, VerificationRequest, VerificationRequestDefine } from '../../../../typings/radgrad';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
@@ -126,7 +126,7 @@ const DetailOpportunityCard: React.FC<DetailOpportunityCardProps> = ({ instance,
   const scores = [];
   _.forEach(academicTerms, (term: AcademicTerm) => {
     const id = `${opportunity._id} ${term._id}`;
-    const score = OpportunityScoreboard.find({ _id: id }).fetch() as { count: number }[];
+    const score = OpportunityForecastCollection.find({ _id: id }).fetch() as { count: number }[];
     if (score.length > 0) {
       scores.push(score[0].count);
     } else {

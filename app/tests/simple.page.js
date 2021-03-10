@@ -20,12 +20,12 @@ export const adminDatabasePage = new SimplePage('admin-database-page');
 export const adminDataModelPage = new SimplePage('admin-data-model-page');
 export const adminHomePage = new SimplePage('admin-home-page');
 export const adminModerationPage = new SimplePage('admin-moderation-page');
-export const adminScoreboardPage = new SimplePage('scoreboard-page');
+export const adminScoreboardPage = new SimplePage('forecast-page');
 
 export const advisorHomePage = new SimplePage('advisor-home-page');
 export const advisorVerificationRequestsPage = new SimplePage('advisor-verification-requests-page');
 export const advisorModerationPage = new SimplePage('advisor-moderation-page');
-export const advisorScoreboardPage = new SimplePage('scoreboard-page'); // same page as adminScoreboardPage
+export const advisorScoreboardPage = new SimplePage('forecast-page'); // same page as adminScoreboardPage
 
 export const facultyHomePage = new SimplePage('faculty-home-page');
 

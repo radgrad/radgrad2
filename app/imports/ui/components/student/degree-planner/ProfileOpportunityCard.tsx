@@ -4,7 +4,7 @@ import _ from 'lodash';
 import { Link, useRouteMatch } from 'react-router-dom';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { RadGradProperties } from '../../../../api/radgrad/RadGradProperties';
-import { OpportunityScoreboard } from '../../../../startup/client/collections';
+import { OpportunityForecastCollection } from '../../../../startup/client/collections';
 import { AcademicTerm, Opportunity, OpportunityInstance } from '../../../../typings/radgrad';
 import IceHeader from '../../shared/IceHeader';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
@@ -47,7 +47,7 @@ const ProfileOpportunityCard: React.FC<ProfileOpportunityCardProps> = ({ opportu
   const scores = [];
   _.forEach(academicTerms, (term: AcademicTerm) => {
     const id = `${opportunity._id} ${term._id}`;
-    const score = OpportunityScoreboard.find({ _id: id }).fetch() as { count: number }[];
+    const score = OpportunityForecastCollection.find({ _id: id }).fetch() as { count: number }[];
     if (score.length > 0) {
       scores.push(score[0].count);
     } else {

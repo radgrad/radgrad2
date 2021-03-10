@@ -82,7 +82,7 @@ const TabbedProfileEntries: React.FC<TabbedProfileEntriesProps> = ({
     {
       menuItem: (
         <Menu.Item key="ProfileOpportunities">
-          <Icon name="heart" fitted color="red" /> OPPS
+          <Icon name="user" fitted color="grey" /> OPPS
         </Menu.Item>
       ),
       pane: (
@@ -94,7 +94,7 @@ const TabbedProfileEntries: React.FC<TabbedProfileEntriesProps> = ({
     {
       menuItem: (
         <Menu.Item key="ProfileCourses">
-          <Icon name="heart" fitted color="red" /> COURSE
+          <Icon name="user" fitted color="grey" /> COURSE
         </Menu.Item>
       ),
       pane: (

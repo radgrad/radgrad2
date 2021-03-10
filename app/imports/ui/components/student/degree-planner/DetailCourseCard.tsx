@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Link, useRouteMatch } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { RadGradProperties } from '../../../../api/radgrad/RadGradProperties';
-import { CourseScoreboard } from '../../../../startup/client/collections';
+import { CourseForecastCollection } from '../../../../startup/client/collections';
 import { AcademicTerm, CourseInstance, UserInteractionDefine } from '../../../../typings/radgrad';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import IceHeader from '../../shared/IceHeader';
@@ -84,7 +84,7 @@ const DetailCourseCard: React.FC<DetailCourseCardProps> = ({ instance, selectCou
   const scores = [];
   _.forEach(academicTerms, (term: AcademicTerm) => {
     const id = `${course._id} ${term._id}`;
-    const score = CourseScoreboard.find({ _id: id }).fetch() as { count: number }[];
+    const score = CourseForecastCollection.find({ _id: id }).fetch() as { count: number }[];
     if (score.length > 0) {
       scores.push(score[0].count);
     } else {

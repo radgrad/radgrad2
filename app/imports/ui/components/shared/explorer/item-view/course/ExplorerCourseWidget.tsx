@@ -5,7 +5,7 @@ import _ from 'lodash';
 import Markdown from 'react-markdown';
 import { AcademicTerms } from '../../../../../../api/academic-term/AcademicTermCollection';
 import { RadGradProperties } from '../../../../../../api/radgrad/RadGradProperties';
-import { CourseScoreboard } from '../../../../../../startup/client/collections';
+import { CourseForecastCollection } from '../../../../../../startup/client/collections';
 import InterestList from '../../../InterestList';
 import { isSingleChoice } from '../../../../../../api/degree-plan/PlanChoiceUtilities';
 import StudentExplorerReviewWidget from '../../../../student/explorer/StudentExplorerReviewWidget';
@@ -156,7 +156,7 @@ const ExplorerCourseWidget: React.FC<ExplorerCoursesWidgetProps> = ({ name, shor
   const scores = [];
   _.forEach(academicTerms, (term: AcademicTerm) => {
     const id = `${item._id} ${term._id}`;
-    const score = CourseScoreboard.find({ _id: id }).fetch() as { count: number }[];
+    const score = CourseForecastCollection.find({ _id: id }).fetch() as { count: number }[];
     if (score.length > 0) {
       scores.push(score[0].count);
     } else {
