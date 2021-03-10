@@ -19,6 +19,7 @@ import { degreePlannerActions } from '../../../../redux/student/degree-planner';
 import { getUsername } from '../../shared/utilities/router';
 import { UserInteractionsTypes } from '../../../../api/analytic/UserInteractionsTypes';
 import { userInteractionDefineMethod } from '../../../../api/analytic/UserInteractionCollection.methods';
+import { cardStyle, contentStyle } from './utilities/styles';
 
 interface DetailCourseCardProps {
   instance: CourseInstance;
@@ -94,8 +95,8 @@ const DetailCourseCard: React.FC<DetailCourseCardProps> = ({ instance, selectCou
 
   return (
     <Card.Group itemsPerRow={1}>
-      <Card>
-        <Card.Content>
+      <Card style={cardStyle}>
+        <Card.Content style={contentStyle}>
           <IceHeader ice={instance.ice} />
           <Card.Header>
             <h4>
@@ -103,7 +104,7 @@ const DetailCourseCard: React.FC<DetailCourseCardProps> = ({ instance, selectCou
             </h4>
           </Card.Header>
         </Card.Content>
-        <Card.Content>
+        <Card.Content style={contentStyle}>
           {futureP ? (
             <React.Fragment>
               <p>
@@ -120,7 +121,7 @@ const DetailCourseCard: React.FC<DetailCourseCardProps> = ({ instance, selectCou
             </p>
           )}
         </Card.Content>
-        <Card.Content>
+        <Card.Content style={contentStyle}>
           <p style={textAlignRight}>
             <Link to={buildRouteName(match, course, EXPLORER_TYPE.COURSES)} rel="noopener noreferrer" target="_blank">
               View in Explorer <Icon name="arrow right" />

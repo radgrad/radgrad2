@@ -31,6 +31,9 @@ const AcademicTermView: React.FC<AcademicTermViewProps> = ({
     margin: 10,
     padding: 5,
   };
+  const headerStyle = {
+    marginBottom: 0,
+  };
   const currentTermNum = AcademicTerms.getCurrentAcademicTermDoc().termNumber;
   const inPast = term.termNumber < currentTermNum;
   const isCurrent = term.termNumber === currentTermNum;
@@ -38,7 +41,7 @@ const AcademicTermView: React.FC<AcademicTermViewProps> = ({
   const opportunityInstancesToShow = _.filter(opportunityInstances, (oi) => oi.termID === term._id);
   return (
     <Segment style={paddedStyle}>
-      <Header disabled={inPast} color={isCurrent ? 'green' : 'black'}>
+      <Header disabled={inPast} color={isCurrent ? 'green' : 'black'} style={headerStyle}>
         {AcademicTerms.toString(term._id)}
       </Header>
       <Droppable droppableId={`${termSlug}`}>

@@ -38,7 +38,7 @@ const DraggableOpportunityInstancePill: React.FC<OpportunityInstancePillProps> =
             {(prov, snap) => (
               <div ref={prov.innerRef} {...prov.draggableProps} {...prov.dragHandleProps} style={getDraggablePillStyle(snap.isDragging, prov.draggableProps.style)}>
                 <Grid>
-                  <Grid.Row>
+                  <Grid.Row style={{ paddingTop: 7, paddingBottom: 7 }}>
                     <Grid.Column width={13} onClick={handleClick(instance, handleClickOpportunityInstance)}>
                       <NamePill name={shortenName(opp.name)} />
                     </Grid.Column>

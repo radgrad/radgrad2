@@ -18,6 +18,7 @@ import { buildRouteName } from './DepUtilityFunctions';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import RequestVerificationForm from './RequestVerificationForm';
 import { VerificationRequests } from '../../../../api/verification/VerificationRequestCollection';
+import { cardStyle, contentStyle } from './utilities/styles';
 import VerificationRequestStatus from './VerificationRequestStatus';
 import { degreePlannerActions } from '../../../../redux/student/degree-planner';
 import { UserInteractionsTypes } from '../../../../api/analytic/UserInteractionsTypes';
@@ -136,12 +137,12 @@ const DetailOpportunityCard: React.FC<DetailOpportunityCardProps> = ({ instance,
 
   return (
     <Card.Group itemsPerRow={1}>
-      <Card>
-        <Card.Content>
+      <Card style={cardStyle}>
+        <Card.Content style={contentStyle}>
           <IceHeader ice={opportunity.ice} />
           <Card.Header>{opportunity.name}</Card.Header>
         </Card.Content>
-        <Card.Content>
+        <Card.Content style={contentStyle}>
           {futureP ? (
             <React.Fragment>
               <p>
@@ -169,13 +170,13 @@ const DetailOpportunityCard: React.FC<DetailOpportunityCardProps> = ({ instance,
         </Card.Content>
         {verificationRequested ? <VerificationRequestStatus request={verificationRequeststoShow[0]} /> : ''}
         {!futureP && !verificationRequested ? (
-          <Card.Content>
+          <Card.Content style={contentStyle}>
             <RequestVerificationForm handleOnModelChange={handleVerificationRequest(instance, match)} />
           </Card.Content>
         ) : (
           ''
         )}
-        <Card.Content>
+        <Card.Content style={contentStyle}>
           <p style={textAlignRight}>
             <Link to={buildRouteName(match, opportunity, EXPLORER_TYPE.OPPORTUNITIES)} rel="noopener noreferrer" target="_blank">
               View in Explorer <Icon name="arrow right" />
