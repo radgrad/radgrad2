@@ -22,9 +22,22 @@ export class CareerGoalsChecklist extends Checklist {
     this.name = 'Career Goals';
     this.profile = Users.getProfile(student);
     this.iconName = 'briefcase';
+    // Specify title for each state.
     this.title[CHECKSTATE.OK] = 'Your Career Goals appear to be OK';
     this.title[CHECKSTATE.REVIEW] = 'Please confirm that your current Career Goals are OK';
     this.title[CHECKSTATE.IMPROVE] = 'Please add at least three Career Goals to your profile';
+    // Specify the description for each state.
+    this.description[CHECKSTATE.OK] = `Congrats!  You have at least three Career Goals in your profile, 
+      and you've reviewed them within the past six months to be sure they are up to date.`;
+    this.description[CHECKSTATE.REVIEW] = (this.isSixMonthsOld(this.profile.lastVisitedCareerGoals)) ?
+      `You have at least three Career Goals in your profile, but it's been at least six months 
+      since you've reviewed them. So, we want to check that they actually reflect your current Career Goals.` :
+
+      'There are new Career Goals since you last reviewed your Career Goals. Perhaps you want to add them?';
+
+    this.description[CHECKSTATE.IMPROVE] = `For RadGrad to provide you with useful recommendations for Courses and Opportunities, 
+      we need you to add at least three Career Goals to your profile.  Don't worry, you can (and should!) change them at any time 
+      in the future as you become interested in new things.`;
     this.updateState();
   }
 
@@ -49,22 +62,6 @@ export class CareerGoalsChecklist extends Checklist {
       this.state = CHECKSTATE.REVIEW;
     }
     // console.log('updatestate', this.state);
-  }
-
-  public getDescription(state: CHECKSTATE): JSX.Element {
-    switch (state) {
-      case CHECKSTATE.OK:
-        return <p>Congrats!  You have at least three Career Goals in your profile, and you&apos;ve reviewed them within the past six months to be sure they are up to date.</p>;
-      case CHECKSTATE.REVIEW:
-        if (this.isSixMonthsOld(this.profile.lastVisitedCareerGoals)) {
-          return <p>You have at least three Career Goals in your profile, but it&apos;s been at least six months since you&apos;ve reviewed them. So, we want to check that they actually reflect your current Career Goals.</p>;
-        }
-        return <p>There are new Career Goals since you last reviewed your Career Goals. Perhaps you want to add them?</p>;
-      case CHECKSTATE.IMPROVE:
-        return <p>For RadGrad to provide you with useful recommendations for Courses and Opportunities, we need you to add at least three Career Goals to your profile.  Don&apos;t worry, you can (and should!) change them at any time in the future as you become interested in new things.</p>;
-      default:
-        return <React.Fragment />;
-    }
   }
 
   public getDetails(state: CHECKSTATE): JSX.Element {

@@ -1,24 +1,28 @@
 import moment from 'moment';
 import React from 'react';
+import Markdown from 'react-markdown/with-html';
 import {Grid, Header, Icon, Label, Segment, SemanticICONS} from 'semantic-ui-react';
 import '../../../../client/style.css';
 
-/**
- * Checklist TODOS
- *   * Public Stats should provide a method returning a date object for lastUpdated interests and career goals, with suitable default.
- *   * Student Profile should also provide that kind of method.
- *   * getDescription could compute a markdown string and return it as <Markdown>.
- *   * getDetails will probably just return JSX for now.
- *   * Maybe split getActions into getActionsText and getActionsButtons. The latter is an array of Buttons.
- *   * Maybe paint the icon and name in the state color?
- *   * Change "Go to" to an icon?
- */
 
 export const enum CHECKSTATE {
   OK = 'OK',
   REVIEW = 'REVIEW',
   IMPROVE = 'IMPROVE',
 }
+
+/**
+ * Checklist TODOS
+ *   * Public Stats should provide a method returning a date object for lastUpdated interests and career goals, with suitable default.
+ *   * Pass Public Stats into constructor to encapsulate all state.
+ *   * Student Profile should also provide that kind of method.
+ *   * getDescription could compute a markdown string and return it as <Markdown>.
+ *   * getDetails will probably just return JSX for now.
+ *   * Maybe split getActions into getActionsText and getActionsButtons. The latter is an array of Buttons.
+ *   * Maybe paint the icon and name in the state color?
+ *   * Change "Go to" to an icon?
+ *   * Set entire state on updateState in instance variables?
+ */
 
 /**
  * Base class for all checklist items.
@@ -28,11 +32,15 @@ export class Checklist {
   protected iconName: SemanticICONS = 'question';
   protected state: CHECKSTATE = CHECKSTATE.OK;
   protected title = {};
+  protected description = {};
 
   constructor() {
     this.title[CHECKSTATE.OK] = 'Item is OK';
     this.title[CHECKSTATE.REVIEW] = 'Item should be reviewed';
     this.title[CHECKSTATE.IMPROVE] = 'Item should be improved';
+    this.description[CHECKSTATE.OK] = 'Item is OK';
+    this.description[CHECKSTATE.REVIEW] = 'Item should be reviewed';
+    this.description[CHECKSTATE.IMPROVE] = 'Item should be improved';
   }
 
   /**
@@ -77,7 +85,16 @@ export class Checklist {
    * @return {JSX.Element}
    */
   public getDescription(state: CHECKSTATE): JSX.Element {
-    return <React.Fragment />;
+    switch (state) {
+      case CHECKSTATE.OK:
+        return <Markdown allowDangerousHtml source={this.description[CHECKSTATE.OK]}/>;
+      case CHECKSTATE.REVIEW:
+        return <Markdown allowDangerousHtml source={this.description[CHECKSTATE.REVIEW]}/>;
+      case CHECKSTATE.IMPROVE:
+        return <Markdown allowDangerousHtml source={this.description[CHECKSTATE.IMPROVE]}/>;
+      default:
+        return <React.Fragment />;
+    }
   }
 
   /**

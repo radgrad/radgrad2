@@ -20,9 +20,22 @@ export class InterestsChecklist extends Checklist {
     this.name = 'Interests';
     this.profile = Users.getProfile(student);
     this.iconName = 'star';
+    // Specify title for each state
     this.title[CHECKSTATE.OK] = 'Your Interests appear to be OK';
     this.title[CHECKSTATE.REVIEW] = 'Please confirm that your Interests are OK';
     this.title[CHECKSTATE.IMPROVE] = 'Please add at least 3 Interests to your profile';
+    // Specify the description for each state.
+    this.description[CHECKSTATE.OK] = `Congrats!  You have at least three Interests in your profile, and you've reviewed 
+      them within the past six months to be sure they are up to date.`;
+    this.description[CHECKSTATE.REVIEW] = (this.isSixMonthsOld(this.profile.lastVisitedCareerGoals)) ?
+      `You have at least three Interests in your profile, but it's been at least six months since you've reviewed them. 
+      So, we want to check that they actually reflect your current Interests.`
+      :
+      'There are new Interests since you last reviewed your Interests. Perhaps you want to add them?';
+
+    this.description[CHECKSTATE.IMPROVE] = `For RadGrad to provide you with useful recommendations for Courses and Opportunities, 
+      we need you to add at least three Interests to your profile.  Don't worry, you can (and should!) change them at any 
+      time in the future as you become interested in new things.`;
     this.updateState();
   }
 
@@ -48,21 +61,6 @@ export class InterestsChecklist extends Checklist {
     // console.log('updatestate', this.state);
   }
 
-  public getDescription(state: CHECKSTATE): JSX.Element {
-    switch (state) {
-      case CHECKSTATE.OK:
-        return <p>Congrats!  You have at least three Interests in your profile, and you&apos;ve reviewed them within the past six months to be sure they are up to date.</p>;
-      case CHECKSTATE.REVIEW:
-        if (this.isSixMonthsOld(this.profile.lastVisitedInterests)) {
-          return <p>You have at least three Interests in your profile, but it&apos;s been at least six months since you&apos;ve reviewed them. So, we want to check that they actually reflect your current Interests.</p>;
-        }
-        return <p>There are new Interests since you last reviewed your Interests. Perhaps you want to add them?</p>;
-      case CHECKSTATE.IMPROVE:
-        return <p>For RadGrad to provide you with useful recommendations for Courses and Opportunities, we need you to add at least three Interests to your profile.  Don&apos;t worry, you can (and should!) change them at any time in the future as you become interested in new things.</p>;
-      default:
-        return <React.Fragment />;
-    }
-  }
 
   public getDetails(state: CHECKSTATE): JSX.Element {
     const interests = Users.getInterestIDs(this.profile.userID);

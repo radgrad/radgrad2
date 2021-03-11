@@ -4,7 +4,6 @@ import { Button } from 'semantic-ui-react';
 import { Users } from '../../../api/user/UserCollection';
 import { StudentProfile } from '../../../typings/radgrad';
 import { LEVELS, URL_ROLES } from '../../layouts/utilities/route-constants';
-import RadGradMenuLevel from '../shared/RadGradMenuLevel';
 import {Checklist, CHECKSTATE} from './Checklist';
 import '../../../../client/style.css';
 
@@ -18,6 +17,14 @@ export class LevelChecklist extends Checklist {
     this.iconName = 'sort amount up';
     this.title[CHECKSTATE.OK] = 'Congrats! You recently achieved a new Level!';
     this.title[CHECKSTATE.REVIEW] = 'We notice you have not achieved a new Level in a while';
+    // Specify the description for each state.
+    this.description[CHECKSTATE.OK] = `Congrats!  You recently achieved Level ${this.profile.level}. 
+      <RadGradMenuLevel level={this.profile.level} /> Keep up the good work!`;
+    const lastLevelUpText = this.profile.lastLeveledUp ?
+      `We notice that you have not achieved a new Level since ${this.profile.lastLeveledUp}` : 'Have you leveled up this semester?';
+    this.description[CHECKSTATE.REVIEW] = `RadGrad is designed to enable you to advance to a higher Level once per semester, 
+      as long as you are regularly completing Courses and Opportunities. ${lastLevelUpText}`;
+
     this.updateState();
   }
 
@@ -34,17 +41,6 @@ export class LevelChecklist extends Checklist {
     }
   }
 
-  public getDescription(state: CHECKSTATE): JSX.Element {
-    const levelUpDate = this.profile.lastLeveledUp ? this.profile.lastLeveledUp : 'we have no record.';
-    switch (state) {
-      case CHECKSTATE.REVIEW:
-        return <p>RadGrad is designed to enable you to advance to a higher Level once per semester, as long as you are regularly completing Courses and Opportunities. We notice that you have not achieved a new Level since {`${levelUpDate}`}.</p>;
-      case CHECKSTATE.OK:
-        return <div>Congrats!  You recently achieved Level {this.profile.level}. <RadGradMenuLevel level={this.profile.level} />  Keep up the good work!</div>;
-      default:
-        return <React.Fragment />;
-    }
-  }
 
   public getDetails(state: CHECKSTATE): JSX.Element {
     switch (state) {
