@@ -8,7 +8,10 @@ import '../../../../client/style.css';
  *   * Public Stats should provide a method returning a date object for lastUpdated interests and career goals, with suitable default.
  *   * Student Profile should also provide that kind of method.
  *   * getDescription could compute a markdown string and return it as <Markdown>.
- *   * getDetails and getActions will probably just return JSX for now.
+ *   * getDetails will probably just return JSX for now.
+ *   * Maybe split getActions into getActionsText and getActionsButtons. The latter is an array of Buttons.
+ *   * Maybe paint the icon and name in the state color?
+ *   * Change "Go to" to an icon?
  */
 
 export const enum CHECKSTATE {
