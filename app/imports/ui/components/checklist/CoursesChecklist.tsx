@@ -1,7 +1,7 @@
 import moment from 'moment';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Header, Icon } from 'semantic-ui-react';
+import { Button } from 'semantic-ui-react';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';

@@ -2,7 +2,7 @@ import moment from 'moment';
 import React from 'react';
 import { Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
-import { Button, Header, Icon } from 'semantic-ui-react';
+import { Button } from 'semantic-ui-react';
 import { sendRefusedTermsEmailMethod } from '../../../api/analytic/Email.methods';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';

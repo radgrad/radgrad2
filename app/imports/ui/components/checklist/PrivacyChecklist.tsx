@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Header, Icon } from 'semantic-ui-react';
+import { Button } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { Users } from '../../../api/user/UserCollection';
 import { StudentProfile } from '../../../typings/radgrad';

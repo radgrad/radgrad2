@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import { Link } from 'react-router-dom';
-import { Button, Header, Icon } from 'semantic-ui-react';
+import { Button } from 'semantic-ui-react';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
