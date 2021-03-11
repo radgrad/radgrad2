@@ -7,7 +7,7 @@ import '../../../../client/style.css';
  * Checklist TODOS
  *   * Public Stats should provide a method returning a date object for lastUpdated interests and career goals, with suitable default.
  *   * Student Profile should also provide that kind of method.
- *   * getDescription could compute a markdown string and return it as <Markdown>
+ *   * getDescription could compute a markdown string and return it as <Markdown>.
  *   * getDetails and getActions will probably just return JSX for now.
  */
 
