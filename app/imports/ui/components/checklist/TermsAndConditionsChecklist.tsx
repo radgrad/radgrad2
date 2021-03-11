@@ -2,7 +2,7 @@ import moment from 'moment';
 import React from 'react';
 import { Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
-import { Button, Header } from 'semantic-ui-react';
+import { Button, Header, Icon } from 'semantic-ui-react';
 import { sendRefusedTermsEmailMethod } from '../../../api/analytic/Email.methods';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { ChecklistState } from '../../../api/checklist/ChecklistState';
@@ -12,6 +12,7 @@ import { Users } from '../../../api/user/UserCollection';
 import { StudentProfile, StudentProfileUpdate } from '../../../typings/radgrad';
 import { TERMS_AND_CONDITIONS, URL_ROLES } from '../../layouts/utilities/route-constants';
 import { Checklist } from './Checklist';
+import '../../../../client/style.css';
 
 
 export class TermsAndConditionsChecklist extends Checklist {
@@ -26,18 +27,22 @@ export class TermsAndConditionsChecklist extends Checklist {
 
   public updateState(): void {
     if (this.profile.acceptedTermsAndConditions || this.profile.refusedTermsAndConditions) {
-      this.state = 'OK';
+      this.state = 'Awesome';
     } else {
       this.state = 'Improve';
     }
   }
 
+  public getIcon(): string | JSX.Element {
+    return <Icon name="file alternate" color="grey" /> ;
+  }
+
   public getTitle(state: ChecklistState): JSX.Element {
     switch (state) {
-      case 'OK':
-        return <Header>Thanks for having approved the terms and conditions</Header>;
+      case 'Awesome':
+        return <Header as='h1'>Thanks for having approved the terms and conditions</Header>;
       case 'Improve':
-        return <Header>Please approve the terms and conditions</Header>;
+        return <Header as='h1'>Please approve the terms and conditions</Header>;
       default:
         return <React.Fragment />;
     }
@@ -46,17 +51,17 @@ export class TermsAndConditionsChecklist extends Checklist {
   public getDescription(state: ChecklistState): JSX.Element {
     const adminEmail = Meteor.settings.public.adminProfile.username;
     switch (state) {
-      case 'OK':
-        return <p>Congrats! You&apos;ve approved the terms and conditions. To see a copy of the terms and conditions,
-          please go to <Button as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${TERMS_AND_CONDITIONS}`}>Go
+      case 'Awesome':
+        return <div><p>Congrats! You&apos;ve approved the terms and conditions. To see a copy of the terms and conditions,
+          please go to <Button size='medium' color='green'  as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${TERMS_AND_CONDITIONS}`}>Go
             To
             Terms and Conditions</Button>. If you no longer approve of the Terms and Conditions and wish to be removed
           from the system, please contact a RadGrad administrator at <a
             href={`mailto:${adminEmail}?subject=Remove student from RadGrad`}>Remove me from RadGrad</a> and request
-          removal from the system.</p>;
+          removal from the system.</p></div>;
       case 'Improve':
-        return <p>Use of RadGrad requires your consent to the following Terms and Conditions. Please read them and
-          indicate whether you approve or not.</p>;
+        return <div><p>Use of RadGrad requires your consent to the following Terms and Conditions. Please read them and
+          indicate whether you approve or not.</p></div>;
       default:
         return <React.Fragment />;
     }
@@ -64,8 +69,8 @@ export class TermsAndConditionsChecklist extends Checklist {
 
   public getDetails(state: ChecklistState): JSX.Element {
     if (this.state === 'Improve') {
-      return <p><Button as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${TERMS_AND_CONDITIONS}`}>View the
-        Terms and Conditions</Button></p>;
+      return <div><p><Button size='medium' color='green'  as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${TERMS_AND_CONDITIONS}`}>View the
+        Terms and Conditions</Button></p></div>;
     }
     return <React.Fragment />;
   }
@@ -112,15 +117,15 @@ export class TermsAndConditionsChecklist extends Checklist {
       });
     };
     switch (state) {
-      case 'OK':
+      case 'Awesome':
         return <a href={`mailto:${adminEmail}?subject=Remove student from RadGrad`}>Remove me from RadGrad</a>;
       case 'Improve':
-        return <div>
+        return <div className="centeredBox">
           <p>Click &quot;I approve&quot; to indicate your consent. Click &quot;I do not approve&quot; to initiate your
             removal from RadGrad.
           </p>
-          <Button onClick={handleAccept}>I approve</Button>
-          <Button onClick={handleReject}>I do not approve</Button>
+          <Button size='huge' color='teal' onClick={handleAccept}>I Approve</Button> &nbsp;&nbsp;
+          <Button basic size='huge' color='teal' onClick={handleReject}>I Do Not Approve</Button>
         </div>;
       default:
         return <React.Fragment />;

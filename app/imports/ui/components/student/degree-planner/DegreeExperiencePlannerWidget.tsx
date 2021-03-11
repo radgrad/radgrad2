@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { Grid, Segment, Button, Icon } from 'semantic-ui-react';
@@ -8,7 +8,13 @@ import _ from 'lodash';
 import { Users } from '../../../../api/user/UserCollection';
 import { AcademicYearInstances } from '../../../../api/degree-plan/AcademicYearInstanceCollection';
 import AcademicYearView from './AcademicYearView';
-import { AcademicYearInstance, AcademicYearInstanceDefine, CourseInstance, MeteorError, OpportunityInstance } from '../../../../typings/radgrad';
+import {
+  AcademicYearInstance,
+  AcademicYearInstanceDefine,
+  CourseInstance,
+  MeteorError,
+  OpportunityInstance,
+} from '../../../../typings/radgrad';
 import { CourseInstances } from '../../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
 import { defineMethod, removeItMethod } from '../../../../api/base/BaseCollection.methods';
@@ -29,7 +35,14 @@ const mapDispatchToProps = (dispatch) => ({
   selectProfileDetailsTab: () => dispatch(degreePlannerActions.selectProfileDetailsTab()),
 });
 
-const DEPWidget: React.FC<DePProps> = ({ selectCourseInstance, selectOpportunityInstance, selectProfileDetailsTab, academicYearInstances, courseInstances, opportunityInstances }) => {
+const DEPWidget: React.FC<DePProps> = ({
+  selectCourseInstance,
+  selectOpportunityInstance,
+  selectProfileDetailsTab,
+  academicYearInstances,
+  courseInstances,
+  opportunityInstances,
+}) => {
   const { username } = useParams();
   const studentID = Users.getID(username);
 
@@ -53,17 +66,7 @@ const DEPWidget: React.FC<DePProps> = ({ selectCourseInstance, selectOpportunity
     generateAcademicYearInstances(4);
     years = academicYearInstances;
   }
-  let visibleYears;
-  let visibleStartIndex = 0;
-  if (years.length > 4) {
-    visibleYears = years.slice(years.length - 4);
-    visibleStartIndex = years.length - 4;
-  } else {
-    visibleYears = years;
-  }
-  const [yearsState, setYears] = useState(years);
-  const [visibleStartIndexState, setVisibleStartIndex] = useState(visibleStartIndex);
-  const [visibleYearsState, setVisibleYears] = useState(visibleYears);
+  let visibleYears = years;
 
   const handleClickCourseInstance = (event, { value }) => {
     event.preventDefault();
@@ -77,59 +80,11 @@ const DEPWidget: React.FC<DePProps> = ({ selectCourseInstance, selectOpportunity
     selectProfileDetailsTab();
   };
 
-  const handleClickPrevYear = (event) => {
-    event.preventDefault();
-    visibleStartIndex = visibleStartIndexState - 1;
-    visibleYears = yearsState.slice(visibleStartIndex, visibleStartIndex + 4);
-    setVisibleStartIndex(visibleStartIndex);
-    setVisibleYears(visibleYears);
-  };
-
-  const handleClickNextYear = (event) => {
-    event.preventDefault();
-    visibleStartIndex = visibleStartIndexState + 1;
-    visibleYears = yearsState.slice(visibleStartIndex, visibleStartIndex + 4);
-    setVisibleStartIndex(visibleStartIndex);
-    setVisibleYears(visibleYears);
-  };
-
-  const handleAddPrevYear = (event: any): void => {
-    event.preventDefault();
-    const student = username;
-    const prevYear = yearsState[0].year - 1;
-    const definitionData: AcademicYearInstanceDefine = { year: prevYear, student };
-    const collectionName = AcademicYearInstances.getCollectionName();
-    defineMethod.call({ collectionName, definitionData }, (error: MeteorError) => {
-      if (error) {
-        Swal.fire({
-          title: 'Failed to add a new Academic Year',
-          text: error.message,
-          icon: 'error',
-          allowOutsideClick: false,
-          allowEscapeKey: false,
-          allowEnterKey: false,
-        });
-      } else {
-        Swal.fire({
-          title: 'Added new Academic Year',
-          icon: 'success',
-          text: `Fall ${definitionData.year} - Summer ${definitionData.year + 1}`,
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        years = AcademicYearInstances.findNonRetired({ studentID }, { sort: { year: 1 } });
-        setYears(years);
-        visibleYears = yearsState.slice(visibleStartIndexState, visibleStartIndexState + 5);
-        setVisibleYears(visibleYears);
-      }
-    });
-  };
-
   const handleAddYear = (event: any): void => {
     event.preventDefault();
     const student = username;
-    const numYears = yearsState.length;
-    const nextYear = yearsState[numYears - 1].year + 1;
+    const numYears = visibleYears.length;
+    const nextYear = visibleYears[numYears - 1].year + 1;
     const definitionData: AcademicYearInstanceDefine = { year: nextYear, student };
     const collectionName = AcademicYearInstances.getCollectionName();
     defineMethod.call({ collectionName, definitionData }, (error: MeteorError) => {
@@ -151,17 +106,16 @@ const DEPWidget: React.FC<DePProps> = ({ selectCourseInstance, selectOpportunity
           timer: 1500,
         });
         years = AcademicYearInstances.findNonRetired({ studentID }, { sort: { year: 1 } });
-        setYears(years);
-        visibleYears = yearsState.slice(visibleStartIndexState, visibleStartIndexState + 5);
-        setVisibleYears(visibleYears);
+        visibleYears = years;
       }
     });
   };
 
+
   const handleDeleteYear = (event: any): void => {
     event.preventDefault();
     const collectionName = AcademicYearInstances.getCollectionName();
-    const instance = visibleYearsState[visibleYearsState.length - 1]._id;
+    const instance = visibleYears[visibleYears.length - 1]._id;
     removeItMethod.call({ collectionName, instance }, (error: MeteorError) => {
       if (error) {
         Swal.fire({
@@ -181,11 +135,7 @@ const DEPWidget: React.FC<DePProps> = ({ selectCourseInstance, selectOpportunity
           timer: 1500,
         });
         years = AcademicYearInstances.findNonRetired({ studentID }, { sort: { year: 1 } });
-        setYears(years);
-        visibleStartIndex = visibleStartIndexState - 1;
-        setVisibleStartIndex(visibleStartIndex);
-        visibleYears = yearsState.slice(visibleStartIndex, visibleStartIndex + 4);
-        setVisibleYears(visibleYears);
+        visibleYears = years;
       }
     });
   };
@@ -210,62 +160,32 @@ const DEPWidget: React.FC<DePProps> = ({ selectCourseInstance, selectOpportunity
   return (
     <Segment padded id="studentDepWidget">
       <Grid stackable columns="equal">
-        <Grid.Row stretched>
-          {_.map(visibleYearsState, (year) => (
-            <AcademicYearView
-              key={year._id}
-              academicYear={year}
-              studentID={studentID}
-              handleClickCourseInstance={handleClickCourseInstance}
-              handleClickOpportunityInstance={handleClickOpportunityInstance}
-              courseInstances={courseInstances}
-              opportunityInstances={opportunityInstances}
-            />
-          ))}
-        </Grid.Row>
+        {_.map(visibleYears, (year) => (
+          <AcademicYearView
+            key={year._id}
+            academicYear={year}
+            studentID={studentID}
+            handleClickCourseInstance={handleClickCourseInstance}
+            handleClickOpportunityInstance={handleClickOpportunityInstance}
+            courseInstances={courseInstances}
+            opportunityInstances={opportunityInstances}
+          />
+        ))}
         <Grid.Row textAlign="center">
-          <Grid.Column textAlign="left">
-            {visibleStartIndexState > 0 ? (
-              <Button color="green" icon labelPosition="left" onClick={handleClickPrevYear}>
-                <Icon name="arrow circle left" />
-                Previous Year
-              </Button>
-            ) : (
-              <Button color="green" onClick={handleAddPrevYear}>
-                <Icon name="plus circle" /> Add Previous Academic Year
-              </Button>
-            )}
-          </Grid.Column>
+          <Grid.Column textAlign="left" />
           <Grid.Column textAlign="center">
             {/* This makes the "Add Academic Year" button only appear if the last Academic Year column is visible */}
-            {!(visibleStartIndexState < yearsState.length - 4) ? (
-              <Button color="green" onClick={handleAddYear}>
-                <Icon name="plus circle" /> Add Academic Year
-              </Button>
-            ) : (
-              ''
-            )}
+            <Button color="green" onClick={handleAddYear}>
+              <Icon name="plus circle" /> Add Academic Year
+            </Button>
           </Grid.Column>
           <Grid.Column textAlign="right">
-            {yearsState.length > 0 ? (
-              <React.Fragment>
-                {visibleStartIndexState < yearsState.length - 4 ? (
-                  <Button color="green" icon labelPosition="right" onClick={handleClickNextYear}>
-                    <Icon name="arrow circle right" />
-                    Next Year
-                  </Button>
-                ) : (
-                  isYearEmpty(yearsState[yearsState.length - 1]) &&
-                  visibleStartIndexState !== 0 && (
-                    <Button color="green" icon labelPosition="right" onClick={handleDeleteYear}>
-                      <Icon name="minus circle" />
-                      Delete Year
-                    </Button>
-                  )
-                )}
-              </React.Fragment>
-            ) : (
-              ''
+            {isYearEmpty(visibleYears[visibleYears.length - 1]) &&
+            (
+              <Button color="green" icon labelPosition="right" onClick={handleDeleteYear}>
+                <Icon name="minus circle" />
+                Delete Year
+              </Button>
             )}
           </Grid.Column>
         </Grid.Row>

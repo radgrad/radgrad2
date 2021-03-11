@@ -5,7 +5,7 @@ import { Divider, Grid, Header, Segment } from 'semantic-ui-react';
 import Markdown from 'react-markdown';
 import { AcademicTerms } from '../../../../../../api/academic-term/AcademicTermCollection';
 import { RadGradProperties } from '../../../../../../api/radgrad/RadGradProperties';
-import { OpportunityScoreboard } from '../../../../../../startup/client/collections';
+import { OpportunityForecastCollection } from '../../../../../../startup/client/collections';
 import { AcademicTerm, Opportunity, Review } from '../../../../../../typings/radgrad';
 import StudentExplorerReviewWidget from '../../../../student/explorer/StudentExplorerReviewWidget';
 import { Reviews } from '../../../../../../api/review/ReviewCollection';
@@ -86,7 +86,7 @@ const ExplorerOpportunityWidget: React.FC<ExplorerOpportunitiesWidgetProps> = ({
   const scores = [];
   _.forEach(academicTerms, (term: AcademicTerm) => {
     const id = `${item._id} ${term._id}`;
-    const score = OpportunityScoreboard.find({ _id: id }).fetch() as { count: number }[];
+    const score = OpportunityForecastCollection.find({ _id: id }).fetch() as { count: number }[];
     if (score.length > 0) {
       scores.push(score[0].count);
     } else {
@@ -94,7 +94,8 @@ const ExplorerOpportunityWidget: React.FC<ExplorerOpportunitiesWidgetProps> = ({
     }
   });
   const profile = Users.getProfile(username);
-  const added = ProfileOpportunities.findNonRetired({ userID: profile.userID, opportunityID: item._id }).length > 0;
+  const added = ProfileOpportunities.findNonRetired({ studentID: profile.userID, opportunityID: item._id }).length > 0;
+  // console.log(profile.userID, item._id, item.name);
   return (
     <div id="explorerOpportunityWidget">
       <Segment padded className="container" style={segmentStyle}>

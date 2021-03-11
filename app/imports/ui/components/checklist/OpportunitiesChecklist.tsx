@@ -1,7 +1,7 @@
 import moment from 'moment';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Header } from 'semantic-ui-react';
+import { Button, Header, Icon} from 'semantic-ui-react';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { ChecklistState } from '../../../api/checklist/ChecklistState';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
@@ -12,6 +12,7 @@ import { Ice, StudentProfile, StudentProfileUpdate } from '../../../typings/radg
 import { DEGREEPLANNER, EXPLORER, ICE, URL_ROLES } from '../../layouts/utilities/route-constants';
 import { Checklist } from './Checklist';
 import ProfileFutureOpportunitiesList from '../shared/ProfileFutureOpportunitiesList';
+import '../../../../client/style.css';
 
 export class OpportunitiesChecklist extends Checklist {
   private profile: StudentProfile;
@@ -38,7 +39,7 @@ export class OpportunitiesChecklist extends Checklist {
         // TODO check for new opportunity reviews for future opportunity instances.
         // CAM How do I know the review is new?
       } else {
-        this.state = 'OK';
+        this.state = 'Awesome';
       }
     } else {
       // console.log('no last visited page');
@@ -47,14 +48,18 @@ export class OpportunitiesChecklist extends Checklist {
     // console.log(this.state);
   }
 
+  public getIcon() {
+    return <Icon color='grey' name='lightbulb' />;
+  }
+
   public getTitle(state: ChecklistState): JSX.Element {
     switch (state) {
-      case 'OK':
-        return <Header>The Opportunities in your Degree Plan appear to be OK</Header>;
+      case 'Awesome':
+        return <Header as='h1'>The <strong>Opportunities</strong> in your Degree Plan appear to be OK</Header>;
       case 'Review':
-        return <Header>Please confirm that the Opportunities in your Degree Plan are correct</Header>;
+        return <Header as='h1'>Please confirm that the <strong>Opportunities</strong> in your Degree Plan are correct</Header>;
       case 'Improve':
-        return <Header>Please add more future Opportunities to your degree plan so that you are on track to earn 100 Innovation and 100 Experience points</Header>;
+        return <Header as='h1'>Please add more <strong>future Opportunities</strong> to your degree plan so that you are on track to earn <strong>100 Innovation</strong> and <strong>100 Experience</strong> points</Header>;
       default:
         return <React.Fragment />;
     }
@@ -62,7 +67,7 @@ export class OpportunitiesChecklist extends Checklist {
 
   public getDescription(state: ChecklistState): JSX.Element {
     switch (state) {
-      case 'OK':
+      case 'Awesome':
         return <p>Congrats! Your Degree Plan contains Opportunities that should eventually earn you at least 100 Innovation and 100 Experience points, and you&apos;ve reviewed your Degree Plan within the past six months to be sure it is up to date.</p>;
       case 'Review':
         if (this.isSixMonthsOld(this.profile.lastVisitedOpportunities)) {
@@ -82,7 +87,7 @@ export class OpportunitiesChecklist extends Checklist {
     if (futureOpportunityInstances.length === 0) {
       return <p>You do not have any future Opportunities in your Degree Plan.</p>;
     }
-    return <div><p>Here are your future Opportunities: &nbsp;</p><ProfileFutureOpportunitiesList profile={this.profile} size="medium" /></div>;
+    return <div className="highlightBox"><p>Here are your future Opportunities: &nbsp;</p><ProfileFutureOpportunitiesList profile={this.profile} size="medium" /></div>;
   }
 
   public getActions(state: ChecklistState): JSX.Element {
@@ -98,26 +103,26 @@ export class OpportunitiesChecklist extends Checklist {
       });
     };
     switch (state) {
-      case 'OK':
-        return <div>
+      case 'Awesome':
+        return <div className="centeredBox">
           <p>Click &quot;Go To Degree Planner&quot; if you still want to see the Opportunities in your Degree Plan, or
           click &quot;Go to Opportunity Explorer&quot; if you still want to search for additional Opportunities to include in your
           Degree Plan.</p>
-          <Button as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${DEGREEPLANNER}`}>Go To Degree Planner</Button>
-          <Button as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.OPPORTUNITIES}`}>Go To Opportunity Explorer</Button>
+          <Button size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${DEGREEPLANNER}`}>Go To Degree Planner</Button>
+          <Button size='huge' basic color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.OPPORTUNITIES}`}>Go To Opportunity Explorer</Button>
         </div>;
       case 'Improve':
-        return <div><p>Click &quot;Go To Opportunity Explorer&quot; to review the available Opportunities in RadGrad and add interesting ones to your profile. Or, click &quot;Go To Degree Planner&quot; to go directly to the Degree Planner page to add opportunities from your profile to a future semester in your degree plan</p>
-          <Button as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.OPPORTUNITIES}`}>Go To Opportunity Explorer</Button>
-          <Button as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${DEGREEPLANNER}`}>Go To Degree Planner</Button>
+        return <div className="centeredBox"><p>Click &quot;Go To Opportunity Explorer&quot; to review the available Opportunities in RadGrad and add interesting ones to your profile. Or, click &quot;Go To Degree Planner&quot; to go directly to the Degree Planner page to add opportunities from your profile to a future semester in your degree plan</p>
+          <Button size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.OPPORTUNITIES}`}>Go To Opportunity Explorer</Button>&nbsp;&nbsp;
+          <Button size='huge' basic color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${DEGREEPLANNER}`}>Go To Degree Planner</Button>
         </div>;
       case 'Review':
-        return <div>
+        return <div className="centeredBox">
           <p>Click &quot;Go To Opportunity Explorer&quot; to search for opportunities and add new ones to your profile, or to see new reviews. Click &quot;Go To Degree Planner&quot; to review your degree plan and potentially move or remove opportunities. Click &quot;Go To ICE page&quot; to learn more about Competency points.  Click &quot;My Opportunities are OK&quot; to confirm that your current Degree Plan is correct.</p>
-          <Button as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${DEGREEPLANNER}`}>Go To Degree Planner</Button>
-          <Button as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.OPPORTUNITIES}`}>Go To Opportunity Explorer</Button>
-          <Button as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${ICE}`}>Go To ICE</Button>
-          <Button onClick={handleVerification}>My Opportunities are OK</Button>
+          <Button size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${DEGREEPLANNER}`}>Go To Degree Planner</Button>&nbsp;&nbsp;
+          <Button size='huge' basic color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.OPPORTUNITIES}`}>Go To Opportunity Explorer</Button>&nbsp;&nbsp;
+          <Button size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${ICE}`}>Go To ICE</Button>&nbsp;&nbsp;
+          <Button size='huge' basic color='teal' onClick={handleVerification}>My Opportunities are OK</Button>
         </div>;
       default:
         return <React.Fragment />;

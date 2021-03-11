@@ -1,7 +1,7 @@
 import moment from 'moment';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Header } from 'semantic-ui-react';
+import { Button, Header, Icon } from 'semantic-ui-react';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { ChecklistState } from '../../../api/checklist/ChecklistState';
 import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';
@@ -11,6 +11,7 @@ import { StudentProfile, StudentProfileUpdate } from '../../../typings/radgrad';
 import { EXPLORER, URL_ROLES } from '../../layouts/utilities/route-constants';
 import ProfileInterestList from '../shared/ProfileInterestList';
 import { Checklist } from './Checklist';
+import '../../../../client/style.css';
 
 
 export class InterestsChecklist extends Checklist {
@@ -36,7 +37,7 @@ export class InterestsChecklist extends Checklist {
       } else if (this.isSixMonthsOld(this.profile.lastVisitedInterests)) {
         this.state = 'Review';
       } else {
-        this.state = 'OK';
+        this.state = 'Awesome';
       }
     } else {
       // console.log('no last visited page');
@@ -45,14 +46,18 @@ export class InterestsChecklist extends Checklist {
     // console.log('updatestate', this.state);
   }
 
+  public getIcon(): string | JSX.Element {
+    return <Icon name="star" color="grey" /> ;
+  }
+
   public getTitle(state: ChecklistState): JSX.Element {
     switch (state) {
-      case 'OK':
-        return <Header>Your Interests appear to be OK</Header>;
+      case 'Awesome':
+        return <Header as='h1'>Your <strong>Interests</strong> appear to be OK</Header>;
       case 'Review':
-        return <Header>Please confirm that your current Interests are OK</Header>;
+        return <Header as='h1'>Please confirm that your current <strong>Interests</strong> are OK</Header>;
       case 'Improve':
-        return <Header>Please add at least three Interests to your profile</Header>;
+        return <Header as='h1'>Please add at least <strong>Three Interests</strong> to your profile</Header>;
       default:
         return <React.Fragment />;
     }
@@ -60,7 +65,7 @@ export class InterestsChecklist extends Checklist {
 
   public getDescription(state: ChecklistState): JSX.Element {
     switch (state) {
-      case 'OK':
+      case 'Awesome':
         return <p>Congrats!  You have at least three Interests in your profile, and you&apos;ve reviewed them within the past six months to be sure they are up to date.</p>;
       case 'Review':
         if (this.isSixMonthsOld(this.profile.lastVisitedInterests)) {
@@ -79,7 +84,7 @@ export class InterestsChecklist extends Checklist {
     if (interests.length === 0) {
       return <p>You have not yet added any Interests to your profile</p>;
     }
-    return <div><p>Here are your current interests:&nbsp;</p><ProfileInterestList profile={this.profile} size="medium" /></div>;
+    return <div className='highlightBox'><p>Here are your current interests:&nbsp;</p><ProfileInterestList profile={this.profile} size="medium" /></div>;
   }
 
   /**
@@ -99,20 +104,20 @@ export class InterestsChecklist extends Checklist {
       });
     };
     switch (state) {
-      case 'OK':
-        return <p>Click this button to go to the Interests Explorer if you want to look for new Interests anyway.&nbsp;
-        <Button as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.INTERESTS}`}>Go To Interests Explorer</Button> </p>;
+      case 'Awesome':
+        return <div className='centeredBox'><p>Click this button to go to the Interests Explorer if you want to look for new Interests anyway.&nbsp;
+          <Button size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.INTERESTS}`}>Go To Interests Explorer</Button> </p></div>;
       case 'Review':
-        return <div>
+        return <div className='centeredBox'>
           <p>Clicking either button sets the timestamp for the last time this item was reviewed, so it will
           move into the OK state and won&apos;t move back into the Review state for another six months.</p>
-          <Button as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.INTERESTS}`}>Go To Interests Explorer</Button>
-          <Button onClick={handleVerification}>My Interests are OK</Button>
+          <Button size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.INTERESTS}`}>Go To Interests Explorer</Button>&nbsp;&nbsp;
+          <Button basic size='huge' color='teal' onClick={handleVerification}>My Interests are OK</Button>
         </div>;
       case 'Improve':
-        return <div><p>Click &quot;Go To Interest Explorer&quot; to search for the Interests and add at least three to
+        return <div className='centeredBox'><p>Click &quot;Go To Interest Explorer&quot; to search for the Interests and add at least three to
           your Profile.</p>
-          <Button as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.INTERESTS}`}>Go To Interests Explorer</Button>
+          <Button size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.INTERESTS}`}>Go To Interests Explorer</Button>
         </div>;
       default:
         return <React.Fragment />;

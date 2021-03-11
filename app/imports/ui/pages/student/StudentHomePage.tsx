@@ -44,15 +44,15 @@ export default withTracker(() => {
   const reviewItems = [];
   const improveItems = [];
   const checklists = [];
-  checklists.push(new TermsAndConditionsChecklist('Student Terms and Conditions', currentUser));
-  checklists.push(new InterestsChecklist('Student Interests', currentUser));
-  checklists.push(new CareerGoalsChecklist('Student Career Goals', currentUser));
-  checklists.push(new CoursesChecklist('Student Courses', currentUser));
-  checklists.push(new OpportunitiesChecklist('Student Opportunities', currentUser));
-  checklists.push(new ReviewChecklist('Student Reviews', currentUser));
-  checklists.push(new VerificationChecklist('Student Verification', currentUser));
-  checklists.push(new LevelChecklist('Student Levels', currentUser));
-  checklists.push(new PrivacyChecklist('Student Privacy', currentUser));
+  checklists.push(new TermsAndConditionsChecklist('Terms and Conditions', currentUser));
+  checklists.push(new InterestsChecklist('Interests', currentUser));
+  checklists.push(new CareerGoalsChecklist('Career Goals', currentUser));
+  checklists.push(new CoursesChecklist('Courses', currentUser));
+  checklists.push(new OpportunitiesChecklist('Opportunities', currentUser));
+  checklists.push(new ReviewChecklist('Reviews', currentUser));
+  checklists.push(new VerificationChecklist('Verification', currentUser));
+  checklists.push(new LevelChecklist('Levels', currentUser));
+  checklists.push(new PrivacyChecklist('Privacy', currentUser));
   checklists.forEach((checklist) => {
     checklist.updateState();
     switch (checklist.getState()) {
@@ -62,7 +62,7 @@ export default withTracker(() => {
       case 'Review':
         reviewItems.push(checklist.getChecklistItem());
         break;
-      case 'OK':
+      case 'Awesome':
         okItems.push(checklist.getChecklistItem());
         break;
       default:

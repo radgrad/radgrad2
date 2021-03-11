@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import _ from 'lodash';
 import { ReactiveAggregate } from 'meteor/jcbernack:reactive-aggregate';
+import { ProfileCoursesForecastName } from '../../../startup/both/names';
 import BaseCollection from '../../base/BaseCollection';
 import { Courses } from '../../course/CourseCollection';
 import { Users } from '../UserCollection';
@@ -10,7 +11,7 @@ import { ProfileCourseDefine, ProfileEntryUpdate } from '../../../typings/radgra
 
 class ProfileCourseCollection extends BaseCollection {
   public readonly publicationNames: {
-    scoreboard: string;
+    forecast: string;
   };
 
   /** Creates the ProfileCourse collection */
@@ -21,7 +22,7 @@ class ProfileCourseCollection extends BaseCollection {
       retired: { type: Boolean, optional: true },
     }));
     this.publicationNames = {
-      scoreboard: `${this.collectionName}.scoreboard`,
+      forecast: `${this.collectionName}.forecast`,
     };
   }
 
@@ -77,7 +78,7 @@ class ProfileCourseCollection extends BaseCollection {
 
   /**
    * Publish ProfileCourses. If logged in as ADMIN get all, otherwise only get the ProfileCourses for the studentID.
-   * Also publishes the ProfileCourses scoreboard.
+   * Also publishes the ProfileCourses forecast.
    */
   publish() {
     if (Meteor.isServer) {
@@ -92,7 +93,7 @@ class ProfileCourseCollection extends BaseCollection {
         }
         return collection.find({ studentID });
       });
-      Meteor.publish(this.publicationNames.scoreboard, function publishCourseScoreboard() {
+      Meteor.publish(this.publicationNames.forecast, function publishCourseForecast() {
         ReactiveAggregate(this, collection, [
           {
             $group: {
@@ -101,7 +102,7 @@ class ProfileCourseCollection extends BaseCollection {
             },
           },
           { $project: { count: 1, courseID: 1 } },
-        ], { clientCollection: 'ProfileCourseScoreboard' });
+        ], { clientCollection: ProfileCoursesForecastName });
       });
     }
   }
