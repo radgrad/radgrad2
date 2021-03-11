@@ -16,10 +16,9 @@ export class LevelChecklist extends Checklist {
     this.profile = Users.getProfile(student);
     this.iconName = 'sort amount up';
     this.title[CHECKSTATE.OK] = 'Congrats! You recently achieved a new Level!';
-    this.title[CHECKSTATE.REVIEW] = 'We notice you have not achieved a new Level in a while';
+    this.title[CHECKSTATE.REVIEW] = 'We notice that you have not achieved a new Level in a while';
     // Specify the description for each state.
-    this.description[CHECKSTATE.OK] = `Congrats!  You recently achieved Level ${this.profile.level}. 
-      <RadGradMenuLevel level={this.profile.level} /> Keep up the good work!`;
+    this.description[CHECKSTATE.OK] = `We see that you recently achieved Level ${this.profile.level}. Keep up the good work!`;
     const lastLevelUpText = this.profile.lastLeveledUp ?
       `We notice that you have not achieved a new Level since ${this.profile.lastLeveledUp}` : 'Have you leveled up this semester?';
     this.description[CHECKSTATE.REVIEW] = `RadGrad is designed to enable you to advance to a higher Level once per semester, 

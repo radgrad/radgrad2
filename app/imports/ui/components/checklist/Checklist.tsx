@@ -33,8 +33,12 @@ export class Checklist {
   protected state: CHECKSTATE = CHECKSTATE.OK;
   protected title = {};
   protected description = {};
+  protected stateColor = {};
 
   constructor() {
+    this.stateColor[CHECKSTATE.OK] = 'green';
+    this.stateColor[CHECKSTATE.REVIEW] = 'yellow';
+    this.stateColor[CHECKSTATE.IMPROVE] = 'red';
     this.title[CHECKSTATE.OK] = 'Item is OK';
     this.title[CHECKSTATE.REVIEW] = 'Item should be reviewed';
     this.title[CHECKSTATE.IMPROVE] = 'Item should be improved';
@@ -68,7 +72,7 @@ export class Checklist {
    * @return {}
    */
   public getIcon(): JSX.Element {
-    return <Icon name={this.iconName} color="grey" />;
+    return <Icon name={this.iconName} color={this.stateColor[this.state]} />;
   }
 
   /**
@@ -77,7 +81,7 @@ export class Checklist {
    */
 
   public getTitle(state: CHECKSTATE): JSX.Element {
-    return <Header as='h1'>{this.title[state]}</Header>;
+    return <Markdown allowDangerousHtml source={`# ${this.title[state]}`}/>;
   }
 
   /**
@@ -135,7 +139,7 @@ export class Checklist {
         <Grid centered>
           <Grid.Column width={10}>
             <div className="checklist">
-              <Header as='h3' color='grey' attached='top'>
+              <Header as='h3' color={this.stateColor[this.state]} attached='top'>
                 {this.getIcon()}{this.getName()}
               </Header>
               <Segment attached raised placeholder id={`checklist-${this.name}`} key={`checklist-${this.name}`} padded='very'>
