@@ -27,7 +27,7 @@ export class InterestsChecklist extends Checklist {
     // Specify the description for each state.
     this.description[CHECKSTATE.OK] = `Congrats!  You have at least three Interests in your profile, and you've reviewed 
       them within the past six months to be sure they are up to date.`;
-    this.description[CHECKSTATE.REVIEW] = (this.isSixMonthsOld(this.profile.lastVisitedCareerGoals)) ?
+    this.description[CHECKSTATE.REVIEW] = (this.isSixMonthsOld(this.profile.lastVisitedInterests)) ?
       `You have at least three Interests in your profile, but it's been at least six months since you've reviewed them. 
       So, we want to check that they actually reflect your current Interests.`
       :

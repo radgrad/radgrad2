@@ -18,6 +18,12 @@ export class PrivacyChecklist extends Checklist {
     this.iconName = 'privacy';
     this.title[CHECKSTATE.OK] = 'Thanks! You recently reviewed your Privacy settings';
     this.title[CHECKSTATE.REVIEW] = 'We notice you have not reviewed your Privacy settings recently';
+    // Specify the description for each state.
+    this.description[CHECKSTATE.OK] = 'Thanks for reviewing your privacy settings.';
+    this.description[CHECKSTATE.REVIEW] = `RadGrad is designed to support community building by helping you to find other students
+      with similar interests and goals. However, we don't want to share your information without your consent. The more
+      information that you choose to share, the easier it is for RadGrad to help connect you with other students.`;
+
     this.updateState();
   }
 
@@ -31,20 +37,6 @@ export class PrivacyChecklist extends Checklist {
     } else {
       // no lastLeveledUp info
       this.state = CHECKSTATE.REVIEW;
-    }
-  }
-
-  public getDescription(state: CHECKSTATE): JSX.Element {
-    switch (state) {
-      case CHECKSTATE.REVIEW:
-        return <p>RadGrad is designed to support community building by helping you to find other students with similar
-          interests and goals. However, we don&apos;t want to share your information without your consent. The more
-          information that you choose to share, the easier it is for RadGrad to help connect you with other
-          students.</p>;
-      case CHECKSTATE.OK:
-        return <p>Thanks for reviewing your privacy settings.</p>;
-      default:
-        return <React.Fragment />;
     }
   }
 

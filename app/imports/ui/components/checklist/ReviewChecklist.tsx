@@ -25,6 +25,12 @@ export class ReviewChecklist extends Checklist {
     this.iconName = 'star half';
     this.title[CHECKSTATE.OK] = 'Thanks for having reviewed your completed Courses and/or Opportunities';
     this.title[CHECKSTATE.REVIEW] = 'Please consider writing Reviews for your completed Courses and/or Opportunities';
+    // Specify the description for each state.
+    this.description[CHECKSTATE.OK] = `Congrats! You've provided reviews for all of your completed Courses and Opportunities. 
+      This is a service to the community and makes RadGrad more useful.`;
+    this.description[CHECKSTATE.REVIEW] = `Writing reviews for the Courses and Opportunities you&apos;ve completed provides 
+      valuable insight to future students who may be considering them. This is your chance to pay it forward!`;
+
     this.updateState();
   }
 
@@ -39,19 +45,6 @@ export class ReviewChecklist extends Checklist {
       this.state = CHECKSTATE.REVIEW;
     } else {
       this.state = CHECKSTATE.OK;
-    }
-  }
-
-  public getDescription(state: CHECKSTATE): JSX.Element {
-    switch (state) {
-      case CHECKSTATE.REVIEW:
-        return <p>Writing reviews for the Courses and Opportunities you&apos;ve completed provides valuable insight to
-          future students who may be considering them. This is your chance to pay it forward!</p>;
-      case CHECKSTATE.OK:
-        return <p>Congrats! You&apos;ve provided reviews for all of your completed Courses and Opportunities. This is a
-          service to the community and makes RadGrad more useful.</p>;
-      default:
-        return <React.Fragment />;
     }
   }
 

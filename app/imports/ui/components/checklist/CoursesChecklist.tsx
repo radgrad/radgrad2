@@ -28,7 +28,7 @@ export class CoursesChecklist extends Checklist {
     // Specify the description for each state.
     this.description[CHECKSTATE.OK] = `Congrats! Your Degree Plan contains Courses that should eventually earn you at least 100
       Competency points, and you've reviewed your Degree Plan within the past six months to be sure it is up to date.`;
-    this.description[CHECKSTATE.REVIEW] = (this.isSixMonthsOld(this.profile.lastVisitedCareerGoals)) ?
+    this.description[CHECKSTATE.REVIEW] = (this.isSixMonthsOld(this.profile.lastVisitedCourses)) ?
       `You have enough Courses added to your Degree Plan to eventually earn 100 Competency points, but it's
        been at least six months since you've reviewed your Degree Plan. So, we want to check that the Degree
        Planner reflects your future Course plans.`

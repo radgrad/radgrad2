@@ -24,6 +24,19 @@ export class OpportunitiesChecklist extends Checklist {
     this.title[CHECKSTATE.OK] = 'The Opportunities in your Degree Plan appear to be OK';
     this.title[CHECKSTATE.REVIEW] = 'Please confirm that the Opportunities in your Degree Plan are correct';
     this.title[CHECKSTATE.IMPROVE] = 'Please add Opportunities to your degree plan so that you are on track to earn 100 Innovation and 100 Experience points';
+    // Specify the description for each state.
+    this.description[CHECKSTATE.OK] = `Congrats! Your Degree Plan contains Opportunities that should eventually earn you at 
+      least 100 Innovation and 100 Experience points, and you've reviewed your Degree Plan within the past six months to be 
+      sure it is up to date.`;
+    this.description[CHECKSTATE.REVIEW] = (this.isSixMonthsOld(this.profile.lastVisitedOpportunities)) ?
+      `It's been at least six months since you last reviewed your Degree Plan. So, we want to check that the Degree Planner 
+      reflects your future Opportunity plans.` :
+
+      'There are new Opportunities since you last reviewed your Career Goals. Perhaps you want to add them?';
+
+    this.description[CHECKSTATE.IMPROVE] = `Specifying the Opportunities you plan to take in the future helps you in several ways.
+      First, it helps you balance your curricular and extracurricular activities each semester. Second, it tells RadGrad what 
+      interests you are developing skills in, which helps RadGrad to provide recommendations.`;
     this.updateState();
   }
 
@@ -49,23 +62,6 @@ export class OpportunitiesChecklist extends Checklist {
       this.state = CHECKSTATE.REVIEW;
     }
     // console.log(this.state);
-  }
-
-  public getDescription(state: CHECKSTATE): JSX.Element {
-    switch (state) {
-      case CHECKSTATE.OK:
-        return <p>Congrats! Your Degree Plan contains Opportunities that should eventually earn you at least 100 Innovation and 100 Experience points, and you&apos;ve reviewed your Degree Plan within the past six months to be sure it is up to date.</p>;
-      case CHECKSTATE.REVIEW:
-        if (this.isSixMonthsOld(this.profile.lastVisitedOpportunities)) {
-          return <p>You have enough Opportunities added to your Degree Plan to eventually earn 100 Innovation and 100 Experience points but it&apos;s been at least six months since you&apos;ve reviewed your Degree Plan. So, we want to check that the Degree Planner reflects your future Opportunity plans. </p>;
-        }
-        return <p>There are new Opportunities since you last reviewed your Degree Plan. Perhaps you want to add them?</p>;
-      // TODO add case for new reviews.
-      case CHECKSTATE.IMPROVE:
-        return <p>Specifying the Opportunities you plan to take in the future helps you in several ways. First, it helps you balance your curricular and extracurricular activities each semester. Second, it tells RadGrad what interests you are developing skills in, which helps RadGrad to provide recommendations.</p>;
-      default:
-        return <React.Fragment />;
-    }
   }
 
   public getDetails(state: CHECKSTATE): JSX.Element {
