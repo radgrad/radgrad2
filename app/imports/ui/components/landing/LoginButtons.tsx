@@ -3,9 +3,12 @@ import { Button, Dropdown } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import styles from './utilities/landing-styles';
 
-const LoginButtons: React.FC = () => (
+interface LoginButtonsProps {
+  instanceName: string;
+}
+const LoginButtons: React.FC<LoginButtonsProps> = ({ instanceName }) => (
   <Button basic inverted color='yellow' size='big'  style={styles['guide-button']}>
-    <Dropdown id="LOGIN" text="UHM/ICS LOGIN FOR" pointing="top right">
+    <Dropdown id="LOGIN" text={`${instanceName  } LOGIN FOR`} pointing="top right">
       <Dropdown.Menu>
         <Dropdown.Item id="student" text='Student' as={Link} to="/signin" />
         <Dropdown.Item id="faculty" text='Faculty' as={Link} to="/signin" />

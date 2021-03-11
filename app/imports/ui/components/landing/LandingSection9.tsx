@@ -20,7 +20,7 @@ const LandingSection9: React.FC<LandingSection9Props> = ({ instanceName, userGui
               <Header style={styles['inverted-header2']}>
                 Ready to get started?
               </Header>
-              <LoginButtons />
+              <LoginButtons instanceName={instanceName} />
             </Grid.Column>
           </Grid>
         </div>
