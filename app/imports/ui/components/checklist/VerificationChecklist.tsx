@@ -1,17 +1,18 @@
 import React from 'react';
 import _ from 'lodash';
-import { Link } from 'react-router-dom';
-import { Button } from 'semantic-ui-react';
-import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
-import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
-import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
-import { Users } from '../../../api/user/UserCollection';
-import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
-import { StudentProfile } from '../../../typings/radgrad';
-import { DEGREEPLANNER, STUDENT_VERIFICATION, URL_ROLES } from '../../layouts/utilities/route-constants';
+import {Link} from 'react-router-dom';
+import {Button} from 'semantic-ui-react';
+import {AcademicTerms} from '../../../api/academic-term/AcademicTermCollection';
+import {Opportunities} from '../../../api/opportunity/OpportunityCollection';
+import {OpportunityInstances} from '../../../api/opportunity/OpportunityInstanceCollection';
+import {Users} from '../../../api/user/UserCollection';
+import {VerificationRequests} from '../../../api/verification/VerificationRequestCollection';
+import {StudentProfile} from '../../../typings/radgrad';
+import {DEGREEPLANNER, STUDENT_VERIFICATION, URL_ROLES} from '../../layouts/utilities/route-constants';
 import OpportunityList from '../shared/OpportunityList';
 import {Checklist, CHECKSTATE} from './Checklist';
 import '../../../../client/style.css';
+import {DetailsBox} from "./DetailsBox";
 
 export class VerificationChecklist extends Checklist {
   private profile: StudentProfile;
@@ -35,12 +36,12 @@ export class VerificationChecklist extends Checklist {
   private getUnverifiedInstances() {
     const studentID = this.profile.userID;
     const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
-    const ois = OpportunityInstances.findNonRetired({ studentID, verified: false });
+    const ois = OpportunityInstances.findNonRetired({studentID, verified: false});
     const oisInPast = _.filter(ois, (oi) => {
       const term = AcademicTerms.findDoc(oi.termID);
       return term.termNumber < currentTerm.termNumber;
     });
-    const requests = VerificationRequests.findNonRetired({ studentID });
+    const requests = VerificationRequests.findNonRetired({studentID});
     const requestedOIs = requests.map((request) => request.opportunityInstanceID);
     const unverified = _.filter(oisInPast, (oi) => !_.includes(requestedOIs, oi._id));
     return unverified;
@@ -60,24 +61,26 @@ export class VerificationChecklist extends Checklist {
     const unverifiedOpps = unverifiedInstances.map((oi) => Opportunities.findDoc(oi.opportunityID));
     switch (state) {
       case CHECKSTATE.IMPROVE:
-        return <div className="highlightBox">
-          <p>Your unverified Opportunities from a prior semester are:</p>
-          <OpportunityList opportunities={unverifiedOpps} size="medium" keyStr="unverified" />
-        </div>;
+        return (
+          <DetailsBox description='Your unverified Opportunities from a past semester are:'>
+            <OpportunityList opportunities={unverifiedOpps} size="medium" keyStr="unverified"/>
+          </DetailsBox>
+        );
       default:
-        return <React.Fragment />;
+        return <React.Fragment/>;
     }
   }
 
   public getActions(state: CHECKSTATE): JSX.Element {
     switch (state) {
       case CHECKSTATE.IMPROVE:
-        return <div className="centeredBox"><p>Click &quot;Go to Verification Page&quot; to request verification of these Opportunities.  Click &quot;Go to Degree Planner&quot; to remove them from your plan if you didn&apos;t actually participate in one or more of these Opportunities.</p>
+        return <div className="centeredBox"><p>Click &quot;Go to Verification Page&quot; to request verification of these Opportunities. Click &quot;Go to Degree Planner&quot; to remove them from your plan if you didn&apos;t actually participate in
+          one or more of these Opportunities.</p>
           <Button size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${STUDENT_VERIFICATION}`}>Go To Verification Page</Button>&nbsp;&nbsp;
           <Button basic size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${DEGREEPLANNER}`}>Go To Degree Planner</Button>
-</div>;
+        </div>;
       default:
-        return <React.Fragment />;
+        return <React.Fragment/>;
     }
   }
 }
