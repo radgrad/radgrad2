@@ -4,7 +4,7 @@ import { StudentProfile } from '../../../typings/radgrad';
 import { LEVELS, URL_ROLES } from '../../layouts/utilities/route-constants';
 import {Checklist, CHECKSTATE} from './Checklist';
 import {DetailsBox} from './DetailsBox';
-import {ChecklistButtonLink} from './ChecklistButtonLink';
+import {ChecklistButtonLink} from './ChecklistButtons';
 
 export class LevelChecklist extends Checklist {
   private profile: StudentProfile;

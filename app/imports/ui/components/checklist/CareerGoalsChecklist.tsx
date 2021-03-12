@@ -1,7 +1,5 @@
 import moment from 'moment';
 import React from 'react';
-import {Link} from 'react-router-dom';
-import {Button} from 'semantic-ui-react';
 import {updateMethod} from '../../../api/base/BaseCollection.methods';
 import {ProfileCareerGoals} from '../../../api/user/profile-entries/ProfileCareerGoalCollection';
 import {PublicStats} from '../../../api/public-stats/PublicStatsCollection';
@@ -12,6 +10,8 @@ import {EXPLORER, URL_ROLES} from '../../layouts/utilities/route-constants';
 import ProfileCareerGoalList from '../shared/ProfileCareerGoalList';
 import {Checklist, CHECKSTATE} from './Checklist';
 import {DetailsBox} from './DetailsBox';
+import {ActionsBox} from './ActionsBox';
+import {ChecklistButtonAction, ChecklistButtonLink} from './ChecklistButtons';
 
 export class CareerGoalsChecklist extends Checklist {
   private profile: StudentProfile;
@@ -44,23 +44,20 @@ export class CareerGoalsChecklist extends Checklist {
     const userID = this.profile.userID;
     const careerGoals = ProfileCareerGoals.findNonRetired({userID});
     if (careerGoals.length < 3) {
-      // console.log('not enough careergoals');
       this.state = CHECKSTATE.IMPROVE;
     } else if (this.profile.lastVisitedCareerGoals) {
       const lastVisit = moment(this.profile.lastVisitedCareerGoals, 'YYYY-MM-DD', true);
-      // console.log(this.profile.lastVisitedCareerGoals, PublicStats.getPublicStat(PublicStats.Career GoalsUpdateTime));
-      if (lastVisit.isBefore(moment(PublicStats.getPublicStat(PublicStats.careerGoalsUpdateTime), 'YYYY-MM-DD-HH-mm-ss'))) {
+      const lastUpdate = PublicStats.getLastUpdateTimestamp(PublicStats.careerGoalsUpdateTime);
+      if (lastVisit.isBefore(lastUpdate)) {
         this.state = CHECKSTATE.REVIEW;
       } else if (this.isSixMonthsOld(this.profile.lastVisitedCareerGoals)) {
         this.state = CHECKSTATE.REVIEW;
       } else {
         this.state = CHECKSTATE.OK;
       }
-    } else {
-      // console.log('no last visited page');
+    } else { // No record of last visit.
       this.state = CHECKSTATE.REVIEW;
     }
-    // console.log('updatestate', this.state);
   }
 
   public getDetails(state: CHECKSTATE): JSX.Element {
@@ -92,22 +89,26 @@ export class CareerGoalsChecklist extends Checklist {
     };
     switch (state) {
       case CHECKSTATE.OK:
-        return <div className='centeredBox'><p>Click this button to go to the Career Goals Explorer if you want to look for new Career Goals anyway.&nbsp;
-          <Button size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.CAREERGOALS}`}>Go To Career Goals Explorer</Button></p></div>;
+        return (
+          <ActionsBox description='Click this button to look for more Career Goals:'>
+            <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.CAREERGOALS}`} label='Career Goals Explorer'/>
+          </ActionsBox>
+        );
       case CHECKSTATE.REVIEW:
-        return <div className='centeredBox'>
-          <p>Clicking either button sets the timestamp for the last time this item was reviewed, so it will
-            move into the OK state and won&apos;t move back into the Review state for another six months.</p>
-          <Button size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.CAREERGOALS}`}>Go To Career Goals Explorer</Button>&nbsp;&nbsp;
-          <Button basic size='huge' color='teal' onClick={handleVerification}>My Career Goals are OK</Button>
-        </div>;
+        return (
+          <ActionsBox description='Click either button to indicate you have reviewed your Career Goals:' >
+            <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.CAREERGOALS}`} label='Career Goals Explorer'/>
+            <ChecklistButtonAction onClick={handleVerification} label='My Career Goals are OK'/>
+          </ActionsBox>
+        );
       case CHECKSTATE.IMPROVE:
-        return <div className='centeredBox'><p>Click &quot;Go To Interest Explorer&quot; to search for the Career Goals and add at least three to
-          your Profile.</p>
-          <Button size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.CAREERGOALS}`}>Go To Career Goals Explorer</Button>
-        </div>;
+        return (
+          <ActionsBox description='Click this button to use the Career Goals Explorer to add at least 3 Career Goals to your profile:' >
+            <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.CAREERGOALS}`} label='Career Goals Explorer'/>
+          </ActionsBox>
+        );
       default:
-        return <React.Fragment/>;
+        return <React.Fragment />;
     }
   }
 }

@@ -1,7 +1,5 @@
 import moment from 'moment';
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Button } from 'semantic-ui-react';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';
@@ -12,6 +10,8 @@ import { DEGREEPLANNER, EXPLORER, ICE, URL_ROLES } from '../../layouts/utilities
 import ProfileFutureCoursesList from '../shared/ProfileFutureCoursesList';
 import {Checklist, CHECKSTATE} from './Checklist';
 import {DetailsBox} from './DetailsBox';
+import {ActionsBox} from './ActionsBox';
+import {ChecklistButtonAction, ChecklistButtonLink} from './ChecklistButtons';
 
 export class CoursesChecklist extends Checklist {
   private profile: StudentProfile;
@@ -48,8 +48,8 @@ export class CoursesChecklist extends Checklist {
       this.state = CHECKSTATE.IMPROVE;
     } else if (this.profile.lastVisitedCourses) {
       const lastVisit = moment(this.profile.lastVisitedCourses, 'YYYY-MM-DD', true);
-      // console.log(this.profile.lastVisitedInterests, PublicStats.getPublicStat(PublicStats.interestsUpdateTime));
-      if (lastVisit.isBefore(moment(PublicStats.getPublicStat(PublicStats.coursesUpdateTime), 'YYYY-MM-DD-HH-mm-ss'))) {
+      const lastUpdate = PublicStats.getLastUpdateTimestamp(PublicStats.coursesUpdateTime);
+      if (lastVisit.isBefore(lastUpdate)) {
         this.state = CHECKSTATE.REVIEW;
       } else if (this.isSixMonthsOld(this.profile.lastVisitedCourses)) {
         this.state = CHECKSTATE.REVIEW;
@@ -57,11 +57,9 @@ export class CoursesChecklist extends Checklist {
       } else {
         this.state = CHECKSTATE.OK;
       }
-    } else {
-      // console.log('no last visited page');
+    } else { // No last visited timestamp
       this.state = CHECKSTATE.REVIEW;
     }
-    // console.log(this.state);
   }
 
   public getDetails(state: CHECKSTATE): JSX.Element {
@@ -88,26 +86,24 @@ export class CoursesChecklist extends Checklist {
     };
     switch (state) {
       case CHECKSTATE.OK:
-        return <div className='centeredBox'>
-          <p>Click &quot;Go To Degree Planner&quot; if you still want to see the courses in your Degree Plan, or
-          click &quot;Go to Course Explorer&quot; if you still want to search for additional Courses to include in your
-          Degree Plan.</p>
-          <Button size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${DEGREEPLANNER}`}>Go To Degree Planner</Button>&nbsp;&nbsp;
-          <Button basic size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.COURSES}`}>Go To Course Explorer</Button>
-        </div>;
       case CHECKSTATE.IMPROVE:
-        return <div className='centeredBox'><p>Click &quot;Go To Course Explorer&quot; to review the available Courses in RadGrad and add interesting ones to your profile. Or, click &quot;Go To Degree Planner&quot; to go directly to the Degree Planner page to add courses from your profile to a future semester in your degree plan</p>
-          <Button size='huge' color='teal'  as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.COURSES}`}>Go To Course Explorer</Button>&nbsp;&nbsp;
-          <Button basic size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${DEGREEPLANNER}`}>Go To Degree Planner</Button>
-        </div>;
+        return (
+          <ActionsBox description='Go to the Course Explorer to review available Courses and add interesting ones to your profile. Or, go to the Degree Planner to add courses from your profile to your degree plan.' >
+            <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.COURSES}`} label='Courses Explorer'/>
+            <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${DEGREEPLANNER}`} label='Degree Planner'/>
+          </ActionsBox>
+        );
       case CHECKSTATE.REVIEW:
-        return <div className='centeredBox'>
-          <p>Click &quot;Go To Course Explorer&quot; to search for courses and add new ones to your profile, or to see new reviews. Click &quot;Go To Degree Planner&quot; to review your degree plan and potentially move or remove Courses. Click &quot;Go To ICE page&quot; to learn more about Competency points.  Click &quot;My Courses are OK&quot; to confirm that your current Degree Plan is correct.</p>
-          <Button size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${DEGREEPLANNER}`}>Go To Degree Planner</Button>&nbsp;&nbsp;
-          <Button basic size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.COURSES}`}>Go To Course Explorer</Button><br/><br/>
-          <Button size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${ICE}`}>Go To ICE</Button>&nbsp;&nbsp;
-          <Button basic size='huge' color='teal' onClick={handleVerification}>My Courses are OK</Button>
-        </div>;
+        return (
+          <ActionsBox description={`Go to the Course Explorer to review available Courses and add them to your profile. Or, go to the Degree Planner to add course from your profile to you degree plan, or remove courses from your degree plan that you no longer plan to take. 
+      
+You can go to the ICE Page to learn more about how courses earn you competency points. Finally, you could click "Courses are OK" to confirm that the courses in your Degree Plan are OK.`} >
+            <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.COURSES}`} label='Courses Explorer'/>
+            <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${DEGREEPLANNER}`} label='Degree Planner'/>
+            <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${ICE}`} label='ICE Page'/>
+            <ChecklistButtonAction onClick={handleVerification} label='Courses are OK'/>
+          </ActionsBox>
+        );
       default:
         return <React.Fragment />;
     }

@@ -1,7 +1,5 @@
 import moment from 'moment';
 import React from 'react';
-import {Link} from 'react-router-dom';
-import {Button} from 'semantic-ui-react';
 import {updateMethod} from '../../../api/base/BaseCollection.methods';
 import {PublicStats} from '../../../api/public-stats/PublicStatsCollection';
 import {StudentProfiles} from '../../../api/user/StudentProfileCollection';
@@ -11,6 +9,8 @@ import {EXPLORER, URL_ROLES} from '../../layouts/utilities/route-constants';
 import ProfileInterestList from '../shared/ProfileInterestList';
 import {Checklist, CHECKSTATE} from './Checklist';
 import {DetailsBox} from './DetailsBox';
+import {ActionsBox} from './ActionsBox';
+import {ChecklistButtonAction, ChecklistButtonLink} from './ChecklistButtons';
 
 export class InterestsChecklist extends Checklist {
   private profile: StudentProfile;
@@ -42,23 +42,20 @@ export class InterestsChecklist extends Checklist {
   public updateState(): void {
     const interests = Users.getInterestIDs(this.profile.userID);
     if (interests.length < 3) {
-      // console.log('not enough interests');
       this.state = CHECKSTATE.IMPROVE;
     } else if (this.profile.lastVisitedInterests) {
       const lastVisit = moment(this.profile.lastVisitedInterests, 'YYYY-MM-DD', true);
-      // console.log(this.profile.lastVisitedInterests, PublicStats.getPublicStat(PublicStats.interestsUpdateTime));
-      if (lastVisit.isBefore(moment(PublicStats.getPublicStat(PublicStats.interestsUpdateTime), 'YYYY-MM-DD-HH-mm-ss'))) {
+      const lastUpdate = PublicStats.getLastUpdateTimestamp(PublicStats.interestsUpdateTime);
+      if (lastVisit.isBefore(lastUpdate)) {
         this.state = CHECKSTATE.REVIEW;
       } else if (this.isSixMonthsOld(this.profile.lastVisitedInterests)) {
         this.state = CHECKSTATE.REVIEW;
       } else {
         this.state = CHECKSTATE.OK;
       }
-    } else {
-      // console.log('no last visited page');
+    } else { // No data on lastVisited
       this.state = CHECKSTATE.REVIEW;
     }
-    // console.log('updatestate', this.state);
   }
 
   public getDetails(state: CHECKSTATE): JSX.Element {
@@ -89,20 +86,19 @@ export class InterestsChecklist extends Checklist {
     };
     switch (state) {
       case CHECKSTATE.OK:
-        return <div className='centeredBox'><p>Click this button to go to the Interests Explorer if you want to look for new Interests anyway.&nbsp;
-          <Button size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.INTERESTS}`}>Go To Interests Explorer</Button> </p></div>;
-      case CHECKSTATE.REVIEW:
-        return <div className='centeredBox'>
-          <p>Clicking either button sets the timestamp for the last time this item was reviewed, so it will
-          move into the OK state and won&apos;t move back into the Review state for another six months.</p>
-          <Button size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.INTERESTS}`}>Go To Interests Explorer</Button>&nbsp;&nbsp;
-          <Button basic size='huge' color='teal' onClick={handleVerification}>My Interests are OK</Button>
-        </div>;
       case CHECKSTATE.IMPROVE:
-        return <div className='centeredBox'><p>Click &quot;Go To Interest Explorer&quot; to search for the Interests and add at least three to
-          your Profile.</p>
-          <Button size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.INTERESTS}`}>Go To Interests Explorer</Button>
-        </div>;
+        return (
+          <ActionsBox description='Click this button to search for Interests to add to your profile. You should have at least three.'>
+            <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.INTERESTS}`} label='Interests Explorer'/>
+          </ActionsBox>
+        );
+      case CHECKSTATE.REVIEW:
+        return (
+          <ActionsBox description='Click either button to indicate you have reviewed your Interests:' >
+            <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.INTERESTS}`} label='Interests Explorer'/>
+            <ChecklistButtonAction onClick={handleVerification} label='My Interests are OK'/>
+          </ActionsBox>
+        );
       default:
         return <React.Fragment />;
     }

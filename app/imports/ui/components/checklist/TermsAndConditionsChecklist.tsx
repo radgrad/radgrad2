@@ -11,7 +11,7 @@ import {StudentProfile, StudentProfileUpdate} from '../../../typings/radgrad';
 import {TERMS_AND_CONDITIONS, URL_ROLES} from '../../layouts/utilities/route-constants';
 import {Checklist, CHECKSTATE} from './Checklist';
 import {DetailsBox} from './DetailsBox';
-import {ChecklistButtonLink} from './ChecklistButtonLink';
+import {ChecklistButtonLink} from './ChecklistButtons';
 
 export class TermsAndConditionsChecklist extends Checklist {
   private profile: StudentProfile;
