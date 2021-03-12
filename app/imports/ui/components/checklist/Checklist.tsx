@@ -12,15 +12,7 @@ export const enum CHECKSTATE {
 
 /**
  * Checklist TODOS
- *   * Public Stats should provide a method returning a date object for lastUpdated interests and career goals, with suitable default.
- *   * Pass Public Stats into constructor to encapsulate all state.
- *   * Student Profile should also provide that kind of method.
- *   * getDescription could compute a markdown string and return it as <Markdown>.
- *   * getDetails will probably just return JSX for now.
- *   * Maybe split getActions into getActionsText and getActionsButtons. The latter is an array of Buttons.
- *   * Maybe paint the icon and name in the state color?
- *   * Change "Go to" to an icon?
- *   * Set entire state on updateState in instance variables?
+ *   * Revise getActions.
  *   * Style.css should be local
  */
 
