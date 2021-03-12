@@ -11,6 +11,7 @@ import { TermsAndConditionsChecklist } from '../../components/checklist/TermsAnd
 import { VerificationChecklist } from '../../components/checklist/VerificationChecklist';
 import PageLayout from '../PageLayout';
 import {CHECKSTATE} from '../../components/checklist/Checklist';
+import './style.css';
 
 interface StudentHomePageProps {
   okItems: JSX.Element[];
