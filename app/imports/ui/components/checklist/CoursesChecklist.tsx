@@ -95,9 +95,9 @@ export class CoursesChecklist extends Checklist {
         );
       case CHECKSTATE.REVIEW:
         return (
-          <ActionsBox description={`Go to the Course Explorer to review available Courses and add them to your profile. Or, go to the Degree Planner to add course from your profile to you degree plan, or remove courses from your degree plan that you no longer plan to take. 
+          <ActionsBox description={`Go to the Course Explorer to review available Courses and add them to your profile. Or, go to the Degree Planner to add Course(s) from your profile to your degree plan, or to remove Courses from your degree plan that you no longer plan to take. 
       
-You can go to the ICE Page to learn more about how courses earn you competency points. Finally, you could click "Courses are OK" to confirm that the courses in your Degree Plan are OK.`} >
+You can go to the ICE Page to learn more about how Courses earn you Competency points. Finally, you can click "Courses are OK" to confirm that the courses in your Degree Plan are OK.`} >
             <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.COURSES}`} label='Courses Explorer'/>
             <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${DEGREEPLANNER}`} label='Degree Planner'/>
             <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${ICE}`} label='ICE Page'/>

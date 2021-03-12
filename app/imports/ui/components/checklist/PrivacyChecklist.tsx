@@ -1,12 +1,12 @@
 import React from 'react';
-import { Button } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
 import { Users } from '../../../api/user/UserCollection';
 import { StudentProfile } from '../../../typings/radgrad';
-import { PRIVACY, URL_ROLES } from '../../layouts/utilities/route-constants';
+import {PRIVACY, URL_ROLES} from '../../layouts/utilities/route-constants';
 import StudentPrivacySettingList from '../student/StudentPrivacySettingList';
 import {Checklist, CHECKSTATE} from './Checklist';
 import {DetailsBox} from './DetailsBox';
+import {ActionsBox} from './ActionsBox';
+import {ChecklistButtonLink} from './ChecklistButtons';
 
 export class PrivacyChecklist extends Checklist {
   private profile: StudentProfile;
@@ -45,18 +45,21 @@ export class PrivacyChecklist extends Checklist {
       <DetailsBox description='Your privacy settings are:'>
         <StudentPrivacySettingList profile={this.profile} size="medium" />
       </DetailsBox>
-    )
+    );
   }
 
   public getActions(state: CHECKSTATE): JSX.Element {
     switch (state) {
       case CHECKSTATE.REVIEW:
-        return <div className='centeredBox'><p>Click &quot;Go to Privacy Page&quot; to go to the privacy page.</p>
-          <Button size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${PRIVACY}`}>Go To Privacy Page</Button>
-        </div>;
+      case CHECKSTATE.OK:
+      case CHECKSTATE.IMPROVE:
+        return (
+          <ActionsBox description='Go to the Privacy page to review and adjust the contents of your public profile:'>
+            <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${PRIVACY}`} label='Privacy Page'/>
+          </ActionsBox>
+        );
       default:
         return <React.Fragment />;
     }
   }
-
 }

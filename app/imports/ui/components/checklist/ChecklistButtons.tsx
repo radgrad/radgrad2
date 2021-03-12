@@ -14,9 +14,10 @@ export const ChecklistButtonLink: React.FC<ChecklistButtonLinkProps> = ({ url, l
 interface ChecklistButtonActionProps {
   onClick: () => void,
   label: string
+  icon?: string
 }
 
-export const ChecklistButtonAction: React.FC<ChecklistButtonActionProps> = ({ onClick, label }) => (
-  <Button style={{marginBottom: '2px'}} size='medium' color='teal' onClick={onClick} content={label} labelPosition='right' icon='thumbs up outline'/>
+export const ChecklistButtonAction: React.FC<ChecklistButtonActionProps> = ({ onClick, label, icon = 'thumbs up outline' }) => (
+  <Button style={{marginBottom: '2px'}} size='medium' color='teal' onClick={onClick} content={label} labelPosition='right' icon={icon}/>
 );
 

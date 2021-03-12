@@ -90,20 +90,20 @@ export class CareerGoalsChecklist extends Checklist {
     switch (state) {
       case CHECKSTATE.OK:
         return (
-          <ActionsBox description='Click this button to look for more Career Goals:'>
+          <ActionsBox description='Go to the Career Goals Explorer to search for more Career Goals to add to your profile:'>
             <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.CAREERGOALS}`} label='Career Goals Explorer'/>
           </ActionsBox>
         );
       case CHECKSTATE.REVIEW:
         return (
-          <ActionsBox description='Click either button to indicate you have reviewed your Career Goals:' >
+          <ActionsBox description='Go to the Career Goals Explorer to search for more Career Goals to add to your profile. Or, click "My Career Goals are OK" if they are fine as is:' >
             <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.CAREERGOALS}`} label='Career Goals Explorer'/>
             <ChecklistButtonAction onClick={handleVerification} label='My Career Goals are OK'/>
           </ActionsBox>
         );
       case CHECKSTATE.IMPROVE:
         return (
-          <ActionsBox description='Click this button to use the Career Goals Explorer to add at least 3 Career Goals to your profile:' >
+          <ActionsBox description='Go to the Career Goals Explorer to add at least 3 Career Goals to your profile:' >
             <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.CAREERGOALS}`} label='Career Goals Explorer'/>
           </ActionsBox>
         );

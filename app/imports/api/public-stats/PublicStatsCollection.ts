@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import _ from 'lodash';
+import moment from 'moment';
 import BaseCollection from '../base/BaseCollection';
 import { CareerGoals } from '../career/CareerGoalCollection';
 import { Courses } from '../course/CourseCollection';
@@ -11,7 +12,6 @@ import { OpportunityTypes } from '../opportunity/OpportunityTypeCollection';
 import { Reviews } from '../review/ReviewCollection';
 import { Users } from '../user/UserCollection';
 import { StudentProfiles } from '../user/StudentProfileCollection';
-import moment from "moment";
 
 /**
  * PublicStats holds statistics about RadGrad that can be accessed without logging in.

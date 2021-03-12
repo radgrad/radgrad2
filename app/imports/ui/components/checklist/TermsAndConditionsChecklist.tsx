@@ -1,7 +1,6 @@
 import moment from 'moment';
 import React from 'react';
 import {Redirect} from 'react-router';
-import {Button} from 'semantic-ui-react';
 import {sendRefusedTermsEmailMethod} from '../../../api/analytic/Email.methods';
 import {updateMethod} from '../../../api/base/BaseCollection.methods';
 import {RadGradProperties} from '../../../api/radgrad/RadGradProperties';
@@ -11,7 +10,8 @@ import {StudentProfile, StudentProfileUpdate} from '../../../typings/radgrad';
 import {TERMS_AND_CONDITIONS, URL_ROLES} from '../../layouts/utilities/route-constants';
 import {Checklist, CHECKSTATE} from './Checklist';
 import {DetailsBox} from './DetailsBox';
-import {ChecklistButtonLink} from './ChecklistButtons';
+import {ChecklistButtonAction, ChecklistButtonLink} from './ChecklistButtons';
+import {ActionsBox} from './ActionsBox';
 
 export class TermsAndConditionsChecklist extends Checklist {
   private profile: StudentProfile;
@@ -23,7 +23,6 @@ export class TermsAndConditionsChecklist extends Checklist {
     this.iconName = 'file alternate';
     this.title[CHECKSTATE.OK] = 'Thanks for approving RadGrad\'s Terms and Conditions';
     this.title[CHECKSTATE.IMPROVE] = 'Please approve RadGrad\'s Terms and Conditions';
-
     // Specify the description for each state.
     const adminURL = `mailto:${Meteor.settings.public.adminProfile.username}`;
     this.description[CHECKSTATE.OK] = `Congrats! You've approved our Terms and Conditions. If you no longer approve of the 
@@ -52,7 +51,6 @@ export class TermsAndConditionsChecklist extends Checklist {
   }
 
   public getActions(state: CHECKSTATE): JSX.Element {
-    const adminEmail = Meteor.settings.public.adminProfile.username;
     const handleAccept = () => {
       const collectionName = StudentProfiles.getCollectionName();
       const updateData: StudentProfileUpdate = {};
@@ -93,16 +91,13 @@ export class TermsAndConditionsChecklist extends Checklist {
       });
     };
     switch (state) {
-      case CHECKSTATE.OK:
-        return <a href={`mailto:${adminEmail}?subject=Remove student from RadGrad`}>Remove me from RadGrad</a>;
       case CHECKSTATE.IMPROVE:
-        return <div className="centeredBox">
-          <p>Click &quot;I approve&quot; to indicate your consent. Click &quot;I do not approve&quot; to initiate your
-            removal from RadGrad.
-          </p>
-          <Button size='huge' color='teal' onClick={handleAccept}>I Approve</Button> &nbsp;&nbsp;
-          <Button basic size='huge' color='teal' onClick={handleReject}>I Do Not Approve</Button>
-        </div>;
+        return (
+          <ActionsBox description='Please indicate if you consent to the Terms and Conditions below. If you indicate that you do not consent, we will initiate your removal from the RadGrad system. You will also be automatically logged out.' >
+            <ChecklistButtonAction onClick={handleAccept} label='I consent'/>
+            <ChecklistButtonAction onClick={handleReject} label='I do not consent' icon='thumbs down outline'/>
+          </ActionsBox>
+        );
       default:
         return <React.Fragment/>;
     }

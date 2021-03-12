@@ -1,7 +1,5 @@
 import React from 'react';
 import _ from 'lodash';
-import { Link } from 'react-router-dom';
-import { Button } from 'semantic-ui-react';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
@@ -9,11 +7,13 @@ import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstan
 import { Reviews } from '../../../api/review/ReviewCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { StudentProfile } from '../../../typings/radgrad';
-import { EXPLORER, STUDENT_REVIEWS, URL_ROLES } from '../../layouts/utilities/route-constants';
+import {STUDENT_REVIEWS, URL_ROLES} from '../../layouts/utilities/route-constants';
 import CourseList from '../shared/CourseList';
 import OpportunityList from '../shared/OpportunityList';
 import {Checklist, CHECKSTATE} from './Checklist';
 import {DetailsBox} from './DetailsBox';
+import {ActionsBox} from './ActionsBox';
+import {ChecklistButtonLink} from './ChecklistButtons';
 
 export class ReviewChecklist extends Checklist {
   private profile: StudentProfile;
@@ -98,22 +98,15 @@ export class ReviewChecklist extends Checklist {
   }
 
   public getActions(state: CHECKSTATE): JSX.Element {
+    const phrase = CHECKSTATE.REVIEW ? 'add reviews' : 'see your reviews';
     switch (state) {
       case CHECKSTATE.REVIEW:
-        return <div className='centeredBox'>
-          <p>Click &quot;Go To Reviews&quot; to add reviews for your completed Courses or Opportunities.</p>
-          <Button size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${STUDENT_REVIEWS}`}>Go To
-            Reviews</Button></div>;
       case CHECKSTATE.OK:
-        return <div className='centeredBox'>
-          <p>Click &quot;Go to Course Explorer&quot; if you want to see your Course reviews and potentially update them,
-            or click &quot;Go to Opportunity Explorer&quot; if you want to see your Opportunity reviews and potentially
-            update them.</p>
-          <Button size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.COURSES}`}>Go To Course
-            Explorer</Button>&nbsp;&nbsp;
-          <Button basic size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.OPPORTUNITIES}`}>Go To
-            Opportunity Explorer</Button>
-        </div>;
+        return (
+          <ActionsBox description={`Go to the Reviews page to ${phrase} for your completed Courses and/or Opportunities:`}>
+            <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${STUDENT_REVIEWS}`} label='Reviews Page'/>
+          </ActionsBox>
+        );
       default:
         return <React.Fragment />;
     }

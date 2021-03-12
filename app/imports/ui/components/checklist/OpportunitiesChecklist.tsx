@@ -1,7 +1,5 @@
 import moment from 'moment';
 import React from 'react';
-import {Link} from 'react-router-dom';
-import {Button} from 'semantic-ui-react';
 import {updateMethod} from '../../../api/base/BaseCollection.methods';
 import {OpportunityInstances} from '../../../api/opportunity/OpportunityInstanceCollection';
 import {PublicStats} from '../../../api/public-stats/PublicStatsCollection';
@@ -12,6 +10,8 @@ import {DEGREEPLANNER, EXPLORER, ICE, URL_ROLES} from '../../layouts/utilities/r
 import {Checklist, CHECKSTATE} from './Checklist';
 import ProfileFutureOpportunitiesList from '../shared/ProfileFutureOpportunitiesList';
 import {DetailsBox} from './DetailsBox';
+import {ActionsBox} from './ActionsBox';
+import {ChecklistButtonAction, ChecklistButtonLink} from './ChecklistButtons';
 
 export class OpportunitiesChecklist extends Checklist {
   private profile: StudentProfile;
@@ -86,28 +86,24 @@ export class OpportunitiesChecklist extends Checklist {
     };
     switch (state) {
       case CHECKSTATE.OK:
-        return <div className="centeredBox">
-          <p>Click &quot;Go To Degree Planner&quot; if you still want to see the Opportunities in your Degree Plan, or
-            click &quot;Go to Opportunity Explorer&quot; if you still want to search for additional Opportunities to include in your
-            Degree Plan.</p>
-          <Button size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${DEGREEPLANNER}`}>Go To Degree Planner</Button>
-          <Button size='huge' basic color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.OPPORTUNITIES}`}>Go To Opportunity Explorer</Button>
-        </div>;
       case CHECKSTATE.IMPROVE:
-        return <div className="centeredBox"><p>Click &quot;Go To Opportunity Explorer&quot; to review the available Opportunities in RadGrad and add interesting ones to your profile. Or, click &quot;Go To Degree Planner&quot; to go directly to the
-          Degree Planner page to add opportunities from your profile to a future semester in your degree plan</p>
-          <Button size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.OPPORTUNITIES}`}>Go To Opportunity Explorer</Button>&nbsp;&nbsp;
-          <Button size='huge' basic color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${DEGREEPLANNER}`}>Go To Degree Planner</Button>
-        </div>;
+        return (
+          <ActionsBox description='Go to the Opportunity Explorer to find and add Opportunities to your profile. Go to the Degree Planner to add Opportunities from your profile to your degree plan:'>
+            <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.OPPORTUNITIES}`} label='Opportunities Explorer'/>
+            <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${DEGREEPLANNER}`} label='Degree Planner'/>
+          </ActionsBox>
+        );
       case CHECKSTATE.REVIEW:
-        return <div className="centeredBox">
-          <p>Click &quot;Go To Opportunity Explorer&quot; to search for opportunities and add new ones to your profile, or to see new reviews. Click &quot;Go To Degree Planner&quot; to review your degree plan and potentially move or remove
-            opportunities. Click &quot;Go To ICE page&quot; to learn more about Competency points. Click &quot;My Opportunities are OK&quot; to confirm that your current Degree Plan is correct.</p>
-          <Button size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${DEGREEPLANNER}`}>Go To Degree Planner</Button>&nbsp;&nbsp;
-          <Button size='huge' basic color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.OPPORTUNITIES}`}>Go To Opportunity Explorer</Button>&nbsp;&nbsp;
-          <Button size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${ICE}`}>Go To ICE</Button>&nbsp;&nbsp;
-          <Button size='huge' basic color='teal' onClick={handleVerification}>My Opportunities are OK</Button>
-        </div>;
+        return (
+          <ActionsBox description={`Go to the Opportunities Explorer to review available Opportunities and add them to your profile. Or, go to the Degree Planner to add Opportunities from your profile to your degree plan, or to remove Opportunities from your degree plan that you no longer plan to participate in. 
+      
+You can go to the ICE Page to learn more about how Opportunities earn you Innovation and/or Experience points. Finally, you can click "Opportunities are OK" to confirm that the Opportunities in your Degree Plan are OK.`} >
+            <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.OPPORTUNITIES}`} label='Opportunities Explorer'/>
+            <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${DEGREEPLANNER}`} label='Degree Planner'/>
+            <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${ICE}`} label='ICE Page'/>
+            <ChecklistButtonAction onClick={handleVerification} label='Opportunities are OK'/>
+          </ActionsBox>
+        );
       default:
         return <React.Fragment/>;
     }

@@ -1,7 +1,5 @@
 import React from 'react';
 import _ from 'lodash';
-import {Link} from 'react-router-dom';
-import {Button} from 'semantic-ui-react';
 import {AcademicTerms} from '../../../api/academic-term/AcademicTermCollection';
 import {Opportunities} from '../../../api/opportunity/OpportunityCollection';
 import {OpportunityInstances} from '../../../api/opportunity/OpportunityInstanceCollection';
@@ -12,6 +10,8 @@ import {DEGREEPLANNER, STUDENT_VERIFICATION, URL_ROLES} from '../../layouts/util
 import OpportunityList from '../shared/OpportunityList';
 import {Checklist, CHECKSTATE} from './Checklist';
 import {DetailsBox} from './DetailsBox';
+import {ActionsBox} from './ActionsBox';
+import {ChecklistButtonLink} from './ChecklistButtons';
 
 export class VerificationChecklist extends Checklist {
   private profile: StudentProfile;
@@ -73,11 +73,18 @@ export class VerificationChecklist extends Checklist {
   public getActions(state: CHECKSTATE): JSX.Element {
     switch (state) {
       case CHECKSTATE.IMPROVE:
-        return <div className="centeredBox"><p>Click &quot;Go to Verification Page&quot; to request verification of these Opportunities. Click &quot;Go to Degree Planner&quot; to remove them from your plan if you didn&apos;t actually participate in
-          one or more of these Opportunities.</p>
-          <Button size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${STUDENT_VERIFICATION}`}>Go To Verification Page</Button>&nbsp;&nbsp;
-          <Button basic size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${DEGREEPLANNER}`}>Go To Degree Planner</Button>
-        </div>;
+        return (
+          <ActionsBox description='Go to the Verification page to request verification of your completed Opportunities. Go to the Degree Planner page to remove them from your plan if you didn&quot;t actually participate in them.' >
+            <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${STUDENT_VERIFICATION}`} label='Verification Page'/>
+            <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${DEGREEPLANNER}`} label='Degree Planner'/>
+          </ActionsBox>
+        );
+      case CHECKSTATE.OK:
+        return (
+          <ActionsBox description='Go to the Verification page to see any previously verified Opportunities.' >
+            <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${STUDENT_VERIFICATION}`} label='Verification Page'/>
+          </ActionsBox>
+        );
       default:
         return <React.Fragment/>;
     }

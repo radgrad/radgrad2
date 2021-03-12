@@ -88,13 +88,13 @@ export class InterestsChecklist extends Checklist {
       case CHECKSTATE.OK:
       case CHECKSTATE.IMPROVE:
         return (
-          <ActionsBox description='Click this button to search for Interests to add to your profile. You should have at least three.'>
+          <ActionsBox description='Go to the Interests Explorer to search for Interests to add to your profile. You should have at least three.'>
             <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.INTERESTS}`} label='Interests Explorer'/>
           </ActionsBox>
         );
       case CHECKSTATE.REVIEW:
         return (
-          <ActionsBox description='Click either button to indicate you have reviewed your Interests:' >
+          <ActionsBox description='Go to the Interests Explorer to search for Interests to add to your profile. Or, click "My Interests are OK if you think they are fine as is:' >
             <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.INTERESTS}`} label='Interests Explorer'/>
             <ChecklistButtonAction onClick={handleVerification} label='My Interests are OK'/>
           </ActionsBox>
