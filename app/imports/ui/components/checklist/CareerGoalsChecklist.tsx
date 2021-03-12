@@ -11,7 +11,6 @@ import {StudentProfile, StudentProfileUpdate} from '../../../typings/radgrad';
 import {EXPLORER, URL_ROLES} from '../../layouts/utilities/route-constants';
 import ProfileCareerGoalList from '../shared/ProfileCareerGoalList';
 import {Checklist, CHECKSTATE} from './Checklist';
-import '../../../../client/style.css';
 import {DetailsBox} from './DetailsBox';
 
 export class CareerGoalsChecklist extends Checklist {

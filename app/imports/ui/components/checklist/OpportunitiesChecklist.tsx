@@ -11,7 +11,6 @@ import {Ice, StudentProfile, StudentProfileUpdate} from '../../../typings/radgra
 import {DEGREEPLANNER, EXPLORER, ICE, URL_ROLES} from '../../layouts/utilities/route-constants';
 import {Checklist, CHECKSTATE} from './Checklist';
 import ProfileFutureOpportunitiesList from '../shared/ProfileFutureOpportunitiesList';
-import '../../../../client/style.css';
 import {DetailsBox} from './DetailsBox';
 
 export class OpportunitiesChecklist extends Checklist {

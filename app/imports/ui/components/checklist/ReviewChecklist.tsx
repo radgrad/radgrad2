@@ -13,7 +13,6 @@ import { EXPLORER, STUDENT_REVIEWS, URL_ROLES } from '../../layouts/utilities/ro
 import CourseList from '../shared/CourseList';
 import OpportunityList from '../shared/OpportunityList';
 import {Checklist, CHECKSTATE} from './Checklist';
-import '../../../../client/style.css';
 import {DetailsBox} from './DetailsBox';
 
 export class ReviewChecklist extends Checklist {

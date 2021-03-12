@@ -10,7 +10,6 @@ import {Users} from '../../../api/user/UserCollection';
 import {StudentProfile, StudentProfileUpdate} from '../../../typings/radgrad';
 import {TERMS_AND_CONDITIONS, URL_ROLES} from '../../layouts/utilities/route-constants';
 import {Checklist, CHECKSTATE} from './Checklist';
-import '../../../../client/style.css';
 import {DetailsBox} from './DetailsBox';
 import {ChecklistButtonLink} from './ChecklistButtonLink';
 

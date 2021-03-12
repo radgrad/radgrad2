@@ -6,7 +6,6 @@ import { StudentProfile } from '../../../typings/radgrad';
 import { PRIVACY, URL_ROLES } from '../../layouts/utilities/route-constants';
 import StudentPrivacySettingList from '../student/StudentPrivacySettingList';
 import {Checklist, CHECKSTATE} from './Checklist';
-import '../../../../client/style.css';
 import {DetailsBox} from './DetailsBox';
 
 export class PrivacyChecklist extends Checklist {

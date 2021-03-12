@@ -10,7 +10,6 @@ import {StudentProfile, StudentProfileUpdate} from '../../../typings/radgrad';
 import {EXPLORER, URL_ROLES} from '../../layouts/utilities/route-constants';
 import ProfileInterestList from '../shared/ProfileInterestList';
 import {Checklist, CHECKSTATE} from './Checklist';
-import '../../../../client/style.css';
 import {DetailsBox} from './DetailsBox';
 
 export class InterestsChecklist extends Checklist {

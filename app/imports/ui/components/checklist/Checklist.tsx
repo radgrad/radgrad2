@@ -2,7 +2,6 @@ import moment from 'moment';
 import React from 'react';
 import Markdown from 'react-markdown/with-html';
 import {Grid, Header, Icon, Label, Segment, SemanticICONS} from 'semantic-ui-react';
-import '../../../../client/style.css';
 
 export const enum CHECKSTATE {
   OK = 'OK',
@@ -13,7 +12,7 @@ export const enum CHECKSTATE {
 /**
  * Checklist TODOS
  *   * Revise getActions.
- *   * Style.css should be local
+ *   * Style.css should be local; make it a review checklist item.
  */
 
 /**

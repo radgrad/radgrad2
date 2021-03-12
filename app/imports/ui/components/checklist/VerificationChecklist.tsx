@@ -11,8 +11,7 @@ import {StudentProfile} from '../../../typings/radgrad';
 import {DEGREEPLANNER, STUDENT_VERIFICATION, URL_ROLES} from '../../layouts/utilities/route-constants';
 import OpportunityList from '../shared/OpportunityList';
 import {Checklist, CHECKSTATE} from './Checklist';
-import '../../../../client/style.css';
-import {DetailsBox} from "./DetailsBox";
+import {DetailsBox} from './DetailsBox';
 
 export class VerificationChecklist extends Checklist {
   private profile: StudentProfile;

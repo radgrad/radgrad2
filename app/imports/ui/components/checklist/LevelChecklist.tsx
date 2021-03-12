@@ -3,7 +3,6 @@ import { Users } from '../../../api/user/UserCollection';
 import { StudentProfile } from '../../../typings/radgrad';
 import { LEVELS, URL_ROLES } from '../../layouts/utilities/route-constants';
 import {Checklist, CHECKSTATE} from './Checklist';
-import '../../../../client/style.css';
 import {DetailsBox} from './DetailsBox';
 import {ChecklistButtonLink} from './ChecklistButtonLink';
 
