@@ -1,7 +1,6 @@
 import moment from 'moment';
 import React from 'react';
 import {Redirect} from 'react-router';
-import {Link} from 'react-router-dom';
 import {Button} from 'semantic-ui-react';
 import {sendRefusedTermsEmailMethod} from '../../../api/analytic/Email.methods';
 import {updateMethod} from '../../../api/base/BaseCollection.methods';
@@ -12,10 +11,8 @@ import {StudentProfile, StudentProfileUpdate} from '../../../typings/radgrad';
 import {TERMS_AND_CONDITIONS, URL_ROLES} from '../../layouts/utilities/route-constants';
 import {Checklist, CHECKSTATE} from './Checklist';
 import '../../../../client/style.css';
-import StudentPrivacySettingList from "../student/StudentPrivacySettingList";
-import {DetailsBox} from "./DetailsBox";
-import {ChecklistButtonLink} from "./ChecklistButtonLink";
-
+import {DetailsBox} from './DetailsBox';
+import {ChecklistButtonLink} from './ChecklistButtonLink';
 
 export class TermsAndConditionsChecklist extends Checklist {
   private profile: StudentProfile;

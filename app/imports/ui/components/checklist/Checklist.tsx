@@ -4,7 +4,6 @@ import Markdown from 'react-markdown/with-html';
 import {Grid, Header, Icon, Label, Segment, SemanticICONS} from 'semantic-ui-react';
 import '../../../../client/style.css';
 
-
 export const enum CHECKSTATE {
   OK = 'OK',
   REVIEW = 'REVIEW',

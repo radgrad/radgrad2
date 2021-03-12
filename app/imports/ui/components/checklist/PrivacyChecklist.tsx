@@ -7,8 +7,7 @@ import { PRIVACY, URL_ROLES } from '../../layouts/utilities/route-constants';
 import StudentPrivacySettingList from '../student/StudentPrivacySettingList';
 import {Checklist, CHECKSTATE} from './Checklist';
 import '../../../../client/style.css';
-import {DetailsBox} from "./DetailsBox";
-import ProfileInterestList from "../shared/ProfileInterestList";
+import {DetailsBox} from './DetailsBox';
 
 export class PrivacyChecklist extends Checklist {
   private profile: StudentProfile;

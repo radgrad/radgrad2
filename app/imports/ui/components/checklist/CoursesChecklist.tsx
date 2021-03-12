@@ -12,8 +12,7 @@ import { DEGREEPLANNER, EXPLORER, ICE, URL_ROLES } from '../../layouts/utilities
 import ProfileFutureCoursesList from '../shared/ProfileFutureCoursesList';
 import {Checklist, CHECKSTATE} from './Checklist';
 import '../../../../client/style.css';
-import {DetailsBox} from "./DetailsBox";
-import ProfileCareerGoalList from "../shared/ProfileCareerGoalList";
+import {DetailsBox} from './DetailsBox';
 
 export class CoursesChecklist extends Checklist {
   private profile: StudentProfile;

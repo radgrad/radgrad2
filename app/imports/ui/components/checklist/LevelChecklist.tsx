@@ -1,14 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Button } from 'semantic-ui-react';
 import { Users } from '../../../api/user/UserCollection';
 import { StudentProfile } from '../../../typings/radgrad';
 import { LEVELS, URL_ROLES } from '../../layouts/utilities/route-constants';
 import {Checklist, CHECKSTATE} from './Checklist';
 import '../../../../client/style.css';
-import ProfileInterestList from "../shared/ProfileInterestList";
-import {DetailsBox} from "./DetailsBox";
-import {ChecklistButtonLink} from "./ChecklistButtonLink";
+import {DetailsBox} from './DetailsBox';
+import {ChecklistButtonLink} from './ChecklistButtonLink';
 
 export class LevelChecklist extends Checklist {
   private profile: StudentProfile;

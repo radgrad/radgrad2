@@ -1,20 +1,18 @@
 import moment from 'moment';
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Button } from 'semantic-ui-react';
-import { updateMethod } from '../../../api/base/BaseCollection.methods';
-import { ProfileCareerGoals } from '../../../api/user/profile-entries/ProfileCareerGoalCollection';
-import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';
-import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
-import { Users } from '../../../api/user/UserCollection';
-import { StudentProfile, StudentProfileUpdate } from '../../../typings/radgrad';
-import { EXPLORER, URL_ROLES } from '../../layouts/utilities/route-constants';
+import {Link} from 'react-router-dom';
+import {Button} from 'semantic-ui-react';
+import {updateMethod} from '../../../api/base/BaseCollection.methods';
+import {ProfileCareerGoals} from '../../../api/user/profile-entries/ProfileCareerGoalCollection';
+import {PublicStats} from '../../../api/public-stats/PublicStatsCollection';
+import {StudentProfiles} from '../../../api/user/StudentProfileCollection';
+import {Users} from '../../../api/user/UserCollection';
+import {StudentProfile, StudentProfileUpdate} from '../../../typings/radgrad';
+import {EXPLORER, URL_ROLES} from '../../layouts/utilities/route-constants';
 import ProfileCareerGoalList from '../shared/ProfileCareerGoalList';
-import { Checklist, CHECKSTATE } from './Checklist';
+import {Checklist, CHECKSTATE} from './Checklist';
 import '../../../../client/style.css';
-import {DetailsBox} from "./DetailsBox";
-import ProfileFutureOpportunitiesList from "../shared/ProfileFutureOpportunitiesList";
-
+import {DetailsBox} from './DetailsBox';
 
 export class CareerGoalsChecklist extends Checklist {
   private profile: StudentProfile;
@@ -45,7 +43,7 @@ export class CareerGoalsChecklist extends Checklist {
 
   public updateState(): void {
     const userID = this.profile.userID;
-    const careerGoals = ProfileCareerGoals.findNonRetired({ userID });
+    const careerGoals = ProfileCareerGoals.findNonRetired({userID});
     if (careerGoals.length < 3) {
       // console.log('not enough careergoals');
       this.state = CHECKSTATE.IMPROVE;
@@ -68,11 +66,11 @@ export class CareerGoalsChecklist extends Checklist {
 
   public getDetails(state: CHECKSTATE): JSX.Element {
     const userID = this.profile.userID;
-    const careerGoals = ProfileCareerGoals.findNonRetired({ userID });
+    const careerGoals = ProfileCareerGoals.findNonRetired({userID});
     return ((careerGoals.length === 0) ?
         <DetailsBox description='Note: There are no Career Goals to your profile. You probably want to add some!'/> :
         <DetailsBox description='Here are your current Career Goals:'>
-          <ProfileCareerGoalList profile={this.profile} size="medium" />
+          <ProfileCareerGoalList profile={this.profile} size="medium"/>
         </DetailsBox>
     );
   }
@@ -87,7 +85,7 @@ export class CareerGoalsChecklist extends Checklist {
       const updateData: StudentProfileUpdate = {};
       updateData.id = this.profile._id;
       updateData.lastVisitedCareerGoals = moment().format('YYYY-MM-DD');
-      updateMethod.call({ collectionName, updateData }, (error) => {
+      updateMethod.call({collectionName, updateData}, (error) => {
         if (error) {
           console.error('Failed to update lastVisitedCareerGoals', error);
         }
@@ -96,11 +94,11 @@ export class CareerGoalsChecklist extends Checklist {
     switch (state) {
       case CHECKSTATE.OK:
         return <div className='centeredBox'><p>Click this button to go to the Career Goals Explorer if you want to look for new Career Goals anyway.&nbsp;
-          <Button size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.CAREERGOALS}`}>Go To Career Goals Explorer</Button> </p></div>;
+          <Button size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.CAREERGOALS}`}>Go To Career Goals Explorer</Button></p></div>;
       case CHECKSTATE.REVIEW:
         return <div className='centeredBox'>
           <p>Clicking either button sets the timestamp for the last time this item was reviewed, so it will
-          move into the OK state and won&apos;t move back into the Review state for another six months.</p>
+            move into the OK state and won&apos;t move back into the Review state for another six months.</p>
           <Button size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.CAREERGOALS}`}>Go To Career Goals Explorer</Button>&nbsp;&nbsp;
           <Button basic size='huge' color='teal' onClick={handleVerification}>My Career Goals are OK</Button>
         </div>;
@@ -110,7 +108,7 @@ export class CareerGoalsChecklist extends Checklist {
           <Button size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.CAREERGOALS}`}>Go To Career Goals Explorer</Button>
         </div>;
       default:
-        return <React.Fragment />;
+        return <React.Fragment/>;
     }
   }
 }
