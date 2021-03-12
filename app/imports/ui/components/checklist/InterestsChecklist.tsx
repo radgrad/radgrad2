@@ -11,6 +11,8 @@ import {EXPLORER, URL_ROLES} from '../../layouts/utilities/route-constants';
 import ProfileInterestList from '../shared/ProfileInterestList';
 import {Checklist, CHECKSTATE} from './Checklist';
 import '../../../../client/style.css';
+import {DetailsBox} from "./DetailsBox";
+import ProfileFutureCoursesList from "../shared/ProfileFutureCoursesList";
 
 export class InterestsChecklist extends Checklist {
   private profile: StudentProfile;
@@ -61,13 +63,14 @@ export class InterestsChecklist extends Checklist {
     // console.log('updatestate', this.state);
   }
 
-
   public getDetails(state: CHECKSTATE): JSX.Element {
     const interests = Users.getInterestIDs(this.profile.userID);
-    if (interests.length === 0) {
-      return <p>You have not yet added any Interests to your profile</p>;
-    }
-    return <div className='highlightBox'><p>Here are your current interests:&nbsp;</p><ProfileInterestList profile={this.profile} size="medium" /></div>;
+    return ((interests.length === 0) ?
+        <DetailsBox description='Note: You have not yet added any Interests to your profile.'/> :
+        <DetailsBox description='Here are your current Interests:'>
+          <ProfileInterestList profile={this.profile} size="medium" />
+        </DetailsBox>
+    );
   }
 
   /**

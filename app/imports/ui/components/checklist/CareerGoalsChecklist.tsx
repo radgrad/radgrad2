@@ -12,6 +12,8 @@ import { EXPLORER, URL_ROLES } from '../../layouts/utilities/route-constants';
 import ProfileCareerGoalList from '../shared/ProfileCareerGoalList';
 import { Checklist, CHECKSTATE } from './Checklist';
 import '../../../../client/style.css';
+import {DetailsBox} from "./DetailsBox";
+import ProfileFutureOpportunitiesList from "../shared/ProfileFutureOpportunitiesList";
 
 
 export class CareerGoalsChecklist extends Checklist {
@@ -67,10 +69,12 @@ export class CareerGoalsChecklist extends Checklist {
   public getDetails(state: CHECKSTATE): JSX.Element {
     const userID = this.profile.userID;
     const careerGoals = ProfileCareerGoals.findNonRetired({ userID });
-    if (careerGoals.length === 0) {
-      return <p>You have not yet added any Career Goals to your profile</p>;
-    }
-    return <div className='highlightBox'><p>Here are your current Career Goals:&nbsp;</p><ProfileCareerGoalList profile={this.profile} size="medium" /></div>;
+    return ((careerGoals.length === 0) ?
+        <DetailsBox description='Note: There are no Career Goals to your profile. You probably want to add some!'/> :
+        <DetailsBox description='Here are your current Career Goals:'>
+          <ProfileCareerGoalList profile={this.profile} size="medium" />
+        </DetailsBox>
+    );
   }
 
   /**

@@ -11,6 +11,7 @@ import { OpportunityTypes } from '../opportunity/OpportunityTypeCollection';
 import { Reviews } from '../review/ReviewCollection';
 import { Users } from '../user/UserCollection';
 import { StudentProfiles } from '../user/StudentProfileCollection';
+import moment from "moment";
 
 /**
  * PublicStats holds statistics about RadGrad that can be accessed without logging in.
@@ -279,6 +280,14 @@ class PublicStatsCollection extends BaseCollection {
    */
   public checkIntegrity() {
     return [];
+  }
+
+  /**
+   * Returns a date object corresponding to the passed key, which should be one of the lastUpdate fields in YYYY-MM-DD-HH-mm-ss.
+   * @param key Should be PublicStats.opportunitiesUpdateTime etc.
+   */
+  public getLastUpdateTimestamp(key: string) {
+    return moment(PublicStats.getPublicStat(key), 'YYYY-MM-DD-HH-mm-ss');
   }
 }
 

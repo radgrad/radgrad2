@@ -7,6 +7,8 @@ import { PRIVACY, URL_ROLES } from '../../layouts/utilities/route-constants';
 import StudentPrivacySettingList from '../student/StudentPrivacySettingList';
 import {Checklist, CHECKSTATE} from './Checklist';
 import '../../../../client/style.css';
+import {DetailsBox} from "./DetailsBox";
+import ProfileInterestList from "../shared/ProfileInterestList";
 
 export class PrivacyChecklist extends Checklist {
   private profile: StudentProfile;
@@ -41,17 +43,11 @@ export class PrivacyChecklist extends Checklist {
   }
 
   public getDetails(state: CHECKSTATE): JSX.Element {
-    switch (state) {
-      case CHECKSTATE.REVIEW:
-        return <div className='highlightBox'><p>Your current privacy settings are:</p>
-          <StudentPrivacySettingList profile={this.profile} size="medium" /></div>;
-      case CHECKSTATE.OK:
-        return <div className='centeredBox'><p>The Privacy page allows you to change your privacy settings </p>
-          <Button size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${PRIVACY}`}>Go To Privacy Page</Button>
-        </div>;
-      default:
-        return <React.Fragment />;
-    }
+    return (
+      <DetailsBox description='Your privacy settings are:'>
+        <StudentPrivacySettingList profile={this.profile} size="medium" />
+      </DetailsBox>
+    )
   }
 
   public getActions(state: CHECKSTATE): JSX.Element {

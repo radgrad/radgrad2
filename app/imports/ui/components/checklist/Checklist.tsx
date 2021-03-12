@@ -22,6 +22,7 @@ export const enum CHECKSTATE {
  *   * Maybe paint the icon and name in the state color?
  *   * Change "Go to" to an icon?
  *   * Set entire state on updateState in instance variables?
+ *   * Style.css should be local
  */
 
 /**
@@ -166,3 +167,4 @@ export class Checklist {
     return true;
   }
 }
+

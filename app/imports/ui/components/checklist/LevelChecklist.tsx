@@ -6,6 +6,9 @@ import { StudentProfile } from '../../../typings/radgrad';
 import { LEVELS, URL_ROLES } from '../../layouts/utilities/route-constants';
 import {Checklist, CHECKSTATE} from './Checklist';
 import '../../../../client/style.css';
+import ProfileInterestList from "../shared/ProfileInterestList";
+import {DetailsBox} from "./DetailsBox";
+import {ChecklistButtonLink} from "./ChecklistButtonLink";
 
 export class LevelChecklist extends Checklist {
   private profile: StudentProfile;
@@ -42,17 +45,14 @@ export class LevelChecklist extends Checklist {
 
 
   public getDetails(state: CHECKSTATE): JSX.Element {
-    switch (state) {
-      case CHECKSTATE.REVIEW:
-        return <div className='centeredBox'>
-          <p>The Level page contains more information about your current Level and how to achieve the next one.</p>
-          <Button size='huge' color='teal'  as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${LEVELS}`}>Go To Levels Page</Button></div>;
-      case CHECKSTATE.OK:
-        return <div className='centeredBox'><p>For more details about your Level please go to </p>
-          <Button size='huge' color='teal'  as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${LEVELS}`}>Go To Levels Page</Button></div>;
-      default:
-        return <React.Fragment />;
-    }
+    const description = (CHECKSTATE.REVIEW) ?
+      'The Levels page contains information about your Level and how to achieve the next one.' :
+      'For more details about your Level please go to:';
+    const url = `/${URL_ROLES.STUDENT}/${this.profile.username}/${LEVELS}`;
+    return (
+      <DetailsBox description={description}>
+        <ChecklistButtonLink url={url} label='Levels Page'/>
+      </DetailsBox>
+    );
   }
-
 }

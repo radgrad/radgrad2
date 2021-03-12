@@ -12,6 +12,8 @@ import { DEGREEPLANNER, EXPLORER, ICE, URL_ROLES } from '../../layouts/utilities
 import ProfileFutureCoursesList from '../shared/ProfileFutureCoursesList';
 import {Checklist, CHECKSTATE} from './Checklist';
 import '../../../../client/style.css';
+import {DetailsBox} from "./DetailsBox";
+import ProfileCareerGoalList from "../shared/ProfileCareerGoalList";
 
 export class CoursesChecklist extends Checklist {
   private profile: StudentProfile;
@@ -65,11 +67,13 @@ export class CoursesChecklist extends Checklist {
   }
 
   public getDetails(state: CHECKSTATE): JSX.Element {
-    const futureCourseInstances = CourseInstances.findNonRetired({ studentID: this.profile.userID, verified: false });
-    if (futureCourseInstances.length === 0) {
-      return <p>You do not have any future Courses in your Degree Plan.</p>;
-    }
-    return <div className='highlightBox'><p>Here are your future Courses: &nbsp;</p><ProfileFutureCoursesList profile={this.profile} size="medium" /></div>;
+    const upcomingCourses = CourseInstances.findNonRetired({ studentID: this.profile.userID, verified: false });
+    return ((upcomingCourses.length === 0) ?
+        <DetailsBox description='Note: You do not have any upcoming Courses in your Degree Plan. Are you graduating?'/> :
+        <DetailsBox description='Here are your upcoming Courses:'>
+          <ProfileFutureCoursesList profile={this.profile} size="medium" />
+        </DetailsBox>
+    );
   }
 
   public getActions(state: CHECKSTATE): JSX.Element {

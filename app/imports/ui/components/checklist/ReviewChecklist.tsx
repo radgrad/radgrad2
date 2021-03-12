@@ -14,6 +14,7 @@ import CourseList from '../shared/CourseList';
 import OpportunityList from '../shared/OpportunityList';
 import {Checklist, CHECKSTATE} from './Checklist';
 import '../../../../client/style.css';
+import {DetailsBox} from "./DetailsBox";
 
 export class ReviewChecklist extends Checklist {
   private profile: StudentProfile;
@@ -79,14 +80,19 @@ export class ReviewChecklist extends Checklist {
     });
     switch (state) {
       case CHECKSTATE.OK:
-        return <div className='highlightBox'><p>You have written reviews for the following Courses and Opportunities:
-          <CourseList courses={courses} keyStr="review"                                                              size="medium" />
-          <OpportunityList opportunities={opportunities} size="medium" keyStr="review" />.</p></div>;
+        return (
+          <DetailsBox description='You have reviewed the following completed Courses and Opportunities:'>
+            <CourseList courses={courses} keyStr="review" size="medium" />
+            <OpportunityList opportunities={opportunities} size="medium" keyStr="review" />
+          </DetailsBox>
+        );
       case CHECKSTATE.REVIEW:
-        return <div className='highlightBox'>
-          <p>You have the following completed Courses and Opportunities for which you have not written a review:</p>
-          <CourseList courses={nonReviewedCourses} size="medium" keyStr="review" /><OpportunityList
-          opportunities={nonReviewedOpportunities} size="medium" keyStr="review" /></div>;
+        return (
+            <DetailsBox description='You have not reviewed the following completed Courses and Opportunities:'>
+              <CourseList courses={nonReviewedCourses} size="medium" keyStr="review" />
+              <OpportunityList opportunities={nonReviewedOpportunities} size="medium" keyStr="review" />
+            </DetailsBox>
+        );
       default:
         return <React.Fragment />;
     }

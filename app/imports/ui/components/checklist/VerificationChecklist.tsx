@@ -23,6 +23,12 @@ export class VerificationChecklist extends Checklist {
     this.iconName = 'check square';
     this.title[CHECKSTATE.OK] = 'You do not have any unverified Opportunities';
     this.title[CHECKSTATE.IMPROVE] = 'You have unverified Opportunities from a prior academic term';
+    // Specify the description for each state.
+    this.description[CHECKSTATE.OK] = 'Congrats!  You do not have any Opportunities requiring verification at this time.';
+    this.description[CHECKSTATE.IMPROVE] = `RadGrad requires an administrator to verify your participation in completed 
+      Opportunities in order to earn the Innovation and/or Experience points associated with it. By earning points, 
+      you can advance to new Levels, and RadGrad can make better recommendations due to a better understanding of your 
+      skills and experiences.`;
     this.updateState();
   }
 
@@ -46,17 +52,6 @@ export class VerificationChecklist extends Checklist {
       this.state = CHECKSTATE.IMPROVE;
     } else {
       this.state = CHECKSTATE.OK;
-    }
-  }
-
-  public getDescription(state: CHECKSTATE): JSX.Element {
-    switch (state) {
-      case CHECKSTATE.OK:
-        return <p>Congrats!  You do not have any Opportunities requiring verification at this time.</p>;
-      case CHECKSTATE.IMPROVE:
-        return <p>RadGrad requires an administrator to verify your participation in completed Opportunities in order to earn the Innovation and/or Experience points associated with it. By earning points, you can advance to new Levels, and RadGrad can make better recommendations due to a better understanding of your skills and experiences.</p>;
-      default:
-        return <React.Fragment />;
     }
   }
 

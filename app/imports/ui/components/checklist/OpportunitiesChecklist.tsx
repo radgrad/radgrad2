@@ -1,17 +1,18 @@
 import moment from 'moment';
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Button } from 'semantic-ui-react';
-import { updateMethod } from '../../../api/base/BaseCollection.methods';
-import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
-import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';
-import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
-import { Users } from '../../../api/user/UserCollection';
-import { Ice, StudentProfile, StudentProfileUpdate } from '../../../typings/radgrad';
-import { DEGREEPLANNER, EXPLORER, ICE, URL_ROLES } from '../../layouts/utilities/route-constants';
+import {Link} from 'react-router-dom';
+import {Button} from 'semantic-ui-react';
+import {updateMethod} from '../../../api/base/BaseCollection.methods';
+import {OpportunityInstances} from '../../../api/opportunity/OpportunityInstanceCollection';
+import {PublicStats} from '../../../api/public-stats/PublicStatsCollection';
+import {StudentProfiles} from '../../../api/user/StudentProfileCollection';
+import {Users} from '../../../api/user/UserCollection';
+import {Ice, StudentProfile, StudentProfileUpdate} from '../../../typings/radgrad';
+import {DEGREEPLANNER, EXPLORER, ICE, URL_ROLES} from '../../layouts/utilities/route-constants';
 import {Checklist, CHECKSTATE} from './Checklist';
 import ProfileFutureOpportunitiesList from '../shared/ProfileFutureOpportunitiesList';
 import '../../../../client/style.css';
+import {DetailsBox} from './DetailsBox';
 
 export class OpportunitiesChecklist extends Checklist {
   private profile: StudentProfile;
@@ -43,33 +44,33 @@ export class OpportunitiesChecklist extends Checklist {
   public updateState(): void {
     const username = this.profile.username;
     const projectedICE: Ice = StudentProfiles.getProjectedICE(username);
+    const lastUpdate = PublicStats.getLastUpdateTimestamp(PublicStats.opportunitiesUpdateTime);
     if (projectedICE.i < 100 || projectedICE.e < 100) {
       this.state = CHECKSTATE.IMPROVE;
     } else if (this.profile.lastVisitedOpportunities) {
       const lastVisit = moment(this.profile.lastVisitedOpportunities, 'YYYY-MM-DD', true);
-      // console.log(this.profile.lastVisitedInterests, PublicStats.getPublicStat(PublicStats.interestsUpdateTime));
-      if (lastVisit.isBefore(moment(PublicStats.getPublicStat(PublicStats.opportunitiesUpdateTime), 'YYYY-MM-DD-HH-mm-ss'))) {
+      if (lastVisit.isBefore(lastUpdate)) {
         this.state = CHECKSTATE.REVIEW;
       } else if (this.isSixMonthsOld(this.profile.lastVisitedOpportunities)) {
         this.state = CHECKSTATE.REVIEW;
         // TODO check for new opportunity reviews for future opportunity instances.
-        // CAM How do I know the review is new?
       } else {
         this.state = CHECKSTATE.OK;
       }
     } else {
-      // console.log('no last visited page');
+      // No lastVisitedOpportunities
       this.state = CHECKSTATE.REVIEW;
     }
-    // console.log(this.state);
   }
 
   public getDetails(state: CHECKSTATE): JSX.Element {
-    const futureOpportunityInstances = OpportunityInstances.findNonRetired({ studentID: this.profile.userID, verified: false });
-    if (futureOpportunityInstances.length === 0) {
-      return <p>You do not have any future Opportunities in your Degree Plan.</p>;
-    }
-    return <div className="highlightBox"><p>Here are your future Opportunities: &nbsp;</p><ProfileFutureOpportunitiesList profile={this.profile} size="medium" /></div>;
+    const upcomingOpportunities = OpportunityInstances.findNonRetired({studentID: this.profile.userID, verified: false});
+    return ((upcomingOpportunities.length === 0) ?
+        <DetailsBox description='Note: You have no upcoming opportunities. You probably want to add some!'/> :
+        <DetailsBox description='Here are your upcoming Opportunities:'>
+          <ProfileFutureOpportunitiesList profile={this.profile} size="medium"/>
+        </DetailsBox>
+    );
   }
 
   public getActions(state: CHECKSTATE): JSX.Element {
@@ -78,7 +79,7 @@ export class OpportunitiesChecklist extends Checklist {
       const updateData: StudentProfileUpdate = {};
       updateData.id = this.profile._id;
       updateData.lastVisitedOpportunities = moment().format('YYYY-MM-DD');
-      updateMethod.call({ collectionName, updateData }, (error) => {
+      updateMethod.call({collectionName, updateData}, (error) => {
         if (error) {
           console.error('Failed to update lastVisitedOpportunities', error);
         }
@@ -88,26 +89,28 @@ export class OpportunitiesChecklist extends Checklist {
       case CHECKSTATE.OK:
         return <div className="centeredBox">
           <p>Click &quot;Go To Degree Planner&quot; if you still want to see the Opportunities in your Degree Plan, or
-          click &quot;Go to Opportunity Explorer&quot; if you still want to search for additional Opportunities to include in your
-          Degree Plan.</p>
+            click &quot;Go to Opportunity Explorer&quot; if you still want to search for additional Opportunities to include in your
+            Degree Plan.</p>
           <Button size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${DEGREEPLANNER}`}>Go To Degree Planner</Button>
           <Button size='huge' basic color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.OPPORTUNITIES}`}>Go To Opportunity Explorer</Button>
         </div>;
       case CHECKSTATE.IMPROVE:
-        return <div className="centeredBox"><p>Click &quot;Go To Opportunity Explorer&quot; to review the available Opportunities in RadGrad and add interesting ones to your profile. Or, click &quot;Go To Degree Planner&quot; to go directly to the Degree Planner page to add opportunities from your profile to a future semester in your degree plan</p>
+        return <div className="centeredBox"><p>Click &quot;Go To Opportunity Explorer&quot; to review the available Opportunities in RadGrad and add interesting ones to your profile. Or, click &quot;Go To Degree Planner&quot; to go directly to the
+          Degree Planner page to add opportunities from your profile to a future semester in your degree plan</p>
           <Button size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.OPPORTUNITIES}`}>Go To Opportunity Explorer</Button>&nbsp;&nbsp;
           <Button size='huge' basic color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${DEGREEPLANNER}`}>Go To Degree Planner</Button>
         </div>;
       case CHECKSTATE.REVIEW:
         return <div className="centeredBox">
-          <p>Click &quot;Go To Opportunity Explorer&quot; to search for opportunities and add new ones to your profile, or to see new reviews. Click &quot;Go To Degree Planner&quot; to review your degree plan and potentially move or remove opportunities. Click &quot;Go To ICE page&quot; to learn more about Competency points.  Click &quot;My Opportunities are OK&quot; to confirm that your current Degree Plan is correct.</p>
+          <p>Click &quot;Go To Opportunity Explorer&quot; to search for opportunities and add new ones to your profile, or to see new reviews. Click &quot;Go To Degree Planner&quot; to review your degree plan and potentially move or remove
+            opportunities. Click &quot;Go To ICE page&quot; to learn more about Competency points. Click &quot;My Opportunities are OK&quot; to confirm that your current Degree Plan is correct.</p>
           <Button size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${DEGREEPLANNER}`}>Go To Degree Planner</Button>&nbsp;&nbsp;
           <Button size='huge' basic color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.OPPORTUNITIES}`}>Go To Opportunity Explorer</Button>&nbsp;&nbsp;
           <Button size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${ICE}`}>Go To ICE</Button>&nbsp;&nbsp;
           <Button size='huge' basic color='teal' onClick={handleVerification}>My Opportunities are OK</Button>
         </div>;
       default:
-        return <React.Fragment />;
+        return <React.Fragment/>;
     }
   }
 }
