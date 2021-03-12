@@ -115,22 +115,22 @@ const App: React.FC = () => (
   &lt;Router>
     &lt;Switch>
       {routes.LANDING.map((route) => (
-        &lt;Route key={route.path} {... _.defaults(route, {exact: true})} />
+        &lt;Route key={route.path} {..._.defaults(route, { exact: true })} />
       ))}
       {routes.ADMIN.map((route) => (
-        &lt;AdminProtectedRoute key={route.path} {... _.defaults(route, {exact: true})} />
+        &lt;AdminProtectedRoute key={route.path} {..._.defaults(route, { exact: true })} />
       ))}
       {routes.ADVISOR.map((route) => (
-        &lt;AdvisorProtectedRoute key={route.path} {... _.defaults(route, {exact: true})} />
+        &lt;AdvisorProtectedRoute key={route.path} {..._.defaults(route, { exact: true })} />
       ))}
       {routes.FACULTY.map((route) => (
-        &lt;FacultyProtectedRoute key={route.path} {... _.defaults(route, {exact: true})} />
+        &lt;FacultyProtectedRoute key={route.path} {..._.defaults(route, { exact: true })} />
       ))}
       {routes.STUDENT.map((route) => (
-        &lt;StudentProtectedRoute key={route.path} {... _.defaults(route, {exact: true})} />
+        &lt;StudentProtectedRoute key={route.path} {..._.defaults(route, { exact: true })} />
       ))}
       {routes.ALUMNI.map((route) => (
-        &lt;StudentProtectedRoute key={route.path} {... _.defaults(route, {exact: true})} />
+        &lt;StudentProtectedRoute key={route.path} {..._.defaults(route, { exact: true })} />
       ))}
       &lt;Route path="/signin">
         &lt;SigninPage />
@@ -178,7 +178,8 @@ const AdminProtectedRoute = ({ component: Component, ...rest }) => {
         const isLogged = userId !== null;
         const isAdmin = Roles.userIsInRole(userId, [ROLE.ADMIN]);
         // console.log('AdminProtectedRoute', props);
-        return isLogged &amp;&amp; isAdmin ? &lt;WrappedComponent {...props} /> : &lt;Redirect to={{ pathname: '/', state: { from: props.location } }} />;
+        return isLogged &amp;&amp; isAdmin ? &lt;WrappedComponent {...props} /> :
+          &lt;Redirect to={{ pathname: '/', state: { from: props.location } }} />;
       }}
     />
   );
@@ -195,7 +196,8 @@ const AdvisorProtectedRoute = ({ component: Component, ...rest }) => {
       render={(props) => {
         const isLogged = Meteor.userId() !== null;
         const isAllowed = Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN, ROLE.ADVISOR]);
-        return isLogged &amp;&amp; isAllowed ? &lt;WrappedComponent {...props} /> : &lt;Redirect to={{ pathname: '/', state: { from: props.location } }} />;
+        return isLogged &amp;&amp; isAllowed ? &lt;WrappedComponent {...props} /> :
+          &lt;Redirect to={{ pathname: '/', state: { from: props.location } }} />;
       }}
     />
   );
@@ -212,7 +214,8 @@ const FacultyProtectedRoute = ({ component: Component, ...rest }) => {
       render={(props) => {
         const isLogged = Meteor.userId() !== null;
         const isAllowed = Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN, ROLE.FACULTY]);
-        return isLogged &amp;&amp; isAllowed ? &lt;WrappedComponent {...props} /> : &lt;Redirect to={{ pathname: '/', state: { from: props.location } }} />;
+        return isLogged &amp;&amp; isAllowed ? &lt;WrappedComponent {...props} /> :
+          &lt;Redirect to={{ pathname: '/', state: { from: props.location } }} />;
       }}
     />
   );
@@ -223,7 +226,7 @@ const StudentProtectedRoute = ({ component: Component, ...rest }) => {
 
   const userId = Meteor.userId();
   if (_.isNil(userId)) {
-    return &lt;Redirect to={{ pathname: '/', state: { from: rest.location } }} />;
+    return &lt;NotAuthorizedPage role="student" />;
   }
   const ComponentGlobal = withGlobalSubscription(Component);
   const ComponentInstance = withInstanceSubscriptions(ComponentGlobal);
@@ -235,6 +238,7 @@ const StudentProtectedRoute = ({ component: Component, ...rest }) => {
   // console.log(Meteor.user()?.username, Users.count());
   // CAM: I think this happens on a reload so send us back to the LandingPage. By setting the state to where
   //      we are, we can have the LandingPage redirect us back after the subscriptions are done.
+  //      It looks like we can get here before the Users.subscribe is done.
   if (_.isNil(Meteor.user())) {
     return &lt;Redirect to={{ pathname: '/', state: { from: rest.location } }} />;
   }
@@ -253,16 +257,13 @@ const StudentProtectedRoute = ({ component: Component, ...rest }) => {
         }
         const routeUsername = getUsername(props.match);
         let loggedInUserName = routeUsername;
-        try {
+        if (Users.hasProfile(userId)) {
           loggedInUserName = Users.getProfile(userId).username;
           if (isStudent) {
             isAllowed = routeUsername === loggedInUserName;
           }
-          return isAllowed ? &lt;WrappedComponent {...props} /> : &lt;NotAuthorizedPage role={role} />;
-        } catch (e) {
-          // too early
         }
-        return '';
+        return isAllowed ? &lt;WrappedComponent {...props} /> : &lt;NotAuthorizedPage role={role} />;
       }}
     />
   );
