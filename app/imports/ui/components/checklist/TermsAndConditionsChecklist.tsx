@@ -41,7 +41,7 @@ export class TermsAndConditionsChecklist extends Checklist {
     }
   }
 
-  public getDetails(state: CHECKSTATE): JSX.Element {
+  public getDetails(): JSX.Element {
     const url = `/${URL_ROLES.STUDENT}/${this.profile.username}/${TERMS_AND_CONDITIONS}`;
     return (
       <DetailsBox description='To review Terms and Conditions:'>
@@ -50,7 +50,7 @@ export class TermsAndConditionsChecklist extends Checklist {
     );
   }
 
-  public getActions(state: CHECKSTATE): JSX.Element {
+  public getActions(): JSX.Element {
     const handleAccept = () => {
       const collectionName = StudentProfiles.getCollectionName();
       const updateData: StudentProfileUpdate = {};
@@ -90,7 +90,7 @@ export class TermsAndConditionsChecklist extends Checklist {
         }
       });
     };
-    switch (state) {
+    switch (this.state) {
       case CHECKSTATE.IMPROVE:
         return (
           <ActionsBox description='Please indicate if you consent to the Terms and Conditions below. If you indicate that you do not consent, we will initiate your removal from the RadGrad system. You will also be automatically logged out.' >

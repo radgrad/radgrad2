@@ -40,7 +40,7 @@ export class LevelChecklist extends Checklist {
   }
 
 
-  public getDetails(state: CHECKSTATE): JSX.Element {
+  public getDetails(): JSX.Element {
     const description = (CHECKSTATE.REVIEW) ?
       'The Levels page contains information about your Level and how to achieve the next one.' :
       'For more details about your Level please go to:';

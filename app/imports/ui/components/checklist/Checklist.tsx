@@ -1,7 +1,7 @@
 import moment from 'moment';
 import React from 'react';
 import Markdown from 'react-markdown/with-html';
-import {Grid, Header, Icon, Label, Segment, SemanticICONS} from 'semantic-ui-react';
+import {Card, Grid, Header, Icon, Label, Segment, SemanticICONS} from 'semantic-ui-react';
 
 export const enum CHECKSTATE {
   OK = 'OK',
@@ -63,24 +63,27 @@ export class Checklist {
    * @return {}
    */
   public getIcon(): JSX.Element {
-    return <Icon name={this.iconName} color={this.stateColor[this.state]} />;
+    return <Icon name={this.iconName} color={this.stateColor[this.state]}/>;
   }
 
   /**
    * Returns the title of the checklist item.
    * @return {JSX.Element}
    */
+  public getTitle(): JSX.Element {
+    return <Markdown allowDangerousHtml source={`# ${this.title[this.state]}`}/>;
+  }
 
-  public getTitle(state: CHECKSTATE): JSX.Element {
-    return <Markdown allowDangerousHtml source={`# ${this.title[state]}`}/>;
+  public getTitle2(): JSX.Element {
+    return <Markdown allowDangerousHtml source={`${this.title[this.state]}`}/>;
   }
 
   /**
    * Returns the description section of the checklist item.
    * @return {JSX.Element}
    */
-  public getDescription(state: CHECKSTATE): JSX.Element {
-    switch (state) {
+  public getDescription(): JSX.Element {
+    switch (this.state) {
       case CHECKSTATE.OK:
         return <Markdown allowDangerousHtml source={this.description[CHECKSTATE.OK]}/>;
       case CHECKSTATE.REVIEW:
@@ -88,7 +91,7 @@ export class Checklist {
       case CHECKSTATE.IMPROVE:
         return <Markdown allowDangerousHtml source={this.description[CHECKSTATE.IMPROVE]}/>;
       default:
-        return <React.Fragment />;
+        return <React.Fragment/>;
     }
   }
 
@@ -96,37 +99,21 @@ export class Checklist {
    * Returns the details section of the checklist item.
    * @return {JSX.Element}
    */
-  public getDetails(state: CHECKSTATE): JSX.Element {
-    return <React.Fragment />;
+  public getDetails(): JSX.Element {
+    return <React.Fragment/>;
   }
 
   /**
    * Returns the actions section of the checklist item.
    * @return {JSX.Element}
    */
-  public getActions(state: CHECKSTATE): JSX.Element {
-    return <React.Fragment />;
+  public getActions(): JSX.Element {
+    return <React.Fragment/>;
   }
 
   public getChecklistItem(): JSX.Element {
-    let containerStyle;
-    let color;
-    switch (this.getState()) {
-      case CHECKSTATE.IMPROVE:
-        containerStyle = { backgroundColor: '#fae9e9', width: '100%'};
-        color = 'red';
-        break;
-      case CHECKSTATE.REVIEW:
-        containerStyle = { backgroundColor: '#f9fae9', width: '100%'};
-        color = 'yellow';
-        break;
-      case CHECKSTATE.OK:
-        containerStyle = {backgroundColor: '#e2fbdd', width: '100%'};
-        color = 'green';
-    }
-
     return (
-      <div style={containerStyle} key={this.name}>
+      <div key={this.name}>
         <Grid centered>
           <Grid.Column width={10}>
             <div className="checklist">
@@ -135,17 +122,32 @@ export class Checklist {
               </Header>
               <Segment attached raised placeholder id={`checklist-${this.name}`} key={`checklist-${this.name}`} padded='very'>
                 <div className="labelStatus">
-                  <Label as='a' size='large' ribbon='right' color={color}>{this.getState()}</Label>
+                  <Label as='a' size='large' ribbon='right' color={this.stateColor[this.state]}>{this.getState()}</Label>
                 </div>
-                {this.getTitle(this.getState())}
-                {this.getDescription(this.getState())}
-                {this.getDetails(this.getState())}
-                {this.getActions(this.getState())}
+                {this.getTitle()}
+                {this.getDescription()}
+                {this.getDetails()}
+                {this.getActions()}
               </Segment>
             </div>
           </Grid.Column>
         </Grid>
       </div>
+    );
+  }
+
+  public getChecklistItem2(): JSX.Element {
+    return (
+      <Card style={{minWidth: '425px'}} key={this.name}>
+        <Label attached='top' color={this.stateColor[this.state]}>{this.getState()}</Label>
+        <Card.Content>
+          <Header as='h3' color={this.stateColor[this.state]}>{this.getIcon()}{this.getName()}</Header>
+          <Header as='h4'>{this.getTitle2()}</Header>
+          {this.getDescription()}
+          {this.getDetails()}
+          {this.getActions()}
+        </Card.Content>
+      </Card>
     );
   }
 

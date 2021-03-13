@@ -48,7 +48,7 @@ export class ReviewChecklist extends Checklist {
     }
   }
 
-  public getDetails(state: CHECKSTATE): JSX.Element {
+  public getDetails(): JSX.Element {
     const studentID = this.profile.userID;
     const ois = OpportunityInstances.findNonRetired({ studentID, verified: true });
     const opportunityIDs = _.uniq(ois.map((oi) => oi.opportunityID));
@@ -77,7 +77,7 @@ export class ReviewChecklist extends Checklist {
       });
       return reviewed;
     });
-    switch (state) {
+    switch (this.state) {
       case CHECKSTATE.OK:
         return (
           <DetailsBox description='You have reviewed the following completed Courses and Opportunities:'>
@@ -97,9 +97,9 @@ export class ReviewChecklist extends Checklist {
     }
   }
 
-  public getActions(state: CHECKSTATE): JSX.Element {
+  public getActions(): JSX.Element {
     const phrase = CHECKSTATE.REVIEW ? 'add reviews' : 'see your reviews';
-    switch (state) {
+    switch (this.state) {
       case CHECKSTATE.REVIEW:
       case CHECKSTATE.OK:
         return (

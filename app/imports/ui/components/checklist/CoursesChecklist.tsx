@@ -62,7 +62,7 @@ export class CoursesChecklist extends Checklist {
     }
   }
 
-  public getDetails(state: CHECKSTATE): JSX.Element {
+  public getDetails(): JSX.Element {
     const upcomingCourses = CourseInstances.findNonRetired({ studentID: this.profile.userID, verified: false });
     return ((upcomingCourses.length === 0) ?
         <DetailsBox description='Note: You do not have any upcoming Courses in your Degree Plan. Are you graduating?'/> :
@@ -72,7 +72,7 @@ export class CoursesChecklist extends Checklist {
     );
   }
 
-  public getActions(state: CHECKSTATE): JSX.Element {
+  public getActions(): JSX.Element {
     const handleVerification = () => {
       const collectionName = StudentProfiles.getCollectionName();
       const updateData: StudentProfileUpdate = {};
@@ -84,7 +84,7 @@ export class CoursesChecklist extends Checklist {
         }
       });
     };
-    switch (state) {
+    switch (this.state) {
       case CHECKSTATE.OK:
       case CHECKSTATE.IMPROVE:
         return (

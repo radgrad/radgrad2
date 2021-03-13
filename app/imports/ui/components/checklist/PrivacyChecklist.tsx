@@ -40,7 +40,7 @@ export class PrivacyChecklist extends Checklist {
     }
   }
 
-  public getDetails(state: CHECKSTATE): JSX.Element {
+  public getDetails(): JSX.Element {
     return (
       <DetailsBox description='Your privacy settings are:'>
         <StudentPrivacySettingList profile={this.profile} size="medium" />
@@ -48,8 +48,8 @@ export class PrivacyChecklist extends Checklist {
     );
   }
 
-  public getActions(state: CHECKSTATE): JSX.Element {
-    switch (state) {
+  public getActions(): JSX.Element {
+    switch (this.state) {
       case CHECKSTATE.REVIEW:
       case CHECKSTATE.OK:
       case CHECKSTATE.IMPROVE:

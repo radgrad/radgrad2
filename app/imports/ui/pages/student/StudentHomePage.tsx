@@ -1,14 +1,15 @@
-import { withTracker } from 'meteor/react-meteor-data';
+import {withTracker} from 'meteor/react-meteor-data';
+import {Card} from 'semantic-ui-react';
 import React from 'react';
-import { CareerGoalsChecklist } from '../../components/checklist/CareerGoalsChecklist';
-import { CoursesChecklist } from '../../components/checklist/CoursesChecklist';
-import { InterestsChecklist } from '../../components/checklist/InterestsChecklist';
-import { LevelChecklist } from '../../components/checklist/LevelChecklist';
-import { OpportunitiesChecklist } from '../../components/checklist/OpportunitiesChecklist';
-import { PrivacyChecklist } from '../../components/checklist/PrivacyChecklist';
-import { ReviewChecklist } from '../../components/checklist/ReviewChecklist';
-import { TermsAndConditionsChecklist } from '../../components/checklist/TermsAndConditionsChecklist';
-import { VerificationChecklist } from '../../components/checklist/VerificationChecklist';
+import {CareerGoalsChecklist} from '../../components/checklist/CareerGoalsChecklist';
+import {CoursesChecklist} from '../../components/checklist/CoursesChecklist';
+import {InterestsChecklist} from '../../components/checklist/InterestsChecklist';
+import {LevelChecklist} from '../../components/checklist/LevelChecklist';
+import {OpportunitiesChecklist} from '../../components/checklist/OpportunitiesChecklist';
+import {PrivacyChecklist} from '../../components/checklist/PrivacyChecklist';
+import {ReviewChecklist} from '../../components/checklist/ReviewChecklist';
+import {TermsAndConditionsChecklist} from '../../components/checklist/TermsAndConditionsChecklist';
+import {VerificationChecklist} from '../../components/checklist/VerificationChecklist';
 import PageLayout from '../PageLayout';
 import {CHECKSTATE} from '../../components/checklist/Checklist';
 import './style.css';
@@ -31,11 +32,23 @@ This page contains a personalized set of recommendations to help RadGrad help yo
 `;
 const headerPaneImage = 'header-home.png';
 
-const StudentHomePage: React.FC<StudentHomePageProps> = ({ okItems, reviewItems, improveItems}) => (
+const StudentHomePage: React.FC<StudentHomePageProps> = ({okItems, reviewItems, improveItems}) => (
   <PageLayout id="student-home-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage} disableMargin>
-    {improveItems.map((item) => item)}
-    {reviewItems.map((item) => item)}
-    {okItems.map((item) => item)}
+    <div style={{backgroundColor: '#fae9e9', paddingBottom: '25px'}}>
+      <Card.Group centered style={{marginTop: '0px'}}>
+        {improveItems.map((item) => item)}
+      </Card.Group>
+    </div>
+    <div style={{backgroundColor: '#f9fae9', paddingBottom: '25px'}}>
+      <Card.Group centered style={{marginTop: '0px'}}>
+        {reviewItems.map((item) => item)}
+      </Card.Group>
+    </div>
+    <div style={{backgroundColor: '#e2fbdd', paddingBottom: '25px'}}>
+      <Card.Group centered style={{marginTop: '0px'}}>
+        {okItems.map((item) => item)}
+      </Card.Group>
+    </div>
   </PageLayout>
 );
 
@@ -57,13 +70,13 @@ export default withTracker(() => {
   checklists.forEach((checklist) => {
     switch (checklist.getState()) {
       case CHECKSTATE.IMPROVE:
-        improveItems.push(checklist.getChecklistItem());
+        improveItems.push(checklist.getChecklistItem2());
         break;
       case CHECKSTATE.REVIEW:
-        reviewItems.push(checklist.getChecklistItem());
+        reviewItems.push(checklist.getChecklistItem2());
         break;
       case CHECKSTATE.OK:
-        okItems.push(checklist.getChecklistItem());
+        okItems.push(checklist.getChecklistItem2());
         break;
       default:
       // do nothing

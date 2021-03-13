@@ -58,7 +58,7 @@ export class InterestsChecklist extends Checklist {
     }
   }
 
-  public getDetails(state: CHECKSTATE): JSX.Element {
+  public getDetails(): JSX.Element {
     const interests = Users.getInterestIDs(this.profile.userID);
     return ((interests.length === 0) ?
         <DetailsBox description='Note: You have not yet added any Interests to your profile.'/> :
@@ -72,7 +72,7 @@ export class InterestsChecklist extends Checklist {
    * Returns the actions section of the checklist item.
    * @return {JSX.Element}
    */
-  public getActions(state: CHECKSTATE): JSX.Element {
+  public getActions(): JSX.Element {
     const handleVerification = () => {
       const collectionName = StudentProfiles.getCollectionName();
       const updateData: StudentProfileUpdate = {};
@@ -84,7 +84,7 @@ export class InterestsChecklist extends Checklist {
         }
       });
     };
-    switch (state) {
+    switch (this.state) {
       case CHECKSTATE.OK:
       case CHECKSTATE.IMPROVE:
         return (

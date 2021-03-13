@@ -60,7 +60,7 @@ export class CareerGoalsChecklist extends Checklist {
     }
   }
 
-  public getDetails(state: CHECKSTATE): JSX.Element {
+  public getDetails(): JSX.Element {
     const userID = this.profile.userID;
     const careerGoals = ProfileCareerGoals.findNonRetired({userID});
     return ((careerGoals.length === 0) ?
@@ -75,7 +75,7 @@ export class CareerGoalsChecklist extends Checklist {
    * Returns the actions section of the checklist item.
    * @return {JSX.Element}
    */
-  public getActions(state: CHECKSTATE): JSX.Element {
+  public getActions(): JSX.Element {
     const handleVerification = () => {
       const collectionName = StudentProfiles.getCollectionName();
       const updateData: StudentProfileUpdate = {};
@@ -87,7 +87,7 @@ export class CareerGoalsChecklist extends Checklist {
         }
       });
     };
-    switch (state) {
+    switch (this.state) {
       case CHECKSTATE.OK:
         return (
           <ActionsBox description='Go to the Career Goals Explorer to search for more Career Goals to add to your profile:'>

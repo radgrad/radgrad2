@@ -55,10 +55,10 @@ export class VerificationChecklist extends Checklist {
     }
   }
 
-  public getDetails(state: CHECKSTATE): JSX.Element {
+  public getDetails(): JSX.Element {
     const unverifiedInstances = this.getUnverifiedInstances();
     const unverifiedOpps = unverifiedInstances.map((oi) => Opportunities.findDoc(oi.opportunityID));
-    switch (state) {
+    switch (this.state) {
       case CHECKSTATE.IMPROVE:
         return (
           <DetailsBox description='Your unverified Opportunities from a past semester are:'>
@@ -70,8 +70,8 @@ export class VerificationChecklist extends Checklist {
     }
   }
 
-  public getActions(state: CHECKSTATE): JSX.Element {
-    switch (state) {
+  public getActions(): JSX.Element {
+    switch (this.state) {
       case CHECKSTATE.IMPROVE:
         return (
           <ActionsBox description='Go to the Verification page to request verification of your completed Opportunities. Go to the Degree Planner page to remove them from your plan if you didn&quot;t actually participate in them.' >

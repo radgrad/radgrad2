@@ -6,7 +6,6 @@ const invertedSection = {
   backgroundColor: 'rgba(0,0,0,.8)',
   paddingTop: 25,
   paddingBottom: 25,
-  marginBottom: '10px',
   paddingLeft: '50px',
   paddingRight: '20px',
 };

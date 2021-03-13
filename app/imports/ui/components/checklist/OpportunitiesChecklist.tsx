@@ -62,7 +62,7 @@ export class OpportunitiesChecklist extends Checklist {
     }
   }
 
-  public getDetails(state: CHECKSTATE): JSX.Element {
+  public getDetails(): JSX.Element {
     const upcomingOpportunities = OpportunityInstances.findNonRetired({studentID: this.profile.userID, verified: false});
     return ((upcomingOpportunities.length === 0) ?
         <DetailsBox description='Note: You have no upcoming opportunities. You probably want to add some!'/> :
@@ -72,7 +72,7 @@ export class OpportunitiesChecklist extends Checklist {
     );
   }
 
-  public getActions(state: CHECKSTATE): JSX.Element {
+  public getActions(): JSX.Element {
     const handleVerification = () => {
       const collectionName = StudentProfiles.getCollectionName();
       const updateData: StudentProfileUpdate = {};
@@ -84,12 +84,12 @@ export class OpportunitiesChecklist extends Checklist {
         }
       });
     };
-    switch (state) {
+    switch (this.state) {
       case CHECKSTATE.OK:
       case CHECKSTATE.IMPROVE:
         return (
           <ActionsBox description='Go to the Opportunity Explorer to find and add Opportunities to your profile. Go to the Degree Planner to add Opportunities from your profile to your degree plan:'>
-            <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.OPPORTUNITIES}`} label='Opportunities Explorer'/>
+            <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.OPPORTUNITIES}`} label='Opportunity Explorer'/>
             <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${DEGREEPLANNER}`} label='Degree Planner'/>
           </ActionsBox>
         );
