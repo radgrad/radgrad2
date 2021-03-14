@@ -77,7 +77,7 @@ const StudentExplorerAddReviewForm: React.FC<StudentExplorerAddReviewFormProps> 
         }
         const interactionData: UserInteractionDefine = {
           username,
-          type: UserInteractionsTypes.ADDREVIEW,
+          type: UserInteractionsTypes.ADD_REVIEW,
           typeData: [reviewType, academicTermSlug, slug],
         };
         userInteractionDefineMethod.call(interactionData, (userInteractionError) => {

@@ -1,5 +1,4 @@
 export interface StudentSummaryBehaviorCategory {
-  type: string;
   count: number;
   users: string[];
   description: string;
@@ -13,24 +12,89 @@ export enum StudentSummaryBehaviorTypes {
   VERIFICATION = 'Verification',
   REVIEWING = 'Reviewing',
   LEVEL = 'Level Up',
-  COMPLETEPLAN = 'Complete Plan',
+  COMPLETE_PLAN = 'Complete Plan',
   PROFILE = 'Profile',
   ADD_TO_PROFILE = 'Add Item to Profile',
   REMOVE_FROM_PROFILE = 'Remove Item from Profile',
   LOGOUT = 'Log Out',
 }
 
-export const behaviorCategories: StudentSummaryBehaviorCategory[] = [
-  { type: 'Log In', count: 0, users: [], description: 'Logged into Application' },
-  { type: 'Change Outlook', count: 0, users: [], description: 'Updated Interests, Career Goals, or Academic Plans' },
-  { type: 'Exploration', count: 0, users: [], description: 'Viewed entries in Explorer' },
-  { type: 'Planning', count: 0, users: [], description: 'Added, removed, or updated Course/Opportunity' },
-  { type: 'Verification', count: 0, users: [], description: 'Requested Verification' },
-  { type: 'Reviewing', count: 0, users: [], description: 'Reviewed a Course/Opportunity' },
-  { type: 'Level Up', count: 0, users: [], description: 'Leveled up' },
-  { type: 'Complete Plan', count: 0, users: [], description: 'Created a plan with 100 ICE' },
-  { type: 'Profile', count: 0, users: [], description: 'Updated profile picture or website URL' },
-  { type: 'Add Item to Profile', count: 0, users: [], description: 'Added an item to their profile' },
-  { type: 'Remove Item from Profile', count: 0, users: [], description: 'Removed an item from their profile' },
-  { type: 'Log Out', count: 0, users: [], description: 'Logged out' },
-];
+export interface StudentSummaryBehaviors {
+  LOGIN: StudentSummaryBehaviorCategory;
+  OUTLOOK: StudentSummaryBehaviorCategory;
+  EXPLORATION: StudentSummaryBehaviorCategory;
+  PLANNING: StudentSummaryBehaviorCategory;
+  VERIFICATION: StudentSummaryBehaviorCategory;
+  REVIEWING: StudentSummaryBehaviorCategory;
+  LEVEL: StudentSummaryBehaviorCategory;
+  COMPLETE_PLAN: StudentSummaryBehaviorCategory;
+  PROFILE: StudentSummaryBehaviorCategory;
+  ADD_TO_PROFILE: StudentSummaryBehaviorCategory;
+  REMOVE_FROM_PROFILE: StudentSummaryBehaviorCategory;
+  LOGOUT: StudentSummaryBehaviorCategory;
+  keys: () => string[];
+}
+
+export const behaviorCategories: StudentSummaryBehaviors = {
+  LOGIN: {
+    count: 0,
+    users: [],
+    description: 'Logged into Application',
+  },
+  OUTLOOK: {
+    count: 0,
+    users: [],
+    description: 'Updated Interests, Career Goals, or Academic Plans',
+  },
+  EXPLORATION: {
+    count: 0,
+    users: [],
+    description: 'Viewed entries in Explorer',
+  },
+  PLANNING: {
+    count: 0,
+    users: [],
+    description: 'Added, removed, or updated Course/Opportunity',
+  },
+  VERIFICATION: {
+    count: 0,
+    users: [],
+    description: 'Requested Verification',
+  },
+  REVIEWING: {
+    count: 0,
+    users: [],
+    description: 'Reviewed a Course/Opportunity',
+  },
+  LEVEL: {
+    count: 0,
+    users: [],
+    description: 'Leveled up',
+  },
+  COMPLETE_PLAN: {
+    count: 0,
+    users: [],
+    description: 'Created a plan with 100 ICE',
+  },
+  PROFILE: {
+    count: 0,
+    users: [],
+    description: 'Updated profile picture or website URL',
+  },
+  ADD_TO_PROFILE: {
+    count: 0,
+    users: [],
+    description: 'Added an item to their profile',
+  },
+  REMOVE_FROM_PROFILE: {
+    count: 0,
+    users: [],
+    description: 'Removed an item from their profile',
+  },
+  LOGOUT: {
+    count: 0,
+    users: [],
+    description: 'Logged out',
+  },
+  keys: () => ['LOGIN', 'OUTLOOK', 'EXPLORATION', 'PLANNING', 'VERIFICATION', 'REVIEWING', 'LEVEL', 'COMPLETE_PLAN', 'PROFILE', 'ADD_TO_PROFILE', 'REMOVE_FROM_PROFILE', 'LOGOUT'],
+};

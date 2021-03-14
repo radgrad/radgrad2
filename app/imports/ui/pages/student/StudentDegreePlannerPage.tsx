@@ -126,7 +126,7 @@ const onDragEnd = (onDragEndProps) => (result) => {
           if (!instanceExists) {
             interactionData = {
               username: student,
-              type: UserInteractionsTypes.ADDCOURSE,
+              type: UserInteractionsTypes.ADD_COURSE,
               typeData: [academicTermSplit[0], academicTermSplit[1], slug],
             };
             userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
@@ -168,7 +168,7 @@ const onDragEnd = (onDragEndProps) => (result) => {
             selectCourseInstance(slug);
             interactionData = {
               username: student,
-              type: UserInteractionsTypes.UPDATECOURSE,
+              type: UserInteractionsTypes.UPDATE_COURSE,
               typeData: [academicTermSplit[0], academicTermSplit[1], CourseInstances.getCourseSlug(slug)],
             };
             userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
@@ -210,7 +210,7 @@ const onDragEnd = (onDragEndProps) => (result) => {
         if (!instanceExists) {
           interactionData = {
             username: student,
-            type: UserInteractionsTypes.ADDOPPORTUNITY,
+            type: UserInteractionsTypes.ADD_OPPORTUNITY,
             typeData: [academicTermSplit[0], academicTermSplit[1], slug],
           };
           userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
@@ -234,7 +234,7 @@ const onDragEnd = (onDragEndProps) => (result) => {
         selectOpportunityInstance(slug);
         interactionData = {
           username: student,
-          type: UserInteractionsTypes.UPDATEOPPORTUNITY,
+          type: UserInteractionsTypes.UPDATE_OPPORTUNITY,
           typeData: [academicTermSplit[0], academicTermSplit[1], OpportunityInstances.getOpportunitySlug(slug)],
         };
         userInteractionDefineMethod.call(interactionData, (userInteractionError) => {

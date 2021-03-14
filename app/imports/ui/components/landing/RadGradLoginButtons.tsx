@@ -5,7 +5,7 @@ import { Button, Dropdown, Message, SemanticSIZES } from 'semantic-ui-react';
 import { Roles } from 'meteor/alanning:roles';
 import { Users } from '../../../api/user/UserCollection';
 import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
-import { USERINTERACTIONSNOTYPEDATA, UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
+import { USER_INTERACTIONS_NO_TYPE_DATA, UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
 import { UserInteractionDefine } from '../../../typings/radgrad';
 import { ROLE } from '../../../api/role/Role';
 
@@ -40,7 +40,7 @@ const RadGradLoginButtons: React.FC<RadGradLoginButtonsProps> = ({ instanceName,
             const interactionData: UserInteractionDefine = {
               username,
               type: UserInteractionsTypes.LOGIN,
-              typeData: [USERINTERACTIONSNOTYPEDATA],
+              typeData: [USER_INTERACTIONS_NO_TYPE_DATA],
             };
             userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
               if (userInteractionError) {

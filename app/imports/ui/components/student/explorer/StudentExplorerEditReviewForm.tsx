@@ -75,7 +75,7 @@ const StudentExplorerEditReviewForm: React.FC<StudentExplorerEditReviewWidgetPro
         }
         const interactionData: UserInteractionDefine = {
           username,
-          type: UserInteractionsTypes.EDITREVIEW,
+          type: UserInteractionsTypes.EDIT_REVIEW,
           typeData: [reviewType, updateData.academicTerm, slug],
         };
         userInteractionDefineMethod.call(interactionData, (userInteractionError) => {

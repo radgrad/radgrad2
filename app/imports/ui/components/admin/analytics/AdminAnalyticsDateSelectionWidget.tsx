@@ -60,10 +60,10 @@ const AdminAnalyticsDateSelectionWidget: React.FC<AdminAnalyticsDateSelectionWid
     const startDateMutated = moment(startDate).startOf('day').toDate();
     const endDateMutated = moment(endDate).endOf('day').toDate();
     switch (page) {
-      case ANALYTICS.OVERHEADANALYSIS:
+      case ANALYTICS.OVERHEAD_ANALYSIS:
         setOverheadAnalysisDateRange({ startDate: startDateMutated, endDate: endDateMutated });
         break;
-      case ANALYTICS.STUDENTSUMMARY:
+      case ANALYTICS.STUDENT_SUMMARY:
         setStudentSummaryDateRange({ startDate: startDateMutated, endDate: endDateMutated });
         break;
       default:
@@ -92,11 +92,11 @@ const AdminAnalyticsDateSelectionWidget: React.FC<AdminAnalyticsDateSelectionWid
         // console.log('overheadBuckets ', overheadBuckets);
         setOverheadAnalysisBuckets(overheadBuckets);
         const userInteractions = _.groupBy(result, 'username');
-        // console.log('userInteractions ', userInteractions);
+        console.log('userInteractions ', userInteractions);
         /* Setting User Interactions for Overhead Analysis and Student Summary */
-        if (page === ANALYTICS.OVERHEADANALYSIS) {
+        if (page === ANALYTICS.OVERHEAD_ANALYSIS) {
           setOverheadAnalysisUserInteractions(userInteractions);
-        } else if (page === ANALYTICS.STUDENTSUMMARY) {
+        } else if (page === ANALYTICS.STUDENT_SUMMARY) {
           setStudentSummaryUserInteractions(userInteractions);
         }
         /* Generating Overhead Data */

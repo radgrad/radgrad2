@@ -49,7 +49,7 @@ const handleRemove = (selectCourseInstance, match) => (event, { value }) => {
       const academicTerm: AcademicTerm = AcademicTerms.findDoc({ _id: instanceObject.termID });
       const interactionData: UserInteractionDefine = {
         username: getUsername(match),
-        type: UserInteractionsTypes.REMOVECOURSE,
+        type: UserInteractionsTypes.REMOVE_COURSE,
         typeData: [academicTerm.term, academicTerm.year, slugName],
       };
       userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
