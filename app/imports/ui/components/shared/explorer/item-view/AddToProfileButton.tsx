@@ -107,13 +107,13 @@ const AddToProfileButton: React.FC<AddToProfileButtonProps> = ({ studentID, item
   <React.Fragment>
     {added ? (
       <Button onClick={handleRemove(studentID, item, type)} size="mini" color="green" floated="right" basic>
-        <Icon name="heart outline" color="red" />
+        <Icon name="user outline" color="grey" />
         <Icon name="minus" />
         REMOVE FROM PROFILE
       </Button>
     ) : (
       <Button size="mini" onClick={handleAdd(studentID, item, type)} color="green" floated="right" basic>
-        <Icon name="heart" color="red" />
+        <Icon name="user" color="grey" />
         <Icon name="plus" />
         ADD TO PROFILE
       </Button>

@@ -3,18 +3,18 @@ import _ from 'lodash';
 import { Button, Grid, Header, Icon, Label, Popup, Segment, Table } from 'semantic-ui-react';
 import moment from 'moment';
 import { ZipZap } from 'meteor/udondan:zipzap';
-import { AcademicTerm, Opportunity, Scoreboard } from '../../../../typings/radgrad';
+import { AcademicTerm, Opportunity, Forecast } from '../../../../typings/radgrad';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 
 interface OpportunityForecastProps {
   opportunities: Opportunity[];
   terms: AcademicTerm[];
-  scores: Scoreboard[];
+  scores: Forecast[];
 }
 
 const databaseFileDateFormat = 'YYYY-MM-DD-HH-mm-ss';
 
-const getOpportunityScore = (opportunityID: string, termID: string, scores: Scoreboard[]) => {
+const getOpportunityScore = (opportunityID: string, termID: string, scores: Forecast[]) => {
   const id = `${opportunityID} ${termID}`;
   const scoreItem = _.find(scores, (p) => p._id === id);
   // console.log(scoreItem, courseID, termID);
@@ -24,7 +24,7 @@ const getOpportunityScore = (opportunityID: string, termID: string, scores: Scor
   return 0;
 };
 
-const saveAsCSV = (terms: AcademicTerm[], opportunities: Opportunity[], scores: Scoreboard[]) => () => {
+const saveAsCSV = (terms: AcademicTerm[], opportunities: Opportunity[], scores: Forecast[]) => () => {
   let result = '';
   const headerArr = ['Opportunity'];
   _.forEach(terms, (term) => headerArr.push(AcademicTerms.getShortName(term._id)));
@@ -40,7 +40,7 @@ const saveAsCSV = (terms: AcademicTerm[], opportunities: Opportunity[], scores: 
     result += '\r\n';
   });
   const zip = new ZipZap();
-  const dir = 'opportunity-scoreboard';
+  const dir = 'opportunity-forecast';
   const fileName = `${dir}/${moment().format(databaseFileDateFormat)}.csv`;
   zip.file(fileName, result);
   zip.saveAs(`${dir}.zip`);

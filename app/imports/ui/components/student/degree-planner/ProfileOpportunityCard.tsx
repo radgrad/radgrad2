@@ -4,14 +4,14 @@ import _ from 'lodash';
 import { Link, useRouteMatch } from 'react-router-dom';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { RadGradProperties } from '../../../../api/radgrad/RadGradProperties';
-import { OpportunityScoreboard } from '../../../../startup/client/collections';
+import { OpportunityForecastCollection } from '../../../../startup/client/collections';
 import { AcademicTerm, Opportunity, OpportunityInstance } from '../../../../typings/radgrad';
 import IceHeader from '../../shared/IceHeader';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import FutureParticipation from '../../shared/explorer/FutureParticipation';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import { Slugs } from '../../../../api/slug/SlugCollection';
-import { getInspectorDraggablePillStyle } from './utilities/styles';
+import { cardStyle, contentStyle, getInspectorDraggablePillStyle } from './utilities/styles';
 import NamePill from './NamePill';
 import { buildRouteName } from './DepUtilityFunctions';
 
@@ -47,21 +47,20 @@ const ProfileOpportunityCard: React.FC<ProfileOpportunityCardProps> = ({ opportu
   const scores = [];
   _.forEach(academicTerms, (term: AcademicTerm) => {
     const id = `${opportunity._id} ${term._id}`;
-    const score = OpportunityScoreboard.find({ _id: id }).fetch() as { count: number }[];
+    const score = OpportunityForecastCollection.find({ _id: id }).fetch() as { count: number }[];
     if (score.length > 0) {
       scores.push(score[0].count);
     } else {
       scores.push(0);
     }
   });
-
   return (
-    <Card>
-      <Card.Content>
+    <Card style={cardStyle}>
+      <Card.Content style={contentStyle}>
         <IceHeader ice={opportunity.ice} />
         <Card.Header>{opportunity.name}</Card.Header>
       </Card.Content>
-      <Card.Content>
+      <Card.Content style={contentStyle}>
         {instances.length > 0 ? (
           <React.Fragment>
             <b>Scheduled:</b> {termNames}
@@ -80,14 +79,15 @@ const ProfileOpportunityCard: React.FC<ProfileOpportunityCardProps> = ({ opportu
                 )}
               </Draggable>
               {provided.placeholder}
+              Drag into your plan
             </div>
           )}
         </Droppable>
       </Card.Content>
-      <Card.Content>
+      <Card.Content style={contentStyle}>
         <FutureParticipation academicTerms={academicTerms} scores={scores} />
       </Card.Content>
-      <Card.Content>
+      <Card.Content style={contentStyle}>
         <p style={textAlignRight}>
           <Link to={buildRouteName(match, opportunity, EXPLORER_TYPE.OPPORTUNITIES)} rel="noopener noreferrer" target="_blank">
             View in Explorer <Icon name="arrow right" />

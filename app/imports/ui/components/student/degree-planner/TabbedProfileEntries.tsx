@@ -38,9 +38,9 @@ const active = (selectedTab) => {
     case degreePlannerTypes.SELECT_PROFILE_OPPORTUNITIES:
       return 0;
     case degreePlannerTypes.SELECT_PROFILE_COURSES:
-      return 2;
+      return 1;
     case degreePlannerTypes.SELECT_PROFILE_DETAILS:
-      return 3;
+      return 2;
     default:
       return 0;
   }
@@ -68,12 +68,9 @@ const TabbedProfileEntries: React.FC<TabbedProfileEntriesProps> = ({
         selectProfileOpportunitiesTab();
         break;
       case 1:
-        selectProfilePlansTab();
-        break;
-      case 2:
         selectProfileCoursesTab();
         break;
-      case 3:
+      case 2:
         selectProfileDetailsTab();
         break;
       default:
@@ -85,7 +82,7 @@ const TabbedProfileEntries: React.FC<TabbedProfileEntriesProps> = ({
     {
       menuItem: (
         <Menu.Item key="ProfileOpportunities">
-          <Icon name="heart" fitted color="red" /> OPPS
+          <Icon name="user" fitted color="grey" /> OPPS
         </Menu.Item>
       ),
       pane: (
@@ -97,11 +94,11 @@ const TabbedProfileEntries: React.FC<TabbedProfileEntriesProps> = ({
     {
       menuItem: (
         <Menu.Item key="ProfileCourses">
-          <Icon name="heart" fitted color="red" /> COURSE
+          <Icon name="user" fitted color="grey" /> COURSE
         </Menu.Item>
       ),
       pane: (
-        <Tab.Pane key="ProfileCoursesPane" active={active(selectedTab) === 2}>
+        <Tab.Pane key="ProfileCoursesPane" active={active(selectedTab) === 1}>
           <ProfileCourses studentID={studentID} courses={courses} courseInstances={courseInstances} />
         </Tab.Pane>
       ),
@@ -109,7 +106,7 @@ const TabbedProfileEntries: React.FC<TabbedProfileEntriesProps> = ({
     {
       menuItem: <Menu.Item key="ProfileDetails">DETAILS</Menu.Item>,
       pane: (
-        <Tab.Pane key="ProfileDetailsPane" active={active(selectedTab) === 3}>
+        <Tab.Pane key="ProfileDetailsPane" active={active(selectedTab) === 2}>
           <DepDetailsWidget verificationRequests={verificationRequests} />
         </Tab.Pane>
       ),

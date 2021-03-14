@@ -32,16 +32,16 @@ interface Loading {
 const globalSubs = new SubsManager({ cacheLimit: 30, expireIn: 30 });
 
 const withGlobalSubscription = (WrappedComponent) => {
-  // console.log('withGlobalSubscriptionHOC');
-  const GlobalSubscription: React.FC<Loading> = (props) =>
-    (props.loading ? (
+  // console.log('withGlobalSubscriptionHOC', Meteor.user(), Meteor.userId(), Users.count());
+  const GlobalSubscription: React.FC<Loading> = ({ loading, ...rest }) =>
+    (loading ? (
       <React.Fragment>
         <Dimmer active inverted>
           <Loader>Loading global data</Loader>
         </Dimmer>
       </React.Fragment>
     ) : (
-      <WrappedComponent {...props} />
+      <WrappedComponent {...rest} />
     ));
 
   return withTracker(() => {
@@ -66,7 +66,7 @@ const withGlobalSubscription = (WrappedComponent) => {
       globalSubs.subscribe(Users.getPublicationName()),
     ];
     const loading = handles.some((handle) => !handle.ready());
-    // console.log('withGlobalSubscription', loading);
+    // console.log('withGlobalSubscription', loading, Meteor.user());
     return {
       loading,
     };

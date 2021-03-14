@@ -1,8 +1,16 @@
 import { Mongo } from 'meteor/mongo';
+import {
+  CourseForecastName,
+  OpportunityForecastName,
+  ProfileCareerGoalsForecastName,
+  ProfileCoursesForecastName,
+  ProfileInterestsForecastName,
+  ProfileOpportunitiesForecastName,
+} from '../both/names';
 
-export const CourseScoreboard = new Mongo.Collection('CourseScoreboard');
-export const OpportunityScoreboard = new Mongo.Collection('OpportunityScoreboard');
-export const CareerGoalsScoreboard = new Mongo.Collection('ProfileCareerGoalsScoreboard');
-export const CoursesScoreboard = new Mongo.Collection('ProfileCourseScoreboard');
-export const InterestsScoreboard = new Mongo.Collection('ProfileInterestsScoreboard');
-export const OpportunitiesScoreboard = new Mongo.Collection('ProfileOpportunitiesScoreboard');
+export const CourseForecastCollection = new Mongo.Collection(CourseForecastName);
+export const OpportunityForecastCollection = new Mongo.Collection(OpportunityForecastName);
+export const ProfileCareerGoalsForecast = new Mongo.Collection(ProfileCareerGoalsForecastName);
+export const ProfileCoursesForecast = new Mongo.Collection(ProfileCoursesForecastName);
+export const ProfileInterestsForecast = new Mongo.Collection(ProfileInterestsForecastName);
+export const ProfileOpportunitiesForecast = new Mongo.Collection(ProfileOpportunitiesForecastName);

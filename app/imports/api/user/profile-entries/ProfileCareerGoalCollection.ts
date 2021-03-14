@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import _ from 'lodash';
 import { ReactiveAggregate } from 'meteor/jcbernack:reactive-aggregate';
+import { ProfileCareerGoalsForecastName } from '../../../startup/both/names';
 import BaseCollection from '../../base/BaseCollection';
 import { CareerGoals } from '../../career/CareerGoalCollection';
 import { Users } from '../UserCollection';
@@ -10,7 +11,7 @@ import { ROLE } from '../../role/Role';
 
 class ProfileCareerGoalCollection extends BaseCollection {
   public readonly publicationNames: {
-    scoreboard: string;
+    forecast: string;
   };
 
   /** Creates the ProfileCareerGoal collection */
@@ -22,7 +23,7 @@ class ProfileCareerGoalCollection extends BaseCollection {
       retired: { type: Boolean, optional: true },
     }));
     this.publicationNames = {
-      scoreboard: `${this.collectionName}.scoreboard`,
+      forecast: `${this.collectionName}.forecast`,
     };
   }
 
@@ -85,7 +86,7 @@ class ProfileCareerGoalCollection extends BaseCollection {
   /**
    * Publish ProfileCareerGoals. If logged in as ADMIN get all, otherwise only get the ProfileCareerGoals for the
    * userID.
-   * Also publishes the ProfileCareerGoals scoreboard.
+   * Also publishes the ProfileCareerGoals forecast.
    */
   publish() {
     if (Meteor.isServer) {
@@ -100,7 +101,7 @@ class ProfileCareerGoalCollection extends BaseCollection {
         }
         return collection.find({ $or: [{ share: true }, { userID }] });
       });
-      Meteor.publish(this.publicationNames.scoreboard, function publishCareerGoalScoreboard() {
+      Meteor.publish(this.publicationNames.forecast, function publishCareerGoalForecast() {
         ReactiveAggregate(this, collection, [
           {
             $group: {
@@ -109,7 +110,7 @@ class ProfileCareerGoalCollection extends BaseCollection {
             },
           },
           { $project: { count: 1, careerGoalID: 1 } },
-        ], { clientCollection: 'ProfileCareerGoalsScoreboard' });
+        ], { clientCollection: ProfileCareerGoalsForecastName });
       });
     }
   }

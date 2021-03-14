@@ -32,8 +32,8 @@ const DraggableCourseInstancePill: React.FC<CourseInstancePillProps> = ({ instan
           {(prov, snap) => (
             <div ref={prov.innerRef} {...prov.draggableProps} {...prov.dragHandleProps} style={getDraggablePillStyle(snap.isDragging, prov.draggableProps.style)}>
               <Grid>
-                <Grid.Row>
-                  <Grid.Column width={11} onClick={handleClick(instance, handleClickCourseInstance)}>
+                <Grid.Row style={{ paddingTop: 7, paddingBottom: 7 }}>
+                  <Grid.Column width={13} onClick={handleClick(instance, handleClickCourseInstance)}>
                     <NamePill name={instance.note} />
                   </Grid.Column>
                   <Grid.Column width={2}>{inPast ? '' : <RemoveItWidget collectionName="CourseInstanceCollection" id={instance._id} name={getName(instance)} courseNumber={instance.note} />}</Grid.Column>
