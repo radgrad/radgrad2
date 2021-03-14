@@ -113,31 +113,6 @@ export class Checklist {
 
   public getChecklistItem(): JSX.Element {
     return (
-      <div key={this.name}>
-        <Grid centered>
-          <Grid.Column width={10}>
-            <div className="checklist">
-              <Header as='h3' color={this.stateColor[this.state]} attached='top'>
-                {this.getIcon()}{this.getName()}
-              </Header>
-              <Segment attached raised placeholder id={`checklist-${this.name}`} key={`checklist-${this.name}`} padded='very'>
-                <div className="labelStatus">
-                  <Label as='a' size='large' ribbon='right' color={this.stateColor[this.state]}>{this.getState()}</Label>
-                </div>
-                {this.getTitle()}
-                {this.getDescription()}
-                {this.getDetails()}
-                {this.getActions()}
-              </Segment>
-            </div>
-          </Grid.Column>
-        </Grid>
-      </div>
-    );
-  }
-
-  public getChecklistItem2(): JSX.Element {
-    return (
       <Card style={{minWidth: '425px'}} key={this.name}>
         <Label attached='top' color={this.stateColor[this.state]}>{this.getState()}</Label>
         <Card.Content>

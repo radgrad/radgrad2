@@ -36,17 +36,17 @@ const StudentHomePage: React.FC<StudentHomePageProps> = ({okItems, reviewItems, 
   <PageLayout id="student-home-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage} disableMargin>
     <div style={{backgroundColor: '#fae9e9', paddingBottom: '25px'}}>
       <Card.Group centered style={{marginTop: '0px'}}>
-        {improveItems.map((item) => item)}
+        {improveItems}
       </Card.Group>
     </div>
     <div style={{backgroundColor: '#f9fae9', paddingBottom: '25px'}}>
       <Card.Group centered style={{marginTop: '0px'}}>
-        {reviewItems.map((item) => item)}
+        {reviewItems}
       </Card.Group>
     </div>
     <div style={{backgroundColor: '#e2fbdd', paddingBottom: '25px'}}>
       <Card.Group centered style={{marginTop: '0px'}}>
-        {okItems.map((item) => item)}
+        {okItems}
       </Card.Group>
     </div>
   </PageLayout>
@@ -70,13 +70,13 @@ export default withTracker(() => {
   checklists.forEach((checklist) => {
     switch (checklist.getState()) {
       case CHECKSTATE.IMPROVE:
-        improveItems.push(checklist.getChecklistItem2());
+        improveItems.push(checklist.getChecklistItem());
         break;
       case CHECKSTATE.REVIEW:
-        reviewItems.push(checklist.getChecklistItem2());
+        reviewItems.push(checklist.getChecklistItem());
         break;
       case CHECKSTATE.OK:
-        okItems.push(checklist.getChecklistItem2());
+        okItems.push(checklist.getChecklistItem());
         break;
       default:
       // do nothing
