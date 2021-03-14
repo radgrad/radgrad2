@@ -1,19 +1,13 @@
 import moment from 'moment';
 import React from 'react';
 import Markdown from 'react-markdown/with-html';
-import {Card, Grid, Header, Icon, Label, Segment, SemanticICONS} from 'semantic-ui-react';
+import {Card, Header, Icon, Label, SemanticICONS} from 'semantic-ui-react';
 
 export const enum CHECKSTATE {
   OK = 'OK',
   REVIEW = 'REVIEW',
   IMPROVE = 'IMPROVE',
 }
-
-/**
- * Checklist TODOS
- *   * Revise getActions.
- *   * Style.css should be local; make it a review checklist item.
- */
 
 /**
  * Base class for all checklist items.
