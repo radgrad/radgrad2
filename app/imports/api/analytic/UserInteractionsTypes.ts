@@ -1,34 +1,34 @@
 // UserInteraction Types
 export enum UserInteractionsTypes {
   /* General Tracking */
-  PAGEVIEW = 'pageView',
+  PAGE_VIEW = 'pageView',
   LOGIN = 'login',
   LOGOUT = 'logout',
   LEVEL = 'level',
-  COMPLETEPLAN = 'completePlan',
+  COMPLETE_PLAN = 'completePlan',
   /* Student About Me Page */
   PICTURE = 'picture',
   WEBSITE = 'website',
-  SHAREINFORMATION = 'shareInformation',
+  SHARE_INFORMATION = 'shareInformation',
   /* Degree Planner */
   // Dragging a course/opportunity to the planner
-  ADDCOURSE = 'addCourse',
-  ADDOPPORTUNITY = 'addOpportunity',
+  ADD_COURSE = 'addCourse',
+  ADD_OPPORTUNITY = 'addOpportunity',
   // Moving a course/opportunity from a term to another term
-  UPDATECOURSE = 'updateCourse',
-  UPDATEOPPORTUNITY = 'updateOpportunity',
+  UPDATE_COURSE = 'updateCourse',
+  UPDATE_OPPORTUNITY = 'updateOpportunity',
   // Removing a course/opportunity from the planner
-  REMOVECOURSE = 'removeCourse',
-  REMOVEOPPORTUNITY = 'removeOpportunity',
+  REMOVE_COURSE = 'removeCourse',
+  REMOVE_OPPORTUNITY = 'removeOpportunity',
   // Profile entities
   ADD_TO_PROFILE = 'addToProfile',
   REMOVE_FROM_PROFILE = 'removeFromProfile',
   /* Reviews */
-  ADDREVIEW = 'addReview',
-  EDITREVIEW = 'editReview',
+  ADD_REVIEW = 'addReview',
+  EDIT_REVIEW = 'editReview',
   /* Degree Planner */
-  VERIFYREQUEST = 'verifyRequest',
+  VERIFY_REQUEST = 'verifyRequest',
 }
 
 // Default string if we do not need to store a typeData for that User Interaction
-export const USERINTERACTIONSNOTYPEDATA = 'N/A';
+export const USER_INTERACTIONS_NO_TYPE_DATA = 'N/A';

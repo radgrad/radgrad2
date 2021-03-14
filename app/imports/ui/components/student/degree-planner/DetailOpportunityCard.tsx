@@ -54,7 +54,7 @@ const handleRemove = (selectOpportunityInstance, match) => (event, { value }) =>
       const academicTerm: AcademicTerm = AcademicTerms.findDoc({ _id: instanceObject.termID });
       const interactionData: UserInteractionDefine = {
         username: getUsername(match),
-        type: UserInteractionsTypes.REMOVEOPPORTUNITY,
+        type: UserInteractionsTypes.REMOVE_OPPORTUNITY,
         typeData: [academicTerm.term, academicTerm.year, slugName],
       };
       userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
@@ -90,7 +90,7 @@ const handleVerificationRequest = (instance, match) => (model) => {
       const typeData = [slugName];
       const interactionData: UserInteractionDefine = {
         username,
-        type: UserInteractionsTypes.VERIFYREQUEST,
+        type: UserInteractionsTypes.VERIFY_REQUEST,
         typeData,
       };
       userInteractionDefineMethod.call(interactionData, (userInteractionError) => {

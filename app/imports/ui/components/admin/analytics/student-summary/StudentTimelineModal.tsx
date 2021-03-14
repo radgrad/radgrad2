@@ -75,24 +75,24 @@ const getBehaviors = (sessionArr: UserInteraction[]): { type: string; stats: str
   const actions = {
     careerGoalIDs: [],
     interestIDs: [],
-    [UserInteractionsTypes.PAGEVIEW]: [],
+    [UserInteractionsTypes.PAGE_VIEW]: [],
     [UserInteractionsTypes.LOGIN]: [],
     [UserInteractionsTypes.LEVEL]: [],
-    [UserInteractionsTypes.COMPLETEPLAN]: [],
+    [UserInteractionsTypes.COMPLETE_PLAN]: [],
     [UserInteractionsTypes.PICTURE]: [],
     [UserInteractionsTypes.WEBSITE]: [],
-    [UserInteractionsTypes.SHAREINFORMATION]: [],
-    [UserInteractionsTypes.ADDCOURSE]: [],
-    [UserInteractionsTypes.REMOVECOURSE]: [],
-    [UserInteractionsTypes.UPDATECOURSE]: [],
-    [UserInteractionsTypes.ADDOPPORTUNITY]: [],
-    [UserInteractionsTypes.REMOVEOPPORTUNITY]: [],
-    [UserInteractionsTypes.UPDATEOPPORTUNITY]: [],
+    [UserInteractionsTypes.SHARE_INFORMATION]: [],
+    [UserInteractionsTypes.ADD_COURSE]: [],
+    [UserInteractionsTypes.REMOVE_COURSE]: [],
+    [UserInteractionsTypes.UPDATE_COURSE]: [],
+    [UserInteractionsTypes.ADD_OPPORTUNITY]: [],
+    [UserInteractionsTypes.REMOVE_OPPORTUNITY]: [],
+    [UserInteractionsTypes.UPDATE_OPPORTUNITY]: [],
     [UserInteractionsTypes.ADD_TO_PROFILE]: [],
     [UserInteractionsTypes.REMOVE_FROM_PROFILE]: [],
-    [UserInteractionsTypes.ADDREVIEW]: [],
-    [UserInteractionsTypes.EDITREVIEW]: [],
-    [UserInteractionsTypes.VERIFYREQUEST]: [],
+    [UserInteractionsTypes.ADD_REVIEW]: [],
+    [UserInteractionsTypes.EDIT_REVIEW]: [],
+    [UserInteractionsTypes.VERIFY_REQUEST]: [],
   };
   _.each(sessionArr, function (interaction) {
     if (actions[interaction.type]) {
@@ -123,7 +123,7 @@ const getBehaviors = (sessionArr: UserInteraction[]): { type: string; stats: str
       } else if (action === PROFILE_ENTRY_TYPE.INTEREST) {
         behaviors[StudentSummaryBehaviorTypes.OUTLOOK].push(`User modified interests ${array.length} time(s)`);
         behaviors[StudentSummaryBehaviorTypes.OUTLOOK].push(`Interests at end of session: ${_.last(array)}`);
-      } else if (action === UserInteractionsTypes.PAGEVIEW) {
+      } else if (action === UserInteractionsTypes.PAGE_VIEW) {
         const explorerPages = {
           [EXPLORER_TYPE.CAREERGOALS]: [],
           [EXPLORER_TYPE.COURSES]: [],
@@ -151,27 +151,27 @@ const getBehaviors = (sessionArr: UserInteraction[]): { type: string; stats: str
               ${_.uniq(pages).join(', ')}`);
           }
         });
-      } else if (action === UserInteractionsTypes.ADDCOURSE) {
+      } else if (action === UserInteractionsTypes.ADD_COURSE) {
         behaviors[StudentSummaryBehaviorTypes.PLANNING].push(`Added the following courses: ${formatCourseOpportunitySlugMessages(_.uniq(array))}`);
-      } else if (action === UserInteractionsTypes.REMOVECOURSE) {
+      } else if (action === UserInteractionsTypes.REMOVE_COURSE) {
         behaviors[StudentSummaryBehaviorTypes.PLANNING].push(`Removed the following courses: ${formatCourseOpportunitySlugMessages(_.uniq(array))}`);
-      } else if (action === UserInteractionsTypes.UPDATECOURSE) {
+      } else if (action === UserInteractionsTypes.UPDATE_COURSE) {
         behaviors[StudentSummaryBehaviorTypes.PLANNING].push(`Updated the following courses: ${formatCourseOpportunitySlugMessages(_.uniq(array))}`);
-      } else if (action === UserInteractionsTypes.ADDOPPORTUNITY) {
+      } else if (action === UserInteractionsTypes.ADD_OPPORTUNITY) {
         behaviors[StudentSummaryBehaviorTypes.PLANNING].push(`Added the following opportunities: ${formatCourseOpportunitySlugMessages(_.uniq(array))}`);
-      } else if (action === UserInteractionsTypes.REMOVEOPPORTUNITY) {
+      } else if (action === UserInteractionsTypes.REMOVE_OPPORTUNITY) {
         behaviors[StudentSummaryBehaviorTypes.PLANNING].push(`Removed the following opportunities: ${formatCourseOpportunitySlugMessages(_.uniq(array))}`);
-      } else if (action === UserInteractionsTypes.UPDATEOPPORTUNITY) {
+      } else if (action === UserInteractionsTypes.UPDATE_OPPORTUNITY) {
         behaviors[StudentSummaryBehaviorTypes.PLANNING].push(`Updated the following opportunities: ${formatCourseOpportunitySlugMessages(_.uniq(array))}`);
-      } else if (action === UserInteractionsTypes.VERIFYREQUEST) {
+      } else if (action === UserInteractionsTypes.VERIFY_REQUEST) {
         behaviors[StudentSummaryBehaviorTypes.VERIFICATION].push(`Requested verification for: ${_.uniq(array).join(', ')}`);
-      } else if (action === UserInteractionsTypes.ADDREVIEW) {
+      } else if (action === UserInteractionsTypes.ADD_REVIEW) {
         behaviors[StudentSummaryBehaviorTypes.REVIEWING].push(`Added a review for the following items: ${formatReviewSlugMessages(_.uniq(array))}`);
-      } else if (action === UserInteractionsTypes.EDITREVIEW) {
+      } else if (action === UserInteractionsTypes.EDIT_REVIEW) {
         behaviors[StudentSummaryBehaviorTypes.REVIEWING].push(`Edited a review for the following items: ${formatReviewSlugMessages(_.uniq(array))}`);
       } else if (action === UserInteractionsTypes.LEVEL) {
         behaviors[StudentSummaryBehaviorTypes.LEVEL].push(`Level updated ${array.length} time(s): ${array}`);
-      } else if (action === UserInteractionsTypes.COMPLETEPLAN) {
+      } else if (action === UserInteractionsTypes.COMPLETE_PLAN) {
         behaviors[StudentSummaryBehaviorTypes.COMPLETEPLAN].push(`User completed their plan with the following ICE points: ${array}`);
       } else if (action === UserInteractionsTypes.PICTURE) {
         behaviors[StudentSummaryBehaviorTypes.PROFILE].push(`User updated their picture ${array.length} time(s)`);

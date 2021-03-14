@@ -54,33 +54,33 @@ const TimelineChartTab: React.FC<TimelineChartTabProps> = ({ startDate, endDate,
         if (_.some(interactionsWithinDate, (i) => i.type === PROFILE_ENTRY_TYPE.CAREERGOAL || i.type === PROFILE_ENTRY_TYPE.INTEREST)) {
           obj[date].push(behaviorList[1]);
         }
-        if (_.some(interactionsWithinDate, (i) => i.type === UserInteractionsTypes.PAGEVIEW && i.typeData[0].includes(`${EXPLORER_TYPE.HOME}/`))) {
+        if (_.some(interactionsWithinDate, (i) => i.type === UserInteractionsTypes.PAGE_VIEW && i.typeData[0].includes(`${EXPLORER_TYPE.HOME}/`))) {
           obj[date].push(behaviorList[2]);
         }
         if (
           _.some(
             interactionsWithinDate,
             (i) =>
-              i.type === UserInteractionsTypes.ADDCOURSE ||
-              i.type === UserInteractionsTypes.REMOVECOURSE ||
-              i.type === UserInteractionsTypes.UPDATECOURSE ||
-              i.type === UserInteractionsTypes.ADDOPPORTUNITY ||
-              i.type === UserInteractionsTypes.REMOVEOPPORTUNITY ||
-              i.type === UserInteractionsTypes.UPDATEOPPORTUNITY,
+              i.type === UserInteractionsTypes.ADD_COURSE ||
+              i.type === UserInteractionsTypes.REMOVE_COURSE ||
+              i.type === UserInteractionsTypes.UPDATE_COURSE ||
+              i.type === UserInteractionsTypes.ADD_OPPORTUNITY ||
+              i.type === UserInteractionsTypes.REMOVE_OPPORTUNITY ||
+              i.type === UserInteractionsTypes.UPDATE_OPPORTUNITY,
           )
         ) {
           obj[date].push(behaviorList[3]);
         }
-        if (_.some(interactionsWithinDate, (i) => i.type === UserInteractionsTypes.VERIFYREQUEST)) {
+        if (_.some(interactionsWithinDate, (i) => i.type === UserInteractionsTypes.VERIFY_REQUEST)) {
           obj[date].push(behaviorList[4]);
         }
-        if (_.some(interactionsWithinDate, (i) => i.type === UserInteractionsTypes.ADDREVIEW)) {
+        if (_.some(interactionsWithinDate, (i) => i.type === UserInteractionsTypes.ADD_REVIEW)) {
           obj[date].push(behaviorList[5]);
         }
         if (_.some(interactionsWithinDate, (i) => i.type === UserInteractionsTypes.LEVEL)) {
           obj[date].push(behaviorList[6]);
         }
-        if (_.some(interactionsWithinDate, (i) => i.type === UserInteractionsTypes.COMPLETEPLAN)) {
+        if (_.some(interactionsWithinDate, (i) => i.type === UserInteractionsTypes.COMPLETE_PLAN)) {
           obj[date].push(behaviorList[7]);
         }
         if (_.some(interactionsWithinDate, (i) => i.type === UserInteractionsTypes.PICTURE || i.type === UserInteractionsTypes.WEBSITE)) {

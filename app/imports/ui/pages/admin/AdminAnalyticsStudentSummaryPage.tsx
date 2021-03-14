@@ -1,6 +1,6 @@
 import React from 'react';
 import AdminAnalyticsStudentSummaryWidget
-  from '../../components/admin/analytics/student-summary/AdminAnalyticsStudentSummaryWidget';
+  from '../../components/admin/analytics/student-summary/AdminAnalyticsStudentSummary';
 import PageLayout from '../PageLayout';
 
 const AdminAnalyticsStudentSummaryPage: React.FC = () => (
