@@ -105,15 +105,15 @@ import PageLayout from '../PageLayout';
 
 const collection = InterestTypes; // the collection to use.
 
-function numReferences(interestType) {
+const numReferences = (interestType) => {
   let references = 0;
-  Interests.find().forEach(function (doc) {
+  Interests.find().forEach((doc) => {
     if (_.includes(doc.interestTypeID, interestType._id)) {
       references += 1;
     }
   });
   return references;
-}
+};
 
 /**
  * Returns an array of Description pairs used in the ListCollectionWidget.

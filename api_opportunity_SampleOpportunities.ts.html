@@ -100,12 +100,12 @@ import { makeSampleIce } from '../ice/SampleIce';
  * @returns { String } The docID of the newly generated OpportunityType.
  * @memberOf api/opportunity
  */
-export function makeSampleOpportunityType() {
+export const makeSampleOpportunityType = (): string => {
   const name = faker.lorem.words();
   const slug = slugify(`opportunity-type-${name}-${moment().format('YYYY-MM-DD-HH-mm-ss-SSSSS')}`);
   const description = faker.lorem.paragraph();
   return OpportunityTypes.define({ name, slug, description });
-}
+};
 
 /**
  * Creates an Opportunity with a unique slug and returns its docID.
@@ -114,7 +114,7 @@ export function makeSampleOpportunityType() {
  * @returns { String } The docID for the newly generated Opportunity.
  * @memberOf api/opportunity
  */
-export function makeSampleOpportunity(sponsor) {
+export const makeSampleOpportunity = (sponsor: string): string => {
   const name = faker.lorem.words();
   const slug = slugify(`opportunity-${name}-${moment().format('YYYY-MM-DD-HH-mm-ss-SSSSS')}`);
   const description = faker.lorem.paragraph();
@@ -123,7 +123,7 @@ export function makeSampleOpportunity(sponsor) {
   const academicTerms = makeSampleAcademicTermArray();
   const ice = makeSampleIce();
   return Opportunities.define({ name, slug, description, opportunityType, sponsor, interests, academicTerms, ice });
-}
+};
 
 /**
  * Creates an array of defined opportunity slugs.
@@ -131,13 +131,13 @@ export function makeSampleOpportunity(sponsor) {
  * @param num the number of opportunities to define. Defaults to 1.
  * @return An array of defined opportunity slugs.
  */
-export function makeSampleOpportunitySlugArray(sponsor, num = 1) {
+export const makeSampleOpportunitySlugArray = (sponsor: string, num = 1): string[] => {
   const retVal = [];
   for (let i = 0; i &lt; num; i++) {
     retVal.push(Slugs.getNameFromID(Opportunities.findDoc(makeSampleOpportunity(sponsor)).slugID));
   }
   return retVal;
-}
+};
 
 /**
  * Creates an OpportunityInstance with a unique slug and returns its docID.
@@ -146,12 +146,12 @@ export function makeSampleOpportunitySlugArray(sponsor, num = 1) {
  * Implicitly creates an Opportunity and an OpportunityType.
  * @memberOf api/opportunity
  */
-export function makeSampleOpportunityInstance(student: string, sponsor: string) {
+export const makeSampleOpportunityInstance = (student: string, sponsor: string): string => {
   const opportunity: string = makeSampleOpportunity(sponsor);
   const academicTerm = Opportunities.findDoc(opportunity).termIDs[0];
   const verified = false;
   return OpportunityInstances.define({ academicTerm, opportunity, sponsor, verified, student });
-}
+};
 </code></pre>
         </article>
     </section>

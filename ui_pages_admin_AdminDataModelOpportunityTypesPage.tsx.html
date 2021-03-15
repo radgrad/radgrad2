@@ -105,15 +105,15 @@ import PageLayout from '../PageLayout';
 
 const collection = OpportunityTypes; // the collection to use.
 
-function numReferences(opportunityType) {
+const numReferences = (opportunityType) => {
   let references = 0;
-  Opportunities.find().forEach(function (doc) {
+  Opportunities.find().forEach((doc) => {
     if (_.includes(doc.opportunityTypeID, opportunityType._id)) {
       references += 1;
     }
   });
   return references;
-}
+};
 
 /**
  * Returns an array of Description pairs used in the ListCollectionWidget.

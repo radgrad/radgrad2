@@ -94,7 +94,7 @@ import { Slugs } from './SlugCollection';
  * @throws Error if there are no Slugs in the SlugCollection.
  * @memberOf api/slug
  */
-export function newSlugValidator() {
+export function newSlugValidator(): string | undefined {
   if (Slugs.count() === 0) {
     throw new Meteor.Error('newSlugValidator called but SlugCollection is empty. Probably a subscription issue.');
   }

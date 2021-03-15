@@ -103,7 +103,7 @@ import { dataModelActions } from '../../../redux/admin/data-model';
 import { getDatamodelCount } from './utilities/datamodel';
 import PageLayout from '../PageLayout';
 
-function numReferences(term) {
+const numReferences = (term) => {
   let references = 0;
   [CourseInstances, OpportunityInstances].forEach((entity) => {
     _.forEach(entity.find().fetch(), (e) => {
@@ -118,16 +118,14 @@ function numReferences(term) {
     }
   });
   return references;
-}
+};
 
-function descriptionPairs(term: AcademicTerm): DescriptionPair[] {
-  return [
-    { label: 'Term', value: AcademicTerms.toString(term._id, false) },
-    { label: 'Term Number', value: `${term.termNumber}` },
-    { label: 'References', value: `${numReferences(term)}` },
-    { label: 'Retired', value: term.retired ? 'True' : 'False' },
-  ];
-}
+const descriptionPairs = (term: AcademicTerm): DescriptionPair[] => ([
+  { label: 'Term', value: AcademicTerms.toString(term._id, false) },
+  { label: 'Term Number', value: `${term.termNumber}` },
+  { label: 'References', value: `${numReferences(term)}` },
+  { label: 'Retired', value: term.retired ? 'True' : 'False' },
+]);
 
 const itemTitle = (term: AcademicTerm): React.ReactNode => (
   &lt;React.Fragment>
@@ -256,12 +254,12 @@ const AdminDataModelAcademicTermsPage: React.FC&lt;AdminDataModelAcademicTermsPa
     sort: { termNumber: 1 },
   };
   return (
-    &lt;PageLayout id="data-model-academic-terms-page" headerPaneTitle="Academic Terms" >
+    &lt;PageLayout id="data-model-academic-terms-page" headerPaneTitle="Academic Terms">
       {showUpdateFormState ? (
         &lt;AdminDataModelUpdateForm collection={AcademicTerms} id={idState} formRef={formRef} handleUpdate={handleUpdate}
-                                  handleCancel={handleCancel} itemTitleString={itemTitleString}/>
+                                  handleCancel={handleCancel} itemTitleString={itemTitleString} />
       ) : (
-        &lt;AdminDataModelAddForm collection={AcademicTerms} formRef={formRef} handleAdd={handleAdd}/>
+        &lt;AdminDataModelAddForm collection={AcademicTerms} formRef={formRef} handleAdd={handleAdd} />
       )}
       &lt;ListCollectionWidget
         collection={AcademicTerms}
@@ -274,7 +272,8 @@ const AdminDataModelAcademicTermsPage: React.FC&lt;AdminDataModelAcademicTermsPa
         setShowCount={dataModelActions.setCollectionShowCount}
         items={props.items}
       />
-      &lt;Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Academic Term?" />
+      &lt;Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete}
+               header="Delete Academic Term?" />
     &lt;/PageLayout>
   );
 };

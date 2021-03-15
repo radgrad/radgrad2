@@ -107,10 +107,10 @@ export const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, 
  * @param collection The collection of interest.
  * @memberOf api/test
  */
-export function getDefinitions(loadJSON, collection) {
+export const getDefinitions = (loadJSON, collection) => {
   const definitionObj = _.find(loadJSON.collections, (obj) => obj.name === collection);
   return definitionObj ? definitionObj.contents : [];
-}
+};
 
 /**
  * Given a collection and the loadJSON structure, looks up the definitions and invokes define() on them.
@@ -119,7 +119,7 @@ export function getDefinitions(loadJSON, collection) {
  * @param consolep output console.log message if truey.
  * @memberOf api/test
  */
-export function loadCollection(collection, loadJSON, consolep) {
+export const loadCollection = (collection, loadJSON, consolep) => {
   const definitions = getDefinitions(loadJSON, collection.collectionName);
   if (consolep) {
     console.log(`Defining ${definitions.length} ${collection.collectionName} documents.`);
@@ -128,30 +128,30 @@ export function loadCollection(collection, loadJSON, consolep) {
   if (consolep) {
     console.log(`Have ${collection.find().count()} documents.`);
   }
-}
+};
 
 /**
  * Loads data from a modular test fixture file.
  * @param fixtureName The name of the test fixture data file. (located in private/database/modular).
  * @memberOf api/test
  */
-export function defineTestFixture(fixtureName) {
+export const defineTestFixture = (fixtureName) => {
   if (Meteor.isServer) {
     const loadFileName = `database/modular/${fixtureName}`;
     const loadJSON = JSON.parse(Assets.getText(loadFileName));
     console.log(`    Loaded ${loadFileName}: ${loadJSON.fixtureDescription}`);
     _.each(RadGrad.collectionLoadSequence, (collection) => loadCollection(collection, loadJSON, false));
   }
-}
+};
 
 /**
  * Loads all the data from an array of fixture file names.
  * @param fixtureNames an array of the name of the test fixture data file. (located in private/database/modular).
  * @memberOf api/test
  */
-export function defineTestFixtures(fixtureNames) {
+export const defineTestFixtures = (fixtureNames) => {
   _.each(fixtureNames, (fixtureName) => defineTestFixture(`${fixtureName}.fixture.json`));
-}
+};
 
 // /**
 //  * A validated method that loads the passed fixture file.
@@ -184,37 +184,33 @@ export const defineTestFixturesMethod = new ValidatedMethod({
  * @see {@link https://guide.meteor.com/testing.html#full-app-integration-test}
  * @memberOf api/test
  */
-export function withRadGradSubscriptions(userID?: string) {
-  return new Promise((resolve) => {
-    const handles = [];
-    _.each(RadGrad.collections, (collection) => handles.push(collection.subscribe(userID)));
-    handles.push(Users.subscribe());
-    const poll = Meteor.setInterval(() => {
-      if (DDP._allSubscriptionsReady()) {
-        Meteor.clearInterval(poll);
-        resolve();
-      }
-    }, 200);
-  });
-}
+export const withRadGradSubscriptions = (userID?: string) => new Promise((resolve) => {
+  const handles = [];
+  _.each(RadGrad.collections, (collection) => handles.push(collection.subscribe(userID)));
+  handles.push(Users.subscribe());
+  const poll = Meteor.setInterval(() => {
+    if (DDP._allSubscriptionsReady()) {
+      Meteor.clearInterval(poll);
+      resolve();
+    }
+  }, 200);
+});
 
 /**
  * Returns a Promise that resolves if one can successfully login with the passed credentials.
  * Credentials default to the standard admin username and password.
  * @memberOf api/test
  */
-export function withLoggedInUser({ username = 'radgrad@hawaii.edu', password = 'foo' } = {}) {
-  return new Promise((resolve, reject) => {
-    Meteor.loginWithPassword(username, password, (error) => {
-      if (error) {
-        console.log('Error: withLoggedInUser', error);
-        reject();
-      } else {
-        resolve();
-      }
-    });
+export const withLoggedInUser = ({ username = 'radgrad@hawaii.edu', password = 'foo' } = {}) => new Promise((resolve, reject) => {
+  Meteor.loginWithPassword(username, password, (error) => {
+    if (error) {
+      console.log('Error: withLoggedInUser', error);
+      reject();
+    } else {
+      resolve();
+    }
   });
-}
+});
 </code></pre>
         </article>
     </section>
