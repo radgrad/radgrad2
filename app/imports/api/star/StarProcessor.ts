@@ -15,7 +15,7 @@ import { StarDataObject } from '../../typings/radgrad';
  * @throws Meteor.Error If parsing fails.
  * @memberOf api/star
  */
-function findAcademicTermSlug(starDataObject: StarDataObject) {
+const findAcademicTermSlug = (starDataObject: StarDataObject): string => {
   const academicTerm = starDataObject.semester;
   if ((!_.isString(academicTerm)) || (academicTerm.length < 8)) {
     throw new Meteor.Error(`Could not parse academic term data: ${JSON.stringify(starDataObject)}`);
@@ -55,7 +55,7 @@ function findAcademicTermSlug(starDataObject: StarDataObject) {
     }
   }
   return AcademicTerms.findSlugByID(AcademicTerms.define({ term, year }));
-}
+};
 
 /**
  * Returns the course slug, which is either an ICS course or 'other.
@@ -63,13 +63,13 @@ function findAcademicTermSlug(starDataObject: StarDataObject) {
  * @returns { String } The slug.
  * @memberOf api/star
  */
-function findCourseSlug(starDataObject: StarDataObject) {
+const findCourseSlug = (starDataObject: StarDataObject) => {
   let slug = `${starDataObject.name.toLowerCase()}_${starDataObject.num}`;
   if (!Slugs.isSlugForEntity(slug, Courses.getType())) {
     slug = Courses.unInterestingSlug;
   }
   return slug;
-}
+};
 
 /**
  * Creates a courseInstance data object from the passed arguments.
@@ -77,18 +77,16 @@ function findCourseSlug(starDataObject: StarDataObject) {
  * @returns { Object } An object suitable for passing to CourseInstances.define.
  * @memberOf api/star
  */
-function makeCourseInstanceObject(starDataObject: StarDataObject) {
-  return {
-    academicTerm: findAcademicTermSlug(starDataObject),
-    course: findCourseSlug(starDataObject),
-    note: `${starDataObject.name} ${starDataObject.num}`,
-    verified: true,
-    fromRegistrar: true,
-    creditHrs: starDataObject.credits,
-    grade: starDataObject.grade,
-    student: starDataObject.student,
-  };
-}
+const makeCourseInstanceObject = (starDataObject: StarDataObject) => ({
+  academicTerm: findAcademicTermSlug(starDataObject),
+  course: findCourseSlug(starDataObject),
+  note: `${starDataObject.name} ${starDataObject.num}`,
+  verified: true,
+  fromRegistrar: true,
+  creditHrs: starDataObject.credits,
+  grade: starDataObject.grade,
+  student: starDataObject.student,
+});
 
 /**
  * Returns an array of arrays, each containing data that can be made into CourseInstances.
@@ -96,7 +94,7 @@ function makeCourseInstanceObject(starDataObject: StarDataObject) {
  * @returns { Array } A new array with extraneous elements deleted.
  * @memberOf api/star
  */
-function filterParsedData(parsedData) {
+const filterParsedData = (parsedData) => {
   // First, get the actual data from the Papa results.
   let filteredData = parsedData.data;
   // Remove first element containing headers from data array.
@@ -106,7 +104,7 @@ function filterParsedData(parsedData) {
   // Remove test scores that appear at top.
   filteredData = _.dropWhile(filteredData, (data) => data[2].startsWith('Test'));
   return filteredData;
-}
+};
 
 /**
  * Processes STAR CSV data and returns an array of objects containing CourseInstance fields.
@@ -116,7 +114,7 @@ function filterParsedData(parsedData) {
  * @memberOf api/star
  * @deprecated
  */
-export function processStarCsvData(student, csvData) {
+export const processStarCsvData = (student, csvData) => {
   if (Papa) {
     const parsedData = Papa.parse(csvData);
     if (parsedData.errors.length !== 0) {
@@ -178,14 +176,14 @@ export function processStarCsvData(student, csvData) {
   }
   // must be on the client.
   return null;
-}
+};
 
 /**
  * Processes STAR CSV data.
  * @deprecated
  * @param csvData
  */
-export function processBulkStarCsvData(csvData) {
+export const processBulkStarCsvData = (csvData) => {
   if (Papa) {
     const parsedData = Papa.parse(csvData);
     if (parsedData.errors.length !== 0) {
@@ -257,7 +255,7 @@ export function processBulkStarCsvData(csvData) {
     return bulkData;
   }
   return null;
-}
+};
 
 /**
  * Processes STAR JSON data and returns an array of objects containing CourseInstance fields.
@@ -266,7 +264,7 @@ export function processBulkStarCsvData(csvData) {
  * @returns { Array } A list of objects with fields: academicTerm, course, note, verified, grade, and creditHrs.
  * @memberOf api/star
  */
-export function processStarJsonData(student, jsonData) {
+export const processStarJsonData = (student, jsonData) => {
   // console.log(jsonData);
   if (student !== jsonData.email) {
     throw new Meteor.Error(`JSON data is not for ${student}`);
@@ -305,7 +303,7 @@ export function processStarJsonData(student, jsonData) {
   // console.log('single', dataObjects);
   // Now we take that array of objects and transform them into CourseInstance data objects.
   return _.filter(_.map(dataObjects, (dataObject) => makeCourseInstanceObject(dataObject)), (ci) => ci.course !== Courses.unInterestingSlug && ci.academicTerm !== null);
-}
+};
 
 /**
  * Processes STAR JSON data and returns an array of objects containing CourseInstance fields.
@@ -313,7 +311,7 @@ export function processStarJsonData(student, jsonData) {
  * @returns { Array } A list of objects with fields: academicTerm, course, note, verified, grade, and creditHrs.
  * @memberOf api/star
  */
-export function processBulkStarJsonData(jsonData) {
+export const processBulkStarJsonData = (jsonData) => {
   const bulkData = {};
   _.forEach(jsonData, (data) => {
     // console.log(data);
@@ -327,4 +325,4 @@ export function processBulkStarJsonData(jsonData) {
   });
   // console.log('bulk', bulkData);
   return bulkData;
-}
+};

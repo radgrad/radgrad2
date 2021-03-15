@@ -226,7 +226,7 @@ class BaseCollection {
    */
   public removeAll() {
     const items = this.collection.find().fetch();
-    _.forEach(items, function (i) {
+    items.forEach((i) => {
       this.removeIt(i._id);
     });
     return true;

@@ -34,7 +34,7 @@ const dateRangeToString = (dateRange: AdminAnalyticsDateRange): string | JSX.Ele
 const AdminAnalyticsStudentSummary: React.FC<AdminAnalyticsStudentSummaryProps> = ({ dateRange, userInteractions }) => {
   const interactionsByUser = userInteractions;
 
-  _.each(interactionsByUser, function (interactions, user) {
+  _.each(interactionsByUser, (interactions, user) => {
     if (_.some(interactions, { type: UserInteractionsTypes.LOGIN })) {
       behaviorCategories.LOGIN.count++;
       behaviorCategories.LOGIN.users.push(user);

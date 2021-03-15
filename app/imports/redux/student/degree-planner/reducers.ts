@@ -13,7 +13,7 @@ const initialState = {
   },
 };
 
-function inspectorReducer(state: any = initialState, action) {
+const inspectorReducer = (state: any = initialState, action) => {
   // console.log('inspectorReducer', action, state);
   const depInspector = state.depInspector;
   switch (action.type) {
@@ -66,9 +66,9 @@ function inspectorReducer(state: any = initialState, action) {
     default:
       return state;
   }
-}
+};
 
-function tabReducer(state: any = initialState, action) {
+const tabReducer = (state: any = initialState, action) => {
   switch (action.type) {
     case TYPES.SELECT_PLAN:
       return {
@@ -82,10 +82,6 @@ function tabReducer(state: any = initialState, action) {
       return {
         selectedTab: TYPES.SELECT_PROFILE_OPPORTUNITIES,
       };
-    case TYPES.SELECT_PROFILE_PLANS:
-      return {
-        selectedTab: TYPES.SELECT_PROFILE_PLANS,
-      };
     case TYPES.SELECT_PROFILE_COURSES:
       return {
         selectedTab: TYPES.SELECT_PROFILE_COURSES,
@@ -98,7 +94,7 @@ function tabReducer(state: any = initialState, action) {
     default:
       return state;
   }
-}
+};
 
 const reducer = combineReducers({
   inspector: inspectorReducer,

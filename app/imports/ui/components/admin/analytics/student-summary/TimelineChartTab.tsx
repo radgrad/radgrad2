@@ -24,7 +24,7 @@ const TimelineChartTab: React.FC<TimelineChartTabProps> = ({ startDate, endDate,
     const endDateMoment = moment(endDate, 'MMMM D, YYYY');
     const numDays = endDateMoment.diff(startDataMoment, 'days') + 1;
     const behaviorsByDate: { [key: string]: string[] } = {};
-    _.times(numDays, function (index) {
+    _.times(numDays, (index) => {
       const date = moment(startDataMoment).add(index, 'days');
       behaviorsByDate[moment(date).format('MMM D, YYYY')] = [];
     });
@@ -36,15 +36,15 @@ const TimelineChartTab: React.FC<TimelineChartTabProps> = ({ startDate, endDate,
       StudentSummaryBehaviorTypes.VERIFICATION,
       StudentSummaryBehaviorTypes.REVIEWING,
       StudentSummaryBehaviorTypes.LEVEL,
-      StudentSummaryBehaviorTypes.COMPLETEPLAN,
+      StudentSummaryBehaviorTypes.COMPLETE_PLAN,
       StudentSummaryBehaviorTypes.PROFILE,
       StudentSummaryBehaviorTypes.ADD_TO_PROFILE,
       StudentSummaryBehaviorTypes.REMOVE_FROM_PROFILE,
       StudentSummaryBehaviorTypes.LOGOUT,
     ];
-    _.each(behaviorsByDate, function (array, date, obj) {
-      _.each(interactionsByUser, function (interactions: UserInteraction[]) {
-        const interactionsWithinDate: UserInteraction[] = _.filter(interactions, function (interaction) {
+    _.each(behaviorsByDate, (array, date, obj) => {
+      _.each(interactionsByUser, (interactions: UserInteraction[]) => {
+        const interactionsWithinDate: UserInteraction[] = interactions.filter((interaction) => {
           const interactionDate = moment(interaction.timestamp).format('MMM D, YYYY');
           return interactionDate === date;
         });
@@ -98,16 +98,14 @@ const TimelineChartTab: React.FC<TimelineChartTabProps> = ({ startDate, endDate,
       });
     });
     // console.log(behaviorsByDate);
-    const categories = _.map(behaviorsByDate, function (behaviors, date) {
+    const categories = _.map(behaviorsByDate, (behaviors, date) => {
       const shortDate = date.substring(0, date.length - 6);
       return shortDate;
     });
-    const series = _.map(behaviorList, function (behavior) {
-      return { name: behavior, data: [] };
-    });
-    _.each(behaviorsByDate, function (behaviors) {
+    const series = _.map(behaviorList, (behavior) => ({ name: behavior, data: [] }));
+    _.each(behaviorsByDate, (behaviors) => {
       const groupedBehaviors = _.groupBy(behaviors);
-      _.each(behaviorList, function (behavior) {
+      _.each(behaviorList, (behavior) => {
         const behaviorCount = groupedBehaviors[behavior];
         const behaviorSeries = _.find(series, { name: behavior });
         if (behaviorCount) {

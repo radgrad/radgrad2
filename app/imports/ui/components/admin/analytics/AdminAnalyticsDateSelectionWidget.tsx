@@ -81,12 +81,8 @@ const AdminAnalyticsDateSelectionWidget: React.FC<AdminAnalyticsDateSelectionWid
           icon: 'error',
         });
       } else {
-        const timeGroups = _.groupBy(result, function (interaction) {
-          return moment(interaction.timestamp).utc().format('MMDDYYYYHHmm');
-        });
-        const docsPerMinGroups = _.groupBy(timeGroups, function (time) {
-          return time.length;
-        });
+        const timeGroups = _.groupBy(result, (interaction) => moment(interaction.timestamp).utc().format('MMDDYYYYHHmm'));
+        const docsPerMinGroups = _.groupBy(timeGroups, (time) => time.length);
         // console.log('docsPerMinGroups ', docsPerMinGroups);
         const overheadBuckets = createBucket(docsPerMinGroups);
         // console.log('overheadBuckets ', overheadBuckets);

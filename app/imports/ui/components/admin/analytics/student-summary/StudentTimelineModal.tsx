@@ -94,7 +94,7 @@ const getBehaviors = (sessionArr: UserInteraction[]): { type: string; stats: str
     [UserInteractionsTypes.EDIT_REVIEW]: [],
     [UserInteractionsTypes.VERIFY_REQUEST]: [],
   };
-  _.each(sessionArr, function (interaction) {
+  _.each(sessionArr, (interaction) => {
     if (actions[interaction.type]) {
       // there are interaction types that we've removed, but are still in the UserInteractions
       actions[interaction.type].push(interaction.typeData.join(', '));
@@ -108,12 +108,12 @@ const getBehaviors = (sessionArr: UserInteraction[]): { type: string; stats: str
     [StudentSummaryBehaviorTypes.VERIFICATION]: [],
     [StudentSummaryBehaviorTypes.REVIEWING]: [],
     [StudentSummaryBehaviorTypes.LEVEL]: [],
-    [StudentSummaryBehaviorTypes.COMPLETEPLAN]: [],
+    [StudentSummaryBehaviorTypes.COMPLETE_PLAN]: [],
     [StudentSummaryBehaviorTypes.PROFILE]: [],
     [StudentSummaryBehaviorTypes.ADD_TO_PROFILE]: [],
     [StudentSummaryBehaviorTypes.REMOVE_FROM_PROFILE]: [],
   };
-  _.each(actions, function (array: string[], action: string) {
+  _.each(actions, (array: string[], action: string) => {
     if (array.length !== 0) {
       if (action === UserInteractionsTypes.LOGIN) {
         behaviors[StudentSummaryBehaviorTypes.LOGIN].push(`User logged in ${array.length} time(s)`);
@@ -130,7 +130,7 @@ const getBehaviors = (sessionArr: UserInteraction[]): { type: string; stats: str
           [EXPLORER_TYPE.INTERESTS]: [],
           [EXPLORER_TYPE.OPPORTUNITIES]: [],
         };
-        _.each(array, function (url) {
+        _.each(array, (url) => {
           if (url.includes('explorer/')) {
             const parsedUrl = url.split('/');
             if (parsedUrl.length > 2) {
@@ -145,7 +145,7 @@ const getBehaviors = (sessionArr: UserInteraction[]): { type: string; stats: str
             }
           }
         });
-        _.each(explorerPages, function (pages, pageName) {
+        _.each(explorerPages, (pages, pageName) => {
           if (!_.isEmpty(pages)) {
             behaviors[StudentSummaryBehaviorTypes.EXPLORATION].push(`Entries viewed in ${pageName}: 
               ${_.uniq(pages).join(', ')}`);
@@ -172,26 +172,26 @@ const getBehaviors = (sessionArr: UserInteraction[]): { type: string; stats: str
       } else if (action === UserInteractionsTypes.LEVEL) {
         behaviors[StudentSummaryBehaviorTypes.LEVEL].push(`Level updated ${array.length} time(s): ${array}`);
       } else if (action === UserInteractionsTypes.COMPLETE_PLAN) {
-        behaviors[StudentSummaryBehaviorTypes.COMPLETEPLAN].push(`User completed their plan with the following ICE points: ${array}`);
+        behaviors[StudentSummaryBehaviorTypes.COMPLETE_PLAN].push(`User completed their plan with the following ICE points: ${array}`);
       } else if (action === UserInteractionsTypes.PICTURE) {
         behaviors[StudentSummaryBehaviorTypes.PROFILE].push(`User updated their picture ${array.length} time(s)`);
       } else if (action === UserInteractionsTypes.WEBSITE) {
         behaviors[StudentSummaryBehaviorTypes.PROFILE].push(`User updated their website ${array.length} time(s)`);
       } else if (action === UserInteractionsTypes.ADD_TO_PROFILE) {
         behaviors[StudentSummaryBehaviorTypes.ADD_TO_PROFILE].push(`User added items to profile ${array.length} time(s)`);
-        _.each(array, function (item) {
+        _.each(array, (item) => {
           behaviors[StudentSummaryBehaviorTypes.ADD_TO_PROFILE].push(`Item: ${item}`);
         });
       } else if (action === UserInteractionsTypes.REMOVE_FROM_PROFILE) {
         behaviors[StudentSummaryBehaviorTypes.REMOVE_FROM_PROFILE].push(`User removed items from profile ${array.length} time(s)`);
-        _.each(array, function (item) {
+        _.each(array, (item) => {
           behaviors[StudentSummaryBehaviorTypes.REMOVE_FROM_PROFILE].push(`Item: ${item}`);
         });
       }
     }
   });
   const behaviorsArray = [];
-  _.each(behaviors, function (value, key) {
+  _.each(behaviors, (value, key) => {
     if (!_.isEmpty(value)) {
       behaviorsArray.push({ type: key, stats: value });
     }

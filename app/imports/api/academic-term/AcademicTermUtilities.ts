@@ -1,13 +1,14 @@
 import _ from 'lodash';
 import moment from 'moment';
+import { AcademicTerm } from '../../typings/radgrad';
 import { AcademicTerms } from './AcademicTermCollection';
 import { RadGradProperties } from '../radgrad/RadGradProperties';
 
 /**
- * Defines default academicTerms from 2014 till 2020.
+ * Defines default academicTerms for last year plus 4 more years.
  * @memberOf api/academic-term
  */
-export function defineAcademicTerms() {
+export const defineAcademicTerms = (): void => {
   let year = moment().year() - 1;
   if (AcademicTerms.find().count() === 0) {
     for (let i = 0; i < 5; i++) {
@@ -20,7 +21,7 @@ export function defineAcademicTerms() {
       year++;
     }
   }
-}
+};
 
 /**
  * Returns the next AcademicTerm document given an AcademicTerm document.
@@ -28,7 +29,7 @@ export function defineAcademicTerms() {
  * @returns The next AcademicTerm doc.
  * @memberOf api/academic-term
  */
-export function nextAcademicTerm(termDoc) {
+export const nextAcademicTerm = (termDoc: AcademicTerm): AcademicTerm => {
   const currentTerm = termDoc.term;
   const currentYear = termDoc.year;
   let term;
@@ -48,7 +49,7 @@ export function nextAcademicTerm(termDoc) {
     term = AcademicTerms.FALL;
   }
   return AcademicTerms.findDoc(AcademicTerms.define({ term, year }));
-}
+};
 
 /**
  * Returns the next Fall, Winter or Spring academic term doc. Skips over Summer academic terms.
@@ -56,20 +57,20 @@ export function nextAcademicTerm(termDoc) {
  * @returns The next academic term doc (excluding summer).
  * @memberOf api/academic-term
  */
-export function nextNonSummerTerm(term) {
-  let next: { term: string } = nextAcademicTerm(term);
+export const nextNonSummerTerm = (term: AcademicTerm): AcademicTerm => {
+  let next: AcademicTerm = nextAcademicTerm(term);
   if (next.term === AcademicTerms.SUMMER) {
     next = nextAcademicTerm(next);
   }
   return next;
-}
+};
 
 /**
  * Returns an array of the upcoming academicTerms.
  * @return {array} of the upcoming academicTerms.
  * @memberOf api/academic-term
  */
-export function upComingTerms() {
+export const upComingTerms = (): AcademicTerm[] => {
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
   const nine = currentTerm.termNumber + 10;
   return _.sortBy(AcademicTerms.find({
@@ -78,12 +79,12 @@ export function upComingTerms() {
       $lt: nine,
     },
   }).fetch(), (sem) => sem.termNumber);
-}
+};
 
-export function termIDsToString(termIDs: string[]) {
+export const termIDsToString = (termIDs: string[]): string[] => {
   const retVal = [];
   termIDs.forEach((id) => {
     retVal.push(AcademicTerms.toString(id));
   });
   return retVal;
-}
+};

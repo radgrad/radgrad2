@@ -10,13 +10,13 @@ import { Slugs } from '../slug/SlugCollection';
  * @param {number} length
  * @returns {string}
  */
-export function getRandomDepartment(length = 3): string {
+export const getRandomDepartment = (length = 3): string => {
   let retVal = '';
   for (let i = 0; i < length; i++) {
     retVal = `${retVal}${faker.random.alphaNumeric()}`;
   }
   return retVal;
-}
+};
 
 /**
  * Returns a random course slug for the given department.
@@ -25,12 +25,10 @@ export function getRandomDepartment(length = 3): string {
  * @param {number} max the maximum course number, (optional) defaults to 800.
  * @returns {string}
  */
-export function getRandomCourseSlugForDept(dept: string, min = 100, max = 800): string {
-  return `${dept}_${faker.random.number({
-    min,
-    max,
-  })}`;
-}
+export const getRandomCourseSlugForDept = (dept: string, min = 100, max = 800): string => `${dept}_${faker.random.number({
+  min,
+  max,
+})}`;
 
 /**
  * Returns a random course slug for a random department.
@@ -39,10 +37,10 @@ export function getRandomCourseSlugForDept(dept: string, min = 100, max = 800): 
  * @param {number} max the maximum course number, (optional) defaults to 800.
  * @returns {string}
  */
-export function getRandomCourseSlug(deptLength = 3, min = 100, max = 800): string {
+export const getRandomCourseSlug = (deptLength = 3, min = 100, max = 800): string => {
   const deptName = getRandomDepartment(deptLength);
   return getRandomCourseSlugForDept(deptName, min, max);
-}
+};
 
 const makePrerequisiteArray = (numPrereqs = 0) => {
   const retVal = [];
@@ -58,7 +56,7 @@ const makePrerequisiteArray = (numPrereqs = 0) => {
  * @returns { String } The docID of the newly generated Course.
  * @memberOf api/course
  */
-export const makeSampleCourse = (args?: { num?: string; interestID?: string; }) => {
+export const makeSampleCourse = (args?: { num?: string; interestID?: string; }): string => {
   const name = faker.lorem.words();
   const slug = getRandomCourseSlug();
   const num = (args && args.num) ? args.num : faker.lorem.words();
@@ -97,14 +95,14 @@ export const makeSampleCourseSlugArray = (num = 1) => {
  * @returns { String } The docID for the newly generated Interest.
  * @memberOf api/course
  */
-export function makeSampleCourseInstance(student, args) {
+export const makeSampleCourseInstance = (student: string, args): string => {
   const academicTerm = AcademicTerms.define({ term: AcademicTerms.FALL, year: 2013 });
   const course = (args && args.course) ? args.course : makeSampleCourse();
   const verified = true;
   const grade = 'A';
   const note = `ABC ${course.num}`;
   return CourseInstances.define({ academicTerm, course, verified, grade, student, note });
-}
+};
 
 export const getRandomGrade = (): string => {
   const index = faker.random.number({ min: 1, max: CourseInstances.validGrades.length - 1 });

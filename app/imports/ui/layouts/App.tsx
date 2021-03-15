@@ -17,7 +17,7 @@ import { Users } from '../../api/user/UserCollection';
 import NotAuthorizedPage from '../pages/NotAuthorizedPage';
 
 // Hack to refresh other RadGrad tabs when logged out on one tab
-window.addEventListener('storage', function (event) {
+window.addEventListener('storage', (event) => {
   if (event.key === 'logoutEvent' && event.newValue === 'true') {
     window.location.reload();
   }

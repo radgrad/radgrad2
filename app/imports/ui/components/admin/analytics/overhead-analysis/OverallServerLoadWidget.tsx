@@ -15,7 +15,7 @@ const mapStateToProps = (state: RootState): { [key: string]: any } => ({
 });
 
 const createChartOptions = (overheadBuckets: IAdminAnalyticsOverheadAnalysisBuckets) => {
-  const buckets = _.map(overheadBuckets, function (value, index: number) {
+  const buckets = _.map(overheadBuckets, (value, index: number) => {
     const minRange = index * 10;
     const maxRange = minRange + 9;
     return `${minRange}-${maxRange}`;

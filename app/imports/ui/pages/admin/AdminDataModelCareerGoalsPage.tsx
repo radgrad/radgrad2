@@ -17,7 +17,7 @@ import { profileGetCareerGoalIDs, itemToSlugName } from '../../components/shared
 import { getDatamodelCount } from './utilities/datamodel';
 import PageLayout from '../PageLayout';
 
-function numReferences(careerGoal) {
+const numReferences = (careerGoal) => {
   let references = 0;
   Users.findProfiles({}, {}).forEach((profile) => {
     if (_.includes(profileGetCareerGoalIDs(profile), careerGoal._id)) {
@@ -25,7 +25,7 @@ function numReferences(careerGoal) {
     }
   });
   return references;
-}
+};
 
 const descriptionPairs = (careerGoal: CareerGoal): DescriptionPair[] => [
   { label: 'Description', value: careerGoal.description },

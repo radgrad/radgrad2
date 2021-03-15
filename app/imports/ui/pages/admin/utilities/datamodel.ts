@@ -16,9 +16,7 @@ import { Teasers } from '../../../../api/teaser/TeaserCollection';
 import { Users } from '../../../../api/user/UserCollection';
 import { VerificationRequests } from '../../../../api/verification/VerificationRequestCollection';
 
-export function makeMarkdownLink(url: string): string {
-  return (url) ? `[${url}](${url})` : ' ';
-}
+export const makeMarkdownLink = (url: string): string => ((url) ? `[${url}](${url})` : ' ');
 
 export const makeYoutubeLink = (url: string): string => (url ? `https://youtu.be/${url}` : '');
 

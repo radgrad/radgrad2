@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 
-Meteor.startup(function () {
+Meteor.startup(() => {
   if (Meteor.isTest || Meteor.isAppTest) {
     process.env.MAIL_URL = 'Test MAIL_URL variable';
   } else {
