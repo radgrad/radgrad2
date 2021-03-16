@@ -24,10 +24,10 @@ interface ProfileOpportunityCardProps {
 const ProfileOpportunityCard: React.FC<ProfileOpportunityCardProps> = ({ opportunity, opportunityInstances, studentID }) => {
   const match = useRouteMatch();
   const instances = opportunityInstances.filter((i) => i.opportunityID === opportunity._id);
-  const terms: AcademicTerm[] = _.map(instances, (i) => AcademicTerms.findDoc(i.termID));
+  const terms: AcademicTerm[] = instances.map((i) => AcademicTerms.findDoc(i.termID));
   // Sort by ascending order
   terms.sort((a, b) => a.year - b.year);
-  const termNames = _.map(terms, (t) => AcademicTerms.getShortName(t._id)).join(', ');
+  const termNames = terms.map((t) => AcademicTerms.getShortName(t._id)).join(', ');
   const slug = Slugs.findDoc(opportunity.slugID).name;
   const textAlignRight: React.CSSProperties = {
     textAlign: 'right',

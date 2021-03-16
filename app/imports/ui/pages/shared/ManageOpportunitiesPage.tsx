@@ -54,7 +54,7 @@ const descriptionPairs = (item: Opportunity): DescriptionPair[] => [
   { label: 'Opportunity Type', value: OpportunityTypes.findDoc(item.opportunityTypeID).name },
   { label: 'Sponsor', value: Users.getProfile(item.sponsorID).username },
   { label: 'Interests', value: _.sortBy(Interests.findNames(item.interestIDs)) },
-  { label: 'Academic Terms', value: _.map(item.termIDs, (id: string) => AcademicTerms.toString(id, false)) },
+  { label: 'Academic Terms', value: item.termIDs.map((id: string) => AcademicTerms.toString(id, false)) },
   { label: 'ICE', value: `${item.ice.i}, ${item.ice.c}, ${item.ice.e}` },
   { label: 'Retired', value: item.retired ? 'True' : 'False' },
 ];
@@ -94,8 +94,8 @@ const ManageOpportunitiesPage: React.FC<ManageOpportunitiesPageProps> = ({ spons
     // console.log('Opportunities.handleAdd(%o)', doc);
     const collectionName = collection.getCollectionName();
     const definitionData = doc;
-    const interestSlugs = _.map(doc.interests, interestSlugFromName);
-    const termSlugs = _.map(doc.terms, academicTermNameToSlug);
+    const interestSlugs = doc.interests.map(interestSlugFromName);
+    const termSlugs = doc.terms.map(academicTermNameToSlug);
     definitionData.interests = interestSlugs;
     definitionData.terms = termSlugs;
     definitionData.opportunityType = opportunityTypeNameToSlug(doc.opportunityType);
@@ -174,8 +174,8 @@ const ManageOpportunitiesPage: React.FC<ManageOpportunitiesPageProps> = ({ spons
     updateData.id = doc._id;
     updateData.opportunityType = opportunityTypeNameToSlug(doc.opportunityType);
     updateData.sponsor = profileNameToUsername(doc.sponsor);
-    updateData.interests = _.map(doc.interests, interestSlugFromName);
-    updateData.academicTerms = _.map(doc.terms, academicTermNameToSlug);
+    updateData.interests = doc.interests.map(interestSlugFromName);
+    updateData.academicTerms = doc.terms.map(academicTermNameToSlug);
     // console.log(collectionName, updateData);
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {

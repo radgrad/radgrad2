@@ -1,7 +1,6 @@
 import React from 'react';
 import { Card, Icon, Message } from 'semantic-ui-react';
 import { Link, useRouteMatch } from 'react-router-dom';
-import _ from 'lodash';
 import { Opportunity, OpportunityInstance } from '../../../../typings/radgrad';
 import * as Router from '../../shared/utilities/router';
 import ProfileOpportunityCard from './ProfileOpportunityCard';
@@ -20,7 +19,7 @@ const ProfileOpportunities: React.FC<ProfileOpportunitiesProps> = ({ studentID, 
     <div>
       {hasProfileEntries ? (
         <Card.Group itemsPerRow={1}>
-          {_.map(opportunities, (o) => (
+          {opportunities.map((o) => (
             <ProfileOpportunityCard key={o._id} opportunity={o} studentID={studentID} opportunityInstances={opportunityInstances} />
           ))}
         </Card.Group>

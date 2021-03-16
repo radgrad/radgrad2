@@ -3,7 +3,6 @@ import { Button, Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, SelectField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
-import _ from 'lodash';
 import { CareerGoal, Course, Interest, Opportunity } from '../../../../../typings/radgrad';
 import BaseCollection from '../../../../../api/base/BaseCollection';
 import { docToName, interestIdToName, itemToSlugName, opportunityIdToName, slugIDToSlugNameAndType, docToSlugNameAndType } from '../../../shared/utilities/data-model';

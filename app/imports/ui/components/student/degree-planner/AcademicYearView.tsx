@@ -1,5 +1,4 @@
 import React from 'react';
-import _ from 'lodash';
 import { Grid } from 'semantic-ui-react';
 import { AcademicYearInstance, CourseInstance, OpportunityInstance } from '../../../../typings/radgrad';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
@@ -23,7 +22,7 @@ const AcademicYearView: React.FC<AcademicYearViewProps> = ({
   opportunityInstances,
 }) => {
   const termIDs = academicYear.termIDs;
-  const terms = _.map(termIDs, (id) => AcademicTerms.findDoc(id));
+  const terms = termIDs.map((id) => AcademicTerms.findDoc(id));
   const smallPadding = {
     paddingTop: 2,
     paddingBottom: 2,
@@ -34,7 +33,7 @@ const AcademicYearView: React.FC<AcademicYearViewProps> = ({
   };
   return (
     <Grid.Row columns="equal" key={academicYear._id} style={smallPadding}>
-      {_.map(terms, (term) => (
+      {terms.map((term) => (
         <Grid.Column stretched key={term._id} style={smallLRPadding}>
           <AcademicTermViewContainer
             key={term._id}

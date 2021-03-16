@@ -62,7 +62,7 @@ const CourseForecast: React.FC<CourseForecastProps> = ({ courses, terms, scores 
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell width={1}>Course</Table.HeaderCell>
-                {_.map(terms, (term) => (
+                {terms.map((term) => (
                   <Table.HeaderCell width={1} key={term._id}>
                     {AcademicTerms.getShortName(term._id)}
                   </Table.HeaderCell>
@@ -73,12 +73,13 @@ const CourseForecast: React.FC<CourseForecastProps> = ({ courses, terms, scores 
           <div style={scrollBody}>
             <Table celled fixed>
               <Table.Body>
-                {_.map(courses, (c, index) => (
+                {courses.map((c, index) => (
+                  // eslint-disable-next-line react/no-array-index-key
                   <Table.Row key={index}>
                     <Table.Cell width={1}>
                       <Popup content={c.shortName} trigger={<Label>{c.num}</Label>} />
                     </Table.Cell>
-                    {_.map(terms, (t) => {
+                    {terms.map((t) => {
                       const score = getCourseScore(c._id, t._id, scores);
                       return (
                         <Table.Cell width={1} key={`${c._id}${t._id}`} negative={score > 0} collapsing>

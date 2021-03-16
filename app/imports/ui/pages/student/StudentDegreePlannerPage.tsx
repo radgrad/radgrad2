@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
 import { useParams } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
-import _ from 'lodash';
 import DegreeExperiencePlannerWidget from '../../components/student/degree-planner/DegreeExperiencePlannerWidget';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
@@ -306,7 +305,7 @@ const StudentDegreePlannerPage: React.FC<StudentDegreePlannerProps> = ({
 
 const takenSlugs = (courseInstances: CourseInstance[]): string[] => {
   const passedCourseInstances = courseInstances.filter((ci) => passedCourse(ci));
-  return _.map(passedCourseInstances, (ci) => {
+  return passedCourseInstances.map((ci) => {
     const doc = CourseInstances.getCourseDoc(ci._id);
     return Slugs.getNameFromID(doc.slugID);
   });
@@ -319,9 +318,9 @@ export default withTracker(() => {
   const profile = Users.getProfile(username);
   const studentID = profile.userID;
   const profileOpportunities = ProfileOpportunities.findNonRetired({ studentID });
-  const opportunities = _.map(profileOpportunities, (f) => Opportunities.findDoc(f.opportunityID));
+  const opportunities = profileOpportunities.map((f) => Opportunities.findDoc(f.opportunityID));
   const profileCourses = ProfileCourses.findNonRetired({ studentID });
-  const courses = _.map(profileCourses, (f) => Courses.findDoc(f.courseID));
+  const courses = profileCourses.map((f) => Courses.findDoc(f.courseID));
   const academicYearInstances: AcademicYearInstance[] = AcademicYearInstances.findNonRetired({ studentID }, { sort: { year: 1 } });
   const courseInstances = CourseInstances.findNonRetired({ studentID: profile.userID });
   const opportunityInstances = OpportunityInstances.findNonRetired({ studentID: profile.userID });

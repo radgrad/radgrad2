@@ -62,7 +62,7 @@ const OpportunityForecast: React.FC<OpportunityForecastProps> = ({ opportunities
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell width={1}>Opportunity</Table.HeaderCell>
-                {_.map(terms, (term) => (
+                {terms.map((term) => (
                   <Table.HeaderCell width={1} key={term._id}>
                     {AcademicTerms.getShortName(term._id)}
                   </Table.HeaderCell>
@@ -73,12 +73,13 @@ const OpportunityForecast: React.FC<OpportunityForecastProps> = ({ opportunities
           <div style={scrollBody}>
             <Table celled fixed>
               <Table.Body>
-                {_.map(opportunities, (c, index) => (
+                {opportunities.map((c, index) => (
+                  // eslint-disable-next-line react/no-array-index-key
                   <Table.Row key={index}>
                     <Table.Cell width={1}>
                       <Popup content={c.name} trigger={<Label>{c.name}</Label>} />
                     </Table.Cell>
-                    {_.map(terms, (t) => {
+                    {terms.map((t) => {
                       const score = getOpportunityScore(c._id, t._id, scores);
                       return (
                         <Table.Cell width={1} key={`${c._id}${t._id}`} negative={score > 0} collapsing>

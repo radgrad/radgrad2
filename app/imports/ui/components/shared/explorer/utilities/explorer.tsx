@@ -31,14 +31,14 @@ export const interestedStudents = (item: { _id: string }, type: string): Student
     profiles = profiles.filter((profile) => {
       const userID = profile.userID;
       const favCareerGoals = ProfileCareerGoals.findNonRetired({ userID });
-      const favIDs = _.map(favCareerGoals, (fav) => fav.careerGoalID);
+      const favIDs = favCareerGoals.map((fav) => fav.careerGoalID);
       return _.includes(favIDs, item._id);
     });
   } else if (type === EXPLORER_TYPE.INTERESTS) {
     profiles = profiles.filter((profile) => {
       const userID = profile.userID;
       const favInterests = ProfileInterests.findNonRetired({ userID });
-      const favIDs = _.map(favInterests, (fav) => fav.interestID);
+      const favIDs = favInterests.map((fav) => fav.interestID);
       return _.includes(favIDs, item._id);
     });
   }
@@ -114,7 +114,7 @@ export const availableOpps = (match: MatchProps): unknown[] => {
       });
       // console.log('second filter ', filteredOpps.length);
       const profileEntries = ProfileOpportunities.findNonRetired({ studentID });
-      const favIDs = _.map(profileEntries, (fav) => fav.opportunityID);
+      const favIDs = profileEntries.map((fav) => fav.opportunityID);
       filteredOpps = filteredOpps.filter((f) => !_.includes(favIDs, f._id));
       // console.log('third filter ', filteredOpps.length);
       return filteredOpps;

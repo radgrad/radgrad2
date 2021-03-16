@@ -209,7 +209,6 @@ export const processBulkStarCsvData = (csvData) => {
     const filteredData = filterParsedData(parsedData);
     // Create array of objects containing raw data to facilitate error message during processing.
     const bulkData = {};
-    // const dataObjects = _.map(filteredData, (data) => {
     _.forEach(filteredData, (data) => {
       const name = data[nameIndex];
       let grade = data[gradeIndex];

@@ -160,7 +160,7 @@ const StudentExplorerEditReviewForm: React.FC<StudentExplorerEditReviewWidgetPro
   model.rating = review.rating;
   model.academicTerm = AcademicTerms.toString(review.termID, false);
   const terms = academicTerm();
-  const academicTermNames = _.map(terms, (term) => `${term.term} ${term.year}`);
+  const academicTermNames = terms.map((term) => `${term.term} ${term.year}`);
   const schema = new SimpleSchema({
     academicTerm: {
       type: String,

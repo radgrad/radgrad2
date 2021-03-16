@@ -1,7 +1,6 @@
 import moment from 'moment';
 import React from 'react';
 import { useParams, useRouteMatch } from 'react-router-dom';
-import _ from 'lodash';
 import { Grid } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { updateMethod } from '../../../../api/base/BaseCollection.methods';
@@ -37,8 +36,8 @@ const headerPaneImage = 'header-courses.png';
 
 const CourseBrowserViewPage: React.FC<CourseBrowserViewPageProps> = ({ profileCourses, courses }) => {
   const match = useRouteMatch();
-  const profileCourseDocs = _.map(profileCourses, (f) => Courses.findDoc(f.courseID));
-  const menuAddedList = _.map(profileCourseDocs, (c) => ({ item: c, count: 1 })); // TODO why supply count?
+  const profileCourseDocs = profileCourses.map((f) => Courses.findDoc(f.courseID));
+  const menuAddedList = profileCourseDocs.map((c) => ({ item: c, count: 1 })); // TODO why supply count?
   const role = Router.getRoleByUrl(match);
   const showProfileEntries = role === 'student';
   const columnWidth = showProfileEntries ? 12 : 16;

@@ -60,7 +60,7 @@ const ListOpportunitiesWidget: React.FC<ListOpportunitiesWidgetProps> = ({ pagin
       {isInRole(match) ? (
         <div>
           <Header dividing> YOUR OPPORTUNITIES ({facultyCounter}) </Header>
-          {_.map(factoryOpp, (item) => (
+          {factoryOpp.map((item) => (
             <AdminDataModelAccordion
               key={item._id}
               id={item._id}
@@ -83,7 +83,7 @@ const ListOpportunitiesWidget: React.FC<ListOpportunitiesWidgetProps> = ({ pagin
 
       <Grid>
         <AdminPaginationWidget collection={collection} setShowIndex={dataModelActions.setCollectionShowIndex} setShowCount={dataModelActions.setCollectionShowCount} />
-        {_.map(items, (item) => (
+        {items.map((item) => (
           <AdminDataModelAccordion
             key={item._id}
             id={item._id}

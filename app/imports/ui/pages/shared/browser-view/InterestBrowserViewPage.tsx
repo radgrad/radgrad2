@@ -1,7 +1,6 @@
 import moment from 'moment';
 import React from 'react';
 import { Grid } from 'semantic-ui-react';
-import _ from 'lodash';
 import { useParams } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { updateMethod } from '../../../../api/base/BaseCollection.methods';
@@ -33,7 +32,7 @@ const headerPaneImage = 'header-interests.png';
 
 
 const InterestBrowserViewPage: React.FC<InterestBrowserViewPageProps> = ({ profileInterests, interests }) => {
-  const menuAddedItems = _.map(profileInterests, (doc) => ({ item: doc, count: 1 }));
+  const menuAddedItems = profileInterests.map((doc) => ({ item: doc, count: 1 }));
   return (
     <PageLayout id="interest-browser-view-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
       <Grid stackable>

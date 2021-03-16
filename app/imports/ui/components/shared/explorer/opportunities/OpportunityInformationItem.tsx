@@ -35,7 +35,7 @@ const getOpportunityType = (opportunity: Opportunity): string => {
 
 const getOpportunityAcademicTerms = (opportunity: Opportunity): string[] => {
   const termIDs = opportunity.termIDs;
-  return _.map(termIDs, (termID) => AcademicTerms.toString(termID));
+  return termIDs.map((termID) => AcademicTerms.toString(termID));
 };
 
 const getNumberOfStudentsParticipating = (opportunity: Opportunity): number => {

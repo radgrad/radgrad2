@@ -60,7 +60,7 @@ const AdminDataModelCareerGoalsPage: React.FC<AdminDataModelCareerGoalsPageProps
     // console.log('handleAdd(%o)', doc);
     const collectionName = CareerGoals.getCollectionName();
     const interests = doc.interests;
-    const slugs = _.map(interests, (i) => Slugs.getNameFromID(Interests.findDoc({ name: i }).slugID));
+    const slugs = interests.map((i) => Slugs.getNameFromID(Interests.findDoc({ name: i }).slugID));
     const definitionData = doc;
     definitionData.interests = slugs;
     defineMethod.call({ collectionName, definitionData }, (error) => {

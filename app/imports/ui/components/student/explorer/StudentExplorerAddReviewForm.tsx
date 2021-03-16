@@ -123,7 +123,7 @@ const StudentExplorerAddReviewForm: React.FC<StudentExplorerAddReviewFormProps> 
   const paddedContainerStyle = { paddingBottom: '1.5em' };
 
   const terms = academicTerm();
-  const academicTermNames = _.map(terms, (term) => `${term.term} ${term.year}`);
+  const academicTermNames = terms.map((term) => `${term.term} ${term.year}`);
   const schema = new SimpleSchema({
     academicTerm: {
       type: String,

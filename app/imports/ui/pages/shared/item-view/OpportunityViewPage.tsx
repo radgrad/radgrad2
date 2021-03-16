@@ -31,7 +31,7 @@ const opportunityType = (theOpp: Opportunity): string => {
 
 const academicTerms = (theOpp: Opportunity): string[] => {
   const termIDs = theOpp.termIDs;
-  return _.map(termIDs, (termID) => AcademicTerms.toString(termID));
+  return termIDs.map((termID) => AcademicTerms.toString(termID));
 };
 
 const sponsor = (theOpp: Opportunity): string => Users.getFullName(theOpp.sponsorID);
@@ -60,7 +60,7 @@ const isCompleted = (opportunityID: string, studentID: string): boolean => {
 
 const OpportunityViewPage: React.FC<OpportunityViewPageProps> = ({ profileOpportunities, itemReviews, opportunity, profile }) => {
   const match = useRouteMatch();
-  const menuAddedList = _.map(profileOpportunities, (item) => ({
+  const menuAddedList = profileOpportunities.map((item) => ({
     item,
     count: 1,
   }));
@@ -91,7 +91,7 @@ const OpportunityViewPageContainer = withTracker(() => {
   const { opportunity, username } = useParams();
   const profile = Users.getProfile(username);
   const favOpps = ProfileOpportunities.findNonRetired({ studentID: profile.userID });
-  const profileOpportunities = _.map(favOpps, (f) => Opportunities.findDoc(f.opportunityID));
+  const profileOpportunities = favOpps.map((f) => Opportunities.findDoc(f.opportunityID));
   const opportunityDoc = Opportunities.findDocBySlug(opportunity);
   const itemReviews = Reviews.findNonRetired({ revieweeID: opportunityDoc._id });
   return {

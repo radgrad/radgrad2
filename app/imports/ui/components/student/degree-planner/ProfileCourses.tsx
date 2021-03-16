@@ -1,7 +1,6 @@
 import React from 'react';
 import { Card, Icon, Message } from 'semantic-ui-react';
 import { Link, useRouteMatch } from 'react-router-dom';
-import _ from 'lodash';
 import { Course, CourseInstance } from '../../../../typings/radgrad';
 import * as Router from '../../shared/utilities/router';
 import ProfileCourseCard from './ProfileCourseCard';
@@ -20,7 +19,7 @@ const ProfileCourses: React.FC<ProfileCoursesProps> = ({ studentID, courses, cou
     <div>
       {hasProfileEntries ? (
         <Card.Group itemsPerRow={1}>
-          {_.map(courses, (c) => (
+          {courses.map((c) => (
             <ProfileCourseCard key={c._id} course={c} studentID={studentID} courseInstances={courseInstances} />
           ))}
         </Card.Group>

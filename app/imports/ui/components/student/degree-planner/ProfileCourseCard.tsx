@@ -25,10 +25,10 @@ interface ProfileCourseCardProps {
 const ProfileCourseCard: React.FC<ProfileCourseCardProps> = ({ course, courseInstances, studentID }) => {
   const match = useRouteMatch();
   const instances = courseInstances.filter((i) => i.courseID === course._id);
-  const terms = _.map(instances, (i) => AcademicTerms.findDoc(i.termID));
+  const terms = instances.map((i) => AcademicTerms.findDoc(i.termID));
   // Sort by ascending order
   terms.sort((a, b) => a.year - b.year);
-  const termNames = _.map(terms, (t) => AcademicTerms.getShortName(t._id)).join(', ');
+  const termNames = terms.map((t) => AcademicTerms.getShortName(t._id)).join(', ');
   const slug = Slugs.findDoc(course.slugID).name;
   const ice = instances.length > 0 ? makeCourseICE(slug, instances[instances.length - 1].grade) : { i: 0, c: 0, e: 0 };
   const textAlignRight: React.CSSProperties = {

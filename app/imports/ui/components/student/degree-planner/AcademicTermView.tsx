@@ -1,5 +1,4 @@
 import React from 'react';
-import _ from 'lodash';
 import { Header, Segment, Icon } from 'semantic-ui-react';
 import { Droppable } from 'react-beautiful-dnd';
 import { AcademicTerm, CourseInstance, OpportunityInstance } from '../../../../typings/radgrad';
@@ -47,11 +46,11 @@ const AcademicTermView: React.FC<AcademicTermViewProps> = ({
       <Droppable droppableId={`${termSlug}`}>
         {(provided, snapshot) => (
           <div ref={provided.innerRef} style={getDroppableListStyle(snapshot.isDraggingOver)}>
-            {_.map(courseInstancesToShow, (ci, index) => (
+            {courseInstancesToShow.map((ci, index) => (
               <DraggableCourseInstancePill key={ci._id} instance={ci} index={index} inPast={inPast}
                                            handleClickCourseInstance={handleClickCourseInstance} />
             ))}
-            {_.map(opportunityInstancesToShow, (oi, index) => (
+            {opportunityInstancesToShow.map((oi, index) => (
               <DraggableOpportunityInstancePill key={oi._id} instance={oi}
                                                 index={courseInstancesToShow.length + index}
                                                 handleClickOpportunityInstance={handleClickOpportunityInstance} />
