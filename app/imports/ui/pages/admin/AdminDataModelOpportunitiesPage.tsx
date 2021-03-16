@@ -226,7 +226,7 @@ const AdminDataModelOpportunitiesPageContainer = withTracker(() => {
   const after = currentTermNumber - 8;
   const before = currentTermNumber + 16;
   const allTerms = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();
-  const terms = _.filter(allTerms, (t) => t.termNumber >= after && t.termNumber <= before);
+  const terms = allTerms.filter((t) => t.termNumber >= after && t.termNumber <= before);
   const faculty = FacultyProfiles.find({}).fetch();
   const advisors = AdvisorProfiles.find({}).fetch();
   const sponsorDocs = _.union(faculty, advisors);

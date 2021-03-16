@@ -145,7 +145,7 @@ class StudentParticipationCollection extends BaseCollection {
       _.forEach(careerGoals, (c) => {
         const itemID = c._id;
         const itemSlug = Slugs.getNameFromID(c.slugID);
-        const filtered = _.filter(students, (s) => ProfileCareerGoals.findNonRetired({ studentID: s.userID, careerGoalID: itemID }).length > 0);
+        const filtered = students.filter((s) => ProfileCareerGoals.findNonRetired({ studentID: s.userID, careerGoalID: itemID }).length > 0);
         // console.log('students with careerGoal %o = %o', itemID, filtered);
         const itemCount = filtered.length;
         this.collection.upsert({ itemSlug }, { $set: { itemID, itemSlug, itemCount } });
@@ -155,7 +155,7 @@ class StudentParticipationCollection extends BaseCollection {
       _.forEach(interests, (i) => {
         const itemID = i._id;
         const itemSlug = Slugs.getNameFromID(i.slugID);
-        const filterd = _.filter(students, (s) => _.includes(profileGetInterestIDs(s), itemID));
+        const filterd = students.filter((s) => _.includes(profileGetInterestIDs(s), itemID));
         const itemCount = filterd.length;
         this.collection.upsert({ itemSlug }, { $set: { itemID, itemSlug, itemCount } });
       });

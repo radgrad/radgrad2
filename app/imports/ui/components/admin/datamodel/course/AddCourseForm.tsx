@@ -1,5 +1,4 @@
 import React from 'react';
-import _ from 'lodash';
 import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, NumField, LongTextField, SubmitField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
@@ -16,8 +15,8 @@ interface AddCourseFormProps {
 }
 
 const AddCourseForm: React.FC<AddCourseFormProps> = ({ interests, courses, formRef, handleAdd }) => {
-  const interestNames = _.map(interests, docToName);
-  const courseNames = _.map(courses, courseToName);
+  const interestNames = interests.map(docToName);
+  const courseNames = courses.map(courseToName);
   const schema = new SimpleSchema({
     slug: String,
     name: String,

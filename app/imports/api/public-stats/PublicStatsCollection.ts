@@ -136,7 +136,7 @@ class PublicStatsCollection extends BaseCollection {
 
   public careerGoalsList() {
     const goals = CareerGoals.findNonRetired();
-    const names = _.map(goals, 'name');
+    const names = goals.map((goal) => goal.name);
     this.collection.upsert({ key: this.careerGoalsListKey }, { $set: { value: names.join(', ') } });
   }
 
@@ -160,7 +160,7 @@ class PublicStatsCollection extends BaseCollection {
 
   public interestsList() {
     const interests = Interests.findNonRetired();
-    const names = _.map(interests, 'name');
+    const names = interests.map((interest) => interest.name);
     this.collection.upsert({ key: this.interestsListKey }, { $set: { value: names.join(', ') } });
   }
 
@@ -182,7 +182,7 @@ class PublicStatsCollection extends BaseCollection {
   public opportunitiesProjectsList() {
     const projectType = OpportunityTypes.findDoc({ name: 'Project' });
     const projects = Opportunities.findNonRetired({ opportunityTypeID: projectType._id });
-    const names = _.map(projects, 'name');
+    const names = projects.map((project) => project.name);
     this.collection.upsert({ key: this.opportunitiesProjectsListKey }, { $set: { value: names.join(', ') } });
   }
 

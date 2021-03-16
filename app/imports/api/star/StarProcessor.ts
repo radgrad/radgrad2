@@ -139,7 +139,7 @@ export const processStarCsvData = (student, csvData) => {
     // filteredData.map((data) => console.log('\n*** START ***\n', data, '\n*** END ***\n'));
 
     // Create array of objects containing raw data to facilitate error message during processing.
-    const dataObjects = _.map(filteredData, (data) => {
+    const dataObjects = filteredData.map((data) => {
       const name = data[nameIndex];
       let grade = data[gradeIndex];
       // console.log(`grade ${grade}`);
@@ -172,7 +172,7 @@ export const processStarCsvData = (student, csvData) => {
     });
     // console.log(dataObjects);
     // Now we take that array of objects and transform them into CourseInstance data objects.
-    return _.filter(_.map(dataObjects, (dataObject) => makeCourseInstanceObject(dataObject)), (ci) => ci.course !== Courses.unInterestingSlug && ci.academicTerm !== null);
+    return dataObjects.map((dataObject) => makeCourseInstanceObject(dataObject)).filter((ci) => ci.course !== Courses.unInterestingSlug && ci.academicTerm !== null);
   }
   // must be on the client.
   return null;
@@ -250,7 +250,7 @@ export const processBulkStarCsvData = (csvData) => {
     });
     // Now we take that array of objects and transform them into CourseInstance data objects.
     _.forEach(Object.keys(bulkData), (key) => {
-      bulkData[key].courses = _.filter(_.map(bulkData[key].courses, (dataObject) => makeCourseInstanceObject(dataObject)), (ci) => ci.course !== Courses.unInterestingSlug && ci.academicTerm !== null);
+      bulkData[key].courses = bulkData[key].courses.map((dataObject) => makeCourseInstanceObject(dataObject)).filter((ci) => ci.course !== Courses.unInterestingSlug && ci.academicTerm !== null);
     });
     return bulkData;
   }
@@ -270,7 +270,7 @@ export const processStarJsonData = (student, jsonData) => {
     throw new Meteor.Error(`JSON data is not for ${student}`);
   }
   const courses = jsonData.courses;
-  const dataObjects = _.map(courses, (course) => {
+  const dataObjects = courses.map((course) => {
     const name = course.name;
     let grade = course.grade;
     if (_.includes(CourseInstances.validGrades, grade)) {
@@ -302,7 +302,7 @@ export const processStarJsonData = (student, jsonData) => {
 
   // console.log('single', dataObjects);
   // Now we take that array of objects and transform them into CourseInstance data objects.
-  return _.filter(_.map(dataObjects, (dataObject) => makeCourseInstanceObject(dataObject)), (ci) => ci.course !== Courses.unInterestingSlug && ci.academicTerm !== null);
+  return dataObjects.map((dataObject) => makeCourseInstanceObject(dataObject)).filter((ci) => ci.course !== Courses.unInterestingSlug && ci.academicTerm !== null);
 };
 
 /**

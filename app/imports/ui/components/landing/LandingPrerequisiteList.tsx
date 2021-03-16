@@ -1,6 +1,5 @@
 import React from 'react';
 import { List } from 'semantic-ui-react';
-import _ from 'lodash';
 import { Courses } from '../../../api/course/CourseCollection';
 import { getSlugFromEntityID } from './utilities/helper-functions';
 
@@ -9,7 +8,7 @@ interface PrerequisitesListProps {
 }
 
 const LandingPrerequisiteList: React.FC<PrerequisitesListProps> = ({ prerequisites }) => {
-  const courses = _.map(prerequisites, (slug) => Courses.findDocBySlug(slug));
+  const courses = prerequisites.map((slug) => Courses.findDocBySlug(slug));
   return (
     <List horizontal bulleted>
       {

@@ -48,9 +48,9 @@ const getEventsHelper = (
     let allInstances: any[];
     const iceInstances = [];
     if (instanceType === 'course') {
-      allInstances = _.filter(courseInstances, (ci) => ci.verified === earned && ci.termID === term._id);
+      allInstances = courseInstances.filter((ci) => ci.verified === earned && ci.termID === term._id);
     } else {
-      allInstances = _.filter(opportunityInstances, (oi) => oi.verified === earned && oi.termID === term._id);
+      allInstances = opportunityInstances.filter((oi) => oi.verified === earned && oi.termID === term._id);
     }
     allInstances.forEach((instance) => {
       if (iceType === 'Innovation') {

@@ -1,5 +1,4 @@
 import React from 'react';
-import _ from 'lodash';
 import { Form, Header, Segment } from 'semantic-ui-react';
 import SimpleSchema from 'simpl-schema';
 import { AutoForm, SelectField, BoolField, SubmitField } from 'uniforms-semantic';
@@ -19,11 +18,11 @@ interface AddVerificationRequestFormProps {
 }
 
 const AddVerificationRequestForm: React.FC<AddVerificationRequestFormProps> = ({ students, academicTerms, opportunities, opportunityInstances, formRef, handleAdd }) => {
-  const termNames = _.map(academicTerms, academicTermToName);
+  const termNames = academicTerms.map(academicTermToName);
   const currentTermName = AcademicTerms.toString(AcademicTerms.getCurrentTermID(), false);
-  const opportunityNames = _.map(opportunities, docToName);
-  const opportunityInstanceNames = _.map(opportunityInstances, opportunityInstanceToName);
-  const studentNames = _.map(students, profileToName);
+  const opportunityNames = opportunities.map(docToName);
+  const opportunityInstanceNames = opportunityInstances.map(opportunityInstanceToName);
+  const studentNames = students.map(profileToName);
   const schema = new SimpleSchema({
     student: { type: String, allowedValues: studentNames, optional: true },
     status: {

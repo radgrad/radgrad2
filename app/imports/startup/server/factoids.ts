@@ -34,9 +34,9 @@ const getShortenedDescription = (description: string) => {
 const buildCareerGoalFactoid = (): InterestOrCareerGoalFactoidProps => {
   const goal = getRandomDocument(CareerGoals);
   let courses = Courses.findNonRetired();
-  courses = _.filter(courses, (course) => _.intersection(course.interestIDs, goal.interestIDs).length > 0);
+  courses = courses.filter((course) => _.intersection(course.interestIDs, goal.interestIDs).length > 0);
   let opportunities = Opportunities.findNonRetired({});
-  opportunities = _.filter(opportunities, (opp) => _.intersection(opp.interestIDs, goal.interestIDs).length > 0);
+  opportunities = opportunities.filter((opp) => _.intersection(opp.interestIDs, goal.interestIDs).length > 0);
   const factoid = {
     name: goal.name,
     description: getShortenedDescription(goal.description),
@@ -51,9 +51,9 @@ const buildCareerGoalFactoid = (): InterestOrCareerGoalFactoidProps => {
 const buildInterestFactoid = (): InterestOrCareerGoalFactoidProps => {
   const interest = getRandomDocument(Interests);
   let courses = Courses.findNonRetired();
-  courses = _.filter(courses, (course) => _.includes(course.interestIDs, interest._id));
+  courses = courses.filter((course) => _.includes(course.interestIDs, interest._id));
   let opportunities = Opportunities.findNonRetired({});
-  opportunities = _.filter(opportunities, (opp) => _.includes(opp.interestIDs, interest._id));
+  opportunities = opportunities.filter((opp) => _.includes(opp.interestIDs, interest._id));
   const factoid = {
     name: interest.name,
     description: getShortenedDescription(interest.description),

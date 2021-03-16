@@ -23,7 +23,7 @@ interface ProfileOpportunityCardProps {
 
 const ProfileOpportunityCard: React.FC<ProfileOpportunityCardProps> = ({ opportunity, opportunityInstances, studentID }) => {
   const match = useRouteMatch();
-  const instances = _.filter(opportunityInstances, (i) => i.opportunityID === opportunity._id);
+  const instances = opportunityInstances.filter((i) => i.opportunityID === opportunity._id);
   const terms: AcademicTerm[] = _.map(instances, (i) => AcademicTerms.findDoc(i.termID));
   // Sort by ascending order
   terms.sort((a, b) => a.year - b.year);

@@ -91,7 +91,7 @@ class BaseCollection {
    * @returns { Number } The number of non-retired elements in this collection.
    */
   public countNonRetired(): number {
-    return _.filter(this.collection.find().fetch(), (doc) => !doc.retired).length;
+    return this.collection.find().fetch().filter((doc) => !doc.retired).length;
   }
 
   /**
@@ -162,7 +162,7 @@ class BaseCollection {
    */
   public findNonRetired(selector?: { [key: string]: unknown }, options?: { [key: string]: unknown }) {
     const theSelector = (typeof selector === 'undefined') ? {} : selector;
-    return _.filter(this.collection.find(theSelector, options).fetch(), (doc) => !doc.retired);
+    return this.collection.find(theSelector, options).fetch().filter((doc) => !doc.retired);
   }
 
   /**

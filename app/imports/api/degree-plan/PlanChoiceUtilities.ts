@@ -85,7 +85,7 @@ export const isXXChoice = (planChoice: string): boolean => {
 export const complexChoiceToArray = (planChoice: string): string[] => {
   const cleaned = stripCounter(planChoice);
   const split = cleaned.split(',');
-  return _.map(split, (slug) => {
+  return split.map((slug) => {
     if (slug.startsWith('(')) {
       return slug.substring(1);
     }

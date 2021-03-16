@@ -3,7 +3,6 @@ import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, SelectField, LongTextField, DateField, BoolField, SubmitField, NumField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
-import _ from 'lodash';
 import Swal from 'sweetalert2';
 import { AcademicTerm, BaseProfile, Interest, OpportunityType } from '../../../../../typings/radgrad';
 import { academicTermToName, docToName, profileToName } from '../../../shared/utilities/data-model';
@@ -22,10 +21,10 @@ interface AddOpportunityFormProps {
 
 const AddOpportunityForm: React.FC<AddOpportunityFormProps> = ({ sponsors, formRef, handleAdd, interests, terms, opportunityTypes }) => {
   const [pictureURL, setPictureURL] = useState<string>('');
-  const sponsorNames = _.map(sponsors, profileToName);
-  const termNames = _.map(terms, academicTermToName);
-  const opportunityTypeNames = _.map(opportunityTypes, docToName);
-  const interestNames = _.map(interests, docToName);
+  const sponsorNames = sponsors.map(profileToName);
+  const termNames = terms.map(academicTermToName);
+  const opportunityTypeNames = opportunityTypes.map(docToName);
+  const interestNames = interests.map(docToName);
   const handleUploadPicture = async (e): Promise<void> => {
     e.preventDefault();
     try {

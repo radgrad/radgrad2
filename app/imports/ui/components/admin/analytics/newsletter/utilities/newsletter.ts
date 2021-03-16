@@ -109,8 +109,8 @@ const iceRecHelper = (student: StudentProfile, value, component): string => {
       return html;
     }
     const relevantCourses = Courses.find().fetch().filter((course) => _.some(course.interestIDs, interest => _.includes(studentInterests, interest)));
-    const currentCourses = _.map(CourseInstances.find({ studentID: student.userID }).fetch(), 'courseID');
-    const recommendedCourses = _.filter(relevantCourses, course => !_.includes(currentCourses, course._id));
+    const currentCourses = CourseInstances.find({ studentID: student.userID }).fetch().map((ci) => ci.courseID);
+    const recommendedCourses = relevantCourses.filter(course => !_.includes(currentCourses, course._id));
     if (recommendedCourses.length === 0) {
       html += '<em><a href="https://radgrad.ics.hawaii.edu">' +
         ' Add more interests so we can provide course recommendations!</a></em>';
@@ -133,8 +133,8 @@ const iceRecHelper = (student: StudentProfile, value, component): string => {
       return ' <em><a href="https://radgrad.ics.hawaii.edu">' +
         ' Add more Interests to your profile so we can provide opportunity recommendations!</a></em>';
     }
-    const currentOpps = _.map(OpportunityInstances.find({ studentID: student.userID }).fetch(), 'opportunityID');
-    const recommendedOpps = _.filter(relevantOpps, opp => !_.includes(currentOpps, opp._id));
+    const currentOpps = OpportunityInstances.find({ studentID: student.userID }).fetch().map((oi) => oi.opportunityID);
+    const recommendedOpps = relevantOpps.filter(opp => !_.includes(currentOpps, opp._id));
     let recOpp;
     if (recommendedOpps.length === 0) {
       recOpp = relevantOpps[0];

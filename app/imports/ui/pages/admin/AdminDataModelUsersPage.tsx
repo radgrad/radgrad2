@@ -49,11 +49,11 @@ const descriptionPairs = (props: AdminDataModelUsersPageProps) => (user: BasePro
   pairs.push({ label: 'Role', value: user.role });
   pairs.push({ label: 'Picture', value: makeMarkdownLink(user.picture) });
   pairs.push({ label: 'Website', value: makeMarkdownLink(user.website) });
-  const profileCareerGoals = _.filter(props.profileCareerGoals, (fav) => fav.userID === user.userID);
+  const profileCareerGoals = props.profileCareerGoals.filter((fav) => fav.userID === user.userID);
   // const profileCareerGoals = ProfileCareerGoals.findNonRetired({ studentID: user.userID });
   const careerGoalIDs = _.map(profileCareerGoals, (f) => f.careerGoalID);
   pairs.push({ label: 'Career Goals', value: _.sortBy(CareerGoals.findNames(careerGoalIDs)) });
-  const profileInterests = _.filter(props.profileInterests, (fav) => fav.userID === user.userID);
+  const profileInterests = props.profileInterests.filter((fav) => fav.userID === user.userID);
   // const profileInterests = ProfileInterests.findNonRetired({ studentID: user.userID });
   const interestIDs = _.map(profileInterests, (f) => f.interestID);
   pairs.push({ label: 'Interests', value: _.sortBy(Interests.findNames(interestIDs)) });
@@ -375,7 +375,7 @@ export default withTracker(() => {
   const careerGoals = CareerGoals.find({}, { sort: { name: 1 } }).fetch();
   let academicTerms = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
-  academicTerms = _.filter(academicTerms, (term) => term.termNumber <= currentTerm.termNumber && term.termNumber > currentTerm.termNumber - 8);
+  academicTerms = academicTerms.filter((term) => term.termNumber <= currentTerm.termNumber && term.termNumber > currentTerm.termNumber - 8);
   const modelCount = getDatamodelCount();
   return {
     ...modelCount,

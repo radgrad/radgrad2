@@ -175,7 +175,7 @@ class CareerGoalCollection extends BaseSlugCollection {
     const name = doc.name;
     const slug = Slugs.getNameFromID(doc.slugID);
     const description = doc.description;
-    const interests = _.map(doc.interestIDs, (interestID) => Interests.findSlugByID(interestID));
+    const interests = doc.interestIDs.map((interestID) => Interests.findSlugByID(interestID));
     const retired = doc.retired;
     return { name, slug, interests, description, retired };
   }

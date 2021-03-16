@@ -58,8 +58,8 @@ export const getStudent300LevelDocs = (studentID: string, coursesTakenSlugs: str
       }
     }
   });
-  ret = _.filter(courses, (c) => _.indexOf(courseTakenIDs, c._id) === -1);
-  ret = _.filter(ret, (c) => prereqsMet(coursesTakenSlugs, c._id)); // remove courses that don't have the prerequisites
+  ret = courses.filter((c) => _.indexOf(courseTakenIDs, c._id) === -1);
+  ret = ret.filter((c) => prereqsMet(coursesTakenSlugs, c._id)); // remove courses that don't have the prerequisites
   return ret;
 };
 
@@ -90,8 +90,8 @@ export const getStudent400LevelDocs = (studentID: string, coursesTakenSlugs: str
       }
     }
   });
-  ret = _.filter(courses, (c) => _.indexOf(courseTakenIDs, c._id) === -1);
-  ret = _.filter(ret, (c) => prereqsMet(coursesTakenSlugs, c._id)); // remove courses that don't have the prerequisites
+  ret = courses.filter((c) => _.indexOf(courseTakenIDs, c._id) === -1);
+  ret = ret.filter((c) => prereqsMet(coursesTakenSlugs, c._id)); // remove courses that don't have the prerequisites
   return ret;
 };
 

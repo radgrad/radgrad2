@@ -39,8 +39,8 @@ class MatchingInterestsClass {
   public notMatchingInterests(username: string, item: HasInterests) {
     const userInterestIDs = Users.getInterestIDs(username);
     const matches = this.matchingInterests(userInterestIDs, item.interestIDs);
-    const itemInterests = _.map(item.interestIDs, (id) => Interests.findDoc(id));
-    return _.filter(itemInterests, (courseInterest) => {
+    const itemInterests = item.interestIDs.map((id) => Interests.findDoc(id));
+    return itemInterests.filter((courseInterest) => {
       let ret = true;
       _.forEach(matches, (matchingInterest) => {
         if (_.isEqual(courseInterest, matchingInterest)) {

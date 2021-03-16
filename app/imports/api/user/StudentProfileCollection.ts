@@ -627,14 +627,14 @@ class StudentProfileCollection extends BaseProfileCollection {
     const website = doc.website;
     const userID = Users.getID(username);
     const favInterests = ProfileInterests.findNonRetired({ userID });
-    const interests = _.map(favInterests, (fav) => Interests.findSlugByID(fav.interestID));
+    const interests = favInterests.map((fav) => Interests.findSlugByID(fav.interestID));
     const favCareerGoals = ProfileCareerGoals.findNonRetired({ userID });
-    const careerGoals = _.map(favCareerGoals, (fav) => CareerGoals.findSlugByID(fav.careerGoalID));
+    const careerGoals = favCareerGoals.map((fav) => CareerGoals.findSlugByID(fav.careerGoalID));
     const level = doc.level;
     const favCourses = ProfileCourses.findNonRetired({ studentID: userID });
-    const profileCourses = _.map(favCourses, (fav) => Courses.findSlugByID(fav.courseID));
+    const profileCourses = favCourses.map((fav) => Courses.findSlugByID(fav.courseID));
     const favOpps = ProfileOpportunities.findNonRetired({ studentID: userID });
-    const profileOpportunities = _.map(favOpps, (fav) => Opportunities.findSlugByID(fav.opportunityID));
+    const profileOpportunities = favOpps.map((fav) => Opportunities.findSlugByID(fav.opportunityID));
     const declaredAcademicTerm = doc.declaredAcademicTermID && AcademicTerms.findSlugByID(doc.declaredAcademicTermID);
     const isAlumni = doc.isAlumni;
     const retired = doc.retired;

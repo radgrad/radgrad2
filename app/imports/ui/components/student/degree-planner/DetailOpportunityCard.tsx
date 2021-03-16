@@ -103,7 +103,7 @@ const handleVerificationRequest = (instance, match) => (model) => {
 };
 
 const DetailOpportunityCard: React.FC<DetailOpportunityCardProps> = ({ instance, verificationRequests, selectOpportunityInstance }) => {
-  const verificationRequeststoShow = _.filter(verificationRequests, (vr) => vr.opportunityInstanceID === instance._id);
+  const verificationRequeststoShow = verificationRequests.filter((vr) => vr.opportunityInstanceID === instance._id);
   const match = useRouteMatch();
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
   const opportunityTerm = AcademicTerms.findDoc(instance.termID);

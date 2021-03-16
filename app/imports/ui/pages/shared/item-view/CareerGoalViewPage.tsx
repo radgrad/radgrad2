@@ -29,7 +29,7 @@ const interestedUsersCareerGoals = (theCareerGoal: CareerGoal, role: string): Pr
       interested.push(profile);
     }
   });
-  interested = _.filter(interested, (profile) => profile.picture && profile.picture !== defaultProfilePicture);
+  interested = interested.filter((profile) => profile.picture && profile.picture !== defaultProfilePicture);
   // only allow 50 students randomly selected.
   for (let i = interested.length - 1; i >= 50; i--) {
     interested.splice(Math.floor(Math.random() * interested.length), 1);

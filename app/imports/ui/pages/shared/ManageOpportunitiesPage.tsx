@@ -249,7 +249,7 @@ export default withTracker(() => {
   const currentTermNumber = AcademicTerms.getCurrentAcademicTermDoc().termNumber;
   const after = currentTermNumber - 8;
   const before = currentTermNumber + 16;
-  const terms = _.filter(allTerms, (t) => t.termNumber >= after && t.termNumber <= before);
+  const terms = allTerms.filter((t) => t.termNumber >= after && t.termNumber <= before);
   const interests = Interests.find({}, { sort: { name: 1 } }).fetch();
   const opportunityTypes = OpportunityTypes.find({}, { sort: { name: 1 } }).fetch();
   return {

@@ -24,7 +24,7 @@ interface ProfileCourseCardProps {
 
 const ProfileCourseCard: React.FC<ProfileCourseCardProps> = ({ course, courseInstances, studentID }) => {
   const match = useRouteMatch();
-  const instances = _.filter(courseInstances, (i) => i.courseID === course._id);
+  const instances = courseInstances.filter((i) => i.courseID === course._id);
   const terms = _.map(instances, (i) => AcademicTerms.findDoc(i.termID));
   // Sort by ascending order
   terms.sort((a, b) => a.year - b.year);

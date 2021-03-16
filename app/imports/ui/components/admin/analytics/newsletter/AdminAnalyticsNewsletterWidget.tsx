@@ -139,7 +139,7 @@ const AdminAnalyticsNewsletterWidget: React.FC<AdminAnalyticsNewsletterWidgetPro
     if (onSubmitInputMessage.length !== 0 && subjectLine.length !== 0) {
       startTestNewsletter();
       const studentEmailsArr = studentEmails.split(',');
-      const bccListArray = _.map(bcc.split(','), (email) => email.trim());
+      const bccListArray = bcc.split(',').map((email) => email.trim());
       const adminEmail = RadGradProperties.getAdminEmail();
       const from = RadGradProperties.getNewsletterFrom();
       const adminMessage = $('.adminMessage').html();
@@ -205,7 +205,7 @@ const AdminAnalyticsNewsletterWidget: React.FC<AdminAnalyticsNewsletterWidgetPro
     if (onSubmitInputMessage.length !== 0 && subjectLine.length !== 0 && level !== 0) {
       startLevelNewsletter();
       const studentEmailsArr = getStudentEmailsByLevel(level);
-      const bccListArray = _.map(bcc.split(','), (email) => email.trim());
+      const bccListArray = bcc.split(',').map((email) => email.trim());
       const from = RadGradProperties.getNewsletterFrom();
       const adminMessage = $('.adminMessage').html();
       _.forEach(studentEmailsArr, (studentEmail) => {
@@ -261,8 +261,8 @@ const AdminAnalyticsNewsletterWidget: React.FC<AdminAnalyticsNewsletterWidgetPro
     if (onSubmitInputMessage.length !== 0 && subjectLine.length !== 0) {
       startAllNewsletter();
       const profiles = StudentProfiles.find({ isAlumni: false }).fetch();
-      const studentEmailsArr = _.map(profiles, (p) => p.username);
-      const bccListArray = _.map(bcc.split(','), (email) => email.trim());
+      const studentEmailsArr = profiles.map((p) => p.username);
+      const bccListArray = bcc.split(',').map((email) => email.trim());
       const from = RadGradProperties.getNewsletterFrom();
       const adminMessage = $('.adminMessage').html();
       _.forEach(studentEmailsArr, (studentEmail) => {

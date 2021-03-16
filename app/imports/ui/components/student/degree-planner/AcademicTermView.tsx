@@ -37,8 +37,8 @@ const AcademicTermView: React.FC<AcademicTermViewProps> = ({
   const currentTermNum = AcademicTerms.getCurrentAcademicTermDoc().termNumber;
   const inPast = term.termNumber < currentTermNum;
   const isCurrent = term.termNumber === currentTermNum;
-  const courseInstancesToShow = _.filter(courseInstances, (ci) => ci.termID === term._id);
-  const opportunityInstancesToShow = _.filter(opportunityInstances, (oi) => oi.termID === term._id);
+  const courseInstancesToShow = courseInstances.filter((ci) => ci.termID === term._id);
+  const opportunityInstancesToShow = opportunityInstances.filter((oi) => oi.termID === term._id);
   return (
     <Segment style={paddedStyle}>
       <Header disabled={inPast} color={isCurrent ? 'green' : 'black'} style={headerStyle}>

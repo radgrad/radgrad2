@@ -36,13 +36,13 @@ export class VerificationChecklist extends Checklist {
     const studentID = this.profile.userID;
     const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
     const ois = OpportunityInstances.findNonRetired({studentID, verified: false});
-    const oisInPast = _.filter(ois, (oi) => {
+    const oisInPast = ois.filter((oi) => {
       const term = AcademicTerms.findDoc(oi.termID);
       return term.termNumber < currentTerm.termNumber;
     });
     const requests = VerificationRequests.findNonRetired({studentID});
     const requestedOIs = requests.map((request) => request.opportunityInstanceID);
-    const unverified = _.filter(oisInPast, (oi) => !_.includes(requestedOIs, oi._id));
+    const unverified = oisInPast.filter((oi) => !_.includes(requestedOIs, oi._id));
     return unverified;
   }
 

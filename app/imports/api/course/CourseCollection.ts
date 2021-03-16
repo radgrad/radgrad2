@@ -302,7 +302,7 @@ class CourseCollection extends BaseSlugCollection {
     const num = doc.num;
     const description = doc.description;
     const creditHrs = doc.creditHrs;
-    const interests = _.map(doc.interestIDs, (interestID) => Interests.findSlugByID(interestID));
+    const interests = doc.interestIDs.map((interestID) => Interests.findSlugByID(interestID));
     const syllabus = doc.syllabus;
     const corequisites = doc.corequisites;
     const prerequisites = doc.prerequisites;

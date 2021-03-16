@@ -26,7 +26,7 @@ const hasNoInterests = (profileInterests: ProfileInterest[]): boolean => profile
 const availableCourses = (match): Course[] => {
   const courses = Courses.findNonRetired({});
   if (courses.length > 0) {
-    return _.filter(courses, (course) => {
+    return courses.filter((course) => {
       if (course.num === 'ICS 499') {
         // TODO: hardcoded ICS string
         return true;

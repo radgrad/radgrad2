@@ -1,5 +1,4 @@
 import React from 'react';
-import _ from 'lodash';
 import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, SelectField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
@@ -16,7 +15,7 @@ interface AddFeedbackInstanceFormProps {
 }
 
 const AddFeedbackInstanceForm: React.FC<AddFeedbackInstanceFormProps> = ({ students, formRef, handleAdd }) => {
-  const studentNames = _.map(students, profileToName);
+  const studentNames = students.map(profileToName);
   // console.log(FeedbackFunctions.feedbackFunctionNames);
   const schema = new SimpleSchema({
     user: { type: String, allowedValues: studentNames, defaultValue: studentNames[0] },

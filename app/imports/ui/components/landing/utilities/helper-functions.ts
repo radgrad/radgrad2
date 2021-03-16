@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import { Slugs } from '../../../../api/slug/SlugCollection';
 import { OpportunityTypes } from '../../../../api/opportunity/OpportunityTypeCollection';
@@ -52,7 +51,7 @@ export const teaser = (opportunity: Opportunity) => {
 
 export const semesters = (opportunity) => {
   const termIDs = opportunity.termIDs;
-  const array = _.map(termIDs, (semID) => AcademicTerms.toString(semID));
+  const array = termIDs.map((semID) => AcademicTerms.toString(semID));
   const semString = array.join(', ');
   return semString.replace(/Summer/g, 'Sum').replace(/Spring/g, 'Spr');
 };

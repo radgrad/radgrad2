@@ -1,6 +1,5 @@
 import React from 'react';
 import { Header, Grid, List, Segment, Icon } from 'semantic-ui-react';
-import _ from 'lodash';
 import { Link } from 'react-router-dom';
 import { Courses } from '../../../../../../api/course/CourseCollection';
 import { Slugs } from '../../../../../../api/slug/SlugCollection';
@@ -28,7 +27,7 @@ const InterestedRelatedWidget: React.FC<InterestedRelatedWidgetProps> = ({ relat
             <List>
               {relatedCourses.completed.length === 0
                 ? 'None'
-                : _.map(relatedCourses.completed, (courseID) => {
+                : relatedCourses.completed.map((courseID) => {
                   const course = Courses.findDoc(courseID);
                   const slug = Slugs.getNameFromID(course.slugID);
                   const url = `${baseURL}/${EXPLORER_TYPE.COURSES}/${slug}`;
@@ -48,7 +47,7 @@ const InterestedRelatedWidget: React.FC<InterestedRelatedWidgetProps> = ({ relat
             <List>
               {relatedCourses.inPlan.length === 0
                 ? 'None'
-                : _.map(relatedCourses.inPlan, (courseID) => {
+                : relatedCourses.inPlan.map((courseID) => {
                   const course = Courses.findDoc(courseID);
                   const slug = Slugs.getNameFromID(course.slugID);
                   const url = `${baseURL}/${EXPLORER_TYPE.COURSES}/${slug}`;
@@ -68,7 +67,7 @@ const InterestedRelatedWidget: React.FC<InterestedRelatedWidgetProps> = ({ relat
             <List>
               {relatedCourses.notInPlan.length === 0
                 ? 'None'
-                : _.map(relatedCourses.notInPlan, (courseID) => {
+                : relatedCourses.notInPlan.map((courseID) => {
                   const course = Courses.findDoc(courseID);
                   const slug = Slugs.getNameFromID(course.slugID);
                   const url = `${baseURL}/${EXPLORER_TYPE.COURSES}/${slug}`;
@@ -83,7 +82,7 @@ const InterestedRelatedWidget: React.FC<InterestedRelatedWidgetProps> = ({ relat
         </Grid>
       ) : (
         <List horizontal bulleted>
-          {_.map(relatedCourses.notInPlan, (courseID) => {
+          {relatedCourses.notInPlan.map((courseID) => {
             const course = Courses.findDoc(courseID);
             const slug = Slugs.getNameFromID(course.slugID);
             const url = `${baseURL}/${EXPLORER_TYPE.COURSES}/${slug}`;
@@ -108,7 +107,7 @@ const InterestedRelatedWidget: React.FC<InterestedRelatedWidgetProps> = ({ relat
             <List>
               {relatedOpportunities.completed.length === 0
                 ? 'None'
-                : _.map(relatedOpportunities.completed, (opportunityID) => {
+                : relatedOpportunities.completed.map((opportunityID) => {
                   const opportunity = Opportunities.findDoc(opportunityID);
                   const slug = Slugs.getNameFromID(opportunity.slugID);
                   const url = `${baseURL}/${EXPLORER_TYPE.OPPORTUNITIES}/${slug}`;
@@ -128,7 +127,7 @@ const InterestedRelatedWidget: React.FC<InterestedRelatedWidgetProps> = ({ relat
             <List>
               {relatedOpportunities.inPlan.length === 0
                 ? 'None'
-                : _.map(relatedOpportunities.inPlan, (opportunityID) => {
+                : relatedOpportunities.inPlan.map((opportunityID) => {
                   const opportunity = Opportunities.findDoc(opportunityID);
                   const slug = Slugs.getNameFromID(opportunity.slugID);
                   const url = `${baseURL}/${EXPLORER_TYPE.OPPORTUNITIES}/${slug}`;
@@ -148,7 +147,7 @@ const InterestedRelatedWidget: React.FC<InterestedRelatedWidgetProps> = ({ relat
             <List>
               {relatedOpportunities.notInPlan.length === 0
                 ? 'None'
-                : _.map(relatedOpportunities.notInPlan, (opportunityID) => {
+                : relatedOpportunities.notInPlan.map((opportunityID) => {
                   const opportunity = Opportunities.findDoc(opportunityID);
                   const slug = Slugs.getNameFromID(opportunity.slugID);
                   const url = `${baseURL}/${EXPLORER_TYPE.OPPORTUNITIES}/${slug}`;
@@ -163,7 +162,7 @@ const InterestedRelatedWidget: React.FC<InterestedRelatedWidgetProps> = ({ relat
         </Grid>
       ) : (
         <List horizontal bulleted>
-          {_.map(relatedOpportunities.notInPlan, (opportunityID) => {
+          {relatedOpportunities.notInPlan.map((opportunityID) => {
             const opportunity = Opportunities.findDoc(opportunityID);
             const slug = Slugs.getNameFromID(opportunity.slugID);
             const url = `${baseURL}/${EXPLORER_TYPE.COURSES}/${slug}`;

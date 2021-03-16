@@ -28,21 +28,21 @@ export const interestedStudents = (item: { _id: string }, type: string): Student
   let profiles = StudentProfiles.findNonRetired({ isAlumni: false });
 
   if (type === EXPLORER_TYPE.CAREERGOALS) {
-    profiles = _.filter(profiles, (profile) => {
+    profiles = profiles.filter((profile) => {
       const userID = profile.userID;
       const favCareerGoals = ProfileCareerGoals.findNonRetired({ userID });
       const favIDs = _.map(favCareerGoals, (fav) => fav.careerGoalID);
       return _.includes(favIDs, item._id);
     });
   } else if (type === EXPLORER_TYPE.INTERESTS) {
-    profiles = _.filter(profiles, (profile) => {
+    profiles = profiles.filter((profile) => {
       const userID = profile.userID;
       const favInterests = ProfileInterests.findNonRetired({ userID });
       const favIDs = _.map(favInterests, (fav) => fav.interestID);
       return _.includes(favIDs, item._id);
     });
   }
-  profiles = _.filter(profiles, (profile) => profile.picture && profile.picture !== defaultProfilePicture);
+  profiles = profiles.filter((profile) => profile.picture && profile.picture !== defaultProfilePicture);
   _.forEach(profiles, (p) => {
     if (!_.includes(interested, p.userID)) {
       // interested.push(p.userID);
@@ -94,7 +94,7 @@ export const availableOpps = (match: MatchProps): unknown[] => {
   if (Router.isUrlRoleStudent(match)) {
     const studentID = Router.getUserIdFromRoute(match);
     if (notRetired.length > 0) {
-      let filteredOpps = _.filter(notRetired, (opp) => {
+      let filteredOpps = notRetired.filter((opp) => {
         const oi = OpportunityInstances.findNonRetired({
           studentID,
           opportunityID: opp._id,
@@ -102,7 +102,7 @@ export const availableOpps = (match: MatchProps): unknown[] => {
         return oi.length === 0;
       });
       // console.log('first filter ', filteredOpps.length);
-      filteredOpps = _.filter(filteredOpps, (opp) => {
+      filteredOpps = filteredOpps.filter((opp) => {
         let inFuture = false;
         _.forEach(opp.termIDs, (termID) => {
           const term = AcademicTerms.findDoc(termID);
@@ -115,12 +115,12 @@ export const availableOpps = (match: MatchProps): unknown[] => {
       // console.log('second filter ', filteredOpps.length);
       const profileEntries = ProfileOpportunities.findNonRetired({ studentID });
       const favIDs = _.map(profileEntries, (fav) => fav.opportunityID);
-      filteredOpps = _.filter(filteredOpps, (f) => !_.includes(favIDs, f._id));
+      filteredOpps = filteredOpps.filter((f) => !_.includes(favIDs, f._id));
       // console.log('third filter ', filteredOpps.length);
       return filteredOpps;
     }
   } else if (Router.isUrlRoleFaculty(match)) {
-    return _.filter(notRetired, (o) => o.sponsorID !== Router.getUserIdFromRoute(match));
+    return notRetired.filter((o) => o.sponsorID !== Router.getUserIdFromRoute(match));
   }
   return notRetired;
 };

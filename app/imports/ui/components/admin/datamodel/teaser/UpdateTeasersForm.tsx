@@ -26,14 +26,14 @@ const UpdateTeaserForm: React.FC<UpdateTeaserFormProps> = ({ careerGoals, course
   const model = collection.findDoc(id);
   model.slug = itemToSlugName(model);
   model.opportunity = opportunityIdToName(model.opportunityID);
-  model.interests = _.map(model.interestIDs, interestIdToName);
+  model.interests = model.interestIDs.map(interestIdToName);
   model.youtubeID = model.url;
   const modelSlugAndType = slugIDToSlugNameAndType(model.targetSlugID);
-  const interestNames = _.map(interests, docToName);
-  const opportunitySlugs = _.map(opportunities, docToSlugNameAndType);
-  const courseSlugs = _.map(courses, docToSlugNameAndType);
-  const interestSlugs = _.map(interests, docToSlugNameAndType);
-  const careerGoalSlugs = _.map(careerGoals, docToSlugNameAndType);
+  const interestNames = interests.map(docToName);
+  const opportunitySlugs = opportunities.map(docToSlugNameAndType);
+  const courseSlugs = courses.map(docToSlugNameAndType);
+  const interestSlugs = interests.map(docToSlugNameAndType);
+  const careerGoalSlugs = careerGoals.map(docToSlugNameAndType);
   const schema = new SimpleSchema({
     title: String,
     slug: String,

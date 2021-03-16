@@ -39,7 +39,7 @@ const ListSlugCollectionWidget: React.FC<ListSlugCollectionWidgetProps> = ({ col
       </Header>
       <Grid>
         <AdminPaginationWidget collection={collection} setShowIndex={dataModelActions.setCollectionShowIndex} setShowCount={dataModelActions.setCollectionShowCount} />
-        {_.map(itemsToShow, (item) => (
+        {itemsToShow.map((item) => (
           <AdminCollectionAccordion key={item._id} id={item._id} title={itemTitle(item)} descriptionPairs={descriptionPairs(item)} updateDisabled deleteDisabled handleOpenUpdate={handleOpenUpdate} handleDelete={handleDelete} />
         ))}
       </Grid>

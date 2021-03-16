@@ -106,7 +106,7 @@ export const opportunityNameToSlug = (name) => itemToSlugName(Opportunities.find
 
 export const opportunityTerms = (opportuntiy) => {
   const academicTermIDs = opportuntiy.termIDs;
-  const upcomingAcademicTerms = _.filter(academicTermIDs, (termID) => AcademicTerms.isUpcomingTerm(termID));
+  const upcomingAcademicTerms = academicTermIDs.filter((termID) => AcademicTerms.isUpcomingTerm(termID));
   return _.map(upcomingAcademicTerms, (termID) => AcademicTerms.toString(termID));
 };
 
@@ -143,7 +143,7 @@ export const unverifiedOpportunityTermNames = (opportunity, studentID) => {
 export const getFutureOpportunities = (studentID: string): Opportunity[] => {
   const ois = OpportunityInstances.findNonRetired({ studentID });
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
-  const futureOIs = _.filter(ois, (oi) => {
+  const futureOIs = ois.filter((oi) => {
     const term = AcademicTerms.findDoc(oi.termID);
     return term.termNumber >= currentTerm.termNumber;
   });

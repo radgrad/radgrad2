@@ -21,7 +21,7 @@ import { updateFactoids } from './factoids';
  * @returns { Array } An array of collection document counts.
  * @memberOf startup/server
  */
-const documentCounts = () => _.map(RadGrad.collectionLoadSequence, (collection) => collection.count());
+const documentCounts = () => RadGrad.collectionLoadSequence.map((collection) => collection.count());
 
 /**
  * Returns the total number of documents in the loadable collections.
@@ -67,8 +67,8 @@ const loadDatabase = () => {
     // The list of collections, ordered so that they can be sequentially restored.
     const collectionList = RadGrad.collectionLoadSequence;
 
-    const loadNames = _.map(loadJSON.collections, (obj) => obj.name);
-    const collectionNames = _.map(collectionList, (collection) => collection.getCollectionName());
+    const loadNames = loadJSON.collections.map((obj) => obj.name);
+    const collectionNames = collectionList.map((collection) => collection.getCollectionName());
     const extraRestoreNames = _.difference(loadNames, collectionNames);
     const extraCollectionNames = _.difference(collectionNames, loadNames);
 

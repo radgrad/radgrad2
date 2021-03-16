@@ -153,7 +153,7 @@ const AdminAnalyticsDateSelectionWidget: React.FC<AdminAnalyticsDateSelectionWid
       }
       buckets[bucket] += group.length;
     });
-    buckets = _.map(buckets, (value) => {
+    buckets = buckets.map((value) => {
       if (value) {
         return value;
       }

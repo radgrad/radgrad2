@@ -305,7 +305,7 @@ const StudentDegreePlannerPage: React.FC<StudentDegreePlannerProps> = ({
 };
 
 const takenSlugs = (courseInstances: CourseInstance[]): string[] => {
-  const passedCourseInstances = _.filter(courseInstances, (ci) => passedCourse(ci));
+  const passedCourseInstances = courseInstances.filter((ci) => passedCourse(ci));
   return _.map(passedCourseInstances, (ci) => {
     const doc = CourseInstances.getCourseDoc(ci._id);
     return Slugs.getNameFromID(doc.slugID);

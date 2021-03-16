@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import _ from 'lodash';
 import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, DateField, SelectField, NumField, SubmitField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
@@ -26,11 +25,11 @@ const AddFeedForm: React.FC<AddFeedFromProps> = ({ academicTerms, courses, oppor
     setFeedType(newFeedType);
   };
 
-  const academicTermNames = _.map(academicTerms, academicTermToName);
+  const academicTermNames = academicTerms.map(academicTermToName);
   const currentTermName = AcademicTerms.toString(AcademicTerms.getCurrentTermID(), false);
-  const courseNames = _.map(courses, courseToName);
-  const opportunityNames = _.map(opportunities, docToName);
-  const studentNames = _.map(students, profileToName);
+  const courseNames = courses.map(courseToName);
+  const opportunityNames = opportunities.map(docToName);
+  const studentNames = students.map(profileToName);
   const feedTypes = [Feeds.NEW_COURSE, Feeds.NEW_COURSE_REVIEW, Feeds.NEW_LEVEL, Feeds.NEW_OPPORTUNITY, Feeds.NEW_OPPORTUNITY_REVIEW, Feeds.NEW_USER, Feeds.VERIFIED_OPPORTUNITY];
   const schema = new SimpleSchema({
     timestamp: { type: Date, optional: true },
