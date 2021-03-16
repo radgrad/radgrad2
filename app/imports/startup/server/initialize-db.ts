@@ -28,7 +28,7 @@ const documentCounts = () => RadGrad.collectionLoadSequence.map((collection) => 
  * @returns { Number } The total number of RadGrad documents in the loadable collections.
  * @memberOf startup/server
  */
-const totalDocuments = () => _.reduce(documentCounts(), (sum, count) => sum + count, 0);
+const totalDocuments = () => documentCounts().reduce((sum, count) => sum + count, 0);
 
 /**
  * The load/fixture file date format.
