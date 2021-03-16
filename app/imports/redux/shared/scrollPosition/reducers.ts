@@ -23,7 +23,7 @@ const initialState: State = {
   },
 };
 
-function reducer(state: State = initialState, action: { [props: string]: any }): State {
+const reducer = (state: State = initialState, action: { [props: string]: any }): State => {
   let s: State;
   const otherExplorerKeys: IExplorerState = state.explorer;
   switch (action.type) {
@@ -75,6 +75,6 @@ function reducer(state: State = initialState, action: { [props: string]: any }):
     default:
       return state;
   }
-}
+};
 
 export default reducer;

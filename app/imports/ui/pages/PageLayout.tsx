@@ -9,15 +9,17 @@ interface PageLayoutProps {
   headerPaneTitle: string,
   headerPaneBody?: string,
   children?: React.ReactNode,
+  disableMargin?: boolean,
 }
 
-const PageLayout: React.FC<PageLayoutProps> = ({id, headerPaneImage, headerPaneTitle, headerPaneBody = '', children}) => {
+const PageLayout: React.FC<PageLayoutProps> = ({id, headerPaneImage, headerPaneTitle, headerPaneBody = '', children, disableMargin = false}) => {
   const match = useRouteMatch();
+  const margin = disableMargin ? {} : {marginRight: '20px', marginLeft: '20px'};
   return (
     <div id={id}>
       {getMenuWidget(match)}
       <HeaderPane image={headerPaneImage} title={headerPaneTitle} body={headerPaneBody}/>
-      <div style={{marginRight: '20px', marginLeft: '20px'}}>
+      <div style={margin}>
         {children}
       </div>
     </div>

@@ -3,6 +3,7 @@ import { check } from 'meteor/check';
 import _ from 'lodash';
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
+import SimpleSchema from 'simpl-schema';
 import { ROLE } from '../role/Role';
 import { DumpOne } from '../../typings/radgrad';
 
@@ -36,7 +37,35 @@ class BaseCollection {
     this.type = type;
     this.collectionName = `${type}Collection`;
     this.collection = new Mongo.Collection(`${type}Collection`);
-    this.schema = schema;
+    this.schema = schema.extend(new SimpleSchema({
+      // Force value to be current date (on server) upon insert
+      // and prevent updates thereafter.
+      createdAt: {
+        type: Date,
+        autoValue: function () {
+          if (this.isInsert) {
+            return new Date();
+          }
+          if (this.isUpsert) {
+            return { $setOnInsert: new Date() };
+          }
+          this.unset();  // Prevent user from supplying their own value
+          return undefined;
+        },
+      },
+      // Force value to be current date (on server) upon update
+      // and don't allow it to be set upon insert.
+      updatedAt: {
+        type: Date,
+        autoValue: function () {
+          if (this.isUpdate) {
+            return new Date();
+          }
+          return undefined;
+        },
+        optional: true,
+      },
+    }));
     this.collection.attachSchema(this.schema);
   }
 
@@ -61,7 +90,7 @@ class BaseCollection {
    * Returns the number of non-retired documents in this collection.
    * @returns { Number } The number of non-retired elements in this collection.
    */
-  public countNonRetired() {
+  public countNonRetired(): number {
     return _.filter(this.collection.find().fetch(), (doc) => !doc.retired).length;
   }
 
@@ -69,7 +98,7 @@ class BaseCollection {
    * Default publication method for entities.
    * It publishes the entire collection.
    */
-  public publish() {
+  public publish(): void {
     if (Meteor.isServer) {
       Meteor.publish(this.collectionName, () => this.collection.find());
     }
@@ -197,7 +226,7 @@ class BaseCollection {
    */
   public removeAll() {
     const items = this.collection.find().fetch();
-    _.forEach(items, function (i) {
+    items.forEach((i) => {
       this.removeIt(i._id);
     });
     return true;

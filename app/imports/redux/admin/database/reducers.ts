@@ -5,7 +5,7 @@ const initialState = {
   dumpDatabase: false,
 };
 
-function reducer(state: any = initialState, action) {
+const reducer = (state: any = initialState, action) => {
   switch (action.type) {
     case TYPES.CHECK_INTEGRITY_WORKING:
       return {
@@ -30,6 +30,6 @@ function reducer(state: any = initialState, action) {
     default:
       return state;
   }
-}
+};
 
 export default reducer;

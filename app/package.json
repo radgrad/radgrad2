@@ -1,6 +1,6 @@
 {
   "name": "radgrad2",
-  "version": "2.0.20",
+  "version": "2.0.21",
   "meteor": {
     "mainModule": {
       "client": "client/main.ts",
@@ -231,6 +231,7 @@
       "react/sort-comp": "off",
       "@typescript-eslint/ban-ts-comment": "warn",
       "@typescript-eslint/naming-convention": "warn",
+      "@typescript-eslint/lines-between-class-members": "off",
       "@typescript-eslint/no-unused-vars": "error",
       "@typescript-eslint/no-useless-constructor": "error"
     }

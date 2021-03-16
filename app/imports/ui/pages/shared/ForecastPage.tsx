@@ -6,19 +6,19 @@ import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
-import { CourseScoreboard, OpportunityScoreboard } from '../../../startup/client/collections';
-import { AcademicTerm, Course, Opportunity, Scoreboard } from '../../../typings/radgrad';
-import CourseForecast from '../../components/shared/scoreboard/CourseForecast';
-import OpportunityForecast from '../../components/shared/scoreboard/OpportunityForecast';
+import { CourseForecastCollection, OpportunityForecastCollection } from '../../../startup/client/collections';
+import { AcademicTerm, Course, Opportunity, Forecast } from '../../../typings/radgrad';
+import CourseForecast from '../../components/shared/forecast/CourseForecast';
+import OpportunityForecast from '../../components/shared/forecast/OpportunityForecast';
 import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
 import PageLayout from '../PageLayout';
 
 export interface ForecastPageProps {
   courses: Course[];
-  courseScores: Scoreboard[];
+  courseScores: Forecast[];
   opportunities: Opportunity[];
   terms: AcademicTerm[];
-  oppScores: Scoreboard[];
+  oppScores: Forecast[];
 }
 
 const headerPaneTitle = 'Use forecasts to predict future enrollment';
@@ -50,8 +50,8 @@ const ForecastPageContainer = withTracker(() => {
       limit: limit,
     },
   );
-  const courseScores = CourseScoreboard.find().fetch();
-  const oppScores = OpportunityScoreboard.find().fetch();
+  const courseScores = CourseForecastCollection.find().fetch();
+  const oppScores = OpportunityForecastCollection.find().fetch();
   return {
     courses,
     courseScores,
@@ -61,4 +61,4 @@ const ForecastPageContainer = withTracker(() => {
   };
 })(ForecastPage);
 
-export default withListSubscriptions(ForecastPageContainer, [CourseInstances.getPublicationNames().scoreboard, OpportunityInstances.getPublicationNames().scoreboard]);
+export default withListSubscriptions(ForecastPageContainer, [CourseInstances.getPublicationNames().forecast, OpportunityInstances.getPublicationNames().forecast]);

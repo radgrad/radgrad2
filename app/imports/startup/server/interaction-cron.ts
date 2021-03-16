@@ -66,7 +66,7 @@ SyncedCron.add({
               // @ts-ignore
               UserInteractions.define({
                 username,
-                type: UserInteractionsTypes.COMPLETEPLAN,
+                type: UserInteractionsTypes.COMPLETE_PLAN,
                 typeData: [ice.i.toString(), ice.c.toString(), ice.e.toString()],
               });
             }

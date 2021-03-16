@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import _ from 'lodash';
 import { ReactiveAggregate } from 'meteor/jcbernack:reactive-aggregate';
+import { ProfileOpportunitiesForecastName } from '../../../startup/both/names';
 import BaseCollection from '../../base/BaseCollection';
 import { Users } from '../UserCollection';
 import { ROLE } from '../../role/Role';
@@ -10,7 +11,7 @@ import { ProfileOpportunityDefine, ProfileEntryUpdate } from '../../../typings/r
 
 class ProfileOpportunityCollection extends BaseCollection {
   public readonly publicationNames: {
-    scoreboard: string;
+    forecast: string;
   };
 
   /** Creates the ProfileOpportunity collection */
@@ -21,7 +22,7 @@ class ProfileOpportunityCollection extends BaseCollection {
       retired: { type: Boolean, optional: true },
     }));
     this.publicationNames = {
-      scoreboard: `${this.collectionName}.scoreboard`,
+      forecast: `${this.collectionName}.forecast`,
     };
   }
 
@@ -78,7 +79,7 @@ class ProfileOpportunityCollection extends BaseCollection {
   /**
    * Publish ProfileOpportunities. If logged in as ADMIN get all, otherwise only get the ProfileOpportunities for the
    * studentID.
-   * Also publishes the ProfileOpportunities scoreboard.
+   * Also publishes the ProfileOpportunities forecast.
    */
   publish() {
     if (Meteor.isServer) {
@@ -93,7 +94,7 @@ class ProfileOpportunityCollection extends BaseCollection {
         }
         return collection.find({ studentID });
       });
-      Meteor.publish(this.publicationNames.scoreboard, function publishOpportunityScoreboard() {
+      Meteor.publish(this.publicationNames.forecast, function publishOpportunityForecast() {
         ReactiveAggregate(this, collection, [
           {
             $group: {
@@ -102,7 +103,7 @@ class ProfileOpportunityCollection extends BaseCollection {
             },
           },
           { $project: { count: 1, opportunityID: 1 } },
-        ], { clientCollection: 'ProfileOpportunitiesScoreboard' });
+        ], { clientCollection: ProfileOpportunitiesForecastName });
       });
     }
   }

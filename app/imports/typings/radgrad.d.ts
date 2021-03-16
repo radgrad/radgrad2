@@ -267,7 +267,7 @@ export interface CourseInstanceUpdate extends Update {
   retired?: boolean;
 }
 
-export interface Scoreboard {
+export interface Forecast {
   _id: string;
   count: number;
 }

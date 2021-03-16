@@ -19,9 +19,7 @@ import PageLayout from '../PageLayout';
 
 const collection = Courses; // the collection to use.
 
-function numReferences(course: Course) {
-  return CourseInstances.find({ courseID: course._id }).count();
-}
+const numReferences = (course: Course) => CourseInstances.find({ courseID: course._id }).count();
 
 /**
  * Returns an array of Description pairs used in the ListCollectionWidget.

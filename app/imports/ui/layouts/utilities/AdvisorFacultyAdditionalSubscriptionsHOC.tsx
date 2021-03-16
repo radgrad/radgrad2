@@ -14,7 +14,7 @@ interface Loading {
 // expireLimit set to 30 minutes because: why not.
 const additionalSubs = new SubsManager({ cacheLimit: 2, expireIn: 30 });
 
-function withAdditionalSubscriptions(WrappedComponent) {
+const withAdditionalSubscriptions = (WrappedComponent) => {
   const AdditionalSubscriptions: React.FC<Loading> = (props) => (props.loading ? <Loader active>Getting additional data</Loader> : <WrappedComponent {...props} />);
 
   return withTracker(() => {
@@ -26,5 +26,6 @@ function withAdditionalSubscriptions(WrappedComponent) {
       loading,
     };
   })(AdditionalSubscriptions);
-}
+};
+
 export default withAdditionalSubscriptions;

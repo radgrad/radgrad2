@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import _ from 'lodash';
+import moment from 'moment';
 import BaseCollection from '../base/BaseCollection';
 import { CareerGoals } from '../career/CareerGoalCollection';
 import { Courses } from '../course/CourseCollection';
@@ -279,6 +280,14 @@ class PublicStatsCollection extends BaseCollection {
    */
   public checkIntegrity() {
     return [];
+  }
+
+  /**
+   * Returns a date object corresponding to the passed key, which should be one of the lastUpdate fields in YYYY-MM-DD-HH-mm-ss.
+   * @param key Should be PublicStats.opportunitiesUpdateTime etc.
+   */
+  public getLastUpdateTimestamp(key: string) {
+    return moment(PublicStats.getPublicStat(key), 'YYYY-MM-DD-HH-mm-ss');
   }
 }
 

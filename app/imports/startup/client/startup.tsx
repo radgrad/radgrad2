@@ -19,3 +19,5 @@ Meteor.startup(() => {
     document.getElementById('root'),
   );
 });
+
+Meteor.startup(() =>  document.body.classList.add('radgrad-background-color'));

@@ -60,10 +60,10 @@ const AdminAnalyticsDateSelectionWidget: React.FC<AdminAnalyticsDateSelectionWid
     const startDateMutated = moment(startDate).startOf('day').toDate();
     const endDateMutated = moment(endDate).endOf('day').toDate();
     switch (page) {
-      case ANALYTICS.OVERHEADANALYSIS:
+      case ANALYTICS.OVERHEAD_ANALYSIS:
         setOverheadAnalysisDateRange({ startDate: startDateMutated, endDate: endDateMutated });
         break;
-      case ANALYTICS.STUDENTSUMMARY:
+      case ANALYTICS.STUDENT_SUMMARY:
         setStudentSummaryDateRange({ startDate: startDateMutated, endDate: endDateMutated });
         break;
       default:
@@ -81,22 +81,18 @@ const AdminAnalyticsDateSelectionWidget: React.FC<AdminAnalyticsDateSelectionWid
           icon: 'error',
         });
       } else {
-        const timeGroups = _.groupBy(result, function (interaction) {
-          return moment(interaction.timestamp).utc().format('MMDDYYYYHHmm');
-        });
-        const docsPerMinGroups = _.groupBy(timeGroups, function (time) {
-          return time.length;
-        });
+        const timeGroups = _.groupBy(result, (interaction) => moment(interaction.timestamp).utc().format('MMDDYYYYHHmm'));
+        const docsPerMinGroups = _.groupBy(timeGroups, (time) => time.length);
         // console.log('docsPerMinGroups ', docsPerMinGroups);
         const overheadBuckets = createBucket(docsPerMinGroups);
         // console.log('overheadBuckets ', overheadBuckets);
         setOverheadAnalysisBuckets(overheadBuckets);
         const userInteractions = _.groupBy(result, 'username');
-        // console.log('userInteractions ', userInteractions);
+        console.log('userInteractions ', userInteractions);
         /* Setting User Interactions for Overhead Analysis and Student Summary */
-        if (page === ANALYTICS.OVERHEADANALYSIS) {
+        if (page === ANALYTICS.OVERHEAD_ANALYSIS) {
           setOverheadAnalysisUserInteractions(userInteractions);
-        } else if (page === ANALYTICS.STUDENTSUMMARY) {
+        } else if (page === ANALYTICS.STUDENT_SUMMARY) {
           setStudentSummaryUserInteractions(userInteractions);
         }
         /* Generating Overhead Data */

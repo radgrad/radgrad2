@@ -14,11 +14,11 @@ import { RadGradProperties } from '../radgrad/RadGradProperties';
  * @param termID The ID of the academicTerm.
  * @memberOf api/course
  */
-function getEnrollmentData(courseID, termID) {
+const getEnrollmentData = (courseID, termID) => {
   const academicTermShortName = AcademicTerms.getShortName(termID);
   const enrollment = CourseInstances.getCollection().find({ termID, courseID }).count();
   return [academicTermShortName, enrollment];
-}
+};
 
 /**
  * Given a courseID, returns enrollment data for the upcoming 9 academicTerms.

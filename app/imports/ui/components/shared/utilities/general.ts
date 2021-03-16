@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 
 export const toUpper = (str: string): string => str.toUpperCase();
@@ -18,9 +16,7 @@ export const replaceTermString = (array: string[]): string => {
 export const replaceTermStringNextFour = (array: string[]): string => {
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
   const currentYear = currentTerm.year;
-  let fourRecentTerms = _.filter(array, function isRecent(termYear) {
-    return termYear.split(' ')[1] >= currentYear;
-  });
+  let fourRecentTerms = array.filter((termYear) => termYear.split(' ')[1] >= currentYear);
   fourRecentTerms = array.slice(0, 4);
   const termString = fourRecentTerms.join(' - ');
   return termString.replace(/Summer/g, 'Sum').replace(/Spring/g, 'Spr');

@@ -86,7 +86,7 @@ import {
   VERIFICATION_REQUESTS,
 } from './route-constants';
 
-// TODO: Scoreboard -> Forecast,
+// TODO: Forecast -> Forecast,
 
 export const routes = {
   ADMIN: [

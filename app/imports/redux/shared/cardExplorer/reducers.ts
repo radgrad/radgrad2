@@ -36,7 +36,7 @@ const initialState: State = {
   },
 };
 
-function reducer(state: State = initialState, action): State {
+const reducer = (state: State = initialState, action): State => {
   let s: State;
   const paginationState = state.pagination;
   switch (action.type) {
@@ -78,6 +78,6 @@ function reducer(state: State = initialState, action): State {
     default:
       return state;
   }
-}
+};
 
 export default reducer;

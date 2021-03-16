@@ -5,7 +5,7 @@ import LandingNavBarContainer from '../components/landing/LandingNavBar';
 
 /** After the user clicks the "SignoutPage" link in the NavBar, log them out and display this page. */
 const SignoutPage: React.FC = () => {
-  Meteor.logout(function callback(error) {
+  Meteor.logout((error) => {
     if (error) {
       console.error('Error logging out ', error);
     } else {
