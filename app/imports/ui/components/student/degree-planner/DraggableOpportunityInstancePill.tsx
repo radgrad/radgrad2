@@ -21,7 +21,7 @@ const handleClick = (instance, handleClickOpportunityInstance) => (event) => {
 };
 
 const shortenName = (name: string): string => {
-  console.log(name, name.length);
+  // console.log(name, name.length);
   if (name.length > 20) {
     return `${name.substring(0, 17)}...`;
   }
