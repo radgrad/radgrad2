@@ -2,7 +2,6 @@ import React from 'react';
 import { useParams, useRouteMatch } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Container, Grid } from 'semantic-ui-react';
-import _ from 'lodash';
 import { Course, Interest, Opportunity, Profile } from '../../../../typings/radgrad';
 import { getMenuWidget } from '../utilities/getMenuWidget';
 import { Interests } from '../../../../api/interest/InterestCollection';
