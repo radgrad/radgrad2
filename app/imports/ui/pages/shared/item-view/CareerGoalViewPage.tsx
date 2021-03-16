@@ -61,7 +61,7 @@ const socialPairsCareerGoals = (theCareerGoal: CareerGoal): SocialPair[] => [
 
 const CareerGoalViewPage: React.FC<CareerGoalViewPageProps> = ({ careerGoal, profileCareerGoals }) => {
   const match = useRouteMatch();
-  const menuAddedList = _.map(profileCareerGoals, (f) => ({
+  const menuAddedList = profileCareerGoals.map((f) => ({
     item: CareerGoals.findDoc(f.careerGoalID),
     count: 1,
   }));

@@ -102,7 +102,7 @@ const isCourseCompleted = (courseSlugName, match): boolean => {
 
 const CourseViewPage: React.FC<CourseViewPageProps> = ({ profileCourses, course, itemReviews }) => {
   const match = useRouteMatch();
-  const menuAddedList = _.map(profileCourses, (f) => ({
+  const menuAddedList = profileCourses.map((f) => ({
     item: Courses.findDoc(f.courseID),
     count: 1,
   }));

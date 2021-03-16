@@ -22,7 +22,7 @@ interface InterestViewPageProps {
 
 const InterestViewPage: React.FC<InterestViewPageProps> = ({ courses, profileInterests, interest, opportunities, profile }) => {
   const match = useRouteMatch();
-  const menuAddedList = _.map(profileInterests, (item) => ({
+  const menuAddedList = profileInterests.map((item) => ({
     item,
     count: 1,
   }));
