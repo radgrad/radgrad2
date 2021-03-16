@@ -43,7 +43,7 @@ export const interestedStudents = (item: { _id: string }, type: string): Student
     });
   }
   profiles = profiles.filter((profile) => profile.picture && profile.picture !== defaultProfilePicture);
-  _.forEach(profiles, (p) => {
+  profiles.forEach((p) => {
     if (!_.includes(interested, p.userID)) {
       // interested.push(p.userID);
       interested.push(p);
@@ -104,7 +104,7 @@ export const availableOpps = (match: MatchProps): unknown[] => {
       // console.log('first filter ', filteredOpps.length);
       filteredOpps = filteredOpps.filter((opp) => {
         let inFuture = false;
-        _.forEach(opp.termIDs, (termID) => {
+        opp.termIDs.forEach((termID) => {
           const term = AcademicTerms.findDoc(termID);
           if (term.termNumber >= currentTerm.termNumber) {
             inFuture = true;

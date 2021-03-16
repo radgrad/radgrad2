@@ -4,7 +4,6 @@ import SimpleSchema from 'simpl-schema';
 import { AutoForm, LongTextField, SelectField, SubmitField } from 'uniforms-semantic/';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import { Accordion, Form, Icon } from 'semantic-ui-react';
-import _ from 'lodash';
 import { useRouteMatch } from 'react-router-dom';
 import { Reviews } from '../../../../api/review/ReviewCollection';
 import RatingField from './RatingField';
@@ -106,7 +105,7 @@ const StudentExplorerAddReviewForm: React.FC<StudentExplorerAddReviewFormProps> 
         opportunityID: opportunity._id,
       });
     }
-    _.forEach(instances, (instance) => {
+    instances.forEach((instance) => {
       const term = AcademicTerms.findDoc(instance.termID);
       if (term.termNumber <= AcademicTerms.getCurrentAcademicTermDoc().termNumber) {
         academicTerms.push(AcademicTerms.findDoc(instance.termID));

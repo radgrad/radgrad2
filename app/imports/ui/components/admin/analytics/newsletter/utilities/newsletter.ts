@@ -157,6 +157,7 @@ const iceRecommendation = (student: StudentProfile): Html | string => {
   const html: Html = {};
   html.header = 'Finish Your Degree Plan';
   html.info = '<p>To achieve a complete degree plan, obtain 100 points in each ICE component!</p>';
+  // CAM ice is an object.
   _.each(ice, (value, component) => {
     let iceLevel;
     if (value < 30) {
@@ -198,7 +199,7 @@ const verifyOppRecommendation = (student: StudentProfile): Html | string => {
     + 'to requesting the verification. Here is a list of'
     + ' past or current opportunities that you have not yet verified:</p>';
   html.info += '<ul>';
-  _.each(currentUnverifiedOpps, (unverifiedOpp) => {
+  currentUnverifiedOpps.forEach((unverifiedOpp) => {
     const { termID } = unverifiedOpp;
     const termName = AcademicTerms.toString(termID, false);
     const opp: Opportunity = Opportunities.findOne({ _id: unverifiedOpp.opportunityID });
@@ -244,7 +245,7 @@ const reviewCourseRecommendation = (student: StudentProfile): Html | string => {
   }
   let suggestedReviewCourses = [];
   const remainingCourses = [];
-  _.each(nonReviewedCourses, (courseID) => {
+  nonReviewedCourses.forEach((courseID) => {
     if (Reviews.findOne({ revieweeID: courseID }) === undefined) {
       suggestedReviewCourses.push(courseID);
     } else {
@@ -257,7 +258,7 @@ const reviewCourseRecommendation = (student: StudentProfile): Html | string => {
   html.info = '<p>Contribute to the ICS community by providing reviews for courses you have completed.'
     + ' Here are some suggested courses to review:</p>';
   html.info += '<ul>';
-  _.each(suggestedReviewCourses, (courseID, index) => {
+  suggestedReviewCourses.forEach((courseID, index) => {
     if (index === 3) {
       return false;
     }
@@ -280,7 +281,7 @@ export const reviewOppRecommendation = (student: StudentProfile): Html | string 
   }
   let suggestedReviewOpps = [];
   const remainingOpps = [];
-  _.each(nonReviewedOpps, (oppID) => {
+  nonReviewedOpps.forEach((oppID) => {
     if (Reviews.findOne({ revieweeID: oppID }) === undefined) {
       suggestedReviewOpps.push(oppID);
     } else {
@@ -294,7 +295,7 @@ export const reviewOppRecommendation = (student: StudentProfile): Html | string 
   html.info = '<p>Contribute to the ICS community by providing reviews for opportunities you have completed.'
     + ' Here are some suggested opportunities to review:</p>';
   html.info += '<ul>';
-  _.each(suggestedReviewOpps, (oppID, index) => {
+  suggestedReviewOpps.forEach((oppID, index) => {
     if (index === 3) {
       return false;
     }
@@ -316,7 +317,7 @@ const recList = [iceRecommendation, verifyOppRecommendation, levelRecommendation
 
 export const getRecList = (student: StudentProfile) => {
   const suggestedRecs = [];
-  _.each(recList, (func) => {
+  recList.forEach((func) => {
     const html = func(student);
     if (html) {
       suggestedRecs.push(html);

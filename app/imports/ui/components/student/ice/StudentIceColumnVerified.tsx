@@ -1,7 +1,6 @@
 import React from 'react';
 import { List } from 'semantic-ui-react';
 import { Link, useRouteMatch } from 'react-router-dom';
-import _ from 'lodash';
 import { buildRouteName, getUserIdFromRoute } from '../../shared/utilities/router';
 import { AcademicYearInstances } from '../../../../api/degree-plan/AcademicYearInstanceCollection';
 import { AcademicTerm, AcademicYearInstance, Ice, CourseInstance, OpportunityInstance } from '../../../../typings/radgrad';
@@ -29,7 +28,8 @@ const years = (match): AcademicYearInstance[] => {
 const academicTerms = (year: AcademicYearInstance): AcademicTerm[] => {
   const yearTerms = [];
   const termIDs = year.termIDs;
-  _.forEach(termIDs, (termID) => {
+  // TODO should this be a map?
+  termIDs.forEach((termID) => {
     yearTerms.push(AcademicTerms.findDoc(termID));
   });
   return yearTerms;

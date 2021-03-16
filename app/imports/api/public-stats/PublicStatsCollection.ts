@@ -242,7 +242,7 @@ class PublicStatsCollection extends BaseCollection {
   public courseReviewsCourses() {
     const courseReviews = Reviews.findNonRetired({ reviewType: 'course' });
     let courseNumbers = [];
-    _.forEach(courseReviews, (review) => {
+    courseReviews.forEach((review) => {
       const course = Courses.findDoc(review.revieweeID);
       courseNumbers.push(course.num);
     });
@@ -257,7 +257,7 @@ class PublicStatsCollection extends BaseCollection {
       // CAM We have to do this.
       // eslint-disable-next-line @typescript-eslint/no-this-alias
       const instance = this;
-      _.forEach(this.stats, (key) => instance[key]());
+      this.stats.forEach((key) => instance[key]());
     }
   }
 

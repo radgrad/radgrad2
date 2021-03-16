@@ -1,6 +1,5 @@
 import React from 'react';
 import { Card, Icon } from 'semantic-ui-react';
-import _ from 'lodash';
 import { Link, useRouteMatch } from 'react-router-dom';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { RadGradProperties } from '../../../../api/radgrad/RadGradProperties';
@@ -45,7 +44,7 @@ const ProfileOpportunityCard: React.FC<ProfileOpportunityCardProps> = ({ opportu
     },
   );
   const scores = [];
-  _.forEach(academicTerms, (term: AcademicTerm) => {
+  academicTerms.forEach((term: AcademicTerm) => {
     const id = `${opportunity._id} ${term._id}`;
     const score = OpportunityForecastCollection.find({ _id: id }).fetch() as { count: number }[];
     if (score.length > 0) {

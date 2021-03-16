@@ -1,7 +1,6 @@
 import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
 import { Confirm, Icon } from 'semantic-ui-react';
-import _ from 'lodash';
 import Swal from 'sweetalert2';
 import { connect } from 'react-redux';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
@@ -39,7 +38,7 @@ interface AdminDataModelFeedsPageProps {
  */
 const descriptionPairs = (item: IFeed): DescriptionPair[] => {
   const users = [];
-  _.forEach(item.userIDs, (id) => {
+  item.userIDs.forEach((id) => {
     users.push(Users.getFullName(id));
   });
   let opportunityName = '';

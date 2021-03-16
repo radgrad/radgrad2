@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import React from 'react';
 import { Button, Card, Icon } from 'semantic-ui-react';
 import { Link, useRouteMatch } from 'react-router-dom';
@@ -125,7 +124,7 @@ const DetailOpportunityCard: React.FC<DetailOpportunityCardProps> = ({ instance,
     },
   );
   const scores = [];
-  _.forEach(academicTerms, (term: AcademicTerm) => {
+  academicTerms.forEach((term: AcademicTerm) => {
     const id = `${opportunity._id} ${term._id}`;
     const score = OpportunityForecastCollection.find({ _id: id }).fetch() as { count: number }[];
     if (score.length > 0) {

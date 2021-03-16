@@ -209,7 +209,7 @@ export const processBulkStarCsvData = (csvData) => {
     const filteredData = filterParsedData(parsedData);
     // Create array of objects containing raw data to facilitate error message during processing.
     const bulkData = {};
-    _.forEach(filteredData, (data) => {
+    filteredData.forEach((data) => {
       const name = data[nameIndex];
       let grade = data[gradeIndex];
       // console.log(`grade ${grade}`);
@@ -248,7 +248,7 @@ export const processBulkStarCsvData = (csvData) => {
       bulkData[student].courses.push(obj);
     });
     // Now we take that array of objects and transform them into CourseInstance data objects.
-    _.forEach(Object.keys(bulkData), (key) => {
+    Object.keys(bulkData).forEach((key) => {
       bulkData[key].courses = bulkData[key].courses.map((dataObject) => makeCourseInstanceObject(dataObject)).filter((ci) => ci.course !== Courses.unInterestingSlug && ci.academicTerm !== null);
     });
     return bulkData;
@@ -312,7 +312,7 @@ export const processStarJsonData = (student, jsonData) => {
  */
 export const processBulkStarJsonData = (jsonData) => {
   const bulkData = {};
-  _.forEach(jsonData, (data) => {
+  jsonData.forEach((data) => {
     // console.log(data);
     const student = data.email;
     if (!bulkData[student]) {

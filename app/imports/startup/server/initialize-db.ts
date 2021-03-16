@@ -80,7 +80,7 @@ const loadDatabase = () => {
     }
 
     if (!extraRestoreNames.length && !extraCollectionNames.length) {
-      _.each(collectionList, (collection) => loadCollection(collection, loadJSON, true));
+      collectionList.forEach((collection) => loadCollection(collection, loadJSON, true));
     }
     const loadTimeString = loadFileName.substring(loadFileName.lastIndexOf('/') + 1, loadFileName.indexOf('.'));
     // console.log(loadTimeString);

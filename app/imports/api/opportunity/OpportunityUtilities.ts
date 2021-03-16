@@ -68,7 +68,7 @@ export const getStudentAcademicTermOpportunityChoices = (academicTerm: string, a
   const oppInstances = OpportunityInstances.find({ studentID }).fetch();
   const filtered = opportunities.filter((opp) => {
     let taken = true;
-    _.forEach(oppInstances, (oi) => {
+    oppInstances.forEach((oi) => {
       if (oi.opportunityID === opp._id) {
         taken = false;
       }

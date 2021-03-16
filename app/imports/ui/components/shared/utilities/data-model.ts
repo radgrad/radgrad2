@@ -116,10 +116,10 @@ export const opportunityTermsNotTaken = (opportunity, studentID) => {
   const termNames = [];
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
   const ois = OpportunityInstances.findNonRetired({ studentID, opportunityID: opportunity._id });
-  _.forEach(ois, (o) => {
+  ois.forEach((o) => {
     takenTermIDs.push(o.termID);
   });
-  _.forEach(termIDs, (termID) => {
+  termIDs.forEach((termID) => {
     if (AcademicTerms.findDoc(termID).termNumber >= currentTerm.termNumber) {
       if (!_.includes(takenTermIDs, termID)) {
         termNames.push(AcademicTerms.toString(termID));

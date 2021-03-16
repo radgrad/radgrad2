@@ -386,7 +386,7 @@ class BaseCollection {
    * @param dumpObjects The array of objects representing the definition of a document in this collection.
    */
   public restoreAll(dumpObjects) {
-    _.each(dumpObjects, (dumpObject) => this.restoreOne(dumpObject));
+    dumpObjects.forEach((dumpObject) => this.restoreOne(dumpObject));
   }
 
   /**

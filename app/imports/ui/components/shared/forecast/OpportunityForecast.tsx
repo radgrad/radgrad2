@@ -27,13 +27,13 @@ const getOpportunityScore = (opportunityID: string, termID: string, scores: Fore
 const saveAsCSV = (terms: AcademicTerm[], opportunities: Opportunity[], scores: Forecast[]) => () => {
   let result = '';
   const headerArr = ['Opportunity'];
-  _.forEach(terms, (term) => headerArr.push(AcademicTerms.getShortName(term._id)));
+  terms.forEach((term) => headerArr.push(AcademicTerms.getShortName(term._id)));
   result += headerArr.join(',');
   result += '\r\n';
-  _.forEach(opportunities, (o) => {
+  opportunities.forEach((o) => {
     const opportunityID = o._id;
     result += `${o.name},`;
-    _.forEach(terms, (t) => {
+    terms.forEach((t) => {
       const termID = t._id;
       result += `${getOpportunityScore(opportunityID, termID, scores)},`;
     });

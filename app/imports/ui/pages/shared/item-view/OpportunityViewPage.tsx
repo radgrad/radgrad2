@@ -2,7 +2,6 @@ import React from 'react';
 import { useParams, useRouteMatch } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Container, Grid } from 'semantic-ui-react';
-import _ from 'lodash';
 import { Reviews } from '../../../../api/review/ReviewCollection';
 import { Opportunity, Profile, Review } from '../../../../typings/radgrad';
 import { getMenuWidget } from '../utilities/getMenuWidget';
@@ -50,7 +49,7 @@ const descriptionPairsOpportunities = (theOpp: Opportunity): { label: string; va
 const isCompleted = (opportunityID: string, studentID: string): boolean => {
   const ois = OpportunityInstances.findNonRetired({ opportunityID, studentID });
   let completed = false;
-  _.forEach(ois, (oi) => {
+  ois.forEach((oi) => {
     if (oi.verified === true) {
       completed = true;
     }

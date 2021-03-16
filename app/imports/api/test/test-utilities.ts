@@ -37,7 +37,7 @@ export const loadCollection = (collection, loadJSON, consolep) => {
   if (consolep) {
     console.log(`Defining ${definitions.length} ${collection.collectionName} documents.`);
   }
-  _.each(definitions, (definition) => collection.define(definition));
+  definitions.forEach((definition) => collection.define(definition));
   if (consolep) {
     console.log(`Have ${collection.find().count()} documents.`);
   }
@@ -53,7 +53,7 @@ export const defineTestFixture = (fixtureName) => {
     const loadFileName = `database/modular/${fixtureName}`;
     const loadJSON = JSON.parse(Assets.getText(loadFileName));
     console.log(`    Loaded ${loadFileName}: ${loadJSON.fixtureDescription}`);
-    _.each(RadGrad.collectionLoadSequence, (collection) => loadCollection(collection, loadJSON, false));
+    RadGrad.collectionLoadSequence.forEach((collection) => loadCollection(collection, loadJSON, false));
   }
 };
 
@@ -63,7 +63,7 @@ export const defineTestFixture = (fixtureName) => {
  * @memberOf api/test
  */
 export const defineTestFixtures = (fixtureNames) => {
-  _.each(fixtureNames, (fixtureName) => defineTestFixture(`${fixtureName}.fixture.json`));
+  fixtureNames.forEach((fixtureName) => defineTestFixture(`${fixtureName}.fixture.json`));
 };
 
 // /**
@@ -99,7 +99,7 @@ export const defineTestFixturesMethod = new ValidatedMethod({
  */
 export const withRadGradSubscriptions = (userID?: string) => new Promise((resolve) => {
   const handles = [];
-  _.each(RadGrad.collections, (collection) => handles.push(collection.subscribe(userID)));
+  RadGrad.collections.forEach((collection) => handles.push(collection.subscribe(userID)));
   handles.push(Users.subscribe());
   const poll = Meteor.setInterval(() => {
     if (DDP._allSubscriptionsReady()) {

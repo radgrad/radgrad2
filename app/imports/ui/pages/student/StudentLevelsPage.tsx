@@ -2,7 +2,6 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { useParams } from 'react-router-dom';
 import React from 'react';
 import { Grid, Card, Image } from 'semantic-ui-react';
-import _ from 'lodash';
 import StudentLevelsWidget from '../../components/student/levels/StudentLevelsWidget';
 import StudentLevelsOthersWidget from '../../components/student/levels/StudentLevelsOthersWidget';
 import { Users } from '../../../api/user/UserCollection';
@@ -119,7 +118,7 @@ const StudentLevelsPage: React.FC<StudentLevelsPageProps> = ({ profile, students
 
 const getStudentsAtSameLevel = (profiles, currentProfile: StudentProfile): StudentProfile[] => {
   const students = [];
-  _.forEach(profiles, (profile) => {
+  profiles.forEach((profile) => {
     if (profile.level === currentProfile.level) {
       if (profile.userID !== currentProfile.userID) {
         students.push(profile);

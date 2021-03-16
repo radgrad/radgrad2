@@ -32,7 +32,7 @@ const passedCourseHelper = (courseSlugName: string, match): string => {
     studentID: Router.getUserIdFromRoute(match),
     courseID: theCourse._id,
   });
-  _.forEach(ci, (c) => {
+  ci.forEach((c) => {
     if (c.verified === true) {
       ret = 'Completed';
     } else if (ret !== 'Completed') {
@@ -65,7 +65,7 @@ const prerequisites = (theCourse: Course, match): any[] => {
   const incomplete = [];
   const notInPlan = [];
   let itemStatus = '';
-  _.forEach(list, (item) => {
+  list.forEach((item) => {
     itemStatus = prerequisiteStatus(item, match);
     if (itemStatus === 'Not in plan') {
       notInPlan.push({ course: item, status: itemStatus });

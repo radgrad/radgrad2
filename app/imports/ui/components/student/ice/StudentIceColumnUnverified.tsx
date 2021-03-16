@@ -1,6 +1,5 @@
 import React from 'react';
 import { List } from 'semantic-ui-react';
-import _ from 'lodash';
 import { Link, useRouteMatch } from 'react-router-dom';
 import { AcademicTerm, AcademicYearInstance, Ice, CourseInstance, OpportunityInstance } from '../../../../typings/radgrad';
 import { buildRouteName, getUserIdFromRoute } from '../../shared/utilities/router';
@@ -31,7 +30,7 @@ const years = (match): AcademicYearInstance[] => {
 const academicTerms = (year: AcademicYearInstance): AcademicTerm[] => {
   const yearTerms = [];
   const termIDs = year.termIDs;
-  _.forEach(termIDs, (termID) => {
+  termIDs.forEach((termID) => {
     yearTerms.push(AcademicTerms.findDoc(termID));
   });
   return yearTerms;

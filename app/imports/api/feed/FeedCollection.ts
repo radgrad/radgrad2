@@ -524,7 +524,7 @@ class FeedCollection extends BaseCollection {
   public checkIntegrity() {
     const problems = [];
     this.find().forEach((doc) => {
-      _.forEach(doc.userIDs, (userID) => {
+      doc.userIDs.forEach((userID) => {
         if (!Users.isDefined(userID)) {
           problems.push(`Bad userID: ${userID}`);
         }

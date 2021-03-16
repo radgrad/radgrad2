@@ -27,13 +27,13 @@ const getCourseScore = (courseID: string, termID: string, scores: Forecast[]): n
 const handleSaveAsCSV = (terms: AcademicTerm[], courses: Course[], scores: Forecast[]) => () => {
   let result = '';
   const headerArr = ['Course'];
-  _.forEach(terms, (term) => headerArr.push(AcademicTerms.getShortName(term._id)));
+  terms.forEach((term) => headerArr.push(AcademicTerms.getShortName(term._id)));
   result += headerArr.join(',');
   result += '\r\n';
-  _.forEach(courses, (o) => {
+  courses.forEach((o) => {
     const courseID = o._id;
     result += `${o.name},`;
-    _.forEach(terms, (t) => {
+    terms.forEach((t) => {
       const termID = t._id;
       result += `${getCourseScore(courseID, termID, scores)},`;
     });

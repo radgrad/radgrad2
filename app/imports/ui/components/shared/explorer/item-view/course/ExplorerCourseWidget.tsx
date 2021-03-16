@@ -153,7 +153,7 @@ const ExplorerCourseWidget: React.FC<ExplorerCoursesWidgetProps> = ({ name, shor
     },
   );
   const scores = [];
-  _.forEach(academicTerms, (term: AcademicTerm) => {
+  academicTerms.forEach((term: AcademicTerm) => {
     const id = `${item._id} ${term._id}`;
     const score = CourseForecastCollection.find({ _id: id }).fetch() as { count: number }[];
     if (score.length > 0) {

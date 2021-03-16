@@ -5,7 +5,6 @@ import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import Swal from 'sweetalert2';
 import { $ } from 'meteor/jquery';
-import _ from 'lodash';
 import { connect } from 'react-redux';
 import AdminAnalyticsNewsletterMessagePreviewWidget from './AdminAnalyticsNewsletterMessagePreviewWidget';
 import { StudentProfiles } from '../../../../../api/user/StudentProfileCollection';
@@ -143,7 +142,7 @@ const AdminAnalyticsNewsletterWidget: React.FC<AdminAnalyticsNewsletterWidgetPro
       const adminEmail = RadGradProperties.getAdminEmail();
       const from = RadGradProperties.getNewsletterFrom();
       const adminMessage = $('.adminMessage').html();
-      _.forEach(studentEmailsArr, (studentEmail) => {
+      studentEmailsArr.forEach((studentEmail) => {
         setTimeout(() => {
           const student = StudentProfiles.findByUsername(studentEmail);
           if (student) {
@@ -208,7 +207,7 @@ const AdminAnalyticsNewsletterWidget: React.FC<AdminAnalyticsNewsletterWidgetPro
       const bccListArray = bcc.split(',').map((email) => email.trim());
       const from = RadGradProperties.getNewsletterFrom();
       const adminMessage = $('.adminMessage').html();
-      _.forEach(studentEmailsArr, (studentEmail) => {
+      studentEmailsArr.forEach((studentEmail) => {
         setTimeout(() => {
           const student = StudentProfiles.findByUsername(studentEmail);
           if (student) {
@@ -265,7 +264,7 @@ const AdminAnalyticsNewsletterWidget: React.FC<AdminAnalyticsNewsletterWidgetPro
       const bccListArray = bcc.split(',').map((email) => email.trim());
       const from = RadGradProperties.getNewsletterFrom();
       const adminMessage = $('.adminMessage').html();
-      _.forEach(studentEmailsArr, (studentEmail) => {
+      studentEmailsArr.forEach((studentEmail) => {
         setTimeout(() => {
           const student = StudentProfiles.findByUsername(studentEmail);
           if (student) {

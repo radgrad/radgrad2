@@ -256,12 +256,12 @@ class OpportunityCollection extends BaseSlugCollection {
       if (!Users.isDefined(doc.sponsorID)) {
         problems.push(`Bad sponsorID: ${doc.sponsorID}`);
       }
-      _.forEach(doc.interestIDs, (interestID) => {
+      doc.interestIDs.forEach((interestID) => {
         if (!Interests.isDefined(interestID)) {
           problems.push(`Bad interestID: ${interestID}`);
         }
       });
-      _.forEach(doc.termIDs, (termID) => {
+      doc.termIDs.forEach((termID) => {
         if (!AcademicTerms.isDefined(termID)) {
           problems.push(`Bad termID: ${termID}`);
         }

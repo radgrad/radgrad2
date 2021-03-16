@@ -21,7 +21,7 @@ import { Slugs } from '../slug/SlugCollection';
 export const prereqsMet = (coursesTakenSlugs: string[], courseID: string): boolean => {
   const course = Courses.findDoc(courseID);
   let ret = true;
-  _.forEach(course.prerequisites, (prereq) => {
+  course.prerequisites.forEach((prereq) => {
     if (_.indexOf(coursesTakenSlugs, prereq) === -1) {
       ret = false;
       return false;
@@ -120,7 +120,7 @@ export const chooseStudent400LevelCourse = (studentID: string, coursesTakenSlugs
 export const chooseBetween = (slugs: string[], studentID: string, coursesTakenSlugs: string[]): Course | null => {
   // console.log('chooseBetween', slugs, coursesTakenSlugs);
   const courses = [];
-  _.forEach(slugs, (slug) => {
+  slugs.forEach((slug) => {
     const courseID = Courses.getID(slug);
     if (prereqsMet(coursesTakenSlugs, courseID)) {
       courses.push(Courses.findDoc(courseID));

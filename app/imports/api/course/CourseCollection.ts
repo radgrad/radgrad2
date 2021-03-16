@@ -116,9 +116,9 @@ class CourseCollection extends BaseSlugCollection {
       throw new Meteor.Error(`Prerequisites ${prerequisites} is not an array.`);
     }
     // make sure each corequisite has a valid format.
-    _.forEach(corequisites, (c) => validateCourseSlugFormat(c));
+    corequisites.forEach((c) => validateCourseSlugFormat(c));
     // make sure each prerequisite has a valid format.
-    _.forEach(prerequisites, (p) => validateCourseSlugFormat(p));
+    prerequisites.forEach((p) => validateCourseSlugFormat(p));
     // Currently we don't dump the DB is a way that prevents forward referencing of prereqs, so we
     // can't check the validity of prereqs during a define, such as with:
     //   _.each(prerequisites, (prerequisite) => this.getID(prerequisite));
@@ -194,7 +194,7 @@ class CourseCollection extends BaseSlugCollection {
       if (!Array.isArray(prerequisites)) {
         throw new Meteor.Error(`Prerequisites ${prerequisites} is not an Array.`);
       }
-      _.forEach(prerequisites, (prereq) => {
+      prerequisites.forEach((prereq) => {
         if (!this.hasSlug(prereq)) {
           throw new Meteor.Error(`Prerequisite ${prereq} is not a slug for a course.`);
         }
@@ -252,33 +252,33 @@ class CourseCollection extends BaseSlugCollection {
       if (!Slugs.isDefined(doc.slugID)) {
         problems.push(`Bad slugID: ${doc.slugID}`);
       }
-      _.forEach(doc.interestIDs, (interestID) => {
+      doc.interestIDs.forEach((interestID) => {
         if (!Interests.isDefined(interestID)) {
           problems.push(`Bad interestID: ${interestID}`);
         }
       });
-      _.forEach(doc.corequisites, (coreq) => {
+      doc.corequisites.forEach((coreq) => {
         if (isSingleChoice(coreq)) {
           if (!this.hasSlug(coreq)) {
             problems.push(`Bad course corequisite slug: ${coreq}`);
           }
         } else {
           const slugs = complexChoiceToArray(coreq);
-          _.forEach(slugs, (slug) => {
+          slugs.forEach((slug) => {
             if (!this.hasSlug(slug)) {
               problems.push(`Bad course corequisite slug in or: ${slug}`);
             }
           });
         }
       });
-      _.forEach(doc.prerequisites, (prereq) => {
+      doc.prerequisites.forEach((prereq) => {
         if (isSingleChoice(prereq)) {
           if (!this.hasSlug(prereq)) {
             problems.push(`Bad course prerequisite slug: ${prereq}`);
           }
         } else {
           const slugs = complexChoiceToArray(prereq);
-          _.forEach(slugs, (slug) => {
+          slugs.forEach((slug) => {
             if (!this.hasSlug(slug)) {
               problems.push(`Bad course prerequisite slug in or: ${slug}`);
             }

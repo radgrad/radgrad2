@@ -42,7 +42,7 @@ class MatchingInterestsClass {
     const itemInterests = item.interestIDs.map((id) => Interests.findDoc(id));
     return itemInterests.filter((courseInterest) => {
       let ret = true;
-      _.forEach(matches, (matchingInterest) => {
+      matches.forEach((matchingInterest) => {
         if (_.isEqual(courseInterest, matchingInterest)) {
           ret = false;
         }

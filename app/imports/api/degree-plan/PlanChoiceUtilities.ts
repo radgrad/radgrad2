@@ -116,7 +116,7 @@ export const buildCourseSlugName = (slug: string): string => {
 export const buildSimpleName = (slug: string): string => {
   const splits = stripCounter(slug).split(',');
   let ret = '';
-  _.forEach(splits, (s) => {
+  splits.forEach((s) => {
     ret = `${ret}${buildCourseSlugName(s)} or `;
   });
   return ret.substring(0, ret.length - 4);
@@ -191,7 +191,7 @@ export const getSimpleChoiceNumber = (simpleChoice: string): string => simpleCho
 export const satisfiesPlanChoice = (planChoice: string, courseSlug: string): boolean => {
   const singleChoices = complexChoiceToArray(planChoice);
   let ret = false;
-  _.forEach(singleChoices, (choice) => {
+  singleChoices.forEach((choice) => {
     if (satisfiesSinglePlanChoice(choice, courseSlug)) {
       ret = true;
     }

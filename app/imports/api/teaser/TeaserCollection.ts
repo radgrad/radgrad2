@@ -187,7 +187,7 @@ class TeaserCollection extends BaseSlugCollection {
       if (!Slugs.isDefined(doc.slugID)) {
         problems.push(`Bad slugID: ${doc.slugID}`);
       }
-      _.forEach(doc.interestIDs, (interestID) => {
+      doc.interestIDs.forEach((interestID) => {
         if (!Interests.isDefined(interestID)) {
           problems.push(`Bad interestID: ${interestID}`);
         }
