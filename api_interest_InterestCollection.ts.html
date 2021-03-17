@@ -194,7 +194,7 @@ class InterestCollection extends BaseSlugCollection {
    */
   public assertUnusedInterest(collectionList, docID: string) {
     const interest = this.findDoc(docID);
-    _.forEach(collectionList, (collection) => {
+    collectionList.forEach((collection) => {
       collection.find().map((doc) => {
         if (collection.hasInterest(doc, docID)) {
           throw new Meteor.Error(`Interest ${interest.name} is referenced by collection ${collection.collectionName}.`);

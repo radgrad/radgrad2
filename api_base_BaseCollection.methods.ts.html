@@ -178,7 +178,7 @@ export const loadFixtureMethod = new ValidatedMethod({
     if (Meteor.isServer) {
       let ret = '';
       // console.log(RadGrad.collectionLoadSequence);
-      _.forEach(RadGrad.collectionLoadSequence, (collection) => {
+      RadGrad.collectionLoadSequence.forEach((collection) => {
         const result = loadCollectionNewDataOnly(collection, fixtureData, true);
         // console.log(collection.getCollectionName(), result);
         if (result) {

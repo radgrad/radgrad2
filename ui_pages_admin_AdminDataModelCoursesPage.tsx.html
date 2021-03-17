@@ -158,7 +158,7 @@ const AdminDataModelCoursesPage: React.FC&lt;AdminDataModelCoursesPageProps> = (
     // console.log('CoursePage.handleAdd(%o)', doc);
     const collectionName = collection.getCollectionName();
     const definitionData: any = {}; // create the definitionData may need to modify doc's values
-    const interests = _.map(doc.interests, interestSlugFromName);
+    const interests = doc.interests.map(interestSlugFromName);
     definitionData.slug = doc.slug;
     definitionData.name = doc.name;
     definitionData.num = doc.num;
@@ -170,7 +170,7 @@ const AdminDataModelCoursesPage: React.FC&lt;AdminDataModelCoursesPageProps> = (
     }
     definitionData.interests = interests;
     if (doc.prerequisites) {
-      definitionData.prerequisites = _.map(doc.prerequisites, courseNameToSlug);
+      definitionData.prerequisites = doc.prerequisites.map(courseNameToSlug);
     }
     // console.log(collectionName, definitionData);
     defineMethod.call({ collectionName, definitionData }, (error) => {
@@ -244,8 +244,8 @@ const AdminDataModelCoursesPage: React.FC&lt;AdminDataModelCoursesPageProps> = (
     const collectionName = collection.getCollectionName();
     const updateData: any = doc; // create the updateData object from the doc.
     updateData.id = doc._id;
-    updateData.prerequisites = _.map(doc.prerequisiteNames, courseNameToSlug);
-    updateData.interests = _.map(doc.interests, interestNameToId);
+    updateData.prerequisites = doc.prerequisiteNames.map(courseNameToSlug);
+    updateData.interests = doc.interests.map(interestNameToId);
     // console.log(collectionName, updateData);
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {

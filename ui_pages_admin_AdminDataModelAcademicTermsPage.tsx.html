@@ -106,13 +106,13 @@ import PageLayout from '../PageLayout';
 const numReferences = (term) => {
   let references = 0;
   [CourseInstances, OpportunityInstances].forEach((entity) => {
-    _.forEach(entity.find().fetch(), (e) => {
+    entity.find().fetch().forEach((e) => {
       if (e.termID === term._id) {
         references++;
       }
     });
   });
-  _.forEach(Opportunities.find().fetch(), (e) => {
+  Opportunities.find().fetch().forEach((e) => {
     if (_.includes(e.termIDs, term._id)) {
       references++;
     }

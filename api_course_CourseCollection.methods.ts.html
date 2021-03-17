@@ -87,7 +87,6 @@
         <article>
             <pre class="prettyprint source linenums"><code>import { CallPromiseMixin } from 'meteor/didericis:callpromise-mixin';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
-import _ from 'lodash';
 import { Courses } from './CourseCollection';
 import { CourseInstances } from './CourseInstanceCollection';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
@@ -140,7 +139,7 @@ export const getFutureEnrollmentMethod = new ValidatedMethod({
       academicTermList.push(academicTermDoc);
     }
     // Map over these academicTerms and return a new list that includes the enrollment data for this course and academicTerm.
-    const enrollmentData = _.map(academicTermList, (doc) => getEnrollmentData(courseID, AcademicTerms.getID(doc)));
+    const enrollmentData = academicTermList.map((doc) => getEnrollmentData(courseID, AcademicTerms.getID(doc)));
     return { courseID, enrollmentData };
   },
 });

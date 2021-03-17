@@ -216,7 +216,7 @@ export class PlanChoiceCollection extends BaseCollection {
   public isGraduateChoice(planChoice: string): boolean {
     const simpleChoices = complexChoiceToArray(planChoice);
     let retVal = false;
-    _.forEach(simpleChoices, (choice) => {
+    simpleChoices.forEach((choice) => {
       const planNumberStr = getSimpleChoiceNumber(choice);
       const planNumber = parseInt(planNumberStr, 10);
       if (planNumber > 500) {
@@ -235,7 +235,7 @@ export class PlanChoiceCollection extends BaseCollection {
     }
     const simpleChoices = complexChoiceToArray(planChoice);
     let returnVal = false;
-    _.forEach(simpleChoices, (choice) => {
+    simpleChoices.forEach((choice) => {
       if (this.getPlanChoiceType(choice) === PlanChoiceType.XPLUS) {
         const planNumberStr = getSimpleChoiceNumber(choice);
         const planNumber = parseInt(planNumberStr.substring(0, planNumberStr.length - 1), 10);
@@ -260,7 +260,7 @@ export class PlanChoiceCollection extends BaseCollection {
     this.find().forEach((doc) => {
       if (this.getPlanChoiceType(doc.choice) !== PlanChoiceType.XPLUS) {
         const courseSlugs = complexChoiceToArray(doc.choice);
-        _.forEach(courseSlugs, (slug) => {
+        courseSlugs.forEach((slug) => {
           if (!Courses.isDefined(slug)) {
             problems.push(`Plan choice ${doc.choice} has undefined course slug ${slug}.`);
           }

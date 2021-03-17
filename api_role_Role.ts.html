@@ -138,7 +138,7 @@ export const assertRole = (role: string| string[]) => {
 
 if (Meteor.isServer) {
   const allDefinedRoles = Roles.getAllRoles().fetch();
-  const definedRoleNames = _.map(allDefinedRoles, (role) => role.name);
+  const definedRoleNames = allDefinedRoles.map((role) => role.name);
   _.values(ROLE).forEach((role) => {
     if (!_.includes(definedRoleNames, role)) {
       Roles.createRole(role, { unlessExists: true });

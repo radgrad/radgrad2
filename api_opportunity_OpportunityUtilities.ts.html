@@ -134,15 +134,15 @@ export const calculateOpportunityCompatibility = (opportunityID: string, student
 export const academicTermOpportunities = (academicTerm, academicTermNumber) => {
   const id = academicTerm._id;
   const opps = Opportunities.find().fetch();
-  const academicTermOpps = _.filter(opps, (opportunity) => _.indexOf(opportunity.termIDs, id) !== -1);
+  const academicTermOpps = opps.filter((opportunity) => _.indexOf(opportunity.termIDs, id) !== -1);
   if (academicTermNumber &lt; 3) { // AY 1.
-    return _.filter(academicTermOpps, (opportunity) => {
+    return academicTermOpps.filter((opportunity) => {
       const type = Opportunities.getOpportunityTypeDoc(opportunity._id);
       return type.name === 'Club';
     });
   }
   if (academicTermNumber &lt; 6) {
-    return _.filter(academicTermOpps, (opportunity) => {
+    return academicTermOpps.filter((opportunity) => {
       const type = Opportunities.getOpportunityTypeDoc(opportunity._id);
       return type.name === 'Event' || type.name === 'Club';
     });
@@ -153,9 +153,9 @@ export const academicTermOpportunities = (academicTerm, academicTermNumber) => {
 export const getStudentAcademicTermOpportunityChoices = (academicTerm: string, academicTermNumber: number, studentID: string) => {
   const opportunities = academicTermOpportunities(academicTerm, academicTermNumber);
   const oppInstances = OpportunityInstances.find({ studentID }).fetch();
-  const filtered = _.filter(opportunities, (opp) => {
+  const filtered = opportunities.filter((opp) => {
     let taken = true;
-    _.forEach(oppInstances, (oi) => {
+    oppInstances.forEach((oi) => {
       if (oi.opportunityID === opp._id) {
         taken = false;
       }
