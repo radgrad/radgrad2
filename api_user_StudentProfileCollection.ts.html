@@ -494,19 +494,19 @@ class StudentProfileCollection extends BaseProfileCollection {
     const username = profile.username;
     if (interests) {
       ProfileInterests.removeUser(username);
-      interests.forEach((interest) => ProfileInterests.define({ interest, username }));
+      interests.forEach((interest) => ProfileInterests.define({ interest, username, retired }));
     }
     if (careerGoals) {
       ProfileCareerGoals.removeUser(username);
-      careerGoals.forEach((careerGoal) => ProfileCareerGoals.define({ careerGoal, username }));
+      careerGoals.forEach((careerGoal) => ProfileCareerGoals.define({ careerGoal, username, retired }));
     }
     if (profileCourses) {
       ProfileCourses.removeUser(username);
-      profileCourses.forEach((course) => ProfileCourses.define({ course, student: username }));
+      profileCourses.forEach((course) => ProfileCourses.define({ course, student: username, retired }));
     }
     if (profileOpportunities) {
       ProfileOpportunities.removeUser(username);
-      profileOpportunities.forEach((opportunity) => ProfileOpportunities.define({ opportunity, student: username }));
+      profileOpportunities.forEach((opportunity) => ProfileOpportunities.define({ opportunity, student: username, retired }));
     }
   }
 
