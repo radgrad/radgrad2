@@ -47,9 +47,11 @@ const StudentLevelsWidget: React.FC<StudentLevelsWidgetProps> = ({ profile }) =>
         CURRENT LEVEL
       </Header>
       <Grid stackable>
+          <Grid.Column width={3}>
+              <Image size="small" centered style={imageStyle} src={`/images/level-icons/radgrad-level-${studentLevelNumber}-icon.png`} />
+          </Grid.Column>
         <Grid.Column width={16}>
           <Container>
-            <Image size="small" centered style={imageStyle} src={`/images/level-icons/radgrad-level-${studentLevelNumber}-icon.png`} />
             <Header as="h3" textAlign="center">
               {studentLevelName}
             </Header>
