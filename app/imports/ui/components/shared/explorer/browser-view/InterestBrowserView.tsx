@@ -1,14 +1,15 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import {Button, Card, Divider, Header, Icon, Segment} from 'semantic-ui-react';
+import _ from 'lodash';
+import { Button, Card, Divider, Header, Icon, Segment } from 'semantic-ui-react';
 import { scrollPositionActions } from '../../../../../redux/shared/scrollPosition';
 import { RootState } from '../../../../../redux/types';
 import { Interest } from '../../../../../typings/radgrad';
 import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
 import ProfileCard from './ProfileCard';
 import WidgetHeaderNumber from '../WidgetHeaderNumber';
-import {RadGradProperties} from '../../../../../api/radgrad/RadGradProperties';
-import InterestSortWidget, {interestSortKeys} from './InterestSortWidget';
+import { RadGradProperties } from '../../../../../api/radgrad/RadGradProperties';
+import InterestSortWidget, { interestSortKeys } from './InterestSortWidget';
 
 interface InterestBrowserViewProps {
   interests: Interest[];
@@ -30,14 +31,24 @@ const mapDispatchToProps = (dispatch) => ({
 
 const adminEmail = RadGradProperties.getAdminEmail();
 
-const InterestBrowserView: React.FC<InterestBrowserViewProps> = ({ interests, inProfile, interestsScrollPosition, setInterestsScrollPosition, sortValue }) => {
+const InterestBrowserView: React.FC<InterestBrowserViewProps> = ({
+  interests,
+  inProfile,
+  interestsScrollPosition,
+  setInterestsScrollPosition,
+  sortValue,
+}) => {
   const cardGroupElement: HTMLElement = document.getElementById('interestsCardGroup');
+  // eslint-disable-next-line no-param-reassign
+  interests = _.sortBy(interests, (item) => item.name);
   switch (sortValue) {
-    // TODO: Add sort by Most Recent
     case interestSortKeys.mostRecent:
+      // eslint-disable-next-line no-param-reassign
+      interests = _.sortBy(interests, (item) => item.updatedAt);
       break;
     default:
-      // this.props.interests = _.sortBy(interests, (item) => item.name);
+      // eslint-disable-next-line no-param-reassign
+      interests = _.sortBy(interests, (item) => item.name);
   }
   useEffect(() => {
     const savedScrollPosition = interestsScrollPosition;
@@ -54,26 +65,28 @@ const InterestBrowserView: React.FC<InterestBrowserViewProps> = ({ interests, in
   return (
     <div id="interest-browser-view">
       <Segment>
-          <Header>
+        <Header>
           {inProfile
-            ? <p color='grey'><Icon name='heart' color='grey' size='large'/>
-              INTERESTS IN MY PROFILE <WidgetHeaderNumber inputValue={interests.length}/>
-               { interests.length < 3 ?
-                  <span style={{ float: 'right' }}><Icon name='exclamation triangle' color='red'/> Please add atleast <b>three interests</b> to your profile</span> : '' }
-              </p>
-            : <p color='grey'>INTERESTS NOT IN MY PROFILE <WidgetHeaderNumber inputValue={interests.length}/>
-              <Button size="mini" color="teal" floated="right" href={`mailto:${adminEmail}?subject=New Interest Suggestion`} basic>
-                <Icon name="mail"  />
-                  SUGGEST A NEW INTEREST
+            ? <p color='grey'><Icon name='heart' color='grey' size='large' />
+              INTERESTS IN MY PROFILE <WidgetHeaderNumber inputValue={interests.length} />
+              {interests.length < 3 ?
+                <span style={{ float: 'right' }}><Icon name='exclamation triangle' color='red' /> Please add atleast <b>three interests</b> to your profile</span> : ''}
+            </p>
+            : <p color='grey'>INTERESTS NOT IN MY PROFILE <WidgetHeaderNumber inputValue={interests.length} />
+              <Button size="mini" color="teal" floated="right"
+                      href={`mailto:${adminEmail}?subject=New Interest Suggestion`} basic>
+                <Icon name="mail" />
+                SUGGEST A NEW INTEREST
               </Button>
-              </p>
-              }
-          </Header>
-          <Divider/>
-          {!inProfile ? <InterestSortWidget /> :''}
+            </p>
+          }
+        </Header>
+        <Divider />
+        {!inProfile ? <InterestSortWidget /> : ''}
         <Card.Group itemsPerRow={4} stackable id="interestsCardGroup">
           {interests.map((interest) => (
-            <ProfileCard key={interest._id} item={interest} type={EXPLORER_TYPE.INTERESTS} cardLinkName={inProfile? 'See Details / Remove from Profile':'See Details / Add to Profile'}/>
+            <ProfileCard key={interest._id} item={interest} type={EXPLORER_TYPE.INTERESTS}
+                         cardLinkName={inProfile ? 'See Details / Remove from Profile' : 'See Details / Add to Profile'} />
           ))}
         </Card.Group>
       </Segment>

@@ -21,6 +21,7 @@ import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';
 import { StudentParticipations } from '../../../api/public-stats/StudentParticipationCollection';
 // import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { Feeds } from '../../../api/feed/FeedCollection';
+
 // import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 
 interface Loading {
@@ -35,11 +36,7 @@ const withGlobalSubscription = (WrappedComponent) => {
   // console.log('withGlobalSubscriptionHOC', Meteor.user(), Meteor.userId(), Users.count());
   const GlobalSubscription: React.FC<Loading> = ({ loading, ...rest }) =>
     (loading ? (
-      <React.Fragment>
-        <Dimmer active inverted>
-          <Loader>Loading global data</Loader>
-        </Dimmer>
-      </React.Fragment>
+      <Loader active>Loading global data</Loader>
     ) : (
       <WrappedComponent {...rest} />
     ));

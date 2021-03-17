@@ -28,11 +28,12 @@ export const setOpportunitiesSortValue = (explorerType: string, value: string): 
 };
 
 export const setInterestsSortValue = (explorerType: string, value: string): { type?: string, payload?: string } => {
+  // console.log('setInterestsSortValue', explorerType, value);
   const retVal: { type?: string, payload?: string } = {};
   retVal.payload = value;
   switch (explorerType) {
     case EXPLORER_TYPE.INTERESTS:
-      retVal.type = TYPES.SET_OPPORTUNITIES_SORT_VALUE;
+      retVal.type = TYPES.SET_INTERESTS_SORT_VALUE;
       break;
     default:
       break;

@@ -32,13 +32,7 @@ const instanceSubs = new SubsManager({ cacheLimit: 20, expireIn: 30 });
 const withInstanceSubscriptions = (WrappedComponent) => {
   // console.log('withInstanceSubscriptionsHOC');
   const InstanceSubscriptions: React.FC<Loading> = (props) =>
-    (props.loading ? (
-      <React.Fragment>
-        <Dimmer active inverted>
-          <Loader>Loading user-specific data</Loader>
-        </Dimmer>
-      </React.Fragment>
-    ) : (
+    (props.loading ? (<Loader active>Loading user-specific data</Loader>) : (
       <WrappedComponent {...props} />
     ));
 
