@@ -6,7 +6,6 @@ import _ from 'lodash';
 import { Course, Interest, Opportunity, Profile } from '../../../../typings/radgrad';
 import { getFirstSentance } from '../../../components/shared/utilities/general';
 import PageLayout from '../../PageLayout';
-import { getMenuWidget } from '../utilities/getMenuWidget';
 import { Interests } from '../../../../api/interest/InterestCollection';
 import { Users } from '../../../../api/user/UserCollection';
 import { Courses } from '../../../../api/course/CourseCollection';
