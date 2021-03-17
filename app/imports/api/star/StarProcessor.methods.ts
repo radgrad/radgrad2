@@ -1,6 +1,5 @@
 import { Meteor } from 'meteor/meteor';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
-import _ from 'lodash';
 import moment from 'moment';
 import { CourseInstances } from '../course/CourseInstanceCollection';
 import { Courses } from '../course/CourseCollection';
@@ -26,14 +25,14 @@ const processStudentStarDefinitions = (advisor, student, definitions) => {
   const studentID = Users.getID(student);
   // console.log(student, studentID);
   const oldInstances = CourseInstances.find({ studentID, fromRegistrar: true }).fetch();
-  _.forEach(oldInstances, (instance) => {
+  oldInstances.forEach((instance) => {
     CourseInstances.removeIt(instance._id);
   });
   let numInterstingCourses = 0;
   // let numOtherCourses = 0;
   // console.log('create new instances');
   const departments = {};
-  _.forEach(definitions, (definition) => {
+  definitions.forEach((definition) => {
     // console.log('termID', termID);
     // console.log(definition);
     if (definition.course !== Courses.unInterestingSlug) {
@@ -145,7 +144,7 @@ const processBulkStarDefinitions = (advisor, definitions) => {
   // console.log(definitions);
   if (definitions) {
     const students = Object.keys(definitions);
-    _.forEach(students, (student) => {
+    students.forEach((student) => {
       if (Users.isDefined(student)) {
         updateNum += 1;
         processStudentStarDefinitions(advisor, student, definitions[student].courses);

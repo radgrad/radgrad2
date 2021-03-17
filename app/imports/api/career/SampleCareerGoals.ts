@@ -1,6 +1,5 @@
 import faker from 'faker';
 import moment from 'moment';
-import _ from 'lodash';
 import { CareerGoals } from './CareerGoalCollection';
 import { makeSampleInterest } from '../interest/SampleInterests';
 import slugify, { Slugs } from '../slug/SlugCollection';
@@ -37,7 +36,7 @@ export const makeSampleCareerGoalArray = (num = 2): string[] => {
  */
 export const makeSampleCareerGoalSlugArray = (num = 2) => {
   const ids = makeSampleCareerGoalArray(num);
-  return _.map(ids, (id) => {
+  return ids.map((id) => {
     const doc = CareerGoals.findDoc(id);
     return Slugs.getNameFromID(doc.slugID);
   });

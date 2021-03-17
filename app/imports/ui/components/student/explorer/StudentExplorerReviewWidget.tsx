@@ -2,7 +2,6 @@ import React from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import { Grid, Header, Image, List } from 'semantic-ui-react';
 import Markdown from 'react-markdown';
-import _ from 'lodash';
 import { Users } from '../../../../api/user/UserCollection';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import StudentExplorerReviewStarsWidget from './StudentExplorerReviewStarsWidget';
@@ -49,7 +48,7 @@ const StudentExplorerReviewWidget: React.FC<StudentExplorerReviewWidgetProps> = 
   const currentUserName = userToFullName(Router.getUsername(match));
   let theReviews = itemReviews;
   if (userReview) {
-    theReviews = _.filter(theReviews, (review) => review._id !== userReview._id);
+    theReviews = theReviews.filter((review) => review._id !== userReview._id);
   }
   return (
     <div className="ui padded container">

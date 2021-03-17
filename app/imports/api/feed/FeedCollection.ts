@@ -524,7 +524,7 @@ class FeedCollection extends BaseCollection {
   public checkIntegrity() {
     const problems = [];
     this.find().forEach((doc) => {
-      _.forEach(doc.userIDs, (userID) => {
+      doc.userIDs.forEach((userID) => {
         if (!Users.isDefined(userID)) {
           problems.push(`Bad userID: ${userID}`);
         }
@@ -551,7 +551,7 @@ class FeedCollection extends BaseCollection {
     const doc = this.findDoc(docID);
     let user;
     if (doc.userIDs) {
-      user = _.map(doc.userIDs, (userID) => Users.getProfile(userID).username);
+      user = doc.userIDs.map((userID) => Users.getProfile(userID).username);
     }
     let opportunity;
     if (doc.opportunityID) {

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Accordion, Button } from 'semantic-ui-react';
-import _ from 'lodash';
 import Markdown from 'react-markdown';
 import { useRouteMatch } from 'react-router-dom';
 import { DescriptionPair } from '../../../../typings/radgrad';
@@ -40,8 +39,9 @@ const AdminCollectionAccordion: React.FC<AdminCollectionAccordionProps> = ({ id,
         {title}
       </Accordion.Title>
       <Accordion.Content active={active}>
-        {_.map(descriptionPairs, (descriptionPair, index) => (
-          <React.Fragment key={index}>
+        {descriptionPairs.map((descriptionPair, index) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <React.Fragment key={`${descriptionPair.label}-${index}`}>
             <b>{descriptionPair.label}:</b>
             <Markdown escapeHtml source={getDescriptionPairValue(descriptionPair)} renderers={{ link: (lProps) => Router.renderLink(lProps, match) }} />
           </React.Fragment>

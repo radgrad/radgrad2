@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import _ from 'lodash';
 import { Segment, Grid, Header, Tab, Form, Button, Image, Popup } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import { ZipZap } from 'meteor/udondan:zipzap';
@@ -153,20 +152,20 @@ const AdvisorStudentSelectorWidget: React.FC<AdvisorStudentSelectorWidgetProps> 
     overflow: 'hidden',
   };
 
-  const filterFirst = _.filter(students, (s) => s.firstName.toLowerCase().includes(firstName.toLowerCase()));
-  const filterLast = _.filter(filterFirst, (s) => s.lastName.toLowerCase().includes(lastName.toLowerCase()));
-  const filteredStudents = _.filter(filterLast, (s) => s.username.toLowerCase().includes(username.toLowerCase()));
+  const filterFirst = students.filter((s) => s.firstName.toLowerCase().includes(firstName.toLowerCase()));
+  const filterLast = filterFirst.filter((s) => s.lastName.toLowerCase().includes(lastName.toLowerCase()));
+  const filteredStudents = filterLast.filter((s) => s.username.toLowerCase().includes(username.toLowerCase()));
 
-  const filterAlumiFirst = _.filter(alumni, (s) => s.firstName.toLowerCase().includes(firstName.toLowerCase()));
-  const filterAlumniLast = _.filter(filterAlumiFirst, (s) => s.lastName.toLowerCase().includes(lastName.toLowerCase()));
-  const filteredAlumni = _.filter(filterAlumniLast, (s) => s.username.toLowerCase().includes(username.toLowerCase()));
+  const filterAlumiFirst = alumni.filter((s) => s.firstName.toLowerCase().includes(firstName.toLowerCase()));
+  const filterAlumniLast = filterAlumiFirst.filter((s) => s.lastName.toLowerCase().includes(lastName.toLowerCase()));
+  const filteredAlumni = filterAlumniLast.filter((s) => s.username.toLowerCase().includes(username.toLowerCase()));
 
-  const levelOnes = _.filter(filteredStudents, (s) => s.level === 1).length;
-  const levelTwos = _.filter(filteredStudents, (s) => s.level === 2).length;
-  const levelThrees = _.filter(filteredStudents, (s) => s.level === 3).length;
-  const levelFours = _.filter(filteredStudents, (s) => s.level === 4).length;
-  const levelFives = _.filter(filteredStudents, (s) => s.level === 5).length;
-  const levelSixes = _.filter(filteredStudents, (s) => s.level === 6).length;
+  const levelOnes = filteredStudents.filter((s) => s.level === 1).length;
+  const levelTwos = filteredStudents.filter((s) => s.level === 2).length;
+  const levelThrees = filteredStudents.filter((s) => s.level === 3).length;
+  const levelFours = filteredStudents.filter((s) => s.level === 4).length;
+  const levelFives = filteredStudents.filter((s) => s.level === 5).length;
+  const levelSixes = filteredStudents.filter((s) => s.level === 6).length;
   const panes = [
     {
       menuItem: 'Update Existing',

@@ -1,6 +1,5 @@
 import moment from 'moment';
 import faker from 'faker';
-import _ from 'lodash';
 import { InterestTypes } from './InterestTypeCollection';
 import { Interests } from './InterestCollection';
 import slugify, { Slugs } from '../slug/SlugCollection';
@@ -53,7 +52,7 @@ export const makeSampleInterestArray = (numInterests = 1): string[] => {
  */
 export const makeSampleInterestSlugArray = (numInterests = 1): string[] => {
   const ids = makeSampleInterestArray(numInterests);
-  return _.map(ids, (id) => {
+  return ids.map((id) => {
     const doc = Interests.findDoc(id);
     return Slugs.getNameFromID(doc.slugID);
   });

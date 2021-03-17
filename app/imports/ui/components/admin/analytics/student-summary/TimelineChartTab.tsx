@@ -42,7 +42,9 @@ const TimelineChartTab: React.FC<TimelineChartTabProps> = ({ startDate, endDate,
       StudentSummaryBehaviorTypes.REMOVE_FROM_PROFILE,
       StudentSummaryBehaviorTypes.LOGOUT,
     ];
+    // CAM behaviorsByDate is an object
     _.each(behaviorsByDate, (array, date, obj) => {
+      // CAM interactionsByUser is an object
       _.each(interactionsByUser, (interactions: UserInteraction[]) => {
         const interactionsWithinDate: UserInteraction[] = interactions.filter((interaction) => {
           const interactionDate = moment(interaction.timestamp).format('MMM D, YYYY');
@@ -98,14 +100,15 @@ const TimelineChartTab: React.FC<TimelineChartTabProps> = ({ startDate, endDate,
       });
     });
     // console.log(behaviorsByDate);
+    // CAM have to use _.map since behaviorsByDate is an object.
     const categories = _.map(behaviorsByDate, (behaviors, date) => {
       const shortDate = date.substring(0, date.length - 6);
       return shortDate;
     });
-    const series = _.map(behaviorList, (behavior) => ({ name: behavior, data: [] }));
+    const series = behaviorList.map((behavior) => ({ name: behavior, data: [] }));
     _.each(behaviorsByDate, (behaviors) => {
       const groupedBehaviors = _.groupBy(behaviors);
-      _.each(behaviorList, (behavior) => {
+      behaviorList.forEach((behavior) => {
         const behaviorCount = groupedBehaviors[behavior];
         const behaviorSeries = _.find(series, { name: behavior });
         if (behaviorCount) {

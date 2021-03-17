@@ -17,7 +17,7 @@ class PreferredChoice {
   constructor(choices, interestIDs: string[]) {
     this.rankedChoices = {};
     let max = 0;
-    _.forEach(choices, (choice) => {
+    choices.forEach((choice) => {
       const score = _.intersection(choice.interestIDs, interestIDs).length;
       if (score > max) {
         max = score;

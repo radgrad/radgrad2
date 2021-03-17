@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import _ from 'lodash';
 import Swal from 'sweetalert2';
 import { connect } from 'react-redux';
 import { Segment, Header, Form, Radio } from 'semantic-ui-react';
@@ -34,9 +33,9 @@ const AdvisorUpdateStudentWidget: React.FC<AdvisorUpdateStudentWidgetProps> = ({
   const doc = usernameDoc;
   const userID = doc.userID;
   const favCareerGoals = ProfileCareerGoals.findNonRetired({ userID });
-  const careerGoalIDs = _.map(favCareerGoals, (fav) => fav.careerGoalID);
+  const careerGoalIDs = favCareerGoals.map((fav) => fav.careerGoalID);
   const favInterests = ProfileInterests.findNonRetired({ userID });
-  const interestIDs = _.map(favInterests, (fav) => fav.interestID);
+  const interestIDs = favInterests.map((fav) => fav.interestID);
   const [firstNameState, setFirstName] = useState<string>(doc.firstName);
   const [lastNameState, setLastName] = useState(doc.lastName);
   const [pictureState, setPicture] = useState(doc.picture);

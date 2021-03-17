@@ -1,5 +1,4 @@
 import React from 'react';
-import _ from 'lodash';
 import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, SelectField, BoolField, SubmitField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
@@ -18,11 +17,11 @@ interface AddOpportunityInstanceFormProps {
 }
 
 const AddOpportunityInstanceForm: React.FC<AddOpportunityInstanceFormProps> = ({ terms, opportunities, students, sponsors, formRef, handleAdd }) => {
-  const termNames = _.map(terms, academicTermToName);
+  const termNames = terms.map(academicTermToName);
   const currentTermName = AcademicTerms.toString(AcademicTerms.getCurrentTermID(), false);
-  const opportunityNames = _.map(opportunities, docToName);
-  const studentNames = _.map(students, profileToName);
-  const sponsorNames = _.map(sponsors, profileToName);
+  const opportunityNames = opportunities.map(docToName);
+  const studentNames = students.map(profileToName);
+  const sponsorNames = sponsors.map(profileToName);
   const schema = new SimpleSchema({
     term: {
       type: String,

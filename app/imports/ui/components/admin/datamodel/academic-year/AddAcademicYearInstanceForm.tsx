@@ -4,7 +4,6 @@ import { Header, Segment } from 'semantic-ui-react';
 import { AutoForm, NumField, SelectField, SubmitField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
-import _ from 'lodash';
 import moment from 'moment';
 import { profileToUsername } from '../../../shared/utilities/data-model';
 
@@ -15,7 +14,7 @@ interface AddAcademicYearInstanceProps {
 }
 
 const AddAcademicYearInstanceForm: React.FC<AddAcademicYearInstanceProps> = ({ students, formRef, handleAdd }) => {
-  const studentNames = _.map(students, profileToUsername);
+  const studentNames = students.map(profileToUsername);
   const schema = new SimpleSchema({
     student: {
       type: String,

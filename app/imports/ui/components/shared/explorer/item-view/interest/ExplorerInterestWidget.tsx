@@ -22,7 +22,7 @@ interface ExplorerInterestsWidgetProps {
   courses: Course[];
 }
 
-const getObjectsThatHaveInterest = (objects, interestID: string) => _.filter(objects, (obj) => _.includes(obj.interestIDs, interestID));
+const getObjectsThatHaveInterest = (objects, interestID: string) => objects.filter((obj) => _.includes(obj.interestIDs, interestID));
 
 const getRelatedCourses = (courses: Course[], interestID: string) => getObjectsThatHaveInterest(courses, interestID);
 
@@ -31,15 +31,15 @@ const getAssociationRelatedCourses = (courses: Course[], studentID: string) => {
     studentID,
     verified: false,
   });
-  const inPlanIDs = _.uniq(_.map(inPlanInstances, 'courseID'));
+  const inPlanIDs = _.uniq(inPlanInstances.map((plan) => plan.courseID));
 
   const completedInstance = CourseInstances.findNonRetired({
     studentID,
     verified: true,
   });
-  const completedIDs = _.uniq(_.map(completedInstance, 'courseID'));
+  const completedIDs = _.uniq(completedInstance.map((inst) => inst.courseID));
 
-  const relatedIDs = _.uniq(_.map(courses, '_id'));
+  const relatedIDs = _.uniq(courses.map((course) => course._id));
   const relatedInPlanIDs = _.intersection(relatedIDs, inPlanIDs);
   const relatedCompletedIDs = _.intersection(relatedIDs, completedIDs);
   const relatedNotInPlanIDs = _.difference(relatedIDs, relatedInPlanIDs, relatedCompletedIDs);
@@ -59,15 +59,15 @@ const getAssociationRelatedOpportunities = (opportunities: Opportunity[], studen
     studentID,
     verified: false,
   }).fetch();
-  const inPlanIDs = _.uniq(_.map(inPlanInstances, 'opportunityID'));
+  const inPlanIDs = _.uniq(inPlanInstances.map((inst) => inst.opportunityID));
 
   const completedInstances = OpportunityInstances.find({
     studentID,
     verified: true,
   }).fetch();
-  const completedIDs = _.uniq(_.map(completedInstances, 'opportunityID'));
+  const completedIDs = _.uniq(completedInstances.map((inst) => inst.opportunityID));
 
-  const relatedIDs = _.uniq(_.map(opportunities, '_id'));
+  const relatedIDs = _.uniq(opportunities.map((o) => o._id));
   const relatedInPlanIDs = _.intersection(relatedIDs, inPlanIDs);
   const relatedCompletedIDs = _.intersection(relatedIDs, completedIDs);
   const relatedNotInPlanIDs = _.difference(relatedIDs, relatedInPlanIDs, relatedCompletedIDs);

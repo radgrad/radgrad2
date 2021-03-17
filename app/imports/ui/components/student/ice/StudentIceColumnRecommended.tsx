@@ -26,7 +26,7 @@ const hasNoInterests = (profileInterests: ProfileInterest[]): boolean => profile
 const availableCourses = (match): Course[] => {
   const courses = Courses.findNonRetired({});
   if (courses.length > 0) {
-    return _.filter(courses, (course) => {
+    return courses.filter((course) => {
       if (course.num === 'ICS 499') {
         // TODO: hardcoded ICS string
         return true;
@@ -45,16 +45,17 @@ const matchingOpportunities = (profileInterests: ProfileInterest[]): Opportunity
   const allOpportunities = Opportunities.findNonRetired();
   const matching = [];
   const userInterests = [];
-  _.forEach(profileInterests, (f) => {
+  profileInterests.forEach((f) => {
     userInterests.push(Interests.findDoc(f.interestID));
   });
   let opportunityInterests = [];
-  _.forEach(allOpportunities, (opp) => {
+  // TODO this looks very inefficient. Is there a better way?
+  allOpportunities.forEach((opp) => {
     opportunityInterests = [];
-    _.forEach(opp.interestIDs, (id) => {
+    opp.interestIDs.forEach((id) => {
       opportunityInterests.push(Interests.findDoc(id));
-      _.forEach(opportunityInterests, (oppInterest) => {
-        _.forEach(userInterests, (userInterest) => {
+      opportunityInterests.forEach((oppInterest) => {
+        userInterests.forEach((userInterest) => {
           if (_.isEqual(oppInterest, userInterest)) {
             if (!_.includes(matching, opp)) {
               matching.push(opp);
@@ -71,16 +72,17 @@ const matchingCourses = (profileInterests: ProfileInterest[], match): Course[] =
   const allCourses: Course[] = availableCourses(match);
   const matching: Course[] = [];
   const userInterests = [];
-  _.forEach(profileInterests, (f) => {
+  profileInterests.forEach((f) => {
     userInterests.push(Interests.findDoc(f.interestID));
   });
   let courseInterests = [];
-  _.forEach(allCourses, (course) => {
+  // TODO this looks bad.
+  allCourses.forEach((course) => {
     courseInterests = [];
-    _.forEach(course.interestIDs, (id) => {
+    course.interestIDs.forEach((id) => {
       courseInterests.push(Interests.findDoc(id));
-      _.forEach(courseInterests, (courseInterest) => {
-        _.forEach(userInterests, (userInterest) => {
+      courseInterests.forEach((courseInterest) => {
+        userInterests.forEach((userInterest) => {
           if (_.isEqual(courseInterest, userInterest)) {
             if (!_.includes(matching, course)) {
               matching.push(course);

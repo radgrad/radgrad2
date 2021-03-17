@@ -97,6 +97,10 @@ const InterestViewPage: React.FC<InterestViewPageProps> = ({ courses, profileInt
   const relatedCourses = getAssociationRelatedCourses(getRelatedCourses(courses, interestID), profile.userID);
   const relatedOpportunities = getAssociationRelatedOpportunities(getRelatedOpportunities(opportunities, interestID), profile.userID);
   const match = useRouteMatch();
+  const menuAddedList = profileInterests.map((item) => ({
+    item,
+    count: 1,
+  }));
   const pushDownStyle = { paddingTop: 15 };
   return (
     <div id="interest-view-page">

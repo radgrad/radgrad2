@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import { Meteor } from 'meteor/meteor';
 import { AcademicYearInstances } from '../degree-plan/AcademicYearInstanceCollection';
 import { AdminProfiles } from '../user/AdminProfileCollection';
@@ -115,7 +114,7 @@ class RadGradClass {
      * An object with keys equal to the collection name and values the associated collection instance.
      */
     this.collectionAssociation = {};
-    _.forEach(this.collections, (collection) => {
+    this.collections.forEach((collection) => {
       this.collectionAssociation[collection.getCollectionName()] = collection;
     });
   }

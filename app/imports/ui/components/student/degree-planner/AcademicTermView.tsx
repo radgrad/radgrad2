@@ -1,5 +1,4 @@
 import React from 'react';
-import _ from 'lodash';
 import { Header, Segment, Icon } from 'semantic-ui-react';
 import { Droppable } from 'react-beautiful-dnd';
 import { AcademicTerm, CourseInstance, OpportunityInstance } from '../../../../typings/radgrad';
@@ -37,8 +36,8 @@ const AcademicTermView: React.FC<AcademicTermViewProps> = ({
   const currentTermNum = AcademicTerms.getCurrentAcademicTermDoc().termNumber;
   const inPast = term.termNumber < currentTermNum;
   const isCurrent = term.termNumber === currentTermNum;
-  const courseInstancesToShow = _.filter(courseInstances, (ci) => ci.termID === term._id);
-  const opportunityInstancesToShow = _.filter(opportunityInstances, (oi) => oi.termID === term._id);
+  const courseInstancesToShow = courseInstances.filter((ci) => ci.termID === term._id);
+  const opportunityInstancesToShow = opportunityInstances.filter((oi) => oi.termID === term._id);
   return (
     <Segment style={paddedStyle}>
       <Header disabled={inPast} color={isCurrent ? 'green' : 'black'} style={headerStyle}>
@@ -47,11 +46,11 @@ const AcademicTermView: React.FC<AcademicTermViewProps> = ({
       <Droppable droppableId={`${termSlug}`}>
         {(provided, snapshot) => (
           <div ref={provided.innerRef} style={getDroppableListStyle(snapshot.isDraggingOver)}>
-            {_.map(courseInstancesToShow, (ci, index) => (
+            {courseInstancesToShow.map((ci, index) => (
               <DraggableCourseInstancePill key={ci._id} instance={ci} index={index} inPast={inPast}
                                            handleClickCourseInstance={handleClickCourseInstance} />
             ))}
-            {_.map(opportunityInstancesToShow, (oi, index) => (
+            {opportunityInstancesToShow.map((oi, index) => (
               <DraggableOpportunityInstancePill key={oi._id} instance={oi}
                                                 index={courseInstancesToShow.length + index}
                                                 handleClickOpportunityInstance={handleClickOpportunityInstance} />

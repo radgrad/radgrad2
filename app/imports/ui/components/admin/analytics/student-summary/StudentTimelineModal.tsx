@@ -25,7 +25,7 @@ const gap = 10;
 const getSessions = (interactions: UserInteraction[]): UserInteraction[][] => {
   const sessions = [];
   let slicedIndex = 0;
-  _.each(interactions, (interaction, index: number, inters) => {
+  interactions.forEach((interaction, index: number, inters) => {
     if (index !== 0) {
       const prevTimestamp = moment(new Date(inters[index - 1].timestamp));
       const timestamp = moment(new Date(interaction.timestamp));
@@ -94,7 +94,7 @@ const getBehaviors = (sessionArr: UserInteraction[]): { type: string; stats: str
     [UserInteractionsTypes.EDIT_REVIEW]: [],
     [UserInteractionsTypes.VERIFY_REQUEST]: [],
   };
-  _.each(sessionArr, (interaction) => {
+  sessionArr.forEach((interaction) => {
     if (actions[interaction.type]) {
       // there are interaction types that we've removed, but are still in the UserInteractions
       actions[interaction.type].push(interaction.typeData.join(', '));
@@ -113,6 +113,7 @@ const getBehaviors = (sessionArr: UserInteraction[]): { type: string; stats: str
     [StudentSummaryBehaviorTypes.ADD_TO_PROFILE]: [],
     [StudentSummaryBehaviorTypes.REMOVE_FROM_PROFILE]: [],
   };
+  // CAM actions is an object.
   _.each(actions, (array: string[], action: string) => {
     if (array.length !== 0) {
       if (action === UserInteractionsTypes.LOGIN) {
@@ -130,7 +131,7 @@ const getBehaviors = (sessionArr: UserInteraction[]): { type: string; stats: str
           [EXPLORER_TYPE.INTERESTS]: [],
           [EXPLORER_TYPE.OPPORTUNITIES]: [],
         };
-        _.each(array, (url) => {
+        array.forEach((url) => {
           if (url.includes('explorer/')) {
             const parsedUrl = url.split('/');
             if (parsedUrl.length > 2) {
@@ -145,6 +146,7 @@ const getBehaviors = (sessionArr: UserInteraction[]): { type: string; stats: str
             }
           }
         });
+        // CAM explorerPages is an object
         _.each(explorerPages, (pages, pageName) => {
           if (!_.isEmpty(pages)) {
             behaviors[StudentSummaryBehaviorTypes.EXPLORATION].push(`Entries viewed in ${pageName}: 
@@ -179,18 +181,19 @@ const getBehaviors = (sessionArr: UserInteraction[]): { type: string; stats: str
         behaviors[StudentSummaryBehaviorTypes.PROFILE].push(`User updated their website ${array.length} time(s)`);
       } else if (action === UserInteractionsTypes.ADD_TO_PROFILE) {
         behaviors[StudentSummaryBehaviorTypes.ADD_TO_PROFILE].push(`User added items to profile ${array.length} time(s)`);
-        _.each(array, (item) => {
+        array.forEach((item) => {
           behaviors[StudentSummaryBehaviorTypes.ADD_TO_PROFILE].push(`Item: ${item}`);
         });
       } else if (action === UserInteractionsTypes.REMOVE_FROM_PROFILE) {
         behaviors[StudentSummaryBehaviorTypes.REMOVE_FROM_PROFILE].push(`User removed items from profile ${array.length} time(s)`);
-        _.each(array, (item) => {
+        array.forEach((item) => {
           behaviors[StudentSummaryBehaviorTypes.REMOVE_FROM_PROFILE].push(`Item: ${item}`);
         });
       }
     }
   });
   const behaviorsArray = [];
+  // CAM behaviors is an object
   _.each(behaviors, (value, key) => {
     if (!_.isEmpty(value)) {
       behaviorsArray.push({ type: key, stats: value });

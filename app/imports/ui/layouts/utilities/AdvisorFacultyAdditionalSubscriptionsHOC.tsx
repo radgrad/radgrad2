@@ -19,7 +19,7 @@ const withAdditionalSubscriptions = (WrappedComponent) => {
 
   return withTracker(() => {
     const requests = VerificationRequests.findNonRetired({});
-    const studentIDs = _.uniq(_.map(requests, (r) => r.studentID));
+    const studentIDs = _.uniq(requests.map((r) => r.studentID));
     const handle = additionalSubs.subscribe(OpportunityInstances.publicationNames.verification, studentIDs);
     const loading = !handle.ready();
     return {

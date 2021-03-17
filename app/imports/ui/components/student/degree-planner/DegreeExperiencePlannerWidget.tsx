@@ -160,7 +160,7 @@ const DEPWidget: React.FC<DePProps> = ({
   return (
     <Segment padded id="studentDepWidget">
       <Grid stackable columns="equal">
-        {_.map(visibleYears, (year) => (
+        {visibleYears.map((year) => (
           <AcademicYearView
             key={year._id}
             academicYear={year}
