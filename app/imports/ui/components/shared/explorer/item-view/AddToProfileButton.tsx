@@ -106,13 +106,13 @@ const handleRemove = (studentID: string, item: ItemType, type: IProfileEntryType
 const AddToProfileButton: React.FC<AddToProfileButtonProps> = ({ studentID, item, type, added }) => (
   <React.Fragment>
     {added ? (
-      <Button onClick={handleRemove(studentID, item, type)} size="mini" color="green" floated="right" basic>
+      <Button onClick={handleRemove(studentID, item, type)} size="small" color="teal" floated="right" basic>
         <Icon name="user outline" color="grey" />
         <Icon name="minus" />
         REMOVE FROM PROFILE
       </Button>
     ) : (
-      <Button size="mini" onClick={handleAdd(studentID, item, type)} color="green" floated="right" basic>
+      <Button size="small" onClick={handleAdd(studentID, item, type)} color="teal" floated="right" basic>
         <Icon name="user" color="grey" />
         <Icon name="plus" />
         ADD TO PROFILE

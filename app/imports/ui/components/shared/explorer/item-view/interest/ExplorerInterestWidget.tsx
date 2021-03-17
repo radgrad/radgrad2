@@ -117,7 +117,7 @@ const ExplorerInterestWidget: React.FC<ExplorerInterestsWidgetProps> = ({ profil
                   <Markdown escapeHtml source={interest.description} renderers={{ link: (localProps) => Router.renderLink(localProps, match) }} />
                 </div>
               </Grid.Column>
-              <Grid.Column width={7}>
+              <Grid.Column width={6}>
                 <b>Teaser:</b>
                 <TeaserVideo id={teaser && teaser[0] && teaser[0].url} />
               </Grid.Column>
@@ -133,17 +133,8 @@ const ExplorerInterestWidget: React.FC<ExplorerInterestsWidgetProps> = ({ profil
             </React.Fragment>
           )}
         </Segment>
+        <InterestedProfilesWidget interest={interest} />
       </SegmentGroup>
-      <Grid stackable columns={2}>
-        <Grid.Column width={10}>
-          {/* TODO fix this; make sure to test for students and  faculty */}
-          <InterestedRelatedWidget relatedCourses={relatedCourses} relatedOpportunities={relatedOpportunities} isStudent={Router.getRoleByUrl(match) === 'student'} baseURL={getBaseURL(match)} />
-        </Grid.Column>
-
-        <Grid.Column width={6}>
-          <InterestedProfilesWidget interest={interest} />
-        </Grid.Column>
-      </Grid>
     </div>
   );
 };
