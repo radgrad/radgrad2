@@ -1,7 +1,7 @@
 import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { SubsManager } from 'meteor/meteorhacks:subs-manager';
-import { Dimmer, Loader } from 'semantic-ui-react';
+import { Loader } from 'semantic-ui-react';
 import { AdminProfiles } from '../../../api/user/AdminProfileCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';

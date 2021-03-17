@@ -1,7 +1,7 @@
 import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { SubsManager } from 'meteor/meteorhacks:subs-manager';
-import { Dimmer, Loader } from 'semantic-ui-react';
+import { Loader } from 'semantic-ui-react';
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { FeedbackInstances } from '../../../api/feedback/FeedbackInstanceCollection';
