@@ -23,6 +23,11 @@ export const replaceTermStringNextFour = (array: string[]): string => {
 };
 
 export const getFirstSentance = (description: string): string => {
-  const periodIndex = description.indexOf('.');
+  const squareIndex = description.indexOf(']');
+  const parenIndex = description.indexOf(')');
+  let periodIndex = description.indexOf('.');
+  if (squareIndex !== -1 && squareIndex < periodIndex) {
+    periodIndex = description.indexOf('.', parenIndex);
+  }
   return description.substring(0, periodIndex + 1);
 };

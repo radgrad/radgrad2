@@ -6,8 +6,8 @@ import _ from 'lodash';
 import { Course, Interest, Opportunity, Profile } from '../../../../../../typings/radgrad';
 import { CourseInstances } from '../../../../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../../../../api/opportunity/OpportunityInstanceCollection';
-import InterestedProfilesWidget from './InterestedProfilesWidget';
-import InterestedRelatedWidget from './InterestedRelatedWidget';
+import InterestedProfiles from './InterestedProfiles';
+import InterestedRelated from './InterestedRelated';
 import AddToProfileButton from '../AddToProfileButton';
 import * as Router from '../../../utilities/router';
 import { Teasers } from '../../../../../../api/teaser/TeaserCollection';
@@ -80,20 +80,8 @@ const getAssociationRelatedOpportunities = (opportunities: Opportunity[], studen
   return relatedOpportunities;
 };
 
-const getBaseURL = (match) => {
-  const split = match.url.split('/');
-  const temp = [];
-  temp.push(split[0]);
-  temp.push(split[1]);
-  temp.push(split[2]);
-  temp.push(split[3]);
-  return temp.join('/');
-};
-
-const ExplorerInterestWidget: React.FC<ExplorerInterestsWidgetProps> = ({ profile, interest, courses, opportunities }) => {
+const ExplorerInterest: React.FC<ExplorerInterestsWidgetProps> = ({ profile, interest, courses, opportunities }) => {
   const interestID = interest._id;
-  const relatedCourses = getAssociationRelatedCourses(getRelatedCourses(courses, interestID), profile.userID);
-  const relatedOpportunities = getAssociationRelatedOpportunities(getRelatedOpportunities(opportunities, interestID), profile.userID);
   const teaser = Teasers.findNonRetired({ targetSlugID: interest.slugID });
   const hasTeaser = teaser.length > 0;
   const match = useRouteMatch();
@@ -133,10 +121,10 @@ const ExplorerInterestWidget: React.FC<ExplorerInterestsWidgetProps> = ({ profil
             </React.Fragment>
           )}
         </Segment>
-        <InterestedProfilesWidget interest={interest} />
+        <InterestedProfiles interest={interest} />
       </SegmentGroup>
     </div>
   );
 };
 
-export default ExplorerInterestWidget;
+export default ExplorerInterest;

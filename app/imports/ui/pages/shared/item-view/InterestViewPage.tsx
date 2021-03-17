@@ -11,8 +11,8 @@ import { Interests } from '../../../../api/interest/InterestCollection';
 import { Users } from '../../../../api/user/UserCollection';
 import { Courses } from '../../../../api/course/CourseCollection';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
-import ExplorerInterestWidget from '../../../components/shared/explorer/item-view/interest/ExplorerInterestWidget';
-import InterestedRelatedWidget from '../../../components/shared/explorer/item-view/interest/InterestedRelatedWidget';
+import ExplorerInterest from '../../../components/shared/explorer/item-view/interest/ExplorerInterest';
+import InterestedRelated from '../../../components/shared/explorer/item-view/interest/InterestedRelated';
 import * as Router from '../../../components/shared/utilities/router';
 import {CourseInstances} from '../../../../api/course/CourseInstanceCollection';
 import {OpportunityInstances} from '../../../../api/opportunity/OpportunityInstanceCollection';
@@ -107,12 +107,12 @@ const InterestViewPage: React.FC<InterestViewPageProps> = ({ courses, profileInt
       <Container style={pushDownStyle}>
         <Grid stackable>
           <Grid.Row>
-            <Grid.Column width={4}>
-              <InterestedRelatedWidget relatedCourses={relatedCourses} relatedOpportunities={relatedOpportunities} isStudent={Router.getRoleByUrl(match) === 'student'} baseURL={getBaseURL(match)} />
+            <Grid.Column width={5}>
+              <InterestedRelated relatedCourses={relatedCourses} relatedOpportunities={relatedOpportunities} isStudent={Router.getRoleByUrl(match) === 'student'} baseURL={getBaseURL(match)} />
               {/* <ExplorerMenu menuAddedList={menuAddedList} type="interests" /> */}
             </Grid.Column>
-            <Grid.Column width={12}>
-              <ExplorerInterestWidget profile={profile} interest={interest} opportunities={opportunities} courses={courses} />
+            <Grid.Column width={11}>
+              <ExplorerInterest profile={profile} interest={interest} opportunities={opportunities} courses={courses} />
             </Grid.Column>
           </Grid.Row>
         </Grid>

@@ -11,10 +11,12 @@ interface InterestedProfileWidgetProps {
   interest: Interest;
 }
 
-const InterestedProfilesWidget: React.FC<InterestedProfileWidgetProps> = ({ interest }) => {
+const InterestedProfiles: React.FC<InterestedProfileWidgetProps> = ({ interest }) => {
   // console.log('InterestedProfileWidget', props);
   const [faculty, setFaculty] = useState([]);
   const [students, setStudents] = useState([]);
+  const [advisors, setAdvisors] = useState([]);
+
   getUserIDsWithProfileInterestMethod.call({ interestID: interest._id, role: ROLE.FACULTY }, (error, res) => {
     if (res && faculty.length !== res.length) {
       setFaculty(res.map((id) => Users.getProfile(id)));
@@ -25,6 +27,12 @@ const InterestedProfilesWidget: React.FC<InterestedProfileWidgetProps> = ({ inte
       setStudents(res.map((id) => Users.getProfile(id)));
     }
   });
+  getUserIDsWithProfileInterestMethod.call({ interestID: interest._id, role: ROLE.ADVISOR }, (error, res) => {
+    if (res && advisors.length !== res.length) {
+      setAdvisors(res.map((id) => Users.getProfile(id)));
+    }
+  });
+
   const numberStudents = studentsParticipating(interest);
   return (
             <Segment>
@@ -33,6 +41,7 @@ const InterestedProfilesWidget: React.FC<InterestedProfileWidgetProps> = ({ inte
               </Header>
               <Container textAlign="center">
                 <Image.Group size="mini">
+                  {/* TODO replace with profile labels */}
                   {students.map((student) => (
                     <Popup key={student._id} trigger={<Image src={student.picture} circular size="mini" />} content={`${student.firstName} ${student.lastName}`} />
                   ))}
@@ -49,8 +58,19 @@ const InterestedProfilesWidget: React.FC<InterestedProfileWidgetProps> = ({ inte
                   ))}
                 </Image.Group>
               </Container>
+              <Divider />
+              <Header as="h5" textAlign="center">
+                ADVISORS <WidgetHeaderNumber inputValue={advisors.length} />
+              </Header>
+              <Container textAlign="center">
+                <Image.Group size="mini">
+                  {advisors.map((fac) => (
+                    <Popup key={fac._id} trigger={<Image src={fac.picture} circular />} content={`${fac.firstName} ${fac.lastName}`} />
+                  ))}
+                </Image.Group>
+              </Container>
             </Segment>
   );
 };
 
-export default InterestedProfilesWidget;
+export default InterestedProfiles;
