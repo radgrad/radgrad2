@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
+import { Opportunities } from '../opportunity/OpportunityCollection';
 import BaseProfileCollection, { defaultProfilePicture } from './BaseProfileCollection';
 import { Users } from './UserCollection';
 import { Interests } from '../interest/InterestCollection';
@@ -73,11 +74,22 @@ class FacultyProfileCollection extends BaseProfileCollection {
     const username = profile.username;
     if (interests) {
       ProfileInterests.removeUser(username);
-      interests.forEach((interest) => ProfileInterests.define({ interest, username }));
+      interests.forEach((interest) => ProfileInterests.define({ interest, username, retired }));
     }
     if (careerGoals) {
       ProfileCareerGoals.removeUser(username);
-      careerGoals.forEach((careerGoal) => ProfileCareerGoals.define({ careerGoal, username }));
+      careerGoals.forEach((careerGoal) => ProfileCareerGoals.define({ careerGoal, username, retired }));
+    }
+    if (retired) {
+      // Need to retire the opportunities that they are the sponsor of?
+      const sposoredOpportunities = Opportunities.find({ sponsorID: profile.userID }).fetch();
+      sposoredOpportunities.forEach((opp) => {
+        const oppID = opp._id;
+        const opportunityUpdate = {
+          retired,
+        };
+        Opportunities.update(oppID, opportunityUpdate);
+      });
     }
   }
 

@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
+import { Opportunities } from '../opportunity/OpportunityCollection';
 import BaseProfileCollection, { defaultProfilePicture } from './BaseProfileCollection';
 import { Users } from './UserCollection';
 import { Interests } from '../interest/InterestCollection';
@@ -35,21 +36,24 @@ class AdvisorProfileCollection extends BaseProfileCollection {
    * @throws { Meteor.Error } If username has been previously defined, or if any interests or careerGoals are invalid.
    * @return { String } The docID of the AdvisorProfile.
    */
-  public define({ username, firstName, lastName, picture = defaultProfilePicture, website, interests,
-    careerGoals, aboutMe, retired = false }: AdvisorOrFacultyProfileDefine) {
+  public define({
+    username, firstName, lastName, picture = defaultProfilePicture, website, interests,
+    careerGoals, aboutMe, retired = false,
+  }: AdvisorOrFacultyProfileDefine) {
     if (Meteor.isServer) {
       const role = ROLE.ADVISOR;
       Slugs.define({ name: username, entityName: this.getType() });
       const profileID = this.collection.insert({
-        username, firstName, lastName, role, picture, website, userID: this.getFakeUserId(), aboutMe, retired });
+        username, firstName, lastName, role, picture, website, userID: this.getFakeUserId(), aboutMe, retired,
+      });
       const userID = Users.define({ username, role });
       this.collection.update(profileID, { $set: { userID } });
       const share = true;
       if (interests) {
-        interests.forEach((interest) => ProfileInterests.define({ interest, share, username }));
+        interests.forEach((interest) => ProfileInterests.define({ interest, share, username, retired }));
       }
       if (careerGoals) {
-        careerGoals.forEach((careerGoal) => ProfileCareerGoals.define({ careerGoal, share, username }));
+        careerGoals.forEach((careerGoal) => ProfileCareerGoals.define({ careerGoal, share, username, retired }));
       }
       return profileID;
     }
@@ -61,10 +65,29 @@ class AdvisorProfileCollection extends BaseProfileCollection {
    * You cannot change the username or role once defined.
    * @param docID the id of the AdvisorProfile.
    */
-  public update(docID, { firstName, lastName, picture, website, interests, careerGoals, retired, courseExplorerFilter, opportunityExplorerSortOrder, aboutMe }: AdvisorOrFacultyProfileUpdate) {
+  public update(docID, {
+    firstName,
+    lastName,
+    picture,
+    website,
+    interests,
+    careerGoals,
+    retired,
+    courseExplorerFilter,
+    opportunityExplorerSortOrder,
+    aboutMe,
+  }: AdvisorOrFacultyProfileUpdate) {
     this.assertDefined(docID);
     const updateData: AdvisorOrFacultyProfileUpdate = {};
-    this.updateCommonFields(updateData, { firstName, lastName, picture, website, retired, courseExplorerFilter, opportunityExplorerSortOrder });
+    this.updateCommonFields(updateData, {
+      firstName,
+      lastName,
+      picture,
+      website,
+      retired,
+      courseExplorerFilter,
+      opportunityExplorerSortOrder,
+    });
     if (aboutMe) {
       updateData.aboutMe = aboutMe;
     }
@@ -78,6 +101,17 @@ class AdvisorProfileCollection extends BaseProfileCollection {
     if (careerGoals) {
       ProfileCareerGoals.removeUser(username);
       careerGoals.forEach((careerGoal) => ProfileCareerGoals.define({ careerGoal, username }));
+    }
+    if (retired) {
+      // Need to retire the opportunities that they are the sponsor of?
+      const sposoredOpportunities = Opportunities.find({ sponsorID: profile.userID }).fetch();
+      sposoredOpportunities.forEach((opp) => {
+        const oppID = opp._id;
+        const opportunityUpdate = {
+          retired,
+        };
+        Opportunities.update(oppID, opportunityUpdate);
+      });
     }
   }
 
