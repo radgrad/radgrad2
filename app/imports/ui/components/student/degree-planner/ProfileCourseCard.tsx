@@ -1,6 +1,5 @@
 import React from 'react';
 import { Card, Icon } from 'semantic-ui-react';
-import _ from 'lodash';
 import { Link, useRouteMatch } from 'react-router-dom';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { RadGradProperties } from '../../../../api/radgrad/RadGradProperties';
@@ -24,11 +23,11 @@ interface ProfileCourseCardProps {
 
 const ProfileCourseCard: React.FC<ProfileCourseCardProps> = ({ course, courseInstances, studentID }) => {
   const match = useRouteMatch();
-  const instances = _.filter(courseInstances, (i) => i.courseID === course._id);
-  const terms = _.map(instances, (i) => AcademicTerms.findDoc(i.termID));
+  const instances = courseInstances.filter((i) => i.courseID === course._id);
+  const terms = instances.map((i) => AcademicTerms.findDoc(i.termID));
   // Sort by ascending order
   terms.sort((a, b) => a.year - b.year);
-  const termNames = _.map(terms, (t) => AcademicTerms.getShortName(t._id)).join(', ');
+  const termNames = terms.map((t) => AcademicTerms.getShortName(t._id)).join(', ');
   const slug = Slugs.findDoc(course.slugID).name;
   const ice = instances.length > 0 ? makeCourseICE(slug, instances[instances.length - 1].grade) : { i: 0, c: 0, e: 0 };
   const textAlignRight: React.CSSProperties = {
@@ -47,7 +46,7 @@ const ProfileCourseCard: React.FC<ProfileCourseCardProps> = ({ course, courseIns
     },
   );
   const scores = [];
-  _.forEach(academicTerms, (term: AcademicTerm) => {
+  academicTerms.forEach((term: AcademicTerm) => {
     const id = `${course._id} ${term._id}`;
     const score = CourseForecastCollection.find({ _id: id }).fetch() as { count: number }[];
     if (score.length > 0) {

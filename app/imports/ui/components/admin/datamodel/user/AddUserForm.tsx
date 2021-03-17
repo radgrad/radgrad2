@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import _ from 'lodash';
 import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, SelectField, BoolField, LongTextField, NumField, SubmitField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
@@ -67,9 +66,9 @@ const AddUserForm: React.FC<AddUserProps> = ({ interests, handleAdd, formRef, ac
     setPictureURL('');
   };
 
-  const interestNames = _.map(interests, docToName);
-  const careerGoalNames = _.map(careerGoals, docToName);
-  const academicTermNames = _.map(academicTerms, academicTermToName);
+  const interestNames = interests.map(docToName);
+  const careerGoalNames = careerGoals.map(docToName);
+  const academicTermNames = academicTerms.map(academicTermToName);
   const roles = [ROLE.ADVISOR, ROLE.FACULTY, ROLE.STUDENT];
   const schema = new SimpleSchema({
     username: String,

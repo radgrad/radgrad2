@@ -51,19 +51,19 @@ const CourseBrowserView: React.FC<CourseBrowserViewProps> = ({ profileCourses, c
   let items = _.sortBy(courses, (item) => item.num);
   switch (filterCoursesChoice) {
     case courseFilterKeys.threeHundredPLus:
-      items = _.filter(items, (i) => {
+      items = items.filter((i) => {
         const courseNumber = parseInt(i.num.split(' ')[1], 10);
         return courseNumber >= 300;
       });
       break;
     case courseFilterKeys.fourHundredPlus:
-      items = _.filter(items, (i) => {
+      items = items.filter((i) => {
         const courseNumber = parseInt(i.num.split(' ')[1], 10);
         return courseNumber >= 400;
       });
       break;
     case courseFilterKeys.sixHundredPlus:
-      items = _.filter(items, (i) => {
+      items = items.filter((i) => {
         const courseNumber = parseInt(i.num.split(' ')[1], 10);
         return courseNumber >= 600;
       });

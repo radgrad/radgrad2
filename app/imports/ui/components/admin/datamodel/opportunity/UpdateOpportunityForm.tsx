@@ -3,7 +3,6 @@ import { Button, Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, SelectField, LongTextField, DateField, BoolField, SubmitField, NumField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
-import _ from 'lodash';
 import Swal from 'sweetalert2';
 import { AcademicTerm, BaseProfile, Interest, OpportunityType } from '../../../../../typings/radgrad';
 import BaseCollection from '../../../../../api/base/BaseCollection';
@@ -59,14 +58,14 @@ const UpdateOpportunityForm: React.FC<UpdateOpportunityFormProps> = ({ sponsors,
 
   // console.log('collection model = %o', model);
   model.opportunityType = opportunityTypeIdToName(model.opportunityTypeID);
-  model.interests = _.map(model.interestIDs, interestIdToName);
-  model.terms = _.map(model.termIDs, academicTermIdToName);
+  model.interests = model.interestIDs.map(interestIdToName);
+  model.terms = model.termIDs.map(academicTermIdToName);
   model.sponsor = userIdToName(model.sponsorID);
   // console.log(model);
-  const sponsorNames = _.map(sponsors, profileToName);
-  const termNames = _.map(terms, academicTermToName);
-  const opportunityTypeNames = _.map(opportunityTypes, docToName);
-  const interestNames = _.map(interests, docToName);
+  const sponsorNames = sponsors.map(profileToName);
+  const termNames = terms.map(academicTermToName);
+  const opportunityTypeNames = opportunityTypes.map(docToName);
+  const interestNames = interests.map(docToName);
   // console.log(opportunityTypeNames);
   const schema = new SimpleSchema({
     name: { type: String, optional: true },

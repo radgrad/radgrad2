@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import React from 'react';
 import { Button, Card, Icon } from 'semantic-ui-react';
 import { connect } from 'react-redux';
@@ -83,7 +82,7 @@ const DetailCourseCard: React.FC<DetailCourseCardProps> = ({ instance, selectCou
     },
   );
   const scores = [];
-  _.forEach(academicTerms, (term: AcademicTerm) => {
+  academicTerms.forEach((term: AcademicTerm) => {
     const id = `${course._id} ${term._id}`;
     const score = CourseForecastCollection.find({ _id: id }).fetch() as { count: number }[];
     if (score.length > 0) {

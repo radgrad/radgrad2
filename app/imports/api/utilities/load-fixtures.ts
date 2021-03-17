@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { UserInteractions } from '../analytic/UserInteractionCollection';
 import BaseCollection from '../base/BaseCollection';
@@ -22,7 +21,7 @@ export const loadCollectionNewDataOnly = (collection: BaseCollection, loadJSON, 
   const type = collection.getType();
   const definitions = getDefinitions(loadJSON, collection.getCollectionName());
   let count = 0;
-  _.forEach(definitions, (definition) => {
+  definitions.forEach((definition) => {
     let studentID;
     let termID;
     switch (type) {

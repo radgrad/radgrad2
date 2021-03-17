@@ -45,7 +45,7 @@ const ExplorerOpportunitiesWidget: React.FC<CardExplorerOpportunitiesWidgetProps
       // eslint-disable-next-line no-case-declarations
       const profileEntries = ProfileInterests.findNonRetired({ userID });
       // eslint-disable-next-line no-case-declarations
-      const interestIDs = _.map(profileEntries, (f) => f.interestID);
+      const interestIDs = profileEntries.map((f) => f.interestID);
       // eslint-disable-next-line no-case-declarations
       const preferred = new PreferredChoice(opportunities, interestIDs);
       opportunities = preferred.getOrderedChoices();

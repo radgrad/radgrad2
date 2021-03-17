@@ -57,9 +57,9 @@ export class ReviewChecklist extends Checklist {
     const courseIDs = _.uniq(cis.map((ci) => ci.courseID));
     const courses = courseIDs.map((cID) => Courses.findDoc(cID));
     const reviews = Reviews.findNonRetired({ studentID });
-    const courseReviews = _.filter(reviews, (rev) => rev.reviewType === Reviews.COURSE);
-    const opportunityReviews = _.filter(reviews, (rev) => rev.reviewType !== Reviews.COURSE);
-    const nonReviewedCourses = _.filter(courses, (course) => {
+    const courseReviews = reviews.filter((rev) => rev.reviewType === Reviews.COURSE);
+    const opportunityReviews = reviews.filter((rev) => rev.reviewType !== Reviews.COURSE);
+    const nonReviewedCourses = courses.filter((course) => {
       let reviewed = true;
       courseReviews.forEach((review) => {
         if (review.revieweeID === course._id) {
@@ -68,7 +68,7 @@ export class ReviewChecklist extends Checklist {
       });
       return reviewed;
     });
-    const nonReviewedOpportunities = _.filter(opportunities, (opportunity) => {
+    const nonReviewedOpportunities = opportunities.filter((opportunity) => {
       let reviewed = true;
       opportunityReviews.forEach((review) => {
         if (review.revieweeID === opportunity._id) {

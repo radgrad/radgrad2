@@ -106,8 +106,8 @@ export const opportunityNameToSlug = (name) => itemToSlugName(Opportunities.find
 
 export const opportunityTerms = (opportuntiy) => {
   const academicTermIDs = opportuntiy.termIDs;
-  const upcomingAcademicTerms = _.filter(academicTermIDs, (termID) => AcademicTerms.isUpcomingTerm(termID));
-  return _.map(upcomingAcademicTerms, (termID) => AcademicTerms.toString(termID));
+  const upcomingAcademicTerms = academicTermIDs.filter((termID) => AcademicTerms.isUpcomingTerm(termID));
+  return upcomingAcademicTerms.map((termID) => AcademicTerms.toString(termID));
 };
 
 export const opportunityTermsNotTaken = (opportunity, studentID) => {
@@ -116,10 +116,10 @@ export const opportunityTermsNotTaken = (opportunity, studentID) => {
   const termNames = [];
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
   const ois = OpportunityInstances.findNonRetired({ studentID, opportunityID: opportunity._id });
-  _.forEach(ois, (o) => {
+  ois.forEach((o) => {
     takenTermIDs.push(o.termID);
   });
-  _.forEach(termIDs, (termID) => {
+  termIDs.forEach((termID) => {
     if (AcademicTerms.findDoc(termID).termNumber >= currentTerm.termNumber) {
       if (!_.includes(takenTermIDs, termID)) {
         termNames.push(AcademicTerms.toString(termID));
@@ -143,7 +143,7 @@ export const unverifiedOpportunityTermNames = (opportunity, studentID) => {
 export const getFutureOpportunities = (studentID: string): Opportunity[] => {
   const ois = OpportunityInstances.findNonRetired({ studentID });
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
-  const futureOIs = _.filter(ois, (oi) => {
+  const futureOIs = ois.filter((oi) => {
     const term = AcademicTerms.findDoc(oi.termID);
     return term.termNumber >= currentTerm.termNumber;
   });
@@ -197,18 +197,18 @@ export const opportunityTypeIdToName = (id) => OpportunityTypes.findDoc(id).name
 export const profileGetCareerGoals = (profile) => {
   const userID = profile.userID;
   const favCareerGoals = ProfileCareerGoals.findNonRetired({ userID });
-  return _.map(favCareerGoals, (fav) => CareerGoals.findDoc(fav.careerGoalID));
+  return favCareerGoals.map((fav) => CareerGoals.findDoc(fav.careerGoalID));
 };
 
-export const profileGetCareerGoalIDs = (profile) => _.map(profileGetCareerGoals(profile), (goal) => goal._id);
+export const profileGetCareerGoalIDs = (profile) => profileGetCareerGoals(profile).map((goal) => goal._id);
 
 export const profileGetInterests = (profile) => {
   const userID = profile.userID;
   const favInterests = ProfileInterests.findNonRetired({ userID });
-  return _.map(favInterests, (fav) => Interests.findDoc(fav.interestID));
+  return favInterests.map((fav) => Interests.findDoc(fav.interestID));
 };
 
-export const profileGetInterestIDs = (profile) => _.map(profileGetInterests(profile), '_id');
+export const profileGetInterestIDs = (profile) => profileGetInterests(profile).map((p) => p._id);
 
 export const profileToFullName = (profile) => Users.getFullName(profile.userID);
 

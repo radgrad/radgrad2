@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import _ from 'lodash';
 import { connect } from 'react-redux';
 import { Button, Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, BoolField, NumField, SelectField, SubmitField, LongTextField } from 'uniforms-semantic';
@@ -83,17 +82,17 @@ const UpdateUserForm: React.FC<UpdateUserProps> = ({ id, interests, setAdminData
   const model = collection.findDoc(id);
   const userID = model.userID;
   const favInterests = ProfileInterests.find({ userID }).fetch();
-  const favInterestIDs = _.map(favInterests, (fav) => fav.interestID);
-  model.interests = _.map(favInterestIDs, interestIdToName);
+  const favInterestIDs = favInterests.map((fav) => fav.interestID);
+  model.interests = favInterestIDs.map(interestIdToName);
   const favCareerGoals = ProfileCareerGoals.find({ userID }).fetch();
-  const favCareerGoalIDs = _.map(favCareerGoals, (fav) => fav.careerGoalID);
-  model.careerGoals = _.map(favCareerGoalIDs, careerGoalIdToName);
+  const favCareerGoalIDs = favCareerGoals.map((fav) => fav.careerGoalID);
+  model.careerGoals = favCareerGoalIDs.map(careerGoalIdToName);
   if (model.declaredAcademicTermID) {
     model.declaredAcademicTerm = academicTermIdToName(model.declaredAcademicTermID);
   }
-  const interestNames = _.map(interests, docToName);
-  const careerGoalNames = _.map(careerGoals, docToName);
-  const academicTermNames = _.map(academicTerms, academicTermToName);
+  const interestNames = interests.map(docToName);
+  const careerGoalNames = careerGoals.map(docToName);
+  const academicTermNames = academicTerms.map(academicTermToName);
   const schema = new SimpleSchema({
     username: { type: String, optional: true },
     firstName: { type: String, optional: true },

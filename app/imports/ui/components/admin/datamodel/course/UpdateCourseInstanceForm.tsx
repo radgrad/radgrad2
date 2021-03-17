@@ -3,7 +3,6 @@ import { Button, Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, SelectField, AutoField, BoolField, NumField, TextField, SubmitField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
-import _ from 'lodash';
 import { AcademicTerm } from '../../../../../typings/radgrad';
 import BaseCollection from '../../../../../api/base/BaseCollection';
 import { academicTermIdToName, academicTermToName } from '../../../shared/utilities/data-model';
@@ -25,7 +24,7 @@ const UpdateCourseInstanceForm: React.FC<UpdateCourseInstanceFormProps> = ({ ter
   model.academicTerm = academicTermIdToName(model.termID);
   model.creditHours = model.creditHrs;
   // console.log(model);
-  const termNames = _.map(terms, academicTermToName);
+  const termNames = terms.map(academicTermToName);
   const schema = new SimpleSchema({
     academicTerm: {
       type: String,

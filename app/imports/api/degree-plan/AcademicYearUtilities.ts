@@ -12,7 +12,7 @@ import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 export const getStudentsCurrentAcademicTermNumber = (studentID: string): number => {
   const cis = CourseInstances.find({ studentID }).fetch();
   let firstAcademicTerm;
-  _.forEach(cis, (ci) => {
+  cis.forEach((ci) => {
     const academicTerm = AcademicTerms.findDoc(ci.termID);
     if (!firstAcademicTerm) {
       firstAcademicTerm = academicTerm;

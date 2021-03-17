@@ -106,7 +106,7 @@ export class FeedbackFunctionClass {
     const academicTerms = yearUtils.getStudentTerms(user);
     let haveOverloaded = false;
     let description = 'Your plan is overloaded. ';
-    _.forEach(academicTerms, (termID) => {
+    academicTerms.forEach((termID) => {
       const academicTerm = AcademicTerms.findDoc(termID);
       if (academicTerm.termNumber > currentAcademicTerm.termNumber) {
         const cis = CourseInstances.find({ studentID, termID, note: /ICS/ }).fetch();
@@ -173,7 +173,7 @@ export class FeedbackFunctionClass {
           bestChoices = _.drop(bestChoices, len - 3);
         }
         let description = 'Consider the following opportunities for this academicTerm: ';
-        _.forEach(bestChoices, (opp) => {
+        bestChoices.forEach((opp) => {
           const slug = Slugs.findDoc(opp.slugID);
           description = `${description} \n- [${opp.name}](${basePath}explorer/opportunities/${slug.name}), `;
         });
@@ -236,7 +236,7 @@ export class FeedbackFunctionClass {
    */
   private missingCourses(courseIDs, coursesNeeded) {
     const planChoices = coursesNeeded.splice(0);
-    _.forEach(courseIDs, (id) => {
+    courseIDs.forEach((id) => {
       const course = Courses.findDoc(id);
       const slug = Slugs.getNameFromID(course.slugID);
       const index = planUtils.planIndexOf(planChoices, slug);

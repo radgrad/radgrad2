@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import _ from 'lodash';
 import { Button, Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, DateField, TextField, LongTextField, SelectField, NumField, BoolField, SubmitField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
@@ -78,13 +77,13 @@ const UpdateFeedForm: React.FC<UpdateFeedFormProps> = ({
 
   const model = collection.findDoc(id);
   model.opportunity = opportunityIdToName(model.opportunityID);
-  model.users = _.map(model.userIDs, userIdToName);
+  model.users = model.userIDs.map(userIdToName);
   // console.log(model);
-  const academicTermNames = _.map(academicTerms, academicTermToName);
+  const academicTermNames = academicTerms.map(academicTermToName);
   const currentTermName = AcademicTerms.toString(AcademicTerms.getCurrentTermID(), false);
-  const courseNames = _.map(courses, courseToName);
-  const opportunityNames = _.map(opportunities, docToName);
-  const studentNames = _.map(students, profileToName);
+  const courseNames = courses.map(courseToName);
+  const opportunityNames = opportunities.map(docToName);
+  const studentNames = students.map(profileToName);
   const schema = new SimpleSchema({
     timestamp: Date,
     feedType: String,

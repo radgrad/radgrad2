@@ -39,7 +39,7 @@ const ListCollectionWidget: React.FC<ListCollectionWidgetProps> = ({ collection,
       </Header>
       <Grid>
         <AdminPaginationWidget collection={collection} setShowIndex={dataModelActions.setCollectionShowIndex} setShowCount={dataModelActions.setCollectionShowCount} />
-        {_.map(itemsToShow, (item) => (
+        {itemsToShow.map((item) => (
           <AdminCollectionAccordion
             key={item._id}
             id={item._id}

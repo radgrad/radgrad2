@@ -18,16 +18,16 @@ interface AddTeaserFormProps {
 }
 
 const AddTeaserForm: React.FC<AddTeaserFormProps> = ({ careerGoals, courses, interests, opportunities, formRef, handleAdd }) => {
-  let careerGoalSlugNames = _.map(careerGoals, (goal) => slugIDToSlugNameAndType(goal.slugID));
+  let careerGoalSlugNames = careerGoals.map((goal) => slugIDToSlugNameAndType(goal.slugID));
   careerGoalSlugNames = _.sortBy(careerGoalSlugNames);
-  let courseSlugNames = _.map(courses, (c) => slugIDToSlugNameAndType(c.slugID));
+  let courseSlugNames = courses.map((c) => slugIDToSlugNameAndType(c.slugID));
   courseSlugNames = _.sortBy(courseSlugNames);
-  let interestSlugNames = _.map(interests, (i) => slugIDToSlugNameAndType(i.slugID));
+  let interestSlugNames = interests.map((i) => slugIDToSlugNameAndType(i.slugID));
   interestSlugNames = _.sortBy(interestSlugNames);
-  let opportunitySlugNames = _.map(opportunities, (o) => slugIDToSlugNameAndType(o.slugID));
+  let opportunitySlugNames = opportunities.map((o) => slugIDToSlugNameAndType(o.slugID));
   opportunitySlugNames = _.sortBy(opportunitySlugNames);
   const allSlugNames = opportunitySlugNames.concat(courseSlugNames.concat(interestSlugNames.concat(careerGoalSlugNames)));
-  const interestNames = _.map(interests, docToName);
+  const interestNames = interests.map(docToName);
   const schema = new SimpleSchema({
     title: String,
     slug: String,

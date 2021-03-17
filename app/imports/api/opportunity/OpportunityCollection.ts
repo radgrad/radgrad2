@@ -256,12 +256,12 @@ class OpportunityCollection extends BaseSlugCollection {
       if (!Users.isDefined(doc.sponsorID)) {
         problems.push(`Bad sponsorID: ${doc.sponsorID}`);
       }
-      _.forEach(doc.interestIDs, (interestID) => {
+      doc.interestIDs.forEach((interestID) => {
         if (!Interests.isDefined(interestID)) {
           problems.push(`Bad interestID: ${interestID}`);
         }
       });
-      _.forEach(doc.termIDs, (termID) => {
+      doc.termIDs.forEach((termID) => {
         if (!AcademicTerms.isDefined(termID)) {
           problems.push(`Bad termID: ${termID}`);
         }
@@ -296,8 +296,8 @@ class OpportunityCollection extends BaseSlugCollection {
     const sponsor = Users.getProfile(doc.sponsorID).username;
     const description = doc.description;
     const ice = doc.ice;
-    const interests = _.map(doc.interestIDs, (interestID) => Interests.findSlugByID(interestID));
-    const academicTerms = _.map(doc.termIDs, (termID) => AcademicTerms.findSlugByID(termID));
+    const interests = doc.interestIDs.map((interestID) => Interests.findSlugByID(interestID));
+    const academicTerms = doc.termIDs.map((termID) => AcademicTerms.findSlugByID(termID));
     const eventDate = doc.eventDate;
     const timestamp = doc.timestamp;
     const retired = doc.retired;

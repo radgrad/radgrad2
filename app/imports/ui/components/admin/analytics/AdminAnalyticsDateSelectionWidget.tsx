@@ -108,7 +108,7 @@ const AdminAnalyticsDateSelectionWidget: React.FC<AdminAnalyticsDateSelectionWid
             'docs-per-min': 0,
             'total-time': 0,
           };
-          _.forEach(interactions, (interaction, index) => {
+          interactions.forEach((interaction, index) => {
             if (index !== 0) {
               const prevTimestamp = moment(new Date(interactions[index - 1].timestamp));
               const timestamp = moment(new Date(interaction.timestamp));
@@ -124,7 +124,7 @@ const AdminAnalyticsDateSelectionWidget: React.FC<AdminAnalyticsDateSelectionWid
               }
             }
           });
-          _.forEach(sessions, (session) => {
+          sessions.forEach((session) => {
             const firstTimestamp = moment(new Date(session[0].timestamp));
             const lastTimestamp = moment(new Date(session[session.length - 1].timestamp));
             let difference = Math.ceil(moment.duration(lastTimestamp.diff(firstTimestamp)).asMinutes());
@@ -153,7 +153,7 @@ const AdminAnalyticsDateSelectionWidget: React.FC<AdminAnalyticsDateSelectionWid
       }
       buckets[bucket] += group.length;
     });
-    buckets = _.map(buckets, (value) => {
+    buckets = buckets.map((value) => {
       if (value) {
         return value;
       }
