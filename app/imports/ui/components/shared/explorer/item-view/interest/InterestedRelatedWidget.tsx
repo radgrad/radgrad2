@@ -16,15 +16,15 @@ interface InterestedRelatedWidgetProps {
 const InterestedRelatedWidget: React.FC<InterestedRelatedWidgetProps> = ({ relatedCourses, baseURL, isStudent, relatedOpportunities }) => (
   <div>
     <Segment>
-      <Header dividing>RELATED COURSES</Header>
+      <Header dividing><Icon name="book"/> RELATED COURSES</Header>
       {isStudent ? (
-        <Grid columns={3} stackable celled="internally">
-          <Grid.Column textAlign="center">
+        <Grid stackable padded>
+          <Grid.Row textAlign="center">
             <Header as="h4">
-              <Icon name="checkmark" color="green" />
+              <Icon name="check circle" color="green" />
               Completed
             </Header>
-            <List>
+            <List bulleted>
               {relatedCourses.completed.length === 0
                 ? 'None'
                 : relatedCourses.completed.map((courseID) => {
@@ -38,13 +38,13 @@ const InterestedRelatedWidget: React.FC<InterestedRelatedWidgetProps> = ({ relat
                   );
                 })}
             </List>
-          </Grid.Column>
-          <Grid.Column textAlign="center">
+          </Grid.Row>
+          <Grid.Row textAlign="center">
             <Header as="h4">
               <Icon name="warning sign" color="yellow" />
               In Plan (Not Yet Completed)
             </Header>
-            <List>
+            <List bulleted>
               {relatedCourses.inPlan.length === 0
                 ? 'None'
                 : relatedCourses.inPlan.map((courseID) => {
@@ -58,13 +58,13 @@ const InterestedRelatedWidget: React.FC<InterestedRelatedWidgetProps> = ({ relat
                   );
                 })}
             </List>
-          </Grid.Column>
-          <Grid.Column textAlign="center">
+          </Grid.Row>
+          <Grid.Row textAlign="center">
             <Header as="h4">
               <Icon name="warning circle" color="red" />
               Not In Plan
             </Header>
-            <List>
+            <List bulleted>
               {relatedCourses.notInPlan.length === 0
                 ? 'None'
                 : relatedCourses.notInPlan.map((courseID) => {
@@ -78,7 +78,7 @@ const InterestedRelatedWidget: React.FC<InterestedRelatedWidgetProps> = ({ relat
                   );
                 })}
             </List>
-          </Grid.Column>
+          </Grid.Row>
         </Grid>
       ) : (
         <List horizontal bulleted>
@@ -96,10 +96,10 @@ const InterestedRelatedWidget: React.FC<InterestedRelatedWidgetProps> = ({ relat
       )}
     </Segment>
     <Segment>
-      <Header dividing>RELATED OPPORTUNITIES</Header>
+      <Header dividing><Icon name="lightbulb" /> RELATED OPPORTUNITIES</Header>
       {isStudent ? (
-        <Grid columns={3} stackable celled="internally">
-          <Grid.Column textAlign="center">
+        <Grid stackable celled="internally" padded>
+          <Grid.Row textAlign="center">
             <Header as="h4">
               <Icon name="checkmark" color="green" />
               Completed
@@ -118,8 +118,8 @@ const InterestedRelatedWidget: React.FC<InterestedRelatedWidgetProps> = ({ relat
                   );
                 })}
             </List>
-          </Grid.Column>
-          <Grid.Column textAlign="center">
+          </Grid.Row>
+          <Grid.Row textAlign="center">
             <Header as="h4">
               <Icon name="warning sign" color="yellow" />
               In Plan (Not Yet Completed)
@@ -138,8 +138,8 @@ const InterestedRelatedWidget: React.FC<InterestedRelatedWidgetProps> = ({ relat
                   );
                 })}
             </List>
-          </Grid.Column>
-          <Grid.Column textAlign="center">
+          </Grid.Row>
+          <Grid.Row textAlign="center">
             <Header as="h4">
               <Icon name="warning circle" color="red" />
               Not In Plan
@@ -158,7 +158,7 @@ const InterestedRelatedWidget: React.FC<InterestedRelatedWidgetProps> = ({ relat
                   );
                 })}
             </List>
-          </Grid.Column>
+          </Grid.Row>
         </Grid>
       ) : (
         <List horizontal bulleted>

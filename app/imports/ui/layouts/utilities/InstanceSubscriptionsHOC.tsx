@@ -33,11 +33,7 @@ const withInstanceSubscriptions = (WrappedComponent) => {
   // console.log('withInstanceSubscriptionsHOC');
   const InstanceSubscriptions: React.FC<Loading> = (props) =>
     (props.loading ? (
-      <React.Fragment>
-        <Dimmer active inverted>
-          <Loader>Loading user-specific data</Loader>
-        </Dimmer>
-      </React.Fragment>
+      <Loader active>Loading user-specific data</Loader>
     ) : (
       <WrappedComponent {...props} />
     ));

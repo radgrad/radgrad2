@@ -4,12 +4,13 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Container, Grid } from 'semantic-ui-react';
 import _ from 'lodash';
 import { Course, Interest, Opportunity, Profile } from '../../../../typings/radgrad';
+import { getFirstSentance } from '../../../components/shared/utilities/general';
+import PageLayout from '../../PageLayout';
 import { getMenuWidget } from '../utilities/getMenuWidget';
 import { Interests } from '../../../../api/interest/InterestCollection';
 import { Users } from '../../../../api/user/UserCollection';
 import { Courses } from '../../../../api/course/CourseCollection';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
-import ExplorerMenu from '../../../components/shared/explorer/item-view/ExplorerMenu';
 import ExplorerInterestWidget from '../../../components/shared/explorer/item-view/interest/ExplorerInterestWidget';
 import InterestedRelatedWidget from '../../../components/shared/explorer/item-view/interest/InterestedRelatedWidget';
 import * as Router from '../../../components/shared/utilities/router';
@@ -97,28 +98,26 @@ const InterestViewPage: React.FC<InterestViewPageProps> = ({ courses, profileInt
   const relatedCourses = getAssociationRelatedCourses(getRelatedCourses(courses, interestID), profile.userID);
   const relatedOpportunities = getAssociationRelatedOpportunities(getRelatedOpportunities(opportunities, interestID), profile.userID);
   const match = useRouteMatch();
-  const menuAddedList = profileInterests.map((item) => ({
-    item,
-    count: 1,
-  }));
   const pushDownStyle = { paddingTop: 15 };
+  const headerPaneTitle = interest.name;
+  const headerPaneBody = getFirstSentance(interest.description);
+  const headerPaneImage = 'header-interests.png';
   return (
-    <div id="interest-view-page">
-      {getMenuWidget(match)}
+    <PageLayout id="interest-view-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
       <Container style={pushDownStyle}>
         <Grid stackable>
           <Grid.Row>
-            <Grid.Column width={3}>
+            <Grid.Column width={4}>
               <InterestedRelatedWidget relatedCourses={relatedCourses} relatedOpportunities={relatedOpportunities} isStudent={Router.getRoleByUrl(match) === 'student'} baseURL={getBaseURL(match)} />
               {/* <ExplorerMenu menuAddedList={menuAddedList} type="interests" /> */}
             </Grid.Column>
-            <Grid.Column width={13}>
+            <Grid.Column width={12}>
               <ExplorerInterestWidget profile={profile} interest={interest} opportunities={opportunities} courses={courses} />
             </Grid.Column>
           </Grid.Row>
         </Grid>
       </Container>
-    </div>
+    </PageLayout>
   );
 };
 

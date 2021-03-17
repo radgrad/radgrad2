@@ -21,3 +21,8 @@ export const replaceTermStringNextFour = (array: string[]): string => {
   const termString = fourRecentTerms.join(' - ');
   return termString.replace(/Summer/g, 'Sum').replace(/Spring/g, 'Spr');
 };
+
+export const getFirstSentance = (description: string): string => {
+  const periodIndex = description.indexOf('.');
+  return description.substring(0, periodIndex + 1);
+};
