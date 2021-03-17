@@ -233,12 +233,14 @@ const AdminDataModelOpportunitiesPageContainer = withTracker(() => {
   const sponsors = _.sortBy(sponsorDocs, ['lastName', 'firstName']);
   const items = Opportunities.find({}, { sort: { name: 1 } }).fetch();
   const modelCount = getDatamodelCount();
+  const opportunityTypes = OpportunityTypes.find({}).fetch();
   return {
     ...modelCount,
     sponsors,
     terms,
     items,
     interests,
+    opportunityTypes,
   };
 })(AdminDataModelOpportunitiesPage);
 
