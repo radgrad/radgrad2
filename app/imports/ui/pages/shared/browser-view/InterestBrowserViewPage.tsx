@@ -1,7 +1,5 @@
 import moment from 'moment';
 import React from 'react';
-import {Grid} from 'semantic-ui-react';
-// import _ from 'lodash';
 import { useParams } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import _ from 'lodash';
@@ -11,12 +9,11 @@ import { ROLE } from '../../../../api/role/Role';
 import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
 import { Users } from '../../../../api/user/UserCollection';
 import { Interest, StudentProfileUpdate } from '../../../../typings/radgrad';
-import InterestBrowserViewContainer from '../../../components/shared/explorer/browser-view/InterestBrowserView';
+import InterestBrowserView from '../../../components/shared/explorer/browser-view/InterestBrowserView';
 import PageLayout from '../../PageLayout';
 
 interface InterestBrowserViewPageProps {
   profileInterests: Interest[];
-  interests: Interest[];
   nonProfileInterests: Interest[];
 }
 
@@ -30,16 +27,10 @@ If we've missed a disciplinary area of interest to you, please click the button 
 `;
 const headerPaneImage = 'header-interests.png';
 
-const InterestBrowserViewPage: React.FC<InterestBrowserViewPageProps> = ({ profileInterests, interests, nonProfileInterests }) => (
+const InterestBrowserViewPage: React.FC<InterestBrowserViewPageProps> = ({ profileInterests, nonProfileInterests }) => (
     <PageLayout id="interest-browser-view-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
-      <Grid>
-        <Grid.Row>
-          <InterestBrowserViewContainer interests={profileInterests} inProfile />
-        </Grid.Row>
-        <Grid.Row>
-          <InterestBrowserViewContainer interests={nonProfileInterests} />
-        </Grid.Row>
-      </Grid>
+      <InterestBrowserView interests={profileInterests} inProfile />
+      <InterestBrowserView interests={nonProfileInterests} />
     </PageLayout>
 );
 
