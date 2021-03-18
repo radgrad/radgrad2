@@ -6,9 +6,16 @@ import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import Swal from 'sweetalert2';
 import { AdminProfiles } from '../../../../../api/user/AdminProfileCollection';
-import { AcademicTerm, BaseProfile, CareerGoal, Interest } from '../../../../../typings/radgrad';
+import { AcademicTerm, BaseProfile, CareerGoal, Course, Interest, Opportunity } from '../../../../../typings/radgrad';
 import { ROLE } from '../../../../../api/role/Role';
-import { academicTermIdToName, academicTermToName, careerGoalIdToName, docToName, interestIdToName } from '../../../shared/utilities/data-model';
+import {
+  academicTermIdToName,
+  academicTermToName,
+  careerGoalIdToName,
+  courseToName,
+  docToName,
+  interestIdToName,
+} from '../../../shared/utilities/data-model';
 import { StudentProfiles } from '../../../../../api/user/StudentProfileCollection';
 import { FacultyProfiles } from '../../../../../api/user/FacultyProfileCollection';
 import { AdvisorProfiles } from '../../../../../api/user/AdvisorProfileCollection';
@@ -19,6 +26,8 @@ import { ProfileInterests } from '../../../../../api/user/profile-entries/Profil
 import { ProfileCareerGoals } from '../../../../../api/user/profile-entries/ProfileCareerGoalCollection';
 
 interface UpdateUserProps {
+  courses: Course[];
+  opportunities: Opportunity[];
   interests: Interest[];
   careerGoals: CareerGoal[];
   academicTerms: AcademicTerm[];
@@ -36,7 +45,7 @@ const mapDispatchToProps = (dispatch) => ({
   setAdminDataModelUsersCloudinaryUrl: (cloudinaryUrl: string) => dispatch(cloudinaryActions.setAdminDataModelUsersCloudinaryUrl(cloudinaryUrl)),
 });
 
-const UpdateUserForm: React.FC<UpdateUserProps> = ({ id, interests, setAdminDataModelUsersIsCloudinaryUsed, setAdminDataModelUsersCloudinaryUrl, careerGoals, academicTerms, formRef, itemTitleString, handleCancel, handleUpdate }) => {
+const UpdateUserForm: React.FC<UpdateUserProps> = ({ id, interests, setAdminDataModelUsersIsCloudinaryUsed, setAdminDataModelUsersCloudinaryUrl, careerGoals, academicTerms, formRef, itemTitleString, handleCancel, handleUpdate, courses, opportunities }) => {
   // console.log('UpdateUserForm', props);
   let collection;
   if (StudentProfiles.isDefined(id)) {
@@ -93,6 +102,8 @@ const UpdateUserForm: React.FC<UpdateUserProps> = ({ id, interests, setAdminData
   const interestNames = interests.map(docToName);
   const careerGoalNames = careerGoals.map(docToName);
   const academicTermNames = academicTerms.map(academicTermToName);
+  const courseNames = courses.map(courseToName);
+  const opportunityNames = opportunities.map(docToName);
   const schema = new SimpleSchema({
     username: { type: String, optional: true },
     firstName: { type: String, optional: true },
@@ -124,6 +135,16 @@ const UpdateUserForm: React.FC<UpdateUserProps> = ({ id, interests, setAdminData
     retired: { type: Boolean, optional: true },
   });
   const studentSchema = new SimpleSchema({
+    courses: { type: Array, optional: true },
+    'courses.$': {
+      type: String,
+      allowedValues: courseNames,
+    },
+    opportunities: { type: Array, optional: true },
+    'opportunities.$': {
+      type: String,
+      allowedValues: opportunityNames,
+    },
     level: { type: SimpleSchema.Integer, optional: true, min: 1, max: 6 },
     declaredAcademicTerm: {
       type: String,
@@ -180,6 +201,10 @@ const UpdateUserForm: React.FC<UpdateUserProps> = ({ id, interests, setAdminData
             <Header dividing as="h4">
               Student fields
             </Header>
+            <Form.Group widths="equal">
+              <MultiSelectField name="courses" />
+              <MultiSelectField name="opportunities" />
+            </Form.Group>
             <Form.Group widths="equal">
               <NumField name="level" />
               <SelectField name="declaredAcademicTerm" />

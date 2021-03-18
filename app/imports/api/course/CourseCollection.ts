@@ -241,6 +241,18 @@ class CourseCollection extends BaseSlugCollection {
   }
 
   /**
+   * Returns a list of Course names corresponding to the passed list of Course docIDs.
+   * @param instanceIDs A list of Course docIDs.
+   * @returns { Array }
+   * @throws { Meteor.Error} If any of the instanceIDs cannot be found.
+   */
+  public findNames(instanceIDs: string[]) {
+    // console.log('Courses.findNames(%o)', instanceIDs);
+    return instanceIDs.map((instanceID) => this.findDoc(instanceID).name);
+  }
+
+
+  /**
    * Returns an array of strings, each one representing an integrity problem with this collection.
    * Returns an empty array if no problems were found.
    * Checks slugID and interestIDs.
