@@ -1,7 +1,7 @@
 import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { SubsManager } from 'meteor/meteorhacks:subs-manager';
-import { Dimmer, Loader } from 'semantic-ui-react';
+import { Loader } from 'semantic-ui-react';
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { FeedbackInstances } from '../../../api/feedback/FeedbackInstanceCollection';
@@ -27,17 +27,13 @@ interface Loading {
 
 // cacheLimit default is 10, so no change.
 // expireLimit set to 30 minutes because: why not.
-const instanceSubs = new SubsManager({ cacheLimit: 15, expireIn: 30 });
+const instanceSubs = new SubsManager({ cacheLimit: 20, expireIn: 30 });
 
 const withInstanceSubscriptions = (WrappedComponent) => {
   // console.log('withInstanceSubscriptionsHOC');
   const InstanceSubscriptions: React.FC<Loading> = (props) =>
     (props.loading ? (
-      <React.Fragment>
-        <Dimmer active inverted>
-          <Loader>Loading user-specific data</Loader>
-        </Dimmer>
-      </React.Fragment>
+      <Loader active>Loading user-specific data</Loader>
     ) : (
       <WrappedComponent {...props} />
     ));
@@ -50,13 +46,19 @@ const withInstanceSubscriptions = (WrappedComponent) => {
         // if logged out don't subscribe
         handles.push(instanceSubs.subscribe(AcademicYearInstances.getPublicationName(), userID));
         handles.push(instanceSubs.subscribe(CourseInstances.getPublicationName(), userID));
+        handles.push(instanceSubs.subscribe(CourseInstances.publicationNames.forecast));
         handles.push(instanceSubs.subscribe(FeedbackInstances.getPublicationName(), userID));
         handles.push(instanceSubs.subscribe(OpportunityInstances.getPublicationName(), userID));
+        handles.push(instanceSubs.subscribe(OpportunityInstances.publicationNames.forecast));
         handles.push(instanceSubs.subscribe(VerificationRequests.getPublicationName(), userID));
         handles.push(instanceSubs.subscribe(ProfileCareerGoals.getPublicationName(), userID));
+        handles.push(instanceSubs.subscribe(ProfileCareerGoals.publicationNames.forecast));
         handles.push(instanceSubs.subscribe(ProfileCourses.getPublicationName(), userID));
+        handles.push(instanceSubs.subscribe(ProfileCourses.publicationNames.forecast));
         handles.push(instanceSubs.subscribe(ProfileInterests.getPublicationName(), userID));
+        handles.push(instanceSubs.subscribe(ProfileInterests.publicationNames.forecast));
         handles.push(instanceSubs.subscribe(ProfileOpportunities.getPublicationName(), userID));
+        handles.push(instanceSubs.subscribe(ProfileOpportunities.publicationNames.forecast));
       }
     }
     const loading = handles.some((handle) => !handle.ready());

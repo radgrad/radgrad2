@@ -2,7 +2,6 @@ import React from 'react';
 import { Image, Divider, Grid, Header, Icon } from 'semantic-ui-react';
 import { useRouteMatch, Link } from 'react-router-dom';
 import Markdown from 'react-markdown';
-import _ from 'lodash';
 import { Opportunity, Slug } from '../../../../../typings/radgrad';
 import { docToShortDescription } from '../../utilities/data-model';
 import IceHeader from '../../IceHeader';
@@ -35,7 +34,7 @@ const getOpportunityType = (opportunity: Opportunity): string => {
 
 const getOpportunityAcademicTerms = (opportunity: Opportunity): string[] => {
   const termIDs = opportunity.termIDs;
-  return _.map(termIDs, (termID) => AcademicTerms.toString(termID));
+  return termIDs.map((termID) => AcademicTerms.toString(termID));
 };
 
 const getNumberOfStudentsParticipating = (opportunity: Opportunity): number => {

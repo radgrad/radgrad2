@@ -10,7 +10,7 @@ import { Users } from '../user/UserCollection';
 import BaseCollection from '../base/BaseCollection';
 import { makeCourseICE } from '../ice/IceProcessor';
 import { CourseInstanceDefine, CourseInstanceUpdate } from '../../typings/radgrad';
-import { CourseScoreboardName } from '../../startup/both/names';
+import { CourseForecastName } from '../../startup/both/names';
 
 const iceSchema = new SimpleSchema({
   i: {
@@ -36,7 +36,7 @@ class CourseInstanceCollection extends BaseCollection {
   public validGrades: string[];
 
   public readonly publicationNames: {
-    scoreboard: string;
+    forecast: string;
   };
 
   /**
@@ -58,7 +58,7 @@ class CourseInstanceCollection extends BaseCollection {
     this.validGrades = ['', 'A', 'A+', 'A-',
       'B', 'B+', 'B-', 'C', 'C+', 'C-', 'D', 'D+', 'D-', 'F', 'CR', 'NC', '***', 'W', 'TBD', 'OTHER'];
     this.publicationNames = {
-      scoreboard: `${this.collectionName}.Scoreboard`,
+      forecast: `${this.collectionName}.Forecast`,
     };
     this.defineSchema = new SimpleSchema({
       academicTerm: String,
@@ -287,7 +287,7 @@ class CourseInstanceCollection extends BaseCollection {
       termID: {
         type: String,
         optional: true,
-        allowedValues: _.map(terms, (term) => term._id),
+        allowedValues: terms.map((term) => term._id),
       },
       verified: { type: Boolean, optional: true },
       fromRegistrar: { type: Boolean, optional: true },
@@ -369,7 +369,7 @@ class CourseInstanceCollection extends BaseCollection {
   public publish() {
     if (Meteor.isServer) {
       const collection = this.collection;
-      Meteor.publish(this.publicationNames.scoreboard, function publishCourseScoreboard() {
+      Meteor.publish(this.publicationNames.forecast, function publishCourseForecast() {
         ReactiveAggregate(this, collection, [
           {
             $addFields: { courseTerm: { $concat: ['$courseID', ' ', '$termID'] } },
@@ -381,7 +381,7 @@ class CourseInstanceCollection extends BaseCollection {
             },
           },
           { $project: { count: 1, termID: 1, courseID: 1 } },
-        ], { clientCollection: CourseScoreboardName });
+        ], { clientCollection: CourseForecastName });
       });
       Meteor.publish(this.collectionName, function filterStudentID(studentID) { // eslint-disable-line meteor/audit-argument-checks
         // console.log('publish studentID %o is admin = %o', studentID, Roles.userIsInRole(studentID, [ROLE.ADMIN]));

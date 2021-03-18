@@ -1,16 +1,15 @@
 import React from 'react';
 import { Card, Icon } from 'semantic-ui-react';
-import _ from 'lodash';
 import { Link, useRouteMatch } from 'react-router-dom';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { RadGradProperties } from '../../../../api/radgrad/RadGradProperties';
-import { CourseScoreboard } from '../../../../startup/client/collections';
+import { CourseForecastCollection } from '../../../../startup/client/collections';
 import { AcademicTerm, Course, CourseInstance } from '../../../../typings/radgrad';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import { Slugs } from '../../../../api/slug/SlugCollection';
 import IceHeader from '../../shared/IceHeader';
 import { makeCourseICE } from '../../../../api/ice/IceProcessor';
-import { getInspectorDraggablePillStyle } from './utilities/styles';
+import { cardStyle, contentStyle, getInspectorDraggablePillStyle } from './utilities/styles';
 import NamePill from './NamePill';
 import FutureParticipation from '../../shared/explorer/FutureParticipation';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
@@ -24,11 +23,11 @@ interface ProfileCourseCardProps {
 
 const ProfileCourseCard: React.FC<ProfileCourseCardProps> = ({ course, courseInstances, studentID }) => {
   const match = useRouteMatch();
-  const instances = _.filter(courseInstances, (i) => i.courseID === course._id);
-  const terms = _.map(instances, (i) => AcademicTerms.findDoc(i.termID));
+  const instances = courseInstances.filter((i) => i.courseID === course._id);
+  const terms = instances.map((i) => AcademicTerms.findDoc(i.termID));
   // Sort by ascending order
   terms.sort((a, b) => a.year - b.year);
-  const termNames = _.map(terms, (t) => AcademicTerms.getShortName(t._id)).join(', ');
+  const termNames = terms.map((t) => AcademicTerms.getShortName(t._id)).join(', ');
   const slug = Slugs.findDoc(course.slugID).name;
   const ice = instances.length > 0 ? makeCourseICE(slug, instances[instances.length - 1].grade) : { i: 0, c: 0, e: 0 };
   const textAlignRight: React.CSSProperties = {
@@ -47,9 +46,9 @@ const ProfileCourseCard: React.FC<ProfileCourseCardProps> = ({ course, courseIns
     },
   );
   const scores = [];
-  _.forEach(academicTerms, (term: AcademicTerm) => {
+  academicTerms.forEach((term: AcademicTerm) => {
     const id = `${course._id} ${term._id}`;
-    const score = CourseScoreboard.find({ _id: id }).fetch() as { count: number }[];
+    const score = CourseForecastCollection.find({ _id: id }).fetch() as { count: number }[];
     if (score.length > 0) {
       scores.push(score[0].count);
     } else {
@@ -58,8 +57,8 @@ const ProfileCourseCard: React.FC<ProfileCourseCardProps> = ({ course, courseIns
   });
 
   return (
-    <Card>
-      <Card.Content>
+    <Card style={cardStyle}>
+      <Card.Content style={contentStyle}>
         <IceHeader ice={ice} />
         <Card.Header>
           <h4>
@@ -67,7 +66,7 @@ const ProfileCourseCard: React.FC<ProfileCourseCardProps> = ({ course, courseIns
           </h4>
         </Card.Header>
       </Card.Content>
-      <Card.Content>
+      <Card.Content style={contentStyle}>
         {instances.length > 0 ? (
           <React.Fragment>
             <b>Scheduled:</b> {termNames}
@@ -90,10 +89,10 @@ const ProfileCourseCard: React.FC<ProfileCourseCardProps> = ({ course, courseIns
           )}
         </Droppable>
       </Card.Content>
-      <Card.Content>
+      <Card.Content style={contentStyle}>
         <FutureParticipation academicTerms={academicTerms} scores={scores} />
       </Card.Content>
-      <Card.Content>
+      <Card.Content style={contentStyle}>
         <p style={textAlignRight}>
           <Link to={buildRouteName(match, course, EXPLORER_TYPE.COURSES)} target="_blank" rel="noopener noreferrer">
             View in Explorer <Icon name="arrow right" />

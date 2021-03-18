@@ -6,12 +6,11 @@ const invertedSection = {
   backgroundColor: 'rgba(0,0,0,.8)',
   paddingTop: 25,
   paddingBottom: 25,
-  marginBottom: '10px',
   paddingLeft: '50px',
   paddingRight: '20px',
 };
-const titleStyle = {color: '#ffffff', fontSize: '3rem', fontWeight: 300};
-const lineStyle = {color: '#eeeeee', fontSize: '1.3rem', lineHeight:'3.0rem'};
+const titleStyle = {color: '#ffffff', fontSize: '2rem', fontWeight: 300};
+const lineStyle = {color: '#eeeeee', fontSize: '1rem', lineHeight:'2.0rem'};
 
 export interface HeaderPaneProps {
   title: string,

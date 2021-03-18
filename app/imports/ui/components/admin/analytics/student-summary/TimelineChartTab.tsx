@@ -24,7 +24,7 @@ const TimelineChartTab: React.FC<TimelineChartTabProps> = ({ startDate, endDate,
     const endDateMoment = moment(endDate, 'MMMM D, YYYY');
     const numDays = endDateMoment.diff(startDataMoment, 'days') + 1;
     const behaviorsByDate: { [key: string]: string[] } = {};
-    _.times(numDays, function (index) {
+    _.times(numDays, (index) => {
       const date = moment(startDataMoment).add(index, 'days');
       behaviorsByDate[moment(date).format('MMM D, YYYY')] = [];
     });
@@ -36,15 +36,17 @@ const TimelineChartTab: React.FC<TimelineChartTabProps> = ({ startDate, endDate,
       StudentSummaryBehaviorTypes.VERIFICATION,
       StudentSummaryBehaviorTypes.REVIEWING,
       StudentSummaryBehaviorTypes.LEVEL,
-      StudentSummaryBehaviorTypes.COMPLETEPLAN,
+      StudentSummaryBehaviorTypes.COMPLETE_PLAN,
       StudentSummaryBehaviorTypes.PROFILE,
       StudentSummaryBehaviorTypes.ADD_TO_PROFILE,
       StudentSummaryBehaviorTypes.REMOVE_FROM_PROFILE,
       StudentSummaryBehaviorTypes.LOGOUT,
     ];
-    _.each(behaviorsByDate, function (array, date, obj) {
-      _.each(interactionsByUser, function (interactions: UserInteraction[]) {
-        const interactionsWithinDate: UserInteraction[] = _.filter(interactions, function (interaction) {
+    // CAM behaviorsByDate is an object
+    _.each(behaviorsByDate, (array, date, obj) => {
+      // CAM interactionsByUser is an object
+      _.each(interactionsByUser, (interactions: UserInteraction[]) => {
+        const interactionsWithinDate: UserInteraction[] = interactions.filter((interaction) => {
           const interactionDate = moment(interaction.timestamp).format('MMM D, YYYY');
           return interactionDate === date;
         });
@@ -54,33 +56,33 @@ const TimelineChartTab: React.FC<TimelineChartTabProps> = ({ startDate, endDate,
         if (_.some(interactionsWithinDate, (i) => i.type === PROFILE_ENTRY_TYPE.CAREERGOAL || i.type === PROFILE_ENTRY_TYPE.INTEREST)) {
           obj[date].push(behaviorList[1]);
         }
-        if (_.some(interactionsWithinDate, (i) => i.type === UserInteractionsTypes.PAGEVIEW && i.typeData[0].includes(`${EXPLORER_TYPE.HOME}/`))) {
+        if (_.some(interactionsWithinDate, (i) => i.type === UserInteractionsTypes.PAGE_VIEW && i.typeData[0].includes(`${EXPLORER_TYPE.HOME}/`))) {
           obj[date].push(behaviorList[2]);
         }
         if (
           _.some(
             interactionsWithinDate,
             (i) =>
-              i.type === UserInteractionsTypes.ADDCOURSE ||
-              i.type === UserInteractionsTypes.REMOVECOURSE ||
-              i.type === UserInteractionsTypes.UPDATECOURSE ||
-              i.type === UserInteractionsTypes.ADDOPPORTUNITY ||
-              i.type === UserInteractionsTypes.REMOVEOPPORTUNITY ||
-              i.type === UserInteractionsTypes.UPDATEOPPORTUNITY,
+              i.type === UserInteractionsTypes.ADD_COURSE ||
+              i.type === UserInteractionsTypes.REMOVE_COURSE ||
+              i.type === UserInteractionsTypes.UPDATE_COURSE ||
+              i.type === UserInteractionsTypes.ADD_OPPORTUNITY ||
+              i.type === UserInteractionsTypes.REMOVE_OPPORTUNITY ||
+              i.type === UserInteractionsTypes.UPDATE_OPPORTUNITY,
           )
         ) {
           obj[date].push(behaviorList[3]);
         }
-        if (_.some(interactionsWithinDate, (i) => i.type === UserInteractionsTypes.VERIFYREQUEST)) {
+        if (_.some(interactionsWithinDate, (i) => i.type === UserInteractionsTypes.VERIFY_REQUEST)) {
           obj[date].push(behaviorList[4]);
         }
-        if (_.some(interactionsWithinDate, (i) => i.type === UserInteractionsTypes.ADDREVIEW)) {
+        if (_.some(interactionsWithinDate, (i) => i.type === UserInteractionsTypes.ADD_REVIEW)) {
           obj[date].push(behaviorList[5]);
         }
         if (_.some(interactionsWithinDate, (i) => i.type === UserInteractionsTypes.LEVEL)) {
           obj[date].push(behaviorList[6]);
         }
-        if (_.some(interactionsWithinDate, (i) => i.type === UserInteractionsTypes.COMPLETEPLAN)) {
+        if (_.some(interactionsWithinDate, (i) => i.type === UserInteractionsTypes.COMPLETE_PLAN)) {
           obj[date].push(behaviorList[7]);
         }
         if (_.some(interactionsWithinDate, (i) => i.type === UserInteractionsTypes.PICTURE || i.type === UserInteractionsTypes.WEBSITE)) {
@@ -98,16 +100,15 @@ const TimelineChartTab: React.FC<TimelineChartTabProps> = ({ startDate, endDate,
       });
     });
     // console.log(behaviorsByDate);
-    const categories = _.map(behaviorsByDate, function (behaviors, date) {
+    // CAM have to use _.map since behaviorsByDate is an object.
+    const categories = _.map(behaviorsByDate, (behaviors, date) => {
       const shortDate = date.substring(0, date.length - 6);
       return shortDate;
     });
-    const series = _.map(behaviorList, function (behavior) {
-      return { name: behavior, data: [] };
-    });
-    _.each(behaviorsByDate, function (behaviors) {
+    const series = behaviorList.map((behavior) => ({ name: behavior, data: [] }));
+    _.each(behaviorsByDate, (behaviors) => {
       const groupedBehaviors = _.groupBy(behaviors);
-      _.each(behaviorList, function (behavior) {
+      behaviorList.forEach((behavior) => {
         const behaviorCount = groupedBehaviors[behavior];
         const behaviorSeries = _.find(series, { name: behavior });
         if (behaviorCount) {

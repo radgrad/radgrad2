@@ -12,7 +12,7 @@ import { UserInteractionsTypes } from '../../../../../api/analytic/UserInteracti
 import { RootState } from '../../../../../redux/types';
 import { AdminAnalyticsDateRange, IAdminAnalyticsUserInteraction } from '../../../../../redux/admin/analytics/reducers';
 
-interface AdminAnalyticsStudentSummaryWidgetProps {
+interface AdminAnalyticsStudentSummaryProps {
   dateRange: AdminAnalyticsDateRange;
   userInteractions: IAdminAnalyticsUserInteraction;
 }
@@ -31,73 +31,73 @@ const dateRangeToString = (dateRange: AdminAnalyticsDateRange): string | JSX.Ele
   return <i>Select a Start date and End date above</i>;
 };
 
-const AdminAnalyticsStudentSummaryWidget: React.FC<AdminAnalyticsStudentSummaryWidgetProps> = ({ dateRange, userInteractions }) => {
+const AdminAnalyticsStudentSummary: React.FC<AdminAnalyticsStudentSummaryProps> = ({ dateRange, userInteractions }) => {
   const interactionsByUser = userInteractions;
-
-  _.each(interactionsByUser, function (interactions, user) {
+  // CAM interactionsByUser is an object
+  _.each(interactionsByUser, (interactions, user) => {
     if (_.some(interactions, { type: UserInteractionsTypes.LOGIN })) {
-      behaviorCategories[0].count++;
-      behaviorCategories[0].users.push(user);
+      behaviorCategories.LOGIN.count++;
+      behaviorCategories.LOGIN.users.push(user);
     }
     if (_.some(interactions, (i: any) => i.type === PROFILE_ENTRY_TYPE.CAREERGOAL || i.type === PROFILE_ENTRY_TYPE.INTEREST)) {
-      behaviorCategories[1].count++;
-      behaviorCategories[1].users.push(user);
+      behaviorCategories.OUTLOOK.count++;
+      behaviorCategories.OUTLOOK.users.push(user);
     }
-    if (_.some(interactions, (i: any) => i.type === UserInteractionsTypes.PAGEVIEW && i.typeData[0].includes(`${EXPLORER_TYPE.HOME}/`))) {
-      behaviorCategories[2].count++;
-      behaviorCategories[2].users.push(user);
+    if (_.some(interactions, (i: any) => i.type === UserInteractionsTypes.PAGE_VIEW && i.typeData[0].includes(`${EXPLORER_TYPE.HOME}/`))) {
+      behaviorCategories.EXPLORATION.count++;
+      behaviorCategories.EXPLORATION.users.push(user);
     }
     if (
       _.some(
         interactions,
         (i: any) =>
-          i.type === UserInteractionsTypes.ADDCOURSE ||
-          i.type === UserInteractionsTypes.REMOVECOURSE ||
-          i.type === UserInteractionsTypes.UPDATECOURSE ||
-          i.type === UserInteractionsTypes.ADDOPPORTUNITY ||
-          i.type === UserInteractionsTypes.REMOVEOPPORTUNITY ||
-          i.type === UserInteractionsTypes.UPDATEOPPORTUNITY,
+          i.type === UserInteractionsTypes.ADD_COURSE ||
+          i.type === UserInteractionsTypes.REMOVE_COURSE ||
+          i.type === UserInteractionsTypes.UPDATE_COURSE ||
+          i.type === UserInteractionsTypes.ADD_OPPORTUNITY ||
+          i.type === UserInteractionsTypes.REMOVE_OPPORTUNITY ||
+          i.type === UserInteractionsTypes.UPDATE_OPPORTUNITY,
       )
     ) {
-      behaviorCategories[3].count++;
-      behaviorCategories[3].users.push(user);
+      behaviorCategories.PLANNING.count++;
+      behaviorCategories.PLANNING.users.push(user);
     }
-    if (_.some(interactions, (i: any) => i.type === UserInteractionsTypes.VERIFYREQUEST)) {
-      behaviorCategories[4].count++;
-      behaviorCategories[4].users.push(user);
+    if (_.some(interactions, (i: any) => i.type === UserInteractionsTypes.VERIFY_REQUEST)) {
+      behaviorCategories.VERIFICATION.count++;
+      behaviorCategories.VERIFICATION.users.push(user);
     }
-    if (_.some(interactions, (i: any) => i.type === UserInteractionsTypes.ADDREVIEW)) {
-      behaviorCategories[5].count++;
-      behaviorCategories[5].users.push(user);
+    if (_.some(interactions, (i: any) => i.type === UserInteractionsTypes.ADD_REVIEW)) {
+      behaviorCategories.REVIEWING.count++;
+      behaviorCategories.REVIEWING.users.push(user);
     }
     if (_.some(interactions, (i: any) => i.type === UserInteractionsTypes.LEVEL)) {
-      behaviorCategories[6].count++;
-      behaviorCategories[6].users.push(user);
+      behaviorCategories.LEVEL.count++;
+      behaviorCategories.LEVEL.users.push(user);
     }
-    if (_.some(interactions, (i: any) => i.type === UserInteractionsTypes.COMPLETEPLAN)) {
-      behaviorCategories[7].count++;
-      behaviorCategories[7].users.push(user);
+    if (_.some(interactions, (i: any) => i.type === UserInteractionsTypes.COMPLETE_PLAN)) {
+      behaviorCategories.COMPLETE_PLAN.count++;
+      behaviorCategories.COMPLETE_PLAN.users.push(user);
     }
     if (_.some(interactions, (i: any) => i.type === UserInteractionsTypes.PICTURE || i.type === UserInteractionsTypes.WEBSITE)) {
-      behaviorCategories[8].count++;
-      behaviorCategories[8].users.push(user);
+      behaviorCategories.PROFILE.count++;
+      behaviorCategories.PROFILE.users.push(user);
     }
     if (_.some(interactions, { type: UserInteractionsTypes.ADD_TO_PROFILE })) {
-      behaviorCategories[9].count++;
-      behaviorCategories[9].users.push(user);
+      behaviorCategories.ADD_TO_PROFILE.count++;
+      behaviorCategories.ADD_TO_PROFILE.users.push(user);
     }
     if (_.some(interactions, { type: UserInteractionsTypes.REMOVE_FROM_PROFILE })) {
-      behaviorCategories[10].count++;
-      behaviorCategories[10].users.push(user);
+      behaviorCategories.REMOVE_FROM_PROFILE.count++;
+      behaviorCategories.REMOVE_FROM_PROFILE.users.push(user);
     }
     if (_.some(interactions, { type: UserInteractionsTypes.LOGOUT })) {
-      behaviorCategories[11].count++;
-      behaviorCategories[11].users.push(user);
+      behaviorCategories.LOGOUT.count++;
+      behaviorCategories.LOGOUT.users.push(user);
     }
   });
   return (
     <div>
-      <AdminAnalyticsDateSelectionWidget page={ANALYTICS.STUDENTSUMMARY} />
+      <AdminAnalyticsDateSelectionWidget page={ANALYTICS.STUDENT_SUMMARY} />
       <Segment>
         <Header as="h4" dividing>
           SUMMARY STATISTICS: {dateRangeToString(dateRange)}
@@ -108,5 +108,5 @@ const AdminAnalyticsStudentSummaryWidget: React.FC<AdminAnalyticsStudentSummaryW
   );
 };
 
-const AdminAnalyticsStudentSummaryWidgetContainer = connect(mapStateToProps)(AdminAnalyticsStudentSummaryWidget);
+const AdminAnalyticsStudentSummaryWidgetContainer = connect(mapStateToProps)(AdminAnalyticsStudentSummary);
 export default AdminAnalyticsStudentSummaryWidgetContainer;

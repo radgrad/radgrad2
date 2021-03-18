@@ -223,7 +223,7 @@ class AcademicYearInstanceCollection extends BaseCollection {
       if (!Users.isDefined(doc.studentID)) {
         problems.push(`Bad studentID: ${doc.studentID}`);
       }
-      _.forEach(doc.termIDs, (termID) => {
+      doc.termIDs.forEach((termID) => {
         if (!AcademicTerms.isDefined(termID)) {
           problems.push(`Bad termID: ${termID}`);
         }

@@ -46,10 +46,21 @@ const getNotSatisfiedStyle = (): React.CSSProperties => ({
   color: '#FF0000',
 });
 
+const cardStyle = {
+  marginTop: 5,
+  marginBottom: 5,
+};
+const contentStyle = {
+  paddingTop: 2,
+  paddingBottom: 2,
+};
+
 export {
   getDraggablePillStyle,
   getInspectorDraggablePillStyle,
   getDroppableListStyle,
   getNotSatisfiedStyle,
   getSatisfiedStyle,
+  cardStyle,
+  contentStyle,
 };

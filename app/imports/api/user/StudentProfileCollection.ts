@@ -407,19 +407,19 @@ class StudentProfileCollection extends BaseProfileCollection {
     const username = profile.username;
     if (interests) {
       ProfileInterests.removeUser(username);
-      interests.forEach((interest) => ProfileInterests.define({ interest, username }));
+      interests.forEach((interest) => ProfileInterests.define({ interest, username, retired }));
     }
     if (careerGoals) {
       ProfileCareerGoals.removeUser(username);
-      careerGoals.forEach((careerGoal) => ProfileCareerGoals.define({ careerGoal, username }));
+      careerGoals.forEach((careerGoal) => ProfileCareerGoals.define({ careerGoal, username, retired }));
     }
     if (profileCourses) {
       ProfileCourses.removeUser(username);
-      profileCourses.forEach((course) => ProfileCourses.define({ course, student: username }));
+      profileCourses.forEach((course) => ProfileCourses.define({ course, student: username, retired }));
     }
     if (profileOpportunities) {
       ProfileOpportunities.removeUser(username);
-      profileOpportunities.forEach((opportunity) => ProfileOpportunities.define({ opportunity, student: username }));
+      profileOpportunities.forEach((opportunity) => ProfileOpportunities.define({ opportunity, student: username, retired }));
     }
   }
 
@@ -627,14 +627,14 @@ class StudentProfileCollection extends BaseProfileCollection {
     const website = doc.website;
     const userID = Users.getID(username);
     const favInterests = ProfileInterests.findNonRetired({ userID });
-    const interests = _.map(favInterests, (fav) => Interests.findSlugByID(fav.interestID));
+    const interests = favInterests.map((fav) => Interests.findSlugByID(fav.interestID));
     const favCareerGoals = ProfileCareerGoals.findNonRetired({ userID });
-    const careerGoals = _.map(favCareerGoals, (fav) => CareerGoals.findSlugByID(fav.careerGoalID));
+    const careerGoals = favCareerGoals.map((fav) => CareerGoals.findSlugByID(fav.careerGoalID));
     const level = doc.level;
     const favCourses = ProfileCourses.findNonRetired({ studentID: userID });
-    const profileCourses = _.map(favCourses, (fav) => Courses.findSlugByID(fav.courseID));
+    const profileCourses = favCourses.map((fav) => Courses.findSlugByID(fav.courseID));
     const favOpps = ProfileOpportunities.findNonRetired({ studentID: userID });
-    const profileOpportunities = _.map(favOpps, (fav) => Opportunities.findSlugByID(fav.opportunityID));
+    const profileOpportunities = favOpps.map((fav) => Opportunities.findSlugByID(fav.opportunityID));
     const declaredAcademicTerm = doc.declaredAcademicTermID && AcademicTerms.findSlugByID(doc.declaredAcademicTermID);
     const isAlumni = doc.isAlumni;
     const retired = doc.retired;

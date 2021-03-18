@@ -9,7 +9,7 @@ import OpportunitySortWidget, { opportunitySortKeys } from './OpportunitySortWid
 import OpportunityInformationItem, { OpportunityInformationItemConfiguration } from './OpportunityInformationItem';
 import * as Router from '../../utilities/router';
 import { ProfileInterests } from '../../../../../api/user/profile-entries/ProfileInterestCollection';
-import PreferedChoice from '../../../../../api/degree-plan/PreferredChoice';
+import PreferredChoice from '../../../../../api/degree-plan/PreferredChoice';
 import { Opportunity } from '../../../../../typings/radgrad';
 import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
 import { RootState } from '../../../../../redux/types';
@@ -45,9 +45,9 @@ const ExplorerOpportunitiesWidget: React.FC<CardExplorerOpportunitiesWidgetProps
       // eslint-disable-next-line no-case-declarations
       const profileEntries = ProfileInterests.findNonRetired({ userID });
       // eslint-disable-next-line no-case-declarations
-      const interestIDs = _.map(profileEntries, (f) => f.interestID);
+      const interestIDs = profileEntries.map((f) => f.interestID);
       // eslint-disable-next-line no-case-declarations
-      const preferred = new PreferedChoice(opportunities, interestIDs);
+      const preferred = new PreferredChoice(opportunities, interestIDs);
       opportunities = preferred.getOrderedChoices();
       break;
     case opportunitySortKeys.innovation:

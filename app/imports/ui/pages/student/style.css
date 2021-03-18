@@ -1,0 +1,28 @@
+/* For StudentHomePage.tsx and its components */
+.checkList{
+    padding-top: 50px !important;
+    background-color: #eeeeee !important;
+}
+.checklist p{
+    font-size: 17px;
+}
+.labelStatus{
+    margin-top: -80px !important;
+    margin-right: -28px !important;
+    text-transform: uppercase !important;
+}
+.highlightBox{
+    background-color: #eefaf6;
+    padding: 15px 15px;
+    margin: 15px 0;
+    border-radius: 10px;
+
+}
+.centeredBox{
+    text-align: center;
+    padding-top: 10px;
+}
+.centeredBox p{
+    font-size: 18px;
+    line-height: 1.3em;
+}

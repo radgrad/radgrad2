@@ -108,11 +108,9 @@ const iceRecHelper = (student: StudentProfile, value, component): string => {
         ' Add some interests so we can provide course recommendations!</a></em>';
       return html;
     }
-    const relevantCourses = _.filter(Courses.find().fetch(), function (course) {
-      return _.some(course.interestIDs, interest => _.includes(studentInterests, interest));
-    });
-    const currentCourses = _.map(CourseInstances.find({ studentID: student.userID }).fetch(), 'courseID');
-    const recommendedCourses = _.filter(relevantCourses, course => !_.includes(currentCourses, course._id));
+    const relevantCourses = Courses.find().fetch().filter((course) => _.some(course.interestIDs, interest => _.includes(studentInterests, interest)));
+    const currentCourses = CourseInstances.find({ studentID: student.userID }).fetch().map((ci) => ci.courseID);
+    const recommendedCourses = relevantCourses.filter(course => !_.includes(currentCourses, course._id));
     if (recommendedCourses.length === 0) {
       html += '<em><a href="https://radgrad.ics.hawaii.edu">' +
         ' Add more interests so we can provide course recommendations!</a></em>';
@@ -129,18 +127,14 @@ const iceRecHelper = (student: StudentProfile, value, component): string => {
         ' Add some Interests to your profile so we can provide opportunity recommendations!</a></em>';
       return html;
     }
-    const opps = _.filter(Opportunities.find().fetch(), function (opp) {
-      return opp.ice[component] > 0;
-    });
-    const relevantOpps = _.filter(opps, function (opp) {
-      return _.some(opp.interestIDs, interest => _.includes(studentInterests, interest));
-    });
+    const opps = Opportunities.find().fetch().filter((opp) => opp.ice[component] > 0);
+    const relevantOpps = opps.filter((opp) => _.some(opp.interestIDs, interest => _.includes(studentInterests, interest)));
     if (relevantOpps.length === 0) {
       return ' <em><a href="https://radgrad.ics.hawaii.edu">' +
         ' Add more Interests to your profile so we can provide opportunity recommendations!</a></em>';
     }
-    const currentOpps = _.map(OpportunityInstances.find({ studentID: student.userID }).fetch(), 'opportunityID');
-    const recommendedOpps = _.filter(relevantOpps, opp => !_.includes(currentOpps, opp._id));
+    const currentOpps = OpportunityInstances.find({ studentID: student.userID }).fetch().map((oi) => oi.opportunityID);
+    const recommendedOpps = relevantOpps.filter(opp => !_.includes(currentOpps, opp._id));
     let recOpp;
     if (recommendedOpps.length === 0) {
       recOpp = relevantOpps[0];
@@ -163,7 +157,8 @@ const iceRecommendation = (student: StudentProfile): Html | string => {
   const html: Html = {};
   html.header = 'Finish Your Degree Plan';
   html.info = '<p>To achieve a complete degree plan, obtain 100 points in each ICE component!</p>';
-  _.each(ice, function (value, component) {
+  // CAM ice is an object.
+  _.each(ice, (value, component) => {
     let iceLevel;
     if (value < 30) {
       iceLevel = '<span style="color: red;"><strong>NEEDS WORK</strong></span>';
@@ -184,7 +179,7 @@ const verifyOppRecommendation = (student: StudentProfile): Html | string => {
     studentID: student.userID,
     verified: false,
   }).fetch();
-  const currentUnverifiedOpps = _.filter(unverifiedOpps, function (unverifiedOpp) {
+  const currentUnverifiedOpps = unverifiedOpps.filter((unverifiedOpp) => {
     const { termID } = unverifiedOpp;
     const { termNumber } = AcademicTerms.findOne({ _id: termID });
     return termNumber <= AcademicTerms.getCurrentAcademicTermDoc().termNumber;
@@ -204,7 +199,7 @@ const verifyOppRecommendation = (student: StudentProfile): Html | string => {
     + 'to requesting the verification. Here is a list of'
     + ' past or current opportunities that you have not yet verified:</p>';
   html.info += '<ul>';
-  _.each(currentUnverifiedOpps, function (unverifiedOpp) {
+  currentUnverifiedOpps.forEach((unverifiedOpp) => {
     const { termID } = unverifiedOpp;
     const termName = AcademicTerms.toString(termID, false);
     const opp: Opportunity = Opportunities.findOne({ _id: unverifiedOpp.opportunityID });
@@ -243,18 +238,14 @@ const reviewCourseRecommendation = (student: StudentProfile): Html | string => {
     studentID: student.userID,
     verified: true,
   }).fetch();
-  const completedCourses = _.map(courseInstances, function (instance) {
-    return instance.courseID;
-  });
-  const nonReviewedCourses = _.filter(completedCourses, function (courseID) {
-    return !(Reviews.findOne({ studentID: student.userID, revieweeID: courseID }));
-  });
+  const completedCourses = courseInstances.map((instance) => instance.courseID);
+  const nonReviewedCourses = completedCourses.filter((courseID) => !(Reviews.findOne({ studentID: student.userID, revieweeID: courseID })));
   if (nonReviewedCourses.length === 0) {
     return '';
   }
   let suggestedReviewCourses = [];
   const remainingCourses = [];
-  _.each(nonReviewedCourses, function (courseID) {
+  nonReviewedCourses.forEach((courseID) => {
     if (Reviews.findOne({ revieweeID: courseID }) === undefined) {
       suggestedReviewCourses.push(courseID);
     } else {
@@ -267,7 +258,7 @@ const reviewCourseRecommendation = (student: StudentProfile): Html | string => {
   html.info = '<p>Contribute to the ICS community by providing reviews for courses you have completed.'
     + ' Here are some suggested courses to review:</p>';
   html.info += '<ul>';
-  _.each(suggestedReviewCourses, function (courseID, index) {
+  suggestedReviewCourses.forEach((courseID, index) => {
     if (index === 3) {
       return false;
     }
@@ -283,19 +274,14 @@ const reviewCourseRecommendation = (student: StudentProfile): Html | string => {
 };
 
 export const reviewOppRecommendation = (student: StudentProfile): Html | string => {
-  const completedOpps = _.map(OpportunityInstances.find({ studentID: student.userID, verified: true }).fetch(),
-    function (instance) {
-      return instance.opportunityID;
-    });
-  const nonReviewedOpps = _.filter(completedOpps, function (oppID) {
-    return !(Reviews.findOne({ studentID: student.userID, revieweeID: oppID }));
-  });
+  const completedOpps = OpportunityInstances.find({ studentID: student.userID, verified: true }).fetch().map((instance) => instance.opportunityID);
+  const nonReviewedOpps = completedOpps.filter((oppID) => !(Reviews.findOne({ studentID: student.userID, revieweeID: oppID })));
   if (nonReviewedOpps.length === 0) {
     return '';
   }
   let suggestedReviewOpps = [];
   const remainingOpps = [];
-  _.each(nonReviewedOpps, function (oppID) {
+  nonReviewedOpps.forEach((oppID) => {
     if (Reviews.findOne({ revieweeID: oppID }) === undefined) {
       suggestedReviewOpps.push(oppID);
     } else {
@@ -309,7 +295,7 @@ export const reviewOppRecommendation = (student: StudentProfile): Html | string 
   html.info = '<p>Contribute to the ICS community by providing reviews for opportunities you have completed.'
     + ' Here are some suggested opportunities to review:</p>';
   html.info += '<ul>';
-  _.each(suggestedReviewOpps, function (oppID, index) {
+  suggestedReviewOpps.forEach((oppID, index) => {
     if (index === 3) {
       return false;
     }
@@ -331,7 +317,7 @@ const recList = [iceRecommendation, verifyOppRecommendation, levelRecommendation
 
 export const getRecList = (student: StudentProfile) => {
   const suggestedRecs = [];
-  _.each(recList, function (func) {
+  recList.forEach((func) => {
     const html = func(student);
     if (html) {
       suggestedRecs.push(html);
@@ -340,7 +326,7 @@ export const getRecList = (student: StudentProfile) => {
   return suggestedRecs;
 };
 
-export const getStudentEmailsByLevel = (level: number) => {
+export const getStudentEmailsByLevel = (level: number): string[] => {
   const studentProfiles = StudentProfiles.find({ level, isAlumni: false }).fetch();
-  return _.map(studentProfiles, (p) => p.username);
+  return studentProfiles.map((p) => p.username);
 };

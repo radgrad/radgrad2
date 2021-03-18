@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import { Meteor } from 'meteor/meteor';
 import { RadGrad } from '../radgrad/RadGrad';
 // import { assertIntegrity } from '../integrity/IntegrityChecker';
@@ -12,10 +11,10 @@ import { RadGrad } from '../radgrad/RadGrad';
  * @throws { Meteor.Error } If there is an integrity issue with the DB prior to deletion.
  * @returns true
  */
-export function removeAllEntities() {
+export const removeAllEntities = (): boolean => {
   if (Meteor.isTest || Meteor.isAppTest) {
     // assertIntegrity();  // this started failing after update to Meteor 1.6.1!
-    _.forEach(RadGrad.collections, (collection) => {
+    RadGrad.collections.forEach((collection) => {
       if (collection.type !== 'AdminProfile') {
         collection.collection.remove({});
       }
@@ -26,4 +25,4 @@ export function removeAllEntities() {
     throw new Meteor.Error('removeAllEntities not called in testing mode.');
   }
   return true;
-}
+};

@@ -1,11 +1,10 @@
-import _ from 'lodash';
 import React from 'react';
 import { Button, Card, Icon } from 'semantic-ui-react';
 import { Link, useRouteMatch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
 import { RadGradProperties } from '../../../../api/radgrad/RadGradProperties';
-import { OpportunityScoreboard } from '../../../../startup/client/collections';
+import { OpportunityForecastCollection } from '../../../../startup/client/collections';
 import { getUsername } from '../../shared/utilities/router';
 import { AcademicTerm, OpportunityInstance, UserInteractionDefine, VerificationRequest, VerificationRequestDefine } from '../../../../typings/radgrad';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
@@ -18,6 +17,7 @@ import { buildRouteName } from './DepUtilityFunctions';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import RequestVerificationForm from './RequestVerificationForm';
 import { VerificationRequests } from '../../../../api/verification/VerificationRequestCollection';
+import { cardStyle, contentStyle } from './utilities/styles';
 import VerificationRequestStatus from './VerificationRequestStatus';
 import { degreePlannerActions } from '../../../../redux/student/degree-planner';
 import { UserInteractionsTypes } from '../../../../api/analytic/UserInteractionsTypes';
@@ -53,7 +53,7 @@ const handleRemove = (selectOpportunityInstance, match) => (event, { value }) =>
       const academicTerm: AcademicTerm = AcademicTerms.findDoc({ _id: instanceObject.termID });
       const interactionData: UserInteractionDefine = {
         username: getUsername(match),
-        type: UserInteractionsTypes.REMOVEOPPORTUNITY,
+        type: UserInteractionsTypes.REMOVE_OPPORTUNITY,
         typeData: [academicTerm.term, academicTerm.year, slugName],
       };
       userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
@@ -89,7 +89,7 @@ const handleVerificationRequest = (instance, match) => (model) => {
       const typeData = [slugName];
       const interactionData: UserInteractionDefine = {
         username,
-        type: UserInteractionsTypes.VERIFYREQUEST,
+        type: UserInteractionsTypes.VERIFY_REQUEST,
         typeData,
       };
       userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
@@ -102,7 +102,7 @@ const handleVerificationRequest = (instance, match) => (model) => {
 };
 
 const DetailOpportunityCard: React.FC<DetailOpportunityCardProps> = ({ instance, verificationRequests, selectOpportunityInstance }) => {
-  const verificationRequeststoShow = _.filter(verificationRequests, (vr) => vr.opportunityInstanceID === instance._id);
+  const verificationRequeststoShow = verificationRequests.filter((vr) => vr.opportunityInstanceID === instance._id);
   const match = useRouteMatch();
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
   const opportunityTerm = AcademicTerms.findDoc(instance.termID);
@@ -124,9 +124,9 @@ const DetailOpportunityCard: React.FC<DetailOpportunityCardProps> = ({ instance,
     },
   );
   const scores = [];
-  _.forEach(academicTerms, (term: AcademicTerm) => {
+  academicTerms.forEach((term: AcademicTerm) => {
     const id = `${opportunity._id} ${term._id}`;
-    const score = OpportunityScoreboard.find({ _id: id }).fetch() as { count: number }[];
+    const score = OpportunityForecastCollection.find({ _id: id }).fetch() as { count: number }[];
     if (score.length > 0) {
       scores.push(score[0].count);
     } else {
@@ -136,12 +136,12 @@ const DetailOpportunityCard: React.FC<DetailOpportunityCardProps> = ({ instance,
 
   return (
     <Card.Group itemsPerRow={1}>
-      <Card>
-        <Card.Content>
+      <Card style={cardStyle}>
+        <Card.Content style={contentStyle}>
           <IceHeader ice={opportunity.ice} />
           <Card.Header>{opportunity.name}</Card.Header>
         </Card.Content>
-        <Card.Content>
+        <Card.Content style={contentStyle}>
           {futureP ? (
             <React.Fragment>
               <p>
@@ -169,13 +169,13 @@ const DetailOpportunityCard: React.FC<DetailOpportunityCardProps> = ({ instance,
         </Card.Content>
         {verificationRequested ? <VerificationRequestStatus request={verificationRequeststoShow[0]} /> : ''}
         {!futureP && !verificationRequested ? (
-          <Card.Content>
+          <Card.Content style={contentStyle}>
             <RequestVerificationForm handleOnModelChange={handleVerificationRequest(instance, match)} />
           </Card.Content>
         ) : (
           ''
         )}
-        <Card.Content>
+        <Card.Content style={contentStyle}>
           <p style={textAlignRight}>
             <Link to={buildRouteName(match, opportunity, EXPLORER_TYPE.OPPORTUNITIES)} rel="noopener noreferrer" target="_blank">
               View in Explorer <Icon name="arrow right" />

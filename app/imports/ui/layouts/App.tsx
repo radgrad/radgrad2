@@ -17,7 +17,7 @@ import { Users } from '../../api/user/UserCollection';
 import NotAuthorizedPage from '../pages/NotAuthorizedPage';
 
 // Hack to refresh other RadGrad tabs when logged out on one tab
-window.addEventListener('storage', function (event) {
+window.addEventListener('storage', (event) => {
   if (event.key === 'logoutEvent' && event.newValue === 'true') {
     window.location.reload();
   }
@@ -28,22 +28,22 @@ const App: React.FC = () => (
   <Router>
     <Switch>
       {routes.LANDING.map((route) => (
-        <Route key={route.path} {... _.defaults(route, {exact: true})} />
+        <Route key={route.path} {..._.defaults(route, { exact: true })} />
       ))}
       {routes.ADMIN.map((route) => (
-        <AdminProtectedRoute key={route.path} {... _.defaults(route, {exact: true})} />
+        <AdminProtectedRoute key={route.path} {..._.defaults(route, { exact: true })} />
       ))}
       {routes.ADVISOR.map((route) => (
-        <AdvisorProtectedRoute key={route.path} {... _.defaults(route, {exact: true})} />
+        <AdvisorProtectedRoute key={route.path} {..._.defaults(route, { exact: true })} />
       ))}
       {routes.FACULTY.map((route) => (
-        <FacultyProtectedRoute key={route.path} {... _.defaults(route, {exact: true})} />
+        <FacultyProtectedRoute key={route.path} {..._.defaults(route, { exact: true })} />
       ))}
       {routes.STUDENT.map((route) => (
-        <StudentProtectedRoute key={route.path} {... _.defaults(route, {exact: true})} />
+        <StudentProtectedRoute key={route.path} {..._.defaults(route, { exact: true })} />
       ))}
       {routes.ALUMNI.map((route) => (
-        <StudentProtectedRoute key={route.path} {... _.defaults(route, {exact: true})} />
+        <StudentProtectedRoute key={route.path} {..._.defaults(route, { exact: true })} />
       ))}
       <Route path="/signin">
         <SigninPage />
@@ -91,7 +91,8 @@ const AdminProtectedRoute = ({ component: Component, ...rest }) => {
         const isLogged = userId !== null;
         const isAdmin = Roles.userIsInRole(userId, [ROLE.ADMIN]);
         // console.log('AdminProtectedRoute', props);
-        return isLogged && isAdmin ? <WrappedComponent {...props} /> : <Redirect to={{ pathname: '/', state: { from: props.location } }} />;
+        return isLogged && isAdmin ? <WrappedComponent {...props} /> :
+          <Redirect to={{ pathname: '/', state: { from: props.location } }} />;
       }}
     />
   );
@@ -108,7 +109,8 @@ const AdvisorProtectedRoute = ({ component: Component, ...rest }) => {
       render={(props) => {
         const isLogged = Meteor.userId() !== null;
         const isAllowed = Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN, ROLE.ADVISOR]);
-        return isLogged && isAllowed ? <WrappedComponent {...props} /> : <Redirect to={{ pathname: '/', state: { from: props.location } }} />;
+        return isLogged && isAllowed ? <WrappedComponent {...props} /> :
+          <Redirect to={{ pathname: '/', state: { from: props.location } }} />;
       }}
     />
   );
@@ -125,7 +127,8 @@ const FacultyProtectedRoute = ({ component: Component, ...rest }) => {
       render={(props) => {
         const isLogged = Meteor.userId() !== null;
         const isAllowed = Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN, ROLE.FACULTY]);
-        return isLogged && isAllowed ? <WrappedComponent {...props} /> : <Redirect to={{ pathname: '/', state: { from: props.location } }} />;
+        return isLogged && isAllowed ? <WrappedComponent {...props} /> :
+          <Redirect to={{ pathname: '/', state: { from: props.location } }} />;
       }}
     />
   );
@@ -136,7 +139,7 @@ const StudentProtectedRoute = ({ component: Component, ...rest }) => {
 
   const userId = Meteor.userId();
   if (_.isNil(userId)) {
-    return <Redirect to={{ pathname: '/', state: { from: rest.location } }} />;
+    return <NotAuthorizedPage role="student" />;
   }
   const ComponentGlobal = withGlobalSubscription(Component);
   const ComponentInstance = withInstanceSubscriptions(ComponentGlobal);
@@ -148,6 +151,7 @@ const StudentProtectedRoute = ({ component: Component, ...rest }) => {
   // console.log(Meteor.user()?.username, Users.count());
   // CAM: I think this happens on a reload so send us back to the LandingPage. By setting the state to where
   //      we are, we can have the LandingPage redirect us back after the subscriptions are done.
+  //      It looks like we can get here before the Users.subscribe is done.
   if (_.isNil(Meteor.user())) {
     return <Redirect to={{ pathname: '/', state: { from: rest.location } }} />;
   }
@@ -166,16 +170,13 @@ const StudentProtectedRoute = ({ component: Component, ...rest }) => {
         }
         const routeUsername = getUsername(props.match);
         let loggedInUserName = routeUsername;
-        try {
+        if (Users.hasProfile(userId)) {
           loggedInUserName = Users.getProfile(userId).username;
           if (isStudent) {
             isAllowed = routeUsername === loggedInUserName;
           }
-          return isAllowed ? <WrappedComponent {...props} /> : <NotAuthorizedPage role={role} />;
-        } catch (e) {
-          // too early
         }
-        return '';
+        return isAllowed ? <WrappedComponent {...props} /> : <NotAuthorizedPage role={role} />;
       }}
     />
   );

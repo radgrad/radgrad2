@@ -1,5 +1,4 @@
 import React from 'react';
-import _ from 'lodash';
 import { Button, Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, SelectField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
@@ -21,7 +20,7 @@ interface UpdateInterestFormProps {
 }
 
 const UpdateInterestForm: React.FC<UpdateInterestFormProps> = ({ interestTypes, collection, id, formRef, handleCancel, handleUpdate, itemTitleString }) => {
-  const interestTypeNames = _.map(interestTypes, docToName);
+  const interestTypeNames = interestTypes.map(docToName);
   const model = collection.findDoc(id);
   model.slug = Slugs.getNameFromID(model.slugID);
   model.interestType = InterestTypes.findDoc(model.interestTypeID).name;

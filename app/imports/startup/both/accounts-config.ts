@@ -1,7 +1,7 @@
 import { Accounts } from 'meteor/accounts-base';
 import { ROLE } from '../../api/role/Role';
 import { UserInteractionDefine } from '../../typings/radgrad';
-import { USERINTERACTIONSNOTYPEDATA, UserInteractionsTypes } from '../../api/analytic/UserInteractionsTypes';
+import { USER_INTERACTIONS_NO_TYPE_DATA, UserInteractionsTypes } from '../../api/analytic/UserInteractionsTypes';
 import { userInteractionDefineMethod } from '../../api/analytic/UserInteractionCollection.methods';
 
 Accounts.config({
@@ -15,7 +15,7 @@ Accounts.onLogout(function logout() {
     const interactionData: UserInteractionDefine = {
       username,
       type: UserInteractionsTypes.LOGOUT,
-      typeData: [USERINTERACTIONSNOTYPEDATA],
+      typeData: [USER_INTERACTIONS_NO_TYPE_DATA],
     };
     userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
       if (userInteractionError) {

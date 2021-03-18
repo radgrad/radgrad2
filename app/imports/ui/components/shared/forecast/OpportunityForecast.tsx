@@ -1,21 +1,21 @@
 import React from 'react';
 import _ from 'lodash';
-import { ZipZap } from 'meteor/udondan:zipzap';
-import moment from 'moment';
 import { Button, Grid, Header, Icon, Label, Popup, Segment, Table } from 'semantic-ui-react';
-import { AcademicTerm, Course, Scoreboard } from '../../../../typings/radgrad';
+import moment from 'moment';
+import { ZipZap } from 'meteor/udondan:zipzap';
+import { AcademicTerm, Opportunity, Forecast } from '../../../../typings/radgrad';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 
-interface CourseForecastProps {
-  courses: Course[];
+interface OpportunityForecastProps {
+  opportunities: Opportunity[];
   terms: AcademicTerm[];
-  scores: Scoreboard[];
+  scores: Forecast[];
 }
 
 const databaseFileDateFormat = 'YYYY-MM-DD-HH-mm-ss';
 
-const getCourseScore = (courseID: string, termID: string, scores: Scoreboard[]): number => {
-  const id = `${courseID} ${termID}`;
+const getOpportunityScore = (opportunityID: string, termID: string, scores: Forecast[]) => {
+  const id = `${opportunityID} ${termID}`;
   const scoreItem = _.find(scores, (p) => p._id === id);
   // console.log(scoreItem, courseID, termID);
   if (scoreItem) {
@@ -24,29 +24,29 @@ const getCourseScore = (courseID: string, termID: string, scores: Scoreboard[]):
   return 0;
 };
 
-const handleSaveAsCSV = (terms: AcademicTerm[], courses: Course[], scores: Scoreboard[]) => () => {
+const saveAsCSV = (terms: AcademicTerm[], opportunities: Opportunity[], scores: Forecast[]) => () => {
   let result = '';
-  const headerArr = ['Course'];
-  _.forEach(terms, (term) => headerArr.push(AcademicTerms.getShortName(term._id)));
+  const headerArr = ['Opportunity'];
+  terms.forEach((term) => headerArr.push(AcademicTerms.getShortName(term._id)));
   result += headerArr.join(',');
   result += '\r\n';
-  _.forEach(courses, (o) => {
-    const courseID = o._id;
+  opportunities.forEach((o) => {
+    const opportunityID = o._id;
     result += `${o.name},`;
-    _.forEach(terms, (t) => {
+    terms.forEach((t) => {
       const termID = t._id;
-      result += `${getCourseScore(courseID, termID, scores)},`;
+      result += `${getOpportunityScore(opportunityID, termID, scores)},`;
     });
     result += '\r\n';
   });
   const zip = new ZipZap();
-  const dir = 'course-scoreboard';
+  const dir = 'opportunity-forecast';
   const fileName = `${dir}/${moment().format(databaseFileDateFormat)}.csv`;
   zip.file(fileName, result);
   zip.saveAs(`${dir}.zip`);
 };
 
-const CourseForecast: React.FC<CourseForecastProps> = ({ courses, terms, scores }) => {
+const OpportunityForecast: React.FC<OpportunityForecastProps> = ({ opportunities, terms, scores }) => {
   const scrollBody: React.CSSProperties = {
     display: 'inline-block',
     height: 500,
@@ -54,15 +54,15 @@ const CourseForecast: React.FC<CourseForecastProps> = ({ courses, terms, scores 
     width: '100%',
   };
   return (
-    <Segment textAlign="center" id="course-forecast">
-      <Header>Future Course Forecast</Header>
+    <Segment textAlign="center" id="opportunity-forecast">
+      <Header>Future Opportunity Forecast</Header>
       <Grid>
         <Grid.Row>
           <Table celled fixed>
             <Table.Header>
               <Table.Row>
-                <Table.HeaderCell width={1}>Course</Table.HeaderCell>
-                {_.map(terms, (term) => (
+                <Table.HeaderCell width={1}>Opportunity</Table.HeaderCell>
+                {terms.map((term) => (
                   <Table.HeaderCell width={1} key={term._id}>
                     {AcademicTerms.getShortName(term._id)}
                   </Table.HeaderCell>
@@ -73,13 +73,14 @@ const CourseForecast: React.FC<CourseForecastProps> = ({ courses, terms, scores 
           <div style={scrollBody}>
             <Table celled fixed>
               <Table.Body>
-                {_.map(courses, (c, index) => (
+                {opportunities.map((c, index) => (
+                  // eslint-disable-next-line react/no-array-index-key
                   <Table.Row key={index}>
                     <Table.Cell width={1}>
-                      <Popup content={c.shortName} trigger={<Label>{c.num}</Label>} />
+                      <Popup content={c.name} trigger={<Label>{c.name}</Label>} />
                     </Table.Cell>
-                    {_.map(terms, (t) => {
-                      const score = getCourseScore(c._id, t._id, scores);
+                    {terms.map((t) => {
+                      const score = getOpportunityScore(c._id, t._id, scores);
                       return (
                         <Table.Cell width={1} key={`${c._id}${t._id}`} negative={score > 0} collapsing>
                           {score > 10 ? <Icon name="attention" /> : ''}
@@ -95,7 +96,7 @@ const CourseForecast: React.FC<CourseForecastProps> = ({ courses, terms, scores 
         </Grid.Row>
         <Grid.Row>
           <Grid.Column width={1} />
-          <Button basic color="green" onClick={handleSaveAsCSV(terms, courses, scores)}>
+          <Button basic color="green" onClick={saveAsCSV(terms, opportunities, scores)}>
             Save as CSV
           </Button>
         </Grid.Row>
@@ -104,4 +105,4 @@ const CourseForecast: React.FC<CourseForecastProps> = ({ courses, terms, scores 
   );
 };
 
-export default CourseForecast;
+export default OpportunityForecast;

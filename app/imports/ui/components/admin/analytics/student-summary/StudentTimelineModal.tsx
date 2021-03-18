@@ -25,7 +25,7 @@ const gap = 10;
 const getSessions = (interactions: UserInteraction[]): UserInteraction[][] => {
   const sessions = [];
   let slicedIndex = 0;
-  _.each(interactions, (interaction, index: number, inters) => {
+  interactions.forEach((interaction, index: number, inters) => {
     if (index !== 0) {
       const prevTimestamp = moment(new Date(inters[index - 1].timestamp));
       const timestamp = moment(new Date(interaction.timestamp));
@@ -75,26 +75,26 @@ const getBehaviors = (sessionArr: UserInteraction[]): { type: string; stats: str
   const actions = {
     careerGoalIDs: [],
     interestIDs: [],
-    [UserInteractionsTypes.PAGEVIEW]: [],
+    [UserInteractionsTypes.PAGE_VIEW]: [],
     [UserInteractionsTypes.LOGIN]: [],
     [UserInteractionsTypes.LEVEL]: [],
-    [UserInteractionsTypes.COMPLETEPLAN]: [],
+    [UserInteractionsTypes.COMPLETE_PLAN]: [],
     [UserInteractionsTypes.PICTURE]: [],
     [UserInteractionsTypes.WEBSITE]: [],
-    [UserInteractionsTypes.SHAREINFORMATION]: [],
-    [UserInteractionsTypes.ADDCOURSE]: [],
-    [UserInteractionsTypes.REMOVECOURSE]: [],
-    [UserInteractionsTypes.UPDATECOURSE]: [],
-    [UserInteractionsTypes.ADDOPPORTUNITY]: [],
-    [UserInteractionsTypes.REMOVEOPPORTUNITY]: [],
-    [UserInteractionsTypes.UPDATEOPPORTUNITY]: [],
+    [UserInteractionsTypes.SHARE_INFORMATION]: [],
+    [UserInteractionsTypes.ADD_COURSE]: [],
+    [UserInteractionsTypes.REMOVE_COURSE]: [],
+    [UserInteractionsTypes.UPDATE_COURSE]: [],
+    [UserInteractionsTypes.ADD_OPPORTUNITY]: [],
+    [UserInteractionsTypes.REMOVE_OPPORTUNITY]: [],
+    [UserInteractionsTypes.UPDATE_OPPORTUNITY]: [],
     [UserInteractionsTypes.ADD_TO_PROFILE]: [],
     [UserInteractionsTypes.REMOVE_FROM_PROFILE]: [],
-    [UserInteractionsTypes.ADDREVIEW]: [],
-    [UserInteractionsTypes.EDITREVIEW]: [],
-    [UserInteractionsTypes.VERIFYREQUEST]: [],
+    [UserInteractionsTypes.ADD_REVIEW]: [],
+    [UserInteractionsTypes.EDIT_REVIEW]: [],
+    [UserInteractionsTypes.VERIFY_REQUEST]: [],
   };
-  _.each(sessionArr, function (interaction) {
+  sessionArr.forEach((interaction) => {
     if (actions[interaction.type]) {
       // there are interaction types that we've removed, but are still in the UserInteractions
       actions[interaction.type].push(interaction.typeData.join(', '));
@@ -108,12 +108,13 @@ const getBehaviors = (sessionArr: UserInteraction[]): { type: string; stats: str
     [StudentSummaryBehaviorTypes.VERIFICATION]: [],
     [StudentSummaryBehaviorTypes.REVIEWING]: [],
     [StudentSummaryBehaviorTypes.LEVEL]: [],
-    [StudentSummaryBehaviorTypes.COMPLETEPLAN]: [],
+    [StudentSummaryBehaviorTypes.COMPLETE_PLAN]: [],
     [StudentSummaryBehaviorTypes.PROFILE]: [],
     [StudentSummaryBehaviorTypes.ADD_TO_PROFILE]: [],
     [StudentSummaryBehaviorTypes.REMOVE_FROM_PROFILE]: [],
   };
-  _.each(actions, function (array: string[], action: string) {
+  // CAM actions is an object.
+  _.each(actions, (array: string[], action: string) => {
     if (array.length !== 0) {
       if (action === UserInteractionsTypes.LOGIN) {
         behaviors[StudentSummaryBehaviorTypes.LOGIN].push(`User logged in ${array.length} time(s)`);
@@ -123,14 +124,14 @@ const getBehaviors = (sessionArr: UserInteraction[]): { type: string; stats: str
       } else if (action === PROFILE_ENTRY_TYPE.INTEREST) {
         behaviors[StudentSummaryBehaviorTypes.OUTLOOK].push(`User modified interests ${array.length} time(s)`);
         behaviors[StudentSummaryBehaviorTypes.OUTLOOK].push(`Interests at end of session: ${_.last(array)}`);
-      } else if (action === UserInteractionsTypes.PAGEVIEW) {
+      } else if (action === UserInteractionsTypes.PAGE_VIEW) {
         const explorerPages = {
           [EXPLORER_TYPE.CAREERGOALS]: [],
           [EXPLORER_TYPE.COURSES]: [],
           [EXPLORER_TYPE.INTERESTS]: [],
           [EXPLORER_TYPE.OPPORTUNITIES]: [],
         };
-        _.each(array, function (url) {
+        array.forEach((url) => {
           if (url.includes('explorer/')) {
             const parsedUrl = url.split('/');
             if (parsedUrl.length > 2) {
@@ -145,53 +146,55 @@ const getBehaviors = (sessionArr: UserInteraction[]): { type: string; stats: str
             }
           }
         });
-        _.each(explorerPages, function (pages, pageName) {
+        // CAM explorerPages is an object
+        _.each(explorerPages, (pages, pageName) => {
           if (!_.isEmpty(pages)) {
             behaviors[StudentSummaryBehaviorTypes.EXPLORATION].push(`Entries viewed in ${pageName}: 
               ${_.uniq(pages).join(', ')}`);
           }
         });
-      } else if (action === UserInteractionsTypes.ADDCOURSE) {
+      } else if (action === UserInteractionsTypes.ADD_COURSE) {
         behaviors[StudentSummaryBehaviorTypes.PLANNING].push(`Added the following courses: ${formatCourseOpportunitySlugMessages(_.uniq(array))}`);
-      } else if (action === UserInteractionsTypes.REMOVECOURSE) {
+      } else if (action === UserInteractionsTypes.REMOVE_COURSE) {
         behaviors[StudentSummaryBehaviorTypes.PLANNING].push(`Removed the following courses: ${formatCourseOpportunitySlugMessages(_.uniq(array))}`);
-      } else if (action === UserInteractionsTypes.UPDATECOURSE) {
+      } else if (action === UserInteractionsTypes.UPDATE_COURSE) {
         behaviors[StudentSummaryBehaviorTypes.PLANNING].push(`Updated the following courses: ${formatCourseOpportunitySlugMessages(_.uniq(array))}`);
-      } else if (action === UserInteractionsTypes.ADDOPPORTUNITY) {
+      } else if (action === UserInteractionsTypes.ADD_OPPORTUNITY) {
         behaviors[StudentSummaryBehaviorTypes.PLANNING].push(`Added the following opportunities: ${formatCourseOpportunitySlugMessages(_.uniq(array))}`);
-      } else if (action === UserInteractionsTypes.REMOVEOPPORTUNITY) {
+      } else if (action === UserInteractionsTypes.REMOVE_OPPORTUNITY) {
         behaviors[StudentSummaryBehaviorTypes.PLANNING].push(`Removed the following opportunities: ${formatCourseOpportunitySlugMessages(_.uniq(array))}`);
-      } else if (action === UserInteractionsTypes.UPDATEOPPORTUNITY) {
+      } else if (action === UserInteractionsTypes.UPDATE_OPPORTUNITY) {
         behaviors[StudentSummaryBehaviorTypes.PLANNING].push(`Updated the following opportunities: ${formatCourseOpportunitySlugMessages(_.uniq(array))}`);
-      } else if (action === UserInteractionsTypes.VERIFYREQUEST) {
+      } else if (action === UserInteractionsTypes.VERIFY_REQUEST) {
         behaviors[StudentSummaryBehaviorTypes.VERIFICATION].push(`Requested verification for: ${_.uniq(array).join(', ')}`);
-      } else if (action === UserInteractionsTypes.ADDREVIEW) {
+      } else if (action === UserInteractionsTypes.ADD_REVIEW) {
         behaviors[StudentSummaryBehaviorTypes.REVIEWING].push(`Added a review for the following items: ${formatReviewSlugMessages(_.uniq(array))}`);
-      } else if (action === UserInteractionsTypes.EDITREVIEW) {
+      } else if (action === UserInteractionsTypes.EDIT_REVIEW) {
         behaviors[StudentSummaryBehaviorTypes.REVIEWING].push(`Edited a review for the following items: ${formatReviewSlugMessages(_.uniq(array))}`);
       } else if (action === UserInteractionsTypes.LEVEL) {
         behaviors[StudentSummaryBehaviorTypes.LEVEL].push(`Level updated ${array.length} time(s): ${array}`);
-      } else if (action === UserInteractionsTypes.COMPLETEPLAN) {
-        behaviors[StudentSummaryBehaviorTypes.COMPLETEPLAN].push(`User completed their plan with the following ICE points: ${array}`);
+      } else if (action === UserInteractionsTypes.COMPLETE_PLAN) {
+        behaviors[StudentSummaryBehaviorTypes.COMPLETE_PLAN].push(`User completed their plan with the following ICE points: ${array}`);
       } else if (action === UserInteractionsTypes.PICTURE) {
         behaviors[StudentSummaryBehaviorTypes.PROFILE].push(`User updated their picture ${array.length} time(s)`);
       } else if (action === UserInteractionsTypes.WEBSITE) {
         behaviors[StudentSummaryBehaviorTypes.PROFILE].push(`User updated their website ${array.length} time(s)`);
       } else if (action === UserInteractionsTypes.ADD_TO_PROFILE) {
         behaviors[StudentSummaryBehaviorTypes.ADD_TO_PROFILE].push(`User added items to profile ${array.length} time(s)`);
-        _.each(array, function (item) {
+        array.forEach((item) => {
           behaviors[StudentSummaryBehaviorTypes.ADD_TO_PROFILE].push(`Item: ${item}`);
         });
       } else if (action === UserInteractionsTypes.REMOVE_FROM_PROFILE) {
         behaviors[StudentSummaryBehaviorTypes.REMOVE_FROM_PROFILE].push(`User removed items from profile ${array.length} time(s)`);
-        _.each(array, function (item) {
+        array.forEach((item) => {
           behaviors[StudentSummaryBehaviorTypes.REMOVE_FROM_PROFILE].push(`Item: ${item}`);
         });
       }
     }
   });
   const behaviorsArray = [];
-  _.each(behaviors, function (value, key) {
+  // CAM behaviors is an object
+  _.each(behaviors, (value, key) => {
     if (!_.isEmpty(value)) {
       behaviorsArray.push({ type: key, stats: value });
     }
