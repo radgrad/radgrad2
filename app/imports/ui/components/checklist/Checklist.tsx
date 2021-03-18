@@ -73,6 +73,14 @@ export class Checklist {
   }
 
   /**
+   * Returns the title text.
+   * @return {string}
+   */
+  public getTitleText(): string {
+    return `${this.title[this.state]}`;
+  }
+
+  /**
    * Returns the description section of the checklist item.
    * @return {JSX.Element}
    */

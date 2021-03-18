@@ -6,6 +6,8 @@ import { scrollPositionActions } from '../../../../../redux/shared/scrollPositio
 import { RootState } from '../../../../../redux/types';
 import { Interest } from '../../../../../typings/radgrad';
 import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
+import { CHECKSTATE } from '../../../checklist/Checklist';
+import { InterestsChecklist } from '../../../checklist/InterestsChecklist';
 import ProfileCard from './ProfileCard';
 import WidgetHeaderNumber from '../WidgetHeaderNumber';
 import { RadGradProperties } from '../../../../../api/radgrad/RadGradProperties';
@@ -62,6 +64,8 @@ const InterestBrowserView: React.FC<InterestBrowserViewProps> = ({
       }
     };
   }, [cardGroupElement, interestsScrollPosition, setInterestsScrollPosition]);
+  const currentUser = Meteor.user() ? Meteor.user().username : '';
+  const checklist = new InterestsChecklist(currentUser);
   return (
     <div id="interest-browser-view">
       <Segment>
@@ -69,8 +73,8 @@ const InterestBrowserView: React.FC<InterestBrowserViewProps> = ({
           {inProfile
             ? <p color='grey'><Icon name='heart' color='grey' size='large' />
               INTERESTS IN MY PROFILE <WidgetHeaderNumber inputValue={interests.length} />
-              {interests.length < 3 ?
-                <span style={{ float: 'right' }}><Icon name='exclamation triangle' color='red' /> Please add atleast <b>three interests</b> to your profile</span> : ''}
+              {checklist.getState() === CHECKSTATE.IMPROVE ?
+                <span style={{ float: 'right' }}><Icon name='exclamation triangle' color='red' /> {checklist.getTitleText()}</span> : ''}
             </p>
             : <p color='grey'>INTERESTS NOT IN MY PROFILE <WidgetHeaderNumber inputValue={interests.length} />
               <Button size="mini" color="teal" floated="right"
