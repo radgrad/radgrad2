@@ -28,10 +28,10 @@ If we've missed a disciplinary area of interest to you, please click the button 
 const headerPaneImage = 'header-interests.png';
 
 const InterestBrowserViewPage: React.FC<InterestBrowserViewPageProps> = ({ profileInterests, nonProfileInterests }) => (
-    <PageLayout id="interest-browser-view-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
-      <InterestBrowserView interests={profileInterests} inProfile />
-      <InterestBrowserView interests={nonProfileInterests} />
-    </PageLayout>
+  <PageLayout id="interest-browser-view-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
+    <InterestBrowserView interests={profileInterests} inProfile />
+    <InterestBrowserView interests={nonProfileInterests} />
+  </PageLayout>
 );
 
 export default withTracker(() => {
