@@ -30,7 +30,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ item, type }) => {
   // console.log(interested);
   // @ts-ignore
   return (
-    <Card className="radgrad-interest-card">
+    <Card>
       <Card.Content>
         <Card.Header>{itemName}</Card.Header>
       </Card.Content>

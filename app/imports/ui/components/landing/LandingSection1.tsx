@@ -26,7 +26,7 @@ interface LandingSection1Props {
 const LandingSection1: React.FC<LandingSection1Props> = ({ instanceName, tagline, careerGoalFactoid, interestFactoid, levelFactoid, opportunityFactoid, reviewFactoid }) => (
     <div id="landing-section-1" style={styles['inverted-section']}>
       <Container>
-        <Grid stackable>
+        <Grid stackable style={{height: '300px'}}>
           <Grid.Column width={6}>
             <LandingFactoids careerGoalFactoid={careerGoalFactoid} interestFactoid={interestFactoid} levelFactoid={levelFactoid} opportunityFactoid={opportunityFactoid} reviewFactoid={reviewFactoid} />
           </Grid.Column>
