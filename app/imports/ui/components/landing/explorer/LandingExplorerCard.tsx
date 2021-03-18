@@ -26,7 +26,7 @@ const LandingExplorerCard: React.FC<LandingExplorerCardProps> = ({ item, type })
   }
   const match = useRouteMatch();
   return (
-    <Card className="ui card radgrad-interest-card">
+    <Card>
       <Card.Content className="content">
         <div className="header">{title}</div>
       </Card.Content>

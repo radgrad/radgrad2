@@ -284,6 +284,17 @@ class OpportunityCollection extends BaseSlugCollection {
   }
 
   /**
+   * Returns a list of Opportunity names corresponding to the passed list of Opportunity docIDs.
+   * @param instanceIDs A list of Opportunity docIDs.
+   * @returns { Array }
+   * @throws { Meteor.Error} If any of the instanceIDs cannot be found.
+   */
+  public findNames(instanceIDs: string[]) {
+    // console.log('Opportunity.findNames(%o)', instanceIDs);
+    return instanceIDs.map((instanceID) => this.findDoc(instanceID).name);
+  }
+
+  /**
    * Returns an object representing the Opportunity docID in a format acceptable to define().
    * @param docID The docID of an Opportunity.
    * @returns { Object } An object representing the definition of docID.

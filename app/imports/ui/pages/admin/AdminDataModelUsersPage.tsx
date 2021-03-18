@@ -5,12 +5,28 @@ import moment from 'moment';
 import { connect } from 'react-redux';
 import { withTracker } from 'meteor/react-meteor-data';
 import Swal from 'sweetalert2';
+import { Courses } from '../../../api/course/CourseCollection';
+import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { AdminProfiles } from '../../../api/user/AdminProfileCollection';
+import { ProfileCourses } from '../../../api/user/profile-entries/ProfileCourseCollection';
+import { ProfileOpportunities } from '../../../api/user/profile-entries/ProfileOpportunityCollection';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
-import { AcademicTerm, BaseProfile, CareerGoal, CombinedProfileDefine, AdvisorOrFacultyProfile, ProfileCareerGoal, ProfileInterest, Interest, StudentProfile } from '../../../typings/radgrad';
+import {
+  AcademicTerm,
+  BaseProfile,
+  CareerGoal,
+  CombinedProfileDefine,
+  AdvisorOrFacultyProfile,
+  ProfileCareerGoal,
+  ProfileInterest,
+  Interest,
+  StudentProfile,
+  ProfileCourse, ProfileOpportunity, Course, Opportunity,
+} from '../../../typings/radgrad';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
+import { courseNameToSlug, opportunityNameToSlug } from '../../components/shared/utilities/data-model';
 import { getDatamodelCount, makeMarkdownLink } from './utilities/datamodel';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { ROLE } from '../../../api/role/Role';
@@ -36,10 +52,14 @@ interface AdminDataModelUsersPageProps {
   isCloudinaryUsed: boolean;
   cloudinaryUrl: string;
   profileCareerGoals: ProfileCareerGoal[];
+  profileCourses: ProfileCourse[];
   profileInterests: ProfileInterest[];
+  profileOpportunities: ProfileOpportunity[];
   interests: Interest[];
   careerGoals: CareerGoal[];
   academicTerms: AcademicTerm[];
+  courses: Course[];
+  opportunities: Opportunity[];
 }
 
 const descriptionPairs = (props: AdminDataModelUsersPageProps) => (user: BaseProfile) => {
@@ -58,6 +78,12 @@ const descriptionPairs = (props: AdminDataModelUsersPageProps) => (user: BasePro
   const interestIDs = profileInterests.map((f) => f.interestID);
   pairs.push({ label: 'Interests', value: _.sortBy(Interests.findNames(interestIDs)) });
   if (user.role === ROLE.STUDENT) {
+    const profileCourses = props.profileCourses.filter((fav) => fav.studentID === user.userID);
+    const courseIDs = profileCourses.map((fav) => fav.courseID);
+    pairs.push({ label: 'Courses', value: _.sortBy(Courses.findNames(courseIDs)) });
+    const profileOpportunities = props.profileOpportunities.filter((fav) => fav.studentID === user.userID);
+    const opportunityIDs = profileOpportunities.map((fav) => fav.opportunityID);
+    pairs.push({ label: 'Opportunities', value: _.sortBy(Opportunities.findNames(opportunityIDs)) });
     pairs.push({ label: 'Level', value: `${user.level}` });
     pairs.push({
       label: 'Declared Semester',
@@ -237,6 +263,8 @@ const AdminDataModelUsersPage: React.FC<AdminDataModelUsersPageProps> = (props) 
     }
     updateData.interests = doc.interests.map((interest) => interestSlugFromName(interest));
     updateData.careerGoals = doc.careerGoals.map((goal) => careerGoalSlugFromName(goal));
+    updateData.profileCourses = doc.courses.map((course) => courseNameToSlug(course));
+    updateData.profileOpportunities = doc.opportunities.map((opp) => opportunityNameToSlug(opp));
     if (!_.isNil(doc.declaredAcademicTerm)) {
       updateData.declaredAcademicTerm = declaredAcademicTermSlugFromName(doc.declaredAcademicTerm);
     }
@@ -244,6 +272,7 @@ const AdminDataModelUsersPage: React.FC<AdminDataModelUsersPageProps> = (props) 
     if (isCloudinaryUsed) {
       updateData.picture = cloudinaryUrl;
     }
+    // console.log(updateData);
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
         Swal.fire({
@@ -351,6 +380,8 @@ const AdminDataModelUsersPage: React.FC<AdminDataModelUsersPageProps> = (props) 
           interests={props.interests}
           careerGoals={props.careerGoals}
           academicTerms={props.academicTerms}
+          courses={props.courses}
+          opportunities={props.opportunities}
         />
       ) : (
         <AddUserForm formRef={formRef} handleAdd={handleAdd} interests={props.interests} careerGoals={props.careerGoals}
@@ -371,22 +402,30 @@ export default withTracker(() => {
   const students = StudentProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch();
   const profileCareerGoals = ProfileCareerGoals.find().fetch();
   const profileInterests = ProfileInterests.find().fetch();
+  const profileCourses = ProfileCourses.find().fetch();
+  const profileOpportunities = ProfileOpportunities.find().fetch();
   const interests = Interests.find({}, { sort: { name: 1 } }).fetch();
   const careerGoals = CareerGoals.find({}, { sort: { name: 1 } }).fetch();
   let academicTerms = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
   academicTerms = academicTerms.filter((term) => term.termNumber <= currentTerm.termNumber && term.termNumber > currentTerm.termNumber - 8);
+  const courses = Courses.find().fetch();
+  const opportunities = Opportunities.find().fetch();
   const modelCount = getDatamodelCount();
   return {
     ...modelCount,
     interests,
     careerGoals,
+    courses,
     academicTerms,
+    opportunities,
     admins,
     advisors,
     faculty,
     students,
     profileCareerGoals,
+    profileCourses,
     profileInterests,
+    profileOpportunities,
   };
 })(AdminDataModelUsersPageCon);

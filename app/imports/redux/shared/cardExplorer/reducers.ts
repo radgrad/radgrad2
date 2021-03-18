@@ -14,6 +14,9 @@ interface State {
   opportunities: {
     sortValue: string;
   }
+  interests: {
+    sortValue: string;
+  }
 }
 
 const initialState: State = {
@@ -22,6 +25,9 @@ const initialState: State = {
   },
   opportunities: {
     sortValue: 'Recommended',
+  },
+  interests: {
+    sortValue: 'Most Recent',
   },
   pagination: {
     Opportunities: {
@@ -57,6 +63,14 @@ const reducer = (state: State = initialState, action): State => {
       s = {
         ...state,
         opportunities: {
+          sortValue: action.payload,
+        },
+      };
+      return s;
+    case TYPES.SET_INTERESTS_SORT_VALUE:
+      s = {
+        ...state,
+        interests: {
           sortValue: action.payload,
         },
       };
