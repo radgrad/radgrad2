@@ -90,6 +90,8 @@ import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import { Roles } from 'meteor/alanning:roles';
 import { ReactiveAggregate } from 'meteor/jcbernack:reactive-aggregate';
+import { Reviews } from '../review/ReviewCollection';
+import { VerificationRequests } from '../verification/VerificationRequestCollection';
 import BaseProfileCollection, { defaultProfilePicture } from './BaseProfileCollection';
 import { CareerGoals } from '../career/CareerGoalCollection';
 import { Courses } from '../course/CourseCollection';
@@ -507,6 +509,18 @@ class StudentProfileCollection extends BaseProfileCollection {
     if (profileOpportunities) {
       ProfileOpportunities.removeUser(username);
       profileOpportunities.forEach((opportunity) => ProfileOpportunities.define({ opportunity, student: username, retired }));
+    }
+    if (_.isBoolean(retired)) {
+      const studentID = profile.userID;
+      // retire the CourseInstances, OpportunityInstances, Reviews, and VerificationRequests
+      const cis = CourseInstances.find({ studentID }).fetch();
+      cis.forEach((ci) => CourseInstances.update(ci._id, { retired }));
+      const ois = OpportunityInstances.find({ studentID }).fetch();
+      ois.forEach((oi) => OpportunityInstances.update(oi._id, { retired }));
+      const reviews = Reviews.find({ studentID }).fetch();
+      reviews.forEach((review) => Reviews.update(review._id, { retired }));
+      const vrs = VerificationRequests.find({ studentID }).fetch();
+      vrs.forEach((vr) => VerificationRequests.update(vr._id, { retired }));
     }
   }
 
