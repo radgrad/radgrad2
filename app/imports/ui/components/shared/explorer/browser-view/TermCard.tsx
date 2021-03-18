@@ -89,7 +89,7 @@ const TermCard: React.FC<TermCard> = ({ item, type }) => {
     }
   });
   return (
-    <Card className="radgrad-interest-card">
+    <Card>
       <Card.Content>
         <Card.Header>
           {name}
