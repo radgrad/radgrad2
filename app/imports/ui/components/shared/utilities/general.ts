@@ -21,3 +21,13 @@ export const replaceTermStringNextFour = (array: string[]): string => {
   const termString = fourRecentTerms.join(' - ');
   return termString.replace(/Summer/g, 'Sum').replace(/Spring/g, 'Spr');
 };
+
+export const getFirstSentance = (description: string): string => {
+  const squareIndex = description.indexOf(']');
+  const parenIndex = description.indexOf(')');
+  let periodIndex = description.indexOf('.');
+  if (squareIndex !== -1 && squareIndex < periodIndex) {
+    periodIndex = description.indexOf('.', parenIndex);
+  }
+  return description.substring(0, periodIndex + 1);
+};

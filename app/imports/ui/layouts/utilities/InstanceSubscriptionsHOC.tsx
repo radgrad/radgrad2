@@ -1,7 +1,7 @@
 import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { SubsManager } from 'meteor/meteorhacks:subs-manager';
-import { Dimmer, Loader } from 'semantic-ui-react';
+import { Loader } from 'semantic-ui-react';
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { FeedbackInstances } from '../../../api/feedback/FeedbackInstanceCollection';
@@ -32,7 +32,9 @@ const instanceSubs = new SubsManager({ cacheLimit: 20, expireIn: 30 });
 const withInstanceSubscriptions = (WrappedComponent) => {
   // console.log('withInstanceSubscriptionsHOC');
   const InstanceSubscriptions: React.FC<Loading> = (props) =>
-    (props.loading ? (<Loader active>Loading user-specific data</Loader>) : (
+    (props.loading ? (
+      <Loader active>Loading user-specific data</Loader>
+    ) : (
       <WrappedComponent {...props} />
     ));
 
