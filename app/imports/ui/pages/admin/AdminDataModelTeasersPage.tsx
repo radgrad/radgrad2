@@ -76,7 +76,7 @@ const AdminDataModelTeasersPage: React.FC<AdminDataModelTeasersPageProps> = (pro
     // console.log('Teasers.handleAdd(%o)', doc);
     const collectionName = collection.getCollectionName();
     const definitionData = doc;
-    definitionData.interests = _.map(doc.interests, interestNameToSlug);
+    definitionData.interests = doc.interests.map(interestNameToSlug);
     definitionData.targetSlug = slugNameAndTypeToName(doc.targetSlug);
     definitionData.url = doc.youtubeID;
     // definitionData.opportunity = opportunityNameToSlug(doc.opportunity);
@@ -152,7 +152,7 @@ const AdminDataModelTeasersPage: React.FC<AdminDataModelTeasersPageProps> = (pro
     const collectionName = collection.getCollectionName();
     const updateData = doc; // create the updateData object from the doc.
     updateData.id = doc._id;
-    updateData.interests = _.map(doc.interests, interestNameToSlug);
+    updateData.interests = doc.interests.map(interestNameToSlug);
     updateData.targetSlug = Slugs.findDoc(doc.targetSlugID).name;
     // console.log(collectionName, updateData);
     updateMethod.call({ collectionName, updateData }, (error) => {

@@ -9,10 +9,10 @@ import { AcademicTerms } from '../academic-term/AcademicTermCollection';
  * @returns {number}
  * @memberOf api/degree-plan
  */
-export function getStudentsCurrentAcademicTermNumber(studentID: string) {
+export const getStudentsCurrentAcademicTermNumber = (studentID: string): number => {
   const cis = CourseInstances.find({ studentID }).fetch();
   let firstAcademicTerm;
-  _.forEach(cis, (ci) => {
+  cis.forEach((ci) => {
     const academicTerm = AcademicTerms.findDoc(ci.termID);
     if (!firstAcademicTerm) {
       firstAcademicTerm = academicTerm;
@@ -22,7 +22,7 @@ export function getStudentsCurrentAcademicTermNumber(studentID: string) {
   });
   const currentAcademicTerm = AcademicTerms.getCurrentAcademicTermDoc();
   return (currentAcademicTerm.termNumber - firstAcademicTerm.termNumber) + 1;
-}
+};
 
 /**
  * Returns an array of the academicTermIDs that the student has taken or is planning to take courses or opportunities
@@ -30,17 +30,17 @@ export function getStudentsCurrentAcademicTermNumber(studentID: string) {
  * @param studentID the studentID.
  * @memberOf api/degree-plan
  */
-export function getStudentTerms(studentID: string) {
+export const getStudentTerms = (studentID: string): string[] => {
   const years = AcademicYearInstances.find({ studentID }, { $sort: { year: 1 } }).fetch();
   let academicTerms = [];
-  _.forEach(years, (ay) => {
+  years.forEach((ay) => {
     academicTerms = _.concat(academicTerms, ay.termIDs);
   });
   const cis = CourseInstances.find({ studentID }).fetch();
   let courseAcademicTerms = [];
-  _.forEach(cis, (ci) => {
+  cis.forEach((ci) => {
     courseAcademicTerms.push(ci.termID);
   });
   courseAcademicTerms = _.uniq(courseAcademicTerms);
   return academicTerms;
-}
+};

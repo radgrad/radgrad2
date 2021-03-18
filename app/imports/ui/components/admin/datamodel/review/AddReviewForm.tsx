@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import _ from 'lodash';
 import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, SelectField, NumField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
@@ -26,10 +25,10 @@ const AddReviewForm: React.FC<AddReviewFormProps> = ({ terms, formRef, handleAdd
     setReviewType(model.reviewType);
   };
 
-  const termNames = _.map(terms, academicTermToName);
+  const termNames = terms.map(academicTermToName);
   const currentTermName = AcademicTerms.toString(AcademicTerms.getCurrentTermID(), false);
-  const courseNames = _.map(courses, courseToName);
-  const opportunityNames = _.map(opportunities, docToName);
+  const courseNames = courses.map(courseToName);
+  const opportunityNames = opportunities.map(docToName);
   const reviewTypes = [Reviews.COURSE, Reviews.OPPORTUNITY];
   let revieweeNames;
   if (reviewType === Reviews.COURSE) {
@@ -37,7 +36,7 @@ const AddReviewForm: React.FC<AddReviewFormProps> = ({ terms, formRef, handleAdd
   } else {
     revieweeNames = opportunityNames;
   }
-  const studentNames = _.map(students, profileToName);
+  const studentNames = students.map(profileToName);
   const schema = new SimpleSchema({
     slug: String,
     academicTerm: {

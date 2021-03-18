@@ -287,7 +287,7 @@ class CourseInstanceCollection extends BaseCollection {
       termID: {
         type: String,
         optional: true,
-        allowedValues: _.map(terms, (term) => term._id),
+        allowedValues: terms.map((term) => term._id),
       },
       verified: { type: Boolean, optional: true },
       fromRegistrar: { type: Boolean, optional: true },

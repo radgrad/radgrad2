@@ -19,12 +19,12 @@ import { defaultProfilePicture } from '../user/BaseProfileCollection';
  * @returns {number} The number of days between a and b.
  * @memberOf api/feed
  */
-function dateDiffInDays(a: string, b: string) {
+const dateDiffInDays = (a: string, b: string): number => {
   const ams = Date.parse(a);
   const bms = Date.parse(b);
   const MS_PER_DAY = 1000 * 60 * 60 * 24;
   return Math.floor((ams - bms) / MS_PER_DAY);
-}
+};
 
 /**
  * Returns true if the timestamp associated with feed is within a day of timestamp.
@@ -33,12 +33,12 @@ function dateDiffInDays(a: string, b: string) {
  * @returns {boolean} True if feed's timestamp is within a day of timestamp.
  * @memberOf api/feed
  */
-function withinPastDay(feed: { timestamp: string }, timestamp: string) {
+const withinPastDay = (feed: { timestamp: string }, timestamp: string): boolean => {
   const feedTime = feed.timestamp;
   const currentFeedTime = timestamp;
   const timeDiff = dateDiffInDays(currentFeedTime, feedTime);
   return (timeDiff === 0);
-}
+};
 
 /**
  * Represents a feed instance.
@@ -524,7 +524,7 @@ class FeedCollection extends BaseCollection {
   public checkIntegrity() {
     const problems = [];
     this.find().forEach((doc) => {
-      _.forEach(doc.userIDs, (userID) => {
+      doc.userIDs.forEach((userID) => {
         if (!Users.isDefined(userID)) {
           problems.push(`Bad userID: ${userID}`);
         }
@@ -551,7 +551,7 @@ class FeedCollection extends BaseCollection {
     const doc = this.findDoc(docID);
     let user;
     if (doc.userIDs) {
-      user = _.map(doc.userIDs, (userID) => Users.getProfile(userID).username);
+      user = doc.userIDs.map((userID) => Users.getProfile(userID).username);
     }
     let opportunity;
     if (doc.opportunityID) {

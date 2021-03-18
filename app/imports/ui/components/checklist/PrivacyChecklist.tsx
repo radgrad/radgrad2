@@ -1,89 +1,65 @@
 import React from 'react';
-import { Button, Header, Icon } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
-import { ChecklistState } from '../../../api/checklist/ChecklistState';
 import { Users } from '../../../api/user/UserCollection';
 import { StudentProfile } from '../../../typings/radgrad';
-import { PRIVACY, URL_ROLES } from '../../layouts/utilities/route-constants';
+import {PRIVACY, URL_ROLES} from '../../layouts/utilities/route-constants';
 import StudentPrivacySettingList from '../student/StudentPrivacySettingList';
-import { Checklist } from './Checklist';
-import '../../../../client/style.css';
+import {Checklist, CHECKSTATE} from './Checklist';
+import {DetailsBox} from './DetailsBox';
+import {ActionsBox} from './ActionsBox';
+import {ChecklistButtonLink} from './ChecklistButtons';
 
 export class PrivacyChecklist extends Checklist {
   private profile: StudentProfile;
 
-  constructor(name: string, student: string) {
-    super(name);
+  constructor(student: string) {
+    super();
+    this.name = 'Privacy';
     this.profile = Users.getProfile(student);
-    // console.log('PrivacyChecklist', this.profile, StudentProfiles.findDoc(student));
+    this.iconName = 'privacy';
+    this.title[CHECKSTATE.OK] = 'Thanks! You recently reviewed your Privacy settings';
+    this.title[CHECKSTATE.REVIEW] = 'We notice you have not reviewed your Privacy settings recently';
+    // Specify the description for each state.
+    this.description[CHECKSTATE.OK] = 'Thanks for reviewing your privacy settings.';
+    this.description[CHECKSTATE.REVIEW] = `RadGrad is designed to support community building by helping you to find other students
+      with similar interests and goals. However, we don't want to share your information without your consent. The more
+      information that you choose to share, the easier it is for RadGrad to help connect you with other students.`;
+
     this.updateState();
   }
 
   public updateState(): void {
     if (this.profile.lastVisitedPrivacy) {
       if (this.isSixMonthsOld(this.profile.lastVisitedPrivacy)) {
-        this.state = 'Review';
+        this.state = CHECKSTATE.REVIEW;
       } else {
-        this.state = 'Awesome';
+        this.state = CHECKSTATE.OK;
       }
     } else {
       // no lastLeveledUp info
-      this.state = 'Review';
+      this.state = CHECKSTATE.REVIEW;
     }
   }
 
-  public getIcon(): string | JSX.Element {
-    return <Icon name="privacy" color="grey" /> ;
+  public getDetails(): JSX.Element {
+    return (
+      <DetailsBox description='Your privacy settings are:'>
+        <StudentPrivacySettingList profile={this.profile} size="medium" />
+      </DetailsBox>
+    );
   }
 
-  public getTitle(state: ChecklistState): JSX.Element {
-    switch (state) {
-      case 'Review':
-        return <Header as='h1'>We notice you have not reviewed your <strong>Privacy Settings</strong> recently</Header>;
-      case 'Awesome':
-        return <Header as='h1'>You recently reviewed your <strong>Privacy Settings</strong></Header>;
+  public getActions(): JSX.Element {
+    switch (this.state) {
+      case CHECKSTATE.REVIEW:
+      case CHECKSTATE.OK:
+      case CHECKSTATE.IMPROVE:
+        return (
+          <ActionsBox description='Go to the Privacy page to review and adjust the contents of your public profile:'>
+            <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${PRIVACY}`} label='Privacy Page'/>
+          </ActionsBox>
+        );
       default:
         return <React.Fragment />;
     }
   }
-
-  public getDescription(state: ChecklistState): JSX.Element {
-    switch (state) {
-      case 'Review':
-        return <p>RadGrad is designed to support community building by helping you to find other students with similar
-          interests and goals. However, we don&apos;t want to share your information without your consent. The more
-          information that you choose to share, the easier it is for RadGrad to help connect you with other
-          students.</p>;
-      case 'Awesome':
-        return <p>Thanks for reviewing your privacy settings.</p>;
-      default:
-        return <React.Fragment />;
-    }
-  }
-
-  public getDetails(state: ChecklistState): JSX.Element {
-    switch (state) {
-      case 'Review':
-        return <div className='highlightBox'><p>Your current privacy settings are:</p>
-          <StudentPrivacySettingList profile={this.profile} size="medium" /></div>;
-      case 'Awesome':
-        return <div className='centeredBox'><p>The Privacy page allows you to change your privacy settings </p>
-          <Button size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${PRIVACY}`}>Go To Privacy Page</Button>
-        </div>;
-      default:
-        return <React.Fragment />;
-    }
-  }
-
-  public getActions(state: ChecklistState): JSX.Element {
-    switch (state) {
-      case 'Review':
-        return <div className='centeredBox'><p>Click &quot;Go to Privacy Page&quot; to go to the privacy page.</p>
-          <Button size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${PRIVACY}`}>Go To Privacy Page</Button>
-        </div>;
-      default:
-        return <React.Fragment />;
-    }
-  }
-
 }

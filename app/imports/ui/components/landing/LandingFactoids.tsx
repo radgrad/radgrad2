@@ -38,9 +38,9 @@ const LandingFactoids: React.FC<LandingFactoidsProps> = ({ careerGoalFactoid, in
     };
   });
 
-  function tick() {
+  const tick = () => {
     setIndex((index + 1) % factoidInfo.length);
-  }
+  };
   const landingStyle = {
     height: 200,
   };

@@ -1,5 +1,4 @@
 import React from 'react';
-import _ from 'lodash';
 import moment from 'moment';
 import { useParams } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
@@ -38,7 +37,7 @@ const CareerGoalBrowserViewPage: React.FC<CareerGoalBrowserViewPageProps> = ({
   profileInterestIDs,
   careerGoals,
 }) => {
-  const menuAddedList = _.map(profileCareerGoals, (f) => ({ item: f, count: 1 }));
+  const menuAddedList = profileCareerGoals.map((f) => ({ item: f, count: 1 }));
   return (
     <PageLayout id="career-goal-browser-view-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
       <Grid stackable>
@@ -75,7 +74,7 @@ export default withTracker(() => {
     }
   }
   const favCar = ProfileCareerGoals.findNonRetired({ userID: profile.userID });
-  const profileCareerGoals = _.map(favCar, (f) => CareerGoals.findDoc(f.careerGoalID));
+  const profileCareerGoals = favCar.map((f) => CareerGoals.findDoc(f.careerGoalID));
   const profileInterestIDs = Users.getInterestIDs(username);
   const careerGoals = CareerGoals.findNonRetired({});
   return {

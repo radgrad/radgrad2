@@ -1,7 +1,6 @@
 import React from 'react';
 import { Header, Label } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import _ from 'lodash';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { EXPLORER_TYPE } from '../../layouts/utilities/route-constants';
 import { Slugs } from '../../../api/slug/SlugCollection';
@@ -14,7 +13,7 @@ interface WithInterestsProps {
 const getSlugName = (interest: Interest) => Slugs.getNameFromID(interest.slugID);
 
 const LandingInterestList: React.FC<WithInterestsProps> = ({ interestIDs }) => {
-  const interests: Interest[] = _.map(interestIDs, (id) => Interests.findDoc(id));
+  const interests: Interest[] = interestIDs.map((id) => Interests.findDoc(id));
   const labelStyle = { marginBottom: '2px' };
   return (
     <React.Fragment>

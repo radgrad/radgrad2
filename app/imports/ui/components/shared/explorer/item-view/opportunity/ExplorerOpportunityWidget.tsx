@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import React from 'react';
 import { useParams, useRouteMatch } from 'react-router-dom';
 import { Divider, Grid, Header, Segment } from 'semantic-ui-react';
@@ -84,7 +83,7 @@ const ExplorerOpportunityWidget: React.FC<ExplorerOpportunitiesWidgetProps> = ({
     },
   );
   const scores = [];
-  _.forEach(academicTerms, (term: AcademicTerm) => {
+  academicTerms.forEach((term: AcademicTerm) => {
     const id = `${item._id} ${term._id}`;
     const score = OpportunityForecastCollection.find({ _id: id }).fetch() as { count: number }[];
     if (score.length > 0) {

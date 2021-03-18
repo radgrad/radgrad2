@@ -33,26 +33,24 @@ interface cloudinaryObject {
  * @param nameAttribute The value of the associated input field's name attribute.
  * @memberOf ui/components/form-fields
  */
-export function openCloudinaryWidget() {
-  return new Promise<cloudinaryObject>((resolve, reject) => cloudinary.openUploadWidget(
-    {
-      cloud_name: Meteor.settings.public.cloudinary.cloud_name,
-      upload_preset: Meteor.settings.public.cloudinary.upload_preset,
-      sources: ['local', 'url', 'camera'],
-      cropping: 'server',
-      cropping_aspect_ratio: 1,
-      max_file_size: '500000',
-      max_image_width: '500',
-      max_image_height: '500',
-      min_image_width: '200',
-      min_image_height: '200',
-    }, (error, result) => {
-      if (error) {
-        reject(error);
-      }
-      if (result.event === 'success') {
-        resolve(result);
-      }
-    },
-  ));
-}
+export const openCloudinaryWidget = () => new Promise<cloudinaryObject>((resolve, reject) => cloudinary.openUploadWidget(
+  {
+    cloud_name: Meteor.settings.public.cloudinary.cloud_name,
+    upload_preset: Meteor.settings.public.cloudinary.upload_preset,
+    sources: ['local', 'url', 'camera'],
+    cropping: 'server',
+    cropping_aspect_ratio: 1,
+    max_file_size: '500000',
+    max_image_width: '500',
+    max_image_height: '500',
+    min_image_width: '200',
+    min_image_height: '200',
+  }, (error, result) => {
+    if (error) {
+      reject(error);
+    }
+    if (result.event === 'success') {
+      resolve(result);
+    }
+  },
+));

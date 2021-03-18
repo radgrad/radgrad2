@@ -32,7 +32,7 @@ const descriptionPairs = (item: Opportunity): DescriptionPair[] => [
   { label: 'Opportunity Type', value: OpportunityTypes.findDoc(item.opportunityTypeID).name },
   { label: 'Sponsor', value: Users.getProfile(item.sponsorID).username },
   { label: 'Interests', value: _.sortBy(Interests.findNames(item.interestIDs)) },
-  { label: 'Academic Terms', value: _.map(item.termIDs, (id: string) => AcademicTerms.toString(id, false)) },
+  { label: 'Academic Terms', value: item.termIDs.map((id: string) => AcademicTerms.toString(id, false)) },
   { label: 'ICE', value: `${item.ice.i}, ${item.ice.c}, ${item.ice.e}` },
   { label: 'Picture', value: makeMarkdownLink(item.picture) },
   { label: 'Retired', value: item.retired ? 'True' : 'False' },
@@ -76,8 +76,8 @@ const AdminDataModelOpportunitiesPage: React.FC<AdminDataModelOpportunitiesPageP
     // console.log('Opportunities.handleAdd(%o)', doc);
     const collectionName = collection.getCollectionName();
     const definitionData = doc;
-    const interests = _.map(doc.interests, interestSlugFromName);
-    const terms = _.map(doc.terms, academicTermNameToSlug);
+    const interests = doc.interests.map(interestSlugFromName);
+    const terms = doc.terms.map(academicTermNameToSlug);
     definitionData.interests = interests;
     definitionData.terms = terms;
     definitionData.opportunityType = opportunityTypeNameToSlug(doc.opportunityType);
@@ -156,8 +156,8 @@ const AdminDataModelOpportunitiesPage: React.FC<AdminDataModelOpportunitiesPageP
     updateData.id = doc._id;
     updateData.opportunityType = opportunityTypeNameToSlug(doc.opportunityType);
     updateData.sponsor = profileNameToUsername(doc.sponsor);
-    updateData.interests = _.map(doc.interests, interestSlugFromName);
-    updateData.academicTerms = _.map(doc.terms, academicTermNameToSlug);
+    updateData.interests = doc.interests.map(interestSlugFromName);
+    updateData.academicTerms = doc.terms.map(academicTermNameToSlug);
     // console.log(collectionName, updateData);
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
@@ -226,19 +226,21 @@ const AdminDataModelOpportunitiesPageContainer = withTracker(() => {
   const after = currentTermNumber - 8;
   const before = currentTermNumber + 16;
   const allTerms = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();
-  const terms = _.filter(allTerms, (t) => t.termNumber >= after && t.termNumber <= before);
+  const terms = allTerms.filter((t) => t.termNumber >= after && t.termNumber <= before);
   const faculty = FacultyProfiles.find({}).fetch();
   const advisors = AdvisorProfiles.find({}).fetch();
   const sponsorDocs = _.union(faculty, advisors);
   const sponsors = _.sortBy(sponsorDocs, ['lastName', 'firstName']);
   const items = Opportunities.find({}, { sort: { name: 1 } }).fetch();
   const modelCount = getDatamodelCount();
+  const opportunityTypes = OpportunityTypes.find({}).fetch();
   return {
     ...modelCount,
     sponsors,
     terms,
     items,
     interests,
+    opportunityTypes,
   };
 })(AdminDataModelOpportunitiesPage);
 

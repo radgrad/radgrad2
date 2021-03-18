@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import React from 'react';
 import { Button, Card, Icon } from 'semantic-ui-react';
 import { connect } from 'react-redux';
@@ -49,7 +48,7 @@ const handleRemove = (selectCourseInstance, match) => (event, { value }) => {
       const academicTerm: AcademicTerm = AcademicTerms.findDoc({ _id: instanceObject.termID });
       const interactionData: UserInteractionDefine = {
         username: getUsername(match),
-        type: UserInteractionsTypes.REMOVECOURSE,
+        type: UserInteractionsTypes.REMOVE_COURSE,
         typeData: [academicTerm.term, academicTerm.year, slugName],
       };
       userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
@@ -83,7 +82,7 @@ const DetailCourseCard: React.FC<DetailCourseCardProps> = ({ instance, selectCou
     },
   );
   const scores = [];
-  _.forEach(academicTerms, (term: AcademicTerm) => {
+  academicTerms.forEach((term: AcademicTerm) => {
     const id = `${course._id} ${term._id}`;
     const score = CourseForecastCollection.find({ _id: id }).fetch() as { count: number }[];
     if (score.length > 0) {

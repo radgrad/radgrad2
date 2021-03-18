@@ -1,5 +1,4 @@
 import React from 'react';
-import _ from 'lodash';
 import { Header, Card, List } from 'semantic-ui-react';
 import moment from 'moment';
 
@@ -26,7 +25,8 @@ const VerificationRequestStatus: React.FC<VerificationRequestStatusProps> = ({ r
         <React.Fragment>
           <strong>Documentation: </strong>
           <List bulleted>
-            {_.map(request.processed, (process, index) => (
+            {request.processed.map((process, index) => (
+              // eslint-disable-next-line react/no-array-index-key
               <List.Item key={index}>
                 <b>
                   ({process.status}) {moment(process.date).calendar()}

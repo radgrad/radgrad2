@@ -4,7 +4,6 @@ import SimpleSchema from 'simpl-schema';
 import { AutoForm, LongTextField, SelectField, SubmitField } from 'uniforms-semantic/';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import { Accordion, Form, Icon } from 'semantic-ui-react';
-import _ from 'lodash';
 import { useRouteMatch } from 'react-router-dom';
 import { Reviews } from '../../../../api/review/ReviewCollection';
 import RatingField from './RatingField';
@@ -77,7 +76,7 @@ const StudentExplorerAddReviewForm: React.FC<StudentExplorerAddReviewFormProps> 
         }
         const interactionData: UserInteractionDefine = {
           username,
-          type: UserInteractionsTypes.ADDREVIEW,
+          type: UserInteractionsTypes.ADD_REVIEW,
           typeData: [reviewType, academicTermSlug, slug],
         };
         userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
@@ -106,7 +105,7 @@ const StudentExplorerAddReviewForm: React.FC<StudentExplorerAddReviewFormProps> 
         opportunityID: opportunity._id,
       });
     }
-    _.forEach(instances, (instance) => {
+    instances.forEach((instance) => {
       const term = AcademicTerms.findDoc(instance.termID);
       if (term.termNumber <= AcademicTerms.getCurrentAcademicTermDoc().termNumber) {
         academicTerms.push(AcademicTerms.findDoc(instance.termID));
@@ -123,7 +122,7 @@ const StudentExplorerAddReviewForm: React.FC<StudentExplorerAddReviewFormProps> 
   const paddedContainerStyle = { paddingBottom: '1.5em' };
 
   const terms = academicTerm();
-  const academicTermNames = _.map(terms, (term) => `${term.term} ${term.year}`);
+  const academicTermNames = terms.map((term) => `${term.term} ${term.year}`);
   const schema = new SimpleSchema({
     academicTerm: {
       type: String,

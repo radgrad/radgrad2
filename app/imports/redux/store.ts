@@ -19,7 +19,7 @@ export const rootReducer = (history: History) =>
 
 export const history = createHashHistory();
 
-export default function configureStore(preloadedState) {
+const configureStore = (preloadedState) => {
   const store = createStore(
     rootReducer(history),
     preloadedState,
@@ -30,4 +30,6 @@ export default function configureStore(preloadedState) {
     ),
   );
   return store;
-}
+};
+
+export default configureStore;

@@ -15,60 +15,60 @@ import { profileGetInterestIDs } from '../../ui/components/shared/utilities/data
  * @return {*}
  * @memberOf api/opportunity
  */
-export function getRandomInt(min, max) {
+export const getRandomInt = (min: number, max: number): number => {
   min = Math.ceil(min); // eslint-disable-line no-param-reassign
   max = Math.floor(max); // eslint-disable-line no-param-reassign
   return Math.floor(Math.random() * (max - min)) + min;
-}
+};
 
 /**
  * Removes the planned Opportunities for the given studentID.
  * @param studentID
  * @memberOf api/opportunity
  */
-export function clearPlannedOpportunityInstances(studentID: string) {
-  const courses = OpportunityInstances.find({ studentID, verified: false }).fetch();
-  _.forEach(courses, (oi) => {
+export const clearPlannedOpportunityInstances = (studentID: string): void => {
+  const ois = OpportunityInstances.find({ studentID, verified: false }).fetch();
+  ois.forEach((oi) => {
     const requests = VerificationRequests.find({ studentID, opportunityInstanceID: oi._id }).fetch();
     if (requests.length === 0) {
       OpportunityInstances.removeIt(oi);
     }
   });
-}
+};
 
-export function calculateOpportunityCompatibility(opportunityID: string, studentID: string) {
+export const calculateOpportunityCompatibility = (opportunityID: string, studentID: string): number => {
   const course = Opportunities.findDoc(opportunityID);
   const profile = Users.getProfile(studentID);
   const studentInterests = profileGetInterestIDs(profile);
   const intersection = _.intersection(course.interestIDs, studentInterests);
   return intersection.length;
-}
+};
 
-export function academicTermOpportunities(academicTerm, academicTermNumber) {
+export const academicTermOpportunities = (academicTerm, academicTermNumber) => {
   const id = academicTerm._id;
   const opps = Opportunities.find().fetch();
-  const academicTermOpps = _.filter(opps, (opportunity) => _.indexOf(opportunity.termIDs, id) !== -1);
+  const academicTermOpps = opps.filter((opportunity) => _.indexOf(opportunity.termIDs, id) !== -1);
   if (academicTermNumber < 3) { // AY 1.
-    return _.filter(academicTermOpps, (opportunity) => {
+    return academicTermOpps.filter((opportunity) => {
       const type = Opportunities.getOpportunityTypeDoc(opportunity._id);
       return type.name === 'Club';
     });
   }
   if (academicTermNumber < 6) {
-    return _.filter(academicTermOpps, (opportunity) => {
+    return academicTermOpps.filter((opportunity) => {
       const type = Opportunities.getOpportunityTypeDoc(opportunity._id);
       return type.name === 'Event' || type.name === 'Club';
     });
   }
   return academicTermOpps;
-}
+};
 
-export function getStudentAcademicTermOpportunityChoices(academicTerm: string, academicTermNumber: number, studentID: string) {
+export const getStudentAcademicTermOpportunityChoices = (academicTerm: string, academicTermNumber: number, studentID: string) => {
   const opportunities = academicTermOpportunities(academicTerm, academicTermNumber);
   const oppInstances = OpportunityInstances.find({ studentID }).fetch();
-  const filtered = _.filter(opportunities, (opp) => {
+  const filtered = opportunities.filter((opp) => {
     let taken = true;
-    _.forEach(oppInstances, (oi) => {
+    oppInstances.forEach((oi) => {
       if (oi.opportunityID === opp._id) {
         taken = false;
       }
@@ -76,9 +76,9 @@ export function getStudentAcademicTermOpportunityChoices(academicTerm: string, a
     return taken;
   });
   return filtered;
-}
+};
 
-export function chooseStudentAcademicTermOpportunity(academicTerm: string, academicTermNumber: number, studentID: string) {
+export const chooseStudentAcademicTermOpportunity = (academicTerm: string, academicTermNumber: number, studentID: string) => {
   const choices = getStudentAcademicTermOpportunityChoices(academicTerm, academicTermNumber, studentID);
   const profile = Users.getProfile(studentID);
   const interestIDs = profileGetInterestIDs(profile);
@@ -88,27 +88,27 @@ export function chooseStudentAcademicTermOpportunity(academicTerm: string, acade
     return best[getRandomInt(0, best.length)];
   }
   return null;
-}
+};
 
-export function getStudentCurrentAcademicTermOpportunityChoices(studentID: string) {
+export const getStudentCurrentAcademicTermOpportunityChoices = (studentID: string) => {
   const currentAcademicTerm = AcademicTerms.getCurrentAcademicTermDoc();
   const academicTermNum = getStudentsCurrentAcademicTermNumber(studentID);
   return getStudentAcademicTermOpportunityChoices(currentAcademicTerm, academicTermNum, studentID);
-}
+};
 
-export function getRecommendedCurrentAcademicTermOpportunityChoices(studentID) {
+export const getRecommendedCurrentAcademicTermOpportunityChoices = (studentID: string) => {
   const choices = getStudentCurrentAcademicTermOpportunityChoices(studentID);
   const profile = Users.getProfile(studentID);
   const interestIDs = profileGetInterestIDs(profile);
   const preferred = new PreferredChoice(choices, interestIDs);
   const best = preferred.getBestChoices();
   return best;
-}
+};
 
-export function chooseCurrentAcademicTermOpportunity(studentID: string) {
+export const chooseCurrentAcademicTermOpportunity = (studentID: string) => {
   const best = getRecommendedCurrentAcademicTermOpportunityChoices(studentID);
   if (best) {
     return best[getRandomInt(0, best.length)];
   }
   return null;
-}
+};

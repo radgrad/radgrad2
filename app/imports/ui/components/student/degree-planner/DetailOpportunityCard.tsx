@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import React from 'react';
 import { Button, Card, Icon } from 'semantic-ui-react';
 import { Link, useRouteMatch } from 'react-router-dom';
@@ -54,7 +53,7 @@ const handleRemove = (selectOpportunityInstance, match) => (event, { value }) =>
       const academicTerm: AcademicTerm = AcademicTerms.findDoc({ _id: instanceObject.termID });
       const interactionData: UserInteractionDefine = {
         username: getUsername(match),
-        type: UserInteractionsTypes.REMOVEOPPORTUNITY,
+        type: UserInteractionsTypes.REMOVE_OPPORTUNITY,
         typeData: [academicTerm.term, academicTerm.year, slugName],
       };
       userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
@@ -90,7 +89,7 @@ const handleVerificationRequest = (instance, match) => (model) => {
       const typeData = [slugName];
       const interactionData: UserInteractionDefine = {
         username,
-        type: UserInteractionsTypes.VERIFYREQUEST,
+        type: UserInteractionsTypes.VERIFY_REQUEST,
         typeData,
       };
       userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
@@ -103,7 +102,7 @@ const handleVerificationRequest = (instance, match) => (model) => {
 };
 
 const DetailOpportunityCard: React.FC<DetailOpportunityCardProps> = ({ instance, verificationRequests, selectOpportunityInstance }) => {
-  const verificationRequeststoShow = _.filter(verificationRequests, (vr) => vr.opportunityInstanceID === instance._id);
+  const verificationRequeststoShow = verificationRequests.filter((vr) => vr.opportunityInstanceID === instance._id);
   const match = useRouteMatch();
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
   const opportunityTerm = AcademicTerms.findDoc(instance.termID);
@@ -125,7 +124,7 @@ const DetailOpportunityCard: React.FC<DetailOpportunityCardProps> = ({ instance,
     },
   );
   const scores = [];
-  _.forEach(academicTerms, (term: AcademicTerm) => {
+  academicTerms.forEach((term: AcademicTerm) => {
     const id = `${opportunity._id} ${term._id}`;
     const score = OpportunityForecastCollection.find({ _id: id }).fetch() as { count: number }[];
     if (score.length > 0) {

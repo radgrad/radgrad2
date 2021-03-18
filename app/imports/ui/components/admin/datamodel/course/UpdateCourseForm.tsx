@@ -3,7 +3,6 @@ import { Button, Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, NumField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
-import _ from 'lodash';
 import BaseCollection from '../../../../../api/base/BaseCollection';
 import { Course, Interest } from '../../../../../typings/radgrad';
 import { courseSlugToName, courseToName, docToName, interestIdToName } from '../../../shared/utilities/data-model';
@@ -22,10 +21,10 @@ interface UpdateCourseFormProps {
 
 const UpdateCourseForm: React.FC<UpdateCourseFormProps> = ({ collection, courses, interests, id, formRef, handleCancel, handleUpdate, itemTitleString }) => {
   const model = id ? collection.findDoc(id) : undefined;
-  model.interests = _.map(model.interestIDs, interestIdToName);
-  model.prerequisiteNames = _.map(model.prerequisites, courseSlugToName);
-  const interestNames = _.map(interests, docToName);
-  const courseNames = _.map(courses, courseToName);
+  model.interests = model.interestIDs.map(interestIdToName);
+  model.prerequisiteNames = model.prerequisites.map(courseSlugToName);
+  const interestNames = interests.map(docToName);
+  const courseNames = courses.map(courseToName);
   const schema = new SimpleSchema({
     name: { type: String, optional: true },
     shortName: { type: String, optional: true },

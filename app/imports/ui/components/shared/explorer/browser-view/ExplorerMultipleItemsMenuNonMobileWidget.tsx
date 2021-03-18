@@ -7,7 +7,7 @@ import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
 import ExplorerMenuNonMobileItem from '../item-view/ExplorerMenuNonMobileItem';
 import { ExplorerInterfaces, IExplorerTypes, isType } from '../utilities/explorer';
 import { buildRouteName, isUrlRoleAdvisor, isUrlRoleFaculty, isUrlRoleStudent } from '../../utilities/router';
-import '../../../../../../client/style.css';
+// import '../../../../../../client/style.css';
 
 const AppMedia = createMedia({
   breakpoints: {

@@ -1,9 +1,6 @@
 import moment from 'moment';
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Button, Header, Icon } from 'semantic-ui-react';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
-import { ChecklistState } from '../../../api/checklist/ChecklistState';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
@@ -11,16 +8,36 @@ import { Users } from '../../../api/user/UserCollection';
 import { Ice, StudentProfile, StudentProfileUpdate } from '../../../typings/radgrad';
 import { DEGREEPLANNER, EXPLORER, ICE, URL_ROLES } from '../../layouts/utilities/route-constants';
 import ProfileFutureCoursesList from '../shared/ProfileFutureCoursesList';
-import { Checklist } from './Checklist';
-import '../../../../client/style.css';
+import {Checklist, CHECKSTATE} from './Checklist';
+import {DetailsBox} from './DetailsBox';
+import {ActionsBox} from './ActionsBox';
+import {ChecklistButtonAction, ChecklistButtonLink} from './ChecklistButtons';
 
 export class CoursesChecklist extends Checklist {
   private profile: StudentProfile;
 
-  constructor(name: string, student: string) {
-    super(name);
+  constructor(student: string) {
+    super();
+    this.name = 'Courses';
     this.profile = Users.getProfile(student);
-    // console.log('CoursesChecklist', this.profile, StudentProfiles.findDoc(student));
+    this.iconName = 'book';
+    // Specify title for each state.
+    this.title[CHECKSTATE.OK] = 'The Courses in your Degree Plan appear to be OK';
+    this.title[CHECKSTATE.REVIEW] = 'Please confirm that the Courses in your Degree Plan are OK';
+    this.title[CHECKSTATE.IMPROVE] = 'Please add Courses to your Degree Plan so that you are on track to earn 100 Competency points';
+    // Specify the description for each state.
+    this.description[CHECKSTATE.OK] = `Congrats! Your Degree Plan contains Courses that should eventually earn you at least 100
+      Competency points, and you've reviewed your Degree Plan within the past six months to be sure it is up to date.`;
+    this.description[CHECKSTATE.REVIEW] = (this.isSixMonthsOld(this.profile.lastVisitedCourses)) ?
+      `You have enough Courses added to your Degree Plan to eventually earn 100 Competency points, but it's
+       been at least six months since you've reviewed your Degree Plan. So, we want to check that the Degree
+       Planner reflects your future Course plans.`
+      :
+      'There are new Courses since you last reviewed your Degree Plan. Perhaps you want to add them?';
+
+    this.description[CHECKSTATE.IMPROVE] = `Specifying the Courses you plan to take in the future helps you in several ways. 
+      First, it helps you balance your curricular and extracurricular activities each semester. Second, it tells RadGrad what
+      interests you are developing skills in, which helps RadGrad to provide recommendations.`;
     this.updateState();
   }
 
@@ -28,72 +45,34 @@ export class CoursesChecklist extends Checklist {
     const username = this.profile.username;
     const projectedICE: Ice = StudentProfiles.getProjectedICE(username);
     if (projectedICE.c < 100) {
-      this.state = 'Improve';
+      this.state = CHECKSTATE.IMPROVE;
     } else if (this.profile.lastVisitedCourses) {
       const lastVisit = moment(this.profile.lastVisitedCourses, 'YYYY-MM-DD', true);
-      // console.log(this.profile.lastVisitedInterests, PublicStats.getPublicStat(PublicStats.interestsUpdateTime));
-      if (lastVisit.isBefore(moment(PublicStats.getPublicStat(PublicStats.coursesUpdateTime), 'YYYY-MM-DD-HH-mm-ss'))) {
-        this.state = 'Review';
+      const lastUpdate = PublicStats.getLastUpdateTimestamp(PublicStats.coursesUpdateTime);
+      if (lastVisit.isBefore(lastUpdate)) {
+        this.state = CHECKSTATE.REVIEW;
       } else if (this.isSixMonthsOld(this.profile.lastVisitedCourses)) {
-        this.state = 'Review';
+        this.state = CHECKSTATE.REVIEW;
         // TODO check for new course reviews for future course instances.
       } else {
-        this.state = 'Awesome';
+        this.state = CHECKSTATE.OK;
       }
-    } else {
-      // console.log('no last visited page');
-      this.state = 'Review';
-    }
-    // console.log(this.state);
-  }
-
-  public getIcon(): string | JSX.Element {
-    return <Icon name="book" color="grey" /> ;
-  }
-
-  public getTitle(state: ChecklistState): JSX.Element {
-    switch (state) {
-      case 'Awesome':
-        return <Header as='h1'>The <strong>Courses</strong> in your <strong>Degree Plan</strong> appear to be OK</Header>;
-      case 'Review':
-        return <Header as='h1'>Please confirm that the <strong>Courses</strong> in your <strong>Degree Plan</strong> are correct</Header>;
-      case 'Improve':
-        return <Header as='h1'>Please add more <strong>Future Courses</strong> to your <strong>Degree Plan</strong> so that you are on track to earn <strong>100
-          Competency</strong> points</Header>;
-      default:
-        return <React.Fragment />;
+    } else { // No last visited timestamp
+      this.state = CHECKSTATE.REVIEW;
     }
   }
 
-  public getDescription(state: ChecklistState): JSX.Element {
-    switch (state) {
-      case 'Awesome':
-        return <p>Congrats! Your Degree Plan contains Courses that should eventually earn you at least 100 Competency
-          points, and you&apos;ve reviewed your Degree Plan within the past six months to be sure it is up to date.</p>;
-      case 'Review':
-        if (this.isSixMonthsOld(this.profile.lastVisitedCourses)) {
-          return <p>You have enough Courses added to your Degree Plan to eventually earn 100 Competency points, but it&apos;s
-            been at least six months since you&apos;ve reviewed your Degree Plan. So, we want to check that the Degree
-            Planner reflects your future Course plans. </p>;
-        }
-        return <p>There are new Courses since you last reviewed your Degree Plan. Perhaps you want to add them?</p>;
-      // TODO add case for new reviews.
-      case 'Improve':
-        return <p>Specifying the Courses you plan to take in the future helps you in several ways. First, it helps you balance your curricular and extracurricular activities each semester. Second, it tells RadGrad what interests you are developing skills in, which helps RadGrad to provide recommendations.</p>;
-      default:
-        return <React.Fragment />;
-    }
+  public getDetails(): JSX.Element {
+    const upcomingCourses = CourseInstances.findNonRetired({ studentID: this.profile.userID, verified: false });
+    return ((upcomingCourses.length === 0) ?
+        <DetailsBox description='Note: You do not have any upcoming Courses in your Degree Plan. Are you graduating?'/> :
+        <DetailsBox description='Here are your upcoming Courses:'>
+          <ProfileFutureCoursesList profile={this.profile} size="medium" />
+        </DetailsBox>
+    );
   }
 
-  public getDetails(state: ChecklistState): JSX.Element {
-    const futureCourseInstances = CourseInstances.findNonRetired({ studentID: this.profile.userID, verified: false });
-    if (futureCourseInstances.length === 0) {
-      return <p>You do not have any future Courses in your Degree Plan.</p>;
-    }
-    return <div className='highlightBox'><p>Here are your future Courses: &nbsp;</p><ProfileFutureCoursesList profile={this.profile} size="medium" /></div>;
-  }
-
-  public getActions(state: ChecklistState): JSX.Element {
+  public getActions(): JSX.Element {
     const handleVerification = () => {
       const collectionName = StudentProfiles.getCollectionName();
       const updateData: StudentProfileUpdate = {};
@@ -105,28 +84,26 @@ export class CoursesChecklist extends Checklist {
         }
       });
     };
-    switch (state) {
-      case 'Awesome':
-        return <div className='centeredBox'>
-          <p>Click &quot;Go To Degree Planner&quot; if you still want to see the courses in your Degree Plan, or
-          click &quot;Go to Course Explorer&quot; if you still want to search for additional Courses to include in your
-          Degree Plan.</p>
-          <Button size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${DEGREEPLANNER}`}>Go To Degree Planner</Button>&nbsp;&nbsp;
-          <Button basic size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.COURSES}`}>Go To Course Explorer</Button>
-        </div>;
-      case 'Improve':
-        return <div className='centeredBox'><p>Click &quot;Go To Course Explorer&quot; to review the available Courses in RadGrad and add interesting ones to your profile. Or, click &quot;Go To Degree Planner&quot; to go directly to the Degree Planner page to add courses from your profile to a future semester in your degree plan</p>
-          <Button size='huge' color='teal'  as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.COURSES}`}>Go To Course Explorer</Button>&nbsp;&nbsp;
-          <Button basic size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${DEGREEPLANNER}`}>Go To Degree Planner</Button>
-        </div>;
-      case 'Review':
-        return <div className='centeredBox'>
-          <p>Click &quot;Go To Course Explorer&quot; to search for courses and add new ones to your profile, or to see new reviews. Click &quot;Go To Degree Planner&quot; to review your degree plan and potentially move or remove Courses. Click &quot;Go To ICE page&quot; to learn more about Competency points.  Click &quot;My Courses are OK&quot; to confirm that your current Degree Plan is correct.</p>
-          <Button size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${DEGREEPLANNER}`}>Go To Degree Planner</Button>&nbsp;&nbsp;
-          <Button basic size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.COURSES}`}>Go To Course Explorer</Button><br/><br/>
-          <Button size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${ICE}`}>Go To ICE</Button>&nbsp;&nbsp;
-          <Button basic size='huge' color='teal' onClick={handleVerification}>My Courses are OK</Button>
-        </div>;
+    switch (this.state) {
+      case CHECKSTATE.OK:
+      case CHECKSTATE.IMPROVE:
+        return (
+          <ActionsBox description='Go to the Course Explorer to review available Courses and add interesting ones to your profile. Or, go to the Degree Planner to add courses from your profile to your degree plan.' >
+            <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.COURSES}`} label='Courses Explorer'/>
+            <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${DEGREEPLANNER}`} label='Degree Planner'/>
+          </ActionsBox>
+        );
+      case CHECKSTATE.REVIEW:
+        return (
+          <ActionsBox description={`Go to the Course Explorer to review available Courses and add them to your profile. Or, go to the Degree Planner to add Course(s) from your profile to your degree plan, or to remove Courses from your degree plan that you no longer plan to take. 
+      
+You can go to the ICE Page to learn more about how Courses earn you Competency points. Finally, you can click "Courses are OK" to confirm that the courses in your Degree Plan are OK.`} >
+            <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.COURSES}`} label='Courses Explorer'/>
+            <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${DEGREEPLANNER}`} label='Degree Planner'/>
+            <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${ICE}`} label='ICE Page'/>
+            <ChecklistButtonAction onClick={handleVerification} label='Courses are OK'/>
+          </ActionsBox>
+        );
       default:
         return <React.Fragment />;
     }

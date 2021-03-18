@@ -126,7 +126,7 @@ const initialState: State = {
   },
 };
 
-export function reducer(state: State = initialState, action): State {
+export const reducer = (state: State = initialState, action): State => {
   // console.log('dataModelReducer state=%o, action=%o', state, action);
   let s: State;
   let collect;
@@ -645,6 +645,6 @@ export function reducer(state: State = initialState, action): State {
     default:
       return state;
   }
-}
+};
 
 export default reducer;

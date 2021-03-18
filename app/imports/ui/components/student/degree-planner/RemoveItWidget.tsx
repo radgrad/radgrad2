@@ -41,11 +41,11 @@ const RemoveItWidget: React.FC<RemoveItWidgetProps> = ({ collectionName, id, nam
     let slugName;
     let instanceObject: CourseInstance | OpportunityInstance;
     if (collectionName === CourseInstances.getCollectionName()) {
-      type = UserInteractionsTypes.REMOVECOURSE;
+      type = UserInteractionsTypes.REMOVE_COURSE;
       slugName = CourseInstances.getCourseSlug(instance);
       instanceObject = CourseInstances.findDoc({ _id: instance });
     } else {
-      type = UserInteractionsTypes.REMOVEOPPORTUNITY;
+      type = UserInteractionsTypes.REMOVE_OPPORTUNITY;
       slugName = OpportunityInstances.getOpportunitySlug(instance);
       instanceObject = OpportunityInstances.findDoc({ _id: instance });
     }

@@ -1,131 +1,111 @@
 import moment from 'moment';
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Button, Header, Icon} from 'semantic-ui-react';
-import { updateMethod } from '../../../api/base/BaseCollection.methods';
-import { ChecklistState } from '../../../api/checklist/ChecklistState';
-import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
-import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';
-import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
-import { Users } from '../../../api/user/UserCollection';
-import { Ice, StudentProfile, StudentProfileUpdate } from '../../../typings/radgrad';
-import { DEGREEPLANNER, EXPLORER, ICE, URL_ROLES } from '../../layouts/utilities/route-constants';
-import { Checklist } from './Checklist';
+import {updateMethod} from '../../../api/base/BaseCollection.methods';
+import {OpportunityInstances} from '../../../api/opportunity/OpportunityInstanceCollection';
+import {PublicStats} from '../../../api/public-stats/PublicStatsCollection';
+import {StudentProfiles} from '../../../api/user/StudentProfileCollection';
+import {Users} from '../../../api/user/UserCollection';
+import {Ice, StudentProfile, StudentProfileUpdate} from '../../../typings/radgrad';
+import {DEGREEPLANNER, EXPLORER, ICE, URL_ROLES} from '../../layouts/utilities/route-constants';
+import {Checklist, CHECKSTATE} from './Checklist';
 import ProfileFutureOpportunitiesList from '../shared/ProfileFutureOpportunitiesList';
-import '../../../../client/style.css';
+import {DetailsBox} from './DetailsBox';
+import {ActionsBox} from './ActionsBox';
+import {ChecklistButtonAction, ChecklistButtonLink} from './ChecklistButtons';
 
 export class OpportunitiesChecklist extends Checklist {
   private profile: StudentProfile;
 
-  constructor(name: string, student: string) {
-    super(name);
+  constructor(student: string) {
+    super();
+    this.name = 'Opportunities';
     this.profile = Users.getProfile(student);
-    // console.log('OpportunitiesChecklist', this.profile, StudentProfiles.findDoc(student));
+    this.iconName = 'lightbulb';
+    this.title[CHECKSTATE.OK] = 'The Opportunities in your Degree Plan appear to be OK';
+    this.title[CHECKSTATE.REVIEW] = 'Please confirm that the Opportunities in your Degree Plan are correct';
+    this.title[CHECKSTATE.IMPROVE] = 'Please add Opportunities to your degree plan so that you are on track to earn 100 Innovation and 100 Experience points';
+    // Specify the description for each state.
+    this.description[CHECKSTATE.OK] = `Congrats! Your Degree Plan contains Opportunities that should eventually earn you at 
+      least 100 Innovation and 100 Experience points, and you've reviewed your Degree Plan within the past six months to be 
+      sure it is up to date.`;
+    this.description[CHECKSTATE.REVIEW] = (this.isSixMonthsOld(this.profile.lastVisitedOpportunities)) ?
+      `It's been at least six months since you last reviewed your Degree Plan. So, we want to check that the Degree Planner 
+      reflects your future Opportunity plans.` :
+
+      'There are new Opportunities since you last reviewed your Career Goals. Perhaps you want to add them?';
+
+    this.description[CHECKSTATE.IMPROVE] = `Specifying the Opportunities you plan to take in the future helps you in several ways.
+      First, it helps you balance your curricular and extracurricular activities each semester. Second, it tells RadGrad what 
+      interests you are developing skills in, which helps RadGrad to provide recommendations.`;
     this.updateState();
   }
 
   public updateState(): void {
     const username = this.profile.username;
     const projectedICE: Ice = StudentProfiles.getProjectedICE(username);
+    const lastUpdate = PublicStats.getLastUpdateTimestamp(PublicStats.opportunitiesUpdateTime);
     if (projectedICE.i < 100 || projectedICE.e < 100) {
-      this.state = 'Improve';
+      this.state = CHECKSTATE.IMPROVE;
     } else if (this.profile.lastVisitedOpportunities) {
       const lastVisit = moment(this.profile.lastVisitedOpportunities, 'YYYY-MM-DD', true);
-      // console.log(this.profile.lastVisitedInterests, PublicStats.getPublicStat(PublicStats.interestsUpdateTime));
-      if (lastVisit.isBefore(moment(PublicStats.getPublicStat(PublicStats.opportunitiesUpdateTime), 'YYYY-MM-DD-HH-mm-ss'))) {
-        this.state = 'Review';
+      if (lastVisit.isBefore(lastUpdate)) {
+        this.state = CHECKSTATE.REVIEW;
       } else if (this.isSixMonthsOld(this.profile.lastVisitedOpportunities)) {
-        this.state = 'Review';
+        this.state = CHECKSTATE.REVIEW;
         // TODO check for new opportunity reviews for future opportunity instances.
-        // CAM How do I know the review is new?
       } else {
-        this.state = 'Awesome';
+        this.state = CHECKSTATE.OK;
       }
     } else {
-      // console.log('no last visited page');
-      this.state = 'Review';
-    }
-    // console.log(this.state);
-  }
-
-  public getIcon() {
-    return <Icon color='grey' name='lightbulb' />;
-  }
-
-  public getTitle(state: ChecklistState): JSX.Element {
-    switch (state) {
-      case 'Awesome':
-        return <Header as='h1'>The <strong>Opportunities</strong> in your Degree Plan appear to be OK</Header>;
-      case 'Review':
-        return <Header as='h1'>Please confirm that the <strong>Opportunities</strong> in your Degree Plan are correct</Header>;
-      case 'Improve':
-        return <Header as='h1'>Please add more <strong>future Opportunities</strong> to your degree plan so that you are on track to earn <strong>100 Innovation</strong> and <strong>100 Experience</strong> points</Header>;
-      default:
-        return <React.Fragment />;
+      // No lastVisitedOpportunities
+      this.state = CHECKSTATE.REVIEW;
     }
   }
 
-  public getDescription(state: ChecklistState): JSX.Element {
-    switch (state) {
-      case 'Awesome':
-        return <p>Congrats! Your Degree Plan contains Opportunities that should eventually earn you at least 100 Innovation and 100 Experience points, and you&apos;ve reviewed your Degree Plan within the past six months to be sure it is up to date.</p>;
-      case 'Review':
-        if (this.isSixMonthsOld(this.profile.lastVisitedOpportunities)) {
-          return <p>You have enough Opportunities added to your Degree Plan to eventually earn 100 Innovation and 100 Experience points but it&apos;s been at least six months since you&apos;ve reviewed your Degree Plan. So, we want to check that the Degree Planner reflects your future Opportunity plans. </p>;
-        }
-        return <p>There are new Opportunities since you last reviewed your Degree Plan. Perhaps you want to add them?</p>;
-      // TODO add case for new reviews.
-      case 'Improve':
-        return <p>Specifying the Opportunities you plan to take in the future helps you in several ways. First, it helps you balance your curricular and extracurricular activities each semester. Second, it tells RadGrad what interests you are developing skills in, which helps RadGrad to provide recommendations.</p>;
-      default:
-        return <React.Fragment />;
-    }
+  public getDetails(): JSX.Element {
+    const upcomingOpportunities = OpportunityInstances.findNonRetired({studentID: this.profile.userID, verified: false});
+    return ((upcomingOpportunities.length === 0) ?
+        <DetailsBox description='Note: You have no upcoming opportunities. You probably want to add some!'/> :
+        <DetailsBox description='Here are your upcoming Opportunities:'>
+          <ProfileFutureOpportunitiesList profile={this.profile} size="medium"/>
+        </DetailsBox>
+    );
   }
 
-  public getDetails(state: ChecklistState): JSX.Element {
-    const futureOpportunityInstances = OpportunityInstances.findNonRetired({ studentID: this.profile.userID, verified: false });
-    if (futureOpportunityInstances.length === 0) {
-      return <p>You do not have any future Opportunities in your Degree Plan.</p>;
-    }
-    return <div className="highlightBox"><p>Here are your future Opportunities: &nbsp;</p><ProfileFutureOpportunitiesList profile={this.profile} size="medium" /></div>;
-  }
-
-  public getActions(state: ChecklistState): JSX.Element {
+  public getActions(): JSX.Element {
     const handleVerification = () => {
       const collectionName = StudentProfiles.getCollectionName();
       const updateData: StudentProfileUpdate = {};
       updateData.id = this.profile._id;
       updateData.lastVisitedOpportunities = moment().format('YYYY-MM-DD');
-      updateMethod.call({ collectionName, updateData }, (error) => {
+      updateMethod.call({collectionName, updateData}, (error) => {
         if (error) {
           console.error('Failed to update lastVisitedOpportunities', error);
         }
       });
     };
-    switch (state) {
-      case 'Awesome':
-        return <div className="centeredBox">
-          <p>Click &quot;Go To Degree Planner&quot; if you still want to see the Opportunities in your Degree Plan, or
-          click &quot;Go to Opportunity Explorer&quot; if you still want to search for additional Opportunities to include in your
-          Degree Plan.</p>
-          <Button size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${DEGREEPLANNER}`}>Go To Degree Planner</Button>
-          <Button size='huge' basic color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.OPPORTUNITIES}`}>Go To Opportunity Explorer</Button>
-        </div>;
-      case 'Improve':
-        return <div className="centeredBox"><p>Click &quot;Go To Opportunity Explorer&quot; to review the available Opportunities in RadGrad and add interesting ones to your profile. Or, click &quot;Go To Degree Planner&quot; to go directly to the Degree Planner page to add opportunities from your profile to a future semester in your degree plan</p>
-          <Button size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.OPPORTUNITIES}`}>Go To Opportunity Explorer</Button>&nbsp;&nbsp;
-          <Button size='huge' basic color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${DEGREEPLANNER}`}>Go To Degree Planner</Button>
-        </div>;
-      case 'Review':
-        return <div className="centeredBox">
-          <p>Click &quot;Go To Opportunity Explorer&quot; to search for opportunities and add new ones to your profile, or to see new reviews. Click &quot;Go To Degree Planner&quot; to review your degree plan and potentially move or remove opportunities. Click &quot;Go To ICE page&quot; to learn more about Competency points.  Click &quot;My Opportunities are OK&quot; to confirm that your current Degree Plan is correct.</p>
-          <Button size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${DEGREEPLANNER}`}>Go To Degree Planner</Button>&nbsp;&nbsp;
-          <Button size='huge' basic color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.OPPORTUNITIES}`}>Go To Opportunity Explorer</Button>&nbsp;&nbsp;
-          <Button size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${ICE}`}>Go To ICE</Button>&nbsp;&nbsp;
-          <Button size='huge' basic color='teal' onClick={handleVerification}>My Opportunities are OK</Button>
-        </div>;
+    switch (this.state) {
+      case CHECKSTATE.OK:
+      case CHECKSTATE.IMPROVE:
+        return (
+          <ActionsBox description='Go to the Opportunity Explorer to find and add Opportunities to your profile. Go to the Degree Planner to add Opportunities from your profile to your degree plan:'>
+            <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.OPPORTUNITIES}`} label='Opportunity Explorer'/>
+            <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${DEGREEPLANNER}`} label='Degree Planner'/>
+          </ActionsBox>
+        );
+      case CHECKSTATE.REVIEW:
+        return (
+          <ActionsBox description={`Go to the Opportunities Explorer to review available Opportunities and add them to your profile. Or, go to the Degree Planner to add Opportunities from your profile to your degree plan, or to remove Opportunities from your degree plan that you no longer plan to participate in. 
+      
+You can go to the ICE Page to learn more about how Opportunities earn you Innovation and/or Experience points. Finally, you can click "Opportunities are OK" to confirm that the Opportunities in your Degree Plan are OK.`} >
+            <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.OPPORTUNITIES}`} label='Opportunities Explorer'/>
+            <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${DEGREEPLANNER}`} label='Degree Planner'/>
+            <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${ICE}`} label='ICE Page'/>
+            <ChecklistButtonAction onClick={handleVerification} label='Opportunities are OK'/>
+          </ActionsBox>
+        );
       default:
-        return <React.Fragment />;
+        return <React.Fragment/>;
     }
   }
 }

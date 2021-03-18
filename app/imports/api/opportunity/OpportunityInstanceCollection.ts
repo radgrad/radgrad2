@@ -149,7 +149,7 @@ class OpportunityInstanceCollection extends BaseCollection {
     // find any VerificationRequests associated with docID and remove them.
     const requests = VerificationRequests.find({ opportunityInstanceID: docID })
       .fetch();
-    _.forEach(requests, (vr) => {
+    requests.forEach((vr) => {
       VerificationRequests.removeIt(vr._id);
     });
     return super.removeIt(docID);

@@ -1,6 +1,5 @@
 import { CallPromiseMixin } from 'meteor/didericis:callpromise-mixin';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
-import _ from 'lodash';
 import { Courses } from './CourseCollection';
 import { CourseInstances } from './CourseInstanceCollection';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
@@ -14,11 +13,11 @@ import { RadGradProperties } from '../radgrad/RadGradProperties';
  * @param termID The ID of the academicTerm.
  * @memberOf api/course
  */
-function getEnrollmentData(courseID, termID) {
+const getEnrollmentData = (courseID, termID) => {
   const academicTermShortName = AcademicTerms.getShortName(termID);
   const enrollment = CourseInstances.getCollection().find({ termID, courseID }).count();
   return [academicTermShortName, enrollment];
-}
+};
 
 /**
  * Given a courseID, returns enrollment data for the upcoming 9 academicTerms.
@@ -53,7 +52,7 @@ export const getFutureEnrollmentMethod = new ValidatedMethod({
       academicTermList.push(academicTermDoc);
     }
     // Map over these academicTerms and return a new list that includes the enrollment data for this course and academicTerm.
-    const enrollmentData = _.map(academicTermList, (doc) => getEnrollmentData(courseID, AcademicTerms.getID(doc)));
+    const enrollmentData = academicTermList.map((doc) => getEnrollmentData(courseID, AcademicTerms.getID(doc)));
     return { courseID, enrollmentData };
   },
 });
