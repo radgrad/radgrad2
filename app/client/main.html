@@ -10,6 +10,10 @@
   <meteor-bundled-css />
 </head>
 
-<body class="radgrad-background-color layout-body">
+<!--
+  Don't bother to add class definitions to the <body> element here--Meteor will strip them away.
+  See startup/client/startup.tsx for the way to add classes to the body element.
+-->
+<body>
   <div id="root"></div>
 </body>
