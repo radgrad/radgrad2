@@ -7,7 +7,6 @@ import { StudentParticipations } from '../public-stats/StudentParticipationColle
 import { Courses } from '../course/CourseCollection';
 import { CourseInstances } from '../course/CourseInstanceCollection';
 import { FacultyProfiles } from '../user/FacultyProfileCollection';
-import { FeedbackInstances } from '../feedback/FeedbackInstanceCollection';
 import { Feeds } from '../feed/FeedCollection';
 import { IceSnapshots } from '../analytic/IceSnapshotCollection';
 import { Interests } from '../interest/InterestCollection';
@@ -59,7 +58,6 @@ class RadGradClass {
       ProfileInterests,
       ProfileOpportunities,
       Feeds,
-      FeedbackInstances,
       IceSnapshots,
       Interests,
       InterestTypes,
@@ -98,7 +96,6 @@ class RadGradClass {
       StudentProfiles,
       CourseInstances,
       OpportunityInstances,
-      FeedbackInstances,
       VerificationRequests,
       Feeds,
       IceSnapshots,

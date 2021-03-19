@@ -9,7 +9,6 @@ export interface AdminDataModeMenuProps {
   courseInstanceCount: number;
   courseCount: number;
   feedCount: number;
-  feedbackCount: number;
   interestCount: number;
   interestTypeCount: number;
   opportunityCount: number;
@@ -29,7 +28,6 @@ const AdminDataModelMenu: React.FC<AdminDataModeMenuProps> = ({
   courseCount,
   courseInstanceCount,
   feedCount,
-  feedbackCount,
   interestCount,
   interestTypeCount,
   opportunityCount,
@@ -65,9 +63,6 @@ const AdminDataModelMenu: React.FC<AdminDataModeMenuProps> = ({
       </Menu.Item>
       <Menu.Item id="data-model-feeds" as={NavLink} exact to={`${baseRoute}feeds`}>
         Feeds ({feedCount})
-      </Menu.Item>
-      <Menu.Item id="data-model-feedback-instances" as={NavLink} exact to={`${baseRoute}feedback-instances`}>
-        Feedback Instances ({feedbackCount})
       </Menu.Item>
       <Menu.Item id="data-model-interests" as={NavLink} exact to={`${baseRoute}interests`}>
         Interests ({interestCount})

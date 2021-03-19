@@ -3921,10 +3921,6 @@
       ]
     },
     {
-      "name": "FeedbackInstanceCollection",
-      "contents": []
-    },
-    {
       "name": "IceSnapshotCollection",
       "contents": []
     },

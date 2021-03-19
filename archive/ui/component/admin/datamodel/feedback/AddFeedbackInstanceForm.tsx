@@ -3,10 +3,10 @@ import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, SelectField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
-import { profileToName } from '../../../shared/utilities/data-model';
+import { profileToName } from '../../../../../../app/imports/ui/components/shared/utilities/data-model';
 import { FeedbackFunctions } from '../../../../../api/feedback/FeedbackFunctions';
 import { FeedbackInstances } from '../../../../../api/feedback/FeedbackInstanceCollection';
-import { StudentProfile } from '../../../../../typings/radgrad';
+import { StudentProfile } from '../../../../../../app/imports/typings/radgrad';
 
 interface AddFeedbackInstanceFormProps {
   students: StudentProfile[];

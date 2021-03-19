@@ -71,10 +71,6 @@ export interface Pagination {
     showIndex: number;
     showCount: number;
   };
-  FeedbackInstanceCollection?: {
-    showIndex: number;
-    showCount: number;
-  };
   InterestCollection?: {
     showIndex: number;
     showCount: number;
@@ -428,31 +424,6 @@ export interface FeedUpdate extends Update {
   opportunity?: string;
   course?: string;
   academicTerm?: string;
-  retired?: boolean;
-}
-
-// FeedBackInstances
-export interface FeedbackInstance extends Document {
-  userID: string;
-  functionName: string;
-  description: string;
-  feedbackType: string;
-  retired?: boolean;
-}
-
-export interface FeedbackInstanceDefine extends DumpOne {
-  user: string;
-  functionName: string;
-  description: string;
-  feedbackType: string;
-  retired?: boolean;
-}
-
-export interface FeedbackInstanceUpdate extends Update {
-  user?: string;
-  functionName?: string;
-  description?: string;
-  feedbackType?: string;
   retired?: boolean;
 }
 
