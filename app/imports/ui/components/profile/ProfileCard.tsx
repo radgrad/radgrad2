@@ -8,7 +8,7 @@ export interface ProfileCardProps {
   image?: string,
   website?: string,
   level?: number,
-  ice?: boolean,
+  ice?: number[],
   careerGoals?: string[],
   interests?: string[],
   courses?: string[],
