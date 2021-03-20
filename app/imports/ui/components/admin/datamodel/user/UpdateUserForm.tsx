@@ -151,7 +151,6 @@ const UpdateUserForm: React.FC<UpdateUserProps> = ({ id, interests, setAdminData
       optional: true,
       allowedValues: academicTermNames,
     },
-    shareUsername: { type: Boolean, optional: true },
     sharePicture: { type: Boolean, optional: true },
     shareWebsite: { type: Boolean, optional: true },
     shareInterests: { type: Boolean, optional: true },
@@ -159,6 +158,7 @@ const UpdateUserForm: React.FC<UpdateUserProps> = ({ id, interests, setAdminData
     shareOpportunities: { type: Boolean, optional: true },
     shareCourses: { type: Boolean, optional: true },
     shareLevel: { type: Boolean, optional: true },
+    shareICE: { type: Boolean, optional: true },
     isAlumni: { type: Boolean, optional: true },
   });
   if (model.role === ROLE.STUDENT || model.role === ROLE.ALUMNI) {
@@ -210,7 +210,6 @@ const UpdateUserForm: React.FC<UpdateUserProps> = ({ id, interests, setAdminData
               <SelectField name="declaredAcademicTerm" />
             </Form.Group>
             <Form.Group widths="equal">
-              <BoolField name="shareUsername" />
               <BoolField name="sharePicture" />
               <BoolField name="shareWebsite" />
               <BoolField name="shareInterests" />
@@ -218,6 +217,7 @@ const UpdateUserForm: React.FC<UpdateUserProps> = ({ id, interests, setAdminData
               <BoolField name="shareOpportunities" />
               <BoolField name="shareCourses" />
               <BoolField name="shareLevel" />
+              <BoolField name="shareICE" />
               <BoolField name="isAlumni" />
             </Form.Group>
           </div>
