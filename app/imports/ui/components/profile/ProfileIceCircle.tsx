@@ -7,7 +7,7 @@ interface ProfileIceCircleProps {
 }
 
 const ProfileIceCircle: React.FC<ProfileIceCircleProps> = ({earnedI, earnedC, earnedE}) => (
-  <span>
+  <span style={{paddingTop: '10px', display: 'inline-block'}}>
     &nbsp;
     <span style={{paddingTop: '2px'}} className='profileICEi'>{earnedI}</span>
     &nbsp;

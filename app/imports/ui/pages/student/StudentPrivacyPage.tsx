@@ -12,6 +12,8 @@ import PageLayout from '../PageLayout';
 import ProfileLabel from '../../components/profile/ProfileLabel';
 import ProfileCard from '../../components/profile/ProfileCard';
 import StudentProfileLabel from '../../components/profile/StudentProfileLabel';
+import StudentProfileCard from '../../components/profile/StudentProfileCard';
+import StudentProfileModalLabel from "../../components/profile/StudentProfileModalLabel";
 
 const headerPaneTitle = 'Control what others see about you';
 const headerPaneBody = `
@@ -37,13 +39,13 @@ const StudentPrivacyPage: React.FC<StudentPrivacyPageProps> = ({profile}) => {
   return (
     <PageLayout id="student-privacy-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
 
-      <StudentProfileLabel studentProfile={profile}/>
+      <StudentProfileModalLabel studentProfile={profile}/>
 
       <hr style={{marginTop: '200px'}} />
       <Header>Profile Card Examples</Header>
 
       <div style={{paddingBottom: '20px'}}>
-        <ProfileCard name={name} email={email} image={image} level={5} website={website} interests={interests} careerGoals={careerGoals} courses={courses} opportunities={opportunities} ice/>
+        <ProfileCard name={name} email={email} image={image} level={5} website={website} interests={interests} careerGoals={careerGoals} courses={courses} opportunities={opportunities} ice={[56, 51, 123]}/>
       </div>
 
       <div style={{paddingBottom: '20px'}}>
@@ -51,11 +53,11 @@ const StudentPrivacyPage: React.FC<StudentPrivacyPageProps> = ({profile}) => {
       </div>
 
       <div style={{paddingBottom: '20px'}}>
-        <ProfileCard name={name} email={email} image={image} level={5} ice/>
+        <ProfileCard name={name} email={email} image={image} level={5} ice={[56, 51, 75]}/>
       </div>
 
       <div style={{paddingBottom: '20px'}}>
-        <ProfileCard name={name} email={email} level={2} ice/>
+        <ProfileCard name={name} email={email} level={2} ice={[56, 51, 75]}/>
       </div>
 
       <div style={{paddingBottom: '20px'}}>

@@ -49,7 +49,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({name, email, image, website, l
         <Card.Meta><Icon name="mail"/>&nbsp;<a href={`mailto:${email}`}>{email}</a></Card.Meta>
         {website ? <Card.Meta><Icon name='linkify'/><a href={website}>{website}</a></Card.Meta> : ''}
         {level ? <Image size='mini' src={levelIconURL}/> : ''}
-        {ice ? <ProfileIceCircle earnedI={99} earnedC={87} earnedE={100}/> : ''}
+        {ice ? <ProfileIceCircle earnedI={ice[0]} earnedC={ice[1]} earnedE={ice[2]}/> : ''}
       </Card.Content>
       { (tabPanes.length > 0) ? <Card.Content extra><Tab panes={tabPanes}/></Card.Content> : ''}
     </Card>
