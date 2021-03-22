@@ -30,6 +30,11 @@ const StudentPrivacySettingList: React.FC<StudentPrivacySettingListProps> = ({ p
   } else {
     hide.push('Level');
   }
+  if (profile.shareICE) {
+    share.push('ICE');
+  } else {
+    hide.push('ICE');
+  }
   if (profile.shareOpportunities) {
     share.push('Opportunities');
   } else {

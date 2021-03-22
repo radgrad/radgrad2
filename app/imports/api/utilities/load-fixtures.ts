@@ -13,7 +13,6 @@ import { FacultyProfiles } from '../user/FacultyProfileCollection';
 import { StudentProfiles } from '../user/StudentProfileCollection';
 import { AcademicYearInstances } from '../degree-plan/AcademicYearInstanceCollection';
 import { Feeds } from '../feed/FeedCollection';
-import { FeedbackInstances } from '../feedback/FeedbackInstanceCollection';
 
 export const loadCollectionNewDataOnly = (collection: BaseCollection, loadJSON, printToConsole) => {
   let retVal = '';
@@ -67,20 +66,6 @@ export const loadCollectionNewDataOnly = (collection: BaseCollection, loadJSON, 
           collection.define(definition);
           count++;
         }
-        break;
-      case FeedbackInstances.getType(): {
-        const userID = Users.getID(definition.user);
-        if (FeedbackInstances.find({
-          userID,
-          functionName: definition.functionName,
-          description: definition.description,
-          feedbackType: definition.feedbackType,
-        })
-          .count() === 0) {
-          collection.define(definition);
-          count++;
-        }
-      }
         break;
       case OpportunityInstances.getType():
         termID = AcademicTerms.getID(definition.academicTerm);

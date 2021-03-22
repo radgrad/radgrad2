@@ -4,8 +4,8 @@ import fc from 'fast-check';
 import faker from 'faker';
 import {} from 'mocha';
 import { FeedbackInstances } from './FeedbackInstanceCollection';
-import { makeSampleUser } from '../user/SampleUsers';
-import { removeAllEntities } from '../base/BaseUtilities';
+import { makeSampleUser } from '../../../app/imports/api/user/SampleUsers';
+import { removeAllEntities } from '../../../app/imports/api/base/BaseUtilities';
 
 /* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
 /* eslint-env mocha */

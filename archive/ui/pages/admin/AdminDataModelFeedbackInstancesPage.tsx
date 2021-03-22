@@ -2,18 +2,18 @@ import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
 import { Confirm, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
-import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
-import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
-import { DescriptionPair, FeedbackInstanceDefine, StudentProfile, FeedbackInstance } from '../../../typings/radgrad';
-import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
+import { StudentProfiles } from '../../../../app/imports/api/user/StudentProfileCollection';
+import ListCollectionWidget from '../../../../app/imports/ui/components/admin/datamodel/ListCollectionWidget';
+import { DescriptionPair, FeedbackInstanceDefine, StudentProfile, FeedbackInstance } from '../../../../app/imports/typings/radgrad';
+import { defineMethod, removeItMethod, updateMethod } from '../../../../app/imports/api/base/BaseCollection.methods';
 import { FeedbackInstances } from '../../../api/feedback/FeedbackInstanceCollection';
-import { Users } from '../../../api/user/UserCollection';
-import AddFeedbackInstanceForm from '../../components/admin/datamodel/feedback/AddFeedbackInstanceForm';
-import UpdateFeedbackInstanceForm from '../../components/admin/datamodel/feedback/UpdateFeedbackInstanceForm';
-import { profileNameToUsername } from '../../components/shared/utilities/data-model';
-import { dataModelActions } from '../../../redux/admin/data-model';
-import { getDatamodelCount } from './utilities/datamodel';
-import PageLayout from '../PageLayout';
+import { Users } from '../../../../app/imports/api/user/UserCollection';
+import AddFeedbackInstanceForm from '../../component/admin/datamodel/feedback/AddFeedbackInstanceForm';
+import UpdateFeedbackInstanceForm from '../../component/admin/datamodel/feedback/UpdateFeedbackInstanceForm';
+import { profileNameToUsername } from '../../../../app/imports/ui/components/shared/utilities/data-model';
+import { dataModelActions } from '../../../../app/imports/redux/admin/data-model';
+import { getDatamodelCount } from '../../../../app/imports/ui/pages/admin/utilities/datamodel';
+import PageLayout from '../../../../app/imports/ui/pages/PageLayout';
 
 const collection = FeedbackInstances; // the collection to use.
 

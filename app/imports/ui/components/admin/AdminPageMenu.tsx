@@ -51,7 +51,6 @@ const AdminPageMenu: React.FC = () => {
     { label: 'Course Instances', route: DATAMODEL.COURSE_INSTANCES},
     { label: 'Courses', route: DATAMODEL.COURSES},
     { label: 'Feeds', route: DATAMODEL.FEEDS},
-    { label: 'Feedback Instances', route: DATAMODEL.FEEDBACK_INSTANCES},
     { label: 'Interests', route: DATAMODEL.INTERESTS},
     { label: 'Interest Types', route: DATAMODEL.INTEREST_TYPES},
     { label: 'Opportunities', route: DATAMODEL.OPPORTUNITIES},

@@ -13,7 +13,6 @@ interface State {
     CourseInstanceCollection: PaginationState;
     CourseCollection: PaginationState;
     FeedCollection: PaginationState;
-    FeedbackInstanceCollection: PaginationState;
     InterestCollection: PaginationState;
     InterestTypeCollection: PaginationState;
     OpportunityCollection: PaginationState;
@@ -57,10 +56,6 @@ const initialState: State = {
       showCount: 25,
     },
     FeedCollection: {
-      showIndex: 0,
-      showCount: 25,
-    },
-    FeedbackInstanceCollection: {
       showIndex: 0,
       showCount: 25,
     },
@@ -282,32 +277,6 @@ export const reducer = (state: State = initialState, action): State => {
         pagination: {
           ...paginationState,
           FeedCollection: {
-            ...collect,
-            showCount: action.payload,
-          },
-        },
-      };
-      return s;
-    case TYPES.SET_FEEDBACK_INSTANCES_SHOW_INDEX:
-      collect = paginationState.FeedbackInstanceCollection;
-      s = {
-        ...state,
-        pagination: {
-          ...paginationState,
-          FeedbackInstanceCollection: {
-            ...collect,
-            showIndex: action.payload,
-          },
-        },
-      };
-      return s;
-    case TYPES.SET_FEEDBACK_INSTANCES_SHOW_COUNT:
-      collect = paginationState.FeedbackInstanceCollection;
-      s = {
-        ...state,
-        pagination: {
-          ...paginationState,
-          FeedbackInstanceCollection: {
             ...collect,
             showCount: action.payload,
           },
