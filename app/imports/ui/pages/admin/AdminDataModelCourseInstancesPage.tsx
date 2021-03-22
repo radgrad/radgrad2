@@ -106,8 +106,6 @@ const AdminDataModelCourseInstancesPage: React.FC<AdminDataModelCourseInstancesP
           showConfirmButton: false,
           timer: 1500,
         });
-        // @ts-ignore
-        formRef.current.reset();
       }
     });
   };

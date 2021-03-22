@@ -96,8 +96,6 @@ const AdminDataModelTeasersPage: React.FC<AdminDataModelTeasersPageProps> = (pro
           timer: 1500,
         });
       }
-      // @ts-ignore
-      formRef.current.reset();
     });
   };
 

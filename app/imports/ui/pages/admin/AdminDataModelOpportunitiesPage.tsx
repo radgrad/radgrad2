@@ -97,8 +97,6 @@ const AdminDataModelOpportunitiesPage: React.FC<AdminDataModelOpportunitiesPageP
           showConfirmButton: false,
           timer: 1500,
         });
-        // @ts-ignore
-        formRef.current.reset();
       }
     });
   };

@@ -88,8 +88,6 @@ const AdminDataModelOpportunityTypesPage: React.FC<AdminDataModelOpportunityType
           showConfirmButton: false,
           timer: 1500,
         });
-        // @ts-ignore
-        formRef.current.reset();
       }
     });
   };

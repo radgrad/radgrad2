@@ -113,8 +113,6 @@ const AdminDataModelVerificationRequestsPage: React.FC<AdminDataModelVerificatio
           showConfirmButton: false,
           timer: 1500,
         });
-        // @ts-ignore
-        formRef.current.reset();
       }
     });
   };

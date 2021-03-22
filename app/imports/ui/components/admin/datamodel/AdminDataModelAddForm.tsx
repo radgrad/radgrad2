@@ -16,7 +16,8 @@ const AdminDataModelAddForm: React.FC<AdminDataModelAddFormProps> = ({ collectio
       Add
       {collection.getType()}
     </Header>
-    <AutoForm ref={formRef} onSubmit={handleAdd} schema={new SimpleSchema2Bridge(collection.getDefineSchema())} />
+    {/* eslint-disable-next-line no-param-reassign,no-return-assign */}
+    <AutoForm ref={(ref) => formRef = ref} onSubmit={handleAdd} schema={new SimpleSchema2Bridge(collection.getDefineSchema())} />
   </Segment>
 );
 

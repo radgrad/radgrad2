@@ -100,8 +100,6 @@ const AdminDataModelCoursesPage: React.FC<AdminDataModelCoursesPageProps> = (pro
           showConfirmButton: false,
           timer: 1500,
         });
-        // @ts-ignore
-        formRef.current.reset();
       }
     });
   };

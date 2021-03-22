@@ -149,8 +149,6 @@ const AdminDataModelFeedsPage: React.FC<AdminDataModelFeedsPageProps> = (props) 
           showConfirmButton: false,
           timer: 1500,
         });
-        // @ts-ignore
-        formRef.current.reset();
       }
     });
   };

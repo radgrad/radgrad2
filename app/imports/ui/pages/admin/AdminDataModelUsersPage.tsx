@@ -164,6 +164,7 @@ const AdminDataModelUsersPage: React.FC<AdminDataModelUsersPageProps> = (props) 
     if (isCloudinaryUsed) {
       definitionData.picture = cloudinaryUrl;
     }
+    // console.log(collectionName, definitionData);
     defineMethod.call({ collectionName, definitionData }, (error) => {
       if (error) {
         console.error('Failed adding User', error);
@@ -179,8 +180,6 @@ const AdminDataModelUsersPage: React.FC<AdminDataModelUsersPageProps> = (props) 
           showConfirmButton: false,
           timer: 1500,
         });
-        // @ts-ignore
-        formRef.current.reset();
       }
     });
   };

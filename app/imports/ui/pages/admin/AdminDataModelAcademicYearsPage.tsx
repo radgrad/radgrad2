@@ -62,8 +62,6 @@ const AdminDataModelAcademicYearsPage: React.FC<AdminDataModelAcademicYearsPageP
           showConfirmButton: false,
           timer: 1500,
         });
-        // @ts-ignore
-        formRef.current.reset();
       }
     });
   };
@@ -135,8 +133,6 @@ const AdminDataModelAcademicYearsPage: React.FC<AdminDataModelAcademicYearsPageP
           showConfirmButton: false,
           timer: 1500,
         });
-        // @ts-ignore
-        formRef.current.reset();
         setShowUpdateForm(false);
         setId('');
       }

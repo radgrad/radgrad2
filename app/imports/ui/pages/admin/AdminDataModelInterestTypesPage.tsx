@@ -88,8 +88,6 @@ const AdminDataModelInterestTypesPage: React.FC<AdminDataModelInterestTypesPageP
           showConfirmButton: false,
           timer: 1500,
         });
-        // @ts-ignore
-        formRef.current.reset();
       }
     });
   };

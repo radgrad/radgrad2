@@ -60,14 +60,13 @@ interface AdminDataModelAcademicTermsPageProps {
  * @constructor
  */
 const AdminDataModelAcademicTermsPage: React.FC<AdminDataModelAcademicTermsPageProps> = (props) => {
-  // TODO deconstruct props
-  const formRef = React.createRef();
+  const formRef = null;
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');
   const [showUpdateFormState, setShowUpdateForm] = useState(false);
 
   const handleAdd = (doc) => {
-    // console.log('handleAdd(%o)', doc);
+    console.log('handleAdd(%o)', doc, formRef);
     const collectionName = AcademicTerms.getCollectionName();
     const definitionData: AcademicTermDefine = doc;
     defineMethod.call({ collectionName, definitionData }, (error) => {
@@ -84,8 +83,7 @@ const AdminDataModelAcademicTermsPage: React.FC<AdminDataModelAcademicTermsPageP
           showConfirmButton: false,
           timer: 1500,
         });
-        // @ts-ignore
-        formRef.current.reset();
+        formRef.reset();
       }
     });
   };
@@ -157,6 +155,7 @@ const AdminDataModelAcademicTermsPage: React.FC<AdminDataModelAcademicTermsPageP
           showConfirmButton: false,
           timer: 1500,
         });
+
         setShowUpdateForm(false);
         setId('');
       }

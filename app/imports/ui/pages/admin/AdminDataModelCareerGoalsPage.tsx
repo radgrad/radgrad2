@@ -77,8 +77,6 @@ const AdminDataModelCareerGoalsPage: React.FC<AdminDataModelCareerGoalsPageProps
           showConfirmButton: false,
           timer: 1500,
         });
-        // @ts-ignore
-        formRef.current.reset();
       }
     });
   };
@@ -86,8 +84,6 @@ const AdminDataModelCareerGoalsPage: React.FC<AdminDataModelCareerGoalsPageProps
   const handleCancel = (event) => {
     event.preventDefault();
     // console.log('formRef = %o', formRef);
-    // @ts-ignore
-    formRef.current.reset();
     setShowUpdateForm(false);
     setId('');
     setConfirmOpen(false);
@@ -156,8 +152,6 @@ const AdminDataModelCareerGoalsPage: React.FC<AdminDataModelCareerGoalsPageProps
           showConfirmButton: false,
           timer: 1500,
         });
-        // @ts-ignore
-        formRef.current.reset();
         setShowUpdateForm(false);
         setId('');
       }
