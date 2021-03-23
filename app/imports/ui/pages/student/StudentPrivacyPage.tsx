@@ -45,7 +45,7 @@ const StudentPrivacyPage: React.FC<StudentPrivacyPageProps> = ({profile}) => {
       <Header>Profile Card Examples</Header>
 
       <div style={{paddingBottom: '20px'}}>
-        <ProfileCard name={name} email={email} image={image} level={5} website={website} interests={interests} careerGoals={careerGoals} courses={courses} opportunities={opportunities} ice={[56, 51, 123]}/>
+        <ProfileCard name={name} email={email} image={image} level={5} website={website} interests={interests} careerGoals={careerGoals} courses={courses} opportunities={opportunities} ice={{i: 56, c: 51, e: 123}}/>
       </div>
 
       <div style={{paddingBottom: '20px'}}>
@@ -53,11 +53,11 @@ const StudentPrivacyPage: React.FC<StudentPrivacyPageProps> = ({profile}) => {
       </div>
 
       <div style={{paddingBottom: '20px'}}>
-        <ProfileCard name={name} email={email} image={image} level={5} ice={[56, 51, 75]}/>
+        <ProfileCard name={name} email={email} image={image} level={5} ice={{i: 56, c: 51, e: 123}}/>
       </div>
 
       <div style={{paddingBottom: '20px'}}>
-        <ProfileCard name={name} email={email} level={2} ice={[56, 51, 75]}/>
+        <ProfileCard name={name} email={email} level={2} ice={{i: 56, c: 51, e: 123}}/>
       </div>
 
       <div style={{paddingBottom: '20px'}}>

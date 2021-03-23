@@ -12,7 +12,8 @@ export interface ProfileCardProps {
   careerGoals?: string[],
   interests?: string[],
   courses?: string[],
-  opportunities?: string[]
+  opportunities?: string[],
+  fluid?: boolean
 }
 
 interface TabContentProps {
@@ -26,9 +27,10 @@ const TabContent: React.FC<TabContentProps> = ({items}) => (
 );
 
 
-const ProfileCard: React.FC<ProfileCardProps> = ({name, email, image, website, level, ice, careerGoals, interests, courses, opportunities}) => {
+const ProfileCard: React.FC<ProfileCardProps> = ({name, email, image, website, level, ice, careerGoals, interests, courses, opportunities, fluid= false}) => {
   const levelIconURL = `/images/level-icons/radgrad-level-${level}-icon.png`;
   const tabPanes = [];
+  console.log('ice', ice);
   if (interests) {
     tabPanes.push({menuItem: 'Interests', render: () => <TabContent items={interests}/>});
   }
@@ -42,14 +44,14 @@ const ProfileCard: React.FC<ProfileCardProps> = ({name, email, image, website, l
     tabPanes.push({menuItem: 'Opportunities', render: () => <TabContent items={opportunities}/>});
   }
   return (
-    <Card style={{minWidth: '500px'}}>
+    <Card fluid={fluid} style={fluid ? {} : {minWidth: '500px'}}>
       <Card.Content>
         {image ? <Image floated='left' size='tiny' src={image}/> : ''}
         <Card.Header>{name}</Card.Header>
         <Card.Meta><Icon name="mail"/>&nbsp;<a href={`mailto:${email}`}>{email}</a></Card.Meta>
         {website ? <Card.Meta><Icon name='linkify'/><a href={website}>{website}</a></Card.Meta> : ''}
         {level ? <Image size='mini' src={levelIconURL}/> : ''}
-        {ice ? <ProfileIceCircle earnedI={ice.i} earnedC={ice.c} earnedE={ice.e}/> : ''}
+        {ice ? <ProfileIceCircle i={ice.i} c={ice.c} e={ice.e}/> : ''}
       </Card.Content>
       { (tabPanes.length > 0) ? <Card.Content extra><Tab panes={tabPanes}/></Card.Content> : ''}
     </Card>

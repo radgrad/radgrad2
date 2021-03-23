@@ -18,7 +18,7 @@ const StudentProfileModalLabel: React.FC<StudentProfileModalLabelProps> = ({stud
       trigger={<Button style={{margin: '0px', padding: '0px'}}><StudentProfileLabel studentProfile={studentProfile}/></Button>}
     >
       <Modal.Content>
-          <StudentProfileCard studentProfile={studentProfile}/>
+          <StudentProfileCard studentProfile={studentProfile} fluid/>
       </Modal.Content>
       <Modal.Actions>
         <Button color='green' onClick={() => setOpen(false)}>OK</Button>
