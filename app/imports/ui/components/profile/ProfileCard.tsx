@@ -8,7 +8,7 @@ export interface ProfileCardProps {
   image?: string,
   website?: string,
   level?: number,
-  ice?: number[],
+  ice?: { i: number, c: number, e: number },
   careerGoals?: string[],
   interests?: string[],
   courses?: string[],
@@ -49,7 +49,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({name, email, image, website, l
         <Card.Meta><Icon name="mail"/>&nbsp;<a href={`mailto:${email}`}>{email}</a></Card.Meta>
         {website ? <Card.Meta><Icon name='linkify'/><a href={website}>{website}</a></Card.Meta> : ''}
         {level ? <Image size='mini' src={levelIconURL}/> : ''}
-        {ice ? <ProfileIceCircle earnedI={ice[0]} earnedC={ice[1]} earnedE={ice[2]}/> : ''}
+        {ice ? <ProfileIceCircle earnedI={ice.i} earnedC={ice.c} earnedE={ice.e}/> : ''}
       </Card.Content>
       { (tabPanes.length > 0) ? <Card.Content extra><Tab panes={tabPanes}/></Card.Content> : ''}
     </Card>
