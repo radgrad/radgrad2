@@ -4,11 +4,11 @@ import { Confirm, Icon } from 'semantic-ui-react';
 import _ from 'lodash';
 import Swal from 'sweetalert2';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
-import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
+import { removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
-import { AcademicTerm, AcademicTermDefine, DescriptionPair } from '../../../typings/radgrad';
+import { AcademicTerm, DescriptionPair } from '../../../typings/radgrad';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import AdminDataModelUpdateForm from '../../components/admin/datamodel/AdminDataModelUpdateForm';
 import AdminDataModelAddForm from '../../components/admin/datamodel/AdminDataModelAddForm';
@@ -64,29 +64,6 @@ const AdminDataModelAcademicTermsPage: React.FC<AdminDataModelAcademicTermsPageP
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');
   const [showUpdateFormState, setShowUpdateForm] = useState(false);
-
-  const handleAdd = (doc) => {
-    console.log('handleAdd(%o)', doc, formRef);
-    const collectionName = AcademicTerms.getCollectionName();
-    const definitionData: AcademicTermDefine = doc;
-    defineMethod.call({ collectionName, definitionData }, (error) => {
-      if (error) {
-        Swal.fire({
-          title: 'Add failed',
-          text: error.message,
-          icon: 'error',
-        });
-      } else {
-        Swal.fire({
-          title: 'Add succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        formRef.reset();
-      }
-    });
-  };
 
   const handleCancel = (event) => {
     event.preventDefault();
@@ -171,7 +148,7 @@ const AdminDataModelAcademicTermsPage: React.FC<AdminDataModelAcademicTermsPageP
         <AdminDataModelUpdateForm collection={AcademicTerms} id={idState} formRef={formRef} handleUpdate={handleUpdate}
                                   handleCancel={handleCancel} itemTitleString={itemTitleString} />
       ) : (
-        <AdminDataModelAddForm collection={AcademicTerms} formRef={formRef} handleAdd={handleAdd} />
+        <AdminDataModelAddForm collection={AcademicTerms} />
       )}
       <ListCollectionWidget
         collection={AcademicTerms}
