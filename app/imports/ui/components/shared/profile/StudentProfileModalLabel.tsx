@@ -1,6 +1,6 @@
 import React from 'react';
 import { Modal, Button } from 'semantic-ui-react';
-import {StudentProfile} from '../../../typings/radgrad';
+import {StudentProfile} from '../../../../typings/radgrad';
 import StudentProfileLabel from './StudentProfileLabel';
 import StudentProfileCard from './StudentProfileCard';
 
@@ -26,16 +26,5 @@ const StudentProfileModalLabel: React.FC<StudentProfileModalLabelProps> = ({stud
     </Modal>
   );
 };
-
-const StudentProfileModalLabel2: React.FC<StudentProfileModalLabelProps> = ({studentProfile}) => {
-  return (
-    <Modal size='tiny'
-      trigger={<Button style={{margin: '0px', padding: '0px'}}><StudentProfileLabel studentProfile={studentProfile}/></Button>}
-      content={<StudentProfileCard studentProfile={studentProfile}/>}
-      actions={['Snooze', { key: 'done', content: 'Done', positive: true }]}
-    />
-  );
-};
-
 
 export default StudentProfileModalLabel;

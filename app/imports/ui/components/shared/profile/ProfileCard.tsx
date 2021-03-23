@@ -30,7 +30,6 @@ const TabContent: React.FC<TabContentProps> = ({items}) => (
 const ProfileCard: React.FC<ProfileCardProps> = ({name, email, image, website, level, ice, careerGoals, interests, courses, opportunities, fluid= false}) => {
   const levelIconURL = `/images/level-icons/radgrad-level-${level}-icon.png`;
   const tabPanes = [];
-  console.log('ice', ice);
   if (interests) {
     tabPanes.push({menuItem: 'Interests', render: () => <TabContent items={interests}/>});
   }

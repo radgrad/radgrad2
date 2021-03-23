@@ -2,7 +2,7 @@ import {ValidatedMethod} from 'meteor/mdg:validated-method';
 import {CallPromiseMixin} from 'meteor/didericis:callpromise-mixin';
 import { StudentProfiles } from './StudentProfileCollection';
 
-interface StudentPublicData {
+export interface StudentPublicData {
   website?: string,
   picture?: string,
   level?: number,

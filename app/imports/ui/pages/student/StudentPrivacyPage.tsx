@@ -9,11 +9,12 @@ import {StudentProfiles} from '../../../api/user/StudentProfileCollection';
 import {Users} from '../../../api/user/UserCollection';
 import {StudentProfile, StudentProfileUpdate} from '../../../typings/radgrad';
 import PageLayout from '../PageLayout';
-import ProfileLabel from '../../components/profile/ProfileLabel';
-import ProfileCard from '../../components/profile/ProfileCard';
-import StudentProfileLabel from '../../components/profile/StudentProfileLabel';
-import StudentProfileCard from '../../components/profile/StudentProfileCard';
-import StudentProfileModalLabel from "../../components/profile/StudentProfileModalLabel";
+import ProfileLabel from '../../components/shared/profile/ProfileLabel';
+import ProfileCard from '../../components/shared/profile/ProfileCard';
+import StudentProfileLabel from '../../components/shared/profile/StudentProfileLabel';
+import StudentProfileCard from '../../components/shared/profile/StudentProfileCard';
+import StudentProfileModalLabel from '../../components/shared/profile/StudentProfileModalLabel';
+import StudentProfileCardMethod from '../../components/shared/profile/StudentProfileCardMethod';
 
 const headerPaneTitle = 'Control what others see about you';
 const headerPaneBody = `
@@ -40,6 +41,7 @@ const StudentPrivacyPage: React.FC<StudentPrivacyPageProps> = ({profile}) => {
     <PageLayout id="student-privacy-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
 
       <StudentProfileModalLabel studentProfile={profile}/>
+      <StudentProfileCardMethod studentProfile={profile}/>
 
       <hr style={{marginTop: '200px'}} />
       <Header>Profile Card Examples</Header>
