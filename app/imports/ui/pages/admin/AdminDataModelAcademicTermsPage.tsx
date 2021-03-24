@@ -60,7 +60,6 @@ interface AdminDataModelAcademicTermsPageProps {
  * @constructor
  */
 const AdminDataModelAcademicTermsPage: React.FC<AdminDataModelAcademicTermsPageProps> = (props) => {
-  const formRef = null;
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');
   const [showUpdateFormState, setShowUpdateForm] = useState(false);
@@ -145,7 +144,7 @@ const AdminDataModelAcademicTermsPage: React.FC<AdminDataModelAcademicTermsPageP
   return (
     <PageLayout id="data-model-academic-terms-page" headerPaneTitle="Academic Terms">
       {showUpdateFormState ? (
-        <AdminDataModelUpdateForm collection={AcademicTerms} id={idState} formRef={formRef} handleUpdate={handleUpdate}
+        <AdminDataModelUpdateForm collection={AcademicTerms} id={idState} handleUpdate={handleUpdate}
                                   handleCancel={handleCancel} itemTitleString={itemTitleString} />
       ) : (
         <AdminDataModelAddForm collection={AcademicTerms} />
@@ -169,7 +168,7 @@ const AdminDataModelAcademicTermsPage: React.FC<AdminDataModelAcademicTermsPageP
 
 // TODO add the consts and a return.
 const AdminDataModelAcademicTermsPageContainer = withTracker(() => {
-  const items = AcademicTerms.find({}).fetch();
+  const items = AcademicTerms.find({}, { sort: { termNumber: 1 }}).fetch();
   const modelCount = getDatamodelCount();
   return {
     ...modelCount,

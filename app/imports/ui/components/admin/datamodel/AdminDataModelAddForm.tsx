@@ -14,10 +14,10 @@ const AdminDataModelAddForm: React.FC<AdminDataModelAddFormProps> = ({ collectio
 
   let formRef;
   const handleAdd = (doc) => {
-    console.log('handleAdd(%o)', doc, formRef);
+    // console.log('handleAdd(%o)', doc, formRef);
     const collectionName = collection.getCollectionName();
     const definitionData = doc;
-    defineMethod.call({ collectionName, definitionData }, (error) => {
+    const callback = (formRef2) => (error) => {
       if (error) {
         Swal.fire({
           title: 'Add failed',
@@ -31,9 +31,10 @@ const AdminDataModelAddForm: React.FC<AdminDataModelAddFormProps> = ({ collectio
           showConfirmButton: false,
           timer: 1500,
         });
-        formRef.reset();
+        formRef2.reset();
       }
-    });
+    };
+    defineMethod.call({ collectionName, definitionData }, callback(formRef));
   };
 
   return (
