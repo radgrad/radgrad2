@@ -8,8 +8,8 @@ import { Users } from '../../../api/user/UserCollection';
 import { AcademicYearInstance, DescriptionPair, StudentProfile } from '../../../typings/radgrad';
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
 import AdminDataModelUpdateForm from '../../components/admin/datamodel/AdminDataModelUpdateForm';
-import AddAcademicYearInstanceFormContainer from '../../components/admin/datamodel/academic-year/AddAcademicYearInstanceForm';
-import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
+import AddAcademicYearInstanceForm from '../../components/admin/datamodel/academic-year/AddAcademicYearInstanceForm';
+import { removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import { getDatamodelCount } from './utilities/datamodel';
 import PageLayout from '../PageLayout';
@@ -40,31 +40,9 @@ interface AdminDataModelAcademicYearsPageProps {
 
 // props not deconstructed because AdminDataModeMenuProps has 21 numbers.
 const AdminDataModelAcademicYearsPage: React.FC<AdminDataModelAcademicYearsPageProps> = (props) => {
-  const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');
   const [showUpdateFormState, setShowUpdateForm] = useState(false);
-
-  const handleAdd = (doc) => {
-    const collectionName = AcademicYearInstances.getCollectionName();
-    const definitionData = doc;
-    defineMethod.call({ collectionName, definitionData }, (error) => {
-      if (error) {
-        Swal.fire({
-          title: 'Add failed',
-          text: error.message,
-          icon: 'error',
-        });
-      } else {
-        Swal.fire({
-          title: 'Add succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      }
-    });
-  };
 
   const handleCancel = (event) => {
     event.preventDefault();
@@ -112,10 +90,11 @@ const AdminDataModelAcademicYearsPage: React.FC<AdminDataModelAcademicYearsPageP
   };
 
   const handleUpdate = (doc) => {
-    // console.log('handleUpdate(%o)', doc);
+    console.log('handleUpdate(%o)', doc);
     const collectionName = AcademicYearInstances.getCollectionName();
-    const updateData: { id?: string; retired?: boolean } = {};
+    const updateData: { id?: string; year?: number; retired?: boolean } = {};
     updateData.id = doc._id;
+    updateData.year = doc.year;
     updateData.retired = doc.retired;
     // console.log('parameter = %o', { collectionName, updateData });
     updateMethod.call({ collectionName, updateData }, (error) => {
@@ -145,11 +124,11 @@ const AdminDataModelAcademicYearsPage: React.FC<AdminDataModelAcademicYearsPageP
   return (
     <PageLayout id="data-model-academic-year-instances-page" headerPaneTitle="Academic Year Instances">
       {showUpdateFormState ? (
-        <AdminDataModelUpdateForm collection={AcademicYearInstances} id={idState} formRef={formRef}
+        <AdminDataModelUpdateForm collection={AcademicYearInstances} id={idState}
                                   handleUpdate={handleUpdate} handleCancel={handleCancel}
                                   itemTitleString={itemTitleString}/>
       ) : (
-        <AddAcademicYearInstanceFormContainer formRef={formRef} handleAdd={handleAdd} students={props.students}/>
+        <AddAcademicYearInstanceForm students={props.students}/>
       )}
       <ListCollectionWidget
         collection={AcademicYearInstances}

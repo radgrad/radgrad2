@@ -72,7 +72,7 @@ const UpdateCourseForm: React.FC<UpdateCourseFormProps> = ({ collection, courses
         </Form.Group>
         <BoolField name="retired" />
         <p />
-        <SubmitField className="" value="Update" disabled={false} inputRef={undefined} />
+        <SubmitField value="Update" disabled={false} />
         <Button onClick={handleCancel}>Cancel</Button>
       </AutoForm>
     </Segment>

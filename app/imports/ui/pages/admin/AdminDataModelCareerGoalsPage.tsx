@@ -7,15 +7,20 @@ import ListCollectionWidget from '../../components/admin/datamodel/ListCollectio
 import { Users } from '../../../api/user/UserCollection';
 import { CareerGoal, CareerGoalUpdate, DescriptionPair, Interest } from '../../../typings/radgrad';
 import { Interests } from '../../../api/interest/InterestCollection';
-import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
-import AdminDataModelUpdateForm from '../../components/admin/datamodel/AdminDataModelUpdateForm';
+import { removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import AddCareerGoalForm from '../../components/admin/datamodel/career-goal/AddCareerGoalForm';
+import UpdateCareerGoalForm from '../../components/admin/datamodel/career-goal/UpdateCareerGoalForm';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
-import { Slugs } from '../../../api/slug/SlugCollection';
 import { dataModelActions } from '../../../redux/admin/data-model';
-import { profileGetCareerGoalIDs, itemToSlugName } from '../../components/shared/utilities/data-model';
+import {
+  profileGetCareerGoalIDs,
+  itemToSlugName,
+  interestNameToId,
+} from '../../components/shared/utilities/data-model';
 import { getDatamodelCount } from './utilities/datamodel';
 import PageLayout from '../PageLayout';
+
+const collection = CareerGoals;
 
 const numReferences = (careerGoal) => {
   let references = 0;
@@ -50,36 +55,9 @@ interface AdminDataModelCareerGoalsPageProps {
 
 // props not deconstructed because AdminDataModeMenuProps has 21 numbers.
 const AdminDataModelCareerGoalsPage: React.FC<AdminDataModelCareerGoalsPageProps> = (props) => {
-  // TODO deconstruct props
-  const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');
   const [showUpdateFormState, setShowUpdateForm] = useState(false);
-
-  const handleAdd = (doc) => {
-    // console.log('handleAdd(%o)', doc);
-    const collectionName = CareerGoals.getCollectionName();
-    const interests = doc.interests;
-    const slugs = interests.map((i) => Slugs.getNameFromID(Interests.findDoc({ name: i }).slugID));
-    const definitionData = doc;
-    definitionData.interests = slugs;
-    defineMethod.call({ collectionName, definitionData }, (error) => {
-      if (error) {
-        Swal.fire({
-          title: 'Add failed',
-          text: error.message,
-          icon: 'error',
-        });
-      } else {
-        Swal.fire({
-          title: 'Add succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      }
-    });
-  };
 
   const handleCancel = (event) => {
     event.preventDefault();
@@ -122,20 +100,20 @@ const AdminDataModelCareerGoalsPage: React.FC<AdminDataModelCareerGoalsPageProps
 
   const handleOpenUpdate = (evt, inst) => {
     evt.preventDefault();
-    // console.log('handleOpenUpdate inst=%o ref=%o', inst, formRef);
+    // console.log('handleOpenUpdate inst=%o', inst);
     setShowUpdateForm(true);
     setId(inst.id);
   };
 
   const handleUpdate = (doc) => {
-    // console.log('handleUpdate(%o) ref=%o', doc, formRef);
-    const collectionName = CareerGoals.getCollectionName();
+    // console.log('handleUpdate doc=%o', doc);
+    const collectionName = collection.getCollectionName();
     const updateData: CareerGoalUpdate = {};
     updateData.id = doc._id;
     updateData.name = doc.name;
     updateData.description = doc.description;
     updateData.retired = doc.retired;
-    updateData.interests = doc.interests;
+    updateData.interests = doc.interests.map(interestNameToId);
     // console.log('updateData = %o', updateData);
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
@@ -161,10 +139,10 @@ const AdminDataModelCareerGoalsPage: React.FC<AdminDataModelCareerGoalsPageProps
   return (
     <PageLayout id="data-model-career-goals-page" headerPaneTitle="Career Goals">
       {showUpdateFormState ? (
-        <AdminDataModelUpdateForm collection={CareerGoals} id={idState} formRef={formRef} handleUpdate={handleUpdate}
-                                  handleCancel={handleCancel} itemTitleString={itemTitleString}/>
+        <UpdateCareerGoalForm collection={CareerGoals} id={idState} handleUpdate={handleUpdate}
+                                  handleCancel={handleCancel} itemTitleString={itemTitleString} interests={props.interests} />
       ) : (
-        <AddCareerGoalForm formRef={formRef} handleAdd={handleAdd} interests={props.interests}/>
+        <AddCareerGoalForm interests={props.interests}/>
       )}
       <ListCollectionWidget
         collection={CareerGoals}
