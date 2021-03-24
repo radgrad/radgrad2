@@ -13,13 +13,12 @@ interface UpdateCourseInstanceFormProps {
   terms: AcademicTerm[];
   collection: BaseCollection;
   id: string;
-  formRef: React.RefObject<unknown>;
   handleUpdate: (doc) => any;
   handleCancel: (event) => any;
   itemTitleString: (item) => React.ReactNode;
 }
 
-const UpdateCourseInstanceForm: React.FC<UpdateCourseInstanceFormProps> = ({ terms, collection, id, formRef, handleUpdate, handleCancel, itemTitleString }) => {
+const UpdateCourseInstanceForm: React.FC<UpdateCourseInstanceFormProps> = ({ terms, collection, id, handleUpdate, handleCancel, itemTitleString }) => {
   const model = collection.findDoc(id);
   model.academicTerm = academicTermIdToName(model.termID);
   model.creditHours = model.creditHrs;
@@ -52,7 +51,7 @@ const UpdateCourseInstanceForm: React.FC<UpdateCourseInstanceFormProps> = ({ ter
         Update
         {collection.getType()}:{itemTitleString(model)}
       </Header>
-      <AutoForm schema={formSchema} onSubmit={handleUpdate} ref={formRef} showInlineError model={model}>
+      <AutoForm schema={formSchema} onSubmit={handleUpdate} showInlineError model={model}>
         <Form.Group widths="equal">
           <SelectField name="academicTerm" />
           <AutoField name="ice" />

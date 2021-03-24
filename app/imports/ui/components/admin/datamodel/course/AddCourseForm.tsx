@@ -9,7 +9,7 @@ import MultiSelectField from '../../../form-fields/MultiSelectField';
 import { Course, Interest } from '../../../../../typings/radgrad';
 import { courseNameToSlug, courseToName, docToName } from '../../../shared/utilities/data-model';
 import { interestSlugFromName } from '../../../shared/utilities/form';
-import { callback } from '../utilities/add-form';
+import { defineCallback } from '../utilities/add-form';
 
 interface AddCourseFormProps {
   interests: Interest[];
@@ -18,7 +18,6 @@ interface AddCourseFormProps {
 
 const AddCourseForm: React.FC<AddCourseFormProps> = ({ interests, courses}) => {
   let formRef;
-
   const handleAdd = (doc) => {
     // console.log('CoursePage.handleAdd(%o)', doc);
     const collectionName = Courses.getCollectionName();
@@ -38,7 +37,7 @@ const AddCourseForm: React.FC<AddCourseFormProps> = ({ interests, courses}) => {
       definitionData.prerequisites = doc.prerequisites.map(courseNameToSlug);
     }
     // console.log(collectionName, definitionData);
-    defineMethod.call({ collectionName, definitionData }, callback(formRef));
+    defineMethod.call({ collectionName, definitionData }, defineCallback(formRef));
   };
 
 

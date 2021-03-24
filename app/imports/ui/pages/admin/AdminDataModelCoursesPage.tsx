@@ -60,7 +60,6 @@ interface AdminDataModelCoursesPageProps {
 
 // props not deconstructed because AdminDataModeMenuProps has 21 numbers.
 const AdminDataModelCoursesPage: React.FC<AdminDataModelCoursesPageProps> = (props) => {
-  const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');
   const [showUpdateFormState, setShowUpdateForm] = useState(false);
@@ -150,7 +149,7 @@ const AdminDataModelCoursesPage: React.FC<AdminDataModelCoursesPageProps> = (pro
   return (
     <PageLayout id="data-model-courses-page" headerPaneTitle="Courses" headerPaneBody={headerPaneBody}>
       {showUpdateFormState ? (
-        <UpdateCourseForm collection={collection} id={idState} formRef={formRef} handleUpdate={handleUpdate}
+        <UpdateCourseForm collection={collection} id={idState} handleUpdate={handleUpdate}
                           handleCancel={handleCancel} itemTitleString={itemTitleString} interests={props.interests}
                           courses={props.courses}/>
       ) : (

@@ -14,7 +14,7 @@ import {
   courseToName, profileNameToUsername,
   profileToName,
 } from '../../../shared/utilities/data-model';
-import { callback } from '../utilities/add-form';
+import { defineCallback } from '../utilities/add-form';
 
 interface AddCourseInstanceFormProps {
   terms: AcademicTerm[];
@@ -44,7 +44,7 @@ const AddCourseInstanceForm: React.FC<AddCourseInstanceFormProps> = ({ terms, co
       grade,
     };
     // console.log('definitionData=%o', definitionData);
-    defineMethod.call({ collectionName, definitionData }, callback(formRef));
+    defineMethod.call({ collectionName, definitionData }, defineCallback(formRef));
   };
 
   const termNames = terms.map(academicTermToName);

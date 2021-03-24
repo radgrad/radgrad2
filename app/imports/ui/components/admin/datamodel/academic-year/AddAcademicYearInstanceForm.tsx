@@ -8,7 +8,7 @@ import moment from 'moment';
 import { defineMethod } from '../../../../../api/base/BaseCollection.methods';
 import { AcademicYearInstances } from '../../../../../api/degree-plan/AcademicYearInstanceCollection';
 import { profileToUsername } from '../../../shared/utilities/data-model';
-import { callback } from '../utilities/add-form';
+import { defineCallback } from '../utilities/add-form';
 
 interface AddAcademicYearInstanceProps {
   students: Meteor.User[];
@@ -28,7 +28,7 @@ const AddAcademicYearInstanceForm: React.FC<AddAcademicYearInstanceProps> = ({ s
   const handleAdd = (doc) => {
     const collectionName = AcademicYearInstances.getCollectionName();
     const definitionData = doc;
-    defineMethod.call({ collectionName, definitionData }, callback(formRef));
+    defineMethod.call({ collectionName, definitionData }, defineCallback(formRef));
   };
 
 

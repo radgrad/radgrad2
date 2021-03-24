@@ -4,26 +4,72 @@ import { AutoForm, DateField, SelectField, NumField, SubmitField } from 'uniform
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { AcademicTerms } from '../../../../../api/academic-term/AcademicTermCollection';
+import { defineMethod } from '../../../../../api/base/BaseCollection.methods';
 import { Feeds } from '../../../../../api/feed/FeedCollection';
-import { academicTermToName, courseToName, docToName, profileToName } from '../../../shared/utilities/data-model';
-import { AcademicTerm, Course, Opportunity, StudentProfile } from '../../../../../typings/radgrad';
+import {
+  academicTermNameToSlug,
+  academicTermToName, courseNameToSlug,
+  courseToName,
+  docToName, opportunityNameToSlug,
+  profileNameToUsername,
+  profileToName,
+} from '../../../shared/utilities/data-model';
+import { AcademicTerm, Course, FeedDefine, Opportunity, StudentProfile } from '../../../../../typings/radgrad';
+import { defineCallback } from '../utilities/add-form';
 
 interface AddFeedFromProps {
   academicTerms: AcademicTerm[];
   courses: Course[];
   opportunities: Opportunity[];
   students: StudentProfile[];
-  formRef: React.RefObject<unknown>;
-  handleAdd: (doc) => any;
 }
 
-const AddFeedForm: React.FC<AddFeedFromProps> = ({ academicTerms, courses, opportunities, students, formRef, handleAdd }) => {
+const AddFeedForm: React.FC<AddFeedFromProps> = ({ academicTerms, courses, opportunities, students }) => {
+  let formRef;
   const [feedType, setFeedType] = useState(Feeds.NEW_USER);
 
   const handleModelChange = (model) => {
     const newFeedType = model.feedType;
     setFeedType(newFeedType);
   };
+
+  const handleAdd = (doc) => {
+    // console.log('Feeds.handleAdd(%o)', doc);
+    const collectionName = Feeds.getCollectionName();
+    const definitionData: FeedDefine = doc; // create the definitionData may need to modify doc's values
+    definitionData.feedType = doc.feedType;
+    switch (doc.feedType) {
+      case Feeds.NEW_USER:
+        definitionData.user = profileNameToUsername(doc.user);
+        break;
+      case Feeds.NEW_COURSE:
+        definitionData.course = courseNameToSlug(doc.course);
+        break;
+      case Feeds.NEW_COURSE_REVIEW:
+        definitionData.course = courseNameToSlug(doc.course);
+        definitionData.user = profileNameToUsername(doc.user);
+        break;
+      case Feeds.NEW_LEVEL:
+        definitionData.user = profileNameToUsername(doc.user);
+        break;
+      case Feeds.NEW_OPPORTUNITY:
+        definitionData.opportunity = opportunityNameToSlug(doc.opportunity);
+        break;
+      case Feeds.NEW_OPPORTUNITY_REVIEW:
+        definitionData.opportunity = opportunityNameToSlug(doc.opportunity);
+        definitionData.user = profileNameToUsername(doc.user);
+        break;
+      case Feeds.VERIFIED_OPPORTUNITY:
+        definitionData.opportunity = opportunityNameToSlug(doc.opportunity);
+        definitionData.user = profileNameToUsername(doc.user);
+        definitionData.academicTerm = academicTermNameToSlug(doc.academicTerm);
+        break;
+      default:
+        break;
+    }
+    defineMethod.call({ collectionName, definitionData }, defineCallback(formRef));
+  };
+
 
   const academicTermNames = academicTerms.map(academicTermToName);
   const currentTermName = AcademicTerms.toString(AcademicTerms.getCurrentTermID(), false);
@@ -107,7 +153,8 @@ const AddFeedForm: React.FC<AddFeedFromProps> = ({ academicTerms, courses, oppor
   return (
     <Segment padded>
       <Header dividing>Add Feed</Header>
-      <AutoForm schema={formSchema} onSubmit={handleAdd} ref={formRef} showInlineError onChangeModel={handleModelChange}>
+      {/* eslint-disable-next-line no-return-assign */}
+      <AutoForm schema={formSchema} onSubmit={handleAdd} ref={(ref) => formRef = ref} showInlineError onChangeModel={handleModelChange}>
         <Form.Group widths="equal">
           <DateField name="timestamp" />
           <SelectField name="feedType" />

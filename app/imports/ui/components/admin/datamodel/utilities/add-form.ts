@@ -1,6 +1,6 @@
 import Swal from 'sweetalert2';
 
-export   const callback = (ref) => (error) => {
+export const defineCallback = (ref) => (error) => {
   if (error) {
     Swal.fire({
       title: 'Add failed',

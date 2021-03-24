@@ -5,8 +5,8 @@ import Swal from 'sweetalert2';
 import { connect } from 'react-redux';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
-import { AcademicTerm, Course, DescriptionPair, IFeed, FeedDefine, Opportunity, StudentProfile } from '../../../typings/radgrad';
-import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
+import { AcademicTerm, Course, DescriptionPair, IFeed, Opportunity, StudentProfile } from '../../../typings/radgrad';
+import { removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Feeds } from '../../../api/feed/FeedCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
@@ -14,7 +14,7 @@ import { Courses } from '../../../api/course/CourseCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import AddFeedForm from '../../components/admin/datamodel/feed/AddFeedForm';
 import UpdateFeedForm from '../../components/admin/datamodel/feed/UpdateFeedForm';
-import { academicTermNameToSlug, courseNameToSlug, opportunityNameToSlug, profileNameToUsername } from '../../components/shared/utilities/data-model';
+import { opportunityNameToSlug } from '../../components/shared/utilities/data-model';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import { RootState } from '../../../redux/types';
 import { getDatamodelCount } from './utilities/datamodel';
@@ -95,63 +95,9 @@ const mapStateToProps = (state: RootState): unknown => ({
 
 // props not deconstructed because AdminDataModeMenuProps has 21 numbers.
 const AdminDataModelFeedsPage: React.FC<AdminDataModelFeedsPageProps> = (props) => {
-  // TODO deconstruct props
-  const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');
   const [showUpdateFormState, setShowUpdateForm] = useState(false);
-
-  const handleAdd = (doc) => {
-    // console.log('Feeds.handleAdd(%o)', doc);
-    const collectionName = collection.getCollectionName();
-    const definitionData: FeedDefine = doc; // create the definitionData may need to modify doc's values
-    definitionData.feedType = doc.feedType;
-    switch (doc.feedType) {
-      case Feeds.NEW_USER:
-        definitionData.user = profileNameToUsername(doc.user);
-        break;
-      case Feeds.NEW_COURSE:
-        definitionData.course = courseNameToSlug(doc.course);
-        break;
-      case Feeds.NEW_COURSE_REVIEW:
-        definitionData.course = courseNameToSlug(doc.course);
-        definitionData.user = profileNameToUsername(doc.user);
-        break;
-      case Feeds.NEW_LEVEL:
-        definitionData.user = profileNameToUsername(doc.user);
-        break;
-      case Feeds.NEW_OPPORTUNITY:
-        definitionData.opportunity = opportunityNameToSlug(doc.opportunity);
-        break;
-      case Feeds.NEW_OPPORTUNITY_REVIEW:
-        definitionData.opportunity = opportunityNameToSlug(doc.opportunity);
-        definitionData.user = profileNameToUsername(doc.user);
-        break;
-      case Feeds.VERIFIED_OPPORTUNITY:
-        definitionData.opportunity = opportunityNameToSlug(doc.opportunity);
-        definitionData.user = profileNameToUsername(doc.user);
-        definitionData.academicTerm = academicTermNameToSlug(doc.academicTerm);
-        break;
-      default:
-        break;
-    }
-    defineMethod.call({ collectionName, definitionData }, (error) => {
-      if (error) {
-        Swal.fire({
-          title: 'Add failed',
-          text: error.message,
-          icon: 'error',
-        });
-      } else {
-        Swal.fire({
-          title: 'Add succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      }
-    });
-  };
 
   const handleCancel = (event) => {
     event.preventDefault();
@@ -241,7 +187,6 @@ const AdminDataModelFeedsPage: React.FC<AdminDataModelFeedsPageProps> = (props) 
         <UpdateFeedForm
           collection={collection}
           id={idState}
-          formRef={formRef}
           handleUpdate={handleUpdate}
           handleCancel={handleCancel}
           itemTitleString={itemTitleString}
@@ -251,7 +196,7 @@ const AdminDataModelFeedsPage: React.FC<AdminDataModelFeedsPageProps> = (props) 
           opportunities={props.opportunities}
         />
       ) : (
-        <AddFeedForm formRef={formRef} handleAdd={handleAdd} academicTerms={props.academicTerms} courses={props.courses}
+        <AddFeedForm academicTerms={props.academicTerms} courses={props.courses}
                      students={props.students} opportunities={props.opportunities}/>
       )}
       <ListCollectionWidget

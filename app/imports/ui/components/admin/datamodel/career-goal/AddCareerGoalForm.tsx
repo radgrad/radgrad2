@@ -10,7 +10,7 @@ import slugify, { Slugs } from '../../../../../api/slug/SlugCollection';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
 import { Interest } from '../../../../../typings/radgrad';
 import { docToName } from '../../../shared/utilities/data-model';
-import { callback } from '../utilities/add-form';
+import { defineCallback } from '../utilities/add-form';
 
 interface AddCareerGoalFormProps {
   interests: Interest[];
@@ -28,7 +28,7 @@ const AddCareerGoalForm: React.FC<AddCareerGoalFormProps> = ({ interests }) => {
     const definitionData = doc;
     definitionData.interests = slugs;
     definitionData.slug = slugify(doc.name);
-    defineMethod.call({ collectionName, definitionData }, callback(formRef));
+    defineMethod.call({ collectionName, definitionData }, defineCallback(formRef));
   };
 
   const interestNames = interests.map(docToName);
