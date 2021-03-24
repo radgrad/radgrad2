@@ -2,7 +2,6 @@ import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
 import { Confirm, Icon } from 'semantic-ui-react';
 import _ from 'lodash';
-import Swal from 'sweetalert2';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
@@ -13,6 +12,7 @@ import ListCollectionWidget from '../../components/admin/datamodel/ListCollectio
 import AdminDataModelUpdateForm from '../../components/admin/datamodel/AdminDataModelUpdateForm';
 import AdminDataModelAddForm from '../../components/admin/datamodel/AdminDataModelAddForm';
 import { dataModelActions } from '../../../redux/admin/data-model';
+import { removeItCallback, updateCallBack } from './utilities/data-model-page-callbacks';
 import { getDatamodelCount } from './utilities/datamodel';
 import PageLayout from '../PageLayout';
 
@@ -81,25 +81,7 @@ const AdminDataModelAcademicTermsPage: React.FC<AdminDataModelAcademicTermsPageP
   const handleConfirmDelete = () => {
     const collectionName = AcademicTerms.getCollectionName();
     const instance = idState;
-    removeItMethod.call({ collectionName, instance }, (error) => {
-      if (error) {
-        Swal.fire({
-          title: 'Delete failed',
-          text: error.message,
-          icon: 'error',
-        });
-        console.error('Error deleting AcademicTerm. %o', error);
-      } else {
-        Swal.fire({
-          title: 'Delete succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      }
-      setId('');
-      setConfirmOpen(false);
-    });
+    removeItMethod.call({ collectionName, instance }, removeItCallback(setShowUpdateForm, setId, setConfirmOpen));
   };
 
   const handleOpenUpdate = (evt, inst) => {
@@ -116,26 +98,7 @@ const AdminDataModelAcademicTermsPage: React.FC<AdminDataModelAcademicTermsPageP
     updateData.id = doc._id;
     updateData.retired = doc.retired;
     // console.log('parameter = %o', { collectionName, updateData });
-    updateMethod.call({ collectionName, updateData }, (error) => {
-      if (error) {
-        Swal.fire({
-          title: 'Update failed',
-          text: error.message,
-          icon: 'error',
-        });
-        console.error('Error in updating AcademicTerm. %o', error);
-      } else {
-        Swal.fire({
-          title: 'Update succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-
-        setShowUpdateForm(false);
-        setId('');
-      }
-    });
+    updateMethod.call({ collectionName, updateData }, updateCallBack(setShowUpdateForm, setId));
   };
 
   const findOptions = {

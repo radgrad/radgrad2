@@ -1,18 +1,18 @@
 import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
 import { Confirm, Icon } from 'semantic-ui-react';
-import Swal from 'sweetalert2';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
-import { DescriptionPair, Interest, InterestType } from '../../../typings/radgrad';
-import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
+import { DescriptionPair, Interest, InterestType, InterestUpdate } from '../../../typings/radgrad';
+import { removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { InterestTypes } from '../../../api/interest/InterestTypeCollection';
 import AddInterestForm from '../../components/admin/datamodel/interest/AddInterestForm';
 import UpdateInterestForm from '../../components/admin/datamodel/interest/UpdateInterestForm';
-import { itemToSlugName, interestTypeNameToId, interestTypeNameToSlug } from '../../components/shared/utilities/data-model';
+import { itemToSlugName, interestTypeNameToId } from '../../components/shared/utilities/data-model';
 import { getDatamodelCount } from './utilities/datamodel';
 import PageLayout from '../PageLayout';
+import { removeItCallback, updateCallBack } from './utilities/data-model-page-callbacks';
 
 const collection = Interests; // the collection to use.
 
@@ -51,35 +51,9 @@ interface AdminDataModelInterestsPageProps {
 
 // props not deconstructed because AdminDataModeMenuProps has 21 numbers.
 const AdminDataModelInterestsPage: React.FC<AdminDataModelInterestsPageProps> = (props) => {
-  // TODO deconstruct props
-  const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');
   const [showUpdateFormState, setShowUpdateForm] = useState(false);
-
-  const handleAdd = (doc) => {
-    // console.log('Interests.handleAdd(%o)', doc);
-    const collectionName = collection.getCollectionName();
-    const definitionData = doc;
-    definitionData.interestType = interestTypeNameToSlug(doc.interestType);
-    // console.log(collectionName, definitionData);
-    defineMethod.call({ collectionName, definitionData }, (error) => {
-      if (error) {
-        Swal.fire({
-          title: 'Add failed',
-          text: error.message,
-          icon: 'error',
-        });
-      } else {
-        Swal.fire({
-          title: 'Add succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      }
-    });
-  };
 
   const handleCancel = (event) => {
     event.preventDefault();
@@ -98,26 +72,7 @@ const AdminDataModelInterestsPage: React.FC<AdminDataModelInterestsPageProps> = 
   const handleConfirmDelete = () => {
     const collectionName = collection.getCollectionName();
     const instance = idState;
-    removeItMethod.call({ collectionName, instance }, (error) => {
-      if (error) {
-        Swal.fire({
-          title: 'Delete failed',
-          text: error.message,
-          icon: 'error',
-        });
-        console.error('Error deleting AcademicTerm. %o', error);
-      } else {
-        Swal.fire({
-          title: 'Delete succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      }
-      setShowUpdateForm(false);
-      setId('');
-      setConfirmOpen(false);
-    });
+    removeItMethod.call({ collectionName, instance }, removeItCallback(setShowUpdateForm, setId, setConfirmOpen));
   };
 
   const handleOpenUpdate = (evt, inst) => {
@@ -130,31 +85,13 @@ const AdminDataModelInterestsPage: React.FC<AdminDataModelInterestsPageProps> = 
   const handleUpdate = (doc) => {
     // console.log('handleUpdate doc=%o', doc);
     const collectionName = collection.getCollectionName();
-    const updateData: any = doc;
+    const updateData: InterestUpdate = doc;
     updateData.id = doc._id;
     if (doc.interestType) {
       updateData.interestType = interestTypeNameToId(doc.interestType);
     }
     // console.log(updateData);
-    updateMethod.call({ collectionName, updateData }, (error) => {
-      if (error) {
-        Swal.fire({
-          title: 'Update failed',
-          text: error.message,
-          icon: 'error',
-        });
-        console.error('Error in updating. %o', error);
-      } else {
-        Swal.fire({
-          title: 'Update succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        setShowUpdateForm(false);
-        setId('');
-      }
-    });
+    updateMethod.call({ collectionName, updateData }, updateCallBack(setShowUpdateForm, setId));
   };
 
   const findOptions = {
@@ -163,11 +100,11 @@ const AdminDataModelInterestsPage: React.FC<AdminDataModelInterestsPageProps> = 
   return (
     <PageLayout id="data-model-interests-page" headerPaneTitle="Interests">
       {showUpdateFormState ? (
-        <UpdateInterestForm collection={collection} id={idState} formRef={formRef} handleUpdate={handleUpdate}
+        <UpdateInterestForm collection={collection} id={idState} handleUpdate={handleUpdate}
                             handleCancel={handleCancel} itemTitleString={itemTitleString}
                             interestTypes={props.interestTypes}/>
       ) : (
-        <AddInterestForm formRef={formRef} handleAdd={handleAdd} interestTypes={props.interestTypes}/>
+        <AddInterestForm interestTypes={props.interestTypes}/>
       )}
       <ListCollectionWidget
         collection={collection}

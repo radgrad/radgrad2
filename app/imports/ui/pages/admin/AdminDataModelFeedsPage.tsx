@@ -182,7 +182,7 @@ const AdminDataModelFeedsPage: React.FC<AdminDataModelFeedsPageProps> = (props) 
     sort: { name: 1 }, // determine how you want to sort the items in the list
   };
   return (
-    <PageLayout id="data-model-feeds-page" headerPaneTitle="Feeds">
+    <PageLayout id="data-model-feeds-page" headerPaneTitle="Feeds" headerPaneBody="There be dragons here">
       {showUpdateFormState ? (
         <UpdateFeedForm
           collection={collection}

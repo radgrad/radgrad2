@@ -3,16 +3,28 @@ import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, SelectField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
+import { defineMethod } from '../../../../../api/base/BaseCollection.methods';
+import { Interests } from '../../../../../api/interest/InterestCollection';
 import { InterestType } from '../../../../../typings/radgrad';
-import { docToName } from '../../../shared/utilities/data-model';
+import { docToName, interestTypeNameToSlug } from '../../../shared/utilities/data-model';
+import { defineCallback } from '../utilities/add-form';
 
 interface AddInterestFormProps {
   interestTypes: InterestType[];
-  formRef: React.RefObject<unknown>;
-  handleAdd: (doc) => any;
 }
 
-const AddInterestForm: React.FC<AddInterestFormProps> = ({ interestTypes, formRef, handleAdd }) => {
+const AddInterestForm: React.FC<AddInterestFormProps> = ({ interestTypes }) => {
+  let formRef;
+  const handleAdd = (doc) => {
+    // console.log('Interests.handleAdd(%o)', doc);
+    const collectionName = Interests.getCollectionName();
+    const definitionData = doc;
+    definitionData.interestType = interestTypeNameToSlug(doc.interestType);
+    // console.log(collectionName, definitionData);
+    defineMethod.call({ collectionName, definitionData }, defineCallback(formRef));
+  };
+
+
   const interestTypeNames = interestTypes.map(docToName);
   const schema = new SimpleSchema({
     name: String,
@@ -25,7 +37,8 @@ const AddInterestForm: React.FC<AddInterestFormProps> = ({ interestTypes, formRe
   return (
     <Segment padded>
       <Header dividing>Add Interest</Header>
-      <AutoForm schema={formSchema} onSubmit={handleAdd} ref={formRef} showInlineError>
+      {/* eslint-disable-next-line no-return-assign */}
+      <AutoForm schema={formSchema} onSubmit={handleAdd} ref={(ref) => formRef = ref} showInlineError>
         <Form.Group widths="equal">
           <TextField name="slug" placeholder="rust" />
           <TextField name="name" placeholder="Rust Programming Language" />

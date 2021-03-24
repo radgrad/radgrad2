@@ -13,13 +13,12 @@ interface UpdateInterestFormProps {
   interestTypes: InterestType[];
   collection: BaseCollection;
   id: string;
-  formRef: React.RefObject<unknown>;
   handleUpdate: (doc) => any;
   handleCancel: (event) => any;
   itemTitleString: (item) => React.ReactNode;
 }
 
-const UpdateInterestForm: React.FC<UpdateInterestFormProps> = ({ interestTypes, collection, id, formRef, handleCancel, handleUpdate, itemTitleString }) => {
+const UpdateInterestForm: React.FC<UpdateInterestFormProps> = ({ interestTypes, collection, id, handleCancel, handleUpdate, itemTitleString }) => {
   const interestTypeNames = interestTypes.map(docToName);
   const model = collection.findDoc(id);
   model.slug = Slugs.getNameFromID(model.slugID);
@@ -43,7 +42,7 @@ const UpdateInterestForm: React.FC<UpdateInterestFormProps> = ({ interestTypes, 
         Update
         {collection.getType()}:{itemTitleString(model)}
       </Header>
-      <AutoForm schema={formSchema} onSubmit={handleUpdate} ref={formRef} showInlineError model={model}>
+      <AutoForm schema={formSchema} onSubmit={handleUpdate} showInlineError model={model}>
         <Form.Group widths="equal">
           <TextField name="slug" disabled />
           <TextField name="name" />
