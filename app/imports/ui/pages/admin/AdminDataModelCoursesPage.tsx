@@ -5,14 +5,13 @@ import Swal from 'sweetalert2';
 import _ from 'lodash';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { Course, DescriptionPair, Interest } from '../../../typings/radgrad';
-import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
+import { removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { getDatamodelCount, makeMarkdownLink } from './utilities/datamodel';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { courseNameToSlug, courseToName, itemToSlugName, interestNameToId } from '../../components/shared/utilities/data-model';
 import AddCourseForm from '../../components/admin/datamodel/course/AddCourseForm';
-import { interestSlugFromName } from '../../components/shared/utilities/form';
 import UpdateCourseForm from '../../components/admin/datamodel/course/UpdateCourseForm';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import PageLayout from '../PageLayout';
@@ -66,43 +65,6 @@ const AdminDataModelCoursesPage: React.FC<AdminDataModelCoursesPageProps> = (pro
   const [idState, setId] = useState('');
   const [showUpdateFormState, setShowUpdateForm] = useState(false);
 
-  const handleAdd = (doc) => {
-    // console.log('CoursePage.handleAdd(%o)', doc);
-    const collectionName = collection.getCollectionName();
-    const definitionData: any = {}; // create the definitionData may need to modify doc's values
-    const interests = doc.interests.map(interestSlugFromName);
-    definitionData.slug = doc.slug;
-    definitionData.name = doc.name;
-    definitionData.num = doc.num;
-    definitionData.description = doc.description;
-    if (doc.shortName) {
-      definitionData.shortName = doc.shortName;
-    } else {
-      definitionData.shortName = doc.name;
-    }
-    definitionData.interests = interests;
-    if (doc.prerequisites) {
-      definitionData.prerequisites = doc.prerequisites.map(courseNameToSlug);
-    }
-    // console.log(collectionName, definitionData);
-    defineMethod.call({ collectionName, definitionData }, (error) => {
-      if (error) {
-        Swal.fire({
-          title: 'Add failed',
-          text: error.message,
-          icon: 'error',
-        });
-      } else {
-        Swal.fire({
-          title: 'Add succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      }
-    });
-  };
-
   const handleCancel = (event) => {
     event.preventDefault();
     setShowUpdateForm(false);
@@ -150,7 +112,7 @@ const AdminDataModelCoursesPage: React.FC<AdminDataModelCoursesPageProps> = (pro
   };
 
   const handleUpdate = (doc) => {
-    console.log('handleUpdate doc=%o', doc);
+    // console.log('handleUpdate doc=%o', doc);
     const collectionName = collection.getCollectionName();
     const updateData: any = doc; // create the updateData object from the doc.
     updateData.id = doc._id;
@@ -181,14 +143,18 @@ const AdminDataModelCoursesPage: React.FC<AdminDataModelCoursesPageProps> = (pro
   const findOptions = {
     sort: { num: 1 }, // determine how you want to sort the items in the list
   };
+  const headerPaneBody = `Course slugs have a fixed format:
+ * The department, a lowercase string. Normally 2 to 5 characters
+ * an underscore '_'
+ * The course number.`;
   return (
-    <PageLayout id="data-model-courses-page" headerPaneTitle="Courses">
+    <PageLayout id="data-model-courses-page" headerPaneTitle="Courses" headerPaneBody={headerPaneBody}>
       {showUpdateFormState ? (
         <UpdateCourseForm collection={collection} id={idState} formRef={formRef} handleUpdate={handleUpdate}
                           handleCancel={handleCancel} itemTitleString={itemTitleString} interests={props.interests}
                           courses={props.courses}/>
       ) : (
-        <AddCourseForm formRef={formRef} handleAdd={handleAdd} interests={props.interests} courses={props.courses}/>
+        <AddCourseForm interests={props.interests} courses={props.courses}/>
       )}
       <ListCollectionWidget
         collection={collection}

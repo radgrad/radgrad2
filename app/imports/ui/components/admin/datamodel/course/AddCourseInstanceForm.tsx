@@ -3,20 +3,50 @@ import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, SelectField, NumField, SubmitField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
-import { AcademicTerm, Course, StudentProfile } from '../../../../../typings/radgrad';
+import { defineMethod } from '../../../../../api/base/BaseCollection.methods';
+import { Slugs } from '../../../../../api/slug/SlugCollection';
+import { AcademicTerm, Course, CourseInstanceDefine, StudentProfile } from '../../../../../typings/radgrad';
 import { AcademicTerms } from '../../../../../api/academic-term/AcademicTermCollection';
 import { CourseInstances } from '../../../../../api/course/CourseInstanceCollection';
-import { academicTermToName, courseToName, profileToName } from '../../../shared/utilities/data-model';
+import {
+  academicTermNameToDoc,
+  academicTermToName, courseNameToCourseDoc,
+  courseToName, profileNameToUsername,
+  profileToName,
+} from '../../../shared/utilities/data-model';
+import { callback } from '../utilities/add-form';
 
 interface AddCourseInstanceFormProps {
   terms: AcademicTerm[];
   courses: Course[];
   students: StudentProfile[];
-  formRef: React.RefObject<unknown>;
-  handleAdd: (doc) => any;
 }
 
-const AddCourseInstanceForm: React.FC<AddCourseInstanceFormProps> = ({ terms, courses, students, formRef, handleAdd }) => {
+const AddCourseInstanceForm: React.FC<AddCourseInstanceFormProps> = ({ terms, courses, students }) => {
+  let formRef;
+  const handleAdd = (doc) => {
+    // console.log('CourseInstancePage.handleAdd(%o)', doc);
+    const collectionName = CourseInstances.getCollectionName();
+    const academicTermDoc = academicTermNameToDoc(doc.term);
+    const academicTerm = Slugs.getNameFromID(academicTermDoc.slugID);
+    const note = doc.course.substring(0, doc.course.indexOf(':'));
+    const courseDoc = courseNameToCourseDoc(doc.course);
+    const course = Slugs.getNameFromID(courseDoc.slugID);
+    const student = profileNameToUsername(doc.student);
+    const creditHrs = doc.creditHours;
+    const grade = doc.grade;
+    const definitionData: CourseInstanceDefine = {
+      academicTerm,
+      course,
+      note,
+      student,
+      creditHrs,
+      grade,
+    };
+    // console.log('definitionData=%o', definitionData);
+    defineMethod.call({ collectionName, definitionData }, callback(formRef));
+  };
+
   const termNames = terms.map(academicTermToName);
   const currentTermName = AcademicTerms.toString(AcademicTerms.getCurrentTermID(), false);
   const courseNames = courses.map(courseToName);
@@ -51,7 +81,8 @@ const AddCourseInstanceForm: React.FC<AddCourseInstanceFormProps> = ({ terms, co
   return (
     <Segment padded>
       <Header dividing>Add Course Instance</Header>
-      <AutoForm schema={formSchema} onSubmit={handleAdd} ref={formRef} showInlineError>
+      {/* eslint-disable-next-line no-return-assign */}
+      <AutoForm schema={formSchema} onSubmit={handleAdd} ref={(ref) => formRef = ref} showInlineError>
         <Form.Group widths="equal">
           <SelectField name="term" />
           <SelectField name="course" />

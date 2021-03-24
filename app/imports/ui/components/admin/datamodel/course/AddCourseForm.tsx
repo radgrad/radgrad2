@@ -3,18 +3,45 @@ import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, NumField, LongTextField, SubmitField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
+import { defineMethod } from '../../../../../api/base/BaseCollection.methods';
+import { Courses } from '../../../../../api/course/CourseCollection';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
 import { Course, Interest } from '../../../../../typings/radgrad';
-import { courseToName, docToName } from '../../../shared/utilities/data-model';
+import { courseNameToSlug, courseToName, docToName } from '../../../shared/utilities/data-model';
+import { interestSlugFromName } from '../../../shared/utilities/form';
+import { callback } from '../utilities/add-form';
 
 interface AddCourseFormProps {
   interests: Interest[];
   courses: Course[];
-  formRef: React.RefObject<unknown>;
-  handleAdd: (doc) => any;
 }
 
-const AddCourseForm: React.FC<AddCourseFormProps> = ({ interests, courses, formRef, handleAdd }) => {
+const AddCourseForm: React.FC<AddCourseFormProps> = ({ interests, courses}) => {
+  let formRef;
+
+  const handleAdd = (doc) => {
+    // console.log('CoursePage.handleAdd(%o)', doc);
+    const collectionName = Courses.getCollectionName();
+    const definitionData: any = {}; // create the definitionData may need to modify doc's values
+    const docInterests = doc.interests.map(interestSlugFromName);
+    definitionData.slug = doc.slug;
+    definitionData.name = doc.name;
+    definitionData.num = doc.num;
+    definitionData.description = doc.description;
+    if (doc.shortName) {
+      definitionData.shortName = doc.shortName;
+    } else {
+      definitionData.shortName = doc.name;
+    }
+    definitionData.interests = docInterests;
+    if (doc.prerequisites) {
+      definitionData.prerequisites = doc.prerequisites.map(courseNameToSlug);
+    }
+    // console.log(collectionName, definitionData);
+    defineMethod.call({ collectionName, definitionData }, callback(formRef));
+  };
+
+
   const interestNames = interests.map(docToName);
   const courseNames = courses.map(courseToName);
   const schema = new SimpleSchema({
@@ -44,7 +71,8 @@ const AddCourseForm: React.FC<AddCourseFormProps> = ({ interests, courses, formR
   return (
     <Segment padded>
       <Header dividing>Add Course</Header>
-      <AutoForm schema={formSchema} onSubmit={handleAdd} ref={formRef} showInlineError>
+      {/* eslint-disable-next-line no-return-assign */}
+      <AutoForm schema={formSchema} onSubmit={handleAdd} ref={(ref) => formRef = ref} showInlineError>
         <Form.Group widths="equal">
           <TextField name="slug" placeholder="dept_111" />
           <TextField name="name" placeholder="DEPT 111 Introduction to Science" />

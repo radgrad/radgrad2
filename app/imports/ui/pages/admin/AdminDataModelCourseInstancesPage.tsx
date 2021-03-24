@@ -4,15 +4,14 @@ import { Confirm, Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
-import { AcademicTerm, Course, CourseInstance, CourseInstanceDefine, DescriptionPair, StudentProfile } from '../../../typings/radgrad';
-import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
+import { AcademicTerm, Course, CourseInstance, DescriptionPair, StudentProfile } from '../../../typings/radgrad';
+import { removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { Users } from '../../../api/user/UserCollection';
 import AddCourseInstanceForm from '../../components/admin/datamodel/course/AddCourseInstanceForm';
-import { Slugs } from '../../../api/slug/SlugCollection';
-import { academicTermNameToDoc, courseNameToCourseDoc, profileNameToUsername } from '../../components/shared/utilities/data-model';
+import { academicTermNameToDoc } from '../../components/shared/utilities/data-model';
 import UpdateCourseInstanceForm from '../../components/admin/datamodel/course/UpdateCourseInstanceForm';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import { getDatamodelCount } from './utilities/datamodel';
@@ -74,41 +73,6 @@ const AdminDataModelCourseInstancesPage: React.FC<AdminDataModelCourseInstancesP
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');
   const [showUpdateFormState, setShowUpdateForm] = useState(false);
-
-  const handleAdd = (doc) => {
-    // console.log('CourseInstancePage.handleAdd(%o)', doc);
-    const collectionName = collection.getCollectionName();
-    const academicTermDoc = academicTermNameToDoc(doc.term);
-    const academicTerm = Slugs.getNameFromID(academicTermDoc.slugID);
-    const note = doc.course.substring(0, doc.course.indexOf(':'));
-    const courseDoc = courseNameToCourseDoc(doc.course);
-    const course = Slugs.getNameFromID(courseDoc.slugID);
-    const student = profileNameToUsername(doc.student);
-    const definitionData: CourseInstanceDefine = {
-      academicTerm,
-      course,
-      note,
-      student,
-      grade: doc.grade,
-    };
-    // console.log('definitionData=%o', definitionData);
-    defineMethod.call({ collectionName, definitionData }, (error) => {
-      if (error) {
-        Swal.fire({
-          title: 'Add failed',
-          text: error.message,
-          icon: 'error',
-        });
-      } else {
-        Swal.fire({
-          title: 'Add succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      }
-    });
-  };
 
   const handleCancel = (event) => {
     event.preventDefault();
@@ -193,7 +157,7 @@ const AdminDataModelCourseInstancesPage: React.FC<AdminDataModelCourseInstancesP
         <UpdateCourseInstanceForm collection={collection} id={idState} formRef={formRef} handleUpdate={handleUpdate}
                                   handleCancel={handleCancel} itemTitleString={itemTitleString} terms={props.terms}/>
       ) : (
-        <AddCourseInstanceForm formRef={formRef} handleAdd={handleAdd} terms={props.terms} courses={props.courses}
+        <AddCourseInstanceForm terms={props.terms} courses={props.courses}
                                students={props.students}/>
       )}
       <ListCollectionWidget

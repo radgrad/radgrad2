@@ -166,7 +166,6 @@ const AdminDataModelAcademicTermsPage: React.FC<AdminDataModelAcademicTermsPageP
   );
 };
 
-// TODO add the consts and a return.
 const AdminDataModelAcademicTermsPageContainer = withTracker(() => {
   const items = AcademicTerms.find({}, { sort: { termNumber: 1 }}).fetch();
   const modelCount = getDatamodelCount();

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Header, Segment } from 'semantic-ui-react';
-import Swal from 'sweetalert2';
 import { AutoForm, TextField, LongTextField, SubmitField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
@@ -11,6 +10,7 @@ import slugify, { Slugs } from '../../../../../api/slug/SlugCollection';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
 import { Interest } from '../../../../../typings/radgrad';
 import { docToName } from '../../../shared/utilities/data-model';
+import { callback } from '../utilities/add-form';
 
 interface AddCareerGoalFormProps {
   interests: Interest[];
@@ -19,23 +19,6 @@ interface AddCareerGoalFormProps {
 const AddCareerGoalForm: React.FC<AddCareerGoalFormProps> = ({ interests }) => {
 
   let formRef;
-  const callback = (ref) => (error) => {
-    if (error) {
-      Swal.fire({
-        title: 'Add failed',
-        text: error.message,
-        icon: 'error',
-      });
-    } else {
-      Swal.fire({
-        title: 'Add succeeded',
-        icon: 'success',
-        showConfirmButton: false,
-        timer: 1500,
-      });
-      ref.reset();
-    }
-  };
 
   const handleAdd = (doc) => {
     // console.log('handleAdd(%o)', doc);
