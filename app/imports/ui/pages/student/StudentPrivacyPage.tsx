@@ -14,8 +14,9 @@ import ProfileCard from '../../components/shared/profile/ProfileCard';
 import StudentProfileModalLabel from '../../components/shared/profile/StudentProfileModalLabel';
 import StudentProfileCardMethod from '../../components/shared/profile/StudentProfileCardMethod';
 import CareerGoalLabel from '../../components/shared/label/CareerGoalLabel';
-import InterestLabel from "../../components/shared/label/InterestLabel";
-import CourseLabel from "../../components/shared/label/CourseLabel";
+import InterestLabel from '../../components/shared/label/InterestLabel';
+import CourseLabel from '../../components/shared/label/CourseLabel';
+import OpportunityLabel from '../../components/shared/label/OpportunityLabel';
 
 const headerPaneTitle = 'Control what others see about you';
 const headerPaneBody = `
@@ -53,6 +54,10 @@ const StudentPrivacyPage: React.FC<StudentPrivacyPageProps> = ({profile}) => {
       <div style={{paddingBottom: '20px'}}>
         <CourseLabel slug='ics_101' userID={profile.userID}/>
         <CourseLabel slug='ics_102' userID={profile.userID}/>
+      </div>
+      <div style={{paddingBottom: '20px'}}>
+        <OpportunityLabel slug='hawaii-hacker-hours' userID={profile.userID}/>
+        <OpportunityLabel slug='acm-manoa' userID={profile.userID}/>
       </div>
       <Header>Use the size parameter to adjust size</Header>
       <div style={{paddingBottom: '20px'}}>
