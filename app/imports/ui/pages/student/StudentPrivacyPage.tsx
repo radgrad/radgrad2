@@ -15,7 +15,7 @@ import StudentProfileLabel from '../../components/shared/profile/StudentProfileL
 import StudentProfileCard from '../../components/shared/profile/StudentProfileCard';
 import StudentProfileModalLabel from '../../components/shared/profile/StudentProfileModalLabel';
 import StudentProfileCardMethod from '../../components/shared/profile/StudentProfileCardMethod';
-import CareerGoalLabel from "../../components/shared/label/CareerGoalLabel";
+import CareerGoalLabel from '../../components/shared/label/CareerGoalLabel';
 
 const headerPaneTitle = 'Control what others see about you';
 const headerPaneBody = `
