@@ -15,6 +15,7 @@ import StudentProfileLabel from '../../components/shared/profile/StudentProfileL
 import StudentProfileCard from '../../components/shared/profile/StudentProfileCard';
 import StudentProfileModalLabel from '../../components/shared/profile/StudentProfileModalLabel';
 import StudentProfileCardMethod from '../../components/shared/profile/StudentProfileCardMethod';
+import CareerGoalLabel from "../../components/shared/label/CareerGoalLabel";
 
 const headerPaneTitle = 'Control what others see about you';
 const headerPaneBody = `
@@ -39,6 +40,10 @@ const StudentPrivacyPage: React.FC<StudentPrivacyPageProps> = ({profile}) => {
   const opportunities = ['ACM ICPC', 'ACM Manoa', 'ALLNET', 'Asteroid Detection', 'HACC'];
   return (
     <PageLayout id="student-privacy-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
+
+      <CareerGoalLabel profile={profile} slug='robotics-engineer'/>
+      <CareerGoalLabel profile={profile} slug='software-developer'/>
+      <CareerGoalLabel slug='software-developer'/>
 
       <StudentProfileModalLabel studentProfile={profile}/>
       <StudentProfileCardMethod studentProfile={profile}/>
