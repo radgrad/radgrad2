@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> ui/layouts/App.tsx</title>
+  <title> ui/components/shared/label/OpportunityLabel.tsx</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -76,7 +76,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>ui/layouts/App.tsx</h1>
+                    <h1>ui/components/shared/label/OpportunityLabel.tsx</h1>
                 </header>
                 
 
@@ -85,189 +85,38 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import { Roles } from 'meteor/alanning:roles';
-import { Meteor } from 'meteor/meteor';
-import React from 'react';
+            <pre class="prettyprint source linenums"><code>import React from 'react';
 import _ from 'lodash';
-import { HashRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
-import '/public/semantic.min.css';
-import NotFoundPage from '../pages/NotFoundPage';
-import SigninPage from '../pages/SigninPage';
-import SignoutDidntAgreeToTermsPage from '../pages/SignoutDidntAgreeToTermsPage';
-import SignoutPage from '../pages/SignoutPage';
-import { ROLE } from '../../api/role/Role';
-import { routes } from './utilities/routes-config';
-import withGlobalSubscription from './utilities/GlobalSubscriptionsHOC';
-import withInstanceSubscriptions from './utilities/InstanceSubscriptionsHOC';
-import { getUsername } from '../components/shared/utilities/router';
-import { Users } from '../../api/user/UserCollection';
-import NotAuthorizedPage from '../pages/NotAuthorizedPage';
-
-// Hack to refresh other RadGrad tabs when logged out on one tab
-window.addEventListener('storage', (event) => {
-  if (event.key === 'logoutEvent' &amp;&amp; event.newValue === 'true') {
-    window.location.reload();
-  }
-});
-
-/* Top-level layout component for this application. Called in imports/startup/client/startup.tsx. */
-const App: React.FC = () => (
-  &lt;Router>
-    &lt;Switch>
-      {routes.LANDING.map((route) => (
-        &lt;Route key={route.path} {..._.defaults(route, { exact: true })} />
-      ))}
-      {routes.ADMIN.map((route) => (
-        &lt;AdminProtectedRoute key={route.path} {..._.defaults(route, { exact: true })} />
-      ))}
-      {routes.ADVISOR.map((route) => (
-        &lt;AdvisorProtectedRoute key={route.path} {..._.defaults(route, { exact: true })} />
-      ))}
-      {routes.FACULTY.map((route) => (
-        &lt;FacultyProtectedRoute key={route.path} {..._.defaults(route, { exact: true })} />
-      ))}
-      {routes.STUDENT.map((route) => (
-        &lt;StudentProtectedRoute key={route.path} {..._.defaults(route, { exact: true })} />
-      ))}
-      {routes.ALUMNI.map((route) => (
-        &lt;StudentProtectedRoute key={route.path} {..._.defaults(route, { exact: true })} />
-      ))}
-      &lt;Route path="/signin">
-        &lt;SigninPage />
-      &lt;/Route>
-      &lt;ProtectedRoute path="/signout" component={SignoutPage} />
-      &lt;ProtectedRoute path="/signout-refused" component={SignoutDidntAgreeToTermsPage} />
-      &lt;Route>
-        &lt;NotFoundPage />
-      &lt;/Route>
-    &lt;/Switch>
-  &lt;/Router>
-);
+import {useRouteMatch} from 'react-router-dom';
+import {EXPLORER_TYPE} from '../../../layouts/utilities/route-constants';
+import * as Router from '../utilities/router';
+import {EntityLabel, EntityLabelPublicProps} from './EntityLabel';
+import {Opportunities} from '../../../../api/opportunity/OpportunityCollection';
+import {ProfileOpportunities} from '../../../../api/user/profile-entries/ProfileOpportunityCollection';
 
 /**
- * ProtectedRoute (see React Router v4 sample)
- * Checks for Meteor login before routing to the requested page, otherwise goes to signin page.
- * @param {any} { component: Component, ...rest }
+ * Returns a React Component representing an Opportunity label.
+ * @param slug Required slug. Error if not found.
+ * @param userID Optional userID. If provided, then Label will colored if present in the user's profile.
+ * @param size Optional size. Defaults to 'Large'.
  */
-const ProtectedRoute = ({ component: Component, ...rest }) => (
-  &lt;Route
-    {...rest}
-    render={(props) => {
-      const isLogged = Meteor.userId() !== null;
-      return isLogged ? &lt;Component {...props} /> : &lt;Redirect to={{ pathname: '/', state: { from: props.location } }} />;
-    }}
-  />
-);
-
-/**
- * AdminProtectedRoute (see React Router v4 sample)
- * Checks for Meteor login and admin role before routing to the requested page, otherwise goes to signin page.
- * @param {any} { component: Component, ...rest }
- */
-const AdminProtectedRoute = ({ component: Component, ...rest }) => {
-  // console.log('AdminProtectedRoute', rest);
-  if (_.isNil(Meteor.userId())) {
-    return &lt;Redirect to={{ pathname: '/', state: { from: rest.location } }} />;
+const OpportunityLabel: React.FC&lt;EntityLabelPublicProps> = ({slug, userID, size, style}) => {
+  let inProfile = false;
+  const match = useRouteMatch();
+  const route = Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${slug}`);
+  const name = Opportunities.findDocBySlug(slug).name; // will throw an error if slug is undefined.
+  if (userID) {
+    // Calculate inProfile and route.
+    const profileEntityIDs = ProfileOpportunities.findNonRetired({userID: userID});
+    const id = Opportunities.findIdBySlug(slug);
+    inProfile = _.includes(profileEntityIDs.map(doc => doc.opportunityID), id);
   }
-  const WrappedComponent = withGlobalSubscription(withInstanceSubscriptions(Component));
   return (
-    &lt;Route
-      {...rest}
-      render={(props) => {
-        const userId = Meteor.userId();
-        const isLogged = userId !== null;
-        const isAdmin = Roles.userIsInRole(userId, [ROLE.ADMIN]);
-        // console.log('AdminProtectedRoute', props);
-        return isLogged &amp;&amp; isAdmin ? &lt;WrappedComponent {...props} /> :
-          &lt;Redirect to={{ pathname: '/', state: { from: props.location } }} />;
-      }}
-    />
+    &lt;EntityLabel slug={slug} inProfile={inProfile} icon='lightbulb outline' name={name} route={route} size={size} style={style}/>
   );
 };
 
-const AdvisorProtectedRoute = ({ component: Component, ...rest }) => {
-  if (_.isNil(Meteor.userId())) {
-    return &lt;Redirect to={{ pathname: '/', state: { from: rest.location } }} />;
-  }
-  const WrappedComponent = withGlobalSubscription(withInstanceSubscriptions(Component));
-  return (
-    &lt;Route
-      {...rest}
-      render={(props) => {
-        const isLogged = Meteor.userId() !== null;
-        const isAllowed = Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN, ROLE.ADVISOR]);
-        return isLogged &amp;&amp; isAllowed ? &lt;WrappedComponent {...props} /> :
-          &lt;Redirect to={{ pathname: '/', state: { from: props.location } }} />;
-      }}
-    />
-  );
-};
-
-const FacultyProtectedRoute = ({ component: Component, ...rest }) => {
-  if (_.isNil(Meteor.userId())) {
-    return &lt;Redirect to={{ pathname: '/', state: { from: rest.location } }} />;
-  }
-  const WrappedComponent = withGlobalSubscription(withInstanceSubscriptions(Component));
-  return (
-    &lt;Route
-      {...rest}
-      render={(props) => {
-        const isLogged = Meteor.userId() !== null;
-        const isAllowed = Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN, ROLE.FACULTY]);
-        return isLogged &amp;&amp; isAllowed ? &lt;WrappedComponent {...props} /> :
-          &lt;Redirect to={{ pathname: '/', state: { from: props.location } }} />;
-      }}
-    />
-  );
-};
-
-const StudentProtectedRoute = ({ component: Component, ...rest }) => {
-  // console.log('StudentProtectedRoute', rest.computedMatch.url, rest.location);
-
-  const userId = Meteor.userId();
-  if (_.isNil(userId)) {
-    return &lt;NotAuthorizedPage role="student" />;
-  }
-  const isStudent = Roles.userIsInRole(Meteor.userId(), ROLE.STUDENT);
-  // Because ROLE.ADMIN and ROLE.ADVISOR are allowed to go to StudentProtectedRoutes, they can trigger the
-  // userInteractionDefineMethod.call() inside of withHistoryListen. Since we only want to track the pageViews of
-  // STUDENTS, we should only use withHistoryListen if LOGGED IN user is a student.
-  const WrappedComponent = withGlobalSubscription(withInstanceSubscriptions(Component));
-  // console.log(Meteor.user()?.username, Users.count());
-  // CAM: I think this happens on a reload so send us back to the LandingPage. By setting the state to where
-  //      we are, we can have the LandingPage redirect us back after the subscriptions are done.
-  //      It looks like we can get here before the Users.subscribe is done.
-  if (_.isNil(Meteor.user())) {
-    return &lt;Redirect to={{ pathname: '/', state: { from: rest.location } }} />;
-  }
-  return (
-    &lt;Route
-      {...rest}
-      render={(props) => {
-        // console.log('StudentProtectedRoute', props);
-        let isAllowed = Roles.userIsInRole(userId, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.STUDENT]);
-        let role = 'student';
-        if (Roles.userIsInRole(userId, [ROLE.ADMIN])) {
-          role = 'admin';
-        }
-        if (Roles.userIsInRole(userId, [ROLE.ADVISOR])) {
-          role = 'admin';
-        }
-        const routeUsername = getUsername(props.match);
-        let loggedInUserName = routeUsername;
-        if (Users.hasProfile(userId)) {
-          loggedInUserName = Users.getProfile(userId).username;
-          if (isStudent) {
-            isAllowed = routeUsername === loggedInUserName;
-          }
-        }
-        return isAllowed ? &lt;WrappedComponent {...props} /> : &lt;NotAuthorizedPage role={role} />;
-      }}
-    />
-  );
-};
-
-export default App;
+export default OpportunityLabel;
 </code></pre>
         </article>
     </section>
