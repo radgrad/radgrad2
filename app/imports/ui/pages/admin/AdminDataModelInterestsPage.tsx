@@ -12,7 +12,12 @@ import UpdateInterestForm from '../../components/admin/datamodel/interest/Update
 import { itemToSlugName, interestTypeNameToId } from '../../components/shared/utilities/data-model';
 import { getDatamodelCount } from './utilities/datamodel';
 import PageLayout from '../PageLayout';
-import { removeItCallback, updateCallBack } from './utilities/data-model-page-callbacks';
+import {
+  handleCancelWrapper,
+  handleConfirmDeleteWrapper, handleDeleteWrapper, handleOpenUpdateWrapper,
+  removeItCallback,
+  updateCallBack,
+} from './utilities/data-model-page-callbacks';
 
 const collection = Interests; // the collection to use.
 
@@ -55,32 +60,10 @@ const AdminDataModelInterestsPage: React.FC<AdminDataModelInterestsPageProps> = 
   const [idState, setId] = useState('');
   const [showUpdateFormState, setShowUpdateForm] = useState(false);
 
-  const handleCancel = (event) => {
-    event.preventDefault();
-    setShowUpdateForm(false);
-    setId('');
-    setConfirmOpen(false);
-  };
-
-  const handleDelete = (event, inst) => {
-    event.preventDefault();
-    // console.log('handleDelete inst=%o', inst);
-    setConfirmOpen(true);
-    setId(inst.id);
-  };
-
-  const handleConfirmDelete = () => {
-    const collectionName = collection.getCollectionName();
-    const instance = idState;
-    removeItMethod.call({ collectionName, instance }, removeItCallback(setShowUpdateForm, setId, setConfirmOpen));
-  };
-
-  const handleOpenUpdate = (evt, inst) => {
-    evt.preventDefault();
-    // console.log('handleOpenUpdate inst=%o', evt, inst);
-    setShowUpdateForm(true);
-    setId(inst.id);
-  };
+  const handleCancel = handleCancelWrapper(setConfirmOpen, setId, setShowUpdateForm);
+  const handleConfirmDelete = handleConfirmDeleteWrapper(collection.getCollectionName(), idState, setShowUpdateForm, setId, setConfirmOpen);
+  const handleDelete = handleDeleteWrapper(setConfirmOpen, setId);
+  const handleOpenUpdate = handleOpenUpdateWrapper(setShowUpdateForm, setId);
 
   const handleUpdate = (doc) => {
     // console.log('handleUpdate doc=%o', doc);
