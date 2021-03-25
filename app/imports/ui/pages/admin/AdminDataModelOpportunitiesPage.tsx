@@ -66,7 +66,6 @@ interface AdminDataModelOpportunitiesPageProps {
 
 // props not deconstructed because AdminDataModeMenuProps has 21 numbers.
 const AdminDataModelOpportunitiesPage: React.FC<AdminDataModelOpportunitiesPageProps> = (props) => {
-  // TODO deconstruct props
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');

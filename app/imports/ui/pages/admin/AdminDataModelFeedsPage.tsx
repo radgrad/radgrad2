@@ -17,6 +17,7 @@ import UpdateFeedForm from '../../components/admin/datamodel/feed/UpdateFeedForm
 import { opportunityNameToSlug } from '../../components/shared/utilities/data-model';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import { RootState } from '../../../redux/types';
+import { updateCallBack } from './utilities/data-model-page-callbacks';
 import { getDatamodelCount } from './utilities/datamodel';
 import PageLayout from '../PageLayout';
 
@@ -157,25 +158,7 @@ const AdminDataModelFeedsPage: React.FC<AdminDataModelFeedsPageProps> = (props) 
     if (isCloudinaryUsed) {
       updateData.picture = cloudinaryUrl;
     }
-    updateMethod.call({ collectionName, updateData }, (error) => {
-      if (error) {
-        Swal.fire({
-          title: 'Update failed',
-          text: error.message,
-          icon: 'error',
-        });
-        console.error('Error in updating. %o', error);
-      } else {
-        Swal.fire({
-          title: 'Update succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        setShowUpdateForm(false);
-        setId('');
-      }
-    });
+    updateMethod.call({ collectionName, updateData }, updateCallBack(setShowUpdateForm, setId));
   };
 
   const findOptions = {

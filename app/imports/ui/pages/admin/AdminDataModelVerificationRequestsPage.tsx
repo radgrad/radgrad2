@@ -16,6 +16,7 @@ import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstan
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import AddVerificationRequestForm from '../../components/admin/datamodel/verification-request/AddVerificationRequestForm';
 import { academicTermNameToSlug, opportunityInstanceNameToId, opportunityInstanceNameToTermSlug, opportunityInstanceNameToUsername, opportunityNameToSlug, profileNameToUsername } from '../../components/shared/utilities/data-model';
+import { updateCallBack } from './utilities/data-model-page-callbacks';
 import { getDatamodelCount } from './utilities/datamodel';
 import PageLayout from '../PageLayout';
 
@@ -168,25 +169,7 @@ const AdminDataModelVerificationRequestsPage: React.FC<AdminDataModelVerificatio
     const collectionName = collection.getCollectionName();
     const updateData = doc; // create the updateData object from the doc.
     updateData.id = doc._id;
-    updateMethod.call({ collectionName, updateData }, (error) => {
-      if (error) {
-        Swal.fire({
-          title: 'Update failed',
-          text: error.message,
-          icon: 'error',
-        });
-        console.error('Error in updating. %o', error);
-      } else {
-        Swal.fire({
-          title: 'Update succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        setShowUpdateForm(false);
-        setId('');
-      }
-    });
+    updateMethod.call({ collectionName, updateData }, updateCallBack(setShowUpdateForm, setId));
   };
 
   const findOptions = {
@@ -195,7 +178,7 @@ const AdminDataModelVerificationRequestsPage: React.FC<AdminDataModelVerificatio
   return (
     <PageLayout id="data-model-verification-requests-page" headerPaneTitle="Verification Requests">
       {showUpdateFormState ? (
-        <AdminDataModelUpdateForm collection={collection} id={idState} formRef={formRef} handleUpdate={handleUpdate}
+        <AdminDataModelUpdateForm collection={collection} id={idState} handleUpdate={handleUpdate}
                                   handleCancel={handleCancel} itemTitleString={itemTitleString}/>
       ) : (
         <AddVerificationRequestForm formRef={formRef} handleAdd={handleAdd} opportunities={props.opportunities}

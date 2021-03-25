@@ -12,6 +12,7 @@ import { CareerGoal, Course, DescriptionPair, Interest, Opportunity, Teaser } fr
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
+import { updateCallBack } from './utilities/data-model-page-callbacks';
 import { getDatamodelCount, makeYoutubeLink } from './utilities/datamodel';
 import AddTeaserForm from '../../components/admin/datamodel/teaser/AddTeaserForm';
 import UpdateTeaserForm from '../../components/admin/datamodel/teaser/UpdateTeasersForm';
@@ -153,25 +154,7 @@ const AdminDataModelTeasersPage: React.FC<AdminDataModelTeasersPageProps> = (pro
     updateData.interests = doc.interests.map(interestNameToSlug);
     updateData.targetSlug = Slugs.findDoc(doc.targetSlugID).name;
     // console.log(collectionName, updateData);
-    updateMethod.call({ collectionName, updateData }, (error) => {
-      if (error) {
-        Swal.fire({
-          title: 'Update failed',
-          text: error.message,
-          icon: 'error',
-        });
-        console.error('Error in updating. %o', error);
-      } else {
-        Swal.fire({
-          title: 'Update succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        setShowUpdateForm(false);
-        setId('');
-      }
-    });
+    updateMethod.call({ collectionName, updateData }, updateCallBack(setShowUpdateForm, setId));
   };
 
   const findOptions = {

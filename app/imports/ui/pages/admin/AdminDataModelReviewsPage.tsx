@@ -16,6 +16,7 @@ import { Reviews } from '../../../api/review/ReviewCollection';
 import AddReviewForm from '../../components/admin/datamodel/review/AddReviewForm';
 import UpdateReviewForm from '../../components/admin/datamodel/review/UpdateReviewForm';
 import { academicTermNameToSlug, courseNameToSlug, opportunityNameToSlug, profileNameToUsername } from '../../components/shared/utilities/data-model';
+import { updateCallBack } from './utilities/data-model-page-callbacks';
 import { getDatamodelCount } from './utilities/datamodel';
 import PageLayout from '../PageLayout';
 
@@ -74,7 +75,6 @@ interface AdminDataModelReviewsPageProps {
 
 // props not deconstructed because AdminDataModeMenuProps has 21 numbers.
 const AdminDataModelReviewsPage: React.FC<AdminDataModelReviewsPageProps> = (props) => {
-  // TODO deconstruct props
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');
@@ -162,25 +162,7 @@ const AdminDataModelReviewsPage: React.FC<AdminDataModelReviewsPageProps> = (pro
     updateData.id = doc._id;
     updateData.academicTerm = academicTermNameToSlug(doc.academicTerm);
     // console.log(collectionName, updateData);
-    updateMethod.call({ collectionName, updateData }, (error) => {
-      if (error) {
-        Swal.fire({
-          title: 'Update failed',
-          text: error.message,
-          icon: 'error',
-        });
-        console.error('Error in updating. %o', error);
-      } else {
-        Swal.fire({
-          title: 'Update succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        setShowUpdateForm(false);
-        setId('');
-      }
-    });
+    updateMethod.call({ collectionName, updateData }, updateCallBack(setShowUpdateForm, setId));
   };
 
   const findOptions = {

@@ -8,6 +8,7 @@ import { Course, DescriptionPair, Interest } from '../../../typings/radgrad';
 import { removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
+import { updateCallBack } from './utilities/data-model-page-callbacks';
 import { getDatamodelCount, makeMarkdownLink } from './utilities/datamodel';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { courseNameToSlug, courseToName, itemToSlugName, interestNameToId } from '../../components/shared/utilities/data-model';
@@ -118,25 +119,7 @@ const AdminDataModelCoursesPage: React.FC<AdminDataModelCoursesPageProps> = (pro
     updateData.prerequisites = doc.prerequisiteNames.map(courseNameToSlug);
     updateData.interests = doc.interests.map(interestNameToId);
     // console.log(collectionName, updateData);
-    updateMethod.call({ collectionName, updateData }, (error) => {
-      if (error) {
-        Swal.fire({
-          title: 'Update failed',
-          text: error.message,
-          icon: 'error',
-        });
-        console.error('Error in updating. %o', error);
-      } else {
-        Swal.fire({
-          title: 'Update succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        setShowUpdateForm(false);
-        setId('');
-      }
-    });
+    updateMethod.call({ collectionName, updateData }, updateCallBack(setShowUpdateForm, setId));
   };
 
   const findOptions = {

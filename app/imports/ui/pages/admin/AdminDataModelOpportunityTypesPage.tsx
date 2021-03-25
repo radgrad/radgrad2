@@ -13,6 +13,7 @@ import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import AddOpportunityTypeForm from '../../components/admin/datamodel/opportunity/AddOpportunityTypeForm';
 import UpdateOpportunityTypeForm from '../../components/admin/datamodel/opportunity/UpdateOpportunityTypeForm';
 import { itemToSlugName } from '../../components/shared/utilities/data-model';
+import { updateCallBack } from './utilities/data-model-page-callbacks';
 import { getDatamodelCount } from './utilities/datamodel';
 import PageLayout from '../PageLayout';
 
@@ -143,25 +144,7 @@ const AdminDataModelOpportunityTypesPage: React.FC<AdminDataModelOpportunityType
     const collectionName = collection.getCollectionName();
     const updateData = doc;
     updateData.id = doc._id;
-    updateMethod.call({ collectionName, updateData }, (error) => {
-      if (error) {
-        Swal.fire({
-          title: 'Update failed',
-          text: error.message,
-          icon: 'error',
-        });
-        console.error('Error in updating. %o', error);
-      } else {
-        Swal.fire({
-          title: 'Update succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        setShowUpdateForm(false);
-        setId('');
-      }
-    });
+    updateMethod.call({ collectionName, updateData }, updateCallBack(setShowUpdateForm, setId));
   };
 
   const findOptions = {

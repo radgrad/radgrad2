@@ -14,6 +14,7 @@ import AddCourseInstanceForm from '../../components/admin/datamodel/course/AddCo
 import { academicTermNameToDoc } from '../../components/shared/utilities/data-model';
 import UpdateCourseInstanceForm from '../../components/admin/datamodel/course/UpdateCourseInstanceForm';
 import { dataModelActions } from '../../../redux/admin/data-model';
+import { updateCallBack } from './utilities/data-model-page-callbacks';
 import { getDatamodelCount } from './utilities/datamodel';
 import PageLayout from '../PageLayout';
 
@@ -125,25 +126,7 @@ const AdminDataModelCourseInstancesPage: React.FC<AdminDataModelCourseInstancesP
     updateData.creditHrs = doc.creditHours;
     updateData.termID = academicTermNameToDoc(doc.academicTerm)._id;
     // console.log(collectionName, updateData);
-    updateMethod.call({ collectionName, updateData }, (error) => {
-      if (error) {
-        Swal.fire({
-          title: 'Update failed',
-          text: error.message,
-          icon: 'error',
-        });
-        console.error('Error in updating. %o', error);
-      } else {
-        Swal.fire({
-          title: 'Update succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        setShowUpdateForm(false);
-        setId('');
-      }
-    });
+    updateMethod.call({ collectionName, updateData }, updateCallBack(setShowUpdateForm, setId));
   };
 
   const findOptions = {

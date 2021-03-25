@@ -18,6 +18,7 @@ import AddOpportunityInstanceForm from '../../components/admin/datamodel/opportu
 import UpdateOpportunityInstanceForm from '../../components/admin/datamodel/opportunity/UpdateOpportunityInstanceForm';
 import { academicTermNameToDoc, opportunityNameToSlug, profileNameToUsername } from '../../components/shared/utilities/data-model';
 import { Slugs } from '../../../api/slug/SlugCollection';
+import { updateCallBack } from './utilities/data-model-page-callbacks';
 import { getDatamodelCount } from './utilities/datamodel';
 import PageLayout from '../PageLayout';
 
@@ -172,25 +173,7 @@ const AdminDataModelOpportunityInstancesPage: React.FC<AdminDataModelOpportunity
     updateData.id = doc._id;
     updateData.termID = academicTermNameToDoc(doc.academicTerm)._id;
     // console.log(collectionName, updateData);
-    updateMethod.call({ collectionName, updateData }, (error) => {
-      if (error) {
-        Swal.fire({
-          title: 'Update failed',
-          text: error.message,
-          icon: 'error',
-        });
-        console.error('Error in updating. %o', error);
-      } else {
-        Swal.fire({
-          title: 'Update succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        setShowUpdateForm(false);
-        setId('');
-      }
-    });
+    updateMethod.call({ collectionName, updateData }, updateCallBack(setShowUpdateForm, setId));
   };
 
   const findOptions = {

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Confirm, Icon } from 'semantic-ui-react';
 import _ from 'lodash';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
-import { removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
+import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
@@ -12,9 +12,15 @@ import ListCollectionWidget from '../../components/admin/datamodel/ListCollectio
 import AdminDataModelUpdateForm from '../../components/admin/datamodel/AdminDataModelUpdateForm';
 import AdminDataModelAddForm from '../../components/admin/datamodel/AdminDataModelAddForm';
 import { dataModelActions } from '../../../redux/admin/data-model';
-import { removeItCallback, updateCallBack } from './utilities/data-model-page-callbacks';
+import {
+  handleCancelWrapper, handleConfirmDeleteWrapper,
+  handleDeleteWrapper, handleOpenUpdateWrapper,
+  updateCallBack,
+} from './utilities/data-model-page-callbacks';
 import { getDatamodelCount } from './utilities/datamodel';
 import PageLayout from '../PageLayout';
+
+const collection = AcademicTerms;
 
 const numReferences = (term) => {
   let references = 0;
@@ -64,36 +70,14 @@ const AdminDataModelAcademicTermsPage: React.FC<AdminDataModelAcademicTermsPageP
   const [idState, setId] = useState('');
   const [showUpdateFormState, setShowUpdateForm] = useState(false);
 
-  const handleCancel = (event) => {
-    event.preventDefault();
-    setConfirmOpen(false);
-    setId('');
-    setShowUpdateForm(false);
-  };
-
-  const handleDelete = (event, inst) => {
-    event.preventDefault();
-    // console.log('handleDelete inst=%o', inst);
-    setConfirmOpen(true);
-    setId(inst.id);
-  };
-
-  const handleConfirmDelete = () => {
-    const collectionName = AcademicTerms.getCollectionName();
-    const instance = idState;
-    removeItMethod.call({ collectionName, instance }, removeItCallback(setShowUpdateForm, setId, setConfirmOpen));
-  };
-
-  const handleOpenUpdate = (evt, inst) => {
-    evt.preventDefault();
-    // console.log('handleOpenUpdate inst=%o', evt, inst);
-    setShowUpdateForm(true);
-    setId(inst.id);
-  };
+  const handleCancel = handleCancelWrapper(setConfirmOpen, setId, setShowUpdateForm);
+  const handleConfirmDelete = handleConfirmDeleteWrapper(collection.getCollectionName(), idState, setShowUpdateForm, setId, setConfirmOpen);
+  const handleDelete = handleDeleteWrapper(setConfirmOpen, setId);
+  const handleOpenUpdate = handleOpenUpdateWrapper(setShowUpdateForm, setId);
 
   const handleUpdate = (doc) => {
     // console.log('handleUpdate doc=%o', doc);
-    const collectionName = AcademicTerms.getCollectionName();
+    const collectionName = collection.getCollectionName();
     const updateData: { id?: string; retired?: boolean } = {};
     updateData.id = doc._id;
     updateData.retired = doc.retired;
