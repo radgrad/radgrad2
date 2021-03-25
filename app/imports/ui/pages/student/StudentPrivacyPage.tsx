@@ -11,8 +11,6 @@ import {StudentProfile, StudentProfileUpdate} from '../../../typings/radgrad';
 import PageLayout from '../PageLayout';
 import ProfileLabel from '../../components/shared/profile/ProfileLabel';
 import ProfileCard from '../../components/shared/profile/ProfileCard';
-import StudentProfileLabel from '../../components/shared/profile/StudentProfileLabel';
-import StudentProfileCard from '../../components/shared/profile/StudentProfileCard';
 import StudentProfileModalLabel from '../../components/shared/profile/StudentProfileModalLabel';
 import StudentProfileCardMethod from '../../components/shared/profile/StudentProfileCardMethod';
 import CareerGoalLabel from '../../components/shared/label/CareerGoalLabel';
