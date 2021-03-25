@@ -14,6 +14,8 @@ import ProfileCard from '../../components/shared/profile/ProfileCard';
 import StudentProfileModalLabel from '../../components/shared/profile/StudentProfileModalLabel';
 import StudentProfileCardMethod from '../../components/shared/profile/StudentProfileCardMethod';
 import CareerGoalLabel from '../../components/shared/label/CareerGoalLabel';
+import InterestLabel from "../../components/shared/label/InterestLabel";
+import CourseLabel from "../../components/shared/label/CourseLabel";
 
 const headerPaneTitle = 'Control what others see about you';
 const headerPaneBody = `
@@ -39,15 +41,37 @@ const StudentPrivacyPage: React.FC<StudentPrivacyPageProps> = ({profile}) => {
   return (
     <PageLayout id="student-privacy-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
 
-      <CareerGoalLabel profile={profile} slug='robotics-engineer'/>
-      <CareerGoalLabel profile={profile} slug='software-developer'/>
-      <CareerGoalLabel slug='software-developer'/>
+      <Header>Entity Label Examples (default size and style)</Header>
+      <div style={{paddingBottom: '20px'}}>
+        <CareerGoalLabel slug='software-developer' userID={profile.userID}/>
+        <CareerGoalLabel slug='robotics-engineer' userID={profile.userID}/>
+      </div>
+      <div style={{paddingBottom: '20px'}}>
+        <InterestLabel slug='algorithms' userID={profile.userID}/>
+        <InterestLabel slug='angular' userID={profile.userID}/>
+      </div>
+      <div style={{paddingBottom: '20px'}}>
+        <CourseLabel slug='ics_101' userID={profile.userID}/>
+        <CourseLabel slug='ics_102' userID={profile.userID}/>
+      </div>
+      <Header>Use the size parameter to adjust size</Header>
+      <div style={{paddingBottom: '20px'}}>
+        <div><CareerGoalLabel slug='robotics-engineer' userID={profile.userID} size='small' /></div>
+      </div>
+      <Header>Use the style parameter to adjust width (or anything else)</Header>
+      <div style={{paddingBottom: '20px'}}>
+        <div><CareerGoalLabel slug='robotics-engineer' userID={profile.userID} style={{width: '50%'}} /></div>
+      </div>
 
-      <StudentProfileModalLabel studentProfile={profile}/>
-      <StudentProfileCardMethod studentProfile={profile}/>
+
 
       <hr style={{marginTop: '200px'}} />
       <Header>Profile Card Examples</Header>
+
+      <div style={{paddingBottom: '20px'}}>
+        <StudentProfileModalLabel studentProfile={profile}/>
+        <StudentProfileCardMethod studentProfile={profile}/>
+      </div>
 
       <div style={{paddingBottom: '20px'}}>
         <ProfileCard name={name} email={email} image={image} level={5} website={website} interests={interests} careerGoals={careerGoals} courses={courses} opportunities={opportunities} ice={{i: 56, c: 51, e: 123}}/>

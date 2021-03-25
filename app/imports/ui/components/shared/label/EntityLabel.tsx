@@ -1,12 +1,12 @@
 import React from 'react';
 import {Label, SemanticSIZES, Icon, SemanticCOLORS, SemanticICONS} from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
-import {Profile} from '../../../../typings/radgrad';
 
 export interface EntityLabelPublicProps {
   slug: string,
-  profile?: Profile;
+  userID?: string;
   size?: SemanticSIZES;
+  style?: Record<string, unknown>;
 }
 
 interface EntityLabelProps {
@@ -16,13 +16,14 @@ interface EntityLabelProps {
   size?: SemanticSIZES;
   route?: string;
   name: string;
+  style?: Record<string, unknown>;
 }
 
-export const EntityLabel: React.FC<EntityLabelProps> = ({slug, inProfile, icon, size = 'Large' as SemanticSIZES, route, name}) => {
+export const EntityLabel: React.FC<EntityLabelProps> = ({slug, inProfile, icon, size = 'large' as SemanticSIZES, route, name, style}) => {
   const color = inProfile ? 'green' : 'grey' as SemanticCOLORS;
   if (route) {
     return (
-      <Label as={Link} key={slug} size={size} to={route} color={color}>
+      <Label as={Link} key={slug} size={size} to={route} color={color} style={style}>
         <Icon name={icon}/>
         {name}
       </Label>
@@ -30,7 +31,7 @@ export const EntityLabel: React.FC<EntityLabelProps> = ({slug, inProfile, icon, 
   }
   // If no route, return just the default label.
   return (
-    <Label key={slug} size={size} color={color}>
+    <Label key={slug} size={size} color={color} style={style}>
       <Icon name={icon}/>
       {name}
     </Label>
