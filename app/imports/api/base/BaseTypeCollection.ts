@@ -57,7 +57,7 @@ class BaseTypeCollection extends BaseCollection {
    * @returns { String } The docID associated with instance.
    * @throws { Meteor.Error } If instance is not a docID or a slug.
    */
-  public getID(instance) {
+  public getID(instance: { _id?: string } | string) {
     let id;
     if (_.isObject(instance) && _.has(instance, '_id')) {
       // eslint-disable-next-line no-param-reassign, dot-notation
@@ -103,9 +103,7 @@ class BaseTypeCollection extends BaseCollection {
     } = super.findDoc(docID);
     check(doc, Object);
     if (Slugs.isDefined(doc.slugID)) {
-      const slugDoc = Slugs.findDoc(doc.slugID);
-      check(slugDoc, Object);
-      Slugs.removeIt(slugDoc);
+      Slugs.removeIt(doc.slugID);
     }
     return super.removeIt(doc);
   }
