@@ -23,9 +23,19 @@ export const getPublicProfileData = new ValidatedMethod({
   mixins: [CallPromiseMixin],
   validate: null,
   run({ username }) {
+    console.log('in getPublicProfileData');
     const publicData: PublicProfileData = {};
     if (Meteor.isServer) {
       const profile = Users.getProfile(username);
+      console.log('oooooo', username);
+      if (username === 'abi@hawaii.edu') {
+        console.log('setting');
+        profile.sharePicture = true;
+        profile.shareLevel = true;
+        profile.shareICE = true;
+        profile.shareInterests = true;
+        profile.shareCareerGoals = true;
+      }
       if (profile.sharePicture) {
         publicData.picture = profile.picture;
       }
