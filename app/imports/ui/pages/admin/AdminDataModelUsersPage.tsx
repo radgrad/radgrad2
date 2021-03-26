@@ -27,7 +27,11 @@ import {
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { courseNameToSlug, opportunityNameToSlug } from '../../components/shared/utilities/data-model';
-import { updateCallBack } from './utilities/data-model-page-callbacks';
+import {
+  handleCancelWrapper,
+  handleDeleteWrapper, handleOpenUpdateWrapper,
+  updateCallBack,
+} from './utilities/data-model-page-callbacks';
 import { getDatamodelCount, makeMarkdownLink } from './utilities/datamodel';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { ROLE } from '../../../api/role/Role';
@@ -185,19 +189,9 @@ const AdminDataModelUsersPage: React.FC<AdminDataModelUsersPageProps> = (props) 
     });
   };
 
-  const handleCancel = (event) => {
-    event.preventDefault();
-    setShowUpdateForm(false);
-    setId('');
-    setConfirmOpen(false);
-  };
-
-  const handleDelete = (event, inst) => {
-    event.preventDefault();
-    // console.log('handleDelete inst=%o', inst);
-    setConfirmOpen(true);
-    setId(inst.id);
-  };
+  const handleCancel = handleCancelWrapper(setConfirmOpen, setId, setShowUpdateForm);
+  const handleDelete = handleDeleteWrapper(setConfirmOpen, setId);
+  const handleOpenUpdate = handleOpenUpdateWrapper(setShowUpdateForm, setId);
 
   const handleConfirmDelete = () => {
     const profiles = Users.findProfiles({ _id: idState }, {});
@@ -236,12 +230,6 @@ const AdminDataModelUsersPage: React.FC<AdminDataModelUsersPageProps> = (props) 
         setConfirmOpen(false);
       });
     }
-  };
-
-  const handleOpenUpdate = (evt, inst) => {
-    evt.preventDefault();
-    setShowUpdateForm(true);
-    setId(inst.id);
   };
 
   const handleUpdate = (doc) => {

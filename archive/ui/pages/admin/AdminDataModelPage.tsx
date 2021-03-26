@@ -1,11 +1,11 @@
 import { withTracker } from 'meteor/react-meteor-data';
 import React from 'react';
 import { Grid, Message } from 'semantic-ui-react';
-import AdminPageMenu from '../../components/admin/AdminPageMenu';
-import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
-import UploadFixtureWidget from '../../components/admin/datamodel/UploadFixtureWidget';
-import BackToTopButton from '../../components/shared/BackToTopButton';
-import { getDatamodelCount } from './utilities/datamodel';
+import AdminPageMenu from '../../../../app/imports/ui/components/admin/AdminPageMenu';
+import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../../../app/imports/ui/components/admin/datamodel/AdminDataModelMenu';
+import UploadFixtureWidget from '../../../../app/imports/ui/components/admin/datamodel/UploadFixtureWidget';
+import BackToTopButton from '../../../../app/imports/ui/components/shared/BackToTopButton';
+import { getDatamodelCount } from '../../../../app/imports/ui/pages/admin/utilities/datamodel';
 
 // props not deconstructed because AdminDataModeMenuProps has 21 numbers.
 const AdminDataModelPage: React.FC<AdminDataModeMenuProps> = (props) => {

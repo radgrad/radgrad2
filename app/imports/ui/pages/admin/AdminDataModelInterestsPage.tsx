@@ -4,7 +4,7 @@ import { Confirm, Icon } from 'semantic-ui-react';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import { DescriptionPair, Interest, InterestType, InterestUpdate } from '../../../typings/radgrad';
-import { removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
+import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { InterestTypes } from '../../../api/interest/InterestTypeCollection';
 import AddInterestForm from '../../components/admin/datamodel/interest/AddInterestForm';
@@ -15,7 +15,6 @@ import PageLayout from '../PageLayout';
 import {
   handleCancelWrapper,
   handleConfirmDeleteWrapper, handleDeleteWrapper, handleOpenUpdateWrapper,
-  removeItCallback,
   updateCallBack,
 } from './utilities/data-model-page-callbacks';
 

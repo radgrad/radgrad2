@@ -3,8 +3,6 @@
  * Route information consists of a path, the path to the component, a Component to render.
  */
 import AdminHomePage from '../../pages/admin/AdminHomePage';
-import AdminDataModelPage from '../../pages/admin/AdminDataModelPage';
-import AdminDatabasePage from '../../pages/admin/AdminDatabasePage';
 import AdminAnalyticsLoggedInUsersPage from '../../pages/admin/AdminAnalyticsLoggedInUsersPage';
 import AdminAnalyticsNewsletterPage from '../../pages/admin/AdminAnalyticsNewsletterPage';
 import AdminAnalyticsOverheadAnalysisPage from '../../pages/admin/AdminAnalyticsOverheadAnalysisPage';
@@ -85,8 +83,6 @@ import {
   VERIFICATION_REQUESTS,
 } from './route-constants';
 
-// TODO: Forecast -> Forecast,
-
 export const routes = {
   ADMIN: [
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${ANALYTICS.NEWSLETTER}`, component: AdminAnalyticsNewsletterPage },
@@ -97,11 +93,9 @@ export const routes = {
 
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${COMMUNITY}`, component: CommunityPage },
 
-    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATABASE.HOME}`, component: AdminDatabasePage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATABASE.DUMP}`, component: AdminDatabaseDumpPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATABASE.CHECK_INTEGRITY}`, component: AdminDatabaseCheckIntegrityPage },
 
-    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL.HOME}`, component: AdminDataModelPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL.ACADEMIC_TERMS}`, component: AdminDataModelAcademicTermsPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL.ACADEMIC_YEAR_INSTANCES}`, component: AdminDataModelAcademicYearsPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL.CAREERGOALS}`, component: AdminDataModelCareerGoalsPage },
