@@ -1,8 +1,9 @@
 import {ValidatedMethod} from 'meteor/mdg:validated-method';
 import {CallPromiseMixin} from 'meteor/didericis:callpromise-mixin';
-import { StudentProfiles } from './StudentProfileCollection';
+import {Users} from './UserCollection';
+import {StudentProfiles} from './StudentProfileCollection';
 
-export interface StudentPublicData {
+export interface PublicProfileData {
   website?: string,
   picture?: string,
   level?: number,
@@ -17,14 +18,14 @@ export interface StudentPublicData {
  * Meteor method used to retrieve public data for a student profile card.
  * Returns an object with fields containing the visible student data.
  */
-export const getStudentPublicData = new ValidatedMethod({
-  name: 'StudentProfileCollection.getStudentPublicData',
+export const getPublicProfileData = new ValidatedMethod({
+  name: 'ProfileCollection.getPublicProfileData',
   mixins: [CallPromiseMixin],
   validate: null,
   run({ username }) {
-    const publicData: StudentPublicData = {};
+    const publicData: PublicProfileData = {};
     if (Meteor.isServer) {
-      const profile = StudentProfiles.findByUsername(username);
+      const profile = Users.getProfile(username);
       if (profile.sharePicture) {
         publicData.picture = profile.picture;
       }
@@ -35,6 +36,7 @@ export const getStudentPublicData = new ValidatedMethod({
         publicData.level = profile.level;
       }
       if (profile.shareICE) {
+        // if shareICE exists, then the user must be a student.
         publicData.ice = StudentProfiles.getEarnedICE(username);
       }
       if (profile.shareCareerGoals) {

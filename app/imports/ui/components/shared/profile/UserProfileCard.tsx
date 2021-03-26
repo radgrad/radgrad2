@@ -2,15 +2,15 @@ import React, {useEffect, useState} from 'react';
 import _ from 'lodash';
 import {getPublicProfileData, PublicProfileData} from '../../../../api/user/StudentProfileCollection.methods';
 import ProfileCard from './ProfileCard';
-import {StudentProfile} from '../../../../typings/radgrad';
+import {Users} from '../../../../api/user/UserCollection';
 
-export interface StudentProfileCardProps {
-  studentProfile: StudentProfile;
+export interface UserProfileCardProps {
+  username: string;
   fluid?: boolean;
 }
 
-const StudentProfileCard: React.FC<StudentProfileCardProps> = ({studentProfile, fluid= true}) => {
-  const {username, firstName, lastName} = studentProfile;
+const UserProfileCard: React.FC<UserProfileCardProps> = ({username, fluid= true}) => {
+  const {firstName, lastName} = Users.getProfile(username);
   const name = `${firstName} ${lastName}`;
   const [data, setData] = useState<PublicProfileData>({});
   useEffect(() => {
@@ -28,4 +28,4 @@ const StudentProfileCard: React.FC<StudentProfileCardProps> = ({studentProfile, 
   );
 };
 
-export default StudentProfileCard;
+export default UserProfileCard;
