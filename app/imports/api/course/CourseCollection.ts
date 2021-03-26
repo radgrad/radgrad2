@@ -176,6 +176,7 @@ class CourseCollection extends BaseSlugCollection {
     }
     if (interests) {
       const interestIDs = Interests.getIDs(interests);
+      // @ts-ignore
       updateData.interestIDs = interestIDs;
     }
     if (shortName) {

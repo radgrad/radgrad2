@@ -10,7 +10,7 @@ import { SlugDefine } from '../../typings/radgrad';
  * @return {string}
  * @memberOf api/slug
  */
-const slugify = (text: string): string => 
+const slugify = (text: string): string =>
   text.toString().toLowerCase()
     .replace(/\s+/g, '-') // Replace spaces with -
     .replace(/[^\w-]+/g, '') // Remove all non-word chars
@@ -142,6 +142,7 @@ class SlugCollection extends BaseCollection {
    * @param { String | Object } docOrID A document or docID in this collection.
    */
   public removeIt(docOrID: string | { [key: string]: unknown }) {
+    console.log('Slugs.removeId', docOrID);
     return super.removeIt(docOrID);
   }
 

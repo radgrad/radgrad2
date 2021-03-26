@@ -1,4 +1,3 @@
-import { check } from 'meteor/check';
 import _ from 'lodash';
 import { Meteor } from 'meteor/meteor';
 import BaseCollection from './BaseCollection';
@@ -28,6 +27,7 @@ class BaseSlugCollection extends BaseCollection {
     let id;
     // If we've been passed a document, check to see if it has an _id field and make instance the value of _id.
     if (_.isObject(instance) && _.has(instance, '_id')) {
+      // @ts-ignore
       instance = instance._id; // eslint-disable-line no-param-reassign, dot-notation
     }
     // If instance is the value of the username field for some document in the collection, then return its ID.
@@ -53,7 +53,7 @@ class BaseSlugCollection extends BaseCollection {
    * @returns { String[] } The docIDs associated with instances.
    * @throws { Meteor.Error } If any instance is not a docID or a slug.
    */
-  public getIDs(instances) {
+  public getIDs(instances: string[]): string[] {
     let ids;
     try {
       ids = (instances) ? instances.map((instance) => this.getID(instance)) : [];
@@ -72,17 +72,13 @@ class BaseSlugCollection extends BaseCollection {
    * @throws { Meteor.Error} If the instance (and its associated slug) cannot be found.
    */
   public removeIt(instance) {
+    console.log(instance);
     const docID = this.getID(instance);
-    const doc = super.findDoc(docID);
-    check(doc, Object);
-    // @ts-ignore
+    const doc: { slugID: string } = this.findDoc(docID);
     if (Slugs.isDefined(doc.slugID)) {
-      // @ts-ignore
-      const slugDoc = Slugs.findDoc(doc.slugID);
-      check(slugDoc, Object);
-      Slugs.removeIt(slugDoc);
+      Slugs.removeIt(doc.slugID);
     }
-    return super.removeIt(doc);
+    return super.removeIt(docID);
   }
 
   /**

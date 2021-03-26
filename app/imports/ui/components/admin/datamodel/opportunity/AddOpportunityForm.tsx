@@ -63,11 +63,11 @@ const AddOpportunityForm: React.FC<AddOpportunityFormProps> = ({ sponsors, inter
     const docInterestNames = doc.interests.map(interestSlugFromName);
     const docTerms = doc.terms.map(academicTermNameToSlug);
     definitionData.interests = docInterestNames;
-    definitionData.terms = docTerms;
+    definitionData.academicTerms = docTerms;
     definitionData.opportunityType = opportunityTypeNameToSlug(doc.opportunityType);
     definitionData.sponsor = profileNameToUsername(doc.sponsor);
     definitionData.slug = `${slugify(doc.name)}-opportunity`;
-    // console.log(definitionData);
+    console.log(definitionData);
     defineMethod.call({ collectionName, definitionData }, defineCallback(formRef));
   };
 

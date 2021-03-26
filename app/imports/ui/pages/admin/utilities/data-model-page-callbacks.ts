@@ -28,7 +28,7 @@ export const removeItCallback = (setShowUpdateForm, setId, setConfirmOpen) => (e
       text: error.message,
       icon: 'error',
     });
-    console.error('Error deleting AcademicTerm. %o', error);
+    console.error('Error deleting. %o', error);
   } else {
     Swal.fire({
       title: 'Delete succeeded',
@@ -52,6 +52,7 @@ export const handleCancelWrapper = (setConfirmOpen, setId, setShowUpdateForm) =>
 
 export const handleConfirmDeleteWrapper = (collectionName, idState, setShowUpdateForm, setId, setConfirmOpen) => () => {
   const instance = idState;
+  console.log('handleConfirmDeleteWrapper', collectionName, instance);
   removeItMethod.call({ collectionName, instance }, removeItCallback(setShowUpdateForm, setId, setConfirmOpen));
 };
 
