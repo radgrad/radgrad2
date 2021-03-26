@@ -9,7 +9,7 @@ const invertedSection = {
   paddingLeft: '50px',
   paddingRight: '20px',
 };
-const titleStyle = {color: '#ffffff', fontSize: '2rem', fontWeight: 300};
+const titleStyle = {color: '#6FBE44', fontSize: '2rem', fontWeight: 700, fontFamily: 'Nunito'};
 const lineStyle = {color: '#eeeeee', fontSize: '1rem', lineHeight:'2.0rem'};
 
 export interface HeaderPaneProps {
