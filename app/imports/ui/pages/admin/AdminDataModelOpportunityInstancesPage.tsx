@@ -1,7 +1,6 @@
 import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
 import { Confirm, Icon } from 'semantic-ui-react';
-import Swal from 'sweetalert2';
 import _ from 'lodash';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
@@ -9,15 +8,14 @@ import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import { AcademicTerm, BaseProfile, DescriptionPair, Opportunity, OpportunityInstance, StudentProfile } from '../../../typings/radgrad';
-import { defineMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
+import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Users } from '../../../api/user/UserCollection';
 import AddOpportunityInstanceForm from '../../components/admin/datamodel/opportunity/AddOpportunityInstanceForm';
 import UpdateOpportunityInstanceForm from '../../components/admin/datamodel/opportunity/UpdateOpportunityInstanceForm';
-import { academicTermNameToDoc, opportunityNameToSlug, profileNameToUsername } from '../../components/shared/utilities/data-model';
-import { Slugs } from '../../../api/slug/SlugCollection';
+import { academicTermNameToDoc } from '../../components/shared/utilities/data-model';
 import {
   handleCancelWrapper,
   handleConfirmDeleteWrapper,
@@ -82,48 +80,9 @@ interface AdminDataModelOpportunityInstancesPageProps {
 
 // props not deconstructed because AdminDataModeMenuProps has 21 numbers.
 const AdminDataModelOpportunityInstancesPage: React.FC<AdminDataModelOpportunityInstancesPageProps> = (props) => {
-  // TODO deconstruct props
-  const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');
   const [showUpdateFormState, setShowUpdateForm] = useState(false);
-
-  const handleAdd = (doc) => {
-    // console.log('OpportunityInstances.handleAdd(%o)', doc);
-    const collectionName = collection.getCollectionName();
-    const definitionData = doc;
-    const academicTermDoc = academicTermNameToDoc(doc.term);
-    const academicTerm = Slugs.getNameFromID(academicTermDoc.slugID);
-    const opportunity = opportunityNameToSlug(doc.opportunity);
-    const student = profileNameToUsername(doc.student);
-    const sponsor = profileNameToUsername(doc.sponsor);
-    definitionData.academicTerm = academicTerm;
-    definitionData.opportunity = opportunity;
-    definitionData.sponsor = sponsor;
-    definitionData.student = student;
-    if (_.isBoolean(doc.verified)) {
-      definitionData.verifed = doc.verifed;
-    }
-    if (_.isBoolean(doc.retired)) {
-      definitionData.retired = doc.retired;
-    }
-    defineMethod.call({ collectionName, definitionData }, (error) => {
-      if (error) {
-        Swal.fire({
-          title: 'Add failed',
-          text: error.message,
-          icon: 'error',
-        });
-      } else {
-        Swal.fire({
-          title: 'Add succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      }
-    });
-  };
 
   const handleCancel = handleCancelWrapper(setConfirmOpen, setId, setShowUpdateForm);
   const handleConfirmDelete = handleConfirmDeleteWrapper(collection.getCollectionName(), idState, setShowUpdateForm, setId, setConfirmOpen);
@@ -146,11 +105,11 @@ const AdminDataModelOpportunityInstancesPage: React.FC<AdminDataModelOpportunity
   return (
     <PageLayout id="data-model-opportunity-instances-page" headerPaneTitle="Opportunity Instances">
       {showUpdateFormState ? (
-        <UpdateOpportunityInstanceForm collection={collection} id={idState} formRef={formRef}
+        <UpdateOpportunityInstanceForm collection={collection} id={idState}
                                        handleUpdate={handleUpdate} handleCancel={handleCancel}
                                        itemTitleString={itemTitleString} terms={props.terms}/>
       ) : (
-        <AddOpportunityInstanceForm formRef={formRef} handleAdd={handleAdd} opportunities={props.opportunities}
+        <AddOpportunityInstanceForm opportunities={props.opportunities}
                                     sponsors={props.sponsors} students={props.students} terms={props.terms}/>
       )}
       <ListCollectionWidget

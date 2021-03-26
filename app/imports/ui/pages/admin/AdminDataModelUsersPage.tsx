@@ -26,6 +26,7 @@ import {
 } from '../../../typings/radgrad';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
+import { defineCallback } from '../../components/admin/datamodel/utilities/add-form';
 import { courseNameToSlug, opportunityNameToSlug } from '../../components/shared/utilities/data-model';
 import {
   handleCancelWrapper,
@@ -170,23 +171,7 @@ const AdminDataModelUsersPage: React.FC<AdminDataModelUsersPageProps> = (props) 
       definitionData.picture = cloudinaryUrl;
     }
     // console.log(collectionName, definitionData);
-    defineMethod.call({ collectionName, definitionData }, (error) => {
-      if (error) {
-        console.error('Failed adding User', error);
-        Swal.fire({
-          title: 'Failed adding User',
-          text: error.message,
-          icon: 'error',
-        });
-      } else {
-        Swal.fire({
-          title: 'Add User Succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      }
-    });
+    defineMethod.call({ collectionName, definitionData }, defineCallback(formRef));
   };
 
   const handleCancel = handleCancelWrapper(setConfirmOpen, setId, setShowUpdateForm);

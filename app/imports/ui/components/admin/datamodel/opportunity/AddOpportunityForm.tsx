@@ -4,22 +4,30 @@ import { AutoForm, TextField, SelectField, LongTextField, DateField, BoolField, 
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import Swal from 'sweetalert2';
+import { defineMethod } from '../../../../../api/base/BaseCollection.methods';
+import { Opportunities } from '../../../../../api/opportunity/OpportunityCollection';
+import slugify from '../../../../../api/slug/SlugCollection';
 import { AcademicTerm, BaseProfile, Interest, OpportunityType } from '../../../../../typings/radgrad';
-import { academicTermToName, docToName, profileToName } from '../../../shared/utilities/data-model';
+import {
+  academicTermNameToSlug,
+  academicTermToName,
+  docToName, opportunityTypeNameToSlug, profileNameToUsername,
+  profileToName,
+} from '../../../shared/utilities/data-model';
 import { iceSchema } from '../../../../../api/ice/IceProcessor';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
 import { openCloudinaryWidget } from '../../../shared/OpenCloudinaryWidget';
+import { interestSlugFromName } from '../../../shared/utilities/form';
+import { defineCallback } from '../utilities/add-form';
 
 interface AddOpportunityFormProps {
   sponsors: BaseProfile[];
   terms: AcademicTerm[];
   interests: Interest[];
   opportunityTypes: OpportunityType[];
-  formRef: React.RefObject<unknown>;
-  handleAdd: (doc) => any;
 }
 
-const AddOpportunityForm: React.FC<AddOpportunityFormProps> = ({ sponsors, formRef, handleAdd, interests, terms, opportunityTypes }) => {
+const AddOpportunityForm: React.FC<AddOpportunityFormProps> = ({ sponsors, interests, terms, opportunityTypes }) => {
   const [pictureURL, setPictureURL] = useState<string>('');
   const sponsorNames = sponsors.map(profileToName);
   const termNames = terms.map(academicTermToName);
@@ -47,6 +55,21 @@ const AddOpportunityForm: React.FC<AddOpportunityFormProps> = ({ sponsors, formR
   const handlePictureUrlChange = (value) => {
     setPictureURL(value);
   };
+  let formRef;
+  const handleAdd = (doc) => {
+    // console.log('Opportunities.handleAdd(%o)', doc);
+    const collectionName = Opportunities.getCollectionName();
+    const definitionData = doc;
+    const docInterestNames = doc.interests.map(interestSlugFromName);
+    const docTerms = doc.terms.map(academicTermNameToSlug);
+    definitionData.interests = docInterestNames;
+    definitionData.terms = docTerms;
+    definitionData.opportunityType = opportunityTypeNameToSlug(doc.opportunityType);
+    definitionData.sponsor = profileNameToUsername(doc.sponsor);
+    definitionData.slug = `${slugify(doc.name)}-opportunity`;
+    // console.log(definitionData);
+    defineMethod.call({ collectionName, definitionData }, defineCallback(formRef));
+  };
 
   // Hacky way of resetting pictureURL to be empty
   const handleAddOpportunity = (doc) => {
@@ -59,7 +82,6 @@ const AddOpportunityForm: React.FC<AddOpportunityFormProps> = ({ sponsors, formR
   // console.log(opportunityTypeNames);
   const schema = new SimpleSchema({
     name: String,
-    slug: String,
     description: String,
     opportunityType: { type: String, allowedValues: opportunityTypeNames, defaultValue: opportunityTypeNames[0] },
     sponsor: { type: String, allowedValues: sponsorNames, defaultValue: sponsorNames[0] },
@@ -76,9 +98,9 @@ const AddOpportunityForm: React.FC<AddOpportunityFormProps> = ({ sponsors, formR
   return (
     <Segment padded>
       <Header dividing>Add Opportunity</Header>
-      <AutoForm schema={formSchema} onSubmit={(doc) => handleAddOpportunity(doc)} ref={formRef} showInlineError>
+      {/* eslint-disable-next-line no-return-assign */}
+      <AutoForm schema={formSchema} onSubmit={(doc) => handleAddOpportunity(doc)} ref={(ref) => formRef = ref} showInlineError>
         <Form.Group widths="equal">
-          <TextField name="slug" />
           <TextField name="name" />
         </Form.Group>
         <Form.Group widths="equal">
@@ -98,7 +120,7 @@ const AddOpportunityForm: React.FC<AddOpportunityFormProps> = ({ sponsors, formR
         </Form.Group>
         <BoolField name="retired" />
         <Form.Group widths="equal">
-          <Form.Input name="picture" value={pictureURL} onChange={handlePictureUrlChange} />
+          <Form.Input name="picture" label="Picture" value={pictureURL} onChange={handlePictureUrlChange} />
           <Form.Button basic color="green" onClick={handleUploadPicture}>
             Upload
           </Form.Button>

@@ -1,12 +1,11 @@
 import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
 import { Confirm, Icon } from 'semantic-ui-react';
-import Swal from 'sweetalert2';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import { AcademicTerm, Course, DescriptionPair, Opportunity, Review, StudentProfile } from '../../../typings/radgrad';
-import { defineMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
+import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Courses } from '../../../api/course/CourseCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { Users } from '../../../api/user/UserCollection';
@@ -15,7 +14,7 @@ import { Slugs } from '../../../api/slug/SlugCollection';
 import { Reviews } from '../../../api/review/ReviewCollection';
 import AddReviewForm from '../../components/admin/datamodel/review/AddReviewForm';
 import UpdateReviewForm from '../../components/admin/datamodel/review/UpdateReviewForm';
-import { academicTermNameToSlug, courseNameToSlug, opportunityNameToSlug, profileNameToUsername } from '../../components/shared/utilities/data-model';
+import { academicTermNameToSlug } from '../../components/shared/utilities/data-model';
 import {
   handleCancelWrapper,
   handleConfirmDeleteWrapper,
@@ -80,39 +79,9 @@ interface AdminDataModelReviewsPageProps {
 
 // props not deconstructed because AdminDataModeMenuProps has 21 numbers.
 const AdminDataModelReviewsPage: React.FC<AdminDataModelReviewsPageProps> = (props) => {
-  const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');
   const [showUpdateFormState, setShowUpdateForm] = useState(false);
-
-  const handleAdd = (doc) => {
-    // console.log('Reviews.handleAdd(%o)', doc);
-    const collectionName = collection.getCollectionName();
-    const definitionData = doc;
-    definitionData.student = profileNameToUsername(doc.student);
-    if (doc.reviewType === Reviews.COURSE) {
-      definitionData.reviewee = courseNameToSlug(doc.reviewee);
-    } else {
-      definitionData.reviewee = opportunityNameToSlug(doc.reviewee);
-    }
-    definitionData.academicTerm = academicTermNameToSlug(doc.academicTerm);
-    defineMethod.call({ collectionName, definitionData }, (error) => {
-      if (error) {
-        Swal.fire({
-          title: 'Add failed',
-          text: error.message,
-          icon: 'error',
-        });
-      } else {
-        Swal.fire({
-          title: 'Add succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      }
-    });
-  };
 
   const handleCancel = handleCancelWrapper(setConfirmOpen, setId, setShowUpdateForm);
   const handleConfirmDelete = handleConfirmDeleteWrapper(collection.getCollectionName(), idState, setShowUpdateForm, setId, setConfirmOpen);
@@ -133,12 +102,12 @@ const AdminDataModelReviewsPage: React.FC<AdminDataModelReviewsPageProps> = (pro
     sort: { name: 1 }, // determine how you want to sort the items in the list
   };
   return (
-    <PageLayout id="data-model-reviews-page" headerPaneTitle="Reviews">
+    <PageLayout id="data-model-reviews-page" headerPaneTitle="Reviews" headerPaneBody="Be sure to select the reviewee. If you don't you will get an error.">
       {showUpdateFormState ? (
-        <UpdateReviewForm collection={collection} id={idState} formRef={formRef} handleUpdate={handleUpdate}
+        <UpdateReviewForm collection={collection} id={idState} handleUpdate={handleUpdate}
                           handleCancel={handleCancel} itemTitleString={itemTitleString} terms={props.terms}/>
       ) : (
-        <AddReviewForm formRef={formRef} handleAdd={handleAdd} terms={props.terms} students={props.students}
+        <AddReviewForm terms={props.terms} students={props.students}
                        opportunities={props.opportunities} courses={props.courses}/>
       )}
       <ListCollectionWidget

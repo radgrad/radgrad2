@@ -12,13 +12,12 @@ interface UpdateOpportunityInstanceFormProps {
   terms: AcademicTerm[];
   collection: BaseCollection;
   id: string;
-  formRef: React.RefObject<unknown>;
   handleUpdate: (doc) => any;
   handleCancel: (event) => any;
   itemTitleString: (item) => React.ReactNode;
 }
 
-const UpdateOpportunityInstanceForm: React.FC<UpdateOpportunityInstanceFormProps> = ({ terms, collection, id, formRef, handleCancel, handleUpdate, itemTitleString }) => {
+const UpdateOpportunityInstanceForm: React.FC<UpdateOpportunityInstanceFormProps> = ({ terms, collection, id, handleCancel, handleUpdate, itemTitleString }) => {
   const model = collection.findDoc(id);
   model.academicTerm = academicTermIdToName(model.termID);
   const termNames = terms.map(academicTermToName);
@@ -38,7 +37,7 @@ const UpdateOpportunityInstanceForm: React.FC<UpdateOpportunityInstanceFormProps
         Update
         {collection.getType()}:{itemTitleString(model)}
       </Header>
-      <AutoForm schema={formSchema} onSubmit={handleUpdate} ref={formRef} showInlineError model={model}>
+      <AutoForm schema={formSchema} onSubmit={handleUpdate} showInlineError model={model}>
         <Form.Group widths="equal">
           <SelectField name="academicTerm" />
           <AutoField name="ice" />

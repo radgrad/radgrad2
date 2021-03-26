@@ -5,6 +5,7 @@ import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { defineMethod } from '../../../../../api/base/BaseCollection.methods';
 import { Interests } from '../../../../../api/interest/InterestCollection';
+import slugify from '../../../../../api/slug/SlugCollection';
 import { InterestType } from '../../../../../typings/radgrad';
 import { docToName, interestTypeNameToSlug } from '../../../shared/utilities/data-model';
 import { defineCallback } from '../utilities/add-form';
@@ -19,6 +20,7 @@ const AddInterestForm: React.FC<AddInterestFormProps> = ({ interestTypes }) => {
     // console.log('Interests.handleAdd(%o)', doc);
     const collectionName = Interests.getCollectionName();
     const definitionData = doc;
+    definitionData.slug = `${slugify(doc.name)}-interests`;
     definitionData.interestType = interestTypeNameToSlug(doc.interestType);
     // console.log(collectionName, definitionData);
     defineMethod.call({ collectionName, definitionData }, defineCallback(formRef));
@@ -40,7 +42,6 @@ const AddInterestForm: React.FC<AddInterestFormProps> = ({ interestTypes }) => {
       {/* eslint-disable-next-line no-return-assign */}
       <AutoForm schema={formSchema} onSubmit={handleAdd} ref={(ref) => formRef = ref} showInlineError>
         <Form.Group widths="equal">
-          <TextField name="slug" placeholder="rust" />
           <TextField name="name" placeholder="Rust Programming Language" />
           <SelectField name="interestType" />
         </Form.Group>

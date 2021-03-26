@@ -2,10 +2,9 @@ import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
 import { Confirm, Icon } from 'semantic-ui-react';
 import _ from 'lodash';
-import Swal from 'sweetalert2';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { DescriptionPair, InterestType } from '../../../typings/radgrad';
-import { defineMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
+import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { InterestTypes } from '../../../api/interest/InterestTypeCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
@@ -70,32 +69,9 @@ interface AdminDataModelInterestTypesPageProps {
 
 // props not deconstructed because AdminDataModeMenuProps has 21 numbers.
 const AdminDataModelInterestTypesPage: React.FC<AdminDataModelInterestTypesPageProps> = (props) => {
-  const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');
   const [showUpdateFormState, setShowUpdateForm] = useState(false);
-
-  const handleAdd = (doc) => {
-    // console.log('InterestTypes.handleAdd(%o)', doc);
-    const collectionName = collection.getCollectionName();
-    const definitionData = doc;
-    defineMethod.call({ collectionName, definitionData }, (error) => {
-      if (error) {
-        Swal.fire({
-          title: 'Add failed',
-          text: error.message,
-          icon: 'error',
-        });
-      } else {
-        Swal.fire({
-          title: 'Add succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      }
-    });
-  };
 
   const handleCancel = handleCancelWrapper(setConfirmOpen, setId, setShowUpdateForm);
   const handleConfirmDelete = handleConfirmDeleteWrapper(collection.getCollectionName(), idState, setShowUpdateForm, setId, setConfirmOpen);
@@ -116,10 +92,10 @@ const AdminDataModelInterestTypesPage: React.FC<AdminDataModelInterestTypesPageP
   return (
     <PageLayout id="data-model-interest-types-page" headerPaneTitle="Interest Types">
       {showUpdateFormState ? (
-        <UpdateInterestTypeForm collection={collection} id={idState} formRef={formRef} handleUpdate={handleUpdate}
+        <UpdateInterestTypeForm collection={collection} id={idState} handleUpdate={handleUpdate}
                                 handleCancel={handleCancel} itemTitleString={itemTitleString}/>
       ) : (
-        <AddInterestTypeForm formRef={formRef} handleAdd={handleAdd}/>
+        <AddInterestTypeForm />
       )}
       <ListCollectionWidget
         collection={collection}

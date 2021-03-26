@@ -8,13 +8,12 @@ import { InterestTypes } from '../../../../../api/interest/InterestTypeCollectio
 interface UpdateInterestTypeFormProps {
   collection: BaseCollection;
   id: string;
-  formRef: React.RefObject<unknown>;
   handleUpdate: (doc) => any;
   handleCancel: (event) => any;
   itemTitleString: (item) => React.ReactNode;
 }
 
-const UpdateInterestTypeForm: React.FC<UpdateInterestTypeFormProps> = ({ collection, id, formRef, handleUpdate, handleCancel, itemTitleString }) => {
+const UpdateInterestTypeForm: React.FC<UpdateInterestTypeFormProps> = ({ collection, id, handleUpdate, handleCancel, itemTitleString }) => {
   const model = collection.findDoc(id);
   return (
     <Segment padded>
@@ -22,7 +21,7 @@ const UpdateInterestTypeForm: React.FC<UpdateInterestTypeFormProps> = ({ collect
         Update
         {collection.getType()}:{itemTitleString(model)}
       </Header>
-      <AutoForm schema={new SimpleSchema2Bridge(InterestTypes.getUpdateSchema())} onSubmit={handleUpdate} ref={formRef} showInlineError model={model}>
+      <AutoForm schema={new SimpleSchema2Bridge(InterestTypes.getUpdateSchema())} onSubmit={handleUpdate} showInlineError model={model}>
         <TextField name="name" />
         <LongTextField name="description" />
         <BoolField name="retired" />

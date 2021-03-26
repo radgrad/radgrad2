@@ -2,11 +2,10 @@ import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
 import { Confirm, Icon } from 'semantic-ui-react';
 import _ from 'lodash';
-import Swal from 'sweetalert2';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import { DescriptionPair, OpportunityType } from '../../../typings/radgrad';
-import { defineMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
+import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
@@ -70,32 +69,9 @@ interface AdminDataModelOpportunityTypesPageProps {
 
 // props not deconstructed because AdminDataModeMenuProps has 21 numbers.
 const AdminDataModelOpportunityTypesPage: React.FC<AdminDataModelOpportunityTypesPageProps> = (props) => {
-  const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');
   const [showUpdateFormState, setShowUpdateForm] = useState(false);
-
-  const handleAdd = (doc) => {
-    // console.log('OpportunityTypes.handleAdd(%o)', doc);
-    const collectionName = collection.getCollectionName();
-    const definitionData = doc;
-    defineMethod.call({ collectionName, definitionData }, (error) => {
-      if (error) {
-        Swal.fire({
-          title: 'Add failed',
-          text: error.message,
-          icon: 'error',
-        });
-      } else {
-        Swal.fire({
-          title: 'Add succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      }
-    });
-  };
 
   const handleCancel = handleCancelWrapper(setConfirmOpen, setId, setShowUpdateForm);
   const handleConfirmDelete = handleConfirmDeleteWrapper(collection.getCollectionName(), idState, setShowUpdateForm, setId, setConfirmOpen);
@@ -116,10 +92,10 @@ const AdminDataModelOpportunityTypesPage: React.FC<AdminDataModelOpportunityType
   return (
     <PageLayout id="data-model-opportunity-types-page" headerPaneTitle="Opportunity Types">
       {showUpdateFormState ? (
-        <UpdateOpportunityTypeForm collection={collection} id={idState} formRef={formRef} handleUpdate={handleUpdate}
+        <UpdateOpportunityTypeForm collection={collection} id={idState} handleUpdate={handleUpdate}
                                    handleCancel={handleCancel} itemTitleString={itemTitleString}/>
       ) : (
-        <AddOpportunityTypeForm formRef={formRef} handleAdd={handleAdd}/>
+        <AddOpportunityTypeForm />
       )}
       <ListCollectionWidget
         collection={collection}

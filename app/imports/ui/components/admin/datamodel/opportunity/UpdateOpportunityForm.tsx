@@ -18,13 +18,12 @@ interface UpdateOpportunityFormProps {
   opportunityTypes: OpportunityType[];
   collection: BaseCollection;
   id: string;
-  formRef: React.RefObject<unknown>;
   handleUpdate: (doc) => any;
   handleCancel: (event) => any;
   itemTitleString: (item) => React.ReactNode;
 }
 
-const UpdateOpportunityForm: React.FC<UpdateOpportunityFormProps> = ({ sponsors, opportunityTypes, terms, interests, formRef, handleUpdate, handleCancel, itemTitleString, collection, id }) => {
+const UpdateOpportunityForm: React.FC<UpdateOpportunityFormProps> = ({ sponsors, opportunityTypes, terms, interests, handleUpdate, handleCancel, itemTitleString, collection, id }) => {
   const model = collection.findDoc(id);
   const [pictureURL, setPictureURL] = useState(model.picture);
   const handleUploadPicture = async (e): Promise<void> => {
@@ -85,7 +84,7 @@ const UpdateOpportunityForm: React.FC<UpdateOpportunityFormProps> = ({ sponsors,
   return (
     <Segment padded>
       <Header dividing>Update Opportunity : {itemTitleString(model)}</Header>
-      <AutoForm schema={formSchema} onSubmit={(doc) => handleUpdateOpportunity(doc)} ref={formRef} showInlineError model={model}>
+      <AutoForm schema={formSchema} onSubmit={(doc) => handleUpdateOpportunity(doc)} showInlineError model={model}>
         <Form.Group widths="equal">
           <TextField name="name" />
         </Form.Group>

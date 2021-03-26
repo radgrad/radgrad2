@@ -15,13 +15,12 @@ interface UpdateTeaserFormProps {
   opportunities: Opportunity[];
   collection: BaseCollection;
   id: string;
-  formRef: React.RefObject<unknown>;
   handleUpdate: (doc) => any;
   handleCancel: (event) => any;
   itemTitleString: (item) => React.ReactNode;
 }
 
-const UpdateTeaserForm: React.FC<UpdateTeaserFormProps> = ({ careerGoals, courses, interests, opportunities, collection, id, formRef, handleUpdate, handleCancel, itemTitleString }) => {
+const UpdateTeaserForm: React.FC<UpdateTeaserFormProps> = ({ careerGoals, courses, interests, opportunities, collection, id, handleUpdate, handleCancel, itemTitleString }) => {
   const model = collection.findDoc(id);
   model.slug = itemToSlugName(model);
   model.opportunity = opportunityIdToName(model.opportunityID);
@@ -58,7 +57,7 @@ const UpdateTeaserForm: React.FC<UpdateTeaserFormProps> = ({ careerGoals, course
         Update
         {collection.getType()}:{itemTitleString(model)}
       </Header>
-      <AutoForm schema={formSchema} onSubmit={handleUpdate} ref={formRef} showInlineError model={model}>
+      <AutoForm schema={formSchema} onSubmit={handleUpdate} showInlineError model={model}>
         <Form.Group widths="equal">
           <TextField name="title" />
           <TextField name="slug" disabled />

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Header, Segment } from 'semantic-ui-react';
-import Swal from 'sweetalert2';
 import { AutoForm } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import BaseCollection from '../../../../api/base/BaseCollection';
 import { defineMethod } from '../../../../api/base/BaseCollection.methods';
+import { defineCallback } from './utilities/add-form';
 
 interface AdminDataModelAddFormProps {
   collection: BaseCollection;
@@ -17,24 +17,7 @@ const AdminDataModelAddForm: React.FC<AdminDataModelAddFormProps> = ({ collectio
     // console.log('handleAdd(%o)', doc, formRef);
     const collectionName = collection.getCollectionName();
     const definitionData = doc;
-    const callback = (formRef2) => (error) => {
-      if (error) {
-        Swal.fire({
-          title: 'Add failed',
-          text: error.message,
-          icon: 'error',
-        });
-      } else {
-        Swal.fire({
-          title: 'Add succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        formRef2.reset();
-      }
-    };
-    defineMethod.call({ collectionName, definitionData }, callback(formRef));
+    defineMethod.call({ collectionName, definitionData }, defineCallback(formRef));
   };
 
   return (
