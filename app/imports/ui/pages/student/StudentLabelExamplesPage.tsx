@@ -11,13 +11,11 @@ import {StudentProfile, StudentProfileUpdate} from '../../../typings/radgrad';
 import PageLayout from '../PageLayout';
 import ProfileLabel from '../../components/shared/profile/ProfileLabel';
 import ProfileCard from '../../components/shared/profile/ProfileCard';
-import StudentProfileModalLabel from '../../components/shared/profile/StudentProfileModalLabel';
-import StudentProfileCard from '../../components/shared/profile/StudentProfileCard';
 import CareerGoalLabel from '../../components/shared/label/CareerGoalLabel';
 import InterestLabel from '../../components/shared/label/InterestLabel';
 import CourseLabel from '../../components/shared/label/CourseLabel';
 import OpportunityLabel from '../../components/shared/label/OpportunityLabel';
-import UserLabel from "../../components/shared/profile/UserLabel";
+import UserLabel from '../../components/shared/profile/UserLabel';
 
 const headerPaneTitle = 'Control what others see about you';
 const headerPaneBody = `
@@ -43,17 +41,12 @@ const StudentPrivacyPage: React.FC<StudentPrivacyPageProps> = ({profile}) => {
   return (
     <PageLayout id="student-privacy-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
 
-      <hr style={{marginTop: '200px'}} />
+      <hr style={{marginTop: '20px'}} />
       <Header>Profile Card Examples</Header>
 
       <div style={{paddingBottom: '20px'}}>
         <UserLabel username={profile.username}/>
         <UserLabel username='johnson@hawaii.edu'/>
-      </div>
-
-      <div style={{paddingBottom: '20px'}}>
-        <StudentProfileModalLabel studentProfile={profile}/>
-        <StudentProfileCard studentProfile={profile}/>
       </div>
 
       <div style={{paddingBottom: '20px'}}>

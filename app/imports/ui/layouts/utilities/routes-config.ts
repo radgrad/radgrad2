@@ -84,7 +84,7 @@ import {
   USERNAME,
   VERIFICATION_REQUESTS,
 } from './route-constants';
-import StudentLabelExamplesPage from "../../pages/student/StudentLabelExamplesPage";
+import StudentLabelExamplesPage from '../../pages/student/StudentLabelExamplesPage';
 
 // TODO: Forecast -> Forecast,
 
