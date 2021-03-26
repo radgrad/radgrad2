@@ -30,7 +30,6 @@ const AddInterestForm: React.FC<AddInterestFormProps> = ({ interestTypes }) => {
   const interestTypeNames = interestTypes.map(docToName);
   const schema = new SimpleSchema({
     name: String,
-    slug: String,
     interestType: { type: String, allowedValues: interestTypeNames, defaultValue: interestTypeNames[0] },
     description: String,
     retired: { type: Boolean, optional: true },
@@ -47,7 +46,7 @@ const AddInterestForm: React.FC<AddInterestFormProps> = ({ interestTypes }) => {
         </Form.Group>
         <LongTextField name="description" />
         <BoolField name="retired" />
-        <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined} />
+        <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
       </AutoForm>
     </Segment>
   );

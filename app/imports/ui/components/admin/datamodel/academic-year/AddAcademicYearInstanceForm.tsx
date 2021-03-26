@@ -39,7 +39,7 @@ const AddAcademicYearInstanceForm: React.FC<AddAcademicYearInstanceProps> = ({ s
       <AutoForm schema={formSchema} onSubmit={handleAdd} ref={(ref) => formRef = ref} showInlineError>
         <NumField name="year" />
         <SelectField name="student" />
-        <SubmitField className="basic green" value="Add" />
+        <SubmitField className="mini basic green" value="Add" />
       </AutoForm>
     </Segment>
   );

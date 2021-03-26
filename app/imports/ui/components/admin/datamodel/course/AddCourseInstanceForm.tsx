@@ -92,7 +92,7 @@ const AddCourseInstanceForm: React.FC<AddCourseInstanceFormProps> = ({ terms, co
           <NumField name="creditHours" />
           <SelectField name="grade" />
         </Form.Group>
-        <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined} />
+        <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
       </AutoForm>
     </Segment>
   );

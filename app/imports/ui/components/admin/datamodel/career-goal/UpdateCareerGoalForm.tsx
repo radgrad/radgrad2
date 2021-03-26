@@ -55,8 +55,8 @@ const UpdateCareerGoalForm: React.FC<UpdateCareerGoalFormProps> = ({
         <MultiSelectField name="interests" />
         <BoolField name="retired" />
         <p />
-        <SubmitField value="Update" disabled={false} />
-        <Button onClick={handleCancel}>Cancel</Button>
+        <SubmitField value="Update" disabled={false} className="mini basic green" />
+        <Button onClick={handleCancel} basic color="green" size="mini">Cancel</Button>
       </AutoForm>
     </Segment>
   );

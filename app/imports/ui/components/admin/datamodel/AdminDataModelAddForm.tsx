@@ -1,6 +1,6 @@
 import React from 'react';
 import { Header, Segment } from 'semantic-ui-react';
-import { AutoForm } from 'uniforms-semantic';
+import { AutoFields, AutoForm, SubmitField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import BaseCollection from '../../../../api/base/BaseCollection';
 import { defineMethod } from '../../../../api/base/BaseCollection.methods';
@@ -27,7 +27,11 @@ const AdminDataModelAddForm: React.FC<AdminDataModelAddFormProps> = ({ collectio
         {collection.getType()}
       </Header>
       {/* eslint-disable-next-line no-param-reassign,no-return-assign */}
-      <AutoForm ref={(ref) => formRef = ref} onSubmit={handleAdd} schema={new SimpleSchema2Bridge(collection.getDefineSchema())} />
+      <AutoForm ref={(ref) => formRef = ref} onSubmit={handleAdd} schema={new SimpleSchema2Bridge(collection.getDefineSchema())} >
+        <AutoFields autoField={undefined} element={undefined} fields={undefined} omitFields={undefined} />
+        <p />
+        <SubmitField className="mini basic green" inputRef={undefined} disabled={false} value={undefined} />
+      </AutoForm>
     </Segment>
   );
 };

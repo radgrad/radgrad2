@@ -125,7 +125,7 @@ const AddOpportunityForm: React.FC<AddOpportunityFormProps> = ({ sponsors, inter
             Upload
           </Form.Button>
         </Form.Group>
-        <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined} />
+        <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
       </AutoForm>
     </Segment>
   );

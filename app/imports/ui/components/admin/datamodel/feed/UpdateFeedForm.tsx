@@ -274,8 +274,8 @@ const UpdateFeedForm: React.FC<UpdateFeedFormProps> = ({
           <BoolField name="retired" />
         </Form.Group>
         <p />
-        <SubmitField inputRef={undefined} value="Update" disabled={false} className="" />
-        <Button onClick={handleCancel}>Cancel</Button>
+        <SubmitField inputRef={undefined} value="Update" disabled={false} className="mini basic green" />
+        <Button onClick={handleCancel} basic color="green" size="mini">Cancel</Button>
       </AutoForm>
     </Segment>
   );

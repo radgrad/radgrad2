@@ -23,8 +23,8 @@ const AdminDataModelUpdateForm: React.FC<AdminDataModelUpdateFormProps> = ({ col
       <AutoForm schema={new SimpleSchema2Bridge(collection.getUpdateSchema())} model={model} onSubmit={handleUpdate}>
         <AutoFields autoField={undefined} element={undefined} fields={undefined} omitFields={undefined} />
         <p />
-        <SubmitField className="" inputRef={undefined} disabled={false} value={undefined} />
-        <Button onClick={handleCancel}>Cancel</Button>
+        <SubmitField className="mini basic green" inputRef={undefined} disabled={false} value={undefined} />
+        <Button onClick={handleCancel} basic color="green" size="mini">Cancel</Button>
       </AutoForm>
     </Segment>
   );

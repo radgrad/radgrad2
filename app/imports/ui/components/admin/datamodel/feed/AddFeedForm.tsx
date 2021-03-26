@@ -248,7 +248,7 @@ const AddFeedForm: React.FC<AddFeedFromProps> = ({ academicTerms, courses, oppor
         ) : (
           ''
         )}
-        <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined} />
+        <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
       </AutoForm>
     </Segment>
   );

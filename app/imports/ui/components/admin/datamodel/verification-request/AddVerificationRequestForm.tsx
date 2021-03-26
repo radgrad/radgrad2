@@ -50,7 +50,7 @@ const AddVerificationRequestForm: React.FC<AddVerificationRequestFormProps> = ({
           <SelectField name="academicTerm" />
         </Form.Group>
         <BoolField name="retired" />
-        <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined} />
+        <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
       </AutoForm>
     </Segment>
   );

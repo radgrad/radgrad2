@@ -28,7 +28,7 @@ const AddInterestTypeForm: React.FC = () => {
         </Form.Group>
         <LongTextField name="description" />
         <BoolField name="retired" />
-        <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined} />
+        <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
       </AutoForm>
     </Segment>
   );

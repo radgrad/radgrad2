@@ -131,7 +131,7 @@ const AddReviewForm: React.FC<AddReviewFormProps> = ({ terms, courses, opportuni
         </Form.Group>
         <LongTextField name="moderatorComments" />
         <BoolField name="retired" />
-        <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined} />
+        <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
       </AutoForm>
     </Segment>
   );

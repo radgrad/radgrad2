@@ -110,8 +110,8 @@ const UpdateOpportunityForm: React.FC<UpdateOpportunityFormProps> = ({ sponsors,
             Upload
           </Form.Button>
         </Form.Group>
-        <SubmitField inputRef={undefined} disabled={false} value="Update" className="" />
-        <Button onClick={handleCancel}>Cancel</Button>
+        <SubmitField inputRef={undefined} disabled={false} value="Update" className="mini basic green" />
+        <Button onClick={handleCancel} basic color="green" size="mini">Cancel</Button>
       </AutoForm>
     </Segment>
   );

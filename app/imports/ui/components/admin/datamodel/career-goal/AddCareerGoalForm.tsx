@@ -52,7 +52,7 @@ const AddCareerGoalForm: React.FC<AddCareerGoalFormProps> = ({ interests }) => {
         <TextField name="name" placeholder="Software Engineer" />
         <MultiSelectField name="interests" placeholder="Select interest(s)" />
         <LongTextField name="description" placeholder="Describe the Career Goal here" />
-        <SubmitField className="basic green" value="Add" />
+        <SubmitField className="mini basic green" value="Add" />
       </AutoForm>
     </Segment>
   );

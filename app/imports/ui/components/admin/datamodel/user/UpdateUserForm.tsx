@@ -234,8 +234,8 @@ const UpdateUserForm: React.FC<UpdateUserProps> = ({ id, interests, setAdminData
         ) : (
           ''
         )}
-        <SubmitField inputRef={undefined} value="Update" disabled={false} className="" />
-        <Button onClick={handleCancel}>Cancel</Button>
+        <SubmitField inputRef={undefined} value="Update" disabled={false} className="mini basic green" />
+        <Button onClick={handleCancel} basic color="green" size="mini">Cancel</Button>
       </AutoForm>
     </Segment>
   );

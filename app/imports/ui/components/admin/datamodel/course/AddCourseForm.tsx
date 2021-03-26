@@ -87,7 +87,7 @@ const AddCourseForm: React.FC<AddCourseFormProps> = ({ interests, courses}) => {
           <MultiSelectField name="interests" placeholder="Select Interest(s)" />
           <MultiSelectField name="prerequisites" placeholder="Select Prerequisite(s)" />
         </Form.Group>
-        <SubmitField className="basic green" value="Add" />
+        <SubmitField className="mini basic green" value="Add" />
       </AutoForm>
     </Segment>
   );
