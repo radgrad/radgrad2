@@ -35,10 +35,6 @@ const InterestedProfiles: React.FC<InterestedProfileWidgetProps> = ({ interest }
   });
 
   const numberStudents = studentsParticipating(interest);
-  const style = {
-    paddingLeft: 2,
-    paddingRight: 2,
-  };
   return (
     <Segment>
       <Header as="h5" textAlign="center">
