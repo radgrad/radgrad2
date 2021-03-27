@@ -52,7 +52,6 @@ export const handleCancelWrapper = (setConfirmOpen, setId, setShowUpdateForm) =>
 
 export const handleConfirmDeleteWrapper = (collectionName, idState, setShowUpdateForm, setId, setConfirmOpen) => () => {
   const instance = idState;
-  console.log('handleConfirmDeleteWrapper', collectionName, instance);
   removeItMethod.call({ collectionName, instance }, removeItCallback(setShowUpdateForm, setId, setConfirmOpen));
 };
 

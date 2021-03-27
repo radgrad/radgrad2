@@ -214,6 +214,7 @@ class CourseCollection extends BaseSlugCollection {
    * @throws { Meteor.Error } If docID is not a Course, or if this course has any associated course instances.
    */
   public removeIt(instance: string) {
+    console.log('CourseCollection.removeIt', instance);
     const docID = this.getID(instance);
     // Check that this is not referenced by any Course Instance.
     CourseInstances.find().map((courseInstance) => {

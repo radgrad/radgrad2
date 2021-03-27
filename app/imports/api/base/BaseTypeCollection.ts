@@ -1,4 +1,3 @@
-import { check } from 'meteor/check';
 import _ from 'lodash';
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
@@ -101,7 +100,6 @@ class BaseTypeCollection extends BaseCollection {
     const doc: {
       slugID: string,
     } = super.findDoc(docID);
-    check(doc, Object);
     if (Slugs.isDefined(doc.slugID)) {
       Slugs.removeIt(doc.slugID);
     }

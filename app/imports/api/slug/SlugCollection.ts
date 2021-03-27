@@ -142,7 +142,7 @@ class SlugCollection extends BaseCollection {
    * @param { String | Object } docOrID A document or docID in this collection.
    */
   public removeIt(docOrID: string | { [key: string]: unknown }) {
-    console.log('Slugs.removeId', docOrID);
+    // console.log('Slugs.removeIt', docOrID);
     return super.removeIt(docOrID);
   }
 
