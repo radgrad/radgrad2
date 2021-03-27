@@ -1,22 +1,22 @@
+import _ from 'lodash';
+import { withTracker } from 'meteor/react-meteor-data';
 import React from 'react';
 import { useParams, useRouteMatch } from 'react-router-dom';
-import { withTracker } from 'meteor/react-meteor-data';
 import { Container, Grid } from 'semantic-ui-react';
-import _ from 'lodash';
+import { Courses } from '../../../../api/course/CourseCollection';
+import { CourseInstances } from '../../../../api/course/CourseInstanceCollection';
+import { Interests } from '../../../../api/interest/InterestCollection';
+import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
+import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
 import { PROFILE_ENTRY_TYPE } from '../../../../api/user/profile-entries/ProfileEntryTypes';
 import { ProfileInterests } from '../../../../api/user/profile-entries/ProfileInterestCollection';
-import { Course, Interest, Opportunity, Profile } from '../../../../typings/radgrad';
-import AddToProfileButton from '../../../components/shared/explorer/item-view/AddToProfileButton';
-import PageLayout from '../../PageLayout';
-import { Interests } from '../../../../api/interest/InterestCollection';
 import { Users } from '../../../../api/user/UserCollection';
-import { Courses } from '../../../../api/course/CourseCollection';
-import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
+import { Course, Interest, Opportunity, Profile, RelatedCoursesOrOpportunities } from '../../../../typings/radgrad';
+import AddToProfileButton from '../../../components/shared/explorer/item-view/AddToProfileButton';
 import ExplorerInterest from '../../../components/shared/explorer/item-view/interest/ExplorerInterest';
 import InterestedRelated from '../../../components/shared/explorer/item-view/interest/InterestedRelated';
 import * as Router from '../../../components/shared/utilities/router';
-import {CourseInstances} from '../../../../api/course/CourseInstanceCollection';
-import {OpportunityInstances} from '../../../../api/opportunity/OpportunityInstanceCollection';
+import PageLayout from '../../PageLayout';
 
 interface InterestViewPageProps {
   courses: Course[];
@@ -30,7 +30,7 @@ const getObjectsThatHaveInterest = (objects, interestID: string) => _.filter(obj
 
 const getRelatedCourses = (courses: Course[], interestID: string) => getObjectsThatHaveInterest(courses, interestID);
 
-const getAssociationRelatedCourses = (courses: Course[], studentID: string) => {
+const getAssociationRelatedCourses = (courses: Course[], studentID: string): RelatedCoursesOrOpportunities => {
   const inPlanInstances = CourseInstances.findNonRetired({
     studentID,
     verified: false,
@@ -58,7 +58,7 @@ const getAssociationRelatedCourses = (courses: Course[], studentID: string) => {
 
 const getRelatedOpportunities = (opportunities: Opportunity[], interestID: string) => getObjectsThatHaveInterest(opportunities, interestID);
 
-const getAssociationRelatedOpportunities = (opportunities: Opportunity[], studentID: string) => {
+const getAssociationRelatedOpportunities = (opportunities: Opportunity[], studentID: string): RelatedCoursesOrOpportunities => {
   const inPlanInstances = OpportunityInstances.find({
     studentID,
     verified: false,
