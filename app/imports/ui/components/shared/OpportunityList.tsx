@@ -1,6 +1,6 @@
 import React from 'react';
 import { Label, SemanticSIZES } from 'semantic-ui-react';
-import { Opportunity, Profile } from '../../../typings/radgrad';
+import { Opportunity } from '../../../typings/radgrad';
 import OpportunityLabel from './label/OpportunityLabel';
 import { itemToSlugName } from './utilities/data-model';
 

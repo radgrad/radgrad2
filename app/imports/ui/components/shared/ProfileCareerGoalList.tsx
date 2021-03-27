@@ -1,6 +1,5 @@
 import React from 'react';
 import { Label, SemanticSIZES } from 'semantic-ui-react';
-import { useRouteMatch } from 'react-router-dom';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { ProfileCareerGoals } from '../../../api/user/profile-entries/ProfileCareerGoalCollection';
 import { Profile } from '../../../typings/radgrad';
