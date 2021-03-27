@@ -3,14 +3,14 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import _ from 'lodash';
-import { updateMethod } from '../../../../api/base/BaseCollection.methods';
 import { Interests } from '../../../../api/interest/InterestCollection';
-import { ROLE } from '../../../../api/role/Role';
 import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
 import { Users } from '../../../../api/user/UserCollection';
-import { Interest, StudentProfileUpdate } from '../../../../typings/radgrad';
+import { Interest } from '../../../../typings/radgrad';
 import InterestBrowserView from '../../../components/shared/explorer/browser-view/InterestBrowserView';
 import PageLayout from '../../PageLayout';
+import {updateLastVisitedMethod} from '../../../../api/user/BaseProfileCollection.methods';
+import {EXPLORER_TYPE} from '../../../layouts/utilities/route-constants';
 
 interface InterestBrowserViewPageProps {
   profileInterests: Interest[];
@@ -37,20 +37,15 @@ const InterestBrowserViewPage: React.FC<InterestBrowserViewPageProps> = ({ profi
 export default withTracker(() => {
   const { username } = useParams();
   const profile = Users.getProfile(username);
-  if (profile.role === ROLE.STUDENT) {
-    const lastVisited = moment().format('YYYY-MM-DD');
-    if (lastVisited !== profile.lastVisitedInterests) {
-      const collectionName = StudentProfiles.getCollectionName();
-      const updateData: StudentProfileUpdate = {};
-      updateData.id = profile._id;
-      updateData.lastVisitedInterests = lastVisited;
-      updateMethod.call({ collectionName, updateData }, (error, result) => {
-        if (error) {
-          console.error('Error updating StudentProfile', collectionName, updateData, error);
-        }
-      });
-    }
-  }
+  const collectionName = StudentProfiles.getCollectionName();
+  const lastVisited = moment().format('YYYY-MM-DD');
+  updateLastVisitedMethod.call(
+    {
+      collectionName: collectionName,
+      lastVisitedTime: lastVisited,
+      type: EXPLORER_TYPE.INTERESTS,
+    },
+  );
   const allInterests = Users.getInterestIDs(profile.userID);
   const profileInterests = allInterests.map((id) => Interests.findDoc(id));
   const interests = Interests.findNonRetired({}); // TODO should we filter out the ones in the profile?

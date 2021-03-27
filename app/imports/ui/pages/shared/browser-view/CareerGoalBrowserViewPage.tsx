@@ -2,7 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import { useParams } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Grid } from 'semantic-ui-react';
+import _ from 'lodash';
 import { updateMethod } from '../../../../api/base/BaseCollection.methods';
 import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
 import { ProfileCareerGoals } from '../../../../api/user/profile-entries/ProfileCareerGoalCollection';
@@ -11,15 +11,12 @@ import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
 import { Users } from '../../../../api/user/UserCollection';
 import { CareerGoal, StudentProfileUpdate } from '../../../../typings/radgrad';
 import CareerGoalBrowserView from '../../../components/shared/explorer/browser-view/CareerGoalBrowserView';
-import ExplorerMultipleItemsMenu from '../../../components/shared/explorer/browser-view/ExplorerMultipleItemsMenu';
-import { IExplorerTypes } from '../../../components/shared/explorer/utilities/explorer';
-import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import PageLayout from '../../PageLayout';
 
 interface CareerGoalBrowserViewPageProps {
   profileCareerGoals: CareerGoal[];
   profileInterestIDs: string[];
-  careerGoals: CareerGoal[];
+  nonProfileCareerGoals: CareerGoal[];
 }
 
 const headerPaneTitle = 'Find your career goals';
@@ -35,26 +32,13 @@ const headerPaneImage = 'header-career.png';
 const CareerGoalBrowserViewPage: React.FC<CareerGoalBrowserViewPageProps> = ({
   profileCareerGoals,
   profileInterestIDs,
-  careerGoals,
-}) => {
-  const menuAddedList = profileCareerGoals.map((f) => ({ item: f, count: 1 }));
-  return (
+  nonProfileCareerGoals,
+}) => (
     <PageLayout id="career-goal-browser-view-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
-      <Grid stackable>
-        <Grid.Row>
-          <Grid.Column width={4}>
-            <ExplorerMultipleItemsMenu menuAddedList={menuAddedList} type={EXPLORER_TYPE.CAREERGOALS as IExplorerTypes} />
-          </Grid.Column>
-          <Grid.Column width={12}>
-            <CareerGoalBrowserView profileCareerGoals={profileCareerGoals}
-                                   profileInterestIDs={profileInterestIDs}
-                                   careerGoals={careerGoals} />
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
+      <CareerGoalBrowserView profileInterestIDs={profileInterestIDs} careerGoals={profileCareerGoals} inProfile />
+      <CareerGoalBrowserView profileInterestIDs={profileInterestIDs} careerGoals={nonProfileCareerGoals} />
     </PageLayout>
-  );
-};
+);
 
 export default withTracker(() => {
   const { username } = useParams();
@@ -77,9 +61,11 @@ export default withTracker(() => {
   const profileCareerGoals = favCar.map((f) => CareerGoals.findDoc(f.careerGoalID));
   const profileInterestIDs = Users.getInterestIDs(username);
   const careerGoals = CareerGoals.findNonRetired({});
+  const nonProfileCareerGoals = _.filter(careerGoals, md => profileCareerGoals.every(fd => fd._id !== md._id));
   return {
     careerGoals,
     profileCareerGoals,
     profileInterestIDs,
+    nonProfileCareerGoals,
   };
 })(CareerGoalBrowserViewPage);
