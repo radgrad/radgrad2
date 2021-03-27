@@ -39,13 +39,15 @@ export default withTracker(() => {
   const profile = Users.getProfile(username);
   const collectionName = StudentProfiles.getCollectionName();
   const lastVisited = moment().format('YYYY-MM-DD');
-  updateLastVisitedMethod.call(
-    {
-      collectionName: collectionName,
-      lastVisitedTime: lastVisited,
-      type: EXPLORER_TYPE.INTERESTS,
-    },
-  );
+  if (lastVisited !== profile.lastVisitedInterests) {
+    updateLastVisitedMethod.call(
+      {
+        collectionName: collectionName,
+        lastVisitedTime: lastVisited,
+        type: EXPLORER_TYPE.INTERESTS,
+      },
+    );
+  }
   const allInterests = Users.getInterestIDs(profile.userID);
   const profileInterests = allInterests.map((id) => Interests.findDoc(id));
   const interests = Interests.findNonRetired({}); // TODO should we filter out the ones in the profile?
