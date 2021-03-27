@@ -7,7 +7,6 @@ import { PROFILE_ENTRY_TYPE } from '../../../../api/user/profile-entries/Profile
 import { ProfileInterests } from '../../../../api/user/profile-entries/ProfileInterestCollection';
 import { Course, Interest, Opportunity, Profile } from '../../../../typings/radgrad';
 import AddToProfileButton from '../../../components/shared/explorer/item-view/AddToProfileButton';
-import { getFirstSentance } from '../../../components/shared/utilities/general';
 import PageLayout from '../../PageLayout';
 import { Interests } from '../../../../api/interest/InterestCollection';
 import { Users } from '../../../../api/user/UserCollection';
