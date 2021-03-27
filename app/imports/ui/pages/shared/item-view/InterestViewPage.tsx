@@ -109,7 +109,7 @@ const InterestViewPage: React.FC<InterestViewPageProps> = ({ courses, profileInt
         <Grid stackable>
           <Grid.Row>
             <Grid.Column width={5}>
-              <InterestedRelated relatedCourses={relatedCourses} relatedOpportunities={relatedOpportunities} isStudent={Router.getRoleByUrl(match) === 'student'} baseURL={getBaseURL(match)} />
+              <InterestedRelated relatedCourses={relatedCourses} relatedOpportunities={relatedOpportunities} isStudent={Router.getRoleByUrl(match) === 'student'} baseURL={getBaseURL(match)} profile={profile} />
               {/* <ExplorerMenu menuAddedList={menuAddedList} type="interests" /> */}
             </Grid.Column>
             <Grid.Column width={11}>

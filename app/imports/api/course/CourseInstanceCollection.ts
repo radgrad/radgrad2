@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import _ from 'lodash';
 import SimpleSchema from 'simpl-schema';
 import { ReactiveAggregate } from 'meteor/jcbernack:reactive-aggregate';
+import { ProfileCourses } from '../user/profile-entries/ProfileCourseCollection';
 import { Courses } from './CourseCollection';
 import { AcademicYearInstances } from '../degree-plan/AcademicYearInstanceCollection';
 import { ROLE } from '../role/Role';
@@ -142,6 +143,8 @@ class CourseInstanceCollection extends BaseCollection {
       /* eslint-disable-next-line no-param-reassign */
       creditHrs = Courses.findDoc(courseID).creditHrs;
     }
+    // TODO need to talk about this.
+    ProfileCourses.define({ course, student, retired });
     // Define and return the CourseInstance
     return this.collection.insert({
       termID,

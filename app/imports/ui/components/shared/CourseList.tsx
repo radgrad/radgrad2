@@ -8,16 +8,18 @@ interface CourseListProps {
   courses: Course[];
   keyStr: string;
   size: SemanticSIZES;
+  userID: string;
 }
 
-const CourseList: React.FC<CourseListProps> = ({ courses, size, keyStr }) => (
+const CourseList: React.FC<CourseListProps> = ({ courses, size, keyStr, userID }) => (
   <Label.Group size={size}>
     {courses.map((course) => {
       const slug = itemToSlugName(course);
       return (
-        <CourseLabel slug={slug} />
+        <CourseLabel key={course._id} slug={slug} userID={userID} size={size} />
       );
-    })}
+    },
+    )}
   </Label.Group>
 );
 

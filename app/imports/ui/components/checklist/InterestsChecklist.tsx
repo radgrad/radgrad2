@@ -19,7 +19,7 @@ export class InterestsChecklist extends Checklist {
     super();
     this.name = 'Interests';
     this.profile = Users.getProfile(student);
-    this.iconName = 'star';
+    this.iconName = 'heart';
     // Specify title for each state
     this.title[CHECKSTATE.OK] = 'Your Interests appear to be OK';
     this.title[CHECKSTATE.REVIEW] = 'Please confirm that your Interests are OK';

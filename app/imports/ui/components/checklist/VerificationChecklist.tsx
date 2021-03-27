@@ -62,7 +62,7 @@ export class VerificationChecklist extends Checklist {
       case CHECKSTATE.IMPROVE:
         return (
           <DetailsBox description='Your unverified Opportunities from a past semester are:'>
-            <OpportunityList opportunities={unverifiedOpps} size="medium" keyStr="unverified"/>
+            <OpportunityList opportunities={unverifiedOpps} size="medium" keyStr="unverified" userID={this.profile.userID} />
           </DetailsBox>
         );
       default:
