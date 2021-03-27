@@ -37,33 +37,36 @@ const getStudentLevelHint = (profile: StudentProfile): string => {
 };
 
 const StudentLevelsWidget: React.FC<StudentLevelsWidgetProps> = ({ profile }) => {
-  const imageStyle = { width: '230px' };
+  const imageStyle = { width: '160px' };
   const studentLevelNumber: number = profile.level || 1;
   const studentLevelName = getStudentLevelName(profile);
   const studentLevelHint = getStudentLevelHint(profile);
+  console.log(profile);
   return (
     <Segment padded id="studentLevelsWidget">
       <Header as="h4" dividing>
-        CURRENT LEVEL
+        MY CURRENT LEVEL
       </Header>
-      <Grid stackable>
+      <Grid>
           <Grid.Column width={3}>
-              <Image size="small" centered style={imageStyle} src={`/images/level-icons/radgrad-level-${studentLevelNumber}-icon.png`} />
+              <Image size="mini" centered style={imageStyle} src={`/images/level-icons/radgrad-level-${studentLevelNumber}-icon.png`} />
+              <Header as='h3' textAlign="center">Earned on March 2021</Header>
           </Grid.Column>
-        <Grid.Column width={16}>
+        <Grid.Column width={13}>
           <Container>
             <Header as="h3" textAlign="center">
               {studentLevelName}
             </Header>
+              <Message icon>
+                  <Icon name="rocket" />
+                  <Message.Content>
+                      <Markdown escapeHtml source={studentLevelHint} />
+                  </Message.Content>
+              </Message>
           </Container>
         </Grid.Column>
       </Grid>
-      <Message icon>
-        <Icon name="rocket" />
-        <Message.Content>
-          <Markdown escapeHtml source={studentLevelHint} />
-        </Message.Content>
-      </Message>
+
     </Segment>
   );
 };
