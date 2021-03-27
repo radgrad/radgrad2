@@ -1,10 +1,8 @@
 import React from 'react';
-import { Icon, Label, SemanticSIZES } from 'semantic-ui-react';
-import { Link, useRouteMatch } from 'react-router-dom';
+import { Label, SemanticSIZES } from 'semantic-ui-react';
 import { Opportunity } from '../../../typings/radgrad';
-import { EXPLORER_TYPE } from '../../layouts/utilities/route-constants';
+import OpportunityLabel from './label/OpportunityLabel';
 import { itemToSlugName } from './utilities/data-model';
-import * as Router from './utilities/router';
 
 interface OpportunityListProps {
   opportunities: Opportunity[];
@@ -12,23 +10,15 @@ interface OpportunityListProps {
   keyStr: string;
 }
 
-const OpportunityList:React.FC<OpportunityListProps> = ({ opportunities, size, keyStr }) => {
-  const match = useRouteMatch();
-  return (
-    <Label.Group size={size}>
-      {opportunities.map((opp) => {
-        const slug = itemToSlugName(opp);
-        return (
-          <Label as={Link} key={`${opp._id}-${keyStr}`}
-                 to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${slug}`)}
-                 size={size}>
-            <Icon name="bolt" />
-            {opp.name}
-          </Label>
-        );
-      })}
-    </Label.Group>
-  );
-};
+const OpportunityList: React.FC<OpportunityListProps> = ({ opportunities, size, keyStr }) => (
+  <Label.Group size={size}>
+    {opportunities.map((opp) => {
+      const slug = itemToSlugName(opp);
+      return (
+        <OpportunityLabel slug={slug} />
+      );
+    })}
+  </Label.Group>
+);
 
 export default OpportunityList;

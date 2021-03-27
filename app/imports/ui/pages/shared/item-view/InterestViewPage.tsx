@@ -3,7 +3,10 @@ import { useParams, useRouteMatch } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Container, Grid } from 'semantic-ui-react';
 import _ from 'lodash';
+import { PROFILE_ENTRY_TYPE } from '../../../../api/user/profile-entries/ProfileEntryTypes';
+import { ProfileInterests } from '../../../../api/user/profile-entries/ProfileInterestCollection';
 import { Course, Interest, Opportunity, Profile } from '../../../../typings/radgrad';
+import AddToProfileButton from '../../../components/shared/explorer/item-view/AddToProfileButton';
 import { getFirstSentance } from '../../../components/shared/utilities/general';
 import PageLayout from '../../PageLayout';
 import { Interests } from '../../../../api/interest/InterestCollection';
@@ -99,10 +102,10 @@ const InterestViewPage: React.FC<InterestViewPageProps> = ({ courses, profileInt
   const match = useRouteMatch();
   const pushDownStyle = { paddingTop: 15 };
   const headerPaneTitle = interest.name;
-  const headerPaneBody = getFirstSentance(interest.description);
   const headerPaneImage = 'header-interests.png';
+  const added = ProfileInterests.findNonRetired({ userID: profile.userID, interestID }).length > 0;
   return (
-    <PageLayout id="interest-view-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
+    <PageLayout id="interest-view-page" headerPaneTitle={headerPaneTitle} headerPaneImage={headerPaneImage} headerPaneButton={<AddToProfileButton type={PROFILE_ENTRY_TYPE.INTEREST} studentID={profile.userID} item={interest} added={added} inverted floated="left"/>}>
       <Container style={pushDownStyle}>
         <Grid stackable>
           <Grid.Row>
