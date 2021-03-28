@@ -1,5 +1,5 @@
 import React from 'react';
-import {StudentProfile} from '../../../typings/radgrad';
+import {StudentProfile} from '../../../../typings/radgrad';
 import ProfileCard from './ProfileCard';
 
 export interface StudentProfileCardProps {

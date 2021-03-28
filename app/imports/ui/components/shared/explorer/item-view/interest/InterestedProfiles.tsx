@@ -3,6 +3,7 @@ import { Container, Header, Image, Popup, Divider, Segment } from 'semantic-ui-r
 import { ROLE } from '../../../../../../api/role/Role';
 import { Users } from '../../../../../../api/user/UserCollection';
 import { Interest } from '../../../../../../typings/radgrad';
+import StudentProfileModalLabel from '../../../profile/StudentProfileModalLabel';
 import WidgetHeaderNumber from '../../WidgetHeaderNumber';
 import { studentsParticipating } from '../../../utilities/data-model';
 import { getUserIDsWithProfileInterestMethod } from '../../../../../../api/user/profile-entries/ProfileInterestCollection.methods';
@@ -35,41 +36,40 @@ const InterestedProfiles: React.FC<InterestedProfileWidgetProps> = ({ interest }
 
   const numberStudents = studentsParticipating(interest);
   return (
-            <Segment>
-              <Header as="h5" textAlign="center">
-                STUDENTS <WidgetHeaderNumber inputValue={numberStudents} />
-              </Header>
-              <Container textAlign="center">
-                <Image.Group size="mini">
-                  {/* TODO replace with profile labels */}
-                  {students.map((student) => (
-                    <Popup key={student._id} trigger={<Image src={student.picture} circular size="mini" />} content={`${student.firstName} ${student.lastName}`} />
-                  ))}
-                </Image.Group>
-              </Container>
-              <Divider />
-              <Header as="h5" textAlign="center">
-                FACULTY MEMBERS <WidgetHeaderNumber inputValue={faculty.length} />
-              </Header>
-              <Container textAlign="center">
-                <Image.Group size="mini">
-                  {faculty.map((fac) => (
-                    <Popup key={fac._id} trigger={<Image src={fac.picture} circular />} content={`${fac.firstName} ${fac.lastName}`} />
-                  ))}
-                </Image.Group>
-              </Container>
-              <Divider />
-              <Header as="h5" textAlign="center">
-                ADVISORS <WidgetHeaderNumber inputValue={advisors.length} />
-              </Header>
-              <Container textAlign="center">
-                <Image.Group size="mini">
-                  {advisors.map((fac) => (
-                    <Popup key={fac._id} trigger={<Image src={fac.picture} circular />} content={`${fac.firstName} ${fac.lastName}`} />
-                  ))}
-                </Image.Group>
-              </Container>
-            </Segment>
+    <Segment>
+      <Header as="h5" textAlign="center">
+        STUDENTS <WidgetHeaderNumber inputValue={numberStudents} />
+      </Header>
+      <Container textAlign="center">
+        {students.map((student) => (
+          <StudentProfileModalLabel key={student._id} studentProfile={student} />
+        ))}
+      </Container>
+      <Divider />
+      <Header as="h5" textAlign="center">
+        FACULTY MEMBERS <WidgetHeaderNumber inputValue={faculty.length} />
+      </Header>
+      <Container textAlign="center">
+        <Image.Group size="mini">
+          {faculty.map((fac) => (
+            <Popup key={fac._id} trigger={<Image src={fac.picture} circular />}
+                   content={`${fac.firstName} ${fac.lastName}`} />
+          ))}
+        </Image.Group>
+      </Container>
+      <Divider />
+      <Header as="h5" textAlign="center">
+        ADVISORS <WidgetHeaderNumber inputValue={advisors.length} />
+      </Header>
+      <Container textAlign="center">
+        <Image.Group size="mini">
+          {advisors.map((fac) => (
+            <Popup key={fac._id} trigger={<Image src={fac.picture} circular />}
+                   content={`${fac.firstName} ${fac.lastName}`} />
+          ))}
+        </Image.Group>
+      </Container>
+    </Segment>
   );
 };
 

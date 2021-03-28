@@ -81,15 +81,15 @@ export class ReviewChecklist extends Checklist {
       case CHECKSTATE.OK:
         return (
           <DetailsBox description='You have reviewed the following completed Courses and Opportunities:'>
-            <CourseList courses={courses} keyStr="review" size="medium" />
-            <OpportunityList opportunities={opportunities} size="medium" keyStr="review" />
+            <CourseList courses={courses} keyStr="review" size="medium" userID={this.profile.userID} />
+            <OpportunityList opportunities={opportunities} size="medium" keyStr="review" userID={this.profile.userID} />
           </DetailsBox>
         );
       case CHECKSTATE.REVIEW:
         return (
             <DetailsBox description='You have not reviewed the following completed Courses and Opportunities:'>
-              <CourseList courses={nonReviewedCourses} size="medium" keyStr="review" />
-              <OpportunityList opportunities={nonReviewedOpportunities} size="medium" keyStr="review" />
+              <CourseList courses={nonReviewedCourses} size="medium" keyStr="review" userID={this.profile.userID} />
+              <OpportunityList opportunities={nonReviewedOpportunities} size="medium" keyStr="review" userID={this.profile.userID} />
             </DetailsBox>
         );
       default:

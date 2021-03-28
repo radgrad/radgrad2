@@ -1005,3 +1005,9 @@ export interface VerificationRequestUpdate extends Update {
   processed?: Processed[];
   retired?: boolean;
 }
+
+export interface RelatedCoursesOrOpportunities {
+  completed: string[];
+  inPlan: string[];
+  notInPlan: string[];
+}

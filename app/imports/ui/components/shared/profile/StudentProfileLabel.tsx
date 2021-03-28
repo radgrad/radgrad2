@@ -1,5 +1,5 @@
 import React from 'react';
-import {StudentProfile} from '../../../typings/radgrad';
+import {StudentProfile} from '../../../../typings/radgrad';
 import ProfileLabel from './ProfileLabel';
 
 export interface StudentProfileLabelProps {
