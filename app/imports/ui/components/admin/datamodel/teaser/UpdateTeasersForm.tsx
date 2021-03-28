@@ -23,7 +23,6 @@ interface UpdateTeaserFormProps {
 const UpdateTeaserForm: React.FC<UpdateTeaserFormProps> = ({ careerGoals, courses, interests, opportunities, collection, id, handleUpdate, handleCancel, itemTitleString }) => {
   const model = collection.findDoc(id);
   model.slug = itemToSlugName(model);
-  model.opportunity = opportunityIdToName(model.opportunityID);
   model.interests = model.interestIDs.map(interestIdToName);
   model.youtubeID = model.url;
   const modelSlugAndType = slugIDToSlugNameAndType(model.targetSlugID);

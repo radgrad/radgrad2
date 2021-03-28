@@ -37,7 +37,6 @@ const AddTeaserForm: React.FC<AddTeaserFormProps> = ({ careerGoals, courses, int
   const interestNames = interests.map(docToName);
   const schema = new SimpleSchema({
     title: String,
-    slug: String,
     author: String,
     youtubeID: String,
     description: String,
@@ -58,12 +57,13 @@ const AddTeaserForm: React.FC<AddTeaserFormProps> = ({ careerGoals, courses, int
   const formSchema = new SimpleSchema2Bridge(schema);
 
   const handleAdd = (doc) => {
-    // console.log('Teasers.handleAdd(%o)', doc);
+    console.log('Teasers.handleAdd(%o)', doc);
     const collectionName = Teasers.getCollectionName();
     const definitionData = doc;
     definitionData.interests = doc.interests.map(interestNameToSlug);
     definitionData.targetSlug = slugNameAndTypeToName(doc.targetSlug);
     definitionData.url = doc.youtubeID;
+    definitionData.slug = `${definitionData.targetSlug}-teaser`;
     // definitionData.opportunity = opportunityNameToSlug(doc.opportunity);
     // console.log(collectionName, definitionData);
     defineMethod.call({ collectionName, definitionData }, defineCallback(formRef));
@@ -76,7 +76,6 @@ const AddTeaserForm: React.FC<AddTeaserFormProps> = ({ careerGoals, courses, int
       <AutoForm schema={formSchema} onSubmit={handleAdd} ref={(ref) => formRef = ref} showInlineError>
         <Form.Group widths="equal">
           <TextField name="title" />
-          <TextField name="slug" />
           <TextField name="author" />
         </Form.Group>
         <Form.Group widths="equal">

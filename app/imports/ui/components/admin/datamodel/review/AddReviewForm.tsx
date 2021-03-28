@@ -69,19 +69,16 @@ const AddReviewForm: React.FC<AddReviewFormProps> = ({ terms, courses, opportuni
       academicTerm: {
         type: String,
         allowedValues: termNames,
-        defaultValue: 'Select a Term',
       },
       reviewee: {
         type: String,
         allowedValues: revieweeNames,
-        defaultValue: revieweeNames[0],
       },
       student: {
         type: String,
         allowedValues: studentNames,
-        defaultValue: studentNames[0],
       },
-      reviewType: { type: String, allowedValues: reviewTypes, defaultValue: Reviews.COURSE },
+      reviewType: { type: String, allowedValues: reviewTypes },
       rating: { type: SimpleSchema.Integer, min: 0, max: 5, optional: true },
       comments: String,
       moderated: { type: Boolean, optional: true },
@@ -105,7 +102,7 @@ const AddReviewForm: React.FC<AddReviewFormProps> = ({ terms, courses, opportuni
     definitionData.slug = `review-${definitionData.reviewType}-${definitionData.reviewee}-${definitionData.student}`;
     defineMethod.call({ collectionName, definitionData }, defineCallback(formRef));
   };
-  console.log(reviewType, schema);
+  // console.log(reviewType, schema);
   return (
     <Segment padded>
       <Header dividing>Add Review</Header>
