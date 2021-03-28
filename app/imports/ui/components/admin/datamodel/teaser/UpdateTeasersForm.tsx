@@ -5,7 +5,7 @@ import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { CareerGoal, Course, Interest, Opportunity } from '../../../../../typings/radgrad';
 import BaseCollection from '../../../../../api/base/BaseCollection';
-import { docToName, interestIdToName, itemToSlugName, opportunityIdToName, slugIDToSlugNameAndType, docToSlugNameAndType } from '../../../shared/utilities/data-model';
+import { docToName, interestIdToName, itemToSlugName, slugIDToSlugNameAndType, docToSlugNameAndType } from '../../../shared/utilities/data-model';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
 
 interface UpdateTeaserFormProps {

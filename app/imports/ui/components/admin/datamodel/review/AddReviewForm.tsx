@@ -5,7 +5,6 @@ import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { defineMethod } from '../../../../../api/base/BaseCollection.methods';
 import { AcademicTerm, Course, Opportunity, StudentProfile } from '../../../../../typings/radgrad';
-import { AcademicTerms } from '../../../../../api/academic-term/AcademicTermCollection';
 import {
   academicTermNameToSlug,
   academicTermToName, courseNameToSlug,
@@ -27,7 +26,6 @@ interface AddReviewFormProps {
 const AddReviewForm: React.FC<AddReviewFormProps> = ({ terms, courses, opportunities, students }) => {
   const [reviewType, setReviewType] = useState('');
   const termNames = terms.map(academicTermToName);
-  const currentTermName = AcademicTerms.toString(AcademicTerms.getCurrentTermID(), false);
   const courseNames = courses.map(courseToName);
   const opportunityNames = opportunities.map(docToName);
   const reviewTypes = [Reviews.COURSE, Reviews.OPPORTUNITY];
