@@ -22,7 +22,7 @@ import {
   handleConfirmDeleteWrapper,
   handleDeleteWrapper, handleOpenUpdateWrapper, updateCallBack,
 } from './utilities/data-model-page-callbacks';
-import { getDatamodelCount, makeMarkdownLink } from './utilities/datamodel';
+import { makeMarkdownLink } from './utilities/datamodel';
 import PageLayout from '../PageLayout';
 
 const collection = Opportunities; // the collection to use.
@@ -68,8 +68,7 @@ interface AdminDataModelOpportunitiesPageProps {
   opportunityTypes: OpportunityType[];
 }
 
-// props not deconstructed because AdminDataModeMenuProps has 21 numbers.
-const AdminDataModelOpportunitiesPage: React.FC<AdminDataModelOpportunitiesPageProps> = (props) => {
+const AdminDataModelOpportunitiesPage: React.FC<AdminDataModelOpportunitiesPageProps> = ({ items, interests, terms, opportunityTypes, sponsors }) => {
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');
   const [showUpdateFormState, setShowUpdateForm] = useState(false);
@@ -104,14 +103,14 @@ const AdminDataModelOpportunitiesPage: React.FC<AdminDataModelOpportunitiesPageP
           handleUpdate={handleUpdate}
           handleCancel={handleCancel}
           itemTitleString={itemTitleString}
-          sponsors={props.sponsors}
-          terms={props.terms}
-          interests={props.interests}
-          opportunityTypes={props.opportunityTypes}
+          sponsors={sponsors}
+          terms={terms}
+          interests={interests}
+          opportunityTypes={opportunityTypes}
         />
       ) : (
-        <AddOpportunityForm sponsors={props.sponsors} terms={props.terms}
-                            interests={props.interests} opportunityTypes={props.opportunityTypes}/>
+        <AddOpportunityForm sponsors={sponsors} terms={terms}
+                            interests={interests} opportunityTypes={opportunityTypes}/>
       )}
       <ListCollectionWidget
         collection={collection}
@@ -122,7 +121,7 @@ const AdminDataModelOpportunitiesPage: React.FC<AdminDataModelOpportunitiesPageP
         handleDelete={handleDelete}
         setShowIndex={dataModelActions.setCollectionShowIndex}
         setShowCount={dataModelActions.setCollectionShowCount}
-        items={props.items}
+        items={items}
       />
 
       <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete}
@@ -143,10 +142,8 @@ const AdminDataModelOpportunitiesPageContainer = withTracker(() => {
   const sponsorDocs = _.union(faculty, advisors);
   const sponsors = _.sortBy(sponsorDocs, ['lastName', 'firstName']);
   const items = Opportunities.find({}, { sort: { name: 1 } }).fetch();
-  const modelCount = getDatamodelCount();
   const opportunityTypes = OpportunityTypes.find({}).fetch();
   return {
-    ...modelCount,
     sponsors,
     terms,
     items,

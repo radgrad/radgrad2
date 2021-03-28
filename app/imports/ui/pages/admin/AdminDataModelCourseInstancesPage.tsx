@@ -19,7 +19,6 @@ import {
   handleDeleteWrapper, handleOpenUpdateWrapper,
   updateCallBack,
 } from './utilities/data-model-page-callbacks';
-import { getDatamodelCount } from './utilities/datamodel';
 import PageLayout from '../PageLayout';
 
 const collection = CourseInstances;
@@ -71,8 +70,7 @@ interface AdminDataModelCourseInstancesPageProps {
   students: StudentProfile[];
 }
 
-// props not deconstructed because AdminDataModeMenuProps has 21 numbers.
-const AdminDataModelCourseInstancesPage: React.FC<AdminDataModelCourseInstancesPageProps> = (props) => {
+const AdminDataModelCourseInstancesPage: React.FC<AdminDataModelCourseInstancesPageProps> = ({ items, terms, courses, students }) => {
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');
   const [showUpdateFormState, setShowUpdateForm] = useState(false);
@@ -100,10 +98,10 @@ const AdminDataModelCourseInstancesPage: React.FC<AdminDataModelCourseInstancesP
     <PageLayout id="data-model-course-instances-page" headerPaneTitle="Course Instances">
       {showUpdateFormState ? (
         <UpdateCourseInstanceForm collection={collection} id={idState} handleUpdate={handleUpdate}
-                                  handleCancel={handleCancel} itemTitleString={itemTitleString} terms={props.terms}/>
+                                  handleCancel={handleCancel} itemTitleString={itemTitleString} terms={terms}/>
       ) : (
-        <AddCourseInstanceForm terms={props.terms} courses={props.courses}
-                               students={props.students}/>
+        <AddCourseInstanceForm terms={terms} courses={courses}
+                               students={students}/>
       )}
       <ListCollectionWidget
         collection={collection}
@@ -114,7 +112,7 @@ const AdminDataModelCourseInstancesPage: React.FC<AdminDataModelCourseInstancesP
         handleDelete={handleDelete}
         setShowIndex={dataModelActions.setCollectionShowIndex}
         setShowCount={dataModelActions.setCollectionShowCount}
-        items={props.items}
+        items={items}
       />
       <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete}
                header="Delete Course Instance?"/>
@@ -127,9 +125,7 @@ const AdminDataModelCourseInstancesPageContainer = withTracker(() => {
   const terms = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();
   const courses = Courses.find().fetch();
   const students = StudentProfiles.find({}, { sort: { lastName: 1 } }).fetch();
-  const modelCount = getDatamodelCount();
   return {
-    ...modelCount,
     items,
     terms,
     courses,

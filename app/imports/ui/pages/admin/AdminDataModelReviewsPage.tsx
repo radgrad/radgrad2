@@ -21,7 +21,6 @@ import {
   handleDeleteWrapper, handleOpenUpdateWrapper,
   updateCallBack,
 } from './utilities/data-model-page-callbacks';
-import { getDatamodelCount } from './utilities/datamodel';
 import PageLayout from '../PageLayout';
 
 const collection = Reviews; // the collection to use.
@@ -77,8 +76,7 @@ interface AdminDataModelReviewsPageProps {
   opportunities: Opportunity[];
 }
 
-// props not deconstructed because AdminDataModeMenuProps has 21 numbers.
-const AdminDataModelReviewsPage: React.FC<AdminDataModelReviewsPageProps> = (props) => {
+const AdminDataModelReviewsPage: React.FC<AdminDataModelReviewsPageProps> = ({ items, terms, courses, students, opportunities }) => {
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');
   const [showUpdateFormState, setShowUpdateForm] = useState(false);
@@ -105,10 +103,10 @@ const AdminDataModelReviewsPage: React.FC<AdminDataModelReviewsPageProps> = (pro
     <PageLayout id="data-model-reviews-page" headerPaneTitle="Reviews" headerPaneBody="Be sure to select the reviewee. If you don't you will get an error.">
       {showUpdateFormState ? (
         <UpdateReviewForm collection={collection} id={idState} handleUpdate={handleUpdate}
-                          handleCancel={handleCancel} itemTitleString={itemTitleString} terms={props.terms}/>
+                          handleCancel={handleCancel} itemTitleString={itemTitleString} terms={terms}/>
       ) : (
-        <AddReviewForm terms={props.terms} students={props.students}
-                       opportunities={props.opportunities} courses={props.courses}/>
+        <AddReviewForm terms={terms} students={students}
+                       opportunities={opportunities} courses={courses}/>
       )}
       <ListCollectionWidget
         collection={collection}
@@ -119,7 +117,7 @@ const AdminDataModelReviewsPage: React.FC<AdminDataModelReviewsPageProps> = (pro
         handleDelete={handleDelete}
         setShowIndex={dataModelActions.setCollectionShowIndex}
         setShowCount={dataModelActions.setCollectionShowCount}
-        items={props.items}
+        items={items}
       />
       <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Review?"/>
     </PageLayout>
@@ -132,9 +130,7 @@ const AdminDataModelReviewsPageContainer = withTracker(() => {
   const students = StudentProfiles.find({}, { sort: { lastName: 1 } }).fetch();
   const opportunities = Opportunities.find({}, { sort: { name: 1 } }).fetch();
   const items = Reviews.find({}).fetch();
-  const modelCount = getDatamodelCount();
   return {
-    ...modelCount,
     items,
     terms,
     courses,

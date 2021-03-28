@@ -15,7 +15,6 @@ import {
   handleConfirmDeleteWrapper,
   handleDeleteWrapper, handleOpenUpdateWrapper, updateCallBack,
 } from './utilities/data-model-page-callbacks';
-import { getDatamodelCount } from './utilities/datamodel';
 import PageLayout from '../PageLayout';
 
 const collection = AcademicYearInstances;
@@ -44,8 +43,14 @@ interface AdminDataModelAcademicYearsPageProps {
   students: StudentProfile[];
 }
 
-// props not deconstructed because AdminDataModeMenuProps has 21 numbers.
-const AdminDataModelAcademicYearsPage: React.FC<AdminDataModelAcademicYearsPageProps> = (props) => {
+/**
+ * AdminDataModelAcademicYearsPage.
+ * @param {AcademicYearInstance[]} items
+ * @param {StudentProfile[]} students
+ * @return {JSX.Element}
+ * @constructor
+ */
+const AdminDataModelAcademicYearsPage: React.FC<AdminDataModelAcademicYearsPageProps> = ({ items, students }) => {
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');
   const [showUpdateFormState, setShowUpdateForm] = useState(false);
@@ -76,7 +81,7 @@ const AdminDataModelAcademicYearsPage: React.FC<AdminDataModelAcademicYearsPageP
                                   handleUpdate={handleUpdate} handleCancel={handleCancel}
                                   itemTitleString={itemTitleString}/>
       ) : (
-        <AddAcademicYearInstanceForm students={props.students}/>
+        <AddAcademicYearInstanceForm students={students}/>
       )}
       <ListCollectionWidget
         collection={AcademicYearInstances}
@@ -87,7 +92,7 @@ const AdminDataModelAcademicYearsPage: React.FC<AdminDataModelAcademicYearsPageP
         handleDelete={handleDelete}
         setShowIndex={dataModelActions.setCollectionShowIndex}
         setShowCount={dataModelActions.setCollectionShowCount}
-        items={props.items}
+        items={items}
       />
 
       <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete}
@@ -99,9 +104,7 @@ const AdminDataModelAcademicYearsPage: React.FC<AdminDataModelAcademicYearsPageP
 const AdminDataModelAcademicYearsPageContainer = withTracker(() => {
   const items = AcademicYearInstances.find({}).fetch();
   const students = StudentProfiles.find({ isAlumni: false }).fetch();
-  const modelCount = getDatamodelCount();
   return {
-    ...modelCount,
     items,
     students,
   };

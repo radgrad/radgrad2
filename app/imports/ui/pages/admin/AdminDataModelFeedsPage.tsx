@@ -4,7 +4,15 @@ import { Confirm, Icon } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
-import { AcademicTerm, Course, DescriptionPair, IFeed, Opportunity, StudentProfile } from '../../../typings/radgrad';
+import {
+  AcademicTerm,
+  Course,
+  DescriptionPair,
+  FeedUpdate,
+  IFeed,
+  Opportunity,
+  StudentProfile,
+} from '../../../typings/radgrad';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Feeds } from '../../../api/feed/FeedCollection';
 import { Users } from '../../../api/user/UserCollection';
@@ -22,7 +30,6 @@ import {
   handleDeleteWrapper, handleOpenUpdateWrapper,
   updateCallBack,
 } from './utilities/data-model-page-callbacks';
-import { getDatamodelCount } from './utilities/datamodel';
 import PageLayout from '../PageLayout';
 
 const collection = Feeds; // the collection to use.
@@ -98,8 +105,7 @@ const mapStateToProps = (state: RootState): unknown => ({
   cloudinaryUrl: state.shared.cloudinary.adminDataModelFeeds.cloudinaryUrl,
 });
 
-// props not deconstructed because AdminDataModeMenuProps has 21 numbers.
-const AdminDataModelFeedsPage: React.FC<AdminDataModelFeedsPageProps> = (props) => {
+const AdminDataModelFeedsPage: React.FC<AdminDataModelFeedsPageProps> = ({ isCloudinaryUsed, cloudinaryUrl, courses, academicTerms, items, students, opportunities }) => {
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');
   const [showUpdateFormState, setShowUpdateForm] = useState(false);
@@ -112,12 +118,10 @@ const AdminDataModelFeedsPage: React.FC<AdminDataModelFeedsPageProps> = (props) 
   const handleUpdate = (doc) => {
     // console.log('handleUpdate doc=%o', doc);
     const collectionName = collection.getCollectionName();
-    const updateData: any = doc;
+    const updateData: FeedUpdate = doc;
     updateData.id = doc._id;
-    updateData.feedType = doc.feedType;
     updateData.users = doc.userIDs;
     updateData.opportunity = opportunityNameToSlug(doc.opportunity);
-    const { isCloudinaryUsed, cloudinaryUrl } = props;
     if (isCloudinaryUsed) {
       updateData.picture = cloudinaryUrl;
     }
@@ -136,14 +140,14 @@ const AdminDataModelFeedsPage: React.FC<AdminDataModelFeedsPageProps> = (props) 
           handleUpdate={handleUpdate}
           handleCancel={handleCancel}
           itemTitleString={itemTitleString}
-          academicTerms={props.academicTerms}
-          courses={props.courses}
-          students={props.students}
-          opportunities={props.opportunities}
+          academicTerms={academicTerms}
+          courses={courses}
+          students={students}
+          opportunities={opportunities}
         />
       ) : (
-        <AddFeedForm academicTerms={props.academicTerms} courses={props.courses}
-                     students={props.students} opportunities={props.opportunities}/>
+        <AddFeedForm academicTerms={academicTerms} courses={courses}
+                     students={students} opportunities={opportunities}/>
       )}
       <ListCollectionWidget
         collection={collection}
@@ -154,7 +158,7 @@ const AdminDataModelFeedsPage: React.FC<AdminDataModelFeedsPageProps> = (props) 
         handleDelete={handleDelete}
         setShowIndex={dataModelActions.setCollectionShowIndex}
         setShowCount={dataModelActions.setCollectionShowCount}
-        items={props.items}
+        items={items}
       />
       <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Feed?"/>
     </PageLayout>
@@ -169,9 +173,7 @@ const AdminDataModelFeedsPageContainer = withTracker(() => {
   const courses = Courses.find({}, { sort: { num: 1 } }).fetch();
   const opportunities = Opportunities.find({}, { sort: { name: 1 } }).fetch();
   const students = StudentProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch();
-  const modelCount = getDatamodelCount();
   return {
-    ...modelCount,
     items,
     academicTerms,
     courses,

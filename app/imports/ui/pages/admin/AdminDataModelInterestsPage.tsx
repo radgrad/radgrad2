@@ -10,7 +10,6 @@ import { InterestTypes } from '../../../api/interest/InterestTypeCollection';
 import AddInterestForm from '../../components/admin/datamodel/interest/AddInterestForm';
 import UpdateInterestForm from '../../components/admin/datamodel/interest/UpdateInterestForm';
 import { itemToSlugName, interestTypeNameToId } from '../../components/shared/utilities/data-model';
-import { getDatamodelCount } from './utilities/datamodel';
 import PageLayout from '../PageLayout';
 import {
   handleCancelWrapper,
@@ -53,8 +52,7 @@ interface AdminDataModelInterestsPageProps {
   interestTypes: InterestType[];
 }
 
-// props not deconstructed because AdminDataModeMenuProps has 21 numbers.
-const AdminDataModelInterestsPage: React.FC<AdminDataModelInterestsPageProps> = (props) => {
+const AdminDataModelInterestsPage: React.FC<AdminDataModelInterestsPageProps> = ({ items, interestTypes }) => {
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');
   const [showUpdateFormState, setShowUpdateForm] = useState(false);
@@ -84,9 +82,9 @@ const AdminDataModelInterestsPage: React.FC<AdminDataModelInterestsPageProps> = 
       {showUpdateFormState ? (
         <UpdateInterestForm collection={collection} id={idState} handleUpdate={handleUpdate}
                             handleCancel={handleCancel} itemTitleString={itemTitleString}
-                            interestTypes={props.interestTypes}/>
+                            interestTypes={interestTypes}/>
       ) : (
-        <AddInterestForm interestTypes={props.interestTypes}/>
+        <AddInterestForm interestTypes={interestTypes}/>
       )}
       <ListCollectionWidget
         collection={collection}
@@ -97,7 +95,7 @@ const AdminDataModelInterestsPage: React.FC<AdminDataModelInterestsPageProps> = 
         handleDelete={handleDelete}
         setShowIndex={dataModelActions.setCollectionShowIndex}
         setShowCount={dataModelActions.setCollectionShowCount}
-        items={props.items}
+        items={items}
       />
       <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete}
                header="Delete Interest?"/>
@@ -108,9 +106,7 @@ const AdminDataModelInterestsPage: React.FC<AdminDataModelInterestsPageProps> = 
 const AdminDataModelInterestsPageContainer = withTracker(() => {
   const items = Interests.find({}).fetch();
   const interestTypes = InterestTypes.find({}).fetch();
-  const modelCount = getDatamodelCount();
   return {
-    ...modelCount,
     items,
     interestTypes,
   };

@@ -18,7 +18,6 @@ import {
   handleDeleteWrapper, handleOpenUpdateWrapper,
   updateCallBack,
 } from './utilities/data-model-page-callbacks';
-import { getDatamodelCount } from './utilities/datamodel';
 import PageLayout from '../PageLayout';
 
 const collection = OpportunityTypes; // the collection to use.
@@ -68,7 +67,7 @@ interface AdminDataModelOpportunityTypesPageProps {
 }
 
 // props not deconstructed because AdminDataModeMenuProps has 21 numbers.
-const AdminDataModelOpportunityTypesPage: React.FC<AdminDataModelOpportunityTypesPageProps> = (props) => {
+const AdminDataModelOpportunityTypesPage: React.FC<AdminDataModelOpportunityTypesPageProps> = ({ items }) => {
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');
   const [showUpdateFormState, setShowUpdateForm] = useState(false);
@@ -106,7 +105,7 @@ const AdminDataModelOpportunityTypesPage: React.FC<AdminDataModelOpportunityType
         handleDelete={handleDelete}
         setShowIndex={dataModelActions.setCollectionShowIndex}
         setShowCount={dataModelActions.setCollectionShowCount}
-        items={props.items}
+        items={items}
       />
       <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete}
                header="Delete Opportunity Type?"/>
@@ -116,9 +115,7 @@ const AdminDataModelOpportunityTypesPage: React.FC<AdminDataModelOpportunityType
 
 const AdminDataModelOpportunityTypesPageContainer = withTracker(() => {
   const items = OpportunityTypes.find({}).fetch();
-  const modelCount = getDatamodelCount();
   return {
-    ...modelCount,
     items,
   };
 })(AdminDataModelOpportunityTypesPage);

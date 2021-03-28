@@ -21,7 +21,6 @@ import {
   handleConfirmDeleteWrapper,
   handleDeleteWrapper, handleOpenUpdateWrapper, updateCallBack,
 } from './utilities/data-model-page-callbacks';
-import { getDatamodelCount } from './utilities/datamodel';
 import PageLayout from '../PageLayout';
 
 const collection = CareerGoals;
@@ -58,7 +57,7 @@ interface AdminDataModelCareerGoalsPageProps {
 }
 
 // props not deconstructed because AdminDataModeMenuProps has 21 numbers.
-const AdminDataModelCareerGoalsPage: React.FC<AdminDataModelCareerGoalsPageProps> = (props) => {
+const AdminDataModelCareerGoalsPage: React.FC<AdminDataModelCareerGoalsPageProps> = ({ items, interests }) => {
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');
   const [showUpdateFormState, setShowUpdateForm] = useState(false);
@@ -86,9 +85,9 @@ const AdminDataModelCareerGoalsPage: React.FC<AdminDataModelCareerGoalsPageProps
       {showUpdateFormState ? (
         <UpdateCareerGoalForm collection={CareerGoals} id={idState} handleUpdate={handleUpdate}
                               handleCancel={handleCancel} itemTitleString={itemTitleString}
-                              interests={props.interests} />
+                              interests={interests} />
       ) : (
-        <AddCareerGoalForm interests={props.interests} />
+        <AddCareerGoalForm interests={interests} />
       )}
       <ListCollectionWidget
         collection={CareerGoals}
@@ -98,7 +97,7 @@ const AdminDataModelCareerGoalsPage: React.FC<AdminDataModelCareerGoalsPageProps
         handleDelete={handleDelete}
         setShowIndex={dataModelActions.setCollectionShowIndex}
         setShowCount={dataModelActions.setCollectionShowCount}
-        items={props.items}
+        items={items}
       />
 
       <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete}
@@ -110,9 +109,7 @@ const AdminDataModelCareerGoalsPage: React.FC<AdminDataModelCareerGoalsPageProps
 const AdminDataModelCareerGoalsPageContainer = withTracker(() => {
   const items = CareerGoals.find({}).fetch();
   const interests = Interests.find({}).fetch();
-  const modelCount = getDatamodelCount();
   return {
-    ...modelCount,
     items,
     interests,
   };

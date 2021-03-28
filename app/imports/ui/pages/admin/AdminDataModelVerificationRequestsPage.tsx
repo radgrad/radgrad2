@@ -1,28 +1,24 @@
 import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
 import { Confirm, Icon } from 'semantic-ui-react';
-import Swal from 'sweetalert2';
-import _ from 'lodash';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import AdminDataModelUpdateForm from '../../components/admin/datamodel/AdminDataModelUpdateForm'; // this should be replaced by specific UpdateForm
 import { AcademicTerm, DescriptionPair, Opportunity, OpportunityInstance, StudentProfile, VerificationRequest } from '../../../typings/radgrad';
-import { defineMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
+import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import AddVerificationRequestForm from '../../components/admin/datamodel/verification-request/AddVerificationRequestForm';
-import { academicTermNameToSlug, opportunityInstanceNameToId, opportunityInstanceNameToTermSlug, opportunityInstanceNameToUsername, opportunityNameToSlug, profileNameToUsername } from '../../components/shared/utilities/data-model';
 import {
   handleCancelWrapper,
   handleConfirmDeleteWrapper,
   handleDeleteWrapper, handleOpenUpdateWrapper,
   updateCallBack,
 } from './utilities/data-model-page-callbacks';
-import { getDatamodelCount } from './utilities/datamodel';
 import PageLayout from '../PageLayout';
 
 const collection = VerificationRequests; // the collection to use.
@@ -75,53 +71,10 @@ interface AdminDataModelVerificationRequestsPageProps {
   opportunityInstances: OpportunityInstance[];
 }
 
-// props not deconstructed because AdminDataModeMenuProps has 21 numbers.
-const AdminDataModelVerificationRequestsPage: React.FC<AdminDataModelVerificationRequestsPageProps> = (props) => {
-  const formRef = React.createRef();
+const AdminDataModelVerificationRequestsPage: React.FC<AdminDataModelVerificationRequestsPageProps> = ({ items, academicTerms, students, opportunities, opportunityInstances }) => {
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');
   const [showUpdateFormState, setShowUpdateForm] = useState(false);
-
-  const handleAdd = (doc) => {
-    // console.log('VerificationRequests.handleAdd()', doc);
-    const collectionName = collection.getCollectionName();
-    const definitionData: any = {};
-    definitionData.status = doc.status;
-    if (doc.opportunityInstance) {
-      definitionData.opportunityInstance = opportunityInstanceNameToId(doc.opportunityInstance);
-      definitionData.student = opportunityInstanceNameToUsername(doc.opportunityInstance);
-      definitionData.academicTerm = opportunityInstanceNameToTermSlug(doc.opportunityInstance);
-      // definitionData.academicTerm = AcademicTerms.
-    } else {
-      if (doc.student) {
-        definitionData.student = profileNameToUsername(doc.student);
-      }
-      if (doc.opportunity) {
-        definitionData.academicTerm = academicTermNameToSlug(doc.academicTerm);
-        definitionData.opportunity = opportunityNameToSlug(doc.opportunity);
-      }
-    }
-    if (_.isBoolean(doc.retired)) {
-      definitionData.retired = doc.retired;
-    }
-    // console.log(collectionName, definitionData);
-    defineMethod.call({ collectionName, definitionData }, (error) => {
-      if (error) {
-        Swal.fire({
-          title: 'Add failed',
-          text: error.message,
-          icon: 'error',
-        });
-      } else {
-        Swal.fire({
-          title: 'Add succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      }
-    });
-  };
 
   const handleCancel = handleCancelWrapper(setConfirmOpen, setId, setShowUpdateForm);
   const handleConfirmDelete = handleConfirmDeleteWrapper(collection.getCollectionName(), idState, setShowUpdateForm, setId, setConfirmOpen);
@@ -145,9 +98,9 @@ const AdminDataModelVerificationRequestsPage: React.FC<AdminDataModelVerificatio
         <AdminDataModelUpdateForm collection={collection} id={idState} handleUpdate={handleUpdate}
                                   handleCancel={handleCancel} itemTitleString={itemTitleString}/>
       ) : (
-        <AddVerificationRequestForm formRef={formRef} handleAdd={handleAdd} opportunities={props.opportunities}
-                                    students={props.students} opportunityInstances={props.opportunityInstances}
-                                    academicTerms={props.academicTerms}/>
+        <AddVerificationRequestForm opportunities={opportunities}
+                                    students={students} opportunityInstances={opportunityInstances}
+                                    academicTerms={academicTerms}/>
       )}
       <ListCollectionWidget
         collection={collection}
@@ -158,7 +111,7 @@ const AdminDataModelVerificationRequestsPage: React.FC<AdminDataModelVerificatio
         handleDelete={handleDelete}
         setShowIndex={dataModelActions.setCollectionShowIndex}
         setShowCount={dataModelActions.setCollectionShowCount}
-        items={props.items}
+        items={items}
       />
       <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete}
                header="Delete Verification Request?"/>
@@ -172,9 +125,7 @@ const AdminDataModelVerificationRequestsPageContainer = withTracker(() => {
   const opportunities = Opportunities.find({}, { sort: { name: 1 } }).fetch();
   const opportunityInstances = OpportunityInstances.find().fetch();
   const items = VerificationRequests.find({}).fetch();
-  const modelCount = getDatamodelCount();
   return {
-    ...modelCount,
     items,
     students,
     academicTerms,

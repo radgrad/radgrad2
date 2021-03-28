@@ -17,7 +17,7 @@ import {
   handleDeleteWrapper, handleOpenUpdateWrapper,
   updateCallBack,
 } from './utilities/data-model-page-callbacks';
-import { getDatamodelCount, makeYoutubeLink } from './utilities/datamodel';
+import { makeYoutubeLink } from './utilities/datamodel';
 import AddTeaserForm from '../../components/admin/datamodel/teaser/AddTeaserForm';
 import UpdateTeaserForm from '../../components/admin/datamodel/teaser/UpdateTeasersForm';
 import { itemToSlugName, interestNameToSlug } from '../../components/shared/utilities/data-model';
@@ -70,8 +70,7 @@ interface AdminDataModelTeasersPageProps {
   opportunities: Opportunity[];
 }
 
-// props not deconstructed because AdminDataModeMenuProps has 21 numbers.
-const AdminDataModelTeasersPage: React.FC<AdminDataModelTeasersPageProps> = (props) => {
+const AdminDataModelTeasersPage: React.FC<AdminDataModelTeasersPageProps> = ({ items, careerGoals, courses, interests, opportunities }) => {
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');
   const [showUpdateFormState, setShowUpdateForm] = useState(false);
@@ -104,14 +103,14 @@ const AdminDataModelTeasersPage: React.FC<AdminDataModelTeasersPageProps> = (pro
           handleUpdate={handleUpdate}
           handleCancel={handleCancel}
           itemTitleString={itemTitleString}
-          opportunities={props.opportunities}
-          courses={props.courses}
-          interests={props.interests}
-          careerGoals={props.careerGoals}
+          opportunities={opportunities}
+          courses={courses}
+          interests={interests}
+          careerGoals={careerGoals}
         />
       ) : (
-        <AddTeaserForm opportunities={props.opportunities}
-                       courses={props.courses} interests={props.interests} careerGoals={props.careerGoals}/>
+        <AddTeaserForm opportunities={opportunities}
+                       courses={courses} interests={interests} careerGoals={careerGoals}/>
       )}
       <ListCollectionWidget
         collection={collection}
@@ -122,7 +121,7 @@ const AdminDataModelTeasersPage: React.FC<AdminDataModelTeasersPageProps> = (pro
         handleDelete={handleDelete}
         setShowIndex={dataModelActions.setCollectionShowIndex}
         setShowCount={dataModelActions.setCollectionShowCount}
-        items={props.items}
+        items={items}
       />
 
       <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Teaser?"/>
@@ -136,9 +135,7 @@ const AdminDataModelTeasersPageContainer = withTracker(() => {
   const interests = Interests.find({}, { sort: { name: 1 } }).fetch();
   const opportunities = Opportunities.find({}, { sort: { name: 1 } }).fetch();
   const items = Teasers.find({}).fetch();
-  const modelCount = getDatamodelCount();
   return {
-    ...modelCount,
     items,
     careerGoals,
     courses,

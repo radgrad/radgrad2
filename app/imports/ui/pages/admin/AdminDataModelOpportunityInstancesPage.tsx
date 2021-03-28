@@ -22,7 +22,6 @@ import {
   handleDeleteWrapper, handleOpenUpdateWrapper,
   updateCallBack,
 } from './utilities/data-model-page-callbacks';
-import { getDatamodelCount } from './utilities/datamodel';
 import PageLayout from '../PageLayout';
 
 const collection = OpportunityInstances; // the collection to use.
@@ -78,8 +77,7 @@ interface AdminDataModelOpportunityInstancesPageProps {
   sponsors: BaseProfile[];
 }
 
-// props not deconstructed because AdminDataModeMenuProps has 21 numbers.
-const AdminDataModelOpportunityInstancesPage: React.FC<AdminDataModelOpportunityInstancesPageProps> = (props) => {
+const AdminDataModelOpportunityInstancesPage: React.FC<AdminDataModelOpportunityInstancesPageProps> = ({ items, sponsors, terms, opportunities, students }) => {
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');
   const [showUpdateFormState, setShowUpdateForm] = useState(false);
@@ -107,10 +105,10 @@ const AdminDataModelOpportunityInstancesPage: React.FC<AdminDataModelOpportunity
       {showUpdateFormState ? (
         <UpdateOpportunityInstanceForm collection={collection} id={idState}
                                        handleUpdate={handleUpdate} handleCancel={handleCancel}
-                                       itemTitleString={itemTitleString} terms={props.terms}/>
+                                       itemTitleString={itemTitleString} terms={terms}/>
       ) : (
-        <AddOpportunityInstanceForm opportunities={props.opportunities}
-                                    sponsors={props.sponsors} students={props.students} terms={props.terms}/>
+        <AddOpportunityInstanceForm opportunities={opportunities}
+                                    sponsors={sponsors} students={students} terms={terms}/>
       )}
       <ListCollectionWidget
         collection={collection}
@@ -121,7 +119,7 @@ const AdminDataModelOpportunityInstancesPage: React.FC<AdminDataModelOpportunity
         handleDelete={handleDelete}
         setShowIndex={dataModelActions.setCollectionShowIndex}
         setShowCount={dataModelActions.setCollectionShowCount}
-        items={props.items}
+        items={items}
       />
       <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete}
                header="Delete Opportunity Instance?"/>
@@ -138,9 +136,7 @@ const AdminDataModelOpportunityInstancesPageContainer = withTracker(() => {
   const sponsorDocs = _.union(faculty, advisors);
   const sponsors = _.sortBy(sponsorDocs, ['lastName', 'firstName']);
   const items = OpportunityInstances.find({}).fetch();
-  const modelCount = getDatamodelCount();
   return {
-    ...modelCount,
     items,
     terms,
     opportunities,

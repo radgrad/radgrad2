@@ -18,7 +18,6 @@ import {
   handleDeleteWrapper, handleOpenUpdateWrapper,
   updateCallBack,
 } from './utilities/data-model-page-callbacks';
-import { getDatamodelCount } from './utilities/datamodel';
 import PageLayout from '../PageLayout';
 
 const collection = InterestTypes; // the collection to use.
@@ -67,8 +66,7 @@ interface AdminDataModelInterestTypesPageProps {
   items: InterestType[];
 }
 
-// props not deconstructed because AdminDataModeMenuProps has 21 numbers.
-const AdminDataModelInterestTypesPage: React.FC<AdminDataModelInterestTypesPageProps> = (props) => {
+const AdminDataModelInterestTypesPage: React.FC<AdminDataModelInterestTypesPageProps> = ({ items }) => {
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');
   const [showUpdateFormState, setShowUpdateForm] = useState(false);
@@ -106,7 +104,7 @@ const AdminDataModelInterestTypesPage: React.FC<AdminDataModelInterestTypesPageP
         handleDelete={handleDelete}
         setShowIndex={dataModelActions.setCollectionShowIndex}
         setShowCount={dataModelActions.setCollectionShowCount}
-        items={props.items}
+        items={items}
       />
       <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete}
                header="Delete Interest Type?"/>
@@ -116,9 +114,7 @@ const AdminDataModelInterestTypesPage: React.FC<AdminDataModelInterestTypesPageP
 
 const AdminDataModelInterestTypesPageContainer = withTracker(() => {
   const items = InterestTypes.find({}).fetch();
-  const modelCount = getDatamodelCount();
   return {
-    ...modelCount,
     items,
   };
 })(AdminDataModelInterestTypesPage);

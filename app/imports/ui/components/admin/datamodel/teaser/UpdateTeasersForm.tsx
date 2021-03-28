@@ -33,7 +33,6 @@ const UpdateTeaserForm: React.FC<UpdateTeaserFormProps> = ({ careerGoals, course
   const careerGoalSlugs = careerGoals.map(docToSlugNameAndType);
   const schema = new SimpleSchema({
     title: String,
-    slug: String,
     author: { type: String, optional: true },
     youtubeID: { type: String, optional: true },
     description: { type: String, optional: true },
@@ -59,7 +58,6 @@ const UpdateTeaserForm: React.FC<UpdateTeaserFormProps> = ({ careerGoals, course
       <AutoForm schema={formSchema} onSubmit={handleUpdate} showInlineError model={model}>
         <Form.Group widths="equal">
           <TextField name="title" />
-          <TextField name="slug" disabled />
           <TextField name="author" />
         </Form.Group>
         <Form.Group widths="equal">

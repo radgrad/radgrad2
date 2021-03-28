@@ -33,7 +33,7 @@ import {
   handleDeleteWrapper, handleOpenUpdateWrapper,
   updateCallBack,
 } from './utilities/data-model-page-callbacks';
-import { getDatamodelCount, makeMarkdownLink } from './utilities/datamodel';
+import { makeMarkdownLink } from './utilities/datamodel';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { ROLE } from '../../../api/role/Role';
 import AddUserForm from '../../components/admin/datamodel/user/AddUserForm';
@@ -141,7 +141,6 @@ const mapStateToProps = (state: RootState): unknown => ({
   cloudinaryUrl: state.shared.cloudinary.adminDataModelUsers.cloudinaryUrl,
 });
 
-// props not deconstructed because AdminDataModeMenuProps has 21 numbers.
 const AdminDataModelUsersPage: React.FC<AdminDataModelUsersPageProps> = (props) => {
   const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
@@ -366,9 +365,7 @@ export default withTracker(() => {
   academicTerms = academicTerms.filter((term) => term.termNumber <= currentTerm.termNumber && term.termNumber > currentTerm.termNumber - 8);
   const courses = Courses.find().fetch();
   const opportunities = Opportunities.find().fetch();
-  const modelCount = getDatamodelCount();
   return {
-    ...modelCount,
     interests,
     careerGoals,
     courses,

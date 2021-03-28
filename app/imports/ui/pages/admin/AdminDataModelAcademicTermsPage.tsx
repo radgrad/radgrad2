@@ -17,7 +17,6 @@ import {
   handleDeleteWrapper, handleOpenUpdateWrapper,
   updateCallBack,
 } from './utilities/data-model-page-callbacks';
-import { getDatamodelCount } from './utilities/datamodel';
 import PageLayout from '../PageLayout';
 
 const collection = AcademicTerms;
@@ -62,10 +61,11 @@ interface AdminDataModelAcademicTermsPageProps {
 
 /**
  * AdminDataModelAcademicTermsPage.
- * @param props the Properties.
+ * @param {AcademicTerm[]} items
+ * @return {JSX.Element}
  * @constructor
  */
-const AdminDataModelAcademicTermsPage: React.FC<AdminDataModelAcademicTermsPageProps> = (props) => {
+const AdminDataModelAcademicTermsPage: React.FC<AdminDataModelAcademicTermsPageProps> = ({ items }) => {
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');
   const [showUpdateFormState, setShowUpdateForm] = useState(false);
@@ -105,7 +105,7 @@ const AdminDataModelAcademicTermsPage: React.FC<AdminDataModelAcademicTermsPageP
         handleDelete={handleDelete}
         setShowIndex={dataModelActions.setCollectionShowIndex}
         setShowCount={dataModelActions.setCollectionShowCount}
-        items={props.items}
+        items={items}
       />
       <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete}
                header="Delete Academic Term?" />
@@ -115,9 +115,7 @@ const AdminDataModelAcademicTermsPage: React.FC<AdminDataModelAcademicTermsPageP
 
 const AdminDataModelAcademicTermsPageContainer = withTracker(() => {
   const items = AcademicTerms.find({}, { sort: { termNumber: 1 }}).fetch();
-  const modelCount = getDatamodelCount();
   return {
-    ...modelCount,
     items,
   };
 })(AdminDataModelAcademicTermsPage);

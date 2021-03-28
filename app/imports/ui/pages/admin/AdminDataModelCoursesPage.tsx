@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Confirm, Icon } from 'semantic-ui-react';
 import _ from 'lodash';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
-import { Course, DescriptionPair, Interest } from '../../../typings/radgrad';
+import { Course, CourseUpdate, DescriptionPair, Interest } from '../../../typings/radgrad';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
@@ -13,7 +13,7 @@ import {
   handleDeleteWrapper, handleOpenUpdateWrapper,
   updateCallBack,
 } from './utilities/data-model-page-callbacks';
-import { getDatamodelCount, makeMarkdownLink } from './utilities/datamodel';
+import { makeMarkdownLink } from './utilities/datamodel';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { courseNameToSlug, courseToName, itemToSlugName, interestNameToId } from '../../components/shared/utilities/data-model';
 import AddCourseForm from '../../components/admin/datamodel/course/AddCourseForm';
@@ -64,7 +64,7 @@ interface AdminDataModelCoursesPageProps {
 }
 
 // props not deconstructed because AdminDataModeMenuProps has 21 numbers.
-const AdminDataModelCoursesPage: React.FC<AdminDataModelCoursesPageProps> = (props) => {
+const AdminDataModelCoursesPage: React.FC<AdminDataModelCoursesPageProps> = ({ items, interests, courses }) => {
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');
   const [showUpdateFormState, setShowUpdateForm] = useState(false);
@@ -77,7 +77,7 @@ const AdminDataModelCoursesPage: React.FC<AdminDataModelCoursesPageProps> = (pro
   const handleUpdate = (doc) => {
     // console.log('handleUpdate doc=%o', doc);
     const collectionName = collection.getCollectionName();
-    const updateData: any = doc; // create the updateData object from the doc.
+    const updateData: CourseUpdate = doc; // create the updateData object from the doc.
     updateData.id = doc._id;
     updateData.prerequisites = doc.prerequisiteNames.map(courseNameToSlug);
     updateData.interests = doc.interests.map(interestNameToId);
@@ -96,10 +96,10 @@ const AdminDataModelCoursesPage: React.FC<AdminDataModelCoursesPageProps> = (pro
     <PageLayout id="data-model-courses-page" headerPaneTitle="Courses" headerPaneBody={headerPaneBody}>
       {showUpdateFormState ? (
         <UpdateCourseForm collection={collection} id={idState} handleUpdate={handleUpdate}
-                          handleCancel={handleCancel} itemTitleString={itemTitleString} interests={props.interests}
-                          courses={props.courses}/>
+                          handleCancel={handleCancel} itemTitleString={itemTitleString} interests={interests}
+                          courses={courses}/>
       ) : (
-        <AddCourseForm interests={props.interests} courses={props.courses}/>
+        <AddCourseForm interests={interests} courses={courses}/>
       )}
       <ListCollectionWidget
         collection={collection}
@@ -110,7 +110,7 @@ const AdminDataModelCoursesPage: React.FC<AdminDataModelCoursesPageProps> = (pro
         handleDelete={handleDelete}
         setShowIndex={dataModelActions.setCollectionShowIndex}
         setShowCount={dataModelActions.setCollectionShowCount}
-        items={props.items}
+        items={items}
       />
 
       <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Course?"/>
@@ -122,9 +122,7 @@ const AdminDataModelCoursesPageContainer = withTracker(() => {
   const items = Courses.find({}).fetch();
   const interests = Interests.find({}, { sort: { name: 1 } }).fetch();
   const courses = Courses.find({}, { sort: { num: 1 } }).fetch();
-  const modelCount = getDatamodelCount();
   return {
-    ...modelCount,
     items,
     interests,
     courses,
