@@ -16,7 +16,6 @@ import {
   AcademicTerm,
   BaseProfile,
   CareerGoal,
-  CombinedProfileDefine,
   AdvisorOrFacultyProfile,
   ProfileCareerGoal,
   ProfileInterest,
@@ -26,7 +25,6 @@ import {
 } from '../../../typings/radgrad';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
-import { defineCallback } from '../../components/admin/datamodel/utilities/add-form';
 import { courseNameToSlug, opportunityNameToSlug } from '../../components/shared/utilities/data-model';
 import {
   handleCancelWrapper,
@@ -41,8 +39,12 @@ import UpdateUserForm from '../../components/admin/datamodel/user/UpdateUserForm
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
-import { careerGoalSlugFromName, declaredAcademicTermSlugFromName, interestSlugFromName } from '../../components/shared/utilities/form';
-import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
+import {
+  careerGoalSlugFromName,
+  declaredAcademicTermSlugFromName,
+  interestSlugFromName,
+} from '../../components/shared/utilities/form';
+import { removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Users } from '../../../api/user/UserCollection';
 import { ProfileCareerGoals } from '../../../api/user/profile-entries/ProfileCareerGoalCollection';
 import { ProfileInterests } from '../../../api/user/profile-entries/ProfileInterestCollection';
@@ -100,16 +102,16 @@ const descriptionPairs = (props: AdminDataModelUsersPageProps) => (user: BasePro
       pairs.push({ label: 'Last Registrar Load', value: `${moment(user.lastRegistrarLoad).format()}` });
     }
     if (user.lastVisitedCareerGoals) {
-      pairs.push({ label: 'Last visited career goals', value: `${moment(user.lastVisitedCareerGoals).format()}`});
+      pairs.push({ label: 'Last visited career goals', value: `${moment(user.lastVisitedCareerGoals).format()}` });
     }
     if (user.lastVisitedCourses) {
-      pairs.push({ label: 'Last visited courses', value: `${moment(user.lastVisitedCourses).format()}`});
+      pairs.push({ label: 'Last visited courses', value: `${moment(user.lastVisitedCourses).format()}` });
     }
     if (user.lastVisitedInterests) {
-      pairs.push({ label: 'Last visited interests', value: `${moment(user.lastVisitedInterests).format()}`});
+      pairs.push({ label: 'Last visited interests', value: `${moment(user.lastVisitedInterests).format()}` });
     }
     if (user.lastVisitedOpportunities) {
-      pairs.push({ label: 'Last visited opportunities', value: `${moment(user.lastVisitedOpportunities).format()}`});
+      pairs.push({ label: 'Last visited opportunities', value: `${moment(user.lastVisitedOpportunities).format()}` });
     }
   }
   if (user.role === ROLE.FACULTY) {
@@ -142,36 +144,9 @@ const mapStateToProps = (state: RootState): unknown => ({
 });
 
 const AdminDataModelUsersPage: React.FC<AdminDataModelUsersPageProps> = (props) => {
-  const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');
   const [showUpdateFormState, setShowUpdateForm] = useState(false);
-
-  const handleAdd = (doc: CombinedProfileDefine) => {
-    // console.log('handleAdd(%o)', doc);
-    const definitionData: CombinedProfileDefine = doc;
-    definitionData.interests = doc.interests.map((interest) => interestSlugFromName(interest));
-    definitionData.careerGoals = doc.careerGoals.map((goal) => careerGoalSlugFromName(goal));
-    if (!_.isNil(doc.declaredAcademicTerm)) {
-      definitionData.declaredAcademicTerm = declaredAcademicTermSlugFromName(doc.declaredAcademicTerm);
-    }
-    let collectionName = StudentProfiles.getCollectionName();
-    if (doc.role === ROLE.ADVISOR) {
-      collectionName = AdvisorProfiles.getCollectionName();
-    } else if (doc.role === ROLE.FACULTY) {
-      collectionName = FacultyProfiles.getCollectionName();
-    } else if (doc.role === ROLE.STUDENT) {
-      if (_.isNil(doc.level)) {
-        definitionData.level = 1;
-      }
-    }
-    const { isCloudinaryUsed, cloudinaryUrl } = props;
-    if (isCloudinaryUsed) {
-      definitionData.picture = cloudinaryUrl;
-    }
-    // console.log(collectionName, definitionData);
-    defineMethod.call({ collectionName, definitionData }, defineCallback(formRef));
-  };
 
   const handleCancel = handleCancelWrapper(setConfirmOpen, setId, setShowUpdateForm);
   const handleDelete = handleDeleteWrapper(setConfirmOpen, setId);
@@ -327,7 +302,6 @@ const AdminDataModelUsersPage: React.FC<AdminDataModelUsersPageProps> = (props) 
       {showUpdateFormState ? (
         <UpdateUserForm
           id={idState}
-          formRef={formRef}
           handleUpdate={handleUpdate}
           handleCancel={handleCancel}
           itemTitleString={itemTitleString}
@@ -338,12 +312,13 @@ const AdminDataModelUsersPage: React.FC<AdminDataModelUsersPageProps> = (props) 
           opportunities={props.opportunities}
         />
       ) : (
-        <AddUserForm formRef={formRef} handleAdd={handleAdd} interests={props.interests} careerGoals={props.careerGoals}
-                     academicTerms={props.academicTerms}/>
+        <AddUserForm interests={props.interests} careerGoals={props.careerGoals}
+                     academicTerms={props.academicTerms} isCloudinaryUsed={props.isCloudinaryUsed}
+                     cloudinaryUrl={props.cloudinaryUrl} />
       )}
-      <Tab panes={panes} defaultActiveIndex={3}/>
+      <Tab panes={panes} defaultActiveIndex={3} />
       <Button color="green" basic onClick={handleConvert}>Convert Career Goal Interests</Button>
-      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete User?"/>
+      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete User?" />
     </PageLayout>
   );
 };
