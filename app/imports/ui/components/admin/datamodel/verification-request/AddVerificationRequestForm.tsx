@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React from 'react';
-import { Form, Header, Segment } from 'semantic-ui-react';
+import { Header, Segment } from 'semantic-ui-react';
 import SimpleSchema from 'simpl-schema';
 import { AutoForm, SelectField, BoolField, SubmitField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
@@ -12,14 +12,10 @@ import {
   StudentProfile,
   VerificationRequestDefine,
 } from '../../../../../typings/radgrad';
-import { AcademicTerms } from '../../../../../api/academic-term/AcademicTermCollection';
 import {
   academicTermNameToSlug,
-  academicTermToName,
-  docToName,
   opportunityInstanceNameToId, opportunityInstanceNameToTermSlug, opportunityInstanceNameToUsername,
   opportunityInstanceToName, opportunityNameToSlug, profileNameToUsername,
-  profileToName,
 } from '../../../shared/utilities/data-model';
 import { VerificationRequests } from '../../../../../api/verification/VerificationRequestCollection';
 import { defineCallback } from '../utilities/add-form';
@@ -31,30 +27,32 @@ interface AddVerificationRequestFormProps {
   opportunityInstances: OpportunityInstance[];
 }
 
-const AddVerificationRequestForm: React.FC<AddVerificationRequestFormProps> = ({ students, academicTerms, opportunities, opportunityInstances }) => {
-  const termNames = academicTerms.map(academicTermToName);
-  const currentTermName = AcademicTerms.toString(AcademicTerms.getCurrentTermID(), false);
-  const opportunityNames = opportunities.map(docToName);
+const AddVerificationRequestForm: React.FC<AddVerificationRequestFormProps> = ({
+  students,
+  academicTerms,
+  opportunities,
+  opportunityInstances,
+}) => {
+  // const termNames = academicTerms.map(academicTermToName);
+  // const currentTermName = AcademicTerms.toString(AcademicTerms.getCurrentTermID(), false);
+  // const opportunityNames = opportunities.map(docToName);
   const opportunityInstanceNames = opportunityInstances.map(opportunityInstanceToName);
-  const studentNames = students.map(profileToName);
+  // const studentNames = students.map(profileToName);
   const schema = new SimpleSchema({
-    student: { type: String, allowedValues: studentNames, optional: true },
+    // student: { type: String, allowedValues: studentNames, optional: true },
     status: {
       type: String,
       optional: true,
       allowedValues: [VerificationRequests.OPEN, VerificationRequests.ACCEPTED, VerificationRequests.REJECTED],
     },
-    academicTerm: { type: String, optional: true, allowedValues: termNames, defaultValue: currentTermName },
+    // academicTerm: { type: String, optional: true, allowedValues: termNames, defaultValue: currentTermName },
     opportunityInstance: { type: String, optional: true, allowedValues: opportunityInstanceNames },
-    opportunity: { type: String, optional: true, allowedValues: opportunityNames },
+    // opportunity: { type: String, optional: true, allowedValues: opportunityNames },
     retired: { type: Boolean, optional: true },
   });
   const formSchema = new SimpleSchema2Bridge(schema);
 
   let formRef;
-  const handleModelChange = (model) => {
-    console.log(model);
-  };
 
   const handleAdd = (doc) => {
     // console.log('VerificationRequests.handleAdd()', doc);
@@ -87,16 +85,16 @@ const AddVerificationRequestForm: React.FC<AddVerificationRequestFormProps> = ({
     <Segment padded>
       <Header dividing>Add Verification Request</Header>
       {/* eslint-disable-next-line no-return-assign */}
-      <AutoForm schema={formSchema} onSubmit={handleAdd} ref={(ref) => formRef = ref} showInlineError onChangeModel={handleModelChange}>
-        <Form.Group widths="equal">
-          <SelectField name="student" placeholder="Choose the student" />
-          <SelectField name="status" placeholder="Choose the status" />
-        </Form.Group>
-        <Form.Group widths="equal">
-          <SelectField name="opportunityInstance" />
-          <SelectField name="opportunity" />
-          <SelectField name="academicTerm" />
-        </Form.Group>
+      <AutoForm schema={formSchema} onSubmit={handleAdd} ref={(ref) => formRef = ref} showInlineError>
+        {/* <Form.Group widths="equal"> */}
+        {/*  <SelectField name="student" placeholder="Choose the student" /> */}
+        {/*  <SelectField name="status" placeholder="Choose the status" /> */}
+        {/* </Form.Group> */}
+        {/* <Form.Group widths="equal"> */}
+        <SelectField name="opportunityInstance" />
+        {/* <SelectField name="opportunity" /> */}
+        {/* <SelectField name="academicTerm" /> */}
+        {/* </Form.Group> */}
         <BoolField name="retired" />
         <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
       </AutoForm>
