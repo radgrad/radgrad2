@@ -9,6 +9,7 @@ import AdminDatabaseAccordion from '../../components/admin/database/AdminDatabas
 import { databaseActions } from '../../../redux/admin/database';
 import { analyticsActions } from '../../../redux/admin/analytics';
 import { RootState } from '../../../redux/types';
+import UploadFixture from '../../components/admin/datamodel/UploadFixture';
 import PageLayout from '../PageLayout';
 
 interface Collection {
@@ -105,6 +106,7 @@ const AdminDatabaseDumpPage: React.FC<AdminDatabaseDumpPageProps> = ({ startDump
       ) : (
         ''
       )}
+      <UploadFixture />
     </PageLayout>
   );
 };

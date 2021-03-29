@@ -3,7 +3,7 @@ import { Form, Header, Segment } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { loadFixtureMethod } from '../../../../api/base/BaseCollection.methods';
 import { dataModelActions } from '../../../../redux/admin/data-model';
-import UploadFixtureResultWidget from './UploadFixtureResultWidget';
+import UploadFixtureResult from './UploadFixtureResult';
 import { RootState } from '../../../../redux/types';
 
 /* global FileReader */
@@ -23,7 +23,7 @@ const mapDispatchToProps = (dispatch) => ({
   setUploadFixtureDone: () => dispatch(dataModelActions.setUploadFixtureWorking(false)),
 });
 
-const UploadFixtureWidget: React.FC<UploadFixtureWidgetProps> = ({ setUploadFixtureDone, setUploadFixtureWorking, uploadFixtureWorking }) => {
+const UploadFixture: React.FC<UploadFixtureWidgetProps> = ({ setUploadFixtureDone, setUploadFixtureWorking, uploadFixtureWorking }) => {
   const [fileDataState, setFileData] = useState('');
   const [uploadResult, setUploadResult] = useState('');
   const [error, setError] = useState(false);
@@ -66,9 +66,9 @@ const UploadFixtureWidget: React.FC<UploadFixtureWidgetProps> = ({ setUploadFixt
           </Form.Button>
         </Form.Field>
       </Form>
-      {uploadResult ? <UploadFixtureResultWidget error={error} message={uploadResult} /> : ''}
+      {uploadResult ? <UploadFixtureResult error={error} message={uploadResult} /> : ''}
     </Segment>
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(UploadFixtureWidget);
+export default connect(mapStateToProps, mapDispatchToProps)(UploadFixture);
