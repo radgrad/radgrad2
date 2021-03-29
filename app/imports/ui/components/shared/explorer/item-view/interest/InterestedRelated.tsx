@@ -2,17 +2,19 @@ import React from 'react';
 import { Header, Grid, Segment, Icon } from 'semantic-ui-react';
 import { Courses } from '../../../../../../api/course/CourseCollection';
 import { Opportunities } from '../../../../../../api/opportunity/OpportunityCollection';
+import { Profile, RelatedCoursesOrOpportunities } from '../../../../../../typings/radgrad';
 import CourseList from '../../../CourseList';
 import OpportunityList from '../../../OpportunityList';
 
 interface InterestedRelatedWidgetProps {
-  relatedCourses: any; // TODO we should type this.
-  relatedOpportunities: any;
+  relatedCourses: RelatedCoursesOrOpportunities;
+  relatedOpportunities: RelatedCoursesOrOpportunities;
   isStudent: boolean;
   baseURL: string;
+  profile: Profile;
 }
 
-const InterestedRelated: React.FC<InterestedRelatedWidgetProps> = ({ relatedCourses, baseURL, isStudent, relatedOpportunities }) => (
+const InterestedRelated: React.FC<InterestedRelatedWidgetProps> = ({ relatedCourses, baseURL, isStudent, relatedOpportunities, profile }) => (
   <div>
     <Segment>
       <Header dividing><Icon name="book"/> RELATED COURSES</Header>
@@ -25,7 +27,7 @@ const InterestedRelated: React.FC<InterestedRelatedWidgetProps> = ({ relatedCour
             </Header>
           </Grid.Row>
           <Grid.Row>
-            <CourseList courses={relatedCourses.completed.map((id) => Courses.findDoc(id))} keyStr="completed" size="large"/>
+            <CourseList courses={relatedCourses.completed.map((id) => Courses.findDoc(id))} keyStr="completed" size="medium" userID={profile.userID} />
           </Grid.Row>
           <Grid.Row textAlign="center">
             <Header as="h4">
@@ -34,7 +36,7 @@ const InterestedRelated: React.FC<InterestedRelatedWidgetProps> = ({ relatedCour
             </Header>
           </Grid.Row>
           <Grid.Row>
-            <CourseList courses={relatedCourses.inPlan.map((id) => Courses.findDoc(id))} keyStr="inPlan" size="large"/>
+            <CourseList courses={relatedCourses.inPlan.map((id) => Courses.findDoc(id))} keyStr="inPlan" size="medium" userID={profile.userID} />
           </Grid.Row>
           <Grid.Row textAlign="center">
             <Header as="h4">
@@ -43,11 +45,11 @@ const InterestedRelated: React.FC<InterestedRelatedWidgetProps> = ({ relatedCour
             </Header>
           </Grid.Row>
           <Grid.Row>
-            <CourseList courses={relatedCourses.notInPlan.map((id) => Courses.findDoc(id))} keyStr="notInPlan" size="large"/>
+            <CourseList courses={relatedCourses.notInPlan.map((id) => Courses.findDoc(id))} keyStr="notInPlan" size="medium" userID={profile.userID} />
           </Grid.Row>
         </Grid>
       ) : (
-        <CourseList courses={relatedCourses.notInPlan.map((id) => Courses.findDoc(id))} keyStr="notInPlan" size="large" />
+        <CourseList courses={relatedCourses.notInPlan.map((id) => Courses.findDoc(id))} keyStr="notInPlan" size="medium" userID={profile.userID} />
       )}
     </Segment>
     <Segment>
@@ -61,7 +63,7 @@ const InterestedRelated: React.FC<InterestedRelatedWidgetProps> = ({ relatedCour
             </Header>
           </Grid.Row>
           <Grid.Row>
-            <OpportunityList opportunities={relatedOpportunities.completed.map((id) => Opportunities.findDoc(id))} size="large" keyStr="completedOpp" />
+            <OpportunityList opportunities={relatedOpportunities.completed.map((id) => Opportunities.findDoc(id))} size="medium" keyStr="completedOpp" userID={profile.userID} />
           </Grid.Row>
           <Grid.Row textAlign="center">
             <Header as="h4">
@@ -70,7 +72,7 @@ const InterestedRelated: React.FC<InterestedRelatedWidgetProps> = ({ relatedCour
             </Header>
           </Grid.Row>
           <Grid.Row>
-            <OpportunityList opportunities={relatedOpportunities.inPlan.map((id) => Opportunities.findDoc(id))} size="large" keyStr="oppInPlan" />
+            <OpportunityList opportunities={relatedOpportunities.inPlan.map((id) => Opportunities.findDoc(id))} size="medium" keyStr="oppInPlan" userID={profile.userID} />
           </Grid.Row>
           <Grid.Row textAlign="center">
             <Header as="h4">
@@ -79,11 +81,11 @@ const InterestedRelated: React.FC<InterestedRelatedWidgetProps> = ({ relatedCour
             </Header>
           </Grid.Row>
           <Grid.Row>
-            <OpportunityList opportunities={relatedOpportunities.notInPlan.map((id) => Opportunities.findDoc(id))} size="large" keyStr="oppNotInPlan" />
+            <OpportunityList opportunities={relatedOpportunities.notInPlan.map((id) => Opportunities.findDoc(id))} size="medium" keyStr="oppNotInPlan" userID={profile.userID} />
           </Grid.Row>
         </Grid>
       ) : (
-        <OpportunityList opportunities={relatedOpportunities.notInPlan.map((id) => Opportunities.findDoc(id))} size="large" keyStr="oppsNotInPlan" />
+        <OpportunityList opportunities={relatedOpportunities.notInPlan.map((id) => Opportunities.findDoc(id))} size="medium" keyStr="oppsNotInPlan" userID={profile.userID} />
       )}
     </Segment>
   </div>

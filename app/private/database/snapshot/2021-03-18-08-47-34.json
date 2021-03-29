@@ -9688,13 +9688,13 @@
           "isAlumni": false,
           "retired": false,
           "shareUsername": false,
-          "sharePicture": false,
+          "sharePicture": true,
           "shareWebsite": false,
           "shareInterests": true,
           "shareCareerGoals": false,
           "shareOpportunities": false,
           "shareCourses": true,
-          "shareLevel": false,
+          "shareLevel": true,
           "lastVisitedCareerGoals": "2021-03-17",
           "lastVisitedCourses": "2021-03-17",
           "lastVisitedInterests": "2021-03-17",
@@ -9885,13 +9885,13 @@
           "isAlumni": false,
           "retired": false,
           "shareUsername": false,
-          "sharePicture": false,
+          "sharePicture": true,
           "shareWebsite": false,
           "shareInterests": false,
           "shareCareerGoals": false,
           "shareOpportunities": false,
           "shareCourses": false,
-          "shareLevel": false
+          "shareLevel": true
         },
         {
           "username": "mercedez@hawaii.edu",
@@ -9985,7 +9985,7 @@
           "shareCareerGoals": false,
           "shareOpportunities": false,
           "shareCourses": false,
-          "shareLevel": false
+          "shareLevel": true
         }
       ]
     },
