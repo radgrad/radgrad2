@@ -3,7 +3,7 @@ import { Container, Header, Image, Popup, Divider, Segment } from 'semantic-ui-r
 import { ROLE } from '../../../../../../api/role/Role';
 import { Users } from '../../../../../../api/user/UserCollection';
 import { Interest } from '../../../../../../typings/radgrad';
-import StudentProfileModalLabel from '../../../profile/StudentProfileModalLabel';
+import UserLabel from '../../../profile/UserLabel';
 import WidgetHeaderNumber from '../../WidgetHeaderNumber';
 import { studentsParticipating } from '../../../utilities/data-model';
 import { getUserIDsWithProfileInterestMethod } from '../../../../../../api/user/profile-entries/ProfileInterestCollection.methods';
@@ -42,7 +42,7 @@ const InterestedProfiles: React.FC<InterestedProfileWidgetProps> = ({ interest }
       </Header>
       <Container textAlign="center">
         {students.map((student) => (
-          <StudentProfileModalLabel key={student._id} studentProfile={student} />
+          <UserLabel username={student.username} />
         ))}
       </Container>
       <Divider />

@@ -25,7 +25,7 @@ const InterestLabel: React.FC<EntityLabelPublicProps> = ({slug, userID, size, st
     inProfile = _.includes(profileEntityIDs.map(doc => doc.interestID), id);
   }
   return (
-    <EntityLabel slug={slug} inProfile={inProfile} icon='heart outline' name={name} route={route} size={size} style={style}/>
+    <EntityLabel key={slug} slug={slug} inProfile={inProfile} icon='heart outline' name={name} route={route} size={size} style={style}/>
   );
 };
 

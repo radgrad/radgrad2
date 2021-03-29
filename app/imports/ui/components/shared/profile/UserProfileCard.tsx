@@ -13,16 +13,16 @@ const UserProfileCard: React.FC<UserProfileCardProps> = ({username, fluid= true}
   const {firstName, lastName} = Users.getProfile(username);
   const name = `${firstName} ${lastName}`;
   const [data, setData] = useState<PublicProfileData>({});
-  let fetchedData = false;
+  const [fetched, setFetched] = useState(false);
   useEffect(() => {
     function fetchData() {
       getPublicProfileData.callPromise({username})
         .then(result => setData(result))
         .catch(error => { console.error(error); setData({});});
-      fetchedData = true;
+      setFetched(true);
     }
     // Only fetch data if its hasn't been fetched before.
-    !fetchedData || fetchData();
+    !fetched || fetchData();
   });
 
   return (
