@@ -1,7 +1,10 @@
 import {ValidatedMethod} from 'meteor/mdg:validated-method';
 import {CallPromiseMixin} from 'meteor/didericis:callpromise-mixin';
 import {Users} from './UserCollection';
+import {CareerGoals} from '../career/CareerGoalCollection';
 import {StudentProfiles} from './StudentProfileCollection';
+import {ProfileCareerGoals} from './profile-entries/ProfileCareerGoalCollection';
+import {ProfileInterests} from './profile-entries/ProfileInterestCollection';
 
 export interface PublicProfileData {
   website?: string,
@@ -23,19 +26,10 @@ export const getPublicProfileData = new ValidatedMethod({
   mixins: [CallPromiseMixin],
   validate: null,
   run({ username }) {
-    console.log('in getPublicProfileData');
     const publicData: PublicProfileData = {};
     if (Meteor.isServer) {
       const profile = Users.getProfile(username);
-      console.log('oooooo', username);
-      if (username === 'abi@hawaii.edu') {
-        console.log('setting');
-        profile.sharePicture = true;
-        profile.shareLevel = true;
-        profile.shareICE = true;
-        profile.shareInterests = true;
-        profile.shareCareerGoals = true;
-      }
+      const userID = Users.getID(username);
       if (profile.sharePicture) {
         publicData.picture = profile.picture;
       }
@@ -50,10 +44,14 @@ export const getPublicProfileData = new ValidatedMethod({
         publicData.ice = StudentProfiles.getEarnedICE(username);
       }
       if (profile.shareCareerGoals) {
-        publicData.careerGoals = profile.careerGoals;
+        const profileDocs = ProfileCareerGoals.findNonRetired({userID});
+        const careerGoalSlugs = profileDocs.map(doc => CareerGoals.findSlugByID(doc.careerGoalID));
+        console.log(careerGoalSlugs);
+        publicData.careerGoals = profileDocs.map(doc => CareerGoals.findSlugByID(doc.careerGoalID));
       }
       if (profile.shareInterests) {
-        publicData.interests = profile.interests;
+        const profileDocs = ProfileInterests.findNonRetired({userID});
+        // publicData.interests = profileDocs.map(doc => ProfileInterests.getInterestSlug(doc));
       }
       if (profile.shareCourses) {
         publicData.courses = profile.courses;

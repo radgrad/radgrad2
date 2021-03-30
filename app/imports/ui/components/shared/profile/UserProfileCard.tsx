@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import _ from 'lodash';
 import {getPublicProfileData, PublicProfileData} from '../../../../api/user/StudentProfileCollection.methods';
 import ProfileCard from './ProfileCard';
 import {Users} from '../../../../api/user/UserCollection';
@@ -19,10 +18,15 @@ const UserProfileCard: React.FC<UserProfileCardProps> = ({username, fluid= true}
       getPublicProfileData.callPromise({username})
         .then(result => setData(result))
         .catch(error => { console.error(error); setData({});});
-      setFetched(true);
     }
     // Only fetch data if its hasn't been fetched before.
-    !fetched || fetchData();
+    if (!fetched) {
+      fetchData();
+      setFetched(true);
+    } else {
+      console.log('fetched data: ', data);
+    }
+
   });
 
   return (

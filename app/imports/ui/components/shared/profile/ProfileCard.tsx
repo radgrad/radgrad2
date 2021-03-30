@@ -1,6 +1,8 @@
 import React from 'react';
 import {Card, Icon, Image, Label, Tab} from 'semantic-ui-react';
 import ProfileIceCircle from './ProfileIceCircle';
+import CareerGoalLabel from "../label/CareerGoalLabel";
+import {Users} from "../../../../api/user/UserCollection";
 
 export interface ProfileCardProps {
   name: string,
@@ -29,12 +31,13 @@ const TabContent: React.FC<TabContentProps> = ({items}) => (
 
 const ProfileCard: React.FC<ProfileCardProps> = ({name, email, image, website, level, ice, careerGoals, interests, courses, opportunities, fluid= false}) => {
   const levelIconURL = `/images/level-icons/radgrad-level-${level}-icon.png`;
+  const userID = Users.getID(email);
   const tabPanes = [];
   if (interests) {
     tabPanes.push({menuItem: 'Interests', render: () => <TabContent items={interests}/>});
   }
   if (careerGoals) {
-    tabPanes.push({menuItem: 'Careers', render: () => <TabContent items={careerGoals}/>});
+    tabPanes.push({menuItem: 'Careers', render: () => careerGoals.map(careerGoal => <CareerGoalLabel key={careerGoal} slug={careerGoal} userID={userID} size='small'/>)});
   }
   if (courses) {
     tabPanes.push({menuItem: 'Courses', render: () => <TabContent items={courses}/>});
