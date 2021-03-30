@@ -7,7 +7,7 @@
     "../../../../../../typings/radgrad",
     "../../../../../../../typings/radgrad"
   ],
-  "ignoreUnimported": ["update-build-version.ts"],
+  "ignoreUnimported": ["update-build-version.ts", "Colors.ts"],
   "ignoreUnused": [
     "@babel/runtime",
     "bcrypt",
