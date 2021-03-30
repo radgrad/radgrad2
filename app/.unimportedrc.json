@@ -1,24 +1,27 @@
 {
   "ignoreUnresolved": [
-    "../../typings/radgrad",
-    "../../../typings/radgrad",
-    "../../../../typings/radgrad",
-    "../../../../../typings/radgrad",
+    "../../../../../../../typings/radgrad",
     "../../../../../../typings/radgrad",
-    "../../../../../../../typings/radgrad"
+    "../../../../../typings/radgrad",
+    "../../../../typings/radgrad",
+    "../../../typings/radgrad",
+    "../../typings/radgrad"
   ],
-  "ignoreUnimported": ["update-build-version.ts"],
+  "ignoreUnimported": [
+    "imports/ui/utilities/Colors.ts",
+    "update-build-version.ts"
+  ],
   "ignoreUnused": [
     "@babel/runtime",
     "bcrypt",
+    "fibers",
     "meteor-node-stubs",
     "react-content-loader",
     "react-dnd",
     "react-dnd-html5-backend",
     "semantic-ui-css",
     "styled-components",
-    "sweetalert2-react-content",
-    "fibers"
+    "sweetalert2-react-content"
   ],
   "ignorePatterns": [
     "**/node_modules/**",
