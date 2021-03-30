@@ -15,7 +15,7 @@ interface PageLayoutProps {
 
 const PageLayout: React.FC<PageLayoutProps> = ({id, headerPaneImage, headerPaneTitle, headerPaneBody = '', children, disableMargin = false, headerPaneButton}) => {
   const match = useRouteMatch();
-  const margin = disableMargin ? {} : {marginRight: '20px', marginLeft: '20px'};
+  const margin = disableMargin ? {} : {marginRight: '20px', marginLeft: '20px', marginTop: '10px'};
   return (
     <div id={id}>
       {getMenuWidget(match)}

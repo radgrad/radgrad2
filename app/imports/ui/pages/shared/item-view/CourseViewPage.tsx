@@ -109,22 +109,20 @@ const CourseViewPage: React.FC<CourseViewPageProps> = ({ profileCourses, course,
   const descriptionPairs = descriptionPairsCourses(course, match);
   const courseSlug = Slugs.getNameFromID(course.slugID);
   const completed = isCourseCompleted(courseSlug, match);
-  const pushDownStyle = { paddingTop: 15 };
   return (
     <div id="course-view-page">
       {getMenuWidget(match)}
-      <Container style={pushDownStyle}>
-        <Grid stackable>
-          <Grid.Row>
-            <Grid.Column width={3}>
-              <ExplorerMenu menuAddedList={menuAddedList} type="courses" />
-            </Grid.Column>
-            <Grid.Column width={13}>
-              <ExplorerCourseWidget name={course.name} shortName={course.shortName} descriptionPairs={descriptionPairs} item={course} completed={completed} itemReviews={itemReviews} />
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </Container>
+      <Grid stackable>
+        <Grid.Row>
+          <Grid.Column width={3}>
+            <ExplorerMenu menuAddedList={menuAddedList} type="courses" />
+          </Grid.Column>
+          <Grid.Column width={13}>
+            <ExplorerCourseWidget name={course.name} shortName={course.shortName} descriptionPairs={descriptionPairs}
+                                  item={course} completed={completed} itemReviews={itemReviews} />
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
     </div>
   );
 };
