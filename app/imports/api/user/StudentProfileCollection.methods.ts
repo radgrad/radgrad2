@@ -5,6 +5,7 @@ import {CareerGoals} from '../career/CareerGoalCollection';
 import {StudentProfiles} from './StudentProfileCollection';
 import {ProfileCareerGoals} from './profile-entries/ProfileCareerGoalCollection';
 import {ProfileInterests} from './profile-entries/ProfileInterestCollection';
+import {Interests} from "../interest/InterestCollection";
 
 export interface PublicProfileData {
   website?: string,
@@ -45,13 +46,12 @@ export const getPublicProfileData = new ValidatedMethod({
       }
       if (profile.shareCareerGoals) {
         const profileDocs = ProfileCareerGoals.findNonRetired({userID});
-        const careerGoalSlugs = profileDocs.map(doc => CareerGoals.findSlugByID(doc.careerGoalID));
-        console.log(careerGoalSlugs);
         publicData.careerGoals = profileDocs.map(doc => CareerGoals.findSlugByID(doc.careerGoalID));
       }
       if (profile.shareInterests) {
         const profileDocs = ProfileInterests.findNonRetired({userID});
-        // publicData.interests = profileDocs.map(doc => ProfileInterests.getInterestSlug(doc));
+        // TODO: Why does Interests.findSlugByID return upper case slugs?
+        publicData.interests = profileDocs.map(doc => Interests.findSlugByID(doc.interestID).toLowerCase());
       }
       if (profile.shareCourses) {
         publicData.courses = profile.courses;

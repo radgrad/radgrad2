@@ -1,8 +1,9 @@
 import React from 'react';
 import {Card, Icon, Image, Label, Tab} from 'semantic-ui-react';
 import ProfileIceCircle from './ProfileIceCircle';
-import CareerGoalLabel from "../label/CareerGoalLabel";
-import {Users} from "../../../../api/user/UserCollection";
+import CareerGoalLabel from '../label/CareerGoalLabel';
+import {Users} from '../../../../api/user/UserCollection';
+import InterestLabel from '../label/InterestLabel';
 
 export interface ProfileCardProps {
   name: string,
@@ -34,7 +35,8 @@ const ProfileCard: React.FC<ProfileCardProps> = ({name, email, image, website, l
   const userID = Users.getID(email);
   const tabPanes = [];
   if (interests) {
-    tabPanes.push({menuItem: 'Interests', render: () => <TabContent items={interests}/>});
+    // TODO: Why are interest slugs capitalized?
+    tabPanes.push({menuItem: 'Interests', render: () => interests.map(interest => <InterestLabel key={interest} slug={interest.toLowerCase()} userID={userID} size='small'/>)});
   }
   if (careerGoals) {
     tabPanes.push({menuItem: 'Careers', render: () => careerGoals.map(careerGoal => <CareerGoalLabel key={careerGoal} slug={careerGoal} userID={userID} size='small'/>)});

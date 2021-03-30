@@ -24,7 +24,7 @@ const UserProfileCard: React.FC<UserProfileCardProps> = ({username, fluid= true}
       fetchData();
       setFetched(true);
     } else {
-      console.log('fetched data: ', data);
+      console.log('profile data: ', data);
     }
 
   });

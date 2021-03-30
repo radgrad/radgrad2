@@ -9695,6 +9695,7 @@
           "shareOpportunities": true,
           "shareCourses": true,
           "shareLevel": true,
+          "shareICE": true,
           "lastVisitedCareerGoals": "2021-03-17",
           "lastVisitedCourses": "2021-03-17",
           "lastVisitedInterests": "2021-03-17",
@@ -9758,6 +9759,7 @@
           "shareWebsite": false,
           "shareInterests": true,
           "shareCareerGoals": true,
+          "shareICE": true,
           "shareOpportunities": false,
           "shareCourses": false,
           "shareLevel": true

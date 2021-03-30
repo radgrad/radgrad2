@@ -22,7 +22,7 @@ const UserLabel: React.FC<UserLabelProps> = ({username}) => {
       onOpen={() => setOpen(true)}
       open={open}
       trigger={
-        <Button style={{margin: '0px', padding: '0px'}}>
+        <Button style={{margin: '2px', padding: '0px'}}>
           <ProfileLabel name={name} key={name} image={sharePicture && profile.picture} level={shareLevel && profile.level}/>
       </Button>}
     >
