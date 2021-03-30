@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams, useRouteMatch } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Container, Grid } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import _ from 'lodash';
 import { Reviews } from '../../../../api/review/ReviewCollection';
 import { getMenuWidget } from '../utilities/getMenuWidget';
