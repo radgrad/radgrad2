@@ -1,17 +1,17 @@
 import React from 'react';
 import _ from 'lodash';
-import {AcademicTerms} from '../../../api/academic-term/AcademicTermCollection';
-import {Opportunities} from '../../../api/opportunity/OpportunityCollection';
-import {OpportunityInstances} from '../../../api/opportunity/OpportunityInstanceCollection';
-import {Users} from '../../../api/user/UserCollection';
-import {VerificationRequests} from '../../../api/verification/VerificationRequestCollection';
-import {StudentProfile} from '../../../typings/radgrad';
-import {DEGREEPLANNER, STUDENT_VERIFICATION, URL_ROLES} from '../../layouts/utilities/route-constants';
+import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
+import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
+import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
+import { Users } from '../../../api/user/UserCollection';
+import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
+import { StudentProfile } from '../../../typings/radgrad';
+import { DEGREEPLANNER, STUDENT_VERIFICATION, URL_ROLES } from '../../layouts/utilities/route-constants';
 import OpportunityList from '../shared/OpportunityList';
-import {Checklist, CHECKSTATE} from './Checklist';
-import {DetailsBox} from './DetailsBox';
-import {ActionsBox} from './ActionsBox';
-import {ChecklistButtonLink} from './ChecklistButtons';
+import { Checklist, CHECKSTATE } from './Checklist';
+import { DetailsBox } from './DetailsBox';
+import { ActionsBox } from './ActionsBox';
+import { ChecklistButtonLink } from './ChecklistButtons';
 
 export class VerificationChecklist extends Checklist {
   private profile: StudentProfile;
@@ -35,12 +35,12 @@ export class VerificationChecklist extends Checklist {
   private getUnverifiedInstances() {
     const studentID = this.profile.userID;
     const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
-    const ois = OpportunityInstances.findNonRetired({studentID, verified: false});
+    const ois = OpportunityInstances.findNonRetired({ studentID, verified: false });
     const oisInPast = ois.filter((oi) => {
       const term = AcademicTerms.findDoc(oi.termID);
       return term.termNumber < currentTerm.termNumber;
     });
-    const requests = VerificationRequests.findNonRetired({studentID});
+    const requests = VerificationRequests.findNonRetired({ studentID });
     const requestedOIs = requests.map((request) => request.opportunityInstanceID);
     const unverified = oisInPast.filter((oi) => !_.includes(requestedOIs, oi._id));
     return unverified;

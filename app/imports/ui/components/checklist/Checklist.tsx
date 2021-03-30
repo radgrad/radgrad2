@@ -1,7 +1,7 @@
 import moment from 'moment';
 import React from 'react';
 import Markdown from 'react-markdown/with-html';
-import {Card, Header, Icon, Label, SemanticICONS} from 'semantic-ui-react';
+import { Card, Header, Icon, Label, SemanticICONS } from 'semantic-ui-react';
 
 export const enum CHECKSTATE {
   OK = 'OK',
@@ -115,7 +115,7 @@ export class Checklist {
 
   public getChecklistItem(): JSX.Element {
     return (
-      <Card style={{minWidth: '425px'}} key={this.name}>
+      <Card style={{ minWidth: '425px' }} key={this.name}>
         <Label attached='top' color={this.stateColor[this.state]}>{this.getState()}</Label>
         <Card.Content>
           <Header as='h3' color={this.stateColor[this.state]}>{this.getIcon()}{this.getName()}</Header>

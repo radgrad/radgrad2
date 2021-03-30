@@ -1,15 +1,15 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import _ from 'lodash';
-import {getStudentPublicData, StudentPublicData} from '../../../../api/user/StudentProfileCollection.methods';
+import { getStudentPublicData, StudentPublicData } from '../../../../api/user/StudentProfileCollection.methods';
 import ProfileCard from './ProfileCard';
-import {StudentProfile} from '../../../../typings/radgrad';
+import { StudentProfile } from '../../../../typings/radgrad';
 
 export interface StudentProfileCardMethodProps {
   studentProfile: StudentProfile;
 }
 
-const StudentProfileCardMethod: React.FC<StudentProfileCardMethodProps> = ({studentProfile}) => {
-  const {username, firstName, lastName} = studentProfile;
+const StudentProfileCardMethod: React.FC<StudentProfileCardMethodProps> = ({ studentProfile }) => {
+  const { username, firstName, lastName } = studentProfile;
   const name = `${firstName} ${lastName}`;
   const [data, setData] = useState<StudentPublicData>({});
   useEffect(() => {

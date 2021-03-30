@@ -1,5 +1,5 @@
-import {ValidatedMethod} from 'meteor/mdg:validated-method';
-import {CallPromiseMixin} from 'meteor/didericis:callpromise-mixin';
+import { ValidatedMethod } from 'meteor/mdg:validated-method';
+import { CallPromiseMixin } from 'meteor/didericis:callpromise-mixin';
 import { StudentProfiles } from './StudentProfileCollection';
 
 export interface StudentPublicData {

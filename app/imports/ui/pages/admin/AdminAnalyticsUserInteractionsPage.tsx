@@ -4,7 +4,7 @@ import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import AdminAnalyticsUserInteractionsWidget, { AdminAnalyticsUserInteractionsWidgetProps } from '../../components/admin/analytics/user-interactions/AdminAnalyticsUserInteractionsWidget';
 import PageLayout from '../PageLayout';
 
-const AdminAnalyticsUserInteractionsPage: React.FC<AdminAnalyticsUserInteractionsWidgetProps> = ({students}) => (
+const AdminAnalyticsUserInteractionsPage: React.FC<AdminAnalyticsUserInteractionsWidgetProps> = ({ students }) => (
   <PageLayout id="analytics-user-interactions-page" headerPaneTitle="User Interactions">
     <AdminAnalyticsUserInteractionsWidget students={students}/>
   </PageLayout>

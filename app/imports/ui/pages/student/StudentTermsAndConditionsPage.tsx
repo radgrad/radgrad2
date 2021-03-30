@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactMarkdownWithHtml from 'react-markdown/with-html';
 import PageLayout from '../PageLayout';
-import {getTermsAndConditions} from '../../../api/utilities/TermsAndConditions.methods';
+import { getTermsAndConditions } from '../../../api/utilities/TermsAndConditions.methods';
 
 const headerPaneTitle = 'Terms and Conditions';
 const headerPaneBody = `

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Header, Icon} from 'semantic-ui-react';
+import { Grid, Header, Icon } from 'semantic-ui-react';
 import UserGuideButtons from './UserGuideButtons';
 import ExplorerButtons from './ExplorerButtons';
 import styles from './utilities/landing-styles';

@@ -1,17 +1,17 @@
 import moment from 'moment';
 import React from 'react';
-import {updateMethod} from '../../../api/base/BaseCollection.methods';
-import {ProfileCareerGoals} from '../../../api/user/profile-entries/ProfileCareerGoalCollection';
-import {PublicStats} from '../../../api/public-stats/PublicStatsCollection';
-import {StudentProfiles} from '../../../api/user/StudentProfileCollection';
-import {Users} from '../../../api/user/UserCollection';
-import {StudentProfile, StudentProfileUpdate} from '../../../typings/radgrad';
-import {EXPLORER, URL_ROLES} from '../../layouts/utilities/route-constants';
+import { updateMethod } from '../../../api/base/BaseCollection.methods';
+import { ProfileCareerGoals } from '../../../api/user/profile-entries/ProfileCareerGoalCollection';
+import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';
+import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
+import { Users } from '../../../api/user/UserCollection';
+import { StudentProfile, StudentProfileUpdate } from '../../../typings/radgrad';
+import { EXPLORER, URL_ROLES } from '../../layouts/utilities/route-constants';
 import ProfileCareerGoalList from '../shared/ProfileCareerGoalList';
-import {Checklist, CHECKSTATE} from './Checklist';
-import {DetailsBox} from './DetailsBox';
-import {ActionsBox} from './ActionsBox';
-import {ChecklistButtonAction, ChecklistButtonLink} from './ChecklistButtons';
+import { Checklist, CHECKSTATE } from './Checklist';
+import { DetailsBox } from './DetailsBox';
+import { ActionsBox } from './ActionsBox';
+import { ChecklistButtonAction, ChecklistButtonLink } from './ChecklistButtons';
 
 export class CareerGoalsChecklist extends Checklist {
   private profile: StudentProfile;
@@ -42,7 +42,7 @@ export class CareerGoalsChecklist extends Checklist {
 
   public updateState(): void {
     const userID = this.profile.userID;
-    const careerGoals = ProfileCareerGoals.findNonRetired({userID});
+    const careerGoals = ProfileCareerGoals.findNonRetired({ userID });
     if (careerGoals.length < 3) {
       this.state = CHECKSTATE.IMPROVE;
     } else if (this.profile.lastVisitedCareerGoals) {
@@ -62,7 +62,7 @@ export class CareerGoalsChecklist extends Checklist {
 
   public getDetails(): JSX.Element {
     const userID = this.profile.userID;
-    const careerGoals = ProfileCareerGoals.findNonRetired({userID});
+    const careerGoals = ProfileCareerGoals.findNonRetired({ userID });
     return ((careerGoals.length === 0) ?
         <DetailsBox description='Note: There are no Career Goals to your profile. You probably want to add some!'/> :
         <DetailsBox description='Here are your current Career Goals:'>
@@ -81,7 +81,7 @@ export class CareerGoalsChecklist extends Checklist {
       const updateData: StudentProfileUpdate = {};
       updateData.id = this.profile._id;
       updateData.lastVisitedCareerGoals = moment().format('YYYY-MM-DD');
-      updateMethod.call({collectionName, updateData}, (error) => {
+      updateMethod.call({ collectionName, updateData }, (error) => {
         if (error) {
           console.error('Failed to update lastVisitedCareerGoals', error);
         }

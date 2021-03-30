@@ -1,5 +1,5 @@
 import React from 'react';
-import {Label} from 'semantic-ui-react';
+import { Label } from 'semantic-ui-react';
 import './style.css';
 
 export interface ProfileLabelProps {
@@ -8,7 +8,7 @@ export interface ProfileLabelProps {
   image?: string
 }
 
-const ProfileLabel: React.FC<ProfileLabelProps> = ({name, level, image}) => {
+const ProfileLabel: React.FC<ProfileLabelProps> = ({ name, level, image }) => {
   const levelIconURL = `/images/level-icons/radgrad-level-${level}-icon.png`;
   const className = `profileLabel Level${level || 0}BackgroundColor`;
   return (

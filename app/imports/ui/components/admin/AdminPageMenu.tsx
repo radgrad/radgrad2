@@ -25,7 +25,7 @@ const AdminPageMenu: React.FC = () => {
 
   const menuItems = [
     { label: 'Home', route: HOME },
-    { label: 'Privacy', route: PRIVACY},
+    { label: 'Privacy', route: PRIVACY },
     { label: 'Forecasts', route: FORECASTS },
     { label: 'Community', route: COMMUNITY },
   ];
@@ -45,42 +45,42 @@ const AdminPageMenu: React.FC = () => {
   ];
 
   const datamodelDropdownItems = [
-    { label: 'Academic Terms', route: DATAMODEL.ACADEMIC_TERMS},
-    { label: 'Academic Year Instances', route: DATAMODEL.ACADEMIC_YEAR_INSTANCES},
-    { label: 'Career Goals', route: DATAMODEL.CAREERGOALS},
-    { label: 'Course Instances', route: DATAMODEL.COURSE_INSTANCES},
-    { label: 'Courses', route: DATAMODEL.COURSES},
-    { label: 'Feeds', route: DATAMODEL.FEEDS},
-    { label: 'Interests', route: DATAMODEL.INTERESTS},
-    { label: 'Interest Types', route: DATAMODEL.INTEREST_TYPES},
-    { label: 'Opportunities', route: DATAMODEL.OPPORTUNITIES},
-    { label: 'Opportunity Instances', route: DATAMODEL.OPPORTUNITY_INSTANCES},
-    { label: 'Opportunity Types', route: DATAMODEL.OPPORTUNITY_TYPES},
-    { label: 'Reviews', route: DATAMODEL.REVIEWS},
-    { label: 'Slugs', route: DATAMODEL.SLUGS},
-    { label: 'Teasers', route: DATAMODEL.TEASERS},
-    { label: 'Users', route: DATAMODEL.USERS},
-    { label: 'Verification Requests', route: DATAMODEL.VERIFICATION_REQUESTS},
+    { label: 'Academic Terms', route: DATAMODEL.ACADEMIC_TERMS },
+    { label: 'Academic Year Instances', route: DATAMODEL.ACADEMIC_YEAR_INSTANCES },
+    { label: 'Career Goals', route: DATAMODEL.CAREERGOALS },
+    { label: 'Course Instances', route: DATAMODEL.COURSE_INSTANCES },
+    { label: 'Courses', route: DATAMODEL.COURSES },
+    { label: 'Feeds', route: DATAMODEL.FEEDS },
+    { label: 'Interests', route: DATAMODEL.INTERESTS },
+    { label: 'Interest Types', route: DATAMODEL.INTEREST_TYPES },
+    { label: 'Opportunities', route: DATAMODEL.OPPORTUNITIES },
+    { label: 'Opportunity Instances', route: DATAMODEL.OPPORTUNITY_INSTANCES },
+    { label: 'Opportunity Types', route: DATAMODEL.OPPORTUNITY_TYPES },
+    { label: 'Reviews', route: DATAMODEL.REVIEWS },
+    { label: 'Slugs', route: DATAMODEL.SLUGS },
+    { label: 'Teasers', route: DATAMODEL.TEASERS },
+    { label: 'Users', route: DATAMODEL.USERS },
+    { label: 'Verification Requests', route: DATAMODEL.VERIFICATION_REQUESTS },
   ];
 
   const databaseDropdownItems = [
-    { label: 'Dump database', route: DATABASE.DUMP},
-    { label: 'Check Integrity', route: DATABASE.CHECK_INTEGRITY},
+    { label: 'Dump database', route: DATABASE.DUMP },
+    { label: 'Check Integrity', route: DATABASE.CHECK_INTEGRITY },
   ];
 
   const analyticsDropdownItems = [
-    { label: 'Newsletter', route: ANALYTICS.NEWSLETTER},
-    { label: 'Overhead Analysis', route: ANALYTICS.OVERHEAD_ANALYSIS},
-    { label: 'Student Summary', route: ANALYTICS.STUDENT_SUMMARY},
-    { label: 'User Interactions', route: ANALYTICS.USER_INTERACTIONS},
-    { label: 'Logged In Users', route: ANALYTICS.LOGGED_IN_USERS},
+    { label: 'Newsletter', route: ANALYTICS.NEWSLETTER },
+    { label: 'Overhead Analysis', route: ANALYTICS.OVERHEAD_ANALYSIS },
+    { label: 'Student Summary', route: ANALYTICS.STUDENT_SUMMARY },
+    { label: 'User Interactions', route: ANALYTICS.USER_INTERACTIONS },
+    { label: 'Logged In Users', route: ANALYTICS.LOGGED_IN_USERS },
   ];
 
   const instanceName = Meteor.settings.public.instanceName;
   return (
     <div>
       <FirstMenu profile={profile} displayLevelAndIce={false} instanceName={instanceName} />
-      <Menu borderless inverted stackable id="secondMenu" attached="top" style={{paddingLeft: '10px', marginTop: '0px'}}>
+      <Menu borderless inverted stackable id="secondMenu" attached="top" style={{ paddingLeft: '10px', marginTop: '0px' }}>
         {menuItems.map((item) => (
           <Menu.Item id={convertLabelToId('admin-menu', item.label)} key={item.label} as={NavLink} exact={false} to={buildRouteName(match, `/${item.route}`)}>
             {item.label}
