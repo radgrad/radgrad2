@@ -5,7 +5,7 @@ import {CareerGoals} from '../career/CareerGoalCollection';
 import {StudentProfiles} from './StudentProfileCollection';
 import {ProfileCareerGoals} from './profile-entries/ProfileCareerGoalCollection';
 import {ProfileInterests} from './profile-entries/ProfileInterestCollection';
-import {Interests} from "../interest/InterestCollection";
+import {Interests} from '../interest/InterestCollection';
 
 export interface PublicProfileData {
   website?: string,
