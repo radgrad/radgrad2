@@ -1,11 +1,11 @@
 import React from 'react';
-import {Card, Icon, Image, Label, Tab} from 'semantic-ui-react';
+import {Card, Icon, Image, Tab} from 'semantic-ui-react';
 import ProfileIceCircle from './ProfileIceCircle';
 import CareerGoalLabel from '../label/CareerGoalLabel';
 import {Users} from '../../../../api/user/UserCollection';
 import InterestLabel from '../label/InterestLabel';
-import CourseLabel from "../label/CourseLabel";
-import OpportunityLabel from "../label/OpportunityLabel";
+import CourseLabel from '../label/CourseLabel';
+import OpportunityLabel from '../label/OpportunityLabel';
 
 export interface ProfileCardProps {
   name: string,
@@ -20,16 +20,6 @@ export interface ProfileCardProps {
   opportunities?: string[],
   fluid?: boolean
 }
-
-interface TabContentProps {
-  items: string[],
-}
-
-const TabContent: React.FC<TabContentProps> = ({items}) => (
-  <Tab.Pane>
-    {items.map(item => <Label style={{margin: '1px'}} key={item}>{item}</Label>)}
-  </Tab.Pane>
-);
 
 
 const ProfileCard: React.FC<ProfileCardProps> = ({name, email, image, website, level, ice, careerGoals, interests, courses, opportunities, fluid= false}) => {

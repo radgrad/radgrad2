@@ -6,12 +6,11 @@ import {StudentProfiles} from './StudentProfileCollection';
 import {ProfileCareerGoals} from './profile-entries/ProfileCareerGoalCollection';
 import {ProfileInterests} from './profile-entries/ProfileInterestCollection';
 import {Interests} from '../interest/InterestCollection';
-import {Slugs} from "../slug/SlugCollection";
-import {ProfileCourses} from "./profile-entries/ProfileCourseCollection";
-import {Courses} from "../course/CourseCollection";
-import {ProfileOpportunities} from "./profile-entries/ProfileOpportunityCollection";
-import {Opportunities} from "../opportunity/OpportunityCollection";
-import {ROLE} from "../role/Role";
+import {ProfileCourses} from './profile-entries/ProfileCourseCollection';
+import {Courses} from '../course/CourseCollection';
+import {ProfileOpportunities} from './profile-entries/ProfileOpportunityCollection';
+import {Opportunities} from '../opportunity/OpportunityCollection';
+import {ROLE} from '../role/Role';
 
 export interface PublicProfileData {
   website?: string,
