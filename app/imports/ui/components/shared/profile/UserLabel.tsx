@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Button } from 'semantic-ui-react';
+import {Modal, Button} from 'semantic-ui-react';
 import {Users} from '../../../../api/user/UserCollection';
 import {ROLE} from '../../../../api/role/Role';
 import ProfileLabel from './ProfileLabel';
@@ -18,16 +18,16 @@ const UserLabel: React.FC<UserLabelProps> = ({username}) => {
   const [open, setOpen] = React.useState(false);
   return (
     <Modal size='small'
-      onClose={() => setOpen(false)}
-      onOpen={() => setOpen(true)}
-      open={open}
-      trigger={
-        <Button style={{margin: '2px', padding: '0px'}}>
-          <ProfileLabel name={name} key={name} image={sharePicture && profile.picture} level={shareLevel && profile.level}/>
-      </Button>}
+           onClose={() => setOpen(false)}
+           onOpen={() => setOpen(true)}
+           open={open}
+           trigger={
+             <Button style={{margin: '2px', padding: '0px'}}>
+               <ProfileLabel name={name} key={name} image={sharePicture && profile.picture} level={shareLevel && profile.level}/>
+             </Button>}
     >
       <Modal.Content>
-          <UserProfileCard username={username} fluid/>
+        <UserProfileCard username={username} fluid/>
       </Modal.Content>
       <Modal.Actions>
         <Button color='green' onClick={() => setOpen(false)}>OK</Button>
