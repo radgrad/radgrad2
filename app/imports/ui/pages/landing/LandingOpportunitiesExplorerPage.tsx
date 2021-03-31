@@ -1,11 +1,11 @@
 import React from 'react';
-import {withTracker} from 'meteor/react-meteor-data';
-import {Card, Header, Segment} from 'semantic-ui-react';
-import {Opportunities} from '../../../api/opportunity/OpportunityCollection';
-import {Opportunity} from '../../../typings/radgrad';
+import { withTracker } from 'meteor/react-meteor-data';
+import { Card, Header, Segment } from 'semantic-ui-react';
+import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
+import { Opportunity } from '../../../typings/radgrad';
 import LandingExplorerCard from '../../components/landing/explorer/LandingExplorerCard';
 import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
-import {Slugs} from '../../../api/slug/SlugCollection';
+import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuBar from '../../components/landing/explorer/LandingExplorerMenuBar';
 import PageLayout from '../PageLayout';
 
@@ -21,7 +21,7 @@ Opportunities are extracurricular activities that relate to this discipline. The
 This public explorer does not provide information about community members or the reviews associated with Opportunities.
 `;
 
-const LandingOpportunitiesExplorerPage: React.FC<LandingOpportunitiesExplorerPageProps> = ({opportunities, count}) => (
+const LandingOpportunitiesExplorerPage: React.FC<LandingOpportunitiesExplorerPageProps> = ({ opportunities, count }) => (
   <div>
     <LandingExplorerMenuBar/>
     <PageLayout id="landing-opportunities-explorer-page" headerPaneTitle={headerPaneTitle}
@@ -41,7 +41,7 @@ const LandingOpportunitiesExplorerPage: React.FC<LandingOpportunitiesExplorerPag
 );
 
 const LandingOpportunitiesExplorerPageContainer = withTracker(() => ({
-  opportunities: Opportunities.findNonRetired({}, {sort: {name: 1}}),
+  opportunities: Opportunities.findNonRetired({}, { sort: { name: 1 } }),
   count: Opportunities.countNonRetired(),
 }))(LandingOpportunitiesExplorerPage);
 

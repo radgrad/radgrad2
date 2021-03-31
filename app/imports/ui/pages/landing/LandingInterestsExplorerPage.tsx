@@ -1,13 +1,13 @@
 import React from 'react';
-import {withTracker} from 'meteor/react-meteor-data';
-import {Card, Header, Segment} from 'semantic-ui-react';
-import {Interest} from '../../../typings/radgrad';
-import {Interests} from '../../../api/interest/InterestCollection';
+import { withTracker } from 'meteor/react-meteor-data';
+import { Card, Header, Segment } from 'semantic-ui-react';
+import { Interest } from '../../../typings/radgrad';
+import { Interests } from '../../../api/interest/InterestCollection';
 import LandingExplorerCardContainer from '../../components/landing/explorer/LandingExplorerCard';
 import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
 import LandingExplorerMenuBar from '../../components/landing/explorer/LandingExplorerMenuBar';
 import PageLayout from '../PageLayout';
-import {Slugs} from '../../../api/slug/SlugCollection';
+import { Slugs } from '../../../api/slug/SlugCollection';
 
 interface InterestsCardExplorerProps {
   interests: Interest[];
@@ -21,7 +21,7 @@ Interests are curated by the faculty to provide information about topic areas im
 This public explorer does not provide information about community members.
 `;
 
-const LandingInterestsExplorerPage: React.FC<InterestsCardExplorerProps> = ({interests, count}) => (
+const LandingInterestsExplorerPage: React.FC<InterestsCardExplorerProps> = ({ interests, count }) => (
   <div>
     <LandingExplorerMenuBar/>
     <PageLayout id="landing-interests-card-explorer-page" headerPaneTitle={headerPaneTitle}

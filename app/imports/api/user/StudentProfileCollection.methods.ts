@@ -1,13 +1,8 @@
-import {ValidatedMethod} from 'meteor/mdg:validated-method';
-import {CallPromiseMixin} from 'meteor/didericis:callpromise-mixin';
-import {Users} from './UserCollection';
-import {CareerGoals} from '../career/CareerGoalCollection';
-import {StudentProfiles} from './StudentProfileCollection';
-import {ProfileCareerGoals} from './profile-entries/ProfileCareerGoalCollection';
-import {ProfileInterests} from './profile-entries/ProfileInterestCollection';
-import {Interests} from '../interest/InterestCollection';
+import { ValidatedMethod } from 'meteor/mdg:validated-method';
+import { CallPromiseMixin } from 'meteor/didericis:callpromise-mixin';
+import { StudentProfiles } from './StudentProfileCollection';
 
-export interface PublicProfileData {
+export interface StudentPublicData {
   website?: string,
   picture?: string,
   level?: number,
@@ -22,15 +17,14 @@ export interface PublicProfileData {
  * Meteor method used to retrieve public data for a student profile card.
  * Returns an object with fields containing the visible student data.
  */
-export const getPublicProfileData = new ValidatedMethod({
-  name: 'ProfileCollection.getPublicProfileData',
+export const getStudentPublicData = new ValidatedMethod({
+  name: 'StudentProfileCollection.getStudentPublicData',
   mixins: [CallPromiseMixin],
   validate: null,
   run({ username }) {
-    const publicData: PublicProfileData = {};
+    const publicData: StudentPublicData = {};
     if (Meteor.isServer) {
-      const profile = Users.getProfile(username);
-      const userID = Users.getID(username);
+      const profile = StudentProfiles.findByUsername(username);
       if (profile.sharePicture) {
         publicData.picture = profile.picture;
       }
@@ -41,17 +35,13 @@ export const getPublicProfileData = new ValidatedMethod({
         publicData.level = profile.level;
       }
       if (profile.shareICE) {
-        // if shareICE exists, then the user must be a student.
         publicData.ice = StudentProfiles.getEarnedICE(username);
       }
       if (profile.shareCareerGoals) {
-        const profileDocs = ProfileCareerGoals.findNonRetired({userID});
-        publicData.careerGoals = profileDocs.map(doc => CareerGoals.findSlugByID(doc.careerGoalID));
+        publicData.careerGoals = profile.careerGoals;
       }
       if (profile.shareInterests) {
-        const profileDocs = ProfileInterests.findNonRetired({userID});
-        // TODO: Why does Interests.findSlugByID return upper case slugs?
-        publicData.interests = profileDocs.map(doc => Interests.findSlugByID(doc.interestID).toLowerCase());
+        publicData.interests = profile.interests;
       }
       if (profile.shareCourses) {
         publicData.courses = profile.courses;

@@ -1,7 +1,7 @@
 import { withTracker } from 'meteor/react-meteor-data';
 import { useParams } from 'react-router-dom';
 import React from 'react';
-import { Grid} from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import StudentIceWidget from '../../components/student/ice/StudentIceWidget';
 import { Ice, CourseInstance, ProfileInterest, OpportunityInstance } from '../../../typings/radgrad';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';

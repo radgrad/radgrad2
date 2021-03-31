@@ -7,13 +7,13 @@ import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstan
 import { Reviews } from '../../../api/review/ReviewCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { StudentProfile } from '../../../typings/radgrad';
-import {STUDENT_REVIEWS, URL_ROLES} from '../../layouts/utilities/route-constants';
+import { STUDENT_REVIEWS, URL_ROLES } from '../../layouts/utilities/route-constants';
 import CourseList from '../shared/CourseList';
 import OpportunityList from '../shared/OpportunityList';
-import {Checklist, CHECKSTATE} from './Checklist';
-import {DetailsBox} from './DetailsBox';
-import {ActionsBox} from './ActionsBox';
-import {ChecklistButtonLink} from './ChecklistButtons';
+import { Checklist, CHECKSTATE } from './Checklist';
+import { DetailsBox } from './DetailsBox';
+import { ActionsBox } from './ActionsBox';
+import { ChecklistButtonLink } from './ChecklistButtons';
 
 export class ReviewChecklist extends Checklist {
   private profile: StudentProfile;

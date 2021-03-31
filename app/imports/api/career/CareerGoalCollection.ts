@@ -112,6 +112,7 @@ class CareerGoalCollection extends BaseSlugCollection {
       // const profileCareerGoals = ProfileCareerGoals.find({ careerGoalID: docID }).fetch();
       // profileCareerGoals.forEach((goal) => {});
     }
+    // console.log(updateData);
     this.collection.update(docID, { $set: updateData });
   }
 

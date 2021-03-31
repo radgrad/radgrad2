@@ -1,7 +1,7 @@
 import React from 'react';
-import {withTracker} from 'meteor/react-meteor-data';
+import { withTracker } from 'meteor/react-meteor-data';
 import PageLayout from '../PageLayout';
-import {Reviews} from '../../../api/review/ReviewCollection';
+import { Reviews } from '../../../api/review/ReviewCollection';
 import AdminModerationWidget, { ModerationWidgetProps } from '../../components/shared/moderation/ModerationWidget';
 
 const headerPaneTitle = 'Manage student-submitted reviews';

@@ -15,7 +15,7 @@ interface RadGradLoginButtonsProps {
   inverted?: boolean;
 }
 
-const RadGradLoginButtons: React.FC<RadGradLoginButtonsProps> = ({ instanceName= '', size = 'medium', inverted = false }) => {
+const RadGradLoginButtons: React.FC<RadGradLoginButtonsProps> = ({ instanceName = '', size = 'medium', inverted = false }) => {
   const [pathname, setPathname] = useState<string>('');
   const [redirectToRefererState, setRedirectToReferer] = useState<boolean>(false);
 

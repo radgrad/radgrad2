@@ -8,10 +8,10 @@ import { Users } from '../../../api/user/UserCollection';
 import { Ice, StudentProfile, StudentProfileUpdate } from '../../../typings/radgrad';
 import { DEGREEPLANNER, EXPLORER, ICE, URL_ROLES } from '../../layouts/utilities/route-constants';
 import ProfileFutureCoursesList from '../shared/ProfileFutureCoursesList';
-import {Checklist, CHECKSTATE} from './Checklist';
-import {DetailsBox} from './DetailsBox';
-import {ActionsBox} from './ActionsBox';
-import {ChecklistButtonAction, ChecklistButtonLink} from './ChecklistButtons';
+import { Checklist, CHECKSTATE } from './Checklist';
+import { DetailsBox } from './DetailsBox';
+import { ActionsBox } from './ActionsBox';
+import { ChecklistButtonAction, ChecklistButtonLink } from './ChecklistButtons';
 
 export class CoursesChecklist extends Checklist {
   private profile: StudentProfile;

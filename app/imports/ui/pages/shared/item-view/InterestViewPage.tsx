@@ -2,7 +2,7 @@ import _ from 'lodash';
 import { withTracker } from 'meteor/react-meteor-data';
 import React from 'react';
 import { useParams, useRouteMatch } from 'react-router-dom';
-import { Container, Grid } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import { Courses } from '../../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../../api/course/CourseInstanceCollection';
 import { Interests } from '../../../../api/interest/InterestCollection';
@@ -94,30 +94,37 @@ const getBaseURL = (match) => {
   return temp.join('/');
 };
 
-const InterestViewPage: React.FC<InterestViewPageProps> = ({ courses, profileInterests, interest, opportunities, profile }) => {
+const InterestViewPage: React.FC<InterestViewPageProps> = ({
+  courses,
+  profileInterests,
+  interest,
+  opportunities,
+  profile,
+}) => {
   const interestID = interest._id;
   const relatedCourses = getAssociationRelatedCourses(getRelatedCourses(courses, interestID), profile.userID);
   const relatedOpportunities = getAssociationRelatedOpportunities(getRelatedOpportunities(opportunities, interestID), profile.userID);
   const match = useRouteMatch();
-  const pushDownStyle = { paddingTop: 15 };
   const headerPaneTitle = interest.name;
   const headerPaneImage = 'header-interests.png';
   const added = ProfileInterests.findNonRetired({ userID: profile.userID, interestID }).length > 0;
   return (
-    <PageLayout id="interest-view-page" headerPaneTitle={headerPaneTitle} headerPaneImage={headerPaneImage} headerPaneButton={<AddToProfileButton type={PROFILE_ENTRY_TYPE.INTEREST} studentID={profile.userID} item={interest} added={added} inverted floated="left"/>}>
-      <Container style={pushDownStyle}>
-        <Grid stackable>
-          <Grid.Row>
-            <Grid.Column width={5}>
-              <InterestedRelated relatedCourses={relatedCourses} relatedOpportunities={relatedOpportunities} isStudent={Router.getRoleByUrl(match) === 'student'} baseURL={getBaseURL(match)} profile={profile} />
-              {/* <ExplorerMenu menuAddedList={menuAddedList} type="interests" /> */}
-            </Grid.Column>
-            <Grid.Column width={11}>
-              <ExplorerInterest profile={profile} interest={interest} opportunities={opportunities} courses={courses} />
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </Container>
+    <PageLayout id="interest-view-page" headerPaneTitle={headerPaneTitle} headerPaneImage={headerPaneImage}
+                headerPaneButton={<AddToProfileButton type={PROFILE_ENTRY_TYPE.INTEREST} studentID={profile.userID}
+                                                      item={interest} added={added} inverted floated="left" />}>
+      <Grid stackable>
+        <Grid.Row>
+          <Grid.Column width={5}>
+            <InterestedRelated relatedCourses={relatedCourses} relatedOpportunities={relatedOpportunities}
+                               isStudent={Router.getRoleByUrl(match) === 'student'} baseURL={getBaseURL(match)}
+                               profile={profile} />
+            {/* <ExplorerMenu menuAddedList={menuAddedList} type="interests" /> */}
+          </Grid.Column>
+          <Grid.Column width={11}>
+            <ExplorerInterest profile={profile} interest={interest} opportunities={opportunities} courses={courses} />
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
     </PageLayout>
   );
 };

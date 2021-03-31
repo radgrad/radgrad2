@@ -67,6 +67,11 @@ export const careerGoalNameToSlug = (name: string): string => itemToSlugName(Car
 
 export const courseToName = (course): string => `${course.num}: ${course.shortName}`;
 
+export const courseIdToName = (id: string): string => {
+  const course = Courses.findDoc(id);
+  return courseToName(course);
+};
+
 export const courseNameToCourseDoc = (name: string) => Courses.findDoc({ shortName: name.substring(name.indexOf(':') + 2) });
 
 export const courseNameToSlug = (name: string): string => itemToSlugName(Courses.findDoc({ shortName: name.substring(name.indexOf(':') + 2) }));

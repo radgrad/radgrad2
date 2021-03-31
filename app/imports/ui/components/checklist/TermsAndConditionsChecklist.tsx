@@ -1,17 +1,17 @@
 import moment from 'moment';
 import React from 'react';
-import {Redirect} from 'react-router';
-import {sendRefusedTermsEmailMethod} from '../../../api/analytic/Email.methods';
-import {updateMethod} from '../../../api/base/BaseCollection.methods';
-import {RadGradProperties} from '../../../api/radgrad/RadGradProperties';
-import {StudentProfiles} from '../../../api/user/StudentProfileCollection';
-import {Users} from '../../../api/user/UserCollection';
-import {StudentProfile, StudentProfileUpdate} from '../../../typings/radgrad';
-import {TERMS_AND_CONDITIONS, URL_ROLES} from '../../layouts/utilities/route-constants';
-import {Checklist, CHECKSTATE} from './Checklist';
-import {DetailsBox} from './DetailsBox';
-import {ChecklistButtonAction, ChecklistButtonLink} from './ChecklistButtons';
-import {ActionsBox} from './ActionsBox';
+import { Redirect } from 'react-router';
+import { sendRefusedTermsEmailMethod } from '../../../api/analytic/Email.methods';
+import { updateMethod } from '../../../api/base/BaseCollection.methods';
+import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
+import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
+import { Users } from '../../../api/user/UserCollection';
+import { StudentProfile, StudentProfileUpdate } from '../../../typings/radgrad';
+import { TERMS_AND_CONDITIONS, URL_ROLES } from '../../layouts/utilities/route-constants';
+import { Checklist, CHECKSTATE } from './Checklist';
+import { DetailsBox } from './DetailsBox';
+import { ChecklistButtonAction, ChecklistButtonLink } from './ChecklistButtons';
+import { ActionsBox } from './ActionsBox';
 
 export class TermsAndConditionsChecklist extends Checklist {
   private profile: StudentProfile;
@@ -56,7 +56,7 @@ export class TermsAndConditionsChecklist extends Checklist {
       const updateData: StudentProfileUpdate = {};
       updateData.id = this.profile._id;
       updateData.acceptedTermsAndConditions = moment().format('YYYY-MM-DD');
-      updateMethod.call({collectionName, updateData}, (error) => {
+      updateMethod.call({ collectionName, updateData }, (error) => {
         if (error) {
           console.error('Failed to update acceptedTermsAndConditions', error);
         }
@@ -84,7 +84,7 @@ export class TermsAndConditionsChecklist extends Checklist {
       const updateData: StudentProfileUpdate = {};
       updateData.id = this.profile._id;
       updateData.refusedTermsAndConditions = moment().format('YYYY-MM-DD');
-      updateMethod.call({collectionName, updateData}, (error) => {
+      updateMethod.call({ collectionName, updateData }, (error) => {
         if (error) {
           console.error('Failed to update refusedTermsAndConditions', error);
         }
@@ -105,7 +105,7 @@ export class TermsAndConditionsChecklist extends Checklist {
 
   public getChecklistItem(): JSX.Element {
     if (this.profile.refusedTermsAndConditions) {
-      return <Redirect to={{pathname: '/signout-refused'}} key={`${this.profile.username}-refused-terms`}/>;
+      return <Redirect to={{ pathname: '/signout-refused' }} key={`${this.profile.username}-refused-terms`}/>;
     }
     return super.getChecklistItem();
   }
