@@ -16,7 +16,7 @@ const OpportunityList: React.FC<OpportunityListProps> = ({ opportunities, size, 
     {opportunities.map((opp) => {
       const slug = itemToSlugName(opp);
       return (
-        <OpportunityLabel slug={slug} userID={userID} key={opp._id} size={size} />
+        <OpportunityLabel key={slug} slug={slug} userID={userID} size={size} />
       );
     })}
   </Label.Group>

@@ -42,7 +42,7 @@ const InterestedProfiles: React.FC<InterestedProfileWidgetProps> = ({ interest }
       </Header>
       <Container textAlign="center">
         {students.map((student) => (
-          <UserLabel username={student.username} />
+          <UserLabel key={student.username} username={student.username} />
         ))}
       </Container>
       <Divider />

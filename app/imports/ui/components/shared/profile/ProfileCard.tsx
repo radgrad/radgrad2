@@ -4,6 +4,8 @@ import ProfileIceCircle from './ProfileIceCircle';
 import CareerGoalLabel from '../label/CareerGoalLabel';
 import {Users} from '../../../../api/user/UserCollection';
 import InterestLabel from '../label/InterestLabel';
+import CourseLabel from "../label/CourseLabel";
+import OpportunityLabel from "../label/OpportunityLabel";
 
 export interface ProfileCardProps {
   name: string,
@@ -35,17 +37,16 @@ const ProfileCard: React.FC<ProfileCardProps> = ({name, email, image, website, l
   const userID = Users.getID(email);
   const tabPanes = [];
   if (interests) {
-    // TODO: Why are interest slugs capitalized?
-    tabPanes.push({menuItem: 'Interests', render: () => interests.map(interest => <InterestLabel key={interest} slug={interest.toLowerCase()} userID={userID} size='small'/>)});
+    tabPanes.push({menuItem: 'Interests', render: () => interests.map(interest => <InterestLabel key={interest} slug={interest} userID={userID} size='small'/>)});
   }
   if (careerGoals) {
     tabPanes.push({menuItem: 'Careers', render: () => careerGoals.map(careerGoal => <CareerGoalLabel key={careerGoal} slug={careerGoal} userID={userID} size='small'/>)});
   }
   if (courses) {
-    tabPanes.push({menuItem: 'Courses', render: () => <TabContent items={courses}/>});
+    tabPanes.push({menuItem: 'Courses', render: () => courses.map(course => <CourseLabel key={course} slug={course} userID={userID} size='small'/>)});
   }
   if (opportunities) {
-    tabPanes.push({menuItem: 'Opportunities', render: () => <TabContent items={opportunities}/>});
+    tabPanes.push({menuItem: 'Opportunities', render: () => opportunities.map(opportunity => <OpportunityLabel key={opportunity} slug={opportunity} userID={userID} size='small'/>)});
   }
   return (
     <Card fluid={fluid} style={fluid ? {} : {minWidth: '500px'}}>

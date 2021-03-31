@@ -83,8 +83,8 @@ class FacultyProfileCollection extends BaseProfileCollection {
     }
     if (_.isBoolean(retired)) {
       // Need to retire the opportunities that they are the sponsor of?
-      const sposoredOpportunities = Opportunities.find({ sponsorID: profile.userID }).fetch();
-      sposoredOpportunities.forEach((opp) => {
+      const sponsoredOpportunities = Opportunities.find({ sponsorID: profile.userID }).fetch();
+      sponsoredOpportunities.forEach((opp) => {
         const oppID = opp._id;
         const opportunityUpdate = {
           retired,

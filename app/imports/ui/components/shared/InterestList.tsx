@@ -18,7 +18,7 @@ const InterestList: React.FC<InterestListProps> = ({ size, item }) => {
   const interestSlugs = item.interestIDs.map((id) => Interests.findSlugByID(id));
   return (
     <Label.Group size={size}>
-      {interestSlugs.map((slug) => <InterestLabel slug={slug} userID={userID} size={size} />)}
+      {interestSlugs.map((slug) => <InterestLabel key={slug} slug={slug} userID={userID} size={size} />)}
     </Label.Group>
   );
 };

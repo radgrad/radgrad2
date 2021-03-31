@@ -6,6 +6,12 @@ import {StudentProfiles} from './StudentProfileCollection';
 import {ProfileCareerGoals} from './profile-entries/ProfileCareerGoalCollection';
 import {ProfileInterests} from './profile-entries/ProfileInterestCollection';
 import {Interests} from '../interest/InterestCollection';
+import {Slugs} from "../slug/SlugCollection";
+import {ProfileCourses} from "./profile-entries/ProfileCourseCollection";
+import {Courses} from "../course/CourseCollection";
+import {ProfileOpportunities} from "./profile-entries/ProfileOpportunityCollection";
+import {Opportunities} from "../opportunity/OpportunityCollection";
+import {ROLE} from "../role/Role";
 
 export interface PublicProfileData {
   website?: string,
@@ -31,10 +37,12 @@ export const getPublicProfileData = new ValidatedMethod({
     if (Meteor.isServer) {
       const profile = Users.getProfile(username);
       const userID = Users.getID(username);
-      if (profile.sharePicture) {
+      // Advisors, Faculty, Admins always share picture, website, interests, career goals.
+      const autoShare = (profile.role !== ROLE.STUDENT);
+      if (profile.sharePicture || autoShare) {
         publicData.picture = profile.picture;
       }
-      if (profile.shareWebsite) {
+      if (profile.shareWebsite || autoShare) {
         publicData.website = profile.website;
       }
       if (profile.shareLevel) {
@@ -44,20 +52,21 @@ export const getPublicProfileData = new ValidatedMethod({
         // if shareICE exists, then the user must be a student.
         publicData.ice = StudentProfiles.getEarnedICE(username);
       }
-      if (profile.shareCareerGoals) {
+      if (profile.shareCareerGoals || autoShare) {
         const profileDocs = ProfileCareerGoals.findNonRetired({userID});
         publicData.careerGoals = profileDocs.map(doc => CareerGoals.findSlugByID(doc.careerGoalID));
       }
-      if (profile.shareInterests) {
+      if (profile.shareInterests || autoShare) {
         const profileDocs = ProfileInterests.findNonRetired({userID});
-        // TODO: Why does Interests.findSlugByID return upper case slugs?
-        publicData.interests = profileDocs.map(doc => Interests.findSlugByID(doc.interestID).toLowerCase());
+        publicData.interests = profileDocs.map(doc => Interests.findSlugByID(doc.interestID));
       }
       if (profile.shareCourses) {
-        publicData.courses = profile.courses;
+        const profileDocs = ProfileCourses.findNonRetired({studentID: userID});
+        publicData.courses = profileDocs.map(doc => Courses.findSlugByID(doc.courseID));
       }
       if (profile.shareOpportunities) {
-        publicData.opportunities = profile.opportunities;
+        const profileDocs = ProfileOpportunities.findNonRetired({studentID: userID});
+        publicData.opportunities = profileDocs.map(doc => Opportunities.findSlugByID(doc.opportunityID));
       }
     }
     return publicData;

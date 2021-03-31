@@ -13,11 +13,11 @@ const UserLabel: React.FC<UserLabelProps> = ({username}) => {
   const name = Users.getFullName(username);
   const profile = Users.getProfile(username);
   const isStudent = (profile.role === ROLE.STUDENT);
-  const sharePicture = profile.sharePicture;
+  const sharePicture = profile.sharePicture || !isStudent;
   const shareLevel = isStudent && profile.shareLevel;
   const [open, setOpen] = React.useState(false);
   return (
-    <Modal size='tiny'
+    <Modal size='small'
       onClose={() => setOpen(false)}
       onOpen={() => setOpen(true)}
       open={open}

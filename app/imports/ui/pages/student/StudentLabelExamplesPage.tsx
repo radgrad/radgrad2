@@ -34,15 +34,15 @@ const StudentPrivacyPage: React.FC<StudentPrivacyPageProps> = ({profile}) => {
   const email = 'johnson@hawaii.edu';
   const image = 'https://philipmjohnson.github.io/images/philip2.jpeg';
   const website = 'https://philipmjohnson.org';
-  const interests = ['Algorithms', 'Android', 'Angular'];
-  const careerGoals = ['Data Scientist', 'Database Administrator', 'DevOps Engineer', 'Full Stack Developer', 'Game Developer'];
-  const courses = ['ICS 111', 'ICS 211', 'ICS 241', 'ICS 311', 'ICS 314'];
-  const opportunities = ['ACM ICPC', 'ACM Manoa', 'ALLNET', 'Asteroid Detection', 'HACC'];
+  const interests = ['algorithms', 'android', 'angular'];
+  const careerGoals = ['data-scientist'];
+  const courses = ['ICS_111'];
+  const opportunities = ['acm-manoa'];
   return (
     <PageLayout id="student-privacy-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
 
       <hr style={{marginTop: '20px'}} />
-      <Header>Profile Card Examples</Header>
+      <Header>User Label Examples</Header>
 
       <div style={{paddingBottom: '20px'}}>
         <UserLabel username={profile.username}/>

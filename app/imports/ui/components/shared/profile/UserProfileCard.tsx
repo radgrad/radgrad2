@@ -23,12 +23,8 @@ const UserProfileCard: React.FC<UserProfileCardProps> = ({username, fluid= true}
     if (!fetched) {
       fetchData();
       setFetched(true);
-    } else {
-      console.log('profile data: ', data);
     }
-
   });
-
   return (
     <ProfileCard email={username} name={name} careerGoals={data.careerGoals} interests={data.interests} courses={data.courses} ice={data.ice} image={data.picture} level={data.level} opportunities={data.opportunities} website={data.website} key={username} fluid={fluid}/>
   );
