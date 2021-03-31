@@ -1,5 +1,5 @@
 import React from 'react';
-import {Header} from 'semantic-ui-react';
+import { Header } from 'semantic-ui-react';
 import PageLayout from '../PageLayout';
 
 const headerPaneTitle = 'Verify that you completed your opportunities';

@@ -118,7 +118,7 @@ class FactoidCollection extends BaseCollection {
     return doc?.reviewFactoid;
   };
 
-  public updateReviewFactoid = ({name, description}: ReviewFactoidProps) => {
+  public updateReviewFactoid = ({ name, description }: ReviewFactoidProps) => {
     this.collection.upsert({}, {
       $set: {
         reviewFactoid: { name, description },
@@ -131,7 +131,7 @@ class FactoidCollection extends BaseCollection {
     return doc?.opportunityFactoid;
   };
 
-  public updateOpportunityFactoid = ({name, numberOfStudents, description, picture, ice}: OpportunityFactoidProps) => {
+  public updateOpportunityFactoid = ({ name, numberOfStudents, description, picture, ice }: OpportunityFactoidProps) => {
     this.collection.upsert({}, {
       $set: {
         opportunityFactoid: { name, numberOfStudents, description, picture, ice },

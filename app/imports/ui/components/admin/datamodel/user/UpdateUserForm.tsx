@@ -6,15 +6,17 @@ import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import Swal from 'sweetalert2';
 import { AdminProfiles } from '../../../../../api/user/AdminProfileCollection';
+import { ProfileCourses } from '../../../../../api/user/profile-entries/ProfileCourseCollection';
+import { ProfileOpportunities } from '../../../../../api/user/profile-entries/ProfileOpportunityCollection';
 import { AcademicTerm, BaseProfile, CareerGoal, Course, Interest, Opportunity } from '../../../../../typings/radgrad';
 import { ROLE } from '../../../../../api/role/Role';
 import {
   academicTermIdToName,
   academicTermToName,
-  careerGoalIdToName,
+  careerGoalIdToName, courseIdToName,
   courseToName,
   docToName,
-  interestIdToName,
+  interestIdToName, opportunityIdToName,
 } from '../../../shared/utilities/data-model';
 import { StudentProfiles } from '../../../../../api/user/StudentProfileCollection';
 import { FacultyProfiles } from '../../../../../api/user/FacultyProfileCollection';
@@ -89,6 +91,7 @@ const UpdateUserForm: React.FC<UpdateUserProps> = ({ id, interests, setAdminData
   };
 
   const model = collection.findDoc(id);
+  // console.log('UpdateUserForm', model);
   const userID = model.userID;
   const favInterests = ProfileInterests.find({ userID }).fetch();
   const favInterestIDs = favInterests.map((fav) => fav.interestID);
@@ -99,6 +102,12 @@ const UpdateUserForm: React.FC<UpdateUserProps> = ({ id, interests, setAdminData
   if (model.declaredAcademicTermID) {
     model.declaredAcademicTerm = academicTermIdToName(model.declaredAcademicTermID);
   }
+  const profileCourses = ProfileCourses.find({ studentID: userID }).fetch();
+  const courseIDs = profileCourses.map((p) => p.courseID);
+  model.courses = courseIDs.map(courseIdToName);
+  const profileOpps = ProfileOpportunities.find({ studentID: userID }).fetch();
+  const oppIDs = profileOpps.map((p) => p.opportunityID);
+  model.opportunities = oppIDs.map(opportunityIdToName);
   const interestNames = interests.map(docToName);
   const careerGoalNames = careerGoals.map(docToName);
   const academicTermNames = academicTerms.map(academicTermToName);
@@ -234,8 +243,8 @@ const UpdateUserForm: React.FC<UpdateUserProps> = ({ id, interests, setAdminData
         ) : (
           ''
         )}
-        <SubmitField inputRef={undefined} value="Update" disabled={false} className="" />
-        <Button onClick={handleCancel}>Cancel</Button>
+        <SubmitField inputRef={undefined} value="Update" disabled={false} className="mini basic green" />
+        <Button onClick={handleCancel} basic color="green" size="mini">Cancel</Button>
       </AutoForm>
     </Segment>
   );

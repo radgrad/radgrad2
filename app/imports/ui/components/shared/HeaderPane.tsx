@@ -9,8 +9,8 @@ const invertedSection = {
   paddingLeft: '50px',
   paddingRight: '20px',
 };
-const titleStyle = {color: '#6FBE44', fontSize: '2rem', fontWeight: 700, fontFamily: 'Nunito'};
-const lineStyle = {color: '#eeeeee', fontSize: '1rem', lineHeight:'2.0rem'};
+const titleStyle = { color: '#6FBE44', fontSize: '2rem', fontWeight: 700, fontFamily: 'Nunito' };
+const lineStyle = { color: '#eeeeee', fontSize: '1rem', lineHeight:'2.0rem' };
 
 export interface HeaderPaneProps {
   title: string,
@@ -19,7 +19,7 @@ export interface HeaderPaneProps {
   bodyButton?: React.ReactNode;
 }
 
-const HeaderPane: React.FC<HeaderPaneProps> = ({title = 'Default title', body, image, bodyButton }) => (
+const HeaderPane: React.FC<HeaderPaneProps> = ({ title = 'Default title', body, image, bodyButton }) => (
   <div style={invertedSection}>
     <Grid stackable>
       <Grid.Column verticalAlign='middle' width={3}><Image src={`images/header-panel/${image || 'header-default.png'}`}  size="medium" /></Grid.Column>

@@ -21,7 +21,6 @@ interface UpdateFeedFormProps {
   students: StudentProfile[];
   collection: BaseCollection;
   id: string;
-  formRef: React.RefObject<unknown>;
   handleUpdate: (doc) => any;
   handleCancel: (event) => any;
   itemTitleString: (item) => React.ReactNode;
@@ -36,7 +35,6 @@ const mapDispatchToProps = (dispatch: any): unknown => ({
 
 const UpdateFeedForm: React.FC<UpdateFeedFormProps> = ({
   academicTerms,
-  formRef,
   students,
   opportunities,
   courses,
@@ -176,7 +174,7 @@ const UpdateFeedForm: React.FC<UpdateFeedFormProps> = ({
         Update
         {collection.getType()}:{itemTitleString(model)}
       </Header>
-      <AutoForm ref={formRef} schema={formSchema} model={model} onSubmit={handleUpdate}>
+      <AutoForm schema={formSchema} model={model} onSubmit={handleUpdate}>
         <Form.Group widths="equal">
           <DateField name="timestamp" disabled />
           <TextField name="feedType" disabled />
@@ -276,8 +274,8 @@ const UpdateFeedForm: React.FC<UpdateFeedFormProps> = ({
           <BoolField name="retired" />
         </Form.Group>
         <p />
-        <SubmitField inputRef={undefined} value="Update" disabled={false} className="" />
-        <Button onClick={handleCancel}>Cancel</Button>
+        <SubmitField inputRef={undefined} value="Update" disabled={false} className="mini basic green" />
+        <Button onClick={handleCancel} basic color="green" size="mini">Cancel</Button>
       </AutoForm>
     </Segment>
   );

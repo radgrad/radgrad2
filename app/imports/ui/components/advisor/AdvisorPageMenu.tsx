@@ -24,7 +24,7 @@ const AdvisorPageMenu: React.FC = () => {
 
   const menuItems = [
     { label: 'Home', route: HOME },
-    { label: 'Privacy', route: PRIVACY},
+    { label: 'Privacy', route: PRIVACY },
     { label: 'Forecasts', route: FORECASTS },
     { label: 'Community', route: COMMUNITY },
   ];
@@ -39,8 +39,8 @@ const AdvisorPageMenu: React.FC = () => {
   /* In future, Advisors should be able to manage courses as well. */
   const manageDropdownItems = [
     { label: 'Students', route: MANAGE.STUDENTS },
-    { label: 'Verification', route: MANAGE.VERIFICATIONS},
-    { label: 'Review', route: MANAGE.REVIEWS},
+    { label: 'Verification', route: MANAGE.VERIFICATIONS },
+    { label: 'Review', route: MANAGE.REVIEWS },
     { label: 'Opportunities', route: MANAGE.OPPORTUNITIES },
   ];
 
@@ -48,7 +48,7 @@ const AdvisorPageMenu: React.FC = () => {
   return (
     <div>
       <FirstMenu profile={profile} displayLevelAndIce={false} instanceName={instanceName} />
-      <Menu borderless inverted stackable id="secondMenu" attached="top" style={{paddingLeft: '10px', marginTop: '0px'}}>
+      <Menu borderless inverted stackable id="secondMenu" attached="top" style={{ paddingLeft: '10px', marginTop: '0px' }}>
         {menuItems.map((item) => (
           <Menu.Item id={`advisor-menu-${item.label.toLowerCase()}`} key={item.label} as={NavLink} exact={false} to={buildRouteName(match, `/${item.route}`)}>
             {item.label}

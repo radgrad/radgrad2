@@ -1,6 +1,6 @@
 import _ from 'lodash';
-import {ValidatedMethod} from 'meteor/mdg:validated-method';
-import {CallPromiseMixin} from 'meteor/didericis:callpromise-mixin';
+import { ValidatedMethod } from 'meteor/mdg:validated-method';
+import { CallPromiseMixin } from 'meteor/didericis:callpromise-mixin';
 import { defineMethod } from '../base/BaseCollection.methods';
 import { CareerGoals } from '../career/CareerGoalCollection';
 import { ProfileCareerGoals } from '../user/profile-entries/ProfileCareerGoalCollection';

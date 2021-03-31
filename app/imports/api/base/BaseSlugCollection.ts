@@ -1,4 +1,3 @@
-import { check } from 'meteor/check';
 import _ from 'lodash';
 import { Meteor } from 'meteor/meteor';
 import BaseCollection from './BaseCollection';
@@ -23,26 +22,31 @@ class BaseSlugCollection extends BaseCollection {
    * @returns { String } The docID associated with instance.
    * @throws { Meteor.Error } If instance is not a docID or a slug.
    */
-  public getID(instance) {
-    // console.log(`BaseSlugCollection.getID(${instance})`);
-    let id;
+  public getID(instance: { _id: string; } | string) {
+    // console.log('BaseSlugCollection.getID', instance);
     // If we've been passed a document, check to see if it has an _id field and make instance the value of _id.
     if (_.isObject(instance) && _.has(instance, '_id')) {
-      instance = instance._id; // eslint-disable-line no-param-reassign, dot-notation
+      // console.log('was object', instance._id);
+      return instance._id;
     }
     // If instance is the value of the username field for some document in the collection, then return its ID.
     const usernameBasedDoc = this.collection.findOne({ username: instance });
     if (usernameBasedDoc) {
+      // console.log('username', usernameBasedDoc._id);
       return usernameBasedDoc._id;
     }
     // Otherwise see if we can find instance as a docID or as a slug.
-    try {
-      // console.log(instance, this.collection.findOne({ _id: instance }));
-      id = (this.collection.findOne({ _id: instance })) ? instance : this.findIdBySlug(instance);
-    } catch (err) {
-      throw new Meteor.Error(`Error in ${this.collectionName} getID(): Failed to convert ${instance} to an ID. ${err}`);
+    const idBasedDoc = this.collection.findOne({ _id: instance });
+    if (idBasedDoc) {
+      // console.log('returning', instance);
+      return instance;
     }
-    return id;
+    const slugBasedId = this.findIdBySlug(instance);
+    // console.log(slugBasedId);
+    if (slugBasedId) {
+      return slugBasedId;
+    }
+    throw new Meteor.Error(`Error in ${this.collectionName} getID(): Failed to convert ${instance} to an ID.`);
   }
 
   /**
@@ -53,7 +57,7 @@ class BaseSlugCollection extends BaseCollection {
    * @returns { String[] } The docIDs associated with instances.
    * @throws { Meteor.Error } If any instance is not a docID or a slug.
    */
-  public getIDs(instances) {
+  public getIDs(instances: string[]): string[] {
     let ids;
     try {
       ids = (instances) ? instances.map((instance) => this.getID(instance)) : [];
@@ -72,17 +76,14 @@ class BaseSlugCollection extends BaseCollection {
    * @throws { Meteor.Error} If the instance (and its associated slug) cannot be found.
    */
   public removeIt(instance) {
+    // console.log('BaseSlugCollection.removeIt', instance);
     const docID = this.getID(instance);
-    const doc = super.findDoc(docID);
-    check(doc, Object);
-    // @ts-ignore
+    const doc: { slugID: string } = this.findDoc(docID);
+    // console.log(doc);
     if (Slugs.isDefined(doc.slugID)) {
-      // @ts-ignore
-      const slugDoc = Slugs.findDoc(doc.slugID);
-      check(slugDoc, Object);
-      Slugs.removeIt(slugDoc);
+      Slugs.removeIt(doc.slugID);
     }
-    return super.removeIt(doc);
+    return super.removeIt(docID);
   }
 
   /**
@@ -111,7 +112,7 @@ class BaseSlugCollection extends BaseCollection {
    * @throws { Meteor.Error } If the slug cannot be found, or is not associated with an instance in this collection.
    */
   public findIdBySlug(slug) {
-    // console.log(`findIdBySlug(${slug})`);
+    // console.log(`findIdBySlug(${slug})`, this.type);
     return Slugs.getEntityID(slug, this.type);
   }
 

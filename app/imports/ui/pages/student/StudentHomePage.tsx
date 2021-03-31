@@ -1,17 +1,17 @@
-import {withTracker} from 'meteor/react-meteor-data';
-import {Card} from 'semantic-ui-react';
+import { withTracker } from 'meteor/react-meteor-data';
+import { Card } from 'semantic-ui-react';
 import React from 'react';
-import {CareerGoalsChecklist} from '../../components/checklist/CareerGoalsChecklist';
-import {CoursesChecklist} from '../../components/checklist/CoursesChecklist';
-import {InterestsChecklist} from '../../components/checklist/InterestsChecklist';
-import {LevelChecklist} from '../../components/checklist/LevelChecklist';
-import {OpportunitiesChecklist} from '../../components/checklist/OpportunitiesChecklist';
-import {PrivacyChecklist} from '../../components/checklist/PrivacyChecklist';
-import {ReviewChecklist} from '../../components/checklist/ReviewChecklist';
-import {TermsAndConditionsChecklist} from '../../components/checklist/TermsAndConditionsChecklist';
-import {VerificationChecklist} from '../../components/checklist/VerificationChecklist';
+import { CareerGoalsChecklist } from '../../components/checklist/CareerGoalsChecklist';
+import { CoursesChecklist } from '../../components/checklist/CoursesChecklist';
+import { InterestsChecklist } from '../../components/checklist/InterestsChecklist';
+import { LevelChecklist } from '../../components/checklist/LevelChecklist';
+import { OpportunitiesChecklist } from '../../components/checklist/OpportunitiesChecklist';
+import { PrivacyChecklist } from '../../components/checklist/PrivacyChecklist';
+import { ReviewChecklist } from '../../components/checklist/ReviewChecklist';
+import { TermsAndConditionsChecklist } from '../../components/checklist/TermsAndConditionsChecklist';
+import { VerificationChecklist } from '../../components/checklist/VerificationChecklist';
 import PageLayout from '../PageLayout';
-import {CHECKSTATE} from '../../components/checklist/Checklist';
+import { CHECKSTATE } from '../../components/checklist/Checklist';
 import './style.css';
 
 interface StudentHomePageProps {
@@ -32,20 +32,20 @@ This page contains a personalized set of recommendations to help RadGrad help yo
 `;
 const headerPaneImage = 'header-home.png';
 
-const StudentHomePage: React.FC<StudentHomePageProps> = ({okItems, reviewItems, improveItems}) => (
+const StudentHomePage: React.FC<StudentHomePageProps> = ({ okItems, reviewItems, improveItems }) => (
   <PageLayout id="student-home-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage} disableMargin>
-    <div style={{backgroundColor: '#fae9e9', paddingBottom: '25px'}}>
-      <Card.Group centered style={{marginTop: '0px'}}>
+    <div style={{ backgroundColor: '#fae9e9', paddingBottom: '25px' }}>
+      <Card.Group centered style={{ marginTop: '0px' }}>
         {improveItems}
       </Card.Group>
     </div>
-    <div style={{backgroundColor: '#f9fae9', paddingBottom: '25px'}}>
-      <Card.Group centered style={{marginTop: '0px'}}>
+    <div style={{ backgroundColor: '#f9fae9', paddingBottom: '25px' }}>
+      <Card.Group centered style={{ marginTop: '0px' }}>
         {reviewItems}
       </Card.Group>
     </div>
-    <div style={{backgroundColor: '#e2fbdd', paddingBottom: '25px'}}>
-      <Card.Group centered style={{marginTop: '0px'}}>
+    <div style={{ backgroundColor: '#e2fbdd', paddingBottom: '25px' }}>
+      <Card.Group centered style={{ marginTop: '0px' }}>
         {okItems}
       </Card.Group>
     </div>

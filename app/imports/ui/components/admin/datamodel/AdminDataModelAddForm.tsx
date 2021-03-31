@@ -1,23 +1,39 @@
 import React from 'react';
 import { Header, Segment } from 'semantic-ui-react';
-import { AutoForm } from 'uniforms-semantic';
+import { AutoFields, AutoForm, SubmitField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import BaseCollection from '../../../../api/base/BaseCollection';
+import { defineMethod } from '../../../../api/base/BaseCollection.methods';
+import { defineCallback } from './utilities/add-form';
 
 interface AdminDataModelAddFormProps {
   collection: BaseCollection;
-  formRef: React.RefObject<unknown>;
-  handleAdd: (doc) => any;
 }
 
-const AdminDataModelAddForm: React.FC<AdminDataModelAddFormProps> = ({ collection, formRef, handleAdd }) => (
-  <Segment padded>
-    <Header dividing>
-      Add
-      {collection.getType()}
-    </Header>
-    <AutoForm ref={formRef} onSubmit={handleAdd} schema={new SimpleSchema2Bridge(collection.getDefineSchema())} />
-  </Segment>
-);
+const AdminDataModelAddForm: React.FC<AdminDataModelAddFormProps> = ({ collection }) => {
+
+  let formRef;
+  const handleAdd = (doc) => {
+    // console.log('handleAdd(%o)', doc, formRef);
+    const collectionName = collection.getCollectionName();
+    const definitionData = doc;
+    defineMethod.call({ collectionName, definitionData }, defineCallback(formRef));
+  };
+
+  return (
+    <Segment padded>
+      <Header dividing>
+        Add
+        {collection.getType()}
+      </Header>
+      {/* eslint-disable-next-line no-param-reassign,no-return-assign */}
+      <AutoForm ref={(ref) => formRef = ref} onSubmit={handleAdd} schema={new SimpleSchema2Bridge(collection.getDefineSchema())} >
+        <AutoFields autoField={undefined} element={undefined} fields={undefined} omitFields={undefined} />
+        <p />
+        <SubmitField className="mini basic green" inputRef={undefined} disabled={false} value="Add" />
+      </AutoForm>
+    </Segment>
+  );
+};
 
 export default AdminDataModelAddForm;

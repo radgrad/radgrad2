@@ -6,7 +6,7 @@ interface UploadMessageWidgetProps {
   error: boolean;
 }
 
-const UploadFixtureResultWidget: React.FC<UploadMessageWidgetProps> = ({ error, message }) => {
+const UploadFixtureResult: React.FC<UploadMessageWidgetProps> = ({ error, message }) => {
   if (error) {
     return (
       <Message negative>
@@ -23,4 +23,4 @@ const UploadFixtureResultWidget: React.FC<UploadMessageWidgetProps> = ({ error, 
   );
 };
 
-export default UploadFixtureResultWidget;
+export default UploadFixtureResult;

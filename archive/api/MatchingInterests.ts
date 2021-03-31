@@ -1,7 +1,7 @@
 import _ from 'lodash';
-import { Users } from '../user/UserCollection';
-import { Interests } from './InterestCollection';
-import { Interest } from '../../typings/radgrad';
+import { Users } from '../../app/imports/api/user/UserCollection';
+import { Interests } from '../../app/imports/api/interest/InterestCollection';
+import { Interest } from '../../app/imports/typings/radgrad';
 
 interface HasInterests {
   interestIDs: string[];
