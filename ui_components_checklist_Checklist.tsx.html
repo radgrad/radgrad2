@@ -88,7 +88,7 @@
             <pre class="prettyprint source linenums"><code>import moment from 'moment';
 import React from 'react';
 import Markdown from 'react-markdown/with-html';
-import {Card, Header, Icon, Label, SemanticICONS} from 'semantic-ui-react';
+import { Card, Header, Icon, Label, SemanticICONS } from 'semantic-ui-react';
 
 export const enum CHECKSTATE {
   OK = 'OK',
@@ -202,7 +202,7 @@ export class Checklist {
 
   public getChecklistItem(): JSX.Element {
     return (
-      &lt;Card style={{minWidth: '425px'}} key={this.name}>
+      &lt;Card style={{ minWidth: '425px' }} key={this.name}>
         &lt;Label attached='top' color={this.stateColor[this.state]}>{this.getState()}&lt;/Label>
         &lt;Card.Content>
           &lt;Header as='h3' color={this.stateColor[this.state]}>{this.getIcon()}{this.getName()}&lt;/Header>
