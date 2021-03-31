@@ -1,5 +1,5 @@
 import React from 'react';
-import {Modal, Button} from 'semantic-ui-react';
+import {Modal, Button, SemanticSIZES} from 'semantic-ui-react';
 import {Users} from '../../../../api/user/UserCollection';
 import {ROLE} from '../../../../api/role/Role';
 import ProfileLabel from './ProfileLabel';
@@ -7,9 +7,10 @@ import UserProfileCard from './UserProfileCard';
 
 export interface UserLabelProps {
   username: string;
+  size?: SemanticSIZES;
 }
 
-const UserLabel: React.FC<UserLabelProps> = ({username}) => {
+const UserLabel: React.FC<UserLabelProps> = ({username, size= 'large'}) => {
   const name = Users.getFullName(username);
   const profile = Users.getProfile(username);
   const isStudent = (profile.role === ROLE.STUDENT);
@@ -23,7 +24,7 @@ const UserLabel: React.FC<UserLabelProps> = ({username}) => {
            open={open}
            trigger={
              <Button style={{margin: '2px', padding: '0px'}}>
-               <ProfileLabel name={name} key={name} image={sharePicture && profile.picture} level={shareLevel && profile.level}/>
+               <ProfileLabel name={name} key={name} image={sharePicture && profile.picture} level={shareLevel && profile.level} size={size}/>
              </Button>}
     >
       <Modal.Content>
