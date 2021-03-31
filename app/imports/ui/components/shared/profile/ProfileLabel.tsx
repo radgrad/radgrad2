@@ -1,5 +1,5 @@
 import React from 'react';
-import {Label, SemanticSIZES} from 'semantic-ui-react';
+import { Label, SemanticSIZES } from 'semantic-ui-react';
 import './style.css';
 
 export interface ProfileLabelProps {

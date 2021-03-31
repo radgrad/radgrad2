@@ -1,12 +1,12 @@
 import moment from 'moment';
 import React from 'react';
-import {useParams} from 'react-router-dom';
-import {withTracker} from 'meteor/react-meteor-data';
-import {updateMethod} from '../../../api/base/BaseCollection.methods';
-import {ROLE} from '../../../api/role/Role';
-import {StudentProfiles} from '../../../api/user/StudentProfileCollection';
-import {Users} from '../../../api/user/UserCollection';
-import {StudentProfile, StudentProfileUpdate} from '../../../typings/radgrad';
+import { useParams } from 'react-router-dom';
+import { withTracker } from 'meteor/react-meteor-data';
+import { updateMethod } from '../../../api/base/BaseCollection.methods';
+import { ROLE } from '../../../api/role/Role';
+import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
+import { Users } from '../../../api/user/UserCollection';
+import { StudentProfile, StudentProfileUpdate } from '../../../typings/radgrad';
 import PageLayout from '../PageLayout';
 
 const headerPaneTitle = 'Control what others see about you';
@@ -21,7 +21,7 @@ interface StudentPrivacyPageProps {
   profile: StudentProfile;
 }
 
-const StudentPrivacyPage: React.FC<StudentPrivacyPageProps> = ({profile}) => {
+const StudentPrivacyPage: React.FC<StudentPrivacyPageProps> = ({ profile }) => {
   const message = 'Privacy page';
   return (
     <PageLayout id="student-privacy-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
@@ -34,7 +34,7 @@ const StudentPrivacyPage: React.FC<StudentPrivacyPageProps> = ({profile}) => {
 
 
 export default withTracker(() => {
-  const {username} = useParams();
+  const { username } = useParams();
   const profile = Users.getProfile(username) as StudentProfile;
   if (profile.role === ROLE.STUDENT) {
     const lastVisited = moment().format('YYYY-MM-DD');
@@ -43,7 +43,7 @@ export default withTracker(() => {
       const updateData: StudentProfileUpdate = {};
       updateData.id = profile._id;
       updateData.lastVisitedPrivacy = lastVisited;
-      updateMethod.call({collectionName, updateData}, (error, result) => {
+      updateMethod.call({ collectionName, updateData }, (error, result) => {
         if (error) {
           console.error('Error updating StudentProfile', collectionName, updateData, error);
         }

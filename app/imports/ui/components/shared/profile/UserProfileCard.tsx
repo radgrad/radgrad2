@@ -1,21 +1,21 @@
-import React, {useEffect, useState} from 'react';
-import {getPublicProfileData, PublicProfileData} from '../../../../api/user/StudentProfileCollection.methods';
+import React, { useEffect, useState } from 'react';
+import { getPublicProfileData, PublicProfileData } from '../../../../api/user/StudentProfileCollection.methods';
 import ProfileCard from './ProfileCard';
-import {Users} from '../../../../api/user/UserCollection';
+import { Users } from '../../../../api/user/UserCollection';
 
 export interface UserProfileCardProps {
   username: string;
   fluid?: boolean;
 }
 
-const UserProfileCard: React.FC<UserProfileCardProps> = ({username, fluid= true}) => {
-  const {firstName, lastName} = Users.getProfile(username);
+const UserProfileCard: React.FC<UserProfileCardProps> = ({ username, fluid = true }) => {
+  const { firstName, lastName } = Users.getProfile(username);
   const name = `${firstName} ${lastName}`;
   const [data, setData] = useState<PublicProfileData>({});
   const [fetched, setFetched] = useState(false);
   useEffect(() => {
     function fetchData() {
-      getPublicProfileData.callPromise({username})
+      getPublicProfileData.callPromise({ username })
         .then(result => setData(result))
         .catch(error => { console.error(error); setData({});});
     }

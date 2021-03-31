@@ -1,16 +1,16 @@
-import {ValidatedMethod} from 'meteor/mdg:validated-method';
-import {CallPromiseMixin} from 'meteor/didericis:callpromise-mixin';
-import {Users} from './UserCollection';
-import {CareerGoals} from '../career/CareerGoalCollection';
-import {StudentProfiles} from './StudentProfileCollection';
-import {ProfileCareerGoals} from './profile-entries/ProfileCareerGoalCollection';
-import {ProfileInterests} from './profile-entries/ProfileInterestCollection';
-import {Interests} from '../interest/InterestCollection';
-import {ProfileCourses} from './profile-entries/ProfileCourseCollection';
-import {Courses} from '../course/CourseCollection';
-import {ProfileOpportunities} from './profile-entries/ProfileOpportunityCollection';
-import {Opportunities} from '../opportunity/OpportunityCollection';
-import {ROLE} from '../role/Role';
+import { ValidatedMethod } from 'meteor/mdg:validated-method';
+import { CallPromiseMixin } from 'meteor/didericis:callpromise-mixin';
+import { Users } from './UserCollection';
+import { CareerGoals } from '../career/CareerGoalCollection';
+import { StudentProfiles } from './StudentProfileCollection';
+import { ProfileCareerGoals } from './profile-entries/ProfileCareerGoalCollection';
+import { ProfileInterests } from './profile-entries/ProfileInterestCollection';
+import { Interests } from '../interest/InterestCollection';
+import { ProfileCourses } from './profile-entries/ProfileCourseCollection';
+import { Courses } from '../course/CourseCollection';
+import { ProfileOpportunities } from './profile-entries/ProfileOpportunityCollection';
+import { Opportunities } from '../opportunity/OpportunityCollection';
+import { ROLE } from '../role/Role';
 
 export interface PublicProfileData {
   website?: string,
@@ -52,19 +52,19 @@ export const getPublicProfileData = new ValidatedMethod({
         publicData.ice = StudentProfiles.getEarnedICE(username);
       }
       if (profile.shareCareerGoals || autoShare) {
-        const profileDocs = ProfileCareerGoals.findNonRetired({userID});
+        const profileDocs = ProfileCareerGoals.findNonRetired({ userID });
         publicData.careerGoals = profileDocs.map(doc => CareerGoals.findSlugByID(doc.careerGoalID));
       }
       if (profile.shareInterests || autoShare) {
-        const profileDocs = ProfileInterests.findNonRetired({userID});
+        const profileDocs = ProfileInterests.findNonRetired({ userID });
         publicData.interests = profileDocs.map(doc => Interests.findSlugByID(doc.interestID));
       }
       if (profile.shareCourses) {
-        const profileDocs = ProfileCourses.findNonRetired({studentID: userID});
+        const profileDocs = ProfileCourses.findNonRetired({ studentID: userID });
         publicData.courses = profileDocs.map(doc => Courses.findSlugByID(doc.courseID));
       }
       if (profile.shareOpportunities) {
-        const profileDocs = ProfileOpportunities.findNonRetired({studentID: userID});
+        const profileDocs = ProfileOpportunities.findNonRetired({ studentID: userID });
         publicData.opportunities = profileDocs.map(doc => Opportunities.findSlugByID(doc.opportunityID));
       }
     }

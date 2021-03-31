@@ -1,6 +1,6 @@
 import React from 'react';
-import {Label, SemanticSIZES, Icon, SemanticCOLORS, SemanticICONS} from 'semantic-ui-react';
-import {Link} from 'react-router-dom';
+import { Label, SemanticSIZES, Icon, SemanticCOLORS, SemanticICONS } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 
 export interface EntityLabelPublicProps {
   slug: string,
@@ -19,7 +19,7 @@ interface EntityLabelProps {
   style?: Record<string, unknown>;
 }
 
-export const EntityLabel: React.FC<EntityLabelProps> = ({slug, inProfile, icon, size = 'large' as SemanticSIZES, route, name, style = {}}) => {
+export const EntityLabel: React.FC<EntityLabelProps> = ({ slug, inProfile, icon, size = 'large' as SemanticSIZES, route, name, style = {} }) => {
   const color = inProfile ? 'green' : 'grey' as SemanticCOLORS;
   // eslint-disable-next-line no-param-reassign
   style.margin = '2px';
