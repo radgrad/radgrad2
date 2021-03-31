@@ -36,10 +36,13 @@ const InterestBrowserViewPage: React.FC<InterestBrowserViewPageProps> = ({ profi
 
 export default withTracker(() => {
   const { username } = useParams();
-  const profile = Users.getProfile(username);
+  let profile: any;
+  if (Users.hasProfile(username)) {
+    profile = Users.getProfile(username);
+  }
   const collectionName = StudentProfiles.getCollectionName();
   const lastVisited = moment().format('YYYY-MM-DD');
-  if (lastVisited !== profile.lastVisitedInterests) {
+  if (Users.hasProfile(username) && lastVisited !== profile.lastVisitedInterests) {
     updateLastVisitedMethod.call(
       {
         collectionName: collectionName,
@@ -50,11 +53,10 @@ export default withTracker(() => {
   }
   const allInterests = Users.getInterestIDs(profile.userID);
   const profileInterests = allInterests.map((id) => Interests.findDoc(id));
-  const interests = Interests.findNonRetired({}); // TODO should we filter out the ones in the profile?
+  const interests = Interests.findNonRetired({});
   const nonProfileInterests = _.filter(interests, md => profileInterests.every(fd => fd._id !== md._id));
   return {
     profileInterests,
-    interests,
     nonProfileInterests,
   };
 })(InterestBrowserViewPage);
