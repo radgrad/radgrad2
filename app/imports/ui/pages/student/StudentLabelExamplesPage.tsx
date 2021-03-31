@@ -46,9 +46,9 @@ const StudentPrivacyPage: React.FC<StudentPrivacyPageProps> = ({ profile }) => {
 
       <div style={{ paddingBottom: '20px' }}>
         <UserLabel username={profile.username}/>
-        <UserLabel username='betty@hawaii.edu'/>
-        <UserLabel username='johnson@hawaii.edu'/>
-        <UserLabel username='glau@hawaii.edu'/>
+        <UserLabel username='betty@hawaii.edu' size='small'/>
+        <UserLabel username='charley@hawaii.edu' size='tiny'/>
+        <UserLabel username='glau@hawaii.edu' size='tiny'/>
       </div>
 
       <div style={{ paddingBottom: '20px' }}>
