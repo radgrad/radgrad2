@@ -176,20 +176,15 @@ class ProfileInterestCollection extends BaseCollection {
   publish() {
     if (Meteor.isServer) {
       const collection = this.collection;
-      Meteor.publish(this.collectionName, function filterStudentID(studentID) { // eslint-disable-line meteor/audit-argument-checks
-        if (_.isNil(studentID)) {
+      Meteor.publish(this.collectionName, function filterStudentID(userID) { // eslint-disable-line meteor/audit-argument-checks
+        if (_.isNil(userID)) {
           return this.ready();
         }
-        const profile = Users.getProfile(studentID);
+        const profile = Users.getProfile(userID);
         if (_.includes([ROLE.ADMIN, ROLE.ADVISOR], profile.role)) {
           return collection.find();
         }
-        return collection.find({
-          $or: [
-            { userID: studentID },
-            { share: true },
-          ],
-        });
+        return collection.find({ userID });
       });
       Meteor.publish(this.publicationNames.forecast, function publishInterestForecast() {
         ReactiveAggregate(this, collection, [
