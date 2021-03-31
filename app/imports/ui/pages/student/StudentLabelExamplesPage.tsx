@@ -31,7 +31,7 @@ interface StudentPrivacyPageProps {
 
 const StudentPrivacyPage: React.FC<StudentPrivacyPageProps> = ({ profile }) => {
   const name = 'Philip Johnson';
-  const email = 'johnson@hawaii.edu';
+  const email = 'johnson@hawaii.edu'; 
   const image = 'https://philipmjohnson.github.io/images/philip2.jpeg';
   const website = 'https://philipmjohnson.org';
   const interests = ['algorithms', 'android', 'angular'];
