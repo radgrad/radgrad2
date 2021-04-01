@@ -71,3 +71,17 @@ export const getPublicProfileData = new ValidatedMethod({
     return publicData;
   },
 });
+
+export const setProfileField = new ValidatedMethod({
+  name: 'ProfileCollection.setProfileField',
+  mixins: [CallPromiseMixin],
+  validate: null,
+  run({ username, field }) {
+    if (Meteor.isServer) {
+      const profile = Users.getProfile(username);
+      const userID = Users.getID(username);
+    }
+    return publicData;
+  },
+});
+
