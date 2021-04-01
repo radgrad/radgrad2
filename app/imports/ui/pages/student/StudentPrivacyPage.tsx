@@ -2,6 +2,7 @@ import moment from 'moment';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
+import { Grid, Header, Icon, Segment } from 'semantic-ui-react';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { ROLE } from '../../../api/role/Role';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
@@ -22,11 +23,21 @@ interface StudentPrivacyPageProps {
 }
 
 const StudentPrivacyPage: React.FC<StudentPrivacyPageProps> = ({ profile }) => {
-  const message = 'Privacy page';
   return (
     <PageLayout id="student-privacy-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
 
-      {message}
+      <Grid stackable>
+          <Grid.Column width={4}>
+            <Segment>
+              <Header dividing>SETTINGS</Header>
+            </Segment>
+          </Grid.Column>
+          <Grid.Column width={12}>
+            <Segment>
+              <Header dividing>DISPLAY</Header>
+            </Segment>
+          </Grid.Column>
+      </Grid>
 
     </PageLayout>
   );
