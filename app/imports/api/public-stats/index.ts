@@ -1,2 +1,2 @@
 import './PublicStatsCollection';
-import './StudentParticipationCollection';
+import './FactoidCollection';

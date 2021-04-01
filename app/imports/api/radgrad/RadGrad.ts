@@ -3,7 +3,6 @@ import { AcademicYearInstances } from '../degree-plan/AcademicYearInstanceCollec
 import { AdminProfiles } from '../user/AdminProfileCollection';
 import { AdvisorProfiles } from '../user/AdvisorProfileCollection';
 import { CareerGoals } from '../career/CareerGoalCollection';
-import { StudentParticipations } from '../public-stats/StudentParticipationCollection';
 import { Courses } from '../course/CourseCollection';
 import { CourseInstances } from '../course/CourseInstanceCollection';
 import { FacultyProfiles } from '../user/FacultyProfileCollection';
@@ -49,7 +48,6 @@ class RadGradClass {
       AdminProfiles,
       AdvisorProfiles,
       CareerGoals,
-      StudentParticipations,
       Courses,
       CourseInstances,
       FacultyProfiles,

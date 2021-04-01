@@ -9,7 +9,6 @@ import { RadGradProperties } from '../../api/radgrad/RadGradProperties';
 import { loadCollection } from '../../api/test/test-utilities';
 import { removeAllEntities } from '../../api/base/BaseUtilities';
 import { checkIntegrity } from '../../api/integrity/IntegrityChecker';
-import { StudentParticipations } from '../../api/public-stats/StudentParticipationCollection';
 import { AdminProfiles } from '../../api/user/AdminProfileCollection';
 import { updateFactoids } from './factoids';
 
@@ -111,19 +110,6 @@ const startupPublicStats = () => {
   });
 };
 
-const startupStudentParticipation = () => { // eslint-disable-line @typescript-eslint/no-unused-vars
-  StudentParticipations.upsertEnrollmentData();
-  SyncedCron.add({
-    name: 'Run StudentParticipations.upsertEnrollmentData',
-    schedule(parser) {
-      return parser.text('every 24 hours');
-    },
-    job() {
-      StudentParticipations.upsertEnrollmentData();
-    },
-  });
-};
-
 /**
  * Check the integrity of the newly loaded collections; print out problems if any occur.
  * @memberOf startup/server
@@ -174,8 +160,6 @@ Meteor.startup(() => {
     // startupCheckIntegrity();
     console.log('Startup: Starting up public stats.');
     startupPublicStats();
-    console.log('Startup: Starting up student participation.');
-    startupStudentParticipation();
     console.log('Startup: Updating factoids.');
     updateFactoids();
     SyncedCron.start();
