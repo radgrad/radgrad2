@@ -16,9 +16,9 @@ import PageLayout from '../PageLayout';
 
 const headerPaneTitle = 'Control what others see about you';
 const headerPaneBody = `
-This page allows you to control what aspects of your profile are visible to other RadGrad community members.
+This page allows you to control what aspects of your Label and Profile are visible to other RadGrad community members.
 
-Providing access to information about your profile allows RadGrad to help you find similarly minded community members. You can opt-in or opt-out at any time.
+Providing access allows RadGrad to help you find similarly minded community members. You can change your settings at any time.
 `;
 const headerPaneImage = 'header-privacy.png';
 
@@ -36,13 +36,6 @@ interface CheckboxState {
   shareLevel: boolean;
   shareICE: boolean;
 }
-
-// TODO:
-// updatePublicProfile method will set a share field and return the new object.
-// We need to:
-// Like the UserProfileCard, get the data upon entry and display the card.
-// We also need a stateful data object that holds the checklist button state. It's initialized upon entry from the profile.
-// Use the new Meteor method to update that profile data object and the checklist data object when the user toggles a button.
 
 const StudentPrivacyPage: React.FC<StudentPrivacyPageProps> = ({ profile }) => {
   // data will hold the public profile data for display in the <ProfileCard> when rendered.
@@ -82,7 +75,7 @@ const StudentPrivacyPage: React.FC<StudentPrivacyPageProps> = ({ profile }) => {
           <Grid.Column width={4}>
             <Segment>
               <Header dividing><Icon name="eye"/> VISIBILITY</Header>
-              <p>Control what data appears in your UserLabel and UserProfile:</p>
+              <p>Control what data appears in your Label and Profile:</p>
               <Form>
                 <Form.Checkbox inline name="sharePicture" label="Picture" checked={checkboxState.sharePicture} onChange={handleCheckboxChange}/>
                 <Form.Checkbox inline name="shareWebsite" label="Website" checked={checkboxState.shareWebsite} onChange={handleCheckboxChange}/>
@@ -97,13 +90,13 @@ const StudentPrivacyPage: React.FC<StudentPrivacyPageProps> = ({ profile }) => {
           </Grid.Column>
           <Grid.Column width={12}>
             <Segment>
-              <Header dividing><Icon name="user"/> YOUR LABEL</Header>
-              <p>This is your UserLabel which appears in pages matching your interests or other profile characteristics: </p>
+              <Header dividing><Icon name="user"/>YOUR LABEL</Header>
+              <p>Your Label appears in pages matching your public data: </p>
               <UserLabel username={profile.username} />
             </Segment>
             <Segment>
-              <Header dividing><Icon name="user"/> YOUR PROFILE</Header>
-              <p style={{paddingTop: '20px'}}>This is your UserProfile which pops up when a user clicks on your UserLabel: </p>
+              <Header dividing><Icon name="user"/>YOUR PROFILE</Header>
+              <p>Your Profile pops up when a user clicks on your Label: </p>
               <ProfileCard email={profile.username} name={name} careerGoals={data.careerGoals} interests={data.interests} courses={data.courses} ice={data.ice} image={data.picture} level={data.level} opportunities={data.opportunities} website={data.website} key={profile.username} fluid/>
             </Segment>
           </Grid.Column>
