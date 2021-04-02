@@ -95,7 +95,6 @@ export const updatePublicProfileData = new ValidatedMethod({
   run({ username, fieldName, fieldValue }) {
     if (Meteor.isServer) {
       const profile = Users.getProfile(username);
-      const userID = Users.getID(username);
       let profileCollection;
       if (profile.role === ROLE.STUDENT) {
         profileCollection = StudentProfiles;
@@ -108,7 +107,7 @@ export const updatePublicProfileData = new ValidatedMethod({
       }
       const updateObject = {};
       updateObject[fieldName] = fieldValue;
-      profileCollection.update(userID, updateObject);
+      profileCollection.update(profile._id, updateObject);
     }
     // Now that we've updated the profile collection's share field, generate the new set of public data and return.
     return generatePublicProfileDataObject(username);

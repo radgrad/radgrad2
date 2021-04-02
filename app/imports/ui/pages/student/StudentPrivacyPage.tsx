@@ -97,9 +97,12 @@ const StudentPrivacyPage: React.FC<StudentPrivacyPageProps> = ({ profile }) => {
           </Grid.Column>
           <Grid.Column width={12}>
             <Segment>
-              <Header dividing><Icon name="user"/> PUBLIC PROFILE</Header>
+              <Header dividing><Icon name="user"/> YOUR LABEL</Header>
               <p>This is your UserLabel which appears in pages matching your interests or other profile characteristics: </p>
               <UserLabel username={profile.username} />
+            </Segment>
+            <Segment>
+              <Header dividing><Icon name="user"/> YOUR PROFILE</Header>
               <p style={{paddingTop: '20px'}}>This is your UserProfile which pops up when a user clicks on your UserLabel: </p>
               <ProfileCard email={profile.username} name={name} careerGoals={data.careerGoals} interests={data.interests} courses={data.courses} ice={data.ice} image={data.picture} level={data.level} opportunities={data.opportunities} website={data.website} key={profile.username} fluid/>
             </Segment>
