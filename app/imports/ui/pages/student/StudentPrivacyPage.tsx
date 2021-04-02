@@ -7,7 +7,7 @@ import { Grid, Header, Icon, Segment, Form } from 'semantic-ui-react';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { ROLE } from '../../../api/role/Role';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
-import { getPublicProfileData, PublicProfileData } from '../../../api/user/StudentProfileCollection.methods';
+import { getPublicProfileData, PublicProfileData, updatePublicProfileData } from '../../../api/user/StudentProfileCollection.methods';
 import { Users } from '../../../api/user/UserCollection';
 import { StudentProfile, StudentProfileUpdate } from '../../../typings/radgrad';
 import ProfileCard from '../../components/shared/profile/ProfileCard';
@@ -70,6 +70,9 @@ const StudentPrivacyPage: React.FC<StudentPrivacyPageProps> = ({ profile }) => {
     const updatedCheckboxState = _.create({}, checkboxState);
     updatedCheckboxState[eventData.name] = eventData.checked;
     setCheckboxState(updatedCheckboxState);
+    updatePublicProfileData.callPromise({username: profile.username, fieldName: eventData.name, fieldValue: eventData.checked})
+      .then(result => setData(result))
+      .catch(error => { console.error(error); });
   };
 
   return (
