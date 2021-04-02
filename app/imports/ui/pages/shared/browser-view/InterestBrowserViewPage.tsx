@@ -6,11 +6,11 @@ import _ from 'lodash';
 import { Interests } from '../../../../api/interest/InterestCollection';
 import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
 import { Users } from '../../../../api/user/UserCollection';
-import { Interest } from '../../../../typings/radgrad';
+import { Interest, StudentProfile } from '../../../../typings/radgrad';
 import InterestBrowserView from '../../../components/shared/explorer/browser-view/InterestBrowserView';
 import PageLayout from '../../PageLayout';
-import {updateLastVisitedMethod} from '../../../../api/user/BaseProfileCollection.methods';
-import {EXPLORER_TYPE} from '../../../layouts/utilities/route-constants';
+import { updateLastVisitedMethod } from '../../../../api/user/BaseProfileCollection.methods';
+import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 
 interface InterestBrowserViewPageProps {
   profileInterests: Interest[];
@@ -28,30 +28,32 @@ If we've missed a disciplinary area of interest to you, please click the button 
 const headerPaneImage = 'header-interests.png';
 
 const InterestBrowserViewPage: React.FC<InterestBrowserViewPageProps> = ({ profileInterests, nonProfileInterests }) => (
-  <PageLayout id="interest-browser-view-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
+  <PageLayout id="interest-browser-view-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}
+              headerPaneImage={headerPaneImage}>
     <InterestBrowserView interests={profileInterests} inProfile />
-    <InterestBrowserView interests={nonProfileInterests} />
+    <InterestBrowserView interests={nonProfileInterests} inProfile={false} />
   </PageLayout>
 );
 
 export default withTracker(() => {
   const { username } = useParams();
-  let profile: any;
+  let profile: StudentProfile;
+  let allInterests = [];
   if (Users.hasProfile(username)) {
     profile = Users.getProfile(username);
+    const collectionName = StudentProfiles.getCollectionName();
+    const lastVisited = moment().format('YYYY-MM-DD');
+    if (Users.hasProfile(username) && lastVisited !== profile.lastVisitedInterests) {
+      updateLastVisitedMethod.call(
+        {
+          collectionName: collectionName,
+          lastVisitedTime: lastVisited,
+          type: EXPLORER_TYPE.INTERESTS,
+        },
+      );
+    }
+    allInterests = Users.getInterestIDs(profile.userID);
   }
-  const collectionName = StudentProfiles.getCollectionName();
-  const lastVisited = moment().format('YYYY-MM-DD');
-  if (Users.hasProfile(username) && lastVisited !== profile.lastVisitedInterests) {
-    updateLastVisitedMethod.call(
-      {
-        collectionName: collectionName,
-        lastVisitedTime: lastVisited,
-        type: EXPLORER_TYPE.INTERESTS,
-      },
-    );
-  }
-  const allInterests = Users.getInterestIDs(profile.userID);
   const profileInterests = allInterests.map((id) => Interests.findDoc(id));
   const interests = Interests.findNonRetired({});
   const nonProfileInterests = _.filter(interests, md => profileInterests.every(fd => fd._id !== md._id));
@@ -59,4 +61,5 @@ export default withTracker(() => {
     profileInterests,
     nonProfileInterests,
   };
-})(InterestBrowserViewPage);
+},
+)(InterestBrowserViewPage);
