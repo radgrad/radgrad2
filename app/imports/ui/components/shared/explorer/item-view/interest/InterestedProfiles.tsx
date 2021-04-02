@@ -5,7 +5,6 @@ import { Users } from '../../../../../../api/user/UserCollection';
 import { Interest } from '../../../../../../typings/radgrad';
 import UserLabel from '../../../profile/UserLabel';
 import WidgetHeaderNumber from '../../WidgetHeaderNumber';
-import { studentsParticipating } from '../../../utilities/data-model';
 import { getUserIDsWithProfileInterestMethod } from '../../../../../../api/user/profile-entries/ProfileInterestCollection.methods';
 
 interface InterestedProfileWidgetProps {
@@ -34,7 +33,7 @@ const InterestedProfiles: React.FC<InterestedProfileWidgetProps> = ({ interest }
     }
   });
 
-  const numberStudents = studentsParticipating(interest);
+  const numberStudents = students.length;
   return (
     <Segment>
       <Header as="h5" textAlign="center">

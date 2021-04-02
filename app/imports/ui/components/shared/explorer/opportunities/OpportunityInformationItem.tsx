@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Image, Divider, Grid, Header, Icon } from 'semantic-ui-react';
 import { useRouteMatch, Link } from 'react-router-dom';
 import Markdown from 'react-markdown';
+import { ROLE } from '../../../../../api/role/Role';
+import { Users } from '../../../../../api/user/UserCollection';
 import { Opportunity, Slug } from '../../../../../typings/radgrad';
 import { docToShortDescription } from '../../utilities/data-model';
 import IceHeader from '../../IceHeader';
@@ -12,7 +14,7 @@ import { AcademicTerms } from '../../../../../api/academic-term/AcademicTermColl
 import { replaceTermString } from '../../utilities/general';
 import { Slugs } from '../../../../../api/slug/SlugCollection';
 import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
-import { StudentParticipations } from '../../../../../api/public-stats/StudentParticipationCollection';
+import { getUserIDsWithProfileOpportunityMethod } from '../../../../../api/user/profile-entries/ProfileOpportunityCollection.methods';
 
 // Certain parts of pages don't show other information such students participating, logo, opportunity, type, and academic terms
 export interface OpportunityInformationItemConfiguration {
@@ -37,18 +39,27 @@ const getOpportunityAcademicTerms = (opportunity: Opportunity): string[] => {
   return termIDs.map((termID) => AcademicTerms.toString(termID));
 };
 
-const getNumberOfStudentsParticipating = (opportunity: Opportunity): number => {
-  const participatingStudents = StudentParticipations.findDoc({ itemID: opportunity._id });
-  return participatingStudents.itemCount;
-};
 
-const OpportunityInformationItem: React.FC<OpportunityItemWidgetProps> = ({ informationConfiguration, opportunity }) => {
+const OpportunityInformationItem: React.FC<OpportunityItemWidgetProps> = ({
+  informationConfiguration,
+  opportunity,
+}) => {
   const match = useRouteMatch();
+  const [students, setStudents] = useState([]);
+
   const interestListStyle: React.CSSProperties = {
     marginTop: '5px',
   };
 
-  const numberOfStudentsParticipating = getNumberOfStudentsParticipating(opportunity);
+  const opportunityID = opportunity._id;
+  const role = ROLE.STUDENT;
+  getUserIDsWithProfileOpportunityMethod.call({ opportunityID, role }, (error, res) => {
+    if (res && students.length !== res.length) {
+      setStudents(res.map((id) => Users.getProfile(id)));
+    }
+  });
+
+  const numberOfStudentsParticipating = students.length;
   const opportunityICE = opportunity.ice;
   const opportunityType = getOpportunityType(opportunity);
   const opportunityShortDescription = docToShortDescription(opportunity);
@@ -73,7 +84,8 @@ const OpportunityInformationItem: React.FC<OpportunityItemWidgetProps> = ({ info
           {/* Header (Name and ICE Points) */}
           <Grid.Row columns={2}>
             <Header as="h3">
-              <Link to={buildExplorerSlugRoute(match, EXPLORER_TYPE.OPPORTUNITIES, opportunitySlug)}>{opportunity.name.toUpperCase()}</Link>
+              <Link
+                to={buildExplorerSlugRoute(match, EXPLORER_TYPE.OPPORTUNITIES, opportunitySlug)}>{opportunity.name.toUpperCase()}</Link>
               <IceHeader ice={opportunityICE} />
             </Header>
           </Grid.Row>
@@ -94,13 +106,15 @@ const OpportunityInformationItem: React.FC<OpportunityItemWidgetProps> = ({ info
 
           {/* Description */}
           <Grid.Row>
-            <Markdown escapeHtml source={`${opportunityShortDescription}...`} renderers={{ link: (p) => renderLink(p, match) }} />
+            <Markdown escapeHtml source={`${opportunityShortDescription}...`}
+                      renderers={{ link: (p) => renderLink(p, match) }} />
           </Grid.Row>
 
           {/* Misc (Related Interest Labels and Students Participating) */}
           <Grid.Row>
             <Grid>
-              <Grid.Column width={informationConfiguration.showStudentsParticipating ? 11 : undefined} style={interestListStyle}>
+              <Grid.Column width={informationConfiguration.showStudentsParticipating ? 11 : undefined}
+                           style={interestListStyle}>
                 <InterestList size="mini" item={opportunity} />
               </Grid.Column>
               {informationConfiguration.showStudentsParticipating ? (

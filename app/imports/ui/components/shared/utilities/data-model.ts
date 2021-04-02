@@ -12,7 +12,6 @@ import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
 import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
 import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
 import { defaultProfilePicture } from '../../../../api/user/BaseProfileCollection';
-import { StudentParticipations } from '../../../../api/public-stats/StudentParticipationCollection';
 import { ProfileCareerGoals } from '../../../../api/user/profile-entries/ProfileCareerGoalCollection';
 import { ProfileInterests } from '../../../../api/user/profile-entries/ProfileInterestCollection';
 import { AcademicTerm, Opportunity } from '../../../../typings/radgrad';
@@ -246,11 +245,6 @@ export const profileNameToUsername = (name) => name.substring(name.indexOf('(') 
 export const slugIDToSlugNameAndType = (slugID) => `${Slugs.findDoc(slugID).name} (${Slugs.findDoc(slugID).entityName})`;
 
 export const slugNameAndTypeToName = (slugAndType) => slugAndType.split(' ')[0];
-
-export const studentsParticipating = (item) => {
-  const participatingUsers = StudentParticipations.findDoc({ itemID: item._id });
-  return participatingUsers.itemCount;
-};
 
 export const userIdToName = (userID) => {
   const profile = Users.getProfile(userID);
