@@ -1,11 +1,12 @@
 import moment from 'moment';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Grid, Header, Icon, Segment, Form, Button } from 'semantic-ui-react';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { ROLE } from '../../../api/role/Role';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
+import { getPublicProfileData, PublicProfileData } from '../../../api/user/StudentProfileCollection.methods';
 import { Users } from '../../../api/user/UserCollection';
 import { StudentProfile, StudentProfileUpdate } from '../../../typings/radgrad';
 import ProfileCard from '../../components/shared/profile/ProfileCard';
@@ -24,6 +25,17 @@ interface StudentPrivacyPageProps {
   profile: StudentProfile;
 }
 
+interface CheckboxState {
+  picture: boolean;
+  website: boolean;
+  interests: boolean;
+  careerGoals: boolean;
+  opportunities: boolean;
+  courses: boolean;
+  level: boolean;
+  ICE: boolean;
+}
+
 // TODO:
 // updatePublicProfile method will set a share field and return the new object.
 // We need to:
@@ -32,7 +44,24 @@ interface StudentPrivacyPageProps {
 // Use the new Meteor method to update that profile data object and the checklist data object when the user toggles a button.
 
 const StudentPrivacyPage: React.FC<StudentPrivacyPageProps> = ({ profile }) => {
-  const [profileState, setProfileState] = useState<StudentProfile>(profile);
+  // data will hold the public profile data for display in the <ProfileCard> when rendered.
+  const [data, setData] = useState<PublicProfileData>({});
+  // fetched is used to ensure that we only initialize the public profile data once.
+  const [fetched, setFetched] = useState(false);
+  // this useEffect is used to get the public profile data once when the page is first rendered.
+  useEffect(() => {
+    function fetchData() {
+      getPublicProfileData.callPromise({ username: profile.username })
+        .then(result => setData(result))
+        .catch(error => { console.error(error); setData({});});
+    }
+    // Only fetch data if it hasn't been fetched before.
+    if (!fetched) {
+      fetchData();
+      setFetched(true);
+    }
+  });
+  const [checkboxState, setCheckboxState] = useState<CheckboxState>({picture: profile.sharePicture, careerGoals: profile.shareCareerGoals, courses: profile.shareCourses, ICE: profile.shareICE, interests: profile.shareInterests, level: profile.shareLevel, opportunities: profile.shareOpportunities, website: profile.shareWebsite });
   const name = `${profile.firstName} ${profile.lastName}`;
   return (
     <PageLayout id="student-privacy-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
@@ -42,14 +71,14 @@ const StudentPrivacyPage: React.FC<StudentPrivacyPageProps> = ({ profile }) => {
             <Segment>
               <Header dividing><Icon name="eye"/> VISIBILITY</Header>
               <Form>
-                <Form.Checkbox inline label="Picture" checked={profileState.sharePicture}/>
-                <Form.Checkbox inline label="Website" checked={profileState.shareWebsite}/>
-                <Form.Checkbox inline label="Interests" checked={profileState.shareInterests}/>
-                <Form.Checkbox inline label="Career Goals" checked={profileState.shareCareerGoals}/>
-                <Form.Checkbox inline label="Opportunities" checked={profileState.shareOpportunities}/>
-                <Form.Checkbox inline label="Courses" checked={profileState.shareCourses}/>
-                <Form.Checkbox inline label="Level" checked={profileState.shareLevel}/>
-                <Form.Checkbox inline label="ICE" checked={profileState.shareICE}/>
+                <Form.Checkbox inline label="Picture" checked={checkboxState.picture}/>
+                <Form.Checkbox inline label="Website" checked={checkboxState.website}/>
+                <Form.Checkbox inline label="Interests" checked={checkboxState.interests}/>
+                <Form.Checkbox inline label="Career Goals" checked={checkboxState.careerGoals}/>
+                <Form.Checkbox inline label="Opportunities" checked={checkboxState.opportunities}/>
+                <Form.Checkbox inline label="Courses" checked={checkboxState.courses}/>
+                <Form.Checkbox inline label="Level" checked={checkboxState.level}/>
+                <Form.Checkbox inline label="ICE" checked={checkboxState.ICE}/>
                 <Button type='submit'>Save</Button>
               </Form>
             </Segment>
@@ -57,8 +86,10 @@ const StudentPrivacyPage: React.FC<StudentPrivacyPageProps> = ({ profile }) => {
           <Grid.Column width={12}>
             <Segment>
               <Header dividing><Icon name="user"/> PUBLIC PROFILE</Header>
+              <p>This is your UserLabel which appears in pages matching your interests or other profile characteristics: </p>
               <UserLabel username={profile.username} />
-              <ProfileCard email={profileState.username} name={name} careerGoals={profileState.careerGoals} interests={profileState.interests} courses={data.courses} ice={data.ice} image={data.picture} level={data.level} opportunities={data.opportunities} website={data.website} key={username} fluid={fluid}/>
+              <p style={{paddingTop: '20px'}}>This is your UserProfile which pops up when a user clicks on your UserLabel: </p>
+              <ProfileCard email={profile.username} name={name} careerGoals={data.careerGoals} interests={data.interests} courses={data.courses} ice={data.ice} image={data.picture} level={data.level} opportunities={data.opportunities} website={data.website} key={profile.username} fluid/>
             </Segment>
           </Grid.Column>
       </Grid>
