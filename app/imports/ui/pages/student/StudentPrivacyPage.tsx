@@ -24,6 +24,13 @@ interface StudentPrivacyPageProps {
   profile: StudentProfile;
 }
 
+// TODO:
+// updatePublicProfile method will set a share field and return the new object.
+// We need to:
+// Like the UserProfileCard, get the data upon entry and display the card.
+// We also need a stateful data object that holds the checklist button state. It's initialized upon entry from the profile.
+// Use the new Meteor method to update that profile data object and the checklist data object when the user toggles a button.
+
 const StudentPrivacyPage: React.FC<StudentPrivacyPageProps> = ({ profile }) => {
   const [profileState, setProfileState] = useState<StudentProfile>(profile);
   const name = `${profile.firstName} ${profile.lastName}`;
