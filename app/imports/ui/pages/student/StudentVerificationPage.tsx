@@ -1,5 +1,13 @@
 import React from 'react';
 import { Header } from 'semantic-ui-react';
+import { useParams } from 'react-router-dom';
+import { withTracker } from 'meteor/react-meteor-data';
+import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
+import { Users } from '../../../api/user/UserCollection';
+import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
+import { OpportunityInstance, VerificationRequest } from '../../../typings/radgrad';
+import StudentUnverifiedOpportunities from '../../components/student/StudentUnverifiedOpportunities';
+import { getUnverifiedInstances } from '../../components/utilities/verification-requests';
 import PageLayout from '../PageLayout';
 
 const headerPaneTitle = 'Verify that you completed your opportunities';
@@ -12,10 +20,28 @@ If you didn't do it, then please go to the Degree Plan page and delete it.
 `;
 const headerPaneImage = 'header-verification.png';
 
-const StudentVerificationPage: React.FC = () => (
+interface StudentVerificationPageProps {
+  unVerifiedOpportunityInstances: OpportunityInstance[];
+  verificationRequests: VerificationRequest[];
+  student: string;
+}
+
+const StudentVerificationPage: React.FC<StudentVerificationPageProps> = ({ unVerifiedOpportunityInstances, student, verificationRequests }) => (
   <PageLayout id="student-verification-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
-    <Header>Student Verification Page Placeholder</Header>
+    <StudentUnverifiedOpportunities unVerifiedOpportunityInstances={unVerifiedOpportunityInstances} verificationRequests={verificationRequests} student={student} />
   </PageLayout>
 );
 
-export default StudentVerificationPage;
+export default withTracker(() => {
+  const { username } = useParams();
+  const profile = Users.getProfile(username);
+  const studentID = profile.userID;
+  const unVerifiedOpportunityInstances = getUnverifiedInstances(studentID);
+  const verificationRequests = VerificationRequests.findNonRetired({ studentID });
+  return {
+    unVerifiedOpportunityInstances,
+    verificationRequests,
+    student: username,
+  };
+
+})(StudentVerificationPage);
