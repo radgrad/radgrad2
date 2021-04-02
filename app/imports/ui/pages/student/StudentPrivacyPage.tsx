@@ -1,8 +1,9 @@
 import moment from 'moment';
+import _ from 'lodash';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Grid, Header, Icon, Segment, Form, Button } from 'semantic-ui-react';
+import { Grid, Header, Icon, Segment, Form } from 'semantic-ui-react';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { ROLE } from '../../../api/role/Role';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
@@ -26,14 +27,14 @@ interface StudentPrivacyPageProps {
 }
 
 interface CheckboxState {
-  picture: boolean;
-  website: boolean;
-  interests: boolean;
-  careerGoals: boolean;
-  opportunities: boolean;
-  courses: boolean;
-  level: boolean;
-  ICE: boolean;
+  sharePicture: boolean;
+  shareWebsite: boolean;
+  shareInterests: boolean;
+  shareCareerGoals: boolean;
+  shareOpportunities: boolean;
+  shareCourses: boolean;
+  shareLevel: boolean;
+  shareICE: boolean;
 }
 
 // TODO:
@@ -61,8 +62,16 @@ const StudentPrivacyPage: React.FC<StudentPrivacyPageProps> = ({ profile }) => {
       setFetched(true);
     }
   });
-  const [checkboxState, setCheckboxState] = useState<CheckboxState>({picture: profile.sharePicture, careerGoals: profile.shareCareerGoals, courses: profile.shareCourses, ICE: profile.shareICE, interests: profile.shareInterests, level: profile.shareLevel, opportunities: profile.shareOpportunities, website: profile.shareWebsite });
+  const [checkboxState, setCheckboxState] = useState<CheckboxState>({sharePicture: profile.sharePicture, shareCareerGoals: profile.shareCareerGoals, shareCourses: profile.shareCourses, shareICE: profile.shareICE, shareInterests: profile.shareInterests, shareLevel: profile.shareLevel, shareOpportunities: profile.shareOpportunities, shareWebsite: profile.shareWebsite });
   const name = `${profile.firstName} ${profile.lastName}`;
+
+  /* Update the checkboxState object whenever the user clicks a check box. */
+  const handleCheckboxChange = (event, eventData) => {
+    const updatedCheckboxState = _.create({}, checkboxState);
+    updatedCheckboxState[eventData.name] = eventData.checked;
+    setCheckboxState(updatedCheckboxState);
+  };
+
   return (
     <PageLayout id="student-privacy-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
 
@@ -70,16 +79,16 @@ const StudentPrivacyPage: React.FC<StudentPrivacyPageProps> = ({ profile }) => {
           <Grid.Column width={4}>
             <Segment>
               <Header dividing><Icon name="eye"/> VISIBILITY</Header>
+              <p>Control what data appears in your UserLabel and UserProfile:</p>
               <Form>
-                <Form.Checkbox inline label="Picture" checked={checkboxState.picture}/>
-                <Form.Checkbox inline label="Website" checked={checkboxState.website}/>
-                <Form.Checkbox inline label="Interests" checked={checkboxState.interests}/>
-                <Form.Checkbox inline label="Career Goals" checked={checkboxState.careerGoals}/>
-                <Form.Checkbox inline label="Opportunities" checked={checkboxState.opportunities}/>
-                <Form.Checkbox inline label="Courses" checked={checkboxState.courses}/>
-                <Form.Checkbox inline label="Level" checked={checkboxState.level}/>
-                <Form.Checkbox inline label="ICE" checked={checkboxState.ICE}/>
-                <Button type='submit'>Save</Button>
+                <Form.Checkbox inline name="sharePicture" label="Picture" checked={checkboxState.sharePicture} onChange={handleCheckboxChange}/>
+                <Form.Checkbox inline name="shareWebsite" label="Website" checked={checkboxState.shareWebsite} onChange={handleCheckboxChange}/>
+                <Form.Checkbox inline name="shareInterests" label="Interests" checked={checkboxState.shareInterests} onChange={handleCheckboxChange}/>
+                <Form.Checkbox inline name="shareCareerGoals" label="Career Goals" checked={checkboxState.shareCareerGoals} onChange={handleCheckboxChange}/>
+                <Form.Checkbox inline name="shareOpportunities" label="Opportunities" checked={checkboxState.shareOpportunities} onChange={handleCheckboxChange}/>
+                <Form.Checkbox inline name="shareCourses" label="Courses" checked={checkboxState.shareCourses} onChange={handleCheckboxChange}/>
+                <Form.Checkbox inline name="shareLevel" label="Level" checked={checkboxState.shareLevel} onChange={handleCheckboxChange}/>
+                <Form.Checkbox inline name="shareICE" label="ICE" checked={checkboxState.shareICE} onChange={handleCheckboxChange}/>
               </Form>
             </Segment>
           </Grid.Column>
