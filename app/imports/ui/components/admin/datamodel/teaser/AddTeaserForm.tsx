@@ -4,20 +4,27 @@ import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, SelectField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
+import { defineMethod } from '../../../../../api/base/BaseCollection.methods';
+import { Teasers } from '../../../../../api/teaser/TeaserCollection';
 import { Interest, Opportunity, CareerGoal, Course } from '../../../../../typings/radgrad';
-import { docToName, slugIDToSlugNameAndType } from '../../../shared/utilities/data-model';
+import {
+  docToName,
+  interestNameToSlug,
+  slugIDToSlugNameAndType,
+  slugNameAndTypeToName,
+} from '../../../shared/utilities/data-model';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
+import { defineCallback } from '../utilities/add-form';
 
 interface AddTeaserFormProps {
   careerGoals: CareerGoal[];
   courses: Course[];
   interests: Interest[];
   opportunities: Opportunity[];
-  formRef: React.RefObject<unknown>;
-  handleAdd: (doc) => any;
 }
 
-const AddTeaserForm: React.FC<AddTeaserFormProps> = ({ careerGoals, courses, interests, opportunities, formRef, handleAdd }) => {
+const AddTeaserForm: React.FC<AddTeaserFormProps> = ({ careerGoals, courses, interests, opportunities }) => {
+  let formRef;
   let careerGoalSlugNames = careerGoals.map((goal) => slugIDToSlugNameAndType(goal.slugID));
   careerGoalSlugNames = _.sortBy(careerGoalSlugNames);
   let courseSlugNames = courses.map((c) => slugIDToSlugNameAndType(c.slugID));
@@ -30,7 +37,6 @@ const AddTeaserForm: React.FC<AddTeaserFormProps> = ({ careerGoals, courses, int
   const interestNames = interests.map(docToName);
   const schema = new SimpleSchema({
     title: String,
-    slug: String,
     author: String,
     youtubeID: String,
     description: String,
@@ -49,13 +55,27 @@ const AddTeaserForm: React.FC<AddTeaserFormProps> = ({ careerGoals, courses, int
     retired: { type: Boolean, optional: true },
   });
   const formSchema = new SimpleSchema2Bridge(schema);
+
+  const handleAdd = (doc) => {
+    console.log('Teasers.handleAdd(%o)', doc);
+    const collectionName = Teasers.getCollectionName();
+    const definitionData = doc;
+    definitionData.interests = doc.interests.map(interestNameToSlug);
+    definitionData.targetSlug = slugNameAndTypeToName(doc.targetSlug);
+    definitionData.url = doc.youtubeID;
+    definitionData.slug = `${definitionData.targetSlug}-teaser`;
+    // definitionData.opportunity = opportunityNameToSlug(doc.opportunity);
+    // console.log(collectionName, definitionData);
+    defineMethod.call({ collectionName, definitionData }, defineCallback(formRef));
+  };
+
   return (
     <Segment padded>
       <Header dividing>Add Teaser</Header>
-      <AutoForm schema={formSchema} onSubmit={handleAdd} ref={formRef} showInlineError>
+      {/* eslint-disable-next-line no-return-assign */}
+      <AutoForm schema={formSchema} onSubmit={handleAdd} ref={(ref) => formRef = ref} showInlineError>
         <Form.Group widths="equal">
           <TextField name="title" />
-          <TextField name="slug" />
           <TextField name="author" />
         </Form.Group>
         <Form.Group widths="equal">
@@ -66,7 +86,7 @@ const AddTeaserForm: React.FC<AddTeaserFormProps> = ({ careerGoals, courses, int
         <MultiSelectField name="interests" />
         <LongTextField name="description" />
         <BoolField name="retired" />
-        <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined} />
+        <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
       </AutoForm>
     </Segment>
   );

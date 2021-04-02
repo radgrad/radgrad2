@@ -1,13 +1,12 @@
 import moment from 'moment';
 import React from 'react';
-import {Header} from 'semantic-ui-react';
 import { useParams } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { ROLE } from '../../../api/role/Role';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Users } from '../../../api/user/UserCollection';
-import { StudentProfileUpdate } from '../../../typings/radgrad';
+import { StudentProfile, StudentProfileUpdate } from '../../../typings/radgrad';
 import PageLayout from '../PageLayout';
 
 const headerPaneTitle = 'Control what others see about you';
@@ -18,16 +17,25 @@ Providing access to information about your profile allows RadGrad to help you fi
 `;
 const headerPaneImage = 'header-privacy.png';
 
+interface StudentPrivacyPageProps {
+  profile: StudentProfile;
+}
 
-const StudentPrivacyPage: React.FC = () => (
-  <PageLayout id="student-privacy-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
-    <Header>Student Privacy Page Placeholder</Header>
-  </PageLayout>
-);
+const StudentPrivacyPage: React.FC<StudentPrivacyPageProps> = ({ profile }) => {
+  const message = 'Privacy page';
+  return (
+    <PageLayout id="student-privacy-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
+
+      {message}
+
+    </PageLayout>
+  );
+};
+
 
 export default withTracker(() => {
   const { username } = useParams();
-  const profile = Users.getProfile(username);
+  const profile = Users.getProfile(username) as StudentProfile;
   if (profile.role === ROLE.STUDENT) {
     const lastVisited = moment().format('YYYY-MM-DD');
     if (lastVisited !== profile.lastVisitedPrivacy) {
@@ -42,4 +50,7 @@ export default withTracker(() => {
       });
     }
   }
+  return {
+    profile,
+  };
 })(StudentPrivacyPage);

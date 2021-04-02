@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, { useState } from 'react';
 import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, SelectField, BoolField, LongTextField, NumField, SubmitField } from 'uniforms-semantic';
@@ -5,19 +6,29 @@ import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
-import { AcademicTerm, CareerGoal, Interest } from '../../../../../typings/radgrad';
+import { defineMethod } from '../../../../../api/base/BaseCollection.methods';
+import { AdvisorProfiles } from '../../../../../api/user/AdvisorProfileCollection';
+import { FacultyProfiles } from '../../../../../api/user/FacultyProfileCollection';
+import { StudentProfiles } from '../../../../../api/user/StudentProfileCollection';
+import { AcademicTerm, CareerGoal, CombinedProfileDefine, Interest } from '../../../../../typings/radgrad';
 import { ROLE } from '../../../../../api/role/Role';
 import { academicTermToName, docToName } from '../../../shared/utilities/data-model';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
 import { openCloudinaryWidget } from '../../../shared/OpenCloudinaryWidget';
 import { cloudinaryActions } from '../../../../../redux/shared/cloudinary';
+import {
+  careerGoalSlugFromName,
+  declaredAcademicTermSlugFromName,
+  interestSlugFromName,
+} from '../../../shared/utilities/form';
+import { defineCallback } from '../utilities/add-form';
 
 interface AddUserProps {
   interests: Interest[];
   careerGoals: CareerGoal[];
   academicTerms: AcademicTerm[];
-  formRef: React.RefObject<unknown>;
-  handleAdd: (doc) => any;
+  isCloudinaryUsed: boolean;
+  cloudinaryUrl: string;
   setAdminDataModelUsersIsCloudinaryUsed: (isCloudinaryUsed: boolean) => any;
   setAdminDataModelUsersCloudinaryUrl: (cloudinaryUrl: string) => any;
 }
@@ -27,9 +38,37 @@ const mapDispatchToProps = (dispatch) => ({
   setAdminDataModelUsersCloudinaryUrl: (cloudinaryUrl: string) => dispatch(cloudinaryActions.setAdminDataModelUsersCloudinaryUrl(cloudinaryUrl)),
 });
 
-const AddUserForm: React.FC<AddUserProps> = ({ interests, handleAdd, formRef, academicTerms, careerGoals, setAdminDataModelUsersCloudinaryUrl, setAdminDataModelUsersIsCloudinaryUsed }) => {
+const AddUserForm: React.FC<AddUserProps> = ({ interests, academicTerms, careerGoals, isCloudinaryUsed, cloudinaryUrl, setAdminDataModelUsersCloudinaryUrl, setAdminDataModelUsersIsCloudinaryUsed }) => {
   const [role, setRole] = useState<string>('');
   const [pictureURL, setPictureURL] = useState<string>('');
+
+  let formRef;
+
+  const handleAdd = (doc: CombinedProfileDefine) => {
+    // console.log('handleAdd(%o)', doc);
+    const definitionData: CombinedProfileDefine = doc;
+    definitionData.interests = doc.interests.map((interest) => interestSlugFromName(interest));
+    definitionData.careerGoals = doc.careerGoals.map((goal) => careerGoalSlugFromName(goal));
+    if (!_.isNil(doc.declaredAcademicTerm)) {
+      definitionData.declaredAcademicTerm = declaredAcademicTermSlugFromName(doc.declaredAcademicTerm);
+    }
+    let collectionName = StudentProfiles.getCollectionName();
+    if (doc.role === ROLE.ADVISOR) {
+      collectionName = AdvisorProfiles.getCollectionName();
+    } else if (doc.role === ROLE.FACULTY) {
+      collectionName = FacultyProfiles.getCollectionName();
+    } else if (doc.role === ROLE.STUDENT) {
+      if (_.isNil(doc.level)) {
+        definitionData.level = 1;
+      }
+    }
+    if (isCloudinaryUsed) {
+      definitionData.picture = cloudinaryUrl;
+    }
+    // console.log(collectionName, definitionData);
+    defineMethod.call({ collectionName, definitionData }, defineCallback(formRef));
+  };
+
 
   const handleModelChange = (model) => {
     setRole(model.role);
@@ -112,7 +151,6 @@ const AddUserForm: React.FC<AddUserProps> = ({ interests, handleAdd, formRef, ac
       optional: true,
       allowedValues: academicTermNames,
     },
-    shareUsername: { type: Boolean, optional: true },
     sharePicture: { type: Boolean, optional: true },
     shareWebsite: { type: Boolean, optional: true },
     shareInterests: { type: Boolean, optional: true },
@@ -120,6 +158,7 @@ const AddUserForm: React.FC<AddUserProps> = ({ interests, handleAdd, formRef, ac
     shareOpportunities: { type: Boolean, optional: true },
     shareCourses: { type: Boolean, optional: true },
     shareLevel: { type: Boolean, optional: true },
+    shareICE: { type: Boolean, optional: true },
     isAlumni: { type: Boolean, optional: true },
   });
   if (role === ROLE.STUDENT) {
@@ -135,7 +174,8 @@ const AddUserForm: React.FC<AddUserProps> = ({ interests, handleAdd, formRef, ac
   return (
     <Segment padded>
       <Header dividing>Add User</Header>
-      <AutoForm schema={formSchema} onSubmit={(doc) => handleAddUser(doc)} ref={formRef} showInlineError onChangeModel={handleModelChange}>
+      {/* eslint-disable-next-line no-return-assign */}
+      <AutoForm schema={formSchema} onSubmit={(doc) => handleAddUser(doc)} ref={(ref) => formRef = ref} showInlineError onChangeModel={handleModelChange}>
         <Form.Group widths="equal">
           <TextField name="username" placeholder="johndoe@foo.edu" />
           <SelectField name="role" />
@@ -166,7 +206,6 @@ const AddUserForm: React.FC<AddUserProps> = ({ interests, handleAdd, formRef, ac
               <SelectField name="declaredAcademicTerm" />
             </Form.Group>
             <Form.Group widths="equal">
-              <BoolField name="shareUsername" />
               <BoolField name="sharePicture" />
               <BoolField name="shareWebsite" />
               <BoolField name="shareInterests" />
@@ -174,6 +213,7 @@ const AddUserForm: React.FC<AddUserProps> = ({ interests, handleAdd, formRef, ac
               <BoolField name="shareOpportunities" />
               <BoolField name="shareCourses" />
               <BoolField name="shareLevel" />
+              <BoolField name="shareICE" />
               <BoolField name="isAlumni" />
             </Form.Group>
           </div>
@@ -190,7 +230,7 @@ const AddUserForm: React.FC<AddUserProps> = ({ interests, handleAdd, formRef, ac
         ) : (
           ''
         )}
-        <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined} />
+        <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
       </AutoForm>
     </Segment>
   );

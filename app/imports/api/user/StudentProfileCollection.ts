@@ -39,6 +39,7 @@ class StudentProfileCollection extends BaseProfileCollection {
         shareOpportunities: { type: Boolean, optional: true },
         shareCourses: { type: Boolean, optional: true },
         shareLevel: { type: Boolean, optional: true },
+        shareICE: { type: Boolean, optional: true },
         lastRegistrarLoad: { type: String, optional: true },
         lastVisitedCareerGoals: { type: String, optional: true },
         lastVisitedCourses: { type: String, optional: true },
@@ -68,7 +69,6 @@ class StudentProfileCollection extends BaseProfileCollection {
       'profileCourses.$': String,
       profileOpportunities: { type: Array, optional: true },
       'profileOpportunities.$': String,
-      shareUsername: { type: Boolean, optional: true },
       sharePicture: { type: Boolean, optional: true },
       shareWebsite: { type: Boolean, optional: true },
       shareInterests: { type: Boolean, optional: true },
@@ -76,6 +76,7 @@ class StudentProfileCollection extends BaseProfileCollection {
       shareOpportunities: { type: Boolean, optional: true },
       shareCourses: { type: Boolean, optional: true },
       shareLevel: { type: Boolean, optional: true },
+      shareICE: { type: Boolean, optional: true },
       lastRegistrarLoad: { type: String, optional: true },
       lastVisitedCareerGoals: { type: String, optional: true },
       lastVisitedCourses: { type: String, optional: true },
@@ -103,7 +104,6 @@ class StudentProfileCollection extends BaseProfileCollection {
       'profileCourses.$': String,
       profileOpportunities: { type: Array, optional: true },
       'profileOpportunities.$': String,
-      shareUsername: { type: Boolean, optional: true },
       sharePicture: { type: Boolean, optional: true },
       shareWebsite: { type: Boolean, optional: true },
       shareInterests: { type: Boolean, optional: true },
@@ -111,6 +111,7 @@ class StudentProfileCollection extends BaseProfileCollection {
       shareOpportunities: { type: Boolean, optional: true },
       shareCourses: { type: Boolean, optional: true },
       shareLevel: { type: Boolean, optional: true },
+      shareICE: { type: Boolean, optional: true },
       lastRegistrarLoad: { type: String, optional: true },
       lastVisitedCareerGoals: { type: String, optional: true },
       lastVisitedCourses: { type: String, optional: true },
@@ -137,7 +138,6 @@ class StudentProfileCollection extends BaseProfileCollection {
    * @param retired boolean. (optional defaults to false)
    * @param declaredAcademicTerm An optional string indicating the student's declared academic term.
    * @param isAlumni An optional boolean indicating if this student has graduated. Defaults to false.
-   * @param shareUsername An optional boolean indicating if this student is sharing their username. Defaults to false.
    * @param sharePicture An optional boolean indicating if this student is sharing their picture. Defaults to false.
    * @param shareWebsite An optional boolean indicating if this student is sharing their website. Defaults to false.
    * @param shareInterests An optional boolean indicating if this student is sharing their interests. Defaults to false.
@@ -145,6 +145,7 @@ class StudentProfileCollection extends BaseProfileCollection {
    * @param shareCourses An optional boolean indicating if this student is sharing their courses. Defaults to false.
    * @param shareOpportunities An optional boolean indicating if this student is sharing their opportunities. Defaults to false.
    * @param shareLevel An optional boolean indicating if this student is sharing their level. Defaults to false.
+   * @param shareICE An optional boolean indicating if this student is sharing their ICE points. Defaults to false.
    * @throws { Meteor.Error } If username has been previously defined, or if any interests, careerGoals, level,
    * or declaredAcademicTerm are invalid.
    * @return { String } The docID of the StudentProfile.
@@ -164,7 +165,6 @@ class StudentProfileCollection extends BaseProfileCollection {
     profileOpportunities = [],
     isAlumni = false,
     retired = false,
-    shareUsername = false,
     sharePicture = false,
     shareWebsite = false,
     shareInterests = false,
@@ -172,6 +172,7 @@ class StudentProfileCollection extends BaseProfileCollection {
     shareCourses = false,
     shareOpportunities = false,
     shareLevel = false,
+    shareICE = false,
     lastRegistrarLoad,
     lastVisitedCareerGoals,
     lastVisitedCourses,
@@ -205,7 +206,6 @@ class StudentProfileCollection extends BaseProfileCollection {
         isAlumni,
         userID: this.getFakeUserId(),
         retired,
-        shareUsername,
         sharePicture,
         shareWebsite,
         shareInterests,
@@ -213,6 +213,7 @@ class StudentProfileCollection extends BaseProfileCollection {
         shareCourses,
         shareOpportunities,
         shareLevel,
+        shareICE,
         lastRegistrarLoad,
         lastVisitedCareerGoals,
         lastVisitedCourses,
@@ -266,7 +267,6 @@ class StudentProfileCollection extends BaseProfileCollection {
    * @param declaredAcademicTerm
    * @param isAlumni
    * @param retired
-   * @param shareUsername
    * @param sharePicture
    * @param shareWebsite
    * @param shareInterests
@@ -274,6 +274,7 @@ class StudentProfileCollection extends BaseProfileCollection {
    * @param shareCourses
    * @param shareOpportunities
    * @param shareLevel
+   * @param shareICE
    */
   public update(
     docID,
@@ -292,7 +293,6 @@ class StudentProfileCollection extends BaseProfileCollection {
       retired,
       courseExplorerFilter,
       opportunityExplorerSortOrder,
-      shareUsername,
       sharePicture,
       shareWebsite,
       shareInterests,
@@ -300,6 +300,7 @@ class StudentProfileCollection extends BaseProfileCollection {
       shareCourses,
       shareOpportunities,
       shareLevel,
+      shareICE,
       lastRegistrarLoad,
       lastVisitedCareerGoals,
       lastVisitedCourses,
@@ -352,9 +353,6 @@ class StudentProfileCollection extends BaseProfileCollection {
         updateData.retired = retired;
       }
     }
-    if (_.isBoolean(shareUsername)) {
-      updateData.shareUsername = shareUsername;
-    }
     if (_.isBoolean(sharePicture)) {
       updateData.sharePicture = sharePicture;
     }
@@ -375,6 +373,9 @@ class StudentProfileCollection extends BaseProfileCollection {
     }
     if (_.isBoolean(shareLevel)) {
       updateData.shareLevel = shareLevel;
+    }
+    if (_.isBoolean(shareICE)) {
+      updateData.shareICE = shareICE;
     }
     if (lastRegistrarLoad) {
       updateData.lastRegistrarLoad = lastRegistrarLoad;
@@ -551,15 +552,7 @@ class StudentProfileCollection extends BaseProfileCollection {
         ReactiveAggregate(this, collection, [
           {
             $project: {
-              username: {
-                $cond: [
-                  {
-                    $or: [{ $ifNull: ['$shareUsername', false] }, { $eq: [userID, '$userID'] }, { $eq: [Roles.userIsInRole(userID, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY]), true] }],
-                  },
-                  '$username',
-                  '',
-                ],
-              },
+              username: 1,
               firstName: 1,
               lastName: 1,
               role: 1,
@@ -594,7 +587,6 @@ class StudentProfileCollection extends BaseProfileCollection {
               },
               declaredAcademicTermID: 1,
               isAlumni: 1,
-              shareUsername: 1,
               sharePicture: 1,
               shareWebsite: 1,
               shareInterests: 1,
@@ -602,10 +594,11 @@ class StudentProfileCollection extends BaseProfileCollection {
               shareOpportunities: 1,
               shareCourses: 1,
               shareLevel: 1,
+              shareICE: 1,
               optedIn: {
                 $cond: [
                   {
-                    $or: ['$shareUsername', '$sharePicture', '$shareWebsite', '$shareInterests', '$shareCareerGoals', '$shareOpportunities', '$shareCourses', '$shareLevel'],
+                    $or: ['$sharePicture', '$shareWebsite', '$shareInterests', '$shareCareerGoals', '$shareOpportunities', '$shareCourses', '$shareLevel', '$shareICE'],
                   },
                   true,
                   false,
@@ -652,7 +645,6 @@ class StudentProfileCollection extends BaseProfileCollection {
     const declaredAcademicTerm = doc.declaredAcademicTermID && AcademicTerms.findSlugByID(doc.declaredAcademicTermID);
     const isAlumni = doc.isAlumni;
     const retired = doc.retired;
-    const shareUsername = doc.shareUsername;
     const sharePicture = doc.sharePicture;
     const shareWebsite = doc.shareWebsite;
     const shareInterests = doc.shareInterests;
@@ -660,6 +652,7 @@ class StudentProfileCollection extends BaseProfileCollection {
     const shareOpportunities = doc.shareOpportunities;
     const shareCourses = doc.shareCourses;
     const shareLevel = doc.shareLevel;
+    const shareICE = doc.shareICE;
     const lastRegistrarLoad = doc.lastRegistrarLoad;
     const lastVisitedCareerGoals = doc.lastVisitedCareerGoals;
     const lastVisitedCourses = doc.lastVisitedCourses;
@@ -682,7 +675,6 @@ class StudentProfileCollection extends BaseProfileCollection {
       declaredAcademicTerm,
       isAlumni,
       retired,
-      shareUsername,
       sharePicture,
       shareWebsite,
       shareInterests,
@@ -690,6 +682,7 @@ class StudentProfileCollection extends BaseProfileCollection {
       shareOpportunities,
       shareCourses,
       shareLevel,
+      shareICE,
       lastRegistrarLoad,
       lastVisitedCareerGoals,
       lastVisitedCourses,

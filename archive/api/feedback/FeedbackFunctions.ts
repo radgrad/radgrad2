@@ -1,16 +1,16 @@
 import _ from 'lodash';
-import { CourseInstances } from '../course/CourseInstanceCollection';
-import { Courses } from '../course/CourseCollection';
+import { CourseInstances } from '../../../app/imports/api/course/CourseInstanceCollection';
+import { Courses } from '../../../app/imports/api/course/CourseCollection';
 import { FeedbackInstances } from './FeedbackInstanceCollection';
 import { clearFeedbackInstancesMethod } from './FeedbackInstanceCollection.methods';
-import { defineMethod } from '../base/BaseCollection.methods';
-import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollection';
-import { AcademicTerms } from '../academic-term/AcademicTermCollection';
-import * as oppUtils from '../opportunity/OpportunityUtilities';
-import * as yearUtils from '../degree-plan/AcademicYearUtilities';
-import * as planUtils from '../degree-plan/PlanChoiceUtilities';
-import { Slugs } from '../slug/SlugCollection';
-import { Users } from '../user/UserCollection';
+import { defineMethod } from '../../../app/imports/api/base/BaseCollection.methods';
+import { OpportunityInstances } from '../../../app/imports/api/opportunity/OpportunityInstanceCollection';
+import { AcademicTerms } from '../../../app/imports/api/academic-term/AcademicTermCollection';
+import * as oppUtils from '../../../app/imports/api/opportunity/OpportunityUtilities';
+import * as yearUtils from '../../../app/imports/api/degree-plan/AcademicYearUtilities';
+import * as planUtils from '../../../app/imports/api/degree-plan/PlanChoiceUtilities';
+import { Slugs } from '../../../app/imports/api/slug/SlugCollection';
+import { Users } from '../../../app/imports/api/user/UserCollection';
 
 /**
  * Provides FeedbackFunctions. Each FeedbackFunction is a method of the singleton instance FeedbackFunctions.

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, Message } from 'semantic-ui-react';
-import AdminPageMenu from '../../components/admin/AdminPageMenu';
-import AdminDatabaseMenu from '../../components/admin/database/AdminDatabaseMenu';
+import AdminPageMenu from '../../../../app/imports/ui/components/admin/AdminPageMenu';
+import AdminDatabaseMenu from '../../../../app/imports/ui/components/admin/database/AdminDatabaseMenu';
 
 const AdminDatabasePage: React.FC = () => (
   <div id="admin-database-page">

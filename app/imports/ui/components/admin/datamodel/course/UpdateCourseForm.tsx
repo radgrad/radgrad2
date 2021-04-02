@@ -13,13 +13,12 @@ interface UpdateCourseFormProps {
   interests: Interest[];
   courses: Course[];
   id: string;
-  formRef: React.RefObject<unknown>;
   handleUpdate: (doc) => any;
   handleCancel: (event) => any;
   itemTitleString: (item) => React.ReactNode;
 }
 
-const UpdateCourseForm: React.FC<UpdateCourseFormProps> = ({ collection, courses, interests, id, formRef, handleCancel, handleUpdate, itemTitleString }) => {
+const UpdateCourseForm: React.FC<UpdateCourseFormProps> = ({ collection, courses, interests, id, handleCancel, handleUpdate, itemTitleString }) => {
   const model = id ? collection.findDoc(id) : undefined;
   model.interests = model.interestIDs.map(interestIdToName);
   model.prerequisiteNames = model.prerequisites.map(courseSlugToName);
@@ -55,7 +54,7 @@ const UpdateCourseForm: React.FC<UpdateCourseFormProps> = ({ collection, courses
         Update
         {collection.getType()}:{itemTitleString(model)}
       </Header>
-      <AutoForm schema={formSchema} onSubmit={handleUpdate} ref={formRef} showInlineError model={model}>
+      <AutoForm schema={formSchema} onSubmit={handleUpdate} showInlineError model={model}>
         <Form.Group widths="equal">
           <TextField name="name" />
           <TextField name="shortName" />
@@ -72,8 +71,8 @@ const UpdateCourseForm: React.FC<UpdateCourseFormProps> = ({ collection, courses
         </Form.Group>
         <BoolField name="retired" />
         <p />
-        <SubmitField className="" value="Update" disabled={false} inputRef={undefined} />
-        <Button onClick={handleCancel}>Cancel</Button>
+        <SubmitField value="Update" disabled={false} className="mini basic green" />
+        <Button onClick={handleCancel} basic color="green" size="mini">Cancel</Button>
       </AutoForm>
     </Segment>
   );

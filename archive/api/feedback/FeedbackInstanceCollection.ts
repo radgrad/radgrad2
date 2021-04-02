@@ -1,10 +1,10 @@
 import _ from 'lodash';
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
-import { ROLE } from '../role/Role';
-import { Users } from '../user/UserCollection';
-import BaseCollection from '../base/BaseCollection';
-import { FeedbackInstanceDefine, FeedbackInstanceUpdate } from '../../typings/radgrad';
+import { ROLE } from '../../../app/imports/api/role/Role';
+import { Users } from '../../../app/imports/api/user/UserCollection';
+import BaseCollection from '../../../app/imports/api/base/BaseCollection';
+import { FeedbackInstanceDefine, FeedbackInstanceUpdate } from '../../../app/imports/typings/radgrad';
 
 /**
  * Each FeedbackInstance represents one recommendation or warning for a user.

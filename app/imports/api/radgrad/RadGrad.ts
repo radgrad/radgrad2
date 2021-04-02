@@ -3,11 +3,9 @@ import { AcademicYearInstances } from '../degree-plan/AcademicYearInstanceCollec
 import { AdminProfiles } from '../user/AdminProfileCollection';
 import { AdvisorProfiles } from '../user/AdvisorProfileCollection';
 import { CareerGoals } from '../career/CareerGoalCollection';
-import { StudentParticipations } from '../public-stats/StudentParticipationCollection';
 import { Courses } from '../course/CourseCollection';
 import { CourseInstances } from '../course/CourseInstanceCollection';
 import { FacultyProfiles } from '../user/FacultyProfileCollection';
-import { FeedbackInstances } from '../feedback/FeedbackInstanceCollection';
 import { Feeds } from '../feed/FeedCollection';
 import { IceSnapshots } from '../analytic/IceSnapshotCollection';
 import { Interests } from '../interest/InterestCollection';
@@ -50,7 +48,6 @@ class RadGradClass {
       AdminProfiles,
       AdvisorProfiles,
       CareerGoals,
-      StudentParticipations,
       Courses,
       CourseInstances,
       FacultyProfiles,
@@ -59,7 +56,6 @@ class RadGradClass {
       ProfileInterests,
       ProfileOpportunities,
       Feeds,
-      FeedbackInstances,
       IceSnapshots,
       Interests,
       InterestTypes,
@@ -98,7 +94,6 @@ class RadGradClass {
       StudentProfiles,
       CourseInstances,
       OpportunityInstances,
-      FeedbackInstances,
       VerificationRequests,
       Feeds,
       IceSnapshots,

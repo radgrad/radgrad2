@@ -7,13 +7,13 @@ import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstan
 import { Reviews } from '../../../api/review/ReviewCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { StudentProfile } from '../../../typings/radgrad';
-import {STUDENT_REVIEWS, URL_ROLES} from '../../layouts/utilities/route-constants';
+import { STUDENT_REVIEWS, URL_ROLES } from '../../layouts/utilities/route-constants';
 import CourseList from '../shared/CourseList';
 import OpportunityList from '../shared/OpportunityList';
-import {Checklist, CHECKSTATE} from './Checklist';
-import {DetailsBox} from './DetailsBox';
-import {ActionsBox} from './ActionsBox';
-import {ChecklistButtonLink} from './ChecklistButtons';
+import { Checklist, CHECKSTATE } from './Checklist';
+import { DetailsBox } from './DetailsBox';
+import { ActionsBox } from './ActionsBox';
+import { ChecklistButtonLink } from './ChecklistButtons';
 
 export class ReviewChecklist extends Checklist {
   private profile: StudentProfile;
@@ -81,15 +81,15 @@ export class ReviewChecklist extends Checklist {
       case CHECKSTATE.OK:
         return (
           <DetailsBox description='You have reviewed the following completed Courses and Opportunities:'>
-            <CourseList courses={courses} keyStr="review" size="medium" />
-            <OpportunityList opportunities={opportunities} size="medium" keyStr="review" />
+            <CourseList courses={courses} keyStr="review" size="medium" userID={this.profile.userID} />
+            <OpportunityList opportunities={opportunities} size="medium" keyStr="review" userID={this.profile.userID} />
           </DetailsBox>
         );
       case CHECKSTATE.REVIEW:
         return (
             <DetailsBox description='You have not reviewed the following completed Courses and Opportunities:'>
-              <CourseList courses={nonReviewedCourses} size="medium" keyStr="review" />
-              <OpportunityList opportunities={nonReviewedOpportunities} size="medium" keyStr="review" />
+              <CourseList courses={nonReviewedCourses} size="medium" keyStr="review" userID={this.profile.userID} />
+              <OpportunityList opportunities={nonReviewedOpportunities} size="medium" keyStr="review" userID={this.profile.userID} />
             </DetailsBox>
         );
       default:

@@ -71,10 +71,6 @@ export interface Pagination {
     showIndex: number;
     showCount: number;
   };
-  FeedbackInstanceCollection?: {
-    showIndex: number;
-    showCount: number;
-  };
   InterestCollection?: {
     showIndex: number;
     showCount: number;
@@ -210,23 +206,6 @@ export interface CareerGoalUpdate extends Update {
   description?: string;
   interests?: string[];
   retired?: boolean;
-}
-
-// StudentParticipations
-export interface StudentParticipation {
-  itemID: string;
-  itemSlug: string;
-  itemCount: number;
-}
-
-export interface StudentParticipationDefine extends DumpOne {
-  itemID: string;
-  itemSlug: string;
-  itemCount: number;
-}
-
-export interface StudentParticipationUpdate extends Update {
-  itemCount?: number;
 }
 
 // CourseInstances
@@ -431,31 +410,6 @@ export interface FeedUpdate extends Update {
   retired?: boolean;
 }
 
-// FeedBackInstances
-export interface FeedbackInstance extends Document {
-  userID: string;
-  functionName: string;
-  description: string;
-  feedbackType: string;
-  retired?: boolean;
-}
-
-export interface FeedbackInstanceDefine extends DumpOne {
-  user: string;
-  functionName: string;
-  description: string;
-  feedbackType: string;
-  retired?: boolean;
-}
-
-export interface FeedbackInstanceUpdate extends Update {
-  user?: string;
-  functionName?: string;
-  description?: string;
-  feedbackType?: string;
-  retired?: boolean;
-}
-
 // Interests
 export interface Interest extends Document {
   name: string;
@@ -651,7 +605,6 @@ export interface BaseProfile extends Document {
   level?: number;
   declaredAcademicTermID?: string;
   isAlumni?: boolean;
-  shareUsername?: boolean;
   sharePicture?: boolean;
   shareWebsite?: boolean;
   shareInterests?: boolean;
@@ -659,6 +612,7 @@ export interface BaseProfile extends Document {
   shareCourses?: boolean;
   shareOpportunities?: boolean;
   shareLevel?: boolean;
+  shareICE?: boolean;
   optedIn?: boolean;
   courseExplorerFilter?: string;
   opportunityExplorerSortOrder?: string;
@@ -714,7 +668,6 @@ export interface CombinedProfileDefine extends ProfileDefine {
   declaredAcademicTerm?: string;
   isAlumni?: boolean;
   retired?: boolean;
-  shareUsername?: boolean;
   sharePicture?: boolean;
   shareWebsite?: boolean;
   shareInterests?: boolean;
@@ -722,6 +675,7 @@ export interface CombinedProfileDefine extends ProfileDefine {
   shareCourses?: boolean;
   shareOpportunities?: boolean;
   shareLevel?: boolean;
+  shareICE?: boolean;
 }
 
 export interface ProfileUpdate extends Update {
@@ -744,7 +698,6 @@ export interface StudentProfile extends Profile {
   level: number;
   declaredAcademicTermID?: string;
   isAlumni?: boolean;
-  shareUsername?: boolean;
   sharePicture?: boolean;
   shareWebsite?: boolean;
   shareInterests?: boolean;
@@ -752,6 +705,7 @@ export interface StudentProfile extends Profile {
   shareCourses?: boolean;
   shareOpportunities?: boolean;
   shareLevel?: boolean;
+  shareICE?: boolean;
   lastRegistrarLoad?: string;
   lastVisitedCareerGoals?: string;
   lastVisitedCourses?: string;
@@ -770,7 +724,6 @@ export interface StudentProfileDefine extends ProfileDefine {
   profileOpportunities?: string[];
   isAlumni?: boolean;
   retired?: boolean;
-  shareUsername?: boolean;
   sharePicture?: boolean;
   shareWebsite?: boolean;
   shareInterests?: boolean;
@@ -778,6 +731,7 @@ export interface StudentProfileDefine extends ProfileDefine {
   shareCourses?: boolean;
   shareOpportunities?: boolean;
   shareLevel?: boolean;
+  shareICE?: boolean;
   lastRegistrarLoad?: string;
   lastVisitedCareerGoals?: string;
   lastVisitedCourses?: string;
@@ -796,7 +750,6 @@ export interface StudentProfileUpdate extends ProfileUpdate {
   profileOpportunities?: string[];
   isAlumni?: boolean;
   retired?: boolean;
-  shareUsername?: boolean;
   sharePicture?: boolean;
   shareWebsite?: boolean;
   shareInterests?: boolean;
@@ -804,6 +757,7 @@ export interface StudentProfileUpdate extends ProfileUpdate {
   shareCourses?: boolean;
   shareOpportunities?: boolean;
   shareLevel?: boolean;
+  shareICE?: boolean;
   lastRegistrarLoad?: string;
   lastVisitedCareerGoals?: string;
   lastVisitedCourses?: string;
@@ -821,7 +775,6 @@ export interface StudentProfileUpdateData {
   isAlumni?: boolean;
   role?: string;
   retired?: boolean;
-  shareUsername?: boolean;
   sharePicture?: boolean;
   shareWebsite?: boolean;
   shareInterests?: boolean;
@@ -829,6 +782,7 @@ export interface StudentProfileUpdateData {
   shareCourses?: boolean;
   shareOpportunities?: boolean;
   shareLevel?: boolean;
+  shareICE?: boolean;
   lastRegistrarLoad?: string;
   lastVisitedCareerGoals?: string;
   lastVisitedCourses?: string;
@@ -1033,4 +987,10 @@ export interface VerificationRequestUpdate extends Update {
   status?: string;
   processed?: Processed[];
   retired?: boolean;
+}
+
+export interface RelatedCoursesOrOpportunities {
+  completed: string[];
+  inPlan: string[];
+  notInPlan: string[];
 }

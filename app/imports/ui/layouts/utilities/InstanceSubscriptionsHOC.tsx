@@ -4,7 +4,6 @@ import { SubsManager } from 'meteor/meteorhacks:subs-manager';
 import { Loader } from 'semantic-ui-react';
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { FeedbackInstances } from '../../../api/feedback/FeedbackInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import { getUserIdFromRoute } from '../../components/shared/utilities/router';
@@ -47,7 +46,6 @@ const withInstanceSubscriptions = (WrappedComponent) => {
         handles.push(instanceSubs.subscribe(AcademicYearInstances.getPublicationName(), userID));
         handles.push(instanceSubs.subscribe(CourseInstances.getPublicationName(), userID));
         handles.push(instanceSubs.subscribe(CourseInstances.publicationNames.forecast));
-        handles.push(instanceSubs.subscribe(FeedbackInstances.getPublicationName(), userID));
         handles.push(instanceSubs.subscribe(OpportunityInstances.getPublicationName(), userID));
         handles.push(instanceSubs.subscribe(OpportunityInstances.publicationNames.forecast));
         handles.push(instanceSubs.subscribe(VerificationRequests.getPublicationName(), userID));

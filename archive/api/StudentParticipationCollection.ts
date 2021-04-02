@@ -1,19 +1,18 @@
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import _ from 'lodash';
-import BaseCollection from '../base/BaseCollection';
-import { ROLE } from '../role/Role';
-import { Opportunities } from '../opportunity/OpportunityCollection';
-import { Slugs } from '../slug/SlugCollection';
-import { Courses } from '../course/CourseCollection';
-import { CourseInstances } from '../course/CourseInstanceCollection';
-import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollection';
-import { StudentParticipationDefine, StudentParticipationUpdate } from '../../typings/radgrad';
-import { CareerGoals } from '../career/CareerGoalCollection';
-import { Interests } from '../interest/InterestCollection';
-import { StudentProfiles } from '../user/StudentProfileCollection';
-import { ProfileCareerGoals } from '../user/profile-entries/ProfileCareerGoalCollection';
-import { profileGetInterestIDs } from '../../ui/components/shared/utilities/data-model';
+import BaseCollection from '../../app/imports/api/base/BaseCollection';
+import { ROLE } from '../../app/imports/api/role/Role';
+import { Opportunities } from '../../app/imports/api/opportunity/OpportunityCollection';
+import { Slugs } from '../../app/imports/api/slug/SlugCollection';
+import { Courses } from '../../app/imports/api/course/CourseCollection';
+import { CourseInstances } from '../../app/imports/api/course/CourseInstanceCollection';
+import { OpportunityInstances } from '../../app/imports/api/opportunity/OpportunityInstanceCollection';
+import { CareerGoals } from '../../app/imports/api/career/CareerGoalCollection';
+import { Interests } from '../../app/imports/api/interest/InterestCollection';
+import { StudentProfiles } from '../../app/imports/api/user/StudentProfileCollection';
+import { ProfileCareerGoals } from '../../app/imports/api/user/profile-entries/ProfileCareerGoalCollection';
+import { profileGetInterestIDs } from '../../app/imports/ui/components/shared/utilities/data-model';
 
 class StudentParticipationCollection extends BaseCollection {
   constructor() {

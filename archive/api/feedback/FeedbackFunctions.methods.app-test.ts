@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import { defineTestFixturesMethod } from '../test/test-utilities';
+import { defineTestFixturesMethod } from '../../../app/imports/api/test/test-utilities';
 
 /* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
 /* eslint-env mocha */

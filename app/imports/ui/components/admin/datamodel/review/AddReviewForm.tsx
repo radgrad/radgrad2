@@ -1,32 +1,31 @@
 import React, { useState } from 'react';
 import { Form, Header, Segment } from 'semantic-ui-react';
-import { AutoForm, TextField, SelectField, NumField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
+import { AutoForm, SelectField, NumField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
+import { defineMethod } from '../../../../../api/base/BaseCollection.methods';
 import { AcademicTerm, Course, Opportunity, StudentProfile } from '../../../../../typings/radgrad';
-import { AcademicTerms } from '../../../../../api/academic-term/AcademicTermCollection';
-import { academicTermToName, courseToName, docToName, profileToName } from '../../../shared/utilities/data-model';
+import {
+  academicTermNameToSlug,
+  academicTermToName, courseNameToSlug,
+  courseToName,
+  docToName, opportunityNameToSlug,
+  profileNameToUsername,
+  profileToName,
+} from '../../../shared/utilities/data-model';
 import { Reviews } from '../../../../../api/review/ReviewCollection';
+import { defineCallback } from '../utilities/add-form';
 
 interface AddReviewFormProps {
   terms: AcademicTerm[];
   courses: Course[];
   students: StudentProfile[];
   opportunities: Opportunity[];
-  formRef: React.RefObject<unknown>;
-  handleAdd: (doc) => any;
 }
 
-const AddReviewForm: React.FC<AddReviewFormProps> = ({ terms, formRef, handleAdd, courses, opportunities, students }) => {
+const AddReviewForm: React.FC<AddReviewFormProps> = ({ terms, courses, opportunities, students }) => {
   const [reviewType, setReviewType] = useState('');
-
-  const handleModelChange = (model) => {
-    // console.log('change %o', model);
-    setReviewType(model.reviewType);
-  };
-
   const termNames = terms.map(academicTermToName);
-  const currentTermName = AcademicTerms.toString(AcademicTerms.getCurrentTermID(), false);
   const courseNames = courses.map(courseToName);
   const opportunityNames = opportunities.map(docToName);
   const reviewTypes = [Reviews.COURSE, Reviews.OPPORTUNITY];
@@ -37,24 +36,22 @@ const AddReviewForm: React.FC<AddReviewFormProps> = ({ terms, formRef, handleAdd
     revieweeNames = opportunityNames;
   }
   const studentNames = students.map(profileToName);
-  const schema = new SimpleSchema({
-    slug: String,
+
+  let formRef;
+  let schema = new SimpleSchema({
     academicTerm: {
       type: String,
       allowedValues: termNames,
-      defaultValue: currentTermName,
     },
     reviewee: {
       type: String,
       allowedValues: revieweeNames,
-      defaultValue: revieweeNames[0],
     },
     student: {
       type: String,
       allowedValues: studentNames,
-      defaultValue: studentNames[0],
     },
-    reviewType: { type: String, allowedValues: reviewTypes, defaultValue: Reviews.COURSE },
+    reviewType: { type: String, allowedValues: reviewTypes },
     rating: { type: SimpleSchema.Integer, min: 0, max: 5, optional: true },
     comments: String,
     moderated: { type: Boolean, optional: true },
@@ -62,17 +59,56 @@ const AddReviewForm: React.FC<AddReviewFormProps> = ({ terms, formRef, handleAdd
     moderatorComments: { type: String, optional: true },
     retired: { type: Boolean, optional: true },
   });
-  const formSchema = new SimpleSchema2Bridge(schema);
-  // @ts-ignore
+
+  const handleModelChange = (model) => {
+    // console.log('change %o', model);
+    setReviewType(model.reviewType);
+    schema = new SimpleSchema({
+      academicTerm: {
+        type: String,
+        allowedValues: termNames,
+      },
+      reviewee: {
+        type: String,
+        allowedValues: revieweeNames,
+      },
+      student: {
+        type: String,
+        allowedValues: studentNames,
+      },
+      reviewType: { type: String, allowedValues: reviewTypes },
+      rating: { type: SimpleSchema.Integer, min: 0, max: 5, optional: true },
+      comments: String,
+      moderated: { type: Boolean, optional: true },
+      visible: { type: Boolean, optional: true },
+      moderatorComments: { type: String, optional: true },
+      retired: { type: Boolean, optional: true },
+    });
+  };
+
+  const handleAdd = (doc) => {
+    // console.log('Reviews.handleAdd(%o)', doc);
+    const collectionName = Reviews.getCollectionName();
+    const definitionData = doc;
+    definitionData.student = profileNameToUsername(doc.student);
+    if (doc.reviewType === Reviews.COURSE) {
+      definitionData.reviewee = courseNameToSlug(doc.reviewee);
+    } else {
+      definitionData.reviewee = opportunityNameToSlug(doc.reviewee);
+    }
+    definitionData.academicTerm = academicTermNameToSlug(doc.academicTerm);
+    definitionData.slug = `review-${definitionData.reviewType}-${definitionData.reviewee}-${definitionData.student}`;
+    defineMethod.call({ collectionName, definitionData }, defineCallback(formRef));
+  };
+  // console.log(reviewType, schema);
   return (
     <Segment padded>
       <Header dividing>Add Review</Header>
-      <AutoForm schema={formSchema} onSubmit={handleAdd} ref={formRef} showInlineError onChangeModel={handleModelChange}>
+      {/* eslint-disable-next-line no-return-assign */}
+      <AutoForm schema={new SimpleSchema2Bridge(schema)} onSubmit={handleAdd} ref={(ref) => formRef = ref}
+                showInlineError onChangeModel={handleModelChange}>
         <Form.Group widths="equal">
-          <TextField name="slug" />
           <SelectField name="reviewType" />
-        </Form.Group>
-        <Form.Group widths="equal">
           <SelectField name="student" />
           <SelectField name="reviewee" />
         </Form.Group>
@@ -87,7 +123,7 @@ const AddReviewForm: React.FC<AddReviewFormProps> = ({ terms, formRef, handleAdd
         </Form.Group>
         <LongTextField name="moderatorComments" />
         <BoolField name="retired" />
-        <SubmitField className="basic green" value="Add" disabled={false} inputRef={undefined} />
+        <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
       </AutoForm>
     </Segment>
   );

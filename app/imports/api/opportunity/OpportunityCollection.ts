@@ -102,7 +102,20 @@ class OpportunityCollection extends BaseSlugCollection {
    * or startActive or endActive are not valid.
    * @returns The newly created docID.
    */
-  public define({ name, slug, description, opportunityType, sponsor, interests, academicTerms, ice, timestamp = moment().toDate(), eventDate = null, picture = defaultProfilePicture, retired = false }: OpportunityDefine) {
+  public define({
+    name,
+    slug,
+    description,
+    opportunityType,
+    sponsor,
+    interests,
+    academicTerms,
+    ice,
+    timestamp = moment().toDate(),
+    eventDate = null,
+    picture = defaultProfilePicture,
+    retired = false,
+  }: OpportunityDefine) {
     // Get instances, or throw error
 
     const opportunityTypeID = OpportunityTypes.getID(opportunityType);
@@ -122,11 +135,13 @@ class OpportunityCollection extends BaseSlugCollection {
       // Define the new Opportunity and its Slug.
       opportunityID = this.collection.insert({
         name, slugID, description, opportunityTypeID, sponsorID,
-        interestIDs, termIDs, ice, timestamp, eventDate, retired, picture });
+        interestIDs, termIDs, ice, timestamp, eventDate, retired, picture,
+      });
     } else {
       opportunityID = this.collection.insert({
         name, slugID, description, opportunityTypeID, sponsorID,
-        interestIDs, termIDs, ice, timestamp, retired, picture });
+        interestIDs, termIDs, ice, timestamp, retired, picture,
+      });
     }
     Slugs.updateEntityID(slugID, opportunityID);
 
@@ -148,7 +163,19 @@ class OpportunityCollection extends BaseSlugCollection {
    * @param retired boolean (optional).
    * @param picture
    */
-  public update(instance: string, { name, description, opportunityType, sponsor, interests, academicTerms, eventDate, ice, timestamp, retired, picture }: OpportunityUpdate) {
+  public update(instance: string, {
+    name,
+    description,
+    opportunityType,
+    sponsor,
+    interests,
+    academicTerms,
+    eventDate,
+    ice,
+    timestamp,
+    retired,
+    picture,
+  }: OpportunityUpdate) {
     const docID = this.getID(instance);
     const updateData: OpportunityUpdateData = {};
     if (name) {
@@ -196,21 +223,19 @@ class OpportunityCollection extends BaseSlugCollection {
    * @throws { Meteor.Error } If docID is not a Course, or if this course has any associated course instances.
    */
   public removeIt(instance: string) {
+    // console.log('OpportunityCollection.removeIt', instance);
     const docID = this.getID(instance);
     // Check that this opportunity is not referenced by any Opportunity Instance.
-    OpportunityInstances.find().map((opportunityInstance) => {
-      if (opportunityInstance.opportunityID === docID) {
-        throw new Meteor.Error(`Opportunity ${instance} referenced by a opportunity instance ${opportunityInstance}.`);
-      }
-      return true;
-    });
+    const instances = OpportunityInstances.find({ opportunityID: docID }).fetch();
+    if (instances.length > 0) {
+      throw new Meteor.Error(`Opportunity ${instance} is referenced by an OpportunityInstances`);
+    }
     // Check that this opportunity is not referenced by any Teaser.
-    Teasers.find().map((teaser) => {
-      if (Teasers.hasTarget(teaser, docID)) {
-        throw new Meteor.Error(`Opportunity ${instance} referenced by a teaser ${teaser}.`);
-      }
-      return true;
-    });
+    const oppDoc = this.findDoc(docID);
+    const teasers = Teasers.find({ targetSlugID: oppDoc.slugID }).fetch();
+    if (teasers.length > 0) {
+      throw new Meteor.Error(`Opportunity ${instance} referenced by a teaser.`);
+    }
     // OK to delete. First remove any Feeds that reference this opportunity.
     Feeds.find({ opportunityID: docID }).map((feed) => Feeds.removeIt(feed._id));
     return super.removeIt(docID);
@@ -312,7 +337,19 @@ class OpportunityCollection extends BaseSlugCollection {
     const eventDate = doc.eventDate;
     const timestamp = doc.timestamp;
     const retired = doc.retired;
-    return { name, slug, description, opportunityType, sponsor, ice, interests, academicTerms, eventDate, timestamp, retired };
+    return {
+      name,
+      slug,
+      description,
+      opportunityType,
+      sponsor,
+      ice,
+      interests,
+      academicTerms,
+      eventDate,
+      timestamp,
+      retired,
+    };
   }
 }
 

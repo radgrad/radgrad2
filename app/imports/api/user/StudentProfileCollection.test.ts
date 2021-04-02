@@ -89,7 +89,7 @@ if (Meteor.isServer) {
         fc.property(fc.lorem(1), fc.lorem(1), fc.lorem(1), fc.boolean(),
           fc.boolean(), fc.boolean(), fc.boolean(), fc.boolean(), fc.boolean(), fc.boolean(), fc.boolean(),
           fc.boolean(), fc.boolean(),
-          (firstName, lastName, picture, isAlumni, retired, shareUsername, sharePicture, shareWebsite, shareInterests, shareCareerGoals, shareCourses, shareOpportunities, shareLevel) => {
+          (firstName, lastName, picture, isAlumni, retired,  sharePicture, shareWebsite, shareInterests, shareCareerGoals, shareCourses, shareOpportunities, shareLevel, shareICE) => {
             const website = faker.internet.url();
             const interests = makeSampleInterestArray(3);
             const careerGoals = makeSampleCareerGoalSlugArray(4);
@@ -100,9 +100,8 @@ if (Meteor.isServer) {
               website,
               interests,
               careerGoals,
-              isAlumni, retired, shareUsername,
-              sharePicture, shareWebsite, shareInterests, shareCareerGoals, shareCourses,
-              shareOpportunities, shareLevel,
+              isAlumni, retired, sharePicture, shareWebsite, shareInterests, shareCareerGoals, shareCourses,
+              shareOpportunities, shareLevel, shareICE,
             });
             doc = StudentProfiles.findDoc(docID);
             expect(doc.firstName).to.equal(firstName);
@@ -113,7 +112,6 @@ if (Meteor.isServer) {
             // expect(ProfileCareerGoals.count()).to.equal(careerGoals.length);
             expect(doc.retired).to.equal(retired);
             expect(doc.isAlumni).to.equal(isAlumni);
-            expect(doc.shareUsername).to.equal(shareUsername);
             expect(doc.sharePicture).to.equal(sharePicture);
             expect(doc.shareWebsite).to.equal(shareWebsite);
             expect(doc.shareInterests).to.equal(shareInterests);
@@ -121,6 +119,7 @@ if (Meteor.isServer) {
             expect(doc.shareCourses).to.equal(shareCourses);
             expect(doc.shareOpportunities).to.equal(shareOpportunities);
             expect(doc.shareLevel).to.equal(shareLevel);
+            expect(doc.shareICE).to.equal(shareICE);
           }),
       );
       done();
@@ -141,7 +140,6 @@ if (Meteor.isServer) {
       expect(doc.website).to.equal(origDoc.website);
       expect(doc.retired).to.equal(origDoc.retired);
       expect(doc.isAlumni).to.equal(origDoc.isAlumni);
-      expect(doc.shareUsername).to.equal(origDoc.shareUsername);
       expect(doc.sharePicture).to.equal(origDoc.sharePicture);
       expect(doc.shareWebsite).to.equal(origDoc.shareWebsite);
       expect(doc.shareInterests).to.equal(origDoc.shareInterests);
@@ -149,6 +147,7 @@ if (Meteor.isServer) {
       expect(doc.shareCourses).to.equal(origDoc.shareCourses);
       expect(doc.shareOpportunities).to.equal(origDoc.shareOpportunities);
       expect(doc.shareLevel).to.equal(origDoc.shareLevel);
+      expect(doc.shareICE).to.equal(origDoc.shareICE);
     });
 
     it('Can checkIntegrity no errors', function test5() { // Tests checkIntegrity

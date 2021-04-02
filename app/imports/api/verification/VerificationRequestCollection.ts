@@ -11,13 +11,19 @@ import { Users } from '../user/UserCollection';
 import { Processed, VerificationRequestDefine, VerificationRequestUpdate } from '../../typings/radgrad';
 import { iceSchema } from '../ice/IceProcessor';
 
+export const VerificationRequestStatus = {
+  ACCEPTED: 'Accepted',
+  REJECTED: 'Rejected',
+  OPEN: 'Open',
+};
+
 /**
  * Schema for the processed information of VerificationRequests.
  * @memberOf api/verification
  */
 export const ProcessedSchema = new SimpleSchema({
   date: Date,
-  status: String,
+  status: { type: String, allowedValues: [VerificationRequestStatus.REJECTED, VerificationRequestStatus.ACCEPTED, VerificationRequestStatus.OPEN] },
   verifier: String,
   feedback: { type: String, optional: true },
 });

@@ -3,6 +3,7 @@ import _ from 'lodash';
 import SimpleSchema from 'simpl-schema';
 import { ReactiveAggregate } from 'meteor/jcbernack:reactive-aggregate';
 import { OpportunityForecastName } from '../../startup/both/names';
+import { ProfileOpportunities } from '../user/profile-entries/ProfileOpportunityCollection';
 import { Opportunities } from './OpportunityCollection';
 import { ROLE } from '../role/Role';
 import { AcademicYearInstances } from '../degree-plan/AcademicYearInstanceCollection';
@@ -101,6 +102,8 @@ class OpportunityInstanceCollection extends BaseCollection {
       return this.findOpportunityInstanceDoc(academicTerm, opportunity, student)._id;
     }
     const ice = Opportunities.findDoc(opportunityID).ice;
+    // TODO need to talk about this
+    ProfileOpportunities.define({ opportunity, student, retired });
     // Define and return the new OpportunityInstance
     // console.log(termID, opportunityID, verified, studentID, sponsorID, ice, retired);
     const opportunityInstanceID = this.collection.insert({
