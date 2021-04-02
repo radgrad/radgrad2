@@ -6,7 +6,7 @@ import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstan
 import { Users } from '../../../api/user/UserCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import { OpportunityInstance, VerificationRequest } from '../../../typings/radgrad';
-import StudentUnverifiedOpportunities from '../../components/student/StudentUnverifiedOpportunities';
+import StudentUnverifiedOpportunities from '../../components/student/verification-requests/StudentUnverifiedOpportunities';
 import { getUnverifiedInstances } from '../../components/utilities/verification-requests';
 import PageLayout from '../PageLayout';
 
