@@ -3,7 +3,7 @@ import _ from 'lodash';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Grid, Header, Icon, Segment, Form } from 'semantic-ui-react';
+import { Grid, Header, Icon, Segment, Form, Button, Modal } from 'semantic-ui-react';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { ROLE } from '../../../api/role/Role';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
@@ -55,10 +55,15 @@ const StudentPrivacyPage: React.FC<StudentPrivacyPageProps> = ({ profile }) => {
       setFetched(true);
     }
   });
+  // checkboxState is an object containing booleans to indicate which fields are public, and thus which checkboxes should be checked.
+  // It's initialized from the profile, then updated by the onClick handler (handleCheckboxChange).
   const [checkboxState, setCheckboxState] = useState<CheckboxState>({sharePicture: profile.sharePicture, shareCareerGoals: profile.shareCareerGoals, shareCourses: profile.shareCourses, shareICE: profile.shareICE, shareInterests: profile.shareInterests, shareLevel: profile.shareLevel, shareOpportunities: profile.shareOpportunities, shareWebsite: profile.shareWebsite });
   const name = `${profile.firstName} ${profile.lastName}`;
 
-  /* Update the checkboxState object whenever the user clicks a check box. */
+  /*
+   * Update the checkboxState object whenever the user clicks a check box,
+   * then run a Meteor Method to update the user's profile and return the updated public profile data which refreshes the displayed card.
+   */
   const handleCheckboxChange = (event, eventData) => {
     const updatedCheckboxState = _.create({}, checkboxState);
     updatedCheckboxState[eventData.name] = eventData.checked;
@@ -67,6 +72,16 @@ const StudentPrivacyPage: React.FC<StudentPrivacyPageProps> = ({ profile }) => {
       .then(result => setData(result))
       .catch(error => { console.error(error); });
   };
+
+  // Keep track of whether the user has specified a website and/or picture. Those checkboxes are readonly when those fields are empty.
+  const [websiteExists, setWebsiteExists] = useState(!!profile.website);
+  const [pictureExists, setPictureExists] = useState(!!profile.picture);
+
+  // Keep track of website and picture modal state
+  const [websiteOpen, setWebsiteOpen] = React.useState(false);
+  const [pictureOpen, setPictureOpen] = React.useState(false);
+
+
 
   return (
     <PageLayout id="student-privacy-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
@@ -77,8 +92,33 @@ const StudentPrivacyPage: React.FC<StudentPrivacyPageProps> = ({ profile }) => {
               <Header dividing><Icon name="eye"/> VISIBILITY</Header>
               <p>Control what data appears in your Label and Profile:</p>
               <Form>
-                <Form.Checkbox inline name="sharePicture" label="Picture" checked={checkboxState.sharePicture} onChange={handleCheckboxChange}/>
-                <Form.Checkbox inline name="shareWebsite" label="Website" checked={checkboxState.shareWebsite} onChange={handleCheckboxChange}/>
+                <Form.Group inline>
+                <Form.Checkbox inline name="sharePicture" label="Picture" checked={pictureExists && checkboxState.sharePicture} onChange={handleCheckboxChange}/>
+                  <Modal size='small'
+                         onClose={() => setPictureOpen(false)}
+                         onOpen={() => setPictureOpen(true)}
+                         open={pictureOpen}
+                         trigger={<Button size='mini'>{pictureExists ? 'Edit' : 'Add'}</Button>}
+                  >
+                    <Modal.Content>
+                      <Form>
+                        <Form.Field>
+                          Picture
+                          <Form.Input placeholder='Last Name'>{profile.picture}</Form.Input>
+                        </Form.Field>
+                        <Button type='submit'>Submit</Button>
+                      </Form>
+                    </Modal.Content>
+                    <Modal.Actions>
+                      <Button color='green' onClick={() => setPictureOpen(false)}>Close</Button>
+                    </Modal.Actions>
+                  </Modal>
+
+                </Form.Group>
+                <Form.Group inline>
+                <Form.Checkbox inline name="shareWebsite" label="Website" checked={websiteExists && checkboxState.shareWebsite} onChange={handleCheckboxChange}/>
+                  <Button size='mini'>{websiteExists ? 'Edit' : 'Add'}</Button>
+                </Form.Group>
                 <Form.Checkbox inline name="shareInterests" label="Interests" checked={checkboxState.shareInterests} onChange={handleCheckboxChange}/>
                 <Form.Checkbox inline name="shareCareerGoals" label="Career Goals" checked={checkboxState.shareCareerGoals} onChange={handleCheckboxChange}/>
                 <Form.Checkbox inline name="shareOpportunities" label="Opportunities" checked={checkboxState.shareOpportunities} onChange={handleCheckboxChange}/>
@@ -91,7 +131,7 @@ const StudentPrivacyPage: React.FC<StudentPrivacyPageProps> = ({ profile }) => {
           <Grid.Column width={12}>
             <Segment>
               <Header dividing><Icon name="user"/>YOUR LABEL</Header>
-              <p>Your Label appears in pages matching your public data: </p>
+              <p>Your Label appears in pages relevant to your public data: </p>
               <UserLabel username={profile.username} />
             </Segment>
             <Segment>
@@ -110,6 +150,7 @@ const StudentPrivacyPage: React.FC<StudentPrivacyPageProps> = ({ profile }) => {
 export default withTracker(() => {
   const { username } = useParams();
   const profile = Users.getProfile(username) as StudentProfile;
+  // TODO Refactor this code into a single function call that can be called from multiple pages.
   if (profile.role === ROLE.STUDENT) {
     const lastVisited = moment().format('YYYY-MM-DD');
     if (lastVisited !== profile.lastVisitedPrivacy) {
