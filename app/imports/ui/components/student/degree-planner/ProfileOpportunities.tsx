@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, Icon, Message } from 'semantic-ui-react';
 import { Link, useRouteMatch } from 'react-router-dom';
 import { Opportunity, OpportunityInstance } from '../../../../typings/radgrad';
+import { ButtonLink } from '../../shared/button/Buttons';
 import * as Router from '../../shared/utilities/router';
 import ProfileOpportunityCard from './ProfileOpportunityCard';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
@@ -27,9 +28,7 @@ const ProfileOpportunities: React.FC<ProfileOpportunitiesProps> = ({ studentID, 
         <Message>
           <Message.Header>No Profile Opportunities</Message.Header>
           <p>You can add opportunities to your profile in the explorer.</p>
-          <Link to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}`)}>
-            View in Explorer <Icon name="arrow right" />
-          </Link>
+          <ButtonLink url={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}`)} label='View in Explorer' />
         </Message>
       )}
     </div>

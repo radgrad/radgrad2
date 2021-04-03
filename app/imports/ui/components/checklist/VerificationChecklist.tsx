@@ -1,5 +1,6 @@
 import React from 'react';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
+import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { StudentProfile } from '../../../typings/radgrad';
 import { DEGREEPLANNER, STUDENT_VERIFICATION, URL_ROLES } from '../../layouts/utilities/route-constants';
@@ -8,7 +9,6 @@ import { Checklist, CHECKSTATE } from './Checklist';
 import { DetailsBox } from './DetailsBox';
 import { ActionsBox } from './ActionsBox';
 import { ChecklistButtonLink } from './ChecklistButtons';
-import { getUnverifiedInstances } from '../utilities/verification-requests';
 
 export class VerificationChecklist extends Checklist {
   private profile: StudentProfile;
@@ -30,7 +30,7 @@ export class VerificationChecklist extends Checklist {
   }
 
   public updateState(): void {
-    const unverified = getUnverifiedInstances(this.profile.userID);
+    const unverified = OpportunityInstances.getUnverifiedInstances(this.profile.userID);
     if (unverified.length > 0) {
       this.state = CHECKSTATE.IMPROVE;
     } else {
@@ -39,7 +39,7 @@ export class VerificationChecklist extends Checklist {
   }
 
   public getDetails(): JSX.Element {
-    const unverifiedInstances = getUnverifiedInstances(this.profile.userID);
+    const unverifiedInstances = OpportunityInstances.getUnverifiedInstances(this.profile.userID);
     const unverifiedOpps = unverifiedInstances.map((oi) => Opportunities.findDoc(oi.opportunityID));
     switch (this.state) {
       case CHECKSTATE.IMPROVE:

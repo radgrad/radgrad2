@@ -1,5 +1,4 @@
 import React from 'react';
-import { Header } from 'semantic-ui-react';
 import { useParams } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
@@ -7,7 +6,6 @@ import { Users } from '../../../api/user/UserCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import { OpportunityInstance, VerificationRequest } from '../../../typings/radgrad';
 import StudentUnverifiedOpportunities from '../../components/student/verification-requests/StudentUnverifiedOpportunities';
-import { getUnverifiedInstances } from '../../components/utilities/verification-requests';
 import PageLayout from '../PageLayout';
 
 const headerPaneTitle = 'Verify that you completed your opportunities';
@@ -36,7 +34,7 @@ export default withTracker(() => {
   const { username } = useParams();
   const profile = Users.getProfile(username);
   const studentID = profile.userID;
-  const unVerifiedOpportunityInstances = getUnverifiedInstances(studentID);
+  const unVerifiedOpportunityInstances = OpportunityInstances.getUnverifiedInstances(studentID);
   const verificationRequests = VerificationRequests.findNonRetired({ studentID });
   return {
     unVerifiedOpportunityInstances,

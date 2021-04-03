@@ -1,21 +1,26 @@
 import React from 'react';
-import { Button, Card, Icon } from 'semantic-ui-react';
-import { Link, useRouteMatch } from 'react-router-dom';
+import { Button, Card } from 'semantic-ui-react';
+import { useRouteMatch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
 import { RadGradProperties } from '../../../../api/radgrad/RadGradProperties';
 import { OpportunityForecastCollection } from '../../../../startup/client/collections';
+import { ButtonLink, ViewInExplorerButtonLink } from '../../shared/button/Buttons';
 import { getUsername } from '../../shared/utilities/router';
-import { AcademicTerm, OpportunityInstance, UserInteractionDefine, VerificationRequest, VerificationRequestDefine } from '../../../../typings/radgrad';
+import {
+  AcademicTerm,
+  OpportunityInstance,
+  UserInteractionDefine,
+  VerificationRequest,
+  VerificationRequestDefine,
+} from '../../../../typings/radgrad';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
 import IceHeader from '../../shared/IceHeader';
 import FutureParticipation from '../../shared/explorer/FutureParticipation';
 import { defineMethod, removeItMethod } from '../../../../api/base/BaseCollection.methods';
 import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
-import { buildRouteName } from './DepUtilityFunctions';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
-import RequestVerificationForm from './RequestVerificationForm';
 import { VerificationRequests } from '../../../../api/verification/VerificationRequestCollection';
 import { cardStyle, contentStyle } from './utilities/styles';
 import VerificationRequestStatus from './VerificationRequestStatus';
@@ -23,6 +28,7 @@ import { degreePlannerActions } from '../../../../redux/student/degree-planner';
 import { UserInteractionsTypes } from '../../../../api/analytic/UserInteractionsTypes';
 import { userInteractionDefineMethod } from '../../../../api/analytic/UserInteractionCollection.methods';
 import { Slugs } from '../../../../api/slug/SlugCollection';
+import * as RouterUtils from '../../shared/utilities/router';
 
 interface DetailOpportunityCardProps {
   instance: OpportunityInstance;
@@ -101,19 +107,19 @@ const handleVerificationRequest = (instance, match) => (model) => {
   });
 };
 
-const DetailOpportunityCard: React.FC<DetailOpportunityCardProps> = ({ instance, verificationRequests, selectOpportunityInstance }) => {
-  const verificationRequeststoShow = verificationRequests.filter((vr) => vr.opportunityInstanceID === instance._id);
+const DetailOpportunityCard: React.FC<DetailOpportunityCardProps> = ({
+  instance,
+  verificationRequests,
+  selectOpportunityInstance,
+}) => {
+  const verificationRequestsToShow = verificationRequests.filter((vr) => vr.opportunityInstanceID === instance._id);
   const match = useRouteMatch();
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
   const opportunityTerm = AcademicTerms.findDoc(instance.termID);
   const futureP = opportunityTerm.termNumber >= currentTerm.termNumber;
-  const verificationRequested = verificationRequeststoShow.length > 0;
+  const verificationRequested = verificationRequestsToShow.length > 0;
   const termName = AcademicTerms.getShortName(instance.termID);
   const opportunity = Opportunities.findDoc(instance.opportunityID);
-  const textAlignRight: React.CSSProperties = {
-    textAlign: 'right',
-  };
-
   const quarter = RadGradProperties.getQuarterSystem();
   const numTerms = quarter ? 12 : 9;
   const academicTerms = AcademicTerms.findNonRetired(
@@ -148,7 +154,8 @@ const DetailOpportunityCard: React.FC<DetailOpportunityCardProps> = ({ instance,
                 <b>Scheduled:</b> {termName}
               </p>
               <FutureParticipation academicTerms={academicTerms} scores={scores} />
-              <Button floated="right" basic color="green" value={instance._id} onClick={handleRemove(selectOpportunityInstance, match)} size="tiny">
+              <Button floated="right" basic color="green" value={instance._id}
+                      onClick={handleRemove(selectOpportunityInstance, match)} size="tiny">
                 Remove
               </Button>
             </React.Fragment>
@@ -160,27 +167,24 @@ const DetailOpportunityCard: React.FC<DetailOpportunityCardProps> = ({ instance,
               {verificationRequested ? (
                 ''
               ) : (
-                <Button floated="right" basic color="green" value={instance._id} onClick={handleRemove(selectOpportunityInstance, match)} size="tiny">
+                <Button floated="right" basic color="green" value={instance._id}
+                        onClick={handleRemove(selectOpportunityInstance, match)} size="tiny">
                   Remove
                 </Button>
               )}
             </React.Fragment>
           )}
         </Card.Content>
-        {verificationRequested ? <VerificationRequestStatus request={verificationRequeststoShow[0]} /> : ''}
+        {verificationRequested ? <VerificationRequestStatus request={verificationRequestsToShow[0]} /> : ''}
         {!futureP && !verificationRequested ? (
           <Card.Content style={contentStyle}>
-            <RequestVerificationForm handleOnModelChange={handleVerificationRequest(instance, match)} />
+            <ButtonLink url={RouterUtils.buildRouteName(match, '/student-verification')} label='Request verification' />
           </Card.Content>
         ) : (
           ''
         )}
         <Card.Content style={contentStyle}>
-          <p style={textAlignRight}>
-            <Link to={buildRouteName(match, opportunity, EXPLORER_TYPE.OPPORTUNITIES)} rel="noopener noreferrer" target="_blank">
-              View in Explorer <Icon name="arrow right" />
-            </Link>
-          </p>
+          <ViewInExplorerButtonLink match={match} type={EXPLORER_TYPE.OPPORTUNITIES} item={opportunity} />
         </Card.Content>
       </Card>
     </Card.Group>

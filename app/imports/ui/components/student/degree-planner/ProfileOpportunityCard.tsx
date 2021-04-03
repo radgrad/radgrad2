@@ -1,10 +1,11 @@
 import React from 'react';
-import { Card, Icon } from 'semantic-ui-react';
-import { Link, useRouteMatch } from 'react-router-dom';
+import { Card } from 'semantic-ui-react';
+import { useRouteMatch } from 'react-router-dom';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { RadGradProperties } from '../../../../api/radgrad/RadGradProperties';
 import { OpportunityForecastCollection } from '../../../../startup/client/collections';
 import { AcademicTerm, Opportunity, OpportunityInstance } from '../../../../typings/radgrad';
+import { ViewInExplorerButtonLink } from '../../shared/button/Buttons';
 import IceHeader from '../../shared/IceHeader';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import FutureParticipation from '../../shared/explorer/FutureParticipation';
@@ -12,7 +13,6 @@ import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import { Slugs } from '../../../../api/slug/SlugCollection';
 import { cardStyle, contentStyle, getInspectorDraggablePillStyle } from './utilities/styles';
 import NamePill from './NamePill';
-import { buildRouteName } from './DepUtilityFunctions';
 
 interface ProfileOpportunityCardProps {
   opportunity: Opportunity;
@@ -20,7 +20,11 @@ interface ProfileOpportunityCardProps {
   opportunityInstances: OpportunityInstance[];
 }
 
-const ProfileOpportunityCard: React.FC<ProfileOpportunityCardProps> = ({ opportunity, opportunityInstances, studentID }) => {
+const ProfileOpportunityCard: React.FC<ProfileOpportunityCardProps> = ({
+  opportunity,
+  opportunityInstances,
+  studentID,
+}) => {
   const match = useRouteMatch();
   const instances = opportunityInstances.filter((i) => i.opportunityID === opportunity._id);
   const terms: AcademicTerm[] = instances.map((i) => AcademicTerms.findDoc(i.termID));
@@ -28,9 +32,6 @@ const ProfileOpportunityCard: React.FC<ProfileOpportunityCardProps> = ({ opportu
   terms.sort((a, b) => a.year - b.year);
   const termNames = terms.map((t) => AcademicTerms.getShortName(t._id)).join(', ');
   const slug = Slugs.findDoc(opportunity.slugID).name;
-  const textAlignRight: React.CSSProperties = {
-    textAlign: 'right',
-  };
   const droppableID = `${opportunity._id}`;
 
   const quarter = RadGradProperties.getQuarterSystem();
@@ -72,7 +73,8 @@ const ProfileOpportunityCard: React.FC<ProfileOpportunityCardProps> = ({ opportu
             <div ref={provided.innerRef}>
               <Draggable key={slug} draggableId={slug} index={0}>
                 {(prov, snap) => (
-                  <div ref={prov.innerRef} {...prov.draggableProps} {...prov.dragHandleProps} style={getInspectorDraggablePillStyle(snap.isDragging, prov.draggableProps.style)}>
+                  <div ref={prov.innerRef} {...prov.draggableProps} {...prov.dragHandleProps}
+                       style={getInspectorDraggablePillStyle(snap.isDragging, prov.draggableProps.style)}>
                     <NamePill name={opportunity.name} />
                   </div>
                 )}
@@ -87,11 +89,7 @@ const ProfileOpportunityCard: React.FC<ProfileOpportunityCardProps> = ({ opportu
         <FutureParticipation academicTerms={academicTerms} scores={scores} />
       </Card.Content>
       <Card.Content style={contentStyle}>
-        <p style={textAlignRight}>
-          <Link to={buildRouteName(match, opportunity, EXPLORER_TYPE.OPPORTUNITIES)} rel="noopener noreferrer" target="_blank">
-            View in Explorer <Icon name="arrow right" />
-          </Link>
-        </p>
+        <ViewInExplorerButtonLink match={match} type={EXPLORER_TYPE.OPPORTUNITIES} item={opportunity} />
       </Card.Content>
     </Card>
   );

@@ -1,16 +1,16 @@
 import React from 'react';
-import { Button, Card, Icon } from 'semantic-ui-react';
+import { Button, Card } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import { Link, useRouteMatch } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { RadGradProperties } from '../../../../api/radgrad/RadGradProperties';
 import { CourseForecastCollection } from '../../../../startup/client/collections';
 import { AcademicTerm, CourseInstance, UserInteractionDefine } from '../../../../typings/radgrad';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
+import { ViewInExplorerButtonLink } from '../../shared/button/Buttons';
 import IceHeader from '../../shared/IceHeader';
 import { Courses } from '../../../../api/course/CourseCollection';
 import FutureParticipation from '../../shared/explorer/FutureParticipation';
-import { buildRouteName } from './DepUtilityFunctions';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import { CourseInstances } from '../../../../api/course/CourseInstanceCollection';
 import { removeItMethod } from '../../../../api/base/BaseCollection.methods';
@@ -22,7 +22,7 @@ import { cardStyle, contentStyle } from './utilities/styles';
 
 interface DetailCourseCardProps {
   instance: CourseInstance;
-  selectCourseInstance: (courseInstanceID: string) => any;
+  selectCourseInstance: (courseInstanceID: string) => never;
 }
 
 const mapDispatchToProps = (dispatch) => ({
@@ -68,10 +68,6 @@ const DetailCourseCard: React.FC<DetailCourseCardProps> = ({ instance, selectCou
   const futureP = courseTerm.termNumber >= currentTerm.termNumber;
   const termName = AcademicTerms.getShortName(instance.termID);
   const course = Courses.findDoc(instance.courseID);
-  const textAlignRight: React.CSSProperties = {
-    textAlign: 'right',
-  };
-
   const quarter = RadGradProperties.getQuarterSystem();
   const numTerms = quarter ? 12 : 9;
   const academicTerms = AcademicTerms.findNonRetired(
@@ -110,7 +106,8 @@ const DetailCourseCard: React.FC<DetailCourseCardProps> = ({ instance, selectCou
                 <b>Scheduled:</b> {termName}
               </p>
               <FutureParticipation academicTerms={academicTerms} scores={scores} />
-              <Button floated="right" basic color="green" value={instance._id} onClick={handleRemove(selectCourseInstance, match)} size="tiny">
+              <Button floated="right" basic color="green" value={instance._id}
+                      onClick={handleRemove(selectCourseInstance, match)} size="tiny">
                 Remove
               </Button>
             </React.Fragment>
@@ -121,11 +118,7 @@ const DetailCourseCard: React.FC<DetailCourseCardProps> = ({ instance, selectCou
           )}
         </Card.Content>
         <Card.Content style={contentStyle}>
-          <p style={textAlignRight}>
-            <Link to={buildRouteName(match, course, EXPLORER_TYPE.COURSES)} rel="noopener noreferrer" target="_blank">
-              View in Explorer <Icon name="arrow right" />
-            </Link>
-          </p>
+          <ViewInExplorerButtonLink match={match} type={EXPLORER_TYPE.COURSES} item={course} />
         </Card.Content>
       </Card>
     </Card.Group>

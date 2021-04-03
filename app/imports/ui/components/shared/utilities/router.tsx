@@ -119,7 +119,7 @@ export const buildExplorerSlugRoute = (match: MatchProps, type: string, slug: st
 
 // Returns the parameter by index (the parameters AFTER the base route)
 // i.e., /student/abi@hawaii.edu/param1/param2/param3 (index = 1 returns param1, index = 2 returns param2, etc...)
-export const getUrlParam = (match: MatchProps, index: number) => {
+export const getUrlParam = (match: MatchProps, index: number): string => {
   if (index <= 0) {
     throw new Error('getUrlParam() function from router.tsx requires index to be greater than 0');
   }
