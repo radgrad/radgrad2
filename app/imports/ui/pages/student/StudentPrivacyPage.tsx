@@ -10,6 +10,7 @@ import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { getPublicProfileData, PublicProfileData, updatePublicProfileData } from '../../../api/user/StudentProfileCollection.methods';
 import { Users } from '../../../api/user/UserCollection';
 import { StudentProfile, StudentProfileUpdate } from '../../../typings/radgrad';
+import { SetWebsiteButton } from '../../components/shared/privacy/SetWebsiteButton';
 import ProfileCard from '../../components/shared/profile/ProfileCard';
 import UserLabel from '../../components/shared/profile/UserLabel';
 import PageLayout from '../PageLayout';
@@ -78,10 +79,11 @@ const StudentPrivacyPage: React.FC<StudentPrivacyPageProps> = ({ profile }) => {
   const [pictureExists, setPictureExists] = useState(!!profile.picture);
 
   // Keep track of website and picture modal state
-  const [websiteOpen, setWebsiteOpen] = React.useState(false);
   const [pictureOpen, setPictureOpen] = React.useState(false);
 
-
+  const handleWebsiteChange = (newWebsiteURL) => {
+    console.log('handle website change', newWebsiteURL);
+  };
 
   return (
     <PageLayout id="student-privacy-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
@@ -117,7 +119,7 @@ const StudentPrivacyPage: React.FC<StudentPrivacyPageProps> = ({ profile }) => {
                 </Form.Group>
                 <Form.Group inline>
                 <Form.Checkbox inline name="shareWebsite" label="Website" checked={websiteExists && checkboxState.shareWebsite} onChange={handleCheckboxChange}/>
-                  <Button size='mini'>{websiteExists ? 'Edit' : 'Add'}</Button>
+                  <SetWebsiteButton website={profile.website} handleChange={handleWebsiteChange}/>
                 </Form.Group>
                 <Form.Checkbox inline name="shareInterests" label="Interests" checked={checkboxState.shareInterests} onChange={handleCheckboxChange}/>
                 <Form.Checkbox inline name="shareCareerGoals" label="Career Goals" checked={checkboxState.shareCareerGoals} onChange={handleCheckboxChange}/>
