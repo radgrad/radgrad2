@@ -3,15 +3,15 @@ import moment from 'moment';
 import { useParams } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import _ from 'lodash';
-import { updateMethod } from '../../../../api/base/BaseCollection.methods';
 import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
 import { ProfileCareerGoals } from '../../../../api/user/profile-entries/ProfileCareerGoalCollection';
-import { ROLE } from '../../../../api/role/Role';
 import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
 import { Users } from '../../../../api/user/UserCollection';
-import { CareerGoal, StudentProfileUpdate } from '../../../../typings/radgrad';
+import { CareerGoal, StudentProfile } from '../../../../typings/radgrad';
 import CareerGoalBrowserView from '../../../components/shared/explorer/browser-view/CareerGoalBrowserView';
 import PageLayout from '../../PageLayout';
+import { updateLastVisitedMethod } from '../../../../api/user/BaseProfileCollection.methods';
+import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 
 interface CareerGoalBrowserViewPageProps {
   profileCareerGoals: CareerGoal[];
@@ -36,32 +36,33 @@ const CareerGoalBrowserViewPage: React.FC<CareerGoalBrowserViewPageProps> = ({
 }) => (
     <PageLayout id="career-goal-browser-view-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
       <CareerGoalBrowserView profileInterestIDs={profileInterestIDs} careerGoals={profileCareerGoals} inProfile />
-      <CareerGoalBrowserView profileInterestIDs={profileInterestIDs} careerGoals={nonProfileCareerGoals} />
+      <CareerGoalBrowserView profileInterestIDs={profileInterestIDs} careerGoals={nonProfileCareerGoals} inProfile={false}/>
     </PageLayout>
 );
 
 export default withTracker(() => {
   const { username } = useParams();
-  const profile = Users.getProfile(username);
-  if (profile.role === ROLE.STUDENT) {
+  let profile: StudentProfile;
+  let careerGoals;
+  if (Users.hasProfile(username)) {
+    profile = Users.getProfile(username);
+    const collectionName = StudentProfiles.getCollectionName();
     const lastVisited = moment().format('YYYY-MM-DD');
-    if (lastVisited !== profile.lastVisitedCareerGoals) {
-      const collectionName = StudentProfiles.getCollectionName();
-      const updateData: StudentProfileUpdate = {};
-      updateData.id = profile._id;
-      updateData.lastVisitedCareerGoals = lastVisited;
-      updateMethod.call({ collectionName, updateData }, (error, result) => {
-        if (error) {
-          console.error('Error updating StudentProfile', collectionName, updateData, error);
-        }
-      });
+    if (Users.hasProfile(username) && lastVisited !== profile.lastVisitedCareerGoals) {
+      updateLastVisitedMethod.call(
+        {
+          collectionName: collectionName,
+          lastVisitedTime: lastVisited,
+          type: EXPLORER_TYPE.CAREERGOALS,
+        },
+      );
     }
+    careerGoals = ProfileCareerGoals.findNonRetired({ userID: profile.userID });
   }
-  const favCar = ProfileCareerGoals.findNonRetired({ userID: profile.userID });
-  const profileCareerGoals = favCar.map((f) => CareerGoals.findDoc(f.careerGoalID));
+  const profileCareerGoals = careerGoals.map((f) => CareerGoals.findDoc(f.careerGoalID));
   const profileInterestIDs = Users.getInterestIDs(username);
-  const careerGoals = CareerGoals.findNonRetired({});
-  const nonProfileCareerGoals = _.filter(careerGoals, md => profileCareerGoals.every(fd => fd._id !== md._id));
+  const allCareerGoals = CareerGoals.findNonRetired({});
+  const nonProfileCareerGoals = _.filter(allCareerGoals, md => profileCareerGoals.every(fd => fd._id !== md._id));
   return {
     careerGoals,
     profileCareerGoals,

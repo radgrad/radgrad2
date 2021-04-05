@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import {Button, Card, Divider, Header, Icon, Segment} from 'semantic-ui-react';
+import { Button, Card, Divider, Header, Icon, Segment } from 'semantic-ui-react';
 import { scrollPositionActions } from '../../../../../redux/shared/scrollPosition';
 import { RootState } from '../../../../../redux/types';
 import { CareerGoal } from '../../../../../typings/radgrad';
@@ -8,9 +8,9 @@ import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
 import ProfileCard from './ProfileCard';
 import PreferredChoice from '../../../../../api/degree-plan/PreferredChoice';
 import WidgetHeaderNumber from '../WidgetHeaderNumber';
-import {CHECKSTATE} from '../../../checklist/Checklist';
-import {CareerGoalsChecklist} from '../../../checklist/CareerGoalsChecklist';
-import {RadGradProperties} from '../../../../../api/radgrad/RadGradProperties';
+import { CHECKSTATE } from '../../../checklist/Checklist';
+import { CareerGoalsChecklist } from '../../../checklist/CareerGoalsChecklist';
+import { RadGradProperties } from '../../../../../api/radgrad/RadGradProperties';
 
 interface CareerGoalBrowserViewProps {
   profileInterestIDs: string[];
@@ -34,7 +34,7 @@ const CareerGoalBrowserView: React.FC<CareerGoalBrowserViewProps> = ({
   careerGoals,
   careerGoalsScrollPosition,
   setCareerGoalsScrollPosition,
-  inProfile}) => {
+  inProfile }) => {
   const cardGroupElement: HTMLElement = document.getElementById('careerGoalsCardGroup');
   const preferred = new PreferredChoice(careerGoals, profileInterestIDs);
   const ordered = preferred.getOrderedChoices();
