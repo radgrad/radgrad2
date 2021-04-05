@@ -7,7 +7,7 @@ import { CourseForecastCollection } from '../../../../startup/client/collections
 import { AcademicTerm, Course, CourseInstance } from '../../../../typings/radgrad';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import { Slugs } from '../../../../api/slug/SlugCollection';
-import { ViewInExplorerButtonLink } from '../../shared/button/Buttons';
+import { ViewInExplorerButtonLink } from '../../shared/button/ViewInExplorerButtonLink';
 import IceHeader from '../../shared/IceHeader';
 import { makeCourseICE } from '../../../../api/ice/IceProcessor';
 import { cardStyle, contentStyle, getInspectorDraggablePillStyle } from './utilities/styles';
@@ -90,7 +90,7 @@ const ProfileCourseCard: React.FC<ProfileCourseCardProps> = ({ course, courseIns
         <FutureParticipation academicTerms={academicTerms} scores={scores} />
       </Card.Content>
       <Card.Content style={contentStyle}>
-        <ViewInExplorerButtonLink match={match} type={EXPLORER_TYPE.COURSES} item={course} />
+        <ViewInExplorerButtonLink match={match} type={EXPLORER_TYPE.COURSES} item={course} size="mini" />
       </Card.Content>
     </Card>
   );

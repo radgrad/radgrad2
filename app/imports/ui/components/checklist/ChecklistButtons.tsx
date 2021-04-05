@@ -1,5 +1,6 @@
 import React from 'react';
-import { ButtonLink, ButtonAction } from '../shared/button/Buttons';
+import { ButtonLink } from '../shared/button/ButtonLink';
+import { ButtonAction } from '../shared/button/ButtonAction';
 
 interface ChecklistButtonLinkProps {
   url: string,

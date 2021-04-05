@@ -1,33 +1,32 @@
 import React from 'react';
-import { Button, Card } from 'semantic-ui-react';
+import { Card } from 'semantic-ui-react';
 import { useRouteMatch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
 import { RadGradProperties } from '../../../../api/radgrad/RadGradProperties';
 import { OpportunityForecastCollection } from '../../../../startup/client/collections';
-import { ButtonLink, ViewInExplorerButtonLink } from '../../shared/button/Buttons';
+import { ButtonAction } from '../../shared/button/ButtonAction';
+import { ButtonLink } from '../../shared/button/ButtonLink';
+import { ViewInExplorerButtonLink } from '../../shared/button/ViewInExplorerButtonLink';
 import { getUsername } from '../../shared/utilities/router';
 import {
   AcademicTerm,
   OpportunityInstance,
   UserInteractionDefine,
   VerificationRequest,
-  VerificationRequestDefine,
 } from '../../../../typings/radgrad';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
 import IceHeader from '../../shared/IceHeader';
 import FutureParticipation from '../../shared/explorer/FutureParticipation';
-import { defineMethod, removeItMethod } from '../../../../api/base/BaseCollection.methods';
+import { removeItMethod } from '../../../../api/base/BaseCollection.methods';
 import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
-import { VerificationRequests } from '../../../../api/verification/VerificationRequestCollection';
 import { cardStyle, contentStyle } from './utilities/styles';
 import VerificationRequestStatus from './VerificationRequestStatus';
 import { degreePlannerActions } from '../../../../redux/student/degree-planner';
 import { UserInteractionsTypes } from '../../../../api/analytic/UserInteractionsTypes';
 import { userInteractionDefineMethod } from '../../../../api/analytic/UserInteractionCollection.methods';
-import { Slugs } from '../../../../api/slug/SlugCollection';
 import * as RouterUtils from '../../shared/utilities/router';
 
 interface DetailOpportunityCardProps {
@@ -70,41 +69,6 @@ const handleRemove = (selectOpportunityInstance, match) => (event, { value }) =>
     }
   });
   selectOpportunityInstance('');
-};
-
-const handleVerificationRequest = (instance, match) => (model) => {
-  const collectionName = VerificationRequests.getCollectionName();
-  const username = getUsername(match);
-  const opportunityInstance = instance._id;
-  const definitionData: VerificationRequestDefine = {
-    student: username,
-    opportunityInstance,
-  };
-  defineMethod.call({ collectionName, definitionData }, (error) => {
-    if (error) {
-      console.error(`Verification Request define ${definitionData} failed.`);
-    } else {
-      Swal.fire({
-        title: 'Verification request sent.',
-        icon: 'success',
-        showConfirmButton: false,
-        timer: 1500,
-      });
-      const slugID = OpportunityInstances.getOpportunityDoc(opportunityInstance).slugID;
-      const slugName = Slugs.getNameFromID(slugID);
-      const typeData = [slugName];
-      const interactionData: UserInteractionDefine = {
-        username,
-        type: UserInteractionsTypes.VERIFY_REQUEST,
-        typeData,
-      };
-      userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
-        if (userInteractionError) {
-          console.error('Error creating UserInteraction.', userInteractionError);
-        }
-      });
-    }
-  });
 };
 
 const DetailOpportunityCard: React.FC<DetailOpportunityCardProps> = ({
@@ -154,10 +118,8 @@ const DetailOpportunityCard: React.FC<DetailOpportunityCardProps> = ({
                 <b>Scheduled:</b> {termName}
               </p>
               <FutureParticipation academicTerms={academicTerms} scores={scores} />
-              <Button floated="right" basic color="green" value={instance._id}
-                      onClick={handleRemove(selectOpportunityInstance, match)} size="tiny">
-                Remove
-              </Button>
+              <ButtonAction value={instance._id} onClick={handleRemove(selectOpportunityInstance, match)}
+                            icon="trash alternate outline" label="Remove" style={cardStyle} size="small" />
             </React.Fragment>
           ) : (
             <React.Fragment>
@@ -167,24 +129,20 @@ const DetailOpportunityCard: React.FC<DetailOpportunityCardProps> = ({
               {verificationRequested ? (
                 ''
               ) : (
-                <Button floated="right" basic color="green" value={instance._id}
-                        onClick={handleRemove(selectOpportunityInstance, match)} size="tiny">
-                  Remove
-                </Button>
+                <ButtonAction value={instance._id} onClick={handleRemove(selectOpportunityInstance, match)}
+                              icon="trash alternate outline" label="Remove" style={cardStyle} size="small" />
               )}
             </React.Fragment>
           )}
-        </Card.Content>
-        {verificationRequested ? <VerificationRequestStatus request={verificationRequestsToShow[0]} /> : ''}
-        {!futureP && !verificationRequested ? (
-          <Card.Content style={contentStyle}>
-            <ButtonLink url={RouterUtils.buildRouteName(match, '/student-verification')} label='Request verification' />
-          </Card.Content>
-        ) : (
-          ''
-        )}
-        <Card.Content style={contentStyle}>
-          <ViewInExplorerButtonLink match={match} type={EXPLORER_TYPE.OPPORTUNITIES} item={opportunity} />
+          {verificationRequested ? <VerificationRequestStatus request={verificationRequestsToShow[0]} /> : ''}
+          {!futureP && !verificationRequested ? (
+            <ButtonLink url={RouterUtils.buildRouteName(match, '/student-verification')} label='Request verification'
+                        style={cardStyle} size="small" />
+          ) : (
+            ''
+          )}
+          <ViewInExplorerButtonLink match={match} type={EXPLORER_TYPE.OPPORTUNITIES} item={opportunity}
+                                    style={cardStyle} size="small" />
         </Card.Content>
       </Card>
     </Card.Group>

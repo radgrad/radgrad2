@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, Message } from 'semantic-ui-react';
 import { useRouteMatch } from 'react-router-dom';
 import { Course, CourseInstance } from '../../../../typings/radgrad';
-import { ButtonLink } from '../../shared/button/Buttons';
+import { ButtonLink } from '../../shared/button/ViewInExplorerButtonLink';
 import * as Router from '../../shared/utilities/router';
 import ProfileCourseCard from './ProfileCourseCard';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';

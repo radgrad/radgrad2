@@ -7,7 +7,7 @@ import { RadGradProperties } from '../../../../api/radgrad/RadGradProperties';
 import { CourseForecastCollection } from '../../../../startup/client/collections';
 import { AcademicTerm, CourseInstance, UserInteractionDefine } from '../../../../typings/radgrad';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
-import { ViewInExplorerButtonLink } from '../../shared/button/Buttons';
+import { ViewInExplorerButtonLink } from '../../shared/button/ViewInExplorerButtonLink';
 import IceHeader from '../../shared/IceHeader';
 import { Courses } from '../../../../api/course/CourseCollection';
 import FutureParticipation from '../../shared/explorer/FutureParticipation';

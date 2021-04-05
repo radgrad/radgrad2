@@ -5,7 +5,7 @@ import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { RadGradProperties } from '../../../../api/radgrad/RadGradProperties';
 import { OpportunityForecastCollection } from '../../../../startup/client/collections';
 import { AcademicTerm, Opportunity, OpportunityInstance } from '../../../../typings/radgrad';
-import { ViewInExplorerButtonLink } from '../../shared/button/Buttons';
+import { ViewInExplorerButtonLink } from '../../shared/button/ViewInExplorerButtonLink';
 import IceHeader from '../../shared/IceHeader';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import FutureParticipation from '../../shared/explorer/FutureParticipation';
@@ -89,7 +89,7 @@ const ProfileOpportunityCard: React.FC<ProfileOpportunityCardProps> = ({
         <FutureParticipation academicTerms={academicTerms} scores={scores} />
       </Card.Content>
       <Card.Content style={contentStyle}>
-        <ViewInExplorerButtonLink match={match} type={EXPLORER_TYPE.OPPORTUNITIES} item={opportunity} />
+        <ViewInExplorerButtonLink match={match} type={EXPLORER_TYPE.OPPORTUNITIES} item={opportunity} size="mini" />
       </Card.Content>
     </Card>
   );
