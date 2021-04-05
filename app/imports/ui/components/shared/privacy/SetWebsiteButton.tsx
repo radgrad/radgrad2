@@ -10,7 +10,7 @@ interface SetWebsiteButtonProps {
 }
 
 const formSchema = new SimpleSchema({
-  website: {type: String, optional: true},
+  website: {type: String, optional: true, label: 'Enter website URL (empty string removes website data)'},
 });
 const bridge = new SimpleSchema2Bridge(formSchema);
 
@@ -30,7 +30,7 @@ export const SetWebsiteButton: React.FC<SetWebsiteButtonProps> = ({ website, han
            open={open}
            trigger={<Button size='mini'>{website ? 'Edit' : 'Add'}</Button>}
     >
-      <Modal.Header>Set website</Modal.Header>
+      <Modal.Header>Add, edit, or remove website</Modal.Header>
       <Modal.Content>
         <AutoForm schema={bridge} onSubmit={data => submit(data)} model={{ website }}>
           <TextField placeholder='https://mywebsite.com' name='website'/>

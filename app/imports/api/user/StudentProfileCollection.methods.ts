@@ -88,8 +88,8 @@ export const getPublicProfileData = new ValidatedMethod({
  * Meteor method to set a Profile field (usually a "share" field).
  * After setting the share value, generates and returns an object with fields containing the visible profile data.
  */
-export const updatePublicProfileData = new ValidatedMethod({
-  name: 'ProfileCollection.updatePublicProfileData',
+export const setPublicProfileData = new ValidatedMethod({
+  name: 'ProfileCollection.setPublicProfileData',
   mixins: [CallPromiseMixin],
   validate: null,
   run({ username, fieldName, fieldValue }) {
