@@ -11,7 +11,7 @@ import { InterestsChecklist } from '../../../checklist/InterestsChecklist';
 import ProfileCard from './ProfileCard';
 import WidgetHeaderNumber from '../WidgetHeaderNumber';
 import { RadGradProperties } from '../../../../../api/radgrad/RadGradProperties';
-import InterestSortWidget, { interestSortKeys } from './InterestSortWidget';
+import SortWidget, { interestSortKeys } from './SortWidget';
 
 interface InterestBrowserViewProps {
   interests: Interest[];
@@ -86,7 +86,7 @@ const InterestBrowserView: React.FC<InterestBrowserViewProps> = ({
           }
         </Header>
         <Divider />
-        {!inProfile ? <InterestSortWidget /> : ''}
+        {!inProfile ? <SortWidget explorerType={EXPLORER_TYPE.INTERESTS}/> : ''}
         <Card.Group itemsPerRow={4} stackable id="interestsCardGroup">
           {interests.map((interest) => (
             <ProfileCard key={interest._id} item={interest} type={EXPLORER_TYPE.INTERESTS}
