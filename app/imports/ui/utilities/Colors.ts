@@ -11,6 +11,7 @@ export const enum COLORS {
   BROWN =         '#A94E2A',    // level5
   GREEN =         '#6FBE44',    // ice innovation, level3
   GREEN2 =        '#C5EA7A',    // light green
+  GREEN3 =        '#348C72',    // dark green
   GREY =          '#7F7F7F',    // level1
   GREY2 =         '#EEEEEE',    // background grey
   NAVY =          '#26407C',    // ice competency, level4
