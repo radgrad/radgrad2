@@ -4,8 +4,8 @@ import { VerificationRequestStatus } from '../../../../api/verification/Verifica
 import { OpportunityInstance, VerificationRequest } from '../../../../typings/radgrad';
 import { CHECKSTATE } from '../../checklist/Checklist';
 import { VerificationChecklist } from '../../checklist/VerificationChecklist';
+import StudentPendingVerificationRequest from './StudentPendingVerificationRequest';
 import StudentUnverifiedOpportunityItem from './StudentUnverifiedOpportunityItem';
-import VerificationRequestStatusWidget from '../degree-planner/VerificationRequestStatus';
 
 interface StudentUnverifiedOpportunitiesProps {
   unVerifiedOpportunityInstances: OpportunityInstance[];
@@ -24,11 +24,10 @@ const StudentUnverifiedOpportunities: React.FC<StudentUnverifiedOpportunitiesPro
   const panes = [
     {
       menuItem: `Unverified (${unVerifiedOpportunityInstances.length})`,
-      key: `Unverified (${unVerifiedOpportunityInstances.length})`,
       render: () => (
         <Tab.Pane key={`Unverified (${unVerifiedOpportunityInstances.length})-pane`}>
           <Grid stackable>
-          {unVerifiedOpportunityInstances.map((oi) => (<StudentUnverifiedOpportunityItem opportunityInstance={oi} />))}
+          {unVerifiedOpportunityInstances.map((oi) => (<StudentUnverifiedOpportunityItem opportunityInstance={oi} key={oi._id} />))}
           </Grid>
         </Tab.Pane>
       ),
@@ -39,7 +38,7 @@ const StudentUnverifiedOpportunities: React.FC<StudentUnverifiedOpportunitiesPro
         <Tab.Pane key={`Pending (${pendingVRs.length})`}>
           <Card.Group>
           {pendingVRs.map((vr) => (<Card>
-            <VerificationRequestStatusWidget request={vr} />
+            <StudentPendingVerificationRequest request={vr} key={vr._id} />
           </Card>))}
           </Card.Group>
         </Tab.Pane>

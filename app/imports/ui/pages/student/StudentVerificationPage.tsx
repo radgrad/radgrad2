@@ -1,21 +1,13 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
-import Swal from 'sweetalert2';
-import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
-import { UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
-import { defineMethod } from '../../../api/base/BaseCollection.methods';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
-import { Slugs } from '../../../api/slug/SlugCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import {
   OpportunityInstance,
-  UserInteractionDefine,
   VerificationRequest,
-  VerificationRequestDefine,
 } from '../../../typings/radgrad';
-import { getUsername } from '../../components/shared/utilities/router';
 import StudentUnverifiedOpportunities from '../../components/student/verification-requests/StudentUnverifiedOpportunities';
 import PageLayout from '../PageLayout';
 

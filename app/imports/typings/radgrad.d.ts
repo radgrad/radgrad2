@@ -973,8 +973,9 @@ export interface VerificationRequest extends Document {
 }
 
 export interface VerificationRequestDefine extends DumpOne {
-  student?: string;
-  opportunityInstance?: string;
+  student: string;
+  opportunityInstance: string;
+  documentation: string;
   submittedOn?: any;
   status?: string;
   processed?: Processed[];
