@@ -1,18 +1,10 @@
 import React from 'react';
 import { Grid, Header } from 'semantic-ui-react';
-import Swal from 'sweetalert2';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
-import { userInteractionDefineMethod } from '../../../../api/analytic/UserInteractionCollection.methods';
-import { UserInteractionsTypes } from '../../../../api/analytic/UserInteractionsTypes';
-import { defineMethod } from '../../../../api/base/BaseCollection.methods';
-import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
 import { Slugs } from '../../../../api/slug/SlugCollection';
-import { VerificationRequests } from '../../../../api/verification/VerificationRequestCollection';
-import { OpportunityInstance, UserInteractionDefine, VerificationRequestDefine } from '../../../../typings/radgrad';
-import { ButtonAction } from '../../shared/button/ButtonAction';
+import { OpportunityInstance } from '../../../../typings/radgrad';
 import AcademicTermLabel from '../../shared/label/AcademicTermLabel';
 import { opportunityIdToName } from '../../shared/utilities/data-model';
-import { getUsername } from '../../shared/utilities/router';
 import RequestVerificationPopup from './RequestVerificationPopup';
 
 interface StudentUnverifiedOpportunityItemProps {

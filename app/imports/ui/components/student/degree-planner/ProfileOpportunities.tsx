@@ -1,6 +1,6 @@
 import React from 'react';
-import { Card, Icon, Message } from 'semantic-ui-react';
-import { Link, useRouteMatch } from 'react-router-dom';
+import { Card, Message } from 'semantic-ui-react';
+import { useRouteMatch } from 'react-router-dom';
 import { Opportunity, OpportunityInstance } from '../../../../typings/radgrad';
 import { ButtonLink } from '../../shared/button/ViewInExplorerButtonLink';
 import * as Router from '../../shared/utilities/router';
