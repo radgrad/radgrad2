@@ -23,20 +23,20 @@ export const opportunitySortKeys = {
 interface SortWidgetProps {
   sortChoice: string;
   setSortValue: (explorerType: string, value: string) => any;
-  type: string;
+  explorerType: string;
 }
 
-const mapStateToProps = (state: RootState, type) => {
-  if (type === EXPLORER_TYPE.INTERESTS) {
+const mapStateToProps = (state: RootState, ownProps) => {
+  if (ownProps.explorerType === EXPLORER_TYPE.INTERESTS) {
     return { sortChoice: state.shared.cardExplorer.interests.sortValue };
-  } if (type === EXPLORER_TYPE.CAREERGOALS) {
+  } if (ownProps.explorerType === EXPLORER_TYPE.CAREERGOALS) {
     return { sortChoice: state.shared.cardExplorer.careergoals.sortValue };
   }
   return null;
 };
 
-const mapDispatchToProps = (dispatch, type) => {
-  switch (type) {
+const mapDispatchToProps = (dispatch, ownProps) => {
+  switch (ownProps.explorerType) {
     case EXPLORER_TYPE.CAREERGOALS:
       return {
         setSortValue: (explorerType: string, value: string) => dispatch(cardExplorerActions.setCareerGoalsSortValue(explorerType, value)),
@@ -51,9 +51,9 @@ const mapDispatchToProps = (dispatch, type) => {
   }
 };
 
-const SortWidget: React.FC<SortWidgetProps> = ({ sortChoice, setSortValue }) => {
+const SortWidget: React.FC<SortWidgetProps> = ({ sortChoice, setSortValue, explorerType }) => {
   const handleChange = (type, value) => {
-    setSortValue(type, value);
+    setSortValue(explorerType, value);
   };
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const explorerSortValues = (type) => {
