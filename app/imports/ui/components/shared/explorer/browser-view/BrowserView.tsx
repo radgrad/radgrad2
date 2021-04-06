@@ -4,7 +4,7 @@ import _ from 'lodash';
 import { Button, Card, Divider, Header, Icon, Segment } from 'semantic-ui-react';
 import { scrollPositionActions } from '../../../../../redux/shared/scrollPosition';
 import { RootState } from '../../../../../redux/types';
-import { CareerGoal, Interest } from '../../../../../typings/radgrad';
+import { CareerGoal, Course, Interest, Opportunity } from '../../../../../typings/radgrad';
 import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
 import { CHECKSTATE } from '../../../checklist/Checklist';
 import { InterestsChecklist } from '../../../checklist/InterestsChecklist';
@@ -16,7 +16,7 @@ import InterestSortWidget, { interestSortKeys } from './InterestSortWidget';
 
 interface BrowserViewProps {
   interests: Interest[];
-  careerGoals: CareerGoal[];
+  items: CareerGoal[] | Course[] | Opportunity[];
   profileInterestIDs: string[];
   inProfile: boolean;
   explorerType: string;
@@ -60,7 +60,7 @@ const adminEmail = RadGradProperties.getAdminEmail();
 
 const BrowserView: React.FC<BrowserViewProps> = ({
   interests,
-  careerGoals,
+  items,
   inProfile,
   scrollPosition,
   setScrollPosition,

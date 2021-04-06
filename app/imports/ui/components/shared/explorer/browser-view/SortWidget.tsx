@@ -61,6 +61,8 @@ const SortWidget: React.FC<SortWidgetProps> = ({ sortChoice, setSortValue, explo
     let allowedSortValues:string[];
     switch (type){
       case EXPLORER_TYPE.CAREERGOALS:
+        allowedSortValues = [opportunitySortKeys.recommended, interestSortKeys.mostRecent, interestSortKeys.alphabetic];
+        break;
       case EXPLORER_TYPE.INTERESTS:
         allowedSortValues = [interestSortKeys.mostRecent, interestSortKeys.alphabetic];
         break;

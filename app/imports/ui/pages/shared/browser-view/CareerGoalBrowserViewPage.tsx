@@ -43,7 +43,7 @@ const CareerGoalBrowserViewPage: React.FC<CareerGoalBrowserViewPageProps> = ({
 export default withTracker(() => {
   const { username } = useParams();
   let profile: StudentProfile;
-  let careerGoals;
+  let careerGoals = [];
   if (Users.hasProfile(username)) {
     profile = Users.getProfile(username);
     const collectionName = StudentProfiles.getCollectionName();
