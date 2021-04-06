@@ -1,6 +1,7 @@
 import React from 'react';
 import { Segment, Header, Grid, Label } from 'semantic-ui-react';
 import { Users } from '../../../../api/user/UserCollection';
+import { COLORS } from '../../../utilities/Colors';
 
 export interface AdminAnalyticsLoggedInUsersWidgetProps {
   loggedInUsers: { status: { idle: boolean }; _id: string }[];
@@ -16,9 +17,9 @@ const AdminAnalyticsLoggedInUsersWidget: React.FC<AdminAnalyticsLoggedInUsersWid
         {loggedInUsers.map((user) => {
           let color;
           if (user.status.idle) {
-            color = 'grey';
+            color = COLORS.GREY;
           } else {
-            color = 'green';
+            color = COLORS.GREEN;
           }
           return (
             <Label key={user._id} basic color={color}>

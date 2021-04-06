@@ -22,30 +22,20 @@ interface StudentHomePageProps {
 
 const headerPaneTitle = 'Make the most of RadGrad';
 const headerPaneBody = `
-This page contains a personalized set of recommendations to help RadGrad help you! It's divided into three sections. Not all of them might be present at any particular time.
-
-<span style="color:red">IMPROVE:</span> Please act on these right away. They really help RadGrad help you. 
-
-<span style="color:yellow">REVIEW:</span> Please review your settings or things that might have changed recently. 
-
-<span style="color:lightgreen">OK:</span>  Looks good for now!
-`;
+<div class="header">
+<p>This page contains a personalized set of recommendations to help RadGrad help you! It's divided into three sections. Not all of them might be present at any particular time.</p>
+<p><span class="headerLabel redBG">IMPROVE</span> Please act on these right away. They really help RadGrad help you. </p>
+<p><span class="headerLabel yellowBG">REVIEW</span> Please review your settings or things that might have changed recently. </p>
+<p><span class="headerLabel greenBG">OK</span>  Looks good for now!</p>
+</div>`;
 const headerPaneImage = 'header-home.png';
 
 const StudentHomePage: React.FC<StudentHomePageProps> = ({okItems, reviewItems, improveItems}) => (
   <PageLayout id="student-home-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage} disableMargin>
-    <div style={{backgroundColor: '#fae9e9', paddingBottom: '25px'}}>
+    <div className="improveContainer">
       <Card.Group centered style={{marginTop: '0px'}}>
         {improveItems}
-      </Card.Group>
-    </div>
-    <div style={{backgroundColor: '#f9fae9', paddingBottom: '25px'}}>
-      <Card.Group centered style={{marginTop: '0px'}}>
         {reviewItems}
-      </Card.Group>
-    </div>
-    <div style={{backgroundColor: '#e2fbdd', paddingBottom: '25px'}}>
-      <Card.Group centered style={{marginTop: '0px'}}>
         {okItems}
       </Card.Group>
     </div>

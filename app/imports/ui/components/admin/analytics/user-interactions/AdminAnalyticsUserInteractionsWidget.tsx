@@ -4,6 +4,7 @@ import { Grid, Segment, Header, Button, Table } from 'semantic-ui-react';
 import { StudentProfile } from '../../../../../typings/radgrad';
 import { StudentProfiles } from '../../../../../api/user/StudentProfileCollection';
 import { userInteractionFindMethod } from '../../../../../api/analytic/UserInteractionCollection.methods';
+import { COLORS } from '../../../../utilities/Colors';
 
 export interface AdminAnalyticsUserInteractionsWidgetProps {
   students: StudentProfile[];
@@ -46,7 +47,7 @@ const AdminAnalyticsUserInteractionsWidget: React.FC<AdminAnalyticsUserInteracti
     textAlign: 'left',
   };
   const nameStyle = {
-    color: '#6FBE44',
+    color: COLORS.GREEN,
   };
   return (
     <div>
