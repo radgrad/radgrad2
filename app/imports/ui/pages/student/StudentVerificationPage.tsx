@@ -35,41 +35,6 @@ interface StudentVerificationPageProps {
   student: string;
 }
 
-const handleVerificationRequest = (instance, match) => (model) => {
-  const collectionName = VerificationRequests.getCollectionName();
-  const username = getUsername(match);
-  const opportunityInstance = instance._id;
-  const definitionData: VerificationRequestDefine = {
-    student: username,
-    opportunityInstance,
-  };
-  defineMethod.call({ collectionName, definitionData }, (error) => {
-    if (error) {
-      console.error(`Verification Request define ${definitionData} failed.`);
-    } else {
-      Swal.fire({
-        title: 'Verification request sent.',
-        icon: 'success',
-        showConfirmButton: false,
-        timer: 1500,
-      });
-      const slugID = OpportunityInstances.getOpportunityDoc(opportunityInstance).slugID;
-      const slugName = Slugs.getNameFromID(slugID);
-      const typeData = [slugName];
-      const interactionData: UserInteractionDefine = {
-        username,
-        type: UserInteractionsTypes.VERIFY_REQUEST,
-        typeData,
-      };
-      userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
-        if (userInteractionError) {
-          console.error('Error creating UserInteraction.', userInteractionError);
-        }
-      });
-    }
-  });
-};
-
 const StudentVerificationPage: React.FC<StudentVerificationPageProps> = ({ unVerifiedOpportunityInstances, student, verificationRequests }) => (
   <PageLayout id="student-verification-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
     <StudentUnverifiedOpportunities unVerifiedOpportunityInstances={unVerifiedOpportunityInstances} verificationRequests={verificationRequests} student={student} />
