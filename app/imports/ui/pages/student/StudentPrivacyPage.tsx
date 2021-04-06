@@ -3,16 +3,17 @@ import _ from 'lodash';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Grid, Header, Icon, Segment, Form, Button, Modal } from 'semantic-ui-react';
+import { Grid, Header, Icon, Segment, Form } from 'semantic-ui-react';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { ROLE } from '../../../api/role/Role';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { getPublicProfileData, PublicProfileData, setPublicProfileData } from '../../../api/user/StudentProfileCollection.methods';
 import { Users } from '../../../api/user/UserCollection';
 import { StudentProfile, StudentProfileUpdate } from '../../../typings/radgrad';
+import { SetPictureButton } from '../../components/shared/privacy/SetPictureButton';
 import { SetWebsiteButton } from '../../components/shared/privacy/SetWebsiteButton';
 import ProfileCard from '../../components/shared/profile/ProfileCard';
-import UserLabel from '../../components/shared/profile/UserLabel';
+import ProfileLabel from '../../components/shared/profile/ProfileLabel';
 import PageLayout from '../PageLayout';
 
 const headerPaneTitle = 'Control what others see about you';
@@ -70,7 +71,7 @@ const StudentPrivacyPage: React.FC<StudentPrivacyPageProps> = ({ profile }) => {
     shareInterests: profile.shareInterests,
     shareLevel: profile.shareLevel,
     shareOpportunities: profile.shareOpportunities,
-    shareWebsite: profile.shareWebsite
+    shareWebsite: profile.shareWebsite,
   });
   const name = `${profile.firstName} ${profile.lastName}`;
 
@@ -93,18 +94,20 @@ const StudentPrivacyPage: React.FC<StudentPrivacyPageProps> = ({ profile }) => {
   const [websiteExists, setWebsiteExists] = useState(!!profile.website);
   const [pictureExists, setPictureExists] = useState(!!profile.picture);
 
-  // Keep track of website and picture modal state
-  const [pictureOpen, setPictureOpen] = React.useState(false);
-
   const handleWebsiteChange = (newWebsiteURL) => {
     setPublicProfileData.callPromise({ username: profile.username, fieldName: 'website', fieldValue: newWebsiteURL })
       .then(result => {setData(result); setWebsiteExists(!!newWebsiteURL); })
       .catch(error => { console.error(error); });
   };
 
+  const handlePictureChange = (newPictureURL) => {
+    setPublicProfileData.callPromise({ username: profile.username, fieldName: 'picture', fieldValue: newPictureURL })
+      .then(result => {setData(result); setPictureExists(!!newPictureURL); })
+      .catch(error => { console.error(error); });
+  };
+
   return (
     <PageLayout id="student-privacy-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
-
       <Grid stackable>
         <Grid.Column width={4}>
           <Segment>
@@ -113,26 +116,7 @@ const StudentPrivacyPage: React.FC<StudentPrivacyPageProps> = ({ profile }) => {
             <Form>
               <Form.Group inline>
                 <Form.Checkbox inline name="sharePicture" label="Picture" checked={pictureExists && checkboxState.sharePicture} onChange={handleCheckboxChange} />
-                <Modal size='small'
-                       onClose={() => setPictureOpen(false)}
-                       onOpen={() => setPictureOpen(true)}
-                       open={pictureOpen}
-                       trigger={<Button size='mini'>{pictureExists ? 'Edit' : 'Add'}</Button>}
-                >
-                  <Modal.Content>
-                    <Form>
-                      <Form.Field>
-                        Picture
-                        <Form.Input placeholder='Last Name'>{profile.picture}</Form.Input>
-                      </Form.Field>
-                      <Button type='submit'>Submit</Button>
-                    </Form>
-                  </Modal.Content>
-                  <Modal.Actions>
-                    <Button color='green' onClick={() => setPictureOpen(false)}>Close</Button>
-                  </Modal.Actions>
-                </Modal>
-
+                <SetPictureButton picture={data.picture} handleChange={handlePictureChange}/>
               </Form.Group>
               <Form.Group inline>
                 <Form.Checkbox inline name="shareWebsite" label="Website" checked={websiteExists && checkboxState.shareWebsite} onChange={handleCheckboxChange} />
@@ -151,7 +135,8 @@ const StudentPrivacyPage: React.FC<StudentPrivacyPageProps> = ({ profile }) => {
           <Segment>
             <Header dividing><Icon name="user" />YOUR LABEL</Header>
             <p>Your Label appears in pages relevant to your public data: </p>
-            <UserLabel username={profile.username} />
+            <ProfileLabel name={name} image={checkboxState.sharePicture && data.picture}
+                          level={checkboxState.shareLevel && data.level} />
           </Segment>
           <Segment>
             <Header dividing><Icon name="user" />YOUR PROFILE</Header>
@@ -161,11 +146,9 @@ const StudentPrivacyPage: React.FC<StudentPrivacyPageProps> = ({ profile }) => {
           </Segment>
         </Grid.Column>
       </Grid>
-
     </PageLayout>
   );
 };
-
 
 export default withTracker(() => {
   const { username } = useParams();
