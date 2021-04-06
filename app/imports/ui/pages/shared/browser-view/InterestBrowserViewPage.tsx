@@ -7,7 +7,7 @@ import { Interests } from '../../../../api/interest/InterestCollection';
 import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
 import { Users } from '../../../../api/user/UserCollection';
 import { Interest, StudentProfile } from '../../../../typings/radgrad';
-import InterestBrowserView from '../../../components/shared/explorer/browser-view/InterestBrowserView';
+import BrowserView from '../../../components/shared/explorer/browser-view/BrowserView';
 import PageLayout from '../../PageLayout';
 import { updateLastVisitedMethod } from '../../../../api/user/BaseProfileCollection.methods';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
@@ -30,8 +30,8 @@ const headerPaneImage = 'header-interests.png';
 const InterestBrowserViewPage: React.FC<InterestBrowserViewPageProps> = ({ profileInterests, nonProfileInterests }) => (
   <PageLayout id="interest-browser-view-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}
               headerPaneImage={headerPaneImage}>
-    <InterestBrowserView interests={profileInterests} inProfile />
-    <InterestBrowserView interests={nonProfileInterests} inProfile={false} />
+    <BrowserView interests={profileInterests} explorerType={EXPLORER_TYPE.INTERESTS} inProfile  />
+    <BrowserView interests={nonProfileInterests} explorerType={EXPLORER_TYPE.INTERESTS} inProfile={false} />
   </PageLayout>
 );
 

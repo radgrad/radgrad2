@@ -27,10 +27,11 @@ interface SortWidgetProps {
 }
 
 const mapStateToProps = (state: RootState, ownProps) => {
-  if (ownProps.explorerType === EXPLORER_TYPE.INTERESTS) {
-    return { sortChoice: state.shared.cardExplorer.interests.sortValue };
-  } if (ownProps.explorerType === EXPLORER_TYPE.CAREERGOALS) {
-    return { sortChoice: state.shared.cardExplorer.careergoals.sortValue };
+  switch (ownProps.explorerType) {
+    case EXPLORER_TYPE.INTERESTS:
+      return { sortChoice: state.shared.cardExplorer.interests.sortValue };
+    case EXPLORER_TYPE.CAREERGOALS:
+      return { sortChoice: state.shared.cardExplorer.careergoals.sortValue };
   }
   return null;
 };
@@ -55,7 +56,7 @@ const SortWidget: React.FC<SortWidgetProps> = ({ sortChoice, setSortValue, explo
   const handleChange = (type, value) => {
     setSortValue(explorerType, value);
   };
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
   const explorerSortValues = (type) => {
     let allowedSortValues:string[];
     switch (type){
@@ -69,10 +70,11 @@ const SortWidget: React.FC<SortWidgetProps> = ({ sortChoice, setSortValue, explo
     }
     return allowedSortValues;
   };
+
   const schema = new SimpleSchema({
     sortBy: {
       type: String,
-      allowedValues: [interestSortKeys.mostRecent, interestSortKeys.alphabetic],
+      allowedValues: explorerSortValues(explorerType),
       optional: true,
     },
   });
