@@ -82,6 +82,14 @@ const reducer = (state: State = initialState, action): State => {
         },
       };
       return s;
+    case TYPES.SET_CAREERGOALS_SORT_VALUE:
+      s = {
+        ...state,
+        careergoals: {
+          sortValue: action.payload,
+        },
+      };
+      return s;
     default:
       return state;
   }

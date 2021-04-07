@@ -8,7 +8,7 @@ import { ProfileCareerGoals } from '../../../../api/user/profile-entries/Profile
 import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
 import { Users } from '../../../../api/user/UserCollection';
 import { CareerGoal, StudentProfile } from '../../../../typings/radgrad';
-import CareerGoalBrowserView from '../../../components/shared/explorer/browser-view/CareerGoalBrowserView';
+import BrowserView from '../../../components/shared/explorer/browser-view/BrowserView';
 import PageLayout from '../../PageLayout';
 import { updateLastVisitedMethod } from '../../../../api/user/BaseProfileCollection.methods';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
@@ -35,8 +35,14 @@ const CareerGoalBrowserViewPage: React.FC<CareerGoalBrowserViewPageProps> = ({
   nonProfileCareerGoals,
 }) => (
     <PageLayout id="career-goal-browser-view-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
-      <CareerGoalBrowserView profileInterestIDs={profileInterestIDs} careerGoals={profileCareerGoals} inProfile />
-      <CareerGoalBrowserView profileInterestIDs={profileInterestIDs} careerGoals={nonProfileCareerGoals} inProfile={false}/>
+      <BrowserView profileInterestIDs={profileInterestIDs}
+                   items={profileCareerGoals}
+                   explorerType={EXPLORER_TYPE.CAREERGOALS}
+                   inProfile />
+      <BrowserView profileInterestIDs={profileInterestIDs}
+                   items={nonProfileCareerGoals}
+                   explorerType={EXPLORER_TYPE.CAREERGOALS}
+                   inProfile={false}/>
     </PageLayout>
 );
 

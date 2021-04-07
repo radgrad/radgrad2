@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { Button, Card, Divider, Header, Icon, Segment } from 'semantic-ui-react';
+import { useRouteMatch } from 'react-router';
 import { scrollPositionActions } from '../../../../../redux/shared/scrollPosition';
 import { RootState } from '../../../../../redux/types';
 import { CareerGoal, Course, Interest, Opportunity } from '../../../../../typings/radgrad';
@@ -12,7 +13,10 @@ import ProfileCard from './ProfileCard';
 import WidgetHeaderNumber from '../WidgetHeaderNumber';
 import { RadGradProperties } from '../../../../../api/radgrad/RadGradProperties';
 import { CareerGoalsChecklist } from '../../../checklist/CareerGoalsChecklist';
-import InterestSortWidget, { interestSortKeys } from './InterestSortWidget';
+import SortWidget, { interestSortKeys, opportunitySortKeys } from './SortWidget';
+import * as Router from '../../utilities/router';
+import { ProfileInterests } from '../../../../../api/user/profile-entries/ProfileInterestCollection';
+import PreferredChoice from '../../../../../api/degree-plan/PreferredChoice';
 
 interface BrowserViewProps {
   interests: Interest[];
@@ -67,11 +71,23 @@ const BrowserView: React.FC<BrowserViewProps> = ({
   sortValue,
   explorerType,
 }) => {
+  const match = useRouteMatch();
   const cardGroupElement: HTMLElement = document.getElementById('browserCardGroup');
   items = _.sortBy(items, (item) => item.name);
   switch (sortValue) {
     case interestSortKeys.mostRecent:
       items = _.sortBy(items, (item) => item.updatedAt);
+      break;
+    case opportunitySortKeys.recommended:
+      // eslint-disable-next-line no-case-declarations
+      const userID = Router.getUserIdFromRoute(match);
+      // eslint-disable-next-line no-case-declarations
+      const profileEntries = ProfileInterests.findNonRetired({ userID });
+      // eslint-disable-next-line no-case-declarations
+      const interestIDs = profileEntries.map((f) => f.interestID);
+      // eslint-disable-next-line no-case-declarations
+      const preferred = new PreferredChoice(items, interestIDs);
+      items = preferred.getOrderedChoices();
       break;
     default:
       items = _.sortBy(items, (item) => item.name);
@@ -119,7 +135,7 @@ const BrowserView: React.FC<BrowserViewProps> = ({
                     }
                 </Header>
                 <Divider />
-                {!inProfile ? <InterestSortWidget /> : ''}
+                {!inProfile ? <SortWidget explorerType={explorerType} /> : ''}
                 <Card.Group itemsPerRow={4} stackable id="browserCardGroup">
                     {items.map((explorerItem) => (
                         <ProfileCard key={explorerItem._id} item={explorerItem} type={explorerType}
