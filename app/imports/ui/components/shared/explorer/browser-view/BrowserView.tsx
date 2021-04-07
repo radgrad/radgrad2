@@ -16,13 +16,13 @@ import InterestSortWidget, { interestSortKeys } from './InterestSortWidget';
 
 interface BrowserViewProps {
   interests: Interest[];
-  items: CareerGoal[] | Course[] | Opportunity[];
+  items?: CareerGoal[] | Course[] | Opportunity[] | Interest[];
   profileInterestIDs: string[];
   inProfile: boolean;
   explorerType: string;
   // Saving Scroll Position
   scrollPosition: number;
-  setScrollPosition: (scrollPosition: number) => any;
+  setScrollPosition: (scrollPosition: number) => never;
   sortValue: string;
 }
 
@@ -68,16 +68,13 @@ const BrowserView: React.FC<BrowserViewProps> = ({
   explorerType,
 }) => {
   const cardGroupElement: HTMLElement = document.getElementById('browserCardGroup');
-  // eslint-disable-next-line no-param-reassign
-  interests = _.sortBy(interests, (item) => item.name);
+  items = _.sortBy(items, (item) => item.name);
   switch (sortValue) {
     case interestSortKeys.mostRecent:
-      // eslint-disable-next-line no-param-reassign
-      interests = _.sortBy(interests, (item) => item.updatedAt);
+      items = _.sortBy(items, (item) => item.updatedAt);
       break;
     default:
-      // eslint-disable-next-line no-param-reassign
-      interests = _.sortBy(interests, (item) => item.name);
+      items = _.sortBy(items, (item) => item.name);
   }
   useEffect(() => {
     const savedScrollPosition = scrollPosition;
@@ -108,15 +105,15 @@ const BrowserView: React.FC<BrowserViewProps> = ({
                 <Header>
                     {inProfile
                       ? <p color='grey'><Icon name='heart' color='grey' size='large' />
-                            {explorerType.toUpperCase()} IN MY PROFILE <WidgetHeaderNumber inputValue={interests.length} />
+                            {explorerType.toUpperCase()} IN MY PROFILE <WidgetHeaderNumber inputValue={items.length} />
                             {checklist.getState() === CHECKSTATE.IMPROVE ?
                                 <span style={{ float: 'right' }}><Icon name='exclamation triangle' color='red' /> {checklist.getTitleText()}</span> : ''}
                         </p>
-                      : <p color='grey'>{explorerType.toUpperCase()} NOT IN MY PROFILE <WidgetHeaderNumber inputValue={interests.length} />
+                      : <p color='grey'>{explorerType.toUpperCase()} NOT IN MY PROFILE <WidgetHeaderNumber inputValue={items.length} />
                             <Button size="mini" color="teal" floated="right"
-                                    href={`mailto:${adminEmail}?subject=New Interest Suggestion`} basic>
+                                    href={`mailto:${adminEmail}?subject=New ${_.upperFirst(explorerType.slice(0, -1))} Suggestion`} basic>
                                 <Icon name="mail" />
-                                SUGGEST A NEW {explorerType}
+                                SUGGEST A NEW {explorerType.toUpperCase().slice(0, -1)}
                             </Button>
                         </p>
                     }
@@ -124,8 +121,8 @@ const BrowserView: React.FC<BrowserViewProps> = ({
                 <Divider />
                 {!inProfile ? <InterestSortWidget /> : ''}
                 <Card.Group itemsPerRow={4} stackable id="browserCardGroup">
-                    {interests.map((interest) => (
-                        <ProfileCard key={interest._id} item={interest} type={explorerType}
+                    {items.map((explorerItem) => (
+                        <ProfileCard key={explorerItem._id} item={explorerItem} type={explorerType}
                                      cardLinkName={inProfile ? 'See Details / Remove from Profile' : 'See Details / Add to Profile'} />
                     ))}
                 </Card.Group>
