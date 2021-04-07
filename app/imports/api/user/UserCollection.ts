@@ -211,6 +211,7 @@ class UserCollection {
    */
   public hasProfile(user) {
     const userID = this.getID(user);
+    // console.log('UserCollection.hasProfile', user, userID, StudentProfiles.count(), StudentProfiles.hasProfile(user), StudentProfiles.hasProfile(userID));
     return StudentProfiles.hasProfile(userID) || FacultyProfiles.hasProfile(userID)
       || AdvisorProfiles.hasProfile(userID) || AdminProfiles.hasProfile(userID);
   }

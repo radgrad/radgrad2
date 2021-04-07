@@ -26,7 +26,7 @@ interface StudentPageMenuProps {
 const StudentPageMenu: React.FC<StudentPageMenuProps> = ({ profile }) => {
   const match = useRouteMatch();
   const username = getUsername(match);
-  console.log('StudentPageMenu', username, Users.hasProfile(username));
+  console.log(`StudentPageMenu, ${username}, ${Users.hasProfile(username)}, ${profile}`);
   const earnedIce = StudentProfiles.getEarnedICE(username);
   const projectedIce = StudentProfiles.getProjectedICE(username);
   const instanceName = Meteor.settings.public.instanceName;

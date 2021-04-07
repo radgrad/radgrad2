@@ -137,6 +137,7 @@ class BaseProfileCollection extends BaseSlugCollection {
    */
   public hasProfile(user) {
     const userID = Users.getID(user);
+    // console.log(this.type, user, userID, this.collection.findOne({ userID }), this.collection.find({}).fetch());
     return this.collection.findOne({ userID });
   }
 

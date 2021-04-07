@@ -18,6 +18,7 @@ export class InterestsChecklist extends Checklist {
   constructor(student: string) {
     super();
     this.name = 'Interests';
+    console.log('InterestsChecklist', student, Users.hasProfile(student), Users.count(), StudentProfiles.count());
     this.profile = Users.getProfile(student);
     this.iconName = 'heart';
     // Specify title for each state

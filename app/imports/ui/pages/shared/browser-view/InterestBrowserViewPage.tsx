@@ -39,9 +39,10 @@ export default withTracker(() => {
   const { username } = useParams();
   let profile: StudentProfile;
   let allInterests = [];
-  console.log('InterestBrowserViewPage', username, Users.hasProfile(username));
+  console.log('InterestBrowserViewPage.withTracker');
   if (Users.hasProfile(username)) {
     profile = Users.getProfile(username);
+    console.log(`InterestBrowserViewPage, ${username}, ${Users.hasProfile(username)}, ${profile}`);
     const collectionName = StudentProfiles.getCollectionName();
     const lastVisited = moment().format('YYYY-MM-DD');
     if (Users.hasProfile(username) && lastVisited !== profile.lastVisitedInterests) {
