@@ -18,6 +18,7 @@ interface FirstMenuProps extends RadGradMenuProfileProps {
  * @constructor
  */
 const FirstMenu: React.FC<FirstMenuProps> = ({ profile, displayLevelAndIce, earnedICE, projectedICE, instanceName }) => {
+  console.log('FirstMenu', profile);
   const imageStyle = { width: '50px' };
   const flexStyle = { display: 'flex' };
   const noPadding = { paddingTop: 0, paddingBottom: 0 };
@@ -44,8 +45,7 @@ const FirstMenu: React.FC<FirstMenuProps> = ({ profile, displayLevelAndIce, earn
             </div>
           ) : (
             <div style={flexStyle}>
-              <RadGradMenuProfile profile={profile} displayLevelAndIce={displayLevelAndIce} projectedICE={projectedICE}
-                                  earnedICE={earnedICE} />
+              <RadGradMenuProfile profile={profile} displayLevelAndIce={displayLevelAndIce} projectedICE={projectedICE} earnedICE={earnedICE} />
               <Dropdown text={currentUser} id="first-menu-username" pointing="top right" icon="caret down"
                         style={signoutStyle}>
                 <Dropdown.Menu>

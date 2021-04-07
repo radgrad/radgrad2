@@ -1,6 +1,8 @@
 import { withTracker } from 'meteor/react-meteor-data';
 import { Card } from 'semantic-ui-react';
 import React from 'react';
+import { Users } from '../../../api/user/UserCollection';
+import { StudentProfile } from '../../../typings/radgrad';
 import { CareerGoalsChecklist } from '../../components/checklist/CareerGoalsChecklist';
 import { CoursesChecklist } from '../../components/checklist/CoursesChecklist';
 import { InterestsChecklist } from '../../components/checklist/InterestsChecklist';
@@ -15,6 +17,7 @@ import { CHECKSTATE } from '../../components/checklist/Checklist';
 import './style.css';
 
 interface StudentHomePageProps {
+  profile: StudentProfile;
   okItems: JSX.Element[];
   reviewItems: JSX.Element[];
   improveItems: JSX.Element[];
@@ -32,8 +35,8 @@ This page contains a personalized set of recommendations to help RadGrad help yo
 `;
 const headerPaneImage = 'header-home.png';
 
-const StudentHomePage: React.FC<StudentHomePageProps> = ({ okItems, reviewItems, improveItems }) => (
-  <PageLayout id="student-home-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage} disableMargin>
+const StudentHomePage: React.FC<StudentHomePageProps> = ({ okItems, reviewItems, improveItems, profile }) => (
+  <PageLayout id="student-home-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage} disableMargin profile={profile}>
     <div style={{ backgroundColor: '#fae9e9', paddingBottom: '25px' }}>
       <Card.Group centered style={{ marginTop: '0px' }}>
         {improveItems}
@@ -58,6 +61,7 @@ export default withTracker(() => {
   const reviewItems = [];
   const improveItems = [];
   const checklists = [];
+  const profile = Users.hasProfile(currentUser);
   checklists.push(new TermsAndConditionsChecklist(currentUser));
   checklists.push(new InterestsChecklist(currentUser));
   checklists.push(new CareerGoalsChecklist(currentUser));
@@ -84,6 +88,7 @@ export default withTracker(() => {
 
   });
   return {
+    profile,
     okItems,
     reviewItems,
     improveItems,

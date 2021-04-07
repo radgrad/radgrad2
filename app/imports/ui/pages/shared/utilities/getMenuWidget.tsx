@@ -6,13 +6,13 @@ import StudentPageMenu from '../../../components/student/StudentPageMenu';
 import FacultyPageMenu from '../../../components/faculty/FacultyPageMenu';
 import AdvisorPageMenu from '../../../components/advisor/AdvisorPageMenu';
 
-export const getMenuWidget = (match): JSX.Element => {
+export const getMenuWidget = (match, profile): JSX.Element => {
   const role = Router.getRoleByUrl(match);
   switch (role) {
     case URL_ROLES.ADMIN:
       return <AdminPageMenu />;
     case URL_ROLES.STUDENT:
-      return <StudentPageMenu />;
+      return <StudentPageMenu profile={profile} />;
     case URL_ROLES.FACULTY:
       return <FacultyPageMenu />;
     case URL_ROLES.ADVISOR:

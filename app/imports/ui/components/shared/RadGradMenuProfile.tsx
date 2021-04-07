@@ -12,6 +12,7 @@ export interface RadGradMenuProfileProps {
 }
 
 const RadGradMenuProfile: React.FC<RadGradMenuProfileProps> = ({ profile, displayLevelAndIce, earnedICE, projectedICE }) => {
+  console.log('RadGradMenuProfile', profile);
   const level = profile.level;
   const divStyle = { borderLeft: '1px solid rgba(34,36,38,.07)', paddingTop: '5px' };
   const flexStyle = { display: 'flex', paddingTop: '5px', paddingRight: '13px', marginTop: '3px' };

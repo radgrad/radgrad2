@@ -60,7 +60,7 @@ const withInstanceSubscriptions = (WrappedComponent) => {
       }
     }
     const loading = handles.some((handle) => !handle.ready());
-    // console.log('withInstanceSubscription', loading);
+    console.log('withInstanceSubscription', loading, OpportunityInstances.count());
     return {
       loading,
     };

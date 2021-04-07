@@ -58,7 +58,7 @@ const withGlobalSubscription = (WrappedComponent) => {
       globalSubs.subscribe(Users.getPublicationName()),
     ];
     const loading = handles.some((handle) => !handle.ready());
-    // console.log('withGlobalSubscription', loading, Meteor.user());
+    console.log('withGlobalSubscription', loading, Users.count(), StudentProfiles.count());
     return {
       loading,
     };

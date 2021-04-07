@@ -6,13 +6,14 @@ import _ from 'lodash';
 import { Interests } from '../../../../api/interest/InterestCollection';
 import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
 import { Users } from '../../../../api/user/UserCollection';
-import { Interest, StudentProfile } from '../../../../typings/radgrad';
+import { AdvisorOrFacultyProfile, Interest, StudentProfile } from '../../../../typings/radgrad';
 import PageLayout from '../../PageLayout';
 import { updateLastVisitedMethod } from '../../../../api/user/BaseProfileCollection.methods';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import BrowserView from '../../../components/shared/explorer/browser-view/BrowserView';
 
 interface InterestBrowserViewPageProps {
+  profile: StudentProfile | AdvisorOrFacultyProfile;
   profileInterests: Interest[];
   nonProfileInterests: Interest[];
 }
@@ -27,9 +28,8 @@ If we've missed a disciplinary area of interest to you, please click the button 
 `;
 const headerPaneImage = 'header-interests.png';
 
-const InterestBrowserViewPage: React.FC<InterestBrowserViewPageProps> = ({ profileInterests, nonProfileInterests }) => (
-  <PageLayout id="interest-browser-view-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}
-              headerPaneImage={headerPaneImage}>
+const InterestBrowserViewPage: React.FC<InterestBrowserViewPageProps> = ({ profileInterests, nonProfileInterests, profile }) => (
+  <PageLayout id="interest-browser-view-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage} profile={profile}>
     <BrowserView items={profileInterests} explorerType={EXPLORER_TYPE.INTERESTS} inProfile  />
     <BrowserView items={nonProfileInterests} explorerType={EXPLORER_TYPE.INTERESTS} inProfile={false} />
   </PageLayout>
@@ -39,6 +39,7 @@ export default withTracker(() => {
   const { username } = useParams();
   let profile: StudentProfile;
   let allInterests = [];
+  console.log('InterestBrowserViewPage', username, Users.hasProfile(username));
   if (Users.hasProfile(username)) {
     profile = Users.getProfile(username);
     const collectionName = StudentProfiles.getCollectionName();
@@ -58,6 +59,7 @@ export default withTracker(() => {
   const interests = Interests.findNonRetired({});
   const nonProfileInterests = _.filter(interests, md => profileInterests.every(fd => fd._id !== md._id));
   return {
+    profile,
     profileInterests,
     nonProfileInterests,
   };

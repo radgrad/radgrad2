@@ -17,11 +17,16 @@ import {
 } from '../../layouts/utilities/route-constants';
 import FirstMenu from '../shared/FirstMenu';
 import { getUsername } from '../shared/utilities/router';
+import { Users } from '../../../api/user/UserCollection';
 
-const StudentPageMenu: React.FC = () => {
+interface StudentPageMenuProps {
+  profile: StudentProfile;
+}
+
+const StudentPageMenu: React.FC<StudentPageMenuProps> = ({ profile }) => {
   const match = useRouteMatch();
   const username = getUsername(match);
-  const profile: StudentProfile = StudentProfiles.getProfile(username);
+  console.log('StudentPageMenu', username, Users.hasProfile(username));
   const earnedIce = StudentProfiles.getEarnedICE(username);
   const projectedIce = StudentProfiles.getProjectedICE(username);
   const instanceName = Meteor.settings.public.instanceName;
