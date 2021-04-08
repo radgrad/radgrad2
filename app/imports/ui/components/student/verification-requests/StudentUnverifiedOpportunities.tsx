@@ -27,7 +27,8 @@ const StudentUnverifiedOpportunities: React.FC<StudentUnverifiedOpportunitiesPro
       render: () => (
         <Tab.Pane key={`Unverified (${unVerifiedOpportunityInstances.length})-pane`}>
           <Grid stackable>
-          {unVerifiedOpportunityInstances.map((oi) => (<StudentUnverifiedOpportunityItem opportunityInstance={oi} key={oi._id} />))}
+            {unVerifiedOpportunityInstances.map((oi) => (
+              <StudentUnverifiedOpportunityItem opportunityInstance={oi} key={oi._id} />))}
           </Grid>
         </Tab.Pane>
       ),
@@ -37,9 +38,9 @@ const StudentUnverifiedOpportunities: React.FC<StudentUnverifiedOpportunitiesPro
       render: () => (
         <Tab.Pane key={`Pending (${pendingVRs.length})`}>
           <Card.Group>
-          {pendingVRs.map((vr) => (<Card>
-            <StudentPendingVerificationRequest request={vr} key={vr._id} />
-          </Card>))}
+            {pendingVRs.map((vr) => (<Card>
+              <StudentPendingVerificationRequest request={vr} key={vr._id} />
+            </Card>))}
           </Card.Group>
         </Tab.Pane>
       ),
@@ -54,18 +55,16 @@ const StudentUnverifiedOpportunities: React.FC<StudentUnverifiedOpportunitiesPro
     },
   ];
   return (
-    <div id='student-unverified-opportunities'>
-      <Segment>
-        <Header dividing>
-          <p>
-            <Icon name='checkmark box' color='grey' size='large' />Verifications
+    <Segment>
+      <Header dividing>
+        <p>
+          <Icon name='checkmark box' color='grey' size='large' />Verifications
           {checklist.getState() === CHECKSTATE.IMPROVE ?
             <span style={{ float: 'right' }}><Icon name='exclamation triangle' color='red' /> {checklist.getTitleText()}</span> : ''}
-          </p>
-        </Header>
-        <Tab panes={panes} defaultActiveIndex={0} />
-      </Segment>
-    </div>
+        </p>
+      </Header>
+      <Tab panes={panes} defaultActiveIndex={0} />
+    </Segment>
   );
 };
 

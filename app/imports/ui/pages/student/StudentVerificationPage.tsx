@@ -1,6 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
+import { Grid, Header, Segment } from 'semantic-ui-react';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
@@ -29,7 +30,21 @@ interface StudentVerificationPageProps {
 
 const StudentVerificationPage: React.FC<StudentVerificationPageProps> = ({ unVerifiedOpportunityInstances, student, verificationRequests }) => (
   <PageLayout id="student-verification-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
-    <StudentUnverifiedOpportunities unVerifiedOpportunityInstances={unVerifiedOpportunityInstances} verificationRequests={verificationRequests} student={student} />
+    <Grid stackable>
+      <Grid.Row>
+        <Grid.Column width={16}>
+          <StudentUnverifiedOpportunities unVerifiedOpportunityInstances={unVerifiedOpportunityInstances}
+                                           verificationRequests={verificationRequests} student={student} />
+        </Grid.Column>
+      </Grid.Row>
+      <Grid.Row>
+        <Grid.Column width={16}>
+          <Segment>
+            <Header dividing>Verified</Header>
+          </Segment>
+        </Grid.Column>
+      </Grid.Row>
+    </Grid>
   </PageLayout>
 );
 

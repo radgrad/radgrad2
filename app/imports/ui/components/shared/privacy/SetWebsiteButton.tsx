@@ -10,7 +10,7 @@ interface SetWebsiteButtonProps {
 }
 
 const formSchema = new SimpleSchema({
-  website: {type: String, optional: true, label: 'Enter website URL (empty string removes website data)'},
+  website: { type: String, optional: true, label: 'Enter website URL (empty string removes website data)' },
 });
 const bridge = new SimpleSchema2Bridge(formSchema);
 

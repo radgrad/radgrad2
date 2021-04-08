@@ -12,7 +12,7 @@ interface SetPictureButtonProps {
 }
 
 const formSchema = new SimpleSchema({
-  picture: {type: String, optional: true, label: 'Type in picture URL manually (empty string removes picture)'},
+  picture: { type: String, optional: true, label: 'Type in picture URL manually (empty string removes picture)' },
 });
 const bridge = new SimpleSchema2Bridge(formSchema);
 
@@ -50,7 +50,7 @@ export const SetPictureButton: React.FC<SetPictureButtonProps> = ({ picture, han
           <TextField placeholder='https://mywebsite.com/picture.png' name='picture'/>
           <SubmitField value='Submit'/>
         </AutoForm>
-        <p style={{marginTop: '20px'}}>Or select a picture file to upload:  <Button onClick={handleUploadClick}>Select picture</Button></p>
+        <p style={{ marginTop: '20px' }}>Or select a picture file to upload:  <Button onClick={handleUploadClick}>Select picture</Button></p>
       </Modal.Content>
     </Modal>
   );
