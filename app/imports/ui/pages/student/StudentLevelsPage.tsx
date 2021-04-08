@@ -53,6 +53,7 @@ const StudentLevelsPage: React.FC<StudentLevelsPageProps> = ({ profile, students
   console.log(students);
   console.log(StudentProfiles);
   console.log(profiles);
+    console.log(profile);
   return (
     <PageLayout id="student-levels-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
         <Grid stackable>
@@ -60,7 +61,8 @@ const StudentLevelsPage: React.FC<StudentLevelsPageProps> = ({ profile, students
                 <Grid.Column width={16}>
                     <Grid stackable columns="equal">
                         <Grid.Column stretched>
-                            <StudentLevelsWidget profile={profile} />
+                            <StudentLevelsWidget profile={profile} students={students} />
+                            {/*<StudentLevelsOthersWidget students={students} profile={profile} />*/}
                         </Grid.Column>
                         {/*<Grid.Column stretched>*/}
                         {/*    /!*<StudentLevelsOthersWidget students={students} profile={profile} />*!/*/}
