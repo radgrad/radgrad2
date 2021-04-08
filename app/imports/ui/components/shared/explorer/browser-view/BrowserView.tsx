@@ -19,7 +19,6 @@ import { ProfileInterests } from '../../../../../api/user/profile-entries/Profil
 import PreferredChoice from '../../../../../api/degree-plan/PreferredChoice';
 
 interface BrowserViewProps {
-  interests: Interest[];
   items?: CareerGoal[] | Course[] | Opportunity[] | Interest[];
   profileInterestIDs: string[];
   inProfile: boolean;
@@ -63,7 +62,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 const adminEmail = RadGradProperties.getAdminEmail();
 
 const BrowserView: React.FC<BrowserViewProps> = ({
-  interests,
   items,
   inProfile,
   scrollPosition,
@@ -73,10 +71,10 @@ const BrowserView: React.FC<BrowserViewProps> = ({
 }) => {
   const match = useRouteMatch();
   const cardGroupElement: HTMLElement = document.getElementById('browserCardGroup');
-  items = _.sortBy(items, (item) => item.name);
+  let explorerItems = _.sortBy(items, (item) => item.name);
   switch (sortValue) {
     case interestSortKeys.mostRecent:
-      items = _.sortBy(items, (item) => item.updatedAt);
+      explorerItems = _.sortBy(items, (item) => item.updatedAt);
       break;
     case opportunitySortKeys.recommended:
       // eslint-disable-next-line no-case-declarations
@@ -87,10 +85,10 @@ const BrowserView: React.FC<BrowserViewProps> = ({
       const interestIDs = profileEntries.map((f) => f.interestID);
       // eslint-disable-next-line no-case-declarations
       const preferred = new PreferredChoice(items, interestIDs);
-      items = preferred.getOrderedChoices();
+      explorerItems = preferred.getOrderedChoices();
       break;
     default:
-      items = _.sortBy(items, (item) => item.name);
+      explorerItems = _.sortBy(items, (item) => item.name);
   }
   useEffect(() => {
     const savedScrollPosition = scrollPosition;
@@ -121,11 +119,11 @@ const BrowserView: React.FC<BrowserViewProps> = ({
                 <Header>
                     {inProfile
                       ? <p color='grey'><Icon name='heart' color='grey' size='large' />
-                            {explorerType.toUpperCase()} IN MY PROFILE <WidgetHeaderNumber inputValue={items.length} />
+                            {explorerType.toUpperCase()} IN MY PROFILE <WidgetHeaderNumber inputValue={explorerItems.length} />
                             {checklist.getState() === CHECKSTATE.IMPROVE ?
                                 <span style={{ float: 'right' }}><Icon name='exclamation triangle' color='red' /> {checklist.getTitleText()}</span> : ''}
                         </p>
-                      : <p color='grey'>{explorerType.toUpperCase()} NOT IN MY PROFILE <WidgetHeaderNumber inputValue={items.length} />
+                      : <p color='grey'>{explorerType.toUpperCase()} NOT IN MY PROFILE <WidgetHeaderNumber inputValue={explorerItems.length} />
                             <Button size="mini" color="teal" floated="right"
                                     href={`mailto:${adminEmail}?subject=New ${_.upperFirst(explorerType.slice(0, -1))} Suggestion`} basic>
                                 <Icon name="mail" />
@@ -137,7 +135,7 @@ const BrowserView: React.FC<BrowserViewProps> = ({
                 <Divider />
                 {!inProfile ? <SortWidget explorerType={explorerType} /> : ''}
                 <Card.Group itemsPerRow={4} stackable id="browserCardGroup">
-                    {items.map((explorerItem) => (
+                    {explorerItems.map((explorerItem) => (
                         <ProfileCard key={explorerItem._id} item={explorerItem} type={explorerType}
                                      cardLinkName={inProfile ? 'See Details / Remove from Profile' : 'See Details / Add to Profile'} />
                     ))}
