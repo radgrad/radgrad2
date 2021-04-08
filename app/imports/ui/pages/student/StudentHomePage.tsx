@@ -22,23 +22,20 @@ interface StudentHomePageProps {
 
 const headerPaneTitle = 'Make the most of RadGrad';
 const headerPaneBody = `
-<div class="header">
 <p>This page contains a personalized set of recommendations to help RadGrad help you! It's divided into three sections. Not all of them might be present at any particular time.</p>
 <p><span class="headerLabel redBG">IMPROVE</span> Please act on these right away. They really help RadGrad help you. </p>
 <p><span class="headerLabel yellowBG">REVIEW</span> Please review your settings or things that might have changed recently. </p>
 <p><span class="headerLabel greenBG">OK</span>  Looks good for now!</p>
-</div>`;
+`;
 const headerPaneImage = 'header-home.png';
 
 const StudentHomePage: React.FC<StudentHomePageProps> = ({okItems, reviewItems, improveItems}) => (
   <PageLayout id="student-home-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage} disableMargin>
-    <div className="improveContainer">
       <Card.Group centered style={{marginTop: '0px'}}>
         {improveItems}
         {reviewItems}
         {okItems}
       </Card.Group>
-    </div>
   </PageLayout>
 );
 

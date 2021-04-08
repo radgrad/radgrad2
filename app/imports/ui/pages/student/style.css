@@ -20,18 +20,6 @@
     font-size: 18px;
     line-height: 1.3em;
 }
-.improveContainer{
-  background-color: #EEEEEE;
-  padding: 25px 0;
-}
-.reviewContainer{
-  background-color: #f9fae9;
-  padding: 25px 0;
-}
-.okContainer{
-  background-color: #e2fbdd;
-  padding: 25px 0;
-}
 .headerLabel{
   border-radius: 0.1em;
   color: #FFFFFF;
@@ -47,8 +35,4 @@
 }
 .greenBG{
   background-color: #6FBE44;
-}
-.header{
-  line-height: 2.0em;
-
 }

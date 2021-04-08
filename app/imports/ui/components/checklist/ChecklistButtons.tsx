@@ -18,6 +18,6 @@ interface ChecklistButtonActionProps {
 }
 
 export const ChecklistButtonAction: React.FC<ChecklistButtonActionProps> = ({ onClick, label, icon = 'thumbs up outline' }) => (
-  <Button style={{marginBottom: '2px'}} size='small' color='teal' onClick={onClick} content={label} labelPosition='right' icon={icon}/>
+  <Button style={{marginBottom: '10px'}} size='medium' inverted color='green' onClick={onClick} content={label} labelPosition='right' icon={icon}/>
 );
 

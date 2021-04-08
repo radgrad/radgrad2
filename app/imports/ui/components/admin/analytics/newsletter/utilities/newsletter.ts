@@ -9,7 +9,7 @@ import { OpportunityInstances } from '../../../../../../api/opportunity/Opportun
 import { AcademicTerms } from '../../../../../../api/academic-term/AcademicTermCollection';
 import { Slugs } from '../../../../../../api/slug/SlugCollection';
 import { Reviews } from '../../../../../../api/review/ReviewCollection';
-import { COLORS } from '../../../../../utilities/Colors'
+import { COLORS } from '../../../../../utilities/Colors';
 
 /** @namespace ui.components.admin.analytics.newsletter.utilities */
 
