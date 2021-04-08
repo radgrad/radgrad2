@@ -8,7 +8,7 @@ const LandingExplorerMenu: React.FC = () => {
   const location = useLocation();
   const fullPath = `${match.path}`;
   const pathBack = fullPath.substring(0, fullPath.lastIndexOf('/'));
-  const backButtonStyle = {marginTop: '5px'};
+  const backButtonStyle = { marginTop: '5px' };
   return (
     <Button as={Link} to={pathBack} style={backButtonStyle}>
       <Icon name="chevron circle left"/>

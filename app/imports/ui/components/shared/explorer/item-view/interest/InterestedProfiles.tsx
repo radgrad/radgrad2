@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { Container, Header, Image, Popup, Divider, Segment } from 'semantic-ui-react';
+import { Container, Header, Divider, Segment } from 'semantic-ui-react';
 import { ROLE } from '../../../../../../api/role/Role';
 import { Users } from '../../../../../../api/user/UserCollection';
 import { Interest } from '../../../../../../typings/radgrad';
-import StudentProfileModalLabel from '../../../profile/StudentProfileModalLabel';
+import UserLabel from '../../../profile/UserLabel';
 import WidgetHeaderNumber from '../../WidgetHeaderNumber';
-import { studentsParticipating } from '../../../utilities/data-model';
 import { getUserIDsWithProfileInterestMethod } from '../../../../../../api/user/profile-entries/ProfileInterestCollection.methods';
 
 interface InterestedProfileWidgetProps {
@@ -34,7 +33,7 @@ const InterestedProfiles: React.FC<InterestedProfileWidgetProps> = ({ interest }
     }
   });
 
-  const numberStudents = studentsParticipating(interest);
+  const numberStudents = students.length;
   return (
     <Segment>
       <Header as="h5" textAlign="center">
@@ -42,7 +41,7 @@ const InterestedProfiles: React.FC<InterestedProfileWidgetProps> = ({ interest }
       </Header>
       <Container textAlign="center">
         {students.map((student) => (
-          <StudentProfileModalLabel key={student._id} studentProfile={student} />
+          <UserLabel key={student.username} username={student.username} />
         ))}
       </Container>
       <Divider />
@@ -50,24 +49,18 @@ const InterestedProfiles: React.FC<InterestedProfileWidgetProps> = ({ interest }
         FACULTY MEMBERS <WidgetHeaderNumber inputValue={faculty.length} />
       </Header>
       <Container textAlign="center">
-        <Image.Group size="mini">
-          {faculty.map((fac) => (
-            <Popup key={fac._id} trigger={<Image src={fac.picture} circular />}
-                   content={`${fac.firstName} ${fac.lastName}`} />
-          ))}
-        </Image.Group>
+        {faculty.map((fac) => (
+          <UserLabel username={fac.username} key={fac.username} />
+        ))}
       </Container>
       <Divider />
       <Header as="h5" textAlign="center">
         ADVISORS <WidgetHeaderNumber inputValue={advisors.length} />
       </Header>
       <Container textAlign="center">
-        <Image.Group size="mini">
           {advisors.map((fac) => (
-            <Popup key={fac._id} trigger={<Image src={fac.picture} circular />}
-                   content={`${fac.firstName} ${fac.lastName}`} />
+            <UserLabel username={fac.username} key={fac.username} />
           ))}
-        </Image.Group>
       </Container>
     </Segment>
   );

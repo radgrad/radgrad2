@@ -16,7 +16,7 @@ const CourseList: React.FC<CourseListProps> = ({ courses, size, keyStr, userID }
     {courses.map((course) => {
       const slug = itemToSlugName(course);
       return (
-        <CourseLabel key={course._id} slug={slug} userID={userID} size={size} />
+        <CourseLabel key={slug} slug={slug} userID={userID} size={size} />
       );
     },
     )}

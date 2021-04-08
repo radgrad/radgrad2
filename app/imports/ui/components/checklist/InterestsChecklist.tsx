@@ -1,16 +1,16 @@
 import moment from 'moment';
 import React from 'react';
-import {updateMethod} from '../../../api/base/BaseCollection.methods';
-import {PublicStats} from '../../../api/public-stats/PublicStatsCollection';
-import {StudentProfiles} from '../../../api/user/StudentProfileCollection';
-import {Users} from '../../../api/user/UserCollection';
-import {StudentProfile, StudentProfileUpdate} from '../../../typings/radgrad';
-import {EXPLORER, URL_ROLES} from '../../layouts/utilities/route-constants';
+import { updateMethod } from '../../../api/base/BaseCollection.methods';
+import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';
+import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
+import { Users } from '../../../api/user/UserCollection';
+import { StudentProfile, StudentProfileUpdate } from '../../../typings/radgrad';
+import { EXPLORER, URL_ROLES } from '../../layouts/utilities/route-constants';
 import ProfileInterestList from '../shared/ProfileInterestList';
-import {Checklist, CHECKSTATE} from './Checklist';
-import {DetailsBox} from './DetailsBox';
-import {ActionsBox} from './ActionsBox';
-import {ChecklistButtonAction, ChecklistButtonLink} from './ChecklistButtons';
+import { Checklist, CHECKSTATE } from './Checklist';
+import { DetailsBox } from './DetailsBox';
+import { ActionsBox } from './ActionsBox';
+import { ChecklistButtonAction, ChecklistButtonLink } from './ChecklistButtons';
 
 export class InterestsChecklist extends Checklist {
   private profile: StudentProfile;

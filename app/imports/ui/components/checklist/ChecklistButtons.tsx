@@ -1,6 +1,6 @@
 import React from 'react';
-import {Button} from 'semantic-ui-react';
-import {Link} from 'react-router-dom';
+import { Button } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 
 interface ChecklistButtonLinkProps {
   url: string,

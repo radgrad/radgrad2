@@ -1,17 +1,17 @@
 import moment from 'moment';
 import React from 'react';
-import {updateMethod} from '../../../api/base/BaseCollection.methods';
-import {OpportunityInstances} from '../../../api/opportunity/OpportunityInstanceCollection';
-import {PublicStats} from '../../../api/public-stats/PublicStatsCollection';
-import {StudentProfiles} from '../../../api/user/StudentProfileCollection';
-import {Users} from '../../../api/user/UserCollection';
-import {Ice, StudentProfile, StudentProfileUpdate} from '../../../typings/radgrad';
-import {DEGREEPLANNER, EXPLORER, ICE, URL_ROLES} from '../../layouts/utilities/route-constants';
-import {Checklist, CHECKSTATE} from './Checklist';
+import { updateMethod } from '../../../api/base/BaseCollection.methods';
+import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
+import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';
+import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
+import { Users } from '../../../api/user/UserCollection';
+import { Ice, StudentProfile, StudentProfileUpdate } from '../../../typings/radgrad';
+import { DEGREEPLANNER, EXPLORER, ICE, URL_ROLES } from '../../layouts/utilities/route-constants';
+import { Checklist, CHECKSTATE } from './Checklist';
 import ProfileFutureOpportunitiesList from '../shared/ProfileFutureOpportunitiesList';
-import {DetailsBox} from './DetailsBox';
-import {ActionsBox} from './ActionsBox';
-import {ChecklistButtonAction, ChecklistButtonLink} from './ChecklistButtons';
+import { DetailsBox } from './DetailsBox';
+import { ActionsBox } from './ActionsBox';
+import { ChecklistButtonAction, ChecklistButtonLink } from './ChecklistButtons';
 
 export class OpportunitiesChecklist extends Checklist {
   private profile: StudentProfile;
@@ -63,7 +63,7 @@ export class OpportunitiesChecklist extends Checklist {
   }
 
   public getDetails(): JSX.Element {
-    const upcomingOpportunities = OpportunityInstances.findNonRetired({studentID: this.profile.userID, verified: false});
+    const upcomingOpportunities = OpportunityInstances.findNonRetired({ studentID: this.profile.userID, verified: false });
     return ((upcomingOpportunities.length === 0) ?
         <DetailsBox description='Note: You have no upcoming opportunities. You probably want to add some!'/> :
         <DetailsBox description='Here are your upcoming Opportunities:'>
@@ -78,7 +78,7 @@ export class OpportunitiesChecklist extends Checklist {
       const updateData: StudentProfileUpdate = {};
       updateData.id = this.profile._id;
       updateData.lastVisitedOpportunities = moment().format('YYYY-MM-DD');
-      updateMethod.call({collectionName, updateData}, (error) => {
+      updateMethod.call({ collectionName, updateData }, (error) => {
         if (error) {
           console.error('Failed to update lastVisitedOpportunities', error);
         }

@@ -208,23 +208,6 @@ export interface CareerGoalUpdate extends Update {
   retired?: boolean;
 }
 
-// StudentParticipations
-export interface StudentParticipation {
-  itemID: string;
-  itemSlug: string;
-  itemCount: number;
-}
-
-export interface StudentParticipationDefine extends DumpOne {
-  itemID: string;
-  itemSlug: string;
-  itemCount: number;
-}
-
-export interface StudentParticipationUpdate extends Update {
-  itemCount?: number;
-}
-
 // CourseInstances
 export interface CourseInstance extends Document {
   termID: string;

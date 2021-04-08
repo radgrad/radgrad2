@@ -82,6 +82,7 @@ import {
   USERNAME,
   VERIFICATION_REQUESTS,
 } from './route-constants';
+import StudentLabelExamplesPage from '../../pages/student/StudentLabelExamplesPage';
 
 export const routes = {
   ADMIN: [
@@ -206,5 +207,7 @@ export const routes = {
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${STUDENT_REVIEWS}`, component: StudentReviewsPage },
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${STUDENT_VERIFICATION}`, component: StudentVerificationPage },
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${TERMS_AND_CONDITIONS}`, component: StudentTermsAndConditionsPage },
+    // The following page is temporary for design purposes only. Should eventually be removed once we finalize design elements.
+    { path: `/${URL_ROLES.STUDENT}/${USERNAME}/labels`, component: StudentLabelExamplesPage },
   ],
 };

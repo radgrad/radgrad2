@@ -16,7 +16,7 @@ interface AddCourseFormProps {
   courses: Course[];
 }
 
-const AddCourseForm: React.FC<AddCourseFormProps> = ({ interests, courses}) => {
+const AddCourseForm: React.FC<AddCourseFormProps> = ({ interests, courses }) => {
   let formRef;
   const handleAdd = (doc) => {
     // console.log('CoursePage.handleAdd(%o)', doc);

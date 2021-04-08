@@ -114,7 +114,7 @@ const AdminDataModelAcademicTermsPage: React.FC<AdminDataModelAcademicTermsPageP
 };
 
 const AdminDataModelAcademicTermsPageContainer = withTracker(() => {
-  const items = AcademicTerms.find({}, { sort: { termNumber: 1 }}).fetch();
+  const items = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();
   return {
     items,
   };

@@ -19,7 +19,7 @@ const ProfileInterestList: React.FC<ProfileInterestListProps> = ({ profile, size
       {userInterests.map((interest) => {
         const interestSlug = itemToSlugName(interest);
         return (
-          <InterestLabel slug={interestSlug} size={size} userID={profile.userID} />
+          <InterestLabel key={interestSlug} slug={interestSlug} size={size} userID={profile.userID} />
         );
       })}
     </Label.Group>

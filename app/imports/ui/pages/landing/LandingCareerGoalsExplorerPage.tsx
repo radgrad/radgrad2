@@ -1,12 +1,12 @@
 import React from 'react';
-import {withTracker} from 'meteor/react-meteor-data';
-import {Card, Header, Segment} from 'semantic-ui-react';
-import {CareerGoals} from '../../../api/career/CareerGoalCollection';
-import {Interests} from '../../../api/interest/InterestCollection';
+import { withTracker } from 'meteor/react-meteor-data';
+import { Card, Header, Segment } from 'semantic-ui-react';
+import { CareerGoals } from '../../../api/career/CareerGoalCollection';
+import { Interests } from '../../../api/interest/InterestCollection';
 import LandingExplorerMenuBar from '../../components/landing/explorer/LandingExplorerMenuBar';
-import {CareerGoal, HelpMessage} from '../../../typings/radgrad';
+import { CareerGoal, HelpMessage } from '../../../typings/radgrad';
 import LandingExplorerCard from '../../components/landing/explorer/LandingExplorerCard';
-import {Slugs} from '../../../api/slug/SlugCollection';
+import { Slugs } from '../../../api/slug/SlugCollection';
 import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
 import PageLayout from '../PageLayout';
 
@@ -25,7 +25,7 @@ Registered users can add Career Goals to their profile which enables RadGrad to 
 This page provides an overview of the Career Goals currently available in RadGrad. 
 `;
 
-const LandingCareerGoalsExplorerPage: React.FC<CareerGoalsExplorerProps> = ({count, helpMessages, careerGoals}) => (
+const LandingCareerGoalsExplorerPage: React.FC<CareerGoalsExplorerProps> = ({ count, helpMessages, careerGoals }) => (
   <div>
     <LandingExplorerMenuBar/>
     <PageLayout id="landing-career-goals-explorer-page" headerPaneTitle={headerPaneTitle}

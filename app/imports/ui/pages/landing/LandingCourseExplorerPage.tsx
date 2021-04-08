@@ -1,13 +1,13 @@
 import React from 'react';
 import Markdown from 'react-markdown';
-import {useParams, useRouteMatch} from 'react-router-dom';
-import {withTracker} from 'meteor/react-meteor-data';
-import {Grid, Header, Segment} from 'semantic-ui-react';
-import {Courses} from '../../../api/course/CourseCollection';
-import {Course} from '../../../typings/radgrad';
-import {Slugs} from '../../../api/slug/SlugCollection';
+import { useParams, useRouteMatch } from 'react-router-dom';
+import { withTracker } from 'meteor/react-meteor-data';
+import { Grid, Header, Segment } from 'semantic-ui-react';
+import { Courses } from '../../../api/course/CourseCollection';
+import { Course } from '../../../typings/radgrad';
+import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuContainer from '../../components/landing/explorer/LandingExplorerMenu';
-import {Interests} from '../../../api/interest/InterestCollection';
+import { Interests } from '../../../api/interest/InterestCollection';
 import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
 import LandingInterestList from '../../components/landing/LandingInterestList';
 import LandingPrerequisiteList from '../../components/landing/LandingPrerequisiteList';
@@ -32,7 +32,7 @@ This public explorer does not show reviews or the forecasts for future semesters
  * @return {JSX.Element}
  * @constructor
  */
-const LandingCourseExplorerPage: React.FC<CourseExplorerProps> = ({course}) => {
+const LandingCourseExplorerPage: React.FC<CourseExplorerProps> = ({ course }) => {
   const match = useRouteMatch();
   return (
     <div>
@@ -71,7 +71,7 @@ const LandingCourseExplorerPage: React.FC<CourseExplorerProps> = ({course}) => {
                 </Grid>
                 <b>Description:</b>
                 <Markdown escapeHtml source={course.description}
-                          renderers={{link: (localProps) => Router.renderLink(localProps, match)}}/>
+                          renderers={{ link: (localProps) => Router.renderLink(localProps, match) }}/>
                 <Header as="h4" dividing>
                   Prerequisites
                 </Header>
@@ -88,7 +88,7 @@ const LandingCourseExplorerPage: React.FC<CourseExplorerProps> = ({course}) => {
 };
 
 const LandingCourseExplorerContainer = withTracker(() => {
-  const {course} = useParams();
+  const { course } = useParams();
   const id = Slugs.getEntityID(course, 'Course');
   return {
     course: Courses.findDoc(id),

@@ -20,7 +20,7 @@ const ProfileCareerGoalList: React.FC<ProfileCareerGoalListProps> = ({ profile, 
       {careerGoals.map((careerGoal) => {
         const slug = itemToSlugName(careerGoal);
         return (
-          <CareerGoalLabel slug={slug} size={size} userID={profile.userID} />
+          <CareerGoalLabel key={slug} slug={slug} size={size} userID={profile.userID} />
         );
       })}
     </Label.Group>

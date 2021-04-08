@@ -1,17 +1,17 @@
-import {withTracker} from 'meteor/react-meteor-data';
-import {Card} from 'semantic-ui-react';
+import { withTracker } from 'meteor/react-meteor-data';
+import { Card } from 'semantic-ui-react';
 import React from 'react';
-import {CareerGoalsChecklist} from '../../components/checklist/CareerGoalsChecklist';
-import {CoursesChecklist} from '../../components/checklist/CoursesChecklist';
-import {InterestsChecklist} from '../../components/checklist/InterestsChecklist';
-import {LevelChecklist} from '../../components/checklist/LevelChecklist';
-import {OpportunitiesChecklist} from '../../components/checklist/OpportunitiesChecklist';
-import {PrivacyChecklist} from '../../components/checklist/PrivacyChecklist';
-import {ReviewChecklist} from '../../components/checklist/ReviewChecklist';
-import {TermsAndConditionsChecklist} from '../../components/checklist/TermsAndConditionsChecklist';
-import {VerificationChecklist} from '../../components/checklist/VerificationChecklist';
+import { CareerGoalsChecklist } from '../../components/checklist/CareerGoalsChecklist';
+import { CoursesChecklist } from '../../components/checklist/CoursesChecklist';
+import { InterestsChecklist } from '../../components/checklist/InterestsChecklist';
+import { LevelChecklist } from '../../components/checklist/LevelChecklist';
+import { OpportunitiesChecklist } from '../../components/checklist/OpportunitiesChecklist';
+import { PrivacyChecklist } from '../../components/checklist/PrivacyChecklist';
+import { ReviewChecklist } from '../../components/checklist/ReviewChecklist';
+import { TermsAndConditionsChecklist } from '../../components/checklist/TermsAndConditionsChecklist';
+import { VerificationChecklist } from '../../components/checklist/VerificationChecklist';
 import PageLayout from '../PageLayout';
-import {CHECKSTATE} from '../../components/checklist/Checklist';
+import { CHECKSTATE } from '../../components/checklist/Checklist';
 import './style.css';
 
 interface StudentHomePageProps {
@@ -29,7 +29,7 @@ const headerPaneBody = `
 `;
 const headerPaneImage = 'header-home.png';
 
-const StudentHomePage: React.FC<StudentHomePageProps> = ({okItems, reviewItems, improveItems}) => (
+const StudentHomePage: React.FC<StudentHomePageProps> = ({ okItems, reviewItems, improveItems }) => (
   <PageLayout id="student-home-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage} disableMargin>
       <Card.Group centered style={{marginTop: '0px'}}>
         {improveItems}
