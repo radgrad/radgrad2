@@ -20,7 +20,7 @@ export interface PublicProfileData {
   picture?: string,
   level?: number,
   ice?: { i, c, e },
-  careerGoals?: string[],
+  careerGoals?: string[], 
   interests?: string[],
   courses?: string[],
   opportunities?: string[]
