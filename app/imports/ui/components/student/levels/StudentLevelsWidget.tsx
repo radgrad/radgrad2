@@ -1,12 +1,12 @@
 import React from 'react';
 import Markdown from 'react-markdown';
 import {Segment, Grid, Container, Message, Icon, Image, Header, Popup} from 'semantic-ui-react';
-import {useRouteMatch} from 'react-router-dom';
 import {getLevelCongratsMarkdown, getLevelHintStringMarkdown} from '../../../../api/level/LevelProcessor';
 import { StudentProfile } from '../../../../typings/radgrad';
 import {ICE, URL_ROLES} from '../../../layouts/utilities/route-constants';
 import { Users } from '../../../../api/user/UserCollection';
 import {getUsername} from '../../shared/utilities/router';
+import { Link, useRouteMatch } from 'react-router-dom';
 
 export interface StudentLevelsWidgetProps {
   profile: StudentProfile;
@@ -103,7 +103,7 @@ const StudentLevelsWidget: React.FC<StudentLevelsWidgetProps> = ({ profile, stud
                   <Message.Content>
                       <h1>Want to level up?</h1>
                       <Markdown escapeHtml source={studentLevelHint} />
-                      <a href={`/${URL_ROLES.STUDENT}/${username}/${ICE}`} style={{textDecoration: 'underline'}}>Visit ICE page for more details</a>
+                      <Link to={`/${URL_ROLES.STUDENT}/${username}/${ICE}`} style={{textDecoration: 'underline'}}>Visit ICE page for more details</Link>
                   </Message.Content>
               </Message>
               <h3>OTHER LEVEL {studentLevelNumber} STUDENTS</h3>
