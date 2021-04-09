@@ -1,4 +1,5 @@
 import React from 'react';
+// @ts-ignore
 import { Grid, Menu, Segment, Tab } from 'semantic-ui-react';
 import { CourseInstance, OpportunityInstance } from '../../../../typings/radgrad';
 import RadGradHeader from '../../shared/header/RadGradHeader';

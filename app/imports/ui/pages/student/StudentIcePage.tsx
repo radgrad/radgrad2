@@ -1,8 +1,10 @@
 import { withTracker } from 'meteor/react-meteor-data';
 import { useParams } from 'react-router-dom';
 import React from 'react';
+// @ts-ignore
 import { Grid } from 'semantic-ui-react';
-import StudentIceWidget from '../../components/student/ice/StudentIceWidget';
+import RadGradSegment from '../../components/shared/segment/RadGradSegment';
+import StudentIceTabs from '../../components/student/ice/StudentIceTabs';
 import { Ice, CourseInstance, ProfileInterest, OpportunityInstance } from '../../../typings/radgrad';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Users } from '../../../api/user/UserCollection';
@@ -12,6 +14,7 @@ import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstan
 import PageLayout from '../PageLayout';
 
 interface StudentIcePageProps {
+  username: string;
   earnedICE: Ice;
   projectedICE: Ice;
   profileInterests: ProfileInterest[];
@@ -30,12 +33,24 @@ This page provides a breakdown of these three components of a successful undergr
 const headerPaneImage = 'header-ice.png';
 
 
-const StudentIcePage: React.FC<StudentIcePageProps> = ({  earnedICE, projectedICE, profileInterests, courseInstances, opportunityInstances }) => (
-  <PageLayout id="student-ice-points-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
+const StudentIcePage: React.FC<StudentIcePageProps> = ({
+  username,
+  earnedICE,
+  projectedICE,
+  profileInterests,
+  courseInstances,
+  opportunityInstances,
+}) => (
+  <PageLayout id="student-ice-points-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}
+              headerPaneImage={headerPaneImage}>
     <Grid stackable>
       <Grid.Row>
         <Grid.Column width={16} stretched>
-          <StudentIceWidget earnedICE={earnedICE} projectedICE={projectedICE} profileInterests={profileInterests} courseInstances={courseInstances} opportunityInstances={opportunityInstances} />
+          <RadGradSegment text='your ice points'>
+            <StudentIceTabs username={username} earnedICE={earnedICE} projectedICE={projectedICE}
+                            profileInterests={profileInterests} courseInstances={courseInstances}
+                            opportunityInstances={opportunityInstances} />
+          </RadGradSegment>
         </Grid.Column>
       </Grid.Row>
     </Grid>
@@ -51,6 +66,7 @@ const StudentHomeIcePageContainer = withTracker(() => {
   const courseInstances: CourseInstance[] = CourseInstances.findNonRetired({ studentID });
   const opportunityInstances: OpportunityInstance[] = OpportunityInstances.findNonRetired({ studentID });
   return {
+    username,
     earnedICE,
     projectedICE,
     profileInterests,

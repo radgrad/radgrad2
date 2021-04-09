@@ -1,3 +1,4 @@
+// @ts-ignore
 import moment from 'moment';
 import React from 'react';
 import { useParams } from 'react-router-dom';
@@ -30,7 +31,7 @@ const headerPaneImage = 'header-interests.png';
 const InterestBrowserViewPage: React.FC<InterestBrowserViewPageProps> = ({ profileInterests, nonProfileInterests }) => (
   <PageLayout id="interest-browser-view-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
     <InterestBrowserView interests={profileInterests} inProfile />
-    <InterestBrowserView interests={nonProfileInterests} />
+    <InterestBrowserView interests={nonProfileInterests} inProfile={false}/>
   </PageLayout>
 );
 

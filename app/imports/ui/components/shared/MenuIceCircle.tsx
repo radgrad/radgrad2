@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
+// @ts-ignore
 import { Popup } from 'semantic-ui-react';
 import { buildRouteName } from './utilities/router';
 

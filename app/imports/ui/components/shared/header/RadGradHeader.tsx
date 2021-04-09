@@ -1,4 +1,5 @@
 import React from 'react';
+// @ts-ignore
 import { Header, Icon } from 'semantic-ui-react';
 
 interface RadGradHeaderProps {
