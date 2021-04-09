@@ -116,7 +116,7 @@ export class Checklist {
 
   public getChecklistItem(): JSX.Element {
     return (
-      <Card padded style={{ minWidth: '460px', marginRight: '30px' }} key={this.name}>
+      <Card style={{ minWidth: '460px' }} key={this.name}>
         <Card.Content>
           <Label as='a'  ribbon='right' color={this.stateColor[this.state]}>{this.getState()}</Label>
           <Header as='h4' style={{ color:COLORS.GREY, textTransform: 'uppercase', marginTop: '-20px' }}>{this.getIcon()}{this.getName()}</Header>
