@@ -2,16 +2,16 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { Button, Card, Divider, Header, Icon, Segment } from 'semantic-ui-react';
-import { scrollPositionActions } from '../../../../../redux/shared/scrollPosition';
-import { RootState } from '../../../../../redux/types';
-import { Interest } from '../../../../../typings/radgrad';
-import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
-import { CHECKSTATE } from '../../../checklist/Checklist';
-import { InterestsChecklist } from '../../../checklist/InterestsChecklist';
-import ProfileCard from './ProfileCard';
-import WidgetHeaderNumber from '../WidgetHeaderNumber';
-import { RadGradProperties } from '../../../../../api/radgrad/RadGradProperties';
-import SortWidget, { interestSortKeys } from './SortWidget';
+import { scrollPositionActions } from '../../app/imports/redux/shared/scrollPosition';
+import { RootState } from '../../app/imports/redux/types';
+import { Interest } from '../../app/imports/typings/radgrad';
+import { EXPLORER_TYPE } from '../../app/imports/ui/layouts/utilities/route-constants';
+import { CHECKSTATE } from '../../app/imports/ui/components/checklist/Checklist';
+import { InterestsChecklist } from '../../app/imports/ui/components/checklist/InterestsChecklist';
+import ProfileCard from '../../app/imports/ui/components/shared/explorer/browser-view/ProfileCard';
+import WidgetHeaderNumber from '../../app/imports/ui/components/shared/explorer/WidgetHeaderNumber';
+import { RadGradProperties } from '../../app/imports/api/radgrad/RadGradProperties';
+import SortWidget, { interestSortKeys } from '../../app/imports/ui/components/shared/explorer/browser-view/SortWidget';
 
 interface InterestBrowserViewProps {
   interests: Interest[];

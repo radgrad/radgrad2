@@ -1,16 +1,16 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Button, Card, Divider, Header, Icon, Segment } from 'semantic-ui-react';
-import { scrollPositionActions } from '../../../../../redux/shared/scrollPosition';
-import { RootState } from '../../../../../redux/types';
-import { CareerGoal } from '../../../../../typings/radgrad';
-import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
-import ProfileCard from './ProfileCard';
-import PreferredChoice from '../../../../../api/degree-plan/PreferredChoice';
-import WidgetHeaderNumber from '../WidgetHeaderNumber';
-import { CHECKSTATE } from '../../../checklist/Checklist';
-import { CareerGoalsChecklist } from '../../../checklist/CareerGoalsChecklist';
-import { RadGradProperties } from '../../../../../api/radgrad/RadGradProperties';
+import { scrollPositionActions } from '../../app/imports/redux/shared/scrollPosition';
+import { RootState } from '../../app/imports/redux/types';
+import { CareerGoal } from '../../app/imports/typings/radgrad';
+import { EXPLORER_TYPE } from '../../app/imports/ui/layouts/utilities/route-constants';
+import ProfileCard from '../../app/imports/ui/components/shared/explorer/browser-view/ProfileCard';
+import PreferredChoice from '../../app/imports/api/degree-plan/PreferredChoice';
+import WidgetHeaderNumber from '../../app/imports/ui/components/shared/explorer/WidgetHeaderNumber';
+import { CHECKSTATE } from '../../app/imports/ui/components/checklist/Checklist';
+import { CareerGoalsChecklist } from '../../app/imports/ui/components/checklist/CareerGoalsChecklist';
+import { RadGradProperties } from '../../app/imports/api/radgrad/RadGradProperties';
 
 interface CareerGoalBrowserViewProps {
   profileInterestIDs: string[];
