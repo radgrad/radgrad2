@@ -253,6 +253,20 @@ class OpportunityInstanceCollection extends BaseCollection {
     return Users.getProfile(instance.studentID);
   }
 
+  public getUnverifiedInstances(student: string): OpportunityInstance[] {
+    const studentID = Users.getID(student);
+    const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
+    const ois = OpportunityInstances.findNonRetired({ studentID, verified: false });
+    const oisInPast = ois.filter((oi) => {
+      const term = AcademicTerms.findDoc(oi.termID);
+      return term.termNumber < currentTerm.termNumber;
+    });
+    const requests = VerificationRequests.findNonRetired({ studentID });
+    const requestedOIs = requests.map((request) => request.opportunityInstanceID);
+    const unverified = oisInPast.filter((oi) => !_.includes(requestedOIs, oi._id));
+    return unverified;
+  }
+
   /**
    * Depending on the logged in user publish only their OpportunityInstances. If
    * the user is in the Role.ADMIN then publish all OpportunityInstances.

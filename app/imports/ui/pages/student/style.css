@@ -6,17 +6,11 @@
 .checklist p{
     font-size: 17px;
 }
-.labelStatus{
-    margin-top: -80px !important;
-    margin-right: -28px !important;
-    text-transform: uppercase !important;
-}
 .highlightBox{
     background-color: #eefaf6;
     padding: 15px 15px;
     margin: 15px 0;
     border-radius: 10px;
-
 }
 .centeredBox{
     text-align: center;
@@ -25,4 +19,20 @@
 .centeredBox p{
     font-size: 18px;
     line-height: 1.3em;
+}
+.headerLabel{
+  border-radius: 0.1em;
+  color: #FFFFFF;
+  text-align: center;
+  width: 100px;
+  display:inline-block;
+}
+.redBG{
+  background-color: #CA4864;
+}
+.yellowBG{
+  background-color: #CEB23F;
+}
+.greenBG{
+  background-color: #6FBE44;
 }

@@ -1,14 +1,16 @@
+import { COLORS } from '../../../utilities/Colors';
+
 export default {
   'landing-menu > .item, .landing-menu .right.menu > .item': {
     position: 'initial',
   },
   'inverted-section': {
-    backgroundColor: 'rgba(0,0,0,.8)',
+    backgroundColor: COLORS.BLACK,
     paddingTop: 50,
     paddingBottom: 50,
   },
   'inverted-section-green': {
-    backgroundColor: '#7CC154',
+    backgroundColor: COLORS.GREEN,
     paddingTop: 40,
     paddingBottom: 40,
     marginTop: 0,
@@ -20,37 +22,37 @@ export default {
   },
   'ready-to-get-started': {
     paddingTop: 20,
-    paddingBottom: 60,
+    paddingBottom: 30,
     paddingLeft: 20,
-    backgroundColor: '#6fbe44',
-    color: 'white',
+    backgroundColor: COLORS.GREEN,
+    color: COLORS.WHITE,
     borderRadius: 10,
 
   },
   'need-more-info': {
     paddingTop: 20,
-    paddingBottom: 60,
+    paddingBottom: 30,
     paddingLeft: 20,
-    backgroundColor: '#2f9276',
-    color: 'white',
+    backgroundColor: COLORS.BLUE,
+    color: COLORS.WHITE,
     borderRadius: 10,
   },
   'browse-explorers': {
     paddingTop: 20,
     paddingBottom: 30,
     paddingLeft: 20,
-    backgroundColor: '#106735',
-    color: 'white',
+    backgroundColor: COLORS.OLIVE,
+    color: COLORS.WHITE,
     borderRadius: 10,
   },
   'inverted-main-header': {
-    color: 'white',
+    color: COLORS.WHITE,
     fontSize: '4rem',
     lineHeight: 1,
     paddingBottom: 10,
   },
   'inverted-main-description': {
-    color: 'rgba(255,255,255,.7)',
+    color: COLORS.WHITE,
     fontSize: 20,
   },
   'landing-number-column': {
@@ -60,10 +62,9 @@ export default {
     fontSize: '1.3rem',
   },
   'home-number': {
-    color: '#279474',
-    fontSize: 80,
+    color: COLORS.BLUE,
+    fontSize: 90,
     fontWeight: 700,
-    paddingRight: 10,
     verticalAlign: 'middle',
     lineHeight: 0.6,
     textAlign: 'center',
@@ -78,7 +79,7 @@ export default {
     textAlign: 'right',
   },
   'home-number-label': {
-    color: '#333333',
+    color: COLORS.BLACK,
     fontSize: 20,
   },
   'main-header-ice': {
@@ -87,7 +88,7 @@ export default {
     paddingBottom: 80,
   },
   'green-text': {
-    color: '#6FBE44',
+    color: COLORS.GREEN,
   },
   'landing-section-1 .container': {
     paddingTop: '5rem',
@@ -98,28 +99,28 @@ export default {
   'landing-section-4, landing-section-6, landing-section-8': {
     paddingTop: 9,
     paddingBottom: 9,
-    backgroundColor: '#f7f7f7',
+    backgroundColor: COLORS.GREY2,
   },
   'landing-section-3 .grid, landing-section-4 .grid, landing-section-5 .grid, landing-section-6 .container, landing-section-7 .grid, landing-section-8 .container, landing-section-9 .container': {
     paddingBottom: '5rem',
   },
   'inverted-header': {
-    color: 'white',
+    color: COLORS.WHITE,
     fontSize: 45,
   },
   'inverted-header2': {
-    color: 'white',
+    color: COLORS.WHITE,
     fontSize: '1.7rem',
   },
   'mobile-header': {
     fontSize: 60,
   },
   'inverted-description': {
-    color: 'rgba(255,255,255,.7)',
+    color: COLORS.WHITE,
     fontSize: 18,
   },
   'inverted-description p > strong, .header-description p > strong': {
-    color: '#6FBE44',
+    color: COLORS.GREEN,
 
   },
   'header-text': {
@@ -132,17 +133,17 @@ export default {
     paddingLeft: 100,
   },
   'header-section': {
-    backgroundColor: '#ffffff',
+    backgroundColor: COLORS.WHITE,
     paddingTop: 40,
     paddingBottom: 40,
   },
   'header-section-gray': {
-    backgroundColor: '#eeeeee',
+    backgroundColor: COLORS.GREY2,
     paddingTop: 40,
     paddingBottom: 40,
   },
   'grey-section': {
-    backgroundColor: '#f7f7f7',
+    backgroundColor: COLORS.GREY2,
   },
   'vertical-align': {
     display: 'flex',
@@ -158,7 +159,7 @@ export default {
     fontSize: 16,
   },
   'footer-item:before, .footer-item': {
-    color: 'white',
+    color: COLORS.WHITE,
   },
   'landing-ice .column .radgrad-ice.menu .radgrad-ice-stat': {
     top: 15,
@@ -167,14 +168,14 @@ export default {
     paddingBottom: 0,
   },
   'footer-section': {
-    backgroundColor: '#252525',
+    backgroundColor: COLORS.BLACK,
     padding: '2rem 0',
-    color: 'white',
+    color: COLORS.WHITE,
     fontSize: 13,
   },
   'home-number-label a:link': {
     fontWeight: 100,
-    fontcolor: 'red',
+    fontcolor: COLORS.RED,
   },
   'explorer-dropdown':{
     marginRight: 10,
