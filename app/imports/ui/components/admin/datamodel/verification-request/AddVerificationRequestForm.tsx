@@ -57,7 +57,10 @@ const AddVerificationRequestForm: React.FC<AddVerificationRequestFormProps> = ({
   const handleAdd = (doc) => {
     // console.log('VerificationRequests.handleAdd()', doc);
     const collectionName = VerificationRequests.getCollectionName();
-    const definitionData: VerificationRequestDefine = {};
+    const definitionData: VerificationRequestDefine = {
+      student: '',
+      documentation: '',
+    };
     definitionData.status = doc.status;
     if (doc.opportunityInstance) {
       definitionData.opportunityInstance = opportunityInstanceNameToId(doc.opportunityInstance);
