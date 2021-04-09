@@ -1,3 +1,5 @@
+import { COLORS } from '../../../../utilities/Colors';
+
 const grid = 2;
 
 const getDraggablePillStyle = (isDragging: boolean, draggableStyle: React.CSSProperties): React.CSSProperties => ({
@@ -5,12 +7,12 @@ const getDraggablePillStyle = (isDragging: boolean, draggableStyle: React.CSSPro
   userSelect: 'none',
   padding: grid,
   margin: `0 0 ${grid}px 0`,
-  color: '#348C72',
+  color: COLORS.GREEN3,
   // change background colour if dragging
-  background: isDragging ? 'lightgreen' : '#F2F2F2',
+  background: isDragging ? 'lightgreen' : COLORS.GREY2,
   borderStyle: 'solid',
   borderRadius: 1,
-  borderColor: isDragging ? 'lightgreen' : '#F2F2F2',
+  borderColor: isDragging ? 'lightgreen' : COLORS.GREY2,
 
   // styles we need to apply on draggables
   ...draggableStyle,
@@ -21,29 +23,29 @@ const getInspectorDraggablePillStyle = (isDragging: boolean, draggableStyle: Rea
   userSelect: 'none',
   padding: grid,
   margin: `0 0 ${grid}px 0`,
-  color: '#348C72',
+  color: COLORS.GREEN3,
   // change background colour if dragging
-  background: isDragging ? 'lightgreen' : '#F2F2F2',
+  background: isDragging ? 'lightgreen' : COLORS.GREY2,
   borderStyle: 'solid',
   borderRadius: 1,
-  borderColor: isDragging ? 'lightgreen' : '#F2F2F2',
+  borderColor: isDragging ? 'lightgreen' : COLORS.GREY2,
   width: '50%',
   // styles we need to apply on draggables
   ...draggableStyle,
 });
 
 const getDroppableListStyle = (isDraggingOver: boolean): React.CSSProperties => ({
-  background: isDraggingOver ? '#348C72' : 'white',
+  background: isDraggingOver ? COLORS.GREEN3 : COLORS.WHITE,
   padding: grid,
   width: '100%',
 });
 
 const getSatisfiedStyle = (): React.CSSProperties => ({
-  color: '#348C72',
+  color: COLORS.GREEN3,
 });
 
 const getNotSatisfiedStyle = (): React.CSSProperties => ({
-  color: '#FF0000',
+  color: COLORS.RED,
 });
 
 const cardStyle = {

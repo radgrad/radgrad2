@@ -15,12 +15,12 @@ interface PageLayoutProps {
 
 const PageLayout: React.FC<PageLayoutProps> = ({ id, headerPaneImage, headerPaneTitle, headerPaneBody = '', children, disableMargin = false, headerPaneButton }) => {
   const match = useRouteMatch();
-  const margin = disableMargin ? {} : { marginRight: '20px', marginLeft: '20px', marginTop: '10px' };
+  const padding = {paddingRight: '20px', paddingLeft: '20px', paddingTop: '20px'};
   return (
     <div id={id}>
       {getMenuWidget(match)}
       <HeaderPane image={headerPaneImage} title={headerPaneTitle} body={headerPaneBody} bodyButton={headerPaneButton}/>
-      <div style={margin}>
+      <div style={padding}>
         {children}
       </div>
     </div>

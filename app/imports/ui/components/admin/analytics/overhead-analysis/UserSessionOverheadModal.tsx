@@ -4,6 +4,7 @@ import moment from 'moment';
 import _ from 'lodash';
 import { UserInteraction } from '../../../../../typings/radgrad';
 import { Users } from '../../../../../api/user/UserCollection';
+import { COLORS } from '../../../../utilities/Colors';
 
 interface UserSessionOverheadModalProps {
   username: string;
@@ -15,7 +16,7 @@ const formatDate = (date: Date): string => moment(date).format('MM/DD/YY HH:mm')
 const UserSessionOverheadModal: React.FC<UserSessionOverheadModalProps> = ({ username, userInteractionsByUser }) => {
   const fullName = Users.getFullName(username);
 
-  const fullNameStyle: React.CSSProperties = { color: '#6FBE44' };
+  const fullNameStyle: React.CSSProperties = { color: COLORS.GREEN };
   const tableStyle: React.CSSProperties = {
     height: '350px',
     overflowX: 'scroll',

@@ -8,7 +8,7 @@ interface ChecklistButtonLinkProps {
 }
 
 export const ChecklistButtonLink: React.FC<ChecklistButtonLinkProps> = ({ url, label }) => (
-  <ButtonLink style={{ marginBottom: '2px' }} size='small' color='teal' url={url} label={label}/>
+  <ButtonLink style={{ marginBottom: '10px' }} size='medium' color='green' url={url} label={label}/>
 );
 
 interface ChecklistButtonActionProps {
@@ -18,6 +18,6 @@ interface ChecklistButtonActionProps {
 }
 
 export const ChecklistButtonAction: React.FC<ChecklistButtonActionProps> = ({ onClick, label, icon = 'thumbs up outline' }) => (
-  <ButtonAction style={{ marginBottom: '2px' }} size='small' color='teal' onClick={onClick} label={label} icon={icon}/>
+  <ButtonAction style={{ marginBottom: '10px' }} size='medium' color='green' onClick={onClick} label={label} icon={icon}/>
 );
 

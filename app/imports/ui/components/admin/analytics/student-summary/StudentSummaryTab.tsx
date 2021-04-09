@@ -4,6 +4,7 @@ import { StudentProfiles } from '../../../../../api/user/StudentProfileCollectio
 import StudentTimelineModal from './StudentTimelineModal';
 import { StudentSummaryBehaviors, StudentSummaryBehaviorTypes } from './utilities/student-summary';
 import { IAdminAnalyticsUserInteraction } from '../../../../../redux/admin/analytics/reducers';
+import { COLORS } from '../../../../utilities/Colors';
 
 interface StudentSummaryTabProps {
   startDate: string;
@@ -24,7 +25,7 @@ const StudentSummaryTab: React.FC<StudentSummaryTabProps> = ({ startDate, endDat
   const percent = (count) => ((count / StudentProfiles.find({ isAlumni: false }).fetch().length) * 100).toFixed(0);
   const paddedLabelStyle = {
     display: 'inline',
-    color: '#6FBE44',
+    color: COLORS.GREEN,
     paddingLeft: 5,
   };
   return (

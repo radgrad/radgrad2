@@ -1,6 +1,7 @@
 import React from 'react';
 import { Grid, Container } from 'semantic-ui-react';
 import styles from './utilities/landing-styles';
+import { COLORS } from '../../utilities/Colors';
 
 interface LandingSection2Props {
   careerGoals: string;
@@ -9,7 +10,7 @@ interface LandingSection2Props {
   users: string;
 }
 
-const whiteBG: React.CSSProperties = { backgroundColor: '#ffffff', width: '100%' };
+const whiteBG: React.CSSProperties = { backgroundColor: COLORS.WHITE, width: '100%' };
 const LandingSection2: React.FC<LandingSection2Props> = ({ careerGoals, interests, opportunities, users }) => (
   <div style={whiteBG}>
     <Container>

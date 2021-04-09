@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { Button, Header, Image, Menu } from 'semantic-ui-react';
 import RadGradLogoText from '../shared/RadGradLogoText';
 import RadGradLoginButtons from './RadGradLoginButtons';
+import { COLORS } from '../../utilities/Colors';
 
 export interface NavBarProps {
   currentUser: string;
@@ -35,7 +36,7 @@ const LandingNavBar: React.FC<NavBarProps> = ({ currentUser, iconName, role, ins
         <Menu.Item position="right">
           {currentUser ? (
             <div>
-              <Button basic color="green" compact>
+              <Button basic compact style={{color:COLORS.GREEN}}>
                 <a href={url}>{displayRole} Home</a>
               </Button>
             </div>

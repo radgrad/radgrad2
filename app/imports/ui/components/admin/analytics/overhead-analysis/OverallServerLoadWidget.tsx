@@ -5,6 +5,7 @@ import HighchartsReact from 'highcharts-react-official';
 import _ from 'lodash';
 import { RootState } from '../../../../../redux/types';
 import { IAdminAnalyticsOverheadAnalysisBuckets } from '../../../../../redux/admin/analytics/reducers';
+import { COLORS } from '../../../../utilities/Colors';
 
 interface OverallServerLoadWidgetProps {
   overheadBuckets: IAdminAnalyticsOverheadAnalysisBuckets;
@@ -26,13 +27,13 @@ const createChartOptions = (overheadBuckets: IAdminAnalyticsOverheadAnalysisBuck
   return {
     chart: { type: 'column' },
     title: { text: null },
-    colors: ['rgb(79, 168, 143, 0.80)'],
+    colors: COLORS.GREEN2,
     legend: { enabled: false },
     xAxis: {
       title: {
         text: 'Number of Documents Per Minute',
         style: {
-          color: '#000',
+          color: COLORS.BLACK,
         },
       },
       categories: buckets,
@@ -41,7 +42,7 @@ const createChartOptions = (overheadBuckets: IAdminAnalyticsOverheadAnalysisBuck
       title: {
         text: 'Occurrence',
         style: {
-          color: '#000',
+          color: COLORS.BLACK,
         },
       },
       min: 0,
