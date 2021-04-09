@@ -90,6 +90,7 @@ import React from 'react';
 import Markdown from 'react-markdown/with-html';
 import { Card, Header, Icon, Label, SemanticICONS } from 'semantic-ui-react';
 import { COLORS } from '../../utilities/Colors';
+import RadGradHeader from '../shared/header/RadGradHeader';
 
 export const enum CHECKSTATE {
   OK = 'OK',
@@ -203,11 +204,11 @@ export class Checklist {
 
   public getChecklistItem(): JSX.Element {
     return (
-      &lt;Card padded style={{ minWidth: '460px', marginRight: '30px' }} key={this.name}>
+      &lt;Card style={{ minWidth: '460px', marginRight: '10px' }} key={this.name}>
         &lt;Card.Content>
           &lt;Label as='a'  ribbon='right' color={this.stateColor[this.state]}>{this.getState()}&lt;/Label>
-          &lt;Header as='h4' style={{ color:COLORS.GREY, textTransform: 'uppercase', marginTop: '-20px' }}>{this.getIcon()}{this.getName()}&lt;/Header>
-          &lt;Header as='h3' >{this.getTitle2()}&lt;/Header>
+          &lt;RadGradHeader dividing icon={this.iconName} text={this.getName()} style={{marginTop: '-20px', marginBottom: '0px'}}/>
+          &lt;Header as='h4' style={{marginTop: '1em'}}>{this.getTitle2()}&lt;/Header>
           {this.getDescription()}
           {this.getDetails()}
           {this.getActions()}
