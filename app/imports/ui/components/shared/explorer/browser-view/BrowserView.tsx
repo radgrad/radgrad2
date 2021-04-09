@@ -71,9 +71,11 @@ const BrowserView: React.FC<BrowserViewProps> = ({
 }) => {
   const match = useRouteMatch();
   const cardGroupElement: HTMLElement = document.getElementById('browserCardGroup');
+  // @ts-ignore
   let explorerItems = _.sortBy(items, (item) => item.name);
   switch (sortValue) {
     case interestSortKeys.mostRecent:
+      // @ts-ignore
       explorerItems = _.sortBy(items, (item) => item.updatedAt);
       break;
     case opportunitySortKeys.recommended:
@@ -88,6 +90,7 @@ const BrowserView: React.FC<BrowserViewProps> = ({
       explorerItems = preferred.getOrderedChoices();
       break;
     default:
+      // @ts-ignore
       explorerItems = _.sortBy(items, (item) => item.name);
   }
   useEffect(() => {

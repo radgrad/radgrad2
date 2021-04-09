@@ -11,6 +11,7 @@ import PageLayout from '../../PageLayout';
 import { updateLastVisitedMethod } from '../../../../api/user/BaseProfileCollection.methods';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import BrowserView from '../../../components/shared/explorer/browser-view/BrowserView';
+import { ROLE } from '../../../../api/role/Role';
 
 interface InterestBrowserViewPageProps {
   profileInterests: Interest[];
@@ -41,16 +42,18 @@ export default withTracker(() => {
   let allInterests = [];
   if (Users.hasProfile(username)) {
     profile = Users.getProfile(username);
-    const collectionName = StudentProfiles.getCollectionName();
-    const lastVisited = moment().format('YYYY-MM-DD');
-    if (Users.hasProfile(username) && lastVisited !== profile.lastVisitedInterests) {
-      updateLastVisitedMethod.call(
-        {
-          collectionName: collectionName,
-          lastVisitedTime: lastVisited,
-          type: EXPLORER_TYPE.INTERESTS,
-        },
-      );
+    if (profile.role === ROLE.STUDENT) {
+      const collectionName = StudentProfiles.getCollectionName();
+      const lastVisited = moment().format('YYYY-MM-DD');
+      if (Users.hasProfile(username) && lastVisited !== profile.lastVisitedInterests) {
+        updateLastVisitedMethod.call(
+          {
+            collectionName: collectionName,
+            lastVisitedTime: lastVisited,
+            type: EXPLORER_TYPE.INTERESTS,
+          },
+        );
+      }
     }
     allInterests = Users.getInterestIDs(profile.userID);
   }

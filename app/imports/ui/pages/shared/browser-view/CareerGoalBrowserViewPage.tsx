@@ -12,6 +12,7 @@ import BrowserView from '../../../components/shared/explorer/browser-view/Browse
 import PageLayout from '../../PageLayout';
 import { updateLastVisitedMethod } from '../../../../api/user/BaseProfileCollection.methods';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
+import { ROLE } from '../../../../api/role/Role';
 
 interface CareerGoalBrowserViewPageProps {
   profileCareerGoals: CareerGoal[];
@@ -52,16 +53,18 @@ export default withTracker(() => {
   let careerGoals = [];
   if (Users.hasProfile(username)) {
     profile = Users.getProfile(username);
-    const collectionName = StudentProfiles.getCollectionName();
-    const lastVisited = moment().format('YYYY-MM-DD');
-    if (Users.hasProfile(username) && lastVisited !== profile.lastVisitedCareerGoals) {
-      updateLastVisitedMethod.call(
-        {
-          collectionName: collectionName,
-          lastVisitedTime: lastVisited,
-          type: EXPLORER_TYPE.CAREERGOALS,
-        },
-      );
+    if (profile.role === ROLE.STUDENT) {
+      const collectionName = StudentProfiles.getCollectionName();
+      const lastVisited = moment().format('YYYY-MM-DD');
+      if (Users.hasProfile(username) && lastVisited !== profile.lastVisitedCareerGoals) {
+        updateLastVisitedMethod.call(
+          {
+            collectionName: collectionName,
+            lastVisitedTime: lastVisited,
+            type: EXPLORER_TYPE.CAREERGOALS,
+          },
+        );
+      }
     }
     careerGoals = ProfileCareerGoals.findNonRetired({ userID: profile.userID });
   }
