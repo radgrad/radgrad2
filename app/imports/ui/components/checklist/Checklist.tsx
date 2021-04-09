@@ -1,7 +1,7 @@
 import moment from 'moment';
 import React from 'react';
 import Markdown from 'react-markdown/with-html';
-import {Card, Header, Icon, Label, SemanticICONS} from 'semantic-ui-react';
+import { Card, Header, Icon, Label, SemanticICONS } from 'semantic-ui-react';
 import { COLORS } from '../../utilities/Colors';
 
 export const enum CHECKSTATE {
@@ -58,7 +58,7 @@ export class Checklist {
    * @return {}
    */
   public getIcon(): JSX.Element {
-    return <Icon name={this.iconName} style={{color:COLORS.GREY}}/>;
+    return <Icon name={this.iconName} style={{ color:COLORS.GREY }}/>;
   }
 
   /**
@@ -116,10 +116,10 @@ export class Checklist {
 
   public getChecklistItem(): JSX.Element {
     return (
-      <Card padded style={{minWidth: '460px', marginRight: '30px'}} key={this.name}>
+      <Card padded style={{ minWidth: '460px', marginRight: '30px' }} key={this.name}>
         <Card.Content>
           <Label as='a'  ribbon='right' color={this.stateColor[this.state]}>{this.getState()}</Label>
-          <Header as='h4' style={{color:COLORS.GREY, textTransform: 'uppercase', marginTop: '-20px'}}>{this.getIcon()}{this.getName()}</Header>
+          <Header as='h4' style={{ color:COLORS.GREY, textTransform: 'uppercase', marginTop: '-20px' }}>{this.getIcon()}{this.getName()}</Header>
           <Header as='h3' >{this.getTitle2()}</Header>
           {this.getDescription()}
           {this.getDetails()}

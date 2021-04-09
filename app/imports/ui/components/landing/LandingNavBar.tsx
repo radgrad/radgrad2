@@ -36,7 +36,7 @@ const LandingNavBar: React.FC<NavBarProps> = ({ currentUser, iconName, role, ins
         <Menu.Item position="right">
           {currentUser ? (
             <div>
-              <Button basic compact style={{color:COLORS.GREEN}}>
+              <Button basic compact style={{ color:COLORS.GREEN }}>
                 <a href={url}>{displayRole} Home</a>
               </Button>
             </div>

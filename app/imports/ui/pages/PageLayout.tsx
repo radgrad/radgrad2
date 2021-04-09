@@ -15,7 +15,7 @@ interface PageLayoutProps {
 
 const PageLayout: React.FC<PageLayoutProps> = ({ id, headerPaneImage, headerPaneTitle, headerPaneBody = '', children, disableMargin = false, headerPaneButton }) => {
   const match = useRouteMatch();
-  const padding = {paddingRight: '20px', paddingLeft: '20px', paddingTop: '20px'};
+  const padding = { paddingRight: '20px', paddingLeft: '20px', paddingTop: '20px' };
   return (
     <div id={id}>
       {getMenuWidget(match)}
