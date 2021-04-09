@@ -96,6 +96,7 @@ import { OpportunityInstances } from '../../../../../../api/opportunity/Opportun
 import { AcademicTerms } from '../../../../../../api/academic-term/AcademicTermCollection';
 import { Slugs } from '../../../../../../api/slug/SlugCollection';
 import { Reviews } from '../../../../../../api/review/ReviewCollection';
+import { COLORS } from '../../../../../utilities/Colors';
 
 /** @namespace ui.components.admin.analytics.newsletter.utilities */
 
@@ -122,7 +123,7 @@ export interface EmailData {
 
 const iceMap = {
   i: {
-    name: 'Innovation', color: '#80ad27',
+    name: 'Innovation', color: COLORS.GREEN,
     low: 'You are lacking in Innovation! Consider adding some research opportunities or other' +
       ' innovation-related activities to strengthen this area.',
     med: 'You are showing growth in Innovation. Consider adding some research opportunities or other' +
@@ -131,7 +132,7 @@ const iceMap = {
       ' to top this area off.',
   },
   c: {
-    name: 'Competency', color: '#26407c',
+    name: 'Competency', color: COLORS.NAVY,
     low: 'You are lacking in Competency. Go to your Degree Planner and flesh out your academic plan by adding' +
       ' more courses to strengthen this area.',
     med: 'You are showing some Competency in your degree plan. Go to your Degree Planner and flesh out your' +
@@ -139,7 +140,7 @@ const iceMap = {
     high: 'You are showing great Competency! Add a few more courses to get to 100 points.',
   },
   e: {
-    name: 'Experience', color: '#952263',
+    name: 'Experience', color: COLORS.PURPLE,
     low: 'You are lacking in Experience! Add some profession-related opportunities to show' +
       ' that you are ready to work in a professional environment.',
     med: 'You have some professional development in your degree plan. To increase your Experience points' +
@@ -205,7 +206,7 @@ const iceRecHelper = (student: StudentProfile, value, component): string => {
     }
     const recCourse = recommendedCourses[0];
     html += ' Check out';
-    html += '&lt;a style="color: #6FBE44; font-weight: bold;"' +
+    html += '&lt;a style={{color:COLORS.GREEN; font-weight: bold}}' +
       ` href="https://radgrad.ics.hawaii.edu/student/${student.username}` +
       `/explorer/courses/${Courses.findSlugByID(recCourse._id)}"> ${recCourse.shortName}&lt;/a>`;
   } else {
@@ -248,11 +249,11 @@ const iceRecommendation = (student: StudentProfile): Html | string => {
   _.each(ice, (value, component) => {
     let iceLevel;
     if (value &lt; 30) {
-      iceLevel = '&lt;span style="color: red;">&lt;strong>NEEDS WORK&lt;/strong>&lt;/span>';
+      iceLevel = '&lt;span style={COLORS.RED}>&lt;strong>NEEDS WORK&lt;/strong>&lt;/span>';
     } else if (value &lt; 60) {
-      iceLevel = '&lt;span style="color: orange;">&lt;strong>NEEDS WORK&lt;/strong>&lt;/span>';
+      iceLevel = '&lt;span style={COLORS.ORANGE}>&lt;strong>NEEDS WORK&lt;/strong>&lt;/span>';
     } else {
-      iceLevel = '&lt;span style="color: green;">&lt;strong>GOOD&lt;/strong>&lt;/span>';
+      iceLevel = '&lt;span style={COLORS.GREEN}>&lt;strong>GOOD&lt;/strong>&lt;/span>';
     }
     html.info += `&lt;p>&lt;span style="color: ${iceMap[component].color}">${iceMap[component].name} (${value} points)&lt;/span>
       : ${iceLevel}&lt;/p>`;
@@ -291,7 +292,7 @@ const verifyOppRecommendation = (student: StudentProfile): Html | string => {
     const termName = AcademicTerms.toString(termID, false);
     const opp: Opportunity = Opportunities.findOne({ _id: unverifiedOpp.opportunityID });
     const oppSlug = Slugs.getNameFromID(opp.slugID);
-    html.info += '&lt;li>&lt;a style="color: #6FBE44; font-weight: bold"'
+    html.info += '&lt;li>&lt;a style={{color:COLORS.GREEN; font-weight: bold}}'
       + ` href="https://radgrad.ics.hawaii.edu/student/${student.username}`
       + `/explorer/opportunities/${oppSlug}">${opp.name} (${termName})&lt;/a>&lt;/li>`;
   });
@@ -308,12 +309,12 @@ const levelRecommendation = (student: StudentProfile): Html | string => {
   html.info = '&lt;img src='
     + `"https://radgrad.ics.hawaii.edu/images/level-icons/radgrad-level-${student.level}-icon.png"`
     + ' width="100" height="100" style="float: left; margin: 0 10px;" alt="radgrad level icon">';
-  html.info += `&lt;p style="color: #6FBE44;">&lt;strong>Current Level: ${student.level}&lt;/strong>&lt;/p>`;
+  html.info += `&lt;p style={{color: COLORS.GREEN}}>&lt;strong>Current Level: ${student.level}&lt;/strong>&lt;/p>`;
   html.info += '&lt;p>&lt;em>Swing by your advisor\'s office or POST 307 to pick up a laptop sticker for'
     + ' your current level if you haven\'t already!&lt;/em>&lt;/p>';
   html.info += `&lt;p>${levelMap[student.level]}&lt;/p>`;
   if (student.level &lt; 6) {
-    html.info += '&lt;p>View your &lt;a style="color: #6FBE44; font-weight: bold" '
+    html.info += '&lt;p>View your &lt;a style={{color:COLORS.GREEN; font-weight: bold}} '
       + `href="https://radgrad.ics.hawaii.edu/student/${student.username}/home/levels">Level Page&lt;/a>`
       + ' to view specific level requirements.&lt;/p>';
   }
@@ -351,7 +352,7 @@ const reviewCourseRecommendation = (student: StudentProfile): Html | string => {
     }
     const courseSlug = Slugs.getNameFromID(Courses.findDoc(courseID).slugID);
     const courseName = Courses.findDocBySlug(courseSlug).shortName;
-    html.info += '&lt;li>&lt;a style="color: #6FBE44; font-weight: bold"'
+    html.info += '&lt;li>&lt;a style={{color:COLORS.GREEN; font-weight: bold}}'
       + ` href="https://radgrad.ics.hawaii.edu/student/${student.username}`
       + `/explorer/courses/${courseSlug}">${courseName}&lt;/a>&lt;/li>`;
     return true;
@@ -389,7 +390,7 @@ export const reviewOppRecommendation = (student: StudentProfile): Html | string 
     const opportunity: Opportunity = Opportunities.findOne({ _id: oppID });
     const oppSlug = Slugs.findDoc(opportunity.slugID).name;
     const oppName = Opportunities.findDocBySlug(oppSlug).name;
-    html.info += '&lt;li>&lt;a style="color: #6FBE44; font-weight: bold"'
+    html.info += '&lt;li>&lt;a style={{color:COLORS.GREEN; font-weight: bold}}'
       + ` href="https://radgrad.ics.hawaii.edu/student/${student.username}`
       + `/explorer/opportunities/${oppSlug}">${oppName}&lt;/a>&lt;/li>`;
     return true;

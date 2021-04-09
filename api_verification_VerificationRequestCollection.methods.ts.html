@@ -168,7 +168,7 @@ export const processVerificationEventMethod = new ValidatedMethod({
     let verificationRequestID = VerificationRequests.findOne({ opportunityInstanceID });
     if (!verificationRequestID) {
       resultMessage += '  No verification request found. Defining a new one.\n';
-      verificationRequestID = VerificationRequests.define({ student, opportunityInstance: opportunityInstanceID });
+      verificationRequestID = VerificationRequests.define({ student, opportunityInstance: opportunityInstanceID, documentation: 'documentation' });
     }
 
     // If this event has already been verified, then return now.
