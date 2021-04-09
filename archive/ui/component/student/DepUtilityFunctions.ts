@@ -1,6 +1,6 @@
-import { Slugs } from '../../../../api/slug/SlugCollection';
-import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
-import * as Router from '../../shared/utilities/router';
+import { Slugs } from '../../../../app/imports/api/slug/SlugCollection';
+import { EXPLORER_TYPE } from '../../../../app/imports/ui/layouts/utilities/route-constants';
+import * as Router from '../../../../app/imports/ui/components/shared/utilities/router';
 
 export const itemSlug = (item) => Slugs.findDoc(item.slugID).name;
 
