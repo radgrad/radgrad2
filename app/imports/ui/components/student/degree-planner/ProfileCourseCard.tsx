@@ -1,19 +1,19 @@
 import React from 'react';
-import { Card, Icon } from 'semantic-ui-react';
-import { Link, useRouteMatch } from 'react-router-dom';
+import { Card } from 'semantic-ui-react';
+import { useRouteMatch } from 'react-router-dom';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { RadGradProperties } from '../../../../api/radgrad/RadGradProperties';
 import { CourseForecastCollection } from '../../../../startup/client/collections';
 import { AcademicTerm, Course, CourseInstance } from '../../../../typings/radgrad';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import { Slugs } from '../../../../api/slug/SlugCollection';
+import { ViewInExplorerButtonLink } from '../../shared/button/ViewInExplorerButtonLink';
 import IceHeader from '../../shared/IceHeader';
 import { makeCourseICE } from '../../../../api/ice/IceProcessor';
 import { cardStyle, contentStyle, getInspectorDraggablePillStyle } from './utilities/styles';
 import NamePill from './NamePill';
 import FutureParticipation from '../../shared/explorer/FutureParticipation';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
-import { buildRouteName } from './DepUtilityFunctions';
 
 interface ProfileCourseCardProps {
   course: Course;
@@ -30,11 +30,7 @@ const ProfileCourseCard: React.FC<ProfileCourseCardProps> = ({ course, courseIns
   const termNames = terms.map((t) => AcademicTerms.getShortName(t._id)).join(', ');
   const slug = Slugs.findDoc(course.slugID).name;
   const ice = instances.length > 0 ? makeCourseICE(slug, instances[instances.length - 1].grade) : { i: 0, c: 0, e: 0 };
-  const textAlignRight: React.CSSProperties = {
-    textAlign: 'right',
-  };
   const droppableID = `${course._id}`;
-
   const quarter = RadGradProperties.getQuarterSystem();
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
   const numTerms = quarter ? 12 : 9;
@@ -79,7 +75,8 @@ const ProfileCourseCard: React.FC<ProfileCourseCardProps> = ({ course, courseIns
             <div ref={provided.innerRef}>
               <Draggable key={slug} draggableId={slug} index={0}>
                 {(prov, snap) => (
-                  <div ref={prov.innerRef} {...prov.draggableProps} {...prov.dragHandleProps} style={getInspectorDraggablePillStyle(snap.isDragging, prov.draggableProps.style)}>
+                  <div ref={prov.innerRef} {...prov.draggableProps} {...prov.dragHandleProps}
+                       style={getInspectorDraggablePillStyle(snap.isDragging, prov.draggableProps.style)}>
                     <NamePill name={course.num} />
                   </div>
                 )}
@@ -93,11 +90,7 @@ const ProfileCourseCard: React.FC<ProfileCourseCardProps> = ({ course, courseIns
         <FutureParticipation academicTerms={academicTerms} scores={scores} />
       </Card.Content>
       <Card.Content style={contentStyle}>
-        <p style={textAlignRight}>
-          <Link to={buildRouteName(match, course, EXPLORER_TYPE.COURSES)} target="_blank" rel="noopener noreferrer">
-            View in Explorer <Icon name="arrow right" />
-          </Link>
-        </p>
+        <ViewInExplorerButtonLink match={match} type={EXPLORER_TYPE.COURSES} item={course} size="mini" />
       </Card.Content>
     </Card>
   );

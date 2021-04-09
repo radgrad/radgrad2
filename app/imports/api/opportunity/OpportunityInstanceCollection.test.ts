@@ -37,7 +37,7 @@ if (Meteor.isServer) {
       fc.assert(
         fc.property(fc.boolean(), fc.boolean(), (verified, retired) => {
           const docID = OpportunityInstances.define({ opportunity, academicTerm, student, sponsor, verified, retired });
-          const vrID = VerificationRequests.define({ student, opportunityInstance: docID });
+          const vrID = VerificationRequests.define({ student, opportunityInstance: docID, documentation: 'documentation' });
           expect(OpportunityInstances.isDefined(docID)).to.be.true;
           expect(VerificationRequests.isDefined(vrID)).to.be.true;
           const doc = OpportunityInstances.findDoc(docID);

@@ -34,7 +34,6 @@ interface UpdateUserProps {
   careerGoals: CareerGoal[];
   academicTerms: AcademicTerm[];
   id: string;
-  formRef: React.RefObject<unknown>;
   handleUpdate: (doc) => any;
   handleCancel: (event) => any;
   itemTitleString: (item) => React.ReactNode;
@@ -47,7 +46,7 @@ const mapDispatchToProps = (dispatch) => ({
   setAdminDataModelUsersCloudinaryUrl: (cloudinaryUrl: string) => dispatch(cloudinaryActions.setAdminDataModelUsersCloudinaryUrl(cloudinaryUrl)),
 });
 
-const UpdateUserForm: React.FC<UpdateUserProps> = ({ id, interests, setAdminDataModelUsersIsCloudinaryUsed, setAdminDataModelUsersCloudinaryUrl, careerGoals, academicTerms, formRef, itemTitleString, handleCancel, handleUpdate, courses, opportunities }) => {
+const UpdateUserForm: React.FC<UpdateUserProps> = ({ id, interests, setAdminDataModelUsersIsCloudinaryUsed, setAdminDataModelUsersCloudinaryUrl, careerGoals, academicTerms, itemTitleString, handleCancel, handleUpdate, courses, opportunities }) => {
   // console.log('UpdateUserForm', props);
   let collection;
   if (StudentProfiles.isDefined(id)) {
@@ -187,7 +186,7 @@ const UpdateUserForm: React.FC<UpdateUserProps> = ({ id, interests, setAdminData
         Update
         {collection.getType()}:{itemTitleString(model)}
       </Header>
-      <AutoForm schema={formSchema} onSubmit={handleUpdate} ref={formRef} showInlineError model={model}>
+      <AutoForm schema={formSchema} onSubmit={handleUpdate} showInlineError model={model}>
         <Form.Group widths="equal">
           <TextField name="username" placeholder="johndoe@foo.edu" />
           <TextField name="firstName" placeholder="John" />

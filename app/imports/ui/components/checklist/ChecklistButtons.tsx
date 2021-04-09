@@ -1,6 +1,6 @@
 import React from 'react';
-import { Button } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
+import { ButtonLink } from '../shared/button/ButtonLink';
+import { ButtonAction } from '../shared/button/ButtonAction';
 
 interface ChecklistButtonLinkProps {
   url: string,
@@ -8,7 +8,7 @@ interface ChecklistButtonLinkProps {
 }
 
 export const ChecklistButtonLink: React.FC<ChecklistButtonLinkProps> = ({ url, label }) => (
-  <Button style={{ marginBottom: '2px' }} size='small' color='teal' as={Link} to={url} icon='arrow alternate circle right' labelPosition='right' content={label}/>
+  <ButtonLink style={{ marginBottom: '10px' }} size='medium' color='green' url={url} label={label}/>
 );
 
 interface ChecklistButtonActionProps {
@@ -18,6 +18,6 @@ interface ChecklistButtonActionProps {
 }
 
 export const ChecklistButtonAction: React.FC<ChecklistButtonActionProps> = ({ onClick, label, icon = 'thumbs up outline' }) => (
-  <Button style={{ marginBottom: '2px' }} size='small' color='teal' onClick={onClick} content={label} labelPosition='right' icon={icon}/>
+  <ButtonAction style={{ marginBottom: '10px' }} size='medium' color='green' onClick={onClick} label={label} icon={icon}/>
 );
 

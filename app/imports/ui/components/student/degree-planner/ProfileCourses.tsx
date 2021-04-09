@@ -1,7 +1,8 @@
 import React from 'react';
-import { Card, Icon, Message } from 'semantic-ui-react';
-import { Link, useRouteMatch } from 'react-router-dom';
+import { Card, Message } from 'semantic-ui-react';
+import { useRouteMatch } from 'react-router-dom';
 import { Course, CourseInstance } from '../../../../typings/radgrad';
+import { ButtonLink } from '../../shared/button/ViewInExplorerButtonLink';
 import * as Router from '../../shared/utilities/router';
 import ProfileCourseCard from './ProfileCourseCard';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
@@ -27,9 +28,7 @@ const ProfileCourses: React.FC<ProfileCoursesProps> = ({ studentID, courses, cou
         <Message>
           <Message.Header>No Profile Courses</Message.Header>
           <p>You can add courses to your profile in the explorer.</p>
-          <Link to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}`)}>
-            View in Explorer <Icon name="arrow right" />
-          </Link>
+          <ButtonLink url={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}`)} label='View in Explorer' rel="noopener noreferrer" target="_blank" size='medium' />
         </Message>
       )}
     </div>

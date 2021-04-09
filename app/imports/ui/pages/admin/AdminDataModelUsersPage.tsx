@@ -11,7 +11,6 @@ import { AdminProfiles } from '../../../api/user/AdminProfileCollection';
 import { ProfileCourses } from '../../../api/user/profile-entries/ProfileCourseCollection';
 import { ProfileOpportunities } from '../../../api/user/profile-entries/ProfileOpportunityCollection';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
-import { dataModelActions } from '../../../redux/admin/data-model';
 import {
   AcademicTerm,
   BaseProfile,
@@ -238,8 +237,6 @@ const AdminDataModelUsersPage: React.FC<AdminDataModelUsersPageProps> = (props) 
             itemTitle={itemTitle}
             handleOpenUpdate={handleOpenUpdate}
             handleDelete={handleDelete}
-            setShowIndex={dataModelActions.setCollectionShowIndex}
-            setShowCount={dataModelActions.setCollectionShowCount}
             items={props.admins}
           />
         </Tab.Pane>
@@ -255,8 +252,6 @@ const AdminDataModelUsersPage: React.FC<AdminDataModelUsersPageProps> = (props) 
             itemTitle={itemTitle}
             handleOpenUpdate={handleOpenUpdate}
             handleDelete={handleDelete}
-            setShowIndex={dataModelActions.setCollectionShowIndex}
-            setShowCount={dataModelActions.setCollectionShowCount}
             items={props.advisors}
           />
         </Tab.Pane>
@@ -272,8 +267,6 @@ const AdminDataModelUsersPage: React.FC<AdminDataModelUsersPageProps> = (props) 
             itemTitle={itemTitle}
             handleOpenUpdate={handleOpenUpdate}
             handleDelete={handleDelete}
-            setShowIndex={dataModelActions.setCollectionShowIndex}
-            setShowCount={dataModelActions.setCollectionShowCount}
             items={props.faculty}
           />
         </Tab.Pane>
@@ -289,8 +282,6 @@ const AdminDataModelUsersPage: React.FC<AdminDataModelUsersPageProps> = (props) 
             itemTitle={itemTitle}
             handleOpenUpdate={handleOpenUpdate}
             handleDelete={handleDelete}
-            setShowIndex={dataModelActions.setCollectionShowIndex}
-            setShowCount={dataModelActions.setCollectionShowCount}
             items={props.students}
           />
         </Tab.Pane>

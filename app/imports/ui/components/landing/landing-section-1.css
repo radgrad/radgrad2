@@ -3,18 +3,18 @@
 }
 
 .inverted-section {
-  background-color: rgba(0,0,0,.8);
+  background-color: #333333;
   padding-top: 68px !important;
   padding-bottom: 9px !important;
 }
 
 .inverted-main-header {
-  color: white;
+  color: #FFFFFF;
   font-size: 72px;
 }
 
 .inverted-main-description {
-  color: rgba(255,255,255,.7);
+  color: #EEEEEE;
   font-size: 20px
 }
 
@@ -45,7 +45,7 @@
 }
 
 .inverted-header {
-  color: white;
+  color: #FFFFFF;
   font-size: 45px;
 }
 
@@ -54,7 +54,7 @@
 }
 
 .inverted-description {
-  color: rgba(255,255,255,.7);
+  color: #EEEEEE;
   font-size: 18px;
 }
 
@@ -71,13 +71,13 @@
 }
 
 .header-section {
-  background-color: #f7f7f7;
+  background-color: #EEEEEE;
   padding-top: 60px;
   padding-bottom: 79px;
 }
 
 .grey-section {
-  background-color: #f7f7f7;
+  background-color: #EEEEEE;
 }
 
 .vertical-align {
@@ -98,7 +98,7 @@
 }
 
 .footer-item:before, .footer-item {
-  color: rgba(255,255,255,.7) !important;
+  color: #EEEEEE !important;
 }
 
 .landing-ice .column .radgrad-ice.menu .radgrad-ice-stat {

@@ -26,7 +26,7 @@ if (Meteor.isServer) {
 
     it('Can define and removeIt', function test1(done) { // Test the define and removeIt methods
       fc.assert(
-        fc.property(fc.lorem(1), (fcWord) => {
+        fc.property(fc.lorem(1), fc.lorem(5), (fcWord, documentation) => {
           const sponsorID = makeSampleUser(ROLE.FACULTY);
           const sponsor = Users.getProfile(sponsorID).username;
           const studentID = makeSampleUser();
@@ -39,11 +39,11 @@ if (Meteor.isServer) {
           // console.log(oiDoc, opportunityDoc, academicTermDoc);
           // console.log(sponsor, student, opportunity, academicTerm);
           // define without opportunity instance
-          const docID = VerificationRequests.define({ student, academicTerm, opportunity });
+          const docID = VerificationRequests.define({ student, academicTerm, opportunity, documentation });
           expect(VerificationRequests.isDefined(docID)).to.be.true;
           VerificationRequests.removeIt(docID);
           expect(VerificationRequests.isDefined(docID)).to.be.false;
-          const docID2 = VerificationRequests.define({ student, opportunityInstance: oiID });
+          const docID2 = VerificationRequests.define({ student, opportunityInstance: oiID, documentation });
           expect(VerificationRequests.isDefined(docID2)).to.be.true;
           VerificationRequests.removeIt(docID2);
           expect(VerificationRequests.isDefined(docID2)).to.be.false;
@@ -58,8 +58,9 @@ if (Meteor.isServer) {
       const studentID = makeSampleUser();
       const student = Users.getProfile(studentID).username;
       const oiID = makeSampleOpportunityInstance(student, sponsor);
-      const docID = VerificationRequests.define({ student, opportunityInstance: oiID });
-      const docID2 = VerificationRequests.define({ student, opportunityInstance: oiID });
+      const documentation = faker.lorem.sentence();
+      const docID = VerificationRequests.define({ student, opportunityInstance: oiID, documentation });
+      const docID2 = VerificationRequests.define({ student, opportunityInstance: oiID, documentation });
       expect(docID).to.not.equal(docID2);
       VerificationRequests.removeIt(docID2);
     });

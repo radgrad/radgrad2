@@ -4,26 +4,25 @@
  * https://github.com/radgrad/fomantic-ui/blob/main/semantic/src/site/globals/site.variables
  */
 export const enum COLORS {
-  BLACK =         '#000000',
+  BLACK =         '#333333',    // level6
   BLUE =          '#53A78E',
-  BLUE2 =         '#26407C',
-  BROWN =         '#AB6634',
-  GREEN =         '#6FBE44',
-  GREENDARKEN =   '#38840F',
-  GREEN2 =        '#86CAB5',
-  GREEN2DARKEN =  '#53A78E',
-  GREEN2DARKEN1 = '#1B7F61',
-  GREEN3 =        '#80AD27',
-  GREY =          '#696969',
-  GREY2 =         '#F7F7F7',
-  GREY3 =         '#EEEEEE',
+  BLUE2 =         '#86CAB5',    // light blue
+  BLUE3 =         '#1B7F61',    // dark blue
+  BROWN =         '#A94E2A',    // level5
+  GREEN =         '#6FBE44',    // ice innovation, level3
+  GREEN2 =        '#C5EA7A',    // light green
+  GREEN3 =        '#348C72',    // dark green
+  GREY =          '#7F7F7F',    // level1
+  GREY2 =         '#EEEEEE',    // background grey
+  NAVY =          '#26407C',    // ice competency, level4
+  NAVY2 =         '#91a1c3',    // light navy
   OLIVE =         '#38840F',
   ORANGE =        '#DA7F4E',
   PINK =          '#DDA1C3',
-  PURPLE =        '#952263',
+  PURPLE =        '#952263',    // ice experience
   RED =           '#CA4864',
-  TEAL =          '#00CCCB',
+  TEAL =          '#00B5AD',
   VIOLET =        '#62487C',
   WHITE =         '#FFFFFF',
-  YELLOW =        '#CEB23F',
+  YELLOW =        '#CEB23F',    // level2
 }
