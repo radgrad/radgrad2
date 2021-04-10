@@ -1,7 +1,6 @@
 import React from 'react';
 import { Segment, Header, Container } from 'semantic-ui-react';
 import { VerificationRequest } from '../../../../typings/radgrad';
-// @ts-ignore
 import PendingVerificationItem from './PendingVerificationItem';
 
 interface PendingVerificationsWidgetProps {

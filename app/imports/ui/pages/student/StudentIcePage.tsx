@@ -1,7 +1,6 @@
 import { withTracker } from 'meteor/react-meteor-data';
 import { useParams } from 'react-router-dom';
 import React from 'react';
-// @ts-ignore
 import { Grid } from 'semantic-ui-react';
 import RadGradSegment from '../../components/shared/RadGradSegment';
 import StudentIceTabs from '../../components/student/ice/StudentIceTabs';

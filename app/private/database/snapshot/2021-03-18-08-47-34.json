@@ -9651,7 +9651,8 @@
           "shareCareerGoals": false,
           "shareOpportunities": false,
           "shareCourses": true,
-          "shareLevel": false
+          "shareLevel": false,
+          "shareIce": false
         },
         {
           "username": "abi@hawaii.edu",
@@ -9728,7 +9729,8 @@
           "shareCareerGoals": false,
           "shareOpportunities": false,
           "shareCourses": false,
-          "shareLevel": false
+          "shareLevel": false,
+          "shareIce": false
         },
         {
           "username": "betty@hawaii.edu",
@@ -9762,7 +9764,8 @@
           "shareICE": true,
           "shareOpportunities": false,
           "shareCourses": false,
-          "shareLevel": true
+          "shareLevel": true,
+          "shareIce": false
         },
         {
           "username": "charley@hawaii.edu",
@@ -9792,7 +9795,8 @@
           "shareCareerGoals": false,
           "shareOpportunities": false,
           "shareCourses": false,
-          "shareLevel": false
+          "shareLevel": false,
+          "shareIce": false
         },
         {
           "username": "ella@hawaii.edu",
@@ -9820,7 +9824,8 @@
           "shareCareerGoals": false,
           "shareOpportunities": false,
           "shareCourses": false,
-          "shareLevel": false
+          "shareLevel": false,
+          "shareIce": false
         },
         {
           "username": "samplestudent@hawaii.edu",
@@ -9863,7 +9868,8 @@
           "shareCareerGoals": true,
           "shareOpportunities": false,
           "shareCourses": false,
-          "shareLevel": false
+          "shareLevel": false,
+          "shareIce": false
         },
         {
           "username": "gcalica@hawaii.edu",
@@ -9893,7 +9899,8 @@
           "shareCareerGoals": false,
           "shareOpportunities": false,
           "shareCourses": false,
-          "shareLevel": true
+          "shareLevel": true,
+          "shareIce": false
         },
         {
           "username": "mercedez@hawaii.edu",
@@ -9923,7 +9930,8 @@
           "shareCareerGoals": false,
           "shareOpportunities": false,
           "shareCourses": false,
-          "shareLevel": false
+          "shareLevel": false,
+          "shareIce": false
         },
         {
           "username": "qauchida@hawaii.edu",
@@ -9956,7 +9964,8 @@
           "shareCareerGoals": false,
           "shareOpportunities": false,
           "shareCourses": false,
-          "shareLevel": false
+          "shareLevel": false,
+          "shareIce": false
         },
         {
           "username": "gbarcelo@hawaii.edu",
@@ -9987,7 +9996,8 @@
           "shareCareerGoals": false,
           "shareOpportunities": false,
           "shareCourses": false,
-          "shareLevel": true
+          "shareLevel": true,
+          "shareIce": false
         }
       ]
     },

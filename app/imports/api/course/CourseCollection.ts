@@ -160,7 +160,7 @@ class CourseCollection extends BaseSlugCollection {
     const updateData: {
       name?: string;
       description?: string;
-      interestIDs?: [string];
+      interestIDs?: string[];
       shortName?: string;
       num?: string;
       creditHrs?: number;
@@ -176,7 +176,6 @@ class CourseCollection extends BaseSlugCollection {
     }
     if (interests) {
       const interestIDs = Interests.getIDs(interests);
-      // @ts-ignore
       updateData.interestIDs = interestIDs;
     }
     if (shortName) {

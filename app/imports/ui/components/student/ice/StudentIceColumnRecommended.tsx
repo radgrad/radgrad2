@@ -27,8 +27,7 @@ const availableCourses = (match): Course[] => {
   const courses = Courses.findNonRetired({});
   if (courses.length > 0) {
     return courses.filter((course) => {
-      if (course.num === 'ICS 499') {
-        // TODO: hardcoded ICS string
+      if (Meteor.settings.public.repeatableCourseNums.includes(course.num)) {
         return true;
       }
       const ci = CourseInstances.findNonRetired({

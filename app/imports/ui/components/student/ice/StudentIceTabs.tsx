@@ -6,6 +6,7 @@ import { ButtonLink } from '../../shared/button/ButtonLink';
 import MenuIceCircle from '../../shared/MenuIceCircle';
 import StudentIceColumn from './StudentIceColumn';
 import PageIceCircle from './PageIceCircle';
+import StudentIndividualIceTabs from './StudentIndividualIceTabs';
 
 /* Technical Debt:
  *   * L33: Consolidate type so it is consistently referred to as "Innovation".
@@ -39,6 +40,9 @@ const StudentIceTabs: React.FC<StudentIceWidgetProps> = ({
         <Header as="h3" textAlign="center" className="ice-innovation-color">
           INNOVATION
         </Header>
+        <StudentIndividualIceTabs type='Innovation' profileInterests={profileInterests}
+                                  courseInstances={courseInstances} opportunityInstances={opportunityInstances}
+                                  projectedICE={projectedICE} earnedICE={earnedICE} />
         <StudentIceColumn type="Innovation" profileInterests={profileInterests} courseInstances={courseInstances}
                           opportunityInstances={opportunityInstances} earnedICE={earnedICE}
                           projectedICE={projectedICE} />
@@ -130,7 +134,8 @@ const StudentIceTabs: React.FC<StudentIceWidgetProps> = ({
               RadGrad.
             </p>
             <p>
-              Opportunities are verified in many different ways. Visit the Verification Page <ButtonLink url={`/${URL_ROLES.STUDENT}/${username}/${STUDENT_VERIFICATION}`} label='Verification Page' size='mini' />
+              Opportunities are verified in many different ways. Visit the Verification Page <ButtonLink
+              url={`/${URL_ROLES.STUDENT}/${username}/${STUDENT_VERIFICATION}`} label='Verification Page' size='mini' />
             </p>
             <p />
           </Grid.Column>

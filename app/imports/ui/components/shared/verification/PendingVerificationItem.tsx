@@ -1,7 +1,5 @@
-// @ts-ignore
 import React, { useState } from 'react';
 import { Header, Grid, Form } from 'semantic-ui-react';
-// @ts-ignore
 import moment from 'moment';
 import { AcademicTerm, Opportunity, Processed, VerificationRequest } from '../../../../typings/radgrad';
 import { VerificationRequests } from '../../../../api/verification/VerificationRequestCollection';
