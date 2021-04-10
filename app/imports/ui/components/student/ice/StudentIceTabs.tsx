@@ -85,7 +85,7 @@ const StudentIceTabs: React.FC<StudentIceWidgetProps> = ({
     },
   ];
   return (
-    <Segment padded id="studentIceWidget">
+    <React.Fragment>
       <Grid>
         <Grid.Row>
           <Grid.Column>
@@ -137,7 +137,7 @@ const StudentIceTabs: React.FC<StudentIceWidgetProps> = ({
         </Grid.Row>
       </Grid>
       <Tab panes={panes} />
-    </Segment>
+    </React.Fragment>
   );
 };
 

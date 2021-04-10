@@ -17,7 +17,7 @@ const MenuIceCircle: React.FC<MenuIceCircleProps> = ({ planned, type, earned }) 
   const e = earned < 100 ? earned : 100;
   const classNamesPlanned = `radgrad-ice-circle p${p} radgrad-proj-${type}`;
   const classNamesEarned = `radgrad-ice-circle p${e} radgrad-earn-${type}`;
-  const routeToIcePage = buildRouteName(match, '/home/ice');
+  const routeToIcePage = buildRouteName(match, '/ice');
   return (
     <Popup
       trigger={

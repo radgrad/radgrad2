@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import React from 'react';
 // @ts-ignore
 import { Grid } from 'semantic-ui-react';
-import RadGradSegment from '../../components/shared/segment/RadGradSegment';
+import RadGradSegment from '../../components/shared/RadGradSegment';
 import StudentIceTabs from '../../components/student/ice/StudentIceTabs';
 import { Ice, CourseInstance, ProfileInterest, OpportunityInstance } from '../../../typings/radgrad';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
@@ -46,7 +46,7 @@ const StudentIcePage: React.FC<StudentIcePageProps> = ({
     <Grid stackable>
       <Grid.Row>
         <Grid.Column width={16} stretched>
-          <RadGradSegment text='your ice points'>
+          <RadGradSegment title='your ice points'>
             <StudentIceTabs username={username} earnedICE={earnedICE} projectedICE={projectedICE}
                             profileInterests={profileInterests} courseInstances={courseInstances}
                             opportunityInstances={opportunityInstances} />
