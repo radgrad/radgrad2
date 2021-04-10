@@ -9,7 +9,7 @@ interface RadGradHeaderProps {
   style?: Record<string, unknown>;
 }
 
-const RadGradHeader: React.FC<RadGradHeaderProps> = ({ text, count, icon, dividing, style= {} }) => (
+const RadGradHeader: React.FC<RadGradHeaderProps> = ({ text, count, icon, dividing, style = {} }) => (
   <Header style={style} dividing={dividing}>
     {icon ? (<Icon className={icon} />) : ''}
     {text.toUpperCase()} {count ? `(${count})` : ''}
