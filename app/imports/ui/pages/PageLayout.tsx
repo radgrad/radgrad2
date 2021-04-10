@@ -10,10 +10,9 @@ interface PageLayoutProps {
   headerPaneBody?: string,
   headerPaneButton?: React.ReactNode,
   children?: React.ReactNode,
-  disableMargin?: boolean,
 }
 
-const PageLayout: React.FC<PageLayoutProps> = ({ id, headerPaneImage, headerPaneTitle, headerPaneBody = '', children, disableMargin = false, headerPaneButton }) => {
+const PageLayout: React.FC<PageLayoutProps> = ({ id, headerPaneImage, headerPaneTitle, headerPaneBody = '', children, headerPaneButton }) => {
   const match = useRouteMatch();
   const padding = { paddingRight: '20px', paddingLeft: '20px', paddingTop: '20px' };
   return (

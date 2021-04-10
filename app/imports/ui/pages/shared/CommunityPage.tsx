@@ -1,5 +1,9 @@
 import React from 'react';
-import { Grid, Header, Icon, Segment } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
+import CommunityActivity from '../../components/shared/community/CommunityActivity';
+import LevelDistribution from '../../components/shared/community/LevelDistribution';
+import MostPopular, { MOSTPOPULAR } from '../../components/shared/community/MostPopular';
+import UpcomingEvents from '../../components/shared/community/UpcomingEvents';
 import PageLayout from '../PageLayout';
 
 const headerPaneTitle = 'What\'s happening in RadGrad?';
@@ -13,29 +17,16 @@ const CommunityPage: React.FC = () => (
     <Grid stackable>
       <Grid.Row>
         <Grid.Column width={16}>
-          <Segment>
-            <Header dividing><Icon name="graduation cap" /> RADGRAD STUDENTS</Header>
-          </Segment>
+          <LevelDistribution/>
         </Grid.Column>
       </Grid.Row>
       <Grid.Column width={10}>
-        <Segment>
-          <Header dividing><Icon name="calendar alternate outline" /> UPCOMING EVENTS</Header>
-        </Segment>
-        <Segment>
-          <Header dividing><Icon name="user" />TOP LEVEL STUDENTS</Header>
-        </Segment>
+        <UpcomingEvents/>
       </Grid.Column>
       <Grid.Column width={6}>
-        <Segment>
-          <Header dividing><Icon className='calendar alternate outline' /> COMMUNITY ACTIVITY</Header>
-        </Segment>
-        <Segment>
-          <Header dividing><Icon name="lightbulb outline" /> TOP 5 INTERESTS</Header>
-        </Segment>
-        <Segment>
-          <Header dividing><Icon name="briefcase" />TOP 5 CAREER GOALS</Header>
-        </Segment>
+        <CommunityActivity/>
+        <MostPopular type={MOSTPOPULAR.CAREERGOAL}/>
+        <MostPopular type={MOSTPOPULAR.INTEREST}/>
       </Grid.Column>
     </Grid>
   </PageLayout>
