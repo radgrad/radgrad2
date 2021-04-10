@@ -518,8 +518,7 @@ class UserCollection {
    * @returns {Array} An array of interestIDs.
    */
   public getInterestIDs(user) {
-    const profile = this.getProfile(user);
-    const userID = profile.userID;
+    const userID = this.getID(user);
     const interestIDs = [];
     const profileInterests = ProfileInterests.findNonRetired({ userID });
     profileInterests.forEach((fav) => {
