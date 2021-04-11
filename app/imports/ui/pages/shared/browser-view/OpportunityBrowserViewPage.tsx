@@ -1,10 +1,10 @@
 import React from 'react';
 import { Grid, Card } from 'semantic-ui-react';
-import CardExplorerOpportunitiesWidget from '../../components/shared/explorer/opportunities/ExplorerOpportunitiesWidget';
-import TeaserVideo from '../../components/shared/TeaserVideo';
-import { radgradVideos } from '../../../api/radgrad/radgrad-videos';
-import ExplorerSummerOpportunitiesWidget from '../../components/shared/explorer/opportunities/ExplorerSummerOpportunitiesWidget';
-import PageLayout from '../PageLayout';
+import OpportunityBrowserView from '../../../components/shared/explorer/browser-view/OpportunityBrowserView';
+import TeaserVideo from '../../../components/shared/TeaserVideo';
+import { radgradVideos } from '../../../../api/radgrad/radgrad-videos';
+import ExplorerSummerOpportunitiesWidget from '../../../components/shared/explorer/browser-view/ExplorerSummerOpportunitiesWidget';
+import PageLayout from '../../PageLayout';
 
 const headerPaneTitle = 'Find interesting opportunities';
 const headerPaneBody = `
@@ -18,7 +18,7 @@ Once they are in your plan, RadGrad can update your Innovation and Experience po
 const headerPaneImage = 'header-opportunities.png';
 
 
-const ExplorerOpportunitiesPage: React.FC = () => {
+const OpportunityBrowserViewPage: React.FC = () => {
   const opportunitiesVideoHeaderStyle: React.CSSProperties = {
     marginTop: '5px',
   };
@@ -28,7 +28,7 @@ const ExplorerOpportunitiesPage: React.FC = () => {
       <Grid stackable divided="vertically">
           <Grid.Row>
             <Grid.Column width={11}>
-              <CardExplorerOpportunitiesWidget />
+              <OpportunityBrowserView />
             </Grid.Column>
             <Grid.Column width={5}>
               <ExplorerSummerOpportunitiesWidget />
@@ -52,4 +52,4 @@ const ExplorerOpportunitiesPage: React.FC = () => {
   );
 };
 
-export default ExplorerOpportunitiesPage;
+export default OpportunityBrowserViewPage;

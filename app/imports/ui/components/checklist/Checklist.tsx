@@ -120,8 +120,8 @@ export class Checklist {
       <Card style={{ minWidth: '460px', marginRight: '10px' }} key={this.name}>
         <Card.Content>
           <Label ribbon='right' color={this.stateColor[this.state]}>{this.getState()}</Label>
-          <RadGradHeader dividing icon={this.iconName} text={this.getName()} style={{marginTop: '-20px', marginBottom: '0px'}}/>
-          <Header as='h4' style={{marginTop: '1em'}}>{this.getTitle2()}</Header>
+          <RadGradHeader dividing icon={this.iconName} text={this.getName()} style={{ marginTop: '-20px', marginBottom: '0px' }}/>
+          <Header as='h4' style={{ marginTop: '1em' }}>{this.getTitle2()}</Header>
           {this.getDescription()}
           {this.getDetails()}
           {this.getActions()}

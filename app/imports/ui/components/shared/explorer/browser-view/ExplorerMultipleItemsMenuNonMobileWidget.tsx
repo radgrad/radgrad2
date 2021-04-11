@@ -85,24 +85,6 @@ const ExplorerMultipleItemsMenuNonMobileWidget: React.FC<CardExplorerMenuNonMobi
           ) : (
             ''
           )}
-
-          {isType(EXPLORER_TYPE.CAREERGOALS, type) ? (
-            <Menu vertical text className="cardMenu">
-              <Button icon positive className="cardMenu_btn" href={`mailto:${adminEmail}?subject=New Career Goal Suggestion`}>
-                <Icon name="edit" />
-                &nbsp;&nbsp;Suggest a NEW Career Goal
-              </Button>
-              <Header as="h4" className="cardMenu_header">
-                <Icon name="briefcase" size="mini" />
-                <Header.Content>MY CAREER GOALS</Header.Content>
-              </Header>
-              {menuAddedList.map((listItem) => (
-                <ExplorerMenuNonMobileItem listItem={listItem} type={EXPLORER_TYPE.CAREERGOALS} key={listItem.item._id} />
-              ))}
-            </Menu>
-          ) : (
-            ''
-          )}
         </Media>
       </MediaContextProvider>
     </React.Fragment>

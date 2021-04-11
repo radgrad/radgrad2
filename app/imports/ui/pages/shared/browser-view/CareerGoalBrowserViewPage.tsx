@@ -2,24 +2,22 @@ import React from 'react';
 import moment from 'moment';
 import { useParams } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Grid } from 'semantic-ui-react';
-import { updateMethod } from '../../../../api/base/BaseCollection.methods';
+import _ from 'lodash';
 import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
 import { ProfileCareerGoals } from '../../../../api/user/profile-entries/ProfileCareerGoalCollection';
-import { ROLE } from '../../../../api/role/Role';
 import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
 import { Users } from '../../../../api/user/UserCollection';
-import { CareerGoal, StudentProfileUpdate } from '../../../../typings/radgrad';
-import CareerGoalBrowserView from '../../../components/shared/explorer/browser-view/CareerGoalBrowserView';
-import ExplorerMultipleItemsMenu from '../../../components/shared/explorer/browser-view/ExplorerMultipleItemsMenu';
-import { IExplorerTypes } from '../../../components/shared/explorer/utilities/explorer';
-import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
+import { CareerGoal, StudentProfile } from '../../../../typings/radgrad';
+import BrowserView from '../../../components/shared/explorer/browser-view/BrowserView';
 import PageLayout from '../../PageLayout';
+import { updateLastVisitedMethod } from '../../../../api/user/BaseProfileCollection.methods';
+import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
+import { ROLE } from '../../../../api/role/Role';
 
 interface CareerGoalBrowserViewPageProps {
   profileCareerGoals: CareerGoal[];
   profileInterestIDs: string[];
-  careerGoals: CareerGoal[];
+  nonProfileCareerGoals: CareerGoal[];
 }
 
 const headerPaneTitle = 'Find your career goals';
@@ -35,51 +33,49 @@ const headerPaneImage = 'header-career.png';
 const CareerGoalBrowserViewPage: React.FC<CareerGoalBrowserViewPageProps> = ({
   profileCareerGoals,
   profileInterestIDs,
-  careerGoals,
-}) => {
-  const menuAddedList = profileCareerGoals.map((f) => ({ item: f, count: 1 }));
-  return (
+  nonProfileCareerGoals,
+}) => (
     <PageLayout id="career-goal-browser-view-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
-      <Grid stackable>
-        <Grid.Row>
-          <Grid.Column width={4}>
-            <ExplorerMultipleItemsMenu menuAddedList={menuAddedList} type={EXPLORER_TYPE.CAREERGOALS as IExplorerTypes} />
-          </Grid.Column>
-          <Grid.Column width={12}>
-            <CareerGoalBrowserView profileCareerGoals={profileCareerGoals}
-                                   profileInterestIDs={profileInterestIDs}
-                                   careerGoals={careerGoals} />
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
+      <BrowserView profileInterestIDs={profileInterestIDs}
+                   items={profileCareerGoals}
+                   explorerType={EXPLORER_TYPE.CAREERGOALS}
+                   inProfile />
+      <BrowserView profileInterestIDs={profileInterestIDs}
+                   items={nonProfileCareerGoals}
+                   explorerType={EXPLORER_TYPE.CAREERGOALS}
+                   inProfile={false}/>
     </PageLayout>
-  );
-};
+);
 
 export default withTracker(() => {
   const { username } = useParams();
-  const profile = Users.getProfile(username);
-  if (profile.role === ROLE.STUDENT) {
-    const lastVisited = moment().format('YYYY-MM-DD');
-    if (lastVisited !== profile.lastVisitedCareerGoals) {
+  let profile: StudentProfile;
+  let careerGoals = [];
+  if (Users.hasProfile(username)) {
+    profile = Users.getProfile(username);
+    if (profile.role === ROLE.STUDENT) {
       const collectionName = StudentProfiles.getCollectionName();
-      const updateData: StudentProfileUpdate = {};
-      updateData.id = profile._id;
-      updateData.lastVisitedCareerGoals = lastVisited;
-      updateMethod.call({ collectionName, updateData }, (error, result) => {
-        if (error) {
-          console.error('Error updating StudentProfile', collectionName, updateData, error);
-        }
-      });
+      const lastVisited = moment().format('YYYY-MM-DD');
+      if (Users.hasProfile(username) && lastVisited !== profile.lastVisitedCareerGoals) {
+        updateLastVisitedMethod.call(
+          {
+            collectionName: collectionName,
+            lastVisitedTime: lastVisited,
+            type: EXPLORER_TYPE.CAREERGOALS,
+          },
+        );
+      }
     }
+    careerGoals = ProfileCareerGoals.findNonRetired({ userID: profile.userID });
   }
-  const favCar = ProfileCareerGoals.findNonRetired({ userID: profile.userID });
-  const profileCareerGoals = favCar.map((f) => CareerGoals.findDoc(f.careerGoalID));
+  const profileCareerGoals = careerGoals.map((f) => CareerGoals.findDoc(f.careerGoalID));
   const profileInterestIDs = Users.getInterestIDs(username);
-  const careerGoals = CareerGoals.findNonRetired({});
+  const allCareerGoals = CareerGoals.findNonRetired({});
+  const nonProfileCareerGoals = _.filter(allCareerGoals, md => profileCareerGoals.every(fd => fd._id !== md._id));
   return {
     careerGoals,
     profileCareerGoals,
     profileInterestIDs,
+    nonProfileCareerGoals,
   };
 })(CareerGoalBrowserViewPage);
