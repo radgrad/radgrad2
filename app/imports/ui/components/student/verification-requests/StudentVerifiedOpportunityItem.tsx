@@ -25,7 +25,7 @@ const StudentVerifiedOpportunityItem: React.FC<StudentVerifiedOpportunityItemPro
         <AcademicTermLabel slug={slug} name={name} />
       </Grid.Column>
       <Grid.Column floated='left'>
-        <Header>{opportunityName} <IceHeader ice={opportunityInstance.ice} /></Header>
+        <Header>{opportunityName} <IceHeader ice={opportunityInstance.ice} size='small' /></Header>
       </Grid.Column>
       <Icon className='check circle' color='green'/> {date}
       <Grid.Column />
