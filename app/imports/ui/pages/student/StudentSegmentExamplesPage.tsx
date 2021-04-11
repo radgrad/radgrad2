@@ -1,11 +1,12 @@
 import React from 'react';
 import PageLayout from '../PageLayout';
 import StudentSegmentExamplesPageExampleOne from './StudentSegmentExamplesPageExampleOne';
+import StudentSegmentExamplesPageExampleThree from './StudentSegmentExamplesPageExampleThree';
 import StudentSegmentExamplesPageExampleTwo from './StudentSegmentExamplesPageExampleTwo';
 
-const headerPaneTitle = 'What\'s happening in RadGrad?';
+const headerPaneTitle = 'Segment Design Examples';
 const headerPaneBody = `
-Here are the latest updates in RadGrad, plus overviews of the RadGrad community.
+This page provides examples of the RadGradHeader and RadGradSegment components. 
 `;
 const headerPaneImage = 'header-community.png';
 
@@ -14,6 +15,7 @@ const StudentSegmentExamplesPage: React.FC = () => (
 
     <StudentSegmentExamplesPageExampleOne/>
     <StudentSegmentExamplesPageExampleTwo/>
+    <StudentSegmentExamplesPageExampleThree/>
 
   </PageLayout>
 );
