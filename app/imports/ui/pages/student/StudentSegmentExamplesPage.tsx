@@ -1,6 +1,7 @@
 import React from 'react';
 import PageLayout from '../PageLayout';
 import StudentSegmentExamplesPageExampleOne from './StudentSegmentExamplesPageExampleOne';
+import StudentSegmentExamplesPageExampleTwo from './StudentSegmentExamplesPageExampleTwo';
 
 const headerPaneTitle = 'What\'s happening in RadGrad?';
 const headerPaneBody = `
@@ -12,6 +13,7 @@ const StudentSegmentExamplesPage: React.FC = () => (
   <PageLayout id="student-segment-examples" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
 
     <StudentSegmentExamplesPageExampleOne/>
+    <StudentSegmentExamplesPageExampleTwo/>
 
   </PageLayout>
 );
