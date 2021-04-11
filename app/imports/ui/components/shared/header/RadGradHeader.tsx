@@ -10,11 +10,14 @@ interface RadGradHeaderProps {
   style?: Record<string, unknown>;
 }
 
-const RadGradHeader: React.FC<RadGradHeaderProps> = ({ title, count, icon, dividing= true, style = {}, rightside }) => (
+const RadGradHeader: React.FC<RadGradHeaderProps> = ({ title, count, icon, dividing = true, style = {}, rightside = '' }) => (
   <Header style={style} dividing={dividing}>
-    {icon ? (<Icon className={icon} />) : ''}
-    {title.toUpperCase()} {count ? `(${count})` : ''}
-    {rightside ? <span style={{ float: 'right' }}>{rightside}</span> : ''}
+    <div>
+      {icon ? (<Icon className={icon} />) : ''}
+      &nbsp;
+      {title.toUpperCase()} {count ? `(${count})` : ''}
+      <span style={{float: 'right'}}>{rightside}</span>
+    </div>
   </Header>
 );
 

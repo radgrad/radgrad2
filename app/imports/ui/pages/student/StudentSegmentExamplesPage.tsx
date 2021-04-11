@@ -1,5 +1,6 @@
 import React from 'react';
 import PageLayout from '../PageLayout';
+import StudentSegmentExamplesPageExampleFour from './StudentSegmentExamplesPageExampleFour';
 import StudentSegmentExamplesPageExampleOne from './StudentSegmentExamplesPageExampleOne';
 import StudentSegmentExamplesPageExampleThree from './StudentSegmentExamplesPageExampleThree';
 import StudentSegmentExamplesPageExampleTwo from './StudentSegmentExamplesPageExampleTwo';
@@ -16,6 +17,8 @@ const StudentSegmentExamplesPage: React.FC = () => (
     <StudentSegmentExamplesPageExampleOne/>
     <StudentSegmentExamplesPageExampleTwo/>
     <StudentSegmentExamplesPageExampleThree/>
+    <StudentSegmentExamplesPageExampleFour/>
+
 
   </PageLayout>
 );
