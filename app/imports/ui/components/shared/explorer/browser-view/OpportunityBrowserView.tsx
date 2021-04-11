@@ -32,7 +32,7 @@ const mapStateToProps = (state: RootState) => ({
   sortValue: state.shared.cardExplorer.opportunities.sortValue,
 });
 
-const ExplorerOpportunitiesWidget: React.FC<CardExplorerOpportunitiesWidgetProps> = ({ pagination, sortValue }) => {
+const OpportunityBrowserView: React.FC<CardExplorerOpportunitiesWidgetProps> = ({ pagination, sortValue }) => {
   const match = useRouteMatch();
 
   const opportunitiesItemCount = availableOpps(match).length;
@@ -92,4 +92,4 @@ const ExplorerOpportunitiesWidget: React.FC<CardExplorerOpportunitiesWidgetProps
   );
 };
 
-export default connect(mapStateToProps, null)(ExplorerOpportunitiesWidget);
+export default connect(mapStateToProps, null)(OpportunityBrowserView);

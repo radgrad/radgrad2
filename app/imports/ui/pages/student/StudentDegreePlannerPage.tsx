@@ -286,6 +286,7 @@ const StudentDegreePlannerPage: React.FC<StudentDegreePlannerProps> = ({
             </Grid.Column>
 
             <Grid.Column width={6} style={paddedStyle}>
+              {/* @ts-ignore */}
               <TabbedProfileEntries
                 takenSlugs={takenSlugs}
                 opportunities={opportunities}

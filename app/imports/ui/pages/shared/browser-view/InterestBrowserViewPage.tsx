@@ -3,14 +3,15 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import _ from 'lodash';
-import { updateMethod } from '../../../../api/base/BaseCollection.methods';
 import { Interests } from '../../../../api/interest/InterestCollection';
-import { ROLE } from '../../../../api/role/Role';
 import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
 import { Users } from '../../../../api/user/UserCollection';
-import { Interest, StudentProfileUpdate } from '../../../../typings/radgrad';
-import InterestBrowserView from '../../../components/shared/explorer/browser-view/InterestBrowserView';
+import { Interest, StudentProfile } from '../../../../typings/radgrad';
 import PageLayout from '../../PageLayout';
+import { updateLastVisitedMethod } from '../../../../api/user/BaseProfileCollection.methods';
+import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
+import BrowserView from '../../../components/shared/explorer/browser-view/BrowserView';
+import { ROLE } from '../../../../api/role/Role';
 
 interface InterestBrowserViewPageProps {
   profileInterests: Interest[];
@@ -28,36 +29,40 @@ If we've missed a disciplinary area of interest to you, please click the button 
 const headerPaneImage = 'header-interests.png';
 
 const InterestBrowserViewPage: React.FC<InterestBrowserViewPageProps> = ({ profileInterests, nonProfileInterests }) => (
-  <PageLayout id="interest-browser-view-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
-    <InterestBrowserView interests={profileInterests} inProfile />
-    <InterestBrowserView interests={nonProfileInterests} />
+  <PageLayout id="interest-browser-view-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}
+              headerPaneImage={headerPaneImage}>
+    <BrowserView items={profileInterests} explorerType={EXPLORER_TYPE.INTERESTS} inProfile  />
+    <BrowserView items={nonProfileInterests} explorerType={EXPLORER_TYPE.INTERESTS} inProfile={false} />
   </PageLayout>
 );
 
 export default withTracker(() => {
   const { username } = useParams();
-  const profile = Users.getProfile(username);
-  if (profile.role === ROLE.STUDENT) {
-    const lastVisited = moment().format('YYYY-MM-DD');
-    if (lastVisited !== profile.lastVisitedInterests) {
+  let profile: StudentProfile;
+  let allInterests = [];
+  if (Users.hasProfile(username)) {
+    profile = Users.getProfile(username);
+    if (profile.role === ROLE.STUDENT) {
       const collectionName = StudentProfiles.getCollectionName();
-      const updateData: StudentProfileUpdate = {};
-      updateData.id = profile._id;
-      updateData.lastVisitedInterests = lastVisited;
-      updateMethod.call({ collectionName, updateData }, (error, result) => {
-        if (error) {
-          console.error('Error updating StudentProfile', collectionName, updateData, error);
-        }
-      });
+      const lastVisited = moment().format('YYYY-MM-DD');
+      if (Users.hasProfile(username) && lastVisited !== profile.lastVisitedInterests) {
+        updateLastVisitedMethod.call(
+          {
+            collectionName: collectionName,
+            lastVisitedTime: lastVisited,
+            type: EXPLORER_TYPE.INTERESTS,
+          },
+        );
+      }
     }
+    allInterests = Users.getInterestIDs(profile.userID);
   }
-  const allInterests = Users.getInterestIDs(profile.userID);
   const profileInterests = allInterests.map((id) => Interests.findDoc(id));
-  const interests = Interests.findNonRetired({}); // TODO should we filter out the ones in the profile?
+  const interests = Interests.findNonRetired({});
   const nonProfileInterests = _.filter(interests, md => profileInterests.every(fd => fd._id !== md._id));
   return {
     profileInterests,
-    interests,
     nonProfileInterests,
   };
-})(InterestBrowserViewPage);
+},
+)(InterestBrowserViewPage);

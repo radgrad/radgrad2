@@ -1,3 +1,4 @@
+
 import * as TYPES from './types';
 
 export interface CardExplorersPaginationState {
@@ -17,6 +18,9 @@ interface State {
   interests: {
     sortValue: string;
   }
+  careergoals: {
+    sortValue: string;
+  }
 }
 
 const initialState: State = {
@@ -27,6 +31,9 @@ const initialState: State = {
     sortValue: 'Recommended',
   },
   interests: {
+    sortValue: 'Most Recent',
+  },
+  careergoals: {
     sortValue: 'Most Recent',
   },
   pagination: {
@@ -71,6 +78,14 @@ const reducer = (state: State = initialState, action): State => {
       s = {
         ...state,
         interests: {
+          sortValue: action.payload,
+        },
+      };
+      return s;
+    case TYPES.SET_CAREERGOALS_SORT_VALUE:
+      s = {
+        ...state,
+        careergoals: {
           sortValue: action.payload,
         },
       };
