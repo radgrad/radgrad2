@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Header, Icon } from 'semantic-ui-react';
+import { Button, Grid, Header, Icon, Label } from 'semantic-ui-react';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import { Slugs } from '../../../../api/slug/SlugCollection';
 import { VerificationRequests } from '../../../../api/verification/VerificationRequestCollection';
@@ -17,7 +17,11 @@ const StudentVerifiedOpportunityItem: React.FC<StudentVerifiedOpportunityItemPro
   const slug = Slugs.getNameFromID(term.slugID);
   const name = AcademicTerms.toString(opportunityInstance.termID, false);
   const opportunityName = opportunityIdToName(opportunityInstance.opportunityID);
-  const vr = VerificationRequests.findNonRetired({ studentID: opportunityInstance.studentID, opportunityInstanceID: opportunityInstance._id, status: VerificationRequests.ACCEPTED });
+  const vr = VerificationRequests.findNonRetired({
+    studentID: opportunityInstance.studentID,
+    opportunityInstanceID: opportunityInstance._id,
+    status: VerificationRequests.ACCEPTED,
+  });
   const date = vr.length > 0 ? vr[0].submittedOn.toDateString() : '';
   return (
     <Grid.Row columns='three'>
@@ -27,8 +31,9 @@ const StudentVerifiedOpportunityItem: React.FC<StudentVerifiedOpportunityItemPro
       <Grid.Column floated='left'>
         <Header>{opportunityName} <IceHeader ice={opportunityInstance.ice} size='small' /></Header>
       </Grid.Column>
-      <Icon className='check circle' color='green'/> {date}
-      <Grid.Column />
+      <Grid.Column textAlign='right'>
+        <Label icon color='green' size='large'><Icon className='check circle' /> {date}</Label>
+      </Grid.Column>
     </Grid.Row>
   );
 };

@@ -17,7 +17,7 @@ import {
   ProfileInterest, ProfileOpportunity,
 } from '../../../../typings/radgrad';
 import { getUserIdFromRoute } from '../../shared/utilities/router';
-import StudentUnverifiedOpportunityItem from '../verification-requests/StudentUnverifiedOpportunityItem';
+import StudentUnverifiedOpportunityItem from '../shared/StudentUnverifiedOpportunityItem';
 import StudentVerifiedOpportunityItem from '../verification-requests/StudentVerifiedOpportunityItem';
 
 interface StudentIndividualIceTabsProps {

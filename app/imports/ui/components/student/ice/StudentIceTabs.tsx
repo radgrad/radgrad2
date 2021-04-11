@@ -11,6 +11,13 @@ import {
 import { STUDENT_VERIFICATION, URL_ROLES } from '../../../layouts/utilities/route-constants';
 import { ButtonLink } from '../../shared/button/ButtonLink';
 import MenuIceCircle from '../../shared/MenuIceCircle';
+import StudentProfileCourseItem from '../shared/StudentProfileCourseItem';
+import StudentProfileOpportunityItem from '../shared/StudentProfileOpportunityItem';
+import StudentRecommendedCourseItem from '../shared/StudentRecommendedCourseItem';
+import StudentRecommendedOpportunityItem from '../shared/StudentRecommendedOpportunityItem';
+import StudentUnverifiedOpportunityItem from '../shared/StudentUnverifiedOpportunityItem';
+import StudentVerifiedCourseItem from '../shared/StudentVerifiedCourseItem';
+import StudentVerifiedOpportunityItem from '../verification-requests/StudentVerifiedOpportunityItem';
 import StudentIceColumn from './StudentIceColumn';
 import PageIceCircle from './PageIceCircle';
 import StudentIndividualIceTabs from './StudentIndividualIceTabs';
@@ -152,6 +159,15 @@ const StudentIceTabs: React.FC<StudentIceWidgetProps> = ({
           </Grid.Column>
         </Grid.Row>
       </Grid>
+      <Segment><Grid divided='vertically'>
+        <StudentProfileOpportunityItem opportunityID={opportunityInstances[0].opportunityID} />
+        <StudentRecommendedOpportunityItem opportunityID={opportunityInstances[0].opportunityID} />
+        <StudentUnverifiedOpportunityItem opportunityInstance={opportunityInstances[0]} />
+        <StudentVerifiedOpportunityItem opportunityInstance={opportunityInstances[0]} />
+        <StudentProfileCourseItem courseID={courseInstances[0].courseID} />
+        <StudentRecommendedCourseItem courseID={courseInstances[0].courseID} />
+        <StudentVerifiedCourseItem courseInstance={courseInstances[0]} />
+      </Grid></Segment>
       <Tab panes={panes} />
     </React.Fragment>
   );

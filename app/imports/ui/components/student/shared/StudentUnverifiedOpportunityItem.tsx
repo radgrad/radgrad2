@@ -6,7 +6,7 @@ import { OpportunityInstance } from '../../../../typings/radgrad';
 import IceHeader from '../../shared/IceHeader';
 import AcademicTermLabel from '../../shared/label/AcademicTermLabel';
 import { opportunityIdToName } from '../../shared/utilities/data-model';
-import RequestVerificationPopup from './RequestVerificationPopup';
+import RequestVerificationPopup from '../verification-requests/RequestVerificationPopup';
 
 interface StudentUnverifiedOpportunityItemProps {
   opportunityInstance: OpportunityInstance;
@@ -27,7 +27,7 @@ const StudentUnverifiedOpportunityItem: React.FC<StudentUnverifiedOpportunityIte
         <Header>{opportunityName}<IceHeader ice={opportunityInstance.ice} size='small' /></Header>
 
       </Grid.Column>
-      <Grid.Column>
+      <Grid.Column textAlign='right'>
         <RequestVerificationPopup opportunityInstance={opportunityInstance} />
       </Grid.Column>
     </Grid.Row>
