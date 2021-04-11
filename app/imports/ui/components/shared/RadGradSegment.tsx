@@ -1,18 +1,15 @@
 import React from 'react';
 import { Segment } from 'semantic-ui-react';
-import RadGradHeader from './header/RadGradHeader';
 
 interface RadGradSegmentProps {
-  title: string;
-  count?: number;
-  icon?: string;
+  header: React.ReactNode,
   style?: Record<string, unknown>;
   children?: React.ReactNode,
 }
 
-const RadGradSegment: React.FC<RadGradSegmentProps> = ({ title, count, icon, style = {}, children }) => (
+const RadGradSegment: React.FC<RadGradSegmentProps> = ({ header, style = {}, children }) => (
   <Segment>
-    <RadGradHeader title={title} count={count} icon={icon} dividing style={style} />
+    {header}
     <div style={{ marginTop: '1em' }}>
       {children}
     </div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import RadGradHeader from '../RadGradHeader';
 import RadGradSegment from '../RadGradSegment';
 
 export const enum MOSTPOPULAR {
@@ -13,8 +14,9 @@ interface MostPopularProps {
 const MostPopular: React.FC<MostPopularProps> = ({ type }) => {
   const icon = (type === MOSTPOPULAR.CAREERGOAL) ? 'briefcase' : 'lightbulb outline';
   const title = (type === MOSTPOPULAR.CAREERGOAL) ? 'Top 5 Career Goals' : 'Top 5 Interests';
+  const header = <RadGradHeader title={title} icon={icon} />;
   return (
-    <RadGradSegment icon={icon} title={title}>
+    <RadGradSegment header={header}>
       Top 5 List.
     </RadGradSegment>
   );

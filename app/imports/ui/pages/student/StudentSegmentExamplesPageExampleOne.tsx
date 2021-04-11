@@ -1,6 +1,6 @@
 import React from 'react';
-import RadGradHeader from '../../components/shared/header/RadGradHeader';
-import RadGradSegment2 from '../../components/shared/RadGradSegment2';
+import RadGradHeader from '../../components/shared/RadGradHeader';
+import RadGradSegment2 from '../../components/shared/RadGradSegment';
 
 const StudentSegmentExamplesPageExampleOne: React.FC = () => {
   const header = <RadGradHeader title='Example One' count={3} icon='graduation cap' />;

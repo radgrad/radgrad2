@@ -1,10 +1,14 @@
 import React from 'react';
+import RadGradHeader from '../RadGradHeader';
 import RadGradSegment from '../RadGradSegment';
 
-const UpcomingEvents: React.FC = () => (
-  <RadGradSegment icon='calendar alternate outline' title='Upcoming Events' >
-    A feed of upcoming opportunities, ordered by event date.
-  </RadGradSegment>
-);
+const UpcomingEvents: React.FC = () => {
+  const header = <RadGradHeader title='Upcoming Events' icon='calendar alternate outline' />;
+  return (
+    <RadGradSegment header={header} >
+      A feed of upcoming opportunities, ordered by event date.
+    </RadGradSegment>
+  );
+};
 
 export default UpcomingEvents;

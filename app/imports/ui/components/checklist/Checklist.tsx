@@ -3,7 +3,7 @@ import React from 'react';
 import Markdown from 'react-markdown/with-html';
 import { Card, Header, Icon, Label, SemanticICONS } from 'semantic-ui-react';
 import { COLORS } from '../../utilities/Colors';
-import RadGradHeader from '../shared/header/RadGradHeader';
+import RadGradHeader from '../shared/RadGradHeader';
 
 export const enum CHECKSTATE {
   OK = 'OK',
