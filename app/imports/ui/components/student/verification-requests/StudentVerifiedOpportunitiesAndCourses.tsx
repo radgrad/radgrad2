@@ -16,7 +16,7 @@ const StudentVerifiedOpportunitiesAndCourses: React.FC<StudentVerifiedOpportunit
 }) => {
   const panes = [
     {
-      menuItem: <Menu.Item key='verified-opportunity-menu-item'><RadGradHeader text='verified opportunities' count={verifiedOpportunityInstances.length}
+      menuItem: <Menu.Item key='verified-opportunity-menu-item'><RadGradHeader title='verified opportunities' count={verifiedOpportunityInstances.length}
                                           icon='lightbulb outline' /></Menu.Item>,
       render: () => (
         <Tab.Pane key="Verified-Opportunities-pane">
@@ -30,7 +30,7 @@ const StudentVerifiedOpportunitiesAndCourses: React.FC<StudentVerifiedOpportunit
     },
     {
       menuItem: (<Menu.Item key='verified-course-menu-item'>
-        <RadGradHeader text='verified courses' count={verifiedCourseInstances.length} icon='book' />
+        <RadGradHeader title='verified courses' count={verifiedCourseInstances.length} icon='book' />
       </Menu.Item>),
       render: () => (
         <Tab.Pane key="Verified-Courses-pane">

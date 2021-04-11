@@ -2,17 +2,17 @@ import React from 'react';
 import { Header, Icon } from 'semantic-ui-react';
 
 interface RadGradHeaderProps {
-  text: string;
+  title: string;
   count?: number;
   icon?: string;
   dividing?: boolean;
   style?: Record<string, unknown>;
 }
 
-const RadGradHeader: React.FC<RadGradHeaderProps> = ({ text, count, icon, dividing, style = {} }) => (
+const RadGradHeader: React.FC<RadGradHeaderProps> = ({ title, count, icon, dividing= true, style = {} }) => (
   <Header style={style} dividing={dividing}>
     {icon ? (<Icon className={icon} />) : ''}
-    {text.toUpperCase()} {count ? `(${count})` : ''}
+    {title.toUpperCase()} {count ? `(${count})` : ''}
   </Header>
 );
 

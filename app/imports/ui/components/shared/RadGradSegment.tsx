@@ -12,7 +12,7 @@ interface RadGradSegmentProps {
 
 const RadGradSegment: React.FC<RadGradSegmentProps> = ({ title, count, icon, style = {}, children }) => (
   <Segment>
-    <RadGradHeader text={title} count={count} icon={icon} dividing style={style} />
+    <RadGradHeader title={title} count={count} icon={icon} dividing style={style} />
     <div style={{ marginTop: '1em' }}>
       {children}
     </div>
