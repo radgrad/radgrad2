@@ -13,13 +13,10 @@ const headerPaneImage = 'header-community.png';
 
 const StudentSegmentExamplesPage: React.FC = () => (
   <PageLayout id="student-segment-examples" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
-
     <StudentSegmentExamplesPageExampleOne/>
     <StudentSegmentExamplesPageExampleTwo/>
     <StudentSegmentExamplesPageExampleThree/>
     <StudentSegmentExamplesPageExampleFour/>
-
-
   </PageLayout>
 );
 
