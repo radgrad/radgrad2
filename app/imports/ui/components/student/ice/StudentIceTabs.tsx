@@ -1,6 +1,13 @@
 import React from 'react';
 import { Segment, Grid, Header, Menu, Tab } from 'semantic-ui-react';
-import { Ice, CourseInstance, ProfileInterest, OpportunityInstance } from '../../../../typings/radgrad';
+import {
+  Ice,
+  CourseInstance,
+  ProfileInterest,
+  OpportunityInstance,
+  ProfileCourse,
+  ProfileOpportunity,
+} from '../../../../typings/radgrad';
 import { STUDENT_VERIFICATION, URL_ROLES } from '../../../layouts/utilities/route-constants';
 import { ButtonLink } from '../../shared/button/ButtonLink';
 import MenuIceCircle from '../../shared/MenuIceCircle';
@@ -17,7 +24,9 @@ export interface StudentIceWidgetProps {
   username: string;
   earnedICE: Ice;
   projectedICE: Ice;
+  profileCourses: ProfileCourse[];
   profileInterests: ProfileInterest[];
+  profileOpportunities: ProfileOpportunity[];
   courseInstances: CourseInstance[];
   opportunityInstances: OpportunityInstance[];
 }
@@ -26,7 +35,9 @@ const StudentIceTabs: React.FC<StudentIceWidgetProps> = ({
   username,
   earnedICE,
   projectedICE,
+  profileCourses,
   profileInterests,
+  profileOpportunities,
   courseInstances,
   opportunityInstances,
 }) => {

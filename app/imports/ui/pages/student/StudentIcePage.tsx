@@ -2,9 +2,18 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { useParams } from 'react-router-dom';
 import React from 'react';
 import { Grid } from 'semantic-ui-react';
+import { ProfileCourses } from '../../../api/user/profile-entries/ProfileCourseCollection';
+import { ProfileOpportunities } from '../../../api/user/profile-entries/ProfileOpportunityCollection';
 import RadGradSegment from '../../components/shared/RadGradSegment';
 import StudentIceTabs from '../../components/student/ice/StudentIceTabs';
-import { Ice, CourseInstance, ProfileInterest, OpportunityInstance } from '../../../typings/radgrad';
+import {
+  Ice,
+  CourseInstance,
+  ProfileInterest,
+  OpportunityInstance,
+  ProfileCourse,
+  ProfileOpportunity,
+} from '../../../typings/radgrad';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { ProfileInterests } from '../../../api/user/profile-entries/ProfileInterestCollection';
@@ -16,7 +25,9 @@ interface StudentIcePageProps {
   username: string;
   earnedICE: Ice;
   projectedICE: Ice;
+  profileCourses: ProfileCourse[];
   profileInterests: ProfileInterest[];
+  profileOpportunities: ProfileOpportunity[];
   courseInstances: CourseInstance[];
   opportunityInstances: OpportunityInstance[];
 }
@@ -36,7 +47,9 @@ const StudentIcePage: React.FC<StudentIcePageProps> = ({
   username,
   earnedICE,
   projectedICE,
+  profileCourses,
   profileInterests,
+  profileOpportunities,
   courseInstances,
   opportunityInstances,
 }) => (
@@ -47,7 +60,9 @@ const StudentIcePage: React.FC<StudentIcePageProps> = ({
         <Grid.Column width={16} stretched>
           <RadGradSegment title='your ice points'>
             <StudentIceTabs username={username} earnedICE={earnedICE} projectedICE={projectedICE}
-                            profileInterests={profileInterests} courseInstances={courseInstances}
+                            profileCourses={profileCourses}
+                            profileInterests={profileInterests} profileOpportunities={profileOpportunities}
+                            courseInstances={courseInstances}
                             opportunityInstances={opportunityInstances} />
           </RadGradSegment>
         </Grid.Column>
@@ -62,13 +77,17 @@ const StudentHomeIcePageContainer = withTracker(() => {
   const earnedICE: Ice = StudentProfiles.getEarnedICE(username);
   const projectedICE: Ice = StudentProfiles.getProjectedICE(username);
   const profileInterests: ProfileInterest[] = ProfileInterests.findNonRetired({ userID: studentID });
+  const profileCourses: ProfileCourse[] = ProfileCourses.findNonRetired({ studentID });
+  const profileOpportunities: ProfileOpportunity[] = ProfileOpportunities.findNonRetired({ studentID });
   const courseInstances: CourseInstance[] = CourseInstances.findNonRetired({ studentID });
   const opportunityInstances: OpportunityInstance[] = OpportunityInstances.findNonRetired({ studentID });
   return {
     username,
     earnedICE,
     projectedICE,
+    profileCourses,
     profileInterests,
+    profileOpportunities,
     courseInstances,
     opportunityInstances,
   };
