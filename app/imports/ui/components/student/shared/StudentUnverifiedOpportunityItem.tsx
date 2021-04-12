@@ -28,7 +28,7 @@ const StudentUnverifiedOpportunityItem: React.FC<StudentUnverifiedOpportunityIte
 
       </Grid.Column>
       <Grid.Column textAlign='right'>
-        <RequestVerificationPopup opportunityInstance={opportunityInstance} />
+        <RequestVerificationPopup opportunityInstance={opportunityInstance} size='medium' />
       </Grid.Column>
     </Grid.Row>
   );

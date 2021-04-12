@@ -2,7 +2,7 @@ import React from 'react';
 import SimpleSchema from 'simpl-schema';
 import Swal from 'sweetalert2';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
-import { Popup } from 'semantic-ui-react';
+import { Popup, SemanticSIZES } from 'semantic-ui-react';
 import { AutoForm } from 'uniforms-semantic';
 import { useRouteMatch } from 'react-router-dom';
 import { userInteractionDefineMethod } from '../../../../api/analytic/UserInteractionCollection.methods';
@@ -17,6 +17,7 @@ import { getUsername } from '../../shared/utilities/router';
 
 interface RequestVerificationPopupProps {
   opportunityInstance: OpportunityInstance;
+  size?: SemanticSIZES;
 }
 
 const handleVerificationRequest = (instance, match) => (model) => {
@@ -57,7 +58,7 @@ const handleVerificationRequest = (instance, match) => (model) => {
   });
 };
 
-const RequestVerificationPopup: React.FC<RequestVerificationPopupProps> = ({ opportunityInstance }) => {
+const RequestVerificationPopup: React.FC<RequestVerificationPopupProps> = ({ opportunityInstance, size = 'large' }) => {
   const schema = new SimpleSchema({
     documentation: String,
   });
@@ -66,7 +67,7 @@ const RequestVerificationPopup: React.FC<RequestVerificationPopupProps> = ({ opp
   return (
     <Popup
       trigger={
-        <ButtonAction onClick={() => true} label='Request Verification' icon='hand point up outline' />
+        <ButtonAction onClick={() => true} label='Request Verification' icon='hand point up outline' size={size} />
       }
       content={<AutoForm schema={formSchema} onSubmit={handleVerificationRequest(opportunityInstance, match)} />}
       on='click'

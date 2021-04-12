@@ -24,7 +24,7 @@ const StudentRecommendedOpportunityItem: React.FC<StudentRecommendedCourseItemPr
         <Header>{course.name} <IceHeader ice={courseICE} /></Header>
       </Grid.Column>
       <Grid.Column floated='right' textAlign='right'>
-        <ButtonLink url={RouterUtils.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${slug}`)} label='see details / add to profile' icon='search plus' size='small'/>
+        <ButtonLink url={RouterUtils.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${slug}`)} label='See details / Add to profile' icon='search plus' size='small'/>
       </Grid.Column>
     </Grid.Row>
   );
