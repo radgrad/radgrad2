@@ -13,8 +13,8 @@ export interface MostPopularData {
 const calculatePopular = (cursor, entityIDName) => {
   const resultsObject = {};
   cursor.forEach((document) => {
-    const exists = resultsObject[document[entityIDName]];
-    resultsObject[document[entityIDName]] = exists ? exists + 1 : 0;
+    const currValue = resultsObject[document[entityIDName]];
+    resultsObject[document[entityIDName]] = _.isUndefined(currValue) ? 0 : currValue + 1;
   });
   console.log('step 1', resultsObject);
   const pairs: Array<[string, number]> = _.toPairs(resultsObject);

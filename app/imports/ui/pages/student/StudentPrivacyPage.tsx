@@ -60,7 +60,7 @@ const StudentPrivacyPage: React.FC<StudentPrivacyPageProps> = ({ profile }) => {
       fetchData();
       setFetched(true);
     }
-  });
+  }, [fetched, profile.username]);
   // checkboxState is an object containing booleans to indicate which fields are public, and thus which checkboxes should be checked.
   // It's initialized from the profile, then updated by the onClick handler (handleCheckboxChange).
   const [checkboxState, setCheckboxState] = useState<CheckboxState>({

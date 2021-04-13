@@ -41,7 +41,6 @@ const CommunityPage: React.FC = () => {
         <Grid.Row>
           <Grid.Column width={16}>
             <LevelDistribution />
-            {data}
           </Grid.Column>
         </Grid.Row>
         <Grid.Column width={10}>
