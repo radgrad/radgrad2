@@ -15,7 +15,7 @@ const StudentTermsAndConditionsPage: React.FC = () => {
     // console.log('check for infinite loop');
     getTermsAndConditions.callPromise({})
       .then(result => setTerms(result))
-      .catch(error => setTerms(`Server Error: ${error}`))
+      .catch(error => setTerms(`Server Error: ${error}`));
   };
   useEffect(() => { fetchTerms(); }, [terms]);
 
