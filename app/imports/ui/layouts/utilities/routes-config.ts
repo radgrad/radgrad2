@@ -60,6 +60,7 @@ import StudentIcePage from '../../pages/student/StudentIcePage';
 import StudentLevelsPage from '../../pages/student/StudentLevelsPage';
 import StudentPrivacyPage from '../../pages/student/StudentPrivacyPage';
 import StudentReviewsPage from '../../pages/student/StudentReviewsPage';
+import StudentSegmentExamplesPage from '../../pages/student/StudentSegmentExamplesPage';
 import StudentTermsAndConditionsPage from '../../pages/student/StudentTermsAndConditionsPage';
 import StudentVerificationPage from '../../pages/student/StudentVerificationPage';
 
@@ -207,7 +208,8 @@ export const routes = {
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${STUDENT_REVIEWS}`, component: StudentReviewsPage },
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${STUDENT_VERIFICATION}`, component: StudentVerificationPage },
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${TERMS_AND_CONDITIONS}`, component: StudentTermsAndConditionsPage },
-    // The following page is temporary for design purposes only. Should eventually be removed once we finalize design elements.
+    // The following pages are temporary for design purposes only. Should eventually be removed once we finalize design elements.
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/labels`, component: StudentLabelExamplesPage },
+    { path: `/${URL_ROLES.STUDENT}/${USERNAME}/segments`, component: StudentSegmentExamplesPage },
   ],
 };

@@ -13,7 +13,7 @@ import { EntityLabel, EntityLabelPublicProps } from './EntityLabel';
  * @param userID Optional userID. If provided, then Label will colored if present in the user's profile.
  * @param size Optional size. Defaults to 'Large'.
  */
-const CareerGoalLabel: React.FC<EntityLabelPublicProps> = ({ slug, userID, size, style }) => {
+const CareerGoalLabel: React.FC<EntityLabelPublicProps> = ({ slug, userID, size, style, rightside }) => {
   let inProfile = false;
   const match = useRouteMatch();
   const route = Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}/${slug}`);
@@ -25,7 +25,7 @@ const CareerGoalLabel: React.FC<EntityLabelPublicProps> = ({ slug, userID, size,
     inProfile = _.includes(profileEntityIDs.map(doc => doc.careerGoalID), id);
   }
   return (
-    <EntityLabel slug={slug} inProfile={inProfile} icon='briefcase' name={name} route={route} size={size} style={style}/>
+    <EntityLabel slug={slug} inProfile={inProfile} icon='briefcase' name={name} route={route} size={size} style={style} rightside={rightside}/>
   );
 };
 

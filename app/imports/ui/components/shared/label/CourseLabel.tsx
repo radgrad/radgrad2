@@ -13,7 +13,7 @@ import { ProfileCourses } from '../../../../api/user/profile-entries/ProfileCour
  * @param userID Optional userID. If provided, then Label will colored if present in the user's profile.
  * @param size Optional size. Defaults to 'Large'.
  */
-const CourseLabel: React.FC<EntityLabelPublicProps> = ({ slug, userID, size, style }) => {
+const CourseLabel: React.FC<EntityLabelPublicProps> = ({ slug, userID, size, style, rightside }) => {
   let inProfile = false;
   const match = useRouteMatch();
   const route = Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.COURSES}/${slug}`);
@@ -26,7 +26,7 @@ const CourseLabel: React.FC<EntityLabelPublicProps> = ({ slug, userID, size, sty
     inProfile = _.includes(profileEntityIDs.map(doc => doc.courseID), id);
   }
   return (
-    <EntityLabel slug={slug} inProfile={inProfile} icon='book' name={name} route={route} size={size} style={style} />
+    <EntityLabel slug={slug} inProfile={inProfile} icon='book' name={name} route={route} size={size} style={style} rightside={rightside}/>
   );
 };
 

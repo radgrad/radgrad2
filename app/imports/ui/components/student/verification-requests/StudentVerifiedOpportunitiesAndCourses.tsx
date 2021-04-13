@@ -2,7 +2,7 @@ import React from 'react';
 // @ts-ignore
 import { Grid, Menu, Segment, Tab } from 'semantic-ui-react';
 import { CourseInstance, OpportunityInstance } from '../../../../typings/radgrad';
-import RadGradHeader from '../../shared/header/RadGradHeader';
+import RadGradHeader from '../../shared/RadGradHeader';
 import StudentVerifiedCourseItem from '../shared/StudentVerifiedCourseItem';
 import StudentVerifiedOpportunityItem from './StudentVerifiedOpportunityItem';
 
@@ -17,7 +17,7 @@ const StudentVerifiedOpportunitiesAndCourses: React.FC<StudentVerifiedOpportunit
 }) => {
   const panes = [
     {
-      menuItem: <Menu.Item key='verified-opportunity-menu-item'><RadGradHeader text='verified opportunities' count={verifiedOpportunityInstances.length}
+      menuItem: <Menu.Item key='verified-opportunity-menu-item'><RadGradHeader title='verified opportunities' count={verifiedOpportunityInstances.length}
                                           icon='lightbulb outline' /></Menu.Item>,
       render: () => (
         <Tab.Pane key="Verified-Opportunities-pane">
@@ -31,7 +31,7 @@ const StudentVerifiedOpportunitiesAndCourses: React.FC<StudentVerifiedOpportunit
     },
     {
       menuItem: (<Menu.Item key='verified-course-menu-item'>
-        <RadGradHeader text='verified courses' count={verifiedCourseInstances.length} icon='book' />
+        <RadGradHeader title='verified courses' count={verifiedCourseInstances.length} icon='book' />
       </Menu.Item>),
       render: () => (
         <Tab.Pane key="Verified-Courses-pane">

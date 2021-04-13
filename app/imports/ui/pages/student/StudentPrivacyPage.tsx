@@ -47,6 +47,7 @@ const StudentPrivacyPage: React.FC<StudentPrivacyPageProps> = ({ profile }) => {
   // this useEffect is used to get the public profile data once when the page is first rendered.
   useEffect(() => {
     function fetchData() {
+      // console.log('check for infinite loop');
       getPublicProfileData.callPromise({ username: profile.username })
         .then(result => setData(result))
         .catch(error => {
@@ -60,7 +61,7 @@ const StudentPrivacyPage: React.FC<StudentPrivacyPageProps> = ({ profile }) => {
       fetchData();
       setFetched(true);
     }
-  });
+  }, [fetched, profile.username]);
   // checkboxState is an object containing booleans to indicate which fields are public, and thus which checkboxes should be checked.
   // It's initialized from the profile, then updated by the onClick handler (handleCheckboxChange).
   const [checkboxState, setCheckboxState] = useState<CheckboxState>({

@@ -10,21 +10,18 @@ Here are the terms and conditions for using RadGrad.
 
 /** See https://www.radgrad.org/docs/developers/patterns/components-methods for documentation. */
 const StudentTermsAndConditionsPage: React.FC = () => {
-  const awaitingTerms = 'Waiting to receive terms and conditions from server...';
   const [terms, setTerms] = useState('');
-  useEffect(() => {
-    function fetchTerms() {
-      getTermsAndConditions.callPromise({})
-        .then(result => setTerms(result))
-        .catch(error => setTerms(`Server Error: ${error}`));
-    }
-    // Only fetch terms if they haven't been fetched before.
-    terms || fetchTerms();
-  });
+  const fetchTerms = () => {
+    // console.log('check for infinite loop');
+    getTermsAndConditions.callPromise({})
+      .then(result => setTerms(result))
+      .catch(error => setTerms(`Server Error: ${error}`));
+  };
+  useEffect(() => { fetchTerms(); }, [terms]);
 
   return (
     <PageLayout id="student-terms-and-conditions-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
-      <ReactMarkdownWithHtml linkTarget="_blank" allowDangerousHtml source={terms || awaitingTerms}/>
+      <ReactMarkdownWithHtml linkTarget="_blank" allowDangerousHtml source={terms}/>
     </PageLayout>
   );
 };
