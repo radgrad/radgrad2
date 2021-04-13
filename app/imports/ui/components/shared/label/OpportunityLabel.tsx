@@ -13,7 +13,7 @@ import { ProfileOpportunities } from '../../../../api/user/profile-entries/Profi
  * @param userID Optional userID. If provided, then Label will colored if present in the user's profile.
  * @param size Optional size. Defaults to 'Large'.
  */
-const OpportunityLabel: React.FC<EntityLabelPublicProps> = ({ slug, userID, size, style }) => {
+const OpportunityLabel: React.FC<EntityLabelPublicProps> = ({ slug, userID, size, style, rightside }) => {
   let inProfile = false;
   const match = useRouteMatch();
   const route = Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${slug}`);
@@ -26,7 +26,7 @@ const OpportunityLabel: React.FC<EntityLabelPublicProps> = ({ slug, userID, size
   }
   return (
     <EntityLabel slug={slug} inProfile={inProfile} icon='lightbulb outline' name={name} route={route} size={size}
-                 style={style} />
+                 style={style} rightside={rightside}/>
   );
 };
 

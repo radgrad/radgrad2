@@ -23,15 +23,15 @@ const MostPopular: React.FC<MostPopularProps> = ({ type, data }) => {
   if (type === MOSTPOPULAR.CAREERGOAL) {
     icon = 'briefcase';
     title = 'Popular Careers';
-    labels = data && data.map(pair => <div key={pair[0]}><CareerGoalLabel slug={pair[0]}/></div>);
+    labels = data && data.map(pair => <div key={pair[0]}><CareerGoalLabel slug={pair[0]} rightside={` (${pair[1]})`}/></div>);
   } else if (type === MOSTPOPULAR.INTEREST) {
     icon = 'heart outline';
     title = 'Popular Interests';
-    labels = data && data.map(pair => <div key={pair[0]}><InterestLabel slug={pair[0]}/></div>);
+    labels = data && data.map(pair => <div key={pair[0]}><InterestLabel slug={pair[0]} rightside={` (${pair[1]})`}/></div>);
   } else if (type === MOSTPOPULAR.OPPORTUNITY) {
     icon = 'lightbulb outline';
     title = 'Popular Opportunities';
-    labels = data && data.map(pair => <div key={pair[0]}><OpportunityLabel slug={pair[0]} /></div>);
+    labels = data && data.map(pair => <div key={pair[0]}><OpportunityLabel slug={pair[0]} rightside={` (${pair[1]})`}/></div>);
   }
   const header = <RadGradHeader title={title} icon={icon} />;
   return (

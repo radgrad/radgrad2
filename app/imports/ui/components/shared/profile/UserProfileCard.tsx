@@ -14,7 +14,7 @@ const UserProfileCard: React.FC<UserProfileCardProps> = ({ username, fluid = tru
   const [data, setData] = useState<PublicProfileData>({});
   const [fetched, setFetched] = useState(false);
   useEffect(() => {
-    console.log('check for infinite loop');
+    // console.log('check for infinite loop');
     function fetchData() {
       getPublicProfileData.callPromise({ username })
         .then(result => setData(result))

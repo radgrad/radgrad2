@@ -13,7 +13,7 @@ import { ProfileInterests } from '../../../../api/user/profile-entries/ProfileIn
  * @param userID Optional userID. If provided, then Label will colored if present in the user's profile.
  * @param size Optional size. Defaults to 'Large'.
  */
-const InterestLabel: React.FC<EntityLabelPublicProps> = ({ slug, userID, size, style }) => {
+const InterestLabel: React.FC<EntityLabelPublicProps> = ({ slug, userID, size, style, rightside }) => {
   let inProfile = false;
   const match = useRouteMatch();
   const route = Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.INTERESTS}/${slug}`);
@@ -25,7 +25,7 @@ const InterestLabel: React.FC<EntityLabelPublicProps> = ({ slug, userID, size, s
     inProfile = _.includes(profileEntityIDs.map(doc => doc.interestID), id);
   }
   return (
-    <EntityLabel key={slug} slug={slug} inProfile={inProfile} icon='heart outline' name={name} route={route} size={size} style={style}/>
+    <EntityLabel key={slug} slug={slug} inProfile={inProfile} icon='heart outline' name={name} route={route} size={size} style={style} rightside={rightside} />
   );
 };
 

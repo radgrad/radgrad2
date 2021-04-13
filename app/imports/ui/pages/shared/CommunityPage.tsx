@@ -21,7 +21,7 @@ const CommunityPage: React.FC = () => {
   // this useEffect is used to get theMostPopular data once when the page is first rendered.
   useEffect(() => {
     function fetchData() {
-      getMostPopular.callPromise({ })
+      getMostPopular.callPromise({})
         .then(result => setData(result))
         .catch(error => {
           console.error(error);
@@ -38,20 +38,20 @@ const CommunityPage: React.FC = () => {
   return (
     <PageLayout id="community-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
       <Grid stackable>
-        <Grid.Row>
-          <Grid.Column width={16}>
+        <Grid.Row columns={1}>
+          <Grid.Column>
             <LevelDistribution />
           </Grid.Column>
         </Grid.Row>
-        <Grid.Row>
-          <Grid.Column width={5}>
-            <MostPopular type={MOSTPOPULAR.CAREERGOAL} data={data.careergoals && data.careergoals.slice(0, 5)}/>
+        <Grid.Row columns={3}>
+          <Grid.Column>
+            <MostPopular type={MOSTPOPULAR.CAREERGOAL} data={data.careergoals && data.careergoals.slice(0, 5)} />
           </Grid.Column>
-          <Grid.Column width={5}>
-            <MostPopular type={MOSTPOPULAR.INTEREST} data={data.careergoals && data.interests.slice(0, 5)}/>
+          <Grid.Column>
+            <MostPopular type={MOSTPOPULAR.INTEREST} data={data.careergoals && data.interests.slice(0, 5)} />
           </Grid.Column>
-          <Grid.Column width={6}>
-            <MostPopular type={MOSTPOPULAR.OPPORTUNITY} data={data.opportunities && data.opportunities.slice(0, 5)}/>
+          <Grid.Column>
+            <MostPopular type={MOSTPOPULAR.OPPORTUNITY} data={data.opportunities && data.opportunities.slice(0, 5)} />
           </Grid.Column>
         </Grid.Row>
         <Grid.Column width={10}>

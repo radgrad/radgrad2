@@ -6,7 +6,7 @@ const CommunityActivity: React.FC = () => {
   const header = <RadGradHeader title='Community Activity' icon='calendar alternate outline' />;
   return (
     <RadGradSegment header={header}>
-      A feed of changes among users of RadGrad and other entities in the system.
+      To be implemented: A feed of changes among users of RadGrad and other entities in the system.
     </RadGradSegment>
   );
 };
