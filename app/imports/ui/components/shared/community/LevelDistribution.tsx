@@ -18,7 +18,7 @@ const makeStatistic = (levelNum, levelName, numStudents) => (
 )
 
 const LevelDistribution: React.FC = () => {
-  const header = <RadGradHeader title='Radgrad Students' icon='graduation cap' />;
+  const header = <RadGradHeader title='Students by level' icon='graduation cap' />;
 
   return (
     <RadGradSegment header={header}>
@@ -33,7 +33,7 @@ const LevelDistribution: React.FC = () => {
           {makeStatistic(3, 'Three', 34)}
         </Grid.Column>
         <Grid.Column>
-          {makeStatistic(4, 'Four', 12}
+          {makeStatistic(4, 'Four', 12)}
         </Grid.Column>
         <Grid.Column>
           {makeStatistic(5, 'Five', 4)}
