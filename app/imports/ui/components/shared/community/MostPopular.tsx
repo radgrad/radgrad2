@@ -22,7 +22,7 @@ const MostPopular: React.FC<MostPopularProps> = ({ type, data }) => {
   let labels;
   if (type === MOSTPOPULAR.CAREERGOAL) {
     icon = 'briefcase';
-    title = 'Most Popular Career Goals';
+    title = 'Most Popular Careers';
     labels = data && data.map(pair => <div key={pair[0]}><CareerGoalLabel slug={pair[0]}/></div>);
   } else if (type === MOSTPOPULAR.INTEREST) {
     icon = 'heart outline';
