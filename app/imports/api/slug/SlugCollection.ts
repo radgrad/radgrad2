@@ -10,14 +10,16 @@ import { SlugDefine } from '../../typings/radgrad';
  * @return {string}
  * @memberOf api/slug
  */
-export default function slugify(text) {
-  return text.toString().toLowerCase()
+const slugify = (text: string): string =>
+  text.toString().toLowerCase()
     .replace(/\s+/g, '-') // Replace spaces with -
     .replace(/[^\w-]+/g, '') // Remove all non-word chars
     .replace(/--+/g, '-') // Replace multiple - with single -
     .replace(/^-+/, '') // Trim - from start of text
-    .replace(/-+$/, ''); // Trim - from end of text
-}
+    .replace(/-+$/, '') // Trim - from end of text
+;
+// TODO why are we export default the function?
+export default slugify;
 
 /**
  * Slugs are unique strings that can be used to identify entities and can be used in URLs.
@@ -140,6 +142,7 @@ class SlugCollection extends BaseCollection {
    * @param { String | Object } docOrID A document or docID in this collection.
    */
   public removeIt(docOrID: string | { [key: string]: unknown }) {
+    // console.log('Slugs.removeIt', docOrID);
     return super.removeIt(docOrID);
   }
 

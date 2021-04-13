@@ -48,9 +48,7 @@ export const gradeCompetency: { A: number; B: number; C: number; } = {
  * @returns {boolean} True if all fields are present and are numbers.
  * @memberOf api/ice
  */
-export function isICE(obj: Ice): boolean {
-  return (((typeof obj) === 'object') && Number.isInteger(obj.i) && Number.isInteger(obj.c) && Number.isInteger(obj.e));
-}
+export const isICE = (obj: Ice): boolean => (((typeof obj) === 'object') && Number.isInteger(obj.i) && Number.isInteger(obj.c) && Number.isInteger(obj.e));
 
 /**
  * Throws error if obj is not an ICE object.
@@ -58,11 +56,11 @@ export function isICE(obj: Ice): boolean {
  * @throws { Meteor.Error } If obj is not ICE.
  * @memberOf api/ice
  */
-export function assertICE(obj) {
+export const assertICE = (obj) => {
   if ((obj === null) || (typeof obj !== 'object') || !(isICE(obj))) {
     throw new Meteor.Error(`${obj} was not an ICE object.`);
   }
-}
+};
 
 /**
  * Returns an ICE object based upon the course slug and the passed grade.
@@ -76,7 +74,7 @@ export function assertICE(obj) {
  * @returns {{i: number, c: number, e: number}} The ICE object.
  * @memberOf api/ice
  */
-export function makeCourseICE(course, grade) {
+export const makeCourseICE = (course: string, grade: string): Ice => {
   const i = 0;
   let c = 0;
   const e = 0;
@@ -92,7 +90,7 @@ export function makeCourseICE(course, grade) {
     c = gradeCompetency.A;
   }
   return { i, c, e };
-}
+};
 
 /**
  * Returns an ICE object that represents the earned ICE points from the passed Course\Opportunity Instance Documents.
@@ -101,7 +99,7 @@ export function makeCourseICE(course, grade) {
  * @returns {{i: number, c: number, e: number}} The ICE object.
  * @memberOf api/ice
  */
-export function getEarnedICE(docs) {
+export const getEarnedICE = (docs): Ice => {
   const total = { i: 0, c: 0, e: 0 };
   docs.forEach((instance) => {
     if (!(isICE(instance.ice))) {
@@ -115,7 +113,7 @@ export function getEarnedICE(docs) {
     return null;
   });
   return total;
-}
+};
 
 /**
  * Returns an ICE object that represents the total ICE points from the passed Course/Opportunity Instance Documents.
@@ -124,7 +122,7 @@ export function getEarnedICE(docs) {
  * @returns {{i: number, c: number, e: number}} The ICE object.
  * @memberOf api/ice
  */
-export function getProjectedICE(docs) {
+export const getProjectedICE = (docs): Ice => {
   const total = { i: 0, c: 0, e: 0 };
   docs.forEach((instance) => {
     if (!(isICE(instance.ice))) {
@@ -136,4 +134,4 @@ export function getProjectedICE(docs) {
     return null;
   });
   return total;
-}
+};

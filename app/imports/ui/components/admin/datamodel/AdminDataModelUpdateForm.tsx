@@ -7,13 +7,12 @@ import BaseCollection from '../../../../api/base/BaseCollection';
 interface AdminDataModelUpdateFormProps {
   collection: BaseCollection;
   id: string;
-  formRef: React.RefObject<unknown>;
   handleUpdate: (doc) => any;
   handleCancel: (event) => any;
   itemTitleString: (item) => React.ReactNode;
 }
 
-const AdminDataModelUpdateForm: React.FC<AdminDataModelUpdateFormProps> = ({ collection, id, formRef, handleCancel, handleUpdate, itemTitleString }) => {
+const AdminDataModelUpdateForm: React.FC<AdminDataModelUpdateFormProps> = ({ collection, id, handleCancel, handleUpdate, itemTitleString }) => {
   const model = id ? collection.findDoc(id) : undefined;
   return (
     <Segment padded>
@@ -21,11 +20,11 @@ const AdminDataModelUpdateForm: React.FC<AdminDataModelUpdateFormProps> = ({ col
         Update
         {collection.getType()}:{itemTitleString(model)}
       </Header>
-      <AutoForm ref={formRef} schema={new SimpleSchema2Bridge(collection.getUpdateSchema())} model={model} onSubmit={handleUpdate}>
+      <AutoForm schema={new SimpleSchema2Bridge(collection.getUpdateSchema())} model={model} onSubmit={handleUpdate}>
         <AutoFields autoField={undefined} element={undefined} fields={undefined} omitFields={undefined} />
         <p />
-        <SubmitField className="" inputRef={undefined} disabled={false} value={undefined} />
-        <Button onClick={handleCancel}>Cancel</Button>
+        <SubmitField className="mini basic green" inputRef={undefined} disabled={false} value="Update" />
+        <Button onClick={handleCancel} basic color="green" size="mini">Cancel</Button>
       </AutoForm>
     </Segment>
   );

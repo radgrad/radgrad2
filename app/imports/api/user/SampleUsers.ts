@@ -6,7 +6,7 @@ import { FacultyProfiles } from './FacultyProfileCollection';
 import { ROLE } from '../role/Role';
 import { Users } from './UserCollection';
 
-function makeSampleStudent() {
+const makeSampleStudent = () => {
   const username = `student.${new Date().getTime()}.${faker.internet.email()}`;
   const firstName = faker.name.firstName();
   const lastName = faker.name.lastName();
@@ -21,9 +21,9 @@ function makeSampleStudent() {
     careerGoals, level, declaredAcademicTerm,
   });
   return StudentProfiles.getUserID(profileID);
-}
+};
 
-function makeSampleAdvisor() {
+const makeSampleAdvisor = () => {
   const username = `advisor.${new Date().getTime()}.${faker.internet.email()}`;
   const firstName = faker.name.firstName();
   const lastName = faker.name.lastName();
@@ -33,9 +33,9 @@ function makeSampleAdvisor() {
   const careerGoals = [];
   const profileID = AdvisorProfiles.define({ username, firstName, lastName, picture, website, interests, careerGoals });
   return AdvisorProfiles.getUserID(profileID);
-}
+};
 
-function makeSampleFaculty() {
+const makeSampleFaculty = () => {
   const username = `faculty.${new Date().getTime()}.${faker.internet.email()}`;
   const firstName = faker.name.firstName();
   const lastName = faker.name.lastName();
@@ -45,7 +45,7 @@ function makeSampleFaculty() {
   const careerGoals = [];
   const profileID = FacultyProfiles.define({ username, firstName, lastName, picture, website, interests, careerGoals });
   return FacultyProfiles.getUserID(profileID);
-}
+};
 
 /**
  * Creates a User based upon the specified role.
@@ -53,7 +53,7 @@ function makeSampleFaculty() {
  * @returns { String } The docID of the newly generated User.
  * @memberOf api/user
  */
-export function makeSampleUser(role: string = ROLE.STUDENT) {
+export const makeSampleUser = (role: string = ROLE.STUDENT) => {
   if (role === ROLE.STUDENT) {
     return makeSampleStudent();
   }
@@ -64,7 +64,7 @@ export function makeSampleUser(role: string = ROLE.STUDENT) {
     return makeSampleAdvisor();
   }
   throw new Meteor.Error(`Unexpected role: ${role}`);
-}
+};
 
 /**
  * Returns an array of defined usernames.
@@ -72,10 +72,10 @@ export function makeSampleUser(role: string = ROLE.STUDENT) {
  * @param role the Role of the users. Defaults to STUDENT.
  * @return an array of defined usernames.
  */
-export function makeSampleUserArray(num = 1, role: string = ROLE.STUDENT) {
+export const makeSampleUserArray = (num = 1, role: string = ROLE.STUDENT) => {
   const retVal = [];
   for (let i = 0; i < num; i++) {
     retVal.push(Users.getProfile(makeSampleUser(role)).username);
   }
   return retVal;
-}
+};

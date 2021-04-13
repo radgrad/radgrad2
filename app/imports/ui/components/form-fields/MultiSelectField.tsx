@@ -2,12 +2,11 @@ import React from 'react';
 import classnames from 'classnames';
 import { connectField, filterDOMProps } from 'uniforms';
 import { Dropdown } from 'semantic-ui-react';
-import _ from 'lodash';
 
 /* eslint react/prop-types: 0 */
 const renderDropdown = ({ allowedValues, disabled, placeholder, onChange, transform, value }) => {
   // console.log('renderMultiSelect value=%o allowedValues=%o', value, allowedValues);
-  const options = _.map(allowedValues, (val, index) => ({
+  const options = allowedValues.map((val, index) => ({
     key: index,
     text: transform ? transform(val) : val,
     value: val,

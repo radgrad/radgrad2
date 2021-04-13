@@ -1,8 +1,8 @@
 import React from 'react';
-import {NavLink, useRouteMatch} from 'react-router-dom';
+import { NavLink, useRouteMatch } from 'react-router-dom';
 import { Menu } from 'semantic-ui-react';
-import {StudentProfiles} from '../../../api/user/StudentProfileCollection';
-import {StudentProfile} from '../../../typings/radgrad';
+import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
+import { StudentProfile } from '../../../typings/radgrad';
 import {
   DEGREEPLANNER,
   EXPLORER,
@@ -16,7 +16,7 @@ import {
   URL_ROLES,
 } from '../../layouts/utilities/route-constants';
 import FirstMenu from '../shared/FirstMenu';
-import {getUsername} from '../shared/utilities/router';
+import { getUsername } from '../shared/utilities/router';
 
 const StudentPageMenu: React.FC = () => {
   const match = useRouteMatch();
@@ -42,7 +42,7 @@ const StudentPageMenu: React.FC = () => {
   return (
     <div>
       <FirstMenu profile={profile} displayLevelAndIce earnedICE={earnedIce} projectedICE={projectedIce} instanceName={instanceName} />
-      <Menu borderless inverted stackable id="secondMenu" attached="top" style={{paddingLeft: '10px', marginTop: '0px'}}>
+      <Menu borderless inverted stackable id="secondMenu" attached="top" style={{ paddingLeft: '10px', marginTop: '0px' }}>
         {menuItems.map(item => <Menu.Item key={item.label} id={`student-menu-${item.label.toLowerCase()}`} as={NavLink} exact to={item.to}>{item.label}</Menu.Item>)}
       </Menu>
     </div>

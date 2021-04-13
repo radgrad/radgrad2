@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import _ from 'lodash';
+import moment from 'moment';
 import BaseCollection from '../base/BaseCollection';
 import { CareerGoals } from '../career/CareerGoalCollection';
 import { Courses } from '../course/CourseCollection';
@@ -135,7 +136,7 @@ class PublicStatsCollection extends BaseCollection {
 
   public careerGoalsList() {
     const goals = CareerGoals.findNonRetired();
-    const names = _.map(goals, 'name');
+    const names = goals.map((goal) => goal.name);
     this.collection.upsert({ key: this.careerGoalsListKey }, { $set: { value: names.join(', ') } });
   }
 
@@ -159,7 +160,7 @@ class PublicStatsCollection extends BaseCollection {
 
   public interestsList() {
     const interests = Interests.findNonRetired();
-    const names = _.map(interests, 'name');
+    const names = interests.map((interest) => interest.name);
     this.collection.upsert({ key: this.interestsListKey }, { $set: { value: names.join(', ') } });
   }
 
@@ -181,7 +182,7 @@ class PublicStatsCollection extends BaseCollection {
   public opportunitiesProjectsList() {
     const projectType = OpportunityTypes.findDoc({ name: 'Project' });
     const projects = Opportunities.findNonRetired({ opportunityTypeID: projectType._id });
-    const names = _.map(projects, 'name');
+    const names = projects.map((project) => project.name);
     this.collection.upsert({ key: this.opportunitiesProjectsListKey }, { $set: { value: names.join(', ') } });
   }
 
@@ -241,7 +242,7 @@ class PublicStatsCollection extends BaseCollection {
   public courseReviewsCourses() {
     const courseReviews = Reviews.findNonRetired({ reviewType: 'course' });
     let courseNumbers = [];
-    _.forEach(courseReviews, (review) => {
+    courseReviews.forEach((review) => {
       const course = Courses.findDoc(review.revieweeID);
       courseNumbers.push(course.num);
     });
@@ -256,7 +257,7 @@ class PublicStatsCollection extends BaseCollection {
       // CAM We have to do this.
       // eslint-disable-next-line @typescript-eslint/no-this-alias
       const instance = this;
-      _.forEach(this.stats, (key) => instance[key]());
+      this.stats.forEach((key) => instance[key]());
     }
   }
 
@@ -279,6 +280,14 @@ class PublicStatsCollection extends BaseCollection {
    */
   public checkIntegrity() {
     return [];
+  }
+
+  /**
+   * Returns a date object corresponding to the passed key, which should be one of the lastUpdate fields in YYYY-MM-DD-HH-mm-ss.
+   * @param key Should be PublicStats.opportunitiesUpdateTime etc.
+   */
+  public getLastUpdateTimestamp(key: string) {
+    return moment(PublicStats.getPublicStat(key), 'YYYY-MM-DD-HH-mm-ss');
   }
 }
 

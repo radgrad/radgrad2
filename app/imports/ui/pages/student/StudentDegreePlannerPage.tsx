@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
 import { useParams } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
-import _ from 'lodash';
 import DegreeExperiencePlannerWidget from '../../components/student/degree-planner/DegreeExperiencePlannerWidget';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
@@ -126,7 +125,7 @@ const onDragEnd = (onDragEndProps) => (result) => {
           if (!instanceExists) {
             interactionData = {
               username: student,
-              type: UserInteractionsTypes.ADDCOURSE,
+              type: UserInteractionsTypes.ADD_COURSE,
               typeData: [academicTermSplit[0], academicTermSplit[1], slug],
             };
             userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
@@ -168,7 +167,7 @@ const onDragEnd = (onDragEndProps) => (result) => {
             selectCourseInstance(slug);
             interactionData = {
               username: student,
-              type: UserInteractionsTypes.UPDATECOURSE,
+              type: UserInteractionsTypes.UPDATE_COURSE,
               typeData: [academicTermSplit[0], academicTermSplit[1], CourseInstances.getCourseSlug(slug)],
             };
             userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
@@ -210,7 +209,7 @@ const onDragEnd = (onDragEndProps) => (result) => {
         if (!instanceExists) {
           interactionData = {
             username: student,
-            type: UserInteractionsTypes.ADDOPPORTUNITY,
+            type: UserInteractionsTypes.ADD_OPPORTUNITY,
             typeData: [academicTermSplit[0], academicTermSplit[1], slug],
           };
           userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
@@ -234,7 +233,7 @@ const onDragEnd = (onDragEndProps) => (result) => {
         selectOpportunityInstance(slug);
         interactionData = {
           username: student,
-          type: UserInteractionsTypes.UPDATEOPPORTUNITY,
+          type: UserInteractionsTypes.UPDATE_OPPORTUNITY,
           typeData: [academicTermSplit[0], academicTermSplit[1], OpportunityInstances.getOpportunitySlug(slug)],
         };
         userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
@@ -287,6 +286,7 @@ const StudentDegreePlannerPage: React.FC<StudentDegreePlannerProps> = ({
             </Grid.Column>
 
             <Grid.Column width={6} style={paddedStyle}>
+              {/* @ts-ignore */}
               <TabbedProfileEntries
                 takenSlugs={takenSlugs}
                 opportunities={opportunities}
@@ -305,8 +305,8 @@ const StudentDegreePlannerPage: React.FC<StudentDegreePlannerProps> = ({
 };
 
 const takenSlugs = (courseInstances: CourseInstance[]): string[] => {
-  const passedCourseInstances = _.filter(courseInstances, (ci) => passedCourse(ci));
-  return _.map(passedCourseInstances, (ci) => {
+  const passedCourseInstances = courseInstances.filter((ci) => passedCourse(ci));
+  return passedCourseInstances.map((ci) => {
     const doc = CourseInstances.getCourseDoc(ci._id);
     return Slugs.getNameFromID(doc.slugID);
   });
@@ -319,9 +319,9 @@ export default withTracker(() => {
   const profile = Users.getProfile(username);
   const studentID = profile.userID;
   const profileOpportunities = ProfileOpportunities.findNonRetired({ studentID });
-  const opportunities = _.map(profileOpportunities, (f) => Opportunities.findDoc(f.opportunityID));
+  const opportunities = profileOpportunities.map((f) => Opportunities.findDoc(f.opportunityID));
   const profileCourses = ProfileCourses.findNonRetired({ studentID });
-  const courses = _.map(profileCourses, (f) => Courses.findDoc(f.courseID));
+  const courses = profileCourses.map((f) => Courses.findDoc(f.courseID));
   const academicYearInstances: AcademicYearInstance[] = AcademicYearInstances.findNonRetired({ studentID }, { sort: { year: 1 } });
   const courseInstances = CourseInstances.findNonRetired({ studentID: profile.userID });
   const opportunityInstances = OpportunityInstances.findNonRetired({ studentID: profile.userID });

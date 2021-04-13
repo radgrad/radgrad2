@@ -9,7 +9,6 @@ import { RadGradProperties } from '../../api/radgrad/RadGradProperties';
 import { loadCollection } from '../../api/test/test-utilities';
 import { removeAllEntities } from '../../api/base/BaseUtilities';
 import { checkIntegrity } from '../../api/integrity/IntegrityChecker';
-import { StudentParticipations } from '../../api/public-stats/StudentParticipationCollection';
 import { AdminProfiles } from '../../api/user/AdminProfileCollection';
 import { updateFactoids } from './factoids';
 
@@ -21,14 +20,14 @@ import { updateFactoids } from './factoids';
  * @returns { Array } An array of collection document counts.
  * @memberOf startup/server
  */
-const documentCounts = () => _.map(RadGrad.collectionLoadSequence, (collection) => collection.count());
+const documentCounts = () => RadGrad.collectionLoadSequence.map((collection) => collection.count());
 
 /**
  * Returns the total number of documents in the loadable collections.
  * @returns { Number } The total number of RadGrad documents in the loadable collections.
  * @memberOf startup/server
  */
-const totalDocuments = () => _.reduce(documentCounts(), (sum, count) => sum + count, 0);
+const totalDocuments = () => documentCounts().reduce((sum, count) => sum + count, 0);
 
 /**
  * The load/fixture file date format.
@@ -67,8 +66,8 @@ const loadDatabase = () => {
     // The list of collections, ordered so that they can be sequentially restored.
     const collectionList = RadGrad.collectionLoadSequence;
 
-    const loadNames = _.map(loadJSON.collections, (obj) => obj.name);
-    const collectionNames = _.map(collectionList, (collection) => collection.getCollectionName());
+    const loadNames = loadJSON.collections.map((obj) => obj.name);
+    const collectionNames = collectionList.map((collection) => collection.getCollectionName());
     const extraRestoreNames = _.difference(loadNames, collectionNames);
     const extraCollectionNames = _.difference(collectionNames, loadNames);
 
@@ -80,7 +79,7 @@ const loadDatabase = () => {
     }
 
     if (!extraRestoreNames.length && !extraCollectionNames.length) {
-      _.each(collectionList, (collection) => loadCollection(collection, loadJSON, true));
+      collectionList.forEach((collection) => loadCollection(collection, loadJSON, true));
     }
     const loadTimeString = loadFileName.substring(loadFileName.lastIndexOf('/') + 1, loadFileName.indexOf('.'));
     // console.log(loadTimeString);
@@ -107,19 +106,6 @@ const startupPublicStats = () => {
     },
     job() {
       PublicStats.generateStats();
-    },
-  });
-};
-
-const startupStudentParticipation = () => { // eslint-disable-line @typescript-eslint/no-unused-vars
-  StudentParticipations.upsertEnrollmentData();
-  SyncedCron.add({
-    name: 'Run StudentParticipations.upsertEnrollmentData',
-    schedule(parser) {
-      return parser.text('every 24 hours');
-    },
-    job() {
-      StudentParticipations.upsertEnrollmentData();
     },
   });
 };
@@ -174,8 +160,6 @@ Meteor.startup(() => {
     // startupCheckIntegrity();
     console.log('Startup: Starting up public stats.');
     startupPublicStats();
-    console.log('Startup: Starting up student participation.');
-    startupStudentParticipation();
     console.log('Startup: Updating factoids.');
     updateFactoids();
     SyncedCron.start();

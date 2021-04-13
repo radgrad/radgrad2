@@ -1,7 +1,6 @@
 import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
 import { Confirm, Icon } from 'semantic-ui-react';
-import Swal from 'sweetalert2';
 import _ from 'lodash';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { Courses } from '../../../api/course/CourseCollection';
@@ -9,13 +8,19 @@ import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import { CareerGoal, Course, DescriptionPair, Interest, Opportunity, Teaser } from '../../../typings/radgrad';
-import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
+import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
-import { getDatamodelCount, makeYoutubeLink } from './utilities/datamodel';
+import {
+  handleCancelWrapper,
+  handleConfirmDeleteWrapper,
+  handleDeleteWrapper, handleOpenUpdateWrapper,
+  updateCallBack,
+} from './utilities/data-model-page-callbacks';
+import { makeYoutubeLink } from './utilities/datamodel';
 import AddTeaserForm from '../../components/admin/datamodel/teaser/AddTeaserForm';
 import UpdateTeaserForm from '../../components/admin/datamodel/teaser/UpdateTeasersForm';
-import { itemToSlugName, interestNameToSlug, slugNameAndTypeToName } from '../../components/shared/utilities/data-model';
+import { itemToSlugName, interestNameToSlug } from '../../components/shared/utilities/data-model';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import PageLayout from '../PageLayout';
 
@@ -65,115 +70,25 @@ interface AdminDataModelTeasersPageProps {
   opportunities: Opportunity[];
 }
 
-// props not deconstructed because AdminDataModeMenuProps has 21 numbers.
-const AdminDataModelTeasersPage: React.FC<AdminDataModelTeasersPageProps> = (props) => {
-  const formRef = React.createRef();
+const AdminDataModelTeasersPage: React.FC<AdminDataModelTeasersPageProps> = ({ items, careerGoals, courses, interests, opportunities }) => {
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');
   const [showUpdateFormState, setShowUpdateForm] = useState(false);
 
-  const handleAdd = (doc) => {
-    // console.log('Teasers.handleAdd(%o)', doc);
-    const collectionName = collection.getCollectionName();
-    const definitionData = doc;
-    definitionData.interests = _.map(doc.interests, interestNameToSlug);
-    definitionData.targetSlug = slugNameAndTypeToName(doc.targetSlug);
-    definitionData.url = doc.youtubeID;
-    // definitionData.opportunity = opportunityNameToSlug(doc.opportunity);
-    // console.log(collectionName, definitionData);
-    defineMethod.call({ collectionName, definitionData }, (error) => {
-      if (error) {
-        Swal.fire({
-          title: 'Add failed',
-          text: error.message,
-          icon: 'error',
-        });
-      } else {
-        Swal.fire({
-          title: 'Add succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      }
-      // @ts-ignore
-      formRef.current.reset();
-    });
-  };
-
-  const handleCancel = (event) => {
-    event.preventDefault();
-    setShowUpdateForm(false);
-    setId('');
-    setConfirmOpen(false);
-  };
-
-  const handleDelete = (event, inst) => {
-    event.preventDefault();
-    // console.log('handleDelete inst=%o', inst);
-    setConfirmOpen(true);
-    setId(inst.id);
-  };
-
-  const handleConfirmDelete = () => {
-    const collectionName = collection.getCollectionName();
-    const instance = idState;
-    removeItMethod.call({ collectionName, instance }, (error) => {
-      if (error) {
-        Swal.fire({
-          title: 'Delete failed',
-          text: error.message,
-          icon: 'error',
-        });
-        console.error('Error deleting. %o', error);
-      } else {
-        Swal.fire({
-          title: 'Delete succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      }
-      setShowUpdateForm(false);
-      setId('');
-      setConfirmOpen(false);
-    });
-  };
-
-  const handleOpenUpdate = (evt, inst) => {
-    evt.preventDefault();
-    // console.log('handleOpenUpdate inst=%o', evt, inst);
-    setShowUpdateForm(true);
-    setId(inst.id);
-  };
+  const handleCancel = handleCancelWrapper(setConfirmOpen, setId, setShowUpdateForm);
+  const handleConfirmDelete = handleConfirmDeleteWrapper(collection.getCollectionName(), idState, setShowUpdateForm, setId, setConfirmOpen);
+  const handleDelete = handleDeleteWrapper(setConfirmOpen, setId);
+  const handleOpenUpdate = handleOpenUpdateWrapper(setShowUpdateForm, setId);
 
   const handleUpdate = (doc) => {
     // console.log('Teasers.handleUpdate doc=%o', doc);
     const collectionName = collection.getCollectionName();
     const updateData = doc; // create the updateData object from the doc.
     updateData.id = doc._id;
-    updateData.interests = _.map(doc.interests, interestNameToSlug);
+    updateData.interests = doc.interests.map(interestNameToSlug);
     updateData.targetSlug = Slugs.findDoc(doc.targetSlugID).name;
     // console.log(collectionName, updateData);
-    updateMethod.call({ collectionName, updateData }, (error) => {
-      if (error) {
-        Swal.fire({
-          title: 'Update failed',
-          text: error.message,
-          icon: 'error',
-        });
-        console.error('Error in updating. %o', error);
-      } else {
-        Swal.fire({
-          title: 'Update succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        setShowUpdateForm(false);
-        setId('');
-      }
-    });
+    updateMethod.call({ collectionName, updateData }, updateCallBack(setShowUpdateForm, setId));
   };
 
   const findOptions = {
@@ -185,18 +100,17 @@ const AdminDataModelTeasersPage: React.FC<AdminDataModelTeasersPageProps> = (pro
         <UpdateTeaserForm
           collection={collection}
           id={idState}
-          formRef={formRef}
           handleUpdate={handleUpdate}
           handleCancel={handleCancel}
           itemTitleString={itemTitleString}
-          opportunities={props.opportunities}
-          courses={props.courses}
-          interests={props.interests}
-          careerGoals={props.careerGoals}
+          opportunities={opportunities}
+          courses={courses}
+          interests={interests}
+          careerGoals={careerGoals}
         />
       ) : (
-        <AddTeaserForm formRef={formRef} handleAdd={handleAdd} opportunities={props.opportunities}
-                       courses={props.courses} interests={props.interests} careerGoals={props.careerGoals}/>
+        <AddTeaserForm opportunities={opportunities}
+                       courses={courses} interests={interests} careerGoals={careerGoals}/>
       )}
       <ListCollectionWidget
         collection={collection}
@@ -207,7 +121,7 @@ const AdminDataModelTeasersPage: React.FC<AdminDataModelTeasersPageProps> = (pro
         handleDelete={handleDelete}
         setShowIndex={dataModelActions.setCollectionShowIndex}
         setShowCount={dataModelActions.setCollectionShowCount}
-        items={props.items}
+        items={items}
       />
 
       <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Teaser?"/>
@@ -221,9 +135,7 @@ const AdminDataModelTeasersPageContainer = withTracker(() => {
   const interests = Interests.find({}, { sort: { name: 1 } }).fetch();
   const opportunities = Opportunities.find({}, { sort: { name: 1 } }).fetch();
   const items = Teasers.find({}).fetch();
-  const modelCount = getDatamodelCount();
   return {
-    ...modelCount,
     items,
     careerGoals,
     courses,

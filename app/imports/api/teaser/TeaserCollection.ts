@@ -187,7 +187,7 @@ class TeaserCollection extends BaseSlugCollection {
       if (!Slugs.isDefined(doc.slugID)) {
         problems.push(`Bad slugID: ${doc.slugID}`);
       }
-      _.forEach(doc.interestIDs, (interestID) => {
+      doc.interestIDs.forEach((interestID) => {
         if (!Interests.isDefined(interestID)) {
           problems.push(`Bad interestID: ${interestID}`);
         }
@@ -229,7 +229,7 @@ class TeaserCollection extends BaseSlugCollection {
     const url = doc.url;
     const description = doc.description;
     const duration = doc.duration;
-    const interests = _.map(doc.interestIDs, (interestID) => Interests.findSlugByID(interestID));
+    const interests = doc.interestIDs.map((interestID) => Interests.findSlugByID(interestID));
     let targetSlug;
     if (doc.targetSlugID) {
       targetSlug = Slugs.getNameFromID(doc.targetSlugID);

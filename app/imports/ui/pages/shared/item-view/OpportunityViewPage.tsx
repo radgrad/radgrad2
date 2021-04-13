@@ -1,8 +1,7 @@
 import React from 'react';
 import { useParams, useRouteMatch } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Container, Grid } from 'semantic-ui-react';
-import _ from 'lodash';
+import { Grid } from 'semantic-ui-react';
 import { Reviews } from '../../../../api/review/ReviewCollection';
 import { Opportunity, Profile, Review } from '../../../../typings/radgrad';
 import { getMenuWidget } from '../utilities/getMenuWidget';
@@ -10,7 +9,8 @@ import { Users } from '../../../../api/user/UserCollection';
 import { ProfileOpportunities } from '../../../../api/user/profile-entries/ProfileOpportunityCollection';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
 import ExplorerMenu from '../../../components/shared/explorer/item-view/ExplorerMenu';
-import ExplorerOpportunityWidget from '../../../components/shared/explorer/item-view/opportunity/ExplorerOpportunityWidget';
+import ExplorerOpportunityWidget
+  from '../../../components/shared/explorer/item-view/opportunity/ExplorerOpportunityWidget';
 import { teaser } from '../../../components/shared/explorer/item-view/utilities/teaser';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import { OpportunityTypes } from '../../../../api/opportunity/OpportunityTypeCollection';
@@ -31,7 +31,7 @@ const opportunityType = (theOpp: Opportunity): string => {
 
 const academicTerms = (theOpp: Opportunity): string[] => {
   const termIDs = theOpp.termIDs;
-  return _.map(termIDs, (termID) => AcademicTerms.toString(termID));
+  return termIDs.map((termID) => AcademicTerms.toString(termID));
 };
 
 const sponsor = (theOpp: Opportunity): string => Users.getFullName(theOpp.sponsorID);
@@ -50,7 +50,7 @@ const descriptionPairsOpportunities = (theOpp: Opportunity): { label: string; va
 const isCompleted = (opportunityID: string, studentID: string): boolean => {
   const ois = OpportunityInstances.findNonRetired({ opportunityID, studentID });
   let completed = false;
-  _.forEach(ois, (oi) => {
+  ois.forEach((oi) => {
     if (oi.verified === true) {
       completed = true;
     }
@@ -58,31 +58,34 @@ const isCompleted = (opportunityID: string, studentID: string): boolean => {
   return completed;
 };
 
-const OpportunityViewPage: React.FC<OpportunityViewPageProps> = ({ profileOpportunities, itemReviews, opportunity, profile }) => {
+const OpportunityViewPage: React.FC<OpportunityViewPageProps> = ({
+  profileOpportunities,
+  itemReviews,
+  opportunity,
+  profile,
+}) => {
   const match = useRouteMatch();
-  const menuAddedList = _.map(profileOpportunities, (item) => ({
+  const menuAddedList = profileOpportunities.map((item) => ({
     item,
     count: 1,
   }));
   const descriptionPairs = descriptionPairsOpportunities(opportunity);
   const studentID = profile.userID;
   const completed = isCompleted(opportunity._id, studentID);
-  const pushDownStyle = { paddingTop: 15 };
   return (
     <div id="opportunity-view-page">
       {getMenuWidget(match)}
-      <Container style={pushDownStyle}>
-        <Grid stackable>
-          <Grid.Row>
-            <Grid.Column width={3}>
-              <ExplorerMenu menuAddedList={menuAddedList} type="opportunities" />
-            </Grid.Column>
-            <Grid.Column width={13}>
-              <ExplorerOpportunityWidget name={opportunity.name} descriptionPairs={descriptionPairs} item={opportunity} completed={completed} itemReviews={itemReviews} />
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </Container>
+      <Grid stackable>
+        <Grid.Row>
+          <Grid.Column width={3}>
+            <ExplorerMenu menuAddedList={menuAddedList} type="opportunities" />
+          </Grid.Column>
+          <Grid.Column width={13}>
+            <ExplorerOpportunityWidget name={opportunity.name} descriptionPairs={descriptionPairs} item={opportunity}
+                                       completed={completed} itemReviews={itemReviews} />
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
     </div>
   );
 };
@@ -91,7 +94,7 @@ const OpportunityViewPageContainer = withTracker(() => {
   const { opportunity, username } = useParams();
   const profile = Users.getProfile(username);
   const favOpps = ProfileOpportunities.findNonRetired({ studentID: profile.userID });
-  const profileOpportunities = _.map(favOpps, (f) => Opportunities.findDoc(f.opportunityID));
+  const profileOpportunities = favOpps.map((f) => Opportunities.findDoc(f.opportunityID));
   const opportunityDoc = Opportunities.findDocBySlug(opportunity);
   const itemReviews = Reviews.findNonRetired({ revieweeID: opportunityDoc._id });
   return {

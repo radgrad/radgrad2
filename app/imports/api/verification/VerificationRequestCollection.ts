@@ -11,13 +11,19 @@ import { Users } from '../user/UserCollection';
 import { Processed, VerificationRequestDefine, VerificationRequestUpdate } from '../../typings/radgrad';
 import { iceSchema } from '../ice/IceProcessor';
 
+export const VerificationRequestStatus = {
+  ACCEPTED: 'Accepted',
+  REJECTED: 'Rejected',
+  OPEN: 'Open',
+};
+
 /**
  * Schema for the processed information of VerificationRequests.
  * @memberOf api/verification
  */
 export const ProcessedSchema = new SimpleSchema({
   date: Date,
-  status: String,
+  status: { type: String, allowedValues: [VerificationRequestStatus.REJECTED, VerificationRequestStatus.ACCEPTED, VerificationRequestStatus.OPEN] },
   verifier: String,
   feedback: { type: String, optional: true },
 });
@@ -43,6 +49,7 @@ class VerificationRequestCollection extends BaseCollection {
     super('VerificationRequest', new SimpleSchema({
       studentID: SimpleSchema.RegEx.Id,
       opportunityInstanceID: SimpleSchema.RegEx.Id,
+      documentation: String,
       submittedOn: Date,
       status: String,
       processed: [ProcessedSchema],
@@ -55,6 +62,7 @@ class VerificationRequestCollection extends BaseCollection {
     this.defineSchema = new SimpleSchema({
       student: String,
       opportunityInstance: { type: String, optional: true },
+      documentation: String,
       submittedOn: { type: Date, optional: true },
       status: { type: String, optional: true, allowedValues: [this.REJECTED, this.ACCEPTED, this.OPEN] },
       academicTerm: { type: String, optional: true },
@@ -86,7 +94,7 @@ class VerificationRequestCollection extends BaseCollection {
    * or if verified is not a boolean.
    * @returns The newly created docID.
    */
-  public define({ student, opportunityInstance, submittedOn = moment().toDate(), status = this.OPEN, processed = [], academicTerm, opportunity, retired = false }: VerificationRequestDefine) {
+  public define({ student, opportunityInstance, submittedOn = moment().toDate(), status = this.OPEN, processed = [], academicTerm, opportunity, documentation, retired = false }: VerificationRequestDefine) {
     // console.log(student, opportunityInstance, submittedOn, status, processed, academicTerm, opportunity);
     const studentID = Users.getID(student);
     const oppInstance = opportunityInstance ? OpportunityInstances.findDoc(opportunityInstance) :
@@ -98,7 +106,7 @@ class VerificationRequestCollection extends BaseCollection {
     const ice = Opportunities.findDoc(oppInstance.opportunityID).ice;
     // Define and return the new VerificationRequest
     const requestID = this.collection.insert({
-      studentID, opportunityInstanceID, submittedOn, status, processed, ice, retired,
+      studentID, opportunityInstanceID, documentation, submittedOn, status, processed, ice, retired,
     });
     return requestID;
   }
@@ -326,8 +334,9 @@ class VerificationRequestCollection extends BaseCollection {
     const submittedOn = doc.submittedOn;
     const status = doc.status;
     const processed = doc.processed;
+    const documentation = doc.documentation;
     const retired = doc.retired;
-    return { student, academicTerm, opportunity, submittedOn, status, processed, retired };
+    return { student, academicTerm, opportunity, submittedOn, status, processed, documentation, retired };
   }
 
   /**

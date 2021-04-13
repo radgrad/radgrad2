@@ -1,7 +1,7 @@
 import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { SubsManager } from 'meteor/meteorhacks:subs-manager';
-import { Dimmer, Loader } from 'semantic-ui-react';
+import { Loader } from 'semantic-ui-react';
 import { AdminProfiles } from '../../../api/user/AdminProfileCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
@@ -18,10 +18,7 @@ import { Courses } from '../../../api/course/CourseCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';
-import { StudentParticipations } from '../../../api/public-stats/StudentParticipationCollection';
-// import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { Feeds } from '../../../api/feed/FeedCollection';
-// import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 
 interface Loading {
   loading: boolean;
@@ -32,16 +29,12 @@ interface Loading {
 const globalSubs = new SubsManager({ cacheLimit: 30, expireIn: 30 });
 
 const withGlobalSubscription = (WrappedComponent) => {
-  // console.log('withGlobalSubscriptionHOC');
-  const GlobalSubscription: React.FC<Loading> = (props) =>
-    (props.loading ? (
-      <React.Fragment>
-        <Dimmer active inverted>
-          <Loader>Loading global data</Loader>
-        </Dimmer>
-      </React.Fragment>
+  // console.log('withGlobalSubscriptionHOC', Meteor.user(), Meteor.userId(), Users.count());
+  const GlobalSubscription: React.FC<Loading> = ({ loading, ...rest }) =>
+    (loading ? (
+      <Loader active>Loading global data</Loader>
     ) : (
-      <WrappedComponent {...props} />
+      <WrappedComponent {...rest} />
     ));
 
   return withTracker(() => {
@@ -59,14 +52,13 @@ const withGlobalSubscription = (WrappedComponent) => {
       globalSubs.subscribe(OpportunityTypes.getPublicationName()),
       globalSubs.subscribe(PublicStats.getPublicationName()),
       globalSubs.subscribe(Reviews.getPublicationName()),
-      globalSubs.subscribe(StudentParticipations.getPublicationName()),
       globalSubs.subscribe(StudentProfiles.getCollectionName()),
       globalSubs.subscribe(Slugs.getPublicationName()),
       globalSubs.subscribe(Teasers.getPublicationName()),
       globalSubs.subscribe(Users.getPublicationName()),
     ];
     const loading = handles.some((handle) => !handle.ready());
-    // console.log('withGlobalSubscription', loading);
+    // console.log('withGlobalSubscription', loading, Meteor.user());
     return {
       loading,
     };

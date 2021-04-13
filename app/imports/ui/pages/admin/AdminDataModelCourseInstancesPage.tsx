@@ -1,21 +1,24 @@
 import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
 import { Confirm, Icon } from 'semantic-ui-react';
-import Swal from 'sweetalert2';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
-import { AcademicTerm, Course, CourseInstance, CourseInstanceDefine, DescriptionPair, StudentProfile } from '../../../typings/radgrad';
-import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
+import { AcademicTerm, Course, CourseInstance, DescriptionPair, StudentProfile } from '../../../typings/radgrad';
+import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { Courses } from '../../../api/course/CourseCollection';
 import { Users } from '../../../api/user/UserCollection';
 import AddCourseInstanceForm from '../../components/admin/datamodel/course/AddCourseInstanceForm';
-import { Slugs } from '../../../api/slug/SlugCollection';
-import { academicTermNameToDoc, courseNameToCourseDoc, profileNameToUsername } from '../../components/shared/utilities/data-model';
+import { academicTermNameToDoc } from '../../components/shared/utilities/data-model';
 import UpdateCourseInstanceForm from '../../components/admin/datamodel/course/UpdateCourseInstanceForm';
 import { dataModelActions } from '../../../redux/admin/data-model';
-import { getDatamodelCount } from './utilities/datamodel';
+import {
+  handleCancelWrapper,
+  handleConfirmDeleteWrapper,
+  handleDeleteWrapper, handleOpenUpdateWrapper,
+  updateCallBack,
+} from './utilities/data-model-page-callbacks';
 import PageLayout from '../PageLayout';
 
 const collection = CourseInstances;
@@ -67,95 +70,15 @@ interface AdminDataModelCourseInstancesPageProps {
   students: StudentProfile[];
 }
 
-// props not deconstructed because AdminDataModeMenuProps has 21 numbers.
-const AdminDataModelCourseInstancesPage: React.FC<AdminDataModelCourseInstancesPageProps> = (props) => {
-  // TODO deconstruct props
-  const formRef = React.createRef();
+const AdminDataModelCourseInstancesPage: React.FC<AdminDataModelCourseInstancesPageProps> = ({ items, terms, courses, students }) => {
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');
   const [showUpdateFormState, setShowUpdateForm] = useState(false);
 
-  const handleAdd = (doc) => {
-    // console.log('CourseInstancePage.handleAdd(%o)', doc);
-    const collectionName = collection.getCollectionName();
-    const academicTermDoc = academicTermNameToDoc(doc.term);
-    const academicTerm = Slugs.getNameFromID(academicTermDoc.slugID);
-    const note = doc.course.substring(0, doc.course.indexOf(':'));
-    const courseDoc = courseNameToCourseDoc(doc.course);
-    const course = Slugs.getNameFromID(courseDoc.slugID);
-    const student = profileNameToUsername(doc.student);
-    const definitionData: CourseInstanceDefine = {
-      academicTerm,
-      course,
-      note,
-      student,
-      grade: doc.grade,
-    };
-    // console.log('definitionData=%o', definitionData);
-    defineMethod.call({ collectionName, definitionData }, (error) => {
-      if (error) {
-        Swal.fire({
-          title: 'Add failed',
-          text: error.message,
-          icon: 'error',
-        });
-      } else {
-        Swal.fire({
-          title: 'Add succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        // @ts-ignore
-        formRef.current.reset();
-      }
-    });
-  };
-
-  const handleCancel = (event) => {
-    event.preventDefault();
-    setShowUpdateForm(false);
-    setId('');
-    setConfirmOpen(false);
-  };
-
-  const handleDelete = (event, inst) => {
-    event.preventDefault();
-    // console.log('handleDelete inst=%o', inst);
-    setConfirmOpen(true);
-    setId(inst.id);
-  };
-
-  const handleConfirmDelete = () => {
-    const collectionName = collection.getCollectionName();
-    const instance = idState;
-    removeItMethod.call({ collectionName, instance }, (error) => {
-      if (error) {
-        Swal.fire({
-          title: 'Delete failed',
-          text: error.message,
-          icon: 'error',
-        });
-        console.error('Error deleting CourseInstance. %o', error);
-      } else {
-        Swal.fire({
-          title: 'Delete succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      }
-      setId('');
-      setConfirmOpen(false);
-    });
-  };
-
-  const handleOpenUpdate = (evt, inst) => {
-    evt.preventDefault();
-    // console.log('handleOpenUpdate inst=%o', evt, inst);
-    setShowUpdateForm(true);
-    setId(inst.id);
-  };
+  const handleCancel = handleCancelWrapper(setConfirmOpen, setId, setShowUpdateForm);
+  const handleConfirmDelete = handleConfirmDeleteWrapper(collection.getCollectionName(), idState, setShowUpdateForm, setId, setConfirmOpen);
+  const handleDelete = handleDeleteWrapper(setConfirmOpen, setId);
+  const handleOpenUpdate = handleOpenUpdateWrapper(setShowUpdateForm, setId);
 
   const handleUpdate = (doc) => {
     // console.log('handleUpdate doc=%o', doc);
@@ -165,25 +88,7 @@ const AdminDataModelCourseInstancesPage: React.FC<AdminDataModelCourseInstancesP
     updateData.creditHrs = doc.creditHours;
     updateData.termID = academicTermNameToDoc(doc.academicTerm)._id;
     // console.log(collectionName, updateData);
-    updateMethod.call({ collectionName, updateData }, (error) => {
-      if (error) {
-        Swal.fire({
-          title: 'Update failed',
-          text: error.message,
-          icon: 'error',
-        });
-        console.error('Error in updating. %o', error);
-      } else {
-        Swal.fire({
-          title: 'Update succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        setShowUpdateForm(false);
-        setId('');
-      }
-    });
+    updateMethod.call({ collectionName, updateData }, updateCallBack(setShowUpdateForm, setId));
   };
 
   const findOptions = {
@@ -192,11 +97,11 @@ const AdminDataModelCourseInstancesPage: React.FC<AdminDataModelCourseInstancesP
   return (
     <PageLayout id="data-model-course-instances-page" headerPaneTitle="Course Instances">
       {showUpdateFormState ? (
-        <UpdateCourseInstanceForm collection={collection} id={idState} formRef={formRef} handleUpdate={handleUpdate}
-                                  handleCancel={handleCancel} itemTitleString={itemTitleString} terms={props.terms}/>
+        <UpdateCourseInstanceForm collection={collection} id={idState} handleUpdate={handleUpdate}
+                                  handleCancel={handleCancel} itemTitleString={itemTitleString} terms={terms}/>
       ) : (
-        <AddCourseInstanceForm formRef={formRef} handleAdd={handleAdd} terms={props.terms} courses={props.courses}
-                               students={props.students}/>
+        <AddCourseInstanceForm terms={terms} courses={courses}
+                               students={students}/>
       )}
       <ListCollectionWidget
         collection={collection}
@@ -207,7 +112,7 @@ const AdminDataModelCourseInstancesPage: React.FC<AdminDataModelCourseInstancesP
         handleDelete={handleDelete}
         setShowIndex={dataModelActions.setCollectionShowIndex}
         setShowCount={dataModelActions.setCollectionShowCount}
-        items={props.items}
+        items={items}
       />
       <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete}
                header="Delete Course Instance?"/>
@@ -220,9 +125,7 @@ const AdminDataModelCourseInstancesPageContainer = withTracker(() => {
   const terms = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();
   const courses = Courses.find().fetch();
   const students = StudentProfiles.find({}, { sort: { lastName: 1 } }).fetch();
-  const modelCount = getDatamodelCount();
   return {
-    ...modelCount,
     items,
     terms,
     courses,

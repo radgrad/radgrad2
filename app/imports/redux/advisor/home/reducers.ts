@@ -8,7 +8,7 @@ const initialState = {
   isLoaded: false,
 };
 
-function reducer(state: any = initialState, action) {
+const reducer = (state: any = initialState, action) => {
   switch (action.type) {
     case TYPES.SET_FIRST_NAME:
       return {
@@ -53,6 +53,6 @@ function reducer(state: any = initialState, action) {
       return state;
   }
 
-}
+};
 
 export default reducer;

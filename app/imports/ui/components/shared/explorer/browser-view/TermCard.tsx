@@ -2,10 +2,9 @@ import React from 'react';
 import { Card, Icon } from 'semantic-ui-react';
 import Markdown from 'react-markdown';
 import { Link, useRouteMatch } from 'react-router-dom';
-import _ from 'lodash';
 import { AcademicTerms } from '../../../../../api/academic-term/AcademicTermCollection';
 import { RadGradProperties } from '../../../../../api/radgrad/RadGradProperties';
-import { CourseForecastCollection, OpportunityForecast } from '../../../../../startup/client/collections';
+import { CourseForecastCollection, OpportunityForecastCollection } from '../../../../../startup/client/collections';
 
 import { AcademicTerm, TermCard } from '../../../../../typings/radgrad';
 import IceHeader from '../../IceHeader';
@@ -71,7 +70,7 @@ const TermCard: React.FC<TermCard> = ({ item, type }) => {
     },
   );
   const scores = [];
-  _.forEach(academicTerms, (term: AcademicTerm) => {
+  academicTerms.forEach((term: AcademicTerm) => {
     const id = `${item._id} ${term._id}`;
     if (type === EXPLORER_TYPE.COURSES) {
       const score = CourseForecastCollection.find({ _id: id }).fetch() as { count: number }[];
@@ -81,7 +80,7 @@ const TermCard: React.FC<TermCard> = ({ item, type }) => {
         scores.push(0);
       }
     } else {
-      const score = OpportunityForecast.find({ _id: id }).fetch() as { count: number }[];
+      const score = OpportunityForecastCollection.find({ _id: id }).fetch() as { count: number }[];
       if (score.length > 0) {
         scores.push(score[0].count);
       } else {
@@ -90,7 +89,7 @@ const TermCard: React.FC<TermCard> = ({ item, type }) => {
     }
   });
   return (
-    <Card className="radgrad-interest-card">
+    <Card>
       <Card.Content>
         <Card.Header>
           {name}

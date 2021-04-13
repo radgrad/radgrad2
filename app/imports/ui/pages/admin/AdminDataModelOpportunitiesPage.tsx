@@ -1,13 +1,12 @@
 import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
 import { Confirm, Icon } from 'semantic-ui-react';
-import Swal from 'sweetalert2';
 import _ from 'lodash';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import { AcademicTerm, BaseProfile, DescriptionPair, Interest, Opportunity, OpportunityType } from '../../../typings/radgrad';
-import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
+import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';
 import { Users } from '../../../api/user/UserCollection';
@@ -18,7 +17,12 @@ import UpdateOpportunityForm from '../../components/admin/datamodel/opportunity/
 import { academicTermNameToSlug, itemToSlugName, opportunityTypeNameToSlug, profileNameToUsername } from '../../components/shared/utilities/data-model';
 import { interestSlugFromName } from '../../components/shared/utilities/form';
 import { dataModelActions } from '../../../redux/admin/data-model';
-import { getDatamodelCount, makeMarkdownLink } from './utilities/datamodel';
+import {
+  handleCancelWrapper,
+  handleConfirmDeleteWrapper,
+  handleDeleteWrapper, handleOpenUpdateWrapper, updateCallBack,
+} from './utilities/data-model-page-callbacks';
+import { makeMarkdownLink } from './utilities/datamodel';
 import PageLayout from '../PageLayout';
 
 const collection = Opportunities; // the collection to use.
@@ -32,7 +36,7 @@ const descriptionPairs = (item: Opportunity): DescriptionPair[] => [
   { label: 'Opportunity Type', value: OpportunityTypes.findDoc(item.opportunityTypeID).name },
   { label: 'Sponsor', value: Users.getProfile(item.sponsorID).username },
   { label: 'Interests', value: _.sortBy(Interests.findNames(item.interestIDs)) },
-  { label: 'Academic Terms', value: _.map(item.termIDs, (id: string) => AcademicTerms.toString(id, false)) },
+  { label: 'Academic Terms', value: item.termIDs.map((id: string) => AcademicTerms.toString(id, false)) },
   { label: 'ICE', value: `${item.ice.i}, ${item.ice.c}, ${item.ice.e}` },
   { label: 'Picture', value: makeMarkdownLink(item.picture) },
   { label: 'Retired', value: item.retired ? 'True' : 'False' },
@@ -64,90 +68,15 @@ interface AdminDataModelOpportunitiesPageProps {
   opportunityTypes: OpportunityType[];
 }
 
-// props not deconstructed because AdminDataModeMenuProps has 21 numbers.
-const AdminDataModelOpportunitiesPage: React.FC<AdminDataModelOpportunitiesPageProps> = (props) => {
-  // TODO deconstruct props
-  const formRef = React.createRef();
+const AdminDataModelOpportunitiesPage: React.FC<AdminDataModelOpportunitiesPageProps> = ({ items, interests, terms, opportunityTypes, sponsors }) => {
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');
   const [showUpdateFormState, setShowUpdateForm] = useState(false);
 
-  const handleAdd = (doc) => {
-    // console.log('Opportunities.handleAdd(%o)', doc);
-    const collectionName = collection.getCollectionName();
-    const definitionData = doc;
-    const interests = _.map(doc.interests, interestSlugFromName);
-    const terms = _.map(doc.terms, academicTermNameToSlug);
-    definitionData.interests = interests;
-    definitionData.terms = terms;
-    definitionData.opportunityType = opportunityTypeNameToSlug(doc.opportunityType);
-    definitionData.sponsor = profileNameToUsername(doc.sponsor);
-    // console.log(definitionData);
-    defineMethod.call({ collectionName, definitionData }, (error) => {
-      if (error) {
-        Swal.fire({
-          title: 'Add failed',
-          text: error.message,
-          icon: 'error',
-        });
-      } else {
-        Swal.fire({
-          title: 'Add succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        // @ts-ignore
-        formRef.current.reset();
-      }
-    });
-  };
-
-  const handleCancel = (event) => {
-    event.preventDefault();
-    setShowUpdateForm(false);
-    setId('');
-    setConfirmOpen(false);
-  };
-
-  const handleDelete = (event, inst) => {
-    event.preventDefault();
-    // console.log('handleDelete inst=%o', inst);
-    setConfirmOpen(true);
-    setId(inst.id);
-  };
-
-  const handleConfirmDelete = () => {
-    const collectionName = collection.getCollectionName();
-    const instance = idState;
-    removeItMethod.call({ collectionName, instance }, (error) => {
-      if (error) {
-        Swal.fire({
-          title: 'Delete failed',
-          text: error.message,
-          icon: 'error',
-        });
-        console.error('Error deleting. %o', error);
-      } else {
-        Swal.fire({
-          title: 'Delete succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      }
-      setShowUpdateForm(false);
-      setId('');
-      setConfirmOpen(false);
-    });
-  };
-
-  const handleOpenUpdate = (evt, inst) => {
-    evt.preventDefault();
-    // console.log('handleOpenUpdate inst=%o', evt, inst);
-    setShowUpdateForm(true);
-    setId(inst.id);
-  };
+  const handleCancel = handleCancelWrapper(setConfirmOpen, setId, setShowUpdateForm);
+  const handleConfirmDelete = handleConfirmDeleteWrapper(collection.getCollectionName(), idState, setShowUpdateForm, setId, setConfirmOpen);
+  const handleDelete = handleDeleteWrapper(setConfirmOpen, setId);
+  const handleOpenUpdate = handleOpenUpdateWrapper(setShowUpdateForm, setId);
 
   const handleUpdate = (doc) => {
     // console.log('Opportunities.handleUpdate doc=%o', doc);
@@ -156,28 +85,10 @@ const AdminDataModelOpportunitiesPage: React.FC<AdminDataModelOpportunitiesPageP
     updateData.id = doc._id;
     updateData.opportunityType = opportunityTypeNameToSlug(doc.opportunityType);
     updateData.sponsor = profileNameToUsername(doc.sponsor);
-    updateData.interests = _.map(doc.interests, interestSlugFromName);
-    updateData.academicTerms = _.map(doc.terms, academicTermNameToSlug);
+    updateData.interests = doc.interests.map(interestSlugFromName);
+    updateData.academicTerms = doc.terms.map(academicTermNameToSlug);
     // console.log(collectionName, updateData);
-    updateMethod.call({ collectionName, updateData }, (error) => {
-      if (error) {
-        Swal.fire({
-          title: 'Update failed',
-          text: error.message,
-          icon: 'error',
-        });
-        console.error('Error in updating. %o', error);
-      } else {
-        Swal.fire({
-          title: 'Update succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        setShowUpdateForm(false);
-        setId('');
-      }
-    });
+    updateMethod.call({ collectionName, updateData }, updateCallBack(setShowUpdateForm, setId));
   };
 
   const findOptions = {
@@ -189,18 +100,17 @@ const AdminDataModelOpportunitiesPage: React.FC<AdminDataModelOpportunitiesPageP
         <UpdateOpportunityForm
           collection={collection}
           id={idState}
-          formRef={formRef}
           handleUpdate={handleUpdate}
           handleCancel={handleCancel}
           itemTitleString={itemTitleString}
-          sponsors={props.sponsors}
-          terms={props.terms}
-          interests={props.interests}
-          opportunityTypes={props.opportunityTypes}
+          sponsors={sponsors}
+          terms={terms}
+          interests={interests}
+          opportunityTypes={opportunityTypes}
         />
       ) : (
-        <AddOpportunityForm formRef={formRef} handleAdd={handleAdd} sponsors={props.sponsors} terms={props.terms}
-                            interests={props.interests} opportunityTypes={props.opportunityTypes}/>
+        <AddOpportunityForm sponsors={sponsors} terms={terms}
+                            interests={interests} opportunityTypes={opportunityTypes}/>
       )}
       <ListCollectionWidget
         collection={collection}
@@ -211,7 +121,7 @@ const AdminDataModelOpportunitiesPage: React.FC<AdminDataModelOpportunitiesPageP
         handleDelete={handleDelete}
         setShowIndex={dataModelActions.setCollectionShowIndex}
         setShowCount={dataModelActions.setCollectionShowCount}
-        items={props.items}
+        items={items}
       />
 
       <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete}
@@ -226,19 +136,19 @@ const AdminDataModelOpportunitiesPageContainer = withTracker(() => {
   const after = currentTermNumber - 8;
   const before = currentTermNumber + 16;
   const allTerms = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();
-  const terms = _.filter(allTerms, (t) => t.termNumber >= after && t.termNumber <= before);
+  const terms = allTerms.filter((t) => t.termNumber >= after && t.termNumber <= before);
   const faculty = FacultyProfiles.find({}).fetch();
   const advisors = AdvisorProfiles.find({}).fetch();
   const sponsorDocs = _.union(faculty, advisors);
   const sponsors = _.sortBy(sponsorDocs, ['lastName', 'firstName']);
   const items = Opportunities.find({}, { sort: { name: 1 } }).fetch();
-  const modelCount = getDatamodelCount();
+  const opportunityTypes = OpportunityTypes.find({}).fetch();
   return {
-    ...modelCount,
     sponsors,
     terms,
     items,
     interests,
+    opportunityTypes,
   };
 })(AdminDataModelOpportunitiesPage);
 

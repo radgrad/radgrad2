@@ -1,8 +1,5 @@
 import React from 'react';
 import _ from 'lodash';
-import { Link } from 'react-router-dom';
-import { Button, Header, Icon } from 'semantic-ui-react';
-import { ChecklistState } from '../../../api/checklist/ChecklistState';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
@@ -10,19 +7,30 @@ import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstan
 import { Reviews } from '../../../api/review/ReviewCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { StudentProfile } from '../../../typings/radgrad';
-import { EXPLORER, STUDENT_REVIEWS, URL_ROLES } from '../../layouts/utilities/route-constants';
+import { STUDENT_REVIEWS, URL_ROLES } from '../../layouts/utilities/route-constants';
 import CourseList from '../shared/CourseList';
 import OpportunityList from '../shared/OpportunityList';
-import { Checklist } from './Checklist';
-import '../../../../client/style.css';
+import { Checklist, CHECKSTATE } from './Checklist';
+import { DetailsBox } from './DetailsBox';
+import { ActionsBox } from './ActionsBox';
+import { ChecklistButtonLink } from './ChecklistButtons';
 
 export class ReviewChecklist extends Checklist {
   private profile: StudentProfile;
 
-  constructor(name: string, student: string) {
-    super(name);
+  constructor(student: string) {
+    super();
+    this.name = 'Reviews';
     this.profile = Users.getProfile(student);
-    // console.log('ReviewChecklist', this.profile, StudentProfiles.findDoc(student));
+    this.iconName = 'star half';
+    this.title[CHECKSTATE.OK] = 'Thanks for having reviewed your completed Courses and/or Opportunities';
+    this.title[CHECKSTATE.REVIEW] = 'Please consider writing Reviews for your completed Courses and/or Opportunities';
+    // Specify the description for each state.
+    this.description[CHECKSTATE.OK] = `Congrats! You've provided reviews for all of your completed Courses and Opportunities. 
+      This is a service to the community and makes RadGrad more useful.`;
+    this.description[CHECKSTATE.REVIEW] = `Writing reviews for the Courses and Opportunities you&apos;ve completed provides 
+      valuable insight to future students who may be considering them. This is your chance to pay it forward!`;
+
     this.updateState();
   }
 
@@ -34,41 +42,13 @@ export class ReviewChecklist extends Checklist {
     const courseIDs = _.uniq(cis.map((ci) => ci.courseID));
     const reviews = Reviews.findNonRetired({ studentID });
     if (reviews.length < courseIDs.length + opportunityIDs.length) {
-      this.state = 'Review';
+      this.state = CHECKSTATE.REVIEW;
     } else {
-      this.state = 'Awesome';
+      this.state = CHECKSTATE.OK;
     }
   }
 
-  public getIcon(): string | JSX.Element {
-    return <Icon name="star half" color="grey" /> ;
-  }
-
-  public getTitle(state: ChecklistState): JSX.Element {
-    switch (state) {
-      case 'Review':
-        return <Header as='h1'>Please consider writing <strong>Reviews</strong> for your completed <strong>Courses and Opportunities</strong></Header>;
-      case 'Awesome':
-        return <Header as='h1'>Thanks for having written <strong>Reviews</strong></Header>;
-      default:
-        return <React.Fragment />;
-    }
-  }
-
-  public getDescription(state: ChecklistState): JSX.Element {
-    switch (state) {
-      case 'Review':
-        return <p>Writing reviews for the Courses and Opportunities you&apos;ve completed provides valuable insight to
-          future students who may be considering them. This is your chance to pay it forward!</p>;
-      case 'Awesome':
-        return <p>Congrats! You&apos;ve provided reviews for all of your completed Courses and Opportunities. This is a
-          service to the community and makes RadGrad more useful.</p>;
-      default:
-        return <React.Fragment />;
-    }
-  }
-
-  public getDetails(state: ChecklistState): JSX.Element {
+  public getDetails(): JSX.Element {
     const studentID = this.profile.userID;
     const ois = OpportunityInstances.findNonRetired({ studentID, verified: true });
     const opportunityIDs = _.uniq(ois.map((oi) => oi.opportunityID));
@@ -77,9 +57,9 @@ export class ReviewChecklist extends Checklist {
     const courseIDs = _.uniq(cis.map((ci) => ci.courseID));
     const courses = courseIDs.map((cID) => Courses.findDoc(cID));
     const reviews = Reviews.findNonRetired({ studentID });
-    const courseReviews = _.filter(reviews, (rev) => rev.reviewType === Reviews.COURSE);
-    const opportunityReviews = _.filter(reviews, (rev) => rev.reviewType !== Reviews.COURSE);
-    const nonReviewedCourses = _.filter(courses, (course) => {
+    const courseReviews = reviews.filter((rev) => rev.reviewType === Reviews.COURSE);
+    const opportunityReviews = reviews.filter((rev) => rev.reviewType !== Reviews.COURSE);
+    const nonReviewedCourses = courses.filter((course) => {
       let reviewed = true;
       courseReviews.forEach((review) => {
         if (review.revieweeID === course._id) {
@@ -88,7 +68,7 @@ export class ReviewChecklist extends Checklist {
       });
       return reviewed;
     });
-    const nonReviewedOpportunities = _.filter(opportunities, (opportunity) => {
+    const nonReviewedOpportunities = opportunities.filter((opportunity) => {
       let reviewed = true;
       opportunityReviews.forEach((review) => {
         if (review.revieweeID === opportunity._id) {
@@ -97,38 +77,36 @@ export class ReviewChecklist extends Checklist {
       });
       return reviewed;
     });
-    switch (state) {
-      case 'Awesome':
-        return <div className='highlightBox'><p>You have written reviews for the following Courses and Opportunities:
-          <CourseList courses={courses} keyStr="review"                                                              size="medium" />
-          <OpportunityList opportunities={opportunities} size="medium" keyStr="review" />.</p></div>;
-      case 'Review':
-        return <div className='highlightBox'>
-          <p>You have the following completed Courses and Opportunities for which you have not written a review:</p>
-          <CourseList courses={nonReviewedCourses} size="medium" keyStr="review" /><OpportunityList
-          opportunities={nonReviewedOpportunities} size="medium" keyStr="review" /></div>;
+    switch (this.state) {
+      case CHECKSTATE.OK:
+        return (
+          <DetailsBox description='You have reviewed the following completed Courses and Opportunities:'>
+            <CourseList courses={courses} keyStr="review" size="medium" userID={this.profile.userID} />
+            <OpportunityList opportunities={opportunities} size="medium" keyStr="review" userID={this.profile.userID} />
+          </DetailsBox>
+        );
+      case CHECKSTATE.REVIEW:
+        return (
+            <DetailsBox description='You have not reviewed the following completed Courses and Opportunities:'>
+              <CourseList courses={nonReviewedCourses} size="medium" keyStr="review" userID={this.profile.userID} />
+              <OpportunityList opportunities={nonReviewedOpportunities} size="medium" keyStr="review" userID={this.profile.userID} />
+            </DetailsBox>
+        );
       default:
         return <React.Fragment />;
     }
   }
 
-  public getActions(state: ChecklistState): JSX.Element {
-    switch (state) {
-      case 'Review':
-        return <div className='centeredBox'>
-          <p>Click &quot;Go To Reviews&quot; to add reviews for your completed Courses or Opportunities.</p>
-          <Button size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${STUDENT_REVIEWS}`}>Go To
-            Reviews</Button></div>;
-      case 'Awesome':
-        return <div className='centeredBox'>
-          <p>Click &quot;Go to Course Explorer&quot; if you want to see your Course reviews and potentially update them,
-            or click &quot;Go to Opportunity Explorer&quot; if you want to see your Opportunity reviews and potentially
-            update them.</p>
-          <Button size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.COURSES}`}>Go To Course
-            Explorer</Button>&nbsp;&nbsp;
-          <Button basic size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.OPPORTUNITIES}`}>Go To
-            Opportunity Explorer</Button>
-        </div>;
+  public getActions(): JSX.Element {
+    const phrase = CHECKSTATE.REVIEW ? 'add reviews' : 'see your reviews';
+    switch (this.state) {
+      case CHECKSTATE.REVIEW:
+      case CHECKSTATE.OK:
+        return (
+          <ActionsBox description={`Go to the Reviews page to ${phrase} for your completed Courses and/or Opportunities:`}>
+            <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${STUDENT_REVIEWS}`} label='Reviews Page'/>
+          </ActionsBox>
+        );
       default:
         return <React.Fragment />;
     }

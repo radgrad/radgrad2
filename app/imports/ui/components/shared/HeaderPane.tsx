@@ -6,26 +6,27 @@ const invertedSection = {
   backgroundColor: 'rgba(0,0,0,.8)',
   paddingTop: 25,
   paddingBottom: 25,
-  marginBottom: '10px',
   paddingLeft: '50px',
   paddingRight: '20px',
 };
-const titleStyle = {color: '#ffffff', fontSize: '3rem', fontWeight: 300};
-const lineStyle = {color: '#eeeeee', fontSize: '1.3rem', lineHeight:'3.0rem'};
+const titleStyle = { color: '#6FBE44', fontSize: '2rem', fontWeight: 700, fontFamily: 'Nunito' };
+const lineStyle = { color: '#eeeeee', fontSize: '1rem', lineHeight:'2.0rem' };
 
 export interface HeaderPaneProps {
   title: string,
   body: string,
   image?: string
+  bodyButton?: React.ReactNode;
 }
 
-const HeaderPane: React.FC<HeaderPaneProps> = ({title = 'Default title', body, image }) => (
+const HeaderPane: React.FC<HeaderPaneProps> = ({ title = 'Default title', body, image, bodyButton }) => (
   <div style={invertedSection}>
     <Grid stackable>
       <Grid.Column verticalAlign='middle' width={3}><Image src={`images/header-panel/${image || 'header-default.png'}`}  size="medium" /></Grid.Column>
       <Grid.Column width={13}>
        <div style={titleStyle}><ReactMarkdownWithHtml allowDangerousHtml source={title}/></div>
           { body ? <div style={lineStyle}><ReactMarkdownWithHtml linkTarget="_blank" allowDangerousHtml source={body}/></div> : ''}
+        { bodyButton ? <div style={lineStyle}>{bodyButton}</div> : '' }
       </Grid.Column>
     </Grid>
   </div>

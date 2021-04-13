@@ -3,7 +3,6 @@ import { Button, Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, SelectField, NumField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
-import _ from 'lodash';
 import { AcademicTerm } from '../../../../../typings/radgrad';
 import BaseCollection from '../../../../../api/base/BaseCollection';
 import { academicTermIdToName, academicTermToName } from '../../../shared/utilities/data-model';
@@ -12,17 +11,16 @@ interface UpdateReviewFormProps {
   terms: AcademicTerm[];
   collection: BaseCollection;
   id: string;
-  formRef: React.RefObject<unknown>;
   handleUpdate: (doc) => any;
   handleCancel: (event) => any;
   itemTitleString: (item) => React.ReactNode;
 }
 
-const UpdateReviewForm: React.FC<UpdateReviewFormProps> = ({ terms, collection, id, formRef, handleCancel, handleUpdate, itemTitleString }) => {
+const UpdateReviewForm: React.FC<UpdateReviewFormProps> = ({ terms, collection, id, handleCancel, handleUpdate, itemTitleString }) => {
   // TODO why aren't we passed in the model/item?
   const model = collection.findDoc(id);
   model.academicTerm = academicTermIdToName(model.termID);
-  const termNames = _.map(terms, academicTermToName);
+  const termNames = terms.map(academicTermToName);
   const schema = new SimpleSchema({
     academicTerm: {
       type: String,
@@ -42,7 +40,7 @@ const UpdateReviewForm: React.FC<UpdateReviewFormProps> = ({ terms, collection, 
         Update
         {collection.getType()}:{itemTitleString(model)}
       </Header>
-      <AutoForm schema={formSchema} onSubmit={handleUpdate} ref={formRef} showInlineError model={model}>
+      <AutoForm schema={formSchema} onSubmit={handleUpdate} showInlineError model={model}>
         <Form.Group widths="equal">
           <SelectField name="academicTerm" />
           <NumField name="rating" />
@@ -54,8 +52,8 @@ const UpdateReviewForm: React.FC<UpdateReviewFormProps> = ({ terms, collection, 
           <BoolField name="visible" />
           <BoolField name="retired" />
         </Form.Group>
-        <SubmitField inputRef={undefined} value="Update" disabled={false} className="" />
-        <Button onClick={handleCancel}>Cancel</Button>
+        <SubmitField inputRef={undefined} value="Update" disabled={false} className="mini basic green" />
+        <Button onClick={handleCancel} basic color="green" size="mini">Cancel</Button>
       </AutoForm>
     </Segment>
   );

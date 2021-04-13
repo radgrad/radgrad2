@@ -18,19 +18,19 @@ export const getUserIDsWithProfileInterestMethod = new ValidatedMethod({
     }
     if (Meteor.isServer) {
       let userIDs;
-      const favUserIDs = _.map(ProfileInterests.find({ interestID }).fetch(), 'userID');
+      const favUserIDs = ProfileInterests.findNonRetired({ interestID }).map((profile) => profile.userID);
       switch (role.toUpperCase()) {
         case ROLE.ADVISOR:
-          userIDs = _.map(AdvisorProfiles.find().fetch(), 'userID');
+          userIDs = AdvisorProfiles.findNonRetired().map((profile) => profile.userID);
           break;
         case ROLE.ALUMNI:
-          userIDs = _.map(StudentProfiles.find({ isAlumni: true }).fetch(), 'userID');
+          userIDs = StudentProfiles.findNonRetired({ isAlumni: true }).map((profile) => profile.userID);
           break;
         case ROLE.FACULTY:
-          userIDs = _.map(FacultyProfiles.find().fetch(), 'userID');
+          userIDs = FacultyProfiles.findNonRetired().map((profile) => profile.userID);
           break;
         default:
-          userIDs = _.map(StudentProfiles.find({ isAlumni: false }).fetch(), 'userID');
+          userIDs = StudentProfiles.findNonRetired({ isAlumni: false }).map((profile) => profile.userID);
           break;
       }
       return _.intersection(userIDs, favUserIDs);

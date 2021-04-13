@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams, useRouteMatch } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Container, Grid } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import _ from 'lodash';
 import { Reviews } from '../../../../api/review/ReviewCollection';
 import { getMenuWidget } from '../utilities/getMenuWidget';
@@ -32,7 +32,7 @@ const passedCourseHelper = (courseSlugName: string, match): string => {
     studentID: Router.getUserIdFromRoute(match),
     courseID: theCourse._id,
   });
-  _.forEach(ci, (c) => {
+  ci.forEach((c) => {
     if (c.verified === true) {
       ret = 'Completed';
     } else if (ret !== 'Completed') {
@@ -65,7 +65,7 @@ const prerequisites = (theCourse: Course, match): any[] => {
   const incomplete = [];
   const notInPlan = [];
   let itemStatus = '';
-  _.forEach(list, (item) => {
+  list.forEach((item) => {
     itemStatus = prerequisiteStatus(item, match);
     if (itemStatus === 'Not in plan') {
       notInPlan.push({ course: item, status: itemStatus });
@@ -102,29 +102,27 @@ const isCourseCompleted = (courseSlugName, match): boolean => {
 
 const CourseViewPage: React.FC<CourseViewPageProps> = ({ profileCourses, course, itemReviews }) => {
   const match = useRouteMatch();
-  const menuAddedList = _.map(profileCourses, (f) => ({
+  const menuAddedList = profileCourses.map((f) => ({
     item: Courses.findDoc(f.courseID),
     count: 1,
   }));
   const descriptionPairs = descriptionPairsCourses(course, match);
   const courseSlug = Slugs.getNameFromID(course.slugID);
   const completed = isCourseCompleted(courseSlug, match);
-  const pushDownStyle = { paddingTop: 15 };
   return (
     <div id="course-view-page">
       {getMenuWidget(match)}
-      <Container style={pushDownStyle}>
-        <Grid stackable>
-          <Grid.Row>
-            <Grid.Column width={3}>
-              <ExplorerMenu menuAddedList={menuAddedList} type="courses" />
-            </Grid.Column>
-            <Grid.Column width={13}>
-              <ExplorerCourseWidget name={course.name} shortName={course.shortName} descriptionPairs={descriptionPairs} item={course} completed={completed} itemReviews={itemReviews} />
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </Container>
+      <Grid stackable>
+        <Grid.Row>
+          <Grid.Column width={3}>
+            <ExplorerMenu menuAddedList={menuAddedList} type="courses" />
+          </Grid.Column>
+          <Grid.Column width={13}>
+            <ExplorerCourseWidget name={course.name} shortName={course.shortName} descriptionPairs={descriptionPairs}
+                                  item={course} completed={completed} itemReviews={itemReviews} />
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
     </div>
   );
 };

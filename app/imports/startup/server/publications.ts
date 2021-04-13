@@ -1,13 +1,12 @@
 import { Meteor } from 'meteor/meteor';
 import { Roles } from 'meteor/alanning:roles';
-import _ from 'lodash';
 import { Factoids } from '../../api/public-stats/FactoidCollection';
 import { RadGrad } from '../../api/radgrad/RadGrad';
 import { ROLE } from '../../api/role/Role';
 import { Users } from '../../api/user/UserCollection';
 
 // Publish all RadGrad collections.
-_.forEach(RadGrad.collections, (collection) => {
+RadGrad.collections.forEach((collection) => {
   // console.log(`Publishing ${collection.getCollectionName()}`);
   collection.publish();
 });

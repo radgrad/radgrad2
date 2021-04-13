@@ -42,15 +42,6 @@ class AcademicYearInstanceCollection extends BaseCollection {
     // year?: number; springYear?: number; studentID?: string; termIDs?: string[];
     this.updateSchema = new SimpleSchema({
       year: { type: SimpleSchema.Integer, min: moment().year() - 10, max: moment().year() + 10, optional: true },
-      springYear: {
-        type: SimpleSchema.Integer,
-        min: moment().year() - 10,
-        max: moment().year() + 10,
-        optional: true,
-      },
-      studentID: { type: String, optional: true },
-      termIDs: { type: Array, optional: true },
-      'termIDs.$': String,
       retired: { type: Boolean, optional: true },
     });
   }
@@ -223,7 +214,7 @@ class AcademicYearInstanceCollection extends BaseCollection {
       if (!Users.isDefined(doc.studentID)) {
         problems.push(`Bad studentID: ${doc.studentID}`);
       }
-      _.forEach(doc.termIDs, (termID) => {
+      doc.termIDs.forEach((termID) => {
         if (!AcademicTerms.isDefined(termID)) {
           problems.push(`Bad termID: ${termID}`);
         }

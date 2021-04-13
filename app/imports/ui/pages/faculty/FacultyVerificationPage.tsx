@@ -1,13 +1,13 @@
 import React from 'react';
-import {withTracker} from 'meteor/react-meteor-data';
-import {useParams, useRouteMatch} from 'react-router-dom';
+import { withTracker } from 'meteor/react-meteor-data';
+import { useParams, useRouteMatch } from 'react-router-dom';
 import PendingVerificationsWidget from '../../components/shared/verification/PendingVerificationsWidget';
-import {VerificationRequests} from '../../../api/verification/VerificationRequestCollection';
+import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import EventVerificationsWidget from '../../components/shared/verification/EventVerificationsWidget';
-import {Opportunity, VerificationRequest} from '../../../typings/radgrad';
-import {Opportunities} from '../../../api/opportunity/OpportunityCollection';
-import {Users} from '../../../api/user/UserCollection';
-import {OpportunityInstances} from '../../../api/opportunity/OpportunityInstanceCollection';
+import { Opportunity, VerificationRequest } from '../../../typings/radgrad';
+import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
+import { Users } from '../../../api/user/UserCollection';
+import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import CompletedVerificationsWidget from '../../components/shared/verification/CompletedVerificationsWidget';
 import withAdditionalSubscriptions from '../../layouts/utilities/AdvisorFacultyAdditionalSubscriptionsHOC';
 import PageLayout from '../PageLayout';
@@ -30,7 +30,7 @@ You can accept or decline these verification requests on this page. Accepting me
 For more information, please see the [Faculty User Guide](https://www.radgrad.org/docs/users/faculty/overview).
 `;
 
-const FacultyVerificationPage: React.FC<FacultyVerificationPageProps> = ({verificationRequests, eventOpportunities}) => {
+const FacultyVerificationPage: React.FC<FacultyVerificationPageProps> = ({ verificationRequests, eventOpportunities }) => {
   const match = useRouteMatch();
 
   return (
@@ -43,13 +43,13 @@ const FacultyVerificationPage: React.FC<FacultyVerificationPageProps> = ({verifi
 };
 
 const FacultyVerificationPageWithTracker = withTracker(() => {
-  const {username} = useParams();
+  const { username } = useParams();
   const userID = Users.getID(username);
-  const linkedOppInstances = OpportunityInstances.findNonRetired({sponsorID: userID});
+  const linkedOppInstances = OpportunityInstances.findNonRetired({ sponsorID: userID });
   const isLinkedReq = (verReq: VerificationRequest) => !!linkedOppInstances.find((oppI) => verReq.opportunityInstanceID === oppI._id);
   return {
     verificationRequests: VerificationRequests.findNonRetired().filter((ele) => isLinkedReq(ele)),
-    eventOpportunities: Opportunities.findNonRetired({eventDate: {$exists: true}}),
+    eventOpportunities: Opportunities.findNonRetired({ eventDate: { $exists: true } }),
   };
 })(FacultyVerificationPage);
 const FacultyVerificationPageContainer = withAdditionalSubscriptions(FacultyVerificationPageWithTracker);

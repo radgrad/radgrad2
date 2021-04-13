@@ -6,7 +6,6 @@ import ListSlugCollectionWidget from '../../components/admin/datamodel/ListSlugC
 import { dataModelActions } from '../../../redux/admin/data-model';
 import { DescriptionPair, Slug } from '../../../typings/radgrad';
 import { Slugs } from '../../../api/slug/SlugCollection';
-import { getDatamodelCount } from './utilities/datamodel';
 import PageLayout from '../PageLayout';
 
 const collection = Slugs; // the collection to use.
@@ -42,8 +41,7 @@ interface AdminDataModelSlugsPageProps {
   items: Slug[];
 }
 
-// props not deconstructed because AdminDataModeMenuProps has 21 numbers.
-const AdminDataModelSlugsPage: React.FC<AdminDataModelSlugsPageProps> = (props) => {
+const AdminDataModelSlugsPage: React.FC<AdminDataModelSlugsPageProps> = ({ items }) => {
   const handleDelete = (event) => {
     event.preventDefault();
     // console.log('handleDelete inst=%o', inst);
@@ -73,7 +71,7 @@ const AdminDataModelSlugsPage: React.FC<AdminDataModelSlugsPageProps> = (props) 
         handleDelete={handleDelete}
         setShowIndex={dataModelActions.setCollectionShowIndex}
         setShowCount={dataModelActions.setCollectionShowCount}
-        items={props.items}
+        items={items}
       />
     </PageLayout>
   );
@@ -81,9 +79,7 @@ const AdminDataModelSlugsPage: React.FC<AdminDataModelSlugsPageProps> = (props) 
 
 const AdminDataModelSlugsPageContainer = withTracker(() => {
   const items = Slugs.find({}).fetch();
-  const modelCount = getDatamodelCount();
   return {
-    ...modelCount,
     items,
   };
 })(AdminDataModelSlugsPage);

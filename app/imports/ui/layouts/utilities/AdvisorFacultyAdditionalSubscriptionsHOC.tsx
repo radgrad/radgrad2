@@ -14,17 +14,18 @@ interface Loading {
 // expireLimit set to 30 minutes because: why not.
 const additionalSubs = new SubsManager({ cacheLimit: 2, expireIn: 30 });
 
-function withAdditionalSubscriptions(WrappedComponent) {
+const withAdditionalSubscriptions = (WrappedComponent) => {
   const AdditionalSubscriptions: React.FC<Loading> = (props) => (props.loading ? <Loader active>Getting additional data</Loader> : <WrappedComponent {...props} />);
 
   return withTracker(() => {
     const requests = VerificationRequests.findNonRetired({});
-    const studentIDs = _.uniq(_.map(requests, (r) => r.studentID));
+    const studentIDs = _.uniq(requests.map((r) => r.studentID));
     const handle = additionalSubs.subscribe(OpportunityInstances.publicationNames.verification, studentIDs);
     const loading = !handle.ready();
     return {
       loading,
     };
   })(AdditionalSubscriptions);
-}
+};
+
 export default withAdditionalSubscriptions;

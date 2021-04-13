@@ -1,6 +1,5 @@
 import { Meteor } from 'meteor/meteor';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
-import _ from 'lodash';
 import moment from 'moment';
 import { CourseInstances } from '../course/CourseInstanceCollection';
 import { Courses } from '../course/CourseCollection';
@@ -19,21 +18,21 @@ import {
 import { updateStudentLevel } from '../level/LevelProcessor';
 import { StudentProfileDefine } from '../../typings/radgrad';
 
-function processStudentStarDefinitions(advisor, student, definitions) {
+const processStudentStarDefinitions = (advisor, student, definitions) => {
   // console.log(`processStudentStarDefinitions(${advisor}, ${student}, ${definitions})`);
   // console.log(`Processing ${student}'s STAR data`);
   // console.log(definitions);
   const studentID = Users.getID(student);
   // console.log(student, studentID);
   const oldInstances = CourseInstances.find({ studentID, fromRegistrar: true }).fetch();
-  _.forEach(oldInstances, (instance) => {
+  oldInstances.forEach((instance) => {
     CourseInstances.removeIt(instance._id);
   });
   let numInterstingCourses = 0;
   // let numOtherCourses = 0;
   // console.log('create new instances');
   const departments = {};
-  _.forEach(definitions, (definition) => {
+  definitions.forEach((definition) => {
     // console.log('termID', termID);
     // console.log(definition);
     if (definition.course !== Courses.unInterestingSlug) {
@@ -82,7 +81,7 @@ function processStudentStarDefinitions(advisor, student, definitions) {
   const lastRegistrarLoad = moment().format('YYYY-MM-DD-HH-mm-ss');
   const docID = studentID;
   StudentProfiles.update(docID, { lastRegistrarLoad });
-}
+};
 
 /**
  * Processes the student's star data creating CourseInstances.
@@ -91,11 +90,11 @@ function processStudentStarDefinitions(advisor, student, definitions) {
  * @param csvData the student's STAR data.
  * @memberOf api/star
  */
-function processStudentStarCsvData(advisor, student, csvData) {
+const processStudentStarCsvData = (advisor, student, csvData) => {
   // console.log('processStudentStarCsvData', student, csvData);
   const definitions = processStarCsvData(student, csvData);
   processStudentStarDefinitions(advisor, student, definitions);
-}
+};
 
 /**
  * Processes the student's star json data creating CourseInstances.
@@ -104,10 +103,10 @@ function processStudentStarCsvData(advisor, student, csvData) {
  * @param jsonData the student's STAR data as JSON object.
  * @memberOf api/star
  */
-function processStudentStarJsonData(advisor, student, jsonData) {
+const processStudentStarJsonData = (advisor, student, jsonData) => {
   const defintions = processStarJsonData(student, jsonData);
   processStudentStarDefinitions(advisor, student, defintions);
-}
+};
 
 /**
  * ValidatedMethod for loading student STAR data.
@@ -139,18 +138,18 @@ export const starLoadJsonDataMethod = new ValidatedMethod({
   },
 });
 
-function processBulkStarDefinitions(advisor, definitions) {
+const processBulkStarDefinitions = (advisor, definitions) => {
   let updateNum = 0;
   let newStudents = 0;
   // console.log(definitions);
   if (definitions) {
     const students = Object.keys(definitions);
-    _.forEach(students, (student) => {
+    students.forEach((student) => {
       if (Users.isDefined(student)) {
         updateNum += 1;
         processStudentStarDefinitions(advisor, student, definitions[student].courses);
         const studentID = Users.getID(student);
-        updateStudentLevel(advisor, studentID);
+        updateStudentLevel(studentID);
       } else {
         console.log(`${student} is not defined need to create them.`);
         try {
@@ -165,7 +164,7 @@ function processBulkStarDefinitions(advisor, definitions) {
           defineMethod.call({ collectionName: Feeds.getCollectionName(), definitionData: feedData });
           processStudentStarDefinitions(advisor, student, definitions[student].courses);
           const studentID = Users.getID(student);
-          updateStudentLevel(advisor, studentID);
+          updateStudentLevel(studentID);
           newStudents += 1;
         } catch (e) {
           console.log(`Error defining student ${student}`, e);
@@ -174,7 +173,7 @@ function processBulkStarDefinitions(advisor, definitions) {
     });
   }
   return `Updated ${updateNum} student(s), Created ${newStudents} new student(s)`;
-}
+};
 
 /**
  * Processes the bulk star data creating CourseInstances.
@@ -182,10 +181,10 @@ function processBulkStarDefinitions(advisor, definitions) {
  * @param csvData the student's STAR data.
  * @memberOf api/star
  */
-function processBulkStarData(advisor, csvData) {
+const processBulkStarData = (advisor, csvData) => {
   const definitions = processBulkStarCsvData(csvData);
   return processBulkStarDefinitions(advisor, definitions);
-}
+};
 
 /**
  * Processes the bulk star data creating CourseInstances.
@@ -193,12 +192,12 @@ function processBulkStarData(advisor, csvData) {
  * @param jsonData the student's STAR JSON data.
  * @memberOf api/star
  */
-function processBulkStarDataJson(advisor, jsonData) {
+const processBulkStarDataJson = (advisor, jsonData) => {
   // console.log(`processBulkStarDataJson(${advisor}`, jsonData);
   const definitions = processBulkStarJsonData(jsonData);
   // console.log(definitions);
   return processBulkStarDefinitions(advisor, definitions);
-}
+};
 
 /**
  * ValidatedMethod for loading bulk STAR data.

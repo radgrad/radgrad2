@@ -7,7 +7,7 @@ import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
 import ExplorerMenuNonMobileItem from '../item-view/ExplorerMenuNonMobileItem';
 import { ExplorerInterfaces, IExplorerTypes, isType } from '../utilities/explorer';
 import { buildRouteName, isUrlRoleAdvisor, isUrlRoleFaculty, isUrlRoleStudent } from '../../utilities/router';
-import '../../../../../../client/style.css';
+// import '../../../../../../client/style.css';
 
 const AppMedia = createMedia({
   breakpoints: {
@@ -82,44 +82,6 @@ const ExplorerMultipleItemsMenuNonMobileWidget: React.FC<CardExplorerMenuNonMobi
                 ''
               )}
             </React.Fragment>
-          ) : (
-            ''
-          )}
-
-          {/* Components renderable to STUDENTS and FACULTY. But if we are FACULTY, make sure we
-                don't map over menuAddedList or else we get undefined error. */}
-          {isType(EXPLORER_TYPE.INTERESTS, type) ? (
-            <Menu vertical text className="cardMenu">
-              <Button icon positive className="cardMenu_btn" href={`mailto:${adminEmail}?subject=New Interest Suggestion`}>
-                <Icon name="edit" />
-                &nbsp;&nbsp;Suggest a NEW Interest
-              </Button>
-              <Header as="h4" className="cardMenu_header">
-                <Icon name="favorite" size="mini" />
-                <Header.Content>MY INTERESTS</Header.Content>
-              </Header>
-              {menuAddedList.map((listItem) => (
-                <ExplorerMenuNonMobileItem listItem={listItem} type={EXPLORER_TYPE.INTERESTS} key={listItem.item._id} />
-              ))}
-            </Menu>
-          ) : (
-            ''
-          )}
-
-          {isType(EXPLORER_TYPE.CAREERGOALS, type) ? (
-            <Menu vertical text className="cardMenu">
-              <Button icon positive className="cardMenu_btn" href={`mailto:${adminEmail}?subject=New Career Goal Suggestion`}>
-                <Icon name="edit" />
-                &nbsp;&nbsp;Suggest a NEW Career Goal
-              </Button>
-              <Header as="h4" className="cardMenu_header">
-                <Icon name="briefcase" size="mini" />
-                <Header.Content>MY CAREER GOALS</Header.Content>
-              </Header>
-              {menuAddedList.map((listItem) => (
-                <ExplorerMenuNonMobileItem listItem={listItem} type={EXPLORER_TYPE.CAREERGOALS} key={listItem.item._id} />
-              ))}
-            </Menu>
           ) : (
             ''
           )}

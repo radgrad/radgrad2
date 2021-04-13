@@ -9,6 +9,7 @@ import AdminDatabaseAccordion from '../../components/admin/database/AdminDatabas
 import { databaseActions } from '../../../redux/admin/database';
 import { analyticsActions } from '../../../redux/admin/analytics';
 import { RootState } from '../../../redux/types';
+import UploadFixture from '../../components/admin/datamodel/UploadFixture';
 import PageLayout from '../PageLayout';
 
 interface Collection {
@@ -95,7 +96,7 @@ const AdminDatabaseDumpPage: React.FC<AdminDatabaseDumpPageProps> = ({ startDump
         </Button>
       </Form>
       {showMessage ? (
-        <Grid stackable style={{paddingTop: '20px'}}>
+        <Grid stackable style={{ paddingTop: '20px' }}>
           <Message positive={!errorCondition} error={errorCondition}>
             {resultsState.map((item, index) => (
               <AdminDatabaseAccordion key={item.name} index={index} name={item.name} contents={item.contents}/>
@@ -105,6 +106,7 @@ const AdminDatabaseDumpPage: React.FC<AdminDatabaseDumpPageProps> = ({ startDump
       ) : (
         ''
       )}
+      <UploadFixture />
     </PageLayout>
   );
 };

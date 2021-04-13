@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import { SyncedCron } from 'meteor/littledata:synced-cron';
 import moment from 'moment';
 import { IceSnapshots } from '../../api/analytic/IceSnapshotCollection';
@@ -36,7 +35,7 @@ SyncedCron.add({
     return parser.text('every 24 hours');
   },
   job() {
-    _.each(StudentProfiles.find().fetch(), (doc) => {
+    StudentProfiles.find().fetch().forEach((doc) => {
       const iceSnap = IceSnapshots.findOne({ username: doc.username });
       const username = doc.username;
       const level = doc.level;
@@ -66,7 +65,7 @@ SyncedCron.add({
               // @ts-ignore
               UserInteractions.define({
                 username,
-                type: UserInteractionsTypes.COMPLETEPLAN,
+                type: UserInteractionsTypes.COMPLETE_PLAN,
                 typeData: [ice.i.toString(), ice.c.toString(), ice.e.toString()],
               });
             }

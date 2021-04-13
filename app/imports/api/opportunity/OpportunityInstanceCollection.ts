@@ -3,6 +3,7 @@ import _ from 'lodash';
 import SimpleSchema from 'simpl-schema';
 import { ReactiveAggregate } from 'meteor/jcbernack:reactive-aggregate';
 import { OpportunityForecastName } from '../../startup/both/names';
+import { ProfileOpportunities } from '../user/profile-entries/ProfileOpportunityCollection';
 import { Opportunities } from './OpportunityCollection';
 import { ROLE } from '../role/Role';
 import { AcademicYearInstances } from '../degree-plan/AcademicYearInstanceCollection';
@@ -101,6 +102,8 @@ class OpportunityInstanceCollection extends BaseCollection {
       return this.findOpportunityInstanceDoc(academicTerm, opportunity, student)._id;
     }
     const ice = Opportunities.findDoc(opportunityID).ice;
+    // TODO need to talk about this
+    ProfileOpportunities.define({ opportunity, student, retired });
     // Define and return the new OpportunityInstance
     // console.log(termID, opportunityID, verified, studentID, sponsorID, ice, retired);
     const opportunityInstanceID = this.collection.insert({
@@ -149,7 +152,7 @@ class OpportunityInstanceCollection extends BaseCollection {
     // find any VerificationRequests associated with docID and remove them.
     const requests = VerificationRequests.find({ opportunityInstanceID: docID })
       .fetch();
-    _.forEach(requests, (vr) => {
+    requests.forEach((vr) => {
       VerificationRequests.removeIt(vr._id);
     });
     return super.removeIt(docID);
@@ -248,6 +251,20 @@ class OpportunityInstanceCollection extends BaseCollection {
     this.assertDefined(instanceID);
     const instance = this.collection.findOne({ _id: instanceID });
     return Users.getProfile(instance.studentID);
+  }
+
+  public getUnverifiedInstances(student: string): OpportunityInstance[] {
+    const studentID = Users.getID(student);
+    const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
+    const ois = OpportunityInstances.findNonRetired({ studentID, verified: false });
+    const oisInPast = ois.filter((oi) => {
+      const term = AcademicTerms.findDoc(oi.termID);
+      return term.termNumber < currentTerm.termNumber;
+    });
+    const requests = VerificationRequests.findNonRetired({ studentID });
+    const requestedOIs = requests.map((request) => request.opportunityInstanceID);
+    const unverified = oisInPast.filter((oi) => !_.includes(requestedOIs, oi._id));
+    return unverified;
   }
 
   /**

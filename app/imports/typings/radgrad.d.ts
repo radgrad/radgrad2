@@ -34,6 +34,8 @@ export interface Ice {
 
 interface Document {
   _id: string;
+  createdAt: Date;
+  updatedAt?: Date;
 }
 
 export interface DumpOne {
@@ -66,10 +68,6 @@ export interface Pagination {
     showCount: number;
   };
   FeedCollection?: {
-    showIndex: number;
-    showCount: number;
-  };
-  FeedbackInstanceCollection?: {
     showIndex: number;
     showCount: number;
   };
@@ -172,8 +170,7 @@ export interface SocialPair {
 }
 
 // AcademicYearInstances
-export interface AcademicYearInstance {
-  _id: string;
+export interface AcademicYearInstance extends Document {
   year: number;
   springYear: number;
   studentID: string;
@@ -188,8 +185,7 @@ export interface AcademicYearInstanceDefine extends DumpOne {
 }
 
 // CareerGoals
-export interface CareerGoal {
-  _id: string;
+export interface CareerGoal extends Document {
   name: string;
   slugID: string;
   description: string;
@@ -212,26 +208,8 @@ export interface CareerGoalUpdate extends Update {
   retired?: boolean;
 }
 
-// StudentParticipations
-export interface StudentParticipation {
-  itemID: string;
-  itemSlug: string;
-  itemCount: number;
-}
-
-export interface StudentParticipationDefine extends DumpOne {
-  itemID: string;
-  itemSlug: string;
-  itemCount: number;
-}
-
-export interface StudentParticipationUpdate extends Update {
-  itemCount?: number;
-}
-
 // CourseInstances
-export interface CourseInstance {
-  _id: string;
+export interface CourseInstance extends Document {
   termID: string;
   courseID: string;
   verified: boolean;
@@ -273,8 +251,7 @@ export interface Forecast {
 }
 
 // Courses
-export interface Course {
-  _id: string;
+export interface Course extends Document {
   name: string;
   shortName: string;
   slugID: string;
@@ -350,7 +327,7 @@ export interface ProfileCareerGoalDefine extends DumpOne {
   retired?: boolean;
 }
 
-export interface ProfileCareerGoal {
+export interface ProfileCareerGoal extends Document {
   careerGoalID: string;
   userID: string;
   retired: boolean;
@@ -362,7 +339,7 @@ export interface ProfileCourseDefine extends DumpOne {
   retired?: boolean;
 }
 
-export interface ProfileCourse {
+export interface ProfileCourse extends Document {
   courseID: string;
   studentID: string;
   retired: boolean;
@@ -375,7 +352,7 @@ export interface ProfileInterestDefine extends DumpOne {
   retired?: boolean;
 }
 
-export interface ProfileInterest {
+export interface ProfileInterest extends Document {
   interestID: string;
   userID: string;
   share: boolean;
@@ -388,7 +365,7 @@ export interface ProfileOpportunityDefine extends DumpOne {
   retired?: boolean;
 }
 
-export interface ProfileOpportunity {
+export interface ProfileOpportunity extends Document {
   opportunityID: string;
   studentID: string;
   retired: boolean;
@@ -400,8 +377,7 @@ export interface ProfileEntryUpdate extends Update {
 }
 
 // Feeds
-export interface IFeed {
-  _id: string;
+export interface IFeed extends Document {
   userIDs: string[];
   description?: string;
   picture?: string;
@@ -434,34 +410,8 @@ export interface FeedUpdate extends Update {
   retired?: boolean;
 }
 
-// FeedBackInstances
-export interface FeedbackInstance {
-  userID: string;
-  functionName: string;
-  description: string;
-  feedbackType: string;
-  retired?: boolean;
-}
-
-export interface FeedbackInstanceDefine extends DumpOne {
-  user: string;
-  functionName: string;
-  description: string;
-  feedbackType: string;
-  retired?: boolean;
-}
-
-export interface FeedbackInstanceUpdate extends Update {
-  user?: string;
-  functionName?: string;
-  description?: string;
-  feedbackType?: string;
-  retired?: boolean;
-}
-
 // Interests
-export interface Interest {
-  _id: string;
+export interface Interest extends Document {
   name: string;
   slugID: string;
   description: string;
@@ -485,7 +435,7 @@ export interface InterestUpdate extends Update {
 }
 
 // InterestTypes
-export interface InterestType {
+export interface InterestType extends Document {
   name: string;
   slugID: string;
   description: string;
@@ -517,8 +467,7 @@ export interface IceSnapshotDefine extends DumpOne {
 }
 
 // Opportunities
-export interface Opportunity {
-  _id: string;
+export interface Opportunity extends Document {
   name: string;
   slugID: string;
   description: string;
@@ -578,8 +527,7 @@ export interface OpportunityUpdateData {
 }
 
 // OpportunityInstances
-export interface OpportunityInstance {
-  _id: string;
+export interface OpportunityInstance extends Document {
   termID: string;
   opportunityID: string;
   verified: boolean;
@@ -607,8 +555,7 @@ export interface OpportunityInstanceUpdate extends Update {
 }
 
 // OpportunityType
-export interface OpportunityType {
-  _id: string;
+export interface OpportunityType extends Document {
   description: string;
   name: string;
   slugID: string;
@@ -641,8 +588,7 @@ export interface PlanChoiceUpdate extends Update {
 
 // Profiles
 // TODO: This is wrong we have too much in the BaseProfile
-export interface BaseProfile {
-  _id: string;
+export interface BaseProfile extends Document {
   userID?: string;
   username: string;
   firstName: string;
@@ -659,7 +605,6 @@ export interface BaseProfile {
   level?: number;
   declaredAcademicTermID?: string;
   isAlumni?: boolean;
-  shareUsername?: boolean;
   sharePicture?: boolean;
   shareWebsite?: boolean;
   shareInterests?: boolean;
@@ -667,6 +612,7 @@ export interface BaseProfile {
   shareCourses?: boolean;
   shareOpportunities?: boolean;
   shareLevel?: boolean;
+  shareICE?: boolean;
   optedIn?: boolean;
   courseExplorerFilter?: string;
   opportunityExplorerSortOrder?: string;
@@ -678,8 +624,7 @@ export interface BaseProfile {
   lastVisitedOpportunities?: string;
 }
 
-export interface Profile {
-  _id: string;
+export interface Profile extends Document {
   userID: string;
   username: string;
   firstName: string;
@@ -723,7 +668,6 @@ export interface CombinedProfileDefine extends ProfileDefine {
   declaredAcademicTerm?: string;
   isAlumni?: boolean;
   retired?: boolean;
-  shareUsername?: boolean;
   sharePicture?: boolean;
   shareWebsite?: boolean;
   shareInterests?: boolean;
@@ -731,6 +675,7 @@ export interface CombinedProfileDefine extends ProfileDefine {
   shareCourses?: boolean;
   shareOpportunities?: boolean;
   shareLevel?: boolean;
+  shareICE?: boolean;
 }
 
 export interface ProfileUpdate extends Update {
@@ -753,7 +698,6 @@ export interface StudentProfile extends Profile {
   level: number;
   declaredAcademicTermID?: string;
   isAlumni?: boolean;
-  shareUsername?: boolean;
   sharePicture?: boolean;
   shareWebsite?: boolean;
   shareInterests?: boolean;
@@ -761,6 +705,7 @@ export interface StudentProfile extends Profile {
   shareCourses?: boolean;
   shareOpportunities?: boolean;
   shareLevel?: boolean;
+  shareICE?: boolean;
   lastRegistrarLoad?: string;
   lastVisitedCareerGoals?: string;
   lastVisitedCourses?: string;
@@ -779,7 +724,6 @@ export interface StudentProfileDefine extends ProfileDefine {
   profileOpportunities?: string[];
   isAlumni?: boolean;
   retired?: boolean;
-  shareUsername?: boolean;
   sharePicture?: boolean;
   shareWebsite?: boolean;
   shareInterests?: boolean;
@@ -787,6 +731,7 @@ export interface StudentProfileDefine extends ProfileDefine {
   shareCourses?: boolean;
   shareOpportunities?: boolean;
   shareLevel?: boolean;
+  shareICE?: boolean;
   lastRegistrarLoad?: string;
   lastVisitedCareerGoals?: string;
   lastVisitedCourses?: string;
@@ -805,7 +750,6 @@ export interface StudentProfileUpdate extends ProfileUpdate {
   profileOpportunities?: string[];
   isAlumni?: boolean;
   retired?: boolean;
-  shareUsername?: boolean;
   sharePicture?: boolean;
   shareWebsite?: boolean;
   shareInterests?: boolean;
@@ -813,6 +757,7 @@ export interface StudentProfileUpdate extends ProfileUpdate {
   shareCourses?: boolean;
   shareOpportunities?: boolean;
   shareLevel?: boolean;
+  shareICE?: boolean;
   lastRegistrarLoad?: string;
   lastVisitedCareerGoals?: string;
   lastVisitedCourses?: string;
@@ -830,7 +775,6 @@ export interface StudentProfileUpdateData {
   isAlumni?: boolean;
   role?: string;
   retired?: boolean;
-  shareUsername?: boolean;
   sharePicture?: boolean;
   shareWebsite?: boolean;
   shareInterests?: boolean;
@@ -838,6 +782,7 @@ export interface StudentProfileUpdateData {
   shareCourses?: boolean;
   shareOpportunities?: boolean;
   shareLevel?: boolean;
+  shareICE?: boolean;
   lastRegistrarLoad?: string;
   lastVisitedCareerGoals?: string;
   lastVisitedCourses?: string;
@@ -852,8 +797,7 @@ export interface StudentProfileUpdateData {
 // Reviews
 type ReviewRatings = 1 | 2 | 3 | 4 | 5;
 
-export interface Review {
-  _id: string;
+export interface Review extends Document {
   slugID: string;
   studentID: string;
   reviewType: string;
@@ -902,8 +846,7 @@ export interface ReviewUpdateData {
 }
 
 // AcademicTerms
-export interface AcademicTerm {
-  _id: string;
+export interface AcademicTerm extends Document {
   term: string;
   year: number;
   termNumber: number;
@@ -926,8 +869,7 @@ export interface SettingsUpdate extends Update {
 }
 
 // Slugs
-export interface Slug {
-  _id: string;
+export interface Slug extends Document {
   name: string;
   entityName: string;
   entityID: string;
@@ -949,8 +891,7 @@ export interface StarDataObject {
 }
 
 // Teasers
-export interface Teaser {
-  _id: string;
+export interface Teaser extends Document {
   title: string;
   slugID: string;
   author: string;
@@ -999,8 +940,7 @@ export interface TeaserUpdateData {
 }
 
 // UserInteractions
-export interface UserInteraction {
-  _id: string;
+export interface UserInteraction extends Document {
   username: string;
   type: string;
   typeData: string[];
@@ -1022,8 +962,7 @@ interface Processed {
   feedback?: string;
 }
 
-export interface VerificationRequest {
-  _id: string;
+export interface VerificationRequest extends Document {
   studentID: string;
   opportunityInstanceID: string;
   submittedOn: Date;
@@ -1034,8 +973,9 @@ export interface VerificationRequest {
 }
 
 export interface VerificationRequestDefine extends DumpOne {
-  student?: string;
+  student: string;
   opportunityInstance?: string;
+  documentation: string;
   submittedOn?: any;
   status?: string;
   processed?: Processed[];
@@ -1048,4 +988,10 @@ export interface VerificationRequestUpdate extends Update {
   status?: string;
   processed?: Processed[];
   retired?: boolean;
+}
+
+export interface RelatedCoursesOrOpportunities {
+  completed: string[];
+  inPlan: string[];
+  notInPlan: string[];
 }

@@ -28,7 +28,7 @@ let profiles = [];
 
 const getStudentsAtSameLevel = (profiles, currentProfile: StudentProfile): StudentProfile[] => {
   const students = [];
-  _.forEach(profiles, (profile) => {
+  profiles.forEach((profile) => {
     if (profile.level === currentProfile.level) {
       if (profile.userID !== currentProfile.userID) {
         students.push(profile);

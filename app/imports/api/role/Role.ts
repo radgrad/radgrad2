@@ -30,9 +30,7 @@ export const ROLES = _.values(ROLE);
  * @returns {boolean} True if role is a defined ROLE.
  * @memberOf api/role
  */
-export function isRole(role) {
-  return (typeof role) === 'string' && _.includes(_.values(ROLE), role);
-}
+export const isRole = (role: string): boolean => (typeof role) === 'string' && _.includes(_.values(ROLE), role);
 
 /**
  * Ensures that role(s) are valid roles.
@@ -40,20 +38,20 @@ export function isRole(role) {
  * @throws { Meteor.Error } If any of role(s) are not valid.
  * @memberOf api/role
  */
-export function assertRole(role) {
+export const assertRole = (role: string| string[]) => {
   const roleArray = (Array.isArray(role)) ? role : [role];
   roleArray.forEach((theRole) => {
     if (!isRole(theRole)) {
       throw new Meteor.Error(`${role} is not defined, or includes at least one undefined role.`);
     }
   });
-}
+};
 
 // Initialize Roles to ROLENAMES by deleting all existing roles, then defining just those in ROLENAMES.
 
 if (Meteor.isServer) {
   const allDefinedRoles = Roles.getAllRoles().fetch();
-  const definedRoleNames = _.map(allDefinedRoles, (role) => role.name);
+  const definedRoleNames = allDefinedRoles.map((role) => role.name);
   _.values(ROLE).forEach((role) => {
     if (!_.includes(definedRoleNames, role)) {
       Roles.createRole(role, { unlessExists: true });

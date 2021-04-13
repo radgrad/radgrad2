@@ -36,13 +36,13 @@ export const verificationRequestsUpdateStatusMethod = new ValidatedMethod({
  * @returns The opportunityInstanceID, or null if it wasn't found.
  * @memberOf api/verification
  */
-function getOpportunityInstanceID(student, opportunity, academicTerm) {
+const getOpportunityInstanceID = (student, opportunity, academicTerm) => {
   const studentID = Users.getID(student);
   const opportunityID = Opportunities.getID(opportunity);
   const termID = AcademicTerms.getID(academicTerm);
   const opportunityInstances = OpportunityInstances.findNonRetired({ opportunityID, studentID, termID });
   return (opportunityInstances.length > 0) ? opportunityInstances[0]._id : null;
-}
+};
 
 /**
  * This Meteor Method processes a request to verify an opportunity for a given user from the VerificationEvent page.
@@ -81,7 +81,7 @@ export const processVerificationEventMethod = new ValidatedMethod({
     let verificationRequestID = VerificationRequests.findOne({ opportunityInstanceID });
     if (!verificationRequestID) {
       resultMessage += '  No verification request found. Defining a new one.\n';
-      verificationRequestID = VerificationRequests.define({ student, opportunityInstance: opportunityInstanceID });
+      verificationRequestID = VerificationRequests.define({ student, opportunityInstance: opportunityInstanceID, documentation: 'documentation' });
     }
 
     // If this event has already been verified, then return now.

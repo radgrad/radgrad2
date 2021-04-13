@@ -99,7 +99,7 @@ class ProfileCareerGoalCollection extends BaseCollection {
         if (_.includes([ROLE.ADMIN, ROLE.ADVISOR], profile.role)) {
           return collection.find();
         }
-        return collection.find({ $or: [{ share: true }, { userID }] });
+        return collection.find({ userID });
       });
       Meteor.publish(this.publicationNames.forecast, function publishCareerGoalForecast() {
         ReactiveAggregate(this, collection, [

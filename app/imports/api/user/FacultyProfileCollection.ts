@@ -1,6 +1,7 @@
-import _ from 'lodash';
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
+import _ from 'lodash';
+import { Opportunities } from '../opportunity/OpportunityCollection';
 import BaseProfileCollection, { defaultProfilePicture } from './BaseProfileCollection';
 import { Users } from './UserCollection';
 import { Interests } from '../interest/InterestCollection';
@@ -74,11 +75,22 @@ class FacultyProfileCollection extends BaseProfileCollection {
     const username = profile.username;
     if (interests) {
       ProfileInterests.removeUser(username);
-      interests.forEach((interest) => ProfileInterests.define({ interest, username }));
+      interests.forEach((interest) => ProfileInterests.define({ interest, username, retired }));
     }
     if (careerGoals) {
       ProfileCareerGoals.removeUser(username);
-      careerGoals.forEach((careerGoal) => ProfileCareerGoals.define({ careerGoal, username }));
+      careerGoals.forEach((careerGoal) => ProfileCareerGoals.define({ careerGoal, username, retired }));
+    }
+    if (_.isBoolean(retired)) {
+      // Need to retire the opportunities that they are the sponsor of?
+      const sponsoredOpportunities = Opportunities.find({ sponsorID: profile.userID }).fetch();
+      sponsoredOpportunities.forEach((opp) => {
+        const oppID = opp._id;
+        const opportunityUpdate = {
+          retired,
+        };
+        Opportunities.update(oppID, opportunityUpdate);
+      });
     }
   }
 
@@ -124,9 +136,9 @@ class FacultyProfileCollection extends BaseProfileCollection {
     const website = doc.website;
     const userID = Users.getID(username);
     const favInterests = ProfileInterests.findNonRetired({ userID });
-    const interests = _.map(favInterests, (fav) => Interests.findSlugByID(fav.interestID));
+    const interests = favInterests.map((fav) => Interests.findSlugByID(fav.interestID));
     const favCareerGoals = ProfileCareerGoals.findNonRetired({ userID });
-    const careerGoals = _.map(favCareerGoals, (fav) => CareerGoals.findSlugByID(fav.careerGoalID));
+    const careerGoals = favCareerGoals.map((fav) => CareerGoals.findSlugByID(fav.careerGoalID));
     const aboutMe = doc.aboutMe;
     const retired = doc.retired;
     return { username, firstName, lastName, picture, website, interests, careerGoals, aboutMe, retired };

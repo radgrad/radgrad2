@@ -14,7 +14,7 @@ const ProfileFutureOpportuntiesList: React.FC<ProfileFutureOpportunitiesListProp
   const studentID = profile.userID;
   const futureOpportunities = getUniqFutureOpportunities(studentID);
   return (
-    <OpportunityList opportunities={futureOpportunities} size={size} keyStr="futureOpps" />
+    <OpportunityList opportunities={futureOpportunities} size={size} keyStr="futureOpps" userID={profile.userID} />
   );
 };
 

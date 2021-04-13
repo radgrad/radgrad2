@@ -3,7 +3,6 @@ import { Button, Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, SelectField, LongTextField, DateField, BoolField, SubmitField, NumField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
-import _ from 'lodash';
 import Swal from 'sweetalert2';
 import { AcademicTerm, BaseProfile, Interest, OpportunityType } from '../../../../../typings/radgrad';
 import BaseCollection from '../../../../../api/base/BaseCollection';
@@ -19,13 +18,12 @@ interface UpdateOpportunityFormProps {
   opportunityTypes: OpportunityType[];
   collection: BaseCollection;
   id: string;
-  formRef: React.RefObject<unknown>;
   handleUpdate: (doc) => any;
   handleCancel: (event) => any;
   itemTitleString: (item) => React.ReactNode;
 }
 
-const UpdateOpportunityForm: React.FC<UpdateOpportunityFormProps> = ({ sponsors, opportunityTypes, terms, interests, formRef, handleUpdate, handleCancel, itemTitleString, collection, id }) => {
+const UpdateOpportunityForm: React.FC<UpdateOpportunityFormProps> = ({ sponsors, opportunityTypes, terms, interests, handleUpdate, handleCancel, itemTitleString, collection, id }) => {
   const model = collection.findDoc(id);
   const [pictureURL, setPictureURL] = useState(model.picture);
   const handleUploadPicture = async (e): Promise<void> => {
@@ -59,14 +57,15 @@ const UpdateOpportunityForm: React.FC<UpdateOpportunityFormProps> = ({ sponsors,
 
   // console.log('collection model = %o', model);
   model.opportunityType = opportunityTypeIdToName(model.opportunityTypeID);
-  model.interests = _.map(model.interestIDs, interestIdToName);
-  model.terms = _.map(model.termIDs, academicTermIdToName);
+  model.interests = model.interestIDs.map(interestIdToName);
+  model.terms = model.termIDs.map(academicTermIdToName);
   model.sponsor = userIdToName(model.sponsorID);
   // console.log(model);
-  const sponsorNames = _.map(sponsors, profileToName);
-  const termNames = _.map(terms, academicTermToName);
-  const opportunityTypeNames = _.map(opportunityTypes, docToName);
-  const interestNames = _.map(interests, docToName);
+  const sponsorNames = sponsors.map(profileToName);
+  const termNames = terms.map(academicTermToName);
+  // console.log(terms, termNames);
+  const opportunityTypeNames = opportunityTypes.map(docToName);
+  const interestNames = interests.map(docToName);
   // console.log(opportunityTypeNames);
   const schema = new SimpleSchema({
     name: { type: String, optional: true },
@@ -86,7 +85,7 @@ const UpdateOpportunityForm: React.FC<UpdateOpportunityFormProps> = ({ sponsors,
   return (
     <Segment padded>
       <Header dividing>Update Opportunity : {itemTitleString(model)}</Header>
-      <AutoForm schema={formSchema} onSubmit={(doc) => handleUpdateOpportunity(doc)} ref={formRef} showInlineError model={model}>
+      <AutoForm schema={formSchema} onSubmit={(doc) => handleUpdateOpportunity(doc)} showInlineError model={model}>
         <Form.Group widths="equal">
           <TextField name="name" />
         </Form.Group>
@@ -112,8 +111,8 @@ const UpdateOpportunityForm: React.FC<UpdateOpportunityFormProps> = ({ sponsors,
             Upload
           </Form.Button>
         </Form.Group>
-        <SubmitField inputRef={undefined} disabled={false} value="Update" className="" />
-        <Button onClick={handleCancel}>Cancel</Button>
+        <SubmitField inputRef={undefined} disabled={false} value="Update" className="mini basic green" />
+        <Button onClick={handleCancel} basic color="green" size="mini">Cancel</Button>
       </AutoForm>
     </Segment>
   );

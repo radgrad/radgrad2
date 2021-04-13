@@ -1,5 +1,5 @@
-import {ValidatedMethod} from 'meteor/mdg:validated-method';
-import {CallPromiseMixin} from 'meteor/didericis:callpromise-mixin';
+import { ValidatedMethod } from 'meteor/mdg:validated-method';
+import { CallPromiseMixin } from 'meteor/didericis:callpromise-mixin';
 
 /**
  * Meteor method used to retrieve the terms and conditions string from a file and return it to the client.

@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { UserInteractions } from '../analytic/UserInteractionCollection';
 import BaseCollection from '../base/BaseCollection';
@@ -14,7 +13,6 @@ import { FacultyProfiles } from '../user/FacultyProfileCollection';
 import { StudentProfiles } from '../user/StudentProfileCollection';
 import { AcademicYearInstances } from '../degree-plan/AcademicYearInstanceCollection';
 import { Feeds } from '../feed/FeedCollection';
-import { FeedbackInstances } from '../feedback/FeedbackInstanceCollection';
 
 export const loadCollectionNewDataOnly = (collection: BaseCollection, loadJSON, printToConsole) => {
   let retVal = '';
@@ -22,7 +20,7 @@ export const loadCollectionNewDataOnly = (collection: BaseCollection, loadJSON, 
   const type = collection.getType();
   const definitions = getDefinitions(loadJSON, collection.getCollectionName());
   let count = 0;
-  _.forEach(definitions, (definition) => {
+  definitions.forEach((definition) => {
     let studentID;
     let termID;
     switch (type) {
@@ -68,20 +66,6 @@ export const loadCollectionNewDataOnly = (collection: BaseCollection, loadJSON, 
           collection.define(definition);
           count++;
         }
-        break;
-      case FeedbackInstances.getType(): {
-        const userID = Users.getID(definition.user);
-        if (FeedbackInstances.find({
-          userID,
-          functionName: definition.functionName,
-          description: definition.description,
-          feedbackType: definition.feedbackType,
-        })
-          .count() === 0) {
-          collection.define(definition);
-          count++;
-        }
-      }
         break;
       case OpportunityInstances.getType():
         termID = AcademicTerms.getID(definition.academicTerm);

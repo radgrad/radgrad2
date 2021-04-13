@@ -8,6 +8,8 @@ import { profileGetInterestIDs } from '../../ui/components/shared/utilities/data
 import { Course, CourseInstance } from '../../typings/radgrad';
 import { Slugs } from '../slug/SlugCollection';
 
+// Technical Debt: Hard codes 3xx and 4xx. This might not work for other Universities.
+
 /**
  * Returns true if the coursesTakenSlugs fulfills courseID's prerequisites.
  * @memberOf api/course
@@ -16,10 +18,10 @@ import { Slugs } from '../slug/SlugCollection';
  * @return {boolean}
  * @memberOf api/course
  */
-export function prereqsMet(coursesTakenSlugs: string[], courseID: string) {
+export const prereqsMet = (coursesTakenSlugs: string[], courseID: string): boolean => {
   const course = Courses.findDoc(courseID);
   let ret = true;
-  _.forEach(course.prerequisites, (prereq) => {
+  course.prerequisites.forEach((prereq) => {
     if (_.indexOf(coursesTakenSlugs, prereq) === -1) {
       ret = false;
       return false;
@@ -27,26 +29,24 @@ export function prereqsMet(coursesTakenSlugs: string[], courseID: string) {
     return true;
   });
   return ret;
-}
+};
 
-function getRandomInt(min: number, max: number) {
+const getRandomInt = (min: number, max: number): number => {
   min = Math.ceil(min); // eslint-disable-line no-param-reassign
   max = Math.floor(max); // eslint-disable-line no-param-reassign
   return Math.floor(Math.random() * (max - min)) + min;
-}
+};
 
-export function clearPlannedCourseInstances(studentID: string) {
+export const clearPlannedCourseInstances = (studentID: string) => {
   const courses = CourseInstances.find({ studentID, verified: false, fromRegistrar: false }).fetch();
-  _.forEach(courses, (ci) => {
+  courses.forEach((ci) => {
     CourseInstances.removeIt(ci);
   });
-}
+};
 
-export function get300LevelDocs(): Course[] {
-  return Courses.find({ num: /3\d\d/ }).fetch();
-}
+export const get300LevelDocs = (): Course[] => Courses.find({ num: /3\d\d/ }).fetch();
 
-export function getStudent300LevelDocs(studentID: string, coursesTakenSlugs: string[]) {
+export const getStudent300LevelDocs = (studentID: string, coursesTakenSlugs: string[]) => {
   let ret = [];
   const courses: Course[] = get300LevelDocs();
   const instances = CourseInstances.find({ studentID }).fetch();
@@ -58,29 +58,27 @@ export function getStudent300LevelDocs(studentID: string, coursesTakenSlugs: str
       }
     }
   });
-  ret = _.filter(courses, (c) => _.indexOf(courseTakenIDs, c._id) === -1);
-  ret = _.filter(ret, (c) => prereqsMet(coursesTakenSlugs, c._id)); // remove courses that don't have the prerequisites
+  ret = courses.filter((c) => _.indexOf(courseTakenIDs, c._id) === -1);
+  ret = ret.filter((c) => prereqsMet(coursesTakenSlugs, c._id)); // remove courses that don't have the prerequisites
   return ret;
-}
+};
 
-export function bestStudent300LevelCourses(studentID: string, coursesTakenSlugs: string[]) {
+export const bestStudent300LevelCourses = (studentID: string, coursesTakenSlugs: string[]) => {
   const choices = getStudent300LevelDocs(studentID, coursesTakenSlugs);
   const profile = Users.getProfile(studentID);
   const interestIDs = profileGetInterestIDs(profile);
   const preferred = new PreferredChoice(choices, interestIDs);
   return preferred.getBestChoices();
-}
+};
 
-export function chooseStudent300LevelCourse(studentID: string, coursesTakenSlugs: string[]) {
+export const chooseStudent300LevelCourse = (studentID: string, coursesTakenSlugs: string[]): Course => {
   const best = bestStudent300LevelCourses(studentID, coursesTakenSlugs);
   return best[getRandomInt(0, best.length)];
-}
+};
 
-export function get400LevelDocs() {
-  return Courses.find({ number: /4\d\d/ }).fetch();
-}
+export const get400LevelDocs = (): Course[] => Courses.find({ number: /4\d\d/ }).fetch();
 
-export function getStudent400LevelDocs(studentID: string, coursesTakenSlugs: string[]) {
+export const getStudent400LevelDocs = (studentID: string, coursesTakenSlugs: string[]): Course[] => {
   let ret = [];
   const courses = get400LevelDocs();
   const instances = CourseInstances.find({ studentID }).fetch();
@@ -92,23 +90,23 @@ export function getStudent400LevelDocs(studentID: string, coursesTakenSlugs: str
       }
     }
   });
-  ret = _.filter(courses, (c) => _.indexOf(courseTakenIDs, c._id) === -1);
-  ret = _.filter(ret, (c) => prereqsMet(coursesTakenSlugs, c._id)); // remove courses that don't have the prerequisites
+  ret = courses.filter((c) => _.indexOf(courseTakenIDs, c._id) === -1);
+  ret = ret.filter((c) => prereqsMet(coursesTakenSlugs, c._id)); // remove courses that don't have the prerequisites
   return ret;
-}
+};
 
-export function bestStudent400LevelCourses(studentID, coursesTakenSlugs) {
+export const bestStudent400LevelCourses = (studentID: string, coursesTakenSlugs: string[]): Course[] => {
   const choices = getStudent400LevelDocs(studentID, coursesTakenSlugs);
   const profile = Users.getProfile(studentID);
   const interestIDs = profileGetInterestIDs(profile);
   const preferred = new PreferredChoice(choices, interestIDs);
   return preferred.getBestChoices();
-}
+};
 
-export function chooseStudent400LevelCourse(studentID, coursesTakenSlugs) {
+export const chooseStudent400LevelCourse = (studentID: string, coursesTakenSlugs: string[]): Course => {
   const best = bestStudent400LevelCourses(studentID, coursesTakenSlugs);
   return best[getRandomInt(0, best.length)];
-}
+};
 
 /**
  * Chooses the 'best' course to take given an array of slugs, the student and the courses the student
@@ -119,10 +117,10 @@ export function chooseStudent400LevelCourse(studentID, coursesTakenSlugs) {
  * @returns {*}
  * @memberOf api/course
  */
-export function chooseBetween(slugs, studentID, coursesTakenSlugs) {
+export const chooseBetween = (slugs: string[], studentID: string, coursesTakenSlugs: string[]): Course | null => {
   // console.log('chooseBetween', slugs, coursesTakenSlugs);
   const courses = [];
-  _.forEach(slugs, (slug) => {
+  slugs.forEach((slug) => {
     const courseID = Courses.getID(slug);
     if (prereqsMet(coursesTakenSlugs, courseID)) {
       courses.push(Courses.findDoc(courseID));
@@ -137,7 +135,7 @@ export function chooseBetween(slugs, studentID, coursesTakenSlugs) {
     return best[getRandomInt(0, best.length)];
   }
   return null;
-}
+};
 
 /**
  * Checks the format of the getCourseSlug. Does not check to see if the slug is defined. Valid course
@@ -146,12 +144,12 @@ export function chooseBetween(slugs, studentID, coursesTakenSlugs) {
  * @returns {boolean}
  * @throws Meteor.Error if the slug doesn't have the right format.
  */
-export function validateCourseSlugFormat(courseSlug): boolean {
+export const validateCourseSlugFormat = (courseSlug: string): boolean => {
   if (courseSlug !== 'other' && courseSlug.indexOf('_') === -1) {
     throw new Meteor.Error(`${courseSlug} is not a valid course slug.`);
   }
   return true;
-}
+};
 
 /**
  * Returns the department from the given course slug.
@@ -159,25 +157,21 @@ export function validateCourseSlugFormat(courseSlug): boolean {
  * @returns {string}
  * @memberOf api/course
  */
-export function getDepartment(courseSlug): string {
-  return courseSlug.split('_')[0].toUpperCase();
-}
+export const getDepartment = (courseSlug: string): string => courseSlug.split('_')[0].toUpperCase();
 
 /**
  * Returns the number portion of the getCourseSlug.
  * @param courseSlug the course slug.
  * @returns {string}
  */
-export function getCourseNumber(courseSlug): string {
-  return courseSlug.split('_')[1];
-}
+export const getCourseNumber = (courseSlug: string): string => courseSlug.split('_')[1];
 
-export function passedCourse(ci: CourseInstance): boolean {
+export const passedCourse = (ci: CourseInstance): boolean => {
   const courseDoc = CourseInstances.getCourseDoc(ci._id);
   const courseSlug = Slugs.getNameFromID(courseDoc.slugID);
-  // TODO: We need another way of representing 'passing'
+  // TODO: We need another way of representing 'passing'. This is going to change.
   if (courseSlug.includes('111') || courseSlug.includes('141') || courseSlug.includes('211') || courseSlug.includes('241')) {
     return _.includes(['B', 'B+', 'A-', 'A', 'A+'], ci.grade);
   }
   return _.includes(['C', 'C+', 'B-', 'B', 'B+', 'A-', 'A', 'A+'], ci.grade);
-}
+};

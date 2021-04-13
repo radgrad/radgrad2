@@ -112,6 +112,7 @@ class CareerGoalCollection extends BaseSlugCollection {
       // const profileCareerGoals = ProfileCareerGoals.find({ careerGoalID: docID }).fetch();
       // profileCareerGoals.forEach((goal) => {});
     }
+    // console.log(updateData);
     this.collection.update(docID, { $set: updateData });
   }
 
@@ -156,7 +157,7 @@ class CareerGoalCollection extends BaseSlugCollection {
       if (!Slugs.isDefined(doc.slugID)) {
         problems.push(`Bad slugID: ${doc.slugID}`);
       }
-      _.forEach(doc.interestIDs, (interestID) => {
+      doc.interestIDs.forEach((interestID) => {
         if (!Interests.isDefined(interestID)) {
           problems.push(`Bad interestID: ${interestID}`);
         }
@@ -175,7 +176,7 @@ class CareerGoalCollection extends BaseSlugCollection {
     const name = doc.name;
     const slug = Slugs.getNameFromID(doc.slugID);
     const description = doc.description;
-    const interests = _.map(doc.interestIDs, (interestID) => Interests.findSlugByID(interestID));
+    const interests = doc.interestIDs.map((interestID) => Interests.findSlugByID(interestID));
     const retired = doc.retired;
     return { name, slug, interests, description, retired };
   }

@@ -7,26 +7,26 @@ import _ from 'lodash';
  * @returns {*}
  * @memberOf api/degree-plan
  */
-export function stripCounter(planChoice: string) {
+export const stripCounter = (planChoice: string): string => {
   const index = planChoice.indexOf('-');
   if (index !== -1) {
     return planChoice.substring(0, index);
   }
   return planChoice;
-}
+};
 
 /**
  * Returns the count of the given planChoice.
  * @param {string} planChoice the planChoice
  * @returns {number} the count value of the planChoice, or 0 if none.
  */
-export function getPlanCount(planChoice: string): number {
+export const getPlanCount = (planChoice: string): number => {
   const index = planChoice.indexOf('-');
   if (index !== -1) {
     return parseInt(planChoice.substring(index + 1), 10);
   }
   return 0;
-}
+};
 
 /**
  * Returns true if the planChoice is a single choice.
@@ -34,10 +34,10 @@ export function getPlanCount(planChoice: string): number {
  * @returns {boolean}
  * @memberOf api/degree-plan
  */
-export function isSingleChoice(planChoice: string) {
+export const isSingleChoice = (planChoice: string): boolean => {
   const cleaned = stripCounter(planChoice);
   return cleaned.indexOf(',') === -1;
-}
+};
 
 /**
  * Returns true if the plan choice is a simple choice, just individual slugs separated by commas.
@@ -45,12 +45,12 @@ export function isSingleChoice(planChoice: string) {
  * @returns {boolean}
  * @memberOf api/degree-plan
  */
-export function isSimpleChoice(planChoice: string) {
+export const isSimpleChoice = (planChoice: string): boolean => {
   const cleaned = stripCounter(planChoice);
   const parenp = cleaned.indexOf('(') !== -1;
   const orp = cleaned.indexOf(',') !== -1;
   return !parenp && orp;
-}
+};
 
 /**
  * Returns true if the plan choice includes a sub-choice (e.g. '(ics_313,ics_331),ics_355-1' )
@@ -58,12 +58,12 @@ export function isSimpleChoice(planChoice: string) {
  * @returns {boolean}
  * @memberOf api/degree-plan
  */
-export function isComplexChoice(planChoice: string) {
+export const isComplexChoice = (planChoice: string): boolean => {
   const cleaned = stripCounter(planChoice);
   const parenp = cleaned.indexOf('(') !== -1;
   const orp = cleaned.indexOf(',') !== -1;
   return parenp && orp;
-}
+};
 
 /**
  * Returns true if the planChoice is a 300+ or 400+.
@@ -71,10 +71,10 @@ export function isComplexChoice(planChoice: string) {
  * @return {boolean}
  * @memberOf api/degree-plan
  */
-export function isXXChoice(planChoice: string) {
+export const isXXChoice = (planChoice: string): boolean => {
   const cleaned = stripCounter(planChoice);
   return cleaned.indexOf('+') !== -1;
-}
+};
 
 /**
  * Converts a complex choice into an array of the slugs that make up the choice.
@@ -82,10 +82,10 @@ export function isXXChoice(planChoice: string) {
  * @param planChoice a plan choice.
  * @memberOf api/degree-plan
  */
-export function complexChoiceToArray(planChoice: string) {
+export const complexChoiceToArray = (planChoice: string): string[] => {
   const cleaned = stripCounter(planChoice);
   const split = cleaned.split(',');
-  return _.map(split, (slug) => {
+  return split.map((slug) => {
     if (slug.startsWith('(')) {
       return slug.substring(1);
     }
@@ -94,7 +94,7 @@ export function complexChoiceToArray(planChoice: string) {
     }
     return slug;
   });
-}
+};
 
 /**
  * Creates the course name from the slug. Course names have department in all caps.
@@ -102,10 +102,10 @@ export function complexChoiceToArray(planChoice: string) {
  * @returns {string}
  * @memberOf api/degree-plan
  */
-export function buildCourseSlugName(slug: string) {
+export const buildCourseSlugName = (slug: string): string => {
   const splits = slug.split('_');
   return `${splits[0].toUpperCase()} ${splits[1]}`;
-}
+};
 
 /**
  * Builds the Name for a simple planChoice. Will have commas replaced by ' or '.
@@ -113,14 +113,14 @@ export function buildCourseSlugName(slug: string) {
  * @returns {string}
  * @memberOf api/degree-plan
  */
-export function buildSimpleName(slug: string) {
+export const buildSimpleName = (slug: string): string => {
   const splits = stripCounter(slug).split(',');
   let ret = '';
-  _.forEach(splits, (s) => {
+  splits.forEach((s) => {
     ret = `${ret}${buildCourseSlugName(s)} or `;
   });
   return ret.substring(0, ret.length - 4);
-}
+};
 
 /**
  * Returns the department from a course slug.
@@ -128,14 +128,14 @@ export function buildSimpleName(slug: string) {
  * @returns {*}
  * @memberOf api/degree-plan
  */
-export function getDepartment(courseSlug: string) {
+export const getDepartment = (courseSlug: string): string => {
   let slug = courseSlug;
   if (courseSlug.startsWith('(')) {
     slug = courseSlug.substring(1);
   }
   const result = slug.split('_');
   return result[0];
-}
+};
 
 /**
  * Returns an array of the departments in the plan choice.
@@ -143,17 +143,17 @@ export function getDepartment(courseSlug: string) {
  * @returns {Array}
  * @memberOf api/degree-plan
  */
-export function getDepartments(planChoice: string) {
+export const getDepartments = (planChoice: string): string[] => {
   const choices = complexChoiceToArray(planChoice);
   const ret = [];
-  _.forEach(choices, (c) => {
+  choices.forEach((c) => {
     const dept = getDepartment(c);
     if (_.indexOf(ret, dept) === -1) {
       ret.push(dept);
     }
   });
   return ret;
-}
+};
 
 /**
  * Returns true if the getCourseSlug satisfies the planChoice.
@@ -162,7 +162,7 @@ export function getDepartments(planChoice: string) {
  * @returns {*}
  * @memberOf api/degree-plan
  */
-function satisfiesSinglePlanChoice(planChoice: string, courseSlug: string) {
+const satisfiesSinglePlanChoice = (planChoice: string, courseSlug: string): boolean => {
   const dept = getDepartment(planChoice);
   const stripped = stripCounter(planChoice);
   if (planChoice.includes('300+')) {
@@ -172,16 +172,14 @@ function satisfiesSinglePlanChoice(planChoice: string, courseSlug: string) {
     return courseSlug.startsWith(`${dept}_4`);
   }
   return planChoice.indexOf(courseSlug) !== -1 && stripped.length === courseSlug.length;
-}
+};
 
 /**
  * Returns the number portion of the getCourseSlug.
  * @param courseSlug the course slug.
  * @returns {string}
  */
-export function getSimpleChoiceNumber(simpleChoice): string {
-  return simpleChoice.split('_')[1];
-}
+export const getSimpleChoiceNumber = (simpleChoice: string): string => simpleChoice.split('_')[1];
 
 /**
  * Returns true if the courseSlug satisfies the plan choice.
@@ -190,17 +188,17 @@ export function getSimpleChoiceNumber(simpleChoice): string {
  * @return {Boolean}
  * @memberOf api/degree-plan
  */
-export function satisfiesPlanChoice(planChoice: string, courseSlug: string) {
+export const satisfiesPlanChoice = (planChoice: string, courseSlug: string): boolean => {
   const singleChoices = complexChoiceToArray(planChoice);
   let ret = false;
-  _.forEach(singleChoices, (choice) => {
+  singleChoices.forEach((choice) => {
     if (satisfiesSinglePlanChoice(choice, courseSlug)) {
       ret = true;
     }
   });
   // console.log('satisfiesPlanChoice %s, %s returns %o', planChoice, getCourseSlug, ret);
   return ret;
-}
+};
 
 /**
  * Returns the index of the getCourseSlug in the array of plan choices.
@@ -209,20 +207,18 @@ export function satisfiesPlanChoice(planChoice: string, courseSlug: string) {
  * @return {Number} the index of getCourseSlug in the array.
  * @memberOf api/degree-plan
  */
-export function planIndexOf(planChoices: string[], courseSlug: string) {
+export const planIndexOf = (planChoices: string[], courseSlug: string): number => {
   for (let i = 0; i < planChoices.length; i += 1) {
     if (satisfiesPlanChoice(planChoices[i], courseSlug)) {
       return i;
     }
   }
   return -1;
-}
+};
 
-export function simpleCombineChoices(choice1: string, choice2: string): string {
-  return `${choice1},${choice2}`;
-}
+export const simpleCombineChoices = (choice1: string, choice2: string): string => `${choice1},${choice2}`;
 
-export function compoundCombineChoices(choice1: string, choice2: string): string {
+export const compoundCombineChoices = (choice1: string, choice2: string): string => {
   let left = choice1;
   let right = choice2;
   if (!isSingleChoice(left)) {
@@ -232,4 +228,4 @@ export function compoundCombineChoices(choice1: string, choice2: string): string
     right = `(${right})`;
   }
   return `${left},${right}`;
-}
+};

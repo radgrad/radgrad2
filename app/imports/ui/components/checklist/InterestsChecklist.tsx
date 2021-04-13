@@ -1,97 +1,78 @@
 import moment from 'moment';
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Button, Header, Icon } from 'semantic-ui-react';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
-import { ChecklistState } from '../../../api/checklist/ChecklistState';
 import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { StudentProfile, StudentProfileUpdate } from '../../../typings/radgrad';
 import { EXPLORER, URL_ROLES } from '../../layouts/utilities/route-constants';
 import ProfileInterestList from '../shared/ProfileInterestList';
-import { Checklist } from './Checklist';
-import '../../../../client/style.css';
-
+import { Checklist, CHECKSTATE } from './Checklist';
+import { DetailsBox } from './DetailsBox';
+import { ActionsBox } from './ActionsBox';
+import { ChecklistButtonAction, ChecklistButtonLink } from './ChecklistButtons';
 
 export class InterestsChecklist extends Checklist {
   private profile: StudentProfile;
 
-  constructor(name: string, student: string) {
-    super(name);
+  constructor(student: string) {
+    super();
+    this.name = 'Interests';
     this.profile = Users.getProfile(student);
-    // console.log('InterestChecklist', this.profile, StudentProfiles.findDoc(student));
+    this.iconName = 'heart';
+    // Specify title for each state
+    this.title[CHECKSTATE.OK] = 'Your Interests appear to be OK';
+    this.title[CHECKSTATE.REVIEW] = 'Please confirm that your Interests are OK';
+    this.title[CHECKSTATE.IMPROVE] = 'Please add at least 3 Interests to your profile';
+    // Specify the description for each state.
+    this.description[CHECKSTATE.OK] = `Congrats!  You have at least three Interests in your profile, and you've reviewed 
+      them within the past six months to be sure they are up to date.`;
+    this.description[CHECKSTATE.REVIEW] = (this.isSixMonthsOld(this.profile.lastVisitedInterests)) ?
+      `You have at least three Interests in your profile, but it's been at least six months since you've reviewed them. 
+      So, we want to check that they actually reflect your current Interests.`
+      :
+      'There are new Interests since you last reviewed your Interests. Perhaps you want to add them?';
+
+    this.description[CHECKSTATE.IMPROVE] = `For RadGrad to provide you with useful recommendations for Courses and Opportunities, 
+      we need you to add at least three Interests to your profile.  Don't worry, you can (and should!) change them at any 
+      time in the future as you become interested in new things.`;
     this.updateState();
   }
 
   public updateState(): void {
     const interests = Users.getInterestIDs(this.profile.userID);
     if (interests.length < 3) {
-      // console.log('not enough interests');
-      this.state = 'Improve';
+      this.state = CHECKSTATE.IMPROVE;
     } else if (this.profile.lastVisitedInterests) {
       const lastVisit = moment(this.profile.lastVisitedInterests, 'YYYY-MM-DD', true);
-      // console.log(this.profile.lastVisitedInterests, PublicStats.getPublicStat(PublicStats.interestsUpdateTime));
-      if (lastVisit.isBefore(moment(PublicStats.getPublicStat(PublicStats.interestsUpdateTime), 'YYYY-MM-DD-HH-mm-ss'))) {
-        this.state = 'Review';
+      const lastUpdate = PublicStats.getLastUpdateTimestamp(PublicStats.interestsUpdateTime);
+      if (lastVisit.isBefore(lastUpdate)) {
+        this.state = CHECKSTATE.REVIEW;
       } else if (this.isSixMonthsOld(this.profile.lastVisitedInterests)) {
-        this.state = 'Review';
+        this.state = CHECKSTATE.REVIEW;
       } else {
-        this.state = 'Awesome';
+        this.state = CHECKSTATE.OK;
       }
-    } else {
-      // console.log('no last visited page');
-      this.state = 'Review';
-    }
-    // console.log('updatestate', this.state);
-  }
-
-  public getIcon(): string | JSX.Element {
-    return <Icon name="star" color="grey" /> ;
-  }
-
-  public getTitle(state: ChecklistState): JSX.Element {
-    switch (state) {
-      case 'Awesome':
-        return <Header as='h1'>Your <strong>Interests</strong> appear to be OK</Header>;
-      case 'Review':
-        return <Header as='h1'>Please confirm that your current <strong>Interests</strong> are OK</Header>;
-      case 'Improve':
-        return <Header as='h1'>Please add at least <strong>Three Interests</strong> to your profile</Header>;
-      default:
-        return <React.Fragment />;
+    } else { // No data on lastVisited
+      this.state = CHECKSTATE.REVIEW;
     }
   }
 
-  public getDescription(state: ChecklistState): JSX.Element {
-    switch (state) {
-      case 'Awesome':
-        return <p>Congrats!  You have at least three Interests in your profile, and you&apos;ve reviewed them within the past six months to be sure they are up to date.</p>;
-      case 'Review':
-        if (this.isSixMonthsOld(this.profile.lastVisitedInterests)) {
-          return <p>You have at least three Interests in your profile, but it&apos;s been at least six months since you&apos;ve reviewed them. So, we want to check that they actually reflect your current Interests.</p>;
-        }
-        return <p>There are new Interests since you last reviewed your Interests. Perhaps you want to add them?</p>;
-      case 'Improve':
-        return <p>For RadGrad to provide you with useful recommendations for Courses and Opportunities, we need you to add at least three Interests to your profile.  Don&apos;t worry, you can (and should!) change them at any time in the future as you become interested in new things.</p>;
-      default:
-        return <React.Fragment />;
-    }
-  }
-
-  public getDetails(state: ChecklistState): JSX.Element {
+  public getDetails(): JSX.Element {
     const interests = Users.getInterestIDs(this.profile.userID);
-    if (interests.length === 0) {
-      return <p>You have not yet added any Interests to your profile</p>;
-    }
-    return <div className='highlightBox'><p>Here are your current interests:&nbsp;</p><ProfileInterestList profile={this.profile} size="medium" /></div>;
+    return ((interests.length === 0) ?
+        <DetailsBox description='Note: You have not yet added any Interests to your profile.'/> :
+        <DetailsBox description='Here are your current Interests:'>
+          <ProfileInterestList profile={this.profile} size="medium" />
+        </DetailsBox>
+    );
   }
 
   /**
    * Returns the actions section of the checklist item.
    * @return {JSX.Element}
    */
-  public getActions(state: ChecklistState): JSX.Element {
+  public getActions(): JSX.Element {
     const handleVerification = () => {
       const collectionName = StudentProfiles.getCollectionName();
       const updateData: StudentProfileUpdate = {};
@@ -103,22 +84,21 @@ export class InterestsChecklist extends Checklist {
         }
       });
     };
-    switch (state) {
-      case 'Awesome':
-        return <div className='centeredBox'><p>Click this button to go to the Interests Explorer if you want to look for new Interests anyway.&nbsp;
-          <Button size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.INTERESTS}`}>Go To Interests Explorer</Button> </p></div>;
-      case 'Review':
-        return <div className='centeredBox'>
-          <p>Clicking either button sets the timestamp for the last time this item was reviewed, so it will
-          move into the OK state and won&apos;t move back into the Review state for another six months.</p>
-          <Button size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.INTERESTS}`}>Go To Interests Explorer</Button>&nbsp;&nbsp;
-          <Button basic size='huge' color='teal' onClick={handleVerification}>My Interests are OK</Button>
-        </div>;
-      case 'Improve':
-        return <div className='centeredBox'><p>Click &quot;Go To Interest Explorer&quot; to search for the Interests and add at least three to
-          your Profile.</p>
-          <Button size='huge' color='teal' as={Link} to={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.INTERESTS}`}>Go To Interests Explorer</Button>
-        </div>;
+    switch (this.state) {
+      case CHECKSTATE.OK:
+      case CHECKSTATE.IMPROVE:
+        return (
+          <ActionsBox description='Go to the Interests Explorer to search for Interests to add to your profile. You should have at least three.'>
+            <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.INTERESTS}`} label='Interests Explorer'/>
+          </ActionsBox>
+        );
+      case CHECKSTATE.REVIEW:
+        return (
+          <ActionsBox description='Go to the Interests Explorer to search for Interests to add to your profile. Or, click "My Interests are OK if you think they are fine as is:' >
+            <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.INTERESTS}`} label='Interests Explorer'/>
+            <ChecklistButtonAction onClick={handleVerification} label='My Interests are OK'/>
+          </ActionsBox>
+        );
       default:
         return <React.Fragment />;
     }

@@ -85,7 +85,7 @@ if (Meteor.isServer) {
       expect(factoid).to.be.undefined;
       fc.assert(
         fc.property(fc.webUrl(), fc.lorem(3), fc.integer(1, 100), fc.integer(1, 100), fc.integer(1, 100), fc.lorem(20), fc.integer(500), (picture, name, i, c, e, description, numberOfStudents) => {
-          Factoids.updateOpportunityFactoid({ name, description, numberOfStudents, ice: {i, c, e}, picture });
+          Factoids.updateOpportunityFactoid({ name, description, numberOfStudents, ice: { i, c, e }, picture });
           factoid = Factoids.getOpportunityFactoid();
           expect(factoid.name).to.equal(name);
           expect(factoid.ice.i).to.equal(i);

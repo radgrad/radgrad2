@@ -67,7 +67,6 @@ test('Test admin data model pages', async (testController) => {
   await adminNavBar.gotoMenuPageAndVerify(testController, 'data-model', 'course-instances');
   await adminNavBar.gotoMenuPageAndVerify(testController, 'data-model', 'courses');
   await adminNavBar.gotoMenuPageAndVerify(testController, 'data-model', 'feeds');
-  await adminNavBar.gotoMenuPageAndVerify(testController, 'data-model', 'feedback-instances');
   await adminNavBar.gotoMenuPageAndVerify(testController, 'data-model', 'interests');
   await adminNavBar.gotoMenuPageAndVerify(testController, 'data-model', 'interest-types');
   await adminNavBar.gotoMenuPageAndVerify(testController, 'data-model', 'opportunities');

@@ -21,7 +21,7 @@ const FacultyPageMenu: React.FC = () => {
 
   const menuItems = [
     { label: 'Home', route: HOME },
-    { label: 'Privacy', route: PRIVACY},
+    { label: 'Privacy', route: PRIVACY },
     { label: 'Forecasts', route: FORECASTS },
     { label: 'Community', route: COMMUNITY },
   ];
@@ -36,15 +36,15 @@ const FacultyPageMenu: React.FC = () => {
   /* In future, Faculty should be able to manage courses as well. */
   const manageDropdownItems = [
     { label: 'Opportunities', route: MANAGE.OPPORTUNITIES },
-    { label: 'Verification', route: MANAGE.VERIFICATIONS},
-    { label: 'Review', route: MANAGE.REVIEWS},
+    { label: 'Verification', route: MANAGE.VERIFICATIONS },
+    { label: 'Review', route: MANAGE.REVIEWS },
   ];
 
   const instanceName = Meteor.settings.public.instanceName;
   return (
     <div>
       <FirstMenu profile={profile} displayLevelAndIce={false} instanceName={instanceName} />
-      <Menu borderless inverted stackable id="secondMenu" attached="top" style={{paddingLeft: '10px', marginTop: '0px'}}>
+      <Menu borderless inverted stackable id="secondMenu" attached="top" style={{ paddingLeft: '10px', marginTop: '0px' }}>
         {menuItems.map((item) => (
           <Menu.Item id={`faculty-menu-${item.label.toLowerCase()}`} key={item.label} as={NavLink} exact={false} to={buildRouteName(match, `/${item.route}`)}>
             {item.label}

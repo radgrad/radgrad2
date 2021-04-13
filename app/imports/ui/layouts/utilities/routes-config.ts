@@ -3,8 +3,6 @@
  * Route information consists of a path, the path to the component, a Component to render.
  */
 import AdminHomePage from '../../pages/admin/AdminHomePage';
-import AdminDataModelPage from '../../pages/admin/AdminDataModelPage';
-import AdminDatabasePage from '../../pages/admin/AdminDatabasePage';
 import AdminAnalyticsLoggedInUsersPage from '../../pages/admin/AdminAnalyticsLoggedInUsersPage';
 import AdminAnalyticsNewsletterPage from '../../pages/admin/AdminAnalyticsNewsletterPage';
 import AdminAnalyticsOverheadAnalysisPage from '../../pages/admin/AdminAnalyticsOverheadAnalysisPage';
@@ -19,7 +17,6 @@ import AdminDataModelUsersPage from '../../pages/admin/AdminDataModelUsersPage';
 import AdminDataModelCourseInstancesPage from '../../pages/admin/AdminDataModelCourseInstancesPage';
 import AdminDataModelCoursesPage from '../../pages/admin/AdminDataModelCoursesPage';
 import AdminDataModelFeedsPage from '../../pages/admin/AdminDataModelFeedsPage';
-import AdminDataModelFeedbackInstancesPage from '../../pages/admin/AdminDataModelFeedbackInstancesPage';
 import AdminDataModelInterestsPage from '../../pages/admin/AdminDataModelInterestsPage';
 import AdminDataModelInterestTypesPage from '../../pages/admin/AdminDataModelInterestTypesPage';
 import AdminDataModelOpportunitiesPage from '../../pages/admin/AdminDataModelOpportunitiesPage';
@@ -38,7 +35,7 @@ import CommunityPage from '../../pages/shared/CommunityPage';
 import CourseBrowserViewPage from '../../pages/shared/browser-view/CourseBrowserViewPage';
 import CareerGoalViewPage from '../../pages/shared/item-view/CareerGoalViewPage';
 import CourseViewPage from '../../pages/shared/item-view/CourseViewPage';
-import ExplorerOpportunitiesPage from '../../pages/shared/ExplorerOpportunitiesPage';
+import OpportunityBrowserViewPage from '../../pages/shared/browser-view/OpportunityBrowserViewPage';
 import FacultyVerificationPage from '../../pages/faculty/FacultyVerificationPage';
 import FacultyHomePage from '../../pages/faculty/FacultyHomePage';
 import InterestBrowserViewPage from '../../pages/shared/browser-view/InterestBrowserViewPage';
@@ -63,6 +60,7 @@ import StudentIcePage from '../../pages/student/StudentIcePage';
 import StudentLevelsPage from '../../pages/student/StudentLevelsPage';
 import StudentPrivacyPage from '../../pages/student/StudentPrivacyPage';
 import StudentReviewsPage from '../../pages/student/StudentReviewsPage';
+import StudentSegmentExamplesPage from '../../pages/student/StudentSegmentExamplesPage';
 import StudentTermsAndConditionsPage from '../../pages/student/StudentTermsAndConditionsPage';
 import StudentVerificationPage from '../../pages/student/StudentVerificationPage';
 
@@ -85,8 +83,7 @@ import {
   USERNAME,
   VERIFICATION_REQUESTS,
 } from './route-constants';
-
-// TODO: Forecast -> Forecast,
+import StudentLabelExamplesPage from '../../pages/student/StudentLabelExamplesPage';
 
 export const routes = {
   ADMIN: [
@@ -98,18 +95,15 @@ export const routes = {
 
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${COMMUNITY}`, component: CommunityPage },
 
-    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATABASE.HOME}`, component: AdminDatabasePage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATABASE.DUMP}`, component: AdminDatabaseDumpPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATABASE.CHECK_INTEGRITY}`, component: AdminDatabaseCheckIntegrityPage },
 
-    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL.HOME}`, component: AdminDataModelPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL.ACADEMIC_TERMS}`, component: AdminDataModelAcademicTermsPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL.ACADEMIC_YEAR_INSTANCES}`, component: AdminDataModelAcademicYearsPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL.CAREERGOALS}`, component: AdminDataModelCareerGoalsPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL.COURSE_INSTANCES}`, component: AdminDataModelCourseInstancesPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL.COURSES}`, component: AdminDataModelCoursesPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL.FEEDS}`, component: AdminDataModelFeedsPage },
-    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL.FEEDBACK_INSTANCES}`, component: AdminDataModelFeedbackInstancesPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL.INTERESTS}`, component: AdminDataModelInterestsPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL.INTEREST_TYPES}`, component: AdminDataModelInterestTypesPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL.OPPORTUNITIES}`, component: AdminDataModelOpportunitiesPage },
@@ -127,7 +121,7 @@ export const routes = {
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${EXPLORER.COURSES_PARAM}`, component: CourseViewPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${EXPLORER.INTERESTS}`, component: InterestBrowserViewPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${EXPLORER.INTERESTS_PARAM}`, component: InterestViewPage },
-    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${EXPLORER.OPPORTUNITIES}`, component: ExplorerOpportunitiesPage },
+    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${EXPLORER.OPPORTUNITIES}`, component: OpportunityBrowserViewPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${EXPLORER.OPPORTUNITIES_PARAM}`, component: OpportunityViewPage },
 
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${FORECASTS}`, component: ForecastPage },
@@ -150,7 +144,7 @@ export const routes = {
     { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${EXPLORER.COURSES_PARAM}`, component: CourseViewPage },
     { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${EXPLORER.INTERESTS}`, component: InterestBrowserViewPage },
     { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${EXPLORER.INTERESTS_PARAM}`, component: InterestViewPage },
-    { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${EXPLORER.OPPORTUNITIES}`, component: ExplorerOpportunitiesPage },
+    { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${EXPLORER.OPPORTUNITIES}`, component: OpportunityBrowserViewPage },
     { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${EXPLORER.OPPORTUNITIES_PARAM}`, component: OpportunityViewPage },
     { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${FORECASTS}`, component: ForecastPage },
     { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${HOME}`, component: AdvisorHomePage },
@@ -173,7 +167,7 @@ export const routes = {
     { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER.COURSES_PARAM}`, component: CourseViewPage },
     { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER.INTERESTS}`, component: InterestBrowserViewPage },
     { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER.INTERESTS_PARAM}`, component: InterestViewPage },
-    { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER.OPPORTUNITIES}`, component: ExplorerOpportunitiesPage },
+    { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER.OPPORTUNITIES}`, component: OpportunityBrowserViewPage },
     { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${EXPLORER.OPPORTUNITIES_PARAM}`, component: OpportunityViewPage },
     { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${FORECASTS}`, component: ForecastPage },
     { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${HOME}`, component: FacultyHomePage },
@@ -205,7 +199,7 @@ export const routes = {
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER.COURSES_PARAM}`, component: CourseViewPage },
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER.INTERESTS}`, component: InterestBrowserViewPage },
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER.INTERESTS_PARAM}`, component: InterestViewPage },
-    { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER.OPPORTUNITIES}`, component: ExplorerOpportunitiesPage },
+    { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER.OPPORTUNITIES}`, component: OpportunityBrowserViewPage },
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${EXPLORER.OPPORTUNITIES_PARAM}`, component: OpportunityViewPage },
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${HOME}`, component: StudentHomePage },
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${ICE}`, component: StudentIcePage },
@@ -214,5 +208,8 @@ export const routes = {
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${STUDENT_REVIEWS}`, component: StudentReviewsPage },
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${STUDENT_VERIFICATION}`, component: StudentVerificationPage },
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${TERMS_AND_CONDITIONS}`, component: StudentTermsAndConditionsPage },
+    // The following pages are temporary for design purposes only. Should eventually be removed once we finalize design elements.
+    { path: `/${URL_ROLES.STUDENT}/${USERNAME}/labels`, component: StudentLabelExamplesPage },
+    { path: `/${URL_ROLES.STUDENT}/${USERNAME}/segments`, component: StudentSegmentExamplesPage },
   ],
 };

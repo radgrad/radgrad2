@@ -3,7 +3,6 @@ import { Button, Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, SelectField, AutoField, BoolField, NumField, TextField, SubmitField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
-import _ from 'lodash';
 import { AcademicTerm } from '../../../../../typings/radgrad';
 import BaseCollection from '../../../../../api/base/BaseCollection';
 import { academicTermIdToName, academicTermToName } from '../../../shared/utilities/data-model';
@@ -14,18 +13,17 @@ interface UpdateCourseInstanceFormProps {
   terms: AcademicTerm[];
   collection: BaseCollection;
   id: string;
-  formRef: React.RefObject<unknown>;
   handleUpdate: (doc) => any;
   handleCancel: (event) => any;
   itemTitleString: (item) => React.ReactNode;
 }
 
-const UpdateCourseInstanceForm: React.FC<UpdateCourseInstanceFormProps> = ({ terms, collection, id, formRef, handleUpdate, handleCancel, itemTitleString }) => {
+const UpdateCourseInstanceForm: React.FC<UpdateCourseInstanceFormProps> = ({ terms, collection, id, handleUpdate, handleCancel, itemTitleString }) => {
   const model = collection.findDoc(id);
   model.academicTerm = academicTermIdToName(model.termID);
   model.creditHours = model.creditHrs;
   // console.log(model);
-  const termNames = _.map(terms, academicTermToName);
+  const termNames = terms.map(academicTermToName);
   const schema = new SimpleSchema({
     academicTerm: {
       type: String,
@@ -53,7 +51,7 @@ const UpdateCourseInstanceForm: React.FC<UpdateCourseInstanceFormProps> = ({ ter
         Update
         {collection.getType()}:{itemTitleString(model)}
       </Header>
-      <AutoForm schema={formSchema} onSubmit={handleUpdate} ref={formRef} showInlineError model={model}>
+      <AutoForm schema={formSchema} onSubmit={handleUpdate} showInlineError model={model}>
         <Form.Group widths="equal">
           <SelectField name="academicTerm" />
           <AutoField name="ice" />
@@ -68,8 +66,8 @@ const UpdateCourseInstanceForm: React.FC<UpdateCourseInstanceFormProps> = ({ ter
           <TextField name="note" />
         </Form.Group>
         <BoolField name="retired" />
-        <SubmitField inputRef={undefined} value="Update" disabled={false} className="" />
-        <Button onClick={handleCancel}>Cancel</Button>
+        <SubmitField inputRef={undefined} value="Update" disabled={false} className="mini basic green" />
+        <Button onClick={handleCancel} basic color="green" size="mini">Cancel</Button>
       </AutoForm>
     </Segment>
   );

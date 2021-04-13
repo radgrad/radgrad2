@@ -18,7 +18,7 @@ const ProfileFutureCoursesList: React.FC<ProfileFutureCoursesListProps> = ({ pro
   const courseIDs = _.uniq(futureCourseInstances.map((ci) => ci.courseID));
   const futureCourses = courseIDs.map((ci) => Courses.findDoc(ci));
   return (
-    <CourseList courses={futureCourses} size={size} keyStr="future" />
+    <CourseList courses={futureCourses} size={size} keyStr="future" userID={profile.userID} />
   );
 };
 

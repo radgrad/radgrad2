@@ -1,14 +1,11 @@
-import _ from 'lodash';
 import { Meteor } from 'meteor/meteor';
 import { AcademicYearInstances } from '../degree-plan/AcademicYearInstanceCollection';
 import { AdminProfiles } from '../user/AdminProfileCollection';
 import { AdvisorProfiles } from '../user/AdvisorProfileCollection';
 import { CareerGoals } from '../career/CareerGoalCollection';
-import { StudentParticipations } from '../public-stats/StudentParticipationCollection';
 import { Courses } from '../course/CourseCollection';
 import { CourseInstances } from '../course/CourseInstanceCollection';
 import { FacultyProfiles } from '../user/FacultyProfileCollection';
-import { FeedbackInstances } from '../feedback/FeedbackInstanceCollection';
 import { Feeds } from '../feed/FeedCollection';
 import { IceSnapshots } from '../analytic/IceSnapshotCollection';
 import { Interests } from '../interest/InterestCollection';
@@ -51,7 +48,6 @@ class RadGradClass {
       AdminProfiles,
       AdvisorProfiles,
       CareerGoals,
-      StudentParticipations,
       Courses,
       CourseInstances,
       FacultyProfiles,
@@ -60,7 +56,6 @@ class RadGradClass {
       ProfileInterests,
       ProfileOpportunities,
       Feeds,
-      FeedbackInstances,
       IceSnapshots,
       Interests,
       InterestTypes,
@@ -99,7 +94,6 @@ class RadGradClass {
       StudentProfiles,
       CourseInstances,
       OpportunityInstances,
-      FeedbackInstances,
       VerificationRequests,
       Feeds,
       IceSnapshots,
@@ -115,7 +109,7 @@ class RadGradClass {
      * An object with keys equal to the collection name and values the associated collection instance.
      */
     this.collectionAssociation = {};
-    _.forEach(this.collections, (collection) => {
+    this.collections.forEach((collection) => {
       this.collectionAssociation[collection.getCollectionName()] = collection;
     });
   }

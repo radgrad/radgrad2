@@ -1,13 +1,13 @@
 import React from 'react';
-import {withTracker} from 'meteor/react-meteor-data';
-import {Card, Header, Segment} from 'semantic-ui-react';
-import {Courses} from '../../../api/course/CourseCollection';
+import { withTracker } from 'meteor/react-meteor-data';
+import { Card, Header, Segment } from 'semantic-ui-react';
+import { Courses } from '../../../api/course/CourseCollection';
 import LandingExplorerMenuBar from '../../components/landing/explorer/LandingExplorerMenuBar';
-import {Course} from '../../../typings/radgrad';
+import { Course } from '../../../typings/radgrad';
 import LandingExplorerCardContainer from '../../components/landing/explorer/LandingExplorerCard';
 import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
 import PageLayout from '../PageLayout';
-import {Slugs} from '../../../api/slug/SlugCollection';
+import { Slugs } from '../../../api/slug/SlugCollection';
 
 interface LandingCoursesExplorerPageProps {
   courses: Course[];
@@ -21,7 +21,7 @@ The RadGrad course explorer provides helpful information about courses, includin
 This public explorer does not show reviews or the forecasts for future semesters, but does provide an overview of the courses currently available in the system.
 `;
 
-const LandingCoursesExplorerPage: React.FC<LandingCoursesExplorerPageProps> = ({courses, count}) => (
+const LandingCoursesExplorerPage: React.FC<LandingCoursesExplorerPageProps> = ({ courses, count }) => (
   <div>
     <LandingExplorerMenuBar/>
     <PageLayout id="landing-courses-explorer-page" headerPaneTitle={headerPaneTitle}
@@ -41,7 +41,7 @@ const LandingCoursesExplorerPage: React.FC<LandingCoursesExplorerPageProps> = ({
 );
 
 const LandingCoursesCardExplorerContainer = withTracker(() => ({
-  courses: Courses.findNonRetired({}, {sort: {shortName: 1}}),
+  courses: Courses.findNonRetired({}, { sort: { shortName: 1 } }),
   count: Courses.countNonRetired(),
 }))(LandingCoursesExplorerPage);
 

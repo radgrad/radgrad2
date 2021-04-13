@@ -282,7 +282,7 @@ class UserCollection {
     }
     const profile = this.hasProfile(user);
     if (!profile) {
-      console.log(`No profile found for user ${user}`);
+      console.error(`No profile found for user ${user}`);
       throw new Meteor.Error(`No profile found for user ${user}`);
     }
     return profile;
@@ -309,7 +309,7 @@ class UserCollection {
    */
   public removeAll() {
     const users = Meteor.users.find().fetch();
-    _.forEach(users, (i) => {
+    users.forEach((i) => {
       if (!(this.adminUsername() === i.username)) {
         this.removeIt(i._id);
       }
@@ -431,8 +431,7 @@ class UserCollection {
    * @returns {Array} An array of interestIDs.
    */
   public getInterestIDs(user) {
-    const profile = this.getProfile(user);
-    const userID = profile.userID;
+    const userID = this.getID(user);
     const interestIDs = [];
     const profileInterests = ProfileInterests.findNonRetired({ userID });
     profileInterests.forEach((fav) => {

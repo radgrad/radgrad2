@@ -2,45 +2,48 @@ import { withTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react';
 import { Confirm, Icon } from 'semantic-ui-react';
 import _ from 'lodash';
-import Swal from 'sweetalert2';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
-import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
+import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
-import { AcademicTerm, AcademicTermDefine, DescriptionPair } from '../../../typings/radgrad';
+import { AcademicTerm, DescriptionPair } from '../../../typings/radgrad';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import AdminDataModelUpdateForm from '../../components/admin/datamodel/AdminDataModelUpdateForm';
 import AdminDataModelAddForm from '../../components/admin/datamodel/AdminDataModelAddForm';
 import { dataModelActions } from '../../../redux/admin/data-model';
-import { getDatamodelCount } from './utilities/datamodel';
+import {
+  handleCancelWrapper, handleConfirmDeleteWrapper,
+  handleDeleteWrapper, handleOpenUpdateWrapper,
+  updateCallBack,
+} from './utilities/data-model-page-callbacks';
 import PageLayout from '../PageLayout';
 
-function numReferences(term) {
+const collection = AcademicTerms;
+
+const numReferences = (term) => {
   let references = 0;
   [CourseInstances, OpportunityInstances].forEach((entity) => {
-    _.forEach(entity.find().fetch(), (e) => {
+    entity.find().fetch().forEach((e) => {
       if (e.termID === term._id) {
         references++;
       }
     });
   });
-  _.forEach(Opportunities.find().fetch(), (e) => {
+  Opportunities.find().fetch().forEach((e) => {
     if (_.includes(e.termIDs, term._id)) {
       references++;
     }
   });
   return references;
-}
+};
 
-function descriptionPairs(term: AcademicTerm): DescriptionPair[] {
-  return [
-    { label: 'Term', value: AcademicTerms.toString(term._id, false) },
-    { label: 'Term Number', value: `${term.termNumber}` },
-    { label: 'References', value: `${numReferences(term)}` },
-    { label: 'Retired', value: term.retired ? 'True' : 'False' },
-  ];
-}
+const descriptionPairs = (term: AcademicTerm): DescriptionPair[] => ([
+  { label: 'Term', value: AcademicTerms.toString(term._id, false) },
+  { label: 'Term Number', value: `${term.termNumber}` },
+  { label: 'References', value: `${numReferences(term)}` },
+  { label: 'Retired', value: term.retired ? 'True' : 'False' },
+]);
 
 const itemTitle = (term: AcademicTerm): React.ReactNode => (
   <React.Fragment>
@@ -58,123 +61,40 @@ interface AdminDataModelAcademicTermsPageProps {
 
 /**
  * AdminDataModelAcademicTermsPage.
- * @param props the Properties.
+ * @param {AcademicTerm[]} items
+ * @return {JSX.Element}
  * @constructor
  */
-const AdminDataModelAcademicTermsPage: React.FC<AdminDataModelAcademicTermsPageProps> = (props) => {
-  // TODO deconstruct props
-  const formRef = React.createRef();
+const AdminDataModelAcademicTermsPage: React.FC<AdminDataModelAcademicTermsPageProps> = ({ items }) => {
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');
   const [showUpdateFormState, setShowUpdateForm] = useState(false);
 
-  const handleAdd = (doc) => {
-    // console.log('handleAdd(%o)', doc);
-    const collectionName = AcademicTerms.getCollectionName();
-    const definitionData: AcademicTermDefine = doc;
-    defineMethod.call({ collectionName, definitionData }, (error) => {
-      if (error) {
-        Swal.fire({
-          title: 'Add failed',
-          text: error.message,
-          icon: 'error',
-        });
-      } else {
-        Swal.fire({
-          title: 'Add succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        // @ts-ignore
-        formRef.current.reset();
-      }
-    });
-  };
-
-  const handleCancel = (event) => {
-    event.preventDefault();
-    setConfirmOpen(false);
-    setId('');
-    setShowUpdateForm(false);
-  };
-
-  const handleDelete = (event, inst) => {
-    event.preventDefault();
-    // console.log('handleDelete inst=%o', inst);
-    setConfirmOpen(true);
-    setId(inst.id);
-  };
-
-  const handleConfirmDelete = () => {
-    const collectionName = AcademicTerms.getCollectionName();
-    const instance = idState;
-    removeItMethod.call({ collectionName, instance }, (error) => {
-      if (error) {
-        Swal.fire({
-          title: 'Delete failed',
-          text: error.message,
-          icon: 'error',
-        });
-        console.error('Error deleting AcademicTerm. %o', error);
-      } else {
-        Swal.fire({
-          title: 'Delete succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      }
-      setId('');
-      setConfirmOpen(false);
-    });
-  };
-
-  const handleOpenUpdate = (evt, inst) => {
-    evt.preventDefault();
-    // console.log('handleOpenUpdate inst=%o', evt, inst);
-    setShowUpdateForm(true);
-    setId(inst.id);
-  };
+  const handleCancel = handleCancelWrapper(setConfirmOpen, setId, setShowUpdateForm);
+  const handleConfirmDelete = handleConfirmDeleteWrapper(collection.getCollectionName(), idState, setShowUpdateForm, setId, setConfirmOpen);
+  const handleDelete = handleDeleteWrapper(setConfirmOpen, setId);
+  const handleOpenUpdate = handleOpenUpdateWrapper(setShowUpdateForm, setId);
 
   const handleUpdate = (doc) => {
     // console.log('handleUpdate doc=%o', doc);
-    const collectionName = AcademicTerms.getCollectionName();
+    const collectionName = collection.getCollectionName();
     const updateData: { id?: string; retired?: boolean } = {};
     updateData.id = doc._id;
     updateData.retired = doc.retired;
     // console.log('parameter = %o', { collectionName, updateData });
-    updateMethod.call({ collectionName, updateData }, (error) => {
-      if (error) {
-        Swal.fire({
-          title: 'Update failed',
-          text: error.message,
-          icon: 'error',
-        });
-        console.error('Error in updating AcademicTerm. %o', error);
-      } else {
-        Swal.fire({
-          title: 'Update succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        setShowUpdateForm(false);
-        setId('');
-      }
-    });
+    updateMethod.call({ collectionName, updateData }, updateCallBack(setShowUpdateForm, setId));
   };
 
   const findOptions = {
     sort: { termNumber: 1 },
   };
   return (
-    <PageLayout id="data-model-academic-terms-page" headerPaneTitle="Academic Terms" >
+    <PageLayout id="data-model-academic-terms-page" headerPaneTitle="Academic Terms">
       {showUpdateFormState ? (
-        <AdminDataModelUpdateForm collection={AcademicTerms} id={idState} formRef={formRef} handleUpdate={handleUpdate}
-                                  handleCancel={handleCancel} itemTitleString={itemTitleString}/>
+        <AdminDataModelUpdateForm collection={AcademicTerms} id={idState} handleUpdate={handleUpdate}
+                                  handleCancel={handleCancel} itemTitleString={itemTitleString} />
       ) : (
-        <AdminDataModelAddForm collection={AcademicTerms} formRef={formRef} handleAdd={handleAdd}/>
+        <AdminDataModelAddForm collection={AcademicTerms} />
       )}
       <ListCollectionWidget
         collection={AcademicTerms}
@@ -185,19 +105,17 @@ const AdminDataModelAcademicTermsPage: React.FC<AdminDataModelAcademicTermsPageP
         handleDelete={handleDelete}
         setShowIndex={dataModelActions.setCollectionShowIndex}
         setShowCount={dataModelActions.setCollectionShowCount}
-        items={props.items}
+        items={items}
       />
-      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Academic Term?" />
+      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete}
+               header="Delete Academic Term?" />
     </PageLayout>
   );
 };
 
-// TODO add the consts and a return.
 const AdminDataModelAcademicTermsPageContainer = withTracker(() => {
-  const items = AcademicTerms.find({}).fetch();
-  const modelCount = getDatamodelCount();
+  const items = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();
   return {
-    ...modelCount,
     items,
   };
 })(AdminDataModelAcademicTermsPage);

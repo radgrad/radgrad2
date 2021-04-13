@@ -5,16 +5,17 @@ import { Button, Dropdown, Message, SemanticSIZES } from 'semantic-ui-react';
 import { Roles } from 'meteor/alanning:roles';
 import { Users } from '../../../api/user/UserCollection';
 import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
-import { USERINTERACTIONSNOTYPEDATA, UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
+import { USER_INTERACTIONS_NO_TYPE_DATA, UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
 import { UserInteractionDefine } from '../../../typings/radgrad';
 import { ROLE } from '../../../api/role/Role';
 
 interface RadGradLoginButtonsProps {
-  size: SemanticSIZES;
-  instanceName: string;
+  size?: SemanticSIZES;
+  instanceName?: string;
+  inverted?: boolean;
 }
 
-const RadGradLoginButtons: React.FC<RadGradLoginButtonsProps> = ({ instanceName, size }) => {
+const RadGradLoginButtons: React.FC<RadGradLoginButtonsProps> = ({ instanceName = '', size = 'medium', inverted = false }) => {
   const [pathname, setPathname] = useState<string>('');
   const [redirectToRefererState, setRedirectToReferer] = useState<boolean>(false);
 
@@ -40,7 +41,7 @@ const RadGradLoginButtons: React.FC<RadGradLoginButtonsProps> = ({ instanceName,
             const interactionData: UserInteractionDefine = {
               username,
               type: UserInteractionsTypes.LOGIN,
-              typeData: [USERINTERACTIONSNOTYPEDATA],
+              typeData: [USER_INTERACTIONS_NO_TYPE_DATA],
             };
             userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
               if (userInteractionError) {
@@ -76,7 +77,7 @@ const RadGradLoginButtons: React.FC<RadGradLoginButtonsProps> = ({ instanceName,
 
   return development ? (
     <div>
-      <Button size={size}>
+      <Button inverted={inverted} size={size}>
         <Dropdown id="LOGIN" text={`${instanceName} LOGIN`} pointing="top right">
           <Dropdown.Menu>
             <Dropdown.Item id="student" text={studentLabel} as={Link} to="/signin" />
@@ -91,7 +92,7 @@ const RadGradLoginButtons: React.FC<RadGradLoginButtonsProps> = ({ instanceName,
       </Message>
     </div>
   ) : (
-    <Button size={size}>
+    <Button inverted={inverted} size={size}>
       <Dropdown id="LOGIN" text={`${instanceName} LOGIN FOR`} pointing="top right">
         <Dropdown.Menu>
           <Dropdown.Item id="student" text={studentLabel} onClick={handleClick} />

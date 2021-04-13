@@ -1,5 +1,4 @@
 import React from 'react';
-import _ from 'lodash';
 import { Button, Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, SelectField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
@@ -14,14 +13,13 @@ interface UpdateInterestFormProps {
   interestTypes: InterestType[];
   collection: BaseCollection;
   id: string;
-  formRef: React.RefObject<unknown>;
   handleUpdate: (doc) => any;
   handleCancel: (event) => any;
   itemTitleString: (item) => React.ReactNode;
 }
 
-const UpdateInterestForm: React.FC<UpdateInterestFormProps> = ({ interestTypes, collection, id, formRef, handleCancel, handleUpdate, itemTitleString }) => {
-  const interestTypeNames = _.map(interestTypes, docToName);
+const UpdateInterestForm: React.FC<UpdateInterestFormProps> = ({ interestTypes, collection, id, handleCancel, handleUpdate, itemTitleString }) => {
+  const interestTypeNames = interestTypes.map(docToName);
   const model = collection.findDoc(id);
   model.slug = Slugs.getNameFromID(model.slugID);
   model.interestType = InterestTypes.findDoc(model.interestTypeID).name;
@@ -44,7 +42,7 @@ const UpdateInterestForm: React.FC<UpdateInterestFormProps> = ({ interestTypes, 
         Update
         {collection.getType()}:{itemTitleString(model)}
       </Header>
-      <AutoForm schema={formSchema} onSubmit={handleUpdate} ref={formRef} showInlineError model={model}>
+      <AutoForm schema={formSchema} onSubmit={handleUpdate} showInlineError model={model}>
         <Form.Group widths="equal">
           <TextField name="slug" disabled />
           <TextField name="name" />
@@ -52,8 +50,8 @@ const UpdateInterestForm: React.FC<UpdateInterestFormProps> = ({ interestTypes, 
         </Form.Group>
         <LongTextField name="description" />
         <BoolField name="retired" />
-        <SubmitField inputRef={undefined} value="Update" disabled={false} className="" />
-        <Button onClick={handleCancel}>Cancel</Button>
+        <SubmitField inputRef={undefined} value="Update" disabled={false} className="mini basic green" />
+        <Button onClick={handleCancel} basic color="green" size="mini">Cancel</Button>
       </AutoForm>
     </Segment>
   );

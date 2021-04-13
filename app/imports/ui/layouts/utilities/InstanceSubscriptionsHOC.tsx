@@ -1,10 +1,9 @@
 import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { SubsManager } from 'meteor/meteorhacks:subs-manager';
-import { Dimmer, Loader } from 'semantic-ui-react';
+import { Loader } from 'semantic-ui-react';
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { FeedbackInstances } from '../../../api/feedback/FeedbackInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import { getUserIdFromRoute } from '../../components/shared/utilities/router';
@@ -33,11 +32,7 @@ const withInstanceSubscriptions = (WrappedComponent) => {
   // console.log('withInstanceSubscriptionsHOC');
   const InstanceSubscriptions: React.FC<Loading> = (props) =>
     (props.loading ? (
-      <React.Fragment>
-        <Dimmer active inverted>
-          <Loader>Loading user-specific data</Loader>
-        </Dimmer>
-      </React.Fragment>
+      <Loader active>Loading user-specific data</Loader>
     ) : (
       <WrappedComponent {...props} />
     ));
@@ -51,7 +46,6 @@ const withInstanceSubscriptions = (WrappedComponent) => {
         handles.push(instanceSubs.subscribe(AcademicYearInstances.getPublicationName(), userID));
         handles.push(instanceSubs.subscribe(CourseInstances.getPublicationName(), userID));
         handles.push(instanceSubs.subscribe(CourseInstances.publicationNames.forecast));
-        handles.push(instanceSubs.subscribe(FeedbackInstances.getPublicationName(), userID));
         handles.push(instanceSubs.subscribe(OpportunityInstances.getPublicationName(), userID));
         handles.push(instanceSubs.subscribe(OpportunityInstances.publicationNames.forecast));
         handles.push(instanceSubs.subscribe(VerificationRequests.getPublicationName(), userID));

@@ -5,13 +5,32 @@ import moment from 'moment';
 import { connect } from 'react-redux';
 import { withTracker } from 'meteor/react-meteor-data';
 import Swal from 'sweetalert2';
+import { Courses } from '../../../api/course/CourseCollection';
+import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { AdminProfiles } from '../../../api/user/AdminProfileCollection';
+import { ProfileCourses } from '../../../api/user/profile-entries/ProfileCourseCollection';
+import { ProfileOpportunities } from '../../../api/user/profile-entries/ProfileOpportunityCollection';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
-import { dataModelActions } from '../../../redux/admin/data-model';
-import { AcademicTerm, BaseProfile, CareerGoal, CombinedProfileDefine, AdvisorOrFacultyProfile, ProfileCareerGoal, ProfileInterest, Interest, StudentProfile } from '../../../typings/radgrad';
+import {
+  AcademicTerm,
+  BaseProfile,
+  CareerGoal,
+  AdvisorOrFacultyProfile,
+  ProfileCareerGoal,
+  ProfileInterest,
+  Interest,
+  StudentProfile,
+  ProfileCourse, ProfileOpportunity, Course, Opportunity,
+} from '../../../typings/radgrad';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
-import { getDatamodelCount, makeMarkdownLink } from './utilities/datamodel';
+import { courseNameToSlug, opportunityNameToSlug } from '../../components/shared/utilities/data-model';
+import {
+  handleCancelWrapper,
+  handleDeleteWrapper, handleOpenUpdateWrapper,
+  updateCallBack,
+} from './utilities/data-model-page-callbacks';
+import { makeMarkdownLink } from './utilities/datamodel';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { ROLE } from '../../../api/role/Role';
 import AddUserForm from '../../components/admin/datamodel/user/AddUserForm';
@@ -19,8 +38,12 @@ import UpdateUserForm from '../../components/admin/datamodel/user/UpdateUserForm
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
-import { careerGoalSlugFromName, declaredAcademicTermSlugFromName, interestSlugFromName } from '../../components/shared/utilities/form';
-import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
+import {
+  careerGoalSlugFromName,
+  declaredAcademicTermSlugFromName,
+  interestSlugFromName,
+} from '../../components/shared/utilities/form';
+import { removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Users } from '../../../api/user/UserCollection';
 import { ProfileCareerGoals } from '../../../api/user/profile-entries/ProfileCareerGoalCollection';
 import { ProfileInterests } from '../../../api/user/profile-entries/ProfileInterestCollection';
@@ -36,10 +59,14 @@ interface AdminDataModelUsersPageProps {
   isCloudinaryUsed: boolean;
   cloudinaryUrl: string;
   profileCareerGoals: ProfileCareerGoal[];
+  profileCourses: ProfileCourse[];
   profileInterests: ProfileInterest[];
+  profileOpportunities: ProfileOpportunity[];
   interests: Interest[];
   careerGoals: CareerGoal[];
   academicTerms: AcademicTerm[];
+  courses: Course[];
+  opportunities: Opportunity[];
 }
 
 const descriptionPairs = (props: AdminDataModelUsersPageProps) => (user: BaseProfile) => {
@@ -49,15 +76,21 @@ const descriptionPairs = (props: AdminDataModelUsersPageProps) => (user: BasePro
   pairs.push({ label: 'Role', value: user.role });
   pairs.push({ label: 'Picture', value: makeMarkdownLink(user.picture) });
   pairs.push({ label: 'Website', value: makeMarkdownLink(user.website) });
-  const profileCareerGoals = _.filter(props.profileCareerGoals, (fav) => fav.userID === user.userID);
+  const profileCareerGoals = props.profileCareerGoals.filter((fav) => fav.userID === user.userID);
   // const profileCareerGoals = ProfileCareerGoals.findNonRetired({ studentID: user.userID });
-  const careerGoalIDs = _.map(profileCareerGoals, (f) => f.careerGoalID);
+  const careerGoalIDs = profileCareerGoals.map((f) => f.careerGoalID);
   pairs.push({ label: 'Career Goals', value: _.sortBy(CareerGoals.findNames(careerGoalIDs)) });
-  const profileInterests = _.filter(props.profileInterests, (fav) => fav.userID === user.userID);
+  const profileInterests = props.profileInterests.filter((fav) => fav.userID === user.userID);
   // const profileInterests = ProfileInterests.findNonRetired({ studentID: user.userID });
-  const interestIDs = _.map(profileInterests, (f) => f.interestID);
+  const interestIDs = profileInterests.map((f) => f.interestID);
   pairs.push({ label: 'Interests', value: _.sortBy(Interests.findNames(interestIDs)) });
   if (user.role === ROLE.STUDENT) {
+    const profileCourses = props.profileCourses.filter((fav) => fav.studentID === user.userID);
+    const courseIDs = profileCourses.map((fav) => fav.courseID);
+    pairs.push({ label: 'Courses', value: _.sortBy(Courses.findNames(courseIDs)) });
+    const profileOpportunities = props.profileOpportunities.filter((fav) => fav.studentID === user.userID);
+    const opportunityIDs = profileOpportunities.map((fav) => fav.opportunityID);
+    pairs.push({ label: 'Opportunities', value: _.sortBy(Opportunities.findNames(opportunityIDs)) });
     pairs.push({ label: 'Level', value: `${user.level}` });
     pairs.push({
       label: 'Declared Semester',
@@ -68,16 +101,16 @@ const descriptionPairs = (props: AdminDataModelUsersPageProps) => (user: BasePro
       pairs.push({ label: 'Last Registrar Load', value: `${moment(user.lastRegistrarLoad).format()}` });
     }
     if (user.lastVisitedCareerGoals) {
-      pairs.push({ label: 'Last visited career goals', value: `${moment(user.lastVisitedCareerGoals).format()}`});
+      pairs.push({ label: 'Last visited career goals', value: `${moment(user.lastVisitedCareerGoals).format()}` });
     }
     if (user.lastVisitedCourses) {
-      pairs.push({ label: 'Last visited courses', value: `${moment(user.lastVisitedCourses).format()}`});
+      pairs.push({ label: 'Last visited courses', value: `${moment(user.lastVisitedCourses).format()}` });
     }
     if (user.lastVisitedInterests) {
-      pairs.push({ label: 'Last visited interests', value: `${moment(user.lastVisitedInterests).format()}`});
+      pairs.push({ label: 'Last visited interests', value: `${moment(user.lastVisitedInterests).format()}` });
     }
     if (user.lastVisitedOpportunities) {
-      pairs.push({ label: 'Last visited opportunities', value: `${moment(user.lastVisitedOpportunities).format()}`});
+      pairs.push({ label: 'Last visited opportunities', value: `${moment(user.lastVisitedOpportunities).format()}` });
     }
   }
   if (user.role === ROLE.FACULTY) {
@@ -109,69 +142,14 @@ const mapStateToProps = (state: RootState): unknown => ({
   cloudinaryUrl: state.shared.cloudinary.adminDataModelUsers.cloudinaryUrl,
 });
 
-// props not deconstructed because AdminDataModeMenuProps has 21 numbers.
 const AdminDataModelUsersPage: React.FC<AdminDataModelUsersPageProps> = (props) => {
-  const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');
   const [showUpdateFormState, setShowUpdateForm] = useState(false);
 
-  const handleAdd = (doc: CombinedProfileDefine) => {
-    // console.log('handleAdd(%o)', doc);
-    const definitionData: CombinedProfileDefine = doc;
-    definitionData.interests = _.map(doc.interests, (interest) => interestSlugFromName(interest));
-    definitionData.careerGoals = _.map(doc.careerGoals, (goal) => careerGoalSlugFromName(goal));
-    if (!_.isNil(doc.declaredAcademicTerm)) {
-      definitionData.declaredAcademicTerm = declaredAcademicTermSlugFromName(doc.declaredAcademicTerm);
-    }
-    let collectionName = StudentProfiles.getCollectionName();
-    if (doc.role === ROLE.ADVISOR) {
-      collectionName = AdvisorProfiles.getCollectionName();
-    } else if (doc.role === ROLE.FACULTY) {
-      collectionName = FacultyProfiles.getCollectionName();
-    } else if (doc.role === ROLE.STUDENT) {
-      if (_.isNil(doc.level)) {
-        definitionData.level = 1;
-      }
-    }
-    const { isCloudinaryUsed, cloudinaryUrl } = props;
-    if (isCloudinaryUsed) {
-      definitionData.picture = cloudinaryUrl;
-    }
-    defineMethod.call({ collectionName, definitionData }, (error) => {
-      if (error) {
-        console.error('Failed adding User', error);
-        Swal.fire({
-          title: 'Failed adding User',
-          text: error.message,
-          icon: 'error',
-        });
-      } else {
-        Swal.fire({
-          title: 'Add User Succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        // @ts-ignore
-        formRef.current.reset();
-      }
-    });
-  };
-
-  const handleCancel = (event) => {
-    event.preventDefault();
-    setShowUpdateForm(false);
-    setId('');
-    setConfirmOpen(false);
-  };
-
-  const handleDelete = (event, inst) => {
-    event.preventDefault();
-    // console.log('handleDelete inst=%o', inst);
-    setConfirmOpen(true);
-    setId(inst.id);
-  };
+  const handleCancel = handleCancelWrapper(setConfirmOpen, setId, setShowUpdateForm);
+  const handleDelete = handleDeleteWrapper(setConfirmOpen, setId);
+  const handleOpenUpdate = handleOpenUpdateWrapper(setShowUpdateForm, setId);
 
   const handleConfirmDelete = () => {
     const profiles = Users.findProfiles({ _id: idState }, {});
@@ -212,12 +190,6 @@ const AdminDataModelUsersPage: React.FC<AdminDataModelUsersPageProps> = (props) 
     }
   };
 
-  const handleOpenUpdate = (evt, inst) => {
-    evt.preventDefault();
-    setShowUpdateForm(true);
-    setId(inst.id);
-  };
-
   const handleUpdate = (doc) => {
     // console.log('UsersPage.handleUpdate(%o)', doc);
     const updateData = doc; // create the updateData object from the doc.
@@ -235,8 +207,10 @@ const AdminDataModelUsersPage: React.FC<AdminDataModelUsersPageProps> = (props) 
     if (AdminProfiles.isDefined(updateData.id)) {
       collectionName = AdminProfiles.getCollectionName();
     }
-    updateData.interests = _.map(doc.interests, (interest) => interestSlugFromName(interest));
-    updateData.careerGoals = _.map(doc.careerGoals, (goal) => careerGoalSlugFromName(goal));
+    updateData.interests = doc.interests.map((interest) => interestSlugFromName(interest));
+    updateData.careerGoals = doc.careerGoals.map((goal) => careerGoalSlugFromName(goal));
+    updateData.profileCourses = doc.courses.map((course) => courseNameToSlug(course));
+    updateData.profileOpportunities = doc.opportunities.map((opp) => opportunityNameToSlug(opp));
     if (!_.isNil(doc.declaredAcademicTerm)) {
       updateData.declaredAcademicTerm = declaredAcademicTermSlugFromName(doc.declaredAcademicTerm);
     }
@@ -244,25 +218,8 @@ const AdminDataModelUsersPage: React.FC<AdminDataModelUsersPageProps> = (props) 
     if (isCloudinaryUsed) {
       updateData.picture = cloudinaryUrl;
     }
-    updateMethod.call({ collectionName, updateData }, (error) => {
-      if (error) {
-        Swal.fire({
-          title: 'Update failed',
-          text: error.message,
-          icon: 'error',
-        });
-        console.error('Error in updating. %o', error);
-      } else {
-        Swal.fire({
-          title: 'Update succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        setShowUpdateForm(false);
-        setId('');
-      }
-    });
+    // console.log(updateData);
+    updateMethod.call({ collectionName, updateData }, updateCallBack(setShowUpdateForm, setId));
   };
 
   const handleConvert = () => {
@@ -280,8 +237,6 @@ const AdminDataModelUsersPage: React.FC<AdminDataModelUsersPageProps> = (props) 
             itemTitle={itemTitle}
             handleOpenUpdate={handleOpenUpdate}
             handleDelete={handleDelete}
-            setShowIndex={dataModelActions.setCollectionShowIndex}
-            setShowCount={dataModelActions.setCollectionShowCount}
             items={props.admins}
           />
         </Tab.Pane>
@@ -297,8 +252,6 @@ const AdminDataModelUsersPage: React.FC<AdminDataModelUsersPageProps> = (props) 
             itemTitle={itemTitle}
             handleOpenUpdate={handleOpenUpdate}
             handleDelete={handleDelete}
-            setShowIndex={dataModelActions.setCollectionShowIndex}
-            setShowCount={dataModelActions.setCollectionShowCount}
             items={props.advisors}
           />
         </Tab.Pane>
@@ -314,8 +267,6 @@ const AdminDataModelUsersPage: React.FC<AdminDataModelUsersPageProps> = (props) 
             itemTitle={itemTitle}
             handleOpenUpdate={handleOpenUpdate}
             handleDelete={handleDelete}
-            setShowIndex={dataModelActions.setCollectionShowIndex}
-            setShowCount={dataModelActions.setCollectionShowCount}
             items={props.faculty}
           />
         </Tab.Pane>
@@ -331,8 +282,6 @@ const AdminDataModelUsersPage: React.FC<AdminDataModelUsersPageProps> = (props) 
             itemTitle={itemTitle}
             handleOpenUpdate={handleOpenUpdate}
             handleDelete={handleDelete}
-            setShowIndex={dataModelActions.setCollectionShowIndex}
-            setShowCount={dataModelActions.setCollectionShowCount}
             items={props.students}
           />
         </Tab.Pane>
@@ -344,21 +293,23 @@ const AdminDataModelUsersPage: React.FC<AdminDataModelUsersPageProps> = (props) 
       {showUpdateFormState ? (
         <UpdateUserForm
           id={idState}
-          formRef={formRef}
           handleUpdate={handleUpdate}
           handleCancel={handleCancel}
           itemTitleString={itemTitleString}
           interests={props.interests}
           careerGoals={props.careerGoals}
           academicTerms={props.academicTerms}
+          courses={props.courses}
+          opportunities={props.opportunities}
         />
       ) : (
-        <AddUserForm formRef={formRef} handleAdd={handleAdd} interests={props.interests} careerGoals={props.careerGoals}
-                     academicTerms={props.academicTerms}/>
+        <AddUserForm interests={props.interests} careerGoals={props.careerGoals}
+                     academicTerms={props.academicTerms} isCloudinaryUsed={props.isCloudinaryUsed}
+                     cloudinaryUrl={props.cloudinaryUrl} />
       )}
-      <Tab panes={panes} defaultActiveIndex={3}/>
+      <Tab panes={panes} defaultActiveIndex={3} />
       <Button color="green" basic onClick={handleConvert}>Convert Career Goal Interests</Button>
-      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete User?"/>
+      <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete User?" />
     </PageLayout>
   );
 };
@@ -371,22 +322,28 @@ export default withTracker(() => {
   const students = StudentProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch();
   const profileCareerGoals = ProfileCareerGoals.find().fetch();
   const profileInterests = ProfileInterests.find().fetch();
+  const profileCourses = ProfileCourses.find().fetch();
+  const profileOpportunities = ProfileOpportunities.find().fetch();
   const interests = Interests.find({}, { sort: { name: 1 } }).fetch();
   const careerGoals = CareerGoals.find({}, { sort: { name: 1 } }).fetch();
   let academicTerms = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
-  academicTerms = _.filter(academicTerms, (term) => term.termNumber <= currentTerm.termNumber && term.termNumber > currentTerm.termNumber - 8);
-  const modelCount = getDatamodelCount();
+  academicTerms = academicTerms.filter((term) => term.termNumber <= currentTerm.termNumber && term.termNumber > currentTerm.termNumber - 8);
+  const courses = Courses.find().fetch();
+  const opportunities = Opportunities.find().fetch();
   return {
-    ...modelCount,
     interests,
     careerGoals,
+    courses,
     academicTerms,
+    opportunities,
     admins,
     advisors,
     faculty,
     students,
     profileCareerGoals,
+    profileCourses,
     profileInterests,
+    profileOpportunities,
   };
 })(AdminDataModelUsersPageCon);

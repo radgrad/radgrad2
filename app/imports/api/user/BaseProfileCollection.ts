@@ -4,7 +4,6 @@ import SimpleSchema from 'simpl-schema';
 import BaseSlugCollection from '../base/BaseSlugCollection';
 import { AcademicYearInstances } from '../degree-plan/AcademicYearInstanceCollection';
 import { CourseInstances } from '../course/CourseInstanceCollection';
-import { FeedbackInstances } from '../feedback/FeedbackInstanceCollection';
 import { Feeds } from '../feed/FeedCollection';
 import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollection';
 import { Slugs } from '../slug/SlugCollection';
@@ -44,7 +43,6 @@ class BaseProfileCollection extends BaseSlugCollection {
       website: { type: String, optional: true },
       userID: SimpleSchema.RegEx.Id,
       retired: { type: Boolean, optional: true },
-      shareUsername: { type: Boolean, optional: true },
       sharePicture: { type: Boolean, optional: true },
       shareWebsite: { type: Boolean, optional: true },
       shareInterests: { type: Boolean, optional: true },
@@ -192,8 +190,8 @@ class BaseProfileCollection extends BaseSlugCollection {
     const userID = profile.userID;
     if (!Users.isReferenced(userID)) {
       // Automatically remove references to user from other collections that are "private" to this user.
-      _.forEach([Feeds, CourseInstances, OpportunityInstances, AcademicYearInstances, FeedbackInstances, VerificationRequests, ProfileCareerGoals, ProfileCourses, ProfileInterests,
-        ProfileOpportunities], (collection) => collection.removeUser(userID));
+      [Feeds, CourseInstances, OpportunityInstances, AcademicYearInstances, VerificationRequests, ProfileCareerGoals, ProfileCourses, ProfileInterests,
+        ProfileOpportunities].forEach((collection) => collection.removeUser(userID));
       Meteor.users.remove({ _id: userID });
       Slugs.getCollection().remove({ name: profile.username });
       return super.removeIt(profileID);

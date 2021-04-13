@@ -1,5 +1,6 @@
 /** @namespace api/user */
 import './BaseProfileCollection';
+import './BaseProfileCollection.methods';
 import './AdvisorProfileCollection';
 import './FacultyProfileCollection';
 import './StudentProfileCollection';

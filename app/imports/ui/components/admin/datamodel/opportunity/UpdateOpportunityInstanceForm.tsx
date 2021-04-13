@@ -3,7 +3,6 @@ import { Button, Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, SelectField, AutoField, BoolField, SubmitField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
-import _ from 'lodash';
 import { AcademicTerm } from '../../../../../typings/radgrad';
 import BaseCollection from '../../../../../api/base/BaseCollection';
 import { academicTermIdToName, academicTermToName } from '../../../shared/utilities/data-model';
@@ -13,16 +12,15 @@ interface UpdateOpportunityInstanceFormProps {
   terms: AcademicTerm[];
   collection: BaseCollection;
   id: string;
-  formRef: React.RefObject<unknown>;
   handleUpdate: (doc) => any;
   handleCancel: (event) => any;
   itemTitleString: (item) => React.ReactNode;
 }
 
-const UpdateOpportunityInstanceForm: React.FC<UpdateOpportunityInstanceFormProps> = ({ terms, collection, id, formRef, handleCancel, handleUpdate, itemTitleString }) => {
+const UpdateOpportunityInstanceForm: React.FC<UpdateOpportunityInstanceFormProps> = ({ terms, collection, id, handleCancel, handleUpdate, itemTitleString }) => {
   const model = collection.findDoc(id);
   model.academicTerm = academicTermIdToName(model.termID);
-  const termNames = _.map(terms, academicTermToName);
+  const termNames = terms.map(academicTermToName);
   const schema = new SimpleSchema({
     academicTerm: {
       type: String,
@@ -39,7 +37,7 @@ const UpdateOpportunityInstanceForm: React.FC<UpdateOpportunityInstanceFormProps
         Update
         {collection.getType()}:{itemTitleString(model)}
       </Header>
-      <AutoForm schema={formSchema} onSubmit={handleUpdate} ref={formRef} showInlineError model={model}>
+      <AutoForm schema={formSchema} onSubmit={handleUpdate} showInlineError model={model}>
         <Form.Group widths="equal">
           <SelectField name="academicTerm" />
           <AutoField name="ice" />
@@ -48,8 +46,8 @@ const UpdateOpportunityInstanceForm: React.FC<UpdateOpportunityInstanceFormProps
           <BoolField name="verified" />
           <BoolField name="retired" />
         </Form.Group>
-        <SubmitField inputRef={undefined} value="Update" disabled={false} className="" />
-        <Button onClick={handleCancel}>Cancel</Button>
+        <SubmitField inputRef={undefined} value="Update" disabled={false} className="mini basic green" />
+        <Button onClick={handleCancel} basic color="green" size="mini">Cancel</Button>
       </AutoForm>
     </Segment>
   );

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Icon } from 'semantic-ui-react';
+import { Button, Icon, SemanticFLOATS } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import { CareerGoal, Course, Interest, MeteorError, Opportunity } from '../../../../../typings/radgrad';
 import { ProfileCareerGoals } from '../../../../../api/user/profile-entries/ProfileCareerGoalCollection';
@@ -17,6 +17,8 @@ export interface AddToProfileButtonProps {
   studentID: string;
   type: IProfileEntryTypes;
   added: boolean;
+  inverted: boolean;
+  floated?: SemanticFLOATS;
 }
 
 const handleAdd = (studentID: string, item: ItemType, type: IProfileEntryTypes) => () => {
@@ -103,17 +105,17 @@ const handleRemove = (studentID: string, item: ItemType, type: IProfileEntryType
   });
 };
 
-const AddToProfileButton: React.FC<AddToProfileButtonProps> = ({ studentID, item, type, added }) => (
+const AddToProfileButton: React.FC<AddToProfileButtonProps> = ({ studentID, item, type, added, inverted, floated }) => (
   <React.Fragment>
     {added ? (
-      <Button onClick={handleRemove(studentID, item, type)} size="mini" color="green" floated="right" basic>
-        <Icon name="user outline" color="grey" />
+      <Button onClick={handleRemove(studentID, item, type)} size="small" color="teal" floated={floated || 'right'} basic inverted={inverted}>
+        <Icon name="user outline" color="grey" inverted={inverted} />
         <Icon name="minus" />
         REMOVE FROM PROFILE
       </Button>
     ) : (
-      <Button size="mini" onClick={handleAdd(studentID, item, type)} color="green" floated="right" basic>
-        <Icon name="user" color="grey" />
+      <Button size="small" onClick={handleAdd(studentID, item, type)} color="teal" floated={floated || 'right'} basic inverted={inverted}>
+        <Icon name="user" color="grey" inverted={inverted}/>
         <Icon name="plus" />
         ADD TO PROFILE
       </Button>

@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import BaseProfileCollection, { defaultProfilePicture } from './BaseProfileCollection';
@@ -122,9 +121,9 @@ class AdminProfileCollection extends BaseProfileCollection {
     const website = doc.website;
     const userID = Users.getID(username);
     const favInterests = ProfileInterests.findNonRetired({ userID });
-    const interests = _.map(favInterests, (fav) => Interests.findSlugByID(fav.interestID));
+    const interests = favInterests.map((fav) => Interests.findSlugByID(fav.interestID));
     const favCareerGoals = ProfileCareerGoals.findNonRetired({ userID });
-    const careerGoals = _.map(favCareerGoals, (fav) => CareerGoals.findSlugByID(fav.careerGoalID));
+    const careerGoals = favCareerGoals.map((fav) => CareerGoals.findSlugByID(fav.careerGoalID));
     const retired = doc.retired;
     return { username, firstName, lastName, picture, website, interests, careerGoals, retired };
   }

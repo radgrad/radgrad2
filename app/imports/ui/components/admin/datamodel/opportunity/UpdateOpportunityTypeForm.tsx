@@ -8,13 +8,12 @@ import { OpportunityTypes } from '../../../../../api/opportunity/OpportunityType
 interface UpdateOpportunityTypeFormProps {
   collection: BaseCollection;
   id: string;
-  formRef: React.RefObject<unknown>;
   handleUpdate: (doc) => any;
   handleCancel: (event) => any;
   itemTitleString: (item) => React.ReactNode;
 }
 
-const UpdateOpportunityTypeForm: React.FC<UpdateOpportunityTypeFormProps> = ({ collection, id, formRef, handleUpdate, handleCancel, itemTitleString }) => {
+const UpdateOpportunityTypeForm: React.FC<UpdateOpportunityTypeFormProps> = ({ collection, id, handleUpdate, handleCancel, itemTitleString }) => {
   const model = collection.findDoc(id);
   return (
     <Segment padded>
@@ -22,12 +21,12 @@ const UpdateOpportunityTypeForm: React.FC<UpdateOpportunityTypeFormProps> = ({ c
         Update
         {collection.getType()}:{itemTitleString(model)}
       </Header>
-      <AutoForm schema={new SimpleSchema2Bridge(OpportunityTypes.getUpdateSchema())} onSubmit={handleUpdate} ref={formRef} showInlineError model={model}>
+      <AutoForm schema={new SimpleSchema2Bridge(OpportunityTypes.getUpdateSchema())} onSubmit={handleUpdate} showInlineError model={model}>
         <TextField name="name" />
         <LongTextField name="description" />
         <BoolField name="retired" />
-        <SubmitField inputRef={undefined} value="Update" disabled={false} className="" />
-        <Button onClick={handleCancel}>Cancel</Button>
+        <SubmitField inputRef={undefined} value="Update" disabled={false} className="mini basic green" />
+        <Button onClick={handleCancel} basic color="green" size="mini">Cancel</Button>
       </AutoForm>
     </Segment>
   );

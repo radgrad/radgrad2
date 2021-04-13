@@ -8,15 +8,15 @@ import { RadGrad } from '../radgrad/RadGrad';
  * @returns {{count: number, message: string}}
  * @memberOf api/integrity
  */
-export function checkIntegrity() {
+export const checkIntegrity = (): { count: number, message: string } => {
   let message = `Integrity check results
  (${moment().format('MMM Do YYYY, H:mm:ss a')})`;
   const startTime = moment();
   let count = 0;
-  _.forEach(_.sortBy(RadGrad.collections, (c) => c.collectionName), (collection) => {
+  _.sortBy(RadGrad.collections, (c) => c.collectionName).forEach((collection) => {
     message += `\n  ${collection.collectionName} (${collection.count()})`;
     const collectionStrings = collection.checkIntegrity();
-    _.forEach(collectionStrings, (collectionString) => {
+    collectionStrings.forEach((collectionString) => {
       count += 1;
       message += `\n    ${collectionString}`;
     });
@@ -25,7 +25,7 @@ export function checkIntegrity() {
   const endTime = moment();
   message += `\nElapsed time: ${endTime.diff(startTime, 'seconds', true)} seconds`;
   return { count, message };
-}
+};
 
 /**
  * Checks the integrity of the database, and throws an Error if there are any integrity problems.
@@ -33,11 +33,11 @@ export function checkIntegrity() {
  * @throws { Meteor.Error } If there is an integrity problem.
  * @memberOf api/integrity
  */
-export function assertIntegrity() {
+export const assertIntegrity = (): null => {
   console.log('assertIntegrity');
   const { count, message } = checkIntegrity();
   if (count > 0) {
     throw new Meteor.Error(message);
   }
   return null;
-}
+};

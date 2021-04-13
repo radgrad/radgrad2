@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams, useRouteMatch } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Container, Grid } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import _ from 'lodash';
 import { CareerGoal, DescriptionPair, ProfileCareerGoal, Profile, SocialPair } from '../../../../typings/radgrad';
 import { getMenuWidget } from '../utilities/getMenuWidget';
@@ -29,7 +29,7 @@ const interestedUsersCareerGoals = (theCareerGoal: CareerGoal, role: string): Pr
       interested.push(profile);
     }
   });
-  interested = _.filter(interested, (profile) => profile.picture && profile.picture !== defaultProfilePicture);
+  interested = interested.filter((profile) => profile.picture && profile.picture !== defaultProfilePicture);
   // only allow 50 students randomly selected.
   for (let i = interested.length - 1; i >= 50; i--) {
     interested.splice(Math.floor(Math.random() * interested.length), 1);
@@ -61,7 +61,7 @@ const socialPairsCareerGoals = (theCareerGoal: CareerGoal): SocialPair[] => [
 
 const CareerGoalViewPage: React.FC<CareerGoalViewPageProps> = ({ careerGoal, profileCareerGoals }) => {
   const match = useRouteMatch();
-  const menuAddedList = _.map(profileCareerGoals, (f) => ({
+  const menuAddedList = profileCareerGoals.map((f) => ({
     item: CareerGoals.findDoc(f.careerGoalID),
     count: 1,
   }));
@@ -71,22 +71,20 @@ const CareerGoalViewPage: React.FC<CareerGoalViewPageProps> = ({ careerGoal, pro
     { label: 'Teaser', value: teaser(careerGoal) },
   ];
   const socialPairs = socialPairsCareerGoals(careerGoal);
-  const pushDownStyle = { paddingTop: 15 };
   return (
     <div id="career-goal-view-page">
       {getMenuWidget(match)}
-      <Container style={pushDownStyle}>
-        <Grid stackable>
-          <Grid.Row>
-            <Grid.Column width={3}>
-              <ExplorerMenu menuAddedList={menuAddedList} type="career-goals" />
-            </Grid.Column>
-            <Grid.Column width={13}>
-              <ExplorerCareerGoal name={careerGoal.name} descriptionPairs={descriptionPairs} item={careerGoal} socialPairs={socialPairs} />
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </Container>
+      <Grid stackable>
+        <Grid.Row>
+          <Grid.Column width={3}>
+            <ExplorerMenu menuAddedList={menuAddedList} type="career-goals" />
+          </Grid.Column>
+          <Grid.Column width={13}>
+            <ExplorerCareerGoal name={careerGoal.name} descriptionPairs={descriptionPairs} item={careerGoal}
+                                socialPairs={socialPairs} />
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
     </div>
   );
 };

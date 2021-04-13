@@ -5,7 +5,6 @@ import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { useRouteMatch } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import _ from 'lodash';
 import { Reviews } from '../../../../api/review/ReviewCollection';
 import { removeItMethod, updateMethod } from '../../../../api/base/BaseCollection.methods';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
@@ -75,7 +74,7 @@ const StudentExplorerEditReviewForm: React.FC<StudentExplorerEditReviewWidgetPro
         }
         const interactionData: UserInteractionDefine = {
           username,
-          type: UserInteractionsTypes.EDITREVIEW,
+          type: UserInteractionsTypes.EDIT_REVIEW,
           typeData: [reviewType, updateData.academicTerm, slug],
         };
         userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
@@ -141,7 +140,7 @@ const StudentExplorerEditReviewForm: React.FC<StudentExplorerEditReviewWidgetPro
         verified: true,
       });
     }
-    _.forEach(instances, (instance) => {
+    instances.forEach((instance) => {
       const term = AcademicTerms.findDoc(instance.termID);
       if (term.termNumber <= AcademicTerms.getCurrentAcademicTermDoc().termNumber) {
         academicTerms.push(AcademicTerms.findDoc(instance.termID));
@@ -160,7 +159,7 @@ const StudentExplorerEditReviewForm: React.FC<StudentExplorerEditReviewWidgetPro
   model.rating = review.rating;
   model.academicTerm = AcademicTerms.toString(review.termID, false);
   const terms = academicTerm();
-  const academicTermNames = _.map(terms, (term) => `${term.term} ${term.year}`);
+  const academicTermNames = terms.map((term) => `${term.term} ${term.year}`);
   const schema = new SimpleSchema({
     academicTerm: {
       type: String,

@@ -116,9 +116,9 @@ class CourseCollection extends BaseSlugCollection {
       throw new Meteor.Error(`Prerequisites ${prerequisites} is not an array.`);
     }
     // make sure each corequisite has a valid format.
-    _.forEach(corequisites, (c) => validateCourseSlugFormat(c));
+    corequisites.forEach((c) => validateCourseSlugFormat(c));
     // make sure each prerequisite has a valid format.
-    _.forEach(prerequisites, (p) => validateCourseSlugFormat(p));
+    prerequisites.forEach((p) => validateCourseSlugFormat(p));
     // Currently we don't dump the DB is a way that prevents forward referencing of prereqs, so we
     // can't check the validity of prereqs during a define, such as with:
     //   _.each(prerequisites, (prerequisite) => this.getID(prerequisite));
@@ -176,6 +176,7 @@ class CourseCollection extends BaseSlugCollection {
     }
     if (interests) {
       const interestIDs = Interests.getIDs(interests);
+      // @ts-ignore
       updateData.interestIDs = interestIDs;
     }
     if (shortName) {
@@ -194,7 +195,7 @@ class CourseCollection extends BaseSlugCollection {
       if (!Array.isArray(prerequisites)) {
         throw new Meteor.Error(`Prerequisites ${prerequisites} is not an Array.`);
       }
-      _.forEach(prerequisites, (prereq) => {
+      prerequisites.forEach((prereq) => {
         if (!this.hasSlug(prereq)) {
           throw new Meteor.Error(`Prerequisite ${prereq} is not a slug for a course.`);
         }
@@ -213,6 +214,7 @@ class CourseCollection extends BaseSlugCollection {
    * @throws { Meteor.Error } If docID is not a Course, or if this course has any associated course instances.
    */
   public removeIt(instance: string) {
+    // console.log('CourseCollection.removeIt', instance);
     const docID = this.getID(instance);
     // Check that this is not referenced by any Course Instance.
     CourseInstances.find().map((courseInstance) => {
@@ -241,6 +243,18 @@ class CourseCollection extends BaseSlugCollection {
   }
 
   /**
+   * Returns a list of Course names corresponding to the passed list of Course docIDs.
+   * @param instanceIDs A list of Course docIDs.
+   * @returns { Array }
+   * @throws { Meteor.Error} If any of the instanceIDs cannot be found.
+   */
+  public findNames(instanceIDs: string[]) {
+    // console.log('Courses.findNames(%o)', instanceIDs);
+    return instanceIDs.map((instanceID) => this.findDoc(instanceID).name);
+  }
+
+
+  /**
    * Returns an array of strings, each one representing an integrity problem with this collection.
    * Returns an empty array if no problems were found.
    * Checks slugID and interestIDs.
@@ -252,33 +266,33 @@ class CourseCollection extends BaseSlugCollection {
       if (!Slugs.isDefined(doc.slugID)) {
         problems.push(`Bad slugID: ${doc.slugID}`);
       }
-      _.forEach(doc.interestIDs, (interestID) => {
+      doc.interestIDs.forEach((interestID) => {
         if (!Interests.isDefined(interestID)) {
           problems.push(`Bad interestID: ${interestID}`);
         }
       });
-      _.forEach(doc.corequisites, (coreq) => {
+      doc.corequisites.forEach((coreq) => {
         if (isSingleChoice(coreq)) {
           if (!this.hasSlug(coreq)) {
             problems.push(`Bad course corequisite slug: ${coreq}`);
           }
         } else {
           const slugs = complexChoiceToArray(coreq);
-          _.forEach(slugs, (slug) => {
+          slugs.forEach((slug) => {
             if (!this.hasSlug(slug)) {
               problems.push(`Bad course corequisite slug in or: ${slug}`);
             }
           });
         }
       });
-      _.forEach(doc.prerequisites, (prereq) => {
+      doc.prerequisites.forEach((prereq) => {
         if (isSingleChoice(prereq)) {
           if (!this.hasSlug(prereq)) {
             problems.push(`Bad course prerequisite slug: ${prereq}`);
           }
         } else {
           const slugs = complexChoiceToArray(prereq);
-          _.forEach(slugs, (slug) => {
+          slugs.forEach((slug) => {
             if (!this.hasSlug(slug)) {
               problems.push(`Bad course prerequisite slug in or: ${slug}`);
             }
@@ -302,7 +316,7 @@ class CourseCollection extends BaseSlugCollection {
     const num = doc.num;
     const description = doc.description;
     const creditHrs = doc.creditHrs;
-    const interests = _.map(doc.interestIDs, (interestID) => Interests.findSlugByID(interestID));
+    const interests = doc.interestIDs.map((interestID) => Interests.findSlugByID(interestID));
     const syllabus = doc.syllabus;
     const corequisites = doc.corequisites;
     const prerequisites = doc.prerequisites;
