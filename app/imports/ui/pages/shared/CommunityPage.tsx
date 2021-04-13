@@ -48,8 +48,9 @@ const CommunityPage: React.FC = () => {
         </Grid.Column>
         <Grid.Column width={6}>
           <CommunityActivity />
-          <MostPopular type={MOSTPOPULAR.CAREERGOAL} />
-          <MostPopular type={MOSTPOPULAR.INTEREST} />
+          <MostPopular type={MOSTPOPULAR.CAREERGOAL} data={data.careergoals && data.careergoals.slice(0, 5)}/>
+          <MostPopular type={MOSTPOPULAR.INTEREST} data={data.careergoals && data.interests.slice(0, 5)}/>
+          <MostPopular type={MOSTPOPULAR.OPPORTUNITY} data={data.opportunities && data.opportunities.slice(0, 5)}/>
         </Grid.Column>
       </Grid>
     </PageLayout>
