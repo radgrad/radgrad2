@@ -5,10 +5,10 @@ import RadGradSegment from '../../components/shared/RadGradSegment';
 
 const StudentSegmentExamplesPageExampleThree: React.FC = () => {
   const [checkState, setCheckState] = useState(true);
-  const handleToggleChange = (e, {checked}) => setCheckState(checked);
+  const handleChange = (e, {checked}) => setCheckState(checked);
   const checkStateValue = checkState ? 'Checked' : 'Not Checked';
 
-  const rightside = <Checkbox onChange={handleToggleChange} checked={checkState} label='Show all'/>;
+  const rightside = <Checkbox onChange={handleChange} checked={checkState} label='Show all'/>;
   const header = <RadGradHeader title='Example Three'  icon='user' rightside={rightside} />;
   return (
     <RadGradSegment header={header}>
