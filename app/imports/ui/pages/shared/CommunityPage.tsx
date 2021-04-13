@@ -41,7 +41,7 @@ const CommunityPage: React.FC = () => {
       <Grid stackable>
         <Grid.Row columns={1}>
           <Grid.Column>
-            <LevelDistribution />
+            <LevelDistribution data={data.levels}/>
           </Grid.Column>
         </Grid.Row>
         <Grid.Row columns={3}>
