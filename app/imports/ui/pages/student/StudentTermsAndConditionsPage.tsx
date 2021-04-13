@@ -11,11 +11,12 @@ Here are the terms and conditions for using RadGrad.
 /** See https://www.radgrad.org/docs/developers/patterns/components-methods for documentation. */
 const StudentTermsAndConditionsPage: React.FC = () => {
   const [terms, setTerms] = useState('');
-  const fetchTerms = () => (
+  const fetchTerms = () => {
+    // console.log('check for infinite loop);
     getTermsAndConditions.callPromise({})
       .then(result => setTerms(result))
       .catch(error => setTerms(`Server Error: ${error}`))
-  );
+  };
   useEffect(() => { fetchTerms(); }, [terms]);
 
   return (

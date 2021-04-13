@@ -47,6 +47,7 @@ const StudentPrivacyPage: React.FC<StudentPrivacyPageProps> = ({ profile }) => {
   // this useEffect is used to get the public profile data once when the page is first rendered.
   useEffect(() => {
     function fetchData() {
+      // console.log('check for infinite loop');
       getPublicProfileData.callPromise({ username: profile.username })
         .then(result => setData(result))
         .catch(error => {
