@@ -20,6 +20,7 @@ const CommunityPage: React.FC = () => {
   const [fetched, setFetched] = useState(false);
   // this useEffect is used to get theMostPopular data once when the page is first rendered.
   useEffect(() => {
+    // console.log('check for infinite loop');
     function fetchData() {
       getMostPopular.callPromise({})
         .then(result => setData(result))
@@ -34,7 +35,7 @@ const CommunityPage: React.FC = () => {
       fetchData();
       setFetched(true);
     }
-  });
+  }, [fetched]);
   return (
     <PageLayout id="community-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
       <Grid stackable>

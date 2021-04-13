@@ -30,7 +30,7 @@ const headerPaneBody = `
 const headerPaneImage = 'header-home.png';
 
 const StudentHomePage: React.FC<StudentHomePageProps> = ({ okItems, reviewItems, improveItems }) => (
-  <PageLayout id="student-home-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage} disableMargin>
+  <PageLayout id="student-home-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
       <Card.Group centered style={{ marginTop: '0px' }}>
         {improveItems}
         {reviewItems}
