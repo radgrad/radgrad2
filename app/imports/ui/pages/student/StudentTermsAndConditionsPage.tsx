@@ -12,7 +12,7 @@ Here are the terms and conditions for using RadGrad.
 const StudentTermsAndConditionsPage: React.FC = () => {
   const [terms, setTerms] = useState('');
   const fetchTerms = () => {
-    // console.log('check for infinite loop);
+    // console.log('check for infinite loop');
     getTermsAndConditions.callPromise({})
       .then(result => setTerms(result))
       .catch(error => setTerms(`Server Error: ${error}`))
