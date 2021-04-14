@@ -72,9 +72,11 @@ const BrowserView: React.FC<BrowserViewProps> = ({
 }) => {
   const match = useRouteMatch();
   const cardGroupElement: HTMLElement = document.getElementById('browserCardGroup');
+  // @ts-ignore
   let explorerItems = _.sortBy(items, (item) => item.name);
   switch (sortValue) {
     case interestSortKeys.mostRecent:
+      // @ts-ignore
       explorerItems = _.sortBy(items, (item) => item.updatedAt);
       break;
     case opportunitySortKeys.recommended:
@@ -89,6 +91,7 @@ const BrowserView: React.FC<BrowserViewProps> = ({
       explorerItems = preferred.getOrderedChoices();
       break;
     default:
+      // @ts-ignore
       explorerItems = _.sortBy(items, (item) => item.name);
   }
   useEffect(() => {
@@ -120,14 +123,15 @@ const BrowserView: React.FC<BrowserViewProps> = ({
   const rightsideNotInProfile =
     <Button size="mini" color="teal" floated="right"
             href={`mailto:${adminEmail}?subject=New ${_.upperFirst(explorerType.slice(0, -1))} Suggestion`} basic>
-            <Icon name="mail" />
-            SUGGEST A NEW {explorerType.toUpperCase().slice(0, -1)}
+      <Icon name="mail" />
+      SUGGEST A NEW {explorerType.toUpperCase().slice(0, -1)}
     </Button>;
   const header = inProfile ?
     <RadGradHeader title= {`${explorerType} IN MY PROFILE`} count = {explorerItems.length} icon='heart' rightside={rightsideInProfile}/>
     :
     <RadGradHeader title={`${explorerType} NOT IN MY PROFILE`} rightside={rightsideNotInProfile}/> ;
   return (
+    <div id="explorer-browser-view">
     <RadGradSegment header={header}>
       {!inProfile ? <SortWidget explorerType={explorerType} /> : ''}
       <Card.Group itemsPerRow={4} stackable id="browserCardGroup">
@@ -137,6 +141,7 @@ const BrowserView: React.FC<BrowserViewProps> = ({
         ))}
       </Card.Group>
     </RadGradSegment>
+    </div>
   );
 };
 
