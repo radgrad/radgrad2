@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import { Button, Card, Divider, Header, Icon, Segment } from 'semantic-ui-react';
+import { Button, Card, Icon } from 'semantic-ui-react';
 import { useRouteMatch } from 'react-router';
 import { scrollPositionActions } from '../../../../../redux/shared/scrollPosition';
 import { RootState } from '../../../../../redux/types';
@@ -10,13 +10,14 @@ import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
 import { CHECKSTATE } from '../../../checklist/Checklist';
 import { InterestsChecklist } from '../../../checklist/InterestsChecklist';
 import ProfileCard from './ProfileCard';
-import WidgetHeaderNumber from '../WidgetHeaderNumber';
 import { RadGradProperties } from '../../../../../api/radgrad/RadGradProperties';
 import { CareerGoalsChecklist } from '../../../checklist/CareerGoalsChecklist';
 import SortWidget, { interestSortKeys, opportunitySortKeys } from './SortWidget';
 import * as Router from '../../utilities/router';
 import { ProfileInterests } from '../../../../../api/user/profile-entries/ProfileInterestCollection';
 import PreferredChoice from '../../../../../api/degree-plan/PreferredChoice';
+import RadGradHeader from '../../RadGradHeader';
+import RadGradSegment from '../../RadGradSegment';
 
 interface BrowserViewProps {
   items?: CareerGoal[] | Course[] | Opportunity[] | Interest[];
@@ -71,11 +72,9 @@ const BrowserView: React.FC<BrowserViewProps> = ({
 }) => {
   const match = useRouteMatch();
   const cardGroupElement: HTMLElement = document.getElementById('browserCardGroup');
-  // @ts-ignore
   let explorerItems = _.sortBy(items, (item) => item.name);
   switch (sortValue) {
     case interestSortKeys.mostRecent:
-      // @ts-ignore
       explorerItems = _.sortBy(items, (item) => item.updatedAt);
       break;
     case opportunitySortKeys.recommended:
@@ -90,7 +89,6 @@ const BrowserView: React.FC<BrowserViewProps> = ({
       explorerItems = preferred.getOrderedChoices();
       break;
     default:
-      // @ts-ignore
       explorerItems = _.sortBy(items, (item) => item.name);
   }
   useEffect(() => {
@@ -116,35 +114,29 @@ const BrowserView: React.FC<BrowserViewProps> = ({
       checklist = new CareerGoalsChecklist(currentUser);
       break;
   }
+
+  const rightsideInProfile =  checklist.getState() === CHECKSTATE.IMPROVE ?
+    <span><Icon name='exclamation triangle' color='red' /> {checklist.getTitleText()}</span> : '' ;
+  const rightsideNotInProfile =
+    <Button size="mini" color="teal" floated="right"
+            href={`mailto:${adminEmail}?subject=New ${_.upperFirst(explorerType.slice(0, -1))} Suggestion`} basic>
+            <Icon name="mail" />
+            SUGGEST A NEW {explorerType.toUpperCase().slice(0, -1)}
+    </Button>;
+  const header = inProfile ?
+    <RadGradHeader title= {`${explorerType} IN MY PROFILE`} count = {explorerItems.length} icon='heart' rightside={rightsideInProfile}/>
+    :
+    <RadGradHeader title={`${explorerType} NOT IN MY PROFILE`} rightside={rightsideNotInProfile}/> ;
   return (
-        <div id="explorer-browser-view">
-            <Segment>
-                <Header>
-                    {inProfile
-                      ? <p color='grey'><Icon name='heart' color='grey' size='large' />
-                            {explorerType.toUpperCase()} IN MY PROFILE <WidgetHeaderNumber inputValue={explorerItems.length} />
-                            {checklist.getState() === CHECKSTATE.IMPROVE ?
-                                <span style={{ float: 'right' }}><Icon name='exclamation triangle' color='red' /> {checklist.getTitleText()}</span> : ''}
-                        </p>
-                      : <p color='grey'>{explorerType.toUpperCase()} NOT IN MY PROFILE <WidgetHeaderNumber inputValue={explorerItems.length} />
-                            <Button size="mini" color="teal" floated="right"
-                                    href={`mailto:${adminEmail}?subject=New ${_.upperFirst(explorerType.slice(0, -1))} Suggestion`} basic>
-                                <Icon name="mail" />
-                                SUGGEST A NEW {explorerType.toUpperCase().slice(0, -1)}
-                            </Button>
-                        </p>
-                    }
-                </Header>
-                <Divider />
-                {!inProfile ? <SortWidget explorerType={explorerType} /> : ''}
-                <Card.Group itemsPerRow={4} stackable id="browserCardGroup">
-                    {explorerItems.map((explorerItem) => (
-                        <ProfileCard key={explorerItem._id} item={explorerItem} type={explorerType}
-                                     cardLinkName={inProfile ? 'See Details / Remove from Profile' : 'See Details / Add to Profile'} />
-                    ))}
-                </Card.Group>
-            </Segment>
-        </div>
+    <RadGradSegment header={header}>
+      {!inProfile ? <SortWidget explorerType={explorerType} /> : ''}
+      <Card.Group itemsPerRow={4} stackable id="browserCardGroup">
+        {explorerItems.map((explorerItem) => (
+          <ProfileCard key={explorerItem._id} item={explorerItem} type={explorerType}
+                       cardLinkName={inProfile ? 'See Details / Remove from Profile' : 'See Details / Add to Profile'} />
+        ))}
+      </Card.Group>
+    </RadGradSegment>
   );
 };
 
