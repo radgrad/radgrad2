@@ -4,6 +4,7 @@ import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import { ProfileCourses } from '../../../api/user/profile-entries/ProfileCourseCollection';
 import { ProfileOpportunities } from '../../../api/user/profile-entries/ProfileOpportunityCollection';
+import RadGradHeader from '../../components/shared/RadGradHeader';
 import RadGradSegment from '../../components/shared/RadGradSegment';
 import StudentIceTabs from '../../components/student/ice/StudentIceTabs';
 import {
@@ -52,24 +53,27 @@ const StudentIcePage: React.FC<StudentIcePageProps> = ({
   profileOpportunities,
   courseInstances,
   opportunityInstances,
-}) => (
-  <PageLayout id="student-ice-points-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}
-              headerPaneImage={headerPaneImage}>
-    <Grid stackable>
-      <Grid.Row>
-        <Grid.Column width={16} stretched>
-          <RadGradSegment title='your ice points'>
-            <StudentIceTabs username={username} earnedICE={earnedICE} projectedICE={projectedICE}
-                            profileCourses={profileCourses}
-                            profileInterests={profileInterests} profileOpportunities={profileOpportunities}
-                            courseInstances={courseInstances}
-                            opportunityInstances={opportunityInstances} />
-          </RadGradSegment>
-        </Grid.Column>
-      </Grid.Row>
-    </Grid>
-  </PageLayout>
-);
+}) => {
+  const header = <RadGradHeader title='your ice points' />;
+  return (
+    <PageLayout id="student-ice-points-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}
+                headerPaneImage={headerPaneImage}>
+      <Grid stackable>
+        <Grid.Row>
+          <Grid.Column width={16} stretched>
+            <RadGradSegment header={header} >
+              <StudentIceTabs username={username} earnedICE={earnedICE} projectedICE={projectedICE}
+                              profileCourses={profileCourses}
+                              profileInterests={profileInterests} profileOpportunities={profileOpportunities}
+                              courseInstances={courseInstances}
+                              opportunityInstances={opportunityInstances} />
+            </RadGradSegment>
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
+    </PageLayout>
+  );
+};
 
 const StudentHomeIcePageContainer = withTracker(() => {
   const { username } = useParams();

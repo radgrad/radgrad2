@@ -11,16 +11,9 @@ import {
 import { STUDENT_VERIFICATION, URL_ROLES } from '../../../layouts/utilities/route-constants';
 import { ButtonLink } from '../../shared/button/ButtonLink';
 import MenuIceCircle from '../../shared/MenuIceCircle';
-import StudentProfileCourseItem from '../shared/StudentProfileCourseItem';
-import StudentProfileOpportunityItem from '../shared/StudentProfileOpportunityItem';
-import StudentRecommendedCourseItem from '../shared/StudentRecommendedCourseItem';
-import StudentRecommendedOpportunityItem from '../shared/StudentRecommendedOpportunityItem';
-import StudentUnverifiedOpportunityItem from '../shared/StudentUnverifiedOpportunityItem';
-import StudentVerifiedCourseItem from '../shared/StudentVerifiedCourseItem';
-import StudentVerifiedOpportunityItem from '../verification-requests/StudentVerifiedOpportunityItem';
+import InnovationIceTabPane from './InnovationIceTabPane';
 import StudentIceColumn from './StudentIceColumn';
 import PageIceCircle from './PageIceCircle';
-import StudentIndividualIceTabs from './StudentIndividualIceTabs';
 
 /* Technical Debt:
  *   * L33: Consolidate type so it is consistently referred to as "Innovation".
@@ -53,23 +46,9 @@ const StudentIceTabs: React.FC<StudentIceWidgetProps> = ({
     {
       menuItem: <Menu.Item><MenuIceCircle earned={earnedICE.i} planned={projectedICE.i}
                                           type="innov" /> INNOVATION</Menu.Item>,
-      render: () => (<Segment basic>
-        <PageIceCircle earned={earnedICE.i} planned={projectedICE.i} type="innov" />
-        <Header as="h3" textAlign="center" className="ice-innovation-color">
-          INNOVATION
-        </Header>
-        <StudentIndividualIceTabs type='Innovation' profileInterests={profileInterests}
-                                  courseInstances={courseInstances} opportunityInstances={opportunityInstances}
-                                  projectedICE={projectedICE} earnedICE={earnedICE} />
-        <StudentIceColumn type="Innovation" profileInterests={profileInterests} courseInstances={courseInstances}
-                          opportunityInstances={opportunityInstances} earnedICE={earnedICE}
-                          projectedICE={projectedICE} />
-        <div style={styleInfo}>
-          You earn innovation points by completing opportunities that involve &#8220; innovation &#8220;, such
-          as <strong>research projects, hackathons,</strong> or{' '}
-          <strong>other activities producing new insights or technologies.</strong>
-        </div>
-      </Segment>),
+      render: () => (<Tab.Pane>
+        <InnovationIceTabPane profileInterests={profileInterests} profileOpportunities={profileOpportunities} opportunityInstances={opportunityInstances} projectedICE={projectedICE.i} earnedICE={earnedICE.i} />
+      </Tab.Pane>),
     },
     {
       menuItem: <Menu.Item><MenuIceCircle earned={earnedICE.c} planned={projectedICE.c}
@@ -159,15 +138,6 @@ const StudentIceTabs: React.FC<StudentIceWidgetProps> = ({
           </Grid.Column>
         </Grid.Row>
       </Grid>
-      <Segment><Grid divided='vertically'>
-        <StudentProfileOpportunityItem opportunityID={opportunityInstances[0].opportunityID} />
-        <StudentRecommendedOpportunityItem opportunityID={opportunityInstances[0].opportunityID} />
-        <StudentUnverifiedOpportunityItem opportunityInstance={opportunityInstances[0]} />
-        <StudentVerifiedOpportunityItem opportunityInstance={opportunityInstances[0]} />
-        <StudentProfileCourseItem courseID={courseInstances[0].courseID} />
-        <StudentRecommendedCourseItem courseID={courseInstances[0].courseID} />
-        <StudentVerifiedCourseItem courseInstance={courseInstances[0]} />
-      </Grid></Segment>
       <Tab panes={panes} />
     </React.Fragment>
   );

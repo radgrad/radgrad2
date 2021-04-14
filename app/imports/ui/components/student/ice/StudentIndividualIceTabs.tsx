@@ -184,7 +184,7 @@ const StudentIndividualIceTabs: React.FC<StudentIndividualIceTabsProps> = ({ typ
           </React.Fragment>;
         }
         return (
-          fragment
+          <Tab.Pane>{fragment}</Tab.Pane>
         );
       },
     },
