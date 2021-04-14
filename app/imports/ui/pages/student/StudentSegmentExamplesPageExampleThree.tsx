@@ -5,7 +5,7 @@ import RadGradSegment from '../../components/shared/RadGradSegment';
 
 const StudentSegmentExamplesPageExampleThree: React.FC = () => {
   const [checkState, setCheckState] = useState(true);
-  const handleChange = (e, {checked}) => setCheckState(checked);
+  const handleChange = (e, { checked }) => setCheckState(checked);
   const checkStateValue = checkState ? 'Checked' : 'Not Checked';
 
   const rightside = <Checkbox onChange={handleChange} checked={checkState} label='Show all'/>;
