@@ -18,10 +18,10 @@ const makeStatistic = (levelNum, levelName, numStudents) => (
 );
 
 interface LevelDistributionProps {
-  data: {1: number, 2: number, 3: number, 4: number, 5: number, 6: number};
+  data: { 1: number, 2: number, 3: number, 4: number, 5: number, 6: number };
 }
 
-const LevelDistribution: React.FC<LevelDistributionProps> = ({data}) => {
+const LevelDistribution: React.FC<LevelDistributionProps> = ({ data }) => {
   const header = <RadGradHeader title='Students by level' icon='graduation cap' />;
   return (
     <RadGradSegment header={header}>

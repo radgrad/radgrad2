@@ -21,7 +21,7 @@ interface EntityLabelProps {
   rightside?: string;
 }
 
-export const EntityLabel: React.FC<EntityLabelProps> = ({ slug, inProfile, icon, size = 'large' as SemanticSIZES, route, name, style = {}, rightside= '' }) => {
+export const EntityLabel: React.FC<EntityLabelProps> = ({ slug, inProfile, icon, size = 'large' as SemanticSIZES, route, name, style = {}, rightside = '' }) => {
   const color = inProfile ? 'green' : 'grey' as SemanticCOLORS;
   // eslint-disable-next-line no-param-reassign
   style.margin = '2px';
