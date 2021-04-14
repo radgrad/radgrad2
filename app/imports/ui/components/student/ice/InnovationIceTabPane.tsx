@@ -42,7 +42,6 @@ const InnovationIceTabPane: React.FC<InnovationIceTabPaneProps> = ({
   profileInterests,
   opportunityInstances,
 }) => {
-  const verifiedOIs = opportunityInstances.filter((oi) => oi.verified);
   let unVerifiedOIs = opportunityInstances.filter((oi) => !oi.verified);
   const currentAcademicTermNum = AcademicTerms.getCurrentAcademicTermDoc().termNumber;
   unVerifiedOIs = unVerifiedOIs.filter((oi) => AcademicTerms.findDoc(oi.termID).termNumber < currentAcademicTermNum);
@@ -77,15 +76,6 @@ const InnovationIceTabPane: React.FC<InnovationIceTabPaneProps> = ({
         </Grid>
       </Tab.Pane>,
     },
-    {
-      menuItem: `VERIFIED (${verifiedOIs.length})`,
-      render: () => <Tab.Pane>
-        <Grid stackable>
-          {verifiedOIs.map((oi) => <StudentVerifiedOpportunityItem opportunityInstance={oi} key={oi._id} />)}
-        </Grid>
-      </Tab.Pane>,
-    },
-
   ];
   return (
     <Segment basic>
