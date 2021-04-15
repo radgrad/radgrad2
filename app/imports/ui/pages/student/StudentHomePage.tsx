@@ -32,9 +32,9 @@ const headerPaneBody = `
 `;
 const headerPaneImage = 'header-home.png';
 
-const improveHeader = <RadGradHeader title='High Priority (needs improvement)' icon='exclamation circle' style={{color: COLORS.RED}}/>;
-const reviewHeader = <RadGradHeader title='Medium Priority (please review)' icon='question circle' style={{color: COLORS.YELLOW}}/>;
-const okHeader = <RadGradHeader title='Low Priority (looks OK!)' icon='check circle' style={{color: COLORS.GREEN}}/>;
+const improveHeader = <RadGradHeader title='High Priority (needs improvement)' icon='exclamation circle' style={{ color: COLORS.RED }}/>;
+const reviewHeader = <RadGradHeader title='Medium Priority (please review)' icon='question circle' style={{ color: COLORS.YELLOW }}/>;
+const okHeader = <RadGradHeader title='Low Priority (looks OK!)' icon='check circle' style={{ color: COLORS.GREEN }}/>;
 
 const StudentHomePage: React.FC<StudentHomePageProps> = ({ okItems, reviewItems, improveItems }) => (
   <PageLayout id="student-home-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
