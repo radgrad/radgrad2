@@ -11,7 +11,7 @@ export const ActionsBox: React.FC<ActionsBoxProps> = ({ description, children })
   <div>
     <Markdown source={description}/>
     <Grid>
-      <Grid.Column textAlign="center">
+      <Grid.Column>
         {children}
       </Grid.Column>
     </Grid>
