@@ -50,7 +50,7 @@ const StudentHomePage: React.FC<StudentHomePageProps> = ({ okItems, reviewItems,
     </RadGradSegment>
     <RadGradSegment header={okHeader}>
       <Card.Group centered style={{ marginTop: '0px' }}>
-        {okItems}
+        {okItems || 'No low priority items right now.'}
       </Card.Group>
     </RadGradSegment>
   </PageLayout>
