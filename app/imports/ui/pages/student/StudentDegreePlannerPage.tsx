@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
 import { useParams } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
-import DegreeExperiencePlannerWidget from '../../components/student/degree-planner/DegreeExperiencePlannerWidget';
+import DegreeExperiencePlannerWidget from '../../components/student/degree-planner/DegreeExperiencePlanner';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { defineMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
