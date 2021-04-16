@@ -10,7 +10,6 @@ const headerPaneTitle = 'SandBox: Segment Design';
 const headerPaneBody = 'Examples of RadGradSegment. (April, 2021)';
 const headerPaneImage = 'header-sandbox.png';
 
-
 const SandBoxSegmentPage: React.FC = () => (
   <PageLayout id="sandbox-segment-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
     <SandboxSegment1/>
