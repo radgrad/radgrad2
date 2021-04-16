@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Header, Segment, Tab } from 'semantic-ui-react';
+import { Grid, Header, List, Segment, Tab } from 'semantic-ui-react';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import {
   OpportunityInstance,
@@ -52,7 +52,10 @@ const ExperienceIceTabPane: React.FC<ExperienceIceTabPaneProps> = ({
                 experience&#8220;,
                 such
                 as <strong>internships</strong> or <strong>business plan competitions</strong>.</p>
-              <p>You have <strong>{earnedICE}</strong> verified experience points. This appears as a number in the center of the circle. It is also represented by the darkly colored portion of the circle. You have <strong>{projectedICE}</strong> unverified experience points. This appears as the lightly colored portion of the circle.</p>
+              <p>You have <strong>{earnedICE}</strong> verified experience points. This appears as a number in the
+                center of the circle. It is also represented by the darkly colored portion of the circle. You
+                have <strong>{projectedICE}</strong> unverified experience points. This appears as the lightly colored
+                portion of the circle.</p>
               {unVerifiedOIs.length > 0 ?
                 <p>You have {unVerifiedOIs.length} opportunit{unVerifiedOIs.length > 1 ? 'ies' : 'y'} without
                   verification
@@ -60,11 +63,15 @@ const ExperienceIceTabPane: React.FC<ExperienceIceTabPaneProps> = ({
                     url={`/${URL_ROLES.STUDENT}/${username}/${STUDENT_VERIFICATION}`} label='Verification Page'
                     size='mini' /></p> : ''}
               {projectedICE < 100 ?
-                <div><p>You don&quot;t have enough innovative opportunities in your degree experience plan. Here are
-                  some
-                  recommended opportunities that match your interests:</p>
+                <div><p>You don&quot;t have enough experiential opportunities in your degree experience plan. Here are
+                  some recommended opportunities that match your interests:</p>
                   <OpportunityList opportunities={recommended} size='large' keyStr='recommended' userID={profileID} />
-                  </div> : ''}
+                  <List ordered>
+                    <List.Item>View the opportunity by clicking on the label.</List.Item>
+                    <List.Item>If you like the opportunity, add it to your profile.</List.Item>
+                    <List.Item>Then go to the Planner page and add the opportunity to your degree experience plan.</List.Item>
+                  </List>
+                </div> : ''}
             </Grid.Column>
           </Grid.Row>
         </Grid>

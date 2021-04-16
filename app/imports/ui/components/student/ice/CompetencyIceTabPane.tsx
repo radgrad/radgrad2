@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Header, Segment, Tab } from 'semantic-ui-react';
+import { Grid, Header, List, Segment, Tab } from 'semantic-ui-react';
 import { gradeCompetency } from '../../../../api/ice/IceProcessor';
 import { ProfileCourse, ProfileInterest } from '../../../../typings/radgrad';
 import CourseList from '../../shared/CourseList';
@@ -26,7 +26,7 @@ export const CompetencyIceTabPane: React.FC<CompetencyIceTabPaneProps> = ({ prof
               <PageIceCircle earned={earnedICE} planned={projectedICE} type="comp" />
             </Grid.Column>
             <Grid.Column textAlign='left' width={12}>
-              <Header as="h3" textAlign="center" className="ice-competency-color">
+              <Header as="h3" className="ice-competency-color">
                 COMPETENCY
               </Header>
               <p>You earn competency points by completing classes. The number of competency points depends upon your grade: you get <strong>{gradeCompetency.A} points for any kind of A, {gradeCompetency.B} points for any kind of B, and {gradeCompetency.C} points for a C or below</strong>.</p>
@@ -34,6 +34,11 @@ export const CompetencyIceTabPane: React.FC<CompetencyIceTabPaneProps> = ({ prof
               {projectedICE < 100 ? <div>
                 <p>You don&quot;t have enough competency from courses in your degree experience plan. Here are some recommended courses that match your interests:</p>
                 <CourseList courses={recommended} keyStr='recommended' size='large' userID={profileID} />
+                <List ordered>
+                  <List.Item>View the course by clicking on the label.</List.Item>
+                  <List.Item>If you like the course, add it to your profile.</List.Item>
+                  <List.Item>Then go to the Planner page and add the course to your degree experience plan.</List.Item>
+                </List>
               </div> : ''}
             </Grid.Column>
           </Grid.Row>

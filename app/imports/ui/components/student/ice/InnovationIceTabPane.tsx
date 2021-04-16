@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Header, Segment, Tab } from 'semantic-ui-react';
+import { Grid, Header, List, Segment, Tab } from 'semantic-ui-react';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import {
   OpportunityInstance,
@@ -64,6 +64,11 @@ const InnovationIceTabPane: React.FC<InnovationIceTabPaneProps> = ({
               {projectedICE < 100 ? <div>
                 <p>You don&quot;t have enough innovative opportunities in your degree experience plan. Here are some recommended innovative opportunities based upon your interests:</p>
                   <OpportunityList opportunities={recommended} size='large' keyStr='recommended' userID={profileID} />
+                <List ordered>
+                  <List.Item>View the opportunity by clicking on the label.</List.Item>
+                  <List.Item>If you like the opportunity, add it to your profile.</List.Item>
+                  <List.Item>Then go to the Planner page and add the opportunity to your degree experience plan.</List.Item>
+                </List>
               </div> : ''}
             </Grid.Column>
           </Grid.Row>

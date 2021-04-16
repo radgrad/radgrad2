@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Grid, Header, Icon, Label } from 'semantic-ui-react';
+import { Grid, Header, Icon, Label } from 'semantic-ui-react';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import { Slugs } from '../../../../api/slug/SlugCollection';
 import { VerificationRequests } from '../../../../api/verification/VerificationRequestCollection';

@@ -2,14 +2,14 @@ import React from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 import { List } from 'semantic-ui-react';
 import _ from 'lodash';
-import { gradeCompetency } from '../../../../api/ice/IceProcessor';
-import { buildRouteName, getUserIdFromRoute } from '../../shared/utilities/router';
-import { Ice, Course, ProfileInterest, Opportunity, ICEType } from '../../../../typings/radgrad';
-import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
-import { Courses } from '../../../../api/course/CourseCollection';
-import { CourseInstances } from '../../../../api/course/CourseInstanceCollection';
-import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
-import { Interests } from '../../../../api/interest/InterestCollection';
+import { gradeCompetency } from '../../../../../app/imports/api/ice/IceProcessor';
+import { buildRouteName, getUserIdFromRoute } from '../../../../../app/imports/ui/components/shared/utilities/router';
+import { Ice, Course, ProfileInterest, Opportunity, ICEType } from '../../../../../app/imports/typings/radgrad';
+import { EXPLORER_TYPE } from '../../../../../app/imports/ui/layouts/utilities/route-constants';
+import { Courses } from '../../../../../app/imports/api/course/CourseCollection';
+import { CourseInstances } from '../../../../../app/imports/api/course/CourseInstanceCollection';
+import { Opportunities } from '../../../../../app/imports/api/opportunity/OpportunityCollection';
+import { Interests } from '../../../../../app/imports/api/interest/InterestCollection';
 
 interface StudentIceColumnRecommendedProps {
   type: ICEType;
