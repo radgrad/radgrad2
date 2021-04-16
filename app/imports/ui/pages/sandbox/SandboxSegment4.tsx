@@ -3,7 +3,7 @@ import { Form, Radio } from 'semantic-ui-react';
 import RadGradHeader from '../../components/shared/RadGradHeader';
 import RadGradSegment from '../../components/shared/RadGradSegment';
 
-const StudentSegmentExamplesPageExampleFour: React.FC = () => {
+const SandboxSegment4: React.FC = () => {
   const [checkState, setCheckState] = useState('100');
   const handleChange = (e, { value }) => setCheckState(value);
 
@@ -19,11 +19,11 @@ const StudentSegmentExamplesPageExampleFour: React.FC = () => {
   const header = <RadGradHeader title='Example Four' icon='cloud upload' rightside={rightside} />;
   return (
     <RadGradSegment header={header}>
-      <p>This is an example of a RadGrad segment with a dynamic right-side component: a set of radio buttons.</p>
+      <p>This is an example of a RadGrad segment with a dynamic right-side component: a hand-rolled set of radio buttons.</p>
 
       <p>The selected radio button is available within the segment component and can be used to control the data that appears in the segment. For example, the current selected radio button is: {checkState}.</p>
     </RadGradSegment>
   );
 };
 
-export default StudentSegmentExamplesPageExampleFour;
+export default SandboxSegment4;

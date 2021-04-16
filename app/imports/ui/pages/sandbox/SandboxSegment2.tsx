@@ -3,7 +3,7 @@ import { Icon } from 'semantic-ui-react';
 import RadGradHeader from '../../components/shared/RadGradHeader';
 import RadGradSegment from '../../components/shared/RadGradSegment';
 
-const StudentSegmentExamplesPageExampleTwo: React.FC = () => {
+const SandboxSegment2: React.FC = () => {
   const rightside = <span><Icon name='exclamation triangle' color='red' /> You have unverified opportunities</span>;
   const header = <RadGradHeader title='Example Two' icon='history' rightside={rightside} />;
   return (
@@ -13,4 +13,4 @@ const StudentSegmentExamplesPageExampleTwo: React.FC = () => {
   );
 };
 
-export default StudentSegmentExamplesPageExampleTwo;
+export default SandboxSegment2;
