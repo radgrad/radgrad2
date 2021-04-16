@@ -152,7 +152,7 @@ const processRadGradCollection = (collection: ICollection) => {
 
 const reinitializedCollections = [];
 
-const addedCollections = ['AdminProfileCollection', 'PageInterestCollection', 'PageInterestsDailySnapshotCollection', 'UserInteractionCollection'].concat(reinitializedCollections);
+const addedCollections = ['AdminProfileCollection', 'UserInteractionCollection'].concat(reinitializedCollections);
 
 const addMissingCollections = (result) => {
   addedCollections.forEach(collectionName => {

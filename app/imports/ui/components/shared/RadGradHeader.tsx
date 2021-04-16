@@ -16,7 +16,7 @@ const RadGradHeader: React.FC<RadGradHeaderProps> = ({ title, count, icon, divid
       {icon ? (<Icon className={icon} />) : ''}
       &nbsp;
       {title.toUpperCase()} {count ? `(${count})` : ''}
-      <span style={{float: 'right'}}>{rightside}</span>
+      <span style={{ float: 'right' }}>{rightside}</span>
     </div>
   </Header>
 );

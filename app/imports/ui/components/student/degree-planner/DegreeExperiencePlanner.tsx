@@ -1,12 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { Grid, Segment, Button, Icon } from 'semantic-ui-react';
+import { Grid, Segment } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import moment from 'moment';
 import _ from 'lodash';
 import { Users } from '../../../../api/user/UserCollection';
 import { AcademicYearInstances } from '../../../../api/degree-plan/AcademicYearInstanceCollection';
+import { ButtonAction } from '../../shared/button/ButtonAction';
 import AcademicYearView from './AcademicYearView';
 import {
   AcademicYearInstance,
@@ -21,9 +22,9 @@ import { defineMethod, removeItMethod } from '../../../../api/base/BaseCollectio
 import { degreePlannerActions } from '../../../../redux/student/degree-planner';
 
 interface DePProps {
-  selectCourseInstance: (courseInstanceID: string) => any;
-  selectOpportunityInstance: (opportunityInstanceID: string) => any;
-  selectProfileDetailsTab: () => any;
+  selectCourseInstance: (courseInstanceID: string) => never;
+  selectOpportunityInstance: (opportunityInstanceID: string) => never;
+  selectProfileDetailsTab: () => never;
   academicYearInstances: AcademicYearInstance[];
   courseInstances: CourseInstance[];
   opportunityInstances: OpportunityInstance[];
@@ -35,7 +36,7 @@ const mapDispatchToProps = (dispatch) => ({
   selectProfileDetailsTab: () => dispatch(degreePlannerActions.selectProfileDetailsTab()),
 });
 
-const DEPWidget: React.FC<DePProps> = ({
+const DegreeExperiencePlanner: React.FC<DePProps> = ({
   selectCourseInstance,
   selectOpportunityInstance,
   selectProfileDetailsTab,
@@ -64,7 +65,7 @@ const DEPWidget: React.FC<DePProps> = ({
   // Automatically generate 4 AcademicYearInstances if none exists
   if (years.length === 0) {
     generateAcademicYearInstances(4);
-    years = academicYearInstances;
+    years = AcademicYearInstances.findNonRetired({ studentID }, { sort: { year: 1 } });
   }
   let visibleYears = years;
 
@@ -80,8 +81,7 @@ const DEPWidget: React.FC<DePProps> = ({
     selectProfileDetailsTab();
   };
 
-  const handleAddYear = (event: any): void => {
-    event.preventDefault();
+  const handleAddYear = (): void => {
     const student = username;
     const numYears = visibleYears.length;
     const nextYear = visibleYears[numYears - 1].year + 1;
@@ -112,8 +112,7 @@ const DEPWidget: React.FC<DePProps> = ({
   };
 
 
-  const handleDeleteYear = (event: any): void => {
-    event.preventDefault();
+  const handleDeleteYear = (): void => {
     const collectionName = AcademicYearInstances.getCollectionName();
     const instance = visibleYears[visibleYears.length - 1]._id;
     removeItMethod.call({ collectionName, instance }, (error: MeteorError) => {
@@ -172,20 +171,14 @@ const DEPWidget: React.FC<DePProps> = ({
           />
         ))}
         <Grid.Row textAlign="center">
-          <Grid.Column textAlign="left" />
-          <Grid.Column textAlign="center">
-            {/* This makes the "Add Academic Year" button only appear if the last Academic Year column is visible */}
-            <Button color="green" onClick={handleAddYear}>
-              <Icon name="plus circle" /> Add Academic Year
-            </Button>
+          <Grid.Column textAlign="left" >
+            <ButtonAction onClick={handleAddYear} label='Add Year' icon='plus circle' />
           </Grid.Column>
+          <Grid.Column textAlign="center" />
           <Grid.Column textAlign="right">
             {isYearEmpty(visibleYears[visibleYears.length - 1]) &&
             (
-              <Button color="green" icon labelPosition="right" onClick={handleDeleteYear}>
-                <Icon name="minus circle" />
-                Delete Year
-              </Button>
+              <ButtonAction onClick={handleDeleteYear} label='Delete Year' icon='minus circle' color='green' />
             )}
           </Grid.Column>
         </Grid.Row>
@@ -194,4 +187,4 @@ const DEPWidget: React.FC<DePProps> = ({
   );
 };
 
-export default connect(null, mapDispatchToProps)(DEPWidget);
+export default connect(null, mapDispatchToProps)(DegreeExperiencePlanner);
