@@ -8,12 +8,13 @@ import {
 } from '../../../../typings/radgrad';
 import { STUDENT_VERIFICATION, URL_ROLES } from '../../../layouts/utilities/route-constants';
 import { ButtonLink } from '../../shared/button/ButtonLink';
-import StudentRecommendedOpportunityItem from '../shared/StudentRecommendedOpportunityItem';
+import OpportunityList from '../../shared/OpportunityList';
 import PageIceCircle from './PageIceCircle';
 import { getRecommendedOpportunities } from './utilities/recommended';
 
 interface ExperienceIceTabPaneProps {
   username: string;
+  profileID: string;
   profileInterests: ProfileInterest[];
   profileOpportunities: ProfileOpportunity[];
   opportunityInstances: OpportunityInstance[];
@@ -23,6 +24,7 @@ interface ExperienceIceTabPaneProps {
 
 const ExperienceIceTabPane: React.FC<ExperienceIceTabPaneProps> = ({
   username,
+  profileID,
   projectedICE,
   earnedICE,
   profileOpportunities,
@@ -61,10 +63,8 @@ const ExperienceIceTabPane: React.FC<ExperienceIceTabPaneProps> = ({
                 <div><p>You don&quot;t have enough innovative opportunities in your degree experience plan. Here are
                   some
                   recommended opportunities that match your interests:</p>
-                  <Grid stackable>
-                    {recommended.map((opp) => <StudentRecommendedOpportunityItem opportunityID={opp._id}
-                                                                                 key={opp._id} />)}
-                  </Grid></div> : ''}
+                  <OpportunityList opportunities={recommended} size='large' keyStr='recommended' userID={profileID} />
+                  </div> : ''}
             </Grid.Column>
           </Grid.Row>
         </Grid>

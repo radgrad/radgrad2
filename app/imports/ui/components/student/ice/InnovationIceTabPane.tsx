@@ -8,12 +8,13 @@ import {
 } from '../../../../typings/radgrad';
 import { STUDENT_VERIFICATION, URL_ROLES } from '../../../layouts/utilities/route-constants';
 import { ButtonLink } from '../../shared/button/ButtonLink';
-import StudentRecommendedOpportunityItem from '../shared/StudentRecommendedOpportunityItem';
+import OpportunityList from '../../shared/OpportunityList';
 import PageIceCircle from './PageIceCircle';
 import { getRecommendedOpportunities } from './utilities/recommended';
 
 interface InnovationIceTabPaneProps {
   username: string;
+  profileID: string;
   profileInterests: ProfileInterest[];
   profileOpportunities: ProfileOpportunity[];
   opportunityInstances: OpportunityInstance[];
@@ -23,6 +24,7 @@ interface InnovationIceTabPaneProps {
 
 const InnovationIceTabPane: React.FC<InnovationIceTabPaneProps> = ({
   username,
+  profileID,
   projectedICE,
   earnedICE,
   profileOpportunities,
@@ -59,12 +61,10 @@ const InnovationIceTabPane: React.FC<InnovationIceTabPaneProps> = ({
                   requests. Visit the Verification Page to request verification. <ButtonLink
                     url={`/${URL_ROLES.STUDENT}/${username}/${STUDENT_VERIFICATION}`} label='Verification Page'
                     size='mini' /></p> : ''}
-              {projectedICE < 100 ?
-                <p>You don&quot;t have enough innovative opportunities in your degree experience plan.
-                  <Grid stackable>
-                    {recommended.map((opp) => <StudentRecommendedOpportunityItem opportunityID={opp._id}
-                                                                                 key={opp._id} />)}
-                  </Grid></p> : ''}
+              {projectedICE < 100 ? <div>
+                <p>You don&quot;t have enough innovative opportunities in your degree experience plan. Here are some recommended innovative opportunities based upon your interests:</p>
+                  <OpportunityList opportunities={recommended} size='large' keyStr='recommended' userID={profileID} />
+              </div> : ''}
             </Grid.Column>
           </Grid.Row>
         </Grid>

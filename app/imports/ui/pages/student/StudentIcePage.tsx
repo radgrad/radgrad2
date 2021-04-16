@@ -24,6 +24,7 @@ import PageLayout from '../PageLayout';
 
 interface StudentIcePageProps {
   username: string;
+  profileID: string;
   earnedICE: Ice;
   projectedICE: Ice;
   profileCourses: ProfileCourse[];
@@ -46,6 +47,7 @@ const headerPaneImage = 'header-ice.png';
 
 const StudentIcePage: React.FC<StudentIcePageProps> = ({
   username,
+  profileID,
   earnedICE,
   projectedICE,
   profileCourses,
@@ -62,7 +64,7 @@ const StudentIcePage: React.FC<StudentIcePageProps> = ({
         <Grid.Row>
           <Grid.Column width={16} stretched>
             <RadGradSegment header={header} >
-              <StudentIceTabs username={username} earnedICE={earnedICE} projectedICE={projectedICE}
+              <StudentIceTabs username={username} profileID={profileID} earnedICE={earnedICE} projectedICE={projectedICE}
                               profileCourses={profileCourses}
                               profileInterests={profileInterests} profileOpportunities={profileOpportunities}
                               courseInstances={courseInstances}
@@ -87,6 +89,7 @@ const StudentHomeIcePageContainer = withTracker(() => {
   const opportunityInstances: OpportunityInstance[] = OpportunityInstances.findNonRetired({ studentID });
   return {
     username,
+    userID: studentID,
     earnedICE,
     projectedICE,
     profileCourses,

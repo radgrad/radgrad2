@@ -2,18 +2,19 @@ import React from 'react';
 import { Grid, Header, Segment, Tab } from 'semantic-ui-react';
 import { gradeCompetency } from '../../../../api/ice/IceProcessor';
 import { ProfileCourse, ProfileInterest } from '../../../../typings/radgrad';
-import StudentRecommendedCourseItem from '../shared/StudentRecommendedCourseItem';
+import CourseList from '../../shared/CourseList';
 import PageIceCircle from './PageIceCircle';
 import { getRecommendedCourses } from './utilities/recommended';
 
 interface CompetencyIceTabPaneProps {
+  profileID: string;
   profileCourses: ProfileCourse[];
   profileInterests: ProfileInterest[];
   projectedICE: number;
   earnedICE: number;
 }
 
-export const CompetencyIceTabPane: React.FC<CompetencyIceTabPaneProps> = ({ projectedICE, earnedICE, profileCourses, profileInterests }) => {
+export const CompetencyIceTabPane: React.FC<CompetencyIceTabPaneProps> = ({ profileID, projectedICE, earnedICE, profileCourses, profileInterests }) => {
   const interestIDs = profileInterests.map((pi) => pi.interestID);
   const recommended = getRecommendedCourses(interestIDs, projectedICE);
   return (
@@ -32,9 +33,7 @@ export const CompetencyIceTabPane: React.FC<CompetencyIceTabPaneProps> = ({ proj
               <p>You have <strong>{earnedICE}</strong> verified experience points. This appears as a number in the center of the circle. It is also represented by the darkly colored portion of the circle. You have <strong>{projectedICE}</strong> unverified experience points. This appears as the lightly colored portion of the circle.</p>
               {projectedICE < 100 ? <div>
                 <p>You don&quot;t have enough competency from courses in your degree experience plan. Here are some recommended courses that match your interests:</p>
-                <Grid stackable>
-                  {recommended.map((c) => <StudentRecommendedCourseItem courseID={c._id} key={c._id} />)}
-                </Grid>
+                <CourseList courses={recommended} keyStr='recommended' size='large' userID={profileID} />
               </div> : ''}
             </Grid.Column>
           </Grid.Row>

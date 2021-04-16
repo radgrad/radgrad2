@@ -1,5 +1,5 @@
 import React from 'react';
-import { Segment, Header, Menu, Tab } from 'semantic-ui-react';
+import { Menu, Tab } from 'semantic-ui-react';
 import {
   Ice,
   CourseInstance,
@@ -12,16 +12,15 @@ import TabIceCircle from '../../shared/TabIceCircle';
 import { CompetencyIceTabPane } from './CompetencyIceTabPane';
 import ExperienceIceTabPane from './ExperienceIceTabPane';
 import InnovationIceTabPane from './InnovationIceTabPane';
-import StudentIceColumn from './StudentIceColumn';
-import PageIceCircle from './PageIceCircle';
 
 /* Technical Debt:
  *   * L33: Consolidate type so it is consistently referred to as "Innovation".
- *   * L35: Pass in earnedICS and projectedICE to avoid redundant computation.
+ *   * L35: Pass in earnedICE and projectedICE to avoid redundant computation.
  */
 
 export interface StudentIceWidgetProps {
   username: string;
+  profileID: string;
   earnedICE: Ice;
   projectedICE: Ice;
   profileCourses: ProfileCourse[];
@@ -33,6 +32,7 @@ export interface StudentIceWidgetProps {
 
 const StudentIceTabs: React.FC<StudentIceWidgetProps> = ({
   username,
+  profileID,
   earnedICE,
   projectedICE,
   profileCourses,
@@ -41,7 +41,6 @@ const StudentIceTabs: React.FC<StudentIceWidgetProps> = ({
   courseInstances,
   opportunityInstances,
 }) => {
-  const styleInfo: React.CSSProperties = { textAlign: 'left', paddingTop: 10 };
   const panes = [
     {
       menuItem: <Menu.Item key='innovation-tab'><TabIceCircle earned={earnedICE.i} planned={projectedICE.i}
@@ -54,7 +53,7 @@ const StudentIceTabs: React.FC<StudentIceWidgetProps> = ({
     {
       menuItem: <Menu.Item key='competency-tab'><TabIceCircle earned={earnedICE.c} planned={projectedICE.c}
                                                               type="comp" /> COMPETENCY</Menu.Item>,
-      render: () => (<CompetencyIceTabPane username={username} profileCourses={profileCourses} profileInterests={profileInterests} projectedICE={projectedICE.c} earnedICE={earnedICE.c} />),
+      render: () => (<CompetencyIceTabPane profileCourses={profileCourses} profileInterests={profileInterests} projectedICE={projectedICE.c} earnedICE={earnedICE.c} />),
     },
     {
       menuItem: <Menu.Item key='experience-tab'><TabIceCircle earned={earnedICE.e} planned={projectedICE.e}
