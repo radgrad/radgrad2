@@ -1,24 +1,20 @@
 import React from 'react';
 import Markdown from 'react-markdown';
-import {Segment, Grid, Container, Message, Icon, Image, Header, Popup} from 'semantic-ui-react';
+import {Segment, Grid, Container, Message, Icon, Image, Header, Popup, Label} from 'semantic-ui-react';
 import {getLevelCongratsMarkdown, getLevelHintStringMarkdown} from '../../../../api/level/LevelProcessor';
 import { StudentProfile } from '../../../../typings/radgrad';
 import {ICE, URL_ROLES} from '../../../layouts/utilities/route-constants';
-import { Users } from '../../../../api/user/UserCollection';
 import {getUsername} from '../../shared/utilities/router';
 import { Link, useRouteMatch } from 'react-router-dom';
+import StudentLevelsOthersWidget from './StudentLevelsOthersWidget';
+import { LevelChecklist } from '../../checklist/LevelChecklist';
+import {CHECKSTATE} from "../../checklist/Checklist";
+
 
 export interface StudentLevelsWidgetProps {
   profile: StudentProfile;
   students: StudentProfile[];
 }
-
-const getStudentLevelName = (profile: StudentProfile): string => {
-  if (profile.level) {
-    return `LEVEL ${profile.level}`;
-  }
-  return 'LEVEL 1';
-};
 
 const getStudentLevelHint = (profile: StudentProfile): string => {
   let levelNumber = 0;
@@ -40,12 +36,6 @@ const getStudentLevelHint = (profile: StudentProfile): string => {
       return 'No level available for this student';
   }
 };
-
-const studentsExist = (students): boolean => students.length > 0;
-
-const studentPicture = (student: StudentProfile) => student.picture;
-
-const fullName = (student: StudentProfile): string => Users.getFullName(student.userID);
 
 const getStudentLevelCongrats = (profile: StudentProfile): string => {
   let levelNumber = 0;
@@ -71,33 +61,27 @@ const getStudentLevelCongrats = (profile: StudentProfile): string => {
 const StudentLevelsWidget: React.FC<StudentLevelsWidgetProps> = ({ profile, students }) => {
   const imageStyle = { width: '160px' };
   const studentLevelNumber: number = profile.level || 1;
-  const studentLevelName = getStudentLevelName(profile);
   const studentLevelHint = getStudentLevelHint(profile);
   const studentLevelCongrats = getStudentLevelCongrats(profile);
   const match = useRouteMatch();
   const username = getUsername(match);
-  const imageGroupStyle = { minHeight: '50%' };
-  const imageStyle1 = {
-    height: '30px',
-    width: 'auto',
-  };
-  console.log(profile);
+  const currentUser = Meteor.user() ? Meteor.user().username : '';
+  const checklist = new LevelChecklist(currentUser);
   return (
     <Segment padded id="studentLevelsWidget">
       <Header as="h4" dividing>
         MY CURRENT LEVEL
+          {(checklist.getState() === CHECKSTATE.IMPROVE || checklist.getState() === CHECKSTATE.REVIEW)  ?
+              <span style={{ float: 'right' }}><Icon name='exclamation triangle' color='orange' /> {checklist.getTitleText()}</span> : ''}
       </Header>
       <Grid>
           <Grid.Column width={3}>
               <Image size="mini" centered style={imageStyle} src={`/images/level-icons/radgrad-level-${studentLevelNumber}-icon.png`} />
-              <Header as='h3' textAlign="center">Earned on March 2021</Header>
+              {profile.lastLeveledUp ? <Header as='h3' textAlign="center">Earned on {profile.lastLeveledUp}</Header> : ''}
           </Grid.Column>
         <Grid.Column width={13}>
           <Container>
               <Header as="h3"><Markdown escapeHtml source={studentLevelCongrats} /></Header>
-            {/*<Header as="h3" textAlign="center">*/}
-            {/*  {studentLevelName}*/}
-            {/*</Header>*/}
               <Message icon positive>
                   <Icon name="rocket" />
                   <Message.Content>
@@ -106,26 +90,10 @@ const StudentLevelsWidget: React.FC<StudentLevelsWidgetProps> = ({ profile, stud
                       <Link to={`/${URL_ROLES.STUDENT}/${username}/${ICE}`} style={{textDecoration: 'underline'}}>Visit ICE page for more details</Link>
                   </Message.Content>
               </Message>
-              <h3>OTHER LEVEL {studentLevelNumber} STUDENTS</h3>
-              {studentsExist(students) ? (
-                  <Image.Group size="mini" circular style={imageGroupStyle}>
-                      {students.map((student) => (
-                          // FIXME the <Image circular> gives a console warning:
-                          // "Warning: Received `true` for a non-boolean attribute `circular`."
-                          // Not really our problem, more of a Semantic UI React problem as "circular" is a boolean attribute.
-                          // This has happened for other Semantic UI React components in the past but after a while those warnings
-                          // disappear for whatever reason. So no need to really fix this, just putting this here that this warning
-                          // can pop up.
-                          <Popup key={student._id} trigger={<Image circular src={studentPicture(student)} style={imageStyle1} />} position="bottom left" content={fullName(student)} />
-                      ))}
-                  </Image.Group>
-              ) : (
-                  <i>No students to display.</i>
-              )}
+              <StudentLevelsOthersWidget students={students} profile={profile} />
           </Container>
         </Grid.Column>
       </Grid>
-
     </Segment>
   );
 };
