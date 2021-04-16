@@ -22,7 +22,7 @@ const StudentRecommendedOpportunityItem: React.FC<StudentRecommendedOpportunityI
         <Header>{opportunity.name} <IceHeader ice={opportunity.ice} /></Header>
       </Grid.Column>
       <Grid.Column floated='right' textAlign='right'>
-        <ButtonLink url={RouterUtils.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${slug}`)} label='See details / Add to profile' icon='search plus' size='small'/>
+        <ButtonLink url={RouterUtils.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.OPPORTUNITIES}/${slug}`)} label='See details / Add to profile' icon='search plus' size='mini'/>
       </Grid.Column>
     </Grid.Row>
   );
