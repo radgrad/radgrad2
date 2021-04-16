@@ -49,7 +49,7 @@ class VerificationRequestCollection extends BaseCollection {
     super('VerificationRequest', new SimpleSchema({
       studentID: SimpleSchema.RegEx.Id,
       opportunityInstanceID: SimpleSchema.RegEx.Id,
-      documentation: String,
+      documentation: { type: String, optional: true },
       submittedOn: Date,
       status: String,
       processed: [ProcessedSchema],

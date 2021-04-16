@@ -1,10 +1,12 @@
 import React from 'react';
+import { useParams } from 'react-router';
 import { Users } from '../../../api/user/UserCollection';
 import { StudentProfile } from '../../../typings/radgrad';
 import { LEVELS, URL_ROLES } from '../../layouts/utilities/route-constants';
+import { ActionsBox } from './ActionsBox';
 import { Checklist, CHECKSTATE } from './Checklist';
-import { DetailsBox } from './DetailsBox';
 import { ChecklistButtonLink } from './ChecklistButtons';
+import { DetailsBox } from './DetailsBox';
 
 export class LevelChecklist extends Checklist {
   private profile: StudentProfile;
@@ -39,16 +41,25 @@ export class LevelChecklist extends Checklist {
     }
   }
 
-
   public getDetails(): JSX.Element {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const { username } = useParams();
+    const profile = Users.getProfile(username) as StudentProfile;
+    return (
+      <DetailsBox description={`Your current Level: ${profile.level}`} />
+    );
+  }
+
+
+  public getActions(): JSX.Element {
     const description = (CHECKSTATE.REVIEW) ?
       'The Levels page contains information about your Level and how to achieve the next one.' :
       'For more details about your Level please go to:';
     const url = `/${URL_ROLES.STUDENT}/${this.profile.username}/${LEVELS}`;
     return (
-      <DetailsBox description={description}>
-        <ChecklistButtonLink url={url} label='Levels Page'/>
-      </DetailsBox>
+      <ActionsBox description={description}>
+        <ChecklistButtonLink url={url} label='Levels Page' />
+      </ActionsBox>
     );
   }
 }

@@ -16,7 +16,7 @@ export interface MostPopularData {
   careergoals?: Array<[string, number]>;
   courses?: Array<[string, number]>;
   opportunities?: Array<[string, number]>;
-  levels?: {1: number, 2: number, 3: number, 4: number, 5: number, 6: number};
+  levels?: { 1: number, 2: number, 3: number, 4: number, 5: number, 6: number };
 }
 
 const calculatePopular = (cursor, entityIDName, collection) => {
@@ -32,7 +32,7 @@ const calculatePopular = (cursor, entityIDName, collection) => {
 };
 
 const calculateLevels = () => {
-  const levels = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0};
+  const levels = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0 };
   StudentProfiles.findNonRetired().map(doc => { levels[doc.level] += 1; });
   return levels;
 };
