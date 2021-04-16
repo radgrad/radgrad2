@@ -1,9 +1,10 @@
 import { Courses } from '../../../../../api/course/CourseCollection';
 import PreferredChoice from '../../../../../api/degree-plan/PreferredChoice';
+import { gradeCompetency } from '../../../../../api/ice/IceProcessor';
 import { Opportunities } from '../../../../../api/opportunity/OpportunityCollection';
 import { Course, Opportunity } from '../../../../../typings/radgrad';
 
-export const getRecommendedOpportunitiesInnovation = (interestIDs: string[], projectedICE: number): Opportunity[] => {
+export const getRecommendedOpportunities = (interestIDs: string[], projectedICE: number, type: 'i' | 'c' | 'e'): Opportunity[] => {
   let projected = projectedICE;
   const opportunities = Opportunities.findNonRetired({});
   const choices = new PreferredChoice(opportunities, interestIDs);
@@ -11,22 +12,10 @@ export const getRecommendedOpportunitiesInnovation = (interestIDs: string[], pro
   const recommended = [];
   while (projected < 100) {
     const item = bestChoices.shift();
-    projected += item.ice.i;
-    recommended.push(item);
-  }
-  return recommended;
-};
-
-export const getRecommendedOpportunitiesExperience = (interestIDs: string[], projectedICE: number): Opportunity[] => {
-  let projected = projectedICE;
-  const opportunities = Opportunities.findNonRetired({});
-  const choices = new PreferredChoice(opportunities, interestIDs);
-  const bestChoices = choices.getOrderedChoices();
-  const recommended = [];
-  while (projected < 100) {
-    const item = bestChoices.shift();
-    projected += item.ice.e;
-    recommended.push(item);
+    if (item.ice[type] > 0) {
+      projected += item.ice[type];
+      recommended.push(item);
+    }
   }
   return recommended;
 };
@@ -39,7 +28,7 @@ export const getRecommendedCourses = (interestIDs: string[], projectedICE: numbe
   const recommended = [];
   while (projected < 100) {
     const item = bestChoices.shift();
-    projected += item.ice.c;
+    projected += gradeCompetency.A; // Assuming they get an A.
     recommended.push(item);
   }
   return recommended;

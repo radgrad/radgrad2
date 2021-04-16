@@ -2,7 +2,6 @@ import React from 'react';
 import { useRouteMatch } from 'react-router';
 import { Grid, Header } from 'semantic-ui-react';
 import { Courses } from '../../../../api/course/CourseCollection';
-import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
 import { Slugs } from '../../../../api/slug/SlugCollection';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import { ButtonLink } from '../../shared/button/ButtonLink';
@@ -13,7 +12,7 @@ interface StudentRecommendedCourseItemProps {
   courseID: string;
 }
 
-const StudentRecommendedOpportunityItem: React.FC<StudentRecommendedCourseItemProps> = ({ courseID }) => {
+const StudentRecommendedCourseItem: React.FC<StudentRecommendedCourseItemProps> = ({ courseID }) => {
   const course = Courses.findDoc(courseID);
   const courseICE = { i: 0, c: 10, e: 0 };
   const slug = Slugs.getNameFromID(course.slugID);
@@ -30,4 +29,4 @@ const StudentRecommendedOpportunityItem: React.FC<StudentRecommendedCourseItemPr
   );
 };
 
-export default StudentRecommendedOpportunityItem;
+export default StudentRecommendedCourseItem;

@@ -9,6 +9,7 @@ import {
   ProfileOpportunity,
 } from '../../../../typings/radgrad';
 import TabIceCircle from '../../shared/TabIceCircle';
+import { CompetencyIceTabPane } from './CompetencyIceTabPane';
 import ExperienceIceTabPane from './ExperienceIceTabPane';
 import InnovationIceTabPane from './InnovationIceTabPane';
 import StudentIceColumn from './StudentIceColumn';
@@ -45,37 +46,23 @@ const StudentIceTabs: React.FC<StudentIceWidgetProps> = ({
     {
       menuItem: <Menu.Item key='innovation-tab'><TabIceCircle earned={earnedICE.i} planned={projectedICE.i}
                                                               type="innov" /> INNOVATION</Menu.Item>,
-      render: () => (<Tab.Pane>
-        <InnovationIceTabPane username={username} profileInterests={profileInterests}
-                              profileOpportunities={profileOpportunities} opportunityInstances={opportunityInstances}
-                              projectedICE={projectedICE.i} earnedICE={earnedICE.i} />
-      </Tab.Pane>),
+      render: () => (<InnovationIceTabPane username={username} profileInterests={profileInterests}
+                                           profileOpportunities={profileOpportunities}
+                                           opportunityInstances={opportunityInstances}
+                                           projectedICE={projectedICE.i} earnedICE={earnedICE.i} />),
     },
     {
       menuItem: <Menu.Item key='competency-tab'><TabIceCircle earned={earnedICE.c} planned={projectedICE.c}
                                                               type="comp" /> COMPETENCY</Menu.Item>,
-      render: () => (<Segment basic>
-        <PageIceCircle earned={earnedICE.c} planned={projectedICE.c} type="comp" />
-        <Header as="h3" textAlign="center" className="ice-competency-color">
-          COMPETENCY
-        </Header>
-        <StudentIceColumn type="Competency" profileInterests={profileInterests} courseInstances={courseInstances}
-                          opportunityInstances={opportunityInstances} earnedICE={earnedICE}
-                          projectedICE={projectedICE} />
-        <div style={styleInfo}>
-          You earn competency points by completing classes. The number of competency points depends upon your grade: you
-          get <strong>10 points for any kind of A, 6 points for any kind of B, and no points for a C or below</strong>.
-        </div>
-      </Segment>),
+      render: () => (<CompetencyIceTabPane username={username} profileCourses={profileCourses} profileInterests={profileInterests} projectedICE={projectedICE.c} earnedICE={earnedICE.c} />),
     },
     {
       menuItem: <Menu.Item key='experience-tab'><TabIceCircle earned={earnedICE.e} planned={projectedICE.e}
                                                               type="exp" /> EXPERIENCE</Menu.Item>,
-      render: () => (<Tab.Pane>
-        <ExperienceIceTabPane username={username} profileInterests={profileInterests}
-                              profileOpportunities={profileOpportunities} opportunityInstances={opportunityInstances}
-                              projectedICE={projectedICE.e} earnedICE={earnedICE.e} />
-      </Tab.Pane>),
+      render: () => (<ExperienceIceTabPane username={username} profileInterests={profileInterests}
+                                           profileOpportunities={profileOpportunities}
+                                           opportunityInstances={opportunityInstances}
+                                           projectedICE={projectedICE.e} earnedICE={earnedICE.e} />),
     },
   ];
   return (

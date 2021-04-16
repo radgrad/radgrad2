@@ -1,6 +1,5 @@
 import { Meteor } from 'meteor/meteor';
 import _ from 'lodash';
-// @ts-ignore
 import SimpleSchema from 'simpl-schema';
 import { Courses } from '../course/CourseCollection';
 import { Ice } from '../../typings/radgrad';
