@@ -1,12 +1,12 @@
 import React from 'react';
 import { useRouteMatch } from 'react-router';
 import { Grid, Header } from 'semantic-ui-react';
-import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
-import { Slugs } from '../../../../api/slug/SlugCollection';
-import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
-import { ButtonLink } from '../../shared/button/ButtonLink';
-import IceHeader from '../../shared/IceHeader';
-import * as RouterUtils from '../../shared/utilities/router';
+import { Opportunities } from '../../../../app/imports/api/opportunity/OpportunityCollection';
+import { Slugs } from '../../../../app/imports/api/slug/SlugCollection';
+import { EXPLORER_TYPE } from '../../../../app/imports/ui/layouts/utilities/route-constants';
+import { ButtonLink } from '../../../../app/imports/ui/components/shared/button/ButtonLink';
+import IceHeader from '../../../../app/imports/ui/components/shared/IceHeader';
+import * as RouterUtils from '../../../../app/imports/ui/components/shared/utilities/router';
 
 interface StudentRecommendedOpportunityItemProps {
   opportunityID: string;

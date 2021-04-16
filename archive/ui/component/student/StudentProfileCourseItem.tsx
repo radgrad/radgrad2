@@ -1,10 +1,10 @@
 import React from 'react';
 import { useRouteMatch } from 'react-router';
 import { Grid, Header, Label } from 'semantic-ui-react';
-import { Courses } from '../../../../api/course/CourseCollection';
-import { ButtonLink } from '../../shared/button/ButtonLink';
-import IceHeader from '../../shared/IceHeader';
-import * as RouterUtils from '../../shared/utilities/router';
+import { Courses } from '../../../../app/imports/api/course/CourseCollection';
+import { ButtonLink } from '../../../../app/imports/ui/components/shared/button/ButtonLink';
+import IceHeader from '../../../../app/imports/ui/components/shared/IceHeader';
+import * as RouterUtils from '../../../../app/imports/ui/components/shared/utilities/router';
 
 interface StudentProfileCourseItemProps {
   courseID: string;

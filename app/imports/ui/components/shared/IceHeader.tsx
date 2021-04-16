@@ -7,6 +7,13 @@ interface IceHeaderProps {
   size?: SemanticSIZES;
 }
 
+/**
+ * Label showing a student's ICE values.
+ * @param {Ice} ice the student's ice.
+ * @param {"mini" | "tiny" | "small" | "medium" | "large" | "big" | "huge" | "massive" | undefined} size
+ * @return {JSX.Element} the Label.
+ * @constructor
+ */
 const IceHeader: React.FC<IceHeaderProps> = ({ ice, size = 'tiny' }) => {
   const marginStyle = {
     margin: 0,
