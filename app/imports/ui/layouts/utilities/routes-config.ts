@@ -1,7 +1,3 @@
-/**
- * This object holds all the routes for RadGrad2. The keys are the Roles the values are an array of route information.
- * Route information consists of a path, the path to the component, a Component to render.
- */
 import AdminHomePage from '../../pages/admin/AdminHomePage';
 import AdminAnalyticsLoggedInUsersPage from '../../pages/admin/AdminAnalyticsLoggedInUsersPage';
 import AdminAnalyticsNewsletterPage from '../../pages/admin/AdminAnalyticsNewsletterPage';
@@ -31,13 +27,13 @@ import AdvisorHomePage from '../../pages/advisor/AdvisorHomePage';
 import AdvisorManageStudentsPage from '../../pages/advisor/AdvisorManageStudentsPage';
 import AlumniHomePage from '../../pages/alumni/AlumniHomePage';
 import CareerGoalBrowserViewPage from '../../pages/shared/browser-view/CareerGoalBrowserViewPage';
+import CareerGoalViewPage from '../../pages/shared/item-view/CareerGoalViewPage';
 import CommunityPage from '../../pages/shared/CommunityPage';
 import CourseBrowserViewPage from '../../pages/shared/browser-view/CourseBrowserViewPage';
-import CareerGoalViewPage from '../../pages/shared/item-view/CareerGoalViewPage';
 import CourseViewPage from '../../pages/shared/item-view/CourseViewPage';
-import OpportunityBrowserViewPage from '../../pages/shared/browser-view/OpportunityBrowserViewPage';
-import FacultyVerificationPage from '../../pages/faculty/FacultyVerificationPage';
 import FacultyHomePage from '../../pages/faculty/FacultyHomePage';
+import FacultyVerificationPage from '../../pages/faculty/FacultyVerificationPage';
+import ForecastPage from '../../pages/shared/ForecastPage';
 import InterestBrowserViewPage from '../../pages/shared/browser-view/InterestBrowserViewPage';
 import InterestViewPage from '../../pages/shared/item-view/InterestViewPage';
 import LandingHomePage from '../../pages/landing/LandingHomePage';
@@ -52,15 +48,16 @@ import LandingOpportunityExplorerPage from '../../pages/landing/LandingOpportuni
 import ManageOpportunitiesPage from '../../pages/shared/ManageOpportunitiesPage';
 import ManageVerificationsPage from '../../pages/shared/ManageVerificationsPage';
 import ManageReviewsPage from '../../pages/shared/ManageReviewsPage';
+import OpportunityBrowserViewPage from '../../pages/shared/browser-view/OpportunityBrowserViewPage';
 import OpportunityViewPage from '../../pages/shared/item-view/OpportunityViewPage';
-import ForecastPage from '../../pages/shared/ForecastPage';
-import StudentHomePage from '../../pages/student/StudentHomePage';
+import SandboxLabelPage from '../../pages/sandbox/SandboxLabelPage';
+import SandBoxSegmentPage from '../../pages/sandbox/SandBoxSegmentPage';
 import StudentDegreePlannerPage from '../../pages/student/StudentDegreePlannerPage';
+import StudentHomePage from '../../pages/student/StudentHomePage';
 import StudentIcePage from '../../pages/student/StudentIcePage';
 import StudentLevelsPage from '../../pages/student/StudentLevelsPage';
 import StudentPrivacyPage from '../../pages/student/StudentPrivacyPage';
 import StudentReviewsPage from '../../pages/student/StudentReviewsPage';
-import StudentSegmentExamplesPage from '../../pages/student/StudentSegmentExamplesPage';
 import StudentTermsAndConditionsPage from '../../pages/student/StudentTermsAndConditionsPage';
 import StudentVerificationPage from '../../pages/student/StudentVerificationPage';
 
@@ -78,12 +75,17 @@ import {
   MANAGE,
   PRIVACY,
   STUDENT_REVIEWS,
-  STUDENT_VERIFICATION, TERMS_AND_CONDITIONS,
+  STUDENT_VERIFICATION,
+  TERMS_AND_CONDITIONS,
   URL_ROLES,
   USERNAME,
   VERIFICATION_REQUESTS,
 } from './route-constants';
-import StudentLabelExamplesPage from '../../pages/student/StudentLabelExamplesPage';
+
+/**
+ * Here are the routes for RadGrad2. The keys are the Roles, the values are an array of route information.
+ * Route information consists of a path, the path to the component, a Component to render.
+ */
 
 export const routes = {
   ADMIN: [
@@ -133,7 +135,6 @@ export const routes = {
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${MANAGE.VERIFICATIONS}`, component: ManageVerificationsPage  },
 
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${PRIVACY}`, component: AdminAdvisorFacultyPrivacyPage },
-
   ],
 
   ADVISOR: [
@@ -208,8 +209,8 @@ export const routes = {
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${STUDENT_REVIEWS}`, component: StudentReviewsPage },
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${STUDENT_VERIFICATION}`, component: StudentVerificationPage },
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${TERMS_AND_CONDITIONS}`, component: StudentTermsAndConditionsPage },
-    // The following pages are temporary for design purposes only. Should eventually be removed once we finalize design elements.
-    { path: `/${URL_ROLES.STUDENT}/${USERNAME}/labels`, component: StudentLabelExamplesPage },
-    { path: `/${URL_ROLES.STUDENT}/${USERNAME}/segments`, component: StudentSegmentExamplesPage },
+    // The following routes display sandbox pages under the student role.
+    { path: `/${URL_ROLES.STUDENT}/${USERNAME}/sandbox/labels`, component: SandboxLabelPage },
+    { path: `/${URL_ROLES.STUDENT}/${USERNAME}/sandbox/segments`, component: SandBoxSegmentPage },
   ],
 };

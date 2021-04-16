@@ -3,7 +3,7 @@ import { Checkbox } from 'semantic-ui-react';
 import RadGradHeader from '../../components/shared/RadGradHeader';
 import RadGradSegment from '../../components/shared/RadGradSegment';
 
-const StudentSegmentExamplesPageExampleThree: React.FC = () => {
+const SandboxSegment3: React.FC = () => {
   const [checkState, setCheckState] = useState(true);
   const handleChange = (e, { checked }) => setCheckState(checked);
   const checkStateValue = checkState ? 'Checked' : 'Not Checked';
@@ -19,4 +19,4 @@ const StudentSegmentExamplesPageExampleThree: React.FC = () => {
   );
 };
 
-export default StudentSegmentExamplesPageExampleThree;
+export default SandboxSegment3;
