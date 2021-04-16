@@ -1,14 +1,14 @@
 import React from 'react';
 import Markdown from 'react-markdown';
-import {Segment, Grid, Container, Message, Icon, Image, Header, Popup, Label} from 'semantic-ui-react';
-import {getLevelCongratsMarkdown, getLevelHintStringMarkdown} from '../../../../api/level/LevelProcessor';
-import { StudentProfile } from '../../../../typings/radgrad';
-import {ICE, URL_ROLES} from '../../../layouts/utilities/route-constants';
-import {getUsername} from '../../shared/utilities/router';
+import { Segment, Grid, Container, Message, Icon, Image, Header } from 'semantic-ui-react';
 import { Link, useRouteMatch } from 'react-router-dom';
+import { getLevelCongratsMarkdown, getLevelHintStringMarkdown } from '../../../../api/level/LevelProcessor';
+import { StudentProfile } from '../../../../typings/radgrad';
+import { ICE, URL_ROLES } from '../../../layouts/utilities/route-constants';
+import { getUsername } from '../../shared/utilities/router';
 import StudentLevelsOthersWidget from './StudentLevelsOthersWidget';
 import { LevelChecklist } from '../../checklist/LevelChecklist';
-import {CHECKSTATE} from "../../checklist/Checklist";
+import { CHECKSTATE } from '../../checklist/Checklist';
 
 
 export interface StudentLevelsWidgetProps {
@@ -87,7 +87,7 @@ const StudentLevelsWidget: React.FC<StudentLevelsWidgetProps> = ({ profile, stud
                   <Message.Content>
                       <h1>Want to level up?</h1>
                       <Markdown escapeHtml source={studentLevelHint} />
-                      <Link to={`/${URL_ROLES.STUDENT}/${username}/${ICE}`} style={{textDecoration: 'underline'}}>Visit ICE page for more details</Link>
+                      <Link to={`/${URL_ROLES.STUDENT}/${username}/${ICE}`} style={{ textDecoration: 'underline' }}>Visit ICE page for more details</Link>
                   </Message.Content>
               </Message>
               <StudentLevelsOthersWidget students={students} profile={profile} />

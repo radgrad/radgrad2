@@ -2,7 +2,7 @@ import React from 'react';
 import {  Header, Label } from 'semantic-ui-react';
 import { Users } from '../../../../api/user/UserCollection';
 import { StudentProfile } from '../../../../typings/radgrad';
-import ProfileLabel from "../../shared/profile/ProfileLabel";
+import ProfileLabel from '../../shared/profile/ProfileLabel';
 
 interface StudentLevelsOthersWidgetProps {
   students: StudentProfile[];

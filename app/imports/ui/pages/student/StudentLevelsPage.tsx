@@ -1,14 +1,13 @@
 import { withTracker } from 'meteor/react-meteor-data';
 import { useParams } from 'react-router-dom';
 import React from 'react';
-import {Grid, Segment, Divider} from 'semantic-ui-react';
-import _ from 'lodash';
+import { Grid, Segment, Divider } from 'semantic-ui-react';
 import StudentLevelsWidget from '../../components/student/levels/StudentLevelsWidget';
 import { Users } from '../../../api/user/UserCollection';
 import { StudentProfile } from '../../../typings/radgrad';
 import { ROLE } from '../../../api/role/Role';
 import PageLayout from '../PageLayout';
-import StudentLevelExplainerWidget from "../../components/student/levels/StudentLevelExplainerWidget";
+import StudentLevelExplainerWidget from '../../components/student/levels/StudentLevelExplainerWidget';
 
 interface StudentLevelsPageProps {
   profile: StudentProfile;
@@ -24,7 +23,7 @@ This page helps you learn about Levels and how to reach the next one from where 
 const headerPaneImage = 'header-level.png';
 let profiles = [];
 
-const getStudentsAtSameLevel = (profiles, currentProfile: StudentProfile): StudentProfile[] => {
+const getStudentsAtSameLevel = (currentProfile: StudentProfile): StudentProfile[] => {
   const students = [];
   profiles.forEach((profile) => {
     if (profile.level === currentProfile.level) {
@@ -39,8 +38,7 @@ const getStudentsAtSameLevel = (profiles, currentProfile: StudentProfile): Stude
 
 
 
-const StudentLevelsPage: React.FC<StudentLevelsPageProps> = ({ profile, students }) => {
-  return (
+const StudentLevelsPage: React.FC<StudentLevelsPageProps> = ({ profile, students }) => (
     <PageLayout id="student-levels-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
         <Grid stackable>
             <Grid.Row>
@@ -71,13 +69,12 @@ const StudentLevelsPage: React.FC<StudentLevelsPageProps> = ({ profile, students
             </Grid.Row>
         </Grid>
     </PageLayout>
-  );
-};
+);
 const StudentLevelsPageContainer = withTracker(() => {
   const { username } = useParams();
   const profile = Users.getProfile(username) as StudentProfile;
   profiles = Users.findProfilesWithRole(ROLE.STUDENT, {}, {});
-  const students: StudentProfile[] = getStudentsAtSameLevel(profiles, profile);
+  const students: StudentProfile[] = getStudentsAtSameLevel(profile);
   return {
     profile,
     students,
