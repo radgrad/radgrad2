@@ -9,6 +9,7 @@ import { getUsername } from '../../shared/utilities/router';
 import StudentLevelsOthersWidget from './StudentLevelsOthersWidget';
 import { LevelChecklist } from '../../checklist/LevelChecklist';
 import { CHECKSTATE } from '../../checklist/Checklist';
+import RadGradSegment from '../../shared/RadGradSegment';
 
 
 export interface StudentLevelsWidgetProps {
@@ -68,12 +69,12 @@ const StudentLevelsWidget: React.FC<StudentLevelsWidgetProps> = ({ profile, stud
   const currentUser = Meteor.user() ? Meteor.user().username : '';
   const checklist = new LevelChecklist(currentUser);
   return (
-    <Segment padded id="studentLevelsWidget">
-      <Header as="h4" dividing>
+    <RadGradSegment id="studentLevelsWidget">
+      <p>
         MY CURRENT LEVEL
           {(checklist.getState() === CHECKSTATE.IMPROVE || checklist.getState() === CHECKSTATE.REVIEW)  ?
               <span style={{ float: 'right' }}><Icon name='exclamation triangle' color='orange' /> {checklist.getTitleText()}</span> : ''}
-      </Header>
+      </p>
       <Grid>
           <Grid.Column width={3}>
               <Image size="mini" centered style={imageStyle} src={`/images/level-icons/radgrad-level-${studentLevelNumber}-icon.png`} />
@@ -94,7 +95,7 @@ const StudentLevelsWidget: React.FC<StudentLevelsWidgetProps> = ({ profile, stud
           </Container>
         </Grid.Column>
       </Grid>
-    </Segment>
+    </RadGradSegment>
   );
 };
 

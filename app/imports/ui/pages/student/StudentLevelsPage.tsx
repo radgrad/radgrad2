@@ -1,13 +1,14 @@
 import { withTracker } from 'meteor/react-meteor-data';
 import { useParams } from 'react-router-dom';
 import React from 'react';
-import { Grid, Segment, Divider } from 'semantic-ui-react';
+import { Grid, Tab } from 'semantic-ui-react';
 import StudentLevelsWidget from '../../components/student/levels/StudentLevelsWidget';
 import { Users } from '../../../api/user/UserCollection';
 import { StudentProfile } from '../../../typings/radgrad';
 import { ROLE } from '../../../api/role/Role';
 import PageLayout from '../PageLayout';
 import StudentLevelExplainerWidget from '../../components/student/levels/StudentLevelExplainerWidget';
+import RadGradSegment from '../../components/shared/RadGradSegment';
 
 interface StudentLevelsPageProps {
   profile: StudentProfile;
@@ -35,8 +36,14 @@ const getStudentsAtSameLevel = (currentProfile: StudentProfile): StudentProfile[
   return students;
 };
 
-
-
+const panes = [
+  { menuItem: 'Level 1', render: () => <Tab.Pane><StudentLevelExplainerWidget level={1} students={profiles}/></Tab.Pane> },
+  { menuItem: 'Level 2', render: () => <Tab.Pane><StudentLevelExplainerWidget level={2} students={profiles}/></Tab.Pane> },
+  { menuItem: 'Level 3', render: () => <Tab.Pane><StudentLevelExplainerWidget level={3} students={profiles}/></Tab.Pane> },
+  { menuItem: 'Level 4', render: () => <Tab.Pane><StudentLevelExplainerWidget level={4} students={profiles}/></Tab.Pane> },
+  { menuItem: 'Level 5', render: () => <Tab.Pane><StudentLevelExplainerWidget level={5} students={profiles}/></Tab.Pane> },
+  { menuItem: 'Level 6', render: () => <Tab.Pane><StudentLevelExplainerWidget level={6} students={profiles}/></Tab.Pane> },
+];
 
 const StudentLevelsPage: React.FC<StudentLevelsPageProps> = ({ profile, students }) => (
     <PageLayout id="student-levels-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
@@ -52,19 +59,9 @@ const StudentLevelsPage: React.FC<StudentLevelsPageProps> = ({ profile, students
             </Grid.Row>
             <Grid.Row>
                 <Grid.Column width={16} divided>
-                    <Segment>
-                        <StudentLevelExplainerWidget level={1} students={profiles}/>
-                        <Divider />
-                        <StudentLevelExplainerWidget level={2} students={profiles}/>
-                        <Divider />
-                        <StudentLevelExplainerWidget level={3} students={profiles}/>
-                        <Divider />
-                        <StudentLevelExplainerWidget level={4} students={profiles}/>
-                        <Divider/>
-                        <StudentLevelExplainerWidget level={5} students={profiles}/>
-                        <Divider/>
-                        <StudentLevelExplainerWidget level={6} students={profiles}/>
-                    </Segment>
+                    <RadGradSegment header="ABOUT THE LEVELS">
+                        <Tab panes={panes} />
+                    </RadGradSegment>
                 </Grid.Column>
             </Grid.Row>
         </Grid>
