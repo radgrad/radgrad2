@@ -13,6 +13,7 @@ import { VerificationChecklist } from '../../components/checklist/VerificationCh
 import RadGradHeader from '../../components/shared/RadGradHeader';
 import RadGradSegment from '../../components/shared/RadGradSegment';
 import { COLORS } from '../../utilities/Colors';
+import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
 import { CHECKSTATE } from '../../components/checklist/Checklist';
 import './style.css';
@@ -37,7 +38,7 @@ const reviewHeader = <RadGradHeader title='Medium Priority (please review)' icon
 const okHeader = <RadGradHeader title='Low Priority (looks OK!)' icon='check circle' style={{ color: COLORS.GREEN }}/>;
 
 const StudentHomePage: React.FC<StudentHomePageProps> = ({ okItems, reviewItems, improveItems }) => (
-  <PageLayout id="student-home-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
+  <PageLayout id={PAGEIDS.STUDENT_HOME} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
     <RadGradSegment header={improveHeader}>
       <Card.Group style={{ marginTop: '0px' }}>
         {improveItems || 'Awesome! No high priority items to improve right now.'}

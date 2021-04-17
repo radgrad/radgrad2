@@ -14,6 +14,7 @@ import { SetPictureButton } from '../../components/shared/privacy/SetPictureButt
 import { SetWebsiteButton } from '../../components/shared/privacy/SetWebsiteButton';
 import ProfileCard from '../../components/shared/profile/ProfileCard';
 import ProfileLabel from '../../components/shared/profile/ProfileLabel';
+import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
 
 const headerPaneTitle = 'Control what others see about you';
@@ -108,7 +109,7 @@ const StudentPrivacyPage: React.FC<StudentPrivacyPageProps> = ({ profile }) => {
   };
 
   return (
-    <PageLayout id="student-privacy-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
+    <PageLayout id={PAGEIDS.STUDENT_PRIVACY} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
       <Grid stackable>
         <Grid.Column width={4}>
           <Segment>

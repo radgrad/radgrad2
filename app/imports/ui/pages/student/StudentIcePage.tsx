@@ -20,6 +20,7 @@ import { Users } from '../../../api/user/UserCollection';
 import { ProfileInterests } from '../../../api/user/profile-entries/ProfileInterestCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
+import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
 
 interface StudentIcePageProps {
@@ -58,7 +59,7 @@ const StudentIcePage: React.FC<StudentIcePageProps> = ({
 }) => {
   const header = <RadGradHeader title='your ice points' />;
   return (
-    <PageLayout id="student-ice-points-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}
+    <PageLayout id={PAGEIDS.STUDENT_ICE} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}
                 headerPaneImage={headerPaneImage}>
       <Grid stackable>
         <Grid.Row>

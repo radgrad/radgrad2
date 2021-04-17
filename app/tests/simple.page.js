@@ -1,4 +1,5 @@
 import { Selector } from 'testcafe';
+import { PAGEIDS } from '../imports/ui/utilities/PageIDs';
 
 /** Create an instance of a SimplePage when all you need to do is verify that the page was displayed. */
 class SimplePage {
@@ -30,7 +31,7 @@ export const advisorScoreboardPage = new SimplePage('forecast-page'); // same pa
 export const facultyHomePage = new SimplePage('faculty-home-page');
 
 export const studentHomePage = new SimplePage('student-home-page');
-export const studentDegreePlannerPage = new SimplePage('degree-planner-page');
+export const studentDegreePlannerPage = new SimplePage(PAGEIDS.STUDENT_DEGREE_PLANNER);
 export const studentICEPointsPage = new SimplePage('student-ice-points-page');
 export const studentLevelsPage = new SimplePage('student-levels-page');
 export const studentVerificationPage = new SimplePage('student-verification-page');
