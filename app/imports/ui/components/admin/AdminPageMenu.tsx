@@ -13,7 +13,7 @@ import {
   FORECASTS,
   HOME,
   MANAGE,
-  PRIVACY,
+  VISIBILITY,
 } from '../../layouts/utilities/route-constants';
 
 const convertLabelToId = (prefix, label) => `${prefix}-${label.replaceAll(' ', '-').toLowerCase()}`;
@@ -25,7 +25,7 @@ const AdminPageMenu: React.FC = () => {
 
   const menuItems = [
     { label: 'Home', route: HOME },
-    { label: 'Privacy', route: PRIVACY },
+    { label: 'Visibility', route: VISIBILITY },
     { label: 'Forecasts', route: FORECASTS },
     { label: 'Community', route: COMMUNITY },
   ];

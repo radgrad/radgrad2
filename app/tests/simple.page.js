@@ -36,7 +36,7 @@ export const studentICEPointsPage = new SimplePage('student-ice-points-page');
 export const studentLevelsPage = new SimplePage('student-levels-page');
 export const studentVerificationPage = new SimplePage('student-verification-page');
 export const studentReviewsPage = new SimplePage('student-reviews-page');
-export const studentPrivacyPage = new SimplePage('student-privacy-page');
+export const studentVisibilityPage = new SimplePage('student-visibility-page');
 
 // Common Explorer Pages
 export const courseExplorerPage = new SimplePage('course-browser-view-page');

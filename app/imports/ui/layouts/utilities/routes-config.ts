@@ -56,10 +56,10 @@ import StudentDegreePlannerPage from '../../pages/student/StudentDegreePlannerPa
 import StudentHomePage from '../../pages/student/StudentHomePage';
 import StudentIcePage from '../../pages/student/StudentIcePage';
 import StudentLevelsPage from '../../pages/student/StudentLevelsPage';
-import StudentPrivacyPage from '../../pages/student/StudentPrivacyPage';
 import StudentReviewsPage from '../../pages/student/StudentReviewsPage';
 import TermsAndConditionsPage from '../../pages/shared/TermsAndConditionsPage';
 import StudentVerificationPage from '../../pages/student/StudentVerificationPage';
+import StudentVisibilityPage from '../../pages/student/StudentVisibilityPage';
 
 import {
   ANALYTICS,
@@ -73,7 +73,7 @@ import {
   ICE,
   LEVELS,
   MANAGE,
-  PRIVACY,
+  VISIBILITY,
   STUDENT_REVIEWS,
   STUDENT_VERIFICATION,
   TERMS_AND_CONDITIONS,
@@ -134,7 +134,7 @@ export const routes = {
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${MANAGE.REVIEWS}`, component: ManageReviewsPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${MANAGE.VERIFICATIONS}`, component: ManageVerificationsPage  },
 
-    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${PRIVACY}`, component: AdminAdvisorFacultyPrivacyPage },
+    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${VISIBILITY}`, component: AdminAdvisorFacultyPrivacyPage },
   ],
 
   ADVISOR: [
@@ -153,7 +153,7 @@ export const routes = {
     { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${MANAGE.STUDENTS}`, component: AdvisorManageStudentsPage },
     { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${MANAGE.REVIEWS}`, component: ManageReviewsPage },
     { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${MANAGE.VERIFICATIONS}`, component: ManageVerificationsPage  },
-    { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${PRIVACY}`, component: AdminAdvisorFacultyPrivacyPage },
+    { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${VISIBILITY}`, component: AdminAdvisorFacultyPrivacyPage },
   ],
 
   ALUMNI: [
@@ -175,7 +175,7 @@ export const routes = {
     { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${MANAGE.OPPORTUNITIES}`, component: ManageOpportunitiesPage },
     { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${MANAGE.REVIEWS}`, component: ManageReviewsPage },
     { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${MANAGE.VERIFICATIONS}`, component: ManageVerificationsPage },
-    { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${PRIVACY}`, component: AdminAdvisorFacultyPrivacyPage },
+    { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${VISIBILITY}`, component: AdminAdvisorFacultyPrivacyPage },
     { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${VERIFICATION_REQUESTS}`, component: FacultyVerificationPage },
   ],
 
@@ -205,7 +205,7 @@ export const routes = {
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${HOME}`, component: StudentHomePage },
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${ICE}`, component: StudentIcePage },
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${LEVELS}`, component: StudentLevelsPage },
-    { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${PRIVACY}`, component: StudentPrivacyPage },
+    { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${VISIBILITY}`, component: StudentVisibilityPage },
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${STUDENT_REVIEWS}`, component: StudentReviewsPage },
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${STUDENT_VERIFICATION}`, component: StudentVerificationPage },
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/${TERMS_AND_CONDITIONS}`, component: TermsAndConditionsPage },
