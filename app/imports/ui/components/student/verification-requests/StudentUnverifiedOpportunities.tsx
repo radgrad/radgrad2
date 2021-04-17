@@ -5,7 +5,7 @@ import { OpportunityInstance, VerificationRequest } from '../../../../typings/ra
 import { CHECKSTATE } from '../../checklist/Checklist';
 import { VerificationChecklist } from '../../checklist/VerificationChecklist';
 import StudentPendingVerificationRequest from './StudentPendingVerificationRequest';
-import StudentUnverifiedOpportunityItem from './StudentUnverifiedOpportunityItem';
+import StudentUnverifiedOpportunityItem from '../shared/StudentUnverifiedOpportunityItem';
 
 interface StudentUnverifiedOpportunitiesProps {
   unVerifiedOpportunityInstances: OpportunityInstance[];

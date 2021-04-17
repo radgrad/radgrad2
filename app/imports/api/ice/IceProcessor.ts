@@ -4,6 +4,12 @@ import SimpleSchema from 'simpl-schema';
 import { Courses } from '../course/CourseCollection';
 import { Ice } from '../../typings/radgrad';
 
+export const iceLabels = {
+  i: 'Innovation',
+  c: 'Competency',
+  e: 'Experience',
+};
+
 export const iceSchema = new SimpleSchema({
   i: {
     type: SimpleSchema.Integer,

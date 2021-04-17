@@ -26,6 +26,8 @@ export interface MeteorError {
   stack: string;
 }
 
+export type ICEType = 'Innovation' | 'Competency' | 'Experience';
+
 export interface Ice {
   i: number;
   c: number;

@@ -33,7 +33,7 @@ const calculatePopular = (cursor, entityIDName, collection) => {
 
 const calculateLevels = () => {
   const levels = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0 };
-  StudentProfiles.findNonRetired().map(doc => { levels[doc.level] += 1; });
+  StudentProfiles.findNonRetired().forEach(doc => { levels[doc.level] += 1; });
   return levels;
 };
 

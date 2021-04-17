@@ -25,8 +25,8 @@ interface StudentHomePageProps {
 
 const headerPaneTitle = 'Make the most of RadGrad';
 const headerPaneBody = `
-<p>This page contains a personalized set of recommendations to help RadGrad help you! It's divided into three sections. Not all of them might be present at any particular time.</p>
-<p><span class="headerLabel redBG">HIGH PRIORITY (NEEDS IMPROVEMENT)</span> Please act on these right away. They really help RadGrad help you. </p>
+<p>This page contains a personalized set of recommendations to help RadGrad help you! It's divided into three sections.</p>
+<p><span class="headerLabel redBG">HIGH PRIORITY (NEEDS IMPROVEMENT)</span> Please act on these right away. They help RadGrad help you. </p>
 <p><span class="headerLabel yellowBG">MEDIUM PRIORITY (PLEASE REVIEW)</span> Please review your settings or things that might have changed recently. </p>
 <p><span class="headerLabel greenBG">LOW PRIORITY (LOOKS OK)</span>  Looks good for now!</p>
 `;
@@ -39,17 +39,17 @@ const okHeader = <RadGradHeader title='Low Priority (looks OK!)' icon='check cir
 const StudentHomePage: React.FC<StudentHomePageProps> = ({ okItems, reviewItems, improveItems }) => (
   <PageLayout id="student-home-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
     <RadGradSegment header={improveHeader}>
-      <Card.Group centered style={{ marginTop: '0px' }}>
+      <Card.Group style={{ marginTop: '0px' }}>
         {improveItems || 'Awesome! No high priority items to improve right now.'}
       </Card.Group>
     </RadGradSegment>
     <RadGradSegment header={reviewHeader}>
-      <Card.Group centered style={{ marginTop: '0px' }}>
+      <Card.Group style={{ marginTop: '0px' }}>
         {reviewItems || 'Awesome! No items to review right now!'}
       </Card.Group>
     </RadGradSegment>
     <RadGradSegment header={okHeader}>
-      <Card.Group centered style={{ marginTop: '0px' }}>
+      <Card.Group style={{ marginTop: '0px' }}>
         {okItems || 'No low priority items right now.'}
       </Card.Group>
     </RadGradSegment>

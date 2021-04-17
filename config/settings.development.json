@@ -15,6 +15,7 @@
       "three": {"plannedICE": {"i": 0, "c": 0, "e": 0}, "earnedICE": {"i": 1, "c": 24, "e": 1}, "reviews": 0 },
       "two": {"plannedICE": {"i": 0, "c": 0, "e": 0}, "earnedICE": {"i": 0, "c": 12, "e": 0}, "reviews": 0 }
     },
+    "repeatableCourseNums": ["ICS 499"],
     "quarterSystem": false,
     "adminProfile": { "username": "radgrad@hawaii.edu", "firstName": "RadGrad", "lastName": "Admin" },
     "emailDomain": "hawaii.edu",

@@ -3,10 +3,10 @@ import { Accordion, Icon } from 'semantic-ui-react';
 import StudentIceColumnVerified from './StudentIceColumnVerified';
 import StudentIceColumnUnverified from './StudentIceColumnUnverified';
 import StudentIceColumnRecommended from './StudentIceColumnRecommended';
-import { Slugs } from '../../../../api/slug/SlugCollection';
-import { Courses } from '../../../../api/course/CourseCollection';
-import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
-import { Ice, CourseInstance, ProfileInterest, OpportunityInstance } from '../../../../typings/radgrad';
+import { Slugs } from '../../../../../app/imports/api/slug/SlugCollection';
+import { Courses } from '../../../../../app/imports/api/course/CourseCollection';
+import { Opportunities } from '../../../../../app/imports/api/opportunity/OpportunityCollection';
+import { Ice, CourseInstance, ProfileInterest, OpportunityInstance, ICEType } from '../../../../../app/imports/typings/radgrad';
 
 /* Technical Debt
  *   * Improve typing of getCourseSlug:  if typeof course is ICourse else if ... else
@@ -15,7 +15,7 @@ import { Ice, CourseInstance, ProfileInterest, OpportunityInstance } from '../..
  */
 
 export interface StudentIceColumnProps {
-  type: 'Innovation' | 'Competency' | 'Experience';
+  type: ICEType;
   profileInterests: ProfileInterest[];
   courseInstances: CourseInstance[];
   opportunityInstances: OpportunityInstance[];
