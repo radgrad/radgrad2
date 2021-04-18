@@ -22,7 +22,7 @@ import AdminDataModelReviewsPage from '../../pages/admin/AdminDataModelReviewsPa
 import AdminDataModelSlugsPage from '../../pages/admin/AdminDataModelSlugsPage';
 import AdminDataModelTeasersPage from '../../pages/admin/AdminDataModelTeasersPage';
 import AdminDataModelVerificationRequestsPage from '../../pages/admin/AdminDataModelVerificationRequestsPage';
-import AdminAdvisorFacultyPrivacyPage from '../../pages/shared/AdminAdvisorFacultyPrivacyPage';
+import VisibilityPage from '../../pages/shared/VisibilityPage';
 import AdvisorHomePage from '../../pages/advisor/AdvisorHomePage';
 import AdvisorManageStudentsPage from '../../pages/advisor/AdvisorManageStudentsPage';
 import AlumniHomePage from '../../pages/alumni/AlumniHomePage';
@@ -134,7 +134,7 @@ export const routes = {
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${MANAGE.REVIEWS}`, component: ManageReviewsPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${MANAGE.VERIFICATIONS}`, component: ManageVerificationsPage  },
 
-    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${VISIBILITY}`, component: AdminAdvisorFacultyPrivacyPage },
+    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${VISIBILITY}`, component: VisibilityPage },
   ],
 
   ADVISOR: [
@@ -153,7 +153,7 @@ export const routes = {
     { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${MANAGE.STUDENTS}`, component: AdvisorManageStudentsPage },
     { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${MANAGE.REVIEWS}`, component: ManageReviewsPage },
     { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${MANAGE.VERIFICATIONS}`, component: ManageVerificationsPage  },
-    { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${VISIBILITY}`, component: AdminAdvisorFacultyPrivacyPage },
+    { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${VISIBILITY}`, component: VisibilityPage },
   ],
 
   ALUMNI: [
@@ -175,7 +175,7 @@ export const routes = {
     { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${MANAGE.OPPORTUNITIES}`, component: ManageOpportunitiesPage },
     { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${MANAGE.REVIEWS}`, component: ManageReviewsPage },
     { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${MANAGE.VERIFICATIONS}`, component: ManageVerificationsPage },
-    { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${VISIBILITY}`, component: AdminAdvisorFacultyPrivacyPage },
+    { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${VISIBILITY}`, component: VisibilityPage },
     { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${VERIFICATION_REQUESTS}`, component: FacultyVerificationPage },
   ],
 

@@ -9,6 +9,7 @@ import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
 import { Users } from '../../../../api/user/UserCollection';
 import { CareerGoal, StudentProfile } from '../../../../typings/radgrad';
 import BrowserView from '../../../components/shared/explorer/browser-view/BrowserView';
+import { PAGEIDS } from '../../../utilities/PageIDs';
 import PageLayout from '../../PageLayout';
 import { updateLastVisitedMethod } from '../../../../api/user/BaseProfileCollection.methods';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
@@ -35,7 +36,7 @@ const CareerGoalBrowserViewPage: React.FC<CareerGoalBrowserViewPageProps> = ({
   profileInterestIDs,
   nonProfileCareerGoals,
 }) => (
-    <PageLayout id="career-goal-browser-view-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
+    <PageLayout id={PAGEIDS.CAREER_GOAL_BROWSER} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
       <BrowserView profileInterestIDs={profileInterestIDs}
                    items={profileCareerGoals}
                    explorerType={EXPLORER_TYPE.CAREERGOALS}

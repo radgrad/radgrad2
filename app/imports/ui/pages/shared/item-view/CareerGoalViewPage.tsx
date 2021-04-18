@@ -4,6 +4,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Grid } from 'semantic-ui-react';
 import _ from 'lodash';
 import { CareerGoal, DescriptionPair, ProfileCareerGoal, Profile, SocialPair } from '../../../../typings/radgrad';
+import { PAGEIDS } from '../../../utilities/PageIDs';
 import { getMenuWidget } from '../utilities/getMenuWidget';
 import ExplorerMenu from '../../../components/shared/explorer/item-view/ExplorerMenu';
 import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
@@ -72,7 +73,7 @@ const CareerGoalViewPage: React.FC<CareerGoalViewPageProps> = ({ careerGoal, pro
   ];
   const socialPairs = socialPairsCareerGoals(careerGoal);
   return (
-    <div id="career-goal-view-page">
+    <div id={PAGEIDS.CAREER_GOAL}>
       {getMenuWidget(match)}
       <Grid stackable>
         <Grid.Row>

@@ -5,6 +5,7 @@ import CommunityActivity from '../../components/shared/community/CommunityActivi
 import LevelDistribution from '../../components/shared/community/LevelDistribution';
 import MostPopular, { MOSTPOPULAR } from '../../components/shared/community/MostPopular';
 import UpcomingEvents from '../../components/shared/community/UpcomingEvents';
+import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
 
 const headerPaneTitle = 'What\'s happening in RadGrad?';
@@ -37,7 +38,7 @@ const CommunityPage: React.FC = () => {
     }
   }, [fetched]);
   return (
-    <PageLayout id="community-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
+    <PageLayout id={PAGEIDS.COMMUNITY} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
       <Grid stackable>
         <Grid.Row columns={1}>
           <Grid.Column>
