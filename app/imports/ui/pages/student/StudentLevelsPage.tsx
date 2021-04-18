@@ -7,6 +7,7 @@ import StudentLevelsOthersWidget from '../../components/student/levels/StudentLe
 import { Users } from '../../../api/user/UserCollection';
 import { StudentProfile } from '../../../typings/radgrad';
 import { ROLE } from '../../../api/role/Role';
+import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
 
 interface StudentLevelsPageProps {
@@ -24,7 +25,7 @@ const headerPaneImage = 'header-level.png';
 
 
 const StudentLevelsPage: React.FC<StudentLevelsPageProps> = ({ profile, students }) => (
-  <PageLayout id="student-levels-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
+  <PageLayout id={PAGEIDS.STUDENT_LEVELS} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
     <Grid stackable>
         <Grid.Row>
           <Grid.Column width={16}>

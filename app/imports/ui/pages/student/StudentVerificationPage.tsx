@@ -14,6 +14,7 @@ import {
 import StudentUnverifiedOpportunities from '../../components/student/verification-requests/StudentUnverifiedOpportunities';
 import StudentVerifiedOpportunitiesAndCourses
   from '../../components/student/verification-requests/StudentVerifiedOpportunitiesAndCourses';
+import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
 
 const headerPaneTitle = 'Verify that you completed your opportunities';
@@ -35,7 +36,7 @@ interface StudentVerificationPageProps {
 }
 
 const StudentVerificationPage: React.FC<StudentVerificationPageProps> = ({ unVerifiedOpportunityInstances, student, verificationRequests, verifiedOpportunityInstances, verifiedCourseInstances }) => (
-  <PageLayout id="student-verification-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
+  <PageLayout id={PAGEIDS.STUDENT_VERIFICATION} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
     <Grid stackable>
       <Grid.Row>
         <Grid.Column width={16}>

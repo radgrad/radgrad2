@@ -14,6 +14,7 @@ import { SetPictureButton } from '../../components/shared/privacy/SetPictureButt
 import { SetWebsiteButton } from '../../components/shared/privacy/SetWebsiteButton';
 import ProfileCard from '../../components/shared/profile/ProfileCard';
 import ProfileLabel from '../../components/shared/profile/ProfileLabel';
+import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
 
 const headerPaneTitle = 'Control what others see about you';
@@ -24,7 +25,7 @@ Providing access allows RadGrad to help you find similarly minded community memb
 `;
 const headerPaneImage = 'header-privacy.png';
 
-interface StudentPrivacyPageProps {
+interface StudentVisibilityPageProps {
   profile: StudentProfile;
 }
 
@@ -39,7 +40,7 @@ interface CheckboxState {
   shareICE: boolean;
 }
 
-const StudentPrivacyPage: React.FC<StudentPrivacyPageProps> = ({ profile }) => {
+const StudentVisibilityPage: React.FC<StudentVisibilityPageProps> = ({ profile }) => {
   // data will hold the public profile data for display in the <ProfileCard> when rendered.
   const [data, setData] = useState<PublicProfileData>({});
   // fetched is used to ensure that we only initialize the public profile data once.
@@ -108,7 +109,7 @@ const StudentPrivacyPage: React.FC<StudentPrivacyPageProps> = ({ profile }) => {
   };
 
   return (
-    <PageLayout id="student-privacy-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
+    <PageLayout id={PAGEIDS.STUDENT_VISIBILITY} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
       <Grid stackable>
         <Grid.Column width={4}>
           <Segment>
@@ -172,4 +173,4 @@ export default withTracker(() => {
   return {
     profile,
   };
-})(StudentPrivacyPage);
+})(StudentVisibilityPage);

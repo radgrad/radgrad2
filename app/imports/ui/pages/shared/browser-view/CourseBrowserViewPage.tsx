@@ -15,6 +15,7 @@ import { IExplorerTypes } from '../../../components/shared/explorer/utilities/ex
 import { Users } from '../../../../api/user/UserCollection';
 import { ProfileCourses } from '../../../../api/user/profile-entries/ProfileCourseCollection';
 import CourseBrowserView from '../../../components/shared/explorer/browser-view/CourseBrowserView';
+import { PAGEIDS } from '../../../utilities/PageIDs';
 import PageLayout from '../../PageLayout';
 
 interface CourseBrowserViewPageProps {
@@ -42,7 +43,7 @@ const CourseBrowserViewPage: React.FC<CourseBrowserViewPageProps> = ({ profileCo
   const showProfileEntries = role === 'student';
   const columnWidth = showProfileEntries ? 12 : 16;
   return (
-    <PageLayout id="course-browser-view-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
+    <PageLayout id={PAGEIDS.COURSE_BROWSER} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
       <Grid stackable>
         <Grid.Row>
           {showProfileEntries ? (

@@ -4,6 +4,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Grid } from 'semantic-ui-react';
 import _ from 'lodash';
 import { Reviews } from '../../../../api/review/ReviewCollection';
+import { PAGEIDS } from '../../../utilities/PageIDs';
 import { getMenuWidget } from '../utilities/getMenuWidget';
 import ExplorerMenu from '../../../components/shared/explorer/item-view/ExplorerMenu';
 import { Course, DescriptionPair, ProfileCourse, Review } from '../../../../typings/radgrad';
@@ -110,7 +111,7 @@ const CourseViewPage: React.FC<CourseViewPageProps> = ({ profileCourses, course,
   const courseSlug = Slugs.getNameFromID(course.slugID);
   const completed = isCourseCompleted(courseSlug, match);
   return (
-    <div id="course-view-page">
+    <div id={PAGEIDS.COURSE}>
       {getMenuWidget(match)}
       <Grid stackable>
         <Grid.Row>

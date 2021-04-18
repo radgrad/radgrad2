@@ -4,6 +4,7 @@ import OpportunityBrowserView from '../../../components/shared/explorer/browser-
 import TeaserVideo from '../../../components/shared/TeaserVideo';
 import { radgradVideos } from '../../../../api/radgrad/radgrad-videos';
 import ExplorerSummerOpportunitiesWidget from '../../../components/shared/explorer/browser-view/ExplorerSummerOpportunitiesWidget';
+import { PAGEIDS } from '../../../utilities/PageIDs';
 import PageLayout from '../../PageLayout';
 
 const headerPaneTitle = 'Find interesting opportunities';
@@ -24,7 +25,7 @@ const OpportunityBrowserViewPage: React.FC = () => {
   };
   const opportunitiesInRadGradVideo: { title: string; youtubeID: string; author: string } = radgradVideos.filter((video) => video.title === 'Opportunities in RadGrad')[0];
   return (
-    <PageLayout id="explorer-opportunities-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
+    <PageLayout id={PAGEIDS.OPPORTUNITY_BROWSER} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
       <Grid stackable divided="vertically">
           <Grid.Row>
             <Grid.Column width={11}>

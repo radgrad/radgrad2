@@ -1,7 +1,7 @@
 import React from 'react';
 import { Users } from '../../../api/user/UserCollection';
 import { StudentProfile } from '../../../typings/radgrad';
-import { PRIVACY, URL_ROLES } from '../../layouts/utilities/route-constants';
+import { VISIBILITY, URL_ROLES } from '../../layouts/utilities/route-constants';
 import StudentPrivacySettingList from '../student/StudentPrivacySettingList';
 import { Checklist, CHECKSTATE } from './Checklist';
 import { DetailsBox } from './DetailsBox';
@@ -55,7 +55,7 @@ export class PrivacyChecklist extends Checklist {
       case CHECKSTATE.IMPROVE:
         return (
           <ActionsBox description='Go to the Privacy page to review and adjust the contents of your public profile:'>
-            <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${PRIVACY}`} label='Privacy Page'/>
+            <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${VISIBILITY}`} label='Privacy Page'/>
           </ActionsBox>
         );
       default:

@@ -1,0 +1,26 @@
+/** Define IDs to identify each page in the system. This is used for lastVisited, UserInteractions, and Testing. */
+export enum PAGEIDS {
+  STUDENT_DEGREE_PLANNER = 'degree-planner-page',
+  STUDENT_HOME = 'student-home-page',
+  STUDENT_ICE = 'student-ice-points-page',
+  STUDENT_LEVELS = 'student-levels-page',
+  STUDENT_REVIEWS = 'student-reviews-page',
+  STUDENT_VERIFICATION= 'student-verification-page',
+  STUDENT_VISIBILITY = 'student-visibility-page',
+
+  CAREER_GOAL = 'career-goal-page',
+  CAREER_GOAL_BROWSER = 'career-goal-browser-view-page',
+  COMMUNITY = 'community-page',
+  COURSE = 'course-page',
+  COURSE_BROWSER = 'course-browser-view-page',
+  FORECASTS = 'forecasts-page',
+  INTEREST = 'interest-page',
+  INTEREST_BROWSER = 'interest-browser-view-page',
+  OPPORTUNITY = 'opportunity-page',
+  OPPORTUNITY_BROWSER = 'opportunity-browser-view-page',
+  MANAGE_OPPORTUNITIES = 'manage-opportunities-page',
+  MANAGE_REVIEWS = 'manage-reviews-page',
+  MANAGE_VERIFICATION = 'manage-verification-page',
+  TERMS_AND_CONDITIONS = 'terms-and-conditions-page',
+  VISIBILITY = 'visibility-page',
+}

@@ -11,6 +11,7 @@ import { AcademicTerm, Course, Opportunity, Forecast } from '../../../typings/ra
 import CourseForecast from '../../components/shared/forecast/CourseForecast';
 import OpportunityForecast from '../../components/shared/forecast/OpportunityForecast';
 import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
+import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
 
 export interface ForecastPageProps {
@@ -31,7 +32,7 @@ For more information, please see the [Faculty User Guide](https://www.radgrad.or
 `;
 
 const ForecastPage: React.FC<ForecastPageProps> = ({ courses, courseScores, opportunities, oppScores, terms }) => (
-    <PageLayout id="forecasts-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
+    <PageLayout id={PAGEIDS.FORECASTS} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
       <CourseForecast courses={courses} terms={terms} scores={courseScores} />
       <OpportunityForecast opportunities={opportunities} terms={terms} scores={oppScores} />
     </PageLayout>

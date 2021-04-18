@@ -38,8 +38,8 @@ class StudentNavBar {
     await testController.click('#student-menu-verification');
   }
 
-  async gotoPrivacyPage(testController) {
-    await testController.click('#student-menu-privacy');
+  async gotoVisibilityPage(testController) {
+    await testController.click('#student-menu-visibility');
   }
 
   async gotoICEPointsPage(testController) {

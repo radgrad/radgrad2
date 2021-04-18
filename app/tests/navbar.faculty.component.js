@@ -15,8 +15,8 @@ class FacultyNavBar {
     await testController.click('#faculty-menu-home');
   }
 
-  async gotoPrivacyPage(testController) {
-    await testController.click('#faculty-menu-privacy');
+  async gotoVisibilityPage(testController) {
+    await testController.click('#faculty-menu-visibility');
   }
 
   async gotoForecastsPage(testController) {

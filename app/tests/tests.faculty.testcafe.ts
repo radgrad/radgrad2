@@ -11,7 +11,7 @@ import {
   interestExplorerPage,
   opportunityExplorerPage,
   courseExplorerPage,
-  advisorFacultyPrivacyPage,
+  advisorFacultyVisibilityPage,
   manageVerificationPage,
 } from './simple.page';
 
@@ -39,8 +39,8 @@ test('Test faculty top-level pages', async (testController) => {
   await facultyNavBar.gotoHomePage(testController);
   await facultyHomePage.isDisplayed(testController);
 
-  await facultyNavBar.gotoPrivacyPage(testController);
-  await advisorFacultyPrivacyPage.isDisplayed(testController);
+  await facultyNavBar.gotoVisibilityPage(testController);
+  await advisorFacultyVisibilityPage.isDisplayed(testController);
 
   await facultyNavBar.gotoForecastsPage(testController);
   await forecastsPage.isDisplayed(testController);

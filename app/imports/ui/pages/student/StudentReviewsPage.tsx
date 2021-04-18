@@ -1,5 +1,6 @@
 import React from 'react';
 import { Header } from 'semantic-ui-react';
+import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
 
 const headerPaneTitle = 'Pay it forward with reviews';
@@ -11,7 +12,7 @@ And, providing reviews is important to reaching higher Levels in RadGrad.
 const headerPaneImage = 'header-review.png';
 
 const StudentReviewsPage: React.FC = () => (
-  <PageLayout id="student-reviews-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
+  <PageLayout id={PAGEIDS.STUDENT_REVIEWS} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
     <Header>Student Reviews Page Placeholder</Header>
   </PageLayout>
 );
