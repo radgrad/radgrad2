@@ -56,6 +56,7 @@ class CourseInstanceCollection extends BaseCollection {
       ice: { type: iceSchema, optional: true },
       retired: { type: Boolean, optional: true },
     }));
+    // TODO this should be a property
     this.validGrades = ['', 'A', 'A+', 'A-',
       'B', 'B+', 'B-', 'C', 'C+', 'C-', 'D', 'D+', 'D-', 'F', 'CR', 'NC', '***', 'W', 'TBD', 'OTHER'];
     this.publicationNames = {
