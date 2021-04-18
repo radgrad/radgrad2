@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> ui/components/shared/label/CareerGoalLabel.tsx</title>
+  <title> ui/pages/shared/TermsAndConditionsPage.tsx</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -76,7 +76,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>ui/components/shared/label/CareerGoalLabel.tsx</h1>
+                    <h1>ui/pages/shared/TermsAndConditionsPage.tsx</h1>
                 </header>
                 
 
@@ -85,38 +85,36 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import React from 'react';
-import _ from 'lodash';
-import { useRouteMatch } from 'react-router-dom';
-import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
-import { ProfileCareerGoals } from '../../../../api/user/profile-entries/ProfileCareerGoalCollection';
-import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
-import * as Router from '../utilities/router';
-import { EntityLabel, EntityLabelPublicProps } from './EntityLabel';
+            <pre class="prettyprint source linenums"><code>import React, { useEffect, useState } from 'react';
+import ReactMarkdownWithHtml from 'react-markdown/with-html';
+import { PAGEIDS } from '../../utilities/PageIDs';
+import PageLayout from '../PageLayout';
+import { getTermsAndConditions } from '../../../api/utilities/TermsAndConditions.methods';
 
-/**
- * Returns a React Component representing a Career Goal label.
- * @param slug Required slug. Error if not found.
- * @param userID Optional userID. If provided, then Label will colored if present in the user's profile.
- * @param size Optional size. Defaults to 'Large'.
- */
-const CareerGoalLabel: React.FC&lt;EntityLabelPublicProps> = ({ slug, userID, size, style, rightside }) => {
-  let inProfile = false;
-  const match = useRouteMatch();
-  const route = Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}/${slug}`);
-  const name = CareerGoals.findDocBySlug(slug).name; // will throw an error if slug is undefined.
-  if (userID) {
-    // Calculate inProfile and route.
-    const profileEntityIDs = ProfileCareerGoals.findNonRetired({ userID: userID });
-    const id = CareerGoals.findIdBySlug(slug);
-    inProfile = _.includes(profileEntityIDs.map(doc => doc.careerGoalID), id);
-  }
+const headerPaneTitle = 'Terms and Conditions';
+const headerPaneBody = `
+Here are the terms and conditions for using RadGrad.
+`;
+
+/** See https://www.radgrad.org/docs/developers/patterns/components-methods for documentation. */
+const TermsAndConditionsPage: React.FC = () => {
+  const [terms, setTerms] = useState('');
+  const fetchTerms = () => {
+    // console.log('check for infinite loop');
+    getTermsAndConditions.callPromise({})
+      .then(result => setTerms(result))
+      .catch(error => setTerms(`Server Error: ${error}`));
+  };
+  useEffect(() => { fetchTerms(); }, [terms]);
+
   return (
-    &lt;EntityLabel slug={slug} inProfile={inProfile} icon='briefcase' name={name} route={route} size={size} style={style} rightside={rightside}/>
+    &lt;PageLayout id={PAGEIDS.TERMS_AND_CONDITIONS} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
+      &lt;ReactMarkdownWithHtml linkTarget="_blank" allowDangerousHtml source={terms}/>
+    &lt;/PageLayout>
   );
 };
 
-export default CareerGoalLabel;
+export default TermsAndConditionsPage;
 </code></pre>
         </article>
     </section>

@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> ui/components/shared/label/CareerGoalLabel.tsx</title>
+  <title> ui/utilities/PageIDs.ts</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -76,7 +76,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>ui/components/shared/label/CareerGoalLabel.tsx</h1>
+                    <h1>ui/utilities/PageIDs.ts</h1>
                 </header>
                 
 
@@ -85,39 +85,32 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import React from 'react';
-import _ from 'lodash';
-import { useRouteMatch } from 'react-router-dom';
-import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
-import { ProfileCareerGoals } from '../../../../api/user/profile-entries/ProfileCareerGoalCollection';
-import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
-import * as Router from '../utilities/router';
-import { EntityLabel, EntityLabelPublicProps } from './EntityLabel';
+            <pre class="prettyprint source linenums"><code>/** Define IDs to identify each page in the system. This is used for lastVisited, UserInteractions, and Testing. */
+export enum PAGEIDS {
+  STUDENT_DEGREE_PLANNER = 'degree-planner-page',
+  STUDENT_HOME = 'student-home-page',
+  STUDENT_ICE = 'student-ice-points-page',
+  STUDENT_LEVELS = 'student-levels-page',
+  STUDENT_REVIEWS = 'student-reviews-page',
+  STUDENT_VERIFICATION= 'student-verification-page',
+  STUDENT_VISIBILITY = 'student-visibility-page',
 
-/**
- * Returns a React Component representing a Career Goal label.
- * @param slug Required slug. Error if not found.
- * @param userID Optional userID. If provided, then Label will colored if present in the user's profile.
- * @param size Optional size. Defaults to 'Large'.
- */
-const CareerGoalLabel: React.FC&lt;EntityLabelPublicProps> = ({ slug, userID, size, style, rightside }) => {
-  let inProfile = false;
-  const match = useRouteMatch();
-  const route = Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${EXPLORER_TYPE.CAREERGOALS}/${slug}`);
-  const name = CareerGoals.findDocBySlug(slug).name; // will throw an error if slug is undefined.
-  if (userID) {
-    // Calculate inProfile and route.
-    const profileEntityIDs = ProfileCareerGoals.findNonRetired({ userID: userID });
-    const id = CareerGoals.findIdBySlug(slug);
-    inProfile = _.includes(profileEntityIDs.map(doc => doc.careerGoalID), id);
-  }
-  return (
-    &lt;EntityLabel slug={slug} inProfile={inProfile} icon='briefcase' name={name} route={route} size={size} style={style} rightside={rightside}/>
-  );
-};
-
-export default CareerGoalLabel;
-</code></pre>
+  CAREER_GOAL = 'career-goal-page',
+  CAREER_GOAL_BROWSER = 'career-goal-browser-view-page',
+  COMMUNITY = 'community-page',
+  COURSE = 'course-page',
+  COURSE_BROWSER = 'course-browser-view-page',
+  FORECASTS = 'forecasts-page',
+  INTEREST = 'interest-page',
+  INTEREST_BROWSER = 'interest-browser-view-page',
+  OPPORTUNITY = 'opportunity-page',
+  OPPORTUNITY_BROWSER = 'opportunity-browser-view-page',
+  MANAGE_OPPORTUNITIES = 'manage-opportunities-page',
+  MANAGE_REVIEWS = 'manage-reviews-page',
+  MANAGE_VERIFICATION = 'manage-verification-page',
+  TERMS_AND_CONDITIONS = 'terms-and-conditions-page',
+  VISIBILITY = 'visibility-page',
+}</code></pre>
         </article>
     </section>
 
