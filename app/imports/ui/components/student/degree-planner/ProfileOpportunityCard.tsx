@@ -3,6 +3,7 @@ import { Card } from 'semantic-ui-react';
 import { useRouteMatch } from 'react-router-dom';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { RadGradProperties } from '../../../../api/radgrad/RadGradProperties';
+import { ENROLLMENT_TYPE, getFutureEnrollmentSingleMethod } from '../../../../api/utilities/FutureEnrollment.methods';
 import { OpportunityForecastCollection } from '../../../../startup/client/collections';
 import { AcademicTerm, Opportunity, OpportunityInstance } from '../../../../typings/radgrad';
 import { ViewInExplorerButtonLink } from '../../shared/button/ViewInExplorerButtonLink';
@@ -25,6 +26,13 @@ const ProfileOpportunityCard: React.FC<ProfileOpportunityCardProps> = ({
   opportunityInstances,
   studentID,
 }) => {
+  getFutureEnrollmentSingleMethod.call({ id: opportunity._id, type: ENROLLMENT_TYPE.OPPORTUNITY }, (error, result) => {
+    if (error) {
+      console.error(error);
+    } else {
+      console.log(result);
+    }
+  });
   const match = useRouteMatch();
   const instances = opportunityInstances.filter((i) => i.opportunityID === opportunity._id);
   const terms: AcademicTerm[] = instances.map((i) => AcademicTerms.findDoc(i.termID));

@@ -38,20 +38,3 @@ export const getUserIDsWithProfileInterestMethod = new ValidatedMethod({
     return [];
   },
 });
-
-export const getProfileInterestForecast = new ValidatedMethod({
-  name: 'ProfileInterest.forecast',
-  mixins: [CallPromiseMixin],
-  validate: null,
-  run() {
-    if (!this.userId) {
-      throw new Meteor.Error('unauthorized', 'You must be logged in to get profile entries.');
-    }
-    if (Meteor.isServer) {
-      const profileInterests = ProfileInterests.findNonRetired({});
-      const interestIDs = _.uniq(profileInterests.map((pi) => pi.interestID));
-      return interestIDs.map((interestID) => ({ interestID, count: ProfileInterests.findNonRetired({ interestID }).length }));
-    }
-    return [];
-  },
-});

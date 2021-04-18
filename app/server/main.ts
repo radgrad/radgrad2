@@ -20,6 +20,7 @@ import '../imports/api/star';
 import '../imports/api/teaser';
 import '../imports/api/user';
 import '../imports/api/utilities/InterestConversion.methods';
+import '../imports/api/utilities/FutureEnrollment.methods';
 import '../imports/api/verification';
 
 import '../imports/startup/both';
