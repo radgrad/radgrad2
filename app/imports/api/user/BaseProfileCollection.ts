@@ -1,6 +1,8 @@
 import { Meteor } from 'meteor/meteor';
 import _ from 'lodash';
+import moment from 'moment';
 import SimpleSchema from 'simpl-schema';
+import { PAGEIDS } from '../../ui/utilities/PageIDs';
 import BaseSlugCollection from '../base/BaseSlugCollection';
 import { AcademicYearInstances } from '../degree-plan/AcademicYearInstanceCollection';
 import { CourseInstances } from '../course/CourseInstanceCollection';
@@ -26,6 +28,7 @@ const rolesToCollectionNames = {};
 rolesToCollectionNames[ROLE.ADVISOR] = 'AdvisorProfileCollection';
 rolesToCollectionNames[ROLE.FACULTY] = 'FacultyProfileCollection';
 rolesToCollectionNames[ROLE.STUDENT] = 'StudentProfileCollection';
+rolesToCollectionNames[ROLE.ADMIN] = 'AdminProfileCollection';
 
 /**
  * BaseProfileCollection is an abstract superclass of all profile collections.
@@ -49,6 +52,9 @@ class BaseProfileCollection extends BaseSlugCollection {
       shareCareerGoals: { type: Boolean, optional: true },
       courseExplorerFilter: { type: String, optional: true },
       opportunityExplorerSortOrder: { type: String, optional: true },
+      lastVisited: { type: Object, optional: true},
+      acceptedTermsAndConditions: { type: String, optional: true },
+      refusedTermsAndConditions: { type: String, optional: true },
     })));
   }
 
@@ -153,6 +159,28 @@ class BaseProfileCollection extends BaseSlugCollection {
       return false;
     }
     return !(_.isNil(doc.picture) || doc.picture === defaultProfilePicture);
+  }
+
+  /**
+   * Updates an entry in lastVisited for this profile with a new (or updated) timestamp for the given page.
+   * @param user user The user (either their username (email) or their userID).
+   * @param page The page. Should be one of PAGEIDS.
+   */
+  public updateLastVisitedEntry(user, pageID) {
+    const userID = Users.getID(user);
+    const doc = this.collection.findOne({ userID });
+    if (!doc) {
+      throw new Meteor.Error(`Error in updateLastVisited: Unknown ${user} for page ${pageID}`);
+    }
+    // ensure we have an object to update.
+    const lastVisitedObject = doc.lastVisited || {};
+    const oldTimestamp = lastVisitedObject[pageID];
+    const newTimestamp = moment().format('YYYY-MM-DD');
+    // Guarantee that we only call update when the timestamp has actually changed to avoid reactive re-rendering.
+    if (oldTimestamp !== newTimestamp) {
+      lastVisitedObject[pageID] = newTimestamp;
+      this.collection.update(this.getID(userID), { $set: { lastVisited: lastVisitedObject } });
+    }
   }
 
   /**

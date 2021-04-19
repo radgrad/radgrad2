@@ -743,6 +743,7 @@ export interface StudentProfileDefine extends ProfileDefine {
   lastLeveledUp?: string;
   acceptedTermsAndConditions?: string;
   refusedTermsAndConditions?: string;
+  lastVisited?: Record<string, any>;
 }
 
 export interface StudentProfileUpdate extends ProfileUpdate {

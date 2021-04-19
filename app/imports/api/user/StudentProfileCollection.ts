@@ -47,8 +47,6 @@ class StudentProfileCollection extends BaseProfileCollection {
         lastVisitedOpportunities: { type: String, optional: true },
         lastVisitedPrivacy: { type: String, optional: true },
         lastLeveledUp: { type: String, optional: true },
-        acceptedTermsAndConditions: { type: String, optional: true },
-        refusedTermsAndConditions: { type: String, optional: true },
       }),
     );
     this.defineSchema = new SimpleSchema({
@@ -86,6 +84,7 @@ class StudentProfileCollection extends BaseProfileCollection {
       lastLeveledUp: { type: String, optional: true },
       acceptedTermsAndConditions: { type: String, optional: true },
       refusedTermsAndConditions: { type: String, optional: true },
+      lastVisited: { type: Object, optional: true},
     });
     this.updateSchema = new SimpleSchema({
       firstName: { type: String, optional: true },
@@ -121,6 +120,7 @@ class StudentProfileCollection extends BaseProfileCollection {
       lastLeveledUp: { type: String, optional: true },
       acceptedTermsAndConditions: { type: String, optional: true },
       refusedTermsAndConditions: { type: String, optional: true },
+      lastVisited: { type: Object, optional: true},
     });
   }
 
@@ -146,6 +146,7 @@ class StudentProfileCollection extends BaseProfileCollection {
    * @param shareOpportunities An optional boolean indicating if this student is sharing their opportunities. Defaults to false.
    * @param shareLevel An optional boolean indicating if this student is sharing their level. Defaults to false.
    * @param shareICE An optional boolean indicating if this student is sharing their ICE points. Defaults to false.
+   * @param lastVisited An optional object with PAGEIDS for keys and strings in format "YYYY-MM-DD" for values. Defaults to an empty object.
    * @throws { Meteor.Error } If username has been previously defined, or if any interests, careerGoals, level,
    * or declaredAcademicTerm are invalid.
    * @return { String } The docID of the StudentProfile.
@@ -179,6 +180,7 @@ class StudentProfileCollection extends BaseProfileCollection {
     lastVisitedInterests,
     lastVisitedOpportunities,
     lastVisitedPrivacy,
+    lastVisited = {},
     lastLeveledUp,
     acceptedTermsAndConditions,
     refusedTermsAndConditions,
@@ -220,6 +222,7 @@ class StudentProfileCollection extends BaseProfileCollection {
         lastVisitedInterests,
         lastVisitedOpportunities,
         lastVisitedPrivacy,
+        lastVisited,
         lastLeveledUp,
         acceptedTermsAndConditions,
         refusedTermsAndConditions,

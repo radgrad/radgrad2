@@ -7,12 +7,24 @@ import { StudentProfileUpdate } from '../../typings/radgrad';
 import { updateMethod } from '../base/BaseCollection.methods';
 import { EXPLORER_TYPE } from '../../ui/layouts/utilities/route-constants';
 
+export const updateLastVisited = new ValidatedMethod({
+  name: 'BaseProfile.updateLastVisited',
+  validate: null,
+  run({ pageID }) {
+    if (!this.userId) {
+      throw new Meteor.Error('unauthorized', 'You must be logged in to update last visited time.');
+    }
+    const profileCollection = Users.getProfileCollection(this.userId);
+    profileCollection.updateLastVisitedEntry(this.userId, pageID);
+  },
+});
+
 /**
  * The updateLastVisited ValidatedMethod.
  * @memberOf api/student
  */
 export const updateLastVisitedMethod = new ValidatedMethod({
-  name: 'BaseProfile.updateLastVisited',
+  name: 'BaseProfile.updateLastVisitedMethod',
   validate: null,
   run({ collectionName, lastVisitedTime, type } : { collectionName: string; lastVisitedTime: string; type: string; }) {
     if (!this.userId) {
