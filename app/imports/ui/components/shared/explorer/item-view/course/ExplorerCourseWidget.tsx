@@ -171,7 +171,7 @@ const ExplorerCourseWidget: React.FC<ExplorerCoursesWidgetProps> = ({ name, shor
           <Header as="h4" floated="left">
             <div style={breakWordStyle}>{upperShortName}</div>({name})
           </Header>
-          {isStudent ? <AddToProfileButton item={item} studentID={Router.getUserIdFromRoute(match)} type={PROFILE_ENTRY_TYPE.COURSE} added={added} /> : undefined}
+          {isStudent ? <AddToProfileButton item={item} studentID={Router.getUserIdFromRoute(match)} type={PROFILE_ENTRY_TYPE.COURSE} added={added} inverted={false} /> : undefined}
         </Segment>
 
         <Divider style={zeroMarginTopStyle} />

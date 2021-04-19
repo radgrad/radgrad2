@@ -32,7 +32,7 @@ import * as RouterUtils from '../../shared/utilities/router';
 interface DetailOpportunityCardProps {
   instance: OpportunityInstance;
   verificationRequests: VerificationRequest[];
-  selectOpportunityInstance: (opportunityInstanceID: string) => any;
+  selectOpportunityInstance: (opportunityInstanceID: string) => void;
 }
 
 const mapDispatchToProps = (dispatch) => ({
@@ -118,6 +118,7 @@ const DetailOpportunityCard: React.FC<DetailOpportunityCardProps> = ({
                 <b>Scheduled:</b> {termName}
               </p>
               <FutureParticipation academicTerms={academicTerms} scores={scores} />
+              {/* @ts-ignore */}
               <ButtonAction value={instance._id} onClick={handleRemove(selectOpportunityInstance, match)}
                             icon="trash alternate outline" label="Remove" style={cardStyle} size="small" />
             </React.Fragment>
@@ -129,8 +130,11 @@ const DetailOpportunityCard: React.FC<DetailOpportunityCardProps> = ({
               {verificationRequested ? (
                 ''
               ) : (
-                <ButtonAction value={instance._id} onClick={handleRemove(selectOpportunityInstance, match)}
-                              icon="trash alternate outline" label="Remove" style={cardStyle} size="small" />
+                <React.Fragment>
+                  {/* @ts-ignore */}
+                  <ButtonAction value={instance._id} onClick={handleRemove(selectOpportunityInstance, match)}
+                                icon="trash alternate outline" label="Remove" style={cardStyle} size="small" />
+                </React.Fragment>
               )}
             </React.Fragment>
           )}
