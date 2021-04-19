@@ -84,7 +84,7 @@ class StudentProfileCollection extends BaseProfileCollection {
       lastLeveledUp: { type: String, optional: true },
       acceptedTermsAndConditions: { type: String, optional: true },
       refusedTermsAndConditions: { type: String, optional: true },
-      lastVisited: { type: Object, optional: true},
+      lastVisited: { type: Object, optional: true, blackbox: true},
     });
     this.updateSchema = new SimpleSchema({
       firstName: { type: String, optional: true },
@@ -120,7 +120,7 @@ class StudentProfileCollection extends BaseProfileCollection {
       lastLeveledUp: { type: String, optional: true },
       acceptedTermsAndConditions: { type: String, optional: true },
       refusedTermsAndConditions: { type: String, optional: true },
-      lastVisited: { type: Object, optional: true},
+      lastVisited: { type: Object, optional: true, blackbox: true},
     });
   }
 
@@ -613,6 +613,7 @@ class StudentProfileCollection extends BaseProfileCollection {
               lastVisitedInterests: 1,
               lastVisitedOpportunities: 1,
               lastVisitedPrivacy: 1,
+              lastVisited: 1,
               lastLeveledUp: 1,
               acceptedTermsAndConditions: 1,
               refusedTermsAndConditions: 1,

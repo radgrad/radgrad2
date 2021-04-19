@@ -52,7 +52,7 @@ class BaseProfileCollection extends BaseSlugCollection {
       shareCareerGoals: { type: Boolean, optional: true },
       courseExplorerFilter: { type: String, optional: true },
       opportunityExplorerSortOrder: { type: String, optional: true },
-      lastVisited: { type: Object, optional: true},
+      lastVisited: { type: Object, optional: true, blackbox: true},
       acceptedTermsAndConditions: { type: String, optional: true },
       refusedTermsAndConditions: { type: String, optional: true },
     })));
@@ -179,7 +179,11 @@ class BaseProfileCollection extends BaseSlugCollection {
     // Guarantee that we only call update when the timestamp has actually changed to avoid reactive re-rendering.
     if (oldTimestamp !== newTimestamp) {
       lastVisitedObject[pageID] = newTimestamp;
-      this.collection.update(this.getID(userID), { $set: { lastVisited: lastVisitedObject } });
+      const keyField = `lastVisited.${pageID}`;
+      const setObject = {};
+      setObject[keyField] = newTimestamp;
+      console.log('Updating lastVisited', setObject);
+      this.collection.update({ userID }, { $set: setObject });
     }
   }
 

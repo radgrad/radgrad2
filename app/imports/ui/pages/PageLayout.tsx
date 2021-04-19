@@ -30,7 +30,6 @@ const PageLayout: React.FC<PageLayoutProps> = ({ id, headerPaneImage, headerPane
     const lastVisitedEntry = profile.lastVisited && profile.lastVisited[id];
     const now = moment().format('YYYY-MM-DD');
     if (now !== lastVisitedEntry) {
-      console.log('Updating last visited', id, now, lastVisitedEntry);
       updateLastVisited.callPromise({ pageID: id });
     }
   }
