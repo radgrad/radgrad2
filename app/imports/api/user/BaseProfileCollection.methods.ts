@@ -1,3 +1,4 @@
+import { CallPromiseMixin } from 'meteor/didericis:callpromise-mixin';
 import { Meteor } from 'meteor/meteor';
 import _ from 'lodash';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
@@ -10,12 +11,15 @@ import { EXPLORER_TYPE } from '../../ui/layouts/utilities/route-constants';
 export const updateLastVisited = new ValidatedMethod({
   name: 'BaseProfile.updateLastVisited',
   validate: null,
+  mixins: [CallPromiseMixin],
   run({ pageID }) {
-    if (!this.userId) {
-      throw new Meteor.Error('unauthorized', 'You must be logged in to update last visited time.');
+    if (Meteor.isServer) {
+      if (!this.userId) {
+        throw new Meteor.Error('unauthorized', 'You must be logged in to update last visited time.');
+      }
+      const profileCollection = Users.getProfileCollection(this.userId);
+      profileCollection.updateLastVisitedEntry(this.userId, pageID);
     }
-    const profileCollection = Users.getProfileCollection(this.userId);
-    profileCollection.updateLastVisitedEntry(this.userId, pageID);
   },
 });
 
