@@ -10,6 +10,7 @@ import { Users } from '../../../api/user/UserCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import CompletedVerificationsWidget from '../../components/shared/verification/CompletedVerificationsWidget';
 import withAdditionalSubscriptions from '../../layouts/utilities/AdvisorFacultyAdditionalSubscriptionsHOC';
+import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
 
 interface FacultyVerificationPageProps {
@@ -34,7 +35,7 @@ const FacultyVerificationPage: React.FC<FacultyVerificationPageProps> = ({ verif
   const match = useRouteMatch();
 
   return (
-    <PageLayout id="faculty-verification-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
+    <PageLayout id={PAGEIDS.FACULTY_VERIFICATION_PAGE} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
       <PendingVerificationsWidget pendingVerifications={verificationRequests.filter((ele) => ele.status === VerificationRequests.OPEN)}/>
       <EventVerificationsWidget eventOpportunities={eventOpportunities}/>
       <CompletedVerificationsWidget username={match.params.username} completedVerifications={verificationRequests.filter((ele) => VerificationRequests.ACCEPTED === ele.status || ele.status === VerificationRequests.REJECTED)}/>

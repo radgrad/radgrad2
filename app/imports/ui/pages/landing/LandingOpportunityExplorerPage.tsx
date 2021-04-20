@@ -19,6 +19,7 @@ import { Users } from '../../../api/user/UserCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 import LandingExplorerMenuBar from '../../components/landing/explorer/LandingExplorerMenuBar';
+import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
 
 interface OpportunityExplorerProps {
@@ -44,7 +45,7 @@ const LandingOpportunityExplorerPage: React.FC<OpportunityExplorerProps> = ({ op
   return (
     <div>
       <LandingExplorerMenuBar/>
-      <PageLayout id="landing-opportunity-explorer-page" headerPaneTitle={headerPaneTitle}
+      <PageLayout id={PAGEIDS.LANDING_OPPORTUNITY_EXPLORER} headerPaneTitle={headerPaneTitle}
                   headerPaneBody={headerPaneBody}>
       <Grid stackable>
         <Grid.Row>

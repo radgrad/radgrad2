@@ -13,6 +13,7 @@ import { Interests } from '../../../api/interest/InterestCollection';
 import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
 import LandingInterestList from '../../components/landing/LandingInterestList';
 import * as Router from '../../components/shared/utilities/router';
+import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
 
 interface CareerGoalExplorerProps {
@@ -33,7 +34,7 @@ const LandingCareerGoalExplorerPage: React.FC<CareerGoalExplorerProps> = ({ care
   return (
     <div>
       <LandingExplorerMenuBar/>
-      <PageLayout id="landing-career-goal-explorer-page" headerPaneTitle={headerPaneTitle}
+      <PageLayout id={PAGEIDS.LANDING_CAREER_GOAL_EXPLORER} headerPaneTitle={headerPaneTitle}
                   headerPaneBody={headerPaneBody}>
         <Grid stackable>
           <Grid.Column width={3}>

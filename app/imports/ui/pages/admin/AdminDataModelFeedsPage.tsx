@@ -24,6 +24,7 @@ import UpdateFeedForm from '../../components/admin/datamodel/feed/UpdateFeedForm
 import { opportunityNameToSlug } from '../../components/shared/utilities/data-model';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import { RootState } from '../../../redux/types';
+import { PAGEIDS } from '../../utilities/PageIDs';
 import {
   handleCancelWrapper,
   handleConfirmDeleteWrapper,
@@ -132,7 +133,7 @@ const AdminDataModelFeedsPage: React.FC<AdminDataModelFeedsPageProps> = ({ isClo
     sort: { name: 1 }, // determine how you want to sort the items in the list
   };
   return (
-    <PageLayout id="data-model-feeds-page" headerPaneTitle="Feeds" headerPaneBody="There be dragons here">
+    <PageLayout id={PAGEIDS.DATA_MODEL_FEEDS} headerPaneTitle="Feeds" headerPaneBody="There be dragons here">
       {showUpdateFormState ? (
         <UpdateFeedForm
           collection={collection}

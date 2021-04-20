@@ -13,6 +13,7 @@ import AddCourseInstanceForm from '../../components/admin/datamodel/course/AddCo
 import { academicTermNameToDoc } from '../../components/shared/utilities/data-model';
 import UpdateCourseInstanceForm from '../../components/admin/datamodel/course/UpdateCourseInstanceForm';
 import { dataModelActions } from '../../../redux/admin/data-model';
+import { PAGEIDS } from '../../utilities/PageIDs';
 import {
   handleCancelWrapper,
   handleConfirmDeleteWrapper,
@@ -95,7 +96,7 @@ const AdminDataModelCourseInstancesPage: React.FC<AdminDataModelCourseInstancesP
     sort: { note: 1 }, // determine how you want to sort the items in the list
   };
   return (
-    <PageLayout id="data-model-course-instances-page" headerPaneTitle="Course Instances">
+    <PageLayout id={PAGEIDS.DATA_MODEL_COURSE_INSTANCES} headerPaneTitle="Course Instances">
       {showUpdateFormState ? (
         <UpdateCourseInstanceForm collection={collection} id={idState} handleUpdate={handleUpdate}
                                   handleCancel={handleCancel} itemTitleString={itemTitleString} terms={terms}/>

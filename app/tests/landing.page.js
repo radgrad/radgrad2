@@ -1,8 +1,9 @@
 import { Selector } from 'testcafe';
+import { PAGEIDS } from '../imports/ui/utilities/PageIDs';
 
 class LandingPage {
   constructor() {
-    this.pageId = '#landing-page';
+    this.pageId = `#${PAGEIDS.LANDING_HOME}`;
     this.pageSelector = Selector(this.pageId);
   }
 

@@ -8,6 +8,7 @@ import { CareerGoal, HelpMessage } from '../../../typings/radgrad';
 import LandingExplorerCard from '../../components/landing/explorer/LandingExplorerCard';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
+import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
 
 interface CareerGoalsExplorerProps {
@@ -28,7 +29,7 @@ This page provides an overview of the Career Goals currently available in RadGra
 const LandingCareerGoalsExplorerPage: React.FC<CareerGoalsExplorerProps> = ({ count, helpMessages, careerGoals }) => (
   <div>
     <LandingExplorerMenuBar/>
-    <PageLayout id="landing-career-goals-explorer-page" headerPaneTitle={headerPaneTitle}
+    <PageLayout id={PAGEIDS.LANDING_CAREER_GOALS_EXPLORER} headerPaneTitle={headerPaneTitle}
                 headerPaneBody={headerPaneBody}>
       <Segment>
         <Header as="h4" dividing>
