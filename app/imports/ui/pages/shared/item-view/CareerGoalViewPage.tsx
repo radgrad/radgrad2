@@ -3,7 +3,15 @@ import { useParams, useRouteMatch } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Grid } from 'semantic-ui-react';
 import _ from 'lodash';
-import { CareerGoal, DescriptionPair, ProfileCareerGoal, Profile, SocialPair } from '../../../../typings/radgrad';
+import {
+  CareerGoal,
+  DescriptionPair,
+  ProfileCareerGoal,
+  Profile,
+  Course,
+  Opportunity,
+  Interest,
+} from '../../../../typings/radgrad';
 import { getMenuWidget } from '../utilities/getMenuWidget';
 import ExplorerMenu from '../../../components/shared/explorer/item-view/ExplorerMenu';
 import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
@@ -19,6 +27,10 @@ import { defaultProfilePicture } from '../../../../api/user/BaseProfileCollectio
 interface CareerGoalViewPageProps {
   profileCareerGoals: ProfileCareerGoal[];
   careerGoal: CareerGoal;
+  courses: Course[];
+  opportunities: Opportunity[];
+  profile: Profile;
+  interests: Interest[];
 }
 
 const interestedUsersCareerGoals = (theCareerGoal: CareerGoal, role: string): Profile[] => {
