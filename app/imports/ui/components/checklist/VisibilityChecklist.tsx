@@ -2,24 +2,25 @@ import React from 'react';
 import { Users } from '../../../api/user/UserCollection';
 import { StudentProfile } from '../../../typings/radgrad';
 import { VISIBILITY, URL_ROLES } from '../../layouts/utilities/route-constants';
-import StudentPrivacySettingList from '../student/StudentPrivacySettingList';
+import { PAGEIDS } from '../../utilities/PageIDs';
+import StudentVisibilitySettingList from '../student/StudentVisibilitySettingList';
 import { Checklist, CHECKSTATE } from './Checklist';
 import { DetailsBox } from './DetailsBox';
 import { ActionsBox } from './ActionsBox';
 import { ChecklistButtonLink } from './ChecklistButtons';
 
-export class PrivacyChecklist extends Checklist {
+export class VisibilityChecklist extends Checklist {
   private profile: StudentProfile;
 
   constructor(student: string) {
     super();
-    this.name = 'Privacy';
+    this.name = 'Visibility';
     this.profile = Users.getProfile(student);
     this.iconName = 'privacy';
-    this.title[CHECKSTATE.OK] = 'Thanks! You recently reviewed your Privacy settings';
-    this.title[CHECKSTATE.REVIEW] = 'We notice you have not reviewed your Privacy settings recently';
+    this.title[CHECKSTATE.OK] = 'Thanks! You recently reviewed your Visibility settings';
+    this.title[CHECKSTATE.REVIEW] = 'We notice you have not reviewed your Visibility settings recently';
     // Specify the description for each state.
-    this.description[CHECKSTATE.OK] = 'Thanks for reviewing your privacy settings.';
+    this.description[CHECKSTATE.OK] = 'Thanks for reviewing your visibility settings.';
     this.description[CHECKSTATE.REVIEW] = `RadGrad is designed to support community building by helping you to find other students
       with similar interests and goals. However, we don't want to share your information without your consent. The more
       information that you choose to share, the easier it is for RadGrad to help connect you with other students.`;
@@ -28,8 +29,8 @@ export class PrivacyChecklist extends Checklist {
   }
 
   public updateState(): void {
-    if (this.profile.lastVisitedPrivacy) {
-      if (this.isSixMonthsOld(this.profile.lastVisitedPrivacy)) {
+    if (this.profile.lastVisited[PAGEIDS.STUDENT_VISIBILITY]) {
+      if (this.isSixMonthsOld(this.profile.lastVisited[PAGEIDS.STUDENT_VISIBILITY])) {
         this.state = CHECKSTATE.REVIEW;
       } else {
         this.state = CHECKSTATE.OK;
@@ -42,8 +43,8 @@ export class PrivacyChecklist extends Checklist {
 
   public getDetails(): JSX.Element {
     return (
-      <DetailsBox description='Your privacy settings are:'>
-        <StudentPrivacySettingList profile={this.profile} size="medium" />
+      <DetailsBox description='Your visibility settings are:'>
+        <StudentVisibilitySettingList profile={this.profile} size="medium" />
       </DetailsBox>
     );
   }
@@ -54,8 +55,8 @@ export class PrivacyChecklist extends Checklist {
       case CHECKSTATE.OK:
       case CHECKSTATE.IMPROVE:
         return (
-          <ActionsBox description='Go to the Privacy page to review and adjust the contents of your public profile:'>
-            <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${VISIBILITY}`} label='Privacy Page'/>
+          <ActionsBox description='Go to the Visibility page to review and adjust the contents of your public profile:'>
+            <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${VISIBILITY}`} label='Visibility Page'/>
           </ActionsBox>
         );
       default:

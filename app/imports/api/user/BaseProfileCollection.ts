@@ -181,7 +181,6 @@ class BaseProfileCollection extends BaseSlugCollection {
       const keyField = `lastVisited.${pageID}`;
       const setObject = {};
       setObject[keyField] = newTimestamp;
-      console.log('Updating lastVisited', setObject);
       this.collection.update({ userID }, { $set: setObject });
     }
   }

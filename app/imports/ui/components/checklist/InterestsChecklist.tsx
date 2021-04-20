@@ -1,11 +1,11 @@
 import moment from 'moment';
 import React from 'react';
-import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';
-import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
+import { updateLastVisited } from '../../../api/user/BaseProfileCollection.methods';
 import { Users } from '../../../api/user/UserCollection';
-import { StudentProfile, StudentProfileUpdate } from '../../../typings/radgrad';
+import { StudentProfile } from '../../../typings/radgrad';
 import { EXPLORER, URL_ROLES } from '../../layouts/utilities/route-constants';
+import { PAGEIDS } from '../../utilities/PageIDs';
 import ProfileInterestList from '../shared/ProfileInterestList';
 import { Checklist, CHECKSTATE } from './Checklist';
 import { DetailsBox } from './DetailsBox';
@@ -27,7 +27,7 @@ export class InterestsChecklist extends Checklist {
     // Specify the description for each state.
     this.description[CHECKSTATE.OK] = `Congrats!  You have at least three Interests in your profile, and you've reviewed 
       them within the past six months to be sure they are up to date.`;
-    this.description[CHECKSTATE.REVIEW] = (this.isSixMonthsOld(this.profile.lastVisitedInterests)) ?
+    this.description[CHECKSTATE.REVIEW] = (this.isSixMonthsOld(this.profile.lastVisited[PAGEIDS.INTEREST_BROWSER])) ?
       `You have at least three Interests in your profile, but it's been at least six months since you've reviewed them. 
       So, we want to check that they actually reflect your current Interests.`
       :
@@ -43,12 +43,12 @@ export class InterestsChecklist extends Checklist {
     const interests = Users.getInterestIDs(this.profile.userID);
     if (interests.length < 3) {
       this.state = CHECKSTATE.IMPROVE;
-    } else if (this.profile.lastVisitedInterests) {
-      const lastVisit = moment(this.profile.lastVisitedInterests, 'YYYY-MM-DD', true);
+    } else if (this.profile.lastVisited[PAGEIDS.INTEREST_BROWSER]) {
+      const lastVisit = moment(this.profile.lastVisited[PAGEIDS.INTEREST_BROWSER], 'YYYY-MM-DD', true);
       const lastUpdate = PublicStats.getLastUpdateTimestamp(PublicStats.interestsUpdateTime);
       if (lastVisit.isBefore(lastUpdate)) {
         this.state = CHECKSTATE.REVIEW;
-      } else if (this.isSixMonthsOld(this.profile.lastVisitedInterests)) {
+      } else if (this.isSixMonthsOld(this.profile.lastVisited[PAGEIDS.INTEREST_BROWSER])) {
         this.state = CHECKSTATE.REVIEW;
       } else {
         this.state = CHECKSTATE.OK;
@@ -74,15 +74,7 @@ export class InterestsChecklist extends Checklist {
    */
   public getActions(): JSX.Element {
     const handleVerification = () => {
-      const collectionName = StudentProfiles.getCollectionName();
-      const updateData: StudentProfileUpdate = {};
-      updateData.id = this.profile._id;
-      updateData.lastVisitedInterests = moment().format('YYYY-MM-DD');
-      updateMethod.call({ collectionName, updateData }, (error) => {
-        if (error) {
-          console.error('Failed to update lastVisitedInterests', error);
-        }
-      });
+      updateLastVisited.callPromise({ pageID: PAGEIDS.INTEREST_BROWSER });
     };
     switch (this.state) {
       case CHECKSTATE.OK:

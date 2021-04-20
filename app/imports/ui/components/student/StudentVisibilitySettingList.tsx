@@ -2,12 +2,12 @@ import React from 'react';
 import { Icon, Label, SemanticSIZES } from 'semantic-ui-react';
 import { StudentProfile } from '../../../typings/radgrad';
 
-interface StudentPrivacySettingListProps {
+interface StudentVisibilitySettingListProps {
   profile: StudentProfile;
   size: SemanticSIZES;
 }
 
-const StudentPrivacySettingList: React.FC<StudentPrivacySettingListProps> = ({ profile, size }) => {
+const StudentVisibilitySettingList: React.FC<StudentVisibilitySettingListProps> = ({ profile, size }) => {
   const share = [];
   const hide = [];
   if (profile.shareCareerGoals) {
@@ -54,4 +54,4 @@ const StudentPrivacySettingList: React.FC<StudentPrivacySettingListProps> = ({ p
   );
 };
 
-export default StudentPrivacySettingList;
+export default StudentVisibilitySettingList;
