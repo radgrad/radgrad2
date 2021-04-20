@@ -9,6 +9,19 @@ interface MenuIceCircleProps {
   type: string;
 }
 
+/* Technical Debt:
+ *  L25 the type needs to change.
+ *  L30, 31 update the theme classnames.
+ */
+
+/**
+ * This is an ICE circle with a link to the ICE page.
+ * @param {number} planned the planned ICE value.
+ * @param {string} type the type of ICE, 'innov', 'comp', 'exp'.
+ * @param {number} earned the earned ICE value.
+ * @return {JSX.Element} the ICE circle.
+ * @constructor
+ */
 const MenuIceCircle: React.FC<MenuIceCircleProps> = ({ planned, type, earned }) => {
   const marginRight = { marginRight: 5 };
   const match = useRouteMatch();
@@ -16,7 +29,7 @@ const MenuIceCircle: React.FC<MenuIceCircleProps> = ({ planned, type, earned }) 
   const e = earned < 100 ? earned : 100;
   const classNamesPlanned = `radgrad-ice-circle p${p} radgrad-proj-${type}`;
   const classNamesEarned = `radgrad-ice-circle p${e} radgrad-earn-${type}`;
-  const routeToIcePage = buildRouteName(match, '/home/ice');
+  const routeToIcePage = buildRouteName(match, '/ice');
   return (
     <Popup
       trigger={

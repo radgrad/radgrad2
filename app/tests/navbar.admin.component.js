@@ -20,8 +20,8 @@ class AdminNavBar {
     await testController.click('#admin-menu-home');
   }
 
-  async gotoPrivacyPage(testController) {
-    await testController.click('#admin-menu-privacy');
+  async gotoVisibilityPage(testController) {
+    await testController.click('#admin-menu-visibility');
   }
 
   async gotoForecastsPage(testController) {

@@ -8,7 +8,7 @@ import { AdvisorOrFacultyProfile } from '../../../typings/radgrad';
 import {
   HOME,
   MANAGE,
-  PRIVACY,
+  VISIBILITY,
   FORECASTS,
   COMMUNITY,
   EXPLORER,
@@ -24,7 +24,7 @@ const AdvisorPageMenu: React.FC = () => {
 
   const menuItems = [
     { label: 'Home', route: HOME },
-    { label: 'Privacy', route: PRIVACY },
+    { label: 'Visibility', route: VISIBILITY },
     { label: 'Forecasts', route: FORECASTS },
     { label: 'Community', route: COMMUNITY },
   ];

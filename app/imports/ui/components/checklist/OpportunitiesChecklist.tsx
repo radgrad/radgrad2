@@ -1,12 +1,13 @@
 import moment from 'moment';
 import React from 'react';
-import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';
+import { updateLastVisited } from '../../../api/user/BaseProfileCollection.methods';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Users } from '../../../api/user/UserCollection';
-import { Ice, StudentProfile, StudentProfileUpdate } from '../../../typings/radgrad';
+import { Ice, StudentProfile } from '../../../typings/radgrad';
 import { DEGREEPLANNER, EXPLORER, ICE, URL_ROLES } from '../../layouts/utilities/route-constants';
+import { PAGEIDS } from '../../utilities/PageIDs';
 import { Checklist, CHECKSTATE } from './Checklist';
 import ProfileFutureOpportunitiesList from '../shared/ProfileFutureOpportunitiesList';
 import { DetailsBox } from './DetailsBox';
@@ -28,7 +29,7 @@ export class OpportunitiesChecklist extends Checklist {
     this.description[CHECKSTATE.OK] = `Congrats! Your Degree Plan contains Opportunities that should eventually earn you at 
       least 100 Innovation and 100 Experience points, and you've reviewed your Degree Plan within the past six months to be 
       sure it is up to date.`;
-    this.description[CHECKSTATE.REVIEW] = (this.isSixMonthsOld(this.profile.lastVisitedOpportunities)) ?
+    this.description[CHECKSTATE.REVIEW] = (this.isSixMonthsOld(this.profile.lastVisited[PAGEIDS.OPPORTUNITY_BROWSER])) ?
       `It's been at least six months since you last reviewed your Degree Plan. So, we want to check that the Degree Planner 
       reflects your future Opportunity plans.` :
 
@@ -46,11 +47,11 @@ export class OpportunitiesChecklist extends Checklist {
     const lastUpdate = PublicStats.getLastUpdateTimestamp(PublicStats.opportunitiesUpdateTime);
     if (projectedICE.i < 100 || projectedICE.e < 100) {
       this.state = CHECKSTATE.IMPROVE;
-    } else if (this.profile.lastVisitedOpportunities) {
-      const lastVisit = moment(this.profile.lastVisitedOpportunities, 'YYYY-MM-DD', true);
+    } else if (this.profile.lastVisited[PAGEIDS.OPPORTUNITY_BROWSER]) {
+      const lastVisit = moment(this.profile.lastVisited[PAGEIDS.OPPORTUNITY_BROWSER], 'YYYY-MM-DD', true);
       if (lastVisit.isBefore(lastUpdate)) {
         this.state = CHECKSTATE.REVIEW;
-      } else if (this.isSixMonthsOld(this.profile.lastVisitedOpportunities)) {
+      } else if (this.isSixMonthsOld(this.profile.lastVisited[PAGEIDS.OPPORTUNITY_BROWSER])) {
         this.state = CHECKSTATE.REVIEW;
         // TODO check for new opportunity reviews for future opportunity instances.
       } else {
@@ -74,15 +75,7 @@ export class OpportunitiesChecklist extends Checklist {
 
   public getActions(): JSX.Element {
     const handleVerification = () => {
-      const collectionName = StudentProfiles.getCollectionName();
-      const updateData: StudentProfileUpdate = {};
-      updateData.id = this.profile._id;
-      updateData.lastVisitedOpportunities = moment().format('YYYY-MM-DD');
-      updateMethod.call({ collectionName, updateData }, (error) => {
-        if (error) {
-          console.error('Failed to update lastVisitedOpportunities', error);
-        }
-      });
+      updateLastVisited.callPromise({ pageID: PAGEIDS.OPPORTUNITY_BROWSER });
     };
     switch (this.state) {
       case CHECKSTATE.OK:

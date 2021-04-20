@@ -26,6 +26,8 @@ export interface MeteorError {
   stack: string;
 }
 
+export type ICEType = 'Innovation' | 'Competency' | 'Experience';
+
 export interface Ice {
   i: number;
   c: number;
@@ -618,10 +620,7 @@ export interface BaseProfile extends Document {
   opportunityExplorerSortOrder?: string;
   aboutMe?: string;
   lastRegistrarLoad?: string;
-  lastVisitedCareerGoals?: string;
-  lastVisitedCourses?: string;
-  lastVisitedInterests?: string;
-  lastVisitedOpportunities?: string;
+  lastVisited?: Record<string, string>;
 }
 
 export interface Profile extends Document {
@@ -707,11 +706,7 @@ export interface StudentProfile extends Profile {
   shareLevel?: boolean;
   shareICE?: boolean;
   lastRegistrarLoad?: string;
-  lastVisitedCareerGoals?: string;
-  lastVisitedCourses?: string;
-  lastVisitedInterests?: string;
-  lastVisitedOpportunities?: string;
-  lastVisitedPrivacy?: string;
+  lastVisited: Record<string, string>;
   lastLeveledUp?: string;
   acceptedTermsAndConditions?: string;
   refusedTermsAndConditions?: string;
@@ -733,14 +728,10 @@ export interface StudentProfileDefine extends ProfileDefine {
   shareLevel?: boolean;
   shareICE?: boolean;
   lastRegistrarLoad?: string;
-  lastVisitedCareerGoals?: string;
-  lastVisitedCourses?: string;
-  lastVisitedInterests?: string;
-  lastVisitedOpportunities?: string;
-  lastVisitedPrivacy?: string;
   lastLeveledUp?: string;
   acceptedTermsAndConditions?: string;
   refusedTermsAndConditions?: string;
+  lastVisited?: Record<string, string>;
 }
 
 export interface StudentProfileUpdate extends ProfileUpdate {
@@ -759,14 +750,10 @@ export interface StudentProfileUpdate extends ProfileUpdate {
   shareLevel?: boolean;
   shareICE?: boolean;
   lastRegistrarLoad?: string;
-  lastVisitedCareerGoals?: string;
-  lastVisitedCourses?: string;
-  lastVisitedInterests?: string;
-  lastVisitedOpportunities?: string;
-  lastVisitedPrivacy?: string;
   lastLeveledUp?: string;
   acceptedTermsAndConditions?: string;
   refusedTermsAndConditions?: string;
+  lastVisited?: Record<string, string>;
 }
 
 export interface StudentProfileUpdateData {
@@ -784,14 +771,10 @@ export interface StudentProfileUpdateData {
   shareLevel?: boolean;
   shareICE?: boolean;
   lastRegistrarLoad?: string;
-  lastVisitedCareerGoals?: string;
-  lastVisitedCourses?: string;
-  lastVisitedInterests?: string;
-  lastVisitedOpportunities?: string;
-  lastVisitedPrivacy?: string;
   lastLeveledUp?: string;
   acceptedTermsAndConditions?: string;
   refusedTermsAndConditions?: string;
+  lastVisited?: Record<string, string>;
 }
 
 // Reviews

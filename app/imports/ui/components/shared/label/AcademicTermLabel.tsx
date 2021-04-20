@@ -14,7 +14,7 @@ const AcademicTermLabel: React.FC<AcademicTermLabelProps> = ({ slug, size = 'lar
   style.margin = '2px';
   return (
     <Label key={slug} size={size} color={color} style={style}>
-      {name}
+      {name.toUpperCase()}
     </Label>
   );
 };

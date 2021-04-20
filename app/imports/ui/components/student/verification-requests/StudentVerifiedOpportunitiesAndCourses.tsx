@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid, Menu, Segment, Tab } from 'semantic-ui-react';
 import { CourseInstance, OpportunityInstance } from '../../../../typings/radgrad';
 import RadGradHeader from '../../shared/RadGradHeader';
-import StudentVerifiedCourseItem from './StudentVerifiedCourseItem';
+import StudentVerifiedCourseItem from '../shared/StudentVerifiedCourseItem';
 import StudentVerifiedOpportunityItem from './StudentVerifiedOpportunityItem';
 
 interface StudentVerifiedOpportunitiesAndCoursesProps {

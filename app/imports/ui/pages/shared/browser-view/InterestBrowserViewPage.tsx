@@ -1,17 +1,14 @@
-import moment from 'moment';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import _ from 'lodash';
 import { Interests } from '../../../../api/interest/InterestCollection';
-import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
 import { Users } from '../../../../api/user/UserCollection';
 import { Interest, StudentProfile } from '../../../../typings/radgrad';
+import { PAGEIDS } from '../../../utilities/PageIDs';
 import PageLayout from '../../PageLayout';
-import { updateLastVisitedMethod } from '../../../../api/user/BaseProfileCollection.methods';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import BrowserView from '../../../components/shared/explorer/browser-view/BrowserView';
-import { ROLE } from '../../../../api/role/Role';
 
 interface InterestBrowserViewPageProps {
   profileInterests: Interest[];
@@ -29,7 +26,7 @@ If we've missed a disciplinary area of interest to you, please click the button 
 const headerPaneImage = 'header-interests.png';
 
 const InterestBrowserViewPage: React.FC<InterestBrowserViewPageProps> = ({ profileInterests, nonProfileInterests }) => (
-  <PageLayout id="interest-browser-view-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}
+  <PageLayout id={PAGEIDS.INTEREST_BROWSER} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}
               headerPaneImage={headerPaneImage}>
     <BrowserView items={profileInterests} explorerType={EXPLORER_TYPE.INTERESTS} inProfile  />
     <BrowserView items={nonProfileInterests} explorerType={EXPLORER_TYPE.INTERESTS} inProfile={false} />
@@ -42,19 +39,6 @@ export default withTracker(() => {
   let allInterests = [];
   if (Users.hasProfile(username)) {
     profile = Users.getProfile(username);
-    if (profile.role === ROLE.STUDENT) {
-      const collectionName = StudentProfiles.getCollectionName();
-      const lastVisited = moment().format('YYYY-MM-DD');
-      if (Users.hasProfile(username) && lastVisited !== profile.lastVisitedInterests) {
-        updateLastVisitedMethod.call(
-          {
-            collectionName: collectionName,
-            lastVisitedTime: lastVisited,
-            type: EXPLORER_TYPE.INTERESTS,
-          },
-        );
-      }
-    }
     allInterests = Users.getInterestIDs(profile.userID);
   }
   const profileInterests = allInterests.map((id) => Interests.findDoc(id));

@@ -2,19 +2,35 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { useParams } from 'react-router-dom';
 import React from 'react';
 import { Grid } from 'semantic-ui-react';
-import StudentIceWidget from '../../components/student/ice/StudentIceWidget';
-import { Ice, CourseInstance, ProfileInterest, OpportunityInstance } from '../../../typings/radgrad';
+import { ProfileCourses } from '../../../api/user/profile-entries/ProfileCourseCollection';
+import { ProfileOpportunities } from '../../../api/user/profile-entries/ProfileOpportunityCollection';
+import RadGradHeader from '../../components/shared/RadGradHeader';
+import RadGradSegment from '../../components/shared/RadGradSegment';
+import StudentIceTabs from '../../components/student/ice/StudentIceTabs';
+import {
+  Ice,
+  CourseInstance,
+  ProfileInterest,
+  OpportunityInstance,
+  ProfileCourse,
+  ProfileOpportunity,
+} from '../../../typings/radgrad';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { ProfileInterests } from '../../../api/user/profile-entries/ProfileInterestCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
+import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
 
 interface StudentIcePageProps {
+  username: string;
+  profileID: string;
   earnedICE: Ice;
   projectedICE: Ice;
+  profileCourses: ProfileCourse[];
   profileInterests: ProfileInterest[];
+  profileOpportunities: ProfileOpportunity[];
   courseInstances: CourseInstance[];
   opportunityInstances: OpportunityInstance[];
 }
@@ -30,17 +46,37 @@ This page provides a breakdown of these three components of a successful undergr
 const headerPaneImage = 'header-ice.png';
 
 
-const StudentIcePage: React.FC<StudentIcePageProps> = ({  earnedICE, projectedICE, profileInterests, courseInstances, opportunityInstances }) => (
-  <PageLayout id="student-ice-points-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
-    <Grid stackable>
-      <Grid.Row>
-        <Grid.Column width={16} stretched>
-          <StudentIceWidget earnedICE={earnedICE} projectedICE={projectedICE} profileInterests={profileInterests} courseInstances={courseInstances} opportunityInstances={opportunityInstances} />
-        </Grid.Column>
-      </Grid.Row>
-    </Grid>
-  </PageLayout>
-);
+const StudentIcePage: React.FC<StudentIcePageProps> = ({
+  username,
+  profileID,
+  earnedICE,
+  projectedICE,
+  profileCourses,
+  profileInterests,
+  profileOpportunities,
+  courseInstances,
+  opportunityInstances,
+}) => {
+  const header = <RadGradHeader title='your ice points' />;
+  return (
+    <PageLayout id={PAGEIDS.STUDENT_ICE} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}
+                headerPaneImage={headerPaneImage}>
+      <Grid stackable>
+        <Grid.Row>
+          <Grid.Column width={16} stretched>
+            <RadGradSegment header={header} >
+              <StudentIceTabs username={username} profileID={profileID} earnedICE={earnedICE} projectedICE={projectedICE}
+                              profileCourses={profileCourses}
+                              profileInterests={profileInterests} profileOpportunities={profileOpportunities}
+                              courseInstances={courseInstances}
+                              opportunityInstances={opportunityInstances} />
+            </RadGradSegment>
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
+    </PageLayout>
+  );
+};
 
 const StudentHomeIcePageContainer = withTracker(() => {
   const { username } = useParams();
@@ -48,12 +84,18 @@ const StudentHomeIcePageContainer = withTracker(() => {
   const earnedICE: Ice = StudentProfiles.getEarnedICE(username);
   const projectedICE: Ice = StudentProfiles.getProjectedICE(username);
   const profileInterests: ProfileInterest[] = ProfileInterests.findNonRetired({ userID: studentID });
+  const profileCourses: ProfileCourse[] = ProfileCourses.findNonRetired({ studentID });
+  const profileOpportunities: ProfileOpportunity[] = ProfileOpportunities.findNonRetired({ studentID });
   const courseInstances: CourseInstance[] = CourseInstances.findNonRetired({ studentID });
   const opportunityInstances: OpportunityInstance[] = OpportunityInstances.findNonRetired({ studentID });
   return {
+    username,
+    userID: studentID,
     earnedICE,
     projectedICE,
+    profileCourses,
     profileInterests,
+    profileOpportunities,
     courseInstances,
     opportunityInstances,
   };

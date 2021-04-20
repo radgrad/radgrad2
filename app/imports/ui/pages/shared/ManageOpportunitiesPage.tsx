@@ -18,6 +18,7 @@ import AddOpportunityForm from '../../components/admin/datamodel/opportunity/Add
 import UpdateOpportunityForm from '../../components/admin/datamodel/opportunity/UpdateOpportunityForm';
 import { academicTermNameToSlug, opportunityTypeNameToSlug, profileNameToUsername } from '../../components/shared/utilities/data-model';
 import { interestSlugFromName } from '../../components/shared/utilities/form';
+import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
 
 const collection = Opportunities; // the collection to use.
@@ -202,7 +203,7 @@ const ManageOpportunitiesPage: React.FC<ManageOpportunitiesPageProps> = ({ spons
     sort: { name: 1 }, // determine how you want to sort the items in the list
   };
   return (
-    <PageLayout id="manage-opportunities-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
+    <PageLayout id={PAGEIDS.MANAGE_OPPORTUNITIES} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
       <Grid>
         <Grid.Row>
           <Grid.Column>

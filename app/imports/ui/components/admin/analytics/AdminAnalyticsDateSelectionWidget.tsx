@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
+// @ts-ignore
 import { Container, Form, Header, Segment } from 'semantic-ui-react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { connect } from 'react-redux';
+// @ts-ignore
 import moment from 'moment';
+// @ts-ignore
 import Swal from 'sweetalert2';
 import _ from 'lodash';
 import { ANALYTICS } from '../../../layouts/utilities/route-constants';

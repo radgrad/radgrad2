@@ -1,6 +1,4 @@
-// @ts-ignore Don't know why I have to do this.
 import React from 'react';
-// @ts-ignore
 import Markdown from 'react-markdown';
 import { Grid, Header, Image, List } from 'semantic-ui-react';
 import { useRouteMatch } from 'react-router-dom';

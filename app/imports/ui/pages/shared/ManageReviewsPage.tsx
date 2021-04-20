@@ -1,5 +1,6 @@
 import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
+import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
 import { Reviews } from '../../../api/review/ReviewCollection';
 import AdminModerationWidget, { ModerationWidgetProps } from '../../components/shared/moderation/ModerationWidget';
@@ -12,7 +13,7 @@ Faculty and advisors should check these reviews to ensure they are appropriate f
 `;
 
 const ManageReviewsPage: React.FC<ModerationWidgetProps> = ({ courseReviews, opportunityReviews }) => (
-  <PageLayout id="manage-reviews-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
+  <PageLayout id={PAGEIDS.MANAGE_REVIEWS} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
     <AdminModerationWidget courseReviews={courseReviews} opportunityReviews={opportunityReviews} />
   </PageLayout>
 );

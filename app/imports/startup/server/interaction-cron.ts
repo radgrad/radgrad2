@@ -62,7 +62,6 @@ SyncedCron.add({
           });
           if ((iceSnap.i < 100) || (iceSnap.c < 100) || (iceSnap.e < 100)) {
             if ((ice.i > 100) && (ice.c > 100) && (ice.e > 100)) {
-              // @ts-ignore
               UserInteractions.define({
                 username,
                 type: UserInteractionsTypes.COMPLETE_PLAN,

@@ -3,7 +3,7 @@ import { advisorNavBar } from './navbar.advisor.component';
 import { signinPage } from './signin.page';
 import {
   advisorHomePage,
-  advisorFacultyPrivacyPage,
+  advisorFacultyVisibilityPage,
   forecastsPage,
   communityPage,
   careerGoalExplorerPage,
@@ -40,8 +40,8 @@ test('Test advisor top-level pages', async (testController) => {
   await advisorNavBar.gotoHomePage(testController);
   await advisorHomePage.isDisplayed(testController);
 
-  await advisorNavBar.gotoPrivacyPage(testController);
-  await advisorFacultyPrivacyPage.isDisplayed(testController);
+  await advisorNavBar.gotoVisibilityPage(testController);
+  await advisorFacultyVisibilityPage.isDisplayed(testController);
 
   await advisorNavBar.gotoForecastsPage(testController);
   await forecastsPage.isDisplayed(testController);

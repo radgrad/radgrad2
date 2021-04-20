@@ -22,7 +22,6 @@ import { PROFILE_ENTRY_TYPE } from '../../../../../../api/user/profile-entries/P
 import TeaserVideo from '../../../TeaserVideo';
 import { Users } from '../../../../../../api/user/UserCollection';
 import { ProfileOpportunities } from '../../../../../../api/user/profile-entries/ProfileOpportunityCollection';
-// @ts-ignore
 import ExplorerReviewWidget from '../ExplorerReviewWidget';
 
 interface ExplorerOpportunitiesWidgetProps {
@@ -103,7 +102,7 @@ const ExplorerOpportunityWidget: React.FC<ExplorerOpportunitiesWidgetProps> = ({
             {upperName}
           </Header>
           <React.Fragment>
-            {isStudent ? <AddToProfileButton item={item} studentID={Router.getUserIdFromRoute(match)} type={PROFILE_ENTRY_TYPE.OPPORTUNITY} added={added} /> : ''}
+            {isStudent ? <AddToProfileButton item={item} studentID={Router.getUserIdFromRoute(match)} type={PROFILE_ENTRY_TYPE.OPPORTUNITY} added={added} inverted={false} /> : ''}
 
             {descriptionPairs.map((descriptionPair) => (
               <React.Fragment key={toId(descriptionPair)}>{isSame(descriptionPair.label, 'ICE') ? <IceHeader ice={descriptionPair.value} /> : ''}</React.Fragment>

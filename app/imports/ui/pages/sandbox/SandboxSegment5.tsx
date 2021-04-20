@@ -3,13 +3,18 @@ import RadGradHeader from '../../components/shared/RadGradHeader';
 import RadGradSegment from '../../components/shared/RadGradSegment';
 import RadGradHeaderOptions from '../../components/shared/RadGradHeaderOptions';
 
+enum SortValues {
+  ALPHA ='Alphabetic',
+  RECOMMENDED = 'Recommended',
+  LUCKY = 'I\'m feeling lucky',
+}
+
 const SandboxSegment5: React.FC = () => {
-  const values = ['Alphabetic', 'Recommended', 'I\'m feeling lucky' ];
-  const initialValue = values[0];
+  const initialValue = SortValues.ALPHA;
   const [sortValue, setSortValue] = useState(initialValue);
   const handleChange = (newValue) => setSortValue(newValue);
 
-  const leftside = <RadGradHeaderOptions label='Sort by:' values={values} initialValue={initialValue} handleChange={handleChange} />;
+  const leftside = <RadGradHeaderOptions label='Sort by:' values={Object.values(SortValues)} initialValue={initialValue} handleChange={handleChange} />;
 
   const header = <RadGradHeader title='Example Five' icon='cloud upload' leftside={leftside} />;
   return (
