@@ -1,13 +1,12 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
-import _ from 'lodash';
 import { Interests } from '../../../../api/interest/InterestCollection';
 import { Users } from '../../../../api/user/UserCollection';
 import { Interest, StudentProfile } from '../../../../typings/radgrad';
 import { PAGEIDS } from '../../../utilities/PageIDs';
 import PageLayout from '../../PageLayout';
-import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
+import { EXPLORERTYPE } from '../../../utilities/ExplorerType';
 import BrowserView from '../../../components/shared/explorer/browser-view/BrowserView';
 
 interface InterestBrowserViewPageProps {
@@ -28,22 +27,19 @@ const headerPaneImage = 'header-interests.png';
 const InterestBrowserViewPage: React.FC<InterestBrowserViewPageProps> = ({ profileInterests, nonProfileInterests }) => (
   <PageLayout id={PAGEIDS.INTEREST_BROWSER} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}
               headerPaneImage={headerPaneImage}>
-    <BrowserView items={profileInterests} explorerType={EXPLORER_TYPE.INTERESTS} inProfile  />
-    <BrowserView items={nonProfileInterests} explorerType={EXPLORER_TYPE.INTERESTS} inProfile={false} />
+    <BrowserView items={profileInterests} explorerType={EXPLORERTYPE.INTERESTS} inProfile  />
+    <BrowserView items={nonProfileInterests} explorerType={EXPLORERTYPE.INTERESTS} inProfile={false} />
   </PageLayout>
 );
 
 export default withTracker(() => {
   const { username } = useParams();
   let profile: StudentProfile;
-  let allInterests = [];
   if (Users.hasProfile(username)) {
     profile = Users.getProfile(username);
-    allInterests = Users.getInterestIDs(profile.userID);
   }
-  const profileInterests = allInterests.map((id) => Interests.findDoc(id));
-  const interests = Interests.findNonRetired({});
-  const nonProfileInterests = _.filter(interests, md => profileInterests.every(fd => fd._id !== md._id));
+  const profileInterests = Users.getInterestIDs(profile.userID).map((id) => Interests.findDoc(id));
+  const nonProfileInterests = Interests.findNonRetired().filter(md => profileInterests.every(fd => fd._id !== md._id));
   return {
     profileInterests,
     nonProfileInterests,

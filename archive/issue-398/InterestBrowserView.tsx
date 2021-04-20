@@ -11,7 +11,7 @@ import { InterestsChecklist } from '../../app/imports/ui/components/checklist/In
 import ProfileCard from '../../app/imports/ui/components/shared/explorer/browser-view/ProfileCard';
 import WidgetHeaderNumber from '../../app/imports/ui/components/shared/explorer/WidgetHeaderNumber';
 import { RadGradProperties } from '../../app/imports/api/radgrad/RadGradProperties';
-import SortWidget, { interestSortKeys } from '../../app/imports/ui/components/shared/explorer/browser-view/SortWidget';
+import SortWidget, { interestSortKeys } from '../../app/imports/ui/components/shared/explorer/browser-view/Sort';
 
 interface InterestBrowserViewProps {
   interests: Interest[];

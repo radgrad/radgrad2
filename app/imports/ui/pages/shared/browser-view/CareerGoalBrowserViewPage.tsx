@@ -1,7 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
-import _ from 'lodash';
 import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
 import { ProfileCareerGoals } from '../../../../api/user/profile-entries/ProfileCareerGoalCollection';
 import { Users } from '../../../../api/user/UserCollection';
@@ -9,7 +8,7 @@ import { CareerGoal, StudentProfile } from '../../../../typings/radgrad';
 import BrowserView from '../../../components/shared/explorer/browser-view/BrowserView';
 import { PAGEIDS } from '../../../utilities/PageIDs';
 import PageLayout from '../../PageLayout';
-import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
+import { EXPLORERTYPE } from '../../../utilities/ExplorerType';
 
 interface CareerGoalBrowserViewPageProps {
   profileCareerGoals: CareerGoal[];
@@ -35,11 +34,11 @@ const CareerGoalBrowserViewPage: React.FC<CareerGoalBrowserViewPageProps> = ({
     <PageLayout id={PAGEIDS.CAREER_GOAL_BROWSER} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
       <BrowserView profileInterestIDs={profileInterestIDs}
                    items={profileCareerGoals}
-                   explorerType={EXPLORER_TYPE.CAREERGOALS}
+                   explorerType={EXPLORERTYPE.CAREERGOALS}
                    inProfile />
       <BrowserView profileInterestIDs={profileInterestIDs}
                    items={nonProfileCareerGoals}
-                   explorerType={EXPLORER_TYPE.CAREERGOALS}
+                   explorerType={EXPLORERTYPE.CAREERGOALS}
                    inProfile={false}/>
     </PageLayout>
 );
@@ -47,17 +46,13 @@ const CareerGoalBrowserViewPage: React.FC<CareerGoalBrowserViewPageProps> = ({
 export default withTracker(() => {
   const { username } = useParams();
   let profile: StudentProfile;
-  let careerGoals = [];
   if (Users.hasProfile(username)) {
     profile = Users.getProfile(username);
-    careerGoals = ProfileCareerGoals.findNonRetired({ userID: profile.userID });
   }
-  const profileCareerGoals = careerGoals.map((f) => CareerGoals.findDoc(f.careerGoalID));
+  const profileCareerGoals = ProfileCareerGoals.findNonRetired({ userID: profile.userID }).map((f) => CareerGoals.findDoc(f.careerGoalID));
   const profileInterestIDs = Users.getInterestIDs(username);
-  const allCareerGoals = CareerGoals.findNonRetired({});
-  const nonProfileCareerGoals = _.filter(allCareerGoals, md => profileCareerGoals.every(fd => fd._id !== md._id));
+  const nonProfileCareerGoals = CareerGoals.findNonRetired().filter( md => profileCareerGoals.every(fd => fd._id !== md._id));
   return {
-    careerGoals,
     profileCareerGoals,
     profileInterestIDs,
     nonProfileCareerGoals,

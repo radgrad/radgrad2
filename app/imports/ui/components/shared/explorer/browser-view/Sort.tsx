@@ -6,31 +6,27 @@ import SimpleSchema from 'simpl-schema';
 import { cardExplorerActions } from '../../../../../redux/shared/cardExplorer';
 import { RootState } from '../../../../../redux/types';
 import RadioField from '../../../form-fields/RadioField';
-import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
+import { EXPLORERTYPE } from '../../../../utilities/ExplorerType';
 
-export const interestSortKeys = {
+export const explorerSortKeys = {
   mostRecent: 'Most Recent',
   alphabetic: 'Alphabetic',
-};
-
-export const opportunitySortKeys = {
   recommended: 'Recommended',
-  alphabetic: 'Alphabetic',
   innovation: 'Innovation',
   experience: 'Experience',
 };
 
-interface SortWidgetProps {
+interface SortProps {
   sortChoice: string;
-  setSortValue: (explorerType: string, value: string) => any;
+  setSortValue: (explorerType: string, value: string) => never;
   explorerType: string;
 }
 
 const mapStateToProps = (state: RootState, ownProps) => {
   switch (ownProps.explorerType) {
-    case EXPLORER_TYPE.INTERESTS:
+    case EXPLORERTYPE.INTERESTS:
       return { sortChoice: state.shared.cardExplorer.interests.sortValue };
-    case EXPLORER_TYPE.CAREERGOALS:
+    case EXPLORERTYPE.CAREERGOALS:
       return { sortChoice: state.shared.cardExplorer.careergoals.sortValue };
   }
   return null;
@@ -38,11 +34,11 @@ const mapStateToProps = (state: RootState, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   switch (ownProps.explorerType) {
-    case EXPLORER_TYPE.CAREERGOALS:
+    case EXPLORERTYPE.CAREERGOALS:
       return {
         setSortValue: (explorerType: string, value: string) => dispatch(cardExplorerActions.setCareerGoalsSortValue(explorerType, value)),
       };
-    case EXPLORER_TYPE.INTERESTS: {
+    case EXPLORERTYPE.INTERESTS: {
       return {
         setSortValue: (explorerType: string, value: string) => dispatch(cardExplorerActions.setInterestsSortValue(explorerType, value)),
       };
@@ -52,7 +48,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   }
 };
 
-const SortWidget: React.FC<SortWidgetProps> = ({ sortChoice, setSortValue, explorerType }) => {
+const Sort: React.FC<SortProps> = ({ sortChoice, setSortValue, explorerType }) => {
   const handleChange = (type, value) => {
     setSortValue(explorerType, value);
   };
@@ -60,14 +56,14 @@ const SortWidget: React.FC<SortWidgetProps> = ({ sortChoice, setSortValue, explo
   const explorerSortValues = (type) => {
     let allowedSortValues:string[];
     switch (type){
-      case EXPLORER_TYPE.CAREERGOALS:
-        allowedSortValues = [opportunitySortKeys.recommended, interestSortKeys.mostRecent, interestSortKeys.alphabetic];
+      case EXPLORERTYPE.CAREERGOALS:
+        allowedSortValues = [explorerSortKeys.recommended, explorerSortKeys.mostRecent, explorerSortKeys.alphabetic];
         break;
-      case EXPLORER_TYPE.INTERESTS:
-        allowedSortValues = [interestSortKeys.mostRecent, interestSortKeys.alphabetic];
+      case EXPLORERTYPE.INTERESTS:
+        allowedSortValues = [explorerSortKeys.mostRecent, explorerSortKeys.alphabetic];
         break;
-      case EXPLORER_TYPE.OPPORTUNITIES:
-        allowedSortValues = [opportunitySortKeys.recommended, opportunitySortKeys.alphabetic, opportunitySortKeys.experience, opportunitySortKeys.innovation];
+      case EXPLORERTYPE.OPPORTUNITIES:
+        allowedSortValues = [explorerSortKeys.recommended, explorerSortKeys.alphabetic, explorerSortKeys.experience, explorerSortKeys.innovation];
         break;
     }
     return allowedSortValues;
@@ -91,4 +87,4 @@ const SortWidget: React.FC<SortWidgetProps> = ({ sortChoice, setSortValue, explo
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SortWidget);
+export default connect(mapStateToProps, mapDispatchToProps)(Sort);

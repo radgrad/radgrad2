@@ -6,53 +6,43 @@ import { useRouteMatch } from 'react-router';
 import { scrollPositionActions } from '../../../../../redux/shared/scrollPosition';
 import { RootState } from '../../../../../redux/types';
 import { CareerGoal, Course, Interest, Opportunity } from '../../../../../typings/radgrad';
-import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
 import { CHECKSTATE } from '../../../checklist/Checklist';
 import { InterestsChecklist } from '../../../checklist/InterestsChecklist';
 import ProfileCard from './ProfileCard';
 import { RadGradProperties } from '../../../../../api/radgrad/RadGradProperties';
 import { CareerGoalsChecklist } from '../../../checklist/CareerGoalsChecklist';
-import SortWidget, { interestSortKeys, opportunitySortKeys } from './SortWidget';
+import Sort, { explorerSortKeys } from './Sort';
 import * as Router from '../../utilities/router';
 import { ProfileInterests } from '../../../../../api/user/profile-entries/ProfileInterestCollection';
 import PreferredChoice from '../../../../../api/degree-plan/PreferredChoice';
 import RadGradHeader from '../../RadGradHeader';
 import RadGradSegment from '../../RadGradSegment';
+import { EXPLORERTYPEICON } from '../../../../utilities/ExplorerTypeIcon';
+import { EXPLORERTYPE } from '../../../../utilities/ExplorerType';
 
 interface BrowserViewProps {
-  items?: CareerGoal[] | Course[] | Opportunity[] | Interest[];
+  items: CareerGoal[] | Course[] | Opportunity[] | Interest[];
   profileInterestIDs: string[];
   inProfile: boolean;
-  explorerType: string;
+  explorerType: EXPLORERTYPE;
   // Saving Scroll Position
   scrollPosition: number;
   setScrollPosition: (scrollPosition: number) => never;
   sortValue: string;
 }
 
-const mapStateToProps = (state: RootState, ownProps) => {
-  switch (ownProps.explorerType) {
-    case EXPLORER_TYPE.INTERESTS:
-      return {
-        scrollPosition: state.shared.scrollPosition.explorer.interests,
-        sortValue: state.shared.cardExplorer.interests.sortValue,
-      };
-    case EXPLORER_TYPE.CAREERGOALS:
-      return {
-        scrollPosition: state.shared.scrollPosition.explorer.careerGoals,
-        sortValue: state.shared.cardExplorer.careergoals.sortValue,
-      };
-  }
-  return null;
-};
+const mapStateToProps = (state: RootState, ownProps) => ({
+  scrollPosition: state.shared.scrollPosition.explorer[ownProps.explorerType.replaceAll('-', '').toLowerCase()],
+  sortValue: state.shared.cardExplorer[ownProps.explorerType.replaceAll('-', '').toLowerCase()].sortValue,
+});
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   switch (ownProps.explorerType) {
-    case EXPLORER_TYPE.INTERESTS:
+    case EXPLORERTYPE.INTERESTS:
       return {
         setScrollPosition: (scrollPosition: number) => dispatch(scrollPositionActions.setExplorerInterestsScrollPosition(scrollPosition)),
       };
-    case EXPLORER_TYPE.CAREERGOALS:
+    case EXPLORERTYPE.CAREERGOALS:
       return {
         setScrollPosition: (scrollPosition: number) => dispatch(scrollPositionActions.setExplorerCareerGoalsScrollPosition(scrollPosition)),
       };
@@ -71,29 +61,27 @@ const BrowserView: React.FC<BrowserViewProps> = ({
   explorerType,
 }) => {
   const match = useRouteMatch();
-  const cardGroupElement: HTMLElement = document.getElementById('browserCardGroup');
+  const userID = Router.getUserIdFromRoute(match);
+  const profileEntries = ProfileInterests.findNonRetired({ userID });
+  const interestIDs = profileEntries.map((f) => f.interestID);
+  const preferred = new PreferredChoice(items, interestIDs);
   // @ts-ignore
   let explorerItems = _.sortBy(items, (item) => item.name);
   switch (sortValue) {
-    case interestSortKeys.mostRecent:
+    case explorerSortKeys.mostRecent: {
       // @ts-ignore
       explorerItems = _.sortBy(items, (item) => item.updatedAt);
       break;
-    case opportunitySortKeys.recommended:
-      // eslint-disable-next-line no-case-declarations
-      const userID = Router.getUserIdFromRoute(match);
-      // eslint-disable-next-line no-case-declarations
-      const profileEntries = ProfileInterests.findNonRetired({ userID });
-      // eslint-disable-next-line no-case-declarations
-      const interestIDs = profileEntries.map((f) => f.interestID);
-      // eslint-disable-next-line no-case-declarations
-      const preferred = new PreferredChoice(items, interestIDs);
+    }
+    case explorerSortKeys.recommended:
       explorerItems = preferred.getOrderedChoices();
       break;
     default:
       // @ts-ignore
       explorerItems = _.sortBy(items, (item) => item.name);
   }
+
+  const cardGroupElement: HTMLElement = document.getElementById('browserCardGroup');
   useEffect(() => {
     const savedScrollPosition = scrollPosition;
     if (savedScrollPosition && cardGroupElement) {
@@ -109,12 +97,15 @@ const BrowserView: React.FC<BrowserViewProps> = ({
   const currentUser = Meteor.user() ? Meteor.user().username : '';
 
   let checklist;
+  let icon;
   switch (explorerType) {
-    case EXPLORER_TYPE.INTERESTS:
+    case EXPLORERTYPE.INTERESTS:
       checklist = new InterestsChecklist(currentUser);
+      icon = EXPLORERTYPEICON.INTEREST;
       break;
-    case EXPLORER_TYPE.CAREERGOALS:
+    case EXPLORERTYPE.CAREERGOALS:
       checklist = new CareerGoalsChecklist(currentUser);
+      icon = EXPLORERTYPEICON.CAREERGOAL;
       break;
   }
 
@@ -124,16 +115,16 @@ const BrowserView: React.FC<BrowserViewProps> = ({
     <Button size="mini" color="teal" floated="right"
             href={`mailto:${adminEmail}?subject=New ${_.upperFirst(explorerType.slice(0, -1))} Suggestion`} basic>
       <Icon name="mail" />
-      SUGGEST A NEW {explorerType.toUpperCase().slice(0, -1)}
+      SUGGEST A NEW {explorerType.toUpperCase().replace('-', ' ').slice(0, -1)}
     </Button>;
   const header = inProfile ?
-    <RadGradHeader title= {`${explorerType} IN MY PROFILE`} count = {explorerItems.length} icon='heart' rightside={rightsideInProfile}/>
+    <RadGradHeader title= {`${explorerType.replace('-', ' ')} IN MY PROFILE`} count = {explorerItems.length} icon={icon} rightside={rightsideInProfile}/>
     :
-    <RadGradHeader title={`${explorerType} NOT IN MY PROFILE`} rightside={rightsideNotInProfile}/> ;
+    <RadGradHeader title={`${explorerType.replace('-', ' ')} NOT IN MY PROFILE`} count = {explorerItems.length} rightside={rightsideNotInProfile}/> ;
   return (
     <div id="explorer-browser-view">
     <RadGradSegment header={header}>
-      {!inProfile ? <SortWidget explorerType={explorerType} /> : ''}
+      {!inProfile ? <Sort explorerType={explorerType} /> : ''}
       <Card.Group itemsPerRow={4} stackable id="browserCardGroup">
         {explorerItems.map((explorerItem) => (
           <ProfileCard key={explorerItem._id} item={explorerItem} type={explorerType}
