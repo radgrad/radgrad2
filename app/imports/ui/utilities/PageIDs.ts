@@ -2,7 +2,7 @@
 export enum PAGEIDS {
   ADMIN_HOME = 'admin-home-page',
 
-  ADVISOR_HOME= 'advisor-home-page',
+  ADVISOR_HOME = 'advisor-home-page',
 
   ANALYTICS_LOGGED_IN_USERS = 'analytics-logged-in-users-page',
   ANALYTICS_NEWSLETTER = 'analytics-newsletter-page',
