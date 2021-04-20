@@ -93,6 +93,7 @@ import ListSlugCollectionWidget from '../../components/admin/datamodel/ListSlugC
 import { dataModelActions } from '../../../redux/admin/data-model';
 import { DescriptionPair, Slug } from '../../../typings/radgrad';
 import { Slugs } from '../../../api/slug/SlugCollection';
+import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
 
 const collection = Slugs; // the collection to use.
@@ -148,7 +149,7 @@ const AdminDataModelSlugsPage: React.FC&lt;AdminDataModelSlugsPageProps> = ({ it
     sort: { name: 1 }, // determine how you want to sort the items in the list
   };
   return (
-    &lt;PageLayout id="data-model-slugs-page" headerPaneTitle="Slugs">
+    &lt;PageLayout id={PAGEIDS.DATA_MODEL_SLUGS} headerPaneTitle="Slugs">
       &lt;ListSlugCollectionWidget
         collection={collection}
         findOptions={findOptions}
