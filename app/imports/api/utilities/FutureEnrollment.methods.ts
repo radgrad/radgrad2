@@ -13,7 +13,19 @@ export const enum ENROLLMENT_TYPE {
   OPPORTUNITY = 'opportunity',
 }
 
+interface EnrollmentData {
+  termID: string;
+  count: number;
+}
+
+interface EnrollmentForecast {
+  courseID?: string;
+  opportunityID?: string;
+  enrollment?: EnrollmentData[];
+}
+
 const getFutureEnrollmentSingle = (id: string, type: ENROLLMENT_TYPE) => {
+  const enrollmentForecast: EnrollmentForecast = {};
   const quarter = RadGradProperties.getQuarterSystem();
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
   const numTerms = quarter ? 12 : 9;
@@ -27,11 +39,19 @@ const getFutureEnrollmentSingle = (id: string, type: ENROLLMENT_TYPE) => {
   const termIDs = academicTerms.map((term) => term._id);
   switch (type) {
     case ENROLLMENT_TYPE.COURSE:
-      return termIDs.map((termID) => ({ termSlug: AcademicTerms.findSlugByID(termID), count: CourseInstances.findNonRetired({ termID, courseID: id }).length }));
+      enrollmentForecast.courseID = id;
+      enrollmentForecast.enrollment = termIDs.map((termID) => ({
+        termID,
+        count: CourseInstances.findNonRetired({ termID, courseID: id }).length,
+      }));
     case ENROLLMENT_TYPE.OPPORTUNITY:
-      return termIDs.map((termID) => ({ termSlug: AcademicTerms.findSlugByID(termID), count: OpportunityInstances.findNonRetired({ termID, opportunityID: id }).length }));
+      enrollmentForecast.opportunityID = id;
+      enrollmentForecast.enrollment = termIDs.map((termID) => ({
+        termID,
+        count: OpportunityInstances.findNonRetired({ termID, opportunityID: id }).length,
+      }));
   }
-  return [];
+  return enrollmentForecast;
 };
 
 export const getFutureEnrollmentSingleMethod = new ValidatedMethod({
@@ -42,10 +62,11 @@ export const getFutureEnrollmentSingleMethod = new ValidatedMethod({
     if (!this.userId) {
       throw new Meteor.Error('unauthorized', 'You must be logged in to get profile entries.');
     }
+    let enrollmentForecast: EnrollmentForecast = {};
     if (Meteor.isServer) {
-      return { id, enrollment: getFutureEnrollmentSingle(id, type) };
+      enrollmentForecast = getFutureEnrollmentSingle(id, type);
     }
-    return {};
+    return enrollmentForecast;
   },
 });
 
@@ -63,15 +84,14 @@ export const getFutureEnrollmentMethod = new ValidatedMethod({
         case ENROLLMENT_TYPE.COURSE: {
           const courses = Courses.findNonRetired({}, { sort: { num: 1 } });
           ids = courses.map((c) => c._id);
-          break;
+          return ids.map((id) => getFutureEnrollmentSingle(id, type));
         }
         case ENROLLMENT_TYPE.OPPORTUNITY: {
           const opps = Opportunities.findNonRetired({}, { sort: { name: 1 } });
           ids = opps.map((o) => o._id);
-          break;
+          return ids.map((id) => getFutureEnrollmentSingle(id, type));
         }
       }
-      return ids.map((id) => ({ id, enrollment: getFutureEnrollmentSingle(id, type) }));
     }
     return [];
   },

@@ -9,7 +9,6 @@ import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollect
 interface CourseForecastProps {
   courses: Course[];
   terms: AcademicTerm[];
-  scores: Forecast[];
 }
 
 const databaseFileDateFormat = 'YYYY-MM-DD-HH-mm-ss';
@@ -46,13 +45,14 @@ const handleSaveAsCSV = (terms: AcademicTerm[], courses: Course[], scores: Forec
   zip.saveAs(`${dir}.zip`);
 };
 
-const CourseForecast: React.FC<CourseForecastProps> = ({ courses, terms, scores }) => {
+const CourseForecast: React.FC<CourseForecastProps> = ({ courses, terms }) => {
   const scrollBody: React.CSSProperties = {
     display: 'inline-block',
     height: 500,
     overflowY: 'scroll',
     width: '100%',
   };
+  const scores = [];
   return (
     <Segment textAlign="center" id="course-forecast">
       <Header>Future Course Forecast</Header>
@@ -80,7 +80,7 @@ const CourseForecast: React.FC<CourseForecastProps> = ({ courses, terms, scores 
                       <Popup content={c.shortName} trigger={<Label>{c.num}</Label>} />
                     </Table.Cell>
                     {terms.map((t) => {
-                      const score = getCourseScore(c._id, t._id, scores);
+                      const score = 1;
                       return (
                         <Table.Cell width={1} key={`${c._id}${t._id}`} negative={score > 0} collapsing>
                           {score > 10 ? <Icon name="attention" /> : ''}

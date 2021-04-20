@@ -9,7 +9,6 @@ import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollect
 interface OpportunityForecastProps {
   opportunities: Opportunity[];
   terms: AcademicTerm[];
-  scores: Forecast[];
 }
 
 const databaseFileDateFormat = 'YYYY-MM-DD-HH-mm-ss';
@@ -46,13 +45,14 @@ const saveAsCSV = (terms: AcademicTerm[], opportunities: Opportunity[], scores: 
   zip.saveAs(`${dir}.zip`);
 };
 
-const OpportunityForecast: React.FC<OpportunityForecastProps> = ({ opportunities, terms, scores }) => {
+const OpportunityForecast: React.FC<OpportunityForecastProps> = ({ opportunities, terms }) => {
   const scrollBody: React.CSSProperties = {
     display: 'inline-block',
     height: 500,
     overflowY: 'scroll',
     width: '100%',
   };
+  const scores = [];
   return (
     <Segment textAlign="center" id="opportunity-forecast">
       <Header>Future Opportunity Forecast</Header>
