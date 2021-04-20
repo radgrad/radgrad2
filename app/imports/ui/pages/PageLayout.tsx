@@ -1,14 +1,10 @@
-import { withTracker } from 'meteor/react-meteor-data';
 import moment from 'moment';
 import React from 'react';
 import { useParams } from 'react-router';
 import { useRouteMatch } from 'react-router-dom';
-import { ROLE } from '../../api/role/Role';
-import { updateLastVisited, updateLastVisitedMethod } from '../../api/user/BaseProfileCollection.methods';
-import { StudentProfiles } from '../../api/user/StudentProfileCollection';
+import { updateLastVisited } from '../../api/user/BaseProfileCollection.methods';
 import { Users } from '../../api/user/UserCollection';
 import HeaderPane from '../components/shared/HeaderPane';
-import { EXPLORER_TYPE } from '../layouts/utilities/route-constants';
 import { getMenuWidget } from './shared/utilities/getMenuWidget';
 
 interface PageLayoutProps {
@@ -24,6 +20,7 @@ interface PageLayoutProps {
 const PageLayout: React.FC<PageLayoutProps> = ({ id, headerPaneImage, headerPaneTitle, headerPaneBody = '', children, headerPaneButton }) => {
   const match = useRouteMatch();
   const padding = { paddingRight: '20px', paddingLeft: '20px', paddingTop: '20px' };
+  // The next 9 lines update the lastVisited entry for this page if necessary.
   const { username } = useParams();
   if (Users.hasProfile(username)) {
     const profile = Users.getProfile(username);

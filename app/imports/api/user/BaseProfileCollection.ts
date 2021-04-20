@@ -2,7 +2,6 @@ import { Meteor } from 'meteor/meteor';
 import _ from 'lodash';
 import moment from 'moment';
 import SimpleSchema from 'simpl-schema';
-import { PAGEIDS } from '../../ui/utilities/PageIDs';
 import BaseSlugCollection from '../base/BaseSlugCollection';
 import { AcademicYearInstances } from '../degree-plan/AcademicYearInstanceCollection';
 import { CourseInstances } from '../course/CourseInstanceCollection';
