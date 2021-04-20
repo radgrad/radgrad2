@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { Confirm, Icon } from 'semantic-ui-react';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
-import { dataModelActions } from '../../../redux/admin/data-model';
 import { AcademicTerm, Course, DescriptionPair, Opportunity, Review, StudentProfile } from '../../../typings/radgrad';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Courses } from '../../../api/course/CourseCollection';
@@ -115,8 +114,6 @@ const AdminDataModelReviewsPage: React.FC<AdminDataModelReviewsPageProps> = ({ i
         itemTitle={itemTitle}
         handleOpenUpdate={handleOpenUpdate}
         handleDelete={handleDelete}
-        setShowIndex={dataModelActions.setCollectionShowIndex}
-        setShowCount={dataModelActions.setCollectionShowCount}
         items={items}
       />
       <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete} header="Delete Review?"/>
