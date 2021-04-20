@@ -48,7 +48,7 @@ export enum PAGEIDS {
   STUDENT_ICE = 'student-ice-points-page',
   STUDENT_LEVELS = 'student-levels-page',
   STUDENT_REVIEWS = 'student-reviews-page',
-  STUDENT_VERIFICATION= 'student-verification-page',
+  STUDENT_VERIFICATION = 'student-verification-page',
   STUDENT_VISIBILITY = 'student-visibility-page',
 
   CAREER_GOAL = 'career-goal-page',
