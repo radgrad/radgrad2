@@ -74,7 +74,7 @@ class StudentProfileCollection extends BaseProfileCollection {
       lastLeveledUp: { type: String, optional: true },
       acceptedTermsAndConditions: { type: String, optional: true },
       refusedTermsAndConditions: { type: String, optional: true },
-      lastVisited: { type: Object, optional: true, blackbox: true},
+      lastVisited: { type: Object, optional: true, blackbox: true },
     });
     this.updateSchema = new SimpleSchema({
       firstName: { type: String, optional: true },
@@ -105,7 +105,7 @@ class StudentProfileCollection extends BaseProfileCollection {
       lastLeveledUp: { type: String, optional: true },
       acceptedTermsAndConditions: { type: String, optional: true },
       refusedTermsAndConditions: { type: String, optional: true },
-      lastVisited: { type: Object, optional: true, blackbox: true},
+      lastVisited: { type: Object, optional: true, blackbox: true },
     });
   }
 
