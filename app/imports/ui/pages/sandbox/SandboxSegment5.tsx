@@ -4,7 +4,7 @@ import RadGradSegment from '../../components/shared/RadGradSegment';
 import RadGradHeaderOptions from '../../components/shared/RadGradHeaderOptions';
 
 enum SortValues {
-  ALPHA ='Alphabetic',
+  ALPHA = 'Alphabetic',
   RECOMMENDED = 'Recommended',
   LUCKY = 'I\'m feeling lucky',
 }
