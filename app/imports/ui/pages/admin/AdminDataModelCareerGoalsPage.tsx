@@ -16,6 +16,7 @@ import {
   itemToSlugName,
   interestNameToId,
 } from '../../components/shared/utilities/data-model';
+import { PAGEIDS } from '../../utilities/PageIDs';
 import {
   handleCancelWrapper,
   handleConfirmDeleteWrapper,
@@ -81,7 +82,7 @@ const AdminDataModelCareerGoalsPage: React.FC<AdminDataModelCareerGoalsPageProps
   };
 
   return (
-    <PageLayout id="data-model-career-goals-page" headerPaneTitle="Career Goals">
+    <PageLayout id={PAGEIDS.DATA_MODEL_CAREER_GOALS} headerPaneTitle="Career Goals">
       {showUpdateFormState ? (
         <UpdateCareerGoalForm collection={CareerGoals} id={idState} handleUpdate={handleUpdate}
                               handleCancel={handleCancel} itemTitleString={itemTitleString}

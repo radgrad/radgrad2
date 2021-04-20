@@ -7,6 +7,7 @@ import LandingExplorerCard from '../../components/landing/explorer/LandingExplor
 import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import LandingExplorerMenuBar from '../../components/landing/explorer/LandingExplorerMenuBar';
+import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
 
 interface LandingOpportunitiesExplorerPageProps {
@@ -24,7 +25,7 @@ This public explorer does not provide information about community members or the
 const LandingOpportunitiesExplorerPage: React.FC<LandingOpportunitiesExplorerPageProps> = ({ opportunities, count }) => (
   <div>
     <LandingExplorerMenuBar/>
-    <PageLayout id="landing-opportunities-explorer-page" headerPaneTitle={headerPaneTitle}
+    <PageLayout id={PAGEIDS.LANDING_OPPORTUNITIES_EXPLORER} headerPaneTitle={headerPaneTitle}
                 headerPaneBody={headerPaneBody}>
       <Segment>
         <Header as="h4" dividing>

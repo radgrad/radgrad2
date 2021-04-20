@@ -12,6 +12,7 @@ import AddInterestTypeForm from '../../components/admin/datamodel/interest/AddIn
 import UpdateInterestTypeForm from '../../components/admin/datamodel/interest/UpdateInterestTypeForm';
 import { dataModelActions } from '../../../redux/admin/data-model';
 import { itemToSlugName } from '../../components/shared/utilities/data-model';
+import { PAGEIDS } from '../../utilities/PageIDs';
 import {
   handleCancelWrapper,
   handleConfirmDeleteWrapper,
@@ -88,7 +89,7 @@ const AdminDataModelInterestTypesPage: React.FC<AdminDataModelInterestTypesPageP
     sort: { name: 1 }, // determine how you want to sort the items in the list
   };
   return (
-    <PageLayout id="data-model-interest-types-page" headerPaneTitle="Interest Types">
+    <PageLayout id={PAGEIDS.DATA_MODEL_INTEREST_TYPES} headerPaneTitle="Interest Types">
       {showUpdateFormState ? (
         <UpdateInterestTypeForm collection={collection} id={idState} handleUpdate={handleUpdate}
                                 handleCancel={handleCancel} itemTitleString={itemTitleString}/>

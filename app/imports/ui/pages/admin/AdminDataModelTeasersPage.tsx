@@ -11,6 +11,7 @@ import { CareerGoal, Course, DescriptionPair, Interest, Opportunity, Teaser } fr
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Teasers } from '../../../api/teaser/TeaserCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
+import { PAGEIDS } from '../../utilities/PageIDs';
 import {
   handleCancelWrapper,
   handleConfirmDeleteWrapper,
@@ -95,7 +96,7 @@ const AdminDataModelTeasersPage: React.FC<AdminDataModelTeasersPageProps> = ({ i
     sort: { name: 1 }, // determine how you want to sort the items in the list
   };
   return (
-    <PageLayout id="data-model-teasers-page" headerPaneTitle="Teasers">
+    <PageLayout id={PAGEIDS.DATA_MODEL_TEASERS} headerPaneTitle="Teasers">
       {showUpdateFormState ? (
         <UpdateTeaserForm
           collection={collection}

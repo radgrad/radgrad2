@@ -12,6 +12,7 @@ import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import AddOpportunityTypeForm from '../../components/admin/datamodel/opportunity/AddOpportunityTypeForm';
 import UpdateOpportunityTypeForm from '../../components/admin/datamodel/opportunity/UpdateOpportunityTypeForm';
 import { itemToSlugName } from '../../components/shared/utilities/data-model';
+import { PAGEIDS } from '../../utilities/PageIDs';
 import {
   handleCancelWrapper,
   handleConfirmDeleteWrapper,
@@ -89,7 +90,7 @@ const AdminDataModelOpportunityTypesPage: React.FC<AdminDataModelOpportunityType
     sort: { name: 1 }, // determine how you want to sort the items in the list
   };
   return (
-    <PageLayout id="data-model-opportunity-types-page" headerPaneTitle="Opportunity Types">
+    <PageLayout id={PAGEIDS.DATA_MODEL_OPPORTUNITY_TYPES} headerPaneTitle="Opportunity Types">
       {showUpdateFormState ? (
         <UpdateOpportunityTypeForm collection={collection} id={idState} handleUpdate={handleUpdate}
                                    handleCancel={handleCancel} itemTitleString={itemTitleString}/>

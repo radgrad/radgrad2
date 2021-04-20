@@ -16,6 +16,7 @@ import { Users } from '../../../api/user/UserCollection';
 import AddOpportunityInstanceForm from '../../components/admin/datamodel/opportunity/AddOpportunityInstanceForm';
 import UpdateOpportunityInstanceForm from '../../components/admin/datamodel/opportunity/UpdateOpportunityInstanceForm';
 import { academicTermNameToDoc } from '../../components/shared/utilities/data-model';
+import { PAGEIDS } from '../../utilities/PageIDs';
 import {
   handleCancelWrapper,
   handleConfirmDeleteWrapper,
@@ -101,7 +102,7 @@ const AdminDataModelOpportunityInstancesPage: React.FC<AdminDataModelOpportunity
     sort: { name: 1 }, // determine how you want to sort the items in the list
   };
   return (
-    <PageLayout id="data-model-opportunity-instances-page" headerPaneTitle="Opportunity Instances">
+    <PageLayout id={PAGEIDS.DATA_MODEL_OPPORTUNITY_INSTANCES} headerPaneTitle="Opportunity Instances">
       {showUpdateFormState ? (
         <UpdateOpportunityInstanceForm collection={collection} id={idState}
                                        handleUpdate={handleUpdate} handleCancel={handleCancel}

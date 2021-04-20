@@ -15,6 +15,7 @@ import { Reviews } from '../../../api/review/ReviewCollection';
 import AddReviewForm from '../../components/admin/datamodel/review/AddReviewForm';
 import UpdateReviewForm from '../../components/admin/datamodel/review/UpdateReviewForm';
 import { academicTermNameToSlug } from '../../components/shared/utilities/data-model';
+import { PAGEIDS } from '../../utilities/PageIDs';
 import {
   handleCancelWrapper,
   handleConfirmDeleteWrapper,
@@ -100,7 +101,7 @@ const AdminDataModelReviewsPage: React.FC<AdminDataModelReviewsPageProps> = ({ i
     sort: { name: 1 }, // determine how you want to sort the items in the list
   };
   return (
-    <PageLayout id="data-model-reviews-page" headerPaneTitle="Reviews" headerPaneBody="Be sure to select the reviewee. If you don't you will get an error.">
+    <PageLayout id={PAGEIDS.DATA_MODEL_REVIEWS} headerPaneTitle="Reviews" headerPaneBody="Be sure to select the reviewee. If you don't you will get an error.">
       {showUpdateFormState ? (
         <UpdateReviewForm collection={collection} id={idState} handleUpdate={handleUpdate}
                           handleCancel={handleCancel} itemTitleString={itemTitleString} terms={terms}/>

@@ -14,6 +14,7 @@ import { getSlugFromEntityID } from '../../components/landing/utilities/helper-f
 import * as Router from '../../components/shared/utilities/router';
 import { EXPLORER_TYPE } from '../../layouts/utilities/route-constants';
 import LandingExplorerMenuBar from '../../components/landing/explorer/LandingExplorerMenuBar';
+import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
 
 interface InterestExplorerProps {
@@ -35,7 +36,7 @@ const LandingInterestExplorerPage: React.FC<InterestExplorerProps> = ({ currentU
   return (
     <div>
       <LandingExplorerMenuBar/>
-      <PageLayout id="landing-interest-explorer-page" headerPaneTitle={headerPaneTitle}
+      <PageLayout id={PAGEIDS.LANDING_INTEREST_EXPLORER} headerPaneTitle={headerPaneTitle}
                   headerPaneBody={headerPaneBody}>
       <Grid stackable>
         <Grid.Row>

@@ -10,6 +10,7 @@ import { InterestTypes } from '../../../api/interest/InterestTypeCollection';
 import AddInterestForm from '../../components/admin/datamodel/interest/AddInterestForm';
 import UpdateInterestForm from '../../components/admin/datamodel/interest/UpdateInterestForm';
 import { itemToSlugName, interestTypeNameToId } from '../../components/shared/utilities/data-model';
+import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
 import {
   handleCancelWrapper,
@@ -78,7 +79,7 @@ const AdminDataModelInterestsPage: React.FC<AdminDataModelInterestsPageProps> = 
     sort: { name: 1 }, // determine how you want to sort the items in the list
   };
   return (
-    <PageLayout id="data-model-interests-page" headerPaneTitle="Interests">
+    <PageLayout id={PAGEIDS.DATA_MODEL_INTERESTS} headerPaneTitle="Interests">
       {showUpdateFormState ? (
         <UpdateInterestForm collection={collection} id={idState} handleUpdate={handleUpdate}
                             handleCancel={handleCancel} itemTitleString={itemTitleString}

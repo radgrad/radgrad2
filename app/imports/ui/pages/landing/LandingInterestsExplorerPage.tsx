@@ -6,6 +6,7 @@ import { Interests } from '../../../api/interest/InterestCollection';
 import LandingExplorerCardContainer from '../../components/landing/explorer/LandingExplorerCard';
 import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
 import LandingExplorerMenuBar from '../../components/landing/explorer/LandingExplorerMenuBar';
+import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
 import { Slugs } from '../../../api/slug/SlugCollection';
 
@@ -24,7 +25,7 @@ This public explorer does not provide information about community members.
 const LandingInterestsExplorerPage: React.FC<InterestsCardExplorerProps> = ({ interests, count }) => (
   <div>
     <LandingExplorerMenuBar/>
-    <PageLayout id="landing-interests-card-explorer-page" headerPaneTitle={headerPaneTitle}
+    <PageLayout id={PAGEIDS.LANDING_INTERESTS_EXPLORER} headerPaneTitle={headerPaneTitle}
                 headerPaneBody={headerPaneBody}>
       <Segment>
         <Header as="h4" dividing>
