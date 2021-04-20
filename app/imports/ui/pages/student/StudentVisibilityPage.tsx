@@ -1,15 +1,11 @@
-import moment from 'moment';
 import _ from 'lodash';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Grid, Header, Icon, Segment, Form } from 'semantic-ui-react';
-import { updateMethod } from '../../../api/base/BaseCollection.methods';
-import { ROLE } from '../../../api/role/Role';
-import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { getPublicProfileData, PublicProfileData, setPublicProfileData } from '../../../api/user/StudentProfileCollection.methods';
 import { Users } from '../../../api/user/UserCollection';
-import { StudentProfile, StudentProfileUpdate } from '../../../typings/radgrad';
+import { StudentProfile } from '../../../typings/radgrad';
 import { SetPictureButton } from '../../components/shared/privacy/SetPictureButton';
 import { SetWebsiteButton } from '../../components/shared/privacy/SetWebsiteButton';
 import ProfileCard from '../../components/shared/profile/ProfileCard';
@@ -155,21 +151,6 @@ const StudentVisibilityPage: React.FC<StudentVisibilityPageProps> = ({ profile }
 export default withTracker(() => {
   const { username } = useParams();
   const profile = Users.getProfile(username) as StudentProfile;
-  // TODO Refactor this code into a single function call that can be called from multiple pages.
-  if (profile.role === ROLE.STUDENT) {
-    const lastVisited = moment().format('YYYY-MM-DD');
-    if (lastVisited !== profile.lastVisitedPrivacy) {
-      const collectionName = StudentProfiles.getCollectionName();
-      const updateData: StudentProfileUpdate = {};
-      updateData.id = profile._id;
-      updateData.lastVisitedPrivacy = lastVisited;
-      updateMethod.call({ collectionName, updateData }, (error, result) => {
-        if (error) {
-          console.error('Error updating StudentProfile', collectionName, updateData, error);
-        }
-      });
-    }
-  }
   return {
     profile,
   };

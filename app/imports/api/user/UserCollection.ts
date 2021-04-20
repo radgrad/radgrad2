@@ -215,6 +215,23 @@ class UserCollection {
       || AdvisorProfiles.hasProfile(userID) || AdminProfiles.hasProfile(userID);
   }
 
+  public getProfileCollection(user) {
+    const userID = this.getID(user);
+    if (StudentProfiles.hasProfile(userID)) {
+      return StudentProfiles;
+    }
+    if (FacultyProfiles.hasProfile(userID)) {
+      return FacultyProfiles;
+    }
+    if (AdvisorProfiles.hasProfile(userID)) {
+      return AdvisorProfiles;
+    }
+    if (AdminProfiles.hasProfile(userID)) {
+      return AdminProfiles;
+    }
+    throw new Meteor.Error('unknown user', `${user} (${userID}) has no profile in getProfileCollection`);
+  }
+
   /**
    * Returns the profile associated with the passed username, or null if not found.
    * Does not check to see if the user is defined, which makes this method useful for Accounts.validateNewUser.

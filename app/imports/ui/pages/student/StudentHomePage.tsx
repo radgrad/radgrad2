@@ -6,7 +6,7 @@ import { CoursesChecklist } from '../../components/checklist/CoursesChecklist';
 import { InterestsChecklist } from '../../components/checklist/InterestsChecklist';
 import { LevelChecklist } from '../../components/checklist/LevelChecklist';
 import { OpportunitiesChecklist } from '../../components/checklist/OpportunitiesChecklist';
-import { PrivacyChecklist } from '../../components/checklist/PrivacyChecklist';
+import { VisibilityChecklist } from '../../components/checklist/VisibilityChecklist';
 import { ReviewChecklist } from '../../components/checklist/ReviewChecklist';
 import { TermsAndConditionsChecklist } from '../../components/checklist/TermsAndConditionsChecklist';
 import { VerificationChecklist } from '../../components/checklist/VerificationChecklist';
@@ -71,7 +71,7 @@ export default withTracker(() => {
   checklists.push(new ReviewChecklist(currentUser));
   checklists.push(new VerificationChecklist(currentUser));
   checklists.push(new LevelChecklist(currentUser));
-  checklists.push(new PrivacyChecklist(currentUser));
+  checklists.push(new VisibilityChecklist(currentUser));
   checklists.forEach((checklist) => {
     switch (checklist.getState()) {
       case CHECKSTATE.IMPROVE:
