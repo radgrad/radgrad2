@@ -11,7 +11,7 @@ import { InterestsChecklist } from '../../../checklist/InterestsChecklist';
 import ProfileCard from './ProfileCard';
 import { RadGradProperties } from '../../../../../api/radgrad/RadGradProperties';
 import { CareerGoalsChecklist } from '../../../checklist/CareerGoalsChecklist';
-import Sort, { explorerSortKeys } from './Sort';
+import Sort from './Sort';
 import * as Router from '../../utilities/router';
 import { ProfileInterests } from '../../../../../api/user/profile-entries/ProfileInterestCollection';
 import PreferredChoice from '../../../../../api/degree-plan/PreferredChoice';
@@ -19,6 +19,7 @@ import RadGradHeader from '../../RadGradHeader';
 import RadGradSegment from '../../RadGradSegment';
 import { EXPLORERTYPEICON } from '../../../../utilities/ExplorerTypeIcon';
 import { EXPLORERTYPE } from '../../../../utilities/ExplorerType';
+import { EXPLORERSORTKEY } from '../../../../utilities/ExplorerSortKey';
 
 interface BrowserViewProps {
   items: CareerGoal[] | Course[] | Opportunity[] | Interest[];
@@ -68,12 +69,12 @@ const BrowserView: React.FC<BrowserViewProps> = ({
   // @ts-ignore
   let explorerItems = _.sortBy(items, (item) => item.name);
   switch (sortValue) {
-    case explorerSortKeys.mostRecent: {
+    case EXPLORERSORTKEY.MOST_RECENT: {
       // @ts-ignore
       explorerItems = _.sortBy(items, (item) => item.updatedAt);
       break;
     }
-    case explorerSortKeys.recommended:
+    case EXPLORERSORTKEY.RECOMMENDED:
       explorerItems = preferred.getOrderedChoices();
       break;
     default:
@@ -127,8 +128,7 @@ const BrowserView: React.FC<BrowserViewProps> = ({
       {!inProfile ? <Sort explorerType={explorerType} /> : ''}
       <Card.Group itemsPerRow={4} stackable id="browserCardGroup">
         {explorerItems.map((explorerItem) => (
-          <ProfileCard key={explorerItem._id} item={explorerItem} type={explorerType}
-                       cardLinkName={inProfile ? 'See Details / Remove from Profile' : 'See Details / Add to Profile'} />
+          <ProfileCard key={explorerItem._id} item={explorerItem} type={explorerType} inProfile={inProfile} />
         ))}
       </Card.Group>
     </RadGradSegment>

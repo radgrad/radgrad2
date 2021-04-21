@@ -7,14 +7,7 @@ import { cardExplorerActions } from '../../../../../redux/shared/cardExplorer';
 import { RootState } from '../../../../../redux/types';
 import RadioField from '../../../form-fields/RadioField';
 import { EXPLORERTYPE } from '../../../../utilities/ExplorerType';
-
-export const explorerSortKeys = {
-  mostRecent: 'Most Recent',
-  alphabetic: 'Alphabetic',
-  recommended: 'Recommended',
-  innovation: 'Innovation',
-  experience: 'Experience',
-};
+import { EXPLORERSORTKEY } from '../../../../utilities/ExplorerSortKey';
 
 interface SortProps {
   sortChoice: string;
@@ -57,13 +50,13 @@ const Sort: React.FC<SortProps> = ({ sortChoice, setSortValue, explorerType }) =
     let allowedSortValues:string[];
     switch (type){
       case EXPLORERTYPE.CAREERGOALS:
-        allowedSortValues = [explorerSortKeys.recommended, explorerSortKeys.mostRecent, explorerSortKeys.alphabetic];
+        allowedSortValues = [EXPLORERSORTKEY.RECOMMENDED, EXPLORERSORTKEY.MOST_RECENT, EXPLORERSORTKEY.ALPHABETIC];
         break;
       case EXPLORERTYPE.INTERESTS:
-        allowedSortValues = [explorerSortKeys.mostRecent, explorerSortKeys.alphabetic];
+        allowedSortValues = [EXPLORERSORTKEY.MOST_RECENT, EXPLORERSORTKEY.ALPHABETIC];
         break;
       case EXPLORERTYPE.OPPORTUNITIES:
-        allowedSortValues = [explorerSortKeys.recommended, explorerSortKeys.alphabetic, explorerSortKeys.experience, explorerSortKeys.innovation];
+        allowedSortValues = [EXPLORERSORTKEY.RECOMMENDED, EXPLORERSORTKEY.ALPHABETIC, EXPLORERSORTKEY.EXPERIENCE, EXPLORERSORTKEY.INNOVATION];
         break;
     }
     return allowedSortValues;
