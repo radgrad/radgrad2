@@ -4,17 +4,27 @@ import moment from 'moment';
 import { Button, Grid, Header, Icon, Label, Popup, Segment, Table } from 'semantic-ui-react';
 import {
   getFutureEnrollmentMethod,
-  ENROLLMENT_TYPE,
-  EnrollmentForecast,
 } from '../../../../api/utilities/FutureEnrollment.methods';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import { Courses } from '../../../../api/course/CourseCollection';
+import { EnrollmentForecast, ENROLLMENT_TYPE } from '../../../../startup/both/RadGradForecasts';
 
 const databaseFileDateFormat = 'YYYY-MM-DD-HH-mm-ss';
 
 const handleSaveAsCSV = (data: EnrollmentForecast[]) => () => {
-  const result = '';
-  // const headerArr = ['Course'];
+  let result = '';
+  const headerArr = ['Course'];
+  data[0].enrollment.forEach((entry) => headerArr.push(AcademicTerms.getShortName(entry.termID)));
+  result += headerArr.join(',');
+  result += '\r\n';
+  data.forEach((d) => {
+    const course = Courses.findDoc(d.courseID);
+    result += `${course.num},`;
+    d.enrollment.forEach((entry) => {
+      result += `${entry.count},`;
+    });
+    result += '\r\n';
+  });
   const zip = new ZipZap();
   const dir = 'course-forecast';
   const fileName = `${dir}/${moment().format(databaseFileDateFormat)}.csv`;
@@ -55,7 +65,7 @@ const CourseForecast: React.FC = () => {
       <Header>Future Course Forecast</Header>
       <Grid>
         <Grid.Row>
-
+          {/* We need to see if we got the data */}
           {data[0] ? (<div>
             <Table celled fixed>
               <Table.Header>
@@ -72,7 +82,7 @@ const CourseForecast: React.FC = () => {
             <div style={scrollBody}>
               <Table celled fixed>
                 <Table.Body>
-                  {data.map((c, index) => {
+                  {data.map((c) => {
                     const course = Courses.findDoc(c.courseID);
                     return (
                       // eslint-disable-next-line react/no-array-index-key
