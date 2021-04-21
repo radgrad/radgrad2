@@ -2,7 +2,6 @@ import { Meteor } from 'meteor/meteor';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { CallPromiseMixin } from 'meteor/didericis:callpromise-mixin';
 import { VerificationRequests } from './VerificationRequestCollection';
-import { Feeds } from '../feed/FeedCollection';
 import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollection';
 import { Opportunities } from '../opportunity/OpportunityCollection';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
@@ -95,10 +94,6 @@ export const processVerificationEventMethod = new ValidatedMethod({
     OpportunityInstances.update(opportunityInstanceID, { verified: true });
     VerificationRequests.setVerified(verificationRequestID, Meteor.userId());
 
-    // Create a Feed entry for this verification event.
-    resultMessage += '  Creating a feed entry.\n';
-    Feeds.define({ feedType: Feeds.VERIFIED_OPPORTUNITY, user: student, opportunity, academicTerm });
-
     return resultMessage;
   },
 });
@@ -114,7 +109,6 @@ export const processVerificationEventMethod = new ValidatedMethod({
  *   * If command is not VerificationRequests.ACCEPTED or VerificationRequests.REJECTED, then returns an error string.
  *   * Creates a process object to record this command.
  *   * Updates the VerificationRequest with the new process object and the new status.
- *   * Creates a new Feed instance only if the request was accepted.
  *
  * Only faculty, advisors, and admins can invoke this method.
  * @memberOf api/verification
@@ -142,15 +136,7 @@ export const processPendingVerificationMethod = new ValidatedMethod({
     // Update the verification request.
     VerificationRequests.setVerificationStatus(verificationRequestID, Meteor.userId(), command, feedback);
 
-    // Create a feed entry only if it was verified
     const student = Users.getProfile(requestDoc.studentID).username;
-    if (verified) {
-      const opportunityInstanceID = requestDoc.opportunityInstanceID;
-      const opportunity = OpportunityInstances.getOpportunityDoc(opportunityInstanceID)._id;
-      const academicTermDoc = OpportunityInstances.getAcademicTermDoc(opportunityInstanceID);
-      const academicTerm = `${academicTermDoc.term}-${academicTermDoc.year}`;
-      Feeds.define({ feedType: Feeds.VERIFIED_OPPORTUNITY, user: student, opportunity, academicTerm });
-    }
     return `Verification request for ${student} was processed`;
   },
 });

@@ -4,7 +4,6 @@ import Swal from 'sweetalert2';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import { defineMethod } from '../../../../api/base/BaseCollection.methods';
 import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
-import { Feeds } from '../../../../api/feed/FeedCollection';
 import { CareerGoal, Interest } from '../../../../typings/radgrad';
 import { openCloudinaryWidget } from '../../shared/OpenCloudinaryWidget';
 
@@ -86,8 +85,6 @@ const AdvisorAddStudentWidget: React.FC<AdvisorAddStudentWidgetProps> = ({ inter
           showConfirmButton: false,
           timer: 1500,
         });
-        const feedData = { feedType: Feeds.NEW_USER, user: definitionData.username };
-        defineMethod.call({ collectionName: Feeds.getCollectionName(), definitionData: feedData });
         setFirstName('');
         setLastName('');
         setUsername('');

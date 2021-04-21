@@ -10,7 +10,6 @@ import { ROLE } from '../role/Role';
 import { Users } from '../user/UserCollection';
 import { OpportunityTypes } from './OpportunityTypeCollection';
 import { OpportunityInstances } from './OpportunityInstanceCollection';
-import { Feeds } from '../feed/FeedCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
 import { assertICE, iceSchema } from '../ice/IceProcessor';
 import { OpportunityDefine, OpportunityUpdate, OpportunityUpdateData } from '../../typings/radgrad';
@@ -236,8 +235,6 @@ class OpportunityCollection extends BaseSlugCollection {
     if (teasers.length > 0) {
       throw new Meteor.Error(`Opportunity ${instance} referenced by a teaser.`);
     }
-    // OK to delete. First remove any Feeds that reference this opportunity.
-    Feeds.find({ opportunityID: docID }).map((feed) => Feeds.removeIt(feed._id));
     return super.removeIt(docID);
   }
 
