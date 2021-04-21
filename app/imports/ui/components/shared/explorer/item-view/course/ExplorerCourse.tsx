@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Divider, Grid, Header, Item, List, Segment } from 'semantic-ui-react';
 import { NavLink, useParams, useRouteMatch } from 'react-router-dom';
 import _ from 'lodash';
 import Markdown from 'react-markdown';
 import { AcademicTerms } from '../../../../../../api/academic-term/AcademicTermCollection';
-import { RadGradProperties } from '../../../../../../api/radgrad/RadGradProperties';
-import { CourseForecastCollection } from '../../../../../../startup/client/collections';
+import { getFutureEnrollmentSingleMethod } from '../../../../../../api/utilities/FutureEnrollment.methods';
+import { ENROLLMENT_TYPE, EnrollmentForecast } from '../../../../../../startup/both/RadGradForecasts';
 import InterestList from '../../../InterestList';
 import { isSingleChoice } from '../../../../../../api/degree-plan/PlanChoiceUtilities';
 import StudentExplorerReviewWidget from '../../../../student/explorer/StudentExplorerReviewWidget';
-import { AcademicTerm, Course, DescriptionPair, Review } from '../../../../../../typings/radgrad';
+import { Course, DescriptionPair, Review } from '../../../../../../typings/radgrad';
 import * as Router from '../../../utilities/router';
 import { EXPLORER_TYPE } from '../../../../../layouts/utilities/route-constants';
 import { Teasers } from '../../../../../../api/teaser/TeaserCollection';
@@ -119,7 +119,7 @@ const teaserUrlHelper = (courseSlug): string => {
   return oppTeaser && oppTeaser[0] && oppTeaser[0].url;
 };
 
-const ExplorerCourseWidget: React.FC<ExplorerCoursesWidgetProps> = ({ name, shortName, descriptionPairs, item, completed, itemReviews }) => {
+const ExplorerCourse: React.FC<ExplorerCoursesWidgetProps> = ({ name, shortName, descriptionPairs, item, completed, itemReviews }) => {
   const segmentStyle = { backgroundColor: 'white' };
   const zeroMarginTopStyle = { marginTop: 0 };
   const fiveMarginTopStyle = { marginTop: '5px' };
@@ -142,26 +142,32 @@ const ExplorerCourseWidget: React.FC<ExplorerCoursesWidgetProps> = ({ name, shor
   const studentID = Router.getUserIdFromRoute(match);
   const hasTeaser = Teasers.findNonRetired({ targetSlugID: item.slugID }).length > 0;
 
-  const quarter = RadGradProperties.getQuarterSystem();
-  const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
-  const numTerms = quarter ? 12 : 9;
-  const academicTerms = AcademicTerms.findNonRetired(
-    { termNumber: { $gte: currentTerm.termNumber } },
-    {
-      sort: { termNumber: 1 },
-      limit: numTerms,
-    },
-  );
-  const scores = [];
-  academicTerms.forEach((term: AcademicTerm) => {
-    const id = `${item._id} ${term._id}`;
-    const score = CourseForecastCollection.find({ _id: id }).fetch() as { count: number }[];
-    if (score.length > 0) {
-      scores.push(score[0].count);
-    } else {
-      scores.push(0);
+  const [data, setData] = useState<EnrollmentForecast>({});
+  const [fetched, setFetched] = useState(false);
+
+  useEffect(() => {
+    // console.log('check for infinite loop');
+    function fetchData() {
+      getFutureEnrollmentSingleMethod.callPromise({ id: item._id, type: ENROLLMENT_TYPE.COURSE })
+        .then((result) => setData(result))
+        .catch((error) => {
+          console.error(error);
+          setData({});
+        });
     }
-  });
+
+    // Only fetch data if it hasn't been fetched before.
+    if (!fetched) {
+      fetchData();
+      setFetched(true);
+    }
+  }, [fetched, item._id]);
+  let academicTerms = [];
+  let scores = [];
+  if (data?.enrollment) {
+    academicTerms = data.enrollment.map((entry) => AcademicTerms.findDoc(entry.termID));
+    scores = data.enrollment.map((entry) => entry.count);
+  }
   const profile = Users.getProfile(username);
   const added = ProfileCourses.findNonRetired({ studentID: profile.userID, courseID: item._id }).length > 0;
   return (
@@ -542,4 +548,4 @@ const ExplorerCourseWidget: React.FC<ExplorerCoursesWidgetProps> = ({ name, shor
   );
 };
 
-export default ExplorerCourseWidget;
+export default ExplorerCourse;
