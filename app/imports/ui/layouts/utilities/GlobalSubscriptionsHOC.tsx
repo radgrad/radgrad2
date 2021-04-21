@@ -18,7 +18,6 @@ import { Courses } from '../../../api/course/CourseCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';
-import { Feeds } from '../../../api/feed/FeedCollection';
 
 interface Loading {
   loading: boolean;
@@ -45,7 +44,6 @@ const withGlobalSubscription = (WrappedComponent) => {
       globalSubs.subscribe(CareerGoals.getPublicationName()),
       globalSubs.subscribe(Courses.getPublicationName()),
       globalSubs.subscribe(FacultyProfiles.getPublicationName()),
-      globalSubs.subscribe(Feeds.getPublicationName()),
       globalSubs.subscribe(Interests.getPublicationName()),
       globalSubs.subscribe(InterestTypes.getPublicationName()),
       globalSubs.subscribe(Opportunities.getPublicationName()),
