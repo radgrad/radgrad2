@@ -1,10 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card } from 'semantic-ui-react';
 import { useRouteMatch } from 'react-router-dom';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
-import { RadGradProperties } from '../../../../api/radgrad/RadGradProperties';
-import { ENROLLMENT_TYPE, getFutureEnrollmentSingleMethod } from '../../../../api/utilities/FutureEnrollment.methods';
-import { OpportunityForecastCollection } from '../../../../startup/client/collections';
+import { getFutureEnrollmentSingleMethod } from '../../../../api/utilities/FutureEnrollment.methods';
 import { AcademicTerm, Opportunity, OpportunityInstance } from '../../../../typings/radgrad';
 import { ViewInExplorerButtonLink } from '../../shared/button/ViewInExplorerButtonLink';
 import IceHeader from '../../shared/IceHeader';
@@ -14,6 +12,7 @@ import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import { Slugs } from '../../../../api/slug/SlugCollection';
 import { cardStyle, contentStyle, getInspectorDraggablePillStyle } from './utilities/styles';
 import NamePill from './NamePill';
+import { ENROLLMENT_TYPE, EnrollmentForecast } from '../../../../startup/both/RadGradForecasts';
 
 interface ProfileOpportunityCardProps {
   opportunity: Opportunity;
@@ -26,13 +25,27 @@ const ProfileOpportunityCard: React.FC<ProfileOpportunityCardProps> = ({
   opportunityInstances,
   studentID,
 }) => {
-  getFutureEnrollmentSingleMethod.call({ id: opportunity._id, type: ENROLLMENT_TYPE.OPPORTUNITY }, (error, result) => {
-    if (error) {
-      console.error(error);
-    } else {
-      console.log(result);
+  const [data, setData] = useState<EnrollmentForecast>({});
+  const [fetched, setFetched] = useState(false);
+  useEffect(() => {
+    // console.log('check for infinite loop');
+    function fetchData() {
+      getFutureEnrollmentSingleMethod.callPromise({ id: opportunity._id, type: ENROLLMENT_TYPE.OPPORTUNITY })
+        .then((result) => setData(result))
+        .catch((error) => {
+          console.error(error);
+          setData({});
+        });
     }
-  });
+
+    // Only fetch data if it hasn't been fetched before.
+    if (!fetched) {
+      fetchData();
+      setFetched(true);
+    }
+  }, [fetched, opportunity._id]);
+
+  // console.log(data);
   const match = useRouteMatch();
   const instances = opportunityInstances.filter((i) => i.opportunityID === opportunity._id);
   const terms: AcademicTerm[] = instances.map((i) => AcademicTerms.findDoc(i.termID));
@@ -41,34 +54,20 @@ const ProfileOpportunityCard: React.FC<ProfileOpportunityCardProps> = ({
   const termNames = terms.map((t) => AcademicTerms.getShortName(t._id)).join(', ');
   const slug = Slugs.findDoc(opportunity.slugID).name;
   const droppableID = `${opportunity._id}`;
+  let academicTerms = [];
+  let scores = [];
+  if (data?.enrollment) {
+    academicTerms = data.enrollment.map((entry) => AcademicTerms.findDoc(entry.termID));
+    scores = data.enrollment.map((entry) => entry.count);
+  }
 
-  const quarter = RadGradProperties.getQuarterSystem();
-  const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
-  const numTerms = quarter ? 12 : 9;
-  const academicTerms = AcademicTerms.findNonRetired(
-    { termNumber: { $gte: currentTerm.termNumber } },
-    {
-      sort: { termNumber: 1 },
-      limit: numTerms,
-    },
-  );
-  const scores = [];
-  academicTerms.forEach((term: AcademicTerm) => {
-    const id = `${opportunity._id} ${term._id}`;
-    const score = OpportunityForecastCollection.find({ _id: id }).fetch() as { count: number }[];
-    if (score.length > 0) {
-      scores.push(score[0].count);
-    } else {
-      scores.push(0);
-    }
-  });
   return (
     <Card style={cardStyle}>
-      <Card.Content style={contentStyle}>
+       <Card.Content style={contentStyle}>
         <IceHeader ice={opportunity.ice} />
         <Card.Header>{opportunity.name}</Card.Header>
-      </Card.Content>
-      <Card.Content style={contentStyle}>
+       </Card.Content>
+       <Card.Content style={contentStyle}>
         {instances.length > 0 ? (
           <React.Fragment>
             <b>Scheduled:</b> {termNames}
@@ -92,13 +91,13 @@ const ProfileOpportunityCard: React.FC<ProfileOpportunityCardProps> = ({
             </div>
           )}
         </Droppable>
-      </Card.Content>
-      <Card.Content style={contentStyle}>
+       </Card.Content>
+       <Card.Content style={contentStyle}>
         <FutureParticipation academicTerms={academicTerms} scores={scores} />
-      </Card.Content>
-      <Card.Content style={contentStyle}>
+       </Card.Content>
+       <Card.Content style={contentStyle}>
         <ViewInExplorerButtonLink match={match} type={EXPLORER_TYPE.OPPORTUNITIES} item={opportunity} size="mini" />
-      </Card.Content>
+       </Card.Content>
     </Card>
   );
 };

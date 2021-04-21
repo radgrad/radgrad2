@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card } from 'semantic-ui-react';
 import { useRouteMatch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
-import { RadGradProperties } from '../../../../api/radgrad/RadGradProperties';
-import { OpportunityForecastCollection } from '../../../../startup/client/collections';
+import { getFutureEnrollmentSingleMethod } from '../../../../api/utilities/FutureEnrollment.methods';
+import { ENROLLMENT_TYPE, EnrollmentForecast } from '../../../../startup/both/RadGradForecasts';
 import { ButtonAction } from '../../shared/button/ButtonAction';
 import { ButtonLink } from '../../shared/button/ButtonLink';
 import { ViewInExplorerButtonLink } from '../../shared/button/ViewInExplorerButtonLink';
@@ -84,25 +84,31 @@ const DetailOpportunityCard: React.FC<DetailOpportunityCardProps> = ({
   const verificationRequested = verificationRequestsToShow.length > 0;
   const termName = AcademicTerms.getShortName(instance.termID);
   const opportunity = Opportunities.findDoc(instance.opportunityID);
-  const quarter = RadGradProperties.getQuarterSystem();
-  const numTerms = quarter ? 12 : 9;
-  const academicTerms = AcademicTerms.findNonRetired(
-    { termNumber: { $gte: currentTerm.termNumber } },
-    {
-      sort: { termNumber: 1 },
-      limit: numTerms,
-    },
-  );
-  const scores = [];
-  academicTerms.forEach((term: AcademicTerm) => {
-    const id = `${opportunity._id} ${term._id}`;
-    const score = OpportunityForecastCollection.find({ _id: id }).fetch() as { count: number }[];
-    if (score.length > 0) {
-      scores.push(score[0].count);
-    } else {
-      scores.push(0);
+  const [data, setData] = useState<EnrollmentForecast>({});
+  const [fetched, setFetched] = useState(false);
+  useEffect(() => {
+    // console.log('check for infinite loop');
+    function fetchData() {
+      getFutureEnrollmentSingleMethod.callPromise({ id: opportunity._id, type: ENROLLMENT_TYPE.OPPORTUNITY })
+        .then((result) => setData(result))
+        .catch((error) => {
+          console.error(error);
+          setData({});
+        });
     }
-  });
+
+    // Only fetch data if it hasn't been fetched before.
+    if (!fetched) {
+      fetchData();
+      setFetched(true);
+    }
+  }, [fetched, opportunity._id]);
+  let academicTerms = [];
+  let scores = [];
+  if (data?.enrollment) {
+    academicTerms = data.enrollment.map((entry) => AcademicTerms.findDoc(entry.termID));
+    scores = data.enrollment.map((entry) => entry.count);
+  }
 
   return (
     <Card.Group itemsPerRow={1}>
