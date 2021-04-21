@@ -1,5 +1,6 @@
 import React from 'react';
 import { Header } from 'semantic-ui-react';
+import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
 
 const headerPaneTitle = 'Help students make the most of RadGrad';
@@ -14,7 +15,7 @@ This page contains a personalized set of recommendations to help you configure R
 `;
 
 const AdvisorHomePage: React.FC = () => (
-  <PageLayout id="advisor-home-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
+  <PageLayout id={PAGEIDS.ADVISOR_HOME}headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
     <Header>Advisor Home Page Placeholder</Header>
   </PageLayout>
 );

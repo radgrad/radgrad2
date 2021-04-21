@@ -25,6 +25,7 @@ import {
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { courseNameToSlug, opportunityNameToSlug } from '../../components/shared/utilities/data-model';
+import { PAGEIDS } from '../../utilities/PageIDs';
 import {
   handleCancelWrapper,
   handleDeleteWrapper, handleOpenUpdateWrapper,
@@ -280,7 +281,7 @@ const AdminDataModelUsersPage: React.FC<AdminDataModelUsersPageProps> = (props) 
     },
   ];
   return (
-    <PageLayout id="data-model-users-page" headerPaneTitle="Users">
+    <PageLayout id={PAGEIDS.DATA_MODEL_USERS} headerPaneTitle="Users">
       {showUpdateFormState ? (
         <UpdateUserForm
           id={idState}

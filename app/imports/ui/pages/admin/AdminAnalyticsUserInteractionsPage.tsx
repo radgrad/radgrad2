@@ -2,10 +2,11 @@ import { withTracker } from 'meteor/react-meteor-data';
 import React from 'react';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import AdminAnalyticsUserInteractionsWidget, { AdminAnalyticsUserInteractionsWidgetProps } from '../../components/admin/analytics/user-interactions/AdminAnalyticsUserInteractionsWidget';
+import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
 
 const AdminAnalyticsUserInteractionsPage: React.FC<AdminAnalyticsUserInteractionsWidgetProps> = ({ students }) => (
-  <PageLayout id="analytics-user-interactions-page" headerPaneTitle="User Interactions">
+  <PageLayout id={PAGEIDS.ANALYTICS_USER_INTERACTIONS} headerPaneTitle="User Interactions">
     <AdminAnalyticsUserInteractionsWidget students={students}/>
   </PageLayout>
 );

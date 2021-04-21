@@ -10,6 +10,7 @@ import AdminDataModelUpdateForm from '../../components/admin/datamodel/AdminData
 import AddAcademicYearInstanceForm from '../../components/admin/datamodel/academic-year/AddAcademicYearInstanceForm';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { dataModelActions } from '../../../redux/admin/data-model';
+import { PAGEIDS } from '../../utilities/PageIDs';
 import {
   handleCancelWrapper,
   handleConfirmDeleteWrapper,
@@ -75,7 +76,7 @@ const AdminDataModelAcademicYearsPage: React.FC<AdminDataModelAcademicYearsPageP
     sort: { year: 1 },
   };
   return (
-    <PageLayout id="data-model-academic-year-instances-page" headerPaneTitle="Academic Year Instances">
+    <PageLayout id={PAGEIDS.DATA_MODEL_ACADEMIC_YEARS} headerPaneTitle="Academic Year Instances">
       {showUpdateFormState ? (
         <AdminDataModelUpdateForm collection={AcademicYearInstances} id={idState}
                                   handleUpdate={handleUpdate} handleCancel={handleCancel}

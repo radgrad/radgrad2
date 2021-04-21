@@ -1,5 +1,6 @@
 import React from 'react';
 import { Header } from 'semantic-ui-react';
+import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
 import { COLORS } from '../../utilities/Colors';
 
@@ -17,7 +18,7 @@ For more information, please see the [Admin User Guide](https://www.radgrad.org/
 `;
 
 const AdminHomePage: React.FC = () => (
-  <PageLayout id="admin-home-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
+  <PageLayout id={PAGEIDS.ADMIN_HOME} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
     <Header>Admin Home Page Placeholder</Header>
   </PageLayout>
 );

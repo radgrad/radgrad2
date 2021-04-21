@@ -6,6 +6,7 @@ import LandingExplorerMenuBar from '../../components/landing/explorer/LandingExp
 import { Course } from '../../../typings/radgrad';
 import LandingExplorerCardContainer from '../../components/landing/explorer/LandingExplorerCard';
 import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
+import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
 import { Slugs } from '../../../api/slug/SlugCollection';
 
@@ -24,7 +25,7 @@ This public explorer does not show reviews or the forecasts for future semesters
 const LandingCoursesExplorerPage: React.FC<LandingCoursesExplorerPageProps> = ({ courses, count }) => (
   <div>
     <LandingExplorerMenuBar/>
-    <PageLayout id="landing-courses-explorer-page" headerPaneTitle={headerPaneTitle}
+    <PageLayout id={PAGEIDS.LANDING_COURSES_EXPLORER} headerPaneTitle={headerPaneTitle}
                 headerPaneBody={headerPaneBody}>
       <Segment>
         <Header as="h4" dividing>

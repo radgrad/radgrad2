@@ -13,6 +13,7 @@ import LandingInterestList from '../../components/landing/LandingInterestList';
 import LandingPrerequisiteList from '../../components/landing/LandingPrerequisiteList';
 import * as Router from '../../components/shared/utilities/router';
 import LandingExplorerMenuBar from '../../components/landing/explorer/LandingExplorerMenuBar';
+import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
 
 interface CourseExplorerProps {
@@ -37,7 +38,7 @@ const LandingCourseExplorerPage: React.FC<CourseExplorerProps> = ({ course }) =>
   return (
     <div>
       <LandingExplorerMenuBar/>
-      <PageLayout id="landing-course-explorer-page" headerPaneTitle={headerPaneTitle}
+      <PageLayout id={PAGEIDS.LANDING_COURSE_EXPLORER} headerPaneTitle={headerPaneTitle}
                   headerPaneBody={headerPaneBody}>
         <Grid stackable>
           <Grid.Row>

@@ -12,6 +12,7 @@ import ListCollectionWidget from '../../components/admin/datamodel/ListCollectio
 import AdminDataModelUpdateForm from '../../components/admin/datamodel/AdminDataModelUpdateForm';
 import AdminDataModelAddForm from '../../components/admin/datamodel/AdminDataModelAddForm';
 import { dataModelActions } from '../../../redux/admin/data-model';
+import { PAGEIDS } from '../../utilities/PageIDs';
 import {
   handleCancelWrapper, handleConfirmDeleteWrapper,
   handleDeleteWrapper, handleOpenUpdateWrapper,
@@ -89,7 +90,7 @@ const AdminDataModelAcademicTermsPage: React.FC<AdminDataModelAcademicTermsPageP
     sort: { termNumber: 1 },
   };
   return (
-    <PageLayout id="data-model-academic-terms-page" headerPaneTitle="Academic Terms">
+    <PageLayout id={PAGEIDS.DATA_MODEL_ACADEMIC_TERMS} headerPaneTitle="Academic Terms">
       {showUpdateFormState ? (
         <AdminDataModelUpdateForm collection={AcademicTerms} id={idState} handleUpdate={handleUpdate}
                                   handleCancel={handleCancel} itemTitleString={itemTitleString} />

@@ -18,7 +18,6 @@ class SimplePage {
 
 export const signoutPage = new SimplePage('signout-page');
 
-export const adminAnalyticsPage = new SimplePage('admin-analytics-page');
 export const adminDatabasePage = new SimplePage('admin-database-page');
 export const adminDataModelPage = new SimplePage('admin-data-model-page');
 export const adminHomePage = new SimplePage('admin-home-page');
