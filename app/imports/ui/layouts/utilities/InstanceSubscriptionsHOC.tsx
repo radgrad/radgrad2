@@ -48,13 +48,9 @@ const withInstanceSubscriptions = (WrappedComponent) => {
         handles.push(instanceSubs.subscribe(OpportunityInstances.getPublicationName(), userID));
         handles.push(instanceSubs.subscribe(VerificationRequests.getPublicationName(), userID));
         handles.push(instanceSubs.subscribe(ProfileCareerGoals.getPublicationName(), userID));
-        handles.push(instanceSubs.subscribe(ProfileCareerGoals.publicationNames.forecast));
         handles.push(instanceSubs.subscribe(ProfileCourses.getPublicationName(), userID));
-        handles.push(instanceSubs.subscribe(ProfileCourses.publicationNames.forecast));
         handles.push(instanceSubs.subscribe(ProfileInterests.getPublicationName(), userID));
-        handles.push(instanceSubs.subscribe(ProfileInterests.publicationNames.forecast));
         handles.push(instanceSubs.subscribe(ProfileOpportunities.getPublicationName(), userID));
-        handles.push(instanceSubs.subscribe(ProfileOpportunities.publicationNames.forecast));
       }
     }
     const loading = handles.some((handle) => !handle.ready());
