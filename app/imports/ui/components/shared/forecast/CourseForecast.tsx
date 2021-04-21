@@ -1,43 +1,20 @@
-import React from 'react';
-import _ from 'lodash';
+import React, { useEffect, useState } from 'react';
 import { ZipZap } from 'meteor/udondan:zipzap';
 import moment from 'moment';
 import { Button, Grid, Header, Icon, Label, Popup, Segment, Table } from 'semantic-ui-react';
-import { AcademicTerm, Course, Forecast } from '../../../../typings/radgrad';
+import {
+  getFutureEnrollmentMethod,
+  ENROLLMENT_TYPE,
+  EnrollmentForecast,
+} from '../../../../api/utilities/FutureEnrollment.methods';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
-
-interface CourseForecastProps {
-  courses: Course[];
-  terms: AcademicTerm[];
-}
+import { Courses } from '../../../../api/course/CourseCollection';
 
 const databaseFileDateFormat = 'YYYY-MM-DD-HH-mm-ss';
 
-const getCourseScore = (courseID: string, termID: string, scores: Forecast[]): number => {
-  const id = `${courseID} ${termID}`;
-  const scoreItem = _.find(scores, (p) => p._id === id);
-  // console.log(scoreItem, courseID, termID);
-  if (scoreItem) {
-    return scoreItem.count;
-  }
-  return 0;
-};
-
-const handleSaveAsCSV = (terms: AcademicTerm[], courses: Course[], scores: Forecast[]) => () => {
-  let result = '';
-  const headerArr = ['Course'];
-  terms.forEach((term) => headerArr.push(AcademicTerms.getShortName(term._id)));
-  result += headerArr.join(',');
-  result += '\r\n';
-  courses.forEach((o) => {
-    const courseID = o._id;
-    result += `${o.name},`;
-    terms.forEach((t) => {
-      const termID = t._id;
-      result += `${getCourseScore(courseID, termID, scores)},`;
-    });
-    result += '\r\n';
-  });
+const handleSaveAsCSV = (data: EnrollmentForecast[]) => () => {
+  const result = '';
+  // const headerArr = ['Course'];
   const zip = new ZipZap();
   const dir = 'course-forecast';
   const fileName = `${dir}/${moment().format(databaseFileDateFormat)}.csv`;
@@ -45,58 +22,84 @@ const handleSaveAsCSV = (terms: AcademicTerm[], courses: Course[], scores: Forec
   zip.saveAs(`${dir}.zip`);
 };
 
-const CourseForecast: React.FC<CourseForecastProps> = ({ courses, terms }) => {
+const CourseForecast: React.FC = () => {
+  const [data, setData] = useState([]);
+  const [fetched, setFetched] = useState(false);
+
+  useEffect(() => {
+    // console.log('check for infinite loop');
+    function fetchData() {
+      getFutureEnrollmentMethod.callPromise(ENROLLMENT_TYPE.COURSE)
+        .then((result) => setData(result))
+        .catch((error) => {
+          console.error(error);
+          setData([]);
+        });
+    }
+
+    // Only fetch data if it hasn't been fetched before.
+    if (!fetched) {
+      fetchData();
+      setFetched(true);
+    }
+  }, [fetched]);
   const scrollBody: React.CSSProperties = {
     display: 'inline-block',
     height: 500,
     overflowY: 'scroll',
     width: '100%',
   };
-  const scores = [];
+  console.log(data);
   return (
     <Segment textAlign="center" id="course-forecast">
       <Header>Future Course Forecast</Header>
       <Grid>
         <Grid.Row>
-          <Table celled fixed>
-            <Table.Header>
-              <Table.Row>
-                <Table.HeaderCell width={1}>Course</Table.HeaderCell>
-                {terms.map((term) => (
-                  <Table.HeaderCell width={1} key={term._id}>
-                    {AcademicTerms.getShortName(term._id)}
-                  </Table.HeaderCell>
-                ))}
-              </Table.Row>
-            </Table.Header>
-          </Table>
-          <div style={scrollBody}>
+
+          {data[0] ? (<div>
             <Table celled fixed>
-              <Table.Body>
-                {courses.map((c, index) => (
-                  // eslint-disable-next-line react/no-array-index-key
-                  <Table.Row key={index}>
-                    <Table.Cell width={1}>
-                      <Popup content={c.shortName} trigger={<Label>{c.num}</Label>} />
-                    </Table.Cell>
-                    {terms.map((t) => {
-                      const score = 1;
-                      return (
-                        <Table.Cell width={1} key={`${c._id}${t._id}`} negative={score > 0} collapsing>
-                          {score > 10 ? <Icon name="attention" /> : ''}
-                          {score}
-                        </Table.Cell>
-                      );
-                    })}
-                  </Table.Row>
-                ))}
-              </Table.Body>
+              <Table.Header>
+                <Table.Row>
+                  <Table.HeaderCell width={1}>Course</Table.HeaderCell>
+                  {data[0].enrollment.map((entry) => (
+                    <Table.HeaderCell width={1} key={entry.termID}>
+                      {AcademicTerms.getShortName(entry.termID)}
+                    </Table.HeaderCell>
+                  ))}
+                </Table.Row>
+              </Table.Header>
             </Table>
-          </div>
+            <div style={scrollBody}>
+              <Table celled fixed>
+                <Table.Body>
+                  {data.map((c, index) => {
+                    const course = Courses.findDoc(c.courseID);
+                    return (
+                      // eslint-disable-next-line react/no-array-index-key
+                      <Table.Row key={`${course._id}`}>
+                        <Table.Cell width={1}>
+                          <Popup content={course.shortName} trigger={<Label>{course.num}</Label>} />
+                        </Table.Cell>
+                        {c.enrollment.map((t) => {
+                          const score = t.count;
+                          return (
+                            <Table.Cell width={1} key={`${course._id}${t.termID}`} negative={score > 0} collapsing>
+                              {score > 10 ? <Icon name="attention" /> : ''}
+                              {score}
+                            </Table.Cell>
+                          );
+                        })}
+                      </Table.Row>
+                    );
+                  })}
+                </Table.Body>
+              </Table>
+            </div>
+          </div>) : ''}
         </Grid.Row>
         <Grid.Row>
           <Grid.Column width={1} />
-          <Button basic color="green" onClick={handleSaveAsCSV(terms, courses, scores)}>
+          <Button basic color="green" onClick={handleSaveAsCSV(data)}>
             Save as CSV
           </Button>
         </Grid.Row>

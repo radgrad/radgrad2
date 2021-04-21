@@ -18,7 +18,7 @@ interface EnrollmentData {
   count: number;
 }
 
-interface EnrollmentForecast {
+export interface EnrollmentForecast {
   courseID?: string;
   opportunityID?: string;
   enrollment?: EnrollmentData[];
@@ -44,12 +44,14 @@ const getFutureEnrollmentSingle = (id: string, type: ENROLLMENT_TYPE) => {
         termID,
         count: CourseInstances.findNonRetired({ termID, courseID: id }).length,
       }));
+      break;
     case ENROLLMENT_TYPE.OPPORTUNITY:
       enrollmentForecast.opportunityID = id;
       enrollmentForecast.enrollment = termIDs.map((termID) => ({
         termID,
         count: OpportunityInstances.findNonRetired({ termID, opportunityID: id }).length,
       }));
+      break;
   }
   return enrollmentForecast;
 };
@@ -76,7 +78,7 @@ export const getFutureEnrollmentMethod = new ValidatedMethod({
   validate: null,
   run(type: ENROLLMENT_TYPE) {
     if (!this.userId) {
-      throw new Meteor.Error('unauthorized', 'You must be logged in to get profile entries.');
+      throw new Meteor.Error('unauthorized', 'You must be logged in to get forecast.');
     }
     if (Meteor.isServer) {
       let ids;

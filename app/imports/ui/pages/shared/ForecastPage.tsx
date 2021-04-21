@@ -27,7 +27,7 @@ For more information, please see the [Faculty User Guide](https://www.radgrad.or
 
 const ForecastPage: React.FC<ForecastPageProps> = ({ courses, opportunities, terms }) => (
     <PageLayout id={PAGEIDS.FORECASTS} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
-      <CourseForecast courses={courses} terms={terms} />
+      <CourseForecast />
       <OpportunityForecast opportunities={opportunities} terms={terms} />
     </PageLayout>
 );
