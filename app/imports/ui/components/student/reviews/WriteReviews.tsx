@@ -44,7 +44,7 @@ const WriteReviews: React.FC<WriteReviewsProps> = ({ unreviewedCourses, unreview
   return (
     <div>
       <Header>Please consider writing a review for your <strong>completed Courses or Opportunities.</strong></Header>
-      <Rating icon='star' rating={3} maxRating={5} onRate={handleRate} />
+      <Rating icon='star' rating={3} maxRating={5} onRate={handleRate} size='huge' />
       <div className="ui yellow rating" data-icon="star" data-rating="3" data-max-rating="5" />
       <AutoForm schema={formSchema} onSubmit={(doc) => console.log(doc)}>
         <Rating icon='star' rating={3} maxRating={5} onRate={handleRate} />
