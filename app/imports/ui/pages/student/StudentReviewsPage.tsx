@@ -1,5 +1,15 @@
 import React from 'react';
-import { Header } from 'semantic-ui-react';
+import { Segment } from 'semantic-ui-react';
+import { withTracker } from 'meteor/react-meteor-data';
+import { useParams } from 'react-router-dom';
+import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
+import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
+import { Reviews } from '../../../api/review/ReviewCollection';
+import { Users } from '../../../api/user/UserCollection';
+import { CourseInstance, OpportunityInstance, Review } from '../../../typings/radgrad';
+import RadGradHeader from '../../components/shared/RadGradHeader';
+import RadGradSegment from '../../components/shared/RadGradSegment';
+import WriteReviews from '../../components/student/reviews/WriteReviews';
 import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
 
@@ -11,10 +21,39 @@ And, providing reviews is important to reaching higher Levels in RadGrad.
 `;
 const headerPaneImage = 'header-review.png';
 
-const StudentReviewsPage: React.FC = () => (
+const header = <RadGradHeader title='write reviews' icon='edit' />;
+
+interface StudentReviewsPageProps {
+  courseReviews: Review[];
+  opportunityReivews: Review[];
+  unreviewedCourses: CourseInstance[];
+  unreviewedOpportunities: OpportunityInstance[];
+}
+const StudentReviewsPage: React.FC<StudentReviewsPageProps> = ({ courseReviews, unreviewedCourses, opportunityReivews, unreviewedOpportunities }) => (
   <PageLayout id={PAGEIDS.STUDENT_REVIEWS} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
-    <Header>Student Reviews Page Placeholder</Header>
+    <RadGradSegment header={header}>
+      <WriteReviews unreviewedCourses={unreviewedCourses} unreviewedOpportunities={unreviewedOpportunities} />
+    </RadGradSegment>
+    <Segment>Tab placeholder</Segment>
   </PageLayout>
 );
 
-export default StudentReviewsPage;
+const StudentReivewsContainer = withTracker(() => {
+  const { username } = useParams();
+  const studentID: string = Users.getProfile(username).userID;
+  const reviews = Reviews.findNonRetired({ studentID });
+  const courseReviews = reviews.filter((r) => r.reviewType === Reviews.COURSE);
+  const opportunityReviews = reviews.filter((r) => r.reviewType === Reviews.OPPORTUNITY);
+  const revieweeIDs = reviews.map((r) => r.revieweeID);
+  let unreviewedCourses = CourseInstances.findNonRetired({ studentID, verified: true });
+  unreviewedCourses = unreviewedCourses.filter((ci) => !revieweeIDs.includes(ci.courseID));
+  let unreviewedOpportunities = OpportunityInstances.findNonRetired({ studentID, verified: true });
+  unreviewedOpportunities = unreviewedOpportunities.filter((oi) => !revieweeIDs.includes(oi.opportunityID));
+  return {
+    courseReviews,
+    unreviewedCourses,
+    opportunityReviews,
+    unreviewedOpportunities,
+  };
+})(StudentReviewsPage);
+export default StudentReivewsContainer;
