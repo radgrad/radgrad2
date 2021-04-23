@@ -12,7 +12,6 @@ import { TermsAndConditionsChecklist } from '../../components/checklist/TermsAnd
 import { VerificationChecklist } from '../../components/checklist/VerificationChecklist';
 import RadGradHeader from '../../components/shared/RadGradHeader';
 import RadGradSegment from '../../components/shared/RadGradSegment';
-import { COLORS } from '../../utilities/Colors';
 import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
 import { CHECKSTATE } from '../../components/checklist/Checklist';
@@ -27,15 +26,11 @@ interface StudentHomePageProps {
 const headerPaneTitle = 'Make the most of RadGrad';
 const headerPaneBody = `
 <p>This page contains a personalized set of recommendations to help RadGrad help you! It's divided into three sections.</p>
-<p><span class="headerLabel redBG">HIGH PRIORITY (NEEDS IMPROVEMENT)</span> Please act on these right away. They help RadGrad help you. </p>
-<p><span class="headerLabel yellowBG">MEDIUM PRIORITY (PLEASE REVIEW)</span> Please review your settings or things that might have changed recently. </p>
-<p><span class="headerLabel greenBG">LOW PRIORITY (LOOKS OK)</span>  Looks good for now!</p>
+<p><span class="headerLabel redBG">HIGH PRIORITY</span> Please act on these right away. They help RadGrad help you. </p>
+<p><span class="headerLabel yellowBG">MEDIUM PRIORITY</span> Please review your settings or things that might have changed recently. </p>
+<p><span class="headerLabel greenBG">LOW PRIORITY</span>  Looks good for now!</p>
 `;
 const headerPaneImage = 'header-home.png';
-
-const improveHeader = <RadGradHeader title='High Priority (needs improvement)' icon='exclamation circle' style={{ color: COLORS.RED }} />;
-const reviewHeader = <RadGradHeader title='Medium Priority (please review)' icon='question circle' style={{ color: COLORS.YELLOW }} />;
-const okHeader = <RadGradHeader title='Low Priority (looks OK!)' icon='check circle' style={{ color: COLORS.GREEN }} />;
 
 const StudentHomePage: React.FC<StudentHomePageProps> = ({ okItems, reviewItems, improveItems }) => {
   const improvePane = {
@@ -43,7 +38,7 @@ const StudentHomePage: React.FC<StudentHomePageProps> = ({ okItems, reviewItems,
     render: () => (
       <Tab.Pane key='ImprovePane'>
         <Card.Group style={{ marginTop: '0px' }}>
-          {improveItems || 'Awesome! No high priority items to work on right now.'}
+          {improveItems}
         </Card.Group>
       </Tab.Pane>
     ),
@@ -54,7 +49,7 @@ const StudentHomePage: React.FC<StudentHomePageProps> = ({ okItems, reviewItems,
     render: () => (
       <Tab.Pane key='ReviewPane'>
         <Card.Group style={{ marginTop: '0px' }}>
-          {reviewItems || 'Awesome! No medium priority items to work on right now.'}
+          {reviewItems}
         </Card.Group>
       </Tab.Pane>
     ),
@@ -65,7 +60,7 @@ const StudentHomePage: React.FC<StudentHomePageProps> = ({ okItems, reviewItems,
     render: () => (
       <Tab.Pane key='OKPane'>
         <Card.Group style={{ marginTop: '0px' }}>
-          {okItems || 'Awesome! No low priority items to work on right now.'}
+          {okItems}
         </Card.Group>
       </Tab.Pane>
     ),
