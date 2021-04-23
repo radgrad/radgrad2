@@ -2,7 +2,6 @@ import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
 import _ from 'lodash';
 import moment from 'moment';
-import { SyncedCron } from 'meteor/littledata:synced-cron';
 import { PublicStats } from '../../api/public-stats/PublicStatsCollection';
 import { RadGrad } from '../../api/radgrad/RadGrad';
 import { RadGradProperties } from '../../api/radgrad/RadGradProperties';
@@ -10,7 +9,7 @@ import { loadCollection } from '../../api/test/test-utilities';
 import { removeAllEntities } from '../../api/base/BaseUtilities';
 import { checkIntegrity } from '../../api/integrity/IntegrityChecker';
 import { AdminProfiles } from '../../api/user/AdminProfileCollection';
-import { updateFactoids } from './factoids';
+import { updateFactoids } from '../../api/factoid/factoids';
 
 /** global Assets */
 /* eslint-disable no-console */
@@ -93,24 +92,6 @@ const loadDatabase = () => {
 };
 
 /**
- * Runs the PublicStats generator to collect stats on the database, then sets up a cron job to update the stats
- * once a day.
- * @memberOf startup/server
- */
-const startupPublicStats = () => {
-  PublicStats.generateStats();
-  SyncedCron.add({
-    name: 'Run the PublicStats.generateStats method',
-    schedule(parser) {
-      return parser.text('every 24 hours');
-    },
-    job() {
-      PublicStats.generateStats();
-    },
-  });
-};
-
-/**
  * Check the integrity of the newly loaded collections; print out problems if any occur.
  * @memberOf startup/server
  */
@@ -159,9 +140,8 @@ Meteor.startup(() => {
     loadDatabase();
     // startupCheckIntegrity();
     console.log('Startup: Starting up public stats.');
-    startupPublicStats();
+    PublicStats.generateStats();
     console.log('Startup: Updating factoids.');
     updateFactoids();
-    SyncedCron.start();
   }
 });
