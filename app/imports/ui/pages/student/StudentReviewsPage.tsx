@@ -29,11 +29,21 @@ interface StudentReviewsPageProps {
   opportunityReivews: Review[];
   unreviewedCourses: CourseInstance[];
   unreviewedOpportunities: OpportunityInstance[];
+  username: string;
 }
-const StudentReviewsPage: React.FC<StudentReviewsPageProps> = ({ courseReviews, unreviewedCourses, opportunityReivews, unreviewedOpportunities }) => (
-  <PageLayout id={PAGEIDS.STUDENT_REVIEWS} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
+
+const StudentReviewsPage: React.FC<StudentReviewsPageProps> = ({
+  courseReviews,
+  unreviewedCourses,
+  opportunityReivews,
+  unreviewedOpportunities,
+  username,
+}) => (
+  <PageLayout id={PAGEIDS.STUDENT_REVIEWS} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}
+              headerPaneImage={headerPaneImage}>
     <RadGradSegment header={header}>
-      <WriteReviews unreviewedCourses={unreviewedCourses} unreviewedOpportunities={unreviewedOpportunities} />
+      <WriteReviews username={username} unreviewedCourses={unreviewedCourses}
+                    unreviewedOpportunities={unreviewedOpportunities} />
     </RadGradSegment>
     <Segment>Tab placeholder</Segment>
   </PageLayout>
@@ -51,6 +61,7 @@ const StudentReivewsContainer = withTracker(() => {
   let unreviewedOpportunities = OpportunityInstances.findNonRetired({ studentID, verified: true });
   unreviewedOpportunities = unreviewedOpportunities.filter((oi) => !revieweeIDs.includes(oi.opportunityID));
   return {
+    username,
     courseReviews,
     unreviewedCourses,
     opportunityReviews,

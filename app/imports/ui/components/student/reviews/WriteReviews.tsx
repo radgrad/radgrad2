@@ -1,21 +1,27 @@
 import React, { useState } from 'react';
-import { Header } from 'semantic-ui-react';
+import { Grid, Header, Segment } from 'semantic-ui-react';
 import SimpleSchema from 'simpl-schema';
 import _ from 'lodash';
+import Swal from 'sweetalert2';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import { AutoForm, LongTextField, SelectField, SubmitField } from 'uniforms-semantic';
+import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
+import { defineMethod } from '../../../../api/base/BaseCollection.methods';
 import { Courses } from '../../../../api/course/CourseCollection';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
 import { Reviews } from '../../../../api/review/ReviewCollection';
-import { CourseInstance, OpportunityInstance } from '../../../../typings/radgrad';
+import { ReviewTypes } from '../../../../api/review/ReviewTypes';
+import { Slugs } from '../../../../api/slug/SlugCollection';
+import { CourseInstance, OpportunityInstance, ReviewDefine } from '../../../../typings/radgrad';
 import RatingField from '../explorer/RatingField';
 
 interface WriteReviewsProps {
   unreviewedCourses: CourseInstance[];
   unreviewedOpportunities: OpportunityInstance[];
+  username: string;
 }
 
-const WriteReviews: React.FC<WriteReviewsProps> = ({ unreviewedCourses, unreviewedOpportunities }) => {
+const WriteReviews: React.FC<WriteReviewsProps> = ({ unreviewedCourses, unreviewedOpportunities, username }) => {
   const cIDs = unreviewedCourses.map((ci) => ci.courseID);
   const courseNames = Courses.findNames(cIDs);
   let names = courseNames.map((cName) => `${cName} (Course)`);
@@ -24,17 +30,66 @@ const WriteReviews: React.FC<WriteReviewsProps> = ({ unreviewedCourses, unreview
   names = names.concat(opportunityNames.map((oName) => `${oName} (Opportunity)`));
   names = _.uniq(names);
   const [choiceName, setChoiceName] = useState('');
+  const [reviewType, setReviewType] = useState('');
+  const [reviewee, setReviewee] = useState('');
+  const [termNames, setTermNames] = useState([]);
 
-  const handleChange = (name, value) => {
-    console.log(name, value);
+
+  const handleChoiceChange = (name, value) => {
+    // console.log(name, value);
     const strippedName = value.substring(0, value.indexOf('(') - 1);
     setChoiceName(strippedName);
+    if (courseNames.includes(strippedName)) {
+      setReviewType(Reviews.COURSE);
+      const course = Courses.findDoc(strippedName);
+      setReviewee(Slugs.getNameFromID(course.slugID));
+      const selectedCIs = unreviewedCourses.filter((ci) => ci.courseID === course._id);
+      const terms = selectedCIs.map((ci) => AcademicTerms.toString(ci.termID));
+      setTermNames(terms);
+    } else {
+      setReviewType(Reviews.OPPORTUNITY);
+      const opp = Opportunities.findDoc(strippedName);
+      setReviewee(Slugs.getNameFromID(opp.slugID));
+      const selectedOIs = unreviewedOpportunities.filter((oi) => oi.opportunityID === opp._id);
+      const terms = selectedOIs.map((oi) => AcademicTerms.toString(oi.termID));
+      setTermNames(terms);
+    }
+
   };
 
-  let formRef;
+  let reviewFormRef;
+  let choiceFormRef;
   const handleSubmit = (model) => {
-    console.log(model);
-    formRef.reset();
+    choiceFormRef.reset();
+    reviewFormRef.reset();
+    setChoiceName('');
+    const collectionName = Reviews.getCollectionName();
+    const academicTermDoc = AcademicTerms.getAcademicTermFromToString(model.academicTerm);
+    const academicTermSlug = AcademicTerms.findSlugByID(academicTermDoc._id);
+    const definitionData: ReviewDefine = model;
+    definitionData.academicTerm = academicTermSlug;
+    definitionData.student = username;
+    definitionData.reviewType = reviewType as ReviewTypes;
+    definitionData.reviewee = reviewee;
+    console.log(collectionName, definitionData);
+    defineMethod.call({ collectionName, definitionData }, (error) => {
+      if (error) {
+        Swal.fire({
+          title: 'Add Failed',
+          text: error.message,
+          icon: 'error',
+        });
+      } else {
+        Swal.fire({
+          title: 'Review Added',
+          icon: 'success',
+          text: 'Your review was successfully added.',
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+          allowEnterKey: false,
+        });
+      }
+    });
   };
 
   const choiceSchema = new SimpleSchema({
@@ -46,6 +101,10 @@ const WriteReviews: React.FC<WriteReviewsProps> = ({ unreviewedCourses, unreview
   const choiceFormSchema = new SimpleSchema2Bridge(choiceSchema);
 
   const reviewSchema = new SimpleSchema({
+    academicTerm: {
+      type: String,
+      allowedValues: termNames,
+    },
     rating: {
       type: SimpleSchema.Integer,
       label: 'Rating',
@@ -60,25 +119,45 @@ const WriteReviews: React.FC<WriteReviewsProps> = ({ unreviewedCourses, unreview
     },
   });
   const reviewFormSchema = new SimpleSchema2Bridge(reviewSchema);
-  let reviewType;
-  if (courseNames.includes(choiceName)) {
-    reviewType = Reviews.COURSE;
-  } else {
-    reviewType = Reviews.OPPORTUNITY;
-  }
-  console.log(choiceName, reviewType);
+  const disabled = choiceName === '';
   return (
     <div>
       <Header>Please consider writing a review for your <strong>completed Courses or Opportunities.</strong></Header>
-      <AutoForm schema={choiceFormSchema} onChange={handleChange}>
+      {/* eslint-disable-next-line no-return-assign */}
+      <AutoForm ref={(ref) => choiceFormRef = ref} schema={choiceFormSchema} onChange={handleChoiceChange}>
         <SelectField name='courseOrOpportunityToReview' />
       </AutoForm>
-      {/* eslint-disable-next-line no-return-assign */}
-      <AutoForm ref={(ref) => formRef = ref} schema={reviewFormSchema} onSubmit={handleSubmit}>
-        <RatingField name='rating' />
-        <LongTextField name='comments' placeholder='Please provide three or four sentences discussing your experience. Please use language your parents would find appropriate :)' />
-        <SubmitField />
-      </AutoForm>
+      <Segment basic>
+        {/* eslint-disable-next-line no-return-assign */}
+        <AutoForm ref={(ref) => reviewFormRef = ref} schema={reviewFormSchema} onSubmit={handleSubmit}>
+          <Grid>
+            <Grid.Column width={6} verticalAlign='middle'>
+              Select the term you participated in.
+            </Grid.Column>
+            <Grid.Column width={10}>
+              <SelectField name='academicTerm' disabled={disabled} />
+            </Grid.Column>
+            <Grid.Column width={6} verticalAlign='middle'>
+              Rate your overall satisfaction.
+            </Grid.Column>
+            <Grid.Column width={10}>
+              <RatingField name='rating' disabled={disabled} />
+            </Grid.Column>
+            <Grid.Column width={6} verticalAlign='middle'>
+              Please provide three or four sentences discussing your experience. Please use language your parents
+              would
+              find appropriate :)
+            </Grid.Column>
+            <Grid.Column width={10}>
+              <LongTextField name='comments'
+                             disabled={disabled} />
+            </Grid.Column>
+            <Grid.Column width={6}>
+              <SubmitField />
+            </Grid.Column>
+          </Grid>
+        </AutoForm>
+      </Segment>
     </div>
   );
 };
