@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> ui/components/shared/verification/CompletedVerificationsWidget.tsx</title>
+  <title> startup/server/cron-jobs.ts</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -76,7 +76,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>ui/components/shared/verification/CompletedVerificationsWidget.tsx</h1>
+                    <h1>startup/server/cron-jobs.ts</h1>
                 </header>
                 
 
@@ -85,120 +85,28 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import React from 'react';
-import { Segment, Header, Grid, Container, Button } from 'semantic-ui-react';
-import moment from 'moment';
-import { AcademicTerm, Opportunity, Processed, VerificationRequest } from '../../../../typings/radgrad';
-import { VerificationRequests } from '../../../../api/verification/VerificationRequestCollection';
-import { Users } from '../../../../api/user/UserCollection';
-import { verificationRequestsUpdateStatusMethod } from '../../../../api/verification/VerificationRequestCollection.methods';
-
-interface CompletedVerificationsWidgetProps {
-  completedVerifications: VerificationRequest[];
-  username: string;
-}
-
-const getStudentFullName = (verificationRequest: VerificationRequest) => {
-  const id = verificationRequest._id;
-  const profile = VerificationRequests.getStudentDoc(id);
-  return Users.getFullName(profile);
-};
-
-const buildHeaderString = (verificationRequest: VerificationRequest) => {
-  const id = verificationRequest._id;
-  const opp: Opportunity = VerificationRequests.getOpportunityDoc(id);
-  const term: AcademicTerm = VerificationRequests.getAcademicTermDoc(id);
-  return `${opp.name}, ${term.term} ${term.year}`;
-};
-
-const getSponsorFullName = (verificationRequest: VerificationRequest) => {
-  const id = verificationRequest._id;
-  const profile = VerificationRequests.getSponsorDoc(id);
-  return Users.getFullName(profile);
-};
-
-const getStatusColor = (status) => (status === VerificationRequests.REJECTED ? 'red' : 'green');
-
-const handleOnClick = (username: string) => (e, { doc }) => {
-  const id = doc._id;
-  const status = VerificationRequests.OPEN;
-  const processRecord: Processed = {
-    date: new Date(),
-    status: VerificationRequests.OPEN,
-    verifier: Users.getFullName(username),
-  };
-  const processed = doc.processed;
-  processed.push(processRecord);
-  verificationRequestsUpdateStatusMethod.call({ id, status, processed });
-};
+            <pre class="prettyprint source linenums"><code>import { SyncedCron } from 'meteor/littledata:synced-cron';
+import { updateIceSnapshot } from '../../api/ice/IceSnapshot';
+import { updateFactoids } from '../../api/factoid/Factoids';
+import { PublicStats } from '../../api/public-stats/PublicStatsCollection';
+import { RadGradForecasts } from '../both/RadGradForecasts';
 
 /**
- * Component that naively displays a supplied array of **IVerificationRequests** and the UI for users to handle them.
- * The parent component is expected to handle permissions and filtering (role and status **are not checked** in this
- * component).
- * @param completedVerifications {VerificationRequest[]}
- * @param username {string} Current user's username. Used primarily for getting name of user when making changes to
- * records.
- * @returns {Segment}
+ * Define all the cron jobs that run on the server.
+ * These are kicked off in startup.ts.
  */
-const CompletedVerificationsWidget: React.FC&lt;CompletedVerificationsWidgetProps> = ({ completedVerifications, username }) => (
-  &lt;Segment>
-    &lt;Header as="h4" dividing content="COMPLETED VERIFICATION REQUESTS" />
-    &lt;Container fluid={false} style={{ paddingBottom: '14px' }}>
-      {completedVerifications.map((ele: VerificationRequest, i) => (
-        &lt;Grid key={ele._id}>
-          &lt;Grid.Row style={{ paddingBottom: '0px', paddingLeft: '14px' }}>
-            &lt;Header as="h3">{buildHeaderString(ele)}&lt;/Header>
-          &lt;/Grid.Row>
-          &lt;Grid.Row columns={2} style={{ paddingTop: '0px', paddingBottom: '0px' }}>
-            &lt;Grid.Column>
-              Student: {getStudentFullName(ele)}
-              &lt;br />
-              Sponsor: {getSponsorFullName(ele)}
-              &lt;br />
-              &lt;Grid.Row style={{ paddingTop: '14px', paddingBottom: '14px' }}>
-                &lt;Button
-                  basic
-                  compact
-                  color={getStatusColor(ele.status)}
-                  content="REOPEN"
-                  attached="right"
-                  label={{
-                    size: 'mini',
-                    basic: false,
-                    color: getStatusColor(ele.status),
-                    pointing: 'right',
-                    content: ele.status,
-                  }}
-                  labelPosition="left"
-                  icon="edit outline"
-                  index={i}
-                  command={VerificationRequests.OPEN}
-                  onClick={handleOnClick(username)}
-                  doc={ele}
-                />
-              &lt;/Grid.Row>
-            &lt;/Grid.Column>
-            &lt;Grid.Column>
-              {`Submitted: ${moment(ele.submittedOn).calendar()}`}
-              &lt;br />
-              {ele.processed.map((elem: Processed) => (
-                &lt;React.Fragment key={`${elem.verifier}${elem.date}`}>
-                  Processed: {moment(elem.date).calendar()} by {elem.verifier} ({elem.status}
-                  {elem.feedback ? `, ${elem.feedback}` : ''})
-                  &lt;br />
-                &lt;/React.Fragment>
-              ))}
-            &lt;/Grid.Column>
-          &lt;/Grid.Row>
-        &lt;/Grid>
-      ))}
-      {completedVerifications.length &lt; 1 &amp;&amp; &lt;i>No completed verifications in database.&lt;/i>}
-    &lt;/Container>
-  &lt;/Segment>
-);
 
-export default CompletedVerificationsWidget;
+/** Disable logging. */
+SyncedCron.config({ logger: (opts) => {} });
+
+/** Define a schedule that runs every 24 hours at a time based on startup time. */
+const every24Hours = (parser) => parser.text('every 24 hours');
+
+SyncedCron.add({ name: 'Update ICE Snapshots', schedule: every24Hours, job: updateIceSnapshot });
+SyncedCron.add({ name: 'Update Factoids', schedule: every24Hours, job: updateFactoids });
+SyncedCron.add({ name: 'Update public stats', schedule: every24Hours, job: PublicStats.generateStats });
+SyncedCron.add({ name: 'Update Forecasts', schedule: every24Hours, job: RadGradForecasts.updateForecasts });
+
 </code></pre>
         </article>
     </section>

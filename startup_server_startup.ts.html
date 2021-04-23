@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> ui/components/shared/verification/CompletedVerificationsWidget.tsx</title>
+  <title> startup/server/startup.ts</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -76,7 +76,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>ui/components/shared/verification/CompletedVerificationsWidget.tsx</h1>
+                    <h1>startup/server/startup.ts</h1>
                 </header>
                 
 
@@ -85,121 +85,66 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import React from 'react';
-import { Segment, Header, Grid, Container, Button } from 'semantic-ui-react';
-import moment from 'moment';
-import { AcademicTerm, Opportunity, Processed, VerificationRequest } from '../../../../typings/radgrad';
-import { VerificationRequests } from '../../../../api/verification/VerificationRequestCollection';
-import { Users } from '../../../../api/user/UserCollection';
-import { verificationRequestsUpdateStatusMethod } from '../../../../api/verification/VerificationRequestCollection.methods';
+            <pre class="prettyprint source linenums"><code>// Add a startup callback that distinguishes between test and dev/prod mode and does the right thing.
+import { Accounts } from 'meteor/accounts-base';
+import { SyncedCron } from 'meteor/littledata:synced-cron';
+import { Meteor } from 'meteor/meteor';
+import { removeAllEntities } from '../../api/base/BaseUtilities';
+import { updateFactoids } from '../../api/factoid/Factoids';
+import { PublicStats } from '../../api/public-stats/PublicStatsCollection';
+import { defineAdminUser, defineTestAdminUser, loadDatabase } from './initialize-db';
 
-interface CompletedVerificationsWidgetProps {
-  completedVerifications: VerificationRequest[];
-  username: string;
-}
+/* eslint-disable no-console */
 
-const getStudentFullName = (verificationRequest: VerificationRequest) => {
-  const id = verificationRequest._id;
-  const profile = VerificationRequests.getStudentDoc(id);
-  return Users.getFullName(profile);
-};
-
-const buildHeaderString = (verificationRequest: VerificationRequest) => {
-  const id = verificationRequest._id;
-  const opp: Opportunity = VerificationRequests.getOpportunityDoc(id);
-  const term: AcademicTerm = VerificationRequests.getAcademicTermDoc(id);
-  return `${opp.name}, ${term.term} ${term.year}`;
-};
-
-const getSponsorFullName = (verificationRequest: VerificationRequest) => {
-  const id = verificationRequest._id;
-  const profile = VerificationRequests.getSponsorDoc(id);
-  return Users.getFullName(profile);
-};
-
-const getStatusColor = (status) => (status === VerificationRequests.REJECTED ? 'red' : 'green');
-
-const handleOnClick = (username: string) => (e, { doc }) => {
-  const id = doc._id;
-  const status = VerificationRequests.OPEN;
-  const processRecord: Processed = {
-    date: new Date(),
-    status: VerificationRequests.OPEN,
-    verifier: Users.getFullName(username),
-  };
-  const processed = doc.processed;
-  processed.push(processRecord);
-  verificationRequestsUpdateStatusMethod.call({ id, status, processed });
+/**
+ * Define MAIL_URL appropriately.
+ */
+const setupMailURL = () => {
+  if (Meteor.isTest || Meteor.isAppTest) {
+    process.env.MAIL_URL = 'Test MAIL_URL variable';
+  } else {
+    // Get MAIL_URL from settings file unless already available as an environment variable.
+    process.env.MAIL_URL = process.env.MAIL_URL || Meteor.settings.env.MAIL_URL;
+  }
 };
 
 /**
- * Component that naively displays a supplied array of **IVerificationRequests** and the UI for users to handle them.
- * The parent component is expected to handle permissions and filtering (role and status **are not checked** in this
- * component).
- * @param completedVerifications {VerificationRequest[]}
- * @param username {string} Current user's username. Used primarily for getting name of user when making changes to
- * records.
- * @returns {Segment}
+ * Set up entities and users appropriately for testing environment.
  */
-const CompletedVerificationsWidget: React.FC&lt;CompletedVerificationsWidgetProps> = ({ completedVerifications, username }) => (
-  &lt;Segment>
-    &lt;Header as="h4" dividing content="COMPLETED VERIFICATION REQUESTS" />
-    &lt;Container fluid={false} style={{ paddingBottom: '14px' }}>
-      {completedVerifications.map((ele: VerificationRequest, i) => (
-        &lt;Grid key={ele._id}>
-          &lt;Grid.Row style={{ paddingBottom: '0px', paddingLeft: '14px' }}>
-            &lt;Header as="h3">{buildHeaderString(ele)}&lt;/Header>
-          &lt;/Grid.Row>
-          &lt;Grid.Row columns={2} style={{ paddingTop: '0px', paddingBottom: '0px' }}>
-            &lt;Grid.Column>
-              Student: {getStudentFullName(ele)}
-              &lt;br />
-              Sponsor: {getSponsorFullName(ele)}
-              &lt;br />
-              &lt;Grid.Row style={{ paddingTop: '14px', paddingBottom: '14px' }}>
-                &lt;Button
-                  basic
-                  compact
-                  color={getStatusColor(ele.status)}
-                  content="REOPEN"
-                  attached="right"
-                  label={{
-                    size: 'mini',
-                    basic: false,
-                    color: getStatusColor(ele.status),
-                    pointing: 'right',
-                    content: ele.status,
-                  }}
-                  labelPosition="left"
-                  icon="edit outline"
-                  index={i}
-                  command={VerificationRequests.OPEN}
-                  onClick={handleOnClick(username)}
-                  doc={ele}
-                />
-              &lt;/Grid.Row>
-            &lt;/Grid.Column>
-            &lt;Grid.Column>
-              {`Submitted: ${moment(ele.submittedOn).calendar()}`}
-              &lt;br />
-              {ele.processed.map((elem: Processed) => (
-                &lt;React.Fragment key={`${elem.verifier}${elem.date}`}>
-                  Processed: {moment(elem.date).calendar()} by {elem.verifier} ({elem.status}
-                  {elem.feedback ? `, ${elem.feedback}` : ''})
-                  &lt;br />
-                &lt;/React.Fragment>
-              ))}
-            &lt;/Grid.Column>
-          &lt;/Grid.Row>
-        &lt;/Grid>
-      ))}
-      {completedVerifications.length &lt; 1 &amp;&amp; &lt;i>No completed verifications in database.&lt;/i>}
-    &lt;/Container>
-  &lt;/Segment>
-);
+const testModeInitialization = () => {
+  console.log('Test mode. Database initialization disabled, current database cleared, rate limiting disabled.');
+  Accounts.removeDefaultRateLimit();
+  removeAllEntities();
+  defineTestAdminUser();
+};
 
-export default CompletedVerificationsWidget;
-</code></pre>
+/**
+ * Set up system for operation in a non-testing environment.
+ */
+const normalInitialization = () => {
+  console.log('Startup:');
+  console.log('  * Defining admin user if necessary.');
+  defineAdminUser();
+  console.log('  * Loading database if necessary.');
+  loadDatabase();
+  // console.log('  * Checking integrity.');
+  // startupCheckIntegrity();
+  console.log('  * Starting up public stats.');
+  PublicStats.generateStats();
+  console.log('  * Updating factoids.');
+  updateFactoids();
+  console.log('  * Starting up cron jobs');
+  SyncedCron.start();
+};
+
+Meteor.startup(() => {
+  setupMailURL();
+  if (Meteor.isTest || Meteor.isAppTest) {
+    testModeInitialization();
+  } else {
+    normalInitialization();
+  }
+});</code></pre>
         </article>
     </section>
 

@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> ui/components/shared/verification/CompletedVerificationsWidget.tsx</title>
+  <title> api/ice/IceSnapshot.ts</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -76,7 +76,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>ui/components/shared/verification/CompletedVerificationsWidget.tsx</h1>
+                    <h1>api/ice/IceSnapshot.ts</h1>
                 </header>
                 
 
@@ -85,120 +85,71 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import React from 'react';
-import { Segment, Header, Grid, Container, Button } from 'semantic-ui-react';
-import moment from 'moment';
-import { AcademicTerm, Opportunity, Processed, VerificationRequest } from '../../../../typings/radgrad';
-import { VerificationRequests } from '../../../../api/verification/VerificationRequestCollection';
-import { Users } from '../../../../api/user/UserCollection';
-import { verificationRequestsUpdateStatusMethod } from '../../../../api/verification/VerificationRequestCollection.methods';
-
-interface CompletedVerificationsWidgetProps {
-  completedVerifications: VerificationRequest[];
-  username: string;
-}
-
-const getStudentFullName = (verificationRequest: VerificationRequest) => {
-  const id = verificationRequest._id;
-  const profile = VerificationRequests.getStudentDoc(id);
-  return Users.getFullName(profile);
-};
-
-const buildHeaderString = (verificationRequest: VerificationRequest) => {
-  const id = verificationRequest._id;
-  const opp: Opportunity = VerificationRequests.getOpportunityDoc(id);
-  const term: AcademicTerm = VerificationRequests.getAcademicTermDoc(id);
-  return `${opp.name}, ${term.term} ${term.year}`;
-};
-
-const getSponsorFullName = (verificationRequest: VerificationRequest) => {
-  const id = verificationRequest._id;
-  const profile = VerificationRequests.getSponsorDoc(id);
-  return Users.getFullName(profile);
-};
-
-const getStatusColor = (status) => (status === VerificationRequests.REJECTED ? 'red' : 'green');
-
-const handleOnClick = (username: string) => (e, { doc }) => {
-  const id = doc._id;
-  const status = VerificationRequests.OPEN;
-  const processRecord: Processed = {
-    date: new Date(),
-    status: VerificationRequests.OPEN,
-    verifier: Users.getFullName(username),
-  };
-  const processed = doc.processed;
-  processed.push(processRecord);
-  verificationRequestsUpdateStatusMethod.call({ id, status, processed });
-};
+            <pre class="prettyprint source linenums"><code>import moment from 'moment';
+import { IceSnapshotDefine } from '../../typings/radgrad';
+import { IceSnapshots } from '../analytic/IceSnapshotCollection';
+import { UserInteractions } from '../analytic/UserInteractionCollection';
+import { UserInteractionsTypes } from '../analytic/UserInteractionsTypes';
+import { StudentProfiles } from '../user/StudentProfileCollection';
 
 /**
- * Component that naively displays a supplied array of **IVerificationRequests** and the UI for users to handle them.
- * The parent component is expected to handle permissions and filtering (role and status **are not checked** in this
- * component).
- * @param completedVerifications {VerificationRequest[]}
- * @param username {string} Current user's username. Used primarily for getting name of user when making changes to
- * records.
- * @returns {Segment}
+ * ICE Snapshots are used to determine if a user has completed their degree plan in the last day.
+ * If so, then a UserInteraction document is created to record that behavior.
  */
-const CompletedVerificationsWidget: React.FC&lt;CompletedVerificationsWidgetProps> = ({ completedVerifications, username }) => (
-  &lt;Segment>
-    &lt;Header as="h4" dividing content="COMPLETED VERIFICATION REQUESTS" />
-    &lt;Container fluid={false} style={{ paddingBottom: '14px' }}>
-      {completedVerifications.map((ele: VerificationRequest, i) => (
-        &lt;Grid key={ele._id}>
-          &lt;Grid.Row style={{ paddingBottom: '0px', paddingLeft: '14px' }}>
-            &lt;Header as="h3">{buildHeaderString(ele)}&lt;/Header>
-          &lt;/Grid.Row>
-          &lt;Grid.Row columns={2} style={{ paddingTop: '0px', paddingBottom: '0px' }}>
-            &lt;Grid.Column>
-              Student: {getStudentFullName(ele)}
-              &lt;br />
-              Sponsor: {getSponsorFullName(ele)}
-              &lt;br />
-              &lt;Grid.Row style={{ paddingTop: '14px', paddingBottom: '14px' }}>
-                &lt;Button
-                  basic
-                  compact
-                  color={getStatusColor(ele.status)}
-                  content="REOPEN"
-                  attached="right"
-                  label={{
-                    size: 'mini',
-                    basic: false,
-                    color: getStatusColor(ele.status),
-                    pointing: 'right',
-                    content: ele.status,
-                  }}
-                  labelPosition="left"
-                  icon="edit outline"
-                  index={i}
-                  command={VerificationRequests.OPEN}
-                  onClick={handleOnClick(username)}
-                  doc={ele}
-                />
-              &lt;/Grid.Row>
-            &lt;/Grid.Column>
-            &lt;Grid.Column>
-              {`Submitted: ${moment(ele.submittedOn).calendar()}`}
-              &lt;br />
-              {ele.processed.map((elem: Processed) => (
-                &lt;React.Fragment key={`${elem.verifier}${elem.date}`}>
-                  Processed: {moment(elem.date).calendar()} by {elem.verifier} ({elem.status}
-                  {elem.feedback ? `, ${elem.feedback}` : ''})
-                  &lt;br />
-                &lt;/React.Fragment>
-              ))}
-            &lt;/Grid.Column>
-          &lt;/Grid.Row>
-        &lt;/Grid>
-      ))}
-      {completedVerifications.length &lt; 1 &amp;&amp; &lt;i>No completed verifications in database.&lt;/i>}
-    &lt;/Container>
-  &lt;/Segment>
-);
 
-export default CompletedVerificationsWidget;
+const createIceSnapshot = (doc) => {
+  const ice = StudentProfiles.getProjectedICE(doc.username);
+  const snapshotData: IceSnapshotDefine = {
+    username: doc.username,
+    level: doc.level,
+    i: ice.i,
+    c: ice.c,
+    e: ice.e,
+    updated: moment().toDate(),
+  };
+  console.log('Creating snapshot for: ', doc.username);
+  IceSnapshots.define(snapshotData);
+};
+
+export const updateIceSnapshot = () => {
+  StudentProfiles.find().fetch().forEach((doc) => {
+    const iceSnap = IceSnapshots.findOne({ username: doc.username });
+    const username = doc.username;
+    const level = doc.level;
+    if (iceSnap === undefined) {
+      createIceSnapshot(doc);
+    } else {
+      if (level !== iceSnap.level) {
+        console.log('Updating snapshot for user: ', username);
+        IceSnapshots.getCollection().update({ username }, { $set: { level, updated: moment().toDate() } });
+        if (level > iceSnap.level) {
+          UserInteractions.define({ username, type: UserInteractionsTypes.LEVEL, typeData: [level] });
+        }
+      }
+      const ice: { i: number, c: number, e: number } = StudentProfiles.getProjectedICE(doc.username);
+      if ((iceSnap.i !== ice.i) || (iceSnap.c !== ice.c) || (iceSnap.e !== ice.e)) {
+        console.log('Updating snapshot for user: ', username);
+        IceSnapshots.getCollection().update({ username }, {
+          $set: {
+            i: ice.i,
+            c: ice.c,
+            e: ice.e,
+            updated: moment().toDate(),
+          },
+        });
+        if ((iceSnap.i &lt; 100) || (iceSnap.c &lt; 100) || (iceSnap.e &lt; 100)) {
+          if ((ice.i > 100) &amp;&amp; (ice.c > 100) &amp;&amp; (ice.e > 100)) {
+            UserInteractions.define({
+              username,
+              type: UserInteractionsTypes.COMPLETE_PLAN,
+              typeData: [ice.i.toString(), ice.c.toString(), ice.e.toString()],
+            });
+          }
+        }
+      }
+    }
+  });
+};
 </code></pre>
         </article>
     </section>
