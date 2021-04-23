@@ -9,6 +9,7 @@ import { Users } from '../../../api/user/UserCollection';
 import { CourseInstance, OpportunityInstance, Review } from '../../../typings/radgrad';
 import RadGradHeader from '../../components/shared/RadGradHeader';
 import RadGradSegment from '../../components/shared/RadGradSegment';
+import StudentReviewsTab from '../../components/student/reviews/StudentReviewsTab';
 import WriteReviews from '../../components/student/reviews/WriteReviews';
 import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
@@ -26,7 +27,7 @@ const header = <RadGradHeader title='write reviews' icon='edit' />;
 
 interface StudentReviewsPageProps {
   courseReviews: Review[];
-  opportunityReivews: Review[];
+  opportunityReviews: Review[];
   unreviewedCourses: CourseInstance[];
   unreviewedOpportunities: OpportunityInstance[];
   username: string;
@@ -35,7 +36,7 @@ interface StudentReviewsPageProps {
 const StudentReviewsPage: React.FC<StudentReviewsPageProps> = ({
   courseReviews,
   unreviewedCourses,
-  opportunityReivews,
+  opportunityReviews,
   unreviewedOpportunities,
   username,
 }) => (
@@ -45,7 +46,9 @@ const StudentReviewsPage: React.FC<StudentReviewsPageProps> = ({
       <WriteReviews username={username} unreviewedCourses={unreviewedCourses}
                     unreviewedOpportunities={unreviewedOpportunities} />
     </RadGradSegment>
-    <Segment>Tab placeholder</Segment>
+    <Segment basic>
+      <StudentReviewsTab courseReviews={courseReviews} opportunityReviews={opportunityReviews} username={username} />
+    </Segment>
   </PageLayout>
 );
 
@@ -60,6 +63,7 @@ const StudentReivewsContainer = withTracker(() => {
   unreviewedCourses = unreviewedCourses.filter((ci) => !revieweeIDs.includes(ci.courseID));
   let unreviewedOpportunities = OpportunityInstances.findNonRetired({ studentID, verified: true });
   unreviewedOpportunities = unreviewedOpportunities.filter((oi) => !revieweeIDs.includes(oi.opportunityID));
+  console.log(opportunityReviews);
   return {
     username,
     courseReviews,
