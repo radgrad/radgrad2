@@ -45,18 +45,12 @@ const withInstanceSubscriptions = (WrappedComponent) => {
         // if logged out don't subscribe
         handles.push(instanceSubs.subscribe(AcademicYearInstances.getPublicationName(), userID));
         handles.push(instanceSubs.subscribe(CourseInstances.getPublicationName(), userID));
-        handles.push(instanceSubs.subscribe(CourseInstances.publicationNames.forecast));
         handles.push(instanceSubs.subscribe(OpportunityInstances.getPublicationName(), userID));
-        handles.push(instanceSubs.subscribe(OpportunityInstances.publicationNames.forecast));
         handles.push(instanceSubs.subscribe(VerificationRequests.getPublicationName(), userID));
         handles.push(instanceSubs.subscribe(ProfileCareerGoals.getPublicationName(), userID));
-        handles.push(instanceSubs.subscribe(ProfileCareerGoals.publicationNames.forecast));
         handles.push(instanceSubs.subscribe(ProfileCourses.getPublicationName(), userID));
-        handles.push(instanceSubs.subscribe(ProfileCourses.publicationNames.forecast));
         handles.push(instanceSubs.subscribe(ProfileInterests.getPublicationName(), userID));
-        handles.push(instanceSubs.subscribe(ProfileInterests.publicationNames.forecast));
         handles.push(instanceSubs.subscribe(ProfileOpportunities.getPublicationName(), userID));
-        handles.push(instanceSubs.subscribe(ProfileOpportunities.publicationNames.forecast));
       }
     }
     const loading = handles.some((handle) => !handle.ready());
