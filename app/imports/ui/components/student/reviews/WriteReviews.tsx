@@ -71,7 +71,7 @@ const WriteReviews: React.FC<WriteReviewsProps> = ({ unreviewedCourses, unreview
     definitionData.student = username;
     definitionData.reviewType = reviewType as ReviewTypes;
     definitionData.reviewee = reviewee;
-    console.log(collectionName, definitionData);
+    // console.log(collectionName, definitionData);
     defineMethod.call({ collectionName, definitionData }, (error) => {
       if (error) {
         Swal.fire({

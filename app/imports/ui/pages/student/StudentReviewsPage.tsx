@@ -63,7 +63,6 @@ const StudentReivewsContainer = withTracker(() => {
   unreviewedCourses = unreviewedCourses.filter((ci) => !revieweeIDs.includes(ci.courseID));
   let unreviewedOpportunities = OpportunityInstances.findNonRetired({ studentID, verified: true });
   unreviewedOpportunities = unreviewedOpportunities.filter((oi) => !revieweeIDs.includes(oi.opportunityID));
-  console.log(opportunityReviews);
   return {
     username,
     courseReviews,
