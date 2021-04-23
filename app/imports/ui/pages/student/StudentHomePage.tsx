@@ -1,5 +1,5 @@
 import { withTracker } from 'meteor/react-meteor-data';
-import { Card } from 'semantic-ui-react';
+import { Card, Tab } from 'semantic-ui-react';
 import React from 'react';
 import { CareerGoalsChecklist } from '../../components/checklist/CareerGoalsChecklist';
 import { CoursesChecklist } from '../../components/checklist/CoursesChecklist';
@@ -33,29 +33,61 @@ const headerPaneBody = `
 `;
 const headerPaneImage = 'header-home.png';
 
-const improveHeader = <RadGradHeader title='High Priority (needs improvement)' icon='exclamation circle' style={{ color: COLORS.RED }}/>;
-const reviewHeader = <RadGradHeader title='Medium Priority (please review)' icon='question circle' style={{ color: COLORS.YELLOW }}/>;
-const okHeader = <RadGradHeader title='Low Priority (looks OK!)' icon='check circle' style={{ color: COLORS.GREEN }}/>;
+const improveHeader = <RadGradHeader title='High Priority (needs improvement)' icon='exclamation circle' style={{ color: COLORS.RED }} />;
+const reviewHeader = <RadGradHeader title='Medium Priority (please review)' icon='question circle' style={{ color: COLORS.YELLOW }} />;
+const okHeader = <RadGradHeader title='Low Priority (looks OK!)' icon='check circle' style={{ color: COLORS.GREEN }} />;
 
-const StudentHomePage: React.FC<StudentHomePageProps> = ({ okItems, reviewItems, improveItems }) => (
-  <PageLayout id={PAGEIDS.STUDENT_HOME} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
-    <RadGradSegment header={improveHeader}>
-      <Card.Group style={{ marginTop: '0px' }}>
-        {improveItems || 'Awesome! No high priority items to improve right now.'}
-      </Card.Group>
-    </RadGradSegment>
-    <RadGradSegment header={reviewHeader}>
-      <Card.Group style={{ marginTop: '0px' }}>
-        {reviewItems || 'Awesome! No items to review right now!'}
-      </Card.Group>
-    </RadGradSegment>
-    <RadGradSegment header={okHeader}>
-      <Card.Group style={{ marginTop: '0px' }}>
-        {okItems || 'No low priority items right now.'}
-      </Card.Group>
-    </RadGradSegment>
-  </PageLayout>
-);
+const StudentHomePage: React.FC<StudentHomePageProps> = ({ okItems, reviewItems, improveItems }) => {
+  const improvePane = {
+    menuItem: `High Priority: Please fix (${improveItems.length})`,
+    render: () => (
+      <Tab.Pane key='ImprovePane'>
+        <Card.Group style={{ marginTop: '0px' }}>
+          {improveItems || 'Awesome! No high priority items to work on right now.'}
+        </Card.Group>
+      </Tab.Pane>
+    ),
+  };
+
+  const reviewPane = {
+    menuItem: `Medium Priority: For review (${reviewItems.length})`,
+    render: () => (
+      <Tab.Pane key='ReviewPane'>
+        <Card.Group style={{ marginTop: '0px' }}>
+          {reviewItems || 'Awesome! No medium priority items to work on right now.'}
+        </Card.Group>
+      </Tab.Pane>
+    ),
+  };
+
+  const okPane = {
+    menuItem: `Low Priority: Looks good (${okItems.length})`,
+    render: () => (
+      <Tab.Pane key='OKPane'>
+        <Card.Group style={{ marginTop: '0px' }}>
+          {okItems || 'Awesome! No low priority items to work on right now.'}
+        </Card.Group>
+      </Tab.Pane>
+    ),
+  };
+
+  let activeIndex = 0;
+  if ((improveItems.length === 0) && (reviewItems.length > 0)) {
+    activeIndex = 1;
+  } else if ((improveItems.length === 0) && (reviewItems.length === 0)) {
+    activeIndex = 2;
+  }
+
+  const header = <RadGradHeader title='Recommendations' />;
+
+  return (
+    <PageLayout id={PAGEIDS.STUDENT_HOME} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
+      <RadGradSegment header={header}>
+        <Tab panes={[improvePane, reviewPane, okPane]} defaultActiveIndex={activeIndex} />
+      </RadGradSegment>
+    </PageLayout>
+  );
+};
 
 export default withTracker(() => {
   const currentUser = Meteor.user() ? Meteor.user().username : '';
