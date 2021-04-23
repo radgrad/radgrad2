@@ -9,10 +9,12 @@ import { ROLE } from '../../../api/role/Role';
 import PageLayout from '../PageLayout';
 import StudentLevelExplainerWidget from '../../components/student/levels/StudentLevelExplainerWidget';
 import RadGradSegment from '../../components/shared/RadGradSegment';
+import RadGradHeader from '../../components/shared/RadGradHeader';
 
 interface StudentLevelsPageProps {
   profile: StudentProfile;
   students: StudentProfile[];
+  profiles: StudentProfile[];
 }
 
 const headerPaneTitle = 'From Grasshopper to Ninja';
@@ -22,9 +24,8 @@ RadGrad helps you mark your progress with six Levels.
 This page helps you learn about Levels and how to reach the next one from where you are now.
 `;
 const headerPaneImage = 'header-level.png';
-let profiles = [];
 
-const getStudentsAtSameLevel = (currentProfile: StudentProfile): StudentProfile[] => {
+const getStudentsAtSameLevel = (currentProfile: StudentProfile, profiles): StudentProfile[] => {
   const students = [];
   profiles.forEach((profile) => {
     if (profile.level === currentProfile.level) {
@@ -36,45 +37,52 @@ const getStudentsAtSameLevel = (currentProfile: StudentProfile): StudentProfile[
   return students;
 };
 
-const panes = [
-  { menuItem: 'Level 1', render: () => <Tab.Pane><StudentLevelExplainerWidget level={1} students={profiles}/></Tab.Pane> },
-  { menuItem: 'Level 2', render: () => <Tab.Pane><StudentLevelExplainerWidget level={2} students={profiles}/></Tab.Pane> },
-  { menuItem: 'Level 3', render: () => <Tab.Pane><StudentLevelExplainerWidget level={3} students={profiles}/></Tab.Pane> },
-  { menuItem: 'Level 4', render: () => <Tab.Pane><StudentLevelExplainerWidget level={4} students={profiles}/></Tab.Pane> },
-  { menuItem: 'Level 5', render: () => <Tab.Pane><StudentLevelExplainerWidget level={5} students={profiles}/></Tab.Pane> },
-  { menuItem: 'Level 6', render: () => <Tab.Pane><StudentLevelExplainerWidget level={6} students={profiles}/></Tab.Pane> },
-];
 
-const StudentLevelsPage: React.FC<StudentLevelsPageProps> = ({ profile, students }) => (
-    <PageLayout id="student-levels-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
-        <Grid stackable>
-            <Grid.Row>
-                <Grid.Column width={16}>
-                    <Grid stackable columns="equal">
-                        <Grid.Column stretched>
-                            <StudentLevelsWidget profile={profile} students={students} />
-                        </Grid.Column>
-                    </Grid>
-                </Grid.Column>
-            </Grid.Row>
-            <Grid.Row>
-                <Grid.Column width={16} divided>
-                    <RadGradSegment header="ABOUT THE LEVELS">
-                        <Tab panes={panes} />
-                    </RadGradSegment>
-                </Grid.Column>
-            </Grid.Row>
-        </Grid>
-    </PageLayout>
-);
+
+const header = <RadGradHeader title='ABOUT THE LEVELS' />;
+
+const StudentLevelsPage: React.FC<StudentLevelsPageProps> = ({ profile, students, profiles }) => {
+  const panes = [
+    { menuItem: 'Level 1', render: () => <Tab.Pane><StudentLevelExplainerWidget level={1} students={profiles}/></Tab.Pane> },
+    { menuItem: 'Level 2', render: () => <Tab.Pane><StudentLevelExplainerWidget level={2} students={profiles}/></Tab.Pane> },
+    { menuItem: 'Level 3', render: () => <Tab.Pane><StudentLevelExplainerWidget level={3} students={profiles}/></Tab.Pane> },
+    { menuItem: 'Level 4', render: () => <Tab.Pane><StudentLevelExplainerWidget level={4} students={profiles}/></Tab.Pane> },
+    { menuItem: 'Level 5', render: () => <Tab.Pane><StudentLevelExplainerWidget level={5} students={profiles}/></Tab.Pane> },
+    { menuItem: 'Level 6', render: () => <Tab.Pane><StudentLevelExplainerWidget level={6} students={profiles}/></Tab.Pane> },
+  ];
+  return (
+        <PageLayout id="student-levels-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
+            <Grid stackable>
+                <Grid.Row>
+                    <Grid.Column width={16}>
+                        <Grid stackable columns="equal">
+                            <Grid.Column stretched>
+                                <StudentLevelsWidget profile={profile} students={students} />
+                            </Grid.Column>
+                        </Grid>
+                    </Grid.Column>
+                </Grid.Row>
+                <Grid.Row>
+                    <Grid.Column width={16} divided>
+                        <RadGradSegment header={header}>
+                            <Tab panes={panes} />
+                        </RadGradSegment>
+                    </Grid.Column>
+                </Grid.Row>
+            </Grid>
+        </PageLayout>
+  );
+};
+
 const StudentLevelsPageContainer = withTracker(() => {
   const { username } = useParams();
   const profile = Users.getProfile(username) as StudentProfile;
-  profiles = Users.findProfilesWithRole(ROLE.STUDENT, {}, {});
-  const students: StudentProfile[] = getStudentsAtSameLevel(profile);
+  const profiles = Users.findProfilesWithRole(ROLE.STUDENT, {}, {});
+  const students: StudentProfile[] = getStudentsAtSameLevel(profile, profiles);
   return {
     profile,
     students,
+    profiles,
   };
 })(StudentLevelsPage);
 

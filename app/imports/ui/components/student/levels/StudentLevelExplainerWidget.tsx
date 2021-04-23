@@ -1,12 +1,11 @@
 import React from 'react';
 import { Card, Grid, Header, Icon, Image } from 'semantic-ui-react';
-import _ from 'lodash';
 import Markdown from 'react-markdown';
 import { StudentProfile } from '../../../../typings/radgrad';
 
 
 interface StudentLevelExplainerWidgetProps {
-  level;
+  level: number;
   students: StudentProfile[];
 }
 const getLevelColor = (level) => {
@@ -30,7 +29,7 @@ const getLevelColor = (level) => {
 };
 const getStudentsAtLevel = (profiles, level) => {
   const students = [];
-  _.forEach(profiles, (profile) => {
+  profiles.forEach((profile) => {
     if (profile.level === level) {
       students.push(profile);
     }
@@ -78,12 +77,14 @@ const getLevelExplanation = (level) => {
 const StudentLevelExplainerWidget: React.FC<StudentLevelExplainerWidgetProps> = ({ level, students }) => {
   const color = getLevelColor(level);
   const levelExplanation = getLevelExplanation(level);
+  const imageHolderStyle = { textAlign:'center' } as React.CSSProperties;
+  const numOfStudentsStyle = { paddingTop: '9%' };
   return (
         <div>
             <Grid >
                 <Grid.Row>
                     <Grid.Column width={2}>
-                        <div style={{ textAlign:'center' }}>
+                        <div style={imageHolderStyle}>
                             <Image floated="left" size="small" src={`/images/level-icons/radgrad-level-${level}-icon.png`} />
                             <Header as='h2' color={color}>{color.toUpperCase()}</Header>
                         </div>
@@ -92,7 +93,7 @@ const StudentLevelExplainerWidget: React.FC<StudentLevelExplainerWidgetProps> = 
                         <Header as='h2' color='grey'>LEVEL {level}</Header>
                         <Card.Description>
                             <Markdown source={levelExplanation}/>
-                            <Header as='h3' color='grey' style={{ paddingTop: '9%' }}><Icon name='user circle'/> {getStudentsAtLevel(students, level)} Students at Level {level}</Header>
+                            <Header as='h3' color='grey' style={numOfStudentsStyle}><Icon name='user circle'/> {getStudentsAtLevel(students, level)} Students at Level {level}</Header>
                         </Card.Description>
                     </Grid.Column>
                 </Grid.Row>

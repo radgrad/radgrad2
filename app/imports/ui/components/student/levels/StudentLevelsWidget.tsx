@@ -1,6 +1,6 @@
 import React from 'react';
 import Markdown from 'react-markdown';
-import { Segment, Grid, Container, Message, Icon, Image, Header } from 'semantic-ui-react';
+import { Grid, Container, Message, Icon, Image, Header } from 'semantic-ui-react';
 import { Link, useRouteMatch } from 'react-router-dom';
 import { getLevelCongratsMarkdown, getLevelHintStringMarkdown } from '../../../../api/level/LevelProcessor';
 import { StudentProfile } from '../../../../typings/radgrad';
@@ -10,6 +10,7 @@ import StudentLevelsOthersWidget from './StudentLevelsOthersWidget';
 import { LevelChecklist } from '../../checklist/LevelChecklist';
 import { CHECKSTATE } from '../../checklist/Checklist';
 import RadGradSegment from '../../shared/RadGradSegment';
+import RadGradHeader from '../../shared/RadGradHeader';
 
 
 export interface StudentLevelsWidgetProps {
@@ -61,6 +62,7 @@ const getStudentLevelCongrats = (profile: StudentProfile): string => {
 
 const StudentLevelsWidget: React.FC<StudentLevelsWidgetProps> = ({ profile, students }) => {
   const imageStyle = { width: '160px' };
+  const linkStyle = {  textDecoration: 'underline' };
   const studentLevelNumber: number = profile.level || 1;
   const studentLevelHint = getStudentLevelHint(profile);
   const studentLevelCongrats = getStudentLevelCongrats(profile);
@@ -68,13 +70,12 @@ const StudentLevelsWidget: React.FC<StudentLevelsWidgetProps> = ({ profile, stud
   const username = getUsername(match);
   const currentUser = Meteor.user() ? Meteor.user().username : '';
   const checklist = new LevelChecklist(currentUser);
+  let rightside = <p />;
+  if (checklist.getState() === CHECKSTATE.IMPROVE || checklist.getState() === CHECKSTATE.REVIEW)
+    rightside = <span><Icon name='exclamation triangle' color='orange' /> {checklist.getTitleText()}</span>;
+  const header = <RadGradHeader title='CURRENT LEVEL' rightside={rightside} />;
   return (
-    <RadGradSegment id="studentLevelsWidget">
-      <p>
-        MY CURRENT LEVEL
-          {(checklist.getState() === CHECKSTATE.IMPROVE || checklist.getState() === CHECKSTATE.REVIEW)  ?
-              <span style={{ float: 'right' }}><Icon name='exclamation triangle' color='orange' /> {checklist.getTitleText()}</span> : ''}
-      </p>
+    <RadGradSegment header={header}>
       <Grid>
           <Grid.Column width={3}>
               <Image size="mini" centered style={imageStyle} src={`/images/level-icons/radgrad-level-${studentLevelNumber}-icon.png`} />
@@ -88,7 +89,7 @@ const StudentLevelsWidget: React.FC<StudentLevelsWidgetProps> = ({ profile, stud
                   <Message.Content>
                       <h1>Want to level up?</h1>
                       <Markdown escapeHtml source={studentLevelHint} />
-                      <Link to={`/${URL_ROLES.STUDENT}/${username}/${ICE}`} style={{ textDecoration: 'underline' }}>Visit ICE page for more details</Link>
+                      <Link to={`/${URL_ROLES.STUDENT}/${username}/${ICE}`} style={linkStyle}>Visit ICE page for more details</Link>
                   </Message.Content>
               </Message>
               <StudentLevelsOthersWidget students={students} profile={profile} />
