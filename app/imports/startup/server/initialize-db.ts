@@ -1,16 +1,12 @@
-import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
 import _ from 'lodash';
 import moment from 'moment';
-import { SyncedCron } from 'meteor/littledata:synced-cron';
 import { PublicStats } from '../../api/public-stats/PublicStatsCollection';
 import { RadGrad } from '../../api/radgrad/RadGrad';
 import { RadGradProperties } from '../../api/radgrad/RadGradProperties';
 import { loadCollection } from '../../api/test/test-utilities';
-import { removeAllEntities } from '../../api/base/BaseUtilities';
 import { checkIntegrity } from '../../api/integrity/IntegrityChecker';
 import { AdminProfiles } from '../../api/user/AdminProfileCollection';
-import { updateFactoids } from './factoids';
 
 /** global Assets */
 /* eslint-disable no-console */
@@ -57,7 +53,7 @@ const getRestoreFileAge = (loadFileName) => {
  * this file, a string is also printed out.
  * @memberOf startup/server
  */
-const loadDatabase = () => {
+export const loadDatabase = () => {
   const loadFileName = Meteor.settings.databaseRestoreFileName;
   if (loadFileName && (totalDocuments() === 0 || totalDocuments() === 1)) {
     const loadFileAge = getRestoreFileAge(loadFileName);
@@ -93,28 +89,10 @@ const loadDatabase = () => {
 };
 
 /**
- * Runs the PublicStats generator to collect stats on the database, then sets up a cron job to update the stats
- * once a day.
- * @memberOf startup/server
- */
-const startupPublicStats = () => {
-  PublicStats.generateStats();
-  SyncedCron.add({
-    name: 'Run the PublicStats.generateStats method',
-    schedule(parser) {
-      return parser.text('every 24 hours');
-    },
-    job() {
-      PublicStats.generateStats();
-    },
-  });
-};
-
-/**
  * Check the integrity of the newly loaded collections; print out problems if any occur.
  * @memberOf startup/server
  */
-const startupCheckIntegrity = () => { // eslint-disable-line @typescript-eslint/no-unused-vars
+export const startupCheckIntegrity = () => {
   // console.log('Checking DB integrity.');
   const integrity = checkIntegrity();
   if (integrity.count > 0) {
@@ -122,7 +100,7 @@ const startupCheckIntegrity = () => { // eslint-disable-line @typescript-eslint/
   }
 };
 
-const defineAdminUser = () => {
+export const defineAdminUser = () => {
   const adminProfile = RadGradProperties.getAdminProfile();
   if (!adminProfile) {
     console.error('\n\nNO ADMIN PROFILE SPECIFIED IN SETTINGS FILE! SHUTDOWN AND FIX!!\n\n');
@@ -134,7 +112,7 @@ const defineAdminUser = () => {
   }
 };
 
-const defineTestAdminUser = () => {
+export const defineTestAdminUser = () => {
   if (Meteor.isTest || Meteor.isAppTest) {
     const adminProfile = {
       username: 'radgrad@hawaii.edu',
@@ -144,24 +122,3 @@ const defineTestAdminUser = () => {
     AdminProfiles.define(adminProfile);
   }
 };
-
-// Add a startup callback that distinguishes between test and dev/prod mode and does the right thing.
-Meteor.startup(() => {
-  if (Meteor.isTest || Meteor.isAppTest) {
-    console.log('Test mode. Database initialization disabled, current database cleared, rate limiting disabled.');
-    Accounts.removeDefaultRateLimit();
-    removeAllEntities();
-    defineTestAdminUser();
-  } else {
-    console.log('Startup: Defining admin user if necessary.');
-    defineAdminUser();
-    console.log('Startup: Loading database if necessary.');
-    loadDatabase();
-    // startupCheckIntegrity();
-    console.log('Startup: Starting up public stats.');
-    startupPublicStats();
-    console.log('Startup: Updating factoids.');
-    updateFactoids();
-    SyncedCron.start();
-  }
-});

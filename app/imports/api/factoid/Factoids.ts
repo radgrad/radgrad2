@@ -1,21 +1,21 @@
 import _ from 'lodash';
-import BaseCollection from '../../api/base/BaseCollection';
-import { CareerGoals } from '../../api/career/CareerGoalCollection';
-import { Courses } from '../../api/course/CourseCollection';
-import { ProfileInterests } from '../../api/user/profile-entries/ProfileInterestCollection';
-import { ProfileOpportunities } from '../../api/user/profile-entries/ProfileOpportunityCollection';
-import { Interests } from '../../api/interest/InterestCollection';
-import { Opportunities } from '../../api/opportunity/OpportunityCollection';
-import { Factoids } from '../../api/public-stats/FactoidCollection';
-import { Reviews } from '../../api/review/ReviewCollection';
-import { StudentProfiles } from '../../api/user/StudentProfileCollection';
+import BaseCollection from '../base/BaseCollection';
+import { CareerGoals } from '../career/CareerGoalCollection';
+import { Courses } from '../course/CourseCollection';
+import { ProfileInterests } from '../user/profile-entries/ProfileInterestCollection';
+import { ProfileOpportunities } from '../user/profile-entries/ProfileOpportunityCollection';
+import { Interests } from '../interest/InterestCollection';
+import { Opportunities } from '../opportunity/OpportunityCollection';
+import { Factoids } from '../public-stats/FactoidCollection';
+import { Reviews } from '../review/ReviewCollection';
+import { StudentProfiles } from '../user/StudentProfileCollection';
 import {
   InterestOrCareerGoalFactoidProps,
   LevelFactoidProps,
   OpportunityFactoidProps,
   ReviewFactoidProps,
 } from '../../typings/radgrad';
-import { ProfileCareerGoals } from '../../api/user/profile-entries/ProfileCareerGoalCollection';
+import { ProfileCareerGoals } from '../user/profile-entries/ProfileCareerGoalCollection';
 
 const getRandomDocument = (collection: BaseCollection) => {
   const documents = collection.findNonRetired({});
