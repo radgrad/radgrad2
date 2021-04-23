@@ -13,6 +13,7 @@ import { Users } from '../../../api/user/UserCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import AddVerificationRequestForm from '../../components/admin/datamodel/verification-request/AddVerificationRequestForm';
+import { PAGEIDS } from '../../utilities/PageIDs';
 import {
   handleCancelWrapper,
   handleConfirmDeleteWrapper,
@@ -93,7 +94,7 @@ const AdminDataModelVerificationRequestsPage: React.FC<AdminDataModelVerificatio
     sort: { name: 1 }, // determine how you want to sort the items in the list
   };
   return (
-    <PageLayout id="data-model-verification-requests-page" headerPaneTitle="Verification Requests">
+    <PageLayout id={PAGEIDS.DATA_MODEL_VERIFICATION_REQUESTS} headerPaneTitle="Verification Requests">
       {showUpdateFormState ? (
         <AdminDataModelUpdateForm collection={collection} id={idState} handleUpdate={handleUpdate}
                                   handleCancel={handleCancel} itemTitleString={itemTitleString}/>

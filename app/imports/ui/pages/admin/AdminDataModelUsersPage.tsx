@@ -25,6 +25,7 @@ import {
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { courseNameToSlug, opportunityNameToSlug } from '../../components/shared/utilities/data-model';
+import { PAGEIDS } from '../../utilities/PageIDs';
 import {
   handleCancelWrapper,
   handleDeleteWrapper, handleOpenUpdateWrapper,
@@ -100,17 +101,8 @@ const descriptionPairs = (props: AdminDataModelUsersPageProps) => (user: BasePro
     if (user.lastRegistrarLoad) {
       pairs.push({ label: 'Last Registrar Load', value: `${moment(user.lastRegistrarLoad).format()}` });
     }
-    if (user.lastVisitedCareerGoals) {
-      pairs.push({ label: 'Last visited career goals', value: `${moment(user.lastVisitedCareerGoals).format()}` });
-    }
-    if (user.lastVisitedCourses) {
-      pairs.push({ label: 'Last visited courses', value: `${moment(user.lastVisitedCourses).format()}` });
-    }
-    if (user.lastVisitedInterests) {
-      pairs.push({ label: 'Last visited interests', value: `${moment(user.lastVisitedInterests).format()}` });
-    }
-    if (user.lastVisitedOpportunities) {
-      pairs.push({ label: 'Last visited opportunities', value: `${moment(user.lastVisitedOpportunities).format()}` });
+    if (user.lastVisited) {
+      pairs.push({ label: 'Last visited', value: `${user.lastVisited}` });
     }
   }
   if (user.role === ROLE.FACULTY) {
@@ -289,7 +281,7 @@ const AdminDataModelUsersPage: React.FC<AdminDataModelUsersPageProps> = (props) 
     },
   ];
   return (
-    <PageLayout id="data-model-users-page" headerPaneTitle="Users">
+    <PageLayout id={PAGEIDS.DATA_MODEL_USERS} headerPaneTitle="Users">
       {showUpdateFormState ? (
         <UpdateUserForm
           id={idState}

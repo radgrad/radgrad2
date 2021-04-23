@@ -2,12 +2,11 @@ import _ from 'lodash';
 import { Meteor } from 'meteor/meteor';
 import moment from 'moment';
 import { CourseInstances } from '../course/CourseInstanceCollection';
-import { Feeds } from '../feed/FeedCollection';
 import { getEarnedICE, getProjectedICE } from '../ice/IceProcessor';
 import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollection';
 import { Reviews } from '../review/ReviewCollection';
 import { StudentProfiles } from '../user/StudentProfileCollection';
-import { defineMethod, updateMethod } from '../base/BaseCollection.methods';
+import { updateMethod } from '../base/BaseCollection.methods';
 import { RadGrad } from '../radgrad/RadGrad';
 import { Ice, StudentProfileUpdate } from '../../typings/radgrad';
 
@@ -144,7 +143,7 @@ export const updateStudentLevel = (studentID: string): void => {
   }
   const profile = StudentProfiles.getProfile(studentID);
   if (profile.level !== level) {
-    let collectionName = StudentProfiles.getCollectionName();
+    const collectionName = StudentProfiles.getCollectionName();
     const updateData: StudentProfileUpdate = {};
     updateData.id = profile._id;
     updateData.lastLeveledUp = moment().format('YYYY-MM-DD');
@@ -153,13 +152,6 @@ export const updateStudentLevel = (studentID: string): void => {
         console.error('Failed to update lastLeveledUp', err);
       }
     });
-    const definitionData = {
-      feedType: Feeds.NEW_LEVEL,
-      user: profile.username,
-      level,
-    };
-    collectionName = Feeds.getCollectionName();
-    defineMethod.call({ collectionName, definitionData });
   }
   StudentProfiles.setLevel(studentID, level);
 };

@@ -6,7 +6,7 @@ export const DEGREEPLANNER = 'degree-planner';
 export const HOME = 'home';
 export const ICE = 'ice';
 export const LEVELS = 'levels';
-export const PRIVACY = 'privacy';
+export const VISIBILITY = 'visibility';
 export const FORECASTS = 'forecasts';
 export const STUDENT_REVIEWS = 'student-reviews';
 export const STUDENT_VERIFICATION = 'student-verification';
@@ -43,7 +43,6 @@ export const DATAMODEL = {
   CAREERGOALS: 'datamodel/career-goals',
   COURSE_INSTANCES: 'datamodel/course-instances',
   COURSES: 'datamodel/courses',
-  FEEDS: 'datamodel/feeds',
   INTERESTS: 'datamodel/interests',
   INTEREST_TYPES: 'datamodel/interest-types',
   OPPORTUNITIES: 'datamodel/opportunities',

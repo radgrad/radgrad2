@@ -1,8 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import _ from 'lodash';
 import SimpleSchema from 'simpl-schema';
-import { ReactiveAggregate } from 'meteor/jcbernack:reactive-aggregate';
-import { OpportunityForecastName } from '../../startup/both/names';
 import { ProfileOpportunities } from '../user/profile-entries/ProfileOpportunityCollection';
 import { Opportunities } from './OpportunityCollection';
 import { ROLE } from '../role/Role';
@@ -284,21 +282,7 @@ class OpportunityInstanceCollection extends BaseCollection {
         }
         return collection.find({ studentID, retired: { $not: { $eq: true } } });
       });
-      Meteor.publish(this.publicationNames.forecast, function publishOpportunityForecast() {
-        ReactiveAggregate(this, collection, [
-          {
-            $addFields: { opportunityTerm: { $concat: ['$opportunityID', ' ', '$termID'] } },
-          },
-          {
-            $group: {
-              _id: '$opportunityTerm',
-              count: { $sum: 1 },
-            },
-          },
-          { $project: { count: 1, termID: 1, opportunityID: 1 } },
-        ], { clientCollection: OpportunityForecastName });
-      });
-      // eslint-disable-next-line
+      // eslint-disable-next-line meteor/audit-argument-checks
       Meteor.publish(this.publicationNames.verification, function publishVerificationOpportunities(studentIDs: string[]) {
         if (Meteor.isAppTest) {
           return collection.find();

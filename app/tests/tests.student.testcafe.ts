@@ -8,7 +8,7 @@ import {
   studentLevelsPage,
   studentVerificationPage,
   studentReviewsPage,
-  studentPrivacyPage,
+  studentVisibilityPage,
   interestExplorerPage,
   careerGoalExplorerPage,
   courseExplorerPage,
@@ -59,8 +59,8 @@ test('Test all student top-level pages', async (testController) => {
   await studentNavBar.gotoVerificationPage(testController);
   await studentVerificationPage.isDisplayed(testController);
 
-  await studentNavBar.gotoPrivacyPage(testController);
-  await studentPrivacyPage.isDisplayed(testController);
+  await studentNavBar.gotoVisibilityPage(testController);
+  await studentVisibilityPage.isDisplayed(testController);
 
   await studentNavBar.gotoICEPointsPage(testController);
   await studentICEPointsPage.isDisplayed(testController);

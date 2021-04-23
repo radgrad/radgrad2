@@ -2,6 +2,8 @@ import './initialize-db';
 import './interaction-cron';
 import './publications';
 import './email-env';
+import '../both/RadGradForecasts';
 import '../../api/utilities/TermsAndConditions.methods';
 import '../../api/utilities/MostPopular.methods';
 import '../../api/user/StudentProfileCollection.methods';
+import '../../api/utilities/FutureEnrollment.methods';

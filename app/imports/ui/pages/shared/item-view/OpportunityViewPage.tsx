@@ -4,6 +4,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Grid } from 'semantic-ui-react';
 import { Reviews } from '../../../../api/review/ReviewCollection';
 import { Opportunity, Profile, Review } from '../../../../typings/radgrad';
+import { PAGEIDS } from '../../../utilities/PageIDs';
 import { getMenuWidget } from '../utilities/getMenuWidget';
 import { Users } from '../../../../api/user/UserCollection';
 import { ProfileOpportunities } from '../../../../api/user/profile-entries/ProfileOpportunityCollection';
@@ -73,7 +74,7 @@ const OpportunityViewPage: React.FC<OpportunityViewPageProps> = ({
   const studentID = profile.userID;
   const completed = isCompleted(opportunity._id, studentID);
   return (
-    <div id="opportunity-view-page">
+    <div id={PAGEIDS.OPPORTUNITY}>
       {getMenuWidget(match)}
       <Grid stackable>
         <Grid.Row>

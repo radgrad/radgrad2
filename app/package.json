@@ -1,6 +1,6 @@
 {
   "name": "radgrad2",
-  "version": "2.0.26",
+  "version": "2.0.28",
   "meteor": {
     "mainModule": {
       "client": "client/main.ts",
@@ -16,8 +16,8 @@
     "lint-console": "eslint --fix --ext .tsx --ext .ts ./imports",
     "test-unit": "cross-env TEST_BROWSER_DRIVER=puppeteer MOCHA_TIMEOUT=150000 meteor test --exclude-archs web.browser.legacy,web.cordova --no-release-check --once --driver-package meteortesting:mocha --port 3300",
     "test-integration": "cross-env TEST_BROWSER_DRIVER=puppeteer MOCHA_TIMEOUT=150000 meteor test --no-release-check --exclude-archs web.browser.legacy,web.cordova --full-app --once --driver-package meteortesting:mocha --port 3300",
-    "test-acceptance-development": "testcafe chrome tests/tests.*.testcafe.js",
-    "test-acceptance": "testcafe chrome:headless tests/*.testcafe.js -q --app \"meteor npm run start\"",
+    "test-acceptance-development": "testcafe chrome tests/tests.*.testcafe.ts",
+    "test-acceptance": "testcafe chrome:headless tests/*.testcafe.ts -q --app \"meteor npm run start\"",
     "test-all": "meteor reset && meteor npm run lint && meteor npm run unimported && meteor npm run test-unit && meteor npm run test-integration && meteor npm run test-acceptance",
     "generate-docs": "npx jsdoc -c jsdoc.json",
     "gh-pages": "gh-pages -d ../api-docs",

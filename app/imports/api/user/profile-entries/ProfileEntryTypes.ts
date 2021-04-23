@@ -11,3 +11,10 @@ export type IProfileEntryTypes =
   | PROFILE_ENTRY_TYPE.COURSE
   | PROFILE_ENTRY_TYPE.INTEREST
   | PROFILE_ENTRY_TYPE.OPPORTUNITY;
+
+export const enum PROFILE_ENTITY_COLLECTIONS {
+  CAREER_GOALS = 'ProfileCareerGoalCollection',
+  COURSES = 'ProfileCourseCollection',
+  INTERESTS = 'ProfileInterestCollection',
+  OPPORTUNITIES = 'ProfileOpportunityCollection',
+}

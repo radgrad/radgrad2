@@ -1,12 +1,12 @@
 import moment from 'moment';
 import React from 'react';
-import { updateMethod } from '../../../api/base/BaseCollection.methods';
+import { updateLastVisited } from '../../../api/user/BaseProfileCollection.methods';
 import { ProfileCareerGoals } from '../../../api/user/profile-entries/ProfileCareerGoalCollection';
 import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';
-import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Users } from '../../../api/user/UserCollection';
-import { StudentProfile, StudentProfileUpdate } from '../../../typings/radgrad';
+import { StudentProfile } from '../../../typings/radgrad';
 import { EXPLORER, URL_ROLES } from '../../layouts/utilities/route-constants';
+import { PAGEIDS } from '../../utilities/PageIDs';
 import ProfileCareerGoalList from '../shared/ProfileCareerGoalList';
 import { Checklist, CHECKSTATE } from './Checklist';
 import { DetailsBox } from './DetailsBox';
@@ -28,7 +28,7 @@ export class CareerGoalsChecklist extends Checklist {
     // Specify the description for each state.
     this.description[CHECKSTATE.OK] = `Congrats!  You have at least three Career Goals in your profile, 
       and you've reviewed them within the past six months to be sure they are up to date.`;
-    this.description[CHECKSTATE.REVIEW] = (this.isSixMonthsOld(this.profile.lastVisitedCareerGoals)) ?
+    this.description[CHECKSTATE.REVIEW] = (this.isSixMonthsOld(this.profile.lastVisited[PAGEIDS.CAREER_GOAL_BROWSER])) ?
       `You have at least three Career Goals in your profile, but it's been at least six months 
       since you've reviewed them. So, we want to check that they actually reflect your current Career Goals.` :
 
@@ -45,12 +45,12 @@ export class CareerGoalsChecklist extends Checklist {
     const careerGoals = ProfileCareerGoals.findNonRetired({ userID });
     if (careerGoals.length < 3) {
       this.state = CHECKSTATE.IMPROVE;
-    } else if (this.profile.lastVisitedCareerGoals) {
-      const lastVisit = moment(this.profile.lastVisitedCareerGoals, 'YYYY-MM-DD', true);
+    } else if (this.profile.lastVisited[PAGEIDS.CAREER_GOAL_BROWSER]) {
+      const lastVisit = moment(this.profile.lastVisited[PAGEIDS.CAREER_GOAL_BROWSER], 'YYYY-MM-DD', true);
       const lastUpdate = PublicStats.getLastUpdateTimestamp(PublicStats.careerGoalsUpdateTime);
       if (lastVisit.isBefore(lastUpdate)) {
         this.state = CHECKSTATE.REVIEW;
-      } else if (this.isSixMonthsOld(this.profile.lastVisitedCareerGoals)) {
+      } else if (this.isSixMonthsOld(this.profile.lastVisited[PAGEIDS.CAREER_GOAL_BROWSER])) {
         this.state = CHECKSTATE.REVIEW;
       } else {
         this.state = CHECKSTATE.OK;
@@ -77,16 +77,9 @@ export class CareerGoalsChecklist extends Checklist {
    */
   public getActions(): JSX.Element {
     const handleVerification = () => {
-      const collectionName = StudentProfiles.getCollectionName();
-      const updateData: StudentProfileUpdate = {};
-      updateData.id = this.profile._id;
-      updateData.lastVisitedCareerGoals = moment().format('YYYY-MM-DD');
-      updateMethod.call({ collectionName, updateData }, (error) => {
-        if (error) {
-          console.error('Failed to update lastVisitedCareerGoals', error);
-        }
-      });
+      updateLastVisited.callPromise({ pageID: PAGEIDS.CAREER_GOAL_BROWSER });
     };
+
     switch (this.state) {
       case CHECKSTATE.OK:
         return (

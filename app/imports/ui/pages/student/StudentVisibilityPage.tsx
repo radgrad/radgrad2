@@ -1,19 +1,16 @@
-import moment from 'moment';
 import _ from 'lodash';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Grid, Header, Icon, Segment, Form } from 'semantic-ui-react';
-import { updateMethod } from '../../../api/base/BaseCollection.methods';
-import { ROLE } from '../../../api/role/Role';
-import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { getPublicProfileData, PublicProfileData, setPublicProfileData } from '../../../api/user/StudentProfileCollection.methods';
 import { Users } from '../../../api/user/UserCollection';
-import { StudentProfile, StudentProfileUpdate } from '../../../typings/radgrad';
+import { StudentProfile } from '../../../typings/radgrad';
 import { SetPictureButton } from '../../components/shared/privacy/SetPictureButton';
 import { SetWebsiteButton } from '../../components/shared/privacy/SetWebsiteButton';
 import ProfileCard from '../../components/shared/profile/ProfileCard';
 import ProfileLabel from '../../components/shared/profile/ProfileLabel';
+import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
 
 const headerPaneTitle = 'Control what others see about you';
@@ -24,7 +21,7 @@ Providing access allows RadGrad to help you find similarly minded community memb
 `;
 const headerPaneImage = 'header-privacy.png';
 
-interface StudentPrivacyPageProps {
+interface StudentVisibilityPageProps {
   profile: StudentProfile;
 }
 
@@ -39,7 +36,7 @@ interface CheckboxState {
   shareICE: boolean;
 }
 
-const StudentPrivacyPage: React.FC<StudentPrivacyPageProps> = ({ profile }) => {
+const StudentVisibilityPage: React.FC<StudentVisibilityPageProps> = ({ profile }) => {
   // data will hold the public profile data for display in the <ProfileCard> when rendered.
   const [data, setData] = useState<PublicProfileData>({});
   // fetched is used to ensure that we only initialize the public profile data once.
@@ -108,7 +105,7 @@ const StudentPrivacyPage: React.FC<StudentPrivacyPageProps> = ({ profile }) => {
   };
 
   return (
-    <PageLayout id="student-privacy-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
+    <PageLayout id={PAGEIDS.STUDENT_VISIBILITY} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
       <Grid stackable>
         <Grid.Column width={4}>
           <Segment>
@@ -154,22 +151,7 @@ const StudentPrivacyPage: React.FC<StudentPrivacyPageProps> = ({ profile }) => {
 export default withTracker(() => {
   const { username } = useParams();
   const profile = Users.getProfile(username) as StudentProfile;
-  // TODO Refactor this code into a single function call that can be called from multiple pages.
-  if (profile.role === ROLE.STUDENT) {
-    const lastVisited = moment().format('YYYY-MM-DD');
-    if (lastVisited !== profile.lastVisitedPrivacy) {
-      const collectionName = StudentProfiles.getCollectionName();
-      const updateData: StudentProfileUpdate = {};
-      updateData.id = profile._id;
-      updateData.lastVisitedPrivacy = lastVisited;
-      updateMethod.call({ collectionName, updateData }, (error, result) => {
-        if (error) {
-          console.error('Error updating StudentProfile', collectionName, updateData, error);
-        }
-      });
-    }
-  }
   return {
     profile,
   };
-})(StudentPrivacyPage);
+})(StudentVisibilityPage);

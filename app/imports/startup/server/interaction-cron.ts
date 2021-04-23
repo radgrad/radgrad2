@@ -8,6 +8,7 @@ import {
 } from '../../typings/radgrad';
 import { UserInteractionsTypes } from '../../api/analytic/UserInteractionsTypes';
 import { updateFactoids } from './factoids';
+import { RadGradForecasts } from '../both/RadGradForecasts';
 
 const createIceSnapshot = (doc) => {
   const ice = StudentProfiles.getProjectedICE(doc.username);
@@ -83,5 +84,16 @@ SyncedCron.add({
   },
   job() {
     updateFactoids();
+  },
+});
+
+SyncedCron.add({
+  name: 'Update Forecasts',
+  schedule(parser) {
+    // return parser.text('every 20 seconds');
+    return parser.text('every 24 hours');
+  },
+  job() {
+    RadGradForecasts.updateForecasts();
   },
 });

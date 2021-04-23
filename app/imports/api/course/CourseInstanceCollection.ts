@@ -1,7 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import _ from 'lodash';
 import SimpleSchema from 'simpl-schema';
-import { ReactiveAggregate } from 'meteor/jcbernack:reactive-aggregate';
 import { ProfileCourses } from '../user/profile-entries/ProfileCourseCollection';
 import { Courses } from './CourseCollection';
 import { AcademicYearInstances } from '../degree-plan/AcademicYearInstanceCollection';
@@ -11,7 +10,6 @@ import { Users } from '../user/UserCollection';
 import BaseCollection from '../base/BaseCollection';
 import { makeCourseICE } from '../ice/IceProcessor';
 import { CourseInstanceDefine, CourseInstanceUpdate } from '../../typings/radgrad';
-import { CourseForecastName } from '../../startup/both/names';
 
 const iceSchema = new SimpleSchema({
   i: {
@@ -56,6 +54,7 @@ class CourseInstanceCollection extends BaseCollection {
       ice: { type: iceSchema, optional: true },
       retired: { type: Boolean, optional: true },
     }));
+    // TODO this should be a property
     this.validGrades = ['', 'A', 'A+', 'A-',
       'B', 'B+', 'B-', 'C', 'C+', 'C-', 'D', 'D+', 'D-', 'F', 'CR', 'NC', '***', 'W', 'TBD', 'OTHER'];
     this.publicationNames = {
@@ -372,20 +371,6 @@ class CourseInstanceCollection extends BaseCollection {
   public publish() {
     if (Meteor.isServer) {
       const collection = this.collection;
-      Meteor.publish(this.publicationNames.forecast, function publishCourseForecast() {
-        ReactiveAggregate(this, collection, [
-          {
-            $addFields: { courseTerm: { $concat: ['$courseID', ' ', '$termID'] } },
-          },
-          {
-            $group: {
-              _id: '$courseTerm',
-              count: { $sum: 1 },
-            },
-          },
-          { $project: { count: 1, termID: 1, courseID: 1 } },
-        ], { clientCollection: CourseForecastName });
-      });
       Meteor.publish(this.collectionName, function filterStudentID(studentID) { // eslint-disable-line meteor/audit-argument-checks
         // console.log('publish studentID %o is admin = %o', studentID, Roles.userIsInRole(studentID, [ROLE.ADMIN]));
         if (_.isNil(studentID)) {

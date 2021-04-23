@@ -11,6 +11,7 @@ import { Interests } from '../../../api/interest/InterestCollection';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { CareerGoal, HelpMessage, Interest, StudentProfile } from '../../../typings/radgrad';
 import { RootState } from '../../../redux/types';
+import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
 import { updateAllStudentLevelsMethod } from '../../../api/level/LevelProcessor.methods';
 
@@ -66,7 +67,7 @@ const AdvisorManageStudentsPage: React.FC<FilterStudents> = ({ helpMessages, int
   const { username } = useParams();
   const marginStyle = { margin: 10 };
   return (
-    <PageLayout id="manage-students-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
+    <PageLayout id={PAGEIDS.MANAGE_STUDENTS} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
         <Grid stackable>
           <Grid.Row>
             <Grid.Column width={16}>

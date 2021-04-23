@@ -10,7 +10,7 @@ import {
   EXPLORER,
   HOME,
   MANAGE,
-  PRIVACY,
+  VISIBILITY,
   FORECASTS,
 } from '../../layouts/utilities/route-constants';
 
@@ -21,7 +21,7 @@ const FacultyPageMenu: React.FC = () => {
 
   const menuItems = [
     { label: 'Home', route: HOME },
-    { label: 'Privacy', route: PRIVACY },
+    { label: 'Visibility', route: VISIBILITY },
     { label: 'Forecasts', route: FORECASTS },
     { label: 'Community', route: COMMUNITY },
   ];

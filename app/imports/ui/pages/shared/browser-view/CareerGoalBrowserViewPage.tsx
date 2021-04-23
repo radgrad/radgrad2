@@ -1,18 +1,15 @@
 import React from 'react';
-import moment from 'moment';
 import { useParams } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import _ from 'lodash';
 import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
 import { ProfileCareerGoals } from '../../../../api/user/profile-entries/ProfileCareerGoalCollection';
-import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
 import { Users } from '../../../../api/user/UserCollection';
 import { CareerGoal, StudentProfile } from '../../../../typings/radgrad';
 import BrowserView from '../../../components/shared/explorer/browser-view/BrowserView';
+import { PAGEIDS } from '../../../utilities/PageIDs';
 import PageLayout from '../../PageLayout';
-import { updateLastVisitedMethod } from '../../../../api/user/BaseProfileCollection.methods';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
-import { ROLE } from '../../../../api/role/Role';
 
 interface CareerGoalBrowserViewPageProps {
   profileCareerGoals: CareerGoal[];
@@ -35,7 +32,7 @@ const CareerGoalBrowserViewPage: React.FC<CareerGoalBrowserViewPageProps> = ({
   profileInterestIDs,
   nonProfileCareerGoals,
 }) => (
-    <PageLayout id="career-goal-browser-view-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
+    <PageLayout id={PAGEIDS.CAREER_GOAL_BROWSER} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
       <BrowserView profileInterestIDs={profileInterestIDs}
                    items={profileCareerGoals}
                    explorerType={EXPLORER_TYPE.CAREERGOALS}
@@ -53,19 +50,6 @@ export default withTracker(() => {
   let careerGoals = [];
   if (Users.hasProfile(username)) {
     profile = Users.getProfile(username);
-    if (profile.role === ROLE.STUDENT) {
-      const collectionName = StudentProfiles.getCollectionName();
-      const lastVisited = moment().format('YYYY-MM-DD');
-      if (Users.hasProfile(username) && lastVisited !== profile.lastVisitedCareerGoals) {
-        updateLastVisitedMethod.call(
-          {
-            collectionName: collectionName,
-            lastVisitedTime: lastVisited,
-            type: EXPLORER_TYPE.CAREERGOALS,
-          },
-        );
-      }
-    }
     careerGoals = ProfileCareerGoals.findNonRetired({ userID: profile.userID });
   }
   const profileCareerGoals = careerGoals.map((f) => CareerGoals.findDoc(f.careerGoalID));

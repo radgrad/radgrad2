@@ -24,6 +24,7 @@ import LandingSection9Container from '../../components/landing/LandingSection9';
 import LandingFooter from '../../components/landing/LandingFooter';
 import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
 import BackToTopButton from '../../components/shared/BackToTopButton';
+import { PAGEIDS } from '../../utilities/PageIDs';
 
 interface LandingHomeProps {
   careerGoals: string;
@@ -57,7 +58,7 @@ const LandingHomePage: React.FC<LandingHomeProps> = ({ currentUser, opportunitie
   if (location?.state?.from) {
     return (<Redirect to={{ pathname: `${location.state.from.pathname}` }} />);
   }
-  return (<div id="landing-page">
+  return (<div id={PAGEIDS.LANDING_HOME}>
     <LandingNavBar currentUser={currentUser} iconName={iconName} role={role} instanceName={instanceName} />
     <LandingSection1 tagline={tagline} instanceName={instanceName} careerGoalFactoid={careerGoalFactoid} interestFactoid={interestFactoid} levelFactoid={levelFactoid} opportunityFactoid={opportunityFactoid} reviewFactoid={reviewFactoid} />
     <LandingSection2 careerGoals={careerGoals} interests={interests} opportunities={opportunities} users={users} />

@@ -25,7 +25,6 @@ const mapStateToProps = (state: RootState) => ({
 });
 
 const ListCollectionWidget: React.FC<ListCollectionWidgetProps> = ({ collection, pagination, items, findOptions, descriptionPairs, handleDelete, handleOpenUpdate, itemTitle }) => {
-  // console.log('ListCollectionWidget.render props=%o', props);
   const count = collection.count();
   const startIndex = pagination[collection.getCollectionName()].showIndex;
   const showCount = pagination[collection.getCollectionName()].showCount;

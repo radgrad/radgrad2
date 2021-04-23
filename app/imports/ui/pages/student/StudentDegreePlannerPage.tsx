@@ -40,6 +40,7 @@ import { ProfileOpportunities } from '../../../api/user/profile-entries/ProfileO
 import { ProfileCourses } from '../../../api/user/profile-entries/ProfileCourseCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import { passedCourse } from '../../../api/course/CourseUtilities';
+import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
 
 interface StudentDegreePlannerProps {
@@ -278,7 +279,7 @@ const StudentDegreePlannerPage: React.FC<StudentDegreePlannerProps> = ({
   };
   return (
     <DragDropContext onDragEnd={onDragEnd(onDragEndProps)}>
-      <PageLayout id="degree-planner-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
+      <PageLayout id={PAGEIDS.STUDENT_DEGREE_PLANNER} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
       <Grid stackable>
           <Grid.Row stretched>
             <Grid.Column width={10} style={paddedStyle}>

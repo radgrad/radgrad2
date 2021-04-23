@@ -16,6 +16,7 @@ import AddToProfileButton from '../../../components/shared/explorer/item-view/Ad
 import ExplorerInterest from '../../../components/shared/explorer/item-view/interest/ExplorerInterest';
 import InterestedRelated from '../../../components/shared/explorer/item-view/interest/InterestedRelated';
 import * as Router from '../../../components/shared/utilities/router';
+import { PAGEIDS } from '../../../utilities/PageIDs';
 import PageLayout from '../../PageLayout';
 
 interface InterestViewPageProps {
@@ -109,7 +110,7 @@ const InterestViewPage: React.FC<InterestViewPageProps> = ({
   const headerPaneImage = 'header-interests.png';
   const added = ProfileInterests.findNonRetired({ userID: profile.userID, interestID }).length > 0;
   return (
-    <PageLayout id="interest-view-page" headerPaneTitle={headerPaneTitle} headerPaneImage={headerPaneImage}
+    <PageLayout id={PAGEIDS.INTEREST} headerPaneTitle={headerPaneTitle} headerPaneImage={headerPaneImage}
                 headerPaneButton={<AddToProfileButton type={PROFILE_ENTRY_TYPE.INTEREST} studentID={profile.userID}
                                                       item={interest} added={added} inverted floated="left" />}>
       <Grid stackable>

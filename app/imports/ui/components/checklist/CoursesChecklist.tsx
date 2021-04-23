@@ -1,12 +1,13 @@
 import moment from 'moment';
 import React from 'react';
-import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';
+import { updateLastVisited } from '../../../api/user/BaseProfileCollection.methods';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Users } from '../../../api/user/UserCollection';
-import { Ice, StudentProfile, StudentProfileUpdate } from '../../../typings/radgrad';
+import { Ice, StudentProfile } from '../../../typings/radgrad';
 import { DEGREEPLANNER, EXPLORER, ICE, URL_ROLES } from '../../layouts/utilities/route-constants';
+import { PAGEIDS } from '../../utilities/PageIDs';
 import ProfileFutureCoursesList from '../shared/ProfileFutureCoursesList';
 import { Checklist, CHECKSTATE } from './Checklist';
 import { DetailsBox } from './DetailsBox';
@@ -28,7 +29,7 @@ export class CoursesChecklist extends Checklist {
     // Specify the description for each state.
     this.description[CHECKSTATE.OK] = `Congrats! Your Degree Plan contains Courses that should eventually earn you at least 100
       Competency points, and you've reviewed your Degree Plan within the past six months to be sure it is up to date.`;
-    this.description[CHECKSTATE.REVIEW] = (this.isSixMonthsOld(this.profile.lastVisitedCourses)) ?
+    this.description[CHECKSTATE.REVIEW] = (this.isSixMonthsOld(this.profile.lastVisited[PAGEIDS.COURSE_BROWSER])) ?
       `You have enough Courses added to your Degree Plan to eventually earn 100 Competency points, but it's
        been at least six months since you've reviewed your Degree Plan. So, we want to check that the Degree
        Planner reflects your future Course plans.`
@@ -46,12 +47,12 @@ export class CoursesChecklist extends Checklist {
     const projectedICE: Ice = StudentProfiles.getProjectedICE(username);
     if (projectedICE.c < 100) {
       this.state = CHECKSTATE.IMPROVE;
-    } else if (this.profile.lastVisitedCourses) {
-      const lastVisit = moment(this.profile.lastVisitedCourses, 'YYYY-MM-DD', true);
+    } else if (this.profile.lastVisited[PAGEIDS.COURSE_BROWSER]) {
+      const lastVisit = moment(this.profile.lastVisited[PAGEIDS.COURSE_BROWSER], 'YYYY-MM-DD', true);
       const lastUpdate = PublicStats.getLastUpdateTimestamp(PublicStats.coursesUpdateTime);
       if (lastVisit.isBefore(lastUpdate)) {
         this.state = CHECKSTATE.REVIEW;
-      } else if (this.isSixMonthsOld(this.profile.lastVisitedCourses)) {
+      } else if (this.isSixMonthsOld(this.profile.lastVisited[PAGEIDS.COURSE_BROWSER])) {
         this.state = CHECKSTATE.REVIEW;
         // TODO check for new course reviews for future course instances.
       } else {
@@ -74,15 +75,7 @@ export class CoursesChecklist extends Checklist {
 
   public getActions(): JSX.Element {
     const handleVerification = () => {
-      const collectionName = StudentProfiles.getCollectionName();
-      const updateData: StudentProfileUpdate = {};
-      updateData.id = this.profile._id;
-      updateData.lastVisitedCourses = moment().format('YYYY-MM-DD');
-      updateMethod.call({ collectionName, updateData }, (error) => {
-        if (error) {
-          console.error('Failed to update lastVisitedCourses', error);
-        }
-      });
+      updateLastVisited.callPromise({ pageID: PAGEIDS.COURSE_BROWSER });
     };
     switch (this.state) {
       case CHECKSTATE.OK:

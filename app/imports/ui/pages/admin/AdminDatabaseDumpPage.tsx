@@ -10,6 +10,7 @@ import { databaseActions } from '../../../redux/admin/database';
 import { analyticsActions } from '../../../redux/admin/analytics';
 import { RootState } from '../../../redux/types';
 import UploadFixture from '../../components/admin/datamodel/UploadFixture';
+import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
 
 interface Collection {
@@ -86,7 +87,7 @@ const AdminDatabaseDumpPage: React.FC<AdminDatabaseDumpPageProps> = ({ startDump
   const dumpWorking = dumpDatabaseWorking;
   const getWorking = getStudentEmailsWorking;
   return (
-    <PageLayout id="database-dump-database-page" headerPaneTitle="Dump Database">
+    <PageLayout id={PAGEIDS.DATABASE_DUMP_DATABASE} headerPaneTitle="Dump Database">
       <Form>
         <Button color="green" loading={dumpWorking} basic type="submit" onClick={clickDump}>
           Dump Database

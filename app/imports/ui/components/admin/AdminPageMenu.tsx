@@ -13,7 +13,7 @@ import {
   FORECASTS,
   HOME,
   MANAGE,
-  PRIVACY,
+  VISIBILITY,
 } from '../../layouts/utilities/route-constants';
 
 const convertLabelToId = (prefix, label) => `${prefix}-${label.replaceAll(' ', '-').toLowerCase()}`;
@@ -25,7 +25,7 @@ const AdminPageMenu: React.FC = () => {
 
   const menuItems = [
     { label: 'Home', route: HOME },
-    { label: 'Privacy', route: PRIVACY },
+    { label: 'Visibility', route: VISIBILITY },
     { label: 'Forecasts', route: FORECASTS },
     { label: 'Community', route: COMMUNITY },
   ];
@@ -50,7 +50,6 @@ const AdminPageMenu: React.FC = () => {
     { label: 'Career Goals', route: DATAMODEL.CAREERGOALS },
     { label: 'Course Instances', route: DATAMODEL.COURSE_INSTANCES },
     { label: 'Courses', route: DATAMODEL.COURSES },
-    { label: 'Feeds', route: DATAMODEL.FEEDS },
     { label: 'Interests', route: DATAMODEL.INTERESTS },
     { label: 'Interest Types', route: DATAMODEL.INTEREST_TYPES },
     { label: 'Opportunities', route: DATAMODEL.OPPORTUNITIES },

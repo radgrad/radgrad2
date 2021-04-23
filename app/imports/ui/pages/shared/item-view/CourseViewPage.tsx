@@ -4,13 +4,14 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Grid } from 'semantic-ui-react';
 import _ from 'lodash';
 import { Reviews } from '../../../../api/review/ReviewCollection';
+import { PAGEIDS } from '../../../utilities/PageIDs';
 import { getMenuWidget } from '../utilities/getMenuWidget';
 import ExplorerMenu from '../../../components/shared/explorer/item-view/ExplorerMenu';
 import { Course, DescriptionPair, ProfileCourse, Review } from '../../../../typings/radgrad';
 import { Courses } from '../../../../api/course/CourseCollection';
 import { ProfileCourses } from '../../../../api/user/profile-entries/ProfileCourseCollection';
 import { Users } from '../../../../api/user/UserCollection';
-import ExplorerCourseWidget from '../../../components/shared/explorer/item-view/course/ExplorerCourseWidget';
+import ExplorerCourse from '../../../components/shared/explorer/item-view/course/ExplorerCourse';
 import { Interests } from '../../../../api/interest/InterestCollection';
 import { teaser } from '../../../components/shared/explorer/item-view/utilities/teaser';
 import { isSingleChoice } from '../../../../api/degree-plan/PlanChoiceUtilities';
@@ -110,7 +111,7 @@ const CourseViewPage: React.FC<CourseViewPageProps> = ({ profileCourses, course,
   const courseSlug = Slugs.getNameFromID(course.slugID);
   const completed = isCourseCompleted(courseSlug, match);
   return (
-    <div id="course-view-page">
+    <div id={PAGEIDS.COURSE}>
       {getMenuWidget(match)}
       <Grid stackable>
         <Grid.Row>
@@ -118,8 +119,8 @@ const CourseViewPage: React.FC<CourseViewPageProps> = ({ profileCourses, course,
             <ExplorerMenu menuAddedList={menuAddedList} type="courses" />
           </Grid.Column>
           <Grid.Column width={13}>
-            <ExplorerCourseWidget name={course.name} shortName={course.shortName} descriptionPairs={descriptionPairs}
-                                  item={course} completed={completed} itemReviews={itemReviews} />
+            <ExplorerCourse name={course.name} shortName={course.shortName} descriptionPairs={descriptionPairs}
+                            item={course} completed={completed} itemReviews={itemReviews} />
           </Grid.Column>
         </Grid.Row>
       </Grid>

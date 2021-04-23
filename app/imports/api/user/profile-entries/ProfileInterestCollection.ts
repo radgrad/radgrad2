@@ -1,8 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import _ from 'lodash';
-import { ReactiveAggregate } from 'meteor/jcbernack:reactive-aggregate';
-import { ProfileInterestsForecastName } from '../../../startup/both/names';
 import BaseCollection from '../../base/BaseCollection';
 import { Interests } from '../../interest/InterestCollection';
 import { Users } from '../UserCollection';
@@ -10,9 +8,6 @@ import { ROLE } from '../../role/Role';
 import { ProfileInterestDefine, ProfileEntryUpdate } from '../../../typings/radgrad';
 
 class ProfileInterestCollection extends BaseCollection {
-  public readonly publicationNames: {
-    forecast: string;
-  };
 
   /** Creates the ProfileInterest collection */
   constructor() {
@@ -22,9 +17,6 @@ class ProfileInterestCollection extends BaseCollection {
       share: Boolean,
       retired: { type: Boolean, optional: true },
     }));
-    this.publicationNames = {
-      forecast: `${this.collectionName}.forecast`,
-    };
   }
 
   /**
@@ -98,17 +90,6 @@ class ProfileInterestCollection extends BaseCollection {
           return collection.find();
         }
         return collection.find({ userID });
-      });
-      Meteor.publish(this.publicationNames.forecast, function publishInterestForecast() {
-        ReactiveAggregate(this, collection, [
-          {
-            $group: {
-              _id: '$interestID',
-              count: { $sum: 1 },
-            },
-          },
-          { $project: { count: 1, interestID: 1 } },
-        ], { clientCollection: ProfileInterestsForecastName });
       });
     }
   }

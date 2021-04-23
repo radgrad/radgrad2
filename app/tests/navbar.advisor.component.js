@@ -15,8 +15,8 @@ class AdvisorNavBar {
     await testController.click('#advisor-menu-home');
   }
 
-  async gotoPrivacyPage(testController) {
-    await testController.click('#advisor-menu-privacy');
+  async gotoVisibilityPage(testController) {
+    await testController.click('#advisor-menu-visibility');
   }
 
   async gotoForecastsPage(testController) {

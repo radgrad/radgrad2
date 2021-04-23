@@ -1,12 +1,8 @@
-import moment from 'moment';
 import React from 'react';
 import { useParams, useRouteMatch } from 'react-router-dom';
 import { Grid } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
-import { updateMethod } from '../../../../api/base/BaseCollection.methods';
-import { ROLE } from '../../../../api/role/Role';
-import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
-import { Course, ProfileCourse, StudentProfileUpdate } from '../../../../typings/radgrad';
+import { Course, ProfileCourse } from '../../../../typings/radgrad';
 import * as Router from '../../../components/shared/utilities/router';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import { Courses } from '../../../../api/course/CourseCollection';
@@ -15,6 +11,7 @@ import { IExplorerTypes } from '../../../components/shared/explorer/utilities/ex
 import { Users } from '../../../../api/user/UserCollection';
 import { ProfileCourses } from '../../../../api/user/profile-entries/ProfileCourseCollection';
 import CourseBrowserView from '../../../components/shared/explorer/browser-view/CourseBrowserView';
+import { PAGEIDS } from '../../../utilities/PageIDs';
 import PageLayout from '../../PageLayout';
 
 interface CourseBrowserViewPageProps {
@@ -42,7 +39,7 @@ const CourseBrowserViewPage: React.FC<CourseBrowserViewPageProps> = ({ profileCo
   const showProfileEntries = role === 'student';
   const columnWidth = showProfileEntries ? 12 : 16;
   return (
-    <PageLayout id="course-browser-view-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
+    <PageLayout id={PAGEIDS.COURSE_BROWSER} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
       <Grid stackable>
         <Grid.Row>
           {showProfileEntries ? (
@@ -64,20 +61,6 @@ const CourseBrowserViewPage: React.FC<CourseBrowserViewPageProps> = ({ profileCo
 export default withTracker(() => {
   const { username } = useParams();
   const profile = Users.getProfile(username);
-  if (profile.role === ROLE.STUDENT) {
-    const lastVisited = moment().format('YYYY-MM-DD');
-    if (lastVisited !== profile.lastVisitedCourses) {
-      const collectionName = StudentProfiles.getCollectionName();
-      const updateData: StudentProfileUpdate = {};
-      updateData.id = profile._id;
-      updateData.lastVisitedCourses = lastVisited;
-      updateMethod.call({ collectionName, updateData }, (error, result) => {
-        if (error) {
-          console.error('Error updating StudentProfile', collectionName, updateData, error);
-        }
-      });
-    }
-  }
   const studentID = profile.userID;
   const profileCourses = ProfileCourses.findNonRetired({ studentID });
   const courses = Courses.findNonRetired({}); // TODO if user is undergrad student why are we showing grad courses?
