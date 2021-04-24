@@ -9,7 +9,7 @@ const SandboxStickyState1: React.FC = () => {
   const checkStateValue = checkState ? 'Checked' : 'Not Checked';
 
   const rightside = <Checkbox onChange={handleChange} checked={checkState} label='Show all'/>;
-  const header = <RadGradHeader title='useState() is not sticky'  icon='user' rightside={rightside} />;
+  const header = <RadGradHeader title='usestate() variables are not sticky'  icon='user' rightside={rightside} />;
   return (
     <RadGradSegment header={header}>
       <p>This is an example of a RadGrad segment with useState() to declare a state variable to manage the value of a checkbox. A call to useState() looks like this:</p>
