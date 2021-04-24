@@ -8,7 +8,7 @@ import { CareerGoal, StudentProfile } from '../../../../typings/radgrad';
 import BrowserView from '../../../components/shared/explorer/browser-view/BrowserView';
 import { PAGEIDS } from '../../../utilities/PageIDs';
 import PageLayout from '../../PageLayout';
-import { EXPLORERTYPE } from '../../../utilities/ExplorerType';
+import { EXPLORER_TYPE } from '../../../utilities/ExplorerUtils';
 
 interface CareerGoalBrowserViewPageProps {
   profileCareerGoals: CareerGoal[];
@@ -34,11 +34,11 @@ const CareerGoalBrowserViewPage: React.FC<CareerGoalBrowserViewPageProps> = ({
     <PageLayout id={PAGEIDS.CAREER_GOAL_BROWSER} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
       <BrowserView profileInterestIDs={profileInterestIDs}
                    items={profileCareerGoals}
-                   explorerType={EXPLORERTYPE.CAREERGOALS}
+                   explorerType={EXPLORER_TYPE.CAREERGOALS}
                    inProfile />
       <BrowserView profileInterestIDs={profileInterestIDs}
                    items={nonProfileCareerGoals}
-                   explorerType={EXPLORERTYPE.CAREERGOALS}
+                   explorerType={EXPLORER_TYPE.CAREERGOALS}
                    inProfile={false}/>
     </PageLayout>
 );

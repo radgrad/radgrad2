@@ -6,8 +6,7 @@ import SimpleSchema from 'simpl-schema';
 import { cardExplorerActions } from '../../../../../redux/shared/cardExplorer';
 import { RootState } from '../../../../../redux/types';
 import RadioField from '../../../form-fields/RadioField';
-import { EXPLORERTYPE } from '../../../../utilities/ExplorerType';
-import { EXPLORERSORTKEY } from '../../../../utilities/ExplorerSortKey';
+import { EXPLORER_TYPE, EXPLORER_SORT_KEYS } from '../../../../utilities/ExplorerUtils';
 
 interface SortProps {
   sortChoice: string;
@@ -17,9 +16,9 @@ interface SortProps {
 
 const mapStateToProps = (state: RootState, ownProps) => {
   switch (ownProps.explorerType) {
-    case EXPLORERTYPE.INTERESTS:
+    case EXPLORER_TYPE.INTERESTS:
       return { sortChoice: state.shared.cardExplorer.interests.sortValue };
-    case EXPLORERTYPE.CAREERGOALS:
+    case EXPLORER_TYPE.CAREERGOALS:
       return { sortChoice: state.shared.cardExplorer.careergoals.sortValue };
   }
   return null;
@@ -27,11 +26,11 @@ const mapStateToProps = (state: RootState, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   switch (ownProps.explorerType) {
-    case EXPLORERTYPE.CAREERGOALS:
+    case EXPLORER_TYPE.CAREERGOALS:
       return {
         setSortValue: (explorerType: string, value: string) => dispatch(cardExplorerActions.setCareerGoalsSortValue(explorerType, value)),
       };
-    case EXPLORERTYPE.INTERESTS: {
+    case EXPLORER_TYPE.INTERESTS: {
       return {
         setSortValue: (explorerType: string, value: string) => dispatch(cardExplorerActions.setInterestsSortValue(explorerType, value)),
       };
@@ -49,14 +48,14 @@ const Sort: React.FC<SortProps> = ({ sortChoice, setSortValue, explorerType }) =
   const explorerSortValues = (type) => {
     let allowedSortValues:string[];
     switch (type){
-      case EXPLORERTYPE.CAREERGOALS:
-        allowedSortValues = [EXPLORERSORTKEY.RECOMMENDED, EXPLORERSORTKEY.MOST_RECENT, EXPLORERSORTKEY.ALPHABETIC];
+      case EXPLORER_TYPE.CAREERGOALS:
+        allowedSortValues = [EXPLORER_SORT_KEYS.RECOMMENDED, EXPLORER_SORT_KEYS.MOST_RECENT, EXPLORER_SORT_KEYS.ALPHABETIC];
         break;
-      case EXPLORERTYPE.INTERESTS:
-        allowedSortValues = [EXPLORERSORTKEY.MOST_RECENT, EXPLORERSORTKEY.ALPHABETIC];
+      case EXPLORER_TYPE.INTERESTS:
+        allowedSortValues = [EXPLORER_SORT_KEYS.MOST_RECENT, EXPLORER_SORT_KEYS.ALPHABETIC];
         break;
-      case EXPLORERTYPE.OPPORTUNITIES:
-        allowedSortValues = [EXPLORERSORTKEY.RECOMMENDED, EXPLORERSORTKEY.ALPHABETIC, EXPLORERSORTKEY.EXPERIENCE, EXPLORERSORTKEY.INNOVATION];
+      case EXPLORER_TYPE.OPPORTUNITIES:
+        allowedSortValues = [EXPLORER_SORT_KEYS.RECOMMENDED, EXPLORER_SORT_KEYS.ALPHABETIC, EXPLORER_SORT_KEYS.EXPERIENCE, EXPLORER_SORT_KEYS.INNOVATION];
         break;
     }
     return allowedSortValues;

@@ -77,6 +77,7 @@ export const EXPLORER = {
   OPPORTUNITIES_PARAM: 'explorer/opportunities/:opportunity',
 };
 
+// This EXPLORER_TYPE is different from the EXPLORERTYPE in ExplorerUtils.ts
 export const EXPLORER_TYPE = {
   HOME: 'explorer',
   CAREERGOALS: 'career-goals',

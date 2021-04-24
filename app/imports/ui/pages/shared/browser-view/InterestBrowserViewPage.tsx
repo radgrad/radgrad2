@@ -6,7 +6,7 @@ import { Users } from '../../../../api/user/UserCollection';
 import { Interest, StudentProfile } from '../../../../typings/radgrad';
 import { PAGEIDS } from '../../../utilities/PageIDs';
 import PageLayout from '../../PageLayout';
-import { EXPLORERTYPE } from '../../../utilities/ExplorerType';
+import { EXPLORER_TYPE } from '../../../utilities/ExplorerUtils';
 import BrowserView from '../../../components/shared/explorer/browser-view/BrowserView';
 
 interface InterestBrowserViewPageProps {
@@ -27,8 +27,8 @@ const headerPaneImage = 'header-interests.png';
 const InterestBrowserViewPage: React.FC<InterestBrowserViewPageProps> = ({ profileInterests, nonProfileInterests }) => (
   <PageLayout id={PAGEIDS.INTEREST_BROWSER} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}
               headerPaneImage={headerPaneImage}>
-    <BrowserView items={profileInterests} explorerType={EXPLORERTYPE.INTERESTS} inProfile  />
-    <BrowserView items={nonProfileInterests} explorerType={EXPLORERTYPE.INTERESTS} inProfile={false} />
+    {/* <BrowserView items={profileInterests} explorerType={EXPLORER_TYPE.INTERESTS} inProfile  /> */}
+    <BrowserView items={nonProfileInterests} explorerType={EXPLORER_TYPE.INTERESTS} inProfile={false} />
   </PageLayout>
 );
 
@@ -39,7 +39,8 @@ export default withTracker(() => {
     profile = Users.getProfile(username);
   }
   const profileInterests = Users.getInterestIDs(profile.userID).map((id) => Interests.findDoc(id));
-  const nonProfileInterests = Interests.findNonRetired().filter(md => profileInterests.every(fd => fd._id !== md._id));
+  // const nonProfileInterests = Interests.findNonRetired().filter(md => profileInterests.every(fd => fd._id !== md._id));
+  const nonProfileInterests = Interests.findNonRetired({});
   return {
     profileInterests,
     nonProfileInterests,

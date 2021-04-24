@@ -65,3 +65,29 @@ export const setCoursesFilterValue = (explorerType: string, value: string): { ty
   }
   return retVal;
 };
+
+export const setInterestsFilterValue = (explorerType: string, value: string): { type?: string, payload?: string } => {
+  const retVal: { type?: string, payload?: string } = {};
+  retVal.payload = value;
+  switch (explorerType) {
+    case EXPLORER_TYPE.INTERESTS:
+      retVal.type = TYPES.SET_INTERESTS_FILTER_VALUE;
+      break;
+    default:
+      break;
+  }
+  return retVal;
+};
+
+export const setCareergoalsFilterValue = (explorerType: string, value: string): { type?: string, payload?: string } => {
+  const retVal: { type?: string, payload?: string } = {};
+  retVal.payload = value;
+  switch (explorerType) {
+    case EXPLORER_TYPE.CAREERGOALS:
+      retVal.type = TYPES.SET_CAREERGOALS_FILTER_VALUE;
+      break;
+    default:
+      break;
+  }
+  return retVal;
+};
