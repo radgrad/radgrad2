@@ -1,7 +1,7 @@
 import React from 'react';
 import { Menu, Tab } from 'semantic-ui-react';
 import { Review } from '../../../../typings/radgrad';
-import RadGradHeader from '../../shared/RadGradHeader';
+import RadGradTabHeader from '../../shared/RadGradTabHeader';
 import ReviewItem from './ReviewItem';
 
 interface StudentReviewsTabProps {
@@ -13,7 +13,7 @@ interface StudentReviewsTabProps {
 const StudentReviewsTab: React.FC<StudentReviewsTabProps> = ({ courseReviews, opportunityReviews,  username }) => {
   const panes = [
     {
-      menuItem: <Menu.Item key='course-reviews-tab'><RadGradHeader title='my course reviews' count={courseReviews ? courseReviews.length : 0} icon='book' /></Menu.Item>,
+      menuItem: <Menu.Item key='course-reviews-tab'><RadGradTabHeader title='my course reviews' count={courseReviews ? courseReviews.length : 0} icon='book' /></Menu.Item>, // CAM The count code might be overkill. I was getting undefined for opportunityReviews.
       render: () => (
         <Tab.Pane>
           {courseReviews.map((review) => <ReviewItem review={review} key={review._id} />)}
@@ -21,7 +21,7 @@ const StudentReviewsTab: React.FC<StudentReviewsTabProps> = ({ courseReviews, op
       ),
     },
     {
-      menuItem: <Menu.Item key='opportunity-reviews-tab'><RadGradHeader title='my opportunity reviews' count={opportunityReviews ? opportunityReviews.length : 0} icon='light bulb' /></Menu.Item>,
+      menuItem: <Menu.Item key='opportunity-reviews-tab'><RadGradTabHeader title='my opportunity reviews' count={opportunityReviews ? opportunityReviews.length : 0} icon='lightbulb' /></Menu.Item>,
       render: () => (
         <Tab.Pane>
           {opportunityReviews.map((review) => <ReviewItem review={review} key={review._id} />)}

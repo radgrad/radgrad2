@@ -1,14 +1,14 @@
 import React from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import Markdown from 'react-markdown';
-import { Button, Divider, Grid, Header, Icon, List, Message } from 'semantic-ui-react';
+import { Divider, Grid, Header, Icon, List, Message } from 'semantic-ui-react';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
-import { Courses } from '../../../../api/course/CourseCollection';
-import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
-import { Reviews } from '../../../../api/review/ReviewCollection';
 import { Review } from '../../../../typings/radgrad';
 import * as Router from '../../shared/utilities/router';
 import StudentExplorerReviewStarsWidget from '../explorer/StudentExplorerReviewStarsWidget';
+import DeleteReviewButton from './DeleteReviewButton';
+import EditReviewButton from './EditReviewButton';
+import { getRevieweeName } from './utilities/review-name';
 
 interface ReviewItemProps {
   review: Review;
@@ -17,29 +17,7 @@ interface ReviewItemProps {
 const ReviewItem: React.FC<ReviewItemProps> = ({ review }) => {
   const commentsStyle = { paddingTop: '5px' };
   const match = useRouteMatch();
-  let itemName;
-  switch (review.reviewType) {
-    case Reviews.COURSE: {
-      const course = Courses.findDoc(review.revieweeID);
-      itemName = `${course.shortName} (${course.name}) | ${course.num}`;
-      break;
-    }
-    case Reviews.OPPORTUNITY: {
-      const opp = Opportunities.findDoc(review.revieweeID);
-      itemName = opp.name;
-      break;
-    }
-    default:
-      itemName = '';
-  }
-
-  const handleEdit = () => {
-    console.log('handleEdit', review);
-  };
-
-  const handleDelete = () => {
-    console.log('handleDelete', review);
-  };
+  const itemName = getRevieweeName(review);
 
   return (
     <List.Item key={review._id}>
@@ -54,8 +32,8 @@ const ReviewItem: React.FC<ReviewItemProps> = ({ review }) => {
         </Grid.Column>
         <Grid.Column width={8} />
         <Grid.Column width={4} floated='right'>
-          <Button basic color='green' onClick={handleEdit}>EDIT</Button>
-          <Button basic color='red' onClick={handleDelete}>DELETE</Button>
+          <EditReviewButton review={review} />
+          <DeleteReviewButton review={review} />
         </Grid.Column>
         <Grid.Column width={16}>
           <Header>{itemName}</Header>

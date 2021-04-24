@@ -112,7 +112,6 @@ const WriteReviews: React.FC<WriteReviewsProps> = ({ unreviewedCourses, unreview
       label: 'Rating',
       min: 0,
       max: 5,
-      optional: true,
       defaultValue: 3,
     },
     comments: {
