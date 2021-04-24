@@ -8,6 +8,7 @@ import {
   ProfileCourse,
   ProfileOpportunity,
 } from '../../../../typings/radgrad';
+import RadGradTabHeader from '../../shared/RadGradTabHeader';
 import TabIceCircle from '../../shared/TabIceCircle';
 import { CompetencyIceTabPane } from './CompetencyIceTabPane';
 import ExperienceIceTabPane from './ExperienceIceTabPane';
@@ -43,23 +44,29 @@ const StudentIceTabs: React.FC<StudentIceWidgetProps> = ({
 }) => {
   const panes = [
     {
-      menuItem: <Menu.Item key='innovation-tab'><TabIceCircle earned={earnedICE.i} planned={projectedICE.i}
-                                                              type="innov" /> INNOVATION</Menu.Item>,
+      menuItem: <Menu.Item key='innovation-tab'><RadGradTabHeader title='innovation'
+                                                                  iconAlternative={<TabIceCircle earned={earnedICE.i}
+                                                                                                 planned={projectedICE.i}
+                                                                                                 type='innov' />} /></Menu.Item>,
       render: () => (<InnovationIceTabPane username={username} profileID={profileID} profileInterests={profileInterests}
                                            profileOpportunities={profileOpportunities}
                                            opportunityInstances={opportunityInstances}
                                            projectedICE={projectedICE.i} earnedICE={earnedICE.i} />),
     },
     {
-      menuItem: <Menu.Item key='competency-tab'><TabIceCircle earned={earnedICE.c} planned={projectedICE.c}
-                                                              type="comp" /> COMPETENCY</Menu.Item>,
+      menuItem: <Menu.Item key='competency-tab'><RadGradTabHeader title='competency'
+                                                                  iconAlternative={<TabIceCircle earned={earnedICE.c}
+                                                                                                 planned={projectedICE.c}
+                                                                                                 type="comp" />} /></Menu.Item>,
       render: () => (
         <CompetencyIceTabPane profileID={profileID} profileCourses={profileCourses} profileInterests={profileInterests}
                               projectedICE={projectedICE.c} earnedICE={earnedICE.c} />),
     },
     {
-      menuItem: <Menu.Item key='experience-tab'><TabIceCircle earned={earnedICE.e} planned={projectedICE.e}
-                                                              type="exp" /> EXPERIENCE</Menu.Item>,
+      menuItem: <Menu.Item key='experience-tab'><RadGradTabHeader title='experience'
+                                                                  iconAlternative={<TabIceCircle earned={earnedICE.e}
+                                                                                                 planned={projectedICE.e}
+                                                                                                 type="exp" />} /></Menu.Item>,
       render: () => (<ExperienceIceTabPane username={username} profileID={profileID} profileInterests={profileInterests}
                                            profileOpportunities={profileOpportunities}
                                            opportunityInstances={opportunityInstances}
