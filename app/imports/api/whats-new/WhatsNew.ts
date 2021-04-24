@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { CareerGoals } from '../career/CareerGoalCollection';
 import { Courses } from '../course/CourseCollection';
 import { Interests } from '../interest/InterestCollection';
@@ -13,18 +14,46 @@ import { StudentProfiles } from '../user/StudentProfileCollection';
  *   * The WhatsNew server-side cron job, which calls this class's update method once a day.
  */
 
+export enum WHATS_NEW_FIELDS {
+  INTERESTS = 'InterestCollection',
+  CAREER_GOALS = 'CareerGoalCollection',
+  COURSES = 'CourseCollection',
+  OPPORTUNITIES = 'OpportunityCollection',
+  STUDENTS = 'StudentProfileCollection',
+  FACULTY = 'FacultyProfileCollection',
+  ADVISORS = 'AdvisorProfileCollection',
+}
+
 class WhatsNew {
-  public newEntitySlugs = { interests: [], careerGoals: [], courses: [], opportunities: [], students: [], faculty: [], advisors: [] };
-  public updatedEntitySlugs = { interests: [], careerGoals: [], courses: [], opportunities: [], students: [], faculty: [], advisors: [] };
+  public newEntitySlugs = {};
+  public updatedEntitySlugs = {};
+
+  constructor() {
+    // Initialize the slug objects with fields whose names are the collection names, and value is an empty array.
+    Object.keys(WHATS_NEW_FIELDS).forEach(fieldName => {
+      this.newEntitySlugs[fieldName] = [];
+      this.updatedEntitySlugs = [];
+    });
+  }
 
   public update() {
-    const entityCollections = [Interests, CareerGoals, Courses, Opportunities, StudentProfiles, FacultyProfiles, AdvisorProfiles];
+    const weekAgo = moment().subtract(1, 'weeks');
+    const entityCollections = [Interests, CareerGoals, Courses, Opportunities];
+    const userCollections = [StudentProfiles, FacultyProfiles, AdvisorProfiles];
     entityCollections.forEach(collection => {
-      // @ts-ignore
-      console.log(collection.getCollectionName());
-      // @ts-ignore
-      collection.collection.find().fetch().forEach(document => { console.log(document.name || document.username); });
+      collection.collection.find().fetch().forEach(document => {
+        const slug = collection.findSlugByID(document._id);
+        console.log(slug, document.createdAt, document.updatedAt);
+      });
     });
+
+    userCollections.forEach(collection => {
+      collection.collection.find().fetch().forEach(document => {
+        const username = document.username;
+        console.log(username, document.createdAt, document.updatedAt);
+      });
+    });
+
   }
 }
 
