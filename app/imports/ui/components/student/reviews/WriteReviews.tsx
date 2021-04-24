@@ -87,6 +87,8 @@ const WriteReviews: React.FC<WriteReviewsProps> = ({ unreviewedCourses, unreview
           allowOutsideClick: false,
           allowEscapeKey: false,
           allowEnterKey: false,
+          showConfirmButton: false,
+          timer: 1500,
         });
       }
     });
