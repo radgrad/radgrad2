@@ -27,6 +27,8 @@ interface AddOpportunityFormProps {
   opportunityTypes: OpportunityType[];
 }
 
+// Technical Debt: Picture part of the form is different than the AddUserForm.
+
 const AddOpportunityForm: React.FC<AddOpportunityFormProps> = ({ sponsors, interests, terms, opportunityTypes }) => {
   const [pictureURL, setPictureURL] = useState<string>('');
   const sponsorNames = sponsors.map(profileToName);

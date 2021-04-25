@@ -39,7 +39,26 @@
     },
     {
       "name": "InterestTypeCollection",
-      "contents": []
+      "contents": [
+        {
+          "name": "Related Disciplines",
+          "slug": "related-disciplines",
+          "description": "Related areas of interest, not including tools and technologies.",
+          "retired": false
+        },
+        {
+          "name": "Non-Related Disciplines",
+          "slug": "non-related-disciplines",
+          "description": "Non-Related areas of interest.",
+          "retired": false
+        },
+        {
+          "name": "Technologies",
+          "slug": "technologies",
+          "description": "Tools, and technologies",
+          "retired": false
+        }
+      ]
     },
     {
       "name": "OpportunityCollection",
@@ -51,7 +70,38 @@
     },
     {
       "name": "OpportunityTypeCollection",
-      "contents": []
+      "contents": [
+        {
+          "name": "Club",
+          "slug": "club",
+          "description": "A student club or professional organization.",
+          "retired": false
+        },
+        {
+          "name": "Event",
+          "slug": "event",
+          "description": "An event.",
+          "retired": false
+        },
+        {
+          "name": "Internship",
+          "slug": "internship",
+          "description": "An internship.",
+          "retired": false
+        },
+        {
+          "name": "Online Learning",
+          "slug": "online-learning",
+          "description": "A course or other extracurricular online learning opportunity.",
+          "retired": false
+        },
+        {
+          "name": "Project",
+          "slug": "project",
+          "description": "A project.",
+          "retired": false
+        }
+      ]
     },
     {
       "name": "ProfileCareerGoalCollection",
