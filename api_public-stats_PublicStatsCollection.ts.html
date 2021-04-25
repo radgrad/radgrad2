@@ -224,7 +224,8 @@ class PublicStatsCollection extends BaseCollection {
   public careerGoalsList() {
     const goals = CareerGoals.findNonRetired();
     const names = goals.map((goal) => goal.name);
-    this.collection.upsert({ key: this.careerGoalsListKey }, { $set: { value: names.join(', ') } });
+    const nameStr = names.length > 0 ? names.join(', ') : 'none';
+    this.collection.upsert({ key: this.careerGoalsListKey }, { $set: { value: nameStr } });
   }
 
   public setCareerGoalUpdateTime(time: string) {
@@ -248,7 +249,8 @@ class PublicStatsCollection extends BaseCollection {
   public interestsList() {
     const interests = Interests.findNonRetired();
     const names = interests.map((interest) => interest.name);
-    this.collection.upsert({ key: this.interestsListKey }, { $set: { value: names.join(', ') } });
+    const nameStr = names.length > 0 ? names.join(', ') : 'none';
+    this.collection.upsert({ key: this.interestsListKey }, { $set: { value: nameStr } });
   }
 
   public setInterestsUpdateTime(time: string) {
@@ -270,7 +272,8 @@ class PublicStatsCollection extends BaseCollection {
     const projectType = OpportunityTypes.findDoc({ name: 'Project' });
     const projects = Opportunities.findNonRetired({ opportunityTypeID: projectType._id });
     const names = projects.map((project) => project.name);
-    this.collection.upsert({ key: this.opportunitiesProjectsListKey }, { $set: { value: names.join(', ') } });
+    const nameStr = names.length > 0 ? names.join(', ') : 'none';
+    this.collection.upsert({ key: this.opportunitiesProjectsListKey }, { $set: { value: nameStr } });
   }
 
   public setOpportunitiesUpdateTime(time: string) {
