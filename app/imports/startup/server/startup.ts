@@ -48,7 +48,7 @@ const normalInitialization = () => {
   console.log('  * Initializing factoids.');
   updateFactoids();
   console.log('  * Initializing whats new');
-  whatsNew.update();
+  whatsNew.updateData();
   console.log('  * Initializing cron jobs');
   SyncedCron.start();
 };

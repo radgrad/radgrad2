@@ -9,9 +9,9 @@ import { StudentProfiles } from '../user/StudentProfileCollection';
 
 /**
  * What's New is implemented via the following mechanisms:
- *   * This server-side class, which stores the current state of What's New, along with a method to update it.
- *   * The WhatsNew method, which is called by the client to obtain what's new data for display.
- *   * The WhatsNew server-side cron job, which calls this class's update method once a day.
+ *   * This server-side class, which stores the current state of What's New along with updateData() and getData() methods.
+ *   * The WhatsNew method, which is called by the client to obtain what's new data via the getData() method.
+ *   * The WhatsNew server-side cron job, which updates what's new once a day via updateData().
  */
 
 export enum WHATS_NEW_FIELDS {
@@ -24,10 +24,20 @@ export enum WHATS_NEW_FIELDS {
   ADVISORS = 'AdvisorProfileCollection',
 }
 
+export interface WhatsNewData {
+  newEntities?: Record<string, any>;
+  updatedEntities?: Record<string, any>;
+}
+
 class WhatsNew {
   public newEntities = {};
   public updatedEntities = {};
   private oneWeekAgo = moment().subtract(1, 'weeks');
+
+  constructor() {
+    this.initialize();
+    this.updateData();
+  }
 
   private initialize() {
     // Initialize the slug objects with fields whose names are the collection names, and value is an empty array.
@@ -38,7 +48,11 @@ class WhatsNew {
     this.oneWeekAgo = moment().subtract(1, 'weeks');
   }
 
-  public update() {
+  public getData(): WhatsNewData {
+    return { newEntities: this.newEntities, updatedEntities: this.updatedEntities };
+  }
+
+  public updateData() {
     this.initialize();
     const entityCollections = [Interests, CareerGoals, Courses, Opportunities];
     entityCollections.forEach(collection => {
