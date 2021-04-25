@@ -1,0 +1,93 @@
+{
+  "timestamp": "2021-03-18T18:47:34.771Z",
+  "collections": [
+    {
+      "name": "AcademicTermCollection",
+      "contents": []
+    },
+    {
+      "name": "AdminProfileCollection",
+      "contents": []
+    },
+    {
+      "name": "AdvisorProfileCollection",
+      "contents": []
+    },
+    {
+      "name": "CareerGoalCollection",
+      "contents": []
+    },
+    {
+      "name": "CourseCollection",
+      "contents": []
+    },
+    {
+      "name": "CourseInstanceCollection",
+      "contents": []
+    },
+    {
+      "name": "FacultyProfileCollection",
+      "contents": []
+    },
+    {
+      "name": "IceSnapshotCollection",
+      "contents": []
+    },
+    {
+      "name": "InterestCollection",
+      "contents": []
+    },
+    {
+      "name": "InterestTypeCollection",
+      "contents": []
+    },
+    {
+      "name": "OpportunityCollection",
+      "contents": []
+    },
+    {
+      "name": "OpportunityInstanceCollection",
+      "contents": []
+    },
+    {
+      "name": "OpportunityTypeCollection",
+      "contents": []
+    },
+    {
+      "name": "ProfileCareerGoalCollection",
+      "contents": []
+    },
+    {
+      "name": "ProfileCourseCollection",
+      "contents": []
+    },
+    {
+      "name": "ProfileInterestCollection",
+      "contents": []
+    },
+    {
+      "name": "ProfileOpportunityCollection",
+      "contents": []
+    },
+    {
+      "name": "ReviewCollection",
+      "contents": []
+    },
+    {
+      "name": "StudentProfileCollection",
+      "contents": []
+    },
+    {
+      "name": "TeaserCollection",
+      "contents": []
+    },
+    {
+      "name": "UserInteractionCollection",
+      "contents": []
+    },
+    {
+      "name": "VerificationRequestCollection",
+      "contents": []
+    }
+  ]
+}
