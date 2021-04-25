@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import ReactMarkdownWithHtml from 'react-markdown/with-html';
 import { WHATS_NEW_FIELDS, WhatsNewData } from '../../../../api/whats-new/WhatsNew';
@@ -45,6 +46,8 @@ In the past week, new additions include ${newInterests} interests, ${newCareerGo
 Also, ${newStudents} students, ${newFaculty} faculty, and ${newAdvisors} advisors have joined the system.
 
 Finally, there have been updates to ${updatedInterests} interests, ${updatedCareerGoals} career goals, ${updatedCourses} courses, and ${updatedOpportunities} opportunities. 
+
+This information was last updated ${moment(data.lastUpdate).fromNow()}.
     `;
   }
   return (

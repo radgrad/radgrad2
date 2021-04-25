@@ -27,12 +27,14 @@ export enum WHATS_NEW_FIELDS {
 export interface WhatsNewData {
   newEntities?: Record<string, any>;
   updatedEntities?: Record<string, any>;
+  lastUpdate?: Date;
 }
 
 class WhatsNew {
-  public newEntities = {};
-  public updatedEntities = {};
+  private newEntities = {};
+  private updatedEntities = {};
   private oneWeekAgo = moment().subtract(1, 'weeks');
+  private lastUpdate = new Date();
 
   constructor() {
     this.initialize();
@@ -49,11 +51,12 @@ class WhatsNew {
   }
 
   public getData(): WhatsNewData {
-    return { newEntities: this.newEntities, updatedEntities: this.updatedEntities };
+    return { newEntities: this.newEntities, updatedEntities: this.updatedEntities, lastUpdate: this.lastUpdate };
   }
 
   public updateData() {
     this.initialize();
+    this.lastUpdate = new Date();
     const entityCollections = [Interests, CareerGoals, Courses, Opportunities];
     entityCollections.forEach(collection => {
       collection.collection.find().fetch().forEach(document => {
