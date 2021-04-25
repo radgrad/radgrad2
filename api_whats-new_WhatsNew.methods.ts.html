@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> Home</title>
+  <title> api/whats-new/WhatsNew.methods.ts</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -73,39 +75,37 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p></p>
-                    <h1>Home</h1>
+                    <p>Source</p>
+                    <h1>api/whats-new/WhatsNew.methods.ts</h1>
                 </header>
                 
 
 
 
     
-
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
     <section>
-        <article><h1>RadGrad</h1>
-<p>This site contains source-code level documentation for RadGrad.  It is automatically regenerated each time the master branch changes.</p>
-<p>For higher-level documentation on RadGrad, please see <a href="https://radgrad.org">https://radgrad.org</a>.</p></article>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { ValidatedMethod } from 'meteor/mdg:validated-method';
+import { CallPromiseMixin } from 'meteor/didericis:callpromise-mixin';
+import { whatsNew } from './WhatsNew';
+
+/**
+ * Meteor method used to retrieve the terms and conditions string from a file and return it to the client.
+ */
+export const getWhatsNew = new ValidatedMethod({
+  name: 'WhatsNew.getWhatsNew',
+  mixins: [CallPromiseMixin],
+  validate: null,
+  run() {
+    if (Meteor.isServer) {
+      return whatsNew.getData();
+    }
+    return null;
+  },
+});
+</code></pre>
+        </article>
     </section>
-
-
 
 
 
