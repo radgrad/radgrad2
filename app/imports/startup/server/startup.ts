@@ -5,6 +5,7 @@ import { Meteor } from 'meteor/meteor';
 import { removeAllEntities } from '../../api/base/BaseUtilities';
 import { updateFactoids } from '../../api/factoid/Factoids';
 import { PublicStats } from '../../api/public-stats/PublicStatsCollection';
+import { whatsNew } from '../../api/whats-new/WhatsNew';
 import { defineAdminUser, defineTestAdminUser, loadDatabase } from './initialize-db';
 
 /* eslint-disable no-console */
@@ -36,17 +37,19 @@ const testModeInitialization = () => {
  */
 const normalInitialization = () => {
   console.log('Startup:');
-  console.log('  * Defining admin user if necessary.');
+  console.log('  * Initializing admin user if necessary.');
   defineAdminUser();
-  console.log('  * Loading database if necessary.');
+  console.log('  * Initializing database if necessary.');
   loadDatabase();
   // console.log('  * Checking integrity.');
   // startupCheckIntegrity();
-  console.log('  * Starting up public stats.');
+  console.log('  * Initializing public stats.');
   PublicStats.generateStats();
-  console.log('  * Updating factoids.');
+  console.log('  * Initializing factoids.');
   updateFactoids();
-  console.log('  * Starting up cron jobs');
+  console.log('  * Initializing whats new');
+  whatsNew.updateData();
+  console.log('  * Initializing cron jobs');
   SyncedCron.start();
 };
 

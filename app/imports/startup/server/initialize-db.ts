@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import _ from 'lodash';
 import moment from 'moment';
+import { defineAcademicTerms } from '../../api/academic-term/AcademicTermUtilities';
 import { PublicStats } from '../../api/public-stats/PublicStatsCollection';
 import { RadGrad } from '../../api/radgrad/RadGrad';
 import { RadGradProperties } from '../../api/radgrad/RadGradProperties';
@@ -84,6 +85,8 @@ export const loadDatabase = () => {
     PublicStats.setCoursesUpdateTime(loadTimeString);
     PublicStats.setInterestsUpdateTime(loadTimeString);
     PublicStats.setOpportunitiesUpdateTime(loadTimeString);
+    // CAM make sure we have AcademicTerms.
+    defineAcademicTerms();
     console.log('Finished loading database.');
   }
 };
