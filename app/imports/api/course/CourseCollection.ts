@@ -321,6 +321,11 @@ class CourseCollection extends BaseSlugCollection {
       name, shortName, slug, num, description, creditHrs, interests, syllabus, corequisites, prerequisites, retired,
     };
   }
+
+  public toString(docID: string): string {
+    const course = this.findDoc(docID);
+    return `${course.num}: ${course.name}`;
+  }
 }
 
 /**

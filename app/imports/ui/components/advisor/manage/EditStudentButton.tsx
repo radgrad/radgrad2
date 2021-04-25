@@ -1,20 +1,93 @@
 import React, { useState } from 'react';
 import { Button, Form, Header, Modal } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
+import SimpleSchema from 'simpl-schema';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import { AutoForm, BoolField, NumField, SelectField, TextField } from 'uniforms-semantic';
 import { updateMethod } from '../../../../api/base/BaseCollection.methods';
-import { ROLE } from '../../../../api/role/Role';
+import { Courses } from '../../../../api/course/CourseCollection';
 import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
 import MultiSelectField from '../../form-fields/MultiSelectField';
+import { openCloudinaryWidget } from '../../shared/OpenCloudinaryWidget';
 import { ManageStudentProps } from './ManageStudentProps';
 
-const EditStudentButton: React.FC<ManageStudentProps> = ({ student }) => {
+const EditStudentButton: React.FC<ManageStudentProps> = ({ student, careerGoals, courses, interests, opportunities }) => {
   const [open, setOpen] = useState(false);
 
-  const model = StudentProfiles.dumpOne(student._id);
+  console.log(student);
+  const model = student;
+  const careerGoalNames = careerGoals.map((cg) => cg.name);
+  const courseNames = courses.map((c) => Courses.toString(c._id));
+  const interestNames = interests.map((i) => i.name);
+  const opportunityNames = opportunities.map((o) => o.name);
+  const handleUpload = async (e): Promise<void> => {
+    e.preventDefault();
+    try {
+      const cloudinaryResult = await openCloudinaryWidget();
+      if (cloudinaryResult.event === 'success') {
+        setPictureURL(cloudinaryResult.info.secure_url);
+      }
+    } catch (error) {
+      Swal.fire({
+        title: 'Failed to Upload Photo',
+        icon: 'error',
+        text: error.statusText,
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false,
+      });
+    }
+  };
 
-  const updateStudentSchema = StudentProfiles.getUpdateSchema();
+  const updateStudentSchema = new SimpleSchema({
+    firstName: { type: String, optional: true },
+    lastName: { type: String, optional: true },
+    picture: {
+      type: String,
+      label: (
+        <React.Fragment>
+          Picture (
+          <button type="button" onClick={handleUpload}>
+            Upload
+          </button>
+          )
+        </React.Fragment>
+      ),
+      optional: true,
+    },
+    website: { type: String, optional: true },
+    interests: { type: Array, optional: true },
+    'interests.$': {
+      type: String,
+      allowedValues: interestNames,
+    },
+    careerGoals: { type: Array, optional: true },
+    'careerGoals.$': {
+      type: String,
+      allowedValues: careerGoalNames,
+    },
+    retired: { type: Boolean, optional: true },
+    courses: { type: Array, optional: true },
+    'courses.$': {
+      type: String,
+      allowedValues: courseNames,
+    },
+    opportunities: { type: Array, optional: true },
+    'opportunities.$': {
+      type: String,
+      allowedValues: opportunityNames,
+    },
+    level: { type: SimpleSchema.Integer, optional: true, min: 1, max: 6 },
+    sharePicture: { type: Boolean, optional: true },
+    shareWebsite: { type: Boolean, optional: true },
+    shareInterests: { type: Boolean, optional: true },
+    shareCareerGoals: { type: Boolean, optional: true },
+    shareOpportunities: { type: Boolean, optional: true },
+    shareCourses: { type: Boolean, optional: true },
+    shareLevel: { type: Boolean, optional: true },
+    shareICE: { type: Boolean, optional: true },
+    isAlumni: { type: Boolean, optional: true },
+  });
   const updateStudentFormSchema = new SimpleSchema2Bridge(updateStudentSchema);
 
   const handleUpdate = (doc) => {
@@ -49,7 +122,6 @@ const EditStudentButton: React.FC<ManageStudentProps> = ({ student }) => {
   const handlePictureUrlChange = (value) => {
     setPictureURL(value);
   };
-  console.log(model);
   return (
     <Modal
       onClose={() => setOpen(false)}
@@ -72,20 +144,16 @@ const EditStudentButton: React.FC<ManageStudentProps> = ({ student }) => {
             <TextField name="website" />
           </Form.Group>
           <Form.Group widths="equal">
-             {/* <MultiSelectField name="interests" /> */}
-            {/* <MultiSelectField name="careerGoals" /> */}
+              <MultiSelectField name="interests" />
+             <MultiSelectField name="careerGoals" />
           </Form.Group>
-          <BoolField name="retired" />
-          <Header dividing as="h4">
-            Student fields
-          </Header>
           <Form.Group widths="equal">
-            {/* <MultiSelectField name="profileCourses" /> */}
-            {/* <MultiSelectField name="profileOpportunities" /> */}
+             <MultiSelectField name="profileCourses" />
+             <MultiSelectField name="profileOpportunities" />
           </Form.Group>
           <Form.Group widths="equal">
             <NumField name="level" />
-            {/* <SelectField name="declaredAcademicTerm" /> */}
+            <BoolField name="retired" />
           </Form.Group>
           <Form.Group widths="equal">
             <BoolField name="sharePicture" />

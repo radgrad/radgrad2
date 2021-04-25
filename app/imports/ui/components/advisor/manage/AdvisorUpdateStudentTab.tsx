@@ -3,8 +3,16 @@ import { Tab } from 'semantic-ui-react';
 import { AdvisorManageStudentsProps } from '../../../pages/advisor/utilities/AdvisorManageStudentsProps';
 import AdvisorFilteredStudentTabs from './AdvisorFilteredStudentTabs';
 import AdvisorFilterStudents from './AdvisorFilterStudents';
+import AdvisorManageStudents from './AdvisorManageStudents';
 
-const AdvisorUpdateStudentTab: React.FC<AdvisorManageStudentsProps> = ({ students, alumni }) => {
+const AdvisorUpdateStudentTab: React.FC<AdvisorManageStudentsProps> = ({
+  students,
+  alumni,
+  careerGoals,
+  courses,
+  interests,
+  opportunities,
+}) => {
   const [firstNameFilter, setFirstNameFilter] = useState('');
   const [lastNameFilter, setLastNameFilter] = useState('');
   const [userNameFilter, setUserNameFilter] = useState('');
@@ -20,8 +28,12 @@ const AdvisorUpdateStudentTab: React.FC<AdvisorManageStudentsProps> = ({ student
   const numShowing = filteredStudents.length + filteredAlumni.length;
   return (
     <Tab.Pane>
-      <AdvisorFilterStudents firstName={firstNameFilter} setFirstName={setFirstNameFilter} lastName={lastNameFilter} setLastName={setLastNameFilter} username={userNameFilter} setUserName={setUserNameFilter} numStudents={numShowing} />
-      <AdvisorFilteredStudentTabs students={filteredStudents} alumni={filteredAlumni} />
+      <AdvisorFilterStudents firstName={firstNameFilter} setFirstName={setFirstNameFilter} lastName={lastNameFilter}
+                             setLastName={setLastNameFilter} username={userNameFilter} setUserName={setUserNameFilter}
+                             numStudents={numShowing} />
+      <AdvisorFilteredStudentTabs students={filteredStudents} alumni={filteredAlumni} careerGoals={careerGoals}
+                                  courses={courses}
+                                  interests={interests} opportunities={opportunities} />
     </Tab.Pane>
   );
 };

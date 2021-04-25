@@ -7,7 +7,7 @@ import EditStudentButton from './EditStudentButton';
 import { ManageStudentProps } from './ManageStudentProps';
 
 
-const ManageStudentItem: React.FC<ManageStudentProps> = ({ student }) => {
+const ManageStudentItem: React.FC<ManageStudentProps> = ({ student, careerGoals, courses, interests, opportunities }) => {
   const name = `${student.lastName}, ${student.firstName}`;
   const updatedOn = student.updatedAt ? student.updatedAt : student.createdAt;
   const updatedOnStr = `Updated on ${moment(updatedOn).format('MM/DD/YYYY')}`;
@@ -17,7 +17,7 @@ const ManageStudentItem: React.FC<ManageStudentProps> = ({ student }) => {
         {name}
       </Grid.Column>
       <Grid.Column width={2}>
-        <EditStudentButton student={student} />
+        <EditStudentButton student={student} careerGoals={careerGoals} courses={courses} interests={interests} opportunities={opportunities} />
       </Grid.Column>
       <Grid.Column width={3}>
         <ButtonLink url={`/${student.isAlumni ? 'alumni' : 'student'}/${student.username}/home`} label='student view' size='mini' />

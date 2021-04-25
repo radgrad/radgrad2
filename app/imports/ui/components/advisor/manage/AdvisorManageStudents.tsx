@@ -7,19 +7,28 @@ import RadGradTabHeader from '../../shared/RadGradTabHeader';
 import AdvisorUpdateStudentTab from './AdvisorUpdateStudentTab';
 
 
-const AdvisorManageStudents: React.FC<AdvisorManageStudentsProps> = ({ students, alumni }) => {
+const AdvisorManageStudents: React.FC<AdvisorManageStudentsProps> = ({
+  students,
+  alumni,
+  careerGoals,
+  courses,
+  interests,
+  opportunities,
+}) => {
   const header = <RadGradHeader title='manage students' dividing icon='user graduate' />;
   const panes = [
     {
-      menuItem: <Menu.Item key='update-tab'><RadGradTabHeader title='update'/></Menu.Item>,
-      render: () => (<AdvisorUpdateStudentTab students={students} alumni={alumni} />),
+      menuItem: <Menu.Item key='update-tab'><RadGradTabHeader title='update' /></Menu.Item>,
+      render: () => (
+        <AdvisorUpdateStudentTab students={students} alumni={alumni} careerGoals={careerGoals} courses={courses}
+                                 interests={interests} opportunities={opportunities} />),
     },
     {
-      menuItem: <Menu.Item key='add-new-tab'><RadGradTabHeader title='add new'/></Menu.Item>,
+      menuItem: <Menu.Item key='add-new-tab'><RadGradTabHeader title='add new' /></Menu.Item>,
       render: () => (<Tab.Pane>Add new</Tab.Pane>),
     },
     {
-      menuItem: <Menu.Item key='other-tab'><RadGradTabHeader title='other'/></Menu.Item>,
+      menuItem: <Menu.Item key='other-tab'><RadGradTabHeader title='other' /></Menu.Item>,
       render: () => (<Tab.Pane>other</Tab.Pane>),
     },
   ];

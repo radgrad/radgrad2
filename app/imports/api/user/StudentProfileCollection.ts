@@ -239,7 +239,7 @@ class StudentProfileCollection extends BaseProfileCollection {
    * @param lastName
    * @param picture
    * @param website
-   * @param interests
+   * @param interests array of interest slugs or IDs.
    * @param careerGoals
    * @param level
    * @param declaredAcademicTerm

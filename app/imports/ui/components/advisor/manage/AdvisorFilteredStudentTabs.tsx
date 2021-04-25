@@ -4,14 +4,15 @@ import { AdvisorManageStudentsProps } from '../../../pages/advisor/utilities/Adv
 import RadGradTabHeader from '../../shared/RadGradTabHeader';
 import ManageStudentItem from './ManageStudentItem';
 
-const AdvisorFilteredStudentTabs: React.FC<AdvisorManageStudentsProps> = ({ students, alumni }) => {
+const AdvisorFilteredStudentTabs: React.FC<AdvisorManageStudentsProps> = ({ students, alumni, careerGoals, courses, interests, opportunities }) => {
   const panes = [
     {
       menuItem: <Menu.Item key='filtered-students-tab'><RadGradTabHeader title='students' icon='user' /></Menu.Item>,
       render: () => (
         <Tab.Pane>
           <Grid stackable>
-            {students.map((s) => <ManageStudentItem student={s} key={s._id} />)}
+            {students.map((s) => <ManageStudentItem student={s} key={s._id} careerGoals={careerGoals} courses={courses}
+                                                    interests={interests} opportunities={opportunities} />)}
           </Grid>
         </Tab.Pane>),
     },
@@ -20,7 +21,8 @@ const AdvisorFilteredStudentTabs: React.FC<AdvisorManageStudentsProps> = ({ stud
       render: () => (
         <Tab.Pane>
           <Grid stackable>
-            {alumni.map((s) => <ManageStudentItem student={s} key={s._id} />)}
+            {alumni.map((s) => <ManageStudentItem student={s} key={s._id} careerGoals={careerGoals} courses={courses}
+                                                  interests={interests} opportunities={opportunities} />)}
           </Grid>
         </Tab.Pane>),
     },
