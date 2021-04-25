@@ -173,8 +173,7 @@ class StudentProfileCollection extends BaseProfileCollection {
         throw new Meteor.Error(`Invalid isAlumni: ${isAlumni}`);
       }
 
-      // Meteor ensures that username is unique.
-      // Slugs.define({ name: username, entityName: this.getType() });
+      Slugs.define({ name: username, entityName: this.getType() });
       const role = isAlumni ? ROLE.ALUMNI : ROLE.STUDENT;
       const profileID = this.collection.insert({
         username,

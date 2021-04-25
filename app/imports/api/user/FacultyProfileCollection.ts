@@ -41,7 +41,7 @@ class FacultyProfileCollection extends BaseProfileCollection {
     careerGoals, aboutMe, retired = false }: AdvisorOrFacultyProfileDefine) {
     if (Meteor.isServer) {
       const role = ROLE.FACULTY;
-      // Slugs.define({ name: username, entityName: this.getType() });
+      Slugs.define({ name: username, entityName: this.getType() });
       const profileID = this.collection.insert({
         username, firstName, lastName, role, picture, website, userID: this.getFakeUserId(), aboutMe, retired });
       const userID = Users.define({ username, role });
