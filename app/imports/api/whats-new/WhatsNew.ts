@@ -9,7 +9,7 @@ import { StudentProfiles } from '../user/StudentProfileCollection';
 
 /**
  * What's New is implemented via the following mechanisms:
- *   * This server-side class, which stores the current state of What's New, along with methods to update it.
+ *   * This server-side class, which stores the current state of What's New, along with a method to update it.
  *   * The WhatsNew method, which is called by the client to obtain what's new data for display.
  *   * The WhatsNew server-side cron job, which calls this class's update method once a day.
  */
@@ -25,35 +25,44 @@ export enum WHATS_NEW_FIELDS {
 }
 
 class WhatsNew {
-  public newEntitySlugs = {};
-  public updatedEntitySlugs = {};
+  public newEntities = {};
+  public updatedEntities = {};
+  private oneWeekAgo = moment().subtract(1, 'weeks');
 
-  constructor() {
+  private initialize() {
     // Initialize the slug objects with fields whose names are the collection names, and value is an empty array.
-    Object.keys(WHATS_NEW_FIELDS).forEach(fieldName => {
-      this.newEntitySlugs[fieldName] = [];
-      this.updatedEntitySlugs = [];
+    Object.values(WHATS_NEW_FIELDS).forEach(fieldName => {
+      this.newEntities[fieldName] = [];
+      this.updatedEntities[fieldName] = [];
     });
+    this.oneWeekAgo = moment().subtract(1, 'weeks');
   }
 
   public update() {
-    const weekAgo = moment().subtract(1, 'weeks');
+    this.initialize();
     const entityCollections = [Interests, CareerGoals, Courses, Opportunities];
-    const userCollections = [StudentProfiles, FacultyProfiles, AdvisorProfiles];
     entityCollections.forEach(collection => {
       collection.collection.find().fetch().forEach(document => {
         const slug = collection.findSlugByID(document._id);
-        console.log(slug, document.createdAt, document.updatedAt);
+        this.addIfNew(slug, document, collection);
       });
     });
-
+    const userCollections = [StudentProfiles, FacultyProfiles, AdvisorProfiles];
     userCollections.forEach(collection => {
       collection.collection.find().fetch().forEach(document => {
         const username = document.username;
-        console.log(username, document.createdAt, document.updatedAt);
+        this.addIfNew(username, document, collection);
       });
     });
+  }
 
+  private addIfNew(name, document, collection) {
+    if (document.createdAt && this.oneWeekAgo.isBefore(moment(document.createdAt))) {
+      this.newEntities[collection.getCollectionName()].push(name);
+    }
+    if (document.updatedAt && this.oneWeekAgo.isBefore(moment(document.updatedAt))) {
+      this.updatedEntities[collection.getCollectionName()].push(name);
+    }
   }
 }
 
