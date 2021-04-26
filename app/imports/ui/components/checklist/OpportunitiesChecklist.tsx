@@ -29,7 +29,7 @@ export class OpportunitiesChecklist extends Checklist {
     this.description[CHECKSTATE.OK] = `Congrats! Your Degree Plan contains Opportunities that should earn you at 
       least 100 Innovation and 100 Experience points, and you've reviewed your Degree Plan within the past six months.`;
     this.description[CHECKSTATE.REVIEW] = (this.isSixMonthsOld(this.profile.lastVisited[PAGEIDS.OPPORTUNITY_BROWSER])) ?
-      `It's been 6 months since you last reviewed your Degree Plan. Please check it.` :
+      'It\'s been 6 months since you last reviewed your Degree Plan. Please check it.' :
       'There are new Opportunities. Please review them.';
 
     this.description[CHECKSTATE.IMPROVE] = `

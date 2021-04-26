@@ -1,5 +1,5 @@
 import React from 'react';
-import { Header, Icon } from 'semantic-ui-react';
+import { Icon } from 'semantic-ui-react';
 
 interface RadGradTabHeaderProps {
   title: string;
