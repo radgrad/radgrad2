@@ -7,7 +7,17 @@ import EditStudentButton from './EditStudentButton';
 import { ManageStudentProps } from './ManageStudentProps';
 
 
-const ManageStudentItem: React.FC<ManageStudentProps> = ({ student, careerGoals, courses, interests, opportunities }) => {
+const ManageStudentItem: React.FC<ManageStudentProps> = ({
+  student,
+  careerGoals,
+  courses,
+  interests,
+  opportunities,
+  profileCareerGoals, // These are the ones for the student
+  profileCourses,
+  profileInterests,
+  profileOpportunities,
+}) => {
   const name = `${student.lastName}, ${student.firstName}`;
   const updatedOn = student.updatedAt ? student.updatedAt : student.createdAt;
   const updatedOnStr = `Updated on ${moment(updatedOn).format('MM/DD/YYYY')}`;
@@ -17,10 +27,14 @@ const ManageStudentItem: React.FC<ManageStudentProps> = ({ student, careerGoals,
         {name}
       </Grid.Column>
       <Grid.Column width={2}>
-        <EditStudentButton student={student} careerGoals={careerGoals} courses={courses} interests={interests} opportunities={opportunities} />
+        <EditStudentButton student={student} careerGoals={careerGoals} courses={courses} interests={interests}
+                           opportunities={opportunities} profileCareerGoals={profileCareerGoals}
+                           profileCourses={profileCourses} profileInterests={profileInterests}
+                           profileOpportunities={profileOpportunities} />
       </Grid.Column>
       <Grid.Column width={3}>
-        <ButtonLink url={`/${student.isAlumni ? 'alumni' : 'student'}/${student.username}/home`} label='student view' size='mini' />
+        <ButtonLink url={`/${student.isAlumni ? 'alumni' : 'student'}/${student.username}/home`} label='student view'
+                    size='mini' />
       </Grid.Column>
       <Grid.Column width={2} />
       <Grid.Column width={3}>

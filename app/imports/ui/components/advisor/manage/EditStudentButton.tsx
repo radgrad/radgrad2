@@ -1,21 +1,38 @@
 import React, { useState } from 'react';
-import { Button, Form, Header, Modal } from 'semantic-ui-react';
+import { Button, Form, Grid, Header, Modal } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import SimpleSchema from 'simpl-schema';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
-import { AutoForm, BoolField, NumField, SelectField, TextField } from 'uniforms-semantic';
+import { AutoForm, BoolField, NumField, SubmitField, TextField } from 'uniforms-semantic';
 import { updateMethod } from '../../../../api/base/BaseCollection.methods';
+import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
 import { Courses } from '../../../../api/course/CourseCollection';
+import { Interests } from '../../../../api/interest/InterestCollection';
+import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
 import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
 import MultiSelectField from '../../form-fields/MultiSelectField';
 import { openCloudinaryWidget } from '../../shared/OpenCloudinaryWidget';
 import { ManageStudentProps } from './ManageStudentProps';
 
-const EditStudentButton: React.FC<ManageStudentProps> = ({ student, careerGoals, courses, interests, opportunities }) => {
+const EditStudentButton: React.FC<ManageStudentProps> = ({
+  student,
+  careerGoals,
+  courses,
+  interests,
+  opportunities,
+  profileCareerGoals,
+  profileCourses,
+  profileInterests,
+  profileOpportunities,
+}) => {
   const [open, setOpen] = useState(false);
 
-  console.log(student);
-  const model = student;
+  // console.log(student, careerGoals, courses, interests, opportunities, profileCareerGoals, profileCourses, profileInterests, profileOpportunities);
+  const model: any = student;
+  model.interests = profileInterests.map((p) => Interests.findDoc(p.interestID).name);
+  model.careerGoals = profileCareerGoals.map((p) => CareerGoals.findDoc(p.careerGoalID).name);
+  model.courses = profileCourses.map((p) => Courses.toString(p.courseID));
+  model.opportunities = profileOpportunities.map((p) => Opportunities.findDoc(p.opportunityID).name);
   const careerGoalNames = careerGoals.map((cg) => cg.name);
   const courseNames = courses.map((c) => Courses.toString(c._id));
   const interestNames = interests.map((i) => i.name);
@@ -90,11 +107,17 @@ const EditStudentButton: React.FC<ManageStudentProps> = ({ student, careerGoals,
   });
   const updateStudentFormSchema = new SimpleSchema2Bridge(updateStudentSchema);
 
-  const handleUpdate = (doc) => {
+  const handleSubmit = (doc) => {
     console.log('handleUpdate', doc);
     const collectionName = StudentProfiles.getCollectionName();
     const updateData = doc;
     updateData.id = student._id;
+    // update names to slugs
+    updateData.interests = doc.interests.map((name) => Interests.findSlugByID(name));
+    updateData.careerGoals = doc.careerGoals.map((name) => CareerGoals.findSlugByID(name));
+    updateData.courses = doc.courses.map((name) => Courses.findSlugByID(name));
+    updateData.opportunities = doc.opportunities.map((name) => Opportunities.findSlugByID(name));
+    console.log(collectionName, updateData);
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
         Swal.fire({
@@ -131,25 +154,22 @@ const EditStudentButton: React.FC<ManageStudentProps> = ({ student, careerGoals,
     >
       <Modal.Header>{`Edit ${student.firstName} ${student.lastName}`}</Modal.Header>
       <Modal.Content>
-        <AutoForm model={model} schema={updateStudentFormSchema} showInlineError onSubmit={handleUpdate}>
+        <AutoForm model={model} schema={updateStudentFormSchema} onSubmit={handleSubmit}>
           <Form.Group widths="equal">
             <TextField name="firstName" placeholder="John" />
             <TextField name="lastName" placeholder="Doe" />
           </Form.Group>
-          <Header dividing as="h4">
-            Optional fields (all users)
-          </Header>
           <Form.Group widths="equal">
             <TextField name="picture" value={pictureURL} onChange={handlePictureUrlChange} />
             <TextField name="website" />
           </Form.Group>
           <Form.Group widths="equal">
-              <MultiSelectField name="interests" />
-             <MultiSelectField name="careerGoals" />
+            <MultiSelectField name="interests" />
+            <MultiSelectField name="careerGoals" />
           </Form.Group>
           <Form.Group widths="equal">
-             <MultiSelectField name="profileCourses" />
-             <MultiSelectField name="profileOpportunities" />
+            <MultiSelectField name="courses" />
+            <MultiSelectField name="opportunities" />
           </Form.Group>
           <Form.Group widths="equal">
             <NumField name="level" />
@@ -168,6 +188,10 @@ const EditStudentButton: React.FC<ManageStudentProps> = ({ student, careerGoals,
             <BoolField name="shareICE" />
             <BoolField name="isAlumni" />
           </Form.Group>
+          <SubmitField />
+          <Button color='red' onClick={() => setOpen(false)}>
+            Cancel
+          </Button>
         </AutoForm>
       </Modal.Content>
     </Modal>

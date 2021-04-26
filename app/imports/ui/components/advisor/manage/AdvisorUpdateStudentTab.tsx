@@ -12,6 +12,10 @@ const AdvisorUpdateStudentTab: React.FC<AdvisorManageStudentsProps> = ({
   courses,
   interests,
   opportunities,
+  profileCareerGoals,
+  profileCourses,
+  profileInterests,
+  profileOpportunities,
 }) => {
   const [firstNameFilter, setFirstNameFilter] = useState('');
   const [lastNameFilter, setLastNameFilter] = useState('');
@@ -33,7 +37,9 @@ const AdvisorUpdateStudentTab: React.FC<AdvisorManageStudentsProps> = ({
                              numStudents={numShowing} />
       <AdvisorFilteredStudentTabs students={filteredStudents} alumni={filteredAlumni} careerGoals={careerGoals}
                                   courses={courses}
-                                  interests={interests} opportunities={opportunities} />
+                                  interests={interests} opportunities={opportunities} profileCareerGoals={profileCareerGoals}
+                                  profileCourses={profileCourses} profileInterests={profileInterests}
+                                  profileOpportunities={profileOpportunities} />
     </Tab.Pane>
   );
 };

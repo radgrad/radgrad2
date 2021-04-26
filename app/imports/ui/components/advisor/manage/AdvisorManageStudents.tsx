@@ -14,6 +14,10 @@ const AdvisorManageStudents: React.FC<AdvisorManageStudentsProps> = ({
   courses,
   interests,
   opportunities,
+  profileCareerGoals,
+  profileCourses,
+  profileInterests,
+  profileOpportunities,
 }) => {
   const header = <RadGradHeader title='manage students' dividing icon='user graduate' />;
   const panes = [
@@ -21,7 +25,10 @@ const AdvisorManageStudents: React.FC<AdvisorManageStudentsProps> = ({
       menuItem: <Menu.Item key='update-tab'><RadGradTabHeader title='update' /></Menu.Item>,
       render: () => (
         <AdvisorUpdateStudentTab students={students} alumni={alumni} careerGoals={careerGoals} courses={courses}
-                                 interests={interests} opportunities={opportunities} />),
+                                 interests={interests} opportunities={opportunities}
+                                 profileCareerGoals={profileCareerGoals}
+                                 profileCourses={profileCourses} profileInterests={profileInterests}
+                                 profileOpportunities={profileOpportunities} />),
     },
     {
       menuItem: <Menu.Item key='add-new-tab'><RadGradTabHeader title='add new' /></Menu.Item>,

@@ -4,7 +4,18 @@ import { AdvisorManageStudentsProps } from '../../../pages/advisor/utilities/Adv
 import RadGradTabHeader from '../../shared/RadGradTabHeader';
 import ManageStudentItem from './ManageStudentItem';
 
-const AdvisorFilteredStudentTabs: React.FC<AdvisorManageStudentsProps> = ({ students, alumni, careerGoals, courses, interests, opportunities }) => {
+const AdvisorFilteredStudentTabs: React.FC<AdvisorManageStudentsProps> = ({
+  students,
+  alumni,
+  careerGoals,
+  courses,
+  interests,
+  opportunities,
+  profileCareerGoals,
+  profileCourses,
+  profileInterests,
+  profileOpportunities,
+}) => {
   const panes = [
     {
       menuItem: <Menu.Item key='filtered-students-tab'><RadGradTabHeader title='students' icon='user' /></Menu.Item>,
@@ -12,17 +23,26 @@ const AdvisorFilteredStudentTabs: React.FC<AdvisorManageStudentsProps> = ({ stud
         <Tab.Pane>
           <Grid stackable>
             {students.map((s) => <ManageStudentItem student={s} key={s._id} careerGoals={careerGoals} courses={courses}
-                                                    interests={interests} opportunities={opportunities} />)}
+                                                    interests={interests} opportunities={opportunities}
+                                                    profileCareerGoals={profileCareerGoals.filter((p) => p.userID === s.userID)}
+                                                    profileCourses={profileCourses.filter((p) => p.studentID === s.userID)}
+                                                    profileInterests={profileInterests.filter((p) => p.userID === s.userID)}
+                                                    profileOpportunities={profileOpportunities.filter((p) => p.studentID === s.userID)} />)}
           </Grid>
         </Tab.Pane>),
     },
     {
-      menuItem: <Menu.Item key='filtered-alumin-tab'><RadGradTabHeader title='alumni' icon='user graduate' /></Menu.Item>,
+      menuItem: <Menu.Item key='filtered-alumin-tab'><RadGradTabHeader title='alumni'
+                                                                       icon='user graduate' /></Menu.Item>,
       render: () => (
         <Tab.Pane>
           <Grid stackable>
             {alumni.map((s) => <ManageStudentItem student={s} key={s._id} careerGoals={careerGoals} courses={courses}
-                                                  interests={interests} opportunities={opportunities} />)}
+                                                  interests={interests} opportunities={opportunities}
+                                                  profileCareerGoals={profileCareerGoals.filter((p) => p.userID === s.userID)}
+                                                  profileCourses={profileCourses.filter((p) => p.studentID === s.userID)}
+                                                  profileInterests={profileInterests.filter((p) => p.userID === s.userID)}
+                                                  profileOpportunities={profileOpportunities.filter((p) => p.studentID === s.userID)} />)}
           </Grid>
         </Tab.Pane>),
     },
