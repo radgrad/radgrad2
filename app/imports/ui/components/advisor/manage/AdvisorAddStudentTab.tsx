@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import { defineMethod } from '../../../../api/base/BaseCollection.methods';
 import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
-import { CareerGoal, Interest } from '../../../../typings/radgrad';
+import { CareerGoal, Interest, StudentProfileDefine } from '../../../../typings/radgrad';
 import { openCloudinaryWidget } from '../../shared/OpenCloudinaryWidget';
 
 export interface AdvisorAddStudentWidgetProps {
@@ -12,7 +12,7 @@ export interface AdvisorAddStudentWidgetProps {
   careerGoals: CareerGoal[];
 }
 
-const AdvisorAddStudentWidget: React.FC<AdvisorAddStudentWidgetProps> = ({ interests, careerGoals }) => {
+const AdvisorAddStudentTab: React.FC<AdvisorAddStudentWidgetProps> = ({ interests, careerGoals }) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [username, setUsername] = useState('');
@@ -58,17 +58,18 @@ const AdvisorAddStudentWidget: React.FC<AdvisorAddStudentWidgetProps> = ({ inter
 
   const onSubmit = () => {
     const collectionName: string = StudentProfiles.getCollectionName();
-    const definitionData: any = {};
-    definitionData.firstName = firstName;
-    definitionData.lastName = lastName;
-    definitionData.username = username;
-    definitionData.isAlumni = isAlumni;
-    definitionData.picture = picture;
-    definitionData.website = website;
+    const definitionData: StudentProfileDefine = {
+      username,
+      firstName,
+      lastName,
+      isAlumni,
+      picture,
+      website,
+      declaredAcademicTerm,
+      level: 1,
+    };
     definitionData.careerGoals = careerGoalsState;
-    definitionData.userInterests = userInterests;
-    definitionData.declaredAcademicTerm = declaredAcademicTerm;
-    definitionData.level = 1;
+    definitionData.interests = userInterests;
 
     defineMethod.call({ collectionName, definitionData }, (error) => {
       if (error) {
@@ -210,4 +211,4 @@ const AdvisorAddStudentWidget: React.FC<AdvisorAddStudentWidgetProps> = ({ inter
   );
 };
 
-export default AdvisorAddStudentWidget;
+export default AdvisorAddStudentTab;

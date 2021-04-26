@@ -4,12 +4,12 @@ import { Segment, Grid, Header, Tab, Form, Button, Image, Popup } from 'semantic
 import Swal from 'sweetalert2';
 import { ZipZap } from 'meteor/udondan:zipzap';
 import moment from 'moment';
-import { CareerGoal, Interest, StudentProfile } from '../../../../typings/radgrad';
-import AdvisorAddStudentWidget from './AdvisorAddStudentWidget';
-import { generateStudentEmailsMethod } from '../../../../api/user/UserCollection.methods';
-import { starBulkLoadJsonDataMethod } from '../../../../api/star/StarProcessor.methods';
-import { homeActions } from '../../../../redux/advisor/home';
-import { RootState } from '../../../../redux/types';
+import { CareerGoal, Interest, StudentProfile } from '../../../../app/imports/typings/radgrad';
+import AdvisorAddStudentTab from '../../../../app/imports/ui/components/advisor/manage/AdvisorAddStudentTab';
+import { generateStudentEmailsMethod } from '../../../../app/imports/api/user/UserCollection.methods';
+import { starBulkLoadJsonDataMethod } from '../../../../app/imports/api/star/StarProcessor.methods';
+import { homeActions } from '../../../../app/imports/redux/advisor/home';
+import { RootState } from '../../../../app/imports/redux/types';
 
 /* global FileReader */
 
@@ -255,7 +255,7 @@ const AdvisorStudentSelectorWidget: React.FC<AdvisorStudentSelectorWidgetProps> 
     },
     {
       menuItem: 'Add New',
-      render: () => <AdvisorAddStudentWidget interests={interests} careerGoals={careerGoals} />,
+      render: () => <AdvisorAddStudentTab interests={interests} careerGoals={careerGoals} />,
     },
     {
       menuItem: 'Bulk STAR Upload',

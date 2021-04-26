@@ -4,6 +4,8 @@ import { AdvisorManageStudentsProps } from '../../../pages/advisor/utilities/Adv
 import RadGradHeader from '../../shared/RadGradHeader';
 import RadGradSegment from '../../shared/RadGradSegment';
 import RadGradTabHeader from '../../shared/RadGradTabHeader';
+import AdvisorAddStudentTab from './AdvisorAddStudentTab';
+import AdvisorOtherTab from './AdvisorOtherTab';
 import AdvisorUpdateStudentTab from './AdvisorUpdateStudentTab';
 
 
@@ -15,9 +17,7 @@ const AdvisorManageStudents: React.FC<AdvisorManageStudentsProps> = ({
   interests,
   opportunities,
   profileCareerGoals,
-  profileCourses,
   profileInterests,
-  profileOpportunities,
 }) => {
   const header = <RadGradHeader title='manage students' dividing icon='user graduate' />;
   const panes = [
@@ -27,16 +27,15 @@ const AdvisorManageStudents: React.FC<AdvisorManageStudentsProps> = ({
         <AdvisorUpdateStudentTab students={students} alumni={alumni} careerGoals={careerGoals} courses={courses}
                                  interests={interests} opportunities={opportunities}
                                  profileCareerGoals={profileCareerGoals}
-                                 profileCourses={profileCourses} profileInterests={profileInterests}
-                                 profileOpportunities={profileOpportunities} />),
+                                 profileInterests={profileInterests} />),
     },
     {
       menuItem: <Menu.Item key='add-new-tab'><RadGradTabHeader title='add new' /></Menu.Item>,
-      render: () => (<Tab.Pane>Add new</Tab.Pane>),
+      render: () => (<AdvisorAddStudentTab careerGoals={careerGoals} interests={interests} />),
     },
     {
       menuItem: <Menu.Item key='other-tab'><RadGradTabHeader title='other' /></Menu.Item>,
-      render: () => (<Tab.Pane>other</Tab.Pane>),
+      render: () => (<AdvisorOtherTab />),
     },
   ];
   return (

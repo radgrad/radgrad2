@@ -17,7 +17,8 @@ const AdvisorFilteredStudentTabs: React.FC<AdvisorManageStudentsProps> = ({
 
   const panes = [
     {
-      menuItem: <Menu.Item key='filtered-students-tab'><RadGradTabHeader title='students' icon='user' /></Menu.Item>,
+      menuItem: <Menu.Item key='filtered-students-tab'><RadGradTabHeader title='students' icon='user'
+                                                                         count={students.length} /></Menu.Item>,
       render: () => (
         <Tab.Pane>
           <Grid stackable>
@@ -30,7 +31,8 @@ const AdvisorFilteredStudentTabs: React.FC<AdvisorManageStudentsProps> = ({
     },
     {
       menuItem: <Menu.Item key='filtered-alumin-tab'><RadGradTabHeader title='alumni'
-                                                                       icon='user graduate' /></Menu.Item>,
+                                                                       icon='user graduate'
+                                                                       count={alumni.length} /></Menu.Item>,
       render: () => (
         <Tab.Pane>
           <Grid stackable>
