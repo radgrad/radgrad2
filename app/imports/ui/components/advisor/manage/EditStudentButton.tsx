@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Form, Grid, Header, Modal } from 'semantic-ui-react';
+import { Button, Form, Modal } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import SimpleSchema from 'simpl-schema';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
@@ -10,6 +10,7 @@ import { Courses } from '../../../../api/course/CourseCollection';
 import { Interests } from '../../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
 import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
+import { StudentProfileUpdate } from '../../../../typings/radgrad';
 import MultiSelectField from '../../form-fields/MultiSelectField';
 import { openCloudinaryWidget } from '../../shared/OpenCloudinaryWidget';
 import { ManageStudentProps } from './ManageStudentProps';
@@ -28,15 +29,16 @@ const EditStudentButton: React.FC<ManageStudentProps> = ({
   const [open, setOpen] = useState(false);
 
   // console.log(student, careerGoals, courses, interests, opportunities, profileCareerGoals, profileCourses, profileInterests, profileOpportunities);
-  const model: any = student;
+  const model: StudentProfileUpdate = student;
   model.interests = profileInterests.map((p) => Interests.findDoc(p.interestID).name);
   model.careerGoals = profileCareerGoals.map((p) => CareerGoals.findDoc(p.careerGoalID).name);
-  model.courses = profileCourses.map((p) => Courses.toString(p.courseID));
-  model.opportunities = profileOpportunities.map((p) => Opportunities.findDoc(p.opportunityID).name);
+  model.profileCourses = profileCourses.map((p) => Courses.toString(p.courseID));
+  model.profileOpportunities = profileOpportunities.map((p) => Opportunities.findDoc(p.opportunityID).name);
   const careerGoalNames = careerGoals.map((cg) => cg.name);
   const courseNames = courses.map((c) => Courses.toString(c._id));
   const interestNames = interests.map((i) => i.name);
   const opportunityNames = opportunities.map((o) => o.name);
+
   const handleUpload = async (e): Promise<void> => {
     e.preventDefault();
     try {
@@ -84,13 +86,13 @@ const EditStudentButton: React.FC<ManageStudentProps> = ({
       allowedValues: careerGoalNames,
     },
     retired: { type: Boolean, optional: true },
-    courses: { type: Array, optional: true },
-    'courses.$': {
+    profileCourses: { type: Array, optional: true },
+    'profileCourses.$': {
       type: String,
       allowedValues: courseNames,
     },
-    opportunities: { type: Array, optional: true },
-    'opportunities.$': {
+    profileOpportunities: { type: Array, optional: true },
+    'profileOpportunities.$': {
       type: String,
       allowedValues: opportunityNames,
     },
@@ -108,15 +110,15 @@ const EditStudentButton: React.FC<ManageStudentProps> = ({
   const updateStudentFormSchema = new SimpleSchema2Bridge(updateStudentSchema);
 
   const handleSubmit = (doc) => {
-    console.log('handleUpdate', doc);
+    console.log('handleSubmit', doc);
     const collectionName = StudentProfiles.getCollectionName();
     const updateData = doc;
     updateData.id = student._id;
     // update names to slugs
     updateData.interests = doc.interests.map((name) => Interests.findSlugByID(name));
     updateData.careerGoals = doc.careerGoals.map((name) => CareerGoals.findSlugByID(name));
-    updateData.courses = doc.courses.map((name) => Courses.findSlugByID(name));
-    updateData.opportunities = doc.opportunities.map((name) => Opportunities.findSlugByID(name));
+    updateData.profileCourses = doc.profileCourses.map((name) => Courses.findSlugByID(name));
+    updateData.profileOpportunities = doc.profileOpportunities.map((name) => Opportunities.findSlugByID(name));
     console.log(collectionName, updateData);
     updateMethod.call({ collectionName, updateData }, (error) => {
       if (error) {
@@ -128,9 +130,9 @@ const EditStudentButton: React.FC<ManageStudentProps> = ({
         });
       } else {
         Swal.fire({
-          title: 'Review Updated',
+          title: 'Student Updated',
           icon: 'success',
-          text: 'Your review was successfully updated.',
+          text: 'Successfully updated student.',
           allowOutsideClick: false,
           allowEscapeKey: false,
           allowEnterKey: false,
@@ -145,12 +147,14 @@ const EditStudentButton: React.FC<ManageStudentProps> = ({
   const handlePictureUrlChange = (value) => {
     setPictureURL(value);
   };
+
+  // console.log(model);
   return (
-    <Modal
+    <Modal key={`${student._id}-modal`}
       onClose={() => setOpen(false)}
       onOpen={() => setOpen(true)}
       open={open}
-      trigger={<Button basic color='green'>EDIT</Button>}
+      trigger={<Button basic color='green' key={`${student._id}-edit-button`}>EDIT</Button>}
     >
       <Modal.Header>{`Edit ${student.firstName} ${student.lastName}`}</Modal.Header>
       <Modal.Content>
@@ -168,8 +172,8 @@ const EditStudentButton: React.FC<ManageStudentProps> = ({
             <MultiSelectField name="careerGoals" />
           </Form.Group>
           <Form.Group widths="equal">
-            <MultiSelectField name="courses" />
-            <MultiSelectField name="opportunities" />
+            <MultiSelectField name="profileCourses" />
+            <MultiSelectField name="profileOpportunities" />
           </Form.Group>
           <Form.Group widths="equal">
             <NumField name="level" />
