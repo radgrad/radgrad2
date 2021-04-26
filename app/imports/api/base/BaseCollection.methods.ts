@@ -50,7 +50,7 @@ export const alumniEmailsMethod = new ValidatedMethod({
       let count = 0;
       _.forEach(alumniEmails, (e) => {
         // TODO load the names from a config file.
-        if (e !== 'samplestudent@hawaii.edu' && e !== 'opq@hawaii.edu' && e !== 'spaek@hawaii.edu' && e !== 'peterleo@hawaii.edu') { // eslint-disable-line max-len
+        if (e !== 'samplestudent@hawaii.edu' && e !== 'opq@hawaii.edu' && e !== 'spaek@hawaii.edu' && e !== 'peterleo@hawaii.edu' && e !== '') {
           const profile = StudentProfiles.findDoc({ username: e });
           if (!profile.isAlumni) {
             StudentProfiles.update(profile._id, { isAlumni: true });

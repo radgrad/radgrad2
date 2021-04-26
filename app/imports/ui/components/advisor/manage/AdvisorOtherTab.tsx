@@ -74,7 +74,7 @@ const AdvisorOtherTab: React.FC = () => {
   const handleAlumniSubmit = () => {
     setIsAlumniWorking(true);
     const alumniEmails = alumniEmailsState;
-    alumniEmailsMethod.call(alumniEmails, (error) => {
+    alumniEmailsMethod.call(alumniEmails, (error, result) => {
       if (error) {
         Swal.fire({
           title: 'Error loading alumni emails',
@@ -86,6 +86,7 @@ const AdvisorOtherTab: React.FC = () => {
         Swal.fire({
           title: 'Alumni emails loaded successfully',
           icon: 'success',
+          text: result,
           showConfirmButton: false,
           timer: 1500,
         });
