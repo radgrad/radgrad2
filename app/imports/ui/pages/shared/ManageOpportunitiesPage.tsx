@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Confirm, Grid, Icon } from 'semantic-ui-react';
+import { Confirm, Grid } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import _ from 'lodash';
 import ListOpportunitiesWidget from '../../components/shared/manage-opportunities/ListOpportunitiesWidget';
-import { dataModelActions } from '../../../redux/admin/data-model';
 import { AcademicTerm, BaseProfile, DescriptionPair, Interest, Opportunity, OpportunityType } from '../../../typings/radgrad';
-import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
+import { removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';
 import { Users } from '../../../api/user/UserCollection';
@@ -66,18 +65,6 @@ const descriptionPairs = (item: Opportunity): DescriptionPair[] => [
  */
 const itemTitleString = (item: Opportunity): string => `${item.name}`;
 
-/**
- * Returns the ReactNode used in the ListCollectionWidget. By default we indicate if the item is retired.
- * @param item an item from the collection.
- */
-const itemTitle = (item: Opportunity): React.ReactNode => (
-  <React.Fragment>
-    {item.retired ? <Icon name="eye slash" /> : ''}
-    <Icon name="dropdown" />
-    {itemTitleString(item)}
-  </React.Fragment>
-);
-
 interface ManageOpportunitiesPageProps {
   sponsors: BaseProfile[];
   terms: AcademicTerm[];
@@ -86,41 +73,9 @@ interface ManageOpportunitiesPageProps {
 }
 
 const ManageOpportunitiesPage: React.FC<ManageOpportunitiesPageProps> = ({ sponsors, interests, terms, opportunityTypes }) => {
-  const formRef = React.createRef();
   const [confirmOpenState, setConfirmOpen] = useState(false);
   const [idState, setId] = useState('');
   const [showUpdateFormState, setShowUpdateForm] = useState(false);
-
-  const handleAdd = (doc) => {
-    // console.log('Opportunities.handleAdd(%o)', doc);
-    const collectionName = collection.getCollectionName();
-    const definitionData = doc;
-    const interestSlugs = doc.interests.map(interestSlugFromName);
-    const termSlugs = doc.terms.map(academicTermNameToSlug);
-    definitionData.interests = interestSlugs;
-    definitionData.terms = termSlugs;
-    definitionData.opportunityType = opportunityTypeNameToSlug(doc.opportunityType);
-    definitionData.sponsor = profileNameToUsername(doc.sponsor);
-    // console.log(definitionData);
-    defineMethod.call({ collectionName, definitionData }, (error) => {
-      if (error) {
-        Swal.fire({
-          title: 'Add failed',
-          text: error.message,
-          icon: 'error',
-        });
-      } else {
-        Swal.fire({
-          title: 'Add succeeded',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        // @ts-ignore
-        formRef.current.reset();
-      }
-    });
-  };
 
   const handleCancel = (event) => {
     event.preventDefault();
@@ -211,7 +166,6 @@ const ManageOpportunitiesPage: React.FC<ManageOpportunitiesPageProps> = ({ spons
               <UpdateOpportunityForm
                 collection={collection}
                 id={idState}
-                formRef={formRef}
                 handleUpdate={handleUpdate}
                 handleCancel={handleCancel}
                 itemTitleString={itemTitleString}
@@ -221,17 +175,14 @@ const ManageOpportunitiesPage: React.FC<ManageOpportunitiesPageProps> = ({ spons
                 opportunityTypes={opportunityTypes}
               />
             ) : (
-              <AddOpportunityForm formRef={formRef} handleAdd={handleAdd} sponsors={sponsors} terms={terms} interests={interests} opportunityTypes={opportunityTypes} />
+              <AddOpportunityForm sponsors={sponsors} terms={terms} interests={interests} opportunityTypes={opportunityTypes} />
             )}
             <ListOpportunitiesWidget
               collection={collection}
               findOptions={findOptions}
               descriptionPairs={descriptionPairs}
-              itemTitle={itemTitle}
               handleOpenUpdate={handleOpenUpdate}
               handleDelete={handleDelete}
-              setShowIndex={dataModelActions.setCollectionShowIndex}
-              setShowCount={dataModelActions.setCollectionShowCount}
             />
           </Grid.Column>
         </Grid.Row>

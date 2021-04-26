@@ -47,8 +47,16 @@ const AddUserForm: React.FC<AddUserProps> = ({ interests, academicTerms, careerG
   const handleAdd = (doc: CombinedProfileDefine) => {
     // console.log('handleAdd(%o)', doc);
     const definitionData: CombinedProfileDefine = doc;
-    definitionData.interests = doc.interests.map((interest) => interestSlugFromName(interest));
-    definitionData.careerGoals = doc.careerGoals.map((goal) => careerGoalSlugFromName(goal));
+    if (doc.interests) {
+      definitionData.interests = doc.interests.map((interest) => interestSlugFromName(interest));
+    } else {
+      definitionData.interests = [];
+    }
+    if (doc.careerGoals) {
+      definitionData.careerGoals = doc.careerGoals.map((goal) => careerGoalSlugFromName(goal));
+    } else {
+      definitionData.careerGoals = [];
+    }
     if (!_.isNil(doc.declaredAcademicTerm)) {
       definitionData.declaredAcademicTerm = declaredAcademicTermSlugFromName(doc.declaredAcademicTerm);
     }

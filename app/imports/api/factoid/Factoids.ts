@@ -1,21 +1,21 @@
 import _ from 'lodash';
-import BaseCollection from '../../api/base/BaseCollection';
-import { CareerGoals } from '../../api/career/CareerGoalCollection';
-import { Courses } from '../../api/course/CourseCollection';
-import { ProfileInterests } from '../../api/user/profile-entries/ProfileInterestCollection';
-import { ProfileOpportunities } from '../../api/user/profile-entries/ProfileOpportunityCollection';
-import { Interests } from '../../api/interest/InterestCollection';
-import { Opportunities } from '../../api/opportunity/OpportunityCollection';
-import { Factoids } from '../../api/public-stats/FactoidCollection';
-import { Reviews } from '../../api/review/ReviewCollection';
-import { StudentProfiles } from '../../api/user/StudentProfileCollection';
+import BaseCollection from '../base/BaseCollection';
+import { CareerGoals } from '../career/CareerGoalCollection';
+import { Courses } from '../course/CourseCollection';
+import { ProfileInterests } from '../user/profile-entries/ProfileInterestCollection';
+import { ProfileOpportunities } from '../user/profile-entries/ProfileOpportunityCollection';
+import { Interests } from '../interest/InterestCollection';
+import { Opportunities } from '../opportunity/OpportunityCollection';
+import { Factoids } from '../public-stats/FactoidCollection';
+import { Reviews } from '../review/ReviewCollection';
+import { StudentProfiles } from '../user/StudentProfileCollection';
 import {
   InterestOrCareerGoalFactoidProps,
   LevelFactoidProps,
   OpportunityFactoidProps,
   ReviewFactoidProps,
 } from '../../typings/radgrad';
-import { ProfileCareerGoals } from '../../api/user/profile-entries/ProfileCareerGoalCollection';
+import { ProfileCareerGoals } from '../user/profile-entries/ProfileCareerGoalCollection';
 
 const getRandomDocument = (collection: BaseCollection) => {
   const documents = collection.findNonRetired({});
@@ -37,13 +37,19 @@ const buildCareerGoalFactoid = (): InterestOrCareerGoalFactoidProps => {
   courses = courses.filter((course) => _.intersection(course.interestIDs, goal.interestIDs).length > 0);
   let opportunities = Opportunities.findNonRetired({});
   opportunities = opportunities.filter((opp) => _.intersection(opp.interestIDs, goal.interestIDs).length > 0);
-  const factoid = {
+  const factoid = goal ? {
     name: goal.name,
     description: getShortenedDescription(goal.description),
     numberOfStudents: ProfileCareerGoals.findNonRetired({ careerGoalID: goal._id }).length,
     numberOfCourses: courses.length,
     numberOfOpportunities: opportunities.length,
-  };
+  } : {
+    name: '',
+    description: '',
+    numberOfCourses: 0,
+    numberOfOpportunities: 0,
+    numberOfStudents: 0,
+  } ;
   // console.log(factoid);
   return factoid;
 };
@@ -54,12 +60,18 @@ const buildInterestFactoid = (): InterestOrCareerGoalFactoidProps => {
   courses = courses.filter((course) => _.includes(course.interestIDs, interest._id));
   let opportunities = Opportunities.findNonRetired({});
   opportunities = opportunities.filter((opp) => _.includes(opp.interestIDs, interest._id));
-  const factoid = {
+  const factoid = interest ? {
     name: interest.name,
     description: getShortenedDescription(interest.description),
     numberOfStudents: ProfileInterests.findNonRetired({ interestID: interest._id }).length,
     numberOfCourses: courses.length,
     numberOfOpportunities: opportunities.length,
+  } : {
+    name: '',
+    description: '',
+    numberOfCourses: 0,
+    numberOfOpportunities: 0,
+    numberOfStudents: 0,
   };
   // console.log(factoid);
   return factoid;
@@ -100,12 +112,18 @@ const buildLevelFactoid = (): LevelFactoidProps => {
 
 const buildOpportunityFactoid = (): OpportunityFactoidProps => {
   const opportunity = getRandomDocument(Opportunities);
-  const factoid = {
+  const factoid = opportunity ? {
     name: opportunity.name,
     picture: opportunity.picture,
     description: getShortenedDescription(opportunity.description),
     ice: opportunity.ice,
     numberOfStudents: ProfileOpportunities.findNonRetired({ opportunityID: opportunity._id }).length,
+  } : {
+    name: '',
+    picture: '',
+    description: '',
+    ice: { i : 0, c : 0, e : 0 },
+    numberOfStudents: 0,
   };
   // console.log(factoid);
   return factoid;
@@ -113,19 +131,25 @@ const buildOpportunityFactoid = (): OpportunityFactoidProps => {
 
 const buildReviewFactoid = (): ReviewFactoidProps => {
   const review = getRandomDocument(Reviews);
-  let name = '';
-  if (review.reviewType === Reviews.COURSE) {
-    name = `Course: ${Courses.findDoc(review.revieweeID).name}`;
-  } else {
-    name = Opportunities.findDoc(review.revieweeID).name;
+  if (review) {
+    let name = '';
+    if (review.reviewType === Reviews.COURSE) {
+      name = `Course: ${Courses.findDoc(review.revieweeID).name}`;
+    } else {
+      name = Opportunities.findDoc(review.revieweeID).name;
+    }
+    const description = getShortenedDescription(review.comments);
+    const factoid = {
+      name,
+      description,
+    };
+    // console.log(factoid);
+    return factoid;
   }
-  const description = getShortenedDescription(review.comments);
-  const factoid = {
-    name,
-    description,
+  return {
+    name: '',
+    description: '',
   };
-  // console.log(factoid);
-  return factoid;
 };
 
 export const updateFactoids = (): boolean => {

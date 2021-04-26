@@ -15,7 +15,7 @@ import { DumpOne } from '../../typings/radgrad';
  * @memberOf api/base
  */
 class BaseCollection {
-  protected collection: Mongo.Collection<any>;
+  public collection: Mongo.Collection<any>;
 
   protected collectionName: string;
 

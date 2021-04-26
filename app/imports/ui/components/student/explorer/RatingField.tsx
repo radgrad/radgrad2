@@ -30,10 +30,11 @@ const renderDropdown = ({ placeholder, onChange, value }) => {
     {
       key: 3,
       text: (
-        <React.Fragment>
+        <span>
+          <div className="ui yellow rating" data-icon="star" data-rating="3" data-max-rating="5" />
           <StudentExplorerReviewStarsWidget rating={3} />
           Average
-        </React.Fragment>
+        </span>
       ),
       value: 3,
     },

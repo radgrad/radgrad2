@@ -21,6 +21,8 @@ import AdminDataModelReviewsPage from '../../pages/admin/AdminDataModelReviewsPa
 import AdminDataModelSlugsPage from '../../pages/admin/AdminDataModelSlugsPage';
 import AdminDataModelTeasersPage from '../../pages/admin/AdminDataModelTeasersPage';
 import AdminDataModelVerificationRequestsPage from '../../pages/admin/AdminDataModelVerificationRequestsPage';
+import SandBoxStickyStatePage from '../../pages/sandbox/SandBoxStickyStatePage';
+import SandBoxTabPage from '../../pages/sandbox/SandBoxTabPage';
 import VisibilityPage from '../../pages/shared/VisibilityPage';
 import AdvisorHomePage from '../../pages/advisor/AdvisorHomePage';
 import AdvisorManageStudentsPage from '../../pages/advisor/AdvisorManageStudentsPage';
@@ -210,5 +212,7 @@ export const routes = {
     // The following routes display sandbox pages under the student role.
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/sandbox/labels`, component: SandboxLabelPage },
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/sandbox/segments`, component: SandBoxSegmentPage },
+    { path: `/${URL_ROLES.STUDENT}/${USERNAME}/sandbox/tabs`, component: SandBoxTabPage },
+    { path: `/${URL_ROLES.STUDENT}/${USERNAME}/sandbox/stickystate`, component: SandBoxStickyStatePage },
   ],
 };
