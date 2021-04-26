@@ -1,5 +1,5 @@
 import { withTracker } from 'meteor/react-meteor-data';
-import { Card, Tab } from 'semantic-ui-react';
+import { Card, Menu, Tab } from 'semantic-ui-react';
 import React from 'react';
 import { CareerGoalsChecklist } from '../../components/checklist/CareerGoalsChecklist';
 import { CoursesChecklist } from '../../components/checklist/CoursesChecklist';
@@ -12,6 +12,7 @@ import { TermsAndConditionsChecklist } from '../../components/checklist/TermsAnd
 import { VerificationChecklist } from '../../components/checklist/VerificationChecklist';
 import RadGradHeader from '../../components/shared/RadGradHeader';
 import RadGradSegment from '../../components/shared/RadGradSegment';
+import RadGradTabHeader from '../../components/shared/RadGradTabHeader';
 import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
 import { CHECKSTATE } from '../../components/checklist/Checklist';
@@ -33,8 +34,12 @@ const headerPaneBody = `
 const headerPaneImage = 'header-home.png';
 
 const StudentHomePage: React.FC<StudentHomePageProps> = ({ okItems, reviewItems, improveItems }) => {
+  const improveTabHeader = <RadGradTabHeader title={`High Priority: Please fix (${improveItems.length})`} icon='exclamation circle' />;
+  const reviewTabHeader = <RadGradTabHeader title={`Medium Priority: For review (${reviewItems.length})`} icon='question circle' />;
+  const okTabHeader = <RadGradTabHeader title={`Low Priority: Looks good (${okItems.length})`} icon='check circle' />;
+
   const improvePane = {
-    menuItem: `High Priority: Please fix (${improveItems.length})`,
+    menuItem: <Menu.Item key='improveTab'>{improveTabHeader}</Menu.Item>,
     render: () => (
       <Tab.Pane key='ImprovePane'>
         <Card.Group style={{ marginTop: '0px' }}>
@@ -45,7 +50,7 @@ const StudentHomePage: React.FC<StudentHomePageProps> = ({ okItems, reviewItems,
   };
 
   const reviewPane = {
-    menuItem: `Medium Priority: For review (${reviewItems.length})`,
+    menuItem: <Menu.Item key='reviewTab'>{reviewTabHeader}</Menu.Item>,
     render: () => (
       <Tab.Pane key='ReviewPane'>
         <Card.Group style={{ marginTop: '0px' }}>
@@ -56,7 +61,7 @@ const StudentHomePage: React.FC<StudentHomePageProps> = ({ okItems, reviewItems,
   };
 
   const okPane = {
-    menuItem: `Low Priority: Looks good (${okItems.length})`,
+    menuItem: <Menu.Item key='okTab'>{okTabHeader}</Menu.Item>,
     render: () => (
       <Tab.Pane key='OKPane'>
         <Card.Group style={{ marginTop: '0px' }}>

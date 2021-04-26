@@ -23,20 +23,19 @@ export class CareerGoalsChecklist extends Checklist {
     this.iconName = 'briefcase';
     // Specify title for each state.
     this.title[CHECKSTATE.OK] = 'Your Career Goals appear to be OK';
-    this.title[CHECKSTATE.REVIEW] = 'Please confirm that your current Career Goals are OK';
+    this.title[CHECKSTATE.REVIEW] = 'Please review your Career Goals';
     this.title[CHECKSTATE.IMPROVE] = 'Please add at least three Career Goals to your profile';
     // Specify the description for each state.
     this.description[CHECKSTATE.OK] = `Congrats!  You have at least three Career Goals in your profile, 
-      and you've reviewed them within the past six months to be sure they are up to date.`;
+      and you've reviewed them within the past six months.`;
     this.description[CHECKSTATE.REVIEW] = (this.isSixMonthsOld(this.profile.lastVisited[PAGEIDS.CAREER_GOAL_BROWSER])) ?
-      `You have at least three Career Goals in your profile, but it's been at least six months 
-      since you've reviewed them. So, we want to check that they actually reflect your current Career Goals.` :
+      `You have at least 3 Career Goals in your profile, but it's been at least 6 months 
+      since you've reviewed them. Please check that they are current.` :
 
-      'There are new Career Goals since you last reviewed your Career Goals. Perhaps you want to add them?';
+      'There are new Career Goals. Perhaps you want to add them?';
 
-    this.description[CHECKSTATE.IMPROVE] = `For RadGrad to provide you with useful recommendations for Courses and Opportunities, 
-      we need you to add at least three Career Goals to your profile.  Don't worry, you can (and should!) change them at any time 
-      in the future as you become interested in new things.`;
+    this.description[CHECKSTATE.IMPROVE] = `For RadGrad to provide you with useful recommendations, 
+      you need to add at least 3 Career Goals to your profile.  Don't worry, you can always change them.`;
     this.updateState();
   }
 
@@ -64,8 +63,8 @@ export class CareerGoalsChecklist extends Checklist {
     const userID = this.profile.userID;
     const careerGoals = ProfileCareerGoals.findNonRetired({ userID });
     return ((careerGoals.length === 0) ?
-        <DetailsBox description='Note: There are no Career Goals to your profile. You probably want to add some!'/> :
-        <DetailsBox description='Here are your current Career Goals:'>
+        <DetailsBox description='You have 0 Career Goals in your profile. Please add some!'/> :
+        <DetailsBox description='Your current Career Goals:'>
           <ProfileCareerGoalList profile={this.profile} size="medium"/>
         </DetailsBox>
     );
@@ -83,20 +82,20 @@ export class CareerGoalsChecklist extends Checklist {
     switch (this.state) {
       case CHECKSTATE.OK:
         return (
-          <ActionsBox description='Go to the Career Goals Explorer to search for more Career Goals to add to your profile:'>
+          <ActionsBox description='Use the Career Goals Explorer to add them to your profile:'>
             <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.CAREERGOALS}`} label='Career Goals Explorer'/>
           </ActionsBox>
         );
       case CHECKSTATE.REVIEW:
         return (
-          <ActionsBox description='Go to the Career Goals Explorer to search for more Career Goals to add to your profile. Or, click "My Career Goals are OK" if they are fine as is:' >
+          <ActionsBox description='Use the Career Goals Explorer to add them to your profile. Or, click "My Career Goals are OK" if they are OK:' >
             <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.CAREERGOALS}`} label='Career Goals Explorer'/>
-            <ChecklistButtonAction onClick={handleVerification} label='My Career Goals are OK'/>
+            <ChecklistButtonAction onClick={handleVerification} label='Career Goals are OK'/>
           </ActionsBox>
         );
       case CHECKSTATE.IMPROVE:
         return (
-          <ActionsBox description='Go to the Career Goals Explorer to add at least 3 Career Goals to your profile:' >
+          <ActionsBox description='Use the Career Goals Explorer to add at least 3 Career Goals to your profile:' >
             <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.CAREERGOALS}`} label='Career Goals Explorer'/>
           </ActionsBox>
         );

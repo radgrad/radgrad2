@@ -24,20 +24,16 @@ export class OpportunitiesChecklist extends Checklist {
     this.iconName = 'lightbulb';
     this.title[CHECKSTATE.OK] = 'The Opportunities in your Degree Plan appear to be OK';
     this.title[CHECKSTATE.REVIEW] = 'Please confirm that the Opportunities in your Degree Plan are correct';
-    this.title[CHECKSTATE.IMPROVE] = 'Please add Opportunities to your degree plan so that you are on track to earn 100 Innovation and 100 Experience points';
+    this.title[CHECKSTATE.IMPROVE] = 'Please add Opportunities to your Degree Plan';
     // Specify the description for each state.
-    this.description[CHECKSTATE.OK] = `Congrats! Your Degree Plan contains Opportunities that should eventually earn you at 
-      least 100 Innovation and 100 Experience points, and you've reviewed your Degree Plan within the past six months to be 
-      sure it is up to date.`;
+    this.description[CHECKSTATE.OK] = `Congrats! Your Degree Plan contains Opportunities that should earn you at 
+      least 100 Innovation and 100 Experience points, and you've reviewed your Degree Plan within the past six months.`;
     this.description[CHECKSTATE.REVIEW] = (this.isSixMonthsOld(this.profile.lastVisited[PAGEIDS.OPPORTUNITY_BROWSER])) ?
-      `It's been at least six months since you last reviewed your Degree Plan. So, we want to check that the Degree Planner 
-      reflects your future Opportunity plans.` :
+      `It's been 6 months since you last reviewed your Degree Plan. Please check it.` :
+      'There are new Opportunities. Please review them.';
 
-      'There are new Opportunities since you last reviewed your Career Goals. Perhaps you want to add them?';
-
-    this.description[CHECKSTATE.IMPROVE] = `Specifying the Opportunities you plan to take in the future helps you in several ways.
-      First, it helps you balance your curricular and extracurricular activities each semester. Second, it tells RadGrad what 
-      interests you are developing skills in, which helps RadGrad to provide recommendations.`;
+    this.description[CHECKSTATE.IMPROVE] = `
+Specifying Opportunities helps you balance your curricular and extracurricular activities each semester. It also helps RadGrad provide you with useful recommendations.`;
     this.updateState();
   }
 
@@ -66,7 +62,7 @@ export class OpportunitiesChecklist extends Checklist {
   public getDetails(): JSX.Element {
     const upcomingOpportunities = OpportunityInstances.findNonRetired({ studentID: this.profile.userID, verified: false });
     return ((upcomingOpportunities.length === 0) ?
-        <DetailsBox description='Note: You have no upcoming opportunities. You probably want to add some!'/> :
+        <DetailsBox description='You have no upcoming opportunities. Please add some!'/> :
         <DetailsBox description='Here are your upcoming Opportunities:'>
           <ProfileFutureOpportunitiesList profile={this.profile} size="medium"/>
         </DetailsBox>
@@ -81,16 +77,16 @@ export class OpportunitiesChecklist extends Checklist {
       case CHECKSTATE.OK:
       case CHECKSTATE.IMPROVE:
         return (
-          <ActionsBox description='Go to the Opportunity Explorer to find and add Opportunities to your profile. Go to the Degree Planner to add Opportunities from your profile to your degree plan:'>
+          <ActionsBox description='Use the Opportunity Explorer to find and add Opportunities to your profile. Use the Degree Planner to add Opportunities from your profile to your degree plan:'>
             <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.OPPORTUNITIES}`} label='Opportunity Explorer'/>
             <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${DEGREEPLANNER}`} label='Degree Planner'/>
           </ActionsBox>
         );
       case CHECKSTATE.REVIEW:
         return (
-          <ActionsBox description={`Go to the Opportunities Explorer to review available Opportunities and add them to your profile. Or, go to the Degree Planner to add Opportunities from your profile to your degree plan, or to remove Opportunities from your degree plan that you no longer plan to participate in. 
+          <ActionsBox description={`Use the Opportunities Explorer to review available Opportunities and add them to your profile. Or, use the Degree Planner to add Opportunities from your profile to your Degree Plan, or to remove Opportunities from your Degree Plan. 
       
-You can go to the ICE Page to learn more about how Opportunities earn you Innovation and/or Experience points. Finally, you can click "Opportunities are OK" to confirm that the Opportunities in your Degree Plan are OK.`} >
+Use the ICE Page to learn more about how Opportunities earn you Innovation and/or Experience points. Click "Opportunities are OK" to confirm that they are OK.`} >
             <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.OPPORTUNITIES}`} label='Opportunities Explorer'/>
             <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${DEGREEPLANNER}`} label='Degree Planner'/>
             <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${ICE}`} label='ICE Page'/>
