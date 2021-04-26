@@ -109,20 +109,19 @@ export class InterestsChecklist extends Checklist {
     this.iconName = 'heart';
     // Specify title for each state
     this.title[CHECKSTATE.OK] = 'Your Interests appear to be OK';
-    this.title[CHECKSTATE.REVIEW] = 'Please confirm that your Interests are OK';
+    this.title[CHECKSTATE.REVIEW] = 'Please review your Interests';
     this.title[CHECKSTATE.IMPROVE] = 'Please add at least 3 Interests to your profile';
     // Specify the description for each state.
-    this.description[CHECKSTATE.OK] = `Congrats!  You have at least three Interests in your profile, and you've reviewed 
-      them within the past six months to be sure they are up to date.`;
+    this.description[CHECKSTATE.OK] = `Congrats!  You have at least 3 Interests in your profile, and you've reviewed 
+      them within the past six months.`;
     this.description[CHECKSTATE.REVIEW] = (this.isSixMonthsOld(this.profile.lastVisited[PAGEIDS.INTEREST_BROWSER])) ?
-      `You have at least three Interests in your profile, but it's been at least six months since you've reviewed them. 
-      So, we want to check that they actually reflect your current Interests.`
+      `You have at least 3 Interests in your profile, but it's been at least 6 months since you've reviewed them. 
+      Please check that they reflect your current Interests.`
       :
-      'There are new Interests since you last reviewed your Interests. Perhaps you want to add them?';
+      'There are new Interests since you last reviewed your Interests. Please review them.';
 
-    this.description[CHECKSTATE.IMPROVE] = `For RadGrad to provide you with useful recommendations for Courses and Opportunities, 
-      we need you to add at least three Interests to your profile.  Don't worry, you can (and should!) change them at any 
-      time in the future as you become interested in new things.`;
+    this.description[CHECKSTATE.IMPROVE] = `
+    RadGrad needs at least 3 Interests in your profile in order to provide you with useful recommendations. Don't worry, you can change them later.`;
     this.updateState();
   }
 
@@ -148,7 +147,7 @@ export class InterestsChecklist extends Checklist {
   public getDetails(): JSX.Element {
     const interests = Users.getInterestIDs(this.profile.userID);
     return ((interests.length === 0) ?
-        &lt;DetailsBox description='Note: You have not yet added any Interests to your profile.'/> :
+        &lt;DetailsBox description='You have not yet added any Interests to your profile.'/> :
         &lt;DetailsBox description='Here are your current Interests:'>
           &lt;ProfileInterestList profile={this.profile} size="medium" />
         &lt;/DetailsBox>
@@ -167,13 +166,13 @@ export class InterestsChecklist extends Checklist {
       case CHECKSTATE.OK:
       case CHECKSTATE.IMPROVE:
         return (
-          &lt;ActionsBox description='Go to the Interests Explorer to search for Interests to add to your profile. You should have at least three.'>
+          &lt;ActionsBox description='Use the Interests Explorer to search for Interests to add to your profile. You should have at least 3.'>
             &lt;ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.INTERESTS}`} label='Interests Explorer'/>
           &lt;/ActionsBox>
         );
       case CHECKSTATE.REVIEW:
         return (
-          &lt;ActionsBox description='Go to the Interests Explorer to search for Interests to add to your profile. Or, click "My Interests are OK if you think they are fine as is:' >
+          &lt;ActionsBox description='Use the Interests Explorer to search for Interests to add to your profile. Click "My Interests are OK if you think they are fine as is:' >
             &lt;ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.INTERESTS}`} label='Interests Explorer'/>
             &lt;ChecklistButtonAction onClick={handleVerification} label='My Interests are OK'/>
           &lt;/ActionsBox>

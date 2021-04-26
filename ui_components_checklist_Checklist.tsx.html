@@ -204,7 +204,7 @@ export class Checklist {
 
   public getChecklistItem(): JSX.Element {
     return (
-      &lt;Card style={{ minWidth: '425px', marginRight: '10px' }} key={this.name}>
+      &lt;Card style={{ minWidth: '390px', marginRight: '25px' }} key={this.name}>
         &lt;Card.Content>
           &lt;Label ribbon='right' color={this.stateColor[this.state]}>{this.getState()}&lt;/Label>
           &lt;RadGradHeader dividing icon={this.iconName} title={this.getName()} style={{ marginTop: '-20px', marginBottom: '0px' }}/>
