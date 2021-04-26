@@ -3,7 +3,6 @@ import { Tab } from 'semantic-ui-react';
 import { AdvisorManageStudentsProps } from '../../../pages/advisor/utilities/AdvisorManageStudentsProps';
 import AdvisorFilteredStudentTabs from './AdvisorFilteredStudentTabs';
 import AdvisorFilterStudents from './AdvisorFilterStudents';
-import AdvisorManageStudents from './AdvisorManageStudents';
 
 const AdvisorUpdateStudentTab: React.FC<AdvisorManageStudentsProps> = ({
   students,
@@ -13,9 +12,7 @@ const AdvisorUpdateStudentTab: React.FC<AdvisorManageStudentsProps> = ({
   interests,
   opportunities,
   profileCareerGoals,
-  profileCourses,
   profileInterests,
-  profileOpportunities,
 }) => {
   const [firstNameFilter, setFirstNameFilter] = useState('');
   const [lastNameFilter, setLastNameFilter] = useState('');
@@ -38,8 +35,7 @@ const AdvisorUpdateStudentTab: React.FC<AdvisorManageStudentsProps> = ({
       <AdvisorFilteredStudentTabs students={filteredStudents} alumni={filteredAlumni} careerGoals={careerGoals}
                                   courses={courses}
                                   interests={interests} opportunities={opportunities} profileCareerGoals={profileCareerGoals}
-                                  profileCourses={profileCourses} profileInterests={profileInterests}
-                                  profileOpportunities={profileOpportunities} />
+                                  profileInterests={profileInterests} />
     </Tab.Pane>
   );
 };
