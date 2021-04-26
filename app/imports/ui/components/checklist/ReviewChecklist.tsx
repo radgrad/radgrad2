@@ -23,14 +23,13 @@ export class ReviewChecklist extends Checklist {
     this.name = 'Reviews';
     this.profile = Users.getProfile(student);
     this.iconName = 'star half';
-    this.title[CHECKSTATE.OK] = 'Thanks for having reviewed your completed Courses and/or Opportunities';
-    this.title[CHECKSTATE.REVIEW] = 'Please consider writing Reviews for your completed Courses and/or Opportunities';
+    this.title[CHECKSTATE.OK] = 'Thanks for reviewing your completed Courses and Opportunities';
+    this.title[CHECKSTATE.REVIEW] = 'Please review your completed Courses and Opportunities';
     // Specify the description for each state.
-    this.description[CHECKSTATE.OK] = `Congrats! You've provided reviews for all of your completed Courses and Opportunities. 
-      This is a service to the community and makes RadGrad more useful.`;
-    this.description[CHECKSTATE.REVIEW] = `Writing reviews for the Courses and Opportunities you&apos;ve completed provides 
-      valuable insight to future students who may be considering them. This is your chance to pay it forward!`;
-
+    this.description[CHECKSTATE.OK] = `Congrats! You've reviewed all of your completed Courses and Opportunities. 
+      This makes RadGrad more useful.`;
+    this.description[CHECKSTATE.REVIEW] = `Reviewing Courses and Opportunities you&apos;ve completed provides 
+      valuable insight to future students. This is your chance to pay it forward!`;
     this.updateState();
   }
 
@@ -103,7 +102,7 @@ export class ReviewChecklist extends Checklist {
       case CHECKSTATE.REVIEW:
       case CHECKSTATE.OK:
         return (
-          <ActionsBox description={`Go to the Reviews page to ${phrase} for your completed Courses and/or Opportunities:`}>
+          <ActionsBox description={`Go to the Reviews page to ${phrase} for your completed Courses and Opportunities:`}>
             <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${STUDENT_REVIEWS}`} label='Reviews Page'/>
           </ActionsBox>
         );

@@ -18,10 +18,10 @@ export class VerificationChecklist extends Checklist {
     this.name = 'Verifications';
     this.profile = Users.getProfile(student);
     this.iconName = 'check square';
-    this.title[CHECKSTATE.OK] = 'You do not have any unverified Opportunities';
-    this.title[CHECKSTATE.IMPROVE] = 'You have unverified Opportunities from a prior academic term';
+    this.title[CHECKSTATE.OK] = 'All completed Opportunities are verified';
+    this.title[CHECKSTATE.IMPROVE] = 'You have unverified Opportunities from a prior term';
     // Specify the description for each state.
-    this.description[CHECKSTATE.OK] = 'Congrats!  You do not have any Opportunities requiring verification at this time.';
+    this.description[CHECKSTATE.OK] = 'Congrats!  You have no Opportunities requiring verification.';
     this.description[CHECKSTATE.IMPROVE] = `RadGrad requires an administrator to verify your participation in completed 
       Opportunities in order to earn the Innovation and/or Experience points associated with it. By earning points, 
       you can advance to new Levels, and RadGrad can make better recommendations due to a better understanding of your 
@@ -57,14 +57,14 @@ export class VerificationChecklist extends Checklist {
     switch (this.state) {
       case CHECKSTATE.IMPROVE:
         return (
-          <ActionsBox description='Go to the Verification page to request verification of your completed Opportunities. Go to the Degree Planner page to remove them from your plan if you didn&quot;t actually participate in them.' >
+          <ActionsBox description='Use the Verification page to request verification of your completed Opportunities. Use the Degree Planner page to remove them from your plan if you didn&quot;t actually participate in them.' >
             <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${STUDENT_VERIFICATION}`} label='Verification Page'/>
             <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${DEGREEPLANNER}`} label='Degree Planner'/>
           </ActionsBox>
         );
       case CHECKSTATE.OK:
         return (
-          <ActionsBox description='Go to the Verification page to see any previously verified Opportunities.' >
+          <ActionsBox description='Use the Verification page to see verified Opportunities.' >
             <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${STUDENT_VERIFICATION}`} label='Verification Page'/>
           </ActionsBox>
         );
