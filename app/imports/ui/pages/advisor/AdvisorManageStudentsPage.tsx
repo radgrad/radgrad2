@@ -5,9 +5,7 @@ import { Courses } from '../../../api/course/CourseCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { ProfileCareerGoals } from '../../../api/user/profile-entries/ProfileCareerGoalCollection';
-import { ProfileCourses } from '../../../api/user/profile-entries/ProfileCourseCollection';
 import { ProfileInterests } from '../../../api/user/profile-entries/ProfileInterestCollection';
-import { ProfileOpportunities } from '../../../api/user/profile-entries/ProfileOpportunityCollection';
 import AdvisorManageStudents from '../../components/advisor/manage/AdvisorManageStudents';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { PAGEIDS } from '../../utilities/PageIDs';
@@ -31,16 +29,13 @@ const AdvisorManageStudentsPage: React.FC<AdvisorManageStudentsProps> = ({
   interests,
   opportunities,
   profileCareerGoals,
-  profileCourses,
   profileInterests,
-  profileOpportunities,
 }) => (
   <PageLayout id={PAGEIDS.MANAGE_STUDENTS} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}
               headerPaneImage={headerPaneImage}>
     <AdvisorManageStudents students={students} alumni={alumni} careerGoals={careerGoals} courses={courses}
                            interests={interests} opportunities={opportunities} profileCareerGoals={profileCareerGoals}
-                           profileCourses={profileCourses} profileInterests={profileInterests}
-                           profileOpportunities={profileOpportunities} />
+                           profileInterests={profileInterests} />
   </PageLayout>
 );
 
@@ -52,9 +47,7 @@ const AdvisorManageStudentsTracker = withTracker(() => {
   const interests = Interests.findNonRetired({}, { sort: { name: 1 } });
   const opportunities = Opportunities.findNonRetired({}, { sort: { name: 1 } });
   const profileCareerGoals = ProfileCareerGoals.findNonRetired({});
-  const profileCourses = ProfileCourses.findNonRetired({});
   const profileInterests = ProfileInterests.findNonRetired({});
-  const profileOpportunities = ProfileOpportunities.findNonRetired({});
   return {
     students,
     alumni,
@@ -63,9 +56,7 @@ const AdvisorManageStudentsTracker = withTracker(() => {
     interests,
     opportunities,
     profileCareerGoals,
-    profileCourses,
     profileInterests,
-    profileOpportunities,
   };
 })(AdvisorManageStudentsPage);
 

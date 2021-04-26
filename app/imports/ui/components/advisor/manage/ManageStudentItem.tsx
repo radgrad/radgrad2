@@ -14,9 +14,7 @@ const ManageStudentItem: React.FC<ManageStudentProps> = ({
   interests,
   opportunities,
   profileCareerGoals, // These are the ones for the student
-  profileCourses,
   profileInterests,
-  profileOpportunities,
 }) => {
   const name = `${student.lastName}, ${student.firstName}`;
   const updatedOn = student.updatedAt ? student.updatedAt : student.createdAt;
@@ -29,8 +27,7 @@ const ManageStudentItem: React.FC<ManageStudentProps> = ({
       <Grid.Column width={2}>
         <EditStudentButton student={student} careerGoals={careerGoals} courses={courses} interests={interests}
                            opportunities={opportunities} profileCareerGoals={profileCareerGoals}
-                           profileCourses={profileCourses} profileInterests={profileInterests}
-                           profileOpportunities={profileOpportunities} />
+                           profileInterests={profileInterests} />
       </Grid.Column>
       <Grid.Column width={3}>
         <ButtonLink url={`/${student.isAlumni ? 'alumni' : 'student'}/${student.username}/home`} label='student view'

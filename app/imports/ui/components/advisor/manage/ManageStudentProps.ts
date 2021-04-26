@@ -3,7 +3,7 @@ import {
   Course,
   Interest,
   Opportunity,
-  ProfileCareerGoal, ProfileCourse, ProfileInterest, ProfileOpportunity,
+  ProfileCareerGoal, ProfileInterest,
   StudentProfile,
 } from '../../../../typings/radgrad';
 
@@ -14,7 +14,5 @@ export interface ManageStudentProps {
   interests: Interest[];
   opportunities: Opportunity[];
   profileCareerGoals: ProfileCareerGoal[];
-  profileCourses: ProfileCourse[];
   profileInterests: ProfileInterest[];
-  profileOpportunities: ProfileOpportunity[];
 }

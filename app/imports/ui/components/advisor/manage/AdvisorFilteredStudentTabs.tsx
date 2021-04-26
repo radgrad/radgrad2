@@ -12,10 +12,9 @@ const AdvisorFilteredStudentTabs: React.FC<AdvisorManageStudentsProps> = ({
   interests,
   opportunities,
   profileCareerGoals,
-  profileCourses,
   profileInterests,
-  profileOpportunities,
 }) => {
+
   const panes = [
     {
       menuItem: <Menu.Item key='filtered-students-tab'><RadGradTabHeader title='students' icon='user' /></Menu.Item>,
@@ -25,9 +24,7 @@ const AdvisorFilteredStudentTabs: React.FC<AdvisorManageStudentsProps> = ({
             {students.map((s) => <ManageStudentItem student={s} key={s._id} careerGoals={careerGoals} courses={courses}
                                                     interests={interests} opportunities={opportunities}
                                                     profileCareerGoals={profileCareerGoals.filter((p) => p.userID === s.userID)}
-                                                    profileCourses={profileCourses.filter((p) => p.studentID === s.userID)}
-                                                    profileInterests={profileInterests.filter((p) => p.userID === s.userID)}
-                                                    profileOpportunities={profileOpportunities.filter((p) => p.studentID === s.userID)} />)}
+                                                    profileInterests={profileInterests.filter((p) => p.userID === s.userID)} />)}
           </Grid>
         </Tab.Pane>),
     },
@@ -40,9 +37,7 @@ const AdvisorFilteredStudentTabs: React.FC<AdvisorManageStudentsProps> = ({
             {alumni.map((s) => <ManageStudentItem student={s} key={s._id} careerGoals={careerGoals} courses={courses}
                                                   interests={interests} opportunities={opportunities}
                                                   profileCareerGoals={profileCareerGoals.filter((p) => p.userID === s.userID)}
-                                                  profileCourses={profileCourses.filter((p) => p.studentID === s.userID)}
-                                                  profileInterests={profileInterests.filter((p) => p.userID === s.userID)}
-                                                  profileOpportunities={profileOpportunities.filter((p) => p.studentID === s.userID)} />)}
+                                                  profileInterests={profileInterests.filter((p) => p.userID === s.userID)} />)}
           </Grid>
         </Tab.Pane>),
     },
