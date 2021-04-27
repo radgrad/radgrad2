@@ -10,7 +10,6 @@ import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import AddCareerGoalForm from '../../components/admin/datamodel/career-goal/AddCareerGoalForm';
 import UpdateCareerGoalForm from '../../components/admin/datamodel/career-goal/UpdateCareerGoalForm';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
-import { dataModelActions } from '../../../redux/admin/data-model';
 import {
   profileGetCareerGoalIDs,
   itemToSlugName,
@@ -96,8 +95,6 @@ const AdminDataModelCareerGoalsPage: React.FC<AdminDataModelCareerGoalsPageProps
         itemTitle={itemTitle}
         handleOpenUpdate={handleOpenUpdate}
         handleDelete={handleDelete}
-        setShowIndex={dataModelActions.setCollectionShowIndex}
-        setShowCount={dataModelActions.setCollectionShowCount}
         items={items}
       />
 
