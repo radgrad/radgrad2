@@ -6,10 +6,7 @@ import { useRouteMatch } from 'react-router';
 import { scrollPositionActions } from '../../../../../redux/shared/scrollPosition';
 import { RootState } from '../../../../../redux/types';
 import { CareerGoal, Course, Interest, Opportunity } from '../../../../../typings/radgrad';
-// import { CHECKSTATE } from '../../../checklist/Checklist';
-// import { InterestsChecklist } from '../../../checklist/InterestsChecklist';
 import ProfileCard from './ProfileCard';
-// import { CareerGoalsChecklist } from '../../../checklist/CareerGoalsChecklist';
 import Sort from './Sort';
 import * as Router from '../../utilities/router';
 import { ProfileInterests } from '../../../../../api/user/profile-entries/ProfileInterestCollection';
@@ -36,8 +33,8 @@ interface BrowserViewProps {
 
 const mapStateToProps = (state: RootState, ownProps) => ({
   scrollPosition: state.shared.scrollPosition.explorer[ownProps.explorerType.replaceAll('-', '').toLowerCase()],
-  sortValue: state.shared.cardExplorer[ownProps.explorerType.replaceAll('-', '').toLowerCase()].sortValue,
   filterChoice: state.shared.cardExplorer[ownProps.explorerType.replaceAll('-', '').toLowerCase()].filterValue,
+  sortValue: state.shared.cardExplorer[ownProps.explorerType.replaceAll('-', '').toLowerCase()].sortValue,
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => {
@@ -68,19 +65,6 @@ const BrowserView: React.FC<BrowserViewProps> = ({
   const interestIDs = profileEntries.map((f) => f.interestID);
   const preferred = new PreferredChoice(items, interestIDs);
   let explorerItems = _.sortBy(items, (item: any) => item.name);
-  switch (sortValue) {
-    case EXPLORER_SORT_KEYS.MOST_RECENT: {
-      explorerItems = _.sortBy(items, (item: any) => item.updatedAt);
-      break;
-    }
-    case EXPLORER_SORT_KEYS.RECOMMENDED:
-      explorerItems = preferred.getOrderedChoices();
-      break;
-    default: {
-      explorerItems = _.sortBy(items, (item:any) => item.name);
-    }
-  }
-
   let profileItems;
   const getProfileItems = (type:EXPLORER_TYPE) => {
     switch (type){
@@ -117,7 +101,20 @@ const BrowserView: React.FC<BrowserViewProps> = ({
       getNonProfileItems(explorerType);
       break;
     default:
-      // do no filtering
+        // do no filtering
+  }
+
+  switch (sortValue) {
+    case EXPLORER_SORT_KEYS.MOST_RECENT: {
+      explorerItems = _.sortBy(items, (item: any) => item.updatedAt);
+      break;
+    }
+    case EXPLORER_SORT_KEYS.RECOMMENDED:
+      explorerItems = preferred.getOrderedChoices();
+      break;
+    default: {
+      explorerItems = _.sortBy(items, (item:any) => item.name);
+    }
   }
 
   const cardGroupElement: HTMLElement = document.getElementById('browserCardGroup');
@@ -133,17 +130,13 @@ const BrowserView: React.FC<BrowserViewProps> = ({
       }
     };
   }, [cardGroupElement, scrollPosition, setScrollPosition]);
-  // const currentUser = Meteor.user() ? Meteor.user().username : '';
 
-  // let checklist;
   let icon;
   switch (explorerType) {
     case EXPLORER_TYPE.INTERESTS:
-      // checklist = new InterestsChecklist(currentUser);
       icon = EXPLORER_TYPE_ICON.INTEREST;
       break;
     case EXPLORER_TYPE.CAREERGOALS:
-      // checklist = new CareerGoalsChecklist(currentUser);
       icon = EXPLORER_TYPE_ICON.CAREERGOAL;
       break;
   }
@@ -152,8 +145,7 @@ const BrowserView: React.FC<BrowserViewProps> = ({
     profileItems = getProfileItems(type);
     return !! profileItems.some(x => x._id === item._id);
   };
-  // const rightsideInProfile =  checklist.getState() === CHECKSTATE.IMPROVE ?
-  //   <span><Icon name='exclamation triangle' color='red' /> {checklist.getTitleText()}</span> : '' ;
+
   const rightside = <Filter explorerType={explorerType} />;
   const header = <RadGradHeader title= {`${explorerType.replace('-', ' ')}`} count = {explorerItems.length}
                                 icon={icon} rightside={rightside}/>;
