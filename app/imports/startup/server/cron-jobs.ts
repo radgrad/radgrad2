@@ -14,15 +14,15 @@ import { RadGradForecasts } from '../both/RadGradForecasts';
 /** Disable logging. */
 SyncedCron.config({ logger: (opts) => {} });
 
-/** Define a schedule that runs every 24 hours at a time based on startup time. */
 const every24Hours = (parser) => parser.text('every 24 hours');
+const every15seconds = (parser) => parser.text('every 15 seconds');
 const afterMidnight = (parser) => parser.text('at 12:05 am');
 const beforeMidnight = (parser) => parser.text('at 11:55 pm');
 
 SyncedCron.add({ name: 'Update ICE Snapshots', schedule: every24Hours, job: updateIceSnapshot });
 SyncedCron.add({ name: 'Update Factoids', schedule: every24Hours, job: updateFactoids });
-SyncedCron.add({ name: 'Update public stats', schedule: afterMidnight, job: PublicStats.generateStats });
-SyncedCron.add({ name: 'Update Forecasts', schedule: afterMidnight, job: RadGradForecasts.updateForecasts });
-SyncedCron.add({ name: 'Update Whats New', schedule: afterMidnight, job: whatsNew.updateData });
-SyncedCron.add({ name: 'Update User Interactions', schedule: beforeMidnight, job: userInteractionManager.dailyUpdate });
+SyncedCron.add({ name: 'Update Public Stats', schedule: afterMidnight, job: PublicStats.generateStats });
+SyncedCron.add({ name: 'Update Forecasts', schedule: afterMidnight, job: () => RadGradForecasts.updateForecasts() });
+SyncedCron.add({ name: 'Update Whats New', schedule: afterMidnight, job: () => whatsNew.updateData() });
+SyncedCron.add({ name: 'Update User Interactions', schedule: every15seconds, job: () => userInteractionManager.dailyUpdate() });
 
