@@ -6,6 +6,18 @@ import { Users } from '../user/UserCollection';
 import { ROLE } from '../role/Role';
 import { UserInteractionDefine } from '../../typings/radgrad';
 
+export enum USER_INTERACTIONS {
+  LOGIN = 'login',
+  CHANGE_OUTLOOK = 'change-outlook',
+  EXPLORE = 'explore',
+  PLAN = 'plan',
+  VERIFY = 'verify',
+  REVIEW = 'review',
+  LEVEL_UP = 'level-up',
+  COMPLETE_PLAN = 'complete-plan',
+  CHANGE_VISIBILITY = 'change-visibility',
+}
+
 /**
  * Represents a log of user interactions with RadGrad.
  * @extends api/base.BaseCollection
@@ -35,10 +47,10 @@ class UserInteractionCollection extends BaseCollection {
    * Defines a user interaction record.
    * @param username The username.
    * @param type The interaction type.
-   * @param typeData Any data associated with the interaction type.
-   * @param timestamp The time of interaction.
+   * @param typeData Optional. Any data associated with the interaction type. Defaults to [].
+   * @param timestamp Optional. The time of interaction. Defaults to right now.
    */
-  public define({ username, type, typeData, timestamp = moment().toDate() }: UserInteractionDefine): string {
+  public define({ username, type, typeData = [], timestamp = moment().toDate() }: UserInteractionDefine): string {
     const doc = this.collection.findOne({ username, type, typeData, timestamp });
     if (doc) {
       return doc._id;

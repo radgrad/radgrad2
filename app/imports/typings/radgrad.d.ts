@@ -895,7 +895,7 @@ export interface UserInteraction extends Document {
 export interface UserInteractionDefine extends DumpOne {
   username: string;
   type: string;
-  typeData: string[];
+  typeData?: string[];
   timestamp?: any;
 }
 

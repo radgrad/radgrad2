@@ -1,10 +1,15 @@
+import _ from 'lodash';
+import moment from 'moment';
 import { ProfileCareerGoals } from '../user/profile-entries/ProfileCareerGoalCollection';
+import { ProfileCourses } from '../user/profile-entries/ProfileCourseCollection';
 import { ProfileInterests } from '../user/profile-entries/ProfileInterestCollection';
+import { ProfileOpportunities } from '../user/profile-entries/ProfileOpportunityCollection';
 import { StudentProfiles } from '../user/StudentProfileCollection';
+import { USER_INTERACTIONS, UserInteractions } from './UserInteractionCollection';
 
 /** The structure of a snapshot. */
 export interface UIMSnapshot {
-  string?: { interests: string[], careerGoals: string[], level: number, degreePlanComplete: boolean }
+  string?: { interests: string[], careerGoals: string[], courses: string[], opportunities: string[], level: number, degreePlanComplete: boolean }
 }
 
 /**
@@ -26,7 +31,10 @@ class UserInteractionManager {
       const username = profile.username;
       snap[username].interests = ProfileInterests.getInterestSlugs(username);
       snap[username].careerGoals = ProfileCareerGoals.getCareerGoalSlugs(username);
+      snap[username].courses = ProfileCourses.getCourseSlugs(username);
+      snap[username].opportunities = ProfileOpportunities.getOpportunitySlugs(username);
     });
+    // console.log(snap);
     return snap;
   }
 
@@ -35,10 +43,19 @@ class UserInteractionManager {
     this.snapshot = this.buildASnapshot();
   }
 
-  /** Update the snapshot, and generate UserInteraction documents if appropriate. */
-  updateData() {
+  /** Once a day, update the snapshot, and generate UserInteraction documents as appropriate. */
+  dailyUpdate() {
     const newSnapshot = this.buildASnapshot();
+    const today = moment().format(moment.HTML5_FMT.DATE);
+    StudentProfiles.findNonRetired().forEach(profile => {
+      const username = profile.username;
+      // First, determine if the user has visited any pages today, and if so, create a LOGIN UserInteraction
+      const visitTimes = Object.values(profile.lastVisited);
+      if (_.some(visitTimes, (time) => time === today)) {
+        UserInteractions.define({ username, type: USER_INTERACTIONS.LOGIN });
+      }
 
+    });
   }
 }
 

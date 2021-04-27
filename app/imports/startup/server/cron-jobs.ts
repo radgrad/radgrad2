@@ -24,5 +24,5 @@ SyncedCron.add({ name: 'Update Factoids', schedule: every24Hours, job: updateFac
 SyncedCron.add({ name: 'Update public stats', schedule: afterMidnight, job: PublicStats.generateStats });
 SyncedCron.add({ name: 'Update Forecasts', schedule: afterMidnight, job: RadGradForecasts.updateForecasts });
 SyncedCron.add({ name: 'Update Whats New', schedule: afterMidnight, job: whatsNew.updateData });
-SyncedCron.add({ name: 'Update User Interactions', schedule: beforeMidnight, job: userInteractionManager.updateData });
+SyncedCron.add({ name: 'Update User Interactions', schedule: beforeMidnight, job: userInteractionManager.dailyUpdate });
 

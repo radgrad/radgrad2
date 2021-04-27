@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import _ from 'lodash';
 import BaseCollection from '../../base/BaseCollection';
+import { Interests } from '../../interest/InterestCollection';
 import { Users } from '../UserCollection';
 import { ROLE } from '../../role/Role';
 import { Opportunities } from '../../opportunity/OpportunityCollection';
@@ -120,6 +121,17 @@ class ProfileOpportunityCollection extends BaseCollection {
     this.assertDefined(instanceID);
     const instance = this.collection.findOne({ _id: instanceID });
     return Opportunities.findSlugByID(instance.opportunityID);
+  }
+
+  /**
+   * Returns the list of non-retired Opportunity slugs associated with this username.
+   * @param username The username
+   * @returns {Array<any>} Opportunity slugs.
+   */
+  getOpportunitySlugs(username) {
+    const studentID = Users.getID(username);
+    const documents = this.collection.find({ studentID, retired: false });
+    return documents.map(document => Opportunities.findSlugByID(document.opportunityID));
   }
 
   /**

@@ -123,6 +123,17 @@ class ProfileCourseCollection extends BaseCollection {
   }
 
   /**
+   * Returns the list of non-retired Course slugs associated with this username.
+   * @param username The username
+   * @returns {Array<any>} Interest slugs.
+   */
+  getCourseSlugs(username) {
+    const studentID = Users.getID(username);
+    const documents = this.collection.find({ studentID, retired: false });
+    return documents.map(document => Courses.findSlugByID(document.courseID));
+  }
+
+  /**
    * Returns the Student profile associated with the ProfileCourse with the given instanceID.
    * @param instanceID The ID of the ProfileCourse.
    * @returns {Object} The associated Student profile.
