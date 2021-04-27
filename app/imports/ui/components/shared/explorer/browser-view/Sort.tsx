@@ -14,15 +14,9 @@ interface SortProps {
   explorerType: string;
 }
 
-const mapStateToProps = (state: RootState, ownProps) => {
-  switch (ownProps.explorerType) {
-    case EXPLORER_TYPE.INTERESTS:
-      return { sortChoice: state.shared.cardExplorer.interests.sortValue };
-    case EXPLORER_TYPE.CAREERGOALS:
-      return { sortChoice: state.shared.cardExplorer.careergoals.sortValue };
-  }
-  return null;
-};
+const mapStateToProps = (state: RootState, ownProps) => ({
+  sortChoice: state.shared.cardExplorer[ownProps.explorerType.replaceAll('-', '').toLowerCase()].sortValue,
+});
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   setSortValue: (explorerType: string, value: string) => dispatch(cardExplorerActions.setSortValue(ownProps.explorerType, value)),
