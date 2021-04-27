@@ -44,6 +44,7 @@ const EditOpportunityButton: React.FC<ManageOpportunityProps> = ({
   // update the model so that it can be used in the AutoForm
   model.interests = opportunity.interestIDs.map((id) => Interests.findDoc(id).name);
   model.academicTerms = opportunity.termIDs.map((id) => AcademicTerms.toString(id));
+  model.sponsor = Users.getFullName(opportunity.sponsorID);
   const updateOpportunitySchema = new SimpleSchema({
     name: { type: String, optional: true },
     description: { type: String, optional: true },
