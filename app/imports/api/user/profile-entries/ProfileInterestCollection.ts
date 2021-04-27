@@ -3,6 +3,7 @@ import SimpleSchema from 'simpl-schema';
 import _ from 'lodash';
 import BaseCollection from '../../base/BaseCollection';
 import { Interests } from '../../interest/InterestCollection';
+import { Slugs } from '../../slug/SlugCollection';
 import { Users } from '../UserCollection';
 import { ROLE } from '../../role/Role';
 import { ProfileInterestDefine, ProfileEntryUpdate } from '../../../typings/radgrad';
@@ -126,6 +127,17 @@ class ProfileInterestCollection extends BaseCollection {
     this.assertDefined(instanceID);
     const instance = this.collection.findOne({ _id: instanceID });
     return Interests.findSlugByID(instance.interestID);
+  }
+
+  /**
+   * Returns the list of non-retired Interest slugs associated with this username.
+   * @param username The username
+   * @returns {Array<any>} Interest slugs.
+   */
+  getInterestSlugs(username) {
+    const userID = Users.getID(username);
+    const documents = this.collection.find({ userID, retired: false });
+    return documents.map(document => Interests.findSlugByID(document.interestID));
   }
 
   /**

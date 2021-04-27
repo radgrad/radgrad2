@@ -3,6 +3,7 @@ import SimpleSchema from 'simpl-schema';
 import _ from 'lodash';
 import BaseCollection from '../../base/BaseCollection';
 import { CareerGoals } from '../../career/CareerGoalCollection';
+import { Interests } from '../../interest/InterestCollection';
 import { Users } from '../UserCollection';
 import { ProfileCareerGoalDefine, ProfileEntryUpdate } from '../../../typings/radgrad';
 import { ROLE } from '../../role/Role';
@@ -128,6 +129,17 @@ class ProfileCareerGoalCollection extends BaseCollection {
     this.assertDefined(instanceID);
     const instance = this.collection.findOne({ _id: instanceID });
     return CareerGoals.findSlugByID(instance.careerGoalID);
+  }
+
+  /**
+   * Returns the list of non-retired Career Goal slugs associated with this username.
+   * @param username The username
+   * @returns {Array<any>} Career Goal slugs.
+   */
+  getCareerGoalSlugs(username) {
+    const userID = Users.getID(username);
+    const documents = this.collection.find({ userID, retired: false });
+    return documents.map(document => CareerGoals.findSlugByID(document.careerGoalID));
   }
 
   /**
