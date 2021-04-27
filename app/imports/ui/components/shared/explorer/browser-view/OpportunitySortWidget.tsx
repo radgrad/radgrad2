@@ -25,7 +25,7 @@ const mapStateToProps = (state: RootState) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setOpportunitiesSortValue: (explorerType: string, value: string) => dispatch(cardExplorerActions.setOpportunitiesSortValue(explorerType, value)),
+  setOpportunitiesSortValue: (explorerType: string, value: string) => dispatch(cardExplorerActions.setSortValue(explorerType, value)),
 });
 
 const OpportunitySortWidget: React.FC<OpportunitySortWidgetProps> = ({ sortChoice, setOpportunitiesSortValue }) => {

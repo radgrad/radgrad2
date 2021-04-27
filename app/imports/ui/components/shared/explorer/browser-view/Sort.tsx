@@ -24,21 +24,9 @@ const mapStateToProps = (state: RootState, ownProps) => {
   return null;
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-  switch (ownProps.explorerType) {
-    case EXPLORER_TYPE.CAREERGOALS:
-      return {
-        setSortValue: (explorerType: string, value: string) => dispatch(cardExplorerActions.setCareerGoalsSortValue(explorerType, value)),
-      };
-    case EXPLORER_TYPE.INTERESTS: {
-      return {
-        setSortValue: (explorerType: string, value: string) => dispatch(cardExplorerActions.setInterestsSortValue(explorerType, value)),
-      };
-    }
-    default:
-      return null;
-  }
-};
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  setSortValue: (explorerType: string, value: string) => dispatch(cardExplorerActions.setSortValue(ownProps.explorerType, value)),
+});
 
 const Sort: React.FC<SortProps> = ({ sortChoice, setSortValue, explorerType }) => {
   const handleChange = (type, value) => {

@@ -18,24 +18,9 @@ const mapStateToProps = (state: RootState, ownProps) => ({
   filterChoice: state.shared.cardExplorer[ownProps.explorerType.replaceAll('-', '').toLowerCase()].filterValue,
 });
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-  switch (ownProps.explorerType) {
-    case EXPLORER_TYPE.CAREERGOALS:
-      return {
-        setFilterChoice: (explorerType: string, value: string) => dispatch(cardExplorerActions.setCareergoalsFilterValue(explorerType, value)),
-      };
-    case EXPLORER_TYPE.INTERESTS:
-      return {
-        setFilterChoice: (explorerType: string, value: string) => dispatch(cardExplorerActions.setInterestsFilterValue(explorerType, value)),
-      };
-    case EXPLORER_TYPE.COURSES:
-      return {
-        setFilterChoice: (explorerType: string, value: string) => dispatch(cardExplorerActions.setCoursesFilterValue(explorerType, value)),
-      };
-    default:
-      return null;
-  }
-};
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  setFilterChoice: (explorerType: string, value: string) => dispatch(cardExplorerActions.setFilterValue(ownProps.explorerType, value)),
+});
 
 const Filter: React.FC<FilterProps> = ({ filterChoice, setFilterChoice, explorerType }) => {
   const handleChange = (type, value) => {

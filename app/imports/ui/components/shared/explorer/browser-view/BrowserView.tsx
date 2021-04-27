@@ -25,7 +25,6 @@ import { CareerGoals } from '../../../../../api/career/CareerGoalCollection';
 
 interface BrowserViewProps {
   items: CareerGoal[] | Course[] | Opportunity[] | Interest[];
-  profileInterestIDs: string[];
   inProfile: boolean;
   explorerType: EXPLORER_TYPE;
   // Saving Scroll Position
@@ -151,7 +150,7 @@ const BrowserView: React.FC<BrowserViewProps> = ({
 
   const inProfile = (item:Interest | CareerGoal | Course | Opportunity, type:EXPLORER_TYPE) => {
     profileItems = getProfileItems(type);
-    return !! profileItems.some(x => x._id == item._id);
+    return !! profileItems.some(x => x._id === item._id);
   };
   // const rightsideInProfile =  checklist.getState() === CHECKSTATE.IMPROVE ?
   //   <span><Icon name='exclamation triangle' color='red' /> {checklist.getTitleText()}</span> : '' ;
