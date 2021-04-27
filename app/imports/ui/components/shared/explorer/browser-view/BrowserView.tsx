@@ -63,7 +63,6 @@ const BrowserView: React.FC<BrowserViewProps> = ({
   const userID = Router.getUserIdFromRoute(match);
   const profileEntries = ProfileInterests.findNonRetired({ userID });
   const interestIDs = profileEntries.map((f) => f.interestID);
-  const preferred = new PreferredChoice(items, interestIDs);
   let explorerItems = _.sortBy(items, (item: any) => item.name);
   let profileItems;
   const getProfileItems = (type:EXPLORER_TYPE) => {
@@ -94,11 +93,11 @@ const BrowserView: React.FC<BrowserViewProps> = ({
 
   switch (filterChoice){
     case EXPLORER_FILTER_KEYS.INPROFILE: {
-      getProfileItems(explorerType);
+      explorerItems = getProfileItems(explorerType);
       break;
     }
     case EXPLORER_FILTER_KEYS.NOTINPROFILE:
-      getNonProfileItems(explorerType);
+      explorerItems = getNonProfileItems(explorerType);
       break;
     default:
         // do no filtering
@@ -106,14 +105,16 @@ const BrowserView: React.FC<BrowserViewProps> = ({
 
   switch (sortValue) {
     case EXPLORER_SORT_KEYS.MOST_RECENT: {
-      explorerItems = _.sortBy(items, (item: any) => item.updatedAt);
+      explorerItems = _.sortBy(explorerItems, (item: any) => item.updatedAt);
       break;
     }
-    case EXPLORER_SORT_KEYS.RECOMMENDED:
+    case EXPLORER_SORT_KEYS.RECOMMENDED: {
+      const preferred = new PreferredChoice(explorerItems, interestIDs);
       explorerItems = preferred.getOrderedChoices();
       break;
+    }
     default: {
-      explorerItems = _.sortBy(items, (item:any) => item.name);
+      explorerItems = _.sortBy(explorerItems, (item:any) => item.name);
     }
   }
 
