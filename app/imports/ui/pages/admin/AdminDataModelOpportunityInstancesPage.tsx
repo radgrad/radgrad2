@@ -6,7 +6,6 @@ import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
-import { dataModelActions } from '../../../redux/admin/data-model';
 import { AcademicTerm, BaseProfile, DescriptionPair, Opportunity, OpportunityInstance, StudentProfile } from '../../../typings/radgrad';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
@@ -118,8 +117,6 @@ const AdminDataModelOpportunityInstancesPage: React.FC<AdminDataModelOpportunity
         itemTitle={itemTitle}
         handleOpenUpdate={handleOpenUpdate}
         handleDelete={handleDelete}
-        setShowIndex={dataModelActions.setCollectionShowIndex}
-        setShowCount={dataModelActions.setCollectionShowCount}
         items={items}
       />
       <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete}

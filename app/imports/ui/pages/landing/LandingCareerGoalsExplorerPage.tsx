@@ -4,7 +4,7 @@ import { Card, Header, Segment } from 'semantic-ui-react';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import LandingExplorerMenuBar from '../../components/landing/explorer/LandingExplorerMenuBar';
-import { CareerGoal, HelpMessage } from '../../../typings/radgrad';
+import { CareerGoal } from '../../../typings/radgrad';
 import LandingExplorerCard from '../../components/landing/explorer/LandingExplorerCard';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
@@ -14,7 +14,6 @@ import PageLayout from '../PageLayout';
 interface CareerGoalsExplorerProps {
   careerGoals: CareerGoal[];
   count: number;
-  helpMessages: HelpMessage[];
 }
 
 const headerPaneTitle = 'The Career Goal Explorer';
@@ -26,7 +25,7 @@ Registered users can add Career Goals to their profile which enables RadGrad to 
 This page provides an overview of the Career Goals currently available in RadGrad. 
 `;
 
-const LandingCareerGoalsExplorerPage: React.FC<CareerGoalsExplorerProps> = ({ count, helpMessages, careerGoals }) => (
+const LandingCareerGoalsExplorerPage: React.FC<CareerGoalsExplorerProps> = ({ count, careerGoals }) => (
   <div>
     <LandingExplorerMenuBar/>
     <PageLayout id={PAGEIDS.LANDING_CAREER_GOALS_EXPLORER} headerPaneTitle={headerPaneTitle}

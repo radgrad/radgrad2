@@ -43,7 +43,6 @@ export const DATAMODEL = {
   CAREERGOALS: 'datamodel/career-goals',
   COURSE_INSTANCES: 'datamodel/course-instances',
   COURSES: 'datamodel/courses',
-  FEEDS: 'datamodel/feeds',
   INTERESTS: 'datamodel/interests',
   INTEREST_TYPES: 'datamodel/interest-types',
   OPPORTUNITIES: 'datamodel/opportunities',

@@ -16,7 +16,6 @@ import AddOpportunityForm from '../../components/admin/datamodel/opportunity/Add
 import UpdateOpportunityForm from '../../components/admin/datamodel/opportunity/UpdateOpportunityForm';
 import { academicTermNameToSlug, itemToSlugName, opportunityTypeNameToSlug, profileNameToUsername } from '../../components/shared/utilities/data-model';
 import { interestSlugFromName } from '../../components/shared/utilities/form';
-import { dataModelActions } from '../../../redux/admin/data-model';
 import { PAGEIDS } from '../../utilities/PageIDs';
 import {
   handleCancelWrapper,
@@ -120,8 +119,6 @@ const AdminDataModelOpportunitiesPage: React.FC<AdminDataModelOpportunitiesPageP
         itemTitle={itemTitle}
         handleOpenUpdate={handleOpenUpdate}
         handleDelete={handleDelete}
-        setShowIndex={dataModelActions.setCollectionShowIndex}
-        setShowCount={dataModelActions.setCollectionShowCount}
         items={items}
       />
 

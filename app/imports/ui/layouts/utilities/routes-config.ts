@@ -12,7 +12,6 @@ import AdminDataModelCareerGoalsPage from '../../pages/admin/AdminDataModelCaree
 import AdminDataModelUsersPage from '../../pages/admin/AdminDataModelUsersPage';
 import AdminDataModelCourseInstancesPage from '../../pages/admin/AdminDataModelCourseInstancesPage';
 import AdminDataModelCoursesPage from '../../pages/admin/AdminDataModelCoursesPage';
-import AdminDataModelFeedsPage from '../../pages/admin/AdminDataModelFeedsPage';
 import AdminDataModelInterestsPage from '../../pages/admin/AdminDataModelInterestsPage';
 import AdminDataModelInterestTypesPage from '../../pages/admin/AdminDataModelInterestTypesPage';
 import AdminDataModelOpportunitiesPage from '../../pages/admin/AdminDataModelOpportunitiesPage';
@@ -22,6 +21,8 @@ import AdminDataModelReviewsPage from '../../pages/admin/AdminDataModelReviewsPa
 import AdminDataModelSlugsPage from '../../pages/admin/AdminDataModelSlugsPage';
 import AdminDataModelTeasersPage from '../../pages/admin/AdminDataModelTeasersPage';
 import AdminDataModelVerificationRequestsPage from '../../pages/admin/AdminDataModelVerificationRequestsPage';
+import SandBoxStickyStatePage from '../../pages/sandbox/SandBoxStickyStatePage';
+import SandBoxTabPage from '../../pages/sandbox/SandBoxTabPage';
 import VisibilityPage from '../../pages/shared/VisibilityPage';
 import AdvisorHomePage from '../../pages/advisor/AdvisorHomePage';
 import AdvisorManageStudentsPage from '../../pages/advisor/AdvisorManageStudentsPage';
@@ -105,7 +106,6 @@ export const routes = {
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL.CAREERGOALS}`, component: AdminDataModelCareerGoalsPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL.COURSE_INSTANCES}`, component: AdminDataModelCourseInstancesPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL.COURSES}`, component: AdminDataModelCoursesPage },
-    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL.FEEDS}`, component: AdminDataModelFeedsPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL.INTERESTS}`, component: AdminDataModelInterestsPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL.INTEREST_TYPES}`, component: AdminDataModelInterestTypesPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL.OPPORTUNITIES}`, component: AdminDataModelOpportunitiesPage },
@@ -212,5 +212,7 @@ export const routes = {
     // The following routes display sandbox pages under the student role.
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/sandbox/labels`, component: SandboxLabelPage },
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/sandbox/segments`, component: SandBoxSegmentPage },
+    { path: `/${URL_ROLES.STUDENT}/${USERNAME}/sandbox/tabs`, component: SandBoxTabPage },
+    { path: `/${URL_ROLES.STUDENT}/${USERNAME}/sandbox/stickystate`, component: SandBoxStickyStatePage },
   ],
 };

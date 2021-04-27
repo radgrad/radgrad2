@@ -50,7 +50,6 @@ const AdminPageMenu: React.FC = () => {
     { label: 'Career Goals', route: DATAMODEL.CAREERGOALS },
     { label: 'Course Instances', route: DATAMODEL.COURSE_INSTANCES },
     { label: 'Courses', route: DATAMODEL.COURSES },
-    { label: 'Feeds', route: DATAMODEL.FEEDS },
     { label: 'Interests', route: DATAMODEL.INTERESTS },
     { label: 'Interest Types', route: DATAMODEL.INTEREST_TYPES },
     { label: 'Opportunities', route: DATAMODEL.OPPORTUNITIES },

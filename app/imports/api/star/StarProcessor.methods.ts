@@ -3,11 +3,9 @@ import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import moment from 'moment';
 import { CourseInstances } from '../course/CourseInstanceCollection';
 import { Courses } from '../course/CourseCollection';
-import { Feeds } from '../feed/FeedCollection';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { StudentProfiles } from '../user/StudentProfileCollection';
 import { Users } from '../user/UserCollection';
-import { defineMethod } from '../base/BaseCollection.methods';
 import { getDepartment } from '../course/CourseUtilities';
 import {
   processStarCsvData,
@@ -160,8 +158,6 @@ const processBulkStarDefinitions = (advisor, definitions) => {
             level: 1,
           };
           StudentProfiles.define(definitionData);
-          const feedData = { feedType: Feeds.NEW_USER, user: definitionData.username };
-          defineMethod.call({ collectionName: Feeds.getCollectionName(), definitionData: feedData });
           processStudentStarDefinitions(advisor, student, definitions[student].courses);
           const studentID = Users.getID(student);
           updateStudentLevel(studentID);

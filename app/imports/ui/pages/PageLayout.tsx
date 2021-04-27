@@ -22,7 +22,7 @@ const PageLayout: React.FC<PageLayoutProps> = ({ id, headerPaneImage, headerPane
   const padding = { paddingRight: '20px', paddingLeft: '20px', paddingTop: '20px' };
   // The next 9 lines update the lastVisited entry for this page if necessary.
   const { username } = useParams();
-  if (Users.hasProfile(username)) {
+  if (username && Users.hasProfile(username)) {
     const profile = Users.getProfile(username);
     const lastVisitedEntry = profile.lastVisited && profile.lastVisited[id];
     const now = moment().format('YYYY-MM-DD');

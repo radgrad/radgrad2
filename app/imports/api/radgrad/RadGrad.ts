@@ -6,7 +6,6 @@ import { CareerGoals } from '../career/CareerGoalCollection';
 import { Courses } from '../course/CourseCollection';
 import { CourseInstances } from '../course/CourseInstanceCollection';
 import { FacultyProfiles } from '../user/FacultyProfileCollection';
-import { Feeds } from '../feed/FeedCollection';
 import { IceSnapshots } from '../analytic/IceSnapshotCollection';
 import { Interests } from '../interest/InterestCollection';
 import { InterestTypes } from '../interest/InterestTypeCollection';
@@ -55,7 +54,6 @@ class RadGradClass {
       ProfileCourses,
       ProfileInterests,
       ProfileOpportunities,
-      Feeds,
       IceSnapshots,
       Interests,
       InterestTypes,
@@ -95,7 +93,6 @@ class RadGradClass {
       CourseInstances,
       OpportunityInstances,
       VerificationRequests,
-      Feeds,
       IceSnapshots,
       UserInteractions,
       Reviews,

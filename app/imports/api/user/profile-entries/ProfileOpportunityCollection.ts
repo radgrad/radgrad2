@@ -1,8 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import _ from 'lodash';
-import { ReactiveAggregate } from 'meteor/jcbernack:reactive-aggregate';
-import { ProfileOpportunitiesForecastName } from '../../../startup/both/names';
 import BaseCollection from '../../base/BaseCollection';
 import { Users } from '../UserCollection';
 import { ROLE } from '../../role/Role';
@@ -10,10 +8,6 @@ import { Opportunities } from '../../opportunity/OpportunityCollection';
 import { ProfileOpportunityDefine, ProfileEntryUpdate } from '../../../typings/radgrad';
 
 class ProfileOpportunityCollection extends BaseCollection {
-  public readonly publicationNames: {
-    forecast: string;
-  };
-
   /** Creates the ProfileOpportunity collection */
   constructor() {
     super('ProfileOpportunity', new SimpleSchema({
@@ -21,9 +15,6 @@ class ProfileOpportunityCollection extends BaseCollection {
       studentID: SimpleSchema.RegEx.Id,
       retired: { type: Boolean, optional: true },
     }));
-    this.publicationNames = {
-      forecast: `${this.collectionName}.forecast`,
-    };
   }
 
   /**
@@ -93,17 +84,6 @@ class ProfileOpportunityCollection extends BaseCollection {
           return collection.find();
         }
         return collection.find({ studentID });
-      });
-      Meteor.publish(this.publicationNames.forecast, function publishOpportunityForecast() {
-        ReactiveAggregate(this, collection, [
-          {
-            $group: {
-              _id: '$opportunityID',
-              count: { $sum: 1 },
-            },
-          },
-          { $project: { count: 1, opportunityID: 1 } },
-        ], { clientCollection: ProfileOpportunitiesForecastName });
       });
     }
   }

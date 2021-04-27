@@ -12,7 +12,6 @@ import { Users } from '../../../api/user/UserCollection';
 import AddCourseInstanceForm from '../../components/admin/datamodel/course/AddCourseInstanceForm';
 import { academicTermNameToDoc } from '../../components/shared/utilities/data-model';
 import UpdateCourseInstanceForm from '../../components/admin/datamodel/course/UpdateCourseInstanceForm';
-import { dataModelActions } from '../../../redux/admin/data-model';
 import { PAGEIDS } from '../../utilities/PageIDs';
 import {
   handleCancelWrapper,
@@ -111,8 +110,6 @@ const AdminDataModelCourseInstancesPage: React.FC<AdminDataModelCourseInstancesP
         itemTitle={itemTitle}
         handleOpenUpdate={handleOpenUpdate}
         handleDelete={handleDelete}
-        setShowIndex={dataModelActions.setCollectionShowIndex}
-        setShowCount={dataModelActions.setCollectionShowCount}
         items={items}
       />
       <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete}

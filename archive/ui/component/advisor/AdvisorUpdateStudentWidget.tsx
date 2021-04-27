@@ -3,16 +3,16 @@ import Swal from 'sweetalert2';
 import { connect } from 'react-redux';
 import { Segment, Header, Form, Radio } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
-import { openCloudinaryWidget } from '../../shared/OpenCloudinaryWidget';
-import { updateMethod } from '../../../../api/base/BaseCollection.methods';
-import { RadGrad } from '../../../../api/radgrad/RadGrad';
-import { defaultCalcLevel } from '../../../../api/level/LevelProcessor';
-import { setSelectedStudentUsername } from '../../../../redux/advisor/home/actions';
-import { ProfileInterests } from '../../../../api/user/profile-entries/ProfileInterestCollection';
-import { ProfileCareerGoals } from '../../../../api/user/profile-entries/ProfileCareerGoalCollection';
-import { RootState } from '../../../../redux/types';
-import { BaseProfile, CareerGoal, Interest } from '../../../../typings/radgrad';
+import { AcademicTerms } from '../../../../app/imports/api/academic-term/AcademicTermCollection';
+import { openCloudinaryWidget } from '../../../../app/imports/ui/components/shared/OpenCloudinaryWidget';
+import { updateMethod } from '../../../../app/imports/api/base/BaseCollection.methods';
+import { RadGrad } from '../../../../app/imports/api/radgrad/RadGrad';
+import { defaultCalcLevel } from '../../../../app/imports/api/level/LevelProcessor';
+import { setSelectedStudentUsername } from '../../../../app/imports/redux/advisor/home/actions';
+import { ProfileInterests } from '../../../../app/imports/api/user/profile-entries/ProfileInterestCollection';
+import { ProfileCareerGoals } from '../../../../app/imports/api/user/profile-entries/ProfileCareerGoalCollection';
+import { RootState } from '../../../../app/imports/redux/types';
+import { BaseProfile, CareerGoal, Interest } from '../../../../app/imports/typings/radgrad';
 
 interface AdvisorUpdateStudentWidgetProps {
   dispatch: (any) => void;

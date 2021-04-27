@@ -4,7 +4,6 @@ import '../imports/api/base';
 import '../imports/api/career';
 import '../imports/api/course';
 import '../imports/api/degree-plan';
-import '../imports/api/feed';
 import '../imports/api/ice';
 import '../imports/api/integrity';
 import '../imports/api/interest';

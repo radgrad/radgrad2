@@ -173,7 +173,6 @@ class StudentProfileCollection extends BaseProfileCollection {
         throw new Meteor.Error(`Invalid isAlumni: ${isAlumni}`);
       }
 
-      // Create the slug, which ensures that username is unique.
       Slugs.define({ name: username, entityName: this.getType() });
       const role = isAlumni ? ROLE.ALUMNI : ROLE.STUDENT;
       const profileID = this.collection.insert({
@@ -239,7 +238,7 @@ class StudentProfileCollection extends BaseProfileCollection {
    * @param lastName
    * @param picture
    * @param website
-   * @param interests
+   * @param interests array of interest slugs or IDs.
    * @param careerGoals
    * @param level
    * @param declaredAcademicTerm

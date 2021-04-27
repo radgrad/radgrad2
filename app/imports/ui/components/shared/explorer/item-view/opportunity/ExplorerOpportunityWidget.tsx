@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, useRouteMatch } from 'react-router-dom';
 import { Divider, Grid, Header, Segment } from 'semantic-ui-react';
 import Markdown from 'react-markdown';
 import { AcademicTerms } from '../../../../../../api/academic-term/AcademicTermCollection';
-import { RadGradProperties } from '../../../../../../api/radgrad/RadGradProperties';
-import { OpportunityForecastCollection } from '../../../../../../startup/client/collections';
-import { AcademicTerm, Opportunity, Review } from '../../../../../../typings/radgrad';
+import { getFutureEnrollmentSingleMethod } from '../../../../../../api/utilities/FutureEnrollment.methods';
+import { ENROLLMENT_TYPE, EnrollmentForecast } from '../../../../../../startup/both/RadGradForecasts';
+import { Opportunity, Review } from '../../../../../../typings/radgrad';
 import StudentExplorerReviewWidget from '../../../../student/explorer/StudentExplorerReviewWidget';
 import { Reviews } from '../../../../../../api/review/ReviewCollection';
 import IceHeader from '../../../IceHeader';
@@ -71,26 +71,32 @@ const ExplorerOpportunityWidget: React.FC<ExplorerOpportunitiesWidgetProps> = ({
   const hasTeaser = Teasers.findNonRetired({ targetSlugID: item.slugID }).length > 0;
   const isStudent = Router.isUrlRoleStudent(match);
 
-  const quarter = RadGradProperties.getQuarterSystem();
-  const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
-  const numTerms = quarter ? 12 : 9;
-  const academicTerms = AcademicTerms.findNonRetired(
-    { termNumber: { $gte: currentTerm.termNumber } },
-    {
-      sort: { termNumber: 1 },
-      limit: numTerms,
-    },
-  );
-  const scores = [];
-  academicTerms.forEach((term: AcademicTerm) => {
-    const id = `${item._id} ${term._id}`;
-    const score = OpportunityForecastCollection.find({ _id: id }).fetch() as { count: number }[];
-    if (score.length > 0) {
-      scores.push(score[0].count);
-    } else {
-      scores.push(0);
+  const [data, setData] = useState<EnrollmentForecast>({});
+  const [fetched, setFetched] = useState(false);
+
+  useEffect(() => {
+    // console.log('check for infinite loop');
+    function fetchData() {
+      getFutureEnrollmentSingleMethod.callPromise({ id: item._id, type: ENROLLMENT_TYPE.OPPORTUNITY })
+        .then((result) => setData(result))
+        .catch((error) => {
+          console.error(error);
+          setData({});
+        });
     }
-  });
+
+    // Only fetch data if it hasn't been fetched before.
+    if (!fetched) {
+      fetchData();
+      setFetched(true);
+    }
+  }, [fetched, item._id]);
+  let academicTerms = [];
+  let scores = [];
+  if (data?.enrollment) {
+    academicTerms = data.enrollment.map((entry) => AcademicTerms.findDoc(entry.termID));
+    scores = data.enrollment.map((entry) => entry.count);
+  }
   const profile = Users.getProfile(username);
   const added = ProfileOpportunities.findNonRetired({ studentID: profile.userID, opportunityID: item._id }).length > 0;
   // console.log(profile.userID, item._id, item.name);

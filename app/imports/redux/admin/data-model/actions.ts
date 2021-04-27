@@ -5,7 +5,6 @@ import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInst
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { Courses } from '../../../api/course/CourseCollection';
-import { Feeds } from '../../../api/feed/FeedCollection';
 import { Interests } from '../../../api/interest/InterestCollection';
 import { InterestTypes } from '../../../api/interest/InterestTypeCollection';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
@@ -37,9 +36,6 @@ export const setCollectionShowCount = (collectionName: string, count: number): {
       break;
     case Courses.getCollectionName():
       retVal.type = TYPES.SET_COURSES_SHOW_COUNT;
-      break;
-    case Feeds.getCollectionName():
-      retVal.type = TYPES.SET_FEEDS_SHOW_COUNT;
       break;
     case Interests.getCollectionName():
       retVal.type = TYPES.SET_INTERESTS_SHOW_COUNT;
@@ -104,9 +100,6 @@ export const setCollectionShowIndex = (collectionName: string, index: number): {
       break;
     case Courses.getCollectionName():
       retVal.type = TYPES.SET_COURSES_SHOW_INDEX;
-      break;
-    case Feeds.getCollectionName():
-      retVal.type = TYPES.SET_FEEDS_SHOW_INDEX;
       break;
     case Interests.getCollectionName():
       retVal.type = TYPES.SET_INTERESTS_SHOW_INDEX;

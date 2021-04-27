@@ -18,12 +18,11 @@ export class VisibilityChecklist extends Checklist {
     this.profile = Users.getProfile(student);
     this.iconName = 'privacy';
     this.title[CHECKSTATE.OK] = 'Thanks! You recently reviewed your Visibility settings';
-    this.title[CHECKSTATE.REVIEW] = 'We notice you have not reviewed your Visibility settings recently';
+    this.title[CHECKSTATE.REVIEW] = 'Please review your Visibility settings';
     // Specify the description for each state.
     this.description[CHECKSTATE.OK] = 'Thanks for reviewing your visibility settings.';
     this.description[CHECKSTATE.REVIEW] = `RadGrad is designed to support community building by helping you to find other students
-      with similar interests and goals. However, we don't want to share your information without your consent. The more
-      information that you choose to share, the easier it is for RadGrad to help connect you with other students.`;
+      with similar interests and career goals. Sharing this information enables RadGrad to help connect you with other students.`;
 
     this.updateState();
   }
@@ -55,7 +54,7 @@ export class VisibilityChecklist extends Checklist {
       case CHECKSTATE.OK:
       case CHECKSTATE.IMPROVE:
         return (
-          <ActionsBox description='Go to the Visibility page to review and adjust the contents of your public profile:'>
+          <ActionsBox description='Use the Visibility page to review and adjust the your public profile:'>
             <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${VISIBILITY}`} label='Visibility Page'/>
           </ActionsBox>
         );

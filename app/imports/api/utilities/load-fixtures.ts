@@ -12,7 +12,6 @@ import { AdvisorProfiles } from '../user/AdvisorProfileCollection';
 import { FacultyProfiles } from '../user/FacultyProfileCollection';
 import { StudentProfiles } from '../user/StudentProfileCollection';
 import { AcademicYearInstances } from '../degree-plan/AcademicYearInstanceCollection';
-import { Feeds } from '../feed/FeedCollection';
 
 export const loadCollectionNewDataOnly = (collection: BaseCollection, loadJSON, printToConsole) => {
   let retVal = '';
@@ -56,16 +55,6 @@ export const loadCollectionNewDataOnly = (collection: BaseCollection, loadJSON, 
           count++;
         }
       }
-        break;
-      case Feeds.getType():
-        if (Feeds.find({
-          feedType: definition.feedType,
-          description: definition.description,
-          timestamp: definition.timestamp,
-        }).count() === 0) {
-          collection.define(definition);
-          count++;
-        }
         break;
       case OpportunityInstances.getType():
         termID = AcademicTerms.getID(definition.academicTerm);

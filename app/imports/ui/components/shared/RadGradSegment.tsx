@@ -8,7 +8,7 @@ interface RadGradSegmentProps {
 }
 
 const RadGradSegment: React.FC<RadGradSegmentProps> = ({ header, style = {}, children }) => (
-  <Segment>
+  <Segment style={style}>
     {header}
     <div style={{ marginTop: '1em' }}>
       {children}
