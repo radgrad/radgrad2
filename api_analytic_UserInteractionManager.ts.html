@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> api/public-stats/PublicStatsCollection.ts</title>
+  <title> api/analytic/UserInteractionManager.ts</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -76,7 +76,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>api/public-stats/PublicStatsCollection.ts</h1>
+                    <h1>api/analytic/UserInteractionManager.ts</h1>
                 </header>
                 
 
@@ -85,308 +85,119 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import { Meteor } from 'meteor/meteor';
-import SimpleSchema from 'simpl-schema';
-import _ from 'lodash';
+            <pre class="prettyprint source linenums"><code>import _ from 'lodash';
 import moment from 'moment';
-import BaseCollection from '../base/BaseCollection';
-import { CareerGoals } from '../career/CareerGoalCollection';
-import { Courses } from '../course/CourseCollection';
-import { Interests } from '../interest/InterestCollection';
-import { FacultyProfiles } from '../user/FacultyProfileCollection';
-import { Opportunities } from '../opportunity/OpportunityCollection';
-import { OpportunityTypes } from '../opportunity/OpportunityTypeCollection';
-import { Reviews } from '../review/ReviewCollection';
-import { Users } from '../user/UserCollection';
+import { PAGEIDS } from '../../ui/utilities/PageIDs';
+import { ProfileCareerGoals } from '../user/profile-entries/ProfileCareerGoalCollection';
+import { ProfileCourses } from '../user/profile-entries/ProfileCourseCollection';
+import { ProfileInterests } from '../user/profile-entries/ProfileInterestCollection';
+import { ProfileOpportunities } from '../user/profile-entries/ProfileOpportunityCollection';
 import { StudentProfiles } from '../user/StudentProfileCollection';
+import { USER_INTERACTIONS, UserInteractions } from './UserInteractionCollection';
 
-/**
- * PublicStats holds statistics about RadGrad that can be accessed without logging in.
- * These are referenced in the landing page and the guided tour.
- * Basically, the collection is a set of documents with two fields: key and value.
- * The field this.stats holds a list of strings which define the set of legal keys.
- * Each of these strings is also the name of a method in this class which is responsible for calculating the value
- * associated with the key and then upserting the key-value pair into the collection.
- *
- * See startup/server/initialize-db.js for the code that starts a cron job that updates this collection when the
- * system starts up and once a day thereafter.
- *
- * @extends api/base.BaseCollection
- * @memberOf api/public-stats
- */
-class PublicStatsCollection extends BaseCollection {
-  private readonly stats: string[];
-
-  public coursesTotalKey: string;
-
-  public coursesUpdateTime: string; // format YYYY-MM-DD-HH-mm-ss
-
-  public careerGoalsTotalKey: string;
-
-  public careerGoalsListKey: string;
-
-  public careerGoalsUpdateTime: string; // format YYYY-MM-DD-HH-mm-ss
-
-  public interestsTotalKey: string;
-
-  public interestsListKey: string;
-
-  public interestsUpdateTime: string; // format YYYY-MM-DD-HH-mm-ss
-
-  public opportunitiesTotalKey: string;
-
-  public opportunitiesProjectsTotalKey: string;
-
-  public opportunitiesProjectsListKey: string;
-
-  public opportunitiesUpdateTime: string; // format YYYY-MM-DD-HH-mm-ss
-
-  public usersTotalKey: string;
-
-  public usersStudentsTotalKey: string;
-
-  public usersFacultyTotalKey: string;
-
-  public courseReviewsTotalKey: string;
-
-  public courseReviewsCoursesKey: string;
-
-  public levelOneTotalKey: string;
-
-  public levelTwoTotalKey: string;
-
-  public levelThreeTotalKey: string;
-
-  public levelFourTotalKey: string;
-
-  public levelFiveTotalKey: string;
-
-  public levelSixTotalKey: string;
-
-  /**
-   * Creates the PublicStats collection.
-   */
-  constructor() {
-    super('PublicStats', new SimpleSchema({
-      key: { type: String },
-      value: { type: String },
-    }));
-    this.stats = [];
-    this.coursesTotalKey = 'coursesTotal';
-    this.stats.push(this.coursesTotalKey);
-    this.coursesUpdateTime = 'coursesUpdateTime';
-    this.careerGoalsTotalKey = 'careerGoalsTotal';
-    this.stats.push(this.careerGoalsTotalKey);
-    this.careerGoalsListKey = 'careerGoalsList';
-    this.stats.push(this.careerGoalsListKey);
-    this.careerGoalsUpdateTime = 'careerGoalUpdateTime';
-    this.interestsTotalKey = 'interestsTotal';
-    this.stats.push(this.interestsTotalKey);
-    this.interestsListKey = 'interestsList';
-    this.stats.push(this.interestsListKey);
-    this.interestsUpdateTime = 'interestsUpdateTime';
-    this.opportunitiesTotalKey = 'opportunitiesTotal';
-    this.stats.push(this.opportunitiesTotalKey);
-    this.opportunitiesProjectsTotalKey = 'opportunitiesProjectsTotal';
-    this.stats.push(this.opportunitiesProjectsTotalKey);
-    this.opportunitiesProjectsListKey = 'opportunitiesProjectsList';
-    this.stats.push(this.opportunitiesProjectsListKey);
-    this.opportunitiesUpdateTime = 'opportunitiesUpdateTime';
-    this.usersTotalKey = 'usersTotal';
-    this.stats.push(this.usersTotalKey);
-    this.usersStudentsTotalKey = 'usersStudentsTotal';
-    this.stats.push(this.usersStudentsTotalKey);
-    this.usersFacultyTotalKey = 'usersFacultyTotal';
-    this.stats.push(this.usersFacultyTotalKey);
-    this.courseReviewsTotalKey = 'courseReviewsTotal';
-    this.stats.push(this.courseReviewsTotalKey);
-    this.courseReviewsCoursesKey = 'courseReviewsCourses';
-    this.stats.push(this.courseReviewsCoursesKey);
-    this.levelOneTotalKey = 'levelOneTotal';
-    this.stats.push(this.levelOneTotalKey);
-    this.levelTwoTotalKey = 'levelTwoTotal';
-    this.stats.push(this.levelTwoTotalKey);
-    this.levelThreeTotalKey = 'levelThreeTotal';
-    this.stats.push(this.levelThreeTotalKey);
-    this.levelFourTotalKey = 'levelFourTotal';
-    this.stats.push(this.levelFourTotalKey);
-    this.levelFiveTotalKey = 'levelFiveTotal';
-    this.stats.push(this.levelFiveTotalKey);
-    this.levelSixTotalKey = 'levelSixTotal';
-    this.stats.push(this.levelSixTotalKey);
-  }
-
-  public careerGoalsTotal() {
-    const count = CareerGoals.find().count();
-    this.collection.upsert({ key: this.careerGoalsTotalKey }, { $set: { value: `${count}` } });
-  }
-
-  public careerGoalsList() {
-    const goals = CareerGoals.findNonRetired();
-    const names = goals.map((goal) => goal.name);
-    const nameStr = names.length > 0 ? names.join(', ') : 'none';
-    this.collection.upsert({ key: this.careerGoalsListKey }, { $set: { value: nameStr } });
-  }
-
-  public setCareerGoalUpdateTime(time: string) {
-    this.collection.upsert({ key: this.careerGoalsUpdateTime }, { $set: { value: time } });
-  }
-
-  public coursesTotal() {
-    const count = Courses.findNonRetired().length;
-    this.collection.upsert({ key: this.coursesTotalKey }, { $set: { value: `${count}` } });
-  }
-
-  public setCoursesUpdateTime(time: string) {
-    this.collection.upsert({ key: this.coursesUpdateTime }, { $set: { value: time } });
-  }
-
-  public interestsTotal() {
-    const numInterests = Interests.countNonRetired();
-    this.collection.upsert({ key: this.interestsTotalKey }, { $set: { value: `${numInterests}` } });
-  }
-
-  public interestsList() {
-    const interests = Interests.findNonRetired();
-    const names = interests.map((interest) => interest.name);
-    const nameStr = names.length > 0 ? names.join(', ') : 'none';
-    this.collection.upsert({ key: this.interestsListKey }, { $set: { value: nameStr } });
-  }
-
-  public setInterestsUpdateTime(time: string) {
-    this.collection.upsert({ key: this.interestsUpdateTime }, { $set: { value: time } });
-  }
-
-  public opportunitiesTotal() {
-    const numOpps = Opportunities.countNonRetired();
-    this.collection.upsert({ key: this.opportunitiesTotalKey }, { $set: { value: `${numOpps}` } });
-  }
-
-  public opportunitiesProjectsTotal() {
-    const projectType = OpportunityTypes.findDoc({ name: 'Project' });
-    const numProjects = Opportunities.findNonRetired({ opportunityTypeID: projectType._id }).length;
-    this.collection.upsert({ key: this.opportunitiesProjectsTotalKey }, { $set: { value: `${numProjects}` } });
-  }
-
-  public opportunitiesProjectsList() {
-    const projectType = OpportunityTypes.findDoc({ name: 'Project' });
-    const projects = Opportunities.findNonRetired({ opportunityTypeID: projectType._id });
-    const names = projects.map((project) => project.name);
-    const nameStr = names.length > 0 ? names.join(', ') : 'none';
-    this.collection.upsert({ key: this.opportunitiesProjectsListKey }, { $set: { value: nameStr } });
-  }
-
-  public setOpportunitiesUpdateTime(time: string) {
-    this.collection.upsert({ key: this.opportunitiesUpdateTime }, { $set: { value: time } });
-  }
-
-  public upsertLevelTotal(level, key) {
-    const numUsers = StudentProfiles.find({ level }).count();
-    this.collection.upsert({ key }, { $set: { value: `${numUsers}` } });
-  }
-
-  public levelOneTotal() {
-    this.upsertLevelTotal(1, this.levelOneTotalKey);
-  }
-
-  public levelTwoTotal() {
-    this.upsertLevelTotal(2, this.levelTwoTotalKey);
-  }
-
-  public levelThreeTotal() {
-    this.upsertLevelTotal(3, this.levelThreeTotalKey);
-  }
-
-  public levelFourTotal() {
-    this.upsertLevelTotal(4, this.levelFourTotalKey);
-  }
-
-  public levelFiveTotal() {
-    this.upsertLevelTotal(5, this.levelFiveTotalKey);
-  }
-
-  public levelSixTotal() {
-    this.upsertLevelTotal(6, this.levelSixTotalKey);
-  }
-
-  public usersTotal() {
-    const numUsers = Users.findProfiles({}, {}).length;
-    this.collection.upsert({ key: this.usersTotalKey }, { $set: { value: `${numUsers}` } });
-  }
-
-  public usersStudentsTotal() {
-    const numUsers = StudentProfiles.find().count();
-    this.collection.upsert({ key: this.usersStudentsTotalKey }, { $set: { value: `${numUsers}` } });
-  }
-
-  public usersFacultyTotal() {
-    const numUsers = FacultyProfiles.find().count();
-    this.collection.upsert({ key: this.usersFacultyTotalKey }, { $set: { value: `${numUsers}` } });
-  }
-
-  public courseReviewsTotal() {
-    const numCourseReviews = Reviews.find({ reviewType: 'course' }).count();
-    this.collection.upsert({ key: this.courseReviewsTotalKey }, { $set: { value: `${numCourseReviews}` } });
-  }
-
-  public courseReviewsCourses() {
-    const courseReviews = Reviews.findNonRetired({ reviewType: 'course' });
-    let courseNumbers = [];
-    courseReviews.forEach((review) => {
-      const course = Courses.findDoc(review.revieweeID);
-      courseNumbers.push(course.num);
-    });
-    courseNumbers = _.uniq(courseNumbers);
-    if (courseNumbers.length > 0) {
-      this.collection.upsert({ key: this.courseReviewsCoursesKey }, { $set: { value: courseNumbers.join(', ') } });
-    }
-  }
-
-  public generateStats() {
-    if (!(Meteor.isTest || Meteor.isAppTest)) {
-      // CAM We have to do this.
-      // eslint-disable-next-line @typescript-eslint/no-this-alias
-      const instance = this;
-      this.stats.forEach((key) => instance[key]());
-    }
-  }
-
-  /**
-   * Returns the value for the given key, or empty string if invalid key.
-   * @param {string} key
-   * @returns {string}
-   */
-  public getPublicStat(key: string): string {
-    try {
-      return this.findDoc({ key }).value;
-    } catch (e) {
-      return '';
-    }
-  }
-
-  /**
-   * Returns an empty array to indicate no integrity checking.
-   * @returns {Array} An empty array.
-   */
-  public checkIntegrity() {
-    return [];
-  }
-
-  /**
-   * Returns a date object corresponding to the passed key, which should be one of the lastUpdate fields in YYYY-MM-DD-HH-mm-ss.
-   * @param key Should be PublicStats.opportunitiesUpdateTime etc.
-   */
-  public getLastUpdateTimestamp(key: string) {
-    return moment(PublicStats.getPublicStat(key), 'YYYY-MM-DD-HH-mm-ss');
-  }
+/** The structure of a snapshot. */
+export interface UIMSnapshot {
+  string?: { interests: string[], careerGoals: string[], courses: string[], opportunities: string[], level: number, degreePlanComplete: boolean }
 }
 
 /**
- * Provides the singleton instance of this class to all other entities.
- * @type {api/public-stats.PublicStatsCollection}
- * @memberOf api/public-stats
+ * Provides the in-memory snapshot of student user state, along with methods to initialize and update it.
+ * When updating, UserInteraction documents are generated if state has changed since the last update.
  */
-export const PublicStats = new PublicStatsCollection();
+class UserInteractionManager {
+  public snapshot = {};
+
+  constructor() {
+    this.snapshot = {};
+  }
+
+  /** Create and return a snapshot data structure. */
+  public buildASnapshot() {
+    const snap: UIMSnapshot = {};
+    // First, initialize the data structure.
+    StudentProfiles.findNonRetired().forEach(profile => {
+      snap[profile.username] = { interests: [], careerGoals: [], level: profile.level, degreePlanComplete: StudentProfiles.isDegreePlanComplete(profile.username) };
+    });
+    // Now loop through once more and add the interests and career goals.
+    StudentProfiles.findNonRetired().forEach(profile => {
+      const username = profile.username;
+      snap[username].interests = ProfileInterests.getInterestSlugs(username);
+      snap[username].careerGoals = ProfileCareerGoals.getCareerGoalSlugs(username);
+      snap[username].courses = ProfileCourses.getCourseSlugs(username);
+      snap[username].opportunities = ProfileOpportunities.getOpportunitySlugs(username);
+    });
+    // console.log(snap);
+    return snap;
+  }
+
+  /** Build and save an in-memory snapshot. Run at system startup time. */
+  public initialize() {
+    this.snapshot = this.buildASnapshot();
+  }
+
+  /** Once a day, update the snapshot, and generate UserInteraction documents as appropriate. */
+  public dailyUpdate() {
+    console.log('Starting UserInteractionManager.dailyUpdate()');
+    const newSnapshot = this.buildASnapshot();
+    const today = moment().format(moment.HTML5_FMT.DATE);
+    StudentProfiles.findNonRetired().forEach(profile => {
+      const username = profile.username;
+      const userSnapshot = this.snapshot[username];
+      const newUserSnapshot = newSnapshot[username];
+
+      // (1) LOGIN: determine if the user has visited any pages today
+      const visitTimes = Object.values(profile.lastVisited);
+      if (_.some(visitTimes, (time) => time === today)) {
+        UserInteractions.define({ username, type: USER_INTERACTIONS.LOGIN });
+      }
+
+      // (2) CHANGE_OUTLOOK: changes to interests, career goals, opportunities, and courses.
+      const outlookArray = [];
+      const outlookFields = ['interests', 'careerGoals', 'opportunities', 'courses' ];
+      outlookFields.forEach(field => {
+        if (_.difference(userSnapshot[field], newUserSnapshot[field]).length > 0) {
+          outlookArray.push(field);
+        }
+      });
+      if (outlookArray.length > 0) {
+        UserInteractions.define({ username, type: USER_INTERACTIONS.CHANGE_OUTLOOK, typeData: outlookArray });
+      }
+
+      // (3) EXPLORE: visits to explorer pages.
+      const exploreArray = [];
+      const explorePages = [PAGEIDS.OPPORTUNITY_BROWSER, PAGEIDS.OPPORTUNITY, PAGEIDS.INTEREST_BROWSER, PAGEIDS.INTEREST, PAGEIDS.COURSE_BROWSER, PAGEIDS.COURSE, PAGEIDS.CAREER_GOAL_BROWSER, PAGEIDS.CAREER_GOAL];
+      explorePages.forEach(page => {
+        if (profile.lastVisited[page] === today) {
+          exploreArray.push(page);
+        }
+      });
+      if (exploreArray.length > 0) {
+        UserInteractions.define({ username, type: USER_INTERACTIONS.EXPLORE, typeData: exploreArray });
+      }
+
+      // (4) PLAN: Visit to degree planner.
+      if (profile.lastVisited[PAGEIDS.STUDENT_DEGREE_PLANNER] === today) {
+        UserInteractions.define({ username, type: USER_INTERACTIONS.PLAN });
+      }
+
+      // (5) LEVEL_UP: is today's level higher than yesterday's?
+      if (userSnapshot.level &lt; newUserSnapshot.level) {
+        UserInteractions.define({ username, type: USER_INTERACTIONS.LEVEL_UP });
+      }
+
+      // (6) COMPLETE_PLAN: was the plan incomplete yesterday, but complete today?
+      if (!userSnapshot.degreePlanComplete &amp;&amp; newUserSnapshot.degreePlanComplete) {
+        UserInteractions.define({ username, type: USER_INTERACTIONS.COMPLETE_PLAN });
+      }
+    });
+
+    // Last, but not least, update the saved snapshot to the current one.
+    this.snapshot = newSnapshot;
+  }
+}
+
+// A singleton, storing state on what's new.
+export const userInteractionManager = new UserInteractionManager();
 </code></pre>
         </article>
     </section>
