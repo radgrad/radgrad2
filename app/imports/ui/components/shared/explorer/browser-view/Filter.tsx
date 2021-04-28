@@ -15,7 +15,7 @@ interface FilterProps {
 }
 
 const mapStateToProps = (state: RootState, ownProps) => ({
-  filterChoice: state.shared.cardExplorer[ownProps.explorerType.replaceAll('-', '').toLowerCase()].filterValue,
+  filterChoice: state.shared.cardExplorer[ownProps.explorerType.replaceAll('-', '').toLowerCase().concat('Filter')].filterValue,
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
