@@ -1,11 +1,13 @@
 import _ from 'lodash';
 import moment from 'moment';
 import { PAGEIDS } from '../../ui/utilities/PageIDs';
+import { Reviews } from '../review/ReviewCollection';
 import { ProfileCareerGoals } from '../user/profile-entries/ProfileCareerGoalCollection';
 import { ProfileCourses } from '../user/profile-entries/ProfileCourseCollection';
 import { ProfileInterests } from '../user/profile-entries/ProfileInterestCollection';
 import { ProfileOpportunities } from '../user/profile-entries/ProfileOpportunityCollection';
 import { StudentProfiles } from '../user/StudentProfileCollection';
+import { VerificationRequests } from '../verification/VerificationRequestCollection';
 import { USER_INTERACTIONS, UserInteractions } from './UserInteractionCollection';
 
 /** The structure of a snapshot. */
@@ -101,6 +103,17 @@ class UserInteractionManager {
       // (6) COMPLETE_PLAN: was the plan incomplete yesterday, but complete today?
       if (!userSnapshot.degreePlanComplete && newUserSnapshot.degreePlanComplete) {
         UserInteractions.define({ username, type: USER_INTERACTIONS.COMPLETE_PLAN });
+      }
+
+      // (7) REVIEW: submitting a new Review document in the past day.
+      const startOfToday = moment().startOf('day').toDate(); // Must run before midnight of current day.
+      if (Reviews.findNonRetired({ studentID: profile.userID, createdAt: { $gte: startOfToday } }).length > 0) {
+        UserInteractions.define({ username, type: USER_INTERACTIONS.REVIEW });
+      }
+
+      // (8) VERIFICATION: submitting a Verification Request in the past day.
+      if (VerificationRequests.findNonRetired({ studentID: profile.userID, createdAt: { $gte: startOfToday } }).length > 0) {
+        UserInteractions.define({ username, type: USER_INTERACTIONS.VERIFY });
       }
     });
 

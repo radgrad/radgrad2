@@ -19,12 +19,12 @@ const afterMidnight = (parser) => parser.text('at 12:05 am');
 const beforeMidnight = (parser) => parser.text('at 11:55 pm');
 
 // Useful for debugging
-// const every15seconds = (parser) => parser.text('every 15 seconds');
+const every15seconds = (parser) => parser.text('every 15 seconds');
 
 SyncedCron.add({ name: 'Update ICE Snapshots', schedule: every24Hours, job: updateIceSnapshot });
 SyncedCron.add({ name: 'Update Factoids', schedule: every24Hours, job: updateFactoids });
 SyncedCron.add({ name: 'Update Public Stats', schedule: afterMidnight, job: PublicStats.generateStats });
 SyncedCron.add({ name: 'Update Forecasts', schedule: afterMidnight, job: () => RadGradForecasts.updateForecasts() });
 SyncedCron.add({ name: 'Update Whats New', schedule: afterMidnight, job: () => whatsNew.updateData() });
-SyncedCron.add({ name: 'Update User Interactions', schedule: beforeMidnight, job: () => userInteractionManager.dailyUpdate() });
+SyncedCron.add({ name: 'Update User Interactions', schedule: every15seconds, job: () => userInteractionManager.dailyUpdate() });
 
