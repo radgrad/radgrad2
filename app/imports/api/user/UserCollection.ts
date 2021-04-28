@@ -184,6 +184,15 @@ class UserCollection {
     return `${profile.firstName} ${profile.lastName}`;
   }
 
+  public getUsernameFromFullName(fullName) {
+    const profiles = StudentProfiles.find().fetch().concat(FacultyProfiles.find().fetch().concat(AdvisorProfiles.find().fetch()));
+    const match = profiles.filter((p) => fullName === this.getFullName(p.userID));
+    if (match.length > 0) {
+      return match[0].username;
+    }
+    return '';
+  }
+
   /**
    * Returns true if user is referenced by other "public" entities. Specifically:
    *   * The user is a student and has published a review.

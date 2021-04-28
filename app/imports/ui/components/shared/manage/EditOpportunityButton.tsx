@@ -14,6 +14,7 @@ import {
   TextField,
 } from 'uniforms-semantic';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
+import { updateMethod } from '../../../../api/base/BaseCollection.methods';
 import { iceSchema } from '../../../../api/ice/IceProcessor';
 import { Interests } from '../../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
@@ -36,17 +37,24 @@ const EditOpportunityButton: React.FC<ManageOpportunityProps> = ({
 
   // Get the names for the AutoForm
   const termNames = terms.map((term) => AcademicTerms.toString(term._id));
-  // Can we change the sponsor?
+  // TODO Can we change the sponsor?
   const sponsorNames = sponsors.map((sponsor) => Users.getFullName(sponsor.userID));
   const interestNames = interests.map((interest) => interest.name);
   const typeNames = OpportunityTypes.findNonRetired().map((type) => type.name);
 
-  const model: OpportunityUpdate = opportunity;
-  // update the model so that it can be used in the AutoForm
-  model.interests = opportunity.interestIDs.map((id) => Interests.findDoc(id).name);
-  model.academicTerms = opportunity.termIDs.map((id) => AcademicTerms.toString(id));
-  model.sponsor = Users.getFullName(opportunity.sponsorID);
+  const model: OpportunityUpdate = {};
+  // Create the model so that it can be used in the AutoForm
+  model.name = opportunity.name;
+  model.description = opportunity.description;
   model.opportunityType = OpportunityTypes.findDoc(opportunity.opportunityTypeID).name;
+  model.sponsor = Users.getFullName(opportunity.sponsorID);
+  model.academicTerms = opportunity.termIDs.map((id) => AcademicTerms.toString(id));
+  model.interests = opportunity.interestIDs.map((id) => Interests.findDoc(id).name);
+  model.timestamp = opportunity.timestamp;
+  model.eventDate = opportunity.eventDate;
+  model.ice = opportunity.ice;
+  model.picture = opportunity.picture;
+  model.retired = opportunity.retired;
   const updateOpportunitySchema = new SimpleSchema({
     name: { type: String, optional: true },
     description: { type: String, optional: true },
@@ -64,6 +72,7 @@ const EditOpportunityButton: React.FC<ManageOpportunityProps> = ({
   });
   const formSchema = new SimpleSchema2Bridge(updateOpportunitySchema);
 
+  // Technical Debt: We should consolidate this functionality. It is used in several different places.
   const handleUploadPicture = async (e): Promise<void> => {
     e.preventDefault();
     try {
@@ -90,18 +99,43 @@ const EditOpportunityButton: React.FC<ManageOpportunityProps> = ({
   const handleSubmit = (modelDoc) => {
     const collectionName = Opportunities.getCollectionName();
     console.log(modelDoc, collectionName);
-    const updateData: OpportunityUpdate = modelDoc;
+    const updateData: OpportunityUpdate = {};
     updateData.id = modelDoc._id;
-    // opportunityType?: string;
-    // sponsor?: string;
-    // interests?: string[];
-    // academicTerms?: string[];
-    // eventDate?: any;
-    // timestamp?: Date;
-    // ice?: Ice;
-    // picture?: string;
-    // retired?: boolean;
-
+    updateData.name = modelDoc.name;
+    updateData.description = modelDoc.description;
+    updateData.opportunityType = OpportunityTypes.findDoc(modelDoc.opportunityType)._id;
+    updateData.sponsor = Users.getUsernameFromFullName(modelDoc.sponsor);
+    updateData.academicTerms = modelDoc.academicTerms.map((toString) => AcademicTerms.getAcademicTermFromToString(toString));
+    updateData.interests = modelDoc.interests.map((name) => {
+      const doc = Interests.findDoc(name);
+      return Interests.findSlugByID(doc._id);
+    });
+    updateData.timestamp = modelDoc.timestamp;
+    updateData.eventDate = modelDoc.eventDate;
+    updateData.ice = modelDoc.ice;
+    updateData.picture = modelDoc.picture;
+    updateData.retired = modelDoc.retired;
+    console.log(collectionName, updateData);
+    updateMethod.call({ collectionName, updateData }, ((error, result) => {
+      if (error) {
+        Swal.fire({
+          title: 'Failed to update Opportunity',
+          icon: 'error',
+          text: error.statusText,
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+          allowEnterKey: false,
+          timer: 1500,
+        });
+      } else {
+        Swal.fire({
+          title: 'Updated Opportunity',
+          icon: 'success',
+          text: result,
+          timer: 1500,
+        });
+      }
+    }));
   };
 
   return (

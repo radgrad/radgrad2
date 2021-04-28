@@ -151,16 +151,16 @@ class OpportunityCollection extends BaseSlugCollection {
   /**
    * Update an Opportunity.
    * @param instance The docID or slug associated with this opportunity.
-   * @param name optional.
-   * @param description optional.
-   * @param opportunityType docID or slug (optional.)
-   * @param sponsor user in role admin, advisor, or faculty. optional.
-   * @param interests optional.
-   * @param academicTerms optional
-   * @param eventDate a Date. (optional)
+   * @param name a string (optional).
+   * @param description a string (optional).
+   * @param opportunityType docID or slug (optional).
+   * @param sponsor user in role admin, advisor, or faculty. (optional).
+   * @param interests array of slugs or IDs, (optional).
+   * @param academicTerms array of slugs or IDs, (optional).
+   * @param eventDate a Date (optional).
    * @param ice An ICE object (optional).
    * @param retired boolean (optional).
-   * @param picture
+   * @param picture a string (optional).
    */
   public update(instance: string, {
     name,
