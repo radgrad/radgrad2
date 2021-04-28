@@ -18,8 +18,14 @@ interface State {
   interests: {
     sortValue: string;
   }
+  interestsFilter: {
+    filterValue: string;
+  }
   careergoals: {
     sortValue: string;
+  }
+  careergoalsFilter: {
+    filterValue: string;
   }
 }
 
@@ -33,8 +39,14 @@ const initialState: State = {
   interests: {
     sortValue: 'Most Recent',
   },
+  interestsFilter: {
+    filterValue: 'All',
+  },
   careergoals: {
     sortValue: 'Most Recent',
+  },
+  careergoalsFilter: {
+    filterValue: 'All',
   },
   pagination: {
     Opportunities: {
@@ -82,11 +94,27 @@ const reducer = (state: State = initialState, action): State => {
         },
       };
       return s;
+    case TYPES.SET_INTERESTS_FILTER_VALUE:
+      s = {
+        ...state,
+        interestsFilter: {
+          filterValue: action.payload,
+        },
+      };
+      return s;
     case TYPES.SET_CAREERGOALS_SORT_VALUE:
       s = {
         ...state,
         careergoals: {
           sortValue: action.payload,
+        },
+      };
+      return s;
+    case TYPES.SET_CAREERGOALS_FILTER_VALUE:
+      s = {
+        ...state,
+        careergoalsFilter: {
+          filterValue: action.payload,
         },
       };
       return s;

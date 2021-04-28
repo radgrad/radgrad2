@@ -123,6 +123,17 @@ class ProfileOpportunityCollection extends BaseCollection {
   }
 
   /**
+   * Returns the list of non-retired Opportunity slugs associated with this username.
+   * @param username The username
+   * @returns {Array<any>} Opportunity slugs.
+   */
+  getOpportunitySlugs(username) {
+    const studentID = Users.getID(username);
+    const documents = this.collection.find({ studentID, retired: false });
+    return documents.map(document => Opportunities.findSlugByID(document.opportunityID));
+  }
+
+  /**
    * Returns the Student profile associated with the ProfileOpportunity with the given instanceID.
    * @param instanceID The ID of the ProfileOpportunity.
    * @returns {Object} The associated Student profile.

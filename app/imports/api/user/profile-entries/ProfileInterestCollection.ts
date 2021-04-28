@@ -129,6 +129,17 @@ class ProfileInterestCollection extends BaseCollection {
   }
 
   /**
+   * Returns the list of non-retired Interest slugs associated with this username.
+   * @param username The username
+   * @returns {Array<any>} Interest slugs.
+   */
+  getInterestSlugs(username) {
+    const userID = Users.getID(username);
+    const documents = this.collection.find({ userID, retired: false });
+    return documents.map(document => Interests.findSlugByID(document.interestID));
+  }
+
+  /**
    * Returns the Student profile associated with the ProfileInterest with the given instanceID.
    * @param instanceID The ID of the ProfileInterest.
    * @returns {Object} The associated Student profile.
