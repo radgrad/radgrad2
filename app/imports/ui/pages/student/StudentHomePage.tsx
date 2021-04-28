@@ -26,10 +26,10 @@ interface StudentHomePageProps {
 
 const headerPaneTitle = 'Make the most of RadGrad';
 const headerPaneBody = `
-<p>This page contains a personalized set of recommendations to help RadGrad help you! It's divided into three sections.</p>
-<p><span class="headerLabel redBG">HIGH PRIORITY</span> Please act on these right away. They help RadGrad help you. </p>
-<p><span class="headerLabel yellowBG">MEDIUM PRIORITY</span> Please review your settings or things that might have changed recently. </p>
-<p><span class="headerLabel greenBG">LOW PRIORITY</span>  Looks good for now!</p>
+<p>This page contains your personal To Do list, which is designed to help RadGrad help you! It's divided into three sections.</p>
+<p><span class="headerLabel redBG">HIGH PRIORITY</span> Please act on these right away. They make a significant difference. </p>
+<p><span class="headerLabel yellowBG">MEDIUM PRIORITY</span> These are requests to review your settings or things that might have changed recently. </p>
+<p><span class="headerLabel greenBG">LOW PRIORITY</span>  All of these look good for now!</p>
 `;
 const headerPaneImage = 'header-home.png';
 
@@ -78,7 +78,7 @@ const StudentHomePage: React.FC<StudentHomePageProps> = ({ okItems, reviewItems,
     activeIndex = 2;
   }
 
-  const header = <RadGradHeader title='Recommendations' />;
+  const header = <RadGradHeader title='To Do' />;
 
   return (
     <PageLayout id={PAGEIDS.STUDENT_HOME} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>

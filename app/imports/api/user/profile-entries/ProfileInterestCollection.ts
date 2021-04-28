@@ -3,7 +3,6 @@ import SimpleSchema from 'simpl-schema';
 import _ from 'lodash';
 import BaseCollection from '../../base/BaseCollection';
 import { Interests } from '../../interest/InterestCollection';
-import { Slugs } from '../../slug/SlugCollection';
 import { Users } from '../UserCollection';
 import { ROLE } from '../../role/Role';
 import { ProfileInterestDefine, ProfileEntryUpdate } from '../../../typings/radgrad';

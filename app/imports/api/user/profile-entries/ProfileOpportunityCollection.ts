@@ -2,7 +2,6 @@ import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import _ from 'lodash';
 import BaseCollection from '../../base/BaseCollection';
-import { Interests } from '../../interest/InterestCollection';
 import { Users } from '../UserCollection';
 import { ROLE } from '../../role/Role';
 import { Opportunities } from '../../opportunity/OpportunityCollection';

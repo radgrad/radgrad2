@@ -46,17 +46,17 @@ class UserInteractionManager {
   /** Build and save an in-memory snapshot. Run at system startup time. */
   public initialize() {
     this.snapshot = this.buildASnapshot();
-    console.log('    at end of initialize(), is this.snapshot undefined?', this.snapshot === undefined);
   }
 
   /** Once a day, update the snapshot, and generate UserInteraction documents as appropriate. */
   public dailyUpdate() {
-    console.log('Starting UserInteraction Manager dailyUpdate');
-    console.log('Is this.snapshot undefined?: ', this.snapshot === undefined);
+    console.log('Starting UserInteractionManager.dailyUpdate()');
     const newSnapshot = this.buildASnapshot();
     const today = moment().format(moment.HTML5_FMT.DATE);
     StudentProfiles.findNonRetired().forEach(profile => {
       const username = profile.username;
+      const userSnapshot = this.snapshot[username];
+      const newUserSnapshot = newSnapshot[username];
 
       // (1) LOGIN: determine if the user has visited any pages today
       const visitTimes = Object.values(profile.lastVisited);
@@ -68,7 +68,7 @@ class UserInteractionManager {
       const outlookArray = [];
       const outlookFields = ['interests', 'careerGoals', 'opportunities', 'courses' ];
       outlookFields.forEach(field => {
-        if (_.difference(this.snapshot[field], newSnapshot[field]).length > 0) {
+        if (_.difference(userSnapshot[field], newUserSnapshot[field]).length > 0) {
           outlookArray.push(field);
         }
       });
@@ -94,19 +94,18 @@ class UserInteractionManager {
       }
 
       // (5) LEVEL_UP: is today's level higher than yesterday's?
-      if (this.snapshot[username].level < newSnapshot[username].level) {
+      if (userSnapshot.level < newUserSnapshot.level) {
         UserInteractions.define({ username, type: USER_INTERACTIONS.LEVEL_UP });
       }
 
       // (6) COMPLETE_PLAN: was the plan incomplete yesterday, but complete today?
-      if (!this.snapshot[username].degreePlanComplete && newSnapshot[username.degreePlanComplete]) {
+      if (!userSnapshot.degreePlanComplete && newUserSnapshot.degreePlanComplete) {
         UserInteractions.define({ username, type: USER_INTERACTIONS.COMPLETE_PLAN });
       }
     });
 
     // Last, but not least, update the saved snapshot to the current one.
     this.snapshot = newSnapshot;
-    console.log('Finished daily update');
   }
 }
 
