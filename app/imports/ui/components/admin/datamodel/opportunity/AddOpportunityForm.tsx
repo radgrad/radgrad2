@@ -59,7 +59,7 @@ const AddOpportunityForm: React.FC<AddOpportunityFormProps> = ({ sponsors, inter
   };
   let formRef;
   const handleAdd = (doc) => {
-    // console.log('Opportunities.handleAdd(%o)', doc);
+    console.log('Opportunities.handleAdd(%o)', doc);
     const collectionName = Opportunities.getCollectionName();
     const definitionData = doc;
     const docInterestNames = doc.interests.map(interestSlugFromName);

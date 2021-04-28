@@ -16,6 +16,7 @@ import {
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import { iceSchema } from '../../../../api/ice/IceProcessor';
 import { Interests } from '../../../../api/interest/InterestCollection';
+import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
 import { OpportunityTypes } from '../../../../api/opportunity/OpportunityTypeCollection';
 import { Users } from '../../../../api/user/UserCollection';
 import { OpportunityUpdate } from '../../../../typings/radgrad';
@@ -45,13 +46,14 @@ const EditOpportunityButton: React.FC<ManageOpportunityProps> = ({
   model.interests = opportunity.interestIDs.map((id) => Interests.findDoc(id).name);
   model.academicTerms = opportunity.termIDs.map((id) => AcademicTerms.toString(id));
   model.sponsor = Users.getFullName(opportunity.sponsorID);
+  model.opportunityType = OpportunityTypes.findDoc(opportunity.opportunityTypeID).name;
   const updateOpportunitySchema = new SimpleSchema({
     name: { type: String, optional: true },
     description: { type: String, optional: true },
     opportunityType: { type: String, optional: true, allowedValues: typeNames },
     sponsor: { type: String, optional: true, allowedValues: sponsorNames },
-    terms: { type: Array, optional: true },
-    'terms.$': { type: String, allowedValues: termNames },
+    academicTerms: { type: Array, optional: true },
+    'academicTerms.$': { type: String, allowedValues: termNames },
     interests: { type: Array, optional: true },
     'interests.$': { type: String, allowedValues: interestNames },
     timestamp: { type: Date, optional: true },
@@ -85,6 +87,23 @@ const EditOpportunityButton: React.FC<ManageOpportunityProps> = ({
     setPictureURL(value);
   };
 
+  const handleSubmit = (modelDoc) => {
+    const collectionName = Opportunities.getCollectionName();
+    console.log(modelDoc, collectionName);
+    const updateData: OpportunityUpdate = modelDoc;
+    updateData.id = modelDoc._id;
+    // opportunityType?: string;
+    // sponsor?: string;
+    // interests?: string[];
+    // academicTerms?: string[];
+    // eventDate?: any;
+    // timestamp?: Date;
+    // ice?: Ice;
+    // picture?: string;
+    // retired?: boolean;
+
+  };
+
   return (
     <Modal key={`${opportunity._id}-modal`}
            onClose={() => setOpen(false)}
@@ -94,7 +113,10 @@ const EditOpportunityButton: React.FC<ManageOpportunityProps> = ({
     >
       <Modal.Header>{`Edit ${opportunity.name}`}</Modal.Header>
       <Modal.Content>
-        <AutoForm model={model} schema={formSchema} onSubmit={(doc) => console.log(doc)}>
+        <AutoForm model={model} schema={formSchema} onSubmit={(doc) => {
+          handleSubmit(doc);
+          setOpen(false);
+        }}>
           <Form.Group widths="equal">
             <TextField name="name" />
           </Form.Group>
@@ -104,7 +126,7 @@ const EditOpportunityButton: React.FC<ManageOpportunityProps> = ({
           </Form.Group>
           <LongTextField name="description" />
           <Form.Group widths="equal">
-            <MultiSelectField name="terms" />
+            <MultiSelectField name="academicTerms" />
             <MultiSelectField name="interests" />
           </Form.Group>
           <DateField name="eventDate" />
