@@ -479,6 +479,16 @@ class StudentProfileCollection extends BaseProfileCollection {
   }
 
   /**
+   * Returns true if projected innovation, competency, and experience points are all 100 or above.
+   * @param {string} user The username.
+   * @returns {boolean} True if degree plan is complete.
+   */
+  public isDegreePlanComplete(user: string) {
+    const projectedICE = this.getProjectedICE(user);
+    return ((projectedICE.c >= 100) && (projectedICE.e >= 100) && (projectedICE.i >= 100));
+  }
+
+  /**
    * Returns an array of courseIDs that this user has taken (or plans to take) based on their courseInstances.
    * @param studentID The studentID.
    */

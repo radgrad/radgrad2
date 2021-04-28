@@ -2,6 +2,7 @@
 import { Accounts } from 'meteor/accounts-base';
 import { SyncedCron } from 'meteor/littledata:synced-cron';
 import { Meteor } from 'meteor/meteor';
+import { userInteractionManager } from '../../api/analytic/UserInteractionManager';
 import { removeAllEntities } from '../../api/base/BaseUtilities';
 import { updateFactoids } from '../../api/factoid/Factoids';
 import { PublicStats } from '../../api/public-stats/PublicStatsCollection';
@@ -49,6 +50,8 @@ const normalInitialization = () => {
   updateFactoids();
   console.log('  * Initializing whats new');
   whatsNew.updateData();
+  console.log('  * Initializing user interaction manager');
+  userInteractionManager.initialize();
   console.log('  * Initializing cron jobs');
   SyncedCron.start();
 };

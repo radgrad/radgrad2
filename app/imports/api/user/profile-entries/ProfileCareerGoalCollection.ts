@@ -131,6 +131,17 @@ class ProfileCareerGoalCollection extends BaseCollection {
   }
 
   /**
+   * Returns the list of non-retired Career Goal slugs associated with this username.
+   * @param username The username
+   * @returns {Array<any>} Career Goal slugs.
+   */
+  getCareerGoalSlugs(username) {
+    const userID = Users.getID(username);
+    const documents = this.collection.find({ userID, retired: false });
+    return documents.map(document => CareerGoals.findSlugByID(document.careerGoalID));
+  }
+
+  /**
    * Returns the Student profile associated with the ProfileCareerGoal with the given instanceID.
    * @param instanceID The ID of the ProfileCareerGoal.
    * @returns {Object} The associated Student profile.
