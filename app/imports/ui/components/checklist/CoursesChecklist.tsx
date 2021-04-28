@@ -36,8 +36,7 @@ export class CoursesChecklist extends Checklist {
       :
       'There are new Courses since you last reviewed your Degree Plan. Please review them.';
 
-    this.description[CHECKSTATE.IMPROVE] = `
-    Specifying the Courses you plan to take helps you balance your curricular and extracurricular activities each semester. It also helps RadGrad recommend Opportunities and Internships.`;
+    this.description[CHECKSTATE.IMPROVE] = 'Specifying the Courses you plan to take helps you balance your curricular and extracurricular activities each semester. It also helps RadGrad recommend Opportunities and Internships.';
     this.updateState();
   }
 
