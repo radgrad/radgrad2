@@ -1,21 +1,11 @@
 import React, { useState } from 'react';
 import { Button, Form, Modal } from 'semantic-ui-react';
-import SimpleSchema from 'simpl-schema';
 import Swal from 'sweetalert2';
-import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
-import {
-  AutoForm,
-  BoolField,
-  DateField,
-  LongTextField,
-  NumField,
-  SelectField,
-  SubmitField,
-  TextField,
-} from 'uniforms-semantic';
+import SimpleSchema from 'simpl-schema';
+import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
+import { AutoForm, LongTextField, SelectField, SubmitField, TextField } from 'uniforms-semantic';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import { updateMethod } from '../../../../api/base/BaseCollection.methods';
-import { iceSchema } from '../../../../api/ice/IceProcessor';
 import { Interests } from '../../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
 import { OpportunityTypes } from '../../../../api/opportunity/OpportunityTypeCollection';
@@ -25,55 +15,53 @@ import MultiSelectField from '../../form-fields/MultiSelectField';
 import { openCloudinaryWidget } from '../OpenCloudinaryWidget';
 import { ManageOpportunityProps } from './ManageOpportunityProps';
 
-const EditOpportunityButton: React.FC<ManageOpportunityProps> = ({
-  opportunity,
-  opportunityTypes,
-  terms,
-  interests,
-  sponsors,
-}) => {
+const EditOpportunityButton: React.FC<ManageOpportunityProps> = ({ opportunity, opportunityTypes, interests, terms, sponsors }) => {
   const [open, setOpen] = useState(false);
   const [pictureURL, setPictureURL] = useState(opportunity.picture);
 
-  // Get the names for the AutoForm
-  const termNames = terms.map((term) => AcademicTerms.toString(term._id));
-  // TODO Can we change the sponsor?
-  const sponsorNames = sponsors.map((sponsor) => Users.getFullName(sponsor.userID));
-  const interestNames = interests.map((interest) => interest.name);
-  const typeNames = OpportunityTypes.findNonRetired().map((type) => type.name);
-
-  const model: OpportunityUpdate = {};
-  // Create the model so that it can be used in the AutoForm
-  model.name = opportunity.name;
-  model.description = opportunity.description;
-  model.opportunityType = OpportunityTypes.findDoc(opportunity.opportunityTypeID).name;
-  model.sponsor = Users.getFullName(opportunity.sponsorID);
-  model.academicTerms = opportunity.termIDs.map((id) => AcademicTerms.toString(id));
+  const model: OpportunityUpdate = opportunity;
+  // convert ids to names
   model.interests = opportunity.interestIDs.map((id) => Interests.findDoc(id).name);
-  model.timestamp = opportunity.timestamp;
-  model.eventDate = opportunity.eventDate;
-  model.ice = opportunity.ice;
-  model.picture = opportunity.picture;
-  model.retired = opportunity.retired;
-  const updateOpportunitySchema = new SimpleSchema({
-    name: { type: String, optional: true },
-    description: { type: String, optional: true },
-    opportunityType: { type: String, optional: true, allowedValues: typeNames },
-    sponsor: { type: String, optional: true, allowedValues: sponsorNames },
-    academicTerms: { type: Array, optional: true },
-    'academicTerms.$': { type: String, allowedValues: termNames },
-    interests: { type: Array, optional: true },
-    'interests.$': { type: String, allowedValues: interestNames },
-    timestamp: { type: Date, optional: true },
-    eventDate: { type: Date, optional: true },
-    ice: { type: iceSchema, optional: true },
-    picture: { type: String, optional: true },
-    retired: { type: Boolean, optional: true },
-  });
-  const formSchema = new SimpleSchema2Bridge(updateOpportunitySchema);
+  model.academicTerms = opportunity.termIDs.map((id) => AcademicTerms.toString(id));
+  model.sponsor = Users.getFullName(opportunity.sponsorID);
+  model.opportunityType = OpportunityTypes.findDoc(opportunity.opportunityTypeID).name;
 
-  // Technical Debt: We should consolidate this functionality. It is used in several different places.
-  const handleUploadPicture = async (e): Promise<void> => {
+  const interestNames = interests.map((interest) => interest.name);
+  // const termNames = terms.map((term) => AcademicTerms.toString(term._id));
+  const sponsorNames = sponsors.map((profile) => Users.getFullName(profile.userID));
+  const opportunityTypeNames = OpportunityTypes.findNonRetired().map((type) => type.name);
+
+  const handleSubmit = (doc) => {
+    // console.log('handleSubmit', doc);
+    const collectionName = Opportunities.getCollectionName();
+    const updateData: OpportunityUpdate = doc;
+    updateData.id = doc._id;
+    // map names to ids or slugs
+    updateData.interests = doc.interests.map((name) => Interests.findDoc(name)._id);
+    updateData.opportunityType = OpportunityTypes.findDoc(doc.opportunityType)._id;
+    updateData.sponsor = Users.getUsernameFromFullName(doc.sponsor);
+    updateData.academicTerms = doc.termIDs;
+    // console.log(collectionName, updateData);
+    updateMethod.callPromise({ collectionName, updateData })
+      .then((result) => Swal.fire({
+        title: 'Opportunity Updated',
+        icon: 'success',
+        text: 'Successfully updated opportunity.',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false,
+        showConfirmButton: false,
+        timer: 1500,
+      }))
+      .catch((error) => Swal.fire({
+        title: 'Update Failed',
+        text: error.message,
+        icon: 'error',
+        // timer: 1500,
+      }));
+  };
+
+  const handleUpload = async (e): Promise<void> => {
     e.preventDefault();
     try {
       const cloudinaryResult = await openCloudinaryWidget();
@@ -91,92 +79,64 @@ const EditOpportunityButton: React.FC<ManageOpportunityProps> = ({
       });
     }
   };
-
   const handlePictureUrlChange = (value) => {
     setPictureURL(value);
   };
 
-  const handleSubmit = (modelDoc) => {
-    console.log('handleSubmit', modelDoc);
-    const collectionName = Opportunities.getCollectionName();
-    const updateData: OpportunityUpdate = {};
-    updateData.id = modelDoc._id;
-    updateData.name = modelDoc.name;
-    updateData.description = modelDoc.description;
-    updateData.opportunityType = OpportunityTypes.findDoc(modelDoc.opportunityType)._id;
-    updateData.sponsor = Users.getUsernameFromFullName(modelDoc.sponsor);
-    updateData.academicTerms = modelDoc.academicTerms.map((toString) => AcademicTerms.getAcademicTermFromToString(toString));
-    updateData.interests = modelDoc.interests.map((name) => {
-      const doc = Interests.findDoc(name);
-      return Interests.findSlugByID(doc._id);
-    });
-    updateData.timestamp = modelDoc.timestamp;
-    updateData.eventDate = modelDoc.eventDate;
-    updateData.ice = modelDoc.ice;
-    updateData.picture = modelDoc.picture;
-    updateData.retired = modelDoc.retired;
-    console.log(collectionName, updateData);
-    updateMethod.call({ collectionName, updateData }, ((error, result) => {
-      if (error) {
-        Swal.fire({
-          title: 'Failed to update Opportunity',
-          icon: 'error',
-          text: error.statusText,
-          allowOutsideClick: false,
-          allowEscapeKey: false,
-          allowEnterKey: false,
-          timer: 1500,
-        });
-      } else {
-        Swal.fire({
-          title: 'Updated Opportunity',
-          icon: 'success',
-          text: result,
-          timer: 1500,
-        });
-      }
-      setOpen(false);
-    }));
-  };
-  // console.log(model);
+  const updateSchema = new SimpleSchema({
+    description: { type: String, optional: true },
+    picture: {
+      type: String,
+      label: (
+        <React.Fragment>
+          Picture (
+          <button type="button" onClick={handleUpload}>
+            Upload
+          </button>
+          )
+        </React.Fragment>
+      ),
+      optional: true,
+    },
+    sponsor: { type: String, allowedValues: sponsorNames, optional: true },
+    interests: { type: Array, optional: true },
+    'interests.$': {
+      type: String,
+      allowedValues: interestNames,
+    },
+    opportunityType: { type: String, allowedValues: opportunityTypeNames, optional: true },
+    // terms: { type: Array, optional: true },
+    // 'terms.$': {
+    //   type: String,
+    //   allowedValues: termNames,
+    // },
+    name: { type: String, optional: true },
+  });
+  const updateFormSchema = new SimpleSchema2Bridge(updateSchema);
+
   return (
     <Modal key={`${opportunity._id}-modal`}
            onClose={() => setOpen(false)}
            onOpen={() => setOpen(true)}
            open={open}
-           trigger={<Button basic color='green' key={`${opportunity._id}-edit-button`}>EDIT</Button>}
-    >
+           trigger={<Button basic color='green' key={`${opportunity._id}-edit-button`}>EDIT</Button> }>
       <Modal.Header>{`Edit ${opportunity.name}`}</Modal.Header>
       <Modal.Content>
-        <AutoForm model={model} schema={formSchema} onSubmit={(doc) => {
-          console.log('onSubmit', doc);
+        <AutoForm model={model} schema={updateFormSchema} onSubmit={(doc) => {
           handleSubmit(doc);
+          setOpen(false);
         }}>
-          <Form.Group widths="equal">
-            <TextField name="name" />
-          </Form.Group>
+          <TextField name="name" />
+          {/* <MultiSelectField name="terms" /> */}
           <Form.Group widths="equal">
             <SelectField name="opportunityType" />
             <SelectField name="sponsor" />
           </Form.Group>
-          <LongTextField name="description" />
           <Form.Group widths="equal">
-            <MultiSelectField name="academicTerms" />
+            <TextField name="picture" value={pictureURL} onChange={handlePictureUrlChange} />
             <MultiSelectField name="interests" />
           </Form.Group>
-          <DateField name="eventDate" />
-          <Form.Group widths="equal">
-            <NumField name="ice.i" />
-            <NumField name="ice.c" />
-            <NumField name="ice.e" />
-          </Form.Group>
-          <BoolField name="retired" />
-          <Form.Group widths="equal">
-            <Form.Input name="picture" value={pictureURL} onChange={handlePictureUrlChange} />
-            <Form.Button basic color="green" onClick={handleUploadPicture}>
-              Upload
-            </Form.Button>
-          </Form.Group>
+          <LongTextField name="description" />
           <SubmitField />
           <Button color='red' onClick={() => setOpen(false)}>
             Cancel

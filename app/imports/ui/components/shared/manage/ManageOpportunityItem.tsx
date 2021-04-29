@@ -1,7 +1,6 @@
 import moment from 'moment';
 import React from 'react';
 import { Grid, Icon } from 'semantic-ui-react';
-import { Users } from '../../../../api/user/UserCollection';
 import EditOpportunityButton from './EditOpportunityButton';
 import { ManageOpportunityProps } from './ManageOpportunityProps';
 
@@ -15,7 +14,7 @@ const ManageOpportunityItem: React.FC<ManageOpportunityProps> = ({ opportunity, 
         {opportunity.name}
       </Grid.Column>
       <Grid.Column width={2}>
-        <EditOpportunityButton opportunity={opportunity} sponsors={sponsors} terms={terms} interests={interests} opportunityTypes={opportunityTypes} />
+         <EditOpportunityButton opportunity={opportunity} sponsors={sponsors} terms={terms} interests={interests} opportunityTypes={opportunityTypes} />
       </Grid.Column>
       <Grid.Column width={7} />
       <Grid.Column width={3}>
