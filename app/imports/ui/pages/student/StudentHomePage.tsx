@@ -1,5 +1,5 @@
 import { withTracker } from 'meteor/react-meteor-data';
-import { Card } from 'semantic-ui-react';
+import { Card, Menu, Tab } from 'semantic-ui-react';
 import React from 'react';
 import { CareerGoalsChecklist } from '../../components/checklist/CareerGoalsChecklist';
 import { CoursesChecklist } from '../../components/checklist/CoursesChecklist';
@@ -12,7 +12,7 @@ import { TermsAndConditionsChecklist } from '../../components/checklist/TermsAnd
 import { VerificationChecklist } from '../../components/checklist/VerificationChecklist';
 import RadGradHeader from '../../components/shared/RadGradHeader';
 import RadGradSegment from '../../components/shared/RadGradSegment';
-import { COLORS } from '../../utilities/Colors';
+import RadGradTabHeader from '../../components/shared/RadGradTabHeader';
 import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
 import { CHECKSTATE } from '../../components/checklist/Checklist';
@@ -26,36 +26,68 @@ interface StudentHomePageProps {
 
 const headerPaneTitle = 'Make the most of RadGrad';
 const headerPaneBody = `
-<p>This page contains a personalized set of recommendations to help RadGrad help you! It's divided into three sections.</p>
-<p><span class="headerLabel redBG">HIGH PRIORITY (NEEDS IMPROVEMENT)</span> Please act on these right away. They help RadGrad help you. </p>
-<p><span class="headerLabel yellowBG">MEDIUM PRIORITY (PLEASE REVIEW)</span> Please review your settings or things that might have changed recently. </p>
-<p><span class="headerLabel greenBG">LOW PRIORITY (LOOKS OK)</span>  Looks good for now!</p>
+<p>This page contains your personal To Do list, which is designed to help RadGrad help you! It's divided into three sections.</p>
+<p><span class="headerLabel redBG">HIGH PRIORITY</span> Please act on these right away. They make a significant difference. </p>
+<p><span class="headerLabel yellowBG">MEDIUM PRIORITY</span> These are requests to review your settings or things that might have changed recently. </p>
+<p><span class="headerLabel greenBG">LOW PRIORITY</span>  All of these look good for now!</p>
 `;
 const headerPaneImage = 'header-home.png';
 
-const improveHeader = <RadGradHeader title='High Priority (needs improvement)' icon='exclamation circle' style={{ color: COLORS.RED }}/>;
-const reviewHeader = <RadGradHeader title='Medium Priority (please review)' icon='question circle' style={{ color: COLORS.YELLOW }}/>;
-const okHeader = <RadGradHeader title='Low Priority (looks OK!)' icon='check circle' style={{ color: COLORS.GREEN }}/>;
+const StudentHomePage: React.FC<StudentHomePageProps> = ({ okItems, reviewItems, improveItems }) => {
+  const improveTabHeader = <RadGradTabHeader title={`High Priority: Please fix (${improveItems.length})`} icon='exclamation circle' />;
+  const reviewTabHeader = <RadGradTabHeader title={`Medium Priority: For review (${reviewItems.length})`} icon='question circle' />;
+  const okTabHeader = <RadGradTabHeader title={`Low Priority: Looks good (${okItems.length})`} icon='check circle' />;
 
-const StudentHomePage: React.FC<StudentHomePageProps> = ({ okItems, reviewItems, improveItems }) => (
-  <PageLayout id={PAGEIDS.STUDENT_HOME} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
-    <RadGradSegment header={improveHeader}>
-      <Card.Group style={{ marginTop: '0px' }}>
-        {improveItems || 'Awesome! No high priority items to improve right now.'}
-      </Card.Group>
-    </RadGradSegment>
-    <RadGradSegment header={reviewHeader}>
-      <Card.Group style={{ marginTop: '0px' }}>
-        {reviewItems || 'Awesome! No items to review right now!'}
-      </Card.Group>
-    </RadGradSegment>
-    <RadGradSegment header={okHeader}>
-      <Card.Group style={{ marginTop: '0px' }}>
-        {okItems || 'No low priority items right now.'}
-      </Card.Group>
-    </RadGradSegment>
-  </PageLayout>
-);
+  const improvePane = {
+    menuItem: <Menu.Item key='improveTab'>{improveTabHeader}</Menu.Item>,
+    render: () => (
+      <Tab.Pane key='ImprovePane'>
+        <Card.Group style={{ marginTop: '0px' }}>
+          {improveItems}
+        </Card.Group>
+      </Tab.Pane>
+    ),
+  };
+
+  const reviewPane = {
+    menuItem: <Menu.Item key='reviewTab'>{reviewTabHeader}</Menu.Item>,
+    render: () => (
+      <Tab.Pane key='ReviewPane'>
+        <Card.Group style={{ marginTop: '0px' }}>
+          {reviewItems}
+        </Card.Group>
+      </Tab.Pane>
+    ),
+  };
+
+  const okPane = {
+    menuItem: <Menu.Item key='okTab'>{okTabHeader}</Menu.Item>,
+    render: () => (
+      <Tab.Pane key='OKPane'>
+        <Card.Group style={{ marginTop: '0px' }}>
+          {okItems}
+        </Card.Group>
+      </Tab.Pane>
+    ),
+  };
+
+  let activeIndex = 0;
+  if ((improveItems.length === 0) && (reviewItems.length > 0)) {
+    activeIndex = 1;
+  } else if ((improveItems.length === 0) && (reviewItems.length === 0)) {
+    activeIndex = 2;
+  }
+
+  const header = <RadGradHeader title='To Do' />;
+
+  return (
+    <PageLayout id={PAGEIDS.STUDENT_HOME} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
+      <RadGradSegment header={header}>
+        <Tab panes={[improvePane, reviewPane, okPane]} defaultActiveIndex={activeIndex} />
+      </RadGradSegment>
+    </PageLayout>
+  );
+};
 
 export default withTracker(() => {
   const currentUser = Meteor.user() ? Meteor.user().username : '';

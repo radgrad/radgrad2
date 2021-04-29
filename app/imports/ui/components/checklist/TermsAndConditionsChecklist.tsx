@@ -18,7 +18,7 @@ export class TermsAndConditionsChecklist extends Checklist {
 
   constructor(student: string) {
     super();
-    this.name = 'Terms and Conditions';
+    this.name = 'Terms & Conditions';
     this.profile = Users.getProfile(student);
     this.iconName = 'file alternate';
     this.title[CHECKSTATE.OK] = 'Thanks for approving RadGrad\'s Terms and Conditions';

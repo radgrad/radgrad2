@@ -1,8 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import _ from 'lodash';
-import { ReactiveAggregate } from 'meteor/jcbernack:reactive-aggregate';
-import { ProfileCoursesForecastName } from '../../../startup/both/names';
 import BaseCollection from '../../base/BaseCollection';
 import { Courses } from '../../course/CourseCollection';
 import { Users } from '../UserCollection';
@@ -10,9 +8,6 @@ import { ROLE } from '../../role/Role';
 import { ProfileCourseDefine, ProfileEntryUpdate } from '../../../typings/radgrad';
 
 class ProfileCourseCollection extends BaseCollection {
-  public readonly publicationNames: {
-    forecast: string;
-  };
 
   /** Creates the ProfileCourse collection */
   constructor() {
@@ -21,9 +16,6 @@ class ProfileCourseCollection extends BaseCollection {
       studentID: SimpleSchema.RegEx.Id,
       retired: { type: Boolean, optional: true },
     }));
-    this.publicationNames = {
-      forecast: `${this.collectionName}.forecast`,
-    };
   }
 
   /**
@@ -93,17 +85,6 @@ class ProfileCourseCollection extends BaseCollection {
         }
         return collection.find({ studentID });
       });
-      Meteor.publish(this.publicationNames.forecast, function publishCourseForecast() {
-        ReactiveAggregate(this, collection, [
-          {
-            $group: {
-              _id: '$courseID',
-              count: { $sum: 1 },
-            },
-          },
-          { $project: { count: 1, courseID: 1 } },
-        ], { clientCollection: ProfileCoursesForecastName });
-      });
     }
   }
 
@@ -139,6 +120,17 @@ class ProfileCourseCollection extends BaseCollection {
     this.assertDefined(instanceID);
     const instance = this.collection.findOne({ _id: instanceID });
     return Courses.findSlugByID(instance.courseID);
+  }
+
+  /**
+   * Returns the list of non-retired Course slugs associated with this username.
+   * @param username The username
+   * @returns {Array<any>} Interest slugs.
+   */
+  getCourseSlugs(username) {
+    const studentID = Users.getID(username);
+    const documents = this.collection.find({ studentID, retired: false });
+    return documents.map(document => Courses.findSlugByID(document.courseID));
   }
 
   /**

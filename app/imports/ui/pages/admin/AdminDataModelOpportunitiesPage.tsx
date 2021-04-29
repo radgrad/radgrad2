@@ -16,7 +16,7 @@ import AddOpportunityForm from '../../components/admin/datamodel/opportunity/Add
 import UpdateOpportunityForm from '../../components/admin/datamodel/opportunity/UpdateOpportunityForm';
 import { academicTermNameToSlug, itemToSlugName, opportunityTypeNameToSlug, profileNameToUsername } from '../../components/shared/utilities/data-model';
 import { interestSlugFromName } from '../../components/shared/utilities/form';
-import { dataModelActions } from '../../../redux/admin/data-model';
+import { PAGEIDS } from '../../utilities/PageIDs';
 import {
   handleCancelWrapper,
   handleConfirmDeleteWrapper,
@@ -95,7 +95,7 @@ const AdminDataModelOpportunitiesPage: React.FC<AdminDataModelOpportunitiesPageP
     sort: { name: 1 }, // determine how you want to sort the items in the list
   };
   return (
-    <PageLayout id="data-model-opportunities-page" headerPaneTitle="Opportunities">
+    <PageLayout id={PAGEIDS.DATA_MODEL_OPPORTUNITIES} headerPaneTitle="Opportunities">
       {showUpdateFormState ? (
         <UpdateOpportunityForm
           collection={collection}
@@ -119,8 +119,6 @@ const AdminDataModelOpportunitiesPage: React.FC<AdminDataModelOpportunitiesPageP
         itemTitle={itemTitle}
         handleOpenUpdate={handleOpenUpdate}
         handleDelete={handleDelete}
-        setShowIndex={dataModelActions.setCollectionShowIndex}
-        setShowCount={dataModelActions.setCollectionShowCount}
         items={items}
       />
 

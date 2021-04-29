@@ -5,6 +5,7 @@ import { checkIntegrity } from '../../../api/integrity/IntegrityChecker';
 import { checkIntegrityMethod } from '../../../api/integrity/IntegrityChecker.methods';
 import { databaseActions } from '../../../redux/admin/database';
 import { RootState } from '../../../redux/types';
+import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
 
 interface AdminDatabaseCheckIntegrityPageProps {
@@ -53,7 +54,7 @@ const AdminDatabaseCheckIntegrityPage: React.FC<AdminDatabaseCheckIntegrityPageP
   const clientError = clientResultState.count !== 0;
   const working = checkIntegrityWorking;
   return (
-    <PageLayout id="database-check-integrity-page" headerPaneTitle="Check Integrity">
+    <PageLayout id={PAGEIDS.DATABASE_CHECK_INTEGRITY} headerPaneTitle="Check Integrity">
       <Form>
         <Button color="green" loading={working} basic type="submit" onClick={clickSubmit}>
           Check Integrity

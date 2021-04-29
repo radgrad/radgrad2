@@ -74,7 +74,7 @@ class StudentProfileCollection extends BaseProfileCollection {
       lastLeveledUp: { type: String, optional: true },
       acceptedTermsAndConditions: { type: String, optional: true },
       refusedTermsAndConditions: { type: String, optional: true },
-      lastVisited: { type: Object, optional: true, blackbox: true},
+      lastVisited: { type: Object, optional: true, blackbox: true },
     });
     this.updateSchema = new SimpleSchema({
       firstName: { type: String, optional: true },
@@ -105,7 +105,7 @@ class StudentProfileCollection extends BaseProfileCollection {
       lastLeveledUp: { type: String, optional: true },
       acceptedTermsAndConditions: { type: String, optional: true },
       refusedTermsAndConditions: { type: String, optional: true },
-      lastVisited: { type: Object, optional: true, blackbox: true},
+      lastVisited: { type: Object, optional: true, blackbox: true },
     });
   }
 
@@ -173,7 +173,6 @@ class StudentProfileCollection extends BaseProfileCollection {
         throw new Meteor.Error(`Invalid isAlumni: ${isAlumni}`);
       }
 
-      // Create the slug, which ensures that username is unique.
       Slugs.define({ name: username, entityName: this.getType() });
       const role = isAlumni ? ROLE.ALUMNI : ROLE.STUDENT;
       const profileID = this.collection.insert({
@@ -239,7 +238,7 @@ class StudentProfileCollection extends BaseProfileCollection {
    * @param lastName
    * @param picture
    * @param website
-   * @param interests
+   * @param interests array of interest slugs or IDs.
    * @param careerGoals
    * @param level
    * @param declaredAcademicTerm
@@ -477,6 +476,16 @@ class StudentProfileCollection extends BaseProfileCollection {
     const courseDocs = CourseInstances.findNonRetired({ studentID });
     const oppDocs = OpportunityInstances.findNonRetired({ studentID });
     return getProjectedICE(courseDocs.concat(oppDocs));
+  }
+
+  /**
+   * Returns true if projected innovation, competency, and experience points are all 100 or above.
+   * @param {string} user The username.
+   * @returns {boolean} True if degree plan is complete.
+   */
+  public isDegreePlanComplete(user: string) {
+    const projectedICE = this.getProjectedICE(user);
+    return ((projectedICE.c >= 100) && (projectedICE.e >= 100) && (projectedICE.i >= 100));
   }
 
   /**

@@ -1,8 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import _ from 'lodash';
-import { ReactiveAggregate } from 'meteor/jcbernack:reactive-aggregate';
-import { ProfileCareerGoalsForecastName } from '../../../startup/both/names';
 import BaseCollection from '../../base/BaseCollection';
 import { CareerGoals } from '../../career/CareerGoalCollection';
 import { Users } from '../UserCollection';
@@ -10,9 +8,6 @@ import { ProfileCareerGoalDefine, ProfileEntryUpdate } from '../../../typings/ra
 import { ROLE } from '../../role/Role';
 
 class ProfileCareerGoalCollection extends BaseCollection {
-  public readonly publicationNames: {
-    forecast: string;
-  };
 
   /** Creates the ProfileCareerGoal collection */
   constructor() {
@@ -22,9 +17,6 @@ class ProfileCareerGoalCollection extends BaseCollection {
       share: Boolean,
       retired: { type: Boolean, optional: true },
     }));
-    this.publicationNames = {
-      forecast: `${this.collectionName}.forecast`,
-    };
   }
 
   /**
@@ -101,17 +93,6 @@ class ProfileCareerGoalCollection extends BaseCollection {
         }
         return collection.find({ userID });
       });
-      Meteor.publish(this.publicationNames.forecast, function publishCareerGoalForecast() {
-        ReactiveAggregate(this, collection, [
-          {
-            $group: {
-              _id: '$careerGoalID',
-              count: { $sum: 1 },
-            },
-          },
-          { $project: { count: 1, careerGoalID: 1 } },
-        ], { clientCollection: ProfileCareerGoalsForecastName });
-      });
     }
   }
 
@@ -147,6 +128,17 @@ class ProfileCareerGoalCollection extends BaseCollection {
     this.assertDefined(instanceID);
     const instance = this.collection.findOne({ _id: instanceID });
     return CareerGoals.findSlugByID(instance.careerGoalID);
+  }
+
+  /**
+   * Returns the list of non-retired Career Goal slugs associated with this username.
+   * @param username The username
+   * @returns {Array<any>} Career Goal slugs.
+   */
+  getCareerGoalSlugs(username) {
+    const userID = Users.getID(username);
+    const documents = this.collection.find({ userID, retired: false });
+    return documents.map(document => CareerGoals.findSlugByID(document.careerGoalID));
   }
 
   /**

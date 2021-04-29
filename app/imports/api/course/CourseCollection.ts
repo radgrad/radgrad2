@@ -4,7 +4,6 @@ import SimpleSchema from 'simpl-schema';
 import { Slugs } from '../slug/SlugCollection';
 import { Interests } from '../interest/InterestCollection';
 import { CourseInstances } from './CourseInstanceCollection';
-import { Feeds } from '../feed/FeedCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
 import { CourseDefine, CourseUpdate } from '../../typings/radgrad';
 import { isSingleChoice, complexChoiceToArray } from '../degree-plan/PlanChoiceUtilities';
@@ -222,8 +221,6 @@ class CourseCollection extends BaseSlugCollection {
       }
       return true;
     });
-    // OK to delete. First remove any Feeds that reference this course.
-    Feeds.find({ courseID: docID }).map((feed) => Feeds.removeIt(feed._id));
     // Now remove the Course.
     return super.removeIt(docID);
   }
@@ -323,6 +320,11 @@ class CourseCollection extends BaseSlugCollection {
     return {
       name, shortName, slug, num, description, creditHrs, interests, syllabus, corequisites, prerequisites, retired,
     };
+  }
+
+  public toString(docID: string): string {
+    const course = this.findDoc(docID);
+    return `${course.num}: ${course.name}`;
   }
 }
 

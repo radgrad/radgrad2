@@ -1,18 +1,18 @@
-import React from 'react';
-import { Card, Icon } from 'semantic-ui-react';
+import React, { useEffect, useState } from 'react';
 import Markdown from 'react-markdown';
 import { Link, useRouteMatch } from 'react-router-dom';
+import { Card, Icon } from 'semantic-ui-react';
 import { AcademicTerms } from '../../../../../api/academic-term/AcademicTermCollection';
-import { RadGradProperties } from '../../../../../api/radgrad/RadGradProperties';
-import { CourseForecastCollection, OpportunityForecastCollection } from '../../../../../startup/client/collections';
+import { getFutureEnrollmentSingleMethod } from '../../../../../api/utilities/FutureEnrollment.methods';
+import { ENROLLMENT_TYPE, EnrollmentForecast } from '../../../../../startup/both/RadGradForecasts';
 
-import { AcademicTerm, TermCard } from '../../../../../typings/radgrad';
+import { TermCard } from '../../../../../typings/radgrad';
+import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
 import IceHeader from '../../IceHeader';
 import InterestList from '../../InterestList';
-import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
-import * as Router from '../../utilities/router';
-import { docToShortDescription, opportunityTerms, itemToSlugName } from '../../utilities/data-model';
+import { docToShortDescription, itemToSlugName, opportunityTerms } from '../../utilities/data-model';
 import { replaceTermStringNextFour } from '../../utilities/general';
+import * as Router from '../../utilities/router';
 import FutureParticipation from '../FutureParticipation';
 
 const isType = (typeToCheck: string, type: string) => type === typeToCheck;
@@ -59,35 +59,38 @@ const TermCard: React.FC<TermCard> = ({ item, type }) => {
   const name = itemName(item, type);
   const isTypeOpportunity = isType('opportunities', type);
   const itemShortDescription = docToShortDescription(item);
-  const quarter = RadGradProperties.getQuarterSystem();
-  const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
-  const numTerms = quarter ? 12 : 9;
-  const academicTerms = AcademicTerms.findNonRetired(
-    { termNumber: { $gte: currentTerm.termNumber } },
-    {
-      sort: { termNumber: 1 },
-      limit: numTerms,
-    },
-  );
-  const scores = [];
-  academicTerms.forEach((term: AcademicTerm) => {
-    const id = `${item._id} ${term._id}`;
-    if (type === EXPLORER_TYPE.COURSES) {
-      const score = CourseForecastCollection.find({ _id: id }).fetch() as { count: number }[];
-      if (score.length > 0) {
-        scores.push(score[0].count);
-      } else {
-        scores.push(0);
-      }
-    } else {
-      const score = OpportunityForecastCollection.find({ _id: id }).fetch() as { count: number }[];
-      if (score.length > 0) {
-        scores.push(score[0].count);
-      } else {
-        scores.push(0);
-      }
+  const [data, setData] = useState<EnrollmentForecast>({});
+  const [fetched, setFetched] = useState(false);
+  let itemType: ENROLLMENT_TYPE;
+  if (isType(type, EXPLORER_TYPE.COURSES)) {
+    itemType = ENROLLMENT_TYPE.COURSE;
+  } else {
+    itemType = ENROLLMENT_TYPE.OPPORTUNITY;
+  }
+
+  useEffect(() => {
+    // console.log('check for infinite loop');
+    function fetchData() {
+      getFutureEnrollmentSingleMethod.callPromise({ id: item._id, type: itemType })
+        .then((result) => setData(result))
+        .catch((error) => {
+          console.error(error);
+          setData({});
+        });
     }
-  });
+
+    // Only fetch data if it hasn't been fetched before.
+    if (!fetched) {
+      fetchData();
+      setFetched(true);
+    }
+  }, [fetched, item._id, itemType]);
+  let academicTerms = [];
+  let scores = [];
+  if (data?.enrollment) {
+    academicTerms = data.enrollment.map((entry) => AcademicTerms.findDoc(entry.termID));
+    scores = data.enrollment.map((entry) => entry.count);
+  }
   return (
     <Card>
       <Card.Content>

@@ -69,10 +69,6 @@ export interface Pagination {
     showIndex: number;
     showCount: number;
   };
-  FeedCollection?: {
-    showIndex: number;
-    showCount: number;
-  };
   InterestCollection?: {
     showIndex: number;
     showCount: number;
@@ -375,40 +371,6 @@ export interface ProfileOpportunity extends Document {
 
 export interface ProfileEntryUpdate extends Update {
   share?: boolean;
-  retired?: boolean;
-}
-
-// Feeds
-export interface IFeed extends Document {
-  userIDs: string[];
-  description?: string;
-  picture?: string;
-  feedType: string;
-  timestamp: Date;
-  opportunityID?: string;
-  courseID?: string;
-  termID?: string;
-  retired?: boolean;
-}
-
-export interface FeedDefine extends DumpOne {
-  user?: string;
-  course?: string;
-  opportunity?: string;
-  academicTerm?: string;
-  level?: number;
-  feedType: string;
-  timestamp?: Date;
-  retired?: boolean;
-}
-
-export interface FeedUpdate extends Update {
-  description?: string;
-  picture?: string;
-  users?: string[];
-  opportunity?: string;
-  course?: string;
-  academicTerm?: string;
   retired?: boolean;
 }
 
@@ -933,7 +895,7 @@ export interface UserInteraction extends Document {
 export interface UserInteractionDefine extends DumpOne {
   username: string;
   type: string;
-  typeData: string[];
+  typeData?: string[];
   timestamp?: any;
 }
 

@@ -17,12 +17,12 @@ export class LevelChecklist extends Checklist {
     this.profile = Users.getProfile(student);
     this.iconName = 'sort amount up';
     this.title[CHECKSTATE.OK] = 'Congrats! You recently achieved a new Level!';
-    this.title[CHECKSTATE.REVIEW] = 'We notice that you have not achieved a new Level in a while';
+    this.title[CHECKSTATE.REVIEW] = 'You have not achieved a new Level in a while';
     // Specify the description for each state.
-    this.description[CHECKSTATE.OK] = `We see that you recently achieved Level ${this.profile.level}. Keep up the good work!`;
+    this.description[CHECKSTATE.OK] = `You recently achieved Level ${this.profile.level}. Keep up the good work!`;
     const lastLevelUpText = this.profile.lastLeveledUp ?
-      `We notice that you have not achieved a new Level since ${this.profile.lastLeveledUp}` : 'Have you leveled up this semester?';
-    this.description[CHECKSTATE.REVIEW] = `RadGrad is designed to enable you to advance to a higher Level once per semester, 
+      `You have not achieved a new Level since ${this.profile.lastLeveledUp}` : 'Have you leveled up this semester?';
+    this.description[CHECKSTATE.REVIEW] = `You can advance to a higher Level once per semester, 
       as long as you are regularly completing Courses and Opportunities. ${lastLevelUpText}`;
 
     this.updateState();
@@ -53,7 +53,7 @@ export class LevelChecklist extends Checklist {
 
   public getActions(): JSX.Element {
     const description = (CHECKSTATE.REVIEW) ?
-      'The Levels page contains information about your Level and how to achieve the next one.' :
+      'Learn about your Level and how to achieve the next one on the Levels page.' :
       'For more details about your Level please go to:';
     const url = `/${URL_ROLES.STUDENT}/${this.profile.username}/${LEVELS}`;
     return (

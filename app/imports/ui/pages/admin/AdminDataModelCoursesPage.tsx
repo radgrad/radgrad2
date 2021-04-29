@@ -7,6 +7,7 @@ import { Course, CourseUpdate, DescriptionPair, Interest } from '../../../typing
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
+import { PAGEIDS } from '../../utilities/PageIDs';
 import {
   handleCancelWrapper,
   handleConfirmDeleteWrapper,
@@ -93,7 +94,7 @@ const AdminDataModelCoursesPage: React.FC<AdminDataModelCoursesPageProps> = ({ i
  * an underscore '_'
  * The course number.`;
   return (
-    <PageLayout id="data-model-courses-page" headerPaneTitle="Courses" headerPaneBody={headerPaneBody}>
+    <PageLayout id={PAGEIDS.DATA_MODEL_COURSES} headerPaneTitle="Courses" headerPaneBody={headerPaneBody}>
       {showUpdateFormState ? (
         <UpdateCourseForm collection={collection} id={idState} handleUpdate={handleUpdate}
                           handleCancel={handleCancel} itemTitleString={itemTitleString} interests={interests}

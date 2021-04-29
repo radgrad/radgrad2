@@ -6,18 +6,20 @@ import { Users } from '../user/UserCollection';
 import { ROLE } from '../role/Role';
 import { UserInteractionDefine } from '../../typings/radgrad';
 
+export enum USER_INTERACTIONS {
+  LOGIN = 'login',
+  CHANGE_OUTLOOK = 'change-outlook',
+  EXPLORE = 'explore',
+  PLAN = 'plan',
+  VERIFY = 'verify',
+  REVIEW = 'review',
+  LEVEL_UP = 'level-up',
+  COMPLETE_PLAN = 'complete-plan',
+  CHANGE_VISIBILITY = 'change-visibility',
+}
+
 /**
  * Represents a log of user interactions with RadGrad.
- * An interaction may be a profile update or a page visit, such as a student updating their
- * career goals, or visiting the degree planner.
- *
- * username is the username of the user that performed the interaction.
- * type is one of the following:
- *   pageView: the user is now visiting a page.  (typeData: path to page)
- *   login: the user has just logged in. (typeData: "N/A").
- *   interestIDs, careerGoalIDs, declaredAcademicTermID, picture, website: user modifies fields.
- *   (typeData: shows the new set of IDs after the modification).
- *   addCourse, addOpportunity, removeCourse, removeOpportunity: user added/removed an instance
  * @extends api/base.BaseCollection
  * @memberOf api/analytic
  */
@@ -33,9 +35,10 @@ class UserInteractionCollection extends BaseCollection {
       typeData: Array,
       'typeData.$': String,
       timestamp: { type: Date },
+      day: { type: String }, // YYYY-MM-DD format, created from timestamp, simplifies querying.
     }));
     if (Meteor.isServer) {
-      this.collection.rawCollection().createIndex({ username: 1, type: 1 });
+      this.collection.rawCollection().createIndex({ username: 1, type: 1, day: 1 });
     }
 
   }
@@ -44,15 +47,16 @@ class UserInteractionCollection extends BaseCollection {
    * Defines a user interaction record.
    * @param username The username.
    * @param type The interaction type.
-   * @param typeData Any data associated with the interaction type.
-   * @param timestamp The time of interaction.
+   * @param typeData Optional. Any data associated with the interaction type. Defaults to [].
+   * @param timestamp Optional. The time of interaction. Defaults to right now.
    */
-  public define({ username, type, typeData, timestamp = moment().toDate() }: UserInteractionDefine): string {
+  public define({ username, type, typeData = [], timestamp = moment().toDate() }: UserInteractionDefine): string {
     const doc = this.collection.findOne({ username, type, typeData, timestamp });
     if (doc) {
       return doc._id;
     }
-    return this.collection.insert({ username, type, typeData, timestamp });
+    const day = moment(timestamp).format(moment.HTML5_FMT.DATE); // Produces YYYY-MM-DD.
+    return this.collection.insert({ username, type, typeData, timestamp, day });
   }
 
   /**

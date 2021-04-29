@@ -43,7 +43,6 @@ export const DATAMODEL = {
   CAREERGOALS: 'datamodel/career-goals',
   COURSE_INSTANCES: 'datamodel/course-instances',
   COURSES: 'datamodel/courses',
-  FEEDS: 'datamodel/feeds',
   INTERESTS: 'datamodel/interests',
   INTEREST_TYPES: 'datamodel/interest-types',
   OPPORTUNITIES: 'datamodel/opportunities',
@@ -77,6 +76,7 @@ export const EXPLORER = {
   OPPORTUNITIES_PARAM: 'explorer/opportunities/:opportunity',
 };
 
+// This EXPLORER_TYPE is different from the EXPLORERTYPE in ExplorerUtils.ts
 export const EXPLORER_TYPE = {
   HOME: 'explorer',
   CAREERGOALS: 'career-goals',
