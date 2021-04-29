@@ -21,7 +21,7 @@ export enum USER_INTERACTIONS {
 /**
  * Represents a log of user interactions with RadGrad.
  * @extends api/base.BaseCollection
- * @memberOf api/analytic
+ * @memberOf api/user-interaction
  */
 class UserInteractionCollection extends BaseCollection {
 
@@ -130,6 +130,6 @@ class UserInteractionCollection extends BaseCollection {
 /**
  * Provides the singleton instance of this class to all other entities.
  * @type {api/log.UserInteractionCollection}
- * @memberOf api/analytic
+ * @memberOf api/user-interaction
  */
 export const UserInteractions = new UserInteractionCollection();

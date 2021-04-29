@@ -1,5 +1,5 @@
 import { SyncedCron } from 'meteor/littledata:synced-cron';
-import { userInteractionManager } from '../../api/analytic/UserInteractionManager';
+import { userInteractionManager } from '../../api/user-interaction/UserInteractionManager';
 import { updateFactoids } from '../../api/factoid/Factoids';
 import { PublicStats } from '../../api/public-stats/PublicStatsCollection';
 import { whatsNew } from '../../api/whats-new/WhatsNew';

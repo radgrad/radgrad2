@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
 import _ from 'lodash';
 import { ANALYTICS } from '../../../layouts/utilities/route-constants';
 import { analyticsActions } from '../../../../redux/admin/analytics';
-import { userInteractionFindMethod } from '../../../../api/analytic/UserInteractionCollection.methods';
+import { userInteractionFindMethod } from '../../../../api/user-interaction/UserInteractionCollection.methods';
 import { IAdminAnalyticsOverheadAnalysisBuckets, AdminAnalyticsOverheadAnalysisData, IAdminAnalyticsUserInteraction } from '../../../../redux/admin/analytics/reducers';
 
 interface AdminAnalyticsDateSelectionWidgetProps {

@@ -1,5 +1,5 @@
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
-import { UserInteractions } from '../analytic/UserInteractionCollection';
+import { UserInteractions } from '../user-interaction/UserInteractionCollection';
 import BaseCollection from '../base/BaseCollection';
 import { Courses } from '../course/CourseCollection';
 import { CourseInstances } from '../course/CourseInstanceCollection';

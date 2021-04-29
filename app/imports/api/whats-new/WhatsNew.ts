@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import moment from 'moment';
-import { USER_INTERACTIONS, UserInteractions } from '../analytic/UserInteractionCollection';
+import { USER_INTERACTIONS, UserInteractions } from '../user-interaction/UserInteractionCollection';
 import { CareerGoals } from '../career/CareerGoalCollection';
 import { Courses } from '../course/CourseCollection';
 import { Interests } from '../interest/InterestCollection';

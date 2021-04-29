@@ -17,7 +17,7 @@ import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Slugs } from '../slug/SlugCollection';
 import { StudentProfiles } from '../user/StudentProfileCollection';
 import { Teasers } from '../teaser/TeaserCollection';
-import { UserInteractions } from '../analytic/UserInteractionCollection';
+import { UserInteractions } from '../user-interaction/UserInteractionCollection';
 import { VerificationRequests } from '../verification/VerificationRequestCollection';
 import { ProfileCareerGoals } from '../user/profile-entries/ProfileCareerGoalCollection';
 import { ProfileCourses } from '../user/profile-entries/ProfileCourseCollection';
