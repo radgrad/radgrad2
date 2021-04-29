@@ -147,14 +147,15 @@ const BrowserView: React.FC<BrowserViewProps> = ({
     return !! profileItems.some(x => x._id === item._id);
   };
 
-  const rightside = <Filter explorerType={explorerType} />;
-  const header = <RadGradHeader title= {`${explorerType.replace('-', ' ')}`} count = {explorerItems.length}
-                                icon={icon} rightside={rightside}/>;
+  const header = <RadGradHeader title= {`${explorerType.replace('-', ' ')}`} count = {explorerItems.length} icon={icon} />;
   return (
     <div id="explorer-browser-view">
     <RadGradSegment header={header}>
-     <Sort explorerType={explorerType} />
-      <Card.Group itemsPerRow={4} stackable id="browserCardGroup">
+      <div>
+        <span style={{ display: 'inline-block' }}><Filter explorerType={explorerType} /></span>
+        <span style={{ float: 'right' }}><Sort explorerType={explorerType} /></span>
+      </div>
+      <Card.Group itemsPerRow={4} stackable id="browserCardGroup" style={{ margin: '0px' }}>
         {explorerItems.map((explorerItem) => (
           <ProfileCard key={explorerItem._id} item={explorerItem} type={explorerType} inProfile = {inProfile(explorerItem, explorerType)} />
         ))}
