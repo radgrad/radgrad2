@@ -12,7 +12,19 @@ import { USER_INTERACTIONS, UserInteractions } from './UserInteractionCollection
 
 /** The structure of a snapshot. */
 export interface UIMSnapshot {
-  string?: { interests: string[], careerGoals: string[], courses: string[], opportunities: string[], level: number, degreePlanComplete: boolean }
+  string?: { interests: string[], careerGoals: string[], courses: string[], opportunities: string[], level: number, degreePlanComplete: boolean, visibility: string[] }
+}
+
+/** The boolean fields in a student's profile used to indicate what's visible. */
+enum VISIBILITY {
+  PICTURE = 'sharePicture',
+  WEBSITE = 'shareWebsite',
+  INTERESTS = 'shareInterests',
+  CAREER_GOALS = 'shareCareerGoals',
+  COURSES = 'shareCourses',
+  OPPORTUNITIES = 'shareOpportunities',
+  LEVEL = 'shareLevel',
+  ICE = 'shareICE',
 }
 
 /**
@@ -29,20 +41,37 @@ class UserInteractionManager {
   /** Create and return a snapshot data structure. */
   public buildASnapshot() {
     const snap: UIMSnapshot = {};
-    // First, initialize the data structure.
-    StudentProfiles.findNonRetired().forEach(profile => {
-      snap[profile.username] = { interests: [], careerGoals: [], level: profile.level, degreePlanComplete: StudentProfiles.isDegreePlanComplete(profile.username) };
-    });
-    // Now loop through once more and add the interests and career goals.
+    // Loop through each active student, and set their snapshot fields.
     StudentProfiles.findNonRetired().forEach(profile => {
       const username = profile.username;
-      snap[username].interests = ProfileInterests.getInterestSlugs(username);
-      snap[username].careerGoals = ProfileCareerGoals.getCareerGoalSlugs(username);
-      snap[username].courses = ProfileCourses.getCourseSlugs(username);
-      snap[username].opportunities = ProfileOpportunities.getOpportunitySlugs(username);
+      snap[username] = {
+        interests: ProfileInterests.getInterestSlugs(username),
+        careerGoals: ProfileCareerGoals.getCareerGoalSlugs(username),
+        courses: ProfileCourses.getCourseSlugs(username),
+        opportunities: ProfileOpportunities.getOpportunitySlugs(username),
+        level: profile.level,
+        degreePlanComplete: StudentProfiles.isDegreePlanComplete(profile.username),
+        visibility: this.setVisibility(profile),
+      };
     });
     // console.log(snap);
     return snap;
+  }
+
+  /** Returns an array of strings indicating the current visibilities for the user. */
+  setVisibility(profile) {
+    const visibility = [];
+    Object.values(VISIBILITY).forEach(visibilityField => {
+      if (profile[visibilityField] === true) {
+        visibility.push(visibilityField);
+      }
+    });
+    return visibility;
+  }
+
+  /** Returns true if the two passed arrays (of strings) are different in some way. */
+  areDifferent(array1, array2) {
+    return (array1.sort().join(',') !== array2.sort().join(','));
   }
 
   /** Build and save an in-memory snapshot. Run at system startup time. */
@@ -70,10 +99,11 @@ class UserInteractionManager {
       const outlookArray = [];
       const outlookFields = ['interests', 'careerGoals', 'opportunities', 'courses' ];
       outlookFields.forEach(field => {
-        if (_.difference(userSnapshot[field], newUserSnapshot[field]).length > 0) {
+        if (this.areDifferent(userSnapshot[field], newUserSnapshot[field])) {
           outlookArray.push(field);
         }
       });
+      // If we found that interests, career goals, etc changed today, then emit a UserInteraction document.
       if (outlookArray.length > 0) {
         UserInteractions.define({ username, type: USER_INTERACTIONS.CHANGE_OUTLOOK, typeData: outlookArray });
       }
@@ -114,6 +144,11 @@ class UserInteractionManager {
       // (8) VERIFICATION: submitting a Verification Request in the past day.
       if (VerificationRequests.findNonRetired({ studentID: profile.userID, createdAt: { $gte: startOfToday } }).length > 0) {
         UserInteractions.define({ username, type: USER_INTERACTIONS.VERIFY });
+      }
+
+      // (8) CHANGE_VISIBILITY: change if visibility has changed.
+      if (this.areDifferent(userSnapshot.visibility, newUserSnapshot.visibility)) {
+        UserInteractions.define({ username, type: USER_INTERACTIONS.CHANGE_VISIBILITY, typeData: newUserSnapshot.visibility });
       }
     });
 
