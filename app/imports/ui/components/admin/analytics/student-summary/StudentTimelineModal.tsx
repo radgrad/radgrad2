@@ -5,7 +5,7 @@ import _ from 'lodash';
 import { PROFILE_ENTRY_TYPE } from '../../../../../api/user/profile-entries/ProfileEntryTypes';
 import { profileIDToFullname } from '../../../shared/utilities/data-model';
 import { UserInteraction } from '../../../../../typings/radgrad';
-import { UserInteractionsTypes } from '../../../../../api/analytic/UserInteractionsTypes';
+import { UserInteractionsTypes } from '../../../../../api/user-interaction/UserInteractionsTypes';
 import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
 import { StudentSummaryBehaviorTypes } from './utilities/student-summary';
 

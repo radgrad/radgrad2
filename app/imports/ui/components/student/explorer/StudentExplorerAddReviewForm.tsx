@@ -11,12 +11,8 @@ import { CourseInstances } from '../../../../api/course/CourseInstanceCollection
 import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import { defineMethod } from '../../../../api/base/BaseCollection.methods';
-import { AcademicTerm, ReviewDefine, UserInteractionDefine } from '../../../../typings/radgrad';
-import { UserInteractionsTypes } from '../../../../api/analytic/UserInteractionsTypes';
-import { userInteractionDefineMethod } from '../../../../api/analytic/UserInteractionCollection.methods';
+import { AcademicTerm, ReviewDefine } from '../../../../typings/radgrad';
 import { getUserIdFromRoute, getUsername } from '../../shared/utilities/router';
-import { Courses } from '../../../../api/course/CourseCollection';
-import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
 import { ReviewTypes } from '../../../../api/review/ReviewTypes';
 
 interface StudentExplorerAddReviewFormProps {
@@ -64,25 +60,6 @@ const StudentExplorerAddReviewForm: React.FC<StudentExplorerAddReviewFormProps> 
           allowOutsideClick: false,
           allowEscapeKey: false,
           allowEnterKey: false,
-        });
-        let slug: string;
-        const reviewee = definitionData.reviewee;
-        if (reviewType === ReviewTypes.COURSE) {
-          const revieweeID = Courses.getID(reviewee);
-          slug = Courses.findSlugByID(revieweeID);
-        } else if (reviewType === ReviewTypes.OPPORTUNITY) {
-          const revieweeID = Opportunities.getID(reviewee);
-          slug = Opportunities.findSlugByID(revieweeID);
-        }
-        const interactionData: UserInteractionDefine = {
-          username,
-          type: UserInteractionsTypes.ADD_REVIEW,
-          typeData: [reviewType, academicTermSlug, slug],
-        };
-        userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
-          if (userInteractionError) {
-            console.error('Error creating UserInteraction.', userInteractionError);
-          }
         });
         // this.formRef.current.reset();
       }

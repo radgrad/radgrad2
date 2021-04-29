@@ -420,16 +420,6 @@ export interface TypeUpdate extends Update {
   retired?: boolean;
 }
 
-// IceSnapshots
-export interface IceSnapshotDefine extends DumpOne {
-  username: string;
-  level: number;
-  i: number;
-  c: number;
-  e: number;
-  updated: any;
-}
-
 // Opportunities
 export interface Opportunity extends Document {
   name: string;

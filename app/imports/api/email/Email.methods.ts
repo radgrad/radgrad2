@@ -6,7 +6,7 @@ import { ROLE } from '../role/Role';
 
 /**
  * The Email sendEmail ValidatedMethod.
- * @memberOf api/analytic
+ * @memberOf api/user-interaction
  */
 export const sendEmailMethod = new ValidatedMethod({
   name: 'Email.sendEmail',

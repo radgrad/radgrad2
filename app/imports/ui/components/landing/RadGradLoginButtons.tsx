@@ -4,9 +4,6 @@ import { Link, Redirect } from 'react-router-dom';
 import { Button, Dropdown, Message, SemanticSIZES } from 'semantic-ui-react';
 import { Roles } from 'meteor/alanning:roles';
 import { Users } from '../../../api/user/UserCollection';
-import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
-import { USER_INTERACTIONS_NO_TYPE_DATA, UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
-import { UserInteractionDefine } from '../../../typings/radgrad';
 import { ROLE } from '../../../api/role/Role';
 
 interface RadGradLoginButtonsProps {
@@ -36,18 +33,6 @@ const RadGradLoginButtons: React.FC<RadGradLoginButtonsProps> = ({ instanceName 
           const profile = Users.findProfileFromUsername(username);
           if (profile.isAlumni) {
             role = 'Alumni';
-          } else {
-            // Track Student Login
-            const interactionData: UserInteractionDefine = {
-              username,
-              type: UserInteractionsTypes.LOGIN,
-              typeData: [USER_INTERACTIONS_NO_TYPE_DATA],
-            };
-            userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
-              if (userInteractionError) {
-                console.error('Error creating UserInteraction.', userInteractionError);
-              }
-            });
           }
         }
         if (Roles.userIsInRole(userId, [ROLE.ADVISOR])) {

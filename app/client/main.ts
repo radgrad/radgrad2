@@ -1,9 +1,9 @@
 import '../imports/api/academic-term';
-import '../imports/api/analytic';
 import '../imports/api/base';
 import '../imports/api/career';
 import '../imports/api/course';
 import '../imports/api/degree-plan';
+import '../imports/api/factoid';
 import '../imports/api/ice';
 import '../imports/api/integrity';
 import '../imports/api/interest';

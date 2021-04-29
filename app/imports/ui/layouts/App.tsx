@@ -146,6 +146,7 @@ const StudentProtectedRoute = ({ component: Component, ...rest }) => {
   // Because ROLE.ADMIN and ROLE.ADVISOR are allowed to go to StudentProtectedRoutes, they can trigger the
   // userInteractionDefineMethod.call() inside of withHistoryListen. Since we only want to track the pageViews of
   // STUDENTS, we should only use withHistoryListen if LOGGED IN user is a student.
+  // PJ: As of 4/2021, the above issue is no longer relevant; we have moved all UserInteraction defines to server side.
   const WrappedComponent = withGlobalSubscription(withInstanceSubscriptions(Component));
   // console.log(Meteor.user()?.username, Users.count());
   // CAM: I think this happens on a reload so send us back to the LandingPage. By setting the state to where

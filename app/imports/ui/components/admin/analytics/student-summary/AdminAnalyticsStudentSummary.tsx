@@ -8,7 +8,7 @@ import { ANALYTICS, EXPLORER_TYPE } from '../../../../layouts/utilities/route-co
 import AdminAnalyticsDateSelectionWidget from '../AdminAnalyticsDateSelectionWidget';
 import SummaryStatisticsTabs from './SummaryStatisticsTabs';
 import { behaviorCategories } from './utilities/student-summary';
-import { UserInteractionsTypes } from '../../../../../api/analytic/UserInteractionsTypes';
+import { UserInteractionsTypes } from '../../../../../api/user-interaction/UserInteractionsTypes';
 import { RootState } from '../../../../../redux/types';
 import { AdminAnalyticsDateRange, IAdminAnalyticsUserInteraction } from '../../../../../redux/admin/analytics/reducers';
 

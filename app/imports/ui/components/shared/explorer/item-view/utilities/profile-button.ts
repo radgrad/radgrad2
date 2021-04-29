@@ -9,11 +9,9 @@ import {
   ProfileCourseDefine,
   ProfileInterestDefine,
   ProfileOpportunityDefine, Interest, Opportunity,
-  UserInteractionDefine,
 } from '../../../../../../typings/radgrad';
 import { Users } from '../../../../../../api/user/UserCollection';
 import { Slugs } from '../../../../../../api/slug/SlugCollection';
-import { UserInteractionsTypes } from '../../../../../../api/analytic/UserInteractionsTypes';
 
 export const getCollectionName = (type: IProfileEntryTypes): string => {
   let collectionName: string;
@@ -80,45 +78,4 @@ export const createDefinitionData = (studentID: string, item: ItemType, type: IP
       break;
   }
   return definitionData;
-};
-
-export const createInteractionData = (studentID: string, item: ItemType, type: IProfileEntryTypes, added: boolean): UserInteractionDefine => {
-  const student = getStudent(studentID);
-  const slug = getSlug(item.slugID);
-  let interactionData: UserInteractionDefine;
-  const interactionType = added ? UserInteractionsTypes.ADD_TO_PROFILE : UserInteractionsTypes.REMOVE_FROM_PROFILE;
-  switch (type) {
-    case PROFILE_ENTRY_TYPE.CAREERGOAL:
-      interactionData = {
-        username: student,
-        type: interactionType,
-        typeData: [type, slug],
-      };
-      break;
-    case PROFILE_ENTRY_TYPE.COURSE:
-      interactionData = {
-        username: student,
-        type: interactionType,
-        typeData: [type, slug],
-      };
-      break;
-    case PROFILE_ENTRY_TYPE.INTEREST:
-      interactionData = {
-        username: student,
-        type: interactionType,
-        typeData: [type, slug],
-      };
-      break;
-    case PROFILE_ENTRY_TYPE.OPPORTUNITY:
-      interactionData = {
-        username: student,
-        type: interactionType,
-        typeData: [type, slug],
-      };
-      break;
-    default:
-      console.error(`Bad profile entry type: ${type}`);
-      break;
-  }
-  return interactionData;
 };

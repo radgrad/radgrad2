@@ -1,7 +1,7 @@
 import moment from 'moment';
 import React from 'react';
 import { Redirect } from 'react-router';
-import { sendRefusedTermsEmailMethod } from '../../../api/analytic/Email.methods';
+import { sendRefusedTermsEmailMethod } from '../../../api/email/Email.methods';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';

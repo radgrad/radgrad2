@@ -6,7 +6,6 @@ import { CareerGoals } from '../career/CareerGoalCollection';
 import { Courses } from '../course/CourseCollection';
 import { CourseInstances } from '../course/CourseInstanceCollection';
 import { FacultyProfiles } from '../user/FacultyProfileCollection';
-import { IceSnapshots } from '../analytic/IceSnapshotCollection';
 import { Interests } from '../interest/InterestCollection';
 import { InterestTypes } from '../interest/InterestTypeCollection';
 import { Opportunities } from '../opportunity/OpportunityCollection';
@@ -18,7 +17,7 @@ import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Slugs } from '../slug/SlugCollection';
 import { StudentProfiles } from '../user/StudentProfileCollection';
 import { Teasers } from '../teaser/TeaserCollection';
-import { UserInteractions } from '../analytic/UserInteractionCollection';
+import { UserInteractions } from '../user-interaction/UserInteractionCollection';
 import { VerificationRequests } from '../verification/VerificationRequestCollection';
 import { ProfileCareerGoals } from '../user/profile-entries/ProfileCareerGoalCollection';
 import { ProfileCourses } from '../user/profile-entries/ProfileCourseCollection';
@@ -54,7 +53,6 @@ class RadGradClass {
       ProfileCourses,
       ProfileInterests,
       ProfileOpportunities,
-      IceSnapshots,
       Interests,
       InterestTypes,
       Opportunities,
@@ -93,7 +91,6 @@ class RadGradClass {
       CourseInstances,
       OpportunityInstances,
       VerificationRequests,
-      IceSnapshots,
       UserInteractions,
       Reviews,
       ProfileCareerGoals,

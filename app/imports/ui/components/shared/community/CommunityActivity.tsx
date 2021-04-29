@@ -41,11 +41,13 @@ const CommunityActivity: React.FC = () => {
     const updatedOpportunities = data.updatedEntities[WHATS_NEW_FIELDS.OPPORTUNITIES].length;
 
     info = `
-In the past week, new additions include ${newInterests} interests, ${newCareerGoals} career goals, ${newCourses} courses, and ${newOpportunities} opportunities. 
+In the past week, ${data.logins} users have accessed RadGrad, and ${data.levelUps} of those have leveled up. 
+
+New additions include ${newInterests} interests, ${newCareerGoals} career goals, ${newCourses} courses, and ${newOpportunities} opportunities. 
 
 Also, ${newStudents} students, ${newFaculty} faculty, and ${newAdvisors} advisors have joined the system.
 
-Finally, there have been updates to ${updatedInterests} interests, ${updatedCareerGoals} career goals, ${updatedCourses} courses, and ${updatedOpportunities} opportunities. 
+There have been updates to ${updatedInterests} interests, ${updatedCareerGoals} career goals, ${updatedCourses} courses, and ${updatedOpportunities} opportunities. 
 
 This information was last updated ${moment(data.lastUpdate).fromNow()}.
     `;

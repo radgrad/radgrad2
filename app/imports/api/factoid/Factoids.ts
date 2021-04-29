@@ -6,7 +6,7 @@ import { ProfileInterests } from '../user/profile-entries/ProfileInterestCollect
 import { ProfileOpportunities } from '../user/profile-entries/ProfileOpportunityCollection';
 import { Interests } from '../interest/InterestCollection';
 import { Opportunities } from '../opportunity/OpportunityCollection';
-import { Factoids } from '../public-stats/FactoidCollection';
+import { Factoids } from './FactoidCollection';
 import { Reviews } from '../review/ReviewCollection';
 import { StudentProfiles } from '../user/StudentProfileCollection';
 import {

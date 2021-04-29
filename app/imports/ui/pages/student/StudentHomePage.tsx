@@ -78,7 +78,7 @@ const StudentHomePage: React.FC<StudentHomePageProps> = ({ okItems, reviewItems,
     activeIndex = 2;
   }
 
-  const header = <RadGradHeader title='To Do' />;
+  const header = <RadGradHeader title='Your Personal To Do List' />;
 
   return (
     <PageLayout id={PAGEIDS.STUDENT_HOME} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
