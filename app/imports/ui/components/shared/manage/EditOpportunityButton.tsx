@@ -97,8 +97,8 @@ const EditOpportunityButton: React.FC<ManageOpportunityProps> = ({
   };
 
   const handleSubmit = (modelDoc) => {
+    console.log('handleSubmit', modelDoc);
     const collectionName = Opportunities.getCollectionName();
-    console.log(modelDoc, collectionName);
     const updateData: OpportunityUpdate = {};
     updateData.id = modelDoc._id;
     updateData.name = modelDoc.name;
@@ -135,9 +135,10 @@ const EditOpportunityButton: React.FC<ManageOpportunityProps> = ({
           timer: 1500,
         });
       }
+      setOpen(false);
     }));
   };
-
+  // console.log(model);
   return (
     <Modal key={`${opportunity._id}-modal`}
            onClose={() => setOpen(false)}
@@ -148,8 +149,8 @@ const EditOpportunityButton: React.FC<ManageOpportunityProps> = ({
       <Modal.Header>{`Edit ${opportunity.name}`}</Modal.Header>
       <Modal.Content>
         <AutoForm model={model} schema={formSchema} onSubmit={(doc) => {
+          console.log('onSubmit', doc);
           handleSubmit(doc);
-          setOpen(false);
         }}>
           <Form.Group widths="equal">
             <TextField name="name" />
