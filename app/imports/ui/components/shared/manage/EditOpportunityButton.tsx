@@ -18,6 +18,7 @@ import { ManageOpportunityProps } from './ManageOpportunityProps';
 const EditOpportunityButton: React.FC<ManageOpportunityProps> = ({ opportunity, opportunityTypes, interests, terms, sponsors }) => {
   const [open, setOpen] = useState(false);
   const [pictureURL, setPictureURL] = useState(opportunity.picture);
+  // console.log(opportunityTypes, interests, terms, sponsors);
 
   const model: OpportunityUpdate = opportunity;
   // convert ids to names
