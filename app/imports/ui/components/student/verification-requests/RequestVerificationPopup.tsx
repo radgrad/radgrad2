@@ -5,13 +5,9 @@ import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import { Popup, SemanticSIZES } from 'semantic-ui-react';
 import { AutoForm } from 'uniforms-semantic';
 import { useRouteMatch } from 'react-router-dom';
-import { userInteractionDefineMethod } from '../../../../api/analytic/UserInteractionCollection.methods';
-import { UserInteractionsTypes } from '../../../../api/analytic/UserInteractionsTypes';
 import { defineMethod } from '../../../../api/base/BaseCollection.methods';
-import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
-import { Slugs } from '../../../../api/slug/SlugCollection';
 import { VerificationRequests } from '../../../../api/verification/VerificationRequestCollection';
-import { OpportunityInstance, UserInteractionDefine, VerificationRequestDefine } from '../../../../typings/radgrad';
+import { OpportunityInstance, VerificationRequestDefine } from '../../../../typings/radgrad';
 import { ButtonAction } from '../../shared/button/ButtonAction';
 import { getUsername } from '../../shared/utilities/router';
 
@@ -40,19 +36,6 @@ const handleVerificationRequest = (instance, match) => (model) => {
         icon: 'success',
         showConfirmButton: false,
         timer: 1500,
-      });
-      const slugID = OpportunityInstances.getOpportunityDoc(opportunityInstance).slugID;
-      const slugName = Slugs.getNameFromID(slugID);
-      const typeData = [slugName];
-      const interactionData: UserInteractionDefine = {
-        username,
-        type: UserInteractionsTypes.VERIFY_REQUEST,
-        typeData,
-      };
-      userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
-        if (userInteractionError) {
-          console.error('Error creating UserInteraction.', userInteractionError);
-        }
       });
     }
   });

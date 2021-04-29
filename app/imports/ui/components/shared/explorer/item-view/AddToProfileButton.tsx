@@ -7,9 +7,8 @@ import { ProfileCourses } from '../../../../../api/user/profile-entries/ProfileC
 import { ProfileInterests } from '../../../../../api/user/profile-entries/ProfileInterestCollection';
 import { ProfileOpportunities } from '../../../../../api/user/profile-entries/ProfileOpportunityCollection';
 import { defineMethod, removeItMethod } from '../../../../../api/base/BaseCollection.methods';
-import { userInteractionDefineMethod } from '../../../../../api/analytic/UserInteractionCollection.methods';
 import { PROFILE_ENTRY_TYPE, IProfileEntryTypes } from '../../../../../api/user/profile-entries/ProfileEntryTypes';
-import { createDefinitionData, createInteractionData, getCollectionName } from './utilities/profile-button';
+import { createDefinitionData, getCollectionName } from './utilities/profile-button';
 
 type ItemType = CareerGoal | Course | Interest | Opportunity;
 export interface AddToProfileButtonProps {
@@ -24,8 +23,6 @@ export interface AddToProfileButtonProps {
 const handleAdd = (studentID: string, item: ItemType, type: IProfileEntryTypes) => () => {
   const collectionName = getCollectionName(type);
   const definitionData = createDefinitionData(studentID, item, type);
-  const interactionData = createInteractionData(studentID, item, type, true);
-
   defineMethod.call({ collectionName, definitionData }, (error: MeteorError) => {
     if (error) {
       Swal.fire({
@@ -43,18 +40,12 @@ const handleAdd = (studentID: string, item: ItemType, type: IProfileEntryTypes) 
         showConfirmButton: false,
         timer: 1500,
       });
-      userInteractionDefineMethod.call(interactionData, (userInteractionError: MeteorError) => {
-        if (userInteractionError) {
-          console.error('Error creating UserInteraction.', userInteractionError);
-        }
-      });
     }
   });
 };
 
 const handleRemove = (studentID: string, item: ItemType, type: IProfileEntryTypes) => () => {
   const collectionName = getCollectionName(type);
-  const interactionData = createInteractionData(studentID, item, type, false);
   let instance;
   switch (type) {
     case PROFILE_ENTRY_TYPE.CAREERGOAL:
@@ -96,11 +87,6 @@ const handleRemove = (studentID: string, item: ItemType, type: IProfileEntryType
         allowEscapeKey: false,
         allowEnterKey: false,
       });
-    }
-  });
-  userInteractionDefineMethod.call(interactionData, (userInteractionError: MeteorError) => {
-    if (userInteractionError) {
-      console.error('Error creating UserInteraction.', userInteractionError);
     }
   });
 };
