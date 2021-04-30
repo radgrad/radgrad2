@@ -2,7 +2,7 @@
 import { Accounts } from 'meteor/accounts-base';
 import { SyncedCron } from 'meteor/littledata:synced-cron';
 import { Meteor } from 'meteor/meteor';
-import { userInteractionManager } from '../../api/analytic/UserInteractionManager';
+import { userInteractionManager } from '../../api/user-interaction/UserInteractionManager';
 import { removeAllEntities } from '../../api/base/BaseUtilities';
 import { updateFactoids } from '../../api/factoid/Factoids';
 import { PublicStats } from '../../api/public-stats/PublicStatsCollection';

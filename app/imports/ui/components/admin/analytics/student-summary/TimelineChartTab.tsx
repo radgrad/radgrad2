@@ -7,7 +7,7 @@ import { PROFILE_ENTRY_TYPE } from '../../../../../api/user/profile-entries/Prof
 import { StudentProfiles } from '../../../../../api/user/StudentProfileCollection';
 import { IAdminAnalyticsUserInteraction } from '../../../../../redux/admin/analytics/reducers';
 import { StudentSummaryBehaviorTypes } from './utilities/student-summary';
-import { UserInteractionsTypes } from '../../../../../api/analytic/UserInteractionsTypes';
+import { UserInteractionsTypes } from '../../../../../api/user-interaction/UserInteractionsTypes';
 import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
 import { UserInteraction } from '../../../../../typings/radgrad';
 

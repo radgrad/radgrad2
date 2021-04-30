@@ -8,7 +8,7 @@ import { $ } from 'meteor/jquery';
 import { connect } from 'react-redux';
 import AdminAnalyticsNewsletterMessagePreviewWidget from './AdminAnalyticsNewsletterMessagePreviewWidget';
 import { StudentProfiles } from '../../../../../api/user/StudentProfileCollection';
-import { sendEmailMethod } from '../../../../../api/analytic/Email.methods';
+import { sendEmailMethod } from '../../../../../api/email/Email.methods';
 import { RadGradProperties } from '../../../../../api/radgrad/RadGradProperties';
 import { analyticsActions } from '../../../../../redux/admin/analytics';
 import { RootState } from '../../../../../redux/types';

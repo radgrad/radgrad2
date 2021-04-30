@@ -1,6 +1,5 @@
 import { SyncedCron } from 'meteor/littledata:synced-cron';
-import { userInteractionManager } from '../../api/analytic/UserInteractionManager';
-import { updateIceSnapshot } from '../../api/ice/IceSnapshot';
+import { userInteractionManager } from '../../api/user-interaction/UserInteractionManager';
 import { updateFactoids } from '../../api/factoid/Factoids';
 import { PublicStats } from '../../api/public-stats/PublicStatsCollection';
 import { whatsNew } from '../../api/whats-new/WhatsNew';
@@ -21,7 +20,6 @@ const beforeMidnight = (parser) => parser.text('at 11:55 pm');
 // Useful for debugging
 // const every15seconds = (parser) => parser.text('every 15 seconds');
 
-SyncedCron.add({ name: 'Update ICE Snapshots', schedule: every24Hours, job: updateIceSnapshot });
 SyncedCron.add({ name: 'Update Factoids', schedule: every24Hours, job: updateFactoids });
 SyncedCron.add({ name: 'Update Public Stats', schedule: afterMidnight, job: PublicStats.generateStats });
 SyncedCron.add({ name: 'Update Forecasts', schedule: afterMidnight, job: () => RadGradForecasts.updateForecasts() });

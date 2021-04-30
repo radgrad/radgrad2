@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Redirect } from 'react-router';
-import { Factoids } from '../../../api/public-stats/FactoidCollection';
+import { Factoids } from '../../../api/factoid/FactoidCollection';
 import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';
 import { ROLE } from '../../../api/role/Role';
 import { AdminProfiles } from '../../../api/user/AdminProfileCollection';

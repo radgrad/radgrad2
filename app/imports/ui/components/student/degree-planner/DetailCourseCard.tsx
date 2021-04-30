@@ -5,7 +5,7 @@ import { useRouteMatch } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { getFutureEnrollmentSingleMethod } from '../../../../api/utilities/FutureEnrollment.methods';
 import { ENROLLMENT_TYPE, EnrollmentForecast } from '../../../../startup/both/RadGradForecasts';
-import { AcademicTerm, CourseInstance, UserInteractionDefine } from '../../../../typings/radgrad';
+import { CourseInstance } from '../../../../typings/radgrad';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import { ViewInExplorerButtonLink } from '../../shared/button/ViewInExplorerButtonLink';
 import IceHeader from '../../shared/IceHeader';
@@ -15,9 +15,6 @@ import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import { CourseInstances } from '../../../../api/course/CourseInstanceCollection';
 import { removeItMethod } from '../../../../api/base/BaseCollection.methods';
 import { degreePlannerActions } from '../../../../redux/student/degree-planner';
-import { getUsername } from '../../shared/utilities/router';
-import { UserInteractionsTypes } from '../../../../api/analytic/UserInteractionsTypes';
-import { userInteractionDefineMethod } from '../../../../api/analytic/UserInteractionCollection.methods';
 import { cardStyle, contentStyle } from './utilities/styles';
 
 interface DetailCourseCardProps {
@@ -33,8 +30,6 @@ const handleRemove = (selectCourseInstance, match) => (event, { value }) => {
   event.preventDefault();
   const collectionName = CourseInstances.getCollectionName();
   const instance = value;
-  const instanceObject: CourseInstance = CourseInstances.findDoc({ _id: instance });
-  const slugName = CourseInstances.getCourseSlug(instance);
   removeItMethod.call({ collectionName, instance }, (error) => {
     if (error) {
       console.error(`Remove courseInstance ${instance} failed.`, error);
@@ -44,17 +39,6 @@ const handleRemove = (selectCourseInstance, match) => (event, { value }) => {
         icon: 'success',
         showConfirmButton: false,
         timer: 1500,
-      });
-      const academicTerm: AcademicTerm = AcademicTerms.findDoc({ _id: instanceObject.termID });
-      const interactionData: UserInteractionDefine = {
-        username: getUsername(match),
-        type: UserInteractionsTypes.REMOVE_COURSE,
-        typeData: [academicTerm.term, academicTerm.year, slugName],
-      };
-      userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
-        if (userInteractionError) {
-          console.error('Error creating UserInteraction.', userInteractionError);
-        }
       });
     }
   });

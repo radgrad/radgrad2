@@ -12,13 +12,9 @@ import { CourseInstances } from '../../../../api/course/CourseInstanceCollection
 import { Users } from '../../../../api/user/UserCollection';
 import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
 import RatingField from './RatingField';
-import { AcademicTerm, Review, ReviewUpdate, UserInteractionDefine } from '../../../../typings/radgrad';
-import { UserInteractionsTypes } from '../../../../api/analytic/UserInteractionsTypes';
-import { userInteractionDefineMethod } from '../../../../api/analytic/UserInteractionCollection.methods';
+import { AcademicTerm, Review, ReviewUpdate } from '../../../../typings/radgrad';
 import { getUsername } from '../../shared/utilities/router';
-import { Courses } from '../../../../api/course/CourseCollection';
-import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
-import { IReviewTypes, ReviewTypes } from '../../../../api/review/ReviewTypes';
+import { ReviewTypes } from '../../../../api/review/ReviewTypes';
 
 interface StudentExplorerEditReviewWidgetProps {
   review: Review;
@@ -40,7 +36,6 @@ const StudentExplorerEditReviewForm: React.FC<StudentExplorerEditReviewWidgetPro
 
   const handleUpdate = (doc: ReviewUpdate): void => {
     const collectionName = collection.getCollectionName();
-    const username = getUsername(match);
     const academicTermDoc = AcademicTerms.getAcademicTermFromToString(doc.academicTerm);
     const academicTermSlug = AcademicTerms.findSlugByID(academicTermDoc._id);
     const updateData: ReviewUpdate = doc;
@@ -62,25 +57,6 @@ const StudentExplorerEditReviewForm: React.FC<StudentExplorerEditReviewWidgetPro
           allowOutsideClick: false,
           allowEscapeKey: false,
           allowEnterKey: false,
-        });
-        const reviewType: IReviewTypes = review.reviewType as IReviewTypes;
-        let slug: string;
-        if (reviewType === ReviewTypes.COURSE) {
-          const revieweeID = Courses.getID(review.revieweeID);
-          slug = Courses.findSlugByID(revieweeID);
-        } else if (reviewType === ReviewTypes.OPPORTUNITY) {
-          const revieweeID = Opportunities.getID(review.revieweeID);
-          slug = Opportunities.findSlugByID(revieweeID);
-        }
-        const interactionData: UserInteractionDefine = {
-          username,
-          type: UserInteractionsTypes.EDIT_REVIEW,
-          typeData: [reviewType, updateData.academicTerm, slug],
-        };
-        userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
-          if (userInteractionError) {
-            console.error('Error creating UserInteraction.', userInteractionError);
-          }
         });
       }
     });

@@ -10,7 +10,6 @@ import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { defineMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
 import {
-  AcademicTerm,
   AcademicYearInstance,
   Course,
   CourseInstance,
@@ -21,7 +20,6 @@ import {
   OpportunityInstance,
   OpportunityInstanceDefine,
   OpportunityInstanceUpdate,
-  UserInteractionDefine,
   VerificationRequest,
 } from '../../../typings/radgrad';
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
@@ -32,8 +30,6 @@ import { SelectPayload, SelectTab } from '../../../redux/student/degree-planner/
 import TabbedProfileEntries from '../../components/student/degree-planner/TabbedProfileEntries';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { getUsername, MatchProps } from '../../components/shared/utilities/router';
-import { userInteractionDefineMethod } from '../../../api/analytic/UserInteractionCollection.methods';
-import { UserInteractionsTypes } from '../../../api/analytic/UserInteractionsTypes';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInstanceCollection';
 import { ProfileOpportunities } from '../../../api/user/profile-entries/ProfileOpportunityCollection';
@@ -80,12 +76,6 @@ const onDragEnd = (onDragEndProps) => (result) => {
   const dropTermDoc = AcademicTerms.findDocBySlug(termSlug);
   const isPastDrop = dropTermDoc.termNumber < currentTerm.termNumber;
 
-  // Variables for dealing with defining user interaction
-  const academicTermSplit = result.destination.droppableId.split('-'); // droppableID is in the form "Term-Year"
-  const academicTermToString = academicTermSplit.join(' '); // AcademicTerms.getAcademicTermFromToString splits based on whitespace
-  const academicTerm: AcademicTerm = AcademicTerms.getAcademicTermFromToString(academicTermToString);
-  let interactionData: UserInteractionDefine;
-
   if (isCourseDrop) {
     if (isPastDrop) {
       Swal.fire({
@@ -116,25 +106,11 @@ const onDragEnd = (onDragEndProps) => (result) => {
        * course instance and only create a user interaction if it was not a duplicate.
        */
       // Before we define a course instance, check if it already exists first
-      const termID = academicTerm._id;
-      const instanceExists: CourseInstance = CourseInstances.findCourseInstanceDoc(termID, courseID, student);
       defineMethod.call({ collectionName, definitionData }, (error, res) => {
         if (error) {
           console.error(error);
         } else {
           selectCourseInstance(res);
-          if (!instanceExists) {
-            interactionData = {
-              username: student,
-              type: UserInteractionsTypes.ADD_COURSE,
-              typeData: [academicTermSplit[0], academicTermSplit[1], slug],
-            };
-            userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
-              if (userInteractionError) {
-                console.error('Error creating UserInteraction.', userInteractionError);
-              }
-            });
-          }
         }
       });
     }
@@ -166,16 +142,6 @@ const onDragEnd = (onDragEndProps) => (result) => {
             console.error(error);
           } else {
             selectCourseInstance(slug);
-            interactionData = {
-              username: student,
-              type: UserInteractionsTypes.UPDATE_COURSE,
-              typeData: [academicTermSplit[0], academicTermSplit[1], CourseInstances.getCourseSlug(slug)],
-            };
-            userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
-              if (userInteractionError) {
-                console.error('Error creating UserInteraction.', userInteractionError);
-              }
-            });
           }
         });
       }
@@ -200,25 +166,11 @@ const onDragEnd = (onDragEndProps) => (result) => {
      * However, since the Meteor define method still fires, we want to handle that case where we drag a duplicate
      * opportunity instance and only create a user interaction if it was not a duplicate.
      */
-    const termID = academicTerm._id;
-    const instanceExists: OpportunityInstance = OpportunityInstances.findOpportunityInstanceDoc(termID, opportunityID, student);
     defineMethod.call({ collectionName, definitionData }, (error, res) => {
       if (error) {
         console.error(error);
       } else {
         selectOpportunityInstance(res);
-        if (!instanceExists) {
-          interactionData = {
-            username: student,
-            type: UserInteractionsTypes.ADD_OPPORTUNITY,
-            typeData: [academicTermSplit[0], academicTermSplit[1], slug],
-          };
-          userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
-            if (userInteractionError) {
-              console.error('Error creating UserInteraction.', userInteractionError);
-            }
-          });
-        }
       }
     });
   } else if (isOppInstDrop) {
@@ -232,16 +184,6 @@ const onDragEnd = (onDragEndProps) => (result) => {
         console.error(error);
       } else {
         selectOpportunityInstance(slug);
-        interactionData = {
-          username: student,
-          type: UserInteractionsTypes.UPDATE_OPPORTUNITY,
-          typeData: [academicTermSplit[0], academicTermSplit[1], OpportunityInstances.getOpportunitySlug(slug)],
-        };
-        userInteractionDefineMethod.call(interactionData, (userInteractionError) => {
-          if (userInteractionError) {
-            console.error('Error creating UserInteraction.', userInteractionError);
-          }
-        });
       }
     });
   }
