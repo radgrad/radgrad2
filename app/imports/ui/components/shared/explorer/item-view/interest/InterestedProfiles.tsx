@@ -5,29 +5,28 @@ import { Users } from '../../../../../../api/user/UserCollection';
 import { Interest } from '../../../../../../typings/radgrad';
 import UserLabel from '../../../profile/UserLabel';
 import WidgetHeaderNumber from '../../WidgetHeaderNumber';
-import { getUserIDsWithProfileInterestMethod } from '../../../../../../api/user/profile-entries/ProfileInterestCollection.methods';
+import { getUserIDsWithProfileExplorerMethod } from '../../../../../../api/user/profile-entries/ProfileExplorerCollection.methods';
 
 interface InterestedProfileWidgetProps {
   interest: Interest;
 }
 
 const InterestedProfiles: React.FC<InterestedProfileWidgetProps> = ({ interest }) => {
-  // console.log('InterestedProfileWidget', props);
   const [faculty, setFaculty] = useState([]);
   const [students, setStudents] = useState([]);
   const [advisors, setAdvisors] = useState([]);
 
-  getUserIDsWithProfileInterestMethod.call({ interestID: interest._id, role: ROLE.FACULTY }, (error, res) => {
+  getUserIDsWithProfileExplorerMethod.call({ interestID: interest._id, role: ROLE.FACULTY }, (error, res) => {
     if (res && faculty.length !== res.length) {
       setFaculty(res.map((id) => Users.getProfile(id)));
     }
   });
-  getUserIDsWithProfileInterestMethod.call({ interestID: interest._id, role: ROLE.STUDENT }, (error, res) => {
+  getUserIDsWithProfileExplorerMethod.call({ interestID: interest._id, role: ROLE.STUDENT }, (error, res) => {
     if (res && students.length !== res.length) {
       setStudents(res.map((id) => Users.getProfile(id)));
     }
   });
-  getUserIDsWithProfileInterestMethod.call({ interestID: interest._id, role: ROLE.ADVISOR }, (error, res) => {
+  getUserIDsWithProfileExplorerMethod.call({ interestID: interest._id, role: ROLE.ADVISOR }, (error, res) => {
     if (res && advisors.length !== res.length) {
       setAdvisors(res.map((id) => Users.getProfile(id)));
     }

@@ -3,10 +3,11 @@ import { useRouteMatch } from 'react-router-dom';
 import { Grid, Segment, SegmentGroup } from 'semantic-ui-react';
 import Markdown from 'react-markdown';
 import { Course, Interest, Opportunity, Profile } from '../../../../../../typings/radgrad';
-import InterestedProfiles from './InterestedProfiles';
+import ExplorerProfiles from '../ExplorerProfiles';
 import * as Router from '../../../utilities/router';
 import { Teasers } from '../../../../../../api/teaser/TeaserCollection';
 import TeaserVideo from '../../../TeaserVideo';
+import { EXPLORER_TYPE } from '../../../../../utilities/ExplorerUtils';
 
 interface ExplorerInterestsWidgetProps {
   profile: Profile;
@@ -50,7 +51,7 @@ const ExplorerInterest: React.FC<ExplorerInterestsWidgetProps> = ({ profile, int
             </React.Fragment>
           )}
         </Segment>
-        <InterestedProfiles interest={interest} />
+        <ExplorerProfiles item={interest} explorerType={EXPLORER_TYPE.INTERESTS}/>
       </SegmentGroup>
     </div>
   );
