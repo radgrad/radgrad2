@@ -101,9 +101,11 @@ export const removeItMethod = new ValidatedMethod({
   mixins: [CallPromiseMixin],
   validate: null,
   run({ collectionName, instance }) {
-    const collection = RadGrad.getCollection(collectionName);
-    collection.assertValidRoleForMethod(this.userId);
-    collection.removeIt(instance);
+    if (Meteor.isServer) {
+      const collection = RadGrad.getCollection(collectionName);
+      collection.assertValidRoleForMethod(this.userId);
+      return collection.removeIt(instance);
+    }
     return true;
   },
 });
