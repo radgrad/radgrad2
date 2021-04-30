@@ -53,10 +53,10 @@ test('Test admin management pages', async (testController) => {
   await adminNavBar.gotoAdminLogin(testController);
   await signinPage.signin(testController, credentials.admin);
   // Unrolling the loop makes this easier to debug.
-  await adminNavBar.gotoMenuPageAndVerify(testController, 'manage', 'manage-students');
-  await adminNavBar.gotoMenuPageAndVerify(testController, 'manage', 'manage-verifications');
-  await adminNavBar.gotoMenuPageAndVerify(testController, 'manage', 'manage-review');
-  await adminNavBar.gotoMenuPageAndVerify(testController, 'manage', 'manage-database');
+  await adminNavBar.gotoMenuPageAndVerify(testController, 'manage', 'students');
+  await adminNavBar.gotoMenuPageAndVerify(testController, 'manage', 'verification');
+  await adminNavBar.gotoMenuPageAndVerify(testController, 'manage', 'reviews');
+  await adminNavBar.gotoMenuPageAndVerify(testController, 'manage', 'database');
 });
 
 test('Test admin data model pages', async (testController) => {

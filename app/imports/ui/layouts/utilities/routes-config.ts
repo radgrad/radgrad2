@@ -128,7 +128,7 @@ export const routes = {
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${MANAGE.REVIEWS}`, component: ManageReviewsPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${MANAGE.STUDENTS}`, component: AdvisorManageStudentsPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${MANAGE.REVIEWS}`, component: ManageReviewsPage },
-    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${MANAGE.VERIFICATIONS}`, component: ManageVerificationsPage  },
+    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${MANAGE.VERIFICATION}`, component: ManageVerificationsPage  },
 
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${VISIBILITY}`, component: VisibilityPage },
   ],
@@ -148,7 +148,7 @@ export const routes = {
     { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${MANAGE.OPPORTUNITIES}`, component: ManageOpportunitiesPage },
     { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${MANAGE.STUDENTS}`, component: AdvisorManageStudentsPage },
     { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${MANAGE.REVIEWS}`, component: ManageReviewsPage },
-    { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${MANAGE.VERIFICATIONS}`, component: ManageVerificationsPage  },
+    { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${MANAGE.VERIFICATION}`, component: ManageVerificationsPage  },
     { path: `/${URL_ROLES.ADVISOR}/${USERNAME}/${VISIBILITY}`, component: VisibilityPage },
   ],
 
@@ -170,7 +170,7 @@ export const routes = {
     { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${HOME}`, component: FacultyHomePage },
     { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${MANAGE.OPPORTUNITIES}`, component: ManageOpportunitiesPage },
     { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${MANAGE.REVIEWS}`, component: ManageReviewsPage },
-    { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${MANAGE.VERIFICATIONS}`, component: ManageVerificationsPage },
+    { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${MANAGE.VERIFICATION}`, component: ManageVerificationsPage },
     { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${VISIBILITY}`, component: VisibilityPage },
     { path: `/${URL_ROLES.FACULTY}/${USERNAME}/${VERIFICATION_REQUESTS}`, component: FacultyVerificationPage },
   ],

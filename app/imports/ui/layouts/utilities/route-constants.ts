@@ -17,7 +17,7 @@ export const TERMS_AND_CONDITIONS = 'terms-and-conditions';
 export const MANAGE = {
   OPPORTUNITIES: 'manage-opportunities',
   REVIEWS: 'manage-reviews',
-  VERIFICATIONS: 'manage-verifications',
+  VERIFICATION: 'manage-verification',
   STUDENTS: 'manage-students',
   DATABASE: 'manage-database',
 };

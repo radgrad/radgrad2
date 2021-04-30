@@ -39,7 +39,7 @@ const AdvisorPageMenu: React.FC = () => {
   /* In future, Advisors should be able to manage courses as well. */
   const manageDropdownItems = [
     { label: 'Students', route: MANAGE.STUDENTS },
-    { label: 'Verification', route: MANAGE.VERIFICATIONS },
+    { label: 'Verification', route: MANAGE.VERIFICATION },
     { label: 'Review', route: MANAGE.REVIEWS },
     { label: 'Opportunities', route: MANAGE.OPPORTUNITIES },
   ];

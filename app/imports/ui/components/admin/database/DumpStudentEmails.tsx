@@ -25,7 +25,7 @@ const DumpStudentEmails: React.FC = () => {
     generateStudentEmailsMethod.callPromise(null)
       .catch(err => setError(true))
       .then(result => {
-        const data: Collection = { name: 'Students', contents: result.students};
+        const data: Collection = { name: 'Students', contents: result.students };
         setResults([data]);
         const zip = new ZipZap();
         const now = moment().format(databaseFileDateFormat);

@@ -39,8 +39,8 @@ const AdminPageMenu: React.FC = () => {
   /* Admins don't manage opportunities, since that's part of the data model */
   const manageDropdownItems = [
     { label: 'Students', route: MANAGE.STUDENTS },
-    { label: 'Verification', route: MANAGE.VERIFICATIONS },
-    { label: 'Review', route: MANAGE.REVIEWS },
+    { label: 'Verification', route: MANAGE.VERIFICATION },
+    { label: 'Reviews', route: MANAGE.REVIEWS },
     { label: 'Database', route: MANAGE.DATABASE },
   ];
 
