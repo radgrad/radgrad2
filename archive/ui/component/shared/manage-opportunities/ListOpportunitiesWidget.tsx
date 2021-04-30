@@ -3,17 +3,17 @@ import { connect } from 'react-redux';
 import { Grid, Header, Segment } from 'semantic-ui-react';
 import _ from 'lodash';
 import { useRouteMatch } from 'react-router-dom';
-import { ROLE } from '../../../../api/role/Role';
-import BaseCollection from '../../../../api/base/BaseCollection';
-import { DescriptionPair } from '../../../../typings/radgrad';
-import AdminPaginationWidget from '../../admin/datamodel/AdminPaginationWidget';
-import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
-import { Slugs } from '../../../../api/slug/SlugCollection';
+import { ROLE } from '../../../../../app/imports/api/role/Role';
+import BaseCollection from '../../../../../app/imports/api/base/BaseCollection';
+import { DescriptionPair } from '../../../../../app/imports/typings/radgrad';
+import AdminPaginationWidget from '../../../../../app/imports/ui/components/admin/datamodel/AdminPaginationWidget';
+import { Opportunities } from '../../../../../app/imports/api/opportunity/OpportunityCollection';
+import { Slugs } from '../../../../../app/imports/api/slug/SlugCollection';
 import AdminDataModelAccordion from '../../admin/datamodel/AdminDataModelAccordion';
-import { dataModelActions } from '../../../../redux/admin/data-model';
-import { getUserIdFromRoute } from '../utilities/router';
-import { Users } from '../../../../api/user/UserCollection';
-import { RootState } from '../../../../redux/types';
+import { dataModelActions } from '../../../../../app/imports/redux/admin/data-model';
+import { getUserIdFromRoute } from '../../../../../app/imports/ui/components/shared/utilities/router';
+import { Users } from '../../../../../app/imports/api/user/UserCollection';
+import { RootState } from '../../../../../app/imports/redux/types';
 
 interface ListOpportunitiesWidgetProps {
   collection: BaseCollection;
