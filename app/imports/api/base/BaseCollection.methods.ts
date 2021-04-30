@@ -14,6 +14,7 @@ import { StudentProfiles } from '../user/StudentProfileCollection';
  */
 export const dumpDatabaseMethod = new ValidatedMethod({
   name: 'base.dumpDatabase',
+  mixins: [CallPromiseMixin],
   validate: null,
   run() {
     if (!this.userId) {
@@ -38,6 +39,7 @@ export const dumpDatabaseMethod = new ValidatedMethod({
 
 export const alumniEmailsMethod = new ValidatedMethod({
   name: 'base.alumniEmails',
+  mixins: [CallPromiseMixin],
   validate: null,
   run(emails) {
     if (!this.userId) {
@@ -112,6 +114,7 @@ export const removeItMethod = new ValidatedMethod({
 
 export const loadFixtureMethod = new ValidatedMethod({
   name: 'base.loadFixture',
+  mixins: [CallPromiseMixin],
   validate: null,
   run(fixtureData) {
     // console.log('loadFixtureMethod', fixtureData);

@@ -17,8 +17,9 @@ export const TERMS_AND_CONDITIONS = 'terms-and-conditions';
 export const MANAGE = {
   OPPORTUNITIES: 'manage-opportunities',
   REVIEWS: 'manage-reviews',
-  VERIFICATIONS: 'manage-verifications',
+  VERIFICATION: 'manage-verification',
   STUDENTS: 'manage-students',
+  DATABASE: 'manage-database',
 };
 
 export const ANALYTICS = {
@@ -28,12 +29,6 @@ export const ANALYTICS = {
   STUDENT_SUMMARY: 'analytics/student-summary',
   USER_INTERACTIONS: 'analytics/user-interactions',
   LOGGED_IN_USERS: 'analytics/logged-in-users',
-};
-
-export const DATABASE = {
-  HOME: 'database',
-  DUMP: 'database/dump',
-  CHECK_INTEGRITY: 'database/check-integrity',
 };
 
 export const DATAMODEL = {

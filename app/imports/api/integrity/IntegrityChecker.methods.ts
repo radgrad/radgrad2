@@ -1,3 +1,4 @@
+import { CallPromiseMixin } from 'meteor/didericis:callpromise-mixin';
 import { Meteor } from 'meteor/meteor';
 import _ from 'lodash';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
@@ -11,6 +12,7 @@ import { Users } from '../user/UserCollection';
  */
 export const checkIntegrityMethod = new ValidatedMethod({
   name: 'IntegrityCheck',
+  mixins: [CallPromiseMixin],
   validate: null,
   run() {
     if (!this.userId) {

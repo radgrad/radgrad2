@@ -10,8 +10,7 @@ export enum PAGEIDS {
   ANALYTICS_STUDENT_SUMMARY = 'analytics-student-summary-page',
   ANALYTICS_USER_INTERACTIONS = 'analytics-user-interactions-page',
 
-  DATABASE_CHECK_INTEGRITY = 'database-check-integrity-page',
-  DATABASE_DUMP_DATABASE = 'database-dump-database-page',
+  DATABASE_MANAGEMENT = 'manage-database-page',
 
   DATA_MODEL_ACADEMIC_TERMS = 'data-model-academic-terms-page',
   DATA_MODEL_ACADEMIC_YEARS = 'data-model-academic-year-instances-page',

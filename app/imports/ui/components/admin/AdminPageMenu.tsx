@@ -8,7 +8,6 @@ import {
   ANALYTICS,
   COMMUNITY,
   DATAMODEL,
-  DATABASE,
   EXPLORER,
   FORECASTS,
   HOME,
@@ -40,8 +39,9 @@ const AdminPageMenu: React.FC = () => {
   /* Admins don't manage opportunities, since that's part of the data model */
   const manageDropdownItems = [
     { label: 'Students', route: MANAGE.STUDENTS },
-    { label: 'Verification', route: MANAGE.VERIFICATIONS },
-    { label: 'Review', route: MANAGE.REVIEWS },
+    { label: 'Verification', route: MANAGE.VERIFICATION },
+    { label: 'Reviews', route: MANAGE.REVIEWS },
+    { label: 'Database', route: MANAGE.DATABASE },
   ];
 
   const datamodelDropdownItems = [
@@ -60,11 +60,6 @@ const AdminPageMenu: React.FC = () => {
     { label: 'Teasers', route: DATAMODEL.TEASERS },
     { label: 'Users', route: DATAMODEL.USERS },
     { label: 'Verification Requests', route: DATAMODEL.VERIFICATION_REQUESTS },
-  ];
-
-  const databaseDropdownItems = [
-    { label: 'Dump database', route: DATABASE.DUMP },
-    { label: 'Check Integrity', route: DATABASE.CHECK_INTEGRITY },
   ];
 
   const analyticsDropdownItems = [
@@ -106,14 +101,6 @@ const AdminPageMenu: React.FC = () => {
           <Dropdown.Menu>
             {datamodelDropdownItems.map((item) => (
               <Dropdown.Item id={convertLabelToId('admin-menu-data-model', item.label)} key={item.label} as={NavLink} exact to={buildRouteName(match, `/${item.route}`)} content={item.label} />
-            ))}
-          </Dropdown.Menu>
-        </Dropdown>
-
-        <Dropdown item text="Database" id="admin-menu-database">
-          <Dropdown.Menu>
-            {databaseDropdownItems.map((item) => (
-              <Dropdown.Item id={convertLabelToId('admin-menu-database', item.label)} key={item.label} as={NavLink} exact to={buildRouteName(match, `/${item.route}`)} content={item.label} />
             ))}
           </Dropdown.Menu>
         </Dropdown>
