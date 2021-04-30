@@ -20,7 +20,11 @@ interface Collection {
   contents?: string[];
 }
 
-/** Page Props. All for Redux. The connect() function at the bottom re-renders the page on changes. */
+/** Page Props. Things to note:
+ *   * All of them are for Redux.
+ *   * We don't care about the four functions, only the two boolean variables.
+ *   * The connect() function at the bottom re-renders the page on changes.
+ */
 interface AdminDatabaseDumpPageProps {
   startDumpDatabase: () => any;
   dumpDatabaseDone: () => any;
