@@ -36,7 +36,7 @@ const FacultyPageMenu: React.FC = () => {
   /* In future, Faculty should be able to manage courses as well. */
   const manageDropdownItems = [
     { label: 'Opportunities', route: MANAGE.OPPORTUNITIES },
-    { label: 'Verification', route: MANAGE.VERIFICATIONS },
+    { label: 'Verification', route: MANAGE.VERIFICATION },
     { label: 'Review', route: MANAGE.REVIEWS },
   ];
 

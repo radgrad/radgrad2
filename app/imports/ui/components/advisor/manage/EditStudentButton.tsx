@@ -43,27 +43,23 @@ const EditStudentButton: React.FC<ManageStudentProps> = ({
     // updateData.profileCourses = doc.profileCourses.map((name) => Courses.findSlugByID(name));
     // updateData.profileOpportunities = doc.profileOpportunities.map((name) => Opportunities.findSlugByID(name));
     // console.log(collectionName, updateData);
-    updateMethod.call({ collectionName, updateData }, (error) => {
-      if (error) {
-        Swal.fire({
-          title: 'Update Failed',
-          text: error.message,
-          icon: 'error',
-          timer: 1500,
-        });
-      } else {
-        Swal.fire({
-          title: 'Student Updated',
-          icon: 'success',
-          text: 'Successfully updated student.',
-          allowOutsideClick: false,
-          allowEscapeKey: false,
-          allowEnterKey: false,
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      }
-    });
+    updateMethod.callPromise({ collectionName, updateData })
+      .then(() => Swal.fire({
+        title: 'Student Updated',
+        icon: 'success',
+        text: 'Successfully updated student.',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false,
+        showConfirmButton: false,
+        timer: 1500,
+      }))
+      .catch((error) => Swal.fire({
+        title: 'Update Failed',
+        text: error.message,
+        icon: 'error',
+        timer: 1500,
+      }));
   };
 
   const handleUpload = async (e): Promise<void> => {
@@ -134,10 +130,10 @@ const EditStudentButton: React.FC<ManageStudentProps> = ({
   // console.log(model);
   return (
     <Modal key={`${student._id}-modal`}
-      onClose={() => setOpen(false)}
-      onOpen={() => setOpen(true)}
-      open={open}
-      trigger={<Button basic color='green' key={`${student._id}-edit-button`}>EDIT</Button>}
+           onClose={() => setOpen(false)}
+           onOpen={() => setOpen(true)}
+           open={open}
+           trigger={<Button basic color='green' key={`${student._id}-edit-button`}>EDIT</Button>}
     >
       <Modal.Header>{`Edit ${student.firstName} ${student.lastName}`}</Modal.Header>
       <Modal.Content>

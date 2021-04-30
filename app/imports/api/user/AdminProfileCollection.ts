@@ -32,8 +32,20 @@ class AdminProfileCollection extends BaseProfileCollection {
    * @throws { Meteor.Error } If username has been previously defined, or if any interests or careerGoals are invalid.
    * @return { String } The docID of the AdminProfile.
    */
-  public define({ username, firstName, lastName, picture = defaultProfilePicture, website, interests,
-    careerGoals, retired = false }: ProfileDefine) {
+  public define({
+    username,
+    firstName,
+    lastName,
+    picture = defaultProfilePicture,
+    website,
+    interests,
+    careerGoals,
+    retired = false,
+    sharePicture = true,
+    shareWebsite = true,
+    shareInterests = true,
+    shareCareerGoals = true,
+  }: ProfileDefine) {
     if (Meteor.isServer) {
       const user = Meteor.users.findOne({ username });
       // console.log(`AdminProfile.define ${user}`);
@@ -41,7 +53,18 @@ class AdminProfileCollection extends BaseProfileCollection {
         const role = ROLE.ADMIN;
         Slugs.define({ name: username, entityName: this.getType() });
         const profileID = this.collection.insert({
-          username, firstName, lastName, role, picture, website, userID: this.getFakeUserId(), retired,
+          username,
+          firstName,
+          lastName,
+          role,
+          picture,
+          website,
+          userID: this.getFakeUserId(),
+          retired,
+          sharePicture,
+          shareWebsite,
+          shareInterests,
+          shareCareerGoals,
         });
         const userID = Users.define({ username, role });
         this.collection.update(profileID, { $set: { userID } });
@@ -63,10 +86,36 @@ class AdminProfileCollection extends BaseProfileCollection {
    * You cannot change the username or role once defined.
    * @param docID the id of the AdminProfile.
    */
-  public update(docID, { firstName, lastName, picture, website, interests, careerGoals, retired, courseExplorerFilter, opportunityExplorerSortOrder }: ProfileUpdate) {
+  public update(docID, {
+    firstName,
+    lastName,
+    picture,
+    website,
+    interests,
+    careerGoals,
+    retired,
+    courseExplorerFilter,
+    opportunityExplorerSortOrder,
+    shareWebsite,
+    sharePicture,
+    shareInterests,
+    shareCareerGoals,
+  }: ProfileUpdate) {
     this.assertDefined(docID);
     const updateData = {};
-    this.updateCommonFields(updateData, { firstName, lastName, picture, website, retired, courseExplorerFilter, opportunityExplorerSortOrder });
+    this.updateCommonFields(updateData, {
+      firstName,
+      lastName,
+      picture,
+      website,
+      retired,
+      courseExplorerFilter,
+      opportunityExplorerSortOrder,
+      shareWebsite,
+      sharePicture,
+      shareInterests,
+      shareCareerGoals,
+    });
     this.collection.update(docID, { $set: updateData });
     const profile = this.findDoc(docID);
     const username = profile.username;
@@ -125,7 +174,12 @@ class AdminProfileCollection extends BaseProfileCollection {
     const favCareerGoals = ProfileCareerGoals.findNonRetired({ userID });
     const careerGoals = favCareerGoals.map((fav) => CareerGoals.findSlugByID(fav.careerGoalID));
     const retired = doc.retired;
-    return { username, firstName, lastName, picture, website, interests, careerGoals, retired };
+    const sharePicture = doc.sharePicture;
+    const shareWebsite = doc.shareWebsite;
+    const shareInterests = doc.shareInterests;
+    const shareCareerGoals = doc.shareCareerGoals;
+
+    return { username, firstName, lastName, picture, website, interests, careerGoals, retired, shareWebsite, shareInterests, shareCareerGoals, sharePicture };
   }
 }
 

@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Accordion, Button, Icon } from 'semantic-ui-react';
 import Markdown from 'react-markdown';
 import { useRouteMatch } from 'react-router-dom';
-import { DescriptionPair } from '../../../../typings/radgrad';
-import * as Router from '../../shared/utilities/router';
+import { DescriptionPair } from '../../../../../app/imports/typings/radgrad';
+import * as Router from '../../../../../app/imports/ui/components/shared/utilities/router';
 
 interface AdminDataModelAccordionProps {
   id: string;
