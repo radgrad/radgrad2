@@ -4,7 +4,7 @@ import AdminAnalyticsNewsletterPage from '../../pages/admin/AdminAnalyticsNewsle
 import AdminAnalyticsOverheadAnalysisPage from '../../pages/admin/AdminAnalyticsOverheadAnalysisPage';
 import AdminAnalyticsStudentSummaryPage from '../../pages/admin/AdminAnalyticsStudentSummaryPage';
 import AdminAnalyticsUserInteractionsPage from '../../pages/admin/AdminAnalyticsUserInteractionsPage';
-import AdminDatabaseDumpPage from '../../pages/admin/AdminDatabaseDumpPage';
+import AdminDatabaseManagementPage from '../../pages/admin/AdminDatabaseManagementPage';
 import AdminDataModelAcademicTermsPage from '../../pages/admin/AdminDataModelAcademicTermsPage';
 import AdminDataModelAcademicYearsPage from '../../pages/admin/AdminDataModelAcademicYearsPage';
 import AdminDataModelCareerGoalsPage from '../../pages/admin/AdminDataModelCareerGoalsPage';
@@ -64,7 +64,6 @@ import StudentVisibilityPage from '../../pages/student/StudentVisibilityPage';
 import {
   ANALYTICS,
   COMMUNITY,
-  DATABASE,
   DATAMODEL,
   DEGREEPLANNER,
   EXPLORER,
@@ -97,7 +96,7 @@ export const routes = {
 
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${COMMUNITY}`, component: CommunityPage },
 
-    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATABASE.DUMP}`, component: AdminDatabaseDumpPage },
+    { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${MANAGE.DATABASE}`, component: AdminDatabaseManagementPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL.ACADEMIC_TERMS}`, component: AdminDataModelAcademicTermsPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL.ACADEMIC_YEAR_INSTANCES}`, component: AdminDataModelAcademicYearsPage },
     { path: `/${URL_ROLES.ADMIN}/${USERNAME}/${DATAMODEL.CAREERGOALS}`, component: AdminDataModelCareerGoalsPage },

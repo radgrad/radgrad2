@@ -3,7 +3,7 @@ import moment from 'moment';
 import React, { useState } from 'react';
 import { Button, Form, Grid, Message } from 'semantic-ui-react';
 import { generateStudentEmailsMethod } from '../../../../api/user/UserCollection.methods';
-import { databaseFileDateFormat } from '../../../pages/admin/AdminDatabaseDumpPage';
+import { databaseFileDateFormat } from '../../../pages/admin/AdminDatabaseManagementPage';
 import { useStickyState } from '../../../utilities/StickyState';
 import RadGradHeader from '../../shared/RadGradHeader';
 import RadGradSegment from '../../shared/RadGradSegment';

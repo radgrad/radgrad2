@@ -19,6 +19,7 @@ export const MANAGE = {
   REVIEWS: 'manage-reviews',
   VERIFICATIONS: 'manage-verifications',
   STUDENTS: 'manage-students',
+  DATABASE: 'manage-database',
 };
 
 export const ANALYTICS = {
@@ -28,11 +29,6 @@ export const ANALYTICS = {
   STUDENT_SUMMARY: 'analytics/student-summary',
   USER_INTERACTIONS: 'analytics/user-interactions',
   LOGGED_IN_USERS: 'analytics/logged-in-users',
-};
-
-export const DATABASE = {
-  HOME: 'database',
-  DUMP: 'database/dump',
 };
 
 export const DATAMODEL = {
