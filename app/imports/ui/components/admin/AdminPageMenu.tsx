@@ -64,7 +64,6 @@ const AdminPageMenu: React.FC = () => {
 
   const databaseDropdownItems = [
     { label: 'Dump database', route: DATABASE.DUMP },
-    { label: 'Check Integrity', route: DATABASE.CHECK_INTEGRITY },
   ];
 
   const analyticsDropdownItems = [

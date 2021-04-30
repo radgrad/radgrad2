@@ -44,7 +44,7 @@ const DumpStudentEmails: React.FC = () => {
           Dump Student Emails
         </Button>
         {results.length > 0 ? (
-          <Grid stackable style={{ paddingTop: '20px' }}>
+          <Grid stackable style={{ paddingTop: 20 }}>
             <Message positive={!error} error={error}>
               {results.map((item, index) => (
                 <AdminDatabaseAccordion key={item.name} index={index} name={item.name} contents={item.contents}/>
