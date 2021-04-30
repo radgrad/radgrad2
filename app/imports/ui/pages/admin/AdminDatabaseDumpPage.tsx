@@ -7,11 +7,9 @@ import { generateStudentEmailsMethod } from '../../../api/user/UserCollection.me
 import AdminDatabaseAccordion from '../../components/admin/database/AdminDatabaseAccordion';
 import UploadFixture from '../../components/admin/datamodel/UploadFixture';
 import { PAGEIDS } from '../../utilities/PageIDs';
+import { useStickyState } from '../../utilities/StickyState';
 import PageLayout from '../PageLayout';
 
-/** Annotated version of the Redux-based AdminDatabaseDump page. */
-
-/** This is the type of the accordion that lists the contents of all collections after dump finishes. */
 interface Collection {
   name?: string;
   contents?: string[];
@@ -19,37 +17,30 @@ interface Collection {
 
 export const databaseFileDateFormat = 'YYYY-MM-DD-HH-mm-ss';
 
-
 const AdminDatabaseDumpPage: React.FC = () => {
-  /** Local state for this page: did we get an error from either dumpDatabase or getEmails? */
   const [isErrorState, setIsError] = useState(false);
-  /** Local state: do we have any results to display? */
   const [resultsState, setResults] = useState([]);
+  const [dumpInProgress, setDumpInProgress] = useStickyState('AdminDatabaseDumpPage.dump', false);
+  const [emailsInProgress, setEmailsInProgress] = useStickyState('AdminDatabaseDumpPage.email', false);
 
   const clickDump = () => {
-    // Signal Redux that a dump database operation has started.
-    // startDumpDatabase();
-    // Call the method. We should convert this to callPromise to make it easier to read.
+    setDumpInProgress(true);
     dumpDatabaseMethod.call(null, (error, result) => {
       if (error) {
         setIsError(true);
       }
-      // Update our local state with the collection data returned from the method call.
       setResults(result.collections);
-      // Now package it up and download it to the client's disk.
       const zip = new ZipZap();
       const dir = 'radgrad-db';
       const fileName = `${dir}/${moment(result.timestamp).format(databaseFileDateFormat)}.json`;
       zip.file(fileName, JSON.stringify(result, null, 2));
       zip.saveAs(`${dir}.zip`);
-      // Signal Redux that the dump database operation is over.
-      // dumpDatabaseDone();
+      setDumpInProgress(false);
     });
   };
 
   const clickEmails = () => {
-    // Signal Redux that we've started the emails.
-    // startGetStudentEmails();
+    setEmailsInProgress(true);
     generateStudentEmailsMethod.call(null, (error, result) => {
       if (error) {
         setIsError(true);
@@ -65,31 +56,20 @@ const AdminDatabaseDumpPage: React.FC = () => {
       const fileName = `${dir}/Students.txt`;
       zip.file(fileName, result.students.join('\n'));
       zip.saveAs(`${dir}.zip`);
-      // Signal Redux that we've finished.
-      // getStudentEmailsDone();
+      setEmailsInProgress(false);
     });
   };
 
-  // We don't need the following line. :-)
   const errorCondition = isErrorState;
-  // ResultsState is either a list of collections (from the database dump) or a list of emails (from the email sending)
   const showMessage = resultsState.length > 0;
-  // Why these next two lines are here is beyond me.
-  const dumpWorking = false;
-  const getWorking = false;
-
-  /** Now the actual rendering code. Note the following:
-   *    * Both buttons display loading if the *Working variable is true.
-   *    * If there are results (i.e. resultsState.length > 0, then display a simple accordion containing them.
-   *    * Then there's a lonely UploadFixture component at the bottom who doesn't participate in any of this.
-   */
+ 
   return (
     <PageLayout id={PAGEIDS.DATABASE_DUMP_DATABASE} headerPaneTitle="Dump Database">
       <Form>
-        <Button color="green" loading={dumpWorking} basic type="submit" onClick={clickDump}>
+        <Button color="green" loading={dumpInProgress} basic type="submit" onClick={clickDump}>
           Dump Database
         </Button>
-        <Button color="green" loading={getWorking} basic type="submit" onClick={clickEmails}>
+        <Button color="green" loading={emailsInProgress} basic type="submit" onClick={clickEmails}>
           Get Student Emails
         </Button>
       </Form>
