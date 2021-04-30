@@ -1508,1018 +1508,7 @@
     {
       "name": "CourseInstanceCollection",
       "contents": [
-        {
-          "academicTerm": "Fall-2017",
-          "course": "ics_311",
-          "note": "ICS 311",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 4,
-          "grade": "A",
-          "student": "abi@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Fall-2017",
-          "course": "ics_314",
-          "note": "ICS 314",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 3,
-          "grade": "B+",
-          "student": "abi@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Spring-2018",
-          "course": "ics_212",
-          "note": "ICS 212",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 4,
-          "grade": "A",
-          "student": "abi@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Spring-2018",
-          "course": "ics_321",
-          "note": "ICS 321",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 3,
-          "grade": "A-",
-          "student": "abi@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Fall-2018",
-          "course": "ics_313",
-          "note": "ICS 313",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 4,
-          "grade": "B",
-          "student": "abi@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Fall-2018",
-          "course": "ics_331",
-          "note": "ICS 331",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 4,
-          "grade": "B",
-          "student": "abi@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Spring-2019",
-          "course": "ics_332",
-          "note": "ICS 332",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "abi@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Spring-2019",
-          "course": "ics_464",
-          "note": "ICS 464",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "abi@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Fall-2019",
-          "course": "ics_431",
-          "note": "ICS 431",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 3,
-          "grade": "A",
-          "student": "abi@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Fall-2019",
-          "course": "ics_425",
-          "note": "ICS 425",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 3,
-          "grade": "A",
-          "student": "abi@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Spring-2020",
-          "course": "ics_426",
-          "note": "ICS 426",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "abi@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Spring-2020",
-          "course": "ics_464",
-          "note": "ICS 464",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "abi@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Fall-2020",
-          "course": "ics_414",
-          "note": "ICS 414",
-          "verified": false,
-          "fromRegistrar": false,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "abi@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Fall-2020",
-          "course": "ics_415",
-          "note": "ICS 415",
-          "verified": false,
-          "fromRegistrar": false,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "abi@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Spring-2021",
-          "course": "ics_432",
-          "note": "ICS 432",
-          "verified": false,
-          "fromRegistrar": false,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "abi@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Spring-2021",
-          "course": "ics_435",
-          "note": "ICS 435",
-          "verified": false,
-          "fromRegistrar": false,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "abi@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Fall-2021",
-          "course": "ics_441",
-          "note": "ICS 441",
-          "verified": false,
-          "fromRegistrar": false,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "abi@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Fall-2021",
-          "course": "ics_442",
-          "note": "ICS 442",
-          "verified": false,
-          "fromRegistrar": false,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "abi@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Spring-2022",
-          "course": "ics_443",
-          "note": "ICS 443",
-          "verified": false,
-          "fromRegistrar": false,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "abi@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Spring-2022",
-          "course": "ics_451",
-          "note": "ICS 451",
-          "verified": false,
-          "fromRegistrar": false,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "abi@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Fall-2018",
-          "course": "ics_311",
-          "note": "ICS 311",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 4,
-          "grade": "B",
-          "student": "alfred@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Fall-2018",
-          "course": "ics_314",
-          "note": "ICS 314",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 4,
-          "grade": "B",
-          "student": "alfred@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Spring-2019",
-          "course": "ics_212",
-          "note": "ICS 212",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "alfred@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Spring-2019",
-          "course": "ics_321",
-          "note": "ICS 321",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "alfred@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Fall-2019",
-          "course": "ics_313",
-          "note": "ICS 313",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 3,
-          "grade": "A",
-          "student": "alfred@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Fall-2019",
-          "course": "ics_331",
-          "note": "ICS 331",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 3,
-          "grade": "A",
-          "student": "alfred@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Spring-2020",
-          "course": "ics_332",
-          "note": "ICS 332",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "alfred@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Spring-2020",
-          "course": "ics_464",
-          "note": "ICS 464",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "alfred@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Fall-2020",
-          "course": "ics_431",
-          "note": "ICS 431",
-          "verified": false,
-          "fromRegistrar": false,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "alfred@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Fall-2020",
-          "course": "ics_425",
-          "note": "ICS 425",
-          "verified": false,
-          "fromRegistrar": false,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "alfred@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Spring-2021",
-          "course": "ics_426",
-          "note": "ICS 426",
-          "verified": false,
-          "fromRegistrar": false,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "alfred@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Spring-2021",
-          "course": "ics_464",
-          "note": "ICS 464",
-          "verified": false,
-          "fromRegistrar": false,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "alfred@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Fall-2021",
-          "course": "ics_414",
-          "note": "ICS 414",
-          "verified": false,
-          "fromRegistrar": false,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "alfred@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Fall-2021",
-          "course": "ics_415",
-          "note": "ICS 415",
-          "verified": false,
-          "fromRegistrar": false,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "alfred@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Spring-2022",
-          "course": "ics_432",
-          "note": "ICS 432",
-          "verified": false,
-          "fromRegistrar": false,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "alfred@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Spring-2022",
-          "course": "ics_435",
-          "note": "ICS 435",
-          "verified": false,
-          "fromRegistrar": false,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "alfred@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Fall-2019",
-          "course": "ics_311",
-          "note": "ICS 311",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 3,
-          "grade": "A",
-          "student": "betty@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Fall-2019",
-          "course": "ics_314",
-          "note": "ICS 314",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 3,
-          "grade": "A",
-          "student": "betty@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Spring-2020",
-          "course": "ics_212",
-          "note": "ICS 212",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "betty@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Spring-2020",
-          "course": "ics_321",
-          "note": "ICS 321",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "betty@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Fall-2020",
-          "course": "ics_313",
-          "note": "ICS 313",
-          "verified": false,
-          "fromRegistrar": false,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "betty@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Fall-2020",
-          "course": "ics_331",
-          "note": "ICS 331",
-          "verified": false,
-          "fromRegistrar": false,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "betty@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Spring-2021",
-          "course": "ics_332",
-          "note": "ICS 332",
-          "verified": false,
-          "fromRegistrar": false,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "betty@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Spring-2021",
-          "course": "ics_464",
-          "note": "ICS 464",
-          "verified": false,
-          "fromRegistrar": false,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "betty@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Fall-2021",
-          "course": "ics_431",
-          "note": "ICS 431",
-          "verified": false,
-          "fromRegistrar": false,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "betty@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Fall-2021",
-          "course": "ics_425",
-          "note": "ICS 425",
-          "verified": false,
-          "fromRegistrar": false,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "betty@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Spring-2022",
-          "course": "ics_426",
-          "note": "ICS 426",
-          "verified": false,
-          "fromRegistrar": false,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "betty@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Spring-2022",
-          "course": "ics_464",
-          "note": "ICS 464",
-          "verified": false,
-          "fromRegistrar": false,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "betty@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Fall-2020",
-          "course": "ics_311",
-          "note": "ICS 311",
-          "verified": false,
-          "fromRegistrar": false,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "charley@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Fall-2020",
-          "course": "ics_314",
-          "note": "ICS 314",
-          "verified": false,
-          "fromRegistrar": false,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "charley@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Spring-2021",
-          "course": "ics_212",
-          "note": "ICS 212",
-          "verified": false,
-          "fromRegistrar": false,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "charley@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Spring-2021",
-          "course": "ics_321",
-          "note": "ICS 321",
-          "verified": false,
-          "fromRegistrar": false,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "charley@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Fall-2021",
-          "course": "ics_313",
-          "note": "ICS 313",
-          "verified": false,
-          "fromRegistrar": false,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "charley@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Fall-2021",
-          "course": "ics_331",
-          "note": "ICS 331",
-          "verified": false,
-          "fromRegistrar": false,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "charley@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Spring-2022",
-          "course": "ics_332",
-          "note": "ICS 332",
-          "verified": false,
-          "fromRegistrar": false,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "charley@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Spring-2022",
-          "course": "ics_464",
-          "note": "ICS 464",
-          "verified": false,
-          "fromRegistrar": false,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "charley@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Fall-2017",
-          "course": "ics_311",
-          "note": "ICS 311",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 4,
-          "grade": "A",
-          "student": "samplestudent@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Fall-2017",
-          "course": "ics_314",
-          "note": "ICS 314",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 3,
-          "grade": "B+",
-          "student": "samplestudent@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Spring-2018",
-          "course": "ics_212",
-          "note": "ICS 212",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 4,
-          "grade": "A",
-          "student": "samplestudent@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Spring-2018",
-          "course": "ics_321",
-          "note": "ICS 321",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 3,
-          "grade": "A-",
-          "student": "samplestudent@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Fall-2018",
-          "course": "ics_313",
-          "note": "ICS 313",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 4,
-          "grade": "B",
-          "student": "samplestudent@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Fall-2018",
-          "course": "ics_331",
-          "note": "ICS 331",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 4,
-          "grade": "B",
-          "student": "samplestudent@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Spring-2019",
-          "course": "ics_332",
-          "note": "ICS 332",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "samplestudent@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Spring-2019",
-          "course": "ics_464",
-          "note": "ICS 464",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "samplestudent@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Fall-2019",
-          "course": "ics_431",
-          "note": "ICS 431",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 3,
-          "grade": "A",
-          "student": "samplestudent@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Fall-2019",
-          "course": "ics_426",
-          "note": "ICS 426",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 3,
-          "grade": "A",
-          "student": "samplestudent@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Spring-2020",
-          "course": "ics_425",
-          "note": "ICS 425",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "samplestudent@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Spring-2020",
-          "course": "ics_464",
-          "note": "ICS 464",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "samplestudent@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Fall-2020",
-          "course": "ics_414",
-          "note": "ICS 414",
-          "verified": false,
-          "fromRegistrar": false,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "samplestudent@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Fall-2020",
-          "course": "ics_415",
-          "note": "ICS 415",
-          "verified": false,
-          "fromRegistrar": false,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "samplestudent@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Spring-2021",
-          "course": "ics_432",
-          "note": "ICS 432",
-          "verified": false,
-          "fromRegistrar": false,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "samplestudent@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Spring-2021",
-          "course": "ics_435",
-          "note": "ICS 435",
-          "verified": false,
-          "fromRegistrar": false,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "samplestudent@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Fall-2021",
-          "course": "ics_441",
-          "note": "ICS 441",
-          "verified": false,
-          "fromRegistrar": false,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "samplestudent@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Fall-2021",
-          "course": "ics_442",
-          "note": "ICS 442",
-          "verified": false,
-          "fromRegistrar": false,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "samplestudent@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Spring-2022",
-          "course": "ics_443",
-          "note": "ICS 443",
-          "verified": false,
-          "fromRegistrar": false,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "samplestudent@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Spring-2022",
-          "course": "ics_451",
-          "note": "ICS 451",
-          "verified": false,
-          "fromRegistrar": false,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "samplestudent@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Fall-2018",
-          "course": "ics_311",
-          "note": "ICS 311",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 4,
-          "grade": "B",
-          "student": "gcalica@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Fall-2018",
-          "course": "ics_314",
-          "note": "ICS 314",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 4,
-          "grade": "B",
-          "student": "gcalica@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Spring-2019",
-          "course": "ics_212",
-          "note": "ICS 212",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "gcalica@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Spring-2019",
-          "course": "ics_321",
-          "note": "ICS 321",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "gcalica@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Fall-2019",
-          "course": "ics_313",
-          "note": "ICS 313",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 3,
-          "grade": "A",
-          "student": "gcalica@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Fall-2019",
-          "course": "ics_331",
-          "note": "ICS 331",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 3,
-          "grade": "A",
-          "student": "gcalica@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Spring-2020",
-          "course": "ics_332",
-          "note": "ICS 332",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "gcalica@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Spring-2020",
-          "course": "ics_464",
-          "note": "ICS 464",
-          "verified": true,
-          "fromRegistrar": true,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "gcalica@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Fall-2020",
-          "course": "ics_431",
-          "note": "ICS 431",
-          "verified": false,
-          "fromRegistrar": false,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "gcalica@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Fall-2020",
-          "course": "ics_425",
-          "note": "ICS 425",
-          "verified": false,
-          "fromRegistrar": false,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "gcalica@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Spring-2021",
-          "course": "ics_426",
-          "note": "ICS 426",
-          "verified": false,
-          "fromRegistrar": false,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "gcalica@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Spring-2021",
-          "course": "ics_464",
-          "note": "ICS 464",
-          "verified": false,
-          "fromRegistrar": false,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "gcalica@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Fall-2021",
-          "course": "ics_414",
-          "note": "ICS 414",
-          "verified": false,
-          "fromRegistrar": false,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "gcalica@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Fall-2021",
-          "course": "ics_415",
-          "note": "ICS 415",
-          "verified": false,
-          "fromRegistrar": false,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "gcalica@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Spring-2022",
-          "course": "ics_432",
-          "note": "ICS 432",
-          "verified": false,
-          "fromRegistrar": false,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "gcalica@hawaii.edu",
-          "retired": false
-        },
-        {
-          "academicTerm": "Spring-2022",
-          "course": "ics_435",
-          "note": "ICS 435",
-          "verified": false,
-          "fromRegistrar": false,
-          "creditHrs": 3,
-          "grade": "B",
-          "student": "gcalica@hawaii.edu",
-          "retired": false
-        }
+
       ]
     },
     {
@@ -2646,7 +1635,7 @@
           "name": "Algorithms",
           "slug": "algorithms",
           "description": "Simply put, an algorithm is a self-contained step-by-step set of operations to be performed. More specifically, an algorithm is an effective method that can be expressed within a finite amount of space and time and in a well-defined formal language for calculating a function. Starting from an initial state and initial input (perhaps empty), the instructions describe a computation that, when executed, proceeds through a finite number of well-defined successive states, eventually producing \"output\" and terminating at a final ending state. The transition from one state to the next is not necessarily deterministic; some algorithms, known as randomized algorithms, incorporate random input. [Learn more here.](https://en.wikipedia.org/wiki/Algorithm)",
-          "interestType": "cs-disciplines"
+          "interestType": "ceng-disciplines"
         },
         {
           "name": "Android",
@@ -2670,13 +1659,13 @@
           "name": "Application Development",
           "slug": "application-development",
           "description": "Application development is the use of tools, technologies, procedures, and domain knowledge to create and maintain useful software and/or hardware systems.",
-          "interestType": "cs-disciplines"
+          "interestType": "ceng-disciplines"
         },
         {
           "name": "Artificial Intelligence",
           "slug": "artificial-intelligence",
           "description": "The use of hardware and software to create a flexible rational agent that perceives its environment and takes actions that maximize its chance of success at an arbitrary goal. Colloquially, the term \"artificial intelligence\" is likely to be applied when a machine uses cutting-edge techniques to competently perform or mimic functions that we intuitively associate with human minds, such as \"learning\" and \"problem solving\". [Learn more here.](https://en.wikipedia.org/wiki/Artificial_intelligence)",
-          "interestType": "cs-disciplines"
+          "interestType": "ceng-disciplines"
         },
         {
           "name": "Assembler",
@@ -2700,13 +1689,13 @@
           "name": "Bioinformatics",
           "slug": "bioinformatics",
           "description": "Bioinformatics is an interdisciplinary field combining computer science, statistics, mathematics, and engineering that develops methods and software tools for understanding biological data. Common uses of bioinformatics include the identification of candidate genes and nucleotides (SNPs). Often, such identification is made with the aim of better understanding the genetic basis of disease, unique adaptations, desirable properties (esp. in agricultural species), or differences between populations. [Learn more here.](https://en.wikipedia.org/wiki/Bioinformatics)",
-          "interestType": "cs-disciplines"
+          "interestType": "ceng-disciplines"
         },
         {
           "name": "Biology",
           "slug": "biology",
           "description": "A natural science concerned with the study of life and living organisms, including their structure, function, growth, evolution, distribution, and taxonomy. [Learn more here.](https://en.wikipedia.org/wiki/Biology)",
-          "interestType": "non-cs-disciplines"
+          "interestType": "non-ceng-disciplines"
         },
         {
           "name": "Blockchain",
@@ -2724,13 +1713,13 @@
           "name": "C#",
           "slug": "c-sharp",
           "description": "C# is a general purpose, object-oriented programming language developed by Microsoft for .NET.  It is now also used extensively for game development in the Unity platform. [Learn more here.](https://en.wikipedia.org/wiki/C_Sharp_(programming_language))",
-          "interestType": "cs-disciplines"
+          "interestType": "ceng-disciplines"
         },
         {
           "name": "Civic Engagement",
           "slug": "civic-engagement",
           "description": "Civic engagement means working to make a difference in the civic life of our communities and developing the combination of knowledge, skills, values and motivation to make that difference. It means promoting the quality of life in a community, through both political and non-political processes. [Learn more here.](https://en.wikipedia.org/wiki/Civic_engagement)",
-          "interestType": "non-cs-disciplines"
+          "interestType": "non-ceng-disciplines"
         },
         {
           "name": "Cloud Computing",
@@ -2742,61 +1731,61 @@
           "name": "Cognitive Science",
           "slug": "cognitive-science",
           "description": "Cognitive science is the interdisciplinary scientific study of the mind and its processes. It examines what cognition is, what it does and how it works. It includes research on intelligence and behaviour, especially focusing on how information is represented, processed, and transformed (in faculties such as perception, language, memory, attention, reasoning, and emotion) within nervous systems (humans or other animals) and machines (e.g. computers). Cognitive science includes multiple research disciplines, including psychology, artificial intelligence, philosophy, neuroscience, linguistics, and anthropology. [Learn more here.](https://en.wikipedia.org/wiki/Cognitive_science)",
-          "interestType": "cs-disciplines"
+          "interestType": "ceng-disciplines"
         },
         {
           "name": "Computer Architecture",
           "slug": "computer-architecture",
           "description": "Computer architecture describes the functionality, organization, and implementation of computer systems. Some architectures define the capabilities and programming model of a computer but not a particular implementation. Others include instruction set design, micro-architecture design, logic design, and implementation. Computer architecture can focus on hardware or can include both hardware and software. [Learn more here.](https://en.wikipedia.org/wiki/Computer_architecture)",
-          "interestType": "cs-disciplines"
+          "interestType": "ceng-disciplines"
         },
         {
           "name": "Computer Ethics",
           "slug": "computer-ethics",
           "description": "Computer Ethics is a part of practical philosophy which concerns with how computing professionals should make decisions regarding professional and social conduct. Computer ethics can inform issues such as copyright infringement, privacy, piracy, and social informatics. [Learn more here.](https://en.wikipedia.org/wiki/Computer_ethics)",
-          "interestType": "cs-disciplines"
+          "interestType": "ceng-disciplines"
         },
         {
           "name": "Computer Graphics",
           "slug": "computer-graphics",
           "description": "Computer graphics are pictures and movies created using computers - usually referring to image data created by a computer specifically with help from specialized graphical hardware and software. Important topics in computer graphics include user interface design, sprite graphics, vector graphics, 3D modeling, shaders, GPU design, and computer vision. The overall methodology depends heavily on the sciences of geometry, optics, and physics. Computer graphic development has had a significant impact on many types of media and has revolutionized animation, movies, advertising, video games, and graphic design generally. [Learn more here.](https://en.wikipedia.org/wiki/Computer_graphics)",
-          "interestType": "cs-disciplines"
+          "interestType": "ceng-disciplines"
         },
         {
           "name": "Computer Vision",
           "slug": "computer-vision",
           "description": "Computer vision is a field that includes methods for acquiring, processing, analyzing, and understanding images and, in general, high-dimensional data from the real world in order to produce numerical or symbolic information that can be used to take action. A common theme is to duplicate the abilities of human vision by electronically perceiving and understanding an image. Subdomains of computer vision include scene reconstruction, event detection, video tracking, object recognition, object pose estimation, learning, indexing, motion estimation, and image restoration. [Learn more here.](https://en.wikipedia.org/wiki/Computer_vision)",
-          "interestType": "cs-disciplines"
+          "interestType": "ceng-disciplines"
         },
         {
           "name": "Cryptography",
           "slug": "cryptography",
           "description": "Cryptography is the study of techniques for secure communication: constructing and analyzing protocols that prevent third parties or the public from reading private messages. Data confidentiality, data integrity, authentication, and non-repudiation are central to modern cryptography. Modern cryptography exists at the intersection of mathematics, computer science, and electrical engineering. Applications of cryptography include ATM cards, computer passwords, and electronic commerce. [Learn more here.](https://en.wikipedia.org/wiki/Cryptography)",
-          "interestType": "cs-disciplines"
+          "interestType": "ceng-disciplines"
         },
         {
           "name": "Data Mining",
           "slug": "data-mining",
           "description": "Data mining is the process of discovering patterns in large data sets involving methods at the intersection of machine learning, statistics, and database systems. Data mining is an interdisciplinary subfield of computer science and statistics with an overall goal to extract information (with intelligent methods) from a data set and transform the information into a comprehensible structure for further use.\n\nData mining is a subset of data science: while \"data science\" focuses on a broad variety of issues related to data (including data mining), data mining focuses more narrowly on the process of discovering patterns in large data sets.\n\nFor more information, see [https://en.wikipedia.org/wiki/Data_mining](https://en.wikipedia.org/wiki/Data_mining).",
-          "interestType": "cs-disciplines"
+          "interestType": "ceng-disciplines"
         },
         {
           "name": "Data Science",
           "slug": "data-science",
           "description": "Data science is an interdisciplinary field about processes and systems to extract knowledge or insights from data in various forms, either structured or unstructured. Data science employs techniques and theories drawn from many fields within the broad areas of mathematics, statistics, information science, and computer science, including signal processing, probability models, machine learning, statistical learning, data mining, database, data engineering, pattern recognition and learning, visualization, predictive analytics, uncertainty modeling, data warehousing, data compression, computer programming, artificial intelligence, and high performance computing. Methods that scale to big data are of particular interest in data science. Data science affects many domains, including machine translation, speech recognition, robotics, search engines, digital economy, but also the biological sciences, medical informatics, health care, social sciences and the humanities. [Learn more here.](https://en.wikipedia.org/wiki/Data_science)",
-          "interestType": "cs-disciplines"
+          "interestType": "ceng-disciplines"
         },
         {
           "name": "Data Visualization",
           "slug": "data-visualization",
           "description": "Data visualization is both an art and a science. A primary goal of data visualization is to communicate information clearly and efficiently via statistical graphics, plots and information graphics. Numerical data may be encoded using dots, lines, or bars, to visually communicate a quantitative message. \n\nEffective visualization helps users analyze and reason about data and evidence. It makes complex data more accessible, understandable and usable. \n\n[Learn more here.](https://en.wikipedia.org/wiki/Data_visualization)",
-          "interestType": "cs-disciplines"
+          "interestType": "ceng-disciplines"
         },
         {
           "name": "Databases",
           "slug": "databases",
           "description": "A database is an organized collection of data. It includes schemas, tables, queries, reports, views and other objects. The data are typically organized to model aspects of reality in a way that supports processes requiring information, such as modelling the availability of rooms in hotels in a way that supports finding a hotel with vacancies. Access to these data is usually provided by a \"database management system\" (DBMS) consisting of an integrated set of computer software that allows users to interact with one or more databases and provides access to all of the data contained in the database (although restrictions may exist that limit access to particular data). The DBMS provides various functions that allow entry, storage and retrieval of large quantities of information and provides ways to manage how that information is organized. [Learn more here.](https://en.wikipedia.org/wiki/Database)",
-          "interestType": "cs-disciplines"
+          "interestType": "ceng-disciplines"
         },
         {
           "name": "Django",
@@ -2808,13 +1797,13 @@
           "name": ".NET",
           "slug": "dotNet",
           "description": ".NET is a software framework developed by Microsoft that runs primarily on Microsoft Windows. It includes a large class library called Framework Class Library that provides user interface, data access, database connectivity, cryptography, web application development, numeric algorithms, and network communications. [Learn more here.](https://www.microsoft.com/net/)",
-          "interestType": "cs-disciplines"
+          "interestType": "ceng-disciplines"
         },
         {
           "name": "Entrepreneurship",
           "slug": "entrepreneurship",
           "description": "Entrepreneurship is the process of designing, launching and running a new business, such as a startup company offering a product, process or service. It requires the capacity and willingness to develop, organize, and manage a business venture along with any of its risks in order to make a profit. Entrepreneurs tend to be good at perceiving new business opportunities and they often exhibit positive biases in their perception (i.e., a bias towards finding new possibilities and seeing unmet market needs) and a pro-risk-taking attitude that makes them more likely to exploit the opportunity. [Learn more here.](https://en.wikipedia.org/wiki/Entrepreneurship)",
-          "interestType": "cs-disciplines"
+          "interestType": "ceng-disciplines"
         },
         {
           "name": "Flutter",
@@ -2826,13 +1815,13 @@
           "name": "Game Design",
           "slug": "game-design",
           "description": "Game design is the art of applying design and aesthetics to create a game to facilitate interaction between players for entertainment or for medical, educational, or experimental purposes. Game design creates goals, rules, and challenges to produce desirable interactions among its participants and, possibly, spectators. [Learn more here.](https://en.wikipedia.org/wiki/Game_design)",
-          "interestType": "cs-disciplines"
+          "interestType": "ceng-disciplines"
         },
         {
           "name": "Geographic Information Systems",
           "slug": "geographic-information-systems",
           "description": "A geographic information system (GIS) is a framework for gathering, managing, and analyzing data. Rooted in the science of geography, GIS integrates many types of data. It analyzes spatial location and organizes layers of information into visualizations using maps and 3D scenes. ​With this unique capability, GIS reveals deeper insights into data, such as patterns, relationships, and situations—helping users make smarter decisions. \n\nFor more information, see [https://www.esri.com/en-us/what-is-gis/overview](https://www.esri.com/en-us/what-is-gis/overview).",
-          "interestType": "cs-disciplines"
+          "interestType": "ceng-disciplines"
         },
         {
           "name": "Golang",
@@ -2844,7 +1833,7 @@
           "name": "Graphic Design",
           "slug": "graphic-design",
           "description": "Graphic design is the process of visual communication and problem-solving using one or more of typography, photography and illustration. [Learn more here.](https://en.wikipedia.org/wiki/Graphic_design)",
-          "interestType": "non-cs-disciplines"
+          "interestType": "non-ceng-disciplines"
         },
         {
           "name": "GraphQL",
@@ -2856,19 +1845,19 @@
           "name": "Hardware",
           "slug": "hardware",
           "description": "Computer hardware is the physical parts or components of a computer, such as the monitor, mouse, keyboard, computer data storage, hard disk drive (HDD), graphic cards, sound cards, memory (RAM), motherboard, and so on, all of which are tangible physical objects. By contrast, software is instructions that can be stored and run by hardware. [Learn more here.](https://en.wikipedia.org/wiki/Computer_hardware)",
-          "interestType": "cs-disciplines"
+          "interestType": "ceng-disciplines"
         },
         {
           "name": "Human-Computer Interaction",
           "slug": "hci",
           "description": "Researchers in the field of HCI both observe the ways in which humans interact with computers and design technologies that let humans interact with computers in novel ways. Human-computer interaction is situated at the intersection of computer science, behavioral sciences, design, and media studies. [Learn more here.](https://en.wikipedia.org/wiki/Human%E2%80%93computer_interaction)",
-          "interestType": "cs-disciplines"
+          "interestType": "ceng-disciplines"
         },
         {
           "name": "High Performance Computing",
           "slug": "hpc",
           "description": "High Performance Computing concerns the hardware and software capabilities required for effective use of \"supercomputers\". HPC techniques are needed for computationally intensive tasks in various fields, including quantum mechanics, weather forecasting, climate research, oil and gas exploration, molecular modeling (computing the structures and properties of chemical compounds, biological macromolecules, polymers, and crystals), and physical simulations (such as simulations of the early moments of the universe, airplane and spacecraft aerodynamics, the detonation of nuclear weapons, and nuclear fusion). Throughout their history, they have been essential in the field of cryptanalysis. [Learn more here.](https://en.wikipedia.org/wiki/Supercomputer)",
-          "interestType": "cs-disciplines"
+          "interestType": "ceng-disciplines"
         },
         {
           "name": "Internet of Things",
@@ -2880,13 +1869,13 @@
           "name": "iOS",
           "slug": "ios",
           "description": "iOS is a mobile operating system developed by Apple Inc. exclusively for its hardware. It is the OS for the iPhone, iPad, and iPod. As of January 2017, Apple's AppStore contains more than 2.2 million iOS applications. [Learn more here.](http://www.apple.com/ios/",
-          "interestType": "cs-disciplines"
+          "interestType": "ceng-disciplines"
         },
         {
           "name": "IT Management",
           "slug": "it-management",
           "description": "IT management is the discipline whereby all of the information technology resources of a firm are managed in accordance with its needs and priorities. These resources may include tangible investments like computer hardware, software, data, networks and data centre facilities, as well as the staff who are hired to maintain them. Managing this responsibility within a company entails many of the basic management functions, like budgeting, staffing, change management, and organizing and controlling, along with other aspects that are unique to technology, like software design, network planning, tech support etc. [Learn more here.](https://en.wikipedia.org/wiki/Information_technology_management)",
-          "interestType": "cs-disciplines"
+          "interestType": "ceng-disciplines"
         },
         {
           "name": "Java",
@@ -2904,7 +1893,7 @@
           "name": "Jupyter",
           "slug": "jupyter",
           "description": "A Jupyter Notebook combines live code, graphics, visualizations, and text in shareable notebooks that run in a web browser. \n\nJupyter is most commonly used to develop data science applications in Python, although it now has language bindings for [most of the common languages](https://github.com/jupyter/jupyter/wiki/Jupyter-kernels). \n\nSome of the key capabilities of Jupyter include:\n\n  * Data visualizations. Most people have their first exposure to Jupyter Notebook by way of a data visualization, a shared notebook that includes a rendering of some data set as a graphic. Jupyter Notebook lets you author visualizations, but also share them and allow interactive changes to the shared code and data set.\n\n  * Code sharing. Cloud services like GitHub and Pastebin provide ways to share code, but they’re largely non-interactive. With a Jupyter Notebook, you can view code, execute it, and display the results directly in your web browser.\n\n  * Live interactions with code. Jupyter Notebook code isn’t static; it can be edited and re-run incrementally in real time, with feedback provided directly in the browser. Notebooks can also embed user controls (e.g., sliders or text input fields) that can be used as input sources for code.\n\n  * Documenting code samples. If you have a piece of code and you want to explain line-by-line how it works, with live feedback all along the way, you could embed it in a Jupyter Notebook. Best of all, the code will remain fully functional—you can add interactivity along with the explanation, showing and telling at the same time.\n\nFor more information, see [https://jupyter.org/](https://jupyter.org/)",
-          "interestType": "cs-disciplines"
+          "interestType": "ceng-disciplines"
         },
         {
           "name": "Kotlin",
@@ -2934,25 +1923,25 @@
           "name": "Machine Learning",
           "slug": "machine-learning",
           "description": "Machine learning is a subfield of computer science that evolved from the study of pattern recognition and computational learning theory in artificial intelligence. Machine learning explores the study and construction of algorithms that can learn from and make predictions on data. Such algorithms operate by building a model from example inputs in order to make data-driven predictions or decisions expressed as outputs. Machine learning is employed in a range of computing tasks where designing and programming explicit algorithms is infeasible. Example applications include spam filtering, optical character recognition (OCR), search engines, and computer vision. [Learn more here.](https://en.wikipedia.org/wiki/Machine_learning)",
-          "interestType": "cs-disciplines"
+          "interestType": "ceng-disciplines"
         },
         {
           "name": "Mobile Computing",
           "slug": "mobile",
           "description": "Mobile computing is human–computer interaction by which a computer is expected to be transported during normal usage, which allows for transmission of data, voice and video. Mobile computing involves mobile communication, mobile hardware, and mobile software. Communication issues include ad hoc networks and infrastructure networks as well as communication properties, protocols, data formats and concrete technologies. Hardware includes mobile devices or device components. Mobile software deals with the characteristics and requirements of mobile applications. [Learn more here.](https://en.wikipedia.org/wiki/Mobile_computing)",
-          "interestType": "cs-disciplines"
+          "interestType": "ceng-disciplines"
         },
         {
           "name": "Natural Language Processing",
           "slug": "natural-language-processing",
           "description": "Natural language processing (NLP) is a field of computer science, artificial intelligence and computational linguistics concerned with the interactions between computers and human (natural) languages, and, in particular, concerned with programming computers to fruitfully process large natural language corpora. Challenges in natural language processing frequently involve natural language understanding, natural language generation (frequently from formal, machine-readable logical forms), connecting language and machine perception, dialog systems, or some combination thereof.\n\nFor more information, see the [Natural Language Processing Wikipedia Page](https://en.wikipedia.org/wiki/Natural_language_processing).",
-          "interestType": "cs-disciplines"
+          "interestType": "ceng-disciplines"
         },
         {
           "name": "Networks",
           "slug": "networks",
           "description": "A computer network or data network is a telecommunications network which allows computers to exchange data. In computer networks, networked computing devices exchange data with each other using a data link. The connections between nodes are established using either cable media or wireless media. The best-known computer network is the Internet. [Learn more here.](https://en.wikipedia.org/wiki/Computer_network)",
-          "interestType": "cs-disciplines"
+          "interestType": "ceng-disciplines"
         },
         {
           "name": "NodeJS",
@@ -2964,13 +1953,13 @@
           "name": "Operating Systems",
           "slug": "operating-systems",
           "description": "An operating system (OS) is system software that manages computer hardware and software resources and provides common services for computer programs. Examples of popular desktop operating systems include Apple OS X, Linux and its variants, and Microsoft Windows. So-called mobile operating systems include Android and iOS. Other classes of operating systems, such as real-time (RTOS), also exist. [Learn more here.](https://en.wikipedia.org/wiki/Operating_system)",
-          "interestType": "cs-disciplines"
+          "interestType": "ceng-disciplines"
         },
         {
           "name": "Parallel Programming",
           "slug": "parallel-programming",
           "description": "Parallel programming refers to a type of computation in which many calculations are carried out simultaneously, operating on the principle that large problems can often be divided into smaller ones, which are then solved at the same time. In some cases parallelism is transparent to the programmer, such as in bit-level or instruction-level parallelism, but explicitly parallel algorithms, particularly those that use concurrency, are more difficult to write than sequential ones, because concurrency introduces several new classes of potential software bugs, of which race conditions are the most common. Communication and synchronization between the different subtasks are typically some of the greatest obstacles to getting good parallel program performance. [Learn more here.](https://en.wikipedia.org/wiki/Parallel_computing)",
-          "interestType": "cs-disciplines"
+          "interestType": "ceng-disciplines"
         },
         {
           "name": "Perl",
@@ -2988,7 +1977,7 @@
           "name": "Psychology",
           "slug": "psychology",
           "description": "The scientific study of the human mind and its functions, especially those affecting behavior in a given context. [Learn more here.](https://en.wikipedia.org/wiki/Psychology)",
-          "interestType": "non-cs-disciplines"
+          "interestType": "non-ceng-disciplines"
         },
         {
           "name": "Python",
@@ -3000,7 +1989,7 @@
           "name": "Quantum Computing",
           "slug": "quantum-computing",
           "description": "Quantum computing is computing using quantum-mechanical phenomena, such as superposition and entanglement.  A quantum computer is a device that performs quantum computing. They are different from binary digital electronic computers based on transistors. Whereas common digital computing requires that the data be encoded into binary digits (bits), each of which is always in one of two definite states (0 or 1), quantum computation uses quantum bits, which can be in superpositions of states. \n\nLarge-scale quantum computers would theoretically be able to solve certain problems much more quickly than any classical computers that use even the best currently known algorithms, like integer factorization using Shor's algorithm (which is a quantum algorithm) and the simulation of quantum many-body systems. There exist quantum algorithms, such as Simon's algorithm, that run faster than any possible probabilistic classical algorithm.\n\nFor more information on Quantum Computing, you can start with the [Wikipedia Entry](https://en.wikipedia.org/wiki/Quantum_computing). There's also an article from Wired, [What are quantum computers and how do they work?](http://www.wired.co.uk/article/quantum-computing-explained). MIT's Technology Review has an article [Serious quantum computers are finally here. What are we going to do with them?](http://www.wired.co.uk/article/quantum-computing-explained).  Finally, there's a 7 minute YouTube video, [Quantum Computers Explained](https://www.youtube.com/watch?v=JhHMJCUmq28), with over 7M views (so it must be good!)",
-          "interestType": "cs-disciplines"
+          "interestType": "ceng-disciplines"
         },
         {
           "name": "R",
@@ -3018,13 +2007,13 @@
           "name": "Research",
           "slug": "research",
           "description": "Research comprises \"creative work undertaken on a systematic basis in order to increase the stock of knowledge, including knowledge of humans, culture and society, and the use of this stock of knowledge to devise new applications.\" [Learn more here.](https://en.wikipedia.org/wiki/Research)",
-          "interestType": "cs-disciplines"
+          "interestType": "ceng-disciplines"
         },
         {
           "name": "Robotics",
           "slug": "robotics",
           "description": "Robotics is the branch of mechanical engineering, electrical engineering and computer science that deals with the design, construction, operation, and application of robots, as well as computer systems for their control, sensory feedback, and information processing. Robots can take the place of humans in dangerous environments or manufacturing processes, or resemble humans in appearance, behaviour, and or cognition. Many robots are inspired by nature contributing to the field of bio-inspired robotics. [Learn more here.](https://en.wikipedia.org/wiki/Robotics)",
-          "interestType": "cs-disciplines"
+          "interestType": "ceng-disciplines"
         },
         {
           "name": "Ruby",
@@ -3042,19 +2031,19 @@
           "name": "Security",
           "slug": "security",
           "description": "Computer security, also known as cybersecurity or IT security, is the protection of information systems from theft or damage to the hardware, the software, and to the information on them, as well as from disruption or misdirection of the services they provide. It includes controlling physical access to the hardware, as well as protecting against harm that may come via network access, data and code injection, and due to malpractice by operators, whether intentional, accidental, or due to them being tricked into deviating from secure procedures. [Learn more here.](https://en.wikipedia.org/wiki/Computer_security)",
-          "interestType": "cs-disciplines"
+          "interestType": "ceng-disciplines"
         },
         {
           "name": "Social Computing",
           "slug": "social-computing",
           "description": "Social computing is an area of computer science that is concerned with the intersection of social behavior and computational systems. It is based on creating or recreating social conventions and social contexts through the use of software and technology. Thus, blogs, email, instant messaging, social network services, wikis, social bookmarking and other instances of what is often called social software illustrate ideas from social computing.\n\nFor more details, see:\n\n  * [Wikipedia entry on social computing](https://en.wikipedia.org/wiki/Social_computing)\n  * [Social Computing 101: The Basics](https://www.interaction-design.org/literature/article/social-computing-101-the-basics)\n  * [MIT Media Lab Social Computing Group](https://www.media.mit.edu/groups/social-computing/overview/)",
-          "interestType": "cs-disciplines"
+          "interestType": "ceng-disciplines"
         },
         {
           "name": "Software Engineering",
           "slug": "software-engineering",
           "description": "The systematic application of scientific and technological knowledge, methods, and experience to the design, implementation, testing, and documentation of software. The discipline of software engineering was created to address poor quality of software, get projects exceeding time and budget under control, and ensure that software is built systematically, rigorously, measurably, on time, on budget, and within specification. In 2012, Software Engineering was ranked as the best job in the United States by CareerCast.com. \n\n[Learn more here.](https://en.wikipedia.org/wiki/Software_engineering)",
-          "interestType": "cs-disciplines"
+          "interestType": "ceng-disciplines"
         },
         {
           "name": "SQL",
@@ -3066,7 +2055,7 @@
           "name": "Sustainability",
           "slug": "sustainability",
           "description": "In ecology, sustainability (from sustain and ability) is the property of biological systems to remain diverse and productive indefinitely. Long-lived and healthy wetlands and forests are examples of sustainable biological systems. In more general terms, sustainability is the endurance of systems and processes. The organizing principle for sustainability is sustainable development, which includes the four interconnected domains: ecology, economics, politics and culture. Sustainability science is the study of sustainable development and environmental science. [Learn more here.](https://en.wikipedia.org/wiki/Sustainability)",
-          "interestType": "non-cs-disciplines"
+          "interestType": "non-ceng-disciplines"
         },
         {
           "name": "Swift",
@@ -3078,13 +2067,13 @@
           "name": "Teaching",
           "slug": "teaching",
           "description": "Teaching is the process of facilitating learning, or the acquisition of knowledge, skills, values, beliefs, and habits. Educational methods include storytelling, discussion, teaching, training, and directed research. [Learn more here.](https://en.wikipedia.org/wiki/Education)",
-          "interestType": "cs-disciplines"
+          "interestType": "ceng-disciplines"
         },
         {
           "name": "Theory of computation",
           "slug": "theory-of-computation",
           "description": "Theory of computation deals with how efficiently problems can be solved on a model of computation, using an algorithm. The field is divided into three major branches: automata theory and language, computability theory, and computational complexity theory, which are linked by the question: \"What are the fundamental capabilities and limitations of computers?\". [Learn more here.](https://en.wikipedia.org/wiki/Theory_of_computation)",
-          "interestType": "cs-disciplines"
+          "interestType": "ceng-disciplines"
         },
         {
           "name": "Typescript",
@@ -3102,13 +2091,13 @@
           "name": "Virtual Reality",
           "slug": "virtual-reality",
           "description": "Virtual reality (VR) typically refers to computer technologies that use software to generate realistic images, sounds and other sensations that replicate a real environment (or create an imaginary setting), and simulate a user's physical presence in this environment. VR has been defined as \"...a realistic and immersive simulation of a three-dimensional environment, created using interactive software and hardware, and experienced or controlled by movement of the body\" or as an \"immersive, interactive experience generated by a computer\". [Learn more here.](https://en.wikipedia.org/wiki/Virtual_reality)",
-          "interestType": "cs-disciplines"
+          "interestType": "ceng-disciplines"
         },
         {
           "name": "Web Development",
           "slug": "web-development",
           "description": "In computing, a web application or web app is a client–server software application in which the client (or user interface) runs in a web browser. Common web applications include webmail, online retail sales, online auctions, wikis, instant messaging services and many other functions. [Learn more here.](https://en.wikipedia.org/wiki/Web_application)",
-          "interestType": "cs-disciplines"
+          "interestType": "ceng-disciplines"
         }
       ]
     },
@@ -3116,14 +2105,14 @@
       "name": "InterestTypeCollection",
       "contents": [
         {
-          "name": "CS Disciplines",
-          "slug": "cs-disciplines",
+          "name": "CENG Disciplines",
+          "slug": "ceng-disciplines",
           "description": "Computer science and engineering areas of interest, not including languages, tools, technologies.",
           "retired": false
         },
         {
-          "name": "Non-CS Disciplines",
-          "slug": "non-cs-disciplines",
+          "name": "Non-CENG Disciplines",
+          "slug": "non-ceng-disciplines",
           "description": "Areas of interest apart from computer science and engineering.",
           "retired": false
         },
@@ -7464,42 +6453,6 @@
     {
       "name": "ReviewCollection",
       "contents": [
-        {
-          "slug": "review-course-ics311-alfred",
-          "student": "alfred@hawaii.edu",
-          "reviewType": "course",
-          "reviewee": "ics_311",
-          "academicTerm": "Fall-2018",
-          "rating": 4,
-          "comments": "I've heard a lot about how this course is the bottleneck for progressing through the ICS program. Compared to all the courses I've taken before, this has to be the most time consuming. It's not that the concepts are difficult to understand nor is the courseload that heavy, but I found myself having to put more time to review and understand everything. The class structure for this was inverted, so we watched video lectures in our own time and used class time to do actual problems. I thought it was a better use of class time.",
-          "moderated": true,
-          "visible": true,
-          "retired": false
-        },
-        {
-          "slug": "review-course-ics314-alfred",
-          "student": "alfred@hawaii.edu",
-          "reviewType": "course",
-          "reviewee": "ics_314",
-          "academicTerm": "Fall-2018",
-          "rating": 5,
-          "comments": "ICS 314 teaches valuable concepts if you want to be a Software Engineer. I thought the class was fun, and Professor Johnson is great.",
-          "moderated": true,
-          "visible": true,
-          "retired": false
-        },
-        {
-          "slug": "review-course-ics321-alfred",
-          "student": "alfred@hawaii.edu",
-          "reviewType": "course",
-          "reviewee": "ics_321",
-          "academicTerm": "Spring-2019",
-          "rating": 5,
-          "comments": "ICS 321 was enjoyable. The things we learned were straightforward. We watched lectures online, did problems in class, and there were very few homework assignments. Much of my grade came from the final project. There I had the chance to show off my programming prowess by designing a database and applying what I learned. I hadn't created a website before, but I learned! I created a simple website with a backend MySQL database.",
-          "moderated": true,
-          "visible": true,
-          "retired": false
-        }
       ]
     },
     {
