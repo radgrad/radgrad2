@@ -27,7 +27,7 @@ export const getUserIDsWithProfileInterestMethod = new ValidatedMethod({
           const interestID = itemID;
           favUserIDs = ProfileInterests.findNonRetired({ interestID }).map((profile) => profile.userID);
           break;
-        case EXPLORER_TYPE.INTERESTS:
+        case EXPLORER_TYPE.CAREERGOALS:
           // eslint-disable-next-line no-case-declarations
           const careerGoalID = itemID;
           favUserIDs = ProfileCareerGoals.findNonRetired({ careerGoalID }).map((profile) => profile.userID);

@@ -13,7 +13,7 @@ interface ExplorerProfileWidgetProps {
   explorerType: EXPLORER_TYPE;
 }
 
-const InterestedProfiles: React.FC<ExplorerProfileWidgetProps> = ({ item, explorerType }) => {
+const ExplorerProfiles: React.FC<ExplorerProfileWidgetProps> = ({ item, explorerType }) => {
   const [faculty, setFaculty] = useState([]);
   const [students, setStudents] = useState([]);
   const [advisors, setAdvisors] = useState([]);
@@ -21,7 +21,6 @@ const InterestedProfiles: React.FC<ExplorerProfileWidgetProps> = ({ item, explor
   getUserIDsWithProfileInterestMethod.call({ itemID: item._id, role: ROLE.FACULTY, explorerType  }, (error, res) => {
     if (res && faculty.length !== res.length) {
       setFaculty(res.map((id) => Users.getProfile(id)));
-      console.log(setFaculty, faculty);
     }
   });
   getUserIDsWithProfileInterestMethod.call({ itemID: item._id, role: ROLE.STUDENT, explorerType }, (error, res) => {
@@ -68,4 +67,4 @@ const InterestedProfiles: React.FC<ExplorerProfileWidgetProps> = ({ item, explor
   );
 };
 
-export default InterestedProfiles;
+export default ExplorerProfiles;
