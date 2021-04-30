@@ -125,14 +125,25 @@ class AdvisorProfileCollection extends BaseProfileCollection {
    * @return { String } The docID of the AdvisorProfile.
    */
   public define({
-    username, firstName, lastName, picture = defaultProfilePicture, website, interests,
-    careerGoals, aboutMe, retired = false,
+    username,
+    firstName,
+    lastName,
+    picture = defaultProfilePicture,
+    website,
+    interests,
+    careerGoals,
+    aboutMe,
+    retired = false,
+    sharePicture = true,
+    shareWebsite = true,
+    shareInterests = true,
+    shareCareerGoals = true,
   }: AdvisorOrFacultyProfileDefine) {
     if (Meteor.isServer) {
       const role = ROLE.ADVISOR;
       Slugs.define({ name: username, entityName: this.getType() });
       const profileID = this.collection.insert({
-        username, firstName, lastName, role, picture, website, userID: this.getFakeUserId(), aboutMe, retired,
+        username, firstName, lastName, role, picture, website, userID: this.getFakeUserId(), aboutMe, retired, sharePicture, shareWebsite, shareInterests, shareCareerGoals,
       });
       const userID = Users.define({ username, role });
       this.collection.update(profileID, { $set: { userID } });
@@ -163,6 +174,10 @@ class AdvisorProfileCollection extends BaseProfileCollection {
     retired,
     courseExplorerFilter,
     opportunityExplorerSortOrder,
+    shareWebsite,
+    sharePicture,
+    shareInterests,
+    shareCareerGoals,
     aboutMe,
   }: AdvisorOrFacultyProfileUpdate) {
     this.assertDefined(docID);
@@ -175,6 +190,10 @@ class AdvisorProfileCollection extends BaseProfileCollection {
       retired,
       courseExplorerFilter,
       opportunityExplorerSortOrder,
+      shareWebsite,
+      sharePicture,
+      shareInterests,
+      shareCareerGoals,
     });
     if (aboutMe) {
       updateData.aboutMe = aboutMe;
@@ -249,7 +268,11 @@ class AdvisorProfileCollection extends BaseProfileCollection {
     const careerGoals = favCareerGoals.map((fav) => CareerGoals.findSlugByID(fav.careerGoalID));
     const aboutMe = doc.aboutMe;
     const retired = doc.retired;
-    return { username, firstName, lastName, picture, website, interests, careerGoals, aboutMe, retired };
+    const sharePicture = doc.sharePicture;
+    const shareWebsite = doc.shareWebsite;
+    const shareInterests = doc.shareInterests;
+    const shareCareerGoals = doc.shareCareerGoals;
+    return { username, firstName, lastName, picture, website, interests, careerGoals, aboutMe, retired, shareInterests, sharePicture, shareWebsite, shareCareerGoals };
   }
 }
 
