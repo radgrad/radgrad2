@@ -197,9 +197,9 @@ class OpportunityCollection extends BaseSlugCollection {
     if (academicTerms) {
       updateData.termIDs = AcademicTerms.getIDs(academicTerms);
     }
-    if (eventDate) {
-      updateData.eventDate = eventDate;
-    }
+    // if (eventDate) {
+    updateData.eventDate = eventDate;
+    // }
     if (ice) {
       assertICE(ice);
       updateData.ice = ice;

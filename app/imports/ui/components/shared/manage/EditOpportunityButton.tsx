@@ -3,9 +3,19 @@ import { Button, Form, Modal } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import SimpleSchema from 'simpl-schema';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
-import { AutoForm, LongTextField, SelectField, SubmitField, TextField } from 'uniforms-semantic';
+import {
+  AutoForm,
+  BoolField, DateField,
+  ErrorsField,
+  LongTextField,
+  NumField,
+  SelectField,
+  SubmitField,
+  TextField,
+} from 'uniforms-semantic';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import { updateMethod } from '../../../../api/base/BaseCollection.methods';
+import { iceSchema } from '../../../../api/ice/IceProcessor';
 import { Interests } from '../../../../api/interest/InterestCollection';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
 import { OpportunityTypes } from '../../../../api/opportunity/OpportunityTypeCollection';
@@ -15,22 +25,29 @@ import MultiSelectField from '../../form-fields/MultiSelectField';
 import { openCloudinaryWidget } from '../OpenCloudinaryWidget';
 import { ManageOpportunityProps } from './ManageOpportunityProps';
 
-const EditOpportunityButton: React.FC<ManageOpportunityProps> = ({ opportunity, opportunityTypes, interests, terms, sponsors }) => {
+const EditOpportunityButton: React.FC<ManageOpportunityProps> = ({
+  opportunity,
+  opportunityTypes,
+  interests,
+  terms,
+  sponsors,
+}) => {
   const [open, setOpen] = useState(false);
   const [pictureURL, setPictureURL] = useState(opportunity.picture);
   // console.log(opportunityTypes, interests, terms, sponsors);
+
+  const interestNames = interests.map((interest) => interest.name);
+  const termNames = terms.map((term) => AcademicTerms.toString(term._id));
+  const sponsorNames = sponsors.map((profile) => Users.getFullName(profile.userID));
+  const opportunityTypeNames = OpportunityTypes.findNonRetired().map((type) => type.name);
 
   const model: OpportunityUpdate = opportunity;
   // convert ids to names
   model.interests = opportunity.interestIDs.map((id) => Interests.findDoc(id).name);
   model.academicTerms = opportunity.termIDs.map((id) => AcademicTerms.toString(id));
+  model.academicTerms = model.academicTerms.filter((term) => termNames.includes(term));
   model.sponsor = Users.getFullName(opportunity.sponsorID);
   model.opportunityType = OpportunityTypes.findDoc(opportunity.opportunityTypeID).name;
-
-  const interestNames = interests.map((interest) => interest.name);
-  // const termNames = terms.map((term) => AcademicTerms.toString(term._id));
-  const sponsorNames = sponsors.map((profile) => Users.getFullName(profile.userID));
-  const opportunityTypeNames = OpportunityTypes.findNonRetired().map((type) => type.name);
 
   const handleSubmit = (doc) => {
     // console.log('handleSubmit', doc);
@@ -41,7 +58,7 @@ const EditOpportunityButton: React.FC<ManageOpportunityProps> = ({ opportunity, 
     updateData.interests = doc.interests.map((name) => Interests.findDoc(name)._id);
     updateData.opportunityType = OpportunityTypes.findDoc(doc.opportunityType)._id;
     updateData.sponsor = Users.getUsernameFromFullName(doc.sponsor);
-    updateData.academicTerms = doc.termIDs;
+    updateData.academicTerms = doc.academicTerms.map((name) => AcademicTerms.getAcademicTermFromToString(name)._id);
     // console.log(collectionName, updateData);
     updateMethod.callPromise({ collectionName, updateData })
       .then((result) => Swal.fire({
@@ -106,12 +123,15 @@ const EditOpportunityButton: React.FC<ManageOpportunityProps> = ({ opportunity, 
       allowedValues: interestNames,
     },
     opportunityType: { type: String, allowedValues: opportunityTypeNames, optional: true },
-    // terms: { type: Array, optional: true },
-    // 'terms.$': {
-    //   type: String,
-    //   allowedValues: termNames,
-    // },
+    academicTerms: { type: Array, optional: true },
+    'academicTerms.$': {
+      type: String,
+      allowedValues: termNames,
+    },
     name: { type: String, optional: true },
+    eventDate: { type: Date, optional: true },
+    ice: { type: iceSchema, optional: true },
+    retired: { type: Boolean, optional: true },
   });
   const updateFormSchema = new SimpleSchema2Bridge(updateSchema);
 
@@ -120,24 +140,32 @@ const EditOpportunityButton: React.FC<ManageOpportunityProps> = ({ opportunity, 
            onClose={() => setOpen(false)}
            onOpen={() => setOpen(true)}
            open={open}
-           trigger={<Button basic color='green' key={`${opportunity._id}-edit-button`}>EDIT</Button> }>
+           trigger={<Button basic color='green' key={`${opportunity._id}-edit-button`}>EDIT</Button>}>
       <Modal.Header>{`Edit ${opportunity.name}`}</Modal.Header>
       <Modal.Content>
-        <AutoForm model={model} schema={updateFormSchema} onSubmit={(doc) => {
+        <AutoForm model={model} schema={updateFormSchema} showInlineError onSubmit={(doc) => {
           handleSubmit(doc);
           setOpen(false);
         }}>
           <TextField name="name" />
-          {/* <MultiSelectField name="terms" /> */}
+          <MultiSelectField name="academicTerms" />
           <Form.Group widths="equal">
             <SelectField name="opportunityType" />
             <SelectField name="sponsor" />
           </Form.Group>
+          <LongTextField name="description" />
           <Form.Group widths="equal">
             <TextField name="picture" value={pictureURL} onChange={handlePictureUrlChange} />
             <MultiSelectField name="interests" />
           </Form.Group>
-          <LongTextField name="description" />
+          <DateField name="eventDate" />
+          <Form.Group widths="equal">
+            <NumField name="ice.i" />
+            <NumField name="ice.c" />
+            <NumField name="ice.e" />
+          </Form.Group>
+          <BoolField name="retired" />
+          <ErrorsField />
           <SubmitField />
           <Button color='red' onClick={() => setOpen(false)}>
             Cancel
