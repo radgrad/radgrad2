@@ -1,14 +1,10 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
 import { Button, Form, Grid, Message } from 'semantic-ui-react';
 import moment from 'moment';
 import { ZipZap } from 'meteor/udondan:zipzap';
 import { dumpDatabaseMethod } from '../../../api/base/BaseCollection.methods';
 import { generateStudentEmailsMethod } from '../../../api/user/UserCollection.methods';
 import AdminDatabaseAccordion from '../../components/admin/database/AdminDatabaseAccordion';
-import { databaseActions } from '../../../redux/admin/database';
-import { analyticsActions } from '../../../redux/admin/analytics';
-import { RootState } from '../../../redux/types';
 import UploadFixture from '../../components/admin/datamodel/UploadFixture';
 import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
@@ -21,37 +17,10 @@ interface Collection {
   contents?: string[];
 }
 
-/** Page Props. Things to note:
- *   * All of them are for Redux.
- *   * We don't care about the four functions, only the two boolean variables.
- *   * The connect() function at the bottom re-renders the page on changes.
- */
-interface AdminDatabaseDumpPageProps {
-  startDumpDatabase: () => any;
-  dumpDatabaseDone: () => any;
-  dumpDatabaseWorking?: boolean;
-  startGetStudentEmails: () => any;
-  getStudentEmailsDone: () => any;
-  getStudentEmailsWorking?: boolean;
-}
-
 export const databaseFileDateFormat = 'YYYY-MM-DD-HH-mm-ss';
 
-/** The Redux convention for figure out which of the global state becomes available here. */
-const mapStateToProps = (state: RootState) => ({
-  dumpDatabaseWorking: state.admin.database.dumpDatabase,
-  getStudentEmailsWorking: state.admin.analytics.newsletter.getStudentEmails,
-});
 
-/** The Redux dispatchers to set the global state when things happen on this page. */
-const mapDispatchToProps = (dispatch) => ({
-  startDumpDatabase: () => dispatch(databaseActions.startDumpDatabase()),
-  dumpDatabaseDone: () => dispatch(databaseActions.dumpDatabaseDone()),
-  startGetStudentEmails: () => dispatch(analyticsActions.startGetStudentEmails()),
-  getStudentEmailsDone: () => dispatch(analyticsActions.getStudentEmailsDone()),
-});
-
-const AdminDatabaseDumpPage: React.FC<AdminDatabaseDumpPageProps> = ({ startDumpDatabase, dumpDatabaseDone, dumpDatabaseWorking, getStudentEmailsDone, getStudentEmailsWorking, startGetStudentEmails }) => {
+const AdminDatabaseDumpPage: React.FC = () => {
   /** Local state for this page: did we get an error from either dumpDatabase or getEmails? */
   const [isErrorState, setIsError] = useState(false);
   /** Local state: do we have any results to display? */
@@ -59,7 +28,7 @@ const AdminDatabaseDumpPage: React.FC<AdminDatabaseDumpPageProps> = ({ startDump
 
   const clickDump = () => {
     // Signal Redux that a dump database operation has started.
-    startDumpDatabase();
+    // startDumpDatabase();
     // Call the method. We should convert this to callPromise to make it easier to read.
     dumpDatabaseMethod.call(null, (error, result) => {
       if (error) {
@@ -74,13 +43,13 @@ const AdminDatabaseDumpPage: React.FC<AdminDatabaseDumpPageProps> = ({ startDump
       zip.file(fileName, JSON.stringify(result, null, 2));
       zip.saveAs(`${dir}.zip`);
       // Signal Redux that the dump database operation is over.
-      dumpDatabaseDone();
+      // dumpDatabaseDone();
     });
   };
 
   const clickEmails = () => {
     // Signal Redux that we've started the emails.
-    startGetStudentEmails();
+    // startGetStudentEmails();
     generateStudentEmailsMethod.call(null, (error, result) => {
       if (error) {
         setIsError(true);
@@ -97,7 +66,7 @@ const AdminDatabaseDumpPage: React.FC<AdminDatabaseDumpPageProps> = ({ startDump
       zip.file(fileName, result.students.join('\n'));
       zip.saveAs(`${dir}.zip`);
       // Signal Redux that we've finished.
-      getStudentEmailsDone();
+      // getStudentEmailsDone();
     });
   };
 
@@ -106,8 +75,8 @@ const AdminDatabaseDumpPage: React.FC<AdminDatabaseDumpPageProps> = ({ startDump
   // ResultsState is either a list of collections (from the database dump) or a list of emails (from the email sending)
   const showMessage = resultsState.length > 0;
   // Why these next two lines are here is beyond me.
-  const dumpWorking = dumpDatabaseWorking;
-  const getWorking = getStudentEmailsWorking;
+  const dumpWorking = false;
+  const getWorking = false;
 
   /** Now the actual rendering code. Note the following:
    *    * Both buttons display loading if the *Working variable is true.
@@ -140,6 +109,4 @@ const AdminDatabaseDumpPage: React.FC<AdminDatabaseDumpPageProps> = ({ startDump
   );
 };
 
-/** Here's where we hook up Redux to this page and get it to re-render upon state changes. */
-const AdminDatabaseDumpPageContainer = connect(mapStateToProps, mapDispatchToProps)(AdminDatabaseDumpPage);
-export default AdminDatabaseDumpPageContainer;
+export default AdminDatabaseDumpPage;
