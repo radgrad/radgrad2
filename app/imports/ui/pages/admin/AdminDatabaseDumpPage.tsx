@@ -12,6 +12,7 @@ import { RootState } from '../../../redux/types';
 import UploadFixture from '../../components/admin/datamodel/UploadFixture';
 import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
+
 /** Annotated version of the Redux-based AdminDatabaseDump page. */
 
 /** This is the type of the accordion that lists the contents of all collections after dump finishes. */
