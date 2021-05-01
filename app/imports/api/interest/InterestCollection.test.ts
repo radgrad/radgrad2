@@ -6,6 +6,7 @@ import 'mocha';
 import { Interests } from './InterestCollection';
 import { makeSampleInterestType } from './SampleInterests';
 import { removeAllEntities } from '../base/BaseUtilities';
+import { defineTestFixtures } from '../test/test-utilities';
 
 /* eslint prefer-arrow-callback: "off",  @typescript-eslint/no-unused-expressions: "off" */
 /* eslint-env mocha */
@@ -84,40 +85,33 @@ if (Meteor.isServer) {
       expect(errors).to.have.lengthOf(0);
     });
 
-    // it('#assertDefined, assertAllDefined', function test() {
-    //   const docID = Interests.define(interest1);
-    //   expect(function foo() { Interests.assertDefined(docID); }).to.not.throw(Error);
-    //   expect(function foo() { Interests.assertDefined('foo'); }).to.throw(Error);
-    //   const docID2 = Interests.define(interest2);
-    //   expect(function foo() { Interests.assertAllDefined([docID, docID2]); }).to.not.throw(Error);
-    //   expect(function foo() { Interests.assertAllDefined(['foo']); }).to.throw(Error);
-    //   Interests.removeIt(slug);
-    //   Interests.removeIt(slug2);
-    // });
+    it('Can findRelatedCareerGoals', function test6() {
+      defineTestFixtures(['minimal', 'betty.student']);
+      let interest = Interests.findDoc('Algorithms');
+      let relatedCareerGoals = Interests.findRelatedCareerGoals(interest._id);
+      expect(relatedCareerGoals.length).to.equal(2);
+      interest = Interests.findDoc('Java');
+      relatedCareerGoals = Interests.findRelatedCareerGoals(interest._id);
+      expect(relatedCareerGoals.length).to.equal(0);
+    });
 
-    // it('#find, #findDoc, #findDocBySlug, #findIdBySlug, #findIdsBySlugs, #findNames', function test() {
-    //   const docID = Interests.define(interest1);
-    //   const docID2 = Interests.define(interest2);
-    //   expect(Interests.find().fetch()).to.have.lengthOf(2);
-    //   expect(function foo() { Interests.findDoc(docID); }).to.not.throw(Error);
-    //   expect(function foo() { Interests.findDoc('foo'); }).to.throw(Error);
-    //   expect(function foo() { Interests.findDocBySlug(slug); }).to.not.throw(Error);
-    //   expect(function foo() { Interests.findDocBySlug('foo'); }).to.throw(Error);
-    //   expect(function foo() { Interests.findIdBySlug(slug); }).to.not.throw(Error);
-    //   expect(function foo() { Interests.findIdsBySlugs([slug, slug2]); }).to.not.throw(Error);
-    //   expect(function foo() { Interests.findIdsBySlugs([slug, 'foo']); }).to.throw(Error);
-    //   expect(function foo() { Interests.findNames([docID, docID2]); }).to.not.throw(Error);
-    //   expect(function foo() { Interests.findNames([docID, 'foo']); }).to.throw(Error);
-    //   Interests.removeIt(slug);
-    //   Interests.removeIt(slug2);
-    // });
+    it('Can findRelatedCourses', function test7() {
+      let interest = Interests.findDoc('Algorithms');
+      let relatedCourses = Interests.findRelatedCourses(interest._id);
+      expect(relatedCourses.length).to.equal(1);
+      interest = Interests.findDoc('Java');
+      relatedCourses = Interests.findRelatedCourses(interest._id);
+      expect(relatedCourses.length).to.equal(1);
+    });
 
-    // it('#hasSlug', function test() {
-    //   const docID = Interests.define(interest1);
-    //   const slugID = Interests.findDoc(docID).slugID;
-    //   expect(Interests.hasSlug(slugID)).to.be.true;
-    //   expect(Interests.hasSlug('foo')).to.be.false;
-    //   Interests.removeIt(slug);
-    // });
+    it('Can findRelatedOpportunities', function test8() {
+      defineTestFixtures(['opportunities']);
+      let interest = Interests.findDoc('Algorithms');
+      let relatedOpportunities = Interests.findRelatedOpportunities(interest._id);
+      expect(relatedOpportunities.length).to.equal(1);
+      interest = Interests.findDoc('Java');
+      relatedOpportunities = Interests.findRelatedOpportunities(interest._id);
+      expect(relatedOpportunities.length).to.equal(1);
+    });
   });
 }
