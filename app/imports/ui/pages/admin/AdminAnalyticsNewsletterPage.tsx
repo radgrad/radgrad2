@@ -3,6 +3,12 @@ import AdminAnalyticsNewsletterWidget from '../../components/admin/analytics/new
 import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
 
+/**
+ * AdminAnalyticsNewsletterPage.
+ * @return {JSX.Element}
+ * @memberOf ui/pages/admin
+ * @constructor
+ */
 const AdminAnalyticsNewsletterPage: React.FC = () => (
   <PageLayout id={PAGEIDS.ANALYTICS_NEWSLETTER} headerPaneTitle="Newsletter">
     <AdminAnalyticsNewsletterWidget/>

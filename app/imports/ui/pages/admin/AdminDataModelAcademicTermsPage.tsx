@@ -64,6 +64,7 @@ interface AdminDataModelAcademicTermsPageProps {
  * AdminDataModelAcademicTermsPage.
  * @param {AcademicTerm[]} items
  * @return {JSX.Element}
+ * @memberOf ui/pages/admin
  * @constructor
  */
 const AdminDataModelAcademicTermsPage: React.FC<AdminDataModelAcademicTermsPageProps> = ({ items }) => {
@@ -104,8 +105,6 @@ const AdminDataModelAcademicTermsPage: React.FC<AdminDataModelAcademicTermsPageP
         itemTitle={itemTitle}
         handleOpenUpdate={handleOpenUpdate}
         handleDelete={handleDelete}
-        setShowIndex={dataModelActions.setCollectionShowIndex}
-        setShowCount={dataModelActions.setCollectionShowCount}
         items={items}
       />
       <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete}

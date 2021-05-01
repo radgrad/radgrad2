@@ -5,6 +5,13 @@ import AdminAnalyticsLoggedInUsersWidget, { AdminAnalyticsLoggedInUsersWidgetPro
 import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
 
+/**
+ * AdminAnalyticsLoggedInUsersPage.
+ * @param {object[]} loggedInUsers
+ * @return {JSX.Element}
+ * @memberOf ui/pages/admin
+ * @constructor
+ */
 const AdminAnalyticsLoggedInUsersPage: React.FC<AdminAnalyticsLoggedInUsersWidgetProps> = ({ loggedInUsers }) => (
   <PageLayout id={PAGEIDS.ANALYTICS_LOGGED_IN_USERS} headerPaneTitle="Logged In Users">
     <AdminAnalyticsLoggedInUsersWidget loggedInUsers={loggedInUsers}/>

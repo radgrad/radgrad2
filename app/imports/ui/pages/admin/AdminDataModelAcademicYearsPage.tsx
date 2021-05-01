@@ -9,7 +9,6 @@ import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInst
 import AdminDataModelUpdateForm from '../../components/admin/datamodel/AdminDataModelUpdateForm';
 import AddAcademicYearInstanceForm from '../../components/admin/datamodel/academic-year/AddAcademicYearInstanceForm';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
-import { dataModelActions } from '../../../redux/admin/data-model';
 import { PAGEIDS } from '../../utilities/PageIDs';
 import {
   handleCancelWrapper,
@@ -49,6 +48,7 @@ interface AdminDataModelAcademicYearsPageProps {
  * @param {AcademicYearInstance[]} items
  * @param {StudentProfile[]} students
  * @return {JSX.Element}
+ * @memberOf ui/pages/admin
  * @constructor
  */
 const AdminDataModelAcademicYearsPage: React.FC<AdminDataModelAcademicYearsPageProps> = ({ items, students }) => {
@@ -91,8 +91,6 @@ const AdminDataModelAcademicYearsPage: React.FC<AdminDataModelAcademicYearsPageP
         itemTitle={itemTitle}
         handleOpenUpdate={handleOpenUpdate}
         handleDelete={handleDelete}
-        setShowIndex={dataModelActions.setCollectionShowIndex}
-        setShowCount={dataModelActions.setCollectionShowCount}
         items={items}
       />
 
