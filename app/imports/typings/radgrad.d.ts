@@ -446,8 +446,15 @@ export interface OpportunityDefine extends DumpOne {
   interests: string[];
   academicTerms: string[];
   ice: Ice;
-  timestamp?: Date;
-  eventDate?: any;
+  eventDate?: Date; // Deprecated
+  eventDate1?: Date;
+  eventDateLabel1?: string;
+  eventDate2?: Date;
+  eventDateLabel2?: string;
+  eventDate3?: Date;
+  eventDateLabel3?: string;
+  eventDate4?: Date;
+  eventDateLabel4?: string;
   picture?: string;
   retired?: boolean;
 }
@@ -459,8 +466,15 @@ export interface OpportunityUpdate extends Update {
   sponsor?: string;
   interests?: string[];
   academicTerms?: string[];
-  eventDate?: any;
-  timestamp?: Date;
+  eventDate?: any; // Deprecated
+  eventDate1?: Date;
+  eventDateLabel1?: string;
+  eventDate2?: Date;
+  eventDateLabel2?: string;
+  eventDate3?: Date;
+  eventDateLabel3?: string;
+  eventDate4?: Date;
+  eventDateLabel4?: string;
   ice?: Ice;
   picture?: string;
   retired?: boolean;
@@ -474,7 +488,14 @@ export interface OpportunityUpdateData {
   interestIDs?: string[];
   termIDs?: string[];
   eventDate?: any;
-  timestamp?: Date;
+  eventDate1?: Date;
+  eventDateLabel1?: string;
+  eventDate2?: Date;
+  eventDateLabel2?: string;
+  eventDate3?: Date;
+  eventDateLabel3?: string;
+  eventDate4?: Date;
+  eventDateLabel4?: string;
   ice?: Ice;
   picture?: string;
   retired?: boolean;
