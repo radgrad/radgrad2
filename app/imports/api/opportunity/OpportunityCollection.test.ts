@@ -3,6 +3,7 @@ import { expect } from 'chai';
 import fc from 'fast-check';
 import faker from 'faker';
 import { ROLE } from '../role/Role';
+import { defineTestFixtures } from '../test/test-utilities';
 import { Opportunities } from './OpportunityCollection';
 import { makeSampleInterestArray } from '../interest/SampleInterests';
 import { makeSampleOpportunity, makeSampleOpportunityType } from './SampleOpportunities';
@@ -195,6 +196,25 @@ if (Meteor.isServer) {
       expect(oppTypeDocOrig.description).to.equal(oppTypeDoc.description);
       expect(oppTypeDocOrig.retired).to.equal(oppTypeDoc.retired);
       expect(Opportunities.hasInterest(docID, interests[0])).to.be.true;
+    });
+
+    it('Can findRelatedCareerGoals', function test7() {
+      defineTestFixtures(['minimal', 'opportunities', 'betty.student']);
+      let opportunity = Opportunities.findDoc('ACM ICPC');
+      let relatedCareerGoals = Opportunities.findRelatedCareerGoals(opportunity._id);
+      expect(relatedCareerGoals.length).to.equal(2);
+      opportunity = Opportunities.findDoc('ACM Manoa');
+      relatedCareerGoals = Opportunities.findRelatedCareerGoals(opportunity._id);
+      expect(relatedCareerGoals.length).to.equal(0);
+    });
+
+    it('Can findRelatedCourses', function test8() {
+      let opportunity = Opportunities.findDoc('ACM ICPC');
+      let relatedCourses = Opportunities.findRelatedCourses(opportunity._id);
+      expect(relatedCourses.length).to.equal(1);
+      opportunity = Opportunities.findDoc('ACM Manoa');
+      relatedCourses = Opportunities.findRelatedCourses(opportunity._id);
+      expect(relatedCourses.length).to.equal(1);
     });
   });
 }

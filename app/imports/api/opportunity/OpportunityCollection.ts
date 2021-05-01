@@ -2,6 +2,8 @@ import SimpleSchema from 'simpl-schema';
 import { Meteor } from 'meteor/meteor';
 import _ from 'lodash';
 import moment from 'moment';
+import { CareerGoals } from '../career/CareerGoalCollection';
+import { Courses } from '../course/CourseCollection';
 import { Slugs } from '../slug/SlugCollection';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Teasers } from '../teaser/TeaserCollection';
@@ -12,7 +14,7 @@ import { OpportunityTypes } from './OpportunityTypeCollection';
 import { OpportunityInstances } from './OpportunityInstanceCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
 import { assertICE, iceSchema } from '../ice/IceProcessor';
-import { OpportunityDefine, OpportunityUpdate, OpportunityUpdateData } from '../../typings/radgrad';
+import { CareerGoal, Course, OpportunityDefine, OpportunityUpdate, OpportunityUpdateData } from '../../typings/radgrad';
 
 export const defaultProfilePicture = '/images/radgrad_logo.png';
 
@@ -303,6 +305,30 @@ class OpportunityCollection extends BaseSlugCollection {
     const interestID = Interests.getID(interest);
     const doc = this.findDoc(opportunity);
     return _.includes(doc.interestIDs, interestID);
+  }
+
+  /**
+   * Returns a list of CareerGoals that have common interests.
+   * @param {string} docIdOrSlug an interest ID or slug.
+   * @return {CareerGoals[]} Courses that have the given interest.
+   */
+  public findRelatedCareerGoals(docIdOrSlug: string): CareerGoal[] {
+    const docID = this.getID(docIdOrSlug);
+    const interestIDs = this.findDoc(docID).interestIDs;
+    const goals = CareerGoals.findNonRetired();
+    return goals.filter((goal) => goal.interestIDs.filter((x) => interestIDs.includes(x)).length > 0);
+  }
+
+  /**
+   * Returns a list of Courses that have common interests.
+   * @param {string} docIdOrSlug an interest ID or slug.
+   * @return {Course[]} Courses that have the given interest.
+   */
+  public findRelatedCourses(docIdOrSlug: string): Course[] {
+    const docID = this.getID(docIdOrSlug);
+    const interestIDs = this.findDoc(docID).interestIDs;
+    const courses = Courses.findNonRetired();
+    return courses.filter((course) => course.interestIDs.filter((x) => interestIDs.includes(x)).length > 0);
   }
 
   /**

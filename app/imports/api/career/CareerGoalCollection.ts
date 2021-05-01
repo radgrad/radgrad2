@@ -1,10 +1,12 @@
 import SimpleSchema from 'simpl-schema';
 import { Meteor } from 'meteor/meteor';
 import _ from 'lodash';
+import { Courses } from '../course/CourseCollection';
+import { Opportunities } from '../opportunity/OpportunityCollection';
 import { Slugs } from '../slug/SlugCollection';
 import { Interests } from '../interest/InterestCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
-import { CareerGoalDefine, CareerGoalUpdate } from '../../typings/radgrad';
+import { CareerGoalDefine, CareerGoalUpdate, Course, Opportunity } from '../../typings/radgrad';
 import { ProfileCareerGoals } from '../user/profile-entries/ProfileCareerGoalCollection';
 
 /**
@@ -71,16 +73,6 @@ class CareerGoalCollection extends BaseSlugCollection {
   }
 
   /**
-   * Returns a list of Career Goal names corresponding to the passed list of CareerGoal docIDs.
-   * @param instanceIDs A list of Career Goal docIDs.
-   * @returns { Array } An array of name strings.
-   * @throws { Meteor.Error} If any of the instanceIDs cannot be found.
-   */
-  public findNames(instanceIDs: string[]) {
-    return instanceIDs.map((instanceID) => this.findDoc(instanceID).name);
-  }
-
-  /**
    * Update a Career Goal.
    * @param docID The docID to be updated.
    * @param name The new name (optional).
@@ -130,6 +122,40 @@ class CareerGoalCollection extends BaseSlugCollection {
     }
     // OK, clear to delete.
     return super.removeIt(careerGoalID);
+  }
+
+  /**
+   * Returns a list of Career Goal names corresponding to the passed list of CareerGoal docIDs.
+   * @param instanceIDs A list of Career Goal docIDs.
+   * @returns { Array } An array of name strings.
+   * @throws { Meteor.Error} If any of the instanceIDs cannot be found.
+   */
+  public findNames(instanceIDs: string[]) {
+    return instanceIDs.map((instanceID) => this.findDoc(instanceID).name);
+  }
+
+  /**
+   * Returns a list of Courses that have common interests.
+   * @param {string} docIdOrSlug an interest ID or slug.
+   * @return {Course[]} Courses that have the given interest.
+   */
+  public findRelatedCourses(docIdOrSlug: string): Course[] {
+    const docID = this.getID(docIdOrSlug);
+    const interestIDs = this.findDoc(docID).interestIDs;
+    const courses = Courses.findNonRetired();
+    return courses.filter((course) => course.interestIDs.filter((x) => interestIDs.includes(x)).length > 0);
+  }
+
+  /**
+   * Returns a list of the Opportunities that have common interests.
+   * @param {string} docIdOrSlug an interest ID or slug.
+   * @return {Opportunity[]} Opportunities that have the given interest.
+   */
+  public findRelatedOpportunities(docIdOrSlug: string): Opportunity[] {
+    const docID = this.getID(docIdOrSlug);
+    const interestIDs = this.findDoc(docID).interestIDs;
+    const opportunities = Opportunities.findNonRetired();
+    return opportunities.filter((opp) => opp.interestIDs.filter((x) => interestIDs.includes(x)).length > 0);
   }
 
   /**

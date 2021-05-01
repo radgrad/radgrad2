@@ -3,6 +3,7 @@ import { expect } from 'chai';
 import faker from 'faker';
 import fc from 'fast-check';
 import 'mocha';
+import { defineTestFixtures } from '../test/test-utilities';
 import { CareerGoals } from './CareerGoalCollection';
 import { makeSampleInterest } from '../interest/SampleInterests';
 import { removeAllEntities } from '../base/BaseUtilities';
@@ -66,7 +67,12 @@ if (Meteor.isServer) {
       const docID = CareerGoals.define({ name, slug, description, interests });
       fc.assert(
         fc.property(fc.lorem(1), fc.lorem(5, true), fc.boolean(), (fcName, fcDescription, fcRetired) => {
-          CareerGoals.update(docID, { name: fcName, description: fcDescription, interests: interest2, retired: fcRetired });
+          CareerGoals.update(docID, {
+            name: fcName,
+            description: fcDescription,
+            interests: interest2,
+            retired: fcRetired,
+          });
           const doc = CareerGoals.findDoc(docID);
           expect(doc.name).to.equal(fcName);
           expect(doc.description).to.equal(fcDescription);
@@ -101,6 +107,20 @@ if (Meteor.isServer) {
 
     it('findDoc(undefined) throws', function test8() {
       expect(() => CareerGoals.findDoc(undefined)).to.throw(Error);
+    });
+
+    it('Can findRelatedCourses', function test6() {
+      defineTestFixtures(['minimal', 'betty.student']);
+      const careerGoal = CareerGoals.findDoc('Data Scientist');
+      const relatedCourses = CareerGoals.findRelatedCourses(careerGoal._id);
+      expect(relatedCourses.length).to.equal(1);
+    });
+
+    it('Can findRelatedOpportunities', function test7() {
+      defineTestFixtures(['opportunities']);
+      const careerGoal = CareerGoals.findDoc('Data Scientist');
+      const relatedOpportunities = CareerGoals.findRelatedOpportunities(careerGoal._id);
+      expect(relatedOpportunities.length).to.equal(1);
     });
   });
 }
