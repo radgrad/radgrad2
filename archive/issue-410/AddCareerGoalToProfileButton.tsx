@@ -4,13 +4,13 @@ import _ from 'lodash';
 import SimpleSchema from 'simpl-schema';
 import { AutoForm, SubmitField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
-import { defineMethod, removeItMethod } from '../../../../../api/base/BaseCollection.methods';
-import { Interests } from '../../../../../api/interest/InterestCollection';
-import slugify, { Slugs } from '../../../../../api/slug/SlugCollection';
-import { ProfileCareerGoals } from '../../../../../api/user/profile-entries/ProfileCareerGoalCollection';
-import { ProfileInterests } from '../../../../../api/user/profile-entries/ProfileInterestCollection';
-import { CareerGoal } from '../../../../../typings/radgrad';
-import MultiSelectField from '../../../form-fields/MultiSelectField';
+import { defineMethod, removeItMethod } from '../../app/imports/api/base/BaseCollection.methods';
+import { Interests } from '../../app/imports/api/interest/InterestCollection';
+import slugify, { Slugs } from '../../app/imports/api/slug/SlugCollection';
+import { ProfileCareerGoals } from '../../app/imports/api/user/profile-entries/ProfileCareerGoalCollection';
+import { ProfileInterests } from '../../app/imports/api/user/profile-entries/ProfileInterestCollection';
+import { CareerGoal } from '../../app/imports/typings/radgrad';
+import MultiSelectField from '../../app/imports/ui/components/form-fields/MultiSelectField';
 
 interface AddCareerGoalToProfileButtonProps {
   careerGoal: CareerGoal;

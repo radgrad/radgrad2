@@ -37,13 +37,39 @@ class FacultyProfileCollection extends BaseProfileCollection {
    * @throws { Meteor.Error } If username has been previously defined, or if any interests or careerGoals are invalid.
    * @return { String } The docID of the FacultyProfile.
    */
-  public define({ username, firstName, lastName, picture = defaultProfilePicture, website, interests,
-    careerGoals, aboutMe, retired = false }: AdvisorOrFacultyProfileDefine) {
+  public define({
+    username,
+    firstName,
+    lastName,
+    picture = defaultProfilePicture,
+    website,
+    interests,
+    careerGoals,
+    aboutMe,
+    retired = false,
+    sharePicture = true,
+    shareWebsite = true,
+    shareInterests = true,
+    shareCareerGoals = true,
+  }: AdvisorOrFacultyProfileDefine) {
     if (Meteor.isServer) {
       const role = ROLE.FACULTY;
       Slugs.define({ name: username, entityName: this.getType() });
       const profileID = this.collection.insert({
-        username, firstName, lastName, role, picture, website, userID: this.getFakeUserId(), aboutMe, retired });
+        username,
+        firstName,
+        lastName,
+        role,
+        picture,
+        website,
+        userID: this.getFakeUserId(),
+        aboutMe,
+        retired,
+        sharePicture,
+        shareWebsite,
+        shareInterests,
+        shareCareerGoals,
+      });
       const userID = Users.define({ username, role });
       this.collection.update(profileID, { $set: { userID } });
       const share = true;
@@ -63,10 +89,37 @@ class FacultyProfileCollection extends BaseProfileCollection {
    * You cannot change the username or role once defined.
    * @param docID the id of the FacultyProfile.
    */
-  public update(docID: string, { firstName, lastName, picture, website, interests, careerGoals, retired, courseExplorerFilter, opportunityExplorerSortOrder, aboutMe }: AdvisorOrFacultyProfileUpdate) {
+  public update(docID: string, {
+    firstName,
+    lastName,
+    picture,
+    website,
+    interests,
+    careerGoals,
+    retired,
+    courseExplorerFilter,
+    opportunityExplorerSortOrder,
+    shareWebsite,
+    sharePicture,
+    shareInterests,
+    shareCareerGoals,
+    aboutMe,
+  }: AdvisorOrFacultyProfileUpdate) {
     this.assertDefined(docID);
     const updateData: AdvisorOrFacultyProfileUpdate = {};
-    this.updateCommonFields(updateData, { firstName, lastName, picture, website, retired, courseExplorerFilter, opportunityExplorerSortOrder });
+    this.updateCommonFields(updateData, {
+      firstName,
+      lastName,
+      picture,
+      website,
+      retired,
+      courseExplorerFilter,
+      opportunityExplorerSortOrder,
+      shareWebsite,
+      sharePicture,
+      shareInterests,
+      shareCareerGoals,
+    });
     if (aboutMe) {
       updateData.aboutMe = aboutMe;
     }
@@ -141,7 +194,11 @@ class FacultyProfileCollection extends BaseProfileCollection {
     const careerGoals = favCareerGoals.map((fav) => CareerGoals.findSlugByID(fav.careerGoalID));
     const aboutMe = doc.aboutMe;
     const retired = doc.retired;
-    return { username, firstName, lastName, picture, website, interests, careerGoals, aboutMe, retired };
+    const sharePicture = doc.sharePicture;
+    const shareWebsite = doc.shareWebsite;
+    const shareInterests = doc.shareInterests;
+    const shareCareerGoals = doc.shareCareerGoals;
+    return { username, firstName, lastName, picture, website, interests, careerGoals, aboutMe, retired, shareWebsite, shareInterests, shareCareerGoals, sharePicture };
   }
 }
 

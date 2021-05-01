@@ -3,7 +3,6 @@ import React from 'react';
 import { Icon } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import ListSlugCollectionWidget from '../../components/admin/datamodel/ListSlugCollectionWidget';
-import { dataModelActions } from '../../../redux/admin/data-model';
 import { DescriptionPair, Slug } from '../../../typings/radgrad';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import { PAGEIDS } from '../../utilities/PageIDs';
@@ -70,8 +69,6 @@ const AdminDataModelSlugsPage: React.FC<AdminDataModelSlugsPageProps> = ({ items
         itemTitle={itemTitle}
         handleOpenUpdate={handleOpenUpdate}
         handleDelete={handleDelete}
-        setShowIndex={dataModelActions.setCollectionShowIndex}
-        setShowCount={dataModelActions.setCollectionShowCount}
         items={items}
       />
     </PageLayout>

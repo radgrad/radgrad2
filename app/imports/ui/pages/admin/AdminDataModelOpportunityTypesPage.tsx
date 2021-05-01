@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { Confirm, Icon } from 'semantic-ui-react';
 import _ from 'lodash';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
-import { dataModelActions } from '../../../redux/admin/data-model';
 import { DescriptionPair, OpportunityType } from '../../../typings/radgrad';
 import { updateMethod } from '../../../api/base/BaseCollection.methods';
 import { Slugs } from '../../../api/slug/SlugCollection';
@@ -104,8 +103,6 @@ const AdminDataModelOpportunityTypesPage: React.FC<AdminDataModelOpportunityType
         itemTitle={itemTitle}
         handleOpenUpdate={handleOpenUpdate}
         handleDelete={handleDelete}
-        setShowIndex={dataModelActions.setCollectionShowIndex}
-        setShowCount={dataModelActions.setCollectionShowCount}
         items={items}
       />
       <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete}

@@ -5,6 +5,20 @@ import { AcademicTerms } from './AcademicTermCollection';
 import { RadGradProperties } from '../radgrad/RadGradProperties';
 
 /**
+ * Defines the academic terms for the given year.
+ * @param {number} year the year.
+ */
+const defineAcademicTermsForYear = (year: number): void => {
+  // console.log(`Defining terms for ${year}`);
+  AcademicTerms.define({ term: AcademicTerms.SPRING, year });
+  AcademicTerms.define({ term: AcademicTerms.SUMMER, year });
+  AcademicTerms.define({ term: AcademicTerms.FALL, year });
+  if (RadGradProperties.getQuarterSystem()) {
+    AcademicTerms.define({ term: AcademicTerms.WINTER, year });
+  }
+};
+
+/**
  * Defines default academicTerms for last year plus 4 more years.
  * @memberOf api/academic-term
  */
@@ -12,14 +26,20 @@ export const defineAcademicTerms = (): void => {
   let year = moment().year() - 1;
   if (AcademicTerms.find().count() === 0) {
     for (let i = 0; i < 5; i++) {
-      AcademicTerms.define({ term: AcademicTerms.SPRING, year });
-      AcademicTerms.define({ term: AcademicTerms.SUMMER, year });
-      AcademicTerms.define({ term: AcademicTerms.FALL, year });
-      if (RadGradProperties.getQuarterSystem()) {
-        AcademicTerms.define({ term: AcademicTerms.WINTER, year });
-      }
+      defineAcademicTermsForYear(year);
       year++;
     }
+  }
+};
+
+/**
+ * Ensures that there are AcademicTerms for the next 4 years.
+ */
+export const ensureFutureAcademicTerms = (): void => {
+  let year = moment().year();
+  for (let i = 0; i < 4; i++) {
+    defineAcademicTermsForYear(year);
+    year++;
   }
 };
 

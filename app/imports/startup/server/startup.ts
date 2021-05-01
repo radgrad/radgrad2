@@ -2,6 +2,7 @@
 import { Accounts } from 'meteor/accounts-base';
 import { SyncedCron } from 'meteor/littledata:synced-cron';
 import { Meteor } from 'meteor/meteor';
+import { ensureFutureAcademicTerms } from '../../api/academic-term/AcademicTermUtilities';
 import { userInteractionManager } from '../../api/user-interaction/UserInteractionManager';
 import { removeAllEntities } from '../../api/base/BaseUtilities';
 import { updateFactoids } from '../../api/factoid/Factoids';
@@ -44,6 +45,7 @@ const normalInitialization = () => {
   loadDatabase();
   // console.log('  * Checking integrity.');
   // startupCheckIntegrity();
+  ensureFutureAcademicTerms();
   console.log('  * Initializing public stats.');
   PublicStats.generateStats();
   console.log('  * Initializing factoids.');

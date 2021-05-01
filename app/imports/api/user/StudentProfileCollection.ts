@@ -295,6 +295,10 @@ class StudentProfileCollection extends BaseProfileCollection {
       retired,
       courseExplorerFilter,
       opportunityExplorerSortOrder,
+      shareWebsite,
+      sharePicture,
+      shareInterests,
+      shareCareerGoals,
     });
     if (declaredAcademicTerm) {
       updateData.declaredAcademicTermID = AcademicTerms.getID(declaredAcademicTerm);
@@ -324,18 +328,6 @@ class StudentProfileCollection extends BaseProfileCollection {
       if (_.isBoolean(retired)) {
         updateData.retired = retired;
       }
-    }
-    if (_.isBoolean(sharePicture)) {
-      updateData.sharePicture = sharePicture;
-    }
-    if (_.isBoolean(shareWebsite)) {
-      updateData.shareWebsite = shareWebsite;
-    }
-    if (_.isBoolean(shareInterests)) {
-      updateData.shareInterests = shareInterests;
-    }
-    if (_.isBoolean(shareCareerGoals)) {
-      updateData.shareCareerGoals = shareCareerGoals;
     }
     if (_.isBoolean(shareCourses)) {
       updateData.shareCourses = shareCourses;

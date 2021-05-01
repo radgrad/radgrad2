@@ -1,6 +1,16 @@
 import React, { useState } from 'react';
 import { Form, Header, Segment } from 'semantic-ui-react';
-import { AutoForm, TextField, SelectField, LongTextField, DateField, BoolField, SubmitField, NumField } from 'uniforms-semantic';
+import {
+  AutoForm,
+  TextField,
+  SelectField,
+  LongTextField,
+  DateField,
+  BoolField,
+  SubmitField,
+  NumField,
+  ErrorsField,
+} from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import Swal from 'sweetalert2';
@@ -59,7 +69,7 @@ const AddOpportunityForm: React.FC<AddOpportunityFormProps> = ({ sponsors, inter
   };
   let formRef;
   const handleAdd = (doc) => {
-    // console.log('Opportunities.handleAdd(%o)', doc);
+    console.log('Opportunities.handleAdd(%o)', doc);
     const collectionName = Opportunities.getCollectionName();
     const definitionData = doc;
     const docInterestNames = doc.interests.map(interestSlugFromName);
@@ -69,7 +79,7 @@ const AddOpportunityForm: React.FC<AddOpportunityFormProps> = ({ sponsors, inter
     definitionData.opportunityType = opportunityTypeNameToSlug(doc.opportunityType);
     definitionData.sponsor = profileNameToUsername(doc.sponsor);
     definitionData.slug = `${slugify(doc.name)}-opportunity`;
-    console.log(definitionData);
+    // console.log(definitionData);
     defineMethod.call({ collectionName, definitionData }, defineCallback(formRef));
   };
 
@@ -127,6 +137,7 @@ const AddOpportunityForm: React.FC<AddOpportunityFormProps> = ({ sponsors, inter
             Upload
           </Form.Button>
         </Form.Group>
+        <ErrorsField />
         <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
       </AutoForm>
     </Segment>

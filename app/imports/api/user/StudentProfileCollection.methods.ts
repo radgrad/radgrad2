@@ -37,11 +37,12 @@ const generatePublicProfileDataObject = (username) => {
     const profile = Users.getProfile(username);
     const userID = Users.getID(username);
     // Advisors, Faculty, Admins always share picture, website, interests, career goals.
-    const autoShare = (profile.role !== ROLE.STUDENT);
-    if (profile.sharePicture || autoShare) {
+    // CAM but that's not true look at their ProfileLabel.
+    // const autoShare = (profile.role !== ROLE.STUDENT);
+    if (profile.sharePicture /* || autoShare */) {
       publicData.picture = profile.picture;
     }
-    if (profile.shareWebsite || autoShare) {
+    if (profile.shareWebsite /* || autoShare */) {
       publicData.website = profile.website;
     }
     if (profile.shareLevel) {
@@ -51,11 +52,11 @@ const generatePublicProfileDataObject = (username) => {
       // if shareICE exists, then the user must be a student.
       publicData.ice = StudentProfiles.getEarnedICE(username);
     }
-    if (profile.shareCareerGoals || autoShare) {
+    if (profile.shareCareerGoals /* || autoShare */) {
       const profileDocs = ProfileCareerGoals.findNonRetired({ userID });
       publicData.careerGoals = profileDocs.map(doc => CareerGoals.findSlugByID(doc.careerGoalID));
     }
-    if (profile.shareInterests || autoShare) {
+    if (profile.shareInterests /* || autoShare */) {
       const profileDocs = ProfileInterests.findNonRetired({ userID });
       publicData.interests = profileDocs.map(doc => Interests.findSlugByID(doc.interestID));
     }
@@ -93,6 +94,7 @@ export const setPublicProfileData = new ValidatedMethod({
   mixins: [CallPromiseMixin],
   validate: null,
   run({ username, fieldName, fieldValue }) {
+    // console.log(username, fieldName, fieldValue);
     if (Meteor.isServer) {
       const profile = Users.getProfile(username);
       let profileCollection;

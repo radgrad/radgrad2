@@ -590,6 +590,10 @@ export interface Profile extends Document {
 
 // Advisor and Faculty Profiles
 export interface AdvisorOrFacultyProfile extends Profile {
+  sharePicture?: boolean;
+  shareWebsite?: boolean;
+  shareInterests?: boolean;
+  shareCareerGoals?: boolean;
   aboutMe?: string;
 }
 
@@ -602,6 +606,10 @@ export interface ProfileDefine extends DumpOne {
   interests?: string[];
   careerGoals?: string[];
   retired?: boolean;
+  sharePicture?: boolean;
+  shareWebsite?: boolean;
+  shareInterests?: boolean;
+  shareCareerGoals?: boolean;
 }
 
 export interface AdvisorOrFacultyProfileDefine extends ProfileDefine {
@@ -639,9 +647,17 @@ export interface ProfileUpdate extends Update {
   retired?: boolean;
   courseExplorerFilter?: string;
   opportunityExplorerSortOrder?: string;
+  sharePicture?: boolean;
+  shareWebsite?: boolean;
+  shareInterests?: boolean;
+  shareCareerGoals?: boolean;
 }
 
 export interface AdvisorOrFacultyProfileUpdate extends ProfileUpdate {
+  sharePicture?: boolean;
+  shareWebsite?: boolean;
+  shareInterests?: boolean;
+  shareCareerGoals?: boolean;
   aboutMe?: string;
 }
 

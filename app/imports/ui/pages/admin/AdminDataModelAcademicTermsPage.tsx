@@ -11,7 +11,6 @@ import { AcademicTerm, DescriptionPair } from '../../../typings/radgrad';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import AdminDataModelUpdateForm from '../../components/admin/datamodel/AdminDataModelUpdateForm';
 import AdminDataModelAddForm from '../../components/admin/datamodel/AdminDataModelAddForm';
-import { dataModelActions } from '../../../redux/admin/data-model';
 import { PAGEIDS } from '../../utilities/PageIDs';
 import {
   handleCancelWrapper, handleConfirmDeleteWrapper,
@@ -64,6 +63,7 @@ interface AdminDataModelAcademicTermsPageProps {
  * AdminDataModelAcademicTermsPage.
  * @param {AcademicTerm[]} items
  * @return {JSX.Element}
+ * @memberOf ui/pages/admin
  * @constructor
  */
 const AdminDataModelAcademicTermsPage: React.FC<AdminDataModelAcademicTermsPageProps> = ({ items }) => {
@@ -104,8 +104,6 @@ const AdminDataModelAcademicTermsPage: React.FC<AdminDataModelAcademicTermsPageP
         itemTitle={itemTitle}
         handleOpenUpdate={handleOpenUpdate}
         handleDelete={handleDelete}
-        setShowIndex={dataModelActions.setCollectionShowIndex}
-        setShowCount={dataModelActions.setCollectionShowCount}
         items={items}
       />
       <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete}

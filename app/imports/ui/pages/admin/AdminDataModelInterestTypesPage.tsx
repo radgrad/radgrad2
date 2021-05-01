@@ -10,7 +10,6 @@ import { Interests } from '../../../api/interest/InterestCollection';
 import { Slugs } from '../../../api/slug/SlugCollection';
 import AddInterestTypeForm from '../../components/admin/datamodel/interest/AddInterestTypeForm';
 import UpdateInterestTypeForm from '../../components/admin/datamodel/interest/UpdateInterestTypeForm';
-import { dataModelActions } from '../../../redux/admin/data-model';
 import { itemToSlugName } from '../../components/shared/utilities/data-model';
 import { PAGEIDS } from '../../utilities/PageIDs';
 import {
@@ -103,8 +102,6 @@ const AdminDataModelInterestTypesPage: React.FC<AdminDataModelInterestTypesPageP
         itemTitle={itemTitle}
         handleOpenUpdate={handleOpenUpdate}
         handleDelete={handleDelete}
-        setShowIndex={dataModelActions.setCollectionShowIndex}
-        setShowCount={dataModelActions.setCollectionShowCount}
         items={items}
       />
       <Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete}

@@ -233,7 +233,10 @@ class BaseProfileCollection extends BaseSlugCollection {
    * Destructively modifies updateData with the values of the passed fields.
    * Call this function for side-effect only.
    */
-  protected updateCommonFields(updateData, { firstName, lastName, picture, website, retired, courseExplorerFilter, opportunityExplorerSortOrder }) {
+  protected updateCommonFields(updateData, {
+    firstName, lastName, picture, website, retired, courseExplorerFilter, opportunityExplorerSortOrder, shareWebsite,
+    sharePicture, shareInterests, shareCareerGoals,
+  }) {
     if (firstName) {
       updateData.firstName = firstName; // eslint-disable-line no-param-reassign
     }
@@ -254,6 +257,18 @@ class BaseProfileCollection extends BaseSlugCollection {
     }
     if (_.isString(opportunityExplorerSortOrder)) {
       updateData.opportunityExplorerSortOrder = opportunityExplorerSortOrder; // eslint-disable-line no-param-reassign
+    }
+    if (_.isBoolean(shareCareerGoals)) {
+      updateData.shareCareerGoals = shareCareerGoals; // eslint-disable-line no-param-reassign
+    }
+    if (_.isBoolean(shareInterests)) {
+      updateData.shareInterests = shareInterests; // eslint-disable-line no-param-reassign
+    }
+    if (_.isBoolean(sharePicture)) {
+      updateData.sharePicture = sharePicture; // eslint-disable-line no-param-reassign
+    }
+    if (_.isBoolean(shareWebsite)) {
+      updateData.shareWebsite = shareWebsite; // eslint-disable-line no-param-reassign
     }
     // console.log('_updateCommonFields', updateData);
   }
