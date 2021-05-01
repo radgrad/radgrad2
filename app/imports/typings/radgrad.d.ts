@@ -432,6 +432,14 @@ export interface Opportunity extends Document {
   timestamp: Date;
   // Optional data
   eventDate?: Date;
+  eventDate1?: Date;
+  eventDateLabel1?: string;
+  eventDate2?: Date;
+  eventDateLabel2?: string;
+  eventDate3?: Date;
+  eventDateLabel3?: string;
+  eventDate4?: Date;
+  eventDateLabel4?: string;
   ice?: Ice;
   picture?: string;
   retired?: boolean;

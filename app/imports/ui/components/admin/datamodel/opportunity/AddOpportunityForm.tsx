@@ -45,6 +45,7 @@ const AddOpportunityForm: React.FC<AddOpportunityFormProps> = ({ sponsors, inter
   const termNames = terms.map(academicTermToName);
   const opportunityTypeNames = opportunityTypes.map(docToName);
   const interestNames = interests.map(docToName);
+
   const handleUploadPicture = async (e): Promise<void> => {
     e.preventDefault();
     try {
@@ -69,7 +70,7 @@ const AddOpportunityForm: React.FC<AddOpportunityFormProps> = ({ sponsors, inter
   };
   let formRef;
   const handleAdd = (doc) => {
-    console.log('Opportunities.handleAdd(%o)', doc);
+    // console.log('Opportunities.handleAdd(%o)', doc);
     const collectionName = Opportunities.getCollectionName();
     const definitionData = doc;
     const docInterestNames = doc.interests.map(interestSlugFromName);
@@ -102,6 +103,14 @@ const AddOpportunityForm: React.FC<AddOpportunityFormProps> = ({ sponsors, inter
     interests: Array,
     'interests.$': { type: String, allowedValues: interestNames },
     eventDate: { type: Date, optional: true },
+    eventDate1: { type: Date, optional: true },
+    eventDateLabel1: { type: String, optional: true },
+    eventDate2: { type: Date, optional: true },
+    eventDateLabel2: { type: String, optional: true },
+    eventDate3: { type: Date, optional: true },
+    eventDateLabel3: { type: String, optional: true },
+    eventDate4: { type: Date, optional: true },
+    eventDateLabel4: { type: String, optional: true },
     ice: iceSchema,
     retired: { type: Boolean, optional: true },
     picture: { type: String, optional: true },
@@ -124,7 +133,22 @@ const AddOpportunityForm: React.FC<AddOpportunityFormProps> = ({ sponsors, inter
           <MultiSelectField name="terms" />
           <MultiSelectField name="interests" />
         </Form.Group>
-        <DateField name="eventDate" />
+        <Form.Group widths="equal">
+          <DateField name="eventDate1" />
+          <TextField name="eventDateLabel1" />
+        </Form.Group>
+        <Form.Group widths="equal">
+          <DateField name="eventDate2" />
+          <TextField name="eventDateLabel2" />
+        </Form.Group>
+        <Form.Group widths="equal">
+          <DateField name="eventDate3" />
+          <TextField name="eventDateLabel3" />
+        </Form.Group>
+        <Form.Group widths="equal">
+          <DateField name="eventDate4" />
+          <TextField name="eventDateLabel4" />
+        </Form.Group>
         <Form.Group widths="equal">
           <NumField name="ice.i" />
           <NumField name="ice.c" />
