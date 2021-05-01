@@ -2,7 +2,6 @@
 import { Accounts } from 'meteor/accounts-base';
 import { SyncedCron } from 'meteor/littledata:synced-cron';
 import { Meteor } from 'meteor/meteor';
-import { AcademicTerms } from '../../api/academic-term/AcademicTermCollection';
 import { ensureFutureAcademicTerms } from '../../api/academic-term/AcademicTermUtilities';
 import { userInteractionManager } from '../../api/user-interaction/UserInteractionManager';
 import { removeAllEntities } from '../../api/base/BaseUtilities';

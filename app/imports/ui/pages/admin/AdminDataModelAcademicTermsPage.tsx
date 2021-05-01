@@ -11,7 +11,6 @@ import { AcademicTerm, DescriptionPair } from '../../../typings/radgrad';
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
 import AdminDataModelUpdateForm from '../../components/admin/datamodel/AdminDataModelUpdateForm';
 import AdminDataModelAddForm from '../../components/admin/datamodel/AdminDataModelAddForm';
-import { dataModelActions } from '../../../redux/admin/data-model';
 import { PAGEIDS } from '../../utilities/PageIDs';
 import {
   handleCancelWrapper, handleConfirmDeleteWrapper,

@@ -19,7 +19,6 @@ import { Interests } from '../../../api/interest/InterestCollection';
 import { courseNameToSlug, courseToName, itemToSlugName, interestNameToId } from '../../components/shared/utilities/data-model';
 import AddCourseForm from '../../components/admin/datamodel/course/AddCourseForm';
 import UpdateCourseForm from '../../components/admin/datamodel/course/UpdateCourseForm';
-import { dataModelActions } from '../../../redux/admin/data-model';
 import PageLayout from '../PageLayout';
 
 const collection = Courses; // the collection to use.
@@ -109,8 +108,6 @@ const AdminDataModelCoursesPage: React.FC<AdminDataModelCoursesPageProps> = ({ i
         itemTitle={itemTitle}
         handleOpenUpdate={handleOpenUpdate}
         handleDelete={handleDelete}
-        setShowIndex={dataModelActions.setCollectionShowIndex}
-        setShowCount={dataModelActions.setCollectionShowCount}
         items={items}
       />
 
