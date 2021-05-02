@@ -19,10 +19,10 @@ export class ManageReviewsChecklist extends Checklist {
     this.title[CHECKSTATE.OK] = 'Thanks! There are no pending reviews';
     this.title[CHECKSTATE.IMPROVE] = 'Please process the pending reviews';
     // Specify the description for each state.
-    this.description[CHECKSTATE.OK] = 'Thanks, for processing the pending reivews.';
+    this.description[CHECKSTATE.OK] = 'Thanks, for processing the pending reviews.';
     this.description[CHECKSTATE.IMPROVE] = `RadGrad is designed to support well rounded students. 
     Part of that is offering extracurricular opportunities and verifying participation.
-    There are pending reivews.`;
+    There are pending reviews.`;
 
     this.updateState();
   }
