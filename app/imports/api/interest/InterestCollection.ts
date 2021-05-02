@@ -8,7 +8,7 @@ import { CareerGoals } from '../career/CareerGoalCollection';
 import { Opportunities } from '../opportunity/OpportunityCollection';
 import { Teasers } from '../teaser/TeaserCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
-import { InterestDefine, InterestUpdate } from '../../typings/radgrad';
+import { CareerGoal, Course, InterestDefine, InterestUpdate, Opportunity } from '../../typings/radgrad';
 
 /**
  * Represents a specific interest, such as "Software Engineering".
@@ -141,6 +141,39 @@ class InterestCollection extends BaseSlugCollection {
   public findNames(instanceIDs: string[]) {
     // console.log('Interests.findNames(%o)', instanceIDs);
     return instanceIDs.map((instanceID) => this.findDoc(instanceID).name);
+  }
+
+  /**
+   * Returns a list of the CareerGoals that have the given interest.
+   * @param {string} docIdOrSlug an interest ID or slug.
+   * @return {CareerGoal[]} CareerGoals that have the given interest.
+   */
+  public findRelatedCareerGoals(docIdOrSlug: string): CareerGoal[] {
+    const interestID = this.getID(docIdOrSlug);
+    const careerGoals = CareerGoals.findNonRetired();
+    return careerGoals.filter((goal) => goal.interestIDs.includes(interestID));
+  }
+
+  /**
+   * Returns a list of Courses that have the given interest.
+   * @param {string} docIdOrSlug an interest ID or slug.
+   * @return {Course[]} Courses that have the given interest.
+   */
+  public findRelatedCourses(docIdOrSlug: string): Course[] {
+    const interestID = this.getID(docIdOrSlug);
+    const courses = Courses.findNonRetired();
+    return courses.filter((course) => course.interestIDs.includes(interestID));
+  }
+
+  /**
+   * Returns a list of the Opportunities that have the given interest.
+   * @param {string} docIdOrSlug an interest ID or slug.
+   * @return {Opportunity[]} Opportunities that have the given interest.
+   */
+  public findRelatedOpportunities(docIdOrSlug: string): Opportunity[] {
+    const interestID = this.getID(docIdOrSlug);
+    const opportunities = Opportunities.findNonRetired();
+    return opportunities.filter((opp) => opp.interestIDs.includes(interestID));
   }
 
   /**

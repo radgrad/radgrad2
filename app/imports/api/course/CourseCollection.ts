@@ -1,11 +1,13 @@
 import { Meteor } from 'meteor/meteor';
 import _ from 'lodash';
 import SimpleSchema from 'simpl-schema';
+import { CareerGoals } from '../career/CareerGoalCollection';
+import { Opportunities } from '../opportunity/OpportunityCollection';
 import { Slugs } from '../slug/SlugCollection';
 import { Interests } from '../interest/InterestCollection';
 import { CourseInstances } from './CourseInstanceCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
-import { CourseDefine, CourseUpdate } from '../../typings/radgrad';
+import { CareerGoal, CourseDefine, CourseUpdate, Opportunity } from '../../typings/radgrad';
 import { isSingleChoice, complexChoiceToArray } from '../degree-plan/PlanChoiceUtilities';
 import { validateCourseSlugFormat } from './CourseUtilities';
 
@@ -249,6 +251,30 @@ class CourseCollection extends BaseSlugCollection {
     return instanceIDs.map((instanceID) => this.findDoc(instanceID).name);
   }
 
+
+  /**
+   * Returns a list of CareerGoals that have common interests.
+   * @param {string} docIdOrSlug an interest ID or slug.
+   * @return {CareerGoals[]} Courses that have the given interest.
+   */
+  public findRelatedCareerGoals(docIdOrSlug: string): CareerGoal[] {
+    const docID = this.getID(docIdOrSlug);
+    const interestIDs = this.findDoc(docID).interestIDs;
+    const goals = CareerGoals.findNonRetired();
+    return goals.filter((goal) => goal.interestIDs.filter((x) => interestIDs.includes(x)).length > 0);
+  }
+
+  /**
+   * Returns a list of the Opportunities that have common interests.
+   * @param {string} docIdOrSlug an interest ID or slug.
+   * @return {Opportunity[]} Opportunities that have the given interest.
+   */
+  public findRelatedOpportunities(docIdOrSlug: string): Opportunity[] {
+    const docID = this.getID(docIdOrSlug);
+    const interestIDs = this.findDoc(docID).interestIDs;
+    const opportunities = Opportunities.findNonRetired();
+    return opportunities.filter((opp) => opp.interestIDs.filter((x) => interestIDs.includes(x)).length > 0);
+  }
 
   /**
    * Returns an array of strings, each one representing an integrity problem with this collection.
