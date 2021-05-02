@@ -27,7 +27,7 @@ This page contains a personalized set of recommendations to help you configure R
 `;
 
 const AdvisorHomePage: React.FC<HomePageProps> = ({ okItems, reviewItems, improveItems }) => (
-  <PageLayout id={PAGEIDS.FACULTY_HOME_PAGE} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
+  <PageLayout id={PAGEIDS.ADVISOR_HOME} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
     <HomePageChecklistSegment okItems={okItems} reviewItems={reviewItems} improveItems={improveItems} />
   </PageLayout>
 );
