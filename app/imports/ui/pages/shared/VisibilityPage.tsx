@@ -28,7 +28,7 @@ As faculty, admin, or advisor, it is useful to both fill out your profile and ma
 const headerPaneImage = 'header-privacy.png';
 
 interface VisibilityPageProps {
-  profile: AdvisorOrFacultyProfile;
+  profile: AdvisorOrFacultyProfile | StudentProfile;
 }
 
 interface CheckboxState {

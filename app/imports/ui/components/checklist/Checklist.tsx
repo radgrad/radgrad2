@@ -21,6 +21,7 @@ export class Checklist {
   protected title = {};
   protected description = {};
   protected stateColor = {};
+  protected role = '';
 
   constructor() {
     this.stateColor[CHECKSTATE.OK] = 'green';

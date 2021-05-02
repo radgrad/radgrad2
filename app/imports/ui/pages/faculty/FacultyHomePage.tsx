@@ -4,6 +4,7 @@ import { Card, Menu, Tab } from 'semantic-ui-react';
 import { CareerGoalsChecklist } from '../../components/checklist/CareerGoalsChecklist';
 import { CHECKSTATE } from '../../components/checklist/Checklist';
 import { InterestsChecklist } from '../../components/checklist/InterestsChecklist';
+import { ManageOpportunitiesChecklist } from '../../components/checklist/ManageOpportunitiesChecklist';
 import { TermsAndConditionsChecklist } from '../../components/checklist/TermsAndConditionsChecklist';
 import { VisibilityChecklist } from '../../components/checklist/VisibilityChecklist';
 import RadGradHeader from '../../components/shared/RadGradHeader';
@@ -90,6 +91,7 @@ export default withTracker(() => {
   checklists.push(new InterestsChecklist(currentUser));
   checklists.push(new CareerGoalsChecklist(currentUser));
   checklists.push(new VisibilityChecklist(currentUser));
+  checklists.push(new ManageOpportunitiesChecklist(currentUser));
   checklists.forEach((checklist) => {
     switch (checklist.getState()) {
       case CHECKSTATE.IMPROVE:

@@ -5,7 +5,7 @@ import { ProfileCareerGoals } from '../../../api/user/profile-entries/ProfileCar
 import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { StudentProfile } from '../../../typings/radgrad';
-import { EXPLORER, URL_ROLES } from '../../layouts/utilities/route-constants';
+import { EXPLORER } from '../../layouts/utilities/route-constants';
 import { PAGEIDS } from '../../utilities/PageIDs';
 import ProfileCareerGoalList from '../shared/ProfileCareerGoalList';
 import { Checklist, CHECKSTATE } from './Checklist';
@@ -16,10 +16,11 @@ import { ChecklistButtonAction, ChecklistButtonLink } from './ChecklistButtons';
 export class CareerGoalsChecklist extends Checklist {
   private profile: StudentProfile;
 
-  constructor(student: string) {
+  constructor(username: string) {
     super();
     this.name = 'Career Goals';
-    this.profile = Users.getProfile(student);
+    this.profile = Users.getProfile(username);
+    this.role = this.profile.role;
     this.iconName = 'briefcase';
     // Specify title for each state.
     this.title[CHECKSTATE.OK] = 'Your Career Goals appear to be OK';
@@ -83,20 +84,20 @@ export class CareerGoalsChecklist extends Checklist {
       case CHECKSTATE.OK:
         return (
           <ActionsBox description='Use the Career Goals Explorer to add them to your profile:'>
-            <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.CAREERGOALS}`} label='Career Goals Explorer'/>
+            <ChecklistButtonLink url={`/${this.role.toLowerCase()}/${this.profile.username}/${EXPLORER.CAREERGOALS}`} label='Career Goals Explorer'/>
           </ActionsBox>
         );
       case CHECKSTATE.REVIEW:
         return (
           <ActionsBox description='Use the Career Goals Explorer to add them to your profile. Or, click "My Career Goals are OK" if they are OK:' >
-            <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.CAREERGOALS}`} label='Career Goals Explorer'/>
+            <ChecklistButtonLink url={`/${this.role.toLowerCase()}/${this.profile.username}/${EXPLORER.CAREERGOALS}`} label='Career Goals Explorer'/>
             <ChecklistButtonAction onClick={handleVerification} label='Career Goals are OK'/>
           </ActionsBox>
         );
       case CHECKSTATE.IMPROVE:
         return (
           <ActionsBox description='Use the Career Goals Explorer to add at least 3 Career Goals to your profile:' >
-            <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.CAREERGOALS}`} label='Career Goals Explorer'/>
+            <ChecklistButtonLink url={`/${this.role.toLowerCase()}/${this.profile.username}/${EXPLORER.CAREERGOALS}`} label='Career Goals Explorer'/>
           </ActionsBox>
         );
       default:
