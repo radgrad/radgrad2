@@ -610,6 +610,7 @@ export interface ProfileDefine extends DumpOne {
   shareWebsite?: boolean;
   shareInterests?: boolean;
   shareCareerGoals?: boolean;
+  lastVisited?: Record<string, string>;
 }
 
 export interface AdvisorOrFacultyProfileDefine extends ProfileDefine {
@@ -674,7 +675,6 @@ export interface StudentProfile extends Profile {
   shareLevel?: boolean;
   shareICE?: boolean;
   lastRegistrarLoad?: string;
-  lastVisited: Record<string, string>;
   lastLeveledUp?: string;
   acceptedTermsAndConditions?: string;
   refusedTermsAndConditions?: string;

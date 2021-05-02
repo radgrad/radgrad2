@@ -13,16 +13,11 @@ import { VerificationChecklist } from '../../components/checklist/VerificationCh
 import RadGradHeader from '../../components/shared/RadGradHeader';
 import RadGradSegment from '../../components/shared/RadGradSegment';
 import RadGradTabHeader from '../../components/shared/RadGradTabHeader';
+import { HomePageProps } from '../../utilities/HomePageProps';
 import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
 import { CHECKSTATE } from '../../components/checklist/Checklist';
 import './style.css';
-
-interface StudentHomePageProps {
-  okItems: JSX.Element[];
-  reviewItems: JSX.Element[];
-  improveItems: JSX.Element[];
-}
 
 const headerPaneTitle = 'Make the most of RadGrad';
 const headerPaneBody = `
@@ -33,7 +28,7 @@ const headerPaneBody = `
 `;
 const headerPaneImage = 'header-home.png';
 
-const StudentHomePage: React.FC<StudentHomePageProps> = ({ okItems, reviewItems, improveItems }) => {
+const StudentHomePage: React.FC<HomePageProps> = ({ okItems, reviewItems, improveItems }) => {
   const improveTabHeader = <RadGradTabHeader title={`High Priority: Please fix (${improveItems.length})`} icon='exclamation circle' />;
   const reviewTabHeader = <RadGradTabHeader title={`Medium Priority: For review (${reviewItems.length})`} icon='question circle' />;
   const okTabHeader = <RadGradTabHeader title={`Low Priority: Looks good (${okItems.length})`} icon='check circle' />;
