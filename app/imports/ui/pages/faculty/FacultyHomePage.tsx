@@ -7,6 +7,8 @@ import { InterestsChecklist } from '../../components/checklist/InterestsChecklis
 import { ManageOpportunitiesChecklist } from '../../components/checklist/ManageOpportunitiesChecklist';
 import { ManageReviewsChecklist } from '../../components/checklist/ManageReviewsChecklist';
 import { ManageVerificationRequestsChecklist } from '../../components/checklist/ManageVerificationRequestsChecklist';
+import { ReviewCareerGoalsChecklist } from '../../components/checklist/ReviewCareerGoalsChecklist';
+import { ReviewInterestsChecklist } from '../../components/checklist/ReviewInterestsChecklist';
 import { TermsAndConditionsChecklist } from '../../components/checklist/TermsAndConditionsChecklist';
 import { VisibilityChecklist } from '../../components/checklist/VisibilityChecklist';
 import RadGradHeader from '../../components/shared/RadGradHeader';
@@ -96,6 +98,8 @@ export default withTracker(() => {
   checklists.push(new ManageOpportunitiesChecklist(currentUser));
   checklists.push(new ManageVerificationRequestsChecklist(currentUser));
   checklists.push(new ManageReviewsChecklist(currentUser));
+  checklists.push(new ReviewInterestsChecklist(currentUser));
+  checklists.push(new ReviewCareerGoalsChecklist(currentUser));
   checklists.forEach((checklist) => {
     switch (checklist.getState()) {
       case CHECKSTATE.IMPROVE:
