@@ -17,9 +17,6 @@ Note that User Interactions are generated for each day around midnight. So, toda
 `;
 
 /** TODO:
- * Invoke the UserInteraction update() on startup so we get UIs generated for current day. Helps testing.
- * Fix the update so that it only adds a record if not already present. Thus we can run update() anytime.
- * Add an object that maps a UI type to a description of it.
  * What are the kinds of UI analyses that we need going forward:
  *   * Aggregate based: get rid of the time:
  *   * Behaviors: Would be good to have a toggle to be select everyone or else select a single user.
@@ -32,8 +29,6 @@ const startOf = date => moment(date).startOf('day').toDate();
 const startStickyStateID = 'AdminAnalyticsStudentSummaryPage.startDate';
 const endStickyStateID = 'AdminAnalyticsStudentSummaryPage.endDate';
 const userInteractionsStickyStateID = 'AdminAnalyticsStudentSummaryPage.userInteractions';
-
-
 
 const AdminAnalyticsStudentSummaryPage: React.FC = () => {
   const [startDate] = useStickyState(startStickyStateID, startOf(moment().subtract(1, 'days')));

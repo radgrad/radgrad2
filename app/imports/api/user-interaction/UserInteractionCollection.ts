@@ -18,6 +18,19 @@ export enum USER_INTERACTIONS {
   CHANGE_VISIBILITY = 'change-visibility',
 }
 
+/** Provide short documentation string for each User Interaction behavior. */
+export const USER_INTERACTION_DESCRIPTIONS = {};
+USER_INTERACTION_DESCRIPTIONS[USER_INTERACTIONS.LOGIN] = 'Visit to any page.';
+USER_INTERACTION_DESCRIPTIONS[USER_INTERACTIONS.CHANGE_OUTLOOK] = 'Change to profile regarding Interests, Career Goals, Courses, or Opportunities.';
+USER_INTERACTION_DESCRIPTIONS[USER_INTERACTIONS.EXPLORE] = 'Visit to any Explorer pages.';
+USER_INTERACTION_DESCRIPTIONS[USER_INTERACTIONS.PLAN] = 'Visit to the Degree Planner page.';
+USER_INTERACTION_DESCRIPTIONS[USER_INTERACTIONS.VERIFY] = 'Submission of a Verification Request';
+USER_INTERACTION_DESCRIPTIONS[USER_INTERACTIONS.REVIEW] = 'Submission of a Review';
+USER_INTERACTION_DESCRIPTIONS[USER_INTERACTIONS.LEVEL_UP] = 'Change in Level.';
+USER_INTERACTION_DESCRIPTIONS[USER_INTERACTIONS.COMPLETE_PLAN] = 'Degree Plan achieves 100 planned points in Innovation, Competency, and Experience.';
+USER_INTERACTION_DESCRIPTIONS[USER_INTERACTIONS.CHANGE_VISIBILITY] = 'Change to visibility settings';
+
+
 /**
  * Represents a log of user interactions with RadGrad.
  * @extends api/base.BaseCollection

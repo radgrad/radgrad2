@@ -18,7 +18,7 @@ const afterMidnight = (parser) => parser.text('at 12:05 am');
 const beforeMidnight = (parser) => parser.text('at 11:55 pm');
 
 // Useful for debugging
-const every15seconds = (parser) => parser.text('every 15 seconds');
+// const every15seconds = (parser) => parser.text('every 15 seconds');
 
 SyncedCron.add({ name: 'Update Factoids', schedule: every24Hours, job: updateFactoids });
 SyncedCron.add({ name: 'Update Public Stats', schedule: afterMidnight, job: PublicStats.generateStats });

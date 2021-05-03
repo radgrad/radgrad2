@@ -56,6 +56,8 @@ const normalInitialization = () => {
   userInteractionManager.initialize();
   console.log('  * Initializing cron jobs');
   SyncedCron.start();
+  // Finally, run the daily update to simplify development:
+  userInteractionManager.dailyUpdate();
 };
 
 Meteor.startup(() => {
