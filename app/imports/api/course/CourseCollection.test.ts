@@ -3,6 +3,7 @@ import { expect } from 'chai';
 import faker from 'faker';
 import fc from 'fast-check';
 import 'mocha';
+import { defineTestFixtures } from '../test/test-utilities';
 import { Courses } from './CourseCollection';
 import { makeSampleInterest, makeSampleInterestArray } from '../interest/SampleInterests';
 import { removeAllEntities } from '../base/BaseUtilities';
@@ -125,6 +126,26 @@ if (Meteor.isServer) {
       const courseID = makeSampleCourse({ interestID });
       expect(Courses.hasInterest(courseID, interestID)).to.be.true;
       expect(Courses.hasInterest(courseID, badInterestID)).to.be.false;
+    });
+
+    it('Can findRelatedCareerGoals', function test9() {
+      defineTestFixtures(['minimal', 'betty.student']);
+      let course = Courses.findDoc('Introduction to Computer Science I');
+      let relatedCareerGoals = Courses.findRelatedCareerGoals(course._id);
+      expect(relatedCareerGoals.length).to.equal(0);
+      course = Courses.findDoc('Discrete Mathematics for Computer Science I');
+      relatedCareerGoals = Courses.findRelatedCareerGoals(course._id);
+      expect(relatedCareerGoals.length).to.equal(2);
+    });
+
+    it('Can findRelatedOpportunities', function test10() {
+      defineTestFixtures(['opportunities']);
+      let course = Courses.findDoc('Introduction to Computer Science I');
+      let relatedOpportunities = Courses.findRelatedOpportunities(course._id);
+      expect(relatedOpportunities.length).to.equal(1);
+      course = Courses.findDoc('Discrete Mathematics for Computer Science I');
+      relatedOpportunities = Courses.findRelatedOpportunities(course._id);
+      expect(relatedOpportunities.length).to.equal(1);
     });
   });
 }

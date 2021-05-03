@@ -7,7 +7,7 @@ import { RadGradProperties } from '../../../api/radgrad/RadGradProperties';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { StudentProfile, StudentProfileUpdate } from '../../../typings/radgrad';
-import { TERMS_AND_CONDITIONS, URL_ROLES } from '../../layouts/utilities/route-constants';
+import { TERMS_AND_CONDITIONS } from '../../layouts/utilities/route-constants';
 import { Checklist, CHECKSTATE } from './Checklist';
 import { DetailsBox } from './DetailsBox';
 import { ChecklistButtonAction, ChecklistButtonLink } from './ChecklistButtons';
@@ -16,10 +16,11 @@ import { ActionsBox } from './ActionsBox';
 export class TermsAndConditionsChecklist extends Checklist {
   private profile: StudentProfile;
 
-  constructor(student: string) {
+  constructor(username: string) {
     super();
     this.name = 'Terms & Conditions';
-    this.profile = Users.getProfile(student);
+    this.profile = Users.getProfile(username);
+    this.role = this.profile.role;
     this.iconName = 'file alternate';
     this.title[CHECKSTATE.OK] = 'Thanks for approving RadGrad\'s Terms and Conditions';
     this.title[CHECKSTATE.IMPROVE] = 'Please approve RadGrad\'s Terms and Conditions';
@@ -42,7 +43,7 @@ export class TermsAndConditionsChecklist extends Checklist {
   }
 
   public getDetails(): JSX.Element {
-    const url = `/${URL_ROLES.STUDENT}/${this.profile.username}/${TERMS_AND_CONDITIONS}`;
+    const url = `/${this.role.toLowerCase()}/${this.profile.username}/${TERMS_AND_CONDITIONS}`;
     return (
       <DetailsBox description='To review Terms and Conditions:'>
         <ChecklistButtonLink url={url} label='Terms and Conditions Page'/>

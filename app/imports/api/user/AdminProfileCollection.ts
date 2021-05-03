@@ -45,6 +45,7 @@ class AdminProfileCollection extends BaseProfileCollection {
     shareWebsite = true,
     shareInterests = true,
     shareCareerGoals = true,
+    lastVisited = {},
   }: ProfileDefine) {
     if (Meteor.isServer) {
       const user = Meteor.users.findOne({ username });
@@ -65,6 +66,7 @@ class AdminProfileCollection extends BaseProfileCollection {
           shareWebsite,
           shareInterests,
           shareCareerGoals,
+          lastVisited,
         });
         const userID = Users.define({ username, role });
         this.collection.update(profileID, { $set: { userID } });

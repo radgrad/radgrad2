@@ -3,8 +3,8 @@ import React from 'react';
 import { PublicStats } from '../../../api/public-stats/PublicStatsCollection';
 import { updateLastVisited } from '../../../api/user/BaseProfileCollection.methods';
 import { Users } from '../../../api/user/UserCollection';
-import { StudentProfile } from '../../../typings/radgrad';
-import { EXPLORER, URL_ROLES } from '../../layouts/utilities/route-constants';
+import { Profile } from '../../../typings/radgrad';
+import { EXPLORER } from '../../layouts/utilities/route-constants';
 import { PAGEIDS } from '../../utilities/PageIDs';
 import ProfileInterestList from '../shared/ProfileInterestList';
 import { Checklist, CHECKSTATE } from './Checklist';
@@ -13,12 +13,13 @@ import { ActionsBox } from './ActionsBox';
 import { ChecklistButtonAction, ChecklistButtonLink } from './ChecklistButtons';
 
 export class InterestsChecklist extends Checklist {
-  private profile: StudentProfile;
+  private profile: Profile;
 
-  constructor(student: string) {
+  constructor(username: string) {
     super();
     this.name = 'Interests';
-    this.profile = Users.getProfile(student);
+    this.profile = Users.getProfile(username);
+    this.role = this.profile.role;
     this.iconName = 'heart';
     // Specify title for each state
     this.title[CHECKSTATE.OK] = 'Your Interests appear to be OK';
@@ -79,13 +80,13 @@ export class InterestsChecklist extends Checklist {
       case CHECKSTATE.IMPROVE:
         return (
           <ActionsBox description='Use the Interests Explorer to search for Interests to add to your profile. You should have at least 3.'>
-            <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.INTERESTS}`} label='Interests Explorer'/>
+            <ChecklistButtonLink url={`/${this.role.toLowerCase()}/${this.profile.username}/${EXPLORER.INTERESTS}`} label='Interests Explorer'/>
           </ActionsBox>
         );
       case CHECKSTATE.REVIEW:
         return (
           <ActionsBox description='Use the Interests Explorer to search for Interests to add to your profile. Click "My Interests are OK if you think they are fine as is:' >
-            <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${EXPLORER.INTERESTS}`} label='Interests Explorer'/>
+            <ChecklistButtonLink url={`/${this.role.toLowerCase()}/${this.profile.username}/${EXPLORER.INTERESTS}`} label='Interests Explorer'/>
             <ChecklistButtonAction onClick={handleVerification} label='My Interests are OK'/>
           </ActionsBox>
         );
