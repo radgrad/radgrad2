@@ -6,6 +6,7 @@ import { InterestsChecklist } from '../../components/checklist/InterestsChecklis
 import { ManageOpportunitiesChecklist } from '../../components/checklist/ManageOpportunitiesChecklist';
 import { ManageReviewsChecklist } from '../../components/checklist/ManageReviewsChecklist';
 import { ManageVerificationRequestsChecklist } from '../../components/checklist/ManageVerificationRequestsChecklist';
+import { OutOfDateOpportunitiesChecklist } from '../../components/checklist/OutOfDateOpportunitiesChecklist';
 import { ReviewCareerGoalsChecklist } from '../../components/checklist/ReviewCareerGoalsChecklist';
 import { ReviewInterestsChecklist } from '../../components/checklist/ReviewInterestsChecklist';
 import { TermsAndConditionsChecklist } from '../../components/checklist/TermsAndConditionsChecklist';
@@ -47,6 +48,7 @@ export default withTracker(() => {
   checklists.push(new ManageReviewsChecklist(currentUser));
   checklists.push(new ReviewInterestsChecklist(currentUser));
   checklists.push(new ReviewCareerGoalsChecklist(currentUser));
+  checklists.push(new OutOfDateOpportunitiesChecklist(currentUser));
   checklists.forEach((checklist) => {
     switch (checklist.getState()) {
       case CHECKSTATE.IMPROVE:

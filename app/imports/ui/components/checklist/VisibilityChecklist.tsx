@@ -29,7 +29,7 @@ export class VisibilityChecklist extends Checklist {
   }
 
   public updateState(): void {
-    console.log(this.profile.lastVisited);
+    // console.log(this.profile.lastVisited);
     const lastVisited = this.profile.lastVisited[PAGEIDS.VISIBILITY] || this.profile.lastVisited[PAGEIDS.STUDENT_VISIBILITY];
     if (lastVisited) {
       if (this.isSixMonthsOld(lastVisited)) {

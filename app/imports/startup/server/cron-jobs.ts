@@ -25,4 +25,3 @@ SyncedCron.add({ name: 'Update Public Stats', schedule: afterMidnight, job: Publ
 SyncedCron.add({ name: 'Update Forecasts', schedule: afterMidnight, job: () => RadGradForecasts.updateForecasts() });
 SyncedCron.add({ name: 'Update Whats New', schedule: afterMidnight, job: () => whatsNew.updateData() });
 SyncedCron.add({ name: 'Update User Interactions', schedule: beforeMidnight, job: () => userInteractionManager.dailyUpdate() });
-
