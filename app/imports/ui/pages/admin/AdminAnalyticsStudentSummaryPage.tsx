@@ -2,6 +2,7 @@ import moment from 'moment';
 import React from 'react';
 import { Header, Segment, Table } from 'semantic-ui-react';
 import { userInteractionFindMethod } from '../../../api/user-interaction/UserInteractionCollection.methods';
+import BehaviorAggregates from '../../components/admin/analytics/BehaviorAggregates';
 import DateIntervalSelector from '../../components/admin/analytics/DateIntervalSelector';
 import { PAGEIDS } from '../../utilities/PageIDs';
 import { useStickyState } from '../../utilities/StickyState';
@@ -41,24 +42,13 @@ const AdminAnalyticsStudentSummaryPage: React.FC = () => {
       .catch(error => console.error(error.message))
       .then(results => setUserInteractions(results));
   };
-  console.log('user interactions', userInteractions);
+  console.log('userInteractions', userInteractions);
   return (
     <PageLayout id={PAGEIDS.ANALYTICS_STUDENT_SUMMARY} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
       <Segment>
         <Header as="h4" dividing>Select Interval</Header>
         <DateIntervalSelector startStickyStateID={startStickyStateID} endStickyStateID={endStickyStateID} onClick={onClick} />
-        { userInteractions &&
-        <Table basic>
-          <Table.Header>
-            <Table.Row>
-              <Table.HeaderCell>Behavior</Table.HeaderCell>
-              <Table.HeaderCell>Users</Table.HeaderCell>
-              <Table.HeaderCell>Description</Table.HeaderCell>
-            </Table.Row>
-          </Table.Header>
-        </Table>
-        }
-
+        { userInteractions && <BehaviorAggregates userInteractions={userInteractions} /> }
       </Segment>
     </PageLayout>
   );

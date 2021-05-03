@@ -33,6 +33,7 @@ USER_INTERACTION_DESCRIPTIONS[USER_INTERACTIONS.CHANGE_VISIBILITY] = 'Change to 
 
 /**
  * Represents a log of user interactions with RadGrad.
+ * There should be only one user interaction document of a given type for a given user on a given day.
  * @extends api/base.BaseCollection
  * @memberOf api/user-interaction
  */
@@ -53,11 +54,11 @@ class UserInteractionCollection extends BaseCollection {
     if (Meteor.isServer) {
       this.collection.rawCollection().createIndex({ username: 1, type: 1, day: 1 });
     }
-
   }
 
   /**
    * Defines a user interaction record.
+   * Returns an existing one if the username, type, and timestamp all match exactly.
    * @param username The username.
    * @param type The interaction type.
    * @param typeData Optional. Any data associated with the interaction type. Defaults to [].

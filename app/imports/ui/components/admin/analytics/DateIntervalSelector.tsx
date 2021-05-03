@@ -13,6 +13,9 @@ interface DateIntervalSelectorProps {
   onClick: () => any;
 }
 
+// Button does not return to normal state after click due to focus. See here for explanation:
+// https://stackoverflow.com/questions/63201006/semanticui-button-still-active-after-clicked
+
 const startOf = date => moment(date).startOf('day').toDate();
 
 const DateIntervalSelector: React.FC<DateIntervalSelectorProps> = ({ startStickyStateID, endStickyStateID, onClick }) => {
