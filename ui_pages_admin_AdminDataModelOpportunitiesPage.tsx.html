@@ -118,16 +118,34 @@ const collection = Opportunities; // the collection to use.
  * Returns an array of Description pairs used in the ListCollectionWidget.
  * @param item an item from the collection.
  */
-const descriptionPairs = (item: Opportunity): DescriptionPair[] => [
-  { label: 'Description', value: item.description },
-  { label: 'Opportunity Type', value: OpportunityTypes.findDoc(item.opportunityTypeID).name },
-  { label: 'Sponsor', value: Users.getProfile(item.sponsorID).username },
-  { label: 'Interests', value: _.sortBy(Interests.findNames(item.interestIDs)) },
-  { label: 'Academic Terms', value: item.termIDs.map((id: string) => AcademicTerms.toString(id, false)) },
-  { label: 'ICE', value: `${item.ice.i}, ${item.ice.c}, ${item.ice.e}` },
-  { label: 'Picture', value: makeMarkdownLink(item.picture) },
-  { label: 'Retired', value: item.retired ? 'True' : 'False' },
-];
+const descriptionPairs = (item: Opportunity): DescriptionPair[] => {
+  const retVal = [
+    { label: 'Description', value: item.description },
+    { label: 'Opportunity Type', value: OpportunityTypes.findDoc(item.opportunityTypeID).name },
+    { label: 'Sponsor', value: Users.getProfile(item.sponsorID).username },
+    { label: 'Interests', value: _.sortBy(Interests.findNames(item.interestIDs)) },
+    { label: 'Academic Terms', value: item.termIDs.map((id: string) => AcademicTerms.toString(id, false)) },
+    { label: 'ICE', value: `${item.ice.i}, ${item.ice.c}, ${item.ice.e}` },
+    { label: 'Picture', value: makeMarkdownLink(item.picture) },
+    { label: 'Retired', value: item.retired ? 'True' : 'False' },
+  ];
+  if (item.eventDate) {
+    retVal.push({ label: 'Event Date', value: item.eventDate.toDateString() });
+  }
+  if (item.eventDate1 &amp;&amp; item.eventDateLabel1) {
+    retVal.push({ label: 'Event Date 1', value: `${item.eventDate1.toDateString()} ${item.eventDateLabel1}` });
+  }
+  if (item.eventDate2 &amp;&amp; item.eventDateLabel2) {
+    retVal.push({ label: 'Event Date 2', value: `${item.eventDate2.toDateString()} ${item.eventDateLabel2}` });
+  }
+  if (item.eventDate3 &amp;&amp; item.eventDateLabel3) {
+    retVal.push({ label: 'Event Date 3', value: `${item.eventDate3.toDateString()} ${item.eventDateLabel3}` });
+  }
+  if (item.eventDate4 &amp;&amp; item.eventDateLabel4) {
+    retVal.push({ label: 'Event Date 4', value: `${item.eventDate4.toDateString()} ${item.eventDateLabel4}` });
+  }
+  return retVal;
+};
 
 /**
  * Returns the title string for the item. Used in the ListCollectionWidget.
