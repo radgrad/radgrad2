@@ -17,8 +17,8 @@ import { Users } from '../../../../api/user/UserCollection';
 import { ProfileOpportunities } from '../../../../api/user/profile-entries/ProfileOpportunityCollection';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
 import ExplorerMenu from '../../../components/shared/explorer/item-view/ExplorerMenu';
-import ExplorerOpportunityWidget
-  from '../../../components/shared/explorer/item-view/opportunity/ExplorerOpportunityWidget';
+import ExplorerOpportunity
+  from '../../../components/shared/explorer/item-view/opportunity/ExplorerOpportunity';
 import { teaser } from '../../../components/shared/explorer/item-view/utilities/teaser';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import { OpportunityTypes } from '../../../../api/opportunity/OpportunityTypeCollection';
@@ -100,8 +100,8 @@ const OpportunityViewPage: React.FC<OpportunityViewPageProps> = ({
             <RelatedCareerGoals careerGoals={relatedCareerGoals} userID={profile.userID} />
           </Grid.Column>
           <Grid.Column width={13}>
-            <ExplorerOpportunityWidget name={opportunity.name} descriptionPairs={descriptionPairs} item={opportunity}
-                                       completed={completed} itemReviews={itemReviews} />
+            <ExplorerOpportunity name={opportunity.name} descriptionPairs={descriptionPairs} item={opportunity}
+                                 completed={completed} itemReviews={itemReviews} />
           </Grid.Column>
         </Grid.Row>
       </Grid>
