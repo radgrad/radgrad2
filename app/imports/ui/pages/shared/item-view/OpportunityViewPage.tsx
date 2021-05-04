@@ -2,9 +2,16 @@ import React from 'react';
 import { useParams, useRouteMatch } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Grid } from 'semantic-ui-react';
+import { Interests } from '../../../../api/interest/InterestCollection';
 import { Reviews } from '../../../../api/review/ReviewCollection';
+import { PROFILE_ENTRY_TYPE } from '../../../../api/user/profile-entries/ProfileEntryTypes';
 import { Opportunity, Profile, Review } from '../../../../typings/radgrad';
+import AddToProfileButton from '../../../components/shared/explorer/item-view/AddToProfileButton';
+import RelatedCareerGoals from '../../../components/shared/RelatedCareerGoals';
+import RelatedCourses from '../../../components/shared/RelatedCourses';
+import RelatedInterests from '../../../components/shared/RelatedInterests';
 import { PAGEIDS } from '../../../utilities/PageIDs';
+import PageLayout from '../../PageLayout';
 import { getMenuWidget } from '../utilities/getMenuWidget';
 import { Users } from '../../../../api/user/UserCollection';
 import { ProfileOpportunities } from '../../../../api/user/profile-entries/ProfileOpportunityCollection';
@@ -73,13 +80,24 @@ const OpportunityViewPage: React.FC<OpportunityViewPageProps> = ({
   const descriptionPairs = descriptionPairsOpportunities(opportunity);
   const studentID = profile.userID;
   const completed = isCompleted(opportunity._id, studentID);
+  const headerPaneTitle = opportunity.name;
+  const headerPaneImage = 'header-opportunities.png';
+  const added = ProfileOpportunities.findNonRetired({
+    studentID: profile.userID,
+    opportunityID: opportunity._id,
+  }).length > 0;
+  const relatedCourses = Opportunities.findRelatedCourses(opportunity._id);
+  const relatedCareerGoals = Opportunities.findRelatedCareerGoals(opportunity._id);
   return (
-    <div id={PAGEIDS.OPPORTUNITY}>
-      {getMenuWidget(match)}
-      <Grid stackable>
+    <PageLayout id={PAGEIDS.OPPORTUNITY} headerPaneTitle={headerPaneTitle} headerPaneImage={headerPaneImage}
+                headerPaneButton={<AddToProfileButton type={PROFILE_ENTRY_TYPE.OPPORTUNITY} studentID={profile.userID}
+                                                      item={opportunity} added={added} inverted floated="left" />}>
+      <Grid>
         <Grid.Row>
           <Grid.Column width={3}>
-            <ExplorerMenu menuAddedList={menuAddedList} type="opportunities" />
+            <RelatedInterests item={opportunity} />
+            <RelatedCourses courses={relatedCourses} userID={profile.userID} />
+            <RelatedCareerGoals careerGoals={relatedCareerGoals} userID={profile.userID} />
           </Grid.Column>
           <Grid.Column width={13}>
             <ExplorerOpportunityWidget name={opportunity.name} descriptionPairs={descriptionPairs} item={opportunity}
@@ -87,7 +105,7 @@ const OpportunityViewPage: React.FC<OpportunityViewPageProps> = ({
           </Grid.Column>
         </Grid.Row>
       </Grid>
-    </div>
+    </PageLayout>
   );
 };
 
