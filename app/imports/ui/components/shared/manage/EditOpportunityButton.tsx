@@ -59,7 +59,7 @@ const EditOpportunityButton: React.FC<ManageOpportunityProps> = ({
     updateData.opportunityType = OpportunityTypes.findDoc(doc.opportunityType)._id;
     updateData.sponsor = Users.getUsernameFromFullName(doc.sponsor);
     updateData.academicTerms = doc.academicTerms.map((name) => AcademicTerms.getAcademicTermFromToString(name)._id);
-    // console.log(collectionName, updateData);
+    console.log(collectionName, updateData);
     updateMethod.callPromise({ collectionName, updateData })
       .then((result) => Swal.fire({
         title: 'Opportunity Updated',
@@ -138,6 +138,11 @@ const EditOpportunityButton: React.FC<ManageOpportunityProps> = ({
     eventDateLabel3: { type: String, optional: true },
     eventDate4: { type: Date, optional: true },
     eventDateLabel4: { type: String, optional: true },
+    clearEventDate: { type: Boolean, optional: true },
+    clearEventDate1: { type: Boolean, optional: true },
+    clearEventDate2: { type: Boolean, optional: true },
+    clearEventDate3: { type: Boolean, optional: true },
+    clearEventDate4: { type: Boolean, optional: true },
     ice: { type: iceSchema, optional: true },
     retired: { type: Boolean, optional: true },
   });
@@ -182,6 +187,13 @@ const EditOpportunityButton: React.FC<ManageOpportunityProps> = ({
           <Form.Group widths="equal">
             <DateField name="eventDate4" />
             <TextField name="eventDateLabel4" />
+          </Form.Group>
+          <Form.Group widths="equal">
+            <BoolField name="clearEventDate" />
+            <BoolField name="clearEventDate1" />
+            <BoolField name="clearEventDate2" />
+            <BoolField name="clearEventDate3" />
+            <BoolField name="clearEventDate4" />
           </Form.Group>
           <Form.Group widths="equal">
             <NumField name="ice.i" />

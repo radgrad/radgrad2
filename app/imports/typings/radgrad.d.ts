@@ -477,6 +477,11 @@ export interface OpportunityUpdate extends Update {
   eventDate?: any; // Deprecated
   eventDate1?: Date;
   eventDateLabel1?: string;
+  clearEventDate?: boolean;
+  clearEventDate1?: boolean;
+  clearEventDate2?: boolean;
+  clearEventDate3?: boolean;
+  clearEventDate4?: boolean;
   eventDate2?: Date;
   eventDateLabel2?: string;
   eventDate3?: Date;

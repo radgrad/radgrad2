@@ -2,6 +2,7 @@ import SimpleSchema from 'simpl-schema';
 import { Meteor } from 'meteor/meteor';
 import _ from 'lodash';
 import { Slugs } from '../slug/SlugCollection';
+import { ProfileInterests } from '../user/profile-entries/ProfileInterestCollection';
 import { InterestTypes } from './InterestTypeCollection';
 import { Courses } from '../course/CourseCollection';
 import { CareerGoals } from '../career/CareerGoalCollection';
@@ -94,6 +95,8 @@ class InterestCollection extends BaseSlugCollection {
     }
     if (_.isBoolean(retired)) {
       updateData.retired = retired;
+      const profileInterests = ProfileInterests.find({ interestID: docID }).fetch();
+      profileInterests.forEach((pi) => ProfileInterests.update(pi._id, { retired }));
     }
     this.collection.update(docID, { $set: updateData });
     return true;
