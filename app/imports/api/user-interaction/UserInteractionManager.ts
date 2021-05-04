@@ -83,7 +83,7 @@ class UserInteractionManager {
   public dailyUpdate() {
     const startingCount = UserInteractions.count();
     const newSnapshot = this.buildASnapshot();
-    const today = moment().format(moment.HTML5_FMT.DATE);
+    const day = moment().format(moment.HTML5_FMT.DATE);
     StudentProfiles.findNonRetired({ isAlumni: false }).forEach(profile => {
       const username = profile.username;
       const userSnapshot = this.snapshot[username];
