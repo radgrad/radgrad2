@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import { Card } from 'semantic-ui-react';
+import { Card, Grid } from 'semantic-ui-react';
 import { useRouteMatch } from 'react-router';
 import { scrollPositionActions } from '../../../../../redux/shared/scrollPosition';
 import { RootState } from '../../../../../redux/types';
@@ -174,15 +174,23 @@ const BrowserView: React.FC<BrowserViewProps> = ({
   return (
     <div id="explorer-browser-view">
     <RadGradSegment header={header}>
-      <div>
-        <span style={{ display: 'inline-block' }}><Filter explorerType={explorerType} /></span>
-        <span style={{ float: 'right' }}><Sort explorerType={explorerType} /></span>
-      </div>
-      <Card.Group itemsPerRow={4} stackable id="browserCardGroup" style={{ margin: '0px' }}>
+      <Grid>
+        <Grid.Row columns={2}>
+          <Grid.Column>
+            <Filter explorerType={explorerType} />
+          </Grid.Column>
+          <Grid.Column>
+            <Sort explorerType={explorerType} />
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row>
+          <Card.Group itemsPerRow={4} stackable id="browserCardGroup" style={{ margin: '0px' }}>
                   {explorerItems.map((explorerItem) => (
-        <ProfileCard key={explorerItem._id} item={explorerItem} type={explorerType} inProfile = {inProfile(explorerItem, explorerType)} />
+            <ProfileCard key={explorerItem._id} item={explorerItem} type={explorerType} inProfile = {inProfile(explorerItem, explorerType)} />
                   ))}
-      </Card.Group>
+          </Card.Group>
+        </Grid.Row>
+      </Grid>
     </RadGradSegment>
     </div>
   );

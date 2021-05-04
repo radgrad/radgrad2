@@ -10,12 +10,14 @@ import {
 } from '../../utilities/data-model';
 import { buildExplorerSlugRoute } from '../../utilities/router';
 import InterestList from '../../InterestList';
+import TermList from './TermList';
 
 interface ProfileCardProps {
   item: {
     _id: string;
     name: string;
     interestIDs: string[];
+    termIDs?:string[];
   };
   type: string;
   inProfile: boolean;
@@ -28,10 +30,10 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ item, type, inProfile }) => {
   const itemName = docToName(item);
   const itemShortDescription = docToShortDescription(item);
   const slugName = itemToSlugName(item);
-  // console.log(interested);
   return (
     <Card>
       <Card.Content>
+        { item.termIDs ? (<TermList item={item} size="small" />) : ''}
         <Card.Header>{itemName}</Card.Header>
         { inProfile ? <Label ribbon='right' color='green'>IN MY PROFILE</Label> : '' }
       </Card.Content>
