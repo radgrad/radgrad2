@@ -42,7 +42,7 @@ const UploadFixture: React.FC = () => {
         <Form.Field>
           <Form.Input type="file" onChange={readFile} label="Fixture File" />
           <Form.Button basic color="green" loading={uploadFixtureWorking} type="Submit">
-            UPLOAD FIXTURE
+            Upload Fixture
           </Form.Button>
         </Form.Field>
       </Form>

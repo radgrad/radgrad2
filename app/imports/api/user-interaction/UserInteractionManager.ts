@@ -81,79 +81,96 @@ class UserInteractionManager {
 
   /** Once a day, update the snapshot, and generate UserInteraction documents as appropriate. */
   public dailyUpdate() {
-    console.log('Starting UserInteractionManager.dailyUpdate()');
+    const startingCount = UserInteractions.count();
     const newSnapshot = this.buildASnapshot();
-    const today = moment().format(moment.HTML5_FMT.DATE);
+    const day = moment().format(moment.HTML5_FMT.DATE);
     StudentProfiles.findNonRetired({ isAlumni: false }).forEach(profile => {
       const username = profile.username;
       const userSnapshot = this.snapshot[username];
       const newUserSnapshot = newSnapshot[username];
+      const notPresent = (type) => !UserInteractions.findOne({ username, type, day });
 
       // (1) LOGIN: determine if the user has visited any pages today
       const visitTimes = Object.values(profile.lastVisited);
-      if (_.some(visitTimes, (time) => time === today)) {
-        UserInteractions.define({ username, type: USER_INTERACTIONS.LOGIN });
+      let type = USER_INTERACTIONS.LOGIN;
+      if (_.some(visitTimes, (time) => time === day)) {
+        if (notPresent(type)) {
+          UserInteractions.define({ username, type });
+        }
       }
 
       // (2) CHANGE_OUTLOOK: changes to interests, career goals, opportunities, and courses.
       const outlookArray = [];
       const outlookFields = ['interests', 'careerGoals', 'opportunities', 'courses' ];
+      type = USER_INTERACTIONS.CHANGE_OUTLOOK;
       outlookFields.forEach(field => {
         if (this.areDifferent(userSnapshot[field], newUserSnapshot[field])) {
           outlookArray.push(field);
         }
       });
-      // If we found that interests, career goals, etc changed today, then emit a UserInteraction document.
-      if (outlookArray.length > 0) {
-        UserInteractions.define({ username, type: USER_INTERACTIONS.CHANGE_OUTLOOK, typeData: outlookArray });
+      // If interests, career goals, etc changed today, and no current doc, then create a new one.
+      if ((outlookArray.length > 0) && notPresent(type)) {
+        UserInteractions.define({ username, type, typeData: outlookArray });
       }
 
       // (3) EXPLORE: visits to explorer pages.
       const exploreArray = [];
       const explorePages = [PAGEIDS.OPPORTUNITY_BROWSER, PAGEIDS.OPPORTUNITY, PAGEIDS.INTEREST_BROWSER, PAGEIDS.INTEREST, PAGEIDS.COURSE_BROWSER, PAGEIDS.COURSE, PAGEIDS.CAREER_GOAL_BROWSER, PAGEIDS.CAREER_GOAL];
+      type = USER_INTERACTIONS.EXPLORE;
       explorePages.forEach(page => {
-        if (profile.lastVisited[page] === today) {
+        if (profile.lastVisited[page] === day) {
           exploreArray.push(page);
         }
       });
-      if (exploreArray.length > 0) {
-        UserInteractions.define({ username, type: USER_INTERACTIONS.EXPLORE, typeData: exploreArray });
+      // If there was a visit today, and no current doc, then create a new one.
+      if ((exploreArray.length > 0) && notPresent(type)) {
+        UserInteractions.define({ username, type, typeData: exploreArray });
       }
 
-      // (4) PLAN: Visit to degree planner.
-      if (profile.lastVisited[PAGEIDS.STUDENT_DEGREE_PLANNER] === today) {
-        UserInteractions.define({ username, type: USER_INTERACTIONS.PLAN });
+      // (4) PLAN: Visit to degree planner, and no current doc
+      type = USER_INTERACTIONS.PLAN;
+      if ((profile.lastVisited[PAGEIDS.STUDENT_DEGREE_PLANNER] === day) && notPresent(type)) {
+        UserInteractions.define({ username, type });
       }
 
       // (5) LEVEL_UP: is today's level higher than yesterday's?
-      if (userSnapshot.level < newUserSnapshot.level) {
-        UserInteractions.define({ username, type: USER_INTERACTIONS.LEVEL_UP });
+      type = USER_INTERACTIONS.LEVEL_UP;
+      if ((userSnapshot.level < newUserSnapshot.level) && notPresent(type)) {
+        UserInteractions.define({ username, type });
       }
 
       // (6) COMPLETE_PLAN: was the plan incomplete yesterday, but complete today?
-      if (!userSnapshot.degreePlanComplete && newUserSnapshot.degreePlanComplete) {
-        UserInteractions.define({ username, type: USER_INTERACTIONS.COMPLETE_PLAN });
+      type = USER_INTERACTIONS.COMPLETE_PLAN;
+      if (!userSnapshot.degreePlanComplete && newUserSnapshot.degreePlanComplete && notPresent(type)) {
+        UserInteractions.define({ username, type });
       }
 
       // (7) REVIEW: submitting a new Review document in the past day.
-      const startOfToday = moment().startOf('day').toDate(); // Must run before midnight of current day.
-      if (Reviews.findNonRetired({ studentID: profile.userID, createdAt: { $gte: startOfToday } }).length > 0) {
-        UserInteractions.define({ username, type: USER_INTERACTIONS.REVIEW });
+      // Works best if it runs near midnight of current day.
+      type = USER_INTERACTIONS.REVIEW;
+      const startOfToday = moment().startOf('day').toDate();
+      if ((Reviews.findNonRetired({ studentID: profile.userID, createdAt: { $gte: startOfToday } }).length > 0) && notPresent(type)) {
+        UserInteractions.define({ username, type });
       }
 
       // (8) VERIFICATION: submitting a Verification Request in the past day.
-      if (VerificationRequests.findNonRetired({ studentID: profile.userID, createdAt: { $gte: startOfToday } }).length > 0) {
-        UserInteractions.define({ username, type: USER_INTERACTIONS.VERIFY });
+      type = USER_INTERACTIONS.VERIFY;
+      if ((VerificationRequests.findNonRetired({ studentID: profile.userID, createdAt: { $gte: startOfToday } }).length > 0) && notPresent(type)) {
+        UserInteractions.define({ username, type });
       }
 
       // (8) CHANGE_VISIBILITY: change if visibility has changed.
-      if (this.areDifferent(userSnapshot.visibility, newUserSnapshot.visibility)) {
-        UserInteractions.define({ username, type: USER_INTERACTIONS.CHANGE_VISIBILITY, typeData: newUserSnapshot.visibility });
+      type = USER_INTERACTIONS.CHANGE_VISIBILITY;
+      if ((this.areDifferent(userSnapshot.visibility, newUserSnapshot.visibility)) && notPresent(type)) {
+        UserInteractions.define({ username, type, typeData: newUserSnapshot.visibility });
       }
     });
 
     // Last, but not least, update the saved snapshot to the current one.
     this.snapshot = newSnapshot;
+    const newInteractions = UserInteractions.count() - startingCount;
+    console.log('UserInteractionManager.dailyUpdate(): new Interactions: ', newInteractions );
+
   }
 }
 

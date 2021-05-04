@@ -64,9 +64,7 @@ const AdminPageMenu: React.FC = () => {
 
   const analyticsDropdownItems = [
     { label: 'Newsletter', route: ANALYTICS.NEWSLETTER },
-    { label: 'Overhead Analysis', route: ANALYTICS.OVERHEAD_ANALYSIS },
-    { label: 'Student Summary', route: ANALYTICS.STUDENT_SUMMARY },
-    { label: 'User Interactions', route: ANALYTICS.USER_INTERACTIONS },
+    { label: 'Behavior Table', route: ANALYTICS.BEHAVIOR_TABLE },
     { label: 'Logged In Users', route: ANALYTICS.LOGGED_IN_USERS },
   ];
 

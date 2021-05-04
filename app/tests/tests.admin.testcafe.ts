@@ -44,8 +44,7 @@ test('Test admin analytics pages', async (testController) => {
   await signinPage.signin(testController, credentials.admin);
   // Unrolling the loop makes this easier to debug.
   await adminNavBar.gotoMenuPageAndVerify(testController, 'analytics', 'newsletter');
-  await adminNavBar.gotoMenuPageAndVerify(testController, 'analytics', 'overhead-analysis');
-  await adminNavBar.gotoMenuPageAndVerify(testController, 'analytics', 'student-summary');
+  await adminNavBar.gotoMenuPageAndVerify(testController, 'analytics', 'behavior-table');
   await adminNavBar.gotoMenuPageAndVerify(testController, 'analytics', 'logged-in-users');
 });
 

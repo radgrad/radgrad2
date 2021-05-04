@@ -6,9 +6,7 @@ export enum PAGEIDS {
 
   ANALYTICS_LOGGED_IN_USERS = 'analytics-logged-in-users-page',
   ANALYTICS_NEWSLETTER = 'analytics-newsletter-page',
-  ANALYTICS_OVERHEAD_ANALYSIS = 'analytics-overhead-analysis-page',
-  ANALYTICS_STUDENT_SUMMARY = 'analytics-student-summary-page',
-  ANALYTICS_USER_INTERACTIONS = 'analytics-user-interactions-page',
+  ANALYTICS_BEHAVIOR_TABLE = 'analytics-behavior-table-page',
 
   DATABASE_MANAGEMENT = 'manage-database-page',
 
