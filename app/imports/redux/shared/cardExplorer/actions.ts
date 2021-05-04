@@ -59,6 +59,9 @@ export const setFilterValue = (explorerType: string, value: string): { type?: st
     case EXPLORER_TYPE.COURSES:
       retVal.type = TYPES.SET_COURSES_FILTER_VALUE;
       break;
+    case EXPLORER_TYPE.OPPORTUNITIES:
+      retVal.type = TYPES.SET_OPPORTUNITIES_FILTER_VALUE;
+      break;
     default:
       break;
   }

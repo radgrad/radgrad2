@@ -1,6 +1,6 @@
 import React from 'react';
 import { Embed } from 'semantic-ui-react';
-import { radgradVideos } from '../../../app/imports/api/radgrad/radgrad-videos';
+import { radgradVideos } from '../../issue-399/radgrad-videos';
 
 const videoStyle: React.CSSProperties = { float: 'left', width: 400, paddingRight: 20, paddingBottom: 30 };
 

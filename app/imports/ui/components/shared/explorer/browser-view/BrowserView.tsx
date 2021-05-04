@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import { Card } from 'semantic-ui-react';
+import { Card, Grid } from 'semantic-ui-react';
 import { useRouteMatch } from 'react-router';
 import { scrollPositionActions } from '../../../../../redux/shared/scrollPosition';
 import { RootState } from '../../../../../redux/types';
@@ -19,6 +19,8 @@ import { Users } from '../../../../../api/user/UserCollection';
 import { Interests } from '../../../../../api/interest/InterestCollection';
 import { ProfileCareerGoals } from '../../../../../api/user/profile-entries/ProfileCareerGoalCollection';
 import { CareerGoals } from '../../../../../api/career/CareerGoalCollection';
+import { Opportunities } from '../../../../../api/opportunity/OpportunityCollection';
+import { ProfileOpportunities } from '../../../../../api/user/profile-entries/ProfileOpportunityCollection';
 
 interface BrowserViewProps {
   items: CareerGoal[] | Course[] | Opportunity[] | Interest[];
@@ -47,6 +49,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       return {
         setScrollPosition: (scrollPosition: number) => dispatch(scrollPositionActions.setExplorerCareerGoalsScrollPosition(scrollPosition)),
       };
+    case EXPLORER_TYPE.OPPORTUNITIES:
+      return {
+        setScrollPosition: (scrollPosition: number) => dispatch(scrollPositionActions.setExplorerOpportunitiesScrollPosition(scrollPosition)),
+      };
   }
   return null;
 };
@@ -73,6 +79,9 @@ const BrowserView: React.FC<BrowserViewProps> = ({
       case EXPLORER_TYPE.CAREERGOALS:
         profileItems = ProfileCareerGoals.findNonRetired({ userID: userID }).map((f) => CareerGoals.findDoc(f.careerGoalID));
         break;
+      case EXPLORER_TYPE.OPPORTUNITIES:
+        profileItems =  ProfileOpportunities.findNonRetired({ studentID: userID }).map((f) => Opportunities.findDoc(f.opportunityID)).filter(o=> o.retired !== true);
+        break;
     }
     explorerItems = profileItems;
     return explorerItems;
@@ -85,7 +94,10 @@ const BrowserView: React.FC<BrowserViewProps> = ({
         explorerItems = Interests.findNonRetired().filter(md => profileItems.every(fd => fd._id !== md._id));
         break;
       case EXPLORER_TYPE.CAREERGOALS:
-        explorerItems = CareerGoals.findNonRetired().filter( md => profileItems.every(fd => fd._id !== md._id));
+        explorerItems = CareerGoals.findNonRetired().filter(md => profileItems.every(fd => fd._id !== md._id));
+        break;
+      case EXPLORER_TYPE.OPPORTUNITIES:
+        explorerItems = Opportunities.findNonRetired().filter(md => profileItems.every(fd => fd._id !== md._id));
         break;
     }
     return explorerItems;
@@ -111,6 +123,14 @@ const BrowserView: React.FC<BrowserViewProps> = ({
     case EXPLORER_SORT_KEYS.RECOMMENDED: {
       const preferred = new PreferredChoice(explorerItems, interestIDs);
       explorerItems = preferred.getOrderedChoices();
+      break;
+    }
+    case EXPLORER_SORT_KEYS.INNOVATION: {
+      explorerItems = _.sortBy(explorerItems, (item) => -item.ice.i);
+      break;
+    }
+    case EXPLORER_SORT_KEYS.EXPERIENCE: {
+      explorerItems = _.sortBy(explorerItems, (item) => -item.ice.e);
       break;
     }
     default: {
@@ -140,6 +160,9 @@ const BrowserView: React.FC<BrowserViewProps> = ({
     case EXPLORER_TYPE.CAREERGOALS:
       icon = EXPLORER_TYPE_ICON.CAREERGOAL;
       break;
+    case EXPLORER_TYPE.OPPORTUNITIES:
+      icon = EXPLORER_TYPE_ICON.OPPORTUNITY;
+      break;
   }
 
   const inProfile = (item:Interest | CareerGoal | Course | Opportunity, type:EXPLORER_TYPE) => {
@@ -151,14 +174,20 @@ const BrowserView: React.FC<BrowserViewProps> = ({
   return (
     <div id="explorer-browser-view">
     <RadGradSegment header={header}>
-      <div>
-        <span style={{ display: 'inline-block' }}><Filter explorerType={explorerType} /></span>
-        <span style={{ float: 'right' }}><Sort explorerType={explorerType} /></span>
-      </div>
+      <Grid>
+        <Grid.Row columns={2}>
+          <Grid.Column>
+            <Filter explorerType={explorerType} />
+          </Grid.Column>
+          <Grid.Column>
+            <Sort explorerType={explorerType} />
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
       <Card.Group itemsPerRow={4} stackable id="browserCardGroup" style={{ margin: '0px' }}>
-        {explorerItems.map((explorerItem) => (
-          <ProfileCard key={explorerItem._id} item={explorerItem} type={explorerType} inProfile = {inProfile(explorerItem, explorerType)} />
-        ))}
+                  {explorerItems.map((explorerItem) => (
+        <ProfileCard key={explorerItem._id} item={explorerItem} type={explorerType} inProfile = {inProfile(explorerItem, explorerType)} />
+                  ))}
       </Card.Group>
     </RadGradSegment>
     </div>
@@ -166,5 +195,4 @@ const BrowserView: React.FC<BrowserViewProps> = ({
 };
 
 const BrowserViewContainer = connect(mapStateToProps, mapDispatchToProps)(BrowserView);
-
 export default BrowserViewContainer;
