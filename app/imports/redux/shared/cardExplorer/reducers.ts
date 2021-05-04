@@ -15,6 +15,9 @@ interface State {
   opportunities: {
     sortValue: string;
   }
+  opportunitiesFilter: {
+    filterValue: string;
+  }
   interests: {
     sortValue: string;
   }
@@ -35,6 +38,9 @@ const initialState: State = {
   },
   opportunities: {
     sortValue: 'Recommended',
+  },
+  opportunitiesFilter: {
+    filterValue: 'All',
   },
   interests: {
     sortValue: 'Most Recent',
@@ -83,6 +89,14 @@ const reducer = (state: State = initialState, action): State => {
         ...state,
         opportunities: {
           sortValue: action.payload,
+        },
+      };
+      return s;
+    case TYPES.SET_OPPORTUNITIES_FILTER_VALUE:
+      s = {
+        ...state,
+        opportunitiesFilter: {
+          filterValue: action.payload,
         },
       };
       return s;

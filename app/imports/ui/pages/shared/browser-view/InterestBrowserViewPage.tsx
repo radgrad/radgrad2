@@ -24,7 +24,7 @@ const headerPaneImage = 'header-interests.png';
 const InterestBrowserViewPage: React.FC<InterestBrowserViewPageProps> = ({ interests }) => (
   <PageLayout id={PAGEIDS.INTEREST_BROWSER} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}
               headerPaneImage={headerPaneImage}>
-    <BrowserView items={interests} explorerType={EXPLORER_TYPE.INTERESTS} inProfile={false} />
+    <BrowserView items={interests} explorerType={EXPLORER_TYPE.INTERESTS} />
   </PageLayout>
 );
 
