@@ -365,6 +365,98 @@
           ],
           "description": "Virtual Reality and Augmented Reality have the potential to fundamentally change how people interact with data, with their environment, and with each other. In the past few years, technological breakthroughs have included the ability to solve the \"motion sickness problem\" and the use smartphones and simple cardboard enclosures rather than expensive dedicated headsets.  The next ten years will see the application of VR and AR to many technology sectors. \n\nTo pursue the VR/AR engineer career goal, it helps to become familiar with hardware design ([ICS 331](/explorer/courses/ics_331)), algorithms ([ICS 311](/explorer/courses/ics_311)), and visualization ([ICS 484](/explorer/courses/ics_484)).  Outside opportunities like [ACM Manoa/VR](/explorer/opportunities/acm-manoa-vr) and the [Lava Lab](/explorer/opportunities/lava-lab) can provide you with practical exposure to VR technologies. \n\nVR/AR engineer was named one of the [Top 5 Hot IT Jobs in 2017](https://www.randstadusa.com/jobs/career-resources/hot-jobs-2017/best-in-demand-information-technology-jobs/). [View more information here.](https://www.monster.com/career-advice/article/virtual-reality-tech-land-a-job)",
           "retired": false
+        },
+        {
+          "name": "Embedded systems verification engineer",
+          "slug": "embedded-systems-verification-engineer",
+          "interests": [
+            "computer-architecture",
+            "hpc",
+            "hardware",
+            "networks",
+            "security"
+          ],
+          "description": "Design verification environment and test complex designs for embedded systems. Work for companies such as AMD, Apple, Boeing, Broadcom, Google, Intel, Lockheed, NASA, Northrop, NXP, Qualcomm, Raytheon.",
+          "retired": false
+        },
+        {
+          "name": "Embedded systems design engineer",
+          "slug": "embedded-systems-design-engineer",
+          "interests": [
+            "algorithms",
+            "computer-architecture",
+            "hpc",
+            "hardware",
+            "networks",
+            "security"
+          ],
+          "description": "Design and implement embedded systems. Work for companies such as AMD, Apple, Boeing, Broadcom, Google, Intel, Lockheed, NASA, Northrop, NXP, Qualcomm, Raytheon.",
+          "retired": false
+        },
+        {
+          "name": "Hardware engineer",
+          "slug": "hardware-engineer",
+          "interests": [
+            "computer-architecture",
+            "circuit-analysis",
+            "digital-design",
+            "hardware",
+            "hpc",
+            "networks",
+            "security"
+          ],
+          "description": "Computer hardware engineers research, design, develop, and test computer systems and components such as processors, circuit boards, memory devices, networks, and routers. Work or companies such as Amazon, AMD, Apple, Boeing, Broadcom Google, Intel, Lockheed, Microsoft, NASA, Northrop Grumman, NXP, Nvidia, Qualcomm, Raytheon, and Softbank/ARM.",
+          "retired": false
+        },
+        {
+          "name": "Software Security Engineer",
+          "slug": "software-security-engineer",
+          "interests": [
+            "algorithms",
+            "software-engineering",
+            "databases",
+            "hardware",
+            "networks",
+            "security"
+          ],
+          "description": "\tDesign and implement secure software systems. Possibly work for companies such as Adobe, Amazon, Apple, Booz Allen Hamilton, Google, Microsoft, Northrop Grumman, Softbank/ARM, Raytheon, Referentia, NIWC, and national research labs (e.g., Sandia Labs, Navy Research Labs).",
+          "retired": false
+        },
+        {
+          "name": "Network Security engineer",
+          "slug": "network-security-engineer",
+          "interests": [
+            "hardware",
+            "networks",
+            "security"
+          ],
+          "description": "Design and implement secure networking and distributed systems. Possibly work for companies such as Cisco, Live Action, Juniper, Broadcom, Qualcomm, Google, Spirent.",
+          "retired": false
+        },
+        {
+          "name": "Computer System Security engineer",
+          "slug": "computer-system-security-engineer",
+          "interests": [
+            "databases",
+            "hardware",
+            "networks",
+            "security"
+          ],
+          "description": "Design and implement secure computer systems. Possibly work for companies such as Apple, Google, NSA, DISA, FBI, and national research labs.",
+          "retired": false
+        },
+        {
+          "name": "Application Security engineer",
+          "slug": "application-security-engineer",
+          "interests": [
+            "algorithms",
+            "software-engineering",
+            "databases",
+            "networks",
+            "security"
+          ],
+          "description": "Design and implement secure applications. Possibly work for companies such as Apple, Google, Hawaiʻi State and city government, HECO, Lockheed Martin, Oceanit, Navy, Pearl Harbor Shipyard.",
+          "retired": false
         }
       ]
     },
@@ -505,6 +597,17 @@
           "retired": false
         },
         {
+          "name": " Linear Algebra & Machine Learning",
+          "shortName": "Linear Algebra & Machine Learning",
+          "slug": "ee_345",
+          "num": "EE 345",
+          "description": "Mathematical and algorithmic fundamentals of linear algebra and their applications and illustrations to machine learning. Lab introduces programming with data and uses machine learning libraries for an introduction to commonly used technologies",
+          "creditHrs": 4,
+          "interests": ["systems-signals", "data-science", "machine-learning"],
+          "prerequisites": [],
+          "retired": false
+        },
+        {
           "name": "Digital Systems and Computer Design",
           "shortName": "Digital Systems",
           "slug": "ee_361",
@@ -607,6 +710,21 @@
           "interests": [],
           "prerequisites": [
             "ee_361",
+            "ee_367"
+          ],
+          "retired": false
+        },
+        {
+          "name": "Wireless Data Networks",
+          "shortName": "Wireless Data Networks",
+          "slug": "ee_469",
+          "num": "EE 469",
+          "description": "Mobile agent’s platforms and systems, mobile agent-based service implementation, middleware, and configuration, wireless local area networks, wireless protocols, network architecture supporting wireless applications, routing protocols in mobile and wireless networks, handoff in mobile and wireless networks.",
+          "creditHrs": 3,
+          "interests": [
+            "networks"
+          ],
+          "prerequisites": [
             "ee_367"
           ],
           "retired": false
@@ -1493,11 +1611,11 @@
           "retired": false
         },
         {
-          "name": "Non Computer Science Course",
-          "shortName": "Non-CS Course",
+          "name": "Non Computer Engineering Course",
+          "shortName": "Non-CENG Course",
           "slug": "other",
           "num": "other",
-          "description": "The course used to represent all non-CS courses.",
+          "description": "The course used to represent all non-CENG courses.",
           "creditHrs": 3,
           "interests": [],
           "prerequisites": [],
@@ -1514,6 +1632,38 @@
     {
       "name": "FacultyProfileCollection",
       "contents": [
+        {
+          "username": "positioninquiry@uhtasi.org",
+          "firstName": "Position",
+          "lastName": "Inquiry",
+          "interests": [],
+          "careerGoals": [],
+          "retired": false
+        },
+        {
+          "username": "fablab@hawaii.edu",
+          "firstName": "Fab",
+          "lastName": "Lab",
+          "interests": [],
+          "careerGoals": [],
+          "retired": false
+        },
+        {
+          "username": "aohta@hawaii.edu",
+          "firstName": "Aaron",
+          "lastName": "Ohta",
+          "interests": [],
+          "careerGoals": [],
+          "retired": false
+        },
+        {
+          "username": "info@eng.hawaii.edu",
+          "firstName": "Undergraduate",
+          "lastName": "Office",
+          "interests": [],
+          "careerGoals": [],
+          "retired": false
+        },
         {
           "username": "nsanthan@hawaii.edu",
           "firstName": "Narayana",
@@ -2098,6 +2248,54 @@
           "slug": "web-development",
           "description": "In computing, a web application or web app is a client–server software application in which the client (or user interface) runs in a web browser. Common web applications include webmail, online retail sales, online auctions, wikis, instant messaging services and many other functions. [Learn more here.](https://en.wikipedia.org/wiki/Web_application)",
           "interestType": "ceng-disciplines"
+        },
+        {
+          "name": "FPGA (Field-Programmable Gate Array)",
+          "slug": "fpga",
+          "description": "A field-programmable gate array is an integrated circuit designed to be configured by a customer or a designer after manufacturing – hence the term \"field-programmable\".[Learn more here.](https://en.wikipedia.org/wiki/Field-programmable_gate_array)",
+          "interestType": "ceng-disciplines"
+        },
+        {
+          "name": "VHDL (Very High Speed Integrated Circuit Hardware Description Language)",
+          "slug": "vhdl",
+          "description": "VHDL is a hardware description language used in electronic design automation to describe digital and mixed-signal systems such as field-programmable gate arrays and integrated circuits. VHDL can also be used as a general-purpose parallel programming language.[Learn more here.](https://en.wikipedia.org/wiki/VHDL)",
+          "interestType": "ceng-disciplines"
+        },
+        {
+          "name": "Verilog",
+          "slug": "verilog",
+          "description": "Verilog, standardized as IEEE 1364, is a hardware description language used to model electronic systems. It is most commonly used in the design and verification of digital circuits at the register-transfer level of abstraction. [Learn more here.](https://en.wikipedia.org/wiki/Verilog)",
+          "interestType": "ceng-disciplines"
+        },
+        {
+          "name": "Software Reverse Engineering",
+          "slug": "software-reverse-engineering",
+          "description": "Software reverse engineering can help to improve the understanding of the underlying source code for the maintenance and improvement of the software, relevant information can be extracted to make a decision for software development and graphical representations of the code can provide alternate views regarding the source code, which can help to detect and fix a software bug or vulnerabilities.",
+          "interestType": "ceng-disciplines"
+        },
+        {
+          "name": "Circuit Analysis",
+          "slug": "circuit-analysis",
+          "description": "Circuit analysis, or solving a circuit, means figuring out voltages and currents in each element. Here's an overview of circuit analysis, with some context for the various tools and methods we use to analyze circuits. [Learn more here.](https://www.khanacademy.org/science/electrical-engineering/ee-circuit-analysis-topic/ee-dc-circuit-analysis/a/ee-circuit-analysis-overview)",
+          "interestType": "ceng-disciplines"
+        },
+        {
+          "name": "Systems",
+          "slug": "systems-signals",
+          "description": "Systems in EE covers communications, controls, and signal processing. Communications systems is a collection of individual telecommunications networks, transmission systems, relay stations, tributary stations, and terminal equipment usually capable of interconnection and interoperation to form an integrated whole. [Learn more here.](https://en.wikipedia.org/wiki/Communications_system) A control system manages, commands, directs, or regulates the behavior of other devices or systems using control loops. It can range from a single home heating controller using a thermostat controlling a domestic boiler to large industrial control systems which are used for controlling processes or machines. [Learn more here.](https://en.wikipedia.org/wiki/Control_system) Signal processing is an electrical engineering subfield that focuses on analysing, modifying, and synthesizing signals such as sound, images, and scientific measurements.[1] Signal processing techniques can be used to improve transmission, storage efficiency and subjective quality and to also emphasize or detect components of interest in a measured signal. [Learn more here.](https://en.wikipedia.org/wiki/Signal_processing)",
+          "interestType": "ceng-disciplines"
+        },
+        {
+          "name": "Microelectronics",
+          "slug": "microelectronics",
+          "description": "Microelectronics is a subfield of electronics. As the name suggests, microelectronics relates to the study and manufacture of very small electronic designs and components. Usually, but not always, this means micrometre-scale or smaller. These devices are typically made from semiconductor materials. [Learn more here.](https://en.wikipedia.org/wiki/Microelectronics)",
+          "interestType": "ceng-disciplines"
+        },
+        {
+          "name": "Digital Design (Logic Synthesis)",
+          "slug": "digital-design",
+          "description": "In computer engineering, logic synthesis is a process by which an abstract specification of desired circuit behavior, typically at register transfer level (RTL), is turned into a design implementation in terms of logic gates, typically by a computer program called a synthesis tool. [Learn more here.](https://en.wikipedia.org/wiki/Logic_synthesis)",
+          "interestType": "ceng-disciplines"
         }
       ]
     },
@@ -2127,58 +2325,6 @@
     {
       "name": "OpportunityCollection",
       "contents": [
-        {
-          "name": "3-D chip layouts for HPC many-core architectures",
-          "slug": "3d-chip-layouts",
-          "description": "This project entails developing software (in Python) to help with a research projects that targets optimizing 3-D layout of multi-core chips towards many-core System-On-Chip (SoC) architectures.   The goal is to run processors at high power levels  (to compute fast), but one is limited by temperature constraints (so as not to melt the chips).  In this context a key question is that of how to arrange the chips so as to maximize heat dissipation. It has been proposed to move to 3-D layouts, but it is not really clear which 3-D layouts are best. The objective of this project is to explore the 3-D design space and to design heuristics and meta-heuristics that compute good (i.e., high aggregate power and temperature under 80 Celsius) layouts. \n\nWe are looking for students interested in exploring heuristics and/or meta-heuristics design for the above problem and in developing them in Python (using the scipy.optimize package as a building block).  \n\nFamiliarity with Python is big plus, knowledge of meta-heuristics (gradient descent, simulated annealing, genetic algorithms, etc.) is desirable but not necessary and would be part of the learning experience.",
-          "opportunityType": "project",
-          "sponsor": "henric@hawaii.edu",
-          "ice": {
-            "i": 25,
-            "c": 0,
-            "e": 0
-          },
-          "interests": [
-            "hpc",
-            "python"
-          ],
-          "academicTerms": [
-            "Fall-2017",
-            "Spring-2018",
-            "Spring-2019",
-            "Summer-2019",
-            "Fall-2019",
-            "Spring-2020",
-            "Summer-2020",
-            "Fall-2020",
-            "Spring-2021",
-            "Summer-2021",
-            "Fall-2021"
-          ],
-          "retired": true
-        },
-        {
-          "name": "ACM ICPC",
-          "slug": "acm-icpc",
-          "description": "The ACM International Collegiate Programming Contest (ICPC) is a multitier, team-based, programming competition operating under the auspices of ACM and headquartered at Baylor University. The contest involves a global network of universities hosting regional competitions that advance teams to the ACM-ICPC World Finals. Participation has grown to several tens of thousands of the finest students and faculty in computing disciplines at almost 2,736 universities from over 102 countries on six continents. \n\nThe contest fosters creativity, teamwork, and innovation in building new software programs, and enables students to test their ability to perform under pressure. Quite simply, it is the oldest, largest, and most prestigious programming contest in the world. \n\nFor more details, see the [home page](https://icpc.baylor.edu/) or the [Wikipedia entry](https://en.wikipedia.org/wiki/ACM_International_Collegiate_Programming_Contest).\n\nICPC occurs every Fall semester. Contact [Nodari Sitchinava](mailto:nodari@hawaii.edu) early in the Fall semester if you would like to participate. \n\n#### Verification Criteria\n\nAfter participating, request verification and the admin will confirm with Nodari that you participated.",
-          "opportunityType": "event",
-          "sponsor": "nodari@hawaii.edu",
-          "ice": {
-            "i": 15,
-            "c": 0,
-            "e": 0
-          },
-          "interests": [
-            "algorithms",
-            "application-development"
-          ],
-          "academicTerms": [
-            "Fall-2019",
-            "Fall-2020",
-            "Fall-2021"
-          ],
-          "retired": false
-        },
         {
           "name": "ACM Manoa",
           "slug": "acm-manoa",
@@ -2240,7 +2386,7 @@
           "slug": "acm-manoa-vr",
           "description": "ACM is dedicated to providing its members with a range of professional, social, and technical activities. Movie nights, game nights, beach outings, hikes, tech talks, industry guest speaker presentations, hackathons, playgrounds, and demos – to name a few.\n\nThis special interest group focusses on virtual reality, including hardware such as Oculus Rift. \n\n[Learn more here.](http://acmanoa.github.io/activities/)\n\n#### Verification Criteria\nTake a selfie at two different meetings on two different days. When it is over, show the pictures to this Opportunity's sponsor, or your advisor as evidence of your attendance.",
           "opportunityType": "club",
-          "sponsor": "glau@hawaii.edu",
+          "sponsor": "johnson@hawaii.edu",
           "ice": {
             "i": 5,
             "c": 0,
@@ -2278,7 +2424,7 @@
           "slug": "afcea-hawaii",
           "description": "AFCEA Hawaii is made up of over 800+ members representing the military, federal government, and industry.  Though we may have diverse backgrounds, our unified goal is to support the mission of AFCEA and ultimately, the security of our great nation.\n\nBeing a member of AFCEA is important for professionals in the global security community. Benefits include:\n\n* Connect with great ideas, vital solutions, and innovative people\n* Enhance your resume by being part of the rich heritage of AFCEA\n* Help advance the global security mission\n* Receive SIGNAL magazine, AFCEA’s award winning monthly professional journal.\n* AFCEA members receive discounts on training, certifications and degree programs.\n\nFor ore details, see [https://www.afcea-hawaii.org/](https://www.afcea-hawaii.org/).\n\n#### Verification criteria\n\nSee the sponsor of this opportunity for verification.",
           "opportunityType": "club",
-          "sponsor": "glau@hawaii.edu",
+          "sponsor": "johnson@hawaii.edu",
           "ice": {
             "i": 0,
             "c": 0,
@@ -2322,31 +2468,6 @@
             "Spring-2020"
           ],
           "retired": true
-        },
-        {
-          "name": "AllNet",
-          "slug": "allnet",
-          "description": "My cellphone has a radio that could easily communicate with the radio in your cellphone. However, currently they do not, even when they are smartphones with wifi (802.11) capability. \n\nThe AllNet project aims to allow personal devices to communicate directly with each other. We are looking for students who want to learn how to get different devices, both computers and cellphones/mobiles, to talk directly with each other. We are also interested in students who think they can adapt the current code to run as an app on their favorite mobile device. \n\nLearn more at: [http://alnt.org/](http://alnt.org/).\n\n#### Verification Criteria\nAt the conclusion of the semester, ask this Opportunity's sponsor to verify your participation by logging into RadGrad.",
-          "opportunityType": "project",
-          "sponsor": "esb@hawaii.edu",
-          "ice": {
-            "i": 25,
-            "c": 0,
-            "e": 0
-          },
-          "interests": [
-            "application-development",
-            "mobile",
-            "networks",
-            "research"
-          ],
-          "academicTerms": [
-            "Fall-2019",
-            "Spring-2020",
-            "Fall-2020",
-            "Spring-2021"
-          ],
-          "retired": false
         },
         {
           "name": "Aloha.rb",
@@ -2400,28 +2521,6 @@
           "retired": true
         },
         {
-          "name": "HI-SEAS",
-          "slug": "apps-for-high-latency-communication",
-          "description": "HI-SEAS (Hawaii Space Exploration Analog and Simulation) simulates the conditions of long-duration human space exploration. Due to the distance between Earth and Mars, it takes 4-24 minutes for a signal to get from one to the other. However, most communication software is designed for much lower latency. For this project, you will design and implement a communications/social-media app that can handle high latency gracefully. \n\nFor more information, see [http://hi-seas.org](http://hi-seas.org).",
-          "opportunityType": "project",
-          "sponsor": "binsted@hawaii.edu",
-          "ice": {
-            "i": 25,
-            "c": 0,
-            "e": 0
-          },
-          "interests": [
-            "application-development",
-            "research"
-          ],
-          "academicTerms": [
-            "Fall-2019",
-            "Spring-2020",
-            "Fall-2020"
-          ],
-          "retired": false
-        },
-        {
           "name": "ASECOLab",
           "slug": "asecolab",
           "description": "We are the security research lab at Information and Computer Sciences at University of Hawaii at Manoa. We are also still affiliated with Department of Computer Science at Royal Holloway University of London (where the first ASECOLab was founded in 2012).\n\nWe study how security is achieved through adaptation, and how  fortifications give an illusion of security. This has to do with economics, but also with cryptography.  Our research is thus more “interdisciplinary”, and perhaps riskier than most people like; but it’s huge fun.\n\nLearn more at: [http://www.asecolab.org/](http://www.asecolab.org/).\n\n#### Verification Criteria\nAt the conclusion of the semester, ask this Opportunity's sponsor to verify your participation by logging into RadGrad.",
@@ -2447,34 +2546,11 @@
           "retired": false
         },
         {
-          "name": "Asteroid Detection",
-          "slug": "asteroid-detection",
-          "description": "Do you want to prevent humans from dying out just like the dinosaurs? The AlgoPARC research group is partnering with the ATLAS project at the Institute for Astronomy to improve the speed and accuracy of asteroid detection algorithms. This projects involves using geometric data structures to organize the data in the images of the sky for efficient processing and detection of moving objects. This project is an awesome opportunity to apply what you’ve learned in ICS 311, ICS 621 and ICS 691 C. \n\n\nThis project is sponsored by the [AlgoPARC](http://algoparc.ics.hawaii.edu/) research group, and there is REU funding so there is the possibility of being paid for your work. \n\n#### Verification criteria\n\nFor verification, please contact [Professor Nodari Sitchinava](http://algoparc.ics.hawaii.edu/nodari/index.html) after the semester is over.",
-          "opportunityType": "project",
-          "sponsor": "nodari@hawaii.edu",
-          "ice": {
-            "i": 25,
-            "c": 0,
-            "e": 0
-          },
-          "interests": [
-            "algorithms",
-            "research"
-          ],
-          "academicTerms": [
-            "Fall-2019",
-            "Spring-2020",
-            "Fall-2020",
-            "Spring-2021"
-          ],
-          "retired": false
-        },
-        {
           "name": "AT&T Hackathon",
           "slug": "att-iot-hackathon",
           "description": "AT&T sponsors a variety of hackathons on topics including machine learning, block chains, and other topics every year.\n\nFor this opportunity, participate in an AT&T hackathon during a semester.  \n\n#### Verification Criteria\nAfter the hackathon is over, show this Opportunity's sponsor evidence of your participation. This can include the code you developed and its commit history, and/or your hackathon registration, and/or selfies of you attending the event.",
           "opportunityType": "event",
-          "sponsor": "glau@hawaii.edu",
+          "sponsor": "johnson@hawaii.edu",
           "ice": {
             "i": 15,
             "c": 0,
@@ -2546,36 +2622,11 @@
           "retired": false
         },
         {
-          "name": "Cache-efficient parallel algorithms",
-          "slug": "cache-efficient-parallel-algorithms",
-          "description": "Modern multicore systems come with up to a TB of RAM these days. However, such large memory comes at the cost of slow access, compared to the speed of individual cores. To hide the latency of access to slow RAM, modern multicore processors come with faster, but much smaller caches. Thus, for optimal performance, it is very important to intelligently utilize these limited faster caches.\n\nIn this project we develop and implement new parallel algorithms which efficiently utilize available caches. We also study the limits of parallel computation in the presence of caches. Knowledge of parallel programming is a plus, but is NOT a prerequisite to start working on this project.\n\nRelevant courses: ICS 311, ICS 432, ICS 443, ICS 621, ICS 643, ICS 691C.\n\nThis project is sponsored by the [AlgoPARC](http://algoparc.ics.hawaii.edu/) research group, and there is REU funding so there is the possibility of being paid for your work. \n\n#### Verification criteria\n\nFor verification, please contact [Professor Nodari Sitchinava](http://algoparc.ics.hawaii.edu/nodari/index.html) after the semester is over.",
-          "opportunityType": "project",
-          "sponsor": "nodari@hawaii.edu",
-          "ice": {
-            "i": 25,
-            "c": 0,
-            "e": 0
-          },
-          "interests": [
-            "algorithms",
-            "computer-architecture",
-            "parallel-programming",
-            "research"
-          ],
-          "academicTerms": [
-            "Fall-2019",
-            "Spring-2020",
-            "Fall-2020",
-            "Spring-2021"
-          ],
-          "retired": false
-        },
-        {
           "name": "CCDC",
           "slug": "ccdc",
           "description": "The Collegiate Cyber Defense Competition (CCDC) is the closest you’ll get to being (cyber) attacked in real life. The teams that make it past the at-large regionals, usually held in March, go on to compete at the National Collegiate Cyber Defense Competition (NCCDC), the largest college-level cyber defense competition in the USA. The University of Texas, Austin, hosts this competition. The [at-large regionals](http://www.nationalccdc.org/index.php/competition/competitors/ccdc-regionals) are generally held in March. \n\nIn 2011, the ICS department fielded a team that took 2nd place at the national level, which is the best finish in department history. \n\nContact the GreyHats if you want to go for the gold on the largest national stage for collegiate cyber defense programs.\n\n\n#### Verification criteria\n\nAt the conclusion of the event, request verification. You should be able to supply evidence of team participation.",
           "opportunityType": "event",
-          "sponsor": "glau@hawaii.edu",
+          "sponsor": "johnson@hawaii.edu",
           "ice": {
             "i": 0,
             "c": 0,
@@ -2785,9 +2836,9 @@
           "retired": false
         },
         {
-          "name": "CS-related job",
-          "slug": "cs-job",
-          "description": "Use this opportunity to indicate work at a paid job as a software developer or other activity directly related to computer science. \n\n[Learn more here.](https://www.indeed.com/q-Computer-Science-l-Hawaii-jobs.html)\n\n#### Verification criteria\nAt the conclusion of the event, request this Opportunity's sponsor to login to RadGrad to verify your participation. You should be able to supply evidence of your work and how it directly relates to computer science.",
+          "name": "CENG-related job",
+          "slug": "ceng-job",
+          "description": "Use this opportunity to indicate work at a paid job as a software developer or other activity directly related to computer engineering. \n\n[Learn more here.](https://www.indeed.com/q-Computer-Engineering-l-Hawaii-jobs.html)\n\n#### Verification criteria\nAt the conclusion of the event, request this Opportunity's sponsor to login to RadGrad to verify your participation. You should be able to supply evidence of your work and how it directly relates to computer science.",
           "opportunityType": "internship",
           "sponsor": "johnson@hawaii.edu",
           "ice": {
@@ -2840,7 +2891,7 @@
           "slug": "cyber-security-for-automated-processes",
           "description": "This meetup is dedicated to all professionals involved in Cyber Security for Automated Processes and Control Systems including security for Operating Technology (OT), Industrial Control Systems (ICS), SCADA Systems, Transportation Systems, Building Control Systems (BCS), and even emerging Industrial Internet of Things (IIoT) systems. Our purpose is to connect the professionals in the Greater Honolulu area with real interest in or responsibility for the cyber security of these systems.\n\nOnce we have enough critical mass of interest in Honolulu, we will gather for purposes of education, information exchange, and discovery of new opportunities and, yes, perhaps a few happy hours! If you are interested in serving on a committee to help shape this meetup experience, please contact the organizers directly. \n\n[Learn more here.](https://www.meetup.com/Honolulu-Cyber-Security-for-Control-Systems/)\n\n#### Verification criteria\nTake selfies at least two meetings during the semester, then contact this Opportunity's sponsor to login to RadGrad to verify your participation.",
           "opportunityType": "club",
-          "sponsor": "glau@hawaii.edu",
+          "sponsor": "johnson@hawaii.edu",
           "ice": {
             "i": 0,
             "c": 0,
@@ -2860,35 +2911,11 @@
           "retired": true
         },
         {
-          "name": "CyberSistahs",
-          "slug": "cybersistahs",
-          "description": "This group is for women who are trying to break into and/or advance in the world of IT more specifically cybersecurity. I would like us to meet and form study groups for various certs (Security+, CISSP, CEH..etc), attend and eventually host webinars on ethical hacking and programming, attend hack-a-thons and everything in between. \n\n[Learn more here](https://www.meetup.com/meetup-group-yLCdOxMP/?gj=ej1b)\n\n#### Verification Criteria\nTake a selfie at two different meetings on two different days. When it is over, show the pictures to this Opportunity's sponsor, or your advisor as evidence of your attendance.",
-          "opportunityType": "club",
-          "sponsor": "binsted@hawaii.edu",
-          "ice": {
-            "i": 5,
-            "c": 0,
-            "e": 5
-          },
-          "interests": [
-            "cryptography",
-            "security"
-          ],
-          "academicTerms": [
-            "Fall-2017",
-            "Spring-2018",
-            "Summer-2018",
-            "Fall-2018",
-            "Spring-2019"
-          ],
-          "retired": true
-        },
-        {
           "name": "DAHI Internship",
           "slug": "dahi-internship",
           "description": "The UH Digital Arts and Humanities Initiative (DAHI) explores the full potential of today’s digital resources and capabilities in the broad realm of the Arts and Humanities. The chief goal of the initiative is to provide open access for state-of-the-art instances of digital media, scholarship and performance. The DAHI community creates an environment of trust, so that faculty, students and community members with ideas can find collaborators and access resources to pursue a range of cross-disciplinary and multimedia projects. \n\n[Learn more here.](http://dahi.manoa.hawaii.edu/)\n\n#### Verification criteria\nAt the conclusion of the internship, request this Opportunity's sponsor to login to RadGrad to verify your participation. You should be able to supply evidence of participation, and contact details for your supervisor at the organization.",
           "opportunityType": "internship",
-          "sponsor": "glau@hawaii.edu",
+          "sponsor": "johnson@hawaii.edu",
           "ice": {
             "i": 10,
             "c": 0,
@@ -2902,51 +2929,6 @@
           "academicTerms": [
             "Spring-2017",
             "Summer-2017"
-          ],
-          "retired": true
-        },
-        {
-          "name": "Solar Energy Analytics",
-          "slug": "data-analytics-for-solar-energy",
-          "description": "Integrating renewable energy to the power grid requires grid operators to balance energy generation with consumption. This project investigates the use of various data mining techniques to forecast solar irradiance using a variety of time-series data sources. We are looking for motivated students interested in data integration, fusion, mining and visualization. \n\n[Learn more here.](http://www2.hawaii.edu/~lipyeow/)\n\n#### Verification criteria\nAt the conclusion of the semester, request that this Opportunity's sponsor login to RadGrad to verify your participation.",
-          "opportunityType": "project",
-          "sponsor": "lipyeow@hawaii.edu",
-          "ice": {
-            "i": 25,
-            "c": 0,
-            "e": 0
-          },
-          "interests": [
-            "algorithms",
-            "application-development",
-            "data-science",
-            "data-visualization",
-            "databases",
-            "machine-learning",
-            "research",
-            "sustainability"
-          ],
-          "academicTerms": [
-            "Spring-2015",
-            "Summer-2015",
-            "Fall-2015",
-            "Spring-2016",
-            "Summer-2016",
-            "Fall-2016",
-            "Spring-2017",
-            "Summer-2017",
-            "Fall-2017",
-            "Spring-2018",
-            "Summer-2018",
-            "Fall-2018",
-            "Spring-2019",
-            "Summer-2019",
-            "Fall-2019",
-            "Spring-2020",
-            "Summer-2020",
-            "Fall-2020",
-            "Spring-2021",
-            "Summer-2021"
           ],
           "retired": true
         },
@@ -2981,31 +2963,11 @@
           "retired": false
         },
         {
-          "name": "Flip Flop",
-          "slug": "flip-flop",
-          "description": "The Flip-Flop instructional methodology involves students in creating quizzes synchronized with video recordings of lectures. The premise is that as students create questions, correct and incorrect answers, hints and hint links that lead to relevant resources, they get in depth understanding of the content presented in the video and thus learn through creating resources for peers and learn from resources their peers created. \n\nFor more information, see [Jan Stelovsky's Home Page(http://www2.hawaii.edu/~janst/)",
-          "opportunityType": "project",
-          "sponsor": "janst@hawaii.edu",
-          "ice": {
-            "i": 25,
-            "c": 0,
-            "e": 0
-          },
-          "interests": [
-            "algorithms",
-            "data-visualization"
-          ],
-          "academicTerms": [
-            "Fall-2019",
-            "Spring-2020"
-          ]
-        },
-        {
           "name": "Gen Cyber Internship",
           "slug": "gen-cyber-internship",
           "description": "The GenCyber Hawai`i program provides summer cybersecurity camp experiences for students and teachers at the K-12 level. The goals of the program are to help all students understand correct and safe on-line behavior, increase diversity and interest in cybersecurity and careers in the cybersecurity workforce of the Nation, and improve teaching methods for delivering cybersecurity content in K-12 computer science curricula.\n\nOur vision is for the GenCyber program to be part of the solution to the shortfall of skilled cybersecurity professionals. Ensuring that enough young people are inspired to direct their talents in this area is critical to the future of our country’s national and economic security as we become even more reliant on cyber-based technology in every aspect of our daily lives. \n\nLearn more at: [https://gencyber-hi.org/](https://gencyber-hi.org/).\n\n#### Verification criteria\nTake a selfie at this event and submit to this Opportunity's sponsor as evidence of your participation.",
           "opportunityType": "internship",
-          "sponsor": "glau@hawaii.edu",
+          "sponsor": "johnson@hawaii.edu",
           "ice": {
             "i": 0,
             "c": 0,
@@ -3138,31 +3100,6 @@
           "retired": false
         },
         {
-          "name": "GPU Algorithms",
-          "slug": "gpu-algorithms",
-          "description": "Graphics processing units provide a lot of parallelism and computational power. A lot of GPU research is via trial and error. We are looking at modeling GPUs to be able to predict which algorithms and techniques will lead to efficient implementations.\n\nGPUs also utilize faster caches. Thus, the techniques developed as part of the \"Cache-efficient Parallel Algorithms\" project are also applicable here.\n\nThe research in this project involves developing new parallel algorithms and implementing them on NVIDIA GPUs using CUDA programming language. Knowledge of CUDA is a plus, but is NOT a prerequisite to start working on this project.\n\nRelevant courses: ICS 311, ICS 432, ICS 443, ICS 621, ICS 643, ICS 691C.\n\nThis project is sponsored by the [AlgoPARC](http://algoparc.ics.hawaii.edu/) research group, and there is REU funding so there is the possibility of being paid for your work. \n\n#### Verification criteria\n\nFor verification, please contact [Professor Nodari Sitchinava](http://algoparc.ics.hawaii.edu/nodari/index.html) after the semester is over.",
-          "opportunityType": "project",
-          "sponsor": "nodari@hawaii.edu",
-          "ice": {
-            "i": 25,
-            "c": 0,
-            "e": 0
-          },
-          "interests": [
-            "algorithms",
-            "computer-graphics",
-            "parallel-programming",
-            "research"
-          ],
-          "academicTerms": [
-            "Fall-2019",
-            "Spring-2020",
-            "Fall-2020",
-            "Spring-2021"
-          ],
-          "retired": false
-        },
-        {
           "name": "Grace Hopper Celebration",
           "slug": "grace-hopper-celebration",
           "description": "The Grace Hopper Celebration (GHC) is the world’s largest gathering of women in computing. In 2019, over 20,000 people attended the conference. \n\nEvery year, women technologists and the best minds in computing convene to highlight the contributions of women to computing. AnitaB.org co-presents GHC with the Association of Computing Machinery (ACM).\n\nThe celebration results in collaborative proposals, networking and mentoring for our attendees. GHC presenters are leaders in their respective fields, representing industry, academia and government. The celebration also offers professional development through a variety of activities.\n\nFor more information, see the [Grace Hopper Celebration website](https://ghc.anitab.org/).\n\nGHC is not for women only.  Here is a post on why [men should attend the Grace Hopper Celebration](https://codepointers.com/2017/11/14/men-should-attend-the-grace-hopper-conference/).\n\nThere is funding available for undergraduates to attend the conference. See the [GHC Scholarship page](https://anitab.org/career-toolbox/ghc-scholarship-grants/).",
@@ -3212,7 +3149,7 @@
           "slug": "greyhats",
           "description": "The ICS Grey Hats is a student-led, extracurricular organization focused on real-world training for cyber defense. Membership gives students an outstanding opportunity to learn and apply critical skills, and to share with others interested in modern security issues.\n\nAs of Fall 2018, Grey Hats has become a special interest group of ACM Manoa. You should use the ACM Manoa Opportunity to represent your involvement in Grey Hats.\n\n#### Verification criteria\nTake selfies at least two meetings during the semester, then contact this Opportunity's sponsor to login to RadGrad to verify your participation.",
           "opportunityType": "club",
-          "sponsor": "glau@hawaii.edu",
+          "sponsor": "johnson@hawaii.edu",
           "ice": {
             "i": 5,
             "c": 0,
@@ -3783,54 +3720,6 @@
           "retired": false
         },
         {
-          "name": "Lava Lab",
-          "slug": "lava-lab",
-          "description": "The University of Hawaiʻi at Mānoa’s Laboratory for Advanced Visualization & Applications (LAVA) was founded in January 1, 2014 by Jason Leigh- director Emeritus of the Electronic Visualization Laboratory (EVL) at the University of Illinois at Chicago. \n\nThe mission of LAVA is to conduct research and development in big data visualization techniques, and to apply these techniques in cutting edge domain science, engineering, and training applications. \n\nLearn more at [http://lava.manoa.hawaii.edu/about/)](http://lava.manoa.hawaii.edu/about/))\n\n#### Verification criteria\nAt the conclusion of the internship, request that this Opportunity's sponsor login to RadGrad to verify your participation.",
-          "opportunityType": "project",
-          "sponsor": "leighj@hawaii.edu",
-          "ice": {
-            "i": 25,
-            "c": 0,
-            "e": 0
-          },
-          "interests": [
-            "data-visualization",
-            "hardware",
-            "research",
-            "virtual-reality"
-          ],
-          "academicTerms": [
-            "Fall-2019",
-            "Spring-2020",
-            "Summer-2020",
-            "Fall-2020",
-            "Spring-2021"
-          ],
-          "retired": false
-        },
-        {
-          "name": "MapReduce algorithms",
-          "slug": "map-reduce-algorithms",
-          "description": "Google's MapReduce and its open-source implementation, Apache Hadoop, have emerged as a simple programming frameworks for implementing distributed algorithms. In this project we develop distributed algorithms and study the limits of computation in the MapReduce framework.\n\nRelevant courses: ICS 311, ICS 443, ICS 621, ICS 643, ICS 632, ICS 691C.\n\nThis project is sponsored by the [AlgoPARC](http://algoparc.ics.hawaii.edu/) research group, and there is REU funding so there is the possibility of being paid for your work. \n\n#### Verification criteria\n\nFor verification, please contact [Professor Nodari Sitchinava](http://algoparc.ics.hawaii.edu/nodari/index.html) after the semester is over.",
-          "opportunityType": "project",
-          "sponsor": "nodari@hawaii.edu",
-          "ice": {
-            "i": 25,
-            "c": 0,
-            "e": 0
-          },
-          "interests": [
-            "algorithms",
-            "research"
-          ],
-          "academicTerms": [
-            "Fall-2019",
-            "Spring-2020",
-            "Summer-2020"
-          ],
-          "retired": false
-        },
-        {
           "name": "National Cyber League",
           "slug": "national-cyber-league",
           "description": "The NCL is a defensive and offensive puzzle-based, capture-the-flag style cybersecurity competition. Its virtual training ground helps high school and college students prepare and test themselves against cybersecurity challenges that they will likely face in the workforce. All participants play the games simultaneously during Preseason, Individual Game and Team Game.\n\nNCL allows players of all levels to enter. Between easy, medium and hard challenges, students have multiple opportunities to really shine in areas as they excel.\n\nThe NCL challenges are based on the CompTIA Security+™ and EC-Council Certified Ethical Hacker (CEH)™ performance-based exam objectives and include the following content: Open Source Intelligence, Scanning, Enumeration and Exploitation, Password Cracking, Traffic Analysis, Log Analysis, Wireless Security, Cryptography, and Web Application Security.\n\nCollegiate students benefit because the NCL competition is closer to workplace experience over that of formal education by stressing application over theory.  The NCL also helps students train for other collegiate level competitions such as the Collegiate Cyber Defense Competition and prepares them for the workplace. \n\nFor more details, see [https://www.nationalcyberleague.org/](https://www.nationalcyberleague.org/)",
@@ -3979,34 +3868,11 @@
           "retired": false
         },
         {
-          "name": "Parallel Data Structures",
-          "slug": "parallel-data-structures",
-          "description": "Data structures organize data for more efficient querying. In this project we design data structures which can be built efficiently in parallel and/or queried efficiently in parallel.\n\nThe resulting data structures are used in multicore, GPU and MapReduce algorithms and implementations.\n\nRelevant courses: ICS 311, ICS 443, ICS 621, ICS 643, ICS 691C.\n\nThis project is sponsored by the [AlgoPARC](http://algoparc.ics.hawaii.edu/) research group.\n\n#### Verification criteria\n\nFor verification, please contact [Professor Nodari Sitchinava](http://algoparc.ics.hawaii.edu/nodari/index.html) after the semester is over.",
-          "opportunityType": "project",
-          "sponsor": "nodari@hawaii.edu",
-          "ice": {
-            "i": 25,
-            "c": 0,
-            "e": 0
-          },
-          "interests": [
-            "algorithms",
-            "parallel-programming",
-            "research"
-          ],
-          "academicTerms": [
-            "Fall-2019",
-            "Spring-2020",
-            "Summer-2020"
-          ],
-          "retired": false
-        },
-        {
           "name": "Po'oihe Cyber Security Exercise",
           "slug": "pooihe-cyber-security-exercise",
           "description": "\"Po‘oihe\" is a Hawaiian word that roughly translates to \"Tip of the Spear\".\n\nThe 2016 Po‘oihe Cyber Security Exercise is challenge-based exercise designed to present an environment that tests participants' knowledge of cybersecurity related concepts, tools and techniques and to support collaboration and education amongst all participants. The exercise will help assess the depth of understanding and operational competency in managing the challenges inherent in any organization's systems and network infrastructure.\n\nThis is the fourth year for this exercise and differs from previous years in that it's a challenge-based exercise where small teams of a maximum of five people need to hunt for \"flags\" of varying levels of difficulty to find both static and imbedded challenges. The maximum number of participants is capped at 100 participants.\n\nEvent Objectives\n\n* Provide an educational venue where participants are able to apply the theory and practical skills they acquired.\n* Foster a spirit of teamwork, ethical behavior, and effective communication both within and across teams.\n* Create interest and awareness of the information assurance profession.\n\nFor more details, see [http://www.hawaii.edu/cyberrange/](http://www.hawaii.edu/cyberrange/).\n\n#### Verification criteria\n\nWhen you've completed this opportunity, see the sponsor for verification.",
           "opportunityType": "event",
-          "sponsor": "glau@hawaii.edu",
+          "sponsor": "johnson@hawaii.edu",
           "ice": {
             "i": 0,
             "c": 0,
@@ -4203,7 +4069,7 @@
           "slug": "sarp-internship",
           "description": "The Student Airborne Research Program (SARP) is an eight-week summer internship program for rising senior undergraduate students to acquire hands-on research experience in all aspects of a scientific campaign using one or more NASA Airborne Science Program flying science laboratories (aircraft used for SARP have included the DC-8, P-3B, C-23, UC-12B, and ER-2).\n\nThe NASA Airborne Science Program maintains a fleet of aircraft used for studying Earth system processes, calibration/validation of space-borne observations, and prototyping instruments for possible satellite missions. SARP participants will assist in the operation of instruments *onboard an aircraft* to sample atmospheric gases, and/or to image land and water surfaces in multiple spectral bands.\n\nResearch areas include atmospheric chemistry, air quality, forest ecology, and ocean biology. Along with airborne data collection, students will participate in taking measurements at field sites. The program culminates with formal presentations of research results and conclusions.\n\nLearn more at [https://www.nasa.gov/centers/ames/earthscience/programs/airbornescience/studentairborneresearchprogram](https://www.nasa.gov/centers/ames/earthscience/programs/airbornescience/studentairborneresearchprogram).\n\n#### Verification criteria\n\nAt the conclusion of the internship, request that this Opportunity's sponsor login to RadGrad to verify your participation. You should be able to supply evidence of participation, and contact details for your supervisor at the organization.",
           "opportunityType": "internship",
-          "sponsor": "glau@hawaii.edu",
+          "sponsor": "johnson@hawaii.edu",
           "ice": {
             "i": 10,
             "c": 0,
@@ -4217,29 +4083,6 @@
           "academicTerms": [
             "Summer-2019",
             "Summer-2020"
-          ],
-          "retired": false
-        },
-        {
-          "name": "Airline Security",
-          "slug": "security-enhancement-of-commercial-airliner",
-          "description": "Malicious controllers can possibly manipulate a flight control system e.g. aircraft or drones. from various channels, e.g. autonomic control devices, remote cyber controller, or human operators. Thus, pilots could suicide the aircraft, the auto-pilot might be infected by malware, and air traffic controllers can mishandle the drone. \n\nTo better mitigate the potential risks, we hope to propose theoretical framework model in physical, human and cyber triad, a more secure air traffic control system, and a more safe task allocation mechanism. Students who are interested in aviation, risk control, and human-machine interface are highly encouraged to apply. \n\nLearn more at: [http://www2.hawaii.edu/~depengli/index.html](http://www2.hawaii.edu/~depengli/index.html).\n\n#### Verification Criteria\nAt the conclusion of the semester, ask this Opportunity's sponsor to verify your participation by logging into RadGrad.",
-          "opportunityType": "project",
-          "sponsor": "depengli@hawaii.edu",
-          "ice": {
-            "i": 25,
-            "c": 0,
-            "e": 0
-          },
-          "interests": [
-            "application-development",
-            "hci",
-            "security"
-          ],
-          "academicTerms": [
-            "Fall-2019",
-            "Spring-2020",
-            "Fall-2020"
           ],
           "retired": false
         },
@@ -4453,7 +4296,7 @@
           "slug": "uh-career-fair",
           "description": "The purpose of this career fair is to provide students with the “tools” and resources to make important and valuable career decisions. During the Career Fair, you will take your “first steps” toward meaningful employment by meeting with employers face to face to exchange information. \n\nLearn more at: [http://manoa.hawaii.edu/careercenter/students/career-fair/](http://manoa.hawaii.edu/careercenter/students/career-fair/)\n\n#### Verification criteria\nTake a selfie at this event and submit to this Opportunity's sponsor as evidence of your participation.",
           "opportunityType": "event",
-          "sponsor": "glau@hawaii.edu",
+          "sponsor": "johnson@hawaii.edu",
           "ice": {
             "i": 0,
             "c": 0,
@@ -4578,6 +4421,319 @@
             "Summer-2021"
           ],
           "retired": true
+        },
+        {
+          "name": "FABLAB",
+          "slug": "fablab",
+          "description": "FabLab is a maker space designed for students to fabricate their designs and collaborate.",
+          "opportunityType": "club",
+          "sponsor": "fablab@hawaii.edu",
+          "ice": {
+            "i": 5,
+            "c": 0,
+            "e": 5
+          },
+          "interests": [
+            "research"
+          ],
+          "academicTerms": [
+            "Spring-2015",
+            "Summer-2015",
+            "Fall-2015",
+            "Spring-2016",
+            "Summer-2016",
+            "Fall-2016",
+            "Spring-2017",
+            "Summer-2017",
+            "Fall-2017",
+            "Spring-2018",
+            "Summer-2018",
+            "Fall-2018",
+            "Spring-2019",
+            "Summer-2019",
+            "Fall-2019",
+            "Spring-2020",
+            "Summer-2020",
+            "Fall-2020",
+            "Spring-2021",
+            "Summer-2021"
+          ],
+          "retired": false
+        },
+        {
+          "name": "VIP Projects",
+          "slug": "vip-projects",
+          "description": "The University of Hawai`i (UH) is part of the Vertically Integrated Projects (VIP) Consortium, which consists of more than 30 institutions worldwide, led by the Georgia Institute of Technology. VIP programs at each institution seek to foster long-term, in-depth, project-based learning to engage students and better prepare them for future careers. VIP teams are vertically integrated: they consist of a faculty mentor, graduate student researchers, and undergraduates of all levels. The teams are large (10 to 20 undergraduates each semester), the projects are long-term (at least 5 years in scope), and are based on an externally funded research topic. Undergraduates in VIP teams earn academic credit for their participation.",
+          "opportunityType": "project",
+          "sponsor": "aohta@hawaii.edu",
+          "ice": {
+            "i": 5,
+            "c": 0,
+            "e": 5
+          },
+          "interests": [
+            "research"
+          ],
+          "academicTerms": [
+            "Spring-2015",
+            "Summer-2015",
+            "Fall-2015",
+            "Spring-2016",
+            "Summer-2016",
+            "Fall-2016",
+            "Spring-2017",
+            "Summer-2017",
+            "Fall-2017",
+            "Spring-2018",
+            "Summer-2018",
+            "Fall-2018",
+            "Spring-2019",
+            "Summer-2019",
+            "Fall-2019",
+            "Spring-2020",
+            "Summer-2020",
+            "Fall-2020",
+            "Spring-2021",
+            "Summer-2021"
+          ],
+          "retired": false
+        },
+        {
+          "name": "Agilent",
+          "slug": "agilent",
+          "description": "CENG/EE internship with a biotech company",
+          "opportunityType": "internship",
+          "sponsor": "info@eng.hawaii.edu",
+          "ice": {
+            "i": 5,
+            "c": 0,
+            "e": 5
+          },
+          "interests": [
+            "biology",
+            "bioinformatics"
+          ],
+          "academicTerms": [
+            "Spring-2015",
+            "Summer-2015",
+            "Fall-2015",
+            "Spring-2016",
+            "Summer-2016",
+            "Fall-2016",
+            "Spring-2017",
+            "Summer-2017",
+            "Fall-2017",
+            "Spring-2018",
+            "Summer-2018",
+            "Fall-2018",
+            "Spring-2019",
+            "Summer-2019",
+            "Fall-2019",
+            "Spring-2020",
+            "Summer-2020",
+            "Fall-2020",
+            "Spring-2021",
+            "Summer-2021"
+          ],
+          "retired": false
+        },
+        {
+          "name": "AMD",
+          "slug": "amd",
+          "description": "CENG/EE internship with a semiconductor company that focuses in developing consumer and business computer hardware.",
+          "opportunityType": "internship",
+          "sponsor": "info@eng.hawaii.edu",
+          "ice": {
+            "i": 5,
+            "c": 0,
+            "e": 5
+          },
+          "interests": [
+            "hardware",
+            "computer-architecture",
+            "hpc"
+          ],
+          "academicTerms": [
+            "Spring-2015",
+            "Summer-2015",
+            "Fall-2015",
+            "Spring-2016",
+            "Summer-2016",
+            "Fall-2016",
+            "Spring-2017",
+            "Summer-2017",
+            "Fall-2017",
+            "Spring-2018",
+            "Summer-2018",
+            "Fall-2018",
+            "Spring-2019",
+            "Summer-2019",
+            "Fall-2019",
+            "Spring-2020",
+            "Summer-2020",
+            "Fall-2020",
+            "Spring-2021",
+            "Summer-2021"
+          ],
+          "retired": false
+        },
+        {
+          "name": "Cirrus Logic",
+          "slug": "cirrus-logic",
+          "description": "CENG/EE internship with a semiconductor company that specializes in analog, mixed-signal, and audio DSP integrated circuits.",
+          "opportunityType": "internship",
+          "sponsor": "info@eng.hawaii.edu",
+          "ice": {
+            "i": 5,
+            "c": 0,
+            "e": 5
+          },
+          "interests": [
+            "microelectronics",
+            "systems-signals"
+          ],
+          "academicTerms": [
+            "Spring-2015",
+            "Summer-2015",
+            "Fall-2015",
+            "Spring-2016",
+            "Summer-2016",
+            "Fall-2016",
+            "Spring-2017",
+            "Summer-2017",
+            "Fall-2017",
+            "Spring-2018",
+            "Summer-2018",
+            "Fall-2018",
+            "Spring-2019",
+            "Summer-2019",
+            "Fall-2019",
+            "Spring-2020",
+            "Summer-2020",
+            "Fall-2020",
+            "Spring-2021",
+            "Summer-2021"
+          ],
+          "retired": false
+        },
+        {
+          "name": "Fast Enterprises",
+          "slug": "fast-enterprises",
+          "description": "CENG/EE internship with a software engineering firm that works with government agencies",
+          "opportunityType": "internship",
+          "sponsor": "info@eng.hawaii.edu",
+          "ice": {
+            "i": 5,
+            "c": 0,
+            "e": 5
+          },
+          "interests": [
+            "software-engineering",
+            "algorithms"
+          ],
+          "academicTerms": [
+            "Spring-2015",
+            "Summer-2015",
+            "Fall-2015",
+            "Spring-2016",
+            "Summer-2016",
+            "Fall-2016",
+            "Spring-2017",
+            "Summer-2017",
+            "Fall-2017",
+            "Spring-2018",
+            "Summer-2018",
+            "Fall-2018",
+            "Spring-2019",
+            "Summer-2019",
+            "Fall-2019",
+            "Spring-2020",
+            "Summer-2020",
+            "Fall-2020",
+            "Spring-2021",
+            "Summer-2021"
+          ],
+          "retired": false
+        },
+        {
+          "name": "Qualcomm",
+          "slug": "qualcomm",
+          "description": "CENG/EE internship in building computer hardware with an engineering organization that specializes in mobile technology",
+          "opportunityType": "internship",
+          "sponsor": "info@eng.hawaii.edu",
+          "ice": {
+            "i": 5,
+            "c": 0,
+            "e": 5
+          },
+          "interests": [
+            "networks",
+            "hardware",
+            "computer-architecture"
+          ],
+          "academicTerms": [
+            "Spring-2015",
+            "Summer-2015",
+            "Fall-2015",
+            "Spring-2016",
+            "Summer-2016",
+            "Fall-2016",
+            "Spring-2017",
+            "Summer-2017",
+            "Fall-2017",
+            "Spring-2018",
+            "Summer-2018",
+            "Fall-2018",
+            "Spring-2019",
+            "Summer-2019",
+            "Fall-2019",
+            "Spring-2020",
+            "Summer-2020",
+            "Fall-2020",
+            "Spring-2021",
+            "Summer-2021"
+          ],
+          "retired": false
+        },
+        {
+          "name": "Research Assistantship in Data Sciences and Health Informatics with the Social Science Research Institute",
+          "slug": "ra-ds-hi-ssri",
+          "description": "Implement systems in a health care setting http://ee.hawaii.edu/student/index.php?stc=2&stp=176",
+          "opportunityType": "event",
+          "sponsor": "positioninquiry@uhtasi.org",
+          "ice": {
+            "i": 5,
+            "c": 0,
+            "e": 5
+          },
+          "interests": [
+            "bioinformatics",
+            "data-science",
+            "software-engineering"
+          ],
+          "academicTerms": [
+            "Spring-2015",
+            "Summer-2015",
+            "Fall-2015",
+            "Spring-2016",
+            "Summer-2016",
+            "Fall-2016",
+            "Spring-2017",
+            "Summer-2017",
+            "Fall-2017",
+            "Spring-2018",
+            "Summer-2018",
+            "Fall-2018",
+            "Spring-2019",
+            "Summer-2019",
+            "Fall-2019",
+            "Spring-2020",
+            "Summer-2020",
+            "Fall-2020",
+            "Spring-2021",
+            "Summer-2021"
+          ],
+          "retired": false
         }
       ]
     },
@@ -4622,560 +4778,7 @@
     },
     {
       "name": "ProfileCareerGoalCollection",
-      "contents": [
-        {
-          "careerGoal": "graduate-school",
-          "username": "glau@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "information-security-analyst",
-          "username": "glau@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "teacher",
-          "username": "glau@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "devops-engineer",
-          "username": "cmoore@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "research-scientist",
-          "username": "sstill@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "research-scientist",
-          "username": "suthers@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "teacher",
-          "username": "suthers@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "research-scientist",
-          "username": "scottpr@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "teacher",
-          "username": "scottpr@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "graduate-school",
-          "username": "pseidel@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "information-security-analyst",
-          "username": "pseidel@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "information-system-manager",
-          "username": "pseidel@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "iot-architect",
-          "username": "pseidel@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "robotics-engineer",
-          "username": "pseidel@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "software-developer",
-          "username": "pseidel@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "research-scientist",
-          "username": "nodari@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "graduate-school",
-          "username": "nodari@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "data-scientist",
-          "username": "lipyeow@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "database-administrator",
-          "username": "lipyeow@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "graduate-school",
-          "username": "lipyeow@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "research-scientist",
-          "username": "lipyeow@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "teacher",
-          "username": "lipyeow@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "graduate-school",
-          "username": "leighj@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "research-scientist",
-          "username": "leighj@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "teacher",
-          "username": "leighj@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "vr-ar-engineer",
-          "username": "leighj@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "data-scientist",
-          "username": "kyungim@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "graduate-school",
-          "username": "kyungim@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "research-scientist",
-          "username": "kyungim@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "teacher",
-          "username": "kyungim@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "devops-engineer",
-          "username": "johnson@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "full-stack-developer",
-          "username": "johnson@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "software-developer",
-          "username": "johnson@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "startup-cofounder",
-          "username": "johnson@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "research-scientist",
-          "username": "johnson@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "teacher",
-          "username": "johnson@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "graduate-school",
-          "username": "henric@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "research-scientist",
-          "username": "henric@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "teacher",
-          "username": "henric@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "data-scientist",
-          "username": "guylaine@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "research-scientist",
-          "username": "guylaine@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "teacher",
-          "username": "guylaine@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "graduate-school",
-          "username": "esb@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "network-engineer",
-          "username": "esb@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "research-scientist",
-          "username": "esb@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "graduate-school",
-          "username": "dusko@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "information-security-analyst",
-          "username": "dusko@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "teacher",
-          "username": "dusko@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "graduate-school",
-          "username": "depengli@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "information-security-analyst",
-          "username": "depengli@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "research-scientist",
-          "username": "depengli@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "teacher",
-          "username": "depengli@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "data-scientist",
-          "username": "crosby@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "graduate-school",
-          "username": "crosby@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "information-security-analyst",
-          "username": "crosby@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "research-scientist",
-          "username": "crosby@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "teacher",
-          "username": "crosby@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "mobile-app-developer",
-          "username": "binsted@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "research-scientist",
-          "username": "binsted@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "teacher",
-          "username": "binsted@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "software-developer",
-          "username": "abi@hawaii.edu",
-          "share": false,
-          "retired": false
-        },
-        {
-          "careerGoal": "database-administrator",
-          "username": "abi@hawaii.edu",
-          "share": false,
-          "retired": false
-        },
-        {
-          "careerGoal": "iot-architect",
-          "username": "abi@hawaii.edu",
-          "share": false,
-          "retired": false
-        },
-        {
-          "careerGoal": "data-scientist",
-          "username": "abi@hawaii.edu",
-          "share": false,
-          "retired": false
-        },
-        {
-          "careerGoal": "software-developer",
-          "username": "alfred@hawaii.edu",
-          "share": false,
-          "retired": false
-        },
-        {
-          "careerGoal": "data-scientist",
-          "username": "betty@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "graduate-school",
-          "username": "betty@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "data-scientist",
-          "username": "charley@hawaii.edu",
-          "share": false,
-          "retired": false
-        },
-        {
-          "careerGoal": "full-stack-developer",
-          "username": "ella@hawaii.edu",
-          "share": false,
-          "retired": false
-        },
-        {
-          "careerGoal": "full-stack-developer",
-          "username": "samplestudent@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "research-scientist",
-          "username": "samplestudent@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "software-developer",
-          "username": "samplestudent@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "startup-cofounder",
-          "username": "samplestudent@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "ux-designer",
-          "username": "samplestudent@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "careerGoal": "full-stack-developer",
-          "username": "gcalica@hawaii.edu",
-          "share": false,
-          "retired": false
-        },
-        {
-          "careerGoal": "full-stack-developer",
-          "username": "mercedez@hawaii.edu",
-          "share": false,
-          "retired": false
-        },
-        {
-          "careerGoal": "data-scientist",
-          "username": "qauchida@hawaii.edu",
-          "share": false,
-          "retired": false
-        },
-        {
-          "careerGoal": "software-developer",
-          "username": "qauchida@hawaii.edu",
-          "share": false,
-          "retired": false
-        },
-        {
-          "careerGoal": "data-scientist",
-          "username": "gbarcelo@hawaii.edu",
-          "share": false,
-          "retired": false
-        },
-        {
-          "careerGoal": "devops-engineer",
-          "username": "janst@hawaii.edu",
-          "share": false,
-          "retired": true
-        },
-        {
-          "careerGoal": "full-stack-developer",
-          "username": "janst@hawaii.edu",
-          "share": false,
-          "retired": true
-        },
-        {
-          "careerGoal": "mobile-app-developer",
-          "username": "janst@hawaii.edu",
-          "share": false,
-          "retired": true
-        },
-        {
-          "careerGoal": "research-scientist",
-          "username": "janst@hawaii.edu",
-          "share": false,
-          "retired": true
-        },
-        {
-          "careerGoal": "software-developer",
-          "username": "janst@hawaii.edu",
-          "share": false,
-          "retired": true
-        },
-        {
-          "careerGoal": "startup-cofounder",
-          "username": "janst@hawaii.edu",
-          "share": false,
-          "retired": true
-        },
-        {
-          "careerGoal": "teacher",
-          "username": "janst@hawaii.edu",
-          "share": false,
-          "retired": true
-        },
-        {
-          "careerGoal": "data-scientist",
-          "username": "chin@hawaii.edu",
-          "share": false,
-          "retired": true
-        },
-        {
-          "careerGoal": "game-developer",
-          "username": "chin@hawaii.edu",
-          "share": false,
-          "retired": true
-        },
-        {
-          "careerGoal": "graduate-school",
-          "username": "chin@hawaii.edu",
-          "share": false,
-          "retired": true
-        },
-        {
-          "careerGoal": "research-scientist",
-          "username": "chin@hawaii.edu",
-          "share": false,
-          "retired": true
-        },
-        {
-          "careerGoal": "teacher",
-          "username": "chin@hawaii.edu",
-          "share": false,
-          "retired": true
-        },
-        {
-          "careerGoal": "research-scientist",
-          "username": "sugihara@hawaii.edu",
-          "share": false,
-          "retired": true
-        }
-      ]
+      "contents": []
     },
     {
       "name": "ProfileCourseCollection",
@@ -5183,1268 +4786,7 @@
     },
     {
       "name": "ProfileInterestCollection",
-      "contents": [
-        {
-          "interest": "application-development",
-          "username": "glau@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "it-management",
-          "username": "glau@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "security",
-          "username": "glau@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "teaching",
-          "username": "glau@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "research",
-          "username": "glau@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "databases",
-          "username": "glau@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "networks",
-          "username": "glau@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "research",
-          "username": "cmoore@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "software-engineering",
-          "username": "cmoore@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "application-development",
-          "username": "cmoore@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "databases",
-          "username": "cmoore@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "networks",
-          "username": "cmoore@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "machine-learning",
-          "username": "sstill@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "research",
-          "username": "sstill@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "hci",
-          "username": "suthers@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "research",
-          "username": "suthers@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "teaching",
-          "username": "suthers@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "civic-engagement",
-          "username": "scottpr@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "hci",
-          "username": "scottpr@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "research",
-          "username": "scottpr@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "teaching",
-          "username": "scottpr@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "algorithms",
-          "username": "pseidel@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "hardware",
-          "username": "pseidel@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "research",
-          "username": "pseidel@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "security",
-          "username": "pseidel@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "databases",
-          "username": "pseidel@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "networks",
-          "username": "pseidel@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "it-management",
-          "username": "pseidel@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "computer-architecture",
-          "username": "pseidel@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "data-science",
-          "username": "pseidel@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "data-visualization",
-          "username": "pseidel@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "hci",
-          "username": "pseidel@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "robotics",
-          "username": "pseidel@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "software-engineering",
-          "username": "pseidel@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "application-development",
-          "username": "pseidel@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "algorithms",
-          "username": "nodari@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "research",
-          "username": "nodari@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "data-science",
-          "username": "lipyeow@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "research",
-          "username": "lipyeow@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "sustainability",
-          "username": "lipyeow@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "algorithms",
-          "username": "lipyeow@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "databases",
-          "username": "lipyeow@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "machine-learning",
-          "username": "lipyeow@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "application-development",
-          "username": "lipyeow@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "software-engineering",
-          "username": "lipyeow@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "teaching",
-          "username": "lipyeow@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "data-visualization",
-          "username": "leighj@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "research",
-          "username": "leighj@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "teaching",
-          "username": "leighj@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "algorithms",
-          "username": "leighj@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "artificial-intelligence",
-          "username": "leighj@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "cognitive-science",
-          "username": "leighj@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "computer-graphics",
-          "username": "leighj@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "game-design",
-          "username": "leighj@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "virtual-reality",
-          "username": "leighj@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "algorithms",
-          "username": "kyungim@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "computer-vision",
-          "username": "kyungim@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "data-science",
-          "username": "kyungim@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "data-visualization",
-          "username": "kyungim@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "teaching",
-          "username": "kyungim@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "databases",
-          "username": "kyungim@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "machine-learning",
-          "username": "kyungim@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "research",
-          "username": "kyungim@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "civic-engagement",
-          "username": "johnson@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "research",
-          "username": "johnson@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "software-engineering",
-          "username": "johnson@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "sustainability",
-          "username": "johnson@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "application-development",
-          "username": "johnson@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "databases",
-          "username": "johnson@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "networks",
-          "username": "johnson@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "web-development",
-          "username": "johnson@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "entrepreneurship",
-          "username": "johnson@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "teaching",
-          "username": "johnson@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "algorithms",
-          "username": "henric@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "hpc",
-          "username": "henric@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "parallel-programming",
-          "username": "henric@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "research",
-          "username": "henric@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "teaching",
-          "username": "henric@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "bioinformatics",
-          "username": "guylaine@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "research",
-          "username": "guylaine@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "algorithms",
-          "username": "guylaine@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "data-science",
-          "username": "guylaine@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "databases",
-          "username": "guylaine@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "machine-learning",
-          "username": "guylaine@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "teaching",
-          "username": "guylaine@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "mobile",
-          "username": "esb@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "networks",
-          "username": "esb@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "research",
-          "username": "esb@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "hardware",
-          "username": "esb@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "research",
-          "username": "dusko@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "security",
-          "username": "dusko@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "databases",
-          "username": "dusko@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "networks",
-          "username": "dusko@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "teaching",
-          "username": "dusko@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "networks",
-          "username": "depengli@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "research",
-          "username": "depengli@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "security",
-          "username": "depengli@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "databases",
-          "username": "depengli@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "teaching",
-          "username": "depengli@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "hci",
-          "username": "crosby@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "research",
-          "username": "crosby@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "algorithms",
-          "username": "crosby@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "data-science",
-          "username": "crosby@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "databases",
-          "username": "crosby@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "machine-learning",
-          "username": "crosby@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "networks",
-          "username": "crosby@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "security",
-          "username": "crosby@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "teaching",
-          "username": "crosby@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "artificial-intelligence",
-          "username": "binsted@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "hci",
-          "username": "binsted@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "psychology",
-          "username": "binsted@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "research",
-          "username": "binsted@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "teaching",
-          "username": "binsted@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "android",
-          "username": "binsted@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "mobile",
-          "username": "binsted@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "ios",
-          "username": "binsted@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "application-development",
-          "username": "abi@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "research",
-          "username": "abi@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "android",
-          "username": "abi@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "software-engineering",
-          "username": "abi@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "databases",
-          "username": "abi@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "algorithms",
-          "username": "abi@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "computer-architecture",
-          "username": "abi@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "data-science",
-          "username": "abi@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "data-visualization",
-          "username": "abi@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "hardware",
-          "username": "abi@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "hci",
-          "username": "abi@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "networks",
-          "username": "abi@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "security",
-          "username": "abi@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "machine-learning",
-          "username": "abi@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "hardware",
-          "username": "alfred@hawaii.edu",
-          "share": false,
-          "retired": false
-        },
-        {
-          "interest": "it-management",
-          "username": "alfred@hawaii.edu",
-          "share": false,
-          "retired": false
-        },
-        {
-          "interest": "application-development",
-          "username": "alfred@hawaii.edu",
-          "share": false,
-          "retired": false
-        },
-        {
-          "interest": "software-engineering",
-          "username": "alfred@hawaii.edu",
-          "share": false,
-          "retired": false
-        },
-        {
-          "interest": "data-science",
-          "username": "betty@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "data-visualization",
-          "username": "betty@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "research",
-          "username": "betty@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "algorithms",
-          "username": "betty@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "databases",
-          "username": "betty@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "machine-learning",
-          "username": "betty@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "bioinformatics",
-          "username": "charley@hawaii.edu",
-          "share": false,
-          "retired": false
-        },
-        {
-          "interest": "algorithms",
-          "username": "charley@hawaii.edu",
-          "share": false,
-          "retired": false
-        },
-        {
-          "interest": "data-science",
-          "username": "charley@hawaii.edu",
-          "share": false,
-          "retired": false
-        },
-        {
-          "interest": "databases",
-          "username": "charley@hawaii.edu",
-          "share": false,
-          "retired": false
-        },
-        {
-          "interest": "machine-learning",
-          "username": "charley@hawaii.edu",
-          "share": false,
-          "retired": false
-        },
-        {
-          "interest": "research",
-          "username": "charley@hawaii.edu",
-          "share": false,
-          "retired": false
-        },
-        {
-          "interest": "civic-engagement",
-          "username": "ella@hawaii.edu",
-          "share": false,
-          "retired": false
-        },
-        {
-          "interest": "web-development",
-          "username": "ella@hawaii.edu",
-          "share": false,
-          "retired": false
-        },
-        {
-          "interest": "databases",
-          "username": "ella@hawaii.edu",
-          "share": false,
-          "retired": false
-        },
-        {
-          "interest": "software-engineering",
-          "username": "ella@hawaii.edu",
-          "share": false,
-          "retired": false
-        },
-        {
-          "interest": "algorithms",
-          "username": "samplestudent@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "application-development",
-          "username": "samplestudent@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "artificial-intelligence",
-          "username": "samplestudent@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "civic-engagement",
-          "username": "samplestudent@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "data-visualization",
-          "username": "samplestudent@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "entrepreneurship",
-          "username": "samplestudent@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "game-design",
-          "username": "samplestudent@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "javascript",
-          "username": "samplestudent@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "software-engineering",
-          "username": "samplestudent@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "databases",
-          "username": "samplestudent@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "web-development",
-          "username": "samplestudent@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "research",
-          "username": "samplestudent@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "computer-graphics",
-          "username": "samplestudent@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "hci",
-          "username": "samplestudent@hawaii.edu",
-          "share": true,
-          "retired": false
-        },
-        {
-          "interest": "algorithms",
-          "username": "gcalica@hawaii.edu",
-          "share": false,
-          "retired": false
-        },
-        {
-          "interest": "databases",
-          "username": "gcalica@hawaii.edu",
-          "share": false,
-          "retired": false
-        },
-        {
-          "interest": "software-engineering",
-          "username": "gcalica@hawaii.edu",
-          "share": false,
-          "retired": false
-        },
-        {
-          "interest": "web-development",
-          "username": "gcalica@hawaii.edu",
-          "share": false,
-          "retired": false
-        },
-        {
-          "interest": "algorithms",
-          "username": "mercedez@hawaii.edu",
-          "share": false,
-          "retired": false
-        },
-        {
-          "interest": "databases",
-          "username": "mercedez@hawaii.edu",
-          "share": false,
-          "retired": false
-        },
-        {
-          "interest": "software-engineering",
-          "username": "mercedez@hawaii.edu",
-          "share": false,
-          "retired": false
-        },
-        {
-          "interest": "web-development",
-          "username": "mercedez@hawaii.edu",
-          "share": false,
-          "retired": false
-        },
-        {
-          "interest": "application-development",
-          "username": "qauchida@hawaii.edu",
-          "share": false,
-          "retired": false
-        },
-        {
-          "interest": "research",
-          "username": "qauchida@hawaii.edu",
-          "share": false,
-          "retired": false
-        },
-        {
-          "interest": "algorithms",
-          "username": "qauchida@hawaii.edu",
-          "share": false,
-          "retired": false
-        },
-        {
-          "interest": "data-science",
-          "username": "qauchida@hawaii.edu",
-          "share": false,
-          "retired": false
-        },
-        {
-          "interest": "databases",
-          "username": "qauchida@hawaii.edu",
-          "share": false,
-          "retired": false
-        },
-        {
-          "interest": "machine-learning",
-          "username": "qauchida@hawaii.edu",
-          "share": false,
-          "retired": false
-        },
-        {
-          "interest": "software-engineering",
-          "username": "qauchida@hawaii.edu",
-          "share": false,
-          "retired": false
-        },
-        {
-          "interest": "data-science",
-          "username": "gbarcelo@hawaii.edu",
-          "share": false,
-          "retired": false
-        },
-        {
-          "interest": "data-visualization",
-          "username": "gbarcelo@hawaii.edu",
-          "share": false,
-          "retired": false
-        },
-        {
-          "interest": "algorithms",
-          "username": "gbarcelo@hawaii.edu",
-          "share": false,
-          "retired": false
-        },
-        {
-          "interest": "databases",
-          "username": "gbarcelo@hawaii.edu",
-          "share": false,
-          "retired": false
-        },
-        {
-          "interest": "machine-learning",
-          "username": "gbarcelo@hawaii.edu",
-          "share": false,
-          "retired": false
-        },
-        {
-          "interest": "research",
-          "username": "gbarcelo@hawaii.edu",
-          "share": false,
-          "retired": false
-        },
-        {
-          "interest": "hci",
-          "username": "janst@hawaii.edu",
-          "share": false,
-          "retired": true
-        },
-        {
-          "interest": "research",
-          "username": "janst@hawaii.edu",
-          "share": false,
-          "retired": true
-        },
-        {
-          "interest": "application-development",
-          "username": "janst@hawaii.edu",
-          "share": false,
-          "retired": true
-        },
-        {
-          "interest": "databases",
-          "username": "janst@hawaii.edu",
-          "share": false,
-          "retired": true
-        },
-        {
-          "interest": "networks",
-          "username": "janst@hawaii.edu",
-          "share": false,
-          "retired": true
-        },
-        {
-          "interest": "software-engineering",
-          "username": "janst@hawaii.edu",
-          "share": false,
-          "retired": true
-        },
-        {
-          "interest": "web-development",
-          "username": "janst@hawaii.edu",
-          "share": false,
-          "retired": true
-        },
-        {
-          "interest": "android",
-          "username": "janst@hawaii.edu",
-          "share": false,
-          "retired": true
-        },
-        {
-          "interest": "mobile",
-          "username": "janst@hawaii.edu",
-          "share": false,
-          "retired": true
-        },
-        {
-          "interest": "ios",
-          "username": "janst@hawaii.edu",
-          "share": false,
-          "retired": true
-        },
-        {
-          "interest": "entrepreneurship",
-          "username": "janst@hawaii.edu",
-          "share": false,
-          "retired": true
-        },
-        {
-          "interest": "teaching",
-          "username": "janst@hawaii.edu",
-          "share": false,
-          "retired": true
-        },
-        {
-          "interest": "artificial-intelligence",
-          "username": "chin@hawaii.edu",
-          "share": false,
-          "retired": true
-        },
-        {
-          "interest": "research",
-          "username": "chin@hawaii.edu",
-          "share": false,
-          "retired": true
-        },
-        {
-          "interest": "algorithms",
-          "username": "chin@hawaii.edu",
-          "share": false,
-          "retired": true
-        },
-        {
-          "interest": "data-science",
-          "username": "chin@hawaii.edu",
-          "share": false,
-          "retired": true
-        },
-        {
-          "interest": "databases",
-          "username": "chin@hawaii.edu",
-          "share": false,
-          "retired": true
-        },
-        {
-          "interest": "machine-learning",
-          "username": "chin@hawaii.edu",
-          "share": false,
-          "retired": true
-        },
-        {
-          "interest": "computer-graphics",
-          "username": "chin@hawaii.edu",
-          "share": false,
-          "retired": true
-        },
-        {
-          "interest": "game-design",
-          "username": "chin@hawaii.edu",
-          "share": false,
-          "retired": true
-        },
-        {
-          "interest": "unity",
-          "username": "chin@hawaii.edu",
-          "share": false,
-          "retired": true
-        },
-        {
-          "interest": "virtual-reality",
-          "username": "chin@hawaii.edu",
-          "share": false,
-          "retired": true
-        },
-        {
-          "interest": "teaching",
-          "username": "chin@hawaii.edu",
-          "share": false,
-          "retired": true
-        },
-        {
-          "interest": "research",
-          "username": "sugihara@hawaii.edu",
-          "share": false,
-          "retired": true
-        },
-        {
-          "interest": "robotics",
-          "username": "sugihara@hawaii.edu",
-          "share": false,
-          "retired": true
-        }
-      ]
+      "contents": []
     },
     {
       "name": "ProfileOpportunityCollection",
@@ -6491,18 +4833,6 @@
       "name": "TeaserCollection",
       "contents": [
         {
-          "title": "Introduction to ICPC",
-          "slug": "acm-icpc-teaser",
-          "author": "Nodari Sitchinava",
-          "url": "UO4apbCFkBU",
-          "description": "Overview of the International Collegiate Programming Contest",
-          "duration": "4:24",
-          "interests": [
-            "algorithms"
-          ],
-          "targetSlug": "acm-icpc"
-        },
-        {
           "title": "AFCEA",
           "slug": "afcea-hawaii-teaser",
           "author": "Philip Johnson",
@@ -6541,21 +4871,6 @@
           "targetSlug": "algorithms"
         },
         {
-          "title": "Allnet Teaser",
-          "slug": "allnet-teaser",
-          "author": "Edo Biagioni",
-          "url": "pFoBWnZJ_OI",
-          "description": "About the Allnet system for wireless ad-hoc networking",
-          "duration": "4:42",
-          "interests": [
-            "application-development",
-            "mobile",
-            "networks",
-            "research"
-          ],
-          "targetSlug": "allnet"
-        },
-        {
           "title": "What is Android?",
           "slug": "android-teaser",
           "author": "Android Authority",
@@ -6578,18 +4893,6 @@
             "angular"
           ],
           "targetSlug": "angular"
-        },
-        {
-          "title": "Introduction to AlgoPARC",
-          "slug": "asteroid-detection-teaser",
-          "author": "Nodari Sitchinava",
-          "url": "_m46c_b-1FU",
-          "description": "Introduction to AlgoPARC and the asteroid detection project.",
-          "duration": "4:08",
-          "interests": [
-            "algorithms"
-          ],
-          "targetSlug": "asteroid-detection"
         },
         {
           "title": "ATT Hackathon Teaser",
@@ -6653,18 +4956,6 @@
             "c-sharp"
           ],
           "targetSlug": "c-sharp"
-        },
-        {
-          "title": "Introduction to AlgoPARC",
-          "slug": "cache-efficient-parallel-algorithms-teaser",
-          "author": "Nodari Sitchinava",
-          "url": "_m46c_b-1FU",
-          "description": "Introduction to AlgoPARC and the cache-efficient parallel algorithms project",
-          "duration": "4:08",
-          "interests": [
-            "algorithms"
-          ],
-          "targetSlug": "cache-efficient-parallel-algorithms"
         },
         {
           "title": "CCDC Teaser",
@@ -6786,19 +5077,6 @@
           "targetSlug": "django"
         },
         {
-          "title": "Flip Flop",
-          "slug": "flip-flop-teaser",
-          "author": "Jan Stelovsky",
-          "url": "V9gWxXOwilI",
-          "description": "Opportunity to develop a new visual and interactive programming environment.",
-          "duration": "0:39",
-          "interests": [
-            "data-visualization"
-          ],
-          "targetSlug": "flip-flop",
-          "retired": false
-        },
-        {
           "title": "Day at Work: Video Game Designer",
           "slug": "game-developer-teaser",
           "author": "Connect Ed",
@@ -6860,18 +5138,6 @@
           ],
           "targetSlug": "google-summer-of-code",
           "retired": false
-        },
-        {
-          "title": "Introduction to AlgoPARC",
-          "slug": "gpu-algorithms-teaser",
-          "author": "Nodari Sitchinava",
-          "url": "_m46c_b-1FU",
-          "description": "Introduction to AlgoPARC and GPU algorithms",
-          "duration": "4:08",
-          "interests": [
-            "algorithms"
-          ],
-          "targetSlug": "gpu-algorithms"
         },
         {
           "title": "GHC Teaser",
@@ -7145,18 +5411,6 @@
           "targetSlug": "open-power-quality"
         },
         {
-          "title": "Introduction to AlgoPARC",
-          "slug": "parallel-data-structures-teaser",
-          "author": "Nodari Sitchinava",
-          "url": "_m46c_b-1FU",
-          "description": "Introduction to AlgoPARC and the parallel data structures project.",
-          "duration": "4:08",
-          "interests": [
-            "algorithms"
-          ],
-          "targetSlug": "parallel-data-structures"
-        },
-        {
           "title": "Py Hawaii Teaser",
           "slug": "py-hawaii-teaser",
           "author": "Mercedez Castro",
@@ -7232,24 +5486,6 @@
           "targetSlug": "sacnas"
         },
         {
-          "title": "Sadowski Lab Teaser",
-          "slug": "sadowski-lab-research-assistant-teaser",
-          "author": "Peter Sadowski",
-          "url": "2apfQJmzE0g",
-          "description": "Introduction to Peter Sadowski's lab and the Hawaii Data Science Institute",
-          "duration": "3:11",
-          "interests": [
-            "algorithms",
-            "artificial-intelligence",
-            "civic-engagement",
-            "data-science",
-            "data-visualization",
-            "machine-learning",
-            "social-computing"
-          ],
-          "targetSlug": "sadowski-lab-research-assistant"
-        },
-        {
           "title": "SARP Teaser",
           "slug": "sarp-internship-teaser",
           "author": "NASA Airborne",
@@ -7262,22 +5498,6 @@
             "research"
           ],
           "targetSlug": "sarp-internship"
-        },
-        {
-          "title": "Scientific Workflows",
-          "slug": "scientific-workflows-teaser",
-          "author": "Henri Casanova",
-          "url": "cRvLtv1_zGI",
-          "description": "How to make scientific workflows compute fast on modern computer architectures using current HPC systems.",
-          "duration": "2:17",
-          "interests": [
-            "algorithms",
-            "hpc",
-            "parallel-programming",
-            "theory-of-computation"
-          ],
-          "targetSlug": "generic-project",
-          "retired": true
         },
         {
           "title": "How it works: Cybersecurity",
@@ -7315,18 +5535,6 @@
             "software-engineering"
           ],
           "targetSlug": "software-developer"
-        },
-        {
-          "title": "Solar Energy",
-          "slug": "solar-energy-teaser",
-          "author": "Lipyeow Lim",
-          "url": "PAuOggtDYi0",
-          "description": "Opportunity to gather and analyze weather data for a solar energy project.",
-          "duration": "0:17",
-          "interests": [
-            "data-science"
-          ],
-          "targetSlug": "data-analytics-for-solar-energy"
         },
         {
           "title": "A day in the life: Female Entrepreneur",
