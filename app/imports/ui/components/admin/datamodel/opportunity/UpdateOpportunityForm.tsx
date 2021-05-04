@@ -85,6 +85,11 @@ const UpdateOpportunityForm: React.FC<UpdateOpportunityFormProps> = ({ sponsors,
     eventDateLabel3: { type: String, optional: true },
     eventDate4: { type: Date, optional: true },
     eventDateLabel4: { type: String, optional: true },
+    clearEventDate: { type: Boolean, optional: true },
+    clearEventDate1: { type: Boolean, optional: true },
+    clearEventDate2: { type: Boolean, optional: true },
+    clearEventDate3: { type: Boolean, optional: true },
+    clearEventDate4: { type: Boolean, optional: true },
     ice: { type: iceSchema, optional: true },
     retired: { type: Boolean, optional: true },
     picture: { type: String, optional: true },
@@ -122,6 +127,13 @@ const UpdateOpportunityForm: React.FC<UpdateOpportunityFormProps> = ({ sponsors,
         <Form.Group widths="equal">
           <DateField name="eventDate4" />
           <TextField name="eventDateLabel4" />
+        </Form.Group>
+        <Form.Group widths="equal">
+          <BoolField name="clearEventDate" />
+          <BoolField name="clearEventDate1" />
+          <BoolField name="clearEventDate2" />
+          <BoolField name="clearEventDate3" />
+          <BoolField name="clearEventDate4" />
         </Form.Group>
         <Form.Group widths="equal">
           <NumField name="ice.i" />
