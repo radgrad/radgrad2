@@ -23,11 +23,8 @@ export const MANAGE = {
 };
 
 export const ANALYTICS = {
-  HOME: 'analytics',
   NEWSLETTER: 'analytics/newsletter',
-  OVERHEAD_ANALYSIS: 'analytics/overhead-analysis',
-  STUDENT_SUMMARY: 'analytics/student-summary',
-  USER_INTERACTIONS: 'analytics/user-interactions',
+  BEHAVIOR_TABLE: 'analytics/behavior-table',
   LOGGED_IN_USERS: 'analytics/logged-in-users',
 };
 
