@@ -36,7 +36,7 @@ const AdminAnalyticsBehaviorTablePage: React.FC = () => {
   };
   const header = <RadGradHeader title='Behavior Table'/>;
   return (
-    <PageLayout id={PAGEIDS.ANALYTICS_STUDENT_SUMMARY} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
+    <PageLayout id={PAGEIDS.ANALYTICS_BEHAVIOR_TABLE} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
       <RadGradSegment header={header}>
         <DateIntervalSelector startStickyStateID={startStickyStateID} endStickyStateID={endStickyStateID} onClick={onClick} />
         { userInteractions && <BehaviorTable userInteractions={userInteractions} /> }
