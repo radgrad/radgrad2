@@ -95,6 +95,7 @@ import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { Teasers } from '../teaser/TeaserCollection';
 import { Interests } from '../interest/InterestCollection';
 import { ROLE } from '../role/Role';
+import { ProfileOpportunities } from '../user/profile-entries/ProfileOpportunityCollection';
 import { Users } from '../user/UserCollection';
 import { OpportunityTypes } from './OpportunityTypeCollection';
 import { OpportunityInstances } from './OpportunityInstanceCollection';
@@ -243,11 +244,18 @@ class OpportunityCollection extends BaseSlugCollection {
     eventDateLabel3,
     eventDate4,
     eventDateLabel4,
+    clearEventDate,
+    clearEventDate1,
+    clearEventDate2,
+    clearEventDate3,
+    clearEventDate4,
     ice,
     retired,
     picture,
   }: OpportunityUpdate) {
+    // console.log('OpportunityCollection.update');
     const docID = this.getID(instance);
+    // const unsetData: any = {};
     const updateData: OpportunityUpdateData = {};
     if (name) {
       updateData.name = name;
@@ -275,25 +283,25 @@ class OpportunityCollection extends BaseSlugCollection {
     if (eventDate1) {
       updateData.eventDate1 = eventDate1;
     }
-    if (eventDateLabel1) {
+    if (_.isString(eventDateLabel1)) {
       updateData.eventDateLabel1 = eventDateLabel1;
     }
     if (eventDate2) {
       updateData.eventDate2 = eventDate2;
     }
-    if (eventDateLabel2) {
+    if (_.isString(eventDateLabel2)) {
       updateData.eventDateLabel2 = eventDateLabel2;
     }
     if (eventDate3) {
       updateData.eventDate3 = eventDate3;
     }
-    if (eventDateLabel3) {
+    if (_.isString(eventDateLabel3)) {
       updateData.eventDateLabel3 = eventDateLabel3;
     }
     if (eventDate4) {
       updateData.eventDate4 = eventDate4;
     }
-    if (eventDateLabel4) {
+    if (_.isString(eventDateLabel4)) {
       updateData.eventDateLabel4 = eventDateLabel4;
     }
     if (ice) {
@@ -302,10 +310,32 @@ class OpportunityCollection extends BaseSlugCollection {
     }
     if (_.isBoolean(retired)) {
       updateData.retired = retired;
+      const profileOpportunities = ProfileOpportunities.find({ opportunityID: docID }).fetch();
+      profileOpportunities.forEach((po) => ProfileOpportunities.update(po._id, { retired }));
     }
     if (picture) {
       updateData.picture = picture;
     }
+    if (clearEventDate) {
+      updateData.eventDate = null;
+    }
+    if (clearEventDate1) {
+      updateData.eventDate1 = null;
+      updateData.eventDateLabel1 = '';
+    }
+    if (clearEventDate2) {
+      updateData.eventDate2 = null;
+      updateData.eventDateLabel2 = '';
+    }
+    if (clearEventDate3) {
+      updateData.eventDate3 = null;
+      updateData.eventDateLabel3 = '';
+    }
+    if (clearEventDate4) {
+      updateData.eventDate4 = null;
+      updateData.eventDateLabel4 = '';
+    }
+    // console.log(updateData);
     this.collection.update(docID, { $set: updateData });
   }
 

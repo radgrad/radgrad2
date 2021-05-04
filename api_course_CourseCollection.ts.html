@@ -92,6 +92,7 @@ import { CareerGoals } from '../career/CareerGoalCollection';
 import { Opportunities } from '../opportunity/OpportunityCollection';
 import { Slugs } from '../slug/SlugCollection';
 import { Interests } from '../interest/InterestCollection';
+import { ProfileCourses } from '../user/profile-entries/ProfileCourseCollection';
 import { CourseInstances } from './CourseInstanceCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
 import { CareerGoal, CourseDefine, CourseUpdate, Opportunity } from '../../typings/radgrad';
@@ -291,6 +292,8 @@ class CourseCollection extends BaseSlugCollection {
     }
     if (_.isBoolean(retired)) {
       updateData.retired = retired;
+      const profileCourses = ProfileCourses.find({ courseID: docID }).fetch();
+      profileCourses.forEach((pc) => ProfileCourses.update(pc._id, { retired }));
     }
     this.collection.update(docID, { $set: updateData });
   }
