@@ -77,6 +77,14 @@ const UpdateOpportunityForm: React.FC<UpdateOpportunityFormProps> = ({ sponsors,
     interests: { type: Array, optional: true },
     'interests.$': { type: String, allowedValues: interestNames },
     eventDate: { type: Date, optional: true },
+    eventDate1: { type: Date, optional: true },
+    eventDateLabel1: { type: String, optional: true },
+    eventDate2: { type: Date, optional: true },
+    eventDateLabel2: { type: String, optional: true },
+    eventDate3: { type: Date, optional: true },
+    eventDateLabel3: { type: String, optional: true },
+    eventDate4: { type: Date, optional: true },
+    eventDateLabel4: { type: String, optional: true },
     ice: { type: iceSchema, optional: true },
     retired: { type: Boolean, optional: true },
     picture: { type: String, optional: true },
@@ -99,6 +107,22 @@ const UpdateOpportunityForm: React.FC<UpdateOpportunityFormProps> = ({ sponsors,
           <MultiSelectField name="interests" />
         </Form.Group>
         <DateField name="eventDate" />
+        <Form.Group widths="equal">
+          <DateField name="eventDate1" />
+          <TextField name="eventDateLabel1" />
+        </Form.Group>
+        <Form.Group widths="equal">
+          <DateField name="eventDate2" />
+          <TextField name="eventDateLabel2" />
+        </Form.Group>
+        <Form.Group widths="equal">
+          <DateField name="eventDate3" />
+          <TextField name="eventDateLabel3" />
+        </Form.Group>
+        <Form.Group widths="equal">
+          <DateField name="eventDate4" />
+          <TextField name="eventDateLabel4" />
+        </Form.Group>
         <Form.Group widths="equal">
           <NumField name="ice.i" />
           <NumField name="ice.c" />

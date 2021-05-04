@@ -1,9 +1,9 @@
 import React from 'react';
 import { Users } from '../../../api/user/UserCollection';
 import { StudentProfile } from '../../../typings/radgrad';
-import { VISIBILITY, URL_ROLES } from '../../layouts/utilities/route-constants';
+import { VISIBILITY } from '../../layouts/utilities/route-constants';
 import { PAGEIDS } from '../../utilities/PageIDs';
-import StudentVisibilitySettingList from '../student/StudentVisibilitySettingList';
+import VisibilitySettingList from '../shared/VisibilitySettingList';
 import { Checklist, CHECKSTATE } from './Checklist';
 import { DetailsBox } from './DetailsBox';
 import { ActionsBox } from './ActionsBox';
@@ -12,10 +12,11 @@ import { ChecklistButtonLink } from './ChecklistButtons';
 export class VisibilityChecklist extends Checklist {
   private profile: StudentProfile;
 
-  constructor(student: string) {
+  constructor(username: string) {
     super();
     this.name = 'Visibility';
-    this.profile = Users.getProfile(student);
+    this.profile = Users.getProfile(username);
+    this.role = this.profile.role;
     this.iconName = 'privacy';
     this.title[CHECKSTATE.OK] = 'Thanks! You recently reviewed your Visibility settings';
     this.title[CHECKSTATE.REVIEW] = 'Please review your Visibility settings';
@@ -28,8 +29,10 @@ export class VisibilityChecklist extends Checklist {
   }
 
   public updateState(): void {
-    if (this.profile.lastVisited[PAGEIDS.STUDENT_VISIBILITY]) {
-      if (this.isSixMonthsOld(this.profile.lastVisited[PAGEIDS.STUDENT_VISIBILITY])) {
+    // console.log(this.profile.lastVisited);
+    const lastVisited = this.profile.lastVisited[PAGEIDS.VISIBILITY] || this.profile.lastVisited[PAGEIDS.STUDENT_VISIBILITY];
+    if (lastVisited) {
+      if (this.isSixMonthsOld(lastVisited)) {
         this.state = CHECKSTATE.REVIEW;
       } else {
         this.state = CHECKSTATE.OK;
@@ -43,7 +46,7 @@ export class VisibilityChecklist extends Checklist {
   public getDetails(): JSX.Element {
     return (
       <DetailsBox description='Your visibility settings are:'>
-        <StudentVisibilitySettingList profile={this.profile} size="medium" />
+        <VisibilitySettingList profile={this.profile} size="medium" />
       </DetailsBox>
     );
   }
@@ -55,7 +58,7 @@ export class VisibilityChecklist extends Checklist {
       case CHECKSTATE.IMPROVE:
         return (
           <ActionsBox description='Use the Visibility page to review and adjust the your public profile:'>
-            <ChecklistButtonLink url={`/${URL_ROLES.STUDENT}/${this.profile.username}/${VISIBILITY}`} label='Visibility Page'/>
+            <ChecklistButtonLink url={`/${this.role.toLowerCase()}/${this.profile.username}/${VISIBILITY}`} label='Visibility Page'/>
           </ActionsBox>
         );
       default:

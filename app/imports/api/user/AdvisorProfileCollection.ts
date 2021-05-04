@@ -51,12 +51,13 @@ class AdvisorProfileCollection extends BaseProfileCollection {
     shareWebsite = true,
     shareInterests = true,
     shareCareerGoals = true,
+    lastVisited = {},
   }: AdvisorOrFacultyProfileDefine) {
     if (Meteor.isServer) {
       const role = ROLE.ADVISOR;
       Slugs.define({ name: username, entityName: this.getType() });
       const profileID = this.collection.insert({
-        username, firstName, lastName, role, picture, website, userID: this.getFakeUserId(), aboutMe, retired, sharePicture, shareWebsite, shareInterests, shareCareerGoals,
+        username, firstName, lastName, role, picture, website, userID: this.getFakeUserId(), aboutMe, retired, sharePicture, shareWebsite, shareInterests, shareCareerGoals, lastVisited,
       });
       const userID = Users.define({ username, role });
       this.collection.update(profileID, { $set: { userID } });

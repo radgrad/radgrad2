@@ -1,7 +1,6 @@
 import SimpleSchema from 'simpl-schema';
 import { Meteor } from 'meteor/meteor';
 import _ from 'lodash';
-import moment from 'moment';
 import { CareerGoals } from '../career/CareerGoalCollection';
 import { Courses } from '../course/CourseCollection';
 import { Slugs } from '../slug/SlugCollection';
@@ -38,40 +37,20 @@ class OpportunityCollection extends BaseSlugCollection {
       sponsorID: { type: SimpleSchema.RegEx.Id },
       interestIDs: [SimpleSchema.RegEx.Id],
       termIDs: [SimpleSchema.RegEx.Id],
-      timestamp: { type: Date },
       // Optional data
-      eventDate: { type: Date, optional: true },
+      eventDate: { type: Date, optional: true }, // Deprecated
+      eventDate1: { type: Date, optional: true },
+      eventDateLabel1: { type: String, optional: true },
+      eventDate2: { type: Date, optional: true },
+      eventDateLabel2: { type: String, optional: true },
+      eventDate3: { type: Date, optional: true },
+      eventDateLabel3: { type: String, optional: true },
+      eventDate4: { type: Date, optional: true },
+      eventDateLabel4: { type: String, optional: true },
       ice: { type: iceSchema, optional: true },
       picture: { type: String, optional: true },
       retired: { type: Boolean, optional: true },
     }));
-    this.defineSchema = new SimpleSchema({
-      name: String,
-      slug: String,
-      description: String,
-      opportunityType: String,
-      sponsor: String,
-      terms: Array,
-      'terms.$': String,
-      timestamp: { type: Date },
-      eventDate: { type: Date, optional: true },
-      ice: { type: iceSchema, optional: true },
-      picture: { type: String, optional: true },
-      retired: { type: Boolean, optional: true },
-    });
-    this.updateSchema = new SimpleSchema({
-      name: { type: String, optional: true },
-      description: { type: String, optional: true },
-      opportunityType: { type: String, optional: true },
-      sponsor: { type: String, optional: true },
-      terms: { type: Array, optional: true },
-      'terms.$': String,
-      timestamp: { type: Date, optional: true },
-      eventDate: { type: Date, optional: true },
-      ice: { type: iceSchema, optional: true },
-      picture: { type: String, optional: true },
-      retired: { type: Boolean, optional: true },
-    });
   }
 
   /**
@@ -96,7 +75,6 @@ class OpportunityCollection extends BaseSlugCollection {
    * @param sponsor must be a User with role 'FACULTY', 'ADVISOR', or 'ADMIN'.
    * @param ice must be a valid ICE object.
    * @param eventDate optional date.
-   * @param timestamp the Date timestamp that this Opportunity document was created at.
    * @param picture The URL to the opportunity picture. (optional, defaults to a default picture.)
    * @param retired optional, true if the opportunity is retired.
    * @throws {Meteor.Error} If the definition includes a defined slug or undefined interest, sponsor, opportunityType,
@@ -112,13 +90,19 @@ class OpportunityCollection extends BaseSlugCollection {
     interests,
     academicTerms,
     ice,
-    timestamp = moment().toDate(),
-    eventDate = null,
+    eventDate, // Deprecated
+    eventDate1,
+    eventDateLabel1,
+    eventDate2,
+    eventDateLabel2,
+    eventDate3,
+    eventDateLabel3,
+    eventDate4,
+    eventDateLabel4,
     picture = defaultProfilePicture,
     retired = false,
   }: OpportunityDefine) {
     // Get instances, or throw error
-
     const opportunityTypeID = OpportunityTypes.getID(opportunityType);
     const sponsorID = Users.getID(sponsor);
     Users.assertInRole(sponsorID, [ROLE.FACULTY, ROLE.ADVISOR, ROLE.ADMIN]);
@@ -131,21 +115,13 @@ class OpportunityCollection extends BaseSlugCollection {
     }
     const slugID = Slugs.define({ name: slug, entityName: this.getType() });
     const termIDs = AcademicTerms.getIDs(academicTerms);
-    let opportunityID;
-    if (eventDate !== null) {
-      // Define the new Opportunity and its Slug.
-      opportunityID = this.collection.insert({
-        name, slugID, description, opportunityTypeID, sponsorID,
-        interestIDs, termIDs, ice, timestamp, eventDate, retired, picture,
-      });
-    } else {
-      opportunityID = this.collection.insert({
-        name, slugID, description, opportunityTypeID, sponsorID,
-        interestIDs, termIDs, ice, timestamp, retired, picture,
-      });
-    }
+    const opportunityID = this.collection.insert({
+      name, slugID, description, opportunityTypeID, sponsorID,
+      interestIDs, termIDs, ice, eventDate, eventDate1, eventDateLabel1, eventDate2, eventDateLabel2,
+      eventDate3, eventDateLabel3, eventDate4, eventDateLabel4, retired, picture,
+    });
     Slugs.updateEntityID(slugID, opportunityID);
-
+    // console.log(opportunityID);
     // Return the id to the newly created Opportunity.
     return opportunityID;
   }
@@ -159,7 +135,7 @@ class OpportunityCollection extends BaseSlugCollection {
    * @param sponsor user in role admin, advisor, or faculty. (optional).
    * @param interests array of slugs or IDs, (optional).
    * @param academicTerms array of slugs or IDs, (optional).
-   * @param eventDate a Date (optional).
+   * @param eventDate a Date (optional). // Deprecated
    * @param ice An ICE object (optional).
    * @param retired boolean (optional).
    * @param picture a string (optional).
@@ -172,8 +148,15 @@ class OpportunityCollection extends BaseSlugCollection {
     interests,
     academicTerms,
     eventDate,
+    eventDate1,
+    eventDateLabel1,
+    eventDate2,
+    eventDateLabel2,
+    eventDate3,
+    eventDateLabel3,
+    eventDate4,
+    eventDateLabel4,
     ice,
-    timestamp,
     retired,
     picture,
   }: OpportunityUpdate) {
@@ -199,15 +182,36 @@ class OpportunityCollection extends BaseSlugCollection {
     if (academicTerms) {
       updateData.termIDs = AcademicTerms.getIDs(academicTerms);
     }
-    // if (eventDate) {
-    updateData.eventDate = eventDate;
-    // }
+    if (eventDate) {
+      updateData.eventDate = eventDate;
+    }
+    if (eventDate1) {
+      updateData.eventDate1 = eventDate1;
+    }
+    if (eventDateLabel1) {
+      updateData.eventDateLabel1 = eventDateLabel1;
+    }
+    if (eventDate2) {
+      updateData.eventDate2 = eventDate2;
+    }
+    if (eventDateLabel2) {
+      updateData.eventDateLabel2 = eventDateLabel2;
+    }
+    if (eventDate3) {
+      updateData.eventDate3 = eventDate3;
+    }
+    if (eventDateLabel3) {
+      updateData.eventDateLabel3 = eventDateLabel3;
+    }
+    if (eventDate4) {
+      updateData.eventDate4 = eventDate4;
+    }
+    if (eventDateLabel4) {
+      updateData.eventDateLabel4 = eventDateLabel4;
+    }
     if (ice) {
       assertICE(ice);
       updateData.ice = ice;
-    }
-    if (timestamp) {
-      updateData.timestamp = timestamp;
     }
     if (_.isBoolean(retired)) {
       updateData.retired = retired;
@@ -358,7 +362,6 @@ class OpportunityCollection extends BaseSlugCollection {
     const interests = doc.interestIDs.map((interestID) => Interests.findSlugByID(interestID));
     const academicTerms = doc.termIDs.map((termID) => AcademicTerms.findSlugByID(termID));
     const eventDate = doc.eventDate;
-    const timestamp = doc.timestamp;
     const retired = doc.retired;
     return {
       name,
@@ -370,7 +373,6 @@ class OpportunityCollection extends BaseSlugCollection {
       interests,
       academicTerms,
       eventDate,
-      timestamp,
       retired,
     };
   }

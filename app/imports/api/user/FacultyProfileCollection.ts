@@ -51,6 +51,7 @@ class FacultyProfileCollection extends BaseProfileCollection {
     shareWebsite = true,
     shareInterests = true,
     shareCareerGoals = true,
+    lastVisited = {},
   }: AdvisorOrFacultyProfileDefine) {
     if (Meteor.isServer) {
       const role = ROLE.FACULTY;
@@ -65,6 +66,7 @@ class FacultyProfileCollection extends BaseProfileCollection {
         userID: this.getFakeUserId(),
         aboutMe,
         retired,
+        lastVisited,
         sharePicture,
         shareWebsite,
         shareInterests,

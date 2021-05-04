@@ -432,6 +432,14 @@ export interface Opportunity extends Document {
   timestamp: Date;
   // Optional data
   eventDate?: Date;
+  eventDate1?: Date;
+  eventDateLabel1?: string;
+  eventDate2?: Date;
+  eventDateLabel2?: string;
+  eventDate3?: Date;
+  eventDateLabel3?: string;
+  eventDate4?: Date;
+  eventDateLabel4?: string;
   ice?: Ice;
   picture?: string;
   retired?: boolean;
@@ -446,8 +454,15 @@ export interface OpportunityDefine extends DumpOne {
   interests: string[];
   academicTerms: string[];
   ice: Ice;
-  timestamp?: Date;
-  eventDate?: any;
+  eventDate?: Date; // Deprecated
+  eventDate1?: Date;
+  eventDateLabel1?: string;
+  eventDate2?: Date;
+  eventDateLabel2?: string;
+  eventDate3?: Date;
+  eventDateLabel3?: string;
+  eventDate4?: Date;
+  eventDateLabel4?: string;
   picture?: string;
   retired?: boolean;
 }
@@ -459,8 +474,15 @@ export interface OpportunityUpdate extends Update {
   sponsor?: string;
   interests?: string[];
   academicTerms?: string[];
-  eventDate?: any;
-  timestamp?: Date;
+  eventDate?: any; // Deprecated
+  eventDate1?: Date;
+  eventDateLabel1?: string;
+  eventDate2?: Date;
+  eventDateLabel2?: string;
+  eventDate3?: Date;
+  eventDateLabel3?: string;
+  eventDate4?: Date;
+  eventDateLabel4?: string;
   ice?: Ice;
   picture?: string;
   retired?: boolean;
@@ -474,7 +496,14 @@ export interface OpportunityUpdateData {
   interestIDs?: string[];
   termIDs?: string[];
   eventDate?: any;
-  timestamp?: Date;
+  eventDate1?: Date;
+  eventDateLabel1?: string;
+  eventDate2?: Date;
+  eventDateLabel2?: string;
+  eventDate3?: Date;
+  eventDateLabel3?: string;
+  eventDate4?: Date;
+  eventDateLabel4?: string;
   ice?: Ice;
   picture?: string;
   retired?: boolean;
@@ -583,17 +612,18 @@ export interface Profile extends Document {
   role: string;
   picture?: string;
   website?: string;
-  retired?: boolean;
-  courseExplorerFilter?: string;
-  opportunityExplorerSortOrder?: string;
-}
-
-// Advisor and Faculty Profiles
-export interface AdvisorOrFacultyProfile extends Profile {
   sharePicture?: boolean;
   shareWebsite?: boolean;
   shareInterests?: boolean;
   shareCareerGoals?: boolean;
+  retired?: boolean;
+  courseExplorerFilter?: string;
+  opportunityExplorerSortOrder?: string;
+  lastVisited?: Record<string, string>;
+}
+
+// Advisor and Faculty Profiles
+export interface AdvisorOrFacultyProfile extends Profile {
   aboutMe?: string;
 }
 
@@ -610,6 +640,7 @@ export interface ProfileDefine extends DumpOne {
   shareWebsite?: boolean;
   shareInterests?: boolean;
   shareCareerGoals?: boolean;
+  lastVisited?: Record<string, string>;
 }
 
 export interface AdvisorOrFacultyProfileDefine extends ProfileDefine {
@@ -654,10 +685,6 @@ export interface ProfileUpdate extends Update {
 }
 
 export interface AdvisorOrFacultyProfileUpdate extends ProfileUpdate {
-  sharePicture?: boolean;
-  shareWebsite?: boolean;
-  shareInterests?: boolean;
-  shareCareerGoals?: boolean;
   aboutMe?: string;
 }
 
@@ -665,16 +692,11 @@ export interface StudentProfile extends Profile {
   level: number;
   declaredAcademicTermID?: string;
   isAlumni?: boolean;
-  sharePicture?: boolean;
-  shareWebsite?: boolean;
-  shareInterests?: boolean;
-  shareCareerGoals?: boolean;
   shareCourses?: boolean;
   shareOpportunities?: boolean;
   shareLevel?: boolean;
   shareICE?: boolean;
   lastRegistrarLoad?: string;
-  lastVisited: Record<string, string>;
   lastLeveledUp?: string;
   acceptedTermsAndConditions?: string;
   refusedTermsAndConditions?: string;
@@ -687,10 +709,6 @@ export interface StudentProfileDefine extends ProfileDefine {
   profileOpportunities?: string[];
   isAlumni?: boolean;
   retired?: boolean;
-  sharePicture?: boolean;
-  shareWebsite?: boolean;
-  shareInterests?: boolean;
-  shareCareerGoals?: boolean;
   shareCourses?: boolean;
   shareOpportunities?: boolean;
   shareLevel?: boolean;
@@ -709,10 +727,6 @@ export interface StudentProfileUpdate extends ProfileUpdate {
   profileOpportunities?: string[];
   isAlumni?: boolean;
   retired?: boolean;
-  sharePicture?: boolean;
-  shareWebsite?: boolean;
-  shareInterests?: boolean;
-  shareCareerGoals?: boolean;
   shareCourses?: boolean;
   shareOpportunities?: boolean;
   shareLevel?: boolean;

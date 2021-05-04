@@ -42,7 +42,7 @@ class UserInteractionManager {
   public buildASnapshot() {
     const snap: UIMSnapshot = {};
     // Loop through each active student, and set their snapshot fields.
-    StudentProfiles.findNonRetired().forEach(profile => {
+    StudentProfiles.findNonRetired({ isAlumni: false }).forEach(profile => {
       const username = profile.username;
       snap[username] = {
         interests: ProfileInterests.getInterestSlugs(username),
@@ -83,8 +83,8 @@ class UserInteractionManager {
   public dailyUpdate() {
     const startingCount = UserInteractions.count();
     const newSnapshot = this.buildASnapshot();
-    const day = moment().format(moment.HTML5_FMT.DATE);
-    StudentProfiles.findNonRetired().forEach(profile => {
+    const today = moment().format(moment.HTML5_FMT.DATE);
+    StudentProfiles.findNonRetired({ isAlumni: false }).forEach(profile => {
       const username = profile.username;
       const userSnapshot = this.snapshot[username];
       const newUserSnapshot = newSnapshot[username];
