@@ -183,14 +183,12 @@ const BrowserView: React.FC<BrowserViewProps> = ({
             <Sort explorerType={explorerType} />
           </Grid.Column>
         </Grid.Row>
-        <Grid.Row>
-          <Card.Group itemsPerRow={4} stackable id="browserCardGroup" style={{ margin: '0px' }}>
-                  {explorerItems.map((explorerItem) => (
-            <ProfileCard key={explorerItem._id} item={explorerItem} type={explorerType} inProfile = {inProfile(explorerItem, explorerType)} />
-                  ))}
-          </Card.Group>
-        </Grid.Row>
       </Grid>
+      <Card.Group itemsPerRow={4} stackable id="browserCardGroup" style={{ margin: '0px' }}>
+                  {explorerItems.map((explorerItem) => (
+        <ProfileCard key={explorerItem._id} item={explorerItem} type={explorerType} inProfile = {inProfile(explorerItem, explorerType)} />
+                  ))}
+      </Card.Group>
     </RadGradSegment>
     </div>
   );

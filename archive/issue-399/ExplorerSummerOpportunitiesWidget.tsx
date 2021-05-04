@@ -1,10 +1,10 @@
 import React from 'react';
 import { Divider, Header, Image } from 'semantic-ui-react';
 import OpportunityInformationItem, { OpportunityInformationItemConfiguration } from './OpportunityInformationItem';
-import { AcademicTerm, Opportunity, OpportunityType } from '../../../../../typings/radgrad';
-import { Opportunities } from '../../../../../api/opportunity/OpportunityCollection';
-import { OpportunityTypes } from '../../../../../api/opportunity/OpportunityTypeCollection';
-import { AcademicTerms } from '../../../../../api/academic-term/AcademicTermCollection';
+import { AcademicTerm, Opportunity, OpportunityType } from '../../app/imports/typings/radgrad';
+import { Opportunities } from '../../app/imports/api/opportunity/OpportunityCollection';
+import { OpportunityTypes } from '../../app/imports/api/opportunity/OpportunityTypeCollection';
+import { AcademicTerms } from '../../app/imports/api/academic-term/AcademicTermCollection';
 
 const opportunityInformationItemConfiguration: OpportunityInformationItemConfiguration = {
   showLogo: false,

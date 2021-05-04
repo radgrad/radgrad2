@@ -2,19 +2,19 @@ import React, { useState } from 'react';
 import { Image, Divider, Grid, Header, Icon } from 'semantic-ui-react';
 import { useRouteMatch, Link } from 'react-router-dom';
 import Markdown from 'react-markdown';
-import { ROLE } from '../../../../../api/role/Role';
-import { Users } from '../../../../../api/user/UserCollection';
-import { Opportunity, Slug } from '../../../../../typings/radgrad';
-import { docToShortDescription } from '../../utilities/data-model';
-import IceHeader from '../../IceHeader';
-import { buildExplorerSlugRoute, renderLink } from '../../utilities/router';
-import InterestList from '../../InterestList';
-import { OpportunityTypes } from '../../../../../api/opportunity/OpportunityTypeCollection';
-import { AcademicTerms } from '../../../../../api/academic-term/AcademicTermCollection';
-import { replaceTermString } from '../../utilities/general';
-import { Slugs } from '../../../../../api/slug/SlugCollection';
-import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
-import { getUserIDsWithProfileOpportunityMethod } from '../../../../../api/user/profile-entries/ProfileOpportunityCollection.methods';
+import { ROLE } from '../../app/imports/api/role/Role';
+import { Users } from '../../app/imports/api/user/UserCollection';
+import { Opportunity, Slug } from '../../app/imports/typings/radgrad';
+import { docToShortDescription } from '../../app/imports/ui/components/shared/utilities/data-model';
+import IceHeader from '../../app/imports/ui/components/shared/IceHeader';
+import { buildExplorerSlugRoute, renderLink } from '../../app/imports/ui/components/shared/utilities/router';
+import InterestList from '../../app/imports/ui/components/shared/InterestList';
+import { OpportunityTypes } from '../../app/imports/api/opportunity/OpportunityTypeCollection';
+import { AcademicTerms } from '../../app/imports/api/academic-term/AcademicTermCollection';
+import { replaceTermString } from '../../app/imports/ui/components/shared/utilities/general';
+import { Slugs } from '../../app/imports/api/slug/SlugCollection';
+import { EXPLORER_TYPE } from '../../app/imports/ui/layouts/utilities/route-constants';
+import { getUserIDsWithProfileOpportunityMethod } from '../../app/imports/api/user/profile-entries/ProfileOpportunityCollection.methods';
 
 // Certain parts of pages don't show other information such students participating, logo, opportunity, type, and academic terms
 export interface OpportunityInformationItemConfiguration {
