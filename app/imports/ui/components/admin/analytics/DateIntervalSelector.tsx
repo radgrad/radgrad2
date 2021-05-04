@@ -26,7 +26,7 @@ const DateIntervalSelector: React.FC<DateIntervalSelectorProps> = ({ startSticky
   return (
     <Form>
       <Form.Group>
-        <Form.Input label="Start Date (midnight)">
+        <Form.Input label="Start Date">
           <DatePicker onChange={handleChangeStartDate} selected={startDate} maxDate={endDate} />
         </Form.Input>
         <Form.Input label="End Date (midnight of day before)">

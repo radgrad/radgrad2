@@ -169,7 +169,7 @@ class UserInteractionManager {
     // Last, but not least, update the saved snapshot to the current one.
     this.snapshot = newSnapshot;
     const newInteractions = UserInteractions.count() - startingCount;
-    console.log('After UserInteractionManager.dailyUpdate(), new Interactions: ', newInteractions );
+    console.log('UserInteractionManager.dailyUpdate(): new Interactions: ', newInteractions );
 
   }
 }
