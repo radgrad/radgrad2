@@ -1,35 +1,23 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { AutoForm } from 'uniforms-semantic/';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
+import { useStickyState } from '../../../../utilities/StickyState';
 import RadioField from '../../../form-fields/RadioField';
-import { RootState } from '../../../../../redux/types';
-import { cardExplorerActions } from '../../../../../redux/shared/cardExplorer';
 import { EXPLORER_TYPE, EXPLORER_FILTER_KEYS } from '../../../../utilities/ExplorerUtils';
 
 interface FilterProps {
-  filterChoice: string;
-  setFilterChoice: (key: string, value: string) => never;
   explorerType: string;
 }
 
-const mapStateToProps = (state: RootState, ownProps) => ({
-  filterChoice: state.shared.cardExplorer[ownProps.explorerType.replaceAll('-', '').toLowerCase().concat('Filter')].filterValue,
-});
+const Filter: React.FC<FilterProps> = ({ explorerType }) => {
+  const [filterChoice, setFilterChoice] = useStickyState(`Filter.${explorerType}`, EXPLORER_FILTER_KEYS.NONE);
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  setFilterChoice: (explorerType: string, value: string) => dispatch(cardExplorerActions.setFilterValue(ownProps.explorerType, value)),
-});
-
-const Filter: React.FC<FilterProps> = ({ filterChoice, setFilterChoice, explorerType }) => {
-  const handleChange = (type, value) => {
-    setFilterChoice(explorerType, value);
-  };
+  const handleChange = (type, value) => { setFilterChoice(value); };
 
   const explorerFilterValues = (type) => {
-    let allowedFilterValues:string[];
-    switch (type){
+    let allowedFilterValues: string[];
+    switch (type) {
       case EXPLORER_TYPE.CAREERGOALS:
       case EXPLORER_TYPE.OPPORTUNITIES:
       case EXPLORER_TYPE.INTERESTS:
@@ -50,16 +38,14 @@ const Filter: React.FC<FilterProps> = ({ filterChoice, setFilterChoice, explorer
     },
   });
   const formSchema = new SimpleSchema2Bridge(schema);
-  const model = {
-    filterBy: filterChoice,
-  };
+  const model = { filterBy: filterChoice };
   return (
-        <div>
-            <AutoForm schema={formSchema} model={model} onChange={handleChange}>
-                <RadioField name="filterBy" label="Filter By:" inline />
-            </AutoForm>
-        </div>
+    <div>
+      <AutoForm schema={formSchema} model={model} onChange={handleChange}>
+        <RadioField name="filterBy" label="Filter By:" inline />
+      </AutoForm>
+    </div>
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Filter);
+export default Filter;

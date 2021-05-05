@@ -1,11 +1,9 @@
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
 import _ from 'lodash';
 import { Card, Grid } from 'semantic-ui-react';
 import { useRouteMatch } from 'react-router';
-import { scrollPositionActions } from '../../../../../redux/shared/scrollPosition';
-import { RootState } from '../../../../../redux/types';
 import { CareerGoal, Course, Interest, Opportunity } from '../../../../../typings/radgrad';
+import { useStickyState } from '../../../../utilities/StickyState';
 import ProfileCard from './ProfileCard';
 import Sort from './Sort';
 import * as Router from '../../utilities/router';
@@ -24,47 +22,13 @@ import { ProfileOpportunities } from '../../../../../api/user/profile-entries/Pr
 
 interface BrowserViewProps {
   items: CareerGoal[] | Course[] | Opportunity[] | Interest[];
-  inProfile: boolean;
   explorerType: EXPLORER_TYPE;
-  // Saving Scroll Position
-  scrollPosition: number;
-  setScrollPosition: (scrollPosition: number) => never;
-  sortValue: string;
-  filterChoice: string;
 }
 
-const mapStateToProps = (state: RootState, ownProps) => ({
-  scrollPosition: state.shared.scrollPosition.explorer[ownProps.explorerType.replaceAll('-', '').toLowerCase()],
-  filterChoice: state.shared.cardExplorer[ownProps.explorerType.replaceAll('-', '').toLowerCase().concat('Filter')].filterValue,
-  sortValue: state.shared.cardExplorer[ownProps.explorerType.replaceAll('-', '').toLowerCase()].sortValue,
-});
-
-const mapDispatchToProps = (dispatch, ownProps) => {
-  switch (ownProps.explorerType) {
-    case EXPLORER_TYPE.INTERESTS:
-      return {
-        setScrollPosition: (scrollPosition: number) => dispatch(scrollPositionActions.setExplorerInterestsScrollPosition(scrollPosition)),
-      };
-    case EXPLORER_TYPE.CAREERGOALS:
-      return {
-        setScrollPosition: (scrollPosition: number) => dispatch(scrollPositionActions.setExplorerCareerGoalsScrollPosition(scrollPosition)),
-      };
-    case EXPLORER_TYPE.OPPORTUNITIES:
-      return {
-        setScrollPosition: (scrollPosition: number) => dispatch(scrollPositionActions.setExplorerOpportunitiesScrollPosition(scrollPosition)),
-      };
-  }
-  return null;
-};
-
-const BrowserView: React.FC<BrowserViewProps> = ({
-  items,
-  scrollPosition,
-  setScrollPosition,
-  sortValue,
-  explorerType,
-  filterChoice,
-}) => {
+const BrowserView: React.FC<BrowserViewProps> = ({ items, explorerType }) => {
+  const [filterChoice] = useStickyState(`Filter.${explorerType}`, EXPLORER_FILTER_KEYS.NONE);
+  const [sortChoice] = useStickyState(`Sort.${explorerType}`, EXPLORER_SORT_KEYS.ALPHABETIC);
+  const [scrollPosition, setScrollPosition] = useStickyState(`Scroll.${explorerType}`, 0);
   const match = useRouteMatch();
   const userID = Router.getUserIdFromRoute(match);
   const profileEntries = ProfileInterests.findNonRetired({ userID });
@@ -112,10 +76,10 @@ const BrowserView: React.FC<BrowserViewProps> = ({
       explorerItems = getNonProfileItems(explorerType);
       break;
     default:
-        // do no filtering
+        // if 'All', do no filtering
   }
 
-  switch (sortValue) {
+  switch (sortChoice) {
     case EXPLORER_SORT_KEYS.MOST_RECENT: {
       explorerItems = _.sortBy(explorerItems, (item: any) => item.updatedAt);
       break;
@@ -194,5 +158,4 @@ const BrowserView: React.FC<BrowserViewProps> = ({
   );
 };
 
-const BrowserViewContainer = connect(mapStateToProps, mapDispatchToProps)(BrowserView);
-export default BrowserViewContainer;
+export default BrowserView;
