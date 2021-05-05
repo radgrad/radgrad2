@@ -12,9 +12,9 @@ interface TermListProps {
 const TermList: React.FC<TermListProps> = ({ size, item }) => {
   const academicTerms = item.termIDs.map((termID) => AcademicTerms.toString(termID));
   return (
-        <Label.Group size={size}>
-            {academicTerms.map((term) =><Label key={term} size={size} color='blue' >{term}</Label>)}
-        </Label.Group>
+    <Label.Group size={size}>
+      {academicTerms.map((term) =><Label key={term} size={size} color='blue' >{term}</Label>)}
+    </Label.Group>
   );
 };
 

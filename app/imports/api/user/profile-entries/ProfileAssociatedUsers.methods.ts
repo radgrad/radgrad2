@@ -10,8 +10,8 @@ import { ProfileInterests } from './ProfileInterestCollection';
 import { EXPLORER_TYPE } from '../../../ui/utilities/ExplorerUtils';
 import { ProfileCareerGoals } from './ProfileCareerGoalCollection';
 
-export const getUserIDsWithProfileInterestMethod = new ValidatedMethod({
-  name: 'ProfileInterests.users',
+export const getUserIDsWithProfileExplorerMethod = new ValidatedMethod({
+  name: 'ProfileExplorer.users',
   mixins: [CallPromiseMixin],
   validate: null,
   run({ itemID, role, explorerType }) {
