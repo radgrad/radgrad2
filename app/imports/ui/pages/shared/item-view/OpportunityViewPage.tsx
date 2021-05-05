@@ -1,25 +1,33 @@
+import _ from 'lodash';
 import React from 'react';
-import { useParams, useRouteMatch } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Grid } from 'semantic-ui-react';
 import { Interests } from '../../../../api/interest/InterestCollection';
 import { Reviews } from '../../../../api/review/ReviewCollection';
+import { AdvisorProfiles } from '../../../../api/user/AdvisorProfileCollection';
+import { FacultyProfiles } from '../../../../api/user/FacultyProfileCollection';
 import { PROFILE_ENTRY_TYPE } from '../../../../api/user/profile-entries/ProfileEntryTypes';
-import { Opportunity, Profile, Review } from '../../../../typings/radgrad';
+import {
+  AcademicTerm,
+  BaseProfile,
+  Interest,
+  Opportunity,
+  OpportunityType,
+  Profile,
+  Review,
+} from '../../../../typings/radgrad';
 import AddToProfileButton from '../../../components/shared/explorer/item-view/AddToProfileButton';
 import RelatedCareerGoals from '../../../components/shared/RelatedCareerGoals';
 import RelatedCourses from '../../../components/shared/RelatedCourses';
 import RelatedInterests from '../../../components/shared/RelatedInterests';
 import { PAGEIDS } from '../../../utilities/PageIDs';
 import PageLayout from '../../PageLayout';
-import { getMenuWidget } from '../utilities/getMenuWidget';
 import { Users } from '../../../../api/user/UserCollection';
 import { ProfileOpportunities } from '../../../../api/user/profile-entries/ProfileOpportunityCollection';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
-import ExplorerMenu from '../../../components/shared/explorer/item-view/ExplorerMenu';
 import ExplorerOpportunity
   from '../../../components/shared/explorer/item-view/opportunity/ExplorerOpportunity';
-import { teaser } from '../../../components/shared/explorer/item-view/utilities/teaser';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import { OpportunityTypes } from '../../../../api/opportunity/OpportunityTypeCollection';
 import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
@@ -29,31 +37,13 @@ interface OpportunityViewPageProps {
   itemReviews: Review[];
   opportunity: Opportunity;
   profile: Profile;
+  // for the EditOpportunityButton
+  sponsors: BaseProfile[];
+  terms: AcademicTerm[];
+  interests: Interest[];
+  opportunityTypes: OpportunityType[];
+  opportunities: Opportunity[];
 }
-
-const opportunityType = (theOpp: Opportunity): string => {
-  const oppType = theOpp.opportunityTypeID;
-  const oppSlug = OpportunityTypes.findSlugByID(oppType);
-  return OpportunityTypes.findDocBySlug(oppSlug).name;
-};
-
-const academicTerms = (theOpp: Opportunity): string[] => {
-  const termIDs = theOpp.termIDs;
-  return termIDs.map((termID) => AcademicTerms.toString(termID));
-};
-
-const sponsor = (theOpp: Opportunity): string => Users.getFullName(theOpp.sponsorID);
-
-const descriptionPairsOpportunities = (theOpp: Opportunity): { label: string; value: any }[] => [
-  { label: 'Opportunity Type', value: opportunityType(theOpp) },
-  { label: 'Academic Terms', value: academicTerms(theOpp) },
-  { label: 'Event Date', value: theOpp.eventDate },
-  { label: 'Sponsor', value: sponsor(theOpp) },
-  { label: 'Description', value: theOpp.description },
-  { label: 'Interests', value: theOpp.interestIDs },
-  { label: 'ICE', value: theOpp.ice },
-  { label: 'Teaser', value: teaser(theOpp) },
-];
 
 const isCompleted = (opportunityID: string, studentID: string): boolean => {
   const ois = OpportunityInstances.findNonRetired({ opportunityID, studentID });
@@ -71,13 +61,12 @@ const OpportunityViewPage: React.FC<OpportunityViewPageProps> = ({
   itemReviews,
   opportunity,
   profile,
+  sponsors,
+  terms,
+  interests,
+  opportunityTypes,
+  opportunities,
 }) => {
-  const match = useRouteMatch();
-  const menuAddedList = profileOpportunities.map((item) => ({
-    item,
-    count: 1,
-  }));
-  const descriptionPairs = descriptionPairsOpportunities(opportunity);
   const studentID = profile.userID;
   const completed = isCompleted(opportunity._id, studentID);
   const headerPaneTitle = opportunity.name;
@@ -100,8 +89,9 @@ const OpportunityViewPage: React.FC<OpportunityViewPageProps> = ({
             <RelatedCareerGoals careerGoals={relatedCareerGoals} userID={profile.userID} />
           </Grid.Column>
           <Grid.Column width={13}>
-            <ExplorerOpportunity name={opportunity.name} descriptionPairs={descriptionPairs} item={opportunity}
-                                 completed={completed} itemReviews={itemReviews} />
+            <ExplorerOpportunity opportunity={opportunity} opportunityTypes={opportunityTypes}
+                                 opportunities={opportunities} interests={interests} sponsors={sponsors}
+                                 terms={terms} completed={completed} itemReviews={itemReviews} />
           </Grid.Column>
         </Grid.Row>
       </Grid>
@@ -116,11 +106,29 @@ const OpportunityViewPageContainer = withTracker(() => {
   const profileOpportunities = favOpps.map((f) => Opportunities.findDoc(f.opportunityID));
   const opportunityDoc = Opportunities.findDocBySlug(opportunity);
   const itemReviews = Reviews.findNonRetired({ revieweeID: opportunityDoc._id });
+  const sponsorID = Users.getProfile(username).userID;
+  const opportunities = Opportunities.find({ sponsorID }, { sort: { name: 1 } }).fetch();
+  const faculty = FacultyProfiles.find({}).fetch();
+  const advisors = AdvisorProfiles.find({}).fetch();
+  const sponsorDocs = _.union(faculty, advisors);
+  const sponsors = _.sortBy(sponsorDocs, ['lastName', 'firstName']);
+  const allTerms = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();
+  const currentTermNumber = AcademicTerms.getCurrentAcademicTermDoc().termNumber;
+  const after = currentTermNumber - 8;
+  const before = currentTermNumber + 16;
+  const terms = allTerms.filter((t) => t.termNumber >= after && t.termNumber <= before);
+  const interests = Interests.find({}, { sort: { name: 1 } }).fetch();
+  const opportunityTypes = OpportunityTypes.find({}, { sort: { name: 1 } }).fetch();
   return {
     profileOpportunities,
     itemReviews,
     opportunity: opportunityDoc,
     profile,
+    sponsors,
+    terms,
+    interests,
+    opportunityTypes,
+    opportunities,
   };
 })(OpportunityViewPage);
 

@@ -1,11 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useRouteMatch } from 'react-router-dom';
-import { Divider, Grid, Header, Icon, Segment } from 'semantic-ui-react';
+import { useRouteMatch } from 'react-router-dom';
+import { Divider, Header, Segment } from 'semantic-ui-react';
 import Markdown from 'react-markdown';
 import { AcademicTerms } from '../../../../../../api/academic-term/AcademicTermCollection';
 import { getFutureEnrollmentSingleMethod } from '../../../../../../api/utilities/FutureEnrollment.methods';
 import { ENROLLMENT_TYPE, EnrollmentForecast } from '../../../../../../startup/both/RadGradForecasts';
-import { Opportunity, Review } from '../../../../../../typings/radgrad';
+import {
+  AcademicTerm,
+  BaseProfile,
+  Interest,
+  Opportunity,
+  OpportunityType,
+  Review,
+} from '../../../../../../typings/radgrad';
 import StudentExplorerReviewWidget from '../../../../student/explorer/StudentExplorerReviewWidget';
 import { Reviews } from '../../../../../../api/review/ReviewCollection';
 import IceHeader from '../../../IceHeader';
@@ -13,7 +20,6 @@ import InterestList from '../../../InterestList';
 import { Slugs } from '../../../../../../api/slug/SlugCollection';
 import { Teasers } from '../../../../../../api/teaser/TeaserCollection';
 import * as Router from '../../../utilities/router';
-import AddToProfileButton from '../AddToProfileButton';
 import { toUpper, replaceTermString, isSame } from '../../../utilities/general';
 import FutureParticipation from '../../FutureParticipation';
 import { Opportunities } from '../../../../../../api/opportunity/OpportunityCollection';
@@ -25,11 +31,14 @@ import { ProfileOpportunities } from '../../../../../../api/user/profile-entries
 import ExplorerReviewWidget from '../ExplorerReviewWidget';
 
 interface ExplorerOpportunitiesWidgetProps {
-  name: string;
-  descriptionPairs: any[];
-  item: Opportunity;
+  opportunity: Opportunity;
   itemReviews: Review[];
   completed: boolean;
+  sponsors: BaseProfile[];
+  terms: AcademicTerm[];
+  interests: Interest[];
+  opportunityTypes: OpportunityType[];
+  opportunities: Opportunity[];
 }
 
 const review = (item: Opportunity, match): Review => {
@@ -50,7 +59,7 @@ const teaserUrlHelper = (opportunitySlug): string => {
   return oppTeaser && oppTeaser[0] && oppTeaser[0].url;
 };
 
-const ExplorerOpportunity: React.FC<ExplorerOpportunitiesWidgetProps> = ({ name, descriptionPairs, item, completed, itemReviews }) => {
+const ExplorerOpportunity: React.FC<ExplorerOpportunitiesWidgetProps> = ({ opportunity, opportunityTypes, opportunities, terms, interests, sponsors, completed, itemReviews }) => {
   const segmentStyle = { backgroundColor: 'white' };
   const zeroMarginTopStyle = { marginTop: 0 };
   const fiveMarginTopStyle = { marginTop: '5px' };
@@ -64,11 +73,10 @@ const ExplorerOpportunity: React.FC<ExplorerOpportunitiesWidgetProps> = ({ name,
   const breakWordStyle: React.CSSProperties = { wordWrap: 'break-word' };
 
   const match = useRouteMatch();
-  const { opportunity, username } = useParams();
 
   /* Header Variables */
   const upperName = toUpper(name);
-  const hasTeaser = Teasers.findNonRetired({ targetSlugID: item.slugID }).length > 0;
+  const hasTeaser = Teasers.findNonRetired({ targetSlugID: opportunity.slugID }).length > 0;
   const isStudent = Router.isUrlRoleStudent(match);
 
   const [data, setData] = useState<EnrollmentForecast>({});
