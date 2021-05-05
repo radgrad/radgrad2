@@ -1,35 +1,21 @@
 import React from 'react';
-import { Grid } from 'semantic-ui-react';
+import { Card, SemanticWIDTHS } from 'semantic-ui-react';
+import { RadGradProperties } from '../../../../api/radgrad/RadGradProperties';
 import { AcademicTerm } from '../../../../typings/radgrad';
-import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
+import FutureParticipationCard from './FutureParticipationCard';
 
 interface FutureParticipationProps {
   academicTerms: AcademicTerm[];
   scores: number[];
 }
 
-const termName = (termID) => AcademicTerms.getShortName(termID);
-
-const columnColor = (count) => {
-  if (count > 29) {
-    return 'green';
-  }
-  if (count > 10) {
-    return 'yellow';
-  }
-  return undefined;
-};
-
+const itemsPerRow: SemanticWIDTHS = RadGradProperties.getQuarterSystem() ? 4 : 6;
 const FutureParticipation: React.FC<FutureParticipationProps> = ({ academicTerms, scores }) => (
-  <Grid columns="equal" padded={false}>
+  <Card.Group itemsPerRow={itemsPerRow}>
     {academicTerms.map((term, index) => (
-      <Grid.Column key={term._id} color={columnColor(scores[index])}>
-        <b>{termName(term._id)}</b>
-        <br />
-        {scores[index]}
-      </Grid.Column>
+      <FutureParticipationCard academicTerm={term} score={scores[index]} key={term._id} />
     ))}
-  </Grid>
+  </Card.Group>
 );
 
 export default FutureParticipation;
