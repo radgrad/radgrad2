@@ -10,12 +10,17 @@ import { ProfileInterests } from '../../../../api/user/profile-entries/ProfileIn
 import { Users } from '../../../../api/user/UserCollection';
 import { Course, Interest, Opportunity, Profile } from '../../../../typings/radgrad';
 import AddToProfileButton from '../../../components/shared/explorer/item-view/AddToProfileButton';
-import ExplorerInterest from '../../../components/shared/explorer/item-view/interest/ExplorerInterest';
 import InterestedRelated from '../../../components/shared/explorer/item-view/interest/InterestedRelated';
 import * as Router from '../../../components/shared/utilities/router';
 import { PAGEIDS } from '../../../utilities/PageIDs';
 import PageLayout from '../../PageLayout';
-import { getBaseURL, getAssociationRelatedCourses, getAssociationRelatedOpportunities } from '../utilities/getExplorerRelatedMethods';
+import {
+  getAssociationRelatedCourses,
+  getAssociationRelatedOpportunities,
+  getBaseURL,
+} from '../utilities/getExplorerRelatedMethods';
+import ExplorerItemView from '../../../components/shared/explorer/item-view/ExplorerItemView';
+import { EXPLORER_TYPE } from '../../../utilities/ExplorerUtils';
 
 interface InterestViewPageProps {
   courses: Course[];
@@ -49,10 +54,9 @@ const InterestViewPage: React.FC<InterestViewPageProps> = ({
             <InterestedRelated relatedCourses={relatedCourses} relatedOpportunities={relatedOpportunities}
                                isStudent={Router.getRoleByUrl(match) === 'student'} baseURL={getBaseURL(match)}
                                profile={profile} />
-            {/* <ExplorerMenu menuAddedList={menuAddedList} type="interests" /> */}
           </Grid.Column>
           <Grid.Column width={11}>
-            <ExplorerInterest profile={profile} interest={interest} opportunities={opportunities} courses={courses} />
+            <ExplorerItemView profile={profile} item={interest} opportunities={opportunities} courses={courses} explorerType={EXPLORER_TYPE.INTERESTS} />
           </Grid.Column>
         </Grid.Row>
       </Grid>

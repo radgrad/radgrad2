@@ -43,7 +43,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ item, type, inProfile }) => {
         { item.interestIDs ? (<InterestList item={item} size="small" />) : ''}
       </Card.Content>
       <Link to={buildExplorerSlugRoute(match, type, slugName)} className="ui button">
-        <Icon name="zoom-in" />
+        <Icon name="zoom in" />
           &nbsp; {inProfile ? 'See Details / Remove from Profile' : 'See Details / Add to Profile' || 'View More'}
       </Link>
     </Card>

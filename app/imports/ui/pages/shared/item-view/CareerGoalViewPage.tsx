@@ -19,8 +19,9 @@ import AddToProfileButton from '../../../components/shared/explorer/item-view/Ad
 import { PROFILE_ENTRY_TYPE } from '../../../../api/user/profile-entries/ProfileEntryTypes';
 import CareerGoalRelated from '../../../components/shared/explorer/item-view/career-goal/CareerGoalRelated';
 import * as Router from '../../../components/shared/utilities/router';
-import ExplorerCareerGoal from '../../../components/shared/explorer/item-view/career-goal/ExplorerCareerGoal';
 import { getBaseURL, getAssociationRelatedCourses, getAssociationRelatedOpportunities } from '../utilities/getExplorerRelatedMethods';
+import { EXPLORER_TYPE } from '../../../utilities/ExplorerUtils';
+import ExplorerItemView from '../../../components/shared/explorer/item-view/ExplorerItemView';
 
 interface CareerGoalViewPageProps {
   profileCareerGoals: ProfileCareerGoal[];
@@ -55,7 +56,7 @@ const CareerGoalViewPage: React.FC<CareerGoalViewPageProps> = ({
                                profile={profile} />
           </Grid.Column>
           <Grid.Column width={11}>
-            <ExplorerCareerGoal profile={profile} careerGoal={careerGoal} opportunities={opportunities} courses={courses} />
+            <ExplorerItemView profile={profile} item={careerGoal} opportunities={opportunities} courses={courses} explorerType={EXPLORER_TYPE.CAREERGOALS}/>
           </Grid.Column>
         </Grid.Row>
       </Grid>

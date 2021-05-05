@@ -1,31 +1,28 @@
 import React from 'react';
+import { useRouteMatch } from 'react-router-dom';
 import { Grid, Segment, SegmentGroup } from 'semantic-ui-react';
 import Markdown from 'react-markdown';
-import { useRouteMatch } from 'react-router-dom';
-import {
-  CareerGoal, Course,
-  Opportunity,
-  Profile,
-} from '../../../../../../typings/radgrad';
-import { Teasers } from '../../../../../../api/teaser/TeaserCollection';
-import TeaserVideo from '../../../TeaserVideo';
-import * as Router from '../../../utilities/router';
-import ExplorerProfiles from '../ExplorerProfiles';
-import { EXPLORER_TYPE } from '../../../../../utilities/ExplorerUtils';
+import { CareerGoal, Course, Interest, Opportunity, Profile } from '../../../../../typings/radgrad';
+import ExplorerProfiles from './ExplorerProfiles';
+import * as Router from '../../utilities/router';
+import { Teasers } from '../../../../../api/teaser/TeaserCollection';
+import TeaserVideo from '../../TeaserVideo';
+import { EXPLORER_TYPE } from '../../../../utilities/ExplorerUtils';
 
-interface ExplorerCareerGoalProps {
+interface ExplorerItemViewProps {
   profile: Profile;
-  careerGoal: CareerGoal;
+  item: Interest | CareerGoal;
   opportunities: Opportunity[];
   courses: Course[];
+  explorerType: EXPLORER_TYPE;
 }
 
-const ExplorerCareerGoal: React.FC<ExplorerCareerGoalProps> = ({ profile, courses, opportunities, careerGoal }) => {
-  const teaser = Teasers.findNonRetired({ targetSlugID: careerGoal.slugID });
+const ExplorerItemView: React.FC<ExplorerItemViewProps> = ({ profile, item, courses, opportunities, explorerType }) => {
+  const teaser = Teasers.findNonRetired({ targetSlugID: item.slugID });
   const hasTeaser = teaser.length > 0;
   const match = useRouteMatch();
   return (
-        <div id="explorerCareerGoalWidget">
+        <div id="explorerItemViewWidget">
             <SegmentGroup>
                 <Segment>
                     {hasTeaser ? (
@@ -35,7 +32,7 @@ const ExplorerCareerGoal: React.FC<ExplorerCareerGoalProps> = ({ profile, course
                                     <b>Description: </b>
                                 </div>
                                 <div>
-                                    <Markdown escapeHtml source={careerGoal.description}
+                                    <Markdown escapeHtml source={item.description}
                                               renderers={{ link: (localProps) => Router.renderLink(localProps, match) }} />
                                 </div>
                             </Grid.Column>
@@ -50,15 +47,15 @@ const ExplorerCareerGoal: React.FC<ExplorerCareerGoalProps> = ({ profile, course
                                 <b>Description: </b>
                             </div>
                             <div>
-                                <Markdown escapeHtml source={careerGoal.description} />
+                                <Markdown escapeHtml source={item.description} />
                             </div>
                         </React.Fragment>
                     )}
                 </Segment>
-                <ExplorerProfiles item={careerGoal} explorerType={EXPLORER_TYPE.CAREERGOALS}/>
+                <ExplorerProfiles item={item} explorerType={explorerType}/>
             </SegmentGroup>
         </div>
   );
 };
 
-export default ExplorerCareerGoal;
+export default ExplorerItemView;
