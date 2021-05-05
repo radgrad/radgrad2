@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Button, Modal } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
-import { removeItMethod } from '../../../../api/base/BaseCollection.methods';
-import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
-import { Opportunity } from '../../../../typings/radgrad';
+import { removeItMethod } from '../../../../../api/base/BaseCollection.methods';
+import { Opportunities } from '../../../../../api/opportunity/OpportunityCollection';
+import { Opportunity } from '../../../../../typings/radgrad';
 
 interface DeleteOpportunityButtonProps {
   opportunity: Opportunity;

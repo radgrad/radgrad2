@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid, Tab } from 'semantic-ui-react';
-import { AcademicTerm, BaseProfile, Interest, Opportunity, OpportunityType } from '../../../../typings/radgrad';
+import { AcademicTerm, BaseProfile, Interest, Opportunity, OpportunityType } from '../../../../../typings/radgrad';
 import ManageOpportunityItem from './ManageOpportunityItem';
 
 export interface ViewOpportunityTabProps {

@@ -13,16 +13,16 @@ import {
   SubmitField,
   TextField,
 } from 'uniforms-semantic';
-import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
-import { updateMethod } from '../../../../api/base/BaseCollection.methods';
-import { iceSchema } from '../../../../api/ice/IceProcessor';
-import { Interests } from '../../../../api/interest/InterestCollection';
-import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
-import { OpportunityTypes } from '../../../../api/opportunity/OpportunityTypeCollection';
-import { Users } from '../../../../api/user/UserCollection';
-import { OpportunityUpdate } from '../../../../typings/radgrad';
-import MultiSelectField from '../../form-fields/MultiSelectField';
-import { openCloudinaryWidget } from '../OpenCloudinaryWidget';
+import { AcademicTerms } from '../../../../../api/academic-term/AcademicTermCollection';
+import { updateMethod } from '../../../../../api/base/BaseCollection.methods';
+import { iceSchema } from '../../../../../api/ice/IceProcessor';
+import { Interests } from '../../../../../api/interest/InterestCollection';
+import { Opportunities } from '../../../../../api/opportunity/OpportunityCollection';
+import { OpportunityTypes } from '../../../../../api/opportunity/OpportunityTypeCollection';
+import { Users } from '../../../../../api/user/UserCollection';
+import { OpportunityUpdate } from '../../../../../typings/radgrad';
+import MultiSelectField from '../../../form-fields/MultiSelectField';
+import { openCloudinaryWidget } from '../../OpenCloudinaryWidget';
 import { ManageOpportunityProps } from './ManageOpportunityProps';
 
 const EditOpportunityButton: React.FC<ManageOpportunityProps> = ({
@@ -59,7 +59,7 @@ const EditOpportunityButton: React.FC<ManageOpportunityProps> = ({
     updateData.opportunityType = OpportunityTypes.findDoc(doc.opportunityType)._id;
     updateData.sponsor = Users.getUsernameFromFullName(doc.sponsor);
     updateData.academicTerms = doc.academicTerms.map((name) => AcademicTerms.getAcademicTermFromToString(name)._id);
-    console.log(collectionName, updateData);
+    // console.log(collectionName, updateData);
     updateMethod.callPromise({ collectionName, updateData })
       .then((result) => Swal.fire({
         title: 'Opportunity Updated',

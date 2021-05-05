@@ -1,7 +1,7 @@
 import React from 'react';
 import { Tab } from 'semantic-ui-react';
-import { AcademicTerm, BaseProfile, Interest, OpportunityType } from '../../../../typings/radgrad';
-import AddOpportunityForm from '../../admin/datamodel/opportunity/AddOpportunityForm';
+import { AcademicTerm, BaseProfile, Interest, OpportunityType } from '../../../../../typings/radgrad';
+import AddOpportunityForm from '../../../admin/datamodel/opportunity/AddOpportunityForm';
 
 interface AddOpportunityTabProps {
   sponsors: BaseProfile[];

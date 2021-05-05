@@ -1,4 +1,4 @@
-import { AcademicTerm, BaseProfile, Interest, Opportunity, OpportunityType } from '../../../../typings/radgrad';
+import { AcademicTerm, BaseProfile, Interest, Opportunity, OpportunityType } from '../../../../../typings/radgrad';
 
 export interface ManageOpportunityProps {
   opportunity: Opportunity;
