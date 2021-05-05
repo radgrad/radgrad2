@@ -6,6 +6,7 @@ import { useRouteMatch } from 'react-router';
 import { scrollPositionActions } from '../../../../../redux/shared/scrollPosition';
 import { RootState } from '../../../../../redux/types';
 import { CareerGoal, Course, Interest, Opportunity } from '../../../../../typings/radgrad';
+import { useStickyState } from '../../../../utilities/StickyState';
 import ProfileCard from './ProfileCard';
 import Sort from './Sort';
 import * as Router from '../../utilities/router';
@@ -30,12 +31,10 @@ interface BrowserViewProps {
   scrollPosition: number;
   setScrollPosition: (scrollPosition: number) => never;
   sortValue: string;
-  filterChoice: string;
 }
 
 const mapStateToProps = (state: RootState, ownProps) => ({
   scrollPosition: state.shared.scrollPosition.explorer[ownProps.explorerType.replaceAll('-', '').toLowerCase()],
-  filterChoice: state.shared.cardExplorer[ownProps.explorerType.replaceAll('-', '').toLowerCase().concat('Filter')].filterValue,
   sortValue: state.shared.cardExplorer[ownProps.explorerType.replaceAll('-', '').toLowerCase()].sortValue,
 });
 
@@ -63,8 +62,8 @@ const BrowserView: React.FC<BrowserViewProps> = ({
   setScrollPosition,
   sortValue,
   explorerType,
-  filterChoice,
 }) => {
+  const [filterChoice] = useStickyState(`BrowserView.${explorerType}`, EXPLORER_FILTER_KEYS.NONE);
   const match = useRouteMatch();
   const userID = Router.getUserIdFromRoute(match);
   const profileEntries = ProfileInterests.findNonRetired({ userID });
@@ -112,7 +111,7 @@ const BrowserView: React.FC<BrowserViewProps> = ({
       explorerItems = getNonProfileItems(explorerType);
       break;
     default:
-        // do no filtering
+        // if 'All', do no filtering
   }
 
   switch (sortValue) {
