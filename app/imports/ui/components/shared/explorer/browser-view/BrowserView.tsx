@@ -30,12 +30,10 @@ interface BrowserViewProps {
   // Saving Scroll Position
   scrollPosition: number;
   setScrollPosition: (scrollPosition: number) => never;
-  sortValue: string;
 }
 
 const mapStateToProps = (state: RootState, ownProps) => ({
   scrollPosition: state.shared.scrollPosition.explorer[ownProps.explorerType.replaceAll('-', '').toLowerCase()],
-  sortValue: state.shared.cardExplorer[ownProps.explorerType.replaceAll('-', '').toLowerCase()].sortValue,
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => {
@@ -60,10 +58,10 @@ const BrowserView: React.FC<BrowserViewProps> = ({
   items,
   scrollPosition,
   setScrollPosition,
-  sortValue,
   explorerType,
 }) => {
-  const [filterChoice] = useStickyState(`BrowserView.${explorerType}`, EXPLORER_FILTER_KEYS.NONE);
+  const [filterChoice] = useStickyState(`Filter.${explorerType}`, EXPLORER_FILTER_KEYS.NONE);
+  const [sortChoice] = useStickyState(`Sort.${explorerType}`, EXPLORER_SORT_KEYS.ALPHABETIC);
   const match = useRouteMatch();
   const userID = Router.getUserIdFromRoute(match);
   const profileEntries = ProfileInterests.findNonRetired({ userID });
@@ -114,7 +112,7 @@ const BrowserView: React.FC<BrowserViewProps> = ({
         // if 'All', do no filtering
   }
 
-  switch (sortValue) {
+  switch (sortChoice) {
     case EXPLORER_SORT_KEYS.MOST_RECENT: {
       explorerItems = _.sortBy(explorerItems, (item: any) => item.updatedAt);
       break;

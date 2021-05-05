@@ -11,7 +11,7 @@ interface FilterProps {
 }
 
 const Filter: React.FC<FilterProps> = ({ explorerType }) => {
-  const [filterChoice, setFilterChoice] = useStickyState(`BrowserView.${explorerType}`, EXPLORER_FILTER_KEYS.NONE);
+  const [filterChoice, setFilterChoice] = useStickyState(`Filter.${explorerType}`, EXPLORER_FILTER_KEYS.NONE);
 
   const handleChange = (type, value) => { setFilterChoice(value); };
 
