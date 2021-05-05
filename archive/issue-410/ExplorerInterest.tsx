@@ -2,12 +2,12 @@ import React from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import { Grid, Segment, SegmentGroup } from 'semantic-ui-react';
 import Markdown from 'react-markdown';
-import { Course, Interest, Opportunity, Profile } from '../../../../../../typings/radgrad';
-import ExplorerProfiles from '../ExplorerProfiles';
-import * as Router from '../../../utilities/router';
-import { Teasers } from '../../../../../../api/teaser/TeaserCollection';
-import TeaserVideo from '../../../TeaserVideo';
-import { EXPLORER_TYPE } from '../../../../../utilities/ExplorerUtils';
+import { Course, Interest, Opportunity, Profile } from '../../app/imports/typings/radgrad';
+import ExplorerProfiles from '../../app/imports/ui/components/shared/explorer/item-view/ExplorerProfiles';
+import * as Router from '../../app/imports/ui/components/shared/utilities/router';
+import { Teasers } from '../../app/imports/api/teaser/TeaserCollection';
+import TeaserVideo from '../../app/imports/ui/components/shared/TeaserVideo';
+import { EXPLORER_TYPE } from '../../app/imports/ui/utilities/ExplorerUtils';
 
 interface ExplorerInterestsWidgetProps {
   profile: Profile;

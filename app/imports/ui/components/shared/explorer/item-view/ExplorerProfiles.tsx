@@ -5,7 +5,7 @@ import { Users } from '../../../../../api/user/UserCollection';
 import { CareerGoal, Course, Interest, Opportunity } from '../../../../../typings/radgrad';
 import UserLabel from '../../profile/UserLabel';
 import WidgetHeaderNumber from '../WidgetHeaderNumber';
-import { getUserIDsWithProfileInterestMethod } from '../../../../../api/user/profile-entries/ProfileInterestCollection.methods';
+import { getUserIDsWithProfileExplorerMethod } from '../../../../../api/user/profile-entries/ProfileAssociatedUsers.methods';
 import { EXPLORER_TYPE } from '../../../../utilities/ExplorerUtils';
 
 interface ExplorerProfileWidgetProps {
@@ -18,17 +18,17 @@ const ExplorerProfiles: React.FC<ExplorerProfileWidgetProps> = ({ item, explorer
   const [students, setStudents] = useState([]);
   const [advisors, setAdvisors] = useState([]);
 
-  getUserIDsWithProfileInterestMethod.call({ itemID: item._id, role: ROLE.FACULTY, explorerType  }, (error, res) => {
+  getUserIDsWithProfileExplorerMethod.call({ itemID: item._id, role: ROLE.FACULTY, explorerType  }, (error, res) => {
     if (res && faculty.length !== res.length) {
       setFaculty(res.map((id) => Users.getProfile(id)));
     }
   });
-  getUserIDsWithProfileInterestMethod.call({ itemID: item._id, role: ROLE.STUDENT, explorerType }, (error, res) => {
+  getUserIDsWithProfileExplorerMethod.call({ itemID: item._id, role: ROLE.STUDENT, explorerType }, (error, res) => {
     if (res && students.length !== res.length) {
       setStudents(res.map((id) => Users.getProfile(id)));
     }
   });
-  getUserIDsWithProfileInterestMethod.call({ itemID: item._id, role: ROLE.ADVISOR, explorerType }, (error, res) => {
+  getUserIDsWithProfileExplorerMethod.call({ itemID: item._id, role: ROLE.ADVISOR, explorerType }, (error, res) => {
     if (res && advisors.length !== res.length) {
       setAdvisors(res.map((id) => Users.getProfile(id)));
     }
