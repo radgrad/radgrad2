@@ -5,18 +5,12 @@ import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import Swal from 'sweetalert2';
 import { $ } from 'meteor/jquery';
-import { connect } from 'react-redux';
+import { useStickyState } from '../../../../utilities/StickyState';
 import AdminAnalyticsNewsletterMessagePreviewWidget from './AdminAnalyticsNewsletterMessagePreviewWidget';
 import { StudentProfiles } from '../../../../../api/user/StudentProfileCollection';
 import { sendEmailMethod } from '../../../../../api/email/Email.methods';
 import { RadGradProperties } from '../../../../../api/radgrad/RadGradProperties';
-import { analyticsActions } from '../../../../../redux/admin/analytics';
-import { RootState } from '../../../../../redux/types';
 import { getRecList, getStudentEmailsByLevel, EmailData } from './utilities/newsletter';
-
-/* Technical Debt:
- *   * Redux is not indicated when the goal is to manage form-local state.
- */
 
 /**
  * Schema for the form that controls sending email.
@@ -38,44 +32,10 @@ const schema = new SimpleSchema({
 });
 const formSchema = new SimpleSchema2Bridge(schema);
 
-interface AdminAnalyticsNewsletterWidgetProps {
-  startTestNewsletter: () => any;
-  testNewsletterDone: () => any;
-  testNewsletterWorking: boolean;
-  startLevelNewsletter: () => any;
-  levelNewsletterDone: () => any;
-  levelNewsletterWorking: boolean;
-  startAllNewsletter: () => any;
-  allNewsletterDone: () => any;
-  allNewsletterWorking: boolean;
-}
-
-const mapStateToProps = (state: RootState) => ({
-  testNewsletterWorking: state.admin.analytics.newsletter.testNewsletter,
-  levelNewsletterWorking: state.admin.analytics.newsletter.levelNewsletter,
-  allNewsletterWorking: state.admin.analytics.newsletter.allNewsletter,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  startTestNewsletter: () => dispatch(analyticsActions.startTestNewsletter()),
-  testNewsletterDone: () => dispatch(analyticsActions.testNewsletterDone()),
-  startLevelNewsletter: () => dispatch(analyticsActions.startLevelNewsletter()),
-  levelNewsletterDone: () => dispatch(analyticsActions.levelNewsletterDone()),
-  startAllNewsletter: () => dispatch(analyticsActions.startAllNewsletter()),
-  allNewsletterDone: () => dispatch(analyticsActions.allNewsletterDone()),
-});
-
-const AdminAnalyticsNewsletterWidget: React.FC<AdminAnalyticsNewsletterWidgetProps> = ({
-  startAllNewsletter,
-  allNewsletterDone,
-  allNewsletterWorking,
-  levelNewsletterDone,
-  levelNewsletterWorking,
-  startLevelNewsletter,
-  startTestNewsletter,
-  testNewsletterDone,
-  testNewsletterWorking,
-}) => {
+const AdminAnalyticsNewsletterWidget: React.FC = () => {
+  const [testNewsletterWorking, setTestNewsletterWorking] = useStickyState('Newsletter.test', false);
+  const [levelNewsletterWorking, setLevelNewsletterWorking] = useStickyState('Newsletter.level', false);
+  const [allNewsletterWorking, setAllNewsletterWorking] = useStickyState('Newsletter.all', false);
   const [subjectLine, setSubjectLine] = useState<string>('');
   const [bcc, setBcc] = useState<string>('');
   const [inputMessage, setInputMessage] = useState<string>('');
@@ -136,7 +96,7 @@ const AdminAnalyticsNewsletterWidget: React.FC<AdminAnalyticsNewsletterWidgetPro
    */
   const onClickSendStudentsToo = () => {
     if (onSubmitInputMessage.length !== 0 && subjectLine.length !== 0) {
-      startTestNewsletter();
+      setTestNewsletterWorking(true);
       const studentEmailsArr = studentEmails.split(',');
       const bccListArray = bcc.split(',').map((email) => email.trim());
       const adminEmail = RadGradProperties.getAdminEmail();
@@ -187,7 +147,7 @@ const AdminAnalyticsNewsletterWidget: React.FC<AdminAnalyticsNewsletterWidgetPro
         allowEscapeKey: false,
         allowEnterKey: false,
       });
-      testNewsletterDone();
+      setTestNewsletterWorking(false);
     } else {
       Swal.fire({
         title: 'Subject Line and Input Message Required',
@@ -202,7 +162,7 @@ const AdminAnalyticsNewsletterWidget: React.FC<AdminAnalyticsNewsletterWidgetPro
 
   const onClickSendLevels = () => {
     if (onSubmitInputMessage.length !== 0 && subjectLine.length !== 0 && level !== 0) {
-      startLevelNewsletter();
+      setLevelNewsletterWorking(true);
       const studentEmailsArr = getStudentEmailsByLevel(level);
       const bccListArray = bcc.split(',').map((email) => email.trim());
       const from = RadGradProperties.getNewsletterFrom();
@@ -243,7 +203,7 @@ const AdminAnalyticsNewsletterWidget: React.FC<AdminAnalyticsNewsletterWidgetPro
         allowEscapeKey: false,
         allowEnterKey: false,
       });
-      levelNewsletterDone();
+      setLevelNewsletterWorking(false);
     } else {
       Swal.fire({
         title: 'Subject Line and Input Message Required',
@@ -258,7 +218,7 @@ const AdminAnalyticsNewsletterWidget: React.FC<AdminAnalyticsNewsletterWidgetPro
 
   const onClickSendToAll = () => {
     if (onSubmitInputMessage.length !== 0 && subjectLine.length !== 0) {
-      startAllNewsletter();
+      setAllNewsletterWorking(true);
       const profiles = StudentProfiles.find({ isAlumni: false }).fetch();
       const studentEmailsArr = profiles.map((p) => p.username);
       const bccListArray = bcc.split(',').map((email) => email.trim());
@@ -300,7 +260,7 @@ const AdminAnalyticsNewsletterWidget: React.FC<AdminAnalyticsNewsletterWidgetPro
         allowEscapeKey: false,
         allowEnterKey: false,
       });
-      allNewsletterDone();
+      setAllNewsletterWorking(false);
     } else {
       Swal.fire({
         title: 'Subject Line and Input Message Required',
@@ -357,5 +317,4 @@ const AdminAnalyticsNewsletterWidget: React.FC<AdminAnalyticsNewsletterWidgetPro
   );
 };
 
-const AdminAnalyticsNewsletterWidgetContainer = connect(mapStateToProps, mapDispatchToProps)(AdminAnalyticsNewsletterWidget);
-export default AdminAnalyticsNewsletterWidgetContainer;
+export default AdminAnalyticsNewsletterWidget;
