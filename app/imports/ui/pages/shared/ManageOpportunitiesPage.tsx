@@ -10,7 +10,7 @@ import { Interests } from '../../../api/interest/InterestCollection';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
 import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
-import ManageOpportunitiesTabs from '../../components/shared/manage/ManageOpportunitiesTabs';
+import ManageOpportunitiesTabs from '../../components/shared/manage/opportunity/ManageOpportunitiesTabs';
 import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
 

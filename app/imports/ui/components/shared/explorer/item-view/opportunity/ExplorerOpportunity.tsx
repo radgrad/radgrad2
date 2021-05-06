@@ -19,8 +19,8 @@ import StudentExplorerReviewWidget from '../../../../student/explorer/StudentExp
 import { Reviews } from '../../../../../../api/review/ReviewCollection';
 import IceHeader from '../../../IceHeader';
 import { Teasers } from '../../../../../../api/teaser/TeaserCollection';
-import DeleteOpportunityButton from '../../../manage/DeleteOpportunityButton';
-import EditOpportunityButton from '../../../manage/EditOpportunityButton';
+import DeleteOpportunityButton from '../../../manage/opportunity/DeleteOpportunityButton';
+import EditOpportunityButton from '../../../manage/opportunity/EditOpportunityButton';
 import FutureParticipation from '../../FutureParticipation';
 import TeaserVideo from '../../../TeaserVideo';
 import { Users } from '../../../../../../api/user/UserCollection';
