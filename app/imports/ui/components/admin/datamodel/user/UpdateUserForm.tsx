@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Button, Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, BoolField, NumField, SelectField, SubmitField, LongTextField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
@@ -22,7 +21,6 @@ import { StudentProfiles } from '../../../../../api/user/StudentProfileCollectio
 import { FacultyProfiles } from '../../../../../api/user/FacultyProfileCollection';
 import { AdvisorProfiles } from '../../../../../api/user/AdvisorProfileCollection';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
-import { cloudinaryActions } from '../../../../../redux/shared/cloudinary';
 import { ProfileInterests } from '../../../../../api/user/profile-entries/ProfileInterestCollection';
 import { ProfileCareerGoals } from '../../../../../api/user/profile-entries/ProfileCareerGoalCollection';
 
@@ -36,16 +34,9 @@ interface UpdateUserProps {
   handleUpdate: (doc) => any;
   handleCancel: (event) => any;
   itemTitleString: (item) => React.ReactNode;
-  setAdminDataModelUsersIsCloudinaryUsed: (isCloudinaryUsed: boolean) => any;
-  setAdminDataModelUsersCloudinaryUrl: (cloudinaryUrl: string) => any;
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  setAdminDataModelUsersIsCloudinaryUsed: (isCloudinaryUsed: boolean) => dispatch(cloudinaryActions.setAdminDataModelUsersIsCloudinaryUsed(isCloudinaryUsed)),
-  setAdminDataModelUsersCloudinaryUrl: (cloudinaryUrl: string) => dispatch(cloudinaryActions.setAdminDataModelUsersCloudinaryUrl(cloudinaryUrl)),
-});
-
-const UpdateUserForm: React.FC<UpdateUserProps> = ({ id, interests, setAdminDataModelUsersIsCloudinaryUsed, setAdminDataModelUsersCloudinaryUrl, careerGoals, academicTerms, itemTitleString, handleCancel, handleUpdate, courses, opportunities }) => {
+const UpdateUserForm: React.FC<UpdateUserProps> = ({ id, interests, careerGoals, academicTerms, itemTitleString, handleCancel, handleUpdate, courses, opportunities }) => {
   // console.log('UpdateUserForm', props);
   let collection;
   if (StudentProfiles.isDefined(id)) {
@@ -205,5 +196,4 @@ const UpdateUserForm: React.FC<UpdateUserProps> = ({ id, interests, setAdminData
   );
 };
 
-const UpdateUserFormCon = connect(null, mapDispatchToProps)(UpdateUserForm);
-export default UpdateUserFormCon;
+export default UpdateUserForm;
