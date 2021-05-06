@@ -22,9 +22,9 @@ import { defineMethod, removeItMethod } from '../../../../api/base/BaseCollectio
 import { degreePlannerActions } from '../../../../redux/student/degree-planner';
 
 interface DePProps {
-  selectCourseInstance: (courseInstanceID: string) => never;
-  selectOpportunityInstance: (opportunityInstanceID: string) => never;
-  selectProfileDetailsTab: () => never;
+  selectCourseInstance: (courseInstanceID: string) => void;
+  selectOpportunityInstance: (opportunityInstanceID: string) => void;
+  selectProfileDetailsTab: () => void;
   academicYearInstances: AcademicYearInstance[];
   courseInstances: CourseInstance[];
   opportunityInstances: OpportunityInstance[];
