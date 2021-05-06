@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Button, Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, BoolField, NumField, SelectField, SubmitField, LongTextField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
-import Swal from 'sweetalert2';
 import { AdminProfiles } from '../../../../../api/user/AdminProfileCollection';
 import { ProfileCourses } from '../../../../../api/user/profile-entries/ProfileCourseCollection';
 import { ProfileOpportunities } from '../../../../../api/user/profile-entries/ProfileOpportunityCollection';
-import { AcademicTerm, BaseProfile, CareerGoal, Course, Interest, Opportunity } from '../../../../../typings/radgrad';
+import { AcademicTerm, CareerGoal, Course, Interest, Opportunity } from '../../../../../typings/radgrad';
 import { ROLE } from '../../../../../api/role/Role';
+import PictureField from '../../../form-fields/PictureField';
 import {
   academicTermIdToName,
   academicTermToName,
@@ -22,7 +22,6 @@ import { StudentProfiles } from '../../../../../api/user/StudentProfileCollectio
 import { FacultyProfiles } from '../../../../../api/user/FacultyProfileCollection';
 import { AdvisorProfiles } from '../../../../../api/user/AdvisorProfileCollection';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
-import { openCloudinaryWidget } from '../../../shared/OpenCloudinaryWidget';
 import { cloudinaryActions } from '../../../../../redux/shared/cloudinary';
 import { ProfileInterests } from '../../../../../api/user/profile-entries/ProfileInterestCollection';
 import { ProfileCareerGoals } from '../../../../../api/user/profile-entries/ProfileCareerGoalCollection';
@@ -61,34 +60,6 @@ const UpdateUserForm: React.FC<UpdateUserProps> = ({ id, interests, setAdminData
   if (AdminProfiles.isDefined(id)) {
     collection = AdminProfiles;
   }
-  const profile: BaseProfile = collection.findDoc(id);
-  const [pictureURL, setPictureURL] = useState(profile.picture);
-
-  const handleUpload = async (e): Promise<void> => {
-    e.preventDefault();
-    try {
-      const cloudinaryResult = await openCloudinaryWidget();
-      if (cloudinaryResult.event === 'success') {
-        setAdminDataModelUsersIsCloudinaryUsed(true);
-        setAdminDataModelUsersCloudinaryUrl(cloudinaryResult.info.secure_url);
-        setPictureURL(cloudinaryResult.info.secure_url);
-      }
-    } catch (error) {
-      Swal.fire({
-        title: 'Failed to Upload Photo',
-        icon: 'error',
-        text: error.statusText,
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        allowEnterKey: false,
-      });
-    }
-  };
-
-  const handlePictureUrlChange = (value) => {
-    setPictureURL(value);
-  };
-
   const model = collection.findDoc(id);
   // console.log('UpdateUserForm', model);
   const userID = model.userID;
@@ -116,19 +87,7 @@ const UpdateUserForm: React.FC<UpdateUserProps> = ({ id, interests, setAdminData
     username: { type: String, optional: true },
     firstName: { type: String, optional: true },
     lastName: { type: String, optional: true },
-    picture: {
-      type: String,
-      label: (
-        <React.Fragment>
-          Picture (
-          <button type="button" onClick={handleUpload}>
-            Upload
-          </button>
-          )
-        </React.Fragment>
-      ),
-      optional: true,
-    },
+    picture: { type: String, optional: true },
     website: { type: String, optional: true },
     interests: { type: Array, optional: true },
     'interests.$': {
@@ -195,10 +154,7 @@ const UpdateUserForm: React.FC<UpdateUserProps> = ({ id, interests, setAdminData
         <Header dividing as="h4">
           Optional fields (all users)
         </Header>
-        <Form.Group widths="equal">
-          <TextField name="picture" value={pictureURL} onChange={handlePictureUrlChange} />
-          <TextField name="website" />
-        </Form.Group>
+        <PictureField name="picture" />
         <Form.Group widths="equal">
           <MultiSelectField name="interests" />
           <MultiSelectField name="careerGoals" />

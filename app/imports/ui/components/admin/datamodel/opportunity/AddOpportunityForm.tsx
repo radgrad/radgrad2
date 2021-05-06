@@ -13,11 +13,11 @@ import {
 } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
-import Swal from 'sweetalert2';
 import { defineMethod } from '../../../../../api/base/BaseCollection.methods';
 import { Opportunities } from '../../../../../api/opportunity/OpportunityCollection';
 import slugify from '../../../../../api/slug/SlugCollection';
 import { AcademicTerm, BaseProfile, Interest, OpportunityType } from '../../../../../typings/radgrad';
+import PictureField from '../../../form-fields/PictureField';
 import {
   academicTermNameToSlug,
   academicTermToName,
@@ -26,7 +26,6 @@ import {
 } from '../../../shared/utilities/data-model';
 import { iceSchema } from '../../../../../api/ice/IceProcessor';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
-import { openCloudinaryWidget } from '../../../shared/OpenCloudinaryWidget';
 import { interestSlugFromName } from '../../../shared/utilities/form';
 import { defineCallback } from '../utilities/add-form';
 
@@ -46,28 +45,6 @@ const AddOpportunityForm: React.FC<AddOpportunityFormProps> = ({ sponsors, inter
   const opportunityTypeNames = opportunityTypes.map(docToName);
   const interestNames = interests.map(docToName);
 
-  const handleUploadPicture = async (e): Promise<void> => {
-    e.preventDefault();
-    try {
-      const cloudinaryResult = await openCloudinaryWidget();
-      if (cloudinaryResult.event === 'success') {
-        setPictureURL(cloudinaryResult.info.secure_url);
-      }
-    } catch (error) {
-      Swal.fire({
-        title: 'Failed to Upload Photo',
-        icon: 'error',
-        text: error.statusText,
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        allowEnterKey: false,
-      });
-    }
-  };
-
-  const handlePictureUrlChange = (value) => {
-    setPictureURL(value);
-  };
   let formRef;
   const handleAdd = (doc) => {
     // console.log('Opportunities.handleAdd(%o)', doc);
@@ -155,12 +132,7 @@ const AddOpportunityForm: React.FC<AddOpportunityFormProps> = ({ sponsors, inter
           <NumField name="ice.e" />
         </Form.Group>
         <BoolField name="retired" />
-        <Form.Group widths="equal">
-          <Form.Input name="picture" label="Picture" value={pictureURL} onChange={handlePictureUrlChange} />
-          <Form.Button basic color="green" onClick={handleUploadPicture}>
-            Upload
-          </Form.Button>
-        </Form.Group>
+        <PictureField name="picture" />
         <ErrorsField />
         <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
       </AutoForm>

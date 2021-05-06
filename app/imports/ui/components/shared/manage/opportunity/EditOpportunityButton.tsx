@@ -22,7 +22,7 @@ import { OpportunityTypes } from '../../../../../api/opportunity/OpportunityType
 import { Users } from '../../../../../api/user/UserCollection';
 import { OpportunityUpdate } from '../../../../../typings/radgrad';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
-import { openCloudinaryWidget } from '../../OpenCloudinaryWidget';
+import PictureField from '../../../form-fields/PictureField';
 import { ManageOpportunityProps } from './ManageOpportunityProps';
 
 const EditOpportunityButton: React.FC<ManageOpportunityProps> = ({
@@ -33,7 +33,6 @@ const EditOpportunityButton: React.FC<ManageOpportunityProps> = ({
   sponsors,
 }) => {
   const [open, setOpen] = useState(false);
-  const [pictureURL, setPictureURL] = useState(opportunity.picture);
   // console.log(opportunityTypes, interests, terms, sponsors);
 
   const interestNames = interests.map((interest) => interest.name);
@@ -79,43 +78,9 @@ const EditOpportunityButton: React.FC<ManageOpportunityProps> = ({
       }));
   };
 
-  const handleUpload = async (e): Promise<void> => {
-    e.preventDefault();
-    try {
-      const cloudinaryResult = await openCloudinaryWidget();
-      if (cloudinaryResult.event === 'success') {
-        setPictureURL(cloudinaryResult.info.secure_url);
-      }
-    } catch (error) {
-      Swal.fire({
-        title: 'Failed to Upload Photo',
-        icon: 'error',
-        text: error.statusText,
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        allowEnterKey: false,
-      });
-    }
-  };
-  const handlePictureUrlChange = (value) => {
-    setPictureURL(value);
-  };
-
   const updateSchema = new SimpleSchema({
     description: { type: String, optional: true },
-    picture: {
-      type: String,
-      label: (
-        <React.Fragment>
-          Picture (
-          <button type="button" onClick={handleUpload}>
-            Upload
-          </button>
-          )
-        </React.Fragment>
-      ),
-      optional: true,
-    },
+    picture: { type: String, optional: true },
     sponsor: { type: String, allowedValues: sponsorNames, optional: true },
     interests: { type: Array, optional: true },
     'interests.$': {
@@ -168,7 +133,7 @@ const EditOpportunityButton: React.FC<ManageOpportunityProps> = ({
           </Form.Group>
           <LongTextField name="description" />
           <Form.Group widths="equal">
-            <TextField name="picture" value={pictureURL} onChange={handlePictureUrlChange} />
+            <PictureField name="picture" />
             <MultiSelectField name="interests" />
           </Form.Group>
           <DateField name="eventDate" />

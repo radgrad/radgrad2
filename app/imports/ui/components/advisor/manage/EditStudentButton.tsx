@@ -65,10 +65,7 @@ const EditStudentButton: React.FC<ManageStudentProps> = ({
   const updateStudentSchema = new SimpleSchema({
     firstName: { type: String, optional: true },
     lastName: { type: String, optional: true },
-    picture: {
-      type: String,
-      optional: true,
-    },
+    picture: { type: String, optional: true },
     website: { type: String, optional: true },
     interests: { type: Array, optional: true },
     'interests.$': {

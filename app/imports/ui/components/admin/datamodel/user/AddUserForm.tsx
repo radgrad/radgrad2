@@ -5,16 +5,15 @@ import { AutoForm, TextField, SelectField, BoolField, LongTextField, NumField, S
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { connect } from 'react-redux';
-import Swal from 'sweetalert2';
 import { defineMethod } from '../../../../../api/base/BaseCollection.methods';
 import { AdvisorProfiles } from '../../../../../api/user/AdvisorProfileCollection';
 import { FacultyProfiles } from '../../../../../api/user/FacultyProfileCollection';
 import { StudentProfiles } from '../../../../../api/user/StudentProfileCollection';
 import { AcademicTerm, CareerGoal, CombinedProfileDefine, Interest } from '../../../../../typings/radgrad';
 import { ROLE } from '../../../../../api/role/Role';
+import PictureField from '../../../form-fields/PictureField';
 import { academicTermToName, docToName } from '../../../shared/utilities/data-model';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
-import { openCloudinaryWidget } from '../../../shared/OpenCloudinaryWidget';
 import { cloudinaryActions } from '../../../../../redux/shared/cloudinary';
 import {
   careerGoalSlugFromName,
@@ -40,7 +39,6 @@ const mapDispatchToProps = (dispatch) => ({
 
 const AddUserForm: React.FC<AddUserProps> = ({ interests, academicTerms, careerGoals, isCloudinaryUsed, cloudinaryUrl, setAdminDataModelUsersCloudinaryUrl, setAdminDataModelUsersIsCloudinaryUsed }) => {
   const [role, setRole] = useState<string>('');
-  const [pictureURL, setPictureURL] = useState<string>('');
 
   let formRef;
 
@@ -82,35 +80,9 @@ const AddUserForm: React.FC<AddUserProps> = ({ interests, academicTerms, careerG
     setRole(model.role);
   };
 
-  const handleUpload = async (e): Promise<void> => {
-    e.preventDefault();
-    try {
-      const cloudinaryResult = await openCloudinaryWidget();
-      if (cloudinaryResult.event === 'success') {
-        setAdminDataModelUsersIsCloudinaryUsed(true);
-        setAdminDataModelUsersCloudinaryUrl(cloudinaryResult.info.secure_url);
-        setPictureURL(cloudinaryResult.info.secure_url);
-      }
-    } catch (error) {
-      Swal.fire({
-        title: 'Failed to Upload Photo',
-        icon: 'error',
-        text: error.statusText,
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        allowEnterKey: false,
-      });
-    }
-  };
-
-  const handlePictureUrlChange = (value) => {
-    setPictureURL(value);
-  };
-
   // Hacky way of resetting pictureURL to be empty
   const handleAddUser = (doc) => {
     handleAdd(doc);
-    setPictureURL('');
   };
 
   const interestNames = interests.map(docToName);
@@ -126,19 +98,7 @@ const AddUserForm: React.FC<AddUserProps> = ({ interests, academicTerms, careerG
       allowedValues: roles,
       defaultValue: roles[3],
     },
-    picture: {
-      type: String,
-      label: (
-        <React.Fragment>
-          Picture (
-          <button type="button" onClick={handleUpload}>
-            Upload
-          </button>
-          )
-        </React.Fragment>
-      ),
-      optional: true,
-    },
+    picture: { type: String, optional: true },
     website: { type: String, optional: true },
     interests: { type: Array, optional: true },
     'interests.$': {
@@ -196,7 +156,7 @@ const AddUserForm: React.FC<AddUserProps> = ({ interests, academicTerms, careerG
           Optional fields (all users)
         </Header>
         <Form.Group widths="equal">
-          <TextField name="picture" value={pictureURL} onChange={handlePictureUrlChange} />
+          <PictureField name="picture" />
           <TextField name="website" />
         </Form.Group>
         <Form.Group widths="equal">

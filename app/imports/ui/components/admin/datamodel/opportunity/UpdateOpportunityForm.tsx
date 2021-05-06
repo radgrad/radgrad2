@@ -1,15 +1,24 @@
 import React, { useState } from 'react';
 import { Button, Form, Header, Segment } from 'semantic-ui-react';
-import { AutoForm, TextField, SelectField, LongTextField, DateField, BoolField, SubmitField, NumField } from 'uniforms-semantic';
+import {
+  AutoForm,
+  TextField,
+  SelectField,
+  LongTextField,
+  DateField,
+  BoolField,
+  SubmitField,
+  NumField,
+  ErrorsField,
+} from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
-import Swal from 'sweetalert2';
 import { AcademicTerm, BaseProfile, Interest, OpportunityType } from '../../../../../typings/radgrad';
 import BaseCollection from '../../../../../api/base/BaseCollection';
+import PictureField from '../../../form-fields/PictureField';
 import { academicTermIdToName, academicTermToName, docToName, interestIdToName, opportunityTypeIdToName, profileToName, userIdToName } from '../../../shared/utilities/data-model';
 import { iceSchema } from '../../../../../api/ice/IceProcessor';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
-import { openCloudinaryWidget } from '../../../shared/OpenCloudinaryWidget';
 
 interface UpdateOpportunityFormProps {
   sponsors: BaseProfile[];
@@ -25,33 +34,9 @@ interface UpdateOpportunityFormProps {
 
 const UpdateOpportunityForm: React.FC<UpdateOpportunityFormProps> = ({ sponsors, opportunityTypes, terms, interests, handleUpdate, handleCancel, itemTitleString, collection, id }) => {
   const model = collection.findDoc(id);
-  const [pictureURL, setPictureURL] = useState(model.picture);
-  const handleUploadPicture = async (e): Promise<void> => {
-    e.preventDefault();
-    try {
-      const cloudinaryResult = await openCloudinaryWidget();
-      if (cloudinaryResult.event === 'success') {
-        setPictureURL(cloudinaryResult.info.secure_url);
-      }
-    } catch (error) {
-      Swal.fire({
-        title: 'Failed to Upload Photo',
-        icon: 'error',
-        text: error.statusText,
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        allowEnterKey: false,
-      });
-    }
-  };
-
-  const handlePictureUrlChange = (value) => {
-    setPictureURL(value);
-  };
 
   const handleUpdateOpportunity = (doc) => {
     const mod = doc;
-    mod.picture = pictureURL;
     handleUpdate(mod);
   };
 
@@ -98,7 +83,7 @@ const UpdateOpportunityForm: React.FC<UpdateOpportunityFormProps> = ({ sponsors,
   return (
     <Segment padded>
       <Header dividing>Update Opportunity : {itemTitleString(model)}</Header>
-      <AutoForm schema={formSchema} onSubmit={(doc) => handleUpdateOpportunity(doc)} showInlineError model={model}>
+      <AutoForm schema={formSchema} onSubmit={(doc) => handleUpdate(doc)} showInlineError model={model}>
         <Form.Group widths="equal">
           <TextField name="name" />
         </Form.Group>
@@ -141,12 +126,8 @@ const UpdateOpportunityForm: React.FC<UpdateOpportunityFormProps> = ({ sponsors,
           <NumField name="ice.e" />
         </Form.Group>
         <BoolField name="retired" />
-        <Form.Group widths="equal">
-          <Form.Input name="picture" value={pictureURL} onChange={handlePictureUrlChange} />
-          <Form.Button basic color="green" onClick={handleUploadPicture}>
-            Upload
-          </Form.Button>
-        </Form.Group>
+        <PictureField name="picture" />
+        <ErrorsField />
         <SubmitField inputRef={undefined} disabled={false} value="Update" className="mini basic green" />
         <Button onClick={handleCancel} basic color="green" size="mini">Cancel</Button>
       </AutoForm>
