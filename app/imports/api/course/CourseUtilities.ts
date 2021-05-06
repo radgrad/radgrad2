@@ -166,12 +166,4 @@ export const getDepartment = (courseSlug: string): string => courseSlug.split('_
  */
 export const getCourseNumber = (courseSlug: string): string => courseSlug.split('_')[1];
 
-export const passedCourse = (ci: CourseInstance): boolean => {
-  const courseDoc = CourseInstances.getCourseDoc(ci._id);
-  const courseSlug = Slugs.getNameFromID(courseDoc.slugID);
-  // TODO: We need another way of representing 'passing'. This is going to change.
-  if (courseSlug.includes('111') || courseSlug.includes('141') || courseSlug.includes('211') || courseSlug.includes('241')) {
-    return _.includes(['B', 'B+', 'A-', 'A', 'A+'], ci.grade);
-  }
-  return _.includes(['C', 'C+', 'B-', 'B', 'B+', 'A-', 'A', 'A+'], ci.grade);
-};
+export const passedCourse = (ci: CourseInstance): boolean => _.includes(['C', 'C+', 'B-', 'B', 'B+', 'A-', 'A', 'A+'], ci.grade);

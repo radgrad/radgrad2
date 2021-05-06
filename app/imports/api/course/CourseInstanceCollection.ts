@@ -142,8 +142,10 @@ class CourseInstanceCollection extends BaseCollection {
       /* eslint-disable-next-line no-param-reassign */
       creditHrs = Courses.findDoc(courseID).creditHrs;
     }
-    // TODO need to talk about this.
-    ProfileCourses.define({ course, student, retired });
+    // Only define ProfileCourses in the future?
+    if (AcademicTerms.isUpcomingTerm(academicTermDoc._id)) {
+      ProfileCourses.define({ course, student, retired });
+    }
     // Define and return the CourseInstance
     return this.collection.insert({
       termID,

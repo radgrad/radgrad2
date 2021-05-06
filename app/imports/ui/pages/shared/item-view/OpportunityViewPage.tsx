@@ -3,6 +3,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Grid } from 'semantic-ui-react';
+import { Watermark } from '@hirohe/react-watermark';
 import { Interests } from '../../../../api/interest/InterestCollection';
 import { Reviews } from '../../../../api/review/ReviewCollection';
 import { ROLE } from '../../../../api/role/Role';
@@ -78,8 +79,9 @@ const OpportunityViewPage: React.FC<OpportunityViewPageProps> = ({
   }).length > 0;
   const relatedCourses = Opportunities.findRelatedCourses(opportunity._id);
   const relatedCareerGoals = Opportunities.findRelatedCareerGoals(opportunity._id);
-  const headerPaneButton = profile.role === ROLE.STUDENT ? <AddToProfileButton type={PROFILE_ENTRY_TYPE.OPPORTUNITY} studentID={profile.userID}
-                                                                               item={opportunity} added={added} inverted floated="left" /> : undefined;
+  const headerPaneButton = profile.role === ROLE.STUDENT ?
+    <AddToProfileButton type={PROFILE_ENTRY_TYPE.OPPORTUNITY} studentID={profile.userID}
+                        item={opportunity} added={added} inverted floated="left" /> : undefined;
   return (
     <PageLayout id={PAGEIDS.OPPORTUNITY} headerPaneTitle={headerPaneTitle} headerPaneImage={headerPaneImage}
                 headerPaneButton={headerPaneButton}>
@@ -91,9 +93,21 @@ const OpportunityViewPage: React.FC<OpportunityViewPageProps> = ({
             <RelatedCareerGoals careerGoals={relatedCareerGoals} userID={profile.userID} />
           </Grid.Column>
           <Grid.Column width={13}>
-            <ExplorerOpportunity opportunity={opportunity} opportunityTypes={opportunityTypes}
-                                 opportunities={opportunities} interests={interests} sponsors={sponsors}
-                                 terms={terms} completed={completed} itemReviews={itemReviews} profile={profile} />
+            {opportunity.retired ? (
+                <Watermark text="Retired" textColor='red' textSize={48}>
+                  <ExplorerOpportunity opportunity={opportunity}
+                                       opportunityTypes={opportunityTypes}
+                                       opportunities={opportunities}
+                                       interests={interests}
+                                       sponsors={sponsors}
+                                       terms={terms} completed={completed}
+                                       itemReviews={itemReviews}
+                                       profile={profile} />
+                </Watermark>) :
+              <ExplorerOpportunity opportunity={opportunity} opportunityTypes={opportunityTypes}
+                                   opportunities={opportunities} interests={interests} sponsors={sponsors}
+                                   terms={terms} completed={completed} itemReviews={itemReviews} profile={profile} />
+            }
           </Grid.Column>
         </Grid.Row>
       </Grid>

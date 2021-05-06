@@ -108,6 +108,7 @@ const ExplorerOpportunity: React.FC<ExplorerOpportunitiesWidgetProps> = ({ oppor
   if (opportunity.eventDate4) {
     dateStrings.push(moment(opportunity.eventDate4).format('MM/DD/YYYY'));
   }
+  console.log(academicTerms, scores, data);
   // console.log(profile.userID, opportunity._id, opportunity.name);
   return (
     <div id="explorerOpportunityWidget">

@@ -14,15 +14,18 @@ export const getFutureEnrollmentSingleMethod = new ValidatedMethod({
     }
     let enrollmentForecast: EnrollmentForecast = {};
     if (Meteor.isServer) {
+      console.log(id, type);
       switch (type) {
         case ENROLLMENT_TYPE.COURSE:
           enrollmentForecast = RadGradForecasts.getCourseForecast(id);
           break;
         case ENROLLMENT_TYPE.OPPORTUNITY:
           enrollmentForecast = RadGradForecasts.getOpportunityForecast(id);
+          console.log('opportunity', enrollmentForecast);
           break;
       }
     }
+    console.log(enrollmentForecast);
     return enrollmentForecast;
   },
 });
