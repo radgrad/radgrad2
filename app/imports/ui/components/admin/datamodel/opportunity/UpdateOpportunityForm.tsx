@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button, Form, Header, Segment } from 'semantic-ui-react';
 import {
   AutoForm,
@@ -34,11 +34,6 @@ interface UpdateOpportunityFormProps {
 
 const UpdateOpportunityForm: React.FC<UpdateOpportunityFormProps> = ({ sponsors, opportunityTypes, terms, interests, handleUpdate, handleCancel, itemTitleString, collection, id }) => {
   const model = collection.findDoc(id);
-
-  const handleUpdateOpportunity = (doc) => {
-    const mod = doc;
-    handleUpdate(mod);
-  };
 
   // console.log('collection model = %o', model);
   model.opportunityType = opportunityTypeIdToName(model.opportunityTypeID);
