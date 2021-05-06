@@ -1,20 +1,14 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Icon, Menu, Segment, Tab } from 'semantic-ui-react';
-import { degreePlannerActions, degreePlannerTypes } from '../../../../redux/student/degree-planner';
+import { degreePlannerTypes } from '../../../../redux/student/degree-planner';
+import { useStickyState } from '../../../utilities/StickyState';
 import ProfileOpportunities from './ProfileOpportunities';
 import ProfileCourses from './ProfileCourses';
 import DepDetailsWidget from './DepDetailsWidget';
-import { RootState } from '../../../../redux/types';
 import { Course, CourseInstance, Opportunity, OpportunityInstance, VerificationRequest } from '../../../../typings/radgrad';
 
 interface TabbedProfileEntriesProps {
   takenSlugs: string[];
-  selectedTab: string;
-  selectProfileOpportunitiesTab: () => { type: string; selectedTab: string };
-  selectProfilePlansTab: () => { type: string; selectedTab: string };
-  selectProfileCoursesTab: () => { type: string; selectedTab: string };
-  selectProfileDetailsTab: () => { type: string; selectedTab: string };
   opportunities: Opportunity[];
   studentID: string;
   courses: Course[];
@@ -22,16 +16,6 @@ interface TabbedProfileEntriesProps {
   opportunityInstances: OpportunityInstance[];
   verificationRequests: VerificationRequest[];
 }
-
-const mapStateToProps = (state: RootState) => ({
-  selectedTab: state.student.degreePlanner.tab.selectedTab,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  selectProfileOpportunitiesTab: () => dispatch(degreePlannerActions.selectProfileOpportunitiesTab()),
-  selectProfileCoursesTab: () => dispatch(degreePlannerActions.selectProfileCoursesTab()),
-  selectProfileDetailsTab: () => dispatch(degreePlannerActions.selectProfileDetailsTab()),
-});
 
 const active = (selectedTab) => {
   switch (selectedTab) {
@@ -47,31 +31,26 @@ const active = (selectedTab) => {
 };
 
 const TabbedProfileEntries: React.FC<TabbedProfileEntriesProps> = ({
-  selectProfilePlansTab,
-  selectProfileOpportunitiesTab,
   studentID,
-  takenSlugs,
   courseInstances,
   courses,
-  selectProfileDetailsTab,
-  selectProfileCoursesTab,
-  selectedTab,
   opportunities,
   verificationRequests,
   opportunityInstances,
 }) => {
+  const [selectedTab, setSelectedTab] = useStickyState('Planner.selectedTab', degreePlannerTypes.SELECT_PROFILE_OPPORTUNITIES);
   const handleTabChange = (event, instance) => {
     const { activeIndex } = instance;
     event.preventDefault();
     switch (activeIndex) {
       case 0:
-        selectProfileOpportunitiesTab();
+        setSelectedTab(degreePlannerTypes.SELECT_PROFILE_OPPORTUNITIES);
         break;
       case 1:
-        selectProfileCoursesTab();
+        setSelectedTab(degreePlannerTypes.SELECT_PROFILE_COURSES);
         break;
       case 2:
-        selectProfileDetailsTab();
+        setSelectedTab(degreePlannerTypes.SELECT_PROFILE_DETAILS);
         break;
       default:
         console.error(`Bad tab index: ${activeIndex}`);
@@ -119,4 +98,4 @@ const TabbedProfileEntries: React.FC<TabbedProfileEntriesProps> = ({
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(TabbedProfileEntries);
+export default TabbedProfileEntries;

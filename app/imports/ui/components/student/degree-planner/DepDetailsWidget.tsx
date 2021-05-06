@@ -31,7 +31,7 @@ const DepDetailsWidget: React.FC<DepDetailsWidgetProps> = ({ selectedCourseInsta
   if (!(courseP || opportunityP)) {
     return <Message>No course or opportunity selected. Click on a course or opportunity from the degree planner.</Message>;
   }
-  return courseP ? <DetailCourseCard instance={instance} /> : <DetailOpportunityCard instance={instance} verificationRequests={verificationRequests} />;
+  return courseP ? <DetailCourseCard instance={instance as CourseInstance} /> : <DetailOpportunityCard instance={instance as OpportunityInstance} verificationRequests={verificationRequests} />;
 };
 
 export default connect(mapStateToProps, null)(DepDetailsWidget);

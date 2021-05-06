@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Card } from 'semantic-ui-react';
 import { useRouteMatch } from 'react-router-dom';
-import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
 import { getFutureEnrollmentSingleMethod } from '../../../../api/utilities/FutureEnrollment.methods';
 import { ENROLLMENT_TYPE, EnrollmentForecast } from '../../../../startup/both/RadGradForecasts';
+import { useStickyState } from '../../../utilities/StickyState';
 import { ButtonAction } from '../../shared/button/ButtonAction';
 import { ButtonLink } from '../../shared/button/ButtonLink';
 import { ViewInExplorerButtonLink } from '../../shared/button/ViewInExplorerButtonLink';
@@ -18,43 +18,16 @@ import { OpportunityInstances } from '../../../../api/opportunity/OpportunityIns
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import { cardStyle, contentStyle } from './utilities/styles';
 import VerificationRequestStatus from './VerificationRequestStatus';
-import { degreePlannerActions } from '../../../../redux/student/degree-planner';
 import * as RouterUtils from '../../shared/utilities/router';
 
 interface DetailOpportunityCardProps {
   instance: OpportunityInstance;
   verificationRequests: VerificationRequest[];
-  selectOpportunityInstance: (opportunityInstanceID: string) => void;
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  selectOpportunityInstance: (opportunityInstanceID) => dispatch(degreePlannerActions.selectOpportunityInstance(opportunityInstanceID)),
-});
-
-const handleRemove = (selectOpportunityInstance, match) => (event, { value }) => {
-  event.preventDefault();
-  const collectionName = OpportunityInstances.getCollectionName();
-  const instance = value;
-  removeItMethod.call({ collectionName, instance }, (error) => {
-    if (error) {
-      console.error(`Remove opportunity instance ${instance} failed.`, error);
-    } else {
-      Swal.fire({
-        title: 'Remove succeeded',
-        icon: 'success',
-        showConfirmButton: false,
-        timer: 1500,
-      });
-    }
-  });
-  selectOpportunityInstance('');
-};
-
-const DetailOpportunityCard: React.FC<DetailOpportunityCardProps> = ({
-  instance,
-  verificationRequests,
-  selectOpportunityInstance,
-}) => {
+const DetailOpportunityCard: React.FC<DetailOpportunityCardProps> = ({ instance, verificationRequests }) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [selectedOpportunity, setSelectedOpportunity] = useStickyState('Planner.selectedOpportunity', '');
   const verificationRequestsToShow = verificationRequests.filter((vr) => vr.opportunityInstanceID === instance._id);
   const match = useRouteMatch();
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
@@ -82,6 +55,25 @@ const DetailOpportunityCard: React.FC<DetailOpportunityCardProps> = ({
       setFetched(true);
     }
   }, [fetched, opportunity._id]);
+
+  const handleRemove =  (event, { value }) => {
+    event.preventDefault();
+    const collectionName = OpportunityInstances.getCollectionName();
+    removeItMethod.call({ collectionName, instance }, (error) => {
+      if (error) {
+        console.error(`Remove opportunity instance ${instance} failed.`, error);
+      } else {
+        Swal.fire({
+          title: 'Remove succeeded',
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    });
+    setSelectedOpportunity('');
+  };
+
   let academicTerms = [];
   let scores = [];
   if (data?.enrollment) {
@@ -104,7 +96,7 @@ const DetailOpportunityCard: React.FC<DetailOpportunityCardProps> = ({
               </p>
               <FutureParticipation academicTerms={academicTerms} scores={scores} />
               {/* @ts-ignore */}
-              <ButtonAction value={instance._id} onClick={handleRemove(selectOpportunityInstance, match)}
+              <ButtonAction value={instance._id} onClick={handleRemove}
                             icon="trash alternate outline" label="Remove" style={cardStyle} size="small" />
             </React.Fragment>
           ) : (
@@ -117,7 +109,7 @@ const DetailOpportunityCard: React.FC<DetailOpportunityCardProps> = ({
               ) : (
                 <React.Fragment>
                   {/* @ts-ignore */}
-                  <ButtonAction value={instance._id} onClick={handleRemove(selectOpportunityInstance, match)}
+                  <ButtonAction value={instance._id} onClick={handleRemove}
                                 icon="trash alternate outline" label="Remove" style={cardStyle} size="small" />
                 </React.Fragment>
               )}
@@ -138,4 +130,4 @@ const DetailOpportunityCard: React.FC<DetailOpportunityCardProps> = ({
   );
 };
 
-export default connect(null, mapDispatchToProps)(DetailOpportunityCard);
+export default DetailOpportunityCard;

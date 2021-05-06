@@ -1,7 +1,6 @@
 import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import { DragDropContext } from 'react-beautiful-dnd';
-import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
 import { useParams } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
@@ -25,7 +24,6 @@ import {
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { Users } from '../../../api/user/UserCollection';
-import { degreePlannerActions } from '../../../redux/student/degree-planner';
 import { SelectPayload, SelectTab } from '../../../redux/student/degree-planner/actions';
 import TabbedProfileEntries from '../../components/student/degree-planner/TabbedProfileEntries';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
@@ -53,12 +51,6 @@ interface StudentDegreePlannerProps {
   courses: Course[];
   verificationRequests: VerificationRequest[];
 }
-
-const mapDispatchToProps = (dispatch) => ({
-  selectCourseInstance: (courseInstanceID) => dispatch(degreePlannerActions.selectCourseInstance(courseInstanceID)),
-  selectOpportunityInstance: (opportunityInstanceID) => dispatch(degreePlannerActions.selectOpportunityInstance(opportunityInstanceID)),
-  selectProfileDetailsTab: () => dispatch(degreePlannerActions.selectProfileDetailsTab()),
-});
 
 const onDragEnd = (onDragEndProps) => (result) => {
   const { match, selectCourseInstance, selectOpportunityInstance } = onDragEndProps;
@@ -255,8 +247,6 @@ const takenSlugs = (courseInstances: CourseInstance[]): string[] => {
   });
 };
 
-const StudentDegreePlannerPageContainer = connect(null, mapDispatchToProps)(StudentDegreePlannerPage);
-
 export default withTracker(() => {
   const { username } = useParams();
   const profile = Users.getProfile(username);
@@ -279,4 +269,4 @@ export default withTracker(() => {
     courses,
     verificationRequests,
   };
-})(StudentDegreePlannerPageContainer);
+})(StudentDegreePlannerPage);

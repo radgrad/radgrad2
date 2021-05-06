@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { Grid, Segment } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
@@ -7,6 +6,7 @@ import moment from 'moment';
 import _ from 'lodash';
 import { Users } from '../../../../api/user/UserCollection';
 import { AcademicYearInstances } from '../../../../api/degree-plan/AcademicYearInstanceCollection';
+import { useStickyState } from '../../../utilities/StickyState';
 import { ButtonAction } from '../../shared/button/ButtonAction';
 import AcademicYearView from './AcademicYearView';
 import {
@@ -19,31 +19,20 @@ import {
 import { CourseInstances } from '../../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
 import { defineMethod, removeItMethod } from '../../../../api/base/BaseCollection.methods';
-import { degreePlannerActions } from '../../../../redux/student/degree-planner';
+import { degreePlannerTypes } from '../../../../redux/student/degree-planner';
 
 interface DePProps {
-  selectCourseInstance: (courseInstanceID: string) => never;
-  selectOpportunityInstance: (opportunityInstanceID: string) => never;
-  selectProfileDetailsTab: () => never;
   academicYearInstances: AcademicYearInstance[];
   courseInstances: CourseInstance[];
   opportunityInstances: OpportunityInstance[];
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  selectCourseInstance: (courseInstanceID) => dispatch(degreePlannerActions.selectCourseInstance(courseInstanceID)),
-  selectOpportunityInstance: (opportunityInstanceID) => dispatch(degreePlannerActions.selectOpportunityInstance(opportunityInstanceID)),
-  selectProfileDetailsTab: () => dispatch(degreePlannerActions.selectProfileDetailsTab()),
-});
+const DegreeExperiencePlanner: React.FC<DePProps> = ({ academicYearInstances, courseInstances, opportunityInstances }) => {
 
-const DegreeExperiencePlanner: React.FC<DePProps> = ({
-  selectCourseInstance,
-  selectOpportunityInstance,
-  selectProfileDetailsTab,
-  academicYearInstances,
-  courseInstances,
-  opportunityInstances,
-}) => {
+  /* eslint-disable @typescript-eslint/no-unused-vars */
+  const [selectedTab, setSelectedTab] = useStickyState('Planner.selectedTab', degreePlannerTypes.SELECT_PROFILE_OPPORTUNITIES);
+  const [selectedCourse, setSelectedCourse] = useStickyState('Planner.selectedCourse', '');
+  const [selectedOpportunity, setSelectedOpportunity] = useStickyState('Planner.selectedOpportunity', '');
   const { username } = useParams();
   const studentID = Users.getID(username);
 
@@ -71,14 +60,14 @@ const DegreeExperiencePlanner: React.FC<DePProps> = ({
 
   const handleClickCourseInstance = (event, { value }) => {
     event.preventDefault();
-    selectCourseInstance(value);
-    selectProfileDetailsTab();
+    setSelectedCourse(value);
+    setSelectedTab(degreePlannerTypes.SELECT_PROFILE_DETAILS);
   };
 
   const handleClickOpportunityInstance = (event, { value }) => {
     event.preventDefault();
-    selectOpportunityInstance(value);
-    selectProfileDetailsTab();
+    setSelectedOpportunity(value);
+    setSelectedTab(degreePlannerTypes.SELECT_PROFILE_DETAILS);
   };
 
   const handleAddYear = (): void => {
@@ -187,4 +176,4 @@ const DegreeExperiencePlanner: React.FC<DePProps> = ({
   );
 };
 
-export default connect(null, mapDispatchToProps)(DegreeExperiencePlanner);
+export default DegreeExperiencePlanner;

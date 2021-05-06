@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Card } from 'semantic-ui-react';
-import { connect } from 'react-redux';
 import { useRouteMatch } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { getFutureEnrollmentSingleMethod } from '../../../../api/utilities/FutureEnrollment.methods';
 import { ENROLLMENT_TYPE, EnrollmentForecast } from '../../../../startup/both/RadGradForecasts';
 import { CourseInstance } from '../../../../typings/radgrad';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
+import { useStickyState } from '../../../utilities/StickyState';
 import { ViewInExplorerButtonLink } from '../../shared/button/ViewInExplorerButtonLink';
 import IceHeader from '../../shared/IceHeader';
 import { Courses } from '../../../../api/course/CourseCollection';
@@ -14,17 +14,11 @@ import FutureParticipation from '../../shared/explorer/FutureParticipation';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import { CourseInstances } from '../../../../api/course/CourseInstanceCollection';
 import { removeItMethod } from '../../../../api/base/BaseCollection.methods';
-import { degreePlannerActions } from '../../../../redux/student/degree-planner';
 import { cardStyle, contentStyle } from './utilities/styles';
 
 interface DetailCourseCardProps {
   instance: CourseInstance;
-  selectCourseInstance: (courseInstanceID: string) => never;
 }
-
-const mapDispatchToProps = (dispatch) => ({
-  selectCourseInstance: (courseInstanceID) => dispatch(degreePlannerActions.selectCourseInstance(courseInstanceID)),
-});
 
 const handleRemove = (selectCourseInstance, match) => (event, { value }) => {
   event.preventDefault();
@@ -45,7 +39,8 @@ const handleRemove = (selectCourseInstance, match) => (event, { value }) => {
   selectCourseInstance('');
 };
 
-const DetailCourseCard: React.FC<DetailCourseCardProps> = ({ instance, selectCourseInstance }) => {
+const DetailCourseCard: React.FC<DetailCourseCardProps> = ({ instance  }) => {
+  const [selectedCourse] = useStickyState('Planner.selectedCourse', '');
   const match = useRouteMatch();
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
   const courseTerm = AcademicTerms.findDoc(instance.termID);
@@ -98,7 +93,7 @@ const DetailCourseCard: React.FC<DetailCourseCardProps> = ({ instance, selectCou
               </p>
               <FutureParticipation academicTerms={academicTerms} scores={scores} />
               <Button floated="right" basic color="green" value={instance._id}
-                      onClick={handleRemove(selectCourseInstance, match)} size="tiny">
+                      onClick={handleRemove(selectedCourse, match)} size="tiny">
                 Remove
               </Button>
             </React.Fragment>
@@ -116,5 +111,4 @@ const DetailCourseCard: React.FC<DetailCourseCardProps> = ({ instance, selectCou
   );
 };
 
-const DetailCourseCardConnected = connect(null, mapDispatchToProps)(DetailCourseCard);
-export default DetailCourseCardConnected;
+export default DetailCourseCard;
