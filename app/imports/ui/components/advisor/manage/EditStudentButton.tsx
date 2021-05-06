@@ -10,7 +10,7 @@ import { Interests } from '../../../../api/interest/InterestCollection';
 import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
 import { StudentProfileUpdate } from '../../../../typings/radgrad';
 import MultiSelectField from '../../form-fields/MultiSelectField';
-import { openCloudinaryWidget } from '../../shared/OpenCloudinaryWidget';
+import PictureField from '../../form-fields/PictureField';
 import { ManageStudentProps } from './ManageStudentProps';
 
 const EditStudentButton: React.FC<ManageStudentProps> = ({
@@ -62,39 +62,11 @@ const EditStudentButton: React.FC<ManageStudentProps> = ({
       }));
   };
 
-  const handleUpload = async (e): Promise<void> => {
-    e.preventDefault();
-    try {
-      const cloudinaryResult = await openCloudinaryWidget();
-      if (cloudinaryResult.event === 'success') {
-        setPictureURL(cloudinaryResult.info.secure_url);
-      }
-    } catch (error) {
-      Swal.fire({
-        title: 'Failed to Upload Photo',
-        icon: 'error',
-        text: error.statusText,
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        allowEnterKey: false,
-      });
-    }
-  };
-
   const updateStudentSchema = new SimpleSchema({
     firstName: { type: String, optional: true },
     lastName: { type: String, optional: true },
     picture: {
       type: String,
-      label: (
-        <React.Fragment>
-          Picture (
-          <button type="button" onClick={handleUpload}>
-            Upload
-          </button>
-          )
-        </React.Fragment>
-      ),
       optional: true,
     },
     website: { type: String, optional: true },
@@ -122,11 +94,6 @@ const EditStudentButton: React.FC<ManageStudentProps> = ({
   });
   const updateStudentFormSchema = new SimpleSchema2Bridge(updateStudentSchema);
 
-  const [pictureURL, setPictureURL] = useState(student.picture);
-  const handlePictureUrlChange = (value) => {
-    setPictureURL(value);
-  };
-
   // console.log(model);
   return (
     <Modal key={`${student._id}-modal`}
@@ -146,7 +113,7 @@ const EditStudentButton: React.FC<ManageStudentProps> = ({
             <TextField name="lastName" placeholder="Doe" />
           </Form.Group>
           <Form.Group widths="equal">
-            <TextField name="picture" value={pictureURL} onChange={handlePictureUrlChange} />
+            <PictureField name="picture" iconLeft='user'/>
             <TextField name="website" />
           </Form.Group>
           <Form.Group widths="equal">
