@@ -102,7 +102,7 @@ const DetailOpportunityCard: React.FC<DetailOpportunityCardProps> = ({
               <p>
                 <b>Scheduled:</b> {termName}
               </p>
-              <FutureParticipation academicTerms={academicTerms} scores={scores} />
+              <FutureParticipation academicTerms={academicTerms} scores={scores} narrow />
               {/* @ts-ignore */}
               <ButtonAction value={instance._id} onClick={handleRemove(selectOpportunityInstance, match)}
                             icon="trash alternate outline" label="Remove" style={cardStyle} size="small" />

@@ -93,7 +93,7 @@ const ProfileOpportunityCard: React.FC<ProfileOpportunityCardProps> = ({
         </Droppable>
        </Card.Content>
        <Card.Content style={contentStyle}>
-        <FutureParticipation academicTerms={academicTerms} scores={scores} />
+        <FutureParticipation academicTerms={academicTerms} scores={scores} narrow />
        </Card.Content>
        <Card.Content style={contentStyle}>
         <ViewInExplorerButtonLink match={match} type={EXPLORER_TYPE.OPPORTUNITIES} item={opportunity} size="mini" />

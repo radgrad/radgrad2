@@ -96,7 +96,7 @@ const DetailCourseCard: React.FC<DetailCourseCardProps> = ({ instance, selectCou
               <p>
                 <b>Scheduled:</b> {termName}
               </p>
-              <FutureParticipation academicTerms={academicTerms} scores={scores} />
+              <FutureParticipation academicTerms={academicTerms} scores={scores} narrow />
               <Button floated="right" basic color="green" value={instance._id}
                       onClick={handleRemove(selectCourseInstance, match)} size="tiny">
                 Remove

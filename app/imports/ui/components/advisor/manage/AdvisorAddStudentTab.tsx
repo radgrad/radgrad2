@@ -1,11 +1,19 @@
-import React, { useState } from 'react';
-import { Tab, Header, Form, Radio } from 'semantic-ui-react';
+import React from 'react';
+import { Tab, Header, Form } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
-import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
+import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
+import SimpleSchema from 'simpl-schema';
+import { AutoForm, BoolField, ErrorsField, NumField, SubmitField, TextField } from 'uniforms-semantic';
 import { defineMethod } from '../../../../api/base/BaseCollection.methods';
 import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
-import { CareerGoal, Interest, StudentProfileDefine } from '../../../../typings/radgrad';
-import { openCloudinaryWidget } from '../../shared/OpenCloudinaryWidget';
+import { CareerGoal, CombinedProfileDefine, Interest } from '../../../../typings/radgrad';
+import MultiSelectField from '../../form-fields/MultiSelectField';
+import PictureField from '../../form-fields/PictureField';
+import { docToName } from '../../shared/utilities/data-model';
+import {
+  careerGoalSlugFromName,
+  interestSlugFromName,
+} from '../../shared/utilities/form';
 
 export interface AdvisorAddStudentWidgetProps {
   interests: Interest[];
@@ -13,200 +21,113 @@ export interface AdvisorAddStudentWidgetProps {
 }
 
 const AdvisorAddStudentTab: React.FC<AdvisorAddStudentWidgetProps> = ({ interests, careerGoals }) => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [username, setUsername] = useState('');
-  const [isAlumni, setIsAlumni] = useState(false);
-  const [picture, setPicture] = useState(undefined);
-  const [website, setWebsite] = useState(undefined);
-  const [careerGoalsState, setCareerGoals] = useState([]);
-  const [userInterests, setUserInterests] = useState([]);
-  const [declaredAcademicTerm, setDeclaredAcademicTerm] = useState(undefined);
 
-  const handleFormChange = (e, { name, value }) => {
-    switch (name) {
-      case 'firstName':
-        setFirstName(value);
-        break;
-      case 'lastName':
-        setLastName(value);
-        break;
-      case 'username':
-        setUsername(value);
-        break;
-      case 'isAlumni':
-        setIsAlumni(value === 'true');
-        break;
-      case 'picture':
-        setPicture(value);
-        break;
-      case 'website':
-        setWebsite(value);
-        break;
-      case 'careerGoals':
-        setCareerGoals(value);
-        break;
-      case 'userInterests':
-        setUserInterests(value);
-        break;
-      case 'declaredAcademicTerm':
-        setDeclaredAcademicTerm(value);
-        break;
-      default:
+  const interestNames = interests.map(docToName);
+  const careerGoalNames = careerGoals.map(docToName);
+  let formRef;
+
+  const schema = new SimpleSchema({
+    username: String,
+    firstName: String,
+    lastName: String,
+    picture: { type: String, optional: true },
+    website: { type: String, optional: true },
+    interests: { type: Array, optional: true },
+    'interests.$': {
+      type: String,
+      allowedValues: interestNames,
+    },
+    careerGoals: { type: Array, optional: true },
+    'careerGoals.$': {
+      type: String,
+      allowedValues: careerGoalNames,
+    },
+    level: { type: SimpleSchema.Integer, min: 1, max: 6, defaultValue: 1 },
+    sharePicture: { type: Boolean, optional: true },
+    shareWebsite: { type: Boolean, optional: true },
+    shareInterests: { type: Boolean, optional: true },
+    shareCareerGoals: { type: Boolean, optional: true },
+    shareOpportunities: { type: Boolean, optional: true },
+    shareCourses: { type: Boolean, optional: true },
+    shareLevel: { type: Boolean, optional: true },
+    shareICE: { type: Boolean, optional: true },
+    isAlumni: { type: Boolean, optional: true },
+    retired: { type: Boolean, optional: true },
+  });
+
+  const formSchema = new SimpleSchema2Bridge(schema);
+
+
+  const handleAdd = (doc: CombinedProfileDefine) => {
+    // console.log('handleAdd(%o)', doc);
+    const definitionData: CombinedProfileDefine = doc;
+    if (doc.interests) {
+      definitionData.interests = doc.interests.map((interest) => interestSlugFromName(interest));
+    } else {
+      definitionData.interests = [];
     }
-  };
-
-  const onSubmit = () => {
-    const collectionName: string = StudentProfiles.getCollectionName();
-    const definitionData: StudentProfileDefine = {
-      username,
-      firstName,
-      lastName,
-      isAlumni,
-      picture,
-      website,
-      declaredAcademicTerm,
-      level: 1,
-    };
-    definitionData.careerGoals = careerGoalsState;
-    definitionData.interests = userInterests;
-
-    defineMethod.call({ collectionName, definitionData }, (error) => {
-      if (error) {
-        console.error('Failed adding User', error);
+    if (doc.careerGoals) {
+      definitionData.careerGoals = doc.careerGoals.map((goal) => careerGoalSlugFromName(goal));
+    } else {
+      definitionData.careerGoals = [];
+    }
+    const collectionName = StudentProfiles.getCollectionName();
+    formRef.reset();
+    defineMethod.callPromise({ collectionName, definitionData })
+      .then((result) => {
         Swal.fire({
-          title: 'Failed adding User',
-          text: error.message,
-          icon: 'error',
-        });
-      } else {
-        Swal.fire({
-          title: 'Add User Succeeded',
+          title: 'Add succeeded',
           icon: 'success',
           showConfirmButton: false,
           timer: 1500,
         });
-        setFirstName('');
-        setLastName('');
-        setUsername('');
-        setIsAlumni(false);
-        setPicture(undefined);
-        setWebsite(undefined);
-        setCareerGoals([]);
-        setUserInterests([]);
-        setDeclaredAcademicTerm(undefined);
-      }
-    });
-  };
-
-  const handleUploadClick = async (): Promise<void> => {
-    try {
-      const cloudinaryResult = await openCloudinaryWidget();
-      if (cloudinaryResult.event === 'success') {
-        setPicture(cloudinaryResult.info.secure_url);
-      }
-    } catch (error) {
-      Swal.fire({
-        title: 'Failed to Upload Photo',
-        icon: 'error',
-        text: error.statusText,
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        allowEnterKey: false,
+      })
+      .catch((error) => {
+        Swal.fire({
+          title: 'Add failed',
+          text: error.message,
+          icon: 'error',
+        });
       });
-    }
   };
-
   return (
     <Tab.Pane key="new">
       <Header as="h4" dividing>
         ADD STUDENT
       </Header>
-      {/* TODO should we be using Uniforms? */}
-      <Form widths="equal" onSubmit={onSubmit}>
-        <Form.Group>
-          <Form.Field>
-            <Form.Input name="firstName" label="First Name" value={firstName} onChange={handleFormChange} required />
-          </Form.Field>
-          <Form.Field>
-            <Form.Input name="lastName" label="Last Name" value={lastName} onChange={handleFormChange} required />
-          </Form.Field>
+      {/* eslint-disable-next-line no-return-assign */}
+      <AutoForm schema={formSchema} ref={(ref) => formRef = ref} onSubmit={(doc) => handleAdd(doc)} showInlineError>
+        <TextField name="username" placeholder="johndoe@foo.edu" />
+        <Form.Group widths="equal">
+          <TextField name="firstName" placeholder="John" />
+          <TextField name="lastName" placeholder="Doe" />
         </Form.Group>
-        <Form.Group>
-          <Form.Field>
-            <Form.Input name="username" label="Username" value={username} onChange={handleFormChange} required />
-          </Form.Field>
-          <Form.Field>
-            <Form.Field>Alumni</Form.Field>
-            <Form.Field>
-              <Radio name="isAlumni" label="True" value="true" onChange={handleFormChange} checked={isAlumni === true} required />
-            </Form.Field>
-            <Form.Field>
-              <Radio name="isAlumni" label="False" value="false" onChange={handleFormChange} checked={isAlumni === false} required />
-            </Form.Field>
-          </Form.Field>
+        <Form.Group widths="equal">
+          <PictureField name="picture" />
+          <TextField name="website" />
         </Form.Group>
-        <Header as="h4" dividing>
-          Optional Fields
-        </Header>
-        <Form.Group>
-          <Form.Field>
-            <Form.Input
-              name="picture"
-              label={
-                <React.Fragment>
-                  Picture (
-                  <button type="button" onClick={handleUploadClick}>
-                    Upload
-                  </button>
-                  )
-                </React.Fragment>
-              }
-              onChange={handleFormChange}
-              value={picture || ''}
-            />
-          </Form.Field>
-          <Form.Field>
-            <Form.Input name="website" label="Website" value={website || ''} onChange={handleFormChange} />
-          </Form.Field>
+        <Form.Group widths="equal">
+          <MultiSelectField name="interests" />
+          <MultiSelectField name="careerGoals" />
         </Form.Group>
-        <Form.Group>
-          <Form.Dropdown
-            selection
-            multiple
-            name="careerGoals"
-            label="Select Career Goal(s)"
-            value={careerGoalsState}
-            onChange={handleFormChange}
-            options={careerGoals.map((ele, i) => ({ key: i, text: ele.name, value: ele._id }))}
-            placeholder="Select Career Goal(s)"
-          />
-          <Form.Dropdown
-            selection
-            multiple
-            name="userInterests"
-            label="Select Interest(s)"
-            value={userInterests}
-            onChange={handleFormChange}
-            options={interests.map((ele, i) => ({ key: i, text: ele.name, value: ele._id }))}
-            placeholder="Select Interest(s)"
-          />
+        <Form.Group widths="equal">
+          <NumField name="level" />
+          <BoolField name="retired" />
         </Form.Group>
-        <Form.Group>
-          <Form.Field>
-            <Form.Dropdown
-              name="declaredAcademicTerm"
-              label="Declared Academic Term"
-              value={declaredAcademicTerm}
-              onChange={handleFormChange}
-              options={AcademicTerms.findNonRetired().map((ele, i) => ({ key: i, text: `${ele.term} ${ele.year}`, value: ele._id }))}
-              selection
-              placeholder="Select AcademicTerm"
-            />
-          </Form.Field>
+        <Form.Group widths="equal">
+          <BoolField name="sharePicture" />
+          <BoolField name="shareWebsite" />
+          <BoolField name="shareInterests" />
+          <BoolField name="shareCareerGoals" />
+          <BoolField name="shareOpportunities" />
+          <BoolField name="shareCourses" />
+          <BoolField name="shareLevel" />
+          <BoolField name="shareICE" />
+          <BoolField name="isAlumni" />
         </Form.Group>
-        <Form.Button basic color="green" content="Add" type="Submit" />
-      </Form>
+        <ErrorsField />
+        <SubmitField inputRef={undefined} disabled={false} value="Add" className="mini basic green" />
+      </AutoForm>
     </Tab.Pane>
   );
 };

@@ -530,7 +530,7 @@ const ExplorerCourse: React.FC<ExplorerCoursesWidgetProps> = ({ name, shortName,
       <Segment textAlign="center">
         <Header>STUDENTS PARTICIPATING BY SEMESTER</Header>
         <Divider />
-        <FutureParticipation academicTerms={academicTerms} scores={scores} />
+        <FutureParticipation academicTerms={academicTerms} scores={scores} narrow={false} />
       </Segment>
 
       {isStudent ? (

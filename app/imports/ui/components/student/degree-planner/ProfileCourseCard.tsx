@@ -97,7 +97,7 @@ const ProfileCourseCard: React.FC<ProfileCourseCardProps> = ({ course, courseIns
         </Droppable>
       </Card.Content>
       <Card.Content style={contentStyle}>
-        <FutureParticipation academicTerms={academicTerms} scores={scores} />
+        <FutureParticipation academicTerms={academicTerms} scores={scores} narrow />
       </Card.Content>
       <Card.Content style={contentStyle}>
         <ViewInExplorerButtonLink match={match} type={EXPLORER_TYPE.COURSES} item={course} size="mini" />

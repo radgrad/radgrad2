@@ -6,7 +6,6 @@ import PreferredChoice from '../degree-plan/PreferredChoice';
 import { Users } from '../user/UserCollection';
 import { profileGetInterestIDs } from '../../ui/components/shared/utilities/data-model';
 import { Course, CourseInstance } from '../../typings/radgrad';
-import { Slugs } from '../slug/SlugCollection';
 
 // Technical Debt: Hard codes 3xx and 4xx. This might not work for other Universities.
 
@@ -37,7 +36,7 @@ const getRandomInt = (min: number, max: number): number => {
   return Math.floor(Math.random() * (max - min)) + min;
 };
 
-export const clearPlannedCourseInstances = (studentID: string) => {
+export const clearPlannedCourseInstances = (studentID: string): void => {
   const courses = CourseInstances.find({ studentID, verified: false, fromRegistrar: false }).fetch();
   courses.forEach((ci) => {
     CourseInstances.removeIt(ci);
@@ -53,7 +52,7 @@ export const getStudent300LevelDocs = (studentID: string, coursesTakenSlugs: str
   const courseTakenIDs = [];
   instances.forEach((courseInstance) => {
     if (CourseInstances.isInteresting(courseInstance._id)) {
-      if (courseInstance.note !== 'ICS 499') { // TODO: hardcoded ICS string
+      if (!Meteor.settings.public.repeatableCourseNums.includes(courseInstance.note)) {
         courseTakenIDs.push(courseInstance.courseID);
       }
     }

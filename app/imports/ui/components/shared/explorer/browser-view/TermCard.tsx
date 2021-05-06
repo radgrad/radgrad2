@@ -108,7 +108,7 @@ const TermCard: React.FC<TermCard> = ({ item, type }) => {
       </Card.Content>
 
       <Card.Content>
-        <FutureParticipation academicTerms={academicTerms} scores={scores} />
+        <FutureParticipation academicTerms={academicTerms} scores={scores} narrow />
       </Card.Content>
 
       <Link className="ui button" to={buildRouteName(item, type, match)}>
