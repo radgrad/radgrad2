@@ -31,7 +31,7 @@ import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInst
 import { ProfileOpportunities } from '../../../api/user/profile-entries/ProfileOpportunityCollection';
 import { ProfileCourses } from '../../../api/user/profile-entries/ProfileCourseCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
-import { passedCourse } from '../../../api/course/CourseUtilities';
+import { courseInstanceIsRepeatable, passedCourse } from '../../../api/course/CourseUtilities';
 import { PAGEIDS } from '../../utilities/PageIDs';
 import { useStickyState } from '../../utilities/StickyState';
 import PageLayout from '../PageLayout';
@@ -249,22 +249,31 @@ export default withTracker(() => {
   const { username } = useParams();
   const profile = Users.getProfile(username);
   const studentID = profile.userID;
-  const profileOpportunities = ProfileOpportunities.findNonRetired({ studentID });
-  const opportunities = profileOpportunities.map((f) => Opportunities.findDoc(f.opportunityID));
-  const profileCourses = ProfileCourses.findNonRetired({ studentID });
-  const courses = profileCourses.map((f) => Courses.findDoc(f.courseID));
-  const academicYearInstances: AcademicYearInstance[] = AcademicYearInstances.findNonRetired({ studentID }, { sort: { year: 1 } });
+  const pOpportunities = ProfileOpportunities.findNonRetired({ studentID });
+  let profileOpportunities = pOpportunities.map((f) => Opportunities.findDoc(f.opportunityID));
+  // want to filter the opportunities don't show retired opportunities.
+  profileOpportunities = profileOpportunities.filter((opp) => !opp.retired);
   const courseInstances = CourseInstances.findNonRetired({ studentID: profile.userID });
+  const pCourses = ProfileCourses.findNonRetired({ studentID });
+  let profileCourses = pCourses.map((f) => Courses.findDoc(f.courseID));
+  // want to filter out the passed classes
+  profileCourses = profileCourses.filter((course) => {
+    const ci = courseInstances.find((instance) => instance.courseID === course._id);
+    // console.log(!passedCourse(ci), courseInstanceIsRepeatable(ci), ci.note);
+    return !passedCourse(ci) || courseInstanceIsRepeatable(ci);
+  });
+  const academicYearInstances: AcademicYearInstance[] = AcademicYearInstances.findNonRetired({ studentID }, { sort: { year: 1 } });
   const opportunityInstances = OpportunityInstances.findNonRetired({ studentID: profile.userID });
   const verificationRequests = VerificationRequests.findNonRetired({ studentID });
+  // console.log(profileOpportunities, profileCourses);
   return {
     takenSlugs: takenSlugs(courseInstances),
     academicYearInstances,
     opportunityInstances,
     courseInstances,
-    profileOpportunities: opportunities,
+    profileOpportunities,
     studentID,
-    profileCourses: courses,
+    profileCourses: profileCourses,
     verificationRequests,
   };
 })(StudentDegreePlannerPage);

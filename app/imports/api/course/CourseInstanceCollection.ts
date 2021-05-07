@@ -10,6 +10,7 @@ import { Users } from '../user/UserCollection';
 import BaseCollection from '../base/BaseCollection';
 import { makeCourseICE } from '../ice/IceProcessor';
 import { CourseInstanceDefine, CourseInstanceUpdate } from '../../typings/radgrad';
+import { courseIsRepeatable } from './CourseUtilities';
 
 const iceSchema = new SimpleSchema({
   i: {
@@ -142,8 +143,9 @@ class CourseInstanceCollection extends BaseCollection {
       /* eslint-disable-next-line no-param-reassign */
       creditHrs = Courses.findDoc(courseID).creditHrs;
     }
+    const c = Courses.findDoc(courseID);
     // Only define ProfileCourses in the future?
-    if (AcademicTerms.isUpcomingTerm(academicTermDoc._id)) {
+    if (AcademicTerms.isUpcomingTerm(academicTermDoc._id) || courseIsRepeatable(c)) {
       ProfileCourses.define({ course, student, retired });
     }
     // Define and return the CourseInstance

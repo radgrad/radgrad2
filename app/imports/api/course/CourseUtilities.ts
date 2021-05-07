@@ -43,6 +43,10 @@ export const clearPlannedCourseInstances = (studentID: string): void => {
   });
 };
 
+export const courseInstanceIsRepeatable = (ci: CourseInstance): boolean => Meteor.settings.public.repeatableCourseNums.includes(ci.note);
+
+export const courseIsRepeatable = (course: Course): boolean => Meteor.settings.public.repeatableCourseNums.includes(course.num);
+
 export const get300LevelDocs = (): Course[] => Courses.find({ num: /3\d\d/ }).fetch();
 
 export const getStudent300LevelDocs = (studentID: string, coursesTakenSlugs: string[]) => {
@@ -165,4 +169,4 @@ export const getDepartment = (courseSlug: string): string => courseSlug.split('_
  */
 export const getCourseNumber = (courseSlug: string): string => courseSlug.split('_')[1];
 
-export const passedCourse = (ci: CourseInstance): boolean => _.includes(['C', 'C+', 'B-', 'B', 'B+', 'A-', 'A', 'A+'], ci.grade);
+export const passedCourse = (ci: CourseInstance): boolean => _.includes(['C', 'C+', 'B-', 'B', 'B+', 'A-', 'A', 'A+'], ci.grade) && ci.verified;
