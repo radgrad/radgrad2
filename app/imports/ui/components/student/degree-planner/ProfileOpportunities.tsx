@@ -19,7 +19,7 @@ const ProfileOpportunities: React.FC<ProfileOpportunitiesProps> = ({
   opportunityInstances,
 }) => {
   const match = useRouteMatch();
-  const hasProfileEntries = opportunities.length > 0;
+  const hasProfileEntries = opportunities?.length > 0;
   return (
     <div>
       {hasProfileEntries ?

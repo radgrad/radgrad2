@@ -4,7 +4,7 @@ import { DegreePlannerStateNames } from '../../../pages/student/StudentDegreePla
 import { useStickyState } from '../../../utilities/StickyState';
 import ProfileOpportunities from './ProfileOpportunities';
 import ProfileCourses from './ProfileCourses';
-import DepDetailsWidget from './DepDetailsWidget';
+import DepDetailsCard from './DepDetailsCard';
 import { Course, CourseInstance, Opportunity, OpportunityInstance, VerificationRequest } from '../../../../typings/radgrad';
 
 export enum TabbedProfileEntryNames {
@@ -94,7 +94,7 @@ const TabbedProfileEntries: React.FC<TabbedProfileEntriesProps> = ({
       menuItem: <Menu.Item key="ProfileDetails">DETAILS</Menu.Item>,
       pane: (
         <Tab.Pane key="ProfileDetailsPane" active={active(selectedTab) === 2}>
-          <DepDetailsWidget verificationRequests={verificationRequests} />
+          <DepDetailsCard verificationRequests={verificationRequests} />
         </Tab.Pane>
       ),
     },

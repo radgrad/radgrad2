@@ -1,5 +1,6 @@
 import React from 'react';
 import { Message } from 'semantic-ui-react';
+import { DegreePlannerStateNames } from '../../../pages/student/StudentDegreePlannerPage';
 import { useStickyState } from '../../../utilities/StickyState';
 import DetailCourseCard from './DetailCourseCard';
 import { CourseInstances } from '../../../../api/course/CourseInstanceCollection';
@@ -11,9 +12,9 @@ interface DepDetailsWidgetProps {
   verificationRequests: VerificationRequest[];
 }
 
-const DepDetailsWidget: React.FC<DepDetailsWidgetProps> = ({ verificationRequests }) => {
-  const [selectedCourse] = useStickyState('Planner.selectedCourse', '');
-  const [selectedOpportunity] = useStickyState('Planner.selectedOpportunity', '');
+const DepDetailsCard: React.FC<DepDetailsWidgetProps> = ({ verificationRequests }) => {
+  const [selectedCourse] = useStickyState(DegreePlannerStateNames.selectedCiID, '');
+  const [selectedOpportunity] = useStickyState(DegreePlannerStateNames.selectedOiID, '');
   const courseP = selectedCourse !== '';
   const opportunityP = selectedOpportunity !== '';
   let instance: CourseInstance | OpportunityInstance;
@@ -28,4 +29,4 @@ const DepDetailsWidget: React.FC<DepDetailsWidgetProps> = ({ verificationRequest
   return courseP ? <DetailCourseCard instance={instance as CourseInstance} /> : <DetailOpportunityCard instance={instance as OpportunityInstance} verificationRequests={verificationRequests} />;
 };
 
-export default DepDetailsWidget;
+export default DepDetailsCard;

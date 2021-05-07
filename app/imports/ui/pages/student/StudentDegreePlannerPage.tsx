@@ -262,9 +262,9 @@ export default withTracker(() => {
     academicYearInstances,
     opportunityInstances,
     courseInstances,
-    opportunities,
+    profileOpportunities: opportunities,
     studentID,
-    courses,
+    profileCourses: courses,
     verificationRequests,
   };
 })(StudentDegreePlannerPage);
