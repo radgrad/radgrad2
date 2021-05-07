@@ -29,10 +29,9 @@ interface DePProps {
 
 const DegreeExperiencePlanner: React.FC<DePProps> = ({ academicYearInstances, courseInstances, opportunityInstances }) => {
 
-  /* eslint-disable @typescript-eslint/no-unused-vars */
-  const [selectedTab, setSelectedTab] = useStickyState('Planner.selectedTab', degreePlannerTypes.SELECT_PROFILE_OPPORTUNITIES);
-  const [selectedCourse, setSelectedCourse] = useStickyState('Planner.selectedCourse', '');
-  const [selectedOpportunity, setSelectedOpportunity] = useStickyState('Planner.selectedOpportunity', '');
+  const [, setSelectedTab] = useStickyState('Planner.selectedTab', degreePlannerTypes.SELECT_PROFILE_OPPORTUNITIES);
+  const [, setSelectedCourse] = useStickyState('Planner.selectedCourse', '');
+  const [, setSelectedOpportunity] = useStickyState('Planner.selectedOpportunity', '');
   const { username } = useParams();
   const studentID = Users.getID(username);
 

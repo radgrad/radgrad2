@@ -1,32 +1,26 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Message } from 'semantic-ui-react';
+import { useStickyState } from '../../../utilities/StickyState';
 import DetailCourseCard from './DetailCourseCard';
 import { CourseInstances } from '../../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
 import DetailOpportunityCard from './DetailOpportunityCard';
 import { CourseInstance, OpportunityInstance, VerificationRequest } from '../../../../typings/radgrad';
-import { RootState } from '../../../../redux/types';
 
 interface DepDetailsWidgetProps {
-  selectedCourseInstanceID: string;
-  selectedOpportunityInstanceID: string;
   verificationRequests: VerificationRequest[];
 }
 
-const mapStateToProps = (state: RootState) => ({
-  selectedCourseInstanceID: state.student.degreePlanner.inspector.depInspector.selectedCourseInstanceID,
-  selectedOpportunityInstanceID: state.student.degreePlanner.inspector.depInspector.selectedOpportunityInstanceID,
-});
-
-const DepDetailsWidget: React.FC<DepDetailsWidgetProps> = ({ selectedCourseInstanceID, selectedOpportunityInstanceID, verificationRequests }) => {
-  const courseP = selectedCourseInstanceID !== '';
-  const opportunityP = selectedOpportunityInstanceID !== '';
+const DepDetailsWidget: React.FC<DepDetailsWidgetProps> = ({ verificationRequests }) => {
+  const [selectedCourse] = useStickyState('Planner.selectedCourse', '');
+  const [selectedOpportunity] = useStickyState('Planner.selectedOpportunity', '');
+  const courseP = selectedCourse !== '';
+  const opportunityP = selectedOpportunity !== '';
   let instance: CourseInstance | OpportunityInstance;
   if (courseP) {
-    instance = CourseInstances.findDoc(selectedCourseInstanceID);
+    instance = CourseInstances.findDoc(selectedCourse);
   } else if (opportunityP) {
-    instance = OpportunityInstances.findDoc(selectedOpportunityInstanceID);
+    instance = OpportunityInstances.findDoc(selectedOpportunity);
   }
   if (!(courseP || opportunityP)) {
     return <Message>No course or opportunity selected. Click on a course or opportunity from the degree planner.</Message>;
@@ -34,4 +28,4 @@ const DepDetailsWidget: React.FC<DepDetailsWidgetProps> = ({ selectedCourseInsta
   return courseP ? <DetailCourseCard instance={instance as CourseInstance} /> : <DetailOpportunityCard instance={instance as OpportunityInstance} verificationRequests={verificationRequests} />;
 };
 
-export default connect(mapStateToProps, null)(DepDetailsWidget);
+export default DepDetailsWidget;

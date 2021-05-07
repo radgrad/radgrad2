@@ -24,7 +24,6 @@ import {
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { Users } from '../../../api/user/UserCollection';
-import { SelectPayload, SelectTab } from '../../../redux/student/degree-planner/actions';
 import TabbedProfileEntries from '../../components/student/degree-planner/TabbedProfileEntries';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { getUsername, MatchProps } from '../../components/shared/utilities/router';
@@ -35,13 +34,11 @@ import { ProfileCourses } from '../../../api/user/profile-entries/ProfileCourseC
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
 import { passedCourse } from '../../../api/course/CourseUtilities';
 import { PAGEIDS } from '../../utilities/PageIDs';
+import { useStickyState } from '../../utilities/StickyState';
 import PageLayout from '../PageLayout';
 
 interface StudentDegreePlannerProps {
   takenSlugs: string[];
-  selectCourseInstance: (courseInstanceID: string) => SelectPayload;
-  selectOpportunityInstance: (opportunityInstanceID: string) => SelectPayload;
-  selectProfileDetailsTab: () => SelectTab;
   match: MatchProps;
   academicYearInstances: AcademicYearInstance[];
   courseInstances: CourseInstance[];
@@ -199,13 +196,12 @@ const StudentDegreePlannerPage: React.FC<StudentDegreePlannerProps> = ({
   opportunities,
   courseInstances,
   opportunityInstances,
-  selectCourseInstance,
-  selectProfileDetailsTab,
-  selectOpportunityInstance,
   takenSlugs,
   verificationRequests,
 }) => {
-  const onDragEndProps = { match, selectCourseInstance, selectOpportunityInstance };
+  const [selectedCourse] = useStickyState('Planner.selectedCourse', '');
+  const [selectedOpportunity] = useStickyState('Planner.selectedOpportunity', '');
+  const onDragEndProps = { match, selectedCourse, selectedOpportunity };
   const paddedStyle = {
     paddingTop: 0,
     paddingLeft: 10,
