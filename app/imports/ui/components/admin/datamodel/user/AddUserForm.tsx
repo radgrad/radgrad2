@@ -4,7 +4,6 @@ import { Form, Header, Segment } from 'semantic-ui-react';
 import { AutoForm, TextField, SelectField, BoolField, LongTextField, NumField, SubmitField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
-import { connect } from 'react-redux';
 import { defineMethod } from '../../../../../api/base/BaseCollection.methods';
 import { AdvisorProfiles } from '../../../../../api/user/AdvisorProfileCollection';
 import { FacultyProfiles } from '../../../../../api/user/FacultyProfileCollection';
@@ -14,7 +13,6 @@ import { ROLE } from '../../../../../api/role/Role';
 import PictureField from '../../../form-fields/PictureField';
 import { academicTermToName, docToName } from '../../../shared/utilities/data-model';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
-import { cloudinaryActions } from '../../../../../redux/shared/cloudinary';
 import {
   careerGoalSlugFromName,
   declaredAcademicTermSlugFromName,
@@ -26,20 +24,10 @@ interface AddUserProps {
   interests: Interest[];
   careerGoals: CareerGoal[];
   academicTerms: AcademicTerm[];
-  isCloudinaryUsed: boolean;
-  cloudinaryUrl: string;
-  setAdminDataModelUsersIsCloudinaryUsed: (isCloudinaryUsed: boolean) => any;
-  setAdminDataModelUsersCloudinaryUrl: (cloudinaryUrl: string) => any;
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  setAdminDataModelUsersIsCloudinaryUsed: (isCloudinaryUsed: boolean) => dispatch(cloudinaryActions.setAdminDataModelUsersIsCloudinaryUsed(isCloudinaryUsed)),
-  setAdminDataModelUsersCloudinaryUrl: (cloudinaryUrl: string) => dispatch(cloudinaryActions.setAdminDataModelUsersCloudinaryUrl(cloudinaryUrl)),
-});
-
-const AddUserForm: React.FC<AddUserProps> = ({ interests, academicTerms, careerGoals, isCloudinaryUsed, cloudinaryUrl, setAdminDataModelUsersCloudinaryUrl, setAdminDataModelUsersIsCloudinaryUsed }) => {
+const AddUserForm: React.FC<AddUserProps> = ({ interests, academicTerms, careerGoals }) => {
   const [role, setRole] = useState<string>('');
-
   let formRef;
 
   const handleAdd = (doc: CombinedProfileDefine) => {
@@ -68,13 +56,9 @@ const AddUserForm: React.FC<AddUserProps> = ({ interests, academicTerms, careerG
         definitionData.level = 1;
       }
     }
-    if (isCloudinaryUsed) {
-      definitionData.picture = cloudinaryUrl;
-    }
     // console.log(collectionName, definitionData);
     defineMethod.call({ collectionName, definitionData }, defineCallback(formRef));
   };
-
 
   const handleModelChange = (model) => {
     setRole(model.role);
@@ -204,4 +188,4 @@ const AddUserForm: React.FC<AddUserProps> = ({ interests, academicTerms, careerG
   );
 };
 
-export default connect(null, mapDispatchToProps)(AddUserForm);
+export default AddUserForm;

@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { Grid, Segment } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
@@ -7,43 +6,32 @@ import moment from 'moment';
 import _ from 'lodash';
 import { Users } from '../../../../api/user/UserCollection';
 import { AcademicYearInstances } from '../../../../api/degree-plan/AcademicYearInstanceCollection';
+import { DegreePlannerStateNames } from '../../../pages/student/StudentDegreePlannerPage';
+import { useStickyState } from '../../../utilities/StickyState';
 import { ButtonAction } from '../../shared/button/ButtonAction';
 import AcademicYearView from './AcademicYearView';
 import {
   AcademicYearInstance,
   AcademicYearInstanceDefine,
   CourseInstance,
-  MeteorError,
   OpportunityInstance,
 } from '../../../../typings/radgrad';
 import { CourseInstances } from '../../../../api/course/CourseInstanceCollection';
 import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
 import { defineMethod, removeItMethod } from '../../../../api/base/BaseCollection.methods';
-import { degreePlannerActions } from '../../../../redux/student/degree-planner';
+import { TabbedProfileEntryNames } from './TabbedProfileEntries';
 
 interface DePProps {
-  selectCourseInstance: (courseInstanceID: string) => void;
-  selectOpportunityInstance: (opportunityInstanceID: string) => void;
-  selectProfileDetailsTab: () => void;
   academicYearInstances: AcademicYearInstance[];
   courseInstances: CourseInstance[];
   opportunityInstances: OpportunityInstance[];
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  selectCourseInstance: (courseInstanceID) => dispatch(degreePlannerActions.selectCourseInstance(courseInstanceID)),
-  selectOpportunityInstance: (opportunityInstanceID) => dispatch(degreePlannerActions.selectOpportunityInstance(opportunityInstanceID)),
-  selectProfileDetailsTab: () => dispatch(degreePlannerActions.selectProfileDetailsTab()),
-});
+const DegreeExperiencePlanner: React.FC<DePProps> = ({ academicYearInstances, courseInstances, opportunityInstances }) => {
 
-const DegreeExperiencePlanner: React.FC<DePProps> = ({
-  selectCourseInstance,
-  selectOpportunityInstance,
-  selectProfileDetailsTab,
-  academicYearInstances,
-  courseInstances,
-  opportunityInstances,
-}) => {
+  const [, setSelectedCiID] = useStickyState(DegreePlannerStateNames.selectedCiID, '');
+  const [, setSelectedOiID] = useStickyState(DegreePlannerStateNames.selectedOiID, '');
+  const [, setSelectedProfileTab] = useStickyState(DegreePlannerStateNames.selectedProfileTab, '');
   const { username } = useParams();
   const studentID = Users.getID(username);
 
@@ -53,11 +41,8 @@ const DegreeExperiencePlanner: React.FC<DePProps> = ({
     _.times(number, () => {
       const definitionData: AcademicYearInstanceDefine = { year: currentYear++, student };
       const collectionName = AcademicYearInstances.getCollectionName();
-      defineMethod.call({ collectionName, definitionData }, (error: MeteorError) => {
-        if (error) {
-          console.error(`Error creating 4 automatically generated AcademicYearInstances from Degree Planner: ${error.message}`);
-        }
-      });
+      defineMethod.callPromise({ collectionName, definitionData })
+        .catch((error) => console.error(`Error creating 4 automatically generated AcademicYearInstances from Degree Planner: ${error.message}`));
     });
   };
 
@@ -71,14 +56,16 @@ const DegreeExperiencePlanner: React.FC<DePProps> = ({
 
   const handleClickCourseInstance = (event, { value }) => {
     event.preventDefault();
-    selectCourseInstance(value);
-    selectProfileDetailsTab();
+    setSelectedCiID(value);
+    setSelectedOiID('');
+    setSelectedProfileTab(TabbedProfileEntryNames.profileDetails);
   };
 
   const handleClickOpportunityInstance = (event, { value }) => {
     event.preventDefault();
-    selectOpportunityInstance(value);
-    selectProfileDetailsTab();
+    setSelectedCiID('');
+    setSelectedOiID(value);
+    setSelectedProfileTab(TabbedProfileEntryNames.profileDetails);
   };
 
   const handleAddYear = (): void => {
@@ -87,17 +74,8 @@ const DegreeExperiencePlanner: React.FC<DePProps> = ({
     const nextYear = visibleYears[numYears - 1].year + 1;
     const definitionData: AcademicYearInstanceDefine = { year: nextYear, student };
     const collectionName = AcademicYearInstances.getCollectionName();
-    defineMethod.call({ collectionName, definitionData }, (error: MeteorError) => {
-      if (error) {
-        Swal.fire({
-          title: 'Failed to add a new Academic Year',
-          text: error.message,
-          icon: 'error',
-          allowOutsideClick: false,
-          allowEscapeKey: false,
-          allowEnterKey: false,
-        });
-      } else {
+    defineMethod.callPromise({ collectionName, definitionData })
+      .then(() => {
         Swal.fire({
           title: 'Added new Academic Year',
           icon: 'success',
@@ -107,25 +85,24 @@ const DegreeExperiencePlanner: React.FC<DePProps> = ({
         });
         years = AcademicYearInstances.findNonRetired({ studentID }, { sort: { year: 1 } });
         visibleYears = years;
-      }
-    });
+      })
+      .catch((error) =>
+        Swal.fire({
+          title: 'Failed to add a new Academic Year',
+          text: error.message,
+          icon: 'error',
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+          allowEnterKey: false,
+        }));
   };
 
 
   const handleDeleteYear = (): void => {
     const collectionName = AcademicYearInstances.getCollectionName();
     const instance = visibleYears[visibleYears.length - 1]._id;
-    removeItMethod.call({ collectionName, instance }, (error: MeteorError) => {
-      if (error) {
-        Swal.fire({
-          title: 'Failed to delete Academic Year',
-          text: error.message,
-          icon: 'error',
-          allowOutsideClick: false,
-          allowEscapeKey: false,
-          allowEnterKey: false,
-        });
-      } else {
+    removeItMethod.callPromise({ collectionName, instance })
+      .then(() => {
         Swal.fire({
           title: 'Deleted Academic Year',
           icon: 'success',
@@ -135,8 +112,17 @@ const DegreeExperiencePlanner: React.FC<DePProps> = ({
         });
         years = AcademicYearInstances.findNonRetired({ studentID }, { sort: { year: 1 } });
         visibleYears = years;
-      }
-    });
+      })
+      .catch((error) => {
+        Swal.fire({
+          title: 'Failed to delete Academic Year',
+          text: error.message,
+          icon: 'error',
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+          allowEnterKey: false,
+        });
+      });
   };
 
   const isTermEmpty = (termID: string): boolean => {
@@ -171,7 +157,7 @@ const DegreeExperiencePlanner: React.FC<DePProps> = ({
           />
         ))}
         <Grid.Row textAlign="center">
-          <Grid.Column textAlign="left" >
+          <Grid.Column textAlign="left">
             <ButtonAction onClick={handleAddYear} label='Add Year' icon='plus circle' />
           </Grid.Column>
           <Grid.Column textAlign="center" />
@@ -187,4 +173,4 @@ const DegreeExperiencePlanner: React.FC<DePProps> = ({
   );
 };
 
-export default connect(null, mapDispatchToProps)(DegreeExperiencePlanner);
+export default DegreeExperiencePlanner;

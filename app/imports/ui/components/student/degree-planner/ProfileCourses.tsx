@@ -15,7 +15,7 @@ interface ProfileCoursesProps {
 
 const ProfileCourses: React.FC<ProfileCoursesProps> = ({ studentID, courses, courseInstances }) => {
   const match = useRouteMatch();
-  const hasProfileEntries = courses.length > 0;
+  const hasProfileEntries = courses?.length > 0;
   return (
     <div>
       {hasProfileEntries ? (

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Button, Confirm, Icon, Tab } from 'semantic-ui-react';
 import _ from 'lodash';
 import moment from 'moment';
-import { connect } from 'react-redux';
 import { withTracker } from 'meteor/react-meteor-data';
 import Swal from 'sweetalert2';
 import { Courses } from '../../../api/course/CourseCollection';
@@ -48,7 +47,6 @@ import { removeItMethod, updateMethod } from '../../../api/base/BaseCollection.m
 import { Users } from '../../../api/user/UserCollection';
 import { ProfileCareerGoals } from '../../../api/user/profile-entries/ProfileCareerGoalCollection';
 import { ProfileInterests } from '../../../api/user/profile-entries/ProfileInterestCollection';
-import { RootState } from '../../../redux/types';
 import PageLayout from '../PageLayout';
 import { careerGoalInterestConversionMethod } from '../../../api/utilities/InterestConversion.methods';
 
@@ -57,8 +55,6 @@ interface AdminDataModelUsersPageProps {
   advisors: AdvisorOrFacultyProfile[];
   faculty: AdvisorOrFacultyProfile[];
   students: StudentProfile[];
-  isCloudinaryUsed: boolean;
-  cloudinaryUrl: string;
   profileCareerGoals: ProfileCareerGoal[];
   profileCourses: ProfileCourse[];
   profileInterests: ProfileInterest[];
@@ -128,11 +124,6 @@ const itemTitle = (user: BaseProfile): React.ReactNode => (
     {itemTitleString(user)}
   </React.Fragment>
 );
-
-const mapStateToProps = (state: RootState): unknown => ({
-  isCloudinaryUsed: state.shared.cloudinary.adminDataModelUsers.isCloudinaryUsed,
-  cloudinaryUrl: state.shared.cloudinary.adminDataModelUsers.cloudinaryUrl,
-});
 
 const AdminDataModelUsersPage: React.FC<AdminDataModelUsersPageProps> = (props) => {
   const [confirmOpenState, setConfirmOpen] = useState(false);
@@ -295,9 +286,7 @@ const AdminDataModelUsersPage: React.FC<AdminDataModelUsersPageProps> = (props) 
           opportunities={props.opportunities}
         />
       ) : (
-        <AddUserForm interests={props.interests} careerGoals={props.careerGoals}
-                     academicTerms={props.academicTerms} isCloudinaryUsed={props.isCloudinaryUsed}
-                     cloudinaryUrl={props.cloudinaryUrl} />
+        <AddUserForm interests={props.interests} careerGoals={props.careerGoals} academicTerms={props.academicTerms} />
       )}
       <Tab panes={panes} defaultActiveIndex={3} />
       <Button color="green" basic onClick={handleConvert}>Convert Career Goal Interests</Button>
@@ -306,7 +295,6 @@ const AdminDataModelUsersPage: React.FC<AdminDataModelUsersPageProps> = (props) 
   );
 };
 
-const AdminDataModelUsersPageCon = connect(mapStateToProps, null)(AdminDataModelUsersPage);
 export default withTracker(() => {
   const admins = AdminProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch();
   const advisors = AdvisorProfiles.find({}, { sort: { lastName: 1, firstName: 1 } }).fetch();
@@ -338,4 +326,4 @@ export default withTracker(() => {
     profileInterests,
     profileOpportunities,
   };
-})(AdminDataModelUsersPageCon);
+})(AdminDataModelUsersPage);
