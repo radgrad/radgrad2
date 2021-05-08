@@ -19,6 +19,8 @@ import { ProfileCareerGoals } from '../../../../../api/user/profile-entries/Prof
 import { CareerGoals } from '../../../../../api/career/CareerGoalCollection';
 import { Opportunities } from '../../../../../api/opportunity/OpportunityCollection';
 import { ProfileOpportunities } from '../../../../../api/user/profile-entries/ProfileOpportunityCollection';
+import { ProfileCourses } from '../../../../../api/user/profile-entries/ProfileCourseCollection';
+import { Courses } from '../../../../../api/course/CourseCollection';
 
 interface BrowserViewProps {
   items: CareerGoal[] | Course[] | Opportunity[] | Interest[];
@@ -46,6 +48,9 @@ const BrowserView: React.FC<BrowserViewProps> = ({ items, explorerType }) => {
       case EXPLORER_TYPE.OPPORTUNITIES:
         profileItems =  ProfileOpportunities.findNonRetired({ studentID: userID }).map((f) => Opportunities.findDoc(f.opportunityID)).filter(o=> o.retired !== true);
         break;
+      case EXPLORER_TYPE.COURSES:
+        profileItems =  ProfileCourses.findNonRetired({ studentID: userID }).map((f) => Courses.findDoc(f.courseID));
+        break;
     }
     explorerItems = profileItems;
     return explorerItems;
@@ -63,6 +68,9 @@ const BrowserView: React.FC<BrowserViewProps> = ({ items, explorerType }) => {
       case EXPLORER_TYPE.OPPORTUNITIES:
         explorerItems = Opportunities.findNonRetired().filter(md => profileItems.every(fd => fd._id !== md._id));
         break;
+      case EXPLORER_TYPE.COURSES:
+        explorerItems = Courses.findNonRetired().filter(md => profileItems.every(fd => fd._id !== md._id));
+        break;
     }
     return explorerItems;
   };
@@ -74,6 +82,24 @@ const BrowserView: React.FC<BrowserViewProps> = ({ items, explorerType }) => {
     }
     case EXPLORER_FILTER_KEYS.NOTINPROFILE:
       explorerItems = getNonProfileItems(explorerType);
+      break;
+    case EXPLORER_FILTER_KEYS.THREEHUNDREDPLUS:
+      explorerItems = explorerItems.filter((i) => {
+        const courseNumber = parseInt(i.num.split(' ')[1], 10);
+        return courseNumber >= 300;
+      });
+      break;
+    case EXPLORER_FILTER_KEYS.FOURHUNDREDPLUS:
+      explorerItems = explorerItems.filter((i) => {
+        const courseNumber = parseInt(i.num.split(' ')[1], 10);
+        return courseNumber >= 400;
+      });
+      break;
+    case EXPLORER_FILTER_KEYS.SIXHUNDREDPLUS:
+      explorerItems = explorerItems.filter((i) => {
+        const courseNumber = parseInt(i.num.split(' ')[1], 10);
+        return courseNumber >= 600;
+      });
       break;
     default:
         // if 'All', do no filtering
@@ -95,6 +121,10 @@ const BrowserView: React.FC<BrowserViewProps> = ({ items, explorerType }) => {
     }
     case EXPLORER_SORT_KEYS.EXPERIENCE: {
       explorerItems = _.sortBy(explorerItems, (item) => -item.ice.e);
+      break;
+    }
+    case EXPLORER_SORT_KEYS.NUMBER: {
+      explorerItems = _.sortBy(explorerItems, (item) => item.num);
       break;
     }
     default: {
