@@ -6,7 +6,6 @@ import PreferredChoice from '../degree-plan/PreferredChoice';
 import { Users } from '../user/UserCollection';
 import { profileGetInterestIDs } from '../../ui/components/shared/utilities/data-model';
 import { Course, CourseInstance } from '../../typings/radgrad';
-import { Slugs } from '../slug/SlugCollection';
 
 // Technical Debt: Hard codes 3xx and 4xx. This might not work for other Universities.
 
