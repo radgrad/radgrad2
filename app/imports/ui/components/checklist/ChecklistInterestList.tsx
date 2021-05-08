@@ -5,13 +5,13 @@ import { Interest, Profile } from '../../../typings/radgrad';
 import { EXPLORER } from '../../layouts/utilities/route-constants';
 import { ButtonLink } from '../shared/button/ButtonLink';
 
-interface ChecklistCareerGoalListProps {
+interface ChecklistInterestListProps {
   interests: Interest[];
   size: SemanticSIZES;
   profile: Profile;
 }
 
-const ChecklistInterestList: React.FC<ChecklistCareerGoalListProps> = ({ interests, size, profile }) => (
+const ChecklistInterestList: React.FC<ChecklistInterestListProps> = ({ interests, size, profile }) => (
     <Label.Group>
       {interests.map((interest) => {
         const slug = Interests.findSlugByID(interest._id);

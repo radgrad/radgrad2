@@ -1,8 +1,7 @@
 import React from 'react';
 import { Label, SemanticSIZES } from 'semantic-ui-react';
 import { CareerGoals } from '../../../api/career/CareerGoalCollection';
-import { Interests } from '../../../api/interest/InterestCollection';
-import { CareerGoal, Interest, Profile } from '../../../typings/radgrad';
+import { CareerGoal, Profile } from '../../../typings/radgrad';
 import { EXPLORER } from '../../layouts/utilities/route-constants';
 import { ButtonLink } from '../shared/button/ButtonLink';
 
