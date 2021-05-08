@@ -1,17 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Button, Card } from 'semantic-ui-react';
 import { useRouteMatch } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { getFutureEnrollmentSingleMethod } from '../../../../api/utilities/FutureEnrollment.methods';
-import { ENROLLMENT_TYPE, EnrollmentForecast } from '../../../../startup/both/RadGradForecasts';
 import { CourseInstance } from '../../../../typings/radgrad';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import { DegreePlannerStateNames } from '../../../pages/student/StudentDegreePlannerPage';
 import { useStickyState } from '../../../utilities/StickyState';
 import { ViewInExplorerButtonLink } from '../../shared/button/ViewInExplorerButtonLink';
+import FutureParticipationButton from '../../shared/FutureParticipationButton';
 import IceHeader from '../../shared/IceHeader';
 import { Courses } from '../../../../api/course/CourseCollection';
-import FutureParticipation from '../../shared/explorer/FutureParticipation';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import { CourseInstances } from '../../../../api/course/CourseInstanceCollection';
 import { removeItMethod } from '../../../../api/base/BaseCollection.methods';
@@ -51,32 +49,6 @@ const DetailCourseCard: React.FC<DetailCourseCardProps> = ({ instance  }) => {
   const futureP = courseTerm.termNumber >= currentTerm.termNumber;
   const termName = AcademicTerms.getShortName(instance.termID);
   const course = Courses.findDoc(instance.courseID);
-  const [data, setData] = useState<EnrollmentForecast>({});
-  const [fetched, setFetched] = useState(false);
-
-  useEffect(() => {
-    // console.log('check for infinite loop');
-    function fetchData() {
-      getFutureEnrollmentSingleMethod.callPromise({ id: course._id, type: ENROLLMENT_TYPE.COURSE })
-        .then((result) => setData(result))
-        .catch((error) => {
-          console.error(error);
-          setData({});
-        });
-    }
-
-    // Only fetch data if it hasn't been fetched before.
-    if (!fetched) {
-      fetchData();
-      setFetched(true);
-    }
-  }, [fetched, course._id]);
-  let academicTerms = [];
-  let scores = [];
-  if (data?.enrollment) {
-    academicTerms = data.enrollment.map((entry) => AcademicTerms.findDoc(entry.termID));
-    scores = data.enrollment.map((entry) => entry.count);
-  }
 
   return (
     <Card.Group itemsPerRow={1}>
@@ -95,7 +67,7 @@ const DetailCourseCard: React.FC<DetailCourseCardProps> = ({ instance  }) => {
               <p>
                 <b>Scheduled:</b> {termName}
               </p>
-              <FutureParticipation academicTerms={academicTerms} scores={scores} />
+              <FutureParticipationButton item={course} />
               <Button floated="right" basic color="green" value={instance._id}
                       onClick={handleRemove(setSelectedCiID, setSelectedProfileTab, match)} size="tiny">
                 Remove

@@ -3,7 +3,6 @@ import { Courses } from '../../api/course/CourseCollection';
 import { CourseInstances } from '../../api/course/CourseInstanceCollection';
 import { Opportunities } from '../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../api/opportunity/OpportunityInstanceCollection';
-import { RadGradProperties } from '../../api/radgrad/RadGradProperties';
 
 export const enum ENROLLMENT_TYPE {
   COURSE = 'course',
@@ -33,16 +32,7 @@ export interface EnrollmentForecast {
 
 const getFutureEnrollmentSingle = (id: string, type: ENROLLMENT_TYPE): CourseEnrollmentForecast | OpportunityEnrollmentForecast => {
   const enrollmentForecast: EnrollmentForecast = {};
-  const quarter = RadGradProperties.getQuarterSystem();
-  const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
-  const numTerms = quarter ? 12 : 9;
-  const academicTerms = AcademicTerms.findNonRetired(
-    { termNumber: { $gte: currentTerm.termNumber } },
-    {
-      sort: { termNumber: 1 },
-      limit: numTerms,
-    },
-  );
+  const academicTerms = AcademicTerms.getNextYears(3); // CAM maybe it should be 2
   const termIDs = academicTerms.map((term) => term._id);
   switch (type) {
     case ENROLLMENT_TYPE.COURSE:

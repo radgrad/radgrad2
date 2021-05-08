@@ -24,11 +24,9 @@ const defineAcademicTermsForYear = (year: number): void => {
  */
 export const defineAcademicTerms = (): void => {
   let year = moment().year() - 1;
-  if (AcademicTerms.find().count() === 0) {
-    for (let i = 0; i < 5; i++) {
-      defineAcademicTermsForYear(year);
-      year++;
-    }
+  for (let i = 0; i < 5; i++) {
+    defineAcademicTermsForYear(year);
+    year++;
   }
 };
 

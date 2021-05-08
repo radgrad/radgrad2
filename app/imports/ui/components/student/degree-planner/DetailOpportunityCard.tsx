@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Card } from 'semantic-ui-react';
 import { useRouteMatch } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { getFutureEnrollmentSingleMethod } from '../../../../api/utilities/FutureEnrollment.methods';
-import { ENROLLMENT_TYPE, EnrollmentForecast } from '../../../../startup/both/RadGradForecasts';
 import { DegreePlannerStateNames } from '../../../pages/student/StudentDegreePlannerPage';
 import { useStickyState } from '../../../utilities/StickyState';
 import { ButtonAction } from '../../shared/button/ButtonAction';
@@ -12,8 +10,8 @@ import { ViewInExplorerButtonLink } from '../../shared/button/ViewInExplorerButt
 import { OpportunityInstance, VerificationRequest } from '../../../../typings/radgrad';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
+import FutureParticipationButton from '../../shared/FutureParticipationButton';
 import IceHeader from '../../shared/IceHeader';
-import FutureParticipation from '../../shared/explorer/FutureParticipation';
 import { removeItMethod } from '../../../../api/base/BaseCollection.methods';
 import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
@@ -39,28 +37,8 @@ const DetailOpportunityCard: React.FC<DetailOpportunityCardProps> = ({ instance,
   const verificationRequested = verificationRequestsToShow.length > 0;
   const termName = AcademicTerms.getShortName(instance.termID);
   const opportunity = Opportunities.findDoc(instance.opportunityID);
-  const [data, setData] = useState<EnrollmentForecast>({});
-  const [fetched, setFetched] = useState(false);
-  useEffect(() => {
-    // console.log('check for infinite loop');
-    function fetchData() {
-      getFutureEnrollmentSingleMethod.callPromise({ id: opportunity._id, type: ENROLLMENT_TYPE.OPPORTUNITY })
-        .then((result) => setData(result))
-        .catch((error) => {
-          console.error(error);
-          setData({});
-        });
-    }
 
-    // Only fetch data if it hasn't been fetched before.
-    if (!fetched) {
-      fetchData();
-      setFetched(true);
-    }
-  }, [fetched, opportunity._id]);
-
-  const handleRemove = (event, { value }) => {
-    event.preventDefault();
+  const handleRemove = () => {
     const collectionName = OpportunityInstances.getCollectionName();
     removeItMethod.callPromise({ collectionName, instance })
       .then(() => {
@@ -77,12 +55,6 @@ const DetailOpportunityCard: React.FC<DetailOpportunityCardProps> = ({ instance,
       .catch((error) => console.error(`Remove opportunity instance ${instance} failed.`, error));
   };
 
-  let academicTerms = [];
-  let scores = [];
-  if (data?.enrollment) {
-    academicTerms = data.enrollment.map((entry) => AcademicTerms.findDoc(entry.termID));
-    scores = data.enrollment.map((entry) => entry.count);
-  }
   return (
     <Card.Group itemsPerRow={1}>
       <Card style={cardStyle}>
@@ -96,10 +68,8 @@ const DetailOpportunityCard: React.FC<DetailOpportunityCardProps> = ({ instance,
               <p>
                 <b>Scheduled:</b> {termName}
               </p>
-              <FutureParticipation academicTerms={academicTerms} scores={scores} />
-              {/* @ts-ignore */}
-              <ButtonAction value={instance._id} onClick={handleRemove}
-                            icon="trash alternate outline" label="Remove" style={cardStyle} size="small" />
+              <FutureParticipationButton item={opportunity} />
+              <ButtonAction onClick={handleRemove} icon="trash alternate outline" label="Remove" style={cardStyle} size="small" />
             </React.Fragment>
           ) : (
             <React.Fragment>
@@ -110,9 +80,7 @@ const DetailOpportunityCard: React.FC<DetailOpportunityCardProps> = ({ instance,
                 ''
               ) : (
                 <React.Fragment>
-                  {/* @ts-ignore */}
-                  <ButtonAction value={instance._id} onClick={handleRemove}
-                                icon="trash alternate outline" label="Remove" style={cardStyle} size="small" />
+                  <ButtonAction onClick={handleRemove} icon="trash alternate outline" label="Remove" style={cardStyle} size="small" />
                 </React.Fragment>
               )}
             </React.Fragment>
