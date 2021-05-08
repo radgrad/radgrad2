@@ -6,6 +6,7 @@ import { getFutureEnrollmentSingleMethod } from '../../../../api/utilities/Futur
 import { ENROLLMENT_TYPE, EnrollmentForecast } from '../../../../startup/both/RadGradForecasts';
 import { CourseInstance } from '../../../../typings/radgrad';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
+import { DegreePlannerStateNames } from '../../../pages/student/StudentDegreePlannerPage';
 import { useStickyState } from '../../../utilities/StickyState';
 import { ViewInExplorerButtonLink } from '../../shared/button/ViewInExplorerButtonLink';
 import IceHeader from '../../shared/IceHeader';
@@ -14,13 +15,14 @@ import FutureParticipation from '../../shared/explorer/FutureParticipation';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
 import { CourseInstances } from '../../../../api/course/CourseInstanceCollection';
 import { removeItMethod } from '../../../../api/base/BaseCollection.methods';
+import { TabbedProfileEntryNames } from './TabbedProfileEntries';
 import { cardStyle, contentStyle } from './utilities/styles';
 
 interface DetailCourseCardProps {
   instance: CourseInstance;
 }
 
-const handleRemove = (selectCourseInstance, match) => (event, { value }) => {
+const handleRemove = (setSelectedCiID, setSelectedProfileTab, match) => (event, { value }) => {
   event.preventDefault();
   const collectionName = CourseInstances.getCollectionName();
   const instance = value;
@@ -36,11 +38,13 @@ const handleRemove = (selectCourseInstance, match) => (event, { value }) => {
       });
     }
   });
-  selectCourseInstance('');
+  setSelectedCiID('');
+  setSelectedProfileTab(TabbedProfileEntryNames.profileCourses);
 };
 
 const DetailCourseCard: React.FC<DetailCourseCardProps> = ({ instance  }) => {
-  const [selectedCourse] = useStickyState('Planner.selectedCourse', '');
+  const [, setSelectedCiID] = useStickyState(DegreePlannerStateNames.selectedCiID, '');
+  const [, setSelectedProfileTab] = useStickyState(DegreePlannerStateNames.selectedProfileTab, '');
   const match = useRouteMatch();
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
   const courseTerm = AcademicTerms.findDoc(instance.termID);
@@ -93,7 +97,7 @@ const DetailCourseCard: React.FC<DetailCourseCardProps> = ({ instance  }) => {
               </p>
               <FutureParticipation academicTerms={academicTerms} scores={scores} />
               <Button floated="right" basic color="green" value={instance._id}
-                      onClick={handleRemove(selectedCourse, match)} size="tiny">
+                      onClick={handleRemove(setSelectedCiID, setSelectedProfileTab, match)} size="tiny">
                 Remove
               </Button>
             </React.Fragment>

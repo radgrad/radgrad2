@@ -4,6 +4,7 @@ import { useRouteMatch } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { getFutureEnrollmentSingleMethod } from '../../../../api/utilities/FutureEnrollment.methods';
 import { ENROLLMENT_TYPE, EnrollmentForecast } from '../../../../startup/both/RadGradForecasts';
+import { DegreePlannerStateNames } from '../../../pages/student/StudentDegreePlannerPage';
 import { useStickyState } from '../../../utilities/StickyState';
 import { ButtonAction } from '../../shared/button/ButtonAction';
 import { ButtonLink } from '../../shared/button/ButtonLink';
@@ -16,6 +17,7 @@ import FutureParticipation from '../../shared/explorer/FutureParticipation';
 import { removeItMethod } from '../../../../api/base/BaseCollection.methods';
 import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
 import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
+import { TabbedProfileEntryNames } from './TabbedProfileEntries';
 import { cardStyle, contentStyle } from './utilities/styles';
 import VerificationRequestStatus from './VerificationRequestStatus';
 import * as RouterUtils from '../../shared/utilities/router';
@@ -26,8 +28,9 @@ interface DetailOpportunityCardProps {
 }
 
 const DetailOpportunityCard: React.FC<DetailOpportunityCardProps> = ({ instance, verificationRequests }) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [selectedOpportunity, setSelectedOpportunity] = useStickyState('Planner.selectedOpportunity', '');
+  const [, setSelectedCiID] = useStickyState(DegreePlannerStateNames.selectedCiID, '');
+  const [, setSelectedOiID] = useStickyState(DegreePlannerStateNames.selectedOiID, '');
+  const [, setSelectedProfileTab] = useStickyState(DegreePlannerStateNames.selectedProfileTab, '');
   const verificationRequestsToShow = verificationRequests.filter((vr) => vr.opportunityInstanceID === instance._id);
   const match = useRouteMatch();
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
@@ -56,22 +59,22 @@ const DetailOpportunityCard: React.FC<DetailOpportunityCardProps> = ({ instance,
     }
   }, [fetched, opportunity._id]);
 
-  const handleRemove =  (event, { value }) => {
+  const handleRemove = (event, { value }) => {
     event.preventDefault();
     const collectionName = OpportunityInstances.getCollectionName();
-    removeItMethod.call({ collectionName, instance }, (error) => {
-      if (error) {
-        console.error(`Remove opportunity instance ${instance} failed.`, error);
-      } else {
+    removeItMethod.callPromise({ collectionName, instance })
+      .then(() => {
         Swal.fire({
           title: 'Remove succeeded',
           icon: 'success',
           showConfirmButton: false,
           timer: 1500,
         });
-      }
-    });
-    setSelectedOpportunity('');
+        setSelectedCiID('');
+        setSelectedOiID('');
+        setSelectedProfileTab(TabbedProfileEntryNames.profileOpportunities);
+      })
+      .catch((error) => console.error(`Remove opportunity instance ${instance} failed.`, error));
   };
 
   let academicTerms = [];
@@ -80,7 +83,6 @@ const DetailOpportunityCard: React.FC<DetailOpportunityCardProps> = ({ instance,
     academicTerms = data.enrollment.map((entry) => AcademicTerms.findDoc(entry.termID));
     scores = data.enrollment.map((entry) => entry.count);
   }
-
   return (
     <Card.Group itemsPerRow={1}>
       <Card style={cardStyle}>

@@ -251,15 +251,22 @@ export default withTracker(() => {
   const studentID = profile.userID;
   const pOpportunities = ProfileOpportunities.findNonRetired({ studentID });
   let profileOpportunities = pOpportunities.map((f) => Opportunities.findDoc(f.opportunityID));
-  // want to filter the opportunities don't show retired opportunities.
+  // first filter the retired opportunities
   profileOpportunities = profileOpportunities.filter((opp) => !opp.retired);
+  // next filter opportunities w/o future academic terms
+  profileOpportunities = profileOpportunities.filter((opp) => {
+    const terms = opp.termIDs.map((term) => AcademicTerms.findDoc(term));
+    return terms.some((term) => AcademicTerms.isUpcomingTerm(term._id));
+  });
   const courseInstances = CourseInstances.findNonRetired({ studentID: profile.userID });
   const pCourses = ProfileCourses.findNonRetired({ studentID });
   let profileCourses = pCourses.map((f) => Courses.findDoc(f.courseID));
-  // want to filter out the passed classes
+  // first get rid of any retired courses
+  profileCourses = profileCourses.filter((course) => !course.retired);
+  // next filter out the passed classes, but not if they are repeatable.
   profileCourses = profileCourses.filter((course) => {
     const ci = courseInstances.find((instance) => instance.courseID === course._id);
-    console.log(!passedCourse(ci), courseInstanceIsRepeatable(ci), ci.note);
+    // console.log(!passedCourse(ci), courseInstanceIsRepeatable(ci), ci.note);
     return !passedCourse(ci) || courseInstanceIsRepeatable(ci);
   });  const academicYearInstances: AcademicYearInstance[] = AcademicYearInstances.findNonRetired({ studentID }, { sort: { year: 1 } });
   const opportunityInstances = OpportunityInstances.findNonRetired({ studentID: profile.userID });
