@@ -326,7 +326,7 @@ class BaseCollection {
    * @throws { Meteor.Error } If there is no logged in user, or the user is not an Admin or Advisor.
    */
   public assertValidRoleForMethod(userId: string) {
-    this.assertRole(userId, [ROLE.ADMIN, ROLE.ADVISOR]);
+    this.assertRole(userId, [ROLE.ADMIN, ROLE.ADVISOR, ROLE.FACULTY]);
   }
 
   /**
