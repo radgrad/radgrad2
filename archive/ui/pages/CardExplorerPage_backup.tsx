@@ -12,7 +12,7 @@ import { Courses } from "../../../app/imports/api/course/CourseCollection";
 import { Interests } from "../../../app/imports/api/interest/InterestCollection";
 import { Opportunities } from "../../../app/imports/api/opportunity/OpportunityCollection";
 import { Users } from "../../../app/imports/api/user/UserCollection";
-import ExplorerMultipleItemsMenu from "../../../app/imports/ui/components/shared/explorer/browser-view/ExplorerMultipleItemsMenu";
+import ExplorerMultipleItemsMenu from "../../issue-414/ExplorerMultipleItemsMenu";
 import {
   AcademicPlan,
   CareerGoal,

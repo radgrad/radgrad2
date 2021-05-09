@@ -27,9 +27,9 @@ export const enum EXPLORER_TYPE_ICON {
 /** Define Sort keys used to sort the cards in the explorer pages. It is used in Interests, Career Goals, Opportunities and Courses component */
 export const enum EXPLORER_FILTER_KEYS {
   NONE = 'All',
-  THREEHUNDREDPLUS = '300+',
-  FOURHUNDREDPLUS = '400+',
-  SIXHUNDREDPLUS = '600+',
+  THREEHUNDRED = '3XX',
+  FOURHUNDRED = '4XX',
+  SIXHUNDRED = '6XX',
   INPROFILE = 'In Profile',
   NOTINPROFILE = 'Not in Profile',
 }

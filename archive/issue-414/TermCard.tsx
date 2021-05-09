@@ -2,18 +2,18 @@ import React, { useEffect, useState } from 'react';
 import Markdown from 'react-markdown';
 import { Link, useRouteMatch } from 'react-router-dom';
 import { Card, Icon } from 'semantic-ui-react';
-import { AcademicTerms } from '../../../../../api/academic-term/AcademicTermCollection';
-import { getFutureEnrollmentSingleMethod } from '../../../../../api/utilities/FutureEnrollment.methods';
-import { ENROLLMENT_TYPE, EnrollmentForecast } from '../../../../../startup/both/RadGradForecasts';
+import { AcademicTerms } from '../../app/imports/api/academic-term/AcademicTermCollection';
+import { getFutureEnrollmentSingleMethod } from '../../app/imports/api/utilities/FutureEnrollment.methods';
+import { ENROLLMENT_TYPE, EnrollmentForecast } from '../../app/imports/startup/both/RadGradForecasts';
 
-import { TermCard } from '../../../../../typings/radgrad';
-import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
-import IceHeader from '../../IceHeader';
-import InterestList from '../../InterestList';
-import { docToShortDescription, itemToSlugName, opportunityTerms } from '../../utilities/data-model';
-import { replaceTermStringNextFour } from '../../utilities/general';
-import * as Router from '../../utilities/router';
-import FutureParticipation from '../FutureParticipation';
+import { TermCard } from '../../app/imports/typings/radgrad';
+import { EXPLORER_TYPE } from '../../app/imports/ui/layouts/utilities/route-constants';
+import IceHeader from '../../app/imports/ui/components/shared/IceHeader';
+import InterestList from '../../app/imports/ui/components/shared/InterestList';
+import { docToShortDescription, itemToSlugName, opportunityTerms } from '../../app/imports/ui/components/shared/utilities/data-model';
+import { replaceTermStringNextFour } from '../../app/imports/ui/components/shared/utilities/general';
+import * as Router from '../../app/imports/ui/components/shared/utilities/router';
+import FutureParticipation from '../../app/imports/ui/components/shared/explorer/FutureParticipation';
 
 const isType = (typeToCheck: string, type: string) => type === typeToCheck;
 

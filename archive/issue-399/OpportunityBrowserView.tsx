@@ -4,7 +4,7 @@ import { useRouteMatch } from 'react-router-dom';
 import { Header, Divider, Grid, Container } from 'semantic-ui-react';
 import _ from 'lodash';
 import WidgetHeaderNumber from '../../app/imports/ui/components/shared/explorer/WidgetHeaderNumber';
-import { availableOpps, checkForNoItems, IExplorerTypes, matchingOpportunities } from '../../app/imports/ui/components/shared/explorer/utilities/explorer';
+import { availableOpps, checkForNoItems, IExplorerTypes, matchingOpportunities } from '../issue-414/utilities/explorer';
 import OpportunitySortWidget, { opportunitySortKeys } from './OpportunitySortWidget';
 import OpportunityInformationItem, { OpportunityInformationItemConfiguration } from './OpportunityInformationItem';
 import * as Router from '../../app/imports/ui/components/shared/utilities/router';

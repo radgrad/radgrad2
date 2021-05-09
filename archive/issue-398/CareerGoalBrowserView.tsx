@@ -5,7 +5,7 @@ import { scrollPositionActions } from '../../app/imports/redux/shared/scrollPosi
 import { RootState } from '../../app/imports/redux/types';
 import { CareerGoal } from '../../app/imports/typings/radgrad';
 import { EXPLORER_TYPE } from '../../app/imports/ui/layouts/utilities/route-constants';
-import ProfileCard from '../../app/imports/ui/components/shared/explorer/browser-view/ProfileCard';
+import ExplorerCard from '../../app/imports/ui/components/shared/explorer/browser-view/ExplorerCard';
 import PreferredChoice from '../../app/imports/api/degree-plan/PreferredChoice';
 import WidgetHeaderNumber from '../../app/imports/ui/components/shared/explorer/WidgetHeaderNumber';
 import { CHECKSTATE } from '../../app/imports/ui/components/checklist/Checklist';
@@ -77,8 +77,8 @@ const CareerGoalBrowserView: React.FC<CareerGoalBrowserViewProps> = ({
           {/* {!inProfile ? <InterestSortWidget /> : ''} */}
         <Card.Group itemsPerRow={4} stackable id="careerGoalsCardGroup">
           {ordered.map((goal) => (
-            <ProfileCard key={goal._id} item={goal} type={EXPLORER_TYPE.CAREERGOALS}
-                         cardLinkName={inProfile ? 'See Details / Remove from Profile' : 'See Details / Add to Profile'} />
+            <ExplorerCard key={goal._id} item={goal} type={EXPLORER_TYPE.CAREERGOALS}
+                          cardLinkName={inProfile ? 'See Details / Remove from Profile' : 'See Details / Add to Profile'} />
           ))}
         </Card.Group>
       </Segment>

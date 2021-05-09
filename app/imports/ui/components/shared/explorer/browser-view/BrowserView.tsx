@@ -4,7 +4,7 @@ import { Card, Grid } from 'semantic-ui-react';
 import { useRouteMatch } from 'react-router';
 import { CareerGoal, Course, Interest, Opportunity } from '../../../../../typings/radgrad';
 import { useStickyState } from '../../../../utilities/StickyState';
-import ProfileCard from './ProfileCard';
+import ExplorerCard from './ExplorerCard';
 import Sort from './Sort';
 import * as Router from '../../utilities/router';
 import { ProfileInterests } from '../../../../../api/user/profile-entries/ProfileInterestCollection';
@@ -29,7 +29,9 @@ interface BrowserViewProps {
 
 const BrowserView: React.FC<BrowserViewProps> = ({ items, explorerType }) => {
   const [filterChoice] = useStickyState(`Filter.${explorerType}`, EXPLORER_FILTER_KEYS.NONE);
-  const [sortChoice] = useStickyState(`Sort.${explorerType}`, EXPLORER_SORT_KEYS.ALPHABETIC);
+  const defaultSortChoice = (explorerType === EXPLORER_TYPE.COURSES) ? EXPLORER_SORT_KEYS.NUMBER
+    : EXPLORER_SORT_KEYS.ALPHABETIC ;
+  const [sortChoice] = useStickyState(`Sort.${explorerType}`, defaultSortChoice);
   const [scrollPosition, setScrollPosition] = useStickyState(`Scroll.${explorerType}`, 0);
   const match = useRouteMatch();
   const userID = Router.getUserIdFromRoute(match);
@@ -76,26 +78,26 @@ const BrowserView: React.FC<BrowserViewProps> = ({ items, explorerType }) => {
   };
 
   switch (filterChoice){
-    case EXPLORER_FILTER_KEYS.INPROFILE: {
+    case EXPLORER_FILTER_KEYS.INPROFILE:
       explorerItems = getProfileItems(explorerType);
       break;
-    }
     case EXPLORER_FILTER_KEYS.NOTINPROFILE:
       explorerItems = getNonProfileItems(explorerType);
       break;
-    case EXPLORER_FILTER_KEYS.THREEHUNDREDPLUS:
+    case EXPLORER_FILTER_KEYS.THREEHUNDRED:
       explorerItems = explorerItems.filter((i) => {
         const courseNumber = parseInt(i.num.split(' ')[1], 10);
-        return courseNumber >= 300;
+        return courseNumber >= 300 && courseNumber < 400;
       });
       break;
-    case EXPLORER_FILTER_KEYS.FOURHUNDREDPLUS:
+
+    case EXPLORER_FILTER_KEYS.FOURHUNDRED:
       explorerItems = explorerItems.filter((i) => {
         const courseNumber = parseInt(i.num.split(' ')[1], 10);
-        return courseNumber >= 400;
+        return courseNumber >= 400 && courseNumber < 600;
       });
       break;
-    case EXPLORER_FILTER_KEYS.SIXHUNDREDPLUS:
+    case EXPLORER_FILTER_KEYS.SIXHUNDRED:
       explorerItems = explorerItems.filter((i) => {
         const courseNumber = parseInt(i.num.split(' ')[1], 10);
         return courseNumber >= 600;
@@ -168,19 +170,19 @@ const BrowserView: React.FC<BrowserViewProps> = ({ items, explorerType }) => {
   return (
     <div id="explorer-browser-view">
     <RadGradSegment header={header}>
-      <Grid>
+      <Grid stackable>
         <Grid.Row columns={2}>
           <Grid.Column>
             <Filter explorerType={explorerType} />
           </Grid.Column>
-          <Grid.Column>
+          <Grid.Column textAlign="right">
             <Sort explorerType={explorerType} />
           </Grid.Column>
         </Grid.Row>
       </Grid>
       <Card.Group itemsPerRow={4} stackable id="browserCardGroup" style={{ margin: '0px' }}>
                   {explorerItems.map((explorerItem) => (
-        <ProfileCard key={explorerItem._id} item={explorerItem} type={explorerType} inProfile = {inProfile(explorerItem, explorerType)} />
+        <ExplorerCard key={explorerItem._id} item={explorerItem} type={explorerType} inProfile = {inProfile(explorerItem, explorerType)} />
                   ))}
       </Card.Group>
     </RadGradSegment>

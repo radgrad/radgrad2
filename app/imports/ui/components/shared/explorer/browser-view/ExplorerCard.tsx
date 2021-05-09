@@ -25,9 +25,9 @@ interface ProfileCardProps {
   inProfile: boolean;
 }
 
-// TODO Why is this called ProfileCard? We used to store information about interests, career goals and academic plans in the Profile. We've moved them to the Profile*Collections.
+// TODO Why is this called ExplorerCard? We used to store information about interests, career goals and academic plans in the Profile. We've moved them to the Profile*Collections.
 
-const ProfileCard: React.FC<ProfileCardProps> = ({ item, type, inProfile }) => {
+const ExplorerCard: React.FC<ProfileCardProps> = ({ item, type, inProfile }) => {
   const match = useRouteMatch();
   const itemName = (type === EXPLORER_TYPE.COURSES) ? `${item.name} (${item.num})` : docToName(item);
   const itemShortDescription = docToShortDescription(item);
@@ -52,4 +52,4 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ item, type, inProfile }) => {
   );
 };
 
-export default ProfileCard;
+export default ExplorerCard;

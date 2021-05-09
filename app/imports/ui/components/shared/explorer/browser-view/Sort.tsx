@@ -11,8 +11,8 @@ interface SortProps {
 }
 
 const Sort: React.FC<SortProps> = ({ explorerType }) => {
-  const [sortChoice, setSortChoice] = useStickyState(`Sort.${explorerType}`, (explorerType === EXPLORER_TYPE.COURSES) ? EXPLORER_SORT_KEYS.NUMBER : EXPLORER_SORT_KEYS.ALPHABETIC);
-
+  const [sortChoice, setSortChoice] = useStickyState(`Sort.${explorerType}`,
+    (explorerType === EXPLORER_TYPE.COURSES) ? EXPLORER_SORT_KEYS.NUMBER : EXPLORER_SORT_KEYS.ALPHABETIC);
   const handleChange = (type, value) => {
     setSortChoice(value);
   };
@@ -27,7 +27,7 @@ const Sort: React.FC<SortProps> = ({ explorerType }) => {
         allowedSortValues = [EXPLORER_SORT_KEYS.ALPHABETIC, EXPLORER_SORT_KEYS.MOST_RECENT];
         break;
       case EXPLORER_TYPE.COURSES:
-        allowedSortValues = [EXPLORER_SORT_KEYS.ALPHABETIC, EXPLORER_SORT_KEYS.NUMBER];
+        allowedSortValues = [EXPLORER_SORT_KEYS.NUMBER, EXPLORER_SORT_KEYS.ALPHABETIC, EXPLORER_SORT_KEYS.RECOMMENDED];
         break;
       case EXPLORER_TYPE.OPPORTUNITIES:
         allowedSortValues = [EXPLORER_SORT_KEYS.ALPHABETIC, EXPLORER_SORT_KEYS.RECOMMENDED, EXPLORER_SORT_KEYS.EXPERIENCE, EXPLORER_SORT_KEYS.INNOVATION];
