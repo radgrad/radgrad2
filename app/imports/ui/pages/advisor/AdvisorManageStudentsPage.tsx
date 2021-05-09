@@ -48,6 +48,7 @@ const AdvisorManageStudentsTracker = withTracker(() => {
   const opportunities = Opportunities.findNonRetired({}, { sort: { name: 1 } });
   const profileCareerGoals = ProfileCareerGoals.findNonRetired({});
   const profileInterests = ProfileInterests.findNonRetired({});
+  console.log(students, alumni);
   return {
     students,
     alumni,

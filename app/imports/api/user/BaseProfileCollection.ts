@@ -6,6 +6,7 @@ import BaseSlugCollection from '../base/BaseSlugCollection';
 import { AcademicYearInstances } from '../degree-plan/AcademicYearInstanceCollection';
 import { CourseInstances } from '../course/CourseInstanceCollection';
 import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollection';
+import { Reviews } from '../review/ReviewCollection';
 import { Slugs } from '../slug/SlugCollection';
 import { Users } from './UserCollection';
 import { ROLE } from '../role/Role';
@@ -215,17 +216,18 @@ class BaseProfileCollection extends BaseSlugCollection {
    * @param profileID The ID for this profile object.
    */
   public removeIt(profileID) {
+    // console.log('BaseProfileCollection.removeIt', profileID);
     const profile = this.collection.findOne({ _id: profileID });
     const userID = profile.userID;
     if (!Users.isReferenced(userID)) {
       // Automatically remove references to user from other collections that are "private" to this user.
       [CourseInstances, OpportunityInstances, AcademicYearInstances, VerificationRequests, ProfileCareerGoals, ProfileCourses, ProfileInterests,
-        ProfileOpportunities].forEach((collection) => collection.removeUser(userID));
+        ProfileOpportunities, Reviews].forEach((collection) => collection.removeUser(userID));
       Meteor.users.remove({ _id: userID });
       Slugs.getCollection().remove({ name: profile.username });
       return super.removeIt(profileID);
     }
-    return null;
+    throw new Meteor.Error(`User ${profile.username} is a sponsor of un-retired Opportunities.`);
   }
 
   /**

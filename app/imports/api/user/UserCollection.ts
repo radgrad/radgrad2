@@ -4,7 +4,6 @@ import { Roles } from 'meteor/alanning:roles';
 import _ from 'lodash';
 import { Opportunities } from '../opportunity/OpportunityCollection';
 import { RadGradProperties } from '../radgrad/RadGradProperties';
-import { Reviews } from '../review/ReviewCollection';
 import { ROLE } from '../role/Role';
 import { AdminProfiles } from './AdminProfileCollection';
 import { AdvisorProfiles } from './AdvisorProfileCollection';
@@ -195,8 +194,6 @@ class UserCollection {
 
   /**
    * Returns true if user is referenced by other "public" entities. Specifically:
-   *   * The user is a student and has published a review.
-   *   * The user is a student and has published a question.
    *   * The user is a faculty member as has sponsored an opportunity.
    * Used to determine if this user can be deleted.
    * Note this doesn't test for references to CourseInstances, etc. These are "private" and will be deleted
@@ -207,9 +204,8 @@ class UserCollection {
    */
   public isReferenced(user) {
     const userID = this.getID(user);
-    const hasReviews = Reviews.find({ studentID: userID }).count();
-    const hasOpportunities = Opportunities.find({ sponsorID: userID }).count(); // TODO CAM can this be non-retired?
-    return (hasReviews || hasOpportunities);
+    const hasOpportunities = Opportunities.findNonRetired({ sponsorID: userID }).length > 0;
+    return (hasOpportunities);
   }
 
   /**

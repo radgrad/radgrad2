@@ -1,5 +1,6 @@
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { CallPromiseMixin } from 'meteor/didericis:callpromise-mixin';
+import { Meteor } from 'meteor/meteor';
 import { Users } from './UserCollection';
 import { CareerGoals } from '../career/CareerGoalCollection';
 import { StudentProfiles } from './StudentProfileCollection';
@@ -113,5 +114,34 @@ export const setPublicProfileData = new ValidatedMethod({
     }
     // Now that we've updated the profile collection's share field, generate the new set of public data and return.
     return generatePublicProfileDataObject(username);
+  },
+});
+
+export const getLastAcademicTermMethod = new ValidatedMethod({
+  name: 'StudentProfile.getLastAcademicTerm',
+  mixins: [CallPromiseMixin],
+  validate: null,
+  run(user: string) {
+    if (Meteor.isServer) {
+      return StudentProfiles.getLastAcademicTerm(user);
+    }
+    return null;
+  },
+});
+
+export const matriculateStudentMethod = new ValidatedMethod({
+  name: 'StudentProfile.matriculateStudent',
+  mixins: [CallPromiseMixin],
+  validate: null,
+  run(user: string) {
+    if (Meteor.isServer) {
+      StudentProfiles.assertValidRoleForMethod(this.userId);
+      const profile = Users.getProfile(user);
+      if (profile.role !== ROLE.STUDENT && profile.role !== ROLE.ALUMNI) {
+        throw new Meteor.Error(`${user} isn't a student`, 'You can only matriculate students.');
+      }
+      // TODO Do we want to make sure they are alumni? What about their latest academic term needs to be N terms ago?
+      StudentProfiles.removeIt(profile.username);
+    }
   },
 });

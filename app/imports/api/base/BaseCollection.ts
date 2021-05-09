@@ -211,6 +211,7 @@ class BaseCollection {
    * @returns true
    */
   public removeIt(name: string | { [key: string]: unknown }): boolean {
+    // console.log('BaseCollection.removeIt', name);
     const doc: { _id } = this.findDoc(name);
     check(doc, Object);
     this.collection.remove(doc._id);

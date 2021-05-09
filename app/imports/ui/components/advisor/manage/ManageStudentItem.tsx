@@ -5,6 +5,7 @@ import { ButtonLink } from '../../shared/button/ButtonLink';
 import RadGradMenuLevel from '../../shared/RadGradMenuLevel';
 import EditStudentButton from './EditStudentButton';
 import { ManageStudentProps } from './ManageStudentProps';
+import MatriculateStudentButton from './MartriculateStudentButton';
 
 
 const ManageStudentItem: React.FC<ManageStudentProps> = ({
@@ -29,11 +30,13 @@ const ManageStudentItem: React.FC<ManageStudentProps> = ({
                            opportunities={opportunities} profileCareerGoals={profileCareerGoals}
                            profileInterests={profileInterests} />
       </Grid.Column>
+      <Grid.Column width={2}>
+        <MatriculateStudentButton student={student} size='mini' />
+      </Grid.Column>
       <Grid.Column width={3}>
         <ButtonLink url={`/${student.isAlumni ? 'alumni' : 'student'}/${student.username}/home`} label='student view'
                     size='mini' />
       </Grid.Column>
-      <Grid.Column width={2} />
       <Grid.Column width={3}>
         {updatedOnStr}
       </Grid.Column>
