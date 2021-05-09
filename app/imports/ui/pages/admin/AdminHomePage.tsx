@@ -1,5 +1,19 @@
+import { withTracker } from 'meteor/react-meteor-data';
 import React from 'react';
-import { Header } from 'semantic-ui-react';
+import { CareerGoalsChecklist } from '../../components/checklist/CareerGoalsChecklist';
+import { CareerGoalsWithoutRelatedChecklists } from '../../components/checklist/CareerGoalsWithoutRelatedChecklists';
+import { CHECKSTATE } from '../../components/checklist/Checklist';
+import { InterestsChecklist } from '../../components/checklist/InterestsChecklist';
+import { InterestsWithoutRelatedChecklists } from '../../components/checklist/InterestsWithoutRelatedChecklists';
+import { ManageOpportunitiesChecklist } from '../../components/checklist/ManageOpportunitiesChecklist';
+import { ManageReviewsChecklist } from '../../components/checklist/ManageReviewsChecklist';
+import { ManageVerificationRequestsChecklist } from '../../components/checklist/ManageVerificationRequestsChecklist';
+import { OutOfDateOpportunitiesChecklist } from '../../components/checklist/OutOfDateOpportunitiesChecklist';
+import { ReviewCareerGoalsChecklist } from '../../components/checklist/ReviewCareerGoalsChecklist';
+import { ReviewInterestsChecklist } from '../../components/checklist/ReviewInterestsChecklist';
+import { VisibilityChecklist } from '../../components/checklist/VisibilityChecklist';
+import HomePageChecklistSegment from '../../components/shared/HomePageChecklistSegment';
+import { HomePageProps } from '../../utilities/HomePageProps';
 import { PAGEIDS } from '../../utilities/PageIDs';
 import PageLayout from '../PageLayout';
 import { COLORS } from '../../utilities/Colors';
@@ -17,10 +31,48 @@ This page contains a personalized set of recommendations to help you configure R
 For more information, please see the [Admin User Guide](https://www.radgrad.org/docs/users/admins/overview/).
 `;
 
-const AdminHomePage: React.FC = () => (
+const AdminHomePage: React.FC<HomePageProps> = ({ okItems, reviewItems, improveItems }) => (
   <PageLayout id={PAGEIDS.ADMIN_HOME} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}>
-    <Header>Admin Home Page Placeholder</Header>
+    <HomePageChecklistSegment okItems={okItems} reviewItems={reviewItems} improveItems={improveItems} />
   </PageLayout>
 );
 
-export default AdminHomePage;
+export default withTracker(() => {
+  const currentUser = Meteor.user() ? Meteor.user().username : '';
+  const okItems = [];
+  const reviewItems = [];
+  const improveItems = [];
+  const checklists = [];
+  checklists.push(new InterestsChecklist(currentUser));
+  checklists.push(new CareerGoalsChecklist(currentUser));
+  checklists.push(new VisibilityChecklist(currentUser));
+  checklists.push(new ManageOpportunitiesChecklist(currentUser));
+  checklists.push(new ManageVerificationRequestsChecklist(currentUser));
+  checklists.push(new ManageReviewsChecklist(currentUser));
+  checklists.push(new ReviewInterestsChecklist(currentUser));
+  checklists.push(new ReviewCareerGoalsChecklist(currentUser));
+  checklists.push(new OutOfDateOpportunitiesChecklist(currentUser));
+  checklists.push(new InterestsWithoutRelatedChecklists(currentUser));
+  checklists.push(new CareerGoalsWithoutRelatedChecklists(currentUser));
+  checklists.forEach((checklist) => {
+    switch (checklist.getState()) {
+      case CHECKSTATE.IMPROVE:
+        improveItems.push(checklist.getChecklistItem());
+        break;
+      case CHECKSTATE.REVIEW:
+        reviewItems.push(checklist.getChecklistItem());
+        break;
+      case CHECKSTATE.OK:
+        okItems.push(checklist.getChecklistItem());
+        break;
+      default:
+      // do nothing
+    }
+
+  });
+  return {
+    okItems,
+    reviewItems,
+    improveItems,
+  };
+})(AdminHomePage);

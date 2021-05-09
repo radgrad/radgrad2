@@ -1,5 +1,5 @@
 {
-  "timestamp": "2021-03-18T18:47:34.771Z",
+  "timestamp": "2021-05-07T22:05:16.815Z",
   "collections": [
     {
       "name": "AcademicTermCollection",
@@ -148,6 +148,36 @@
           "term": "Summer",
           "year": 2013,
           "retired": false
+        },
+        {
+          "term": "Spring",
+          "year": 2023,
+          "retired": false
+        },
+        {
+          "term": "Summer",
+          "year": 2023,
+          "retired": false
+        },
+        {
+          "term": "Fall",
+          "year": 2023,
+          "retired": false
+        },
+        {
+          "term": "Spring",
+          "year": 2024,
+          "retired": false
+        },
+        {
+          "term": "Summer",
+          "year": 2024,
+          "retired": false
+        },
+        {
+          "term": "Fall",
+          "year": 2024,
+          "retired": false
         }
       ]
     },
@@ -161,7 +191,11 @@
           "picture": "/images/default-profile-picture.png",
           "interests": [],
           "careerGoals": [],
-          "retired": false
+          "retired": false,
+          "shareWebsite": true,
+          "shareInterests": true,
+          "shareCareerGoals": true,
+          "sharePicture": true
         }
       ]
     },
@@ -187,7 +221,11 @@
             "information-security-analyst",
             "teacher"
           ],
-          "retired": false
+          "retired": false,
+          "shareInterests": true,
+          "sharePicture": true,
+          "shareWebsite": true,
+          "shareCareerGoals": true
         },
         {
           "username": "cmoore@hawaii.edu",
@@ -204,7 +242,11 @@
           "careerGoals": [
             "devops-engineer"
           ],
-          "retired": false
+          "retired": false,
+          "shareInterests": true,
+          "sharePicture": true,
+          "shareWebsite": true,
+          "shareCareerGoals": true
         }
       ]
     },
@@ -2330,8 +2372,8 @@
           "academicTerm": "Fall-2020",
           "course": "ics_414",
           "note": "ICS 414",
-          "verified": true,
-          "fromRegistrar": true,
+          "verified": false,
+          "fromRegistrar": false,
           "creditHrs": 3,
           "grade": "B",
           "student": "abi@hawaii.edu",
@@ -2339,10 +2381,10 @@
         },
         {
           "academicTerm": "Fall-2020",
-          "course": "ics_499",
-          "note": "ICS 499",
-          "verified": true,
-          "fromRegistrar": true,
+          "course": "ics_415",
+          "note": "ICS 415",
+          "verified": false,
+          "fromRegistrar": false,
           "creditHrs": 3,
           "grade": "B",
           "student": "abi@hawaii.edu",
@@ -2550,8 +2592,8 @@
           "academicTerm": "Fall-2020",
           "course": "ics_431",
           "note": "ICS 431",
-          "verified": true,
-          "fromRegistrar": true,
+          "verified": false,
+          "fromRegistrar": false,
           "creditHrs": 3,
           "grade": "B",
           "student": "alfred@hawaii.edu",
@@ -2561,8 +2603,8 @@
           "academicTerm": "Fall-2020",
           "course": "ics_425",
           "note": "ICS 425",
-          "verified": true,
-          "fromRegistrar": true,
+          "verified": false,
+          "fromRegistrar": false,
           "creditHrs": 3,
           "grade": "B",
           "student": "alfred@hawaii.edu",
@@ -2726,8 +2768,8 @@
           "academicTerm": "Fall-2020",
           "course": "ics_313",
           "note": "ICS 313",
-          "verified": true,
-          "fromRegistrar": true,
+          "verified": false,
+          "fromRegistrar": false,
           "creditHrs": 3,
           "grade": "B",
           "student": "betty@hawaii.edu",
@@ -2737,8 +2779,8 @@
           "academicTerm": "Fall-2020",
           "course": "ics_331",
           "note": "ICS 331",
-          "verified": true,
-          "fromRegistrar": true,
+          "verified": false,
+          "fromRegistrar": false,
           "creditHrs": 3,
           "grade": "B",
           "student": "betty@hawaii.edu",
@@ -2858,8 +2900,8 @@
           "academicTerm": "Fall-2020",
           "course": "ics_311",
           "note": "ICS 311",
-          "verified": true,
-          "fromRegistrar": true,
+          "verified": false,
+          "fromRegistrar": false,
           "creditHrs": 3,
           "grade": "B",
           "student": "charley@hawaii.edu",
@@ -2869,8 +2911,8 @@
           "academicTerm": "Fall-2020",
           "course": "ics_314",
           "note": "ICS 314",
-          "verified": true,
-          "fromRegistrar": true,
+          "verified": false,
+          "fromRegistrar": false,
           "creditHrs": 3,
           "grade": "B",
           "student": "charley@hawaii.edu",
@@ -3122,8 +3164,8 @@
           "academicTerm": "Fall-2020",
           "course": "ics_414",
           "note": "ICS 414",
-          "verified": true,
-          "fromRegistrar": true,
+          "verified": false,
+          "fromRegistrar": false,
           "creditHrs": 3,
           "grade": "B",
           "student": "samplestudent@hawaii.edu",
@@ -3133,8 +3175,8 @@
           "academicTerm": "Fall-2020",
           "course": "ics_415",
           "note": "ICS 415",
-          "verified": true,
-          "fromRegistrar": true,
+          "verified": false,
+          "fromRegistrar": false,
           "creditHrs": 3,
           "grade": "B",
           "student": "samplestudent@hawaii.edu",
@@ -3342,8 +3384,8 @@
           "academicTerm": "Fall-2020",
           "course": "ics_431",
           "note": "ICS 431",
-          "verified": true,
-          "fromRegistrar": true,
+          "verified": false,
+          "fromRegistrar": false,
           "creditHrs": 3,
           "grade": "B",
           "student": "gcalica@hawaii.edu",
@@ -3353,8 +3395,8 @@
           "academicTerm": "Fall-2020",
           "course": "ics_425",
           "note": "ICS 425",
-          "verified": true,
-          "fromRegistrar": true,
+          "verified": false,
+          "fromRegistrar": false,
           "creditHrs": 3,
           "grade": "B",
           "student": "gcalica@hawaii.edu",
@@ -3444,7 +3486,11 @@
           "careerGoals": [
             "research-scientist"
           ],
-          "retired": false
+          "retired": false,
+          "shareWebsite": true,
+          "shareInterests": true,
+          "shareCareerGoals": true,
+          "sharePicture": true
         },
         {
           "username": "sugihara@hawaii.edu",
@@ -3453,7 +3499,11 @@
           "picture": "/images/default-profile-picture.png",
           "interests": [],
           "careerGoals": [],
-          "retired": true
+          "retired": true,
+          "shareWebsite": true,
+          "shareInterests": true,
+          "shareCareerGoals": true,
+          "sharePicture": true
         },
         {
           "username": "suthers@hawaii.edu",
@@ -3470,7 +3520,11 @@
             "research-scientist",
             "teacher"
           ],
-          "retired": false
+          "retired": false,
+          "shareWebsite": true,
+          "shareInterests": true,
+          "shareCareerGoals": true,
+          "sharePicture": true
         },
         {
           "username": "scottpr@hawaii.edu",
@@ -3488,7 +3542,11 @@
             "research-scientist",
             "teacher"
           ],
-          "retired": false
+          "retired": false,
+          "shareWebsite": true,
+          "shareInterests": true,
+          "shareCareerGoals": true,
+          "sharePicture": true
         },
         {
           "username": "pseidel@hawaii.edu",
@@ -3519,7 +3577,11 @@
             "robotics-engineer",
             "software-developer"
           ],
-          "retired": false
+          "retired": false,
+          "shareWebsite": true,
+          "shareInterests": true,
+          "shareCareerGoals": true,
+          "sharePicture": true
         },
         {
           "username": "nodari@hawaii.edu",
@@ -3535,7 +3597,11 @@
             "research-scientist",
             "graduate-school"
           ],
-          "retired": false
+          "retired": false,
+          "shareWebsite": true,
+          "shareInterests": true,
+          "shareCareerGoals": true,
+          "sharePicture": true
         },
         {
           "username": "lipyeow@hawaii.edu",
@@ -3560,7 +3626,11 @@
             "research-scientist",
             "teacher"
           ],
-          "retired": false
+          "retired": false,
+          "shareWebsite": true,
+          "shareInterests": true,
+          "shareCareerGoals": true,
+          "sharePicture": true
         },
         {
           "username": "leighj@hawaii.edu",
@@ -3585,7 +3655,11 @@
             "teacher",
             "vr-ar-engineer"
           ],
-          "retired": false
+          "retired": false,
+          "shareWebsite": true,
+          "shareInterests": true,
+          "shareCareerGoals": true,
+          "sharePicture": true
         },
         {
           "username": "kyungim@hawaii.edu",
@@ -3609,7 +3683,11 @@
             "research-scientist",
             "teacher"
           ],
-          "retired": false
+          "retired": false,
+          "shareWebsite": true,
+          "shareInterests": true,
+          "shareCareerGoals": true,
+          "sharePicture": true
         },
         {
           "username": "janst@hawaii.edu",
@@ -3619,7 +3697,11 @@
           "website": "http://www2.hawaii.edu/~janst/",
           "interests": [],
           "careerGoals": [],
-          "retired": true
+          "retired": true,
+          "shareWebsite": true,
+          "shareInterests": true,
+          "shareCareerGoals": true,
+          "sharePicture": true
         },
         {
           "username": "johnson@hawaii.edu",
@@ -3647,7 +3729,11 @@
             "research-scientist",
             "teacher"
           ],
-          "retired": false
+          "retired": false,
+          "shareWebsite": true,
+          "shareInterests": true,
+          "shareCareerGoals": true,
+          "sharePicture": true
         },
         {
           "username": "henric@hawaii.edu",
@@ -3667,7 +3753,11 @@
             "research-scientist",
             "teacher"
           ],
-          "retired": false
+          "retired": false,
+          "shareWebsite": true,
+          "shareInterests": true,
+          "shareCareerGoals": true,
+          "sharePicture": true
         },
         {
           "username": "guylaine@hawaii.edu",
@@ -3689,7 +3779,11 @@
             "research-scientist",
             "teacher"
           ],
-          "retired": false
+          "retired": false,
+          "shareWebsite": true,
+          "shareInterests": true,
+          "shareCareerGoals": true,
+          "sharePicture": true
         },
         {
           "username": "esb@hawaii.edu",
@@ -3708,7 +3802,11 @@
             "network-engineer",
             "research-scientist"
           ],
-          "retired": false
+          "retired": false,
+          "shareWebsite": true,
+          "shareInterests": true,
+          "shareCareerGoals": true,
+          "sharePicture": true
         },
         {
           "username": "dusko@hawaii.edu",
@@ -3728,7 +3826,11 @@
             "information-security-analyst",
             "teacher"
           ],
-          "retired": false
+          "retired": false,
+          "shareWebsite": true,
+          "shareInterests": true,
+          "shareCareerGoals": true,
+          "sharePicture": true
         },
         {
           "username": "depengli@hawaii.edu",
@@ -3749,7 +3851,11 @@
             "research-scientist",
             "teacher"
           ],
-          "retired": false
+          "retired": false,
+          "shareWebsite": true,
+          "shareInterests": true,
+          "shareCareerGoals": true,
+          "sharePicture": true
         },
         {
           "username": "crosby@hawaii.edu",
@@ -3774,7 +3880,11 @@
             "research-scientist",
             "teacher"
           ],
-          "retired": false
+          "retired": false,
+          "shareWebsite": true,
+          "shareInterests": true,
+          "shareCareerGoals": true,
+          "sharePicture": true
         },
         {
           "username": "binsted@hawaii.edu",
@@ -3797,7 +3907,11 @@
             "research-scientist",
             "teacher"
           ],
-          "retired": false
+          "retired": false,
+          "shareWebsite": true,
+          "shareInterests": true,
+          "shareCareerGoals": true,
+          "sharePicture": true
         },
         {
           "username": "chin@hawaii.edu",
@@ -3807,7 +3921,11 @@
           "website": "http://www2.hawaii.edu/~chin/",
           "interests": [],
           "careerGoals": [],
-          "retired": true
+          "retired": true,
+          "shareWebsite": true,
+          "shareInterests": true,
+          "shareCareerGoals": true,
+          "sharePicture": true
         }
       ]
     },
@@ -4416,7 +4534,6 @@
             "Summer-2021",
             "Fall-2021"
           ],
-          "timestamp": "2021-02-27T18:36:33.413Z",
           "retired": true
         },
         {
@@ -4439,7 +4556,6 @@
             "Fall-2020",
             "Fall-2021"
           ],
-          "timestamp": "2021-02-27T18:36:33.564Z",
           "retired": false
         },
         {
@@ -4470,7 +4586,6 @@
             "Fall-2020",
             "Spring-2021"
           ],
-          "timestamp": "2021-02-27T18:36:33.615Z",
           "retired": false
         },
         {
@@ -4497,7 +4612,6 @@
             "Spring-2021",
             "Summer-2021"
           ],
-          "timestamp": "2021-02-27T18:36:33.695Z",
           "retired": false
         },
         {
@@ -4536,7 +4650,6 @@
             "Summer-2021",
             "Spring-2022"
           ],
-          "timestamp": "2021-02-27T18:36:33.781Z",
           "retired": false
         },
         {
@@ -4559,7 +4672,6 @@
             "Summer-2020",
             "Fall-2020"
           ],
-          "timestamp": "2021-02-27T18:36:33.955Z",
           "retired": false
         },
         {
@@ -4588,7 +4700,6 @@
             "Spring-2019",
             "Spring-2020"
           ],
-          "timestamp": "2021-02-27T18:36:34.000Z",
           "retired": true
         },
         {
@@ -4614,7 +4725,6 @@
             "Fall-2020",
             "Spring-2021"
           ],
-          "timestamp": "2021-02-27T18:36:34.061Z",
           "retired": false
         },
         {
@@ -4647,7 +4757,6 @@
             "Spring-2021",
             "Summer-2021"
           ],
-          "timestamp": "2021-02-27T18:36:34.126Z",
           "retired": true
         },
         {
@@ -4667,7 +4776,6 @@
           "academicTerms": [
             "Summer-2017"
           ],
-          "timestamp": "2021-02-27T18:36:34.269Z",
           "retired": true
         },
         {
@@ -4690,7 +4798,6 @@
             "Spring-2020",
             "Fall-2020"
           ],
-          "timestamp": "2021-02-27T18:36:34.292Z",
           "retired": false
         },
         {
@@ -4716,7 +4823,6 @@
             "Summer-2021",
             "Fall-2021"
           ],
-          "timestamp": "2021-02-27T18:36:34.334Z",
           "retired": false
         },
         {
@@ -4740,7 +4846,6 @@
             "Fall-2020",
             "Spring-2021"
           ],
-          "timestamp": "2021-02-27T18:36:34.401Z",
           "retired": false
         },
         {
@@ -4765,7 +4870,6 @@
             "Spring-2021"
           ],
           "eventDate": "2016-11-18T00:00:00.000Z",
-          "timestamp": "2021-02-27T18:36:34.454Z",
           "retired": false
         },
         {
@@ -4795,7 +4899,6 @@
             "Spring-2021",
             "Summer-2021"
           ],
-          "timestamp": "2021-02-27T18:36:34.513Z",
           "retired": true
         },
         {
@@ -4819,7 +4922,6 @@
             "Summer-2020",
             "Summer-2021"
           ],
-          "timestamp": "2021-02-27T18:36:34.614Z",
           "retired": false
         },
         {
@@ -4845,7 +4947,6 @@
             "Fall-2020",
             "Spring-2021"
           ],
-          "timestamp": "2021-02-27T18:36:34.659Z",
           "retired": false
         },
         {
@@ -4866,7 +4967,6 @@
             "Spring-2020",
             "Spring-2021"
           ],
-          "timestamp": "2021-02-27T18:36:34.721Z",
           "retired": false
         },
         {
@@ -4891,7 +4991,6 @@
           "academicTerms": [
             "Spring-2020"
           ],
-          "timestamp": "2021-02-27T18:36:34.759Z",
           "retired": false
         },
         {
@@ -4920,7 +5019,6 @@
             "Fall-2020",
             "Spring-2021"
           ],
-          "timestamp": "2021-02-27T18:36:34.794Z",
           "retired": false
         },
         {
@@ -4943,7 +5041,6 @@
             "Spring-2020",
             "Summer-2020"
           ],
-          "timestamp": "2021-02-27T18:36:34.858Z",
           "retired": false
         },
         {
@@ -4966,7 +5063,6 @@
             "Spring-2020",
             "Fall-2020"
           ],
-          "timestamp": "2021-02-27T18:36:34.904Z",
           "retired": false
         },
         {
@@ -4996,7 +5092,6 @@
             "Spring-2020",
             "Summer-2020"
           ],
-          "timestamp": "2021-02-27T18:36:34.947Z",
           "retired": true
         },
         {
@@ -5022,7 +5117,6 @@
             "Summer-2018",
             "Summer-2019"
           ],
-          "timestamp": "2021-02-27T18:36:35.049Z",
           "retired": true
         },
         {
@@ -5046,7 +5140,6 @@
             "Summer-2020",
             "Fall-2020"
           ],
-          "timestamp": "2021-02-27T18:36:35.110Z",
           "retired": false
         },
         {
@@ -5069,7 +5162,6 @@
             "Spring-2020",
             "Summer-2020"
           ],
-          "timestamp": "2021-02-27T18:36:35.159Z",
           "retired": false
         },
         {
@@ -5092,7 +5184,6 @@
             "Summer-2020",
             "Spring-2021"
           ],
-          "timestamp": "2021-02-27T18:36:35.201Z",
           "retired": false
         },
         {
@@ -5122,7 +5213,6 @@
             "Summer-2020",
             "Fall-2020"
           ],
-          "timestamp": "2021-02-27T18:36:35.241Z",
           "retired": true
         },
         {
@@ -5147,7 +5237,6 @@
             "Summer-2018",
             "Fall-2018"
           ],
-          "timestamp": "2021-02-27T18:36:35.335Z",
           "retired": true
         },
         {
@@ -5172,7 +5261,6 @@
             "Fall-2018",
             "Spring-2019"
           ],
-          "timestamp": "2021-02-27T18:36:35.392Z",
           "retired": true
         },
         {
@@ -5195,7 +5283,6 @@
             "Spring-2017",
             "Summer-2017"
           ],
-          "timestamp": "2021-02-27T18:36:35.449Z",
           "retired": true
         },
         {
@@ -5241,7 +5328,6 @@
             "Spring-2021",
             "Summer-2021"
           ],
-          "timestamp": "2021-02-27T18:36:35.488Z",
           "retired": true
         },
         {
@@ -5272,7 +5358,6 @@
             "Spring-2021",
             "Fall-2021"
           ],
-          "timestamp": "2021-02-27T18:36:35.678Z",
           "retired": false
         },
         {
@@ -5294,7 +5379,6 @@
             "Fall-2019",
             "Spring-2020"
           ],
-          "timestamp": "2021-02-27T18:36:35.737Z",
           "retired": true
         },
         {
@@ -5315,7 +5399,6 @@
             "Summer-2020",
             "Summer-2021"
           ],
-          "timestamp": "2021-02-27T18:36:35.766Z",
           "retired": false
         },
         {
@@ -5337,7 +5420,6 @@
             "Summer-2021",
             "Summer-2022"
           ],
-          "timestamp": "2021-02-27T18:36:35.793Z",
           "retired": false
         },
         {
@@ -5360,7 +5442,6 @@
             "Summer-2020",
             "Fall-2020"
           ],
-          "timestamp": "2021-02-27T18:36:35.827Z",
           "retired": false
         },
         {
@@ -5384,7 +5465,6 @@
             "Fall-2020",
             "Spring-2021"
           ],
-          "timestamp": "2021-02-27T18:36:35.868Z",
           "retired": false
         },
         {
@@ -5405,7 +5485,6 @@
             "Spring-2020",
             "Spring-2021"
           ],
-          "timestamp": "2021-02-27T18:36:35.915Z",
           "retired": false
         },
         {
@@ -5437,7 +5516,6 @@
             "Summer-2020",
             "Summer-2021"
           ],
-          "timestamp": "2021-02-27T18:36:35.942Z",
           "retired": false
         },
         {
@@ -5463,7 +5541,6 @@
             "Fall-2020",
             "Spring-2021"
           ],
-          "timestamp": "2021-02-27T18:36:35.993Z",
           "retired": false
         },
         {
@@ -5488,7 +5565,6 @@
             "Fall-2021",
             "Fall-2022"
           ],
-          "timestamp": "2021-02-27T18:36:36.039Z",
           "retired": false
         },
         {
@@ -5511,7 +5587,6 @@
             "Spring-2020",
             "Summer-2020"
           ],
-          "timestamp": "2021-02-27T18:36:36.080Z",
           "retired": false
         },
         {
@@ -5546,7 +5621,6 @@
             "Summer-2018",
             "Fall-2018"
           ],
-          "timestamp": "2021-02-27T18:36:36.117Z",
           "retired": false
         },
         {
@@ -5574,7 +5648,6 @@
             "Fall-2020",
             "Fall-2021"
           ],
-          "timestamp": "2021-02-27T18:36:36.245Z",
           "retired": false
         },
         {
@@ -5597,7 +5670,6 @@
           "academicTerms": [
             "Fall-2019"
           ],
-          "timestamp": "2021-02-27T18:36:36.286Z",
           "retired": false
         },
         {
@@ -5625,7 +5697,6 @@
             "Spring-2021",
             "Summer-2021"
           ],
-          "timestamp": "2021-02-27T18:36:36.313Z",
           "retired": false
         },
         {
@@ -5650,7 +5721,6 @@
             "Summer-2018",
             "Fall-2018"
           ],
-          "timestamp": "2021-02-27T18:36:36.379Z",
           "retired": true
         },
         {
@@ -5673,7 +5743,6 @@
             "Summer-2020",
             "Fall-2020"
           ],
-          "timestamp": "2021-02-27T18:36:36.432Z",
           "retired": false
         },
         {
@@ -5704,7 +5773,6 @@
             "Summer-2019",
             "Fall-2019"
           ],
-          "timestamp": "2021-02-27T18:36:36.474Z",
           "retired": true
         },
         {
@@ -5729,7 +5797,6 @@
             "Summer-2018",
             "Fall-2018"
           ],
-          "timestamp": "2021-02-27T18:36:36.557Z",
           "retired": true
         },
         {
@@ -5755,7 +5822,6 @@
             "Summer-2021",
             "Summer-2022"
           ],
-          "timestamp": "2021-02-27T18:36:36.618Z",
           "retired": false
         },
         {
@@ -5791,7 +5857,6 @@
             "Spring-2020",
             "Summer-2020"
           ],
-          "timestamp": "2021-02-27T18:36:36.666Z",
           "retired": true
         },
         {
@@ -5814,7 +5879,6 @@
             "Fall-2020",
             "Spring-2021"
           ],
-          "timestamp": "2021-02-27T18:36:36.796Z",
           "retired": false
         },
         {
@@ -5840,7 +5904,6 @@
             "Summer-2018",
             "Fall-2018"
           ],
-          "timestamp": "2021-02-27T18:36:36.836Z",
           "retired": true
         },
         {
@@ -5863,7 +5926,6 @@
             "Summer-2020",
             "Fall-2020"
           ],
-          "timestamp": "2021-02-27T18:36:36.895Z",
           "retired": false
         },
         {
@@ -5884,7 +5946,6 @@
           "academicTerms": [
             "Spring-2020"
           ],
-          "timestamp": "2021-02-27T18:36:36.935Z",
           "retired": false
         },
         {
@@ -5908,7 +5969,6 @@
             "Fall-2019",
             "Fall-2020"
           ],
-          "timestamp": "2021-02-27T18:36:36.957Z",
           "retired": false
         },
         {
@@ -5934,7 +5994,6 @@
             "Summer-2020",
             "Fall-2020"
           ],
-          "timestamp": "2021-02-27T18:36:36.995Z",
           "retired": false
         },
         {
@@ -5968,7 +6027,6 @@
             "Summer-2021",
             "Fall-2021"
           ],
-          "timestamp": "2021-02-27T18:36:37.043Z",
           "retired": true
         },
         {
@@ -5989,7 +6047,6 @@
             "Fall-2019",
             "Spring-2020"
           ],
-          "timestamp": "2021-02-27T18:36:37.161Z",
           "retired": false
         },
         {
@@ -6012,7 +6069,6 @@
             "Fall-2019",
             "Spring-2020"
           ],
-          "timestamp": "2021-02-27T18:36:37.189Z",
           "retired": false
         },
         {
@@ -6038,7 +6094,6 @@
           "academicTerms": [
             "Summer-2018"
           ],
-          "timestamp": "2021-02-27T18:36:37.220Z",
           "retired": true
         },
         {
@@ -6058,7 +6113,6 @@
           "academicTerms": [
             "Spring-2020"
           ],
-          "timestamp": "2021-02-27T18:36:37.253Z",
           "retired": false
         },
         {
@@ -6087,7 +6141,6 @@
             "Summer-2020",
             "Fall-2020"
           ],
-          "timestamp": "2021-02-27T18:36:37.274Z",
           "retired": false
         },
         {
@@ -6113,7 +6166,6 @@
             "Spring-2020",
             "Fall-2020"
           ],
-          "timestamp": "2021-02-27T18:36:37.332Z",
           "retired": false
         },
         {
@@ -6140,7 +6192,6 @@
             "Fall-2020",
             "Spring-2021"
           ],
-          "timestamp": "2021-02-27T18:36:37.373Z",
           "retired": false
         },
         {
@@ -6163,7 +6214,6 @@
             "Spring-2020",
             "Summer-2020"
           ],
-          "timestamp": "2021-02-27T18:36:37.430Z",
           "retired": false
         },
         {
@@ -6189,7 +6239,6 @@
             "Fall-2020",
             "Spring-2021"
           ],
-          "timestamp": "2021-02-27T18:36:37.467Z",
           "retired": false
         },
         {
@@ -6213,7 +6262,6 @@
             "Summer-2020",
             "Spring-2021"
           ],
-          "timestamp": "2021-02-27T18:36:37.526Z",
           "retired": false
         },
         {
@@ -6239,7 +6287,6 @@
           "academicTerms": [
             "Summer-2020"
           ],
-          "timestamp": "2021-02-27T18:36:37.561Z",
           "retired": false
         },
         {
@@ -6261,7 +6308,6 @@
             "Summer-2021",
             "Summer-2022"
           ],
-          "timestamp": "2021-02-27T18:36:37.591Z",
           "retired": false
         },
         {
@@ -6293,7 +6339,6 @@
             "Summer-2021",
             "Summer-2022"
           ],
-          "timestamp": "2021-02-27T18:36:37.626Z",
           "retired": false
         },
         {
@@ -6320,7 +6365,6 @@
             "Spring-2020",
             "Summer-2020"
           ],
-          "timestamp": "2021-02-27T18:36:37.680Z",
           "retired": false
         },
         {
@@ -6344,7 +6388,6 @@
             "Spring-2020",
             "Summer-2020"
           ],
-          "timestamp": "2021-02-27T18:36:37.726Z",
           "retired": false
         },
         {
@@ -6371,7 +6414,6 @@
             "Summer-2019",
             "Summer-2020"
           ],
-          "timestamp": "2021-02-27T18:36:37.763Z",
           "retired": true
         },
         {
@@ -6393,7 +6435,6 @@
           "academicTerms": [
             "Summer-2020"
           ],
-          "timestamp": "2021-02-27T18:36:37.834Z",
           "retired": false
         },
         {
@@ -6416,7 +6457,6 @@
             "Fall-2019",
             "Spring-2020"
           ],
-          "timestamp": "2021-02-27T18:36:37.858Z",
           "retired": false
         },
         {
@@ -6440,7 +6480,6 @@
             "Fall-2020",
             "Spring-2021"
           ],
-          "timestamp": "2021-02-27T18:36:37.888Z",
           "retired": false
         },
         {
@@ -6466,7 +6505,6 @@
             "Summer-2020",
             "Fall-2020"
           ],
-          "timestamp": "2021-02-27T18:36:37.934Z",
           "retired": false
         },
         {
@@ -6495,7 +6533,6 @@
             "Spring-2020",
             "Summer-2020"
           ],
-          "timestamp": "2021-02-27T18:36:37.983Z",
           "retired": false
         },
         {
@@ -6520,7 +6557,6 @@
           "academicTerms": [
             "Fall-2019"
           ],
-          "timestamp": "2021-02-27T18:36:38.033Z",
           "retired": false
         },
         {
@@ -6551,7 +6587,6 @@
             "Fall-2020",
             "Spring-2021"
           ],
-          "timestamp": "2021-02-27T18:36:38.061Z",
           "retired": false
         },
         {
@@ -6574,7 +6609,6 @@
             "Summer-2019",
             "Summer-2020"
           ],
-          "timestamp": "2021-02-27T18:36:38.125Z",
           "retired": false
         },
         {
@@ -6598,7 +6632,6 @@
             "Spring-2020",
             "Fall-2020"
           ],
-          "timestamp": "2021-02-27T18:36:38.158Z",
           "retired": false
         },
         {
@@ -6619,7 +6652,6 @@
             "Spring-2020",
             "Spring-2021"
           ],
-          "timestamp": "2021-02-27T18:36:38.200Z",
           "retired": false
         },
         {
@@ -6641,7 +6673,6 @@
           "academicTerms": [
             "Fall-2019"
           ],
-          "timestamp": "2021-02-27T18:36:38.229Z",
           "retired": false
         },
         {
@@ -6664,7 +6695,6 @@
             "Summer-2019",
             "Fall-2019"
           ],
-          "timestamp": "2021-02-27T18:36:38.252Z",
           "retired": false
         },
         {
@@ -6685,7 +6715,6 @@
             "Summer-2020",
             "Summer-2021"
           ],
-          "timestamp": "2021-02-27T18:36:38.284Z",
           "retired": false
         },
         {
@@ -6710,7 +6739,6 @@
             "Fall-2020",
             "Spring-2021"
           ],
-          "timestamp": "2021-02-27T18:36:38.313Z",
           "retired": false
         },
         {
@@ -6734,7 +6762,6 @@
             "Fall-2020",
             "Spring-2021"
           ],
-          "timestamp": "2021-02-27T18:36:38.360Z",
           "retired": false
         },
         {
@@ -6770,7 +6797,6 @@
             "Summer-2020",
             "Fall-2020"
           ],
-          "timestamp": "2021-02-27T18:36:38.406Z",
           "retired": true
         },
         {
@@ -6792,7 +6818,6 @@
             "Summer-2019",
             "Summer-2020"
           ],
-          "timestamp": "2021-02-27T18:36:38.508Z",
           "retired": false
         },
         {
@@ -6814,7 +6839,6 @@
           "academicTerms": [
             "Summer-2020"
           ],
-          "timestamp": "2021-02-27T18:36:38.539Z",
           "retired": false
         },
         {
@@ -6836,7 +6860,6 @@
             "Fall-2020"
           ],
           "eventDate": "2016-10-11T00:00:00.000Z",
-          "timestamp": "2021-02-27T18:36:38.561Z",
           "retired": false
         },
         {
@@ -6859,7 +6882,6 @@
             "Fall-2020",
             "Spring-2021"
           ],
-          "timestamp": "2021-02-27T18:36:38.587Z",
           "retired": false
         },
         {
@@ -6882,7 +6904,6 @@
             "Spring-2020",
             "Fall-2020"
           ],
-          "timestamp": "2021-02-27T18:36:38.631Z",
           "retired": false
         },
         {
@@ -6911,7 +6932,6 @@
             "Summer-2019",
             "Fall-2019"
           ],
-          "timestamp": "2021-02-27T18:36:38.674Z",
           "retired": true
         },
         {
@@ -6950,7 +6970,6 @@
             "Spring-2021",
             "Summer-2021"
           ],
-          "timestamp": "2021-02-27T18:36:38.757Z",
           "retired": true
         }
       ]
@@ -7961,25 +7980,25 @@
         {
           "careerGoal": "software-developer",
           "username": "abi@hawaii.edu",
-          "share": false,
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "database-administrator",
           "username": "abi@hawaii.edu",
-          "share": false,
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "iot-architect",
           "username": "abi@hawaii.edu",
-          "share": false,
+          "share": true,
           "retired": false
         },
         {
           "careerGoal": "data-scientist",
           "username": "abi@hawaii.edu",
-          "share": false,
+          "share": true,
           "retired": false
         },
         {
@@ -8154,7 +8173,563 @@
     },
     {
       "name": "ProfileCourseCollection",
-      "contents": []
+      "contents": [
+        {
+          "course": "ics_111",
+          "student": "abi@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_141",
+          "student": "abi@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_211",
+          "student": "abi@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_241",
+          "student": "abi@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_311",
+          "student": "abi@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_314",
+          "student": "abi@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_212",
+          "student": "abi@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_321",
+          "student": "abi@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_313",
+          "student": "abi@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_331",
+          "student": "abi@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_332",
+          "student": "abi@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_464",
+          "student": "abi@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_431",
+          "student": "abi@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_425",
+          "student": "abi@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_426",
+          "student": "abi@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_414",
+          "student": "abi@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_415",
+          "student": "abi@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_432",
+          "student": "abi@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_435",
+          "student": "abi@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_441",
+          "student": "abi@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_442",
+          "student": "abi@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_443",
+          "student": "abi@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_451",
+          "student": "abi@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_111",
+          "student": "alfred@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_141",
+          "student": "alfred@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_211",
+          "student": "alfred@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_241",
+          "student": "alfred@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_311",
+          "student": "alfred@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_314",
+          "student": "alfred@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_212",
+          "student": "alfred@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_321",
+          "student": "alfred@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_313",
+          "student": "alfred@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_331",
+          "student": "alfred@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_332",
+          "student": "alfred@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_464",
+          "student": "alfred@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_431",
+          "student": "alfred@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_425",
+          "student": "alfred@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_426",
+          "student": "alfred@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_414",
+          "student": "alfred@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_415",
+          "student": "alfred@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_432",
+          "student": "alfred@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_435",
+          "student": "alfred@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_111",
+          "student": "betty@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_141",
+          "student": "betty@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_211",
+          "student": "betty@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_241",
+          "student": "betty@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_311",
+          "student": "betty@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_314",
+          "student": "betty@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_212",
+          "student": "betty@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_321",
+          "student": "betty@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_313",
+          "student": "betty@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_331",
+          "student": "betty@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_332",
+          "student": "betty@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_464",
+          "student": "betty@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_431",
+          "student": "betty@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_425",
+          "student": "betty@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_426",
+          "student": "betty@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_111",
+          "student": "charley@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_141",
+          "student": "charley@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_211",
+          "student": "charley@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_241",
+          "student": "charley@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_311",
+          "student": "charley@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_314",
+          "student": "charley@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_212",
+          "student": "charley@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_321",
+          "student": "charley@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_313",
+          "student": "charley@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_331",
+          "student": "charley@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_332",
+          "student": "charley@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_464",
+          "student": "charley@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_111",
+          "student": "samplestudent@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_141",
+          "student": "samplestudent@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_211",
+          "student": "samplestudent@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_241",
+          "student": "samplestudent@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_311",
+          "student": "samplestudent@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_314",
+          "student": "samplestudent@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_212",
+          "student": "samplestudent@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_321",
+          "student": "samplestudent@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_313",
+          "student": "samplestudent@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_331",
+          "student": "samplestudent@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_332",
+          "student": "samplestudent@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_464",
+          "student": "samplestudent@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_431",
+          "student": "samplestudent@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_426",
+          "student": "samplestudent@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_425",
+          "student": "samplestudent@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_414",
+          "student": "samplestudent@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_415",
+          "student": "samplestudent@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_432",
+          "student": "samplestudent@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_435",
+          "student": "samplestudent@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_441",
+          "student": "samplestudent@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_442",
+          "student": "samplestudent@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_443",
+          "student": "samplestudent@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_451",
+          "student": "samplestudent@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_111",
+          "student": "gcalica@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_141",
+          "student": "gcalica@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_211",
+          "student": "gcalica@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_241",
+          "student": "gcalica@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_311",
+          "student": "gcalica@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_314",
+          "student": "gcalica@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_212",
+          "student": "gcalica@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_321",
+          "student": "gcalica@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_313",
+          "student": "gcalica@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_331",
+          "student": "gcalica@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_332",
+          "student": "gcalica@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_464",
+          "student": "gcalica@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_431",
+          "student": "gcalica@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_425",
+          "student": "gcalica@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_426",
+          "student": "gcalica@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_414",
+          "student": "gcalica@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_415",
+          "student": "gcalica@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_432",
+          "student": "gcalica@hawaii.edu",
+          "retired": false
+        },
+        {
+          "course": "ics_435",
+          "student": "gcalica@hawaii.edu",
+          "retired": false
+        }
+      ]
     },
     {
       "name": "ProfileInterestCollection",
@@ -9423,7 +9998,228 @@
     },
     {
       "name": "ProfileOpportunityCollection",
-      "contents": []
+      "contents": [
+        {
+          "opportunity": "att-iot-hackathon",
+          "student": "abi@hawaii.edu",
+          "retired": false
+        },
+        {
+          "opportunity": "greyhats",
+          "student": "abi@hawaii.edu",
+          "retired": false
+        },
+        {
+          "opportunity": "hawaii-hacker-hours",
+          "student": "abi@hawaii.edu",
+          "retired": false
+        },
+        {
+          "opportunity": "dahi-internship",
+          "student": "abi@hawaii.edu",
+          "retired": false
+        },
+        {
+          "opportunity": "gen-cyber-internship",
+          "student": "abi@hawaii.edu",
+          "retired": false
+        },
+        {
+          "opportunity": "asecolab",
+          "student": "abi@hawaii.edu",
+          "retired": false
+        },
+        {
+          "opportunity": "ccdc",
+          "student": "abi@hawaii.edu",
+          "retired": false
+        },
+        {
+          "opportunity": "acm-manoa-hardware",
+          "student": "alfred@hawaii.edu",
+          "retired": false
+        },
+        {
+          "opportunity": "hawaii-virtual-reality",
+          "student": "alfred@hawaii.edu",
+          "retired": false
+        },
+        {
+          "opportunity": "code-for-hawaii",
+          "student": "alfred@hawaii.edu",
+          "retired": false
+        },
+        {
+          "opportunity": "booz-allen-internship",
+          "student": "alfred@hawaii.edu",
+          "retired": false
+        },
+        {
+          "opportunity": "att-iot-hackathon",
+          "student": "alfred@hawaii.edu",
+          "retired": false
+        },
+        {
+          "opportunity": "shidler-bpc",
+          "student": "alfred@hawaii.edu",
+          "retired": false
+        },
+        {
+          "opportunity": "acm-manoa-vr",
+          "student": "alfred@hawaii.edu",
+          "retired": false
+        },
+        {
+          "opportunity": "hacc",
+          "student": "alfred@hawaii.edu",
+          "retired": false
+        },
+        {
+          "opportunity": "booz-allen-ideas-festival",
+          "student": "alfred@hawaii.edu",
+          "retired": false
+        },
+        {
+          "opportunity": "virtual-art-meetup",
+          "student": "alfred@hawaii.edu",
+          "retired": false
+        },
+        {
+          "opportunity": "dahi-internship",
+          "student": "betty@hawaii.edu",
+          "retired": false
+        },
+        {
+          "opportunity": "lava-lab",
+          "student": "betty@hawaii.edu",
+          "retired": false
+        },
+        {
+          "opportunity": "gen-cyber-internship",
+          "student": "betty@hawaii.edu",
+          "retired": false
+        },
+        {
+          "opportunity": "wetware-wednesday",
+          "student": "betty@hawaii.edu",
+          "retired": false
+        },
+        {
+          "opportunity": "booz-allen-ideas-festival",
+          "student": "betty@hawaii.edu",
+          "retired": false
+        },
+        {
+          "opportunity": "code-for-hawaii",
+          "student": "charley@hawaii.edu",
+          "retired": false
+        },
+        {
+          "opportunity": "itma",
+          "student": "charley@hawaii.edu",
+          "retired": false
+        },
+        {
+          "opportunity": "att-iot-hackathon",
+          "student": "charley@hawaii.edu",
+          "retired": false
+        },
+        {
+          "opportunity": "booz-allen-ideas-festival",
+          "student": "charley@hawaii.edu",
+          "retired": false
+        },
+        {
+          "opportunity": "acm-manoa-vr",
+          "student": "charley@hawaii.edu",
+          "retired": false
+        },
+        {
+          "opportunity": "att-iot-hackathon",
+          "student": "samplestudent@hawaii.edu",
+          "retired": false
+        },
+        {
+          "opportunity": "greyhats",
+          "student": "samplestudent@hawaii.edu",
+          "retired": false
+        },
+        {
+          "opportunity": "hawaii-hacker-hours",
+          "student": "samplestudent@hawaii.edu",
+          "retired": false
+        },
+        {
+          "opportunity": "dahi-internship",
+          "student": "samplestudent@hawaii.edu",
+          "retired": false
+        },
+        {
+          "opportunity": "gen-cyber-internship",
+          "student": "samplestudent@hawaii.edu",
+          "retired": false
+        },
+        {
+          "opportunity": "asecolab",
+          "student": "samplestudent@hawaii.edu",
+          "retired": false
+        },
+        {
+          "opportunity": "ccdc",
+          "student": "samplestudent@hawaii.edu",
+          "retired": false
+        },
+        {
+          "opportunity": "acm-manoa-hardware",
+          "student": "gcalica@hawaii.edu",
+          "retired": false
+        },
+        {
+          "opportunity": "hawaii-virtual-reality",
+          "student": "gcalica@hawaii.edu",
+          "retired": false
+        },
+        {
+          "opportunity": "code-for-hawaii",
+          "student": "gcalica@hawaii.edu",
+          "retired": false
+        },
+        {
+          "opportunity": "booz-allen-internship",
+          "student": "gcalica@hawaii.edu",
+          "retired": false
+        },
+        {
+          "opportunity": "att-iot-hackathon",
+          "student": "gcalica@hawaii.edu",
+          "retired": false
+        },
+        {
+          "opportunity": "shidler-bpc",
+          "student": "gcalica@hawaii.edu",
+          "retired": false
+        },
+        {
+          "opportunity": "acm-manoa-vr",
+          "student": "gcalica@hawaii.edu",
+          "retired": false
+        },
+        {
+          "opportunity": "hacc",
+          "student": "gcalica@hawaii.edu",
+          "retired": false
+        },
+        {
+          "opportunity": "booz-allen-ideas-festival",
+          "student": "gcalica@hawaii.edu",
+          "retired": false
+        },
+        {
+          "opportunity": "virtual-art-meetup",
+          "student": "gcalica@hawaii.edu",
+          "retired": false
+        }
+      ]
     },
     {
       "name": "ReviewCollection",
@@ -9522,16 +10318,13 @@
           "firstName": "Ophilia",
           "lastName": "Power",
           "picture": "/images/mockup/radgrad.png",
-          "website": "",
           "interests": [],
           "careerGoals": [],
           "level": 1,
           "profileCourses": [],
           "profileOpportunities": [],
-          "declaredAcademicTerm": "",
           "isAlumni": false,
           "retired": false,
-          "shareUsername": false,
           "sharePicture": false,
           "shareWebsite": false,
           "shareInterests": false,
@@ -9555,7 +10348,6 @@
           "declaredAcademicTerm": "Fall-2017",
           "isAlumni": false,
           "retired": false,
-          "shareUsername": false,
           "sharePicture": false,
           "shareWebsite": false,
           "shareInterests": false,
@@ -9563,7 +10355,7 @@
           "shareOpportunities": false,
           "shareCourses": true,
           "shareLevel": false,
-          "shareIce": false
+          "shareICE": false
         },
         {
           "username": "abi@hawaii.edu",
@@ -9594,12 +10386,43 @@
             "data-scientist"
           ],
           "level": 1,
-          "profileCourses": [],
-          "profileOpportunities": [],
+          "profileCourses": [
+            "ics_111",
+            "ics_141",
+            "ics_211",
+            "ics_241",
+            "ics_311",
+            "ics_314",
+            "ics_212",
+            "ics_321",
+            "ics_313",
+            "ics_331",
+            "ics_332",
+            "ics_464",
+            "ics_431",
+            "ics_425",
+            "ics_426",
+            "ics_414",
+            "ics_415",
+            "ics_432",
+            "ics_435",
+            "ics_441",
+            "ics_442",
+            "ics_443",
+            "ics_451"
+          ],
+          "profileOpportunities": [
+            "att-iot-hackathon",
+            "greyhats",
+            "hawaii-hacker-hours",
+            "dahi-internship",
+            "gen-cyber-internship",
+            "asecolab",
+            "ccdc"
+          ],
           "declaredAcademicTerm": "Fall-2017",
           "isAlumni": false,
           "retired": false,
-          "shareUsername": true,
           "sharePicture": true,
           "shareWebsite": true,
           "shareInterests": true,
@@ -9607,11 +10430,7 @@
           "shareOpportunities": true,
           "shareCourses": true,
           "shareLevel": true,
-          "shareICE": true,
-          "lastVisitedCareerGoals": "2021-03-17",
-          "lastVisitedCourses": "2021-03-17",
-          "lastVisitedInterests": "2021-03-17",
-          "lastVisitedPrivacy": "2021-03-17"
+          "shareICE": true
         },
         {
           "username": "alfred@hawaii.edu",
@@ -9628,12 +10447,42 @@
             "software-developer"
           ],
           "level": 5,
-          "profileCourses": [],
-          "profileOpportunities": [],
+          "profileCourses": [
+            "ics_111",
+            "ics_141",
+            "ics_211",
+            "ics_241",
+            "ics_311",
+            "ics_314",
+            "ics_212",
+            "ics_321",
+            "ics_313",
+            "ics_331",
+            "ics_332",
+            "ics_464",
+            "ics_431",
+            "ics_425",
+            "ics_426",
+            "ics_414",
+            "ics_415",
+            "ics_432",
+            "ics_435"
+          ],
+          "profileOpportunities": [
+            "acm-manoa-hardware",
+            "hawaii-virtual-reality",
+            "code-for-hawaii",
+            "booz-allen-internship",
+            "att-iot-hackathon",
+            "shidler-bpc",
+            "acm-manoa-vr",
+            "hacc",
+            "booz-allen-ideas-festival",
+            "virtual-art-meetup"
+          ],
           "declaredAcademicTerm": "Fall-2018",
           "isAlumni": false,
           "retired": false,
-          "shareUsername": false,
           "sharePicture": false,
           "shareWebsite": false,
           "shareInterests": false,
@@ -9641,7 +10490,7 @@
           "shareOpportunities": false,
           "shareCourses": false,
           "shareLevel": false,
-          "shareIce": false
+          "shareICE": false
         },
         {
           "username": "betty@hawaii.edu",
@@ -9662,21 +10511,41 @@
             "graduate-school"
           ],
           "level": 4,
-          "profileCourses": [],
-          "profileOpportunities": [],
+          "profileCourses": [
+            "ics_111",
+            "ics_141",
+            "ics_211",
+            "ics_241",
+            "ics_311",
+            "ics_314",
+            "ics_212",
+            "ics_321",
+            "ics_313",
+            "ics_331",
+            "ics_332",
+            "ics_464",
+            "ics_431",
+            "ics_425",
+            "ics_426"
+          ],
+          "profileOpportunities": [
+            "dahi-internship",
+            "lava-lab",
+            "gen-cyber-internship",
+            "wetware-wednesday",
+            "booz-allen-ideas-festival"
+          ],
           "declaredAcademicTerm": "Fall-2019",
           "isAlumni": false,
           "retired": false,
-          "shareUsername": true,
           "sharePicture": true,
           "shareWebsite": false,
           "shareInterests": true,
           "shareCareerGoals": true,
-          "shareICE": true,
           "shareOpportunities": false,
           "shareCourses": false,
           "shareLevel": true,
-          "shareIce": false
+          "shareICE": true
         },
         {
           "username": "charley@hawaii.edu",
@@ -9695,11 +10564,29 @@
             "data-scientist"
           ],
           "level": 2,
-          "profileCourses": [],
-          "profileOpportunities": [],
+          "profileCourses": [
+            "ics_111",
+            "ics_141",
+            "ics_211",
+            "ics_241",
+            "ics_311",
+            "ics_314",
+            "ics_212",
+            "ics_321",
+            "ics_313",
+            "ics_331",
+            "ics_332",
+            "ics_464"
+          ],
+          "profileOpportunities": [
+            "code-for-hawaii",
+            "itma",
+            "att-iot-hackathon",
+            "booz-allen-ideas-festival",
+            "acm-manoa-vr"
+          ],
           "isAlumni": false,
           "retired": false,
-          "shareUsername": false,
           "sharePicture": false,
           "shareWebsite": false,
           "shareInterests": false,
@@ -9707,7 +10594,7 @@
           "shareOpportunities": false,
           "shareCourses": false,
           "shareLevel": false,
-          "shareIce": false
+          "shareICE": false
         },
         {
           "username": "ella@hawaii.edu",
@@ -9728,7 +10615,6 @@
           "profileOpportunities": [],
           "isAlumni": true,
           "retired": false,
-          "shareUsername": false,
           "sharePicture": false,
           "shareWebsite": false,
           "shareInterests": false,
@@ -9736,7 +10622,7 @@
           "shareOpportunities": false,
           "shareCourses": false,
           "shareLevel": false,
-          "shareIce": false
+          "shareICE": false
         },
         {
           "username": "samplestudent@hawaii.edu",
@@ -9768,11 +10654,42 @@
             "ux-designer"
           ],
           "level": 5,
-          "profileCourses": [],
-          "profileOpportunities": [],
+          "profileCourses": [
+            "ics_111",
+            "ics_141",
+            "ics_211",
+            "ics_241",
+            "ics_311",
+            "ics_314",
+            "ics_212",
+            "ics_321",
+            "ics_313",
+            "ics_331",
+            "ics_332",
+            "ics_464",
+            "ics_431",
+            "ics_426",
+            "ics_425",
+            "ics_414",
+            "ics_415",
+            "ics_432",
+            "ics_435",
+            "ics_441",
+            "ics_442",
+            "ics_443",
+            "ics_451"
+          ],
+          "profileOpportunities": [
+            "att-iot-hackathon",
+            "greyhats",
+            "hawaii-hacker-hours",
+            "dahi-internship",
+            "gen-cyber-internship",
+            "asecolab",
+            "ccdc"
+          ],
           "isAlumni": false,
           "retired": false,
-          "shareUsername": false,
           "sharePicture": false,
           "shareWebsite": false,
           "shareInterests": true,
@@ -9780,7 +10697,7 @@
           "shareOpportunities": false,
           "shareCourses": false,
           "shareLevel": false,
-          "shareIce": false
+          "shareICE": false
         },
         {
           "username": "gcalica@hawaii.edu",
@@ -9798,12 +10715,42 @@
             "full-stack-developer"
           ],
           "level": 6,
-          "profileCourses": [],
-          "profileOpportunities": [],
+          "profileCourses": [
+            "ics_111",
+            "ics_141",
+            "ics_211",
+            "ics_241",
+            "ics_311",
+            "ics_314",
+            "ics_212",
+            "ics_321",
+            "ics_313",
+            "ics_331",
+            "ics_332",
+            "ics_464",
+            "ics_431",
+            "ics_425",
+            "ics_426",
+            "ics_414",
+            "ics_415",
+            "ics_432",
+            "ics_435"
+          ],
+          "profileOpportunities": [
+            "acm-manoa-hardware",
+            "hawaii-virtual-reality",
+            "code-for-hawaii",
+            "booz-allen-internship",
+            "att-iot-hackathon",
+            "shidler-bpc",
+            "acm-manoa-vr",
+            "hacc",
+            "booz-allen-ideas-festival",
+            "virtual-art-meetup"
+          ],
           "declaredAcademicTerm": "Fall-2017",
           "isAlumni": false,
           "retired": false,
-          "shareUsername": false,
           "sharePicture": true,
           "shareWebsite": false,
           "shareInterests": false,
@@ -9811,7 +10758,7 @@
           "shareOpportunities": false,
           "shareCourses": false,
           "shareLevel": true,
-          "shareIce": false
+          "shareICE": false
         },
         {
           "username": "mercedez@hawaii.edu",
@@ -9834,7 +10781,6 @@
           "declaredAcademicTerm": "Fall-2018",
           "isAlumni": false,
           "retired": false,
-          "shareUsername": false,
           "sharePicture": false,
           "shareWebsite": false,
           "shareInterests": false,
@@ -9842,7 +10788,7 @@
           "shareOpportunities": false,
           "shareCourses": false,
           "shareLevel": false,
-          "shareIce": false
+          "shareICE": false
         },
         {
           "username": "qauchida@hawaii.edu",
@@ -9868,7 +10814,6 @@
           "profileOpportunities": [],
           "isAlumni": false,
           "retired": false,
-          "shareUsername": false,
           "sharePicture": false,
           "shareWebsite": false,
           "shareInterests": false,
@@ -9876,7 +10821,7 @@
           "shareOpportunities": false,
           "shareCourses": false,
           "shareLevel": false,
-          "shareIce": false
+          "shareICE": false
         },
         {
           "username": "gbarcelo@hawaii.edu",
@@ -9900,7 +10845,6 @@
           "declaredAcademicTerm": "Fall-2019",
           "isAlumni": false,
           "retired": false,
-          "shareUsername": false,
           "sharePicture": false,
           "shareWebsite": false,
           "shareInterests": false,
@@ -9908,7 +10852,91 @@
           "shareOpportunities": false,
           "shareCourses": false,
           "shareLevel": true,
-          "shareIce": false
+          "shareICE": false
+        },
+        {
+          "username": "saitoshi@hawaii.edu",
+          "firstName": "Shinya",
+          "lastName": "Saito",
+          "picture": "/images/default-profile-picture.png",
+          "interests": [],
+          "careerGoals": [],
+          "level": 1,
+          "profileCourses": [],
+          "profileOpportunities": [],
+          "isAlumni": false,
+          "retired": false,
+          "sharePicture": false,
+          "shareWebsite": false,
+          "shareInterests": false,
+          "shareCareerGoals": false,
+          "shareOpportunities": false,
+          "shareCourses": false,
+          "shareLevel": false,
+          "shareICE": false
+        },
+        {
+          "username": "tasumida@hawaii.edu",
+          "firstName": "Trey",
+          "lastName": "Sumida",
+          "picture": "/images/default-profile-picture.png",
+          "interests": [],
+          "careerGoals": [],
+          "level": 1,
+          "profileCourses": [],
+          "profileOpportunities": [],
+          "isAlumni": false,
+          "retired": false,
+          "sharePicture": false,
+          "shareWebsite": false,
+          "shareInterests": false,
+          "shareCareerGoals": false,
+          "shareOpportunities": false,
+          "shareCourses": false,
+          "shareLevel": false,
+          "shareICE": false
+        },
+        {
+          "username": "fortinc@hawaii.edu",
+          "firstName": "Caliana",
+          "lastName": "Fortin",
+          "picture": "/images/default-profile-picture.png",
+          "interests": [],
+          "careerGoals": [],
+          "level": 1,
+          "profileCourses": [],
+          "profileOpportunities": [],
+          "isAlumni": false,
+          "retired": false,
+          "sharePicture": false,
+          "shareWebsite": false,
+          "shareInterests": false,
+          "shareCareerGoals": false,
+          "shareOpportunities": false,
+          "shareCourses": false,
+          "shareLevel": false,
+          "shareICE": false
+        },
+        {
+          "username": "thuo@hawaii.edu",
+          "firstName": "Timothy",
+          "lastName": "Huo",
+          "picture": "/images/default-profile-picture.png",
+          "interests": [],
+          "careerGoals": [],
+          "level": 1,
+          "profileCourses": [],
+          "profileOpportunities": [],
+          "isAlumni": false,
+          "retired": false,
+          "sharePicture": false,
+          "shareWebsite": false,
+          "shareInterests": false,
+          "shareCareerGoals": false,
+          "shareOpportunities": false,
+          "shareCourses": false,
+          "shareLevel": false,
+          "shareICE": false
         }
       ]
     },
@@ -10898,7 +11926,79 @@
     },
     {
       "name": "UserInteractionCollection",
-      "contents": []
+      "contents": [
+        {
+          "username": "abi@hawaii.edu",
+          "type": "review",
+          "typeData": [],
+          "timestamp": "2021-05-06T22:48:24.351Z"
+        },
+        {
+          "username": "abi@hawaii.edu",
+          "type": "verify",
+          "typeData": [],
+          "timestamp": "2021-05-06T22:48:24.353Z"
+        },
+        {
+          "username": "alfred@hawaii.edu",
+          "type": "review",
+          "typeData": [],
+          "timestamp": "2021-05-06T22:48:24.355Z"
+        },
+        {
+          "username": "alfred@hawaii.edu",
+          "type": "verify",
+          "typeData": [],
+          "timestamp": "2021-05-06T22:48:24.357Z"
+        },
+        {
+          "username": "betty@hawaii.edu",
+          "type": "verify",
+          "typeData": [],
+          "timestamp": "2021-05-06T22:48:24.359Z"
+        },
+        {
+          "username": "samplestudent@hawaii.edu",
+          "type": "verify",
+          "typeData": [],
+          "timestamp": "2021-05-06T22:48:24.363Z"
+        },
+        {
+          "username": "gcalica@hawaii.edu",
+          "type": "verify",
+          "typeData": [],
+          "timestamp": "2021-05-06T22:48:24.364Z"
+        },
+        {
+          "username": "abi@hawaii.edu",
+          "type": "login",
+          "typeData": [],
+          "timestamp": "2021-05-07T00:12:48.060Z"
+        },
+        {
+          "username": "abi@hawaii.edu",
+          "type": "explore",
+          "typeData": [
+            "opportunity-browser-view-page",
+            "interest-browser-view-page",
+            "course-browser-view-page",
+            "career-goal-browser-view-page"
+          ],
+          "timestamp": "2021-05-07T00:12:48.065Z"
+        },
+        {
+          "username": "abi@hawaii.edu",
+          "type": "plan",
+          "typeData": [],
+          "timestamp": "2021-05-07T00:12:48.067Z"
+        },
+        {
+          "username": "abi@hawaii.edu",
+          "type": "login",
+          "typeData": [],
+          "timestamp": "2021-05-07T21:52:00.478Z"
+        }
+      ]
     },
     {
       "name": "VerificationRequestCollection",

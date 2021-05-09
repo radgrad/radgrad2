@@ -1,27 +1,23 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
 import { Button, Icon, Modal } from 'semantic-ui-react';
 import { removeItMethod } from '../../../../api/base/BaseCollection.methods';
-import { degreePlannerActions } from '../../../../redux/student/degree-planner';
+import { useStickyState } from '../../../utilities/StickyState';
 
 interface RemoveItWidgetProps {
   collectionName: string;
   id: string;
   name: string;
   courseNumber: string;
-  selectCourseInstance: (courseInstanceID: string) => any;
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  selectCourseInstance: (courseInstanceID) => dispatch(degreePlannerActions.selectCourseInstance(courseInstanceID)),
-});
-
-const RemoveItWidget: React.FC<RemoveItWidgetProps> = ({ collectionName, id, name, courseNumber, selectCourseInstance }) => {
+const RemoveItWidget: React.FC<RemoveItWidgetProps> = ({ collectionName, id, name, courseNumber }) => {
   const [modalOpenState, setModalOpen] = useState(false);
   const handleOpen = () => setModalOpen(true);
   const handleClose = () => setModalOpen(false);
   const buttonStyle: React.CSSProperties = { padding: 0 };
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [selectedCourse, setSelectedCourse] = useStickyState('Planner.selectedCourse', '');
 
   const handleRemoveIt = () => {
     handleClose();
@@ -38,7 +34,7 @@ const RemoveItWidget: React.FC<RemoveItWidgetProps> = ({ collectionName, id, nam
         });
       }
     });
-    selectCourseInstance('');
+    setSelectedCourse('');
   };
 
   return (
@@ -74,5 +70,4 @@ const RemoveItWidget: React.FC<RemoveItWidgetProps> = ({ collectionName, id, nam
   );
 };
 
-const RemoveItWidgetContainer = connect(null, mapDispatchToProps)(RemoveItWidget);
-export default RemoveItWidgetContainer;
+export default RemoveItWidget;

@@ -1,12 +1,11 @@
 import AdminHomePage from '../../pages/admin/AdminHomePage';
-import AdminAnalyticsLoggedInUsersPage from '../../pages/admin/AdminAnalyticsLoggedInUsersPage';
-import AdminAnalyticsNewsletterPage from '../../pages/admin/AdminAnalyticsNewsletterPage';
 import AdminAnalyticsBehaviorTablePage from '../../pages/admin/AdminAnalyticsBehaviorTablePage';
+import AdminAnalyticsLoggedInUsersPage from '../../pages/admin/AdminAnalyticsLoggedInUsersPage';
 import AdminDatabaseManagementPage from '../../pages/admin/AdminDatabaseManagementPage';
+import AdminAnalyticsNewsletterPage from '../../pages/admin/AdminAnalyticsNewsletterPage';
 import AdminDataModelAcademicTermsPage from '../../pages/admin/AdminDataModelAcademicTermsPage';
 import AdminDataModelAcademicYearsPage from '../../pages/admin/AdminDataModelAcademicYearsPage';
 import AdminDataModelCareerGoalsPage from '../../pages/admin/AdminDataModelCareerGoalsPage';
-import AdminDataModelUsersPage from '../../pages/admin/AdminDataModelUsersPage';
 import AdminDataModelCourseInstancesPage from '../../pages/admin/AdminDataModelCourseInstancesPage';
 import AdminDataModelCoursesPage from '../../pages/admin/AdminDataModelCoursesPage';
 import AdminDataModelInterestsPage from '../../pages/admin/AdminDataModelInterestsPage';
@@ -17,10 +16,8 @@ import AdminDataModelOpportunityTypesPage from '../../pages/admin/AdminDataModel
 import AdminDataModelReviewsPage from '../../pages/admin/AdminDataModelReviewsPage';
 import AdminDataModelSlugsPage from '../../pages/admin/AdminDataModelSlugsPage';
 import AdminDataModelTeasersPage from '../../pages/admin/AdminDataModelTeasersPage';
+import AdminDataModelUsersPage from '../../pages/admin/AdminDataModelUsersPage';
 import AdminDataModelVerificationRequestsPage from '../../pages/admin/AdminDataModelVerificationRequestsPage';
-import SandBoxStickyStatePage from '../../pages/sandbox/SandBoxStickyStatePage';
-import SandBoxTabPage from '../../pages/sandbox/SandBoxTabPage';
-import VisibilityPage from '../../pages/shared/VisibilityPage';
 import AdvisorHomePage from '../../pages/advisor/AdvisorHomePage';
 import AdvisorManageStudentsPage from '../../pages/advisor/AdvisorManageStudentsPage';
 import AlumniHomePage from '../../pages/alumni/AlumniHomePage';
@@ -34,30 +31,37 @@ import FacultyVerificationPage from '../../pages/faculty/FacultyVerificationPage
 import ForecastPage from '../../pages/shared/ForecastPage';
 import InterestBrowserViewPage from '../../pages/shared/browser-view/InterestBrowserViewPage';
 import InterestViewPage from '../../pages/shared/item-view/InterestViewPage';
-import LandingHomePage from '../../pages/landing/LandingHomePage';
 import LandingCareerGoalsExplorerPage from '../../pages/landing/LandingCareerGoalsExplorerPage';
 import LandingCareerGoalExplorerPage from '../../pages/landing/LandingCareerGoalExplorerPage';
 import LandingCoursesExplorerPage from '../../pages/landing/LandingCoursesExplorerPage';
 import LandingCourseExplorerPage from '../../pages/landing/LandingCourseExplorerPage';
+import LandingHomePage from '../../pages/landing/LandingHomePage';
 import LandingInterestsExplorerPage from '../../pages/landing/LandingInterestsExplorerPage';
 import LandingInterestExplorerPage from '../../pages/landing/LandingInterestExplorerPage';
 import LandingOpportunitiesExplorerPage from '../../pages/landing/LandingOpportunitiesExplorerPage';
 import LandingOpportunityExplorerPage from '../../pages/landing/LandingOpportunityExplorerPage';
 import ManageOpportunitiesPage from '../../pages/shared/ManageOpportunitiesPage';
-import ManageVerificationsPage from '../../pages/shared/ManageVerificationsPage';
 import ManageReviewsPage from '../../pages/shared/ManageReviewsPage';
+import ManageVerificationsPage from '../../pages/shared/ManageVerificationsPage';
 import OpportunityBrowserViewPage from '../../pages/shared/browser-view/OpportunityBrowserViewPage';
 import OpportunityViewPage from '../../pages/shared/item-view/OpportunityViewPage';
 import SandboxLabelPage from '../../pages/sandbox/SandboxLabelPage';
 import SandBoxSegmentPage from '../../pages/sandbox/SandBoxSegmentPage';
+import SandBoxStickyStatePage from '../../pages/sandbox/SandBoxStickyStatePage';
+import SandBoxTabPage from '../../pages/sandbox/SandBoxTabPage';
+import SandBoxTreyPage from '../../pages/sandbox/onboard/SandBoxTreyPage';
+import SandBoxCalianaPage from '../../pages/sandbox/onboard/SandBoxCalianaPage';
+import SandBoxShinyaPage from '../../pages/sandbox/onboard/SandBoxShinyaPage';
+import SandBoxTimothyPage from '../../pages/sandbox/onboard/SandBoxTimothyPage';
 import StudentDegreePlannerPage from '../../pages/student/StudentDegreePlannerPage';
 import StudentHomePage from '../../pages/student/StudentHomePage';
 import StudentIcePage from '../../pages/student/StudentIcePage';
 import StudentLevelsPage from '../../pages/student/StudentLevelsPage';
 import StudentReviewsPage from '../../pages/student/StudentReviewsPage';
-import TermsAndConditionsPage from '../../pages/shared/TermsAndConditionsPage';
 import StudentVerificationPage from '../../pages/student/StudentVerificationPage';
 import StudentVisibilityPage from '../../pages/student/StudentVisibilityPage';
+import TermsAndConditionsPage from '../../pages/shared/TermsAndConditionsPage';
+import VisibilityPage from '../../pages/shared/VisibilityPage';
 
 import {
   ANALYTICS,
@@ -206,5 +210,9 @@ export const routes = {
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/sandbox/segments`, component: SandBoxSegmentPage },
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/sandbox/tabs`, component: SandBoxTabPage },
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/sandbox/stickystate`, component: SandBoxStickyStatePage },
+    { path: `/${URL_ROLES.STUDENT}/${USERNAME}/sandbox/onboard/trey`, component: SandBoxTreyPage },
+    { path: `/${URL_ROLES.STUDENT}/${USERNAME}/sandbox/onboard/shinya`, component: SandBoxShinyaPage },
+    { path: `/${URL_ROLES.STUDENT}/${USERNAME}/sandbox/onboard/caliana`, component: SandBoxCalianaPage },
+    { path: `/${URL_ROLES.STUDENT}/${USERNAME}/sandbox/onboard/timothy`, component: SandBoxTimothyPage },
   ],
 };

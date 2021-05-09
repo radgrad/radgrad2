@@ -1,7 +1,6 @@
 import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import { DragDropContext } from 'react-beautiful-dnd';
-import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
 import { useParams } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
@@ -15,7 +14,6 @@ import {
   CourseInstance,
   CourseInstanceDefine,
   CourseInstanceUpdate,
-  MeteorError,
   Opportunity,
   OpportunityInstance,
   OpportunityInstanceDefine,
@@ -25,9 +23,7 @@ import {
 import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
 import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 import { Users } from '../../../api/user/UserCollection';
-import { degreePlannerActions } from '../../../redux/student/degree-planner';
-import { SelectPayload, SelectTab } from '../../../redux/student/degree-planner/actions';
-import TabbedProfileEntries from '../../components/student/degree-planner/TabbedProfileEntries';
+import TabbedProfileEntries, { TabbedProfileEntryNames } from '../../components/student/degree-planner/TabbedProfileEntries';
 import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
 import { getUsername, MatchProps } from '../../components/shared/utilities/router';
 import { Slugs } from '../../../api/slug/SlugCollection';
@@ -35,33 +31,31 @@ import { AcademicYearInstances } from '../../../api/degree-plan/AcademicYearInst
 import { ProfileOpportunities } from '../../../api/user/profile-entries/ProfileOpportunityCollection';
 import { ProfileCourses } from '../../../api/user/profile-entries/ProfileCourseCollection';
 import { VerificationRequests } from '../../../api/verification/VerificationRequestCollection';
-import { passedCourse } from '../../../api/course/CourseUtilities';
+import { passedCourse, courseInstanceIsRepeatable } from '../../../api/course/CourseUtilities';
 import { PAGEIDS } from '../../utilities/PageIDs';
+import { useStickyState } from '../../utilities/StickyState';
 import PageLayout from '../PageLayout';
+
+export enum DegreePlannerStateNames {
+  selectedCiID = 'Planner.selectedCiID',
+  selectedOiID = 'Planner.selectedOiID',
+  selectedProfileTab = 'Planner.selectedProfileTab',
+}
 
 interface StudentDegreePlannerProps {
   takenSlugs: string[];
-  selectCourseInstance: (courseInstanceID: string) => SelectPayload;
-  selectOpportunityInstance: (opportunityInstanceID: string) => SelectPayload;
-  selectProfileDetailsTab: () => SelectTab;
   match: MatchProps;
   academicYearInstances: AcademicYearInstance[];
   courseInstances: CourseInstance[];
   opportunityInstances: OpportunityInstance[];
-  opportunities: Opportunity[];
+  profileOpportunities: Opportunity[];
   studentID: string;
-  courses: Course[];
+  profileCourses: Course[];
   verificationRequests: VerificationRequest[];
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  selectCourseInstance: (courseInstanceID) => dispatch(degreePlannerActions.selectCourseInstance(courseInstanceID)),
-  selectOpportunityInstance: (opportunityInstanceID) => dispatch(degreePlannerActions.selectOpportunityInstance(opportunityInstanceID)),
-  selectProfileDetailsTab: () => dispatch(degreePlannerActions.selectProfileDetailsTab()),
-});
-
 const onDragEnd = (onDragEndProps) => (result) => {
-  const { match, selectCourseInstance, selectOpportunityInstance } = onDragEndProps;
+  const { match, setSelectedCiID, setSelectedOiID, setSelectedProfileTab } = onDragEndProps;
   if (!result.destination) {
     return;
   }
@@ -97,6 +91,7 @@ const onDragEnd = (onDragEndProps) => (result) => {
         student,
         creditHrs: course.creditHrs,
       };
+
       /**
        * If you drag a course into an academic term in which an course instance already exists for that course in
        * that academic term, that dragged course won't be added to that academic term permanently.
@@ -106,13 +101,15 @@ const onDragEnd = (onDragEndProps) => (result) => {
        * course instance and only create a user interaction if it was not a duplicate.
        */
       // Before we define a course instance, check if it already exists first
-      defineMethod.call({ collectionName, definitionData }, (error, res) => {
-        if (error) {
+      defineMethod.callPromise({ collectionName, definitionData })
+        .then((res) => {
+          setSelectedCiID(res);
+          setSelectedOiID('');
+          setSelectedProfileTab(TabbedProfileEntryNames.profileDetails);
+        })
+        .catch((error) => {
           console.error(error);
-        } else {
-          selectCourseInstance(res);
-        }
-      });
+        });
     }
   } else if (isCourseInstanceDrop) {
     if (isPastDrop) {
@@ -137,13 +134,13 @@ const onDragEnd = (onDragEndProps) => (result) => {
         updateData.termID = termID;
         updateData.id = slug;
         const collectionName = CourseInstances.getCollectionName();
-        updateMethod.call({ collectionName, updateData }, (error: MeteorError) => {
-          if (error) {
-            console.error(error);
-          } else {
-            selectCourseInstance(slug);
-          }
-        });
+        updateMethod.callPromise({ collectionName, updateData })
+          .then(() => { // CAM: This might not work.
+            setSelectedCiID(slug);
+            setSelectedOiID('');
+            setSelectedProfileTab(TabbedProfileEntryNames.profileDetails);
+          })
+          .catch((error) => console.error(error));
       }
     }
   } else if (isOppDrop) {
@@ -151,13 +148,7 @@ const onDragEnd = (onDragEndProps) => (result) => {
     const opportunity = Opportunities.findDoc(opportunityID);
     const sponsor = Users.getProfile(opportunity.sponsorID).username;
     const collectionName = OpportunityInstances.getCollectionName();
-    const definitionData: OpportunityInstanceDefine = {
-      academicTerm: termSlug,
-      opportunity: slug,
-      verified: false,
-      student,
-      sponsor,
-    };
+    const definitionData: OpportunityInstanceDefine = { academicTerm: termSlug, opportunity: slug, verified: false, student, sponsor };
     /**
      * If you drag an opportunity into an academic term in which an opportunity instance already exists for that opportunity
      * in that academic term, that dragged opportunity won't be added to that academic term permanently.
@@ -166,26 +157,26 @@ const onDragEnd = (onDragEndProps) => (result) => {
      * However, since the Meteor define method still fires, we want to handle that case where we drag a duplicate
      * opportunity instance and only create a user interaction if it was not a duplicate.
      */
-    defineMethod.call({ collectionName, definitionData }, (error, res) => {
-      if (error) {
-        console.error(error);
-      } else {
-        selectOpportunityInstance(res);
-      }
-    });
+    defineMethod.callPromise({ collectionName, definitionData })
+      .then((res) => {
+        setSelectedCiID('');
+        setSelectedOiID(res);
+        setSelectedProfileTab(TabbedProfileEntryNames.profileDetails);
+      })
+      .catch((error) => console.error(error));
   } else if (isOppInstDrop) {
     const termID = AcademicTerms.findIdBySlug(termSlug);
     const updateData: OpportunityInstanceUpdate = {};
     updateData.termID = termID;
     updateData.id = slug;
     const collectionName = OpportunityInstances.getCollectionName();
-    updateMethod.call({ collectionName, updateData }, (error) => {
-      if (error) {
-        console.error(error);
-      } else {
-        selectOpportunityInstance(slug);
-      }
-    });
+    updateMethod.callPromise({ collectionName, updateData })
+      .then(() => {
+        setSelectedCiID('');
+        setSelectedOiID(slug);
+        setSelectedProfileTab(TabbedProfileEntryNames.profileDetails);
+      })
+      .catch((error) => console.error(error));
   }
 };
 
@@ -203,38 +194,37 @@ const StudentDegreePlannerPage: React.FC<StudentDegreePlannerProps> = ({
   academicYearInstances,
   studentID,
   match,
-  courses,
-  opportunities,
+  profileCourses,
+  profileOpportunities,
   courseInstances,
   opportunityInstances,
-  selectCourseInstance,
-  selectProfileDetailsTab,
-  selectOpportunityInstance,
   takenSlugs,
   verificationRequests,
 }) => {
-  const onDragEndProps = { match, selectCourseInstance, selectOpportunityInstance };
-  const paddedStyle = {
-    paddingTop: 0,
-    paddingLeft: 10,
-    paddingRight: 20,
-  };
+  const [, setSelectedCiID] = useStickyState(DegreePlannerStateNames.selectedCiID, '');
+  const [, setSelectedOiID] = useStickyState(DegreePlannerStateNames.selectedOiID, '');
+  const [, setSelectedProfileTab] = useStickyState(DegreePlannerStateNames.selectedProfileTab, '');
+
+  const onDragEndProps = { match, setSelectedCiID, setSelectedOiID, setSelectedProfileTab };
+  const paddedStyle = { paddingTop: 0, paddingLeft: 10, paddingRight: 20 };
   return (
     <DragDropContext onDragEnd={onDragEnd(onDragEndProps)}>
-      <PageLayout id={PAGEIDS.STUDENT_DEGREE_PLANNER} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
-      <Grid stackable>
+      <PageLayout id={PAGEIDS.STUDENT_DEGREE_PLANNER} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}
+                  headerPaneImage={headerPaneImage}>
+        <Grid stackable>
           <Grid.Row stretched>
             <Grid.Column width={10} style={paddedStyle}>
-              <DegreeExperiencePlannerWidget academicYearInstances={academicYearInstances} courseInstances={courseInstances} opportunityInstances={opportunityInstances} />
+              <DegreeExperiencePlannerWidget academicYearInstances={academicYearInstances}
+                                             courseInstances={courseInstances}
+                                             opportunityInstances={opportunityInstances} />
             </Grid.Column>
 
             <Grid.Column width={6} style={paddedStyle}>
-              {/* @ts-ignore */}
               <TabbedProfileEntries
                 takenSlugs={takenSlugs}
-                opportunities={opportunities}
+                profileOpportunities={profileOpportunities}
                 studentID={studentID}
-                courses={courses}
+                profileCourses={profileCourses}
                 courseInstances={courseInstances}
                 opportunityInstances={opportunityInstances}
                 verificationRequests={verificationRequests}
@@ -255,18 +245,30 @@ const takenSlugs = (courseInstances: CourseInstance[]): string[] => {
   });
 };
 
-const StudentDegreePlannerPageContainer = connect(null, mapDispatchToProps)(StudentDegreePlannerPage);
-
 export default withTracker(() => {
   const { username } = useParams();
   const profile = Users.getProfile(username);
   const studentID = profile.userID;
-  const profileOpportunities = ProfileOpportunities.findNonRetired({ studentID });
-  const opportunities = profileOpportunities.map((f) => Opportunities.findDoc(f.opportunityID));
-  const profileCourses = ProfileCourses.findNonRetired({ studentID });
-  const courses = profileCourses.map((f) => Courses.findDoc(f.courseID));
-  const academicYearInstances: AcademicYearInstance[] = AcademicYearInstances.findNonRetired({ studentID }, { sort: { year: 1 } });
+  const pOpportunities = ProfileOpportunities.findNonRetired({ studentID });
+  let profileOpportunities = pOpportunities.map((f) => Opportunities.findDoc(f.opportunityID));
+  // first filter the retired opportunities
+  profileOpportunities = profileOpportunities.filter((opp) => !opp.retired);
+  // next filter opportunities w/o future academic terms
+  profileOpportunities = profileOpportunities.filter((opp) => {
+    const terms = opp.termIDs.map((term) => AcademicTerms.findDoc(term));
+    return terms.some((term) => AcademicTerms.isUpcomingTerm(term._id));
+  });
   const courseInstances = CourseInstances.findNonRetired({ studentID: profile.userID });
+  const pCourses = ProfileCourses.findNonRetired({ studentID });
+  let profileCourses = pCourses.map((f) => Courses.findDoc(f.courseID));
+  // first get rid of any retired courses
+  profileCourses = profileCourses.filter((course) => !course.retired);
+  // next filter out the passed classes, but not if they are repeatable.
+  profileCourses = profileCourses.filter((course) => {
+    const ci = courseInstances.find((instance) => instance.courseID === course._id);
+    // console.log(!passedCourse(ci), courseInstanceIsRepeatable(ci), ci.note);
+    return !passedCourse(ci) || courseInstanceIsRepeatable(ci);
+  });  const academicYearInstances: AcademicYearInstance[] = AcademicYearInstances.findNonRetired({ studentID }, { sort: { year: 1 } });
   const opportunityInstances = OpportunityInstances.findNonRetired({ studentID: profile.userID });
   const verificationRequests = VerificationRequests.findNonRetired({ studentID });
   return {
@@ -274,9 +276,9 @@ export default withTracker(() => {
     academicYearInstances,
     opportunityInstances,
     courseInstances,
-    opportunities,
+    profileOpportunities,
     studentID,
-    courses,
+    profileCourses,
     verificationRequests,
   };
-})(StudentDegreePlannerPageContainer);
+})(StudentDegreePlannerPage);

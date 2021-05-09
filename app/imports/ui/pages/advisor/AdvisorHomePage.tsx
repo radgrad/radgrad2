@@ -1,8 +1,10 @@
 import { withTracker } from 'meteor/react-meteor-data';
 import React from 'react';
 import { CareerGoalsChecklist } from '../../components/checklist/CareerGoalsChecklist';
+import { CareerGoalsWithoutRelatedChecklists } from '../../components/checklist/CareerGoalsWithoutRelatedChecklists';
 import { CHECKSTATE } from '../../components/checklist/Checklist';
 import { InterestsChecklist } from '../../components/checklist/InterestsChecklist';
+import { InterestsWithoutRelatedChecklists } from '../../components/checklist/InterestsWithoutRelatedChecklists';
 import { ManageOpportunitiesChecklist } from '../../components/checklist/ManageOpportunitiesChecklist';
 import { ManageReviewsChecklist } from '../../components/checklist/ManageReviewsChecklist';
 import { ManageVerificationRequestsChecklist } from '../../components/checklist/ManageVerificationRequestsChecklist';
@@ -49,6 +51,8 @@ export default withTracker(() => {
   checklists.push(new ReviewInterestsChecklist(currentUser));
   checklists.push(new ReviewCareerGoalsChecklist(currentUser));
   checklists.push(new OutOfDateOpportunitiesChecklist(currentUser));
+  checklists.push(new InterestsWithoutRelatedChecklists(currentUser));
+  checklists.push(new CareerGoalsWithoutRelatedChecklists(currentUser));
   checklists.forEach((checklist) => {
     switch (checklist.getState()) {
       case CHECKSTATE.IMPROVE:

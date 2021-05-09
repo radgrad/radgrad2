@@ -4,7 +4,7 @@ import moment from 'moment';
 import _ from 'lodash';
 import { Slugs } from '../slug/SlugCollection';
 import BaseSlugCollection from '../base/BaseSlugCollection';
-import { AcademicTermDefine, AcademicTermUpdate } from '../../typings/radgrad';
+import { AcademicTerm, AcademicTermDefine, AcademicTermUpdate } from '../../typings/radgrad';
 import { RadGradProperties } from '../radgrad/RadGradProperties';
 import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollection';
 import { CourseInstances } from '../course/CourseInstanceCollection';
@@ -239,6 +239,15 @@ class AcademicTermCollection extends BaseSlugCollection {
   public getCurrentAcademicTermDoc() {
     const id = this.getCurrentTermID();
     return this.findDoc(id);
+  }
+
+  public getNextYears(numYears: number): AcademicTerm[] {
+    const numTermsPerYear = RadGradProperties.getQuarterSystem() ? 4 : 3;
+    const currentTermNumber = this.getCurrentAcademicTermDoc().termNumber;
+
+    const after = currentTermNumber;
+    const before = currentTermNumber + numYears * numTermsPerYear;
+    return this.findNonRetired({ $and: [{ termNumber: { $gte: after } }, { termNumber: { $lt: before } }] }, { sort: { termNumber: 1 } });
   }
 
   /**
