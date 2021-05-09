@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for api/utilities/load-fixtures.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="/Users/carletonmoore/RadGrad/radgrad2/app/.coverage/prettify.css" />
+    <link rel="stylesheet" href="/Users/carletonmoore/RadGrad/radgrad2/app/.coverage/base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(/Users/carletonmoore/RadGrad/radgrad2/app/.coverage/sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="/Users/carletonmoore/RadGrad/radgrad2/app/.coverage/index.html">All files</a> api/utilities/load-fixtures.ts
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">2.38% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>1/42</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/26</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/2</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">2.38% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>1/42</span>
+      </div>
+    </div>
+    <p class="quiet">
+      Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+    </p>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
+<a name='L2'></a><a href='#L2'>2</a>
+<a name='L3'></a><a href='#L3'>3</a>
+<a name='L4'></a><a href='#L4'>4</a>
+<a name='L5'></a><a href='#L5'>5</a>
+<a name='L6'></a><a href='#L6'>6</a>
+<a name='L7'></a><a href='#L7'>7</a>
+<a name='L8'></a><a href='#L8'>8</a>
+<a name='L9'></a><a href='#L9'>9</a>
+<a name='L10'></a><a href='#L10'>10</a>
+<a name='L11'></a><a href='#L11'>11</a>
+<a name='L12'></a><a href='#L12'>12</a>
+<a name='L13'></a><a href='#L13'>13</a>
+<a name='L14'></a><a href='#L14'>14</a>
+<a name='L15'></a><a href='#L15'>15</a>
+<a name='L16'></a><a href='#L16'>16</a>
+<a name='L17'></a><a href='#L17'>17</a>
+<a name='L18'></a><a href='#L18'>18</a>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { AcademicTerms } from '../academic-term/AcademicTermCollection';
+import { UserInteractions } from '../user-interaction/UserInteractionCollection';
+import BaseCollection from '../base/BaseCollection';
+import { Courses } from '../course/CourseCollection';
+import { CourseInstances } from '../course/CourseInstanceCollection';
+import { Opportunities } from '../opportunity/OpportunityCollection';
+import { OpportunityInstances } from '../opportunity/OpportunityInstanceCollection';
+import { Slugs } from '../slug/SlugCollection';
+import { getDefinitions } from '../test/test-utilities';
+import { Users } from '../user/UserCollection';
+import { AdvisorProfiles } from '../user/AdvisorProfileCollection';
+import { FacultyProfiles } from '../user/FacultyProfileCollection';
+import { StudentProfiles } from '../user/StudentProfileCollection';
+import { AcademicYearInstances } from '..<span class="fstat-no" title="function not covered" >/d</span>egree-plan/AcademicYearInstanceCollection';
+<span class="cstat-no" title="statement not covered" ></span>
+export const loadCollectionNewDataOnly = (collection: BaseCollection, loadJSON, printToConsole) =&gt; {
+  let retVal = ''<span class="cstat-no" title="statement not covered" >;</span>
+  // console.log('loadCo<span class="cstat-no" title="statement not covered" >llectionNewDataOnly', loadJSON, printToConsole, typeof co</span>llection);
+  const type = c<span class="cstat-no" title="statement not covered" >ol</span>lection.getType();
+  co<span class="cstat-no" title="statement not covered" >nst definitions = ge<span class="fstat-no" title="function not covered" >tD</span>efinitions(loadJSON, collection.getCollectionName());</span>
+  let count = 0;
+  definitions.forEach((definition) =&gt; {
+    let <span class="cstat-no" title="statement not covered" >studentID;</span>
+    let termID;
+    switch (type<span class="cstat-no" title="statement not covered" >) {</span>
+      case UserInteractions.getType():
+        if (UserInteractions.find({
+          username: definition.username,
+          type: definition.type,
+          typeData: definition.typeData,
+          timestamp:<span class="cstat-no" title="statement not covered" > definition.timestamp,</span>
+        }).count() =<span class="cstat-no" title="statement not covered" >== 0) {</span>
+          collection.define(definition);
+          count+<span class="cstat-no" title="statement not covered" >+;</span>
+        }
+        break;
+      case CourseInstances.getType():
+        // conso<span class="cstat-no" title="statement not covered" >le.log(definition.student);</span>
+        // eslint-disable-next-line no-case-declarations
+        termID = AcademicTerms.ge<span class="cstat-no" title="statement not covered" >tID(definition.academicTerm);</span>
+        // eslint-disable-next-line no-case-declarations
+        const co<span class="cstat-no" title="statement not covered" >urseID = Courses.getID(definition.course);</span>
+        // eslin<span class="cstat-no" title="statement not covered" >t-disable-next-line no-case-declarations</span>
+        studentID = <span class="cstat-no" title="statement not covered" >Users.getID(definition.student)</span>;
+        if (CourseIn<span class="cstat-no" title="statement not covered" >stances.f</span>ind({ termID, courseID, studentID }).count() === 0) {
+          collection.define(definition);
+          count+<span class="cstat-no" title="statement not covered" >+;</span>
+        }
+        break;
+      case AcademicY<span class="cstat-no" title="statement not covered" >earInstances.getType(): {</span>
+        studentID = <span class="cstat-no" title="statement not covered" >Users.getID(definition.student);</span>
+        if (AcademicYearInstances.find({ year: definition.year, studentID })
+          .count() === 0<span class="cstat-no" title="statement not covered" >) {</span>
+          collection.def<span class="cstat-no" title="statement not covered" >ine(defin</span>ition);
+          count++;
+        }
+      }<span class="cstat-no" title="statement not covered" ></span>
+        break;
+      case Oppor<span class="cstat-no" title="statement not covered" >tunityInstances.getType():</span>
+        termID =<span class="cstat-no" title="statement not covered" > AcademicTerms.getID(definition.academicTerm)</span>;
+        studentID = Users.getID(definition.student);
+        // eslint-disable-next-line no<span class="cstat-no" title="statement not covered" >-case-declarations</span>
+        const op<span class="cstat-no" title="statement not covered" >portunityID = Opportunities.getID(definition.opportunity);</span>
+        if (Opportun<span class="cstat-no" title="statement not covered" >ityInstances.find({ termID, stu</span>dentID, opportunityID }).count() === 0) {
+          collection.define(definition);
+        }<span class="cstat-no" title="statement not covered" ></span>
+        break;
+      case AdvisorProfiles.getType():
+      case FacultyProfiles.getType():
+      case Stude<span class="cstat-no" title="statement not covered" >ntProfiles.getType():</span>
+        if (collection.find({ username: definition.username })
+          .count() =<span class="cstat-no" title="statement not covered" >== 0) {</span>
+          collection<span class="cstat-no" title="statement not covered" >.define(d</span>efinition);
+          count++;
+        }<span class="cstat-no" title="statement not covered" ></span>
+        break;
+      default: /<span class="cstat-no" title="statement not covered" >/ Slug collections</span>
+        if ('slug' i<span class="cstat-no" title="statement not covered" >n definition) {</span>
+          if (!Slugs.isD<span class="cstat-no" title="statement not covered" >efined(definition.slug)) {</span>
+            collection.d<span class="cstat-no" title="statement not covered" >efine(def</span>inition);
+            count++;
+          }
+        }
+    }
+  })<span class="cstat-no" title="statement not covered" >;</span>
+  if (co<span class="cstat-no" title="statement not covered" >unt &gt; 1) {</span>
+    retVal += `Defined ${count} ${type}s`;
+  } else <span class="cstat-no" title="statement not covered" >if (count === 1) {</span>
+    retV<span class="cstat-no" title="statement not covered" >al += `Defined a ${type}`;</span>
+  }
+  re<span class="cstat-no" title="statement not covered" >turn retVal;</span>
+};
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sun May 09 2021 07:55:13 GMT-1000 (Hawaii-Aleutian Standard Time)
+</div>
+</div>
+<script src="/Users/carletonmoore/RadGrad/radgrad2/app/.coverage/prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="/Users/carletonmoore/RadGrad/radgrad2/app/.coverage/sorter.js"></script>
+<script src="/Users/carletonmoore/RadGrad/radgrad2/app/.coverage/block-navigation.js"></script>
+</body>
+</html>

@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for imports/ui/pages/shared/ManageOpportunitiesPage.tsx</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="/Users/carletonmoore/RadGrad/radgrad2/app/.coverage/prettify.css" />
+    <link rel="stylesheet" href="/Users/carletonmoore/RadGrad/radgrad2/app/.coverage/base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(/Users/carletonmoore/RadGrad/radgrad2/app/.coverage/sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="/Users/carletonmoore/RadGrad/radgrad2/app/.coverage/index.html">All files</a> imports/ui/pages/shared/ManageOpportunitiesPage.tsx
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">15% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>3/20</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/2</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/3</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">16.67% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>3/18</span>
+      </div>
+    </div>
+    <p class="quiet">
+      Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+    </p>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
+<a name='L2'></a><a href='#L2'>2</a>
+<a name='L3'></a><a href='#L3'>3</a>
+<a name='L4'></a><a href='#L4'>4</a>
+<a name='L5'></a><a href='#L5'>5</a>
+<a name='L6'></a><a href='#L6'>6</a>
+<a name='L7'></a><a href='#L7'>7</a>
+<a name='L8'></a><a href='#L8'>8</a>
+<a name='L9'></a><a href='#L9'>9</a>
+<a name='L10'></a><a href='#L10'>10</a>
+<a name='L11'></a><a href='#L11'>11</a>
+<a name='L12'></a><a href='#L12'>12</a>
+<a name='L13'></a><a href='#L13'>13</a>
+<a name='L14'></a><a href='#L14'>14</a>
+<a name='L15'></a><a href='#L15'>15</a>
+<a name='L16'></a><a href='#L16'>16</a>
+<a name='L17'></a><a href='#L17'>17</a>
+<a name='L18'></a><a href='#L18'>18</a>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react';
+import { withTracker } from 'meteor/react-meteor-data';
+import _ from 'lodash';
+import { useParams } from 'react-router-dom';
+import { Users } from '../../../api/user/UserCollection';
+import { AcademicTerm, BaseProfile, Interest, Opportunity, OpportunityType } from '../../../typings/radgrad';
+import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
+import { OpportunityTypes } from '../../../api/opportunity/OpportunityTypeCollection';
+import { Interests } from '../../../api/interest/InterestCollection';
+import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
+import { FacultyProfiles } from '../../../api/user/FacultyProfileCollection';
+import { AdvisorProfiles } from '../../../api/user/AdvisorProfileCollection';
+import ManageOpportunitiesTabs from '../../components/shared/manage/opportunity/ManageOpportunitiesTabs';
+import { PAGEIDS } from '../../utilities/PageIDs';
+import PageLayout from '../PageLayout';
+&nbsp;
+const headerPaneTitle = 'Manage Opportunities';
+const headerPaneBody = `
+In RadGrad, opportunities are activities outside of regular coursework that enable students to earn "Innovation" and "Experience" points. When students pick an opportunity, they associate it with a specific academic term (Fall, Spring, or Summer).
+&nbsp;
+For faculty, the most important reason to create opportunities is because it provides a mechanism for you to advertise your research projects to students. Advertising your research projects as opportunities has the following advantages to you:
+&nbsp;
+  1. By specifying one or more "interests" (i.e. disciplinary areas) associated with your research project, RadGrad can recommend your project to students who have also specified those interest areas.
+&nbsp;
+  2. Because students earn ICE points for completing opportunities, and because we recommend you award the maximum number of Innovation points for participating in a research project for each academic term, students who wish to achieve the higher levels in RadGrad will almost certainly need to participate in a faculty research project.
+&nbsp;
+  3. Students can pick your research project for multiple academic terms and earn Innovation points for each academic term.
+&nbsp;
+  4. If you want to, you can offer the student the ability to enroll in an independent study course with you in addition to this opportunity. That gives the student the ability to earn both Innovation and Competency points for the same work.
+&nbsp;
+Taken together, these advantages increase the odds that you will connect with qualified, motivated students when you specify one or more of your research projects as opportunities.
+&nbsp;
+Students do not automatically earn points just for adding one of your opportunities to their degree plan. In order to get the points, they must ask you to "verify" their participation. If you do not feel they participated enough to warrant the points at the end of an academic term, you do not have to verify their participation.
+&nbsp;
+Unless your project entails regular contact and interaction with industry professionals, your opportunity should not provide any Experience points.
+&nbsp;
+You can review the existing oppo<span class="fstat-no" title="function not covered" >rt</span>unities listed below to see how points are currently awarded so that <span class="cstat-no" title="statement not covered" >you can define your opportunity consistently.</span>
+`;
+&nbsp;
+interface ManageOpportuniti<span class="fstat-no" title="function not covered" >es</span>PageProps {
+  sponsors: BaseProfile[]<span class="cstat-no" title="statement not covered" >;</span>
+  terms: AcademicTerm[<span class="cstat-no" title="statement not covered" >];</span>
+  interests: Interest[];<span class="cstat-no" title="statement not covered" ></span>
+  opportunityTypes: <span class="cstat-no" title="statement not covered" >OpportunityType[];</span>
+  opportunities: Oppo<span class="cstat-no" title="statement not covered" >rtunity[];</span>
+}<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" ></span>
+const ManageOpportuni<span class="cstat-no" title="statement not covered" >tiesPage: React.FC&lt;ManageOpportunitiesPageProps&gt; = ({</span>
+  sponsors,<span class="cstat-no" title="statement not covered" ></span>
+  interests,<span class="cstat-no" title="statement not covered" ></span>
+  terms,<span class="cstat-no" title="statement not covered" ></span>
+  opportunityTypes<span class="cstat-no" title="statement not covered" >,<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ></span></span></span>
+  opportunities,<span class="cstat-no" title="statement not covered" ></span>
+}) =&gt; (<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >    &lt;PageLayout id={PAGEIDS.MANAGE_OPPORTUNITIES} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}&gt;</span>
+      &lt;ManageOpportunitiesTabs sponsors={sponsors} terms={terms} interests={interests}
+                               opportunityTypes={opportunityTypes} opportunities={opportunities} /&gt;
+    &lt;/PageLayout&gt;
+);
+&nbsp;
+export default withTracker(() =&gt; {
+  const { username } = useParams();
+  const sponsorID = Users.getProfile(username).userID;
+  const opportunities = Opportunities.find({ sponsorID }, { sort: { name: 1 } }).fetch();
+  const faculty = FacultyProfiles.find({}).fetch();
+  const advisors = AdvisorProfiles.find({}).fetch();
+  const sponsorDocs = _.union(faculty, advisors);
+  const sponsors = _.sortBy(sponsorDocs, ['lastName', 'firstName']);
+  const allTerms = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();
+  const currentTermNumber = AcademicTerms.getCurrentAcademicTermDoc().termNumber;
+  const after = currentTermNumber - 8;
+  const before = currentTermNumber + 16;
+  const terms = allTerms.filter((t) =&gt; t.termNumber &gt;= after &amp;&amp; t.termNumber &lt;= before);
+  const interests = Interests.find({}, { sort: { name: 1 } }).fetch();
+  const opportunityTypes = OpportunityTypes.find({}, { sort: { name: 1 } }).fetch();
+  return {
+    sponsors,
+    terms,
+    interests,
+    opportunityTypes,
+    opportunities,
+  };
+})(ManageOpportunitiesPage);
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sun May 09 2021 07:57:19 GMT-1000 (Hawaii-Aleutian Standard Time)
+</div>
+</div>
+<script src="/Users/carletonmoore/RadGrad/radgrad2/app/.coverage/prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="/Users/carletonmoore/RadGrad/radgrad2/app/.coverage/sorter.js"></script>
+<script src="/Users/carletonmoore/RadGrad/radgrad2/app/.coverage/block-navigation.js"></script>
+</body>
+</html>
