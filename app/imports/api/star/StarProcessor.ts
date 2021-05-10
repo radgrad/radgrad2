@@ -313,7 +313,7 @@ export const processStarJsonData = (student, jsonData) => {
 export const processBulkStarJsonData = (jsonData) => {
   const bulkData = {};
   jsonData.forEach((data) => {
-    console.log(data);
+    // console.log(data);
     const student = data.email;
     if (!bulkData[student]) {
       bulkData[student] = {};
