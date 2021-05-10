@@ -21,6 +21,7 @@ import AdminDataModelVerificationRequestsPage from '../../pages/admin/AdminDataM
 import AdvisorHomePage from '../../pages/advisor/AdvisorHomePage';
 import AdvisorManageStudentsPage from '../../pages/advisor/AdvisorManageStudentsPage';
 import AlumniHomePage from '../../pages/alumni/AlumniHomePage';
+import OnboardPhilipPage from '../../pages/onboard/philip/OnboardPhilipPage';
 import CareerGoalBrowserViewPage from '../../pages/shared/browser-view/CareerGoalBrowserViewPage';
 import CareerGoalViewPage from '../../pages/shared/item-view/CareerGoalViewPage';
 import CommunityPage from '../../pages/shared/CommunityPage';
@@ -215,5 +216,6 @@ export const routes = {
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/onboard/shinya`, component: OnboardShinyaPage },
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/onboard/caliana`, component: OnboardCalianaPage },
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/onboard/timothy`, component: OnboardTimothyPage },
+    { path: `/${URL_ROLES.STUDENT}/${USERNAME}/onboard/philip`, component: OnboardPhilipPage },
   ],
 };
