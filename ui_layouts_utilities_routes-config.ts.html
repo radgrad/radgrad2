@@ -130,16 +130,16 @@ import LandingOpportunityExplorerPage from '../../pages/landing/LandingOpportuni
 import ManageOpportunitiesPage from '../../pages/shared/ManageOpportunitiesPage';
 import ManageReviewsPage from '../../pages/shared/ManageReviewsPage';
 import ManageVerificationsPage from '../../pages/shared/ManageVerificationsPage';
+import OnboardTreyPage from '../../pages/onboard/trey/OnboardTreyPage';
+import OnboardCalianaPage from '../../pages/onboard/caliana/OnboardCalianaPage';
+import OnboardShinyaPage from '../../pages/onboard/shinya/OnboardShinyaPage';
+import OnboardTimothyPage from '../../pages/onboard/timothy/OnboardTimothyPage';
 import OpportunityBrowserViewPage from '../../pages/shared/browser-view/OpportunityBrowserViewPage';
 import OpportunityViewPage from '../../pages/shared/item-view/OpportunityViewPage';
 import SandboxLabelPage from '../../pages/sandbox/SandboxLabelPage';
 import SandBoxSegmentPage from '../../pages/sandbox/SandBoxSegmentPage';
 import SandBoxStickyStatePage from '../../pages/sandbox/SandBoxStickyStatePage';
 import SandBoxTabPage from '../../pages/sandbox/SandBoxTabPage';
-import SandBoxTreyPage from '../../pages/sandbox/onboard/SandBoxTreyPage';
-import SandBoxCalianaPage from '../../pages/sandbox/onboard/SandBoxCalianaPage';
-import SandBoxShinyaPage from '../../pages/sandbox/onboard/SandBoxShinyaPage';
-import SandBoxTimothyPage from '../../pages/sandbox/onboard/SandBoxTimothyPage';
 import StudentDegreePlannerPage from '../../pages/student/StudentDegreePlannerPage';
 import StudentHomePage from '../../pages/student/StudentHomePage';
 import StudentIcePage from '../../pages/student/StudentIcePage';
@@ -297,10 +297,11 @@ export const routes = {
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/sandbox/segments`, component: SandBoxSegmentPage },
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/sandbox/tabs`, component: SandBoxTabPage },
     { path: `/${URL_ROLES.STUDENT}/${USERNAME}/sandbox/stickystate`, component: SandBoxStickyStatePage },
-    { path: `/${URL_ROLES.STUDENT}/${USERNAME}/sandbox/onboard/trey`, component: SandBoxTreyPage },
-    { path: `/${URL_ROLES.STUDENT}/${USERNAME}/sandbox/onboard/shinya`, component: SandBoxShinyaPage },
-    { path: `/${URL_ROLES.STUDENT}/${USERNAME}/sandbox/onboard/caliana`, component: SandBoxCalianaPage },
-    { path: `/${URL_ROLES.STUDENT}/${USERNAME}/sandbox/onboard/timothy`, component: SandBoxTimothyPage },
+    // Following sites access the onboarding pages.
+    { path: `/${URL_ROLES.STUDENT}/${USERNAME}/onboard/trey`, component: OnboardTreyPage },
+    { path: `/${URL_ROLES.STUDENT}/${USERNAME}/onboard/shinya`, component: OnboardShinyaPage },
+    { path: `/${URL_ROLES.STUDENT}/${USERNAME}/onboard/caliana`, component: OnboardCalianaPage },
+    { path: `/${URL_ROLES.STUDENT}/${USERNAME}/onboard/timothy`, component: OnboardTimothyPage },
   ],
 };
 </code></pre>
