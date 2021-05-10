@@ -1,3 +1,4 @@
+import { CallPromiseMixin } from 'meteor/didericis:callpromise-mixin';
 import { Meteor } from 'meteor/meteor';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import moment from 'moment';
@@ -77,7 +78,8 @@ const processStudentStarDefinitions = (advisor, student, definitions) => {
   // console.log(`${student} had ${numInterstingCourses} course(s)`);
   // update the student's lastRegistrarLoad
   const lastRegistrarLoad = moment().format('YYYY-MM-DD-HH-mm-ss');
-  const docID = studentID;
+  const profile = Users.getProfile(student);
+  const docID = profile._id;
   StudentProfiles.update(docID, { lastRegistrarLoad });
 };
 
@@ -201,6 +203,7 @@ const processBulkStarDataJson = (advisor, jsonData) => {
  */
 export const starBulkLoadDataMethod = new ValidatedMethod({
   name: 'StarProcess.bulkLoadStarCsvData',
+  mixins: [CallPromiseMixin],
   validate: null,
   run(data) {
     if (!this.userId) {
@@ -212,11 +215,13 @@ export const starBulkLoadDataMethod = new ValidatedMethod({
 
 export const starBulkLoadJsonDataMethod = new ValidatedMethod({
   name: 'StarProcess.bulkLoadStarJsonData',
+  mixins: [CallPromiseMixin],
   validate: null,
   run(data) {
     if (!this.userId) {
       throw new Meteor.Error('unauthorized', 'You must be logged in to define Star data.');
     }
+    // console.log(data);
     return processBulkStarDataJson(data.advisor, data.jsonData);
   },
 });
