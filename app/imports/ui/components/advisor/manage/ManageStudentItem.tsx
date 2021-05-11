@@ -1,11 +1,11 @@
 import React from 'react';
-import { Grid } from 'semantic-ui-react';
-import moment from 'moment';
+import { Grid, Icon } from 'semantic-ui-react';
+import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
+import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
 import { ButtonLink } from '../../shared/button/ButtonLink';
 import RadGradMenuLevel from '../../shared/RadGradMenuLevel';
 import EditStudentButton from './EditStudentButton';
 import { ManageStudentProps } from './ManageStudentProps';
-import MatriculateStudentButton from './MartriculateStudentButton';
 
 
 const ManageStudentItem: React.FC<ManageStudentProps> = ({
@@ -18,11 +18,13 @@ const ManageStudentItem: React.FC<ManageStudentProps> = ({
   profileInterests,
 }) => {
   const name = `${student.lastName}, ${student.firstName}`;
-  const updatedOn = student.updatedAt ? student.updatedAt : student.createdAt;
-  const updatedOnStr = `Updated on ${moment(updatedOn).format('MM/DD/YYYY')}`;
+  // const updatedOn = student.updatedAt ? student.updatedAt : student.createdAt;
+  // const updatedOnStr = `Updated on ${moment(updatedOn).format('MM/DD/YYYY')}`;
+  const lastTerm = StudentProfiles.getLastAcademicTerm(student.username);
   return (
     <Grid.Row>
       <Grid.Column width={3}>
+        {student.retired ? <Icon name='eye slash'/> : ''}
         {name}
       </Grid.Column>
       <Grid.Column width={2}>
@@ -30,15 +32,14 @@ const ManageStudentItem: React.FC<ManageStudentProps> = ({
                            opportunities={opportunities} profileCareerGoals={profileCareerGoals}
                            profileInterests={profileInterests} />
       </Grid.Column>
-      <Grid.Column width={2}>
-        <MatriculateStudentButton student={student} size='mini' />
-      </Grid.Column>
+      <Grid.Column width={2} />
       <Grid.Column width={3}>
         <ButtonLink url={`/${student.isAlumni ? 'alumni' : 'student'}/${student.username}/home`} label='student view'
                     size='mini' />
       </Grid.Column>
       <Grid.Column width={3}>
-        {updatedOnStr}
+        {/* updatedOnStr */}
+        {AcademicTerms.toString(lastTerm._id)}
       </Grid.Column>
       <Grid.Column width={2}>
         <RadGradMenuLevel level={student.level} />

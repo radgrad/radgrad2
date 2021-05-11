@@ -7,6 +7,7 @@ import RadGradTabHeader from '../../shared/RadGradTabHeader';
 import AdvisorAddStudentTab from './AdvisorAddStudentTab';
 import AdvisorOtherTab from './AdvisorOtherTab';
 import AdvisorUpdateStudentTab from './AdvisorUpdateStudentTab';
+import MatriculateStudentsTab from './MatriculateStudentsTab';
 
 
 const AdvisorManageStudents: React.FC<AdvisorManageStudentsProps> = ({
@@ -36,6 +37,10 @@ const AdvisorManageStudents: React.FC<AdvisorManageStudentsProps> = ({
     {
       menuItem: <Menu.Item key='other-tab'><RadGradTabHeader title='other' /></Menu.Item>,
       render: () => (<AdvisorOtherTab />),
+    },
+    {
+      menuItem: <Menu.Item key='matriculate-tab'><RadGradTabHeader title='matriculate students' /></Menu.Item>,
+      render: () => (<MatriculateStudentsTab students={students} alumni={alumni} />),
     },
   ];
   return (

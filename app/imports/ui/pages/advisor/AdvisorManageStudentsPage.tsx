@@ -40,15 +40,15 @@ const AdvisorManageStudentsPage: React.FC<AdvisorManageStudentsProps> = ({
 );
 
 const AdvisorManageStudentsTracker = withTracker(() => {
-  const students = StudentProfiles.findNonRetired({ isAlumni: false }, { sort: { username: 1 } });
-  const alumni = StudentProfiles.findNonRetired({ isAlumni: true }, { sort: { username: 1 } });
+  const students = StudentProfiles.find({ isAlumni: false }, { sort: { username: 1 } }).fetch();
+  const alumni = StudentProfiles.find({ isAlumni: true }, { sort: { username: 1 } }).fetch();
   const careerGoals = CareerGoals.findNonRetired({}, { sort: { name: 1 } });
   const courses = Courses.findNonRetired({}, { sort: { num: 1 } });
   const interests = Interests.findNonRetired({}, { sort: { name: 1 } });
   const opportunities = Opportunities.findNonRetired({}, { sort: { name: 1 } });
   const profileCareerGoals = ProfileCareerGoals.findNonRetired({});
   const profileInterests = ProfileInterests.findNonRetired({});
-  console.log(students, alumni);
+  // console.log(students, alumni);
   return {
     students,
     alumni,
