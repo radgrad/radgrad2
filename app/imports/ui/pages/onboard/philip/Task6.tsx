@@ -34,7 +34,7 @@ const Task6: React.FC<Task6Props> = ({ interests }) => {
   const onEditDescription = (newDescription) => {
     const updateData = { id, description: newDescription };
     updateMethod.callPromise({ collectionName: Interests.getCollectionName(), updateData })
-      .then((result) => Swal.fire({ title: 'Interest Updated', icon: 'success' }))
+      .then((result) => Swal.fire({ title: 'Description Updated', icon: 'success' }))
       .catch((error) => Swal.fire({ title: 'Update Failed', text: error.message, icon: 'error' }));
   };
 
