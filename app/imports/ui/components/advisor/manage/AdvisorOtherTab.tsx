@@ -99,25 +99,32 @@ const AdvisorOtherTab: React.FC = () => {
   const handleStarSubmit = () => {
     setIsUploadWorking(true);
     const jsonData = bulkCourseDataState;
-    starBulkLoadJsonDataMethod.call(jsonData, (error) => {
-      if (error) {
+    const data = {
+      advisor: Meteor.user().username,
+      jsonData,
+    };
+    console.log(data);
+    starBulkLoadJsonDataMethod.callPromise(data)
+      .then((result) => {
+        Swal.fire({
+          title: 'Bulk Course Data loaded successfully',
+          icon: 'success',
+          text: result,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        setIsUploadWorking(false);
+      })
+      .catch((error) => {
         Swal.fire({
           title: 'Error loading bulk course data',
           text: error.message,
           icon: 'error',
         });
         console.error('Error in updating. %o', error);
-      } else {
-        Swal.fire({
-          title: 'Bulk Course Data loaded successfully',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
         setBulkCourseData('');
-      }
-      setIsUploadWorking(false);
-    });
+        setIsUploadWorking(false);
+      });
   };
 
   const getStudentEmails = () => {
