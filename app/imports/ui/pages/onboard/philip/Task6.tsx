@@ -11,7 +11,6 @@ import RadGradSegment from '../../../components/shared/RadGradSegment';
 import Task6EditDescription from './Task6EditDescription';
 import { updateMethod } from '../../../../api/base/BaseCollection.methods';
 
-
 interface Task6Props {
   interests: Interest[];
 }
@@ -25,6 +24,7 @@ const Task6: React.FC<Task6Props> = ({ interests }) => {
   const formSchema = new SimpleSchema2Bridge(schema);
   const [description, setDescription] = useState('');
   const [id, setId] = useState('');
+
   const onSubmit = ({ interest }) => {
     const doc = Interests.findDoc(interest);
     setDescription(doc.description);
