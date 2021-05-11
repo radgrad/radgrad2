@@ -10918,6 +10918,27 @@
           "shareICE": false
         },
         {
+          "username": "ruizaj@hawaii.edu",
+          "firstName": "Andre",
+          "lastName": "Ruiz",
+          "picture": "/images/default-profile-picture.png",
+          "interests": [],
+          "careerGoals": [],
+          "level": 1,
+          "profileCourses": [],
+          "profileOpportunities": [],
+          "isAlumni": false,
+          "retired": false,
+          "sharePicture": false,
+          "shareWebsite": false,
+          "shareInterests": false,
+          "shareCareerGoals": false,
+          "shareOpportunities": false,
+          "shareCourses": false,
+          "shareLevel": false,
+          "shareICE": false
+        },
+        {
           "username": "thuo@hawaii.edu",
           "firstName": "Timothy",
           "lastName": "Huo",
