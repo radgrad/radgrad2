@@ -8,10 +8,10 @@ import { openCloudinaryWidget } from '../../../../app/imports/ui/components/shar
 import { updateMethod } from '../../../../app/imports/api/base/BaseCollection.methods';
 import { RadGrad } from '../../../../app/imports/api/radgrad/RadGrad';
 import { defaultCalcLevel } from '../../../../app/imports/api/level/LevelProcessor';
-import { setSelectedStudentUsername } from '../../../../app/imports/redux/advisor/home/actions';
+import { setSelectedStudentUsername } from '../../../redux/advisor/home/actions';
 import { ProfileInterests } from '../../../../app/imports/api/user/profile-entries/ProfileInterestCollection';
 import { ProfileCareerGoals } from '../../../../app/imports/api/user/profile-entries/ProfileCareerGoalCollection';
-import { RootState } from '../../../../app/imports/redux/types';
+import { RootState } from '../../../redux/types';
 import { BaseProfile, CareerGoal, Interest } from '../../../../app/imports/typings/radgrad';
 
 interface AdvisorUpdateStudentWidgetProps {

@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { AutoForm } from 'uniforms-semantic/';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
-import { cardExplorerActions } from '../../app/imports/redux/shared/cardExplorer';
-import { RootState } from '../../app/imports/redux/types';
+import { cardExplorerActions } from '../redux/shared/cardExplorer';
+import { RootState } from '../redux/types';
 import RadioField from '../../app/imports/ui/components/form-fields/RadioField';
 import { EXPLORER_TYPE } from '../../app/imports/ui/layouts/utilities/route-constants';
 

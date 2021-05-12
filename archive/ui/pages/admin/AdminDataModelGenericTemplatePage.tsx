@@ -9,7 +9,7 @@ import AdminDataModelAddForm from '../../../../app/imports/ui/components/admin/d
 import { DescriptionPair } from '../../../../app/imports/typings/radgrad';
 import { defineMethod, removeItMethod, updateMethod } from '../../../../app/imports/api/base/BaseCollection.methods';
 import BackToTopButton from '../../../../app/imports/ui/components/shared/BackToTopButton';
-import { dataModelActions } from '../../../../app/imports/redux/admin/data-model';
+import { dataModelActions } from '../../../redux/admin/data-model';
 
 const collection = null; // the collection to use.
 
