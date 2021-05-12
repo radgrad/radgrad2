@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Pagination, PaginationProps } from 'semantic-ui-react';
-import { cardExplorerActions } from '../../app/imports/redux/shared/cardExplorer';
+import { cardExplorerActions } from '../redux/shared/cardExplorer';
 
 interface ExplorerOpportunitiesPaginationWidgetProps {
   type: string;

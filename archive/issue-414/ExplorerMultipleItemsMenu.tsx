@@ -1,6 +1,6 @@
 import React from 'react';
-import { CareerGoal, Course, Interest, Opportunity } from '../../../../../typings/radgrad';
-import { IExplorerTypes } from '../utilities/explorer';
+import { CareerGoal, Course, Interest, Opportunity } from '../../app/imports/typings/radgrad';
+import { IExplorerTypes } from './utilities/explorer';
 import CardExplorerMenuNonMobileWidget from './ExplorerMultipleItemsMenuNonMobileWidget';
 import CardExplorerMenuMobileWidget from './ExplorerMultipleItemsMenuMobileWidget';
 

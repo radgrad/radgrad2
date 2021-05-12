@@ -8,8 +8,8 @@ import { CareerGoal, Interest, StudentProfile } from '../../../../app/imports/ty
 import AdvisorAddStudentTab from '../../../../app/imports/ui/components/advisor/manage/AdvisorAddStudentTab';
 import { generateStudentEmailsMethod } from '../../../../app/imports/api/user/UserCollection.methods';
 import { starBulkLoadJsonDataMethod } from '../../../../app/imports/api/star/StarProcessor.methods';
-import { homeActions } from '../../../../app/imports/redux/advisor/home';
-import { RootState } from '../../../../app/imports/redux/types';
+import { homeActions } from '../../../redux/advisor/home';
+import { RootState } from '../../../redux/types';
 
 /* global FileReader */
 

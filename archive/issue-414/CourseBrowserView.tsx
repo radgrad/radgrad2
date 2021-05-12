@@ -3,14 +3,14 @@ import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { Card, Header, Segment } from 'semantic-ui-react';
 import _ from 'lodash';
-import { Users } from '../../../../../api/user/UserCollection';
-import { scrollPositionActions } from '../../../../../redux/shared/scrollPosition';
-import { RootState } from '../../../../../redux/types';
-import { Course, ProfileCourse } from '../../../../../typings/radgrad';
+import { Users } from '../../app/imports/api/user/UserCollection';
+import { scrollPositionActions } from '../redux/shared/scrollPosition';
+import { RootState } from '../redux/types';
+import { Course, ProfileCourse } from '../../app/imports/typings/radgrad';
 import TermCard from './TermCard';
-import { ROLE } from '../../../../../api/role/Role';
+import { ROLE } from '../../app/imports/api/role/Role';
 import CourseFilterWidget, { courseFilterKeys } from './CourseFilterWidget';
-import BackToTopButton from '../../BackToTopButton';
+import BackToTopButton from '../../app/imports/ui/components/shared/BackToTopButton';
 
 interface CourseBrowserViewProps {
   profileCourses: ProfileCourse[];

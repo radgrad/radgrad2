@@ -1,20 +1,20 @@
 import React from 'react';
 import _ from 'lodash';
-import { CareerGoal, Course, Interest, Opportunity, StudentProfile } from '../../../../../typings/radgrad';
-import * as Router from '../../utilities/router';
-import { Users } from '../../../../../api/user/UserCollection';
-import { OpportunityInstances } from '../../../../../api/opportunity/OpportunityInstanceCollection';
-import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
-import { AcademicTerms } from '../../../../../api/academic-term/AcademicTermCollection';
-import PreferredChoice from '../../../../../api/degree-plan/PreferredChoice';
-import { StudentProfiles } from '../../../../../api/user/StudentProfileCollection';
-import { Opportunities } from '../../../../../api/opportunity/OpportunityCollection';
-import { profileGetCareerGoalIDs } from '../../utilities/data-model';
-import { defaultProfilePicture } from '../../../../../api/user/BaseProfileCollection';
-import { ProfileCareerGoals } from '../../../../../api/user/profile-entries/ProfileCareerGoalCollection';
-import { ProfileInterests } from '../../../../../api/user/profile-entries/ProfileInterestCollection';
-import { ProfileOpportunities } from '../../../../../api/user/profile-entries/ProfileOpportunityCollection';
-import { MatchProps } from '../../utilities/router';
+import { CareerGoal, Course, Interest, Opportunity, StudentProfile } from '../../../app/imports/typings/radgrad';
+import * as Router from '../../../app/imports/ui/components/shared/utilities/router';
+import { Users } from '../../../app/imports/api/user/UserCollection';
+import { OpportunityInstances } from '../../../app/imports/api/opportunity/OpportunityInstanceCollection';
+import { EXPLORER_TYPE } from '../../../app/imports/ui/layouts/utilities/route-constants';
+import { AcademicTerms } from '../../../app/imports/api/academic-term/AcademicTermCollection';
+import PreferredChoice from '../../../app/imports/api/degree-plan/PreferredChoice';
+import { StudentProfiles } from '../../../app/imports/api/user/StudentProfileCollection';
+import { Opportunities } from '../../../app/imports/api/opportunity/OpportunityCollection';
+import { profileGetCareerGoalIDs } from '../../../app/imports/ui/components/shared/utilities/data-model';
+import { defaultProfilePicture } from '../../../app/imports/api/user/BaseProfileCollection';
+import { ProfileCareerGoals } from '../../../app/imports/api/user/profile-entries/ProfileCareerGoalCollection';
+import { ProfileInterests } from '../../../app/imports/api/user/profile-entries/ProfileInterestCollection';
+import { ProfileOpportunities } from '../../../app/imports/api/user/profile-entries/ProfileOpportunityCollection';
+import { MatchProps } from '../../../app/imports/ui/components/shared/utilities/router';
 
 export type ExplorerInterfaces = CareerGoal | Course | Interest | Opportunity;
 

@@ -3,7 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import { useRouteMatch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getAllUrlParamsByLocationObject, getUsername, LocationProps } from '../../app/imports/ui/components/shared/utilities/router';
-import { RootState } from '../../app/imports/redux/types';
+import { RootState } from '../redux/types';
 import { Slugs } from '../../app/imports/api/slug/SlugCollection';
 import { PageInterestDefine } from '../../app/imports/typings/radgrad';
 import { UserInteractionsTypes } from '../../app/imports/api/analytic/UserInteractionsTypes';

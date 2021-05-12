@@ -1,21 +1,13 @@
 import React from 'react';
-import { useParams, useRouteMatch } from 'react-router-dom';
-import { Grid } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Course, ProfileCourse } from '../../../../typings/radgrad';
-import * as Router from '../../../components/shared/utilities/router';
-import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
+import { Course } from '../../../../typings/radgrad';
 import { Courses } from '../../../../api/course/CourseCollection';
-import ExplorerMultipleItemsMenu from '../../../components/shared/explorer/browser-view/ExplorerMultipleItemsMenu';
-import { IExplorerTypes } from '../../../components/shared/explorer/utilities/explorer';
-import { Users } from '../../../../api/user/UserCollection';
-import { ProfileCourses } from '../../../../api/user/profile-entries/ProfileCourseCollection';
-import CourseBrowserView from '../../../components/shared/explorer/browser-view/CourseBrowserView';
 import { PAGEIDS } from '../../../utilities/PageIDs';
 import PageLayout from '../../PageLayout';
+import BrowserView from '../../../components/shared/explorer/browser-view/BrowserView';
+import { EXPLORER_TYPE } from '../../../utilities/ExplorerUtils';
 
 interface CourseBrowserViewPageProps {
-  profileCourses: ProfileCourse[];
   courses: Course[];
 }
 
@@ -31,41 +23,16 @@ Once they are in your plan, RadGrad can update your Competency points and do a b
 const headerPaneImage = 'header-courses.png';
 
 
-const CourseBrowserViewPage: React.FC<CourseBrowserViewPageProps> = ({ profileCourses, courses }) => {
-  const match = useRouteMatch();
-  const profileCourseDocs = profileCourses.map((f) => Courses.findDoc(f.courseID));
-  const menuAddedList = profileCourseDocs.map((c) => ({ item: c, count: 1 })); // TODO why supply count?
-  const role = Router.getRoleByUrl(match);
-  const showProfileEntries = role === 'student';
-  const columnWidth = showProfileEntries ? 12 : 16;
-  return (
+const CourseBrowserViewPage: React.FC<CourseBrowserViewPageProps> = ({ courses }) => (
     <PageLayout id={PAGEIDS.COURSE_BROWSER} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
-      <Grid stackable>
-        <Grid.Row>
-          {showProfileEntries ? (
-            <Grid.Column width={4}>
-              <ExplorerMultipleItemsMenu menuAddedList={menuAddedList} type={EXPLORER_TYPE.COURSES as IExplorerTypes} />
-            </Grid.Column>
-          ) : (
-            ' '
-          )}
-          <Grid.Column width={columnWidth}>
-            <CourseBrowserView profileCourses={profileCourses} courses={courses}/>
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
+        <BrowserView items={courses} explorerType={EXPLORER_TYPE.COURSES} />
     </PageLayout>
-  );
-};
+);
 
 export default withTracker(() => {
-  const { username } = useParams();
-  const profile = Users.getProfile(username);
-  const studentID = profile.userID;
-  const profileCourses = ProfileCourses.findNonRetired({ studentID });
-  const courses = Courses.findNonRetired({}); // TODO if user is undergrad student why are we showing grad courses?
+  const courses = Courses.findNonRetired({});
   return {
     courses,
-    profileCourses,
   };
 })(CourseBrowserViewPage);
+
