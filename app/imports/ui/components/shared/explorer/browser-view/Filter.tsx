@@ -4,7 +4,7 @@ import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { useStickyState } from '../../../../utilities/StickyState';
 import RadioField from '../../../form-fields/RadioField';
-import { EXPLORER_TYPE, EXPLORER_FILTER_KEYS } from '../../../../utilities/ExplorerUtils';
+import { EXPLORER_FILTER_KEYS, EXPLORER_TYPE } from '../../../../utilities/ExplorerUtils';
 
 interface FilterProps {
   explorerType: string;
@@ -24,7 +24,7 @@ const Filter: React.FC<FilterProps> = ({ explorerType }) => {
         allowedFilterValues = [EXPLORER_FILTER_KEYS.NONE, EXPLORER_FILTER_KEYS.INPROFILE, EXPLORER_FILTER_KEYS.NOTINPROFILE];
         break;
       case EXPLORER_TYPE.COURSES:
-        allowedFilterValues = [EXPLORER_FILTER_KEYS.NONE, EXPLORER_FILTER_KEYS.THREEHUNDREDPLUS, EXPLORER_FILTER_KEYS.FOURHUNDREDPLUS, EXPLORER_FILTER_KEYS.SIXHUNDREDPLUS];
+        allowedFilterValues = [EXPLORER_FILTER_KEYS.NONE, EXPLORER_FILTER_KEYS.INPROFILE, EXPLORER_FILTER_KEYS.THREEHUNDRED, EXPLORER_FILTER_KEYS.FOURHUNDRED, EXPLORER_FILTER_KEYS.SIXHUNDRED];
         break;
     }
     return allowedFilterValues;

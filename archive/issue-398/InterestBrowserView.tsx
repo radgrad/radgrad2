@@ -2,13 +2,13 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { Button, Card, Divider, Header, Icon, Segment } from 'semantic-ui-react';
-import { scrollPositionActions } from '../../app/imports/redux/shared/scrollPosition';
-import { RootState } from '../../app/imports/redux/types';
+import { scrollPositionActions } from '../redux/shared/scrollPosition';
+import { RootState } from '../redux/types';
 import { Interest } from '../../app/imports/typings/radgrad';
 import { EXPLORER_TYPE } from '../../app/imports/ui/layouts/utilities/route-constants';
 import { CHECKSTATE } from '../../app/imports/ui/components/checklist/Checklist';
 import { InterestsChecklist } from '../../app/imports/ui/components/checklist/InterestsChecklist';
-import ProfileCard from '../../app/imports/ui/components/shared/explorer/browser-view/ProfileCard';
+import ExplorerCard from '../../app/imports/ui/components/shared/explorer/browser-view/ExplorerCard';
 import WidgetHeaderNumber from '../../app/imports/ui/components/shared/explorer/WidgetHeaderNumber';
 import { RadGradProperties } from '../../app/imports/api/radgrad/RadGradProperties';
 import SortWidget, { interestSortKeys } from '../../app/imports/ui/components/shared/explorer/browser-view/Sort';
@@ -89,8 +89,8 @@ const InterestBrowserView: React.FC<InterestBrowserViewProps> = ({
         {!inProfile ? <SortWidget explorerType={EXPLORER_TYPE.INTERESTS}/> : ''}
         <Card.Group itemsPerRow={4} stackable id="interestsCardGroup">
           {interests.map((interest) => (
-            <ProfileCard key={interest._id} item={interest} type={EXPLORER_TYPE.INTERESTS}
-                         cardLinkName={inProfile ? 'See Details / Remove from Profile' : 'See Details / Add to Profile'} />
+            <ExplorerCard key={interest._id} item={interest} type={EXPLORER_TYPE.INTERESTS}
+                          cardLinkName={inProfile ? 'See Details / Remove from Profile' : 'See Details / Add to Profile'} />
           ))}
         </Card.Group>
       </Segment>
