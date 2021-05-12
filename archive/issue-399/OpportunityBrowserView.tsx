@@ -12,9 +12,9 @@ import { ProfileInterests } from '../../app/imports/api/user/profile-entries/Pro
 import PreferredChoice from '../../app/imports/api/degree-plan/PreferredChoice';
 import { Opportunity } from '../../app/imports/typings/radgrad';
 import { EXPLORER_TYPE } from '../../app/imports/ui/layouts/utilities/route-constants';
-import { RootState } from '../../app/imports/redux/types';
+import { RootState } from '../redux/types';
 import CardExplorersPaginationWidget from './ExplorerOpportunitiesPaginationWidget';
-import { CardExplorersPaginationState } from '../../app/imports/redux/shared/cardExplorer/reducers';
+import { CardExplorersPaginationState } from '../redux/shared/cardExplorer/reducers';
 
 interface CardExplorerOpportunitiesWidgetProps {
   pagination: CardExplorersPaginationState;

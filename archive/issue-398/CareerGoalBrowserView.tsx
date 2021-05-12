@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Button, Card, Divider, Header, Icon, Segment } from 'semantic-ui-react';
-import { scrollPositionActions } from '../../app/imports/redux/shared/scrollPosition';
-import { RootState } from '../../app/imports/redux/types';
+import { scrollPositionActions } from '../redux/shared/scrollPosition';
+import { RootState } from '../redux/types';
 import { CareerGoal } from '../../app/imports/typings/radgrad';
 import { EXPLORER_TYPE } from '../../app/imports/ui/layouts/utilities/route-constants';
 import ExplorerCard from '../../app/imports/ui/components/shared/explorer/browser-view/ExplorerCard';

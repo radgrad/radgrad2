@@ -11,7 +11,7 @@ import { Users } from '../../../../app/imports/api/user/UserCollection';
 import AddFeedbackInstanceForm from '../../component/admin/datamodel/feedback/AddFeedbackInstanceForm';
 import UpdateFeedbackInstanceForm from '../../component/admin/datamodel/feedback/UpdateFeedbackInstanceForm';
 import { profileNameToUsername } from '../../../../app/imports/ui/components/shared/utilities/data-model';
-import { dataModelActions } from '../../../../app/imports/redux/admin/data-model';
+import { dataModelActions } from '../../../redux/admin/data-model';
 import { getDatamodelCount } from '../../../../app/imports/ui/pages/admin/utilities/datamodel';
 import PageLayout from '../../../../app/imports/ui/pages/PageLayout';
 
