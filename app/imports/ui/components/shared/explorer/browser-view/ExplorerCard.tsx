@@ -11,6 +11,7 @@ import {
 import { buildExplorerSlugRoute } from '../../utilities/router';
 import InterestList from '../../InterestList';
 import TermList from './TermList';
+import { EXPLORER_TYPE } from '../../../../utilities/ExplorerUtils';
 
 interface ProfileCardProps {
   item: {
@@ -18,16 +19,17 @@ interface ProfileCardProps {
     name: string;
     interestIDs: string[];
     termIDs?:string[];
+    num?:string;
   };
   type: string;
   inProfile: boolean;
 }
 
-// TODO Why is this called ProfileCard? We used to store information about interests, career goals and academic plans in the Profile. We've moved them to the Profile*Collections.
+// TODO Why is this called ExplorerCard? We used to store information about interests, career goals and academic plans in the Profile. We've moved them to the Profile*Collections.
 
-const ProfileCard: React.FC<ProfileCardProps> = ({ item, type, inProfile }) => {
+const ExplorerCard: React.FC<ProfileCardProps> = ({ item, type, inProfile }) => {
   const match = useRouteMatch();
-  const itemName = docToName(item);
+  const itemName = (type === EXPLORER_TYPE.COURSES) ? `${item.name} (${item.num})` : docToName(item);
   const itemShortDescription = docToShortDescription(item);
   const slugName = itemToSlugName(item);
   return (
@@ -50,4 +52,4 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ item, type, inProfile }) => {
   );
 };
 
-export default ProfileCard;
+export default ExplorerCard;

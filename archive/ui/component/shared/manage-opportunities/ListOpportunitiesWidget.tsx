@@ -10,10 +10,10 @@ import AdminPaginationWidget from '../../../../../app/imports/ui/components/admi
 import { Opportunities } from '../../../../../app/imports/api/opportunity/OpportunityCollection';
 import { Slugs } from '../../../../../app/imports/api/slug/SlugCollection';
 import AdminDataModelAccordion from '../../admin/datamodel/AdminDataModelAccordion';
-import { dataModelActions } from '../../../../../app/imports/redux/admin/data-model';
+import { dataModelActions } from '../../../../redux/admin/data-model';
 import { getUserIdFromRoute } from '../../../../../app/imports/ui/components/shared/utilities/router';
 import { Users } from '../../../../../app/imports/api/user/UserCollection';
-import { RootState } from '../../../../../app/imports/redux/types';
+import { RootState } from '../../../../redux/types';
 
 interface ListOpportunitiesWidgetProps {
   collection: BaseCollection;

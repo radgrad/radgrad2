@@ -18,7 +18,7 @@ import { defineMethod, removeItMethod, updateMethod } from '../../../../app/impo
 import AdminDataModelUpdateForm from '../../../../app/imports/ui/components/admin/datamodel/AdminDataModelUpdateForm';
 import AddAdvisorLogFormContainer from '../../component/admin/advisor-log/AddAdvisorLogForm';
 import BackToTopButton from '../../../../app/imports/ui/components/shared/BackToTopButton';
-import { dataModelActions } from '../../../../app/imports/redux/admin/data-model';
+import { dataModelActions } from '../../../redux/admin/data-model';
 import { getDatamodelCount } from '../../../../app/imports/ui/pages/admin/utilities/datamodel';
 
 const descriptionPairs = (advisorLog: AdvisorLog): DescriptionPair[] => [

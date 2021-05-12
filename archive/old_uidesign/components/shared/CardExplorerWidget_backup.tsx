@@ -10,7 +10,7 @@
 // import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 // import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
 // import ExplorerCard from './ExplorerCard';
-// import ProfileCard from './ProfileCard';
+// import ExplorerCard from './ExplorerCard';
 // import TermCard from './TermCard';
 // import AcademicPlanCard from './AcademicPlanCard';
 // import { EXPLORER_TYPE } from '../../../startup/client/route-constants';
@@ -288,7 +288,7 @@
 //           }
 //           {
 //             buildProfileCard ?
-//               items.map((item) => <ProfileCard key={item._id} item={item} type={type} canAdd />) : ''
+//               items.map((item) => <ExplorerCard key={item._id} item={item} type={type} canAdd />) : ''
 //           }
 //           {
 //             buildTermCard ?
@@ -319,7 +319,7 @@
 //   const reactiveSourceForTermCardOne = CourseInstances.findNonRetired({});
 //   const reactiveSourceForTermCarTwo = OpportunityInstances.findNonRetired({});
 //
-//   /* Reactive sources to make Hiding a Course / Opportunity, ProfileCard reactive */
+//   /* Reactive sources to make Hiding a Course / Opportunity, ExplorerCard reactive */
 //   const reactiveSourceProfile = Users.getProfile(username);
 //
 //   /* Reactuve sources to make Users Explorer Cards reactive */

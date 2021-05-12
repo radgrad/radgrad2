@@ -1,5 +1,5 @@
 import * as TYPES from './types';
-import { UserInteraction } from '../../../typings/radgrad';
+import { UserInteraction } from '../../../../app/imports/typings/radgrad';
 
 export interface AdminAnalyticsDateRange {
   startDate: Date;

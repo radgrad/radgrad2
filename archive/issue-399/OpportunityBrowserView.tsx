@@ -4,7 +4,7 @@ import { useRouteMatch } from 'react-router-dom';
 import { Header, Divider, Grid, Container } from 'semantic-ui-react';
 import _ from 'lodash';
 import WidgetHeaderNumber from '../../app/imports/ui/components/shared/explorer/WidgetHeaderNumber';
-import { availableOpps, checkForNoItems, IExplorerTypes, matchingOpportunities } from '../../app/imports/ui/components/shared/explorer/utilities/explorer';
+import { availableOpps, checkForNoItems, IExplorerTypes, matchingOpportunities } from '../issue-414/utilities/explorer';
 import OpportunitySortWidget, { opportunitySortKeys } from './OpportunitySortWidget';
 import OpportunityInformationItem, { OpportunityInformationItemConfiguration } from './OpportunityInformationItem';
 import * as Router from '../../app/imports/ui/components/shared/utilities/router';
@@ -12,9 +12,9 @@ import { ProfileInterests } from '../../app/imports/api/user/profile-entries/Pro
 import PreferredChoice from '../../app/imports/api/degree-plan/PreferredChoice';
 import { Opportunity } from '../../app/imports/typings/radgrad';
 import { EXPLORER_TYPE } from '../../app/imports/ui/layouts/utilities/route-constants';
-import { RootState } from '../../app/imports/redux/types';
+import { RootState } from '../redux/types';
 import CardExplorersPaginationWidget from './ExplorerOpportunitiesPaginationWidget';
-import { CardExplorersPaginationState } from '../../app/imports/redux/shared/cardExplorer/reducers';
+import { CardExplorersPaginationState } from '../redux/shared/cardExplorer/reducers';
 
 interface CardExplorerOpportunitiesWidgetProps {
   pagination: CardExplorersPaginationState;
