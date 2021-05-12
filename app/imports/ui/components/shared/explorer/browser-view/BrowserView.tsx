@@ -175,7 +175,7 @@ const BrowserView: React.FC<BrowserViewProps> = ({ items, explorerType }) => {
           <Grid.Column>
             <Filter explorerType={explorerType} />
           </Grid.Column>
-          <Grid.Column textAlign="right">
+          <Grid.Column>
             <Sort explorerType={explorerType} />
           </Grid.Column>
         </Grid.Row>
