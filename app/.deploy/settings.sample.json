@@ -20,6 +20,7 @@
       "two": {"plannedICE": {"i": 0, "c": 0, "e": 0}, "earnedICE": {"i": 0, "c": 12, "e": 0}, "reviews": 0 }
     },
     "quarterSystem": false,
+    "repeatableCourseNums": ["ICS 499"],
     "adminProfile": {"username": "CHANGEME", "firstName": "RadGrad", "lastName": "Admin"},
     "emailDomain": "CHANGEME.EDU",
     "newsletterFrom": "RadGrad Admin <CHANGEME@HAWAII.EDU>"
