@@ -1,10 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Divider, Grid, Header, Segment } from 'semantic-ui-react';
 import { useRouteMatch } from 'react-router-dom';
 import Markdown from 'react-markdown';
-import { AcademicTerms } from '../../../../../../api/academic-term/AcademicTermCollection';
-import { getFutureEnrollmentSingleMethod } from '../../../../../../api/utilities/FutureEnrollment.methods';
-import { ENROLLMENT_TYPE, EnrollmentForecast } from '../../../../../../startup/both/RadGradForecasts';
 import StudentExplorerReviewWidget from '../../../../student/explorer/StudentExplorerReviewWidget';
 import { AcademicTerm, Course, Profile, Review } from '../../../../../../typings/radgrad';
 import { Teasers } from '../../../../../../api/teaser/TeaserCollection';
@@ -49,32 +46,6 @@ const ExplorerCourse: React.FC<ExplorerCoursesWidgetProps> = ({ course, complete
   const match = useRouteMatch();
   const hasTeaser = Teasers.findNonRetired({ targetSlugID: course.slugID }).length > 0;
   const isStudent = profile.role === ROLE.STUDENT;
-  const [data, setData] = useState<EnrollmentForecast>({});
-  const [fetched, setFetched] = useState(false);
-
-  useEffect(() => {
-    // console.log('check for infinite loop');
-    function fetchData() {
-      getFutureEnrollmentSingleMethod.callPromise({ id: course._id, type: ENROLLMENT_TYPE.COURSE })
-        .then((result) => setData(result))
-        .catch((error) => {
-          console.error(error);
-          setData({});
-        });
-    }
-
-    // Only fetch data if it hasn't been fetched before.
-    if (!fetched) {
-      fetchData();
-      setFetched(true);
-    }
-  }, [fetched, course._id]);
-  let academicTerms = [];
-  let scores = [];
-  if (data?.enrollment) {
-    academicTerms = data.enrollment.map((entry) => AcademicTerms.findDoc(entry.termID));
-    scores = data.enrollment.map((entry) => entry.count);
-  }
   return (
     <div id="explorerCourseWidget">
       <Segment padded className="container" style={segmentStyle}>
