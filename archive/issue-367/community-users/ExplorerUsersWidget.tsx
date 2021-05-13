@@ -6,7 +6,7 @@ import { BaseProfile } from '../../../app/imports/typings/radgrad';
 import { defaultProfilePicture } from '../../../app/imports/api/user/BaseProfileCollection';
 import { ROLE } from '../../../app/imports/api/role/Role';
 import InterestList from '../../../app/imports/ui/components/shared/InterestList';
-import { capitalizeFirstLetter } from '../../../app/imports/ui/components/shared/utilities/general';
+import { capitalizeFirstLetter } from '../../issue-412/general';
 
 interface ExplorerUsersWidgetProps {
   userProfile: BaseProfile;

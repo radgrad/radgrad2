@@ -1,8 +1,8 @@
 import React from 'react';
 import { Dropdown } from 'semantic-ui-react';
 import { NavLink, useRouteMatch } from 'react-router-dom';
-import { EXPLORER_TYPE } from '../../../layouts/utilities/route-constants';
-import * as Router from '../utilities/router';
+import { EXPLORER_TYPE } from '../../app/imports/ui/layouts/utilities/route-constants';
+import * as Router from '../../app/imports/ui/components/shared/utilities/router';
 
 interface ExplorerNavDropdownProps {
   text: string;

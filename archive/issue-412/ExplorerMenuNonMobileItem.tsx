@@ -1,23 +1,17 @@
 import React from 'react';
 import _ from 'lodash';
 import { NavLink, useRouteMatch } from 'react-router-dom';
-import { Dropdown } from 'semantic-ui-react';
-import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
-import { CareerGoal, Course, Interest, Opportunity } from '../../../../../typings/radgrad';
-import { Users } from '../../../../../api/user/UserCollection';
-import { CourseInstances } from '../../../../../api/course/CourseInstanceCollection';
-import { OpportunityInstances } from '../../../../../api/opportunity/OpportunityInstanceCollection';
-import * as Router from '../../utilities/router';
-import { itemToSlugName, profileGetCareerGoalIDs } from '../../utilities/data-model';
+import { Menu } from 'semantic-ui-react';
+import { EXPLORER_TYPE } from '../../app/imports/ui/layouts/utilities/route-constants';
+import * as Router from '../../app/imports/ui/components/shared/utilities/router';
+import { CareerGoal, Course, Interest, Opportunity } from '../../app/imports/typings/radgrad';
+import { Users } from '../../app/imports/api/user/UserCollection';
+import { CourseInstances } from '../../app/imports/api/course/CourseInstanceCollection';
+import { OpportunityInstances } from '../../app/imports/api/opportunity/OpportunityInstanceCollection';
+import { itemToSlugName, profileGetCareerGoalIDs } from '../../app/imports/ui/components/shared/utilities/data-model';
+import { ExplorerInterfaces, ListItem } from './ExplorerMenuMobileItem';
 
-export type ExplorerInterfaces = CareerGoal | Course | Interest | Opportunity;
-
-export interface ListItem {
-  item: ExplorerInterfaces;
-  count: number;
-}
-
-interface ExplorerMenuMobileItemProps {
+interface ExplorerMenuNonMobileItemProps {
   type: string;
   listItem: ListItem;
 }
@@ -80,23 +74,33 @@ const userOpportunities = (opportunity: Opportunity, match): string => {
   return ret;
 };
 
+const opportunityItemName = (item: { item: Opportunity; count: number }): string => {
+  const countStr = `x${item.count}`;
+  const iceString = `(${item.item.ice.i}/${item.item.ice.c}/${item.item.ice.e})`;
+  if (item.count > 1) {
+    return `${item.item.name} ${iceString} ${countStr}`;
+  }
+  return `${item.item.name} ${iceString}`;
+};
+
 // Determines whether or not we show a "check green circle outline icon" for an item
-const getItemStatus = (item: ExplorerInterfaces, type: string, match): string => {
+const getItemStatus = (item: ExplorerInterfaces, props: ExplorerMenuNonMobileItemProps): string => {
+  const { type } = props;
   switch (type) {
     case EXPLORER_TYPE.CAREERGOALS:
-      return userCareerGoals(item as CareerGoal, match);
+      return userCareerGoals(item as CareerGoal, props);
     case EXPLORER_TYPE.COURSES:
-      return userCourses(item as Course, match);
+      return userCourses(item as Course, props);
     case EXPLORER_TYPE.INTERESTS:
-      return userInterests(item as Interest, match);
+      return userInterests(item as Interest, props);
     case EXPLORER_TYPE.OPPORTUNITIES:
-      return userOpportunities(item as Opportunity, match);
+      return userOpportunities(item as Opportunity, props);
     default:
       return '';
   }
 };
 
-const ExplorerMenuMobileItem: React.FC<ExplorerMenuMobileItemProps> = ({ type, listItem }) => {
+const ExplorerMenuNonMobileItem: React.FC<ExplorerMenuNonMobileItemProps> = ({ type, listItem }) => {
   const match = useRouteMatch();
   const iconStyle: React.CSSProperties = {
     position: 'absolute',
@@ -104,18 +108,13 @@ const ExplorerMenuMobileItem: React.FC<ExplorerMenuMobileItemProps> = ({ type, l
   };
 
   return (
-    <Dropdown.Item
-      as={NavLink}
-      exact
-      to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${type}/${itemToSlugName(listItem.item)}`)}
-      text={
-        <React.Fragment>
-          <i className={getItemStatus(listItem.item, type, match)} style={iconStyle} />
-          {type !== EXPLORER_TYPE.COURSES ? itemName(listItem) : courseName(listItem as { item: Course; count: number })}
-        </React.Fragment>
-      }
-    />
+    <Menu.Item as={NavLink} exact to={Router.buildRouteName(match, `/${EXPLORER_TYPE.HOME}/${type}/${itemToSlugName(listItem.item)}`)}>
+      <i className={getItemStatus(listItem.item, match)} style={iconStyle} />
+      {type === EXPLORER_TYPE.OPPORTUNITIES && opportunityItemName(listItem as { item: Opportunity; count: number })}
+      {type === EXPLORER_TYPE.COURSES && courseName(listItem as { item: Course; count: number })}
+      {type !== EXPLORER_TYPE.COURSES && type !== EXPLORER_TYPE.OPPORTUNITIES && itemName(listItem)}
+    </Menu.Item>
   );
 };
 
-export default ExplorerMenuMobileItem;
+export default ExplorerMenuNonMobileItem;

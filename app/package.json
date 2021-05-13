@@ -27,7 +27,6 @@
     "update-build-version": "npm version patch && npx ts-node ./update-build-version.ts"
   },
   "dependencies": {
-    "@artsy/fresnel": "^1.5.0",
     "@babel/runtime": "^7.14.0",
     "acorn": "^8.2.4",
     "acorn-jsx": "^5.3.1",

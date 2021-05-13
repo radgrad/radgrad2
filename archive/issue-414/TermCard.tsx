@@ -11,7 +11,7 @@ import { EXPLORER_TYPE } from '../../app/imports/ui/layouts/utilities/route-cons
 import IceHeader from '../../app/imports/ui/components/shared/IceHeader';
 import InterestList from '../../app/imports/ui/components/shared/InterestList';
 import { docToShortDescription, itemToSlugName, opportunityTerms } from '../../app/imports/ui/components/shared/utilities/data-model';
-import { replaceTermStringNextFour } from '../../app/imports/ui/components/shared/utilities/general';
+import { replaceTermStringNextFour } from '../issue-412/general';
 import * as Router from '../../app/imports/ui/components/shared/utilities/router';
 import FutureParticipation from '../../app/imports/ui/components/shared/explorer/FutureParticipation';
 

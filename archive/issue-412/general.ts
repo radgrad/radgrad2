@@ -1,4 +1,4 @@
-import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
+import { AcademicTerms } from '../../app/imports/api/academic-term/AcademicTermCollection';
 
 export const toUpper = (str: string): string => str.toUpperCase();
 

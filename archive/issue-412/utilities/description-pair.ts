@@ -1,5 +1,5 @@
-import { DescriptionPair, Ice } from '../../../../../../../typings/radgrad';
-import { isICE } from '../../../../../../../api/ice/IceProcessor';
+import { DescriptionPair, Ice } from '../../../app/imports/typings/radgrad';
+import { isICE } from '../../../app/imports/api/ice/IceProcessor';
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 export const toValueArray = (pair: DescriptionPair): any[] => {

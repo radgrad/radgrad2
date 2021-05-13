@@ -11,7 +11,7 @@ import { buildExplorerSlugRoute, renderLink } from '../../app/imports/ui/compone
 import InterestList from '../../app/imports/ui/components/shared/InterestList';
 import { OpportunityTypes } from '../../app/imports/api/opportunity/OpportunityTypeCollection';
 import { AcademicTerms } from '../../app/imports/api/academic-term/AcademicTermCollection';
-import { replaceTermString } from '../../app/imports/ui/components/shared/utilities/general';
+import { replaceTermString } from '../issue-412/general';
 import { Slugs } from '../../app/imports/api/slug/SlugCollection';
 import { EXPLORER_TYPE } from '../../app/imports/ui/layouts/utilities/route-constants';
 import { getUserIDsWithProfileOpportunityMethod } from '../../app/imports/api/user/profile-entries/ProfileOpportunityCollection.methods';

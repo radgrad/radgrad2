@@ -1,8 +1,8 @@
 import React from 'react';
 import ExplorerMenuNonMobile from './ExplorerMenuNonMobile';
 import ExplorerMenuMobile from './ExplorerMenuMobile';
-import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
-import ExplorerNavDropdown from '../ExplorerNavDropdown';
+import { EXPLORER_TYPE } from '../../app/imports/ui/layouts/utilities/route-constants';
+import ExplorerNavDropdown from './ExplorerNavDropdown';
 import { ListItem } from './ExplorerMenuMobileItem';
 
 interface ExplorerMenuProps {

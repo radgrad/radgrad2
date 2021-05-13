@@ -2,11 +2,11 @@ import { createMedia } from '@artsy/fresnel';
 import React from 'react';
 import { Menu, Header, Button, Icon } from 'semantic-ui-react';
 import { useRouteMatch, Link } from 'react-router-dom';
-import { RadGradProperties } from '../../../../../api/radgrad/RadGradProperties';
-import * as Router from '../../utilities/router';
-import { EXPLORER_TYPE } from '../../../../layouts/utilities/route-constants';
+import { RadGradProperties } from '../../app/imports/api/radgrad/RadGradProperties';
+import * as Router from '../../app/imports/ui/components/shared/utilities/router';
+import { EXPLORER_TYPE } from '../../app/imports/ui/layouts/utilities/route-constants';
 import ExplorerMenuNonMobileItem from './ExplorerMenuNonMobileItem';
-import { buildRouteName, isUrlRoleFaculty } from '../../utilities/router';
+import { buildRouteName, isUrlRoleFaculty } from '../../app/imports/ui/components/shared/utilities/router';
 import { ListItem } from './ExplorerMenuMobileItem';
 
 const AppMedia = createMedia({

@@ -4,7 +4,7 @@ import { Menu, Header, Button, Icon } from 'semantic-ui-react';
 import { useRouteMatch, Link } from 'react-router-dom';
 import { RadGradProperties } from '../../app/imports/api/radgrad/RadGradProperties';
 import { EXPLORER_TYPE } from '../../app/imports/ui/layouts/utilities/route-constants';
-import ExplorerMenuNonMobileItem from '../../app/imports/ui/components/shared/explorer/item-view/ExplorerMenuNonMobileItem';
+import ExplorerMenuNonMobileItem from '../issue-412/ExplorerMenuNonMobileItem';
 import { ExplorerInterfaces, IExplorerTypes, isType } from './utilities/explorer';
 import { buildRouteName, isUrlRoleAdvisor, isUrlRoleFaculty, isUrlRoleStudent } from '../../app/imports/ui/components/shared/utilities/router';
 // import '../../../../../../client/style.css';
