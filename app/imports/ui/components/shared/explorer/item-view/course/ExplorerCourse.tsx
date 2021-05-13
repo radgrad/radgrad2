@@ -81,7 +81,7 @@ const ExplorerCourse: React.FC<ExplorerCoursesWidgetProps> = ({ course, complete
         {hasTeaser ? <TeaserVideo id={teaserUrlHelper(course)} /> : ''}
           <Grid stackable style={fiveMarginTopStyle}>
             <Grid.Row style={compactRowStyle}>
-              <strong>Credit Hours:</strong>&nbsp; {course.num}
+              <strong>Credit Hours:</strong>&nbsp; {course.creditHrs}
             </Grid.Row>
             <Grid.Row style={compactRowStyle}>
                 <strong>Syllabus:</strong>&nbsp; {course.syllabus ? <a href={course.syllabus } target="_blank" rel="noreferrer" style={linkStyle}>{course.syllabus}</a> : 'N/A'}
@@ -100,7 +100,7 @@ const ExplorerCourse: React.FC<ExplorerCoursesWidgetProps> = ({ course, complete
 
       {isStudent ? (
         <Segment>
-          <StudentExplorerReviewWidget itemToReview={course} userReview={review(course, match)} completed={completed} reviewType="opportunity" itemReviews={itemReviews} />
+          <StudentExplorerReviewWidget itemToReview={course} userReview={review(course, match)} completed={completed} reviewType="course" itemReviews={itemReviews} />
         </Segment>
       ) : (
         <Segment><ExplorerReviewWidget itemReviews={itemReviews} reviewType="course" /></Segment>

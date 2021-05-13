@@ -15,7 +15,7 @@ interface ExplorerItemViewProps {
   opportunities: Opportunity[];
   courses: Course[];
   explorerType: EXPLORER_TYPE;
-  interestTypes: InterestType[];
+  interestTypes?: InterestType[];
 }
 
 const ExplorerItemView: React.FC<ExplorerItemViewProps> = ({ profile, item, courses, opportunities, explorerType, interestTypes }) => {
@@ -23,16 +23,16 @@ const ExplorerItemView: React.FC<ExplorerItemViewProps> = ({ profile, item, cour
   const hasTeaser = teaser.length > 0;
   const isNotStudent = [ROLE.ADMIN, ROLE.ADVISOR].includes(profile.role);
   return (
-        <div id="explorerItemViewWidget">
-            <SegmentGroup>
-                <Segment>
-                  {hasTeaser ? (<TeaserVideo id={teaser && teaser[0] && teaser[0].url} />) : ''}
-                  <Markdown escapeHtml source={item.description} />
-                  {(isNotStudent && explorerType === EXPLORER_TYPE.INTERESTS) ? <EditInterestButton interest={item as Interest} interestTypes={interestTypes}/> : ''}
-                </Segment>
-                <ExplorerProfiles item={item} explorerType={explorerType}/>
-            </SegmentGroup>
-        </div>
+    <div id="explorerItemViewWidget">
+      <SegmentGroup>
+        <Segment>
+          {hasTeaser ? (<TeaserVideo id={teaser && teaser[0] && teaser[0].url} />) : ''}
+          <Markdown escapeHtml source={item.description} />
+          {(isNotStudent && explorerType === EXPLORER_TYPE.INTERESTS) ? <EditInterestButton interest={item as Interest} interestTypes={interestTypes}/> : ''}
+        </Segment>
+          <ExplorerProfiles item={item} explorerType={explorerType}/>
+      </SegmentGroup>
+    </div>
   );
 };
 

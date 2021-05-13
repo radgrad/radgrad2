@@ -15,7 +15,7 @@ import {
   Interest,
   Opportunity,
   OpportunityType,
-  Profile,
+  Profile, RelatedCoursesOrOpportunities,
   Review,
 } from '../../../../typings/radgrad';
 import AddToProfileButton from '../../../components/shared/explorer/item-view/AddToProfileButton';
@@ -32,6 +32,7 @@ import ExplorerOpportunity
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
 import { OpportunityTypes } from '../../../../api/opportunity/OpportunityTypeCollection';
 import { OpportunityInstances } from '../../../../api/opportunity/OpportunityInstanceCollection';
+import { getAssociationRelatedCourses } from '../utilities/getExplorerRelatedMethods';
 
 interface OpportunityViewPageProps {
   profileOpportunities: Opportunity[];
@@ -76,7 +77,7 @@ const OpportunityViewPage: React.FC<OpportunityViewPageProps> = ({
     studentID: profile.userID,
     opportunityID: opportunity._id,
   }).length > 0;
-  const relatedCourses = Opportunities.findRelatedCourses(opportunity._id);
+  const relatedCourses : RelatedCoursesOrOpportunities = getAssociationRelatedCourses(Opportunities.findRelatedCourses(opportunity._id), profile.userID);
   const relatedCareerGoals = Opportunities.findRelatedCareerGoals(opportunity._id);
   const headerPaneButton = profile.role === ROLE.STUDENT ? <AddToProfileButton type={PROFILE_ENTRY_TYPE.OPPORTUNITY} studentID={profile.userID}
                                                                                item={opportunity} added={added} inverted floated="left" /> : undefined;
@@ -85,12 +86,12 @@ const OpportunityViewPage: React.FC<OpportunityViewPageProps> = ({
                 headerPaneButton={headerPaneButton}>
       <Grid>
         <Grid.Row>
-          <Grid.Column width={3}>
+          <Grid.Column width={5}>
             <RelatedInterests item={opportunity} />
-            <RelatedCourses courses={relatedCourses} userID={profile.userID} />
             <RelatedCareerGoals careerGoals={relatedCareerGoals} userID={profile.userID} />
+            <RelatedCourses relatedCourses={relatedCourses} profile={profile} />
           </Grid.Column>
-          <Grid.Column width={13}>
+          <Grid.Column width={11}>
             <ExplorerOpportunity opportunity={opportunity} opportunityTypes={opportunityTypes}
                                  opportunities={opportunities} interests={interests} sponsors={sponsors}
                                  terms={terms} completed={completed} itemReviews={itemReviews} profile={profile} />

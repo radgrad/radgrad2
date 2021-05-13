@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams, useRouteMatch } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Grid } from 'semantic-ui-react';
 import {
@@ -17,11 +17,12 @@ import { Opportunities } from '../../../../api/opportunity/OpportunityCollection
 import PageLayout from '../../PageLayout';
 import AddToProfileButton from '../../../components/shared/explorer/item-view/AddToProfileButton';
 import { PROFILE_ENTRY_TYPE } from '../../../../api/user/profile-entries/ProfileEntryTypes';
-import CareerGoalRelated from '../../../components/shared/explorer/item-view/career-goal/CareerGoalRelated';
-import * as Router from '../../../components/shared/utilities/router';
-import { getBaseURL, getAssociationRelatedCourses, getAssociationRelatedOpportunities } from '../utilities/getExplorerRelatedMethods';
+import { getAssociationRelatedCourses, getAssociationRelatedOpportunities } from '../utilities/getExplorerRelatedMethods';
 import { EXPLORER_TYPE } from '../../../utilities/ExplorerUtils';
 import ExplorerItemView from '../../../components/shared/explorer/item-view/ExplorerItemView';
+import RelatedCourses from '../../../components/shared/RelatedCourses';
+import RelatedOpportunities from '../../../components/shared/RelatedOpportunities';
+import RelatedInterests from '../../../components/shared/RelatedInterests';
 
 interface CareerGoalViewPageProps {
   profileCareerGoals: ProfileCareerGoal[];
@@ -37,7 +38,6 @@ const CareerGoalViewPage: React.FC<CareerGoalViewPageProps> = ({
   profile,
   courses,
   opportunities }) => {
-  const match = useRouteMatch();
   const careerGoalID = careerGoal._id;
   const relatedCourses = getAssociationRelatedCourses(CareerGoals.findRelatedCourses(careerGoalID), profile.userID);
   const relatedOpportunities = getAssociationRelatedOpportunities(CareerGoals.findRelatedOpportunities(careerGoalID), profile.userID);
@@ -51,9 +51,9 @@ const CareerGoalViewPage: React.FC<CareerGoalViewPageProps> = ({
       <Grid stackable>
         <Grid.Row>
           <Grid.Column width={5}>
-            <CareerGoalRelated relatedCourses={relatedCourses} relatedOpportunities={relatedOpportunities} careerGoal={careerGoal}
-                               isStudent={Router.getRoleByUrl(match) === 'student'} baseURL={getBaseURL(match)}
-                               profile={profile} />
+            <RelatedInterests item={careerGoal} />
+            <RelatedCourses relatedCourses={relatedCourses} profile={profile} />
+            <RelatedOpportunities relatedOpportunities={relatedOpportunities} profile={profile} />
           </Grid.Column>
           <Grid.Column width={11}>
             <ExplorerItemView profile={profile} item={careerGoal} opportunities={opportunities} courses={courses} explorerType={EXPLORER_TYPE.CAREERGOALS}/>

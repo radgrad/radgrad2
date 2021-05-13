@@ -20,6 +20,8 @@ import RelatedInterests from '../../../components/shared/RelatedInterests';
 import RelatedCareerGoals from '../../../components/shared/RelatedCareerGoals';
 import RelatedOpportunities from '../../../components/shared/RelatedOpportunities';
 import PageLayout from '../../PageLayout';
+import { getAssociationRelatedCourses, getAssociationRelatedOpportunities } from '../utilities/getExplorerRelatedMethods';
+import RelatedCourses from '../../../components/shared/RelatedCourses';
 
 interface CourseViewPageProps {
   profileCourses: ProfileCourse[];
@@ -29,9 +31,8 @@ interface CourseViewPageProps {
   terms: AcademicTerm[];
 }
 
-// TODO this seems very complicated to get the description pairs.
-const passedCourseHelper = (courseSlugName: string, studentID): string => {
-  let ret = 'Not in plan';
+const isCourseCompleted = (courseSlugName, studentID): boolean => {
+  let courseCompleted = false;
   const theCourse = Courses.findDocBySlug(courseSlugName);
   const ci = CourseInstances.findNonRetired({
     studentID: studentID,
@@ -39,21 +40,10 @@ const passedCourseHelper = (courseSlugName: string, studentID): string => {
   });
   ci.forEach((c) => {
     if (c.verified === true) {
-      ret = 'Completed';
-    } else if (ret !== 'Completed') {
-      ret = 'In plan, but not yet complete';
+      courseCompleted = true;
     }
   });
-  return ret;
-};
-
-const isCourseCompleted = (courseSlugName, studentID): boolean => {
-  let ret = false;
-  const courseStatus = passedCourseHelper(courseSlugName, studentID);
-  if (courseStatus === 'Completed') {
-    ret = true;
-  }
-  return ret;
+  return courseCompleted;
 };
 
 const CourseViewPage: React.FC<CourseViewPageProps> = ({
@@ -62,29 +52,32 @@ const CourseViewPage: React.FC<CourseViewPageProps> = ({
   itemReviews,
   profile,
   terms }) => {
-  const headerPaneTitle = course.name;
+  const headerPaneTitle = `${course.name} (${course.num})`;
   const headerPaneImage = 'header-courses.png';
   const added = ProfileOpportunities.findNonRetired({
     studentID: profile.userID,
     opportunityID: course._id,
   }).length > 0;
-  const relatedOpportunities = Courses.findRelatedOpportunities(course._id);
+  const relatedOpportunities = getAssociationRelatedOpportunities(Courses.findRelatedOpportunities(course._id), profile.userID);
   const relatedCareerGoals = Courses.findRelatedCareerGoals(course._id);
-  const headerPaneButton = profile.role === ROLE.STUDENT ? <AddToProfileButton type={PROFILE_ENTRY_TYPE.COURSE} studentID={profile.userID}
-                                                                                 item={course} added={added} inverted floated="left" /> : undefined;
+  const headerPaneButton = profile.role === ROLE.STUDENT ?
+        <AddToProfileButton type={PROFILE_ENTRY_TYPE.COURSE} studentID={profile.userID} item={course}
+                            added={added} inverted floated="left" /> : undefined;
   const courseSlug = Slugs.getNameFromID(course.slugID);
   const completed = isCourseCompleted(courseSlug, profile.userID);
+  const relatedCourses = getAssociationRelatedCourses(course.prerequisites.map((c) => Courses.findDocBySlug(c)), profile.userID);
   return (
     <PageLayout id={PAGEIDS.COURSE} headerPaneTitle={headerPaneTitle} headerPaneImage={headerPaneImage}
                 headerPaneButton={headerPaneButton}>
       <Grid>
         <Grid.Row>
-          <Grid.Column width={3}>
+          <Grid.Column width={5}>
             <RelatedInterests item={course} />
-            <RelatedOpportunities opportunities={relatedOpportunities} userID={profile.userID} />
+            <RelatedCourses relatedCourses={relatedCourses} profile={profile} title='prerequisites' />
             <RelatedCareerGoals careerGoals={relatedCareerGoals} userID={profile.userID} />
+            <RelatedOpportunities relatedOpportunities={relatedOpportunities} profile={profile} />
           </Grid.Column>
-          <Grid.Column width={13}>
+          <Grid.Column width={11}>
             <ExplorerCourse course={course} profile={profile} completed={completed} itemReviews={itemReviews}
                             terms={terms} />
           </Grid.Column>

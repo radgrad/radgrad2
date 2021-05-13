@@ -1,6 +1,6 @@
 import { withTracker } from 'meteor/react-meteor-data';
 import React from 'react';
-import { useParams, useRouteMatch } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Grid } from 'semantic-ui-react';
 import { Courses } from '../../../../api/course/CourseCollection';
 import { Interests } from '../../../../api/interest/InterestCollection';
@@ -11,17 +11,17 @@ import { ProfileInterests } from '../../../../api/user/profile-entries/ProfileIn
 import { Users } from '../../../../api/user/UserCollection';
 import { Course, Interest, InterestType, Opportunity, Profile } from '../../../../typings/radgrad';
 import AddToProfileButton from '../../../components/shared/explorer/item-view/AddToProfileButton';
-import InterestedRelated from '../../../components/shared/explorer/item-view/interest/InterestedRelated';
-import * as Router from '../../../components/shared/utilities/router';
 import { PAGEIDS } from '../../../utilities/PageIDs';
 import PageLayout from '../../PageLayout';
 import {
   getAssociationRelatedCourses,
   getAssociationRelatedOpportunities,
-  getBaseURL,
 } from '../utilities/getExplorerRelatedMethods';
 import ExplorerItemView from '../../../components/shared/explorer/item-view/ExplorerItemView';
 import { EXPLORER_TYPE } from '../../../utilities/ExplorerUtils';
+import RelatedCareerGoals from '../../../components/shared/RelatedCareerGoals';
+import RelatedCourses from '../../../components/shared/RelatedCourses';
+import RelatedOpportunities from '../../../components/shared/RelatedOpportunities';
 
 interface InterestViewPageProps {
   courses: Course[];
@@ -43,7 +43,7 @@ const InterestViewPage: React.FC<InterestViewPageProps> = ({
   const interestID = interest._id;
   const relatedCourses = getAssociationRelatedCourses(Interests.findRelatedCourses(interestID), profile.userID);
   const relatedOpportunities = getAssociationRelatedOpportunities(Interests.findRelatedOpportunities(interestID), profile.userID);
-  const match = useRouteMatch();
+  const relatedCareerGoals = Interests.findRelatedCareerGoals(interestID);
   const headerPaneTitle = interest.name;
   const headerPaneImage = 'header-interests.png';
   const added = ProfileInterests.findNonRetired({ userID: profile.userID, interestID }).length > 0;
@@ -54,9 +54,9 @@ const InterestViewPage: React.FC<InterestViewPageProps> = ({
       <Grid stackable>
         <Grid.Row>
           <Grid.Column width={5}>
-            <InterestedRelated relatedCourses={relatedCourses} relatedOpportunities={relatedOpportunities}
-                               isStudent={Router.getRoleByUrl(match) === 'student'} baseURL={getBaseURL(match)}
-                               profile={profile} />
+            <RelatedCareerGoals careerGoals={relatedCareerGoals} userID={profile.userID} />
+            <RelatedCourses relatedCourses={relatedCourses} profile={profile} />
+            <RelatedOpportunities relatedOpportunities={relatedOpportunities} profile={profile} />
           </Grid.Column>
           <Grid.Column width={11}>
             <ExplorerItemView profile={profile} item={interest} opportunities={opportunities} courses={courses} explorerType={EXPLORER_TYPE.INTERESTS} interestTypes={interestTypes} />

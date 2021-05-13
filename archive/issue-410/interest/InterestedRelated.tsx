@@ -1,21 +1,24 @@
 import React from 'react';
 import { Header, Grid, Segment, Icon } from 'semantic-ui-react';
-import { Courses } from '../../../../../../api/course/CourseCollection';
-import { Opportunities } from '../../../../../../api/opportunity/OpportunityCollection';
-import { Profile, RelatedCoursesOrOpportunities } from '../../../../../../typings/radgrad';
-import CourseList from '../../../CourseList';
-import OpportunityList from '../../../OpportunityList';
+import { Courses } from '../../../app/imports/api/course/CourseCollection';
+import { Opportunities } from '../../../app/imports/api/opportunity/OpportunityCollection';
+import { CareerGoal, Profile, RelatedCoursesOrOpportunities } from '../../../app/imports/typings/radgrad';
+import CourseList from '../../../app/imports/ui/components/shared/CourseList';
+import OpportunityList from '../../../app/imports/ui/components/shared/OpportunityList';
+import RelatedCareerGoals from '../../../app/imports/ui/components/shared/RelatedCareerGoals';
 
 interface InterestedRelatedWidgetProps {
   relatedCourses: RelatedCoursesOrOpportunities;
   relatedOpportunities: RelatedCoursesOrOpportunities;
+  relatedCareerGoals:CareerGoal[];
   isStudent: boolean;
   baseURL: string;
   profile: Profile;
 }
 
-const InterestedRelated: React.FC<InterestedRelatedWidgetProps> = ({ relatedCourses, baseURL, isStudent, relatedOpportunities, profile }) => (
+const InterestedRelated: React.FC<InterestedRelatedWidgetProps> = ({ relatedCourses, baseURL, isStudent, relatedOpportunities, profile, relatedCareerGoals }) => (
   <div>
+    <RelatedCareerGoals careerGoals={relatedCareerGoals} userID={profile.userID} />
     <Segment>
       <Header dividing><Icon name="book"/> RELATED COURSES</Header>
       {isStudent ? (
