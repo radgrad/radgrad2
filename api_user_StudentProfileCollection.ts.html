@@ -104,7 +104,7 @@ import { Users } from './UserCollection';
 import { Slugs } from '../slug/SlugCollection';
 import { ROLE } from '../role/Role';
 import { getProjectedICE, getEarnedICE } from '../ice/IceProcessor';
-import { StudentProfileDefine, StudentProfileUpdate, StudentProfileUpdateData } from '../../typings/radgrad';
+import { AcademicTerm, StudentProfileDefine, StudentProfileUpdate, StudentProfileUpdateData } from '../../typings/radgrad';
 import { ProfileInterests } from './profile-entries/ProfileInterestCollection';
 import { ProfileCareerGoals } from './profile-entries/ProfileCareerGoalCollection';
 import { ProfileCourses } from './profile-entries/ProfileCourseCollection';
@@ -480,8 +480,9 @@ class StudentProfileCollection extends BaseProfileCollection {
    * @param profileID The ID for this profile object.
    */
   public removeIt(profileID) {
-    if (this.isDefined(profileID)) {
-      return super.removeIt(profileID);
+    const docID = this.getID(profileID);
+    if (this.isDefined(docID)) {
+      return super.removeIt(docID);
     }
     return null;
   }
@@ -577,6 +578,26 @@ class StudentProfileCollection extends BaseProfileCollection {
     const courseIDs = courseInstanceDocs.map((doc) => doc.courseID);
     return courseIDs; // allow for multiple 491 or 499 classes.
     // return _.uniq(courseIDs);
+  }
+
+  public getLastAcademicTerm(user: string): AcademicTerm {
+    const studentID = Users.getID(user);
+    let lastAcademicTerm = AcademicTerms.find({ termNumber: 13 }).fetch()[0];
+    const cis = CourseInstances.find({ studentID }).fetch();
+    cis.forEach((ci) => {
+      const term = AcademicTerms.findDoc(ci.termID);
+      if (term.termNumber > lastAcademicTerm.termNumber) {
+        lastAcademicTerm = term;
+      }
+    });
+    const ois = OpportunityInstances.find({ studentID }).fetch();
+    ois.forEach((oi) => {
+      const term = AcademicTerms.findDoc(oi.termID);
+      if (term.termNumber > lastAcademicTerm.termNumber) {
+        lastAcademicTerm = term;
+      }
+    });
+    return lastAcademicTerm;
   }
 
   /**
