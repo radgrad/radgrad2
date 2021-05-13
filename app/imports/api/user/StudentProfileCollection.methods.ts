@@ -233,9 +233,11 @@ export const matriculateStudentMethod = new ValidatedMethod({
       StudentProfiles.assertValidRoleForMethod(this.userId);
       const profile = Users.getProfile(user);
       if (profile.role !== ROLE.STUDENT && profile.role !== ROLE.ALUMNI) {
-        throw new Meteor.Error(`${user} isn't a student`, 'You can only matriculate students.');
+        throw new Meteor.Error(`${profile.username} isn't a student`, 'You can only matriculate students.');
       }
-      // TODO Do we want to make sure they are alumni? What about their latest academic term needs to be N terms ago?
+      if (!profile.retired) {
+        throw new Meteor.Error(`${profile.username} isn't retired`, 'Retire the student first.');
+      }
       StudentProfiles.removeIt(profile.username);
     }
   },
