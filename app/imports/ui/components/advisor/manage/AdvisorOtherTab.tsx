@@ -5,6 +5,7 @@ import { ZipZap } from 'meteor/udondan:zipzap';
 import moment from 'moment';
 import { alumniEmailsMethod } from '../../../../api/base/BaseCollection.methods';
 import { starBulkLoadJsonDataMethod } from '../../../../api/star/StarProcessor.methods';
+import { retireAllOldStudentsMethod, updateAllStudentsToAlumniMethod } from '../../../../api/user/StudentProfileCollection.methods';
 import { generateStudentEmailsMethod } from '../../../../api/user/UserCollection.methods';
 import RadGradTabHeader from '../../shared/RadGradTabHeader';
 import { updateAllStudentLevelsMethod } from '../../../../api/level/LevelProcessor.methods';
@@ -16,6 +17,7 @@ const AdvisorOtherTab: React.FC = () => {
   const [isEmailWorkingState, setIsEmailWorking] = useState(false);
   const [isUploadWorkingState, setIsUploadWorking] = useState(false);
   const [isUpdateWorkingState, setIsUpdateWorking] = useState(false);
+  const [isUpdateOldWorkingState, setIsUpdateOldWorking] = useState(false);
 
   const readAlumniFile = (e) => {
     const files = e.target.files;
@@ -103,7 +105,7 @@ const AdvisorOtherTab: React.FC = () => {
       advisor: Meteor.user().username,
       jsonData,
     };
-    console.log(data);
+    // console.log(data);
     starBulkLoadJsonDataMethod.callPromise(data)
       .then((result) => {
         Swal.fire({
@@ -159,6 +161,17 @@ const AdvisorOtherTab: React.FC = () => {
     setIsEmailWorking(false);
   };
 
+  const handleUpdateStudentStatus = () => {
+    setIsUpdateOldWorking(true);
+    updateAllStudentsToAlumniMethod.callPromise({})
+      .then((result) => console.log(result))
+      .catch((error) => console.error(error));
+    retireAllOldStudentsMethod.callPromise({})
+      .then((result) => console.log(result))
+      .catch((error) => console.error(error));
+    setIsUpdateOldWorking(false);
+  };
+
   const bulkUploadRightSide = <><Input type='file' onChange={readFile} size='mini' label={{
     basic: true,
     color: 'green',
@@ -183,6 +196,7 @@ const AdvisorOtherTab: React.FC = () => {
             disabled={isAlumniWorkingState}
     >UPLOAD</Button>
   </>;
+
   return (
     <Tab.Pane key='advisor-other-tab'>
       <Segment vertical><RadGradTabHeader title='Update all students&apos; levels' icon='sort amount up'
@@ -198,6 +212,11 @@ const AdvisorOtherTab: React.FC = () => {
                                           rightside={bulkUploadRightSide} /></Segment>
       <Segment vertical><RadGradTabHeader title='Bulk alumni data upload' icon='upload'
                                           rightside={alumniEmailsUploadRightSide} /></Segment>
+      <Segment vertical><RadGradTabHeader title='Update old student status' icon='highlighter'
+                                          rightside={<Button basic color='green' onClick={handleUpdateStudentStatus} size='mini'
+                                          loading={isUpdateOldWorkingState}
+                                          disabled={isUpdateOldWorkingState}>UPDATE
+                                            STATUS</Button>} /></Segment>
     </Tab.Pane>
   );
 };

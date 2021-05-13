@@ -11,6 +11,7 @@ import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
 import { StudentProfileUpdate } from '../../../../typings/radgrad';
 import MultiSelectField from '../../form-fields/MultiSelectField';
 import PictureField from '../../form-fields/PictureField';
+import { ButtonAction } from '../../shared/button/ButtonAction';
 import { ManageStudentProps } from './ManageStudentProps';
 
 const EditStudentButton: React.FC<ManageStudentProps> = ({
@@ -97,7 +98,7 @@ const EditStudentButton: React.FC<ManageStudentProps> = ({
            onClose={() => setOpen(false)}
            onOpen={() => setOpen(true)}
            open={open}
-           trigger={<Button basic color='green' key={`${student._id}-edit-button`}>EDIT</Button>}
+           trigger={<ButtonAction color='green' key={`${student._id}-edit-button`} size='mini' onClick={() => setOpen(true)} icon='edit' label='edit' />}
     >
       <Modal.Header>{`Edit ${student.firstName} ${student.lastName}`}</Modal.Header>
       <Modal.Content>

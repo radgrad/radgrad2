@@ -16,7 +16,7 @@ const ChecklistInterestList: React.FC<ChecklistInterestListProps> = ({ interests
       {interests.map((interest) => {
         const slug = Interests.findSlugByID(interest._id);
         const url = `/${profile.role.toLowerCase()}/${profile.username}/${EXPLORER.INTERESTS}/${slug}`;
-        return <ButtonLink url={url} label={interest.name} size={size} />;
+        return <ButtonLink url={url} label={interest.name} size={size} key={`${interest._id}-button-link`}/>;
       })}
     </Label.Group>
 );

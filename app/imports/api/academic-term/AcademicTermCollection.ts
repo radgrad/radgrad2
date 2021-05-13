@@ -241,6 +241,14 @@ class AcademicTermCollection extends BaseSlugCollection {
     return this.findDoc(id);
   }
 
+  /**
+   * Returns the current academic term number.
+   * @return {number} the current academic term number.
+   */
+  public getCurrentAcademicTermNumber(): number {
+    return this.getCurrentAcademicTermDoc().termNumber;
+  }
+
   public getNextYears(numYears: number): AcademicTerm[] {
     const numTermsPerYear = RadGradProperties.getQuarterSystem() ? 4 : 3;
     const currentTermNumber = this.getCurrentAcademicTermDoc().termNumber;
