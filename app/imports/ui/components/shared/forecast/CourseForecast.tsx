@@ -59,7 +59,7 @@ const CourseForecast: React.FC = () => {
     overflowY: 'scroll',
     width: '100%',
   };
-  console.log(data);
+  // console.log(data);
   return (
     <Segment textAlign="center" id="course-forecast">
       <Header>Future Course Forecast</Header>

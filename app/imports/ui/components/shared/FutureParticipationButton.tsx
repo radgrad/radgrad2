@@ -35,12 +35,6 @@ const FutureParticipationButton: React.FC<FutureParticipationButtonProps> = ({ i
       setFetched(true);
     }
   }, [fetched, item._id, type]);
-  let academicTerms = [];
-  let scores = [];
-  if (data?.enrollment) {
-    academicTerms = data.enrollment.map((entry) => AcademicTerms.findDoc(entry.termID));
-    scores = data.enrollment.map((entry) => entry.count);
-  }
 
   return (
     <Modal key={`${item._id}-forecast-modal`}
@@ -50,7 +44,7 @@ const FutureParticipationButton: React.FC<FutureParticipationButtonProps> = ({ i
            trigger={<ButtonAction color='green' key={`${item._id}-view-button`} label='View Future Participation' onClick={() => setOpen(true)} size='mini' />}>
       <Modal.Header>Future Participation for {item.name}</Modal.Header>
       <Modal.Content>
-        <FutureParticipation academicTerms={academicTerms} scores={scores} />
+        <FutureParticipation item={item} />
       </Modal.Content>
       <Modal.Actions>
         <ButtonAction color='green' onClick={() => setOpen(false)} label='CLOSE' icon='close'/>

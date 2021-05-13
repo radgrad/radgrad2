@@ -241,7 +241,7 @@ class AcademicTermCollection extends BaseSlugCollection {
     return this.findDoc(id);
   }
 
-  public getStartOfCurrentAcademicYear(): AcademicTerm {
+  public getStartOfCurrentAcademicYearTerm(): AcademicTerm {
     const currentTerm = this.getCurrentAcademicTermDoc();
     const term = currentTerm.term;
     const year = currentTerm.year;
@@ -270,11 +270,19 @@ class AcademicTermCollection extends BaseSlugCollection {
     const numTermsPerYear = RadGradProperties.getQuarterSystem() ? 4 : 3;
     const currentTermDoc = this.getCurrentAcademicTermDoc();
     const currentTermNumber = currentTermDoc.termNumber;
-    const startOfYear = this.getStartOfCurrentAcademicYear();
+    const startOfYear = this.getStartOfCurrentAcademicYearTerm();
     const diff = currentTermNumber - startOfYear.termNumber;
     const after = currentTermNumber;
     const before = currentTermNumber + numYears * numTermsPerYear - diff;
     return this.findNonRetired({ $and: [{ termNumber: { $gte: after } }, { termNumber: { $lt: before } }] }, { sort: { termNumber: 1 } });
+  }
+
+  public getAcademicYearLabel(termID: string): string {
+    const termDoc = this.findDoc(termID);
+    if (termDoc.term === this.SPRING || termDoc.term === this.SUMMER) {
+      return `${termDoc.year - 1}-${termDoc.year}`;
+    }
+    return `${termDoc.year}-${termDoc.year + 1}`;
   }
 
   /**

@@ -68,6 +68,7 @@ class RadGradForecastsClass {
     const opportunities = Opportunities.findNonRetired({}, { sort: { name: 1 } });
     const opportunityIDs = opportunities.map((opportunity) => opportunity._id);
     this.opportunitiesForecast = opportunityIDs.map((opportunityID) => getFutureEnrollmentSingle(opportunityID, ENROLLMENT_TYPE.OPPORTUNITY));
+    // console.log(this.coursesForecast, this.opportunitiesForecast);
   };
 
   constructor() {
@@ -85,7 +86,10 @@ class RadGradForecastsClass {
    * @param {string} courseID the id of the course.
    * @return {CourseEnrollmentForecast}
    */
-  public getCourseForecast = (courseID: string): CourseEnrollmentForecast => this.coursesForecast.find((forecast) => forecast.courseID === courseID);
+  public getCourseForecast = (courseID: string): CourseEnrollmentForecast => {
+    const cast = this.coursesForecast.find((forecast) => forecast.courseID === courseID);
+    return cast;
+  };
 
   /**
    * Returns the enrollment forecasts for all non retired opportunities.
@@ -98,7 +102,10 @@ class RadGradForecastsClass {
    * @param {string} opportunityID the id of the opportunity.
    * @return {OpportunityEnrollmentForecast}
    */
-  public getOpportunityForecast = (opportunityID: string): OpportunityEnrollmentForecast => this.opportunitiesForecast.find((forecast) => forecast.opportunityID === opportunityID);
+  public getOpportunityForecast = (opportunityID: string): OpportunityEnrollmentForecast => {
+    const cast = this.opportunitiesForecast.find((forecast) => forecast.opportunityID === opportunityID);
+    return cast;
+  };
 
   /**
    * Updates the forecasts.

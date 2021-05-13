@@ -1,12 +1,10 @@
 import moment from 'moment';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import { Divider, Grid, Header, Segment } from 'semantic-ui-react';
 import Markdown from 'react-markdown';
 import { AcademicTerms } from '../../../../../../api/academic-term/AcademicTermCollection';
 import { OpportunityTypes } from '../../../../../../api/opportunity/OpportunityTypeCollection';
-import { getFutureEnrollmentSingleMethod } from '../../../../../../api/utilities/FutureEnrollment.methods';
-import { ENROLLMENT_TYPE, EnrollmentForecast } from '../../../../../../startup/both/RadGradForecasts';
 import {
   AcademicTerm,
   BaseProfile,
@@ -66,32 +64,6 @@ const ExplorerOpportunity: React.FC<ExplorerOpportunitiesWidgetProps> = ({ oppor
   const hasTeaser = Teasers.findNonRetired({ targetSlugID: opportunity.slugID }).length > 0;
   const isStudent = profile.role === ROLE.STUDENT;
   const isSponsor = profile.userID === opportunity.sponsorID;
-  const [data, setData] = useState<EnrollmentForecast>({});
-  const [fetched, setFetched] = useState(false);
-
-  useEffect(() => {
-    // console.log('check for infinite loop');
-    function fetchData() {
-      getFutureEnrollmentSingleMethod.callPromise({ id: opportunity._id, type: ENROLLMENT_TYPE.OPPORTUNITY })
-        .then((result) => setData(result))
-        .catch((error) => {
-          console.error(error);
-          setData({});
-        });
-    }
-
-    // Only fetch data if it hasn't been fetched before.
-    if (!fetched) {
-      fetchData();
-      setFetched(true);
-    }
-  }, [fetched, opportunity._id]);
-  let academicTerms = [];
-  let scores = [];
-  if (data?.enrollment) {
-    academicTerms = data.enrollment.map((entry) => AcademicTerms.findDoc(entry.termID));
-    scores = data.enrollment.map((entry) => entry.count);
-  }
   const opportunityType = OpportunityTypes.findDoc(opportunity.opportunityTypeID).name;
   const opportunityTermNames = opportunity.termIDs.map((id) => AcademicTerms.toString(id));
   const opportunitySponsorName = Users.getFullName(opportunity.sponsorID);
@@ -143,7 +115,7 @@ const ExplorerOpportunity: React.FC<ExplorerOpportunitiesWidgetProps> = ({ oppor
       <Segment textAlign="center">
         <Header>STUDENTS PARTICIPATING BY SEMESTER</Header>
         <Divider />
-        <FutureParticipation academicTerms={academicTerms} scores={scores} />
+        <FutureParticipation item={opportunity} />
       </Segment>
 
       {isStudent ? (
