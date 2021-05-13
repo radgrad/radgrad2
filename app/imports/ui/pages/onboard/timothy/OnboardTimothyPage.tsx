@@ -1,4 +1,5 @@
 import React from 'react';
+import { PAGEIDS } from '../../../utilities/PageIDs';
 import PageLayout from '../../PageLayout';
 
 const headerPaneTitle = "Timothy's Onboarding Sandbox";
@@ -6,7 +7,7 @@ const headerPaneBody = 'Page for display of onboarding component development pra
 const headerPaneImage = 'header-onboarding.png';
 
 const OnboardTimothyPage: React.FC = () => (
-  <PageLayout id="sandbox-onboard-timothy" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
+  <PageLayout id={PAGEIDS.ONBOARD_SHINYA} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
     Components go here.
   </PageLayout>
 );
