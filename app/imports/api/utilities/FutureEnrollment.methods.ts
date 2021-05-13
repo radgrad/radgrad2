@@ -7,7 +7,6 @@ export const getFutureEnrollmentSingleMethod = new ValidatedMethod({
   name: 'Forecast.getFutureEnrollmentSingle',
   mixins: [CallPromiseMixin],
   validate: null,
-  // eslint-disable-next-line @typescript-eslint/no-shadow
   run({ id, type }) {
     if (!this.userId) {
       throw new Meteor.Error('unauthorized', 'You must be logged in to get profile entries.');

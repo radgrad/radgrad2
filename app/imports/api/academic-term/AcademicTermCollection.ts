@@ -241,6 +241,16 @@ class AcademicTermCollection extends BaseSlugCollection {
     return this.findDoc(id);
   }
 
+  public getStartOfCurrentAcademicYear(): AcademicTerm {
+    const currentTerm = this.getCurrentAcademicTermDoc();
+    const term = currentTerm.term;
+    const year = currentTerm.year;
+    if (term === this.SPRING || term === this.SUMMER) {
+      return this.find({ year: year - 1, term: this.FALL }).fetch()[0];
+    }
+    return this.find({ year, term: this.FALL }).fetch()[0];
+  }
+
   /**
    * Returns the current academic term number.
    * @return {number} the current academic term number.
@@ -249,12 +259,21 @@ class AcademicTermCollection extends BaseSlugCollection {
     return this.getCurrentAcademicTermDoc().termNumber;
   }
 
+  /**
+   * Returns the academic terms for the next numYears. It returns the terms based upon academic year.
+   * For example if the current term is Spring 2020 and numYears is 2. This method will return [Spring 2020, Summer 2020,
+   * Fall 2020, Spring 2021, Summer 2021]
+   * @param {number} numYears
+   * @return {AcademicTerm[]}
+   */
   public getNextYears(numYears: number): AcademicTerm[] {
     const numTermsPerYear = RadGradProperties.getQuarterSystem() ? 4 : 3;
-    const currentTermNumber = this.getCurrentAcademicTermDoc().termNumber;
-
+    const currentTermDoc = this.getCurrentAcademicTermDoc();
+    const currentTermNumber = currentTermDoc.termNumber;
+    const startOfYear = this.getStartOfCurrentAcademicYear();
+    const diff = currentTermNumber - startOfYear.termNumber;
     const after = currentTermNumber;
-    const before = currentTermNumber + numYears * numTermsPerYear;
+    const before = currentTermNumber + numYears * numTermsPerYear - diff;
     return this.findNonRetired({ $and: [{ termNumber: { $gte: after } }, { termNumber: { $lt: before } }] }, { sort: { termNumber: 1 } });
   }
 

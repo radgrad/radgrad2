@@ -1,8 +1,6 @@
 import { Meteor } from 'meteor/meteor';
-// @ts-ignore
 import SimpleSchema from 'simpl-schema';
 import _ from 'lodash';
-// @ts-ignore
 import moment from 'moment';
 import { AcademicTerms } from '../academic-term/AcademicTermCollection';
 import { ROLE } from '../role/Role';
