@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Confirm, SemanticSIZES } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
-import { matriculateStudentMethod } from '../../../../api/user/StudentProfileCollection.methods';
-import { StudentProfile } from '../../../../typings/radgrad';
-import { ButtonAction } from '../../shared/button/ButtonAction';
+import { matriculateStudentMethod } from '../../../../app/imports/api/user/StudentProfileCollection.methods';
+import { StudentProfile } from '../../../../app/imports/typings/radgrad';
+import { ButtonAction } from '../../../../app/imports/ui/components/shared/button/ButtonAction';
 
 interface MatriculateStudentButtonProps {
   student: StudentProfile;
