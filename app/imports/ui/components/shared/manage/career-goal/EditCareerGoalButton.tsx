@@ -3,6 +3,7 @@ import { Button, Modal } from 'semantic-ui-react';
 import SimpleSchema from 'simpl-schema';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import { AutoForm, BoolField, ErrorsField, LongTextField, SubmitField, TextField } from 'uniforms-semantic';
+import { Interests } from '../../../../../api/interest/InterestCollection';
 import { CareerGoal, CareerGoalUpdate, Interest } from '../../../../../typings/radgrad';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
 
@@ -16,6 +17,7 @@ const EditCareerGoalButton: React.FC<EditCareerGoalButtonProps> = ({ careerGoal,
   const interestNames = interests.map((interest) => interest.name);
 
   const model: CareerGoalUpdate = careerGoal;
+  model.interests = careerGoal.interestIDs.map((id) => Interests.findDoc(id).name);
 
   const handleSubmit = (doc) => {
     console.log('handleSubmit', doc);

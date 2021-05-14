@@ -30,6 +30,7 @@ interface InterestViewPageProps {
   opportunities: Opportunity[];
   profile: Profile;
   interestTypes: InterestType[];
+  interests: Interest[];
 }
 
 const InterestViewPage: React.FC<InterestViewPageProps> = ({
@@ -39,6 +40,7 @@ const InterestViewPage: React.FC<InterestViewPageProps> = ({
   opportunities,
   profile,
   interestTypes,
+  interests,
 }) => {
   const interestID = interest._id;
   const relatedCourses = getAssociationRelatedCourses(Interests.findRelatedCourses(interestID), profile.userID);
@@ -59,7 +61,9 @@ const InterestViewPage: React.FC<InterestViewPageProps> = ({
             <RelatedOpportunities relatedOpportunities={relatedOpportunities} profile={profile} />
           </Grid.Column>
           <Grid.Column width={11}>
-            <ExplorerItemView profile={profile} item={interest} opportunities={opportunities} courses={courses} explorerType={EXPLORER_TYPE.INTERESTS} interestTypes={interestTypes} />
+            <ExplorerItemView profile={profile} item={interest} opportunities={opportunities} courses={courses}
+                              explorerType={EXPLORER_TYPE.INTERESTS} interestTypes={interestTypes}
+                              interests={interests} />
           </Grid.Column>
         </Grid.Row>
       </Grid>
@@ -76,6 +80,7 @@ const InterestViewPageContainer = withTracker(() => {
   const allInterests = Users.getInterestIDs(profile.userID);
   const profileInterests = allInterests.map((id) => Interests.findDoc(id));
   const interestTypes = InterestTypes.findNonRetired();
+  const interests = Interests.findNonRetired({});
   return {
     courses,
     profileInterests,
@@ -83,6 +88,7 @@ const InterestViewPageContainer = withTracker(() => {
     opportunities,
     profile,
     interestTypes,
+    interests,
   };
 })(InterestViewPage);
 

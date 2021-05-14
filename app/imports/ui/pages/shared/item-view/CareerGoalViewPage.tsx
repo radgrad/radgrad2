@@ -2,11 +2,12 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Grid } from 'semantic-ui-react';
+import { Interests } from '../../../../api/interest/InterestCollection';
 import {
   CareerGoal,
   ProfileCareerGoal,
   Profile,
-  Opportunity, Course,
+  Opportunity, Course, Interest,
 } from '../../../../typings/radgrad';
 import { PAGEIDS } from '../../../utilities/PageIDs';
 import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
@@ -30,6 +31,7 @@ interface CareerGoalViewPageProps {
   opportunities: Opportunity[];
   profile: Profile;
   courses: Course[];
+  interests: Interest[];
 }
 
 const CareerGoalViewPage: React.FC<CareerGoalViewPageProps> = ({
@@ -37,7 +39,9 @@ const CareerGoalViewPage: React.FC<CareerGoalViewPageProps> = ({
   profileCareerGoals,
   profile,
   courses,
-  opportunities }) => {
+  opportunities,
+  interests,
+}) => {
   const careerGoalID = careerGoal._id;
   const relatedCourses = getAssociationRelatedCourses(CareerGoals.findRelatedCourses(careerGoalID), profile.userID);
   const relatedOpportunities = getAssociationRelatedOpportunities(CareerGoals.findRelatedOpportunities(careerGoalID), profile.userID);
@@ -47,7 +51,7 @@ const CareerGoalViewPage: React.FC<CareerGoalViewPageProps> = ({
   return (
     <PageLayout id={PAGEIDS.CAREER_GOAL} headerPaneTitle={headerPaneTitle} headerPaneImage={headerPaneImage}
                 headerPaneButton={<AddToProfileButton type={PROFILE_ENTRY_TYPE.CAREERGOAL} studentID={profile.userID}
-                item={careerGoal} added={added} inverted floated="left" />}>
+                                                      item={careerGoal} added={added} inverted floated="left" />}>
       <Grid stackable>
         <Grid.Row>
           <Grid.Column width={5}>
@@ -56,7 +60,8 @@ const CareerGoalViewPage: React.FC<CareerGoalViewPageProps> = ({
             <RelatedOpportunities relatedOpportunities={relatedOpportunities} profile={profile} />
           </Grid.Column>
           <Grid.Column width={11}>
-            <ExplorerItemView profile={profile} item={careerGoal} opportunities={opportunities} courses={courses} explorerType={EXPLORER_TYPE.CAREERGOALS}/>
+            <ExplorerItemView profile={profile} item={careerGoal} opportunities={opportunities} courses={courses}
+                              explorerType={EXPLORER_TYPE.CAREERGOALS} interests={interests} />
           </Grid.Column>
         </Grid.Row>
       </Grid>
@@ -71,12 +76,14 @@ const CareerGoalViewPageContainer = withTracker(() => {
   const careerGoalDoc = CareerGoals.findDocBySlug(careergoal);
   const courses = Courses.findNonRetired({});
   const opportunities = Opportunities.findNonRetired({});
+  const interests = Interests.findNonRetired({});
   return {
     careerGoal: careerGoalDoc,
     profileCareerGoals,
     courses,
     opportunities,
     profile,
+    interests,
   };
 })(CareerGoalViewPage);
 

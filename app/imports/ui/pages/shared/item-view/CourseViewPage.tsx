@@ -51,7 +51,8 @@ const CourseViewPage: React.FC<CourseViewPageProps> = ({
   course,
   itemReviews,
   profile,
-  terms }) => {
+  terms,
+}) => {
   const headerPaneTitle = `${course.name} (${course.num})`;
   const headerPaneImage = 'header-courses.png';
   const added = ProfileOpportunities.findNonRetired({
@@ -61,8 +62,8 @@ const CourseViewPage: React.FC<CourseViewPageProps> = ({
   const relatedOpportunities = getAssociationRelatedOpportunities(Courses.findRelatedOpportunities(course._id), profile.userID);
   const relatedCareerGoals = Courses.findRelatedCareerGoals(course._id);
   const headerPaneButton = profile.role === ROLE.STUDENT ?
-        <AddToProfileButton type={PROFILE_ENTRY_TYPE.COURSE} studentID={profile.userID} item={course}
-                            added={added} inverted floated="left" /> : undefined;
+    <AddToProfileButton type={PROFILE_ENTRY_TYPE.COURSE} studentID={profile.userID} item={course}
+                        added={added} inverted floated="left" /> : undefined;
   const courseSlug = Slugs.getNameFromID(course.slugID);
   const completed = isCourseCompleted(courseSlug, profile.userID);
   const relatedCourses = getAssociationRelatedCourses(course.prerequisites.map((c) => Courses.findDocBySlug(c)), profile.userID);
