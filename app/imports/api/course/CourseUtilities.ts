@@ -43,9 +43,9 @@ export const clearPlannedCourseInstances = (studentID: string) => {
   });
 };
 
-export const courseInstanceIsRepeatable = (ci: CourseInstance): boolean => Meteor.settings.public.repeatableCourseNums.includes(ci.note);
+export const courseInstanceIsRepeatable = (ci: CourseInstance): boolean => Courses.findDoc(ci.courseID).repeatable;
 
-export const courseIsRepeatable = (course: Course): boolean => Meteor.settings.public.repeatableCourseNums.includes(course.num);
+export const courseIsRepeatable = (course: Course): boolean => course.repeatable;
 
 export const get300LevelDocs = (): Course[] => Courses.find({ num: /3\d\d/ }).fetch();
 
