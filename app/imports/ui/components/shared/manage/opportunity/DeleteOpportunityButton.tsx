@@ -40,7 +40,7 @@ const DeleteOpportunityButton: React.FC<DeleteOpportunityButtonProps> = ({ oppor
            onClose={() => setOpen(false)}
            onOpen={() => setOpen(true)}
            open={open}
-           trigger={<Button basic color='red' key={`${opportunity._id}-edit-button`}>DELETE</Button>}>
+           trigger={<Button basic color='red' key={`${opportunity._id}-delete-button`}>DELETE</Button>}>
       <Modal.Header>{`Delete opportunity ${opportunity.name}?`}</Modal.Header>
       <Modal.Content>Do you really want to delete the opportunity &quot;{`${opportunity.name}`}&quot; ?</Modal.Content>
       <Modal.Actions>

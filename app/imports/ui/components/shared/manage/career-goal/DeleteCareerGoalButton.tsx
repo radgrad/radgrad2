@@ -40,7 +40,7 @@ const DeleteCareerGoalButton: React.FC<DeleteCareerGoalButtonProps> = ({ careerG
            onClose={() => setOpen(false)}
            onOpen={() => setOpen(true)}
            open={open}
-           trigger={<Button basic color='red' key={`${careerGoal._id}-edit-button`}>DELETE</Button>}>
+           trigger={<Button basic color='red' key={`${careerGoal._id}-delete-button`}>DELETE</Button>}>
       <Modal.Header>{`Delete careerGoal ${careerGoal.name}?`}</Modal.Header>
       <Modal.Content>Do you really want to delete the careerGoal &quot;{`${careerGoal.name}`}&quot; ?</Modal.Content>
       <Modal.Actions>
