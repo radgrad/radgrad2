@@ -39,6 +39,7 @@ class CourseCollection extends BaseSlugCollection {
       'corequisites.$': String,
       prerequisites: { type: Array },
       'prerequisites.$': String,
+      repeatable: { type: Boolean, optional: true },
       retired: { type: Boolean, optional: true },
     }));
     this.defineSchema = new SimpleSchema({
@@ -53,6 +54,7 @@ class CourseCollection extends BaseSlugCollection {
       'corequisites.$': String,
       prerequisites: { type: Array, optional: true },
       'prerequisites.$': String,
+      repeatable: { type: Boolean, optional: true },
       retired: { type: Boolean, optional: true },
     });
     this.updateSchema = new SimpleSchema({
@@ -65,6 +67,7 @@ class CourseCollection extends BaseSlugCollection {
       syllabus: { type: String, optional: true },
       prerequisites: { type: Array, optional: true },
       'prerequisites.$': String,
+      repeatable: { type: Boolean, optional: true },
       retired: { type: Boolean, optional: true },
     });
     this.unInterestingSlug = 'other';
@@ -93,11 +96,12 @@ class CourseCollection extends BaseSlugCollection {
    * @param syllabus is optional. If supplied, should be a URL.
    * @param corequisites is optional. If supplied, must be an array of Course slugs or courseIDs.
    * @param prerequisites is optional. If supplied, must be an array of previously defined Course slugs or courseIDs.
+   * @param repeatable is optional, defaults to false.
    * @param retired is optional, defaults to false.
    * @throws {Meteor.Error} If the definition includes a defined slug or undefined interest or invalid creditHrs.
    * @returns The newly created docID.
    */
-  public define({ name, shortName = name, slug, num, description, creditHrs = 3, interests = [], syllabus, corequisites = [], prerequisites = [], retired = false }: CourseDefine) {
+  public define({ name, shortName = name, slug, num, description, creditHrs = 3, interests = [], syllabus, corequisites = [], prerequisites = [], retired = false, repeatable = false }: CourseDefine) {
     // Make sure the slug has the right format <dept>_<number>
     validateCourseSlugFormat(slug);
     // check if slug is defined
@@ -137,6 +141,7 @@ class CourseCollection extends BaseSlugCollection {
         syllabus,
         corequisites,
         prerequisites,
+        repeatable,
         retired,
       });
     // Connect the Slug to this Interest
@@ -155,9 +160,10 @@ class CourseCollection extends BaseSlugCollection {
    * @param interests An array of interestIDs or slugs (optional)
    * @param syllabus optional
    * @param prerequisites An array of course slugs. (optional)
+   * @param repeatable optional boolean.
    * @param retired optional boolean.
    */
-  public update(instance: string, { name, shortName, num, description, creditHrs, interests, prerequisites, syllabus, retired }: CourseUpdate) {
+  public update(instance: string, { name, shortName, num, description, creditHrs, interests, prerequisites, syllabus, retired, repeatable }: CourseUpdate) {
     const docID = this.getID(instance);
     const updateData: {
       name?: string;
@@ -168,6 +174,7 @@ class CourseCollection extends BaseSlugCollection {
       creditHrs?: number;
       syllabus?: string;
       prerequisites?: string[];
+      repeatable?: boolean;
       retired?: boolean;
     } = {};
     if (name) {
@@ -202,6 +209,9 @@ class CourseCollection extends BaseSlugCollection {
         }
       });
       updateData.prerequisites = prerequisites;
+    }
+    if (_.isBoolean(repeatable)) {
+      updateData.repeatable = repeatable;
     }
     if (_.isBoolean(retired)) {
       updateData.retired = retired;
@@ -345,10 +355,9 @@ class CourseCollection extends BaseSlugCollection {
     const syllabus = doc.syllabus;
     const corequisites = doc.corequisites;
     const prerequisites = doc.prerequisites;
+    const repeatable = doc.repeatable;
     const retired = doc.retired;
-    return {
-      name, shortName, slug, num, description, creditHrs, interests, syllabus, corequisites, prerequisites, retired,
-    };
+    return { name, shortName, slug, num, description, creditHrs, interests, syllabus, corequisites, prerequisites, repeatable, retired };
   }
 
   public toString(docID: string): string {

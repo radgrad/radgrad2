@@ -44,6 +44,7 @@ const UpdateCourseForm: React.FC<UpdateCourseFormProps> = ({ collection, courses
     },
     prerequisiteNames: { type: Array, optional: true },
     'prerequisiteNames.$': { type: String, allowedValues: courseNames },
+    repeatable: { type: Boolean, optional: true },
     retired: { type: Boolean, optional: true },
   });
   const formSchema = new SimpleSchema2Bridge(schema);
@@ -69,7 +70,10 @@ const UpdateCourseForm: React.FC<UpdateCourseFormProps> = ({ collection, courses
           <MultiSelectField name="interests" />
           <MultiSelectField name="prerequisiteNames" />
         </Form.Group>
-        <BoolField name="retired" />
+        <Form.Group widths="equal">
+          <BoolField name="repeatable" />
+          <BoolField name="retired" />
+        </Form.Group>
         <p />
         <SubmitField value="Update" disabled={false} className="mini basic green" />
         <Button onClick={handleCancel} basic color="green" size="mini">Cancel</Button>

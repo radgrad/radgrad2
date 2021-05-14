@@ -36,6 +36,7 @@ const descriptionPairs = (item: Course): DescriptionPair[] => [
   { label: 'Syllabus', value: makeMarkdownLink(item.syllabus) },
   { label: 'Prerequisites', value: item.prerequisites },
   { label: 'References', value: `Course Instances: ${numReferences(item)}` },
+  { label: 'Repeatable', value: item.repeatable ? 'True' : 'False' },
   { label: 'Retired', value: item.retired ? 'True' : 'False' },
 ];
 

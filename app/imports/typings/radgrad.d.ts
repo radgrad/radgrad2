@@ -260,6 +260,7 @@ export interface Course extends Document {
   // Optional data
   syllabus?: string;
   prerequisites?: string[];
+  repeatable?: boolean;
   retired?: boolean;
 }
 
@@ -274,6 +275,7 @@ export interface CourseDefine extends DumpOne {
   syllabus?: string;
   corequisites?: string[];
   prerequisites?: string[];
+  repeatable?: boolean;
   retired?: boolean;
 }
 
@@ -286,6 +288,7 @@ export interface CourseUpdate extends Update {
   interests?: string[];
   prerequisites?: string[];
   syllabus?: string;
+  repeatable?: boolean;
   retired?: boolean;
 }
 

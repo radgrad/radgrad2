@@ -1,12 +1,12 @@
 import React from 'react';
 import { Form, Header, Segment } from 'semantic-ui-react';
-import { AutoForm, TextField, NumField, LongTextField, SubmitField } from 'uniforms-semantic';
+import { AutoForm, TextField, NumField, LongTextField, SubmitField, BoolField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { defineMethod } from '../../../../../api/base/BaseCollection.methods';
 import { Courses } from '../../../../../api/course/CourseCollection';
 import MultiSelectField from '../../../form-fields/MultiSelectField';
-import { Course, Interest } from '../../../../../typings/radgrad';
+import { Course, CourseDefine, Interest } from '../../../../../typings/radgrad';
 import { courseNameToSlug, courseToName, docToName } from '../../../shared/utilities/data-model';
 import { interestSlugFromName } from '../../../shared/utilities/form';
 import { defineCallback } from '../utilities/add-form';
@@ -21,12 +21,8 @@ const AddCourseForm: React.FC<AddCourseFormProps> = ({ interests, courses }) => 
   const handleAdd = (doc) => {
     // console.log('CoursePage.handleAdd(%o)', doc);
     const collectionName = Courses.getCollectionName();
-    const definitionData: any = {}; // create the definitionData may need to modify doc's values
+    const definitionData: CourseDefine = doc; // create the definitionData may need to modify doc's values
     const docInterests = doc.interests.map(interestSlugFromName);
-    definitionData.slug = doc.slug;
-    definitionData.name = doc.name;
-    definitionData.num = doc.num;
-    definitionData.description = doc.description;
     if (doc.shortName) {
       definitionData.shortName = doc.shortName;
     } else {
@@ -65,6 +61,7 @@ const AddCourseForm: React.FC<AddCourseFormProps> = ({ interests, courses }) => 
     },
     prerequisites: { type: Array, optional: true },
     'prerequisites.$': { type: String, allowedValues: courseNames },
+    repeatable: { type: Boolean, optional: true },
   });
   const formSchema = new SimpleSchema2Bridge(schema);
   return (
@@ -87,6 +84,7 @@ const AddCourseForm: React.FC<AddCourseFormProps> = ({ interests, courses }) => 
           <MultiSelectField name="interests" placeholder="Select Interest(s)" />
           <MultiSelectField name="prerequisites" placeholder="Select Prerequisite(s)" />
         </Form.Group>
+        <BoolField name="repeatable" />
         <SubmitField className="mini basic green" value="Add" />
       </AutoForm>
     </Segment>
