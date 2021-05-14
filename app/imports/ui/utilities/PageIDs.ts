@@ -1,8 +1,13 @@
 /** Define IDs to identify each page in the system. This is used for lastVisited, UserInteractions, and Testing. */
 export enum PAGEIDS {
   ADMIN_HOME = 'admin-home-page',
+  ADMIN_DATABASE = 'admin-database-page',
+  ADMIN_DATA_MODEL = 'admin-data-model-page',
+  ADMIN_MODERATION = 'admin-moderation-page',
 
   ADVISOR_HOME = 'advisor-home-page',
+  ADVISOR_VERIFICATIONS = 'advisor-verification-requests-page',
+  ADVISOR_MODERATION = 'advisor-moderation-page',
 
   ANALYTICS_LOGGED_IN_USERS = 'analytics-logged-in-users-page',
   ANALYTICS_NEWSLETTER = 'analytics-newsletter-page',
@@ -61,12 +66,13 @@ export enum PAGEIDS {
   FORECASTS = 'forecasts-page',
   INTEREST = 'interest-page',
   INTEREST_BROWSER = 'interest-browser-view-page',
-  MANAGE_STUDENTS = 'manage-students-page',
-  OPPORTUNITY = 'opportunity-page',
-  OPPORTUNITY_BROWSER = 'opportunity-browser-view-page',
   MANAGE_OPPORTUNITIES = 'manage-opportunities-page',
   MANAGE_REVIEWS = 'manage-reviews-page',
+  MANAGE_STUDENTS = 'manage-students-page',
   MANAGE_VERIFICATION = 'manage-verification-page',
+  OPPORTUNITY = 'opportunity-page',
+  OPPORTUNITY_BROWSER = 'opportunity-browser-view-page',
+  SIGNOUT = 'signout-page',
   TERMS_AND_CONDITIONS = 'terms-and-conditions-page',
   VISIBILITY = 'visibility-page',
 }

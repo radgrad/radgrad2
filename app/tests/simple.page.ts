@@ -16,20 +16,20 @@ class SimplePage {
   }
 }
 
-export const signoutPage = new SimplePage('signout-page');
+export const signoutPage = new SimplePage(PAGEIDS.SIGNOUT);
 
-export const adminDatabasePage = new SimplePage('admin-database-page');
-export const adminDataModelPage = new SimplePage('admin-data-model-page');
-export const adminHomePage = new SimplePage('admin-home-page');
-export const adminModerationPage = new SimplePage('admin-moderation-page');
+export const adminDatabasePage = new SimplePage(PAGEIDS.ADMIN_DATABASE);
+export const adminDataModelPage = new SimplePage(PAGEIDS.ADMIN_DATA_MODEL);
+export const adminHomePage = new SimplePage(PAGEIDS.ADMIN_HOME);
+export const adminModerationPage = new SimplePage(PAGEIDS.ADMIN_MODERATION);
 export const adminScoreboardPage = new SimplePage(PAGEIDS.FORECASTS);
 
-export const advisorHomePage = new SimplePage('advisor-home-page');
-export const advisorVerificationRequestsPage = new SimplePage('advisor-verification-requests-page');
-export const advisorModerationPage = new SimplePage('advisor-moderation-page');
+export const advisorHomePage = new SimplePage(PAGEIDS.ADVISOR_HOME);
+export const advisorVerificationRequestsPage = new SimplePage(PAGEIDS.ADVISOR_VERIFICATIONS);
+export const advisorModerationPage = new SimplePage(PAGEIDS.ADVISOR_MODERATION);
 export const advisorScoreboardPage = new SimplePage(PAGEIDS.FORECASTS); // same page as adminScoreboardPage
 
-export const facultyHomePage = new SimplePage('faculty-home-page');
+export const facultyHomePage = new SimplePage(PAGEIDS.FACULTY_HOME_PAGE);
 
 export const studentHomePage = new SimplePage(PAGEIDS.STUDENT_HOME);
 export const studentDegreePlannerPage = new SimplePage(PAGEIDS.STUDENT_DEGREE_PLANNER);
@@ -41,15 +41,19 @@ export const studentVisibilityPage = new SimplePage(PAGEIDS.STUDENT_VISIBILITY);
 
 // Common Explorer Pages
 export const courseExplorerPage = new SimplePage(PAGEIDS.COURSE_BROWSER);
+export const courseExplorerItemPage = new SimplePage(PAGEIDS.COURSE);
 export const interestExplorerPage = new SimplePage(PAGEIDS.INTEREST_BROWSER);
+export const interestExplorerItemPage = new SimplePage(PAGEIDS.INTEREST);
 export const careerGoalExplorerPage = new SimplePage(PAGEIDS.CAREER_GOAL_BROWSER);
+export const careerGoalExplorerItemPage = new SimplePage(PAGEIDS.CAREER_GOAL);
 export const opportunityExplorerPage = new SimplePage(PAGEIDS.OPPORTUNITY_BROWSER);
+export const opportunityExplorerItemPage = new SimplePage(PAGEIDS.OPPORTUNITY);
 
 // Common pages shared across different roles.
 export const manageOpportunitiesPage = new SimplePage(PAGEIDS.MANAGE_OPPORTUNITIES);
 export const manageVerificationPage = new SimplePage(PAGEIDS.MANAGE_VERIFICATION);
-export const manageReviewsPage = new SimplePage('manage-reviews-page');
-export const manageStudentsPage = new SimplePage('manage-students-page');
+export const manageReviewsPage = new SimplePage(PAGEIDS.MANAGE_REVIEWS);
+export const manageStudentsPage = new SimplePage(PAGEIDS.MANAGE_STUDENTS);
 export const forecastsPage = new SimplePage(PAGEIDS.FORECASTS);
 export const communityPage = new SimplePage(PAGEIDS.COMMUNITY);
 export const advisorFacultyVisibilityPage = new SimplePage(PAGEIDS.VISIBILITY);
