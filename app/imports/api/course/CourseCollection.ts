@@ -163,7 +163,7 @@ class CourseCollection extends BaseSlugCollection {
    * @param repeatable optional boolean.
    * @param retired optional boolean.
    */
-  public update(instance: string, { name, shortName, num, description, creditHrs, interests, prerequisites, syllabus, retired, repeatable }: CourseUpdate) {
+  public update(instance: string, { name, shortName, num, description, creditHrs, interests, corequisites, prerequisites, syllabus, retired, repeatable }: CourseUpdate) {
     const docID = this.getID(instance);
     const updateData: {
       name?: string;
@@ -173,6 +173,7 @@ class CourseCollection extends BaseSlugCollection {
       num?: string;
       creditHrs?: number;
       syllabus?: string;
+      corequisites?: string[];
       prerequisites?: string[];
       repeatable?: boolean;
       retired?: boolean;
@@ -198,6 +199,17 @@ class CourseCollection extends BaseSlugCollection {
     }
     if (syllabus) {
       updateData.syllabus = syllabus;
+    }
+    if (corequisites) {
+      if (!Array.isArray(corequisites)) {
+        throw new Meteor.Error(`Corequisites ${corequisites} is not an Array.`);
+      }
+      corequisites.forEach((coreq) => {
+        if (!this.hasSlug(coreq)) {
+          throw new Meteor.Error(`Corequisite ${coreq} is not a slug for a course.`);
+        }
+      });
+      updateData.corequisites = corequisites;
     }
     if (prerequisites) {
       if (!Array.isArray(prerequisites)) {

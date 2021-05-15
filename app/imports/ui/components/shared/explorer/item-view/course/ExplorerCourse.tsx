@@ -1,15 +1,18 @@
 import React from 'react';
-import { Divider, Grid, Header, Segment } from 'semantic-ui-react';
-import { useRouteMatch } from 'react-router-dom';
 import Markdown from 'react-markdown';
-import StudentExplorerReviewWidget from '../../../../student/explorer/StudentExplorerReviewWidget';
-import { AcademicTerm, Course, Profile, Review } from '../../../../../../typings/radgrad';
-import { Teasers } from '../../../../../../api/teaser/TeaserCollection';
-import ExplorerReviewWidget from '../ExplorerReviewWidget';
-import FutureParticipation from '../../FutureParticipation';
-import TeaserVideo from '../../../TeaserVideo';
-import { ROLE } from '../../../../../../api/role/Role';
+import { useRouteMatch } from 'react-router-dom';
+import { Divider, Grid, Header, Segment } from 'semantic-ui-react';
 import { Reviews } from '../../../../../../api/review/ReviewCollection';
+import { ROLE } from '../../../../../../api/role/Role';
+import { Teasers } from '../../../../../../api/teaser/TeaserCollection';
+import { PROFILE_ENTRY_TYPE } from '../../../../../../api/user/profile-entries/ProfileEntryTypes';
+import { AcademicTerm, Course, Interest, Profile, Review } from '../../../../../../typings/radgrad';
+import StudentExplorerReviewWidget from '../../../../student/explorer/StudentExplorerReviewWidget';
+import EditCourseButton from '../../../manage/course/EditCourseButton';
+import DeleteItemButton from '../../../manage/DeleteItemButton';
+import TeaserVideo from '../../../TeaserVideo';
+import FutureParticipation from '../../FutureParticipation';
+import ExplorerReviewWidget from '../ExplorerReviewWidget';
 
 interface ExplorerCoursesWidgetProps {
   course: Course;
@@ -17,6 +20,8 @@ interface ExplorerCoursesWidgetProps {
   itemReviews: Review[];
   profile: Profile;
   terms: AcademicTerm[];
+  courses: Course[];
+  interests: Interest[];
 }
 
 const review = (course: Course, profile: Profile): Review => {
@@ -38,7 +43,7 @@ const teaserUrlHelper = (course: Course): string => {
   return courseTeaser && courseTeaser[0] && courseTeaser[0].url;
 };
 
-const ExplorerCourse: React.FC<ExplorerCoursesWidgetProps> = ({ course, completed, itemReviews, profile, terms }) => {
+const ExplorerCourse: React.FC<ExplorerCoursesWidgetProps> = ({ course, courses, completed, itemReviews, profile, terms, interests }) => {
   const segmentStyle = { backgroundColor: 'white' };
   const fiveMarginTopStyle = { marginTop: '5px' };
   const compactRowStyle = { paddingTop: 2, paddingBottom: 2 };
@@ -46,6 +51,7 @@ const ExplorerCourse: React.FC<ExplorerCoursesWidgetProps> = ({ course, complete
   const match = useRouteMatch();
   const hasTeaser = Teasers.findNonRetired({ targetSlugID: course.slugID }).length > 0;
   const isStudent = profile.role === ROLE.STUDENT;
+  const isAdmin = profile.role === ROLE.ADMIN;
   return (
     <div id="explorerCourseWidget">
       <Segment padded className="container" style={segmentStyle}>
@@ -60,6 +66,8 @@ const ExplorerCourse: React.FC<ExplorerCoursesWidgetProps> = ({ course, complete
             <Grid.Row>
               <Markdown allowDangerousHtml source={course.description} />
             </Grid.Row>
+            {isStudent ? '' : <EditCourseButton course={course} courses={courses} interests={interests} />}
+            {isAdmin ? <DeleteItemButton item={course} type={PROFILE_ENTRY_TYPE.COURSE} /> : ''}
           </Grid>
       </Segment>
 

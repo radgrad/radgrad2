@@ -2,9 +2,10 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Grid } from 'semantic-ui-react';
+import { Interests } from '../../../../api/interest/InterestCollection';
 import { Reviews } from '../../../../api/review/ReviewCollection';
 import { PAGEIDS } from '../../../utilities/PageIDs';
-import { AcademicTerm, Course, Profile, ProfileCourse, Review } from '../../../../typings/radgrad';
+import { AcademicTerm, Course, Interest, Profile, ProfileCourse, Review } from '../../../../typings/radgrad';
 import { Courses } from '../../../../api/course/CourseCollection';
 import { ProfileCourses } from '../../../../api/user/profile-entries/ProfileCourseCollection';
 import { Users } from '../../../../api/user/UserCollection';
@@ -29,6 +30,8 @@ interface CourseViewPageProps {
   itemReviews: Review[];
   profile: Profile;
   terms: AcademicTerm[];
+  courses: Course[];
+  interests: Interest[];
 }
 
 const isCourseCompleted = (courseSlugName, studentID): boolean => {
@@ -52,6 +55,8 @@ const CourseViewPage: React.FC<CourseViewPageProps> = ({
   itemReviews,
   profile,
   terms,
+  courses,
+  interests,
 }) => {
   const headerPaneTitle = `${course.name} (${course.num})`;
   const headerPaneImage = 'header-courses.png';
@@ -80,7 +85,7 @@ const CourseViewPage: React.FC<CourseViewPageProps> = ({
           </Grid.Column>
           <Grid.Column width={11}>
             <ExplorerCourse course={course} profile={profile} completed={completed} itemReviews={itemReviews}
-                            terms={terms} />
+                            terms={terms} courses={courses} interests={interests} />
           </Grid.Column>
         </Grid.Row>
       </Grid>
@@ -99,12 +104,16 @@ const CourseViewPageContainer = withTracker(() => {
   const after = currentTermNumber - 8;
   const before = currentTermNumber + 16;
   const terms = allTerms.filter((t) => t.termNumber >= after && t.termNumber <= before);
+  const courses = Courses.findNonRetired();
+  const interests = Interests.findNonRetired();
   return {
     course: courseDoc,
     profileCourses,
     itemReviews,
     profile,
     terms,
+    courses,
+    interests,
   };
 })(CourseViewPage);
 

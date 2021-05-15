@@ -286,6 +286,7 @@ export interface CourseUpdate extends Update {
   description?: string;
   creditHrs?: number;
   interests?: string[];
+  corequisites?: string[];
   prerequisites?: string[];
   syllabus?: string;
   repeatable?: boolean;
