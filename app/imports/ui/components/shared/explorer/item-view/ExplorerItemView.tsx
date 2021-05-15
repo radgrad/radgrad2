@@ -25,7 +25,7 @@ interface ExplorerItemViewProps {
 const ExplorerItemView: React.FC<ExplorerItemViewProps> = ({ profile, item, courses, opportunities, explorerType, interestTypes, interests }) => {
   const teaser = Teasers.findNonRetired({ targetSlugID: item.slugID });
   const hasTeaser = teaser.length > 0;
-  const isNotStudent = [ROLE.ADMIN, ROLE.ADVISOR].includes(profile.role);
+  const isNotStudent = profile.role !== ROLE.STUDENT;
   const isAdmin = profile.role === ROLE.ADMIN;
   let editButton;
   let itemType;
