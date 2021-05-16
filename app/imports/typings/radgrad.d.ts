@@ -629,6 +629,8 @@ export interface Profile extends Document {
   courseExplorerFilter?: string;
   opportunityExplorerSortOrder?: string;
   lastVisited?: Record<string, string>;
+  acceptedTermsAndConditions?: string;
+  refusedTermsAndConditions?: string;
 }
 
 // Advisor and Faculty Profiles
@@ -650,6 +652,8 @@ export interface ProfileDefine extends DumpOne {
   shareInterests?: boolean;
   shareCareerGoals?: boolean;
   lastVisited?: Record<string, string>;
+  acceptedTermsAndConditions?: string;
+  refusedTermsAndConditions?: string;
 }
 
 export interface AdvisorOrFacultyProfileDefine extends ProfileDefine {
@@ -666,11 +670,6 @@ export interface CombinedProfileDefine extends ProfileDefine {
   level?: number;
   declaredAcademicTerm?: string;
   isAlumni?: boolean;
-  retired?: boolean;
-  sharePicture?: boolean;
-  shareWebsite?: boolean;
-  shareInterests?: boolean;
-  shareCareerGoals?: boolean;
   shareCourses?: boolean;
   shareOpportunities?: boolean;
   shareLevel?: boolean;
@@ -691,6 +690,9 @@ export interface ProfileUpdate extends Update {
   shareWebsite?: boolean;
   shareInterests?: boolean;
   shareCareerGoals?: boolean;
+  lastVisited?: Record<string, string>;
+  acceptedTermsAndConditions?: string;
+  refusedTermsAndConditions?: string;
 }
 
 export interface AdvisorOrFacultyProfileUpdate extends ProfileUpdate {
@@ -707,8 +709,6 @@ export interface StudentProfile extends Profile {
   shareICE?: boolean;
   lastRegistrarLoad?: string;
   lastLeveledUp?: string;
-  acceptedTermsAndConditions?: string;
-  refusedTermsAndConditions?: string;
 }
 
 export interface StudentProfileDefine extends ProfileDefine {
@@ -717,16 +717,12 @@ export interface StudentProfileDefine extends ProfileDefine {
   profileCourses?: string[];
   profileOpportunities?: string[];
   isAlumni?: boolean;
-  retired?: boolean;
   shareCourses?: boolean;
   shareOpportunities?: boolean;
   shareLevel?: boolean;
   shareICE?: boolean;
   lastRegistrarLoad?: string;
   lastLeveledUp?: string;
-  acceptedTermsAndConditions?: string;
-  refusedTermsAndConditions?: string;
-  lastVisited?: Record<string, string>;
 }
 
 export interface StudentProfileUpdate extends ProfileUpdate {
@@ -735,16 +731,12 @@ export interface StudentProfileUpdate extends ProfileUpdate {
   profileCourses?: string[];
   profileOpportunities?: string[];
   isAlumni?: boolean;
-  retired?: boolean;
   shareCourses?: boolean;
   shareOpportunities?: boolean;
   shareLevel?: boolean;
   shareICE?: boolean;
   lastRegistrarLoad?: string;
   lastLeveledUp?: string;
-  acceptedTermsAndConditions?: string;
-  refusedTermsAndConditions?: string;
-  lastVisited?: Record<string, string>;
 }
 
 export interface StudentProfileUpdateData {

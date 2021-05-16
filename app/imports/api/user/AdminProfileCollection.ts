@@ -102,6 +102,8 @@ class AdminProfileCollection extends BaseProfileCollection {
     sharePicture,
     shareInterests,
     shareCareerGoals,
+    acceptedTermsAndConditions,
+    refusedTermsAndConditions,
   }: ProfileUpdate) {
     this.assertDefined(docID);
     const updateData = {};
@@ -117,6 +119,8 @@ class AdminProfileCollection extends BaseProfileCollection {
       sharePicture,
       shareInterests,
       shareCareerGoals,
+      acceptedTermsAndConditions,
+      refusedTermsAndConditions,
     });
     this.collection.update(docID, { $set: updateData });
     const profile = this.findDoc(docID);

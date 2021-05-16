@@ -1,3 +1,4 @@
+import { CallPromiseMixin } from 'meteor/didericis:callpromise-mixin';
 import { Meteor } from 'meteor/meteor';
 import { Roles } from 'meteor/alanning:roles';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
@@ -10,6 +11,7 @@ import { ROLE } from '../role/Role';
  */
 export const sendEmailMethod = new ValidatedMethod({
   name: 'Email.sendEmail',
+  mixins: [CallPromiseMixin],
   validate: null,
   run(emailData: sendEmailParams) {
     // Let other method calls from the same client start running,
@@ -26,6 +28,7 @@ export const sendEmailMethod = new ValidatedMethod({
 
 export const sendRefusedTermsEmailMethod = new ValidatedMethod({
   name: 'Email.sendRefusedTermsEmail',
+  mixins: [CallPromiseMixin],
   validate: null,
   run(emailData: sendEmailParams) {
     // Let other method calls from the same client start running,

@@ -53,15 +53,13 @@ export class TermsAndConditionsChecklist extends Checklist {
 
   public getActions(): JSX.Element {
     const handleAccept = () => {
-      const collectionName = StudentProfiles.getCollectionName();
+      const collectionName = StudentProfiles.getCollectionNameForProfile(this.profile);
       const updateData: StudentProfileUpdate = {};
       updateData.id = this.profile._id;
       updateData.acceptedTermsAndConditions = moment().format('YYYY-MM-DD');
-      updateMethod.call({ collectionName, updateData }, (error) => {
-        if (error) {
-          console.error('Failed to update acceptedTermsAndConditions', error);
-        }
-      });
+      // console.log('handleAccept', collectionName, updateData);
+      updateMethod.callPromise({ collectionName, updateData })
+        .catch((error) => console.error('Failed to update acceptedTermsAndConditions', error));
     };
     const handleReject = () => {
       // need to inform the admin that a student has disagreed to the terms.
@@ -76,20 +74,14 @@ export class TermsAndConditionsChecklist extends Checklist {
         },
         filename: 'refusedTerms.html',
       };
-      sendRefusedTermsEmailMethod.call(emailData, (error) => {
-        if (error) {
-          console.error('Failed to send email.', error);
-        }
-      });
-      const collectionName = StudentProfiles.getCollectionName();
+      sendRefusedTermsEmailMethod.callPromise(emailData)
+        .catch((error) => console.error('Failed to send email.', error));
+      const collectionName = StudentProfiles.getCollectionNameForProfile(this.profile);
       const updateData: StudentProfileUpdate = {};
       updateData.id = this.profile._id;
       updateData.refusedTermsAndConditions = moment().format('YYYY-MM-DD');
-      updateMethod.call({ collectionName, updateData }, (error) => {
-        if (error) {
-          console.error('Failed to update refusedTermsAndConditions', error);
-        }
-      });
+      updateMethod.callPromise({ collectionName, updateData })
+        .catch((error) => console.error('Failed to update refusedTermsAndConditions', error));
     };
     switch (this.state) {
       case CHECKSTATE.IMPROVE:

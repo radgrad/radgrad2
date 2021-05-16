@@ -299,6 +299,8 @@ class StudentProfileCollection extends BaseProfileCollection {
       sharePicture,
       shareInterests,
       shareCareerGoals,
+      acceptedTermsAndConditions,
+      refusedTermsAndConditions,
     });
     if (declaredAcademicTerm) {
       updateData.declaredAcademicTermID = AcademicTerms.getID(declaredAcademicTerm);
