@@ -324,8 +324,9 @@ class BaseProfileCollection extends BaseSlugCollection {
    */
   protected updateCommonFields(updateData, {
     firstName, lastName, picture, website, retired, courseExplorerFilter, opportunityExplorerSortOrder, shareWebsite,
-    sharePicture, shareInterests, shareCareerGoals,
+    sharePicture, shareInterests, shareCareerGoals, acceptedTermsAndConditions, refusedTermsAndConditions,
   }) {
+    // console.log('updateCommonFields', firstName, lastName, picture, website, retired, courseExplorerFilter, opportunityExplorerSortOrder, shareWebsite, sharePicture, shareInterests, shareCareerGoals, acceptedTermsAndConditions, refusedTermsAndConditions);
     if (firstName) {
       updateData.firstName = firstName; // eslint-disable-line no-param-reassign
     }
@@ -358,6 +359,12 @@ class BaseProfileCollection extends BaseSlugCollection {
     }
     if (_.isBoolean(shareWebsite)) {
       updateData.shareWebsite = shareWebsite; // eslint-disable-line no-param-reassign
+    }
+    if (_.isString(acceptedTermsAndConditions)) {
+      updateData.acceptedTermsAndConditions = acceptedTermsAndConditions; // eslint-disable-line no-param-reassign
+    }
+    if (_.isString(refusedTermsAndConditions)) {
+      updateData.refusedTermsAndConditions = refusedTermsAndConditions; // eslint-disable-line no-param-reassign
     }
     // console.log('_updateCommonFields', updateData);
   }
