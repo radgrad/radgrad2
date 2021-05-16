@@ -97,23 +97,6 @@ class AdvisorProfileCollection extends BaseProfileCollection {
     aboutMe,
   }: AdvisorOrFacultyProfileUpdate) {
     this.assertDefined(docID);
-    console.log('AdvisorProfiles.update',
-      firstName,
-      lastName,
-      picture,
-      website,
-      interests,
-      careerGoals,
-      retired,
-      courseExplorerFilter,
-      opportunityExplorerSortOrder,
-      shareWebsite,
-      sharePicture,
-      shareInterests,
-      shareCareerGoals,
-      acceptedTermsAndConditions,
-      refusedTermsAndConditions,
-      aboutMe);
     const updateData: AdvisorOrFacultyProfileUpdate = {};
     this.updateCommonFields(updateData, {
       firstName,
@@ -133,7 +116,7 @@ class AdvisorProfileCollection extends BaseProfileCollection {
     if (aboutMe) {
       updateData.aboutMe = aboutMe;
     }
-    console.log(docID, updateData);
+    // console.log(docID, updateData);
     this.collection.update(docID, { $set: updateData });
     const profile = this.findDoc(docID);
     const username = profile.username;
