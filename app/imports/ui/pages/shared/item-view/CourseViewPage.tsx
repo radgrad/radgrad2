@@ -16,7 +16,6 @@ import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollect
 import { ROLE } from '../../../../api/role/Role';
 import AddToProfileButton from '../../../components/shared/explorer/item-view/AddToProfileButton';
 import { PROFILE_ENTRY_TYPE } from '../../../../api/user/profile-entries/ProfileEntryTypes';
-import { ProfileOpportunities } from '../../../../api/user/profile-entries/ProfileOpportunityCollection';
 import RelatedInterests from '../../../components/shared/RelatedInterests';
 import RelatedCareerGoals from '../../../components/shared/RelatedCareerGoals';
 import RelatedOpportunities from '../../../components/shared/RelatedOpportunities';
@@ -60,9 +59,9 @@ const CourseViewPage: React.FC<CourseViewPageProps> = ({
 }) => {
   const headerPaneTitle = `${course.name} (${course.num})`;
   const headerPaneImage = 'header-courses.png';
-  const added = ProfileOpportunities.findNonRetired({
+  const added = ProfileCourses.findNonRetired({
     studentID: profile.userID,
-    opportunityID: course._id,
+    courseID: course._id,
   }).length > 0;
   const relatedOpportunities = getAssociationRelatedOpportunities(Courses.findRelatedOpportunities(course._id), profile.userID);
   const relatedCareerGoals = Courses.findRelatedCareerGoals(course._id);

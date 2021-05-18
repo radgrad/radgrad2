@@ -9,6 +9,7 @@
   ],
   "ignoreUnimported": [
     "imports/ui/utilities/Colors.ts",
+    "imports/ui/components/shared/explorer/browser-view/TermList.tsx",
     "update-build-version.ts"
   ],
   "ignoreUnused": [
