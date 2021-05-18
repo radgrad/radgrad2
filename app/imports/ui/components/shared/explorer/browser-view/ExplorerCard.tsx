@@ -3,14 +3,9 @@ import { useRouteMatch, Link } from 'react-router-dom';
 import { Card, Icon, Label } from 'semantic-ui-react';
 import Markdown from 'react-markdown';
 import * as Router from '../../utilities/router';
-import {
-  docToName,
-  docToShortDescription,
-  itemToSlugName,
-} from '../../utilities/data-model';
+import { docToName, docToShortDescription, itemToSlugName } from '../../utilities/data-model';
 import { buildExplorerSlugRoute } from '../../utilities/router';
 import InterestList from '../../InterestList';
-import TermList from './TermList';
 import { EXPLORER_TYPE } from '../../../../utilities/ExplorerUtils';
 
 interface ProfileCardProps {
@@ -35,7 +30,6 @@ const ExplorerCard: React.FC<ProfileCardProps> = ({ item, type, inProfile }) => 
   return (
     <Card>
       <Card.Content>
-        { item.termIDs ? (<TermList item={item} size="small" />) : ''}
         <Card.Header>{itemName}</Card.Header>
         { inProfile ? <Label ribbon='right' color='green'>IN MY PROFILE</Label> : '' }
       </Card.Content>

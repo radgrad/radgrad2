@@ -9,8 +9,7 @@ import { RadGrad } from '../radgrad/RadGrad';
  * @memberOf api/integrity
  */
 export const checkIntegrity = (): { count: number, message: string } => {
-  let message = `Integrity check results
- (${moment().format('MMM Do YYYY, H:mm:ss a')})`;
+  let message = `Integrity check results (${moment().format('MMM Do YYYY, H:mm:ss a')})`;
   const startTime = moment();
   let count = 0;
   _.sortBy(RadGrad.collections, (c) => c.collectionName).forEach((collection) => {
