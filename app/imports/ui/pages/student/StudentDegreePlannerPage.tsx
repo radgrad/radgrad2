@@ -266,8 +266,11 @@ export default withTracker(() => {
   // next filter out the passed classes, but not if they are repeatable.
   profileCourses = profileCourses.filter((course) => {
     const ci = courseInstances.find((instance) => instance.courseID === course._id);
-    // console.log(!passedCourse(ci), courseInstanceIsRepeatable(ci), ci.note);
-    return !passedCourse(ci) || courseInstanceIsRepeatable(ci);
+    if (ci) {
+      // console.log(!passedCourse(ci), courseInstanceIsRepeatable(ci), ci.note);
+      return !passedCourse(ci) || courseInstanceIsRepeatable(ci);
+    }
+    return false;
   });  const academicYearInstances: AcademicYearInstance[] = AcademicYearInstances.findNonRetired({ studentID }, { sort: { year: 1 } });
   const opportunityInstances = OpportunityInstances.findNonRetired({ studentID: profile.userID });
   const verificationRequests = VerificationRequests.findNonRetired({ studentID });

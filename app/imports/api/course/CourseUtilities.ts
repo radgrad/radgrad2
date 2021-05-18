@@ -43,9 +43,10 @@ export const clearPlannedCourseInstances = (studentID: string) => {
   });
 };
 
-export const courseInstanceIsRepeatable = (ci: CourseInstance): boolean => Courses.findDoc(ci.courseID).repeatable;
+// CAM: What is the right behavior if ci is undefined?
+export const courseInstanceIsRepeatable = (ci: CourseInstance): boolean => ci && Courses.findDoc(ci.courseID).repeatable;
 
-export const courseIsRepeatable = (course: Course): boolean => course.repeatable;
+export const courseIsRepeatable = (course: Course): boolean => course?.repeatable;
 
 export const get300LevelDocs = (): Course[] => Courses.find({ num: /3\d\d/ }).fetch();
 
@@ -169,4 +170,4 @@ export const getDepartment = (courseSlug: string): string => courseSlug.split('_
  */
 export const getCourseNumber = (courseSlug: string): string => courseSlug.split('_')[1];
 
-export const passedCourse = (ci: CourseInstance): boolean => _.includes(['C', 'C+', 'B-', 'B', 'B+', 'A-', 'A', 'A+'], ci.grade) && ci.verified;
+export const passedCourse = (ci: CourseInstance): boolean => ci && _.includes(['C', 'C+', 'B-', 'B', 'B+', 'A-', 'A', 'A+'], ci.grade) && ci.verified;
