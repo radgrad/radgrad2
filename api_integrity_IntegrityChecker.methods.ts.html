@@ -110,7 +110,13 @@ export const checkIntegrityMethod = new ValidatedMethod({
         throw new Meteor.Error('unauthorized', 'You must be an admin or advisor to check integrity.');
       }
     }
-    return checkIntegrity();
+    const integrityData = checkIntegrity();
+    // Print out integrity results to server console because the websocket might close and results of server-side check
+    // might not be communicated back to the client.
+    if (Meteor.isServer) {
+      console.log(integrityData.message);
+    }
+    return integrityData;
   },
 });
 </code></pre>
