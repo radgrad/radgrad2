@@ -32,7 +32,7 @@ const StudentVerifiedOpportunityItem: React.FC<StudentVerifiedOpportunityItemPro
         <Header>{opportunityName} <IceHeader ice={opportunityInstance.ice} size='small' /></Header>
       </Grid.Column>
       <Grid.Column textAlign='right'>
-        <Label icon color='green' size='large'><Icon className='check circle' /> {date}</Label>
+        <Label color='green' size='large'><Icon className='check circle' /> {date}</Label>
       </Grid.Column>
     </Grid.Row>
   );
