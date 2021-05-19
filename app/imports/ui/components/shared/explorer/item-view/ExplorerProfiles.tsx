@@ -18,29 +18,21 @@ const ExplorerProfiles: React.FC<ExplorerProfileWidgetProps> = ({ item, explorer
   const [students, setStudents] = useState([]);
   const [advisors, setAdvisors] = useState([]);
 
-  getUserIDsWithProfileExplorerMethod.call({ itemID: item._id, role: ROLE.FACULTY, explorerType  }, (error, res) => {
-    if (res && faculty.length !== res.length) {
-      setFaculty(res.map((id) => Users.getProfile(id)));
-    }
-  });
-  getUserIDsWithProfileExplorerMethod.call({ itemID: item._id, role: ROLE.STUDENT, explorerType }, (error, res) => {
-    if (res && students.length !== res.length) {
-      setStudents(res.map((id) => Users.getProfile(id)));
-    }
-  });
-  getUserIDsWithProfileExplorerMethod.call({ itemID: item._id, role: ROLE.ADVISOR, explorerType }, (error, res) => {
-    if (res && advisors.length !== res.length) {
-      setAdvisors(res.map((id) => Users.getProfile(id)));
-    }
-  });
+  getUserIDsWithProfileExplorerMethod.callPromise({ itemID: item._id, role: ROLE.FACULTY, explorerType  })
+    .then(res => (res && faculty.length !== res.length) && setFaculty(res.map((id) => Users.getProfile(id))));
 
-  const numberStudents = students.length;
+  getUserIDsWithProfileExplorerMethod.callPromise({ itemID: item._id, role: ROLE.STUDENT, explorerType })
+    .then(res => (res && students.length !== res.length) && setStudents(res.map((id) => Users.getProfile(id))));
+
+  getUserIDsWithProfileExplorerMethod.callPromise({ itemID: item._id, role: ROLE.ADVISOR, explorerType })
+    .then(res => (res && advisors.length !== res.length) && setAdvisors(res.map((id) => Users.getProfile(id))));
+
   return (
         <Segment>
             <Header as="h5" textAlign="center">
-                STUDENTS <WidgetHeaderNumber inputValue={numberStudents} />
+                (VISIBLE) STUDENTS <WidgetHeaderNumber inputValue={students.length} />
             </Header>
-            <Container textAlign="center">
+            <Container>
                 {students.map((student) => (
                     <UserLabel key={student.username} username={student.username} />
                 ))}
@@ -49,7 +41,7 @@ const ExplorerProfiles: React.FC<ExplorerProfileWidgetProps> = ({ item, explorer
             <Header as="h5" textAlign="center">
                 FACULTY MEMBERS <WidgetHeaderNumber inputValue={faculty.length} />
             </Header>
-            <Container textAlign="center">
+            <Container>
                 {faculty.map((fac) => (
                     <UserLabel username={fac.username} key={fac.username} />
                 ))}
@@ -58,7 +50,7 @@ const ExplorerProfiles: React.FC<ExplorerProfileWidgetProps> = ({ item, explorer
             <Header as="h5" textAlign="center">
                 ADVISORS <WidgetHeaderNumber inputValue={advisors.length} />
             </Header>
-            <Container textAlign="center">
+            <Container>
                 {advisors.map((fac) => (
                     <UserLabel username={fac.username} key={fac.username} />
                 ))}
