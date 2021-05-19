@@ -137,7 +137,7 @@ const onDragEnd = (onDragEndProps) => (result) => {
           updateData.id = slug;
           const collectionName = CourseInstances.getCollectionName();
           updateMethod.callPromise({ collectionName, updateData })
-            .then(() => { // CAM: This might not work.
+            .then(() => {
               setSelectedCiID(slug);
               setSelectedOiID('');
               setSelectedProfileTab(TabbedProfileEntryNames.profileDetails);

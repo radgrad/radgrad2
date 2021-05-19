@@ -20,28 +20,10 @@ interface DetailCourseCardProps {
   instance: CourseInstance;
 }
 
-const handleRemove = (setSelectedCiID, setSelectedProfileTab, match) => (event, { value }) => {
-  event.preventDefault();
-  const collectionName = CourseInstances.getCollectionName();
-  const instance = value;
-  removeItMethod.call({ collectionName, instance }, (error) => {
-    if (error) {
-      console.error(`Remove courseInstance ${instance} failed.`, error);
-    } else {
-      Swal.fire({
-        title: 'Remove succeeded',
-        icon: 'success',
-        showConfirmButton: false,
-        timer: 1500,
-      });
-    }
-  });
-  setSelectedCiID('');
-  setSelectedProfileTab(TabbedProfileEntryNames.profileCourses);
-};
 
 const DetailCourseCard: React.FC<DetailCourseCardProps> = ({ instance  }) => {
   const [, setSelectedCiID] = useStickyState(DegreePlannerStateNames.selectedCiID, '');
+  const [, setSelectedOiID] = useStickyState(DegreePlannerStateNames.selectedOiID, '');
   const [, setSelectedProfileTab] = useStickyState(DegreePlannerStateNames.selectedProfileTab, '');
   const match = useRouteMatch();
   const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
@@ -49,6 +31,23 @@ const DetailCourseCard: React.FC<DetailCourseCardProps> = ({ instance  }) => {
   const futureP = courseTerm.termNumber >= currentTerm.termNumber;
   const termName = AcademicTerms.getShortName(instance.termID);
   const course = Courses.findDoc(instance.courseID);
+
+  const handleRemove = () => {
+    const collectionName = CourseInstances.getCollectionName();
+    removeItMethod.callPromise({ collectionName, instance })
+      .then(() => {
+        Swal.fire({
+          title: 'Remove succeeded',
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        setSelectedCiID('');
+        setSelectedOiID('');
+        setSelectedProfileTab(TabbedProfileEntryNames.profileOpportunities);
+      })
+      .catch((error) => console.error(`Remove course instance ${instance} failed.`, error));
+  };
 
   return (
     <Card.Group itemsPerRow={1}>
@@ -68,8 +67,7 @@ const DetailCourseCard: React.FC<DetailCourseCardProps> = ({ instance  }) => {
                 <b>Scheduled:</b> {termName}
               </p>
               <FutureParticipationButton item={course} />
-              <Button floated="right" basic color="green" value={instance._id}
-                      onClick={handleRemove(setSelectedCiID, setSelectedProfileTab, match)} size="tiny">
+              <Button floated="right" basic color="green" value={instance._id} onClick={handleRemove} size="tiny">
                 Remove
               </Button>
             </React.Fragment>
