@@ -60,123 +60,126 @@ const onDragEnd = (onDragEndProps) => (result) => {
     return;
   }
   const termSlug: string = result.destination.droppableId;
-  const slug: string = result.draggableId;
-  const student = getUsername(match);
-  const isCourseDrop = Courses.isDefined(slug);
-  const isCourseInstanceDrop = CourseInstances.isDefined(slug);
-  const isOppDrop = Opportunities.isDefined(slug);
-  const isOppInstDrop = OpportunityInstances.isDefined(slug);
-  const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
-  const dropTermDoc = AcademicTerms.findDocBySlug(termSlug);
-  const isPastDrop = dropTermDoc.termNumber < currentTerm.termNumber;
+  // Make sure we are dropping in an academic term
+  if (Slugs.isDefined(termSlug)) {
+    const slug: string = result.draggableId;
+    const student = getUsername(match);
+    const isCourseDrop = Courses.isDefined(slug);
+    const isCourseInstanceDrop = CourseInstances.isDefined(slug);
+    const isOppDrop = Opportunities.isDefined(slug);
+    const isOppInstDrop = OpportunityInstances.isDefined(slug);
+    const currentTerm = AcademicTerms.getCurrentAcademicTermDoc();
+    const dropTermDoc = AcademicTerms.findDocBySlug(termSlug);
+    const isPastDrop = dropTermDoc.termNumber < currentTerm.termNumber;
 
-  if (isCourseDrop) {
-    if (isPastDrop) {
-      Swal.fire({
-        title: 'Cannot drop courses in the past.',
-        text: 'You cannot drag courses to a past academic term.',
-        icon: 'error',
-      });
-    } else {
-      const courseID = Courses.findIdBySlug(slug);
-      const course = Courses.findDoc(courseID);
-      const collectionName = CourseInstances.getCollectionName();
-      const definitionData: CourseInstanceDefine = {
-        academicTerm: termSlug,
-        course: slug,
-        verified: false,
-        fromRegistrar: false,
-        note: course.num,
-        grade: 'B',
-        student,
-        creditHrs: course.creditHrs,
-      };
-
-      /**
-       * If you drag a course into an academic term in which an course instance already exists for that course in
-       * that academic term, that dragged course won't be added to that academic term permanently.
-       * This is because although the define method fires, it won't actually insert a new course instance to the
-       * database (see the define() method of CourseInstanceCollection) because it's considered a duplicate.
-       * However, since the Meteor define method still fires, we want to handle that case where we drag a duplicate
-       * course instance and only create a user interaction if it was not a duplicate.
-       */
-      // Before we define a course instance, check if it already exists first
-      defineMethod.callPromise({ collectionName, definitionData })
-        .then((res) => {
-          setSelectedCiID(res);
-          setSelectedOiID('');
-          setSelectedProfileTab(TabbedProfileEntryNames.profileDetails);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }
-  } else if (isCourseInstanceDrop) {
-    if (isPastDrop) {
-      Swal.fire({
-        title: 'Cannot move a course to the past.',
-        text: 'You cannot drag courses to a past academic term.',
-        icon: 'error',
-      });
-    } else {
-      const instance = CourseInstances.findDoc(slug);
-      const ciTerm = AcademicTerms.findDoc(instance.termID);
-      const inPastStart = ciTerm.termNumber < currentTerm.termNumber;
-      if (inPastStart) {
+    if (isCourseDrop) {
+      if (isPastDrop) {
         Swal.fire({
-          title: 'Cannot move a course from the past.',
-          text: 'You cannot drag courses from a past academic term.',
+          title: 'Cannot drop courses in the past.',
+          text: 'You cannot drag courses to a past academic term.',
           icon: 'error',
         });
       } else {
-        const termID = AcademicTerms.findIdBySlug(termSlug);
-        const updateData: CourseInstanceUpdate = {};
-        updateData.termID = termID;
-        updateData.id = slug;
+        const courseID = Courses.findIdBySlug(slug);
+        const course = Courses.findDoc(courseID);
         const collectionName = CourseInstances.getCollectionName();
-        updateMethod.callPromise({ collectionName, updateData })
-          .then(() => { // CAM: This might not work.
-            setSelectedCiID(slug);
+        const definitionData: CourseInstanceDefine = {
+          academicTerm: termSlug,
+          course: slug,
+          verified: false,
+          fromRegistrar: false,
+          note: course.num,
+          grade: 'B',
+          student,
+          creditHrs: course.creditHrs,
+        };
+
+        /**
+         * If you drag a course into an academic term in which an course instance already exists for that course in
+         * that academic term, that dragged course won't be added to that academic term permanently.
+         * This is because although the define method fires, it won't actually insert a new course instance to the
+         * database (see the define() method of CourseInstanceCollection) because it's considered a duplicate.
+         * However, since the Meteor define method still fires, we want to handle that case where we drag a duplicate
+         * course instance and only create a user interaction if it was not a duplicate.
+         */
+        // Before we define a course instance, check if it already exists first
+        defineMethod.callPromise({ collectionName, definitionData })
+          .then((res) => {
+            setSelectedCiID(res);
             setSelectedOiID('');
             setSelectedProfileTab(TabbedProfileEntryNames.profileDetails);
           })
-          .catch((error) => console.error(error));
+          .catch((error) => {
+            console.error(error);
+          });
       }
+    } else if (isCourseInstanceDrop) {
+      if (isPastDrop) {
+        Swal.fire({
+          title: 'Cannot move a course to the past.',
+          text: 'You cannot drag courses to a past academic term.',
+          icon: 'error',
+        });
+      } else {
+        const instance = CourseInstances.findDoc(slug);
+        const ciTerm = AcademicTerms.findDoc(instance.termID);
+        const inPastStart = ciTerm.termNumber < currentTerm.termNumber;
+        if (inPastStart) {
+          Swal.fire({
+            title: 'Cannot move a course from the past.',
+            text: 'You cannot drag courses from a past academic term.',
+            icon: 'error',
+          });
+        } else {
+          const termID = AcademicTerms.findIdBySlug(termSlug);
+          const updateData: CourseInstanceUpdate = {};
+          updateData.termID = termID;
+          updateData.id = slug;
+          const collectionName = CourseInstances.getCollectionName();
+          updateMethod.callPromise({ collectionName, updateData })
+            .then(() => { // CAM: This might not work.
+              setSelectedCiID(slug);
+              setSelectedOiID('');
+              setSelectedProfileTab(TabbedProfileEntryNames.profileDetails);
+            })
+            .catch((error) => console.error(error));
+        }
+      }
+    } else if (isOppDrop) {
+      const opportunityID = Opportunities.findIdBySlug(slug);
+      const opportunity = Opportunities.findDoc(opportunityID);
+      const sponsor = Users.getProfile(opportunity.sponsorID).username;
+      const collectionName = OpportunityInstances.getCollectionName();
+      const definitionData: OpportunityInstanceDefine = { academicTerm: termSlug, opportunity: slug, verified: false, student, sponsor };
+      /**
+       * If you drag an opportunity into an academic term in which an opportunity instance already exists for that opportunity
+       * in that academic term, that dragged opportunity won't be added to that academic term permanently.
+       * This is because although the define method fires, it won't actually insert a new opportunity instance to the
+       * database (see the define() method of OpportunityInstanceCollection) because it's considered a duplicate.
+       * However, since the Meteor define method still fires, we want to handle that case where we drag a duplicate
+       * opportunity instance and only create a user interaction if it was not a duplicate.
+       */
+      defineMethod.callPromise({ collectionName, definitionData })
+        .then((res) => {
+          setSelectedCiID('');
+          setSelectedOiID(res);
+          setSelectedProfileTab(TabbedProfileEntryNames.profileDetails);
+        })
+        .catch((error) => console.error(error));
+    } else if (isOppInstDrop) {
+      const termID = AcademicTerms.findIdBySlug(termSlug);
+      const updateData: OpportunityInstanceUpdate = {};
+      updateData.termID = termID;
+      updateData.id = slug;
+      const collectionName = OpportunityInstances.getCollectionName();
+      updateMethod.callPromise({ collectionName, updateData })
+        .then(() => {
+          setSelectedCiID('');
+          setSelectedOiID(slug);
+          setSelectedProfileTab(TabbedProfileEntryNames.profileDetails);
+        })
+        .catch((error) => console.error(error));
     }
-  } else if (isOppDrop) {
-    const opportunityID = Opportunities.findIdBySlug(slug);
-    const opportunity = Opportunities.findDoc(opportunityID);
-    const sponsor = Users.getProfile(opportunity.sponsorID).username;
-    const collectionName = OpportunityInstances.getCollectionName();
-    const definitionData: OpportunityInstanceDefine = { academicTerm: termSlug, opportunity: slug, verified: false, student, sponsor };
-    /**
-     * If you drag an opportunity into an academic term in which an opportunity instance already exists for that opportunity
-     * in that academic term, that dragged opportunity won't be added to that academic term permanently.
-     * This is because although the define method fires, it won't actually insert a new opportunity instance to the
-     * database (see the define() method of OpportunityInstanceCollection) because it's considered a duplicate.
-     * However, since the Meteor define method still fires, we want to handle that case where we drag a duplicate
-     * opportunity instance and only create a user interaction if it was not a duplicate.
-     */
-    defineMethod.callPromise({ collectionName, definitionData })
-      .then((res) => {
-        setSelectedCiID('');
-        setSelectedOiID(res);
-        setSelectedProfileTab(TabbedProfileEntryNames.profileDetails);
-      })
-      .catch((error) => console.error(error));
-  } else if (isOppInstDrop) {
-    const termID = AcademicTerms.findIdBySlug(termSlug);
-    const updateData: OpportunityInstanceUpdate = {};
-    updateData.termID = termID;
-    updateData.id = slug;
-    const collectionName = OpportunityInstances.getCollectionName();
-    updateMethod.callPromise({ collectionName, updateData })
-      .then(() => {
-        setSelectedCiID('');
-        setSelectedOiID(slug);
-        setSelectedProfileTab(TabbedProfileEntryNames.profileDetails);
-      })
-      .catch((error) => console.error(error));
   }
 };
 
