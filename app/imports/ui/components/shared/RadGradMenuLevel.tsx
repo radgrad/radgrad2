@@ -1,4 +1,5 @@
 import React from 'react';
+import { Popup } from 'semantic-ui-react';
 
 interface RadGradMenuLevelProps {
   level: number;
@@ -19,7 +20,9 @@ const RadGradMenuLevel: React.FC<RadGradMenuLevelProps> = ({ level }) => {
     backgroundSize: '100% 100%',
     display: 'flex',
   };
-  return <div style={iconStyle} />;
+  return (
+    <Popup trigger={<div style={iconStyle}/>} content={`Level ${level}`}/>
+  );
 };
 
 export default RadGradMenuLevel;

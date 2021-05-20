@@ -38,7 +38,7 @@ const LandingSection3: React.FC<LandingSection3Props> = ({ instanceName, landing
           <div style={styles['landing-number-column']}>
             <Image centered src="/images/landing/home_build.png" />
             <Header>Build your community</Header>
-            <p>Each interest displays students, faculty members, and alumni that have choosen them.</p>
+            <p>Each interest displays students, faculty members, and alumni that have chosen them.</p>
           </div>
         </Grid.Column>
         <Grid.Column>
@@ -51,7 +51,7 @@ const LandingSection3: React.FC<LandingSection3Props> = ({ instanceName, landing
         <Grid.Column>
           <div style={styles['landing-number-column']}>
             <Image centered src="/images/landing/home_define.png" />
-            <Header>Define,then achieve your goals</Header>
+            <Header>Define, then achieve your goals</Header>
             <p>RadGrad helps you reach beyond the classroom through opportunities. These include projects, clubs, internships, online learning, and events.</p>
           </div>
         </Grid.Column>

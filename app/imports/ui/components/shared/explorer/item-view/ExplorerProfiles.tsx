@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { Container, Header, Divider, Segment } from 'semantic-ui-react';
+import { Header, Divider, Segment } from 'semantic-ui-react';
 import { ROLE } from '../../../../../api/role/Role';
-import { Users } from '../../../../../api/user/UserCollection';
 import { CareerGoal, Course, Interest, Opportunity } from '../../../../../typings/radgrad';
 import UserLabel from '../../profile/UserLabel';
 import WidgetHeaderNumber from '../WidgetHeaderNumber';
-import { getUserIDsWithProfileExplorerMethod } from '../../../../../api/user/profile-entries/ProfileAssociatedUsers.methods';
+import { getVisibleUsernames } from '../../../../../api/user/profile-entries/ProfileAssociatedUsers.methods';
 import { EXPLORER_TYPE } from '../../../../utilities/ExplorerUtils';
 
 interface ExplorerProfileWidgetProps {
@@ -13,57 +12,41 @@ interface ExplorerProfileWidgetProps {
   explorerType: EXPLORER_TYPE;
 }
 
+const visibleUsersInitialState = {};
+visibleUsersInitialState[ROLE.FACULTY] = [];
+visibleUsersInitialState[ROLE.STUDENT] = [];
+visibleUsersInitialState[ROLE.ADVISOR] = [];
+
 const ExplorerProfiles: React.FC<ExplorerProfileWidgetProps> = ({ item, explorerType }) => {
-  const [faculty, setFaculty] = useState([]);
-  const [students, setStudents] = useState([]);
-  const [advisors, setAdvisors] = useState([]);
+  const [visibleUsers, setVisibleUsers] = useState(visibleUsersInitialState);
+  const [fetched, setFetched] = useState(false);
 
-  getUserIDsWithProfileExplorerMethod.call({ itemID: item._id, role: ROLE.FACULTY, explorerType  }, (error, res) => {
-    if (res && faculty.length !== res.length) {
-      setFaculty(res.map((id) => Users.getProfile(id)));
-    }
-  });
-  getUserIDsWithProfileExplorerMethod.call({ itemID: item._id, role: ROLE.STUDENT, explorerType }, (error, res) => {
-    if (res && students.length !== res.length) {
-      setStudents(res.map((id) => Users.getProfile(id)));
-    }
-  });
-  getUserIDsWithProfileExplorerMethod.call({ itemID: item._id, role: ROLE.ADVISOR, explorerType }, (error, res) => {
-    if (res && advisors.length !== res.length) {
-      setAdvisors(res.map((id) => Users.getProfile(id)));
-    }
-  });
+  if (!fetched) {
+    getVisibleUsernames.callPromise({ itemID: item._id, explorerType })
+      .catch(error => console.log('Error: getVisibleUserIDs', error.message))
+      .then(results => {
+        setVisibleUsers(results);
+        setFetched(true);
+      });
+  }
 
-  const numberStudents = students.length;
   return (
-        <Segment>
-            <Header as="h5" textAlign="center">
-                STUDENTS <WidgetHeaderNumber inputValue={numberStudents} />
-            </Header>
-            <Container textAlign="center">
-                {students.map((student) => (
-                    <UserLabel key={student.username} username={student.username} />
-                ))}
-            </Container>
-            <Divider />
-            <Header as="h5" textAlign="center">
-                FACULTY MEMBERS <WidgetHeaderNumber inputValue={faculty.length} />
-            </Header>
-            <Container textAlign="center">
-                {faculty.map((fac) => (
-                    <UserLabel username={fac.username} key={fac.username} />
-                ))}
-            </Container>
-            <Divider />
-            <Header as="h5" textAlign="center">
-                ADVISORS <WidgetHeaderNumber inputValue={advisors.length} />
-            </Header>
-            <Container textAlign="center">
-                {advisors.map((fac) => (
-                    <UserLabel username={fac.username} key={fac.username} />
-                ))}
-            </Container>
-        </Segment>
+    <Segment>
+      <Header as="h5" textAlign="center">
+        (VISIBLE) STUDENTS <WidgetHeaderNumber inputValue={visibleUsers[ROLE.STUDENT].length} />
+      </Header>
+      {visibleUsers[ROLE.STUDENT].map(username => <UserLabel key={username} username={username} />)}
+      <Divider />
+      <Header as="h5" textAlign="center">
+        (RELATED) FACULTY MEMBERS <WidgetHeaderNumber inputValue={visibleUsers[ROLE.FACULTY].length} />
+      </Header>
+      {visibleUsers[ROLE.FACULTY].map(username => <UserLabel key={username} username={username} />)}
+      <Divider />
+      <Header as="h5" textAlign="center">
+        (RELATED) ADVISORS <WidgetHeaderNumber inputValue={visibleUsers[ROLE.ADVISOR].length} />
+      </Header>
+      {visibleUsers[ROLE.ADVISOR].map(username => <UserLabel key={username} username={username} />)}
+    </Segment>
   );
 };
 
