@@ -21,7 +21,7 @@ import LandingSection1 from '../../components/landing/LandingSection1';
 import LandingSection2 from '../../components/landing/LandingSection2';
 import LandingSection3 from '../../components/landing/LandingSection3';
 import LandingSection9Container from '../../components/landing/LandingSection9';
-import LandingFooter from '../../components/landing/LandingFooter';
+import PageFooter from '../../components/shared/PageFooter';
 import LandingSectionPreRelease from '../../components/landing/LandingSectionPreRelease';
 import withListSubscriptions from '../../layouts/utilities/SubscriptionListHOC';
 import BackToTopButton from '../../components/shared/BackToTopButton';
@@ -66,7 +66,7 @@ const LandingHomePage: React.FC<LandingHomeProps> = ({ currentUser, opportunitie
     <LandingSection2 careerGoals={careerGoals} interests={interests} opportunities={opportunities} users={users} />
     <LandingSection3 landingSubject={landingSubject} instanceName={instanceName} />
     <LandingSection9Container instanceName={instanceName} userGuideURL={userGuideURL} />
-    <LandingFooter instanceName={instanceName} />
+    <PageFooter />
 
     <BackToTopButton />
   </div>);
