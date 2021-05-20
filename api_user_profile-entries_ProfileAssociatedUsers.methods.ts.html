@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> ui/pages/admin/AdminDataModelAcademicTermsPage.tsx</title>
+  <title> api/user/profile-entries/ProfileAssociatedUsers.methods.ts</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -76,7 +76,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>ui/pages/admin/AdminDataModelAcademicTermsPage.tsx</h1>
+                    <h1>api/user/profile-entries/ProfileAssociatedUsers.methods.ts</h1>
                 </header>
                 
 
@@ -85,128 +85,67 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import { withTracker } from 'meteor/react-meteor-data';
-import React, { useState } from 'react';
-import { Confirm, Icon } from 'semantic-ui-react';
+            <pre class="prettyprint source linenums"><code>import { Meteor } from 'meteor/meteor';
+import { CallPromiseMixin } from 'meteor/didericis:callpromise-mixin';
+import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import _ from 'lodash';
-import { AcademicTerms } from '../../../api/academic-term/AcademicTermCollection';
-import { updateMethod } from '../../../api/base/BaseCollection.methods';
-import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
-import { OpportunityInstances } from '../../../api/opportunity/OpportunityInstanceCollection';
-import { Opportunities } from '../../../api/opportunity/OpportunityCollection';
-import { AcademicTerm, DescriptionPair } from '../../../typings/radgrad';
-import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
-import AdminDataModelUpdateForm from '../../components/admin/datamodel/AdminDataModelUpdateForm';
-import AdminDataModelAddForm from '../../components/admin/datamodel/AdminDataModelAddForm';
-import { PAGEIDS } from '../../utilities/PageIDs';
-import {
-  handleCancelWrapper, handleConfirmDeleteWrapper,
-  handleDeleteWrapper, handleOpenUpdateWrapper,
-  updateCallBack,
-} from './utilities/data-model-page-callbacks';
-import PageLayout from '../PageLayout';
+import { ROLE } from '../../role/Role';
+import { AdvisorProfiles } from '../AdvisorProfileCollection';
+import { FacultyProfiles } from '../FacultyProfileCollection';
+import { StudentProfiles } from '../StudentProfileCollection';
+import { Users } from '../UserCollection';
+import { ProfileCourses } from './ProfileCourseCollection';
+import { ProfileInterests } from './ProfileInterestCollection';
+import { EXPLORER_TYPE } from '../../../ui/utilities/ExplorerUtils';
+import { ProfileCareerGoals } from './ProfileCareerGoalCollection';
+import { ProfileOpportunities } from './ProfileOpportunityCollection';
 
-const collection = AcademicTerms;
-
-const numReferences = (term) => {
-  let references = 0;
-  [CourseInstances, OpportunityInstances].forEach((entity) => {
-    entity.find().fetch().forEach((e) => {
-      if (e.termID === term._id) {
-        references++;
-      }
-    });
-  });
-  Opportunities.find().fetch().forEach((e) => {
-    if (_.includes(e.termIDs, term._id)) {
-      references++;
-    }
-  });
-  return references;
-};
-
-const descriptionPairs = (term: AcademicTerm): DescriptionPair[] => ([
-  { label: 'Term', value: AcademicTerms.toString(term._id, false) },
-  { label: 'Term Number', value: `${term.termNumber}` },
-  { label: 'References', value: `${numReferences(term)}` },
-  { label: 'Retired', value: term.retired ? 'True' : 'False' },
-]);
-
-const itemTitle = (term: AcademicTerm): React.ReactNode => (
-  &lt;React.Fragment>
-    {term.retired ? &lt;Icon name="eye slash" /> : ''}
-    &lt;Icon name="dropdown" />
-    {AcademicTerms.toString(term._id, false)}
-  &lt;/React.Fragment>
+/** Returns a function that is passed a userID and returns true if shareField in their profile is true. */
+const filterByShareField = (shareField) => (
+  userID => {
+    const profile = Users.getProfile(userID);
+    return _.has(profile, shareField) &amp;&amp; profile[shareField];
+  }
 );
 
-const itemTitleString = (term) => AcademicTerms.toString(term._id, false);
-
-interface AdminDataModelAcademicTermsPageProps {
-  items: AcademicTerm[];
-}
-
-/**
- * AdminDataModelAcademicTermsPage.
- * @param {AcademicTerm[]} items
- * @return {JSX.Element}
- * @memberOf ui/pages/admin
- * @constructor
- */
-const AdminDataModelAcademicTermsPage: React.FC&lt;AdminDataModelAcademicTermsPageProps> = ({ items }) => {
-  const [confirmOpenState, setConfirmOpen] = useState(false);
-  const [idState, setId] = useState('');
-  const [showUpdateFormState, setShowUpdateForm] = useState(false);
-
-  const handleCancel = handleCancelWrapper(setConfirmOpen, setId, setShowUpdateForm);
-  const handleConfirmDelete = handleConfirmDeleteWrapper(collection.getCollectionName(), idState, setShowUpdateForm, setId, setConfirmOpen);
-  const handleDelete = handleDeleteWrapper(setConfirmOpen, setId);
-  const handleOpenUpdate = handleOpenUpdateWrapper(setShowUpdateForm, setId);
-
-  const handleUpdate = (doc) => {
-    // console.log('handleUpdate doc=%o', doc);
-    const collectionName = collection.getCollectionName();
-    const updateData: { id?: string; retired?: boolean } = {};
-    updateData.id = doc._id;
-    updateData.retired = doc.retired;
-    // console.log('parameter = %o', { collectionName, updateData });
-    updateMethod.call({ collectionName, updateData }, updateCallBack(setShowUpdateForm, setId));
-  };
-
-  const findOptions = {
-    sort: { termNumber: 1 },
-  };
-  return (
-    &lt;PageLayout id={PAGEIDS.DATA_MODEL_ACADEMIC_TERMS} headerPaneTitle="Academic Terms">
-      {showUpdateFormState ? (
-        &lt;AdminDataModelUpdateForm collection={AcademicTerms} id={idState} handleUpdate={handleUpdate}
-                                  handleCancel={handleCancel} itemTitleString={itemTitleString} />
-      ) : (
-        &lt;AdminDataModelAddForm collection={AcademicTerms} />
-      )}
-      &lt;ListCollectionWidget
-        collection={AcademicTerms}
-        findOptions={findOptions}
-        descriptionPairs={descriptionPairs}
-        itemTitle={itemTitle}
-        handleOpenUpdate={handleOpenUpdate}
-        handleDelete={handleDelete}
-        items={items}
-      />
-      &lt;Confirm open={confirmOpenState} onCancel={handleCancel} onConfirm={handleConfirmDelete}
-               header="Delete Academic Term?" />
-    &lt;/PageLayout>
-  );
-};
-
-const AdminDataModelAcademicTermsPageContainer = withTracker(() => {
-  const items = AcademicTerms.find({}, { sort: { termNumber: 1 } }).fetch();
-  return {
-    items,
-  };
-})(AdminDataModelAcademicTermsPage);
-
-export default AdminDataModelAcademicTermsPageContainer;
+export const getVisibleUsernames = new ValidatedMethod({
+  name: 'ProfileExplorer.getVisibleUsernames',
+  mixins: [CallPromiseMixin],
+  validate: null,
+  run({ itemID, explorerType }) {
+    if (!this.userId) {
+      throw new Meteor.Error('unauthorized', 'You must be logged in to get visible usernames.');
+    }
+    const usernames = {};
+    if (Meteor.isServer) {
+      let profileUserIDs = [];
+      let visibleUserIDs = [];
+      // First, find all the users who have added this type of entity to their profile.
+      if (explorerType === EXPLORER_TYPE.INTERESTS) {
+        profileUserIDs = ProfileInterests.findNonRetired({ interestID: itemID }).map(profile => profile.userID);
+        visibleUserIDs = profileUserIDs.filter(filterByShareField('shareInterests'));
+      } else if (explorerType === EXPLORER_TYPE.CAREERGOALS) {
+        profileUserIDs = ProfileCareerGoals.findNonRetired({ careerGoalID: itemID }).map(profile => profile.userID);
+        visibleUserIDs = profileUserIDs.filter(filterByShareField('shareCareerGoals'));
+      } else if (explorerType === EXPLORER_TYPE.COURSES) {
+        profileUserIDs = ProfileCourses.findNonRetired({ courseID: itemID }).map(profile => profile.studentID);
+        visibleUserIDs = profileUserIDs.filter(filterByShareField('shareCourses'));
+      } else if (explorerType === EXPLORER_TYPE.OPPORTUNITIES) {
+        profileUserIDs = ProfileOpportunities.findNonRetired({ opportunityID: itemID }).map(profile => profile.studentID);
+        visibleUserIDs = profileUserIDs.filter(filterByShareField('shareOpportunities'));
+      }
+      // Now group by role
+      const studentVisibleIDs = _.intersection(visibleUserIDs, StudentProfiles.findNonRetired().map(profile => profile.userID));
+      const facultyVisibleIDs = _.intersection(visibleUserIDs, FacultyProfiles.findNonRetired().map(profile => profile.userID));
+      const advisorVisibleIDs = _.intersection(visibleUserIDs, AdvisorProfiles.findNonRetired().map(profile => profile.userID));
+      // Now return the username.
+      usernames[ROLE.STUDENT] = studentVisibleIDs.map(id => Users.getProfile(id).username);
+      usernames[ROLE.FACULTY] = facultyVisibleIDs.map(id => Users.getProfile(id).username);
+      usernames[ROLE.ADVISOR] = advisorVisibleIDs.map(id => Users.getProfile(id).username);
+    }
+    return usernames;
+  },
+});
 </code></pre>
         </article>
     </section>
