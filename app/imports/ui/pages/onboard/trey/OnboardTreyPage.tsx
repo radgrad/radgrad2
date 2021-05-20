@@ -10,7 +10,7 @@ const headerPaneImage = 'header-onboarding.png';
 
 const OnboardTreyPage: React.FC = () => (
   <PageLayout id={PAGEIDS.ONBOARD_TREY} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
-    <RadGradSegment header={<RadGradHeader title="TASK 1: HELLO WORLD" icon="globe americas" dividing/>}>Hello World</RadGradSegment>
+    <RadGradSegment header={<RadGradHeader title='TASK 1: HELLO WORLD' icon='globe americas' dividing/>}>Hello World</RadGradSegment>
   </PageLayout>
 );
 
