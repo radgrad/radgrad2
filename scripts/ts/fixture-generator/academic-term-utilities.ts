@@ -2,10 +2,10 @@ import _ from 'lodash';
 import moment from 'moment';
 
 enum AcademicTerms {
-  FALL = 'FALL',
-  WINTER = 'WINTER',
-  SPRING = 'SPRING',
-  SUMMER = 'SUMMER',
+  FALL = 'Fall',
+  WINTER = 'Winter',
+  SPRING = 'Spring',
+  SUMMER = 'Summer',
 }
 
 export const isQuarterSystem = (academicTerms) => {
@@ -15,9 +15,9 @@ export const isQuarterSystem = (academicTerms) => {
   return uniq.length % 4 === 0;
 };
 
-export const getTerm = (academicTerm: string): string => academicTerm.split(' ')[0];
+export const getTerm = (academicTerm: string): string => academicTerm.split('-')[0];
 
-export const getYear = (academicTerm: string): number => parseInt(academicTerm.split(' ')[1], 10);
+export const getYear = (academicTerm: string): number => parseInt(academicTerm.split('-')[1], 10);
 
 export const getCurrentTerm = (academicTerms) => {
   const isQuarter = isQuarterSystem(academicTerms);
@@ -53,7 +53,7 @@ export const getCurrentTerm = (academicTerms) => {
   } else {
     term = AcademicTerms.SPRING;
   }
-  return `${term} ${year}`;
+  return `${term}-${year}`;
 };
 
 export const nextAcademicTerm = (academicTerm: string, quarters: boolean): string => {
@@ -83,7 +83,7 @@ export const nextAcademicTerm = (academicTerm: string, quarters: boolean): strin
     default:
       term = AcademicTerms.FALL;
   }
-  return `${term} ${year}`;
+  return `${term}-${year}`;
 };
 
 export const nextNonSummerTerm = (academicTerm: string, quarters: boolean): string => {
@@ -118,7 +118,7 @@ export const prevAcademicTerm = (academicTerm: string, quaters: boolean): string
     default:
       term = AcademicTerms.SPRING;
   }
-  return `${term} ${year}`;
+  return `${term}-${year}`;
 };
 
 export const prevNonSummerTerm = (academicTerm: string, quarters: boolean): string => {
