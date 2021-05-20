@@ -6,11 +6,20 @@ import { ROLE } from '../../role/Role';
 import { AdvisorProfiles } from '../AdvisorProfileCollection';
 import { FacultyProfiles } from '../FacultyProfileCollection';
 import { StudentProfiles } from '../StudentProfileCollection';
+import { Users } from '../UserCollection';
 import { ProfileCourses } from './ProfileCourseCollection';
 import { ProfileInterests } from './ProfileInterestCollection';
 import { EXPLORER_TYPE } from '../../../ui/utilities/ExplorerUtils';
 import { ProfileCareerGoals } from './ProfileCareerGoalCollection';
 import { ProfileOpportunities } from './ProfileOpportunityCollection';
+
+/** A function that returns a function that is passed a userID and returns true if shareField in their profile is true. */
+const filterByShareField = (shareField) => (
+  userID => {
+    const profile = Users.getProfile(userID);
+    return _.has(profile, shareField) && profile[shareField];
+  }
+);
 
 export const getVisibleUserIDs = new ValidatedMethod({
   name: 'ProfileExplorer.getVisibleUserIDs',
