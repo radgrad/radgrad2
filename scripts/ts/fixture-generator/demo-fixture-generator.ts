@@ -1,6 +1,6 @@
 import { program } from 'commander';
 import * as fs from 'fs';
-import { getCollectionData, getNonRetiredCollectionData } from '../data-dump-utils';
+import { getCollectionData, getCollectionSlugs, getNonRetiredCollectionData } from '../data-dump-utils';
 import { getCurrentTerm, isQuarterSystem, nextAcademicTerm, prevAcademicTerm, prevNonSummerTerm } from './academic-term-utilities';
 
 async function generateDemoFixture(radgradDumpFile, userConfigFile) {
@@ -12,9 +12,12 @@ async function generateDemoFixture(radgradDumpFile, userConfigFile) {
   const courses = getCollectionData(radgradDump, 'CourseCollection');
   const nonRetiredCourses = getNonRetiredCollectionData(radgradDump, 'CourseCollection');
   const interests = getCollectionData(radgradDump, 'InterestCollection');
+  const interestSlugs = getCollectionSlugs(interests);
   const opportunities = getCollectionData(radgradDump, 'OpportunityCollection');
   const nonRetiredOpportunities = getNonRetiredCollectionData(radgradDump, 'OpportunityCollection');
-  console.log(careerGoals.length, interests.length);
+  const faculty = getNonRetiredCollectionData(radgradDump, 'FacultyProfileCollection');
+  console.log(faculty);
+  console.log(careerGoals.length, interests.length, interestSlugs.length);
   console.log(courses.length, nonRetiredCourses.length);
   console.log(opportunities.length, nonRetiredOpportunities.length);
   const quarters = isQuarterSystem(academicTerms);
