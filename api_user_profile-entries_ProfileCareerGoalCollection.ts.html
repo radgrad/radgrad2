@@ -101,7 +101,6 @@ class ProfileCareerGoalCollection extends BaseCollection {
     super('ProfileCareerGoal', new SimpleSchema({
       careerGoalID: SimpleSchema.RegEx.Id,
       userID: SimpleSchema.RegEx.Id,
-      share: Boolean,
       retired: { type: Boolean, optional: true },
     }));
   }
@@ -110,19 +109,18 @@ class ProfileCareerGoalCollection extends BaseCollection {
    * Defines a new ProfileCareerGoal.
    * @param careerGoal the careerGoal slug.
    * @param username the user's username.
-   * @param share {Boolean} share the career goal? Defaults to false.
    * @param retired the retired status.
    * @returns {void|*|boolean|{}}
    */
-  define({ careerGoal, username, share = false, retired = false }: ProfileCareerGoalDefine) {
-    // console.log(`ProfileCareerGoal.define ${careerGoal}, ${username}, ${share}, ${retired}`);
+  define({ careerGoal, username, retired = false }: ProfileCareerGoalDefine) {
+    // console.log(`ProfileCareerGoal.define ${careerGoal}, ${username}, ${retired}`);
     const careerGoalID = CareerGoals.getID(careerGoal);
     const userID = Users.getID(username);
     const doc = this.collection.findOne({ userID, careerGoalID });
     if (doc) {
       return doc._id;
     }
-    return this.collection.insert({ careerGoalID, userID, share, retired });
+    return this.collection.insert({ careerGoalID, userID, retired });
   }
 
   /**
@@ -130,12 +128,9 @@ class ProfileCareerGoalCollection extends BaseCollection {
    * @param docID the ID of the ProfileCareerGoal.
    * @param retired the new retired value.
    */
-  update(docID, { share, retired }: { share?: boolean, retired?: boolean }) {
+  update(docID, { retired }: { retired?: boolean }) {
     this.assertDefined(docID);
     const updateData: ProfileEntryUpdate = {};
-    if (_.isBoolean(share)) {
-      updateData.share = share;
-    }
     if (_.isBoolean(retired)) {
       updateData.retired = retired;
     }
@@ -163,8 +158,7 @@ class ProfileCareerGoalCollection extends BaseCollection {
   }
 
   /**
-   * Publish ProfileCareerGoals. If logged in as ADMIN get all, otherwise only get the ProfileCareerGoals for the
-   * userID.
+   * Publish ProfileCareerGoals. If ADMIN get all, otherwise only get the ProfileCareerGoals for the userID.
    * Also publishes the ProfileCareerGoals forecast.
    */
   publish() {
@@ -184,8 +178,7 @@ class ProfileCareerGoalCollection extends BaseCollection {
   }
 
   /**
-   * Implementation of assertValidRoleForMethod. Asserts that userId is logged in as an Admin, Advisor or
-   * Student.
+   * Implementation of assertValidRoleForMethod. Asserts that userId is logged in as an Admin, Advisor or Student.
    * This is used in the define, update, and removeIt Meteor methods associated with each class.
    * @param userId The userId of the logged in user. Can be null or undefined
    * @throws { Meteor.Error } If there is no logged in user, or the user is not an Admin or Advisor.
@@ -280,11 +273,9 @@ class ProfileCareerGoalCollection extends BaseCollection {
     const doc = this.findDoc(docID);
     const careerGoal = CareerGoals.findSlugByID(doc.careerGoalID);
     const username = Users.getProfile(doc.userID).username;
-    const share = doc.share;
     const retired = doc.retired;
-    return { careerGoal, username, share, retired };
+    return { careerGoal, username, retired };
   }
-
 }
 
 export const ProfileCareerGoals = new ProfileCareerGoalCollection();
