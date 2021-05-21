@@ -13,6 +13,7 @@ const Task2Segment: React.FC<Task2SegmentProps> = ({ loggedInUser, urlUser }) =>
       <RadGradSegment header={task2Header}>
           <p>The currently logged in user is {`${loggedInUser}`}.</p>
           <p>The user in the URL is {`${urlUser}`}.</p>
+          <p> In RadGrad, these are not the necessarily the same.</p>
       </RadGradSegment>
   );
 };
