@@ -43,3 +43,14 @@ export interface StudentConfig {
   studentProfiles: Collection;
   studentPlans: StudentPlan[];
 }
+
+// Ekahi
+// Elua
+// Ekolu
+// Eha
+// Elima
+// Eono
+// Ehiku
+// Ewala
+// Eiwa
+// Umi

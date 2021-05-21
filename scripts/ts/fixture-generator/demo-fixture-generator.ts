@@ -2,17 +2,21 @@ import { program } from 'commander';
 import * as fs from 'fs';
 import { getCollectionData, getCollectionSlugs, getNonRetiredCollectionData } from '../data-dump-utils';
 import { getCurrentTerm, isQuarterSystem, nextAcademicTerm, prevAcademicTerm, prevNonSummerTerm } from './academic-term-utilities';
+import AcademicTermCollection from './AcademicTermCollection';
 import { generateCourseInstance } from './course-instance-utilities';
+import RadGradCollection from './RadGradCollection';
 import { StudentConfig } from './user-config-file.js';
 
 async function generateDemoFixture(radgradDumpFile, userConfigFile) {
   console.log('generateDemoFixture', radgradDumpFile, userConfigFile);
   const data = fs.readFileSync(radgradDumpFile);
   const radgradDump = JSON.parse(data.toString());
-  const academicTerms = getCollectionData(radgradDump, 'AcademicTermCollection');
+  const academicTerms = new AcademicTermCollection(getCollectionData(radgradDump, 'AcademicTermCollection'));
   const careerGoals = getCollectionData(radgradDump, 'CareerGoalCollection');
   const courses = getCollectionData(radgradDump, 'CourseCollection');
   const nonRetiredCourses = getNonRetiredCollectionData(radgradDump, 'CourseCollection');
+  const interestCollection = new RadGradCollection('InterestsCollection', getNonRetiredCollectionData(radgradDump, 'InterestCollection'));
+  console.log(interestCollection.getRandomSlugs(3));
   const interests = getCollectionData(radgradDump, 'InterestCollection');
   const interestSlugs = getCollectionSlugs(interests);
   const opportunities = getCollectionData(radgradDump, 'OpportunityCollection');
@@ -22,10 +26,10 @@ async function generateDemoFixture(radgradDumpFile, userConfigFile) {
   console.log(careerGoals.length, interests.length, interestSlugs.length);
   console.log(courses.length, nonRetiredCourses.length);
   console.log(opportunities.length, nonRetiredOpportunities.length);
-  const quarters = isQuarterSystem(academicTerms);
-  const currentTerm = getCurrentTerm(academicTerms);
-  const nextTerm = nextAcademicTerm(currentTerm, quarters);
-  console.log(currentTerm, nextTerm, nextAcademicTerm(nextTerm, quarters));
+  const quarters = academicTerms.isQuarterSystem();
+  const currentTerm = academicTerms.getCurrentTerm();
+  const nextTerm = academicTerms.nextAcademicTerm(currentTerm);
+  console.log(currentTerm, nextTerm, academicTerms.nextAcademicTerm(nextTerm));
   console.log(nextTerm, prevAcademicTerm(nextTerm, quarters), prevNonSummerTerm(nextTerm, quarters));
   const configData = fs.readFileSync(userConfigFile);
   const userConfig: StudentConfig = JSON.parse(configData.toString());

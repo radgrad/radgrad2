@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import moment from 'moment';
 
-enum AcademicTerms {
+export enum AcademicTerms {
   FALL = 'Fall',
   WINTER = 'Winter',
   SPRING = 'Spring',
