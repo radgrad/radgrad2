@@ -2,6 +2,8 @@ import { program } from 'commander';
 import * as fs from 'fs';
 import { getCollectionData, getCollectionSlugs, getNonRetiredCollectionData } from '../data-dump-utils';
 import { getCurrentTerm, isQuarterSystem, nextAcademicTerm, prevAcademicTerm, prevNonSummerTerm } from './academic-term-utilities';
+import { generateCourseInstance } from './course-instance-utilities';
+import { StudentConfig } from './user-config-file.js';
 
 async function generateDemoFixture(radgradDumpFile, userConfigFile) {
   console.log('generateDemoFixture', radgradDumpFile, userConfigFile);
@@ -16,7 +18,7 @@ async function generateDemoFixture(radgradDumpFile, userConfigFile) {
   const opportunities = getCollectionData(radgradDump, 'OpportunityCollection');
   const nonRetiredOpportunities = getNonRetiredCollectionData(radgradDump, 'OpportunityCollection');
   const faculty = getNonRetiredCollectionData(radgradDump, 'FacultyProfileCollection');
-  console.log(faculty);
+  console.log(faculty.length);
   console.log(careerGoals.length, interests.length, interestSlugs.length);
   console.log(courses.length, nonRetiredCourses.length);
   console.log(opportunities.length, nonRetiredOpportunities.length);
@@ -25,6 +27,16 @@ async function generateDemoFixture(radgradDumpFile, userConfigFile) {
   const nextTerm = nextAcademicTerm(currentTerm, quarters);
   console.log(currentTerm, nextTerm, nextAcademicTerm(nextTerm, quarters));
   console.log(nextTerm, prevAcademicTerm(nextTerm, quarters), prevNonSummerTerm(nextTerm, quarters));
+  const configData = fs.readFileSync(userConfigFile);
+  const userConfig: StudentConfig = JSON.parse(configData.toString());
+  userConfig.studentPlans.map((plan) => {
+    const student = plan.username;
+    plan.courses.map((c) => {
+      console.log(generateCourseInstance(student, c, currentTerm, quarters));
+      return true;
+    });
+    return true;
+  });
 }
 
 program

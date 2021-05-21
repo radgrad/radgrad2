@@ -94,6 +94,14 @@ export const nextNonSummerTerm = (academicTerm: string, quarters: boolean): stri
   return next;
 };
 
+export const multipleNextNonSummerTerm = (academicTerm: string, quarters: boolean, numTerms: number) => {
+  let next;
+  for (let i = 0; i < numTerms; i++) {
+    next = nextNonSummerTerm(academicTerm, quarters);
+  }
+  return next;
+};
+
 export const prevAcademicTerm = (academicTerm: string, quaters: boolean): string => {
   const currentTerm = getTerm(academicTerm);
   const currentYear = getYear(academicTerm);
@@ -128,3 +136,52 @@ export const prevNonSummerTerm = (academicTerm: string, quarters: boolean): stri
   }
   return prev;
 };
+
+export const multiplePrevNonSummerTerm = (academicTerm: string, quarters: boolean, numTerms: number) => {
+  let prev;
+  for (let i = 0; i < numTerms; i++) {
+    prev = prevNonSummerTerm(academicTerm, quarters);
+  }
+  return prev;
+};
+
+export const compareTerms = (term1: string, term2: string): number => {
+  const year1 = getYear(term1);
+  const year2 = getYear(term2);
+  const t1 = getTerm(term1);
+  const t2 = getTerm(term2);
+  const result = year1 - year2;
+  if (result === 0) { // same year
+    switch (t1) {
+      case AcademicTerms.WINTER:
+        if (t2 === AcademicTerms.WINTER) {
+          return 0;
+        }
+        return 1;
+      case AcademicTerms.FALL:
+        if (t2 === AcademicTerms.WINTER) {
+          return -1;
+        }
+        if (t2 === AcademicTerms.FALL) {
+          return 0;
+        }
+        return 1;
+      case AcademicTerms.SUMMER:
+        if (t2 === AcademicTerms.SPRING) {
+          return 1;
+        }
+        if (t2 === AcademicTerms.SUMMER) {
+          return 0;
+        }
+        return -1;
+      default:
+        if (t2 === AcademicTerms.SPRING) {
+          return 0;
+        }
+        return -1;
+    }
+  }
+  return result;
+};
+
+export const isSummerTerm = (academicTerm: string) => getTerm(academicTerm) === AcademicTerms.SUMMER;

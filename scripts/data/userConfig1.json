@@ -1,0 +1,46 @@
+{
+  "studentProfiles": {
+    "name": "StudentProfileCollection",
+    "contents": [
+      {
+        "username": "fresh1@hawaii.edu",
+        "firstName": "One",
+        "lastName": "Fresh",
+        "picture": "/images/mockup/radgrad.png",
+        "interests": [],
+        "careerGoals": [],
+        "level": 1,
+        "profileCourses": [],
+        "profileOpportunities": [],
+        "isAlumni": false,
+        "retired": false,
+        "sharePicture": false,
+        "shareWebsite": false,
+        "shareInterests": false,
+        "shareCareerGoals": false,
+        "shareOpportunities": false,
+        "shareCourses": false,
+        "shareLevel": false,
+        "shareICE": false
+      }
+    ]
+  },
+  "studentPlans": [
+    {
+      "username": "fresh1@hawaii.edu",
+      "courses": [
+        {
+          "slug": "ics_111",
+          "academicTermOffset": -1,
+          "grade": "B"
+        },
+        {
+          "slug": "ics_141",
+          "academicTermOffset": 1,
+          "grade": "A"
+        }
+      ],
+      "opportunities": []
+    }
+  ]
+}
