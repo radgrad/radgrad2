@@ -1,22 +1,30 @@
 import React from 'react';
+import { withTracker } from 'meteor/react-meteor-data';
 import Markdown from 'react-markdown';
 import RadGradHeader from '../../../components/shared/RadGradHeader';
 import RadGradSegment from '../../../components/shared/RadGradSegment';
+import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
+import { CareerGoal } from '../../../../typings/radgrad';
 
 export interface Task3SegmentProps {
-  goal: string,
-  info: string,
-  count: number,
+  careerGoals: CareerGoal[]
 }
-const Task3Component: React.FC<Task3SegmentProps> = ({ goal, info, count }) => {
+const Task3Component: React.FC<Task3SegmentProps> = ({ careerGoals }) => {
   const Task3Header = <RadGradHeader title="TASK 3: A RANDOM CAREER GOAL(REFRESH FOR A NEW ONE)" icon = "database"/>;
+  const totalCareer = careerGoals.length;
+  const { name, description } = careerGoals[Math.floor(Math.random() * totalCareer)];
   return (
       <RadGradSegment header={Task3Header}>
-          <h2 className ="ui header">{`${goal}`}</h2>
-          <Markdown source ={`${info}`}/>
+          <RadGradHeader title={name}/>
+          <Markdown source={description}/>
           <hr/>
-          <p>Note: the total number of career goal is: {`${count}`}</p>
+          <p>Note: The total number of jobs is: {totalCareer}.</p>
       </RadGradSegment>
   );
 };
-export default Task3Component;
+export default withTracker(() => {
+  const careerGoals = CareerGoals.findNonRetired();
+  return {
+    careerGoals,
+  };
+})(Task3Component);

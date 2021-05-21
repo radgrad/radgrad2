@@ -10,6 +10,9 @@ import Task2Segment from './Task2Segment';
 import { Users } from '../../../../api/user/UserCollection';
 import Task3Component from './Task3Component';
 import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
+import Task4Component from './Task4Component';
+import { CareerGoal } from '../../../../typings/radgrad';
+
 
 const headerPaneTitle = "Shinya's Onboarding Sandbox";
 const headerPaneBody = 'Page for display of onboarding component development practice';
@@ -22,10 +25,12 @@ interface OnBoardTask {
   goal: string,
   count: number,
   info: string,
+  careerGoals: CareerGoal[],
 }
 const OnboardShinyaPage: React.FC<OnBoardTask> = ({ loggedInUser, urlUser, goal, info, count }) => (
   <PageLayout id={PAGEIDS.ONBOARD_SHINYA} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
-      <Task3Component goal={goal} info={info} count={count}/>
+     <Task4Component goal={goal}/>
+      <Task3Component/>
       <Grid columns={2}>
         <Grid.Column>
         <RadGradSegment header= {task1Header}>
@@ -44,15 +49,10 @@ export default withTracker(() => {
   const { username } = useParams();
   const urlUser = Users.getProfile(username).username;
   const count = CareerGoals.countNonRetired();
-  const careergoal = CareerGoals.findOne();
-  const goal = CareerGoals.dumpOne(careergoal).name;
-  const info = CareerGoals.dumpOne(careergoal).description;
   return {
     loggedInUser,
     urlUser,
     count,
-    goal,
-    info,
   };
 })(OnboardShinyaPage);
 // export default OnboardShinyaPage;
