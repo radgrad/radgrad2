@@ -7,14 +7,7 @@ import { ProfileOpportunities } from '../../../api/user/profile-entries/ProfileO
 import RadGradHeader from '../../components/shared/RadGradHeader';
 import RadGradSegment from '../../components/shared/RadGradSegment';
 import StudentIceTabs from '../../components/student/ice/StudentIceTabs';
-import {
-  Ice,
-  CourseInstance,
-  ProfileInterest,
-  OpportunityInstance,
-  ProfileCourse,
-  ProfileOpportunity,
-} from '../../../typings/radgrad';
+import { Ice, CourseInstance, ProfileInterest, OpportunityInstance, ProfileCourse, ProfileOpportunity } from '../../../typings/radgrad';
 import { StudentProfiles } from '../../../api/user/StudentProfileCollection';
 import { Users } from '../../../api/user/UserCollection';
 import { ProfileInterests } from '../../../api/user/profile-entries/ProfileInterestCollection';

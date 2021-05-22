@@ -25,10 +25,10 @@ const PageIceCircle: React.FC<PageIceCircleProps> = ({ planned, type, earned }) 
   // TODO cap class name p100
   const classNamesPlanned = `radgrad-ice-circle p${p} radgrad-proj-${type}`;
   const classNamesEarned = `radgrad-ice-circle p${e} radgrad-earn-${type}`;
-  const routeToIcePage = buildRouteName(match, '/home/ice');
+  const routeToIcePage = buildRouteName(match, '/ice');
   return (
     <div className="radgrad-ice">
-      <Link to={routeToIcePage} className={classNamesPlanned}>
+      <span className={classNamesPlanned}>
         <div style={styles}>
           <span>{e}</span>
         </div>
@@ -36,14 +36,14 @@ const PageIceCircle: React.FC<PageIceCircleProps> = ({ planned, type, earned }) 
           <div className="bar" />
           <div className="fill" />
         </div>
-      </Link>
-      <a className={classNamesEarned}>
+      </span>
+      <span className={classNamesEarned}>
         <span />
         <div className="slice">
           <div className="bar" />
           <div className="fill" />
         </div>
-      </a>
+      </span>
     </div>
   );
 };
