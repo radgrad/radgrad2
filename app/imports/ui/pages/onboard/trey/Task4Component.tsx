@@ -30,19 +30,19 @@ const Task4Component: React.FC<Task4ComponentProps> = ({ careerGoals, courses, i
     <RadGradSegment header={<RadGradHeader title='TASK 4: LABELS' icon='tags' dividing />}>
 
       <h3>Career Goals</h3>
-      {careerGoals.map((careerGoal) => <CareerGoalLabel slug={careerGoal.slugID} userID={currentUser} size='small'/>)}
+      {careerGoals.map((careerGoal) => <CareerGoalLabel key={careerGoal._id} slug={careerGoal.slugID} userID={currentUser} size='small'/>)}
 
       <h3>Courses</h3>
-      {courses.map((course) => <CourseLabel slug={course.slugID} userID={currentUser} size='small'/>)}
+      {courses.map((course) => <CourseLabel key={course._id} slug={course.slugID} userID={currentUser} size='small'/>)}
 
       <h3>Interests</h3>
-      {interests.map((interest) => <InterestLabel slug={interest.slugID} userID={currentUser} size='small' />)}
+      {interests.map((interest) => <InterestLabel key={interest._id} slug={interest.slugID} userID={currentUser} size='small' />)}
 
       <h3>Opportunities</h3>
-      {opportunities.map((opportunity) => <OpportunityLabel slug={opportunity.slugID} userID={currentUser} size='small' />)}
+      {opportunities.map((opportunity) => <OpportunityLabel key={opportunity._id} slug={opportunity.slugID} userID={currentUser} size='small' />)}
 
       <h3>Students</h3>
-      {students.map((student) => <UserLabel username={student.username} size='small' />)}
+      {students.map((student) => <UserLabel key={student._id} username={student.username} size='small' />)}
 
     </RadGradSegment>
   );
