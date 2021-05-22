@@ -94,10 +94,18 @@ export const nextNonSummerTerm = (academicTerm: string, quarters: boolean): stri
   return next;
 };
 
-export const multipleNextNonSummerTerm = (academicTerm: string, quarters: boolean, numTerms: number) => {
-  let next;
+export const multipleNextAcademicTerm = (academicTerm: string, quarters: boolean, numTerms: number) => {
+  let next = academicTerm;
   for (let i = 0; i < numTerms; i++) {
-    next = nextNonSummerTerm(academicTerm, quarters);
+    next = nextAcademicTerm(next, quarters);
+  }
+  return next;
+};
+
+export const multipleNextNonSummerTerm = (academicTerm: string, quarters: boolean, numTerms: number) => {
+  let next = academicTerm;
+  for (let i = 0; i < numTerms; i++) {
+    next = nextNonSummerTerm(next, quarters);
   }
   return next;
 };
@@ -137,10 +145,18 @@ export const prevNonSummerTerm = (academicTerm: string, quarters: boolean): stri
   return prev;
 };
 
-export const multiplePrevNonSummerTerm = (academicTerm: string, quarters: boolean, numTerms: number) => {
-  let prev;
+export const multiplePrevAcademicTerm = (academicTerm: string, quarters: boolean, numTerms: number) => {
+  let prev = academicTerm;
   for (let i = 0; i < numTerms; i++) {
-    prev = prevNonSummerTerm(academicTerm, quarters);
+    prev = prevAcademicTerm(prev, quarters);
+  }
+  return prev;
+};
+
+export const multiplePrevNonSummerTerm = (academicTerm: string, quarters: boolean, numTerms: number) => {
+  let prev = academicTerm;
+  for (let i = 0; i < numTerms; i++) {
+    prev = prevNonSummerTerm(prev, quarters);
   }
   return prev;
 };

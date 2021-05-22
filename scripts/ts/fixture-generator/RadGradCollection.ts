@@ -1,21 +1,45 @@
 import _ from 'lodash';
 
-interface Doc {
+export interface Doc {
   slug?: string;
   term?: string;
 }
 
+export enum RadGradCollectionName {
+  ACADEMIC_TERMS = 'AcademicTermCollection',
+  ADMIN_PROFILES = 'AdminProfileCollection',
+  ADVISOR_PROFILES = 'AdvisorProfileCollection',
+  CAREER_GOALS = 'CareerGoalCollection',
+  COURSES = 'CourseCollection',
+  COURSE_INSTANCES = 'CourseInstanceCollection',
+  FACULTY_PROFILES = 'FacultyProfileCollection',
+  INTERESTS = 'InterestCollection',
+  INTEREST_TYPES = 'InterestTypeCollection',
+  OPPORTUNITIES = 'OpportunityCollection',
+  OPPORTUNITY_INSTANCES = 'OpportunityInstanceCollection',
+  OPPORTUNITY_TYPES = 'OpportunityTypeCollection',
+  PROFILE_CAREER_GOALS = 'ProfileCareerGoalCollection',
+  PROFILE_COURSES = 'ProfileCourseCollection',
+  PROFILE_INTERESTS = 'ProfileInterestCollection',
+  PROFILE_OPPORTUNITIES = 'ProfileOpportunityCollection',
+  REVIEWS = 'ReviewCollection',
+  STUDENT_PROFILES = 'StudentProfileCollection',
+  TEASERS = 'TeaserCollection',
+  USER_INTERACTIONS = 'UserInteractionCollection',
+  VERIFICATION_REQUESTS = 'VerificationRequestCollection',
+}
+
 class RadGradCollection {
-  protected collectionName: string;
+  protected name: string;
   protected contents: Doc[];
 
   constructor(collectionName: string, contents: Doc[]) {
-    this.collectionName = collectionName;
+    this.name = collectionName;
     this.contents = contents;
   }
 
-  public getCollectionName() {
-    return this.collectionName;
+  public getName() {
+    return this.name;
   }
 
   public count() {
@@ -27,7 +51,8 @@ class RadGradCollection {
   }
 
   public getDocBySlug(slug: string) {
-    this.contents.find((doc) => doc.slug === slug);
+    const document = this.contents.find((doc) => doc.slug === slug);
+    return document;
   }
 
   public getRandomSlugs(num: number) {
@@ -37,6 +62,23 @@ class RadGradCollection {
       retVal.push(doc.slug);
     }
     return _.uniq(retVal).slice(0, num);
+  }
+
+  public compareTo(other: RadGradCollection): number {
+    if (this.name < other.name) {
+      return -1;
+    }
+    if (this.name > other.name) {
+      return 1;
+    }
+    return 0;
+  }
+
+  public toCollection() {
+    return {
+      name: this.name,
+      contents: this.contents,
+    };
   }
 }
 

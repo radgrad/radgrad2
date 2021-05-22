@@ -4,7 +4,28 @@
     "contents": [
       {
         "username": "fresh1@hawaii.edu",
-        "firstName": "One",
+        "firstName": "Ekahi",
+        "lastName": "Fresh",
+        "picture": "/images/mockup/radgrad.png",
+        "interests": [],
+        "careerGoals": [],
+        "level": 1,
+        "profileCourses": [],
+        "profileOpportunities": [],
+        "isAlumni": false,
+        "retired": false,
+        "sharePicture": false,
+        "shareWebsite": false,
+        "shareInterests": false,
+        "shareCareerGoals": false,
+        "shareOpportunities": false,
+        "shareCourses": false,
+        "shareLevel": false,
+        "shareICE": false
+      },
+      {
+        "username": "fresh2@hawaii.edu",
+        "firstName": "Elua",
         "lastName": "Fresh",
         "picture": "/images/mockup/radgrad.png",
         "interests": [],
@@ -36,11 +57,54 @@
         },
         {
           "slug": "ics_141",
-          "academicTermOffset": 1,
+          "academicTermOffset": -1,
           "grade": "A"
         }
       ],
-      "opportunities": []
+      "opportunities": [
+        {
+          "slug": "acm-manoa",
+          "academicTermOffset": -1,
+          "verified": false
+        }
+      ]
+    },
+    {
+      "username": "fresh2@hawaii.edu",
+      "courses": [
+        {
+          "slug": "ics_111",
+          "academicTermOffset": -2,
+          "grade": "A"
+        },
+        {
+          "slug": "ics_141",
+          "academicTermOffset": -2,
+          "grade": "A"
+        },
+        {
+          "slug": "ics_211",
+          "academicTermOffset": -1,
+          "grade": "A"
+        },
+        {
+          "slug": "ics_241",
+          "academicTermOffset": -1,
+          "grade": "B"
+        }
+      ],
+      "opportunities": [
+        {
+          "slug": "py-hawaii",
+          "academicTermOffset": -2,
+          "verified": true
+        },
+        {
+          "slug": "hacc",
+          "academicTermOffset": -1,
+          "verified": false
+        }
+      ]
     }
   ]
 }
