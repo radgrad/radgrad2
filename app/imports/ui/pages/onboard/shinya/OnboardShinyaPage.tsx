@@ -22,14 +22,13 @@ const task1Header = <RadGradHeader title="TASK 1: HELLO WORLD" icon = "globe ame
 interface OnBoardTask {
   loggedInUser: string,
   urlUser: string,
-  goal: string,
   count: number,
   info: string,
   careerGoals: CareerGoal[],
 }
-const OnboardShinyaPage: React.FC<OnBoardTask> = ({ loggedInUser, urlUser, goal, info, count }) => (
+const OnboardShinyaPage: React.FC<OnBoardTask> = ({ loggedInUser, urlUser, info, count }) => (
   <PageLayout id={PAGEIDS.ONBOARD_SHINYA} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
-     <Task4Component goal={goal}/>
+     <Task4Component/>
       <Task3Component/>
       <Grid columns={2}>
         <Grid.Column>
