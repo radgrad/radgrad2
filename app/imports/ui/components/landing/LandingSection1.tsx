@@ -27,7 +27,7 @@ const LandingSection1: React.FC<LandingSection1Props> = ({ instanceName, tagline
     <div id="landing-section-1" style={styles['inverted-section']}>
       <Container>
         <Grid stackable style={{ height: '300px' }}>
-          <Grid.Column width={6}>
+          <Grid.Column width={6} only="tablet computer">
             <LandingFactoids careerGoalFactoid={careerGoalFactoid} interestFactoid={interestFactoid} levelFactoid={levelFactoid} opportunityFactoid={opportunityFactoid} reviewFactoid={reviewFactoid} />
           </Grid.Column>
           <Grid.Column width={10} verticalAlign="middle">
