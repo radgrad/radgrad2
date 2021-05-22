@@ -8,7 +8,7 @@ import RadGradTabHeader from './RadGradTabHeader';
 const HomePageChecklistSegment: React.FC<HomePageProps> = ({ okItems, reviewItems, improveItems }) => {
   const improveTabHeader = <RadGradTabHeader title={`High Priority: Please fix (${improveItems.length})`} icon='exclamation circle' />;
   const reviewTabHeader = <RadGradTabHeader title={`Medium Priority: For review (${reviewItems.length})`} icon='question circle' />;
-  const okTabHeader = <RadGradTabHeader title={`Low Priority: Looks good (${okItems.length})`} icon='check circle' />;
+  const okTabHeader = <RadGradTabHeader title={`Completed: Looks good (${okItems.length})`} icon='check circle' />;
 
   const improvePane = {
     menuItem: <Menu.Item key='improveTab'>{improveTabHeader}</Menu.Item>,
