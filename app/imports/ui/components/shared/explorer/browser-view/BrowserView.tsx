@@ -170,7 +170,7 @@ const BrowserView: React.FC<BrowserViewProps> = ({ items, explorerType }) => {
   return (
     <div id="explorer-browser-view">
     <RadGradSegment header={header}>
-      <Grid stackable>
+      <Grid doubling stackable>
         <Grid.Row columns={2}>
           <Grid.Column>
             <Filter explorerType={explorerType} />
