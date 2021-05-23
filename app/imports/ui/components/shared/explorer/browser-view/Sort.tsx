@@ -11,7 +11,6 @@ interface SortProps {
 }
 
 const Sort: React.FC<SortProps> = ({ explorerType }) => {
-  const style = {}; // { float: 'right' };
   const [sortChoice, setSortChoice] = useStickyState(`Sort.${explorerType}`,
     (explorerType === EXPLORER_TYPE.COURSES) ? EXPLORER_SORT_KEYS.NUMBER : EXPLORER_SORT_KEYS.ALPHABETIC);
   const handleChange = (type, value) => {
@@ -50,7 +49,7 @@ const Sort: React.FC<SortProps> = ({ explorerType }) => {
   };
   return (
     <AutoForm schema={formSchema} model={model} onChange={handleChange}>
-      <RadioField name="sortBy" label="Sort By:" inline style={style}  />
+      <RadioField name="sortBy" label="Sort By:" inline />
     </AutoForm>
   );
 };

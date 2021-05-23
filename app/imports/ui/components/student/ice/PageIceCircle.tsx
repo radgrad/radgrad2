@@ -1,7 +1,5 @@
 import React from 'react';
 import { PositionProperties } from 'react-native';
-import { Link, useRouteMatch } from 'react-router-dom';
-import { buildRouteName } from '../../shared/utilities/router';
 
 interface PageIceCircleProps {
   earned: number;
@@ -10,7 +8,6 @@ interface PageIceCircleProps {
 }
 // TODO remove this file use shared/MenuIceCircle
 const PageIceCircle: React.FC<PageIceCircleProps> = ({ planned, type, earned }) => {
-  const match = useRouteMatch();
   const styles = {
     position: 'absolute' as PositionProperties.absolute,
     zIndex: 1,
@@ -25,7 +22,6 @@ const PageIceCircle: React.FC<PageIceCircleProps> = ({ planned, type, earned }) 
   // TODO cap class name p100
   const classNamesPlanned = `radgrad-ice-circle p${p} radgrad-proj-${type}`;
   const classNamesEarned = `radgrad-ice-circle p${e} radgrad-earn-${type}`;
-  const routeToIcePage = buildRouteName(match, '/ice');
   return (
     <div className="radgrad-ice">
       <span className={classNamesPlanned}>
