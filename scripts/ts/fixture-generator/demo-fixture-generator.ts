@@ -103,9 +103,7 @@ const createFixture = (radgradDump: IDataDump, studentConfig: StudentConfig, aca
   radgradDump.collections.forEach((coll) => {
     // @ts-ignore
     if (copyCollectionNames.includes(coll.name)) {
-      // eslint-disable-next-line no-param-reassign
-      coll.contents = coll.contents.filter((doc) => !doc.retired); // We don't want retired items.
-      result.collections.push(coll);
+      result.collections.push(coll); // Do we want retired items?
     }
   });
   // Build the course instance collection
@@ -117,6 +115,35 @@ const createFixture = (radgradDump: IDataDump, studentConfig: StudentConfig, aca
   result.collections.push(studentProfileCollection);
   const oiCollection: ICollection = buildOpportunityInstanceCollection(studentConfig, academicTerms);
   result.collections.push(oiCollection);
+  // Empty collections so we can load. Will fill in later
+  result.collections.push({
+    name: RadGradCollectionName.PROFILE_CAREER_GOALS,
+    contents: [],
+  });
+  result.collections.push({
+    name: RadGradCollectionName.PROFILE_COURSES,
+    contents: [],
+  });
+  result.collections.push({
+    name: RadGradCollectionName.PROFILE_INTERESTS,
+    contents: [],
+  });
+  result.collections.push({
+    name: RadGradCollectionName.PROFILE_OPPORTUNITIES,
+    contents: [],
+  });
+  result.collections.push({
+    name: RadGradCollectionName.VERIFICATION_REQUESTS,
+    contents: [],
+  });
+  result.collections.push({
+    name: RadGradCollectionName.USER_INTERACTIONS,
+    contents: [],
+  });
+  result.collections.push({
+    name: RadGradCollectionName.REVIEWS,
+    contents: [],
+  });
   // sort the collections
   result.collections.sort((entry1, entry2) => compareCollections(entry1, entry2));
   return result;

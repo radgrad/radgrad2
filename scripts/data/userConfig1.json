@@ -3,6 +3,53 @@
     "name": "StudentProfileCollection",
     "contents": [
       {
+        "username": "abi@hawaii.edu",
+        "firstName": "Abigail",
+        "lastName": "Kealoha",
+        "picture": "/images/mockup/abi.jpg",
+        "website": "http://abi.github.io",
+        "interests": [],
+        "careerGoals": [],
+        "level": 1,
+        "profileCourses": [
+          "ics_111",
+          "ics_141",
+          "ics_211",
+          "ics_241",
+          "ics_311",
+          "ics_314",
+          "ics_212",
+          "ics_321",
+          "ics_313",
+          "ics_331",
+          "ics_332",
+          "ics_464",
+          "ics_431",
+          "ics_425",
+          "ics_426",
+          "ics_414",
+          "ics_415",
+          "ics_432",
+          "ics_435",
+          "ics_441",
+          "ics_442",
+          "ics_443",
+          "ics_451"
+        ],
+        "profileOpportunities": [],
+        "declaredAcademicTerm": "Fall-2017",
+        "isAlumni": false,
+        "retired": false,
+        "sharePicture": true,
+        "shareWebsite": true,
+        "shareInterests": true,
+        "shareCareerGoals": true,
+        "shareOpportunities": true,
+        "shareCourses": true,
+        "shareLevel": true,
+        "shareICE": true
+      },
+      {
         "username": "fresh1@hawaii.edu",
         "firstName": "Ekahi",
         "lastName": "Fresh",
@@ -47,6 +94,92 @@
     ]
   },
   "studentPlans": [
+    {
+      "username": "abi@hawaii.edu",
+      "courses": [
+        {
+          "slug": "ics_111",
+          "academicTermOffset": -6,
+          "grade": "A"
+        },
+        {
+          "slug": "ics_141",
+          "academicTermOffset": -6,
+          "grade": "B+"
+        },
+        {
+          "slug": "ics_211",
+          "academicTermOffset": -5,
+          "grade": "A"
+        },
+        {
+          "slug": "ics_241",
+          "academicTermOffset": -5,
+          "grade": "B+"
+        },
+        {
+          "slug": "ics_311",
+          "academicTermOffset": -4,
+          "grade": "A"
+        },
+        {
+          "slug": "ics_314",
+          "academicTermOffset": -4,
+          "grade": "B"
+        },
+        {
+          "slug": "ics_212",
+          "academicTermOffset": -3,
+          "grade": "A"
+        },
+        {
+          "slug": "ics_321",
+          "academicTermOffset": -3,
+          "grade": "A-"
+        },
+        {
+          "slug": "ics_313",
+          "academicTermOffset": -2,
+          "grade": "B"
+        },
+        {
+          "slug": "ics_331",
+          "academicTermOffset": -2,
+          "grade": "B"
+        },
+        {
+          "slug": "ics_332",
+          "academicTermOffset": -1,
+          "grade": "B"
+        },
+        {
+          "slug": "ics_464",
+          "academicTermOffset": -1,
+          "grade": "B+"
+        },
+        {
+          "slug": "ics_431",
+          "academicTermOffset": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ics_425",
+          "academicTermOffset": 0,
+          "grade": "A"
+        },
+        {
+          "slug": "ics_426",
+          "academicTermOffset": 1,
+          "grade": "B"
+        },
+        {
+          "slug": "ics_464",
+          "academicTermOffset": 1,
+          "grade": "B"
+        }
+      ],
+      "opportunities": []
+    },
     {
       "username": "fresh1@hawaii.edu",
       "courses": [

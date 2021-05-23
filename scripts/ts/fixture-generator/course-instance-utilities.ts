@@ -31,7 +31,8 @@ export const generateCourseInstance = (student: string, planItem: PlanCourseItem
     verified = true;
     fromRegistrar = true;
   } else if (planItem.academicTermOffset > 0) {
-    academicTerm = multipleNextNonSummerTerm(currentTerm, quarters, planItem.academicTermOffset);
+    const summerAdd = isSummerTerm(currentTerm) ? 1 : 0;
+    academicTerm = multipleNextNonSummerTerm(currentTerm, quarters, planItem.academicTermOffset + summerAdd);
     verified = false;
     fromRegistrar = false;
   } else if (isSummerTerm(currentTerm)) {
