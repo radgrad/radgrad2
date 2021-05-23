@@ -30,7 +30,7 @@ interface BrowserViewProps {
 const BrowserView: React.FC<BrowserViewProps> = ({ items, explorerType }) => {
   const [filterChoice] = useStickyState(`Filter.${explorerType}`, EXPLORER_FILTER_KEYS.NONE);
   const defaultSortChoice = (explorerType === EXPLORER_TYPE.COURSES) ? EXPLORER_SORT_KEYS.NUMBER
-    : EXPLORER_SORT_KEYS.ALPHABETIC ;
+    : EXPLORER_SORT_KEYS.ALPHABETIC;
   const [sortChoice] = useStickyState(`Sort.${explorerType}`, defaultSortChoice);
   const [scrollPosition, setScrollPosition] = useStickyState(`Scroll.${explorerType}`, 0);
   const match = useRouteMatch();
@@ -39,8 +39,8 @@ const BrowserView: React.FC<BrowserViewProps> = ({ items, explorerType }) => {
   const interestIDs = profileEntries.map((f) => f.interestID);
   let explorerItems = _.sortBy(items, (item: any) => item.name);
   let profileItems;
-  const getProfileItems = (type:EXPLORER_TYPE) => {
-    switch (type){
+  const getProfileItems = (type: EXPLORER_TYPE) => {
+    switch (type) {
       case EXPLORER_TYPE.INTERESTS:
         profileItems = Users.getInterestIDs(userID).map((id) => Interests.findDoc(id));
         break;
@@ -48,19 +48,19 @@ const BrowserView: React.FC<BrowserViewProps> = ({ items, explorerType }) => {
         profileItems = ProfileCareerGoals.findNonRetired({ userID: userID }).map((f) => CareerGoals.findDoc(f.careerGoalID));
         break;
       case EXPLORER_TYPE.OPPORTUNITIES:
-        profileItems =  ProfileOpportunities.findNonRetired({ studentID: userID }).map((f) => Opportunities.findDoc(f.opportunityID)).filter(o=> o.retired !== true);
+        profileItems = ProfileOpportunities.findNonRetired({ studentID: userID }).map((f) => Opportunities.findDoc(f.opportunityID)).filter(o => o.retired !== true);
         break;
       case EXPLORER_TYPE.COURSES:
-        profileItems =  ProfileCourses.findNonRetired({ studentID: userID }).map((f) => Courses.findDoc(f.courseID));
+        profileItems = ProfileCourses.findNonRetired({ studentID: userID }).map((f) => Courses.findDoc(f.courseID));
         break;
     }
     explorerItems = profileItems;
     return explorerItems;
   };
 
-  const getNonProfileItems = (type:EXPLORER_TYPE) => {
+  const getNonProfileItems = (type: EXPLORER_TYPE) => {
     profileItems = getProfileItems(type);
-    switch (type){
+    switch (type) {
       case EXPLORER_TYPE.INTERESTS:
         explorerItems = Interests.findNonRetired().filter(md => profileItems.every(fd => fd._id !== md._id));
         break;
@@ -77,7 +77,7 @@ const BrowserView: React.FC<BrowserViewProps> = ({ items, explorerType }) => {
     return explorerItems;
   };
 
-  switch (filterChoice){
+  switch (filterChoice) {
     case EXPLORER_FILTER_KEYS.INPROFILE:
       explorerItems = getProfileItems(explorerType);
       break;
@@ -104,7 +104,7 @@ const BrowserView: React.FC<BrowserViewProps> = ({ items, explorerType }) => {
       });
       break;
     default:
-        // if 'All', do no filtering
+    // if 'All', do no filtering
   }
 
   switch (sortChoice) {
@@ -130,7 +130,7 @@ const BrowserView: React.FC<BrowserViewProps> = ({ items, explorerType }) => {
       break;
     }
     default: {
-      explorerItems = _.sortBy(explorerItems, (item:any) => item.name);
+      explorerItems = _.sortBy(explorerItems, (item: any) => item.name);
     }
   }
 
@@ -161,31 +161,33 @@ const BrowserView: React.FC<BrowserViewProps> = ({ items, explorerType }) => {
       break;
   }
 
-  const inProfile = (item:Interest | CareerGoal | Course | Opportunity, type:EXPLORER_TYPE) => {
+  const inProfile = (item: Interest | CareerGoal | Course | Opportunity, type: EXPLORER_TYPE) => {
     profileItems = getProfileItems(type);
-    return !! profileItems.some(x => x._id === item._id);
+    return !!profileItems.some(x => x._id === item._id);
   };
 
-  const header = <RadGradHeader title= {`${explorerType.replace('-', ' ')}`} count = {explorerItems.length} icon={icon} />;
+  const header = <RadGradHeader title={`${explorerType.replace('-', ' ')}`} count={explorerItems.length} icon={icon} />;
   return (
     <div id="explorer-browser-view">
-    <RadGradSegment header={header}>
-      <Grid doubling stackable>
-        <Grid.Row columns={2}>
-          <Grid.Column>
-            <Filter explorerType={explorerType} />
-          </Grid.Column>
-          <Grid.Column>
-            <Sort explorerType={explorerType} />
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
-      <Card.Group itemsPerRow={4} stackable id="browserCardGroup" style={{ margin: '0px' }}>
-                  {explorerItems.map((explorerItem) => (
-        <ExplorerCard key={explorerItem._id} item={explorerItem} type={explorerType} inProfile = {inProfile(explorerItem, explorerType)} />
-                  ))}
-      </Card.Group>
-    </RadGradSegment>
+      <RadGradSegment header={header}>
+        <Grid>
+          <Grid.Row style={{ paddingBottom: 0 }}>
+            <Grid.Column style={{ paddingBottom: 0 }}>
+              <Filter explorerType={explorerType} />
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row style={{ paddingTop: 0 }}>
+            <Grid.Column style={{ paddingTop: 0 }}>
+              <Sort explorerType={explorerType} />
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+        <Card.Group itemsPerRow={4} stackable id="browserCardGroup" style={{ margin: '0px' }}>
+          {explorerItems.map((explorerItem) => (
+            <ExplorerCard key={explorerItem._id} item={explorerItem} type={explorerType} inProfile={inProfile(explorerItem, explorerType)} />
+          ))}
+        </Card.Group>
+      </RadGradSegment>
     </div>
   );
 };
