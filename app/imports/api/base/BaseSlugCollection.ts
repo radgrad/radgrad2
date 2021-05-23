@@ -87,6 +87,22 @@ class BaseSlugCollection extends BaseCollection {
   }
 
   /**
+   * Returns the instances sorted by slug string.
+   * Instances could be instanceIDs or slug names.
+   * Only tested so far with instances being slug names.
+   * Hopefully this.findDocBySlug resolves 'this' to the subcollection.
+   */
+  public sort(instances: string[]) {
+    if (instances.length === 0 ) {
+      return instances;
+    }
+    const areSlugs = Slugs.isDefined(instances[0]);
+    const docs = instances.map(instance => (areSlugs ? this.findDocBySlug(instance) : this.findDoc(instance)));
+    const sortedDocs = _.sortBy(docs, doc => Slugs.getNameFromID(doc.slugID));
+    return (areSlugs) ? sortedDocs.map(doc => Slugs.getNameFromID(doc.slugID)) : sortedDocs.map(doc => doc._id);
+  }
+
+  /**
    * Return true if instance is a docID or a slug for this entity.
    * @param { String } instance A docID or a slug.
    * @returns {boolean} True if instance is a docID or slug for this entity.

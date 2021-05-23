@@ -24,7 +24,7 @@ const LandingNavBar: React.FC<NavBarProps> = ({ currentUser, iconName, role, ins
   // Capitalize first letter
   const displayRole = currentUser && role ? role.charAt(0).toUpperCase() + role.slice(1) : '';
   return (
-    <Menu attached="top" borderless size="small">
+    <Menu attached="top" borderless size="small" >
         <Menu.Item as={NavLink} activeClassName="" exact to="/">
           <Image style={imageStyle} circular src="/images/radgrad_logo.png" />
           <div className="mobile hidden item">
