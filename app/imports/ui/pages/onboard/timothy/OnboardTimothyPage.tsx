@@ -40,6 +40,10 @@ interface OnBoardVar {
 }
 
 const OnboardTimothyPage: React.FC<OnBoardVar> = ({ user, urlName, TotalCareerGoals, TotalInterests, TotalCourses, TotalOpportunities, TotalStudents, randomName, randomDescription }) => {
+  const style = {
+    marginBottom: 30,
+  };
+
   const CareerGoalList = () => {
     const profile = Users.getProfile(user);
     return (
@@ -98,11 +102,9 @@ const OnboardTimothyPage: React.FC<OnBoardVar> = ({ user, urlName, TotalCareerGo
 
   const StudentList = () => (
           <Label.Group size="medium">
-              {TotalStudents.map((student) => {
-                return (
+              {TotalStudents.map((student) => (
                       <UserLabel size="small" username={student}  />
-                );
-              })}
+              ))}
           </Label.Group>
   );
 
@@ -110,7 +112,7 @@ const OnboardTimothyPage: React.FC<OnBoardVar> = ({ user, urlName, TotalCareerGo
   return (
         <PageLayout id={PAGEIDS.ONBOARD_SHINYA} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}
                     headerPaneImage={headerPaneImage}>
-            <div>
+            <div style={style}>
                 <RadGradSegment header={<RadGradHeader title='TASK 4: LABELS' icon='tags'/>}>
                     <h3 className='ui header' style={{ marginBottom: '1em' }}> Career Goals </h3>
                     <CareerGoalList/>
@@ -124,9 +126,7 @@ const OnboardTimothyPage: React.FC<OnBoardVar> = ({ user, urlName, TotalCareerGo
                     <StudentList/>
                 </RadGradSegment>
             </div>
-            <br/>
-            <br/>
-            <div>
+            <div style={style}>
                 <RadGradSegment header={<RadGradHeader title='TASK 3: A RANDOM CAREER GOAL (REFRESH FOR A NEW ONE)' icon='database'/>}>
                     <div className='ui vertical segment'>
                         <h3 className='ui header' style={{ marginBottom: '1em' }}> {randomName} </h3>
@@ -137,8 +137,6 @@ const OnboardTimothyPage: React.FC<OnBoardVar> = ({ user, urlName, TotalCareerGo
                     </div>
                 </RadGradSegment>
             </div>
-            <br/>
-            <br/>
             <div className='ui two column grid'>
                 <div className='column'>
                     <RadGradSegment header={<RadGradHeader title='TASK 1: HELLO WORLD' icon='globe americas'/>}>
@@ -147,13 +145,9 @@ const OnboardTimothyPage: React.FC<OnBoardVar> = ({ user, urlName, TotalCareerGo
                 </div>
                 <div className='column'>
                     <RadGradSegment header={<RadGradHeader title='TASK 2: WHO IS THE USER?' icon='user graduate'/>}>
-                        The current logged in user is: {user}
-                        <br/>
-                        <br/>
-                        The username appearing in the URL is: {urlName}
-                        <br/>
-                        <br/>
-                        In RadGrad, these are not necessarily the same!
+                        <p style={style}>The current logged in user is: {user}</p>
+                        <p style={style}>The username appearing in the URL is: {urlName}</p>
+                        <p style={style}>In RadGrad, these are not necessarily the same!</p>
                     </RadGradSegment>
                 </div>
             </div>
