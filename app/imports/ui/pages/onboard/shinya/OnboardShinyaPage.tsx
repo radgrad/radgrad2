@@ -14,6 +14,7 @@ import Task4Component from './Task4Component';
 import { CareerGoal } from '../../../../typings/radgrad';
 import Task5Component from './Task5Component';
 import Task6Component from './Task6Component';
+import Task7Component from './Task7Component';
 
 
 const headerPaneTitle = "Shinya's Onboarding Sandbox";
@@ -30,6 +31,7 @@ interface OnBoardTask {
 }
 const OnboardShinyaPage: React.FC<OnBoardTask> = ({ loggedInUser, urlUser, info, count }) => (
   <PageLayout id={PAGEIDS.ONBOARD_SHINYA} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
+      <Task7Component/>
       <Task6Component/>
       <Task5Component/>
      <Task4Component/>
