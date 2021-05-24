@@ -352,32 +352,26 @@ ${getLevelCriteriaStringMarkdown(level)}.`;
   return result;
 };
 
-export const getLevelCongratsMarkdown = (level: string): string => {
+export const getLevelCongratsMarkdown = (level: number): string => {
   let result = '';
   switch (level) {
-    case 'six':
-      // eslint-disable-next-line max-len
-      result = 'If you achieve Level 6, you are truly one of the elite ICS students, and you will have demonstrated excellent preparation for entering the workforce, or going on to Graduate School, whichever you prefer. Congratulations!';
+    case 5:
+      result = 'To get to Level 6: Complete your degree plan, and do some reviews.';
       break;
-    case 'five':
-      // eslint-disable-next-line max-len
-      result = 'Level 5 students are far along in their degree program, and they\'ve made significant progress toward 100 verified points in each of the three ICE categories. You will probably be at least a Junior before Level 5 becomes a realistic option for you.';
+    case 4:
+      result = 'To get to Level 5: Be well on your way to a completed degree plan';
       break;
-    case 'four':
-      // eslint-disable-next-line max-len
-      result = 'ICS has a "core curriculum", and Level 4 students have not only finished it, but they have also thought beyond mere competency.';
+    case 3:
+      result = 'To get to Level 4: Complete several semesters of coursework plus some verified opportunities.';
       break;
-    case 'three':
-      // eslint-disable-next-line max-len
-      result = 'With any luck, you\'ll achieve Level 3 after you complete your second semester of ICS coursework, as long as your grades are good.';
+    case 2:
+      result = 'To get to Level 3: Complete your second semester of coursework with decent grades.';
       break;
-    case 'two':
-      // eslint-disable-next-line max-len
-      result = 'Successfully finish your first semester of ICS coursework.';
+    case 1:
+      result = 'To get to Level 2: Successfully finish your first semester of coursework.';
       break;
     default:
-      // eslint-disable-next-line max-len
-      result = 'You begin your RadGrad experience at Level 1, and you will receive this laptop sticker when you first sign up for RadGrad with your advisor. *"A journey of a thousand miles begins with a single step" -- Lao Tzu*';
+      result = '';
   }
   return result;
 };
