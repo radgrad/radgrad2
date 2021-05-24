@@ -39,9 +39,7 @@ const getStudentLevelHint = (profile: StudentProfile): string => {
   }
 };
 
-const getStudentLevelCongrats = (profile: StudentProfile): string => {
-  return profile.level ? getLevelCongratsMarkdown(profile.level) : 'No level for this student';
-};
+const getStudentLevelCongrats = (profile: StudentProfile): string => (profile.level ? getLevelCongratsMarkdown(profile.level) : 'No level for this student');
 
 const StudentLevelsWidget: React.FC<StudentLevelsWidgetProps> = ({ profile, students }) => {
   const imageStyle = { width: '160px' };
