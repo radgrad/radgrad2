@@ -6,12 +6,12 @@ import { getLevelCongratsMarkdown, getLevelHintStringMarkdown } from '../../../.
 import { StudentProfile } from '../../../../typings/radgrad';
 import { ICE, URL_ROLES } from '../../../layouts/utilities/route-constants';
 import { getUsername } from '../../shared/utilities/router';
+import { getLevelColor } from './StudentLevelExplainerWidget';
 import StudentLevelsOthersWidget from './StudentLevelsOthersWidget';
 import { LevelChecklist } from '../../checklist/LevelChecklist';
 import { CHECKSTATE } from '../../checklist/Checklist';
 import RadGradSegment from '../../shared/RadGradSegment';
 import RadGradHeader from '../../shared/RadGradHeader';
-
 
 export interface StudentLevelsWidgetProps {
   profile: StudentProfile;
@@ -40,24 +40,7 @@ const getStudentLevelHint = (profile: StudentProfile): string => {
 };
 
 const getStudentLevelCongrats = (profile: StudentProfile): string => {
-  let levelNumber = 0;
-  levelNumber = profile.level;
-  switch (levelNumber) {
-    case 1:
-      return getLevelCongratsMarkdown('two');
-    case 2:
-      return getLevelCongratsMarkdown('three');
-    case 3:
-      return getLevelCongratsMarkdown('four');
-    case 4:
-      return getLevelCongratsMarkdown('five');
-    case 5:
-      return getLevelCongratsMarkdown('six');
-    case 6:
-      return 'Congratulations!  You have reached the top of the RadGrad mountain!  As a Level 6 RadGrad Ninja, you need not strive any further. There are no further levels to reach.';
-    default:
-      return 'No level available for this student';
-  }
+  return profile.level ? getLevelCongratsMarkdown(profile.level) : 'No level for this student';
 };
 
 const StudentLevelsWidget: React.FC<StudentLevelsWidgetProps> = ({ profile, students }) => {
@@ -73,23 +56,26 @@ const StudentLevelsWidget: React.FC<StudentLevelsWidgetProps> = ({ profile, stud
   let rightside = <p />;
   if (checklist.getState() === CHECKSTATE.IMPROVE || checklist.getState() === CHECKSTATE.REVIEW)
     rightside = <span><Icon name='exclamation triangle' color='orange' /> {checklist.getTitleText()}</span>;
-  const header = <RadGradHeader title='CURRENT LEVEL' rightside={rightside} />;
+  const header = <RadGradHeader title={`Congrats! You're at Level ${profile.level}`} rightside={rightside} />;
+  const color = getLevelColor(profile.level);
   return (
     <RadGradSegment header={header}>
       <Grid>
           <Grid.Column width={3}>
               <Image size="mini" centered style={imageStyle} src={`/images/level-icons/radgrad-level-${studentLevelNumber}-icon.png`} />
+              <Header textAlign="center" as='h2' color={color}>Level {profile.level}</Header>
               {profile.lastLeveledUp ? <Header as='h3' textAlign="center">Earned on {profile.lastLeveledUp}</Header> : ''}
           </Grid.Column>
         <Grid.Column width={13}>
           <Container>
-              <Header as="h3"><Markdown escapeHtml source={studentLevelCongrats} /></Header>
               <Message icon positive>
                   <Icon name="rocket" />
                   <Message.Content>
                       <h1>Want to level up?</h1>
+                      <Markdown escapeHtml source={studentLevelCongrats} />
+                      <p>More specifically:</p>
                       <Markdown escapeHtml source={studentLevelHint} />
-                      <Link to={`/${URL_ROLES.STUDENT}/${username}/${ICE}`} style={linkStyle}>Visit ICE page for more details</Link>
+                      <Link to={`/${URL_ROLES.STUDENT}/${username}/${ICE}`} style={linkStyle}>Visit the ICE page for more details</Link>
                   </Message.Content>
               </Message>
               <StudentLevelsOthersWidget students={students} profile={profile} />

@@ -22,14 +22,14 @@ const RadGradTabHeader: React.FC<RadGradTabHeaderProps> = ({
   rightside = '',
   key = title,
 }) => (
-  <span style={{ overflowWrap: 'anywhere' }} >
+  <>
     {icon ? <Icon className={icon} /> : ''}
     {iconAlternative || ''}
     {title.toUpperCase()} {count ? `(${count})` : ''}
     &nbsp; &nbsp;
     <span style={{ display: 'inline-block' }}>{leftside}</span>
     <span style={{ float: 'right' }}>{rightside}</span>
-  </span>
+  </>
 );
 
 export default RadGradTabHeader;
