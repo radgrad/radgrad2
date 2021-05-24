@@ -1,10 +1,13 @@
 import { Meteor } from 'meteor/meteor';
-import React from 'react';
+import React, { useState } from 'react';
 import _ from 'lodash';
 import { useParams } from 'react-router-dom';
 import Markdown from 'react-markdown';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Label } from 'semantic-ui-react';
+import { Header, Label } from 'semantic-ui-react';
+import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
+import SimpleSchema from 'simpl-schema';
+import { AutoForm, SubmitField, SelectField } from 'uniforms-semantic';
 import { PAGEIDS } from '../../../utilities/PageIDs';
 import { Users } from '../../../../api/user/UserCollection';
 import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
@@ -15,7 +18,7 @@ import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
 import PageLayout from '../../PageLayout';
 import RadGradSegment from '../../../components/shared/RadGradSegment';
 import RadGradHeader from '../../../components/shared/RadGradHeader';
-import { itemToSlugName } from '../../../components/shared/utilities/data-model';
+import { docToName, itemToSlugName } from '../../../components/shared/utilities/data-model';
 import CareerGoalLabel from '../../../components/shared/label/CareerGoalLabel';
 import InterestLabel from '../../../components/shared/label/InterestLabel';
 import CourseLabel from '../../../components/shared/label/CourseLabel';
@@ -40,6 +43,33 @@ interface OnBoardVar {
 }
 
 const OnboardTimothyPage: React.FC<OnBoardVar> = ({ user, urlName, TotalCareerGoals, TotalInterests, TotalCourses, TotalOpportunities, TotalStudents, randomName, randomDescription }) => {
+  const interestNames = TotalInterests.map(docToName);
+  const schema = new SimpleSchema({
+    interest: {
+      type: String,
+      allowedValues: interestNames,
+    },
+  });
+  const [selectInterest, setSelectInterest] = useState(() =>'');
+  const formSchema = new SimpleSchema2Bridge(schema);
+  // let formRef;
+
+  const Submit = (data) => {
+    const { interest } = data;
+    setSelectInterest(interest);
+  };
+
+  const DisplayInterest = () => {
+    const selectDescription = _.map(Interests.find({  name: selectInterest  }).fetch(), 'description');
+    const description = selectDescription[0];
+    return (
+    <div>
+      <h3 className='ui header' style={{ margin: '30px 0' }}> Description </h3>
+      <Markdown escapeHtml source={description} />
+    </div>
+    );
+  };
+
   const style = {
     marginBottom: 30,
   };
@@ -112,6 +142,17 @@ const OnboardTimothyPage: React.FC<OnBoardVar> = ({ user, urlName, TotalCareerGo
   return (
         <PageLayout id={PAGEIDS.ONBOARD_SHINYA} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}
                     headerPaneImage={headerPaneImage}>
+          <div style={style}>
+            <RadGradSegment header={<RadGradHeader title='TASK 5: SHOW ME  THE DESCRIPTION' icon='file alternate outline'/>}>
+              <Header dividing>Add Career Goal</Header>
+              {/* eslint-disable-next-line no-return-assign */}
+              <AutoForm schema={formSchema} onSubmit={data => Submit(data)}>
+                <SelectField name="interest" placeholder="(Select interest)"/>
+                <SubmitField className="mini basic green" value='Submit'/>
+              </AutoForm>
+              <DisplayInterest/>
+            </RadGradSegment>
+          </div>
             <div style={style}>
                 <RadGradSegment header={<RadGradHeader title='TASK 4: LABELS' icon='tags'/>}>
                     <h3 className='ui header' style={{ marginBottom: '1em' }}> Career Goals </h3>
