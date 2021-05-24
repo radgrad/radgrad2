@@ -6,7 +6,7 @@ import { Opportunities } from '../../../../api/opportunity/OpportunityCollection
 import { getDraggablePillStyle } from './utilities/styles';
 import NamePill from './NamePill';
 import IceHeader from '../../shared/IceHeader';
-import RemoveItWidget from './RemoveItWidget';
+import RemoveIt from './RemoveIt';
 
 interface OpportunityInstancePillProps {
   instance: OpportunityInstance;
@@ -38,12 +38,22 @@ const DraggableOpportunityInstancePill: React.FC<OpportunityInstancePillProps> =
             {(prov, snap) => (
               <div ref={prov.innerRef} {...prov.draggableProps} {...prov.dragHandleProps} style={getDraggablePillStyle(snap.isDragging, prov.draggableProps.style)}>
                 <Grid>
-                  <Grid.Row style={{ paddingTop: 7, paddingBottom: 7 }}>
-                    <Grid.Column width={13} onClick={handleClick(instance, handleClickOpportunityInstance)}>
-                      <NamePill name={shortenName(opp.name)} />
-                    </Grid.Column>
-                    <Grid.Column width={2}>{instance.verified ? '' : <RemoveItWidget collectionName="OpportunityInstanceCollection" id={instance._id} name={opp.name} courseNumber="" />}</Grid.Column>
-                  </Grid.Row>
+                  {instance.verified ?
+                    <Grid.Row style={{ paddingTop: 7, paddingBottom: 7 }}>
+                      <Grid.Column width={16} onClick={handleClick(instance, handleClickOpportunityInstance)}>
+                        <NamePill name={shortenName(opp.name)} />
+                      </Grid.Column>
+                    </Grid.Row>
+                    :
+                    <Grid.Row style={{ paddingTop: 7, paddingBottom: 7 }}>
+                      <Grid.Column width={13} onClick={handleClick(instance, handleClickOpportunityInstance)}>
+                        <NamePill name={shortenName(opp.name)} />
+                      </Grid.Column>
+                      <Grid.Column width={3} verticalAlign='middle'>
+                        <RemoveIt collectionName="OpportunityInstanceCollection" id={instance._id} name={opp.name} courseNumber="" />
+                      </Grid.Column>
+                    </Grid.Row>
+                  }
                 </Grid>
               </div>
             )}

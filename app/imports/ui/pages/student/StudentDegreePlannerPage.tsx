@@ -4,7 +4,7 @@ import { DragDropContext } from 'react-beautiful-dnd';
 import Swal from 'sweetalert2';
 import { useParams } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
-import DegreeExperiencePlannerWidget from '../../components/student/degree-planner/DegreeExperiencePlanner';
+import DegreeExperiencePlanner from '../../components/student/degree-planner/DegreeExperiencePlanner';
 import { Courses } from '../../../api/course/CourseCollection';
 import { CourseInstances } from '../../../api/course/CourseInstanceCollection';
 import { defineMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
@@ -103,7 +103,8 @@ const onDragEnd = (onDragEndProps) => (result) => {
          * course instance and only create a user interaction if it was not a duplicate.
          */
         // Before we define a course instance, check if it already exists first
-        defineMethod.callPromise({ collectionName, definitionData })
+        defineMethod
+          .callPromise({ collectionName, definitionData })
           .then((res) => {
             setSelectedCiID(res);
             setSelectedOiID('');
@@ -136,7 +137,8 @@ const onDragEnd = (onDragEndProps) => (result) => {
           updateData.termID = termID;
           updateData.id = slug;
           const collectionName = CourseInstances.getCollectionName();
-          updateMethod.callPromise({ collectionName, updateData })
+          updateMethod
+            .callPromise({ collectionName, updateData })
             .then(() => {
               setSelectedCiID(slug);
               setSelectedOiID('');
@@ -159,7 +161,8 @@ const onDragEnd = (onDragEndProps) => (result) => {
        * However, since the Meteor define method still fires, we want to handle that case where we drag a duplicate
        * opportunity instance and only create a user interaction if it was not a duplicate.
        */
-      defineMethod.callPromise({ collectionName, definitionData })
+      defineMethod
+        .callPromise({ collectionName, definitionData })
         .then((res) => {
           setSelectedCiID('');
           setSelectedOiID(res);
@@ -172,7 +175,8 @@ const onDragEnd = (onDragEndProps) => (result) => {
       updateData.termID = termID;
       updateData.id = slug;
       const collectionName = OpportunityInstances.getCollectionName();
-      updateMethod.callPromise({ collectionName, updateData })
+      updateMethod
+        .callPromise({ collectionName, updateData })
         .then(() => {
           setSelectedCiID('');
           setSelectedOiID(slug);
@@ -193,17 +197,7 @@ Telling RadGrad what you've planned and completed helps the system provide bette
 `;
 const headerPaneImage = 'header-planner.png';
 
-const StudentDegreePlannerPage: React.FC<StudentDegreePlannerProps> = ({
-  academicYearInstances,
-  studentID,
-  match,
-  profileCourses,
-  profileOpportunities,
-  courseInstances,
-  opportunityInstances,
-  takenSlugs,
-  verificationRequests,
-}) => {
+const StudentDegreePlannerPage: React.FC<StudentDegreePlannerProps> = ({ academicYearInstances, studentID, match, profileCourses, profileOpportunities, courseInstances, opportunityInstances, takenSlugs, verificationRequests }) => {
   const [, setSelectedCiID] = useStickyState(DegreePlannerStateNames.selectedCiID, '');
   const [, setSelectedOiID] = useStickyState(DegreePlannerStateNames.selectedOiID, '');
   const [, setSelectedProfileTab] = useStickyState(DegreePlannerStateNames.selectedProfileTab, '');
@@ -212,14 +206,11 @@ const StudentDegreePlannerPage: React.FC<StudentDegreePlannerProps> = ({
   const paddedStyle = { paddingTop: 0, paddingLeft: 10, paddingRight: 20 };
   return (
     <DragDropContext onDragEnd={onDragEnd(onDragEndProps)}>
-      <PageLayout id={PAGEIDS.STUDENT_DEGREE_PLANNER} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}
-                  headerPaneImage={headerPaneImage}>
+      <PageLayout id={PAGEIDS.STUDENT_DEGREE_PLANNER} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
         <Grid stackable>
           <Grid.Row stretched>
             <Grid.Column width={10} style={paddedStyle}>
-              <DegreeExperiencePlannerWidget academicYearInstances={academicYearInstances}
-                                             courseInstances={courseInstances}
-                                             opportunityInstances={opportunityInstances} />
+              <DegreeExperiencePlanner academicYearInstances={academicYearInstances} courseInstances={courseInstances} opportunityInstances={opportunityInstances} />
             </Grid.Column>
 
             <Grid.Column width={6} style={paddedStyle}>
@@ -274,7 +265,8 @@ export default withTracker(() => {
       return !passedCourse(ci) || courseInstanceIsRepeatable(ci);
     }
     return false;
-  });  const academicYearInstances: AcademicYearInstance[] = AcademicYearInstances.findNonRetired({ studentID }, { sort: { year: 1 } });
+  });
+  const academicYearInstances: AcademicYearInstance[] = AcademicYearInstances.findNonRetired({ studentID }, { sort: { year: 1 } });
   const opportunityInstances = OpportunityInstances.findNonRetired({ studentID: profile.userID });
   const verificationRequests = VerificationRequests.findNonRetired({ studentID });
   return {
