@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 import { Button, Icon, Modal } from 'semantic-ui-react';
 import { removeItMethod } from '../../../../api/base/BaseCollection.methods';
+import { DegreePlannerStateNames } from '../../../pages/student/StudentDegreePlannerPage';
 import { useStickyState } from '../../../utilities/StickyState';
+import { TabbedProfileEntryNames } from './TabbedProfileEntries';
 
 interface RemoveItWidgetProps {
   collectionName: string;
@@ -11,30 +13,39 @@ interface RemoveItWidgetProps {
   courseNumber: string;
 }
 
-const RemoveItWidget: React.FC<RemoveItWidgetProps> = ({ collectionName, id, name, courseNumber }) => {
+const RemoveIt: React.FC<RemoveItWidgetProps> = ({ collectionName, id, name, courseNumber }) => {
   const [modalOpenState, setModalOpen] = useState(false);
   const handleOpen = () => setModalOpen(true);
   const handleClose = () => setModalOpen(false);
   const buttonStyle: React.CSSProperties = { padding: 0 };
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [selectedCourse, setSelectedCourse] = useStickyState('Planner.selectedCourse', '');
+  const [, setSelectedCiID] = useStickyState(DegreePlannerStateNames.selectedCiID, '');
+  const [, setSelectedOiID] = useStickyState(DegreePlannerStateNames.selectedOiID, '');
+  const [, setSelectedProfileTab] = useStickyState(DegreePlannerStateNames.selectedProfileTab, '');
 
   const handleRemoveIt = () => {
     handleClose();
     const instance = id;
-    removeItMethod.call({ collectionName, instance }, (error) => {
-      if (error) {
-        console.error(`Remove ${collectionName}: ${instance} failed.`, error);
-      } else {
+    removeItMethod.callPromise({ collectionName, instance })
+      .then(() => {
         Swal.fire({
           title: 'Remove Succeeded',
           icon: 'success',
           showConfirmButton: false,
           timer: 1500,
         });
-      }
-    });
-    setSelectedCourse('');
+        setSelectedOiID('');
+        setSelectedCiID('');
+        setSelectedProfileTab(TabbedProfileEntryNames.profileOpportunities);
+      })
+      .catch((error) => {
+        console.error(`Remove ${collectionName}: ${instance} failed.`, error);
+        Swal.fire({
+          title: `Remove ${collectionName}: ${instance} failed.`,
+          icon: 'error',
+          text: error.message,
+        });
+      });
+
   };
 
   return (
@@ -70,4 +81,4 @@ const RemoveItWidget: React.FC<RemoveItWidgetProps> = ({ collectionName, id, nam
   );
 };
 
-export default RemoveItWidget;
+export default RemoveIt;
