@@ -10,7 +10,7 @@ const Task2Segment: React.FC = () => {
   const { username } = useParams();
   const urlUser = Users.getProfile(username).username;
   return (
-  <RadGradSegment header={<RadGradHeader dividing title='Task Two: Who Is The User?' icon='user graduate'/>}>
+  <RadGradSegment header={<RadGradHeader dividing title='Task 2: Who Is The User?' icon='user graduate'/>}>
     The currently logged in user is: {currentUser} <br/>
     The username appearing in the URL is: {urlUser} <br/>
     In RadGrad, these are not necessarily the same!

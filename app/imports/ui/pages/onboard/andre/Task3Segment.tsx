@@ -15,8 +15,8 @@ const Task3Segment: React.FC<RandomCareerProps> = ({ careerGoals }) => {
   const randomID = Math.floor(Math.random() * careerGoalSize);
   const { name, description } = careerGoals[randomID];
   return (
-    <RadGradSegment header={<RadGradHeader title='Task Three: A Random Career Goal (Refresh For A New One)' icon='database'/>}>
-      <RadGradHeader title={name}/>
+    <RadGradSegment header={<RadGradHeader title='Task 3: A Random Career Goal (Refresh For A New One)' icon='database'/>}>
+      <h3>{name}</h3>
       <Markdown source={description}/>
       <hr/>
       Note: The total number of career goals is: {careerGoalSize}
