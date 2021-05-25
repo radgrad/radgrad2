@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import { AcademicYearInstance, CourseInstance, OpportunityInstance } from '../../../../typings/radgrad';
 import { AcademicTerms } from '../../../../api/academic-term/AcademicTermCollection';
-import AcademicTermViewContainer from './AcademicTermView';
+import AcademicTermView from './AcademicTermView';
 
 interface AcademicYearViewProps {
   academicYear: AcademicYearInstance;
@@ -35,7 +35,7 @@ const AcademicYearView: React.FC<AcademicYearViewProps> = ({
     <Grid.Row columns="equal" key={academicYear._id} style={smallPadding}>
       {terms.map((term) => (
         <Grid.Column stretched key={term._id} style={smallLRPadding}>
-          <AcademicTermViewContainer
+          <AcademicTermView
             key={term._id}
             term={term}
             studentID={studentID}
