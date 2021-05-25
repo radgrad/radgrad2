@@ -5,6 +5,7 @@ import { useRouteMatch } from 'react-router-dom';
 import { updateLastVisited } from '../../api/user/BaseProfileCollection.methods';
 import { Users } from '../../api/user/UserCollection';
 import HeaderPane from '../components/shared/HeaderPane';
+import PageFooter from '../components/shared/PageFooter';
 import { getMenuWidget } from './shared/utilities/getMenuWidget';
 
 interface PageLayoutProps {
@@ -19,7 +20,7 @@ interface PageLayoutProps {
 // TODO: id should become pageID with type PAGEIDS.
 const PageLayout: React.FC<PageLayoutProps> = ({ id, headerPaneImage, headerPaneTitle, headerPaneBody = '', children, headerPaneButton }) => {
   const match = useRouteMatch();
-  const padding = { paddingRight: '20px', paddingLeft: '20px', paddingTop: '20px' };
+  const padding = { paddingRight: '20px', paddingLeft: '20px', paddingTop: '20px', paddingBottom: '20px' };
   // The next 9 lines update the lastVisited entry for this page if necessary.
   const { username } = useParams();
   if (username && Users.hasProfile(username)) {
@@ -37,6 +38,7 @@ const PageLayout: React.FC<PageLayoutProps> = ({ id, headerPaneImage, headerPane
       <div style={padding}>
         {children}
       </div>
+      <PageFooter/>
     </div>
   );
 };

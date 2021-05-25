@@ -37,7 +37,7 @@ const WriteReviews: React.FC<WriteReviewsProps> = ({ unreviewedCourses, unreview
 
   const handleChoiceChange = (name, value) => {
     // console.log(name, value);
-    const strippedName = value.substring(0, value.indexOf('(') - 1);
+    const strippedName = value.substring(0, value.lastIndexOf('(') - 1);
     setChoiceName(strippedName);
     if (courseNames.includes(strippedName)) {
       setReviewType(Reviews.COURSE);

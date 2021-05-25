@@ -9,10 +9,10 @@ const getDraggablePillStyle = (isDragging: boolean, draggableStyle: React.CSSPro
   margin: `0 0 ${grid}px 0`,
   color: COLORS.GREEN3,
   // change background colour if dragging
-  background: isDragging ? 'lightgreen' : COLORS.GREY2,
+  background: COLORS.TEAL,
   borderStyle: 'solid',
-  borderRadius: 1,
-  borderColor: isDragging ? 'lightgreen' : COLORS.GREY2,
+  borderRadius: 12,
+  borderColor: isDragging ? COLORS.BLACK : COLORS.TEAL,
 
   // styles we need to apply on draggables
   ...draggableStyle,
