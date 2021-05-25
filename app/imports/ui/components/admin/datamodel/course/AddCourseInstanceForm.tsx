@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form, Header, Segment } from 'semantic-ui-react';
-import {AutoForm, SelectField, NumField, SubmitField, ErrorsField} from 'uniforms-semantic';
+import { AutoForm, SelectField, NumField, SubmitField, ErrorsField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { defineMethod } from '../../../../../api/base/BaseCollection.methods';
