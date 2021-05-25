@@ -6,12 +6,12 @@ import RadGradSegment from '../../../components/shared/RadGradSegment';
 import RadGradHeader from '../../../components/shared/RadGradHeader';
 import { Users } from '../../../../api/user/UserCollection';
 
-interface OnBoardVar {
+interface Task2Prop {
   user: string;
   urlName: string;
 }
 
-const Task2: React.FC<OnBoardVar> = ({ user, urlName }) => {
+const Task2: React.FC<Task2Prop> = ({ user, urlName }) => {
   const style = {
     marginBottom: 30,
   };

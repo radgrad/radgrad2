@@ -2,7 +2,6 @@ import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
 import _ from 'lodash';
-import { Label } from 'semantic-ui-react';
 import RadGradSegment from '../../../components/shared/RadGradSegment';
 import RadGradHeader from '../../../components/shared/RadGradHeader';
 import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
@@ -11,14 +10,13 @@ import { Courses } from '../../../../api/course/CourseCollection';
 import { Opportunities } from '../../../../api/opportunity/OpportunityCollection';
 import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
 import { Users } from '../../../../api/user/UserCollection';
-import { itemToSlugName } from '../../../components/shared/utilities/data-model';
 import CareerGoalLabel from '../../../components/shared/label/CareerGoalLabel';
 import InterestLabel from '../../../components/shared/label/InterestLabel';
 import CourseLabel from '../../../components/shared/label/CourseLabel';
 import OpportunityLabel from '../../../components/shared/label/OpportunityLabel';
 import UserLabel from '../../../components/shared/profile/UserLabel';
 
-interface OnBoardVar {
+interface Task4Prop {
   user: string;
   totalCareerGoals: [];
   totalInterests: [],
@@ -27,88 +25,24 @@ interface OnBoardVar {
   totalStudents: [],
 }
 
-const Task4: React.FC<OnBoardVar> = ({ user, totalCareerGoals, totalInterests, totalCourses, totalOpportunities, totalStudents }) => {
-  const entitiesList = (entity) => {
-    const profile = Users.getProfile(user);
-    switch (entity) {
-      case totalCareerGoals:
-        return (
-        <Label.Group size="medium">
-          {totalCareerGoals.map((careerGoal) => {
-            const slug = itemToSlugName(careerGoal);
-            return (
-            <CareerGoalLabel key={slug} size="medium" slug={slug} userID={profile.userID} />
-            );
-          })}
-        </Label.Group>
-        );
-      case totalInterests:
-        return (
-        <Label.Group size="medium">
-          {totalInterests.map((interest) => {
-            const slug = itemToSlugName(interest);
-            return (
-            <InterestLabel key={slug} size="medium" slug={slug} userID={profile.userID} />
-            );
-          })}
-        </Label.Group>
-        );
-      case totalCourses:
-        return (
-        <Label.Group size="medium">
-          {totalCourses.map((course) => {
-            const slug = itemToSlugName(course);
-            return (
-            <CourseLabel key={slug} size="medium" slug={slug} userID={profile.userID} />
-            );
-          })}
-        </Label.Group>
-        );
-      case totalOpportunities:
-        return (
-        <Label.Group size="medium">
-          {totalOpportunities.map((opportunity) => {
-            const slug = itemToSlugName(opportunity);
-            return (
-            <OpportunityLabel key={slug} size="medium" slug={slug} userID={profile.userID} />
-            );
-          })}
-        </Label.Group>
-        );
-      case totalStudents:
-        return (
-        <Label.Group size="medium">
-          {totalStudents.map((student) => (
-          <UserLabel size="small" username={student}  />
-          ))}
-        </Label.Group>
-        );
-      default:
-        return <React.Fragment />;
-    }
-  };
-
-  const CareerGoalList = () => entitiesList(totalCareerGoals);
-
-  const InterestList = () => entitiesList(totalInterests);
-
-  const CourseList = () => entitiesList(totalCourses);
-
-  const OpportunityList = () => entitiesList(totalOpportunities);
-
-  const StudentList = () => entitiesList(totalStudents);
+const Task4: React.FC<Task4Prop> = ({ user, totalCareerGoals, totalInterests, totalCourses, totalOpportunities, totalStudents }) => {
+  const userID = Users.getProfile(user).userID;
+  const careerGoalSlugs = totalCareerGoals.map(careerGoal => CareerGoals.findSlugByID(careerGoal));
+  const interestSlugs = totalInterests.map(interest => Interests.findSlugByID(interest));
+  const courseSlugs = totalCourses.map(course => Courses.findSlugByID(course));
+  const opportunitySlugs = totalOpportunities.map(opportunity => Opportunities.findSlugByID(opportunity));
   return (
   <RadGradSegment header={<RadGradHeader title='TASK 4: LABELS' icon='tags'/>}>
     <h3 className='ui header'> Career Goals </h3>
-    <CareerGoalList/>
+    {careerGoalSlugs.map((slug) => <CareerGoalLabel key={slug} slug={slug} userID={userID} size='small' />)}
     <h3 className='ui header'> Courses </h3>
-    <CourseList/>
+    {courseSlugs.map((slug) => <CourseLabel key={slug} slug={slug} userID={userID} size='small' />)}
     <h3 className='ui header'> Interests </h3>
-    <InterestList/>
+    {interestSlugs.map((slug) => <InterestLabel key={slug} slug={slug} userID={userID} size='small' />)}
     <h3 className='ui header'> Opportunities </h3>
-    <OpportunityList/>
+    {opportunitySlugs.map((slug) => <OpportunityLabel key={slug} slug={slug} userID={userID} size='small' />)}
     <h3 className='ui header'> Students </h3>
-    <StudentList/>
+    {totalStudents.map((student) => <UserLabel username={student} size='small' />)}
   </RadGradSegment>
   );
 };

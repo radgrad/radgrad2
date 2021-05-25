@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Tab, Modal, Button, Label } from 'semantic-ui-react';
+import { Tab, Modal, Button } from 'semantic-ui-react';
 import RadGradSegment from '../../../components/shared/RadGradSegment';
 import RadGradHeader from '../../../components/shared/RadGradHeader';
 import { StudentProfiles } from '../../../../api/user/StudentProfileCollection';
@@ -8,48 +8,19 @@ import { AdvisorProfiles } from '../../../../api/user/AdvisorProfileCollection';
 import { FacultyProfiles } from '../../../../api/user/FacultyProfileCollection';
 import UserLabel from '../../../components/shared/profile/UserLabel';
 
-interface OnBoardVar {
+interface Task7Prop {
   totalStudents: [],
   totalAdvisors: [],
   totalFaculty: [],
 }
 
-const Task7: React.FC<OnBoardVar> = ({ totalAdvisors, totalFaculty, totalStudents }) => {
-  const userList = (user) => {
-    switch (user) {
-      case totalFaculty:
-        return (
-        <Label.Group size="medium">
-          {totalFaculty.map((faculty) => (
-          <UserLabel size="small" username={faculty}  />
-          ))}
-        </Label.Group>
-        );
-      case totalAdvisors:
-        return (
-        <Label.Group size="medium">
-          {totalAdvisors.map((advisor) => (
-          <UserLabel size="small" username={advisor}  />
-          ))}
-        </Label.Group>
-        );
-      case totalStudents:
-        return (
-        <Label.Group size="medium">
-          {totalStudents.map((student) => (
-          <UserLabel size="small" username={student}  />
-          ))}
-        </Label.Group>
-        );
-      default:
-        return <React.Fragment />;
-    }
-  };
+const Task7: React.FC<Task7Prop> = ({ totalAdvisors, totalFaculty, totalStudents }) => {
+
   const [open, setOpen] = useState(false);
   const panes = [
-    { menuItem: 'Faculty', render: () => <Tab.Pane>{userList(totalFaculty)}</Tab.Pane> },
-    { menuItem: 'Advisors', render: () => <Tab.Pane>{userList(totalAdvisors)}</Tab.Pane> },
-    { menuItem: 'Student', render: () => <Tab.Pane>{userList(totalStudents)}</Tab.Pane> },
+    { menuItem: 'Faculty', render: () => <Tab.Pane>{totalFaculty.map((faculty) => <UserLabel username={faculty} size='small' />)}</Tab.Pane> },
+    { menuItem: 'Advisors', render: () => <Tab.Pane>{totalAdvisors.map((advisor) => <UserLabel username={advisor} size='small' />)}</Tab.Pane> },
+    { menuItem: 'Student', render: () => <Tab.Pane>{totalStudents.map((student) => <UserLabel username={student} size='small' />)}</Tab.Pane> },
   ];
 
   return (

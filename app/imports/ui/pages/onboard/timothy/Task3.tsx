@@ -6,13 +6,13 @@ import RadGradSegment from '../../../components/shared/RadGradSegment';
 import RadGradHeader from '../../../components/shared/RadGradHeader';
 import { CareerGoals } from '../../../../api/career/CareerGoalCollection';
 
-interface OnBoardVar {
+interface Task3Prop {
   totalCareerGoals: [];
   randomName: string;
   randomDescription: string;
 }
 
-const Task3: React.FC<OnBoardVar> = ({ randomName, randomDescription, totalCareerGoals }) => {
+const Task3: React.FC<Task3Prop> = ({ randomName, randomDescription, totalCareerGoals }) => {
   const CareerGoalLength = totalCareerGoals.length;
   return (
     <RadGradSegment header={<RadGradHeader title='TASK 3: A RANDOM CAREER GOAL (REFRESH FOR A NEW ONE)' icon='database'/>}>
