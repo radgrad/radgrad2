@@ -100,33 +100,33 @@ const AddReviewForm: React.FC<AddReviewFormProps> = ({ terms, courses, opportuni
     definitionData.slug = `review-${definitionData.reviewType}-${definitionData.reviewee}-${definitionData.student}`;
     defineMethod.call({ collectionName, definitionData }, defineCallback(formRef));
   };
-  // console.log(reviewType, schema);
+    // console.log(reviewType, schema);
   return (
-    <Segment padded>
-      <Header dividing>Add Review</Header>
-      {/* eslint-disable-next-line no-return-assign */}
-      <AutoForm schema={new SimpleSchema2Bridge(schema)} onSubmit={handleAdd} ref={(ref) => formRef = ref}
-                showInlineError onChangeModel={handleModelChange}>
-        <Form.Group widths="equal">
-          <SelectField name="reviewType" />
-          <SelectField name="student" />
-          <SelectField name="reviewee" />
-        </Form.Group>
-        <Form.Group widths="equal">
-          <SelectField name="academicTerm" />
-          <NumField name="rating" />
-        </Form.Group>
-        <LongTextField name="comments" />
-        <Form.Group>
-          <BoolField name="moderated" />
-          <BoolField name="visible" />
-        </Form.Group>
-        <LongTextField name="moderatorComments" />
-        <BoolField name="retired" />
-        <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
-          <ErrorsField/>
-      </AutoForm>
-    </Segment>
+        <Segment padded>
+            <Header dividing>Add Review</Header>
+            {/* eslint-disable-next-line no-return-assign */}
+            <AutoForm schema={new SimpleSchema2Bridge(schema)} onSubmit={handleAdd} ref={(ref) => formRef = ref}
+                      showInlineError onChangeModel={handleModelChange}>
+                <Form.Group widths="equal">
+                    <SelectField name="reviewType"/>
+                    <SelectField name="student"/>
+                    <SelectField name="reviewee"/>
+                </Form.Group>
+                <Form.Group widths="equal">
+                    <SelectField name="academicTerm"/>
+                    <NumField name="rating"/>
+                </Form.Group>
+                <LongTextField name="comments"/>
+                <Form.Group>
+                    <BoolField name="moderated"/>
+                    <BoolField name="visible"/>
+                </Form.Group>
+                <LongTextField name="moderatorComments"/>
+                <BoolField name="retired"/>
+                <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined}/>
+                <ErrorsField/>
+            </AutoForm>
+        </Segment>
   );
 };
 

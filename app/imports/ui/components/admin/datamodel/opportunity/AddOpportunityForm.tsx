@@ -94,50 +94,51 @@ const AddOpportunityForm: React.FC<AddOpportunityFormProps> = ({ sponsors, inter
   });
   const formSchema = new SimpleSchema2Bridge(schema);
   return (
-    <Segment padded>
-      <Header dividing>Add Opportunity</Header>
-      {/* eslint-disable-next-line no-return-assign */}
-      <AutoForm schema={formSchema} onSubmit={(doc) => handleAddOpportunity(doc)} ref={(ref) => formRef = ref} showInlineError>
-        <Form.Group widths="equal">
-          <TextField name="name" />
-        </Form.Group>
-        <Form.Group widths="equal">
-          <SelectField name="opportunityType" />
-          <SelectField name="sponsor" />
-        </Form.Group>
-        <LongTextField name="description" />
-        <Form.Group widths="equal">
-          <MultiSelectField name="terms" />
-          <MultiSelectField name="interests" />
-        </Form.Group>
-        <Form.Group widths="equal">
-          <DateField name="eventDate1" />
-          <TextField name="eventDateLabel1" />
-        </Form.Group>
-        <Form.Group widths="equal">
-          <DateField name="eventDate2" />
-          <TextField name="eventDateLabel2" />
-        </Form.Group>
-        <Form.Group widths="equal">
-          <DateField name="eventDate3" />
-          <TextField name="eventDateLabel3" />
-        </Form.Group>
-        <Form.Group widths="equal">
-          <DateField name="eventDate4" />
-          <TextField name="eventDateLabel4" />
-        </Form.Group>
-        <Form.Group widths="equal">
-          <NumField name="ice.i" />
-          <NumField name="ice.c" />
-          <NumField name="ice.e" />
-        </Form.Group>
-        <BoolField name="retired" />
-        <PictureField name="picture" />
-        <ErrorsField />
-        <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
-          <ErrorsField/>
-      </AutoForm>
-    </Segment>
+        <Segment padded>
+            <Header dividing>Add Opportunity</Header>
+            {/* eslint-disable-next-line no-return-assign */}
+            <AutoForm schema={formSchema} onSubmit={(doc) => handleAddOpportunity(doc)} ref={(ref) => formRef = ref}
+                      showInlineError>
+                <Form.Group widths="equal">
+                    <TextField name="name"/>
+                </Form.Group>
+                <Form.Group widths="equal">
+                    <SelectField name="opportunityType"/>
+                    <SelectField name="sponsor"/>
+                </Form.Group>
+                <LongTextField name="description"/>
+                <Form.Group widths="equal">
+                    <MultiSelectField name="terms"/>
+                    <MultiSelectField name="interests"/>
+                </Form.Group>
+                <Form.Group widths="equal">
+                    <DateField name="eventDate1"/>
+                    <TextField name="eventDateLabel1"/>
+                </Form.Group>
+                <Form.Group widths="equal">
+                    <DateField name="eventDate2"/>
+                    <TextField name="eventDateLabel2"/>
+                </Form.Group>
+                <Form.Group widths="equal">
+                    <DateField name="eventDate3"/>
+                    <TextField name="eventDateLabel3"/>
+                </Form.Group>
+                <Form.Group widths="equal">
+                    <DateField name="eventDate4"/>
+                    <TextField name="eventDateLabel4"/>
+                </Form.Group>
+                <Form.Group widths="equal">
+                    <NumField name="ice.i"/>
+                    <NumField name="ice.c"/>
+                    <NumField name="ice.e"/>
+                </Form.Group>
+                <BoolField name="retired"/>
+                <PictureField name="picture"/>
+                <ErrorsField/>
+                <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined}/>
+                <ErrorsField/>
+            </AutoForm>
+        </Segment>
   );
 };
 

@@ -114,66 +114,66 @@ const EditOpportunityButton: React.FC<ManageOpportunityProps> = ({
   const updateFormSchema = new SimpleSchema2Bridge(updateSchema);
 
   return (
-    <Modal key={`${opportunity._id}-modal`}
-           onClose={() => setOpen(false)}
-           onOpen={() => setOpen(true)}
-           open={open}
-           trigger={<Button basic color='green' key={`${opportunity._id}-edit-button`}>EDIT</Button>}>
-      <Modal.Header>{`Edit ${opportunity.name}`}</Modal.Header>
-      <Modal.Content>
-        <AutoForm model={model} schema={updateFormSchema} showInlineError onSubmit={(doc) => {
-          handleSubmit(doc);
-          setOpen(false);
-        }}>
-          <TextField name="name" />
-          <MultiSelectField name="academicTerms" />
-          <Form.Group widths="equal">
-            <SelectField name="opportunityType" />
-            <SelectField name="sponsor" />
-          </Form.Group>
-          <LongTextField name="description" />
-          <Form.Group widths="equal">
-            <PictureField name="picture" />
-            <MultiSelectField name="interests" />
-          </Form.Group>
-          <DateField name="eventDate" />
-          <Form.Group widths="equal">
-            <DateField name="eventDate1" />
-            <TextField name="eventDateLabel1" />
-          </Form.Group>
-          <Form.Group widths="equal">
-            <DateField name="eventDate2" />
-            <TextField name="eventDateLabel2" />
-          </Form.Group>
-          <Form.Group widths="equal">
-            <DateField name="eventDate3" />
-            <TextField name="eventDateLabel3" />
-          </Form.Group>
-          <Form.Group widths="equal">
-            <DateField name="eventDate4" />
-            <TextField name="eventDateLabel4" />
-          </Form.Group>
-          <Form.Group widths="equal">
-            <BoolField name="clearEventDate" />
-            <BoolField name="clearEventDate1" />
-            <BoolField name="clearEventDate2" />
-            <BoolField name="clearEventDate3" />
-            <BoolField name="clearEventDate4" />
-          </Form.Group>
-          <Form.Group widths="equal">
-            <NumField name="ice.i" />
-            <NumField name="ice.c" />
-            <NumField name="ice.e" />
-          </Form.Group>
-          <BoolField name="retired" />
-          <SubmitField />
-          <Button color='red' onClick={() => setOpen(false)}>
-            Cancel
-          </Button>
-            <ErrorsField />
-        </AutoForm>
-      </Modal.Content>
-    </Modal>
+        <Modal key={`${opportunity._id}-modal`}
+               onClose={() => setOpen(false)}
+               onOpen={() => setOpen(true)}
+               open={open}
+               trigger={<Button basic color='green' key={`${opportunity._id}-edit-button`}>EDIT</Button>}>
+            <Modal.Header>{`Edit ${opportunity.name}`}</Modal.Header>
+            <Modal.Content>
+                <AutoForm model={model} schema={updateFormSchema} showInlineError onSubmit={(doc) => {
+                  handleSubmit(doc);
+                  setOpen(false);
+                }}>
+                    <TextField name="name"/>
+                    <MultiSelectField name="academicTerms"/>
+                    <Form.Group widths="equal">
+                        <SelectField name="opportunityType"/>
+                        <SelectField name="sponsor"/>
+                    </Form.Group>
+                    <LongTextField name="description"/>
+                    <Form.Group widths="equal">
+                        <PictureField name="picture"/>
+                        <MultiSelectField name="interests"/>
+                    </Form.Group>
+                    <DateField name="eventDate"/>
+                    <Form.Group widths="equal">
+                        <DateField name="eventDate1"/>
+                        <TextField name="eventDateLabel1"/>
+                    </Form.Group>
+                    <Form.Group widths="equal">
+                        <DateField name="eventDate2"/>
+                        <TextField name="eventDateLabel2"/>
+                    </Form.Group>
+                    <Form.Group widths="equal">
+                        <DateField name="eventDate3"/>
+                        <TextField name="eventDateLabel3"/>
+                    </Form.Group>
+                    <Form.Group widths="equal">
+                        <DateField name="eventDate4"/>
+                        <TextField name="eventDateLabel4"/>
+                    </Form.Group>
+                    <Form.Group widths="equal">
+                        <BoolField name="clearEventDate"/>
+                        <BoolField name="clearEventDate1"/>
+                        <BoolField name="clearEventDate2"/>
+                        <BoolField name="clearEventDate3"/>
+                        <BoolField name="clearEventDate4"/>
+                    </Form.Group>
+                    <Form.Group widths="equal">
+                        <NumField name="ice.i"/>
+                        <NumField name="ice.c"/>
+                        <NumField name="ice.e"/>
+                    </Form.Group>
+                    <BoolField name="retired"/>
+                    <SubmitField/>
+                    <Button color='red' onClick={() => setOpen(false)}>
+                        Cancel
+                    </Button>
+                    <ErrorsField/>
+                </AutoForm>
+            </Modal.Content>
+        </Modal>
   );
 };
 

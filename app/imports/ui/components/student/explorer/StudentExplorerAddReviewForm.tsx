@@ -122,28 +122,28 @@ const StudentExplorerAddReviewForm: React.FC<StudentExplorerAddReviewFormProps> 
   });
   const formSchema = new SimpleSchema2Bridge(schema);
   return (
-    <Accordion>
-      <Accordion.Title style={accordionTitleStyle} active={activeState} onClick={handleAccordionClick}>
-        <Icon name="dropdown" />
-        <a>Add Review </a>
-      </Accordion.Title>
+        <Accordion>
+            <Accordion.Title style={accordionTitleStyle} active={activeState} onClick={handleAccordionClick}>
+                <Icon name="dropdown"/>
+                <a>Add Review </a>
+            </Accordion.Title>
 
-      <Accordion.Content active={activeState}>
-        <div className="ui padded container" style={paddedContainerStyle}>
-          <AutoForm schema={formSchema} onSubmit={handleAdd} ref={formRef}>
-            <Form.Group widths="equal">
-              <SelectField name="academicTerm" />
-              <RatingField name="rating" />
-            </Form.Group>
+            <Accordion.Content active={activeState}>
+                <div className="ui padded container" style={paddedContainerStyle}>
+                    <AutoForm schema={formSchema} onSubmit={handleAdd} ref={formRef}>
+                        <Form.Group widths="equal">
+                            <SelectField name="academicTerm"/>
+                            <RatingField name="rating"/>
+                        </Form.Group>
 
-            <LongTextField placeholder="Explain the reasoning behind your rating here." name="comments" />
+                        <LongTextField placeholder="Explain the reasoning behind your rating here." name="comments"/>
 
-            <SubmitField className="green basic mini" value="ADD" inputRef={undefined} disabled={false} />
-              <ErrorsField/>
-          </AutoForm>
-        </div>
-      </Accordion.Content>
-    </Accordion>
+                        <SubmitField className="green basic mini" value="ADD" inputRef={undefined} disabled={false}/>
+                        <ErrorsField/>
+                    </AutoForm>
+                </div>
+            </Accordion.Content>
+        </Accordion>
   );
 };
 

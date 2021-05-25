@@ -85,24 +85,24 @@ const AddVerificationRequestForm: React.FC<AddVerificationRequestFormProps> = ({
   };
 
   return (
-    <Segment padded>
-      <Header dividing>Add Verification Request</Header>
-      {/* eslint-disable-next-line no-return-assign */}
-      <AutoForm schema={formSchema} onSubmit={handleAdd} ref={(ref) => formRef = ref} showInlineError>
-        {/* <Form.Group widths="equal"> */}
-        {/*  <SelectField name="student" placeholder="Choose the student" /> */}
-        {/*  <SelectField name="status" placeholder="Choose the status" /> */}
-        {/* </Form.Group> */}
-        {/* <Form.Group widths="equal"> */}
-        <SelectField name="opportunityInstance" />
-        {/* <SelectField name="opportunity" /> */}
-        {/* <SelectField name="academicTerm" /> */}
-        {/* </Form.Group> */}
-        <BoolField name="retired" />
-        <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
-          <ErrorsField/>
-      </AutoForm>
-    </Segment>
+        <Segment padded>
+            <Header dividing>Add Verification Request</Header>
+            {/* eslint-disable-next-line no-return-assign */}
+            <AutoForm schema={formSchema} onSubmit={handleAdd} ref={(ref) => formRef = ref} showInlineError>
+                {/* <Form.Group widths="equal"> */}
+                {/*  <SelectField name="student" placeholder="Choose the student" /> */}
+                {/*  <SelectField name="status" placeholder="Choose the status" /> */}
+                {/* </Form.Group> */}
+                {/* <Form.Group widths="equal"> */}
+                <SelectField name="opportunityInstance"/>
+                {/* <SelectField name="opportunity" /> */}
+                {/* <SelectField name="academicTerm" /> */}
+                {/* </Form.Group> */}
+                <BoolField name="retired"/>
+                <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined}/>
+                <ErrorsField/>
+            </AutoForm>
+        </Segment>
   );
 };
 

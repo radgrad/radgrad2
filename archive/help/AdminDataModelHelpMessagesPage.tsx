@@ -1,17 +1,32 @@
+// @ts-ignore
 import { withTracker } from 'meteor/react-meteor-data';
+// @ts-ignore
 import React, { useState } from 'react';
+// @ts-ignore
 import { Confirm, Grid, Icon } from 'semantic-ui-react';
+// @ts-ignore
 import Swal from 'sweetalert2';
+// @ts-ignore
 import AdminPageMenu from '../../components/admin/AdminPageMenu';
+// @ts-ignore
 import AdminDataModelMenu, { AdminDataModeMenuProps } from '../../components/admin/datamodel/AdminDataModelMenu';
+// @ts-ignore
 import ListCollectionWidget from '../../components/admin/datamodel/ListCollectionWidget';
+// @ts-ignore
 import { DescriptionPair, HelpMessage } from '../../../typings/radgrad';
+// @ts-ignore
 import { defineMethod, removeItMethod, updateMethod } from '../../../api/base/BaseCollection.methods';
+// @ts-ignore
 import { HelpMessages } from '../../../api/help/HelpMessageCollection';
+// @ts-ignore
 import AddHelpMessageForm from '../../components/admin/datamodel/help/AddHelpMessageForm';
+// @ts-ignore
 import UpdateHelpMessageForm from '../../components/admin/datamodel/help/UpdateHelpMessageForm';
+// @ts-ignore
 import BackToTopButton from '../../components/shared/BackToTopButton';
+// @ts-ignore
 import { dataModelActions } from '../../../redux/admin/data-model';
+// @ts-ignore
 import { getDatamodelCount } from './utilities/datamodel';
 
 const collection = HelpMessages; // the collection to use.

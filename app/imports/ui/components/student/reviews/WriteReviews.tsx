@@ -122,46 +122,48 @@ const WriteReviews: React.FC<WriteReviewsProps> = ({ unreviewedCourses, unreview
   const reviewFormSchema = new SimpleSchema2Bridge(reviewSchema);
   const disabled = choiceName === '';
   return (
-    <div>
-      <Header>Please consider writing a review for your <strong>completed Courses or Opportunities.</strong></Header>
-      {/* eslint-disable-next-line no-return-assign */}
-      <AutoForm ref={(ref) => choiceFormRef = ref} schema={choiceFormSchema} onChange={handleChoiceChange}>
-        <SelectField name='courseOrOpportunityToReview' />
-          <ErrorsField/>
-      </AutoForm>
-      <Segment basic>
-        {/* eslint-disable-next-line no-return-assign */}
-        <AutoForm ref={(ref) => reviewFormRef = ref} schema={reviewFormSchema} onSubmit={handleSubmit}>
-          <Grid>
-            <Grid.Column width={6} verticalAlign='middle'>
-              Select the term you participated in.
-            </Grid.Column>
-            <Grid.Column width={10}>
-              <SelectField name='academicTerm' disabled={disabled} />
-            </Grid.Column>
-            <Grid.Column width={6} verticalAlign='middle'>
-              Rate your overall satisfaction.
-            </Grid.Column>
-            <Grid.Column width={10}>
-              <RatingField name='rating' disabled={disabled} />
-            </Grid.Column>
-            <Grid.Column width={6} verticalAlign='middle'>
-              Please provide three or four sentences discussing your experience. Please use language your parents
-              would
-              find appropriate :)
-            </Grid.Column>
-            <Grid.Column width={10}>
-              <LongTextField name='comments'
-                             disabled={disabled} />
-            </Grid.Column>
-            <Grid.Column width={6}>
-              <SubmitField />
-            </Grid.Column>
-          </Grid>
-            <ErrorsField/>
-        </AutoForm>
-      </Segment>
-    </div>
+        <div>
+            <Header>Please consider writing a review for your <strong>completed Courses or
+                Opportunities.</strong></Header>
+            {/* eslint-disable-next-line no-return-assign */}
+            <AutoForm ref={(ref) => choiceFormRef = ref} schema={choiceFormSchema} onChange={handleChoiceChange}>
+                <SelectField name='courseOrOpportunityToReview'/>
+                <ErrorsField/>
+            </AutoForm>
+            <Segment basic>
+                {/* eslint-disable-next-line no-return-assign */}
+                <AutoForm ref={(ref) => reviewFormRef = ref} schema={reviewFormSchema} onSubmit={handleSubmit}>
+                    <Grid>
+                        <Grid.Column width={6} verticalAlign='middle'>
+                            Select the term you participated in.
+                        </Grid.Column>
+                        <Grid.Column width={10}>
+                            <SelectField name='academicTerm' disabled={disabled}/>
+                        </Grid.Column>
+                        <Grid.Column width={6} verticalAlign='middle'>
+                            Rate your overall satisfaction.
+                        </Grid.Column>
+                        <Grid.Column width={10}>
+                            <RatingField name='rating' disabled={disabled}/>
+                        </Grid.Column>
+                        <Grid.Column width={6} verticalAlign='middle'>
+                            Please provide three or four sentences discussing your experience. Please use language your
+                            parents
+                            would
+                            find appropriate :)
+                        </Grid.Column>
+                        <Grid.Column width={10}>
+                            <LongTextField name='comments'
+                                           disabled={disabled}/>
+                        </Grid.Column>
+                        <Grid.Column width={6}>
+                            <SubmitField/>
+                        </Grid.Column>
+                    </Grid>
+                    <ErrorsField/>
+                </AutoForm>
+            </Segment>
+        </div>
   );
 };
 

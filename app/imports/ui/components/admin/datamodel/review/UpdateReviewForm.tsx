@@ -16,7 +16,14 @@ interface UpdateReviewFormProps {
   itemTitleString: (item) => React.ReactNode;
 }
 
-const UpdateReviewForm: React.FC<UpdateReviewFormProps> = ({ terms, collection, id, handleCancel, handleUpdate, itemTitleString }) => {
+const UpdateReviewForm: React.FC<UpdateReviewFormProps> = ({
+  terms,
+  collection,
+  id,
+  handleCancel,
+  handleUpdate,
+  itemTitleString,
+}) => {
   // TODO why aren't we passed in the model/item?
   const model = collection.findDoc(id);
   model.academicTerm = academicTermIdToName(model.termID);
@@ -35,28 +42,28 @@ const UpdateReviewForm: React.FC<UpdateReviewFormProps> = ({ terms, collection, 
   });
   const formSchema = new SimpleSchema2Bridge(schema);
   return (
-    <Segment padded>
-      <Header dividing>
-        Update
-        {collection.getType()}:{itemTitleString(model)}
-      </Header>
-      <AutoForm schema={formSchema} onSubmit={handleUpdate} showInlineError model={model}>
-        <Form.Group widths="equal">
-          <SelectField name="academicTerm" />
-          <NumField name="rating" />
-        </Form.Group>
-        <LongTextField name="comments" />
-        <LongTextField name="moderatorComments" />
-        <Form.Group widths="equal">
-          <BoolField name="moderated" />
-          <BoolField name="visible" />
-          <BoolField name="retired" />
-        </Form.Group>
-        <SubmitField inputRef={undefined} value="Update" disabled={false} className="mini basic green" />
-        <Button onClick={handleCancel} basic color="green" size="mini">Cancel</Button>
-          <ErrorsField/>
-      </AutoForm>
-    </Segment>
+        <Segment padded>
+            <Header dividing>
+                Update
+                {collection.getType()}:{itemTitleString(model)}
+            </Header>
+            <AutoForm schema={formSchema} onSubmit={handleUpdate} showInlineError model={model}>
+                <Form.Group widths="equal">
+                    <SelectField name="academicTerm"/>
+                    <NumField name="rating"/>
+                </Form.Group>
+                <LongTextField name="comments"/>
+                <LongTextField name="moderatorComments"/>
+                <Form.Group widths="equal">
+                    <BoolField name="moderated"/>
+                    <BoolField name="visible"/>
+                    <BoolField name="retired"/>
+                </Form.Group>
+                <SubmitField inputRef={undefined} value="Update" disabled={false} className="mini basic green"/>
+                <Button onClick={handleCancel} basic color="green" size="mini">Cancel</Button>
+                <ErrorsField/>
+            </AutoForm>
+        </Segment>
   );
 };
 

@@ -70,26 +70,26 @@ const AddTeaserForm: React.FC<AddTeaserFormProps> = ({ careerGoals, courses, int
   };
 
   return (
-    <Segment padded>
-      <Header dividing>Add Teaser</Header>
-      {/* eslint-disable-next-line no-return-assign */}
-      <AutoForm schema={formSchema} onSubmit={handleAdd} ref={(ref) => formRef = ref} showInlineError>
-        <Form.Group widths="equal">
-          <TextField name="title" />
-          <TextField name="author" />
-        </Form.Group>
-        <Form.Group widths="equal">
-          <SelectField name="targetSlug" />
-          <TextField name="youtubeID" />
-          <TextField name="duration" />
-        </Form.Group>
-        <MultiSelectField name="interests" />
-        <LongTextField name="description" />
-        <BoolField name="retired" />
-        <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
-          <ErrorsField/>
-      </AutoForm>
-    </Segment>
+        <Segment padded>
+            <Header dividing>Add Teaser</Header>
+            {/* eslint-disable-next-line no-return-assign */}
+            <AutoForm schema={formSchema} onSubmit={handleAdd} ref={(ref) => formRef = ref} showInlineError>
+                <Form.Group widths="equal">
+                    <TextField name="title"/>
+                    <TextField name="author"/>
+                </Form.Group>
+                <Form.Group widths="equal">
+                    <SelectField name="targetSlug"/>
+                    <TextField name="youtubeID"/>
+                    <TextField name="duration"/>
+                </Form.Group>
+                <MultiSelectField name="interests"/>
+                <LongTextField name="description"/>
+                <BoolField name="retired"/>
+                <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined}/>
+                <ErrorsField/>
+            </AutoForm>
+        </Segment>
   );
 };
 

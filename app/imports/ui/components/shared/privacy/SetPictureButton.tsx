@@ -38,21 +38,22 @@ export const SetPictureButton: React.FC<SetPictureButtonProps> = ({ picture, han
   };
 
   return (
-    <Modal size='small'
-           onClose={() => setOpen(false)}
-           onOpen={() => setOpen(true)}
-           open={open}
-           trigger={<Button size='mini'>{picture ? 'Edit' : 'Add'}</Button>}
-    >
-      <Modal.Header>Add, edit, or remove picture</Modal.Header>
-      <Modal.Content>
-        <AutoForm schema={bridge} onSubmit={data => submit(data)} model={{ picture }}>
-          <TextField placeholder='https://mywebsite.com/picture.png' name='picture'/>
-          <SubmitField value='Submit'/>
-            <ErrorsField/>
-        </AutoForm>
-        <p style={{ marginTop: '20px' }}>Or select a picture file to upload:  <Button onClick={handleUploadClick}>Select picture</Button></p>
-      </Modal.Content>
-    </Modal>
+        <Modal size='small'
+               onClose={() => setOpen(false)}
+               onOpen={() => setOpen(true)}
+               open={open}
+               trigger={<Button size='mini'>{picture ? 'Edit' : 'Add'}</Button>}
+        >
+            <Modal.Header>Add, edit, or remove picture</Modal.Header>
+            <Modal.Content>
+                <AutoForm schema={bridge} onSubmit={data => submit(data)} model={{ picture }}>
+                    <TextField placeholder='https://mywebsite.com/picture.png' name='picture'/>
+                    <SubmitField value='Submit'/>
+                    <ErrorsField/>
+                </AutoForm>
+                <p style={{ marginTop: '20px' }}>Or select a picture file to upload: <Button onClick={handleUploadClick}>Select
+                    picture</Button></p>
+            </Modal.Content>
+        </Modal>
   );
 };

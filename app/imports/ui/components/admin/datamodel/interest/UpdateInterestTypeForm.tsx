@@ -13,23 +13,30 @@ interface UpdateInterestTypeFormProps {
   itemTitleString: (item) => React.ReactNode;
 }
 
-const UpdateInterestTypeForm: React.FC<UpdateInterestTypeFormProps> = ({ collection, id, handleUpdate, handleCancel, itemTitleString }) => {
+const UpdateInterestTypeForm: React.FC<UpdateInterestTypeFormProps> = ({
+  collection,
+  id,
+  handleUpdate,
+  handleCancel,
+  itemTitleString,
+}) => {
   const model = collection.findDoc(id);
   return (
-    <Segment padded>
-      <Header dividing>
-        Update
-        {collection.getType()}:{itemTitleString(model)}
-      </Header>
-      <AutoForm schema={new SimpleSchema2Bridge(InterestTypes.getUpdateSchema())} onSubmit={handleUpdate} showInlineError model={model}>
-        <TextField name="name" />
-        <LongTextField name="description" />
-        <BoolField name="retired" />
-        <SubmitField inputRef={undefined} value="Update" disabled={false} className="mini basic green" />
-        <Button onClick={handleCancel} basic color="green" size="mini">Cancel</Button>
-          <ErrorsField/>
-      </AutoForm>
-    </Segment>
+        <Segment padded>
+            <Header dividing>
+                Update
+                {collection.getType()}:{itemTitleString(model)}
+            </Header>
+            <AutoForm schema={new SimpleSchema2Bridge(InterestTypes.getUpdateSchema())} onSubmit={handleUpdate}
+                      showInlineError model={model}>
+                <TextField name="name"/>
+                <LongTextField name="description"/>
+                <BoolField name="retired"/>
+                <SubmitField inputRef={undefined} value="Update" disabled={false} className="mini basic green"/>
+                <Button onClick={handleCancel} basic color="green" size="mini">Cancel</Button>
+                <ErrorsField/>
+            </AutoForm>
+        </Segment>
   );
 };
 

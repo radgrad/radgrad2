@@ -65,30 +65,30 @@ const EditCareerGoalButton: React.FC<EditCareerGoalButtonProps> = ({ careerGoal,
   const formSchema = new SimpleSchema2Bridge(updateSchema);
 
   return (
-    <Modal key={`${careerGoal._id}-modal`}
-           onClose={() => setOpen(false)}
-           onOpen={() => setOpen(true)}
-           open={open}
-           trigger={<Button basic color='green' key={`${careerGoal._id}-edit-button`}>EDIT</Button>}>
-      <Modal.Header>{`Edit ${careerGoal.name}`}</Modal.Header>
-      <Modal.Content>
-        <AutoForm model={model} schema={formSchema} showInlineError onSubmit={(doc) => {
-          handleSubmit(doc);
-          setOpen(false);
-        }}>
-          <TextField name="name" />
-          <LongTextField name="description" />
-          <MultiSelectField name="interests" />
-          <BoolField name="retired" />
-          <p />
-          <SubmitField />
-          <Button color='red' onClick={() => setOpen(false)}>
-            Cancel
-          </Button>
-            <ErrorsField/>
-        </AutoForm>
-      </Modal.Content>
-    </Modal>
+        <Modal key={`${careerGoal._id}-modal`}
+               onClose={() => setOpen(false)}
+               onOpen={() => setOpen(true)}
+               open={open}
+               trigger={<Button basic color='green' key={`${careerGoal._id}-edit-button`}>EDIT</Button>}>
+            <Modal.Header>{`Edit ${careerGoal.name}`}</Modal.Header>
+            <Modal.Content>
+                <AutoForm model={model} schema={formSchema} showInlineError onSubmit={(doc) => {
+                  handleSubmit(doc);
+                  setOpen(false);
+                }}>
+                    <TextField name="name"/>
+                    <LongTextField name="description"/>
+                    <MultiSelectField name="interests"/>
+                    <BoolField name="retired"/>
+                    <p/>
+                    <SubmitField/>
+                    <Button color='red' onClick={() => setOpen(false)}>
+                        Cancel
+                    </Button>
+                    <ErrorsField/>
+                </AutoForm>
+            </Modal.Content>
+        </Modal>
   );
 };
 

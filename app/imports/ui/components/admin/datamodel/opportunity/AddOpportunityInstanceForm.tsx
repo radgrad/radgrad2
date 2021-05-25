@@ -24,7 +24,12 @@ interface AddOpportunityInstanceFormProps {
   sponsors: BaseProfile[];
 }
 
-const AddOpportunityInstanceForm: React.FC<AddOpportunityInstanceFormProps> = ({ terms, opportunities, students, sponsors }) => {
+const AddOpportunityInstanceForm: React.FC<AddOpportunityInstanceFormProps> = ({
+  terms,
+  opportunities,
+  students,
+  sponsors,
+}) => {
   const termNames = terms.map(academicTermToName);
   const currentTermName = AcademicTerms.toString(AcademicTerms.getCurrentTermID(), false);
   const opportunityNames = opportunities.map(docToName);
@@ -80,26 +85,26 @@ const AddOpportunityInstanceForm: React.FC<AddOpportunityInstanceFormProps> = ({
 
   // console.log(termNames, courseNames, studentNames);
   return (
-    <Segment padded>
-      <Header dividing>Add Opportunity Instance</Header>
-      {/* eslint-disable-next-line no-return-assign */}
-      <AutoForm schema={formSchema} onSubmit={handleAdd} ref={(ref) => formRef = ref} showInlineError>
-        <Form.Group widths="equal">
-          <SelectField name="term" />
-          <SelectField name="student" />
-        </Form.Group>
-        <Form.Group widths="equal">
-          <SelectField name="opportunity" />
-          <SelectField name="sponsor" />
-        </Form.Group>
-        <Form.Group widths="equal">
-          <BoolField name="verified" />
-          <BoolField name="retired" />
-        </Form.Group>
-        <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined} />
-          <ErrorsField/>
-      </AutoForm>
-    </Segment>
+        <Segment padded>
+            <Header dividing>Add Opportunity Instance</Header>
+            {/* eslint-disable-next-line no-return-assign */}
+            <AutoForm schema={formSchema} onSubmit={handleAdd} ref={(ref) => formRef = ref} showInlineError>
+                <Form.Group widths="equal">
+                    <SelectField name="term"/>
+                    <SelectField name="student"/>
+                </Form.Group>
+                <Form.Group widths="equal">
+                    <SelectField name="opportunity"/>
+                    <SelectField name="sponsor"/>
+                </Form.Group>
+                <Form.Group widths="equal">
+                    <BoolField name="verified"/>
+                    <BoolField name="retired"/>
+                </Form.Group>
+                <SubmitField className="mini basic green" value="Add" disabled={false} inputRef={undefined}/>
+                <ErrorsField/>
+            </AutoForm>
+        </Segment>
   );
 };
 

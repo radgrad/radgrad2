@@ -17,7 +17,14 @@ interface UpdateOpportunityInstanceFormProps {
   itemTitleString: (item) => React.ReactNode;
 }
 
-const UpdateOpportunityInstanceForm: React.FC<UpdateOpportunityInstanceFormProps> = ({ terms, collection, id, handleCancel, handleUpdate, itemTitleString }) => {
+const UpdateOpportunityInstanceForm: React.FC<UpdateOpportunityInstanceFormProps> = ({
+  terms,
+  collection,
+  id,
+  handleCancel,
+  handleUpdate,
+  itemTitleString,
+}) => {
   const model = collection.findDoc(id);
   model.academicTerm = academicTermIdToName(model.termID);
   const termNames = terms.map(academicTermToName);
@@ -32,25 +39,25 @@ const UpdateOpportunityInstanceForm: React.FC<UpdateOpportunityInstanceFormProps
   });
   const formSchema = new SimpleSchema2Bridge(schema);
   return (
-    <Segment padded>
-      <Header dividing>
-        Update
-        {collection.getType()}:{itemTitleString(model)}
-      </Header>
-      <AutoForm schema={formSchema} onSubmit={handleUpdate} showInlineError model={model}>
-        <Form.Group widths="equal">
-          <SelectField name="academicTerm" />
-          <AutoField name="ice" />
-        </Form.Group>
-        <Form.Group widths="equal">
-          <BoolField name="verified" />
-          <BoolField name="retired" />
-        </Form.Group>
-        <SubmitField inputRef={undefined} value="Update" disabled={false} className="mini basic green" />
-        <Button onClick={handleCancel} basic color="green" size="mini">Cancel</Button>
-          <ErrorsField/>
-      </AutoForm>
-    </Segment>
+        <Segment padded>
+            <Header dividing>
+                Update
+                {collection.getType()}:{itemTitleString(model)}
+            </Header>
+            <AutoForm schema={formSchema} onSubmit={handleUpdate} showInlineError model={model}>
+                <Form.Group widths="equal">
+                    <SelectField name="academicTerm"/>
+                    <AutoField name="ice"/>
+                </Form.Group>
+                <Form.Group widths="equal">
+                    <BoolField name="verified"/>
+                    <BoolField name="retired"/>
+                </Form.Group>
+                <SubmitField inputRef={undefined} value="Update" disabled={false} className="mini basic green"/>
+                <Button onClick={handleCancel} basic color="green" size="mini">Cancel</Button>
+                <ErrorsField/>
+            </AutoForm>
+        </Segment>
   );
 };
 
