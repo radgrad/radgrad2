@@ -1,5 +1,5 @@
 import React from 'react';
-import { AutoForm } from 'uniforms-semantic/';
+import { AutoForm, ErrorsField } from 'uniforms-semantic/';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { useStickyState } from '../../../../utilities/StickyState';
@@ -48,9 +48,10 @@ const Sort: React.FC<SortProps> = ({ explorerType }) => {
     sortBy: sortChoice,
   };
   return (
-    <AutoForm schema={formSchema} model={model} onChange={handleChange}>
-      <RadioField name="sortBy" label="Sort By:" inline />
-    </AutoForm>
+        <AutoForm schema={formSchema} model={model} onChange={handleChange}>
+            <RadioField name="sortBy" label="Sort By:" inline/>
+            <ErrorsField/>
+        </AutoForm>
   );
 };
 
