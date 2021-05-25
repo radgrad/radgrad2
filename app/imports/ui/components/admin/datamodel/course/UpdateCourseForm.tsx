@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Form, Header, Segment } from 'semantic-ui-react';
-import { AutoForm, TextField, NumField, LongTextField, BoolField, SubmitField } from 'uniforms-semantic';
+import {AutoForm, TextField, NumField, LongTextField, BoolField, SubmitField, ErrorsField} from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import BaseCollection from '../../../../../api/base/BaseCollection';
@@ -77,6 +77,7 @@ const UpdateCourseForm: React.FC<UpdateCourseFormProps> = ({ collection, courses
         <p />
         <SubmitField value="Update" disabled={false} className="mini basic green" />
         <Button onClick={handleCancel} basic color="green" size="mini">Cancel</Button>
+      <ErrorsField/>
       </AutoForm>
     </Segment>
   );
