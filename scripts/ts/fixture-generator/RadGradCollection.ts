@@ -32,22 +32,46 @@ export enum RadGradCollectionName {
 class RadGradCollection {
   protected name: string;
   protected contents: Doc[];
+  private slugs: string[];
 
   constructor(collectionName: string, contents: Doc[]) {
     this.name = collectionName;
     this.contents = contents;
+    this.slugs = [];
+    this.contents.forEach((doc) => this.slugs.push(doc.slug));
   }
 
+  /**
+   * Returns the collection name.
+   * @return {string} the collection name.
+   */
   public getName() {
     return this.name;
   }
 
+  /**
+   * Returns the number of documents in this collection.
+   * @return {number} the number of documents.
+   */
   public count() {
     return this.contents.length;
   }
 
+  /**
+   * Returns the documents.
+   * @return {Doc[]} the documents.
+   */
   public getContents() {
     return this.contents;
+  }
+
+  /**
+   * Returns true if slug is a defined slug in this collection.
+   * @param {string} slug the slug to test.
+   * @return {boolean} true if the slug is defined in this collection.
+   */
+  public isDefinedSlug(slug: string) {
+    return this.slugs.includes(slug);
   }
 
   public getDocBySlug(slug: string) {

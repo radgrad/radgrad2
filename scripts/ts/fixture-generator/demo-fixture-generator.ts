@@ -103,9 +103,12 @@ const createFixture = (radgradDump: IDataDump, studentConfig: StudentConfig, aca
   radgradDump.collections.forEach((coll) => {
     // @ts-ignore
     if (copyCollectionNames.includes(coll.name)) {
-      result.collections.push(coll); // Do we want retired items?
+      // eslint-disable-next-line no-param-reassign
+      coll.contents = coll.contents.filter((doc) => !doc.retired); // We don't want retired items.
+      result.collections.push(coll);
     }
   });
+  // Validate the slugs
   // Build the course instance collection
   const ciCollection: ICollection = buildCourseInstanceCollection(studentConfig, academicTerms);
   result.collections.push(ciCollection);
