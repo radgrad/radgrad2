@@ -83,9 +83,7 @@ const StudentVisibilityPage: React.FC<StudentVisibilityPageProps> = ({ profile }
     setCheckboxState(updatedCheckboxState);
     setPublicProfileData.callPromise({ username: profile.username, fieldName: eventData.name, fieldValue: eventData.checked })
       .then(result => setData(result))
-      .catch(error => {
-        console.error(error);
-      });
+      .catch(error => { console.error(error); });
   };
 
   // Keep track of whether the user has specified a website and/or picture. Those checkboxes are readonly when those fields are empty.

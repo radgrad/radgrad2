@@ -5,9 +5,11 @@ interface RadGradLogoProps {
   style?: any;
 }
 
-const RadGradLogoText: React.FC<RadGradLogoProps> = ({ instanceName, style }) => {
+const RadGradLogoText: React.FC<RadGradLogoProps> = ({ instanceName, style = {} }) => {
   const radStyle = { fontWeight: 700 };
   const gradStyle = { fontWeight: 400 };
+  // eslint-disable-next-line no-param-reassign
+  style.overflowWrap = 'anywhere';
   return (
     <div style={style}>
       {instanceName}&nbsp;

@@ -38,39 +38,34 @@ const getStudentsAtSameLevel = (currentProfile: StudentProfile, profiles): Stude
 };
 
 
-
 const header = <RadGradHeader title='ABOUT THE LEVELS' />;
 
 const StudentLevelsPage: React.FC<StudentLevelsPageProps> = ({ profile, students, profiles }) => {
   const panes = [
-    { menuItem: 'Level 1', render: () => <Tab.Pane><StudentLevelExplainerWidget level={1} students={profiles}/></Tab.Pane> },
-    { menuItem: 'Level 2', render: () => <Tab.Pane><StudentLevelExplainerWidget level={2} students={profiles}/></Tab.Pane> },
-    { menuItem: 'Level 3', render: () => <Tab.Pane><StudentLevelExplainerWidget level={3} students={profiles}/></Tab.Pane> },
-    { menuItem: 'Level 4', render: () => <Tab.Pane><StudentLevelExplainerWidget level={4} students={profiles}/></Tab.Pane> },
-    { menuItem: 'Level 5', render: () => <Tab.Pane><StudentLevelExplainerWidget level={5} students={profiles}/></Tab.Pane> },
-    { menuItem: 'Level 6', render: () => <Tab.Pane><StudentLevelExplainerWidget level={6} students={profiles}/></Tab.Pane> },
+    { menuItem: 'Level 1', render: () => <Tab.Pane><StudentLevelExplainerWidget level={1} students={profiles} /></Tab.Pane> },
+    { menuItem: 'Level 2', render: () => <Tab.Pane><StudentLevelExplainerWidget level={2} students={profiles} /></Tab.Pane> },
+    { menuItem: 'Level 3', render: () => <Tab.Pane><StudentLevelExplainerWidget level={3} students={profiles} /></Tab.Pane> },
+    { menuItem: 'Level 4', render: () => <Tab.Pane><StudentLevelExplainerWidget level={4} students={profiles} /></Tab.Pane> },
+    { menuItem: 'Level 5', render: () => <Tab.Pane><StudentLevelExplainerWidget level={5} students={profiles} /></Tab.Pane> },
+    { menuItem: 'Level 6', render: () => <Tab.Pane><StudentLevelExplainerWidget level={6} students={profiles} /></Tab.Pane> },
   ];
   return (
-        <PageLayout id="student-levels-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
-            <Grid stackable>
-                <Grid.Row>
-                    <Grid.Column width={16}>
-                        <Grid stackable columns="equal">
-                            <Grid.Column stretched>
-                                <StudentLevelsWidget profile={profile} students={students} />
-                            </Grid.Column>
-                        </Grid>
-                    </Grid.Column>
-                </Grid.Row>
-                <Grid.Row>
-                    <Grid.Column width={16} divided>
-                        <RadGradSegment header={header}>
-                            <Tab panes={panes} />
-                        </RadGradSegment>
-                    </Grid.Column>
-                </Grid.Row>
-            </Grid>
-        </PageLayout>
+    <PageLayout id="student-levels-page" headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody} headerPaneImage={headerPaneImage}>
+      <Grid>
+        <Grid.Row>
+          <Grid.Column>
+            <StudentLevelsWidget profile={profile} students={students} />
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row>
+          <Grid.Column>
+            <RadGradSegment header={header}>
+              <Tab panes={panes} />
+            </RadGradSegment>
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
+    </PageLayout>
   );
 };
 

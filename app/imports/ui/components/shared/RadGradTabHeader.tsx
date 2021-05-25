@@ -22,7 +22,7 @@ const RadGradTabHeader: React.FC<RadGradTabHeaderProps> = ({
   rightside = '',
   key = title,
 }) => (
-  < >
+  <>
     {icon ? <Icon className={icon} /> : ''}
     {iconAlternative || ''}
     {title.toUpperCase()} {count ? `(${count})` : ''}
