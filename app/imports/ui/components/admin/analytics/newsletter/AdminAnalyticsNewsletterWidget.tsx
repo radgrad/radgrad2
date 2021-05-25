@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Segment, Header, Form, Button } from 'semantic-ui-react';
-import { AutoForm, TextField, LongTextField, BoolField, NumField } from 'uniforms-semantic';
+import { AutoForm, TextField, LongTextField, BoolField, NumField, ErrorsField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import Swal from 'sweetalert2';
@@ -312,6 +312,7 @@ const AdminAnalyticsNewsletterWidget: React.FC = () => {
             Send To All
           </Button>
         </Segment>
+          <ErrorsField/>
       </AutoForm>
     </Segment>
   );
