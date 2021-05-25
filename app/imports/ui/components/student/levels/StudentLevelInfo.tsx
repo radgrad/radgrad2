@@ -6,7 +6,7 @@ import { getLevelCongratsMarkdown, getLevelHintStringMarkdown } from '../../../.
 import { StudentProfile } from '../../../../typings/radgrad';
 import { ICE, URL_ROLES } from '../../../layouts/utilities/route-constants';
 import { getUsername } from '../../shared/utilities/router';
-import { getLevelColor } from './StudentLevelExplainerWidget';
+import { getLevelColor } from './LevelInfoTab';
 import OtherStudentsAtLevel from './OtherStudentsAtLevel';
 import { LevelChecklist } from '../../checklist/LevelChecklist';
 import { CHECKSTATE } from '../../checklist/Checklist';
