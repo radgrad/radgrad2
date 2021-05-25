@@ -7,13 +7,13 @@ import { StudentProfile } from '../../../../typings/radgrad';
 import { ICE, URL_ROLES } from '../../../layouts/utilities/route-constants';
 import { getUsername } from '../../shared/utilities/router';
 import { getLevelColor } from './StudentLevelExplainerWidget';
-import StudentLevelsOthersWidget from './StudentLevelsOthersWidget';
+import OtherStudentsAtLevel from './OtherStudentsAtLevel';
 import { LevelChecklist } from '../../checklist/LevelChecklist';
 import { CHECKSTATE } from '../../checklist/Checklist';
 import RadGradSegment from '../../shared/RadGradSegment';
 import RadGradHeader from '../../shared/RadGradHeader';
 
-export interface StudentLevelsWidgetProps {
+export interface StudentLevelInfoProps {
   profile: StudentProfile;
   students: StudentProfile[];
 }
@@ -41,7 +41,7 @@ const getStudentLevelHint = (profile: StudentProfile): string => {
 
 const getStudentLevelCongrats = (profile: StudentProfile): string => (profile.level ? getLevelCongratsMarkdown(profile.level) : 'No level for this student');
 
-const StudentLevelsWidget: React.FC<StudentLevelsWidgetProps> = ({ profile, students }) => {
+const StudentLevelInfo: React.FC<StudentLevelInfoProps> = ({ profile, students }) => {
   const imageStyle = { width: '160px' };
   const linkStyle = {  textDecoration: 'underline' };
   const studentLevelNumber: number = profile.level || 1;
@@ -76,7 +76,7 @@ const StudentLevelsWidget: React.FC<StudentLevelsWidgetProps> = ({ profile, stud
                       <Link to={`/${URL_ROLES.STUDENT}/${username}/${ICE}`} style={linkStyle}>Visit the ICE page for more details</Link>
                   </Message.Content>
               </Message>
-              <StudentLevelsOthersWidget students={students} profile={profile} />
+              <OtherStudentsAtLevel students={students} profile={profile} />
           </Container>
         </Grid.Column>
       </Grid>
@@ -84,4 +84,4 @@ const StudentLevelsWidget: React.FC<StudentLevelsWidgetProps> = ({ profile, stud
   );
 };
 
-export default StudentLevelsWidget;
+export default StudentLevelInfo;
