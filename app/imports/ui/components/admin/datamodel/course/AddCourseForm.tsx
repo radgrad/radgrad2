@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form, Header, Segment } from 'semantic-ui-react';
-import { AutoForm, TextField, NumField, LongTextField, SubmitField, BoolField } from 'uniforms-semantic';
+import {AutoForm, TextField, NumField, LongTextField, SubmitField, BoolField, ErrorsField} from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { defineMethod } from '../../../../../api/base/BaseCollection.methods';
@@ -86,6 +86,7 @@ const AddCourseForm: React.FC<AddCourseFormProps> = ({ interests, courses }) => 
         </Form.Group>
         <BoolField name="repeatable" />
         <SubmitField className="mini basic green" value="Add" />
+          <ErrorsField/>
       </AutoForm>
     </Segment>
   );
