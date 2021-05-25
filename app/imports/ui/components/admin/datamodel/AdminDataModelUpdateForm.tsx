@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Header, Segment } from 'semantic-ui-react';
-import { AutoForm, AutoFields, SubmitField } from 'uniforms-semantic';
+import { AutoForm, AutoFields, SubmitField, ErrorsField } from 'uniforms-semantic';
 import { SimpleSchema2Bridge } from 'uniforms-bridge-simple-schema-2';
 import BaseCollection from '../../../../api/base/BaseCollection';
 
@@ -25,6 +25,7 @@ const AdminDataModelUpdateForm: React.FC<AdminDataModelUpdateFormProps> = ({ col
         <p />
         <SubmitField className="mini basic green" inputRef={undefined} disabled={false} value="Update" />
         <Button onClick={handleCancel} basic color="green" size="mini">Cancel</Button>
+      <ErrorsField/>
       </AutoForm>
     </Segment>
   );
