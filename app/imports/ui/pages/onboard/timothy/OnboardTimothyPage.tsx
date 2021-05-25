@@ -25,8 +25,6 @@ import InterestLabel from '../../../components/shared/label/InterestLabel';
 import CourseLabel from '../../../components/shared/label/CourseLabel';
 import OpportunityLabel from '../../../components/shared/label/OpportunityLabel';
 import UserLabel from '../../../components/shared/profile/UserLabel';
-import { Profile } from '../../../../typings/radgrad';
-
 
 const headerPaneTitle = "Timothy's Onboarding Sandbox";
 const headerPaneBody = 'Page for display of onboarding component development practice';
@@ -35,27 +33,31 @@ const headerPaneImage = 'header-onboarding.png';
 interface OnBoardVar {
   user: string;
   urlName: string;
-  userProfile: Profile;
-  TotalCareerGoals: [];
-  TotalInterests: [],
-  TotalCourses: [],
-  TotalOpportunities: [],
-  TotalStudents: [],
+  totalCareerGoals: [];
+  totalInterests: [],
+  totalCourses: [],
+  totalOpportunities: [],
+  totalStudents: [],
   randomName: string;
   randomDescription: string;
 }
 
-const OnboardTimothyPage: React.FC<OnBoardVar> = ({ user, userProfile, urlName, TotalCareerGoals, TotalInterests, TotalCourses, TotalOpportunities, TotalStudents, randomName, randomDescription }) => {
-  const interestNames = TotalInterests.map(docToName);
+const OnboardTimothyPage: React.FC<OnBoardVar> = ({ user, urlName, totalCareerGoals, totalInterests, totalCourses, totalOpportunities, totalStudents, randomName, randomDescription }) => {
+
+  const style = {
+    marginBottom: 30,
+  };
+
+  // Task 6
+  const interestNameList = totalInterests.map(docToName);
   const schema = new SimpleSchema({
     interest: {
       type: String,
-      allowedValues: interestNames,
+      allowedValues: interestNameList,
     },
   });
   const [selectInterest, setSelectInterest] = useState(() =>'');
   const formSchema = new SimpleSchema2Bridge(schema);
-  // let formRef;
 
   const Submit = (data) => {
     const { interest } = data;
@@ -63,7 +65,6 @@ const OnboardTimothyPage: React.FC<OnBoardVar> = ({ user, userProfile, urlName, 
   };
 
   const DisplayInterest = () => {
-    // const isAdmin = userProfile.role === ROLE.ADMIN;
     const interestName = selectInterest;
     const interestDesc = _.map(Interests.find({ name: interestName }).fetch(), 'description')[0];
     return (
@@ -73,80 +74,84 @@ const OnboardTimothyPage: React.FC<OnBoardVar> = ({ user, userProfile, urlName, 
     );
   };
 
-  const style = {
-    marginBottom: 30,
-  };
-
-  const CareerGoalList = () => {
+  // Task 5
+  const entitiesList = (entity) => {
     const profile = Users.getProfile(user);
-    return (
-            <Label.Group size="medium">
-                {TotalCareerGoals.map((careerGoal) => {
-                  const slug = itemToSlugName(careerGoal);
-                  return (
-                        <CareerGoalLabel key={slug} size="medium" slug={slug} userID={profile.userID} />
-                  );
-                })}
-            </Label.Group>
-    );
-  };
-
-  const InterestList = () => {
-    const profile = Users.getProfile(user);
-    return (
-            <Label.Group size="medium">
-                {TotalInterests.map((interest) => {
-                  const slug = itemToSlugName(interest);
-                  return (
-                        <InterestLabel key={slug} size="medium" slug={slug} userID={profile.userID} />
-                  );
-                })}
-            </Label.Group>
-    );
-  };
-
-  const CourseList = () => {
-    const profile = Users.getProfile(user);
-    return (
-            <Label.Group size="medium">
-                {TotalCourses.map((course) => {
-                  const slug = itemToSlugName(course);
-                  return (
-                        <CourseLabel key={slug} size="medium" slug={slug} userID={profile.userID} />
-                  );
-                })}
-            </Label.Group>
-    );
-  };
-
-  const OpportunityList = () => {
-    const profile = Users.getProfile(user);
-    return (
-            <Label.Group size="medium">
-                {TotalOpportunities.map((opportunity) => {
-                  const slug = itemToSlugName(opportunity);
-                  return (
-                        <OpportunityLabel key={slug} size="medium" slug={slug} userID={profile.userID} />
-                  );
-                })}
-            </Label.Group>
-    );
-  };
-
-  const StudentList = () => (
+    switch (entity) {
+      case totalCareerGoals:
+        return (
           <Label.Group size="medium">
-              {TotalStudents.map((student) => (
-                      <UserLabel size="small" username={student}  />
-              ))}
+            {totalCareerGoals.map((careerGoal) => {
+              const slug = itemToSlugName(careerGoal);
+              return (
+              <CareerGoalLabel key={slug} size="medium" slug={slug} userID={profile.userID} />
+              );
+            })}
           </Label.Group>
-  );
+        );
+      case totalInterests:
+        return (
+          <Label.Group size="medium">
+            {totalInterests.map((interest) => {
+              const slug = itemToSlugName(interest);
+              return (
+              <InterestLabel key={slug} size="medium" slug={slug} userID={profile.userID} />
+              );
+            })}
+          </Label.Group>
+        );
+      case totalCourses:
+        return (
+          <Label.Group size="medium">
+            {totalCourses.map((course) => {
+              const slug = itemToSlugName(course);
+              return (
+              <CourseLabel key={slug} size="medium" slug={slug} userID={profile.userID} />
+              );
+            })}
+          </Label.Group>
+        );
+      case totalOpportunities:
+        return (
+          <Label.Group size="medium">
+            {totalOpportunities.map((opportunity) => {
+              const slug = itemToSlugName(opportunity);
+              return (
+              <OpportunityLabel key={slug} size="medium" slug={slug} userID={profile.userID} />
+              );
+            })}
+          </Label.Group>
+        );
+      case totalStudents:
+        return (
+          <Label.Group size="medium">
+            {totalStudents.map((student) => (
+            <UserLabel size="small" username={student}  />
+            ))}
+          </Label.Group>
+        );
+      default:
+        return <React.Fragment />;
+    }
+  };
 
-  const profileItems = TotalCareerGoals.length;
+  const CareerGoalList = () => entitiesList(totalCareerGoals);
+
+  const InterestList = () => entitiesList(totalInterests);
+
+  const CourseList = () => entitiesList(totalCourses);
+
+  const OpportunityList = () => entitiesList(totalOpportunities);
+
+  const StudentList = () => entitiesList(totalStudents);
+
+  const CareerGoalLength = totalCareerGoals.length;
+
   return (
         <PageLayout id={PAGEIDS.ONBOARD_SHINYA} headerPaneTitle={headerPaneTitle} headerPaneBody={headerPaneBody}
                     headerPaneImage={headerPaneImage}>
           <div style={style}>
-            <RadGradSegment header={<RadGradHeader title='TASK 5: SHOW ME THE DESCRIPTION' icon='file alternate outline'/>}>
+            <RadGradSegment header={<RadGradHeader title='TASK 6: EDIT THE DESCRIPTION' icon='file alternate outline'/>}>
               <Header dividing>Add Career Goal</Header>
               {/* eslint-disable-next-line no-return-assign */}
               <AutoForm schema={formSchema} onSubmit={data => Submit(data)}>
@@ -158,15 +163,15 @@ const OnboardTimothyPage: React.FC<OnBoardVar> = ({ user, userProfile, urlName, 
           </div>
             <div style={style}>
                 <RadGradSegment header={<RadGradHeader title='TASK 4: LABELS' icon='tags'/>}>
-                    <h3 className='ui header' style={{ marginBottom: '1em' }}> Career Goals </h3>
+                    <h3 className='ui header'> Career Goals </h3>
                     <CareerGoalList/>
-                    <h3 className='ui header' style={{ marginBottom: '1em' }}> Courses </h3>
+                    <h3 className='ui header'> Courses </h3>
                     <CourseList/>
-                    <h3 className='ui header' style={{ marginBottom: '1em' }}> Interests </h3>
+                    <h3 className='ui header'> Interests </h3>
                     <InterestList/>
-                    <h3 className='ui header' style={{ marginBottom: '1em' }}> Opportunities </h3>
+                    <h3 className='ui header'> Opportunities </h3>
                     <OpportunityList/>
-                    <h3 className='ui header' style={{ marginBottom: '1em' }}> Students </h3>
+                    <h3 className='ui header'> Students </h3>
                     <StudentList/>
                 </RadGradSegment>
             </div>
@@ -177,7 +182,7 @@ const OnboardTimothyPage: React.FC<OnBoardVar> = ({ user, userProfile, urlName, 
                         <Markdown escapeHtml source={randomDescription} />
                     </div>
                     <div className='ui vertical segment'>
-                        Note: The total number of career goals is: {profileItems}
+                        Note: The total number of career goals is: {CareerGoalLength}
                     </div>
                 </RadGradSegment>
             </div>
@@ -201,26 +206,24 @@ const OnboardTimothyPage: React.FC<OnBoardVar> = ({ user, userProfile, urlName, 
 
 export default withTracker(() => {
   const user = Meteor.user() ? Meteor.user().username : '';
-  const userProfile = Users.getProfile(user);
   const { username } = useParams();
-  const TotalCareerGoals = CareerGoals.findNonRetired();
-  const TotalInterests = Interests.findNonRetired();
-  const TotalCourses = Courses.findNonRetired();
-  const TotalOpportunities = Opportunities.findNonRetired();
-  const TotalStudents = _.map(StudentProfiles.find({}).fetch(), 'username');
-  const random = _.sample(TotalCareerGoals);
+  const totalCareerGoals = CareerGoals.findNonRetired();
+  const totalInterests = Interests.findNonRetired();
+  const totalCourses = Courses.findNonRetired();
+  const totalOpportunities = Opportunities.findNonRetired();
+  const totalStudents = _.map(StudentProfiles.find({}).fetch(), 'username');
+  const random = _.sample(totalCareerGoals);
   const randomName  = random.name;
   const randomDescription = random.description;
   const urlName = Users.getProfile(username).username;
   return {
     user,
-    userProfile,
     urlName,
-    TotalCareerGoals,
-    TotalInterests,
-    TotalCourses,
-    TotalOpportunities,
-    TotalStudents,
+    totalCareerGoals,
+    totalInterests,
+    totalCourses,
+    totalOpportunities,
+    totalStudents,
     randomName,
     randomDescription,
   };

@@ -25,13 +25,11 @@ const Task6EditDescription: React.FC<EditInterestButtonProps> = ({ interestName,
     const collectionName = Interests.getCollectionName();
     const updateData: InterestUpdate = {};
     const doc = _.map(Interests.find({ name: interestName }).fetch())[0];
-    console.log(doc);
     updateData.id = doc._id;
     updateData.name = doc.name;
     updateData.interestType = doc.interestTypeID;
     updateData.retired = doc.retired;
     updateData.description = description;
-    console.log(updateData);
 
     updateMethod.callPromise({ collectionName, updateData })
       .then((result) => Swal.fire({
