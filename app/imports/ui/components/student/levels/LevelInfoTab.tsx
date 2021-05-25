@@ -1,9 +1,9 @@
 import React from 'react';
-import { Card, Grid, Header, Icon, Image } from 'semantic-ui-react';
+import { Card, Grid, Header, Icon, Image, Tab } from 'semantic-ui-react';
 import Markdown from 'react-markdown';
 import { StudentProfile } from '../../../../typings/radgrad';
 
-interface StudentLevelExplainerWidgetProps {
+interface LevelInfoTabProps {
   level: number;
   students: StudentProfile[];
 }
@@ -100,13 +100,13 @@ Now is a good time to look through RadGrad and learn about Interests and Career 
   return result;
 };
 
-const StudentLevelExplainerWidget: React.FC<StudentLevelExplainerWidgetProps> = ({ level, students }) => {
+const LevelInfoTab: React.FC<LevelInfoTabProps> = ({ level, students }) => {
   const color = getLevelColor(level);
   const levelExplanation = getLevelExplanation(level);
   const imageHolderStyle = { textAlign: 'center' } as React.CSSProperties;
   const numOfStudentsStyle = { paddingTop: '20px' };
   return (
-    <div>
+    <Tab.Pane>
       <Grid>
         <Grid.Row>
           <Grid.Column width={3}>
@@ -124,10 +124,10 @@ const StudentLevelExplainerWidget: React.FC<StudentLevelExplainerWidgetProps> = 
           </Grid.Column>
         </Grid.Row>
       </Grid>
-    </div>
+    </Tab.Pane>
   );
 
 };
 
 
-export default StudentLevelExplainerWidget;
+export default LevelInfoTab;
