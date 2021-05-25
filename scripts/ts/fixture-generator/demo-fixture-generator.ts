@@ -12,6 +12,7 @@ import { StudentConfig } from './user-config-file.js';
 interface Doc {
   slug?: string;
   term?: string;
+  targetSlug?: string;
   retired?: boolean;
 }
 
@@ -95,6 +96,20 @@ const buildStudentProfileCollection = (studentConfig: StudentConfig, academicTer
   return result;
 };
 
+const validateFixture = (radgradDump: IDataDump) => {
+  const courses = new RadGradCollection(RadGradCollectionName.COURSES, getCollectionData(radgradDump, RadGradCollectionName.COURSES));
+  const opportunities = new RadGradCollection(RadGradCollectionName.OPPORTUNITIES, getCollectionData(radgradDump, RadGradCollectionName.OPPORTUNITIES));
+  const careerGoals = new RadGradCollection(RadGradCollectionName.CAREER_GOALS, getCollectionData(radgradDump, RadGradCollectionName.CAREER_GOALS));
+  const interests = new RadGradCollection(RadGradCollectionName.INTERESTS, getCollectionData(radgradDump, RadGradCollectionName.INTERESTS));
+  const teasers = new RadGradCollection(RadGradCollectionName.TEASERS, getCollectionData(radgradDump, RadGradCollectionName.TEASERS));
+  const teaserSlugs = teasers.getContents().map((teaser) => teaser.targetSlug);
+  teaserSlugs.forEach((slug) => {
+    if (!(courses.isDefinedSlug(slug) || opportunities.isDefinedSlug(slug) || careerGoals.isDefinedSlug(slug) || interests.isDefinedSlug(slug))) {
+      throw new Error(`Teaser target ${slug} is not a defined career goal, course, interest, or opportunity`);
+    }
+  });
+};
+
 const createFixture = (radgradDump: IDataDump, studentConfig: StudentConfig, academicTerms: AcademicTermCollection): IDataDump => {
   const result: IDataDump = {
     timestamp: `${moment().format(databaseFileDateFormat)}`,
@@ -109,6 +124,7 @@ const createFixture = (radgradDump: IDataDump, studentConfig: StudentConfig, aca
     }
   });
   // Validate the slugs
+  validateFixture(result);
   // Build the course instance collection
   const ciCollection: ICollection = buildCourseInstanceCollection(studentConfig, academicTerms);
   result.collections.push(ciCollection);

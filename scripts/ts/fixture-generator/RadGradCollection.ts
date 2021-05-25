@@ -1,6 +1,7 @@
 import _ from 'lodash';
 
 export interface Doc {
+  targetSlug: any;
   slug?: string;
   term?: string;
 }
@@ -72,6 +73,14 @@ class RadGradCollection {
    */
   public isDefinedSlug(slug: string) {
     return this.slugs.includes(slug);
+  }
+
+  /**
+   * Returns the slugs in this collection.
+   * @return {string[]} the slugs in this collection.
+   */
+  public getSlugs() {
+    return this.slugs;
   }
 
   public getDocBySlug(slug: string) {
