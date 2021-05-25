@@ -41,8 +41,8 @@ const MatriculateStudentsTab: React.FC<MatriculateStudentsTabProps> = ({ student
       }} >
         <RadGradHeader title='Matriculate Retired Students' />
         <AutoFields />
-        <ErrorsField />
         <SubmitField />
+          <ErrorsField />
       </AutoForm>
       <Confirm onConfirm={handleSubmit} onCancel={() => setOpenConfirm(false)} open={openConfirm} content='Are you sure you want to matriculate these students?'/>
     </Tab.Pane>
