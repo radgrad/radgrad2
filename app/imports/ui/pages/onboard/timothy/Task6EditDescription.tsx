@@ -33,7 +33,7 @@ const Task6EditDescription: React.FC<EditInterestButtonProps> = ({ interestName,
 
     updateMethod.callPromise({ collectionName, updateData })
       .then((result) => Swal.fire({
-        title: 'Interest Updated',
+        title: 'Description Updated',
         icon: 'success',
         text: 'Successfully updated interest.',
         allowOutsideClick: false,
@@ -43,7 +43,7 @@ const Task6EditDescription: React.FC<EditInterestButtonProps> = ({ interestName,
         timer: 1500,
       }))
       .catch((error) => Swal.fire({
-        title: 'Update Failed',
+        title: 'Description Failed',
         text: error.message,
         icon: 'error',
       // timer: 1500,
